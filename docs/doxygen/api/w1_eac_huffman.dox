@@ -1,0 +1,569 @@
+/// \defgroup grp_w1_eac_huffman EAC Huffman codec
+/// \brief EA Canada's Huffman codec: HUFF_encode and HUFF_decode with their
+///        helpers, one of the codecs behind CompressionManager.
+///
+/// The codec belongs to EA Canada's CODEX library, which gives every codec
+/// the same C entry points. huffcodex.h declares the Huffman ones: HUFF_is,
+/// HUFF_size, HUFF_decode and HUFF_encode (it also declares HUFF_about,
+/// which is not covered here). The encoder is huffencode.cpp and the
+/// decoder huffdecode.cpp. \ref sub_wwlib_thirdparty describes the
+/// libraries around them.
+///
+/// CompressionManager is the only user in the retail call graph, under
+/// COMPRESSION_HUFF. CompressionManager::compressData writes its 8-byte
+/// header (the tag "EAH" with a trailing NUL, then the uncompressed length
+/// as a native int) and calls HUFF_encode with null options for the rest.
+/// CompressionManager::decompressData recognises the tag through
+/// CompressionManager::getCompressionType and passes the bytes after the
+/// header to HUFF_decode. CompressionManager::getUncompressedSize reads the
+/// length from its own header. HUFF_is and HUFF_size have no named caller
+/// in BFME 2. Neither compressData nor decompressData has a named caller in
+/// BFME 2 yet, so which BFME 2 data, if any, is stored Huffman-coded is not
+/// established.
+///
+/// The code is Zero Hour's EAC source, which BFME 1 also carries. BFME 2
+/// differs only in how it is built. BFME 2's encoder source calls malloc
+/// and free directly, declared as CRT imports, where Zero Hour's source
+/// writes galloc and gfree; in Zero Hour's gimex.h those are macros for
+/// malloc and free, so the allocator is the same. huffdecode.cpp also
+/// carries its own copy of the gimex.h helper ggetm.
+///
+/// \par Stream format
+/// Bits are packed most significant first. A stream holds:
+/// - a 16-bit signature. 0x30FB is a plain stream; 0x32FB and 0x34FB mean
+///   the data was delta-coded once or twice before packing, and the decoder
+///   undoes it. Bit 0x0100 (0x31FB, 0x33FB, 0x35FB) marks a composite
+///   header with an extra length field first, which the decoder skips. Bit
+///   0x8000 (0xB0FB to 0xB5FB) makes the length fields 32 bits wide instead
+///   of 24.
+/// - the uncompressed length, after the skipped field if there is one.
+/// - the clue byte, the escape code of the stream.
+/// - the code-length table: for each length from 1 bit up to the longest
+///   code, a number giving how many codes have that length. The longest
+///   length is not stored; the decoder stops once the counts form a
+///   complete code.
+/// - the symbol list, one number per code in canonical order (by length,
+///   then byte value): how many byte values not yet listed lie between the
+///   previous symbol and this one, counting round from 255 to 0.
+/// - the data. Codes are canonical Huffman codes of at most 15 bits. The
+///   clue's code is followed by a number: a nonzero count repeats the
+///   previous output byte that many more times; zero followed by a 0 bit and
+///   eight bits is a literal byte (used for bytes equal to the clue); zero
+///   followed by a 1 bit ends the stream.
+///
+/// Numbers use a variable-length code: k zero bits, a 1 bit, then k+2 bits
+/// added to a base of 4 times (2 to the k, minus 1). Numbers 0-3 take 3
+/// bits, 4-11 take 5 bits, 12-27 take 7 bits, and so on. Encoder and
+/// decoder agree on this only up to class 15; see HUFF_writenum.
+///
+/// \par Modding
+/// - Nothing here reads game data definitions; the format is fixed by these
+///   functions. A tool that writes Huffman data for the game has to follow
+///   the format above: one clue code, codes of 15 bits or fewer. The
+///   decoder's code tables have room for 15-bit codes and no more.
+/// - The decoder trusts its input and checks no bounds, so a damaged or
+///   hand-made stream can crash the game instead of failing cleanly.
+/// - The encoder has options for several run-length codes and for delta
+///   codes, but HUFF_packfile always switches them off. HUFF_decompress
+///   treats only the clue itself as special and would output those codes
+///   as plain bytes, so enabling them produces streams the game misreads.
+///
+/// \par Remastering
+/// - The codec is plain C: apart from the encoder's malloc and free it
+///   makes no library or platform calls. Both directions read and write the
+///   stream a byte at a time, so they do not depend on the host byte order.
+///   The length in the CompressionManager header is a native int, which
+///   does.
+/// - The code assumes a 32-bit unsigned int for its bit buffers, and
+///   HUFF_pack casts pointers to int; see HUFF_pack.
+/// - HUFF_encode is never told the size of its output buffer and can write
+///   more bytes than the input holds; see HUFF_encode.
+
+
+/// \file Compression/EAC/huffcodex.h
+/// \ingroup grp_w1_eac_huffman
+/// \brief Public C interface of the Huffman codec: HUFF_about, HUFF_is,
+///        HUFF_size, HUFF_decode and HUFF_encode.
+///
+/// Include codex.h first; the header stops the build otherwise. Compiled
+/// as C++, the last argument of HUFF_decode and HUFF_encode defaults to
+/// null. It also defines the qmin and qmax macros when they are not
+/// already defined.
+
+
+/// \file Compression/EAC/huffencode.cpp
+/// \ingroup grp_w1_eac_huffman
+/// \brief Huffman encoder: HUFF_encode and the file-local helpers that
+///        analyse the data, build the code and write the stream.
+///
+/// Zero Hour's huffencode.cpp. BFME 2's source calls malloc and free
+/// directly, declared as CRT imports, where Zero Hour's source writes
+/// galloc and gfree; in Zero Hour's gimex.h those are macros for malloc and
+/// free, so the allocator is the same. All encoder state lives in a
+/// HuffEncodeContext that HUFF_encode allocates for one call; the file has
+/// no global variables.
+///
+/// Call order: HUFF_encode, optionally HUFF_deltabytes, then HUFF_packfile,
+/// which runs HUFF_init, HUFF_analysis (with HUFF_maketree, HUFF_treechase
+/// and HUFF_minrep) and HUFF_pack (with HUFF_writecode, HUFF_writeexp,
+/// HUFF_writenum and HUFF_writebits).
+
+
+/// \file Compression/EAC/huffdecode.cpp
+/// \ingroup grp_w1_eac_huffman
+/// \brief Huffman decoder: HUFF_is, HUFF_size, HUFF_decode and the
+///        file-local HUFF_decompress.
+///
+/// Zero Hour's huffdecode.cpp with one addition: a file-local copy of
+/// ggetm, the helper HUFF_is and HUFF_size read the signature and length
+/// fields with. It returns 1, 2, 3 or 4 bytes as a big-endian number, and 0
+/// for any other count. The file defines its own copy so that the compiled
+/// code matches retail, which keeps an out-of-line copy of the helper.
+///
+/// The file also declares a HuffDecodeContext structure that nothing uses;
+/// HUFF_decompress keeps its state in local variables.
+
+
+/// \class HUFFMemStruct
+/// \ingroup grp_w1_eac_huffman
+/// \brief A byte buffer and a length: how the Huffman encoder describes its
+///        input and its output.
+///
+/// HUFF_encode builds two on its stack, one for the bytes to pack (the
+/// caller's source, or a delta-coded copy of it) and one for the
+/// destination. The input's length is the source size. The output's length
+/// is reset to zero by HUFF_packfile and advanced by HUFF_writebits for
+/// every byte written, so it ends as the encoded size, which HUFF_encode
+/// returns. Neither buffer is owned by the structure, and nothing records
+/// the output buffer's capacity.
+
+
+/// \class HuffEncodeContext
+/// \ingroup grp_w1_eac_huffman
+/// \brief Working state of one Huffman encode: statistics, the code tables
+///        and the bit writer.
+///
+/// HUFF_encode allocates one with malloc, passes it to every helper and
+/// frees it before returning; nothing in it outlives the call. If the
+/// allocation fails, HUFF_encode returns 0 without writing anything.
+///
+/// Fields, by role:
+/// - Input: buffer and bufptr bound the bytes being packed; flen and ulen
+///   hold their length. csum receives the sum of all bytes during analysis
+///   but is never written to the stream.
+/// - Statistics: count has three 256-entry parts. The first pass of
+///   HUFF_analysis counts byte values, differences from the previous byte
+///   and run lengths in them; the second pass counts how often each code
+///   will actually be written, with the clue's entry counting runs.
+/// - Huffman tree: tree_left and tree_right hold the children of the
+///   internal nodes, which are numbered from 256 up so that a node number
+///   below 256 is a byte value.
+/// - Code tables, indexed by byte value: bitsarray is the code length (99
+///   means the value has no code) and patternarray the bit pattern.
+///   bitnum counts the codes of each length, sortptr lists the codes in
+///   canonical order, codes is how many there are and mostbits the longest
+///   length. HUFF_pack uses qleapcode as scratch marks while writing the
+///   symbol list.
+/// - Clue state: clue is the escape code and clues the number of
+///   consecutive byte values used as escape and run codes (always 1 with
+///   the options HUFF_packfile sets). dclue, dclues, mindelta and maxdelta
+///   describe delta codes, which those options switch off. chainused
+///   records whether code lengths had to be limited.
+/// - Number coding: repbits and repbase, filled by HUFF_init, give the size
+///   class and base of every number below 252.
+/// - Bit writer: packbits and workpattern hold bits not yet written, masks
+///   holds the low-bit masks for 0 to 16 bits, and plen counts bytes
+///   written.
+
+
+/// \fn bool HUFF_is(const void *compresseddata)
+/// \brief Tells whether a buffer starts with a Huffman stream signature.
+///
+/// Reads the first two bytes as a big-endian number and accepts the twelve
+/// signatures of the format: 0x30FB to 0x35FB and 0xB0FB to 0xB5FB. No
+/// named BFME 2 function calls it. CompressionManager::getCompressionType
+/// recognises Huffman data by CompressionManager's own "EAH" tag.
+///
+/// \param compresseddata Start of the candidate stream. At least two bytes
+///                       must be readable; it is not checked for null.
+/// \return true for one of the twelve signatures, false otherwise.
+/// \see HUFF_size, HUFF_decode
+
+
+/// \fn int HUFF_size(const void *compresseddata)
+/// \brief Reads the uncompressed length from a Huffman stream header
+///        without decoding.
+///
+/// The length field is 4 bytes when the signature has bit 0x8000 set and 3
+/// bytes otherwise. For a composite header (bit 0x0100) the second length
+/// field is returned, which is the one HUFF_decode uses. No named BFME 2
+/// function calls it. CompressionManager::getUncompressedSize reads the
+/// length from the CompressionManager header.
+///
+/// \param compresseddata Start of the stream at its signature. The
+///                       signature is not validated.
+/// \return The uncompressed length: the output buffer size HUFF_decode
+///         needs.
+/// \see HUFF_is, HUFF_decode
+
+
+/// \fn int HUFF_decode(void *dest, const void *compresseddata, int *compressedsize)
+/// \brief Expands one Huffman stream into a caller-supplied buffer.
+///
+/// The public decode entry point. It only forwards to HUFF_decompress,
+/// which does the work. CompressionManager::decompressData calls it for
+/// data tagged "EAH", passing the bytes after its 8-byte header; that is
+/// the only caller in the retail call graph.
+///
+/// \param dest           Output buffer. It must hold at least HUFF_size
+///                       bytes; nothing checks its size.
+/// \param compresseddata Start of the stream at its signature. A null
+///                       pointer decodes nothing and returns 0.
+/// \param compressedsize Ignored: never read and never written. Unlike
+///                       REF_decode, the number of input bytes consumed is
+///                       not reported, and the input length that
+///                       decompressData passes here does not limit
+///                       decoding.
+/// \return The uncompressed length from the stream header.
+///
+/// \par Modding
+/// Decoding is limited by nothing but the stream itself, so only pass data
+/// from trusted game files; see HUFF_decompress.
+/// \see HUFF_decompress, HUFF_size, HUFF_encode,
+///      CompressionManager::decompressData
+
+
+/// \fn int HUFF_decompress(unsigned char *packbuf, unsigned char *unpackbuf)
+/// \brief Decodes a complete Huffman stream: header, code tables, data and
+///        the final delta undo.
+///
+/// The whole decoder, called only by HUFF_decode. \ref grp_w1_eac_huffman
+/// describes the stream format.
+///
+/// \par Implementation
+/// - Header: reads the signature, skips the extra length of a composite
+///   header, then reads the uncompressed length (24 or 32 bits), the clue
+///   byte and the code-length counts, stopping when the counts form a
+///   complete code. It then rebuilds the canonical code from the symbol
+///   list.
+/// - Tables: codes of up to 8 bits go into two 256-entry lookup tables
+///   indexed by the next 8 input bits, giving the byte and its length. The
+///   clue's entries carry a marker length that forces the slow path, as do
+///   entries for longer codes. Longer codes, up to 15 bits, are found by
+///   comparing the next 16 bits against one left-justified limit per code
+///   length.
+/// - Main loop: decodes short codes through the lookup tables in an
+///   unrolled loop over a 32-bit bit buffer, refilled 16 bits at a time,
+///   and falls back to the slow path for long codes and the clue. After
+///   the clue it reads a number: a nonzero count repeats the previous
+///   output byte, and zero is followed by a bit that selects a literal byte
+///   or the end of the stream.
+/// - Undo delta coding: for 0x32FB and 0xB2FB streams, and the composite
+///   forms of them, each output byte is replaced by the running sum of the
+///   bytes so far; for 0x34FB and 0xB4FB the running sum is applied twice.
+///   This reverses HUFF_deltabytes.
+///
+/// \param packbuf   Start of the stream at its signature. Null returns 0.
+/// \param unpackbuf Output buffer of at least the uncompressed length.
+/// \return The uncompressed length from the header. The function does not
+///         check that the data produced exactly that many bytes.
+///
+/// \warning No bounds are checked in either buffer. The output is written
+///          until the end-of-stream code, whatever the header says, and the
+///          bit reader fetches input ahead of use, so it can read a few
+///          bytes past the end of a stream. A stream whose codes are longer
+///          than 15 bits overruns the decoder's own tables.
+/// \see HUFF_decode, HUFF_pack, HUFF_deltabytes
+
+
+/// \fn int HUFF_encode(void *compresseddata, const void *source, int sourcesize, int *opts)
+/// \brief Compresses a buffer with EA's Huffman coder.
+///
+/// CompressionManager::compressData calls it for COMPRESSION_HUFF after
+/// writing its own 8-byte header with the "EAH" tag, and passes null
+/// options. That is the only caller in the retail call graph, and
+/// compressData has no known caller in BFME 2. The matching decoder is
+/// HUFF_decode.
+///
+/// The encoder builds a Huffman code from the byte frequencies of the whole
+/// input, so common byte values get short codes. Runs of a repeated byte
+/// are coded as the clue code and a count when that is cheaper than
+/// repeating the byte's code.
+///
+/// \par Implementation
+/// Allocates a HuffEncodeContext, delta-codes the input into a temporary
+/// buffer when asked (HUFF_deltabytes, once or twice), and hands both
+/// buffers to HUFF_packfile, which writes the whole stream. The temporary
+/// buffer and the context are freed before returning.
+///
+/// \param compresseddata Output buffer. Nothing checks its size; see the
+///                       warning.
+/// \param source         Bytes to compress. Never modified.
+/// \param sourcesize     Number of bytes in source.
+/// \param opts           Optional. opts[0] selects delta coding: 0 for
+///                       none, 1 for one pass, 2 for two passes. Null
+///                       means 0.
+/// \return Bytes written, including the stream header, or 0 when the
+///         context cannot be allocated.
+///
+/// \warning Any other value of opts[0] packs the source unchanged but
+///          writes a zero signature, which HUFF_is rejects. The temporary
+///          delta buffer's allocation is not checked.
+/// \warning The output can be larger than the input: the stream header,
+///          the code tables and, when every byte value occurs, an escape
+///          for each occurrence of the clue byte all add bits.
+///          CompressionManager::getMaxCompressedSize allows only the input
+///          length plus its 8-byte header, and compressData does not pass
+///          the buffer size on.
+/// \see HUFF_packfile, HUFF_decode, CompressionManager::compressData
+
+
+/// \fn int HUFF_packfile(struct HuffEncodeContext *EC, struct HUFFMemStruct *infile, struct HUFFMemStruct *outfile, int ulen, int deltaed)
+/// \brief Packs one buffer: sets up the encoder, analyses the data and
+///        writes the stream header, then the packed data.
+///
+/// Called only by HUFF_encode. It initialises the bit writer and its masks,
+/// calls HUFF_init, points the context at the input and runs HUFF_analysis
+/// with a fixed option set: one clue code for runs and literals, delta
+/// codes off, Huffman coding on, and a clue forced even when every byte
+/// value occurs. Code lengths are limited to 15 bits. It then writes the
+/// signature and length fields and calls HUFF_pack for the rest.
+///
+/// The signature follows deltaed (0x30FB, 0x32FB or 0x34FB). Lengths that
+/// need more than 24 bits get the 32-bit forms (bit 0x8000). When ulen
+/// differs from the input length, a composite header (bit 0x0100) records
+/// ulen first and the input length second; HUFF_encode always passes the
+/// input length, so it never writes one.
+///
+/// \param EC       Encoder context, owned by the caller.
+/// \param infile   Input buffer and length.
+/// \param outfile  Output buffer. Its length is reset to 0 and grows by one
+///                 for every byte written.
+/// \param ulen     Total length recorded in a composite header; see above.
+/// \param deltaed  Number of delta passes applied to the input, 0 to 2. Any
+///                 other value leaves the signature 0.
+/// \return Bytes written, from outfile's length.
+/// \see HUFF_encode, HUFF_analysis, HUFF_pack
+
+
+/// \fn void HUFF_analysis(struct HuffEncodeContext *EC, unsigned int opt, unsigned int chainsaw)
+/// \brief Chooses the clue byte and builds the final code: lengths,
+///        canonical order and bit patterns.
+///
+/// Called once by HUFF_packfile before anything is written. Its result is
+/// the code tables in the context, which HUFF_pack writes and uses.
+///
+/// \par Implementation
+/// - First pass: counts byte values, differences between neighbouring
+///   bytes and the lengths of runs of a repeated byte (a run is cut at
+///   30,000 repeats).
+/// - Clue choice: the clue is the first value of the longest stretch of
+///   byte values that never occur; the second-longest stretch is the
+///   candidate for delta codes. When no value is unused and the force
+///   option is set, the least frequent byte becomes the clue, and its real
+///   occurrences are then escaped. The option bits then limit or disable
+///   run and delta codes.
+/// - First tree: HUFF_maketree builds a code from those counts. With more
+///   than one run code, HUFF_minrep then drops run codes that would not
+///   save bits.
+/// - Second pass: counts what HUFF_pack will actually write. For each run
+///   it compares repeating the byte's code with writing the clue and a
+///   count, using the first tree's lengths, and counts the cheaper choice.
+///   A second HUFF_maketree builds the final code from these counts.
+/// - Length limit: while any code is longer than chainsaw bits, the
+///   longest code below the limit and one of the longest codes both take
+///   that shorter code's length plus one, and another of the longest codes
+///   loses a bit. Each step keeps the code complete.
+/// - Canonical code: if Huffman coding is disabled every code becomes 8
+///   bits. The codes are then counted per length, sorted by length and byte
+///   value, and given consecutive bit patterns, so that the decoder can
+///   rebuild the code from the counts and the symbol order alone.
+///
+/// \param EC       Encoder context with the input set.
+/// \param opt      Option bits. HUFF_packfile always passes the same
+///                 fixed set, described there.
+/// \param chainsaw Maximum code length in bits. HUFF_packfile passes 15,
+///                 the most the decoder supports.
+/// \see HUFF_maketree, HUFF_minrep, HUFF_pack
+
+
+/// \fn void HUFF_pack(struct HuffEncodeContext *EC, struct HUFFMemStruct *dest, unsigned int opt)
+/// \brief Writes everything after the signature and length: the clue byte,
+///        the code tables, the coded data and the end-of-stream code.
+///
+/// Called by HUFF_packfile after HUFF_analysis has built the code.
+///
+/// \par Implementation
+/// - Code tables: the clue byte (8 bits), the number of codes of each
+///   length from 1 bit to the longest, then the symbol list. Each symbol is
+///   written as the number of byte values not yet listed that it skips past
+///   the previous one, counting round from 255 to 0.
+/// - Data: each byte is written with HUFF_writecode. A run of repeats of
+///   the previous byte is written either as that many codes or as the clue
+///   code and a count, whichever is cheaper. Runs are cut at 30,000
+///   repeats, and the byte after a run is written normally.
+/// - End: the clue code, the number 0 and the two bits 1 and 0, then up to
+///   7 zero bits so that the last byte is complete.
+///
+/// The body keeps code that never runs: an older header layout that would
+/// write the length, an options field and the clue ranges as numbers, and
+/// branches for several run codes and for delta codes, which the fixed
+/// options switch off. It also computes two values it never uses.
+///
+/// \param EC   Encoder context after HUFF_analysis.
+/// \param dest Output buffer; the signature and lengths are already in it.
+/// \param opt  The option bits; only the unused header layout reads them.
+///
+/// \par Remastering
+/// One of the unused values is computed by casting the input pointers to
+/// int, which a 64-bit compiler rejects or truncates. Dropping that
+/// computation changes no output.
+/// \see HUFF_analysis, HUFF_writecode, HUFF_writenum, HUFF_decompress
+
+
+/// \fn void HUFF_init(struct HuffEncodeContext *EC)
+/// \brief Fills the size-class tables for numbers below 252.
+///
+/// For each number below 252 it records its size class k (0 to 5; a
+/// class-k number costs 2k+3 bits) and the base of that class: 0-3, 4-11,
+/// 12-27, 28-59, 60-123 and 124-251. HUFF_writenum looks small numbers up here,
+/// and HUFF_analysis, HUFF_minrep and HUFF_pack use the sizes to price runs.
+/// HUFF_packfile calls it once per encode.
+///
+/// \param EC Encoder context.
+/// \see HUFF_writenum
+
+
+/// \fn void HUFF_maketree(struct HuffEncodeContext *EC)
+/// \brief Builds a Huffman tree from the context's byte counts and stores
+///        the resulting code lengths.
+///
+/// HUFF_analysis calls it twice: once for a first estimate and once for the
+/// final code.
+///
+/// \par Implementation
+/// Every byte value with a nonzero count becomes a leaf, and the number of
+/// them is stored as the code count. The two smallest counts are repeatedly
+/// joined under a new internal node until one node remains, and
+/// HUFF_treechase then turns depths into code lengths. The search for the
+/// two smallest is a linear scan of the remaining list, so the work grows
+/// with the square of the number of byte values in use. A single byte
+/// value gets a 1-bit code. Values that do not occur get length 99, meaning
+/// no code.
+///
+/// \param EC Encoder context with the counts filled in.
+/// \see HUFF_treechase, HUFF_analysis
+
+
+/// \fn void HUFF_treechase(struct HuffEncodeContext *EC, unsigned int node, unsigned int bits)
+/// \brief Walks the Huffman tree and records each byte value's depth as its
+///        code length.
+///
+/// Recursive: a node number below 256 is a byte value and receives the
+/// depth; any other node passes depth plus one to both children.
+/// HUFF_maketree calls it on the root with depth 0, or on the only leaf
+/// with depth 1.
+///
+/// \param EC   Encoder context holding the tree.
+/// \param node Node to visit.
+/// \param bits Depth of that node.
+/// \see HUFF_maketree
+
+
+/// \fn int HUFF_minrep(struct HuffEncodeContext *EC, unsigned int remaining, unsigned int r)
+/// \brief Estimates the fewest bits needed to write a run with the run
+///        codes up to a given length.
+///
+/// When several run codes are in use, the code clue+k stands for k
+/// repeats. This recursive search tries, for each such code from r down,
+/// using it as often as fits or not at all, and prices whatever remains as
+/// the clue followed by a count (20 bits for 252 or more). HUFF_analysis
+/// uses the estimate to drop run codes that would not save bits.
+///
+/// It runs only when more than one run code is in use, which the options
+/// HUFF_packfile sets never allow. HUFF_decompress treats only the clue
+/// itself as special, so it would output such codes as plain bytes.
+///
+/// \param EC        Encoder context with code lengths from the first tree.
+/// \param remaining Run length still to be written.
+/// \param r         Longest run code that may be used.
+/// \return The estimated cost in bits.
+/// \see HUFF_analysis
+
+
+/// \fn void HUFF_writenum(struct HuffEncodeContext *EC, struct HUFFMemStruct *dest, unsigned int num)
+/// \brief Writes a number in the stream's variable-length number code.
+///
+/// The code is k zero bits and a 1 bit, then the number minus the base of
+/// its class in k+2 bits; a number of class k costs 2k+3 bits. Numbers
+/// below 252 take their class from the tables HUFF_init fills; larger ones
+/// from a chain of comparisons up to class 18. Used for the code-length
+/// counts, the symbol list, run counts and the 0 that introduces a literal
+/// or the end of the stream.
+///
+/// \param EC   Encoder context.
+/// \param dest Output buffer.
+/// \param num  Number to write.
+///
+/// \note Numbers in class 16 and above (262,140 or more) do not survive a
+///       round trip. For 16 or more leading zero bits the decoder's reader
+///       takes a bit-by-bit path that counts one class too many, and the
+///       encoder's bases for classes 17 and 18 are also 4 off the
+///       4*(2^k-1) pattern. The encoder never writes numbers that large:
+///       the largest are run counts, which stop at 30,000.
+/// \see HUFF_init, HUFF_writebits
+
+
+/// \fn void HUFF_writeexp(struct HuffEncodeContext *EC, struct HUFFMemStruct *dest, unsigned int code)
+/// \brief Writes a byte as an explicit literal: the clue code, the number
+///        0, a 0 bit and the 8-bit value.
+///
+/// Used by HUFF_writecode for bytes whose value is the clue itself, which
+/// happens only when the clue had to be a byte value that occurs in the
+/// data.
+///
+/// \param EC   Encoder context.
+/// \param dest Output buffer.
+/// \param code Byte value to write.
+/// \see HUFF_writecode
+
+
+/// \fn void HUFF_writecode(struct HuffEncodeContext *EC, struct HUFFMemStruct *dest, unsigned int code)
+/// \brief Writes one byte value: its Huffman code, or an explicit literal
+///        when the value is the clue.
+///
+/// \param EC   Encoder context.
+/// \param dest Output buffer.
+/// \param code Byte value to write.
+/// \see HUFF_writeexp, HUFF_pack
+
+
+/// \fn void HUFF_writebits(struct HuffEncodeContext *EC, struct HUFFMemStruct *dest, unsigned int bitpattern, unsigned int len)
+/// \brief Appends the low bits of a value to the output, most significant
+///        bit first.
+///
+/// The encoder's only output routine. Bits collect in the context, and
+/// every complete byte is stored at the output's current length, which then
+/// grows by one. Requests longer than 16 bits are split into the high part
+/// and then the low 16 bits. Writing 7 zero bits flushes a partly filled
+/// last byte, which is how HUFF_pack ends the stream.
+///
+/// \param EC         Encoder context holding the pending bits.
+/// \param dest       Output buffer. Its capacity is not checked.
+/// \param bitpattern Value whose low len bits are written.
+/// \param len        Number of bits, up to 32.
+/// \see HUFF_writenum, HUFF_writecode
+
+
+/// \fn void HUFF_deltabytes(const void *source, void *dest, int len)
+/// \brief Replaces each byte with its difference from the previous byte.
+///
+/// The first byte is kept as it is; arithmetic wraps modulo 256. It may
+/// work in place, which HUFF_encode relies on for its second pass.
+/// HUFF_decompress reverses it with a running sum, once or twice as the
+/// signature says.
+///
+/// \param source Input bytes.
+/// \param dest   Output bytes; may equal source.
+/// \param len    Number of bytes.
+/// \see HUFF_encode, HUFF_decompress

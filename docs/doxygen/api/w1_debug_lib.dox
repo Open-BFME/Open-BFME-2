@@ -1,0 +1,624 @@
+/// \defgroup grp_w1_debug_lib EA debug library
+/// \ingroup grp_common_services
+/// \brief EA's debug library: the `Debug` message stream, its output
+///        classes (console, OutputDebugString and others), debug commands,
+///        and the crash and exception reports that survive in the release
+///        build.
+///
+/// The library is Zero Hour's `Libraries/Source/debug`, carried into BFME 2
+/// with changes. Its centre is one `Debug` object. Code writes a report into
+/// it with the stream operators, much like a `std::ostream`, and when the
+/// report is finished the object hands the text to every active output
+/// class. Output classes implement `DebugIOInterface`; four are registered by
+/// name when the library starts:
+///
+/// | Name | Class | Where text goes |
+/// |---|---|---|
+/// | `con` | DebugIOCon | a console window, which also reads typed commands |
+/// | `flat` | `DebugIOFlat` | local log files |
+/// | `net` | `DebugIONet` | a named pipe |
+/// | `ods` | DebugIOOds | `OutputDebugString`, for an attached debugger |
+///
+/// An output class does nothing until the `debug.io <name> add` command
+/// creates it. Both games register all four inactive. With no command
+/// file, Zero Hour runs a built-in default that adds `flat`; BFME 2's
+/// default supplies no commands, so by default the release game shows its
+/// reports only in the crash and exception dialogs.
+///
+/// \par How a report is built
+/// 1. A begin call (`CrashBegin`, `CheckBegin`, `LogBegin`, or the
+///    exception filter) flushes any unfinished report and calls
+///    Debug::StartOutput with the report's type and its source, for
+///    example `file(line)`. BFME 2's `LogBegin` is the exception: it keeps
+///    an open log report from the same thread instead of flushing it.
+/// 2. The stream operators turn values into text and append it with
+///    Debug::AddOutput to that type's buffer.
+/// 3. The matching done call ends the report; Debug::FlushOutput sends the
+///    buffer to each active output class's `Write`. Log reports are the
+///    exception: each completed line is flushed by Debug::AddOutput, and
+///    Zero Hour's `LogDone` does not flush.
+///
+/// \par What still runs in the BFME 2 release build
+/// Assertions, checks and logs compile out of release builds, but crash
+/// reports do not. Retail code that still reports through this library
+/// includes GameTextTable::readSTR (malformed string files),
+/// iniParseWaterTexturesDefinition (an unknown water texture type),
+/// W3DTruckDraw::updateBones (missing bones), Log_DX8_ErrorCode (Direct3D
+/// errors), the debug allocator's out-of-memory path, _purecall() and the
+/// exception filter. Those call sites reach the object through the global
+/// pointer `theDebug` and call it through its virtual function table.
+///
+/// \par Modding
+/// - Nothing here is game data, and the library holds no game state: it has
+///   no save-game code and takes no part in the logic simulation, so
+///   changing what it prints cannot desynchronise a multiplayer game.
+/// - Some data errors are fatal. A missing end quote or `END` in a string
+///   file (GameTextTable::readSTR) and an unknown water texture type in INI
+///   end the game with a "Game crash" box that names the problem; the
+///   string-file message also names the label, file and line.
+/// - Debug commands can be scripted without code changes. At start-up
+///   `Debug::PostStaticInit` runs a command file, one command per line. It
+///   names the file after the `_EA_RTS_FILENAME` environment variable if
+///   that is set, else after a `-dbgcmd:<file>` command-line argument,
+///   else after the game executable, with the extension replaced by
+///   `.dbgcmd`; if that file does not exist it tries `default.dbgcmd`.
+///   Commands have the form `group.command arguments`. Two useful ones in
+///   the `debug` group:
+///   - `debug.io con add` opens the console window: the `io` command
+///     creates the DebugIOCon class, whose constructor opens the console;
+///     extra arguments, as in `debug.io con add 120 50`, size it through
+///     DebugIOCon::Execute. `flat`, `net` and `ods` are added the same way.
+///   - `debug.errors +` appends the non-fatal error reports, such as
+///     W3DTruckDraw::updateBones's missing-bone reports, to `errors.txt`,
+///     and the game opens that file when it exits normally. It is off by
+///     default, although the command's help text says on.
+/// - Report text is plain English built in code. It is not looked up in
+///   the string tables and cannot be translated through data.
+///
+/// \par Remastering
+/// - Every output class is a Win32 seam: the console API,
+///   `OutputDebugString`, files and named pipes. A port supplies its own
+///   `DebugIOInterface` implementations and registers them under a name
+///   with `Debug::AddIOFactory`; the report-building code above does not
+///   change. BFME 2's interface has one more virtual function than Zero
+///   Hour's, a yes/no query between `Read` and `Write` that only the
+///   console class can answer yes (when it opened its own console).
+///   BFME 2's Debug::GetInput, which Zero Hour does not have, uses it to
+///   skip output classes that cannot supply typed input before it reads a
+///   command line. The query's original name is not known.
+/// - The library takes its memory from the Win32 global heap
+///   (`GlobalAlloc`) through its own helpers (DebugFreeMemory() and its
+///   siblings), except the typed-command input buffers, which
+///   Debug::Update and Debug::GetInput grow with the C runtime's
+///   `realloc`. None of it uses the engine's memory pools.
+/// - The crash and exception dialogs are Win32 dialogs and message boxes;
+///   the fatal crash path minimises the game window first.
+/// - Pointers are printed as 32-bit values (Debug::operator<<(const void *),
+///   memory dumps); a 64-bit port must widen them.
+///
+/// \see \ref sub_common_services
+
+
+/// \file debug/debug_debug.cpp
+/// \ingroup grp_w1_debug_lib
+/// \brief The `Debug` object's output path: the stream operators, the
+///        report buffers, build information and the exception translator.
+///
+/// Zero Hour's `debug_debug.cpp`. Only some of its functions are BFME 2's
+/// own here; the file also keeps Zero Hour's versions of functions whose
+/// BFME 2 bodies live in other files or are not reconstructed yet, so read
+/// a function's page rather than the file to learn what BFME 2 does.
+
+
+/// \file debug_internal.cpp
+/// \ingroup grp_w1_debug_lib
+/// \brief The library's internal assert and its memory release helper.
+
+
+/// \file debug_purecall.cpp
+/// \ingroup grp_w1_debug_lib
+/// \brief The library's replacement for the C runtime's pure-virtual-call
+///        handler, _purecall().
+
+
+/// \class Debug
+/// \ingroup grp_w1_debug_lib
+/// \brief The debug library's central object: collects reports and debug
+///        command replies and sends them to the active output classes.
+///
+/// \par Lifetime
+/// There is one instance. In BFME 2 it is created on first use by
+/// `Debug::PreStaticInit`, in memory from the library's own allocator, and
+/// kept in the global pointer `theDebug`; each call to `PreStaticInit` adds
+/// a reference. Zero Hour instead has a static member instance that
+/// start-up code initialises before and after the C++ static constructors
+/// run. `Debug::PostStaticInit` then installs the exception translator
+/// (Debug::InstallExceptionHandler), registers the four output classes and
+/// the `debug` command group, and runs the start-up command file described
+/// in \ref grp_w1_debug_lib. Start-up code also registers
+/// `Debug::StaticExit` with `atexit`; when the last reference goes, it
+/// flushes the open report, deletes the active output classes and, with
+/// `debug.errors` on, opens `errors.txt`.
+///
+/// \par One report at a time
+/// The object holds one text buffer per report type and a current type.
+/// Debug::StartOutput sets the type and records the report's source text;
+/// Debug::FlushOutput sends the buffer and resets the type to a value
+/// meaning no report. While no report is open, every stream operator
+/// discards its input silently, which is how the text of a report whose
+/// site is switched off is dropped. Buffers grow as needed and are always
+/// terminated.
+///
+/// \par How the rest of the game uses it
+/// - Release-build crash reports, through `theDebug`: record the report
+///   site's address, `CrashBegin`, stream the message (often a
+///   Debug::Format), then `CrashDone`. In BFME 2 `CrashDone` takes a mode instead of Zero Hour's
+///   flag: 0 reports (with a dialog when the game runs in a window), 1 is
+///   fatal (a "Game crash" box, then exit), and 2 only appends the report
+///   to `errors.txt` when `debug.errors` is on.
+/// - `WinMain` passes the version, build identifier and build time to
+///   `Debug::SetBuildInfo`; Debug::WriteBuildInfo prints them in exception
+///   reports.
+/// - Debug::Update polls the output classes for typed commands.
+///
+/// \note BFME 2 makes most of the members virtual, the stream operators
+///       included, and has one string type fewer than Zero Hour. Each source
+///       file that uses the class declares only the part it needs, so
+///       member names and positions differ between files; the declaration
+///       Doxygen shows is Zero Hour's.
+///
+/// \par Modding
+/// Not data-driven, apart from the debug commands (see
+/// \ref grp_w1_debug_lib). Fixed limits: a Debug::Format message holds at
+/// most 511 characters, and a mode-0 crash site that cannot show its
+/// dialog (the game is not windowed, or dialogs are switched off) is
+/// switched off after its 20th report; mode-2 sites are never switched
+/// off.
+
+
+/// \class Debug::Format
+/// \ingroup grp_w1_debug_lib
+/// \brief A printf-style message, formatted once into a fixed buffer so it
+///        can be streamed into Debug.
+///
+/// Callers build a temporary from a format string and its arguments and
+/// stream it into a report, as in
+/// `CrashBegin(...) << Debug::Format(format, name)`.
+/// Streaming it writes the buffer through Debug::operator<<(const char *).
+/// Zero Hour's header marks it as a bridge for old code that should not be
+/// used for new code, yet BFME 2's release-build crash reports rely on it.
+///
+/// \par Invariants
+/// The buffer is 512 bytes and the constructor writes at most 511
+/// characters; see Debug::Format::Format for the overflow case. Zero
+/// Hour's declaration also disables copying.
+
+
+/// \class Debug::RepeatChar
+/// \ingroup grp_w1_debug_lib
+/// \brief Streams one character a given number of times.
+///
+/// Holds the character and the count. Streaming it into Debug writes the
+/// character that many times, in blocks of ten. The library uses it for the
+/// rule lines of `=` characters that open crash and exception reports.
+///
+/// \note When the count is 10 or more, only whole blocks of ten are
+///       written and the remainder is lost: a count of 79 writes 70
+///       characters. Counts below 10 are exact. Zero Hour's operator has
+///       the same arithmetic.
+
+
+/// \class DebugIOCon
+/// \ingroup grp_w1_debug_lib
+/// \brief Output class `con`: writes reports to a console window and reads
+///        debug commands typed into it.
+///
+/// Created when a debug command adds the `con` class, and destroyed by
+/// `remove` or at shutdown. Zero Hour creates it in memory from the
+/// library's own allocator, as BFME 2's matched factories for the other
+/// output classes do. The constructor opens a console with `AllocConsole` and
+/// remembers whether it did. Only a console it opened itself is read from
+/// or resized: if the game already had a console, reading from it would
+/// steal keystrokes from the process that owns it. The destructor frees
+/// the console it opened.
+///
+/// BFME 2's constructor differs from Zero Hour's:
+/// - it does not resize the screen buffer;
+/// - it installs a console handler that claims Ctrl+C, Ctrl+Break and the
+///   close event, which would otherwise end the process, and removes the
+///   console window's close button;
+/// - it titles the console after the executable with " [debug console]"
+///   appended, even when it did not open a console.
+///
+/// Zero Hour: `Write` prints every report except structured command
+/// replies to standard output.
+///
+/// \par Remastering
+/// Win32 console API throughout; the input line is drawn with
+/// `WriteConsoleOutput` on the console's top row.
+
+
+/// \class DebugIOOds
+/// \ingroup grp_w1_debug_lib
+/// \brief Output class `ods`: passes reports to `OutputDebugString`, for a
+///        debugger or a debug-output viewer.
+///
+/// Write-only: it has no input and no commands of its own. Created and
+/// destroyed through the `debug.io ods add` and `remove` commands like the
+/// other output classes.
+///
+/// \par Remastering
+/// Windows-only (`OutputDebugString`). A replacement registers its own
+/// class with Debug::AddIOFactory.
+
+
+/// \fn void Debug::AddOutput(const char *str, unsigned len)
+/// \brief Appends text to the buffer of the report being built.
+///
+/// Every stream operator ends here. Text goes to the buffer of the current
+/// report type, which Debug::StartOutput chose; with no report in progress
+/// the text is dropped.
+///
+/// \par Implementation
+/// - The buffer grows by the text's stored length plus 1024 bytes whenever
+///   fewer than 64 bytes would remain free.
+/// - BFME 2 stores each line feed as a carriage return and line feed, so
+///   buffers hold Windows line ends; Zero Hour stored the text unchanged.
+/// - With time stamps on (the `debug.timestamp` command), the text is split
+///   at line feeds and each new line starts with the local time as
+///   `[hh:mm.ss.mmm] `.
+/// - A log report is sent out as soon as a line is complete, and the next
+///   line continues the same log report.
+/// - The object remembers whether the buffer ends with a line feed;
+///   Debug::FlushOutput and the other report closers use that to add a
+///   final one.
+///
+/// \param str Text to append. Need not be terminated, but one byte past
+///            the end is read and stored as the buffer's terminator when
+///            the text has no line feed, or, with time stamps on, when it
+///            does not end with one.
+/// \param len Number of characters to append.
+///
+/// \note Private, so this page appears only when private members are
+///       extracted.
+/// \see Debug::StartOutput, Debug::FlushOutput
+
+
+/// \fn void Debug::FlushOutput(bool defaultLog)
+/// \brief Sends the finished report to every active output class and
+///        clears it.
+///
+/// Called when a report ends: by the done calls other than `LogDone`, by
+/// the begin calls when another report is still unfinished, by
+/// Debug::StartOutput when a log report is open, by Debug::AddOutput after
+/// each complete log line, by the command executor, by the exception filter
+/// and at exit.
+///
+/// \par Implementation
+/// - With no report in progress it does nothing. An empty report is
+///   discarded.
+/// - A final line end is added if the text does not end with one.
+/// - Each active output class's `Write` gets the type, the source text and
+///   the buffer. With the `debug.alwaysflush` setting on, `Write` is called
+///   a second time with no text, which asks the class to flush.
+/// - The buffer, the type and the source text are then reset.
+///
+/// \param defaultLog Ignored in BFME 2. Zero Hour: when true and no output
+///                   class is active, non-release builds append the report
+///                   to `default.log`.
+///
+/// \note With no active output class nothing receives the text. Unlike
+///       Zero Hour's non-release builds, BFME 2 has no `default.log`
+///       fallback; crash dialogs, `errors.txt` and the exception dialog
+///       work from copies taken before the flush.
+/// \note Private, so this page appears only when private members are
+///       extracted.
+/// \see Debug::AddOutput, DebugIOOds::Write
+
+
+/// \fn void Debug::StartOutput(DebugIOInterface::StringType type, const char *fmt, ...)
+/// \brief Starts a new report of the given type and records its source
+///        text.
+///
+/// The begin calls (`CrashBegin`, `CheckBegin`, `LogBegin`), the command
+/// executor and the exception filter call it before writing anything. The
+/// source text tells output classes where a report comes from, for example
+/// `file(line)` for a crash or `group.command` for a command reply.
+///
+/// \par Implementation
+/// An open log report is flushed first. The source text is formatted with
+/// `wvsprintf` into a fixed 256-byte field, without a length check.
+///
+/// \param type Report type for the text that follows.
+/// \param fmt  `wsprintf`-style format for the source text, followed by its
+///             arguments.
+///
+/// \note Private, so this page appears only when private members are
+///       extracted.
+/// \see Debug::AddOutput, Debug::FlushOutput
+
+
+/// \fn void Debug::WriteBuildInfo(void)
+/// \brief Writes the game's version and build into the current report.
+///
+/// The exception filter calls it while writing an exception report, and
+/// copies the text it produced for the crash dialog. The strings come from
+/// `Debug::SetBuildInfo`, which `WinMain` calls with the version, the
+/// build identifier and the build time.
+///
+/// \par Implementation
+/// The text is `Version:`, then the version, ` internal ` and the build
+/// identifier, and ` build ` and the build time, each part only when its
+/// string is not empty. The build variant word is fixed when the library is
+/// compiled; the retail build writes ` release` before the build time.
+///
+/// \see DebugExceptionhandler::ExceptionFilter
+
+
+/// \fn Debug &Debug::operator<<(const char *str)
+/// \brief Appends a string to the current report.
+///
+/// The basic stream operator: most others format their value and end up
+/// here, and Debug::Format is written through it.
+///
+/// \par Implementation
+/// - A null pointer is written as `[NULL]`; an empty string writes nothing.
+/// - A field width (Zero Hour's `Debug::Width` helper) pads the string on
+///   the left with the fill character (`Debug::FillChar`, a space by
+///   default) up to that width. The width applies to one insertion and is then reset,
+///   except that an empty string leaves it in place.
+///
+/// \param str Text to write; may be null.
+/// \return This object, for chaining.
+/// \see Debug::AddOutput
+
+
+/// \fn Debug &Debug::operator<<(const void *ptr)
+/// \brief Appends a pointer as `ptr:0x` and hexadecimal digits, or
+///        `ptr:NULL`.
+///
+/// The digits are lowercase and have no leading zeros. The radix and prefix
+/// set for integers do not apply.
+///
+/// \param ptr Pointer value to print; only its value is used.
+/// \return This object, for chaining.
+///
+/// \par Remastering
+/// The value is converted to a 32-bit integer before printing.
+
+
+/// \fn Debug &Debug::operator<<(float val)
+/// \brief Appends a float in \%f notation, with six decimal places.
+///
+/// The value is formatted with `_snprintf` into a 200-byte buffer and
+/// written through Debug::operator<<(const char *).
+///
+/// \param val Value to print.
+/// \return This object, for chaining.
+/// \see Debug::operator<<(double)
+
+
+/// \fn Debug &Debug::operator<<(double val)
+/// \brief Appends a double in \%f notation, with six decimal places.
+///
+/// The value is formatted with `_snprintf` into a 200-byte buffer and
+/// written through Debug::operator<<(const char *).
+///
+/// \param val Value to print.
+/// \return This object, for chaining.
+///
+/// \warning \%f writes every integer digit, so a value of about 1e192 or
+///          more fills the buffer and `_snprintf` leaves it unterminated;
+///          the string written is then undefined.
+/// \see Debug::operator<<(float)
+
+
+/// \fn Debug &Debug::operator<<(HResult hres)
+/// \brief Appends a Windows HRESULT, translated to text when a registered
+///        translator recognises it.
+///
+/// Wrap the value as `Debug::HResult(hr)` to select this operator.
+///
+/// \par Implementation
+/// The translators added with `Debug::AddHResultTranslator` are tried in
+/// order (Zero Hour keeps them sorted by priority, highest first); the
+/// first one that returns true has written the text. If none does, the
+/// value is written as `HResult:0x` and hexadecimal digits.
+///
+/// \param hres The wrapped HRESULT.
+/// \return This object, for chaining.
+
+
+/// \fn Debug &Debug::operator<<(const MemDump &dump)
+/// \brief Appends a hex dump of a memory range, optionally with the bytes
+///        as characters.
+///
+/// Callers describe the range with `Debug::MemDump::Raw`, `RawRel`, `Char`
+/// or `CharRel`: absolute or relative addresses, with or without a
+/// character column, and 1, 2 or 4 bytes per item. The exception report
+/// uses it to show the code bytes around the faulting instruction.
+///
+/// \par Implementation
+/// - The dump starts on a new line. Each line is an eight-digit hex address
+///   (the real address, or the offset from the start) and a fixed number of
+///   items: for single bytes, 21 per line without characters and 16 with.
+/// - An item's bytes are printed highest address first, so a multi-byte
+///   item reads as a little-endian number. Unreadable memory, found with
+///   `IsBadReadPtr`, prints as `??` per byte; positions past the end are
+///   blank.
+/// - The character column shows bytes above the space character as they
+///   are and the rest as `.`; unreadable bytes show as `?`.
+///
+/// \param dump Range and layout of the dump.
+/// \return This object, for chaining.
+///
+/// \par Remastering
+/// Addresses are printed as 32-bit values.
+
+
+/// \fn Debug::Format::Format(const char *format, ...)
+/// \brief Formats a printf-style message into the object's buffer.
+///
+/// \par Implementation
+/// One `_vsnprintf` call with a limit of 511 characters.
+///
+/// \param format `printf` format string, followed by its arguments.
+///
+/// \warning A message of 511 characters or more is cut off and left
+///          without a terminator, because `_vsnprintf` does not add one
+///          when the text fills the limit; the buffer's last byte is never
+///          set. Keep messages short.
+/// \see Debug::operator<<(const char *)
+
+
+/// \fn static void Debug::InstallExceptionHandler(void)
+/// \brief Routes Win32 structured exceptions on the calling thread to the
+///        library's exception report.
+///
+/// Registers LocalSETranslator() with the C runtime's `_set_se_translator`,
+/// which works per thread. `Debug::PostStaticInit` calls it for the thread
+/// that starts the library. Zero Hour's header asks every other thread the
+/// game creates to call it as well.
+///
+/// \note In BFME 2 the function also fills a slot in the object's virtual
+///       function table, and start-up calls it through that slot.
+/// \see LocalSETranslator(), DebugExceptionhandler::ExceptionFilter
+
+
+/// \fn static void LocalSETranslator(unsigned, struct _EXCEPTION_POINTERS *pExPtrs)
+/// \brief The structured-exception translator that
+///        Debug::InstallExceptionHandler installs.
+///
+/// The C runtime calls it when a Win32 structured exception meets the C++
+/// exception machinery on a thread that installed it. It ignores the
+/// exception code and passes the exception record and context to
+/// DebugExceptionhandler::ExceptionFilter, which in BFME 2 writes the
+/// exception report, may show the crash dialog, and ends the process.
+///
+/// \param pExPtrs Exception record and processor context of the fault.
+/// \see Debug::InstallExceptionHandler
+
+
+/// \fn int DebugIOCon::Read(char *buf, int maxchar)
+/// \brief Returns characters of a command line typed into the console, a
+///        whole line at a time, without blocking.
+///
+/// Debug::Update calls it repeatedly for each active output class, splits
+/// what it gets at line feeds and runs each line as a debug command.
+///
+/// \par Implementation
+/// - Returns nothing unless this object opened the console itself.
+/// - While no line is complete, each call takes the pending key presses:
+///   Enter ends the line, Backspace deletes, printable characters are added
+///   up to 255. The line being typed is drawn on the console's top row in
+///   its own colours with a blinking block cursor, scrolled to keep the end
+///   visible.
+/// - When a line is complete, the first call returns its first character
+///   and later calls return the rest, up to `maxchar` at a time, until the
+///   buffer is empty and typing starts again.
+/// - A line of just Enter is not returned on its own: its line feed stays
+///   in the buffer and comes back ahead of the next line typed, which the
+///   caller then sees as an empty command.
+///
+/// \param buf     Receives the characters; no terminator is written.
+/// \param maxchar Space in `buf`.
+/// \return Number of characters stored in `buf`, 0 when none are ready.
+///
+/// \note BFME 2 compares the counters as signed numbers where Zero Hour
+///       compared them unsigned; behaviour is the same for valid input.
+/// \see DebugIOCon::Execute
+
+
+/// \fn void DebugIOCon::Execute(class Debug &dbg, const char *cmd, bool structuredCmd, unsigned argn, const char *const *argv)
+/// \brief Runs the console class's own commands: `help`, and `add` with an
+///        optional window size.
+///
+/// The `debug.io con` command passes its sub-command here, after creating
+/// the console on `add`. So `debug.io con add 120 50` opens the console and
+/// sizes it to 120 columns by 50 rows.
+///
+/// \par Implementation
+/// - No command or `help` writes a short usage text to `dbg`.
+/// - `add` with a width, and only on a console this object opened, sets
+///   the window and the screen buffer to that size; the height defaults to
+///   25 rows. The window size is set before and after the buffer, so both
+///   growing and shrinking work.
+/// - Other commands are ignored.
+///
+/// \param dbg           Debug object to write replies to.
+/// \param cmd           Sub-command, or null.
+/// \param structuredCmd True for a structured reply; not used here.
+/// \param argn          Number of arguments after the sub-command.
+/// \param argv          The arguments.
+/// \see DebugIOCon::Read
+
+
+/// \fn void DebugIOOds::Write(StringType type, const char *src, const char *str)
+/// \brief Passes one report's text to `OutputDebugString`.
+///
+/// Debug::FlushOutput calls it for each finished report while the class is
+/// active.
+///
+/// \param type Report type. Structured command replies are skipped; they
+///             are machine-readable replies meant for tools.
+/// \param src  Report source text; not used.
+/// \param str  Report text, or null for a flush request, which is ignored.
+///
+/// \note BFME 2 has one string type fewer than Zero Hour, so the value
+///       compared for structured replies is one lower; the behaviour is the
+///       same.
+
+
+/// \fn void DebugInternalAssert(const char *file, int line, const char *expr)
+/// \brief Reports a failed internal check of the debug library itself and
+///        kills the process.
+///
+/// Shows a message box titled "Internal assert failed" with the file, line
+/// and expression, then ends the process at once with exit code 666,
+/// without running any shutdown code.
+///
+/// Zero Hour's internal assert macro calls it only in debug builds, so the
+/// release game has no caller; the function is kept in the executable all
+/// the same.
+///
+/// \param file File name of the failed check.
+/// \param line Line number of the failed check.
+/// \param expr The failed expression, as text.
+///
+/// \warning The message is formatted into a 512-byte buffer without a
+///          length check.
+
+
+/// \fn void DebugFreeMemory(void *ptr)
+/// \brief Frees a block from the debug library's own allocator.
+///
+/// The counterpart of `DebugAllocMemory` and `DebugReAllocMemory`, which
+/// take memory from the Win32 global heap. The library uses them for its
+/// buffers, lists, output classes and command groups, so it does not
+/// depend on the engine's memory manager. Output classes use it in their
+/// `Delete`, and the command executor and the frame-command queue free
+/// their buffers with it.
+///
+/// \param ptr Block to free; null is allowed and does nothing.
+
+
+/// \fn int _purecall(void)
+/// \brief Reports a call to a pure virtual function as a fatal crash.
+///
+/// The C++ compiler fills the unimplemented slots of an abstract class's
+/// virtual function table with `_purecall`, so the function runs when an
+/// object is used during its construction or destruction, or after it has
+/// been destroyed. BFME 2 does not import the C runtime's version: this
+/// one takes its place, and every abstract class's unimplemented slots in
+/// the executable point to it.
+///
+/// It records the address of its own report site (inside `_purecall`), so
+/// all pure-virtual calls count as one report site, and writes the crash
+/// report "Pure virtual function called." through `theDebug`, in the mode
+/// that ends the game with the "Game crash" message box.
+///
+/// \return 0, which is never reached in practice.
+///
+/// \par Diagnosing
+/// The report names no source file or line. In this fatal mode the crash
+/// report includes a stack walk, which is the only lead to the caller.

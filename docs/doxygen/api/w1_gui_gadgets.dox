@@ -1,0 +1,712 @@
+/// \defgroup grp_w1_gui_gadgets Gadget helpers: tab control, combo box, buttons, progress bar, text entry
+/// \ingroup grp_gui_apt
+/// \brief Free functions that create, lay out, recolour and drive the
+///        native window gadgets: the tab control, the combo box, check-like
+///        push buttons, the progress bar and the text entry field.
+///
+/// A gadget is a GameWindow with a gadget style bit (push button, combo box,
+/// entry field, progress bar, tab control and so on) and a gadget-specific
+/// block of user data hanging off the window. The functions here are the
+/// small C-style API that the rest of the client uses to work with that data
+/// without knowing its layout: the window manager's gadget factories call
+/// them while building a gadget, GameWindow forwards some generic calls to
+/// them when the window carries the matching style bit, and screen code
+/// (the control bar, load screens, Apt screens) calls them directly.
+///
+/// Each gadget family follows the same pattern:
+/// - an \e input callback that receives mouse and keyboard messages, and a
+///   \e system callback that receives create, destroy, resize and gadget
+///   messages (GadgetTabControlInput(), GadgetTabControlSystem(),
+///   GadgetProgressBarSystem());
+/// - setters that change the gadget's user data or its colours and fonts;
+/// - drawing, which lives elsewhere, in the W3D device layer
+///   (W3DGadgetTabControlDraw and its siblings), so nothing here draws.
+///
+/// In BFME 2 the retail callers of the input and system callbacks are the
+/// virtual input and system methods of per-gadget GameWindow subclasses
+/// (the tab control's class is the one whose draw method calls
+/// W3DGadgetTabControlDraw). Zero Hour instead stored the callbacks as
+/// function pointers on a plain GameWindow. The subclass reading comes from
+/// the forwarding bodies in the W3D gadget sources; the class names are not
+/// yet known.
+///
+/// All the code here is Zero Hour's GadgetTabControl.cpp, GadgetComboBox.cpp,
+/// GadgetPushButton.cpp, GadgetProgressBar.cpp and GadgetTextEntry.cpp,
+/// mostly reached through the BFME 1 reconstruction
+/// (GadgetComboBoxSetColors() was ported directly from Zero Hour's
+/// GadgetComboBox.cpp), with the BFME 2 differences noted on each function.
+/// GameWindow and the window manager are still being reconstructed, so
+/// they are described here only by what these functions need from them.
+///
+/// \par Modding
+/// - None of these functions touches game logic. They change client-side
+///   window state only, so changing them cannot desynchronise a multiplayer
+///   game.
+/// - What a layout can set: .wnd window files carry a TABCONTROLDATA block
+///   and a COMBOBOXDATA block. BFME 2's .wnd loader is only partly
+///   reconstructed, but its parsers for these two blocks are matched, and
+///   retail's keyword table pairs each name with its parser. Each parser
+///   reads its values in a fixed order and skips the label in front of each
+///   value, so only the order counts. The roles of the values come from
+///   Zero Hour and BFME 1: tab orientation, tab edge, tab width, tab height,
+///   tab count, pane border, then a disabled-pane count followed by one flag
+///   per pane; and for a combo box, editable, maximum characters, rows
+///   shown, then two flags (ASCII only, letters and numbers only), which
+///   BFME 2 stores as bits instead of Zero Hour's two separate fields. The
+///   disabled-pane count is not checked against the eight panes, so a
+///   larger count writes past the flag array. BFME 2's copy of
+///   parseChildWindows has no matched row yet, and which BFME 2 screens
+///   still load .wnd layouts is not established here. Zero Hour also has a
+///   CHECK_LIKE window status for push buttons.
+/// - Command buttons: ControlBar::setControlCommand makes a command button
+///   check-like when the CommandButton's options include the flag Zero Hour
+///   calls CHECK_LIKE (GadgetButtonEnableCheckLike()). That part is data.
+/// - Fixed in code: a tab control has at most eight panes; the progress bar
+///   takes whole percentages from 0 to 100; a text entry field accepts at
+///   most 256 characters (GameWindowManager::gogoGadgetTextEntry clamps the
+///   limit when the field is created); the default combo box colours
+///   are hard-coded in GameWindowManager::assignDefaultGadgetLook; the online
+///   login screen's nickname and e-mail length limits are constants in
+///   AptOnlineLogin::InitGadgets.
+///
+/// \par Remastering
+/// - These helpers make no Win32, Direct3D or audio calls. A new renderer
+///   replaces the W3D gadget draw functions and the window manager's device
+///   layer; this logic can stay as it is. In BFME 2 the per-gadget window
+///   classes that call these input and system callbacks are defined in the
+///   W3D device sources alongside the draw slots, so a replacement device
+///   layer must keep that forwarding as well as replace the drawing.
+/// - Geometry is in whole pixels in the gadget's own coordinate space and
+///   nothing here scales it. Resolution or UI scaling has to happen when the
+///   window is created or resized; a tab control recomputes its tab strip
+///   and panes when it receives the resize message.
+/// - GadgetTabControlComputeSubPaneSize() is written partly in 32-bit x86
+///   inline assembly to reproduce retail's instruction choice. A port to
+///   another compiler or to 64-bit should use Zero Hour's plain C++ for that
+///   function (GeneralsMD GadgetTabControl.cpp), whose results its
+///   Implementation bullets describe.
+/// - The progress bar keeps its percentage in the window's user-data
+///   pointer, cast from an integer.
+///
+/// \see \ref sub_gui_apt
+
+
+/// \file Gadget/GadgetTabControl.cpp
+/// \ingroup grp_w1_gui_gadgets
+/// \brief The tab control gadget: tab strip layout, pane creation and
+///        sizing, and its input and system callbacks.
+///
+/// A tab control is a window with a strip of equal-sized tabs along one
+/// edge and up to eight child pane windows filling the rest. Clicking a tab
+/// shows that tab's pane and hides the others. The gadget's user data (Zero
+/// Hour's TabControlData) holds the layout chosen in the editor (which edge
+/// the tabs sit on, how they are aligned along it, the tab size, the tab
+/// count, the border around the panes, the panes' window pointers and a
+/// per-pane disabled flag) and some working values: the active tab and the
+/// tab strip's rectangle. The window owns that data and frees it when it is
+/// destroyed (GadgetTabControlSystem()).
+///
+/// Lifecycle, from the BFME 2 call graph: the window manager's tab-control
+/// factory computes the tab strip (GadgetTabControlComputeTabRegion()),
+/// creates the panes (GadgetTabControlCreateSubPanes()) and shows the first
+/// one (GadgetTabControlShowSubPane()). A resize recomputes both. Zero Hour:
+/// when a tab control is loaded from a .wnd file, its children are the
+/// panes, and GadgetTabControlFixupSubPaneList() puts them back into the
+/// pane array once they have all been created.
+///
+/// The bodies are Zero Hour's apart from the pane creation call and the
+/// codegen shaping noted on GadgetTabControlComputeSubPaneSize() and
+/// GadgetTabControlShowSubPane().
+
+
+/// \fn void GadgetTabControlComputeTabRegion(GameWindow *tabControl)
+/// \brief Recomputes the rectangle occupied by the tab strip from the tab
+///        control's layout settings and current size.
+///
+/// The result, four limits in the tab control's own coordinates, is what
+/// GadgetTabControlInput() hit-tests clicks against. The tab-control factory
+/// calls this once the user data is in place, and GadgetTabControlSystem()
+/// calls it again after a resize.
+///
+/// \par Implementation
+/// - The strip is the tab count times one tab's width (tabs on the top or
+///   bottom edge) or height (tabs on the left or right edge).
+/// - The strip sits inside the pane border, against the chosen edge.
+/// - Along that edge it is aligned by the orientation setting: at the start
+///   (top-left), centred in the free length, or at the end (bottom-right).
+///   The free length is the window's length minus twice the border minus
+///   the strip. Centring uses integer division, and a strip longer than the
+///   window gives a negative offset; nothing is clamped.
+/// - An unknown orientation leaves the offset at zero; an unknown edge
+///   leaves the limits unchanged.
+///
+/// \param tabControl The tab control. Its user data must be the tab control
+///                   data; nothing is checked.
+///
+/// \see GadgetTabControlInput(), GadgetTabControlComputeSubPaneSize()
+
+
+/// \fn void GadgetTabControlComputeSubPaneSize(GameWindow *tabControl, Int *width, Int *height, Int *x, Int *y)
+/// \brief Computes the size and position that every pane of a tab control
+///        should have.
+///
+/// The pane area is the tab control's window minus the pane border on all
+/// four sides and minus the tab strip on the side the tabs are on. Both
+/// GadgetTabControlCreateSubPanes() and GadgetTabControlResizeSubPanes() use
+/// it, so all panes always share one rectangle.
+///
+/// \par Implementation
+/// - Width: window width minus twice the border, minus one tab width when
+///   the tabs are on the left or right edge.
+/// - Height: window height minus twice the border, minus one tab height when
+///   the tabs are on the top or bottom edge.
+/// - Position: the border, pushed right by one tab width for left-edge tabs
+///   and down by one tab height for top-edge tabs. Bottom and right tabs
+///   shrink the area without moving it.
+///
+/// The two size computations are written as x86 inline assembly that reads
+/// the tab data through the register holding the user-data pointer, because
+/// MSVC 7.1 compiled Zero Hour's C++ with different but equivalent
+/// instructions from retail's. The values are the same as Zero Hour's
+/// expressions, for example
+/// `*height = winHeight - (2 * tabData->paneBorder) - tabData->tabHeight`.
+///
+/// \param tabControl The tab control; its user data must be the tab control
+///                   data.
+/// \param width      [out] Pane width in pixels.
+/// \param height     [out] Pane height in pixels.
+/// \param x          [out] Pane left edge, relative to the tab control.
+/// \param y          [out] Pane top edge, relative to the tab control.
+///
+/// \par Remastering
+/// The inline assembly only compiles for 32-bit x86 with MSVC-style
+/// assembler blocks, and it depends on the compiler keeping the user-data
+/// pointer in a particular register. When the build no longer needs to
+/// match retail bytes, replace the two assembly blocks with Zero Hour's
+/// plain C++ for the width and height (GeneralsMD GadgetTabControl.cpp),
+/// whose results the Implementation bullets above describe.
+///
+/// \see GadgetTabControlComputeTabRegion()
+
+
+/// \fn WindowMsgHandledType GadgetTabControlInput(GameWindow *tabControl, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+/// \brief Input callback of the tab control: switches panes when a tab is
+///        clicked.
+///
+/// Only a left-button press is acted on. The mouse position arrives in
+/// screen coordinates packed into mData1 and is converted to the tab
+/// control's own coordinates, then tested against the tab strip that
+/// GadgetTabControlComputeTabRegion() stored.
+/// - Outside the strip, the press is swallowed (reported as handled), so a
+///   click on the tab control's background does not fall through to windows
+///   behind it. (Zero Hour's comment here notes that a press on a button
+///   inside a pane goes to that button and never reaches the tab control.)
+/// - Inside the strip, the tab index is the distance along the strip divided
+///   by one tab's size. If that pane is not disabled and is not already the
+///   active one, GadgetTabControlShowSubPane() switches to it.
+///
+/// In BFME 2 the only retail caller is the input method of the tab
+/// control's window class (see the group description).
+///
+/// \par Implementation
+/// The press-on-a-tab case has no break: it falls into the default case
+/// and returns MSG_IGNORED after switching panes, exactly as Zero Hour
+/// does. A press exactly on the strip's far edge gives an index equal to
+/// the tab count; GadgetTabControlShowSubPane() clamps it back. A tab size
+/// of zero would divide by zero.
+///
+/// \param tabControl The tab control.
+/// \param msg        Window message; only the left-button-down message is
+///                   handled.
+/// \param mData1     Packed mouse position in screen coordinates: x in the
+///                   low 16 bits, y in the high 16 bits.
+/// \param mData2     Not used.
+/// \return MSG_HANDLED for a press outside the tab strip; MSG_IGNORED for
+///         everything else, including a press on a tab.
+///
+/// \see GadgetTabControlSystem(), GadgetTabControlShowSubPane()
+
+
+/// \fn WindowMsgHandledType GadgetTabControlSystem(GameWindow *tabControl, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+/// \brief System callback of the tab control: frees its data, keeps the
+///        layout in step with resizes, and passes button presses up.
+///
+/// Messages handled:
+/// - Create: nothing to do.
+/// - Destroy: deletes the tab control data. The window owns it.
+/// - Resized (the gadget resize message): resizes and moves every pane with
+///   GadgetTabControlResizeSubPanes(), then recomputes the tab strip with
+///   GadgetTabControlComputeTabRegion().
+/// - Button selected: forwarded unchanged to the tab control's parent with
+///   the window manager's winSendSystemMsg, and that result is returned.
+///   Zero Hour creates panes with PassSelectedButtonsToParentSystem as
+///   their system callback (BFME 2 stores the same function in the pane's
+///   creation record), so a button pressed inside a pane reaches the pane,
+///   then the tab control, then the screen that owns the tab control.
+///
+/// In BFME 2 the only retail caller is the system method of the tab
+/// control's window class (see the group description).
+///
+/// \param tabControl The tab control.
+/// \param msg        System message.
+/// \param mData1     First message argument; passed on for a button
+///                   selection.
+/// \param mData2     Second message argument; passed on for a button
+///                   selection.
+/// \return MSG_HANDLED for create, destroy and resize; the parent's result
+///         for a forwarded button selection; MSG_IGNORED otherwise,
+///         including a button selection when the tab control has no parent.
+///
+/// \see GadgetTabControlInput(), GadgetTabControlResizeSubPanes()
+
+
+/// \fn void GadgetTabControlShowSubPane(GameWindow *tabControl, Int whichPane)
+/// \brief Makes one pane of a tab control the visible, active pane and
+///        hides all the others.
+///
+/// Called when a tab is clicked (GadgetTabControlInput()), after the panes
+/// are created (GadgetTabControlCreateSubPanes(), with the current active
+/// tab) and by the tab-control factory. No message is sent to anyone; the
+/// active tab is simply recorded in the tab control data.
+///
+/// \par Implementation
+/// - Every existing pane of the eight is hidden.
+/// - The requested pane becomes active if that slot holds a window;
+///   otherwise pane 0 does.
+/// - The choice is then clamped to the last tab (tab count minus one), so a
+///   pane beyond the tab count is never shown.
+/// - The chosen pane is shown.
+///
+/// BFME 2 writes the clamp as a pointer select instead of Zero Hour's `min`
+/// call, to match retail's code; the effect is the same.
+///
+/// \param tabControl The tab control.
+/// \param whichPane  Index of the pane to show. It is used as an array
+///                   index before any check, so it must be below eight.
+///
+/// \warning The final pane is shown without a null check. A tab count of
+///          zero, or an empty slot 0 when the requested slot is empty, makes
+///          it use an invalid window pointer.
+///
+/// \see GadgetTabControlInput(), GadgetTabControlCreateSubPanes()
+
+
+/// \fn void GadgetTabControlCreateSubPanes(GameWindow *tabControl)
+/// \brief Creates a blank pane window for every empty pane slot of a tab
+///        control and fits the existing panes to the pane area.
+///
+/// The tab-control factory calls it once the tab control data is in place.
+/// All eight slots get a window whatever the tab count; panes beyond the
+/// count simply stay hidden, because GadgetTabControlShowSubPane() never
+/// picks them.
+///
+/// \par Implementation
+/// For an empty slot, a new window is created through the window manager
+/// from a creation record (see the note below). It is then given the
+/// tab-pane style, the name
+/// "Pane" followed by its index, and the tab control's enabled state. A slot
+/// that already has a window instead has its size and position set to the
+/// pane area from GadgetTabControlComputeSubPaneSize(). Finally the active
+/// tab is shown with GadgetTabControlShowSubPane().
+///
+/// \param tabControl The tab control; its user data must be the tab control
+///                   data.
+///
+/// \note BFME 2 creates the pane through the window manager's create call
+///       that takes a creation record, not Zero Hour's winCreate with
+///       explicit arguments. Retail stores five values in the record: the
+///       tab control, a zero, the two pane coordinates and the address of
+///       PassSelectedButtonsToParentSystem. Their roles (parent, status,
+///       position, system callback) are inferred from Zero Hour's winCreate
+///       arguments, not named by retail; the same first field holds an id in
+///       other callers. The fields that would hold the width and height stay
+///       zero, where Zero Hour passed the computed pane size. What size the
+///       window manager then gives a new pane has not been traced; the next
+///       resize (GadgetTabControlResizeSubPanes()) sets it to the pane area.
+///
+/// \see GadgetTabControlComputeSubPaneSize(), GadgetTabControlFixupSubPaneList()
+
+
+/// \fn void GadgetTabControlResizeSubPanes(GameWindow *tabControl)
+/// \brief Sets every existing pane of a tab control to the current pane
+///        area.
+///
+/// GadgetTabControlSystem() calls it when the tab control has been resized,
+/// before recomputing the tab strip. Empty slots are skipped; nothing is
+/// created.
+///
+/// \param tabControl The tab control; its user data must be the tab control
+///                   data.
+///
+/// \see GadgetTabControlComputeSubPaneSize(), GadgetTabControlCreateSubPanes()
+
+
+/// \fn void GadgetTabControlFixupSubPaneList(GameWindow *tabControl)
+/// \brief Refills a tab control's pane array from its child windows, in
+///        creation order.
+///
+/// The function walks to the last child in the tab control's child list and
+/// then back towards the first, storing each child in the next pane slot
+/// from 0 upwards. Zero Hour's window manager normally puts a new child at
+/// the front of its parent's list, so this reversal makes the pane array
+/// follow the order in which the panes were created.
+///
+/// Zero Hour: the .wnd loader calls this when it finishes a TABCONTROL
+/// window, once all its children exist. BFME 2: no named retail caller has
+/// been identified yet; the BFME 2 copy of parseChildWindows that would call
+/// it is not yet matched.
+///
+/// \param tabControl The tab control; its user data must be the tab control
+///                   data.
+///
+/// \warning Every child is stored and nothing limits the count, so a tab
+///          control with more than eight children writes past the pane
+///          array.
+///
+/// \see GadgetTabControlCreateSubPanes()
+
+
+/// \file Gadget/GadgetComboBox.cpp
+/// \ingroup grp_w1_gui_gadgets
+/// \brief Combo box helpers; documented here: colours, text colours and
+///        the text length limit.
+///
+/// A combo box is a window with three child gadgets: an edit box (a text
+/// entry field) showing the current text, a drop-down button and a list box
+/// that opens below it. Its user data (Zero Hour's ComboBoxData) points at
+/// all three. BFME 2 lays that block out differently: the entry count and
+/// the three child pointers sit one 4-byte slot later than in Zero Hour, so
+/// some bodies here read the children by position instead of by Zero Hour's
+/// field names.
+///
+/// This file holds only some of the combo box functions; others live in
+/// their own files (GadgetComboBoxAddEntry.cpp, GadgetComboBoxGetText.cpp
+/// and more).
+
+
+/// \fn void GadgetComboBoxSetColors(GameWindow *comboBox, Color enabledColor, Color enabledBorderColor, Color enabledSelectedItemColor, Color enabledSelectedItemBorderColor, Color disabledColor, Color disabledBorderColor, Color disabledSelectedItemColor, Color disabledSelectedItemBorderColor, Color hiliteColor, Color hiliteBorderColor, Color hiliteSelectedItemColor, Color hiliteSelectedItemBorderColor)
+/// \brief Sets a combo box's twelve state colours on the combo box and on
+///        all three of its child gadgets.
+///
+/// The colours come in three states (enabled, disabled, highlighted), each
+/// with a fill colour, a border colour, a selected-item colour and a
+/// selected-item border colour. GameWindowManager::assignDefaultGadgetLook
+/// is the retail caller: when a combo box gets the default look it passes a
+/// fixed palette (mostly reds and yellow when enabled, greys when disabled
+/// and greens when highlighted, with white for some selected-item colours)
+/// before assigning the named images.
+///
+/// \par Implementation
+/// - The combo box window: for each state, draw-data entry 0 gets the fill
+///   and border colours and entry 1 the selected-item pair.
+/// - The edit box and then the drop-down button get the same twelve
+///   settings, when present.
+/// - The list box, when present, gets all twelve through
+///   GadgetListBoxSetColors, which spreads them over the list box and its
+///   own children.
+///
+/// \param comboBox                        The combo box; must not be null.
+/// \param enabledColor                    Fill colour when enabled.
+/// \param enabledBorderColor              Border colour when enabled.
+/// \param enabledSelectedItemColor        Selected-item colour when enabled.
+/// \param enabledSelectedItemBorderColor  Selected-item border when enabled.
+/// \param disabledColor                   Fill colour when disabled.
+/// \param disabledBorderColor             Border colour when disabled.
+/// \param disabledSelectedItemColor       Selected-item colour when disabled.
+/// \param disabledSelectedItemBorderColor Selected-item border when disabled.
+/// \param hiliteColor                     Fill colour when highlighted.
+/// \param hiliteBorderColor               Border colour when highlighted.
+/// \param hiliteSelectedItemColor         Selected-item colour when
+///                                        highlighted.
+/// \param hiliteSelectedItemBorderColor   Selected-item border when
+///                                        highlighted.
+///
+/// \note The source fetches the children through accessor functions whose
+///       current names follow Zero Hour's field order, not BFME 2's; the
+///       body's local variable names give the actual roles.
+///
+/// \par Modding
+/// The default palette is hard-coded in
+/// GameWindowManager::assignDefaultGadgetLook, so restyling default combo
+/// boxes means changing code; the images it assigns are looked up by name
+/// (ListBoxEnabled and similar) and can be replaced in data.
+///
+/// \see GadgetComboBoxSetEnabledTextColors()
+
+
+/// \fn void GadgetComboBoxSetEnabledTextColors(GameWindow *comboBox, int color, int borderColor)
+/// \brief Passes a combo box's enabled text colours on to its list box and
+///        edit box.
+///
+/// GameWindow::winSetEnabledTextColors stores the colours on the window
+/// itself and then, when the window has the combo box style, calls this so
+/// that the text inside the combo box's children matches. The drop-down
+/// button is left alone.
+///
+/// \param comboBox    The combo box. Null is ignored.
+/// \param color       Text colour.
+/// \param borderColor Text outline colour.
+///
+/// \see GadgetComboBoxSetDisabledTextColors(), GadgetComboBoxSetHiliteTextColors(),
+///      GadgetComboBoxSetIMECompositeTextColors()
+
+
+/// \fn void GadgetComboBoxSetDisabledTextColors(GameWindow *comboBox, int color, int borderColor)
+/// \brief Passes a combo box's disabled text colours on to its list box and
+///        edit box.
+///
+/// The disabled-state counterpart of GadgetComboBoxSetEnabledTextColors(),
+/// called from GameWindow::winSetDisabledTextColors.
+///
+/// \param comboBox    The combo box.
+/// \param color       Text colour.
+/// \param borderColor Text outline colour.
+///
+/// \warning Unlike its three siblings, this function reads the combo box's
+///          user data before testing the window pointer for null, so the
+///          null test cannot protect it. Zero Hour has the same order and
+///          retail keeps it. Its only retail caller passes its own window,
+///          which is never null.
+///
+/// \see GadgetComboBoxSetEnabledTextColors()
+
+
+/// \fn void GadgetComboBoxSetHiliteTextColors(GameWindow *comboBox, int color, int borderColor)
+/// \brief Passes a combo box's highlighted text colours on to its list box
+///        and edit box.
+///
+/// The highlighted-state counterpart of
+/// GadgetComboBoxSetEnabledTextColors(), called from
+/// GameWindow::winSetHiliteTextColors.
+///
+/// \param comboBox    The combo box. Null is ignored.
+/// \param color       Text colour.
+/// \param borderColor Text outline colour.
+///
+/// \see GadgetComboBoxSetEnabledTextColors()
+
+
+/// \fn void GadgetComboBoxSetIMECompositeTextColors(GameWindow *comboBox, int color, int borderColor)
+/// \brief Passes a combo box's IME composition text colours on to its list
+///        box and edit box.
+///
+/// These are the colours for text still being composed in an input method
+/// editor (used for East Asian text input). Called from
+/// GameWindow::winSetIMECompositeTextColors in the same way as
+/// GadgetComboBoxSetEnabledTextColors().
+///
+/// \param comboBox    The combo box. Null is ignored.
+/// \param color       Text colour.
+/// \param borderColor Text outline colour.
+///
+/// \see GadgetComboBoxSetEnabledTextColors()
+
+
+/// \fn void GadgetComboBoxSetMaxChars(GameWindow *comboBox, Int maxChars)
+/// \brief Sets the longest text a combo box accepts, in characters.
+///
+/// The limit is stored twice: in the combo box data, and as the maximum
+/// text length of the edit box. Once the combo box has been built, its
+/// entry-data pointer is the edit box's own data, so the second store
+/// changes how much the user can type. Retail callers:
+/// - the combo box factory (GameWindowManager::gogoGadgetComboBox), which
+///   applies the limit from the combo box's creation data;
+/// - AptOnlineLogin::InitGadgets, which limits the online login screen's
+///   nickname box to 15 characters and its e-mail box to 16.
+///
+/// \param comboBox The combo box. Null is ignored.
+/// \param maxChars Maximum number of characters. The edit box keeps it as a
+///                 16-bit value.
+///
+/// \note The text entry factory (GameWindowManager::gogoGadgetTextEntry)
+///       clamps a field's limit to 256 characters when the field is
+///       created; this function does not repeat that clamp, so a larger
+///       value set later is not clamped here.
+///
+/// \par Modding
+/// The online login limits above are constants in code, not data.
+///
+/// \see GadgetComboBoxSetColors()
+
+
+/// \file Gadget/GadgetPushButton.cpp
+/// \ingroup grp_w1_gui_gadgets
+/// \brief Push button helpers: the check-like (toggle) mode, plus the
+///        GadgetButtonGetData accessor (not documented here).
+///
+/// A check-like push button stays pressed when clicked and releases on the
+/// next click, like a check box drawn as a button. Two pieces of window
+/// state express it: a window status bit makes the button check-like, and
+/// the "selected" bit of the window's instance state records whether it is
+/// currently pressed. Most of Zero Hour's other push button functions are
+/// in separate BFME 2 files (GadgetPushButtonInput.cpp,
+/// GadgetPushButtonSystem.cpp, GadgetButtonSetText.cpp and others); a few
+/// have not been located in retail yet.
+
+
+/// \fn void GadgetButtonEnableCheckLike(GameWindow *g, Bool makeCheckLike, Bool initiallyChecked)
+/// \brief Turns a push button's check-like (toggle) mode on or off and sets
+///        whether it starts pressed.
+///
+/// The retail caller is ControlBar::setControlCommand, which binds a
+/// command button definition to a control bar button. It turns the mode on
+/// when the command button's options include the check-like flag and off
+/// otherwise, and always starts the button unpressed.
+///
+/// \par Implementation
+/// Sets or clears the check-like window status bit with winSetStatus or
+/// winClearStatus, then sets or clears the selected bit of the window's
+/// instance state. Returns early if the window or its instance data is
+/// null.
+///
+/// \param g                The push button.
+/// \param makeCheckLike    true to make the button check-like, false to make
+///                         it an ordinary button.
+/// \param initiallyChecked true to start pressed.
+///
+/// \par Modding
+/// Which command buttons toggle is data: an option flag on the
+/// CommandButton definition. BFME 2 tests the same bit as Zero Hour's
+/// CHECK_LIKE option; the BFME 2 INI spelling of that option has not been
+/// checked here. The control bar resets the pressed state each time it
+/// binds the button.
+///
+/// \see GadgetCheckLikeButtonIsChecked(), ControlBar::setControlCommand
+
+
+/// \fn Bool GadgetCheckLikeButtonIsChecked(GameWindow *button)
+/// \brief Reports whether a check-like push button is currently pressed.
+///
+/// Reads the selected bit of the window's instance state, the bit that
+/// GadgetButtonEnableCheckLike() initialises. No named retail caller has
+/// been identified yet.
+///
+/// \param button The push button. Null gives false.
+/// \return true if the selected bit is set; false if it is clear or the
+///         window or its instance data is null. The window's check-like
+///         status is not tested.
+///
+/// \see GadgetButtonEnableCheckLike()
+
+
+/// \file Gadget/GadgetProgressBar.cpp
+/// \ingroup grp_w1_gui_gadgets
+/// \brief The progress bar gadget: its system callback and its setter.
+///
+/// A progress bar stores its current value, a whole percentage, directly in
+/// the window's user-data pointer instead of in a separate data block.
+/// Setting it is done by message: GadgetProgressBarSetProgress() sends the
+/// set-progress system message and GadgetProgressBarSystem() stores it.
+/// Zero Hour: the W3D progress bar draw function reads the percentage back
+/// from the user data.
+
+
+/// \fn WindowMsgHandledType GadgetProgressBarSystem(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2)
+/// \brief System callback of the progress bar: stores a new progress value.
+///
+/// Handles one message, set-progress, whose first argument is the new value.
+/// A value from 0 to 100 is stored as the window's user data; anything else
+/// is dropped, but the message still counts as handled. In BFME 2 the retail
+/// caller is the system method of the progress bar's window class (see the
+/// group description).
+///
+/// \param window The progress bar.
+/// \param msg    System message.
+/// \param mData1 For set-progress, the new percentage.
+/// \param mData2 Not used.
+/// \return MSG_HANDLED for set-progress, valid or not; MSG_IGNORED for
+///         every other message.
+///
+/// \note The set-progress message has a different number in BFME 2 than
+///       Zero Hour's GPM_SET_PROGRESS: it is three higher, so BFME 2's
+///       gadget message list differs from Zero Hour's somewhere before it.
+///       Code that sends gadget messages by number cannot take Zero Hour's
+///       values on trust.
+///
+/// \see GadgetProgressBarSetProgress()
+
+
+/// \fn void GadgetProgressBarSetProgress(GameWindow *g, Int progress)
+/// \brief Sets a progress bar to a percentage.
+///
+/// Sends the set-progress system message to the bar through the window
+/// manager's winSendSystemMsg, so the value goes through
+/// GadgetProgressBarSystem() and its range check. Retail callers include
+/// the shell's game load screen (ShellGameLoadScreen::update), the map
+/// transfer load screen and the control bar's timer display
+/// (ControlBar::updateOCLTimerTextDisplay).
+///
+/// \param g        The progress bar. Null is ignored.
+/// \param progress New value, 0 to 100. Values outside that range leave the
+///                 bar unchanged.
+///
+/// \par Modding
+/// The range is fixed at whole percentages from 0 to 100; callers convert
+/// their own progress to that scale.
+///
+/// \see GadgetProgressBarSystem()
+
+
+/// \file Gadget/GadgetTextEntry.cpp
+/// \ingroup grp_w1_gui_gadgets
+/// \brief Text entry helpers: GadgetTextEntrySetFont(), plus the retail
+///        copy of the inline GadgetTextEntrySetTextColor().
+///
+/// A text entry field keeps its text in display strings held by its user
+/// data (Zero Hour's EntryData): the visible text and a second string that
+/// holds the masked form for secret text such as passwords. Those strings
+/// need the window's font too, which is why the field has its own font
+/// setter. The input and system callbacks and the character validation are
+/// in other files.
+
+
+/// \fn void GadgetTextEntrySetFont(GameWindow *g, GameFont *font)
+/// \brief Applies a font to every display string of a text entry field.
+///
+/// GameWindow::winSetFont stores the font on the window and then, for a
+/// window with the entry field style, calls this instead of updating only
+/// the window's own strings.
+///
+/// \par Implementation
+/// Sets the font on the window's text and tooltip display strings, then on
+/// the entry's text string and its masked secret-text string, skipping any
+/// that does not exist. The entry strings are skipped entirely when the
+/// window has no user data yet. The display strings' font setter is called
+/// through its virtual table slot.
+///
+/// \param g    The text entry field; must not be null.
+/// \param font Font to apply.
+///
+/// \see GadgetTextEntrySetTextColor()
+
+
+/// \file GeneralsMD/Code/GameEngine/Include/GameClient/GadgetTextEntry.h
+/// \ingroup grp_w1_gui_gadgets
+/// \brief Zero Hour's text entry header, listed for one inline function
+///        that BFME 2 retail carries as an out-of-line copy.
+///
+/// BFME 2's GadgetTextEntry.cpp compiles against this header, read-only in
+/// the BFME 1 reference checkout. This page is listed for
+/// GadgetTextEntrySetTextColor(). GadgetTextEntrySetFont() also appears
+/// because the header declares it; its body is in GadgetTextEntry.cpp.
+
+
+/// \fn void GadgetTextEntrySetTextColor(GameWindow *g, Color color)
+/// \brief Sets a text entry field's text colour, with a darker shade for
+///        its disabled state.
+///
+/// The enabled text colour becomes the given colour and the disabled text
+/// colour a 25 percent darker shade of it; both keep the window's current
+/// enabled text outline colour. It goes through
+/// GameWindow::winSetEnabledTextColors and winSetDisabledTextColors, so the
+/// window's own colours change.
+///
+/// Zero Hour defines it inline in this header and uses it when a combo box
+/// updates its edit box. BFME 2 retail has a separate copy of the function,
+/// which GadgetTextEntry.cpp reproduces from the same inline definition;
+/// no retail caller of that copy has been identified yet.
+///
+/// \param g     The text entry field; must not be null.
+/// \param color New text colour.
+///
+/// \see GadgetTextEntrySetFont(), GadgetComboBoxSetEnabledTextColors()

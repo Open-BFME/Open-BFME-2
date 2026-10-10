@@ -1,0 +1,637 @@
+/// \defgroup grp_w1_wwlib_streams WWLib streams: pipes, straws, Base64 and Read_Line
+/// \ingroup grp_wwlib_thirdparty
+/// \brief Westwood's chainable byte streams (a Pipe pushes data toward a
+///        sink, a Straw pulls it from a source), the Base64 codec and the
+///        Read_Line text reader built on them.
+///
+/// A Pipe is a push stream. The writer calls Pipe::Put on the first
+/// segment of a chain; each segment hands the data, possibly transformed, to
+/// the next one, and the chain ends in a sink: FilePipe writes to a file,
+/// BufferPipe to memory. A Straw is the pull-side mirror. The reader calls
+/// Straw::Get on the last segment, which asks the segment it draws from, and
+/// so on back to a source: FileStraw reads a file, BufferStraw reads memory.
+/// CacheStraw (read-ahead buffering), Base64Pipe and Base64Straw (Base64
+/// encoding or decoding) are segments that sit in between. Segments are
+/// linked with Pipe::Put_To and Straw::Get_From. Each segment knows both of
+/// its neighbours, so a chain repairs itself when a segment is destroyed.
+///
+/// The known users of the pipe and straw segments are WWLib's INIClass,
+/// Westwood's own INI reader and writer, or code built on it:
+/// - INIClass::Load(Straw&) puts a CacheStraw in front of the straw it is
+///   given and reads it with Read_Line. INIClass::Load(FileClass&) passes it
+///   a FileStraw over the file; RegistryClass::Load_Registry loads that way.
+///   VertexMaterialClass::Parse_Mapping_Args, called from
+///   VertexMaterialClass::Load_W3D, passes a BufferStraw over the texture
+///   mapper arguments stored in a W3D vertex material.
+/// - INIClass::Save(FileClass&) writes through a FilePipe;
+///   RegistryClass::Save_Registry saves that way.
+/// - INIClass::Put_UUBlock and INIClass::Put_Wide_String turn binary data or
+///   a wide string into Base64 text with a BufferStraw and a Base64Straw.
+///   INIClass::Get_UUBlock and INIClass::Get_Wide_String turn the text back
+///   with a Base64Pipe and a BufferPipe. INIClass::Put_PKey,
+///   INIClass::Get_PKey and the registry export and import use the UUBlock
+///   forms.
+///
+/// Separately, the public-key code takes a plain Straw& as its source of
+/// random bytes: PKey::Generate, the Generate_Prime template and
+/// Int::Randomize in pk.cpp, and XMP_Randomize, XMP_Randomize_Bounded and
+/// XMP_Rabin_Miller_Test in mpmath.cpp. No named retail caller of
+/// PKey::Generate has been found.
+///
+/// Every function documented here is a matched ledger row whose body is
+/// Zero Hour's WWLib source, unchanged. At present BFME 2's tree has no copy
+/// of the class headers: its units compile against the Open-BFME-1
+/// reference copies (pipe.h, straw.h, xpipe.h, xstraw.h, cstraw.h, b64pipe.h
+/// and b64straw.h), which is where the documentation build reads the
+/// declarations from.
+/// Zero Hour's WWLib also has compressing, encrypting, hashing and
+/// random-number segments (LZO, LCW, Blowfish, SHA, CRC, public key and
+/// random straws); none of them has been found in BFME 2 so far.
+/// \ref sub_wwlib_thirdparty describes the rest of WWLib.
+///
+/// \par Modding
+/// - The game's data INI files are read by the engine's own INI class
+///   (INI::load and INI::readLine), not by this code. No game engine
+///   source reconstructed so far uses pipes, straws or Read_Line.
+/// - Text that does come through Read_Line, such as the mapper arguments in
+///   a W3D vertex material, is read a line at a time: leading white space
+///   is removed and trailing white space usually is (see the strtrim quirk
+///   under Read_Line), carriage returns are dropped, and a line longer than
+///   the reader's buffer is cut short. INIClass::Load reads with a buffer of
+///   INIClass::MAX_LINE_LENGTH (4,096) bytes.
+/// - The Base64 here is the standard alphabet (A-Z, a-z, 0-9, + and /) with
+///   = padding, so values that INIClass stores with Put_UUBlock can be made
+///   with any standard encoder. Base64Pipe decodes four characters at a
+///   time, so such values must not contain spaces or line breaks.
+///
+/// \par Remastering
+/// - FileStraw and FilePipe use only the FileClass interface of the file
+///   they are given, so any FileClass implementation works unchanged. Note
+///   that the registry export and import (RegistryClass::Save_Registry and
+///   RegistryClass::Load_Registry) build a RawFileClass directly rather
+///   than asking the file factory.
+/// - The Base64 codec assembles its 24-bit groups in a union of bytes and
+///   bit-fields, which depends on the compiler's bit-field order and on a
+///   little-endian CPU; see the base64.cpp file page.
+/// - The wide Read_Line reads 16-bit characters, because wchar_t is 16 bits
+///   in this build.
+/// - Read_Line asks its straw for one character at a time through a virtual
+///   call. Put a CacheStraw in front of a slow source, as INIClass::Load
+///   does.
+
+
+/// \file WWVegas/WWLib/base64.cpp
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Base64 encoder and decoder: Base64_Encode and Base64_Decode.
+///
+/// Converts between bytes and the standard Base64 text form: every three
+/// bytes become four characters from A-Z, a-z, 0-9, + and /, and a final
+/// group of one or two bytes is padded with = to four characters. The two
+/// functions work on whole buffers. Base64Pipe and Base64Straw call them a
+/// group at a time to put the codec into a stream chain; they are its only
+/// callers in the retail call graph.
+///
+/// At present BFME 2's tree has no base64.h, so the file declares its own
+/// two prototypes; the bodies are Zero Hour's.
+///
+/// \par Remastering
+/// Each group is assembled in a union that overlays three bytes with four
+/// 6-bit bit-fields in one 32-bit integer. On a little-endian CPU, with
+/// bit-fields allocated from the low bit as this compiler does, the fields
+/// line up with the standard bit order. A BIG_ENDIAN define reverses the
+/// field order for big-endian targets. A port to another compiler or CPU
+/// has to confirm that layout, or replace the union with shifts and masks.
+
+
+/// \fn int Base64_Encode(void const *source, int slen, void *dest, int dlen)
+/// \brief Encodes a block of bytes as Base64 text.
+///
+/// Called by Base64Pipe and Base64Straw one group at a time when they are
+/// set to encode.
+///
+/// \par Implementation
+/// Takes three bytes at a time, the first supplying the top bits, and writes
+/// four characters. When only one or two bytes remain, the missing characters
+/// are written as =. Encoding stops when the source is used up or fewer
+/// than four bytes of output space remain, so a short output buffer
+/// silently truncates the text, always at a group boundary. If space is
+/// left afterwards, a terminating NUL is written; it is not counted.
+///
+/// \param source Bytes to encode.
+/// \param slen   Number of bytes in source.
+/// \param dest   Output buffer for the text.
+/// \param dlen   Size of dest in bytes: four for every three source bytes,
+///               rounded up, plus one if a terminating NUL is wanted.
+/// \return Characters written, always a multiple of four, not counting the
+///         NUL. 0 if source or dest is null or either length is 0.
+/// \see Base64_Decode, Base64Pipe::Put, Base64Straw::Get
+
+
+/// \fn int Base64_Decode(void const *source, int slen, void *dest, int dlen)
+/// \brief Decodes Base64 text into bytes.
+///
+/// Called by Base64Pipe and Base64Straw one group at a time when they are
+/// set to decode; Base64Pipe is the one INIClass uses.
+///
+/// \par Implementation
+/// Collects four valid characters at a time and writes the three bytes they
+/// hold. Characters outside the alphabet, such as spaces and line breaks,
+/// are skipped. The first = ends decoding wherever it appears, whatever
+/// slen says. A final group of two or three characters yields one or two
+/// bytes. A lone final character still yields one byte, of which only the
+/// top six bits come from the input. Decoding also stops when dest is full.
+///
+/// \param source Text to decode.
+/// \param slen   Number of characters in source.
+/// \param dest   Output buffer for the bytes.
+/// \param dlen   Size of dest in bytes.
+/// \return Bytes written. 0 if source or dest is null or either length is
+///         0.
+///
+/// \note When skipped characters (a trailing line break, for example) or an
+///       extra = follow the last complete group, the loop runs once more
+///       with no characters and writes one extra zero byte, which is
+///       counted in the result.
+/// \see Base64_Encode, Base64Pipe::Put, Base64Straw::Get
+
+
+/// \file WWVegas/WWLib/readline.cpp
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Read_Line: reads one text line from a Straw or a FileClass.
+///
+/// Three overloads: narrow and wide text from a Straw, and narrow text from
+/// a FileClass through a temporary FileStraw. INIClass::Load(Straw&) is the
+/// main user, reading through a CacheStraw. The bodies are Zero Hour's
+/// readline.cpp unchanged; the declarations are in WWLib's readline.h.
+
+
+/// \fn int Read_Line(Straw &file, char *buffer, int len, bool &eof)
+/// \brief Reads one line of 8-bit text from a straw and trims it with
+///        strtrim.
+///
+/// INIClass::Load(Straw&) reads every line of an INI image this way, from a
+/// CacheStraw, and Read_Line(FileClass&, char*, int, bool&) forwards here.
+///
+/// \par Implementation
+/// Takes one character at a time from the straw until a line feed (0x0A)
+/// or the end of the data. Carriage returns (0x0D) are dropped wherever
+/// they occur, so files with CR LF and LF line ends read alike, and a file
+/// that uses CR alone reads as one long line. At most len minus 1
+/// characters are kept; the rest of an overlong line is read and thrown
+/// away, so the next call starts on the next line. The result is
+/// NUL-terminated and then trimmed with strtrim. Leading characters with
+/// codes of 32 and below are always removed, and normally the trailing
+/// ones too. A quirk in strtrim can leave some trailing white space behind
+/// when the leading white space is longer than the text between the two.
+/// For example, two spaces, x and two spaces come back as x and one space,
+/// and four spaces, x=1 and five spaces come back as x=1 and one space.
+///
+/// \param file   Straw to read from. It is asked for one character per
+///               call, so a slow source should have a CacheStraw in front.
+/// \param buffer Receives the line. Must hold len characters.
+/// \param len    Size of buffer, including the terminating NUL.
+/// \param eof    [out] Set to true when the straw runs out, including when
+///               a last line without a line feed has just been returned.
+///               It is never set to false, so the caller initialises it.
+/// \return Length of the trimmed line. 0 without reading anything if len is
+///         0 or buffer is null.
+///
+/// \par Modding
+/// Leading spaces and tabs are always removed. Trailing ones are usually
+/// removed, but can survive on a line that also starts with white space
+/// (the strtrim quirk above), so do not rely on either. Lines longer than
+/// the reader's buffer are cut short without any warning; INIClass::Load
+/// uses a 4,096-byte buffer.
+/// \see Read_Line(Straw&, wchar_t*, int, bool&), CacheStraw::Get,
+///      INIClass::Load
+
+
+/// \fn int Read_Line(Straw &file, wchar_t *buffer, int len, bool &eof)
+/// \brief Reads one line of 16-bit text from a straw and trims it with
+///        wcstrim.
+///
+/// The wide twin of Read_Line(Straw&, char*, int, bool&), with the same
+/// rules: a line ends at a line feed character, carriage returns are
+/// dropped, at most len minus 1 characters are kept and the line is trimmed
+/// with wcstrim. wcstrim has the same quirk as strtrim: leading characters
+/// with codes of 32 and below are always removed, but some trailing white
+/// space can survive when the leading white space is longer than the text
+/// between the two. No named retail function calls it directly.
+///
+/// \param file   Straw to read from, two bytes per character.
+/// \param buffer Receives the line. Must hold len characters.
+/// \param len    Size of buffer in characters, including the terminating
+///               NUL.
+/// \param eof    [out] Set to true when the straw runs out; never set to
+///               false.
+/// \return Length of the trimmed line in characters.
+///
+/// \par Remastering
+/// - wchar_t is a 16-bit unsigned type in this build; the retail symbol
+///   takes an unsigned short pointer. The text is therefore UTF-16 in the
+///   machine's byte order, little-endian on x86. Built where wchar_t is 32
+///   bits, the function would read four bytes per character and no longer
+///   understand the same files.
+/// - There is no byte-order-mark handling: a leading 0xFEFF is above the
+///   trim range and stays at the start of the first line.
+/// \see Read_Line(Straw&, char*, int, bool&)
+
+
+/// \fn int Read_Line(FileClass &file, char *buffer, int len, bool &eof)
+/// \brief Reads one line of 8-bit text from a file.
+///
+/// Wraps the file in a FileStraw on the stack and calls
+/// Read_Line(Straw&, char*, int, bool&). No named retail function calls it
+/// directly.
+///
+/// \param file   File to read from.
+/// \param buffer Receives the line. Must hold len characters.
+/// \param len    Size of buffer, including the terminating NUL.
+/// \param eof    [out] Set to true when the file runs out; never set to
+///               false.
+/// \return Length of the trimmed line.
+///
+/// \warning If the file is not open, the temporary FileStraw opens it and
+///          closes it again when this function returns. Open the file
+///          first to read it line after line. Each character costs one
+///          FileClass::Read call, since nothing in this path caches.
+/// \see FileStraw::Get, Read_Line(Straw&, char*, int, bool&)
+
+
+/// \class Pipe
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Base class and pass-through segment of a push stream chain.
+///
+/// A pipe holds a pointer to the next segment, the one it puts data into,
+/// and one to the previous segment, the one that puts data into it. Derived
+/// classes override Put to transform data or to store it (a sink), and
+/// Flush to push out anything they hold back. A plain Pipe passes data on
+/// unchanged, and at the end of a chain it accepts data, discards it and
+/// reports it as written.
+///
+/// The interface, all virtual:
+/// - Put hands bytes to the segment and returns the number of bytes that
+///   reached the far end of the chain.
+/// - Flush pushes out held-back data and passes the flush down the chain.
+/// - End marks the end of the data. The base version calls Flush; FilePipe
+///   also closes its file if it opened it.
+/// - Put_To links the next segment.
+///
+/// Lifetime: segments do not own each other. Every retail user builds its
+/// chain from local objects in one function and, once it has put data in,
+/// finishes the chain with End before the objects go out of scope. Pipes
+/// cannot be copied or assigned.
+///
+/// \note Destroying a segment does not run a derived class's Flush, so a
+///       segment that holds data back, such as Base64Pipe, must be ended or
+///       flushed before it goes away.
+/// \see Straw, FilePipe, BufferPipe, Base64Pipe
+
+
+/// \fn Pipe::~Pipe(void)
+/// \brief Removes the pipe from its chain, joining its neighbours to each
+///        other.
+///
+/// When the pipe has a previous segment, that segment is re-linked with
+/// Put_To to the pipe's next segment, so a chain stays usable when a middle
+/// segment is destroyed. Like any re-link, this flushes the segments after
+/// the removed one. Both of the pipe's links are then cleared.
+/// \see Pipe::Put_To
+
+
+/// \fn void Pipe::Put_To(Pipe *pipe)
+/// \brief Makes pipe the next segment, the one this pipe puts its data
+///        into.
+///
+/// Linking to the current next segment changes nothing. Otherwise:
+/// - if pipe already has a previous segment, that segment is unlinked from
+///   it first, so a pipe never has two writers;
+/// - the old next segment, if any, is unlinked and flushed, so data held
+///   in it is not left behind;
+/// - pipe becomes the next segment and records this pipe as its previous
+///   one.
+///
+/// INIClass::Get_UUBlock and INIClass::Get_Wide_String call it with a
+/// BufferPipe to link their decoding Base64Pipe to it. Passing null unlinks
+/// and flushes the next segment.
+///
+/// \param pipe The new next segment, or null.
+/// \see Pipe::~Pipe, Straw::Get_From
+
+
+/// \fn int Pipe::Put(void const *source, int slen)
+/// \brief Passes data to the next segment unchanged.
+///
+/// Derived segments call it to send on what they have produced, as
+/// Base64Pipe::Put and Base64Pipe::Flush do.
+///
+/// \param source Bytes to pass on.
+/// \param slen   Number of bytes.
+/// \return What the next segment's Put returns. With no next segment, slen:
+///         the data is dropped but reported as written.
+
+
+/// \fn int Pipe::Flush(void)
+/// \brief Passes a flush down the chain.
+///
+/// \return What the next segment's Flush returns, or 0 with no next
+///         segment.
+
+
+/// \class Straw
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Base class and pass-through segment of a pull stream chain.
+///
+/// The pull-side mirror of Pipe. A straw holds a pointer to the segment it
+/// draws data from and one to the segment that draws from it. Get fills the
+/// caller's buffer: a source such as FileStraw or BufferStraw reads its own
+/// data, a middle segment such as CacheStraw or Base64Straw asks the
+/// segment it draws from (through Straw::Get) and transforms or buffers
+/// the result, and a plain Straw passes the request on unchanged. Getting
+/// fewer bytes than requested means the data has run out. There is no
+/// flush: a straw only produces data when asked.
+///
+/// Calling Get_From on a straw names the segment it draws from. Like
+/// pipes, straws do not own each other, retail users build them as local
+/// objects in one function, and they cannot be copied or assigned.
+/// Separately from the segments, the public-key code (PKey::Generate and
+/// the multi-precision helpers in pk.cpp and mpmath.cpp) takes a plain
+/// Straw& as its source of random bytes; no named retail caller of
+/// PKey::Generate has been found.
+/// \see Pipe, FileStraw, BufferStraw, CacheStraw, Base64Straw
+
+
+/// \fn Straw::~Straw(void)
+/// \brief Removes the straw from its chain, joining its neighbours to each
+///        other.
+///
+/// When another segment draws from this straw, that segment is re-linked
+/// with Get_From to the segment this straw drew from, so the chain stays
+/// usable. Both of the straw's links are then cleared.
+/// \see Straw::Get_From
+
+
+/// \fn void Straw::Get_From(Straw *pipe)
+/// \brief Makes pipe the segment this straw draws its data from.
+///
+/// The same linking rules as Pipe::Put_To, without the flush: linking to
+/// the current source changes nothing, a straw already drawn from by
+/// another segment is detached from it first, and the old source is
+/// unlinked. INIClass::Load(Straw&) links its CacheStraw to the caller's
+/// straw this way. INIClass::Put_UUBlock and INIClass::Put_Wide_String link
+/// a Base64Straw to a local BufferStraw over the caller's data.
+///
+/// \param pipe The straw to draw from, or null to unlink.
+/// \see Straw::~Straw, Pipe::Put_To
+
+
+/// \fn int Straw::Get(void *buffer, int slen)
+/// \brief Passes a data request on to the segment this straw draws from.
+///
+/// CacheStraw::Get and Base64Straw::Get call it to fetch their input.
+///
+/// \param buffer Buffer to fill.
+/// \param slen   Number of bytes wanted.
+/// \return Bytes delivered; 0 when there is no source.
+
+
+/// \class FilePipe
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Pipe sink that writes everything put into it to a FileClass.
+///
+/// INIClass::Save(FileClass&) writes an INI image through one. The pipe
+/// keeps a pointer to the file, never owns it, and remembers whether it
+/// opened the file itself: only then do End and the destructor close it.
+/// It is meant to be the last segment and does not pass data on.
+/// \see FileStraw, BufferPipe
+
+
+/// \fn int FilePipe::Put(void const *source, int slen)
+/// \brief Writes data to the file, opening it for writing first if it is
+///        not open.
+///
+/// \param source Bytes to write.
+/// \param slen   Number of bytes.
+/// \return What the file's Write method returns. 0 when there is no file,
+///         source is null or slen is not positive.
+///
+/// \note The result of the open is not checked; a failed open shows up
+///       only as a failed write.
+/// \see FilePipe::End
+
+
+/// \fn int FilePipe::End(void)
+/// \brief Ends the output and closes the file if this pipe opened it.
+///
+/// INIClass::Save(Pipe&) finishes its output with End, which reaches this
+/// for the FilePipe that INIClass::Save(FileClass&) passes in. The file
+/// pointer is kept, so a later Put would open the file for writing again.
+/// \return What the base End returns, normally 0.
+/// \see FilePipe::Put, FilePipe::~FilePipe
+
+
+/// \fn FilePipe::~FilePipe(void)
+/// \brief Closes the file if this pipe opened it and has not closed it.
+///
+/// A file the caller opened is left open.
+
+
+/// \class BufferPipe
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Pipe sink that copies everything put into it into a memory
+///        buffer.
+///
+/// Holds a Buffer over memory the caller supplies, without owning it, and a
+/// write position that only moves forward. INIClass::Get_UUBlock and
+/// INIClass::Get_Wide_String use one as the destination of a decoding
+/// Base64Pipe. It does not pass data on.
+/// \see BufferStraw, FilePipe
+
+
+/// \fn int BufferPipe::Put(void const *source, int slen)
+/// \brief Copies data into the buffer at the current position.
+///
+/// \param source Bytes to store.
+/// \param slen   Number of bytes.
+/// \return Bytes stored. When the buffer fills up, the rest is dropped and
+///         the result is smaller than slen. 0 if the buffer or source is
+///         null or slen is not positive.
+///
+/// \warning A buffer given a size of 0 is treated as unlimited: nothing
+///          stops a write past its end.
+/// \see BufferStraw::Get
+
+
+/// \class FileStraw
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Straw source that reads from a FileClass.
+///
+/// INIClass::Load(FileClass&) and Read_Line(FileClass&, char*, int, bool&)
+/// wrap a file in one. Like FilePipe, it keeps a pointer to the file, never
+/// owns it, and closes the file on destruction only if it opened it.
+/// \see FilePipe, BufferStraw
+
+
+/// \fn int FileStraw::Get(void *source, int slen)
+/// \brief Reads data from the file, opening it for reading first if it is
+///        not open.
+///
+/// A file that is not open is first checked with the file's Is_Available
+/// method and then opened; if either step fails, nothing is read.
+///
+/// \param source Buffer to fill (the declaration calls it source).
+/// \param slen   Number of bytes wanted.
+/// \return What FileClass::Read returns; 0 at the end of the file, when
+///         the file cannot be opened, or when the arguments are invalid.
+/// \see FilePipe::Put
+
+
+/// \fn FileStraw::~FileStraw(void)
+/// \brief Closes the file if this straw opened it.
+///
+/// A file the caller opened is left open, at whatever position the reads
+/// reached.
+
+
+/// \class BufferStraw
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Straw source that reads from a memory buffer.
+///
+/// Holds a Buffer over memory the caller supplies, without owning it, and a
+/// read position that only moves forward. INIClass::Put_UUBlock and
+/// INIClass::Put_Wide_String feed a Base64Straw from one, and
+/// VertexMaterialClass::Parse_Mapping_Args loads an INIClass from one.
+/// \see BufferPipe, FileStraw
+
+
+/// \fn int BufferStraw::Get(void *source, int slen)
+/// \brief Copies data from the buffer at the current position.
+///
+/// \param source Buffer to fill (the declaration calls it source).
+/// \param slen   Number of bytes wanted.
+/// \return Bytes copied; fewer than slen once the end of the buffer is
+///         reached, then 0. 0 if either buffer is null or slen is not
+///         positive.
+///
+/// \warning A buffer given a size of 0 is treated as unlimited: reads run
+///          on past its end.
+/// \see BufferPipe::Put
+
+
+/// \class CacheStraw
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Straw segment that reads ahead in large blocks so that many small
+///        requests cost few requests upstream.
+///
+/// By default it allocates and owns a 4,096-byte buffer; the constructors
+/// also accept another size, or an existing Buffer that it then uses
+/// without owning. INIClass::Load(Straw&) puts a default CacheStraw in
+/// front of the straw it is given, because Read_Line asks for one character
+/// at a time. The data passes through unchanged.
+///
+/// \note Because it reads ahead, the straw it draws from ends up as much as
+///       a buffer's worth further on than the data actually used.
+/// \see Read_Line(Straw&, char*, int, bool&)
+
+
+/// \fn int CacheStraw::Get(void *source, int slen)
+/// \brief Serves a request from the cached block, refilling it from the
+///        source as needed.
+///
+/// \par Implementation
+/// Copies what the buffer still holds, then asks the segment it draws from
+/// for a full buffer and repeats until the request is met or the source
+/// returns nothing.
+///
+/// \param source Buffer to fill (the declaration calls it source).
+/// \param slen   Number of bytes wanted.
+/// \return Bytes delivered; fewer than slen means the source has run out.
+/// \see Straw::Get
+
+
+/// \class Base64Pipe
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Pipe segment that Base64-encodes or decodes the data passing
+///        through it.
+///
+/// The direction is fixed by the constructor, which takes the class's
+/// ENCODE or DECODE value. The pipe converts whole groups, three bytes or
+/// four characters, and holds back an incomplete group until more data
+/// arrives or the pipe is flushed. Retail uses it only to decode:
+/// INIClass::Get_UUBlock and INIClass::Get_Wide_String put the stored text
+/// into a decoding Base64Pipe linked to a BufferPipe and finish with End.
+/// \see Base64Straw, Base64_Encode, Base64_Decode
+
+
+/// \fn int Base64Pipe::Put(void const *source, int slen)
+/// \brief Converts data a group at a time and passes the result down the
+///        chain.
+///
+/// \par Implementation
+/// First tops up a held-back partial group and, once it is complete,
+/// converts and sends it. Then converts every whole group in the new data
+/// directly from the caller's buffer, and holds back the leftover bytes for
+/// the next call. Each converted group goes on with Pipe::Put.
+///
+/// \param source Data to convert. Null, or a slen below 1, is passed on
+///               unchanged to the next segment instead.
+/// \param slen   Number of bytes.
+/// \return Bytes that reached the far end of the chain during this call;
+///         held-back bytes are not counted until they are sent.
+///
+/// \note When decoding, each four characters are decoded on their own, so
+///       a space or line break inside the text shifts the groups and
+///       corrupts the output. Base64_Decode on a whole buffer skips such
+///       characters safely.
+/// \see Base64Pipe::Flush
+
+
+/// \fn int Base64Pipe::Flush(void)
+/// \brief Converts and sends a held-back partial group, then flushes the
+///        rest of the chain.
+///
+/// When encoding, one or two leftover bytes become a padded group of four
+/// characters. When decoding, one to three leftover characters are decoded
+/// as far as they go. Pipe::End calls this, which is how the INIClass users
+/// finish their chains.
+/// \return Bytes that reached the far end of the chain, including what the
+///         downstream flush reports.
+/// \see Base64Pipe::Put
+
+
+/// \class Base64Straw
+/// \ingroup grp_w1_wwlib_streams
+/// \brief Straw segment that Base64-encodes or decodes the data drawn
+///        through it.
+///
+/// The pull-side twin of Base64Pipe, with the direction fixed by the
+/// constructor, which takes the class's ENCODE or DECODE value. Retail uses
+/// it only to encode, always over a BufferStraw. The section form of
+/// INIClass::Put_UUBlock draws the text 70 characters at a time and stores
+/// each piece as a numbered entry; the entry form of INIClass::Put_UUBlock
+/// and INIClass::Put_Wide_String store all of it in one entry. The wide
+/// string is encoded as its 16-bit characters, terminating NUL included.
+/// \see Base64Pipe, Base64_Encode, Base64_Decode
+
+
+/// \fn int Base64Straw::Get(void *source, int slen)
+/// \brief Delivers converted data, drawing and converting one group at a
+///        time from the source.
+///
+/// \par Implementation
+/// Hands out what is left of the last converted group, then draws one
+/// group (three bytes or four characters) through Straw::Get, converts it
+/// and repeats until the request is met or a group converts to nothing.
+/// The final group of an encode is padded, so the output is a whole number
+/// of four-character groups.
+///
+/// \param source Buffer to fill (the declaration calls it source).
+/// \param slen   Number of bytes wanted.
+/// \return Bytes delivered; fewer than slen means the source has run out.
+///
+/// \warning Decoding is wrong for a final group that decodes to fewer than
+///          three bytes. Leftover output is taken from the end of the
+///          three-byte group buffer, where only a full group puts it, so
+///          one or two stale bytes come out instead. Encoding, the only use
+///          in retail, is unaffected.
+/// \see Base64Pipe::Put
