@@ -639,6 +639,116 @@ def test_settle_keeps_every_claim_when_origin_master_is_unreadable(hosts, monkey
     assert set(claims.active()) == {0x100, 0x200}
 
 
+def _lease(rva):
+    claims.active.cache_clear()
+    return claims.active()[rva].get("lease")
+
+
+def test_the_claim_command_settles_other_landed_claims(hosts):
+    # 2026-10-10: 28% of live RVA claims sat on bodies origin/master already
+    # held, because a seat that runs `claims.py claim` never ran a picker
+    a = hosts("a")
+    _published_and_queued(a)
+    assert claims.main(["claim", "0x200"]) == 0
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x200} and claims.pending() == []
+
+
+def test_the_claim_command_renews_a_landed_claim_without_a_gap(hosts, monkeypatch):
+    # GPT-6.1-Sol review: settling BEFORE the claim released the claim being
+    # renewed and re-took it under a new lease, and a peer could win between
+    a = hosts("a")
+    old = _published_and_queued(a)
+    real_release = claims.release
+    attempts = []
+
+    def recorded(keys, *args, **kwargs):
+        # record and forward: an assertion raised here would be swallowed by
+        # settle() and would itself prevent the release (Sol, round 1)
+        attempts.append(claims._ints(keys))
+        return real_release(keys, *args, **kwargs)
+    monkeypatch.setattr(claims, "release", recorded)
+    assert claims.main(["claim", "0x100", "0x200"]) == 0
+    assert all(0x100 not in keys for keys in attempts)
+    assert _lease(0x100) == old.leases[0x100]
+    assert [e["rva"] for e in claims.pending()] == ["0x00000100"]   # its landing still settles it
+    hosts("b")
+    assert claims.claim([0x100]) == ([], [0x100])
+    # a later settlement that does not hold it releases it as usual
+    hosts("a")
+    assert claims.settle() == [0x100]
+
+
+def test_settle_never_releases_a_held_claim_it_is_asked_to_release(hosts):
+    # Sol round 1: `free` skipped waiting and released bodies, not held ones
+    hosts("a")
+    got = claims.claim([0x100, 0x200])
+    assert claims.settle([0x100, 0x200], hold={0x100}) == [0x200]
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x100}
+    assert claims.holds(0x100, got.tokens[0x100]) and _lease(0x100) == got.leases[0x100]
+
+
+def test_a_sha_trailer_never_releases_a_held_claim(hosts):
+    # Sol round 1: hold was checked only against queued landings, so a
+    # Claim-Lease trailer for an unqueued body released it anyway
+    a = hosts("a")
+    _commit_ledger(a, [], "base")
+    got = claims.claim([0x300, 0x400])
+    sha = _commit_ledger(a, ["?g@@YAXXZ,,0x00000300,8,Code/y.cpp,matched,",
+                             "?h@@YAXXZ,,0x00000400,8,Code/y.cpp,matched,"],
+                         f"land\n\nClaim-Lease: 0x00000300={got.leases[0x300]}\n"
+                         f"Claim-Lease: 0x00000400={got.leases[0x400]}\n")
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    released, _ = claims.release_landed(sha, hold={0x300})
+    assert released == [0x400]
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x300} and claims.holds(0x300, got.tokens[0x300])
+    released, _ = claims.release_landed(sha)        # not held: the trailer releases it
+    assert released == [0x300]
+
+
+def test_an_iterator_hold_is_read_once_in_settle(hosts):
+    # Sol round 2: set(hold) spent the iterator, then `free` tested the empty one
+    hosts("a")
+    got = claims.claim([0x100, 0x200])
+    assert claims.settle([0x100, 0x200], hold=iter([0x100])) == [0x200]
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x100}
+    assert claims.holds(0x100, got.tokens[0x100]) and _lease(0x100) == got.leases[0x100]
+
+
+def test_an_iterator_hold_is_read_once_in_release_landed(hosts):
+    # Sol round 2: each `in` test consumed the iterator, so held 0x400 released
+    a = hosts("a")
+    _commit_ledger(a, [], "base")
+    got = claims.claim([0x300, 0x400])
+    sha = _commit_ledger(a, ["?g@@YAXXZ,,0x00000300,8,Code/y.cpp,matched,",
+                             "?h@@YAXXZ,,0x00000400,8,Code/y.cpp,matched,"],
+                         f"land\n\nClaim-Lease: 0x00000300={got.leases[0x300]}\n"
+                         f"Claim-Lease: 0x00000400={got.leases[0x400]}\n")
+    _git(a, "push", "-q", "origin", "HEAD:refs/heads/master")
+    assert claims.release_landed(sha, hold=iter([0x400, 0x300]))[0] == []
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x300, 0x400}
+    assert claims.release_landed(sha)[0] == [0x300, 0x400]
+
+
+def test_a_settlement_failure_never_changes_the_claim_result(hosts, monkeypatch, capsys):
+    a = hosts("a")
+    _published_and_queued(a)
+
+    def broken(*args, **kwargs):
+        raise claims.ClaimsUnavailable("claims: cannot fetch origin/master")
+    monkeypatch.setattr(claims, "release_landed", broken)
+    assert claims.main(["claim", "0x200"]) == 0
+    assert "claims kept until published or expired" in capsys.readouterr().err
+    claims.active.cache_clear()
+    assert set(claims.active()) == {0x100, 0x200}
+    hosts("b")
+    assert claims.main(["claim", "0x200"]) == 1     # refused stays refused
+
+
 def test_settle_with_claims_off_touches_nothing(hosts, monkeypatch):
     hosts("a")
     claims.claim([0x100])
