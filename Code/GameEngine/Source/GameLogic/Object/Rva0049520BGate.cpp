@@ -1,3 +1,4 @@
+#include "../../Common/PartitionRangeQueryCallView.h"
 // cl: /O1 /arch:SSE /DNDEBUG /MD
 //
 // ?rva0049520B@Rva0049520B@@QAEHXZ @0x0049520B 148B.
@@ -150,6 +151,7 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	float rva002615E3(const Coord3D *pos) const throw();
 
 	char m_pad[0x254];
 	View *m_view;
@@ -218,4 +220,29 @@ int Rva0049520B::rva0049520B()
 		}
 	}
 	return 1;
+}
+
+extern PartitionManager *ThePartitionManager;
+struct NearestQuerySettings {char prefix[0xC];float radius;};
+struct NearestQueryObjectHead {char prefix[4]; char *definition;};
+// Native495183..49520B RET0: nearest flagged result from unfiltered range.
+// Neighbor49520B calls this view at interfaceThis-10; data4 and owner8
+// independently agree with the neighbor. Definition flag10C purpose unknown.
+// Squared-distance32 is a verified arithmetic leaf: throw() matches its
+// observed nonthrowing behavior and eliminates a spurious loop EH frame.
+Object *Rva00495183::rva00495183()
+{
+ NearestQuerySettings *settings=*(NearestQuerySettings **)((char *)this+4);
+ Object *owner=*(Object **)((char *)this+8);
+ Object *best=0;
+ float closest=0.0f;
+ BfmeWideResult results=ThePartitionManager->rva006255D0((const Coord3D *)((char *)owner+0x38),settings->radius,0,0);
+ Object *hit;
+ while((hit=results.next())!=0) {
+  if(((NearestQueryObjectHead *)hit)->definition[0x10C]&1) {
+   float distance=owner->rva002615E3((const Coord3D *)((char *)hit+0x38));
+   if(!best || closest>distance) {best=hit;closest=distance;}
+  }
+ }
+ return best;
 }
