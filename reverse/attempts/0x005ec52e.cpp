@@ -210,3 +210,37 @@ bool Rva005EC52E::rva005EC52E(const Rva005EC52E &other)
         return thisKey > otherKey;
     return m_a->m_str < other.m_a->m_str;
 }
+
+// ======= LK2-r2 candidate (2026-10-10, score .85): mask-local anti-merge =======
+// Best 99B: and-kept via separate-stmt int-mask local, but named local always
+// takes home-space+frame; (bool)-cast still shr-merges; register ignored.
+// Needs: and-edi + shr-eax + and-al-1 + cmp-dl-al + recompute-setne, zero spills.
+#pragma inline_depth(0)
+bool S4SortElem8::operator<(const S4SortElem8 &other) const
+{
+	const ScoreRowFlags *bf = reinterpret_cast<const ScoreRowFlags *>(other.m_bfmeSecond);
+	const ScoreRowFlags *af = reinterpret_cast<const ScoreRowFlags *>(m_bfmeSecond);
+	register unsigned int am = af->m_flags110 & 0x4000000;
+	if ((am != 0) != ((bf->m_flags110 >> 26) & 1))
+		return am != 0;
+	const ScoreRowData *thisRow = reinterpret_cast<const ScoreRowData *>(m_bfmeFirst);
+	const ScoreRowData *otherRow = reinterpret_cast<const ScoreRowData *>(other.m_bfmeFirst);
+	if (thisRow->m_score9C != otherRow->m_score9C)
+		return thisRow->m_score9C > otherRow->m_score9C;
+	return thisRow->m_name04 < otherRow->m_name04;
+}
+
+bool S4SortElem8B::operator<(const S4SortElem8B &other) const
+{
+	const ScoreRowFlags *bf = reinterpret_cast<const ScoreRowFlags *>(other.m_bfmeSecond);
+	const ScoreRowFlags *af = reinterpret_cast<const ScoreRowFlags *>(m_bfmeSecond);
+	register unsigned int am = af->m_flags110 & 0x4000000;
+	if ((am != 0) != ((bf->m_flags110 >> 26) & 1))
+		return am != 0;
+	const ScoreRowData *thisRow = reinterpret_cast<const ScoreRowData *>(m_bfmeFirst);
+	const ScoreRowData *otherRow = reinterpret_cast<const ScoreRowData *>(other.m_bfmeFirst);
+	if (thisRow->m_score9C != otherRow->m_score9C)
+		return thisRow->m_score9C > otherRow->m_score9C;
+	return thisRow->m_name04 < otherRow->m_name04;
+}
+#pragma inline_depth()
