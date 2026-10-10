@@ -141,3 +141,9 @@ Rva00510D0C::~Rva00510D0C()
 	if (TheShell)
 		TheShell->rva0035BF4C(false);
 }
+
+Rva00510D0C::Rva00510D0C(void *context)
+	: _bfme_AptGameWindow(context), m_page(0)
+{
+	g_Va00A046B4 = (GlobalA046B4 *)this;
+}
