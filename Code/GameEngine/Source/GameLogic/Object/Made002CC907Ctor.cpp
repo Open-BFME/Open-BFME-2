@@ -148,3 +148,14 @@ void Made002CC907::rva0050A832(Object *source,Object *target) {
  info.mask0C=source ? (1u<<source->getControllingPlayer()->index):0;
  target->attemptDamage((DamageInfo *)&info);
 }
+
+void Made002CC907::rva0050A9F2(const Rva0050A9F2Context *context,Object *target) {
+ if(!context)return;
+ Object *source=TheGameLogic->findObjectByID(static_cast<ObjectID>(context->sourceId));
+ if(!source || !target)return;
+ GrabContainView *contain=source->contain;
+ if(m_containOnEffect && contain && contain->accept(target,true,0)) {
+  if(m_removeFromOtherContain) {Object *previous=target->containedBy;if(previous)previous->contain->remove(target,false);}
+  contain->add(target);
+ } else if(m_impactOnEffect)rva0050A832(source,target);
+}
