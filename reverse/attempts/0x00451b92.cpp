@@ -1,4 +1,6 @@
 // ?finishAbility@SpecialAbilityUpdate@@UAEXXZ
+// partial score=0.874 date=2026-10-10
+// ?finishAbility@SpecialAbilityUpdate@@UAEXXZ
 // partial score=0.848677 date=2026-10-09
 // ?finishAbility@SpecialAbilityUpdate@@UAEXXZ
 // partial score=0.6 date=2026-10-09
@@ -734,7 +736,7 @@ void SpecialAbilityUpdate::finishAbility()
 						dir.y = pos.y - mine->m_position.y;
 						dir.z = 0.0f;
 						dir.normalize();
-						float range = data->m_fleeRangeAfterCompletion;
+						float range = (data->m_fleeRangeAfterCompletion?data->m_fleeRangeAfterCompletion:data->m_fleeRangeAfterCompletion);
 						pos = mine->m_position;
 						pos.x += dir.x * range;
 						pos.y += dir.y * range;
@@ -765,7 +767,7 @@ void SpecialAbilityUpdate::finishAbility()
 			}
 			else
 			{
-				m_object->doCommandButton(button, (m_6C >> 18) & 1, 0);
+				m_object->doCommandButton(button, ((m_6C?m_6C:m_6C) >> 18) & 1, 0);
 			}
 		}
 	}

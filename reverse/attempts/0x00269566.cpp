@@ -1,5 +1,5 @@
 // ?NotifyPathHasInvalidPortals@AIUpdateInterface@@QAEXXZ
-// partial score=0.9248 date=2026-10-10
+// partial score=0.975 date=2026-10-10
 // ?NotifyPathHasInvalidPortals@AIUpdateInterface@@QAEXXZ
 // partial score=0.9248446320271678 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /I. /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
@@ -52,7 +52,7 @@ void AIUpdateInterface::NotifyPathHasInvalidPortals(){
  if(obj->templ->getKinds()&0x2000){
   NotifyHorde*hci=(NotifyHorde*)obj->rva0028C197();if(!hci)return;
   _STL::vector<ObjectID> a,b,c;hci->slot135(&a,&b,&c);
-  for(_STL::vector<ObjectID>::iterator i=b.begin();i!=(_STL::vector<ObjectID>::iterator)b.end();++i){Object*member=TheGameLogic->findObjectByID(*i);if(member){member->kill(DAMAGE_INVALID,DEATH_INVALID);if(!member->testCond())member->setCond();}}
+  for(_STL::vector<ObjectID>::iterator i=b.begin();(i?i:i)!=b.end();++i){Object*member=TheGameLogic->findObjectByID(*i);if(member){member->kill(DAMAGE_INVALID,DEATH_INVALID);if(!member->testCond())member->setCond();}}
   bool swapped=false;if(c.size()<a.size()){c.swap(a);swapped=true;}
   for(_STL::vector<ObjectID>::iterator i=a.begin();i!=a.end();++i){Object*member=TheGameLogic->findObjectByID(*i);if(member){member->kill(DAMAGE_INVALID,DEATH_INVALID);if(!member->testCond())member->setCond();}}
   for(_STL::vector<ObjectID>::iterator i=c.begin();i!=c.end();++i){Object*member=TheGameLogic->findObjectByID(*i);if(member&&member->ai)member->ai->destroyPath();}
