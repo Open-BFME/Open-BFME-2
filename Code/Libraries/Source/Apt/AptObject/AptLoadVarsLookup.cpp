@@ -143,3 +143,22 @@ AptValue *AptLoadVars::sMethod_sendAndLoad(AptValue *value,int nParams)
  return AptBoolean::Create(true);
 }
 
+AptValue *AptLoadVars::sMethod_load(AptValue *value,int nParams)
+{
+ *reinterpret_cast<int *>(reinterpret_cast<char *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD2E0())+0x20)=0;
+ if(nParams<=0||nParams>1)return AptBoolean::Create(false);
+ AptValue *arg=reinterpret_cast<AptValue *>(g_aptDateInterpreter.stack.At(0));
+ LoadVarsScopedString url;
+ arg->toString(url);
+ AptNativeHash *hash=value->GetNativeHashVirtual();
+ if(!hash)return AptBoolean::Create(false);
+ for(AsciiString *key=hash->rva0070AA40();key;key=reinterpret_cast<AsciiString *>(hash->rva0070AAA0(reinterpret_cast<AptNativeHash::Entry *>(key)))) {
+  EAStringC *str=reinterpret_cast<EAStringC *>(key);
+  if(str->IsEqualTo(Rva0070B4F0GetString(0))||str->IsEqualTo(Rva0070B4F0GetString(0x78)))continue;
+  reinterpret_cast<BfmeLookup1279 *>(hash)->bfmeErase1279(*reinterpret_cast<BfmeKey1279 *>(key));
+ }
+ g_aptDateInterpreter.loadVariables(value,0,&url);
+ *reinterpret_cast<int *>(reinterpret_cast<char *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD2E0())+0x20)=1;
+ return AptBoolean::Create(true);
+}
+
