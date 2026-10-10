@@ -1,25 +1,18 @@
 // ?drawTextEntryText@@YAXPAVGameWindow@@HHHHHH@Z
-// partial score=0.85 date=2026-10-07
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
-// W3DGadgetTextEntryDraw 0x000A03BF (450B) and W3DGadgetTextEntryImageDraw
-// 0x000A0581 (748B): Zero Hour's W3DTextEntry.cpp through BFME1's banked
-// reconstructions of the same two callbacks (Open-BFME-1 targets/game/reverse/
-// attempts/0x00798f30.cpp and 0x007991a0.cpp).
-//
-// Target evidence: text-entry gadget vtables 0x00BC8C54 and 0x00BC8C80 slot 3
-// (W3DGadgetWindowDrawSlots.cpp) call these two. Both clear the user data's
-// +0x15 byte, pick the text and IME composite colours exactly as Zero Hour's
-// pair does (disabled text colours for both when disabled), size the
-// DisplayString at the user data's +0x00 and hand window, text, text border,
-// composite, composite border, x and y to 0x0009FE49, Zero Hour's
-// drawTextEntryText with the old width/height arguments gone. BFME2 deltas:
-// the back and image look-ups read the GameWindow draw data directly, the
-// width is still computed into a dead store (kept volatile, as in BFME1), and
-// the edit text goes through BFME's DisplayString slots. Built /O1 (x87 fld1
-// for the line width, so no /arch:SSE); the coordinate locals carry the empty
-// default constructor of W3DCheckBox.cpp, which fixes the operand order of the
-// fill rectangle's end.x and of the image-end arithmetic.
-
+// partial score=0.98 date=2026-10-10
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
+// NEAR draft for 0x0009FE49 drawTextEntryText (1398B), built from the
+// banked reverse/attempts/0x0009fe49.cpp. Changes: non-static (callers in
+// W3DTextEntry.cpp declare it extern), region flags /O1 /G7 /arch:SSE, and
+// winSetCursorPosition called through its rowed name ?set@Rva00478180@@QAEHHH@Z
+// (0x00313B0A has no winSetCursorPosition pin). Writing the first block's
+// cursor update as "cursorPos += width" (not "cursorPos = x") flips the
+// register allocation to retail's (param x cached in EDI with write-through
+// and cursorPos memory-only at [ebp-0x10]) without volatile. Residue (1393B vs
+// 1398B): after each "x += width" retail reloads the x+width temp through EAX
+// (first block: mov eax,[tv] / store x / store cursorPos / mov edi,eax;
+// selection block: x stays memory-only through the nested composition draw
+// and is reloaded into EDI at the join) while cl loads it straight into EDI.
 #include "unicode_string.h"
 
 typedef int Int;
@@ -263,6 +256,13 @@ inline Int BitTest( UnsignedInt bits, UnsignedInt mask )
 #define GadgetTextEntryGetHiliteImageCenter( window ) ( (window)->m_hiliteDrawData[ 2 ].image )
 #define GadgetTextEntryGetHiliteImageSmallCenter( window ) ( (window)->m_hiliteDrawData[ 3 ].image )
 
+// GameWindow::winSetCursorPosition 0x00313B0A (rowed under this view name).
+class Rva00478180
+{
+public:
+	Int set( Int x, Int y );
+};
+
 extern GameWindowManager *TheWindowManager;
 extern IMEManager *TheIMEManager;
 
@@ -282,7 +282,7 @@ struct CtorCoord : ICoord2D
   * composition at the cursor, the selection inverted over a filled box, the
   * blinking cursor and the rest */
 //=============================================================================
-static void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor,
+void drawTextEntryText( GameWindow *window, Color textColor, Color textDropColor,
 															 Color compositeColor, Color compositeDropColor,
 															 Int x, Int y )
 {
@@ -365,7 +365,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 		text->setTextColor( textColor, textDropColor );
 		text->draw( x, y, 1, 1 );
 		x += width;
-		cursorPos = x;
+		cursorPos += width;
 	}
 
 	// draw the composition at the cursor
@@ -432,7 +432,7 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 		TheWindowManager->winFillRect( textColor, WIN_DRAW_LINE_WIDTH,
 																	 cursorPos, origin.y + 2,
 																	 cursorPos + 3, origin.y + height + 2 );
-	window->winSetCursorPosition( cursorPos + 2 - origin.x, 0 );
+	((Rva00478180 *)window)->set( cursorPos + 2 - origin.x, 0 );
 
 	// draw the text after the selection
 	if( selEnd < text->getTextLength() )
@@ -448,257 +448,3 @@ static void drawTextEntryText( GameWindow *window, Color textColor, Color textDr
 }  // end drawTextEntryText
 
 
-// W3DGadgetTextEntryDraw =====================================================
-/** Draw colored entry field using standard graphics */
-//=============================================================================
-void W3DGadgetTextEntryDraw( GameWindow *window, WinInstanceData *instData )
-{
-	EntryData *e = (EntryData *)window->winGetUserData();
-	CtorCoord origin, size, start, end;
-	Color backBorder, backColor, textColor, textBorder,
-			compositeColor, compositeBorder;
-
-	// cancel unichar flag
-	e->receivedUnichar = FALSE;
-
-	// get size and position of window
-	window->winGetScreenPosition( &origin.x, &origin.y );
-	window->winGetSize( &size.x, &size.y );
-
-	// get the right colors
-	if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
-	{
-
-		compositeColor	= window->winGetDisabledTextColor();
-		compositeBorder	= window->winGetDisabledTextBorderColor();
-		textColor		= window->winGetDisabledTextColor();
-		textBorder	= window->winGetDisabledTextBorderColor();
-		backColor		= GadgetTextEntryGetDisabledColor( window );
-		backBorder	= GadgetTextEntryGetDisabledBorderColor( window );
-
-	}  // end if, disabled
-	else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
-	{
-
-		compositeColor	= window->winGetIMECompositeTextColor();
-		compositeBorder	= window->winGetIMECompositeBorderColor();
-		textColor		= window->winGetHiliteTextColor();
-		textBorder	= window->winGetHiliteTextBorderColor();
-		backColor		= GadgetTextEntryGetHiliteColor( window );
-		backBorder	= GadgetTextEntryGetHiliteBorderColor( window );
-
-	}  // end else if, hilited
-	else
-	{
-
-		compositeColor	= window->winGetIMECompositeTextColor();
-		compositeBorder	= window->winGetIMECompositeBorderColor();
-		textColor		= window->winGetEnabledTextColor();
-		textBorder	= window->winGetEnabledTextBorderColor();
-		backColor		= GadgetTextEntryGetEnabledColor( window );
-		backBorder	= GadgetTextEntryGetEnabledBorderColor( window );
-
-	}  // end else, just enabled
-
-	// draw the back border
-	if( backBorder != WIN_COLOR_UNDEFINED )
-	{
-
-		start.x = origin.x;
-		start.y = origin.y;
-		end.x = start.x + size.x;
-		end.y = start.y + size.y;
-		TheWindowManager->winOpenRect( backBorder, WIN_DRAW_LINE_WIDTH,
-																	 start.x, start.y, end.x, end.y );
-
-	}  // end if
-
-	// draw the filled back
-	if( backColor != WIN_COLOR_UNDEFINED )
-	{
-
-		start.x = origin.x + 1;
-		start.y = origin.y + 1;
-		end.x = start.x + size.x - 2;
-		end.y = start.y + size.y - 2;
-		TheWindowManager->winFillRect( backColor, WIN_DRAW_LINE_WIDTH,
-																	 start.x, start.y, end.x, end.y );
-
-	}  // end if
-
-	// draw the text
-	Int textWidth, fontHeight;
-	e->text->getSize( &textWidth, &fontHeight );
-	Int startOffset = 5;
-	volatile Int width;
-
-	width = size.x - (2 * startOffset);
-	start.x = origin.x + startOffset;  // offset a little bit into the entry
-	if( BitTest( window->winGetStatus(), WIN_STATUS_ONE_LINE ) )
-		start.y = size.y / 2 - (fontHeight + 1) / 2;
-	else
-		start.y = origin.y + startOffset;  // offset a little bit into the entry
-
-	// draw the edit text
-	drawTextEntryText( window, textColor, textBorder, compositeColor, compositeBorder,
-										 start.x, start.y );
-
-}  // end W3DGadgetTextEntryDraw
-
-// W3DGadgetTextEntryImageDraw ================================================
-/** Draw horizontal slider with user supplied images */
-//=============================================================================
-void W3DGadgetTextEntryImageDraw( GameWindow *window, WinInstanceData *instData )
-{
-	EntryData *e = (EntryData *)window->winGetUserData();
-	CtorCoord origin, size, start, end;
-	Color textColor, textBorder;
-	Color compositeColor, compositeBorder;
-	const Image *leftImage, *rightImage, *centerImage, *smallCenterImage;
-	Int xOffset, yOffset;
-	Int i;
-
-	// cancel unichar flag
-	e->receivedUnichar = FALSE;
-
-	// get size and position of window
-	window->winGetScreenPosition( &origin.x, &origin.y );
-	window->winGetSize( &size.x, &size.y );
-
-	// get image offset
-	xOffset = instData->m_imageOffset.x;
-	yOffset = instData->m_imageOffset.y;
-
-	// get the right colors
-	if( BitTest( window->winGetStatus(), WIN_STATUS_ENABLED ) == FALSE )
-	{
-
-		textColor					= window->winGetDisabledTextColor();
-		textBorder				= window->winGetDisabledTextBorderColor();
-		compositeColor		= window->winGetDisabledTextColor();
-		compositeBorder		= window->winGetDisabledTextBorderColor();
-		leftImage					= GadgetTextEntryGetDisabledImageLeft( window );
-		rightImage				= GadgetTextEntryGetDisabledImageRight( window );
-		centerImage				= GadgetTextEntryGetDisabledImageCenter( window );
-		smallCenterImage	= GadgetTextEntryGetDisabledImageSmallCenter( window );
-
-	}  // end if, disabled
-	else if( BitTest( instData->getState(), WIN_STATE_HILITED ) )
-	{
-
-		textColor					= window->winGetHiliteTextColor();
-		textBorder				= window->winGetHiliteTextBorderColor();
-		compositeColor		= window->winGetIMECompositeTextColor();
-		compositeBorder		= window->winGetIMECompositeBorderColor();
-		leftImage					= GadgetTextEntryGetHiliteImageLeft( window );
-		rightImage				= GadgetTextEntryGetHiliteImageRight( window );
-		centerImage				= GadgetTextEntryGetHiliteImageCenter( window );
-		smallCenterImage	= GadgetTextEntryGetHiliteImageSmallCenter( window );
-
-	}  // end else if, hilited
-	else
-	{
-
-		textColor					= window->winGetEnabledTextColor();
-		textBorder				= window->winGetEnabledTextBorderColor();
-		compositeColor		= window->winGetIMECompositeTextColor();
-		compositeBorder		= window->winGetIMECompositeBorderColor();
-		leftImage					= GadgetTextEntryGetEnabledImageLeft( window );
-		rightImage				= GadgetTextEntryGetEnabledImageRight( window );
-		centerImage				= GadgetTextEntryGetEnabledImageCenter( window );
-		smallCenterImage	= GadgetTextEntryGetEnabledImageSmallCenter( window );
-
-	}  // end else, just enabled
-
-	if( leftImage && rightImage )
-	{
-
-		// get image sizes for the ends
-		CtorCoord leftSize, rightSize;
-		leftSize.x = leftImage->getImageWidth();
-		leftSize.y = leftImage->getImageHeight();
-		rightSize.x = rightImage->getImageWidth();
-		rightSize.y = rightImage->getImageHeight();
-
-		// get two key points used in the end drawing
-		CtorCoord leftEnd, rightStart;
-		leftEnd.x = origin.x + leftSize.x + xOffset;
-		leftEnd.y = origin.y + size.y + yOffset;
-		rightStart.x = origin.x + size.x - rightSize.x + xOffset;
-		rightStart.y = origin.y + yOffset;
-
-		// draw the center repeating bar
-		Int centerWidth, pieces;
-
-		// get width we have to draw our repeating center in
-		centerWidth = rightStart.x - leftEnd.x;
-
-		// how many whole repeating pieces will fit in that width
-		pieces = centerWidth / centerImage->getImageWidth();
-
-		// draw the pieces
-		start.x = leftEnd.x;
-		start.y = origin.y + yOffset;
-		end.y = start.y + size.y;
-		for( i = 0; i < pieces; i++ )
-		{
-
-			end.x = start.x + centerImage->getImageWidth();
-			TheWindowManager->winDrawImage( centerImage,
-																			start.x, start.y,
-																			end.x, end.y );
-			start.x += centerImage->getImageWidth();
-
-		}  // end for i
-
-		//
-		// how many small repeating pieces will fit in the gap from where the
-		// center repeating bar stopped and the right image, draw them
-		// and overlapping underneath where the right end will go
-		//
-		centerWidth = rightStart.x - start.x;
-		pieces = centerWidth / smallCenterImage->getImageWidth() + 1;
-		end.y = start.y + size.y;
-		for( i = 0; i < pieces; i++ )
-		{
-
-			end.x = start.x + smallCenterImage->getImageWidth();
-			TheWindowManager->winDrawImage( smallCenterImage,
-																			start.x, start.y,
-																			end.x, end.y );
-			start.x += smallCenterImage->getImageWidth();
-
-		}  // end for i
-
-		// draw left end
-		start.x = origin.x + xOffset;
-		start.y = origin.y + yOffset;
-		end = leftEnd;
-		TheWindowManager->winDrawImage( leftImage, start.x, start.y, end.x, end.y );
-
-		// draw right end
-		start = rightStart;
-		end.x = start.x + rightSize.x;
-		end.y = start.y + size.y;
-		TheWindowManager->winDrawImage( rightImage, start.x, start.y, end.x, end.y );
-
-	}  // end if
-
-	// draw the text
-	Int textWidth, fontHeight;
-	e->text->getSize( &textWidth, &fontHeight );
-	Int startOffset = 5;
-	volatile Int width;
-
-	width = size.x - (2 * startOffset);
-	start.x = origin.x + startOffset;  // offset a little bit into the entry
-	if( BitTest( window->winGetStatus(), WIN_STATUS_ONE_LINE ) )
-		start.y = size.y / 2 - (fontHeight + 1) / 2;
-	else
-		start.y = origin.y + startOffset;  // offset a little bit into the entry
-
-	// draw the edit text
-	drawTextEntryText( window, textColor, textBorder, compositeColor, compositeBorder,
-										 start.x, start.y );
-
-}  // end W3DGadgetTextEntryImageDraw
