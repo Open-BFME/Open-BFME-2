@@ -12,6 +12,8 @@ class W3DDisplay { public: void rva0004D6B3(Image *,float,float,float,float,int,
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 class Rva00222A8BTarget {public:void rva002239FA(const AsciiString &,const AsciiString &);};
+class Rva00223A94 {public:int rva00223A94(const AsciiString *);};
+class Rva002246B1 {public:int rva002246B1(const AsciiString *);};
 struct TargetRef00217D4C;
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
 class __single_inheritance ResourceDrawTarget {};
@@ -40,17 +42,23 @@ public:
  __forceinline AptRef(CommandPoints d){reinterpret_cast<Rva002D45FE*>(this)->Rva002D45FE::Rva002D45FE(reinterpret_cast<const int*>(&d.slot));}
  void *ptr;
 };
-class AptPlayer {public:void AddCustomRender(const AsciiString &,AptRef<AptCustomRender>);void AddOverButtonHandler(const AsciiString &,AptRef<AptOverButtonHandler>);};
+class AptPlayer {public:void AddCustomRender(const AsciiString &,AptRef<AptCustomRender>);void AddOverButtonHandler(const AsciiString &,AptRef<AptOverButtonHandler>);void RemoveOverButtonHandler(const AsciiString &);};
 __forceinline void AddResourceRender(const AsciiString &name,DelegateDesc desc) {
  reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddCustomRender(name,&desc);
 }
 class Rva002D3869OwnedPrefix {public:void release();};
 class Rva0055076F {public:void rva0055076F();};
-struct ResourceOwned20 {ResourceOwned20():ptr(0){} ~ResourceOwned20(){reinterpret_cast<Rva002D3869OwnedPrefix*>(this)->release();} void *ptr;};
-struct ResourceOwned24 {ResourceOwned24():ptr(0){} ~ResourceOwned24(){reinterpret_cast<Rva0055076F*>(this)->rva0055076F();} void *ptr;};
+// The owned image records: their releases are rowed out of line
+// (0x002D3869 checks for null, 0x0055076F does not); the destructor below
+// inlines both.
+void __cdecl operator delete(void *) throw();
+struct ResourceOwnedRecord20 {};
+struct ResourceOwned20 {ResourceOwned20():ptr(0){} ~ResourceOwned20(){ResourceOwnedRecord20 *p=ptr;ptr=0;if(p)delete p;} ResourceOwnedRecord20 *ptr;};
+struct ResourceOwned24 {ResourceOwned24():ptr(0){} ~ResourceOwned24(){void *p=ptr;ptr=0;delete p;} void *ptr;};
 class Rva002D5188ResourceBar {
 public:
  Rva002D5188ResourceBar();
+ ~Rva002D5188ResourceBar();
  void rva002D2D63(const Coord2D &,const Coord2D &,void *,void *);
 private:
  int unknown00,unknown04;bool flag08;int resources,commandPoints,unknown14;
@@ -82,5 +90,19 @@ Rva002D5188ResourceBar::Rva002D5188ResourceBar():unknown00(0),unknown04(0),flag0
   AsciiString name("Palantir/ResourceBar/CommandPoints/");
   AptRef<AptOverButtonHandler>::CommandPoints binding={&commandPoints};
   reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->AddOverButtonHandler(name,AptRef<AptOverButtonHandler>(binding));
+ }
+}
+
+// Retail 0x002D3B30..0x002D3C5F (303 bytes), the destructor ~AptPalantir
+// runs on its +0x98 member: with the Apt window manager still up, drop the
+// icon image, the faction icon render and the three over-button handlers
+// the constructor registered, then the two owned records.
+Rva002D5188ResourceBar::~Rva002D5188ResourceBar() {
+ if(g_bfmeAptWindowManager) {
+  {AsciiString name("ResourceBar/ResourceIcon");reinterpret_cast<Rva00223A94*>(g_bfmeAptWindowManager)->rva00223A94(&name);}
+  {AsciiString name("RenderFactionIcon");reinterpret_cast<Rva002246B1*>(g_bfmeAptWindowManager)->rva002246B1(&name);}
+  {AsciiString name("Palantir/ResourceBar/Resources/");reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->RemoveOverButtonHandler(name);}
+  {AsciiString name("Palantir/ResourceBar/ResourceMultiplier/");reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->RemoveOverButtonHandler(name);}
+  {AsciiString name("Palantir/ResourceBar/CommandPoints/");reinterpret_cast<AptPlayer*>(g_bfmeAptWindowManager)->RemoveOverButtonHandler(name);}
  }
 }
