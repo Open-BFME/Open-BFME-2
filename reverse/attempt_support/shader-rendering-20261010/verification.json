@@ -1,0 +1,506 @@
+{
+  "head": "1efbec2278ce10c13230a89b02f47f64b62a969f",
+  "dependency_revision": "575ba2b04743f190f069805fbdc59936123c45da",
+  "symbol": "?rva0017438B@Rva0017438B@@QAEXPAURenderingTask@@0@Z",
+  "size": 819,
+  "matched": 771,
+  "unresolved": [],
+  "compiled": "b86c7db600e8f34d4b0081ece805000053568b75083b750c578bfe894dd8897de00f84fb020000eb038b7de083c6203b750c89750874468bdf2bde8b068b0f50e8c056fdff84c074348b47043b4604752c8d48ff85c97c178d448e088b14033b1075084983e80485c97df185c97d0e83c62083eb203b750c89750875be8b470485c00f8e8e0200008d5f085053895dd0e8df44ffff8b3333c03bf059598975cc7403ff46043bf08945fc7509834dfcffe95e0200005050682847bd008d8d8cfdffffe89e38faff8b0fc645fc01e8b362fdff8b0668ffff00008d4ddc518bceff500884c00f840b0200008365ec00837ddc000f8ee4010000ff75ec8b068bceff500c3b7d088b078b80c40000008b80bc0000008b40248bdf8945d40f84a20100008b45082bc3c1f8053945d48945f08d45d47c038d45f08b088bc1c1e00503c383f901894df08945e40f8f8c0000008d85ccfeffff680c47bd0050e88b4c4b008b0359598b88c4000000e8b661ffff85c0740f8b038b88c4000000e8a561ffffeb05b89034bd00508d85ccfeffff50e86d534b0059596a0068fc46bd008d85ccfeffff508d8d4cfbffffe8b637faff6a01518bc48930ff46048b0bc645fc028965f0e82e63fdff8d8d4cfbffffc645fc01e83f38faffe9dc0000008b038b88c4000000e83d61ffff85c0740f8b038b88c4000000e82c61ffffeb05b89034bd0050ff75f08d858cfcffff68dc46bd0050ff15bca6bb0083c4106a0068fc46bd008d858cfcffff508d8d0cfaffffe83337faff3b5de4c645fc03895de874278b45e88b388b078bcfff50508b4dd883c7185783c124e807fcffff8345e8208b45e83b45e475d98b7dd88b0db436df0083c72457e8158efdffff75f0518bc48930ff46048b0b8965f0e86962fdff8b0db436df00e80f8efdff8b47048b0f50518bcfe8c8f7ffff8d8d0cfaffffc645fc01e86137faff8b7de08b5de43b5d080f855efeffff8b068bceff5014ff45ec8b45ec3b45dc0f8c1ffeffff8b5dd08b068bceff50188b0fe83b55fdffff770453e8d442ffff59598d8d8cfdffffc645fc00e81137faff834dfcffff4e0475068b068bceff108b75083b750c8975e00f8507fdffff8b4df45f5e64890d000000005bc9c20800",
+  "target": "b86c7db600e8f34d4b0081ece805000053568b75083b750c8bde57894dd8895de00f84fb020000eb038b5de083c6203b750c89750874468bfb2bfe8b068b0b50e8c056fdff84c074348b43043b4604752c8d48ff85c97c178d448e088b14073b1075084983e80485c97df185c97d0e83c62083ef203b750c89750875be8b430485c00f8e8e0200008d7b085057897dd0e8df44ffff8b3733c03bf059598975cc7403ff46043bf08945fc7509834dfcffe95e0200005050682847bd008d8d8cfdffffe89e38faff8b0bc645fc01e8b362fdff8b0668ffff00008d4ddc518bceff500884c00f840b0200008365ec00837ddc000f8ee4010000ff75ec8b068bceff500c3b5d088b038b80c40000008b80bc0000008b40248bfb8945d40f84a20100008b45082bc7c1f8053945d48945f08d45d47c038d45f08b088bc1c1e00503c783f901894df08945e40f8f8c0000008d85ccfeffff680c47bd0050e88b4c4b008b0759598b88c4000000e8b661ffff85c0740f8b078b88c4000000e8a561ffffeb05b89034bd00508d85ccfeffff50e86d534b0059596a0068fc46bd008d85ccfeffff508d8d4cfbffffe8b637faff6a01518bc48930ff46048b0fc645fc028965f0e82e63fdff8d8d4cfbffffc645fc01e83f38faffe9dc0000008b078b88c4000000e83d61ffff85c0740f8b078b88c4000000e82c61ffffeb05b89034bd0050ff75f08d858cfcffff68dc46bd0050ff15bca6bb0083c4106a0068fc46bd008d858cfcffff508d8d0cfaffffe83337faff3b7de4c645fc03897de874278b45e88b188b038bcbff50508b4dd883c3185383c124e807fcffff8345e8208b45e83b45e475d98b5dd88b0db436df0083c32453e8158efdffff75f0518bc48930ff46048b0f8965f0e86962fdff8b0db436df00e80f8efdff8b43048b0b50518bcbe8c8f7ffff8d8d0cfaffffc645fc01e86137faff8b5de08b7de43b7d080f855efeffff8b068bceff5014ff45ec8b45ec3b45dc0f8c1ffeffff8b7dd08b068bceff50188b0be83b55fdffff730457e8d442ffff59598d8d8cfdffffc645fc00e81137faff834dfcffff4e0475068b068bceff108b75083b750c8975e00f8507fdffff8b4df45f5e64890d000000005bc9c20800",
+  "relocs": [
+    [
+      1,
+      6,
+      "__ehhandler$?rva0017438B@Rva0017438B@@QAEXPAURenderingTask@@0@Z"
+    ],
+    [
+      6,
+      20,
+      "__EH_prolog"
+    ],
+    [
+      65,
+      20,
+      "?rva00149A90@Rva00149A90Obj@@QAE_NPAV1@@Z"
+    ],
+    [
+      145,
+      20,
+      "?Rva001688FFShift@@YAXPAPAVRva001688FFElement@@H@Z"
+    ],
+    [
+      184,
+      6,
+      "??_C@_0BE@NLGJLOJJ@RenderFXShaderBatch?$AA@"
+    ],
+    [
+      195,
+      20,
+      "??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z"
+    ],
+    [
+      206,
+      20,
+      "?prepare@Rva0014A710@@QAEXXZ"
+    ],
+    [
+      342,
+      6,
+      "??_C@_0BJ@LNOGFAMN@Rendering?5mesh?7FXShader?7?$AA@"
+    ],
+    [
+      348,
+      20,
+      "__mbscpy"
+    ],
+    [
+      363,
+      20,
+      "?Get_Name@MeshGeometryClass@@QBEPBDXZ"
+    ],
+    [
+      380,
+      20,
+      "?Get_Name@MeshGeometryClass@@QBEPBDXZ"
+    ],
+    [
+      387,
+      6,
+      "??_C@_09EBEJEDCD@?$CIunnamed?$CJ?$AA@"
+    ],
+    [
+      400,
+      20,
+      "__mbscat"
+    ],
+    [
+      409,
+      6,
+      "??_C@_0N@IBPJODDD@MeshFXShader?$AA@"
+    ],
+    [
+      427,
+      20,
+      "??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z"
+    ],
+    [
+      451,
+      20,
+      "?Render_With_FX_Material@MeshClass@@QAEXVRva00087A93@@H@Z"
+    ],
+    [
+      466,
+      20,
+      "??1BFME2ScopedRenderEvent@@QAE@XZ"
+    ],
+    [
+      484,
+      20,
+      "?Get_Name@MeshGeometryClass@@QBEPBDXZ"
+    ],
+    [
+      501,
+      20,
+      "?Get_Name@MeshGeometryClass@@QBEPBDXZ"
+    ],
+    [
+      508,
+      6,
+      "??_C@_09EBEJEDCD@?$CIunnamed?$CJ?$AA@"
+    ],
+    [
+      523,
+      6,
+      "??_C@_0CA@BGCPGNOJ@Rendering?5?$CFd?5meshes?7FXShader?7?$CFs?$AA@"
+    ],
+    [
+      530,
+      6,
+      "__imp__sprintf"
+    ],
+    [
+      540,
+      6,
+      "??_C@_0N@IBPJODDD@MeshFXShader?$AA@"
+    ],
+    [
+      558,
+      20,
+      "??0BFME2ScopedRenderEvent@@QAE@PBD0I@Z"
+    ],
+    [
+      597,
+      20,
+      "?push_back@?$vector@URva001741EBElement@@V?$allocator@URva001741EBElement@@@_STL@@@_STL@@QAEXABURva001741EBElement@@@Z"
+    ],
+    [
+      618,
+      6,
+      "?g_00DF36B4@@3PAVFXShaderParameterSourceNamespaceSAS@@A"
+    ],
+    [
+      627,
+      20,
+      "?rva0014D417@Rva0014D417@@QAEXH@Z"
+    ],
+    [
+      648,
+      20,
+      "?Render_With_FX_Material@MeshClass@@QAEXVRva00087A93@@H@Z"
+    ],
+    [
+      654,
+      6,
+      "?g_00DF36B4@@3PAVFXShaderParameterSourceNamespaceSAS@@A"
+    ],
+    [
+      659,
+      20,
+      "?rva0014D431@Rva0014D431@@QAEXXZ"
+    ],
+    [
+      673,
+      20,
+      "?erase@?$vector@URva0017341BWords@@V?$allocator@URva0017341BWords@@@_STL@@@_STL@@QAEPAURva0017341BWords@@PAU3@0@Z"
+    ],
+    [
+      688,
+      20,
+      "??1BFME2ScopedRenderEvent@@QAE@XZ"
+    ],
+    [
+      742,
+      20,
+      "?rva00149bb0@MeshClass@@QAEXXZ"
+    ],
+    [
+      751,
+      20,
+      "?Rva00168952Clear@@YAXPAPAVRva001688FFElement@@H@Z"
+    ],
+    [
+      768,
+      20,
+      "??1BFME2ScopedRenderEvent@@QAE@XZ"
+    ],
+    [
+      810,
+      6,
+      "__except_list"
+    ]
+  ],
+  "command": [
+    "C:\\Users\\clemens\\.codex\\worktrees\\workpackage-seat-three\\Open-BFME-2\\reference\\open-bfme-1\\inputs\\toolchains\\vs2003\\Program Files\\Microsoft Visual Studio .NET 2003\\Vc7\\bin\\cl.exe",
+    "-nologo",
+    "-c",
+    "-O2",
+    "-GR-",
+    "-EHsc-",
+    "-O1",
+    "-G7",
+    "-arch:SSE",
+    "-DNDEBUG",
+    "-MD",
+    "-EHsc",
+    "-D_CRTIMP=",
+    "-D_STLP_USE_STATIC_LIB",
+    "-Ireference/shims/bfmealloc",
+    "-Fobuild/seat3/shader819/currency.obj",
+    "build/seat3/shader819/currency.cpp",
+    "-showIncludes"
+  ],
+  "includes": [
+    {
+      "path": "vendor/stlport/vector",
+      "sha256": "f70baf4026f13f6914d35e55e9fa183cbcebaab89c9952c5a1023ce2c1398cba"
+    },
+    {
+      "path": "vendor/stlport/stl/_prolog.h",
+      "sha256": "8abf1ddcb3a23632972ab4de4d044ff1accb341d75d3b434547f59161c14b94c"
+    },
+    {
+      "path": "vendor/stlport/stl/_config.h",
+      "sha256": "05d1cad97eccb486874525dd01356674949cf26336ca01528d626bd53da1e911"
+    },
+    {
+      "path": "vendor/stlport/stl_user_config.h",
+      "sha256": "bcf037b9c3ca8544ae958f7245d277168ba34727d45c44a8fee938143fe4fcf1"
+    },
+    {
+      "path": "vendor/stlport/stl/_config_compat.h",
+      "sha256": "7f44612f97d5e27edd54f8f70987590d9e45be2f102567e7902ca233a5b5f405"
+    },
+    {
+      "path": "vendor/stlport/stl/_site_config.h",
+      "sha256": "ff1c5db9f71ee1230eea43510e26f765af9637fc4cbf0cb71de039aa7a24a6e4"
+    },
+    {
+      "path": "vendor/stlport/config/stlcomp.h",
+      "sha256": "ee6ab101eaf8b4e859612359d74299505d196cf1e1e54d03e7de54eab325ff58"
+    },
+    {
+      "path": "vendor/stlport/config/stl_msvc.h",
+      "sha256": "903ee17fc93674925d7334d3eec4301e831a83236128cdcf10700e645acb3f90"
+    },
+    {
+      "path": "vendor/stlport/config/vc_select_lib.h",
+      "sha256": "73506bd979c03ef1d370ca719455a7f73680480088d49ff9a8fbcc9ee030f2f8"
+    },
+    {
+      "path": "vendor/stlport/config/stl_select_lib.h",
+      "sha256": "e9d243d7f42b921599b65f92102c0561e6d4d3b96489277ef825abe151e3bfe3"
+    },
+    {
+      "path": "vendor/stlport/config/stl_confix.h",
+      "sha256": "0ae8eb1ac3fba9f27b274a6a9e7ed153c99754ffade71b134891c9a2a5f0b048"
+    },
+    {
+      "path": "vendor/stlport/config/_prolog.h",
+      "sha256": "1151d0631348675e36c0adca86e9dbbcc2d79db019226f40caff2252ebb95ecc"
+    },
+    {
+      "path": "vendor/stlport/config/_msvc_warnings_off.h",
+      "sha256": "695fb8d4008cde144d14f7dc3aebc8e31d27df99bbcbe8c5d5d7d461c8c0f274"
+    },
+    {
+      "path": "reference\\shims\\bfmealloc\\stl\\_algobase.h",
+      "sha256": "061908ecce2a1354ae0ffdbce90c1f18ffb210696a51a24cb7c0c45dee4f60c8"
+    },
+    {
+      "path": "vendor/stlport/cstddef",
+      "sha256": "798d58aa1d369789689f19fe3e4976ec66ed3a15e32aaf9bd931ac6a67627cb2"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/cstddef",
+      "sha256": "f83f50123dd77e05f5b112abcf7f47b2a9e7076727955f91db471ae273e67430"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/yvals.h",
+      "sha256": "b9340f3de0fd2f1c0e0b81b99e9f42252a0ec5652267536e9c62b0b4f1bf8980"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/use_ansi.h",
+      "sha256": "56ba75ecabe4ff0af0ab227d88ce407c31e0f0c8d05c1e42423186da04069fdc"
+    },
+    {
+      "path": "vendor/stlport/stddef.h",
+      "sha256": "6d2c4a058d70bf424018e568feea0a006b3b2730a5f18cc10c9a82dc66bdc7bc"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/stddef.h",
+      "sha256": "491ce357cd01c533b07664fb9a97403a172e277096ee58a924696c0046a96afe"
+    },
+    {
+      "path": "vendor/stlport/cstring",
+      "sha256": "4152f75af2829dec2c32e62da7aacbea2b4bea8bdfc252597810b7996c73a43d"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/cstring",
+      "sha256": "363e4858a9b1d3fd3ef07d300f7b384615b8af48c0d1e9e4c294ea86a1d7d620"
+    },
+    {
+      "path": "vendor/stlport/string.h",
+      "sha256": "649fed9b37a214007f952cdca0d7f2f245ff8a58a646ae37b429f3ca6a617e5a"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/string.h",
+      "sha256": "b68e9db97d695655abe65dd36d9fc0f92e5bc304371eb9c8a9d2144e55eb8c37"
+    },
+    {
+      "path": "vendor/stlport/using/cstring",
+      "sha256": "bedaa9a2b060b05f202dad660e584b43171735e2e492d606599b8fd72b746a65"
+    },
+    {
+      "path": "vendor/stlport/climits",
+      "sha256": "c8d9733952dbf91d2bbbb67697c7dbe2227e10e361fc9045814158519ac218a6"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/climits",
+      "sha256": "ccd3e243fd3d9b28d7ef487c6c203ff39e7fbc039eadd28384f7ae8f8e133a0e"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/limits.h",
+      "sha256": "d3ad33ce7c8eb1c3f7c5f151339efdcd44ae1d76506a314f0b91daf26c004522"
+    },
+    {
+      "path": "vendor/stlport/cstdlib",
+      "sha256": "0185f277af520d975bbffc37bee0d741e269af7c2a90816776259820ed94d8fa"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/cstdlib",
+      "sha256": "e7c431e5c256b9458bb31bce7e770d99481b23ff22f609b4b6a91c50f183ec24"
+    },
+    {
+      "path": "vendor/stlport/stdlib.h",
+      "sha256": "f1ef61508ef27bc170e615b39318e2bb688d75a2525e265264e3c6279eca9ed2"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/stdlib.h",
+      "sha256": "64ff5e0893b39638f7f8e510b7992f8f9c9bb09c046c9747072c44b3348cf946"
+    },
+    {
+      "path": "vendor/stlport/stl/_pair.h",
+      "sha256": "4f9809a8e71134ff159b0da69d502d67b3f55f698589f468bad060b4f19f3a8e"
+    },
+    {
+      "path": "vendor/stlport/stl/_iterator_base.h",
+      "sha256": "d61032f9f00ca07b29617bda5bc541311f412a29f4b6f188cc74be8c5e972ede"
+    },
+    {
+      "path": "vendor/stlport/stl/type_traits.h",
+      "sha256": "033aba0d783060cd9c3b7d3dded980ef6a397501846786a0f0d109880de2f40e"
+    },
+    {
+      "path": "vendor/stlport/stl/_algobase.c",
+      "sha256": "b23e8258a33985b1427e57226b17737cc3c8b72129c6e237ffb848d28a64604b"
+    },
+    {
+      "path": "vendor/stlport/stl/_iterator.h",
+      "sha256": "5c32732d8177aa76a4b3310912391062a7f6f81c91f5c8b4bc4e5c5c04626b2f"
+    },
+    {
+      "path": "vendor/stlport/stl/_vector.h",
+      "sha256": "1cb0be1afd4a24ded96d0cfb012c04d1fbb818f86b009ffef352f081f4ca7fcf"
+    },
+    {
+      "path": "reference\\shims\\bfmealloc\\stl\\_alloc.h",
+      "sha256": "ca68eb1e65e5135e0fbaeb911e54f8f3bd063d177bad1f8be4f3f22bc3755a1b"
+    },
+    {
+      "path": "vendor/stlport/new",
+      "sha256": "70484966eaa0644a8936eaa6a6b21c47fbc721161ca3b4425f21b3857734fa29"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/new",
+      "sha256": "bd97c3f682c039eb7ee00c9acfc2d4cf44c55671b373fba777af7652faf15fd9"
+    },
+    {
+      "path": "vendor/stlport/exception",
+      "sha256": "24239681af3a75a9f1c25c3231643ce4e903d661726329c0f901359fe4f0bbca"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/../include/exception",
+      "sha256": "994d4a23a837d92100205d89ac38c13c317cfb1851c2ae1fdc4d80b0e052c40c"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/xstddef",
+      "sha256": "e3b1fa3dcb3281ee2f22f79150303d943362263ea0b95874cd313b2798112a27"
+    },
+    {
+      "path": "vendor/stlport/cstddef",
+      "sha256": "798d58aa1d369789689f19fe3e4976ec66ed3a15e32aaf9bd931ac6a67627cb2"
+    },
+    {
+      "path": "reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/include/eh.h",
+      "sha256": "6ee4653126d60011021b2c57abe3e01b3030c3103248346da5299ecdf8e9d932"
+    },
+    {
+      "path": "vendor/stlport/config/_msvc_warnings_off.h",
+      "sha256": "695fb8d4008cde144d14f7dc3aebc8e31d27df99bbcbe8c5d5d7d461c8c0f274"
+    },
+    {
+      "path": "vendor/stlport/stl/_threads.h",
+      "sha256": "c2af83c7807ec31f7a2389ef948b46dbccb506ed580483d56c2d5814341530f3"
+    },
+    {
+      "path": "vendor/stlport/stl/_threads.c",
+      "sha256": "bf4ee55d1a690992b697e980cb136c97d1b0417c25c2a72da2472139ac4b192c"
+    },
+    {
+      "path": "vendor/stlport/stl/_construct.h",
+      "sha256": "c58c7b11f363ef6bf94d52b4a404a20c0f3bc2640f39c7733f3186c871db7679"
+    },
+    {
+      "path": "reference\\shims\\bfmealloc\\stl\\_uninitialized.h",
+      "sha256": "3ca31b465d9a53cfe9ae7aa3be75cdd9d84ff901a43230f7e1449db519f26877"
+    },
+    {
+      "path": "vendor/stlport/stl/_range_errors.h",
+      "sha256": "4649f4db46ca2bbec5261d04aaf8f90f86de11daad23e3b9058662604dfdc1ce"
+    },
+    {
+      "path": "vendor/stlport/stl/_relops_cont.h",
+      "sha256": "c9b11d657653b9a6551522090095d59f20817d714502a90cef0629d42085955f"
+    },
+    {
+      "path": "vendor/stlport/stl/_vector.c",
+      "sha256": "0332ecf0443095e97e41985aaa288918b921f7c7e46a3523024448b240191d53"
+    },
+    {
+      "path": "vendor/stlport/stl/_bvector.h",
+      "sha256": "0c339c65b9994b04e969691306e517a3091126e286883a9bee070fb5807c05e1"
+    },
+    {
+      "path": "vendor/stlport/stl/_epilog.h",
+      "sha256": "ed297b864038d25758715d5b5a53b782194618893b311004d79bad14b82bcb04"
+    },
+    {
+      "path": "vendor/stlport/config/_epilog.h",
+      "sha256": "67f9b63d0883bc7f1f4316108b88b3d86f37fd6ba016b6132bad529a32db772e"
+    },
+    {
+      "path": "vendor/stlport/stl/_config_compat_post.h",
+      "sha256": "bc54db4e95cef8bf8ba80b053bce3cabbd261dfc82882fd8bdd2a6e39197de4d"
+    },
+    {
+      "path": "Code/Libraries/Source/WWVegas/WWLib/StlRecordRva0017341B.h",
+      "sha256": "1096b41f580c53045f1d9124e6481c761f08c0f7502cef4f892b1e544395e3d7"
+    }
+  ],
+  "remaining_differences": [
+    24,
+    25,
+    26,
+    31,
+    42,
+    56,
+    58,
+    62,
+    74,
+    94,
+    115,
+    126,
+    137,
+    140,
+    142,
+    150,
+    200,
+    259,
+    262,
+    279,
+    293,
+    319,
+    353,
+    372,
+    442,
+    476,
+    493,
+    563,
+    570,
+    578,
+    580,
+    582,
+    590,
+    592,
+    614,
+    623,
+    625,
+    643,
+    664,
+    667,
+    671,
+    693,
+    696,
+    699,
+    730,
+    740,
+    747,
+    749
+  ],
+  "private_source": "build/seat3/shader819/currency.cpp",
+  "bank_source": "reverse/attempts/0x0017438b.cpp",
+  "score": 0.9413919413919414,
+  "normal_gate_passed": false,
+  "credit_cpp": 0,
+  "credit_link": 0
+}
