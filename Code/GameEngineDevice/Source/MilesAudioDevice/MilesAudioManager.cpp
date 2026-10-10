@@ -808,7 +808,8 @@ typedef _STL::list<OpaqueRefElement4> OpaqueRefList;
 // the rowed 0x00056B72.
 struct BfmeStringTailRecord144 {
     virtual ~BfmeStringTailRecord144();
-    char at04[0x0C - 0x04];
+    char at04[0x08 - 0x04];
+    AudioEventInfo *m_info;                // +0x08, named by the 0x000609A1 sweep
     unsigned int m_playingHandle;  // +0x0C
     char at10[0x90 - 0x10];
 };
@@ -878,7 +879,7 @@ public:
     virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void rva00061C87(unsigned int viewMask);
     virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24();
-    virtual void slot25(); virtual void slot26(); virtual void slot27(); virtual void slot28(); virtual void slot29();
+    virtual void slot25(); virtual void removePlayingAudio(const AsciiString &eventName, int viewType); virtual void slot27(); virtual void slot28(); virtual void slot29();
     virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
     virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
     virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
@@ -2162,6 +2163,21 @@ bool MilesAudioManager::rva00055FCA(int handle, void **result, int flags)
 
 // Retail 0x00055E6C (350 bytes): banked at 352B (see reverse/attempts/
 // 0x00055e6c.cpp); retry with the class decl and Rva000A8B59 forwarder above.
+
+// AudioEventInfo's slot-1 event-name getter (0x000609A1's compares go
+// through it); the view keeps the vtable use out of AudioEventInfo itself.
+class BfmeAudioEventInfoNameView {
+public:
+    virtual void slot0();
+    virtual const AsciiString &getEventName(void) const;
+};
+
+// The queued-event vector's single erase, rowed under an address name.
+class Rva000554A9 { public: void *rva000554A9(void *position); };
+
+// Retail 0x000609A1 (876 bytes, vftable slot 26): banked at 889B (see
+// reverse/attempts/0x000609a1.cpp); retry with the slot26 rename, the two
+// views above and BfmeStringTailRecord144::m_info.
 
 // Address-derived Manager method. The target passes the lookup output to the
 // manager helper and increments the returned object's +0x80 reference count.

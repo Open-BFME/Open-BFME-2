@@ -1,19 +1,23 @@
 // ?removePlayingAudio@MilesAudioManager@@UAEXABVAsciiString@@H@Z
-// partial score=0.9 date=2026-10-09
-// Banked body for MilesAudioManager.cpp (retail 0x000609A1, vftable 0x007C55B0
-// slot 26): declare `virtual void removePlayingAudio(const AsciiString &, int)`
-// in place of slot26 and give BfmeStringTailRecord144 `AudioEventInfo *m_info`
-// at +0x08. Everything outside the three playing-list loops matches; in those
-// loops retail keeps the PlayingAudio pointer live across the name compare
-// (edi in loops 2-3, reloaded into ecx in loop 1) and pushes it for
-// releaseMilesHandles, while this source reloads/pushes [ebp-0x10].
-// AudioEventInfo's slot 1 returns its event name (0x00060A00's compares).
+// partial score=0.98 date=2026-10-10
+// ?removePlayingAudio@MilesAudioManager@@UAEXABVAsciiString@@H@Z
+// banked 2026-10-10: 889B vs 876B; loops 1-3 (audio-local), queued,
+// request-set/list and epilogue all exact (tail reconverges at +13,
+// all non-reloc bytes match). Sole residue: music-stack loop emits
+// in ecx (mov ecx,eax) + a peeled first-compare in the outer body
+// vs retail eax (imul eax) + plain jmp to inner-top. Tried ptr+do-while
+// +countdown (correct control: add-stack/dec/jne-near match), ref+for,
+// per-iter end, named end, barrier, const/const_iterator, volatile.
+// Needs: slot26 rename + BfmeStringTailRecord144::m_info from
+// MilesAudioManager.cpp. Requires MilesAudioManager receiver.
+// AudioEventInfo's slot-1 event-name getter (0x000609A1's compares go
+// through it); the view keeps the vtable use out of AudioEventInfo itself.
 class BfmeAudioEventInfoNameView {
 public:
     virtual void slot0();
     virtual const AsciiString &getEventName(void) const;
 };
-inline const AsciiString &bfmeEventName(const AudioEventInfo *info)
+static __forceinline const AsciiString &bfmeEventName(const AudioEventInfo *info)
 {
     return reinterpret_cast<const BfmeAudioEventInfoNameView *>(info)->getEventName();
 }
@@ -21,7 +25,7 @@ inline const AsciiString &bfmeEventName(const AudioEventInfo *info)
 // The queued-event vector's single erase, rowed under an address name.
 class Rva000554A9 { public: void *rva000554A9(void *position); };
 
-// Retail 0x000609A1, vftable 0x007C55B0 slot 26: Zero Hour's
+// Retail 0x000609A1 (876 bytes, vftable slot 26): Zero Hour's
 // removePlayingAudio by event name, limited to one view type. BFME 2 also
 // drops the name from that view's two music stacks and queued events
 // (unmapping their handles), from the pending request set (deleting those
@@ -30,14 +34,16 @@ void MilesAudioManager::removePlayingAudio(const AsciiString &eventName, int vie
 {
     MilesMutexGuard guard(&m_mutex, 0);
     PlayingAudioRef playing;
+    PlayingAudio *audio;
     OpaqueRefList::iterator it;
 
     it = reinterpret_cast<OpaqueRefList &>(m_playingSounds).begin();
     while (it != reinterpret_cast<OpaqueRefList &>(m_playingSounds).end()) {
         playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
-        if (playing.get() && bfmeEventName(playing->m_event->m_info) == eventName
-            && playing->m_event->m_viewType == viewType) {
-            releaseMilesHandles(*playing.get());
+        audio = playing.get();
+        if (audio && bfmeEventName(audio->m_event->m_info) == eventName
+            && audio->m_event->m_viewType == viewType) {
+            releaseMilesHandles(*audio);
             it = reinterpret_cast<OpaqueRefList &>(m_playingSounds).erase(it);
         } else {
             ++it;
@@ -46,9 +52,10 @@ void MilesAudioManager::removePlayingAudio(const AsciiString &eventName, int vie
     it = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).begin();
     while (it != reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).end()) {
         playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
-        if (playing.get() && bfmeEventName(playing->m_event->m_info) == eventName
-            && playing->m_event->m_viewType == viewType) {
-            releaseMilesHandles(*playing.get());
+        audio = playing.get();
+        if (audio && bfmeEventName(audio->m_event->m_info) == eventName
+            && audio->m_event->m_viewType == viewType) {
+            releaseMilesHandles(*audio);
             it = reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).erase(it);
         } else {
             ++it;
@@ -57,9 +64,10 @@ void MilesAudioManager::removePlayingAudio(const AsciiString &eventName, int vie
     it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).begin();
     while (it != reinterpret_cast<OpaqueRefList &>(m_playingStreams).end()) {
         playing = *reinterpret_cast<const PlayingAudioRef *>(&*it);
-        if (playing.get() && bfmeEventName(playing->m_event->m_info) == eventName
-            && playing->m_event->m_viewType == viewType) {
-            releaseMilesHandles(*playing.get());
+        audio = playing.get();
+        if (audio && bfmeEventName(audio->m_event->m_info) == eventName
+            && audio->m_event->m_viewType == viewType) {
+            releaseMilesHandles(*audio);
             it = reinterpret_cast<OpaqueRefList &>(m_playingStreams).erase(it);
         } else {
             ++it;
@@ -71,8 +79,9 @@ void MilesAudioManager::removePlayingAudio(const AsciiString &eventName, int vie
         MusicStack::iterator music = stack.begin();
         while (music != stack.end()) {
             playing = *reinterpret_cast<const PlayingAudioRef *>(&*music);
-            if (playing.get() && bfmeEventName(playing->m_event->m_info) == eventName
-                && playing->m_event->m_viewType == viewType) {
+            audio = playing.get();
+            if (audio && bfmeEventName(audio->m_event->m_info) == eventName
+                && audio->m_event->m_viewType == viewType) {
                 music = stack.erase(music);
             } else {
                 ++music;
@@ -117,4 +126,3 @@ void MilesAudioManager::removePlayingAudio(const AsciiString &eventName, int vie
         }
     }
 }
-
