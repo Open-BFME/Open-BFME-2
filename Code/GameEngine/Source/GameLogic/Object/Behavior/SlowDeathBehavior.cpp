@@ -261,7 +261,22 @@ static void calcRandomForce(Real minMag, Real maxMag, Real minPitch, Real maxPit
 	Matrix3D mtx(1);
 	mtx.Scale(mag);
 	mtx.Rotate_Z(angle);
-	mtx.Rotate_Y(-pitch);
+	// Inline the Y-rotation post-multiply (header Rotate_Y math): this TU's
+	// fsin/fcos-computed Rotate_Y copy loses the link, and the kept copy must
+	// stay the out-of-line sin/cos one. sin/cos are CRT imports (no COMDATs);
+	// the float-pointer write avoids Matrix3D/Vector4 inline accessors that
+	// would emit more copies. Enclosing function is unrowed.
+	{
+		float s = (float)sin((double)-pitch);
+		float c = (float)cos((double)-pitch);
+		float *m = (float*)&mtx; // 3 Vector4 rows; layout verified by rowed bodies
+		float t0 = m[0], t2 = m[2];
+		m[0] = c*t0 - s*t2; m[2] = s*t0 + c*t2;
+		t0 = m[4]; t2 = m[6];
+		m[4] = c*t0 - s*t2; m[6] = s*t0 + c*t2;
+		t0 = m[8]; t2 = m[10];
+		m[8] = c*t0 - s*t2; m[10] = s*t0 + c*t2;
+	}
 
 	Vector3 v = mtx.Get_X_Vector();
 
