@@ -1,15 +1,9 @@
-// ??0W3DBridge@@QAE@XZ
-// partial score=0.9439 date=2026-10-06
-// ??0W3DBridge@@QAE@XZ
-// partial score=0.9439 date=2026-10-05
-// ??0W3DBridge@@QAE@XZ
-// partial score=0.99 date=2026-10-04
 // cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /arch:SSE /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
-// ??0W3DBridge@@QAE@XZ 0x000DD97F 239B W3DBridge ctor with scale/length 1.0 via g_Va00BBB8D8 plus Matrix rows via Region3D empty ctor
+// ??0W3DBridge@@QAE@XZ 0x000DD97F 239B W3DBridge ctor with scale/length 1.0f
+// (a compiler literal; reading it through an address-named global
+// reordered the stores) plus Matrix rows via Region3D empty ctor
 // evidence: LINK BONUS 110B W3DBridgeBufferCtor waits only for this body; retail pushes 0xC8 0x114 with dtor 0x000DDA6E; calls ??_H 0x00001423 thrice with ctor 0x0047A6A9 for 3x0x10 rows at +0x3C +0x80 +0xBC; ZH donor W3DBridgeBuffer.h layout with Matrix3D as 3 Vector4 rows; BFME1 constructor donor for scalar defaults
 #include "ascii_string.h"
-
-extern float g_Va00BBB8D8;
 
 class TextureClass
 {
@@ -77,7 +71,7 @@ private:
 };
 
 W3DBridge::W3DBridge() :
-	m_scale(g_Va00BBB8D8),
+	m_scale(1.0f),
 	m_length(m_scale),
 	m_bridgeType(0),
 	m_bridgeTexture(),
