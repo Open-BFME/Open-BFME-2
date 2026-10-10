@@ -256,3 +256,7 @@ _io_writeto
 
 # Native51DCC calls copy constructor51D62; absent-from-retail tag anchor uses a different prefix-construction path.
 ??0Rva005813E@@QAE@PAUEmitVtableTag@@@Z
+
+# Refused 2026-10-10: 75FBB6 is the JMP suffix of the actual EH cleanup
+# at75FBB0 (LEA ECX,[EBP-EC]; JMP899E5), not a standalone5B destructor.
+??1Rva0010274F@@QAE@XZ
