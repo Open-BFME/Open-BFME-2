@@ -45,9 +45,16 @@ Rva0012D780::Rva0012D780(EmitVtableTag *)
 class Rva00140C00
 {
 public:
+	Rva00140C00();
 	Rva00140C00(EmitVtableTag *);
 	virtual ~Rva00140C00();
 };
+
+// ??0Rva00140C00@@QAE@XZ @0x00140BF0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BD3338) and returning this.
+Rva00140C00::Rva00140C00()
+{
+}
 
 // ?<Rva00140C00::Rva00140C00> absent-from-retail
 Rva00140C00::Rva00140C00(EmitVtableTag *)
@@ -75,9 +82,16 @@ StaticSortListClass::StaticSortListClass(EmitVtableTag *)
 class Rva00191120
 {
 public:
+	Rva00191120();
 	Rva00191120(EmitVtableTag *);
 	virtual ~Rva00191120() {}
 };
+
+// ??0Rva00191120@@QAE@XZ @0x007230E0 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BD5E38) and returning this.
+Rva00191120::Rva00191120()
+{
+}
 
 // ?<Rva00191120::Rva00191120> absent-from-retail
 Rva00191120::Rva00191120(EmitVtableTag *)

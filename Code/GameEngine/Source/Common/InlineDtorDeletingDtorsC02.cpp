@@ -17,9 +17,16 @@ struct EmitVtableTag;
 class Rva00108475
 {
 public:
+	Rva00108475();
 	Rva00108475(EmitVtableTag *);
 	virtual ~Rva00108475();
 };
+
+// ??0Rva00108475@@QAE@XZ @0x00108657 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BCF994) and returning this.
+Rva00108475::Rva00108475()
+{
+}
 
 // ?<Rva00108475::Rva00108475> absent-from-retail
 Rva00108475::Rva00108475(EmitVtableTag *)
