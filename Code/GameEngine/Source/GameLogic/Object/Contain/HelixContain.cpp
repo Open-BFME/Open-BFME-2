@@ -59,6 +59,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Weapon.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -179,7 +191,7 @@ void HelixContain::createPayload()
 
   // Any number of different passengers can be loaded here at init time
 	Object* object = getObject();
-	ContainModuleInterface *contain = object->getContain();
+	ContainModuleInterface *contain = getRetailContain(object);
 	if( contain )
   {
 		contain->enableLoadSounds( FALSE );
@@ -226,7 +238,7 @@ void HelixContain::onBodyDamageStateChange( const DamageInfo* damageInfo,
   Object *portable = getPortableStructure();
   if ( newState != BODY_RUBBLE  && portable )
   {
-		portable->getBodyModule()->setDamageState( newState );
+		getRetailBodyModule(portable)->setDamageState( newState );
   }
   
 }

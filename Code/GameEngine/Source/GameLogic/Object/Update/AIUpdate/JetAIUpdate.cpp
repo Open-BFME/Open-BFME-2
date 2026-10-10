@@ -62,6 +62,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/Weapon.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 // Reuse the complete byte-verified Coord3D push-back provider at2CE7DC.
 // Its declaration suppresses a second template body under this TU flags.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
@@ -159,7 +171,7 @@ static ParkingPlaceBehaviorInterface* getPP(ObjectID id, Object** airfieldPP = N
 		*airfieldPP = airfield;
 
 	ParkingPlaceBehaviorInterface* pp = NULL;
-	for (BehaviorModule** i = airfield->getBehaviorModules(); *i; ++i)
+	for (BehaviorModule** i = getRetailBehaviorModules(airfield); *i; ++i)
 	{
 		if ((pp = (*i)->getParkingPlaceBehaviorInterface()) != NULL)
 			break;
@@ -407,7 +419,7 @@ public:
 			// convert to damage/sec to damage/frame
 			damageRate *= SECONDS_PER_LOGICFRAME_REAL;
 			// since it's a percentage, multiply times the max health
-			damageRate *= jet->getBodyModule()->getMaxHealth();
+			damageRate *= getRetailBodyModule(jet)->getMaxHealth();
 
 			DamageInfo damageInfo;
 			damageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
@@ -756,7 +768,7 @@ public:
 		Locomotor* loco = jetAI->getCurLocomotor();
 		DEBUG_ASSERTCRASH(loco, ("no loco"));
 		loco->setMaxLift(BIGNUM);
-		BodyDamageType bdt = jet->getBodyModule()->getDamageState();
+		BodyDamageType bdt = getRetailBodyModule(jet)->getDamageState();
 		m_maxLift = loco->getMaxLift(bdt);
 		m_maxSpeed = loco->getMaxSpeedForCondition(bdt);
 		m_landingSoundPlayed = FALSE;
@@ -1900,7 +1912,7 @@ UpdateSleepTime JetAIUpdate::update()
 			if (!getFlag(ALLOW_AIR_LOCO) && 
 					!getFlag(HAS_PENDING_COMMAND) &&
 						jet->isKindOf(KINDOF_PRODUCED_AT_HELIPAD) &&
-						jet->getBodyModule()->getHealth() == jet->getBodyModule()->getMaxHealth())
+						getRetailBodyModule(jet)->getHealth() == getRetailBodyModule(jet)->getMaxHealth())
 			{
 				// we're completely healed, so take off again
 				pp->setHealee(jet, false);
@@ -2363,7 +2375,7 @@ void JetAIUpdate::doLandingCommand(Object *airfield, CommandSourceType cmdSource
 			m_landingPosForHelipadStuff = tmp;
 	}
 
-	for (BehaviorModule** i = airfield->getBehaviorModules(); *i; ++i)
+	for (BehaviorModule** i = getRetailBehaviorModules(airfield); *i; ++i)
 	{
 		ParkingPlaceBehaviorInterface* pp = (*i)->getParkingPlaceBehaviorInterface();
 		if (pp == NULL)

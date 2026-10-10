@@ -55,6 +55,18 @@
 #include "GameLogic/Module/PhysicsUpdate.h"
 #include "GameLogic/Weapon.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -507,7 +519,7 @@ Bool DumbProjectileBehavior::projectileHandleCollision( Object *other )
 
 		if (d->m_garrisonHitKillCount > 0)
 		{
-			ContainModuleInterface* contain = other->getContain();
+			ContainModuleInterface* contain = getRetailContain(other);
 			if( contain && contain->getContainCount() > 0 && contain->isGarrisonable() && !contain->isImmuneToClearBuildingAttacks() )
 			{
 				Int numKilled = 0;
@@ -574,7 +586,7 @@ void DumbProjectileBehavior::detonate()
 			damageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
 			damageInfo.in.m_deathType = DEATH_DETONATED;
 			damageInfo.in.m_sourceID = INVALID_ID;
-			damageInfo.in.m_amount = obj->getBodyModule()->getMaxHealth();
+			damageInfo.in.m_amount = getRetailBodyModule(obj)->getMaxHealth();
 			obj->attemptDamage( &damageInfo );
 		}
 		else
@@ -590,7 +602,7 @@ void DumbProjectileBehavior::detonate()
 		damageInfo.in.m_damageType = DAMAGE_UNRESISTABLE;
 		damageInfo.in.m_deathType = DEATH_DETONATED;
 		damageInfo.in.m_sourceID = INVALID_ID;
-		damageInfo.in.m_amount = obj->getBodyModule()->getMaxHealth();
+		damageInfo.in.m_amount = getRetailBodyModule(obj)->getMaxHealth();
 		obj->attemptDamage( &damageInfo );
 	}
 

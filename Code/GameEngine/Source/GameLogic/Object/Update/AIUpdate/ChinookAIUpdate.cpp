@@ -64,6 +64,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Module/PhysicsUpdate.h"
 #include "GameLogic/PartitionManager.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 const Real BIGNUM = 99999.0f;
 
 #ifdef _INTERNAL
@@ -112,7 +124,7 @@ static Real calcDistSqr(const Coord3D& a, const Coord3D& b)
 //-------------------------------------------------------------------------------------------------
 static Object* getPotentialRappeller(Object* obj)
 {
-	const ContainedItemsList* items = obj->getContain() ? obj->getContain()->getContainedItemsList() : NULL;
+	const ContainedItemsList* items = getRetailContain(obj) ? getRetailContain(obj)->getContainedItemsList() : NULL;
 	if (items)
 	{
 		for (ContainedItemsList::const_iterator it = items->begin(); it != items->end(); ++it )
@@ -142,9 +154,9 @@ public:
 	StateReturnType onEnter()
 	{
 		Object* obj = getMachineOwner();
-		if( obj->getContain() )
+		if( getRetailContain(obj) )
 		{
-			obj->getContain()->removeAllContained(FALSE);
+			getRetailContain(obj)->removeAllContained(FALSE);
 		}
 		obj->getTeam()->setActive();	// why? I don't know.
 		return STATE_SUCCESS;
@@ -972,7 +984,7 @@ static ParkingPlaceBehaviorInterface* getPP(ObjectID id)
 		return NULL;
 
 	ParkingPlaceBehaviorInterface* pp = NULL;
-	for (BehaviorModule** i = airfield->getBehaviorModules(); *i; ++i)
+	for (BehaviorModule** i = getRetailBehaviorModules(airfield); *i; ++i)
 	{
 		if ((pp = (*i)->getParkingPlaceBehaviorInterface()) != NULL)
 			break;
@@ -1011,7 +1023,7 @@ Bool ChinookAIUpdate::isIdle() const
 	if (result && m_flightStatus == CHINOOK_LANDED)
 	{
 		// ditto: if we are waiting to disgorge some folks, we aren't 'idle'
-		ContainModuleInterface* contain = getObject()->getContain();
+		ContainModuleInterface* contain = getRetailContain(getObject());
 		if (contain && contain->hasObjectsWantingToEnterOrExit())
 			result = false;
 	}
@@ -1033,7 +1045,7 @@ Bool ChinookAIUpdate::isAvailableForSupplying() const
 	if (!SupplyTruckAIUpdate::isAvailableForSupplying())
 		return false;
 
-	ContainModuleInterface* contain = getObject()->getContain();
+	ContainModuleInterface* contain = getRetailContain(getObject());
 	if( !contain || contain->hasObjectsWantingToEnterOrExit() || contain->getContainCount() || contain->isSpecialOverlordStyleContainer())
 		return false;
 
@@ -1098,7 +1110,7 @@ UpdateSleepTime ChinookAIUpdate::update()
 	{
 		if (m_flightStatus == CHINOOK_LANDED && 
 				!m_hasPendingCommand &&
-				getObject()->getBodyModule()->getHealth() == getObject()->getBodyModule()->getMaxHealth())
+				getRetailBodyModule(getObject())->getHealth() == getRetailBodyModule(getObject())->getMaxHealth())
 		{
 			// we're completely healed, so take off again
 			pp->setHealee(getObject(), false);
@@ -1118,7 +1130,7 @@ UpdateSleepTime ChinookAIUpdate::update()
   
 	// have to call our parent's isIdle, because we override it to never return true
 	// when we have a pending command...
-	ContainModuleInterface* contain = getObject()->getContain();
+	ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain )
 	{
 	  if (SupplyTruckAIUpdate::isIdle())
@@ -1443,7 +1455,7 @@ void ChinookAIUpdate::privateIdle(CommandSourceType cmdSource)
 
   // Just an extra step, here, before extending idle to parent classes.
   // Living in you own privateIdle-ho.
-  ContainModuleInterface* contain = getObject()->getContain();
+  ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain != NULL )
 	{
     Object *rider = (Object*)contain->friend_getRider();
@@ -1471,7 +1483,7 @@ void ChinookAIUpdate::privateAttackObject( Object *victim, Int maxShotsToFire, C
   if ( ! getObject()->isKindOf( KINDOF_CAN_ATTACK ) )
     return;
 
-  ContainModuleInterface* contain = getObject()->getContain();
+  ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain != NULL )
 	{
 		// As an extension of the normal attack, I may want to tell my passengers to attack 
@@ -1529,7 +1541,7 @@ void ChinookAIUpdate::privateAttackObject( Object *victim, Int maxShotsToFire, C
 // ?private___TellPortableStructureToAttackWithMe@ChinookAIUpdate@@ present-unmatched
 void ChinookAIUpdate::private___TellPortableStructureToAttackWithMe( Object *victim, Int maxShotsToFire, CommandSourceType cmdSource )
 {
-  ContainModuleInterface* contain = getObject()->getContain();
+  ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain != NULL )
 	{
     //--------- THE GATTLING UPGRADE OR THE GUYS IN THE BUNKER_NOT_A_BUNKER-------------
@@ -1562,7 +1574,7 @@ void ChinookAIUpdate::privateForceAttackObject( Object *victim, Int maxShotsToFi
   if ( ! getObject()->isKindOf( KINDOF_CAN_ATTACK ) )
     return;
 
-  ContainModuleInterface* contain = getObject()->getContain();
+  ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain != NULL )
 	{
 		// As an extension of the normal attack, I may want to tell my passengers to attack 
@@ -1640,7 +1652,7 @@ void ChinookAIUpdate::privateAttackPosition( const Coord3D *pos, Int maxShotsToF
   if ( ! getObject()->isKindOf( KINDOF_CAN_ATTACK ) )
     return;
 
-	ContainModuleInterface* contain = getObject()->getContain();
+	ContainModuleInterface* contain = getRetailContain(getObject());
 	if( contain != NULL )
 	{
 		// As an extension of the normal attack, I may want to tell my passengers to attack 

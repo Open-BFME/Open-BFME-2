@@ -74,6 +74,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Module/ContainModule.h"
 #include "GameLogic/Module/SpawnBehavior.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 
 #ifdef _INTERNAL
 // for occasional debugging...
@@ -201,7 +213,7 @@ void StealthUpdate::receiveGrant( Bool active, UnsignedInt frames )
 		}
 	}
 
-  const ContainModuleInterface *contain = obj->getContain();
+  const ContainModuleInterface *contain = getRetailContain(obj);
   if ( contain && contain->isRiderChangeContain() )
   {
     const Object *rider = contain->friend_getRider(); 
@@ -285,13 +297,13 @@ Bool StealthUpdate::allowedToStealth( Object *stealthOwner ) const
 		return FALSE;
 	}
 	
-	if( flags & STEALTH_NOT_WHILE_TAKING_DAMAGE && self->getBodyModule()->getLastDamageTimestamp() >= now - 1 )
+	if( flags & STEALTH_NOT_WHILE_TAKING_DAMAGE && getRetailBodyModule(self)->getLastDamageTimestamp() >= now - 1 )
 	{
 		//Only if it's not healing damage.
-		if( self->getBodyModule()->getLastDamageInfo()->in.m_damageType != DAMAGE_HEALING )
+		if( getRetailBodyModule(self)->getLastDamageInfo()->in.m_damageType != DAMAGE_HEALING )
 		{
 			//Can't stealth if we just took damage in the last frame or two.
-			if( self->getBodyModule()->getLastDamageTimestamp() != 0xffffffff )
+			if( getRetailBodyModule(self)->getLastDamageTimestamp() != 0xffffffff )
 			{
 				//But it's initialized to 0xffffffff so we don't think we took damage on the first frame. 
 				return FALSE;
@@ -354,7 +366,7 @@ Bool StealthUpdate::allowedToStealth( Object *stealthOwner ) const
 	const Object *containedBy = self->getContainedBy();
 	if( containedBy )
 	{
-		ContainModuleInterface *contain = containedBy->getContain();
+		ContainModuleInterface *contain = getRetailContain(containedBy);
 		if( contain && !contain->isGarrisonable() )
 		{
 			return FALSE;
@@ -364,7 +376,7 @@ Bool StealthUpdate::allowedToStealth( Object *stealthOwner ) const
   //new past-alpha feature, grr...
 	if( flags & STEALTH_NOT_WHILE_RIDERS_ATTACKING )
 	{
-    ContainModuleInterface *myContain = self->getContain();
+    ContainModuleInterface *myContain = getRetailContain(self);
     if ( myContain && myContain->isPassengerAllowedToFire() )
     {
       if ( myContain->isAnyRiderAttacking() )
@@ -531,7 +543,7 @@ Object* StealthUpdate::calcStealthOwner()
 	{
 		//We're actually going to logically check the rider as the stealth owner, but the
 		//stealth effects will go on the container.
-		ContainModuleInterface *contain = getObject()->getContain();
+		ContainModuleInterface *contain = getRetailContain(getObject());
 		if( contain )
 		{
 			const ContainedItemsList *riderList = contain->getContainedItemsList();
@@ -787,7 +799,7 @@ UpdateSleepTime StealthUpdate::update( void )
 			Object *container = self->getContainedBy();
 			if ( container )
 			{
-				ContainModuleInterface *contain = container->getContain();
+				ContainModuleInterface *contain = getRetailContain(container);
 				if( contain && contain->isGarrisonable() )
 				{
 					contain->recalcApparentControllingPlayer();

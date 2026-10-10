@@ -97,6 +97,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/TurretAI.h"
 #include "GameLogic/Weapon.h"
 #include "Common/Radar.h"									// For TheRadar
+
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
 // Reuse the verified Coord3D push-back specialization at2CE7DC.
 namespace _STL { template<> void vector<Coord3D>::push_back(const Coord3D&); }
 
@@ -590,7 +602,7 @@ Object* AIUpdateInterface::getTurretTargetObject( WhichTurretType tur, Bool clea
 Real AIUpdateInterface::getCurLocomotorSpeed() const
 {
 	if (m_curLocomotor != NULL)
-		return m_curLocomotor->getMaxSpeedForCondition(getObject()->getBodyModule()->getDamageState());
+		return m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
 
 	DEBUG_LOG(("no current locomotor!"));
 	return 0.0f;
@@ -1227,10 +1239,10 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
 #define dont_MOVE_AROUND // It just causes more problems than it fixes. jba.
 #ifdef MOVE_AROUND 
 				if (m_curLocomotor!=NULL && (other->isKindOf(KINDOF_INFANTRY)==getObject()->isKindOf(KINDOF_INFANTRY))) {
-					Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getObject()->getBodyModule()->getDamageState());
+					Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
 					Locomotor *hisLoco = aiOther->getCurLocomotor();
 					if (hisLoco) {
-						Real hisMaxSpeed = hisLoco->getMaxSpeedForCondition(other->getBodyModule()->getDamageState());
+						Real hisMaxSpeed = hisLoco->getMaxSpeedForCondition(getRetailBodyModule(other)->getDamageState());
 						if (hisMaxSpeed > 0.05 && hisMaxSpeed < 0.6f*myMaxSpeed)	{
 							aiOther->aiMoveAwayFromUnit(getObject(), CMD_FROM_AI);
 							return FALSE;
@@ -1849,7 +1861,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor( void )
 				case POSITION_EXPLICIT:
 					{
 						Real speed = m_desiredSpeed;
-						Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getObject()->getBodyModule()->getDamageState());
+						Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
 						if( speed == FAST_AS_POSSIBLE || speed > myMaxSpeed )
 							speed = myMaxSpeed;
 						m_curLocomotor->locoUpdate_moveTowardsPosition(getObject(), 
@@ -1896,7 +1908,7 @@ UpdateSleepTime AIUpdateInterface::doLocomotor( void )
 						}
 				 
 						Real speed = m_desiredSpeed;
-						Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getObject()->getBodyModule()->getDamageState());
+						Real myMaxSpeed = m_curLocomotor->getMaxSpeedForCondition(getRetailBodyModule(getObject())->getDamageState());
 						if( speed == FAST_AS_POSSIBLE || speed > myMaxSpeed )
 							speed = myMaxSpeed;
 
@@ -3078,9 +3090,9 @@ void AIUpdateInterface::privateResumeConstruction( Object *obj, CommandSourceTyp
 void AIUpdateInterface::privateCombatDrop( Object *target, const Coord3D& pos, CommandSourceType cmdSource )
 {
 	DEBUG_CRASH(("default implementation, should never be called"));
-	if( getObject()->getContain() )
+	if( getRetailContain(getObject()) )
 	{
-		getObject()->getContain()->removeAllContained(FALSE);
+		getRetailContain(getObject())->removeAllContained(FALSE);
 	}
 }
 
@@ -3139,7 +3151,7 @@ void AIUpdateInterface::privateEvacuate( Int exposeStealthUnits, CommandSourceTy
     return;
 
 
-	ContainModuleInterface *contain = getObject()->getContain();
+	ContainModuleInterface *contain = getRetailContain(getObject());
 	if( contain )
 	{
 		if( exposeStealthUnits )
@@ -3162,7 +3174,7 @@ void AIUpdateInterface::privateEvacuateInstantly( Int exposeStealthUnits, Comman
     return;
 
 
-	ContainModuleInterface *contain = getObject()->getContain();
+	ContainModuleInterface *contain = getRetailContain(getObject());
 	if( contain )
 	{
 		if( exposeStealthUnits )
@@ -3540,7 +3552,7 @@ Object* AIUpdateInterface::getNextMoodTarget( Bool calledByAI, Bool calledDuring
 			if( !canAutoAcquireWhileStealthed() ) 
 			{
   			const Object *container = obj->getContainedBy();
-  			if( ! (container && container->getContain()->isPassengerAllowedToFire()) )
+  			if( ! (container && getRetailContain(container)->isPassengerAllowedToFire()) )
   			{
 					// Sorry, stealthed and not allowed to idle fire when stealthed.
 					// Being in a firing container is an exception to this veto.
@@ -3606,7 +3618,7 @@ Object* AIUpdateInterface::getNextMoodTarget( Bool calledByAI, Bool calledDuring
 	UnsignedInt moodMatrixVal = getMoodMatrixValue();
 	if ((moodMatrixVal & MM_Controller_AI) && (moodMatrixVal & MM_Mood_Passive)) 
 	{
-		BodyModuleInterface *bmi = obj->getBodyModule();
+		BodyModuleInterface *bmi = getRetailBodyModule(obj);
 		if (!bmi)
 			return NULL;
 
@@ -3713,7 +3725,7 @@ void AIUpdateInterface::evaluateMoraleBonus( void )
 
 	// are we in a horde
 	HordeUpdateInterface *hui;
-	for( BehaviorModule** u = us->getBehaviorModules(); *u; ++u )
+	for( BehaviorModule** u = getRetailBehaviorModules(us); *u; ++u )
 	{
 
 		hui = (*u)->getHordeUpdateInterface();

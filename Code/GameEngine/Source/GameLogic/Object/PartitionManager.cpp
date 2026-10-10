@@ -90,6 +90,18 @@
 
 #ifdef PM_CACHE_TERRAIN_HEIGHT
 #include "common/mapobject.h"
+
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
 #endif
 
 #ifdef DUMP_PERF_STATS
@@ -5053,7 +5065,7 @@ Bool PartitionFilterRejectBuildings::allow( Object *other )
 		return false;
 
 	// Get the controlling team of other.
-	ContainModuleInterface* contain = other->getContain();
+	ContainModuleInterface* contain = getRetailContain(other);
 	const Player* otherPlayer = contain ? contain->getApparentControllingPlayer(myPlayer) : NULL;
 
 	if (!otherPlayer)
@@ -5076,7 +5088,7 @@ Bool PartitionFilterRejectBuildings::allow( Object *other )
 		return true;
 	}
 
-	if (other->getContain() != NULL && other->isAbleToAttack())
+	if (getRetailContain(other) != NULL && other->isAbleToAttack())
 	{
 		// Don't reject garrisoned buildings that can attack
 		return true;
@@ -5100,7 +5112,7 @@ Bool PartitionFilterInsignificantBuildings::allow( Object *other )
 {
 	if (other->isStructure()) {
 		if (other->isNonFactionStructure() && !m_allowInsignificant) {
-			ContainModuleInterface *cmi = other->getContain();
+			ContainModuleInterface *cmi = getRetailContain(other);
 			if (cmi) {
 				if (!cmi->isGarrisonable() || cmi->getContainCount() == 0) {
 					return false;
@@ -5236,7 +5248,7 @@ Bool PartitionFilterThing::allow( Object *other )
 // ?allow@PartitionFilterGarrisonable@@ present-unmatched
 Bool PartitionFilterGarrisonable::allow( Object *other )
 {
-	ContainModuleInterface *cmi = other->getContain();
+	ContainModuleInterface *cmi = getRetailContain(other);
 	if (!cmi) {
 		return !m_match;
 	}
@@ -5546,8 +5558,8 @@ Bool PartitionFilterPossibleToHijack::allow(Object *objOther)
 // ??0PartitionFilterLastAttackedBy@@ present-unmatched
 PartitionFilterLastAttackedBy::PartitionFilterLastAttackedBy(Object *obj) 
 {
-	if (obj && obj->getBodyModule()) {
-		m_lastAttackedBy = obj->getBodyModule()->getLastDamageInfo()->in.m_sourceID;
+	if (obj && getRetailBodyModule(obj)) {
+		m_lastAttackedBy = getRetailBodyModule(obj)->getLastDamageInfo()->in.m_sourceID;
 	} else {
 		m_lastAttackedBy = INVALID_ID;
 	}
@@ -5664,7 +5676,7 @@ Bool PartitionFilterStealthedAndUndetected::allow( Object *objOther )
 	{
 		//This handles neutral containers that hold stealth units. This specifically fixes a bug where hunt scripts would ignore
 		//this case -- units would acquire the building Jarmen Kell occupied even though it was not stealth detected.
-		const ContainModuleInterface* contain = objOther->getContain();
+		const ContainModuleInterface* contain = getRetailContain(objOther);
 		if( contain )
 		{
 			const Player* victimApparentController = contain->getApparentControllingPlayer( m_obj->getControllingPlayer() );

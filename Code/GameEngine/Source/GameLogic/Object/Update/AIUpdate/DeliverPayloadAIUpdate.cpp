@@ -65,6 +65,18 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Weapon.h"
 #include "GameLogic/WeaponSet.h"
 
+// BFME 2's Object keeps its behavior list at +0x244 (the matched
+// Object::findModule 0x0028B6D6 walks it there), its contain module at +0x250
+// and its body module at +0x254; this tree's Zero Hour Object.h has +0x18C,
+// +0x190 and +0x194. This unit reads them through these functions instead of
+// the header's inline getters, whose Zero Hour copies would otherwise come
+// early in link order and displace every BFME 2 unit's copy (retail has no
+// out-of-line Object getter: the 7-byte bodies at 0x00313E8C/93/9A are
+// GameWindow text-colour getters).
+static BehaviorModule **getRetailBehaviorModules( const Object *obj ) { return *(BehaviorModule ** const *)((const char *)obj + 0x244); }
+static ContainModuleInterface *getRetailContain( const Object *obj ) { return *(ContainModuleInterface * const *)((const char *)obj + 0x250); }
+static BodyModuleInterface *getRetailBodyModule( const Object *obj ) { return *(BodyModuleInterface * const *)((const char *)obj + 0x254); }
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -370,7 +382,7 @@ const ThingTemplate* DeliverPayloadAIUpdate::getPutInContainerTemplateViaModuleD
 Real DeliverPayloadAIUpdate::calcMinTurnRadius(Real* timeToTravelThatDist) const
 {
 	const Locomotor* loco = getCurLocomotor();
-	BodyDamageType bdt = getObject()->getBodyModule()->getDamageState();
+	BodyDamageType bdt = getRetailBodyModule(getObject())->getDamageState();
 	/// @todo srj -- this should probably use min-speed, not max-speed... fix after E3
 	Real maxSpeed = loco->getMaxSpeedForCondition(bdt);				// in dist/frame
 	Real maxTurnRate = loco->getMaxTurnRate(bdt);	// in rads/frame
@@ -755,7 +767,7 @@ StateReturnType DeliveringState::update() // Kick a dude out every so often
 	if (!ai->isCloseEnoughToTarget())
 		return STATE_FAILURE;
 
-	const ContainedItemsList* items = owner->getContain() ? owner->getContain()->getContainedItemsList() : NULL;
+	const ContainedItemsList* items = getRetailContain(owner) ? getRetailContain(owner)->getContainedItemsList() : NULL;
 	if( (!items || !items->size()) && ai->getVisibleItemsDelivered() == ai->getData()->m_visibleNumBones )
 	{
 		//We are out of payload to drop AND our visible payload is empty. It's possible for deliverers to
@@ -798,7 +810,7 @@ StateReturnType DeliveringState::update() // Kick a dude out every so often
 			pos.z += ai->getDropOffset().z;
 			item->setPosition(&pos);
 
-			ContainModuleInterface *contain = item->getContain();
+			ContainModuleInterface *contain = getRetailContain(item);
 			if( ai->getData()->m_isParachuteDirectly  &&  contain )
 			{
 				contain->setOverrideDestination( ai->getTargetPos() );// go for the direct hit
@@ -901,7 +913,7 @@ StateReturnType DeliveringState::update() // Kick a dude out every so often
 
 						//Are we firing a missile?
 						Bool projectileFired = false;
-						for( BehaviorModule** u = payload->getBehaviorModules(); *u; ++u )
+						for( BehaviorModule** u = getRetailBehaviorModules(payload); *u; ++u )
 						{
 							ProjectileUpdateInterface* pui = (*u)->getProjectileUpdateInterface();
 							if( pui  )
@@ -1292,9 +1304,9 @@ StateReturnType HeadOffMapState::update()
 // ?onEnter@CleanUpState@@ present-unmatched
 StateReturnType CleanUpState::onEnter() // Delete my successful butt
 {
-	if( getMachineOwner()->getContain() )
+	if( getRetailContain(getMachineOwner()) )
 	{
-		DEBUG_ASSERTCRASH(getMachineOwner()->getContain()->getContainCount() == 0, ("did not drop all items!"));
+		DEBUG_ASSERTCRASH(getRetailContain(getMachineOwner())->getContainCount() == 0, ("did not drop all items!"));
 	}
 
 	Object *owner = getMachineOwner();
