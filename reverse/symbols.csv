@@ -11781,6 +11781,7 @@ name,address,notes
 ?rva0053EF2E@Rva0053ED1A@@QAEXXZ,0x0053EF2E,address-derived member scaffolding for Rva0053ED1A 0x0053EF7B tail dispatch; range-27 target, used only as a call target
 ?rva0053F1EC@Rva00057D38@@QAEHI@Z,0x0053F1EC,reserve-like grower: REL32 read at the count+1 call site in 0x00057D38; owner identity unproven
 ?rva005404CF@Rva0054034A@@QAEXH@Z,0x005404CF,address-derived guarded-removal member scaffolding for Rva0054034A 0x00540A26 trim loop; banked partial at this address, used only as a call target
+?rva00540559@Rva0054034A@@QAE?AVRva0053FDE6@@M@Z,0x00540559,callee of ?rva00540888@Rva00540845@@QAEXABMPAURva00540888Transform@@@Z
 ?rva00540A26@Rva00540B03@@QAEXXZ,0x00540A26,no-arg thiscall member init called at the end of ctor 0x00540B03; identity unproven; address-derived owner
 ?rva00540B48@Rva00540B48@@QAE_NPAVDataChunkInput@@PAX@Z,0x00540B48,address-derived callee of matched slot 0x00540BE4; retail REL32 targets 0x00540B48; Ghidra FUN bounds 101 bytes; thiscall on the +0x24 member two args ret 8; callee body remains unclaimed; no named identity inferred
 ?rva00541214@@YAXPAD0PAXABURva005412E2Tag@@@Z,0x00541214,pinned cdecl helper of the F47 cursor-compaction wrapper 0x005412E2; takes (dst, cursor, p, tag); name unknown
