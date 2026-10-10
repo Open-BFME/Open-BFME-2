@@ -1,6 +1,8 @@
 // ?rva0039B315@ExperienceTracker@@QAEXM_N000@Z
+// partial score=0.9666967184 date=2026-10-10
+// ?rva0039B315@ExperienceTracker@@QAEXM_N000@Z
 // partial score=0.97 date=2026-10-07
-// cl: /O1 /arch:SSE /DNDEBUG /MD
+// cl: /ICode/GameEngine/Source/Common /O1 /arch:SSE /DNDEBUG /MD /G7
 // ?rva0039B315@ExperienceTracker@@QAEXM_N000@Z retail 0x0039B315, 188 B.
 // Zero Hour's ExperienceTracker::addExperiencePoints shape: forward to the
 // experience sink's tracker (scaled, flags true/false; cl turns the tail
@@ -10,12 +12,8 @@
 class Object;
 class ExperienceTracker;
 
-class GameLogic
-{
-public:
-	Object *findObjectByID(unsigned int id);	// 0x00049DC5
-	char rva0023C6FD();				// 0x0023C6FD
-};
+#include "GameLogicObjectLookupView.h"
+class BfmeGlob939D:public GameLogic{public:char bfmeCall939D();};
 extern GameLogic *TheGameLogic;
 
 class PlayerList
@@ -80,7 +78,7 @@ void ExperienceTracker::rva0039B315(float amount, bool a, bool b, bool c, bool d
 	GameLogic *gameLogic = TheGameLogic;
 	if (m_experienceSink)
 	{
-		Object *sink = gameLogic->findObjectByID(m_experienceSink);
+		Object *sink = gameLogic->findObjectByID((ObjectID)m_experienceSink);
 		if (sink)
 		{
 			sink->getExperienceTracker()->rva0039B315(amount * m_experienceScalar, a, b, true, false);
@@ -89,7 +87,7 @@ void ExperienceTracker::rva0039B315(float amount, bool a, bool b, bool c, bool d
 	}
 
 	float mult = 1.0f;
-	if (gameLogic->rva0023C6FD())
+	if (reinterpret_cast<BfmeGlob939D*>(gameLogic)->bfmeCall939D())
 	{
 		int player = ThePlayerList->rva002A7C0B(false);
 		if (m_parent->getTemplate()->isStructure())
