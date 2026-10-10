@@ -32,6 +32,12 @@ typedef _STL::pair<const AsciiString,Coord3D> CoordinatePair;
 typedef _STL::_Rb_tree<AsciiString,CoordinatePair,_STL::_Select1st<CoordinatePair>,_STL::less<AsciiString>,_STL::allocator<CoordinatePair> > CoordinateTree;
 namespace _STL {
 template <> void CoordinateTree::clear();
+// Branch-form int overloads: this TU's flags compile the generic max/min ?:
+// to cmov, but retail's out-of-line copies use a branch (row 57 family-LK3).
+inline const int &(max)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pa < *__pb) return __b; return __a; }
+inline const int &(min)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
 }
 class WaypointMap : public _STL::map<AsciiString,Coord3D>
 {

@@ -10,6 +10,12 @@
 namespace _STL
 {
 template<> _List_base<Rva0036ADF9Element, allocator<Rva0036ADF9Element> >::~_List_base();
+// Branch-form int overloads: this TU's flags compile the generic max/min ?:
+// to cmov, but retail's out-of-line copies use a branch (row 57 family-LK3).
+inline const int &(max)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pa < *__pb) return __b; return __a; }
+inline const int &(min)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
 }
 
 typedef bool Bool;

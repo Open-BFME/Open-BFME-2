@@ -224,6 +224,12 @@ template <class _Tp>
 inline const _Tp &(max)(const _Tp &__a, const _Tp &__b) { return __a < __b ? __b : __a; }
 template <class _Tp>
 inline const _Tp &(min)(const _Tp &__a, const _Tp &__b) { return __b < __a ? __b : __a; }
+// Branch-form int overloads: this TU's /O1 /G7 /arch:SSE flags compile the
+// generic ?: to cmov, but retail's out-of-line copies use a branch.
+inline const int &(max)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pa < *__pb) return __b; return __a; }
+inline const int &(min)(const int &__a, const int &__b)
+{ if (__b < __a) return __b; return __a; }
 }
 
 // The plain fld/fistp x87 round (BaseType.h's fast_float2long_round), here

@@ -71,6 +71,16 @@ private:
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> >
 	Rva00385333String;
 
+namespace _STL
+{
+// Branch-form int overloads: this TU's flags compile the generic max/min ?:
+// to cmov, but retail's out-of-line copies use a branch (row 57 family-LK3).
+inline const int &(max)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pa < *__pb) return __b; return __a; }
+inline const int &(min)(const int &__a, const int &__b)
+{ const int *__pa = &__a, *__pb = &__b; if (*__pb < *__pa) return __b; return __a; }
+}
+
 extern const char g_Rva0107301CEmptyString[];
 //
 // PSPlayerAllStats keeps the player id at +0x00 and three stats blocks: the
