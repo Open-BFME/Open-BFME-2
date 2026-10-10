@@ -17175,3 +17175,7 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??0Rva00598E85@@QAE@PAX@Z,0x00598E85,callee of ??0AIBuilder@@QAE@PAVPlayer@@@Z
 ??0Rva005CB8D4@@QAE@PAX@Z,0x0057431D,callee of ??0Impl@CommonBehavior@StrategicInGameUI@@QAE@PAVRva00574A8A@@II@Z
 ?checkCur@AptActionQueueC@@QAEXPAURva006E3230Action@@@Z,0x006E3230,callee of ?next@AptActionQueueC@@QAEPAURva006E3230Action@@PAU2@@Z
+??1Rva0053805DBase@@UAE@XZ,0x00538133,virtual-dtor view of the primary base destructor body (pinned elsewhere as ??1Rva00538133@@QAE@XZ) called by the owner dtor 0x0030CDCA
+??1Rva0030CA8BList@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
+??1Rva0030C185List@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
+??1Rva0030C40ABuffer@@QAE@XZ,0x0007FAB3,listener-list / buffer storage dtors reached from the unwind funclets of the notifier owner dtors 0x0030CDCA and 0x0030C40A; shared free-first-pointer body
