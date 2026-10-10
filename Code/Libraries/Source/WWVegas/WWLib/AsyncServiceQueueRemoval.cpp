@@ -66,6 +66,7 @@ class AsyncServiceQueue {
  public:
  TargetListAt0073EEE0::iterator enqueue(Rva0036CA00Str item);
  Rva0036CA00Str rva0073F170(TargetListAt0073EEE0::iterator where);
+ Rva0036CA00Str rva0073F231(TargetListAt0073EEE0::iterator where,unsigned long timeout);
 
  int active,count; TargetListAt0073EEE0 queued; char mutex[8];Rva0040F9D available;TargetListAt0073EEE0 secondary;Rva0040F9D completed;Rva0040F9D drained;
 };
@@ -78,5 +79,27 @@ Rva0036CA00Str AsyncServiceQueue::rva0073F170(TargetListAt0073EEE0::iterator whe
  queued.erase(where);
  --count;
  if(queued.empty())available.reset();
+ return item;
+}
+
+// Native285B completion wait retains counted handle while waiting on its
+// completion plus the queue event20; object100 ABI comes from412D6/41344.
+class Rva00041118Obj;
+class Rva00041078 {public:Rva00041078(Rva00041118Obj**,int,int);~Rva00041078();bool rva00041078(unsigned long,int,int*);unsigned char storage[0x64];};
+struct QueueCompletionRef {
+ TargetNestedHandleData*item;
+ __forceinline QueueCompletionRef(TargetNestedHandleData*p):item(p){if(item)++item->RefCount;}
+ __forceinline ~QueueCompletionRef(){if(item)ReleaseTreeHintRef00217D4C(reinterpret_cast<TargetRef00217D4C*>(item->Unknown+8));}
+};
+Rva0036CA00Str AsyncServiceQueue::rva0073F231(TargetListAt0073EEE0::iterator where,unsigned long timeout){
+ if(!active)return Rva0036CA00Str();
+ QueueCompletionRef complete(where->handle_08.item);
+ Rva00041118Obj*events[2]={reinterpret_cast<Rva00041118Obj*>(complete.item),reinterpret_cast<Rva00041118Obj*>(&completed)};
+ Rva00041078 wait(events,2,1);
+ if(!wait.rva00041078(timeout,0,0))return Rva0036CA00Str();
+ Rva0036CA00Str item(where->helperManagedPointer);
+ secondary.erase(where);
+ --count;
+ if(secondary.empty())drained.reset();
  return item;
 }
