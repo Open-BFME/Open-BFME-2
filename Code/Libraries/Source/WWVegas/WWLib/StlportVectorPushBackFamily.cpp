@@ -257,6 +257,9 @@ template void _STL::vector<Rva0021F876>::push_back(const Rva0021F876 &);
 template void _STL::vector<Rva00260B88Element>::push_back(const Rva00260B88Element &);
 template void _STL::vector<Rva00287F76Element>::push_back(const Rva00287F76Element &);
 template void _STL::vector<Rva002898ACElement>::push_back(const Rva002898ACElement &);
+// The complete clear worker is owned by StlportVectorClearRva00577EF1.cpp.
+template <> void _STL::vector<Rva002B9062Element>::_M_clear();
+
 template void _STL::vector<Rva002B9062Element>::push_back(const Rva002B9062Element &);
 template void _STL::vector<Rva002B72C9>::push_back(const Rva002B72C9 &);
 template void _STL::vector<Rva00308E2CElement>::push_back(const Rva00308E2CElement &);

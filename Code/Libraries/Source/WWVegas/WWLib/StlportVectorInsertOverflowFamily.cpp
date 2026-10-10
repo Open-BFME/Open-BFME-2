@@ -229,6 +229,9 @@ template void _STL::vector<Rva00308E2CElement>::_M_insert_overflow(
 template void _STL::vector<Rva002898ACElement>::_M_insert_overflow(
     Rva002898ACElement *, const Rva002898ACElement &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x002B8174.
+// The complete clear worker is owned by StlportVectorClearRva00577EF1.cpp.
+template <> void _STL::vector<Rva002B9062Element>::_M_clear();
+
 template void _STL::vector<Rva002B9062Element>::_M_insert_overflow(
     Rva002B9062Element *, const Rva002B9062Element &, const _STL::__false_type &, unsigned int, bool);
 // Retail 0x002BC3C6.
