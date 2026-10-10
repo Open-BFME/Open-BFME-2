@@ -146,3 +146,12 @@ StringNode0070D9F0 *Rva0070DBB0Intern(const char *text) {
     sStringPoolMaxStrings = sStringPoolCurrentStrings;
   return node;
 }
+
+// Native70B620..70B64D RET0,45B. Full-word pointer argument, two length
+// queries on EAStringC at node8, then negative rounded allocation-size delta.
+// The existing helper expresses its positive size; negating it reproduces
+// the native subtraction and both witnessed length calls. Original helper
+// name is unknown. Existing16B node and exact7B length accessor are reused.
+int Rva0070B620SavedDelta(StringNode0070D9F0 *node) {
+ return -poolStringSize(node);
+}
