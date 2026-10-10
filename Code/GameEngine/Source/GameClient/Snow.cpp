@@ -41,6 +41,15 @@ public:
     virtual void targetSlot12();
     virtual void targetSlot13();
     virtual void updateIniSettings();
+    virtual void targetSlot15();
+    virtual void targetSlot16();
+    virtual void targetSlot17();
+    virtual void targetSlot18();
+    virtual void targetSlot19();
+    virtual void targetSlot20();
+    virtual void targetSlot21();
+    virtual void targetSlot22();
+    virtual void rva00201085();	// slot 23 (+0x5C), right after init
 private:
     float *m_startingHeights;
     float m_time;
@@ -73,6 +82,8 @@ private:
 };
 
 typedef char SnowManagerSizeCheck[sizeof(SnowManager) == 0x74 ? 1 : -1];
+
+extern SnowManager *TheSnowManager;
 
 SnowManager::SnowManager()
     : SubsystemInterface(),
@@ -266,3 +277,14 @@ void SnowManager::updateIniSettings()
 // Retail's data references in this unit's matched rows land on globals defined
 // under other spellings at the same addresses (addend-corrected DIR32). Bind them.
 #pragma comment(linker, "/alternatename:?TheWeatherSetting@@3V?$OVERRIDE@VWeatherSetting@@@@A=?g_Va00DFE118@@3PAVWeatherSetting@@A")
+
+// ?rva00201085@SnowManager@@UAEXXZ @0x00201085 16B: slot 23 of the
+// SnowManager vtable 0x007E300C, between init and the constructor. It ignores
+// this and refreshes the singleton's weather settings, the statement Zero
+// Hour's INI::parseWeatherDefinition ends with:
+// if (TheSnowManager) TheSnowManager->updateIniSettings().
+void SnowManager::rva00201085()
+{
+    if (TheSnowManager)
+        TheSnowManager->updateIniSettings();
+}
