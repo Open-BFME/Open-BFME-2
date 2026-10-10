@@ -77,12 +77,4 @@ template <class T1, class T2>
 void _Construct(T1 *p, const T2 &value);
 }
 
-template <>
-void _STL::_Construct<Rva005EFD53Element, Rva005EFD53Element>(Rva005EFD53Element *p, const Rva005EFD53Element &x)
-{
-	if (!p)
-		return;
-	p->m_ptr = x.m_ptr;
-	if (p->m_ptr)
-		++p->m_ptr->m_refCount;
-}
+// The exact element placement-copy provider is owned by Rva005EFD53ElementConstruct.cpp.
