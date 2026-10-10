@@ -19,3 +19,15 @@ class Rva000EF902 :public RefCountPtr<TextureClass> {public:Rva000EF902(int widt
 Rva000EF902::Rva000EF902(int width,int height,int format) {
  ((BfmeMapPictureTexture*)this)->Set_Texture((TextureClass*)new BfmeOwnerZQ((void*)height,(void*)width,(void*)format,(void*)3));
 }
+
+// Native EF8A1..EF902 RET8,97B has the same counted-word ownership.
+// Allocation3C and EF272 establish the constructor ABI; the fixed leading
+// 0x800 argument and the two caller-supplied pointers are target evidence.
+// Resource and caller argument names remain unknown.
+class Rva000EF8A1 :public RefCountPtr<TextureClass> {
+public:Rva000EF8A1(void*first,void*second);
+};
+Rva000EF8A1::Rva000EF8A1(void*first,void*second) {
+ ((BfmeMapPictureTexture*)this)->Set_Texture(
+  (TextureClass*)new BfmeOwnerZQ((void*)0x800,first,second,(void*)3));
+}
