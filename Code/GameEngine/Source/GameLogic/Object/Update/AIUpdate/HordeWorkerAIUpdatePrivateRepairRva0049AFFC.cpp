@@ -1,6 +1,5 @@
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /G7 /ICode/GameEngine/Include/GameLogic
 // ?privateRepair@HordeWorkerAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z
-// partial score=0.9 date=2026-10-09
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
 // ?privateRepair@HordeWorkerAIUpdate@@MAEXPAVObject@@W4CommandSourceType@@@Z,
@@ -16,7 +15,7 @@
 // +0x74 ID is remembered at +0x3EC.
 
 #include <list>
-#include "../../../../Include/GameLogic/ContainmentListView.h"
+#include "ContainmentListView.h"
 
 typedef ContainmentList IntList;
 
@@ -122,10 +121,10 @@ void HordeWorkerAIUpdate::privateRepair(Object *obj, CommandSourceType cmdSource
 	for (IntList::iterator it = members.begin(); it != members.end(); ++it)
 	{
 		Object *member = (Object *)containmentFirstWord(*it);
-		if (member->m_template04->m_flags109 & 0x40)
+		if ((member->m_template04->m_flags109?member->m_template04->m_flags109:member->m_template04->m_flags109) & 0x40)
 		{
 			contain->slotA8(member);
-			member->m_ai258->rva0036F19B(obj, CMD_FROM_AI);
+			(member->m_ai258?member->m_ai258:member->m_ai258)->rva0036F19B(obj, CMD_FROM_AI);
 			m_repairTarget3EC = obj->m_id74;
 		}
 	}
