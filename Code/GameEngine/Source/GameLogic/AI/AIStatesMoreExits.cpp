@@ -122,7 +122,8 @@ public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	void releaseWeaponLock(WeaponLockType lockType);
 	void rva0028AE6D();
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Preserve the inlined update; the complete helper has a matched external owner.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{

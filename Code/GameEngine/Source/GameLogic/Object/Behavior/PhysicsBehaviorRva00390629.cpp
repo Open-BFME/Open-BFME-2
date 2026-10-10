@@ -49,7 +49,8 @@ public:
 	void rva0028AE6D();
 	const ThingTemplate *getTemplate() const { return m_template; }
 	Object *getContainedBy() const { return m_containedBy; }
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Preserve the inlined update; the complete helper has a matched external owner.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{

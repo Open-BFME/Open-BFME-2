@@ -138,10 +138,12 @@ class Object
 public:
 	void rva0028AE6D();
 	void *rva0028BCF4() const;
-	BehaviorModule **getBehaviorModules() const { return m_behaviors; }
+	// Retail callers inline the +0x244 load; suppress this private-view copy.
+	__declspec(dllimport) __forceinline BehaviorModule **getBehaviorModules() const { return m_behaviors; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	ObjectID getID() const { return m_id; }
-	__forceinline void setModelConditionState(unsigned int mc)
+	// Preserve the inlined update; the complete helper has a matched external owner.
+	__declspec(dllimport) __forceinline void setModelConditionState(unsigned int mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
 		{
