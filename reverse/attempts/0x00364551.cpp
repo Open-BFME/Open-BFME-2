@@ -1,10 +1,14 @@
 // ?rva00364551@Path@@QAEXPAVObject@@HHPBUCoord3D@@@Z
+// partial score=0.9602990033222591 date=2026-10-10
+// ?rva00364551@Path@@QAEXPAVObject@@HHPBUCoord3D@@@Z
 // partial score=0.9579316494039477 date=2026-10-09
-// cl: /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
+// cl: /I. /ICode/Libraries/Include /O1 /DNDEBUG /MD /arch:SSE /G7 /EHsc
 // Target 364551..3649B1 RET16. ZH Path::optimize node/LOS semantic guide.
 // WB F1DC10 confirms backwards/forwards scans. Retail supplies step counts,
 // portal exclusions, template108 flag, and optional tail-direction constraint.
-#include "Lib/Coord3D.h"
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 #include <math.h>
 #include <stdlib.h>
 struct PathAngle2D {float x,y;void normalize(){float inv=1.0f/(float)sqrt(x*x+y*y);x*=inv;y*=inv;}};
@@ -50,7 +54,9 @@ void Path::rva00364551(Object *obj,int surfaces,int blocked,const Coord3D *input
     curLayer=node->layer;
     if(passable) {
      if(anchor==last && distance>50) {
-      PathAngle2D delta;delta.x=node->pos.x-anchor->pos.x;delta.y=node->pos.y-anchor->pos.y;float inv=1.0f/(float)sqrt(delta.x*delta.x+delta.y*delta.y);delta.x*=inv;delta.y*=inv;float dot=input->x*delta.x+input->y*delta.y;
+      PathAngle2D delta;delta.x=node->pos.x-anchor->pos.x;delta.y=node->pos.y-anchor->pos.y;
+_ReadWriteBarrier();
+float inv=1.0f/(float)sqrt(delta.x*delta.x+delta.y*delta.y);delta.x*=inv;delta.y*=inv;float dot=input->x*delta.x+input->y*delta.y;
       if(fabs(dot)<0.9f)passable=false;
      }
      if(passable && node->canOptimize) {node->nextOptimized=anchor;continue;}

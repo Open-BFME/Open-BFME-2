@@ -1,6 +1,8 @@
 // ?rva006C0500@BfmeBoxF0@@QBE_NPBV1@@Z
+// partial score=0.9598004546602676 date=2026-10-10
+// ?rva006C0500@BfmeBoxF0@@QBE_NPBV1@@Z
 // partial score=0.9502967921 date=2026-10-09
-// cl: /DNDEBUG /MD /EHsc
+// cl: /I. /DNDEBUG /MD /EHsc
 // SAT box overlap called by owned6C0630. Same32B box layout as owned
 // CircleBoxTest's contains method. Native6C0500..6C0627 proves all four
 // projection tests and evaluation order; no original method name claimed.
@@ -14,7 +16,7 @@ class BfmeBoxF0 {public:
  Real m_centerX,m_centerY,m_axisX,m_axisY,m_perpX,m_perpY,m_extentX,m_extentY;
 };
 bool BfmeBoxF0::rva006C0500(const BfmeBoxF0 *b) const {
- Real d[2];Real y=b->m_centerY;Real x=b->m_centerX;d[0]=x-m_centerX;d[1]=y-m_centerY;
+ Real d[2];Real y=(this ? b->m_centerY : b->m_centerY);Real x=b->m_centerX;d[0]=x-m_centerX;d[1]=y-m_centerY;
  Real c[4];
  c[0]=(Real)absf(dot(b->m_axisX,b->m_axisY,m_axisX,m_axisY));
  c[1]=(Real)absf(dot(b->m_perpX,b->m_perpY,m_axisX,m_axisY));

@@ -1,18 +1,20 @@
 // ?update@W3DView@@UAEXXZ
+// partial score=0.8987618204657214 date=2026-10-10
+// ?update@W3DView@@UAEXXZ
 // partial score=0.8900301634 date=2026-10-09
 // ?update@W3DView@@UAE_NXZ
 // partial score=0.8854845531 date=2026-10-09
 // ?update@W3DView@@UAEXXZ
 // partial score=0.8209180045876036 date=2026-10-09
-// cl: /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
+// cl: /I. /ICode/Libraries/Include/Lib /ICode/GameEngine/Source/Common /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
 // BFME W3DView::update, retail 0x007446A0.
 // Constructor 0x00745B10 installs SubsystemInterface table 0x01121764 at +0xFC. Slot 5 reaches this body through ILT 0x00007F31.
 #include <math.h>
 #include <vector>
 // stlport
-#include "Coord3D.h"
-#include "Coord2D.h"
-#include "GameLogicObjectLookupView.h"
+#include "Code/Libraries/Include/Lib/Coord3D.h"
+#include "Code/Libraries/Include/Lib/Coord2D.h"
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 struct CameraCoordinates:Coord3D{CameraCoordinates(){}CameraCoordinates(const Coord3D&p){x=p.x;y=p.y;z=p.z;}};
 class RenderObjClass;
 template<class T> class RefMultiListIterator;
@@ -590,7 +592,9 @@ void W3DView::update()
             float distx=curpos.x-objpos.x;
             float disty=curpos.y-objpos.y;
             float curDistSqr=disty*disty+distx*distx;
-            if(m_snapImmediate) { curpos.x=objpos.x; curpos.y=objpos.y; }
+            if(m_snapImmediate) { curpos.x=objpos.x;
+_ReadWriteBarrier();
+ curpos.y=objpos.y; }
             else {
                 float dx=objpos.x-curpos.x;
                 float dy=objpos.y-curpos.y;
