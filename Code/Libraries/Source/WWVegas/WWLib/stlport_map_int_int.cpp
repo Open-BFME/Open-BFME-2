@@ -39,3 +39,26 @@ template <> inline IntMapTree::size_type IntMapTree::erase(const int &key)
 }
 
 template class _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > >;
+
+// Unsigned four-byte key view used by the asset-manager set operations at
+// 0x61F910/0x61FAA0. The range release is the complete 144-byte ICF twin of
+// this unit's int-map owner at 0x61F7B0, including its allocation release and
+// 0x692F5 subtree callee. No original key or application class name is claimed.
+extern void __cdecl Rva00030830FreeAllocation(void *);
+struct Rva0061F910Key { unsigned int a; };
+inline bool operator<(const Rva0061F910Key &left, const Rva0061F910Key &right)
+{
+    return left.a < right.a;
+}
+typedef _STL::_Rb_tree<Rva0061F910Key, Rva0061F910Key,
+    _STL::_Identity<Rva0061F910Key>, _STL::less<Rva0061F910Key>,
+    _STL::allocator<Rva0061F910Key> > NativeTree;
+namespace _STL {
+template <> __forceinline void allocator<_Rb_tree_node<Rva0061F910Key> >::deallocate(
+    _Rb_tree_node<Rva0061F910Key> *p, size_t) const
+{
+    if (p != 0) Rva00030830FreeAllocation(p);
+}
+template <> void NativeTree::_M_erase(_Rb_tree_node<Rva0061F910Key> *);
+}
+template void NativeTree::erase(NativeTree::iterator, NativeTree::iterator);
