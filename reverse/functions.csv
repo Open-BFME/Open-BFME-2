@@ -74822,3 +74822,4 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ?rva000B2361@Rva000B2361@@QAEPAHH@Z,,0x000B2361,31,Code/GameEngine/Source/Common/Rva000B2361Pick.cpp,matched,small opaque getter batch
 ?rva001EAFFE@Rva001EAFFE@@QAEAAVAsciiString@@H@Z,,0x001EAFFE,37,Code/GameEngine/Source/Common/Rva001EAFFEElementAt.cpp,matched,bounds-checked element at
 ?rva00395E53@Rva00395E53@@QAEPAXI@Z,,0x00395E53,34,Code/GameEngine/Source/Common/Rva00395E53Get.cpp,matched,bounds-checked get
+?rva000AE234@Rva000AE234@@QAEDHH@Z,,0x000AE234,65,Code/GameEngine/Source/Common/Rva000AE234GridGet.cpp,matched,grid byte get
