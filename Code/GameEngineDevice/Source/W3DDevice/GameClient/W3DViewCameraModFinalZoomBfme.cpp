@@ -254,7 +254,14 @@ public:
 	virtual void c59();
 	virtual bool Cast_Ray(RayCollisionTestClass &raytest);
 };
-extern TerrainRenderObject *TheTerrainRenderObject;
+// Native ray casting uses the terrain singleton at VA00DE1EAC. Its existing
+// definition in W3DFloorDrawDtor.cpp is BaseHeightMapRenderObjClass *. Keep that
+// actual global identity and use the already measured ray-test view below.
+// BFME1 revision575ba2's terrain-owner repairs are a semantic lead; BFME2's
+// own definition and the caller's DIR32/virtual-slot evidence establish this
+// binding independently. The view does not establish the full terrain class.
+class BaseHeightMapRenderObjClass;
+extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 
 
 
@@ -529,7 +536,7 @@ void W3DView::lookAt(const Coord3D *o)
 
 		RayCollisionTestClass raytest(lineseg, &result, 2, false, false);
 
-		if (TheTerrainRenderObject->Cast_Ray(raytest)) {
+		if (((TerrainRenderObject *)TheTerrainRenderObject)->Cast_Ray(raytest)) {
 			pos.x = result.ContactPoint.X;
 			pos.y = result.ContactPoint.Y;
 		}
