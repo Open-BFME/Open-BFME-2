@@ -372,6 +372,7 @@ public:
 		Real easeIn, Real easeOut);
 	virtual void cameraModFinalZoom(Real finalZoom, Real easeIn, Real easeOut);
 	virtual void lookAt(const Coord3D *o);
+	virtual void setZoom(Real z);
 
 	void setZoomToDefault();
 	void rva0008D925(const Coord3D *,Int,Real,Real);
@@ -381,9 +382,11 @@ private:
 	void buildCameraTransform(Matrix3D *);
 	char m_padding0004[0x0c - 4];
 	Coord3D m_pos;
-	char m_padding0018[0x3c - 0x18];
+	char m_padding0018[0x34 - 0x18];
+	Real m_maxZoom, m_minZoom;
 	Real m_zoom, m_heightAboveGround;
-	char m_padding0044[0x104 - 0x44];
+	Bool m_zoomLimited;
+	char m_padding0045[0x104 - 0x45];
 	CameraClass *m_3DCamera;
 	char m_padding0108[0x19c - 0x108];Int m_resetFrames,m_resetCurrent;char m_padding01a4[0x1ac-0x1a4];
 	Int m_rcNumFrames;
@@ -414,6 +417,10 @@ private:
 	Bool m_useHeightField;
 	char m_padding2475[0x24c8 - 0x2475];
 	CameraLimit m_cameraLimits;
+	char m_padding24cc[0x24fc - 0x24cc];
+	Real m_heightTravelled;
+	char m_padding2500[0x2503 - 0x2500];
+	Bool m_heightLocked;
 };
 
 #undef BFME_W3D_SLOT
@@ -554,5 +561,35 @@ void W3DView::lookAt(const Coord3D *o)
 		m_groundLevel = height;
 		m_cameraConstraintValid = false;
 	}
+	setCameraTransform();
+}
+
+// W3DView::setZoom, retail 0x0008D3C1 (182B, RET 4), the View slot before
+// getZoom (vftable 0x7C7690) directly before setZoomToDefault. Zero Hour's
+// body: a limited view (+0x44) clamps to its min/max zoom (+0x38/+0x34), the
+// camera moves are cancelled, the constraint is recomputed and the transform
+// rebuilt. BFME 2 ignores it while the game client's +0xC0 lock holds a
+// limited view or a camera move is running. (setHeightAboveGround 0x0008D2B8
+// shares the shape plus a travelled-height accumulator at +0x24FC.)
+struct GameClientCameraLocks { char m_pad00[0xC0]; Bool m_lockC0; };
+
+void W3DView::setZoom(Real z)
+{
+	if (reinterpret_cast<const GameClientCameraLocks *>(TheGameClient)->m_lockC0 && m_zoomLimited)
+		return;
+	if (m_cameraMovementMode || m_doingRotateCamera || m_doingPitchCamera ||
+	    m_doingZoomCamera || m_CameraArrivedAtWaypointOnPathFlag || m_doingScriptedCameraLock)
+		return;
+	m_zoom = z;
+	if (m_zoomLimited && m_zoom < m_minZoom)
+		m_zoom = m_minZoom;
+	if (m_zoomLimited && m_zoom > m_maxZoom)
+		m_zoom = m_maxZoom;
+	m_doingRotateCamera = false;
+	m_doingPitchCamera = false;
+	m_doingZoomCamera = false;
+	m_doingScriptedCameraLock = false;
+	m_CameraArrivedAtWaypointOnPathFlag = false;
+	m_cameraConstraintValid = false;
 	setCameraTransform();
 }
