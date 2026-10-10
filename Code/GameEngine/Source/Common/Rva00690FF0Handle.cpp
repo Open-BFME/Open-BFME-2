@@ -42,6 +42,7 @@ public:
 	~Rva00690FF0Handle();
 
 	AudioFileContainer rva000A89E3() const;
+	AudioFileContainer rva000A8A7F() const;
 
 	Gen0002857E *m_target;
 };
@@ -55,6 +56,16 @@ AudioFileContainer Rva00690FF0Handle::rva000A89E3() const
 		return AudioFileContainer();
 	if (!m_target->m_ready.check(0))
 		return AudioFileContainer();
+	return AudioFileContainer(m_target);
+}
+
+// Retail 0x000A8A7F: unconditional new reference to the handle's file. The
+// native hidden-result pointer (ret 4), the flag word at [ebp-4] and the
+// pointer constructor call at 0x000A8A1F are the by-value return of a
+// container with a destructor; const and the owner are not proven (no direct
+// caller), the sibling 0x000A89E3 spelling is followed.
+AudioFileContainer Rva00690FF0Handle::rva000A8A7F() const
+{
 	return AudioFileContainer(m_target);
 }
 
