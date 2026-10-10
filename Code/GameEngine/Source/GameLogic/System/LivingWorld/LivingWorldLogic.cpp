@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // LivingWorldLogic.cpp -- LivingWorldLogic members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function and
@@ -222,7 +222,8 @@ struct LivingWorldArmy
  LivingWorldArmy(Int,Rva004E3184 *,Rva002B6A04Player *);
 	// WorldBuilder LivingWorldArmy::initiateMove (0x0031A591, pinned): starts
 	// the army toward the region and position.
-	void initiateMove(const Coord2D &pos, class Rva00318C32Ret *target, Int flags);
+	Int ownerID()const{return m_ownerPlayer;}
+ void initiateMove(const Coord2D &pos, class Rva00318C32Ret *target, Int flags);
 
 	unsigned char m_pad00[0x20];
 	Int m_id;						// +0x20 (WB LivingWorldArmy::GetID, inlined)
@@ -417,16 +418,8 @@ int __cdecl Rva002B24F0Get(Rva002B24F0Obj *obj, void *out);	// 0x002B24F0, "Livi
 // +0x34 (player +0x40); the region's garrison spot (rowed
 // LivingWorldRegion::GetGarrisonArmyPlacementSpot 0x003F0F13); and the
 // rowed stdcall lookup 0x002B4948 of the player's army in a region.
-template <class T> class StringBase
-{
-public:
-	void set(const StringBase &that);			// 0x000366F0
-	bool isEmpty() const;					// 0x00001E2F
-	StringBase &operator=(const StringBase &that) { set(that); return *this; }
-
-private:
-	T *m_data;
-};
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 struct Rva003F0F13Elem
 {
 	float a;
@@ -466,7 +459,7 @@ struct Rva002B6A04Template
 	unsigned char m_pad00[0x24];
 	StringBase<char> m_name24;				// +0x24
 	unsigned char m_pad28[0x34 - 0x28];
-	StringBase<char> m_name34;				// +0x34
+	AsciiString m_name34;				// +0x34
 };
 struct Rva002B6A04Player
 {
@@ -476,7 +469,7 @@ struct Rva002B6A04Player
 struct Rva002B6A04Summary
 {
 	unsigned char m_pad00[0x64];
-	StringBase<char> m_name64;				// +0x64
+	AsciiString m_name64;				// +0x64
 };
 void *__stdcall Rva002B4948Find(void *player, void *region, void *arg);	// 0x002B4948
 
@@ -543,6 +536,7 @@ public:
 	const Rva004E0632 *GetArmoryToUpgradeTroop(ArmySummaryEntry *entry, LivingWorldArmy *army, Rva003F287F *region);
 	void UpdateTurnPhase();
 	void AdjustArmyTargetLocations();
+ void PrepareRetreats();
 	void ValidatePlayers();
 	void rva002B693F(void *keys);
  void rva002B9DC7();
@@ -2469,7 +2463,7 @@ struct Rva00538CEFPair {int a,b;};
 class Rva00318F42 {public:bool rva00318F42();void rva0031986B(const Rva00538CEFPair*,int);};
 class Rva00318FA1MainOwner {public:int rva00318FA1();};
 struct Rva003F26AAPair {int a,b;};
-class LivingWorldRegionConnection {public:bool rva003F26AA(const ModuleData *,Rva003F26AAPair *);};
+class LivingWorldRegionConnection {public:bool rva003F26AA(const ModuleData *,Rva003F26AAPair *);char pad00[8];int regionID;char pad0c[12];};
 struct ArmyTargetSpan {void **first,**finish;};
 void LivingWorldLogic::AdjustArmyTargetLocations(){
  int *players=(int*)&m_players;
@@ -2750,4 +2744,122 @@ void LivingWorldLogic::rva002B9DC7(){
  if(m_localPlayer && ((LivingWorldCollectorPlayerView*)m_localPlayer)->flag3C4)finish=true;
  if((unsigned char)((Rva002B254F*)this)->rva002B254F() && ((LWUpdateCampaignDispatch*)((Rva003B8BAA*)TheCampaignManager)->rva003B8BAA())->f34())finish=true;
  if(finish || (rva002B77B2()<=1 && rva002B77F7()>1))((Rva002B8860*)this)->rva002B8860();
+}
+
+#include "../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
+class GameTextInterface {public:
+ virtual ~GameTextInterface(){}
+ virtual void slot00()=0;virtual void slot04()=0;virtual void slot08()=0;
+ virtual void slot0c()=0;virtual void slot10()=0;virtual void slot14()=0;
+ virtual void slot18()=0;virtual void slot1c()=0;virtual void slot20()=0;
+ virtual void slot24()=0;virtual void slot28()=0;virtual void slot2c()=0;
+ virtual void slot30()=0;virtual void slot34()=0;
+ virtual UnicodeString fetch(const char*,bool *exists=0)=0;
+};
+extern GameTextInterface *TheGameText;
+class Rva0020E89C {public:
+ UnicodeString rva0020E89C();
+ int getID()const{return id;}
+ char pad000[0x12c];int id;char pad130[12];int owner;
+ char pad140[0x1a8-0x140];_STL::vector<LivingWorldRegionConnection> connections;
+};
+class Rva0020EAF6View {public:Rva0020E89C *rva0020EAF6(int);};
+class Rva00318C8DOwner {public:Rva0020E89C *rva00318C8D();};
+class Rva003195C9Owner {public:void rva00319E7C();};
+class Rva00319159 {public:UnicodeString rva0031964D();};
+class Rva002E0687 {public:bool rva002E0687()const;};
+class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
+struct Rva003F7198Node {int key;};
+class __declspec(novtable) Rva003F7177Base {public:
+ virtual float distance(int,int)=0;virtual float cost(int,int)=0;
+ virtual void visit(Rva003F7198Node*)=0;virtual bool found(int,int)=0;
+ Rva002E071E *player;Rva0020E89C *region;
+};
+class Rva003F7177Callback:public Rva003F7177Base {public:
+ Rva003F7177Callback(Rva002E071E*);
+ virtual float distance(int,int);virtual float cost(int,int);
+ virtual void visit(Rva003F7198Node*);virtual bool found(int,int);
+};
+class LivingWorldSearchCallback;
+class Rva003EF8E1 {public:bool Pathfind(LivingWorldSearchCallback*,int,_STL::vector<ObjectID>*,int*,bool);};
+struct RetreatArmySetPrefix {char pad00[0x4c];Rva003EF8E1 *pathfinder;};
+struct RetreatHeroRecord {char pad00[0x28];int homeMessage,nearestMessage;};
+// Retail reloads record14 after its null test in both arms. Volatile
+// models that read sequence; the original source qualifier is unproven.
+struct RetreatHeroPrefix {char pad00[0x14];RetreatHeroRecord *volatile record;char pad18[12];};
+struct RetreatArmyPrefix {char pad00[0x88];RetreatHeroPrefix *hero;};
+class Rva004FBCBE {public:
+ Rva004FBCBE(const UnicodeString&,const UnicodeString&,int);
+ virtual ~Rva004FBCBE();virtual void slot04();virtual void slot08();
+ int refs;char pad08[12];int message;char pad18[16];
+};
+struct Rva004FBC02Src {int x,y,z;};
+class Rva004FBC02 {public:void rva004FBC02(const Rva004FBC02Src*);};
+struct Rva002B9062Element {
+ Rva004FBCBE *object;
+ Rva002B9062Element(Rva004FBCBE *p):object(p){if(p)++p->refs;}
+ Rva002B9062Element(const Rva002B9062Element &p):object(p.object){if(object)++object->refs;}
+ ~Rva002B9062Element(){if(object)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)object);}
+};
+
+// Native002B9FDB..002BA392 whole951 RET0; WB D869E0 names PrepareRetreats
+// and asserts4332..4423. All retained calls have whole-byte providers.
+// Regions: ID12C owner13C connection-vector1A8 (24B records with key8).
+// Army hero88 -> record14 supplies home28/nearest2C messages; no full
+// original class-layout or source-inheritance claim is made by these views.
+// Canonical UnicodeString replaces the older slim StringBase declaration.
+void LivingWorldLogic::PrepareRetreats(){
+ for(int i=m_field10C.size()-1;i>=0;--i){
+  bool remove=true;
+  LivingWorldArmy *army=(LivingWorldArmy*)m_field10C[i];
+  Rva0020E89C *retreat=((Rva00318C8DOwner*)army)->rva00318C8D();
+  Rva0020E89C *current=(Rva0020E89C*)((Rva00318C79Owner*)army)->rva00318C32();
+  Rva002E071E *player=(Rva002E071E*)((Rva002BA8F1Logic*)TheLivingWorldLogic)->find(army->ownerID(),0);
+  if(retreat && retreat!=current && (unsigned char)player->rva002E0BC0(retreat->owner)){
+   ((Rva002B2702*)this)->rva002B2702(army,retreat,0);
+  }else{
+   int count=0;retreat=0;
+   _STL::vector<LivingWorldRegionConnection> &connections=current->connections;
+   for(unsigned j=0;j<connections.size();++j){
+    Rva0020E89C *r=((Rva0020EAF6View*)m_field0B0)->rva0020EAF6(connections[j].regionID);
+    if(r && (unsigned char)player->rva002E0BC0(r->owner)){retreat=r;++count;}
+   }
+   if(count==1){((Rva002B2702*)this)->rva002B2702(army,retreat,0);}
+   else if(count==0){
+    Rva0020E89C *destination=0;
+    Rva0020E89C *home=(Rva0020E89C*)((Rva002104B6*)m_field0B0)->rva002104B6((char*)player+0x2c);
+    int message=-1;
+    if(home && (unsigned char)player->rva002E0BC0(home->owner)){
+     ((Rva002B2702*)this)->rva002B2702(army,home,0);destination=home;
+     RetreatHeroPrefix *hero=((RetreatArmyPrefix*)army)->hero;
+     if(hero && hero->record)message=hero->record->homeMessage;
+    }else{
+     int length=0;
+     Rva003F7177Callback callback(player);
+     int from=current->getID();
+     RetreatArmySetPrefix *set=(RetreatArmySetPrefix*)m_field0B0->m_armySet;
+     Rva003EF8E1 *finder=set?set->pathfinder:0;
+     if(finder->Pathfind((LivingWorldSearchCallback*)&callback,from,0,&length,true)){
+      ((Rva002B2702*)this)->rva002B2702(army,callback.region,0);destination=callback.region;
+     }
+     RetreatHeroPrefix *hero=((RetreatArmyPrefix*)army)->hero;
+     if(hero && hero->record)message=hero->record->nearestMessage;
+    }
+    if(((Rva002E0687*)player)->rva002E0687() && destination){
+     UnicodeString text=TheGameText->fetch(destination==home?"LW:HeroCutOffTextHomeBase":"LW:HeroCutOffTextNearest");
+     text.format(&text,((Rva00319159*)army)->rva0031964D().str(),destination->rva0020E89C().str());
+     UnicodeString title=TheGameText->fetch("LW:HeroCutOffTitle");
+     title.format(&title,((Rva00319159*)army)->rva0031964D().str());
+     Rva004FBCBE *object=new Rva004FBCBE(title,text,0);
+     Rva002B9062Element hint(object);
+     object->message=message;
+     RetreatHeroPrefix *hero=((RetreatArmyPrefix*)army)->hero;
+     if(hero)((Rva004FBC02*)object)->rva004FBC02((Rva004FBC02Src*)((char*)hero+0x18));
+     ((_STL::vector<Rva002B9062Element>*)&m_pending154)->push_back(hint);
+    }
+    ((Rva003195C9Owner*)army)->rva00319E7C();
+   }else remove=false;
+  }
+  if(remove)m_field10C.erase(m_field10C.begin()+i);
+ }
 }
