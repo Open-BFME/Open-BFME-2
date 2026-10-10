@@ -41,6 +41,8 @@ public:
 
 	BattlePromptMovieClip(int level, const AsciiString &name, const Rva005F91F3Src &ally);
 	virtual ~BattlePromptMovieClip();
+	void AddAlly(const Rva005F91F3Src &ally);
+	void AddEnemy(const Rva005F91F3Src &enemy);
 
 private:
 	Impl *m_impl; // +0x04
@@ -51,6 +53,8 @@ class StrategicHUD::BattlePromptMovieClip::Impl
 public:
     Impl(BattlePromptMovieClip *owner, int level, const AsciiString &name, const Rva005F91F3Src &ally); // 0x005FA3B1 (pinned)
     void SetRegionNameString(const UnicodeString &regionName);
+    void AddAlly(const Rva005F91F3Src &ally);   // 0x005FA205
+    void AddEnemy(const Rva005F91F3Src &enemy); // 0x005FA2CC
     void rva005F960C(const UnicodeString &regionName);
 private:
     char m_pad[4];
@@ -90,6 +94,19 @@ private:
 void Rva005F9775::rva005F9775(const UnicodeString &regionName)
 {
     m_member->rva005F960C(regionName);
+}
+
+// 0x005FA3A1 / 0x005FA3A9 (8B each, after the 0x005FA393 destructor): the
+// clip forwards a player record to its Impl's rowed AddAlly 0x005FA205 /
+// AddEnemy 0x005FA2CC; the battle prompt's PopulateMovieClip 0x005E9B4A
+// calls them per allied / hostile player.
+void StrategicHUD::BattlePromptMovieClip::AddAlly(const Rva005F91F3Src &ally)
+{
+	m_impl->AddAlly(ally);
+}
+void StrategicHUD::BattlePromptMovieClip::AddEnemy(const Rva005F91F3Src &enemy)
+{
+	m_impl->AddEnemy(enemy);
 }
 
 // The owner's ctor 0x005FA7EB (ret 0xC): vtable 0x008078DC and its Impl
