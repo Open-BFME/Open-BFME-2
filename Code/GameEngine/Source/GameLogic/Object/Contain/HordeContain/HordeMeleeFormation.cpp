@@ -76,6 +76,9 @@ struct FormationAttackEntry {
 class HordeMeleeFormation {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void startMeleeAttack(Object *);
+ virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
+ virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12();
+ virtual bool rva00585017(int,Coord3D *);
  FormationHeld *held; _STL::vector<FormationAttackEntry> attacks;
  bool force; void *other;
 };
@@ -102,4 +105,16 @@ void HordeMeleeFormation::startMeleeAttack(Object *victim)
   unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
   unit->m_ai->resetAttack();
  }
+}
+
+// Native585017..585059 is66B RET8. WB1474BB0 and the constructor
+// table slot13 establish index/output ABI; the original spelling is unknown.
+// The following10B deque iterator body at585059 is outside this extent.
+bool HordeMeleeFormation::rva00585017(int index,Coord3D *result)
+{
+ if(index>=0 && index<attacks.size() && !attacks[index].needsPosition) {
+  *result=attacks[index].position;
+  return true;
+ }
+ return false;
 }
