@@ -1,5 +1,12 @@
 // ?rva00459B68@SiegeDockingBehavior@@ABEXXZ
-// partial score=0.85 date=2026-10-10
+// Native 0x00459B68..0x00459C27 (191B), primary-this const member.
+// Identity: caller 0x00459CC0 and the named SiegeDockingBehavior constructor
+// own this reservation vector. Target accesses establish vector +0x24/+0x28,
+// entry reservation +0x20, Object ID +0x74 and destroyed byte +0x438.
+// Static SiegeDeploySpecialPower key and interface +0x24 slot 20 are observed
+// directly in retail. The original method name remains unknown.
+// Source carried from the round-3 bank; same-valued owner PHI reproduces
+// retail's Object spill and cursor/owner-ID register lifetimes.
 // cl: /O1 /G7 /MD /DNDEBUG /EHsc /ICode/GameEngine/Source/Common
 // stlport
 #include <vector>
@@ -37,7 +44,7 @@ void SiegeDockingBehavior::rva00459B68()const {
  static NameKeyType key=TheNameKeyGenerator->nameToKey("SiegeDeploySpecialPower");
  Module *module=other->findModule(key);
  if(!module){entry->objectID=INVALID_OBJECT_ID;continue;}
- ObjectID mine=object->id;
+ ObjectID mine=(object?object:object)->id;
  if(((Rva00459B68Iface*)((char*)module+0x24))->s50()!=mine)entry->objectID=INVALID_OBJECT_ID;
  }
 }
