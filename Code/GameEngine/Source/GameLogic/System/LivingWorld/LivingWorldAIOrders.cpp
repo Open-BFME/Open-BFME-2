@@ -45,7 +45,7 @@ class Rva00318F42 {public:bool rva00318F42();};
 class Rva002B4076 {public:void rva002B4076(void*,int,void*);};
 class Rva002B2702 {public:void rva002B2702(void*,void*,int);};
 class LivingWorldAI {public:
- void SubmitOrders();void rva004FB7B2();
+ void SubmitOrders();void rva004FB7B2();void ProcessRetreats();
 private:
  Rva002E0A9FElem *owner;char unknown4[0x68-4];
  _STL::vector<BfmePod8> orders68;
@@ -98,4 +98,38 @@ void LivingWorldAI::rva004FB7B2() {
   } else ((Rva002B2702*)TheLivingWorldLogic)->rva002B2702(army,TheLivingWorldLogic->getRegions()->rva0020EAF6(orders80[i].words[4]),1);
  }
  ((Rva005B129FVector*)&orders80)->clear();
+}
+
+// Native4FBB25..4FBC02 complete198B RET4 and independently mapped unnamed
+// WB1319C70/390 establish the owner0/state4 phase dispatcher and its calls.
+// Original dispatcher name remains unknown; retain its existing neutral pin.
+// WB131A0F0 explicitly names ProcessRetreats (assert242..249) at native
+// 4FB600..4FB7B2 complete434B RET0; its declaration is a lead, not recovery.
+// Canonical channel global g_Va00E04508 already owns the byte cleared here.
+class Rva004FB382 {public:bool rva004FB382();};
+class Rva004FB582Owner {public:void rva004FB582();};
+class Rva004FB27E {public:void rva004FB27E();};
+class Rva004FB2C1 {public:void rva004FB2C1();};
+class Rva004FB303Owner {public:void rva004FB303();void rva004FB328();};
+extern unsigned int g_Va00E04508;
+struct AIPhaseOwnerPrefix {char unknown00[0x2c4];int submitted2C4;};
+class Rva004FBB25Sub {public:void rva004FBB25(int);
+private:AIPhaseOwnerPrefix *m_owner;int m_state;
+};
+void Rva004FBB25Sub::rva004FBB25(int phase){
+ if(!m_owner)return;
+ if(((Rva004FB382 *)this)->rva004FB382()){m_owner->submitted2C4=1;return;}
+ switch(phase){
+  case 0:
+   switch(m_state){
+    case 0:((Rva004FB582Owner *)this)->rva004FB582();m_state=1;break;
+    case 1:((Rva004FB27E *)this)->rva004FB27E();m_state=2;break;
+    case 2:((Rva004FB2C1 *)this)->rva004FB2C1();m_state=3;break;
+    case 3:((Rva004FB303Owner *)this)->rva004FB303();m_state=4;break;
+    case 4:((Rva004FB303Owner *)this)->rva004FB328();((LivingWorldAI *)this)->SubmitOrders();m_state=5;m_owner->submitted2C4=1;break;
+   }
+   break;
+  case 1:case 2:case 3:case 5:m_owner->submitted2C4=1;break;
+  case 4:((LivingWorldAI *)this)->ProcessRetreats();*(unsigned char *)&g_Va00E04508=0;m_state=0;m_owner->submitted2C4=1;break;
+ }
 }

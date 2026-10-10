@@ -1829,6 +1829,7 @@ address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00D
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00DFE840	2
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00E01EDC	2
 address_global	Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	g_Va00E02F3C	4
+address_global	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAIOrders.cpp	g_Va00E04508	2	allow=4bc790790ba6d9af45d26f5df1c074508ce2e9a6
 address_global	Code/GameEngine/Source/GameNetwork/ConnectionManager_processDisconnectChat.cpp	g_Va00E048D0	3
 address_global	Code/GameEngine/Source/GameNetwork/DisconnectManagerRva004D4637.cpp	g_Va00BC2424	2
 address_global	Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit.cpp	g_Va00E063EC	3
@@ -24819,7 +24820,6 @@ pin	reverse/symbols.csv	0x00146BA0	1
 pin	reverse/symbols.csv	0x00146F50	1
 pin	reverse/symbols.csv	0x00148B19	1
 pin	reverse/symbols.csv	0x00148B27	7
-pin	reverse/symbols.csv	0x00148BC2	1
 pin	reverse/symbols.csv	0x00148C95	1
 pin	reverse/symbols.csv	0x00148D00	2
 pin	reverse/symbols.csv	0x00148DDF	47
@@ -25338,7 +25338,7 @@ pin	reverse/symbols.csv	0x001B96A0	1
 pin	reverse/symbols.csv	0x001BAF30	1
 pin	reverse/symbols.csv	0x001BBD60	1
 pin	reverse/symbols.csv	0x001BBF70	1
-pin	reverse/symbols.csv	0x001BC3D0	1	allow=52e27c6be83844b328f016069b9641e74a1d18af
+pin	reverse/symbols.csv	0x001BC3D0	1
 pin	reverse/symbols.csv	0x001BCF40	1
 pin	reverse/symbols.csv	0x001BD590	1
 pin	reverse/symbols.csv	0x001BE490	1
@@ -26908,7 +26908,6 @@ pin	reverse/symbols.csv	0x002A8D08	1
 pin	reverse/symbols.csv	0x002A8D2D	1
 pin	reverse/symbols.csv	0x002A8F24	3
 pin	reverse/symbols.csv	0x002A8F56	1
-pin	reverse/symbols.csv	0x002A921B	1
 pin	reverse/symbols.csv	0x002A9365	1
 pin	reverse/symbols.csv	0x002A93F5	1
 pin	reverse/symbols.csv	0x002A9476	1
@@ -27855,7 +27854,7 @@ pin	reverse/symbols.csv	0x0031996D	1
 pin	reverse/symbols.csv	0x00319A12	1
 pin	reverse/symbols.csv	0x00319D01	1
 pin	reverse/symbols.csv	0x0031A257	1
-pin	reverse/symbols.csv	0x0031A372	1	allow=1517daae9224acd27880513d27cdaa5c8a0b67fd
+pin	reverse/symbols.csv	0x0031A372	1
 pin	reverse/symbols.csv	0x0031A591	2
 pin	reverse/symbols.csv	0x0031ABCF	1
 pin	reverse/symbols.csv	0x0031ABD4	1
@@ -31123,6 +31122,7 @@ pin	reverse/symbols.csv	0x004FAC80	1
 pin	reverse/symbols.csv	0x004FB130	1
 pin	reverse/symbols.csv	0x004FB222	1
 pin	reverse/symbols.csv	0x004FB354	3
+pin	reverse/symbols.csv	0x004FB600	1	allow=8ab25e59687af436173ed98fa82089d148d2d157
 pin	reverse/symbols.csv	0x004FBB25	1
 pin	reverse/symbols.csv	0x004FBC4D	2
 pin	reverse/symbols.csv	0x004FBCBE	1
