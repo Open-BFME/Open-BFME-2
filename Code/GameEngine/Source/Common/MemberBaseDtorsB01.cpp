@@ -24,10 +24,11 @@
 //   0x005F86C3  0x00C79CBC  +0x20  0x005F85E1  0x00577936
 //   0x005FB1AD  0x00C79EDC  +0x20  0x005FAFB2  0x006003FC
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 };
 
 class Rva0022DC9B
@@ -185,7 +186,7 @@ public:
 
 
 
-class Rva00413A24 : public GameEngineDeletingBase
+class Rva00413A24 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00413A24();
@@ -199,7 +200,7 @@ Rva00413A24::~Rva00413A24()
 {
 }
 
-class Rva00414166 : public GameEngineDeletingBase
+class Rva00414166 : public SubsystemInterface
 {
 public:
 	virtual ~Rva00414166();

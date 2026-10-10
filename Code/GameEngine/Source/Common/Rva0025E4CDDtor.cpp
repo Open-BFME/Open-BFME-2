@@ -3,7 +3,7 @@
 // Own vptr BF6040; under EH state 0 the object at +0xC is destroyed through
 // the rowed non-virtual dtor ??1Rva004D2344@@QAE@XZ 0x004D2344 and freed with
 // the global ??3@YAXPAX@Z; the intermediate base's inline dtor restores BF5F30
-// and the rowed base dtor ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74 runs.
+// and the rowed base dtor ??1SubsystemInterface@@UAE@XZ 0x001B4E74 runs.
 // Names address-derived.
 
 class Rva004D2344
@@ -45,16 +45,17 @@ extern "C" __declspec(dllimport) int __stdcall QueryPerformanceFrequency(LARGE_I
 extern "C" __declspec(dllimport) int __stdcall QueryPerformanceCounter(LARGE_INTEGER *counter);
 extern "C" __declspec(dllimport) unsigned int __stdcall timeGetTime();
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[8];
 };
 
-class Rva0025E4CDBase : public GameEngineDeletingBase
+class Rva0025E4CDBase : public SubsystemInterface
 {
 public:
 	virtual ~Rva0025E4CDBase() {}

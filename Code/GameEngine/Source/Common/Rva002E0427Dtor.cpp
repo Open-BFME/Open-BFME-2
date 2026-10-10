@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// ??1Rva002E0427@@UAE@XZ @0x002E0427 81B dtor over two hash members and GameEngineDeletingBase
+// ??1Rva002E0427@@UAE@XZ @0x002E0427 81B dtor over two hash members and SubsystemInterface
 // Vtable 0x00BE7628 slot 0 (deleting dtor 0x0022DA4A calls here); members at +0x10
 // (Rva0022CC67 dtor 0x0022CF13) and +0x24 (Rva0022366C dtor 0x0022366C) with base
 // 0x001B4E74; global g_00DFF09C cleared. Evidence: chain packet callees all rowed.
@@ -22,15 +22,16 @@ private:
 	char m_pad[0x14];
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad[8];
 };
 
-class Rva002E0427 : public GameEngineDeletingBase
+class Rva002E0427 : public SubsystemInterface
 {
 public:
 	virtual ~Rva002E0427();

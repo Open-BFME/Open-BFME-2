@@ -157,12 +157,21 @@ public:
 	int m_refCount;
 };
 
-template <class T> class AptRef
+// 0x00579E47 is rowed as the delegate-wrapper constructor ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z
+// (built in place as the by-value AddCommandMap argument); AptRef<T> builds through it.
+class Rva00579E47
+{
+public:
+	Rva00579E47(const DelegateDesc &desc); // 0x00579E47
+protected:
+	Rva00579E47() {}
+};
+
+template <class T> class AptRef : public Rva00579E47
 {
 public:
 	// ?AptRef::AptRef present-unmatched
-	AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
-	AptRef &rva00579E47(const DelegateDesc *desc); // 0x00579E47
+	AptRef(const DelegateDesc *desc) : Rva00579E47(*desc) {}
 	// ?AptRef::AptRef present-unmatched
 	AptRef(const AptRef &that) : m_ptr(that.m_ptr)
 	{
@@ -202,7 +211,7 @@ private:
 
 class AptOverButtonHandler {public:void*m_vtbl;int m_refCount;};
 // ?AptRef::AptRef present-unmatched
-template<> __forceinline AptRef<AptOverButtonHandler>::AptRef(const DelegateDesc*desc){((AptRef<AptCommandMap>*)this)->rva00579E47(desc);}
+template<> __forceinline AptRef<AptOverButtonHandler>::AptRef(const DelegateDesc*desc):Rva00579E47(*desc){}
 class Rva00524415 {public:Rva00524415();char data[24];};
 class Rva00524436 {public:~Rva00524436();};
 struct PalantirOverStorage {Rva00524415 vectors;

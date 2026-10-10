@@ -5,7 +5,7 @@
 // vector dtor iterator with the rowed element dtor VA 0x0050F149 (gen-uw pin
 // name), then the AsciiString at +0x20, the rowed pool member dtor 0x00360D26
 // at +0x1C, the inline Snapshot base vptr restore (0x00BBB554) at +0x0C and
-// the rowed base dtor ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74.
+// the rowed base dtor ??1SubsystemInterface@@UAE@XZ 0x001B4E74.
 #include "ascii_string.h"
 
 class Rva00360D26Member
@@ -25,10 +25,10 @@ private:
 	int m_value;
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
@@ -41,7 +41,7 @@ private:
 	char m_pad04[0x1C - 0x10];
 };
 
-class Rva00318637 : public GameEngineDeletingBase, public Rva00318637Snapshot
+class Rva00318637 : public SubsystemInterface, public Rva00318637Snapshot
 {
 public:
 	virtual ~Rva00318637();

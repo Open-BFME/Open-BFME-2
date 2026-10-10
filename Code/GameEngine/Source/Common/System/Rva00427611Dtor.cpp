@@ -1,10 +1,10 @@
 // cl: /O1 /MD /EHs /Ireference/shims/moduledata
 //
 // ??1Rva00427611@@UAE@XZ retail 0x00427611 82B.
-// MI dtor in the shape of Rva002D3573Dtor.cpp: primary GameEngineDeletingBase
+// MI dtor in the shape of Rva002D3573Dtor.cpp: primary SubsystemInterface
 // (size 0xC) at +0 with vtable 0x00C3C644, secondary Snapshot at +0xC with
 // vtable 0x00C3C634 restored to 0x00BBB554 by the inline Snapshot dtor, then
-// the rowed ??1GameEngineDeletingBase@@UAE@XZ at 0x001B4E74. Between them,
+// the rowed ??1SubsystemInterface@@UAE@XZ at 0x001B4E74. Between them,
 // under unwind state 1, the member at +0x10 frees its buffer through the
 // rowed _free 0x00030830 when set: the inlined teardown of a malloc-config
 // vector of trivially destructible elements. /EHs keeps the unwind frame
@@ -24,17 +24,17 @@ private:
 	void *m_end;
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
 
 #include "Common/Snapshot.h"
 
-class Rva00427611 : public GameEngineDeletingBase, public Snapshot
+class Rva00427611 : public SubsystemInterface, public Snapshot
 {
 public:
 	virtual ~Rva00427611();

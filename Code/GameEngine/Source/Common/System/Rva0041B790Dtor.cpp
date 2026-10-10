@@ -7,17 +7,17 @@
 // 0x001B4E74. The matched 0x002D3573 destructor supplies the same MI/EH
 // compiler pattern. Base layout is target evidence, not a donor name claim.
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-    virtual ~GameEngineDeletingBase();
+    virtual ~SubsystemInterface();
 private:
     char m_pad04[8];
 };
 
 #include "Common/Snapshot.h"
 
-class Rva0041B790 : public GameEngineDeletingBase, public Snapshot
+class Rva0041B790 : public SubsystemInterface, public Snapshot
 {
 public:
     virtual ~Rva0041B790();

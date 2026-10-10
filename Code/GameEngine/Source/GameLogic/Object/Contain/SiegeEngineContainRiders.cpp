@@ -117,10 +117,16 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 		object->rva0028AE6D();
 	}
 }
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 class SiegeEngineContainModuleData
 {
@@ -183,7 +189,7 @@ private:
 void SiegeEngineContain::removeFromContainList(Object *rider)
 {
 	SiegeEngineContainModuleData *data = (SiegeEngineContainModuleData *)m_moduleData;
-	if (data->m_18C.bfmeHas1026((int)rider, (int)m_object->getControllingPlayer()) && data->m_190 > 0)
+	if (data->m_18C.accepts(rider, m_object->getControllingPlayer()) && data->m_190 > 0)
 	{
 		m_list11C.remove(reinterpret_cast<const int &>(rider));
 		--m_120;

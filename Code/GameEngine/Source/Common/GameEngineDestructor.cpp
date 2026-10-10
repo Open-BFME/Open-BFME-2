@@ -10,16 +10,17 @@
 // base destructor.  The small base declaration models that emission shape;
 // it does not make a semantic claim about the still-unrecovered base class.
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
-	GameEngineDeletingBase(struct EmitVtableTag *);
+	virtual ~SubsystemInterface();
+	SubsystemInterface(struct EmitVtableTag *);
 };
 
-// GameEngineDeletingBase::~GameEngineDeletingBase: defined in GameEngineDeletingBaseDtor.cpp (its row's unit).
+// SubsystemInterface::~SubsystemInterface: defined in Code/Libraries/Source/subsystem/SubsystemInterface.cpp (its row's unit).
 
-class GameEngine : public GameEngineDeletingBase
+class GameEngine : public SubsystemInterface
 {
 public:
 	virtual ~GameEngine();
@@ -31,12 +32,12 @@ public:
 // Dummy tag constructors only make this TU emit the vtables (whose slot 0 is
 // the scalar deleting wrapper). They carry no retail identity and emit no
 // retail-named ctor COMDATs; the wrappers call the rowed complete dtors.
-// ?<GameEngineDeletingBase::GameEngineDeletingBase> absent-from-retail
-GameEngineDeletingBase::GameEngineDeletingBase(struct EmitVtableTag *)
+// ?<SubsystemInterface::SubsystemInterface> absent-from-retail
+SubsystemInterface::SubsystemInterface(struct EmitVtableTag *)
 {
 }
 
 // ?<GameEngine::GameEngine> absent-from-retail
-GameEngine::GameEngine(struct EmitVtableTag *) : GameEngineDeletingBase((struct EmitVtableTag *)0)
+GameEngine::GameEngine(struct EmitVtableTag *) : SubsystemInterface((struct EmitVtableTag *)0)
 {
 }

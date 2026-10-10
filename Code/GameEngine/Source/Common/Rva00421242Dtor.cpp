@@ -3,7 +3,7 @@
 // Own vftable 0x00C3BE00 (slot-0 ??_G at 0x004214A7). Global-deletes every
 // non-null owned polymorphic entry of the void* vector at +0x0C, clears it through the
 // rowed erase 0x0031BD55, frees its storage, then runs the rowed base dtor
-// ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74.
+// ??1SubsystemInterface@@UAE@XZ 0x001B4E74.
 extern "C" void __cdecl free(void *);
 
 namespace _STL
@@ -39,15 +39,16 @@ public:
 	virtual ~Rva00421242Entry();
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
 
-class Rva00421242 : public GameEngineDeletingBase
+class Rva00421242 : public SubsystemInterface
 {
 protected:
 	virtual ~Rva00421242();

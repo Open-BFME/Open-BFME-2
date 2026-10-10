@@ -18,11 +18,12 @@ public:
 	};
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
 };
 
 class Rva004271D9
@@ -41,7 +42,7 @@ typedef std::hash_map<const GameWindow *, WindowVideo *,
 	WindowVideoManager::hashConstGameWindowPtr,
 	std::equal_to<const GameWindow *> > Rva00427311Map;
 
-class Rva00427311 : public GameEngineDeletingBase
+class Rva00427311 : public SubsystemInterface
 {
 public:
 	Rva00427311();

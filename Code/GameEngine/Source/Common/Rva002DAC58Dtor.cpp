@@ -1,5 +1,5 @@
 // cl: /MD /EHsc
-// ??1Rva002DAC58@@UAE@XZ @0x002DAC58 128B: dtor with two node lists plus GameEngineDeletingBase.
+// ??1Rva002DAC58@@UAE@XZ @0x002DAC58 128B: dtor with two node lists plus SubsystemInterface.
 // Evidence: vptr 0x00C03D64 store, lists at +0xC/+0x10 with virtual slot0 get(0) plus global delete row 0x2FD60, base dtor row 0x1B4E74, deleting dtor caller 0x002DACD8 28B, neighbour Rva002DB311Dtor /O1 /MD /EHsc.
 
 class AsciiStringMember
@@ -8,10 +8,11 @@ public:
 	~AsciiStringMember();
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[4];
 	AsciiStringMember m_member08;
@@ -24,7 +25,7 @@ struct Rva002DAC58Node
 	Rva002DAC58Node *m_next;
 };
 
-class Rva002DAC58 : public GameEngineDeletingBase
+class Rva002DAC58 : public SubsystemInterface
 {
 public:
 	virtual ~Rva002DAC58();

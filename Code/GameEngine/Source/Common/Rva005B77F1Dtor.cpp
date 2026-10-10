@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfmelist /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1Rva005B77F1@@UAE@XZ @0x005B77F1 151B.
-// Outer dtor over vtable 0x873918: clear list +0x14 then delete pointees in list +0xC via 0x005B72E7 plus erase then base GameEngineDeletingBase.
+// Outer dtor over vtable 0x873918: clear list +0x14 then delete pointees in list +0xC via 0x005B72E7 plus erase then base SubsystemInterface.
 // Evidence: chain from 0x005B72E7 you landed; callers 0x005B7888 deleting dtor; lists via rowed list<int> clear erase base dtor.
 #include <list>
 
@@ -22,19 +22,17 @@ public:
 	~AsciiStringMember();
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[4];
 	AsciiStringMember m_member08;
 };
 
-// The constructor's existing pin names the same 17-byte SubsystemInterface
-// initializer as this recovered provider. Both return the incoming this.
-#pragma comment(linker, "/alternatename:??0GameEngineDeletingBase@@QAE@XZ=?baseConstruct@BFME2NativeNetwork@@QAEPAV1@XZ")
+// The base constructor is the rowed ??0SubsystemInterface@@QAE@XZ (0x001B4E63).
 
 class Rva005B72E7
 {
@@ -42,7 +40,7 @@ public:
 	~Rva005B72E7();
 };
 
-class Rva005B77F1 : public GameEngineDeletingBase
+class Rva005B77F1 : public SubsystemInterface
 {
 public:
 	Rva005B77F1();

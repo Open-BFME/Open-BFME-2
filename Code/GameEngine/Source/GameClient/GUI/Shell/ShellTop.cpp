@@ -84,10 +84,11 @@ private:
 	Bool m_reverse; // +0x15
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
@@ -196,7 +197,7 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-class Shell : public GameEngineDeletingBase
+class Shell : public SubsystemInterface
 {
 private:
 	WindowLayout *m_screenStack[16]; // +0x0C

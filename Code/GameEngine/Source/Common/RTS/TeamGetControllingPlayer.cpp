@@ -367,10 +367,16 @@ private:
 	GetNextFunc m_getNextFunc;
 };
 
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 
 class ObjectTypes;
@@ -596,7 +602,7 @@ bool Team::rva0039DF87(BfmeTab1026 *tab)
 			continue;
 		if ((tmpl->m_kindByte11a & 0x10) != 0)
 			continue;
-		if (tab->bfmeHas1026((int)cur, (int)player) != 0)
+		if (tab->accepts(cur, player) != 0)
 			return true;
 	}
 	return false;

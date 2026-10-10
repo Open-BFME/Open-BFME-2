@@ -28,10 +28,16 @@ public:
 	Player *getPlayerFromMask(int mask);
 };
 extern PlayerList *ThePlayerList;
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 	int m_00;
 };
 template<int N> class BitFlags
@@ -117,7 +123,7 @@ void Rva00318333::rva00318333(Object *obj, bool flag)
 	if (m_24) {
 		pl = ThePlayerList->getPlayerFromMask(m_24);
 	}
-	if (!m_1C.bfmeHas1026((int)obj, (int)pl))
+	if (!m_1C.accepts(obj, pl))
 		return;
 	if (!m_20.isEmpty()) {
 		if (flag) {

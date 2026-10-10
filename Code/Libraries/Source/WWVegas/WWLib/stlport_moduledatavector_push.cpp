@@ -54,10 +54,16 @@ class Player
 {
 };
 
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 
 class Rva001EB130Holder
@@ -99,7 +105,7 @@ bool FormationAssistant::getValidObjectList(Rva001EB130Holder *input, Player *pl
 			Object *slot = obj;
 			if (slot) {
 				if (slot->getControllingPlayer() == player) {
-					if (m_tab.bfmeHas1026((int)slot, (int)player)) {
+					if (m_tab.accepts(slot, player)) {
 						((_STL::list<Object *> *)output)->push_back(slot);
 					}
 				}

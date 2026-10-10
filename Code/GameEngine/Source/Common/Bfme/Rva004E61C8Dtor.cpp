@@ -1,12 +1,13 @@
 // cl: /MD /Oy- /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// ??1Rva004E61C8@@UAE@XZ @0x004E61C8 105B: dtor stores vtable calls 0x4E5D6E deletes +0xc virtual result vector auto frees +0x10 base GameEngineDeletingBase
+// ??1Rva004E61C8@@UAE@XZ @0x004E61C8 105B: dtor stores vtable calls 0x4E5D6E deletes +0xc virtual result vector auto frees +0x10 base SubsystemInterface
 #include <vector>
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[4];
 	class AsciiStringMember
@@ -29,7 +30,7 @@ struct Rva004E61C8Inner
 
 void __cdecl operator delete(void *p);
 
-class Rva004E61C8 : public GameEngineDeletingBase
+class Rva004E61C8 : public SubsystemInterface
 {
 public:
 	virtual ~Rva004E61C8();

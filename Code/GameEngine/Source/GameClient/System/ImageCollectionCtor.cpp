@@ -2,16 +2,15 @@
 //
 // ImageCollection::ImageCollection, retail 0x002D932B, 55 bytes.
 //
-// Calls the SubsystemInterface base constructor (0x001B4E63, twin-pinned
-// as ??0GameEngineDeletingBase@@QAE@XZ), installs vtable 0x00C03878 and
+// Calls the SubsystemInterface base constructor (0x001B4E63, rowed as
+// ??0SubsystemInterface@@QAE@XZ), installs vtable 0x00C03878 and
 // builds the image map at +0x0C through the folded map constructor
 // (0x0033C432).
 //
 // Modeling notes, all read off retail or the sibling findImageByName TU:
 // - The base is 12 bytes (vptr + byte@4 + dword@8, zeroed by 0x001B4E63),
-//   the same footprint as the sibling's SubsystemInterface; the
-//   GameEngineDeletingBase spelling is reused so the base call resolves
-//   through the existing twin pin.
+//   the same footprint as the sibling's SubsystemInterface, whose rowed
+//   ctor spelling the base call uses.
 // - The map member uses the rowed <int, void*> spelling as the
 //   ICF-stand-in for the true <unsigned, Image*> (same size, same bytes;
 //   opaque-8B-pod precedent). Only the constructor call is modeled; the
@@ -25,11 +24,11 @@ public:
 	~AsciiStringMember();
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase() throw();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface() throw();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[4];
@@ -62,7 +61,7 @@ public:
 
 }
 
-class ImageCollection : public GameEngineDeletingBase
+class ImageCollection : public SubsystemInterface
 {
 public:
 	ImageCollection();
@@ -76,6 +75,6 @@ private:
 
 // ??0ImageCollection@@QAE@XZ
 ImageCollection::ImageCollection()
-	: GameEngineDeletingBase()
+	: SubsystemInterface()
 {
 }

@@ -86,13 +86,18 @@ extern Rva002A8F24 *g_00DFEEF8;
 extern GameLogic *TheGameLogic;
 
 // Pool-aware object filter member: ctor 0x003623E5, dtor 0x00360D26 and
-// accepts 0x00362437 (all rowed under placeholder names).
-class Rva003623E5Member
+// accepts 0x00362437 (all rowed under placeholder names; accepts is the rowed
+// Rva2225E0Filter::accepts, which the old Rva003623E5Member::accepts pin duplicated).
+class Rva2225E0Filter
+{
+public:
+	bool accepts(Object *obj, Player *player);
+};
+class Rva003623E5Member : public Rva2225E0Filter
 {
 public:
 	Rva003623E5Member();
 	~Rva003623E5Member();
-	bool accepts(Object *obj, Player *player);
 
 private:
 	unsigned m_handle;

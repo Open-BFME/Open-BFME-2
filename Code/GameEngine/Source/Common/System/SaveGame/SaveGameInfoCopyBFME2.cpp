@@ -449,17 +449,18 @@ void BfmeSubobject0022CE19::xfer(Xfer *xfer)
 	}
 }
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase() throw();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface() throw();
+	virtual ~SubsystemInterface();
 private:
 	int m_pad04;
 	int m_pad08;
 };
 
-class Rva0022958D : public GameEngineDeletingBase
+class Rva0022958D : public SubsystemInterface
 {
 public:
 	Rva0022958D();
@@ -472,7 +473,7 @@ private:
 // Retail 0x00229557 (26 bytes): default constructor. Base constructor at
 // 0x1B4E63, vtable store, then both AsciiString members zeroed at +0x0C and +0x10.
 Rva0022958D::Rva0022958D()
-	: GameEngineDeletingBase()
+	: SubsystemInterface()
 {
 }
 

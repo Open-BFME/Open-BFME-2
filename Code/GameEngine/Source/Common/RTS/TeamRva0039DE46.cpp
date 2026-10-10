@@ -43,10 +43,17 @@ struct ThingTemplate
 	unsigned char m_kindByte10e;
 };
 
-class BfmeTab1026
+class Player;
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 
 class Object
@@ -91,7 +98,7 @@ bool Team::rva0039DE46(BfmeTab1026 *tab, bool flag)
 					continue;
 			}
 		}
-		if (tab->bfmeHas1026((int)cur, 0) != 0)
+		if (tab->accepts(cur, 0) != 0)
 			return true;
 	}
 	return false;

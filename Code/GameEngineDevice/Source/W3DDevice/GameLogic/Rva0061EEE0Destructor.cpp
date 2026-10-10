@@ -2,7 +2,7 @@
 // stlport
 
 // BFME2's base destructor call goes to the rowed 14-byte body at 0x001B4E74
-// (??1GameEngineDeletingBase@@UAE@XZ, folded with ??1Snapshot/??1Subsystem-
+// (??1SubsystemInterface@@UAE@XZ, folded with ??1Snapshot/??1Subsystem-
 // Interface pins), so the base is declared under that established name: zero
 // new pins for the base call. The member's identity is unrecovered (opaque
 // address-derived name on the BFME2 target).
@@ -15,12 +15,13 @@
 // same body as the address-derived Rva009EB960 singleton destructor, whose
 // member is the asset-registry object; named here after the BFME2 ctor.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Snapshot.h
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase();
+	SubsystemInterface();
 	virtual void anchor();
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 };
 
 #define _STLP_USE_STATIC_LIB 1
@@ -167,7 +168,7 @@ private:
 	char m_storage[0x200];
 };
 
-class Rva0061EEE0 : public GameEngineDeletingBase
+class Rva0061EEE0 : public SubsystemInterface
 {
 public:
 	Rva0061EEE0();
@@ -189,7 +190,7 @@ Rva0061EEE0::~Rva0061EEE0()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?anchor@GameEngineDeletingBase@@UAEXXZ=??_GRva0061EEE0@@UAEPAXI@Z")
+#pragma comment(linker, "/alternatename:?anchor@SubsystemInterface@@UAEXXZ=??_GRva0061EEE0@@UAEPAXI@Z")
 
 // Clean BFME1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/Libraries/Source/assetmanager/Gen_dtor_009eb9e0_Destructor.cpp.

@@ -14,11 +14,12 @@ public:
     char m_pad[0xE3C - 4];
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-    GameEngineDeletingBase();
-    virtual ~GameEngineDeletingBase();
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
     int m_pad04;
     int m_pad08;
 };
@@ -32,7 +33,7 @@ public:
 
 class Rva0037B5DF;
 
-class Rva0037BBED : public GameEngineDeletingBase
+class Rva0037BBED : public SubsystemInterface
 {
 public:
     Rva0037BBED();

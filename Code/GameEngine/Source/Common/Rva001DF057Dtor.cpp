@@ -3,7 +3,7 @@
 //
 // ??1Rva001DF057@@UAE@XZ @0x001DF057 154B.
 // Virtual dtor with primary vtable 0x00BDC5B8 and secondary 0x00BDC5A8.
-// Primary base GameEngineDeletingBase at +0 (size 0xC rowed 0x001B4E74).
+// Primary base SubsystemInterface at +0 (size 0xC rowed 0x001B4E74).
 // Secondary Snapshot at +0xC restored to g_00BBB554 inline (no call).
 // Members in reverse destroy order: list<int> at +0x68 via rowed List_base
 // 0x004EC395 then ptr at +0x5C via inline null-guarded free 0x00030830 then
@@ -16,10 +16,10 @@
 
 extern "C" void __cdecl free(void *block);
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[0x0C - 0x04];
 };
@@ -67,7 +67,7 @@ struct Rva001DF057Buf
 	void *m_ptr;
 };
 
-class Rva001DF057 : public GameEngineDeletingBase, public SnapBase
+class Rva001DF057 : public SubsystemInterface, public SnapBase
 {
 public:
 	virtual ~Rva001DF057();

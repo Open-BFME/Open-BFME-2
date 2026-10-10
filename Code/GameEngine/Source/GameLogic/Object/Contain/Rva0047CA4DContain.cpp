@@ -22,10 +22,16 @@ public:
 	bool testStatus(ObjectStatusTypes s) const;
 	Player *getControllingPlayer() const;
 };
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 class TransportContain
 {
@@ -52,7 +58,7 @@ bool Rva0047CA4D::rva0047CA4D(Object *obj, int a2, int a3)
 	void *tabBase = *(void **)((char *)this - 0x1c);
 	Player *p1 = o1->getControllingPlayer();
 	BfmeTab1026 *tab = (BfmeTab1026 *)((char *)tabBase + 0x18c);
-	if (!tab->bfmeHas1026((int)obj, (int)p1))
+	if (!tab->accepts(obj, p1))
 		goto failOther;
 	int limit = *(int *)((char *)tabBase + 0x190);
 	if (limit > 0) {

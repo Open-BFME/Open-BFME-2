@@ -74,10 +74,19 @@ struct DelegateDesc {
  void (AptCommandTarget::*m_method)(const char *);
 };
 class AptCommandMap { public: void *m_vtbl; int m_refCount; };
-template <class T> class AptRef {
+// 0x00579E47 is rowed as the delegate-wrapper constructor ??0Rva00579E47@@QAE@ABUDelegateDesc@@@Z
+// (built in place as the by-value AddCommandMap argument); AptRef<T> builds through it.
+class Rva00579E47
+{
 public:
- AptRef(const DelegateDesc *desc) { rva00579E47(desc); }
- AptRef &rva00579E47(const DelegateDesc *desc);
+	Rva00579E47(const DelegateDesc &desc); // 0x00579E47
+protected:
+	Rva00579E47() {}
+};
+
+template <class T> class AptRef : public Rva00579E47 {
+public:
+ AptRef(const DelegateDesc *desc) : Rva00579E47(*desc) {}
  AptRef(const AptRef &that) : m_ptr(that.m_ptr) { if (m_ptr) m_ptr->m_refCount++; }
  ~AptRef() { if (m_ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr); }
 private:

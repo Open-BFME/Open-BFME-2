@@ -3,7 +3,7 @@
 //
 // ??0Rva0053ED1A@@QAE@XZ retail 0x0053ED1A 86B.
 // Evidence: constructs the primary base through the pinned
-// GameEngineDeletingBase ctor 0x001B4E63 (state 0), the secondary base at +0xC
+// SubsystemInterface ctor 0x001B4E63 (state 0), the secondary base at +0xC
 // through 0x005C6D4D, installs vtables 0x00C69464 at +0 and 0x00C6944C at
 // +0xC, builds the vector at +0x48 through the pinned _Vector_base ctor
 // 0x00211E58 with an allocator temporary, then zeroes +0x54 and +0x58. Slot 0
@@ -13,11 +13,11 @@
 // contents are not established.
 #include <vector>
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	GameEngineDeletingBase();
-	virtual ~GameEngineDeletingBase();
+	SubsystemInterface();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[8];
 };
@@ -31,7 +31,7 @@ private:
 	char m_pad04[0x38];
 };
 
-class Rva0053ED1A : public GameEngineDeletingBase, public Rva005C6D4D
+class Rva0053ED1A : public SubsystemInterface, public Rva005C6D4D
 {
 public:
 	Rva0053ED1A();

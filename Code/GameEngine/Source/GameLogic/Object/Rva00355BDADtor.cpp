@@ -2,14 +2,15 @@
 // stlport
 // Retail 0x00355BDA (85 bytes): destroys ArmorTemplateMap members at +0x24/+0x10
 // via rowed 0x00355257, restores the Snapshot vptr, then calls the rowed
-// GameEngineDeletingBase destructor at 0x001B4E74.
+// SubsystemInterface destructor at 0x001B4E74.
 
 #include "Common/Snapshot.h"
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 
 private:
 	char m_pad04[4];
@@ -26,7 +27,7 @@ private:
 	char m_pad[0x14];
 };
 
-class __declspec(novtable) Rva00355BDA : public GameEngineDeletingBase, public Snapshot
+class __declspec(novtable) Rva00355BDA : public SubsystemInterface, public Snapshot
 {
 public:
 	virtual ~Rva00355BDA();

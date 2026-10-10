@@ -608,11 +608,11 @@ int GameState::rva002DF2F6(const UnicodeString &filename)
 // source-name leads only. Retail allocates a 0x154-byte implementation after
 // loading Apt\\ with the empty AsciiString cell at VA DFF030.
 #include "Common/Snapshot.h"
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-    GameEngineDeletingBase();
-    virtual ~GameEngineDeletingBase();
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
 private:
     char opaque04[8];
 };
@@ -626,7 +626,7 @@ private:
     void *pointer;
     unsigned int opaque04;
 };
-class Rva002D3573 : public GameEngineDeletingBase, public Snapshot
+class Rva002D3573 : public SubsystemInterface, public Snapshot
 {
 public:
     Rva002D3573();

@@ -8,10 +8,16 @@
 class Object;
 class Player;
 class GameLogic;
-class BfmeTab1026
+// 0x00362437 is rowed as Rva2225E0Filter::accepts(Object *, Player *); the old
+// ?bfmeHas1026@BfmeTab1026@@QAEDHH@Z pin names the same body.
+class Rva2225E0Filter
 {
 public:
-	char bfmeHas1026(int a, int b);
+	bool accepts(Object *obj, Player *player);
+};
+class BfmeTab1026 : public Rva2225E0Filter
+{
+public:
 };
 
 class Object
@@ -55,7 +61,7 @@ void CloudBreakSpecialPower::rva004C4582()
 	for (; cur != 0; cur = *(Object **)((char *)cur + 0x8C))
 	{
 		Rva004C4582TabHolder *holder = m_04;
-		if (holder->m_tab.bfmeHas1026((int)cur, (int)cached08->getControllingPlayer()))
+		if (holder->m_tab.accepts(cur, cached08->getControllingPlayer()))
 			cur->rva0028EC68(5, cached08, 1);
 	}
 }

@@ -18,16 +18,17 @@ public:
 	~AsciiStringMember();
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad04[4];
 	AsciiStringMember m_member08;
 };
 
-class Rva001FDB55 : public GameEngineDeletingBase
+class Rva001FDB55 : public SubsystemInterface
 {
 public:
 	virtual ~Rva001FDB55();

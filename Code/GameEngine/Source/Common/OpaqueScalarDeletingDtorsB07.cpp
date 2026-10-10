@@ -326,11 +326,11 @@ Rva003B0344::Rva003B0344(EmitVtableTag *tag) : Rva003B00D6(tag)
 // The constructor is declared like the destructor: the subsystem-base
 // constructor is the rowed 0x001B4E63 body, so this unit must not emit its
 // own inline copy for the vtable-emitting constructor below.
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-    GameEngineDeletingBase();
-    virtual ~GameEngineDeletingBase();
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
 private:
     char unmodelled04[8];
 };
@@ -347,7 +347,7 @@ struct Rva003B923BBuffer
     void *end;
     ~Rva003B923BBuffer() { if (start) free(start); }
 };
-class Rva003B923B : public GameEngineDeletingBase, public Snapshot
+class Rva003B923B : public SubsystemInterface, public Snapshot
 {
 public:
     Rva003B923B(EmitVtableTag *);

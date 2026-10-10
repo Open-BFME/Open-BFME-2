@@ -3,7 +3,7 @@
 // 0x00C0402C#0 (scalar deleting dtor at 0x002DF2DA calls it), member offsets shared
 // with Rva002DEE9AOwner (E0C/E10/E14/E18 in Rva002DEE9AClear.cpp), save-info member
 // 0xDE8 bytes at +0x24 (BfmeSubobject0022CE19 row at 0x002DD1E9), Snapshot base at +0xC
-// (restores vtable 0x00BBB554), GameEngineDeletingBase dtor row at 0x001B4E74.
+// (restores vtable 0x00BBB554), SubsystemInterface dtor row at 0x001B4E74.
 // Callers: 0x002DF03C, ??_G at 0x002DF2DA, unwind at 0x007783D4.
 
 struct CameraMarker;
@@ -34,10 +34,10 @@ private:
 	char m_pad[0xDE8 - 4];
 };
 
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	char m_pad[0xC - 4];
 };
@@ -61,7 +61,7 @@ public:
 	void rva002DE311();
 };
 
-class GameState : public GameEngineDeletingBase, public Rva002DE58DBaseC
+class GameState : public SubsystemInterface, public Rva002DE58DBaseC
 {
 public:
 	virtual ~GameState();

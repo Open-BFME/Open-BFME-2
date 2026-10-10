@@ -3,7 +3,7 @@
 //
 // ??1Rva003ED1FC@@UAE@XZ @0x003ED1FC 77B
 // Dtor: vtable 0x00C36100 store then ArmorTemplateMap clear plus hashtable
-// dtor plus GameEngineDeletingBase dtor. Evidence: caller ??_GRva003ED1FC
+// dtor plus SubsystemInterface dtor. Evidence: caller ??_GRva003ED1FC
 // at 0x003ED249 in OpaqueScalarDeletingDtorsB07 plus vtable 0x00C36100 slot 0
 // plus callees clear 0x001DBCDC plus dup_003ed1be 0x003ED1BE plus base
 // 0x001B4E74; ledger notes ThreatFinderManager identity for this copy vs
@@ -36,10 +36,11 @@ public:
 	float m_damageCoefficient[38];
 };
 
-class GameEngineDeletingBase
+// Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
+class SubsystemInterface
 {
 public:
-	virtual ~GameEngineDeletingBase();
+	virtual ~SubsystemInterface();
 private:
 	unsigned char m_pad04[8];
 };
@@ -50,7 +51,7 @@ typedef std::hash_map<
 	rts::hash<NameKeyType>,
 	std::equal_to<NameKeyType> > ArmorTemplateMap;
 
-class Rva003ED1FC : public GameEngineDeletingBase
+class Rva003ED1FC : public SubsystemInterface
 {
 public:
 	virtual ~Rva003ED1FC();

@@ -124,15 +124,15 @@ Rva004FA1F::Rva004FA1F(EmitVtableTag *)
 // adjusting thunk51C9A. Its inline destructor restores canonical BBB554;
 // the primary base tail-calls the rowed14B destructor1B4E74. Primary
 // fields are opaque here; that provider accesses its owned word at +8.
-class GameEngineDeletingBase
+class SubsystemInterface
 {
 public:
-    GameEngineDeletingBase();
-    virtual ~GameEngineDeletingBase();
+    SubsystemInterface();
+    virtual ~SubsystemInterface();
 private:
     char m_unknown04[8];
 };
-class Rva005109D : public GameEngineDeletingBase, public Snapshot
+class Rva005109D : public SubsystemInterface, public Snapshot
 {
 public:
     Rva005109D(EmitVtableTag *);
