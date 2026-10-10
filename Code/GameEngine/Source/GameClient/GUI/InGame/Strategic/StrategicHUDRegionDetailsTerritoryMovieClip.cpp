@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G6 /arch:SSE /DNDEBUG /MD /EHsc
 // Native region-bonus label and formatting family. Static helpers are kept
 // with their consumer to preserve the compiler's private register ABI.
 #include "ascii_string.h"
@@ -32,7 +32,8 @@ class GameTextInterface {public:
 };
 extern GameTextInterface *TheGameText;
 class BfmeAptWindowManager {public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};
-extern BfmeAptWindowManager *TheRva00222A8BTarget;
+class Rva00222A8BTarget;
+extern Rva00222A8BTarget *TheRva00222A8BTarget;
 static __declspec(noinline) const RegionBonusPair *LookupRegionBonus(int kind) {
  int i=0;
  if(kind) { do {++i;} while(RegionBonusRecords[i].kind!=kind); }
@@ -56,7 +57,7 @@ private:unsigned int level;AsciiString name;char unknown08[0x24];int bonuses[6];
 void StrategicHUD::RegionDetailsTerritoryMovieClip::Impl::rva005F1999(int index,int value) {
  if(value!=bonuses[index]) {
   AsciiString key;key.format("APT:_level%u.%s_Bonus%d",level,name.str(),index);
-  TheRva00222A8BTarget->bfmeSetText(key,FormatRegionBonus(index,value),false);
+  ((BfmeAptWindowManager*)TheRva00222A8BTarget)->bfmeSetText(key,FormatRegionBonus(index,value),false);
   bonuses[index]=value;
  }
 }
