@@ -11,8 +11,7 @@
 //   allocates 0x154 bytes and passes the owning Palantir subsystem and the
 //   level its Apt\ load returned.
 // - ~AptPalantir, retail 0x002D5380 (357 bytes; WB 0x00F43790).
-// - init, retail 0x002D54E5 (229 bytes; WB 0x00F43B70), is banked: it is exact
-//   but its playback constructor 0x00524C1B has no row or name yet.
+// - init, retail 0x002D54E5 (229 bytes; WB 0x00F43B70).
 // - the subsystem's reset of the palantir's flags, retail 0x002D55EF.
 #include <map>
 #include <list>
@@ -647,4 +646,26 @@ AptPalantir::~AptPalantir()
 	_STL::list<int>::iterator end = m_148.end();
 	for (_STL::list<int>::iterator it = m_148.begin(); it != end; ++it)
 		reinterpret_cast<AptPalantirListener *>(*it)->m_owner = 0;
+}
+
+// Palantir::Impl::init, retail 0x002D54E5..0x002D55CA (229 bytes; WB
+// 0x00F43B70, Palantir.cpp): with the Apt window manager up, create the
+// palantir's input window (-128 bounds, LeftHUDInput) and its movie playback.
+void AptPalantir::init()
+{
+	if (g_bfmeAptWindowManager)
+	{
+		WinInstanceData instData;
+		GadgetCreateView view;
+		view.status = 0x8000408;
+		view.x = -128;
+		view.y = -128;
+		view.width = -128;
+		view.height = -128;
+		*reinterpret_cast<WindowMsgHandledType (**)(GameWindow *, unsigned int, unsigned int, unsigned int)>(view.unknown32) = LeftHUDInput;
+		m_movieWindow = reinterpret_cast<PalantirMovieWindow *>(TheWindowManager->createFromView(&view));
+		m_movieWindow->m_1f4 = 0;
+		m_moviePlayback = new Rva00524BB4(TreeHintRef00217D4C(MakeBinding(reinterpret_cast<FunctorMethod>(&Rva002D2E30::rva002D2E30), reinterpret_cast<FunctorTarget *>(this))));
+		m_moviePlayback->start();
+	}
 }
