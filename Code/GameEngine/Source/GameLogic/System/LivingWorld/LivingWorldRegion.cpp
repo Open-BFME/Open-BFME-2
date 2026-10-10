@@ -107,10 +107,18 @@ public:
 };
 extern LivingWorldLogic *TheLivingWorldLogic;
 
+// Native3F0F48/91 and WB103E4A0 preserve a nested12-byte range of
+// pointer slots and erase the first matching pointer through the owned
+// void-pointer vector erase1FF51F. Original element types remain unknown.
+struct PlacementSlot {void **first,**finish,**end;};
+struct PlacementRange {PlacementSlot *first,*finish,*end;};
+struct PlacementArmyPrefix {char unknown00[0x18];AsciiString name18;};
 class LivingWorldRegion
 {
 public:
 	void CreateBuildPlots();
+    void rva003F0F48(PlacementRange *,void *);
+    void rva003F0FA3(void *);
     void PrepareSkirmishOpponents(LivingWorldBattle *battle);
     Bool DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *out,const char *kind);
     void DoXfer(Xfer *);
@@ -489,3 +497,16 @@ Int LivingWorldRegion::rva003F1053()
   if(!m_buildPlots[i]->IsOccupied()) ++count;
  return count;
 }
+
+void LivingWorldRegion::rva003F0F48(PlacementRange *slots,void *army){
+ unsigned i=0;unsigned n=slots->finish-slots->first;
+ for(;i<n;++i){PlacementSlot *slot=slots->first+i;
+  unsigned j=0;unsigned count=slot->finish-slot->first;
+  for(;j<count;++j)if(slot->first[j]==army){
+   ((_STL::vector<void*>*)slot)->erase(slot->first+j);return;
+  }
+ }
+}
+// Native3F0FA3/46 and WB103E560 select receiver180 for a nonempty
+// army name18 or18C for an empty name before calling the owned eraser.
+void LivingWorldRegion::rva003F0FA3(void *army){if(!((PlacementArmyPrefix*)army)->name18.isEmpty())rva003F0F48((PlacementRange*)&m_heroSlots,army);else rva003F0F48((PlacementRange*)m_unknown18C,army);}
