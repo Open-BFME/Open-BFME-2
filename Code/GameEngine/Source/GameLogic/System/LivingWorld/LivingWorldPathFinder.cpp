@@ -53,15 +53,24 @@ unsigned char Rva003EF5FBNode::rva003EF5FB(int owner){
 // Capture node cost before callback (which can mutate it) and hold an adjacency
 // vector reference across iteration; both native scheduling facts are byte-proven.
 struct Rva003EF6D6Entry;struct Rva003EF6D6Span;struct Rva003C4CF0Span;class Rva002C589B;
-struct Rva003EF6A0Entry;struct Rva003EF6A0Span;
+enum ObjectID { INVALID_ID=0 };
+struct Rva003EF6A0Entry {int key;char pad04[24];float f1c,f20,f24;Rva003EF6A0Entry *prev;};
+struct Rva003EF6A0Span;struct Rva003EF9DCNode;struct Rva003EF634Node;
+class Rva003C5890Item;
+class LivingWorldSearchCallback {public:virtual void slot00();virtual void slot04();virtual void slot08(Rva003EF6A0Entry*);virtual bool slot0c(Rva003EF6A0Entry*,Rva003EF6A0Entry*);};
+class BfmeVecAG {public:void bfmeErase(int*);};
 class Rva003EF8E1{public:
+ void Rva003EF9DCFill(Rva003EF9DCNode*,_STL::vector<ObjectID>*);
+ int Rva003EF634Count(Rva003EF634Node*);
+ int FindShortestPath(LivingWorldSearchCallback*,int,int,int,_STL::vector<ObjectID>*,bool);
+ bool Pathfind(LivingWorldSearchCallback*,int,_STL::vector<ObjectID>*,int*,bool);
  Rva003EF6A0Entry *rva003EF6A0(Rva003EF6A0Span *,int);
  void rva003EF8E1(Rva003EF5FBNode*,int,bool);
  bool contains(Rva003EF6D6Span*,Rva003EF6D6Entry*);
  void remove(Rva003C4CF0Span*,int);
  void insertSorted(_STL::vector<Rva002C589B*>*,Rva002C589B*);
  char padding[12];Rva003EF5FBNode *start,*goal;
- _STL::vector<Rva003EF5FBNode*> open,closed;
+ _STL::vector<Rva003C5890Item*> open,closed;
  Rva003F71D4Metric *metric;
 };
 // ?rva003EF8E1@Rva003EF8E1@@QAEXPAURva003EF5FBNode@@H_N@Z
@@ -99,14 +108,84 @@ void Rva003EFC1CHost::rva003EFC1C(int from,void *output) {
  out->clear();
  start=(Rva003EF5FBNode*)rva003EF6A0((Rva003EF6A0Span*)this,from);
  goal=0;
- _STL::vector<Rva003EF5FBNode*> &openRef=open;
+ _STL::vector<Rva003EF5FBNode*> &openRef=*(_STL::vector<Rva003EF5FBNode*>*)&open;
  ((BfmeSlotVecG*)&openRef)->bfmeErase((void**)openRef.begin(),(void**)openRef.end());
  BfmeSlotVecG *closedVec=(BfmeSlotVecG*)&closed;
  closedVec->bfmeErase((void**)closedVec->begin,(void**)closedVec->end);
  rva003EF8E1(start,-1,true);
  out->reserve(openRef.size());
- for(_STL::vector<Rva003EF5FBNode*>::iterator it=openRef.begin();it!=open.end();++it){
+ for(_STL::vector<Rva003EF5FBNode*>::iterator it=openRef.begin();it!=(_STL::vector<Rva003EF5FBNode*>::iterator)open.end();++it){
   ScienceType id=(ScienceType)(*it)->key;
   out->push_back(id);
  }
+}
+
+// WB01039460 named FindShortestPath and native003EFA0A complete292 RET24.
+// Callback vslots08/0C notify and goal-test extend donor575ba2b0's open/closed
+// semantic guide; output ObjectID spelling is an owned four-byte ABI carrier.
+// Retail hoists this ECX before either goal-result arm: Fill46 and Count20
+// therefore use this owner as well as Relax251; their unused receiver leaves
+// the separately verified provider bytes unchanged.
+// ?FindShortestPath@Rva003EF8E1@@QAEHPAVLivingWorldSearchCallback@@HHHPAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@_N@Z
+int Rva003EF8E1::FindShortestPath(LivingWorldSearchCallback *cb,int opaque,int from,int to,_STL::vector<ObjectID> *out,bool flags) {
+ metric=(Rva003F71D4Metric*)cb;
+ if(from==to) { if(out) { out->clear(); out->push_back((ObjectID &)from); } return 0; }
+ BfmeSlotVecG *openSpan=(BfmeSlotVecG*)&open;
+ openSpan->bfmeErase(openSpan->begin,(void**)openSpan->end);
+ BfmeSlotVecG *closedSpan=(BfmeSlotVecG*)&closed;
+ closedSpan->bfmeErase(closedSpan->begin,(void**)closedSpan->end);
+ if(out) out->clear();
+ Rva003EF6A0Entry *first=rva003EF6A0((Rva003EF6A0Span *)this,from);
+ start=(Rva003EF5FBNode*)first;
+ goal=(Rva003EF5FBNode*)rva003EF6A0((Rva003EF6A0Span *)this,to);
+ if(first && goal) {
+  first->f1c=0.0f;first->f20=0.0f;first->f24=0.0f;
+  start->previous28=0;
+  open.push_back((Rva003C5890Item *const &)start);
+  while(open.size()) {
+   Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
+   ((BfmeVecAG *)&open)->bfmeErase((int *)open.begin());
+   ((LivingWorldSearchCallback*)metric)->slot08(current);
+   if(((LivingWorldSearchCallback*)metric)->slot0c(current,(Rva003EF6A0Entry*)goal)) {
+    if(out) { Rva003EF9DCFill((Rva003EF9DCNode *)current,out); return out->size()-1; }
+    return Rva003EF634Count((Rva003EF634Node *)current);
+   }
+   rva003EF8E1((Rva003EF5FBNode*)current,opaque,flags);
+   closed.push_back((Rva003C5890Item *const &)current);
+  }
+ }
+ return -1;
+}
+
+
+// WB010397E0 named Pathfind and native003EFB2E complete238 RET20.
+// Same queues and callbacks as292 but Boolean result plus optional path length.
+// The void-pointer clear provider for closed retains native LEA-first scheduling
+// without keeping a second span pointer across the search loop.
+// ?Pathfind@Rva003EF8E1@@QAE_NPAVLivingWorldSearchCallback@@HPAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@PAH_N@Z
+bool Rva003EF8E1::Pathfind(LivingWorldSearchCallback *cb,int from,_STL::vector<ObjectID> *out,int *length,bool flags) {
+ metric=(Rva003F71D4Metric*)cb;
+ BfmeSlotVecG *openSpan=(BfmeSlotVecG*)&open;
+ openSpan->bfmeErase(openSpan->begin,(void**)openSpan->end);
+ ((_STL::vector<void*>*)&closed)->clear();
+ if(out) out->clear();
+ Rva003EF6A0Entry *first=rva003EF6A0((Rva003EF6A0Span *)this,from);
+ start=(Rva003EF5FBNode*)first;
+ if(!first) return false;
+ first->f1c=0.0f;first->f20=0.0f;first->f24=0.0f;
+ start->previous28=0;
+ open.push_back((Rva003C5890Item *const &)start);
+ while(open.size()) {
+  Rva003EF6A0Entry *current=(Rva003EF6A0Entry *)open[0];
+  ((BfmeVecAG *)&open)->bfmeErase((int *)open.begin());
+  ((LivingWorldSearchCallback*)metric)->slot08(current);
+  if(((LivingWorldSearchCallback*)metric)->slot0c(current,(Rva003EF6A0Entry*)goal)) {
+   if(out) { Rva003EF9DCFill((Rva003EF9DCNode *)current,out); *length=out->size()-1; }
+   else *length=Rva003EF634Count((Rva003EF634Node *)current);
+   return true;
+  }
+  rva003EF8E1((Rva003EF5FBNode*)current,-1,flags);
+  closed.push_back((Rva003C5890Item *const &)current);
+ }
+ return false;
 }

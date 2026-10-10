@@ -1,7 +1,7 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /O1 /G7 /arch:SSE
 // stlport
-// ?Rva003EF9DCFill@@YGXPAURva003EF9DCNode@@PAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@@Z, retail 0x003EF9DC, 46 bytes.
-// Free __stdcall drain of a +0x28-linked list into a vector<ObjectID> by
+// ?Rva003EF9DCFill@Rva003EF8E1@@QAEXPAURva003EF9DCNode@@PAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@@Z retail 0x003EF9DC, 46 bytes.
+// Unused-receiver member drain of a +0x28-linked list into a vector<ObjectID> by
 // inserting each node's +0 word at the vector's start. Callee is the rowed
 // vector<ObjectID>::insert at 0x003EF85F. Callers 0x003EFB16 0x003EFBFD
 // unblock 0x003EFA0A. Honest address name; node head and value role unproven.
@@ -27,7 +27,8 @@ struct Rva003EF9DCNode
     Rva003EF9DCNode *next28;
 };
 
-void __stdcall Rva003EF9DCFill(Rva003EF9DCNode *head, _STL::vector<ObjectID, _STL::allocator<ObjectID> > *vec)
+class Rva003EF8E1 { public: void Rva003EF9DCFill(Rva003EF9DCNode *, _STL::vector<ObjectID, _STL::allocator<ObjectID> > *); };
+void Rva003EF8E1::Rva003EF9DCFill(Rva003EF9DCNode *head, _STL::vector<ObjectID, _STL::allocator<ObjectID> > *vec)
 {
     if (!head)
         return;
@@ -36,3 +37,7 @@ void __stdcall Rva003EF9DCFill(Rva003EF9DCNode *head, _STL::vector<ObjectID, _ST
         vec->insert(vec->_M_start, value);
     }
 }
+
+// Retail3EFA0A/3EFB2E sets same-owner ECX before the reached-goal branch,
+// then calls this helper without changing ECX; that move is shared with
+// the relaxation call on the other arm. Both caller bodies prove the ABI.
