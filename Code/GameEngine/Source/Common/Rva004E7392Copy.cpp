@@ -9,8 +9,14 @@
 struct Rva004E72C0
 {
 	Rva004E72C0(const Rva004E72C0 &other);
+	Rva004E72C0();
 	virtual ~Rva004E72C0();
 };
+// ??0Rva004E72C0@@QAE@XZ @0x0029B1E1 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BFCFF8) and returning this.
+Rva004E72C0::Rva004E72C0()
+{
+}
 
 struct Rva004E7392 : Rva004E72C0
 {

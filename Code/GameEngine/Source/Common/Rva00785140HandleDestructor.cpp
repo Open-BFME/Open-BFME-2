@@ -10,8 +10,14 @@ class CountedAsset { public: void Release_Ref(); };
 class Rva00782CB0
 {
 public:
+    Rva00782CB0();
     virtual ~Rva00782CB0();
 };
+// ??0Rva00782CB0@@QAE@XZ @0x000A8EB9 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BC93C8) and returning this.
+Rva00782CB0::Rva00782CB0()
+{
+}
 class Rva00785140Handle : public Rva00782CB0
 {
 public:

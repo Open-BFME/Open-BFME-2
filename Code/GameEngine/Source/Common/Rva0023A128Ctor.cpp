@@ -167,11 +167,16 @@ public:
 class Rva0023A128Link
 {
 public:
-	Rva0023A128Link() {}
+	Rva0023A128Link();
 	~Rva0023A128Link() {}
 	virtual void rva00239B94(int);
 	virtual void v01(int);
 };
+// ??0Rva0023A128Link@@QAE@XZ @0x00238DDB 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BED658) and returning this.
+Rva0023A128Link::Rva0023A128Link()
+{
+}
 class Rva0023A039
 {
 public:

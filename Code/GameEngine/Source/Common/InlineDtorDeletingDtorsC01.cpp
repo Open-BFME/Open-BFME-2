@@ -311,8 +311,14 @@ class Rva00215E42
 {
 public:
 	Rva00215E42(EmitVtableTag *);
+	Rva00215E42();
 	virtual ~Rva00215E42();
 };
+// ??0Rva00215E42@@QAE@XZ @0x0029A287 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BE5838) and returning this.
+Rva00215E42::Rva00215E42()
+{
+}
 
 // ?<Rva00215E42::Rva00215E42> absent-from-retail
 Rva00215E42::Rva00215E42(EmitVtableTag *)

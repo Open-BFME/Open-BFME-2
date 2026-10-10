@@ -13,8 +13,14 @@ public:
 
 class Rva0018BEC7_Member {
 public:
+    Rva0018BEC7_Member();
     virtual ~Rva0018BEC7_Member();
 };
+// ??0Rva0018BEC7_Member@@QAE@XZ @0x0018BE7E 9B: the default constructor, storing the
+// class's own vtable (VA 0x00BD5BD4) and returning this.
+Rva0018BEC7_Member::Rva0018BEC7_Member()
+{
+}
 
 class Rva0018BEC7 : public Rva0018BEC7_EmptyBase {
 public:

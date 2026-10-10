@@ -70,9 +70,14 @@ private:
 class Rva0049E03AIface20
 {
 public:
-	Rva0049E03AIface20() {}
+	Rva0049E03AIface20();
 	virtual void rva0049E03ASlot20() = 0;
 };
+// ??0Rva0049E03AIface20@@QAE@XZ @0x0049CC0C 9B: the default constructor, storing the
+// class's own vtable (VA 0x00C513F0) and returning this.
+Rva0049E03AIface20::Rva0049E03AIface20()
+{
+}
 
 class Rva0049E03AIface24
 {

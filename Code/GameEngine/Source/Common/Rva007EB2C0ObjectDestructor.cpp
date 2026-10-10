@@ -26,8 +26,14 @@ extern void Rva007F0060(void);
 class Rva007EB2C0Object
 {
 public:
+	Rva007EB2C0Object();
 	virtual ~Rva007EB2C0Object();
 };
+// ??0Rva007EB2C0Object@@QAE@XZ @0x00658150 9B: the default constructor, storing the
+// class's own vtable (VA 0x00CE1514) and returning this.
+Rva007EB2C0Object::Rva007EB2C0Object()
+{
+}
 
 Rva007EB2C0Object::~Rva007EB2C0Object()
 {
