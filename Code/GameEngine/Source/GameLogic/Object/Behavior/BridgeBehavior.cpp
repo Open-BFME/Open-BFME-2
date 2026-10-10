@@ -311,28 +311,9 @@ BridgeBehavior::~BridgeBehavior( void )
 // ------------------------------------------------------------------------------------------------
 /** Get bridge behavior interface */
 // ------------------------------------------------------------------------------------------------
-/*static */BridgeBehaviorInterface *BridgeBehavior::getBridgeBehaviorInterfaceFromObject( Object *obj )
-{
-	
-	// sanity
-	if( obj == NULL )
-		return NULL;
-
-	BehaviorModule **bmi;
-	BridgeBehaviorInterface *bbi = NULL;
-	for( bmi = obj->getBehaviorModules(); *bmi; ++bmi )
-	{
-
-		bbi = (*bmi)->getBridgeBehaviorInterface();
-		if( bbi )
-			return bbi;
-
-	}  // end for, bmi
-
-	// interface not found
-	return NULL;
-
-}  // end getBridgeBehaviorInterfaceFromObject
+// getBridgeBehaviorInterfaceFromObject lives in
+// BridgeBehaviorGetInterfaceFromObject.cpp (rowed 0x00456556); no local copy
+// is emitted, so the rowed copy is the sole definition at link time.
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
