@@ -14,7 +14,22 @@
 // ctor 0x00211E58) and two zeroed words. The deleting dtor 0x0009D9A1 and
 // dtor 0x0009D6FA are rowed under the opaque name Rva009D6FA. Member
 // meanings element types and the class name are unresolved.
+//
+// ??1Rva0009D55BProduct@@UAE@XZ retail 0x0009D6FA..0x0009D862 (360 bytes EH),
+// the destructor the deleting dtor 0x0009D9A1 calls (pin ??1Rva009D6FA).
+// After the rowed 0x0009AB85 shutdown it takes the three render objects at
+// +0xC8/+0xCC/+0xD0 out of the +0xC4 scene (scene slot 3) when they report
+// being in it (slot 123), releases the five ref-counted words +0xC0..+0xD0
+// (inline Release_Ref, Delete_This slot 0) and clears each, then unwinds
+// the +0x1D0 texture reference (Release_Ref 0x0021ED10) and the +0x1C0
+// vector before the LivingWorld destructor 0x002BFB2D.
 #include <vector>
+// The +0x1C0 vector's storage is freed inline through the game free
+// (0x00030830), as in the sibling water-object units.
+void Rva00030830FreeAllocation(void *);
+namespace _STL {
+ template<> inline void allocator<int>::deallocate(int *p, size_type) const { if (p) Rva00030830FreeAllocation(p); }
+}
 
 // 12-byte element whose out-of-line default constructor is the ICF-folded
 // trivial ctor 0x0047A6A9 (rowed as ??0ICoord3D@@QAE@XZ among others).
@@ -38,6 +53,42 @@ struct Rva0009D55BPair
 	Rva0009D55BPair() : a(0), b(0) {}
 };
 
+class Rva0009AB6B { public: void rva0009AB85(); };
+class TextureBaseClass { public: void Release_Ref(); };
+
+#define D55B_SLOTS4(p) virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3();
+#define D55B_SLOTS16(p) D55B_SLOTS4(p##0) D55B_SLOTS4(p##1) D55B_SLOTS4(p##2) D55B_SLOTS4(p##3)
+
+// The ref-counted words: slot 0 deletes, the count is at +4.
+class Rva0009D6FARef
+{
+public:
+	virtual void Delete_This();
+	void Release_Ref() { if (--m_numRefs == 0) Delete_This(); }
+	int m_numRefs;
+};
+class Rva0009D6FARenderObj : public Rva0009D6FARef
+{
+public:
+	D55B_SLOTS16(r0) D55B_SLOTS16(r1) D55B_SLOTS16(r2) D55B_SLOTS16(r3)
+	D55B_SLOTS16(r4) D55B_SLOTS16(r5) D55B_SLOTS16(r6)
+	D55B_SLOTS4(r70) D55B_SLOTS4(r71) virtual void r720(); virtual void r721();
+	virtual bool isInScene();	// slot 123
+};
+class Rva0009D6FAScene : public Rva0009D6FARef
+{
+public:
+	virtual void s1(); virtual void s2();
+	virtual void removeRenderObject(Rva0009D6FARenderObj *obj);	// slot 3
+};
+struct Rva0009D6FATexture
+{
+	Rva0009D6FATexture() : m_ptr(0) {}
+	~Rva0009D6FATexture() { if (m_ptr) m_ptr->Release_Ref(); }
+	TextureBaseClass *m_ptr;
+};
+#define D55B_REF_PTR_RELEASE(x) { if (x) { x->Release_Ref(); x = 0; } }
+
 class LivingWorld
 {
 public:
@@ -55,11 +106,11 @@ public:
 	virtual ~Rva0009D55BProduct();
 
 private:
-	int m_C0;
-	int m_C4;
-	int m_C8;
-	int m_CC;
-	int m_D0;
+	Rva0009D6FARef *m_C0;
+	Rva0009D6FAScene *m_C4;
+	Rva0009D6FARenderObj *m_C8;
+	Rva0009D6FARenderObj *m_CC;
+	Rva0009D6FARenderObj *m_D0;
 	int m_D4;
 	float m_D8;
 	float m_DC;
@@ -88,7 +139,7 @@ private:
 	Rva0009D55BPair m_1B8;
 	std::vector<int> m_1C0;
 	int m_1CC;
-	int m_1D0;
+	Rva0009D6FATexture m_1D0;
 };
 
 Rva0009D55BProduct::Rva0009D55BProduct()
@@ -97,6 +148,22 @@ Rva0009D55BProduct::Rva0009D55BProduct()
 	  m_E0(0.0f), m_EC(0.9f), m_F8(0.0f), m_104(0.0f), m_110(0.0f),
 	  m_11C(0.0f), m_120(10.0f), m_134(1.0f), m_138(0.0f), m_13C(0.52359879f),
 	  m_188(0), m_18C(0), m_190(0), m_194(0), m_198(0.0f), m_19C(0), m_1AC(0.0f),
-	  m_1CC(0), m_1D0(0)
+	  m_1CC(0)
 {
+}
+
+Rva0009D55BProduct::~Rva0009D55BProduct()
+{
+	((Rva0009AB6B *)this)->rva0009AB85();
+	if (m_C8 && m_C4 && m_C8->isInScene())
+		m_C4->removeRenderObject(m_C8);
+	if (m_CC && m_C4 && m_CC->isInScene())
+		m_C4->removeRenderObject(m_CC);
+	if (m_D0 && m_C4 && m_D0->isInScene())
+		m_C4->removeRenderObject(m_D0);
+	D55B_REF_PTR_RELEASE(m_C0);
+	D55B_REF_PTR_RELEASE(m_C4);
+	D55B_REF_PTR_RELEASE(m_C8);
+	D55B_REF_PTR_RELEASE(m_CC);
+	D55B_REF_PTR_RELEASE(m_D0);
 }
