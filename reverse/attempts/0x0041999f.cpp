@@ -1,4 +1,6 @@
 // ?Rva0041999FParse@@YAXPAVINI@@@Z
+// partial score=0.9885333333 date=2026-10-10
+// ?Rva0041999FParse@@YAXPAVINI@@@Z
 // partial score=0.9357333333 date=2026-10-10
 // ?Rva0041999FParse@@YAXPAVINI@@@Z
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG
@@ -14,9 +16,9 @@ class Rva0022D249 {public: ~Rva0022D249(); private: char payload[0x40];};
 struct Rva00419789 : Rva0022D094 {};
 class Rva00419669 : public Rva00419789 {public: Rva00419669(const AsciiString&, const Rva00419669*);};
 struct Rva004197E8 : Rva0022D249 {Rva004197E8(const AsciiString&, const Rva00419789&);};
-#pragma pack(push,1)
+
 struct InsertRet00419331 { void* m_node; void* m_owner; unsigned char m_found;};
-#pragma pack(pop)
+
 class Rva000427195 {public: InsertRet00419331 rva00419967(const void*);private:char bytes[0x14];};
 class Rva0041811D {public: void* rva004196F8(); char prefix[0xC]; Rva000427195 table;};
 extern Rva0041811D *g_Va00E030C0;
