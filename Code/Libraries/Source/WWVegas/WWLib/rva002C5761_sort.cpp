@@ -3,18 +3,15 @@
 // ?Rva002C5761Sort@@YGXPAX@Z @0x002C5761 162B: collect doubly-linked nodes via vector then sort and relink.
 // Evidence: calls rowed push_back ModuleData 0x004DFCB0, sort int 0x002C571E, base BfmeE16 0x00211E58, free 0x00030830;
 // list offsets +0x204 head, +0x1f8 next, +0x1fc prev; comparator push 0x006C0C45; callers 0x005A1F47 and 0x005BAA20.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 #include <algorithm>

@@ -3,18 +3,15 @@
 // ?parse@QuadStrip2D@@QAEXAAVDataChunkInput@@H@Z @0x00538A0B 165B
 // Holder vector load via DataChunkInput readInt/readReal plus flag at +0x20.
 // Evidence: prev 0x005388C2 holder copy same layout region+flag; callees readInt 0x00306E78 readReal 0x00306E56 reserve 0x00538839 push_back 0x00473F13 swap 0x00567ECD; precedent Rva0030BAF8Parse same recipe ret8.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 struct BfmeE16 { float x, y, z, w; };
