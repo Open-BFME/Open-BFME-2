@@ -4261,6 +4261,9 @@ extern CommandList *TheCommandList;
 extern Rva00DFE1C8Host *g_00DFE1C8;
 extern bool TheDeepCRC;
 extern bool TheLiteCRC;
+// Owned here: toggled around the lite-CRC computation below; retail .data
+// starts it at 0 (VA 0x00A02D87).
+bool TheLiteCRC = false;
 extern void *g_00DFEFF0;
 extern GlobalWeatherSystem *TheGlobalWeatherSystem;
 extern Rva00A027B8 *g_00A027B8;
