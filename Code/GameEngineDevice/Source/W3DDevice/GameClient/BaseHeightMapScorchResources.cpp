@@ -1,14 +1,10 @@
-// ?rva0006B3F3@Rva00067878@@QAEXXZ
-// partial score=0.9869571288926128 date=2026-10-10
-// ?rva0006B3F3@Rva00067878@@QAEXXZ
-// partial score=0.9869571288926128 date=2026-10-10
-// ?rva0006B3F3@Rva00067878@@QAEXXZ
-// partial score=0.9869571288926128 date=2026-10-09
-// ?rva0006B3F3@Rva00067878@@QAEXXZ
-// partial score=0.91 date=2026-09-29
-// ?rva0006B3F3@Rva00067878@@QAEXXZ
-// partial score=0.91 date=2026-09-29
 // cl: /O1 /MD /EHsc
+// Native6B3F3..6B4CC full217 including EH2; BFME1 f989
+// BaseHeightMapRva006CB080 gives scorch buffer/texture initialization purpose.
+// ActualVB/IB CC/D0 owned texture D4 counters D8/DC/3794 and existing
+// EF966 one-pointer constructor /424D0 counted assignment independently verified.
+// Same-valued receiver PHI in the inline slot accessor keeps the native
+// LEA-before-PUSH assignment order. No condition load survives optimization.
 //
 // ?rva0006B3F3@Rva00067878@@QAEXXZ, retail 0x0006B3F3, 217 bytes.
 // Chain lane: calls 0x00067878 just landed; allocates VB/IB at +0xCC/+0xD0
@@ -43,12 +39,6 @@ private:
 	char _t[0x10];
 };
 
-class BfmeThingBNH
-{
-public:
-	BfmeThingBNH *bfmeGoBNH(void *what) ;
-};
-
 class TextureBaseClass
 {
 public:
@@ -78,7 +68,8 @@ class Rva00067878
 {
 public:
 	void rva00067878();
-	void rva0006B3F3();
+	void rva0006B3F3();__forceinline RefCountPtr<TextureClass>&scorchSlot(){return this?m_tex:m_tex;}
+
 private:
 	unsigned char m_pad[0xCC];
 	BfmeDynamicNativeVB *m_vb;
@@ -97,7 +88,7 @@ void Rva00067878::rva0006B3F3()
 		rva00067878();
 	m_vb = new BfmeDynamicNativeVB(0x142, 0x2002, 0, 0);
 	m_ib = new DX8IndexBufferClass(0xC00C, DX8IndexBufferClass::USAGE_DEFAULT);
-	m_tex = Rva0006B3F3ScorchTexture(3);
+	scorchSlot()=Rva0006B3F3ScorchTexture(3);
 	m_3794 = 0;
 	m_d8 = 0;
 	m_dc = 0;
