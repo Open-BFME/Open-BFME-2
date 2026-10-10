@@ -1,6 +1,10 @@
 // ?addEdgeToTrack@Rva00084206Track@@QAEXMM@Z
+// partial score=0.9525182512612397 date=2026-10-10
+extern "C" void _ReadWriteBarrier();
+#pragma intrinsic(_ReadWriteBarrier)
+// ?addEdgeToTrack@Rva00084206Track@@QAEXMM@Z
 // partial score=0.9364737527575153 date=2026-10-09
-// cl: /O1 /arch:SSE /G7 /MD /EHsc /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /I. /O1 /arch:SSE /G7 /MD /EHsc /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
 // Reference semantic lead: GeneralsMD W3DTerrainTracks.cpp computeTrackSpacing
 // at BFME1 checkout dae380faa5f6fa536eec8d6ebbe877321d4cb51d.
 // Retail 0x84B18..0x84C05 supplies the boundary and target-specific ABI:
@@ -486,6 +490,7 @@ void Rva00084206Track::addEdgeToTrack(float x, float y)
 		return;
 
 	Vector3 transformed[2];
+	_ReadWriteBarrier();
 	transformed[0]=TransformTrackPoint(owner->m_object->transform,*(Vector3 *)&endpoints[0]);
 	transformed[1]=TransformTrackPoint(owner->m_object->transform,*(Vector3 *)&endpoints[1]);
 	vPos=(transformed[0]+transformed[1])*0.5f;
