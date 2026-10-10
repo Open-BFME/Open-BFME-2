@@ -46,6 +46,7 @@ Rva005C33D2::~Rva005C33D2()
 class Rva005E54AE : public StrategicHUD::ArmyDetailsMovieClip
 {
 public:
+	Rva005E54AE(int, const AsciiString &, bool);
 	virtual ~Rva005E54AE();
 };
 
@@ -72,5 +73,13 @@ public:
 };
 
 Rva005FB3D9::~Rva005FB3D9()
+{
+}
+
+// Constructor 5E54D5 forwards level/name/zero/back-button Boolean into
+// the named 5F3E93 base, then installs the same C77D10 as destructor 5E54AE.
+// ?Rva005E54AE::Rva005E54AE present-unmatched
+Rva005E54AE::Rva005E54AE(int level, const AsciiString &name, bool back)
+    : StrategicHUD::ArmyDetailsMovieClip(level, name, 0, back)
 {
 }
