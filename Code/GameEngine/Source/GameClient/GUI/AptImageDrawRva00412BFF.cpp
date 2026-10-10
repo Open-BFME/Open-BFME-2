@@ -60,7 +60,9 @@ public:
     char m_pad[0x10];
     PlayerClockView *m_local;
 };
-extern PlayerListClockView *ThePlayerList;
+class PlayerList;
+extern PlayerList *ThePlayerList;
+#define ThePlayerListClock ((PlayerListClockView *)ThePlayerList)
 
 class GlobalDataClockView
 {
@@ -88,8 +90,8 @@ void Rva00412BFF(const Coord2D *origin, const Coord2D *size,
             TheMappedImageCollection->findImageByName(AsciiString("RadialClockOverlay2"));
 
         int color = TheGlobalData->m_colorA;
-        if (ThePlayerList && ThePlayerList->m_local && ThePlayerList->m_local->m_record
-            && ThePlayerList->m_local->m_record->m_flag)
+        if (ThePlayerList && ThePlayerListClock->m_local && ThePlayerListClock->m_local->m_record
+            && ThePlayerListClock->m_local->m_record->m_flag)
             color = TheGlobalData->m_colorB;
 
         if (overlay1 && result.image)

@@ -270,7 +270,8 @@ struct ShellDisplayView
 	unsigned char m_pad000[0x114];
 	Bool m_byte114;
 };
-extern ShellDisplayView *TheDisplay;
+class Display;
+extern Display *TheDisplay;
 class GameWindowTransitionsHandler
 {
 public:
@@ -330,7 +331,7 @@ void Shell::update()
 		const Image *image = TheMappedImageCollection->findImageByName( name );
 		if( image )
 		{
-			TheDisplay->m_byte114 = true;
+			((ShellDisplayView *)TheDisplay)->m_byte114 = true;
 			((BfmeStrVM0 *)TheDisplay)->rva0025C72C( (int)image, 0, 0.0f, 0.0f, 1.0f, 1.0f );
 			TheTransitionHandler->reverse( AsciiString( "FadeInGameMovie_NoAudio" ) );
 			TheTransitionHandler->slot0A();

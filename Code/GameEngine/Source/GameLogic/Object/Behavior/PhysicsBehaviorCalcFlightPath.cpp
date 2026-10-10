@@ -19,7 +19,8 @@ public:Rva0055A246(const Rva0055A246&);float rva0055A627(float)const;void rva005
 template<int N> class PhysicsFlightSlots: public PhysicsFlightSlots<N-1>{public:virtual void slot(char(*)[N])=0;};
 template<> class PhysicsFlightSlots<0>{};
 class PhysicsFlightTerrain : public PhysicsFlightSlots<16>{public:virtual float highest(const Coord3D*,const Coord3D*)=0;};
-extern PhysicsFlightTerrain *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 struct PhysicsFlightData {
  unsigned char pad[8];float height1,height2,percent1,percent2;unsigned char pad18[0x2c-0x18];float heightB1,heightB2,percentB1,percentB2,heightRange;unsigned char pad40[2];bool simpleZ;unsigned char pad43;float zPercent1,zPercent2;
 };
@@ -48,7 +49,7 @@ bool PhysicsBehavior::calcFlightPath(bool recalc,float maxHeight)
   cp[1].z=(cp[3].z-cp[0].z)*d->zPercent1+cp[0].z;
   cp[2].z=(cp[3].z-cp[0].z)*d->zPercent2+cp[0].z;
  }else{
-  float highest=TheTerrainLogic->highest(&cp[0],&cp[3]);
+  float highest=((PhysicsFlightTerrain *)TheTerrainLogic)->highest(&cp[0],&cp[3]);
   float firstHeight,secondHeight;
   if(!alternate)firstHeight=d->height1;else firstHeight=d->heightB1;
   if(!alternate)secondHeight=d->height2;else secondHeight=d->heightB2;

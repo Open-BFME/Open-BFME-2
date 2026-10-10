@@ -51,7 +51,8 @@ public:
 	void rva0027D1A4( const Coord3D *loc, Real radius, int flag );
 };
 
-extern Rva004C49AETerrain *TheTerrainLogic;
+class TerrainLogic;
+extern TerrainLogic *TheTerrainLogic;
 
 class BfmeTaintManager
 {
@@ -87,8 +88,8 @@ void TaintSpecialPower::rva004C49AE( const Coord3D *loc )
 	Real radius = data->m_radius;
 	Object *owner = m_object;
 
-	TheTerrainLogic->rva0027F28E( loc, radius, 1 );
-	TheTerrainLogic->rva0027D1A4( loc, radius + 50.0f, 1 );
+	((Rva004C49AETerrain *)TheTerrainLogic)->rva0027F28E( loc, radius, 1 );
+	((Rva004C49AETerrain *)TheTerrainLogic)->rva0027D1A4( loc, radius + 50.0f, 1 );
 
 	if( data->m_taintFX )
 		FXList::doFXPos( data->m_taintFX, loc );

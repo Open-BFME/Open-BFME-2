@@ -137,7 +137,8 @@ struct Rva00295F05ContainView
 	Bool m_busy;
 };
 
-extern void *g_00DFF0F8;
+class AI;
+extern AI *TheAI;
 
 // ?rva00295FA9@Object@@QAEXPAV1@@Z
 void Object::rva00295FA9(Object *other)
@@ -196,7 +197,7 @@ void Object::rva00295F05(Bool force)
 			return;
 	}
 
-	Pathfinder *pathfinder = *(Pathfinder **)((unsigned char *)g_00DFF0F8 + 0x10);
+	Pathfinder *pathfinder = *(Pathfinder **)((unsigned char *)TheAI + 0x10);
 	if (!pathfinder->rva002ED313(this))
 	{
 		if (related == 0)

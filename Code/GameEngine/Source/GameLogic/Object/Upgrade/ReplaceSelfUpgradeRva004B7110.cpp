@@ -106,7 +106,8 @@ class BfmeThingFactory
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
 };
-extern BfmeThingFactory *TheThingFactory;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class TerrainLogic
 {
@@ -280,7 +281,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 	Real totalLength = 0.0f;
 	for (Int i = 0; i < count; i++)
 	{
-		const ThingTemplate *tmpl = TheThingFactory->findTemplate(names[i]);
+		const ThingTemplate *tmpl = ((BfmeThingFactory *)TheThingFactory)->findTemplate(names[i]);
 		if (!tmpl)
 			return false;
 		totalLength += tmpl->getC8();
@@ -301,7 +302,7 @@ Bool ReplaceSelfUpgrade::rva004CE2B0(Rva00406F9C *mask)
 
 	for (Int j = 0; j < count; j++)
 	{
-		const ThingTemplate *tmpl = TheThingFactory->findTemplate(names[j]);
+		const ThingTemplate *tmpl = ((BfmeThingFactory *)TheThingFactory)->findTemplate(names[j]);
 
 		Coord3D step;
 		copyCoord(step, &perp);

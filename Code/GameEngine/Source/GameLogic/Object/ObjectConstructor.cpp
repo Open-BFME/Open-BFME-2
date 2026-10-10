@@ -197,11 +197,13 @@ class Rva004381B0 { public: void rva004381B0(float value); };
 
 struct AIDataView { unsigned char m_pad[0x64]; bool m_enableRepulsors; };
 struct AIView { unsigned char m_pad[0x18]; AIDataView *m_aiData; };
-extern AIView *TheAI;
+class AI;
+extern AI *TheAI;
 
 struct DefaultTeamPlayer { unsigned char m_pad[0x2EC]; Team *m_defaultTeam; };
 struct PlayerListView { unsigned char m_pad[0x18]; DefaultTeamPlayer *m_neutral; };
-extern PlayerListView *ThePlayerList;
+class PlayerList;
+extern PlayerList *ThePlayerList;
 
 class Radar { public: void addObject(Object *obj); };
 extern Radar *TheRadar;
@@ -532,7 +534,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	BehaviorModule **curB = m_behaviors;
 	const ModuleInfo &mi = tt->m_behaviorModuleInfo;
 
-	setTeam(team ? team : ThePlayerList->m_neutral->m_defaultTeam);
+	setTeam(team ? team : ((PlayerListView *)ThePlayerList)->m_neutral->m_defaultTeam);
 
 	static const NameKeyType smcHelperModuleDataTagNameKey = TheNameKeyGenerator->nameToKey("ModuleTag_SMCHelper");
 	static ObjectHelperModuleData smcModuleData;
@@ -546,7 +548,7 @@ Object::Object(const ThingTemplate *tt, const CreateMask *mask, Team *team, Obje
 	m_22c = new ObjectRecoveryHelper((Thing *)this, (const ModuleData *)&recoveryModuleData);
 	*curB++ = (BehaviorModule *)m_22c;
 
-	if (TheAI != 0 && TheAI->m_aiData->m_enableRepulsors && (m_template->m_kindOf[1] & 0x2000))
+	if (TheAI != 0 && ((AIView *)TheAI)->m_aiData->m_enableRepulsors && (m_template->m_kindOf[1] & 0x2000))
 	{
 		static const NameKeyType repulsorHelperModuleDataTagNameKey = TheNameKeyGenerator->nameToKey("ModuleTag_RepulsorHelper");
 		static ObjectHelperModuleData repulsorModuleData;

@@ -13,7 +13,8 @@ public:
 	const ThingTemplate *findTemplate( const AsciiString &name );
 };
 
-extern BfmeThingFactory *TheThingFactory;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 class Player
 {
@@ -40,7 +41,7 @@ bool ObjectTypes::canBuildAny( Player *player )
 {
 	for ( AsciiString *i = m_begin; i != m_end; ++i )
 	{
-		const ThingTemplate *thingTemplate = TheThingFactory->findTemplate( *i );
+		const ThingTemplate *thingTemplate = ((BfmeThingFactory *)TheThingFactory)->findTemplate( *i );
 		if ( thingTemplate && player->canBuild( thingTemplate ) )
 			return true;
 	}

@@ -476,7 +476,8 @@ class BFMEThingFactory
 public:
 	Drawable *newDrawable(const ThingTemplate *tmplate, DrawableStatus statusBits, Int a);
 };
-extern BFMEThingFactory *TheThingFactory;
+class ThingFactory;
+extern ThingFactory *TheThingFactory;
 
 enum TimeOfDay
 {
@@ -1188,7 +1189,7 @@ void StealthUpdate::changeVisualDisguise()
 		//Get rid of the old instance!
 		TheGameClient->destroyDrawable(draw);
 
-		draw = TheThingFactory->newDrawable(m_disguiseAsTemplate, DRAWABLE_STATUS_NONE, -1);
+		draw = ((BFMEThingFactory *)TheThingFactory)->newDrawable(m_disguiseAsTemplate, DRAWABLE_STATUS_NONE, -1);
 		if (draw)
 		{
 			TheGameLogic->bindObjectAndDrawable(self, draw);
@@ -1227,7 +1228,7 @@ void StealthUpdate::changeVisualDisguise()
 		//Get rid of the old instance!
 		TheGameClient->destroyDrawable(draw);
 
-		draw = TheThingFactory->newDrawable(self->getTemplate(), DRAWABLE_STATUS_NONE, -1);
+		draw = ((BFMEThingFactory *)TheThingFactory)->newDrawable(self->getTemplate(), DRAWABLE_STATUS_NONE, -1);
 		if (draw)
 		{
 			TheGameLogic->bindObjectAndDrawable(self, draw);

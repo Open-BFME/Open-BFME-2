@@ -42,7 +42,8 @@ struct Rva002A9A18AI
 	char m_pad[0x18];
 	Rva002A9A18AIData *m_aiData;
 };
-extern Rva002A9A18AI *g_00DFF0F8;
+class AI;
+extern AI *TheAI;
 
 struct Rva002A9A18Global
 {
@@ -80,7 +81,7 @@ void Player::setPlayerType(PlayerType t, bool skirmish)
 
 	if (t == PLAYER_COMPUTER || (skirmish && g_00DFEEF8->m_860))
 	{
-		if (skirmish || g_00DFF0F8->getAiData()->m_forceSkirmishAI) {
+		if (skirmish || ((Rva002A9A18AI *)TheAI)->getAiData()->m_forceSkirmishAI) {
 			m_ai = new AISkirmishPlayer(this);
 		} else {
 			m_ai = new AIPlayer(this);
