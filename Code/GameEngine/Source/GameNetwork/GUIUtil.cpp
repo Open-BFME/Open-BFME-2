@@ -5,9 +5,11 @@
 // WND lobby screens, retail 0x00446A95..0x004476E0 after the rowed
 // EnableSlotListUpdates pair (0x00446A67/0x00446A71). BFME2 returns early from
 // each helper while the game-mode object at VA 0x00E0333C exists.
-// PopulateTeamComboBox 0x00446C18, UpdateSlotList 0x0044712F and
-// PopulatePlayerTemplateComboBox 0x004474C7 are banked (reverse/attempts):
-// register ties that flip with the unit's other contents.
+// PopulateTeamComboBox 0x00446C18 and PopulatePlayerTemplateComboBox 0x004474C7
+// remain banked for their initial base/index register tie.
+// UpdateSlotList is reconstructed from ZH GUIUtil.cpp at the pinned BFME1
+// donor575ba2b04; WB1496390 names it and native44712F..4474C7 proves its
+// complete920B body, field reads, slots and BFME2 combo refresh additions.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -315,3 +317,168 @@ void PopulateColorComboBox(Int comboBox, GameWindow *comboArray[], GameInfo *myG
 		GadgetComboBoxSetSelectedPos(comboArray[comboBox], 0);
 }
 
+
+// Retail 0x0044712F, 920B. Zero Hour's body plus BFME2's per-slot combo
+// refresh: non-hosts cannot edit player combos, a hidden colour list is
+// repopulated, and the colour, team and player template combos select the
+// slot's values.
+class MapMetaData
+{
+public:
+	unsigned char m_00[0x26];
+	Bool m_isOfficial;	// +0x26
+};
+class MapCache
+{
+public:
+	const MapMetaData *findMap(AsciiString mapName);
+};
+extern MapCache *TheMapCache;
+Bool Rva00300E42(GameInfo *game);	// ZH WouldMapTransfer, keyed by the game in BFME2
+extern unsigned char g_Va00A0335C;	// ZH slotListUpdatesEnabled
+inline Bool AreSlotListUpdatesEnabled( void ) { return g_Va00A0335C != 0; }
+extern Int acceptTrueColor;		// VA 0x00DBA764
+extern Int acceptFalseColor;	// VA 0x00DBA768
+UnicodeString GadgetComboBoxGetText(GameWindow *comboBox);
+void GadgetComboBoxSetText(GameWindow *comboBox, UnicodeString text);
+void *GadgetComboBoxGetItemData(GameWindow *comboBox, Int index);
+enum { WIN_STATUS_HIDDEN = 0x00000008, WIN_STATUS_IMAGE = 0x00000080 };
+#define BitTest(x, i) (((x) & (i)) != 0)
+
+void UpdateSlotList( GameInfo *myGame, GameWindow *comboPlayer[],
+	GameWindow *comboColor[], GameWindow *comboPlayerTemplate[],
+	GameWindow *comboTeam[], GameWindow *buttonAccept[],
+	GameWindow *buttonStart, GameWindow *buttonMapStartPosition[] )
+{
+	if (g_Va00E0333C)
+		return;
+	if(!AreSlotListUpdatesEnabled())
+		return;
+
+	const MapMetaData *mapData = TheMapCache->findMap( myGame->getMap() );
+	Bool willTransfer = TRUE;
+	if (mapData)
+	{
+		willTransfer = !mapData->m_isOfficial;
+	}
+	else
+	{
+		willTransfer = Rva00300E42(myGame);
+	}
+	if (myGame)
+	{
+		for( int i =0; i < MAX_SLOTS; i++ )
+		{
+			GameSlot * slot = myGame->getSlot(i);
+			if(myGame->amIHost() && slot && slot->isAI())
+			{
+				EnableAcceptControls(TRUE, myGame, comboPlayer, comboColor, comboPlayerTemplate,
+					comboTeam, buttonAccept, buttonStart, buttonMapStartPosition, i);
+			}
+			else if (slot && myGame->getLocalSlotNum() == i)
+			{
+				if(slot->isAccepted() && !myGame->amIHost())
+				{
+					EnableAcceptControls(FALSE, myGame, comboPlayer, comboColor, comboPlayerTemplate,
+						comboTeam, buttonAccept, buttonStart, buttonMapStartPosition);
+				}
+				else
+				{
+					if (slot->hasMap()) {
+						EnableAcceptControls(TRUE, myGame, comboPlayer, comboColor, comboPlayerTemplate,
+							comboTeam, buttonAccept, buttonStart, buttonMapStartPosition);
+					}
+					else
+					{
+						EnableAcceptControls(willTransfer, myGame, comboPlayer, comboColor, comboPlayerTemplate,
+							comboTeam, buttonAccept, buttonStart, buttonMapStartPosition);
+					}
+				}
+			}
+			else if(myGame->amIHost())
+			{
+				EnableAcceptControls(FALSE, myGame, comboPlayer, comboColor, comboPlayerTemplate,
+					comboTeam, buttonAccept, buttonStart, buttonMapStartPosition, i);
+			}
+			if(slot && slot->isHuman())
+			{
+				UnicodeString newName = slot->getName();
+				UnicodeString oldName = GadgetComboBoxGetText(comboPlayer[i]);
+				if (comboPlayer[i] && newName.compare(oldName))
+				{
+					GadgetComboBoxSetText(comboPlayer[i], newName);
+				}
+				if(i!= 0 && buttonAccept && buttonAccept[i])
+				{
+					buttonAccept[i]->winHide(FALSE);
+					if(slot->isAccepted())
+					{
+						if(BitTest(buttonAccept[i]->winGetStatus(), WIN_STATUS_IMAGE	))
+							buttonAccept[i]->winEnable(TRUE);
+						else
+							GadgetButtonSetEnabledColor(buttonAccept[i], acceptTrueColor );
+					}
+					else
+					{
+						if(BitTest(buttonAccept[i]->winGetStatus(), WIN_STATUS_IMAGE	))
+							buttonAccept[i]->winEnable(FALSE);
+						else
+							GadgetButtonSetEnabledColor(buttonAccept[i], acceptFalseColor );
+					}
+				}
+			}
+			else
+			{
+				GadgetComboBoxSetSelectedPos(comboPlayer[i], slot->getState(), TRUE);
+				if( buttonAccept &&  buttonAccept[i] )
+					buttonAccept[i]->winHide(TRUE);
+			}
+
+			if (!myGame->amIHost() && comboPlayer[i])
+				comboPlayer[i]->winEnable(FALSE);
+
+			if (comboColor[i] && BitTest(comboColor[i]->winGetStatus(), WIN_STATUS_HIDDEN))
+				PopulateColorComboBox(i, comboColor, myGame,
+					myGame->getConstSlot(i)->getPlayerTemplate() == PLAYERTEMPLATE_OBSERVER);
+			if (comboColor[i])
+			{
+				Int length = GadgetComboBoxGetLength(comboColor[i]);
+				for (Int j = 0; j < length; ++j)
+				{
+					Int data = (Int)GadgetComboBoxGetItemData(comboColor[i], j);
+					if (data == slot->getColor())
+					{
+						GadgetComboBoxSetSelectedPos(comboColor[i], j, TRUE);
+						break;
+					}
+				}
+			}
+			if (comboTeam[i])
+			{
+				Int length = GadgetComboBoxGetLength(comboTeam[i]);
+				for (Int j = 0; j < length; ++j)
+				{
+					Int data = (Int)GadgetComboBoxGetItemData(comboTeam[i], j);
+					if (data == slot->getTeamNumber())
+					{
+						GadgetComboBoxSetSelectedPos(comboTeam[i], j, TRUE);
+						break;
+					}
+				}
+			}
+			if (comboPlayerTemplate[i])
+			{
+				Int length = GadgetComboBoxGetLength(comboPlayerTemplate[i]);
+				for (Int j = 0; j < length; ++j)
+				{
+					Int data = (Int)GadgetComboBoxGetItemData(comboPlayerTemplate[i], j);
+					if (data == slot->getPlayerTemplate())
+					{
+						GadgetComboBoxSetSelectedPos(comboPlayerTemplate[i], j, TRUE);
+						break;
+					}
+				}
+			}
+		}
+	}
+}
