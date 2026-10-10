@@ -5,4 +5,8 @@
 #include <map>
 
 struct Rva001FF743Element { char bytes[1]; bool operator<(const Rva001FF743Element&)const; bool operator==(const Rva001FF743Element&)const; };
-template class _STL::map<int,Rva001FF743Element>;
+// Emit only the verified destructor and its required dependencies.
+typedef _STL::pair<int const, Rva001FF743Element> Rva001FF743Pair;
+typedef _STL::_Rb_tree<int, Rva001FF743Pair, _STL::_Select1st<Rva001FF743Pair>,
+ _STL::less<int>, _STL::allocator<Rva001FF743Pair> > Rva001FF743Tree;
+template Rva001FF743Tree::~_Rb_tree();
