@@ -17,6 +17,20 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 #include <map>
 
+// Keep native signed comparisons inline without competing with the verified owner.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &left, const int &right) const
+{ return left < right; }
+// Typed iterator comparisons use the same node test as the reference base.
+template <class T, class L, class R>
+static inline bool operator==(const _Rb_tree_iterator<T, L> &a, const _Rb_tree_iterator<T, R> &b)
+{ return a._M_node == b._M_node; }
+template <class T, class L, class R>
+static inline bool operator!=(const _Rb_tree_iterator<T, L> &a, const _Rb_tree_iterator<T, R> &b)
+{ return a._M_node != b._M_node; }
+}
+
 
 
 struct Rva00156FA0Record {  char bytes[1]; };
