@@ -1,19 +1,19 @@
 // cl: /O1 /DNDEBUG /MD
-// Reconstruction of the 71B wheel orchestrator at 0x003195C9: resolve
-// the two banked helpers, run the banked 0x3190BB gate into a local,
-// then fan all four pointers into the pinned 0x538F6B worker on the
-// +0x90 subobject. Callee names reuse the banked attempts so the rows
-// unify when those bodies land; all other names are address-derived.
+// Native3195C9..319610,71B: resolve both region values and copy the
+// current pair, then forward both pairs and regions to the owned323B
+// line-path worker538F6B at receiver+90. Use the recovered pointer-return
+// region getter318C32; the original army receiver spelling remains unknown.
 class Rva00318FA1MainOwner
 {
 public:
 	int rva00318FA1();
 };
 
-class Rva00318C32Owner
+class Rva00318C32Ret;
+class Rva00318C79Owner
 {
 public:
-	int rva00318C32();
+	Rva00318C32Ret *rva00318C32();
 };
 
 class Rva003190BBOwner
@@ -42,7 +42,7 @@ void Rva003195C9Owner::rva003195C9()
 	int a = ((Rva00318FA1MainOwner *)this)->rva00318FA1();
 	if (a != 0)
 	{
-		int b = ((Rva00318C32Owner *)this)->rva00318C32();
+		Rva00318C32Ret *b = ((Rva00318C79Owner *)this)->rva00318C32();
 		if (b != 0)
 		{
 			__int64 localStorage;
