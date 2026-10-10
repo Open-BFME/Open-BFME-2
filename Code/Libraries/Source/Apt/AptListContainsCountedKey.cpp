@@ -64,7 +64,11 @@ public:
  Rva006D0660Table *table14;
 };
 // Native6D0860..6D092B. BFME1 ba7ddda7 Rva008956C0Contains.cpp
-// supplies the outer search and by-value handle lifetime guide. Target
+// supplies the outer search and by-value handle lifetime guide.
+// The iterator surface is a target adaptation: WB1752840 calls iterator
+// begin/end/increment/arrow helpers; the donor itself uses a pointer loop.
+// Keeping these inline operations recovers target ESI-node/EDI-key allocation.
+// Target
 // has a28-byte pooled key instead of the donor's24-byte heap key.
 // The reinterpretation at entry4 is the exact receiver load in retail;
 // Rva006D0280 and Rva006D0660 are partial address-derived ABI views.
