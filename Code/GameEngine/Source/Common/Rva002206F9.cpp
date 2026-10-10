@@ -7,7 +7,7 @@ class Rva0037DCA5
 {
 public:
  void *rva0037DC52();
- void rva0037DF8D(Rva002206F9Sink *sink);
+ int rva0037DF8D(Rva002206F9Sink *sink);	// rowed int return (Rva0037DF8DIterate.cpp); result unused here
  char pad[0x90];
  int count;
 };

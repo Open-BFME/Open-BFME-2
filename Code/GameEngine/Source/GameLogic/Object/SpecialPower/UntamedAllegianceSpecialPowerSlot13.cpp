@@ -24,7 +24,7 @@ class Object
 public:
 	bool testStatus(ObjectStatusTypes status) const;
 	void rva00298979(Object *source, bool flag);
-	void rva002930A9(int value);
+	void rva002930A9(void *value);	// rowed pointer parameter (ObjectRva002931F5.cpp)
 	void setProducer(Object *producer);
 	void setStatus(ObjectStatusTypes status, bool set);
 };

@@ -14,7 +14,7 @@
 // now lives in ScriptEngineSupport.cpp.
 //
 // The map lookup is the rowed unsigned-keyed STLport _M_find at 0x00357180,
-// called through its existing descriptive facade pin; the override walk is
+// called by its row name through a TU-local _Rb_tree view; the override walk is
 // the rowed getFinalOverride chain at 0x001E35DF.
 
 typedef int Int;
@@ -56,12 +56,31 @@ struct AttackPriorityNode
 	Int m_priority;
 };
 
+// The rule tree's lookup is the rowed STLport _Rb_tree<unsigned, pair<const unsigned,
+// void *> >::_M_find<unsigned> at 0x00357180 (private; reached through this TU-local
+// declaration, as RespawnUpdateParseRules.cpp does).
+class AttackPriorityInfo;
+namespace _STL {
+template <class _Key, class _Mapped> struct pair;
+template <class _Pair> struct _Select1st;
+template <class _Key> struct less;
+template <class _Value> class allocator;
+template <class _Value> struct _Rb_tree_node;
+template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
+class _Rb_tree {
+	template <class _Key_arg>
+	_Rb_tree_node<_Value> *_M_find(const _Key_arg &) const;
+	friend class ::AttackPriorityInfo;
+};
+}
+typedef _STL::pair<const unsigned int, void *> PriorityTreeValue;
+typedef _STL::_Rb_tree<unsigned int, PriorityTreeValue, _STL::_Select1st<PriorityTreeValue>,
+	_STL::less<unsigned int>, _STL::allocator<PriorityTreeValue> > PriorityTree;
+
 // The STLport map<const ThingTemplate *, Int> header: end node at +0, size +4.
-class BFME2RespawnRuleTree
+class AttackPriorityMapView
 {
 public:
-	void *find(const unsigned int &key) const;
-
 	AttackPriorityNode *m_end;
 	Int m_size;
 };
@@ -76,7 +95,7 @@ private:
 	void *m_snapshotVtable;
 	void *m_name;
 	Int m_defaultPriority;
-	BFME2RespawnRuleTree *m_priorityMap;
+	AttackPriorityMapView *m_priorityMap;
 };
 
 Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target, Bool adjust) const
@@ -88,10 +107,10 @@ Real AttackPriorityInfo::getPriority(const Object *hunter, const Object *target,
 
 	const ThingTemplate *thingTemplate = rawTemplate->getFinalOverride();
 
-	BFME2RespawnRuleTree *priorityMap = m_priorityMap;
+	AttackPriorityMapView *priorityMap = m_priorityMap;
 	if (priorityMap && priorityMap->m_size)
 	{
-		AttackPriorityNode *found = (AttackPriorityNode *)priorityMap->find((const unsigned int &)thingTemplate);
+		AttackPriorityNode *found = (AttackPriorityNode *)((const PriorityTree *)priorityMap)->_M_find<unsigned int>((const unsigned int &)thingTemplate);
 		if (found != priorityMap->m_end)
 			priority = found->m_priority;
 	}

@@ -17,7 +17,7 @@ class Object;
 class GameLogic
 {
 public:
-	void deselectObject(Object *obj, unsigned int mask, int flag);
+	void deselectObject(Object *obj, unsigned int mask, bool affectClient);
 };
 
 extern GameLogic *TheGameLogic;
@@ -39,7 +39,8 @@ class StructureCollapseUpdate
 public:
 	StructureCollapseUpdate();
 	virtual void onDie(const DamageInfo *damageInfo);
-	void beginStructureCollapse(const DamageInfo *damageInfo);
+protected:
+	void beginStructureCollapse(const DamageInfo *damageInfo);	// protected, as rowed (StructureCollapseUpdateUpdate.cpp)
 };
 
 struct SCUView
@@ -72,7 +73,7 @@ void StructureCollapseUpdate::onDie(const DamageInfo *damageInfo)
 		ai->markAsDead();
 
 	// deselect this object for all players.
-	TheGameLogic->deselectObject(v->m_object, 0xfffff, 1);
+	TheGameLogic->deselectObject(v->m_object, 0xfffff, true);
 
 	((StructureCollapseUpdate *)((char *)this - 0x20))->beginStructureCollapse(damageInfo);
 }

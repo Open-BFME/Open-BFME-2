@@ -68,10 +68,30 @@ struct RespawnRule
 		: level(ruleLevel), cost(0), time(0), health(1.0f), autoSpawn(false) {}
 };
 
+// The rule tree's lookup is the rowed STLport _Rb_tree<unsigned, pair<const unsigned,
+// void *> >::_M_find<unsigned> at 0x00357180 (private; reached through this TU-local
+// declaration, as RespawnUpdateParseRules.cpp does).
+class RespawnUpdate;
+namespace _STL {
+template <class _Key, class _Mapped> struct pair;
+template <class _Pair> struct _Select1st;
+template <class _Key> struct less;
+template <class _Value> class allocator;
+template <class _Value> struct _Rb_tree_node;
+template <class _Key, class _Value, class _KeyOfValue, class _Compare, class _Alloc>
+class _Rb_tree {
+	template <class _Key_arg>
+	_Rb_tree_node<_Value> *_M_find(const _Key_arg &) const;
+	friend class ::RespawnUpdate;
+};
+}
+typedef _STL::pair<const unsigned int, void *> RespawnRuleTreeValue;
+typedef _STL::_Rb_tree<unsigned int, RespawnRuleTreeValue, _STL::_Select1st<RespawnRuleTreeValue>,
+	_STL::less<unsigned int>, _STL::allocator<RespawnRuleTreeValue> > RespawnRuleTree;
+
 class BFME2RespawnRuleTree
 {
 public:
-	void *find(const unsigned int &key) const;
 	void *sentinel;
 };
 
@@ -157,12 +177,12 @@ void RespawnUpdate::triggerDeathBeforeRespawn()
 		return;
 
 	RespawnRule rule((unsigned)obj->m_experienceTracker->m_level);
-	RespawnRuleNode *found = (RespawnRuleNode *)data->m_rules.find(rule.level);
+	RespawnRuleNode *found = (RespawnRuleNode *)reinterpret_cast<const RespawnRuleTree &>(data->m_rules)._M_find<unsigned int>(rule.level);
 	RespawnRuleNode *end = (RespawnRuleNode *)data->m_rules.sentinel;
 	if (found == end)
 	{
 		rule.RespawnRule::RespawnRule(1);
-		found = (RespawnRuleNode *)data->m_rules.find(rule.level);
+		found = (RespawnRuleNode *)reinterpret_cast<const RespawnRuleTree &>(data->m_rules)._M_find<unsigned int>(rule.level);
 		if (found == end)
 		{
 			setWakeFrame(obj, UPDATE_SLEEP_FOREVER);

@@ -279,18 +279,20 @@ Int Rva00428D66::rva00428D66(const Rva00428D66Arg *arg)
 	return 1;
 }
 
-// 0x00479B0A: when the +0x9E0 member's pinned 0x00588BF3 accepts this
-// object and the argument, virtual slot 18 then the pinned 0x00478C2C on the
-// +0x20 member with the argument.
+// 0x00479B0A: when the +0x9E0 member's rowed 0x00588BF3 (horde-contain
+// helper, returns the accepting member) accepts this object and the argument,
+// virtual slot 18 then GarrisonContain::onContaining (rowed 0x00478C2C, called
+// non-virtually on the Contain interface at +0x20) with the argument and false.
+class Rva00588E44Contain;
 class Rva0047A040Base9E0
 {
 public:
-	void *rva00588BF3(void *owner, Object *obj);
+	Rva00588E44Contain *rva00588BF3(void *owner, Object *obj);
 };
-class Rva00478C2C
+class GarrisonContain
 {
 public:
-	void rva00478C2C(Object *obj, void *p);
+	virtual void onContaining(Object *obj, bool wasSelected);
 };
 class Rva00479B0A
 {
@@ -317,8 +319,8 @@ public:
 	void rva00479B0A(Object *obj);
 private:
 	char m_pad04[0x1C];
-	Rva00478C2C m_20;
-	char m_pad21[0x9BF];
+	GarrisonContain m_20;
+	char m_pad24[0x9BC];
 	Rva0047A040Base9E0 m_9E0;
 };
 void Rva00479B0A::rva00479B0A(Object *obj)
@@ -326,7 +328,7 @@ void Rva00479B0A::rva00479B0A(Object *obj)
 	if (m_9E0.rva00588BF3(this, obj))
 	{
 		v18();
-		m_20.rva00478C2C(obj, 0);
+		m_20.GarrisonContain::onContaining(obj, false);
 	}
 }
 

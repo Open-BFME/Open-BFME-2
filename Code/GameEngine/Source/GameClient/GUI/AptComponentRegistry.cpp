@@ -32,7 +32,7 @@ void Rva00412111(const Coord2D*,const Coord2D*,const char*,const char*);
 void DisableComponents(const char*);void EnableComponents(const char*);
 // Addresses are carried in the erased callback representation; these are
 // not invoked here and their original callback signatures remain open.
-class GameWindow;void Rva0056D7A4(const char*,const char*,GameWindow*);void Rva000B3FD0(int,char*const*);
+class GameWindow;void Rva0056D7A4(const char*,const char*,GameWindow*);void Rva000B3FD0(int,char *[]);
 namespace _STL {
  template<class T>struct less;
  template<class A,class B>struct pair;

@@ -55,9 +55,9 @@ class Object
 public:
 	void onDestroy();
 	ContainModuleInterface *getContain() const { return m_contain; }
+	void rva0028DAB9();	// public, as rowed at 0x0028DAB9 (ObjectRva0028DA67.cpp)
 
 private:
-	void rva0028DAB9();
 
 	unsigned char m_pad000[0x84];
 	Rva00271BCC *m_rva84;                   // +0x84

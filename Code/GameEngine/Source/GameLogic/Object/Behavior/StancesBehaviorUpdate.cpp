@@ -56,7 +56,7 @@ class StancesBehavior : public UpdateModule
 {
 public:
 	virtual UpdateSleepTime update();
-	void rva0045F084(int value);
+	bool changeStance(int stance);	// rowed 0x0045F084 (StancesBehaviorStanceClass.cpp); result unused here
 	void rva0045F21C();
 	void rva0045F235();
 private:
@@ -68,31 +68,31 @@ UpdateSleepTime StancesBehavior::update()
 	if (obj && obj->testStatus(OBJECT_STATUS_5A))
 		return UPDATE_SLEEP_NONE;
 	if (m_30 == 0)
-		rva0045F084(1);
+		changeStance(1);
 	return UPDATE_SLEEP_FOREVER;
 }
 
 // ?rva0045F21C@StancesBehavior@@QAEXXZ, retail 0x0045F21C, 25 bytes.
-// Stance selector over +0x30: 3 -> rva0045F084(5), 4 -> rva0045F084(1).
+// Stance selector over +0x30: 3 -> changeStance(5), 4 -> changeStance(1).
 // Evidence: neighbours 0x0045F068/0x0045F290 same TU class and flags;
-// callee rowed via pin 0x0045F084; caller 0x002673F6; LINK BONUS via.
+// callee changeStance rowed 0x0045F084; caller 0x002673F6; LINK BONUS via.
 void StancesBehavior::rva0045F21C()
 {
 	if (m_30 == 3)
-		rva0045F084(5);
+		changeStance(5);
 	else if (m_30 == 4)
-		rva0045F084(1);
+		changeStance(1);
 }
 
 // ?rva0045F235@StancesBehavior@@QAEXXZ @0x0045F235 (91B).
 // Gap between 0x0045F21C and update in same TU. Stance-gated AI guard-mode
-// set: 5 -> rva0045F084(3), then 3/1/4 filter, Object at +8, status 0x10
+// set: 5 -> changeStance(3), then 3/1/4 filter, Object at +8, status 0x10
 // reject, AI at Object+0x258, mode 1 for stance 3/4 else 0 via rowed
 // ?rva00262D40@AIUpdateInterface@@QAEXH@Z. Caller 0x00341E66.
 void StancesBehavior::rva0045F235()
 {
 	if (m_30 == 5)
-		rva0045F084(3);
+		changeStance(3);
 	int stance = m_30;
 	if (stance != 3 && stance != 1 && stance != 4)
 		return;

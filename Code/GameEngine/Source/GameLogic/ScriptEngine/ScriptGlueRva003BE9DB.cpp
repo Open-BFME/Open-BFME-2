@@ -12,7 +12,7 @@ typedef bool Bool;
 class Team
 {
 public:
-	void rva0039E76C(float f);
+	bool rva0039E76C(float f);	// rowed bool return (TeamApplyDamage.cpp); result unused here
 };
 
 class ScriptEngine
