@@ -19,7 +19,7 @@ enum ObjectPrivateStatusBits
 class Object
 {
 public:
-	Bool isOffMap() const { return (m_privateStatus & OFF_MAP) != 0; }
+	__declspec(dllimport) __forceinline Bool isOffMap() const { return (m_privateStatus & OFF_MAP) != 0; }
 
 private:
 	unsigned char m_unmodelled_00[0x438];
