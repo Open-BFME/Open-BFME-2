@@ -7,6 +7,15 @@
 // _Rebalance 0x00025490. Precedent stlport_rb_tree_BfmeStringRecord004D05B8_insert.cpp.
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 struct BfmePod16 { int a[4]; };
 typedef _STL::pair<const int, BfmePod16> Pod16MapValue;
 typedef _STL::_Rb_tree<int, Pod16MapValue, _STL::_Select1st<Pod16MapValue>, _STL::less<int>, _STL::allocator<Pod16MapValue> > Pod16MapTree;

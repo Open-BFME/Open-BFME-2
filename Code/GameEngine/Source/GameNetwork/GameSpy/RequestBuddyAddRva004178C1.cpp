@@ -13,6 +13,15 @@
 // buddy message list (slot 26) and clears the two buddy-window globals at
 // 0x00A0308C / 0x00A03090. The ZH exists check and chat insertion are gone.
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 // The empty string at 0x00BBAC1C under the name Rva000B992CBuild.cpp gives it:
 // retail pushes the immediate for the sender nick instead of reusing one
 // register for every "" (the shared literal would be CSEd into esi).

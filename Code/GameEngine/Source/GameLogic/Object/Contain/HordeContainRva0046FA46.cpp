@@ -13,6 +13,15 @@
 // stlport
 #include "Lib/Coord3D.h"
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class Object; class Drawable;
 enum ObjectStatusTypes {RvaStatus38=38};
 class Thing {public:void setPosition(const Coord3D*);void setOrientation(float);};

@@ -18,6 +18,15 @@
 // declarations emit no competing lifetime or vtable definitions.
 #include <mutex.h>
 #include <map>
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
 class Rva00385333 {
 public:
  virtual void reset();
