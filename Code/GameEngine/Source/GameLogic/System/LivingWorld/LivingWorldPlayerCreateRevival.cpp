@@ -1,4 +1,4 @@
-// cl: /O1 /Ob1 /G7 /EHsc /MD /arch:SSE /DNDEBUG /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib
+// cl: /O1 /Ob1 /G7 /EHs /MD /arch:SSE /DNDEBUG /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 #include <vector>
 #include "ascii_string.h"
@@ -46,7 +46,7 @@ class Image;
 class ThingTemplate {
 public:
  int rva0033B479()const; const Image *getButtonImage();
- char unknown00[0x11F]; unsigned char flags11F;
+ char unknown00[0x113]; unsigned char flags113; char unknown114[0x11F-0x114]; unsigned char flags11F;
  char unknown120[0x2E4-0x120]; ModuleInfo modules;
 };
 struct ExperienceLevelList;
@@ -108,7 +108,8 @@ static __declspec(noinline) UnitRevivalEntry CreateRevivalEntry(LivingWorldPlaye
 }
 class LivingWorldPlayer {
 public: void rva002E3442(const RevivalSourceView*const*,const ThingTemplate*,int);
- char unknown00[0x1A8]; std::vector<UnitRevivalEntry> entries;
+ void InitBuildableHeroes();
+ char unknown00[0x40]; int field40; char unknown44[0x1A8-0x44]; std::vector<UnitRevivalEntry> entries;
 };
 // ?rva002E3442@LivingWorldPlayer@@QAEXPBQBURevivalSourceView@@PBVThingTemplate@@H@Z
 void LivingWorldPlayer::rva002E3442(const RevivalSourceView*const *source,const ThingTemplate *thing,int key) {
@@ -133,5 +134,62 @@ void Rva002E34A9::rva002E34A9(const Rva0040DD3ARef &source,int kind) {
  if(thing) {
   UnitRevivalEntry entry=CreateRevivalEntry(reinterpret_cast<LivingWorldPlayer*>(this),&source.value,thing,kind);
   entries.push_back(reinterpret_cast<const Rva002E2D10Record&>(entry));
+ }
+}
+
+// WB DE51F0 names LivingWorldPlayer::InitBuildableHeroes (LivingWorldPlayer.cpp
+// asserts880..901); native2E3518..2E36AF RET0. The building-template store
+// fills a key list for this player's field40; each template's SpawnArmy nugget
+// lists 0x58-byte army records whose summary first entry supplies the unit.
+// A HERO (kind bit0xBE) needs the player hero test; a CREATE_A_HERO-or-hero
+// unit (kind bit0x5A) gets a revival entry keyed by record field4C through a
+// counted entry handle. Store, nugget, record and summary views are placeholder
+// spellings of the rowed providers; original types are unresolved.
+enum ScienceType { SCIENCE_INVALID=-1 };
+enum NameKeyType { NAMEKEY_INVALID=0 };
+class ArmorTemplate;
+class Rva0022C0CDSubsystem;
+extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
+class Rva002E02F0 {public: void rva002E02F0(int,std::vector<ScienceType>*);};
+class Rva002B6498 {public: ArmorTemplate *rva002B6498(NameKeyType);};
+class BuildingNuggetView;
+class LivingWorldBuildingTemplate {public: BuildingNuggetView *findNugget(const AsciiString &) const;};
+class Rva00319CED {public: void *rva004E23C1();};
+class Rva0040CB2CIndexedField {public: int get(int) const;};
+struct SpawnArmyRecordView {char unknown00[0x4C]; int key; char unknown50[8];};
+struct SpawnArmyNuggetView {char unknown00[8]; SpawnArmyRecordView *begin,*end;};
+struct ArmySummaryEntryView {int unit,count;};
+struct ArmySummaryView {char unknown00[0x40]; ArmySummaryEntryView *begin,*end;};
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+struct RevivalHandleView {char unknown00[0xAC]; TargetRef00217D4C *ref; int useCount;};
+class Rva002E3518Handle {
+public:
+ Rva002E3518Handle(const RevivalSourceView *p):value(p){if(p)++((RevivalHandleView*)p)->useCount;}
+ ~Rva002E3518Handle(){if(value)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)&((RevivalHandleView*)value)->ref);}
+ const RevivalSourceView *value;
+};
+// ?InitBuildableHeroes@LivingWorldPlayer@@QAEXXZ
+void LivingWorldPlayer::InitBuildableHeroes() {
+ std::vector<ScienceType> keys;
+ ((Rva002E02F0*)TheLivingWorldBuildingTemplateStore)->rva002E02F0(field40,&keys);
+ for(unsigned int i=0;i<keys.size();++i) {
+  const LivingWorldBuildingTemplate *building=(const LivingWorldBuildingTemplate*)((Rva002B6498*)TheLivingWorldBuildingTemplateStore)->rva002B6498((NameKeyType)keys[i]);
+  if(!building) continue;
+  const SpawnArmyNuggetView *nugget=(const SpawnArmyNuggetView*)building->findNugget(AsciiString("SpawnArmy"));
+  if(!nugget) continue;
+  for(unsigned int j=0;j<(unsigned int)(nugget->end-nugget->begin);++j) {
+   SpawnArmyRecordView *record=&nugget->begin[j];
+   const ArmySummaryView *summary=(const ArmySummaryView*)((Rva00319CED*)record)->rva004E23C1();
+   if(!summary || summary->end-summary->begin==0) continue;
+   const RevivalSourceView *unit=(const RevivalSourceView*)((const Rva0040CB2CIndexedField*)summary)->get(0);
+   const ThingTemplate *thing=(const ThingTemplate*)((Rva0037DCA5*)unit)->rva0037DC52();
+   if(!thing) continue;
+   if((thing->flags11F & 0x40) && !((Rva002E06B8*)this)->rva002E06EF()) continue;
+   if(thing->flags113 & 4) {
+    Rva002E3518Handle handle(unit);
+    rva002E3442(&handle.value,thing,record->key);
+   }
+  }
  }
 }
