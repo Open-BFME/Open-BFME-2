@@ -51,7 +51,7 @@ public:
  bool testStatus(ObjectStatusTypes) const;
  const Weapon *getCurrentWeapon(WeaponSlotType *) const;
  int rva0028B511() const;
- void rva0028ACEE(const Coord3D *,int);
+ void rva0028ACEE(int,int);
  void rva00295F05(bool);
  unsigned char pad0[4]; void *m_template;
  unsigned char pad8[0x38-8]; Coord3D m_position;
@@ -116,7 +116,7 @@ void HordeMeleeSwarm::updateMeleeAttack(Object *victim)
   if(unit->testStatus(SWARM_STATUS_1C) || ai->specialState()) {
    entry.needsPosition=true;
    entry.lastFrame=now;
-   unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
+   unit->rva0028ACEE((int)&unit->m_position,unit->rva0028B511());
    continue;
   }
   bool inRange=false;
@@ -129,7 +129,7 @@ void HordeMeleeSwarm::updateMeleeAttack(Object *victim)
   }
   if(inRange && unit->getCurrentWeapon(0) && unit->getCurrentWeapon(0)->isWithinAttackRange(unit,victim,0.0f,1) && unit->m_ai) {
    ((AICommandInterface *)((char *)unit->m_ai+0x20))->rva0026C2D9(victim,0x7fffffff,SWARM_COMMAND);
-   unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
+   unit->rva0028ACEE((int)&unit->m_position,unit->rva0028B511());
    continue;
   }
   if(entry.nextFrame>now && !force) continue;
@@ -153,7 +153,7 @@ void HordeMeleeSwarm::updateMeleeAttack(Object *victim)
   if(frames) entry.nextFrame=now+frames; else entry.nextFrame=0;
   if(found) { held->active=true; entry.state=1; --count; }
   else { if(entry.nextFrame) unit->rva00295F05(false); entry.state=0; entry.needsPosition=false; }
-  unit->rva0028ACEE(&entry.position,unit->rva0028B511());
+  unit->rva0028ACEE((int)&entry.position,unit->rva0028B511());
   entry.needsPosition=false;
   attacks[index]=entry;
   if(count<1) break;
@@ -181,7 +181,7 @@ void HordeMeleeSwarm::startMeleeAttack(Object *victim)
   SwarmAttackEntry &entry=attacks[index];
   entry.position=unit->m_position;
   entry.needsPosition=true;
-  unit->rva0028ACEE(&unit->m_position,unit->rva0028B511());
+  unit->rva0028ACEE((int)&unit->m_position,unit->rva0028B511());
   unit->m_ai->resetAttack();
  }
 }

@@ -202,7 +202,7 @@ protected:
 public:
 	Real getVisionRange() const;
 	int rva0028B511() const;
-	void rva0028ACEE(const Coord3D *pos, int layer);
+	void rva0028ACEE(int pos, int layer);
 private:
 	unsigned char m_pad000[0x04];
 	const ThingTemplate *m_template; // +0x04
@@ -300,7 +300,7 @@ void AIIdleState::doInitIdleState()
 		goalPos.y = obj->getPosition()->y;
 		goalPos.z = obj->getPosition()->z;
 		if (goalPos.x || goalPos.y || goalPos.z)
-			obj->rva0028ACEE(&goalPos, obj->rva0028B511());
+			obj->rva0028ACEE((int)&goalPos, obj->rva0028B511());
 	}
 
 	ai->setLocomotorGoalNone();

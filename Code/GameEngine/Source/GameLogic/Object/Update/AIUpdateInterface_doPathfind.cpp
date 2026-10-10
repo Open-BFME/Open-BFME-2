@@ -105,7 +105,7 @@ public:
  Bool isSignificantlyAboveTerrain() const;
  Real rva002637E2(const Coord3D*,const Coord3D*)const;
  Real getVisionRange()const;
- void rva0028ACEE(const Coord3D*,Int);
+ void rva0028ACEE(int,Int);
  void rva0028AD32();
  void rva0028ACDC(const Coord3D*); // the layer
 	signed char rva0028CE7B() const; // the crushable level
@@ -346,7 +346,7 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
   if(computeAttackPath(services,victim,&m_requestedDestination)){
    PATH_TRACE("CritterDesync: doPathfind4 -- m_requestedDestination=%g,%g,%g");
    if(m_path){
-    PathNode *last=m_path->tail;m_object->rva0028ACEE(&last->pos,(Int)last->layer);
+    PathNode *last=m_path->tail;m_object->rva0028ACEE((int)&last->pos,(Int)last->layer);
     PATH_TRACE("CritterDesync: doPathfind5 -- m_requestedDestination=%g,%g,%g");
    }
    m_isAttackPath=true;TheAI->pathfinder()->rva003E3BFB((ObjectID)0);
@@ -366,7 +366,7 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
   m_path=services->findClosestPath(m_object,m_locomotorSet,m_object->getPosition(),&m_requestedDestination,m_blockedFrames>0,0.05f,false);
   PATH_TRACE("CritterDesync: doPathfind9 -- m_requestedDestination=%g,%g,%g");
   if(isDoingGroundMovement()&&m_path){
-   PathNode *last=m_path->tail;m_object->rva0028ACEE(&last->pos,(Int)last->layer);
+   PathNode *last=m_path->tail;m_object->rva0028ACEE((int)&last->pos,(Int)last->layer);
    PATH_TRACE("CritterDesync: doPathfind10 -- m_requestedDestination=%g,%g,%g");
    Bool move=m_path->m_blockedByAlly&&!m_object->getTemplate()->isKindOfByte(3,0x40);
    Object *obj=m_object;const ThingTemplate *t=obj->getTemplate();
@@ -385,7 +385,7 @@ void AIUpdateInterface::doPathfind(PathfindServicesInterface *services)
  computePath(services,&m_requestedDestination);
  PATH_TRACE("CritterDesync: doPathfind12 -- m_requestedDestination=%g,%g,%g");
  if(m_isFinalGoal&&isDoingGroundMovement()&&m_path){
-  PathNode *last=m_path->tail;m_object->rva0028ACEE(&last->pos,(Int)last->layer);
+  PathNode *last=m_path->tail;m_object->rva0028ACEE((int)&last->pos,(Int)last->layer);
   PATH_TRACE("CritterDesync: doPathfind13 -- m_requestedDestination=%g,%g,%g");
  }
  if(!m_waitingForPath)wakeUpNow();

@@ -54,7 +54,7 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() { return m_ai; }
 	int rva0028B511() const;
-	void rva0028ACEE(const Coord3D *pos, int layer);
+	void rva0028ACEE(int pos, int layer);
 	Bool GetGoalPosition(Coord3D *pos) const;
 private:
 	unsigned char m_pad000[0x38];
@@ -138,7 +138,7 @@ StateReturnType Rva0034DE21::onEnter()
 		pos.x = obj->getPosition()->x;
 		pos.y = obj->getPosition()->y;
 		pos.z = obj->getPosition()->z;
-		obj->rva0028ACEE(&pos, obj->rva0028B511());
+		obj->rva0028ACEE((int)&pos, obj->rva0028B511());
 		if (obj->GetGoalPosition(&pos))
 		{
 			AIUpdateInterface *ai = obj->getAI();

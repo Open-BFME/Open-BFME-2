@@ -160,7 +160,7 @@ public:
 	AIUpdateInterface *getAI() { return m_ai; }
 	Bool isDead() const { return (m_status438 & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_position; }
-	void rva0028ACEE(const Coord3D *pos, int value);
+	void rva0028ACEE(int pos, int value);
 	void rva0028AE6D();
 	__forceinline void clearModelConditionBit(int bit)
 	{
@@ -282,7 +282,7 @@ void GiantBirdFollowPathState::onExit(StateExitType status)
 	owner->clearModelConditionBit(61);
 	owner->clearModelConditionBit(103);
 	owner->clearModelConditionBit(72);
-	owner->rva0028ACEE(owner->getPosition(), 1);
+	owner->rva0028ACEE((int)owner->getPosition(), 1);
 }
 
 Bool GiantBirdFollowPathState::followToNextPointNow()
@@ -391,7 +391,7 @@ void GiantBirdFollowWaypointPathState::onExit(StateExitType status)
 	owner->clearModelConditionBit(61);
 	owner->clearModelConditionBit(103);
 	owner->clearModelConditionBit(72);
-	owner->rva0028ACEE(owner->getPosition(), 1);
+	owner->rva0028ACEE((int)owner->getPosition(), 1);
 }
 
 Bool GiantBirdFollowWaypointPathState::followToNextPointNow()

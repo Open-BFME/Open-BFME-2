@@ -211,7 +211,7 @@ public:
     Bool isKindOfProjectile() const { return m_template->isKindOfProjectile(); }
     Real getVisionRange() const;
     void rva0028AE6D();
-    void rva0028ACEE(const Coord3D *position, int layer);
+    void rva0028ACEE(int position, int layer);
 	__forceinline void setModelConditionState(ModelConditionFlagType mc)
 	{
 		if (m_modelConditionFlags.test(mc) == 0)
@@ -445,7 +445,7 @@ StateReturnType AIFollowWaypointPathState::onEnter()
             if (!TheAI->pathfinder()->adjustDestination(getMachineOwner(), ai->getLocomotorSet(),
                 &m_goalPosition, 0))
                 return STATE_FAILURE;
-            getMachineOwner()->rva0028ACEE(&m_goalPosition, m_goalLayer);
+            getMachineOwner()->rva0028ACEE((int)&m_goalPosition, m_goalLayer);
         }
         if (obj->isKindOfProjectile())
         {

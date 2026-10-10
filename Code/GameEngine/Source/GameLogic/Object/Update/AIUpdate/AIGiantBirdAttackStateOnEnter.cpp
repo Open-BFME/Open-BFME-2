@@ -355,7 +355,7 @@ public:
 			rva0028AE6D();
 		}
 	}
-	void rva0028ACEE(const Coord3D *pos, Int value);
+	void rva0028ACEE(int pos, Int value);
 protected:
 	Module *findModule(NameKeyType key) const;
 	friend class AIGiantBirdAttackState;
@@ -606,7 +606,7 @@ void AIGiantBirdAttackState::onExit(StateExitType status)
 	if (weapon)
 		weapon->reloadAmmo(owner);
 
-	owner->rva0028ACEE(owner->getPosition(), 1);
+	owner->rva0028ACEE((int)owner->getPosition(), 1);
 	if (ai)
 		ai->m_entered558 = false;
 }
