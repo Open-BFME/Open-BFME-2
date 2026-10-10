@@ -68,7 +68,7 @@ struct Rva0028AF76Sub
 	int m_int4C;					// +0x04C
 	int m_int50;					// +0x050
 
-	void rva0028A82A(void *dst) const;
+	void *rva0028A82A(void *dst) const;
 	int rva004DEA68();
 };
 
@@ -364,10 +364,11 @@ bool Object::isOutOfAmmo() const
 	return ws->isOutOfAmmo();
 }
 
-void Rva0028AF76Sub::rva0028A82A(void *dst) const
+void *Rva0028AF76Sub::rva0028A82A(void *dst) const
 {
 	char *d = (char *)dst;
 	*(float *)d = m_float48;
 	*(int *)(d + 4) = m_int4C;
 	*(int *)(d + 8) = m_int50;
+	return dst;
 }
