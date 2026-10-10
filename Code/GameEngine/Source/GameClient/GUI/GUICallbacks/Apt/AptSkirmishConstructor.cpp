@@ -1,8 +1,5 @@
-// ??0AptSkirmish@@QAE@PAXH@Z
-// partial score=0.99 date=2026-10-09
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /O1 /G6 /arch:SSE
 // stlport
-//
 // AptSkirmish::AptSkirmish, retail 0x00522B0E (1595 bytes).
 //
 // Identity (target evidence): WorldBuilder names the body
@@ -209,14 +206,15 @@ private:
 	unsigned char m_pad[0x6B8 - 0x698];
 };
 
-// Constructor 0x00521623 (rowed as the placeholder method bfmeInitTC).
-class BfmeThingTC
+// Input-route member: constructor 0x00521623, destructor 0x0052163E,
+// vftable 0x00C67840.
+class Rva0052163E
 {
 public:
-	BfmeThingTC(int count);
-	~BfmeThingTC();
+	Rva0052163E(int count);
+	virtual ~Rva0052163E();
 private:
-	unsigned char m_pad[0x6D8 - 0x6C8];
+	unsigned char m_pad[0x6D8 - 0x6C8 - 4];
 };
 
 class GameWindow;
@@ -250,7 +248,7 @@ private:
 	bool m_6C1;
 	bool m_6C2;
 	int m_6C4;
-	BfmeThingTC m_6C8;
+	Rva0052163E m_6C8;
 	AsciiString m_6D8;
 };
 
