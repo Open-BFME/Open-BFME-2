@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?rva00246F8E@GameLogic@@QAE_NABVAsciiString@@HPAPBVCommandButton@@@Z @0x00246F8E 73B
 // Evidence: leaf called by CommandSet::getCommandButton 0x00409F05 with LINK BONUS 51B; pin name matches caller TU; prev GameLogic+0x10 BuildableMap and next Rva00246FD7; rowed releaseBuffer 0x36410 plus pinned Rva0023FC23 0x23FC23 plus rowed _M_find 0x241BD2; +0x24 map and node+0x18 mapped button from retail.

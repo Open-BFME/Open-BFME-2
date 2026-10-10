@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // stlport
 // ?rva000EE198@Rva000EE198Owner@@QAEXXZ @0x000EE198 107B: release every ref-counted
 // slot of a 0x30-stride array (count at +0x2EE04, reset to 0), then release the
