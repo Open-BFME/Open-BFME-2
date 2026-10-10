@@ -1,5 +1,14 @@
 // ?rva0046FA46@HordeContain@@UAEXPAVObject@@H@Z
-// partial score=0.98 date=2026-10-10
+// Native 0x0046FA46..0x0046FC1B (469B), RET8, C44EC8 interface slot22.
+// Owner identity: named HordeContain ctor/vtables and same-family callbacks.
+// Target facts: status38, producer/rider notification, ID map, virtual
+// placement/orientation, terrain layer, AI and drawable propagation below.
+// Layout offsets are retail accesses, not carried as donor facts.
+// The original method name remains unknown. Helper 46E6EA takes an opaque
+// third pointer here containing the owner Object; retain the existing ABI
+// spelling without asserting that its pointee is a coordinate at this call.
+// Same-valued owner-conditioned AI PHI keeps the native ECX load. Declaring
+// zero angle before the iface pointer gives the native order of stack stores.
 // cl: /O1 /G7 /arch:SSE /Oy- /DNDEBUG /MD /ICode/Libraries/Include /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP=
 // stlport
 #include "Lib/Coord3D.h"
@@ -359,9 +368,10 @@ void HordeContain::rva0046FA46(Object*object,int arg){
  if(ids.find(id)!=ids.end())return;
  if(!flag198)p33(true);
  p34();
+ float angle=0.0f;
  RvaHordeIface11C*h=reinterpret_cast<RvaHordeIface11C*>(reinterpret_cast<char*>(this)+0x11C);
- float angle=0.0f; Coord3D pos=h->position(object,&angle);
- int layer=TheAI->pathfinder->GetGroundLayer(&owner->position);
+ Coord3D pos=h->position(object,&angle);
+ int layer=(owner?TheAI:TheAI)->pathfinder->GetGroundLayer(&owner->position);
  reinterpret_cast<Rva0046E6EA*>(this)->rva0046E6EA(reinterpret_cast<Rva0046E6EAObject*>(object),reinterpret_cast<const Rva0046E6EACoord*>(&pos),reinterpret_cast<Rva0046E6EACoord*>(owner),false);
  pos.z=reinterpret_cast<RvaTerrain*>(TheTerrainLogic)->height(pos.x,pos.y,layer,0,true);
  object->setPosition(&pos);object->setPosition(&pos);
