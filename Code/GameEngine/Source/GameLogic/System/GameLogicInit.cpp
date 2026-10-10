@@ -42,6 +42,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include "../../../../Libraries/Source/profile/profile.h"
 
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
+
 // STLport's __copy_trivial is a memmove wrapper the shipped header defined
 // inline; retail calls it out of line at 0x000179B0 but the compiler still saw
 // it could not throw: the vector copy at 0x002CFAB9 has no EH frame, and

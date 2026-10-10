@@ -12,6 +12,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "Coord2D.h"
 #include "Coord3D.h"
 #include "ascii_string.h"
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 // LivingWorldRegion.cpp -- LivingWorldRegion queries recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
 // function and the member m_buildPlots at +0x170; retail supplies the bytes.
