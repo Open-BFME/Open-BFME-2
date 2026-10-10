@@ -7,18 +7,15 @@
 // sit at +0x10..+0x24 and two plain ints at +0x28/+0x2C. Elements are new'd
 // at 0x60 bytes through the rowed Rva003FA118 copy ctor 0x003FA118. The dtor
 // calls the shared clearItems 0x00402C4E. Names are generated.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <vector>
 

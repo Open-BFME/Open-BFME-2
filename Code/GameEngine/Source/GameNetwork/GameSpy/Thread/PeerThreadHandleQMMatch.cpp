@@ -1,18 +1,15 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 // ?handleQMMatch@PeerThreadClass@@QAEXPAXHHQAPAD11111@Z @0x0038B6C1 502B: quickmatch matched path leaves group room notifies others and posts QM status with IP/port/side/color/nat/extra. Evidence: donor BFME1 PeerThread.cpp handleQMMatch plus PeerHandleQMMatch.cpp 6-field plus port 8088; strings "We're matched!" plus empty g_Rva0107301CEmptyString; callees row peerLeaveRoomA 0x69A2C0 peerMessagePlayerA 0x698F70 ctor 0x389F77 dtor 0x38A063 basic_string assign 0x1B790 atoi strcmpi IAT; global g_00A02340 slot 0x20; QM_WORKING 4 to QM_MATCHED 7.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 #include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
 namespace _STL {
-template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, const unsigned int &b)
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
     return a < b ? b : a;
 }
 }
-#pragma optimize("", on)
 
 #include <string>
 #include <string.h>
