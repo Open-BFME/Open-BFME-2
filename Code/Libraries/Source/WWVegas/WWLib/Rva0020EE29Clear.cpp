@@ -2,6 +2,11 @@
 // stlport
 #include <new>
 #include <hash_map>
+// Suppress the TU's non-retail const-begin copy (row 54 family-LK3): the
+// /Od retail copy in stlport_vector_voidptr.cpp serves the link instead.
+namespace _STL {
+template <> vector<void *>::const_iterator _STL::vector<void *>::begin() const;
+}
 #include "ascii_string.h"
 // ?rva0020EE29@Rva0020EE29@@QAEXXZ @0x0020EE29 51B
 // Clears each entry of the pointer vector at inner+0x2c/+0x30 (inner = *(this+8))
