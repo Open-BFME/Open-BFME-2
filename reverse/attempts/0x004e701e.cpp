@@ -1,11 +1,12 @@
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
-// partial score=0.9957343321965674 date=2026-10-10
+// partial score=0.9974 date=2026-10-10
 // ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
-// partial score=0.9957343321965674 date=2026-10-10
-// ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
-// partial score=0.985 date=2026-10-10
-// ?UpdateNotice@InGameNotificationBoxMovieClip@@QAEXXZ
-// partial score=0.96 date=2026-10-09
+// partial score=0.9974 date=2026-10-10
+// Helper ct 2026-10-10: assigning through an explicit functional-cast copy
+// (active=Rva004E6A37(notice.rva004E6BF6())) instead of the release()-based
+// consumeNotice gives retail's MOV EDX,ESP / source clear / MOV [EDX] tail
+// at 0x004E721B. Only the slot PUSH ECX before (retail: after) the
+// MOV ECX,[EAX] load of the returned holder still differs (2 instructions).
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Common/BfmeAudioEventPrefix136.h"
@@ -285,6 +286,6 @@ void InGameNotificationBoxMovieClip::UpdateNotice()
  surface->getSize(&w,&h);
  openNotice(reinterpret_cast<Rva00222A8BTarget*>(g_bfmeAptWindowManager),owner,(float)h*reinterpret_cast<NotificationAptScales*>(g_bfmeAptWindowManager)->getScale16()[1],&notice.get()->openOption,&noticeLocations[notice.get()->location]);
  state=2;
- consumeNotice(active,notice.rva004E6BF6());
+ active=Rva004E6A37(notice.rva004E6BF6());
 }
 
