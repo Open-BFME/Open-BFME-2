@@ -4,6 +4,18 @@
 // Evidence: callers 0x002B4E7B 0x002BD9B4; rowed vector voidptr erase 0x001FF51F;
 // pin 0x00212655 Rva00DFE1C8Host::rva00212655; global TheLivingWorldManager at VA 0x00DFE1C8.
 #include <vector>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 

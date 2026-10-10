@@ -6,6 +6,18 @@
 // vector erase at 0x31BD55 plus hashtable clears at 0x60CFB6/0x1DBCDC.
 #include <vector>
 #include <hash_map>
+
+// vector<void*> begin/end otherwise instantiate per-TU COMDATs (one byte
+// shape per TU flags); explicit dllimport+forceinline specializations take
+// those calls inline so this TU emits no external copies.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin()
+{ return _M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end()
+{ return _M_finish; }
+}
 class Xfer {
 public:
     virtual void s0();
