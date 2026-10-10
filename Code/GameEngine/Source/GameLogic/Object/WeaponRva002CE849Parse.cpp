@@ -19,6 +19,11 @@ template <> inline const unsigned int &max<unsigned int>(const unsigned int &a, 
 struct Coord3D {
   float x, y, z;
 };
+// Declaration-only _Construct: retail's push_back calls the pinned out-of-line
+// helper (0x002CA82C) instead of inlining the element copy (row 35 family-LK3).
+namespace _STL {
+template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
+}
 class INI {
 public:
   const char *getNextSubToken(const char *expected);

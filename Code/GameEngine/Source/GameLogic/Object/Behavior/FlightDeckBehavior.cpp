@@ -87,6 +87,13 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
 #include "GameLogic/Module/JetAIUpdate.h"
 #include "GameLogic/Module/ProductionUpdate.h"
 
+// Declaration-only _Construct: retail's vector<Coord3D> push_back calls the
+// pinned out-of-line helper (0x002CA82C) instead of inlining the element
+// copy (row 35 family-LK3).
+namespace _STL {
+template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
+}
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)

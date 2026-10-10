@@ -49,6 +49,12 @@ typedef float Real;
 #define __PLACEMENT_VEC_NEW_INLINE
 #include <vector>
 
+// Declaration-only _Construct: retail's push_back calls the pinned out-of-line
+// helper (0x002CA82C) instead of inlining the element copy (row 35 family-LK3).
+namespace _STL {
+template <> void _Construct<Coord3D, Coord3D>(Coord3D *, const Coord3D &);
+}
+
 class Object;
 class ThingTemplate;
 
