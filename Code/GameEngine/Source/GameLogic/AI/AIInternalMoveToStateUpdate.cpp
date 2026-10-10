@@ -1,8 +1,5 @@
-// ?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.9987044966031613 date=2026-10-09
-// ?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ
-// partial score=0.998 date=2026-10-09
 // cl: /O1 /DNDEBUG /MD /G7 /arch:SSE /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib
+// ?update@AIInternalMoveToState@@UAE?AW4StateReturnType@@XZ
 //
 // Derived AI state onExit overrides chaining to the rowed
 // AIInternalMoveToState::onExit 0x003473A4, transferred from Zero Hour
@@ -701,7 +698,7 @@ StateReturnType AIInternalMoveToState::update()
 		return STATE_FAILURE;
 
 	Path *thePath = ai->getPath();
-	if (m_waitingForPath)
+	if ((m_waitingForPath?m_waitingForPath:m_waitingForPath))
 	{
 		m_pathTimestamp = TheGameLogic->getFrame();
 		if (ai->isWaitingForPath())
