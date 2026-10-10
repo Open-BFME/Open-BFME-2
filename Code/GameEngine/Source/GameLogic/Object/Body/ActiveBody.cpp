@@ -647,6 +647,8 @@ public:
 	const char *getBitNameIfSet(Int i) { return (const char *)((Rva004BE0C7 *)this)->rva004BE0C7(i); }
 	Bool setBitByName(const char *token);
 	void clear() { memset(m_bits, 0, sizeof(m_bits)); }
+	void set(unsigned bit) { m_bits[bit >> 5] |= 1U << (bit & 31); }
+	void reset(unsigned bit) { m_bits[bit >> 5] &= ~(1U << (bit & 31)); }
 	void xfer(Xfer *xfer);
 
 private:
@@ -724,6 +726,8 @@ public:
 	virtual void setDamageState(BodyDamageType newState);
 	virtual void onVeterancyLevelChanged(VeterancyLevel oldLevel, VeterancyLevel newLevel);
 	virtual void internalChangeHealth(Real delta, DamageInfo *damageInfo);
+	virtual void setArmorSetFlag(ArmorSetType ast);
+	virtual void clearArmorSetFlag(ArmorSetType ast);
 
 	virtual void rva004BE69C();
 	virtual void onDelete();
@@ -1501,3 +1505,12 @@ void ActiveBody::rva004BFCD4(Real amount, DamageInfo *damageInfo)
 		rva004BFB1C(amount, (const Coord3D *)&pos);
 	}
 }
+
+// EA Zero Hour ActiveBody.h supplies the set/clear semantics. Retail BFME2
+// ctor4BF6A1 installs secondary tableC5B5B0 at complete-this+10; slots12/13
+// point to full bodies4BF911..4BF93031B and4BF930..4BF95133B. WB12500F0/
+// 1250190 independently witness the same BitFlags21 algorithm. These members
+// receive secondary-this, so nativeE0 accesses the established full-objectF0
+// armor flags. The existing two-base class supplies that adjustment naturally.
+void ActiveBody::setArmorSetFlag(ArmorSetType ast) { m_curArmorSetFlags.set((unsigned)ast); }
+void ActiveBody::clearArmorSetFlag(ArmorSetType ast) { m_curArmorSetFlags.reset((unsigned)ast); }
