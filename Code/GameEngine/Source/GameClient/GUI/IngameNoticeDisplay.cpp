@@ -179,6 +179,7 @@ public:
     virtual void s0(); virtual void s1(); virtual void s2(); virtual void s3();
     virtual void s4(); virtual void s5(); virtual void s6(); virtual void s7();
     virtual void s8(); virtual void reset();
+    virtual void update();
     void Start(const UnicodeString &,int);
     void rva004E5CCB(NoticeLineInputView *);
     void AddWord(NoticeLineInputView *,int,const UnicodeString &);
@@ -459,4 +460,179 @@ private:
 void Rva004E58BAHolder::invoke(Rva004E58BATarget *target)
 {
     (target->*method)();
+}
+
+// update, native 0x004E5724..0x004E57E6 (194 bytes): slot 10 of the notice
+// display's table (0x008623D0 + 0x28), between the rowed reset at slot 9
+// and slot 12's 0x004E59F4. Once the end frame has passed it resets (tail
+// call through slot 9). While the mouse is inside the descriptor's screen
+// rectangle the fade start keeps moving to the next client frame; after it,
+// the colour's alpha falls linearly to zero over g_009BA4E8 frames (floored
+// at 0x40 for a notice without an end frame). It then asks TheInGameUI
+// (slot 109) for a redraw two logic frames ahead.
+#include "../../../Source/Common/GameLogicObjectLookupView.h"
+struct NoticeMouseView
+{
+    unsigned char unknown0000[0x4F0C];
+    int x; // +0x4F0C
+    int y; // +0x4F10
+};
+struct NoticeRectView
+{
+    unsigned int field0;
+    unsigned int field4;
+    int left, top, right, bottom; // +0x08
+    unsigned int color; // +0x18
+};
+class NoticeInGameUIView
+{
+public:
+    virtual void s000();
+    virtual void s001();
+    virtual void s002();
+    virtual void s003();
+    virtual void s004();
+    virtual void s005();
+    virtual void s006();
+    virtual void s007();
+    virtual void s008();
+    virtual void s009();
+    virtual void s010();
+    virtual void s011();
+    virtual void s012();
+    virtual void s013();
+    virtual void s014();
+    virtual void s015();
+    virtual void s016();
+    virtual void s017();
+    virtual void s018();
+    virtual void s019();
+    virtual void s020();
+    virtual void s021();
+    virtual void s022();
+    virtual void s023();
+    virtual void s024();
+    virtual void s025();
+    virtual void s026();
+    virtual void s027();
+    virtual void s028();
+    virtual void s029();
+    virtual void s030();
+    virtual void s031();
+    virtual void s032();
+    virtual void s033();
+    virtual void s034();
+    virtual void s035();
+    virtual void s036();
+    virtual void s037();
+    virtual void s038();
+    virtual void s039();
+    virtual void s040();
+    virtual void s041();
+    virtual void s042();
+    virtual void s043();
+    virtual void s044();
+    virtual void s045();
+    virtual void s046();
+    virtual void s047();
+    virtual void s048();
+    virtual void s049();
+    virtual void s050();
+    virtual void s051();
+    virtual void s052();
+    virtual void s053();
+    virtual void s054();
+    virtual void s055();
+    virtual void s056();
+    virtual void s057();
+    virtual void s058();
+    virtual void s059();
+    virtual void s060();
+    virtual void s061();
+    virtual void s062();
+    virtual void s063();
+    virtual void s064();
+    virtual void s065();
+    virtual void s066();
+    virtual void s067();
+    virtual void s068();
+    virtual void s069();
+    virtual void s070();
+    virtual void s071();
+    virtual void s072();
+    virtual void s073();
+    virtual void s074();
+    virtual void s075();
+    virtual void s076();
+    virtual void s077();
+    virtual void s078();
+    virtual void s079();
+    virtual void s080();
+    virtual void s081();
+    virtual void s082();
+    virtual void s083();
+    virtual void s084();
+    virtual void s085();
+    virtual void s086();
+    virtual void s087();
+    virtual void s088();
+    virtual void s089();
+    virtual void s090();
+    virtual void s091();
+    virtual void s092();
+    virtual void s093();
+    virtual void s094();
+    virtual void s095();
+    virtual void s096();
+    virtual void s097();
+    virtual void s098();
+    virtual void s099();
+    virtual void s100();
+    virtual void s101();
+    virtual void s102();
+    virtual void s103();
+    virtual void s104();
+    virtual void s105();
+    virtual void s106();
+    virtual void s107();
+    virtual void s108();
+    virtual void requestRedraw(int frame);
+};
+class Mouse; class InGameUI;
+extern Mouse *TheMouse;
+extern InGameUI *TheInGameUI;
+extern GameLogic *TheGameLogic;
+
+void IngameNoticeDisplay::update()
+{
+    if (!startFrame)
+        return;
+    unsigned int now = reinterpret_cast<NoticeClientView *>(TheGameClient)->frame();
+    unsigned int end = endFrame;
+    if (end && end < now)
+    {
+        reset();
+        return;
+    }
+    NoticeRectView *rect = reinterpret_cast<NoticeRectView *>(descriptor);
+    const NoticeMouseView *mouse = reinterpret_cast<const NoticeMouseView *>(TheMouse);
+    int x = mouse->x;
+    int y = mouse->y;
+    if (x > rect->left && x < rect->right && y > rect->top && y < rect->bottom && now > (unsigned int)fadeFrame)
+        fadeFrame = now + 1;
+    if (now > (unsigned int)fadeFrame)
+    {
+        int elapsed = now - fadeFrame;
+        unsigned int alpha;
+        if (elapsed > g_009BA4E8)
+            alpha = 0;
+        else
+            alpha = 255 - elapsed * 255 / g_009BA4E8;
+        if (!end && alpha < 0x40)
+            alpha = 0x40;
+        rect->color = alpha << 24;
+    }
+    else
+        rect->color = 0xFF000000;
+    reinterpret_cast<NoticeInGameUIView *>(TheInGameUI)->requestRedraw(TheGameLogic->getFrame() + 2);
 }
