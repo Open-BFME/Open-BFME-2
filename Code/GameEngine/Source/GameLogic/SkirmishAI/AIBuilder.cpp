@@ -79,6 +79,7 @@ class RvaVector
 {
 public:
     void **erase(void **, void **);
+    void**begin()const{return start;}void**end()const{return finish;}unsigned size()const{return finish-start;}
     void clear() { erase(start, finish); }
     ~RvaVector() { if (start) Rva00030830FreeAllocation(start); }
 private:
@@ -277,6 +278,8 @@ struct AIBuilderOrderNode
 };
 class AIBuilder {
 public: ~AIBuilder(); void DoXfer(Xfer*); void moneySaverUpdate(); void rva004ECA01();
+    _STL::vector<unsigned>rva004EC66A(float);
+    void rva004EC700();
     void unRegisterProducedObject(Object *);
     void notifyDozerDead(Rva005996FFArg *);
     void rva004EC51F();
@@ -450,4 +453,41 @@ void AIBuilder::rva004ECA01()
             ++changedIt;
         } while (changedIt != changed.end());
     }
+}
+
+// Native4EC66A..4EC700 RET8: filter the +130 entry range by virtual priority.
+// Unknown application element identity; scalar result preserves four-byte pointers.
+// Existing ModuleData pointer-vector ABI carrier is not an application identity claim.
+void __cdecl Rva00030830FreeAllocation(void*);
+namespace _STL{template<>inline void allocator<unsigned>::deallocate(unsigned*p,unsigned)const{if(p)Rva00030830FreeAllocation(p);}}
+class ModuleData;
+struct Rva004EC66AEntry{virtual void slot0();virtual void slot1();virtual float value();float priority;};
+_STL::vector<unsigned>AIBuilder::rva004EC66A(float value){
+ _STL::vector<unsigned>out;
+ unsigned*it=(unsigned*)entries130.begin(),*end=(unsigned*)entries130.end();
+ while(it!=end){unsigned item=*it;if(((Rva004EC66AEntry*)item)->value()==value)((_STL::vector<const ModuleData*>*)&out)->push_back((const ModuleData*&)item);++it;}
+ return out;
+}
+
+class Rva004EC16E{public:void*rva004EC16E(float);};
+// Native4EC700..4EC83F: reorder active entries by descending distinct virtual value.
+// The negative-priority entries keep their original relative order.
+void AIBuilder::rva004EC700(){
+ _STL::vector<unsigned>out;
+ _STL::vector<void*>::iterator it=entries130.begin();
+ while(it!=entries130.end()){
+  unsigned item=(unsigned)*it;
+  if((*(volatile float*)&((Rva004EC66AEntry*)item)->priority)<0.0f){
+   ((_STL::vector<const ModuleData*>*)&out)->push_back((const ModuleData*&)item);
+   it=reinterpret_cast<_STL::vector<void*>*>(&entries130)->erase(it);
+  }else ++it;
+ }
+ int negativeCount=out.size();
+ Rva004EC66AEntry*entry=(Rva004EC66AEntry*)((Rva004EC16E*)this)->rva004EC16E(3.4028234663852886e+38f);
+ while(entry && out.size()!=entries130.size()+negativeCount){
+  _STL::vector<unsigned>same=rva004EC66A(entry->value());
+  for(_STL::vector<unsigned>::iterator j=same.begin(),end=same.end();j!=end;++j)((_STL::vector<const ModuleData*>*)&out)->push_back((const ModuleData*&) *j);
+  entry=(Rva004EC66AEntry*)((Rva004EC16E*)this)->rva004EC16E(entry->value());
+ }
+ *reinterpret_cast<_STL::vector<unsigned>*>(&entries130)=out;
 }
