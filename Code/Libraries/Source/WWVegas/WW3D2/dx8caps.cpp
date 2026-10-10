@@ -794,7 +794,6 @@ void DX8Caps::Check_Bumpmap_Support(const D3DCAPS8& caps)
 //
 // ----------------------------------------------------------------------------
 
-// ?Check_Texture_Compression_Support@DX8Caps@@AAEXABU_D3DCAPS8@@@Z present-unmatched
 // Third overlay.  The three "zero the table" bodies at 0x0012B210, 0x0012B2A0
 // and 0x0012B3A0 give the whole table region away without any guessing: they
 // `rep stos` 123 bytes at this+13Eh, 118 at this+1B9h and 118 at this+22Fh, and
@@ -838,14 +837,16 @@ struct BFME_DX8Caps_CompressionFields
 void DX8Caps::Check_Texture_Compression_Support(const D3DCAPS8& caps)
 {
 	BFME_DX8Caps_CompressionFields *retail = (BFME_DX8Caps_CompressionFields *)this;
-	retail->supportDXTC=retail->supportDXT1|
-		retail->supportDXT2|
-		retail->supportDXT3|
-		retail->supportDXT4|
-		retail->supportDXT5;
-	CapsWorkString.Format("Texture compression support: %s\r\n",retail->supportDXTC ? "Yes" : "No");
-	retail->capsLog+=CapsWorkString;
+	bool dxt5 = retail->supportDXT1;
+	bool dxt4 = retail->supportDXT2;
+	bool dxt2 = retail->supportDXT3;
+	bool dxt1 = retail->supportDXT4;
+	bool ok = (dxt5?dxt5:dxt5) | dxt4 | retail->supportDXT5 | dxt2 | dxt1;
+	retail->supportDXTC = ok;
+	CapsWorkString.Format("Texture compression support: %s\r\n", ok ? "Yes" : "No");
+	retail->capsLog += CapsWorkString;
 }
+
 
 // The mapping BFME uses for the five DXT slots is odd and it is reproduced
 // here rather than tidied: retail computes the format as 31545690h + 13Eh + i,
