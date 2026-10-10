@@ -1,8 +1,5 @@
+// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /G7 /arch:SSE
 // ?rva00440BDF@AptMpGameSetup@@QAE_N_N@Z
-// partial score=0.9986708368434474 date=2026-10-10
-// ?rva00440BDF@AptMpGameSetup@@QAE_N_N@Z
-// partial score=0.99 date=2026-10-08
-// cl: /O1 /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // Small AptMpGameSetup members of BFME2's LAN lobby panel (the screen's +0x288
@@ -1008,7 +1005,7 @@ private:
 
 class MapMetaData { public: UnicodeString bfme_getDisplayName(bool); };
 class GlobalData { public: unsigned char pad[0xa44]; int minPlayers; };
-extern GlobalData* TheGlobalData;
+extern GlobalData* TheWritableGlobalData;
 namespace _STL {
 template<> set<int>::set();
 template<> set<int>::~set();
@@ -1040,7 +1037,7 @@ bool AptMpGameSetup::rva00440BDF(bool countdown)
     continue;
    }
    if(slot->isHuman()) {
-    if(!slot->m_hasMap && !willTransfer) {
+    if(!(slot->m_hasMap?slot->m_hasMap:slot->m_hasMap) && !willTransfer) {
      UnicodeString msg;
      msg.format(TheGameText->slot44("GUI:PlayerNoMap",0),slot->m_name.str(),mapName.str());
      m_owner->v17(msg,2);
@@ -1067,10 +1064,10 @@ bool AptMpGameSetup::rva00440BDF(bool countdown)
   if(countdown) m_3a8=numHumans;
   if(!allHaveMap) {rva0043E49C(TheGameText->fetch("GUI:CouldNotTransferMap"));return false;}
   if(maxPlayers<numUsers) {text.format(TheGameText->slot44("LAN:TooManyPlayers",0),maxPlayers);rva0043E49C(text);return false;}
-  if(TheGlobalData->minPlayers && !numHumans) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
+  if(TheWritableGlobalData->minPlayers && !numHumans) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
   if(mode1 && !allSpots) {text=TheGameText->fetch("GUI:NeedStartSpots");rva0043E49C(text);m_owner->v17(text,2);return false;}
-  if(numUsers<TheGlobalData->minPlayers) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
-  if(teams.size()+numRandom<(unsigned int)TheGlobalData->minPlayers) {text=TheGameText->fetch("LAN:NeedMoreTeams");rva0043E49C(text);m_owner->v17(text,2);return false;}
+  if(numUsers<TheWritableGlobalData->minPlayers) {text=TheGameText->fetch("GUI:NeedHumanPlayers");rva0043E49C(text);return false;}
+  if(teams.size()+numRandom<(unsigned int)TheWritableGlobalData->minPlayers) {text=TheGameText->fetch("LAN:NeedMoreTeams");rva0043E49C(text);m_owner->v17(text,2);return false;}
   if(teams.size()+numRandom<2) {
    if(wotrEnemy) {text=TheGameText->fetch("GUI:NeedWOTREnemy");rva0043E49C(text);m_owner->v17(text,2);return false;}
    text=TheGameText->fetch("GUI:SandboxMode");m_owner->v17(text,0);
