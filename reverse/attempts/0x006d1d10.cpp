@@ -1,14 +1,16 @@
 // ?update@Rva006D1D10@@QAEXVRva006D07E0Key@@0@Z
+// partial score=0.8380635624538064 date=2026-10-10
+// ?update@Rva006D1D10@@QAEXVRva006D07E0Key@@0@Z
 // partial score=0.8380635624538064 date=2026-10-09
 // cl: /MD /EHsc
 class Rva006DB270 {public:void freeBlock(void*,int);};
 class Rva006DB160 {public:void *allocBlock(int);};
 extern Rva006DB270*g_pChainBlockAllocator;
-struct Rva006D0280 {void teardown();int m_useCount;};
+struct Rva006D0280 {~Rva006D0280();int m_useCount;};
 class Rva006D07E0Key {public:__forceinline static int dec(int*p){return --*p;}
  Rva006D07E0Key(Rva006D0280*p=0):m_object(p){if(p)++p->m_useCount;}
  Rva006D07E0Key(const Rva006D07E0Key&key):m_object(key.m_object){if(m_object)++m_object->m_useCount;}
- ~Rva006D07E0Key(){Rva006D0280*r=m_object;if(r&&dec(&r->m_useCount)==0){Rva006D0280*p=m_object;if(p){p->teardown();g_pChainBlockAllocator->freeBlock(p,0x1c);}}}
+ ~Rva006D07E0Key(){Rva006D0280*r=m_object;if(r&&dec(&r->m_useCount)==0){Rva006D0280*p=m_object;if(p){p->~Rva006D0280();g_pChainBlockAllocator->freeBlock(p,0x1c);}}}
  Rva006D0280*m_object;
 };
 class Rva006D0790 {public:
