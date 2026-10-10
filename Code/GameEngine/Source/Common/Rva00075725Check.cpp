@@ -10,13 +10,17 @@ public:
 	virtual bool Slot4(int arg);
 };
 
-extern Rva00075725Item * volatile g_00DE1F2C[];
+// g_00DE1F2C is the W3DFilters array (data ledger, owned by
+// W3DShaderManager.cpp); name it so nothing dangles. The Rva00075725Item
+// view above is kept for the slot-4 call shape.
+class W3DFilterInterface;
+extern W3DFilterInterface *W3DFilters[];
 
 bool __cdecl Rva00075725Check(int index, int arg)
 {
-	Rva00075725Item * volatile *slot = &g_00DE1F2C[index];
+	W3DFilterInterface * volatile *slot = (W3DFilterInterface * volatile *)&W3DFilters[index];
 	if (*slot != 0)
-		return (*slot)->Slot4(arg);
+		return ((Rva00075725Item *)(*slot))->Slot4(arg);
 	return false;
 }
 
