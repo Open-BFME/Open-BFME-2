@@ -98,13 +98,19 @@ struct BaseTemplateFileRecord
 	AsciiString m_fileName;				// +0x04
 };
 
+// The SubsystemInterface slots up to postProcessLoad (slot 3); the subsystem's
+// vtable is 0x0083AF78 (??_7Rva0022BD9ASubsystem, ctor 0x0041EFFF).
 class BaseTemplateLibrary
 {
 public:
+	virtual ~BaseTemplateLibrary();
+	virtual void init();
+	virtual bool loadIniFilesFromLegend();
+	virtual void postProcessLoad();
 	void parseBaseTemplateFiles();
 	bool parseBaseTemplateDataChunk(DataChunkInput &file, DataChunkInfo *info);
 private:
-	char m_pad00[0x0C];
+	char m_pad04[0x0C - 0x04];
 	_STL::hash_map<Int, BaseTemplateFileRecord *> m_files;	// +0x0C
 };
 
@@ -131,4 +137,12 @@ void BaseTemplateLibrary::parseBaseTemplateFiles()
 			throw ERROR_BAD_INI;
 		((Rva003079ED *)&stream)->rva003079ED();
 	}
+}
+
+// ?postProcessLoad@BaseTemplateLibrary@@UAEXXZ @0x0041F27A 5B, right after
+// parseBaseTemplateFiles: slot 3 of the subsystem vtable 0x0083AF78, a tail
+// jump into parseBaseTemplateFiles above.
+void BaseTemplateLibrary::postProcessLoad()
+{
+	parseBaseTemplateFiles();
 }

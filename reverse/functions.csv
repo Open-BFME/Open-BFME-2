@@ -75997,3 +75997,4 @@ _floorf,,0x0004D649,18,Code/GameEngine/Source/GameLogic/Map/TerrainLogicAmbientC
 ??0W3DShroud@@QAE@XZ,,0x00073320,184,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp,matched,
 ?ReAcquireResources@W3DTaint@@QAE_NXZ,,0x00073816,174,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp,matched,
 ?ReAcquireResources@W3DShroud@@QAE_NXZ,,0x000728F0,152,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudReAcquire.cpp,matched,
+?postProcessLoad@BaseTemplateLibrary@@UAEXXZ,,0x0041F27A,5,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp,matched,slot 3 (postProcessLoad as in WeaponStore/ThingFactory/W3DDisplayStringManager tables) of subsystem vtable 0x0083AF78: tail jump to rowed parseBaseTemplateFiles 0x0041F095
