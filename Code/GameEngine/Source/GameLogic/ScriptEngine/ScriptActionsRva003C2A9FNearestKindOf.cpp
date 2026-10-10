@@ -26,6 +26,7 @@ public:
 	unsigned int m_bits[7];
 	BitFlags(int unused, int bit);
 	BitFlags(const BitFlags &other) throw();
+	~BitFlags() {}
 };
 template<int N> __declspec(noinline) BitFlags<N>::BitFlags(int /*unused*/, int bit)
 {
@@ -48,6 +49,21 @@ class ScriptEngine
 public:
 	Team *getTeamNamed(AsciiString team, Bool exact);
 	int rva00357B82(Parameter *playerParm);	// 0x00357B82: the parameter's player mask
+	Object *getUnitNamed(Parameter *name);	// 0x003588E7
+};
+
+enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
+
+class AICommandInterface
+{
+public:
+	void rva0036F4DF(Object *target, int value, CommandSourceType cmdSource);	// 0x0036F4DF
+};
+class AIUpdateInterface
+{
+public:
+	unsigned char m_pad[0x20];
+	AICommandInterface m_cmd;	// +0x20
 };
 extern ScriptEngine *TheScriptEngine;
 
@@ -68,9 +84,9 @@ class Object
 {
 public:
 	const Coord3D *getPosition() const { return (const Coord3D *)((const char *)this + 0x38); }
+	AIUpdateInterface *getAI() const { return *(AIUpdateInterface **)((const char *)this + 0x258); }
 };
 
-enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
 // The argument block 0x00372571 takes (built inline by its callers).
 struct Rva00372571Params
@@ -236,4 +252,42 @@ void __stdcall Rva003C239FDo(const AsciiString &teamName, int kindBit, Parameter
 	params.m_18 = 0;
 	params.m_1C = false;
 	group->rva00372571(&params, 1);
+}
+
+// 0x003C9C0A (259B): the named unit attacks the nearest object of a KindOf
+// bit over all players (the unit-based form of 0x003C2A9F).
+void __stdcall Rva003C9C0AAttack(Parameter *unitParm, int kindBit)
+{
+	Object *unit = TheScriptEngine->getUnitNamed(unitParm);
+	if (!unit)
+		return;
+	float bestDist = 99999.0f;
+	Object *best = 0;
+	int mask = 0xFFFFF;
+	const Coord3D *unitPos = unit->getPosition();
+	do {
+		Player *player = ThePlayerList->getEachPlayerFromMask(mask);
+		Object *cand = player->findClosestToPosByKindOf(unitPos, BitFlags<116>(0, kindBit), KINDOFMASK_NONE);
+		if (cand) {
+			const Coord3D *candPos = cand->getPosition();
+			Coord3D delta;
+			delta.x = candPos->x;
+			delta.y = candPos->y;
+			delta.z = candPos->z;
+			delta.x -= unitPos->x;
+			delta.y -= unitPos->y;
+			delta.z -= unitPos->z;
+			float d = delta.length();
+			if (!best || d < bestDist) {
+				best = cand;
+				bestDist = d;
+			}
+		}
+	} while (mask != 0);
+	if (!best)
+		return;
+	AIUpdateInterface *ai = unit->getAI();
+	if (!ai)
+		return;
+	ai->m_cmd.rva0036F4DF(best, 0, CMD_FROM_SCRIPT);
 }
