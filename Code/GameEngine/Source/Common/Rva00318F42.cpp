@@ -44,3 +44,17 @@ void Rva00318F42::rva0031986B(const Rva00538CEFPair *pair,int word){
   ((Rva003197EEList*)((char*)this+8))->forEach(&Rva003197EEListener::slot10,this);
  }}
 }
+
+// Native3190BB..3190E7,44B; WB102C7B0 preserves an output-only
+// pair copy: use the last record when present else receiver words44/48.
+// The old unowned Boolean pin was unsupported: its fallback leaves AL
+// unconstrained and the owned71B caller discards the register result.
+// This declaration makes no register-return contract or original type claim.
+class Rva003190BBOwner {public:void rva003190BB(int *);};
+void Rva003190BBOwner::rva003190BB(int *out){
+ Rva00318F42View *v=((Rva00318F42*)this)->rva00318B83();
+ if(v){int *span=(int*)v;if((unsigned)((span[1]-span[0])>>4)>0){
+  ((Rva00538CEF*)v)->rva00538D17((Rva00538CEFPair*)out);return;
+ }}
+ out[0]=*(int*)((char*)this+0x44);out[1]=*(int*)((char*)this+0x48);
+}

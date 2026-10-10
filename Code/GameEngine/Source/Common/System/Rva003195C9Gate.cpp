@@ -19,7 +19,7 @@ public:
 class Rva003190BBOwner
 {
 public:
-	bool rva003190BB(int *out);
+	void rva003190BB(int *out);
 };
 
 class Rva00538F6B
