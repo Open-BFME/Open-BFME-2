@@ -179,3 +179,63 @@ void Rva0037381C::rva003731CB(Rva00373373Portal *portal, Player *player)
         ((Rva004618D4Caller *)TheAI->pathfinder)->rva002E7023();
     }
 }
+
+// MineshaftPortalNetworkManager's snapshot transfer, native 003732BF..00373357
+// RET4: the vtable slot (00817E10) after the "MineshaftPortalNetworkManager"
+// name getter 00373411, reached through the Snapshot sub-object at +0C.
+// Version 1/1; on load every player's network is marked changed and each of
+// its portals whose 002E6ECA test passes is re-linked through 00373158 with
+// the network's player key. The map nodes are the 0x10 key / 0x14 group
+// records 003731CB already reads.
+namespace _STL {
+struct _Rb_tree_node_base { int _M_color; _Rb_tree_node_base *_M_parent, *_M_left, *_M_right; };
+template <class _Dummy> class _Rb_global
+{
+public:
+    static _Rb_tree_node_base *_M_increment(_Rb_tree_node_base *);
+};
+}
+class Xfer
+{
+public:
+    struct Version { unsigned char a, b; Version(unsigned char x, unsigned char y) : a(x), b(y) {} };
+    virtual void slot00();
+    virtual bool IsLoading() const;
+    virtual void slot02(); virtual void slot03(); virtual void slot04();
+    virtual void slot05(); virtual void slot06(); virtual void slot07();
+    virtual void slot08(); virtual void slot09();
+    virtual Xfer &xferVersion(Version &);
+};
+class Rva003732BFSubsystem { public: virtual ~Rva003732BFSubsystem(); char pad04[8]; };
+class Rva003732BFSnapshot
+{
+protected:
+    virtual void crc(Xfer *xfer);
+    virtual void xfer(Xfer *xfer) = 0;
+    virtual void loadPostProcess();
+};
+struct Rva003732BFNode : _STL::_Rb_tree_node_base { int key; Rva00373158Group *group; };
+class MineshaftPortalNetworkManager : public Rva003732BFSubsystem, public Rva003732BFSnapshot
+{
+public:
+    virtual void xfer(Xfer *xfer);
+    Rva00388F63Map map;
+};
+void MineshaftPortalNetworkManager::xfer(Xfer *xfer)
+{
+    Xfer::Version version(1, 1);
+    xfer->xferVersion(version);
+    if (xfer->IsLoading()) {
+        _STL::_Rb_tree_node_base *header = (_STL::_Rb_tree_node_base *)map.header;
+        for (Rva003732BFNode *node = (Rva003732BFNode *)header->_M_left; node != header;
+             node = (Rva003732BFNode *)_STL::_Rb_global<bool>::_M_increment(node)) {
+            node->group->changed = true;
+            ObjectID *end = node->group->end();
+            for (ObjectID *it = node->group->begin(); it != end; ++it) {
+                Rva00373373Portal *portal = TheTerrainLogic->portalAt(*it);
+                if ((unsigned char)((Rva002E6ECA *)portal)->get())
+                    ((Rva0037381C *)this)->rva00373158(portal, node->key);
+            }
+        }
+    }
+}
