@@ -1,7 +1,11 @@
-// ??0Rva002A8D49@@QAE@XZ
-// partial score=0.97 date=2026-10-02
-// cl: /O2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
+// cl: /O1 /Ob1 /Oy- /G7 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /arch:SSE
 // stlport
+// Native constructor2A8D49..2A8E64 builds the manager's2232B data member.
+// The two floats at840/844 form an observed initialization subobject: grouping
+// them reproduces the native LEA840 and relative store+4 before allocator setup.
+// This does not assert an original source type/name. Values are decoded from
+// retail and independently checked as float literals. CombatChainEntry and
+// DifficultyTuning names/array sizes are established by adjacent INI parsers.
 // ??0Rva002A8D49@@QAE@XZ @ 0x002A8D49 (283B). Inner member at +0x10 of the
 // outer ctor at 0x002A9725 (which passes ECX=outer+0x10 and then builds a
 // map at +0x908). Owns CombatChainEntry[16] at +0x0 (rowed ctor 0x2A88C7 via
@@ -12,12 +16,12 @@
 // parsers using +0x878 (0x2A89D2) and CombatChainEntry layout (0x2A88C7).
 #include <vector>
 
-extern "C" float INV;
-extern float g_bfmePickupScanRange;
-extern float g_00BC7508;
-extern float g_00BC7500;
-extern float g_00BFDB80;
-extern float g_00BC3EE8;
+
+
+
+
+
+
 
 struct CombatChainEntry
 {
@@ -43,13 +47,13 @@ public:
 
 struct BfmeE16 { float x, y, z, w; };
 
+struct SkirmishScalePair {float zero,weight; __forceinline SkirmishScalePair():zero(0.0f),weight(0.1f){} };
 class Rva002A8D49
 {
 public:
 	Rva002A8D49();
 	CombatChainEntry m_combat[16];
-	float m_840;
-	float m_844;
+	SkirmishScalePair m_scale;
 	bool m_848;
 	bool m_849;
 	bool m_84a;
@@ -69,10 +73,8 @@ public:
 	Rva002A8823Tuning m_tuning[4];
 };
 
-// ??0Rva002A8D49@@QAE@XZ present-unmatched
 Rva002A8D49::Rva002A8D49()
-	: m_840(0.0f)
-	, m_844(INV)
+	: m_scale()
 	, m_848(false)
 	, m_849(false)
 	, m_84a(false)
@@ -83,11 +85,11 @@ Rva002A8D49::Rva002A8D49()
 	, m_84f(false)
 	, m_850(false)
 	, m_860(50.0f)
-	, m_864(g_00BC7508)
-	, m_868(g_bfmePickupScanRange)
-	, m_86c(g_00BC7500)
-	, m_870(g_00BFDB80)
-	, m_874(g_00BC3EE8)
+	, m_864(3.0f)
+	, m_868(200.0f)
+	, m_86c(120.0f)
+	, m_870(240.0f)
+	, m_874(300.0f)
 {
 	for (int i = 0; i < 4; ++i)
 		m_tuning[i].difficulty = i;
