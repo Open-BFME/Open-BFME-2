@@ -12,7 +12,7 @@ class Rva003844D7:public Rva00553E47StatsCore{public:Rva003844D7(int);Rva003844D
 class Rva0038454E:public Rva00553E47StatsCore{public:Rva0038454E(int);Rva0038454E(const Rva0038454E&);~Rva0038454E();Rva0038454E&operator=(const Rva0038454E&);private:char tail[0xb4];};
 class PSPlayerAllStats{public:~PSPlayerAllStats();Rva003844D7 rva00389DF1()const;Rva0038454E rva00389E0F()const;private:char fields[0x548];};
 class Rva005537BA{public:unsigned short rva005537BA();};class Rva005537EB{public:unsigned short rva005537EB();};class Rva00553D26{public:unsigned char rva00553D26();};
-class Rva00559D0CRankWeights{public:int rva00559E48(const Rva00553E47StatsCore*)const;int rva00559DA0(const Rva00553E47StatsCore*,unsigned char)const;private:char table[0x34];};
+class Rva00559D0CRankWeights{public:int rva00559E48(const Rva00553E47StatsCore*)const;int rva00559DA0(const Rva00553E47StatsCore*,int)const;private:char table[0x34];};
 extern Rva00559D0CRankWeights g_00E05FCC,g_00E06000;
 class GameSpyMiscPreferences{public:GameSpyMiscPreferences();virtual ~GameSpyMiscPreferences();int rva00559782();private:char fields[0x10];};
 #define S(n) virtual void slot##n();

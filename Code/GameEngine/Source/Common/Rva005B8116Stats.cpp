@@ -261,7 +261,7 @@ case 36:((Rva005DDE01*)((char*)this+0x60))->rva005DDE01(36,side,Rva005DD822((uns
 class Rva00553E47StatsCore;
 class Rva00559D0CRankWeights{
  char opaque[0x34];
-public:int rva00559DA0(const Rva00553E47StatsCore*,unsigned char)const;
+public:int rva00559DA0(const Rva00553E47StatsCore*,int)const;
 };
 extern Rva00559D0CRankWeights g_00E05FCC,g_00E06000;
 class Rva005B8DBB{public:unsigned rva005B8DBB(unsigned);};
@@ -272,9 +272,9 @@ class Rva005B8DBB{public:unsigned rva005B8DBB(unsigned);};
 unsigned Rva005B8DBB::rva005B8DBB(unsigned key){
  PSPlayerAllStats all=((Rva005B89A1InfoView*)TheGameSpyInfo)->stats();
  switch(*(int*)((char*)this+0x2c)){
- case 0:{Rva00385333 stats=all.rva00556508();return g_00E06000.rva00559DA0((const Rva00553E47StatsCore*)&stats,(unsigned char)key);}
- default:{Rva003844D7 stats=all.rva00389DF1();return g_00E06000.rva00559DA0((const Rva00553E47StatsCore*)&stats,(unsigned char)key);}
- case 2:{Rva0038454E stats=all.rva00389E0F();return g_00E05FCC.rva00559DA0((const Rva00553E47StatsCore*)&stats,(unsigned char)key);}
+ case 0:{Rva00385333 stats=all.rva00556508();return g_00E06000.rva00559DA0((const Rva00553E47StatsCore*)&stats,key);}
+ default:{Rva003844D7 stats=all.rva00389DF1();return g_00E06000.rva00559DA0((const Rva00553E47StatsCore*)&stats,key);}
+ case 2:{Rva0038454E stats=all.rva00389E0F();return g_00E05FCC.rva00559DA0((const Rva00553E47StatsCore*)&stats,key);}
  }
 }
 

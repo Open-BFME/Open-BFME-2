@@ -1935,7 +1935,7 @@ class Rva00559D0CRankWeights
 {
 public:
 	Int rva00559D0C(const Rva00553E47StatsCore *stats) const;
-	Int rva00559DA0(const Rva00553E47StatsCore *stats, unsigned char key) const;
+	Int rva00559DA0(const Rva00553E47StatsCore *stats, int key) const;
 	Int rva00559E48(const Rva00553E47StatsCore *stats) const;
 private:
 	unsigned char m_00[0x2C];
