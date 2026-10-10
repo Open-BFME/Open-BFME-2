@@ -74797,3 +74797,5 @@ _VP6_ReadHuffTokens,,0x001C5310,1661,Code/Libraries/Source/VP6/HuffTokens.cpp,ma
 ??0Rva0056B218@@QAE@PAVRva0056AC26Owner@@PAUParent0056B218@@1@Z,,0x0056B525,116,Code/GameEngine/Source/Common/Rva0056B218Constructor.cpp,matched,two-parent listener ctor
 ??0Rva0056B0BF@@QAE@PAVRva0056AC26Owner@@PAUParent0056B0BF@@@Z,,0x0056B4B4,113,Code/GameEngine/Source/Common/Rva0056B0BFConstructor.cpp,matched,x
 ??0Rva0056B2DD@@QAE@PAVRva0056AC26Owner@@PAUParent0056B2DD@@H@Z,,0x0056B599,122,Code/GameEngine/Source/Common/Rva0056B2DDConstructor.cpp,matched,parent listener ctor with manager notify
+??0Rva0056B188@@QAE@PAVRva0056AC26Owner@@HPAURva0056B188Owner@@@Z,,0x0056B3F5,107,Code/GameEngine/Source/Common/Rva0056B188Constructor.cpp,matched,optional owner listener ctor
+??0Rva0056B126@@QAE@PAVRva0056AC26Owner@@PAUParent0056B126@@H@Z,,0x0056B372,103,Code/GameEngine/Source/Common/Rva0056B126Constructor.cpp,matched,parent listener ctor
