@@ -75180,3 +75180,4 @@ _Wmt_idct1,,0x001D89C0,98,Code/Libraries/Source/VP6/Idct1Wmt.cpp,matched,Clean-r
 ?rva005ED5BB@Rva005ED5BB@@QAEXHH@Z,,0x005ED5BB,8,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,matched,vtable slot forwarder: loads the +4 member pointer and tail-jumps to pinned 0x005ED385
 ?rva005ED849@Rva005ED849@@QAEXHH@Z,,0x005ED849,8,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,matched,vtable slot forwarder: loads the +4 member pointer and tail-jumps to pinned 0x005ED6B9
 ?rva005F977D@Rva005F977D@@QAEXXZ,,0x005F977D,8,Code/GameEngine/Source/Common/VslotSmallBodiesW5SN4.cpp,matched,vtable slot forwarder: loads the +4 member pointer and tail-jumps to rowed 0x005F96D4
+??0Rva002B930B@@QAE@XZ,,0x002B930B,12,Code/GameEngine/Source/Common/Rva002B930BCtor.cpp,matched,ctor of a class holding only an int-keyed map; calls the rowed map default ctor 0x005011C1 and returns this
