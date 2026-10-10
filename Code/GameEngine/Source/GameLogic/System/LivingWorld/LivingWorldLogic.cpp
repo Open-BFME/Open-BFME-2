@@ -512,6 +512,7 @@ struct LivingWorldCollectorPlayerView
 class Rva00072FE6 { public: void rva00072FE6(); };
 
 struct TurnPhasePairView {void *begin,*end;bool empty()const{return begin==end;}};
+struct Parent00575E4E;
 class LivingWorldLogic : public Rva002BA82BBase00, public Rva002BA82BObserver10, public Rva002BA82BRegionObserver
 {
 public:
@@ -525,6 +526,8 @@ public:
 	void rva002B693F(void *keys);
 	UnsignedInt rva002B77B2();
 	UnsignedInt rva002B77F7();
+	void rva002B5AF7();
+	Bool rva002B5A5F(Parent00575E4E*);
 	bool rva002B4B83();
 	Bool EndTurn();
 	Bool AdvanceTurnPhase();
@@ -2468,6 +2471,25 @@ void LivingWorldLogic::AdjustArmyTargetLocations(){
       ((Rva00318F42*)army)->rva0031986B((const Rva00538CEFPair*)&spot,0);
     }
    }
+  }
+ }
+}
+
+// Native2B5AF7..2B5B55 complete94; local-player98 vector1B8 of
+// entries, existing predicate2B5A5F and notification318C05 establish this
+// loop. Entry identity stays at the established opaque Parent00575E4E view.
+// Explicit pointer-difference count preserves native SAR while retaining
+// the vector header and unsigned iteration semantics.
+
+class Rva00318C05 {public:void rva00318C05(Bool);};
+struct LocalPlayerEntries1B8 {char pad[0x1b8];_STL::vector<Parent00575E4E*>entries;};
+void LivingWorldLogic::rva002B5AF7(){
+ LocalPlayerEntries1B8*player=reinterpret_cast<LocalPlayerEntries1B8*>(m_localPlayer);
+ if(player){
+  for(unsigned i=0;i<(unsigned)(player->entries.end()-player->entries.begin());++i){
+   Parent00575E4E*entry=player->entries[i];
+   Bool show=rva002B5A5F(entry);
+   reinterpret_cast<Rva00318C05*>(entry)->rva00318C05(show);
   }
  }
 }
