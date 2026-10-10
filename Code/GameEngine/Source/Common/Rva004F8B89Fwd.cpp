@@ -105,13 +105,7 @@ public:
 // ?rva002C5FBA@Rva002C5FBA@@QAEPAXH@Z @0x002C5FBA 17B.
 // Null-checked forwarder at +0x0C to rowed AITargetChooser 0x00505408.
 // Evidence: retail mov ecx [ecx+C] test je jmp plus pin plus caller 0x004E9575.
-void *Rva002C5FBA::rva002C5FBA(int key)
-{
-	AITargetChooser *t = m_target;
-	if (t != 0)
-		return t->rva00505408(key);
-	return 0;
-}
+// The exact chooser getter is owned by Rva002C5FBAForward.cpp.
 
 struct Rva004E951CTwo
 {
