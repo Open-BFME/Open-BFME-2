@@ -1,6 +1,5 @@
-// ?Rva0038169D@@YA_NHABVUnicodeString@@@Z
-// partial score=0.99 date=2026-10-09
 // cl: /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
+// Rva0038169D, retail 0x0038169D (494 bytes): LAN chat submission.
 // Native38169D..38188B: channel and UnicodeString reference ABI; menu preferences at684; filtered whitespace and slash-command path; LAN virtual slot54 ordinary message request.
 // Honest address-derived identity; no recovered retail method name claimed.
 extern int g_Va00A03354;
@@ -36,6 +35,19 @@ bool Rva0038169D(int channel,const UnicodeString&input) {
     }
    }else ((ChatLANCalls*)TheLAN)->request(message,channel==0,0);
   }
+  // Retail's unwind map (FuncInfo 0x00929A88) ends with four action-less
+  // states under the message scope: 6 and 8 (parent 1) each with a temporary
+  // child (7, 9), code the compiler discarded but whose locals kept their EH
+  // states, as in CreateAHeroSubClassParse.cpp's compiled-out blocks. Two
+  // locals each reassigned from a temporary is the shape that reproduces that
+  // tree (four plain locals do not); what the code did is not recoverable.
+  if(0){
+   UnicodeString first(text);
+   first=UnicodeString(text.str()+1);
+   UnicodeString second(text);
+   second=UnicodeString(text.str()+1);
+  }
+
   }
   handled=true;
  }
