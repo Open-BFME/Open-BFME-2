@@ -34,15 +34,42 @@ public:
 	Real getField(Field field) const { return m_field[field]; }
 	Real m_field[6];
 };
+class Weapon;
 class WeaponTemplate
 {
+	friend class Weapon;
 public:
 	Int rva002C93DF(const WeaponBonus &bonus) const;
 private:
 	char m_pad00[0x138];
 	Int m_preAttackDelay;
+	char m_pad13C[0x144 - 0x13C];
+	Int m_firingDuration; // +0x144: FieldParse FiringDuration at RVA0x00800E98
 };
 Int WeaponTemplate::rva002C93DF(const WeaponBonus &bonus) const
 {
 	return m_preAttackDelay * bonus.getField(WeaponBonus::PRE_ATTACK);
+}
+
+// Native RVA0x002C9D3B..0x002C9D47 (12 bytes, RET8). The independently
+// decoded adjustAnimation caller at RVA0x000BF725 obtains this receiver
+// from Object::getCurrentWeapon, pushes the source Object and a zero word,
+// and adds the integer result to Weapon::getPreAttackDelay. The native
+// FieldParse entry at RVA0x00800E98 names template offset0x144 FiringDuration
+// and uses INI::parseDurationUnsignedInt. Original method spelling and the
+// second argument's semantic type remain unknown; retain an address name
+// and a raw32 unused slot. Weapon::m_template at+4 is independently proven
+// by the already matched WeaponGetPreAttackDelay and reload consumers.
+class Object;
+class Weapon
+{
+public:
+	Int rva002C9D3B(const Object *source, unsigned rawUnused) const;
+private:
+	char m_pad00[4];
+	const WeaponTemplate *m_template;
+};
+Int Weapon::rva002C9D3B(const Object *, unsigned) const
+{
+	return m_template->m_firingDuration;
 }
