@@ -2,6 +2,14 @@
 // stlport
 // ?rva002E2F39@Rva002E2F39@@QAEXABURva002E2D10Record@@@Z 0x002E2F39 11: tail-forwards to vector push_back.
 // Evidence: rowed push_back 0x002E2D10 plus caller 0x0037EB3C.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Rva002E2D10Record { Rva002E2D10Record(); Rva002E2D10Record(const Rva002E2D10Record&); ~Rva002E2D10Record(); Rva002E2D10Record&operator=(const Rva002E2D10Record&); private: char bytes[216]; };

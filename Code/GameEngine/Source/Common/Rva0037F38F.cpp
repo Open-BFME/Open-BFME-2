@@ -4,6 +4,14 @@
 // ?addRevivableUnit@UnitRevivalTracker@@QAEXABURva002E2D10Record@@H@Z @0x0037F38F 15B
 // Evidence: unlock lane; forwards member +4 vector push_back 0x002E2D10;
 // caller 0x001EC8C0 passes local and int; ret 8 with unused second slot.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+namespace _STL {
+static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
+{
+    return a < b ? b : a;
+}
+}
 #include <vector>
 
 struct Rva002E2D10Record
