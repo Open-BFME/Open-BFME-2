@@ -1,9 +1,11 @@
-// ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z
-// partial score=0.970809735190571 date=2026-10-10
+// Rva005D19F8Child::Rva005D19F8Child, retail 0x005D18E2 (278 bytes): the strategic region
+// award dialog's child. It loads StrategicRegionAward.swf with a delegate to the dialog's
+// OnMovieClipLoaded, copies the award source's player list, finds the local player in it and
+// rotates it to the front. Names are address-derived (original owner/child spellings unknown).
+// The explicit specialization declaration of std::find<int*,int> that earlier banks carried is
+// dropped: with it cl cannot see the STLport body and schedules the player vector differently.
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-// ??0Rva005D19F8Child@@QAE@PAVRva005D19F8@@HH@Z
-// partial score=0.9654905862544008 date=2026-10-10
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /Ireference/shims/bfmealloc
 // stlport
 #include <stdlib.h>
@@ -23,7 +25,7 @@ class Rva0057C394 {public:void rva0057C394(const AsciiString&,const TreeHintRef0
 struct AwardSource {int unknown0,unknown4;_STL::vector<const ModuleData*>players;};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 struct AwardWorld {char unknown[0x98];const ModuleData*localPlayer;};
-namespace _STL {template<> int*rotate<int*>(int*,int*,int*);template<>int*find<int*,int>(int*,int*,const int&);}
+namespace _STL {template<> int*rotate<int*>(int*,int*,int*);}
 class Rva000AD6F4 {public:Rva000AD6F4():ptr(0){}~Rva000AD6F4();void*ptr;};
 class Rva005D19F8Child {public:Rva005D19F8Child(Rva005D19F8*,int,int);Rva005D19F8*owner;int root,source;Rva000AD6F4 movie;_STL::vector<const ModuleData*>players;};
 Rva005D19F8Child::Rva005D19F8Child(Rva005D19F8*o,int r,int a):owner(o),root(r),source(a) {
