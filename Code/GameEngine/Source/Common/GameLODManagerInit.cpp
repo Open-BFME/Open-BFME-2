@@ -93,7 +93,19 @@ public:
 extern GlobalData *TheWritableGlobalData;
 #define TheGlobalData TheWritableGlobalData
 
-extern const char *CPUNames[];
+// Retail's CPU-name table at RVA 0x9B96B8 (.data): XX/P3/P4/K7 plus null,
+// in retail's index order, that Benchmark.txt writing indexes by CPU type.
+// GameLOD.cpp keeps its own static copy for INI parsing; this TU defines the
+// global the benchmark writer references instead of leaving it external.
+extern const char BfmeCpuNameXX[];
+const char BfmeCpuNameXX[] = "XX";
+extern const char BfmeCpuNameP3[];
+const char BfmeCpuNameP3[] = "P3";
+extern const char BfmeCpuNameP4[];
+const char BfmeCpuNameP4[] = "P4";
+extern const char BfmeCpuNameK7[];
+const char BfmeCpuNameK7[] = "K7";
+const char *CPUNames[] = {BfmeCpuNameXX, BfmeCpuNameP3, BfmeCpuNameP4, BfmeCpuNameK7, NULL};
 
 struct LODPresetInfo
 {
