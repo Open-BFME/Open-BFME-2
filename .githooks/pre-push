@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 # Push gate: static ledger integrity of the outgoing commit + byte-verify of
-# every source whose ledger claims changed vs the remote. Bounded by push size
-# — never the full gate.
+# every source whose ledger claims changed vs the remote. Repository-wide scopes
+# run the ordinary full gate once instead of restarting it for every chunk.
 set -euo pipefail
 # Incremental mode trusts every object it is not told to rebuild (tools/build.py);
 # a gate must judge objects built from what it pushes.
@@ -99,6 +99,51 @@ build_chunks() {
     fi
 }
 
+# classify_full_scope REV LIST: use the full build only when LIST covers every
+# matched compileable provider at the pushed revision. Keep additional selectors
+# explicit: a row-less source must still be refused by its scoped build.
+# LIST and the result are NUL-delimited so paths never become shell arguments.
+classify_full_scope() {
+    python3 - "$1" "$2" <<'PY'
+import csv, io, pathlib, subprocess, sys
+rev, listing = sys.argv[1:]
+
+
+def git(*argv):
+    return subprocess.run(("git",) + argv, capture_output=True, encoding="utf-8",
+                          check=True).stdout
+
+
+def providers(path):
+    rows = csv.DictReader(io.StringIO(git("show", "%s:%s" % (rev, path))), strict=True)
+    if not {"source", "status"}.issubset(rows.fieldnames or ()):
+        raise ValueError("provider ledger lacks source/status columns: " + path)
+    result = set()
+    for row in rows:
+        if None in row or any(value is None for value in row.values()):
+            raise ValueError("malformed provider ledger row: " + path)
+        if row["status"] == "matched":
+            if not row["source"]:
+                raise ValueError("matched provider has no source: " + path)
+            if pathlib.PurePosixPath(row["source"]).suffix.lower() in (".c", ".cpp", ".asm"):
+                result.add(row["source"])
+    return result
+
+
+raw = pathlib.Path(listing).read_bytes()
+if raw and not raw.endswith(b"\0"):
+    raise ValueError("unterminated source list")
+selected = [path.decode("utf-8") for path in raw.split(b"\0") if path]
+required = providers("reverse/functions.csv")
+# Missing data_rows.csv is allowed only when Git proves its absence.
+if git("ls-tree", rev, "--", "reverse/data_rows.csv").strip():
+    required |= providers("reverse/data_rows.csv")
+full = bool(required) and required.issubset(selected)
+result = ["full"] + [path for path in selected if path not in required] if full else ["chunks"]
+sys.stdout.buffer.write(b"".join(path.encode("utf-8") + b"\0" for path in result))
+PY
+}
+
 refs="$(cat || true)"
 
 ZERO=0000000000000000000000000000000000000000
@@ -139,10 +184,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Identity, for the same reason conversion_gate runs here: byte-verification
     # cannot see it. reverse/symbols.csv is an ADDITIVE candidate list, so a pin
     # naming the WRONG function still reproduces its caller's bytes and every
-    # scoped build below stays green. This guard only ever ran in the full gate,
-    # which no hook path reaches — pre-commit runs it for header/shim changes
-    # only, and this hook is bounded by push size and never full — so a wrong
-    # pin could reach origin without one check ever looking at it. 1.6s.
+    # scoped build below stays green. Small pushes do not run the full gate, so
+    # they must run this identity check explicitly as well. 1.6s.
     python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
     python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
         || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
@@ -269,7 +312,32 @@ PY
     # one giant ./build.sh call dies with "Argument list too long" and the push
     # fails for an environment reason rather than a byte mismatch. A fixed count
     # of 200 sources still overflows once their paths average ~160 characters.
-    build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
+    full_scope=0
+    extra=()
+    # Small scopes retain the existing bounded builds. Prove coverage from the
+    # pushed ledgers before replacing a large scope with the ordinary full gate.
+    if [ "${#verify[@]}" -ge 1024 ]; then
+        verify_list=$(mktemp) || fail "temporary source list"
+        printf '%s\0' "${verify[@]}" > "$verify_list"
+        capture scope_out "proving full build scope" classify_full_scope "$local_sha" "$verify_list"
+        mapfile -d '' -t scope < "$scope_out"
+        rm -f "$scope_out" "$verify_list"
+        case "${scope[0]:-}" in
+            full) full_scope=1; extra=("${scope[@]:1}") ;;
+            chunks) ;;
+            *) fail "invalid full build scope result" ;;
+        esac
+    fi
+    if [ "$full_scope" -ne 0 ]; then
+        git diff --quiet "$local_sha" -- Code \
+            || fail "a tracked source differs from the pushed commit $local_sha in the working tree: check it out or stash first"
+        echo "pre-push: every matched provider selected; running the ordinary full gate once"
+        BUILD_POOL="${BUILD_POOL:-4}" run_build \
+            || fail "full byte-verify of outgoing sources (see above)"
+        build_chunks "byte-verify of additional outgoing sources (see above)" "${extra[@]}"
+    else
+        build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
+    fi
     if [ "${#verify[@]}" -ne 0 ]; then
         printf '%s\0' "${verify[@]}" | python3 tools/eh_verify.py --sources-from - \
             || fail "exception data differs from retail in outgoing sources (see above)"
