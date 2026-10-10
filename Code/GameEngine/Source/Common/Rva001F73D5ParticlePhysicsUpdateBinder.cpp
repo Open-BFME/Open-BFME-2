@@ -40,6 +40,8 @@
 // "Particle") and leaves all four vptrs at the base vtable 0x00BC6F24; the
 // sub-binders declare no dtor.
 
+#include "../../../Libraries/Include/Lib/Coord2D.h"
+
 typedef const char *D3DXHANDLE;
 typedef int BOOL;
 
@@ -125,6 +127,12 @@ public:
 	void rva001F526E(Vec2001F526E *out) { ((Rva001F526E *)this)->rva001F526E(out); }
 	void rva001F529D(Vec2001F529D *out) { ((Rva001F529D *)this)->rva001F529D(out); }
 	void rva001F52CC(Vec2001F52CC *out) { ((Rva001F52CC *)this)->rva001F52CC(out); }
+	// Native Size callback reads upper30 then lower2C.
+	void getSize(float &lower, float &upper) const { upper=m_30; lower=m_2C; }
+private:
+	char m_pad000[0x2C];
+	float m_2C;
+	float m_30;
 };
 
 ParticleSystem *Make001FCBD7();
@@ -438,4 +446,22 @@ void Rva001F4A90Host_Update::ResolveBindings(const char *name, const char *handl
 		else if (_strcmpi(path.m_name, "zRotationDamping") == 0)
 			registry->AddBinding(Rva001F8009ZRotationDamping, handle);
 	}
+}
+
+// Native1F7888..1F798E RET0; owned Update binder1F7740 binds this to Size.
+// Input min/max are ParticleSystem2C/30; output(min,max,0,0), defaults1/10,
+// goes to ID3DXEffect slot34. The intrusive handle12B ABI is independently owned.
+// Canonical8B Coord2D carrier and separate upper scalar reproduce ebp18/10
+// spills and both handle homes1C/28. Only x is read; y stays untouched.
+// This local carrier is compiler-shape inference, not a retail coordinate claim.
+void Rva001F7888Size(ID3DXEffect *effect, D3DXHANDLE handle)
+{
+    D3DXVECTOR4 size(1.0f,10.0f,0.0f,0.0f);
+    if(TheParticleSystemManager && TheParticleSystemManager->get()) {
+        Coord2D lower;
+        float upper;
+        TheParticleSystemManager->get()->getSize(lower.x,upper);
+        size=D3DXVECTOR4(lower.x,upper,0.0f,0.0f);
+    }
+    effect->SetVector(handle,&size);
 }
