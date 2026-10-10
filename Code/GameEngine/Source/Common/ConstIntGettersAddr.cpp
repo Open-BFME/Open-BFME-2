@@ -518,3 +518,59 @@ int Rva0073F640Get(void)
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// FXParticleSystem default-parser tables, defined here (this unit already
+// absorbs image-address debt) so FXParticleSystemDefaultParsers.cpp links.
+// Each is the exact retail bytes: 16-byte FieldParse entries plus the zero
+// terminator, read from game.dat. Referenced by name from the parser TU.
+
+// Retail VA 0x00C6B988: Alpha1..Alpha8 plus terminator (144B).
+extern const int s_fxpsAlphaTable[36] = {
+    0x00C6B97C, 0x0095B29C, 0x00000000, 0x0000000C,
+    0x00C6B974, 0x0095B29C, 0x00000000, 0x0000001C,
+    0x00C6B96C, 0x0095B29C, 0x00000000, 0x0000002C,
+    0x00C6B964, 0x0095B29C, 0x00000000, 0x0000003C,
+    0x00C6B95C, 0x0095B29C, 0x00000000, 0x0000004C,
+    0x00C6B954, 0x0095B29C, 0x00000000, 0x0000005C,
+    0x00C6B94C, 0x0095B29C, 0x00000000, 0x0000006C,
+    0x00C6B944, 0x0095B29C, 0x00000000, 0x0000007C,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
+// Retail VA 0x00C6C4A0: SizeRate..AngularDampingXY plus terminator (160B).
+extern const int s_fxpsSizeAngleTable[40] = {
+    0x00BE189C, 0x00738A9D, 0x00000000, 0x0000000C,
+    0x00BE188C, 0x00738A9D, 0x00000000, 0x00000018,
+    0x00C6C498, 0x00738A9D, 0x00000000, 0x00000024,
+    0x00C6C488, 0x00738A9D, 0x00000000, 0x00000030,
+    0x00C6C478, 0x00738A9D, 0x00000000, 0x0000003C,
+    0x00C6C46C, 0x0042EC4E, 0x00C1B6D8, 0x00000048,
+    0x00C6C464, 0x00738A9D, 0x00000000, 0x0000004C,
+    0x00C6C454, 0x00738A9D, 0x00000000, 0x00000058,
+    0x00C6C440, 0x00738A9D, 0x00000000, 0x00000064,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
+// Retail VA 0x00C6C3E0: Gravity..ParticlesAttachToBone plus terminator (96B).
+extern const int s_fxpsPhysicsTable[24] = {
+    0x00BE1824, 0x0042EFC0, 0x00000000, 0x00000018,
+    0x00BE1804, 0x00738A9D, 0x00000000, 0x0000001C,
+    0x00BE1814, 0x0042F507, 0x00000000, 0x0000000C,
+    0x00C6C3D8, 0x0042E850, 0x00000000, 0x00000028,
+    0x00C6C3C0, 0x0042E850, 0x00000000, 0x00000029,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
+
+// Retail VA 0x00C6BA58: Color1..Color8 plus ColorScale plus terminator (160B).
+extern const int s_fxpsColorTable[40] = {
+    0x00C6BA50, 0x0095B913, 0x00000000, 0x0000000C,
+    0x00C6BA48, 0x0095B913, 0x00000000, 0x0000001C,
+    0x00C6BA40, 0x0095B913, 0x00000000, 0x0000002C,
+    0x00C6BA38, 0x0095B913, 0x00000000, 0x0000003C,
+    0x00C6BA30, 0x0095B913, 0x00000000, 0x0000004C,
+    0x00C6BA28, 0x0095B913, 0x00000000, 0x0000005C,
+    0x00C6BA20, 0x0095B913, 0x00000000, 0x0000006C,
+    0x00C6BA18, 0x0095B913, 0x00000000, 0x0000007C,
+    0x00BE17BC, 0x00738A9D, 0x00000000, 0x0000008C,
+    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+};
