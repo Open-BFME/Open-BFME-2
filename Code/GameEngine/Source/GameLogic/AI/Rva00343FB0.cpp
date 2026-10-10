@@ -1,6 +1,5 @@
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I.
 // ?rva00343FB0@@YA_NPAVObject@@@Z
-// partial score=0.9 date=2026-10-09
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
 //
 // AIAttackApproachTargetState::onEnter, retail 0x0034CD3A (783 bytes): slot 4
 // of vtable 0x00C12610 (slot-2 name getter "AIAttackApproachTargetState";
@@ -59,10 +58,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_44 = 0x44
 };
 
-struct Coord3D
-{
-	Real x, y, z;
-};
+#include "Code/Libraries/Include/Lib/Coord3D.h"
 
 class Object;
 class Weapon;
@@ -84,14 +80,7 @@ static __forceinline void critterDesyncLog(const char *text)
 extern const int g_009BA4E4;
 #define LOGICFRAMES_PER_SECOND g_009BA4E4
 
-class GameLogic
-{
-public:
-	UnsignedInt getFrame() const { return m_frame; }
-private:
-	unsigned char m_pad00[0x40];
-	UnsignedInt m_frame; // +0x40
-};
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
 class TAiData
@@ -463,7 +452,7 @@ static Bool rva00343FB0(Object *obj)
 	AIUpdateInterface *ai = obj->m_ai;
 	if (!ai)
 		return true;
-	if (ai->rva00260DED() == 0x3e || ai->slot143() != 2 || ai->m_3c1 || obj->m_249)
+	if (ai->rva00260DED() == 0x3e || ai->slot143() != 2 || ai->m_3c1 || (obj->m_249?obj->m_249:obj->m_249))
 		return true;
 	return false;
 }
