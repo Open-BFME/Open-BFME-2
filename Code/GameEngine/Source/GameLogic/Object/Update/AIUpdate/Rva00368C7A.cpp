@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib
+// cl: /I. /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /ICode/Libraries/Include/Lib
 // Native 00368C7A..00368D12, 152B, RET12. The receiver's object at +08
 // supplies its position Z at +40, matching the rowed Thing height setter.
 // The +544 point and mask globals are also observed in GiantBirdAIUpdate's
@@ -129,4 +129,37 @@ int Rva00368C7A::rva00368B51(float amount, bool argument)
 	if (point.z - 2.0f > obj->position.z && obj->position.z > value540)
 		return 2;
 	return 0;
+}
+
+// BF1 BfmeGiantBirdFollowThruStateOnEnter at reviewed575ba2b04 is the semantic
+// guide. Native36C6AF..36C897 whole488 and target accesses establish offsets.
+// Native helper36C8A5..36CA3B RET12 returns EAX pointing to the hidden three-float
+// result, with construction flag OR1. FollowPosition preserves that ABI; its
+// original target type and state method names remain unknown.
+// Same-valued PHI on the locomotor pointer restores target register/home order.
+// WB F2F6F0 is named only by inlined BitFlags assertions; retain an address-derived state name.
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+extern GameLogic *TheGameLogic;
+template<int N> class FollowSlots:public FollowSlots<N-1>{public:virtual void gap(char(*)[N])=0;};template<>class FollowSlots<0>{};
+class Rva0036748E{public:void rva0036C897(bool);};
+class FollowAI:public FollowSlots<142>{public:virtual void chooseLocomotorSet(int)=0;char pad4[0x1f0-4];Rva00368C7AMetrics*metrics;char pad1f4[0x4b8-0x1f4];unsigned flags;char pad4bc[8];ObjectID victim;char pad4c8[0x4ec-0x4c8];bool success;char pad4ed[0x558-0x4ed];bool follow;char pad559[3];int mode;bool test(int bit)const{return (flags>>bit)&1;}};
+class FollowFlags{public:unsigned words[19];unsigned test(int bit)const{return words[bit>>5]&(1u<<(bit&31));}void set(int bit){words[bit>>5]|=1u<<(bit&31);}void reset(int bit){words[bit>>5]&=~(1u<<(bit&31));}};
+class Object{public:void rva0028AE6D();char pad0[0x38];Coord3D position;char pad44[0x10c-0x44];FollowFlags flags;char pad158[0x258-0x158];FollowAI*ai;char pad25c[0x438-0x25c];unsigned char status;__forceinline void clear(int bit){if(flags.test(bit)){flags.reset(bit);rva0028AE6D();}}__forceinline void set(int bit){if(!flags.test(bit)){flags.set(bit);rva0028AE6D();}}};
+class StateMachine{public:void setGoalPosition(const Coord3D*,float);char pad0[0x14];Object*owner;};
+class FollowTerrain:public FollowSlots<6>{public:virtual float height(float,float,Coord3D*)=0;};class TerrainLogic;extern TerrainLogic*TheTerrainLogic;
+enum StateReturnType{STATE_CONTINUE=0,STATE_FAILURE=-2};
+struct FollowPosition:public Coord3D{__forceinline FollowPosition(const FollowPosition&r){x=r.x;y=r.y;z=r.z;}__forceinline FollowPosition(float xx,float yy,float zz){x=xx;y=yy;z=zz;}};
+class Rva0036C6AFState:public FollowSlots<4>{public:virtual StateReturnType rva0036C6AF();FollowPosition rva0036C8A5(bool*,bool);char pad4[0x18-4];StateMachine*machine;char pad1c[4];bool enabled;char pad21[3];int counter;};
+StateReturnType Rva0036C6AFState::rva0036C6AF(){
+ counter=0;Object*owner=machine->owner;owner->clear(155);FollowAI*ai=owner->ai;if(!ai)return STATE_FAILURE;ai->follow=true;if(owner->status&1)return STATE_FAILURE;
+ ai->chooseLocomotorSet(0);Rva00368C7AMetrics*locomotor=ai->metrics;if(!locomotor)return STATE_FAILURE;
+ bool result=false;FollowPosition goal=rva0036C8A5(&result,enabled);float desired=goal.z+(this?locomotor:locomotor)->value48;
+ float ground=((FollowTerrain*)TheTerrainLogic)->height(goal.x,goal.y,0);float minimum=ground+(this?locomotor:locomotor)->value48*1.25f;
+ if(desired>minimum){desired=goal.z+(this?locomotor:locomotor)->value48*0.25f;if(!(desired>minimum))desired=minimum;}goal.z=desired;
+ if(ai->mode!=2){goal.z=ground+(this?locomotor:locomotor)->value48;goal.x=(goal.x+owner->position.x)*0.5f;goal.y=(goal.y+owner->position.y)*0.5f;}
+ machine->setGoalPosition(&goal,3.4028234663852886e+38f);
+ if(!result&&!ai->test(3))((Rva00368C7A*)ai)->rva003681F2(&goal,g_00E01EC0,0,true);else((Rva00368C7A*)ai)->rva003681F2(&goal,g_00E01EC4,0,true);
+ ((Rva0036748E*)ai)->rva0036C897(false);if(!ai->success)return STATE_FAILURE;
+ if(ai->test(6)&&ai->victim!=INVALID_OBJECT_ID){Object*target=TheGameLogic->findObjectByID(ai->victim);if(target)target->set(72);}
+ return STATE_CONTINUE;
 }
