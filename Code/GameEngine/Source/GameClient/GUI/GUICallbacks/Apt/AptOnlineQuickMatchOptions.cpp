@@ -316,7 +316,8 @@ public:
   void rva00237E28(Rva00237E28 *);
 };
 extern int g_00E0654C, g_009C0758, g_009C075C, g_Va00E02548, g_Va00E0254C;
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 struct NativeQuickMatchRequest {
   int minPointPercentage, maxPointPercentage, points, widenTime, ladderID, ladderPassCRC, maxPing,
       maxDiscons, searchTime;
@@ -421,9 +422,9 @@ void Rva005BB5F6::rva005BBF15() {
   qm.pings[16] = 0;
   qm.botID = TheGameSpyConfig->getQMBotID();
   qm.roomID = TheGameSpyConfig->getQMChannel();
-  ((Rva00237E28 *)((char *)g_00DFE758 + 0xb08))->rva00237E28(&qm.data);
-  qm.exeCRC = *(unsigned *)((char *)g_00DFE758 + 0xb04);
-  qm.iniCRC = *(unsigned *)((char *)g_00DFE758 + 0xb38);
+  ((Rva00237E28 *)((char *)TheWritableGlobalData + 0xb08))->rva00237E28(&qm.data);
+  qm.exeCRC = *(unsigned *)((char *)TheWritableGlobalData + 0xb04);
+  qm.iniCRC = *(unsigned *)((char *)TheWritableGlobalData + 0xb38);
   unsigned points;
   if (*(int *)((char *)this + 0x9c) == 1) {
     qm.points = g_009C0758;

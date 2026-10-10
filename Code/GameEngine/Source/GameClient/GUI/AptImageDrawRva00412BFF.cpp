@@ -69,7 +69,9 @@ public:
     int m_colorA;
     int m_colorB;
 };
-extern GlobalDataClockView *TheGlobalData;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
+#define TheGlobalData ((GlobalDataClockView *)TheWritableGlobalData)
 
 // ?Rva00412BFF@@YAXPBVCoord2D@@0PBD1@Z
 void Rva00412BFF(const Coord2D *origin, const Coord2D *size,

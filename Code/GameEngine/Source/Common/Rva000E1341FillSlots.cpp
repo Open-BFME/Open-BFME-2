@@ -6,7 +6,8 @@
 // call (0x0006B804), so the class derives from it; the second GlobalData byte is
 // cleared with a plain store before the loop counter's own declaration.
 
-extern void *g_00DFE758;
+class GlobalData;
+extern GlobalData *TheWritableGlobalData;
 
 struct Rva0011216CSlotQuartet
 {
@@ -35,8 +36,8 @@ public:
 void Rva000E1341::rva000E1341()
 {
 	rva0006B804();
-	((unsigned char *)g_00DFE758)[0x3C] = 0;
-	unsigned char *globalData = (unsigned char *)*(void *volatile *)&g_00DFE758;
+	((unsigned char *)TheWritableGlobalData)[0x3C] = 0;
+	unsigned char *globalData = (unsigned char *)*(void *volatile *)&TheWritableGlobalData;
 	reinterpret_cast<unsigned char *>(globalData)[0x48] = 0;
 	for (int outer = 0; outer < m_outer; ++outer)
 	{
