@@ -1,14 +1,4 @@
-// ?rva002941EA@Object@@UAEXPAHPAM11@Z
-// partial score=0.962735728739776 date=2026-10-10
-// ?rva002941EA@Object@@UAEXPAHPAM11@Z
-// partial score=0.95 date=2026-10-09
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD
-// NEAR (helper draft, not under Code/): every instruction matches except
-// block placement: retail keeps the second "-1" block inline right after the
-// 20*20 distance test (movss -1; jmp to the 0.1 block's shared stores), cl
-// sinks it next to the stores at the end (three short jumps become near
-// jumps: 444 vs 435 bytes). Tried combined/inverted conditions, goto into
-// the block, value-then-store and pure if/else; all sink it.
 // ?rva002941EA@Object@@UAEXPAHPAM11@Z retail 0x002941EA..0x0029439D (435 bytes, ret 0x10).
 // Object override in the +0x64 interface vtable (slot entry at 0x007FC2E4,
 // next to getGhostObject 0x00290EFE and ShroudHideIfFogged 0x0028E775; layout
@@ -178,7 +168,9 @@ float fallback;
 if(!valid)fallback=-1.0f;else{
 	if (getTemplate()->isKindOf(KINDOF_87))
 		*playerMask = 0xFFFFF;
-	else { int allies = ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 3, false); int own = ((const Rva002AA21CDwordField *)player)->get(); *playerMask=own|allies; }
+	else { int allies = ThePlayerList->getPlayersWithRelationship(player->getPlayerIndex(), 3, false); int own = ((const Rva002AA21CDwordField *)player)->get();
+		// Keep the relation mask in its stack home across the owner-bit call.
+		*playerMask=*(volatile int*)&allies|own; }
 	if ((m_flags94 & 1) || (m_privateStatus & 1))
 	{
 		fallback=0.1f;
