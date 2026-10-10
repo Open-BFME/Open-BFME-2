@@ -197,8 +197,15 @@ public:
 	ArmySummaryEntryRef GetEntry(Int entryID);		// 0x0040CBD7
 };
 
+class Rva004E3184;
+struct Rva002B6A04Player;
+// Existing native setter318D14, rowed in Disp8ByteFieldSetters.cpp.
+class Rva00318D14ByteSlot {public:void set(unsigned char);};
 struct LivingWorldArmy
 {
+ // Native543B constructor31A372/WB1029DF0: caller pushes ID/spawn/player.
+ // The reference parameter names remain the existing provisional views.
+ LivingWorldArmy(Int,Rva004E3184 *,Rva002B6A04Player *);
 	// WorldBuilder LivingWorldArmy::initiateMove (0x0031A591, pinned): starts
 	// the army toward the region and position.
 	void initiateMove(const Coord2D &pos, class Rva00318C32Ret *target, Int flags);
@@ -211,6 +218,8 @@ struct LivingWorldArmy
 	Bool m_field74;						// +0x74, set: left alone by EnforceArmyRegionOwnership
 	unsigned char m_pad75[0x78 - 0x75];
 	ArmySummary *m_summary;					// +0x78
+ // Native spawnCity allocates98B; opaque tail preserves the existing prefix.
+ unsigned char m_pad7C[0x98-0x7C];
 };
 
 // Turn listeners at +0x1C are told (old turn, new turn) through the slot +4
@@ -323,6 +332,13 @@ struct PrereqUnitRec
 	~PrereqUnitRec() {}
 };
 
+namespace _STL {
+// Existing verified 52B no-EH provider2DF89B owns this specialization.
+// The delayed-victory view calls it without emitting an EH-enabled copy.
+template <> void vector<PrereqUnitRec, allocator<PrereqUnitRec> >::push_back(const PrereqUnitRec &);
+}
+
+
 // The save/load stream: the slots XferDelayedRegionVictories reaches
 // (System/XferEnumHelpers.cpp's model: IsLoading +0x04, the version
 // operator +0x28, the int operator +0x7C), and the labelled helpers that
@@ -424,6 +440,8 @@ public:
 	unsigned char m_pad08[0x20 - 0x8];
 	Rva003F0F13Elem m_pos;					// +0x20
 	unsigned char m_pad28[0x54 - 0x28];
+	// Caller-only getter preserves native AL evaluation before the city branch.
+	Bool flagged()const{return m_flag54;}
 	Bool m_flag54;						// +0x54
 	unsigned char m_pad55[0x58 - 0x55];
 };
@@ -534,6 +552,7 @@ public:
 	void XferDelayedRegionVictories(Xfer *xfer);
 	void XferPlayers(Xfer *xfer);
 	void AwardOwnershipSetsToPlayers();
+	void spawnCity(Rva004E3184 *city);
 	LivingWorldArmy *spawnArmy(Rva004E3184 *spawn, Rva002B6A04Player *player, Bool flag);	// 0x002B65B7, pinned
 	LivingWorldArmy *CreateEmptyGarrisonArmy(Rva002B6A04Player *player, LivingWorldRegion *region);
 	void *rva002B4948(void *player, LivingWorldRegion *region, Int arg);	// 0x002B4948 (rowed as the stdcall Rva002B4948Find)
@@ -2279,4 +2298,16 @@ bool LivingWorldLogic::rva002B4B83()
  for(unsigned int i=0; i<(unsigned)((span[1]-span[0])>>2); ++i)
   if (m_players[i]->rva002E0B30()) return true;
  return false;
+}
+
+// Independent WB D80BA0 LivingWorldLogic::spawnCity, original assert2100.
+// Native118B2B86F1..2B8767: city flag54, ID9C and pointer-vector124.
+// Constructor declaration/pin and98B storage tail are included prerequisites;
+// no unrelated removed turn-phase or army methods are restored here.
+void LivingWorldLogic::spawnCity(Rva004E3184 *city)
+{
+ if(!city->flagged())return;
+ LivingWorldArmy *army=::new LivingWorldArmy(++m_field9C,city,0);
+ reinterpret_cast<Rva00318D14ByteSlot *>(army)->set(0);
+ reinterpret_cast<_STL::vector<LivingWorldArmy *> *>(m_pad124)->push_back(army);
 }
