@@ -71,25 +71,17 @@ struct DelegateDesc
 	void (Rva0050ED58::*m_method)(const char *);
 };
 
-class Rva00579E47
-{
-public:
-	Rva00579E47(const DelegateDesc &desc);
-	Rva00579E47(const Rva00579E47 &other);
-	~Rva00579E47();
-
-private:
-	void *m_ptr;
-};
-
-template <class T> class AptRef : public Rva00579E47
-{
-public:
-	AptRef(DelegateDesc d) : Rva00579E47(d) {}
-};
-
-class AptCommandMap;
-class AptExternHandler;
+// Link: the AptRef lineage fork. The wrapper spelling used here emitted a
+// census-losing dtor copy (a jmp to an extern base dtor, digest e67a72158686);
+// retail keeps the majority TU's inline-release copy (digest 361dbf55f6ea).
+// Adopt the majority spelling (ArmyCommandPointsMovieClipConstructor.cpp):
+// trivial base (no declared dtor; the copy ctor stays declared so the implicit
+// AptRef copy ctor is non-trivial and the by-value temp convention is kept),
+// public ptr, inline release dtor. Only the COMDAT body changes to retail's.
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47 &other);void*ptr;};
+class AptCommandMap;class AptExternHandler;struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+template<class T> class AptRef:public Rva00579E47 {public:AptRef(DelegateDesc d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 
 class AptCommandMapAdder
 {

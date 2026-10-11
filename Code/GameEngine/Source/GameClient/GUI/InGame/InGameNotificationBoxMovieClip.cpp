@@ -81,8 +81,14 @@ AsciiStringPlusText operator+(const AsciiString&,const char*);
 class __single_inheritance InGameNotificationBoxMovieClip;
 typedef void(InGameNotificationBoxMovieClip::*NoticeCommand)(unsigned);
 struct DelegateDesc{DelegateDesc(InGameNotificationBoxMovieClip*p,NoticeCommand m):object(p),method(m){} InGameNotificationBoxMovieClip*object;NoticeCommand method;};
-class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);~Rva00579E47();void*ptr;};
-template<class T> class AptRef:public Rva00579E47{public:AptRef(DelegateDesc d):Rva00579E47(d){}};
+struct TargetRef00217D4C;void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47&);void*ptr;};
+template<class T> class AptRef:public Rva00579E47{public:AptRef(DelegateDesc d):Rva00579E47(d){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
+// Link (AptRef lineage fork): the wrapper dtor copy (jmp to extern base dtor,
+// digest e67a72158686) lost to the majority inline-release copy (361dbf55f6ea).
+// Trivial base (no declared dtor) + inline release dtor above emit retail's
+// bytes; the copy ctor stays declared to keep the by-value temp convention.
+// Only the COMDAT bodies change.
 class AptCommandMap;class AptExternHandler;class AptCustomRender;
 class AptCommandMapAdder {public:void AddCommandMap(const AsciiString&,AptRef<AptCommandMap>);};
 class AptExternHandlerAdder {public:void AddExternHandler(const AsciiString&,int,AptRef<AptExternHandler>);};

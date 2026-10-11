@@ -1013,21 +1013,27 @@ struct DelegateDesc
 	AptMapPreviewHandler m_method;
 };
 
+// Link (AptRef lineage fork): the wrapper dtor copy (jmp to extern base dtor,
+// digest e67a72158686) lost to the majority inline-release copy (361dbf55f6ea).
+// Trivial base (no declared dtor) + the inline release dtor emit retail's
+// bytes; the copy ctor stays declared to keep the by-value temp convention.
+// Only the COMDAT bodies change.
+struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+
 class Rva00579E47
 {
 public:
 	Rva00579E47(const DelegateDesc &desc);
 	Rva00579E47(const Rva00579E47 &other);
-	~Rva00579E47();
-
-private:
-	void *m_ptr;
+	void *ptr;
 };
 
 template <class T> class AptRef : public Rva00579E47
 {
 public:
 	AptRef(DelegateDesc desc) : Rva00579E47(desc) {}
+	~AptRef() { if (ptr) ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)ptr); }
 };
 
 // Retail 0x0057E45C, 250 bytes. Name unknown. The preview's Apt
