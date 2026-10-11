@@ -108,9 +108,11 @@ public:
 
 class Rva00318C32Ret;
 class Rva0020E89C;
+struct Pair8;
 class LivingWorldRegionManager { public:
     Rva00318C32Ret *rva0020FAEA(const Coord2D *,Rva00318C32Ret *);
     Bool GetRegionCenterPoint(Rva0020E89C *,Coord2D *);
+    Bool GetDefaultArmyPlacementPos(Int index, Pair8 *out);
 };
 class LivingWorldLogic
 {
@@ -370,6 +372,63 @@ Bool LivingWorldRegion::DebugValidatePlacementSpot(const Coord2D &spot,Coord2D *
     return false;
     }
     return true;
+}
+
+// 0x003F0E8A..0x003F0F13: thiscall, index and output arguments, ret 8.
+// Target evidence proves the pair vector at +0x74/+0x78, the +0xB0
+// singleton helper and both call targets. The receiver's identity remains
+// uncertain, so retain an address-derived class and method name.
+struct Pair8
+{
+	Pair8 &operator+=(const Pair8 &other) { x += other.x; y += other.y; return *this; }
+	float x;
+	float y;
+};
+
+class Rva002B2702B0
+{
+public:
+	bool rva0020EA58(void *key, float *buf);
+};
+
+class Pair8Vector
+{
+public:
+	unsigned int size() const { return end - begin; }
+	Pair8 &operator[](unsigned int i) { return begin[i]; }
+private:
+	Pair8 *begin;
+	Pair8 *end;
+	Pair8 *endOfStorage;
+};
+
+class Rva003F0E8A
+{
+public:
+	bool rva003F0E8A(int index, Pair8 *out);
+private:
+	unsigned char pad00[0x74];
+	Pair8Vector positions;
+};
+
+bool Rva003F0E8A::rva003F0E8A(int index, Pair8 *out)
+{
+	if (index >= 0 && (unsigned)index < positions.size())
+	{
+		*out = positions[index];
+		return true;
+	}
+	LivingWorldRegionManager *regions = TheLivingWorldLogic->regions;
+	if (regions && regions->GetDefaultArmyPlacementPos(index, out))
+	{
+		Pair8 offset;
+		((Rva002B2702B0 *)regions)->rva0020EA58(this, &offset.x);
+		const Pair8 &ref = offset;
+		out->x += ref.x;
+		out->y = ref.y + out->y;
+		return true;
+	}
+	return false;
 }
 
 struct RegionXferVersionFields { unsigned char minimum,current; };
