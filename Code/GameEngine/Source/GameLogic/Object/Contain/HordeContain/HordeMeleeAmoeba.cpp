@@ -15,7 +15,7 @@ template<int N> class AmoebaSlots : public AmoebaSlots<N-1> { public: virtual vo
 template<> class AmoebaSlots<0> {};
 class AmoebaRangeQuery : public AmoebaSlots<18> { public: virtual Object *query(int,const Coord3D *,float,int,int)=0; };
 class AmoebaContainer : public AmoebaSlots<31> { public: virtual AmoebaRangeQuery *rangeQuery()=0; };
-class AmoebaAI : public AmoebaSlots<110> { public: virtual bool idleBlocked()=0; virtual bool specialState()=0;
+class AmoebaAI : public AmoebaSlots<110> { public: virtual bool idleBlocked()=0; virtual void gap111()=0; bool specialState() const { return *(const unsigned char *)((const char *)this + 0x5c) != 0; }
  virtual void slot112()=0;
  virtual void slot113()=0;
  virtual void slot114()=0;
@@ -49,12 +49,13 @@ public:
  const Weapon *getCurrentWeapon(WeaponSlotType *) const;
  int rva0028B511() const;
  void rva0028ACEE(const Coord3D *,int);
- void rva00295F05(bool); void rva0028CDB6();
+ void rva00295F05(bool); void rva0028CDB6(); void rva001E42F2(const int *);
  unsigned char pad0[4]; void *m_template;
  unsigned char pad8[0x38-8]; Coord3D m_position;
  unsigned char pad44[0x74-0x44]; int m_id;
  unsigned char pad78[0x250-0x78]; AmoebaContainer *m_container;
- unsigned char pad254[4]; AmoebaAI *m_ai;
+ unsigned char pad254[4]; AmoebaAI *m_ai; AmoebaAI *m_specialAI;
+ unsigned char pad260[0x438 - 0x260]; unsigned char m_status;
 };
 struct AmoebaNode { AmoebaNode *next,*prev; Object *object; };
 struct AmoebaList { AmoebaNode *head; };
@@ -75,12 +76,12 @@ struct AmoebaAttackEntry {
  int timer; ICoord2D cells[4];
  int groupValue; bool arrived,active; unsigned char pad3A[2];
 };
-struct AmoebaData { unsigned char pad[0x64]; int groupValue; };
+struct AmoebaData { unsigned char pad[0x18]; unsigned char nugget[0x64-0x18]; int groupValue; };
 class HordeMeleeAmoeba {
 public:
  virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void startMeleeAttack(Object *);
  virtual void slot4(); virtual void slot5();
- virtual void slot6();
+ virtual void notifyOfMemberDeath(Object *);
  virtual void slot7();
  virtual void slot8();
  virtual void slot9();
@@ -118,6 +119,40 @@ void HordeMeleeAmoeba::startMeleeAttack(Object *victim)
   unit->rva0028CDB6();
   ai->resetAttack();
  }
+}
+void HordeMeleeAmoeba::notifyOfMemberDeath(Object *deadUnit)
+{
+ AmoebaRange range;
+ ((AmoebaListProvider *)((char *)held+0x20))->fill(&range);
+ AmoebaNode *head = range.list->head;
+ AmoebaNode *cur = head->next;
+ if (cur == head)
+  return;
+ do
+ {
+  Object *obj = cur->object;
+  if (obj && !(obj->m_status & 1))
+  {
+   if (!obj->m_specialAI || !obj->m_specialAI->specialState())
+   {
+    if (obj->m_ai)
+    {
+     int offsetIndex = ((Rva0046ACF6 *)held)->rva0046ACF6(obj->m_id);
+     if (offsetIndex >= 0 && (unsigned int)offsetIndex < attacks.size())
+     {
+      AmoebaAttackEntry &entry = attacks[offsetIndex];
+      if (entry.arrived)
+      {
+       entry.arrived = false;
+       entry.groupValue = data->groupValue;
+       obj->rva001E42F2((const int *)&data->nugget);
+      }
+     }
+    }
+   }
+  }
+  cur = cur->next;
+ } while (cur != range.list->head);
 }
 
 // Native5872CF..587305 complete54B RET4. Amoeba update5889D7 and
