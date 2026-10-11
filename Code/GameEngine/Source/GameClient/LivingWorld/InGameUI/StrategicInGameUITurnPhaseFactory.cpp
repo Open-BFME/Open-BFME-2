@@ -112,7 +112,7 @@ struct Holder0042C1F9 {
  Rva0042C1F9Helper *p;
  Holder0042C1F9(_STL::auto_ptr_ref<Rva0042C23APointee> ref):p(reinterpret_cast<Rva0042C1F9Helper*>(ref.release())){}
  Holder0042C1F9(Holder0042C1F9 &ref):p(ref.p){ref.p=0;}
- ~Holder0042C1F9(){::operator delete(p);}
+ ~Holder0042C1F9(){if(p)::operator delete(p);}
 };
 class Rva0042C1F9 {public:Rva0042C1F9 *rva0042C1F9(Holder0042C1F9);};
 struct ClientView {char pad[0x94];bool flag;};
