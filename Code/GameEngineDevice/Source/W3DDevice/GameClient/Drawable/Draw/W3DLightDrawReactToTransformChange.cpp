@@ -68,12 +68,24 @@ public:
 	W3DDynamicLight *m_light;
 };
 
+// File-static matrix copy (LK3-style): the TU's copy-ctor COMDAT loses
+// the link, and the rowed body below inlines the construction, so the def
+// cannot just go away. The helper keeps a call in the source (regalloc
+// preserved) while the copy-ctor goes unused.
+static void CopyLightMatrix3D(Matrix3D &dst, const Matrix3D &src)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+    dst[2] = src[2];
+}
+
 void W3DLightDraw::reactToTransformChange(const Matrix3D *, const Coord3D *, float)
 {
 	if (m_light)
 	{
 		
-		Matrix3D transform = *m_drawable->getTransformMatrix();
+		Matrix3D transform;
+		CopyLightMatrix3D(transform, *m_drawable->getTransformMatrix());
 		const AsciiString *bone = &(m_moduleData ? m_moduleData : m_moduleData)->boneName;
 		if (!bone->isEmpty())
 		{
