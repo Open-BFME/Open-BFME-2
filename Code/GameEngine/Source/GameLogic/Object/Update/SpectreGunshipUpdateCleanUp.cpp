@@ -31,10 +31,15 @@ public:
 
 extern GameLogic *TheGameLogic;
 
+// Mirrors PlayerBattlePlanChange.cpp (home of rowed 0x002ADB4F): the handler
+// at 0x002ADB4F is Player::changeBattlePlan.
+enum BattlePlanStatus { PLANSTATUS_BOMBARDMENT = 1, PLANSTATUS_HOLDTHELINE = 2, PLANSTATUS_SEARCHANDDESTROY = 3 };
+class Rva002AA14DBonuses;
+
 class Player
 {
 public:
-	void Rva002ADB4FHandler(void *data, int b, int c);
+	void changeBattlePlan(BattlePlanStatus, int, Rva002AA14DBonuses *);
 };
 
 class SpectreGunshipUpdate
@@ -67,6 +72,6 @@ void SpectreGunshipUpdate::cleanUp()
 	Player *player = m_object->getControllingPlayer();
 	if (player != 0 && m_unk2C != 0)
 	{
-		player->Rva002ADB4FHandler(m_unk2C, -1, m_unk40);
+		player->changeBattlePlan((BattlePlanStatus)(int)m_unk2C, -1, (Rva002AA14DBonuses *)m_unk40);
 	}
 }

@@ -54,10 +54,20 @@ private:
 	char m_tail[8];
 };
 
+// 0x00362609 is rowed as BuffInstance::TurnOff (62B, BuffManager.cpp; WB
+// BuffInstance::TurnOff). This same-this call goes through a TU-local view
+// so it resolves to the rowed body instead of the unrowed spelling (sole U
+// on this unit).
+class BuffInstance
+{
+public:
+	void TurnOff(bool flag);
+};
+
 void Rva003627B8Entry::rva003627B8(int a)
 {
 	if (m_04 != 0 && !m_check.rva00362499() && (unsigned int)a > m_14)
-		rva00362609(0);
+		((BuffInstance *)this)->TurnOff(false);
 	if (m_18 != 0 && ((Rva003627B8LinkState *)m_18)->m_state == 3)
 	{
 		((Rva00419BA5 *)m_18)->rva00419BA5();
