@@ -127,8 +127,13 @@ void Rva005B7426::rva005B7426()
 
 // slot at VA 0x00C73954: the global block at VA 0x00E05FCC while +0x2C is 2,
 // else the one at VA 0x00E06000.
-extern char g_rva005B8018Two[];
-extern char g_rva005B8018Other[];
+// The two blocks are the GameSpy rank-weight tables, defined with the ledger's
+// canonical class spelling (and the layout Rva00559A11.cpp proves) in the unit
+// whose arg-ctor bodies fill them, Common/Rva007ABEF3ArgCtorInits.cpp; an
+// incomplete view is enough because only the address is taken.
+class Rva00559D0CRankWeights;
+extern Rva00559D0CRankWeights g_00E05FCC;
+extern Rva00559D0CRankWeights g_00E06000;
 class Rva005B8018
 {
 public:
@@ -142,9 +147,9 @@ char *Rva005B8018::rva005B8018()
 	switch (m_2C)
 	{
 	case 2:
-		return g_rva005B8018Two;
+		return (char *)&g_00E05FCC;
 	default:
-		return g_rva005B8018Other;
+		return (char *)&g_00E06000;
 	}
 }
 

@@ -87,10 +87,36 @@ extern unsigned g_Va00DF94B0;
 extern unsigned g_Va00DF708C;
 extern unsigned g_Va00E01E08;
 extern unsigned g_Va00E02D64;
-extern unsigned g_Va00E05FCC;
-extern unsigned g_Va00E06000;
+// The two GameSpy rank-weight tables this unit's arg-ctor bodies build and the
+// default rank table beside them. Retail's storage for all three is the zero
+// tail of .data, so the file holds zeros and these constructors fill it in at
+// static-init time.
+//
+// The class name is the ledger's canonical global spelling for VA 0x00E05FCC
+// and VA 0x00E06000 (reverse/data_ledger.csv, 52 bytes each), which the two
+// stats units already reference; the layout is the one Rva00559A11.cpp proves
+// for this very class (int m_00 = -1, int m_04, int m_vals[9], float m_2C,
+// float m_30 -- 0x34 = 52 bytes, and the constructor body below is
+// Rva00559A11::rva00559A11). Six units spelled these two objects five
+// different ways; they are now one spelling so the relocations place.
+class Rva00559D0CRankWeights
+{
+public:
+	int m_00;
+	int m_04;
+	int m_vals[9];
+	float m_2C;
+	float m_30;
+};
+Rva00559D0CRankWeights g_00E05FCC;
+Rva00559D0CRankWeights g_00E06000;
 extern unsigned g_Va00E06034;
-extern unsigned g_Va00E06060;
+// g_rva005C1A8DDefault is the VA 0x00E06060 table: the getter at retail RVA
+// 0x005C1A8D returns it as the default ("Default") when a slot has no override,
+// and its two readers take its address or return it as a char*. An array and a
+// pointer mangle alike in MSVC (??@@3PADA either way), so the one spelling
+// serves the `char *` reader, the `char []` reader and this constructor.
+char *g_rva005C1A8DDefault = 0;
 extern unsigned g_Va00E0660C;
 extern unsigned g_Va00E06610;
 extern unsigned g_Va00E06614;
@@ -184,13 +210,13 @@ void Rva007ABEF3ArgCtorInits::rva007AF7ED()
 // 0x007B3DB8 (13B): 0x00559A11(1) on VA 0x00E05FCC
 void Rva007ABEF3ArgCtorInits::rva007B3DB8()
 {
-	( (Rva00559A11 *)&g_Va00E05FCC )->rva00559A11( 1 );
+	( (Rva00559A11 *)&g_00E05FCC )->rva00559A11( 1 );
 }
 
 // 0x007B3DC5 (13B): 0x00559A11(0) on VA 0x00E06000
 void Rva007ABEF3ArgCtorInits::rva007B3DC5()
 {
-	( (Rva00559A11 *)&g_Va00E06000 )->rva00559A11( 0 );
+	( (Rva00559A11 *)&g_00E06000 )->rva00559A11( 0 );
 }
 
 // 0x007B3DD2 (13B): 0x00559A76(1) on VA 0x00E06034
@@ -199,10 +225,10 @@ void Rva007ABEF3ArgCtorInits::rva007B3DD2()
 	( (Rva00559AC1 *)&g_Va00E06034 )->rva00559A76( 1 );
 }
 
-// 0x007B3DDF (13B): 0x00559A76(0) on VA 0x00E06060
+// 0x007B3DDF (13B): 0x00559A76(0) on VA 0x00E06060, i.e. g_rva005C1A8DDefault
 void Rva007ABEF3ArgCtorInits::rva007B3DDF()
 {
-	( (Rva00559AC1 *)&g_Va00E06060 )->rva00559A76( 0 );
+	( (Rva00559AC1 *)&g_rva005C1A8DDefault )->rva00559A76( 0 );
 }
 
 // 0x007B4962 (15B): BitFlags<11>(kInit, 0) on VA 0x00E0660C

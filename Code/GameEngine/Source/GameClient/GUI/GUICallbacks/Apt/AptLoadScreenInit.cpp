@@ -157,8 +157,13 @@ public:
 	const Image *rva00559C25(int side, int rank);
 };
 
-extern unsigned int g_Va00E05FCC;
-extern unsigned int g_Va00E06000;
+// The two rank-weight tables at VA 0x00E05FCC / VA 0x00E06000, defined (with the
+// layout Rva00559A11.cpp proves) in the unit whose arg-ctor bodies fill them,
+// Common/Rva007ABEF3ArgCtorInits.cpp. An incomplete view is enough: this unit
+// only takes their address, and the mangled name is the class name.
+class Rva00559D0CRankWeights;
+extern Rva00559D0CRankWeights g_00E05FCC;
+extern Rva00559D0CRankWeights g_00E06000;
 extern char *g_00E06034;
 extern char *g_rva005C1A8DDefault;
 
@@ -392,7 +397,7 @@ void AptLoadScreen::init(GameInfo *game)
 			if (info)
 			{
 				isGood = TheGameSpyInfo->gs90(info->m_14);
-				Rva00559AC1 *table = gameMode == 1 ? (Rva00559AC1 *)&g_Va00E05FCC : (Rva00559AC1 *)&g_Va00E06000;
+				Rva00559AC1 *table = gameMode == 1 ? (Rva00559AC1 *)&g_00E05FCC : (Rva00559AC1 *)&g_00E06000;
 				rankImage = table->rva00559C25(side, info->m_rank);
 			}
 			else

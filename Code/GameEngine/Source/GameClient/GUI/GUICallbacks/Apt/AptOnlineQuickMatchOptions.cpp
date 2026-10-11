@@ -262,11 +262,15 @@ public:
   ~Rva00385333();
 };
 class Rva00553E47StatsCore;
+class Rva00553E47StatsCore;
 class Rva00559D0CRankWeights {
 public:
   int rva00559D0C(const Rva00553E47StatsCore *) const;
 };
-extern unsigned g_Va00E06000;
+// The Other rank-weight table at VA 0x00E06000, defined (with the layout
+// Rva00559A11.cpp proves) in the unit whose arg-ctor bodies fill it,
+// Common/Rva007ABEF3ArgCtorInits.cpp.
+extern Rva00559D0CRankWeights g_00E06000;
 class Rva0054D974 {
 public:
   Rva0054D8D8 *rva0054D6C8(int);
@@ -359,7 +363,7 @@ void Rva005BB5F6::rva005BBF15() {
   qm.maxPing = qm.maxPing * 255 / TheGameSpyConfig->getPingTimeoutInMs();
   Rva00385333 stats = TheGameSpyPSMessageQueue->getStats(TheGameSpyInfo->getLocalProfileID());
   qm.points =
-      ((Rva00559D0CRankWeights *)&g_Va00E06000)->rva00559D0C((Rva00553E47StatsCore *)&stats);
+      ((Rva00559D0CRankWeights *)&g_00E06000)->rva00559D0C((Rva00553E47StatsCore *)&stats);
   int ladderIndex, index, selected;
   GameWindow **ladderWindow = (GameWindow **)((char *)this + 0x90);
   GadgetComboBoxGetSelectedPos(*ladderWindow, &selected);
