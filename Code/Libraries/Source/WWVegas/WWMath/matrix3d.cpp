@@ -437,11 +437,14 @@ inline bool Matrix3D::Solve_Linear_System(Matrix3D & system)
 // Emission anchor (LINK-DUP): the 10 duplicate Matrix3D bodies above are now
 // inline, so the compiler discards them (nothing in this TU calls them) and with
 // them their only intra-TU users of four helpers this TU owns rows for
-// (Vector3::Dot_Product, Vector3(float,float,float), Vector4(float,float,float,float),
-// Vector3::Length2). This anchor keeps those four emitting; its own bytes are unclaimed.
+// (Vector3::Dot_Product, Vector4(float,float,float,float),
+// Vector3::Length2). This anchor keeps those three emitting; its own bytes are unclaimed.
+// The Vector3(float,float,float) copy this TU used to emit lost to retail's,
+// so this TU no longer constructs one (retail's copy serves every caller).
 // ?Matrix3DHelperAnchor present-unmatched
 void Matrix3DHelperAnchor(Vector3 &a, Vector3 &b, Vector4 &c)
 {
-	Vector3 t(Vector3::Dot_Product(a, b), a.Length2(), 0.0f);
-	c = Vector4(t.X, t.Y, t.Z, 1.0f);
+	float d = Vector3::Dot_Product(a, b);
+	float l = a.Length2();
+	c = Vector4(d, l, 0.0f, 1.0f);
 }
