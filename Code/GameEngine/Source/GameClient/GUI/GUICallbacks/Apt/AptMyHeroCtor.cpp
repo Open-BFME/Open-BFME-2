@@ -125,24 +125,21 @@ template <class T, class M> __forceinline DelegateDesc MakeDelegate(T *object, M
 	return desc;
 }
 
-class Rva00579E47
-{
-public:
-	Rva00579E47(const DelegateDesc &desc);
-	Rva00579E47(const Rva00579E47 &other);
-	~Rva00579E47();
-
-private:
-	void *m_ptr;
-};
-
-template <class T> class AptRef : public Rva00579E47
-{
-public:
-	AptRef(const DelegateDesc &desc) : Rva00579E47(desc) {}
-};
-
-class AptExternHandler;
+// Link: the AptRef lineage fork. The FunctorHolder/Rva00579E47-wrapper spelling
+// used here emitted a census-losing dtor copy (a jmp to an extern base dtor,
+// digest e67a72158686); retail keeps the majority TU's inline-release copy
+// (digest 361dbf55f6ea). Adopt the majority spelling verbatim
+// (ArmyCommandPointsMovieClipConstructor.cpp): trivial base, inline release
+// dtor. The EH funclets call the dtor by name for the by-value handler temps,
+// so their bytes are unchanged; only the COMDAT body becomes retail's.
+class Rva00579E47 {public:Rva00579E47(const DelegateDesc&);Rva00579E47(const Rva00579E47 &other);void*ptr;};
+// NOTE: the base copy ctor stays DECLARED (extern, non-trivial) so the implicit
+// AptRef copy ctor is non-trivial too: that preserves the by-value handler-temp
+// passing convention (dynamic esp-temp) and the 0x20 frame of the rowed bodies.
+// Only the base *destructor* declaration was removed (see below).
+class AptExternHandler;struct TargetRef00217D4C;
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C*);
+template<class T> class AptRef:public Rva00579E47 {public:AptRef(const DelegateDesc&desc):Rva00579E47(desc){}~AptRef(){if(ptr)ReleaseTreeHintRef00217D4C((TargetRef00217D4C*)ptr);}};
 
 class AptExternHandlerAdder
 {
