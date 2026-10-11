@@ -43,7 +43,7 @@ namespace rts
 inline unsigned int rts::hash<AsciiString>::operator()(const AsciiString &key) const
 {
 	AsciiString tmp(key);
-	tmp.toLower();
+	((StringBase<char> &)tmp).toLower();
 	const char *s = tmp.str();
 	return _STL::__stl_hash_string(s);
 }

@@ -27,5 +27,5 @@ void INI::Rva000B6E5A_ParseLowercasedString(INI *ini, void * /*instance*/, void 
 {
 	AsciiString *text = (AsciiString *)store;
 	*text = ini->getNextAsciiString();
-	text->toLower();
+	((StringBase<char> *)text)->toLower();
 }

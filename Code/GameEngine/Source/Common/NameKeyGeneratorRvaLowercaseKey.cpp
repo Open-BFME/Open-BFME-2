@@ -45,7 +45,7 @@ public:
 NameKeyType NameKeyGenerator::Rva00148F02(const char *nameString)
 {
 	AsciiString lowered(nameString);
-	lowered.toLower();
+	((StringBase<char> &)lowered).toLower();
 	return nameToKey(lowered.str());
 }
 
