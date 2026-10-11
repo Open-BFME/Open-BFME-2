@@ -185,8 +185,14 @@ public:
 	Int winSetSize(Int width, Int height);
 	Int winSetPosition(Int x, Int y);
 	GameWindow *winGetChild() { return (GameWindow *)((Rva003140C8DwordField *)this)->get(); }
-	UnsignedInt winGetStatus() { return (UnsignedInt)((FXParticleSystem::CategoryModuleClass<0> *)this)->getName(); }
+	UnsignedInt winGetStatus();	// declaration only: the rowed home copy
+					// (GameWindowStatusUserData.cpp) is strong; the inline
+					// body emits a select-any COMDAT that LNK2005s against
+					// it (mini-link proven). The call site binds the same
+					// folded address 0x30F45F.
 	GameFont *winGetFont() { return (GameFont *)((Rva00313D6CDwordField *)this)->get(); }
+	// NOTE: declaration-only winGetChild breaks this TU's 3111B row (register
+	// allocation ripple); left inline. Its D is out of this row's scope.
 };
 
 class DisplayString

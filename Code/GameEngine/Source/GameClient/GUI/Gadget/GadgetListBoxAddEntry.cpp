@@ -49,8 +49,12 @@ class GameWindow
 {
 public:
 	void *winGetUserData();
-	UnsignedInt winGetStatus() { return (UnsignedInt)((FXParticleSystem::CategoryModuleClass<0> *)this)->getName(); }
-	GameFont *winGetFont() { return (GameFont *)((Rva00313D6CDwordField *)this)->get(); }
+	UnsignedInt winGetStatus();	// declaration only: the rowed home copies
+					// (GameWindowStatusUserData.cpp) are strong; inline
+					// bodies here emit select-any COMDATs that LNK2005
+					// against them (mini-link proven). Call sites bind
+					// the same folded addresses (0x30F45F, 0x313D6C).
+	GameFont *winGetFont();
 };
 
 class DisplayString
