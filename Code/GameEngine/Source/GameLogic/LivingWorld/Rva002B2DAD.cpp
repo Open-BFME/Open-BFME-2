@@ -103,10 +103,15 @@ Rva003F468D *Rva0020E6B7RegionManager::rva0020E6B7()
  return (Rva003F468D *)((LivingWorldRegionManager *)this)->rva0020E5BB(currentKey);
 }
 
+class Rva003F4DCA
+{
+public:
+	int rva003F4DCA(int side, int player);
+};
 class Rva003F468D
 {
 public:
- int rva003F4DAE(int side);
+	int rva003F4DAE(int side);
 };
 // Native 002B2DEE..002B2E31: ECX message; stack output/index/battle/side;
 // caller cleanup. GameMessage::getArgument is the independently rowed
@@ -127,4 +132,24 @@ static __declspec(noinline) bool rva002B2DEE(GameMessage *message, int *out, int
 bool rva002B2DEECaller(GameMessage *message, int *out, int index, Rva003F468D *battle, int side)
 {
  return rva002B2DEE(message, out, index, battle, side);
+}
+// Native 002B2E31..002B2E77: ECX message; stack output/index/battle/side/player;
+// caller cleanup. GameMessage::getArgument is the independently rowed
+// 0030F4EA provider. Player army count is the independently rowed 003F4DCA
+// body on the established Rva003F4DCA battle view.
+static __declspec(noinline) bool rva002B2E31(GameMessage *message, int *out, int index, Rva003F468D *battle, int side, int player)
+{
+	if (index < 0) return false;
+	if (index >= ((Rva002B2DADMessageView *)message)->count) return false;
+	int value = message->getArgument(index)->integer;
+	*out = value;
+	return value >= 0 && value < ((Rva003F4DCA *)battle)->rva003F4DCA(side, player);
+}
+
+// ?rva002B2E31Caller absent-from-retail
+// Source-only emission anchor for the same MSVC internal ABI optimization
+// as the neighboring helper; no retail address is asserted for this wrapper.
+bool rva002B2E31Caller(GameMessage *message, int *out, int index, Rva003F468D *battle, int side, int player)
+{
+	return rva002B2E31(message, out, index, battle, side, player);
 }

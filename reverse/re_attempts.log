@@ -37538,3 +37538,4 @@ _Rva00817B30	0x00683A30	2207	attempted	r3 independent re-derivation (commudp.cpp
 ?calcPhysicsXform@Drawable@@QAE_NAAUPhysicsXformInfo@1@@Z	0x0027BA95	208	blocked	193/208; edi/ebx rotation: retail edi=this ebx=frame from TheGameClient slot 31 t=30 model=gemini-3.8-flash
 ?ShroudHideIfFogged@Object@@UBE_NH@Z	0x0028E775	131	blocked	tail-merged return paths: shared epilog at bottom vs retail middle (0x28E7C3 vs 0x28E7EE) t=15 model=gemini-3.8-flash
 ?addBuff@W3DBuffBuffer@@QAEPAVTBuff@@PAVDrawable@@PBUBuffInfoView@@@Z	0x000D3B27	214	blocked	215 vs 214B: retail shrink-wraps push ebx/edi between cmp count,0 and jle t=15 model=gemini-3.8-flash
+?rva002B2E31@@YA_NPAVGameMessage@@PAHHPAVRva003F468D@@HH@Z	0x002B2E31	70	landed	add_match verified Code/GameEngine/Source/GameLogic/LivingWorld/Rva002B2DAD.cpp 70B; validateBattlePlayerArmyIndex caller cleanup helper; static internal ABI with message in ECX
