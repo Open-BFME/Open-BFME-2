@@ -39,7 +39,9 @@ class Rva000427195
 public:
 	void *rva004112A0(const AsciiString *key);
 };
-extern unsigned int g_00E02FF8;
+// g_00E02FF8 is loader-zeroed BSS (RVA 0xA02FF8 is zero-filled PE data);
+// it holds the Rva000427195 table pointer once runtime initializes it.
+unsigned int g_00E02FF8;
 
 // The leaf-name key is a full-expression temporary (retail destroys it after the table
 // store and shares its stack slot with the other temporaries); the pointer view keeps it
@@ -57,7 +59,7 @@ void *Rva004118B4(const char *path, const char *params)
 		return 0;
 	AsciiString keepStr;
 	Rva004128F0GetParam(params, "_KeepAspectRatio", keepStr);
-	unsigned char keep = (unsigned char)(keepStr.find('f') == 0);
+	unsigned char keep = (unsigned char)(((const StringBase<char> &)keepStr).find('f') == 0);
 	AsciiString animMode;
 	Rva004128F0GetParam(params, "_AnimMode", animMode);
 	Rva00789900Init *obj = Rva00740A45Create(keep);
