@@ -313,8 +313,15 @@ void W3DTreeBuffer::xfer(Xfer *xfer)
 		if (xfer->IsLoading()) {
 			Int j;
 			for (j = 0; j < m_numTreeTypes; j++) {
-				if (m_treeTypes[j].m_modelName.compareNoCase(modelName) == 0 &&
-						m_treeTypes[j].m_nameC.compareNoCase(modelTexture) == 0) {
+				// Retail folds AsciiString::compareNoCase to the rowed
+				// StringBase<char> body at 0x6A00 (symbols.csv pin): no
+				// wrapper exists in the image, so our TU must not emit its
+				// 5B-jmp copy (link census L+S). Spelling the StringBase
+				// call directly is what the inlined wrapper already emits;
+				// AsciiString is its one-pointer layout twin, so the
+				// twin casts are no-ops.
+				if (((const StringBase<char> &)m_treeTypes[j].m_modelName).compareNoCase(*(const StringBase<char> *)&modelName) == 0 &&
+						((const StringBase<char> &)m_treeTypes[j].m_nameC).compareNoCase(*(const StringBase<char> *)&modelTexture) == 0) {
 					treeType = j;
 					break;
 				}
