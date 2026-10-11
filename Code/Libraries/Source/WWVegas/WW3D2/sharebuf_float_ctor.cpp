@@ -32,14 +32,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // before first use so it wins over the primary template's guarded body, and
 // the deleting destructor needs no source once the destructor is rowed.
 
-// Retail's out-of-line RefCountClass scalar deleting dtor (0x72899) is the
-// size form (pop ecx after the delete call); this TU otherwise emits add
-// esp,4 and loses the COMDAT to hlod.cpp's copy at link time. Pull the same
-// BFME1 refcount.h sharebuf.h would reach first, compiled for size, so the
-// header guard keeps one definition. Same recipe as hlod.cpp.
-#pragma optimize("s", on)
-#include "refcount.h"
-#pragma optimize("", on)
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "sharebuf.h"
 

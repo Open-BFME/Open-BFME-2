@@ -10,11 +10,6 @@
 
 class RefCountClass;
 
-// Retail's out-of-line RefCountClass scalar deleting dtor (0x72899) is the
-// size form (pop ecx after the delete call); without this the TU emits add
-// esp,4 and loses the COMDAT to hlod.cpp's copy at link time. Same recipe as
-// sharebuf_vector2_ctor.cpp and hlod.cpp (pragma around the view).
-#pragma optimize("s", on)
 class RefCountClass
 {
 public:
@@ -28,7 +23,6 @@ protected:
 private:
 	int m_refs;
 };
-#pragma optimize("", on)
 
 template <class T>
 class ShareBufferClass : public RefCountClass
