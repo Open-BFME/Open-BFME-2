@@ -157,9 +157,14 @@ struct AudioEventChannelVolume {
 // +0x98 (non-global sounds) as its min distance.
 struct AudioEventInfo {
     int getVolumeSlider(void);
+    bool isTightlyCoupledSound(void) const;
     char at00[0x08];
     AsciiString m_audioName;                 // +0x08
-    char at0C[0x44 - 0x0C];
+    char at0C[0x30 - 0x0C];
+    float m_at30;                            // +0x30, playAudioEvent drops a sound effect when a random draw exceeds it
+    char at34[0x38 - 0x34];
+    int m_at38;                              // +0x38, playAudioEvent compares it with g_00DBA4FC
+    char at3C[0x44 - 0x3C];
     int m_priority;                          // +0x44
     unsigned int m_type;                     // +0x48, bit 3 global
     unsigned int m_control;                  // +0x4C, Zero Hour's AudioControl bits (AC_LOOP = 1)
@@ -230,12 +235,16 @@ public:
     int m_viewType;          // +0x30
     char at34[0x38 - 0x34];
     int m_ownerType;         // +0x38, 2 when object-owned (getObjectID's test)
-    char at3C[0x4B - 0x3C];
+    char at3C[0x4A - 0x3C];
+    bool m_at4A;             // +0x4A, playAudioEvent tests it on type-1 streams
     bool m_at4B;             // +0x4B
     bool m_at4C;             // +0x4C, the loop-buffer thread's decay/loop test
-    char at4D[0x50 - 0x4D];
+    char at4D[0x4F - 0x4D];
+    bool m_at4F;             // +0x4F, cleared by playAudioEvent
     bool m_at50;             // +0x50, set once a sample starts playing
-    char at51[0x64 - 0x51];
+    char at51[0x52 - 0x51];
+    bool m_at52;             // +0x52, playAudioEvent tests it after starting a stream
+    char at53[0x64 - 0x53];
     float m_at64;            // +0x64, compared with AudioSettings +0xB4 and one frame
     char at68[0x74 - 0x68];
     int m_portionToPlayNext; // +0x74, the portion advanceNextPlayPortion steps
@@ -363,6 +372,8 @@ public:
     }
     PlayingAudio *operator->(void) const { return m_ptr; }
     PlayingAudio *get(void) const { return m_ptr; }
+    // Release then null (inline in playAudioEvent).
+    void clear(void) { if (m_ptr) { asRefCounted()->Release_Ref(); m_ptr = 0; } }
     void set(PlayingAudio *playing)
     {
         reinterpret_cast<Rva000A8C9B *>(this)->rva000A8CE5(reinterpret_cast<OpaqueRefCounted *>(playing));
@@ -900,7 +911,10 @@ public:
     virtual void slot10(); virtual void slot11(); virtual void slot12(); virtual void slot13(); virtual void rva00061C87(unsigned int viewMask);
     virtual void slot15(); virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
     virtual void slot20(); virtual void slot21(); virtual void slot22(); virtual void slot23(); virtual void slot24();
-    virtual void slot25(); virtual void removePlayingAudio(const AsciiString &eventName, int viewType); virtual void slot27(); virtual void slot28(); virtual void slot29();
+    virtual void slot25(); virtual void removePlayingAudio(const AsciiString &eventName, int viewType); virtual void slot27();
+    // Slot 28 (+0x70): kills the sound playing under a handle and reports
+    // whether it did (playAudioEvent's handle-to-kill test; Zero Hour name).
+    virtual bool killAudioEventImmediately(unsigned int handle); virtual void slot29();
     virtual void slot30(); virtual void slot31(); virtual void slot32(); virtual void slot33(); virtual void slot34();
     virtual void slot35(); virtual void slot36(); virtual void slot37(); virtual void slot38(); virtual void slot39();
     virtual void slot40(); virtual void slot41(); virtual void slot42(); virtual void slot43(); virtual void slot44();
@@ -970,6 +984,10 @@ public:
     void addUnownedAudioEventInfo(AudioEventInfo *eventInfo);
     AudioEventRTS *findLowestPrioritySound(AudioEventRTS *event);
     bool killLowestPrioritySoundImmediately(AudioEventRTS *event);
+    // First free 3D and 2D Miles sample (Zero Hour's getFirst3DSample and
+    // getFirst2DSample play this role), rowed at 0x00054596 and 0x0005456B.
+    int rva00054596(void);
+    int rva0005456B(void);
     float rva0005A9F8(void *ref, int a, int b);
     float rva00059AD0(void *event, int a);
     void unmapPhysicalHandle(unsigned int handle);  // WorldBuilder name (0x000578B3)
@@ -1133,7 +1151,9 @@ private:
     // Per-view GlobalVolumeData records, 0x1C4 apart in retail (0x61C87).
     char m_volumeData[3][0x1C4];         // +0x12C
     int m_at678;                         // +0x678, compared with event view types
-    char at67C[0x68C - 0x67C];
+    char at67C[0x684 - 0x67C];
+    int m_num2DSamplesPlaying;           // +0x684, counted up by playAudioEvent
+    int m_num3DSamplesPlaying;           // +0x688, counted up by playAudioEvent
     int m_at68C;                         // +0x68C, zeroed by 0x60309
     unsigned int m_at690;                // +0x690, per-view-type bits 0x61C87 clears
     char at694[0x698 - 0x694];
@@ -2359,7 +2379,7 @@ AsciiString MilesAudioManager::rva0005B1FA(const AsciiString &key)
 class Rva002D9F9FArg;
 class Rva002D9F9FOwner { public: void rva002D9F9F(Rva002D9F9FArg *xfer); };
 class Rva000A8C2BObj;
-class Rva000A8B6D { public: void rva000A8B79(Rva000A8C2BObj *xfer); };
+class Rva000A8B6D { public: void rva000A8B79(Rva000A8C2BObj *xfer); void rva000A8B6D(void); };
 class Rva000A8C2B { public: void rva000A8C2B(Xfer *xfer, Rva0010FFA2Packet *resumePosition); };
 class GameMessageList;
 class GameMessage { public: void friend_setList(GameMessageList *list); };
@@ -4699,4 +4719,217 @@ bool MilesAudioManager::rva000613A9(unsigned int handle)
         }
     }
     return removed;
+}
+
+// playAudioEvent's callees under address-derived owners: the event's
+// handle-to-kill getter (0x002A79A1), the stream holder's assignment
+// (0x000A8CAE) and its forwarder 0x000A8AA6.
+class Rva002A79A1DwordField { public: int get(void) const; };
+class Rva000A8CAE { public: Rva000A8CAE &operator=(const Rva000A8CAE &other); };
+class Rva000A8AA6 { public: void rva000A8AA6(int arg); };
+// Local stream holder (PlayingAudio +0x0C shape): zeroing constructor
+// 0x0007E81F (pinned PlayingAudioUnknown0C) and the counted release at
+// 0x0010F149 its base destructor names (PlayingAudioConstructor.cpp view).
+class BfmeStringTailRecord156 {
+public:
+    ~BfmeStringTailRecord156();
+    bool isOpen(void) const { return m_ptr != 0; }
+private:
+    void *m_ptr;
+};
+class PlayingAudioUnknown0C : public BfmeStringTailRecord156 {
+public:
+    PlayingAudioUnknown0C();
+    // Opens a file through 0x000A8D0B. Retail reads the owner into a
+    // register after the file name temporary is built, as an inline
+    // forwarder's parameter; a direct call pushes the member from memory.
+    void open(void *owner, const AsciiString &file, int arg) { reinterpret_cast<Rva000A8D0B *>(this)->rva000A8D0B(owner, file, arg); }
+private:
+    int m_at04;
+};
+// Counted copy of the event's info reference: out-of-line copy 0x000A8C7C
+// (BfmeObject476Copy.cpp view, same bytes) and an inline guarded release.
+// The copy stays visible to this unit so cl knows it keeps no pointer to
+// the local: retail skips the release on the early null return and
+// releases unguarded at the end.
+struct Rva0010F149Handle {
+    __declspec(noinline) __declspec(nothrow) Rva0010F149Handle(const Rva0010F149Handle &r) : referent(r.referent) { if (referent) referent->Add_Ref(); }
+    ~Rva0010F149Handle() { if (referent) referent->Release_Ref(); }
+    AudioEventInfo *operator->(void) const { return reinterpret_cast<AudioEventInfo *>(referent); }
+    OpaqueRefCounted *referent;
+};
+
+// Native 00061E37..0006236D RET4 (WorldBuilder twin 0x0078F8D0 names it,
+// asserts at MilesAudioManager.cpp 6961..7246). Zero Hour's playAudioEvent
+// is the ancestor: a stream (info type 0, 1 or 4) opens its file into a
+// local holder and starts through playAndStoreStream; a sound effect
+// (type 2) passes its play-percent draw, takes a 3D or 2D sample (killing
+// the handle to kill or the lowest-priority sound first), maps it and plays
+// it directly or through the callback buffers. A sound left holding more
+// loops is requeued. The unused PlayingAudioRef is Zero Hour's `playing`
+// (retail zeroes its slot and never releases it); the insert's value and
+// result are named locals because retail packs them with the stream
+// holder's slot.
+void MilesAudioManager::playAudioEvent(Rva00051107AudioRequest *req)
+{
+    BfmePoolRef10 &event = req->m_pendingEvent;
+    Rva0010F149Handle info(*reinterpret_cast<const Rva0010F149Handle *>(&event->m_info));
+    if (!info.referent)
+        return;
+    PlayingAudioRef replaced;
+    unsigned int handleToKill = reinterpret_cast<Rva002A79A1DwordField *>(event.get())->get();
+    PlayingAudioRef playing = allocatePlayingAudio();
+    playing->m_event = event;
+    if (event->m_at4F && (float)event->getAudioEventInfo()->m_at38 < g_00DBA4FC)
+        reinterpret_cast<Weapon *>(event.get())->setLeechRangeActive(true);
+    event->m_at4F = false;
+    if (reinterpret_cast<Rva000CB12FByteField *>(event.get())->get()) {
+        playing->m_at45 = true;
+        playing->m_at30 = (float)m_audioSettings->m_at78;
+        reinterpret_cast<Weapon *>(event.get())->setLeechRangeActive(false);
+    }
+    event->m_at4B = false;
+    switch (info->m_atB0) {
+    case 0:
+    case 1:
+    case 4: {
+        if (info->m_atB0 == 1 && event->m_at4A) {
+            rva000603ED();
+        } else if (info->m_atB0 == 0) {
+            MusicSystem musicSystem = event->m_musicSystem;
+            int viewType = event->m_viewType;
+            if (musicSystem > m_activeMusicSystem[viewType])
+                moveUpMusicSystems(musicSystem, viewType, 0);
+        }
+        bool killed = false;
+        if (handleToKill)
+            killed = killAudioEventImmediately(handleToKill);
+        PlayingAudioUnknown0C stream;
+        if (!handleToKill || killed) {
+            stream.open(m_atB90, event->getFilename(), 0);
+            rva0005DB6C(event->getFilename());
+        }
+        reinterpret_cast<Rva000A8CAE &>(playing->m_at0C) = reinterpret_cast<Rva000A8CAE &>(stream);
+        playing->m_type = 4;
+        if (stream.isOpen()) {
+            if (info->m_atB0 == 1 && event->m_at4A)
+                m_at698 |= 1 << event->m_viewType;
+            reinterpret_cast<Rva000A8AEE *>(&stream)->rva000A8AEE(rva0005A9F8(&playing, 1, 1));
+            reinterpret_cast<Rva000A8AD8 *>(&stream)->rva000A8AD8(
+                reinterpret_cast<Rva002D94DD *>(playing->m_event.get())->rva002D94DD());
+            playAndStoreStream(playing, 0);
+            if (playing->m_event->m_at52) {
+                if (info->m_atB0 == 0)
+                    startPendingMusicTracks();
+                reinterpret_cast<Rva000A8AA6 *>(&stream)->rva000A8AA6(0);
+                reinterpret_cast<Rva000A8B6D *>(&stream)->rva000A8B6D();
+            }
+            playing.clear();
+        }
+        break;
+    }
+    case 2: {
+        float playPercent = info->m_at30;
+        if (GetGameAudioRandomValueReal(1e-7f, 1.0f, MILES_AUDIO_MANAGER_FILE, 7064) > playPercent)
+            break;
+        if (event->isPositionalAudio()) {
+            bool killed = false;
+            if (handleToKill)
+                killed = killAudioEventImmediately(handleToKill);
+            int sample3D;
+            if (!handleToKill || killed) {
+                sample3D = rva00054596();
+                if (!sample3D && killLowestPrioritySoundImmediately(event.get()))
+                    sample3D = rva00054596();
+            } else {
+                sample3D = 0;
+            }
+            playing->m_handle = sample3D;
+            reinterpret_cast<Rva00691040Handle &>(playing->m_file) =
+                reinterpret_cast<const Rva00690FF0Handle &>(req->m_file).rva000A89E3();
+            playing->m_type = 2;
+            m_playing3DSounds.push_back(playing);
+            if (sample3D) {
+                {
+                    AILMutexScope lock;
+                    NameKeyGenerator::KeyToBucketMap::value_type value(sample3D, playing.get());
+                    NameKeyGenerator::KeyToBucketMap::insert_result result =
+                        ((NameKeyGenerator::KeyToBucketMap *)&m_3DSampleMap)->insert(value);
+                }
+                ++m_num3DSamplesPlaying;
+                if (info->isTightlyCoupledSound()) {
+                    if (playSample2DOr3DUsingCallbackBuffers(playing, 0, (void *)sample3D)) {
+                        playing.clear();
+                    } else {
+                        reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).pop_back();
+                        if (playing->m_event->hasMoreLoops()) {
+                            rva0005AA72(playing);
+                            playing.clear();
+                        }
+                    }
+                } else if (!playSample3D(playing)) {
+                    reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).pop_back();
+                } else {
+                    playing.clear();
+                }
+            } else {
+                reinterpret_cast<OpaqueRefList &>(m_playing3DSounds).pop_back();
+                if (playing->m_event->hasMoreLoops()) {
+                    rva0005AA72(playing);
+                    playing.clear();
+                }
+            }
+        } else {
+            bool killed = false;
+            if (handleToKill)
+                killed = killAudioEventImmediately(handleToKill);
+            int sample;
+            if (!handleToKill || killed) {
+                sample = rva0005456B();
+                if (!sample && killLowestPrioritySoundImmediately(event.get()))
+                    sample = rva0005456B();
+            } else {
+                sample = 0;
+            }
+            playing->m_handle = sample;
+            reinterpret_cast<Rva00691040Handle &>(playing->m_file) =
+                reinterpret_cast<const Rva00690FF0Handle &>(req->m_file).rva000A89E3();
+            playing->m_type = 0;
+            m_playingSounds.push_back(playing);
+            if (sample) {
+                {
+                    AILMutexScope lock;
+                    NameKeyGenerator::KeyToBucketMap::value_type value(sample, playing.get());
+                    NameKeyGenerator::KeyToBucketMap::insert_result result =
+                        ((NameKeyGenerator::KeyToBucketMap *)&m_sampleMap)->insert(value);
+                }
+                ++m_num2DSamplesPlaying;
+                if (info->isTightlyCoupledSound()) {
+                    if (playSample2DOr3DUsingCallbackBuffers(playing, (void *)sample, 0)) {
+                        playing.clear();
+                    } else {
+                        reinterpret_cast<OpaqueRefList &>(m_playingSounds).pop_back();
+                        if (playing->m_event->hasMoreLoops()) {
+                            rva0005AA72(playing);
+                            playing.clear();
+                        }
+                    }
+                } else if (!playSample(playing)) {
+                    reinterpret_cast<OpaqueRefList &>(m_playingSounds).pop_back();
+                } else {
+                    playing.clear();
+                }
+            } else {
+                reinterpret_cast<OpaqueRefList &>(m_playingSounds).pop_back();
+                if (playing->m_event->hasMoreLoops()) {
+                    rva0005AA72(playing);
+                    playing.clear();
+                }
+            }
+        }
+        break;
+    }
+    }
+    if (playing.get() && playing->m_event->hasMoreLoops())
+        rva0005AA72(playing);
 }
