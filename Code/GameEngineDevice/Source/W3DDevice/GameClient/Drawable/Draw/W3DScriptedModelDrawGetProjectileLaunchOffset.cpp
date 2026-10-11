@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib /Ireference/shims/iniexception
+// stlport
 // ?getProjectileLaunchOffset@W3DScriptedModelDraw@@UBE_NABVModelConditionFlags@@W4WeaponSlotType@@HPAVMatrix3D@@W4WhichTurretType@@PAUCoord3D@@4@Z
 // retail 0x000C3DDA..0x000C4069 (655 bytes).
 // WorldBuilder twin 0x9363D0 is W3DScriptedModelDraw::getProjectileLaunchOffset
@@ -16,6 +17,38 @@
 #include "ascii_string.h"
 #include "Coord3D.h"
 #include <math.h>
+#include "Common/INIException.h"
+#include <vector>
+#include <stdlib.h>
+#include <string.h>
+
+class INI
+{
+public:
+	AsciiString getNextAsciiString();
+	const char *getNextTokenOrNull(const char *delimiter = 0);
+	const char *getNextToken(const char *delimiter = 0);
+
+	char pad[0x420];
+	const char *m_420;
+};
+
+struct WeightedModel
+{
+	AsciiString name;
+	int probability;
+};
+
+class W3DScriptedModelDrawModuleData
+{
+public:
+	struct AttachModelStruct
+	{
+		char pad[0x10];
+		_STL::vector<WeightedModel> models;
+		static void parseModel(INI *ini, void *instance, void *store, const void *userData);
+	};
+};
 
 typedef int Int;
 typedef float Real;
@@ -197,6 +230,34 @@ public:
 	}
 };
 
+
+// ?parseModel@AttachModelStruct@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z
+void W3DScriptedModelDrawModuleData::AttachModelStruct::parseModel(INI *ini, void *instance, void *, const void *)
+{
+	AttachModelStruct *self = (AttachModelStruct *)instance;
+	if (!self)
+		return;
+
+	WeightedModel model;
+	model.name = ini->getNextAsciiString();
+
+	const char *token = ini->getNextTokenOrNull(ini->m_420);
+	if (token && _strcmpi(token, "prob") == 0)
+	{
+		const char *probToken = ini->getNextToken(ini->m_420);
+		model.probability = atoi(probToken);
+		if (model.probability < 1 || model.probability > 100)
+		{
+			throw INIException(3, "*** ASSET ERROR: probability must be between 1 and 100 (not %i)", model.probability);
+		}
+	}
+	else
+	{
+		model.probability = -1;
+	}
+
+	self->models.push_back(model);
+}
 Bool W3DScriptedModelDraw::getProjectileLaunchOffset(
 	const ModelConditionFlags &condition,
 	WeaponSlotType wslot,
