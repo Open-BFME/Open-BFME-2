@@ -12,11 +12,12 @@ struct BridgeBehaviorObjectIDNode
 	ObjectID m_value;
 };
 
-class BridgeBehaviorObjectIDList
+class Rva002A1B6FNativeList
 {
 public:
-	void push_back(const ObjectID &value);
-	BridgeBehaviorObjectIDNode *m_node;
+	void append(void *const &value);
+private:
+	void *head;
 };
 
 struct Rva004DF4B5Arg
@@ -31,7 +32,7 @@ public:
 	void rva004DF4B5(void *p);
 private:
 	char m_pad00[0x24];
-	BridgeBehaviorObjectIDList m_24;
+	Rva002A1B6FNativeList m_24;
 };
 
 void Rva004DF4B5::rva004DF4B5(void *p)
@@ -39,5 +40,9 @@ void Rva004DF4B5::rva004DF4B5(void *p)
 	if (p == 0)
 		return;
 	ObjectID tmp = ((Rva004DF4B5Arg *)p)->m_74;
-	m_24.push_back(tmp);
+	// 0x002A1B6F is rowed as Rva002A1B6FNativeList::append (26B); the
+	// four-byte ObjectID element is passed through as the list's element
+	// word, so this resolves to the rowed body instead of the unrowed
+	// BridgeBehaviorObjectIDList::push_back spelling (sole U on this unit).
+	m_24.append((void *const &)tmp);
 }

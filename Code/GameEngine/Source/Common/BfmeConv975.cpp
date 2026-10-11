@@ -112,7 +112,12 @@ class BfmeD975
 {
 public:
 	char bfmeGo975D(int a);
-	char bfmeUse975D(void *p);
+};
+
+class ThingTemplate
+{
+public:
+	bool isEquivalentTo(const ThingTemplate *other) const;
 };
 
 char BfmeD975::bfmeGo975D(int a)
@@ -120,7 +125,12 @@ char BfmeD975::bfmeGo975D(int a)
 	void *p = (void *)TheThingFactory->findTemplate(*((const AsciiString *)a));
 
 	if (p)
-		return bfmeUse975D(p);
+		// 0x0033BB04 is rowed as ThingTemplate::isEquivalentTo (335B,
+		// ThingTemplateIsEquivalentTo.cpp); the found template is passed
+		// as the argument with this as the compared template, so this
+		// resolves to the rowed body instead of the unrowed
+		// BfmeD975::bfmeUse975D donor-sweep spelling (sole U on this unit).
+		return ((const ThingTemplate *)this)->isEquivalentTo((const ThingTemplate *)p);
 
 	return 0;
 }

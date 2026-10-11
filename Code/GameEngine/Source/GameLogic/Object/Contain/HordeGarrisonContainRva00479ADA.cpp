@@ -50,18 +50,14 @@ public:
 
 class GarrisonContain : public OpenContain
 {
+public:
+	virtual void onContaining(Object *obj, bool flag);
 };
 
 class Rva0047A040Base9E0
 {
 public:
 	bool rva00588D24(void *a, Object *b);
-};
-
-class Rva00478C2C
-{
-public:
-	void rva00478C2C(Object *obj, void *x);
 };
 
 class HordeGarrisonContain : public GarrisonContain, public Rva0047A040Base9E0
@@ -76,8 +72,11 @@ void HordeGarrisonContain::rva00479ADA(Object *obj)
 {
 	Rva0047A040Base9E0 *base = (Rva0047A040Base9E0 *)((char *)this + 0x9E0);
 	if (base->rva00588D24(this, obj)) {
-		Rva00478C2C *bpc = (Rva00478C2C *)((char *)this + 0x20);
-		bpc->rva00478C2C(obj, 0);
+		// 0x00478C2C is rowed as GarrisonContain::onContaining (222B,
+		// GarrisonContainOnContaining.cpp); this resolves to the rowed
+		// body instead of the unrowed Rva00478C2C spelling (sole U).
+		GarrisonContain *bpc = (GarrisonContain *)((char *)this + 0x20);
+		bpc->GarrisonContain::onContaining(obj, false);
 		f12();
 	}
 }

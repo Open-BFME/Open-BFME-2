@@ -1313,44 +1313,11 @@ void GarrisonContain::removeAllContained( Bool exposeStealthUnits )
 // ------------------------------------------------------------------------------------------------
 // Native exitObjectViaDoor is recovered in GarrisonContainExit.cpp.
 
-// ?GarrisonContain::onContaining present-unmatched
-void GarrisonContain::onContaining( Object *obj, Bool wasSelected )
-{
-
-	// extend base class
-	OpenContain::onContaining( obj, wasSelected );
-
-	// get the structure object
-	Object *structure = getObject();
-
-	// objects inside a building are held
-	obj->setDisabled( DISABLED_HELD );
-
-	// the building can now attack, since it has soldiers inside of it
-	structure->setStatus( MAKE_OBJECT_STATUS_MASK( OBJECT_STATUS_CAN_ATTACK ) );
-
-	// give the object a garrisoned version of its weapon
-	obj->setWeaponBonusCondition( WEAPONBONUSCONDITION_GARRISONED );
-
-	// put the object in the center of the building
-  if (isEnclosingContainerFor( obj ))
-	  obj->setPosition( structure->getPosition() );
-
-	obj->getControllingPlayer()->getAcademyStats()->recordBuildingGarrisoned();
-
-	//
-	// the team of the building is now the same as those that have garrisoned it, be sure
-	// to save our original team tho so that we can revert back to it when all the 
-	// occupants are gone
-	//
-	recalcApparentControllingPlayer();
-
-  Drawable *draw = obj->getDrawable();
-  if ( draw && draw->isSelected() )
-    TheInGameUI->deselectDrawable( draw );
-
-
-}  // end onContaining
+// Note: an earlier ZH-derived GarrisonContain::onContaining body stood here.
+// The census proves our copy is not retail's (S: the kept definition differs
+// from retail bytes) while 0x00478C2C is rowed 222B from
+// GarrisonContainOnContaining.cpp, so this unit no longer defines it and the
+// link keeps the rowed copy.
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
