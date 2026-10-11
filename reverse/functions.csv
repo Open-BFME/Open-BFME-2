@@ -76442,3 +76442,4 @@ uw_0077909c,,0x0077909C,13,Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPre
 ?set@Rva000F1010StringField@@QAEXPBD@Z,,0x000F1010,8,Code/GameEngine/Source/Common/StringFieldOps.cpp,matched,add ecx 0x10 then tail jump to rowed StringBase<char>::set(const char*); receiver unknown
 ?set@Rva006007D2StringField@@QAEXPBD@Z,,0x006007D2,8,Code/GameEngine/Source/Common/StringFieldOps.cpp,matched,add ecx 0x4 then tail jump to rowed StringBase<char>::set(const char*); receiver unknown
 ?set@Rva00225A79StringField@@QAEXABVUnicodeString@@@Z,,0x00225A79,8,Code/GameEngine/Source/Common/StringFieldOps.cpp,matched,add ecx 0x30 then tail jump to rowed StringBase<unsigned short>::set; receiver unknown
+?LoadPostProcess@CPUParticle@FXParticleSystem@@QAEXXZ,,0x001F6201,142,Code/GameEngine/Source/GameClient/System/FXParticleSystem/CPUParticleLoadPostProcess.cpp,matched,WB FXParticleSystem::CPUParticle::LoadPostProcess line 1070
