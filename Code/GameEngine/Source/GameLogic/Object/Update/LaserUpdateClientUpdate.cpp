@@ -91,6 +91,12 @@ public:
     unsigned m_parentID, m_targetID;
 };
 
+static void InitLaserMatrix3D(Matrix3D &m, bool init)
+{
+    if (init)
+        m.Make_Identity();
+}
+
 void LaserUpdate::clientUpdate()
 {
     const LaserUpdateModuleData *data=m_moduleData;
@@ -115,7 +121,8 @@ expired:
         Drawable *target=TheGameClient->findDrawableByID(m_targetID);
         if(parent && target) {
             if(!data->m_parentFireBoneName.isEmpty()) {
-                Matrix3D matrix(true);
+                Matrix3D matrix;
+                InitLaserMatrix3D(matrix, true);
                 parent->getCurrentWorldspaceClientBonePositions(data->m_parentFireBoneName.str(),matrix);
                 coordSet(&m_startPos,matrix.Get_X_Translation(),matrix.Get_Y_Translation(),matrix.Get_Z_Translation());
             } else {
