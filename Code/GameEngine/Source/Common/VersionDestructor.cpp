@@ -157,6 +157,9 @@ public:
     AsciiString rva00237F83ConfiguredVersion();
     AsciiString getAsciiBuildLocation();
     AsciiString *getBuildGuid(void);
+    // Reconstruction name; the original spelling is unknown. Retail
+    // 0x00237E63 (93 bytes): lobby text colour for a version block.
+    int rva00237E63(const void *other, bool force);
     ~Version();
     // Reconstruction name; the original method spelling is unknown.
     // Retail body reads the seven named build metadata keys.
@@ -218,6 +221,30 @@ AsciiString Version::rva00237F83ConfiguredVersion()
 AsciiString Version::getAsciiBuildLocation() { return m_buildLocation; }
 
 AsciiString *Version::getBuildGuid(void) { return &m_buildGuid; }
+
+// Retail 0x00237E63 (93 bytes): text colour for another build's version
+// block in the LAN lobby list. Compares our four version ints against the
+// block's sixteen bytes, then colours by the block's first int: 1 picks
+// between 0xff7aab44 (identical) and 0xff3d5522, 2 picks between
+// 0xff747bce and 0xff3a3d67, anything else is grey 0xff646464.
+int Version::rva00237E63(const void *other, bool force)
+{
+	const int *theirs = (const int *)other;
+	bool same = !force
+		&& m_major == theirs[0]
+		&& m_minor == theirs[1]
+		&& m_buildNum == theirs[2]
+		&& m_localBuildNum == theirs[3];
+	switch (theirs[0])
+	{
+	case 1:
+		return same ? 0xff7aab44 : 0xff3d5522;
+	case 2:
+		return same ? 0xff747bce : 0xff3a3d67;
+	default:
+		return 0xff646464;
+	}
+}
 
 void Version::initializeBuildMetadata()
 {
