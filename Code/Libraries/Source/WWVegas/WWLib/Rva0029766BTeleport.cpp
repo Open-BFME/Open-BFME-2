@@ -8,11 +8,11 @@ class Object
 {
 public:
 	void restoreObjectToWorldInternal();
-	void rva0029660C(const Coord3D *pos, int i);
+	void teleportTo(const Coord3D *pos, bool flag);
 	void restoreObjectToWorld(const Coord3D *pos);
 };
 void Object::restoreObjectToWorld(const Coord3D *pos)
 {
 	restoreObjectToWorldInternal();
-	((Object *)this)->rva0029660C(pos, 0);
+	((Object *)this)->teleportTo(pos, false);
 }

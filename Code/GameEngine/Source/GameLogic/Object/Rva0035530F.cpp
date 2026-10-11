@@ -4,7 +4,7 @@
 class AiOrdersManager
 {
 public:
-	void rva00355183(int a, int b);
+	void clearOrders(int a, int b);
 	void rva0035530F(int a, void *holder);
 };
 struct BcastNode
@@ -33,7 +33,7 @@ void AiOrdersManager::rva0035530F(int a, void *holder)
 	do {
 		void *content = cur->m_08;
 		if (content)
-			rva00355183(code, *(int *)((char *)content + 0x74));
+			clearOrders(code, *(int *)((char *)content + 0x74));
 		cur = cur->m_next;
 	} while (cur != *(BcastNode **)((char *)holder + 4));
 }

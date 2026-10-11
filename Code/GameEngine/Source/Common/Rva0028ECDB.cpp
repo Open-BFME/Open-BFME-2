@@ -19,6 +19,16 @@ class Rva002E9897Host
 public:
 	bool IsWaterCell(void *a, int b);
 };
+// 0x002E9897 is rowed as Pathfinder::IsWaterCell (47B,
+// PathfinderCellQueryPredicates.cpp; WB Pathfinder::IsWaterCell); the host
+// class above is that same class under an address-derived name. This call
+// goes through a TU-local Pathfinder view so it resolves to the rowed body
+// instead of the unrowed spelling (sole U on this unit).
+class Pathfinder
+{
+public:
+	bool IsWaterCell(int a, int b);
+};
 class Rva0028ECDBHost
 {
 public:
@@ -33,7 +43,7 @@ private:
 bool Rva0028ECDBHost::rva0028ECDB(void *a)
 {
 	Rva0028ECDBAux *aux = m_04;
-	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !((Rva002DFF0F8 *)TheAI)->m_10->IsWaterCell(a, 1))
+	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !((Pathfinder *)((Rva002DFF0F8 *)TheAI)->m_10)->IsWaterCell((int)a, 1))
 		return true;
 	return false;
 }

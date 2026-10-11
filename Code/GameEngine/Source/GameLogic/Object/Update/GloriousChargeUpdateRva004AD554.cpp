@@ -97,7 +97,7 @@ public:
 class SpecialAbilityUpdate : public UpdateModule
 {
 public:
-	virtual void rva00450D9A();
+	virtual void startPreparation();
 };
 class GloriousChargeUpdate : public SpecialAbilityUpdate
 {
@@ -106,7 +106,7 @@ public:
 };
 void GloriousChargeUpdate::rva004AD554()
 {
-	SpecialAbilityUpdate::rva00450D9A();
+	SpecialAbilityUpdate::startPreparation();
 	setModelConditionBit(m_object, 6 * 32 + 15);
 	Drawable *draw = m_object->getDrawable();
 	if (draw)
