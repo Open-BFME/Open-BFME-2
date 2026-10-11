@@ -91,7 +91,16 @@ class Player;
 
 struct Rva002A8AB1Record
 {
-	void rva002C6A76(Team *team);
+};
+
+// 0x002C6A76 is rowed as SkirmishAI::UnRegister (23B from
+// SkirmishAI.cpp); these calls go through a TU-local view so they resolve
+// to the rowed body instead of the unrowed Rva002A8AB1Record spelling
+// (U on this unit).
+class SkirmishAI
+{
+public:
+	void UnRegister(Team *team);
 };
 
 class Rva002A8F24
@@ -291,7 +300,7 @@ void Team::transferUnitsTo(Team *newTeam)
 		iter.cur()->setTeam(newTeam);
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(getControllingPlayer());
 	if (rec)
-		rec->rva002C6A76(this);
+		((SkirmishAI *)rec)->UnRegister(this);
 }
 
 void Team::transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds)
@@ -311,5 +320,5 @@ void Team::transferKindOfUnitsTo(Team *newTeam, const BitFlags<69> &kinds)
 	}
 	Rva002A8AB1Record *rec = g_00DFEEF8->rva002A8AB1(getControllingPlayer());
 	if (rec && !rva0039DEC4())
-		rec->rva002C6A76(this);
+		((SkirmishAI *)rec)->UnRegister(this);
 }
