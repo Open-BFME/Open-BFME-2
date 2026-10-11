@@ -31,7 +31,7 @@ struct Rva000C838FOwner{char prefix[0x50];_STL::vector<BfmeVectorRecord000BDF17>
 namespace _STL{template<>void vector<BfmeVectorRecord000BDF17>::push_back(const BfmeVectorRecord000BDF17&);}
 void Rva000C838FParse(INI*ini,void*instance,void*store,const void*userData){
  AsciiString token=ini->getNextAsciiString();
- AsciiString original(token);token.toLower();
+ AsciiString original(token);((StringBase<char> &)token).toLower();
  BfmeVectorRecord000BDF17 record(token,0.0f);record.text1=original;
  unsigned char scratch[76];memset(scratch,0,sizeof scratch);
  if((unsigned)userData==1)record.word1C=2;
