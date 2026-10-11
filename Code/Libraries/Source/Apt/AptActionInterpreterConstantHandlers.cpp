@@ -78,12 +78,12 @@ public:
     void toString(EAStringC &) const;
 };
 struct AptCharacterInst;
-class EAStringC { void *mpData; public: EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
+class EAStringC { void *mpData; public: bool rva006D3510(const char *) const; EAStringC &TrimRight(const char *); EAStringC &Rva006D4F00Append(const EAStringC &); EAStringC &Rva006D50A0Append(const char *); EAStringC(unsigned int,unsigned int); EAStringC rva006D5ED0(int) const; EAStringC rva006d5f30(int,int) const; void rva006D3470(); int Find(char,int=0); EAStringC &Append(const char *const,unsigned int); bool IsEmpty() const; bool IsEqualTo(const EAStringC *) const; bool rva006D3560(const EAStringC *) const; const char *rva00620090() const; int rva006d6070(const char *,int=0); EAStringC(); unsigned int rva006D3750() const; EAStringC(const char *); EAStringC(const EAStringC &); int GetAt(int) const; int rva006D54B0(int,int); ~EAStringC(); EAStringC &operator=(const EAStringC &); };
 class Rva006D2A60 { public: void *allocBlock(int); void freeBlock(void *,int); };
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 // Native InitArray allocates44B; ctor6D91B0 builds type0x16, hash+8,
 // AptArray vtableCEA778 and slots+20/+24/+28. Unaccessed state stays opaque.
-class AptArray : public AptValue { char m_arrayState[36]; public: AptArray(); static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *p,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p,n); } AptValue *get(int); void set(int,AptValue *); };
+class AptArray : public AptValue { char m_arrayState[32]; public: int mnCount; AptValue *GetAt(int) const; AptArray(); static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); } static void operator delete(void *p,unsigned int n) { g_pChainBlockAllocatorF4->freeBlock(p,n); } AptValue *get(int); void set(int,AptValue *); };
 // PC callbacks occupy two independently zero-initialized slots in gAptFuncs.
 // Member handlers establish the getter/setter ABI; later source names their role.
 AptValue *(__cdecl *g_bfmeAptGetExternAtE17768)(const char *)=0;
@@ -112,6 +112,7 @@ struct AptConstantPool { int nItems; AptValue **apItems; };
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 void Rva00709F70Set(int, AptValue *);
+class BfmeAptValue006DCD20;
 class AptBasePtrStack
 {
 public:
@@ -158,6 +159,7 @@ public:
     }
     __forceinline int GetSize() const { return count; }
     AptValue *rva006FE580(int);
+    BfmeAptValue006DCD20 *rva007062F0();
     int count,capacity;
     AptValue **items;
 };
@@ -171,7 +173,7 @@ public:
     Rva006FBDB0(EAStringC,int,int);
     ~Rva006FBDB0() { context=0; }
     static void *operator new(unsigned int n) { return ((Rva006DB160 *)g_pChainBlockAllocator)->allocBlock(n); }
-    static void operator delete(void *v) { g_pChainBlockAllocator->freeBlock(v,12); }
+    static void operator delete(void *v,unsigned int n) { g_pChainBlockAllocator->freeBlock(v,n); }
     int context,action;
 };
 struct AptCallDebugStack {
@@ -184,6 +186,41 @@ struct AptCallDebugStack {
         items[count++]=v;
     }
     __forceinline void Pop() { --count; delete items[count]; items[count]=0; }
+};
+
+void __debugbreak();
+#pragma intrinsic(__debugbreak)
+// WB175A800 names AptValuePtrStack<AptValue>::push (native6E0D60). The
+// interpreter's with/this stacks at+0C/+24 are this specialization. Retail
+// inlines some member uses and calls others, so both shapes are spelled out;
+// the line-0x89 "m_nElements - nPos > 0" assertion is at()'s, which top()
+// inlines (out-of-line6DE160 top, 6DCC10 at).
+template<class T> struct AptValuePtrStack {
+    int count,capacity; T **items;
+    void push(T *);
+    T *top();
+    T *at(int);
+    __forceinline void pushInline(T *value) {
+        if(!(count<capacity)) {
+            g_bfmeAptAssertAtE17734("m_nElements < m_nSize", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x76);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
+        }
+        items[count]=value; ++count; value->AddRef();
+    }
+    inline T *topInline() {
+        if(count<=0) {
+            g_bfmeAptAssertAtE17734("m_nElements - nPos > 0","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",0x89);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        return items[count-1];
+    }
+    inline void pop() {
+        if(count<=0) {
+            g_bfmeAptAssertAtE17734("size() > 0","c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h",0x7D);
+            if(g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        items[count-1]->Release(); --count;
+    }
 };
 
 // Original MAP names AptActionSetup; native cleanup reads function name at+8.
@@ -212,8 +249,9 @@ private:
     static FunctionTable sGlobalTable[185];
 public:
     AptBasePtrStack stack;
-    unsigned char m_otherStacksAndDebugData[0x24-12];
-    struct { int count,capacity; AptValue **items; } thisStack;
+    AptValuePtrStack<AptValue> withStack;
+    unsigned char m_betweenWithAndThis[0x24-0x18];
+    AptValuePtrStack<AptValue> thisStack;
     AptScriptFunctionBase *mpCurrentFunction;
     AptCallDebugStack debugCallStack;
     AptConstantPool constantPool;
@@ -1325,16 +1363,6 @@ struct AptContextRootState { unsigned char prefix[0x54]; AptValue *head; };
 struct AptContextRootDisplay { AptContextRootState *state; };
 void __debugbreak();
 #pragma intrinsic(__debugbreak)
-template<class T> struct AptValuePtrStack {
-    int count,capacity; T **items;
-    __forceinline void push(T *value) {
-        if(!(count<capacity)) {
-            g_bfmeAptAssertAtE17734("m_nElements < m_nSize", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\_AptValuePtrStack.h", 0x76);
-            if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
-        }
-        items[count]=value; ++count; value->AddRef();
-    }
-};
 struct AptIntervalTimer { unsigned int field0; AptValue *callback; float interval,countdown; AptValue *context; AptValuePtrStack<AptValue>params; void cleanParams(); };
 class Rva006E34D0 { public: unsigned char prefix[0x30]; AptContextRootDisplay *display; AptIntervalTimer *intervalTimers; int nActiveTimers; unsigned char middle[8]; AptValue *mpDragMC; float a,b,c,d,tx,ty; unsigned char toMouse[0x74-0x60]; int mouseX,mouseY; unsigned char beforeMax[0xa8-0x7c]; int maxIntervalTimers; };
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;
@@ -1908,6 +1936,7 @@ public:
     AptPrototype();
     static void *operator new(unsigned int n) { return g_pChainBlockAllocatorF4->allocBlock(n); }
     static void operator delete(void *,unsigned int);
+    __forceinline AptValue *GetSuperConstructor() const { return mp__constructor__; }
     __forceinline void SetSuperConstructor(AptValue *p) { AptValue *old=mp__constructor__; mp__constructor__=p; p->AddRef(); if(old) old->Release(); }
 };
 void AptActionInterpreter::_FunctionAptActionExtends(AptActionInterpreter *const p,LocalContextT *const c)
@@ -1940,6 +1969,51 @@ void AptActionInterpreter::_FunctionAptActionExtends(AptActionInterpreter *const
 #pragma comment(linker, "/alternatename:??3AptPrototype@@SAXPAXI@Z=?Rva006F12F0Free@@YAXPAXH@Z")
 #pragma comment(linker, "/alternatename:?isPrototype@AptValue@@QBE_NXZ=?isPrototype@BfmeAptValue006DCD20@@QBEHXZ")
 #pragma comment(linker, "/alternatename:?c_prototype@AptValue@@QBEPAVAptPrototype@@XZ=?rva006DD120@BfmeAptValue006DCD20@@QAEPAV1@XZ")
+
+// Native ImplementsOp705D90..706061 (slot from the opcode table at9DC980).
+// The invalid-object branch pops its own operands and returns; retail
+// tail-merged that pop into the common exit, which keeps MOV ECX ahead of
+// PUSH there. The scratch EAStringC lives for the whole handler.
+void AptActionInterpreter::_FunctionAptActionImplementsOp(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    EAStringC sTemp;
+    if (!(p->stack.GetSize()>2)) {
+        g_bfmeAptAssertAtE17734("pInterpreter->stack.GetSize() > 2", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x2505);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    AptValue *pObject=p->stack.At(0);
+    int nInterfaces=p->stack.At(1)->toInteger();
+    if (!(pObject->isScriptFunction() || pObject->isNativeFunction())) {
+        if (!(pObject->isScriptFunction() || pObject->isNativeFunction())) {
+            g_bfmeAptAssertAtE17734("pObject->isScriptFunction() || pObject->isNativeFunction()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x250f);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        Rva006CC110Log(4,"Implements Opcode attempting to mess with invalid object.");
+        p->stack.rva006E3AA0(nInterfaces+2);
+        return;
+    }
+    if (!(nInterfaces>0)) {
+        g_bfmeAptAssertAtE17734("nInterfaces > 0", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x2515);
+        if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+    }
+    AptArray *pA=new AptArray();
+    for (int i=0;i<nInterfaces;++i) {
+        AptValue *pTemp=p->stack.At(i+2);
+        if (!pTemp->ContainsNativeHashVirtual()) {
+            g_bfmeAptAssertAtE17734("pTemp->ContainsNativeHashVirtual()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptActionInterpreter.cpp", 0x251d);
+            if (g_bfmeAptBreakOnAssertAtDDC01C) { __asm int 3 }
+        }
+        AptNativeHash *pNativeHash=pTemp->GetNativeHashVirtual();
+        AptValue *pFuncPrototype=pNativeHash->GetPrototype();
+        if (!pFuncPrototype) { pFuncPrototype=new AptPrototype(); pNativeHash->SetPrototype(pFuncPrototype); }
+        pA->set(i,pFuncPrototype);
+    }
+    if (pObject->GetNativeHashVirtual()) {
+        EAStringC key("__INTERFACES__");
+        pObject->GetNativeHashVirtual()->Set(&key,pA);
+    }
+    p->stack.rva006E3AA0(nInterfaces+2);
+}
 
 // PC prefix slotDDC920 points to FSCommand:; callback E17758 is zero-initialized.
 // Original Apt.h callback declaration and native caller establish void cdecl ABI.
@@ -2670,6 +2744,8 @@ class BfmeAptValue006DCD20 {
 public:
     BfmeAptValue006DCD20 *rva006DCEA0();
     float rva006DD460();
+    BfmeAptValue006DCD20 *rva006DD0E0();
+    BfmeAptValue006DCD20 *rva006DCEE0();
     bool isUndefined() const;
     int toInteger() const;
 };
@@ -2787,7 +2863,7 @@ AptValue *callback006FEFF0(AptValue *,int nParams)
             if(nParams>firstParam) {
             for(int remaining=nParams-firstParam;remaining>0;--remaining) {
                 AptValue *p=g_aptDateInterpreter.stack.At(firstParam);
-                g_bfmeAptPtrAtE176D0->intervalTimers[i].params.push(p);
+                g_bfmeAptPtrAtE176D0->intervalTimers[i].params.pushInline(p);
                 ++firstParam;
             }
             }
@@ -2796,4 +2872,88 @@ AptValue *callback006FEFF0(AptValue *,int nParams)
     }
     TIMER_CHECK(i!=g_bfmeAptPtrAtE176D0->maxIntervalTimers,"i != gpPool->GetMaxIntervalTimers()",0x535);
     return AptInteger::Create(i);
+}
+
+// CallMethod: original dispatch slot and native 708070..7087E1 (1905 bytes).
+// Native object flags: bits8/9 of +1C are mbHasClass/mbIsInMainInst; script
+// functions keep their owning CIH at +20; the prototype kept at E1807C is
+// compared before the this-stack lookup.
+class Rva006DC9E0 { public: int rva006DC9E0(); };
+class BfmeAptObjectFlagsView : public AptValue {
+    unsigned char mNativeHash[0x1C-8];
+public:
+    unsigned int mnImplementedObjects:8;
+    unsigned int mbHasClass:1;
+    unsigned int mbIsInMainInst:1;
+    __forceinline void setInMainInst(int v) { mbIsInMainInst=v; }
+};
+struct BfmeAptScriptFunctionView { unsigned char prefix[0x20]; AptCIH *mpCIH; };
+extern AptPrototype *g_00E1807C;
+static __forceinline BfmeAptObjectFlagsView *bfmeObjectFlags(AptValue *v) { return (BfmeAptObjectFlagsView *)((BfmeAptValue006DCD20 *)v)->rva006DD0E0(); }
+void AptActionInterpreter::_FunctionAptActionCallMethod(AptActionInterpreter *const p,LocalContextT *const c)
+{
+    AptValue *function=p->stack.At(0);
+    AptValue *object=p->stack.At(1);
+    AptValue *params=p->stack.At(2);
+    int nParams=params->toInteger();
+    EAStringC name;
+    bool pushed=false;
+    AptValue *fn=0;
+    if(function==gpUndefinedValue) {
+        name="super";
+        if(object->isPrototype()) fn=object->c_prototype()->GetSuperConstructor();
+        else fn=object;
+    } else function->toString(name);
+    if(!object->isUndefined()) {
+        AptValue *savedObject=object,*savedParams=params;
+        p->thisStack.pushInline((AptValue *)c->pCurrentContext);
+        function=0;
+        p->stack.Pop();p->stack.PopNoDec();p->stack.PopNoDec();
+        if(fn==0 || fn==gpUndefinedValue) fn=p->getVariable(object,0,&name);
+        if(!fn || fn->isUndefined()) {
+            if(name.rva006D3510("apply") || name.rva006D3510("call")) {
+                fn=object;
+                if(params->isInteger() || params->isFloat()) {
+                    if(nParams>0) { AptValue *thisObj=p->stack.rva006FE580(0); object=(!thisObj || thisObj->isUndefined())?gpUndefinedValue:thisObj; p->stack.rva006FE920(); --nParams; }
+                    else object=gpUndefinedValue;
+                } else {
+                    object=params; AptValue *actualParams=p->stack.rva006FE580(0); nParams=actualParams->toInteger();
+                    if(nParams>1) { AptValue *thisObj=p->stack.rva006FE580(1); if(thisObj && !thisObj->isUndefined()) object=thisObj; p->stack.rva006FE920(); --nParams; }
+                    p->stack.rva006FE920();
+                }
+                if(name.rva006D3510("apply")) {
+                    AptValue *v=p->stack.rva006FE580(0);
+                    if(v->isArray()) { p->stack.rva006FE920(); AptArray *a=v->c_array(); int length=a->mnCount; nParams=nParams-1+length; for(int i=length-1;i>=0;--i) p->stack.Push(a->GetAt(i)); }
+                }
+            }
+        }
+        if(object->getHasClass()) {
+            bool good=true; AptValue *value=object;
+            if(p->withStack.count==0) { if(value==c->pSuper) { EAStringC thisName("this"); value=p->getVariable((AptValue *)c->pCurrentContext,0,&thisName); } }
+            else {
+                AptValue *top=p->withStack.top();
+                if(value->isCIH() && ((const AptValue *)value)->c_cih()->mpDisplayListParent==(AptCIH *)top) {}
+                else if(value!=top) {
+                    AptNativeHash *hash=top->GetNativeHashVirtual();
+                    while(hash) { AptValue *proto=hash->mp__proto__; if(proto && proto==value) { good=false; break; } hash=proto?proto->GetNativeHashVirtual():0; }
+                }
+            }
+            if(good) { pushed=true; if(value->isObject()) bfmeObjectFlags(value)->setInMainInst(1); p->withStack.push(value); }
+        }
+        bool stayAlive=false;
+        if(object->getRefCount()==1) { object->AddRef(); stayAlive=true; }
+        p->debugCallStack.Push(new Rva006FBDB0(name.rva00620090(),(int)object,0x8000000));
+        if(((Rva006DC9E0 *)object)->rva006DC9E0()) {
+            if(object==g_00E1807C) object=p->thisStack.at(1);
+            if(object==c->pSuper) {
+                if(fn->isScriptFunction()) { BfmeAptScriptFunctionView *sf=(BfmeAptScriptFunctionView *)((BfmeAptValue006DCD20 *)fn)->rva006DCEE0(); AptCIH *old=sf->mpCIH; sf->mpCIH=c->pCurrentContext; p->callFunction(object,fn,nParams); sf->mpCIH=old; }
+                else p->callFunction(object,fn,nParams);
+            } else p->callFunction(object,fn,nParams);
+        } else p->callFunction(object,fn,nParams);
+        if(pushed==true) { AptValue *top=p->withStack.topInline(); if(top->isObject()) bfmeObjectFlags(top)->setInMainInst(0); p->withStack.pop(); }
+        if(stayAlive) object->Release();
+        p->debugCallStack.Pop();
+        if(p->stack.At(0)!=gpUndefinedValue && object->isArray() && (name.rva006D3510("pop") || name.rva006D3510("shift"))) ((AptValue *)p->stack.rva007062F0())->Release();
+        p->thisStack.pop(); savedObject->Release(); savedParams->Release();
+    } else { p->stack.rva006E3AA0(nParams+3); p->stack.PushNoInc(gpUndefinedValue); }
 }

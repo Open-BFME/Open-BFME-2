@@ -75,7 +75,5 @@ name,target_rva,verdict
 ??0BfmeQuery1279@@QAE@XZ,0x006F7B20,bytes_differ
 ??0Rva006F8D70@@QAE@XZ,0x006F8550,bytes_differ
 ?rva006FBED0@Rva8D0D80Result@@QAEXXZ,0x006FBED0,bytes_differ
-?PrepareForExecution@AptActionInterpreter@@QAEPAXPAUAptActionSetup@@@Z,0x00700090,bytes_differ
 ?_FunctionAptActionDefineFunction@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00704B50,bytes_differ
 ?_FunctionAptActionDefineFunction2@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00704C60,bytes_differ
-?_FunctionAptActionCallFunction@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z,0x00707910,bytes_differ
