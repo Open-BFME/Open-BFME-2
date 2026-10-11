@@ -12,7 +12,12 @@
 // indexes cursorResources with. m_currentCursor is +0x4FA4 as in
 // Mouse::setCursor 0x001EEFD2.
 
+// math.h's x86 plain-inline float wrappers would emit a TU-local _atan2f
+// COMDAT that loses to the retail home copy (Rva000422A0 owns _atan2f).
+// Rename it away so this TU's out-of-line call binds the home copy.
+#define atan2f bfmeMathUnusedAtan2f
 #include <math.h>
+#undef atan2f
 
 extern "C" float __cdecl atan2f( float y, float x );
 
