@@ -23,7 +23,7 @@ AsciiStringPlusText operator+(const AsciiString &,const char *);
 AsciiString &Rva00317C68Append(AsciiString &,const char *);
 AsciiString makeNrmTextureName(const AsciiString &in)
 {
-    const char *dot=in.reverseFind('.');
+    const char *dot=((const StringBase<char> &)in).reverseFind('.');
     if (dot) {
         AsciiString extension(dot);
         AsciiString base(in,0,dot-in.str());
