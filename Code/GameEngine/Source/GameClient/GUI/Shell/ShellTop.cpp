@@ -215,6 +215,14 @@ public:
 	void update();
 };
 
+// Retail folds ShellMenuSchemeManager::update with the other empty members
+// at 0x000B3FD0 (symbols.csv pin from Shell::update's REL32): a bare ret.
+// The definition lives in ShellMenuSchemeSet.cpp (this TU keeps only the
+// declaration, so Shell::update still calls it out of line). The TU's
+// AsciiString::compareNoCase wrapper is likewise unreferenced (rowed bodies
+// call the rowed StringBase body), so the findScreenByFilename call spells
+// the layout twin directly.
+
 // BFME 2's Shell::update additions: the low-LOD shell map backdrop and the
 // transition it fades in with.
 extern "C" __declspec(dllimport) unsigned long __stdcall timeGetTime(void);
@@ -328,7 +336,7 @@ WindowLayout *Shell::findScreenByFilename(AsciiString filename)
 	{
 
 		screen = m_screenStack[ i ];
-		if( screen && filename.compareNoCase(screen->getFilename()) == 0 )
+		if( screen && ((const StringBase<char> &)filename).compareNoCase(*(const StringBase<char> *)&screen->getFilename()) == 0 )
 			return screen;
 
 	}  // end for i

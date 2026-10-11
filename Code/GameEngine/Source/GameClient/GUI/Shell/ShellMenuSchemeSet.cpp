@@ -38,10 +38,16 @@ class ShellMenuSchemeManager
 {
 public:
 	void setShellMenuScheme(AsciiString name);
+	void update();
 private:
 	_STL::list<ShellMenuScheme *> m_schemeList;
 	ShellMenuScheme *m_currentScheme;
 };
+
+// Retail folds this empty update with the other empty members at 0x000B3FD0
+// (a bare ret). Defined here (not in ShellTop.cpp, whose Shell::update must
+// keep calling it out of line); ShellTop.cpp carries the twin-cast and the
+// ICF-twin row for this address is added with --icf-owner.
 
 void ShellMenuSchemeManager::setShellMenuScheme(AsciiString name)
 {
@@ -60,4 +66,8 @@ void ShellMenuSchemeManager::setShellMenuScheme(AsciiString name)
 		}
 		++it;
 	}
+}
+
+void ShellMenuSchemeManager::update()
+{
 }
