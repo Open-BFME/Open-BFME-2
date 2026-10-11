@@ -130,8 +130,8 @@ Int W3DTreeBuffer::rva000ECDF5(const AsciiString &templateName, Int shadowKind, 
 
 	Int index = -2;
 	for (Int i = 0; i < m_numTreeTypes; ++i) {
-		if (m_treeTypes[i].m_modelName.compareNoCase(data->m_modelName) == 0 &&
-			m_treeTypes[i].m_nameC.compareNoCase(data->m_nameC) == 0) {
+		if (((const StringBase<char> &)m_treeTypes[i].m_modelName).compareNoCase(*(const StringBase<char> *)&data->m_modelName) == 0 &&
+			((const StringBase<char> &)m_treeTypes[i].m_nameC).compareNoCase(*(const StringBase<char> *)&data->m_nameC) == 0) {
 			index = i;
 			break;
 		}

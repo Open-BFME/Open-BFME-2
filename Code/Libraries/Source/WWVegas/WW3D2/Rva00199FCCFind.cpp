@@ -26,7 +26,7 @@ void *Rva00199FCC::rva00199FCC(const AsciiString &name)
 	Rva00199FCCRec *p = m_begin;
 	for (; p != m_end; ++p)
 	{
-		if (p->m_key.compareNoCase(name) == 0)
+		if (((const StringBase<char> &)p->m_key).compareNoCase(*(const StringBase<char> *)&name) == 0)
 			break;
 	}
 	return p != m_end ? p : 0;
