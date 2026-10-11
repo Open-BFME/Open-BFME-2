@@ -72,7 +72,7 @@ bool AptOnlineCustomMatch::handleSlashCommands(UnicodeString uText)
 	AsciiString remainder = message.str() + 1;
 	AsciiString token;
 	remainder.nextToken(&token);
-	token.toLower();
+	((StringBase<char> &)token).toLower();
 
 	if (token.compare("host") == 0)
 	{

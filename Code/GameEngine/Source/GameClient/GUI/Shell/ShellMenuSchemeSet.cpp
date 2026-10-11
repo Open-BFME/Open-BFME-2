@@ -51,7 +51,7 @@ void ShellMenuSchemeManager::setShellMenuScheme(AsciiString name)
 	}
 
 	_STL::list<ShellMenuScheme *>::iterator it = m_schemeList.begin();
-	name.toLower();
+	((StringBase<char> &)name).toLower();
 	while (it != m_schemeList.end()) {
 		ShellMenuScheme *scheme = *it;
 		if (scheme->m_name.compare(name) == 0) {
