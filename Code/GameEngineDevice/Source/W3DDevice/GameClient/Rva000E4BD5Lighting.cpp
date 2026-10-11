@@ -36,6 +36,7 @@ public:
     Real Y;
     Real Z;
 
+    Vector3() {}
     Vector3(Real x, Real y, Real z) : X(x), Y(y), Z(z) {}
 
     __forceinline void Normalize(void)
@@ -49,6 +50,15 @@ public:
             Z *= inverseLength;
         }
     }
+};
+
+// File-static init helper (LK3-style): keeps a call in the source so the
+// 3-arg ctor goes unused (no loser COMDAT); inlines to plain stores.
+static void InitLightVector3(Vector3 &v, Real x, Real y, Real z)
+{
+    v.X = x;
+    v.Y = y;
+    v.Z = z;
 };
 
 struct BfmeLighting36 {
@@ -101,9 +111,11 @@ UnsignedInt __stdcall Rva000E4BD5Lighting::doLighting(
     shadeB = objectLighting[0].ambient.blue + emissive->z;
 
     i = 0; if (((LightingGlobals*)TheWritableGlobalData)->skipFirst) i = 1; for (; i < 3; ++i) {
-        Vector3 lightDirection(objectLighting[i].lightPos.x,
-                               objectLighting[i].lightPos.y,
-                               objectLighting[i].lightPos.z);
+        Vector3 lightDirection;
+        InitLightVector3(lightDirection,
+                         objectLighting[i].lightPos.x,
+                         objectLighting[i].lightPos.y,
+                         objectLighting[i].lightPos.z);
         lightDirection.Normalize();
         shade = Rva006F7DA0Fabs(-lightDirection.Z);
 
