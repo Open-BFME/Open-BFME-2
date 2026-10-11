@@ -105,3 +105,32 @@ bool W3DVolumetricShadowV2::rva00107046(Vector3 *point)
          (lightOffsetY>0.0f?lightOffsetY:0.0f)+extent+pos.Y>point->Y &&
          pos.Y-extent+(lightOffsetY<0.0f?lightOffsetY:0.0f)<point->Y);
 }
+
+void W3DVolumetricShadowManagerV2::rva0010720E(int pass)
+{
+	int one = 1;
+	if (pass == 0) {
+		DX8Wrapper::Set_DX8_Render_State(0x36, one);
+		DX8Wrapper::Set_DX8_Render_State(0x35, one);
+	} else {
+		DX8Wrapper::Set_DX8_Render_State(0x35, one);
+		DX8Wrapper::Set_DX8_Render_State(0x37, one);
+	}
+	if (!(DX8Wrapper::Stencil_Caps() & 0x100))
+		return;
+	DX8Wrapper::Set_DX8_Render_State(0xb9, one);
+	DX8Wrapper::Set_DX8_Render_State(0x16, one);
+	if (pass == 0) {
+		DX8Wrapper::Set_DX8_Render_State(0x37, 8);
+		DX8Wrapper::Set_DX8_Render_State(0xbb, one);
+		DX8Wrapper::Set_DX8_Render_State(0xba, one);
+		DX8Wrapper::Set_DX8_Render_State(0xbc, 7);
+		DX8Wrapper::Set_DX8_Render_State(0xbd, 8);
+	} else {
+		DX8Wrapper::Set_DX8_Render_State(0x36, 7);
+		DX8Wrapper::Set_DX8_Render_State(0xba, one);
+		DX8Wrapper::Set_DX8_Render_State(0xbc, one);
+		DX8Wrapper::Set_DX8_Render_State(0xbb, 8);
+		DX8Wrapper::Set_DX8_Render_State(0xbd, 8);
+	}
+}
