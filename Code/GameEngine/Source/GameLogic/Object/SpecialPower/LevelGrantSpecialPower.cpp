@@ -318,8 +318,17 @@ public:
 class ExperienceTracker
 {
 public:
-	bool rva0039AE04() const;	// 0x0039AE04
 	void rva0039B315(float amount, bool a, bool b, bool c, bool d);	// 0x0039B315
+};
+
+// 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
+// ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
+// resolves to the rowed body instead of the unrowed ExperienceTracker
+// spelling (U on this unit).
+class Rva0039ADF3
+{
+public:
+	bool rva0039AE04() const;
 };
 
 class FXList
@@ -408,7 +417,7 @@ void rva004C2B57(Object *obj, void *userData)
 		args->m_source->rvaSlot48(obj, args->m_amount);
 	} else {
 		ExperienceTracker *tracker = obj->m_264;
-		if (!tracker || !tracker->rva0039AE04())
+		if (!tracker || !((Rva0039ADF3 *)tracker)->rva0039AE04())
 			return;
 		tracker->rva0039B315(args->m_amount, true, true, true, false);
 	}

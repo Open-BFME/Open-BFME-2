@@ -144,8 +144,17 @@ public:
 class ExperienceTracker
 {
 public:
-	Bool rva0039AE04() const;
 	void rva0039B315(Real amount, Bool a, Bool b, Bool c, Bool d);
+};
+
+// 0x0039AE04 is rowed as Rva0039ADF3::rva0039AE04 (44B from
+// ExperienceTrackerXfer.cpp); this call goes through a TU-local view so it
+// resolves to the rowed body instead of the unrowed ExperienceTracker
+// spelling (U on this unit).
+class Rva0039ADF3
+{
+public:
+	bool rva0039AE04() const;
 };
 
 enum ObjectStatusTypes { OBJECT_STATUS_TYPES_ANY };
@@ -322,7 +331,7 @@ UpdateSleepTime TerrainResourceBehavior::update()
 		}
 
 		ExperienceTracker *tracker = obj->m_experienceTracker;
-		if (tracker && tracker->rva0039AE04())
+		if (tracker && ((Rva0039ADF3 *)tracker)->rva0039AE04())
 			tracker->rva0039B315((Real)amount, true, true, true, false);
 	}
 	return (UpdateSleepTime)d->m_incomeInterval;
