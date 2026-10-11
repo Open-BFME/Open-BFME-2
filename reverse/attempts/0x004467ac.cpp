@@ -1,9 +1,5 @@
 // ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
-// partial score=0.9424 date=2026-10-06
-// ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
-// partial score=0.94 date=2026-10-05
-// ?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ
-// partial score=0.99 date=2026-10-05
+// partial score=0.98 date=2026-10-11
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
@@ -49,7 +45,7 @@ public:
 class MapCache : public _STL::map<AsciiString, MapMetaData>
 {
 public:
-	void rva00305749();
+	void updateCache();
 };
 
 extern MapCache *TheMapCache;
@@ -273,9 +269,13 @@ public:
 	void rva0043FA68(int game);
 	// And 0x00442C9C (23 bytes), 0x0043E750 (417 bytes) and 0x00443C6E
 	// (570 bytes), likewise unrowed and pinned.
+};
+class AptMpGameSetup
+{
+public:
 	bool rva00442C9C();
-	bool rva0043E750(LANGameInfo *game);
-	bool rva00443C6E(LANGameInfo *game, int flag);
+	bool InitGameInfoFromSaveGame(GameInfo *game);
+	bool Init(GameInfo *game, int flag);
 };
 
 // The screen's base class (destroyed by 0x005126F5); its message handler
@@ -342,8 +342,8 @@ public:
 	int rva0044D836();
 	int rva0044D88C();
 	int getStrategicScenario();
-	void rva0044D774(GameSlot *slot);
-	void rva0044DB54(int *rules);
+	bool rva0044D774(GameSlot *slot);
+	bool rva0044DB54(int *rules);
 	AsciiString rva0044D986();
 };
 
@@ -869,13 +869,13 @@ int BfmeAptScreenLanLobby::rva00444826(int msg, unsigned int data1, unsigned int
 // calls this body as GameEngine::rva004467AC (bound below).
 bool BfmeAptScreenLanLobby::refreshLanGameRva004467AC()
 {
-	if (m_panel.rva00442C9C() && TheLAN && TheLAN->GetMyGame())
+	if (((AptMpGameSetup *)&m_panel)->rva00442C9C() && TheLAN && TheLAN->GetMyGame())
 	{
-		TheMapCache->rva00305749();
+		TheMapCache->updateCache();
 		LANGameInfo *game = TheLAN->GetMyGame();
 		if (TheLAN->AmIHost())
 		{
-			bool restored = m_panel.rva0043E750(game);
+			bool restored = ((AptMpGameSetup *)&m_panel)->InitGameInfoFromSaveGame(game);
 			game->rva003FF1A7(m_304);
 			if (!restored)
 			{
@@ -911,14 +911,13 @@ bool BfmeAptScreenLanLobby::refreshLanGameRva004467AC()
 		}
 		else
 		{
-			m_panel.rva0043E750(game);
+			((AptMpGameSetup *)&m_panel)->InitGameInfoFromSaveGame(game);
 			game->setMapCRC(game->m_mapCRC);
 			game->setMapSize(game->m_mapSize);
 			TheLAN->RequestHasMap();
 		}
-		return m_panel.rva00443C6E(TheLAN->GetMyGame(), 0);
+		return ((AptMpGameSetup *)&m_panel)->Init(TheLAN->GetMyGame(), 0);
 	}
 	return false;
 }
 
-#pragma comment(linker, "/alternatename:?rva004467AC@GameEngine@@AAE_NXZ=?refreshLanGameRva004467AC@BfmeAptScreenLanLobby@@QAE_NXZ")

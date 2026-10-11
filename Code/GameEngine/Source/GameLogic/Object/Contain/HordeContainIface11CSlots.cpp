@@ -174,6 +174,7 @@ public:
 	AIGroup *createGroup();
 	void destroyGroup(AIGroup *group);
 	Object *findClosestEnemy(const Object *me, float range, unsigned int qualifiers, const AttackPriorityInfo *info, PartitionFilter *optionalFilter, int a6);
+	static bool rva002FE193(Object *obj, Object *victim);	// rowed 0x002FE193
 	unsigned char m_pad00[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 };
@@ -430,7 +431,20 @@ public:
 };
 // The weapon's float range query is the rowed 0x002C9B80 (its row names the
 // owner Rva002C9B80Owner).
-class Weapon;
+class Object;
+// The Weapon +4 byte field (rowed getter 0x002C9400).
+class Rva002C9400ByteField
+{
+public:
+	unsigned char get() const;
+};
+class Weapon
+{
+public:
+	float getAttackRange(const Object *source) const;	// rowed 0x002C9BF8
+	unsigned char m_pad00[0x04];
+	const Rva002C9400ByteField *m_04; // +0x04
+};
 class Rva002C9B80Owner
 {
 public:
@@ -551,6 +565,8 @@ public:
 	float GetGoalAngle() const;
 	int GetGoalLayer() const;
 	void rva0028ACEE(int a1, int a2);
+	void rva00295F05(bool flag);	// rowed 0x00295F05
+	void *rva0028C197() const;	// rowed 0x0028C197 (+0x250 interface slot 31)
 protected:
 	friend class HordeContain;
 	Module *findModule(NameKeyType key) const;
@@ -842,7 +858,7 @@ class Rva0046BB38Iface6 : public Rva0046BB38Slots<0>
 {
 public:
 	virtual void rva00472329(const Coord3D *pos, int unused) = 0;
-	virtual void gap1() = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(bool reposition) = 0; virtual void rva004726DD(Object *target) = 0;
+	virtual void attackTargetNow(Object *target, int select) = 0; virtual void rva00472235() = 0; virtual void rva0046E253() = 0; virtual void rva00472790(bool reposition) = 0; virtual void rva004726DD(Object *target) = 0;
 	virtual bool rva0046BB38(Object *other) = 0;
 	virtual Coord3D slot7(Object *obj, float *angle) = 0;
 	virtual void rva0046F7C9(Object *obj) = 0;
@@ -1017,9 +1033,38 @@ public:
 };
 
 class Rva00468CB6A;
+// The rowed 0x0046D946 on the HordeContain base: the contained Object
+// closest to the argument.
+class Rva0046D946
+{
+public:
+	Object *rva0046D946(Object *obj);
+};
+// The interface 0x0028C197 returns for a containing Object: slot 18 picks a
+// victim near a position within a range, slot 68 is the fallback.
+class Rva00471FFAVictimChooser : public Rva00468D11Slots<18>
+{
+public:
+	virtual Object *slot18(int a1, const Coord3D *pos, float range, Object *source, bool flag) = 0;
+	virtual void gap19() = 0; virtual void gap20() = 0; virtual void gap21() = 0; virtual void gap22() = 0;
+	virtual void gap23() = 0; virtual void gap24() = 0; virtual void gap25() = 0; virtual void gap26() = 0;
+	virtual void gap27() = 0; virtual void gap28() = 0; virtual void gap29() = 0; virtual void gap30() = 0;
+	virtual void gap31() = 0; virtual void gap32() = 0; virtual void gap33() = 0; virtual void gap34() = 0;
+	virtual void gap35() = 0; virtual void gap36() = 0; virtual void gap37() = 0; virtual void gap38() = 0;
+	virtual void gap39() = 0; virtual void gap40() = 0; virtual void gap41() = 0; virtual void gap42() = 0;
+	virtual void gap43() = 0; virtual void gap44() = 0; virtual void gap45() = 0; virtual void gap46() = 0;
+	virtual void gap47() = 0; virtual void gap48() = 0; virtual void gap49() = 0; virtual void gap50() = 0;
+	virtual void gap51() = 0; virtual void gap52() = 0; virtual void gap53() = 0; virtual void gap54() = 0;
+	virtual void gap55() = 0; virtual void gap56() = 0; virtual void gap57() = 0; virtual void gap58() = 0;
+	virtual void gap59() = 0; virtual void gap60() = 0; virtual void gap61() = 0; virtual void gap62() = 0;
+	virtual void gap63() = 0; virtual void gap64() = 0; virtual void gap65() = 0; virtual void gap66() = 0;
+	virtual void gap67() = 0;
+	virtual Object *slot68() = 0;
+};
 class HordeContain : public TransportContain, public Rva0046BB38Iface11C
 {
 public:
+	virtual void attackTargetNow(Object *target, int select);
 	virtual void rva004726DD(Object *target);
 	virtual void removeMemberFromHorde(Object *obj);
 	bool rva00468CB6(Rva00468CB6A *,Object *);
@@ -3326,6 +3371,77 @@ void HordeContain::rva00472329(const Coord3D *pos, int)
 			}
 		}
 		++it;
+	}
+}
+
+// ?attackTargetNow@HordeContain@@UAEXPAVObject@@H@Z @0x00471FFA (571B, ret 8):
+// slot 1 of the +0x11C vftable 0x00C44C58; WB 0x010BF040
+// HordeContain::attackTargetNow (assert at HordeContain.cpp:3350, compiled
+// out). Unless usingMeleeAttack holds: re-forms (slot 4) when the +0x170 set
+// is not empty; every contained Object (only the one 0x0046D946 picks when
+// select is 1) that has a +0x17C entry and an idle AI either stops (melee
+// weapon) or, when its +0x188 record's key is in the module data's +0x1B8
+// map and 0x00468CB6 does not refuse, attacks the victim the target's
+// container (the target itself for kind bit 13) chooses, if AI::0x002FE193
+// allows; otherwise +0x120 is set. Retail pushes the 0x00468CB6 target from
+// its stack home and reloads it afterwards (no CSE), hence the volatile read.
+void HordeContain::attackTargetNow(Object *target, int select)
+{
+	if (usingMeleeAttack())
+		return;
+	if (m_170.size() != 0)
+		rva00472790(false);
+	Rva0046247DPair members;
+	((Rva0046247D *)(UpdateModule *)this)->rva0046247D(members);
+	const _STL::map<int, int> *keys = &fields()->m_1B8;
+	Object *container = target->isKindOf(13) ? target : target->m_274;
+	Object *only = 0;
+	if (select == 1)
+		only = ((Rva0046D946 *)(UpdateModule *)this)->rva0046D946(target);
+	for (_STL::list<Object *>::const_iterator it = members.m04->begin(); it != members.m04->end(); ++it)
+	{
+		Object *obj = *it;
+		if (only && obj != only)
+			continue;
+		if (m_17C.find(obj->getID()) == m_17C.end())
+			continue;
+		AIUpdateInterface *ai = obj->m_ai;
+		if (!ai)
+			continue;
+		if (ai->isMoving())
+			continue;
+		if (obj->getCurrentWeapon() && obj->getCurrentWeapon()->m_04->get())
+		{
+			if (ai->rva0047306ESlot113())
+				ai->m_command.aiIdle(CMD_FROM_AI);
+			if (!obj->testStatus((ObjectStatusTypes)0x1C))
+				obj->rva00295F05(false);
+			continue;
+		}
+		int key = m_188Begin[m_17C.find(obj->getID())->second].m_key;
+		if (keys->find(key) == keys->end())
+			continue;
+		if (rva00468CB6((Rva00468CB6A *)ai, *(Object *volatile *)&target))
+			continue;
+		Object *victim = target;
+		Weapon *weapon = obj->getCurrentWeapon();
+		if (container)
+		{
+			Rva00471FFAVictimChooser *chooser = (Rva00471FFAVictimChooser *)container->rva0028C197();
+			if (chooser)
+			{
+				float range = 0.0f;
+				if (weapon && !weapon->m_04->get())
+					range = weapon->getAttackRange(obj);
+				victim = chooser->slot18(0, obj->getPosition(), range, obj, false);
+				if (!victim)
+					victim = chooser->slot68();
+			}
+		}
+		if (AI::rva002FE193(obj, victim))
+			ai->m_command.rva0026C2D9(victim, 0x7FFFFFFF, CMD_FROM_AI);
+		else
+			m_120 = true;
 	}
 }
 

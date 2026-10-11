@@ -1,12 +1,26 @@
 // ?initHeightData@BaseHeightMapRenderObjClass@@QAEHHHPAVWorldHeightMap@@PAX@Z
-// partial score=0.8688652430169018 date=2026-10-09
+// partial score=0.98 date=2026-10-11
 // cl: /O1 /Oy- /G7 /arch:SSE /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /DNDEBUG /MD /EHsc
 // stlport
+// BaseHeightMapRenderObjClass::initHeightData, retail 0x0006D6D9..0x0006DB1C (1091 B, RET 0x10).
+// Identity: WorldBuilder debug body (wb_show 0x6D6D9 --gd) has the ZH BaseHeightMap.cpp
+// initHeightData spine with BFME2 taint/four texture layers/asset preload/DX lock; callees rowed.
+// 2026-10-11 rework: compiles 1091 B, only three PUSH/LEA order swaps remain (stageThree/layer3/
+// layer4 operator= sites: retail lea ecx before push eax; first site push first like ours).
+// Keys found: REF_PTR_SET macro form fixes the map-store timing; a VISIBLE inline getHeight body
+// (not inlined at /O1, so a COMDAT for 0x62A58) makes DX re-read and DY in edi exactly; inline
+// getXExtent/getYExtent/getBorderSize getters stop the 2*border CSE; AssetList inline ctor and
+// separate << statements fix the asset block. Shader global 0xDB4140 still an extern placeholder.
 #include "ascii_string.h"
 #include <set>
 class WorldHeightMap {
 public:
  virtual void Delete_This();
+ void Add_Ref() { refs++; }
+ void Release_Ref() { refs--; if (refs == 0) Delete_This(); }
+ int getXExtent(void) {return xExtent;}
+ int getYExtent(void) {return yExtent;}
+ int getBorderSize(void) {return border;}
  int refs,xExtent,yExtent,border;
  char pad14[0x24-0x14]; unsigned short *data;
 };
@@ -15,7 +29,9 @@ extern GlobalData *TheWritableGlobalData;
 class W3DShroud {public:void init(WorldHeightMap*,float,float);};
 class W3DTaint {public:void init(WorldHeightMap*,float,float);};
 class W3DRoadBuffer {public:void setMap(WorldHeightMap*);};
-class BoundedShortGrid {public:short rva00062A58(int,int);};
+class BoundedShortGrid {public:
+ short rva00062A58(int a,int b){int idx=m_stride*b+a;if(idx<0)return 0;if(idx>=m_capacity)return 0;if(m_data)return m_data[idx];return 0;}
+ unsigned char m_unknown00[0x08];int m_stride;unsigned char m_unknown0C[0x20-0x0C];int m_capacity;short *m_data;};
 struct Region2D {struct Point {float x,y;}lo,hi;};
 class TreeBoundsView {public:char pad[0x1948];Region2D bounds;};
 class TextureBaseClass {public:void Release_Ref();};
@@ -37,6 +53,7 @@ struct BFMEDX8DeviceLock {
 };
 struct Rva001408C0Target;
 struct AssetList00208F90 {
+ AssetList00208F90() : m_treeLayoutPad(0), m_changed(true) {}
  std::set<Rva001408C0Target*> m_prototypes;
  unsigned int m_treeLayoutPad;bool m_changed;
  AssetList00208F90&operator<<(const AsciiString&);
@@ -206,49 +223,53 @@ private:
  char pad3870[8];W3DShroud*shroud;W3DTaint*taint;
  bool terrainFlag;
 };
-static __forceinline void setMapRef(WorldHeightMap*&dest,WorldHeightMap*src) {
- if(src)++src->refs;
- WorldHeightMap*old=dest;
- if(old && --old->refs==0)old->Delete_This();
- dest=src;
-}
+#define REF_PTR_SET(dst,src) { if (src) (src)->Add_Ref(); if (dst) (dst)->Release_Ref(); (dst) = (src); }
 int BaseHeightMapRenderObjClass::initHeightData(int x,int y,WorldHeightMap*pMap,void*lights)
 {
- setMapRef(map,pMap);
+ REF_PTR_SET(map,pMap);
  terrainFlag=false;
- if(shroud)shroud->init(pMap,TheWritableGlobalData->partitionCellSize,TheWritableGlobalData->partitionCellSize);
+ if(shroud)shroud->init(map,TheWritableGlobalData->partitionCellSize,TheWritableGlobalData->partitionCellSize);
  if(taint)taint->init(map,TheWritableGlobalData->partitionCellSize,TheWritableGlobalData->partitionCellSize);
  roadBuffer->setMap(map);
  unsigned short*data=0;
  if(pMap)data=pMap->data;
  if(treeBuffer){
   Region2D bounds;
-  int border=pMap->border,xExtent=pMap->xExtent,yExtent=pMap->yExtent;
   bounds.lo.x=0;bounds.lo.y=0;
-  bounds.hi.x=(xExtent-2*border)*10.0f;
-  bounds.hi.y=(yExtent-2*border)*10.0f;
+  bounds.hi.x=(pMap->getXExtent()-2*pMap->getBorderSize())*10.0f;
+  bounds.hi.y=(pMap->getYExtent()-2*pMap->getBorderSize())*10.0f;
   treeBuffer->bounds=bounds;
  }
  if(pMap){
-  int mapDY=pMap->yExtent;
-  int maxHt=0;int minHt=65535;
-  for(int j=0;j<mapDY;++j)for(int i=0;i<pMap->xExtent;++i){
-   unsigned short cur=((BoundedShortGrid*)pMap)->rva00062A58(i,j);
-   if(cur<minHt)minHt=cur;
-   if(maxHt<cur)maxHt=cur;
+  int mapDX=pMap->getXExtent();
+  int mapDY=pMap->getYExtent();
+  int i,j,minHt,maxHt;
+  minHt=65535;
+  maxHt=0;
+  for(j=0;j<mapDY;j++){
+   for(i=0;i<mapDX;i++){
+    unsigned short cur=((BoundedShortGrid*)pMap)->rva00062A58(i,j);
+    if(cur<minHt)minHt=cur;
+    if(maxHt<cur)maxHt=cur;
+   }
   }
   minHeight=minHt*0.0390625f;maxHeight=maxHt*0.0390625f;
  }
- Set_Force_Visible(true);needFullUpdate=true;
+ Set_Force_Visible(true);
+ needFullUpdate=true;
  scorches=0;vertices=0;indices=0;
  if(data && (!stageTwo.Referent || !stageThree.Referent || !layer3.Referent || !layer4.Referent)){
-  freeMapResources();setMapRef(map,pMap);
+  freeMapResources();
+  REF_PTR_SET(map,pMap);
   if(((StringBase<char>*)&macroName)->isEmpty())macroName=macroDefault;
   if(((StringBase<char>*)&stageTwoName)->isEmpty())stageTwoName=stageTwoDefault;
   if(((StringBase<char>*)&layer3Name)->isEmpty())layer3Name=layer3Default;
   if(((StringBase<char>*)&layer4Name)->isEmpty())layer4Name=layer4Default;
-  AssetList00208F90 assets;assets.m_treeLayoutPad=0;assets.m_changed=true;
-  assets<<macroName<<stageTwoName<<layer3Name<<layer4Name;
+  AssetList00208F90 assets;
+  assets<<macroName;
+  assets<<stageTwoName;
+  assets<<layer3Name;
+  assets<<layer4Name;
   ((Rva0006C995*)&assets)->rva0006C995((Rva001408C0Target*)"exscorch01.tga");
   bfmeMergeReceiverKeys((int)&assets);
   stageTwo=*(RefCountPtr<TextureClass>*)&BFME2LoadParticleTexture(stageTwoName.str(),0,0);
