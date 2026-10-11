@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /DNDEBUG /MD /EHsc
 // WorldBuilder 0x01311550 names LivingWorldBuildPlot::CreateIcon and
 // 0x014D96C0 names its icon constructor. Retail 0x004FC185..0x004FC207
 // proves the lookup, 0x3C allocation, position reference at +0x28, owning
@@ -6,8 +6,40 @@
 // The remaining class fields and virtual-slot identities are unrecovered.
 #include "ascii_string.h"
 #include "string_base.h"
-#include "../../../../../Libraries/Include/Lib/Coord2D.h"
+#include <stdlib.h>
+#include "Lib/Coord2D.h"
 
+class Xfer;
+// class-gate: allow Snapshot retail ctor 0x004FC807 never stores a Snapshot vptr (novtable base); the shared header's Snapshot emits that store and fails the byte gate
+class __declspec(novtable) Snapshot
+{
+public:
+    Snapshot() {}
+    virtual ~Snapshot();
+protected:
+    virtual void loadPostProcess() = 0;
+    virtual void crc(Xfer *) = 0;
+    virtual void xfer(Xfer *) = 0;
+};
+
+class Rva00330757Member
+{
+public:
+    Rva00330757Member();
+    ~Rva00330757Member() { if (m_begin) free(m_begin); }
+private:
+    void *m_begin, *m_end, *m_capacity;
+    int m_index;
+};
+
+class LivingWorldPhaseObserver
+{
+public:
+    LivingWorldPhaseObserver() {}
+    virtual ~LivingWorldPhaseObserver();
+    virtual void slot00(int, int) {}
+    virtual void slot04(int, int) {}
+};
 class Object;
 class LivingWorldManager;
 extern LivingWorldManager *TheLivingWorldManager;
@@ -38,28 +70,43 @@ public:
 private:
     char m_unrecovered[0x38];
 };
+class Rva000AD6F4
+{
+public:
+    void clear();
+};
 class Rva00575674
 {
 public:
+    Rva00575674() : m_icon(0) {}
+    ~Rva00575674() { ((Rva000AD6F4 *)this)->clear(); }
     void rva00575674(Object *object);
     LivingWorldBuildPlotIcon *get() const { return m_icon; }
     bool isBound() const { return m_icon != 0; }
 private:
     LivingWorldBuildPlotIcon *m_icon;
 };
-class LivingWorldBuildPlot
+class LivingWorldBuildPlot : public Snapshot, public Rva00330757Member,
+                            public LivingWorldPhaseObserver
 {
 public:
+    LivingWorldBuildPlot(int id, LivingWorldRegion *region, const Coord2D &position);
+    virtual ~LivingWorldBuildPlot();
+    virtual void loadPostProcess();
+    virtual void crc(Xfer *xfer);
+    virtual void xfer(Xfer *xfer);
+    virtual void slot00(int, int);
     void CreateIcon(const AsciiString &iconName);
     void ConstructBuildingImmediately(const Rva003F1BD3TemplateView *templ);
 private:
-    char m_unrecovered[0x1C];
+    int m_id;
     LivingWorldRegion *m_region;
     Rva00575674 m_building;
     Rva00575674 m_icon;
     Coord2D m_position;
     int m_buildFrames;
     bool m_hidden;
+    bool m_unrecovered35;
 };
 
 void LivingWorldBuildPlot::CreateIcon(const AsciiString &iconName)
@@ -173,4 +220,47 @@ void LivingWorldBuildPlot::ConstructBuildingImmediately(const Rva003F1BD3Templat
         m_icon.get()->slot24(false, true);
     ((Rva004FC320List *)((char *)this + 8))->forEach(
         (void (Rva004FC320Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+}
+
+class LivingWorldRegion
+{
+public:
+    char m_unrecovered[0x13C];
+    int m_owner;
+};
+struct Rva004FC807PlayerTemplate
+{
+    char m_unrecovered[0x28];
+    AsciiString m_iconName;
+};
+class Rva002E2903Player
+{
+public:
+    char m_unrecovered[0x40];
+    Rva004FC807PlayerTemplate *m_template;
+};
+class Rva002BA8F1Logic
+{
+public:
+    Rva002E2903Player *find(int id, unsigned int *index);
+};
+struct Rva002BA8F1Listener;
+class Rva005A0B4CList
+{
+public:
+    void append(Rva002BA8F1Listener *listener);
+};
+
+LivingWorldBuildPlot::LivingWorldBuildPlot(int id, LivingWorldRegion *region,
+                                         const Coord2D &position)
+    : m_id(id), m_region(region), m_position(position), m_buildFrames(0),
+      m_hidden(false), m_unrecovered35(false)
+{
+    int owner = m_region->m_owner;
+    Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->find(
+        owner, 0);
+    if (player)
+        CreateIcon(player->m_template->m_iconName);
+    ((Rva005A0B4CList *)((char *)TheLivingWorldLogic + 0x1C))->append(
+        (Rva002BA8F1Listener *)(LivingWorldPhaseObserver *)this);
 }
