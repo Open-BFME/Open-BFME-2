@@ -86,6 +86,10 @@ vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString
 #include "WW3D2/MeshMdl.h"
 #include "Common/BitFlagsIO.h"
 
+// CRT imports (no COMDATs); used by the manual Y-rotation post-multiply below.
+extern "C" double __cdecl sin(double);
+extern "C" double __cdecl cos(double);
+
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
@@ -2449,7 +2453,22 @@ void W3DModelDraw::handleClientTurretPositioning()
 				if (m_curState)
 					turretPitch += tur.m_turretArtPitch;
 				Matrix3D turretPitchXfrm(1);
-				turretPitchXfrm.Rotate_Y(-turretPitch);
+				// Inline the Y-rotation post-multiply (header Rotate_Y math):
+				// this TU's fsin/fcos-computed Rotate_Y copy loses the link.
+				// sin/cos are CRT imports (no COMDATs); the float-pointer
+				// write avoids Matrix3D/Vector4 inline accessors. Same
+				// pattern as SlowDeathBehavior calcRandomForce.
+				{
+					float s = (float)sin((double)-turretPitch);
+					float c = (float)cos((double)-turretPitch);
+					float *m = (float*)&turretPitchXfrm; // 3 Vector4 rows
+					float t0 = m[0], t2 = m[2];
+					m[0] = c*t0 - s*t2; m[2] = s*t0 + c*t2;
+					t0 = m[4]; t2 = m[6];
+					m[4] = c*t0 - s*t2; m[6] = s*t0 + c*t2;
+					t0 = m[8]; t2 = m[10];
+					m[8] = c*t0 - s*t2; m[10] = s*t0 + c*t2;
+				}
 				if (m_renderObject)
 				{
 					m_renderObject->Capture_Bone( tur.m_turretPitchBone );
