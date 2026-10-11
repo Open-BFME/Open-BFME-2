@@ -32,6 +32,16 @@ public:
 	void notify(int a, int b);
 };
 
+// 0x0033CF34 is rowed as ThingTemplate::GetAssetList (146B,
+// ThingTemplateGetAssetList.cpp; WB callgraph names it); the found template
+// is notified through a TU-local view so the call resolves to the rowed
+// body instead of the unrowed Rva0020AA00Target spelling (sole U).
+class ThingTemplate
+{
+public:
+	void GetAssetList(int a, int b);
+};
+
 struct Rva000CED4BArg
 {
 	char m_pad[8];
@@ -61,7 +71,7 @@ void __cdecl Rva000CED4BUpdate(void *p, AssetList *b, int c)
 	if (((StringBase<char> *)&a->m_48)->isEmpty() == false) {
 		void *t = (void *)TheThingFactory->findTemplate(a->m_48);
 		if (t != 0)
-			((Rva0020AA00Target *)t)->notify((int)b, c);
+			((ThingTemplate *)t)->GetAssetList((int)b, c);
 	}
 	if (a->m_50)
 		a->m_50->rva001E11F8((int)b, c);

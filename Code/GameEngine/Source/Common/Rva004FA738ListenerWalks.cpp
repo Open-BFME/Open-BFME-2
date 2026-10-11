@@ -286,6 +286,17 @@ public:
 	void rva002E074E(Rva004E3184 *ctx);
 };
 
+// 0x002E0764 is rowed as LivingWorldPlayer::OnUnitDequeued (27B,
+// LivingWorldPlayer.cpp); same receiver-view + temp-storage idiom as the
+// landed rva002E074E call below, so this resolves to the rowed body
+// instead of the unrowed Rva002E2903Player spelling.
+class Rva00319CED;
+class LivingWorldPlayer
+{
+public:
+	void OnUnitDequeued(Rva00319CED *unit);
+};
+
 struct Rva003F0F13Elem
 {
 	float a;
@@ -355,7 +366,7 @@ void Rva004FA992Owner::rva004FA9B1(int index)
 	{
 		Rva004E3184 tmp(0);
 		if (checkId(*elem, &tmp))
-			player->rva002E0764(&tmp);
+			((LivingWorldPlayer *)player)->OnUnitDequeued((Rva00319CED *)&tmp);
 	}
 	m_ids.erase(elem);
 	((Rva004FA659 *)((char *)this - 12))->rva004FA659();

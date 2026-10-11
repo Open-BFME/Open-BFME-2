@@ -43,6 +43,17 @@ private:
 	int m_24;
 };
 
+// 0x004F46A9 is rowed as AIPlayer::queueUnits (559B, AIPlayerTeamBuild.cpp;
+// ZH AIPlayer::queueUnits); this same-this call goes through a TU-local
+// view so it resolves to the rowed body instead of the unrowed
+// BfmeThingDTK spelling (sole U on this unit).
+class AIPlayer
+{
+protected:
+	void queueUnits();
+	friend void Rva004EF4C1::rva004EF4C1();
+};
+
 void Rva004EF4C1::rva004EF4C1()
 {
 	if (m_C->m_338 == 0)
@@ -58,7 +69,7 @@ void Rva004EF4C1::rva004EF4C1()
 			m_14 = limit;
 	}
 	if (--m_24 < 1) {
-		((BfmeThingDTK *)this)->bfmeTailDTK();
+		((AIPlayer *)this)->queueUnits();
 		if (m_10 != 0)
 			vf26();
 		m_24 = LogicFramesPerSecond * 2;
