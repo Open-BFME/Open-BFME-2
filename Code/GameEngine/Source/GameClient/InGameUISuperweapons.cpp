@@ -43,11 +43,112 @@ namespace _STL { void __cdecl free(void *block); }
 #include <list>
 #include <map>
 #include <vector>
+#define private public
+#include <hash_map>
+#undef private
 #undef free
 #include "ascii_string.h"
 #include "../Common/GameLogicObjectLookupView.h"
 enum ScienceType { SCIENCE_INVALID = -1 };
 typedef _STL::vector<ScienceType> ScienceVec;
+
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+namespace rts {
+template <class T> struct hash {
+	size_t operator()(const T &value) const { return (size_t)value; }
+};
+}
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class DebugStream
+{
+public:
+	virtual void dslot0();
+	virtual void dslot1();
+	virtual void dslot2();
+	virtual void dslot3();
+	virtual void dslot4();
+	virtual void dslot5();
+	virtual void dslot6();
+	virtual void dslot7();
+	virtual void dslot8();
+	virtual void dslot9();
+	virtual void dslot10();
+	virtual void dslot11();
+	virtual void dslot12();
+	virtual void dslot13();
+	virtual DebugStream &slot38(const char *msg);
+	virtual void dslot15();
+	virtual void dslot16();
+	virtual void dslot17();
+	virtual void dslot18();
+	virtual void finish(int code);
+};
+
+class Debug
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void beginReport();
+	virtual void slot25();
+	virtual void slot26();
+	virtual DebugStream &startReport(int a, int b, int c);
+};
+extern Debug *theDebug;
+
+bool bfmeRva000387C0();
+void _bfme_debugRecordCallsite(int kind);
+
+class INI
+{
+public:
+	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
+};
+
+class BfmeStringRecord000B94D2
+{
+public:
+	~BfmeStringRecord000B94D2();
+	char pad[0x34];
+};
+
+class RadiusDecalTemplate : public BfmeStringRecord000B94D2
+{
+public:
+	RadiusDecalTemplate();
+	RadiusDecalTemplate(const RadiusDecalTemplate &other);
+	RadiusDecalTemplate &operator=(const RadiusDecalTemplate &other);
+
+	static void parseRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData);
+};
 
 class Overridable
 {
@@ -208,6 +309,7 @@ public:
 	virtual void hideObjectSuperweaponDisplayByScript( const Object *obj );	// slot 39
 	virtual void showObjectSuperweaponDisplayByScript( const Object *obj );	// slot 40
 
+	static void parseNamedRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData);
 protected:
 	SuperweaponInfo *findSWInfo( int playerIndex, const AsciiString &powerName, ObjectID id, const SpecialPowerTemplate *powerTemplate );
 
@@ -217,6 +319,8 @@ protected:
 	AsciiString m_superweaponNormalFont;	// +0x72C
 	int m_superweaponNormalPointSize;		// +0x730
 	bool m_superweaponNormalBold;			// +0x734
+	char m_opaque735[0x874 - 0x735];
+	_STL::hash_map<NameKeyType, RadiusDecalTemplate, rts::hash<NameKeyType> > m_radiusCursorTemplates;
 };
 
 // ?findSWInfo@InGameUI@@IAEPAVSuperweaponInfo@@HABVAsciiString@@W4ObjectID@@PBVSpecialPowerTemplate@@@Z
@@ -352,4 +456,29 @@ void InGameUI::showObjectSuperweaponDisplayByScript( const Object *obj )
 			}
 		}
 	}
+}
+
+// ?parseNamedRadiusDecalTemplate@InGameUI@@SAXPAVINI@@PAX1PBX@Z
+void InGameUI::parseNamedRadiusDecalTemplate(INI *ini, void *instance, void *store, const void *userData)
+{
+	AsciiString templateName;
+	INI::parseAsciiString(ini, 0, &templateName, 0);
+
+	NameKeyType key = TheNameKeyGenerator->nameToKey(templateName);
+	InGameUI *ui = (InGameUI *)instance;
+
+	typedef _STL::hash_map<NameKeyType, int, rts::hash<NameKeyType> > NameKeyIntMap;
+	if (((const NameKeyIntMap *)&ui->m_radiusCursorTemplates)->find(key) != ((const NameKeyIntMap *)&ui->m_radiusCursorTemplates)->end())
+	{
+		if (bfmeRva000387C0())
+		{
+			_bfme_debugRecordCallsite(1);
+			theDebug->beginReport();
+			theDebug->startReport(0, 0, 0).slot38("Error, duplicate RadiusCursorTemplate \"").slot38(templateName.str()).slot38("\" found in InGameUI.ini!").finish(2);
+		}
+	}
+
+	RadiusDecalTemplate decal;
+	RadiusDecalTemplate::parseRadiusDecalTemplate(ini, 0, &decal, 0);
+	ui->m_radiusCursorTemplates[key] = decal;
 }

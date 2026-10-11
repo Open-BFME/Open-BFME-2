@@ -17188,3 +17188,5 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ??3Rva006FBDB0@@SAXPAXI@Z,0x006D8680,class-scoped sized operator delete of the TU-private debug-stack record Rva006FBDB0 (AptActionInterpreterConstantHandlers.cpp): the throwing-new cleanup funclets of CallMethod CallFunction and PrepareForExecution push size 0xC and the block and call this pool-free
 ?rva00106D56@Rva00107E76Elem@@QAEHHFHPAX@Z,0x00106D56,callee of ?rva00107D8A@Rva00107E76Mgr@@QAEXXZ
 ?push_back@?$vector@UWeightedModel@@V?$allocator@UWeightedModel@@@_STL@@@_STL@@QAEXABUWeightedModel@@@Z,0x000C3411,callee of ?parseModel@AttachModelStruct@W3DScriptedModelDrawModuleData@@SAXPAVINI@@PAX1PBX@Z
+??A?$hash_map@W4NameKeyType@@VRadiusDecalTemplate@@U?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@VRadiusDecalTemplate@@@_STL@@@6@@_STL@@QAEAAVRadiusDecalTemplate@@ABW4NameKeyType@@@Z,0x002A3FAF,callee of ?parseNamedRadiusDecalTemplate@InGameUI@@SAXPAVINI@@PAX1PBX@Z
+??4RadiusDecalTemplate@@QAEAAV0@ABV0@@Z,0x00330CDD,callee of ?parseNamedRadiusDecalTemplate@InGameUI@@SAXPAVINI@@PAX1PBX@Z
