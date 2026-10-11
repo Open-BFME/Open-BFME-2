@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Oy- /Os
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Os
 // ?rva002DDE43@GameState@@QAEXABVUnicodeString@@0HH@Z @0x002DDE43 43B
 // Leaf forwarding to GameState::saveGame (pinned 0x002DD38D) with its last argument
 // zero. The wrapper's fourth argument reaches the saveGame bool slot as the raw

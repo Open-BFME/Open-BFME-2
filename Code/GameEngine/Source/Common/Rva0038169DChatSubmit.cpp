@@ -1,4 +1,4 @@
-// cl: /O1 /Oy- /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /I. /Ireference/shims/bfme2_ascii
 // Rva0038169D, retail 0x0038169D (494 bytes): LAN chat submission.
 // Native38169D..38188B: channel and UnicodeString reference ABI; menu preferences at684; filtered whitespace and slash-command path; LAN virtual slot54 ordinary message request.
 // Honest address-derived identity; no recovered retail method name claimed.
