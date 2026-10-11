@@ -146,6 +146,17 @@ void MobMemberSlavedUpdate::onSlaverDamage( const DamageInfo *info )
 
 //-------------------------------------------------------------------------------------------------
 // ?update@MobMemberSlavedUpdate@@ present-unmatched
+// Retail's AIUpdateInterface::getCurLocomotor reads +0x1F0 (rowed 0x0026FF1E
+// from SlavedUpdateRepair.cpp); this unit's header copy reads +0x1B8 (7B body
+// 8B81B8010000C3 measured in this unit's own object), and its object sorts
+// ahead of the first retail copy in link order, so the link keeps its copy
+// (S on the consumers). This read goes straight at the member instead of
+// odr-using the ZH inline, whose COMDAT would otherwise displace the retail
+// copy.
+static Locomotor *bfmeMobMemberLoco(AIUpdateInterface *ai)
+{
+	return *(Locomotor *const *)((const char *)ai + 0x1B8);
+}
 UpdateSleepTime MobMemberSlavedUpdate::update( void )
 {
 /// @todo srj use SLEEPY_UPDATE here
@@ -205,7 +216,7 @@ UpdateSleepTime MobMemberSlavedUpdate::update( void )
 	m_framesToWait = 0;
 
 	
-	Locomotor *locomotor = myAI->getCurLocomotor();
+	Locomotor *locomotor = bfmeMobMemberLoco(myAI);
 	if( !locomotor )
 	{
 		return UPDATE_SLEEP_NONE;

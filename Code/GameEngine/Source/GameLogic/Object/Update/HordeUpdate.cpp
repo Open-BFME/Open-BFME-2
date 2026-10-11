@@ -259,6 +259,11 @@ void HordeUpdate::onDrawableBoundToObject()
 
 //-------------------------------------------------------------------------------------------------
 // ?update@HordeUpdate@@ present-unmatched
+// Retail's GameLogic::getDrawIconUI is the 4-copy majority body; this unit's
+// header copy reads +0x5E (4B body 8A415E measured in this unit's own
+// object) and sorts ahead of it in link order (L on the consumers). This
+// reads the same byte directly instead of odr-using the ZH inline, whose
+// COMDAT would otherwise displace the majority copy.
 UpdateSleepTime HordeUpdate::update( void )
 {
 
@@ -336,7 +341,7 @@ UpdateSleepTime HordeUpdate::update( void )
 	Drawable* draw = getObject()->getDrawable();
 	if ( draw && ! obj->isEffectivelyDead() )
 	{
-		if( TheGameLogic->getDrawIconUI() )
+		if( *(const unsigned char *)((const char *)TheGameLogic + 0x5E) )
 		{
 			if(m_inHorde && !obj->isKindOf( KINDOF_PORTABLE_STRUCTURE ) )// this not is a ride-on for overlord
 			{

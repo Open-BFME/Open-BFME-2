@@ -191,6 +191,17 @@ HelicopterSlowDeathBehavior::~HelicopterSlowDeathBehavior( void )
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
 // ?beginSlowDeath@HelicopterSlowDeathBehavior@@ present-unmatched
+// Retail's AIUpdateInterface::getCurLocomotor reads +0x1F0 (rowed 0x0026FF1E
+// from SlavedUpdateRepair.cpp); this unit's header copy reads +0x1B8 (7B body
+// 8B81B8010000C3 measured in this unit's own object), and its object sorts
+// ahead of the first retail copy in link order, so the link keeps its copy
+// (S on the consumers). This read goes straight at the member instead of
+// odr-using the ZH inline, whose COMDAT would otherwise displace the retail
+// copy.
+static Locomotor *bfmeHeliLoco(AIUpdateInterface *ai)
+{
+	return *(Locomotor *const *)((const char *)ai + 0x1B8);
+}
 void HelicopterSlowDeathBehavior::beginSlowDeath( const DamageInfo *damageInfo )
 {
 
@@ -242,7 +253,7 @@ void HelicopterSlowDeathBehavior::beginSlowDeath( const DamageInfo *damageInfo )
 	{
 		return;
 	}
-	Locomotor *locomotor = getObject()->getAIUpdateInterface()->getCurLocomotor();
+	Locomotor *locomotor = bfmeHeliLoco(getObject()->getAIUpdateInterface());
 	locomotor->setMaxLift( -TheGlobalData->m_gravity * (1.0f - modData->m_fallHowFast) );
 	locomotor->setMaxBraking( modData->m_maxBraking );
 

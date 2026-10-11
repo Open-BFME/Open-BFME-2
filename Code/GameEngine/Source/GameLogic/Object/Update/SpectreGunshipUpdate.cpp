@@ -192,6 +192,17 @@ m_howitzerTrackerDecal.clear();
 // Validate that we have the necessary data from the ini file.
 //-------------------------------------------------------------------------------------------------
 // ?onObjectCreated@SpectreGunshipUpdate@@ present-unmatched
+// Retail's AIUpdateInterface::getCurLocomotor reads +0x1F0 (rowed 0x0026FF1E
+// from SlavedUpdateRepair.cpp); this unit's header copy reads +0x1B8 (7B body
+// 8B81B8010000C3 measured in this unit's own object), and its object sorts
+// ahead of the first retail copy in link order, so the link keeps its copy
+// (S on the consumers). These reads go straight at the member instead of
+// odr-using the ZH inline, whose COMDAT would otherwise displace the retail
+// copy.
+static Locomotor *bfmeSpectreLoco(AIUpdateInterface *ai)
+{
+	return *(Locomotor *const *)((const char *)ai + 0x1B8);
+}
 void SpectreGunshipUpdate::onObjectCreated()
 {
 	const SpectreGunshipUpdateModuleData *data = getSpectreGunshipUpdateModuleData();
@@ -244,8 +255,8 @@ Bool SpectreGunshipUpdate::initiateIntentToDoSpecialPower(const SpecialPowerTemp
     if ( shipAI)
     {
      shipAI->chooseLocomotorSet( LOCOMOTORSET_PANIC );
-	    shipAI->getCurLocomotor()->setAllowInvalidPosition(TRUE);
-	    shipAI->getCurLocomotor()->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
+	    bfmeSpectreLoco(shipAI)->setAllowInvalidPosition(TRUE);
+	    bfmeSpectreLoco(shipAI)->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
     }
 
     Drawable *draw = gunShip->getDrawable();
@@ -508,8 +519,8 @@ UpdateSleepTime SpectreGunshipUpdate::update()
           if ( shipAI)
           {
             shipAI->chooseLocomotorSet( LOCOMOTORSET_NORMAL );
-	          shipAI->getCurLocomotor()->setAllowInvalidPosition(TRUE);
-	          shipAI->getCurLocomotor()->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
+	          bfmeSpectreLoco(shipAI)->setAllowInvalidPosition(TRUE);
+	          bfmeSpectreLoco(shipAI)->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
           }
 
           Drawable *draw = gunship->getDrawable();
@@ -832,8 +843,8 @@ void SpectreGunshipUpdate::disengageAndDepartAO( Object *gunship )
     if ( shipAI)
     {
       shipAI->chooseLocomotorSet( LOCOMOTORSET_PANIC );
-	    shipAI->getCurLocomotor()->setAllowInvalidPosition(TRUE);
-	    shipAI->getCurLocomotor()->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
+	    bfmeSpectreLoco(shipAI)->setAllowInvalidPosition(TRUE);
+	    bfmeSpectreLoco(shipAI)->setUltraAccurate(TRUE);	// set ultra-accurate just so AI won't try to adjust our dest
     }
 
     Drawable *draw = gunship->getDrawable();
