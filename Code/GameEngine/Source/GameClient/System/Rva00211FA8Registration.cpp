@@ -24,7 +24,12 @@ public:
     ~Rva00211E75Callback();
     Rva00211E75Callback(int callback) : Rva00211E75(&callback) {}
 };
-extern int g_00E02EC4;
+// VA 0x00E02EC4 (RVA 0x00A02EC4, four bytes, retail's zero-filled .data tail): the
+// registry id slot this unit passes to the rowed registry Rva003FE7E6 for every
+// callback it registers, so exactly one body needs to hand out its address. Defined
+// here in the registering unit; retail holds zeros there and the registry writes the
+// assigned id the first time a callback is registered.
+int g_00E02EC4;
 bool Rva003FE7E6(Rva00211E75Callback callback, int *id);
 int rva00565170(int, bool);
 // Native callback dispatcher611216 loads a float and forwards its bool flag.

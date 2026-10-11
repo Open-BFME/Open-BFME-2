@@ -217,6 +217,9 @@ extern SpecialPowerStore *TheSpecialPowerStore;
 extern DamageFXStore *TheDamageFXStore;
 extern ArmorStore *TheArmorStore;
 extern class Rva00A027B8 *g_00A027B8;
+// VA 0x00E0307C (RVA 0x00A0307C, retail's zero-filled .data tail): the slot is
+// already defined in Common/CrowdResponseBlockParse.cpp, the unit that parses the
+// crowd-response blocks; the initSubsystem call below only assigns it.
 extern Rva0022A809Subsystem *TheCrowdResponseStore;
 extern class LivingWorldAutoResolveArmorStore *TheLivingWorldAutoResolveArmorStore;
 extern class Rva0041811D *g_Va00E030C0;

@@ -94,7 +94,11 @@ bool Rva003FE7E6(Rva00211E75Callback callback, int *id);
 int rva0051E280PreParchmentMapFadeStartNew(int, bool);
 int rva0051573A(float, bool);
 
-extern int g_Va00DD1538;
+// VA 0x00DD1538 (RVA 0x009D1538): retail's .data holds 1, 0, then two .rdata
+// pointers, and the 48-byte extent the data ledger records for this address starts
+// with the campaign-side word this body writes 0 (Evil) / 2 (Hero) / 1 (Good) into.
+// Defined here, in the only unit that assigns it, with the value retail holds.
+int g_Va00DD1538 = 1;
 
 class LivingWorldManager
 {

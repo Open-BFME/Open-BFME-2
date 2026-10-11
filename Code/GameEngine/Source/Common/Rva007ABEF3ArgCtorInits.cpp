@@ -108,8 +108,10 @@ public:
 	float m_2C;
 	float m_30;
 };
-Rva00559D0CRankWeights g_00E05FCC;
-Rva00559D0CRankWeights g_00E06000;
+// Not defined here: Rva005B8116Stats.cpp already defines both of them (the unit that
+// reads their weights), and a second definition of the same symbol is a duplicate.
+extern Rva00559D0CRankWeights g_00E05FCC;
+extern Rva00559D0CRankWeights g_00E06000;
 extern unsigned g_Va00E06034;
 // g_rva005C1A8DDefault is the VA 0x00E06060 table: the getter at retail RVA
 // 0x005C1A8D returns it as the default ("Default") when a slot has no override,
