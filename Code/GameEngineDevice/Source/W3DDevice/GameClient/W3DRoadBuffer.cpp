@@ -1573,8 +1573,8 @@ private:
 	char m_pad18[0x20 - 0x18];
 	Int m_flags;	// +0x20
 };
-class MapObjectListHolder;
-extern MapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
+class BfmeMapObjectListHolder;
+extern BfmeMapObjectListHolder *BfmeTheMapObjectListHolder;	// retail [0x00E00940]
 
 // BFME 2 registers each road's name with the asset registry when one exists
 // (retail [0x00E099F8]): the AssetList shape and callees as in
