@@ -6,13 +6,7 @@
 // size-optimised build keeps as direct memory pushes. Evidence: callers 0x002408F5
 // and 0x00435A6F (the latter passes 0 and 1), callees StringBase wide copy and the
 // saveGame pin 0x002DD38D; address-derived wrapper name.
-// Retail's out-of-line UnicodeString copy is frameless; this TU builds /Oy-
-// (frame pointers), which gives the COMDAT an ebp frame and loses the link.
-// Compile the UnicodeString inline definitions with frame omission so our
-// copy matches the kept retail one.
-#pragma optimize("y", on)
 #include "unicode_string.h"
-#pragma optimize("", on)
 
 class GameState
 {
