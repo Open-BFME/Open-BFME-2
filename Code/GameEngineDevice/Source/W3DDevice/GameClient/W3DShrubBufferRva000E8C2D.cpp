@@ -92,6 +92,17 @@ private:
 	Rva000E8C2DType m_treeTypes[64];
 };
 
+// File-static matrix copy (LK3-style): the TU's copy-ctor COMDAT loses
+// the link, and the rowed body below inlines the construction, so the def
+// cannot just go away. The helper keeps a call in the source (regalloc
+// preserved) while the copy-ctor goes unused.
+static void CopyShrubMatrix3D(Matrix3D &dst, const Matrix3D &src)
+{
+    dst[0] = src[0];
+    dst[1] = src[1];
+    dst[2] = src[2];
+}
+
 // ?rva000E8C2D@W3DShrubBuffer@@QAEXHH@Z
 void W3DShrubBuffer::rva000E8C2D(Int index, Int request)
 {
@@ -118,7 +129,8 @@ void W3DShrubBuffer::rva000E8C2D(Int index, Int request)
 	m_trees[index].m_topple = Create_Render_Obj(m_treeTypes[type].m_modelName.str());
 	rva0010E4F6(m_trees[index].m_topple, false);
 	reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(m_trees[index].m_topple);
-	Matrix3D transform = m_trees[index].m_topple->Get_Transform();
+	Matrix3D transform;
+	CopyShrubMatrix3D(transform, m_trees[index].m_topple->Get_Transform());
 	transform[0][3] = m_trees[index].m_location.x;
 	transform[1][3] = m_trees[index].m_location.y;
 	transform[2][3] = m_trees[index].m_location.z;
