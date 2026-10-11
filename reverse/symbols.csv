@@ -17186,3 +17186,4 @@ _D3DXLoadSurfaceFromFileInMemory@36,0x0062AF80,Native separate-alpha loader REL3
 ?top@?$AptValuePtrStack@VAptValue@@@@QAEPAVAptValue@@XZ,0x006DE160,callee of ?_FunctionAptActionCallMethod@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z
 ?at@?$AptValuePtrStack@VAptValue@@@@QAEPAVAptValue@@H@Z,0x006DCC10,callee of ?_FunctionAptActionCallMethod@AptActionInterpreter@@CAXQAU1@QAULocalContextT@1@@Z
 ??3Rva006FBDB0@@SAXPAXI@Z,0x006D8680,class-scoped sized operator delete of the TU-private debug-stack record Rva006FBDB0 (AptActionInterpreterConstantHandlers.cpp): the throwing-new cleanup funclets of CallMethod CallFunction and PrepareForExecution push size 0xC and the block and call this pool-free
+?rva00106D56@Rva00107E76Elem@@QAEHHFHPAX@Z,0x00106D56,callee of ?rva00107D8A@Rva00107E76Mgr@@QAEXXZ
