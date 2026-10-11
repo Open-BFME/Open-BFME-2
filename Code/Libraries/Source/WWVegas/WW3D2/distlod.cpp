@@ -1160,10 +1160,20 @@ void DistLODClass::Scale(float scalex, float scaley, float scalez)
 void DistLODClass::Update_Lod(const CameraClass & camera)
 {
 	// evaluate the distance from the camera and select an LOD based on it.
-	float dist =	(
-							camera.Get_Position() - 
-							Lods[CurLod].Model->Get_Bounding_Sphere().Center
-						).Quick_Length();
+	// Inlined Vector3::Quick_Length (Graphics Gems approx, header math):
+	// this TU's x87 copy of the out-of-line helper loses the link to the
+	// SSE home copy, so the helper is not called here at all. Enclosing
+	// function is unrowed.
+	Vector3 diff = camera.Get_Position() -
+		Lods[CurLod].Model->Get_Bounding_Sphere().Center;
+	float ax = diff.X < 0.0f ? -diff.X : diff.X;
+	float ay = diff.Y < 0.0f ? -diff.Y : diff.Y;
+	float az = diff.Z < 0.0f ? -diff.Z : diff.Z;
+	float max = ax, mid = ay, min = az, tmp;
+	if (max < mid) { tmp = max; max = mid; mid = tmp; }
+	if (max < min) { tmp = max; max = min; min = tmp; }
+	if (mid < min) { tmp = mid; mid = min; min = mid; }
+	float dist = max + (11.0f / 32.0f) * mid + (1.0f / 4.0f) * min;
 
 	if (dist < Lods[CurLod].ResUpDist) {
 		Increment_Lod();
