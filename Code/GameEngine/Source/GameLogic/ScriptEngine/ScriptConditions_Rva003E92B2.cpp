@@ -32,7 +32,7 @@ protected:
 
 bool ScriptConditions::evaluateGameModeActive(Parameter *p)
 {
-	if (p->getString().compareNoCase("ringheroes") == 0) {
+	if (((const StringBase<char> &)p->getString()).compareNoCase("ringheroes") == 0) {
 		GameInfo *info = TheGameInfo;
 		if (info == 0 || info->m_68 == 1)
 			return true;

@@ -77,7 +77,7 @@ ScienceAvailabilityType Player::getScienceAvailabilityTypeFromString( const Asci
 {
 	for( int i = 0; i < SCIENCE_AVAILABILITY_COUNT; i++ )
 	{
-		if( !name.compareNoCase( ScienceAvailabilityNames[ i ] ) )
+		if( !((const StringBase<char> &)name).compareNoCase( ScienceAvailabilityNames[ i ] ) )
 		{
 			return (ScienceAvailabilityType)i;
 		}

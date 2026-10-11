@@ -161,7 +161,7 @@ const CreateAHeroSubClass *CreateAHeroManager::CreateAHeroClass::rva0021AF1C(con
 {
  const CreateAHeroSubClass *found = 0;
  for (UnsignedInt index = 0; index < SubClassCount(&m_subClasses); ++index) {
-  if (name.compareNoCase(m_subClasses.m_start[index].m_upgradeName) == 0)
+  if (((const StringBase<char> &)name).compareNoCase(*(const StringBase<char> *)&m_subClasses.m_start[index].m_upgradeName) == 0)
    found = &m_subClasses.m_start[index];
  }
  return found;

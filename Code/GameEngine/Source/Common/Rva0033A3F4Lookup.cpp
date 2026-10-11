@@ -22,7 +22,7 @@ int Rva0033A3F4Lookup(const AsciiString &name)
 		return 5;
 	for (int i = 0; i < 7; ++i)
 	{
-		if (name.compareNoCase(g_rva0033A3F4Table[i]) == 0)
+		if (((const StringBase<char> &)name).compareNoCase(g_rva0033A3F4Table[i]) == 0)
 			return i;
 	}
 	return 7;

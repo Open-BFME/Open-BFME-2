@@ -10,7 +10,7 @@
 
 bool __stdcall Rva0002C63CAsciiNocaseLess(const AsciiString &left, const AsciiString &right)
 {
-    return (left.compareNoCase(right) < 0) || false;
+    return (((const StringBase<char> &)left).compareNoCase(*(const StringBase<char> *)&right) < 0) || false;
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
