@@ -59,6 +59,12 @@ public:
 
 	virtual ~Mouse();
 	virtual void setCursor( MouseCursor cursor );
+	// Retail folds this empty hook with the shared 1B ret at 0x000B3FD0
+	// (pin: ResetResolution calls it on TheMouse; ZH mouseNotifyResolution-
+	// Change is the identity lead). Defined here because this TU makes no
+	// calls to it, so nothing inlines or deletes the out-of-line call that
+	// GameClientDisplayModeChange's rowed body needs.
+	void rva000B3FD0();
 	void rva001EEBD5( UnicodeString text, const _MouseSixteen *color, const _MouseSixteen *dropColor );
 
 protected:
@@ -68,6 +74,10 @@ protected:
 	MouseCursor m_currentCursor;
 	DisplayString *m_cursorTextDisplayString;
 };
+
+void Mouse::rva000B3FD0()
+{
+}
 
 void Mouse::setCursor( MouseCursor cursor )
 {
