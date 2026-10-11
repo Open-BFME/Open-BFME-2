@@ -76331,3 +76331,5 @@ uw_0077909c,,0x0077909C,13,Code/GameEngine/Source/GameLogic/AI/AIObjectTargetPre
 ?rva00237E63@Version@@QAEHPBX_N@Z,,0x00237E63,94,Code/GameEngine/Source/Common/VersionDestructor.cpp,matched,
 ?update@ShellMenuSchemeManager@@QAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuSchemeSet.cpp,matched,ICF twin of the rowed 1B folded-empty bodies; Shell::update calls it out of line (pin 12477); home TU defines the empty body
 ?rva000B3FD0@Mouse@@QAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/GameClient/MouseSetCursor.cpp,matched,ICF twin of the rowed 1B folded-empty bodies; ResetResolution calls it on TheMouse after resize (pin); ZH mouseNotifyResolutionChange identity lead; home TU makes no calls to it
+?rva000B3FD0Empty@Rva000B3FD0Empty@@QAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/EmptyFoldTwins.cpp,matched,ICF twin of the rowed 1B folded-empty bodies; opaque pin alias rename on identity; home TU makes no calls to it
+?rva000B3FD0@Rva000B3FD0@@QAEXXZ,,0x000B3FD0,1,Code/GameEngine/Source/Common/EmptyFoldTwins.cpp,matched,ICF twin of the rowed 1B folded-empty bodies; opaque pin alias rename on identity; home TU makes no calls to it
