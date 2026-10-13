@@ -81,9 +81,9 @@ public:
 	virtual void slot27();
 	virtual void slot28();
 	virtual void slot29();
-	virtual float Rva0027D85B(void *water);
+	virtual float getWaterHeight(void *water);
 	virtual void slot31();
-	virtual void Rva0027D88E(void *water, float finalHeight, float transitionTime, float damageAmount);
+	virtual void changeWaterHeightOverTime(void *water, float finalHeight, float transitionTime, float damageAmount);
 	void Rva0027D960(void *water, float *out);
 	void Rva0027DA58();
 
@@ -112,13 +112,17 @@ float Rva0062AF7::Rva0027D815(float x, float y)
 }
 
 //
-// ?Rva0027D85B@Rva0062AF7@@UAEMPAX@Z retail 0x0027D85B 51 bytes.
+// ?getWaterHeight@Rva0062AF7@@UAEMPAX@Z retail 0x0027D85B 51 bytes.
 // Vslot 30 (offset 0x78) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
 // Null or grid-handle (global 0x00DBB710) returns pooled 0.0f at 0x007BAEAC.
 // Else water+0x18 holds inner, inner+0x04 holds byte offset, real object at
 // water+0x18+offset exposes int at slot 2 (offset 8) converted via fild.
 // Layout witnessed from retail bytes only; helper view names are honest
-// address-derived, not donor claims. Identity class plus slot, honest name.
+// address-derived, not donor claims. Method name from the WorldBuilder lead
+// (vtable evidence, score 9): WB's same vtable slot is
+// TerrainLogic::getWaterHeight (TerrainLogic.cpp:3766, ret 4, null and
+// grid-handle checks returning 0.0f). The owning class stays address-named:
+// the slot alone does not prove Rva0062AF7 is TerrainLogic itself.
 // Flags: /O1 plus /arch:SSE plus /G7 (section 4.1, same TU as neighbours).
 extern void *g_Va00DBB710;
 struct Rva0027D85BPolyView
@@ -137,7 +141,7 @@ struct Rva0027D85BWaterView
 	char m_pad00[0x18];
 	Rva0027D85BInnerView *m_inner18;
 };
-float Rva0062AF7::Rva0027D85B(void *water)
+float Rva0062AF7::getWaterHeight(void *water)
 {
 	Rva0027D85BWaterView *view = (Rva0027D85BWaterView *)water;
 	if (water == 0)
@@ -150,16 +154,19 @@ float Rva0062AF7::Rva0027D85B(void *water)
 }
 
 //
-// ?Rva0027D88E@Rva0062AF7@@UAEXPAXMMM@Z retail 0x0027D88E 210 bytes.
+// ?changeWaterHeightOverTime@Rva0062AF7@@UAEXPAXMMM@Z retail 0x0027D88E 210 bytes.
 // Vslot 32 (offset 0x80) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
 // Donor: BFME1 TerrainLogic::changeWaterHeightOverTime in
 // reference/open-bfme-1/Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp
 // (dedup swap-with-last via rep movsd, getWaterHeight via slot 0x78, then
 // (final-current)/(LogicFrames*transition) with LogicFrames global 0x00DBA4E4).
-// Array at +0x68 stride 0x14 count at +0x568 max 64. Identity class plus slot,
-// honest address name. Flags: /O1 for EBP frame plus /arch:SSE for movss
+// Array at +0x68 stride 0x14 count at +0x568 max 64. Method name from the
+// WorldBuilder lead (vtable evidence, score 9: WB's same slot is
+// TerrainLogic::changeWaterHeightOverTime, TerrainLogic.cpp:3894), agreeing
+// with the donor; the owning class stays address-named as for getWaterHeight
+// above. Flags: /O1 for EBP frame plus /arch:SSE for movss
 // float moves plus /G7 for imul 0x14 and edx loop index (section 4.1).
-void Rva0062AF7::Rva0027D88E(void *water, float finalHeight, float transitionTime, float damageAmount)
+void Rva0062AF7::changeWaterHeightOverTime(void *water, float finalHeight, float transitionTime, float damageAmount)
 {
 #define LogicFramesPerSecond g_Va00DBA4E4
 	enum { MAX_DYNAMIC_WATER = 64 };
@@ -176,7 +183,7 @@ void Rva0062AF7::Rva0027D88E(void *water, float finalHeight, float transitionTim
 			--i;
 		}
 	}
-	float currentHeight = Rva0027D85B(water);
+	float currentHeight = getWaterHeight(water);
 	m_entries[m_count].waterTable = water;
 	m_entries[m_count].changePerFrame = (finalHeight - currentHeight) / (LogicFramesPerSecond * transitionTime);
 	m_entries[m_count].targetHeight = finalHeight;
@@ -190,7 +197,7 @@ void Rva0062AF7::Rva0027D88E(void *water, float finalHeight, float transitionTim
 // Vslot 19 (offset 0x4C) of vtable 0x007C5890 primary of ??1Rva0062AF7@@UAE@XZ.
 // Ground height via slot 6 (offset 0x18) with x y and 0, water via slot 26
 // (offset 0x68) with x y and ground, null water returns false, else height
-// via slot 30 Rva0027D85B into *a, ground into *b, water slot 1 into *c,
+// via slot 30 getWaterHeight into *a, ground into *b, water slot 1 into *c,
 // returns height above ground. Identity class plus slot, honest address name.
 // Flags: /O1 plus /arch:SSE plus /G7 (same TU as neighbours).
 struct Rva0027D77DWaterView
@@ -204,7 +211,7 @@ bool Rva0062AF7::Rva0027D77D(float x, float y, float *a, float *b, bool *c)
 	void *water = slot26(x, y, ground);
 	if (water == 0)
 		return false;
-	float h = Rva0027D85B(water);
+	float h = getWaterHeight(water);
 	if (a != 0)
 		*a = h;
 	if (b != 0)
