@@ -1,10 +1,15 @@
 // cl: /MD
-// ?rva00341DFC@Rva0033F6DA@@UAEHXZ @0x00341DFC 38B: Rva0033F6DA slot 6.
+// ?update@AIGuardState@@UAE?AW4StateReturnType@@XZ @0x00341DFC 38B: AIGuardState slot 6.
 // If m_20==0 return -2 else set m_machine+0x38 to 1 then call m_20 slot 0x10 then clear m_machine+0x38 and return result.
 // Precedent State m_machine plus Snapshot slot shape.
-// Vtable 0x00811740 slot 6.
+// Vtable 0x00C11740 slot 6. That vtable is AIGuardState's: its slot-2 name
+// getter returns "AIGuardState" and slots 4/8 are the rowed
+// AIGuardState::onEnter/isAttack. WorldBuilder's AIGuardState::update (vtable
+// lead) has the same shape: no guard machine -> STATE_FAILURE, else raise the
+// machine flag at +0x38, run the guard machine's slot 0x10, lower the flag.
 class StateMachine;
 class Snapshot;
+enum StateReturnType { STATE_CONTINUE = 0, STATE_SUCCESS = -1, STATE_FAILURE = -2 };
 class M20
 {
 public:
@@ -12,7 +17,7 @@ public:
 	virtual void p1();
 	virtual void p2();
 	virtual void p3();
-	virtual int v4();
+	virtual StateReturnType v4();
 };
 struct Mach
 {
@@ -33,19 +38,19 @@ public:
 	bool m_tail1C;
 	char m_pad1D[0x20 - 0x1D];
 };
-class Rva0033F6DA : public State
+class AIGuardState : public State
 {
 public:
-	virtual int rva00341DFC();
+	virtual StateReturnType update();
 private:
 	M20 *m_20;
 };
-int Rva0033F6DA::rva00341DFC()
+StateReturnType AIGuardState::update()
 {
 	if (m_20 == 0)
-		return -2;
+		return STATE_FAILURE;
 	m_machine->m_38 = true;
-	int r = m_20->v4();
+	StateReturnType r = m_20->v4();
 	m_machine->m_38 = false;
 	return r;
 }
