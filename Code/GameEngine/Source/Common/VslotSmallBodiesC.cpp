@@ -23,6 +23,12 @@ public:
 
 // vtable 0x00BC6540#2-#6 and #9: forward to the same slot of the object at
 // +8 when there is one (false or 0 without it).
+// Slots #3-#6 carry the WorldBuilder names of FXShader::RenderingMethodDelegate
+// (fxshaderrenderingmethod.h:71/78/84/90): WB's Begin_Pass,
+// UpdateDynamicParameterSet, End_Pass and End_Rendering forward to inner
+// vtable +0x0C/+0x10/+0x14/+0x18 with the same argument counts as these
+// bodies (vtable leads for the first three, slot order for End_Rendering).
+// The class stays address-named; the inner view keeps its slot names.
 class Rva00072A08Inner : public VslotPad<1>
 {
 public:
@@ -39,10 +45,10 @@ class Rva00072A08
 {
 public:
 	Bool rva00072A08(Int a0, Int a1);
-	void rva00072A19(Int a0);
-	void rva00072A28(Int a0);
-	void rva00072A37();
-	void rva00072A44();
+	void Begin_Pass(Int a0);
+	void UpdateDynamicParameterSet(Int a0);
+	void End_Pass();
+	void End_Rendering();
 	Int rva00072ADE();
 private:
 	char m_pad00[0x08];
@@ -55,10 +61,10 @@ Bool Rva00072A08::rva00072A08(Int a0, Int a1)
 		return false;
 	return inner->slot2(a0, a1);
 }
-void Rva00072A08::rva00072A19(Int a0) { Rva00072A08Inner *inner = m_08; if (inner) inner->slot3(a0); }
-void Rva00072A08::rva00072A28(Int a0) { Rva00072A08Inner *inner = m_08; if (inner) inner->slot4(a0); }
-void Rva00072A08::rva00072A37() { Rva00072A08Inner *inner = m_08; if (inner) inner->slot5(); }
-void Rva00072A08::rva00072A44() { Rva00072A08Inner *inner = m_08; if (inner) inner->slot6(); }
+void Rva00072A08::Begin_Pass(Int a0) { Rva00072A08Inner *inner = m_08; if (inner) inner->slot3(a0); }
+void Rva00072A08::UpdateDynamicParameterSet(Int a0) { Rva00072A08Inner *inner = m_08; if (inner) inner->slot4(a0); }
+void Rva00072A08::End_Pass() { Rva00072A08Inner *inner = m_08; if (inner) inner->slot5(); }
+void Rva00072A08::End_Rendering() { Rva00072A08Inner *inner = m_08; if (inner) inner->slot6(); }
 Int Rva00072A08::rva00072ADE()
 {
 	Rva00072A08Inner *inner = m_08;
