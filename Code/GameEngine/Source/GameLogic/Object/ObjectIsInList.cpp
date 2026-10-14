@@ -6,9 +6,9 @@
 // *pListHead == this`, and the sole retail caller GameLogic::friend_awakenUpdateModule
 // (0x0024297F) passes &GameLogic+0xAC as pListHead with this=obj.
 //
-// 0x0028B4CE follows isInList and BFME's two-list prepend 0x0028B49B in
-// retail as setLayer does in Zero Hour's Object.cpp; its body changed shape
-// in BFME, so the name stays address-derived.
+// 0x0028B4CE follows isInList and appendToList (0x0028B49B) in retail as
+// setLayer does in Zero Hour's Object.cpp; its body changed shape in BFME,
+// so the name stays address-derived.
 
 typedef bool Bool;
 
@@ -49,6 +49,7 @@ class Object
 {
 public:
 	Bool isInList(Object **pListHead) const;
+	void appendToList(Object **pListHead, Object **pListTail);
 	void rva0028B4CE(PathfindLayerEnum layer);
 
 private:
@@ -65,6 +66,22 @@ Bool Object::isInList(Object **pListHead) const
 {
 	Bool result = m_prev || m_next || *pListHead == this;
 	return result;
+}
+
+// ?appendToList@Object@@QAEXPAPAV1@0@Z, retail 0x0028B49B (51B).
+// Name, file and statement order from the WorldBuilder debug build
+// (0xCD0980, Object.cpp:5969..5978): the asserts there name pListTail and
+// m_prev->m_next, fixing +0x90 as m_prev and +0x8C as m_next. Retail loads
+// *pListTail before clearing m_next, so m_prev is assigned first.
+void Object::appendToList(Object **pListHead, Object **pListTail)
+{
+	m_prev = *pListTail;
+	m_next = 0;
+	if (m_prev)
+		m_prev->m_next = this;
+	if (*pListHead == 0)
+		*pListHead = this;
+	*pListTail = this;
 }
 
 // ?rva0028B4CE@Object@@QAEXW4PathfindLayerEnum@@@Z, retail 0x0028B4CE (67B):
