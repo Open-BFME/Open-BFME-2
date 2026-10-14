@@ -178,16 +178,39 @@ struct ListNode
 // +0x2EC is the destination team (TeamDidPartialEnter 0x0039E9FD precedent);
 // +0x32C is the prototype list head (list object with sentinel); the byte
 // getter above proves +0x734.
+//
+// The +0x08 member: doSpecialSlaveAIUpdate reads its float at +0x0C, calls
+// its vtable slot 3 and hands the value to the master player's copy through
+// the matched 0x003805BB (skill-point accumulation per its row). Only the
+// offsets and the slot are target facts.
+class Rva00380200
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	bool rva003805BB(float value, bool flag);		// 0x003805BB
+	float getValue() const { return m_value; }
+
+private:
+	unsigned char m_pad04[0x0C - 0x04];
+	float m_value;						// +0x0C
+};
+
 class Player : public Rva002AA22AByteField
 {
 	friend class SkirmishAI;
 public:
 	void rva002AE2ED(Player *other);			// 0x002AE2ED
+	Rva00380200 &getField08() { return m_field08; }
 	Int getField24() const { return m_field24; }
 	void setField24(Int value) { m_field24 = value; }
 
 private:
-	unsigned char m_pad00[0x24];
+	unsigned char m_pad00[0x08];
+	Rva00380200 m_field08;					// +0x08
+	unsigned char m_pad18[0x24 - 0x18];
 	Int m_field24;						// +0x24
 	unsigned char m_pad28[0x2EC - 0x28];
 	Team *m_team2EC;					// +0x2EC
@@ -341,6 +364,25 @@ void SkirmishAI::update()
 void SkirmishAI::doSpecialSlaveAIDying()
 {
 	transferUnitsToPlayer(ThePlayerList->getNthPlayer(m_masterPlayerIndex));
+}
+
+// SkirmishAI::doSpecialSlaveAIUpdate, retail 0x002C6879 (85 bytes).
+// Identity: WB SkirmishAI.cpp:165..167 (0xE8ABB0), callee of
+// doSpecialMasterAIDying. A positive +0x08 value on this AI's player is
+// moved to the master player: slot 3 on our copy, then 0x003805BB on the
+// master's with (value, false). The unused `player` copy is a codegen lever,
+// not a recovered local (the WB debug body stores none): it keeps retail's
+// lea of &m_player and the copied pointer for the slot-3 call.
+void SkirmishAI::doSpecialSlaveAIUpdate()
+{
+	Player *myMaster = ThePlayerList->getNthPlayer(m_masterPlayerIndex);
+	Player *player = m_player;
+	float value = m_player->getField08().getValue();
+	if (value > 0.0f)
+	{
+		m_player->getField08().slot3();
+		myMaster->getField08().rva003805BB(value, false);
+	}
 }
 
 // SkirmishAI::doSpecialMasterAIDying, retail 0x002C6B92 (79 bytes).
