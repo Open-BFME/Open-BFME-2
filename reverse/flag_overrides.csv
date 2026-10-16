@@ -507,6 +507,7 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,,1,1,region
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp,-G7 -arch:SSE,6,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp,-O2 -G6,5,1,region default loses rows
+Code/Libraries/Source/Apt/AptActionInterpreter.cpp,-O2,3,1,region default loses rows
 Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp,-O2,129,15,region default loses rows
 Code/Libraries/Source/Apt/AptAnimation.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptCIHLevel006E0B80.cpp,-O2,10,1,region default loses rows
