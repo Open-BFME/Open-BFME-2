@@ -55,3 +55,13 @@ private:
 RespawnUpdateModuleData::~RespawnUpdateModuleData()
 {
 }
+
+// This parent's FuncInfo 0x0093F0D4 binds state 2 to action 0x0078E6FC:
+// destroy the rules set at this+0x10C through 0x004AF52C. The implicit
+// set destructor forwards to the existing typed tree at 0x004AF46E.
+// BfmePod20 retains the existing opaque 20-byte RespawnRule view.
+template _STL::set<BfmePod20>::~set();
+static void retainRespawnRuleSetDtor(_STL::set<BfmePod20> *sets)
+{
+    delete[] sets;
+}
