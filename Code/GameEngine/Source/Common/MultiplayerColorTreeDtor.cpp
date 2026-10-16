@@ -36,3 +36,14 @@ typedef _STL::_Rb_tree<int, ColorMapValue, _STL::_Select1st<ColorMapValue>, _STL
 
 // ??1?$_Rb_tree@HU?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@U?$_Select1st@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHVMultiplayerColorDefinition@@@_STL@@@2@@_STL@@QAE@XZ @0x38103F
 template ColorMapTree::~_Rb_tree();
+
+// MultiplayerSettings' native unwind state 1 (FuncInfo 0x00929958,
+// action 0x0077F310) destroys its +0x34 color map through 0x0038119D.
+// That entry forwards to the tree destructor above. Instantiate the real
+// map destructor; the unused array-delete anchor retains its COMDAT while
+// the compiler discards the anchor itself.
+template _STL::map<int, MultiplayerColorDefinition>::~map();
+static void retainColorMapDtor(_STL::map<int, MultiplayerColorDefinition> *maps)
+{
+    delete[] maps;
+}
