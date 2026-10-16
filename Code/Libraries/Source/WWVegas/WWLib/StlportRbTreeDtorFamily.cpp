@@ -30,6 +30,17 @@ typedef _STL::pair<const AsciiString, PlayerInfo> PlayerInfoMapValue;
 typedef _STL::_Rb_tree<AsciiString, PlayerInfoMapValue, _STL::_Select1st<PlayerInfoMapValue>, AsciiComparator, _STL::allocator<PlayerInfoMapValue> > PlayerInfoMapTree;
 template PlayerInfoMapTree::~_Rb_tree();
 
+// GameSpyInfo's constructor 0x00385FE1 installs handler 0x0077FBD5.
+// FuncInfo 0x0092A3DC state 8 destroys its +0x4C PlayerInfoMap through
+// 0x003853C1, which forwards to the tree destructor at 0x00384E28.
+// The explicit instantiation plus this discarded array-delete anchor
+// retains the implicit map destructor without emitting another function.
+template _STL::map<AsciiString, PlayerInfo, AsciiComparator>::~map();
+static void retainPlayerInfoMapDtor(_STL::map<AsciiString, PlayerInfo, AsciiComparator> *maps)
+{
+    delete[] maps;
+}
+
 struct BfmeStringRecord0021A940
 {
 	~BfmeStringRecord0021A940();
