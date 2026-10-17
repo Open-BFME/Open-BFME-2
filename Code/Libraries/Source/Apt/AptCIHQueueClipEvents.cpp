@@ -88,7 +88,7 @@ class AptCIH : public AptValue
 {
 public:
     bool IsSpriteInstBase() const; // 0x006CFCD0
-    bool rva006E1F90(int mask);    // 0x006E1F90 (row name; callers test the full EAX)
+    int rva006E1F90(int mask);    // 0x006E1F90 (row name; callers test the full EAX)
     bool queueClipEvents(int mask, int value, int flag);
     __forceinline bool isTextInst() const
     {
@@ -161,7 +161,7 @@ bool AptCIH::queueClipEvents(int mask, int value, int flag)
     if (isTextInst())
         return false;
     AptSpriteCharacter *pChar = getSpriteCharacter();
-    if (!(this->*reinterpret_cast<int (AptCIH::*)(int)>(&AptCIH::rva006E1F90))(mask))
+    if (!rva006E1F90(mask))
         return false;
     bool bQueued = false;
     if (pChar->mpClipActions) {

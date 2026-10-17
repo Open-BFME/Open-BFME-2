@@ -22,6 +22,8 @@
 // cross-jumping the 0x859/0x862 assert tails.
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
+// The verified seven-byte provider at 0x006DBB30 returns the signed type index.
+class Rva006DBB30SarDwordField { public: int get() const; };
 class AptCIH;
 class EAStringC;
 class AptValue
@@ -30,7 +32,6 @@ class AptValue
  public:
  AptCIH *c_cih(bool bUndefinedOK);
  bool isCIH(bool bUndefinedOK) const;
- int getVtblIndex() const;
  bool isUndefined() const;
  float toFloat() const;
  int toInteger() const;
@@ -238,14 +239,14 @@ static __forceinline bool isText(AptCIH *cih)
 {
  if(!cih)aptAssert("this",CIH_FILE,0xC4);
  const AptValue *v=(const AptValue*)cih;
- return v->getVtblIndex()==15 && !v->isUndefined();
+ return ((const Rva006DBB30SarDwordField *)v)->get()==15 && !v->isUndefined();
  
 }
 static __forceinline bool isButton(AptCIH *cih)
 {
  if(!cih)aptAssert("this",CIH_FILE,0xB5);
  const AptValue *v=(const AptValue*)cih;
- return v->getVtblIndex()==14 && !v->isUndefined();
+ return ((const Rva006DBB30SarDwordField *)v)->get()==14 && !v->isUndefined();
  
 }
 class Rva006EBFF0 

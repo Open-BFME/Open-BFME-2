@@ -1,4 +1,5 @@
-// partial score=0.95 date=2026-10-03
+// Native 0x006E1F90 returns a full-width 0/1 in EAX. All five callers
+// test EAX, including the property setter; keep the declaration consistent.
 // cl: /MD
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
@@ -19,11 +20,11 @@ public:
 	unsigned char _pad3[8];
 	int m_code;
 
-	bool rva006E1F90(int flag);
+	int rva006E1F90(int flag);
 	bool rva006CFCD0() const;
 };
 
-bool AptCIH::rva006E1F90(int flag)
+int AptCIH::rva006E1F90(int flag)
 {
 	if (!rva006CFCD0()) {
 		g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7D);

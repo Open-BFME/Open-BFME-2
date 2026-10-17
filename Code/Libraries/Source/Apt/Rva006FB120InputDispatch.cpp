@@ -68,7 +68,7 @@ class AptCIH : public AptValue
 {
 public:
     bool rva006E0BF0() const;               // 0x006E0BF0
-    bool rva006E24D0();                     // 0x006E24D0 (rowed _N; caller tests eax)
+    int rva006E24D0();                     // 0x006E24D0 (full-width EAX return)
     bool rva006E0C50(const AptCIH *) const; // 0x006E0C50
     bool rva006E2460(const AptCIH *) const; // 0x006E2460
     bool queueClipEvents(int mask, int value, int flag); // 0x006E2010
@@ -148,7 +148,7 @@ void Rva006FB860::rva006FB120(int eType, int state, int value, int device, char 
         if (((Rva006E3710 *)g_bfmeAptPtrAtE176D0)->rva006E3710((Rva006E3710Node *)pInst))
             continue;
         APT_ASSERT(inputSet.maElements[i]->isCIH(), "inputSet.maElements[i]->isCIH()", APT_INPUT_FILE, 0x296)
-        if (isFirst && pInst->rva006E0BF0() && (pInst->*reinterpret_cast<int (AptCIH::*)()>(&AptCIH::rva006E24D0))()
+        if (isFirst && pInst->rva006E0BF0() && pInst->rva006E24D0()
             && ((Rva006F9FC0 *)this)->rva006F9FC0((Rva006E1E30 *)pInst, value)) {
             if (pHit->isUndefined()
                 || (!pInst->rva006E0C50(pHit->c_cih()) && pInst->rva006E2460(pHit->c_cih())))

@@ -72,7 +72,7 @@ public:
 	}
 	bool isButton() const { return ((const Rva006DBB30SarDwordField *)this)->get() == 0x12 && !isUndefined(); }
 	void jumpToFrame(int);
-	bool rva006E1F90(int);
+	int rva006E1F90(int);
 	bool queueClipEvents(int, int, int);
 	void *rva006E1090() const;
 	void rva006E2D60();
@@ -114,7 +114,7 @@ void AptCIH::rva006E2D60()
 		}
 	events:
 		if (!sprite->latched || isButton()) {
-			if ((this->*reinterpret_cast<int (AptCIH::*)(int)>(&AptCIH::rva006E1F90))(2))
+			if (rva006E1F90(2))
 				queueClipEvents(2, g_00E17704, 1);
 		}
 		if (sprite->latched) {

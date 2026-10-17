@@ -33,7 +33,7 @@ public:
     BfmeAptValue006DCD20 *rva006DCF60(bool);
     BfmeAptValue006DCD20 *checkedString();
 };
-class AptCIH {public:bool rva006CFCD0()const;void *rva006E1170()const;bool rva006E1F90(int);};
+class AptCIH {public:bool rva006CFCD0()const;void *rva006E1170()const;int rva006E1F90(int);};
 struct AptNativeHash;
 class AptValue {public:virtual void AddRef();virtual void Release();virtual void ForceDelete();virtual AptNativeHash *GetNativeHashVirtual();virtual bool ContainsNativeHashVirtual() const;AptValue *findChild(const EAStringC *,AptValue *);};
 struct AptNativeHash {int mnTotalSize;void *mpData;AptValue *mp__proto__;AptValue *mpPrototype;unsigned int nEventHandlers;};
@@ -137,7 +137,7 @@ void Rva006FB860::rva006FAB40(BfmeAptValue006DCD20 *value,int mask,int arg)
   g_bfmeAptAssertAtE17734("pValue->ContainsNativeHashVirtual()","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp",0x483);
   if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
  }
- if(value->isCIH(false) && !(((AptCIH*)value->rva006DCF60(false))->*reinterpret_cast<int (AptCIH::*)(int)>(&AptCIH::rva006E1F90))(mask)) return;
+ if(value->isCIH(false) && !((AptCIH*)value->rva006DCF60(false))->rva006E1F90(mask)) return;
  if(!value->isCIH(false) && !(pValue->GetNativeHashVirtual()->nEventHandlers&mask) && !(pValue->GetNativeHashVirtual()->mp__proto__->GetNativeHashVirtual()->nEventHandlers&mask)) return;
  for(int i=0;i<6;i++) {
   if(g_00DDC8EC[i].mask&mask) {
