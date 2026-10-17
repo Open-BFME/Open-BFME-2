@@ -610,6 +610,7 @@ Code/Libraries/Source/Lua/lstrlib.c,,29,1,region default loses rows
 Code/Libraries/Source/Lua/ltable.c,,16,2,region default loses rows
 Code/Libraries/Source/Lua/lvm.c,,18,2,region default loses rows
 Code/Libraries/Source/Lua/lzio.c,,5,1,region default loses rows
+Code/Libraries/Source/Math/MathCoord2DClosestPoint.cpp,-O2 -G7,1,1,region default loses rows
 Code/Libraries/Source/STLport/NamedException.cpp,-Od,2,2,region default loses rows
 Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp,-Od,1,1,region default loses rows
 Code/Libraries/Source/STLport/Rva008314E0StringReplace.cpp,-Od,1,1,region default loses rows
