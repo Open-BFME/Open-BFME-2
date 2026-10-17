@@ -1,15 +1,5 @@
 // ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.99 date=2026-10-17
-// ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.927 date=2026-10-15
-// ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.91 date=2026-10-13
-// ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.8952 date=2026-10-13
-// ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.8952 date=2026-10-13
-// ?rva002A4A68@Rva002A4A68@@QAEXXZ
-// partial score=0.8919 date=2026-10-05
+// partial score=0.946 date=2026-10-17
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /arch:SSE
 // stlport
 // ?rva002A4A68@Rva002A4A68@@QAEXXZ @0x002A4A68 404B
@@ -181,16 +171,8 @@ update:;
         break;
     }
 count:;
-    void *h = *(void * volatile *)lst;
-    void *n = *(void * *)h;
-    int cnt = 0;
-    void *t = *(void * *)n;
-    void *end = n;
-    while (t != end) {
-        t = *(void * *)t;
-        ++cnt;
-    }
-    if (cnt == 0) {
+    // list::size() walks from the sentinel; the farm bank dereferenced the head twice
+    if (lst->size() == 0) {
         *(int *)((char *)this + 0x908) = -1;
         *(int *)((char *)this + 0x90c) = -1;
     }
