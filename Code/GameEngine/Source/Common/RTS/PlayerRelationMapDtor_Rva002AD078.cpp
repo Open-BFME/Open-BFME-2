@@ -21,12 +21,26 @@ private:
 	unsigned char m_pad[0x1C];
 };
 
+// Native FuncInfo 0x0091CFFC state 1 reaches action 0x00775A1F:
+// destroy owner+4 through 0x002AD073, then the inner table at 0x002ACF51.
+// ZH's PlayerRelationMapType is a hash_map. Keep the held table view and
+// represent its outer container lifetime separately; this is a descriptive
+// view name, not an original C++ type assertion.
+class BfmePlayerRelationMapMember
+{
+public:
+	~BfmePlayerRelationMapMember() {}
+	void clear() { m_table.clear(); }
+private:
+	PlayerRelationHashMap m_table;
+};
+
 class PlayerRelationMap : public Snapshot
 {
 protected:
 	virtual ~PlayerRelationMap();
 
-	PlayerRelationHashMap m_map;
+	BfmePlayerRelationMapMember m_map;
 };
 
 PlayerRelationMap::~PlayerRelationMap()
