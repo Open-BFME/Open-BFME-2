@@ -35,6 +35,7 @@ struct AsciiComparator
 };
 typedef _STL::pair<const AsciiString, PlayerInfo> PlayerInfoMapValue;
 typedef _STL::_Rb_tree<AsciiString, PlayerInfoMapValue, _STL::_Select1st<PlayerInfoMapValue>, AsciiComparator, _STL::allocator<PlayerInfoMapValue> > PlayerInfoMapTree;
+typedef _STL::map<AsciiString, PlayerInfo, AsciiComparator> PlayerInfoMap;
 typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>, _STL::less<AsciiString>, _STL::allocator<AsciiString> > FactionSetTree;
 
 struct Rva00072FE6
@@ -65,6 +66,18 @@ struct BfmeSubEBD
 {
 	~BfmeSubEBD();
 };
+
+// Lifetime-only view of the group-room map at owner+0x18. Native constructor
+// 0x00385FE1 and destructor 0x00386374 bind their state-4 unwind actions to
+// 0x003853BC, which destroys the inner tree through 0x00384DEB on the same
+// receiver. The tree's storage remains opaque; the existing owner padding
+// preserves the following member at +0x24. This is not an original type name.
+struct BfmeGroupRoomMapEBD
+{
+	~BfmeGroupRoomMapEBD() {}
+	BfmeSubEBD m_tree;
+};
+
 struct Gen_uw_00385371
 {
 	~Gen_uw_00385371();
@@ -91,7 +104,7 @@ private:
 	AsciiString m_0C;
 	AsciiString m_10;
 	AsciiString m_14;
-	BfmeSubEBD m_18;
+	BfmeGroupRoomMapEBD m_18;
 	char m_pad19[0x24 - 0x19];
 	Rva003820A4 m_24;
 	char m_pad25[0x34 - 0x25];
@@ -99,7 +112,7 @@ private:
 	char m_pad35[0x40 - 0x35];
 	Rva0038404A m_40;
 	char m_pad41[0x4C - 0x41];
-	PlayerInfoMapTree m_4C;
+	PlayerInfoMap m_4C;
 	Rva00383AFF m_58;
 	char m_pad59[0x60 - 0x59];
 	AsciiString m_60;
