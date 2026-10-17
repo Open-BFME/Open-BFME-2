@@ -85,6 +85,7 @@ INDEX_URL = f"https://github.com/{INDEX_REPO}/releases/download/{INDEX_TAG}/{IND
 OBJECTS = link_census.OUT / "objects.tar.gz"
 OBJECTS_URL = f"https://github.com/{INDEX_REPO}/releases/download/{INDEX_TAG}/{OBJECTS.name}"
 COMMON_SCHEMA = 1
+REFERENCES_SCHEMA = 1
 PREPARE_LIMIT = 32
 # On2 is a vendor token or a camel-case component, not the suffix of
 # Position2/Completion2. Other known decoder/vendor markers stay broad.
@@ -117,12 +118,14 @@ def source_bytes(sources=None):
             for source, found in intervals.items()}
 
 
-def write_index(present, facts, blockers, excuses, meta, selection):
+def write_index(present, facts, blockers, excuses, meta, selection, references=None):
     """Called by link_census.write_status: what a per-file check needs from the
     census, in one pickle. `facts` is link_census.read_facts(present);
     `selection` holds link_census.selection_verdicts' results, holder
-    exceptions and ledger owners."""
-    index = {"meta": meta, **index_tables(present, facts, selection), "blockers": blockers, "excuses": excuses,
+    exceptions and ledger owners; `references` link_census.link_references'
+    {edges, referenced} (none: the index judges every name referenced)."""
+    index = {"meta": meta, **index_tables(present, facts, selection, references), "blockers": blockers,
+             "excuses": excuses,
              "bytes": source_bytes(set(blockers)), "digests": {obj.name: object_digest(obj) for obj in present}}
     link_census.OUT.mkdir(parents=True, exist_ok=True)
     temp = INDEX.with_suffix(".tmp")
@@ -131,10 +134,11 @@ def write_index(present, facts, blockers, excuses, meta, selection):
     temp.replace(INDEX)
 
 
-def index_tables(present, facts, selection):
+def index_tables(present, facts, selection, references=None):
     """The index's definition tables: every object's exclusive definitions and
-    COMDAT copies by name, and the census's selection (holder exceptions,
-    ledger owners)."""
+    COMDAT copies by name, the census's selection (holder exceptions, ledger
+    owners) and, given `references`, the link's reference graph (keep_rule's
+    `unreferenced` rule: REFERENCES_SCHEMA)."""
     if len(present) != len(facts):
         raise ValueError("index needs facts for every census object")
     strong = collections.defaultdict(list)
@@ -151,9 +155,64 @@ def index_tables(present, facts, selection):
             common[name].append((index, size))
         for alias, target in alternate_names(present[index]).items():
             alternates[alias].append((index, target))
-    return {"objects": [obj.name for obj in present], "strong": dict(strong), "comdat": dict(comdat),
-            "selection": selection, "common": dict(common), "common_schema": COMMON_SCHEMA,
-            "alternates": dict(alternates)}
+    tables = {"objects": [obj.name for obj in present], "strong": dict(strong), "comdat": dict(comdat),
+              "selection": selection, "common": dict(common), "common_schema": COMMON_SCHEMA,
+              "alternates": dict(alternates)}
+    if references is not None:
+        tables["references"] = {"schema": REFERENCES_SCHEMA, "edges": dict(references["edges"]),
+                                "referenced": set(references["referenced"])}
+    return tables
+
+
+def index_references(index):
+    """The index's reference graph, or None when it predates RULES (an index
+    a retail-truth-1 census wrote): every name is then judged referenced,
+    PREVIOUS_RULES, which can only over-count blockers."""
+    found = index.get("references")
+    if not isinstance(found, dict) or found.get("schema") != REFERENCES_SCHEMA:
+        if not index.get("_warned_references"):
+            print(f"link_check: this census index has no reference graph (it predates {link_census.RULES}); "
+                  f"no-address COMDAT copies are judged under {link_census.PREVIOUS_RULES}", file=sys.stderr)
+            index["_warned_references"] = True
+        return None
+    return found
+
+
+def kept_copies(index, copies):
+    """The names of COMDAT copies [(name, digest, size, verdict)] the link
+    keeps whoever references them, as link_census.link_references seeds them:
+    a name retail truth can judge (it has a retail address) or a ledger owner's."""
+    owners = index["selection"].get("owners", {})
+    return {name for name, _, _, verdict in copies if verdict is not None or name in owners}
+
+
+def add_references(index, references, aliases=(), kept=()):
+    """Merge objects' link_census.object_references into the index's graph:
+    their roots and edges join the census's, `kept` names (kept_copies) seed
+    the walk like roots, and every name they make reachable joins `referenced`. Only ever adds: a reference an object no
+    longer makes stays counted until the next census (a name can wrongly
+    stay referenced, never wrongly become unreferenced)."""
+    graph = index_references(index)
+    if graph is None:
+        return
+    edges, found = graph["edges"], graph["referenced"]
+    roots = set(kept)
+    for more_roots, more_edges in references:
+        roots |= more_roots
+        for name, targets in more_edges.items():
+            if not targets <= edges.get(name, frozenset()):
+                edges[name] = frozenset(edges.get(name, frozenset()) | targets)
+                if name in found:
+                    roots |= targets
+    links = list(aliases)
+    for alias, entries in index["alternates"].items():
+        links.extend((alias, target) for _, target in entries)
+    found |= link_census.referenced_names(roots - found, edges, (), links, known=found)
+
+
+def is_referenced(index, name):
+    graph = index_references(index)
+    return graph is None or name in graph["referenced"]
 
 
 def require_common_index(index):
@@ -443,6 +502,8 @@ def refresh(index, objects, truth):
     replacements = {position: (link_census.common_definitions(obj), link_census.object_facts(obj, truth),
                                alternate_names(obj))
                     for position, obj in positions.items()}
+    references = [link_census.object_references(obj) for obj in positions.values()] \
+        if index_references(index) is not None else []
     for table, at in (("strong", lambda entry: entry), ("comdat", lambda entry: entry[0]),
                       ("common", lambda entry: entry[0]), ("alternates", lambda entry: entry[0])):
         for name, entries in index[table].items():
@@ -458,6 +519,10 @@ def refresh(index, objects, truth):
             index["comdat"].setdefault(name, []).append((position, digest, verdict))
         for name, size in common.items():
             index["common"].setdefault(name, []).append((position, size))
+    if references:
+        weaks = [pair for _, (_, fact, _) in replacements.items() for pair in fact[3]]
+        kept = set().union(*(kept_copies(index, fact[0]) for _, fact, _ in replacements.values()))
+        add_references(index, references, weaks, kept)
 
 
 def alternate_names(obj):
@@ -523,11 +588,15 @@ def check_object(obj, index, truth, source=None):
                         if not resolves(name) and not aliased(name))
     duplicates = sorted(name for name in mine if duplicate(name, position, name in set(defined), own, index))
     losers = []
+    if index_references(index) is not None:
+        # This object's references join the census's (refresh merged them
+        # already when it replaced its definitions; merging twice adds nothing).
+        add_references(index, [link_census.object_references(obj)], weaks, kept_copies(index, copies))
     for name, digest, _, verdict in copies:
         found = [(i, d, v) for i, d, v in comdat.get(name, ()) if i != own]
         found.append((position, digest, verdict))
         found.sort(key=lambda copy: copy[0])
-        loses, rule = link_census.keep_rule(found)
+        loses, rule = link_census.keep_rule(found, is_referenced(index, name))
         if loses[position]:
             losers.append((name, rule, verdict))
     addresses = []
@@ -885,8 +954,10 @@ def current_ledger_index(index, rows):
     link_census.verify_data_objects()
     truth = link_census.RetailTruth(rows)
     facts = link_census.read_facts(present, rows)
-    tables = index_tables(present, facts, {})
-    selection, unmeasured = current_selection(index, tables, link_census.ledger_owners(rows))
+    owners = link_census.ledger_owners(rows)
+    edges, referenced = link_census.link_references(present, facts, owners)
+    tables = index_tables(present, facts, {}, {"edges": edges, "referenced": referenced})
+    selection, unmeasured = current_selection(index, tables, owners)
     tables["selection"] = selection
     crt = build.vc71_root() / "Vc7" / "lib" / "msvcrt.lib"
     excuses = {"runtime": link_census.library_symbols(crt), "imported": link_census.retail_imports(),

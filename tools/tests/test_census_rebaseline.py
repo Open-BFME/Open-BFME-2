@@ -142,3 +142,51 @@ def test_previous_rules_refuse_objects_the_census_did_not_link(tmp_path, monkeyp
     monkeypatch.setattr(rb, "load_old", lambda rev, out: pytest.fail("measured other objects"))
     with pytest.raises(SystemExit, match="not the ones the census linked"):
         rb.measure_old("rev", tmp_path / "old")
+
+
+def test_previous_rules_are_judged_in_process_on_the_census_itself(tmp_path, monkeypatch):
+    seen = []
+    monkeypatch.setattr(link_census, "ledger", lambda: [])
+    monkeypatch.setattr(link_census, "head", lambda: "c0ffee")
+    monkeypatch.setattr(link_census, "record", lambda census, rows, rebaseline: seen.append(rebaseline) or {})
+    _census_json(tmp_path, monkeypatch)
+    rb.record_in_process()
+    assert seen == [link_census.REBASELINE_IN_PROCESS]
+    for other in ({"commit": "beef"}, {"rules": link_census.PREVIOUS_RULES}):
+        _census_json(tmp_path, monkeypatch, **other)
+        with pytest.raises(SystemExit, match="not this commit's RULES census"):
+            rb.record_in_process()
+    assert len(seen) == 1
+
+
+def _main_harness(monkeypatch, previous):
+    commands = []
+    monkeypatch.setattr(rb, "preflight", lambda allow: "c0ffee")
+    monkeypatch.setattr(rb, "previous_rules", lambda: previous)
+    monkeypatch.setattr(rb, "git", lambda *a, check=True: "c0ffee" if a[0] == "rev-parse" else "")
+    monkeypatch.setattr(rb, "run", lambda *command: commands.append(command[1:]))
+    monkeypatch.setattr(rb, "default_old_tools", lambda: "oldrev")
+    monkeypatch.setattr(rb, "old_source", lambda rev: "")
+    row = {"commit": "c0ffee", "files_linked": "2", "linked_authored": "20", "game_code": "100",
+           "files_linked_prev_rule": "1", "linked_authored_prev_rule": "10"}
+    monkeypatch.setattr(link_census, "read_history", lambda: [row])
+    monkeypatch.setattr(rb, "OLD_FIGURES", Path(str(rb.OLD_FIGURES) + ".test-unused"))
+    return commands
+
+
+def test_rebaseline_from_retail_truth_1_runs_no_previous_tool(monkeypatch, capsys):
+    commands = _main_harness(monkeypatch, link_census.PREVIOUS_RULES)
+    assert rb.main([]) == 0
+    steps = [c[0] if len(c) == 1 else " ".join(c[:2]) for c in commands]
+    assert steps[:2] == ["tools/link_census.py --build", "tools/census_rebaseline.py --record-in-process"]
+    assert not any("--measure-old" in c for c in commands)
+    out = capsys.readouterr().out
+    assert f"prev_rules={link_census.PREVIOUS_RULES}" in out and "not committed" in out
+    with pytest.raises(SystemExit, match="does not apply"):
+        rb.main(["--old-tools", "rev"])
+
+
+def test_rebaseline_refuses_a_history_it_cannot_continue(monkeypatch):
+    _main_harness(monkeypatch, "retail-truth-0")
+    with pytest.raises(SystemExit, match="re-baselines"):
+        rb.main([])

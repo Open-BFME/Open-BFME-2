@@ -203,6 +203,13 @@ def current_preview(monkeypatch, tmp_path):
     monkeypatch.setattr(link_census, "RetailTruth", lambda rows: None)
     monkeypatch.setattr(link_census, "read_facts", lambda objects, rows: [facts[obj] for obj in objects])
     monkeypatch.setattr(link_census, "object_facts", lambda obj, truth: facts[obj])
+    # Every name a fixture object defines or calls is referenced by its kept
+    # code, so retail-truth-2's `unreferenced` exemption never applies here.
+    def references(obj):
+        copies, _, undefined, _ = facts[obj]
+        return {name for name, *_ in copies} | set(undefined), {}
+    monkeypatch.setattr(link_census, "object_references", references)
+    monkeypatch.setattr(link_census, "read_references", lambda objects: [references(obj) for obj in objects])
     monkeypatch.setattr(link_census, "common_definitions", lambda obj: {})
     monkeypatch.setattr(C, "alternate_names", lambda obj: {})
     monkeypatch.setattr(link_census, "ledger_owners", lambda rows: {"owned": {"owner.obj"}})

@@ -98,6 +98,6 @@ def test_chart_breaks_the_linking_line_at_the_rule_change():
                {"date": "2026-10-02", "total": "100", "byte_matched": "11"}]
     chart = progress_site._chart(history, HISTORY)
     assert chart.count("<polyline") == 3  # byte-matched + one Linking line per rules
-    assert "census rules changed majority-0 -&gt; retail-truth-1" in chart or \
-        "census rules changed majority-0 -> retail-truth-1" in chart
+    assert f"census rules changed majority-0 -&gt; {link_census.RULES}" in chart or \
+        f"census rules changed majority-0 -> {link_census.RULES}" in chart
     assert "16.50% under majority-0" in chart

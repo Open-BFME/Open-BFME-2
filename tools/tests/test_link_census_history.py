@@ -91,7 +91,7 @@ def test_row_with_a_missing_or_extra_field_refuses(history):
 def test_rules_newer_than_this_tool_refuse(history):
     # The forward guard: once the history declares rules this copy of the
     # tool does not know, a stale checkout cannot append under its own.
-    _write(history, census.HISTORY_FIELDS, [_row("2026-10-01 19:08", rules="retail-truth-2")])
+    _write(history, census.HISTORY_FIELDS, [_row("2026-10-01 19:08", rules="retail-truth-99")])
     with pytest.raises(SystemExit, match="update the tools"):
         census.read_history()
 
@@ -178,12 +178,14 @@ def test_repository_history_is_readable_and_append_ordered():
     # Once a rule appears, no row of an earlier rule follows it.
     order = [r for i, r in enumerate(rules) if i == 0 or rules[i - 1] != r]
     assert len(order) == len(set(order)), order
-    strict = [r for r in rows if census.row_rules(r) == census.RULES]
-    if strict:
-        first = strict[0]
-        assert first["prev_rules"] == census.LEGACY_RULES, "the first strict row must be the re-baseline"
-        dates = [r["date"] for r in strict]
-        assert dates == sorted(dates)
+    # The first row of each later rule is its re-baseline: it carries the
+    # rules before it as prev_rules.
+    for before, row in zip(rows, rows[1:]):
+        if census.row_rules(row) != census.row_rules(before):
+            assert row["prev_rules"] == census.row_rules(before), "the first row of new rules must be the re-baseline"
+    strict = [r for r in rows if census.row_rules(r) != census.LEGACY_RULES]
+    dates = [r["date"] for r in strict]
+    assert dates == sorted(dates)
 
 
 def test_unknown_prev_rules_are_refused_before_the_file_is_touched(history):

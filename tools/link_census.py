@@ -921,7 +921,7 @@ def comdat_conflicts(objs):
             for name, found in copies.items() if len(found) > 1}
 
 
-def keep_rule(copies):
+def keep_rule(copies, referenced=True):
     """({object: loses?}, rule) for one COMDAT symbol's copies [(object, digest,
     verdict)] in link order.
 
@@ -933,9 +933,18 @@ def keep_rule(copies):
     link.exe keeps the first copy in link order, so a copy that differs from
     that one loses. Majority is never used: it would let the most-copied
     private class decide what retail shipped.
+
+    `unreferenced` (since retail-truth-2) when retail truth cannot judge the
+    symbol AND `referenced` is false: nothing the link keeps references the
+    name (referenced_names), so no copy of it is ever executed and /OPT:REF
+    drops every copy; which one the linker would pick decides nothing, and no
+    copy loses. A referenced name, or one retail truth can judge, keeps the
+    rules above.
     """
     verdicts = [verdict for _, _, verdict in copies]
     if all(verdict is None for verdict in verdicts):
+        if not referenced:
+            return {obj: False for obj, _, _ in copies}, "unreferenced"
         kept = copies[0][1]
         return {obj: digest != kept for obj, digest, _ in copies}, "first"
     proven = [digest for _, digest, verdict in copies if verdict == "retail"]
@@ -945,6 +954,173 @@ def keep_rule(copies):
     for obj, digest, verdict in copies:
         loses[obj] = verdict == "wrong" or (verdict == "unknown" and digest != kept and digest not in proven)
     return loses, "retail"
+
+
+SELECT_NODUPLICATES, SELECT_ASSOCIATIVE = 1, 5
+LNK_INFO, LNK_REMOVE = 0x200, 0x800  # .drectve, and sections the linker never places
+DIRECTIVE_ROOT = re.compile(r"/(?:INCLUDE|EXPORT):(\"[^\"]+\"|[^\s,=]+)", re.I)
+
+
+def object_references(obj):
+    """(roots, edges) of one object's relocations, by name, for referenced_names.
+
+    `roots`: the names referenced from what a link always keeps: a section that
+    is not a COMDAT, or a NODUPLICATES COMDAT (/Gy gives every non-inline
+    function one; /OPT:REF could drop an unreferenced one, so this
+    over-approximates), plus /INCLUDE: and /EXPORT: directives. `edges`: for
+    each external name a discardable COMDAT (ANY, SAME_SIZE, ...) defines, the
+    names that section references. A section's references include those of the
+    sections it reaches through TU-local symbols (a static, a $LN label, a
+    section symbol) and of its ASSOCIATIVE children (EH tables), which the
+    linker keeps or drops with it; a local section defining an external name
+    references that name. Debug sections (.debug$*) and LNK_REMOVE/LNK_INFO
+    sections reference nothing: /DEBUG's FPO records name every function.
+    An unreadable object raises MissingObject."""
+    import struct
+    try:
+        data = obj.read_bytes()
+        count = struct.unpack_from("<H", data, 2)[0]
+        optional = struct.unpack_from("<H", data, 16)[0]
+        table, nsyms = struct.unpack_from("<II", data, 8)
+        sections = []
+        for index in range(count):
+            header = 20 + optional + index * 40
+            name = data[header:header + 8].rstrip(b"\0")
+            size, pointer, relocs = struct.unpack_from("<III", data, header + 16)
+            nrelocs = struct.unpack_from("<H", data, header + 32)[0]
+            flags = struct.unpack_from("<I", data, header + 36)[0]
+            sections.append((name, size, pointer, relocs, nrelocs, flags))
+        symbols = {symbol["index"]: symbol for symbol in _coff_symbols(data)}
+        selection, parent = {}, {}
+        at = 0
+        while at < nsyms:
+            record = table + 18 * at
+            value, section, _, storage, aux = struct.unpack_from("<IhHBB", data, record + 8)
+            if storage == 3 and aux and value == 0 and 0 < section <= count and section not in selection:
+                selection[section] = data[record + 18 + 14]
+                parent[section] = struct.unpack_from("<H", data, record + 18 + 12)[0]
+            at += 1 + aux
+    except (OSError, ValueError, struct.error, IndexError) as exc:
+        raise MissingObject(f"{obj}: cannot read relocations ({exc})") from exc
+
+    def ignored(number):
+        name, _, _, _, _, flags = sections[number - 1]
+        return bool(flags & (LNK_INFO | LNK_REMOVE)) or name.startswith(b".debug")
+
+    defines = collections.defaultdict(set)
+    for symbol in symbols.values():
+        if symbol["storage"] == EXTERNAL and 0 < symbol["section"] <= count:
+            defines[symbol["section"]].add(symbol["name"])
+    names, local = collections.defaultdict(set), collections.defaultdict(set)
+    for number in range(1, count + 1):
+        if ignored(number):
+            continue
+        _, _, _, relocs, nrelocs, _ = sections[number - 1]
+        for entry in range(relocs, relocs + 10 * nrelocs, 10):
+            target = symbols.get(struct.unpack_from("<I", data, entry + 4)[0])
+            if target is None:
+                raise MissingObject(f"{obj}: a relocation of section {number} names no symbol")
+            if target["storage"] in (EXTERNAL, WEAK_EXTERNAL) or target["section"] <= 0:
+                names[number].add(target["name"])
+            elif target["section"] <= count:
+                local[number].add(target["section"])
+    for child, owner in parent.items():
+        if selection.get(child) == SELECT_ASSOCIATIVE and 0 < owner <= count:
+            local[owner].add(child)
+
+    def reach(start):
+        seen, stack, found = {start}, [start], set()
+        while stack:
+            number = stack.pop()
+            found |= names[number]
+            if number != start:
+                found |= defines[number]
+            for other in local[number] - seen:
+                if not ignored(other):
+                    seen.add(other)
+                    stack.append(other)
+        return found
+
+    roots, edges = set(), {}
+    for number in range(1, count + 1):
+        if ignored(number) or selection.get(number) == SELECT_ASSOCIATIVE:
+            continue
+        if not sections[number - 1][5] & COMDAT or selection.get(number) == SELECT_NODUPLICATES:
+            roots |= reach(number)
+        else:
+            for name in defines[number]:
+                edges.setdefault(name, set()).update(reach(number))
+    for number in range(1, count + 1):
+        name, size, pointer = sections[number - 1][:3]
+        if name == b".drectve" and pointer:
+            text = data[pointer:pointer + size].decode("latin-1")
+            roots.update(found.strip('"') for found in DIRECTIVE_ROOT.findall(text))
+    return roots, {name: frozenset(found) for name, found in edges.items()}
+
+
+def read_references(objs):
+    """object_references for every object, in parallel (BUILD_POOL processes)."""
+    workers = build._pool_size()
+    if workers > 1:
+        import concurrent.futures
+        with concurrent.futures.ProcessPoolExecutor(workers) as pool:
+            return list(pool.map(object_references, objs, chunksize=64))
+    return [object_references(obj) for obj in objs]
+
+
+def merge_references(references):
+    """(roots, edges) of a whole link from object_references' per-object
+    results: the union of every object's roots, and each name's edges from
+    every copy of it (a copy the linker discards still counts, so a name is
+    never unreferenced because the kept copy happens to call less)."""
+    roots, edges = set(), collections.defaultdict(set)
+    for found, more in references:
+        roots |= found
+        for name, targets in more.items():
+            edges[name] |= targets
+    return roots, edges
+
+
+def referenced_names(roots, edges, kept=(), links=(), known=frozenset()):
+    """Every name the link keeps reachable: `roots` and whatever their names'
+    definitions reference, transitively through `edges` (merge_references).
+    `kept` are names known to be in the image (a ledger row's name, a name
+    with a retail address): their definitions' references count too. `links`
+    are (name, target) pairs a reference to `name` also reaches: a weak
+    external's default and an /alternatename alias's target. A COMDAT name
+    outside the result is referenced by nothing the link keeps. `known` is an
+    earlier result, already closed under the same edges: its names are not
+    walked again, and only the names newly reached are returned."""
+    also = collections.defaultdict(set)
+    for name, target in links:
+        also[name].add(target)
+    found = set(roots) - known
+    stack = list(found) + [name for name in kept if name not in found and name not in known]
+    found.update(name for name in kept if name not in known)
+    while stack:
+        name = stack.pop()
+        for target in edges.get(name, frozenset()) | also.get(name, set()):
+            if target not in found and target not in known:
+                found.add(target)
+                stack.append(target)
+    return found
+
+
+def link_references(present, facts, owners, references=None):
+    """(merged edges, referenced names) of one census's objects: the names
+    referenced_names reaches from every object's roots, every ledger owner's
+    name and every name with a retail address (any COMDAT copy retail truth
+    can judge), through weak externals and /alternatename aliases."""
+    import link_check
+    references = read_references(present) if references is None else references
+    roots, edges = merge_references(references)
+    kept = set(owners)
+    links = []
+    for obj, (copies, _, _, weaks) in zip(present, facts):
+        kept.update(name for name, _, _, verdict in copies if verdict is not None)
+        links.extend(weaks)
+        links.extend(link_check.alternate_names(obj).items())
+    return edges, referenced_names(roots, edges, kept, links)
 
 
 def _comdat_selections(data):
@@ -1072,7 +1248,7 @@ def read_facts(objs, rows):
     return [object_facts(obj, truth) for obj in objs]
 
 
-def comdat_losers(objs, rows=None, stats=None, facts=None):
+def comdat_losers(objs, rows=None, stats=None, facts=None, referenced=None):
     """{object name: {symbol}} for COMDAT copies that are not retail's body.
 
     keep_rule() decides each symbol: by retail truth where the ledger gives it
@@ -1082,7 +1258,10 @@ def comdat_losers(objs, rows=None, stats=None, facts=None):
     decided who lost: for ??1AsciiString@@QAE@XZ the first object held a
     minority variant, and the retail-true copies were the ones charged.
     `stats`, when given, collects how many symbols and losing copies each
-    rule decided. `facts` is read_facts(objs), read here when not given."""
+    rule decided. `facts` is read_facts(objs), read here when not given.
+    `referenced` (link_references) is the set of names the link keeps
+    reachable; keep_rule exempts the copies of a name with no retail address
+    outside it. None judges every name as referenced (PREVIOUS_RULES)."""
     rows = ledger() if rows is None else rows
     facts = read_facts(objs, rows) if facts is None else facts
     copies = collections.defaultdict(list)
@@ -1092,7 +1271,7 @@ def comdat_losers(objs, rows=None, stats=None, facts=None):
     losers = collections.defaultdict(set)
     stats = stats if stats is not None else {}
     for name, found in copies.items():
-        loses, rule = keep_rule(found)
+        loses, rule = keep_rule(found, referenced is None or name in referenced)
         stats[f"symbols_{rule}"] = stats.get(f"symbols_{rule}", 0) + 1
         for obj, lost in loses.items():
             if lost:
@@ -1806,7 +1985,9 @@ def write_status(log, rows, present, meta, kept, publish=True):
     objects. See excused() for exactly which names. A duplicate counts against both definers, since the log cannot say
     which copy is wrong. A COMDAT copy that is not retail's body counts against
     its object (comdat_losers: retail truth where the symbol has a retail
-    address, else the copy link.exe keeps, the first in link order). Any hard-coded image address counts too
+    address, else the copy link.exe keeps, the first in link order; since
+    retail-truth-2 no copy of a name with no retail address that nothing the
+    link keeps references loses: keep_rule). Any hard-coded image address counts too
     (link_debt.addresses): it links, but only while nothing moves.
 
     And since 2026-09-29 (wrong_selected), a file is not linked when any name
@@ -1819,7 +2000,8 @@ def write_status(log, rows, present, meta, kept, publish=True):
     are counted (`unknown_only`).
 
     Returns (clean, files, blocking names, clean under the rule before
-    wrong_selected, stats). It also writes build/link_census/link_index.pkl, which tools/link_check.py
+    wrong_selected, stats); stats["clean_previous_rules"] is the clean set
+    under PREVIOUS_RULES (every differing no-address copy charged). It also writes build/link_census/link_index.pkl, which tools/link_check.py
     reads to check one file in seconds (`meta` names the census). With
     publish=False neither file is written until stats["accept"]() is called,
     so record() can refuse a run whose inputs moved without leaving a status
@@ -1831,10 +2013,15 @@ def write_status(log, rows, present, meta, kept, publish=True):
     imported = retail_imports()
     if present is None:
         present, _ = objects(rows)
-    stats = {}
+    stats, previous_stats = {}, {}
     facts = read_facts(present, rows)
-    losers = comdat_losers(present, rows, stats, facts)
     owners = ledger_owners(rows)
+    references = read_references(present)
+    edges, referenced = link_references(present, facts, owners, references)
+    losers = comdat_losers(present, rows, stats, facts, referenced)
+    # PREVIOUS_RULES charged every differing copy of a name with no retail
+    # address, referenced or not: census_rebaseline.py records the figures.
+    previous_losers = comdat_losers(present, rows, previous_stats, facts)
     results, exceptions = selection_verdicts(present, facts, owners, kept)
     wrong_selected, unknown_selected = {}, {}
     for obj, fact in zip(present, facts):
@@ -1846,7 +2033,10 @@ def write_status(log, rows, present, meta, kept, publish=True):
           f"{sum(1 for r in results.values() if r == 'ok'):,} proven; {len(exceptions):,} not the first in link order")
     print(f"link_census: COMDAT keeper: {stats.get('symbols_retail', 0):,} symbols judged by retail truth "
           f"({stats.get('losers_retail', 0):,} losing copies), {stats.get('symbols_first', 0):,} with no retail "
-          f"address by link order ({stats.get('losers_first', 0):,} losing copies)")
+          f"address by link order ({stats.get('losers_first', 0):,} losing copies), "
+          f"{stats.get('symbols_unreferenced', 0):,} with no retail address that nothing the link keeps references "
+          f"(their {previous_stats.get('losers_first', 0) - stats.get('losers_first', 0):,} differing copies lose "
+          f"nothing; {PREVIOUS_RULES} charged them)")
     unresolved = collections.defaultdict(set)
     duplicates = collections.defaultdict(set)
     # An /alternatename alias whose target is an excused name: /NODEFAULTLIB
@@ -1880,7 +2070,7 @@ def write_status(log, rows, present, meta, kept, publish=True):
             symbol = found.group(2) or found.group(3)
             duplicates[Path(found.group(1)).name].add(symbol)
             duplicates[Path(found.group(4)).name].add(symbol)
-    out, blockers, clean_prev, unknown_only = {}, {}, set(), set()
+    out, blockers, clean_prev, clean_previous_rules, unknown_only = {}, {}, set(), set(), set()
     # A data-only source is a file like any other; it owns no code, so linking
     # it adds no LINKED bytes, only the definitions other files resolve to.
     for row, object_of in [(row, build.row_object) for row in rows] + [(row, data_object) for row in data_ledger()]:
@@ -1898,6 +2088,8 @@ def write_status(log, rows, present, meta, kept, publish=True):
                        **dict(zip(STATUS_FIELDS[2:], counts))}
         if not any(counts[:4]):
             clean_prev.add(source)
+        if not any(counts[:2] + (len(previous_losers.get(obj, ())),) + counts[3:]):
+            clean_previous_rules.add(source)
         if not any(counts) and unknown_selected.get(obj):
             unknown_only.add(source)
         blockers[source] = {"object": obj, "linked": not any(counts), "unresolved": sorted(unresolved.get(obj, ())),
@@ -1914,14 +2106,16 @@ def write_status(log, rows, present, meta, kept, publish=True):
         temp.replace(STATUS)
         import link_check
         link_check.write_index(present, facts, blockers, {"runtime": runtime, "imported": imported, "stubs": thunks},
-                               meta or {}, {"exceptions": exceptions, "owners": dict(owners)})
+                               meta or {}, {"exceptions": exceptions, "owners": dict(owners)},
+                               references={"edges": edges, "referenced": referenced})
         print(f"link_census: wrote {STATUS.relative_to(ROOT).as_posix()} ({len(clean):,} of {len(out):,} sources "
               f"link cleanly; {len(clean_prev):,} before wrong_selected; {len(unknown_only):,} of the clean ones use "
               "a selected definition nothing proves or disproves)")
     if publish:
         accept()
     blocking = set().union(*unresolved.values()) if unresolved else set()
-    return clean, len(out), len(blocking), clean_prev, {"unknown_only": unknown_only, "accept": accept}
+    return clean, len(out), len(blocking), clean_prev, {"unknown_only": unknown_only, "accept": accept,
+                                                         "clean_previous_rules": clean_previous_rules}
 
 
 def linked_split(clean):
@@ -2089,7 +2283,13 @@ def record(census, rows, rerun=False, rebaseline=None):
     for an ordinary row, whose *_prev_rule figures are this census without
     wrong_selected. `rebaseline` (census_rebaseline.py only) is the previous
     rules' figures for the same objects: the one row where the rules change.
+    REBASELINE_IN_PROCESS measures PREVIOUS_RULES in this very judgment (the
+    same objects, log and /MAP: write_status' clean_previous_rules), which is
+    possible because PREVIOUS_RULES differs from RULES only in keep_rule.
     """
+    in_process = rebaseline is REBASELINE_IN_PROCESS
+    if in_process:
+        rebaseline = {"rules": PREVIOUS_RULES}
     verify_data_objects()
     if census["missing"]:
         raise SystemExit(f"link_census: {census['missing']:,} objects were missing from the link; "
@@ -2126,7 +2326,7 @@ def record(census, rows, rerun=False, rebaseline=None):
         digest = objects_digest(present)
         if census.get("objects_digest") != digest:
             raise SystemExit("link_census: the objects changed since this census linked; rerun it")
-        if rebaseline is not None and (rebaseline.get("commit") != commit
+        if rebaseline is not None and not in_process and (rebaseline.get("commit") != commit
                                        or rebaseline.get("objects_digest") != digest
                                        or not str(rebaseline.get("game_code") or "").isdigit()):
             raise SystemExit("link_census: the previous rules' figures are not for this commit and these "
@@ -2163,6 +2363,11 @@ def record(census, rows, rerun=False, rebaseline=None):
               **linked_figures(clean), "files_linked_prev_rule": len(clean_prev),
               "linked_bytes_prev_rule": before["linked_bytes"], "linked_authored_prev_rule": before["linked_authored"],
               "rules": RULES, "prev_rules": RULES_NO_WRONG_SELECTED}
+    if in_process:
+        previous = linked_figures(prepared["clean_previous_rules"])
+        rebaseline = {"rules": PREVIOUS_RULES, "files_linked": len(prepared["clean_previous_rules"]),
+                      "linked_bytes": previous["linked_bytes"], "linked_authored": previous["linked_authored"],
+                      "game_code": previous["game_code"]}
     if rebaseline is not None:
         if int(rebaseline["game_code"]) != int(figure["game_code"]):
             raise SystemExit(f"link_census: the previous rules saw game code {rebaseline['game_code']}, these "
@@ -2193,15 +2398,20 @@ HISTORY = ROOT / "reverse/link_census_history.csv"
 # COMDAT keeper with the STLport and array-helper exemption, ledger row link
 # order, SDK stubs excused for any retail DLL, no wrong_selected. An ordinary
 # row's prev_rules is RULES_NO_WRONG_SELECTED (the same census without
-# wrong_selected); the one re-baseline row (tools/census_rebaseline.py) has
-# prev_rules LEGACY_RULES, measured by the previous link_census.py on the same
-# objects. Dates are UTC from RULES on (rows before it are mostly UTC; their
+# wrong_selected); each re-baseline row (tools/census_rebaseline.py) has the
+# rules before it as prev_rules: LEGACY_RULES, measured by the previous
+# link_census.py on the same objects, and PREVIOUS_RULES (retail-truth-1:
+# every differing copy of a name with no retail address loses, referenced or
+# not), measured in the same judgment (REBASELINE_IN_PROCESS). Dates are UTC from RULES on (rows before it are mostly UTC; their
 # zone is whatever the runner had); rows stay in physical append order, and
 # readers take the last physical row as current.
-RULES = "retail-truth-1"
-RULES_NO_WRONG_SELECTED = "retail-truth-1-no-wrong-selected"
+RULES = "retail-truth-2"
+RULES_NO_WRONG_SELECTED = "retail-truth-2-no-wrong-selected"
+PREVIOUS_RULES = "retail-truth-1"
+PREVIOUS_RULES_NO_WRONG_SELECTED = "retail-truth-1-no-wrong-selected"
 LEGACY_RULES = "majority-0"
-KNOWN_RULES = (LEGACY_RULES, RULES_NO_WRONG_SELECTED, RULES)
+KNOWN_RULES = (LEGACY_RULES, PREVIOUS_RULES_NO_WRONG_SELECTED, PREVIOUS_RULES, RULES_NO_WRONG_SELECTED, RULES)
+REBASELINE_IN_PROCESS = object()  # record(rebaseline=...): PREVIOUS_RULES measured in the same judgment
 HISTORY_FIELDS = ["date", "commit", "objects", "unresolved", "alias", "pinned_elsewhere", "dump", "data",
                   "import", "unpinned", "duplicates", "comdat_conflicts", "comdat_vtables",
                   "scaffold_aliases", "scaffold_unresolved", "scaffold_crashed",
