@@ -24,12 +24,25 @@ private:
 	unsigned char m_pad[0x1C];
 };
 
+// Native FuncInfo 0x0092C610 state 1 reaches action 0x0078171F:
+// destroy owner+4 through 0x003A255E, then the inner table at 0x003A2470.
+// ZH's TeamRelationMapType is a hash_map. This descriptive lifetime view
+// preserves the held table storage without asserting an original type name.
+class BfmeTeamRelationMapMember
+{
+public:
+	~BfmeTeamRelationMapMember() {}
+	void clear() { m_table.clear(); }
+private:
+	TeamRelationHashMap m_table;
+};
+
 class TeamRelationMap : public Snapshot
 {
 protected:
 	virtual ~TeamRelationMap();
 
-	TeamRelationHashMap m_map;
+	BfmeTeamRelationMapMember m_map;
 };
 
 TeamRelationMap::~TeamRelationMap()
