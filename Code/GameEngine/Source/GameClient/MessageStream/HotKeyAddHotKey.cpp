@@ -1,28 +1,21 @@
-// ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z
-// partial score=0.995 date=2026-10-16
-// ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z
-// partial score=0.995 date=2026-10-16
-// W9-O3 2026-10-16: all calls resolve now (bank had 3 stale names): factory called by its row Rva00358C60Factory through a function-pointer view returning Rva00358B65; Rva00358B65 derives from pair<const AsciiString,TreeHintRef> so the value copy calls the rowed pair copy ctor 0x358B43 and both temps die through ~Rva00358B65 0x358B65. Size exact, residue = epilogue only: retail 'pop esi; mov fs:0,ecx; pop ebx', ours 'pop esi; pop ebx; mov fs:0,ecx'. Inert: Result ctor body/order, flag token order, NRVO local, single-return goto (worse).
-// ?rva00359302@Rva00359302@@QAEXXZ
-// partial score=0.987954 date=2026-10-15
-// ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z
-// partial score=0.99 date=2026-10-13
-// ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z
-// partial score=0.99 date=2026-10-13
-// ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z
-// partial score=0.98 date=2026-10-08
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /arch:SSE /G7
-// HotKey.cpp -- HotKeyManager members at their WorldBuilder home
-// (reverse/wb_name_leads.csv: WB's debug build names the file and method and
-// asserts action.IsBound() and that the message type is not yet mapped);
-// retail supplies the bytes.
+// HotKeyManager::addHotKey (WB 0x011319A0, HotKey.cpp), kept in its own
+// unit beside the HotKey.cpp home: this body was recovered against TU-local
+// views of the STLport tree and pair rather than the home's real STLport
+// headers and flags. Retail supplies the bytes.
 //
-// Layout (target evidence): the message-action map at +0x24, whose
-// operator[] (0x003596AD, unrowed) yields the reference-counted action
-// handle that the rowed handle assignment 0x002174A4 overwrites. The two
-// hot-key maps at +0x0C and +0x18 (the second for the alternate binding)
-// are STLport trees keyed by AsciiString, header node first; their nodes
-// carry the (key, action) pair whose destructor is 0x00358B65.
+// Layout (target evidence): the two hot-key maps at +0x0C and +0x18 (the
+// second for the alternate binding) are STLport trees keyed by AsciiString,
+// header node first; their nodes carry the (key, action) pair whose
+// destructor is 0x00358B65. The message-action map at +0x24 is declared only
+// for the layout.
+//
+// Epilogue (compiler evidence): retail restores fs:[0] between pop esi and
+// pop ebx. MSVC 7.1 schedules it there when the function copies an object of
+// a class with a user-written copy constructor into a by-value parameter --
+// here the tree iterator, whose STLport copy constructor is user-written,
+// handed to the result's constructor. With a raw node pointer instead, the
+// restore sinks below pop ebx.
 
 #include "ascii_string.h"
 
@@ -63,6 +56,8 @@ template <class _Tp> class allocator {};
 template <class _Tp> struct _Nonconst_traits {};
 template <class _Value, class _Traits> struct _Rb_tree_iterator
 {
+	_Rb_tree_iterator() {}
+	_Rb_tree_iterator(const _Rb_tree_iterator &it) : _M_node(it._M_node) {}
 	void *_M_node;
 };
 template <class _T1, class _T2> struct pair
@@ -116,6 +111,7 @@ private:
 // map that is.
 struct Rva00359302Result
 {
+	Rva00359302Result(HotKeyMap::iterator it, bool alt) : m_node(it._M_node), m_alt(alt) {}
 	Rva00359302Result(void *node, bool alt) : m_node(node), m_alt(alt) {}
 
 	void *m_node;
@@ -153,12 +149,5 @@ Rva00359302Result HotKeyManager::addHotKey(const TreeHintRef00217D4C &action, co
 			return Rva00359302Result(map->end(), alt);
 	}
 	_STL::pair<HotKeyMap::iterator, bool> inserted = map->insert_unique(((Rva00358C60FactoryView)&Rva00358C60Factory)(name, action));
-	return Rva00359302Result(inserted.first._M_node, alt);
-}
-
-// HotKeyManager::addMessageAction, retail 0x003597A8 (27 bytes): the action
-// is bound to the message type.
-void HotKeyManager::addMessageAction(const TreeHintRef00217D4C &action, Int messageType)
-{
-	m_messageActionMap[messageType] = action;
+	return Rva00359302Result(inserted.first, alt);
 }
