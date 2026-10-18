@@ -1,5 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Ob2 /MD /EHsc /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
+// STLport 4.5.3 supplies the emitted hashtable and hash_map bodies.
 // Native 41F871..41F8F4 and WB 1333640 identify the static INI parser.
 // The native constructor 41F56F and destructor 41F760 establish the 224-byte
 // ArmyDefinition and its leading AsciiString. The constructor performs only
@@ -138,7 +139,6 @@ extern const FieldParse TheArmyDefinitionFields[46] = {
 };
 Rva0022BD25Subsystem *TheArmyDefinitionManager = 0;
 
-// ?parseArmyDefinition@ArmyDefinitionManager@@SAXPAVINI@@@Z present-unmatched
 void ArmyDefinitionManager::parseArmyDefinition(INI *ini)
 {
     ArmyDefinition *definition = new ArmyDefinition;
