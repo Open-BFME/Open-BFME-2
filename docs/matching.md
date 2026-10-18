@@ -138,9 +138,16 @@ a variable it interferes with. Priority grows with the number of references afte
 propagation (so a redundant load or an alias of the same value adds nothing), each weighted by its
 block: 1 in straight-line code and after an early `return`, about 0.55 in one arm of an `if`, a
 `&&`/`||` operand or a ternary, about 0.67 in a loop body (trip count is ignored), and less again
-when nested. Ties go to the variable assigned first, which is why `this` wins an even contest. The
-weight also falls as a variable's live range spans more blocks, so a `this` used throughout a
-branchy function can lose esi to a local with fewer uses. The levers that change a weight without
+when nested. Ties go to the variable assigned first, which is why `this` wins an even contest. A
+live range that spans branchy code pays a small flat penalty, about 0.15 of a use per `if` it
+crosses whatever the variable's weight (straight-line length costs nothing), so a `this` used
+throughout a branchy function can lose esi to a local with fewer uses. **Measure the gap before
+hunting a spelling**: add N throwaway straight-line uses of the variable that should win
+(`g_sink = (int)this;` at the top, in a scratch copy) and find the N that flips the allocation.
+N = 1 means the levers below can close it; parseUserList (0x004D1616) is N = 1 and still did not
+yield to 130 combinations of statement-level respellings (guard and loop forms, accessor or
+member, locals for each `new`, `throw()` on every callee): those compile to identical IL, so do
+not spend trials on them. The levers that change a weight without
 changing the code are spellings that move a reference into or out of a conditional region: a use
 under `cond && x->f` weighs about half of the same use on its own, and a value read in both arms of
 a ternary weighs slightly more than one plain read. That is the whole effect behind the equal-arm
