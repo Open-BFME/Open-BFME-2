@@ -123,6 +123,29 @@ with the surrounding IL: reading a member directly instead of through an inline 
 to a local reference before an inline call (the plane clip at 0x00100362) flipped the operands
 where no spelling of the product did.
 
+A ninth: **retail's `pop esi; mov fs:[0],ecx; pop ebx` epilogue (the SEH restore between the
+last two pops) means the function passes an object of a class with a user-written copy constructor
+by value**; without one, cl sinks the restore below the last pop. Building the argument in place (an
+esp save `mov [ebp-x],esp`) and an inline callee taking the object by value from an lvalue both
+count; a temporary whose copy is elided does not. STLport iterators qualify, so this is usually
+`erase(it)`, `insert(hint, v)` or a constructor taking an iterator by value. Measured on the matched
+rows: none of the 2,002 with the late restore saves esp; 591 of the 842 with the early one do.
+`addHotKey` (0x00359302) landed by giving its result's constructor the iterator by value.
+
+**How callee-saved registers are assigned** (controlled `/O1 /G7` trials, 2026-10-18). Variables
+are coloured greedily in priority order; each takes the first of esi, edi, ebx not already held by
+a variable it interferes with. Priority grows with the number of references after CSE and copy
+propagation (so a redundant load or an alias of the same value adds nothing), each weighted by its
+block: 1 in straight-line code and after an early `return`, about 0.55 in one arm of an `if`, a
+`&&`/`||` operand or a ternary, about 0.67 in a loop body (trip count is ignored), and less again
+when nested. Ties go to the variable assigned first, which is why `this` wins an even contest. The
+weight also falls as a variable's live range spans more blocks, so a `this` used throughout a
+branchy function can lose esi to a local with fewer uses. The levers that change a weight without
+changing the code are spellings that move a reference into or out of a conditional region: a use
+under `cond && x->f` weighs about half of the same use on its own, and a value read in both arms of
+a ternary weighs slightly more than one plain read. That is the whole effect behind the equal-arm
+`c ? x : x` hacks some banks carry; prefer a natural spelling with the same shape.
+
 Two smaller ones. **`inline` is a lever in both directions**: MSVC will not auto-inline a 93-byte
 `SetIdentity` however the file is ordered, and marking it `inline` (with its address taken to keep
 the standalone copy) is what lets two constructors absorb it; conversely a base constructor that
