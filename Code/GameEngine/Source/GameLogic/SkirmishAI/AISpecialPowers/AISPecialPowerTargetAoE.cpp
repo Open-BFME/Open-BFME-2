@@ -149,7 +149,7 @@ class Rva005EE816
 public:
 	unsigned rva005EE3B0(Object *source, bool allies);
 	unsigned rva005EE5D7(Object *source, bool allies, _STL::vector<Object *> *found);
-	bool rva005EE816(void *source, const Coord3D *pos);
+	bool checkTargetLocation(void *source, const Coord3D *pos);
 	bool rva005EE8DD(const Coord3D *pos,Object *source);
 	void rva005EE317(Coord3D *out);
 private:
@@ -236,7 +236,7 @@ unsigned Rva005EE816::rva005EE5D7(Object *source, bool allies, _STL::vector<Obje
 	return best;
 }
 
-bool Rva005EE816::rva005EE816(void *source, const Coord3D *pos)
+bool Rva005EE816::checkTargetLocation(void *source, const Coord3D *pos)
 {
 	if (m_power->rva0035B2C3(source, 0, pos, 0)) {
 		bool check = m_1A;
@@ -264,7 +264,7 @@ bool Rva005EE816::rva005EE816(void *source, const Coord3D *pos)
 bool Rva005EE816::rva005EE8DD(const Coord3D *pos,Object *source)
 {
     bool result=false;
-    if(rva005EE816(source,pos)) {
+    if(checkTargetLocation(source,pos)) {
         result=true;
         m_target=*pos;
     } else if(m_allowSearch19) {
@@ -275,7 +275,7 @@ bool Rva005EE816::rva005EE8DD(const Coord3D *pos,Object *source)
             step.scaleInlined(distance);
             Coord3D candidate(pos->x,pos->y,pos->z);
             candidate.add(&step);
-            if(rva005EE816(source,&candidate)) {
+            if(checkTargetLocation(source,&candidate)) {
                 result=true;
                 m_target=candidate;
             }
