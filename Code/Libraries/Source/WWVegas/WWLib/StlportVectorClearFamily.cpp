@@ -17,6 +17,7 @@
 //   0x003F1D18  0x00532803  ParticleSystemID      (BoneFXUpdate_eraseParticleSystemID.cpp)
 #include <vector>
 
+struct TreeHintRef00217D4C;
 struct Gen_p12pod;
 struct Rva004758F4Element;
 struct Rva004F6352;
@@ -24,6 +25,7 @@ struct Rva00501E3FElement;
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
 
 namespace _STL {
+template <> TreeHintRef00217D4C *vector<TreeHintRef00217D4C>::erase(TreeHintRef00217D4C *, TreeHintRef00217D4C *);
 template <> Gen_p12pod *vector<Gen_p12pod>::erase(Gen_p12pod *, Gen_p12pod *);
 template <> Rva004758F4Element *vector<Rva004758F4Element>::erase(Rva004758F4Element *, Rva004758F4Element *);
 template <> Rva004F6352 *vector<Rva004F6352>::erase(Rva004F6352 *, Rva004F6352 *);
@@ -57,4 +59,22 @@ private:
 void Rva004C3F40::rva004C3F40(const Rva004C3F09Element &element)
 {
 	m_7C.push_back(element);
+}
+
+// The independent entry 0x004F8871 delegates its first two pointer fields to
+// the same range-erase body as vector<TreeHintRef00217D4C>::clear at 0x002B8134.
+// Keep an address-derived owner: the shared bytes do not prove the original
+// class or template instantiation behind this second entry.
+class Rva004F8871
+{
+public:
+    void rva004F8871();
+private:
+    TreeHintRef00217D4C *m_begin;
+    TreeHintRef00217D4C *m_end;
+};
+
+void Rva004F8871::rva004F8871()
+{
+    reinterpret_cast<_STL::vector<TreeHintRef00217D4C> *>(this)->erase(m_begin, m_end);
 }
