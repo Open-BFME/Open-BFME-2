@@ -16,15 +16,11 @@ class GeneralAllocator
 {
 public:
 	void rva00033E90(void *p);
+	// memory_pool.cpp owns the native 0x00033150 free engine under this ABI.
+	void rva00033150(const void *block);
 };
 }
 }
-
-class Rva00033E90
-{
-public:
-	void freeBlock(void *p);
-};
 
 void EA::Allocator::GeneralAllocator::rva00033E90(void *p)
 {
@@ -33,7 +29,7 @@ void EA::Allocator::GeneralAllocator::rva00033E90(void *p)
 		if (*((char *)p + 0xd) != 0)
 		{
 			if (*((char *)p + 0xc) == 0)
-				return ((Rva00033E90 *)this)->freeBlock(p);
+				return rva00033150(p);
 		}
 		else
 		{

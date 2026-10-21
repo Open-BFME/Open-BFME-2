@@ -1,0 +1,54 @@
+Terrain and allocator provider binding repairs
+
+Source base: BFME II c96fdb75415080bb19e6885a073ebc7ec7821f36.
+Reference pin: BFME I 44e2ae0881588ef6b280b991273c7c3b3f091baa.
+Published linking index: census 2026-10-21 02:38 at 06ffb2103f.
+
+ActionManagerCanDoSpecialPowerAtLocation.cpp:
+Native 0x0041D60B..0x0041E488, 3709-byte parent and 10-byte EH handler.
+Case 0x27 tests the full return word of the thiscall query at 0x0027F108.
+The old Rva004C82E5Terrain spelling has a pin but no definition. BfmeConv624.cpp
+independently owns that 52-byte query as BfmeThingCME::rva0027F108(void*,float,int,int),
+returning int. Other callers already use this ABI. Bind to that existing provider;
+the caller asserts no pointer-result identity. Provider+consumer scoped gate 6/6,
+14 float literals, EH EXACT 1; both strict reusable compile receipts accepted.
+Paired linking preview: caller 0 -> 3710 non-padding bytes; provider 248 -> 248.
+
+Rva00033E90Cluster.cpp:
+Native 0x00033E90..0x00033EC1, 49-byte GeneralAllocator report close.
+The final direct tail call at 0x00033150 is the independently matched
+GeneralAllocator::rva00033150(const void*) free engine in memory_pool.cpp
+(374 bytes). Replace the undeclared Rva00033E90::freeBlock view with this
+member declaration on the existing GeneralAllocator view. Provider+consumer
+scoped gate 48/48, 14 strings + 2 empty references, 38 imports, EH EXACT 1;
+both strict reusable compile receipts accepted. Consumer preview 0 -> 49 bytes.
+
+Rva000353F0Trace.cpp:
+Native 0x000353F0..0x0003553B (331 bytes), 0x00035540..0x000355DA
+(154 bytes), plus the 10-byte handler at 0x0075CC8B. Both parents inline
+reportEnd and reach the same free engine. Replace the undeclared global
+Rva00033150::rva00033150(int) view and pointer-to-int conversion with the
+existing GeneralAllocator::rva00033150(const void*) provider ABI.
+Strict preparation and scoped gate 3/3, 2 imports, EH EXACT 1.
+Consumer linking preview 0 -> 493 non-padding bytes.
+
+Totals: six existing rows across three changed sources; 4263 raw row bytes,
+4252 non-padding bytes newly passing the scoped linking preview. Zero new
+reconstructed bytes, new rows, pins, aliases, or BFME I function transfers.
+All five affected/provider sources have strict reusable compile receipts.
+The memory_pool.cpp provider still reports the unrelated unresolved
+GeneralAllocator::rva00032050(void*,unsigned). The paired allocator commands
+therefore exit 1 despite the repaired consumers reporting LINKS. This is
+scoped linking evidence, not a fresh census or a runnable-executable claim.
+
+Donor review: inspected BFME I repair 1032ead84266c27bc8bf0e38cd2c609f2f14bd21
+(S4Elem0039EBE0Destructor provider reconciliation) at reference revision
+44e2ae08. Its principle of using the independently owned provider instead of
+an unresolved private spelling applies; its class layout and source do not
+transfer here. BFME II's own native call targets, existing providers and
+already converted sibling callers supply the proof for these three repairs.
+
+Reproduce with build.sh and eh_verify.py on the three changed source paths,
+plus BfmeConv624.cpp and memory_pool.cpp. Run link_check.py on each consumer
+with its provider; retain the unrelated memory_pool blocker in the report.
+No shared header or compiler-flag change is needed.
