@@ -6,6 +6,9 @@
 // grid at 0x006C1490 and stores it at +0x10. The only encoded delta is the
 // allocation size: 0x30 fits in a signed byte, so push imm8 shortens the
 // body by three bytes versus the template's push 0xC070.
+// The Snapshot vtable at 0x00CE7B74 uses the natural deleting-destructor
+// adjustor at 0x006C0980: subtract the proven 0x0C base offset and jump to
+// this class's complete 30-byte deleting destructor at 0x006C0B60.
 #include "Common/Snapshot.h"
 
 class SubsystemInterface
