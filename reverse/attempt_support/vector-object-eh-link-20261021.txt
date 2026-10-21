@@ -1,0 +1,36 @@
+Rejected inline-only Object-vector destructor linking trials
+
+Inputs: BFME II 25682fad31546486c6d4846034da4f3f5f0ce444;
+BFME I reference 44e2ae0881588ef6b280b991273c7c3b3f091baa.
+Use each source's committed cl line and documented MSVC 7.1 toolchain.
+
+Tried the existing Rva00283114GroupMerge.cpp specialization immediately after
+each source's _Vector_base<Object*> destructor specialization:
+
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+vector<Object *, allocator<Object *> >::~vector()
+{ _Destroy(this->_M_start, this->_M_finish); }
+}
+
+SiegeDeployHordeInitiate.cpp: native parent 0x004C6588..0x004C6751,
+457 bytes, plus 10-byte handler. Scoped build passed 2/2, but eh_verify
+rejected .text$x at 0x007901B3 (dllimport, 5 differing bytes). link_check
+replaced the losing vector destructor COMDAT with an unresolved
+__imp_??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ.
+
+ProductionUpdateClearUpgrades.cpp: scoped build passed 4/4, but eh_verify
+rejected native parent 0x0049DF81..0x0049E03A, 185 bytes: .text$x at
+0x0078D90F (dllimport, 5 differing bytes).
+
+The independently rowed native vector destructor at 0x001F22A3 is a five-byte
+tail jump to the EH-framed base destructor at 0x001F1609; its verified provider
+is GenericObjectCreationNuggetWaypointPick.cpp. Both consumers require a
+direct call during unwinding. GroupMerge's inline-only suppression cannot be
+transferred to these EH paths. Function text matching alone misses this error.
+
+Both trials were fully reverted. No new rows, pins, aliases, gate baselines,
+shared headers, or reconstructed bytes. AIRva005D8B0BCheck.cpp was inspected
+but not changed; its direct cleanup call makes the same import trial a poor
+next experiment. A useful retry must preserve the native EH direct call while
+reconciling the out-of-line destructor, not repeat dllimport suppression.
