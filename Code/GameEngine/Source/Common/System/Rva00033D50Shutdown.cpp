@@ -57,11 +57,6 @@ public:
 	void rva00033930();
 };
 
-class Rva00033E90
-{
-public:
-	void freeBlock(void *p);
-};
 
 class Rva0066D7D0LeaField
 {
@@ -76,6 +71,9 @@ namespace Allocator
 class GeneralAllocator
 {
 public:
+	// memory_pool.cpp owns the native 0x00033150 free engine under this ABI.
+	void rva00033150(const void *block);
+
 	bool rva00033D50();
 	void rva00031660(void *node);
 	bool rva000316B0(void *node, bool release);
@@ -108,7 +106,7 @@ bool GeneralAllocator::rva00033D50()
 		while (m_4A8 != m_49C)
 		{
 			int chunk = Rva00030AE0Sub((int *)m_4A8);
-			((Rva00033E90 *)this)->freeBlock(&Rva00033D50TreeAccess::_S_left((Rva00033D50Node *)chunk));
+			reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00033150(&Rva00033D50TreeAccess::_S_left((Rva00033D50Node *)chunk));
 		}
 		while (m_464 != m_448)
 		{

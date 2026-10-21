@@ -74,9 +74,15 @@ bool Rva006C17B0::rva006C21C0(unsigned int len, void *buf)
 #include <string.h>
 #pragma intrinsic(memset)
 
-class Rva00033E90 { public: void freeBlock(void *); };
 namespace EA { namespace Allocator {
-class GeneralAllocator { public: void rva000338F0(void *); bool rva00033D50(); };
+class GeneralAllocator
+{
+public:
+	// memory_pool.cpp owns the native 0x00033150 free engine under this ABI.
+	void rva00033150(const void *block);
+	void rva000338F0(void *);
+	bool rva00033D50();
+};
 } }
 class Rva006C39F0Owner { public: void *rva006C3940Alloc(unsigned int); };
 
@@ -194,7 +200,7 @@ void __cdecl GeneralAllocatorDebug::rva006C2240(void *p, void *context)
     if (allocator->m_self == allocator)
     {
         if (allocator->m_debugInitialized)
-            ((Rva00033E90 *)allocator)->freeBlock(p);
+            reinterpret_cast<EA::Allocator::GeneralAllocator *>(allocator)->rva00033150(p);
     }
     else
         ((EA::Allocator::GeneralAllocator *)allocator->m_self)->rva000338F0(p);

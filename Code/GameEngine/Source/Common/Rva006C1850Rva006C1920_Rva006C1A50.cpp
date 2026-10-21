@@ -1,5 +1,5 @@
-// Split from Rva006C1850Rva006C1920.cpp: these definitions reference a callee with no matched body yet,
-// so they are kept apart from the unit's bodies that already link.
+// Split from Rva006C1850Rva006C1920.cpp; both allocator tail targets now
+// bind to their verified providers in memory_pool.cpp.
 //
 // ?rva006C1920@Rva006C1850@@QAE_NI@Z, retail 0x006c1920, 204 bytes. Banked partial (score 0.93) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -50,17 +50,15 @@ private:
 
 // Address-derived shim for 0x006C1A50: a self-or-other dispatch with one
 // argument passed through by tail jumps. Both callees are pinned by address.
-class Rva00033150
+// memory_pool.cpp independently owns both native tail targets.
+namespace EA { namespace Allocator {
+class GeneralAllocator
 {
 public:
-	void rva00033150(int v);
+	void rva00033150(const void *block);
+	void rva000338F0(void *block);
 };
-
-class Rva000338F0
-{
-public:
-	void rva000338F0(int v);
-};
+} }
 
 class Rva006C1A50Owner
 {
@@ -79,9 +77,9 @@ void Rva006C1A50Owner::rva006C1A50(int v)
 {
 	if (m_678 == (void *)this) {
 		if (m_510)
-			((Rva00033150 *)this)->rva00033150(v);
+			reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00033150(reinterpret_cast<const void *>(v));
 	} else {
-		((Rva000338F0 *)m_678)->rva000338F0(v);
+		reinterpret_cast<EA::Allocator::GeneralAllocator *>(m_678)->rva000338F0(reinterpret_cast<void *>(v));
 	}
 }
 

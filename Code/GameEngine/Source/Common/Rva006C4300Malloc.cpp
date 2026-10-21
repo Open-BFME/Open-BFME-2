@@ -56,16 +56,14 @@ public:
 	void rva006C33D0(int a, int b);
 };
 
-class Rva00033E90
-{
-public:
-	void freeBlock(void *block);
-};
 
 namespace EA { namespace Allocator {
 class GeneralAllocator
 {
 public:
+	// memory_pool.cpp owns the native 0x00033150 free engine under this ABI.
+	void rva00033150(const void *block);
+
 	void *rva000344A0(unsigned size, unsigned alignment, unsigned alignmentOffset, int flags);
 	void *rva00034A60(unsigned count, unsigned size, int flags);
 };
@@ -174,7 +172,7 @@ void *Rva006C40C0::rva006C40C0(void *a, void *b)
 			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, true))
 				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
 			else {
-				((Rva00033E90 *)this)->freeBlock(p);
+				reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00033150(p);
 				p = 0;
 			}
 			break;
@@ -205,7 +203,7 @@ int Rva006C4460::rva006C4300(int a, int b, int c, int d)
 			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, true))
 				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
 			else {
-				((Rva00033E90 *)this)->freeBlock(p);
+				reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00033150(p);
 				p = 0;
 			}
 			break;
@@ -238,7 +236,7 @@ void *Rva006C4530::rva006C4530(void *a, void *b, void *c)
 			if (((GeneralAllocatorDebug *)this)->rva006C3D30(&record, p, false))
 				((GeneralAllocatorDebug *)this)->rva006C26F0((char *)p - 8, true);
 			else {
-				((Rva00033E90 *)this)->freeBlock(p);
+				reinterpret_cast<EA::Allocator::GeneralAllocator *>(this)->rva00033150(p);
 				p = 0;
 			}
 			break;

@@ -1,0 +1,52 @@
+Follow-up allocator provider binding sweep
+
+Base: 433877651e36fef9de2323c2ecf519419452c5df, already published through the
+normal hooks. BFME I reference remains 44e2ae08. Published linking index remains
+2026-10-21 02:38 at 06ffb2103f, identical for the before and after measurements.
+
+Apply the successful Rva00033E90Cluster/Rva000353F0Trace binding repair to the
+remaining compatible allocator consumers. All free-engine calls below already
+target native 0x00033150 (374-byte GeneralAllocator::rva00033150(const void*)
+in memory_pool.cpp). The self-or-other tail dispatcher at 0x006C1A50 also
+targets the rowed 63-byte GeneralAllocator::rva000338F0(void*) locking wrapper.
+Use those exact existing provider declarations; no extra pin or alias is needed.
+
+Before -> after, non-padding scoped LINKED bytes:
+  Common/Rva006C21C0.cpp                         0 -> 670
+    Correct the release callback at 0x006C2240 (48 bytes).
+  Common/Rva006C33D0Purge_Rva006C1CC0.cpp         0 -> 307
+    Correct guard-check/release at 0x006C3180 (150 bytes).
+  Common/Rva006C1850Rva006C1920_Rva006C1A50.cpp  0 -> 35
+    Correct both direct tail targets of 0x006C1A50 (35 bytes).
+  Common/Rva006C3660Free.cpp                     0 -> 0
+    Remove the unresolved free-engine binding from 0x006C3660 (370 bytes).
+  Common/Rva006C4300Malloc.cpp                   0 -> 0
+    Remove it from 0x006C40C0 (369), 0x006C4300 (348), 0x006C4530 (319).
+  Common/System/Rva00033D50Shutdown.cpp          0 -> 0
+    Remove it from 0x00033D50 (309 bytes).
+All paths above are under Code/GameEngine/Source/.
+
+Seven unresolved (source, symbol) bindings removed across six sources; three
+sources newly LINKS, adding 1012 non-padding bytes. The other three retain
+independent blockers: Rva00030DD0Guard destructor COMDAT/selected-provider
+disagreement in the free/malloc units, and unresolved GeneralAllocator::
+rva00031660(void*) in shutdown. The common memory_pool.cpp provider also retains
+its unrelated rva00032050 blocker. The seven-source paired link command exits
+1 while reporting the three repaired units as LINKS; no closed-link claim.
+
+Verification: official link_check --prepare-current accepts all six reusable
+strict receipts and byte-verifies all 21 existing rows (2779 raw row bytes),
+with one string and no skipped/baselined references. eh_verify reports EXACT 5,
+zero not-exact, baseline, or missing-object rows. Two compiler funclet labels
+renumber; the existing gate resolves them through the exact parent EH graph.
+No new reconstructed bytes, function rows, identity assertions, shared headers,
+compiler options, pins, or aliases. Use the same tools and source list to repeat.
+
+Earlier donor review remains applicable at the provider-reconciliation level:
+BFME I 1032ead84266c27bc8bf0e38cd2c609f2f14bd21, inspected at 44e2ae08;
+see provider-bindings-20261021.txt. No BFME I source transfer is claimed.
+
+Before this follow-up, GitHub reported PR89 mergeable_state=dirty against
+3646cc72. The local git merge-tree integration preview with the documented
+merge drivers returned exit 0; no working tree or branch was changed. Integrate
+with the repository's local cherry-pick and hook-verified push workflow.
