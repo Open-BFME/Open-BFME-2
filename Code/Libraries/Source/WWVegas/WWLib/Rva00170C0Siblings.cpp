@@ -1,7 +1,7 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // stlport
 //
-// 23 scalar deleting destructors of the ??_G?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@UAEPAXI@Z
+// 22 scalar deleting destructors of the ??_G?$basic_filebuf@DV?$char_traits@D@_STL@@@_STL@@UAEPAXI@Z
 // shape (30 B). Each retail body calls its class dtor then the rowed scalar operator delete
 // 0x0002FD60 under the (this, flags) ABI. The class identities are unproven, so each is an
 // address-derived local model whose dtor symbol is pinned to the retail call target; the
@@ -26,7 +26,6 @@
 // 0x00616490 -> dtor 0x006162B0
 // 0x00626D90 -> dtor 0x00625800
 // 0x00663410 -> dtor 0x0066C730
-// 0x006C0B60 -> dtor 0x006C09A0
 // 0x007396E0 -> dtor 0x0073E3F0
 // 0x0073AAC0 -> dtor 0x0073A900
 // 0x007581C0 -> dtor 0x0075A080
@@ -282,16 +281,6 @@ public:
 };
 
 __declspec(noinline) Rva0066C730Dtor::~Rva0066C730Dtor()
-{
-}
-
-class Rva006C09A0Dtor
-{
-public:
-	virtual ~Rva006C09A0Dtor();
-};
-
-__declspec(noinline) Rva006C09A0Dtor::~Rva006C09A0Dtor()
 {
 }
 
