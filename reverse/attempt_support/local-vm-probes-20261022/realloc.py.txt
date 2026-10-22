@@ -1,0 +1,36 @@
+from pathlib import Path
+import sys,time
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+base=Path('reverse/attempts/0x006c4730.cpp').read_text()
+old='''			unsigned int h = ((unsigned int *)p)[-1];
+			char *end = !(h & 2) ? (char *)p + (h & 0x7FFFFFF8) + 4 : (char *)p + (h & 0x7FFFFFF8);
+			*(unsigned short *)(end - 10) = 0;'''
+assert base.count(old)==1
+prefix='extern "C" void _ReadWriteBarrier(void);\n#pragma intrinsic(_ReadWriteBarrier)\n'
+variants=[('baseline',base)]
+forms={
+'barrier_end':'''unsigned h=((unsigned*)p)[-1]; char *end=!(h&2)?(char*)p+(h&0x7ffffff8)+4:(char*)p+(h&0x7ffffff8); _ReadWriteBarrier(); *(unsigned short*)(end-10)=0;''',
+'barrier_trailer':'''unsigned h=((unsigned*)p)[-1]; unsigned n=!(h&2)?(h&0x7ffffff8)+4:h&0x7ffffff8; unsigned short *end=(unsigned short*)((char*)p+n-10); _ReadWriteBarrier(); *end=0;''',
+'switch_pointer':'''unsigned h=((unsigned*)p)[-1]; char *end; switch(h&2){case 0:end=(char*)p+(h&0x7ffffff8)+4;break;default:end=(char*)p+(h&0x7ffffff8);break;} *(unsigned short*)(end-10)=0;''',
+'switch_named':'''unsigned h=((unsigned*)p)[-1]; unsigned short *end; switch(h&2){case 0:{unsigned n=(h&0x7ffffff8)+4;end=(unsigned short*)((char*)p+n-10);break;}default:{unsigned n=h&0x7ffffff8;end=(unsigned short*)((char*)p+n-10);break;}} *end=0;''',
+'restrict_pointer':'''unsigned h=((unsigned*)p)[-1]; unsigned n=!(h&2)?(h&0x7ffffff8)+4:h&0x7ffffff8; unsigned short *__restrict end=(unsigned short*)((char*)p+n-10); *end=0;''',
+}
+for name,form in forms.items():variants.append((name,(prefix if 'barrier' in name else '')+base.replace(old,form)))
+# Int-returning header accessors keep test cl,2 instead of bool shr/test.
+for shape in ['pointer','size','branch']:
+ helper='static unsigned mapped(unsigned h){return h&2;} static unsigned chunksize(unsigned h){return h&0x7ffffff8;}\n'
+ if shape=='pointer': body='unsigned h=((unsigned*)p)[-1]; char *end=!mapped(h)?(char*)p+chunksize(h)+4:(char*)p+chunksize(h); *(unsigned short*)(end-10)=0;'
+ elif shape=='size': body='unsigned h=((unsigned*)p)[-1]; unsigned n=!mapped(h)?chunksize(h)+4:chunksize(h); *(unsigned short*)((char*)p+n-10)=0;'
+ else:body='unsigned h=((unsigned*)p)[-1]; unsigned short *end; if(!mapped(h)){unsigned n=chunksize(h)+4;end=(unsigned short*)((char*)p+n-10);}else{unsigned n=chunksize(h);end=(unsigned short*)((char*)p+n-10);} *end=0;'
+ variants.append(('int_accessors_'+shape,helper+base.replace(old,body)))
+sym='?rva006C4730@GeneralAllocatorDebug@@QAEPAXPAXIH@Z'
+s=Scorer(sym,0x6c4730,798,Path('build/realloc-probes').resolve())
+for name,src in variants:
+ t=time.monotonic();r=s(src);o=s.dir/f'c{s.n}.obj'
+ extent=next((len(b) for n,b,_ in carve(o.read_bytes()) if n==sym),None) if o.exists() else None
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',extent,'differing',nd,'seconds',round(time.monotonic()-t,1),flush=True)
+ if 'compiled' in r:Path('build/realloc-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=150))
+ if r['exact']:Path('build/realloc-win.cpp').write_text(src);break

@@ -1,0 +1,7 @@
+pointer_2_shiftFalse {'fitness': 0.75881, 'exact': False, 'class': 'structural'} extent 814 differing 653 seconds 7.6
+pointer_2_shiftTrue {'fitness': 0.75881, 'exact': False, 'class': 'structural'} extent 814 differing 653 seconds 1.5
+pointer_4_shiftFalse {'fitness': 0.7599, 'exact': False, 'class': 'structural'} extent 816 differing 624 seconds 1.8
+pointer_4_shiftTrue {'fitness': 0.7599, 'exact': False, 'class': 'structural'} extent 816 differing 624 seconds 1.9
+refarg {'fitness': 0.98688, 'exact': False, 'class': 'structural'} extent 798 differing 18 seconds 1.5
+constarg {'fitness': 0.98688, 'exact': False, 'class': 'structural'} extent 798 differing 18 seconds 1.5
+charreturn {'fitness': 0.98688, 'exact': False, 'class': 'structural'} extent 798 differing 18 seconds 1.7

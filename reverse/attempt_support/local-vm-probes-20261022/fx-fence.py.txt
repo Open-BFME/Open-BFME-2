@@ -1,0 +1,30 @@
+from pathlib import Path
+import sys
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+base=Path('reverse/attempts/0x0018c84e.cpp').read_text()
+line='      *(int *)(vertices+desc.Get_Basis_End())=remap[links[0][i]]+(remap[links[1][i]]<<8);'
+assert base.count(line)==1
+prefix='extern "C" void _ReadWriteBarrier(void);\n#pragma intrinsic(_ReadWriteBarrier)\n'
+variants=[]
+for typ in ['unsigned','unsigned short']:
+ for cache in [True,False]:
+  statements=[f'      {typ} secondLink=links[1][i];',f'      {typ} firstLink=links[0][i];']
+  if cache:statements+=['      const short *remapValues=remap.begin();']
+  a='remapValues[firstLink]' if cache else 'remap[firstLink]'
+  b='remapValues[secondLink]' if cache else 'remap[secondLink]'
+  statements += ['      int firstIndex='+a+';','      _ReadWriteBarrier();','      *(int *)(vertices+desc.Get_Basis_End())=firstIndex+('+b+'<<8);']
+  variants.append((f'indices_{typ}_cache{cache}',prefix+base.replace(line,'\n'.join(statements))))
+# Control: the same staging without a fence.
+variants.append(('staged_no_fence',variants[0][1].replace('      _ReadWriteBarrier();\n','')))
+symbol='?Init@FXShaderGeometry@@QAE_NPAVMeshModelClass@@@Z'
+s=Scorer(symbol,0x18c84e,2333,Path('build/local-vm/fx-fence-probes').resolve())
+for name,source in variants:
+ r=s(source);actual=None;obj=s.dir/f'c{s.n}.obj'
+ if obj.exists():actual=next((len(b) for n,b,_ in carve(obj.read_bytes()) if n==symbol),None)
+ first=next((i for i,(a,b) in enumerate(zip(r.get('compiled',b''),r.get('target',b''))) if a!=b),None)
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',actual,'first',first,'differing',nd,flush=True)
+ if 'compiled' in r:Path('build/local-vm/fx-fence-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=120))
+ if r['exact']:Path('build/local-vm/fx-win.cpp').write_text(source);break

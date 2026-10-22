@@ -1,0 +1,5 @@
+indices_unsigned_cacheTrue {'fitness': 0.97032, 'exact': False, 'class': 'structural'} extent 2336 first 79 differing 522
+indices_unsigned_cacheFalse {'fitness': 0.97822, 'exact': False, 'class': 'structural'} extent 2336 first 79 differing 506
+indices_unsigned short_cacheTrue {'fitness': 0.96659, 'exact': False, 'class': 'structural'} extent 2342 first 79 differing 540
+indices_unsigned short_cacheFalse {'fitness': 0.97725, 'exact': False, 'class': 'structural'} extent 2339 first 79 differing 488
+staged_no_fence {'fitness': 0.99134, 'exact': False, 'class': 'structural'} extent 2333 first 1800 differing 42

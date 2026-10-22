@@ -1,0 +1,32 @@
+from pathlib import Path
+import sys,time
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+base=Path('reverse/attempts/0x006c4730.cpp').read_text()
+old='char *end = !(h & 2) ? (char *)p + (h & 0x7FFFFFF8) + 4 : (char *)p + (h & 0x7FFFFFF8);'
+variants=[]
+# The header guarantees the masked extent is a multiple of eight. These typed
+# views preserve the byte address, testing when strength reduction meets PHIs.
+for typ,scale in [('unsigned short',2),('unsigned int',4)]:
+ for shift in [False,True]:
+  n='((h & 0x7FFFFFF8) >> '+str(scale.bit_length()-1)+')' if shift else '((h & 0x7FFFFFF8) / '+str(scale)+')'
+  line=f'{typ} *end = !(h & 2) ? ({typ} *)p + {n} + {4//scale} : ({typ} *)p + {n};'
+  t=base.replace(old,line).replace('*(unsigned short *)(end - 10) = 0;','*(unsigned short *)((char *)end - 10) = 0;')
+  variants.append((f'pointer_{scale}_shift{shift}',t))
+# Header-based next-chunk pointers represent the same end with two scalar slots.
+for mode in ['refarg','constarg','charreturn']:
+ t=base
+ if mode=='refarg':t=t.replace('void *mallocBackup(unsigned int size)','void *mallocBackup(const unsigned int &size)')
+ if mode=='constarg':t=t.replace('void *mallocBackup(unsigned int size)','void *mallocBackup(const unsigned int size)')
+ if mode=='charreturn':t=t.replace('void *mallocBackup(unsigned int size)','char *mallocBackup(unsigned int size)').replace('\t\treturn p;\n\t}\n\n\tunsigned int getDebugDataSize','\t\treturn (char *)p;\n\t}\n\n\tunsigned int getDebugDataSize')
+ variants.append((mode,t))
+sym='?rva006C4730@GeneralAllocatorDebug@@QAEPAXPAXIH@Z'
+s=Scorer(sym,0x6c4730,798,Path('build/realloc-probes2').resolve())
+for name,src in variants:
+ t=time.monotonic();r=s(src);o=s.dir/f'c{s.n}.obj'
+ extent=next((len(b) for n,b,_ in carve(o.read_bytes()) if n==sym),None) if o.exists() else None
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',extent,'differing',nd,'seconds',round(time.monotonic()-t,1),flush=True)
+ if 'compiled' in r:Path('build/realloc2-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=150))
+ if r['exact']:Path('build/realloc-win.cpp').write_text(src);break
