@@ -1,0 +1,11 @@
+Source claims: OK (5 sources, scoped byte-verified)
+Funclet pins: 15 row(s) verified past a renumbered $L label
+    $L8693 (Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp): $L8693 was renumbered; verified parent EH data places $L8550 at 0x007695EA
+    $L8700 (Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp): $L8700 was renumbered; verified parent EH data places $L8557 at 0x00769620
+    $L8701 (Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp): $L8701 was renumbered; verified parent EH data places $L8558 at 0x0076962A
+    $L8698 (Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp): $L8698 was renumbered; verified parent EH data places $L8555 at 0x0076960D
+    $L8699 (Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp): $L8699 was renumbered; verified parent EH data places $L8556 at 0x00769615
+Functions: OK 31/31 matched across 5 source file(s)
+String-ref verify: OK (34 literals + 12 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (19 compiler literals verified)
+Import-ref verify: OK (2 named imports verified)

@@ -1,0 +1,230 @@
+[
+  {
+    "old": {
+      "name": "?rva00785033@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x00785033",
+      "target_size": "25",
+      "source": "Code/masm_dumps/EHStateCleanupRange38.asm",
+      "status": "matched",
+      "notes": "MASM SEH; clears state bit 0 at [ebp-80] then tail-jumps through [ebp+8] to the rowed Rva005F8F96 destructor; parent layout unknown"
+    },
+    "parent": {
+      "name": "?createContent@OldSchoolHelpBoxContentSource@@UAE?AUTreeHintRef00217D4C@@XZ",
+      "export_rva": "",
+      "target_rva": "0x00405E3D",
+      "target_size": "3287",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarPopupDescription.cpp",
+      "status": "matched",
+      "notes": "OldSchoolHelpBoxContentSource::createContent (WB 0x01078070 names it in ControlBarPopupDescription.cpp; vftable 0x00838970 slot 3): WB debug spelling (bool-expression isUnitBuild; inline getters for command type/options/require-all/upgrade/body module; costValue init then per-branch; upgrade-arm flags false first) gives retail allocation; full 3287B exact"
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L6957"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L6957",
+      "export_rva": "",
+      "target_rva": "0x00785033",
+      "target_size": "25",
+      "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/ControlBarPopupDescription.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?createContent@OldSchoolHelpBoxContentSource@@UAE?AUTreeHintRef00217D4C@@XZ; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva00785033@@YAXXZ."
+    }
+  },
+  {
+    "old": {
+      "name": "?rva0075D09B@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x0075D09B",
+      "target_size": "25",
+      "source": "Code/masm_dumps/EHStateCleanupRange36.asm",
+      "status": "matched",
+      "notes": "Ghidra Unwind@00b5d09b; conditional state-bit cleanup at EBP-0x14 then tail-jumps to the address-derived cleanup target 0x0017098D. Concrete class identity and parent layout are unproven; MASM SEH codegen blocker."
+    },
+    "parent": {
+      "name": "?Rva000470D5GetTexture@@YA?AVBFME2ParticleTextureHandle@@PBURva000470D5Source@@@Z",
+      "export_rva": "",
+      "target_rva": "0x000470D5",
+      "target_size": "216",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp",
+      "status": "matched",
+      "notes": "file-static texture getter of the 0x471AD clock draw; exact only as a static in the same unit as its caller (Rva0042C9BAFactory precedent)"
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L3210"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L3210",
+      "export_rva": "",
+      "target_rva": "0x0075D09B",
+      "target_size": "25",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?Rva000470D5GetTexture@@YA?AVBFME2ParticleTextureHandle@@PBURva000470D5Source@@@Z; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva0075D09B@@YAXXZ."
+    }
+  },
+  {
+    "old": {
+      "name": "?rva007667DC@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x007667DC",
+      "target_size": "34",
+      "source": "Code/masm_dumps/EHStateCleanupRange36.asm",
+      "status": "matched",
+      "notes": "Ghidra Unwind@00b667dc; state bit 0 at EBP-0xe8 is cleared before loading cleanup address from EBP-0xe0; tail-jumps to matched destructor ??1Gen_uw_0017098d@@QAE@XZ at 0x0057098D. Parent identity and concrete local identity are unproven; MASM preserves compiler-generated EH cleanup."
+    },
+    "parent": {
+      "name": "?RecolorHouseColor@MeshClass@@UAEXABVRva0013101E@@PBD@Z",
+      "export_rva": "",
+      "target_rva": "0x0014C470",
+      "target_size": "2291",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+      "status": "matched",
+      "notes": "WB twin 0x9CC5B0 mesh.cpp 1517-1627; effect-scope locals declared flat (no nested blocks) as WB's /Od frame layout shows"
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L11915"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L11915",
+      "export_rva": "",
+      "target_rva": "0x007667DC",
+      "target_size": "34",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?RecolorHouseColor@MeshClass@@UAEXABVRva0013101E@@PBD@Z; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva007667DC@@YAXXZ."
+    }
+  },
+  {
+    "old": {
+      "name": "?rva007667FE@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x007667FE",
+      "target_size": "34",
+      "source": "Code/masm_dumps/EHStateCleanupRange36.asm",
+      "status": "matched",
+      "notes": "Ghidra Unwind@00b667fe; state bit 1 at EBP-0xe8 is cleared before loading cleanup address from EBP-0xe4; tail-jumps to matched destructor ??1Gen_uw_0017098d@@QAE@XZ at 0x0057098D. Parent identity and concrete local identity are unproven; MASM preserves compiler-generated EH cleanup."
+    },
+    "parent": {
+      "name": "?RecolorHouseColor@MeshClass@@UAEXABVRva0013101E@@PBD@Z",
+      "export_rva": "",
+      "target_rva": "0x0014C470",
+      "target_size": "2291",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+      "status": "matched",
+      "notes": "WB twin 0x9CC5B0 mesh.cpp 1517-1627; effect-scope locals declared flat (no nested blocks) as WB's /Od frame layout shows"
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L11917"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L11917",
+      "export_rva": "",
+      "target_rva": "0x007667FE",
+      "target_size": "34",
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/bfme2_mesh_material_pass.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?RecolorHouseColor@MeshClass@@UAEXABVRva0013101E@@PBD@Z; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva007667FE@@YAXXZ."
+    }
+  },
+  {
+    "old": {
+      "name": "?rva007695F4@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x007695F4",
+      "target_size": "25",
+      "source": "Code/masm_dumps/EHStateCleanupRange36.asm",
+      "status": "matched",
+      "notes": "Ghidra Unwind@00b695f4; state bit 0 at EBP-0x18 is cleared before loading cleanup address from EBP-0x10; tail-jumps to matched destructor ??1AsciiString@@QAE@XZ at 0x0048BA39. Parent identity and concrete local identity are unproven; MASM preserves compiler-generated EH cleanup."
+    },
+    "parent": {
+      "name": "?parseArmorDefinition@ArmorStore@@SAXPAVINI@@@Z",
+      "export_rva": "",
+      "target_rva": "0x001D9484",
+      "target_size": "397",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp",
+      "status": "matched",
+      "notes": ""
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L8552"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L8552",
+      "export_rva": "",
+      "target_rva": "0x007695F4",
+      "target_size": "25",
+      "source": "Code/GameEngine/Source/GameLogic/Object/ArmorStoreParse.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?parseArmorDefinition@ArmorStore@@SAXPAVINI@@@Z; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva007695F4@@YAXXZ."
+    }
+  },
+  {
+    "old": {
+      "name": "?rva0076B15A@@YAXXZ",
+      "export_rva": "",
+      "target_rva": "0x0076B15A",
+      "target_size": "25",
+      "source": "Code/masm_dumps/EHStateCleanupRange36.asm",
+      "status": "matched",
+      "notes": "Ghidra Unwind@00b6b15a; state bit 0 at EBP-0x28 is cleared before loading cleanup address from EBP+0x8; Ghidra 5-byte thunk at RVA 0x001F22A3 tail-jumps to rowed Coord3D vector_base destructor 0x001F1609; tail-jumps to matched cleanup target ??1Gen_uwm_001f22a3@@QAE@XZ at 0x005F22A3. Parent identity and concrete local identity are unproven; MASM preserves compiler-generated EH cleanup."
+    },
+    "parent": {
+      "name": "?reallyCreate@GenericObjectCreationNugget@@QBE?AV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z",
+      "export_rva": "",
+      "target_rva": "0x001F1634",
+      "target_size": "2618",
+      "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+      "status": "matched",
+      "notes": "Native 1F1634..1F206E whole 2618B; WB B050F0 GenericObjectCreationNugget::reallyCreate (ObjectCreationList.cpp asserts 1592..1808) gives identity and statement order; ZH reallyCreate is the semantic guide; hidden 12B vector<Object*> result copied by 1F206E at each return; FuncInfo D10624 9 states exact via disabled allocator bookkeeping and dead member-list branch; pick upper bound as its own local fixes scheduling and the isDebrisSkipped register; all REL32 resolve to rowed owners"
+    },
+    "eh": [
+      "EXACT",
+      ""
+    ],
+    "labels": [
+      "$L7226"
+    ],
+    "exact": true,
+    "unresolved": [],
+    "candidate": {
+      "name": "$L7226",
+      "export_rva": "",
+      "target_rva": "0x0076B15A",
+      "target_size": "25",
+      "source": "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+      "status": "matched",
+      "notes": "gen-funclet;parent=?reallyCreate@GenericObjectCreationNugget@@QBE?AV?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PBUCoord3D@@PBVMatrix3D@@MPBVObject@@I@Z; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner ?rva0076B15A@@YAXXZ."
+    }
+  }
+]

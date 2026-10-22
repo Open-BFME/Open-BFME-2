@@ -1,0 +1,32 @@
+import sys,csv,json
+from pathlib import Path
+sys.path.insert(0,'tools')
+import build,gen_small,eh_verify
+owned,counts=gen_small.funcinfo_ownership([])
+manual=[]
+with open('reverse/functions.csv') as stream:
+ for row in csv.DictReader(stream):
+  if row['source'].startswith('Code/masm_dumps/') and 'EH' in row['source']:manual.append(row)
+needed={owned.get(int(r['target_rva'],16)) for r in manual}
+parents={}
+with open('reverse/functions.csv') as stream:
+ for row in csv.DictReader(stream):
+  rva=int(row['target_rva'],16)
+  if rva in needed and row['source'].endswith('.cpp') and not row['source'].startswith('Code/gen_'):parents.setdefault(rva,[]).append(row)
+img=eh_verify.Image();symbols=build.load_symbol_map();results=[]
+for row in manual:
+ rva=int(row['target_rva'],16)
+ for parent in parents.get(owned.get(rva),[]):
+  path=build.obj_path(build.ROOT/parent['source']);obj=eh_verify.Obj(path)
+  verdict=eh_verify.verify_row(img,obj,parent['name'],int(parent['target_rva'],16))
+  locations=eh_verify.verified_funclet_locations(img,obj,parent['name'],int(parent['target_rva'],16))
+  hits=[n for n,where in locations.items() if where==rva]
+  result={'old':row,'parent':parent,'eh':verdict,'labels':hits}
+  if len(hits)==1:
+   candidate={**row,'name':hits[0],'source':parent['source'],'notes':'gen-funclet;parent='+parent['name']+'; Native unwind map and exact full parent EH graph bind this compiler cleanup here; real C++ lifetimes replace manual MASM owner '+row['name']+'.'}
+   got=build.compile_function(candidate,symbols,path)
+   result['exact']=got['bytes']==got['target'] and not got['unresolved']
+   result['unresolved']=got['unresolved'];result['candidate']=candidate
+  print(row['target_rva'],row['target_size'],'parent',parent['target_rva'],'EH',verdict,'labels',hits,'exact',result.get('exact'),flush=True)
+  results.append(result)
+Path('build/local-vm/cpp-cleanup-verification.json').write_text(json.dumps(results,indent=2))
