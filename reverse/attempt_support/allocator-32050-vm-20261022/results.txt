@@ -1,0 +1,72 @@
+## allocator-probes
+bank {'fitness': 0.89754, 'exact': False, 'class': 'structural'}
+inline_adds {'fitness': 0.7081, 'exact': False, 'class': 'structural'}
+inline_chain {'fitness': 0.57822, 'exact': False, 'class': 'structural'}
+inline_nested {'fitness': -1.0, 'exact': False, 'class': 'compile-error'}
+inline_barrier_adds {'fitness': 0.7081, 'exact': False, 'class': 'structural'}
+inline_barrier_chain {'fitness': 0.57822, 'exact': False, 'class': 'structural'}
+inline_barrier_nested {'fitness': -1.0, 'exact': False, 'class': 'compile-error'}
+force_adds {'fitness': 0.7081, 'exact': False, 'class': 'structural'}
+force_chain {'fitness': 0.57822, 'exact': False, 'class': 'structural'}
+force_nested {'fitness': -1.0, 'exact': False, 'class': 'compile-error'}
+force_barrier_adds {'fitness': 0.7081, 'exact': False, 'class': 'structural'}
+force_barrier_chain {'fitness': 0.57822, 'exact': False, 'class': 'structural'}
+force_barrier_nested {'fitness': -1.0, 'exact': False, 'class': 'compile-error'}
+
+## chain-probes
+helper31_split4 {'fitness': 0.41526, 'exact': False, 'class': 'structural'} extent 168 first 0
+helper31_split3 {'fitness': 0.45093, 'exact': False, 'class': 'structural'} extent 154 first 0
+helper02_split4 {'fitness': 0.56946, 'exact': False, 'class': 'structural'} extent 143 first 0
+helper02_split3 {'fitness': 0.58752, 'exact': False, 'class': 'structural'} extent 144 first 0
+helper03_split4 {'fitness': 0.56133, 'exact': False, 'class': 'structural'} extent 149 first 0
+helper03_split3 {'fitness': 0.50929, 'exact': False, 'class': 'structural'} extent 150 first 0
+helper10_split4 {'fitness': 0.52307, 'exact': False, 'class': 'structural'} extent 147 first 0
+helper10_split3 {'fitness': 0.5269, 'exact': False, 'class': 'structural'} extent 143 first 0
+helper15_split4 {'fitness': 0.42893, 'exact': False, 'class': 'structural'} extent 168 first 0
+helper15_split3 {'fitness': 0.42832, 'exact': False, 'class': 'structural'} extent 154 first 0
+helper23_split4 {'fitness': 0.44491, 'exact': False, 'class': 'structural'} extent 154 first 0
+helper23_split3 {'fitness': 0.42845, 'exact': False, 'class': 'structural'} extent 156 first 0
+helper27_split4 {'fitness': 0.47273, 'exact': False, 'class': 'structural'} extent 159 first 0
+helper27_split3 {'fitness': 0.52872, 'exact': False, 'class': 'structural'} extent 149 first 0
+helper29_split4 {'fitness': 0.44776, 'exact': False, 'class': 'structural'} extent 154 first 0
+helper29_split3 {'fitness': 0.49727, 'exact': False, 'class': 'structural'} extent 146 first 1
+helper30_split4 {'fitness': 0.49748, 'exact': False, 'class': 'structural'} extent 150 first 0
+helper30_split3 {'fitness': 0.49833, 'exact': False, 'class': 'structural'} extent 144 first 0
+
+## barrier-probes
+bank_empty_asm {'fitness': 0.62013, 'exact': False, 'class': 'structural'} extent 141
+bank_align1_asm {'fitness': -1.0, 'exact': False, 'class': 'compile-error'} extent None
+retail_order___asm {} {'fitness': 0.59466, 'exact': False, 'class': 'structural'} extent 141
+retail_order___asm { align 1 } {'fitness': -1.0, 'exact': False, 'class': 'compile-error'} extent None
+
+## type-probes
+bank_/Oa {'fitness': 0.89754, 'exact': False, 'class': 'structural'} extent 140
+helper_/Oa {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+bank_/Ow {'fitness': 0.89754, 'exact': False, 'class': 'structural'} extent 140
+helper_/Ow {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+bank_/Og- {'fitness': 0.4, 'exact': False, 'class': 'structural'} extent 190
+helper_/Og- {'fitness': 0.20683, 'exact': False, 'class': 'structural'} extent 336
+bank_/Ob1 {'fitness': 0.89754, 'exact': False, 'class': 'structural'} extent 140
+helper_/Ob1 {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+return_unsigned int {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+return_unsigned char {'fitness': 0.47987, 'exact': False, 'class': 'structural'} extent 142
+return_bool {'fitness': 0.47987, 'exact': False, 'class': 'structural'} extent 142
+return_unsigned __int64 {'fitness': 0.29528, 'exact': False, 'class': 'structural'} extent 196
+return___int64 {'fitness': 0.29528, 'exact': False, 'class': 'structural'} extent 196
+reference_helper {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+wide_bank_unsigned __int64 {'fitness': 0.60747, 'exact': False, 'class': 'structural'} extent 167
+wide_bank___int64 {'fitness': 0.60747, 'exact': False, 'class': 'structural'} extent 167
+
+## counter-probes
+counter_copyFalse_valFalse_fenceFalse {'fitness': 0.59466, 'exact': False, 'class': 'structural'} extent 141
+counter_copyFalse_valFalse_fenceTrue {'fitness': 0.67211, 'exact': False, 'class': 'structural'} extent 141
+counter_copyFalse_valTrue_fenceFalse {'fitness': 0.59466, 'exact': False, 'class': 'structural'} extent 141
+counter_copyFalse_valTrue_fenceTrue {'fitness': 0.67211, 'exact': False, 'class': 'structural'} extent 141
+counter_copyTrue_valFalse_fenceFalse {'fitness': 0.59466, 'exact': False, 'class': 'structural'} extent 141
+counter_copyTrue_valFalse_fenceTrue {'fitness': 0.67211, 'exact': False, 'class': 'structural'} extent 141
+counter_copyTrue_valTrue_fenceFalse {'fitness': 0.42786, 'exact': False, 'class': 'structural'} extent 167
+counter_copyTrue_valTrue_fenceTrue {'fitness': 0.41526, 'exact': False, 'class': 'structural'} extent 168
+qualified_const int {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+qualified_volatile int {'fitness': 0.7081, 'exact': False, 'class': 'structural'} extent 141
+sum_flat {'fitness': 0.42786, 'exact': False, 'class': 'structural'} extent 167
+sum_reverse {'fitness': 0.42786, 'exact': False, 'class': 'structural'} extent 167
