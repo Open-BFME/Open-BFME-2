@@ -1,0 +1,12 @@
+donor_volatile_tail {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 24.1
+pointer_wrapper_indexFalse_copyFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 0.9
+pointer_wrapper_indexFalse_copyTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 0.9
+pointer_wrapper_indexTrue_copyFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0
+pointer_wrapper_indexTrue_copyTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.2
+value_helpers_1 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.1
+value_helpers_2 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.3
+value_helpers_3 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.4
+value_helpers_4 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.2
+value_helpers_5 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.1
+value_helpers_6 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 0.9
+value_helpers_7 {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0

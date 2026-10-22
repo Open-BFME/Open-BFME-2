@@ -1,0 +1,36 @@
+from pathlib import Path
+import sys,time
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+base=Path('reverse/attempts/0x00655b90.cpp').read_text()
+base=base.replace("for ( i = 1; (unsigned int)field[ i - 1 ] >= ' '; i++ )\n\t{\n\t}","for ( i = 0; (unsigned int)field[ i ] >= ' '; i++ )\n\t{\n\t}\n\ti++;")
+base=base.replace("pValue[ i - 1 ] = g_bfmeFeslFieldSeparator;","pValue[ i - 1 ] = *(volatile char *)&g_bfmeFeslFieldSeparator;")
+variants=[('donor_volatile_tail',base)]
+# Preserve pointer semantics through an inline value wrapper. No volatile pointer,
+# dummy use or opaque call is added; this tests scalar-promotion use accounting.
+for indexer in [False,True]:
+ for copy in [False,True]:
+  wrapper='struct FieldValuePointer { unsigned char *ptr; FieldValuePointer() {} '
+  wrapper+='FieldValuePointer &operator=(unsigned char *p) {ptr=p;return *this;} operator unsigned char *() const {return ptr;} '
+  if indexer:wrapper+='unsigned char &operator[](int n) const {return ptr[n];} '
+  if copy:wrapper+='FieldValuePointer(const FieldValuePointer &p):ptr(p.ptr) {} FieldValuePointer &operator=(const FieldValuePointer &p) {ptr=p.ptr;return *this;} '
+  wrapper+='};\n'
+  variants.append((f'pointer_wrapper_index{indexer}_copy{copy}',wrapper+base.replace('unsigned char *pValue;','FieldValuePointer pValue;')))
+# Selectively expose real identity helpers at meaningful pointer-consuming sites.
+helper='static __forceinline unsigned char *valuePointer(unsigned char *p) {return p;}\n'
+for mask in range(1,8):
+ t=base
+ if mask&1:t=t.replace('pTail - pValue','pTail - valuePointer(pValue)')
+ if mask&2:t=t.replace('memcmp( pValue,','memcmp( valuePointer(pValue),').replace('memmove( pValue,','memmove( valuePointer(pValue),').replace('memcpy( pValue,','memcpy( valuePointer(pValue),')
+ if mask&4:t=t.replace('pValue[ i','valuePointer(pValue)[ i')
+ variants.append((f'value_helpers_{mask}',helper+t))
+sym='?Rva007E8B00@@YAHPAEHPBD@Z'
+s=Scorer(sym,0x655b90,549,Path('build/fesl-probes').resolve())
+for name,src in variants:
+ t=time.monotonic();r=s(src);o=s.dir/f'c{s.n}.obj'
+ extent=next((len(b) for n,b,_ in carve(o.read_bytes()) if n==sym),None) if o.exists() else None
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',extent,'differing',nd,'seconds',round(time.monotonic()-t,1),flush=True)
+ if 'compiled' in r:Path('build/fesl-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=200))
+ if r['exact']:Path('build/fesl-win.cpp').write_text(src);break

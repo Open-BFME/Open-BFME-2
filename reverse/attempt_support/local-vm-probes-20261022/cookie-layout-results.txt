@@ -1,0 +1,17 @@
+baseline_nrFalse {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+switch_bad_default_nrFalse {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+switch_bad_default_nrTrue {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+switch_bad_cases_nrFalse {'fitness': 0.18214, 'exact': False, 'class': 'structural'} extent 27 differing 10
+switch_bad_cases_nrTrue {'fitness': 0.18214, 'exact': False, 'class': 'structural'} extent 27 differing 10
+switch_good_cases_nrFalse {'fitness': 0.18214, 'exact': False, 'class': 'structural'} extent 24 differing 10
+switch_good_cases_nrTrue {'fitness': 0.18214, 'exact': False, 'class': 'structural'} extent 24 differing 10
+switch_bad_break_nrFalse {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+switch_bad_break_nrTrue {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+switch_xor_nrFalse {'fitness': 0.32857, 'exact': False, 'class': 'structural'} extent 15 differing 5
+switch_xor_nrTrue {'fitness': 0.32857, 'exact': False, 'class': 'structural'} extent 15 differing 5
+while_valid_nrFalse {'fitness': -1.0, 'exact': False, 'class': 'error: @__security_check_cookie@4 (build/cookie-probes/c12.cpp): REL32 site at offset 12 (0xc) for _report_failure needs 16 byt'} extent 20 differing 0
+while_valid_nrTrue {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+do_bad_nrFalse {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+do_bad_nrTrue {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+failure_label_nrFalse {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6
+failure_label_nrTrue {'fitness': 0.54286, 'exact': False, 'class': 'structural'} extent 14 differing 6

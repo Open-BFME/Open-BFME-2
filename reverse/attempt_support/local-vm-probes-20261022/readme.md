@@ -64,3 +64,30 @@ three-register rotation to an EBX/EDI swap. Other accessor combinations did
 not improve it. During these trials master acquired the complete recovery in
 bf19c4d903, so trials were stopped without replacing the bank or logging a
 competing recovery. Read that landed source rather than resuming these trials.
+
+## FESL field replacer: 0x00655B90, 549 bytes
+
+All prior RVA verdicts, the complete bank and the field-replacer/volatile-tail
+handoffs were read. The donor-loop plus previously established volatile tail
+reproduces 549 bytes and the known EBX/EBP exchange (172 differing positions).
+New ordinary pointer wrappers, implicit conversions, indexed wrappers, copy
+operations and selective value accessors all emit the same body. Diagnostic
+unions expressing the genuinely disjoint class-byte/value-pointer or tail-pointer
+lifetimes likewise leave the body unchanged. No inactive union member is read;
+these are lifetime diagnostics, not claims about original source structures.
+The stronger existing bank is retained. Control flow, lifetime, type, visibility
+and authenticated compiler-profile evidence remain exhausted; the register tie
+has no new supported source solution. About five minutes, model gpt-6.
+
+## Security cookie check: 0x00629BAB, 14 bytes
+
+The complete manual ASM and all prior verdicts/contract results were read.
+Ordinary C++ preserves the required EAX/EDX return contract here; the blocker
+remains branch placement (JE/JMP/RET versus retail JNE/RET/JMP). New boolean
+switch/default/case forms, XOR switch, a valid-flag loop, do/break, and an
+explicit shared-return label were tested with ordinary and noreturn failure
+contracts. No exact body: most retain the 14-byte mismatch; explicit cases grow
+to 24/27 bytes, XOR is 15, and a returning failure in the valid loop is 20.
+The latter's relocation beyond the row was correctly refused by the verifier.
+The real ASM owner remains unchanged; no fake extent or alias is admitted.
+About four minutes, model gpt-6.

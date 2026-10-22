@@ -1,0 +1,8 @@
+pValue_cClassField_castFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 7.3
+pValue_cClassField_castTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0
+pValue_cClassBuffer_castFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 0.9
+pValue_cClassBuffer_castTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0
+pTail_cClassField_castFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0
+pTail_cClassField_castTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 0.9
+pTail_cClassBuffer_castFalse {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0
+pTail_cClassBuffer_castTrue {'fitness': 0.89625, 'exact': False, 'class': 'structural'} extent 549 differing 172 seconds 1.0

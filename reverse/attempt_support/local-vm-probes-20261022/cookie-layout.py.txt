@@ -1,0 +1,31 @@
+from pathlib import Path
+import sys,time
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+prefix='// cl: /O2 /GS-\nextern "C" unsigned int __security_cookie;\nextern "C" void report_failure();\n'
+variants=[]
+forms={
+'baseline':'if(cookie != __security_cookie) report_failure();',
+'switch_bad_default':'switch(cookie != __security_cookie) {case 0:return;default:report_failure();}',
+'switch_bad_cases':'switch(cookie != __security_cookie) {case 0:return;case 1:report_failure();break;}',
+'switch_good_cases':'switch(cookie == __security_cookie) {case 1:return;case 0:report_failure();break;}',
+'switch_bad_break':'switch(cookie != __security_cookie) {case 0:break;default:report_failure();break;}',
+'switch_xor':'switch(cookie ^ __security_cookie) {case 0:return;default:report_failure();}',
+'while_valid':'bool valid=false;while(!valid){if(cookie==__security_cookie)valid=true;else report_failure();}',
+'do_bad':'do {if(cookie == __security_cookie)break;report_failure();}while(false);',
+'failure_label':'if(cookie!=__security_cookie)goto fail;good:return;fail:report_failure();goto good;',
+}
+for name,body in forms.items():
+ for nr in ([False] if name=='baseline' else [False,True]):
+  p=prefix.replace('void report_failure();','__declspec(noreturn) void report_failure();') if nr else prefix
+  variants.append((name+'_nr'+str(nr),p+'extern "C" void __fastcall __security_check_cookie(unsigned cookie){'+body+'}\n'))
+sym='@__security_check_cookie@4'
+s=Scorer(sym,0x629bab,14,Path('build/cookie-probes').resolve())
+for name,src in variants:
+ r=s(src);o=s.dir/f'c{s.n}.obj'
+ extent=next((len(b) for n,b,_ in carve(o.read_bytes()) if n==sym),None) if o.exists() else None
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',extent,'differing',nd,flush=True)
+ if 'compiled' in r:Path('build/cookie-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=80))
+ if r['exact']:Path('build/cookie-win.cpp').write_text(src);break

@@ -1,0 +1,27 @@
+from pathlib import Path
+import sys,time,re
+sys.path.insert(0,'tools')
+from variant_search import Scorer,diff_text
+from zh_sweep import carve
+base=Path('build/fesl-probes/c1.cpp').read_text()
+variants=[]
+# The class byte is dead before the value pointer is assigned on every path.
+# A union is a diagnostic of that actual non-overlapping lifetime, not proof of
+# an original source-level union. No address escapes and no inactive field is read.
+for pointer in ['pValue','pTail']:
+ for byte in ['cClassField','cClassBuffer']:
+  for explicitcopy in [False,True]:
+   t=base.replace('unsigned char *'+pointer+';','union ScanStorage {unsigned char *value; unsigned char matchClass;} scanStorage;').replace('unsigned char '+byte+';','')
+   t=re.sub(r'\b'+pointer+r'\b','scanStorage.value',t)
+   t=re.sub(r'\b'+byte+r'\b','scanStorage.matchClass',t)
+   if explicitcopy:t=t.replace('pTail - scanStorage.value','pTail - (unsigned char *)scanStorage.value')
+   variants.append((f'{pointer}_{byte}_cast{explicitcopy}',t))
+sym='?Rva007E8B00@@YAHPAEHPBD@Z'
+s=Scorer(sym,0x655b90,549,Path('build/fesl-overlay-probes').resolve())
+for name,src in variants:
+ t=time.monotonic();r=s(src);o=s.dir/f'c{s.n}.obj'
+ extent=next((len(b) for n,b,_ in carve(o.read_bytes()) if n==sym),None) if o.exists() else None
+ nd=sum(a!=b for a,b in zip(r.get('compiled',b''),r.get('target',b'')))
+ print(name,{k:v for k,v in r.items() if k not in ('compiled','target')},'extent',extent,'differing',nd,'seconds',round(time.monotonic()-t,1),flush=True)
+ if 'compiled' in r:Path('build/fesl-overlay-'+str(s.n)+'-diff.txt').write_text(diff_text(r['compiled'],r['target'],limit=200))
+ if r['exact']:Path('build/fesl-overlay-win.cpp').write_text(src);break
