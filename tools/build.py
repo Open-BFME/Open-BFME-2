@@ -91,33 +91,96 @@ def ensure_reference_current():
     The failures look like a broken master -- 16 units "failed" a link census
     on 2026-10-08 and all built exact once the checkout was updated -- so the
     stale checkout is the error reported, not whatever it breaks downstream.
-    A tree git cannot describe (a seat, an export) is not judged.
+    Exports and seats without Git metadata are not judged. Git failures in a
+    checkout are errors, not evidence that its reference is current.
     """
     global _REFERENCE_CHECKED
     now = time.monotonic()
     if _REFERENCE_CHECKED is not None and now - _REFERENCE_CHECKED < _REFERENCE_RECHECK:
         return
-    try:
-        status = subprocess.run(
-            ["git", "submodule", "status", "--", REFERENCE_SUBMODULE],
-            cwd=ROOT, capture_output=True, text=True, timeout=60)
-    except (OSError, subprocess.TimeoutExpired):
-        return
-    line = status.stdout.strip()
+    _REFERENCE_CHECKED = None
     fix = (f"Fix:\n  git submodule update --init {REFERENCE_SUBMODULE}\n"
            f"(in a linked worktree: python3 tools/worktree_setup.py prepare; "
            f"tools/setup_hooks.sh sets submodule.recurse so pulls keep it current.)")
-    if status.returncode == 0 and line[:1] in ("+", "U"):
+
+    def metadata_at(path):
+        try:
+            path.lstat()  # a broken .git file/symlink is not an exported tree
+        except FileNotFoundError:
+            return False
+        except OSError as exc:
+            raise SystemExit(f"Cannot inspect reference Git metadata {path}: {exc}") from exc
+        return True
+
+    def git(*args, cwd, parent=False):
+        env = dict(os.environ)
+        # Hooks export paths which override cwd/-C. Keep the parent's staged
+        # index (including private verification indexes), never lend it or its
+        # other repository paths to the submodule.
+        for name in ("GIT_DIR", "GIT_WORK_TREE", "GIT_COMMON_DIR", "GIT_INDEX_FILE",
+                     "GIT_OBJECT_DIRECTORY", "GIT_ALTERNATE_OBJECT_DIRECTORIES",
+                     "GIT_GRAFT_FILE", "GIT_SHALLOW_FILE", "GIT_PREFIX",
+                     "GIT_INTERNAL_SUPER_PREFIX", "GIT_IMPLICIT_WORK_TREE"):
+            if name != "GIT_INDEX_FILE" or not parent:
+                env.pop(name, None)
+        env["GIT_CEILING_DIRECTORIES"] = str(cwd.resolve().parent)
+        command = ["git", *args]
+        try:
+            result = subprocess.run(command, cwd=cwd, env=env, capture_output=True,
+                                    text=True, timeout=60)
+        except (OSError, subprocess.TimeoutExpired) as exc:
+            raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: {exc}\n{fix}") from exc
+        if result.returncode:
+            detail = (result.stderr or result.stdout).strip()[:1000]
+            raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: {' '.join(command)} "
+                             f"failed (exit {result.returncode}): {detail}\n{fix}")
+        return result.stdout
+
+    if not metadata_at(ROOT / ".git"):
+        return  # exported source tree; do not discover an enclosing repository
+
+    # Native public plumbing avoids git-submodule's shell wrapper on Windows.
+    # submodule status compares against the index, not HEAD; retain that rule.
+    output = git("ls-files", "--stage", "-z", "--", REFERENCE_SUBMODULE,
+                 cwd=ROOT, parent=True)
+    pins = []
+    if output and not output.endswith("\0"):
+        raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: malformed Git index output")
+    for record in output.split("\0"):
+        if not record:
+            continue
+        header, separator, path = record.partition("\t")
+        match = re.fullmatch(r"(\d{6}) ([0-9a-f]{40}|[0-9a-f]{64}) ([0-3])", header)
+        if not separator or not match:
+            raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: malformed Git index entry")
+        if path == REFERENCE_SUBMODULE:
+            pins.append(match.groups())
+    if not pins:
+        return  # a seat without a gitlink has no pinned reference to compare
+    if len(pins) != 1 or pins[0][2] != "0":
+        raise SystemExit(f"{REFERENCE_SUBMODULE} has an unmerged gitlink in the index; "
+                         "resolve it before compiling")
+    mode, pinned, _ = pins[0]
+    if mode != "160000":
+        raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: index entry is not a gitlink")
+
+    reference = ROOT / REFERENCE_SUBMODULE
+    if not metadata_at(reference / ".git"):
+        try:
+            populated = reference.is_dir() and any(reference.iterdir())
+        except OSError as exc:
+            raise SystemExit(f"Cannot inspect {REFERENCE_SUBMODULE}: {exc}") from exc
+        if populated:
+            return  # a seat populated without Git metadata is not judged
+        raise SystemExit(f"{REFERENCE_SUBMODULE} is not checked out:\n{fix}")
+    checked_out = git("rev-parse", "--verify", "HEAD^{commit}", cwd=reference).strip()
+    if not re.fullmatch(r"[0-9a-f]{40}|[0-9a-f]{64}", checked_out):
+        raise SystemExit(f"Cannot verify {REFERENCE_SUBMODULE}: malformed Git HEAD output")
+    if checked_out != pinned:
         raise SystemExit(
             f"{REFERENCE_SUBMODULE} is checked out at a commit other than the one "
-            f"this tree pins:\n  {line}\nEvery build against it is suspect. {fix}")
-    reference = ROOT / REFERENCE_SUBMODULE
-    if (status.returncode == 0 and line[:1] == "-"
-            and not (reference.is_dir() and any(reference.iterdir()))):
-        # Uninitialized and empty: every include under it is missing, and MSVC
-        # reports that as a missing header, never as this. A seat that
-        # populates the directory some other way is not judged.
-        raise SystemExit(f"{REFERENCE_SUBMODULE} is not checked out:\n  {line}\n{fix}")
+            f"this tree pins:\n  checked out: {checked_out}\n  index pin: {pinned}\n"
+            f"Every build against it is suspect. {fix}")
     _REFERENCE_CHECKED = now
 
 
