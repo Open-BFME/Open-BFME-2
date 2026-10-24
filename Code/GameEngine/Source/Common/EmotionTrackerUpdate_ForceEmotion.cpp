@@ -4,9 +4,9 @@
 // index at +0xB0 when value>0; ceil scaled duration at +0xB4 via IAT ceil;
 // source id at +0xB8 from arg+0x74 or 0; clears +0x9C slot via rowed
 // rva004DD2C0. Evidence: pin name LINK BONUS, rowed/pinned callees,
-// g_parseDurationMsecScale g_00BBE358, neighbours.
+// g_parseDurationMsecScale the 1000.0f literal, neighbours.
 extern float g_parseDurationMsecScale;
-extern float g_00BBE358;
+// 0x007BE358 is the compiler literal 1000.0f (__real@447a0000), not a global.
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 // BaseType.h verbatim: C cast emits out-of-line _ftol plus qword shape;
@@ -53,7 +53,7 @@ void EmotionTrackerUpdate::ForceEmotion(int index, float value, int arg)
 		return;
 	m_B0 = index;
 	float prod = g_parseDurationMsecScale * value;
-	prod *= g_00BBE358;
+	prod *= 1000.0f;
 	float tmp = (float)ceil(prod);
 	m_B4 = fast_float2long_round(tmp);
 	int v = (arg != 0) ? ((Rva004B0DACArg *)arg)->m_74 : 0;
