@@ -680,16 +680,23 @@ template <> PointEmissionVolumeModuleConcrete::ConcreteModuleTemplate() throw();
 extern PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
 template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
 
-// Retail's vector deleting destructor 0x003A9057 (vtable 0x00C1C0A0 slot 0) is an
-// EH-unit body: it uses the eh vector destructor iterator. cl 7.1 emits it in a unit
-// that array-news the class; the constructor stays out of line, so this unit emits
-// no copy of the vtable (FXParticleSystemModules.cpp owns it and the W7 thunk).
-// ?<bfmeVectorDeleteAnchorPointEmissionVolume> absent-from-retail
-void bfmeVectorDeleteAnchorPointEmissionVolume() { new PointEmissionVolumeModuleConcrete[2]; }
-
 FX_WRAPPER_NOTHROW_CTOR(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
 FX_WRAPPER_NOTHROW_CTOR(5, BOX_EMISSION_VOLUME, BoxEmissionVolumeModule, BoxEmissionVolumeModuleTemplate)
+
+// Retail's vtable slot 0 for these wrappers is the vector deleting destructor, and
+// its body uses the eh vector destructor iterator, so an EH unit emitted it: Point
+// 0x003A9057 (vtable 0x00C1C0A0), Sphere 0x003A91E3 (0x00C1C10C) and Box
+// 0x003A9152 (0x00C1C0E8). cl 7.1 emits it in a unit that array-news the class;
+// their constructors stay out of line here, so this unit emits no competing copy
+// of the vtables (FXParticleSystemModules.cpp owns them and the W7 thunks).
+// ?<bfmeVectorDeleteAnchorEmissionVolumes> absent-from-retail
+void bfmeVectorDeleteAnchorEmissionVolumes()
+{
+    new PointEmissionVolumeModuleConcrete[2];
+    new SphereEmissionVolumeModuleConcrete[2];
+    new BoxEmissionVolumeModuleConcrete[2];
+}
 FX_WRAPPER_NOTHROW_CTOR(5, LINE_EMISSION_VOLUME, LineEmissionVolumeModule, LineEmissionVolumeModuleTemplate)
 FX_WRAPPER_NOTHROW_CTOR(5, CYLINDER_EMISSION_VOLUME, CylinderEmissionVolumeModule,
     CylinderEmissionVolumeModuleTemplate)
