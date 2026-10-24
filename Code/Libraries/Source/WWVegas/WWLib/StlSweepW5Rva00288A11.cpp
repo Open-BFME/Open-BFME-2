@@ -1,11 +1,26 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
-#include <algorithm>
-#include <memory>
+// cl: /O1 /EHsc /MD
+//
+// 0x00288A11 (38B): STLport's __uninitialized_copy loop over 0x8-byte records.
+// Each element goes through the placement copy at 0x002889E4, which the ledger owns
+// as Rva002889E4Construct: retail keeps several identical placement copies apart (each with
+// its own EH data), so they and this loop carry address names rather than a
+// template over an element type nobody has recovered. The tag argument is
+// pushed by the caller and never read.
 
-struct Rva00288A11Element { char bytes[8]; bool operator<(const Rva00288A11Element&)const; bool operator==(const Rva00288A11Element&)const; };
+namespace _STL { struct __false_type; }
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva00288A11Element * _STL::__uninitialized_copy<Rva00288A11Element const *, Rva00288A11Element *>(Rva00288A11Element const *, Rva00288A11Element const *, Rva00288A11Element *, _STL::__false_type const &);
+struct TreeKey00242F5E
+{
+	unsigned char m_bytes[0x8];
+};
+
+void Rva002889E4Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source);
+
+TreeKey00242F5E *Rva00288A11UninitializedCopy(const TreeKey00242F5E *first, const TreeKey00242F5E *last, TreeKey00242F5E *result,
+	const _STL::__false_type &)
+{
+	TreeKey00242F5E *cur = result;
+	for (; first != last; ++first, ++cur)
+		Rva002889E4Construct(cur, *first);
+	return cur;
+}
