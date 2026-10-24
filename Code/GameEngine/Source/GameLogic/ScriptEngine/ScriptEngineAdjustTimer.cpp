@@ -5,14 +5,14 @@
 // ScriptEngine.cpp, caller 0x0020C5C7 (ScriptEngine timer dispatch), callee
 // ?bfmeCounter@ScriptEngine@@IAEPAUScriptCounter@@VAsciiString@@@Z pinned,
 // globals g_parseDurationMsecScale (?g_parseDurationMsecScale@@3MA) and
-// float g_00BBE358, IAT ceil. Identity: ScriptEngine::adjustTimer
+// float the 1000.0f literal, IAT ceil. Identity: ScriptEngine::adjustTimer
 // (action, millisecondTimer, add) from class declaration in ScriptEngine.cpp.
 #include "ascii_string.h"
 
 extern "C" __declspec(dllimport) double __cdecl ceil(double);
 
 extern float g_parseDurationMsecScale;
-extern float g_00BBE358;
+// 0x007BE358 is the compiler literal 1000.0f (__real@447a0000), not a global.
 
 // BaseType.h verbatim: C cast emits out-of-line _ftol plus qword shape;
 // retail holds inline fld/fistp so the helper is load-bearing.
@@ -73,7 +73,7 @@ void ScriptEngine::adjustTimer(ScriptAction *action, bool millisecondTimer, bool
 		if (!add)
 			value = -value;
 		float prod = g_parseDurationMsecScale * value;
-		prod *= g_00BBE358;
+		prod *= 1000.0f;
 		float tmp = (float)ceil(prod);
 		counter->m_value += fast_float2long_round(tmp);
 	} else {
