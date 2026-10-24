@@ -19,8 +19,11 @@ row belongs there. This finds those cases and, with --apply, moves them:
      the function present-unmatched), then Y removed with git rm.
 
 A unit or home claimed by another seat (tools/claims.py claim file:PATH) is
-skipped. Nothing is committed: review and commit the result. A row that
-fails to verify leaves its unit in place, with the ledger untouched for it.
+skipped. Nothing is committed: review and commit the result. Rows are admitted
+one at a time. Incomplete admission or removal keeps completed ledger/home
+source edits for review and returns failure. Only a successful git rm counts
+as a moved unit; independent candidates are still processed. Git can remove
+the source before failing to update its index, so inspect both after failure.
 
 Usage:
   python3 tools/rehome_rows.py [--apply] [--limit N]
@@ -102,6 +105,15 @@ def all_exact(rows, home):
     return True
 
 
+def report_incomplete(split, home, reason, output="", status="FAILED"):
+    print(f"{status:7} {split} -> {home}: {reason}", file=sys.stderr, flush=True)
+    if output.strip():
+        print(output.rstrip(), file=sys.stderr, flush=True)
+    print("Review the ledger, home source and split unit in both the worktree "
+          "and index before continuing; completed ledger/home-source edits were kept.",
+          file=sys.stderr, flush=True)
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--apply", action="store_true")
@@ -112,7 +124,7 @@ def main(argv=None):
             if isinstance(key, str) and key.startswith("file/") and info.get("owner") != me}
     found = candidates()
     print(f"rehome_rows: {len(found)} split unit(s) whose rows one home unit also defines", flush=True)
-    moved = 0
+    moved = failed = 0
     for split, home, rows in found:
         if args.limit and moved >= args.limit:
             break
@@ -132,22 +144,34 @@ def main(argv=None):
             result = subprocess.run([sys.executable, "tools/add_match.py", row["name"], row["target_rva"],
                                      row["target_size"], home, "--replace-existing", "--notes", note],
                                     cwd=ROOT, capture_output=True, text=True)
-            if "verified OK" not in result.stdout + result.stderr:
-                print(f"FAILED  {split} -> {home}: {row['name']}", flush=True)
+            if result.returncode != 0 or "verified OK" not in result.stdout + result.stderr:
+                report_incomplete(split, home,
+                                  f"add_match did not complete verified admission for {row['name']} "
+                                  f"(exit {result.returncode}); unit kept", result.stdout + result.stderr)
+                failed += 1
                 ok = False
                 break
         if not ok:
             continue
-        remaining = [r for r in csv.DictReader((ROOT / "reverse/functions.csv").open(newline="", encoding="utf-8"))
-                     if r["source"] == split]
+        with (ROOT / "reverse/functions.csv").open(newline="", encoding="utf-8") as handle:
+            remaining = [r for r in csv.DictReader(handle) if r["source"] == split]
         if remaining:
-            print(f"PARTIAL {split} -> {home}: {len(remaining)} row(s) still there; unit kept", flush=True)
+            report_incomplete(split, home, f"{len(remaining)} row(s) still there; unit kept", status="PARTIAL")
+            failed += 1
             continue
-        subprocess.run(["git", "rm", "-q", split], cwd=ROOT)
+        result = subprocess.run(["git", "rm", "-q", "--", split], cwd=ROOT, capture_output=True, text=True)
+        if result.returncode != 0:
+            report_incomplete(split, home,
+                              f"git rm failed (exit {result.returncode}); ledger rows already repointed; "
+                              "removal incomplete",
+                              result.stdout + result.stderr)
+            failed += 1
+            continue
         moved += 1
         print(f"MOVED   {split} -> {home} ({len(rows)} row(s))", flush=True)
-    print(f"rehome_rows: {moved} unit(s) {'moved' if args.apply else 'movable'}")
-    return 0
+    failure_summary = f"; {failed} failed" if failed else ""
+    print(f"rehome_rows: {moved} unit(s) {'moved' if args.apply else 'movable'}{failure_summary}")
+    return 1 if failed else 0
 
 
 if __name__ == "__main__":
