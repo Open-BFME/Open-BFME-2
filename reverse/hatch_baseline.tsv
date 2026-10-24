@@ -3848,7 +3848,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cp
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupSkipCheck.cpp	?skipGroup@Rva003B485AHolder@@QAE_NPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListCtor.cpp	_vtbl_00C1FAAC	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp	??1ScriptListElementName@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeDtor.cpp	_vtbl_00BBB554	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/TemplateGetParameterType.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1AddPlayer.cpp	?Va00DFE0ECStore@@3PAVRva002000D7Store@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1AddPlayer.cpp	?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A	1
