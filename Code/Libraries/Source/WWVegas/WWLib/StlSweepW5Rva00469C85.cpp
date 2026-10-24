@@ -1,10 +1,17 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <vector>
+//
+// 0x00469C85 (29B) is STLport's __copy_ptrs forwarder (const __false_type& tag): its
+// REL32 lands on 0x004FB354, rowed as __copy<const BfmeE16 *> in
+// stlport_vector_e16_o1.cpp. The element type is that row's (identity unresolved
+// beyond it); the callee is only declared here, so this unit emits the forwarder alone.
+#include <algorithm>
 
-struct Rva00469C85Element { char bytes[9];Rva00469C85Element();Rva00469C85Element(const Rva00469C85Element&);~Rva00469C85Element();Rva00469C85Element&operator=(const Rva00469C85Element&); bool operator<(const Rva00469C85Element&)const; bool operator==(const Rva00469C85Element&)const; };
+struct BfmeE16;
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva00469C85Element * _STL::__copy_backward_ptrs<Rva00469C85Element *, Rva00469C85Element *>(Rva00469C85Element *, Rva00469C85Element *, Rva00469C85Element *, _STL::__false_type const &);
+namespace _STL {
+template <> BfmeE16 *__copy<const BfmeE16 *, BfmeE16 *, int>(const BfmeE16 *, const BfmeE16 *, BfmeE16 *, const random_access_iterator_tag &, int *);
+}
+
+template BfmeE16 *_STL::__copy_ptrs<const BfmeE16 *, BfmeE16 *>(const BfmeE16 *, const BfmeE16 *, BfmeE16 *, const _STL::__false_type &);
