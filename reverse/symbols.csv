@@ -539,7 +539,6 @@ name,address,notes
 ??$__copy_ptrs@PAVRva0032A3A9Element@@PAV1@@_STL@@YAPAVRva0032A3A9Element@@PAV1@00ABU__false_type@0@@Z,0x0032A40E,STLport __copy_ptrs for this element view: REL32 read at 0x0032BEFC in the byte-verified range erase 0x0032BEE8; ledger spelling there: ??$copy@PAVBuildListInfo@@PAV1@@_STL@@YAPAVBuildListInfo@@PAV1@00@Z
 ??$__copy_ptrs@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z,0x00337533,STLport __copy_ptrs for this element view: REL32 read at 0x00337923 in the byte-verified range erase 0x0033790F; ledger spelling there: ?Rva00337533Copy@@YAPAVRva002E9E70@@PAV1@00@Z
 ??$__copy_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z,0x00541231,STLport __copy_ptrs for Rva0054103E: callee of vector<Rva0054103E>::erase at 0x00541553
-??$__copy_ptrs@PAVUnicodeString@@PAV1@@_STL@@YAPAVUnicodeString@@PAV1@00ABU__false_type@0@@Z,0x00053E34,ICF twin of rowed U const version via unicode erase 0x0005A0BB
 ??$__copy_ptrs@PAW4ObjectID@@PAW41@@_STL@@YAPAW4ObjectID@@PAW41@00ABU__false_type@0@@Z,0x0025BF40,29B 4B-pointer memmove; my TU emission byte-identical mod-reloc; ICF twin of the rowed ScienceType copy_ptrs
 ??$__copy_ptrs@PAW4ParticleSystemID@@PAW41@@_STL@@YAPAW4ParticleSystemID@@PAW41@00ABU__false_type@0@@Z,0x0025BF40,ICF fold with matched ScienceType copy_ptrs row 5393 at same address; both are 4B-pointer memmoves; erase +0x14 direct call target
 ??$__copy_ptrs@PAW4ScienceType@@PAW41@@_STL@@YAPAW4ScienceType@@PAW41@00ABU__false_type@0@@Z,0x0025BF40,ICF alias of the rowed PBW4ScienceType copy_ptrs at this address; same 29B 4B-pointer memmove; my TU emission byte-identical
@@ -12685,7 +12684,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?_M_create_node@?$_Rb_tree@URva002D0B9AElement@@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@3@U?$less@URva002D0B9AElement@@@3@V?$allocator@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva002D0B9AElement@@H@_STL@@@2@ABU?$pair@$$CBURva002D0B9AElement@@H@2@@Z,0x001E7E7D,
 ?_M_create_node@?$_Rb_tree@URva0039FD75Element@@U?$pair@$$CBURva0039FD75Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@3@U?$less@URva0039FD75Element@@@3@V?$allocator@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@2@ABU?$pair@$$CBURva0039FD75Element@@H@2@@Z,0x0039F5DC,
 ??$_Destroy@PAURva0002CD53Element@@@_STL@@YAXPAURva0002CD53Element@@0@Z,0x0002CB64,
-??$__copy_backward@PAURva00053E34Element@@PAU1@H@_STL@@YAPAURva00053E34Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00051BE1,
 ??$__copy_backward@PAURva000B67BCElement@@PAU1@H@_STL@@YAPAURva000B67BCElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B6894,
 ??$__copy_backward@PAURva001DD339Element@@PAU1@H@_STL@@YAPAURva001DD339Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD14F,
 ??$__copy_backward@PAURva001DD356Element@@PAU1@H@_STL@@YAPAURva001DD356Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD181,
