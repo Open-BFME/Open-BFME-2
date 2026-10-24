@@ -47,11 +47,19 @@ struct BucketAlloc
 	static void *allocate(unsigned int n, const void *hint);
 };
 
+inline void *operator new(unsigned int, void *where) throw() { return where; }
+
 namespace _STL
 {
 
+// The node's placement copy, 0x0060C9D9 (23B, shared by every two-word
+// element). Defined out of line here so this unit provides the name it
+// calls instead of relying on another unit's linker alias.
 template <class Element>
-void _Construct(Element *slot, const Element &source);
+__declspec(noinline) inline void _Construct(Element *slot, const Element &source)
+{
+	new (slot) Element(source);
+}
 
 }
 
