@@ -1,4 +1,4 @@
-// cl: /O1 /GX /MD /DNDEBUG /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /O1 /GX /MD /DNDEBUG /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ??0StructureCollapseUpdateModuleData@@QAE@XZ, retail 0x00256ACC (172 bytes).
@@ -36,27 +36,23 @@ class FXList;
 typedef _STL::vector<const ObjectCreationList *> CollapseOCLVec;
 typedef _STL::vector<const FXList *> CollapseFXVec;
 
-class StructureCollapseBase
-{
-public:
-	virtual ~StructureCollapseBase();
-
-private:
-	unsigned char m_pad04[4];
-};
+// Canonical Snapshot base (vtable 0x00BBB554, inline destructor), as the
+// destructor unit models it; the old private base's pad word is m_unused04.
+#include "Common/Snapshot.h"
 
 enum
 {
 	COLLAPSE_PHASE_COUNT = 5,
 };
 
-class StructureCollapseUpdateModuleData : public StructureCollapseBase
+class StructureCollapseUpdateModuleData : public Snapshot
 {
 public:
 	StructureCollapseUpdateModuleData();
 	virtual ~StructureCollapseUpdateModuleData();
 
 private:
+	unsigned int m_unused04; // +0x04
 	DieMuxData m_dieMuxData; // +0x08
 	int m_minCollapseDelay; // +0x38
 	int m_maxCollapseDelay; // +0x3C
