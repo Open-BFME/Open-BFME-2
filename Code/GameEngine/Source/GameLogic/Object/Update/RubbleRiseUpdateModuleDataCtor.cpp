@@ -1,4 +1,4 @@
-// cl: /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ??0RubbleRiseUpdateModuleData@@QAE@XZ, retail 0x00256653 (163 bytes).
@@ -35,27 +35,23 @@ class FXList;
 typedef _STL::vector<const ObjectCreationList *> RubbleOCLVec;
 typedef _STL::vector<const FXList *> RubbleFXVec;
 
-class RubbleRiseBase
-{
-public:
-	virtual ~RubbleRiseBase();
-
-private:
-	unsigned char m_pad04[4];
-};
+// Canonical Snapshot base (vtable 0x00BBB554, inline destructor), as the
+// destructor unit models it; the old private base's pad word is m_unused04.
+#include "Common/Snapshot.h"
 
 enum
 {
 	RUBBLE_PHASE_COUNT = 4,
 };
 
-class RubbleRiseUpdateModuleData : public RubbleRiseBase
+class RubbleRiseUpdateModuleData : public Snapshot
 {
 public:
 	RubbleRiseUpdateModuleData();
 	virtual ~RubbleRiseUpdateModuleData();
 
 private:
+	unsigned int m_unused04; // +0x04
 	DieMuxData m_dieMuxData; // +0x08
 	int m_minRubbleRiseDelay; // +0x38
 	int m_maxRubbleRiseDelay; // +0x3C
