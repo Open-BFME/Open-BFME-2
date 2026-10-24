@@ -498,7 +498,6 @@ name,address,notes
 ??$__copy_ptrs@PAUBfmePod16@@PAU1@@_STL@@YAPAUBfmePod16@@PAU1@00ABU__false_type@0@@Z,0x00469C85,address read from the REL32 displacement at a placed body; the body there is held under another instantiation name and the two folded
 ??$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z,0x002161A5,29B BfmePod28 __copy_ptrs forwarder to the 28-byte-stride 5-arg worker 0x00215FEF; retail erase caller 0x005842F7 passes 4 args with the __false_type tag; same shape as 0x0021570D
 ??$__copy_ptrs@PAUBfmePod40@@PAU1@@_STL@@YAPAUBfmePod40@@PAU1@00ABU__false_type@0@@Z,0x0054014D,address read from the REL32 displacement at a placed body
-??$__copy_ptrs@PAUBfmePod44@@PAU1@@_STL@@YAPAUBfmePod44@@PAU1@00ABU__false_type@0@@Z,0x0007EA02,address read from the REL32 displacement at 0x81A62 in the pinned vector<BfmePod44>::erase 0x81A4F; Ghidra boundary 0x7EA02/29
 ??$__copy_ptrs@PAUBfmePod52@@PAU1@@_STL@@YAPAUBfmePod52@@PAU1@00ABU__false_type@0@@Z,0x001DD339,const-ref tag spelling of the rowed by-value __copy_ptrs<BfmePod52>; erase 0x001DDC2C pushes the empty tag's address; body byte-identical
 ??$__copy_ptrs@PAUBfmePod68@@PAU1@@_STL@@YAPAUBfmePod68@@PAU1@00ABU__false_type@0@@Z,0x001531C9,address read from the REL32 displacement at a placed body
 ??$__copy_ptrs@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z,0x005B09BB,address read from the REL32 displacement at a placed body
@@ -12687,7 +12686,6 @@ rva009C7380WeightPairs,0x009B84E0
 ?_M_create_node@?$_Rb_tree@URva0039FD75Element@@U?$pair@$$CBURva0039FD75Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@3@U?$less@URva0039FD75Element@@@3@V?$allocator@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva0039FD75Element@@H@_STL@@@2@ABU?$pair@$$CBURva0039FD75Element@@H@2@@Z,0x0039F5DC,
 ??$_Destroy@PAURva0002CD53Element@@@_STL@@YAXPAURva0002CD53Element@@0@Z,0x0002CB64,
 ??$__copy_backward@PAURva00053E34Element@@PAU1@H@_STL@@YAPAURva00053E34Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00051BE1,
-??$__copy_backward@PAURva0007EA02Element@@PAU1@H@_STL@@YAPAURva0007EA02Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0007E422,
 ??$__copy_backward@PAURva000B67BCElement@@PAU1@H@_STL@@YAPAURva000B67BCElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B6894,
 ??$__copy_backward@PAURva001DD339Element@@PAU1@H@_STL@@YAPAURva001DD339Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD14F,
 ??$__copy_backward@PAURva001DD356Element@@PAU1@H@_STL@@YAPAURva001DD356Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD181,
