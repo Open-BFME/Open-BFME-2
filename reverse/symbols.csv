@@ -12707,7 +12707,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$__copy_backward_ptrs@PAPAURva005FE3C1Element@@PAPAU1@@_STL@@YAPAPAURva005FE3C1Element@@PAPAU1@00ABU__true_type@0@@Z,0x005FE24C,
 ??0Rva0020F0B8Element@@QAE@ABU0@@Z,0x000365F0,
 ?insert@?$list@URva004390F7Element@@V?$allocator@URva004390F7Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva004390F7Element@@U?$_Nonconst_traits@URva004390F7Element@@@_STL@@@2@U32@ABURva004390F7Element@@@Z,0x004390A2,
-??$__make_heap@PAURva005F35EDElement@@U?$less@URva005F35EDElement@@@_STL@@U1@H@_STL@@YAXPAURva005F35EDElement@@0U?$less@URva005F35EDElement@@@0@0PAH@Z,0x00233519,
 ??1Rva002B0CE7Element@@QAE@XZ,0x002AF1EC,
 ??1Rva002CFBAEElement@@QAE@XZ,0x004F5115,
 ??1Rva002D028FElement@@QAE@XZ,0x002CF51B,
@@ -13949,7 +13948,6 @@ _D3DXLoadVolumeFromFileInMemory@36,0x0062AF8C,Native1318F0 in-image JMP IAT veri
 ?ReAcquireResources@W3DShroud@@QAE_NXZ,0x000728F0,WB 0x7FCDB0 W3DShroud.cpp lines 204..213 names ReAcquireResources and shroud texture; retail 0x728F0..0x72988 thiscall bool no stack args; native init 0x72D38 calls this provider; donor 9cbfb551 W3DShroudInitBfme
 ?ReAcquireResources@W3DTaint@@QAE_NXZ,0x00073816,WB 0x82D030 names W3DTaint ReAcquireResources in W3DTaint.cpp; native 0x73816..0x738C4 thiscall bool no stack args; init call0x73BC8; texture creation and taint enable guard match BFME1 9cbfb551 TaintBufferReAcquireResources
 ?Rva00136090MeshHold@@YA?AURva00136090MeshHolder@@PAVMeshModelClass@@@Z,0x00136090,callee of ?SwitchTextureOnMesh@@YAXPAVSwitchMeshView@@ABV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@1@Z
-??$rotate@PAH@_STL@@YAPAHPAH00@Z,0x005F35ED,ICF twin of the 4-byte-element rotate body (rowed as make_heap<Rva005F35EDElement>; also pinned as rotate<HKL__**>); REL32 in ArmyDetailsMovieClip IconSlot::DoMoveTo 0x005F3606; the unit that defines rotate<int*> is the int algorithm unit; fold-proof=Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp
 ??$__copy@PAVRva0054103E@@PAV1@H@_STL@@YAPAVRva0054103E@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x005410B1,REL32 call-site in auto row 0x00541231; the unit that defines this copy is the insert-overflow unit; fold-proof=Code/Libraries/Source/WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp
 ?rva0028B98B@Object@@QAEXXZ,0x0028B98B,Native Object transform callback 292D49 RET12 calls these complete no-stack-argument Object helpers at 292E57 and292EA7; wb_show confirms target291EB1..2922A9 RET0 and28B98B..28B9F6 RET0. Original method names remain unproved.
 ?initBuildableHeroes@Player@@QAEXXZ,0x002B0B96,WB 0x00C1C660 Player::initBuildableHeroes callgraph 2 with Player.cpp 4121..4144 hero assert strings; native 0x002B0B96..0x002B0CB0 ret0; called by named Player newMap 0x002B0D00 at REL32 0x002B0E34

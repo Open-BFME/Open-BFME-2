@@ -40,6 +40,8 @@ int *bfmeEmitIntLowerBound(int *first, int *last, const int &value)
 	return _STL::lower_bound(first, last, value);
 }
 
+// ??$rotate@PAH@_STL@@YAPAHPAH00@Z @0x005F35ED 25B: the forwarder into
+// __rotate<int*> (0x00233519); every 4-byte-element rotate folds onto it.
 void bfmeEmitIntRotate(int *first, int *middle, int *last)
 {
 	_STL::rotate(first, middle, last);
