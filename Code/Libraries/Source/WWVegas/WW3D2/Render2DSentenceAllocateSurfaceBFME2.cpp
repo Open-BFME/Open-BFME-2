@@ -192,6 +192,14 @@ public:
 	unsigned short *locked_ptr;
 };
 
+// Declaration-only: this TU otherwise instantiates the vector's delete[] sites
+// and emits its own speed-built PendingSurfaceStruct vector deleting destructor
+// (add esp,4), first in link order; retail's 0x00002B6A is the size-built copy
+// the W3D gadget units emit. The rowed render2dsentence.cpp bodies serve.
+template <> void VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Clear();
+template <> bool VectorClass<Render2DSentenceClass::PendingSurfaceStruct>::Resize(
+	int, const Render2DSentenceClass::PendingSurfaceStruct *);
+
 // Keep the native PendingSurfaceStruct Add body out-of-line at its already
 // matched address; the generic header definition is otherwise small enough
 // for this TU to inline it into the caller.
