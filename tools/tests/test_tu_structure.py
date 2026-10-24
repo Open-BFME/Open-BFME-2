@@ -104,6 +104,80 @@ def test_noncontiguous_tu_is_not_approved(tmp_path):
     assert out[0x1000]["confidence"] == "proposed" and "noncontiguous" in out[0x1000]["evidence"]
 
 
+# ---------------------------------------------------------------- header-inline COMDATs
+@pytest.fixture
+def header_inline(tmp_path):
+    """The two retail cases: DamageModule's header-inline constructor sits inside
+    BoneFXDamage's TU (0x004B9704, between BoneFXDamage rows), and RenderObjClass's
+    in-class virtual Set_Additive sits in the inline-virtual block a derived
+    constructor's vftable pulls in (0x0006CF8C, after BaseHeightMapRenderObjClass's
+    constructor). Neither belongs in its class's .cpp."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+    dmg, ww3d = zh / "GameEngine/Source/Damage", zh / "Libraries/WW3D2"
+    dmg.mkdir(parents=True)
+    ww3d.mkdir(parents=True)
+    (dmg / "DamageModule.cpp").write_text("void DamageModule::crc(Xfer *x)\n{\n}\n")
+    (dmg / "DamageModule.h").write_text(
+        "class DamageModule : public BehaviorModule\n{\npublic:\n"
+        "\tDamageModule( Thing *thing, const ModuleData* moduleData );\n"
+        "\tint getMask() const { return 1; }\n};\n"
+        "inline DamageModule::DamageModule( Thing *thing, const ModuleData* moduleData )"
+        " : BehaviorModule( thing, moduleData ) { }\n")
+    (dmg / "BoneFXDamage.cpp").write_text(
+        "BoneFXDamage::BoneFXDamage(Thing *t, const ModuleData *d) : DamageModule(t, d)\n{\n}\n"
+        "void BoneFXDamage::onObjectCreated()\n{\n}\n")
+    (ww3d / "rendobj.cpp").write_text("RenderObjClass::RenderObjClass()\n{\n}\n")
+    (ww3d / "rendobj.h").write_text(
+        "class RenderObjClass\n{\npublic:\n\tRenderObjClass(void);\n"
+        "\tvirtual int\t\tIs_Additive(void) const\t\t{ return Bits & IS_ADDITIVE; }\n"
+        "\tvirtual void\tSet_Additive(int onoff)\t\t{ if (onoff) { Bits |= IS_ADDITIVE; } else { Bits &= ~IS_ADDITIVE; } }\n"
+        "\tint\t\t\t\tGet_Bits(void)\t\t\t{ return Bits; }\n"
+        "protected:\n\tint Bits;\n};\n")
+    (ww3d / "HeightMap.cpp").write_text(
+        "BaseHeightMapRenderObjClass::BaseHeightMapRenderObjClass()\n{\n}\n"
+        "void BaseHeightMapRenderObjClass::Render()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    g, w = "Code/GameEngine/Source/Damage", "Code/Libraries/WW3D2"
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("??0BoneFXDamage@@QAE@PAVThing@@PBVModuleData@@@Z", 0x4B9600, 16, f"{g}/BoneFXDamage.cpp"),
+        row("??0DamageModule@@QAE@PAVThing@@PBVModuleData@@@Z", 0x4B9704, 49, f"{g}/DamageModuleCtor.cpp"),
+        row("?onObjectCreated@BoneFXDamage@@MAEXXZ", 0x4B97E2, 16, f"{g}/BoneFXDamage.cpp"),
+        row("?crc@DamageModule@@MAEXPAVXfer@@@Z", 0x600000, 16, f"{g}/DamageModuleCrc.cpp"),
+        row("??0BaseHeightMapRenderObjClass@@QAE@XZ", 0x6C9CF, 16, f"{w}/HeightMap.cpp"),
+        row("?Set_Additive@RenderObjClass@@UAEXH@Z", 0x6CF8C, 20, f"{w}/RenderObjAccessors.cpp"),
+        row("?Render@BaseHeightMapRenderObjClass@@UAEXXZ", 0x6D100, 16, f"{w}/HeightMap.cpp"),
+        row("??0RenderObjClass@@QAE@XZ", 0x13BF00, 16, f"{w}/RenderObjCtor.cpp"),
+        row("?Get_Bits@RenderObjClass@@QAEHXZ", 0x13C000, 16, f"{w}/RenderObjBits.cpp"),
+    ]))
+    return {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+
+
+def test_header_inline_constructor_is_not_placed_by_class_site(header_inline):
+    ctor = header_inline[0x4B9704]
+    assert "S=" not in ctor["evidence"] and "N=" not in ctor["evidence"]
+    assert ctor["tu"] != "Code/GameEngine/Source/Damage/DamageModule.cpp"
+
+
+def test_in_class_inline_virtual_is_not_placed_by_class_site(header_inline):
+    additive = header_inline[0x6CF8C]
+    assert "S=" not in additive["evidence"] and "N=" not in additive["evidence"]
+    assert additive["tu"] != "Code/Libraries/WW3D2/rendobj.cpp"
+
+
+def test_class_site_evidence_kept_for_out_of_line_and_non_virtual_members(header_inline):
+    # negative controls (hold with or without the narrowing): only constructors and
+    # virtual members whose ZH body is in a header lose S.
+    assert "S=Code/GameEngine/Source/Damage/DamageModule.cpp" in header_inline[0x600000]["evidence"]
+    assert "Z=Code/Libraries/WW3D2/rendobj.cpp" in header_inline[0x13BF00]["evidence"]
+    assert "S=Code/Libraries/WW3D2/rendobj.cpp" in header_inline[0x13C000]["evidence"]
+
+
+def test_header_inline_anchor_no_longer_splits_its_class_span(header_inline):
+    # the ctor's S anchor inside BoneFXDamage's rows made DamageModule.cpp noncontiguous,
+    # so the class's real out-of-line member lost its placement too.
+    assert header_inline[0x600000]["tu"] == "Code/GameEngine/Source/Damage/DamageModule.cpp"
+
+
 # ---------------------------------------------------------------- unconverted functions
 @pytest.fixture
 def unconverted(tmp_path):

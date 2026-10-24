@@ -277,6 +277,86 @@ def zh_index(layout, paths):
     return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}
 
 
+# `class X ... {` and, inside it, the name that opens a member head: the first
+# `name(` whose parameter list is followed only by const, throw(...), an
+# initializer list or nothing before the body.
+CLASS_HEAD = re.compile(r"\b(?:class|struct)\s+(?:__declspec\s*\([^)]*\)\s*)?([A-Za-z_]\w*)\s*(?::[^;{}]*)?\{")
+MEMBER_NAME = re.compile(r"(~?[A-Za-z_]\w*)\s*\(")
+MEMBER_TAIL = re.compile(r"\s*(?:const\b\s*)?(?:throw\s*\([^)]*\)\s*)?(?::.*)?$", re.S)
+# MSVC's function-class code after a member's `@@`: private/protected/public virtual.
+VIRTUAL_CODES = "EFMNUV"
+
+
+def _member_name(head):
+    """The member a class-body head defines (`virtual void f(int) const`, `X(int a) : B(a)`),
+    or None for anything else (a macro call, a nested type, an access label alone)."""
+    for m in MEMBER_NAME.finditer(head):
+        depth, i = 0, m.end() - 1
+        while i < len(head):
+            depth += {"(": 1, ")": -1}.get(head[i], 0)
+            if depth == 0:
+                break
+            i += 1
+        if depth == 0 and MEMBER_TAIL.match(head, i + 1):
+            return m.group(1)
+    return None
+
+
+def class_inline_members(text):
+    """(class, member) of each member whose body is written inside its class."""
+    code = CPP_NOISE.sub(_blank, text)
+    for m in CLASS_HEAD.finditer(code):
+        cls, depth, head = m.group(1), 0, m.end()
+        for i in range(m.end(), len(code)):
+            c = code[i]
+            if c == "{":
+                if depth == 0:
+                    name = _member_name(re.sub(r"\b(?:public|protected|private)\s*:", " ", code[head:i]))
+                    if name:
+                        yield cls, name
+                depth += 1
+            elif c == "}":
+                if depth == 0:
+                    break
+                depth -= 1
+                if depth == 0:
+                    head = i + 1
+            elif c == ";" and depth == 0:
+                head = i + 1
+
+
+def zh_header_members(layout):
+    """{(class, member)} whose ZH body sits in a header: written inside the class, or as
+    an `inline X::y(` definition at header scope."""
+    out = set()
+    if not layout.zh.exists():
+        return out
+    for dp, dn, fn in sorted(os.walk(layout.zh)):
+        dn.sort()
+        for f in sorted(fn):
+            if not f.lower().endswith((".h", ".hpp")):
+                continue
+            try:
+                text = (Path(dp) / f).read_text(encoding="latin-1")
+            except OSError:
+                continue
+            out.update(zh_definitions(text))
+            out.update(class_inline_members(text))
+    return out
+
+
+def header_comdat(name, cls, meth, z, header_members):
+    """A constructor or virtual member ZH defines only in a header is a select-any COMDAT:
+    MSVC emits it in whichever unit first needs it out of line (a derived constructor's
+    call, a vftable), not in its class's .cpp, so the class site (S) does not place it."""
+    if z or (cls, meth) not in header_members:
+        return False
+    if name.startswith("??0"):
+        return True
+    m = CTOR.match(name) or METHOD.match(name)
+    return bool(m) and name[m.end():m.end() + 1] in VIRTUAL_CODES
+
+
 def file_strings(layout, paths, owner):
     out = {}
     path = layout.path("string_xrefs.tsv")
@@ -394,16 +474,18 @@ def evidence_rows(layout, ledger=None):
 
     paths = Paths(layout, {r["source"] for r in rows if r["source"]})
     zmeth, zsite = zh_index(layout, paths)
+    zhead = zh_header_members(layout)
     F = file_strings(layout, paths, owner)
     for r in rows:
         r["cls"], r["meth"] = demangle(r["name"]) if r["name"] else (None, None)
         cls = r["cls"]
         r["F"] = F.get(r["rva"])
         r["Z"] = zmeth.get((cls, r["meth"])) if cls else None
-        r["S"] = zsite.get(cls) if cls and not COMDAT.match(r["name"]) else None
+        inline = header_comdat(r["name"], cls, r["meth"], r["Z"], zhead) if cls else False
+        r["S"] = zsite.get(cls) if cls and not COMDAT.match(r["name"]) and not inline else None
         base = re.sub(r"ModuleData$", "", cls or "")
         r["N"] = (os.path.dirname(r["source"]) + "/" + base + ".cpp") if base and r["source"] \
-            and not PLACEHOLDER.match(base) else None
+            and not PLACEHOLDER.match(base) and not inline else None
         r["hard"] = r["F"] or r["Z"] or r["S"]
         r["hint"] = r["hard"] or r["N"]
         r["C"] = r["K"] = None
@@ -757,7 +839,8 @@ def zh_identity(layout, kind=None):
     equal wherever the same files are checked out -- for the default tree in a clean checkout
     (untracked files count as dirt), noting the commit; else, or for a custom --zh, or when
     `kind` is "sha256", `sha256:` over the relative path and CRLF-normalised bytes of every
-    .cpp zh_index reads. `kind` "git" tries the tree id for a custom --zh too."""
+    .cpp zh_index and .h zh_header_members read. `kind` "git" tries the tree id for a custom
+    --zh too."""
     zh = layout.zh
     if not zh.is_dir():
         return "missing", "no ZH tree"
@@ -770,7 +853,7 @@ def zh_identity(layout, kind=None):
     for dp, dn, fn in sorted(os.walk(zh)):
         dn.sort()
         for f in sorted(fn):
-            if f.lower().endswith(".cpp"):
+            if f.lower().endswith((".cpp", ".h", ".hpp")):
                 p = Path(dp) / f
                 h.update(p.relative_to(zh).as_posix().encode() + b"\0")
                 h.update(p.read_bytes().replace(b"\r\n", b"\n") + b"\0")
