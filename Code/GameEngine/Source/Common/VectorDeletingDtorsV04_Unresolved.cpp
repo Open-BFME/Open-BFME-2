@@ -15,9 +15,6 @@
 // carried a ledger name.
 //
 //   ??_E        dtor        size  vtable#slot
-//   0x003A8BD7  0x003A9397  0x2C  0x00C1BF60#0
-//   0x003A8C5A  0x003A9397  0x70  0x00C1BF84#0
-//   0x003A8E25  0x003A9397  0x30  0x00C1BFFC#0
 //   0x003A9A40  0x003AA0C0  0x24  0x00C1C198#0
 //   0x003A9CF8  0x003A9C39  0x48  0x00C1C1C8#0
 //   0x003A9F3F  0x003A9E80  0x1C  0x00C1C1F8#0
@@ -27,78 +24,6 @@
 // Declared so the array path frees through operator delete[] (0x0002FD80)
 // as retail does; left undeclared, cl falls back to scalar operator delete.
 void operator delete[](void *p);
-
-class __declspec(novtable) Rva003A8BD7VecBase0
-{
-public:
-	virtual ~Rva003A8BD7VecBase0();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
-// 0x8) to this class's vector deleting destructor in its vtable.
-class __declspec(novtable) Rva003A8BD7VecBase8
-{
-public:
-	virtual ~Rva003A8BD7VecBase8();
-private:
-	char m_unmodelled_04[0x24 - 0x04];
-};
-
-class Rva003A8BD7Vec : public Rva003A8BD7VecBase0, public Rva003A8BD7VecBase8
-{
-public:
-	virtual ~Rva003A8BD7Vec();
-};
-
-class __declspec(novtable) Rva003A8C5AVecBase0
-{
-public:
-	virtual ~Rva003A8C5AVecBase0();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
-// 0x8) to this class's vector deleting destructor in its vtable.
-class __declspec(novtable) Rva003A8C5AVecBase8
-{
-public:
-	virtual ~Rva003A8C5AVecBase8();
-private:
-	char m_unmodelled_04[0x68 - 0x04];
-};
-
-class Rva003A8C5AVec : public Rva003A8C5AVecBase0, public Rva003A8C5AVecBase8
-{
-public:
-	virtual ~Rva003A8C5AVec();
-};
-
-class __declspec(novtable) Rva003A8E25VecBase0
-{
-public:
-	virtual ~Rva003A8E25VecBase0();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
-// 0x8) to this class's vector deleting destructor in its vtable.
-class __declspec(novtable) Rva003A8E25VecBase8
-{
-public:
-	virtual ~Rva003A8E25VecBase8();
-private:
-	char m_unmodelled_04[0x28 - 0x04];
-};
-
-class Rva003A8E25Vec : public Rva003A8E25VecBase0, public Rva003A8E25VecBase8
-{
-public:
-	virtual ~Rva003A8E25Vec();
-};
 
 class __declspec(novtable) Rva003AA0C0Base0
 {
@@ -223,9 +148,6 @@ public:
 // ?<bfmeVectorDeleteAnchorV04Unresolved> absent-from-retail
 void bfmeVectorDeleteAnchorV04Unresolved()
 {
-	new Rva003A8BD7Vec[2];
-	new Rva003A8C5AVec[2];
-	new Rva003A8E25Vec[2];
 	new Rva003AA0C0[2];
 	new Rva003A9C39[2];
 	new Rva003A9E80[2];

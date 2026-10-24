@@ -1,6 +1,10 @@
 // cl: /O1 /GX /arch:SSE2 /Ireference/shims/fxparticle_link
 #include "ModuleTemplate.h"
 
+// Declared so a vector deleting destructor frees through operator delete[]
+// (0x0002FD80) as retail does; left undeclared, cl falls back to scalar delete.
+void operator delete[](void *p);
+
 #include "../../../Libraries/Include/Lib/Region2D.h"
 
 #include "../../../Libraries/Include/Lib/RGBColor.h"
@@ -1750,6 +1754,24 @@ typedef OrthoEmissionVelocityConcrete &(
 
 OrthoEmissionVelocityConcreteAssign g_orthoEmissionVelocityConcreteAssign =
     &OrthoEmissionVelocityConcrete::operator=;
+
+// Retail's vtable slot 0 for these three wrappers is the vector deleting destructor,
+// and its body uses the eh vector destructor iterator, so an EH unit emitted it:
+// DefaultModuleTag<3> 0x003A8BD7 (vtable 0x00C1BF60), DefaultModuleTag<2> 0x003A8C5A
+// (0x00C1BF84) and Ortho 0x003A8E25 (0x00C1BFFC). cl 7.1 emits it in a unit that
+// array-news the class. The default constructors are only declared here, so this unit
+// emits no competing copy of the vtables (FXParticleSystemModules.cpp and
+// FXParticleSystemFactories.cpp own them and the W7 thunks).
+template <> DefaultConcrete3::ConcreteModuleTemplate() throw();
+template <> DefaultConcrete2::ConcreteModuleTemplate() throw();
+template <> OrthoEmissionVelocityConcrete::ConcreteModuleTemplate() throw();
+// ?<bfmeVectorDeleteAnchorDefaultAndOrtho> absent-from-retail
+void bfmeVectorDeleteAnchorDefaultAndOrtho()
+{
+    new DefaultConcrete3[2];
+    new DefaultConcrete2[2];
+    new OrthoEmissionVelocityConcrete[2];
+}
 
 // The concrete templates that carry a clone. ConcreteModuleTemplate overrides
 // virtuals of all three of its base's tables, so its constructors install three
