@@ -4,7 +4,7 @@
 // (18B), unreferenced: hands the allocator to the rowed out-of-line
 // _Slist_base<int> constructor (0x0006FA99) and returns this. The
 // declaration-only specialisation keeps that call out of line, as in retail.
-// The payload is int as in the rowed base (tgrid_008_Rva0006FA99.cpp).
+// The payload is int as in the rowed base (SceneNodeListProviders.cpp).
 #include <slist>
 // bfme link decl-only begin
 namespace _STL { template <> _Slist_node_base * _Slist_base<int, allocator<int> >::_M_erase_after(_Slist_node_base *, _Slist_node_base *); }

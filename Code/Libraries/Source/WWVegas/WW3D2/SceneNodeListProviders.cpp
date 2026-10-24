@@ -1,6 +1,7 @@
 // cl: /O1 /Ob0 /G7 /arch:SSE /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-// Native providers 6FABF (45B) and 6FB50 (9B), also used by scene Set_Level.
+// Native providers 6FABF (45B) and 6FB50 (9B), also used by scene Set_Level,
+// and the out-of-line _Slist_base<int> allocator ctor 6FA99 (38B) just before them.
 // /O1 /Ob0 reproduces the outlined providers without a volatile pool access.
 // SceneSpatialRescale.cpp retains the identical inline erase definition under
 // its existing /O2 settings, where the real STLport base destructor inlines.
@@ -78,3 +79,7 @@ _Slist_base<int,allocator<int> >::_M_erase_after(_Slist_node_base* head,_Slist_n
 
 // The actual STLport base destructor is the same complete nine-byte body.
 template _STL::_Slist_base<int,_STL::allocator<int> >::~_Slist_base();
+
+// STLport's _Slist_base(const allocator_type &): converts the allocator and
+// clears the head, the complete 38-byte body retail keeps at 0x0006FA99.
+template _STL::_Slist_base<int,_STL::allocator<int> >::_Slist_base(const _STL::allocator<int> &);
