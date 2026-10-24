@@ -12688,7 +12688,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$_Destroy@PAURva0002CD53Element@@@_STL@@YAXPAURva0002CD53Element@@0@Z,0x0002CB64,
 ??$__copy_backward@PAURva00053E34Element@@PAU1@H@_STL@@YAPAURva00053E34Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x00051BE1,
 ??$__copy_backward@PAURva0007EA02Element@@PAU1@H@_STL@@YAPAURva0007EA02Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x0007E422,
-??$__copy_backward@PAURva000B6569Element@@PAU1@H@_STL@@YAPAURva000B6569Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000CA157,
 ??$__copy_backward@PAURva000B67BCElement@@PAU1@H@_STL@@YAPAURva000B67BCElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x000B6894,
 ??$__copy_backward@PAURva001DD339Element@@PAU1@H@_STL@@YAPAURva001DD339Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD14F,
 ??$__copy_backward@PAURva001DD356Element@@PAU1@H@_STL@@YAPAURva001DD356Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z,0x001DD181,

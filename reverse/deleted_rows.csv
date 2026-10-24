@@ -2434,3 +2434,4 @@ __ehhandler$?Rva006CDBF0Resize@@YAPAVAptValueNameEntry@@PAV1@HH@Z,0x007A8186,"Re
 ?Rva003743BB@@YAXPAVObject@@PAX@Z,0x003743BB,"Renamed to ?setStatusCallback@@YAXPAVObject@@PAX@Z by tools/rename.py (inferred)"
 ?Rva002E6E6CGet@@YAHH@Z,0x002E6E6C,"Renamed to ?isGroundOrBridgeLayer@@YAHH@Z by tools/rename.py (inferred)"
 ?rva006D2D90@@YAXXZ,0x006D2D90,"Renamed to ?initValueSizes@@YAXXZ by tools/rename.py (inferred)"
+??$__copy_backward_ptrs@PAURva000B6569Element@@PAU1@@_STL@@YAPAURva000B6569Element@@PAU1@00ABU__false_type@0@@Z,0x000B6569,"Re-identified as ??$__copy_ptrs@PAUBfmePod12@@PAU1@@_STL@@YAPAUBfmePod12@@PAU1@00ABU__false_type@0@@Z: retail REL32 at +0x14 lands on the forward 12-byte __copy loop 0x000CA157, not a backward copy, and both erase callers reach this body as __copy_ptrs"
