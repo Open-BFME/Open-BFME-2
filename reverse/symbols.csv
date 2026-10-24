@@ -4382,7 +4382,6 @@ name,address,notes
 ??1Rva003AA0C0@@UAE@XZ,0x003AA0C0,"destructor the vector deleting destructor 0x003A9A40 calls and hands to the eh vector destructor iterator (DIR32 at 0x003A9A4F); opaque address name"
 ??1Rva003AA17FVec@@UAE@XZ,0x003AA0C0,"destructor the vector deleting destructor 0x003AA17F calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA18E); opaque address name"
 ??1Rva003AA6BD@@UAE@XZ,0x003AA6BD,"destructor the vector deleting destructor 0x003AA704 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA713); opaque address name"
-??1Rva003AA76F@@UAE@XZ,0x003AA76F,"destructor the vector deleting destructor 0x003AA7B6 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AA7C5); opaque address name"
 ??1Rva003AB460Tree@@QAE@XZ,0x002B80CE,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ??1Rva003AB86E@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB899 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB8A8); opaque address name"
 ??1Rva003AB946Vec@@UAE@XZ,0x003AB86E,"destructor the vector deleting destructor 0x003AB946 calls and hands to the eh vector destructor iterator (DIR32 at 0x003AB955); opaque address name"

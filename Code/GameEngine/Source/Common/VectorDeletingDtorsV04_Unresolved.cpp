@@ -19,7 +19,6 @@
 //   0x003A9CF8  0x003A9C39  0x48  0x00C1C1C8#0
 //   0x003A9F3F  0x003A9E80  0x1C  0x00C1C1F8#0
 //   0x003AA17F  0x003AA0C0  0x28  0x00C1C228#0
-//   0x003AA7B6  0x003AA76F  0x1C  0x00C1C294#0
 
 // Declared so the array path frees through operator delete[] (0x0002FD80)
 // as retail does; left undeclared, cl falls back to scalar operator delete.
@@ -121,30 +120,6 @@ public:
 	virtual ~Rva003AA17FVec();
 };
 
-class __declspec(novtable) Rva003AA76FBase0
-{
-public:
-	virtual ~Rva003AA76FBase0();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
-// 0x8) to this class's vector deleting destructor in its vtable.
-class __declspec(novtable) Rva003AA76FBase8
-{
-public:
-	virtual ~Rva003AA76FBase8();
-private:
-	char m_unmodelled_04[0x14 - 0x04];
-};
-
-class Rva003AA76F : public Rva003AA76FBase0, public Rva003AA76FBase8
-{
-public:
-	virtual ~Rva003AA76F();
-};
-
 // ?<bfmeVectorDeleteAnchorV04Unresolved> absent-from-retail
 void bfmeVectorDeleteAnchorV04Unresolved()
 {
@@ -152,5 +127,4 @@ void bfmeVectorDeleteAnchorV04Unresolved()
 	new Rva003A9C39[2];
 	new Rva003A9E80[2];
 	new Rva003AA17FVec[2];
-	new Rva003AA76F[2];
 }
