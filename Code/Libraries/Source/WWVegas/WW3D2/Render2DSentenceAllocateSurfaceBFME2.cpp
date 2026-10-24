@@ -60,7 +60,9 @@ public:
 	__declspec(dllimport) __forceinline W3DRadarResetSurface() : m_surface(0) {}
 	~W3DRadarResetSurface();
 
-	W3DRadarResetSurface &operator=(const W3DRadarResetSurface &that)
+	// Inlined at both call sites; import-inline so this speed-built TU emits no
+	// out-of-line copy (edx vtable load) ahead of retail's size-built 0x00072381.
+	__declspec(dllimport) __forceinline W3DRadarResetSurface &operator=(const W3DRadarResetSurface &that)
 	{
 		if (that.m_surface)
 			that.m_surface->AddRef();
