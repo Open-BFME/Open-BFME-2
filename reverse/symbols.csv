@@ -12641,7 +12641,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$_Construct@URva005FE226Element@@U1@@_STL@@YAXPAURva005FE226Element@@ABU1@@Z,0x005FE0F5,
 ??$_Construct@URva00421939Element@@U1@@_STL@@YAXPAURva00421939Element@@ABU1@@Z,0x0059CE9E,
 ??$_Construct@URva003F631BElement@@U1@@_STL@@YAXPAURva003F631BElement@@ABU1@@Z,0x003F62C8,
-??$_Construct@URva005EA9E1Element@@U1@@_STL@@YAXPAURva005EA9E1Element@@ABU1@@Z,0x005EA9A9,
 ??$_Construct@URva004AE94DElement@@U1@@_STL@@YAXPAURva004AE94DElement@@ABU1@@Z,0x004AE915,
 ??$_Construct@URva003F1A8CElement@@U1@@_STL@@YAXPAURva003F1A8CElement@@ABU1@@Z,0x003F1A5F,
 ??$_Construct@URva00460F6BElement@@U1@@_STL@@YAXPAURva00460F6BElement@@ABU1@@Z,0x00460F18,
@@ -12748,7 +12747,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$__uninitialized_fill_n@PAVCreateAHeroSubClass@CreateAHeroManager@@IV12@@_STL@@YAPAVCreateAHeroSubClass@CreateAHeroManager@@PAV12@IABV12@ABU__false_type@0@@Z,0x0021EFC2,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
 ??$__uninitialized_fill_n@PAUBfmeStringRecord000331962@@IU1@@_STL@@YAPAUBfmeStringRecord000331962@@PAU1@IABU1@ABU__false_type@0@@Z,0x00331B6A,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
 ??$__uninitialized_fill_n@PAUBfmeStringRecord00204A30@@IU1@@_STL@@YAPAUBfmeStringRecord00204A30@@PAU1@IABU1@ABU__false_type@0@@Z,0x0020577A,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
-??$__uninitialized_fill_n@PAUGeometryShape@@IU1@@_STL@@YAPAUGeometryShape@@PAU1@IABU1@ABU__false_type@0@@Z,0x005EA9E1,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
 ??$fill@PAUBfmeContainerRecord005FDEC7@@U1@@_STL@@YAXPAUBfmeContainerRecord005FDEC7@@0ABU1@@Z,0x005FE0A6,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
 ??$insert@U?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@_STL@@@?$list@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXU?$_List_iterator@VAsciiString@@U?$_Nonconst_traits@VAsciiString@@@_STL@@@1@U?$_List_iterator@VAsciiString@@U?$_Const_traits@VAsciiString@@@_STL@@@1@1@Z,0x0054D7E2,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names
 ??$uninitialized_fill_n@PAUBfmeContainerRecord005FDEC7@@IU1@@_STL@@YAPAUBfmeContainerRecord005FDEC7@@PAU1@IABU1@@Z,0x005FE3C1,Former byte-verified compiler-symbol binding restored after scaffold replacement; supersedes folded candidate names

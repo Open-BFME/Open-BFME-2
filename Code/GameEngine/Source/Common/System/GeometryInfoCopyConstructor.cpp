@@ -27,6 +27,10 @@ namespace _STL { template <> _Vector_base<GeometryShape,allocator<GeometryShape>
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct GeometryRecord;
 namespace _STL { template <> void _Construct<GeometryRecord,GeometryRecord>(GeometryRecord *,GeometryRecord const &); }
+// Suppress this TU's copy of ??$_Construct@UGeometryShape@@U1@@_STL@@YAXPAUGeometryShape@@ABU1@@Z:
+// the rowed 18B body at 0x005EA9A9 (GeometryShapeConstruct005EA9A9.cpp) serves the link.
+struct GeometryShape;
+namespace _STL { template <> void _Construct<GeometryShape,GeometryShape>(GeometryShape *,GeometryShape const &) throw(); }
 // The record vector copy is supplied by GeometryRecordVectorCopyConstructor.cpp.
 namespace _STL { template <> vector<GeometryRecord>::vector(const vector<GeometryRecord> &); }
 namespace _STL { template <> _Vector_base<GeometryRecord,allocator<GeometryRecord> >::~_Vector_base(); }

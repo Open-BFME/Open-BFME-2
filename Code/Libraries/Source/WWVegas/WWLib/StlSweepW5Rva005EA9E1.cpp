@@ -1,11 +1,21 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <algorithm>
+//
+// 0x005EA9E1 (37B) is STLport's __uninitialized_fill_n over 0x24-byte
+// GeometryShape records: it calls the rowed _Construct<GeometryShape>
+// (0x005EA9A9, GeometryShapeConstruct005EA9A9.cpp) per element. That callee is
+// only declared here, so this unit emits the loop alone; no layout beyond the
+// stride is claimed.
 #include <memory>
 
-struct Rva005EA9E1Element { char bytes[36]; bool operator<(const Rva005EA9E1Element&)const; bool operator==(const Rva005EA9E1Element&)const; };
+struct GeometryShape
+{
+	unsigned char m_bytes[0x24];
+};
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva005EA9E1Element * _STL::__uninitialized_fill_n<Rva005EA9E1Element *, unsigned int, Rva005EA9E1Element>(Rva005EA9E1Element *, unsigned int, Rva005EA9E1Element const &, _STL::__false_type const &);
+namespace _STL {
+template <> void _Construct<GeometryShape, GeometryShape>(GeometryShape *, const GeometryShape &);
+}
+
+template GeometryShape *_STL::__uninitialized_fill_n<GeometryShape *, unsigned int, GeometryShape>(GeometryShape *, unsigned int, const GeometryShape &, const _STL::__false_type &);
