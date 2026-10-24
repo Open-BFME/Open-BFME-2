@@ -14,11 +14,17 @@
 // vector deleting destructor. Owners are opaque unless the destructor already
 // carried a ledger name.
 //
-//   ??_E        dtor        size  vtable#slot
-//   0x003A9A40  0x003AA0C0  0x24  0x00C1C198#0
-//   0x003A9CF8  0x003A9C39  0x48  0x00C1C1C8#0
-//   0x003A9F3F  0x003A9E80  0x1C  0x00C1C1F8#0
-//   0x003AA17F  0x003AA0C0  0x28  0x00C1C228#0
+//   ??_E        dtor        size  vtable#slot   owner (FXParticleSystem::)
+//   0x003A9A40  0x003AA0C0  0x24  0x00C1C198#0  LifeEventModuleTemplate
+//   0x003A9CF8  0x003A9C39  0x48  0x00C1C1C8#0  RenderObjectDrawModuleTemplate
+//   0x003A9F3F  0x003A9E80  0x1C  0x00C1C1F8#0  GpuDrawModuleTemplate
+//   0x003AA17F  0x003AA0C0  0x28  0x00C1C228#0  TerrainCollisionModuleTemplate
+//
+// The owners are abstract (two __purecall slots each). Retail exports them
+// (reverse/exports.csv), and dllexport is what put ??_E in their vtables: cl 7.1
+// emits no ??_E for an abstract class otherwise, and under dllexport only together
+// with the vtables, which the eight *ModuleTemplateCtorThunk/CopyCtor units also
+// emit. Taking the real names means moving all of those units to exported views.
 
 // Declared so the array path frees through operator delete[] (0x0002FD80)
 // as retail does; left undeclared, cl falls back to scalar operator delete.
