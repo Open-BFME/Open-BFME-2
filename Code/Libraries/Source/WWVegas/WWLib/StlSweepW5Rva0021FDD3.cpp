@@ -1,14 +1,23 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <deque>
-#include <string>
-// Suppress this TU's non-retail copy of ??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> basic_string<unsigned short,char_traits<unsigned short>,allocator<unsigned short> >::~basic_string(); }
+//
+// 0x0021FDD3 (25B) is STLport's _Destroy range destroy (the __destroy_aux loop inlined): it calls the destructor rowed as
+// ??1CreateAHeroClass@CreateAHeroManager@@QAE@XZ (0x0021F8F3, Rva0021F876Dtor.cpp) on each
+// 0x20-byte element. The element type is that row's (identity unresolved beyond it);
+// its destructor is only declared here, so this unit emits the loop alone.
+#include <memory>
 
-struct Rva0021FDD3Element { unsigned prefix[1];_STL::basic_string<wchar_t> strings[2];unsigned suffix[1]; bool operator<(const Rva0021FDD3Element&)const; bool operator==(const Rva0021FDD3Element&)const; };
+class CreateAHeroManager
+{
+public:
+	class CreateAHeroClass
+	{
+	public:
+		~CreateAHeroClass();
+	private:
+		unsigned char m_bytes[0x20];
+	};
+};
 
-// Instantiate the recovered operation and its required template dependencies.
-template void _STL::__destroy_aux<Rva0021FDD3Element *>(Rva0021FDD3Element *, Rva0021FDD3Element *, _STL::__false_type const &);
+template void _STL::_Destroy<CreateAHeroManager::CreateAHeroClass *>(CreateAHeroManager::CreateAHeroClass *, CreateAHeroManager::CreateAHeroClass *);

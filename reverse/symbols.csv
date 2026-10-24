@@ -282,7 +282,6 @@ name,address,notes
 ??$_Destroy@PAURvaPair004C3D4C@@@_STL@@YAXPAURvaPair004C3D4C@@0@Z,0x0032C0CA,TU _Destroy resolves the vector-dtor call at 0x4C3D4C; retail 25B 8-byte-pair loop via key dtor 0x48BA39 (rowed Rva0032C0CADestroyPairs stride-identical fold)
 ??$_Destroy@PAUTreeKey00242F5E@@@_STL@@YAXPAUTreeKey00242F5E@@0@Z,0x0048CE25,TreeKey vector overflow 0x5244DC target call chain; independently compiled full-body strict match to existing recovered helper; original application type name unknown
 ??$_Destroy@PAVAsciiString@@@_STL@@YAXPAVAsciiString@@0@Z,0x0002CB64,TU spelling of the AsciiString range destroy worker for VectorAsciiStringErase.cpp; body rowed as dup_0002cb64
-??$_Destroy@PAVCreateAHeroClass@CreateAHeroManager@@@_STL@@YAXPAVCreateAHeroClass@CreateAHeroManager@@0@Z,0x0021FDD3,STLport callee for this element view: REL32 read at 0x0021FE33 in the byte-verified STLport helper 0x0021FE2B; ledger spelling there: ?dup_0021fdd3@@YAXXZ; fold-proof=Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 ??$_Destroy@PAVRva002A73B8@@@_STL@@YAXPAVRva002A73B8@@0@Z,0x002A752F,ICF twin of rowed Rva002A752FDestroy same 25B stride 0xC same dtor
 ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z,0x003376D1,_Destroy worker for _M_clear<vector<Rva003371B1>> at 0x00337942: retail REL32 at +0x09 targets this address; ghidra boundary
 ??$_Destroy@PAVRva0036105B@@@_STL@@YAXPAVRva0036105B@@0@Z,0x003615CD,Rva0036105B instantiation of rowed two-pointer Destroy called by erase at 0x00361643
@@ -12691,7 +12690,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??0Rva0020F0B8Element@@QAE@ABU0@@Z,0x000365F0,
 ?insert@?$list@URva004390F7Element@@V?$allocator@URva004390F7Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva004390F7Element@@U?$_Nonconst_traits@URva004390F7Element@@@_STL@@@2@U32@ABURva004390F7Element@@@Z,0x004390A2,
 ??1Rva002CFBAEElement@@QAE@XZ,0x004F5115,
-??1Rva0021FDD3Element@@QAE@XZ,0x0021F8F3,
 ??H?$_Deque_iterator@URva00422D82Element@@U?$_Nonconst_traits@URva00422D82Element@@@_STL@@@_STL@@QBE?AU01@H@Z,0x00422767,
 ?_M_increment@?$_Deque_iterator_base@URva0054A461Element@@@_STL@@QAEXXZ,0x00549E19,
 ??0Rva0039C415Element@@QAE@ABU0@@Z,0x0039B893,
