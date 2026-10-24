@@ -4930,7 +4930,6 @@ class_gate_allow	Code/GameEngine/Source/GameClient/GUI/LoadScreenUpdates.cpp	Uni
 class_gate_allow	Code/GameEngine/Source/GameClient/MapUtil_ParseObjectsDataChunk_Thunk_Rva00302b06.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleInfoVectorDeletingDtors.cpp	Snapshot	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp	Coord3D	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp	AsciiString	1
