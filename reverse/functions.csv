@@ -7074,7 +7074,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1AttackFireWhileChargingMachine@@UAE@XZ,,0x0033FB95,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
 ??1Rva0033FC0A@@UAE@XZ,,0x0033FC0A,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
 ??1AIAttackMoveStateMachine@@UAE@XZ,,0x0034004C,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
-??1BackAwayAndCowerStateMachine@@UAE@XZ,,0x003402D0,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
+??1BackAwayAndCowerStateMachine@@UAE@XZ,,0x003402D0,11,Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp,matched,opaque derived dtor; moved to the constructor unit so one unit emits the class vftable
 ??1Rva0034144B@@UAE@XZ,,0x0034144B,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
 ??1AIAttackSwoopThenIdleStateMachine@@UAE@XZ,,0x003677B3,11,Code/GameEngine/Source/GameLogic/AI/AIAttackSwoopThenIdleStateMachine.cpp,matched,dtor of the 0x003676A2 machine: restores the vtable 0x008174E0 its constructor installs and tail-calls StateMachine 0x004D759C
 ??1Rva0048898C@@UAE@XZ,,0x0048898C,11,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,opaque derived dtor
@@ -10799,7 +10799,7 @@ _math_mod,,0x007485A0,65,Code/Libraries/Source/Lua/lmathlib.c,matched,Lua math.m
 ??_GOathbreakersFadeAwayBehavior@@UAEPAXI@Z,,0x004B8AC5,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004CC63A@@UAEPAXI@Z,,0x004CC710,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva004DF7C2@@UAEPAXI@Z,,0x0028C939,28,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GBackAwayAndCowerStateMachine@@UAEPAXI@Z,,0x0034457C,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GBackAwayAndCowerStateMachine@@UAEPAXI@Z,,0x0034457C,28,Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact; moved to the constructor unit so one unit emits the class vftable
 ??_GRva00544C51@@UAEPAXI@Z,,0x00544FAA,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GSupplyTruckStateMachine@@UAEPAXI@Z,,0x004A7185,28,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp,matched,scalar deleting dtor: slot 0 of vtable 0x008532A8 (slot 2 returns the name string SupplyTruckStateMachine); calls the rowed ~SupplyTruckStateMachine; emitted via the TU vtable; byte-exact
 ??_GRva0045232D@@UAEPAXI@Z,,0x0045264F,28,Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
@@ -26610,7 +26610,7 @@ _VP6_UpdateContext,,0x001BC390,51,Code/Libraries/Source/VP6/FilterMath.cpp,match
 ?InitializeStaticData@AptScriptFunctionBase@@SAXABUAptInitParmsT@@@Z,,0x00709610,91,Code/Libraries/Source/Apt/AptObject/AptScriptFunctionStatic.cpp,matched,APT0.19.03 final donor; same target register-block globals as verified Push/Shutdown; matched new2FDA0; parameter dword+30; byte-verified
 ?rva000A77B3@AudioFileCache@@QAEXXZ,,0x000A77B3,38,Code/GameEngine/Source/Common/Rva000A77B3Close.cpp,matched,Wait plus CloseHandle thread teardown; byte flag at plus4C
 ?rva004D7127@State@@QAEXPBUStateConditionInfo@@@Z,,0x004D7127,33,Code/GameEngine/Source/Common/StateRva004D7127.cpp,matched,caller defineState 0x004D7B0F plus State offsets plus count loop
-?rva004D750F@StateMachine@@QAEXPAVObject@@@Z,,0x004D750F,14,Code/GameEngine/Source/GameLogic/AI/StateMachineRva004D750F.cpp,matched,locked guard at 0x38 plus tailjmp to setGoalObject plus slot14
+?setGoalObject@StateMachine@@UAEXPBVObject@@@Z,,0x004D750F,14,Code/GameEngine/Source/GameLogic/AI/StateMachineRva004D750F.cpp,matched,StateMachine vtable 0x00C60740 slot 14: virtual setGoalObject(const Object *) per Zero Hour and the canonical view; m_locked guard at +0x38 then tail jmp to the storing worker 0x004D7435
 ?rva004D7ADD@TurretStateMachine@@QAE_NXZ,,0x004D7ADD,30,Code/GameEngine/Source/GameLogic/AI/TurretStateMachineRva004D7ADD.cpp,matched,goalID zero plus Turret getGoalObject plus dead bit0
 ?get@Rva002E6ECA@@QBEHXZ,,0x002E6ECA,46,Code/GameEngine/Source/Common/Rva002E6ECAGet.cpp,matched,honest Rva name 14 UNCLAIMED callers no callees Disp siblings /O1
 ??0Rva004D7B70@@QAE@PAVStateMachine@@I@Z,,0x004D7B70,28,Code/GameEngine/Source/Common/StateDerivedCtorRva004D7B70.cpp,matched,State derived ctor hash passthrough (was AsciiString) plus vtable 0x00860790

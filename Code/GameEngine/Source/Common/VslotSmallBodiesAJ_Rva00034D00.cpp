@@ -226,7 +226,7 @@ public:
 class StateMachine
 {
 public:
-	void rva004D750F(Object *a);
+	virtual void setGoalObject(const Object *a);
 };
 
 class AIExitState
@@ -631,7 +631,7 @@ public:
 };
 
 
-// 0x0033FCDC: tail jump to StateMachine::rva004D750F.
+// 0x0033FCDC: tail jump to StateMachine::setGoalObject (0x004D750F).
 class Rva0033FCDC : public StateMachine
 {
 public:

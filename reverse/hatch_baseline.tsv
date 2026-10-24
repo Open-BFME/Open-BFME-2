@@ -3060,7 +3060,6 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/Rva00265254Ctor.cpp	?ji_006291
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva002EDEAB.cpp	?g_00E02EEC@@3PAVRva00E02EECObj@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp	?g_00C11B70@@3QBQBXB	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp	?g_00C122A0@@3QBQBXB	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/StateMachineRva004D750F.cpp	?setGoalObject@StateMachine@@UAEXPBVObject@@@Z	1	allow=38a76b8dedf5d1281fc39ab95e05a7172b73907e
 alternatename	Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp	?anchor@Rva004E16D9Record@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp	?anchor@Rva004E16D9Record@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/BuildListInfoCtor.cpp	_vtbl_00C0D904	1
