@@ -40,7 +40,7 @@ OutputIter __copy(InputIter first, InputIter last, OutputIter result, const rand
 template <class ForwardIter>
 void _Destroy(ForwardIter first, ForwardIter last);
 }
-// ??$__copy_ptrs@PAUBfmeStringRecord005DDD40@@PAU1@@_STL@@YAPAUBfmeStringRecord005DDD40@@PAU1@00ABU__false_type@0@@Z present-unmatched
+// ??$__copy_ptrs@PAUBfmeStringRecord005DDD40@@PAU1@@_STL@@YAPAUBfmeStringRecord005DDD40@@PAU1@00ABU__false_type@0@@Z @0x0038151E 29B
 template <>
 __declspec(noinline) BfmeStringRecord005DDD40 *_STL::__copy_ptrs<BfmeStringRecord005DDD40 *, BfmeStringRecord005DDD40 *>(BfmeStringRecord005DDD40 *first, BfmeStringRecord005DDD40 *last, BfmeStringRecord005DDD40 *result, const _STL::__false_type &tag)
 {
