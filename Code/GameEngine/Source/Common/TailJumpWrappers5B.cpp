@@ -657,7 +657,7 @@ Rva004C6CC1::~Rva004C6CC1()
 
 class SpecialPowerModule
 {
-public:
+protected:
 	virtual ~SpecialPowerModule();
 };
 

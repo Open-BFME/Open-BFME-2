@@ -2,7 +2,7 @@
 // Split from SpecialPowerModuleDtor.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 //
-// ??1SpecialPowerModule@@UAE@XZ, retail 0x00493DEF, 184 bytes (pinned; rowed
+// ??1SpecialPowerModule@@MAE@XZ, retail 0x00493DEF, 184 bytes (pinned; rowed
 // deleting wrapper 0x004941D7), and
 // ?getPowerName@SpecialPowerModule@@UBE?AVAsciiString@@XZ, retail
 // 0x004934B8, 38 bytes (called from the dtor at 0x00493E41 and at
@@ -174,7 +174,9 @@ public:
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
+protected:
 	virtual ~SpecialPowerModule();
+public:
 	virtual AsciiString getPowerName() const;
 	virtual void onSpecialPowerCreation();
 protected:

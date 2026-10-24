@@ -4888,7 +4888,6 @@ name,address,notes
 ??1SpawnBehavior@@UAE@XZ,0x0045F6D3,"dtor called by audited wrapper RVA 0x004602D8; retail slot 4 -> RVA 0x0045F688 uses class-name string ""SpawnBehavior"""
 ??1SpecialAbilityUpdate@@UAE@XZ,0x00451F45,"dtor called by audited wrapper RVA 0x004522F0; retail slot 4 -> RVA 0x0044F054 uses class-name string ""SpecialAbilityUpdate"""
 ??1SpecialPowerCompletionDie@@UAE@XZ,0x00486B01,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
-??1SpecialPowerModule@@UAE@XZ,0x00493DEF,"dtor called by audited wrapper RVA 0x004941D7; retail slot 4 -> RVA 0x00493DAA uses class-name string ""SpecialPowerModule"""
 ??1StancesBehavior@@UAE@XZ,0x0045F001,"dtor called by audited wrapper RVA 0x0045F068; retail slot 4 -> RVA 0x0045EFBC uses class-name string ""StancesBehavior"""
 ??1StaticSortListClass@@UAE@XZ,0x00176930,WW3D2 StaticSortListClass destructor: the 7-byte body stores vftable 0x007D4E24 whose slot 0 is the rowed ??_GStaticSortListClass followed by __purecall slots; the DefaultStaticSortListClass unwind funclet destroys its base by jumping here (rowed under the model name ?apply@Rva000176930DwordImmSetter)
 ??1StatusBitsUpgrade@@UAE@XZ,0x004B48D3,twin of rowed Rva004B48D3 dtor for StatusBitsUpgradeIfEldestKindof base call

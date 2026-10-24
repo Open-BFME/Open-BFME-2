@@ -178,7 +178,9 @@ class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInter
 {
 public:
 	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
+protected:
 	virtual ~SpecialPowerModule();
+public:
 	virtual void s00() = 0;
 	virtual void s01() = 0;
 	virtual void s02() = 0;

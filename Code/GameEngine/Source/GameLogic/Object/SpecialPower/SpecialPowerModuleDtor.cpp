@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ??1SpecialPowerModule@@UAE@XZ, retail 0x00493DEF, 184 bytes (pinned; rowed
+// ??1SpecialPowerModule@@MAE@XZ, retail 0x00493DEF, 184 bytes (pinned; rowed
 // deleting wrapper 0x004941D7), and
 // ?getPowerName@SpecialPowerModule@@UBE?AVAsciiString@@XZ, retail
 // 0x004934B8, 38 bytes (called from the dtor at 0x00493E41 and at
@@ -172,7 +172,9 @@ public:
 class SpecialPowerModule : public BehaviorModule, public SpecialPowerModuleInterface
 {
 public:
+protected:
 	virtual ~SpecialPowerModule();
+public:
 	virtual AsciiString getPowerName() const;
 	virtual void onSpecialPowerCreation();
 protected:
@@ -219,4 +221,4 @@ void SpecialPowerModule::onSpecialPowerCreation()
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:??1Rva00493DEF@@UAE@XZ=??1SpecialPowerModule@@UAE@XZ")
+#pragma comment(linker, "/alternatename:??1Rva00493DEF@@UAE@XZ=??1SpecialPowerModule@@MAE@XZ")

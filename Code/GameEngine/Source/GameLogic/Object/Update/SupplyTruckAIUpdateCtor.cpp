@@ -8,7 +8,7 @@
 // retail's derived E8 targets 0x00493C5A, rowed as
 // ??0SpecialPowerModule@@QAE@PAVThing@@PBVModuleData@@@Z (330B,
 // SpecialPowerModuleCtor.cpp), same (Thing*, ModuleData*) ABI; the base
-// dtor resolves to rowed ??1SpecialPowerModule@@UAE@XZ (0x00493DEF).
+// dtor resolves to rowed ??1SpecialPowerModule@@MAE@XZ (0x00493DEF).
 // The derived body re-stores the inherited +0x0C/+0x10 pointer slots
 // (address-of TU-local dummies, DIR32-patched). No trailing members
 // (factory size 0x88). Do NOT declare an explicit vptr member on the base:
@@ -27,7 +27,9 @@ class SpecialPowerModule
 {
 public:
 	SpecialPowerModule(Thing *thing, const ModuleData *moduleData);
+protected:
 	virtual ~SpecialPowerModule();
+public:
 
 protected:
 	unsigned char m_pad0[8];
