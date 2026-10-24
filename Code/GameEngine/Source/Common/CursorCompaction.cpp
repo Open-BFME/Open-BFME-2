@@ -73,7 +73,7 @@ void *Rva00541311::erase(void *position)
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below. Bind the donor spelling to that owner so one
 // address keeps one definition and the unit links.
-//   0x005B09D8 reads ??$__copy_backward_ptrs@PAURva005B09D8Record@@PAU1@@_STL@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@0@@Z
-#pragma comment(linker, "/alternatename:?rva005B09D8@@YAXPAD0PAXABUFalseType@@@Z=??$__copy_backward_ptrs@PAURva005B09D8Record@@PAU1@@_STL@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@0@@Z")
+//   0x005B09D8 reads ??$__copy_ptrs@PAURva005B09D8Record@@PAU1@@_STL@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@0@@Z
+#pragma comment(linker, "/alternatename:?rva005B09D8@@YAXPAD0PAXABUFalseType@@@Z=??$__copy_ptrs@PAURva005B09D8Record@@PAU1@@_STL@@YAPAURva005B09D8Record@@PAU1@00ABU__false_type@0@@Z")
 //   0x00541231 reads ??$__copy_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z
 #pragma comment(linker, "/alternatename:?rva00541231@@YAXPAD0PAXABURva00541311Tag@@@Z=??$__copy_ptrs@PAVRva0054103E@@PAV1@@_STL@@YAPAVRva0054103E@@PAV1@00ABU__false_type@0@@Z")
