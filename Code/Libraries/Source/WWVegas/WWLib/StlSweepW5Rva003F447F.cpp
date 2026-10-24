@@ -1,10 +1,17 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <vector>
+//
+// 0x003F447F (29B) is STLport's __copy_backward_ptrs forwarder (const __false_type& tag): its
+// REL32 lands on 0x003F41BE, rowed as __copy_backward<BfmeAssignRecord104 *> in
+// stlport_asciistring_record_bodies.cpp. The element type is that row's (identity unresolved
+// beyond it); the callee is only declared here, so this unit emits the forwarder alone.
+#include <algorithm>
 
-struct Rva003F447FElement { char bytes[9];Rva003F447FElement();Rva003F447FElement(const Rva003F447FElement&);~Rva003F447FElement();Rva003F447FElement&operator=(const Rva003F447FElement&); bool operator<(const Rva003F447FElement&)const; bool operator==(const Rva003F447FElement&)const; };
+struct BfmeAssignRecord104;
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva003F447FElement * _STL::__copy_backward_ptrs<Rva003F447FElement *, Rva003F447FElement *>(Rva003F447FElement *, Rva003F447FElement *, Rva003F447FElement *, _STL::__false_type const &);
+namespace _STL {
+template <> BfmeAssignRecord104 *__copy_backward<BfmeAssignRecord104 *, BfmeAssignRecord104 *, int>(BfmeAssignRecord104 *, BfmeAssignRecord104 *, BfmeAssignRecord104 *, const random_access_iterator_tag &, int *);
+}
+
+template BfmeAssignRecord104 *_STL::__copy_backward_ptrs<BfmeAssignRecord104 *, BfmeAssignRecord104 *>(BfmeAssignRecord104 *, BfmeAssignRecord104 *, BfmeAssignRecord104 *, const _STL::__false_type &);

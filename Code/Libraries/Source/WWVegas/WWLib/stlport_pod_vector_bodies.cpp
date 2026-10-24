@@ -1348,3 +1348,7 @@ template BfmePod52 * _STL::__uninitialized_copy<BfmePod52 *,BfmePod52 *>(BfmePod
 
 // Shared header destructor used by the char-vector callers.
 template _STL::vector<char>::~vector();
+
+// ?swap@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXAAV12@@Z @0x003079C1 44B: swaps the three
+// pointers and calls the proxy swap 0x00025AD0; the byte-vector loader 0x00307EDC calls it.
+template void _STL::vector<char>::swap(_STL::vector<char> &);

@@ -1,10 +1,17 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-#include <vector>
+//
+// 0x001DD356 (29B) is STLport's __copy_backward_ptrs forwarder (const __false_type& tag): its
+// REL32 lands on 0x001DD181, rowed as __copy_backward<BfmePod52 *> in
+// stlport_pod_vector_bodies.cpp. The element type is that row's (identity unresolved
+// beyond it); the callee is only declared here, so this unit emits the forwarder alone.
+#include <algorithm>
 
-struct Rva001DD356Element { char bytes[9];Rva001DD356Element();Rva001DD356Element(const Rva001DD356Element&);~Rva001DD356Element();Rva001DD356Element&operator=(const Rva001DD356Element&); bool operator<(const Rva001DD356Element&)const; bool operator==(const Rva001DD356Element&)const; };
+struct BfmePod52;
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva001DD356Element * _STL::__copy_backward_ptrs<Rva001DD356Element *, Rva001DD356Element *>(Rva001DD356Element *, Rva001DD356Element *, Rva001DD356Element *, _STL::__false_type const &);
+namespace _STL {
+template <> BfmePod52 *__copy_backward<BfmePod52 *, BfmePod52 *, int>(BfmePod52 *, BfmePod52 *, BfmePod52 *, const random_access_iterator_tag &, int *);
+}
+
+template BfmePod52 *_STL::__copy_backward_ptrs<BfmePod52 *, BfmePod52 *>(BfmePod52 *, BfmePod52 *, BfmePod52 *, const _STL::__false_type &);

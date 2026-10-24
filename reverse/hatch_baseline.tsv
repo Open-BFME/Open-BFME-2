@@ -3060,7 +3060,6 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/Rva00265254Ctor.cpp	?ji_006291
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva002EDEAB.cpp	?g_00E02EEC@@3PAVRva00E02EECObj@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva003435FBStates.cpp	?g_00C11B70@@3QBQBXB	1
 alternatename	Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp	?g_00C122A0@@3QBQBXB	1
-alternatename	Code/GameEngine/Source/GameLogic/AI/StateMachineRva004D750F.cpp	?setGoalObject@StateMachine@@UAEXPBVObject@@@Z	1	allow=38a76b8dedf5d1281fc39ab95e05a7172b73907e
 alternatename	Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp	?anchor@Rva004E16D9Record@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp	?anchor@Rva004E16D9Record@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/BuildListInfoCtor.cpp	_vtbl_00C0D904	1
@@ -3848,7 +3847,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_dtor.cp
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGroupSkipCheck.cpp	?skipGroup@Rva003B485AHolder@@QAE_NPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListCtor.cpp	_vtbl_00C1FAAC	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListElementDestroy.cpp	??1ScriptListElementName@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListNodeDtor.cpp	_vtbl_00BBB554	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/TemplateGetParameterType.cpp	??1?$StringBase@D@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1AddPlayer.cpp	?Va00DFE0ECStore@@3PAVRva002000D7Store@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1AddPlayer.cpp	?Va00DFE78CStatePointer@@3PAUVa00DFE78CState@@A	1
@@ -4932,7 +4930,6 @@ class_gate_allow	Code/GameEngine/Source/GameClient/GUI/LoadScreenUpdates.cpp	Uni
 class_gate_allow	Code/GameEngine/Source/GameClient/MapUtil_ParseObjectsDataChunk_Thunk_Rva00302b06.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ModuleInfoVectorDeletingDtors.cpp	Snapshot	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/AIAttackMoveStateMachine.cpp	AsciiString	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva003444CEStates.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/AI/Rva0034B952Ctor.cpp	AsciiString	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp	Coord3D	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/Map/Rva0019BC00SetFields.cpp	AsciiString	1
@@ -31823,9 +31820,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00464984.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004677FD.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004677FD.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004677FD.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0046AA69.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0046AA69.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0046AA69.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00470205.cpp	"t",on	1
@@ -36591,7 +36585,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_opaque_mcle
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_2154f3_erase.cpp	$__copy_ptrs@PAUBfmeVectorRecord0002154F3@@PAU1@@_STL@@YAPAUBfmeVectorRecord0002154F3@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000b435f_erase.cpp	$__copy_ptrs@PAURva000B435F@@PAU1@@_STL@@YAPAURva000B435F@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00b6cf1_erase.cpp	$__copy_ptrs@PAURva00B6CF1@@PAU1@@_STL@@YAPAURva00B6CF1@@PAU1@00ABU__false_type@0@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_5ddd40_erase.cpp	$__copy_ptrs@PAUBfmeStringRecord005DDD40@@PAU1@@_STL@@YAPAUBfmeStringRecord005DDD40@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_unicode_erase.cpp	$__copy_ptrs@PAVUnicodeString@@PAV1@@_STL@@YAPAVUnicodeString@@PAV1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	Sleep_Ms@ThreadClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	Switch_Thread@ThreadClass@@	1

@@ -11,7 +11,7 @@
 //    running while the state returns STATE_CONTINUE or a sleep (>= 0) or is
 //    gone (returning the status without the base update), and
 //    on leaving the temporary state restores the saved goal object (id
-//    +0x58, through the rowed StateMachine::rva004D750F) and goal position
+//    +0x58, through the rowed StateMachine::setGoalObject 0x004D750F) and goal position
 //    (+0x5C), then pokes the current state's vslot 7; the base
 //    StateMachine::updateStateMachine (rowed 0x004D7321) follows.
 //  - rva0035033F, retail 0x0035033F (83 bytes): the same exit with
@@ -104,7 +104,7 @@ public:
 	virtual ~StateMachine();
 	virtual StateReturnType updateStateMachine();
 	virtual void clear();
-	void rva004D750F(Object *obj); // goal object setter
+	virtual void setGoalObject(const Object *obj); // slot 14, rowed 0x004D750F
 	void setGoalPosition(const Coord3D *pos);
 	Object *getOwner() const { return m_owner; }
 protected:
@@ -165,7 +165,7 @@ StateReturnType AIStateMachine::updateStateMachine()
 			return status;
 		}
 		m_temporaryState->onExit(EXIT_NORMAL);
-		rva004D750F(TheGameLogic->findObjectByID(m_savedGoalObjectID));
+		StateMachine::setGoalObject(TheGameLogic->findObjectByID(m_savedGoalObjectID));
 		setGoalPosition(&m_savedGoalPosition);
 		m_savedGoalObjectID = INVALID_OBJECT_ID;
 		m_temporaryState = NULL;
@@ -181,7 +181,7 @@ void AIStateMachine::rva0035033F()
 	if (m_temporaryState)
 	{
 		m_temporaryState->onExit(EXIT_RESET);
-		rva004D750F(TheGameLogic->findObjectByID(m_savedGoalObjectID));
+		StateMachine::setGoalObject(TheGameLogic->findObjectByID(m_savedGoalObjectID));
 		setGoalPosition(&m_savedGoalPosition);
 		m_savedGoalObjectID = INVALID_OBJECT_ID;
 		m_temporaryState = NULL;

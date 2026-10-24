@@ -1,24 +1,17 @@
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-#include <stl/_algobase.h>
-#pragma optimize("s", off)
-#pragma optimize("t", on)
-namespace _STL {
-static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
-{
-    return a < b ? b : a;
-}
-}
-#pragma optimize("", on)
-
+//
+// 0x005B09D8 (29B) is STLport's __copy_ptrs forwarder (const __false_type& tag): its
+// REL32 lands on 0x005B04D3, rowed as __copy<Rva005B09D8Record *> in
+// Rva005B09D8CopyPointers.cpp. The element type is that row's (identity unresolved
+// beyond it); the callee is only declared here, so this unit emits the forwarder alone.
 #include <algorithm>
-#include <memory>
 
+struct Rva005B09D8Record;
 
+namespace _STL {
+template <> Rva005B09D8Record *__copy<Rva005B09D8Record *, Rva005B09D8Record *, int>(Rva005B09D8Record *, Rva005B09D8Record *, Rva005B09D8Record *, const random_access_iterator_tag &, int *);
+}
 
-struct Rva005B09D8Record { Rva005B09D8Record(); Rva005B09D8Record(const Rva005B09D8Record&); ~Rva005B09D8Record(); Rva005B09D8Record&operator=(const Rva005B09D8Record&); char bytes[1]; bool operator<(const Rva005B09D8Record&)const; };
-template void _STL::sort(Rva005B09D8Record*,Rva005B09D8Record*);
+template Rva005B09D8Record *_STL::__copy_ptrs<Rva005B09D8Record *, Rva005B09D8Record *>(Rva005B09D8Record *, Rva005B09D8Record *, Rva005B09D8Record *, const _STL::__false_type &);

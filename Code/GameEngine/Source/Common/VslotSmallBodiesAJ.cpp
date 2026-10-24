@@ -244,7 +244,7 @@ public:
 class StateMachine
 {
 public:
-	void rva004D750F(Object *a);
+	virtual void setGoalObject(const Object *a);
 };
 
 class AIExitState
@@ -732,7 +732,7 @@ void Rva0032E53D::rva0032E53D()
 	SidesList::clear();
 }
 
-// 0x0033FCDC: tail jump to StateMachine::rva004D750F.
+// 0x0033FCDC: tail jump to StateMachine::setGoalObject (0x004D750F).
 class Rva0033FCDC : public StateMachine
 {
 public:
@@ -740,7 +740,7 @@ public:
 };
 void Rva0033FCDC::rva0033FCDC(Object *object)
 {
-	StateMachine::rva004D750F(object);
+	StateMachine::setGoalObject(object);
 }
 
 // 0x00341D1C: tail jump to AIExitState::onEnter.
