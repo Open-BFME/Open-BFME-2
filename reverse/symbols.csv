@@ -12690,7 +12690,6 @@ rva009C7380WeightPairs,0x009B84E0
 ??$__copy_backward_ptrs@PAPAURva005FE3C1Element@@PAPAU1@@_STL@@YAPAPAURva005FE3C1Element@@PAPAU1@00ABU__true_type@0@@Z,0x005FE24C,
 ??0Rva0020F0B8Element@@QAE@ABU0@@Z,0x000365F0,
 ?insert@?$list@URva004390F7Element@@V?$allocator@URva004390F7Element@@@_STL@@@_STL@@QAE?AU?$_List_iterator@URva004390F7Element@@U?$_Nonconst_traits@URva004390F7Element@@@_STL@@@2@U32@ABURva004390F7Element@@@Z,0x004390A2,
-??1Rva002B0CE7Element@@QAE@XZ,0x002AF1EC,
 ??1Rva002CFBAEElement@@QAE@XZ,0x004F5115,
 ??1Rva002D028FElement@@QAE@XZ,0x002CF51B,
 ??1Rva0021FDD3Element@@QAE@XZ,0x0021F8F3,
