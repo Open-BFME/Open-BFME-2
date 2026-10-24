@@ -18,7 +18,6 @@
 //   0x003A8BD7  0x003A9397  0x2C  0x00C1BF60#0
 //   0x003A8C5A  0x003A9397  0x70  0x00C1BF84#0
 //   0x003A8E25  0x003A9397  0x30  0x00C1BFFC#0
-//   0x003A9057  0x003A9397  0x10  0x00C1C0A0#0
 //   0x003A9152  0x003A9397  0x1C  0x00C1C0E8#0
 //   0x003A91E3  0x003A9397  0x14  0x00C1C10C#0
 //   0x003A9A40  0x003AA0C0  0x24  0x00C1C198#0
@@ -101,30 +100,6 @@ class Rva003A8E25Vec : public Rva003A8E25VecBase0, public Rva003A8E25VecBase8
 {
 public:
 	virtual ~Rva003A8E25Vec();
-};
-
-class __declspec(novtable) Rva003A9057VecBase0
-{
-public:
-	virtual ~Rva003A9057VecBase0();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-// Secondary base at +0x8, proven by the this-adjusting thunk (sub ecx,
-// 0x8) to this class's vector deleting destructor in its vtable.
-class __declspec(novtable) Rva003A9057VecBase8
-{
-public:
-	virtual ~Rva003A9057VecBase8();
-private:
-	char m_unmodelled_04[0x8 - 0x04];
-};
-
-class Rva003A9057Vec : public Rva003A9057VecBase0, public Rva003A9057VecBase8
-{
-public:
-	virtual ~Rva003A9057Vec();
 };
 
 class __declspec(novtable) Rva003A9152VecBase0
@@ -301,7 +276,6 @@ void bfmeVectorDeleteAnchorV04Unresolved()
 	new Rva003A8BD7Vec[2];
 	new Rva003A8C5AVec[2];
 	new Rva003A8E25Vec[2];
-	new Rva003A9057Vec[2];
 	new Rva003A9152Vec[2];
 	new Rva003A91E3Vec[2];
 	new Rva003AA0C0[2];

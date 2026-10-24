@@ -1,5 +1,9 @@
 // cl: /EHsc /Ireference/shims/fxparticle_link
 #include "ModuleTemplate.h"
+
+// Declared so a vector deleting destructor frees through operator delete[]
+// (0x0002FD80) as retail does; left undeclared, cl falls back to scalar delete.
+void operator delete[](void *p);
 #include <memory>
 
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
@@ -675,6 +679,13 @@ template <> PointEmissionVolumeModuleConcrete::ConcreteModuleTemplate() throw();
 
 extern PointEmissionVolumeModuleConcrete g_pointEmissionVolumeModuleConcrete;
 template class ConcreteModuleClass<PointEmissionVolumeModuleTag>;
+
+// Retail's vector deleting destructor 0x003A9057 (vtable 0x00C1C0A0 slot 0) is an
+// EH-unit body: it uses the eh vector destructor iterator. cl 7.1 emits it in a unit
+// that array-news the class; the constructor stays out of line, so this unit emits
+// no copy of the vtable (FXParticleSystemModules.cpp owns it and the W7 thunk).
+// ?<bfmeVectorDeleteAnchorPointEmissionVolume> absent-from-retail
+void bfmeVectorDeleteAnchorPointEmissionVolume() { new PointEmissionVolumeModuleConcrete[2]; }
 
 FX_WRAPPER_NOTHROW_CTOR(5, SPHERE_EMISSION_VOLUME, SphereEmissionVolumeModule,
     SphereEmissionVolumeModuleTemplate)
