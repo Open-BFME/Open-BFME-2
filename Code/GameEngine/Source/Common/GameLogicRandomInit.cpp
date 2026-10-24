@@ -1,6 +1,6 @@
 // cl: /Ob0 /MD /DNDEBUG
 // ?InitRandom@@YAXI@Z @ 0x00233F82 (69B) and ?InitGameLogicRandom@@YAXI@Z
-// @ 0x00233FC7 (44B). Seeded-random initializers ported from Open-BFME-1
+// @ 0x00233FC7 (45B). Seeded-random initializers ported from Open-BFME-1
 // Code/GameEngine/Source/Common/System/random_value.cpp
 // (InitRandom/InitGameLogicRandom), with BFME2's fixed-seed override:
 // when GlobalData's fixed seed is not -1 it seeds the generators instead
@@ -26,7 +26,17 @@ static UnsignedInt theGameLogicSeed[6] =
 	0xf22d0e56, 0x883126e9, 0xc624dd2f, 0x702c49c, 0x9e353f7d, 0x6fdf3b64
 };
 
+// The getter at 0x00233F6A and both seeded initializers reference the same
+// zero-filled four-byte datum at RVA 0x009FE734. Keep the reader with its
+// writers so private linkage does not create a second seed in another TU.
 static UnsignedInt theGameLogicBaseSeed;
+
+// BFME1 random_value.cpp also keeps this getter beside the private seed.
+// ?GetGameLogicRandomSeed@@YAIXZ @ 0x00233F6A (6B).
+UnsignedInt GetGameLogicRandomSeed(void)
+{
+	return theGameLogicBaseSeed;
+}
 
 // The override is GlobalData::m_fixedSeed (ZH GlobalData.h: "fixed random
 // seed for game logic", default -1 = disabled), read through
