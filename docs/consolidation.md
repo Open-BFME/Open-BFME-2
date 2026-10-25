@@ -70,12 +70,78 @@ regenerated `tu_map.csv` from this lane.
    (`python3 tools/claims.py release file:<path> ...`) and let
    `python3 tools/claims.py release --landed` settle the RVAs.
 
+## Carving a mixed file (the split lane)
+
+A mixed file holds matched rows of several TUs, and often rows with no approved
+TU yet. A merge never splits one. `tools/tu_skeleton.py --split` carves the rows
+approved for ONE TU out of it, straight into that TU path, and leaves every other
+row where it was:
+
+    python3 tools/tu_skeleton.py --split FILE                 # which TUs the file's rows belong to
+    python3 tools/tu_skeleton.py --split FILE --for TU --dry-run
+    BFME_CLAIM_OWNER=<seat> python3 tools/tu_skeleton.py --split FILE --for TU
+
+What it does, in order, writing nothing until the last step:
+
+1. Identifies each approved row's definition by the name it spells
+   (`Class::method(`, a free function, a destructor, an operator, a template),
+   or, in a sweep file that generates one body per macro invocation, the
+   invocation naming the row's class among its arguments; a row no definition
+   spells, or that two spell, stays behind and is reported, as does a row whose
+   one definition (a template, a macro) also produces rows the map places in
+   another TU. Rows emitted with a carved body ride with it: EH funclets by name
+   (`__ehhandler$X`, ...), generated funclets (`gen-funclet;parent=X`) and the
+   deleting destructors of a carved destructor. A body naming a global that
+   carries data-identity debt keyed to the file stays behind: retire that key
+   first.
+2. Carves: the donor text is the file minus the bodies that stay; the residual is
+   the file minus the bodies that leave. Both keep every preprocessor line,
+   declaration and comment. Definitions are never duplicated: a file-local
+   helper function with internal linkage that is not a ledger row travels as a
+   copy when a carved body calls it (transitively); one with external linkage
+   never does. A file-scope object definition goes where it is used: with the
+   carved bodies when only they use it (its data row is repointed), else it
+   stays; an external one used on both sides stays and the donor declares it
+   `extern`; an internal one used on both sides refuses the carve, as does a
+   `namespace {}` / `extern "C" {}` block that defines anything. Quoted includes
+   that resolve beside the mixed file are rewritten to resolve beside the TU
+   (the compiler searches the including file's directory first).
+3. Verifies the residual under its own path and the flags the build will give its
+   remaining rows (the region vote can change when rows leave). Any lost row
+   blocks the split.
+4. Verifies every carved row alone beside the TU under the TU's flags. A row that
+   matches only under the mixed file's own flags stays behind (`flag_bound`).
+5. Runs the carved bodies through the merge verifier as a donor: into the existing
+   TU file as seed, or as a new TU file. The usual merge repairs apply
+   (duplicate declarations dropped once, redefinitions repaired); a donor the
+   seed's headers cannot host is rejected with the compiler's reason, exactly as
+   in `--merge`, and the seat reconciles the seed or the donor first.
+6. Claims `file:TU`, `file:FILE` and every moved RVA; writes the TU and the
+   residual; repoints only the moved rows in `functions.csv`, `tu_map.csv` and
+   `body_owners.csv`; adds the TU to the doxygen list; stages the result and
+   prints a commit subject. When a moved body carries an escape hatch the carve
+   first proves no per-hatch total grows (rule 3 of `tools/hatch_counters.py`),
+   refuses on a tree with other modified files, runs `hatch_counters.py
+   --update` after staging and prints the `Verifier-Change:` trailer the
+   register's change needs.
+
+Then `./build.sh TU FILE`, `python3 tools/find_declared_unmatched.py TU FILE`, commit
+with the printed subject, and publish under the normal batch rules (a split moves
+no new bytes; batch splits with the merges they unblock, and run the tooling
+compatibility audit once over the batch).
+
+What it refuses: a vendored file, one another file `#include`s, one that
+expands `__FILE__` (each checked directly, not only through `rename_files`'
+first reason), a file every row of which is this TU's (use `--merge`), a carve
+after which no row would remain, a TU path holding rows the map places elsewhere
+(split that first), and anything another worker holds a claim on.
+
 ## What the lane does not do yet
 
-- **Mixed files** (a file holding rows of two TUs) are never split: about as many
-  donor files are mixed as clean. Do not split them by hand inside a merge; a
-  split is its own verified change (move the foreign bodies to their own TU or a
-  file of their own first, then merge).
+- **Mixed files** (a file holding rows of two TUs) are never split inside a
+  merge: about as many donor files are mixed as clean. A split is its own
+  verified change, `--split FILE --for TU` above, one TU at a time; rows the map
+  has not placed stay in the file until it places them.
 - **TU paths that hold another TU's rows** are skipped by the queue for the same
   reason (`blocked: ... split it first`).
 - **Linking.** `tools/link_check.py` cannot preview a new path before a census
