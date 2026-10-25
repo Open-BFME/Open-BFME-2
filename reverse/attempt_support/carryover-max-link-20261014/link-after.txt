@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignCarryoverInsert.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 349)
-  selected    ??$_Construct@UBfmePod172@@U1@@_STL@@YAXPAUBfmePod172@@ABU1@@Z  (the definition the link keeps is not retail's)
-  selected    ??$__copy_backward@PAURva001EB831Element@@PAU1@H@_STL@@YAPAURva001EB831Element@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.0s)

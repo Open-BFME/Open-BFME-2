@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp	wrong-name	?$S1@?1??rva00373D5E@StealthUpdate@@QAEXXZ@4IA	0x00A01F00
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp	wrong-name	?$S2@?O@??rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z@4IA	0x00A01F08
-data_check (enforce): 1 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.9s

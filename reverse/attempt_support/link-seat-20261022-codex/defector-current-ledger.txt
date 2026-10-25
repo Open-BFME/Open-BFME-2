@@ -1,2 +1,0 @@
-Lib members: 12 extracted from 1 archive(s)
-link_check: 11,984 current-ledger object(s) lack current compiler evidence: ^code_^game^engine_^source_^common_^disp^byte^field^setters.obj, ^code_^game^engine_^source_^common_^rva^small^vtable^ctors.obj, ^code_^game^engine_^source_^game^client_^f^x^particle^system.obj, ^code_^game^engine_^source_^main_^win^main.obj, ^code_^libraries_^source_^w^w^vegas_^w^w^lib_ascii_string.obj

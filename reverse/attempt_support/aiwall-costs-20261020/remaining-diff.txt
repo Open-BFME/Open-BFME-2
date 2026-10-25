@@ -1,6 +1,0 @@
-@ ours[2:2] retail[2:4] insert
-+  movss xmm1, dword ptr [ecx]
-+  subss xmm1, dword ptr [eax]
-@ ours[4:6] retail[6:6] delete
--  movss xmm1, dword ptr [ecx]
--  subss xmm1, dword ptr [eax]

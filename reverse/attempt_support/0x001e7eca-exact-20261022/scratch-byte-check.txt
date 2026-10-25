@@ -1,6 +1,0 @@
-?rva001E7ECA@Locomotor@@QAE_NPAVObject@@PBUCoord3D@@@Z (build/locomotor-zero-cfg/mergedunder_5_0_00.cpp)
-target RVA: 0x001E7ECA
-target size: 1563 bytes
-compiled symbol size: 1563 bytes
-classification: exact match
-OK: bytes match

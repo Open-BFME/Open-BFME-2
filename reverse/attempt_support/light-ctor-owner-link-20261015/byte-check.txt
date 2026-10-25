@@ -1,8 +1,0 @@
-Source claims: OK (5 sources, scoped byte-verified)
-Compile: 0 of 5 TU(s) (deps-cache: 5 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_00765760 (Code/Libraries/Source/WWVegas/WW3D2/collect.cpp): $L22536 was renumbered by an edit to this TU; the body is $L22377 in the object built now (stale ledger pin, not a byte mismatch)
-Functions: OK 26/26 matched across 5 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (8 compiler literals verified)
-Import-ref verify: OK (1 named imports verified)

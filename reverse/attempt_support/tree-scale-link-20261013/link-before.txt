@@ -1,2 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTree.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,281)
-  comdat      ??XVector3@@QAEAAV0@M@Z  (first: differs from the first copy in link order (no retail address))

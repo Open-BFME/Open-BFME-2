@@ -1,2 +1,0 @@
-{"name": "original", "fitness": 0.95159, "exact": false, "class": "structural", "size": 219}
-{"name": "inline-getter", "fitness": 1.0, "exact": true, "class": "exact", "size": 225}

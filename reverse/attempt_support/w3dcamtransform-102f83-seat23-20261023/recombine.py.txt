@@ -1,9 +1,0 @@
-import sys,json
-from pathlib import Path
-import search
-label=sys.argv[2] if len(sys.argv)>2 else '00000101'
-search.BASE=(search.HERE/('trials/namedvalues_'+label+'.cpp')).read_text()
-mode=sys.argv[1]
-search.HERE=search.HERE/('recombined-'+label)
-search.HERE.mkdir(exist_ok=True)
-search.run(mode)

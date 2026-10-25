@@ -1,8 +1,0 @@
-Code/GameEngine/Source/Common/NarrowStringRecord0041A5D2Dtor.cpp
-Code/Libraries/Source/WWVegas/WWLib/StlportNarrowRecord0054FEF1DequeAux.cpp
-Code/GameEngine/Source/Common/Rva0041A9E8PushBackAux.cpp
-Code/GameEngine/Source/Common/Rva003896E7Permuted.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadMatchbot.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/WideCharStringToMultiByte.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThreadLookupStat.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsThreadClassThreadFunction.cpp

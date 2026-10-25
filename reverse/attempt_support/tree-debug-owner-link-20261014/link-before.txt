@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 684)
-  unresolved  ?rva00171067@Rva00171024@@QAEXABVBFME2ParticleTextureHandle@@@Z
-  unresolved  ?theDebug@@3PAVTextureDebug@@A
-Code/Libraries/Source/WWVegas/WWDebug/DebugPreStaticInit.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 124)
-  comdat      ??2@YAPAXIPAX@Z  (retail: not retail's body)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (5.2s)

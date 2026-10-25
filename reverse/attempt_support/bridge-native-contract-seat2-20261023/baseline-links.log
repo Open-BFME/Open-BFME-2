@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 188)
-  comdat      ??_7BridgeBehavior@@6BUpdateModule@@@  (first: differs from the first copy in link order (no retail address))
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (42.2s)

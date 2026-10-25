@@ -1,6 +1,0 @@
-v0008.cpp
-build\cgd-call-lowering-20261023\contracts\v0008.cpp(19) : error C2485: 'noalias' : unrecognized extended attribute
-cl : Command line warning D4025 : overriding '/EHc-' with '/EHc'
-v0012.cpp
-build\cgd-call-lowering-20261023\contracts\v0012.cpp(19) : error C2485: 'restrict' : unrecognized extended attribute
-cl : Command line warning D4025 : overriding '/EHc-' with '/EHc'

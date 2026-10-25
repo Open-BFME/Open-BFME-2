@@ -1,3 +1,0 @@
-COMMAND: python3 tools/place_bodies.py Code/GameEngine/Source/GameLogic/Object/Contain/Rva004F571BReplaceContainedOwner.cpp
-EXIT: 0
-## 0 bodies, 0 pins

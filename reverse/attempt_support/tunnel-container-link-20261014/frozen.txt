@@ -1,3 +1,0 @@
-COMMAND: python3 tools/find_declared_unmatched.py Code/GameEngine/Source/GameLogic/Object/Contain/Rva004F571BReplaceContainedOwner.cpp
-EXIT: 0
-All defined functions are already matched.

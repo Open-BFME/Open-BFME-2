@@ -1,8 +1,0 @@
-compile failed: Code/Libraries/Source/WWVegas/WW3D2/fxshadersetup.cpp
-Source claims: OK (1 sources, scoped byte-verified)
-cl : Command line warning D4025 : overriding '/O2' with '/O1'
-fxshadersetup.cpp
-z:\work8\open-bfme-2\vendor\stlport\stl\_vector.c(50) : fatal error C1001: INTERNAL COMPILER ERROR
-		(compiler file 'f:\vs70builds\3077\vc\Compiler\Utc\src\P2\main.c', line 148)
- Please choose the Technical Support command on the Visual C++
- Help menu, or open the Technical Support help file for more information

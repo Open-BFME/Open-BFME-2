@@ -1,9 +1,0 @@
-Traceback (most recent call last):
-  File "/home/claude/decomp/s2/tools/explain_mismatch.py", line 225, in <module>
-    main()
-  File "/home/claude/decomp/s2/tools/explain_mismatch.py", line 180, in main
-    compiled_raw, relocs = build.read_object_symbol_bytes(
-                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/home/claude/decomp/s2/tools/build.py", line 555, in read_object_symbol_bytes
-    raise ValueError(f"symbol not found in object: {symbol_name}")
-ValueError: symbol not found in object: ??A?$map@I_NU?$less@I@_STL@@V?$allocator@U?$pair@$$CBI_N@_STL@@@2@@_STL@@QAEAA_NABI@Z

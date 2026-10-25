@@ -1,9 +1,0 @@
-H=' for(AmoebaNode *node=range.list->head->next;node!=range.list->head;node=node->next) {'
-ADV='static __forceinline void amoebaAdvance(AmoebaNode *&n) { n=n->next; }\nstatic inline void amoebaAdvance2(AmoebaNode *&n) { n=n->next; }\nstatic __forceinline AmoebaNode *amoebaGet(AmoebaNode *const &n) { return n; }\n'
-K='void HordeMeleeAmoeba::updateMeleeAttack'
-V={
-'adv_fi':[('PRE:static __forceinline Object *amoebaLeader',ADV+'static __forceinline Object *amoebaLeader'),(H,' for(AmoebaNode *node=range.list->head->next;node!=range.list->head;amoebaAdvance(node)) {')],
-'adv_in':[('PRE:static __forceinline Object *amoebaLeader',ADV+'static __forceinline Object *amoebaLeader'),(H,' for(AmoebaNode *node=range.list->head->next;node!=range.list->head;amoebaAdvance2(node)) {')],
-'get_ref':[('PRE:static __forceinline Object *amoebaLeader',ADV+'static __forceinline Object *amoebaLeader'),('  Object *unit=node->object;\n  if(!unit ||','  Object *unit=amoebaGet(node)->object;\n  if(!unit ||')],
-'ptrptr':[(H,' AmoebaNode *node=range.list->head->next; AmoebaNode **cur=&node;\n for(;*cur!=range.list->head;*cur=(*cur)->next) {'),('  Object *unit=node->object;\n  if(!unit ||','  Object *unit=(*cur)->object;\n  if(!unit ||')],
-}

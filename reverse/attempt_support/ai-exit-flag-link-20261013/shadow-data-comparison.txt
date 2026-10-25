@@ -1,8 +1,0 @@
-Before findings reconstructed from proven unchanged object bytes and relocs; provider definition removed.
-Before 2; after 5; added 3; removed 0.
-added: ('Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp', 'wrong-name', '?BfmeAIExitDoorFlag@@3_NA', '0x00A03624')
-added: ('Code/GameEngine/Source/GameLogic/AI/AIExitStateMethods.cpp', 'wrong-name', '?BfmeAIExitDoorFlag@@3_NA', '0x00A03624')
-added: ('Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp', 'wrong-name', '?BfmeAIExitDoorFlag@@3_NA', '0x00A03624')
-The inferred data_ledger.csv row still selects old g_00E03624 as unowned (0 definitions).
-The new byte-verified data_rows.csv owns BfmeAIExitDoorFlag; old symbol has no remaining source references.
-Two unrelated pre-existing GapBodiesSeat1B wrong-name findings remain. No baseline is changed.

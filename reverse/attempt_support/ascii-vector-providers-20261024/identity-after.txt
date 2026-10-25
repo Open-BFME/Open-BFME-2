@@ -1,4 +1,0 @@
-binding: Code/GameEngine/Source/Common/System/Upgrade.cpp | ?findVeterancyUpgrade@UpgradeCenter@@QBEPBVUpgradeTemplate@@W4VeterancyLevel@@@Z | ??1AsciiString@@QAE@XZ | 0x00036410 | divergent
-binding: Code/GameEngine/Source/Common/System/Upgrade.cpp | ?getVetUpgradeName@@YA?AVAsciiString@@W4VeterancyLevel@@@Z | ??1AsciiString@@QAE@XZ | 0x00036410 | divergent
-binding: Code/GameEngine/Source/Common/System/XferAsciiStringVector.cpp | ?xferAsciiStringVector@@YAPAVXfer@@PAV1@PAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z | ??1AsciiString@@QAE@XZ | 0x00036410 | divergent
-code identity 16 rows; 3 findings; shadow

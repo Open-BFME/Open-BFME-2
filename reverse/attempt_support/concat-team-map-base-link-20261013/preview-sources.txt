@@ -1,4 +1,0 @@
-Code/GameEngine/Source/Common/RTS/TeamCtor.cpp
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp
-Code/GameEngine/Source/GameClient/MapCacheWriteCacheINI.cpp
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp

@@ -1,9 +1,0 @@
-{
-  "base_commit": "3fab4cc2cc0aa7eb18bf0ef1613c1a8cbba41306",
-  "measurement": {
-    "date": "2026-10-15 14:25",
-    "commit": "ac77c85054",
-    "clean_tree": true
-  },
-  "index_sha256": "a56a77c2b6ade796640ae98e6b02aaa5f1b51cac34e0b31c2f115caf5cda9da3"
-}

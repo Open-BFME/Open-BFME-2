@@ -1,4 +1,0 @@
-name,export_rva,target_rva,target_size,source,status,notes
-?fx_scale@@YGFPAUfx_point@@H@Z,,0x00001010,27,tools/tests/fixtures/re_metadata/src/fixture.c,matched,synthetic fixture row; ilt-verified=fixture
-?count@fx_box@@QAEIH@Z,,0x00001030,17,tools/tests/fixtures/re_metadata/src/fixture.c,matched,synthetic fixture row; ilt-verified=fixture
-fx_mid,,0x000011E1,8,tools/tests/fixtures/re_metadata/src/fixture.c,matched,synthetic fixture row: matched but no ILT evidence (forged-tier tests)

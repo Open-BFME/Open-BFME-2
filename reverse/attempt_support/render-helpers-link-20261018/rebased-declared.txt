@@ -1,3 +1,0 @@
-note: Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp: 83 matched row(s), 13 unclaimed definition(s)
-note: Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp: 10 matched row(s), 1 unclaimed definition(s)
-All defined functions are already matched.

@@ -1,9 +1,0 @@
-{
-  "ordinary_gate": "25/25 exact",
-  "new_finding": [
-    "?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z",
-    "first",
-    null
-  ],
-  "decision": "Do not land constructor-first split. Keep native allocator-growth profile in the four-fix batch; defer only Unicode wrapper size profile."
-}

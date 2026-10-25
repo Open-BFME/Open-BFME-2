@@ -1,2 +1,0 @@
-# Keep the original tool-output bytes bound by the result JSON SHA-256 values.
-*.log -text whitespace=cr-at-eol

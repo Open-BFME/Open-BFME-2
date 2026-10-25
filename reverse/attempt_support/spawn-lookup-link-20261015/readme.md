@@ -1,9 +1,0 @@
-# SpawnBehavior canonical lookup adoption blocked
-
-At BFME 2 ee2e3c8e401deef2de4f08913d4df68755935b8c, two current consumer objects each fail solely on their private `GameLogic::findObjectByID` COMDAT. The unchanged 37-byte canonical provider is byte-exact. The preview index is 825b86983f (2026-10-15 12:37); the committed discovery status instead measures 4b7e7091c4. These are distinct measurements.
-
-The declaration-only canonical header trial removed each private GameLogic/hash-map definition and adopted `Common/GameLogicObjectLookupView.h`. This is the same declaration-adoption principle previously reviewed in BFME 1 at verified donor a7c38d3b; no donor layout or address was imported. BFME 1 freshness remains blocked on the documented comparative full baseline and another worker owns its pointer scope.
-
-The initial trials exposed include-order and renamed-enumerator compile errors; after correcting those, both retail callers fail the byte gate: computeAggregateStates emits 721 bytes versus its 731-byte row, and update differs within its 481-byte row. The first lookup in update changes EDI retention to ECX plus a stack spill; computeAggregateStates changes its second loop allocation. The original inline hash-map body affects caller allocation even though the calls remain out of line. The rejected patch is evidence, not a recovered body. Both original sources were restored and byte-verified before releasing their file claims. No link gain or authored-byte gain is claimed.
-
-A supported repair must preserve the compiler-visible lookup behavior required by both callers while ensuring its callable copy agrees with retail and the canonical class contract. Do not retry declaration-only adoption without new codegen evidence. No check was bypassed or weakened; no source or header trial remains.

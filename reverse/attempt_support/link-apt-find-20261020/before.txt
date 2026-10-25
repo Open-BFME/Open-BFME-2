@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 4,005)
-  selected    ?find@AsciiString@@QBEPBDD@Z  (the definition the link keeps is not retail's)

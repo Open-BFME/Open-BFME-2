@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_map_uint_image_insert.cpp: LINKS  LINKED 0 -> 613 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 613)
-Code/GameEngine/Source/GameClient/GUI/HostValidateColorsRva004422DDFarm.cpp: LINKS  LINKED 0 -> 579 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 579)
-  diagnostic  ??9_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z  (codegen-like: 18 bytes against the majority copy's 22; unreferenced, not a blocker)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 1,192 bytes (3.6s)

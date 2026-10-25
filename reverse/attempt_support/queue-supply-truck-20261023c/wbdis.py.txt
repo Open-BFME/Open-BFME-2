@@ -1,8 +1,0 @@
-import sys,pefile,capstone
-pe=pefile.PE('baselines/bfme2/workshop-vanilla-1.06/files/worldbuilder.exe',fast_load=True)
-base=pe.OPTIONAL_HEADER.ImageBase
-va=base+int(sys.argv[1],16); n=int(sys.argv[2])
-code=pe.get_data(va-base,n)
-md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
-for i in md.disasm(code,va):
-    print(f"{i.address-va:5x} {i.mnemonic} {i.op_str}")

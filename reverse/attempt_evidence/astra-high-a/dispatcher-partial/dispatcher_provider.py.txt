@@ -1,7 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/dispatcher/pref-wb-uninitialized/c1.cpp').read_text()
-trial('spawn-provider',b,'?dispatchSpawnFromMessage@@YA_NPAVGameMessage@@PAPAXH@Z',0x2b2d5e,52,'dispatcher')
-trial('swap-provider',b,'?HandleSwapArmiesInBattleMessage@@YAXPAVGameMessage@@@Z',0x2b4141,179,'dispatcher')
-trial('disband-provider',b,'?DisbandArmy@@YAXPAX@Z',0x2b3efa,65,'dispatcher')
-trial('battle-parser-provider',b,'?rva002B2DAD@@YA_NPAVGameMessage@@PAPAXH@Z',0x2b2dad,65,'dispatcher')
-trial('region-parser-provider',b,'?rva002B2CE7@@YA_NPAVGameMessage@@PAPAVRva0020E89C@@H@Z',0x2b2ce7,45,'dispatcher')

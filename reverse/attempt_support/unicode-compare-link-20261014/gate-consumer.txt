@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?getFileListInDirectory@Win32LocalFileSystem@@UBEXABVUnicodeString@@00AAV?$set@VUnicodeString@@U?$less_than_nocase@VUnicodeString@@@rts@@V?$allocator@VUnicodeString@@@_STL@@@_STL@@_N@Z (Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystemGetFileListWide.cpp)
-String-ref verify: OK (5 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (6 named imports verified)

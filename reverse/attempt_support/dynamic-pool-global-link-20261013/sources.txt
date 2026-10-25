@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp
-Code/Libraries/Source/WWVegas/WW3D2/DynamicVBAccessClassDeinit.cpp

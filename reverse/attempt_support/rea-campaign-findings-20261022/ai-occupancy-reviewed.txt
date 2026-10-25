@@ -1,9 +1,0 @@
-Parent review of ai_occupancy_round10
-
-Accepted bounded negative: five compilations (one control and four variants), two distinct raw outputs, no exact candidate. Parent verified all five source SHA256 values and unchanged bank SHA256. Worktree remains limited to intentional FESL false-reject handoff/log changes.
-
-Retail EAX availability after the spill already independently reviewed in rea_dossiers_skeptic10 refutes the only-ESI-free constraint. Declaration placement and null spellings tested here do not improve the body. No repeat of these variants is justified by this result.
-
-Corrections/limits: task summary says four trials but lists five including control. Claim that only the forbidden equal-arm bank obtains zero in ECX is too broad: the same result records the natural round5 v11 control with zero in ECX and info in ESI. Coupled allocation/fixed-point/two-hinge language is an interpretation of tested outputs, not a calibrated compiler-internal causal proof or exhaustive source impossibility theorem. No new compiler mechanism is admitted on that language alone.
-
-Worker reports claim released; no admission/production changes or new source-byte credit. Do not start more AI source sweeps absent a genuinely new evidence-backed hypothesis. Camera evidence recovery and FESL verifier repair remain separately delegated.

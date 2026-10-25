@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideOnCollide.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 1,152)
-  selected    ??0DamageInfo@@QAE@XZ  (the definition the link keeps is not retail's)
-Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp: LINKS  LINKED 45 -> 45 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 45)
-link_check: 1 of 2 link cleanly; LINKED 45 -> 45 bytes (5.1s)

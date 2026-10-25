@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp: LINKS  LINKED 0 -> 3,766 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 3,766)
-  diagnostic  ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z  (codegen-like: 1039 bytes against the majority copy's 1107; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 3,766 bytes (5.5s)

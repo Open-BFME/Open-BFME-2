@@ -1,3 +1,0 @@
-## 0 bodies, 0 pins
-
-exit_code=0

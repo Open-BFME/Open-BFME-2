@@ -1,4 +1,0 @@
-('alternatename', 'Code/GameEngine/Source/Common/BfmeConv485.cpp', '?g_bfmeSinkBLD@@3PAVBfmeSinkBLD@@A'): 1 -> 0
-('alternatename', 'Code/GameEngine/Source/Common/System/RadarNewMap.cpp', '?theRadarWindowOverrideSource@@3PAVRadarWindowOverrideSource@@A'): 1 -> 0
-('alternatename', 'Code/GameEngine/Source/GameClient/UiCallbackFirers.cpp', '?theRadarWindowOverrideSource@@3PAVRadarWindowOverrideSource@@A'): 1 -> 0
-No escape-hatch growth. Observed totals: 20 -> 17

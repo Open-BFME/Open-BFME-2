@@ -1,9 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva0053B914.cpp	wrong-name	?ControlBarInventoryEntries@@3PAUControlBarInventoryEntry@@A	0x00A05E20
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp	wrong-name	?$S1@?BA@??updateContextCommand@ControlBar@@IAEXXZ@4IA	0x00A05F40
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp	wrong-name	?ControlBarInventoryEntries@@3PAUControlBarInventoryEntry@@A	0x00A05E20
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp	wrong-name	?$S1@?HJ@??processCommandUI@ControlBar@@QAE?AW4CBCommandStatus@@PBVCommandButton@@_N1@Z@4IA	0x00A05E14
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommandProcessing.cpp	wrong-name	?ControlBarInventoryEntries@@3PAUControlBarInventoryEntry@@A	0x00A05E20
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp	wrong-name	?ControlBarInventoryEntries@@3PAUControlBarInventoryEntry@@A	0x00A05E20
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp	wrong-name	?MessageStreamSubsystem@@3PAVMessageStream@@A	0x00A00950
-data_check: Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0053E754Get.cpp	wrong-name	?ControlBarInventoryEntries@@3PAUControlBarInventoryEntry@@A	0x00A05E20
-data_check (shadow): 6 source(s), 9 finding(s), 8 outside the baseline {'wrong-name': 8}; 0.3s

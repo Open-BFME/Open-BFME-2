@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ?erase@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VMapMetaData@@@_STL@@@2@@2@0@Z (Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp)
-    target:   55 8b ec 51 8b 01 53 56 8b 75 08 3b 70 08 57 89 4d fc 75 24 39 45 0c 75 1f e8 7c 9e f2 ff eb 1d 51 8b fc 56 8b de e8 48 ff d1 ff 59 8b 4d fc 8b f0 89 1f e8 8f fa ff ff 3b 75 0c 75 e3 5f 5e 5b c9 c2 08 00
-    compiled: 56 8b 74 24 08 57 8b f9 8b 07 3b 70 08 75 0d 39 44 24 10 75 07 e8 80 9e f2 ff eb 21 3b 74 24 10 74 1b 53 56 8b de e8 48 ff d1 ff 59 53 8b cf 8b f0 e8 91 fa ff ff 3b 74 24 14 75 e7 5b 5f 5e c2 08 00
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    Unwind@00b798da (Code/GameEngine/Source/GameClient/MapCacheClearUnseenMaps_Rva0030469e.cpp): $L5784 was renumbered; verified parent EH data places $L5678 at 0x007798DA

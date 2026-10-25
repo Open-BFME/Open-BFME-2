@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_long_double.cpp: LINKS  LINKED 0 -> 277 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 277)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 277 bytes (4.5s)

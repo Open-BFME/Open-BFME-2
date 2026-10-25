@@ -1,6 +1,0 @@
---- baseline.cpp
-+++ baseline.cpp
-@@ -96,0 +97 @@
-+		base = pbi->loopFilteredBlock;
-@@ -103 +103,0 @@
--		base = pbi->loopFilteredBlock;

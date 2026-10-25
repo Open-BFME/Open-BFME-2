@@ -1,2 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp	wrong-name	?g_bfmeDoneAPB@@3_NA	0x00A02D87
-data_check (shadow): 4 source(s), 2 finding(s), 1 outside the baseline {'wrong-name': 1}; 0.9s

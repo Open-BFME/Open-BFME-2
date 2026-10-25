@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?_M_insert@?$_Rb_tree@UGen_p12pod@@U?$pair@$$CBUGen_p12pod@@H@_STL@@U?$_Select1st@U?$pair@$$CBUGen_p12pod@@H@_STL@@@3@U?$less@UGen_p12pod@@@3@V?$allocator@U?$pair@$$CBUGen_p12pod@@H@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUGen_p12pod@@H@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUGen_p12pod@@H@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBUGen_p12pod@@H@2@0@Z (Code/Libraries/Source/WWVegas/WWLib/RvaTreeMInsertGenP12pod0016DBC0.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

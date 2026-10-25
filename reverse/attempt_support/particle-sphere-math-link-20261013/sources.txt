@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/part_buf.cpp
-Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp

@@ -1,2 +1,0 @@
-{"rva": "0x002bc971", "symbol": "?rva002BC971@LivingWorldLogic@@QAEXPBV?$vector@PAUSetupPlayer@@V?$allocator@PAUSetupPlayer@@@_STL@@@_STL@@PAUSetupPlayer@@PBV?$vector@PAUSetupArmy@@V?$allocator@PAUSetupArmy@@@_STL@@@3@PAXPAVRva002BC8C9Vector@@PAUSetupSimulationVector@@@Z", "size": 843, "start": 0.7996, "best": 0.7996, "exact": false, "trials": 96, "stop": "deadline", "v": 3, "wb": "WB: LivingWorldLogic::SetUpAutoResolveBattle  (LivingWorldLogic.cpp, score 3, callgraph)"}
-permute: 0 of 1 closed exactly

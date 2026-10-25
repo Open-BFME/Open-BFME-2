@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderNameMembership.cpp: LINKS  LINKED 0 -> 110 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 110)
-Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DCC4.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 284)
-  unresolved  ?TheFireLogic@@3PAVFireLogicSystem@@A
-  unresolved  ?g_Va00DFE7A8@@3IA
-  unresolved  ?rva00333E5B@LuaDrawableState@@QAEXPAVObject@@@Z
-link_check: 1 of 2 link cleanly; LINKED 0 -> 110 bytes (8.6s)

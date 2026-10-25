@@ -1,9 +1,0 @@
-Seat J, 2026-10-14. Reference revision a7c38d3b2597121f178ab5190b3062478823257d.
-Target: W3DShadowTexture::updateBounds(Vector3&, RenderObjClass*).
-Native boundary: 0x00109648 through RET8 at 0x00109BE8, exclusive end 0x00109BEB: 1443 bytes.
-This entry is missing from ghidra_functions.csv; wb_show groups it with the preceding five-byte thunk at 0x00109643. The WB 0x008D9020 body supports the four-corner projection; its automatic Vector3::Length2 label is not the parent identity.
-Independent native evidence: receiver box at +0x64, sphere +0x7C; second argument RenderObjClass; Get_Position call 0x0013B8A0; bounding-box virtual slot +0x108; six-word copy through existing 0x0009AC04 provider; four fabs import calls 0x00629210; RET8. Donor gives updateBounds name and projected-shadow semantics.
-BFME1 whole-TU donor compile/place produced no new placement. ZH scoped compile produced no exact unclaimed placement. Candidate uses the already-rowed W3DProjectedShadowUpdateTexture.cpp declaration context, with target layout preserved. The new projection helper and arithmetic are C++; no inline asm or naked source was added.
-Best full emitted symbol: 1432 bytes; requested retail extent 1443. Frame 0x98 versus retail 0x88; receiver lifetime, min/max-loop register allocation and mixed SSE/x87 scheduling differ. All calls resolve.
-IMPORTANT: permute.Scorer caps returned bytes at requested size. Plain-sqrt variants reporting size 1443 actually emit 1460, confirmed by explain_mismatch and full COFF read. The bank score is permute fitness, not a percentage of matching bytes.
-Commands and detailed output remain under build/crack-j/: first-donors.txt, bounds-explain.txt, bounds-plain-explain.txt, bounds-variants.json and bounds-typed.txt. Best bank includes the existing UpdateTexture body to preserve its declaration context; integrate updateBounds into that home or split out only its dependencies before landing.

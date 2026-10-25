@@ -1,7 +1,0 @@
-definition: divergent | ??$__advance@PADH@_STL@@YAXAAPADHABUrandom_access_iterator_tag@0@@Z
-definition: divergent | ??$__destroy@PAVCreateAHeroSubClass@CreateAHeroManager@@V12@@_STL@@YAXPAVCreateAHeroSubClass@CreateAHeroManager@@00@Z
-definition: divergent | ??$advance@PADH@_STL@@YAXAAPADH@Z
-definition: divergent | ?_M_clear@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXXZ
-definition: divergent | ?_M_deallocate_block@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXXZ
-definition: divergent | ?move@?$char_traits@D@_STL@@SAPADPADPBDI@Z
-code identity 233 rows; 6 findings; shadow

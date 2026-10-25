@@ -1,8 +1,0 @@
-# Sources that intentionally carry no matched functions.csv row.
-# Parked during the hermes/kb-t_65876266 merge: each is a split-out body whose
-# bytes master already owns under its canonical TU (GeometryInfoCalcBoundingStuff.cpp
-# and PointGroupClassRender.cpp respectively). The duplicate ledger row the branch
-# introduced was retracted so HEAD keeps the claim; the body file itself is left in
-# place (never deleted over a row edit) and is parked here for that reason.
-Code/GameEngine/Source/Common/System/GeometryInfoRva0087E650.cpp
-Code/Libraries/Source/WWVegas/WW3D2/PointGroupClassRva00917920.cpp

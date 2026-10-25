@@ -1,7 +1,0 @@
-# rdis.py [start end] -> retail queueSupplyTruck disassembly, function-relative offsets
-import sys; sys.path.insert(0,'/work2/Open-BFME-2/tools')
-import retail_body, capstone
-r=retail_body.read_bytes(0x4F37B0,1537); md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
-a=int(sys.argv[1],16) if len(sys.argv)>1 else 0; b=int(sys.argv[2],16) if len(sys.argv)>2 else len(r)
-for i in md.disasm(r,0):
-    if a<=i.address<b: print('%04x: %-8s %s'%(i.address,i.mnemonic,i.op_str))

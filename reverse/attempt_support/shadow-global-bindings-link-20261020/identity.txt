@@ -1,3 +1,0 @@
-matrix3d.cpp emitted ten-matrix region (480 bytes), beginning at Matrix3D::Identity
-object bytes: 480 relocations: 0 whole 480B equals retail at RVA 0x009DD9D0: True
-first twelve floats: (1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0, 0.0, 0.0, 0.0, 1.0, 0.0)

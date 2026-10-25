@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
-Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp

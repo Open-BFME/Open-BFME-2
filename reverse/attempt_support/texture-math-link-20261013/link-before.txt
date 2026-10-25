@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/TextureMapperFXShaderConvert.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,552)
-  comdat      _fabsf  (first: differs from the first copy in link order (no retail address))
-  comdat      ?fabs@@YAMM@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??_GRva0007BB16Record@@QAEPAXI@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.7s)

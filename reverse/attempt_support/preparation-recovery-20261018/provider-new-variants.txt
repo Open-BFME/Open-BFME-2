@@ -1,6 +1,0 @@
-link_check: this census index has no reference graph (it predates retail-truth-2); no-address COMDAT copies are judged under retail-truth-1
-link_check [refused] Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp: its copy of ?setFlipState@WorldHeightMap@@QAEXHH_N@Z would replace the one other units link against (link.exe keeps the first copy in link order): give it their body (the shared header and flags) or keep it out of line
-link_check [refused] Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp: its copy of ??_7WorldHeightMap@@6B@ would replace the one other units link against (link.exe keeps the first copy in link order): give it their body (the shared header and flags) or keep it out of line
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)

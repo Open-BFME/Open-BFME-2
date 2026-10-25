@@ -1,6 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Create/EvaAnnounceClientCreateSlots.cpp: LINKS  LINKED 0 -> 243 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 243)
-Code/GameEngine/Source/GameLogic/Object/ObjectRva00294759.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 298)
-  unresolved  ?rva002197A6@CreateAHeroManager@@QAEPAVCreateAHeroData@@H@Z
-Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRecalcApparentControllingPlayer.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 529)
-  selected    ?loadGarrisonPoints@GarrisonContain@@IAEXXZ  (the definition the link keeps is not retail's)
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdateTriggerAbilityEffect.cpp: LINKS  LINKED 0 -> 764 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 764)

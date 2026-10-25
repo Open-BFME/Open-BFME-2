@@ -1,3 +1,0 @@
-import loadorders as lo
-lo.BASE=lo.BASE.replace('src[(col+0) + pitch - 1]', '*(unsigned char *)((unsigned long)src + ((col+0) + pitch - 1))')
-if __name__=='__main__':lo.run([('u-'+n,s) for n,s in lo.gen()],'unsigned-orders')

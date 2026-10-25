@@ -1,1 +1,0 @@
-link_check: preparing 1 explicit safe provider(s), no extra sources

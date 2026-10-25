@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 14:25 at ac77c85054; file's own bytes 1,422)
-  unresolved  ??0Rva00308E63@@QAE@H_N@Z
-  unresolved  ?Rva00328E96Parse@@YAXAAVDataChunkInput@@HPAX@Z
-Code/GameEngine/Source/Common/Rva00328E96WaterRecord.cpp: LINKS  LINKED 663 -> 663 bytes (census 2026-10-15 14:25 at ac77c85054; file's own bytes 663)
-link_check: 1 of 2 link cleanly; LINKED 663 -> 663 bytes (3.1s)

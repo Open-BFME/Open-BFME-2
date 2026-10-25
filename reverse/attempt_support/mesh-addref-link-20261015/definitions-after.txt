@@ -1,2 +1,0 @@
-note: Code/Libraries/Source/WWVegas/WW3D2/RenderObjSceneAndCost.cpp: 11 matched row(s), 1 unclaimed definition(s)
-All defined functions are already matched.

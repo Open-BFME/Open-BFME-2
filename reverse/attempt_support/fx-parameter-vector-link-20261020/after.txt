@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_assign.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 206)
-  selected    ??$_M_allocate_and_copy@PAURva0007BB16Record@@@?$vector@URva0007BB16Record@@V?$allocator@URva0007BB16Record@@@_STL@@@_STL@@IAEPAURva0007BB16Record@@IPAU2@0@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_destroy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 142)
-  selected    ??$uninitialized_fill_n@PAURva0007BB16Record@@IU1@@_STL@@YAPAURva0007BB16Record@@PAU1@IABU1@@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (4.5s)

@@ -1,8 +1,0 @@
-!= 16bda0:	f3 0f 10 49 fc       	movss xmm1, dword ptr [ecx - 4]         | 16bda0:	f3 0f 10 11          	movss xmm2, dword ptr [ecx]
-!= 16bda5:	f3 0f 59 48 08       	mulss xmm1, dword ptr [eax + 8]         | 16bda4:	f3 0f 59 50 04       	mulss xmm2, dword ptr [eax + 4]
-!= 16bdaa:	f3 0f 10 50 04       	movss xmm2, dword ptr [eax + 4]         | 16bda9:	f3 0f 10 49 fc       	movss xmm1, dword ptr [ecx - 4]
-!= 16bdaf:	f3 0f 59 11          	mulss xmm2, dword ptr [ecx]             | 16bdae:	f3 0f 59 48 08       	mulss xmm1, dword ptr [eax + 8]
-!= 16bdbb:	f3 0f 10 60 08       	movss xmm4, dword ptr [eax + 8]         | 16bdbb:	f3 0f 10 61 f8       	movss xmm4, dword ptr [ecx - 8]
-!= 16bdc0:	f3 0f 59 61 f8       	mulss xmm4, dword ptr [ecx - 8]         | 16bdc0:	f3 0f 59 60 08       	mulss xmm4, dword ptr [eax + 8]
-!= 16be23:	f3 0f 10 60 04       	movss xmm4, dword ptr [eax + 4]         | 16be23:	f3 0f 10 61 fc       	movss xmm4, dword ptr [ecx - 4]
-!= 16be28:	f3 0f 59 61 fc       	mulss xmm4, dword ptr [ecx - 4]         | 16be28:	f3 0f 59 60 04       	mulss xmm4, dword ptr [eax + 4]

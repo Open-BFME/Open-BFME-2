@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameClient/InGameUIMessages.cpp
-Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp
-Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp
-Code/GameEngine/Source/GameLogic/Object/Behavior/DumbProjectileBehavior.cpp

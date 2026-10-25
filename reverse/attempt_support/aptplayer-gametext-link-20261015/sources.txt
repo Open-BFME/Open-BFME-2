@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp
-Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp

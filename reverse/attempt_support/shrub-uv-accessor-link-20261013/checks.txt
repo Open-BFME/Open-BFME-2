@@ -1,5 +1,0 @@
-find_declared_unmatched: All defined functions are already matched.
-check_csv: OK (functions.csv 87064 rows, symbols.csv 17272 rows, data_rows.csv 300 rows)
-data_check (converged, enforced): 3 source(s), 8 address(es), 0 second name(s), 0 unjudged row(s)
-data_check (shadow): 3 source(s), 0 finding(s), 0 outside the baseline {}
-git diff --check: passed

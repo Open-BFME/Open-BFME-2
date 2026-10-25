@@ -1,5 +1,0 @@
-// cl: /O1 /Oy /GS- /MD
-typedef unsigned __int64 U64;
-extern "C" U64 __cdecl __emulu(unsigned,unsigned);
-#pragma intrinsic(__emulu)
-extern "C" U64 __stdcall _allmul(U64 a,U64 b){unsigned al=(unsigned)a,ah=(unsigned)(a>>32),bl=(unsigned)b,bh=(unsigned)(b>>32);if((ah|bh)==0)return __emulu(al,bl);return __emulu(ah,bl);}

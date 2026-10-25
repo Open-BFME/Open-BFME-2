@@ -1,8 +1,0 @@
-usage: eh_verify.py [-h] [--sources-from FILE] [--all] [--objdir OBJDIR]
-                    [--json JSON] [--write-baseline]
-                    [--assert-shrink-only REV]
-                    [--assert-shrink-range BASE TIP]
-                    [sources ...]
-eh_verify.py: error: name sources or pass --all
-
-COMMAND_EXIT_CODE=2

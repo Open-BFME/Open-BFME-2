@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp findings 2 -> 1 legacy local LINKED 0 -> 0
-Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp findings 2 -> 1 legacy local LINKED 0 -> 0

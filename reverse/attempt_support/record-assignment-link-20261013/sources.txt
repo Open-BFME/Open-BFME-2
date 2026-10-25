@@ -1,7 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
-Code/Libraries/Source/WWVegas/WWLib/StlSweepBfmeAssignRecord28.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/BfmeAssignRecord52Assign.cpp
-Code/GameEngine/Source/Common/Rva0055A91AClear.cpp
-Code/GameEngine/Source/Common/Rva00414B0A.cpp
-Code/GameEngine/Source/Common/Rva00414F5ERun.cpp
-Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp

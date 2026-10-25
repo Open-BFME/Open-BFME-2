@@ -1,8 +1,0 @@
-// cl: /O1 /G6 /arch:SSE /MD /EHsc
-#include <stdlib.h>
-#pragma intrinsic(_byteswap_ushort,_byteswap_ulong,_byteswap_uint64,_rotl64,_rotr64)
-extern "C" unsigned short swap16(unsigned short x){return _byteswap_ushort(x);}
-extern "C" unsigned long swap32(unsigned long x){return _byteswap_ulong(x);}
-extern "C" unsigned __int64 swap64(unsigned __int64 x){return _byteswap_uint64(x);}
-extern "C" unsigned __int64 rot64(unsigned __int64 x){return _rotl64(x,32);}
-extern "C" unsigned __int64 same64(unsigned __int64 x){return _rotr64(_rotl64(x,32),32);}

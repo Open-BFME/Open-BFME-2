@@ -1,4 +1,0 @@
-CMD "C:\Users\clemens\Documents\Experiments\Open-BFME-2\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\bin\link.exe" /NOLOGO /DLL /NOENTRY /NODEFAULTLIB /MACHINE:X86 /OPT:NOREF /INCREMENTAL:NO /OUT:build\win32-import-recovery-oct18\get-last-error-link.dll /MAP:build\win32-import-recovery-oct18\get-last-error-link.map C:\Users\clemens\Documents\Experiments\Open-BFME-2\build\match\build_win32-import-recovery-oct18_get-last-error.obj "C:\Users\clemens\Documents\Experiments\Open-BFME-2\reference\open-bfme-1\inputs\toolchains\vs2003\Program Files\Microsoft Visual Studio .NET 2003\Vc7\PlatformSDK\Lib\Kernel32.Lib"
-Kernel32.Lib(KERNEL32.dll) : error LNK2005: _GetLastError@0 already defined in build_win32-import-recovery-oct18_get-last-error.obj
-build\win32-import-recovery-oct18\get-last-error-link.dll : fatal error LNK1169: one or more multiply defined symbols found
-  EXIT 1169

@@ -1,2 +1,0 @@
-data_ledger: 520 matched source(s) have no object; build first
-data_ledger: 24099 addresses {'unowned': 1069, 'literal': 17582, 'provisional': 1111, 'owned': 4337} -> build/camera-mode-data-link-20261015/data-ledger-current.csv

@@ -1,3 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E7DF3.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescGetUVArrayByIndex.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescGetUVArrayRva000D1F1A.cpp

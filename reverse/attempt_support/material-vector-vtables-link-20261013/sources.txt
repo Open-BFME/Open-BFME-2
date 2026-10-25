@@ -1,4 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClassCtor.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorClassCtor.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoCopyCtor.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp

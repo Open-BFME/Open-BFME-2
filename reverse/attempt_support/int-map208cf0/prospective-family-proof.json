@@ -1,8 +1,0 @@
-{
-  "prospective_rows": 34,
-  "byte_failures": [],
-  "eh_rows": 13,
-  "eh_failures": {},
-  "missing_objects": 0,
-  "note": "Scratch only; primary helper ownership and link reconciliation not landed."
-}

@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/meshgeometry.cpp
-Code/Libraries/Source/WWVegas/WW3D2/streakRender.cpp

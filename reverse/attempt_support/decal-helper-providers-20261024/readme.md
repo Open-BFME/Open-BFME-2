@@ -1,9 +1,0 @@
-# Existing decal helper providers, 2026-10-24
-
-Fourteen existing rows (394 B, including the 10 B naturally emitted EH handler of the 128 B SimpleVec<Vector2> grow body) now belong to six existing consumer units that already emit the same named complete retail-exact bodies. Source, flags, identity and layout claims, pins and annotations are unchanged. Parent and handler move together; the exact native EH graph still verifies. This ownership repair reuses existing BFME2 providers; the BFME1 donor revision reviewed remains f5140c1cff6a58e16276fd6de6788186286953d4.
-
-Paired refreshed link_check on these seven units: **49,714 -> 50,108 B, +394 B legacy linked availability**, six of seven units clean before/after. Frozen census totals start at 48,725 B: the inherited 989 B improvement is excluded from this gain. No new C++, unique bytes, self-strict or closed-strict gain is claimed. Index: 11b3872700, 2026-10-23 23:06; no census or full link cycle run.
-
-Each preflight checks complete body bytes/relocations, zero unresolved relocations and zero wrong allowed-symbol binding. Scoped build.sh passes 491/491, with literal/import/reference checks; EH passes 47/47 exact. Frozen checks, check_csv and diff --check pass. Scoped shadow identity findings are the same eight before/after (paired logs included). Existing identity uncertainty is preserved, including the ledger's Matrix3D overload-fold explanation.
-
-Commands: tools/link_check.py --refresh --paths-from build/link-decal-providers-paths.txt before/after; build.sh on those paths; tools/eh_verify.py --sources-from; code_identity_gate.check; tools/find_declared_unmatched.py per path; tools/check_csv.py; git diff --check. Rows and exact paths are in rows.json and measurement logs. decalmsh.cpp remains blocked by six unresolved callees, listed in both measurements.

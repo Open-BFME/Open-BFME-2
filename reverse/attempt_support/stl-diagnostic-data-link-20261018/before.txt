@@ -1,6 +1,0 @@
-Code/GameEngine/Source/Common/BfmeConv1304.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 67)
-  unresolved  ?g_bfmeTableSXA@@3PAPAXA
-Code/GameEngine/Source/Common/BfmeConv1303.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 66)
-  unresolved  ?g_bfmeTableSWA@@3PAPAXA
-Code/GameEngine/Source/Common/BfmeConv1279.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 57)
-  unresolved  ?g_bfmeStr1279B@@3PADA

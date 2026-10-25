@@ -1,2 +1,0 @@
-python3 tools/place_bodies.py Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp
-## 0 bodies, 0 pins

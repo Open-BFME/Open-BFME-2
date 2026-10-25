@@ -1,4 +1,0 @@
-// compiler:clang23-x86
-// cl: /O1 /G6 /GS- /MD
-typedef unsigned long long U64;
-extern "C" U64 __regcall probe(unsigned lo,unsigned char n,unsigned hi) { if(n>=64)return 0; if(n>=32)return(U64)(lo<<(n&31))<<32; return (((U64)hi<<32)|lo)<<n;}

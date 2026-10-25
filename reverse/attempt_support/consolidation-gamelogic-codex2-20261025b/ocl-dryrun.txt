@@ -1,7 +1,0 @@
-tu: Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdate.cpp
-approved: 9
-mixed: {'Code/GameEngine/Source/Common/Rva0024A797Derived.cpp': 58, 'Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp': 81}
-refused: {}
-accepted: []
-rejected: {'Code/GameEngine/Source/Common/OCLUpdate_getCountdownPercent.cpp': 'no baseline match', 'Code/GameEngine/Source/Common/Rva0049B2A2Xfer.cpp': 'no baseline match', 'Code/GameEngine/Source/Common/OCLUpdate_getRemainingFrames.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.OCLUpdate.c4a1b7b55bcb8738.tu_skeleton.cpp(87) : error C2039: 'getRemainingFrames' : is not a member of 'OCLUpdate' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.OCLUpdate.c4a1b7b55bcb8738.tu_skeleton.cpp(88) : error C2270: 'getRemainingFrames' : m", 'Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateBehaviorCtor.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.OCLUpdate.fff5ebdae695195d.tu_skeleton.cpp(133) : error C2511: 'OCLUpdate::OCLUpdate(Thing *,const ModuleData *)' : overloaded member function not found in 'OCLUpdate' | Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\.OCLUpdate.fff5ebdae695195d.tu_skel"}
-blocked: no verified merge of two or more donors

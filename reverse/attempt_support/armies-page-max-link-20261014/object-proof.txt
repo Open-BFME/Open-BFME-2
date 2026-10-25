@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp 41 retained COMDATs identical; external max replaced by unreferenced private helper
-Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp 155 retained COMDATs identical; external max replaced by unreferenced private helper

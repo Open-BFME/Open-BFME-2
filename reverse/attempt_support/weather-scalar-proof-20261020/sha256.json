@@ -1,7 +1,0 @@
-{
-  "candidate.patch": "9a6c81e0cbefe8d5b7c6aef56de2097adab7d25a6fae1c24754e7529421374ef",
-  "readme.md": "4b236e0822d593dc4eebe1ce0bc39da113c2750d621a71427e23016625f7d957",
-  "receipt.json": "a1e878c3cb2ad81e82fea0098c3fab08d54dee2a8f4444edccd5c53f505fcaa6",
-  "reproduce.py": "c1aafc890333c7e7a32878246c0dbf5b5b1af6b3805b36a7148029cccbf752db",
-  "review_counterexamples.py.txt": "501d2a536cfed9c00611f2de6df25300b64ef6e30cb4d1e72228be0fe27d417c"
-}

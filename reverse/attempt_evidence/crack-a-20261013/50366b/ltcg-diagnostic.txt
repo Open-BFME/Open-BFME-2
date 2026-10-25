@@ -1,2 +1,0 @@
-fatal error C1350: error loading dll 'msobj71.dll': dll not found
-LINK : fatal error LNK1257: code generation failed

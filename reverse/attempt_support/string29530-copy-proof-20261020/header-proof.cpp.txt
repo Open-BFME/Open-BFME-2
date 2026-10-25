@@ -1,9 +1,0 @@
-// cl: /O2 /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
-#include <memory>
-namespace _STL {
-template<class I,class O> inline O Rva000179B0UninitializedCopy(I a,I b,O c) {
- return uninitialized_copy(a,b,c);
-}
-template char *Rva000179B0UninitializedCopy<char*,char*>(char*,char*,char*);
-}

@@ -1,8 +1,0 @@
---- a/Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp
-+++ b/Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp
-@@ -698 +698 @@
--	result = Mid(i);
-+	{ EAStringC temporary = Mid(i); result = temporary; }
-@@ -721 +721 @@
--	result = Left(size - i);
-+	{ EAStringC temporary = Left(size - i); result = temporary; }

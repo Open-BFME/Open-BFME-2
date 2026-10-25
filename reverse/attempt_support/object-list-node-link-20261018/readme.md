@@ -1,9 +1,0 @@
-Object-pointer list factory repair, 2026-10-18
-
-Current original objects do not link the idle-worker (727B), list insertion (183B), or list construction (55B) units. At the same published census c2c5ac8c27 (2026-10-18 11:36), the repaired objects link all three: +965 matched bytes. These are bounded legacy link-selection predictions, not a closed-strict closure measurement. Four explicit providers have self-strict reusable receipts and all 28 ledger rows pass the normal byte gate, including the construction EH funclet resolved through its parent.
-
-The index keeps Player.cpp's Object-pointer list node factory first. Its generic allocator body does not reproduce native RVA 0x001EB9AC. The existing target insert REL32 identifies that factory, and native bytes establish the dedicated pool at 0x00DB8FEC, 12-byte node, and Object-pointer slot at +8. Player.cpp now emits the full exact 28-byte factory using the existing named pool and pop provider. explain_mismatch independently confirms its complete size and bytes. The other three units declare that specialization and bind to this kept retail copy. No new pins or ledger rows are introduced; the existing address-derived standalone provider is unchanged.
-
-Player.cpp remains unlinked behind unrelated blockers and contributes zero to the measured gain. Its edit is a verified prerequisite for the three named consumers above. Existing target evidence supplies the allocation policy; the STL declaration supplies the existing template identity and ABI. This is provider reconciliation and adds no authored C++ coverage.
-
-The same declaration-only change did not preserve the bytes of GameLogic::destroyObject (extent 125 to 127 bytes) or FormationAssistant::getValidObjectList (register/frame allocation). Both were restored, recorded as blocked, and their claims released. The standalone-provider experiment was restored as well. No full census or maintainer-only runner was started.

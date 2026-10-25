@@ -1,7 +1,0 @@
-REA dossiers reviewed, 2026-10-22
-
-Accepted: six target dossiers, eight canonical component Evidence records, matching unchanged retail SHA and raw instruction coverage. Earlier provider error envelopes are superseded only where successful canonical records exist. Camera remains unresolved in the tested profile. This produced no new exact source match.
-
-Corrections: FESL EBP is field length i, not iDelta; static nonvolatile candidate already reproduces reread. Apt pointer-to-member removal repeats prior tested direct-call family and does not by itself solve lost spill/frame shape. Apt/AI omitted10-byte prologues do not shift EBP-relative homes. Dering declaration-count perturbations do not prove original declaration count or source necessity. AI EAX is already spilled at VA8F3994, so only-ESI-free is unsupported.
-
-Independent report and raw audit: rea_dossiers_skeptic10/report.md and raw_audit.json. Active AI and camera follow-ups received these corrections as in-flight steering. Their task identities/full briefs are retained in rea-followup-round10-registry.json. FESL verifier repair remains separate.

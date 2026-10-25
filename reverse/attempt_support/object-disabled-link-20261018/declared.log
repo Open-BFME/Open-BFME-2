@@ -1,7 +1,0 @@
-note: Code/GameEngine/Source/Common/RTS/Player.cpp: 12 matched row(s), 79 unclaimed definition(s)
-note: Code/GameEngine/Source/GameLogic/Object/Update/SpectreGunshipUpdate.cpp: 1 matched row(s), 16 unclaimed definition(s)
-note: Code/GameEngine/Source/GameLogic/Object/SpecialPower/DefectorSpecialPower.cpp: 4 matched row(s), 6 unclaimed definition(s)
-note: Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModule.cpp: 4 matched row(s), 20 unclaimed definition(s)
-note: Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPower.cpp: 6 matched row(s), 5 unclaimed definition(s)
-note: Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPower.cpp: 1 matched row(s), 7 unclaimed definition(s)
-All defined functions are already matched.

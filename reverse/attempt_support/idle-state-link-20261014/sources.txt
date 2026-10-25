@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdNormalFlightStates.cpp
-Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp

@@ -1,7 +1,0 @@
-Native 0x002BCE24..0x002BD23E; whole1050B. WorldBuilder 0x00D8D9301875B names LivingWorldLogic::CheckHeadToHeadBattles and assert7024.
-Target gathers player keys34 with zero flag3C4; player armies1B8; army name18 and owned destination/current getters; adds region pairs and army payload through exact2BC830; cross-pair compare2B2B78 then tie/strength decision2B3B07 and collector2B8F27; translated AttackRepelled notice appended at154.
-Body exact1050/1050; collector exact100/100. No new pins.
-Making the existing collector definition visible permits VC7 to retain the local vector size across the notification calls. Declared-only collector yields1055B; normal vector push body plus army-vector reference matches first618B; visible collector removes final register/spill mismatch.
-Nested vector constructor uses existing opaque Rva002BC339Value specialization, whose whole100B body initializes 12B empty inner-vector headers regardless of element stride; access view uses independently proven20B records. Destructor calls existing nested-vector20B-record owner. Original record/helper identities remain unproven.
-The collector body retains target+54 key and direct calls; pointer payload cast does not claim ModuleData inheritance. No widened row or relocation masks.
-Shadow identity follow-up: replace the inherited incorrect set<int> destructor pin with a local12B set storage wrapper calling the owned Rva00072FE6 destructor at0x730DE. The caller remains exact1050/1050 and introduces no pin.

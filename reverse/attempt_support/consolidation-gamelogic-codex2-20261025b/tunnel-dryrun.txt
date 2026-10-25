@@ -1,7 +1,0 @@
-tu: Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
-approved: 28
-mixed: {'Code/GameEngine/Source/Common/DispByteFieldGetters.cpp': 177, 'Code/GameEngine/Source/Common/ModuleNameGetters.cpp': 69, 'Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp': 1}
-refused: {'Code/GameEngine/Source/Common/BfmeConv507.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)'}
-accepted: []
-rejected: {}
-blocked: no verified merge of two or more donors

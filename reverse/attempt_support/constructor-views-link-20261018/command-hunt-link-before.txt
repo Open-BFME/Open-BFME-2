@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdateConstructor.cpp: LINKS  LINKED 120 -> 120 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 120)
-Code/GameEngine/Source/GameLogic/Object/Update/CommandButtonHuntUpdateDtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 110)
-  comdat      ??_7CommandButtonHuntUpdate@@6BPB_DeepBase@@@  (first: differs from the first copy in link order (no retail address))
-link_check: 1 of 2 link cleanly; LINKED 120 -> 120 bytes (3.5s)

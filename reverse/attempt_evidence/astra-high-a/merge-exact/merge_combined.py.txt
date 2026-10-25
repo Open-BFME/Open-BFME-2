@@ -1,5 +1,0 @@
-from trials import *
-sym='?rva002B49A8@LivingWorldLogic@@QAEXXZ';strbody='bool isEmpty()const throw(){return m_data==0||*(unsigned short*)((char*)m_data+4)==0;}'
-for src in ['visible-remover-False','visible-merger-False','visible-getter-False','visible-predicate']:
- b=(ROOT/'build/astra-high-a/merge'/src/'c1.cpp').read_text().replace('bool isEmpty() const;',strbody)
- trial('string-plus-'+src,b,sym,0x2b49a8,336,'merge')

@@ -1,8 +1,0 @@
-before [{'class': 'divergent', 'name': '?_M_fill_insert@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXPADIABD@Z', 'copies': 3, 'variants': 2, 'kept': 'build/match/^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_vector_bodies.obj', 'kept_verdict': 'retail', 'owner': 'build/match/^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_vector_bodies.obj', 'owner_kept': True, 'identical_extras': []}]
-copy ('/work7/Open-BFME-2/build/match/^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_vector_bodies.obj', 'ae67c3c6a550', 179, False)
-copy ('/work7/Open-BFME-2/build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^water_^w3^d^water.obj', 'd363b5b2c7f2', 179, False)
-copy ('/work7/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^rva00240000^load308050.obj', 'd363b5b2c7f2', 179, False)
-after [{'class': 'divergent', 'name': '?_M_fill_insert@?$vector@DV?$allocator@D@_STL@@@_STL@@QAEXPADIABD@Z', 'copies': 3, 'variants': 2, 'kept': 'build/match/^code_^game^engine_^source_^common_^rva00240000^load308050.obj', 'kept_verdict': 'unknown', 'owner': 'build/match/^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_vector_bodies.obj', 'owner_kept': False, 'identical_extras': []}]
-copy ('/work7/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^rva00240000^load308050.obj', 'd363b5b2c7f2', 179, False)
-copy ('/work7/Open-BFME-2/build/match/^code_^libraries_^source_^w^w^vegas_^w^w^lib_stlport_pod_vector_bodies.obj', 'ae67c3c6a550', 179, False)
-copy ('/work7/Open-BFME-2/build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^water_^w3^d^water.obj', 'd363b5b2c7f2', 179, False)

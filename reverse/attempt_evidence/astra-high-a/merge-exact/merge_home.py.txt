@@ -1,8 +1,0 @@
-from trials import *
-home=ROOT/'Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogic.cpp'
-b=home.read_text().replace('class LivingWorldPlayer { public:', 'class LivingWorldPlayer { public: void **RemoveArmy(void **&);')
-b=re.sub(r'(?m)^#include "([^\"]+)"',lambda m:'#include "'+(home.parent/m[1]).resolve().as_posix()+'"',b)
-bank=(ROOT/'build/astra-high-a/merge/entry-phi-0/c1.cpp').read_text()
-body='void LivingWorldLogic::rva002B49A8(){'+bank.split('void LivingWorldLogic::rva002B49A8(){',1)[1]
-b+='\ntemplate<class T> inline bool StringBase<T>::isEmpty()const throw(){return m_data==0||m_data->length==0;}\nclass ArmyRegionMergeSlot{public:virtual ~ArmyRegionMergeSlot();};\n'+body
-trial('home-exact-shape',b,'?rva002B49A8@LivingWorldLogic@@QAEXXZ',0x2b49a8,336,'merge')

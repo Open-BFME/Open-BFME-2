@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva001ED03C.cpp: LINKS  LINKED 0 -> 238 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 238)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001ed0de_destroy.cpp: LINKS  LINKED 25 -> 25 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 25)
-link_check: 2 of 2 link cleanly; LINKED 25 -> 263 bytes (3.7s)

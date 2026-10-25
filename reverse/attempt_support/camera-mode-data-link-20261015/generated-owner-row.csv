@@ -1,2 +1,0 @@
-address,size,section,kind,name,source,status,names,defs,refs
-0x009EC290,4,.data,global,?BfmeLiveCameraModeNameStorage@@3IA,Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp,owned,,1,3

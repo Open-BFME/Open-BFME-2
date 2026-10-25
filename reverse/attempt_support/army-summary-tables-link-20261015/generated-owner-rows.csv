@@ -1,3 +1,0 @@
-address,size,section,kind,name,source,status,names,defs,refs
-0x007E6A64,4,.rdata,global,?ArmySummaryTemplateVisitorTable@@3QBQ8Rva00220D1E@@AEHPBVThingTemplate@@@ZB,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,owned,,1,1
-0x007E6A68,4,.rdata,global,?ArmySummaryObjectVisitorTable@@3QBQ8Rva002206F9@@AE_NPAVRva0037DCA5@@@ZB,Code/GameEngine/Source/Common/Rva002206F9.cpp,owned,,1,1

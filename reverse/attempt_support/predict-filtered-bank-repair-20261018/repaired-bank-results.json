@@ -1,9 +1,0 @@
-{
-  "source": "reverse\\attempts\\0x001c5e30.cpp",
-  "cases": 1238,
-  "failures": 0,
-  "source_sha256": "a1fb9ee2d7a23cd4e8995f2bcb902ef0b288980122eb6be64c985bc1b089295b",
-  "retail_sha256": "4db8db0dc2d1b92c009d33e823955f3c4a75bd9a7cb5adab3f72f3a4784a0e52",
-  "compiled_sha256": "8c1c04da15d0d9be0f0618886c773d0b324e6e02d91aa1072c10c0d9827daaad",
-  "examples": []
-}

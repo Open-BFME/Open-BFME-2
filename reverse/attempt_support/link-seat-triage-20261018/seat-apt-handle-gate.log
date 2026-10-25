@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ??_ERva004A9DF3Element@@QAEPAXI@Z (Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp)
-    target:   53 8a 5c 24 08 f6 c3 02 56 8b f1 74 2b 8b 46 fc 57 68 f3 9d 4a 00 8d 7e fc 50 6a 04 56 e8 6e d5 f5 ff f6 c3 01 74 09 57 e8 b3 18 00 00 83 c4 04 8b c7 5f 5e 5b c2 04 00 8b 06 85 c0 74 18 50 e8 2c 42 00 00 83 c4 04 85 c0 75 0b 8b 0e 51 e8 6d 48 00 00 83 c4 04 f6 c3 01 74 0e 8b 0d e8 76 e1 00 6a 04 56 e8 87 f6 00 00 8b c6 5e 5b c2 04 00
-    compiled: 53 8a 5c 24 08 f6 c3 02 56 8b f1 74 2c a1 46 fc 57 68 8b 4e fc 57 50 8d 7e fc 51 6a 04 56 e8 6d d5 f5 ff f6 c3 01 74 09 57 e8 b2 18 00 00 83 c4 04 8b c7 5f 5e 5b c2 04 00 8b 06 85 c0 74 18 50 e8 2b 42 00 00 83 c4 04 85 c0 75 0b 8b 16 52 e8 6c 48 00 00 83 c4 04 f6 c3 01 74 0e 8b 0d 76 e1 00 6a 6a 04 56 e8 86 f6 00 00 8b c6 5e 5b c2 04
-Functions: FAIL 1/1
-1 function(s) failed byte comparison

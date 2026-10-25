@@ -1,4 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/merge/string-visible-True-throw-True/c1.cpp').read_text().replace('(char*)m_data+8','(char*)m_data+4')
-trial('string-correct-native',b,'?rva002B49A8@LivingWorldLogic@@QAEXXZ',0x2b49a8,336,'merge')
-trial('string-provider',b,'?isEmpty@?$StringBase@D@@QBE_NXZ',0x1e2f,20,'merge')

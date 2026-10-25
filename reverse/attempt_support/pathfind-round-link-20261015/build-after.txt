@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?allocateCells@PathfindLayer@@QAEXPBUIRegion2D@@@Z (Code/GameEngine/Source/GameLogic/Pathfinder/PathfindLayerAllocateCells.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (4 compiler literals verified)
-Import-ref verify: OK (4 named imports verified)

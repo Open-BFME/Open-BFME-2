@@ -1,8 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/Rva000A7E9E.cpp 95 retained COMDATs identical; removed sections 1 added sections 1
-removed [('.text', 1611665440, 18, '8b018b54240433c93b020f95c18ac1c20400', ())] added [('.text', 1611665440, 12, '8b0033c93b020f95c18ac1c3', ())]
-Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioCache.cpp 66 retained COMDATs identical; removed sections 1 added sections 1
-removed [('.text', 1611665440, 18, '8b018b54240433c93b020f95c18ac1c20400', ())] added [('.text', 1611665440, 12, '8b0033c93b020f95c18ac1c3', ())]
-Code/GameEngine/Source/GameClient/FormationPreviewPoolLookup.cpp 41 retained COMDATs identical; removed sections 1 added sections 1
-removed [('.text', 1611665440, 18, '8b018b54240433c93b020f95c18ac1c20400', ())] added [('.text', 1611665440, 12, '8b0033c93b020f95c18ac1c3', ())]
-Code/GameEngine/Source/Common/Rva0041573FParse.cpp 16 retained COMDATs identical; removed sections 1 added sections 1
-removed [('.text', 1611665440, 18, '8b018b54240433c93b020f95c18ac1c20400', ())] added [('.text', 1611665440, 12, '8b0033c93b020f95c18ac1c3', ())]

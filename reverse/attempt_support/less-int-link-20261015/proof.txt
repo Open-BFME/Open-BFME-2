@@ -1,9 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp PASS 43 retained COMDATs
-Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp PASS 30 retained COMDATs
-Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp PASS 82 retained COMDATs
-Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp PASS 91 retained COMDATs
-Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp findings 2 -> 1
-Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp findings 3 -> 2
-Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp findings 3 -> 2
-Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp findings 46 -> 46
-PASS: three conflicts removed; all other link findings, retained sections and data preserved

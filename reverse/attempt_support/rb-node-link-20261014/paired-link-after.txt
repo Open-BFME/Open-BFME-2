@@ -1,5 +1,0 @@
-Code/GameEngine/Source/Common/GapBodiesGE01.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 451)
-  unresolved  ?findCommandSet@ControlBar@@QAEPBVCommandSet@@ABVAsciiString@@@Z
-Code/GameEngine/Source/GameClient/GUI/TerrainResourceClaimFeedback.cpp: LINKS  LINKED 0 -> 532 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 532)
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadPromptAddFriend.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 372)
-  comdat      ??R?$less@H@_STL@@QBE_NABH0@Z  (retail: not retail's body)

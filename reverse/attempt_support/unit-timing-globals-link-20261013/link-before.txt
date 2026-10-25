@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 2,423)
-  unresolved  ?g_00DBA6D0@@3MA
-  unresolved  ?g_00DFE948@@3PAHA
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.0s)

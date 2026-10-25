@@ -1,5 +1,0 @@
-+043D / RVA 000AA3D5: retail movss xmm2, dword ptr [ecx - 8] | ours movss xmm2, dword ptr [edi + 0x28]
-+0442 / RVA 000AA3DA: retail mulss xmm2, dword ptr [edi + 0x28] | ours mulss xmm2, dword ptr [ecx - 8]
-+0550 / RVA 000AA4E8: retail movss xmm0, dword ptr [ecx] | ours movss xmm1, dword ptr [ecx - 4]
-+0554 / RVA 000AA4EC: retail movss xmm1, dword ptr [ecx - 4] | ours movss xmm0, dword ptr [edi + 0x28]
-+0559 / RVA 000AA4F1: retail mulss xmm0, dword ptr [edi + 0x28] | ours mulss xmm0, dword ptr [ecx]

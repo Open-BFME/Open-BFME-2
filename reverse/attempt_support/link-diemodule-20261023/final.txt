@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp: LINKS  LINKED 0 -> 83 bytes (census 2026-10-22 23:07 at 0fa62a2841; file's own bytes 83)
-Code/GameEngine/Source/GameLogic/Object/Die/SpecialPowerCompletionDie.cpp: LINKS  LINKED 0 -> 157 bytes (census 2026-10-22 23:07 at 0fa62a2841; file's own bytes 157)
-Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp: LINKS  LINKED 0 -> 34 bytes (census 2026-10-22 23:07 at 0fa62a2841; file's own bytes 34)
-link_check: 3 of 3 link cleanly; LINKED 0 -> 274 bytes (3.7s)

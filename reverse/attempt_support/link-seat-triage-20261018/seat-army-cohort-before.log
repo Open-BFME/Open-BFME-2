@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/ArmySummaryLoad.cpp: LINKS  LINKED 0 -> 853 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 853)
-Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 207)
-  comdat      ??$_Construct@URva00153A27Element@@U1@@_STL@@YAXPAURva00153A27Element@@ABU1@@Z  (retail: not retail's body)
-  selected    ??$_Construct@URva00153A27Element@@U1@@_STL@@YAXPAURva00153A27Element@@ABU1@@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 456)
-  unresolved  ??$_Construct@URva0039A48EElement@@U1@@_STL@@YAXPAURva0039A48EElement@@ABU1@@Z
-link_check: 1 of 3 link cleanly; LINKED 0 -> 853 bytes (4.6s)

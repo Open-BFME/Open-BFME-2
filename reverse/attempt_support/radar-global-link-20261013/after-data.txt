@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp	wrong-name	?g_Va00DFE750@@3PAXA	0x009FE750
-data_check: Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp	wrong-name	?g_Va00DFE754@@3PAXA	0x009FE754
-data_check (shadow): 10 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.9s

@@ -1,9 +1,0 @@
-# Object aggregation flag: blocked checker conflict
-
-At BFME2 4b7e7091c4, Object::rva0028DCC4 (RVA 0x0028DCC4, 284 bytes) reads one byte at VA 0x00DFE7A8. The native DIR32 operand at body +186 establishes that address. The independently matched one-byte `?g_00DFE7A8@@3EA` definition belongs to Common/Rva003B9EC4.cpp (reverse/data_rows.csv). The original name and purpose remain unknown.
-
-Trial: replace the unresolved `extern unsigned g_Va00DFE7A8` plus bool-pointer cast with the existing unsigned-char owner. Both sources pass `link_check.py --prepare-current` (3/3 matched functions and 1/1 matched data rows). The 284 body bytes are identical; its sole relocation change is the flag owner spelling at +186. This follows the canonical data-owner pattern reviewed in BFME1 a7c38d3b / donor repair 92a8d854, without importing donor layouts or identities.
-
-Blocked: generated reverse/data_ledger.csv at RVA 0x009FE7A8 still selects `?g_Va00DFE7A8@@3IA` (unowned, extent 8), contrary to the matched one-byte owner. `data_check.findings` therefore reports wrong-name for the matched owner; `data_check.py --enforce` already refuses the provider itself. This is a shadow-mode checker disagreement, not a byte mismatch. No checker, ledger, baseline or source workaround was retained. Source restored and claims released.
-
-Before Object local link check: unresolved FireLogic, old flag name, LuaDrawableState::rva00333E5B. The provider links in the legacy preview. No linked-byte or closed-strict gain claimed. Scratch before/after sources, objects, strict receipts and command output remain in build/object-flag-owner-link-20261015. proof.json records the measurement index identity, object hashes and reproducible checker input. Tooling lane should reconcile generated owner selection against matched data_rows and add a regression test before retrying this repair.

@@ -1,7 +1,0 @@
-Code/Libraries/Source/WWVegas/WWMath/vector3.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowUpdate.cpp
-Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp
-Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp
-Code/Libraries/Source/WWVegas/WW3D2/composite.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshModelInitNPatch.cpp

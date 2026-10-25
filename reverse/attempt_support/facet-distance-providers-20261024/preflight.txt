@@ -1,3 +1,0 @@
-0x00007810 EXACT 0 unresolved identity []
-0x00006F50 EXACT 0 unresolved identity []
-GOOD 2 43 bytes

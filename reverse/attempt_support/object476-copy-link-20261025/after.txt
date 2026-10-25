@@ -1,2 +1,0 @@
-Code/GameEngine/Source/Common/BfmeObject476Copy.cpp: LINKS  LINKED 0 -> 2,613 bytes (census 2026-10-25 03:51 at ce1b975697; file's own bytes 2,613)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 2,613 bytes (5.1s)

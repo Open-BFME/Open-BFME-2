@@ -1,5 +1,0 @@
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?FogEnable@DX8Wrapper@@2_NA	0x009EDA21
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferDrawProps.cpp	wrong-name	?FogColor@DX8Wrapper@@2KA	0x009EDA24
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferDrawProps.cpp	wrong-name	?FogEnable@DX8Wrapper@@2_NA	0x009EDA21
-data_check (enforce): 2 source(s), 4 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.2s

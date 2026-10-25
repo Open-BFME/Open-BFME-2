@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxMultiInput.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 3,787)
-  unresolved  ?g_00E01D48@@3IA
-  comdat      ?getCharAt@?$StringBase@G@@QBEGH@Z  (retail: not retail's body)
-Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp: LINKS  LINKED 3,011 -> 3,011 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 3,011)
-link_check: 1 of 2 link cleanly; LINKED 3,011 -> 3,011 bytes (3.4s)

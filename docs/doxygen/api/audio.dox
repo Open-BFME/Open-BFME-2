@@ -1,9 +1,0 @@
-/// \defgroup grp_audio Audio
-/// \brief Sound events, the Miles audio backend and large-group audio.
-///
-/// `AudioManager` (`TheAudio`) and its Miles Sound System implementation,
-/// `MilesAudioManager`; the event classes `AudioEventInfo` and
-/// `AudioEventRTS`; the sound file cache; and the logic-side
-/// `LargeGroupAudio` subsystem with its `LargeGroupAudioUpdate` module.
-/// \ref sub_audio describes the subsystem, its INI data and its
-/// differences from Zero Hour, with notes for modders and remasters.

@@ -1,3 +1,0 @@
-Code/GameEngine/Source/Common/Bfme5TinyTen.cpp
-Code/GameEngine/Source/Common/Rva00355D4ECtor.cpp
-Code/GameEngine/Source/Common/Rva000E10C0.cpp

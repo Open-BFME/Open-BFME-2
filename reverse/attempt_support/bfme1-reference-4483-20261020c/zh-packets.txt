@@ -1,5 +1,0 @@
-packets: dropping 10 packet(s) this run does not reproduce: 0075b948 00765877 00766d1c 0076b6a3 0077a739 00796558 007a4b17 007a86af ...
-packets: 0 written to reverse/zh_sweep/packets, covering 0 candidate body/bodies over 0 bytes of unclaimed .text
-  241 address(es) the ledger has claimed since the match ran: no packet
-  0 packet(s) quote a retail extent the Zero Hour candidate does not have
-  0 packet(s) agree on less than 85% of their COMPARED bytes; the threshold is applied upstream to a figure that scores blanked bytes as agreeing

@@ -1,2 +1,0 @@
-COMMAND: python3 tools/class_gate.py Code/GameEngine/Source/GameLogic/Object/Contain/Rva004F571BReplaceContainedOwner.cpp
-EXIT: 0

@@ -1,1 +1,0 @@
-Every complete row unchanged; only the registry global name differs in relocations; provider entire object unchanged.

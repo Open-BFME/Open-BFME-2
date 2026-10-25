@@ -1,5 +1,0 @@
-from pathlib import Path
-W=Path(__file__).resolve().parent;base=(W/'base.cpp').read_text();out=W/'thiscall';out.mkdir(exist_ok=True)
-for i,cc in enumerate(['__thiscall','__fastcall','__stdcall','__cdecl']):
- defs='struct RawPrepareTable { void *unused[3]; void *('+cc+' *prepare)(ContactSource *self,const ContactVector &point,const ContactVector &normal); };\ninline void *rawPrepare(ContactSource *s,const ContactVector &point,const ContactVector &normal) { return (*(RawPrepareTable **)s)->prepare(s,point,normal); }\n'
- s=base.replace('struct ContactData',defs+'struct ContactData',1).replace('node->first->source->prepare(node->point,ContactVector(node->normal).negate())','rawPrepare(node->first->source,node->point,ContactVector(node->normal).negate())');(out/('v%04d.cpp'%i)).write_text(s)

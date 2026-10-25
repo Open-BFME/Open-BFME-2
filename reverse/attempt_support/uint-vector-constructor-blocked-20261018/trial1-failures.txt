@@ -1,3 +1,0 @@
-  FAIL ??0GeometryUpgradeModuleData@@QAE@XZ (Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp)
-  FAIL ?SelectRandomHero@@YAXXZ (Code/GameEngine/Source/GameNetwork/HeroTransfer.cpp)
-Functions: FAIL 2/4

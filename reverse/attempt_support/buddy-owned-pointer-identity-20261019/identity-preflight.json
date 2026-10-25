@@ -1,9 +1,0 @@
-{
-  "problems": [
-    "definition: divergent | ??$__stl_alloc_rebind@DD@_STL@@YAAAV?$allocator@D@0@AAV10@PBD@Z",
-    "definition: duplicate | ??0Base0_00576C4B@@QAE@XZ"
-  ],
-  "mode": "shadow",
-  "seconds": 6.4410717487335205,
-  "rows": 19
-}
