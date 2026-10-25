@@ -22,7 +22,7 @@ public:
 	virtual void v2(int);
 	virtual void v3(int);
 };
-extern Rva00512C88ObjA *g_Va00A048CC;
+extern Rva00512C88ObjA *g_disconnectMenuLayout;
 
 class InGameUI
 {
@@ -65,7 +65,7 @@ extern GameWindowManager *TheWindowManager;
 
 void __cdecl bfmeShowDisconnectScreen(void)
 {
-	if (g_Va00A048CC != 0)
+	if (g_disconnectMenuLayout != 0)
 		return;
 	if ((int)AptStrategicMessageBox::s_instance != 0)
 		((Rva0054CBEFTarget *)(void *)(int)AptStrategicMessageBox::s_instance)->method(0);
@@ -73,6 +73,6 @@ void __cdecl bfmeShowDisconnectScreen(void)
 	Rva004E855CClose();
 	Rva0051B11CEnable();
 	TheInGameUI->v94(1);
-	g_Va00A048CC = (Rva00512C88ObjA *)(void *)TheWindowManager->v32(AsciiString("DisconnectScreen.apt"));
-	g_Va00A048CC->v0(0);
+	g_disconnectMenuLayout = (Rva00512C88ObjA *)(void *)TheWindowManager->v32(AsciiString("DisconnectScreen.apt"));
+	g_disconnectMenuLayout->v0(0);
 }

@@ -52,7 +52,7 @@ class Object
 {
 public:
 	void rva0028EBDA(bool flag);
-	void rva0028EC48(int index, void *source);
+	void setEmotion(int index, void *source);
 	void rva0028EC68(int index, void *source, int delay);
 	void rva0028EC88(int index);
 	void forceEmotion(int index, float value, int source);
@@ -83,7 +83,7 @@ void Object::rva0028EBDA(bool flag)
 // climb the +0x274 container chain to the outermost object and forward
 // to its tracker, if any; the fourth forwards to the innermost object in
 // that chain that has a tracker.
-void Object::rva0028EC48(int index, void *source)
+void Object::setEmotion(int index, void *source)
 {
 	Object *obj = this;
 	while (obj->m_containedBy274)

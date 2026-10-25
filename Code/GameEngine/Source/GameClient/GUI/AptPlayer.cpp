@@ -32,7 +32,7 @@ public:
  }
 };
 struct Rva002236F2Value;
-class Rva002236F2 { public: Rva002236F2Value &rva002236F2(const Rva002236F2Value &); };
+class Rva002236F2 { public: Rva002236F2Value &insert(const Rva002236F2Value &); };
 struct Rva00223F4BNode { Rva00223F4BNode *next; Rva00223F4BPair value; };
 class Rva00223F4B { public: TreeHintRef00222C5A &rva00223F4B(const AsciiString &key); };
 // STLport _hash_map.h operator[] supplies the find-or-insert expression.
@@ -47,7 +47,7 @@ TreeHintRef00222C5A &Rva00223F4B::rva00223F4B(const AsciiString &key)
 	 Rva0041534BIter it = reinterpret_cast<Rva00056F61 *>(this)->rva0041534B(&key);
 	 node = static_cast<Rva00223F4BNode *>(it.m_node);
 	}
-	return !node ? reinterpret_cast<Rva00223F4BPair &>(reinterpret_cast<Rva002236F2 *>(this)->rva002236F2(
+	return !node ? reinterpret_cast<Rva00223F4BPair &>(reinterpret_cast<Rva002236F2 *>(this)->insert(
 	  reinterpret_cast<const Rva002236F2Value &>(Rva00223F4BPair(key, TreeHintRef00222C5A())))).second : node->value.second;
 }
 

@@ -11222,7 +11222,7 @@ _Rva00812320,0x0067E220,address read from the REL32 displacement in DirtySock Y4
 _Rva008125C0,0x0067E4C0,address read from the REL32 displacement in DirtySock Y4CommTable Rva00812320 at 0x0067E220; same-TU forward reference pending conversion; body not yet converted
 _Rva00812690,0x0067E590,address read from the REL32 displacement in DirtySock Y4CommTable Rva00812CD0 at 0x0067EBD0; call order matches BFME1 source; body not yet converted
 _Rva00812CD0,0x0067EBD0,address read from the REL32 displacements in DirtySock Y5SmallHelpers Rva0080E500 at 0x0067A400; BFME1 Y5SmallHelpers names this callee; body not yet converted
-_Rva00812DD0,0x0067ECD0,address read from the REL32 displacement in DirtySock Y5SmallHelpers Rva0080E6C0 at 0x0067A5C0; call order matches BFME1 source; body not yet converted
+_CommTAPIConstruct,0x0067ECD0,address read from the REL32 displacement in DirtySock Y5SmallHelpers Rva0080E6C0 at 0x0067A5C0; call order matches BFME1 source; body not yet converted
 _Rva00812FD0,0x0067EED0,CommTAPI factory at 0x0067ECD0 passes this address as the CreateThread worker entry; BFME1 Y4CommTickIdle body 267B matches Ghidra 267B; body not yet converted
 _Rva00813100@24,0x0067F000,address read from the REL32 displacement in DirtySock Y4CommTickIdle Rva00813E50 at 0x0067FD50; call order matches BFME1 source; body not yet converted
 _Rva008139A0,0x0067F8A0,op-table slot 1 of the CommTAPI factory at 0x0067ECD0 names this address; BFME1 Y4CommTickIdle body 158B matches Ghidra 158B; body not yet converted

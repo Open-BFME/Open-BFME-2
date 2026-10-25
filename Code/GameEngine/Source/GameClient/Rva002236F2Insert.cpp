@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// ?rva002236F2@Rva002236F2@@QAEAAURva002236F2Value@@ABU2@@Z @0x002236F2 68B
+// ?insert@Rva002236F2@@QAEAAURva002236F2Value@@ABU2@@Z @0x002236F2 68B
 // Hashtable insert over AsciiString->4B mapped: resize via pin 0x00212858 then
 // rowed bucketIndex 0x00223149 then rowed new-node 0x00223547; links node into
 // bucket and returns pair at +4. Same shape as rowed 0x002249ED (68B) with
@@ -36,7 +36,7 @@ public:
 class Rva002236F2
 {
 public:
-	Rva002236F2Value &rva002236F2(const Rva002236F2Value &value);
+	Rva002236F2Value &insert(const Rva002236F2Value &value);
 private:
 	void *m_unused;
 	Rva002236F2Node **m_beginBuckets;
@@ -45,7 +45,7 @@ private:
 	unsigned int m_numElements;
 };
 
-Rva002236F2Value &Rva002236F2::rva002236F2(const Rva002236F2Value &value)
+Rva002236F2Value &Rva002236F2::insert(const Rva002236F2Value &value)
 {
 	Rva000427195 *table = (Rva000427195 *)this;
 	table->rva00212858(m_numElements + 1);

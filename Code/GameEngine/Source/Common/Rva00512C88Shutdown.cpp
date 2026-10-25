@@ -47,22 +47,22 @@ public:
 	virtual void v94(int);
 };
 
-extern Rva00512C88ObjA *g_Va00A048CC;
+extern Rva00512C88ObjA *g_disconnectMenuLayout;
 // g_Va00A048CC: matched references place it at VA 0xe048cc (zero-filled .bss).
-Rva00512C88ObjA * g_Va00A048CC;
+Rva00512C88ObjA * g_disconnectMenuLayout;
 
 void Rva00512C88Shutdown()
 {
-	if (g_Va00A048CC == 0)
+	if (g_disconnectMenuLayout == 0)
 		return;
-	g_Va00A048CC->v3(0);
+	g_disconnectMenuLayout->v3(0);
 	void *layoutToDelete;
-	if (g_Va00A048CC != 0)
-		layoutToDelete = g_Va00A048CC->v1(0);
+	if (g_disconnectMenuLayout != 0)
+		layoutToDelete = g_disconnectMenuLayout->v1(0);
 	else
 		layoutToDelete = 0;
 	operator delete(layoutToDelete);
-	g_Va00A048CC = 0;
+	g_disconnectMenuLayout = 0;
 	(*(Rva00512C88ObjB **)&TheInGameUI)->v94(0);
 }
 
@@ -71,6 +71,6 @@ void Rva00512C88Shutdown()
 // Evidence: caller 0x004D470E; unblocks 0x004D46FC.
 void Rva00512CCDShutdown()
 {
-	if (g_Va00A048CC != 0)
-		g_Va00A048CC->v2(0);
+	if (g_disconnectMenuLayout != 0)
+		g_disconnectMenuLayout->v2(0);
 }

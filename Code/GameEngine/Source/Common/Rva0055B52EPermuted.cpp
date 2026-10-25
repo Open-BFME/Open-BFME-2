@@ -47,7 +47,7 @@ public:
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("??_GRva003ADFB2@@UAEPAXI@Z")();
-void __identifier("?rva0055B489@Rva0055B39C@@QAEXXZ")();
+void __identifier("?updateAlpha@Rva0055B39C@@QAEXXZ")();
 int __cdecl _purecall(void);
 void __identifier("?xfer@Rva0055B3D9@@UAEXPAVXfer@@@Z")();
 void __identifier("?rva0055B417@Rva0055B417@@QBE_NH@Z")();
@@ -55,7 +55,7 @@ void __identifier("?get@Rva0008BB58FloatField@@QBEMXZ")();
 }
 extern const void *const g_00C1D11C[6] = {
 	(const void *)&__identifier("??_GRva003ADFB2@@UAEPAXI@Z"), // slot 0 0x003AE270
-	(const void *)&__identifier("?rva0055B489@Rva0055B39C@@QAEXXZ"), // slot 1 0x0055B489
+	(const void *)&__identifier("?updateAlpha@Rva0055B39C@@QAEXXZ"), // slot 1 0x0055B489
 	(const void *)&__identifier("_purecall"), // slot 2 0x0003B810
 	(const void *)&__identifier("?xfer@Rva0055B3D9@@UAEXPAVXfer@@@Z"), // slot 3 0x0055B3D9
 	(const void *)&__identifier("?rva0055B417@Rva0055B417@@QBE_NH@Z"), // slot 4 0x0055B417

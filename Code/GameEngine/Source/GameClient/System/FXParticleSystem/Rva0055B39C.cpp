@@ -49,7 +49,7 @@ class Rva0055B39C
 {
 public:
 	void computeAlphaRate();
-	void rva0055B489();
+	void updateAlpha();
 private:
 	char m_pad0[4];
 	// Two views of the same retail interpolation storage. The key view
@@ -88,7 +88,7 @@ void Rva0055B39C::computeAlphaRate()
 // Native 0x0055B489..0x0055B52E: skip states 1/2, advance the alpha
 // key interpolation, then clamp to 0..1. The call uses the same receiver
 // and fields as the already verified helper at 0x0055B39C.
-void Rva0055B39C::rva0055B489()
+void Rva0055B39C::updateAlpha()
 {
     if (particle->getSystem()->state == 1 || particle->getSystem()->state == 2)
         return;

@@ -52,7 +52,7 @@ void CommTAPIUnresolve( void );
 void CommTAPICallback( void );
 void CommTAPITick( void );
 
-extern "C" CommTAPIRef *Rva00812DD0( int first, int second, int third )
+extern "C" CommTAPIRef *CommTAPIConstruct( int first, int second, int third )
 {
 	void *threadHandle;
 	CommTAPIRef *comm;
@@ -62,7 +62,7 @@ extern "C" CommTAPIRef *Rva00812DD0( int first, int second, int third )
 		return 0;
 
 	memset( comm, 0, 0x19C );
-	comm->m_ops[ 0 ] = (void *)Rva00812DD0;
+	comm->m_ops[ 0 ] = (void *)CommTAPIConstruct;
 	comm->m_ops[ 1 ] = (void *)Rva008139A0;
 	comm->m_ops[ 2 ] = (void *)Rva00813A50;
 	comm->m_ops[ 3 ] = (void *)CommTAPIUnresolve;
