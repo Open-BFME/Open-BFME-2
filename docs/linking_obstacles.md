@@ -778,6 +778,22 @@ confirmation remain pending.
 - **Clearance:** preview scope only (the units listed).
 - **Census confirmation:** awaiting the next census.
 
+### LINK-017: identity retirement does not resolve verified renumbered EH labels
+
+**Status: Blocked on verifier reconciliation and current providers. Updated: 2026-10-26;
+inspected revision: `2f9834aa34`.**
+
+- **Evidence / scope:** [the DX8 retirement refusal](../reverse/attempt_support/dx8-identity-funclet-refusal-20261026.md)
+  records 13 identity keys in dx8wrapper.cpp. Normal verification passes 228
+  functions, 13 data rows and 21 EXACT EH graphs, including 72 renumbered funclets.
+- **Completed:** no source or register edit. Retirement correctly refuses four
+  stale providers and separately rejects old funclet labels already resolved by
+  the byte gate. The latter is recorded as a false reject, not a debt repair.
+- **Remaining / next check:** reconcile the retirement tool with verified parent
+  EH resolution in a separate tooling change, refresh providers, then repair and
+  judge the descriptor/vector bindings. Do not hand-change pins or labels.
+- **Clearance / census confirmation:** none claimed.
+
 ## Investigation-specific validation limitation
 
 The initial investigation preserved a pre-existing BFME 1 checkout at
