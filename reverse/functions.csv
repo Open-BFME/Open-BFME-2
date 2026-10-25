@@ -9258,7 +9258,7 @@ _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp
 ?Read_Class_Info@AggregateDefClass@@MAE_NAAVChunkLoadClass@@@Z,,0x001A3560,49,Code/Libraries/Source/WWVegas/WW3D2/agg_def.cpp,matched,slot 6 (+0x18) of retail AggregateDefClass vtable 0x007D6C70; bool BFME1 agg_def donor; b1 0x00980550; formerly BfmeThingVFC::bfmeGoVFC
 ?createServiceHubImpl@@YAPAVServiceHubImpl@@PAX00000@Z,,0x00658160,151,Code/GameEngine/Source/GameNetwork/createServiceHubImpl.cpp,matched,BFME1 byte-identical donor; b1 0x007EB1C0; 2 DIR32 string literal(s) agree
 ?bfmeFlushGM@BfmeOwnerGM@@QAEXXZ,,0x0066F5A0,64,Code/GameEngine/Source/Common/BfmeConv1720.cpp,matched,BFME1 byte-identical donor; b1 0x00803550
-?bfmeGoVJF@@YGXPAVBfmeMsgVJF@@PAUBfmePairVJF@@H@Z,,0x0065E930,144,Code/GameEngine/Source/Common/BfmeConv1384.cpp,matched,BFME1 byte-identical donor; b1 0x007F1E00; 3 DIR32 string literal(s) agree
+?bfmeGoVJF@@YGXPAVBfmeMsgVJF@@PAUFeslUserId@@H@Z,,0x0065E930,144,Code/GameEngine/Source/Common/BfmeConv1384.cpp,matched,BFME1 byte-identical donor; b1 0x007F1E00; 3 DIR32 string literal(s) agree
 ?bfmeStartAEB@BfmeThingAEB@@QAEXPAVBfmeOwnerAEB@@@Z,,0x0066F560,60,Code/GameEngine/Source/Common/BfmeThreeHundredEightyFive.cpp,matched,BFME1 byte-identical donor; b1 0x00803510
 ?bfmeResizeVME@BfmeStrVME@@QAEXID@Z,,0x0002A0B0,98,Code/GameEngine/Source/Common/BfmeConv1427.cpp,matched,BFME1 byte-identical donor; b1 0x008309C0
 ?bfmeAppendRangeV36@@YGXPAVBfmeStrV36@@HH@Z,,0x0002A870,136,Code/GameEngine/Source/Common/BfmeConv1477.cpp,matched,BFME1 byte-identical donor; b1 0x00830F00

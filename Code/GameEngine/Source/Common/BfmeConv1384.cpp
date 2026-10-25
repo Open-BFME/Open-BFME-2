@@ -14,7 +14,7 @@ public:
 	int m_bfme1c;
 };
 
-struct BfmePairVJF
+struct FeslUserId
 {
 	void *m_bfme00;
 	void *m_bfme04;
@@ -24,7 +24,7 @@ extern void *g_bfmeVJF;
 // g_bfmeVJF: matched references place it at VA 0xe0a04c (zero-filled .bss).
 void * g_bfmeVJF;
 
-void __stdcall bfmeGoVJF(BfmeMsgVJF *m, BfmePairVJF *arr, int n)
+void __stdcall bfmeGoVJF(BfmeMsgVJF *m, FeslUserId *arr, int n)
 {
 	char buf[0x10];
 	void *txn = g_bfmeVJF;

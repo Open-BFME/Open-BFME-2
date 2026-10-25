@@ -2542,3 +2542,4 @@ __ehhandler$?rva0057322B@@YAPAVWaypoint@@VAsciiString@@@Z,0x0079AE79,"Renamed to
 ??0?$deque@UBfmeE16@@V?$allocator@UBfmeE16@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeE16@@@1@@Z,0x0055387C,Renamed to ??0?$deque@UBfmeOpaqueOwnedRecord1408@@V?$allocator@UBfmeOpaqueOwnedRecord1408@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmeOpaqueOwnedRecord1408@@@1@@Z: native constructor hierarchy reaches existing 0x580 node provider; reverse/attempt_support/deque-e16-hierarchy-20261023.md
 ?addSlot@Rva008063B0Owner@@QAEXHH@Z,0x006723E0,"Renamed to ?addSlot@FeslStateMachine@@QAEXHH@Z by tools/rename.py (inferred)"
 ?rva006CC230@Rva006CC160@@QAEXXZ,0x006CC230,"Renamed to ?reset@Rva006CC160@@QAEXXZ by tools/rename.py (inferred)"
+?bfmeGoVJF@@YGXPAVBfmeMsgVJF@@PAUBfmePairVJF@@H@Z,0x0065E930,"Renamed to ?bfmeGoVJF@@YGXPAVBfmeMsgVJF@@PAUFeslUserId@@H@Z by tools/rename.py (inferred)"
