@@ -71,7 +71,7 @@ struct Rva0020E63FPlayerRange {
 };
 class Rva002BA8F1Logic {
 public:
- Rva002E2903Player *rva002B52A8(int);
+ Rva002E2903Player *GetPlayerAtIndex(int);
  char pad[0x8c]; Rva0020E63FPlayerRange players;
 };
 enum AnimTypes;
@@ -85,7 +85,7 @@ void LivingWorldRegionManager::SetActiveBattleID(int key, int field3c)
  if (entry) {
   ((AnimateWindow *)entry)->setAnimType((AnimTypes)field3c);
   for (int index = 0; index < ((Rva002BA8F1Logic *)TheLivingWorldLogic)->players.size(); ++index) {
-   Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(index);
+   Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(index);
    ((Rva002E0BEB *)player)->rva002E0BEB(entry);
   }
  }

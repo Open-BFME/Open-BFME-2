@@ -17,7 +17,7 @@ class Rva002E2903Player;
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(Int index);
+	Rva002E2903Player *GetPlayerAtIndex(Int index);
 };
 
 class LivingWorldLogic;
@@ -48,7 +48,7 @@ void Rva0009C983::rva0009C983(Int arg)
 	Int count = logic->m_players.size();
 	for (Int i = 0; i < count; ++i)
 	{
-		Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->rva002B52A8(i);
+		Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if (player)
 			rva0009C814(arg, player);
 	}

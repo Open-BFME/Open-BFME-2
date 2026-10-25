@@ -70,7 +70,7 @@ class Rva002BA8F1Logic
 {
 public:
 	Rva002E2903Player *find(int id, unsigned int *index);
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 };
 
 class LivingWorldLogic
@@ -99,7 +99,7 @@ int Rva005003DF::rva005003DF(int playerId, const int &key, int *outBest) const
 	Rva005003DFIntMultiMap::const_iterator bestIt;
 	for (int i = 0; i < TheLivingWorldLogic->getNumPlayers(); ++i)
 	{
-		int id = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i)->m_id;
+		int id = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i)->m_id;
 		Rva002E071E *player = (Rva002E071E *)((Rva002BA8F1Logic *)(TheLivingWorldLogic?TheLivingWorldLogic:TheLivingWorldLogic))->find(playerId, 0);
 		if (!(unsigned char)player->rva002E0BC0(id))
 		{

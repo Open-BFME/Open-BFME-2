@@ -2548,3 +2548,4 @@ __ehhandler$?rva0057322B@@YAPAVWaypoint@@VAsciiString@@@Z,0x0079AE79,"Renamed to
 ?rva0055B489@Rva0055B39C@@QAEXXZ,0x0055B489,"Renamed to ?updateAlpha@Rva0055B39C@@QAEXXZ by tools/rename.py (inferred)"
 ?rva0028EC48@Object@@QAEXHPAX@Z,0x0028EC48,"Renamed to ?setEmotion@Object@@QAEXHPAX@Z by tools/rename.py (inferred)"
 _Rva00812DD0,0x0067ECD0,"Renamed to _CommTAPIConstruct by tools/rename.py (inferred)"
+?rva002B52A8@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z,0x002B52A8,"Renamed to ?GetPlayerAtIndex@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z by tools/rename.py (canonical:wb)"

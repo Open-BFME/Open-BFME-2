@@ -61,7 +61,7 @@ typedef _STL::map<int,int> IntMap;
 typedef _STL::_Rb_tree<int,_STL::pair<const int,int>,_STL::_Select1st<_STL::pair<const int,int> >,_STL::less<int>,_STL::allocator<_STL::pair<const int,int> > > IntTree;
 struct Rva002B488EResult {char pad[0x54];int owner;};
 class Rva002E2903Player {public:char pad14[0x14];int id;char pad18[0x1c];int faction;};
-class Rva002BA8F1Logic {public:Rva002E2903Player*find(int,unsigned*);Rva002E2903Player*rva002B52A8(int);Rva002B488EResult*rva002B488E(int);};
+class Rva002BA8F1Logic {public:Rva002E2903Player*find(int,unsigned*);Rva002E2903Player*GetPlayerAtIndex(int);Rva002B488EResult*rva002B488E(int);};
 class LivingWorldLogic;extern LivingWorldLogic*TheLivingWorldLogic;
 class Rva002E071E {public:int rva002E0BC0(int);};
 struct ArmyMoverRegionInfo {int id,owner,m_08,m_0c;_STL::vector<int>m_10,m_1c,m_28,m_34,m_40;IntMap armies;};
@@ -301,10 +301,10 @@ void LivingWorldAIArmyMover::rva0059C93C(_STL::vector<BfmePod20>*moves,int playe
  void*scenario=TheCampaignManager->getCurrentCampaign()->scenario;
  ((Rva004FD448*)scenario)->rva004FD571(faction,&targets,&found);
  for(int i=0;i<((PlayerListLogic*)TheLivingWorldLogic)->numPlayers();++i) {
-  Rva002E2903Player*other=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B52A8(i);
+  Rva002E2903Player*other=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(i);
   if(!(unsigned char)((Rva002E071E*)other)->rva002E0BC0(playerID)) {
    int count=0;
-   int otherID=((Rva002BA8F1Logic*)TheLivingWorldLogic)->rva002B52A8(i)->id;
+   int otherID=((Rva002BA8F1Logic*)TheLivingWorldLogic)->GetPlayerAtIndex(i)->id;
    ((Rva004FD4D4*)scenario)->rva004FD4D4(otherID,&targets,&count);
   }
  }

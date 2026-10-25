@@ -51,7 +51,7 @@ class Rva002BA8F1Logic : public Rva002BA8F1Primary, public Rva002BA8F1Listener {
 public:
     Rva002E2903Player *find(const AsciiString &, unsigned int *);
     Rva002E2903Player *find(int, unsigned int *);
-    Rva002E2903Player *rva002B52A8(int);
+    Rva002E2903Player *GetPlayerAtIndex(int);
     int rva002B5256(bool flag);
     void setLocal(Rva002E2903Player *);
     char gap[0x8c-0x1c]; Rva002BA8F1PlayerList players;
@@ -94,9 +94,9 @@ Rva002E2903Player *Rva002BA8F1Logic::find(int id, unsigned int *index)
     return 0;
 }
 
-// ?rva002B52A8@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z @0x002B52A8 38B.
+// ?GetPlayerAtIndex@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z @0x002B52A8 38B.
 // Bounds-checked index into the same +0x8C player vector. Returns 0 on negative or past-end.
-Rva002E2903Player *Rva002BA8F1Logic::rva002B52A8(int index)
+Rva002E2903Player *Rva002BA8F1Logic::GetPlayerAtIndex(int index)
 {
     if (index < 0 || (unsigned int)index >= players.size())
         return 0;

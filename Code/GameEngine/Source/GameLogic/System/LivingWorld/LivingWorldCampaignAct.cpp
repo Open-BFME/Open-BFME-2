@@ -160,7 +160,7 @@ class Rva00318E8C {public:Rva00318E8COut *rva00318E8C(Rva00318E8COut*);};
 class Rva002E18C3Lookup {public:AsciiString *find(const AsciiString&);};
 extern Rva002E18C3Lookup *TheLivingWorldPlayerTemplateStore;
 class Rva002E2903Player {public:char pad[0x40];AsciiString *template40;};
-class Rva002BA8F1Logic {public:Rva002E2903Player *rva002B52A8(int);};
+class Rva002BA8F1Logic {public:Rva002E2903Player *GetPlayerAtIndex(int);};
 struct Rva002B86AAKey; struct Rva002B86AAVal;
 class Rva002B86AA {public:bool rva002B86AA(Rva002B86AAKey*,Rva002B86AAVal*)const;};
 class Rva002104B6 {public:void *rva002104B6(void*);};
@@ -192,7 +192,7 @@ void Rva0056616B::rva005666C5() {
    else { SpawnVectorView<AsciiString> &names=*reinterpret_cast<SpawnVectorView<AsciiString> *>(&request->m_38); for(unsigned int t=0;t<names.size();++t) {
     AsciiString *playerTemplate=TheLivingWorldPlayerTemplateStore->find(names[t]);
     if(playerTemplate) for(unsigned int p=0;p<reinterpret_cast<SpawnVectorView<Rva002E2903Player *> *>(&TheLivingWorldLogic->playersBegin)->size();++p) {
-     Rva002E2903Player *player=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B52A8(p);
+     Rva002E2903Player *player=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(p);
      if(playerTemplate==player->template40 && !reinterpret_cast<Rva002B86AA*>(TheLivingWorldLogic)->rva002B86AA(reinterpret_cast<Rva002B86AAKey*>(request),reinterpret_cast<Rva002B86AAVal*>(player))) {
       Rva00318E8COut position;
       if(!spawnEqual(*reinterpret_cast<Coord2D*>(reinterpret_cast<Rva00318E8C*>(request)->rva00318E8C(&position)),SpawnZero()))

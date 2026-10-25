@@ -27,7 +27,7 @@ extern GameInfo *TheGameInfo;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class LivingWorldPlayer;
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player *rva002B52A8(int);char pad00[0x8c];_STL::vector<LivingWorldPlayer*>m_players;};
+class Rva002BA8F1Logic {public:Rva002E2903Player *GetPlayerAtIndex(int);char pad00[0x8c];_STL::vector<LivingWorldPlayer*>m_players;};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldPlayer {public:char pad00[0x14];void *m_template;};
@@ -57,7 +57,7 @@ void AptTimeLine::rva00520CD1()
 		else if(m_mode==7)game=TheGameInfo;
 		if(game) {
 			for(int i=0;i<(int)reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->m_players.size();++i) {
-				LivingWorldPlayer *player=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B52A8(i));
+				LivingWorldPlayer *player=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(i));
 				GameSlot * slot = 0;
 				for(int j=0;j<8;++j) {
 					if(game->getSlot(j)->getTemplate()==player->m_template) {slot=game->getSlot(j);break;}

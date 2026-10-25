@@ -122,7 +122,7 @@ class Rva002BA8F1Logic
 public:
 	Rva002B488EResult *rva002B488E(int armyID);
 	class Rva002E2903Player *find(int id, unsigned int *outIndex);
-	class Rva002E2903Player *rva002B52A8(int index);
+	class Rva002E2903Player *GetPlayerAtIndex(int index);
 	void rva002B323C(_STL::vector<Rva0040D701ArmySummary *> *armies, int armyID);
 	int getPlayerCount() const { return m_players.size(); }
 	void *getRegionManager() const { return m_regionManager; }
@@ -642,7 +642,7 @@ void ScriptActions::rva003C6279(const AsciiString &refName, const AsciiString &p
 	int *ref = (int *)TheScriptEngine->rva00208CF0(refName);
 	int count = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->getPlayerCount();
 	for (int i = 0; i < count; ++i) {
-		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+		Rva002E2903Player *player = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if (player && player->m_name->compare(playerName) == 0) {
 			*ref = player->m_id;
 			return;

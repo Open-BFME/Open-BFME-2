@@ -20,7 +20,7 @@ public:
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 	struct PlayerList
 	{
 		Rva002E2903Player **m_begin;
@@ -55,10 +55,10 @@ bool Rva002E1046::rva002E1046()
 		return false;
 	for (int i = 0; i < (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->m_players8c.size(); i++)
 	{
-		Rva002E2903Player *p1 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+		Rva002E2903Player *p1 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if ((unsigned char)((Rva002E071E *)this)->rva002E0BC0(p1->m_14))
 			continue;
-		Rva002E2903Player *p2 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+		Rva002E2903Player *p2 = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if (p2->m_3c4 == 0)
 			return true;
 	}

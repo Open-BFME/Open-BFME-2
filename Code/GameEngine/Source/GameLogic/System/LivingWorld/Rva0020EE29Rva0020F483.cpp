@@ -61,7 +61,7 @@ public:
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 };
 
 class LivingWorldLogic
@@ -70,7 +70,7 @@ public:
 	int getNumPlayers() const { return m_players.size(); }
 	LivingWorldPlayer *getPlayerAtIndex(int index)
 	{
-		return reinterpret_cast<LivingWorldPlayer *>(reinterpret_cast<Rva002BA8F1Logic *>(this)->rva002B52A8(index));
+		return reinterpret_cast<LivingWorldPlayer *>(reinterpret_cast<Rva002BA8F1Logic *>(this)->GetPlayerAtIndex(index));
 	}
 
 private:

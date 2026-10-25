@@ -172,7 +172,7 @@ class LivingWorldPlayer {
  void*rva002E06EF();
 };
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player*rva002B52A8(int);};
+class Rva002BA8F1Logic {public:Rva002E2903Player*GetPlayerAtIndex(int);};
 class Rva002E071E {public:bool rva002E071E(const Rva002E071E*)const;};
 class Rva0009AAA4DwordField {public:int get()const;};
 class Rva0021937DTarget;
@@ -229,7 +229,7 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   int enemies[7];int allies[7];memset(enemies,0,sizeof(enemies));memset(allies,0,sizeof(allies));
   int numEnemies=0;
   for(int i=0;i<TheLivingWorldLogic->getPlayerCount();++i) {
-   LivingWorldPlayer*p=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B52A8(i));
+   LivingWorldPlayer*p=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(i));
    if(p!=player && p->getPlayerKind()==1) {
     int difficulty=reinterpret_cast<const Rva0009AAA4DwordField*>(p)->get();
     if(allied(p,player))++allies[difficulty];
@@ -249,7 +249,7 @@ void StatsReporter::ProcessStrategicSinglePlayerGame(LivingWorldPlayer*player) {
   }
  }
  for(int i=0;i<TheLivingWorldLogic->getPlayerCount();++i) {
-  LivingWorldPlayer*p=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B52A8(i));
+  LivingWorldPlayer*p=reinterpret_cast<LivingWorldPlayer*>(reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->GetPlayerAtIndex(i));
   if(!allied(p,player)) {
    const PlayerTemplate*enemyTemplate=ThePlayerTemplateStore->findPlayerTemplate(TheNameKeyGenerator->nameToKey(p->getSide()->getName()));
    if(enemyTemplate) {

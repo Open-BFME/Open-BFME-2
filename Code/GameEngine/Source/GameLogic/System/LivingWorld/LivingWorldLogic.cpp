@@ -179,7 +179,7 @@ class Rva002BA8F1Logic
 {
 public:
 int rva002B5256(bool);
-	Rva002E2903Player *rva002B52A8(Int index);
+	Rva002E2903Player *GetPlayerAtIndex(Int index);
 	Rva002E2903Player *find(Int playerID, UnsignedInt *index);	// 0x002B51F8
 	Rva002E2903Player *find(const AsciiString &name, UnsignedInt *index);	// 0x002B6AEC
 	struct Rva002B488EResult *rva002B488E(Int armyID);	// 0x002B488E, WB LivingWorldLogic::findArmy
@@ -2777,7 +2777,7 @@ void LivingWorldLogic::UpdateTurnPhase(){
  do {
   int count=m_players.size();
   for(int i=0;i<count;++i){
-   TurnPhasePlayerView *playerView=(TurnPhasePlayerView *)((Rva002BA8F1Logic *)this)->rva002B52A8(i);
+   TurnPhasePlayerView *playerView=(TurnPhasePlayerView *)((Rva002BA8F1Logic *)this)->GetPlayerAtIndex(i);
    if(playerView->kind44==1 && !((Rva002B2405 *)playerView)->rva002B2405() && !playerView->flag3C4){
     ((Rva004FBB25Sub *)((char *)playerView+0x4c))->rva004FBB25(m_turnPhase);break;
    }
@@ -3902,7 +3902,7 @@ void LivingWorldLogic::logicMessageDispatcher(GameMessage*msg,void*unused){
   if(turn==m_turn&&phase==m_turnPhase){int id=msg->getArgument(2)->integer;DispatcherPlayer*playerView=(DispatcherPlayer*)((Rva002BA8F1Logic*)this)->find(id,0);if(playerView)playerView->ready=1;}break;}
  case 1720:{int id=msg->getArgument(0)->integer;*((bool*)this+0x175)=true;
   if(!((DispatcherGameLogic*)TheGameLogic)->field114&&((BfmeSelectionState*)this)->isSelectionLocked()&&((DispatcherPlayer*)m_localPlayer)->localFlag){rva002B88EC();break;}
-  for(unsigned i=0;i<m_players.size();++i){DispatcherPlayer*playerView=(DispatcherPlayer*)((Rva002BA8F1Logic*)this)->rva002B52A8(i);if(!playerView->gone&&(unsigned char)((Rva002E071E*)playerView)->rva002E0BC0(id))RemovePlayer((LivingWorldPlayer*)playerView);}
+  for(unsigned i=0;i<m_players.size();++i){DispatcherPlayer*playerView=(DispatcherPlayer*)((Rva002BA8F1Logic*)this)->GetPlayerAtIndex(i);if(!playerView->gone&&(unsigned char)((Rva002E071E*)playerView)->rva002E0BC0(id))RemovePlayer((LivingWorldPlayer*)playerView);}
   rva002B9DC7();if(!((BfmeSelectionState*)this)->isSelectionLocked())rva002B88EC();break;}
  case 1711:HandleSwapArmyMembersMessage(msg);break;
  case 1712:{LivingWorldArmy*army;if(getArmyFromMessage(&army,msg,0))CancelArmyMemberMove(army,msg->getArgument(1)->integer);break;}

@@ -22,7 +22,7 @@ class Rva002E2903Player;
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 };
 
 class Rva004FBB25Sub
@@ -63,7 +63,7 @@ void Rva002B52CE::rva002B52CE()
 	if ((d >> 2) <= 0)
 		return;
 	do {
-		Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->rva002B52A8(i);
+		Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->GetPlayerAtIndex(i);
 		if (p != m_sentinel98) {
 			if (p->m_44 == 1) {
 				p->state2();

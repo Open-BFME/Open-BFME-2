@@ -31,7 +31,7 @@ bool less<int>::operator()(const int &a, const int &b) const
 class Rva002E1001; // Retained opaque parameter spelling for the defeat provider.
 class LivingWorldPlayer { public: int GetNumRegionsOwned(); };
 class Rva002E2903Player { public: char pad[0x34]; int team; };
-class Rva002BA8F1Logic { public: Rva002E2903Player *rva002B52A8(int index); };
+class Rva002BA8F1Logic { public: Rva002E2903Player *GetPlayerAtIndex(int index); };
 class Rva002104B6 { public: void *rva002104B6(void *name); };
 class LivingWorldLogic {
 public:
@@ -78,7 +78,7 @@ bool LivingWorldScenario::TeamVictoryCondition::hasTeamAchievedVictory(int team)
     int count = (*(int *)(players + 4) - *(int *)players) >> 2;
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i);
+        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i);
         if (player->team == team)
             total += ((LivingWorldPlayer *)player)->GetNumRegionsOwned();
     }
@@ -194,7 +194,7 @@ bool LivingWorldScenario::TeamDefeatCondition::isTeamDefeated(int team)
     int count = (*(int *)(players + 4) - *(int *)players) >> 2;
     int total = 0;
     for (int i = 0; i < count; ++i) {
-        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i);
+        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i);
         if (player->team != team)
             continue;
         total += ((LivingWorldPlayer *)player)->GetNumRegionsOwned();

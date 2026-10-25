@@ -21,7 +21,7 @@ public:
 class Rva002BA8F1Logic {
 public:
     Rva002E2903Player *find(int, unsigned *);
-    Rva002E2903Player *rva002B52A8(int);
+    Rva002E2903Player *GetPlayerAtIndex(int);
 };
 class Rva0020EAF6View {
 public:
@@ -97,7 +97,7 @@ void Rva003F7260::rva003F7260(int *input)
     }
 
     for (int p = 0; p < (int)((WorldLogicRegionView *)TheLivingWorldLogic)->players.size(); ++p) {
-        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(p);
+        Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(p);
         WorldPlayerRegionView *view = (WorldPlayerRegionView *)player;
         const _STL::vector<RegionAnchorView *> &anchors = view->getAnchors();
         for (unsigned a = 0; a < anchors.size(); ++a) {

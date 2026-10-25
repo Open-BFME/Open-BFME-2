@@ -26,7 +26,7 @@ public:
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 };
 
 class Rva002E071E
@@ -61,11 +61,11 @@ bool Rva004FB382::rva004FB382()
 {
 	if (owner != 0) {
 		for (int i = 0; i < playerCount(); ++i) {
-			Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+			Rva002E2903Player *p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 			int id = p->at14;
 			_ReadWriteBarrier();
 			if ((unsigned char)owner->rva002E0BC0(id) == 0) {
-				p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B52A8(i);
+				p = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->GetPlayerAtIndex(i);
 				if (!p->m_3C4)
 					return false;
 			}

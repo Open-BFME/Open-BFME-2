@@ -133,7 +133,7 @@ class Rva002E2903Player;
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int);
+	Rva002E2903Player *GetPlayerAtIndex(int);
 };
 
 class LivingWorldLogic;
@@ -170,7 +170,7 @@ void rva004FB8A8()
 	((LWAIWorldInformation *)&g_Va00E04508)->GatherWorldInformation();
 	for (int i = 0; i < ((Rva004FB8A8Players *)TheLivingWorldLogic)->m_players.size(); ++i)
 	{
-		Rva004FB8A8Slots *slots = (Rva004FB8A8Slots *)((char *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i) + 0x4C);
+		Rva004FB8A8Slots *slots = (Rva004FB8A8Slots *)((char *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i) + 0x4C);
 		slots->m_04 = 0;
 		slots->m_80.clear();
 		slots->m_68.clear();

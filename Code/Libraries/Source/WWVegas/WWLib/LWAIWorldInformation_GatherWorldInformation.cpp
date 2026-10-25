@@ -241,7 +241,7 @@ struct LWAILogicView
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 };
 
 class Rva002E0C68
@@ -395,7 +395,7 @@ void LWAIWorldInformation::GatherWorldInformation()
 	int playerCount = ((LWAILogicView *)TheLivingWorldLogic)->m_players.size();
 	for (int p = 0; p < playerCount; ++p)
 	{
-		LWAIPlayerView *player = (LWAIPlayerView *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(p);
+		LWAIPlayerView *player = (LWAIPlayerView *)((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(p);
 		Rva00501776 playerInfo;
 		int bonus = player->m_298;
 		playerInfo.m_00 = ((Rva002E0C68 *)player)->rva002E0C68() + bonus;

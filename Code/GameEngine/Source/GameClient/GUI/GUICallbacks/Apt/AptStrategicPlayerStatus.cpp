@@ -220,7 +220,7 @@ int CountOwnedUnits(Rva002E0D02Arg *player);
 class Rva002BA8F1Logic
 {
 public:
-	Rva002E2903Player *rva002B52A8(int index);
+	Rva002E2903Player *GetPlayerAtIndex(int index);
 	unsigned char m_pad000[0x8C];
 	_STL::vector<Rva002E2903Player *> m_players; // +0x8C
 	Rva002E2903Player *m_localPlayer; // +0x98
@@ -395,7 +395,7 @@ AptStrategicPlayerStatus::AptStrategicPlayerStatus(void *context)
 	int count = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->m_players.size();
 	for (int i = 0; i < count; ++i)
 	{
-		Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(i);
+		Rva002E2903Player *player = ((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if (player == 0)
 			continue;
 		int index = 0;

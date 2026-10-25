@@ -88,7 +88,7 @@ struct Rva002BA8F1Input;
 struct Rva002BA8F1Slot;
 class Rva002E2903Player;
 class Rva002BA8F1Logic {public:
- Rva002E2903Player *rva002B52A8(int);
+ Rva002E2903Player *GetPlayerAtIndex(int);
 };
 class Rva002E067DDwordSlot {public: void set(int);};
 class Rva0020E89C {public:char pad[0x14]; AsciiString name;};
@@ -207,7 +207,7 @@ void LivingWorldCampaign::CreatePlayers()
      player.m_1C=slot->team;
      player.m_20=-slot->at20;
      TheLivingWorldLogic->AddPlayer((Rva002BA8F1Input *)&player,isLocal,!human,(Rva002BA8F1Slot *)slot);
-     Rva002E2903Player *created=((Rva002BA8F1Logic *)TheLivingWorldLogic)->rva002B52A8(playerCount);
+     Rva002E2903Player *created=((Rva002BA8F1Logic *)TheLivingWorldLogic)->GetPlayerAtIndex(playerCount);
      ((Rva002E067DDwordSlot *)created)->set(slot->state);
      ++playerCount;
    }

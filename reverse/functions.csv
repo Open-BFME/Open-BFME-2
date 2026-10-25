@@ -26107,7 +26107,7 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ??0Rva005D944A@@QAE@XZ,,0x005D9438,18,Code/GameEngine/Source/Common/Rva005EE30CDerivedCtors_muse-1b6d.cpp,matched,ctor calls base 005EE2E6 precedes dtor 005D944A
 ?find@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@HPAI@Z,,0x002B51F8,94,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1Lookups.cpp,matched,LivingWorld id lookup over plus8C vector plus14 id with minus1 early-out
 ?Rva00087A5CCopy@@YAXPAPAX0@Z,,0x00087A5C,24,Code/Libraries/Source/WWVegas/WWLib/Rva00087A5CCopy.cpp,matched,honest 4B owning-ref copy with inc at plus4 via O1
-?rva002B52A8@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z,,0x002B52A8,38,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1Lookups.cpp,matched,LivingWorld plus8C vector bounds-checked index
+?GetPlayerAtIndex@Rva002BA8F1Logic@@QAEPAVRva002E2903Player@@H@Z,,0x002B52A8,38,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva002BA8F1Lookups.cpp,matched,LivingWorld plus8C vector bounds-checked index
 ?rva002724FD@Drawable@@QAEXABVAsciiString@@HHMM@Z,,0x002724FD,72,Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp,matched,Drawable 0x14C walk via 0xA8 to 0x88 AsciiString ints floats
 ?findMap@MapCache@@QAEPBVMapMetaData@@VAsciiString@@@Z,,0x003024BC,76,Code/GameEngine/Source/GameClient/MapCacheFindMap.cpp,matched,MapCache findMap via BFME1 donor plus global 0x9FF12C callers plus inline twin
 ?GadgetTextEntryGetText@@YA?AVUnicodeString@@PAVGameWindow@@@Z,,0x00320AAB,145,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetTextEntryGetText.cpp,matched,BFME1 GadgetTextEntry donor null ENTRY_FIELD check winSendSystemMsg 0x402F
