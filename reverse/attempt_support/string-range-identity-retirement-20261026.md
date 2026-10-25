@@ -27,5 +27,15 @@ new claim about the current provider's closure.
   inline-assembly wrapper is retained; this is stale-debt retirement, not a
   C++ conversion, new body recovery or new linked-byte gain.
 
-One identity key is retired. Shared insertion-provider closure and the
+## BfmeConv1428.cpp
+
+The whole 42-byte forwarder at 0x00029F50 was inspected, including existing
+repair `4e7f62fa83`. That commit already replaced `bfmeImplVMF` with the same
+recovered insertion owner and tag-reference ABI. The frozen-file check and
+normal byte/reference verification pass; the identity retirement command
+removes one stale key and reports zero remaining findings for this source.
+This unit is also already census-linked. Its existing C++ and compile profile
+are unchanged.
+
+Two identity keys are retired. Shared insertion-provider closure and the
 remaining string family are separate work.

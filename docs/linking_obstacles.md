@@ -105,13 +105,14 @@ authored-byte previews or commit-title gains into a projected headline.
   real whole-body C++ instantiation replaces its old alias and retires one
   hatch key; the paired before/after preview preserves all 2,978 authored
   bytes and claims no new linking gain. The other alias remains debt.
-- **Stale string identity key retired (2026-10-26, `fce2c6327a`):**
+- **Stale string identity keys retired (2026-10-26, `fce2c6327a`):**
   [the forward-range caller check](../reverse/attempt_support/string-range-identity-retirement-20261026.md)
-  confirms BfmeConv1486.cpp already binds the recovered insertion owner. The
-  whole 285-byte caller remains exact. After normal refresh of two newly
-  consolidated upstream objects, the owning identity tool retires one stale
-  key with zero remaining findings for this source. The caller is already
-  census-linked; its existing assembly and the provider's separate closure
+  confirms BfmeConv1486.cpp and BfmeConv1428.cpp already bind the recovered
+  insertion owner. Both whole callers remain exact (285 and 42 bytes). After
+  normal refresh of two newly consolidated upstream objects, the owning
+  identity tool retires two stale keys, with zero remaining findings for each
+  source. These callers are already census-linked; their existing code and
+  the provider's separate closure
   work are unchanged. No C++ conversion or new linked-byte gain is claimed.
 - **Clearance / census confirmation:** graphics ordinary-preview scope cleared
   at the revision above; other families and census confirmation remain pending.
