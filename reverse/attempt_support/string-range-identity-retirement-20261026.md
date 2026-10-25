@@ -37,5 +37,16 @@ removes one stale key and reports zero remaining findings for this source.
 This unit is also already census-linked. Its existing C++ and compile profile
 are unchanged.
 
-Two identity keys are retired. Shared insertion-provider closure and the
+## BfmeConv1438.cpp
+
+The complete 47-byte forwarder at 0x0002A560 carries the companion repair from
+`4e7f62fa83`: its existing assembly call already names the same insertion
+owner. Frozen-file and normal byte/reference checks pass. The identity
+retirement tool removes its old `bfmeImplVMR` key with zero remaining
+findings. The already-linked body, including its assembly, is unchanged.
+
+Across the three sources, all three existing function rows retain 374 bytes.
+Three identity keys are retired, one source per verified commit. No C++
+conversion or matched/linked-byte gain is claimed. Shared insertion-provider
+closure and the
 remaining string family are separate work.

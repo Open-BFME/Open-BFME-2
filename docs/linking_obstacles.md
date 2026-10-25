@@ -107,12 +107,12 @@ authored-byte previews or commit-title gains into a projected headline.
   bytes and claims no new linking gain. The other alias remains debt.
 - **Stale string identity keys retired (2026-10-26, `fce2c6327a`):**
   [the forward-range caller check](../reverse/attempt_support/string-range-identity-retirement-20261026.md)
-  confirms BfmeConv1486.cpp and BfmeConv1428.cpp already bind the recovered
-  insertion owner. Both whole callers remain exact (285 and 42 bytes). After
-  normal refresh of two newly consolidated upstream objects, the owning
-  identity tool retires two stale keys, with zero remaining findings for each
-  source. These callers are already census-linked; their existing code and
-  the provider's separate closure
+  confirms BfmeConv1486.cpp, BfmeConv1428.cpp and BfmeConv1438.cpp already bind
+  the recovered insertion owner. All three whole callers remain exact
+  (285, 42 and 47 bytes). After normal refresh of two newly consolidated
+  upstream objects, the owning identity tool retires three stale keys, with
+  zero remaining findings for each source. These callers are already
+  census-linked; their existing code and the provider's separate closure
   work are unchanged. No C++ conversion or new linked-byte gain is claimed.
 - **Clearance / census confirmation:** graphics ordinary-preview scope cleared
   at the revision above; other families and census confirmation remain pending.
