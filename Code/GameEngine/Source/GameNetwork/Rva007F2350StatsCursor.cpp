@@ -33,7 +33,7 @@ public:
 	FeslInt64 m_owner;
 	char m_pad08[ 8 ];
 	char m_name[ 0x20 ];
-	char m_30;
+	char m_key;
 	char m_pad31[ 0x1F ];
 	int m_value;
 	char m_addStat[ 0x100 ];
@@ -59,7 +59,7 @@ bool Rva007F2350StatsCursor::next( Rva007F2350StatsRecord *record )
 	int value;
 
 	record->m_name[ 0 ] = 0;
-	record->m_30 = 0;
+	record->m_key = 0;
 	record->m_value = 0;
 	record->m_addStat[ 0 ] = 0;
 	record->m_rank = 0;
@@ -100,12 +100,12 @@ bool Rva007F2350StatsCursor::nextStat(Rva007F2350StatsRecord *record)
  char valueText[0x40];
  union { float number; int bits; } value;
  record->m_name[0] = 0;
- record->m_30 = 0;
+ record->m_key = 0;
  record->m_value = 0;
  record->m_addStat[0] = 0;
  record->m_rank = 0;
  sprintf(name, "stats.%d.key", m_index);
- if (!((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, &record->m_30, (void *)0x20)) return false;
+ if (!((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, &record->m_key, (void *)0x20)) return false;
  sprintf(name, "stats.%d.value", m_index);
  ((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, valueText, (void *)0x40);
  sscanf(valueText, "%f", &value.number);
@@ -128,7 +128,7 @@ bool Rva007F2350StatsCursor::nextAdditionalStat(Rva007F2350StatsRecord *record)
  char valueText[0x40];
  union { float number; int bits; } value;
  record->m_name[0] = 0;
- record->m_30 = 0;
+ record->m_key = 0;
  record->m_value = 0;
  record->m_addStat[0] = 0;
  record->m_rank = 0;
@@ -138,7 +138,7 @@ bool Rva007F2350StatsCursor::nextAdditionalStat(Rva007F2350StatsRecord *record)
  sscanf(valueText, "%f", &value.number);
  record->m_value = value.bits;
  sprintf(name, "stats.%d.addStats.%d.key", stat, m_state);
-	((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, &record->m_30, (void *)0x20);
+	((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, &record->m_key, (void *)0x20);
  sprintf(name, "stats.%d.addStats.%d.text", stat, m_state);
 	((BfmeThingUPB *)m_msg)->bfmeGoUPB((void *)name, record->m_addStat, (void *)0xff);
  ++m_state;

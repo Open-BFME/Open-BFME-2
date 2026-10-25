@@ -28,7 +28,7 @@ struct Rva000BBE86Rec
 	int m_key0;
 	int m_key4;
 	char m_pad[8];
-	int m_slot10;
+	int m_turretAngleBone;
 	int m_slot14;
 };
 
@@ -55,15 +55,15 @@ void ModelSMConditionInfo::validateTurretInfo(const Rva000BBDDF *boneState)
 			break;
 		Rva000BBE86Rec &rec = m_turrets[index];
 		if ((unsigned char)Rva000B2CBDGet() == 0 || text->isEmpty()) {
-			rec.m_slot10 = 0;
+			rec.m_turretAngleBone = 0;
 			rec.m_slot14 = 0;
 			continue;
 		}
 		if (rec.m_key0) {
-			if (!boneState->rva000BBDDF(rec.m_key0, &rec.m_slot10))
-				rec.m_slot10 = 0;
+			if (!boneState->rva000BBDDF(rec.m_key0, &rec.m_turretAngleBone))
+				rec.m_turretAngleBone = 0;
 		} else {
-			rec.m_slot10 = 0;
+			rec.m_turretAngleBone = 0;
 		}
 		if (rec.m_key4) {
 			if (!boneState->rva000BBDDF(rec.m_key4, &rec.m_slot14))

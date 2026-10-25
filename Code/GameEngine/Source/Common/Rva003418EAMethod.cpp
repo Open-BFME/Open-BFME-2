@@ -39,7 +39,7 @@ public:
 };
 struct ChaseC {
 	char m_pad000[0x3BA];
-	bool m_3BA;
+	bool m_canPathThroughUnits;
 };
 struct ChaseB {
 	char m_pad000[0x258];
@@ -71,5 +71,5 @@ void Rva00341796::onExit(int status)
 	}
 	ChaseC *chaseC = m_machine->m_14->m_258;
 	if (chaseC)
-		chaseC->m_3BA = 0;
+		chaseC->m_canPathThroughUnits = 0;
 }
