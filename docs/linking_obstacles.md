@@ -293,6 +293,14 @@ authored-byte previews or commit-title gains into a projected headline.
   LINKS for 177 authored bytes. This confirms existing repair `0c7ebc35a7`,
   with no new source edit or census gain. INI's own ownership-overlay blockers
   remain outside this AI-only clearance; await the next census for confirmation.
+- **GameLogic lookup header subset (2026-10-26, `8da4ac24ce`):**
+  [the AITarget owner adoption](../reverse/attempt_support/gamelogic-lookup-header-adoption-20261026.md)
+  replaces its private GameLogic/ObjectID declarations with the registered
+  header. All nine function rows and the data row remain exact, with one
+  EXACT EH graph and unchanged 406-byte ordinary link preview. The owning
+  acceptance tool retires one header-queue row; the shared header is unchanged.
+  This already-linked consumer gains no census bytes. Other consumers and
+  full class-layout reconciliation remain open.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
