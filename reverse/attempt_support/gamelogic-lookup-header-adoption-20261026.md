@@ -27,6 +27,17 @@ nor relies on its size. The complete source was read before editing.
 - `header_adopt_lane.py accept --class GameLogic` passes and retires this
   source's single queue row through the normal owning-tool path.
 
-The result is one fewer queued header adoption. Other GameLogic consumers and
+## Indexed object getter: Rva0025BFF8ObjectGetter.cpp
+
+The complete 24-byte getter consumes ObjectID values from its existing array
+and calls the same `findObjectByID` provider. Replace its local GameLogic and
+ObjectID declarations with the same canonical header. The removed
+`OBJECTID_INVALID = -1` enumerator was unused; no value test or stored value
+changes. Current normal builds and frozen-file checks pass before and after
+(1/1 row); the ordinary link preview remains 24 -> 24 bytes. The owning header
+acceptance command retires this source's one queue row. No function row or
+pin changes.
+
+The result is two fewer queued header adoptions. Other GameLogic consumers and
 the full class layout remain separate work; no new matched or linked bytes
 are claimed.
