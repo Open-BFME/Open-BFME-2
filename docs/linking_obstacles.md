@@ -161,7 +161,7 @@ authored-byte previews or commit-title gains into a projected headline.
 
 ### LINK-004: missing or incompatible shared providers and declarations
 
-**Status: Open. Updated: 2026-10-25.**
+**Status: Open. Updated: 2026-10-26.**
 
 - **Evidence / scope:** recurring historical names include `AudioEventRTS`
   destruction, assignment and `setObjectID`; `UpdateModule::crc`;
@@ -237,6 +237,24 @@ authored-byte previews or commit-title gains into a projected headline.
   the bounded ownership diagnostic clears INI's 2,989 authored bytes. Existing
   provider debt is recorded in the handoff. This subset is cleared in the
   scoped diagnostic; global closure and census confirmation remain pending.
+- **Canonical string-header subset (2026-10-26, inspected `1efc3f6a40`):**
+  [the adoption evidence](../reverse/attempt_support/unicode-header-adoption-20261026.md)
+  replaces WideConcatPair's private StringBase/UnicodeString views with the
+  shared declarations. Its 13 rows remain exact; all ten users of the existing
+  public-lifetime mode and six regression consumers pass (167/167 rows and
+  nine checked EH graphs). The helper friend names stay within that mode.
+  Ordinary preview against `ef9c691284` (18:23 UTC) preserves all 2,926
+  authored bytes. The header lane accepts and retires one queue row. This
+  clears that adoption obstacle only; no new census or executable closure
+  is claimed, and the broader provider family remains open.
+  The online-address preference consumer additionally adopts the shared
+  UnicodeString declaration: its 194-byte body and EH graph pass, ordinary
+  preview keeps 194 -> 194 bytes, and the header lane retires another row.
+  The LAN-address twin likewise passes both rows and its EH graph, keeps
+  204 -> 204 bytes in ordinary preview, and retires its header-queue row.
+  Rva001EB15ACopy adopts the canonical strings using the existing revival
+  record's AsciiString member view: all three rows and the copy EH graph
+  pass, preview keeps 121 -> 121 bytes, and the fourth queue row is retired.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and

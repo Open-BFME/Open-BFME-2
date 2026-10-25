@@ -10,9 +10,9 @@
 // EnumeratedIP::getIPstring copy-at-+0 body at 0x002E4336, called through a
 // cast so the call resolves to the existing row), writable global
 // TheWritableGlobalData, and a named Bool match flag which is what emits the
-// neg/sbb/inc byte. Private StringBase/AsciiString copies with throw() on
-// compareNoCase are copied verbatim from the twin TU so the tooltip temporary
-// needs no EH state, matching retail. Caller at 0x0038BAB9 etc. Neighbours
+// neg/sbb/inc byte. The shared non-throwing compareNoCase declaration keeps
+// the tooltip temporary without a separate EH state, matching retail.
+// Caller at 0x0038BAB9 etc. Neighbours
 // setLANIPAddress 0x002E50BB and setOnlineIPAddress.
 #include <map>
 #include <stdlib.h>
@@ -21,36 +21,8 @@ typedef bool Bool;
 typedef int Int;
 typedef float Real;
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
-
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
-template <> class StringBase<unsigned short>
-{
-	friend class UnicodeString;
-	void releaseBuffer();
-
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-
-protected:
-	BfmeStringData<unsigned short> *m_data;
-};
-
-
-class UnicodeString : public StringBase<unsigned short>
-{
-public:
-	UnicodeString() {}
-	void translate(const char *text);
-};
+#include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 

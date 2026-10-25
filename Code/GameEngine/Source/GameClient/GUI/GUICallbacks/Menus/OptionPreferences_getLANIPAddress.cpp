@@ -15,36 +15,8 @@ typedef bool Bool;
 typedef int Int;
 typedef float Real;
 
-template <typename T> struct BfmeStringData
-{
-	int refCount;
-	unsigned short length;
-	unsigned short capacity;
-	T text[1];
-};
-
 #include "../../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
-template <> class StringBase<unsigned short>
-{
-	friend class UnicodeString;
-	void releaseBuffer();
-
-public:
-	StringBase() : m_data(0) {}
-	~StringBase() { releaseBuffer(); }
-
-protected:
-	BfmeStringData<unsigned short> *m_data;
-};
-
-
-class UnicodeString : public StringBase<unsigned short>
-{
-public:
-	UnicodeString() {}
-	void translate(const char *text);
-};
+#include "../../../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 bool operator<(const AsciiString &left, const AsciiString &right);
 

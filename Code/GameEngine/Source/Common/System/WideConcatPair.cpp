@@ -10,43 +10,8 @@
 // the StringBase level so buffer, copy and release resolve to the pinned
 // StringBase bodies.
 
-template <typename T>
-class StringBase
-{
-	friend class UnicodeString;
-	friend struct BFME2WideStringRef;
-	friend class BFME2WideConcatPair;
-	StringBase(const T *text);
-	void releaseBuffer();
-
-public:
-	StringBase() : m_data(0) {}
-	StringBase(const StringBase &src);
-	~StringBase() { releaseBuffer(); }
-	int getLength() const { return m_data ? m_data->length : 0; }
-
-	struct Header
-	{
-		int ref_count;
-		unsigned short length;
-		unsigned short capacity;
-		T data[1];
-	};
-
-	T *getBufferForRead(int len);
-	void set(const StringBase &src);
-
-protected:
-	Header *m_data;
-};
-
-class UnicodeString : public StringBase<unsigned short>
-{
-public:
-	UnicodeString() {}
-	UnicodeString(const UnicodeString &src) : StringBase<unsigned short>(src) {}
-	const unsigned short *str() const { return m_data != 0 ? m_data->data : L""; }
-};
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "../../../../../reference/shims/bfme2_ascii/unicode_string.h"
 
 extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 

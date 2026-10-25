@@ -25,6 +25,12 @@ template <typename T>
 class StringBase {
     friend class AsciiString;
     friend class UnicodeString;
+#ifdef BFME_STRINGBASE_PUBLIC_DTOR
+    // WideConcatPair.cpp needs these accesses for its by-value lifetime.
+    // Keep its helper names out of ordinary string consumers.
+    friend struct BFME2WideStringRef;
+    friend class BFME2WideConcatPair;
+#endif
 
 public:
     void debugIgnoreLeaks();
