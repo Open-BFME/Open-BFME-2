@@ -16,7 +16,6 @@ Code/GameEngine/Source/Common/BfmeConv1462.cpp	?bfmeInsertV22@BfmeStrV22@@QAEPAV
 Code/GameEngine/Source/Common/BfmeConv1463.cpp	?bfmeInsertV23@BfmeStrV23@@QAEPAV1@IPAV1@@Z	?bfmeImplV23@BfmeStrV23@@QAEXPAD000@Z	0x000284D0	unowned
 Code/GameEngine/Source/Common/BfmeConv1464.cpp	?bfmeReplaceV24@BfmeStrV24@@QAEPAV1@PAD000H@Z	?bfmeImplV24@BfmeStrV24@@QAEXPAD000@Z	0x000284D0	unowned
 Code/GameEngine/Source/Common/BfmeConv1485.cpp	?bfmeInsertRangeV43@@YGXHPAVBfmeStrV43@@HH@Z	?bfmeImplV43@BfmeStrV43@@QAEXPAD000@Z	0x000284D0	unowned
-Code/GameEngine/Source/Common/BfmeConv1486.cpp	?bfmeReplaceRangeV44@@YGXPAD000H@Z	?bfmeImplV44@BfmeStrV44@@QAEXPAD000@Z	0x00028820	unowned
 Code/GameEngine/Source/Common/BfmeConv1727.cpp	?bfmeEachQR@@YAXPAUBfmeElemQR@@0HPAX@Z	??0BfmeElemQR@@QAE@ABU0@@Z	0x00217624	wrong
 Code/GameEngine/Source/Common/BfmeConv1950.cpp	?bfmeResizeERE@BfmeVecERE@@QAEXIUBfmeItemERE@@@Z	??1BfmeItemERE@@QAE@XZ	0x002154BE	wrong
 Code/GameEngine/Source/Common/BfmeConv982.cpp	?bfmeGo982C@@YAXPAVBfmeT982@@@Z	?bfmeEnd982C@BfmeHub982@@QAEXXZ	0x00110611	unowned
