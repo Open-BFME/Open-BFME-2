@@ -38,6 +38,20 @@ changes. Current normal builds and frozen-file checks pass before and after
 acceptance command retires this source's one queue row. No function row or
 pin changes.
 
-The result is two fewer queued header adoptions. Other GameLogic consumers and
+## Audio owner position: BfmeAudioEventOwnerPosition.cpp
+
+The complete 332-byte owner-position worker uses GameLogic only in its
+object-ID branch. Include the canonical header and remove the local GameLogic
+and ObjectID declarations; both removed enumerators were unused. The worker,
+its five cases, existing native offsets and global bindings are unchanged.
+Normal builds and frozen-file checks pass before and after (1/1 row), and
+the header acceptance command retires this source's queue row.
+
+The final ordinary preview checks all three current objects together against
+the same published index: 3/3 link cleanly, 762 -> 762 authored nonpadding
+bytes. All 11 matched rows preserve 790 bytes, plus the existing four-byte
+data row; the cohort's one EH graph remains EXACT.
+
+The result is three fewer queued header adoptions. Other GameLogic consumers and
 the full class layout remain separate work; no new matched or linked bytes
 are claimed.
