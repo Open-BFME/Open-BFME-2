@@ -491,6 +491,13 @@ The INI repair [0c7ebc35a7](https://github.com/Open-BFME/Open-BFME-2/commit/0c7e
 is tracked under LINK-004: 2,989 authored bytes cleared in a bounded ownership
 diagnostic, with census confirmation pending. It sits outside the 50-unit list.
 
+A newer-census lead, `Rva00598E85Ctor.cpp` (177 bytes), was checked on
+2026-10-26 at `d7fa8a31bf`: current INI and lower-bound provider objects clear
+its sole selected-copy blocker in the ordinary preview. This confirms the
+existing INI repair; no new source or census gain is claimed. See the
+[AI consumer evidence](../reverse/attempt_support/ai-constructor-current-provider-20261026.md)
+and LINK-004. It is outside the historical snapshot totals below.
+
 ## Snapshot totals
 
 | Category | Units | Reported matched bytes |

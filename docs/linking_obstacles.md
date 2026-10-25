@@ -285,6 +285,14 @@ authored-byte previews or commit-title gains into a projected headline.
   the bounded ownership diagnostic clears INI's 2,989 authored bytes. Existing
   provider debt is recorded in the handoff. This subset is cleared in the
   scoped diagnostic; global closure and census confirmation remain pending.
+- **INI repair's AI consumer checked (2026-10-26, `d7fa8a31bf`):**
+  [the current-provider check](../reverse/attempt_support/ai-constructor-current-provider-20261026.md)
+  verifies Rva00598E85Ctor.cpp's four rows and its INI/lower-bound providers
+  (46 rows, six EXACT EH graphs). Index `f995f30157` still selects INI's old
+  prime-search copy; including current INI makes the unchanged AI unit preview
+  LINKS for 177 authored bytes. This confirms existing repair `0c7ebc35a7`,
+  with no new source edit or census gain. INI's own ownership-overlay blockers
+  remain outside this AI-only clearance; await the next census for confirmation.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
