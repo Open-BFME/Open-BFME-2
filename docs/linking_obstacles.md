@@ -510,6 +510,17 @@ authored-byte previews or commit-title gains into a projected headline.
   credit. This scoped
   scaler repair is **cleared in the fixed comparison**; no current census
   headline change is claimed. Native alignment padding remains unowned.
+- **LargeGroupAudio key-tree follow-up (2026-10-26, `e5c5a1787c`):**
+  [the whole key-list repair](../reverse/attempt_support/largegroup-keylist-erase-link-20261026.md)
+  preserves its 191-byte parent and verifies all 15 rows of the native erase
+  provider. Calling that existing owner removes the nonretail COMDAT and
+  wrong selected-copy blockers; current identity has four owner bindings and
+  zero wrong bindings. Ordinary preview remains 0 -> 0 against `f995f30157`
+  because `g_lgaKeyRecords` is unresolved. Its address has two separate
+  four-byte definitions under other spellings, plus an initializer and cleanup
+  that need one complete storage owner. Prove the extent and reconcile all
+  consumers before clearing this additional storage subset; no census gain
+  or register retirement is claimed.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

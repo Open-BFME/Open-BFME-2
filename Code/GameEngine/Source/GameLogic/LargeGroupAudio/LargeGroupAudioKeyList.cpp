@@ -73,9 +73,15 @@ typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair,
 	_STL::_Select1st<Rva003D3F90Pair>, BfmeStringNoCaseLess,
 	_STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
 
-// erase(iterator) is declared only: this unit's flags emit a non-retail copy,
-// and stlport_asciistring_set_base.cpp supplies retail's (folded at 0x00056BC3).
-template <> void Rva003D3F90Tree::erase(Rva003D3F90Tree::iterator);
+// Retail's call at 0x003ED80E uses the rowed 59-byte erase at 0x00056BC3.
+// Its receiver/node prefix and AsciiString destruction agree with this tree;
+// this call-only view does not identify the complete record as an AsciiString.
+typedef _STL::_Rb_tree<AsciiString, AsciiString, _STL::_Identity<AsciiString>,
+	_STL::less<AsciiString>, _STL::allocator<AsciiString> > AsciiStringEraseTree;
+namespace _STL {
+template <> void _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>,
+	less<AsciiString>, allocator<AsciiString> >::erase(iterator);
+}
 
 extern Rva003D3F90Tree g_lgaKeyRecords;
 extern unsigned int g_lgaNextKey;
@@ -117,7 +123,9 @@ void bfmeClearMembers(LGA_MemberObj *self)
 
 					Rva003D3F90Tree::iterator next = record;
 					++record;
-					g_lgaKeyRecords.erase(next);
+					reinterpret_cast<AsciiStringEraseTree *>(&g_lgaKeyRecords)->erase(
+						AsciiStringEraseTree::iterator(
+							reinterpret_cast<_STL::_Rb_tree_node<AsciiString> *>(next._M_node)));
 					continue;
 				}
 			}
