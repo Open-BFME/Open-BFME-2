@@ -29,3 +29,22 @@ runtime or census clearance is claimed.
 `hatch_counters.py --update` removes exactly this file's two pragma entries,
 each with count one, and makes no unrelated register change. Those two retired
 hatch occurrences are the new result; matched and C++ exact bytes are retained.
+
+## Standard allocation-header follow-up
+
+The same source also had one Microsoft-header queue item: a local declaration
+of `operator delete[](void *) throw()`. Replace it with the VS 2003 `<new>`
+header, whose global declaration has the same calling convention, parameter
+and nonthrowing specification. A first include-only trial exposed duplicate
+array-placement bodies in the donor `always.h`. The final source selects the
+toolchain declarations first and sets the existing `_OPERATOR_NEW_DEFINED_`
+guard to suppress that donor block for this translation unit. This pattern
+already exists in `bfme2_mesh_material_pass.cpp`; no shared header is changed.
+
+The normal gate again preserves eight rows (1,506 bytes), both cleanup
+funclets and one EXACT EH graph. Frozen-file checks pass. The Microsoft-header
+audit reports zero local definitions/declarations and zero failed scans.
+The same paired link control preserves the consumer's 1,489 authored bytes,
+three diagnostics and the provider's seven blockers. This removes one local
+Microsoft declaration, separately from the two prior hatch retirements;
+it changes no register, compiler flag, pin or ledger row.

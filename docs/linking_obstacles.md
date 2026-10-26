@@ -723,6 +723,11 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   The owning hatch tool retires two optimization occurrences. This is new
   hatch retirement plus confirmation of inherited repair, not new linking
   credit or broader closure; census confirmation remains pending.
+  A separately verified follow-up replaces its local array-delete declaration
+  with the toolchain `<new>` header, using the donor's existing allocation
+  guard to avoid duplicate placement bodies. All eight rows, the EH graph
+  and the paired preview stay exact/unchanged; the Microsoft-header scan
+  reports zero local definitions or declarations.
 
 ### LINK-013: INI consolidation made a non-retail `set<AsciiString, BfmeStringNoCaseLess>::insert_unique` the kept copy
 

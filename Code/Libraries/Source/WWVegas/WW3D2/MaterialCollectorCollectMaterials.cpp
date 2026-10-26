@@ -12,7 +12,10 @@
 // order, and an explicit newSize temporary all emitted the same residue.
 // Visible noinline Get_Single_Texture + Peek_Single_Texture are necessary:
 // declaration-only versions caused extra alias reloads in the single path.
-void __cdecl operator delete[](void *) throw();
+#include <new>
+// The toolchain header supplies allocation declarations and placement bodies;
+// suppress the older copies in the donor's always.h for this TU.
+#define _OPERATOR_NEW_DEFINED_
 #include "shader.h"
 #include "vector.h"
 // Reset accesses the target's RefCountClass prefix only.

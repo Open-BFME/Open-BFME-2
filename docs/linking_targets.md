@@ -52,7 +52,7 @@ Follow-up: **Recheck the existing repair and its prerequisites** before retrying
 | `MeshLoadContextAddLegacyMaterial.cpp` | 2,828 | Wrong selected | Recheck repair |
 | `stlport_float_format.cpp` | 2,620 | COMDAT losers | 2026-10-25: still blocked (2,619 current bytes); active append declaration hits VC7.1 C1001, alternate syntax rejected. Trials restored. [Evidence](../reverse/attempt_support/link-regression-clusters-20261025.md). |
 | `MaterialCollectorDestructor.cpp` | 1,686 | Wrong selected | Recheck repair |
-| `MaterialCollectorCollectMaterials.cpp` | 1,506 | Wrong selected | 2026-10-26: current shattersystem provider clears this consumer before/after cleanup (1,489 authored bytes); eight rows and one EH graph exact. Two obsolete optimization occurrences retired. [Evidence](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md), LINK-012; provider's seven blockers and census confirmation remain. |
+| `MaterialCollectorCollectMaterials.cpp` | 1,506 | Wrong selected | 2026-10-26: current shattersystem provider clears this consumer before/after cleanup (1,489 authored bytes); eight rows and one EH graph exact. Two obsolete optimization occurrences retired; local array-delete declaration replaced by the standard header. [Evidence](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md), LINK-012; provider's seven blockers and census confirmation remain. |
 | `PositionStartSpots.cpp` | 994 | Wrong selected | See LINK-006 map-metadata subset |
 | `SkirmishMapStartSpots.cpp` | 703 | Wrong selected | See LINK-006 map-metadata subset |
 | `stlport_narrow_string_substring_ctor.cpp` | 363 | Unresolved | Recheck repair |
