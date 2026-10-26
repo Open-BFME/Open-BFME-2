@@ -332,6 +332,14 @@ authored-byte previews or commit-title gains into a projected headline.
   source is absent from the index and has no ordinary-preview verdict. The
   owning acceptance tool retires three header-queue rows. Other Xfer consumers and
   class-wide closure remain open; no new census or matched-byte gain is claimed.
+- **Vector Xfer header subset (2026-10-26, `6a57c22ccc`):**
+  [the vector-transfer adoption](../reverse/attempt_support/vector-xfer-header-adoption-20261026.md)
+  replaces Rva003F2394Xfer.cpp's private class with the canonical Xfer header.
+  Its complete 204-byte body and 204 -> 204 ordinary preview remain exact/clean;
+  the owning tool retires one queue row. A local operand include preserves
+  declaration order and the temporary string-pointer lifetime needed for retail
+  stack reuse. Shared headers and existing vector/exception identities are unchanged.
+  Other Xfer consumers and class-wide closure remain open.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
