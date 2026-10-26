@@ -714,6 +714,16 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   unchanged and recorded in the evidence. Only this consumer's ordinary
   preview scope is cleared; family closure and census confirmation remain open.
 
+- **Material collector follow-up (2026-10-26, inspected `a91e877b4d`):**
+  [Whole-file cleanup and paired provider checks](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md)
+  preserve all eight rows (1,506 bytes) and one EXACT EH graph. With the
+  current shattersystem object, the consumer previews clean for 1,489 authored
+  bytes before and after removing its unused construction anchor. Its three
+  unreferenced diagnostics and the provider's seven blockers are unchanged.
+  The owning hatch tool retires two optimization occurrences. This is new
+  hatch retirement plus confirmation of inherited repair, not new linking
+  credit or broader closure; census confirmation remains pending.
+
 ### LINK-013: INI consolidation made a non-retail `set<AsciiString, BfmeStringNoCaseLess>::insert_unique` the kept copy
 
 **Status: Cleared in the eight-unit ordinary preview; census pending. Updated: 2026-10-25; inspected revision: aa31e9bac4.**

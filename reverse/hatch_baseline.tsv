@@ -18286,8 +18286,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorAddTexture.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorAddTexture.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorCollectMaterials.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorCollectMaterials.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClassCtor.cpp	"",on	1

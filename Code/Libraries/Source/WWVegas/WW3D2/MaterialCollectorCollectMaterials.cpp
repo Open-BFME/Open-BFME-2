@@ -12,10 +12,6 @@
 // order, and an explicit newSize temporary all emitted the same residue.
 // Visible noinline Get_Single_Texture + Peek_Single_Texture are necessary:
 // declaration-only versions caused extra alias reloads in the single path.
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
 void __cdecl operator delete[](void *) throw();
 #include "shader.h"
 #include "vector.h"
