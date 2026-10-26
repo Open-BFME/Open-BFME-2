@@ -114,6 +114,16 @@ authored-byte previews or commit-title gains into a projected headline.
   zero remaining findings for each source. These callers are already
   census-linked; their existing code and the provider's separate closure
   work are unchanged. No C++ conversion or new linked-byte gain is claimed.
+- **Stale vector-clear identity key retired (2026-10-26, `d75f6cf62f`):**
+  [the overflow caller check](../reverse/attempt_support/vector-overflow-identity-retirement-20261026.md)
+  verifies the unchanged 178-byte caller at 0x0048D48F and 75 rows in its
+  construction/clear/destruction providers. The current scan classifies its
+  0x000C060A call as a fold, with zero wrong bindings. The owning tool retires
+  one stale identity key; ordinary preview is already clean (178 -> 178 bytes).
+  No application identity or new linked-byte gain is claimed.
+  After upstream `b85e569cee` moves the body to FlammableUpdate.cpp, the
+  complete eight-row unit is reverified and the owning retirement tool
+  removes the transferred key at its new path; one separate finding remains.
 - **Clearance / census confirmation:** graphics ordinary-preview scope cleared
   at the revision above; other families and census confirmation remain pending.
   Keep individual repair previews separate from later census confirmation.
