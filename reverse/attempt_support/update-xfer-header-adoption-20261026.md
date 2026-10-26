@@ -42,5 +42,24 @@ Before/after frozen-file and normal byte/reference checks pass the complete
 retain **39 -> 39 authored bytes** against the same index. The owning header
 acceptance command passes and retires this source's single queue row.
 
-This is retirement of two header-debt rows, not new matched, C++ exact or census-linked
+## Crushing notification update
+
+Read the complete `NotifyTargetsOfImminentProbableCrushingUpdateXfer.cpp`.
+Replace its private Xfer table with the same canonical and operand includes.
+The existing two-byte `Xfer::Version` definition moves outside the removed
+class body without changing its members, access or initialization. The function
+body itself is unchanged: Version `(1, 1)` dispatch at `0x28`, the native base
+transfer, then the existing member transfer at object offset `0x20`.
+
+Before/after frozen-file and normal byte/reference checks pass its 53-byte
+row at `0x004CEE39`. There is no parent EH graph. The owning header acceptance
+command passes and retires one queue row. Ordinary previews retain its
+**53 -> 53 authored bytes**; the final combined preview is clean for all
+three update consumers, **521 -> 521**, against the same index.
+
+Each adoption is committed separately. The first commit's normal header
+dependent gate additionally verifies Eva.cpp: 29 rows across that dependent
+and StealthUpdate remain exact. No shared canonical header is edited.
+
+This is retirement of three header-debt rows, not new matched, C++ exact or census-linked
 bytes. Other Xfer consumers and class-wide or executable closure remain open.
