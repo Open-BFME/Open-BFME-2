@@ -7,6 +7,12 @@ The default header queue selected `Rva003F2394Xfer.cpp`.
 | --- | ---: | ---: | --- | ---: |
 | Rva003F2394Xfer.cpp | 1 | 204 | 204 -> 204 | 1 |
 | Rva0040E19DXfer.cpp | 1 | 204 | 204 -> 204 | 1 |
+| Rva004FACD0Xfer.cpp | 1 | 204 | 204 -> 204 | 1 |
+
+The combined final ordinary preview is clean for all three units, 612 -> 612
+bytes. Each whole-file adoption is banked in its own verified commit. The first
+header commit also passes the scoped dependent check for Eva.cpp (28 rows
+including the new consumer); none of these three callers has parent EH data.
 
 Each listed source was read in full and passes the frozen-file checker.
 The private Xfer class is replaced by the registered `BfmeXfer.h`. A local
