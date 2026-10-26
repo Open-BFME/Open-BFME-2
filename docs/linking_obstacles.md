@@ -983,7 +983,19 @@ confirmation remain pending.
   | `_Destroy<Rva002BBB96Element *>` | 0x002BB6A5 (BfmeAssignRecord52 loop) | `stlport_asciistring_record_bodies.cpp` (57b0571b72) | the two Deferred units 0 -> 2,925 B |
   | `/alternatename` onto an undefined `__copy<BfmeAssignRecord28 *>` | 0x003F6477 | the rowed `__copy<Rva003F6477Element *>` called directly; two hatches removed (856b8bc032) | VectorRangeEraseRva003F6975.cpp 0 -> 80 B |
 
-- **Remaining / next check:** `LargeGroupAudioKeyMapBfmeAddKey.cpp` needs
+- **Audio overlap reconciled (2026-10-26, base `e12e2545d9`):** the table above
+  records the earlier independent repair. The retained audio implementation
+  uses the verified 12-byte array owner in KeyList; sixteen native zero bytes
+  did not establish a 16-byte tree layout. AddKey's native resize and insert
+  calls are already repaired, as recorded in
+  [the storage follow-up](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md).
+  [Removing the now-unused pair-tree erase instantiation](../reverse/attempt_support/largegroup-unused-erase-provider-20261026.md)
+  prevents its divergent pair destructor from overriding AddKey's cleanup.
+  All 20 affected function rows, two data rows and two EH graphs pass; current
+  consumer objects contain no reference to that alternative erase. The bounded
+  seven-object preview restores AddKey's 314 bytes and passes 7/7 at
+  10,874 -> 11,379 against index `763dc8759f`. No new census gain is claimed.
+- **Historical prerequisite, now repaired in the audio subset:** `LargeGroupAudioKeyMapBfmeAddKey.cpp` needed
   `vector<void*>::resize` (0x000E6D39, folded as BfmePowerCounts::resize). Its
   `_M_fill_insert` callee is 0x00233A5A, but `reverse/symbols.csv` puts
   `vector<void*>::_M_fill_insert` at 0x00029CA0, so a plain instantiation binds

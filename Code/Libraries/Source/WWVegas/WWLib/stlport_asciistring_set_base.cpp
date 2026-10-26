@@ -64,21 +64,3 @@ unsigned int Rva00056CF8::rva0005B633(const AsciiString &x)
 	rva00057DA0(p.first, p.second);
 	return n;
 }
-
-// LargeGroupAudio's no-case key-record tree erases through the same body
-// (ICF-folded with the set erase at 0x00056BC3; REL32 at 0x003ED80E in
-// bfmeClearMembers). LargeGroupAudioKeyList.cpp's /O1 /Oy- flags emit another
-// shape, so this TU's flags supply the copy it calls.
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
-struct Rva003D3F90Value
-{
-	unsigned int m_key;
-	int m_useCount;
-};
-typedef _STL::pair<const AsciiString, Rva003D3F90Value> Rva003D3F90Pair;
-typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair, _STL::_Select1st<Rva003D3F90Pair>,
-	BfmeStringNoCaseLess, _STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
-template void Rva003D3F90Tree::erase(Rva003D3F90Tree::iterator);
