@@ -29,5 +29,18 @@ a new Version layout or resolve the existing alias debt.
   (2026-10-25 21:36 UTC).
 - `header_adopt_lane.py accept --class Xfer` passes and retires one queue row.
 
-This is header-debt retirement, not new matched, C++ exact or census-linked
+## Deletion update
+
+Read the complete `DeletionUpdateXfer.cpp` sibling and its earlier boundary
+handoff: the verified row is 39 bytes, not the superseded 27-byte deferral.
+The private Xfer table is replaced by the same two includes. `Version1()`
+and `UpdateModule::xfer()` are unchanged; the unsigned-int overload takes
+the existing `m_dieFrame` reference at slot `0x78`.
+
+Before/after frozen-file and normal byte/reference checks pass the complete
+39-byte row at `0x00488483`. There is no parent EH graph. Ordinary previews
+retain **39 -> 39 authored bytes** against the same index. The owning header
+acceptance command passes and retires this source's single queue row.
+
+This is retirement of two header-debt rows, not new matched, C++ exact or census-linked
 bytes. Other Xfer consumers and class-wide or executable closure remain open.

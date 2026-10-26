@@ -350,11 +350,11 @@ authored-byte previews or commit-title gains into a projected headline.
   stack reuse. Shared headers and existing vector/exception identities are unchanged.
   Other Xfer consumers and class-wide closure remain open.
 - **Update-module Xfer header subset (2026-10-26, `9e1ca7f93f`):**
-  [the StealthUpdate adoption](../reverse/attempt_support/update-xfer-header-adoption-20261026.md)
-  replaces its private Xfer declaration with the canonical header and a local
-  operand-declaration include. Both rows (432 bytes) and its EH graph remain
-  exact; the ordinary preview retains 429 authored bytes against `f995f30157`.
-  The owning acceptance tool retires one queue row. The Version storage,
+  [the StealthUpdate and DeletionUpdate adoptions](../reverse/attempt_support/update-xfer-header-adoption-20261026.md)
+  replace private Xfer declarations with the canonical header and a local
+  operand-declaration include. Three rows (471 bytes) and the StealthUpdate EH
+  graph remain exact; ordinary previews retain 429 and 39 authored bytes against
+  `f995f30157`. The owning acceptance tool retires two queue rows. The Version storage,
   transfer order, native callees and existing alias remain unchanged.
   Other consumers and class-wide closure remain open; no new census gain is claimed.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
