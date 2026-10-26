@@ -1,17 +1,22 @@
 // cl: /MD /Oi
 // ??0Rva0027C36A@@QAE@XZ @0x0027C36A 166B
-// Evidence: thiscall default ctor returns this; two vector-iterator arrays at +0x6c Region3D x4 and +0x9c 6B x2; floats zeroed via movss; callers 11 including 0x00280C4C.
+// Evidence: thiscall default ctor returns this; two vector-iterator arrays at +0x6c 12B x4 and +0x9c 6B x2; floats zeroed via movss; callers 11 including 0x00280C4C.
+// The 12B entries are not Region3D (24 B): the ??_H callback is the shared 3B empty ctor
+// 0x0047A6A9, emitted here for an opaque neutral entry and rowed as a genuine ICF fold.
 #include <cstring>
+#include "../../../Libraries/Include/Lib/Region3D.h"
 extern "C" void _ReadWriteBarrier();
 #pragma intrinsic(_ReadWriteBarrier)
-class Region3D
+class Rva0027C36ATwelve
 {
 public:
-	Region3D();
-	float m_x;
-	float m_y;
-	float m_z;
+	Rva0027C36ATwelve();
+	char m_d[12];
 };
+
+Rva0027C36ATwelve::Rva0027C36ATwelve()
+{
+}
 
 class Rva0027C36ASix
 {
@@ -49,7 +54,7 @@ public:
 	int m_58[4];
 	unsigned char m_68;
 	char m_pad69[3];
-	Region3D m_6c[4];
+	Rva0027C36ATwelve m_6c[4];
 	Rva0027C36ASix m_9c[2];
 };
 
