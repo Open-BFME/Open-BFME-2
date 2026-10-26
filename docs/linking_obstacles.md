@@ -821,6 +821,9 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   a four-byte `int`. Ordinary preview retains the same seven duplicate/five
   selected old-index findings, with no new unresolved reference or linking
   gain claimed.
+  A separate follow-up removes five duplicate macro/prototype occurrences;
+  the owning Microsoft-header queue reduces INI's local count from 13 to eight,
+  retaining its CRT conflict classification and all 53 matched rows.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).

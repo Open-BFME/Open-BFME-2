@@ -47,3 +47,21 @@ Logs: `build/codex-cleanup-20261025/iteration20-bit8-{build,identity,eh,data,fro
 Matching coverage is unchanged. The earlier publication's complete batch-link
 verdict remains blocked on Eva.cpp's strict include inventory and the older
 comparison index; this source cleanup does not clear those prerequisites.
+
+## Duplicate-declaration follow-up
+
+After banking the integer-throw repair as `92fbda1679`, a separate homogeneous
+cleanup removes three repeated `#define NULL 0` definitions and the second
+`strlen`/`_mbscpy` prototypes left by composition. One NULL definition and the
+original explicit `extern "C" ... __cdecl` declarations remain in scope.
+No include, macro value, function body, name, layout or compiler flag changes.
+
+The normal whole-file build again passes 53/53 rows, all literal/import checks,
+seven EXACT TU EH graphs and the frozen-file check. The owning scoped
+`ms_header_audit.refresh_queue` refresh changes only INI.cpp's row: 13 local
+occurrences become eight (five function declarations and three macros), with
+six `same` and two `abi` findings, zero failed classifications. Its conflicting
+CRT classification remains; this retires five redundant occurrences, not the
+entire header-queue item. Unrelated queue entries remain byte-for-byte intact.
+
+Logs: `build/codex-cleanup-20261025/iteration20-dedup-{build,eh,frozen,ms}.log`.
