@@ -540,6 +540,12 @@ authored-byte previews or commit-title gains into a projected headline.
   This clears the stated ordinary-preview cohort, not its strict or census
   status. Identity retirement still refuses a separate AsciiString-destructor
   binding in the static accessor; its existing identity key is retained.
+- **Canonical string follow-up (2026-10-26, after `3a6521d528`):**
+  AddKey now uses the registered BFME 2 string header. All four rows, its data
+  row, two EH graphs and the six-unit ordinary preview are preserved. The
+  owning tool removes its registered destructor-binding key and no longer
+  finds the separate accessor-destructor issue. One insert-unique key at
+  `0x003ED8B1` remains; no class-wide identity clearance is claimed.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

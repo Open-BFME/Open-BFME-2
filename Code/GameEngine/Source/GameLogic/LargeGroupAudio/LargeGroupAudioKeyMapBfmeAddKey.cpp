@@ -24,7 +24,7 @@
 // resize declaration below. STLport's stock vector declares the fill by const
 // reference and would create a four-byte temporary that retail does not have.
 #define _STLP_INTERNAL_VECTOR_H
-#include "Common/AsciiString.h"
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <stl/_tree.h>
 #include "LargeGroupAudioKeyTreeStorage.h"
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,

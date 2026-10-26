@@ -121,3 +121,18 @@ destructor reference in the static accessor at `0x002862C9`, targeting
 `0x00036410`. No identity key is removed and no false-reject claim is made.
 That finding is separate from the ordinary link verdict and remains a
 code-identity prerequisite for the whole source.
+
+## Canonical string cleanup follow-up
+
+The whole AddKey source now includes the registered BFME 2 AsciiString header
+instead of the BFME 1 download-manager wrapper. The native cleanup call reaches
+the release-buffer worker through the canonical inline destructor. All four
+rows, the data row and both EH graphs remain exact, and the six-unit ordinary
+preview remains clean at **10,184 -> 10,689**.
+
+`repair_queue.py retire identity` now passes and removes the registered
+AsciiString-destructor key in `bfmeAddKey`; the separate static-accessor
+destructor finding is also absent. The tool explicitly retains **one** key:
+the insert-unique binding at `0x003ED8B1`. Thus this retires one identity key,
+not all code-identity debt. No header-queue row existed for this source, so
+no header-queue retirement is counted. Shared headers and pins are unchanged.
