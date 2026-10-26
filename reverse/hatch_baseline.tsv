@@ -3665,7 +3665,6 @@ alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.c
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	_INV	1
 alternatename	Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp	?freeMacroBucketStorage@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/INI_Rva003396D3ParseKillerScience.cpp	?g_scienceStoreLoaded@@3HA	1
-alternatename	Code/GameEngine/Source/Common/System/INI_getNextAsciiString.cpp	_strcat	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1

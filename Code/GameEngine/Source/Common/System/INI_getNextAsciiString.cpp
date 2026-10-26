@@ -83,6 +83,3 @@ AsciiString INI::getNextAsciiString()
 	return result;
 }
 
-// Retail's call sites in this unit's matched rows land on bodies rowed under
-// other spellings at the same addresses (same ABI). Bind the spellings used here.
-#pragma comment(linker, "/alternatename:_strcat=?ji_0062988c@@YAXXZ")
