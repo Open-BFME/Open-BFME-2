@@ -775,6 +775,17 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   insert_unique / _M_find units together and previews all 11,872 B clean,
   including INI.cpp. The historical duplicate-index and __lower_bound
   prerequisites below are cleared in that bounded check.
+- **Approved-TU follow-up (2026-10-26, base `80732a72b7`):**
+  [the INI consolidation](../reverse/attempt_support/ini-approved-consolidation-20261026.md)
+  absorbs six whole donors and preserves 52 rows / 3,837 bytes in the TU.
+  Two prerequisite commits remove one unused alias and one stale marker.
+  The two-source comparison cohort retains eight EXACT EH graphs, zero wrong
+  code bindings and zero data findings. Before composition, current ordinary
+  preview against the newer `763dc8759f` index accepts all eight original files
+  (3,894 authored bytes); this confirms inherited repairs, not a new gain.
+  After composition, that preview retains six duplicate and four selected
+  findings naming absorbed definitions. Post-merge closure is not claimed;
+  twelve remaining whole donors need declaration/codegen reconciliation.
 - **Historical remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
