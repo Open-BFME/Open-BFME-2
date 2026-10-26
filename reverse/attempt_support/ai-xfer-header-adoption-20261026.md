@@ -33,5 +33,24 @@ no new layout or donor-name recovery is claimed.
 - `header_adopt_lane.py accept --class Xfer` passes and retires this source's
   single queue row through the owning-tool path.
 
-This is header-debt retirement. Existing matched, C++ exact and census-linked
+## AI upgrade transfer
+
+The whole `Code/GameEngine/Source/Common/AIUpgrade_DoXfer.cpp` consumer uses
+the same operand-declaration include and canonical Xfer header. Its existing
+two-byte version buffer is passed by the Version overload at slot `0x28`;
+the integer and AsciiString use their `0x7c` and `0x6c` overloads. The buffer
+initialization, native callees, string lifetime and subsequent object lookup
+remain unchanged. No Version layout definition is introduced.
+
+Frozen-file checks and normal builds pass before and after: two rows, 254
+bytes including the existing ten-byte EH handler. The current parent EH graph
+is EXACT, with no baseline exception. The owning header-acceptance tool passes
+and retires the source's queue row.
+
+The source is absent from census index `f995f30157`; ordinary link_check refuses
+a preview with `not in census ... so not previewable`. No clean link preview
+or census result is claimed for this consumer. The next published census is
+required to judge it; the acceptance and byte/EH checks do not substitute for it.
+
+This is retirement of two header-debt rows. Existing matched and C++ exact
 bytes are preserved; no new byte gain or class-wide closure is claimed.
