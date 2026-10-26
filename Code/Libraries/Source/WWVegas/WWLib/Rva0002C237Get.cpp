@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // stlport
-// ?Rva0002C237Get@@YAXPBVINI@@@Z present-unmatched @0x0002C237 144B: GetCurrentDirectoryA + INI::rva0002BFE5 filename + rva0002BBDE line + AsciiString::format into local; callers unclaimed
+// ?Rva0002C237Get@@YAXPAVINI@@@Z @0x0002C237 144B: GetCurrentDirectoryA + INI::rva0002BFE5 filename + rva0002BBDE line + AsciiString::format into local.
 #include "ascii_string.h"
 
 extern "C" __declspec(dllimport) unsigned long __stdcall GetCurrentDirectoryA(unsigned long nBufferLength, char *lpBuffer);
