@@ -357,6 +357,14 @@ authored-byte previews or commit-title gains into a projected headline.
   `f995f30157`. The owning acceptance tool retires three queue rows. The Version storage,
   transfer order, native callees and existing alias remain unchanged.
   Other consumers and class-wide closure remain open; no new census gain is claimed.
+- **Publication-audit follow-up (2026-10-26, `f8aefae21a`):**
+  [The bounded current-provider audit](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md)
+  identifies two actual declaration mismatches: five public IsCapturing
+  consumers versus the private ww3d.cpp definition, and 23 GameInfo-pointer
+  consumers versus the SkirmishGameInfo-pointer definition. The current data
+  ledger must be reconciled with each real owner; no second symbol is a fix.
+  Other provisional disappeared-provider findings still require current
+  replacement objects or a new census and are not cleared by these examples.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
@@ -618,6 +626,14 @@ authored-byte previews or commit-title gains into a projected headline.
   graphs in three sources, but its audit reaches the same Eva.cpp prerequisite.
   The failed strict preparation is not relaunched without new include evidence.
 
+- **Later bounded publication (`f8aefae21a`, 2026-10-26):**
+  [All 54 changed objects have strict receipts](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md).
+  The full normal gate passes 98,252 functions and 2,216 data rows, followed by
+  116 EXACT EH graphs. This scope excludes Eva and does not clear its inventory
+  prerequisite. The audit completes with 89 retired objects, 287 provisional
+  disappeared-provider reports and 30 possible-loss lines against the older
+  `763dc8759f` index. No aggregate loss, global clearance or census gain follows.
+
 ### LINK-009: split-identity destructors; the alias route needs an admission path
 
 **Status: Blocked on an identity merge or a maintainer admission decision.
@@ -842,6 +858,14 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   pointers and header-specific import configuration preserve all 53 rows,
   seven EH graphs and 168 code bindings. The owning scoped refresh removes
   INI.cpp's Microsoft-declaration queue item; the linking prerequisites remain.
+- **Latest publication and rebase check (2026-10-26):**
+  [The publication audit](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md)
+  records full byte/data verification at `f8aefae21a` and the completed,
+  explicitly provisional 54-object shadow audit. No INI.cpp-specific cause
+  was found in its reported possible losses; this does not establish full
+  linking closure. After rebasing onto `b85e569cee`, INI.cpp is unchanged from
+  the published source and the nine-source reconciliation cohort passes
+  1,014 functions, 24 data rows and twelve EXACT EH graphs.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
