@@ -6,6 +6,7 @@ The default header queue selected `Rva003F2394Xfer.cpp`.
 | Source in Common/System | Verified rows | Bytes | Ordinary link preview | Queue rows retired |
 | --- | ---: | ---: | --- | ---: |
 | Rva003F2394Xfer.cpp | 1 | 204 | 204 -> 204 | 1 |
+| Rva0040E19DXfer.cpp | 1 | 204 | 204 -> 204 | 1 |
 
 Each listed source was read in full and passes the frozen-file checker.
 The private Xfer class is replaced by the registered `BfmeXfer.h`. A local

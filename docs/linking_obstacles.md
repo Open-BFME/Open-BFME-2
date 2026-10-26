@@ -334,9 +334,10 @@ authored-byte previews or commit-title gains into a projected headline.
   class-wide closure remain open; no new census or matched-byte gain is claimed.
 - **Vector Xfer header subset (2026-10-26, `6a57c22ccc`):**
   [the vector-transfer adoption](../reverse/attempt_support/vector-xfer-header-adoption-20261026.md)
-  replaces Rva003F2394Xfer.cpp's private class with the canonical Xfer header.
-  Its complete 204-byte body and 204 -> 204 ordinary preview remain exact/clean;
-  the owning tool retires one queue row. A local operand include preserves
+  replaces the private classes in Rva003F2394Xfer.cpp and Rva0040E19DXfer.cpp
+  with the canonical Xfer header. Both complete 204-byte bodies stay exact;
+  each ordinary preview remains 204 -> 204. The owning tool retires two queue
+  rows. A local operand include preserves
   declaration order and the temporary string-pointer lifetime needed for retail
   stack reuse. Shared headers and existing vector/exception identities are unchanged.
   Other Xfer consumers and class-wide closure remain open.
