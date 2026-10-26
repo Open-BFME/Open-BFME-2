@@ -786,7 +786,11 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   After composition, that preview retains six duplicate and four selected
   findings naming absorbed definitions. Post-merge closure is not claimed;
   twelve remaining whole donors need declaration/codegen reconciliation.
-- **Historical remaining / next check:** the next census confirms the six units. INI.cpp's own link
+  The next [lookup-parser repair](../reverse/attempt_support/ini-lookup-clean-throw-20261026.md)
+  replaces its artificial default exception/throw-info anchor with normal C++
+  throws, preserving all 108 bytes and its clean 108-byte preview. A fresh
+  composition trial remains required before absorbing that donor.
+- **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
 - **Census confirmation:** awaiting the next census.
