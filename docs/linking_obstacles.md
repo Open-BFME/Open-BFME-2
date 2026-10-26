@@ -789,7 +789,14 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   The next [lookup-parser repair](../reverse/attempt_support/ini-lookup-clean-throw-20261026.md)
   replaces its artificial default exception/throw-info anchor with normal C++
   throws, preserving all 108 bytes and its clean 108-byte preview. A fresh
-  composition trial remains required before absorbing that donor.
+  approved composition at `468141e4c7` absorbs that donor unchanged: INI.cpp
+  now verifies 53 rows / 3,945 bytes, with eight EXACT EH graphs and zero wrong
+  bindings or data findings in the two-source cohort. Eleven donors remain
+  blocked by declaration/view reconciliation. Ordinary preview now retains
+  seven duplicate and five selected findings; the additional lookup owner is
+  still the retired donor in the index. Post-merge closure remains unconfirmed.
+  The transferred data catalogue retains its old unused throw-anchor spelling;
+  this is a source-path transfer, not a new emitted anchor or ownership gain.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).

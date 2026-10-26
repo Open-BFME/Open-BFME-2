@@ -7941,7 +7941,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z,,0x0002F1BA,34,Code/GameEngine/Source/Common/INI/INI.cpp,matched,BFME1 parsePercentToReal via sepsPercent member and 0.01 helper
 ?parseICoord2D@INI@@SAXPAV1@PAX1PBX@Z,,0x0002F5BA,58,Code/GameEngine/Source/Common/INI/INI.cpp,matched,BFME1 parseICoord2D verbatim; XY literals folded with parseCoord2D
 ?getModuleNameKey@ObjectDefectionHelper@@UBE?AW4NameKeyType@@XZ,,0x0028C992,69,Code/GameEngine/Source/GameLogic/AI/ObjectDefectionHelperPoolKey.cpp,matched,cached pool-name key; pool string ObjectDefectionHelper; /O1 static-guard EH; nameToKey row
-?scanLookupList@INI@@QAEHPBDPBULookupListRec@@@Z,,0x0002BD85,108,Code/GameEngine/Source/Common/System/INI_scanLookupList.cpp,matched,BFME1 scanLookupList as BFME2 member plus filler-throws
+?scanLookupList@INI@@QAEHPBDPBULookupListRec@@@Z,,0x0002BD85,108,Code/GameEngine/Source/Common/INI/INI.cpp,matched,BFME1 scanLookupList as BFME2 member plus filler-throws
 ?getModuleNameKey@ObjectWeaponStatusHelper@@UBE?AW4NameKeyType@@XZ,,0x0028CB96,69,Code/GameEngine/Source/GameLogic/AI/ObjectWeaponStatusHelperPoolKey.cpp,matched,cached pool-name key; pool string ObjectWeaponStatusHelper; /O1 static-guard EH; nameToKey row
 ?scanIndexList@INI@@QAEHPBDPBQBD@Z,,0x0002BD39,76,Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp,matched,BFME1 scanIndexList as BFME2 member over opaque worker plus filler-throw
 ?getModuleNameKey@ObjectSMCHelper@@UBE?AW4NameKeyType@@XZ,,0x00292849,69,Code/GameEngine/Source/GameLogic/AI/ObjectSMCHelperPoolKey.cpp,matched,cached pool-name key; pool string ObjectSMCHelper; /O1 static-guard EH; nameToKey row

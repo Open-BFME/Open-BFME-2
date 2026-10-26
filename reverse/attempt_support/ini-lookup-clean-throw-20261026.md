@@ -42,3 +42,39 @@ converged-data enforcement over 23,033 sources. A follow-up flag proposal proves
 the inherited SSE override is still needed for two INI rows. Its measurement
 count will be refreshed once for the final consolidated TU; no override is
 retired by this parser change.
+
+## Approved composition follow-up
+
+At base `468141e4c7`, a fresh supported TU plan and `tu_skeleton.py --merge`
+accept the repaired lookup donor. Its unchanged 108-byte body joins INI.cpp;
+the resulting TU preserves 53 rows / 3,945 matched bytes. Across the two merges,
+seven whole donors are absorbed and 14 existing rows / 906 bytes are repointed.
+This is consolidation, not new matched coverage.
+
+The owning tool transfers the one function row, one existing TU-map source cell
+and one data-ledger source reference, then refreshes the MS-header queue.
+The data-ledger `names` entry still spells the old, now-unused
+`_scanLookupListThrowInfoAnchor` catalogue name; only its source path moves.
+Its canonical name, literal status and ownership do not change. This stale
+catalogue spelling is not an active emitted anchor or a new data-ownership claim.
+
+Normal verification accepts all 53 rows, 54 strings plus one empty string,
+one float and nine imports. The INI/Get comparison cohort has 178 references
+(149 owner, 19 alias, eight EH and two fold bindings), zero wrong bindings,
+zero data findings and eight EXACT EH graphs. Frozen-file and ledger checks
+pass. Read-only review found no source or register blocker.
+
+Ordinary preview against `763dc8759f` retains seven duplicate and five selected
+findings in INI.cpp; Get stays clean at 154 bytes. The additional lookup pair
+has the same stale-index cause: its owner remains donor object 581 while the
+selected definition now belongs to merged INI object 576. Post-merge closure
+still requires a current provider audit or census and is not claimed here.
+
+Eleven whole donors remain unchanged. The new trial reports missing INI member
+or type declarations in initFromINIMulti, Clear, ParseLine, Get, mixerFieldEdit,
+loadWithParse, loadDirectory and parseAsciiString, and overlapping private
+string/allocator/vector views in readLine, getNextTokenOrNull and
+parseAsciiStringVectorAppend. These are first trial diagnostics, not proven
+independent root causes. The original byte-matched bodies remain intact.
+
+Logs: `build/codex-cleanup-20261025/iteration19-{dry-run,merge,merged-build,merged-identity,merged-link}.log`.
