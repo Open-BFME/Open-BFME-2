@@ -52,5 +52,20 @@ a preview with `not in census ... so not previewable`. No clean link preview
 or census result is claimed for this consumer. The next published census is
 required to judge it; the acceptance and byte/EH checks do not substitute for it.
 
-This is retirement of two header-debt rows. Existing matched and C++ exact
-bytes are preserved; no new byte gain or class-wide closure is claimed.
+## Harvest prepare-site state
+
+The whole `Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp` uses
+the same two includes in place of its private Xfer vtable. Its transfer keeps
+the existing Version1 call and passes `m_20` to the unsigned-int overload at
+slot `0x78`. The constructor, onEnter, update and native state table are unchanged.
+
+Normal gates and frozen-file checks pass before and after: four function rows
+(362 bytes) and the 68-byte data table. The owning acceptance command retires
+this source's queue row. The combined ordinary preview for this source and the
+flank route keeps both units clean, 518 -> 518 authored bytes against the same
+index. The AIUpgrade limitation above is separate from that two-unit result.
+
+This is retirement of three header-debt rows. Seven function rows preserve
+772 bytes, plus the 68-byte data row; the existing upgrade EH graph is EXACT.
+No new matched, C++ exact or census-linked byte gain or class-wide closure is
+claimed.

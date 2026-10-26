@@ -276,48 +276,8 @@ extern TerrainLogic *TheTerrainLogic;
 
 typedef unsigned int UnsignedInt;
 
-class Xfer
-{
-public:
-	void Version1();
-	virtual ~Xfer();
-	virtual bool isLoading();
-	virtual bool isSaving();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual Xfer &xferVersion(struct XferVersion &version);
-	virtual Xfer &xferTypeName(const char *const &name);
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual void slot15();
-	virtual void slot16();
-	virtual void slot17();
-	virtual void slot18();
-	virtual void slot19();
-	virtual void slot20();
-	virtual void slot21();
-	virtual void slot22();
-	virtual void slot23();
-	virtual void slot24(int *value);
-	virtual void slot25();
-	virtual void slot26();
-	virtual void xferAsciiString(void *value);
-	virtual void slot28();
-	virtual void slot29();
-	virtual Xfer &xferUnsignedInt(UnsignedInt &value);
-	virtual void slot31();
-	virtual void slot32();
-	virtual void slot33();
-	virtual void slot34();
-	virtual void slot35();
-	virtual void slot36(int *value);
-};
+#include "AIXferTypes.h"
+#include "../../Include/Common/BfmeXfer.h"
 
 struct XferVersion
 {
@@ -349,7 +309,7 @@ AIHarvestPrepareSiteState::AIHarvestPrepareSiteState(StateMachine *machine) : St
 void AIHarvestPrepareSiteState::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	xfer->xferUnsignedInt(m_20);
+	*xfer == m_20;
 }
 
 StateReturnType AIHarvestPrepareSiteState::onEnter()

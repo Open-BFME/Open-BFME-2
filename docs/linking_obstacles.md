@@ -311,14 +311,16 @@ authored-byte previews or commit-title gains into a projected headline.
   These already-linked consumers gain no census bytes. Other consumers and
   full class-layout reconciliation remain open.
 - **AI Xfer header subset (2026-10-26, `a1ee5c1f39`):**
-  [the flank-route and AIUpgrade adoptions](../reverse/attempt_support/ai-xfer-header-adoption-20261026.md)
-  replace private Xfer declarations with the registered header. The 156-byte
-  route remains exact and ordinary linking stays 156 -> 156 bytes against index
-  `f995f30157`. A local operand-declaration include also preserves the supported
-  10-row TU merge dry-run, with no rejected donors; no merge was applied. The
+  [the flank-route, AIUpgrade and harvest-state adoptions](../reverse/attempt_support/ai-xfer-header-adoption-20261026.md)
+  replace private Xfer declarations with the registered header. Seven function
+  rows (772 bytes), the 68-byte state table and one EH graph remain exact.
+  The route and harvest-state ordinary preview stays 518 -> 518 bytes against
+  index `f995f30157`. A local operand-declaration include also preserves the
+  supported 10-row flank TU merge dry-run, with no rejected donors; no merge
+  was applied.
   AIUpgrade's two rows (254 bytes) and one EH graph also stay exact, but that
   source is absent from the index and has no ordinary-preview verdict. The
-  owning acceptance tool retires two header-queue rows. Other Xfer consumers and
+  owning acceptance tool retires three header-queue rows. Other Xfer consumers and
   class-wide closure remain open; no new census or matched-byte gain is claimed.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
