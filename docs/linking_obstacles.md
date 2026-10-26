@@ -604,6 +604,17 @@ authored-byte previews or commit-title gains into a projected headline.
   census with current input proof and an appropriate comparison baseline;
   no regression, clearance, false reject or new linking gain is inferred.
 
+- **INI publication follow-up (2026-10-26, published `7d17532afb`):**
+  [The expanded batch audit](../reverse/attempt_support/ini-lookup-clean-throw-20261026.md#publication-audit-qualification)
+  has strict reusable proofs for 135 explicitly prepared sources; the push
+  hook verifies 1,375 functions, three data rows and 195 EXACT EH graphs over
+  138 sources. Its only missing strict receipt is the additional Eva.cpp
+  dependency. A focused supported preparation refuses unknown macro or
+  parent-traversing include search roots. The index `763dc8759f` also predates
+  outgoing base `0edae3a354`. No provider-change/lost-byte verdict, false reject
+  or closure is inferred; complete include inventory and a suitable comparison
+  baseline remain prerequisites.
+
 ### LINK-009: split-identity destructors; the alias route needs an admission path
 
 **Status: Blocked on an identity merge or a maintainer admission decision.
@@ -797,6 +808,11 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   still the retired donor in the index. Post-merge closure remains unconfirmed.
   The transferred data catalogue retains its old unused throw-anchor spelling;
   this is a source-path transfer, not a new emitted anchor or ownership gain.
+- **Publication proof (2026-10-26, `7d17532afb`):** the full normal gate passes
+  all 98,252 function and 2,216 data rows. The bounded publication audit still
+  stops on Eva.cpp's include-inventory prerequisite described in LINK-008;
+  neither the seven-donor consolidation nor its stale-index diagnostics are
+  upgraded to a full linking verdict.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
