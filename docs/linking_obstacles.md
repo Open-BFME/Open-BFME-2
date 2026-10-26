@@ -827,6 +827,12 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   A separate follow-up removes five duplicate macro/prototype occurrences;
   the owning Microsoft-header queue reduces INI's local count from 13 to eight,
   retaining its CRT conflict classification and all 53 matched rows.
+  The next separate cleanup replaces TRUE/FALSE with C++ boolean literals and
+  uses the existing standard NULL definition: eight local occurrences become
+  five function declarations, with all 53 rows and seven TU EH graphs exact.
+  The new full build against the maintainer's pinned BFME 1 `ff391a5e90`
+  also passes all 98,252 function and 2,216 data rows; it does not resolve the
+  strict batch-link inventory prerequisite or confirm a new census gain.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).

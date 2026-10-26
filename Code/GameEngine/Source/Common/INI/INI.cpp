@@ -10,9 +10,6 @@
 #define TheINIMacroTable (*(INIMacroTable *)BfmeINIMacroTableStorage)
 #define ERROR_BUG ((ErrorCode)1)
 #include <cstddef>
-#define NULL 0
-#define FALSE 0
-#define TRUE 1
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
@@ -670,14 +667,14 @@ AsciiString INI::getNextQuotedAsciiString()
 		else
 		{
 			Int strLen = 0;
-			Bool done = FALSE;
+			Bool done = false;
 			if ((strLen = (Int)strlen(token)) > 1)
 			{
 				_mbscpy(buff, &token[1]);
 				if (buff[strLen - 2] == '\"')
 				{
 					buff[strLen - 2] = '\0';
-					done = TRUE;
+					done = true;
 				}
 			}
 

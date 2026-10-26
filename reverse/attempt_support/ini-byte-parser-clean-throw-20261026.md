@@ -83,7 +83,37 @@ Upstream now owns LINK-015; the local EH-label obstacle becomes LINK-016 and
 the AIUpdate placement obstacle LINK-017, with their references reconciled.
 No game source conflict was resolved. Upstream's reference pointer advances
 to `ff391a5e90`, a descendant of the previously verified `f633d0e97a`; the
-clean reference checkout is synchronized to that pinned revision. A new full
-verification is required before taking further source measurements. The
-older reference-success stamp is retained until the new verification passes;
-no fresh success is claimed here.
+clean reference checkout is synchronized to that pinned revision.
+
+The new normal full build at `69286bb3a5` passes all 98,252 function rows,
+2,216 data rows, 214 STLport constructor folds, reference checks and the no-op
+image, after compiling 53 changed units. This verifies the maintainer's pinned
+`ff391a5e90` inputs. Official upstream was independently observed at the newer
+`87ca288bdd`; no claim is made to have advanced or verified that revision.
+The existing freshness stamp remains the historical successful `f633d0e97a`
+check, rather than recording an unverified latest-upstream success.
+Log: `build/codex-cleanup-20261025/iteration21-reference-full-build.log`.
+
+Independent read-only rebase review confirms all 17 obstacle IDs and their
+references are consistent, the upstream and local repair paragraphs survive,
+INI.cpp equals published `5994f7c59a`, and all 53 other changed Code files are
+upstream changes. No accidental source change was introduced by resolution.
+
+## Standard boolean and null follow-up
+
+Base `69286bb3a5`. A separate cleanup removes the remaining local NULL, FALSE
+and TRUE macros. The existing `<cstddef>` supplies NULL; the two boolean
+assignments in `INI::getNextQuotedAsciiString`, `0x0002E93F..0x0002EA4F`,
+272 bytes, use C++ `false` and `true`. No include or compiler flag changes.
+
+The normal whole-file build retains all 53 rows / 3,945 bytes, 54 strings plus
+one empty reference, one float and nine imports. All seven TU EH graphs are
+EXACT, including the normally renumbered labels, and the frozen-file check
+passes. The owning scoped Microsoft-header refresh changes only INI.cpp's
+queue row from eight local occurrences to five: five function declarations,
+zero macros, three `same`, two `abi`, zero failed classifications. The CRT
+conflict classification remains; this is a three-occurrence reduction, not
+closure of the header-queue item or a linking gain. Independent read-only
+review found no blocker in the source or scoped register update.
+
+Logs: `build/codex-cleanup-20261025/iteration21-macros-{build,eh,frozen,ms}.log`.
