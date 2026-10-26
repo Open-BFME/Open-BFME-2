@@ -349,6 +349,14 @@ authored-byte previews or commit-title gains into a projected headline.
   declaration order and the temporary string-pointer lifetime needed for retail
   stack reuse. Shared headers and existing vector/exception identities are unchanged.
   Other Xfer consumers and class-wide closure remain open.
+- **Update-module Xfer header subset (2026-10-26, `9e1ca7f93f`):**
+  [the StealthUpdate adoption](../reverse/attempt_support/update-xfer-header-adoption-20261026.md)
+  replaces its private Xfer declaration with the canonical header and a local
+  operand-declaration include. Both rows (432 bytes) and its EH graph remain
+  exact; the ordinary preview retains 429 authored bytes against `f995f30157`.
+  The owning acceptance tool retires one queue row. The Version storage,
+  transfer order, native callees and existing alias remain unchanged.
+  Other consumers and class-wide closure remain open; no new census gain is claimed.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
