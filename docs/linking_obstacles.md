@@ -521,6 +521,18 @@ authored-byte previews or commit-title gains into a projected headline.
   that need one complete storage owner. Prove the extent and reconcile all
   consumers before clearing this additional storage subset; no census gain
   or register retirement is claimed.
+- **Key-tree storage follow-up (2026-10-26, after `5611c263e4`):**
+  [the six-source ownership repair](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md)
+  replaces those split allocations with one verified twelve-byte backing store
+  under the existing `g_lgaKeyRecords` identifier. The native initializer and
+  cleanup use the same symbol as all readers. All 938 function rows, the 23
+  existing data rows, the new data row and five EH graphs pass. The six-object
+  ordinary preview is 5/6 clean, retaining 10,184 bytes and adding KeyList's
+  191 authored bytes; AddKey retains an unrelated unresolved vector resize.
+  The owning tool retires two data keys, and the hatch tool retires five
+  address-global occurrences. Thunk retirement remains refused on other
+  findings. This storage subset is cleared in the stated current-object
+  scope; full convergence, strict closure and census confirmation are unclaimed.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

@@ -8,6 +8,7 @@
 #include "ascii_string.h"
 #include <algorithm>
 #include <stl/_tree.h>
+#include "../GameLogic/LargeGroupAudio/LargeGroupAudioKeyTreeStorage.h"
 
 class Rva003ED5A5Xfer;
 struct BitRange
@@ -29,33 +30,11 @@ struct TreeNode
 	unsigned m_14;
 	int m_18;
 };
-// g_lgaKeyRecords (0x00A02E50) is LargeGroupAudio's no-case key-record tree,
-// defined once in Rva007B6880Thunks.cpp; this unit reads its header-node word.
-// Taking its address instantiates STLport's tree here, so the comparator and
-// mapped value are spelled as LargeGroupAudioKeyList.cpp spells them.
-struct BfmeStringNoCaseLess
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const;
-};
-struct Rva003D3F90Value
-{
-	unsigned int m_key;
-	int m_useCount;
-};
-namespace _STL {
-template <class T1, class T2> struct pair;
-template <class P> struct _Select1st;
-template <class T> class allocator;
-template <class K, class V, class KoV, class C, class A> class _Rb_tree;
-}
-extern _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, Rva003D3F90Value>,
-	_STL::_Select1st<_STL::pair<const AsciiString, Rva003D3F90Value> >, BfmeStringNoCaseLess,
-	_STL::allocator<_STL::pair<const AsciiString, Rva003D3F90Value> > > g_lgaKeyRecords;
-static inline _STL::_Rb_tree_node_base *lgaKeyHeader() { return *(_STL::_Rb_tree_node_base **)&g_lgaKeyRecords; }
 void __cdecl Rva003ED498Count(void const *arg)
 {
-	_STL::_Rb_tree_node_base *n = lgaKeyHeader()->_M_left;
-	if (n == lgaKeyHeader())
+	_STL::_Rb_tree_node_base *header = reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0]);
+	_STL::_Rb_tree_node_base *n = header->_M_left;
+	if (n == header)
 		return;
 	BitRange const *bitRange = (BitRange const *)arg;
 	do
@@ -73,7 +52,7 @@ void __cdecl Rva003ED498Count(void const *arg)
 				++tn->m_18;
 		}
 		n = _STL::_Rb_global<bool>::_M_increment(n);
-	} while (n != lgaKeyHeader());
+	} while (n != reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0]));
 }
 
 // Whole one-body donor: Open-BFME-1 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
@@ -103,9 +82,9 @@ AsciiString BitRange::rva003ED4E5()
 {
 	AsciiString result;
 	TreeNode *record =
-		(TreeNode *)lgaKeyHeader()->_M_left;
+		(TreeNode *)reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0])->_M_left;
 
-	while (record != (TreeNode *)lgaKeyHeader())
+	while (record != reinterpret_cast<TreeNode *>(g_lgaKeyRecords[0]))
 	{
 		unsigned int key = record->m_14;
 		unsigned int word = key >> 5;
@@ -146,8 +125,8 @@ void BitRange::rva003ED411(const BitRange &other)
 	unsigned int otherSize = other.m_end - other.m_begin;
 	const unsigned &bound = otherSize < ownSize ? otherSize : ownSize;
 	int wordCount = bound;
-	TreeNode *record = (TreeNode *)lgaKeyHeader()->_M_left;
-	TreeNode *sentinel = (TreeNode *)lgaKeyHeader();
+	TreeNode *record = (TreeNode *)reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0])->_M_left;
+	TreeNode *sentinel = reinterpret_cast<TreeNode *>(g_lgaKeyRecords[0]);
 	while (record != sentinel)
 	{
 		unsigned int bit = record->m_14;

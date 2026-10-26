@@ -20,6 +20,7 @@
 #define _BFME_RETAIL_TREE_INSERT_LAYOUT
 #include "Common/AsciiString.h"
 #include <stl/_tree.h>
+#include "LargeGroupAudioKeyTreeStorage.h"
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@URva003D3F90Value@@@_ST:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString; struct Rva003D3F90Value;
@@ -83,7 +84,9 @@ template <> void _Rb_tree<AsciiString, AsciiString, _Identity<AsciiString>,
 	less<AsciiString>, allocator<AsciiString> >::erase(iterator);
 }
 
-extern Rva003D3F90Tree g_lgaKeyRecords;
+unsigned int g_lgaKeyRecords[3] = { 0, 0, 0 };
+typedef char KeyRecordTreeStorageSize[
+	sizeof(Rva003D3F90Tree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
 extern unsigned int g_lgaNextKey;
 
 class LGA_MemberObj
@@ -97,10 +100,11 @@ public:
 // ?bfmeClearMembers@@YAXPAVLGA_MemberObj@@@Z
 void bfmeClearMembers(LGA_MemberObj *self)
 {
-	Rva003D3F90Tree::iterator record = g_lgaKeyRecords.begin();
+	Rva003D3F90Tree *records = reinterpret_cast<Rva003D3F90Tree *>(g_lgaKeyRecords);
+	Rva003D3F90Tree::iterator record = records->begin();
 	bool rebuildNextKey = false;
 
-	while (record != g_lgaKeyRecords.end())
+	while (record != records->end())
 	{
 		unsigned int key = record->second.m_key;
 
@@ -123,7 +127,7 @@ void bfmeClearMembers(LGA_MemberObj *self)
 
 					Rva003D3F90Tree::iterator next = record;
 					++record;
-					reinterpret_cast<AsciiStringEraseTree *>(&g_lgaKeyRecords)->erase(
+					reinterpret_cast<AsciiStringEraseTree *>(g_lgaKeyRecords)->erase(
 						AsciiStringEraseTree::iterator(
 							reinterpret_cast<_STL::_Rb_tree_node<AsciiString> *>(next._M_node)));
 					continue;
@@ -137,8 +141,8 @@ void bfmeClearMembers(LGA_MemberObj *self)
 	if (rebuildNextKey)
 	{
 		g_lgaNextKey = 0;
-		record = g_lgaKeyRecords.begin();
-		while (record != g_lgaKeyRecords.end())
+		record = records->begin();
+		while (record != records->end())
 		{
 			if ((int)record->second.m_key >= (int)g_lgaNextKey)
 				g_lgaNextKey = record->second.m_key + 1;

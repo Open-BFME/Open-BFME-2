@@ -283,7 +283,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp` | 204 | 7 (U=3, C=4) | Open |
 | `Code/GameEngine/Source/GameClient/GUI/Rva005776A7Ctor.cpp` | 203 | 8 (U=5, C=2, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp` | 198 | 20 (U=12, C=5, S=3) | Open |
-| `Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp` | 191 | 3 (U=1, C=1, S=1) | 2026-10-26 at e5c5a1787c: exact parent/native erase owner; current preview removes C/S and retains one unresolved global tree. [Evidence](../reverse/attempt_support/largegroup-keylist-erase-link-20261026.md), LINK-007. Storage extent/lifetime and census confirmation remain open. |
+| `Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp` | 191 | 3 (U=1, C=1, S=1) | 2026-10-26: native erase repair followed by one verified 12-byte tree store; six current objects preserve 938 functions and five EH graphs. This unit previews LINKS, 0 -> 191; AddKey's separate vector resize remains unresolved. [Evidence](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md), LINK-007; strict closure and census confirmation remain open. |
 | `Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp` | 189 | 5 (U=5) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp` | 189 | 8 (U=2, C=4, S=2) | Open |
 | `Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp` | 187 | 11 (U=10, C=1) | Open |

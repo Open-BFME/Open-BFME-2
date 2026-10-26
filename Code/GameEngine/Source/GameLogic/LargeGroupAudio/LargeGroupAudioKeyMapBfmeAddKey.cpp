@@ -26,6 +26,7 @@
 #define _STLP_INTERNAL_VECTOR_H
 #include "Common/AsciiString.h"
 #include <stl/_tree.h>
+#include "LargeGroupAudioKeyTreeStorage.h"
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
@@ -79,7 +80,8 @@ typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair,
 	_STL::_Select1st<Rva003D3F90Pair>, BfmeStringNoCaseLess,
 	_STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
 
-extern Rva003D3F90Tree g_lgaKeyRecords;
+typedef char KeyRecordTreeStorageSize[
+	sizeof(Rva003D3F90Tree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
 // Next key handed out by bfmeAddKey (retail RVA 0x00A02E4C, zero at load, just
 // below g_lgaKeyRecords); bfmeClearMembers (LargeGroupAudioKeyList.cpp) resets it.
 unsigned int g_lgaNextKey = 0;
@@ -97,7 +99,7 @@ void LargeGroupAudioKeyMap::bfmeAddKey(const AsciiString &name)
 	Rva003D3F90Value empty = { 0, 0 };
 	Rva003D3F90Pair value(name, empty);
 	_STL::pair<Rva003D3F90Tree::iterator, bool> inserted =
-		g_lgaKeyRecords.insert_unique(value);
+		reinterpret_cast<Rva003D3F90Tree *>(g_lgaKeyRecords)->insert_unique(value);
 
 	++inserted.first->second.m_useCount;
 	if (inserted.second)
