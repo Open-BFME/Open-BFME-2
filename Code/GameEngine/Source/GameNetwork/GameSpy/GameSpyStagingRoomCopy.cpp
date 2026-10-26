@@ -11,6 +11,7 @@
 // GameSpyStagingRoomDtor.cpp; field meanings are not recovered.
 
 #include "ascii_string.h"
+#include <new.h>
 
 class GameInfo
 {
@@ -60,8 +61,6 @@ private:
 // The copy constructor is the implicitly defined one (an array member is
 // copied through the EH vector copy helper); this placement copy is the use
 // that makes the compiler emit it out of line.
-inline void *operator new(unsigned int, void *where) { return where; }
-
 // ?Rva003835F4Use@@YAXPAXABVGameSpyStagingRoom@@@Z present-unmatched (emission use only)
 void Rva003835F4Use(void *where, const GameSpyStagingRoom &other)
 {

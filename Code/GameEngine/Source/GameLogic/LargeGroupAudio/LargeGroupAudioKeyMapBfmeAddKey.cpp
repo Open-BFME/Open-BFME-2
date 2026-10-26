@@ -24,8 +24,9 @@
 // resize declaration below. STLport's stock vector declares the fill by const
 // reference and would create a four-byte temporary that retail does not have.
 #define _STLP_INTERNAL_VECTOR_H
-#include "Common/AsciiString.h"
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <stl/_tree.h>
+#include "LargeGroupAudioKeyTreeStorage.h"
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
@@ -79,10 +80,35 @@ typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair,
 	_STL::_Select1st<Rva003D3F90Pair>, BfmeStringNoCaseLess,
 	_STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
 
-extern Rva003D3F90Tree g_lgaKeyRecords;
+typedef char KeyRecordTreeStorageSize[
+	sizeof(Rva003D3F90Tree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
+
+// Use the rowed 0x003ED8B1 provider's record view. The native caller passes
+// this 12-byte string/scalar record and reads scalars at node offsets 20/24.
+struct BfmeStringRecord004071F7 { AsciiString key; char payload[8]; };
+struct RecordNocaseLess
+{
+	bool operator()(const BfmeStringRecord004071F7 &, const BfmeStringRecord004071F7 &) const;
+};
+typedef _STL::_Rb_tree<BfmeStringRecord004071F7, BfmeStringRecord004071F7,
+	_STL::_Identity<BfmeStringRecord004071F7>, RecordNocaseLess,
+	_STL::allocator<BfmeStringRecord004071F7> > NativeKeyRecordTree;
+typedef char NativeKeyRecordSize[
+	sizeof(BfmeStringRecord004071F7) == sizeof(Rva003D3F90Pair) ? 1 : -1];
+typedef char NativeKeyRecordTreeStorageSize[
+	sizeof(NativeKeyRecordTree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
+namespace _STL
+{
+template <> NativeKeyRecordTree::iterator
+NativeKeyRecordTree::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *,
+	const BfmeStringRecord004071F7 &, _Rb_tree_node_base *);
+}
+
 // Next key handed out by bfmeAddKey (retail RVA 0x00A02E4C, zero at load, just
 // below g_lgaKeyRecords); bfmeClearMembers (LargeGroupAudioKeyList.cpp) resets it.
 unsigned int g_lgaNextKey = 0;
+
+class Drawable;
 
 class LargeGroupAudioKeyMap :
 	public _STL::vector<void *, _STL::allocator<void *> >
@@ -96,18 +122,23 @@ void LargeGroupAudioKeyMap::bfmeAddKey(const AsciiString &name)
 {
 	Rva003D3F90Value empty = { 0, 0 };
 	Rva003D3F90Pair value(name, empty);
-	_STL::pair<Rva003D3F90Tree::iterator, bool> inserted =
-		g_lgaKeyRecords.insert_unique(value);
+	_STL::pair<NativeKeyRecordTree::iterator, bool> inserted =
+		reinterpret_cast<NativeKeyRecordTree *>(g_lgaKeyRecords)->insert_unique(
+			reinterpret_cast<const BfmeStringRecord004071F7 &>(value));
+	_STL::_Rb_tree_node<Rva003D3F90Pair> *record =
+		reinterpret_cast<_STL::_Rb_tree_node<Rva003D3F90Pair> *>(inserted.first._M_node);
 
-	++inserted.first->second.m_useCount;
+	++record->_M_value_field.second.m_useCount;
 	if (inserted.second)
-		inserted.first->second.m_key = g_lgaNextKey++;
+		record->_M_value_field.second.m_key = g_lgaNextKey++;
 
-	unsigned int key = inserted.first->second.m_key;
+	unsigned int key = record->_M_value_field.second.m_key;
 	unsigned int word = key >> 5;
 	unsigned int mask = 1 << (key & 0x1F);
 	if (word >= size())
-		resize(word + 1, 0);
+		// Native 0x000E6D39 owns this by-value four-byte-element resize.
+		// The call view does not identify the bitmap words as Drawable pointers.
+		reinterpret_cast<_STL::vector<Drawable *, _STL::allocator<Drawable *> > *>(this)->resize(word + 1, 0);
 	((unsigned int *)begin())[word] |= mask;
 }
 

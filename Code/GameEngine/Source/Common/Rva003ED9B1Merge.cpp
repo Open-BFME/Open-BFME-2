@@ -5,6 +5,7 @@
 // Resizes this to src size then for each node sets bit m_14 and incs m_18; callers 0x0020D8AB/0x003EDD99/0x004ABE12.
 // Neighbour Rva003ED498Count.cpp shares /O1 /EHsc STLport flags and tree walk idioms.
 #include <vector>
+#include "../GameLogic/LargeGroupAudio/LargeGroupAudioKeyTreeStorage.h"
 
 class Drawable;
 
@@ -46,19 +47,6 @@ struct TreeNode
 	unsigned m_14;
 	unsigned m_18;
 };
-// g_lgaKeyRecords (0x00A02E50) is LargeGroupAudio's no-case key-record tree,
-// defined once in Rva007B6880Thunks.cpp; this unit reads its header-node word.
-class AsciiString; struct BfmeStringNoCaseLess; struct Rva003D3F90Value;
-namespace _STL {
-template <class T1, class T2> struct pair;
-template <class P> struct _Select1st;
-template <class T> class allocator;
-template <class K, class V, class KoV, class C, class A> class _Rb_tree;
-}
-extern _STL::_Rb_tree<AsciiString, _STL::pair<const AsciiString, Rva003D3F90Value>,
-	_STL::_Select1st<_STL::pair<const AsciiString, Rva003D3F90Value> >, BfmeStringNoCaseLess,
-	_STL::allocator<_STL::pair<const AsciiString, Rva003D3F90Value> > > g_lgaKeyRecords;
-static inline _STL::_Rb_tree_node_base *lgaKeyHeader() { return *(_STL::_Rb_tree_node_base **)&g_lgaKeyRecords; }
 
 class Rva003ED9B1
 {
@@ -75,7 +63,7 @@ void Rva003ED9B1::rva003ED9B1(Rva003ED9B1 const &src)
 	unsigned thisCount = (unsigned)(thisRange->m_end - thisRange->m_begin);
 	if (thisCount < (unsigned)argCount)
 		m_vec.resize((unsigned)argCount, 0);
-	_STL::_Rb_tree_node_base *header = lgaKeyHeader();
+	_STL::_Rb_tree_node_base *header = reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0]);
 	_STL::_Rb_tree_node_base *n = header->_M_left;
 	if (n == header)
 		return;

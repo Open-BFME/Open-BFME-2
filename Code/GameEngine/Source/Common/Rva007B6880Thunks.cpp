@@ -1,4 +1,5 @@
 #include "../GameLogic/SkirmishAI/AIEconomyBuilder/AIEconomyBuilderFarmLibrary.h"
+#include "../GameLogic/LargeGroupAudio/LargeGroupAudioKeyTreeStorage.h"
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD
 // ?rva007B6880@@YAXXZ @ 0x007B6880 (10B). Global setter thunk: ecx=&g_Va00DDEB24 then tail-jmp to rowed ?apply@Rva00019EC0DwordImmSetter@@QAEXXZ (0x00019EC0) which sets [ecx],0xBBC8D4. No callers. Prev 0x007B5860 (Rva00CE12FCMutex.cpp) next 0x007B7270 (BfmeConv804.cpp). Honest address name; no donor.
 extern "C" const void *const vtbl_00CE3934[];  // ??_7Rva00669510@@6B@
@@ -7419,29 +7420,10 @@ public:
 	void rva003ED94A();
 };
 
-// g_lgaKeyRecords is LargeGroupAudio's no-case key-record tree (0x00A02E50,
-// 16 bytes; constructed by 0x007AF8CD). An opaque tree view keeps this
-// zero-filled definition free of an initializer.
-class AsciiString; struct BfmeStringNoCaseLess; struct Rva003D3F90Value;
-namespace _STL
-{
-template <class P> struct _Select1st;
-template <class K, class V, class KoV, class C, class A>
-class _Rb_tree
-{
-	unsigned int m_storage[4];
-};
-}
-typedef _STL::pair<const AsciiString, Rva003D3F90Value> Rva003D3F90Pair;
-typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair, _STL::_Select1st<Rva003D3F90Pair>,
-	BfmeStringNoCaseLess, _STL::allocator<Rva003D3F90Pair> > Rva003D3F90Tree;
-extern Rva003D3F90Tree g_lgaKeyRecords;
-Rva003D3F90Tree g_lgaKeyRecords;
-
-// ?rva007B80F1@@YAXXZ @ 0x007B80F1 (10B). Global dtor thunk: ecx=&g_lgaKeyRecords then tail-jmp to pinned ??1Rva003ED94ADtor@@QAE@XZ (0x003ED94A). No callers. Honest address name.
+// ?rva007B80F1@@YAXXZ @ 0x007B80F1 (10B). Global dtor thunk: ecx=g_lgaKeyRecords then tail-jmp to rowed Rva003ED94A::rva003ED94A (0x003ED94A). No callers. Honest address name.
 void __cdecl rva007B80F1()
 {
-	Rva003ED94A *receiver = (Rva003ED94A *)&g_lgaKeyRecords;
+	Rva003ED94A *receiver = (Rva003ED94A *)g_lgaKeyRecords;
 	return receiver->rva003ED94A();
 }
 

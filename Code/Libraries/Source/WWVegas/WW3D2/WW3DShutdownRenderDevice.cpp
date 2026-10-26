@@ -13,8 +13,8 @@ class RvaWW3DDestroySlot0 { public: virtual void *release(int); };
 // Lite and the default sort list live in WW3D_Init_Bfme.cpp's globals (g_WW3D_Lite at VA
 // 0x00DEC411 and g_WW3D_StaticSortGlobals.defaultList at 0x00DEC3F0), which the init path writes.
 class WW3D { friend bool shutdownRenderDevice(); static bool IsInitted;
-public:
     static bool IsCapturing;
+public:
     static void Stop_Movie_Capture(); };
 extern unsigned char g_WW3D_Lite;
 struct WW3DStaticSortGlobals { StaticSortListClass *defaultList; StaticSortListClass *currentList; };

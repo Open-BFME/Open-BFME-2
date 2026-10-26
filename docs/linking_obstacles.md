@@ -105,6 +105,33 @@ authored-byte previews or commit-title gains into a projected headline.
   real whole-body C++ instantiation replaces its old alias and retires one
   hatch key; the paired before/after preview preserves all 2,978 authored
   bytes and claims no new linking gain. The other alias remains debt.
+- **Stale string identity keys retired (2026-10-26, `fce2c6327a`):**
+  [the forward-range caller check](../reverse/attempt_support/string-range-identity-retirement-20261026.md)
+  confirms BfmeConv1486.cpp, BfmeConv1428.cpp and BfmeConv1438.cpp already bind
+  the recovered insertion owner. All three whole callers remain exact
+  (285, 42 and 47 bytes). After normal refresh of two newly consolidated
+  upstream objects, the owning identity tool retires three stale keys, with
+  zero remaining findings for each source. These callers are already
+  census-linked; their existing code and the provider's separate closure
+  work are unchanged. No C++ conversion or new linked-byte gain is claimed.
+- **Stale vector-clear identity key retired (2026-10-26, `d75f6cf62f`):**
+  [the overflow caller check](../reverse/attempt_support/vector-overflow-identity-retirement-20261026.md)
+  verifies the unchanged 178-byte caller at 0x0048D48F and 75 rows in its
+  construction/clear/destruction providers. The current scan classifies its
+  0x000C060A call as a fold, with zero wrong bindings. The owning tool retires
+  one stale identity key; ordinary preview is already clean (178 -> 178 bytes).
+  No application identity or new linked-byte gain is claimed.
+  After upstream `b85e569cee` moves the body to FlammableUpdate.cpp, the
+  complete eight-row unit is reverified and the owning retirement tool
+  removes the transferred key at its new path; one separate finding remains.
+- **Window video follow-up (2026-10-26, `9e1ca7f93f`):**
+  [the verified marker cleanup](../reverse/attempt_support/window-video-debt-cleanup-20261026.md)
+  retires 15 stale unmatched exemptions; all 38 rows (2,155 bytes) and seven
+  EH graphs remain exact. Current INI/lower-bound providers make the unchanged
+  window bodies preview LINKS for 2,116 authored bytes. This confirms earlier
+  repairs, not a new linking gain; the joint command retains INI's separate
+  historical-index blockers. Four identity keys remain, with the narrow EH
+  retirement discrepancy tracked in LINK-017.
 - **Clearance / census confirmation:** graphics ordinary-preview scope cleared
   at the revision above; other families and census confirmation remain pending.
   Keep individual repair previews separate from later census confirmation.
@@ -285,6 +312,67 @@ authored-byte previews or commit-title gains into a projected headline.
   the bounded ownership diagnostic clears INI's 2,989 authored bytes. Existing
   provider debt is recorded in the handoff. This subset is cleared in the
   scoped diagnostic; global closure and census confirmation remain pending.
+- **INI repair's AI consumer checked (2026-10-26, `d7fa8a31bf`):**
+  [the current-provider check](../reverse/attempt_support/ai-constructor-current-provider-20261026.md)
+  verifies Rva00598E85Ctor.cpp's four rows and its INI/lower-bound providers
+  (46 rows, six EXACT EH graphs). Index `f995f30157` still selects INI's old
+  prime-search copy; including current INI makes the unchanged AI unit preview
+  LINKS for 177 authored bytes. This confirms existing repair `0c7ebc35a7`,
+  with no new source edit or census gain. INI's own ownership-overlay blockers
+  remain outside this AI-only clearance; await the next census for confirmation.
+- **GameLogic lookup header subset (2026-10-26, `8da4ac24ce`):**
+  [the AITarget, indexed getter and audio owner adoptions](../reverse/attempt_support/gamelogic-lookup-header-adoption-20261026.md)
+  replace private GameLogic/ObjectID declarations with the registered header.
+  All eleven function rows and the data row remain exact, with one EXACT EH graph
+  and unchanged 762-byte combined ordinary link-preview scope. The owning
+  acceptance tool retires three header-queue rows; the shared header is unchanged.
+  These already-linked consumers gain no census bytes. Other consumers and
+  full class-layout reconciliation remain open.
+- **AI Xfer header subset (2026-10-26, `a1ee5c1f39`):**
+  [the flank-route, AIUpgrade and harvest-state adoptions](../reverse/attempt_support/ai-xfer-header-adoption-20261026.md)
+  replace private Xfer declarations with the registered header. Seven function
+  rows (772 bytes), the 68-byte state table and one EH graph remain exact.
+  The route and harvest-state ordinary preview stays 518 -> 518 bytes against
+  index `f995f30157`. A local operand-declaration include also preserves the
+  supported 10-row flank TU merge dry-run, with no rejected donors; no merge
+  was applied.
+  AIUpgrade's two rows (254 bytes) and one EH graph also stay exact, but that
+  source is absent from the index and has no ordinary-preview verdict. The
+  owning acceptance tool retires three header-queue rows. Other Xfer consumers and
+  class-wide closure remain open; no new census or matched-byte gain is claimed.
+- **Vector Xfer header subset (2026-10-26, `6a57c22ccc`):**
+  [the vector-transfer adoption](../reverse/attempt_support/vector-xfer-header-adoption-20261026.md)
+  replaces the private classes in Rva003F2394Xfer.cpp, Rva0040E19DXfer.cpp and
+  Rva004FACD0Xfer.cpp with the canonical Xfer header. All three complete
+  204-byte bodies stay exact; the combined ordinary preview remains 612 -> 612.
+  The owning tool retires three queue rows. A local operand include preserves
+  declaration order and the temporary string-pointer lifetime needed for retail
+  stack reuse. Shared headers and existing vector/exception identities are unchanged.
+  Other Xfer consumers and class-wide closure remain open.
+- **Update-module Xfer header subset (2026-10-26, `9e1ca7f93f`):**
+  [the StealthUpdate, DeletionUpdate and crushing-notification adoptions](../reverse/attempt_support/update-xfer-header-adoption-20261026.md)
+  replace private Xfer declarations with the canonical header and a local
+  operand-declaration include. Four rows (524 bytes) and the StealthUpdate EH
+  graph remain exact; the combined ordinary preview retains 521 authored bytes against
+  `f995f30157`. The owning acceptance tool retires three queue rows. The Version storage,
+  transfer order, native callees and existing alias remain unchanged.
+  Other consumers and class-wide closure remain open; no new census gain is claimed.
+- **Publication-audit follow-up (2026-10-26, `f8aefae21a`):**
+  [The bounded current-provider audit](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md)
+  identifies two actual declaration mismatches: five public IsCapturing
+  consumers versus the private ww3d.cpp definition, and 23 GameInfo-pointer
+  consumers versus the SkirmishGameInfo-pointer definition. The current data
+  ledger must be reconciled with each real owner; no second symbol is a fix.
+  Other provisional disappeared-provider findings still require current
+  replacement objects or a new census and are not cleared by these examples.
+- **Capture data owner repaired (2026-10-26, base `d41006c64d`):**
+  [The verified one-byte owner](../reverse/attempt_support/ww3d-capture-data-owner-20261026.md)
+  reconciles five consumer declarations with ww3d.cpp's existing private flag.
+  Seven native operands establish its address; the normal sizeof/initial-data
+  gate verifies the new data row. All 30 cohort function rows, five data rows
+  and three EH graphs pass, with no new data findings. The five consumers
+  recover their 818 already-censused bytes in the ordinary current-object
+  preview; ww3d.cpp's separate blockers remain. No new census gain is claimed.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and
@@ -438,6 +526,56 @@ authored-byte previews or commit-title gains into a projected headline.
   credit. This scoped
   scaler repair is **cleared in the fixed comparison**; no current census
   headline change is claimed. Native alignment padding remains unowned.
+- **LargeGroupAudio key-tree follow-up (2026-10-26, `e5c5a1787c`):**
+  [the whole key-list repair](../reverse/attempt_support/largegroup-keylist-erase-link-20261026.md)
+  preserves its 191-byte parent and verifies all 15 rows of the native erase
+  provider. Calling that existing owner removes the nonretail COMDAT and
+  wrong selected-copy blockers; current identity has four owner bindings and
+  zero wrong bindings. Ordinary preview remains 0 -> 0 against `f995f30157`
+  because `g_lgaKeyRecords` is unresolved. Its address has two separate
+  four-byte definitions under other spellings, plus an initializer and cleanup
+  that need one complete storage owner. Prove the extent and reconcile all
+  consumers before clearing this additional storage subset; no census gain
+  or register retirement is claimed.
+- **Key-tree storage follow-up (2026-10-26, after `5611c263e4`):**
+  [the six-source ownership repair](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md)
+  replaces those split allocations with one verified twelve-byte backing store
+  under the existing `g_lgaKeyRecords` identifier. The native initializer and
+  cleanup use the same symbol as all readers. All 938 function rows, the 23
+  existing data rows, the new data row and five EH graphs pass. The six-object
+  ordinary preview is 5/6 clean, retaining 10,184 bytes and adding KeyList's
+  191 authored bytes; AddKey retains an unrelated unresolved vector resize.
+  The owning tool retires two data keys, and the hatch tool retires five
+  address-global occurrences. Thunk retirement remains refused on other
+  findings. This storage subset is cleared in the stated current-object
+  scope; full convergence, strict closure and census confirmation are unclaimed.
+- **Key insertion resize follow-up (2026-10-26, after `d453de7462`):**
+  The same evidence records the direct native resize-owner call. AddKey's four
+  rows (324 bytes), data row and two EH graphs remain exact; the final six-unit
+  ordinary preview is 6/6 clean, 10,184 -> 10,689 authored bytes (505 gained).
+  This clears the stated ordinary-preview cohort, not its strict or census
+  status. Identity retirement still refuses a separate AsciiString-destructor
+  binding in the static accessor; its existing identity key is retained.
+- **Canonical string follow-up (2026-10-26, after `3a6521d528`):**
+  AddKey now uses the registered BFME 2 string header. All four rows, its data
+  row, two EH graphs and the six-unit ordinary preview are preserved. The
+  owning tool removes its registered destructor-binding key and no longer
+  finds the separate accessor-destructor issue. One insert-unique key at
+  `0x003ED8B1` remains; no class-wide identity clearance is claimed.
+- **Native insert follow-up (2026-10-26, after `97e5e68584`):**
+  The same handoff proves the existing record-tree owner at `0x003ED8B1`
+  and the caller's scalar offsets. AddKey now uses that specialization;
+  its four rows, data row and two EH graphs remain exact. The owning tool
+  retires its final identity key with zero remaining source findings. The
+  six-unit ordinary preview remains 6/6 clean at 10,184 -> 10,689 bytes.
+  No wider class identity, strict closure or census clearance is implied.
+- **Stale streak-clear data keys (2026-10-26, `2edd747b85`):**
+  [Whole-file verification](../reverse/attempt_support/streak-clear-data-retirement-20261026.md)
+  confirms `Rva0012641FClear.cpp` already uses the two existing pointer globals
+  since `0bb6eb81be`. Three wrapper/owner rows and both four-byte data rows
+  pass; the owning tool retires two obsolete names with zero remaining source
+  findings. The wrapper's ordinary preview remains 20 -> 20 bytes. This is
+  stale debt retirement only, with no new binding or census gain.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and
@@ -470,6 +608,39 @@ authored-byte previews or commit-title gains into a projected headline.
   separate false-reject workflow. Do not substitute ordinary receipts for strict
   witnesses. Clearance and closed-strict confirmation remain pending; no census
   change is claimed for this inventory work.
+
+- **Outgoing-batch audit follow-up (2026-10-26, published `0edae3a354`):**
+  The new pre-push audit is [inconclusive for this batch](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md#publication-audit-qualification):
+  its index `f995f30157` predates outgoing base `a5cb102c02`, and nine objects
+  lack strict current receipts. Normal publication verification passes 47
+  functions, one data row and nine EH graphs. Read-only witnesses for the
+  material collector and the first reported upstream particle-update unit
+  confirm ordinary cache validity but no strict include inventory. No selected
+  provider or lost-byte verdict was reached. Carry the batch into the next
+  census with current input proof and an appropriate comparison baseline;
+  no regression, clearance, false reject or new linking gain is inferred.
+
+- **INI publication follow-up (2026-10-26, published `7d17532afb`):**
+  [The expanded batch audit](../reverse/attempt_support/ini-lookup-clean-throw-20261026.md#publication-audit-qualification)
+  has strict reusable proofs for 135 explicitly prepared sources; the push
+  hook verifies 1,375 functions, three data rows and 195 EXACT EH graphs over
+  138 sources. Its only missing strict receipt is the additional Eva.cpp
+  dependency. A focused supported preparation refuses unknown macro or
+  parent-traversing include search roots. The index `763dc8759f` also predates
+  outgoing base `0edae3a354`. No provider-change/lost-byte verdict, false reject
+  or closure is inferred; complete include inventory and a suitable comparison
+  baseline remain prerequisites.
+  The subsequent `5994f7c59a` publication passes 85 functions and 12 EXACT EH
+  graphs in three sources, but its audit reaches the same Eva.cpp prerequisite.
+  The failed strict preparation is not relaunched without new include evidence.
+
+- **Later bounded publication (`f8aefae21a`, 2026-10-26):**
+  [All 54 changed objects have strict receipts](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md).
+  The full normal gate passes 98,252 functions and 2,216 data rows, followed by
+  116 EXACT EH graphs. This scope excludes Eva and does not clear its inventory
+  prerequisite. The audit completes with 89 retired objects, 287 provisional
+  disappeared-provider reports and 30 possible-loss lines against the older
+  `763dc8759f` index. No aggregate loss, global clearance or census gain follows.
 
 ### LINK-009: split-identity destructors; the alias route needs an admission path
 
@@ -592,6 +763,21 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   unchanged and recorded in the evidence. Only this consumer's ordinary
   preview scope is cleared; family closure and census confirmation remain open.
 
+- **Material collector follow-up (2026-10-26, inspected `a91e877b4d`):**
+  [Whole-file cleanup and paired provider checks](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md)
+  preserve all eight rows (1,506 bytes) and one EXACT EH graph. With the
+  current shattersystem object, the consumer previews clean for 1,489 authored
+  bytes before and after removing its unused construction anchor. Its three
+  unreferenced diagnostics and the provider's seven blockers are unchanged.
+  The owning hatch tool retires two optimization occurrences. This is new
+  hatch retirement plus confirmation of inherited repair, not new linking
+  credit or broader closure; census confirmation remains pending.
+  A separately verified follow-up replaces its local array-delete declaration
+  with the toolchain `<new>` header, using the donor's existing allocation
+  guard to avoid duplicate placement bodies. All eight rows, the EH graph
+  and the paired preview stay exact/unchanged; the Microsoft-header scan
+  reports zero local definitions or declarations.
+
 ### LINK-013: INI consolidation made a non-retail `set<AsciiString, BfmeStringNoCaseLess>::insert_unique` the kept copy
 
 **Status: Cleared in the eight-unit ordinary preview; census pending. Updated: 2026-10-25; inspected revision: aa31e9bac4.**
@@ -615,11 +801,80 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
     `INI::scanInt`, …) from `INI_ctor.obj` and `INI_scanInt.obj`. Those units were merged
     into INI.cpp after f995f30157, so these duplicates are stale-index artifacts, not this
     repair.
+- **Historical guarded-input check (2026-10-26, `9e1ca7f93f`):**
+  [the guarded INI check](../reverse/attempt_support/ini-current-ledger-prerequisites-20261026.md)
+  preserves all 39 rows (3,039 bytes) and five EXACT EH graphs. The published
+  index remains `f995f30157`; ordinary preview retains 11 duplicate and eight
+  selected findings. The supported current-ledger preview refuses before its
+  link verdict because 11,481 providers lack current compiler evidence. This
+  count is a strict currency prerequisite, not byte mismatches or a new source
+  regression. No source edit, new linked-byte gain or false reject is claimed.
 - **Current-provider verification:** the LINK-014 follow-up checks all eight
   insert_unique / _M_find units together and previews all 11,872 B clean,
   including INI.cpp. The historical duplicate-index and __lower_bound
   prerequisites below are cleared in that bounded check.
-- **Historical remaining / next check:** the next census confirms the six units. INI.cpp's own link
+- **Approved-TU follow-up (2026-10-26, base `80732a72b7`):**
+  [the INI consolidation](../reverse/attempt_support/ini-approved-consolidation-20261026.md)
+  absorbs six whole donors and preserves 52 rows / 3,837 bytes in the TU.
+  Two prerequisite commits remove one unused alias and one stale marker.
+  The two-source comparison cohort retains eight EXACT EH graphs, zero wrong
+  code bindings and zero data findings. Before composition, current ordinary
+  preview against the newer `763dc8759f` index accepts all eight original files
+  (3,894 authored bytes); this confirms inherited repairs, not a new gain.
+  After composition, that preview retains six duplicate and four selected
+  findings naming absorbed definitions. Post-merge closure is not claimed;
+  twelve remaining whole donors need declaration/codegen reconciliation.
+  The next [lookup-parser repair](../reverse/attempt_support/ini-lookup-clean-throw-20261026.md)
+  replaces its artificial default exception/throw-info anchor with normal C++
+  throws, preserving all 108 bytes and its clean 108-byte preview. A fresh
+  approved composition at `468141e4c7` absorbs that donor unchanged: INI.cpp
+  now verifies 53 rows / 3,945 bytes, with eight EXACT EH graphs and zero wrong
+  bindings or data findings in the two-source cohort. Eleven donors remain
+  blocked by declaration/view reconciliation. Ordinary preview now retains
+  seven duplicate and five selected findings; the additional lookup owner is
+  still the retired donor in the index. Post-merge closure remains unconfirmed.
+  The transferred data catalogue retains its old unused throw-anchor spelling;
+  this is a source-path transfer, not a new emitted anchor or ownership gain.
+- **Publication proof (2026-10-26, `7d17532afb`):** the full normal gate passes
+  all 98,252 function and 2,216 data rows. The bounded publication audit still
+  stops on Eva.cpp's include-inventory prerequisite described in LINK-008;
+  neither the seven-donor consolidation nor its stale-index diagnostics are
+  upgraded to a full linking verdict.
+- **Native integer-throw cleanup (2026-10-26, base `091dbc15da`):**
+  [The byte parser](../reverse/attempt_support/ini-byte-parser-clean-throw-20261026.md)
+  replaces its manual runtime call and zero-filled anchor with `throw ERROR_BUG`.
+  All 62 body bytes, all 53 TU rows, the cohort's eight EH graphs and 178 code
+  bindings remain verified. Retail and compiled exception metadata agree on
+  a four-byte `int`. Ordinary preview retains the same seven duplicate/five
+  selected old-index findings, with no new unresolved reference or linking
+  gain claimed.
+  A separate follow-up removes five duplicate macro/prototype occurrences;
+  the owning Microsoft-header queue reduces INI's local count from 13 to eight,
+  retaining its CRT conflict classification and all 53 matched rows.
+  The next separate cleanup replaces TRUE/FALSE with C++ boolean literals and
+  uses the existing standard NULL definition: eight local occurrences become
+  five function declarations, with all 53 rows and seven TU EH graphs exact.
+  The new full build against the maintainer's pinned BFME 1 `ff391a5e90`
+  also passes all 98,252 function and 2,216 data rows; it does not resolve the
+  strict batch-link inventory prerequisite or confirm a new census gain.
+  A further verified declaration cleanup uses the already included `string.h`
+  for `strlen`/`_strcmpi` and adds `stdio.h` for `sscanf`: five local prototypes
+  become two (`_mbscpy`/`_mbscat`), retaining all 53 rows and seven EH graphs.
+  [Standard multibyte declarations](../reverse/attempt_support/ini-multibyte-header-adoption-20261026.md)
+  then replace the last two prototypes. Both readers' six native calls are
+  verified against the named CRT import thunks; standard unsigned-character
+  pointers and header-specific import configuration preserve all 53 rows,
+  seven EH graphs and 168 code bindings. The owning scoped refresh removes
+  INI.cpp's Microsoft-declaration queue item; the linking prerequisites remain.
+- **Latest publication and rebase check (2026-10-26):**
+  [The publication audit](../reverse/attempt_support/ini-publication-current-provider-audit-20261026.md)
+  records full byte/data verification at `f8aefae21a` and the completed,
+  explicitly provisional 54-object shadow audit. No INI.cpp-specific cause
+  was found in its reported possible losses; this does not establish full
+  linking closure. After rebasing onto `b85e569cee`, INI.cpp is unchanged from
+  the published source and the nine-source reconciliation cohort passes
+  1,014 functions, 24 data rows and twelve EXACT EH graphs.
+- **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
 - **Census confirmation:** awaiting the next census.
@@ -760,7 +1015,19 @@ confirmation remain pending.
   | `_Destroy<Rva002BBB96Element *>` | 0x002BB6A5 (BfmeAssignRecord52 loop) | `stlport_asciistring_record_bodies.cpp` (57b0571b72) | the two Deferred units 0 -> 2,925 B |
   | `/alternatename` onto an undefined `__copy<BfmeAssignRecord28 *>` | 0x003F6477 | the rowed `__copy<Rva003F6477Element *>` called directly; two hatches removed (856b8bc032) | VectorRangeEraseRva003F6975.cpp 0 -> 80 B |
 
-- **Remaining / next check:** `LargeGroupAudioKeyMapBfmeAddKey.cpp` needs
+- **Audio overlap reconciled (2026-10-26, base `e12e2545d9`):** the table above
+  records the earlier independent repair. The retained audio implementation
+  uses the verified 12-byte array owner in KeyList; sixteen native zero bytes
+  did not establish a 16-byte tree layout. AddKey's native resize and insert
+  calls are already repaired, as recorded in
+  [the storage follow-up](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md).
+  [Removing the now-unused pair-tree erase instantiation](../reverse/attempt_support/largegroup-unused-erase-provider-20261026.md)
+  prevents its divergent pair destructor from overriding AddKey's cleanup.
+  All 20 affected function rows, two data rows and two EH graphs pass; current
+  consumer objects contain no reference to that alternative erase. The bounded
+  seven-object preview restores AddKey's 314 bytes and passes 7/7 at
+  10,874 -> 11,379 against index `763dc8759f`. No new census gain is claimed.
+- **Historical prerequisite, now repaired in the audio subset:** `LargeGroupAudioKeyMapBfmeAddKey.cpp` needed
   `vector<void*>::resize` (0x000E6D39, folded as BfmePowerCounts::resize). Its
   `_M_fill_insert` callee is 0x00233A5A, but `reverse/symbols.csv` puts
   `vector<void*>::_M_fill_insert` at 0x00029CA0, so a plain instantiation binds
@@ -769,6 +1036,49 @@ confirmation remain pending.
   `~SpecialPowerModule` already resolves).
 - **Clearance:** preview scope only (the units listed).
 - **Census confirmation:** awaiting the next census.
+
+### LINK-017: identity retirement does not resolve verified renumbered EH labels
+
+**Status: Blocked on verifier reconciliation and current providers. Updated: 2026-10-26;
+inspected revision: `2f9834aa34`.**
+
+- **Evidence / scope:** [the DX8 retirement refusal](../reverse/attempt_support/dx8-identity-funclet-refusal-20261026.md)
+  records 13 identity keys in dx8wrapper.cpp. Normal verification passes 228
+  functions, 13 data rows and 21 EXACT EH graphs, including 72 renumbered funclets.
+- **Completed:** no source or register edit. Retirement correctly refuses four
+  stale providers and separately rejects old funclet labels already resolved by
+  the byte gate. The latter is recorded as a false reject, not a debt repair.
+- **Remaining / next check:** reconcile the retirement tool with verified parent
+  EH resolution in a separate tooling change, refresh providers, then repair and
+  judge the descriptor/vector bindings. Do not hand-change pins or labels.
+- **Additional consumer (2026-10-26, `9e1ca7f93f`):**
+  [window video's current check](../reverse/attempt_support/window-video-debt-cleanup-20261026.md)
+  reproduces the same literal-label refusal for four funclets whose parents
+  pass all seven EH graphs. Five other retirement findings are not classified
+  as false rejects. No identity key is removed; the separate 15-marker hatch
+  cleanup preserves every matched byte.
+- **Clearance / census confirmation:** none claimed.
+
+### LINK-018: AIUpdate TU span combines weak propagation and disputed placement
+
+**Status: Blocked on independent routing evidence and classification review.
+Updated: 2026-10-26; inspected revision: `766153ce00`.**
+
+- **Evidence / scope:** [the current-input routing handoff](../reverse/attempt_support/aiupdate-tu-approval-20261026/readme.md)
+  separates 299 proposed rows from the seed's eight verified rows (241 bytes,
+  one EXACT EH graph). The official plan has zero approved rows and one mixed
+  file. No source, name, register or map was changed.
+- **Completed:** six distant K-only assignments explain the broad span;
+  the nonvirtual inline getter at 0x0026FF1E also extends it past Upgrade.cpp.
+  A read-only diagnostic using the mapper's actual anchored roots still finds
+  DisplayStringManager::link at 0x00262027 as a blocker after narrowing those
+  bounds. Its WorldBuilder seed is not independent identity proof.
+- **Remaining / next check:** prove that row's retail identity/ICF/placement,
+  review weak propagation and inline classification separately, and retain
+  genuine cross-TU anchors. The seed also retains its mixed rows and ordinary
+  link blockers (17 unresolved, six COMDAT, five selected against f995f30157).
+- **Clearance / census confirmation:** none. Neither a false reject nor a new
+  matched, linked or debt-retirement gain is claimed.
 
 ## Investigation-specific validation limitation
 

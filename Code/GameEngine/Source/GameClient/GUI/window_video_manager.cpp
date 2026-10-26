@@ -163,7 +163,6 @@ extern Display *TheDisplay;
 //-----------------------------------------------------------------------------
 // WindowVideo PUBLIC FUNCTIONS ///////////////////////////////////////////////
 //-----------------------------------------------------------------------------
-// ?WindowVideo::WindowVideo present-unmatched
 WindowVideo::WindowVideo( void )
 {
 	
@@ -177,7 +176,6 @@ WindowVideo::WindowVideo( void )
 
 }
 
-// ?WindowVideo::~WindowVideo present-unmatched
 WindowVideo::~WindowVideo( void )
 {
 	// Don't Delete the window, only set it's video buffer to NULL
@@ -191,7 +189,6 @@ WindowVideo::~WindowVideo( void )
 
 }
 	
-// ?WindowVideo::init present-unmatched
 void WindowVideo::init( GameWindow *win, AsciiString movieName, 
 												WindowVideoPlayType playType,
 												VideoStreamInterface *videoStream)
@@ -213,7 +210,6 @@ VideoBuffer *WindowVideo::getVideoBuffer( void )
 	return NULL;
 }
 	
-// ?WindowVideo::setWindowState present-unmatched
 void WindowVideo::setWindowState( WindowVideoStates state )
 { 
 	m_state = state; 
@@ -228,7 +224,6 @@ void WindowVideo::setWindowState( WindowVideoStates state )
 //-----------------------------------------------------------------------------
 // WindowVideoManager PUBLIC FUNCTIONS ////////////////////////////////////////
 //-----------------------------------------------------------------------------
-// ?WindowVideoManager::WindowVideoManager present-unmatched
 WindowVideoManager::WindowVideoManager( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -246,7 +241,6 @@ WindowVideoManager::WindowVideoManager( void )
 
 }
 
-// ?WindowVideoManager::~WindowVideoManager present-unmatched
 WindowVideoManager::~WindowVideoManager( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -286,7 +280,6 @@ void WindowVideoManager::reset( void )
 	m_pauseAllMovies = FALSE;
 }
 
-// ?WindowVideoManager::update present-unmatched
 void WindowVideoManager::update( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -351,7 +344,6 @@ void WindowVideoManager::update( void )
 	}
 }
 
-// ?WindowVideoManager::playMovie present-unmatched
 void WindowVideoManager::playMovie( GameWindow *win, AsciiString movieName, WindowVideoPlayType playType )
 {
 	// if we already have a movie playing for that window, kill it.
@@ -385,7 +377,6 @@ void WindowVideoManager::playMovie( GameWindow *win, AsciiString movieName, Wind
 }
 
 
-// ?WindowVideoManager::pauseMovie present-unmatched
 void WindowVideoManager::pauseMovie( GameWindow *win )
 {
 	WindowVideoMap::iterator it = m_playingVideos.find(win);
@@ -410,7 +401,6 @@ void WindowVideoManager::hideMovie( GameWindow *win )
 	}
 }
 
-// ?WindowVideoManager::resumeMovie present-unmatched
 void WindowVideoManager::resumeMovie( GameWindow *win )
 {
 	WindowVideoMap::iterator it = m_playingVideos.find(win);
@@ -424,7 +414,6 @@ void WindowVideoManager::resumeMovie( GameWindow *win )
 	m_stopAllMovies = FALSE;
 }
 
-// ?WindowVideoManager::stopMovie present-unmatched
 void WindowVideoManager::stopMovie( GameWindow *win )
 {
 	WindowVideoMap::iterator it = m_playingVideos.find(win);
@@ -449,7 +438,6 @@ void WindowVideoManager::stopAndRemoveMovie( GameWindow *win )
 	}
 }
 
-// ?WindowVideoManager::stopAllMovies present-unmatched
 void WindowVideoManager::stopAllMovies( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -466,7 +454,6 @@ void WindowVideoManager::stopAllMovies( void )
 	m_pauseAllMovies = FALSE;
 }
 
-// ?WindowVideoManager::pauseAllMovies present-unmatched
 void WindowVideoManager::pauseAllMovies( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -483,7 +470,6 @@ void WindowVideoManager::pauseAllMovies( void )
 	m_stopAllMovies = FALSE;
 }
 
-// ?WindowVideoManager::resumeAllMovies present-unmatched
 void WindowVideoManager::resumeAllMovies( void )
 {
 	WindowVideoMap::iterator it = m_playingVideos.begin();
@@ -499,7 +485,6 @@ void WindowVideoManager::resumeAllMovies( void )
 	m_pauseAllMovies = FALSE;
 }
 
-// ?WindowVideoManager::getWinState present-unmatched
 Int WindowVideoManager::getWinState( GameWindow *win )
 {
 	WindowVideoMap::iterator it = m_playingVideos.find(win);

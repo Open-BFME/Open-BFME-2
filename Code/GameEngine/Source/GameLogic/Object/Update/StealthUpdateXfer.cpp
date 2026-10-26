@@ -10,10 +10,9 @@
 // m_framesGranted (donor's version>=2 member), int at +0x2C gated >=3 and
 // bool at +0x148 gated >=4 are BFME2-new versioned fields; the four bools at
 // +0x31..+0x34 are BFME2-new ungated members. Floats (pulse) are not xfer'd.
-// Xfer declaration and template round-trip idiom verbatim from
-// SpawnBehaviorXfer.cpp (xferVersion slot 0x28, IsLoading slot 0x4,
-// IsLightCRC slot 0x10, xferAsciiString 0x6c, xferUnsignedInt 0x78,
-// xferInt 0x7c, xferBool 0x90).
+// Template round-trip idiom from SpawnBehaviorXfer.cpp. The canonical Xfer
+// overloads retain Version slot 0x28, IsLoading slot 0x4, IsLightCRC slot
+// 0x10, AsciiString 0x6c, unsigned int 0x78, int 0x7c and bool 0x90.
 
 typedef unsigned char UnsignedByte;
 typedef unsigned int UnsignedInt;
@@ -33,59 +32,8 @@ struct XferException
 
 #include "ascii_string.h"
 
-class Xfer
-{
-public:
-	class Version;
-
-	Xfer();
-	virtual ~Xfer();
-
-	virtual bool IsLoading() const;
-	virtual bool IsStoring() const;
-	virtual bool IsCRC() const;
-	virtual bool IsLightCRC() const;
-
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08();
-	virtual void slot09();
-
-	virtual Xfer &xferVersion(XferVersion *version);
-
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
-	virtual void slot20() = 0;
-	virtual void slot21() = 0;
-	virtual void slot22() = 0;
-	virtual void slot23() = 0;
-	virtual void slot24() = 0;
-	virtual void slot25() = 0;
-	virtual void slot26() = 0;
-
-	virtual Xfer &xferAsciiString(AsciiString &value);
-
-	virtual void slot28() = 0;
-	virtual void slot29() = 0;
-
-	virtual Xfer &xferUnsignedInt(UnsignedInt &value);
-	virtual Xfer &xferInt(int &value);
-
-	virtual void slot32() = 0;
-	virtual void slot33() = 0;
-	virtual void slot34() = 0;
-	virtual void slot35() = 0;
-
-	virtual Xfer &xferBool(bool &value);
-};
+#include "UpdateXferTypes.h"
+#include "../../../../Include/Common/BfmeXfer.h"
 
 extern "C" XferException *__cdecl bfmeFormatText(
 	XferException *result, int tag, const char *format, ...);
@@ -158,15 +106,15 @@ void StealthUpdate::xfer(Xfer *xfer)
 	XferVersion version;
 	version.m_version = 1;
 	version.m_currentVersion = 4;
-	xfer->xferVersion(&version);
-	xfer->xferUnsignedInt(m_stealthAllowedFrame);
-	xfer->xferUnsignedInt(m_detectionExpiresFrame);
+	*xfer == *reinterpret_cast<Xfer::Version *>(&version);
+	*xfer == m_stealthAllowedFrame;
+	*xfer == m_detectionExpiresFrame;
 	if (version.m_currentVersion >= 2)
-		xfer->xferUnsignedInt(m_framesGranted);
-	xfer->xferBool(m_enabled);
-	xfer->xferInt(m_disguiseAsPlayerIndex);
+		*xfer == m_framesGranted;
+	*xfer == m_enabled;
+	*xfer == m_disguiseAsPlayerIndex;
 	AsciiString tmp = m_disguiseAsTemplate ? m_disguiseAsTemplate->m_name : AsciiString::TheEmptyString;
-	xfer->xferAsciiString(tmp);
+	*xfer == tmp;
 	if (xfer->IsLoading()) {
 		m_disguiseAsTemplate = NULL;
 		if (!tmp.isEmpty()) {
@@ -177,18 +125,18 @@ void StealthUpdate::xfer(Xfer *xfer)
 			}
 		}
 	}
-	xfer->xferUnsignedInt(m_disguiseTransitionFrames);
-	xfer->xferBool(m_disguiseHalfpointReached);
-	xfer->xferBool(m_transitioningToDisguise);
-	xfer->xferBool(m_disguised);
-	xfer->xferBool(m_34);
-	xfer->xferBool(m_32);
-	xfer->xferBool(m_33);
-	xfer->xferBool(m_31);
+	*xfer == m_disguiseTransitionFrames;
+	*xfer == m_disguiseHalfpointReached;
+	*xfer == m_transitioningToDisguise;
+	*xfer == m_disguised;
+	*xfer == m_34;
+	*xfer == m_32;
+	*xfer == m_33;
+	*xfer == m_31;
 	if (version.m_currentVersion >= 3)
-		xfer->xferInt(m_2c);
+		*xfer == m_2c;
 	if (version.m_currentVersion >= 4)
-		xfer->xferBool(m_148);
+		*xfer == m_148;
 }
 // ?g_rva008ffd18ThrowInfo@@3HA: the global at VA 0xcffd18 is ?g_guardTargetTypeThrowInfo@@3HA.
 #pragma comment(linker, "/alternatename:?g_rva008ffd18ThrowInfo@@3HA=?g_guardTargetTypeThrowInfo@@3HA")

@@ -3664,7 +3664,6 @@ alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.c
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	_INV	1
 alternatename	Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp	?freeMacroBucketStorage@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/System/INI_Rva003396D3ParseKillerScience.cpp	?g_scienceStoreLoaded@@3HA	1
-alternatename	Code/GameEngine/Source/Common/System/INI_getNextAsciiString.cpp	_strcat	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1
@@ -18286,8 +18285,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MatBufferCleanup.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorAddTexture.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorAddTexture.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorCollectMaterials.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorCollectMaterials.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoClassCtor.cpp	"",on	1
@@ -20507,21 +20504,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/Shell/ShellMenuScheme_Rv
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WinInstanceData.cpp	setVideoBuffer@WinInstanceData@@QAEXPAVVideoBuffer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoHashtableDtor.cpp	0WindowVideoHashtableHolder@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/WindowVideoHashtableDtor.cpp	1WindowVideoHashtableHolder@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideo::WindowVideo	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideo::init	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideo::setWindowState	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideo::~WindowVideo	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::WindowVideoManager	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::getWinState	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::pauseAllMovies	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::pauseMovie	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::playMovie	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::resumeAllMovies	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::resumeMovie	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::stopAllMovies	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::stopMovie	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::update	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/window_video_manager.cpp	WindowVideoManager::~WindowVideoManager	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::GameClient	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addDrawableToLookupTable	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::addTOCEntry	1
@@ -23483,7 +23465,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Local
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/LocaleComposeName.c	_Locale_extract_time_name	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp	OwnedBucketStorage::~OwnedBucketStorage	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0000234DVectorDeletingDtors.cpp	bfmeVectorDeleteAnchor0000234D@@YAXPAVRva0000234DElem@@PAVRva00001E13@@@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0002C237Get.cpp	Rva0002C237Get@@YAXPBVINI@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	begin@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1

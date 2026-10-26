@@ -207,7 +207,6 @@ Code/GameEngine/Source/Common/System/INI_parseDurationUnsignedShort.cpp	drop-in 
 Code/GameEngine/Source/Common/System/INI_parseMathExpression.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<windows.h>,<string.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same,strcmp:same
 Code/GameEngine/Source/Common/System/INI_readLine.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	strncpy:same,strlen:same
 Code/GameEngine/Source/Common/System/INI_rva0002D6F8.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	strtok:same,_strcmpi:same
-Code/GameEngine/Source/Common/System/INI_scanLookupList.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<windows.h>,<string.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same,_strcmpi:same
 Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand		prove with ./build.sh: byte gate is the authority	operator new:same,operator delete:same
 Code/GameEngine/Source/Common/System/RecorderPlaybackFile.cpp	drop-in candidate	same	2	1	0	0	0	0	0	1	0	0	0	<stdio.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	fread:same
 Code/GameEngine/Source/Common/System/Rva009A3770HashChainInsert.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<string.h>,<new>	no	no	hand		prove with ./build.sh: byte gate is the authority	memcpy:same,operator new:same
@@ -914,7 +913,6 @@ Code/GameEngine/Source/Common/System/INI_getNextTokenOrNull.cpp	drop-in candidat
 Code/GameEngine/Source/Common/System/INI_parseAccelerationReal.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same
 Code/GameEngine/Source/Common/System/INI_parseAngularVelocityReal.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same
 Code/GameEngine/Source/Common/System/INI_parseBitString16.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same
-Code/GameEngine/Source/Common/System/INI_parseBitString8.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same
 Code/GameEngine/Source/Common/System/INI_parseCrateCreationEntry.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<stdio.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	sscanf:same
 Code/GameEngine/Source/Common/System/INI_parseFXList.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	_strcmpi:same
 Code/GameEngine/Source/Common/System/INI_parseParticleSystemTemplate.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	_strcmpi:same
@@ -2468,7 +2466,6 @@ Code/GameEngine/Source/Common/BfmeConv804.cpp	conflicting	mangle	4	2	0	0	0	0	0	2
 Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp	conflicting	abi	4	1	1	1	0	0	1	0	0	0	0	<windows.h>,<exception>	yes	yes	hand			exception:abi,HMODULE:unknown,GetProcAddress:source,FARPROC:same
 Code/GameEngine/Source/Common/BfmeGridRasterCircle.cpp	conflicting	abi	4	2	0	0	0	0	2	0	0	0	0	<new>,<math.h>	no	no	hand			floor:abi,ceil:abi,operator delete [ ]:same,operator new [ ]:same
 Code/GameEngine/Source/Common/Rva0050CBA2StatsDump.cpp	conflicting	abi	4	1	0	0	0	0	3	0	0	0	0	<stdio.h>,<windows.h>	yes	yes	hand			fopen:abi,fclose:abi,fprintf:abi,GetLastError:same
-Code/GameEngine/Source/Common/System/INI_getNextAsciiString.cpp	conflicting	abi	4	2	0	0	0	0	2	0	0	0	0	<mbstring.h>,<windows.h>,<string.h>	yes	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	_mbscpy:abi,_mbscat:abi,NULL:same,strlen:same
 Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp	conflicting	abi	4	0	0	0	0	0	3	1	0	0	0	<stdio.h>	no	yes	hand			_wfopen:abi,fprintf:abi,fclose:abi
 Code/GameEngine/Source/Common/System/XferSaveAsText.cpp	conflicting	abi	4	0	0	0	3	0	1	0	0	0	0	<windows.h>,<crtdbg.h>,<stdio.h>	yes	yes	hand			_vsnprintf:abi,TRUE:unverified,FALSE:unverified,free:unverified
 Code/GameEngine/Source/Common/VersionBlockParserUpdate.cpp	conflicting	abi	4	3	0	0	0	0	1	0	0	0	0	<string.h>,<stdio.h>	no	yes	hand			sscanf:abi,memcmp:same,strlen:same,memset:same
@@ -3328,7 +3325,6 @@ reference/shims/sweep/winsock2.h	shim	abi	1	0	0	0	1	0	0	0	0	0	0	<windows.h>	yes	
 Code/GameEngine/Source/Common/RTS/ActionManager.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<windows.h>	yes	yes	hand			TRUE:unverified
 Code/GameEngine/Source/Common/RTS/Science.cpp	adapt	unknown	1	1	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand	3: reference/shims/bfmealloc/stl/_algobase.h:51 stl/_pair.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:55 stl/_iterator_base.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:573 stl/_algobase.c(unknown)		NULL:same
 Code/GameEngine/Source/Common/System/XferSave.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<string.h>,<stdlib.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	strlen:same,free:same
-Code/GameEngine/Source/Common/INI/INI.cpp	conflicting	abi	8	6	0	0	0	0	2	0	0	0	1	<windows.h>,<string.h>,<mbstring.h>,<excpt.h>,<stdio.h>	yes	no	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	_mbscpy:abi,_mbscat:abi,NULL:same,FALSE:same,TRUE:same,strlen:same,_strcmpi:same,sscanf:same
 Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<stdio.h>,<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	sprintf:same,OutputDebugStringA:same
 Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldEyeTower.cpp	adapt	unknown	1	0	0	1	0	0	0	0	0	0	0	<math.h>	no	yes	hand			atan2:unknown
 Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp	adapt	unknown	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	no	hand	1: Code/Libraries/Source/WWVegas/WWLib/chunkio.cpp:5 chunkio.h(unknown)		memset:same

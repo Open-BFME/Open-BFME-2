@@ -1573,10 +1573,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002BABA,10,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,S,S=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/INI/MultiIniFieldParse.cpp,Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp
 0x0002BAC4,11,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,S,S=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/INI/MultiIniFieldParse.cpp,Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp
 0x0002BACF,6,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,C,C=0x0002BAC4..0x0002BAD5,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp
-0x0002BAD5,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INISeparatorGetters.cpp
-0x0002BADC,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INISeparatorGetters.cpp
-0x0002BAE3,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INISeparatorGetters.cpp
-0x0002BAEA,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INISeparatorGetters.cpp
+0x0002BAD5,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
+0x0002BADC,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
+0x0002BAE3,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
+0x0002BAEA,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,N,N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002BAF1,7,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,C,C=0x0002BAEA..0x0002BB7F,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
 0x0002BAF8,36,code,,displaced,-,S=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp N=Code/GameEngine/Source/Common/System/SaveGame/SaveDate.cpp,Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp
 0x0002BB1C,85,code,,displaced,-,S=Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp N=Code/GameEngine/Source/Common/System/SaveGame/SaveDate.cpp,Code/GameEngine/Source/Common/System/SaveGame/SaveDateRva0002BB1C.cpp
@@ -1590,7 +1590,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002BCAB,132,code,,,-,,Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp
 0x0002BD30,9,code,Code/GameEngine/Source/GameClient/INI.cpp,proposed,U,N=Code/GameEngine/Source/Common/INI/INIException.cpp noncontiguous,Code/GameEngine/Source/Common/INI/INIExceptionCtor.cpp
 0x0002BD39,76,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_scanIndexList.cpp
-0x0002BD85,108,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_scanLookupList.cpp
+0x0002BD85,108,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002BDF2,170,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIO1Bodies.cpp
 0x0002BE9C,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp
 0x0002BEC1,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/string_base.cpp
@@ -1654,7 +1654,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002CD71,5,code-unledgered,,,-,,
 0x0002CD76,5,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp
 0x0002CD7B,53,code,,displaced,-,N=Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp,Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageCtorModuleFactoryBody.cpp
-0x0002CDB0,171,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_ctor.cpp
+0x0002CDB0,171,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002CE5B,90,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002CEB5,169,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,C,C=0x0002CE5B..0x0002CF5E,Code/GameEngine/Source/Common/System/INI_mixerFieldEdit.cpp
 0x0002CF5E,6,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,C,C=0x0002CE5B..0x0002CF86,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp
@@ -1702,7 +1702,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002E86C,42,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002E896,169,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_parseAsciiStringVectorAppend.cpp
 0x0002E93F,272,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
-0x0002EA4F,233,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_getNextAsciiString.cpp
+0x0002EA4F,233,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002EB38,277,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002EC4E,32,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002EC6E,65,code,Code/GameEngine/Source/Common/System/INI.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/INI.cpp noncontiguous,Code/GameEngine/Source/Common/System/INI_dup002EC6E.cpp
@@ -1718,7 +1718,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002EF56,28,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002EF72,78,code,Code/GameEngine/Source/Common/System/INI.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/INI.cpp noncontiguous,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002EFC0,28,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
-0x0002EFDC,83,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_parsePositiveNonZeroReal.cpp
+0x0002EFDC,83,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F02F,83,code,Code/GameEngine/Source/Common/System/INI.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/INI.cpp noncontiguous,Code/GameEngine/Source/Common/System/INI_dup002F02F.cpp
 0x0002F082,83,code,Code/GameEngine/Source/Common/System/INI.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/INI.cpp noncontiguous,Code/GameEngine/Source/Common/System/INI_dup002F082.cpp
 0x0002F0D5,34,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
@@ -1727,9 +1727,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0002F15A,60,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F196,36,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F1BA,34,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
-0x0002F1DC,62,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_parseBitString8.cpp
+0x0002F1DC,62,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F21A,63,code,Code/GameEngine/Source/Common/System/INI.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/INI.cpp noncontiguous,Code/GameEngine/Source/Common/System/INI_parseBitString16.cpp
-0x0002F259,165,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_parseRGBColor.cpp
+0x0002F259,165,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F2FF,254,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F3FE,264,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0002F507,81,code,Code/GameEngine/Source/Common/INI/INI.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INI.cpp N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/INI/INI.cpp
@@ -56099,7 +56099,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075CBA7,8,code,,,-,,Code/gen_small/uw_gen_002.cpp
 0x0075CBAF,8,code,,,-,,Code/gen_small/uw_gen_003.cpp
 0x0075CBC1,8,code,,,-,,Code/gen_small/uw_gen_002.cpp
-0x0075CBC9,25,code,,,-,,Code/GameEngine/Source/Common/System/INI_getNextAsciiString.cpp
+0x0075CBC9,25,code,,,-,,Code/GameEngine/Source/Common/INI/INI.cpp
 0x0075CBF0,17,code-unledgered,,,-,,
 0x0075CC01,17,code-unledgered,,,-,,
 0x0075CC20,8,code-unledgered,,,-,,

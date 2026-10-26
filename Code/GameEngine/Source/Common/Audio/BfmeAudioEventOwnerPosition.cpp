@@ -14,11 +14,9 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 // bind the observed DF EF10/18 storage without adding new singleton spellings.
 
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../GameLogicObjectLookupView.h"
 class Drawable {public: const Coord3D *getPosition() const;};
 class Object {public: char pad[0x38]; BfmeEventPositionView position;};
-// Zero Hour's GameCommon.h spells the id an enum; retail's 0x00049DC5 row takes it.
-enum ObjectID { INVALID_ID = 0, FORCE_OBJECTID_TO_LONG_SIZE = 0x7ffffff };
-class GameLogic {public: Object *findObjectByID(ObjectID);};
 class GameClient {public:
  virtual void slot0();
  virtual void slot1();

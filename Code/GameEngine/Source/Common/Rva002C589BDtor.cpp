@@ -13,6 +13,7 @@
 // before later members, preserving retail's constructor scheduling.
 #include "ascii_string.h"
 #include "../../../Libraries/Include/Lib/Coord3D.h"
+#include "GameLogicObjectLookupView.h"
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 template<class T> __forceinline volatile T &r1_vwrite(T &value) { return *(volatile T *)&value; }
@@ -43,19 +44,6 @@ class Rva003ECDB7Object
 public:
 	~Rva003ECDB7Object();
     void registerName();
-};
-
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-
-class Object;
-
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
 };
 
 extern GameLogic *TheGameLogic;
@@ -99,7 +87,7 @@ void Rva002C589B::rva002C5843(bool v)
 // ?rva002C58B3@Rva002C589B@@QAEXXZ @0x002C58B3 92B: reset. int at +8 to -1,
 // floats of the canonical position to 0, bytes at +0x18/+0x19 and int at
 // +0x1C to 0, 12 zero bytes at m_ptr+0x554 via a Coord3D temp copy, the rowed
-// clear 0x003ECB0B on m_ptr, ObjectID at +0x34 to INVALID_ID. The volatile
+// clear 0x003ECB0B on m_ptr, ObjectID at +0x34 to INVALID_OBJECT_ID. The volatile
 // wrapper on the m_19/m_position.x stores is what keeps retail's byte stores
 // before the callee-saved push edi (T1 volatile-store-pair lever).
 void Rva002C589B::rva002C58B3()
@@ -115,7 +103,7 @@ void Rva002C589B::rva002C58B3()
 	Coord3D tmp = { 0.0f, 0.0f, 0.0f };
 	((Rva003ECB0BDwordClearer *)m_ptr)->m_vec = tmp;
 	((Rva003ECB0BDwordClearer *)m_ptr)->clear();
-	m_34 = INVALID_ID;
+	m_34 = INVALID_OBJECT_ID;
 }
 
 Object *Rva002C589B::rva002C5DA6()
@@ -126,7 +114,7 @@ Object *Rva002C589B::rva002C5DA6()
 Rva002C589B::Rva002C589B(int kind, int limit, void *owner)
     : m_owner(owner), m_kind(kind), m_frame(0), m_18(true), m_19(false),
       m_unknown1C(0), m_limit(limit), m_ptr(0), m_threat(0), m_invalid(-1),
-      m_count(1), m_34(INVALID_ID), m_id(g_00DFEFC0++)
+      m_count(1), m_34(INVALID_OBJECT_ID), m_id(g_00DFEFC0++)
 {
     AsciiString name;
     name.format("AIThreatFinder%d", g_AITargetThreatFinderSerial++);

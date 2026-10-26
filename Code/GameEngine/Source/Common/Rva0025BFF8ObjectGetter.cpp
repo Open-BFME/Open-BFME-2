@@ -5,16 +5,8 @@
 // with TheGameLogic at 0x00DFE78C (same absolute-address idiom as
 // Rva00203693Host.cpp). Callers (12 incl 0x004ACDD) pass an index; unblocks 9.
 // Prev is VectorObjectIDFillInsert, next is FreeMemberDeleters; same /O1 /MD.
-enum ObjectID
-{
-	OBJECTID_INVALID = -1
-};
-class Object;
-class GameLogic
-{
-public:
-	Object *findObjectByID(ObjectID id);
-};
+#include "GameLogicObjectLookupView.h"
+
 extern GameLogic *TheGameLogic;
 class Rva0025BFF8
 {

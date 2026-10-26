@@ -37,43 +37,8 @@ public:
 	const CommandButton *getCommandButton(int i) const;
 };
 
-class Xfer
-{
-public:
-	virtual ~Xfer();
-	virtual bool IsLoading();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10(void *p);
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual void v19();
-	virtual void v20();
-	virtual void v21();
-	virtual void v22();
-	virtual void v23();
-	virtual void v24();
-	virtual void v25();
-	virtual void v26();
-	virtual void v27(AsciiString &s);
-	virtual void v28();
-	virtual void v29();
-	virtual void v29b();
-	virtual void v30(int &i);
-	virtual void v31();
-};
+#include "AIXferTypes.h"
+#include "../../Include/Common/BfmeXfer.h"
 
 class Rva0055B0CC
 {
@@ -115,16 +80,16 @@ void AIUpgrade::DoXfer(Xfer *xfer, void *p)
 	TwoBytes t;
 	t.a = true;
 	t.b = true;
-	xfer->v10(&t);
+	*xfer == *reinterpret_cast<Xfer::Version *>(&t);
 	Rva0055B0CC::Rva0055AED6(xfer, p);
-	xfer->v30(m_2C);
+	*xfer == m_2C;
 	const AsciiString *src;
 	if (m_30 != 0)
 		src = &m_30->m_10;
 	else
 		src = &AsciiString::TheEmptyString;
 	AsciiString tmp(*src);
-	xfer->v27(tmp);
+	*xfer == tmp;
 	if (!xfer->IsLoading())
 		return;
 	_ReadWriteBarrier();

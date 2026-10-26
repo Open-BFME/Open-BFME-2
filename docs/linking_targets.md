@@ -52,7 +52,7 @@ Follow-up: **Recheck the existing repair and its prerequisites** before retrying
 | `MeshLoadContextAddLegacyMaterial.cpp` | 2,828 | Wrong selected | Recheck repair |
 | `stlport_float_format.cpp` | 2,620 | COMDAT losers | 2026-10-25: still blocked (2,619 current bytes); active append declaration hits VC7.1 C1001, alternate syntax rejected. Trials restored. [Evidence](../reverse/attempt_support/link-regression-clusters-20261025.md). |
 | `MaterialCollectorDestructor.cpp` | 1,686 | Wrong selected | Recheck repair |
-| `MaterialCollectorCollectMaterials.cpp` | 1,506 | Wrong selected | Recheck repair |
+| `MaterialCollectorCollectMaterials.cpp` | 1,506 | Wrong selected | 2026-10-26: current shattersystem provider clears this consumer before/after cleanup (1,489 authored bytes); eight rows and one EH graph exact. Two obsolete optimization occurrences retired; local array-delete declaration replaced by the standard header. [Evidence](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md), LINK-012; provider's seven blockers and census confirmation remain. |
 | `PositionStartSpots.cpp` | 994 | Wrong selected | See LINK-006 map-metadata subset |
 | `SkirmishMapStartSpots.cpp` | 703 | Wrong selected | See LINK-006 map-metadata subset |
 | `stlport_narrow_string_substring_ctor.cpp` | 363 | Unresolved | Recheck repair |
@@ -94,7 +94,7 @@ Each row retains the handoff's investigation lead alongside the census category.
 | `StlportVectorDtorDeferred.cpp` | 461 | Two unresolved | Current-provider verification pending |
 | `Rva00066A9ABody.cpp` | 371 | Two unresolved | Two global providers |
 | `Rva007B7280Siblings.cpp` | 354 | COMDAT + wrong selected | LINK-015: blocked; its own inlined `??_G` loses while no copy is proven |
-| `LargeGroupAudioKeyMapBfmeAddKey.cpp` | 324 | Two unresolved | Global records and vector resize |
+| `LargeGroupAudioKeyMapBfmeAddKey.cpp` | 324 | Two unresolved | 2026-10-26: one verified tree store, native resize/insert owners and canonical string cleanup; four rows, data row and two EH graphs exact. Six-unit ordinary preview clean; this unit 0 -> 314 authored bytes. The owning tool retires both identity keys with zero remaining source findings. [Evidence](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md), LINK-007; strict closure and census confirmation remain open. |
 | `FXListStoreCtor.cpp` | 280 | COMDAT + wrong selected | Current-provider verification pending |
 | `PolygonTriggerCtor.cpp` | 186 | Unresolved + COMDAT | LINK-011 preview cleared 157 authored bytes; reconcile scope |
 | **Total: 10 units** | **33,987** | | |
@@ -263,7 +263,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp` | 249 | 10 (U=10) | Open |
 | `Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp` | 245 | 14 (C=7, S=7) | Open |
 | `Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp` | 233 | 4 (C=2, S=2) | Open |
-| `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp` | 231 | 28 (U=17, C=6, S=5) | Open |
+| `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp` | 231 | 28 (U=17, C=6, S=5) | 2026-10-26 at 766153ce00: current eight rows/241 B and one EH graph pass; ordinary preview retains 17 U, 6 C, 5 S and 0 linked bytes. TU approval remains 0 rows/1 mixed seed; see [routing handoff](../reverse/attempt_support/aiupdate-tu-approval-20261026/readme.md), LINK-018. |
 | `Code/Libraries/Source/WWVegas/WWLib/Rva00240230VectorInsertOverflow_Rva00541d10.cpp` | 231 | 8 (U=2, C=3, S=3) | Open |
 | `Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp` | 230 | 3 (C=3) | 2026-10-25: aa31e9bac4 and paired current-provider checks clear 222 B and 14 public consumers (1,212 B); LINK-014. Census pending. |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00584405.cpp` | 225 | 3 (U=1, C=1, S=1) | Open |
@@ -283,7 +283,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/RvaPayloadValueReturnsUnresolved.cpp` | 204 | 7 (U=3, C=4) | Open |
 | `Code/GameEngine/Source/GameClient/GUI/Rva005776A7Ctor.cpp` | 203 | 8 (U=5, C=2, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp` | 198 | 20 (U=12, C=5, S=3) | Open |
-| `Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp` | 191 | 3 (U=1, C=1, S=1) | Open |
+| `Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyList.cpp` | 191 | 3 (U=1, C=1, S=1) | 2026-10-26: native erase repair followed by one verified 12-byte tree store; six current objects preserve 938 functions and five EH graphs. After the native resize follow-up, all six preview clean: this unit 0 -> 191; cohort +505 authored bytes. [Evidence](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md), LINK-007; strict closure and census confirmation remain open. |
 | `Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva004C1B60_Rva00405DBC.cpp` | 189 | 5 (U=5) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00587375_overflow.cpp` | 189 | 8 (U=2, C=4, S=2) | Open |
 | `Code/Libraries/Source/WWVegas/WWSaveLoad/twiddler.cpp` | 187 | 11 (U=10, C=1) | Open |
@@ -490,6 +490,13 @@ prerequisites are maintained in the [obstacle register](linking_obstacles.md).
 The INI repair [0c7ebc35a7](https://github.com/Open-BFME/Open-BFME-2/commit/0c7ebc35a7)
 is tracked under LINK-004: 2,989 authored bytes cleared in a bounded ownership
 diagnostic, with census confirmation pending. It sits outside the 50-unit list.
+
+A newer-census lead, `Rva00598E85Ctor.cpp` (177 bytes), was checked on
+2026-10-26 at `d7fa8a31bf`: current INI and lower-bound provider objects clear
+its sole selected-copy blocker in the ordinary preview. This confirms the
+existing INI repair; no new source or census gain is claimed. See the
+[AI consumer evidence](../reverse/attempt_support/ai-constructor-current-provider-20261026.md)
+and LINK-004. It is outside the historical snapshot totals below.
 
 ## Snapshot totals
 

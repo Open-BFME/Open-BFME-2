@@ -18,7 +18,7 @@
 // There is no unwind frame, so this translation unit is built without
 // exceptions and the try around the construct is gone.
 
-inline void *operator new(unsigned int, void *place) { return place; }
+#include <new.h>
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork/GameSpy/BuddyThread.h
 class BuddyRequest

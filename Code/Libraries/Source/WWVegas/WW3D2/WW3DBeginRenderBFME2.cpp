@@ -84,13 +84,13 @@ void DX8_Assert(void);
 class WW3D
 {
 public:
-	static bool IsCapturing;
 	static void Get_Render_Target_Resolution(int &, int &, int &, bool &);
 	static void Update_Movie_Capture(void);
 	static bool Begin_Render(bool, bool, const Vector3 &, float);
 
 private:
 	// ww3d.cpp defines these private (?IsInitted@WW3D@@0_NA, ...).
+	static bool IsCapturing;
 	static bool IsInitted;
 	static bool IsRendering;
 	static bool PauseRecord;
