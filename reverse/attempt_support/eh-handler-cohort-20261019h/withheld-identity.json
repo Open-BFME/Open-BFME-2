@@ -1,9 +1,0 @@
-{
-  "problems": [
-    "binding: Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_voiceResponses_Rva0026B25A.cpp | ?insert@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVDrawable@@U?$_Nonconst_traits@PAVDrawable@@@_STL@@@2@U32@ABQAVDrawable@@@Z | ?_M_create_node@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVDrawable@@@2@ABQAVDrawable@@@Z | 0x00239BD8 | divergent",
-    "binding: Code/Libraries/Source/WWVegas/WWLib/StlportPod248ElementDtor.cpp | $L4468 | ??1Rva000B646B@@QAE@XZ | 0x000BBF4B | wrong"
-  ],
-  "mode": "shadow",
-  "seconds": 4.774342060089111,
-  "rows": 56
-}

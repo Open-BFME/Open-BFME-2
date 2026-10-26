@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Bfme5TinyTen.cpp	wrong-name	?BfmeProgressIndicatorHead@@3PAVProgressIndicator@@A	0x00A01E1C
-data_check: Code/GameEngine/Source/Common/Rva000E10C0.cpp	wrong-name	?BfmeProgressIndicatorHead@@3PAVProgressIndicator@@A	0x00A01E1C
-data_check (shadow): 3 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.3s

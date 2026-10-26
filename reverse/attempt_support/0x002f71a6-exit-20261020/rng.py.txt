@@ -1,5 +1,0 @@
-import sys
-lo=int(sys.argv[2],16);hi=int(sys.argv[3],16)
-for l in open(sys.argv[1]):
-    a=int(l.split()[0],16)
-    if lo<=a<hi: print(l.rstrip())

@@ -1,5 +1,0 @@
-Code/GameEngine/Source/GameNetwork/GameSpy/Chat.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/BuddyDefs.cpp
-Code/GameEngine/Source/Common/Rva005BA6EEPopulate.cpp
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClansCallbacks.cpp
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp

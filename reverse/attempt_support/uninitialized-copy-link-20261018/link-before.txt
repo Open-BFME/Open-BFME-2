@@ -1,7 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 559)
-  comdat      ??$__uninitialized_copy@PBUTreeKey00242F5E@@PAU1@@_STL@@YAPAUTreeKey00242F5E@@PBU1@0PAU1@ABU__false_type@0@@Z  (retail: not retail's body)
-  comdat      ??0?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@QAE@ABV01@@Z  (retail: not retail's body)
-  selected    ??$__uninitialized_copy@PBUTreeKey00242F5E@@PAU1@@_STL@@YAPAUTreeKey00242F5E@@PBU1@0PAU1@ABU__false_type@0@@Z  (the definition the link keeps is not retail's)
-  selected    ??0?$vector@VRva0040CB11Entry@@V?$allocator@VRva0040CB11Entry@@@_STL@@@_STL@@QAE@ABV01@@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp: LINKS  LINKED 1,594 -> 1,604 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 1,604)
-link_check: 1 of 2 link cleanly; LINKED 1,594 -> 1,604 bytes (3.6s)

@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp: LINKS  LINKED 0 -> 4,005 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 4,005)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 4,005 bytes (4.3s)

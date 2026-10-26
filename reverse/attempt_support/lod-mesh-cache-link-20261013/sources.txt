@@ -1,3 +1,0 @@
-Code/GameEngine/Source/Common/GapBodiesGE53.cpp
-Code/GameEngine/Source/Common/GlobalByteGetters.cpp
-Code/Libraries/Source/WWVegas/WW3D2/Rva00173230Finish.cpp

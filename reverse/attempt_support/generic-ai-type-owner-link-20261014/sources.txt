@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp
-Code/GameEngine/Source/GameClient/Rva0030D773Method.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp

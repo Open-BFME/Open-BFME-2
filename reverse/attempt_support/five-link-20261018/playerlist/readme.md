@@ -1,7 +1,0 @@
-# Item1 - one PlayerList getter provider
-
-The fetched census retains two strong native getNthPlayer definitions. Replacing either by inline/noinline changes native callers because VC7.1 postpones its register-preservation summary. A new late-inline declaration experiment is rejected by C2761 and was restored.
-
-Consolidate the matched newGame and its handler into the getter/mask-loop home. Keep the full native PlayerList virtual slots and fields (+10 local; +14 count; +18 twenty pointers), the established Player fields and all original functions. Delete the now-unowned old source. No alias, pin, optimization pragma or verification rule is introduced. BFME1/ZH PlayerList.cpp is the original semantic donor for these same methods; native bytes and prior row evidence establish BFME2's20-player ABI.
-
-Normal same-input baseline: both original units pass8/8 bodies; repaired home passes8/8 and parent EH EXACT. Preserved objects under ignored build/local-macos/five-link-goal provide the controlled comparison. The stock link_check model refreshed with those baseline objects counts2 strong getter providers. Refresh the consolidated home and forget only the actually deleted source (asserted to own no current row): exactly1 strong provider remains. Published index is unchanged. The preview retains the independent missing multiplayerIsLocal cache and non-native kept Player initFromDict; they are the next repairs, not hidden as a clean-link claim. proof.json records the scope and findings.

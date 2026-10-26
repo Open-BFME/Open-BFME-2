@@ -1,5 +1,0 @@
-{
-  "returncode": 233,
-  "stdout": "fatal error C1350: error loading dll 'msobj71.dll': dll not found\nLINK : fatal error LNK1257: code generation failed\n",
-  "stderr": ""
-}

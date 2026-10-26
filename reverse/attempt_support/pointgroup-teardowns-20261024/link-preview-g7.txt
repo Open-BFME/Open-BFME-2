@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/System/Rva007B7280Siblings.cpp: LINKS  LINKED 353 -> 353 bytes (census 2026-10-24 07:31 at a9f880ad06; file's own bytes 353)
-Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp: LINKS  LINKED 10,192 -> 10,192 bytes (census 2026-10-24 07:31 at a9f880ad06; file's own bytes 10,192)
-  diagnostic  ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z  (codegen-like: 1039 bytes against the majority copy's 830; unreferenced, not a blocker)
-link_check: 2 of 2 link cleanly; LINKED 10,545 -> 10,545 bytes (4.2s)

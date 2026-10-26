@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/MeshModelReadShaderIds.cpp: LINKS  LINKED 0 -> 349 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 349)
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDefaultCtor.cpp: LINKS  LINKED 4,011 -> 4,011 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 4,011)
-  diagnostic  ??0?$RefCountPtr@VTextureClass@@@@QAE@PAVTextureClass@@@Z  (codegen-like: 20 bytes against the majority copy's 11; unreferenced, not a blocker)
-  diagnostic  ??4?$RefCountPtr@VTextureClass@@@@QAEAAV0@ABV0@@Z  (relocations differ from the majority copy, bytes equal; unreferenced, not a blocker)
-link_check: 2 of 2 link cleanly; LINKED 4,011 -> 4,360 bytes (3.0s)

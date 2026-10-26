@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 1,014)
-  unresolved  ?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A
-  unresolved  ?rva004DE2ED@Rva004DD843@@QAE_NXZ
-Code/GameEngine/Source/Common/Rva002E373CClear.cpp: LINKS  LINKED 42 -> 42 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 42)
-link_check: 1 of 2 link cleanly; LINKED 42 -> 42 bytes (2.7s)

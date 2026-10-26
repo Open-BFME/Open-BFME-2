@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doAffectObjectPanelFlagsTeam.cpp: LINKS  LINKED 0 -> 748 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 748)
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp: LINKS  LINKED 1,185 -> 1,185 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 1,185)
-link_check: 2 of 2 link cleanly; LINKED 1,185 -> 1,933 bytes (2.9s)

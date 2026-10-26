@@ -1,7 +1,0 @@
-[
-  "Code/Libraries/Source/WWVegas/WW3D2/light.cpp",
-  "Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp",
-  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDynamicLightConstructor.cpp",
-  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualLoad.cpp",
-  "Code/Libraries/Source/WWVegas/WW3D2/collect.cpp"
-]

@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva0052A470Dtor.cpp	wrong-name	_g_pRva00224BC9	0x009FE4CC
-data_check: Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	wrong-name	?$S1@?CF@??updateMilitarySubtitle@InGameUI@@IAEXXZ@4IA	0x009FEEA8
-data_check: Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	wrong-name	?click@?CF@??updateMilitarySubtitle@InGameUI@@IAEXXZ@4UBfmeAudioEventPrefix136@@A	0x009FEE20
-data_check: Code/GameEngine/Source/GameClient/InGameUIUpdate.cpp	wrong-name	?$S1@?BA@??update@InGameUI@@UAEXXZ@4IA	0x009FEEDC
-data_check (enforce): 10 source(s), 4 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.9s

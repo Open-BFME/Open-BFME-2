@@ -1,6 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp: self-strict receipt current
-?Get_Motion@HAnimComboClass@@QAEPAVHAnimClass@@H@Z: no definition, undefined reference=False
-?Get_Pivot_Weight_Map@HAnimComboClass@@QAEPAVPivotMapClass@@H@Z: no definition, undefined reference=True
-Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClassGetMotion.cpp: self-strict receipt current
-?Get_Motion@HAnimComboClass@@QAEPAVHAnimClass@@H@Z: sole checked definition; full 23 bytes and zero relocations exact at 0x00196670: 8b41048b4c24048b14888b0285c0740483400401c20400
-?Get_Pivot_Weight_Map@HAnimComboClass@@QAEPAVPivotMapClass@@H@Z: sole checked definition; full 27 bytes and zero relocations exact at 0x00196740: 8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400

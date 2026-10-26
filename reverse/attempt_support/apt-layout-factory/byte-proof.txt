@@ -1,6 +1,0 @@
-?Rva002223FECreateLayout@@YGPAVAptWindowLayout@@PAX@Z (Code/GameEngine/Source/GameClient/GUI/AptWindowLayout.cpp)
-target RVA: 0x002223FE
-target size: 55 bytes
-compiled symbol size: 55 bytes
-classification: exact match
-OK: bytes match

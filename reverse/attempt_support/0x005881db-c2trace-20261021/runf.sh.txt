@@ -1,7 +1,0 @@
-#!/bin/bash
-# runf.sh TAG args... : slotmove2 forcing run then objscore
-t=$1; shift
-cd /work2/Open-BFME-2/build/c2tr
-MINIDX=${MINIDX:-0} timeout 1500 python3 ${SM:-slotmove2.py} bank.cpp f_$t.obj "" "$@" > f_$t.out 2>&1
-python3 objscore.py f_$t.obj bank.cpp > f_$t.score 2>&1
-echo "$t $(tail -1 f_$t.score) :: $(grep -c set f_$t.out) sets"

@@ -1,9 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/Common/Thing/ModuleTagStringSwap.cpp",
-  "problems": [
-    "binding: Code/GameEngine/Source/Common/Thing/ModuleTagStringSwap.cpp | ?swap@ModuleTagString@@QAEXAAV1@@Z | ??0Rva004A9DF3Element@@QAE@XZ | 0x00013260 | wrong",
-    "definition: divergent | ??_GRva006D0280@@QAEPAXI@Z"
-  ],
-  "mode": "shadow",
-  "rows": 2
-}

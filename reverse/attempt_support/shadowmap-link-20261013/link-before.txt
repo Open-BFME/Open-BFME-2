@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva0007BA35Method.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 298)
-  unresolved  ?g_00DB4470@@3UDb12@@A
-  unresolved  ?g_00DB447C@@3UDb12@@A
-  unresolved  ?g_shadowMapFieldParseTable@@3QBUFieldParse@@B
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (6.6s)

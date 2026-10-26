@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/InGameUIHeadingQuery.cpp: LINKS  LINKED 0 -> 155 bytes (census 2026-10-15 09:31 at 28269d8e8d; file's own bytes 155)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawReactToTransformChange.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 09:31 at 28269d8e8d; file's own bytes 725)
-  unresolved  ?addEdgeToTrack@Rva00084206Track@@QAEXMM@Z
-link_check: 1 of 2 link cleanly; LINKED 0 -> 155 bytes (2.7s)

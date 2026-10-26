@@ -1,2 +1,0 @@
-2a983d:	c7 01 30 dc bf 00    	mov dword ptr [ecx], 0xbfdc30
-2a9843:	c3                   	ret

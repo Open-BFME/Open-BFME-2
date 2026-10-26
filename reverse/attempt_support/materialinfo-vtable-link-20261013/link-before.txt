@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoDtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 215)
-  duplicate   ??1MaterialInfoClass@@UAE@XZ
-  comdat      ??_E?$RefCountPtr@VTextureClass@@@@QAEPAXI@Z  (retail: not retail's body)
-  comdat      ??_GRefCountClass@@MAEPAXI@Z  (first: differs from the first copy in link order (no retail address))
-  selected    ??1MaterialInfoClass@@UAE@XZ  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.2s)

@@ -1,5 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ (Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp)
-    unverifiable: symbol not found in object: ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ
-Functions: FAIL 1/5
-1 function(s) failed byte comparison

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 3,129)
-  comdat      ??9_List_iterator_base@_STL@@QBE_NABU01@@Z  (retail: not retail's body)
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046C7A4.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 904)
-  comdat      ??9_List_iterator_base@_STL@@QBE_NABU01@@Z  (retail: not retail's body)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.6s)

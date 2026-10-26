@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp: LINKS  LINKED 0 -> 3,788 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 3,788)
-Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp: LINKS  LINKED 3,011 -> 3,011 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 3,011)
-Code/Libraries/Source/WWVegas/WWLib/Rva00222F55Background.cpp: LINKS  LINKED 260 -> 260 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 260)
-link_check: 3 of 3 link cleanly; LINKED 3,271 -> 7,059 bytes (3.0s)

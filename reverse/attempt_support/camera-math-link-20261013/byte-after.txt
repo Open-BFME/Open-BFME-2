@@ -1,9 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-Compile: 0 of 3 TU(s) (deps-cache: 3 current)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    uw_00765960 (Code/Libraries/Source/WWVegas/WW3D2/camera.cpp): $L25230 was renumbered; verified parent EH data places $L25201 at 0x00765960
-    uw_00765980 (Code/Libraries/Source/WWVegas/WW3D2/camera.cpp): $L26968 was renumbered; verified parent EH data places $L26939 at 0x00765980
-Functions: OK 64/64 matched across 3 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (43 compiler literals verified)
-Import-ref verify: OK (1 named imports verified)

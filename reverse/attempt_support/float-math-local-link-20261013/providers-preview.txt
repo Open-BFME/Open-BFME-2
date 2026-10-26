@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/Apt/AptMathCallbacksBFME2.cpp: LINKS  LINKED 1,332 -> 1,332 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 1,332)
-Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathRandomForceRva0045D636.cpp: LINKS  LINKED 458 -> 458 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 458)
-link_check: 2 of 2 link cleanly; LINKED 1,790 -> 1,790 bytes (2.8s)

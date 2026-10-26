@@ -1,8 +1,0 @@
-from pathlib import Path
-text=Path('build/pdb-context.py').read_text()
-old="s=Scorer('?_RTC_GetSrcLine@@YAHKPADHPAHPAPAD@Z'"
-new="variants=[v for v in variants if '-nonnull-' in v[0] or v[0]=='table-types-file-scope']\n"+old
-if old not in text:raise RuntimeError('scorer declaration missing')
-text=text.replace(old,new).replace("Path('build/pdb-context-trials')","Path('build/pdb-preconditions')")
-text=text.replace("print(item,flush=True)","print({k:v for k,v in item.items() if k!='differences'},'diff_count',len(diffs),'first',diffs[:18],flush=True)")
-exec(compile(text,'pdb-preconditions-expanded.py','exec'))

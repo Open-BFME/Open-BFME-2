@@ -1,3 +1,0 @@
-String-ref verify: OK (3 literals + 4 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (4 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

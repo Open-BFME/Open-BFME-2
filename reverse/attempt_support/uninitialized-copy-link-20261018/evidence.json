@@ -1,8 +1,0 @@
-{
-  "result": "456 newly linked nonpadding bytes; legacy local paired preview; no closed-strict claim",
-  "census_commit": "c2c5ac8c27",
-  "change": "Move the existing 93B TreeKey vector constructor and 10B handler into their own TU; retain the original template and helper visibility. Replace an unrowed conflicting vector<Rva0040CB11Entry> explicit instantiation with the exact rowed 38B uninitialized-copy worker.",
-  "byte_gate": "14/14 rows exact before/after across the two resulting units; after strict reusable receipts plus ordinary byte/literal/float/import checks pass",
-  "new_unit_limitation": "CLI refuses source absent from census. In-memory check_object preview adds its object at the end of a private loaded index and refreshes all four objects. Original worker family has zero blockers including that object; split unit remains blocked; no census, persistent index, status or rules changed.",
-  "remaining": "TreeKey vector source still needs type/copy-callee reconciliation; POD vector family still has unrelated Rva00153A27Element Construct blocker"
-}

@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Contain/exitObjectViaDoorRva0047A14CFarm.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 271)
-  comdat      ??9_List_iterator_base@_STL@@QBE_NABU01@@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.5s)

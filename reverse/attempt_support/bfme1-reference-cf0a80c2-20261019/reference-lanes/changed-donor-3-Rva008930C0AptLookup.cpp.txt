@@ -1,2 +1,0 @@
-// cl: /O2 -EHsc -Ireference/open-bfme-1/game
-#include "@ROOT/reference/open-bfme-1/game/Libraries/Source/EA/Apt/Rva008930C0AptLookup.cpp"

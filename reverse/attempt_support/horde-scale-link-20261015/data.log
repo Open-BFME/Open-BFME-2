@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp	wrong-name	?$S1@?L@??rva00469967@HordeContain@@UAEXXZ@4IA	0x00A03674
-data_check: Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp	wrong-name	?$S2@?BG@??rva004708BC@HordeContain@@UAEPAVObject@@PBVMatrix3D@@@Z@4IA	0x00A03684
-data_check (enforce): 2 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.3s

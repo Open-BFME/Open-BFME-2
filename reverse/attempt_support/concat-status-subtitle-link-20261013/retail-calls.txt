@@ -1,4 +1,0 @@
-Target direct-call evidence from original compiled caller relocation offsets; retail rel32 destinations are RVAs.
-??0AptPlayerStatus@@QAE@PAX@Z RVA=0x004E4A45 extent=954: call 0x004E4CFF -> 0x00005629
-?rva0005B708@MilesAudioManager@@QAEXXZ RVA=0x0005B708 extent=613: call 0x0005B808 -> 0x00005629
-?rva0005B708@MilesAudioManager@@QAEXXZ RVA=0x0005B708 extent=613: call 0x0005B815 -> 0x00005629

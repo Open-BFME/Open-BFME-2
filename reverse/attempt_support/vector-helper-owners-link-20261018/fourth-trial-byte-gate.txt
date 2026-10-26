@@ -1,7 +1,0 @@
-Source claims: OK (4 sources, scoped byte-verified)
-Compile: 3 of 4 TU(s) (deps-cache: 1 current)
-  FAIL ?_M_insert_overflow@?$vector@URva003F3277Record@@V?$allocator@URva003F3277Record@@@_STL@@@_STL@@IAEXPAURva003F3277Record@@ABU3@ABU__false_type@2@I_N@Z (Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva003F3277.cpp)
-    target:   55 8b ec 51 51 53 56 57 8b f9 8b 47 04 2b 07 6a 0c 99 59 f7 f9 8d 4d 14 3b 45 14 89 45 fc 72 03 8d 4d fc 8b 31 03 f0 6a 00 8d 5f 08 56 8b cb e8 7d 26 fa ff 8d 4d 1b 51 50 ff 75 08 89 45 f8 ff 37 e8 eb eb ff ff 83 c4 10 83 7d 14 01 89 45 fc 75 11 ff 75 0c 50 e8 8d e7 ff ff 83 45 fc 0c 59 59 eb 16 8d 4d 1b 51 ff 75 0c ff 75 14 50 e8 a2 e7 ff ff 83 c4 10 89 45 fc 80 7d 18 00 75 18 8d 45 1b 50 ff 75 fc ff 77 04 ff 75 08 e8 a0 eb ff ff 83 c4 10 89 45 fc 8b cf e8 cd b4 f3 ff 6b f6 0c 8b 45 f8 8b 4d fc 03 f0 89 07 89 4f 04 5f 89 33 5e 5b c9 c2 14 00
-    compiled: 55 8b ec 51 51 53 56 57 8b f9 8b 47 04 2b 07 6a 0c 99 59 f7 f9 8d 4d 14 3b 45 14 89 45 fc 72 03 8d 4d fc 8b 31 03 f0 6a 00 8d 5f 08 56 8b cb e8 7d 26 fa ff 8d 4d 1b 51 50 ff 75 08 89 45 f8 ff 37 e8 eb eb ff ff 83 c4 10 83 7d 14 01 89 45 fc 75 11 ff 75 0c 50 e8 46 dc 06 00 83 45 fc 0c 59 59 eb 16 8d 4d 1b 51 ff 75 0c ff 75 14 50 e8 a2 e7 ff ff 83 c4 10 89 45 fc 80 7d 18 00 75 18 8d 45 1b 50 ff 75 fc ff 77 04 ff 75 08 e8 a0 eb ff ff 83 c4 10 89 45 fc 8b cf e8 cd b4 f3 ff 6b f6 0c 8b 45 f8 8b 4d fc 03 f0 89 07 89 4f 04 5f 89 33 5e 5b c9 c2 14 00
-Functions: FAIL 1/4
-1 function(s) failed byte comparison

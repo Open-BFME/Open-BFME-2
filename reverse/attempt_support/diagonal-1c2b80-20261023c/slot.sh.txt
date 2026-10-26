@@ -1,8 +1,0 @@
-#!/bin/sh
-# slot.sh CMD... : run CMD with a wine prefix chosen by a lock slot (1..12)
-for i in $(seq 1 12); do
-  if mkdir /tmp/wslot$i 2>/dev/null; then
-    DBG_PREFIX=/home/agent/.wine$i "$@"; r=$?; rmdir /tmp/wslot$i; exit $r
-  fi
-done
-DBG_PREFIX= "$@"

@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp	wrong-name	?$S144@?BCB@??logicMessageDispatcher@GameLogic@@QAEXPAVGameMessage@@PAX@Z@4IA	0x00A02280
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp	wrong-name	?TheStatsCollector@@3PAVStatsCollector@@A	0x00A032F8
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp	wrong-name	?TheVictoryConditions@@3PAVVictoryConditionsInterface@@A	0x00A03138
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp	wrong-name	?sound@?CIO@??logicMessageDispatcher@GameLogic@@QAEXPAVGameMessage@@PAX@Z@4UBfmeAudioEventPrefix136@@A	0x00A021F8
-data_check (shadow): 1 source(s), 4 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.9s

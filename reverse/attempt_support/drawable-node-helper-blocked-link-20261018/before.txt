@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/Rva0030F14CSelect.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 351)
-  comdat      ?_M_create_node@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVDrawable@@@2@ABQAVDrawable@@@Z  (retail: not retail's body)
-  selected    ?allocate@?$__malloc_alloc@$0A@@_STL@@SAPAXI@Z  (the definition the link keeps is not retail's)
-  diagnostic  ?allocate@?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVDrawable@@@2@IPBX@Z  (relocations differ from the majority copy, bytes equal; unreferenced, not a blocker)
-  diagnostic  ?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVDrawable@@@2@I@Z  (relocations differ from the majority copy, bytes equal; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.6s)

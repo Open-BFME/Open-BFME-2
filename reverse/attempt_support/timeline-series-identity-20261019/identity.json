@@ -1,7 +1,0 @@
-{
-  "rows": 11,
-  "mode": "shadow",
-  "problems": [
-    "binding: Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine_Rva0051E511.cpp | ?rva0051E511@Rva0051E354@@QAEXPAVTimelineSeries@@MMK@Z | ?rva0011A040@Rva0011A040Target@@QAEXXZ | 0x0011A040 | unowned"
-  ]
-}

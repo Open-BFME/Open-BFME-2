@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainOnRemoving.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 735)
-  unresolved  ?g_00DBA500@@3MA
-  comdat      ?_S_maskbit@?$_Base_bitset@$03@_STL@@SAKI@Z  (retail: not retail's body)
-  diagnostic  ?clearCondition@Object@@QAEXI@Z  (codegen-like: 67 bytes against the majority copy's 46; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.6s)

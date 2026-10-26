@@ -1,6 +1,0 @@
-??1?$auto_ptr@VRva0053476A@@@_STL@@QAE@XZ (build/findpath-auto-ptr-oct20/actual-get.cpp)
-target RVA: 0x002EAD62
-target size: 23 bytes
-compiled symbol size: 23 bytes
-classification: exact match
-OK: bytes match

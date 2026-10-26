@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0049A64BRva0049A8FA.cpp: LINKS  LINKED 154 -> 154 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 154)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdateCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 123)
-  unresolved  ?g_00C50868@@3QBQBXB
-Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdateCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 144)
-  unresolved  ?g_00C50868@@3QBQBXB
-link_check: 1 of 3 link cleanly; LINKED 154 -> 154 bytes (3.7s)

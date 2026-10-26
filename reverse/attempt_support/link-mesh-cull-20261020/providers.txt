@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/MeshModelPostProcess.cpp: LINKS  LINKED 0 -> 102 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 102)
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescDisableBackfaceCulling.cpp: LINKS  LINKED 67 -> 67 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 67)
-Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_create_from_definition.cpp: LINKS  LINKED 1,146 -> 1,146 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 1,146)
-link_check: 3 of 3 link cleanly; LINKED 1,213 -> 1,315 bytes (3.5s)

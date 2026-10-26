@@ -1,8 +1,0 @@
-tree 061c8dbdca6a2f8418fccc3c0d1d2893e29e6377
-parent 685c82bb60629d763d296185554a294f38d063a8
-author Ostkannit <Konstantin.von.eltz@gmail.com> 1792854687 +0200
-committer Ostkannit <Konstantin.von.eltz@gmail.com> 1792854687 +0200
-
-Keep lazy import thunks after retail code groups
-
-Verifier-Change: Move generated and runtime import call stubs out of ordered retail groups without changing closure or credit rules; preserve IAT identities and verify with native linker regressions.

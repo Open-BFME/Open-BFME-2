@@ -1,4 +1,0 @@
-// cl: /O1 /G6 /MD
-extern "C" void _ReadWriteBarrier();
-#pragma intrinsic(_ReadWriteBarrier)
-int rva007B9CCAStrLen(const char*s){const char*p=s;char c; c=*p; ++p;_ReadWriteBarrier(); if(c)goto loop;goto out;loop:while(c){ c=*p; ++p;}out:return p-s-1;}

@@ -1,9 +1,0 @@
-POD-view copy-helper ownership repair
-
-At BFME 2 dbb5dcadaa, declaration-only specializations remove five competing trivial _Construct copies for the existing BfmePod104/248/252/340 size views. Native relocations already call the non-trivial whole-body owners at RVA 003B8AD8/000C78F3/000C3717/004D9B98 in StlportConstructFamily.cpp. The declarations preserve the callers' existing no-unwind code-generation contract, using the pattern already present for sibling size views. No layout or application identity is added: the BfmePod names continue to describe only storage size. No donor source, pins, or alias was added.
-
-The same 12 explicit current sources and census index were measured with original sources, then with the final edits. Before: 0 linked bytes. After: StlportConstructFamily.cpp 889 bytes and StlportCopyRva003F610F.cpp 84 bytes, totaling +973 bytes in the legacy preview. The broad vector unit is a verified prerequisite for the 889-byte owner unit; it remains blocked on other helpers. Other sweep units retain independent vector-growth/destructor/table dependencies and were not edited. This is not a closed-strict gain.
-
-Strict self preparation verifies all 187 rows in both changed units and their unchanged helper provider; the original 186+1 rows were also verified. All retained COMDAT bodies and relocations are identical; exactly four helper copies disappear from the broad unit and one from the 84-byte consumer, with no new COMDATs. The now-unused placement-new wrapper also disappears from the 84-byte consumer. See proof.json and the gate logs.
-
-BFME 1 linking leads were reviewed at 67f4eab2; verified donor inputs remain 64d369b9 because of previously reproduced DIR32 vtable update failures in other claimed units. This repair uses BFME 2 native calls and existing rowed provider evidence.

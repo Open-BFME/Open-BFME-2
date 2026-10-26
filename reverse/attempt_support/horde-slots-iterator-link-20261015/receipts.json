@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp",
-  "source_sha256": "811901cbe568784a3fa0f43972eba5d6e9d3bc8509130a902517a1a931d57e50",
-  "object_sha256": "dd383e4548cae98e48252a87e8498d86c822ab0410d6a3fa415b838ba1468104",
-  "before_receipt_sha256": "1caf85ae1d876f895718870229edd345688e5306e92ebbd0ac3300e6024b7528",
-  "after_receipt_sha256": "80c3c89c5bd76a4414fdb7619892e2ae4fe1dec5fd617d7159b7417eb5050435",
-  "strict_current": true
-}

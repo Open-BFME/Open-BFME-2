@@ -1,5 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/dispatcher/owned-bindings/c1.cpp').read_text().replace('index >= message->getArgumentCount()','index >= (int)message->getArgumentCount()')
-b=b.replace('// cl: ','// cl: /I. ',1).replace(ROOT.as_posix()+'/','')
-b='// ?logicMessageDispatcher@LivingWorldLogic@@QAEXPAVGameMessage@@PAX@Z\n// Bank: native body 3058B plus 112B switch table; eventual row extent must be 3170.\n// Scratch embeds the canonical GameLogic view with one added method declaration.\n// Integration must move that declaration into its shared header and rehome private helpers.\n'+b
-trial('portable-bank',b,'?logicMessageDispatcher@LivingWorldLogic@@QAEXPAVGameMessage@@PAX@Z',0x2bdb4c,3058,'dispatcher')

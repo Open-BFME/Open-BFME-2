@@ -1,3 +1,0 @@
-// compiler: clang23-x86
-// cl: /GS- /clang:-fno-math-errno /clang:-mno-sse /clang:-mno-sse2 /clang:-mfpmath=387
-long fast_float2long_round(float value) { return (long)__builtin_lrintf(value); }

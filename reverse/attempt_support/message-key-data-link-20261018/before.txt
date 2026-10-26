@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/BfmeConv482.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 24)
-  unresolved  ?g_bfmeWhatBKG@@3PAXA
-Code/GameEngine/Source/Common/BfmeConv819.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 77)
-  unresolved  ?g_bfmeXEMC@@3PAXA
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.4s)

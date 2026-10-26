@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceLocomotorDistanceToGoal.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 506)
-  comdat      ?getGoalPosition@StateMachine@@QBEPBUCoord3D@@XZ  (first: differs from the first copy in link order (no retail address))
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.7s)

@@ -1,9 +1,0 @@
-Code/GameEngine/Source/Common/GapBodiesGE01.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 451)
-  unresolved  ?findCommandSet@ControlBar@@QAEPBVCommandSet@@ABVAsciiString@@@Z
-  comdat      ??9_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z  (first: differs from the first copy in link order (no retail address))
-Code/GameEngine/Source/GameClient/GUI/TerrainResourceClaimFeedback.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 532)
-  comdat      ??9_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?getLocalPlayer@PlayerList@@QAEPAVPlayer@@XZ  (first: differs from the first copy in link order (no retail address))
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadPromptAddFriend.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 372)
-  comdat      ??9_Rb_tree_base_iterator@_STL@@QBE_NABU01@@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??R?$less@H@_STL@@QBE_NABH0@Z  (retail: not retail's body)

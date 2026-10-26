@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ??D?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@QBEDXZ (Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator.cpp)
-    target:   56 8b f1 8a 46 06 84 c0 75 28 8b 0e 8b 41 04 8b 50 04 85 d2 7e 07 8b 00 0f b6 00 eb 05 8b 11 ff 52 1c 83 f8 ff 88 46 04 0f 94 c0 88 46 05 c6 46 06 01 8a 46 04 5e c3
-    compiled: 56 8b f1 e8 78 f9 fe ff 8a 46 04 5e c3
-Functions: FAIL 1/5
-1 function(s) failed byte comparison

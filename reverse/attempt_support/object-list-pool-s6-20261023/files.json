@@ -1,9 +1,0 @@
-[
-  "Code/GameEngine/Source/Common/GapBodiesGE51.cpp",
-  "Code/GameEngine/Source/Common/Rva001EB130Clear.cpp",
-  "Code/GameEngine/Source/Common/Rva007AD348PoolInits.cpp",
-  "Code/GameEngine/Source/Common/System/FormationBuildRow.cpp",
-  "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainChangeToFormation.cpp",
-  "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00473212.cpp",
-  "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp"
-]

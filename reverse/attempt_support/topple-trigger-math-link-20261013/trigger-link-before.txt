@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,014)
-  unresolved  ?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A
-  unresolved  ?rva004DE2ED@Rva004DD843@@QAE_NXZ
-  comdat      ?cos@@YAMM@Z  (retail: unproven and differs from the kept copy)
-  comdat      ?sin@@YAMM@Z  (retail: unproven and differs from the kept copy)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.8s)

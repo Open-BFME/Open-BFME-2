@@ -1,9 +1,0 @@
-from headmerge import *
-
-items=[]
-flags=['/Og','/Ot','/Oa','/Ow','/Oi','/Ob2']
-for tag,bits in itertools.product(['nc080600','hm09000','cj00000'],range(64)):
- src=(DIR/(tag+'.cpp')).read_text()
- opts=[f for i,f in enumerate(flags) if bits>>i&1]
- items.append(('nf'+tag+('%02d'%bits),src,opts))
-if __name__=='__main__':batch(items,'nearflags')

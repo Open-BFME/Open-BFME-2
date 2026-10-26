@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp: LINKS  LINKED 0 -> 362 bytes (census 2026-10-23 19:47 at 0393df10e2; file's own bytes 362)
-  diagnostic  ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@_STL@@@_STL@@QBEXPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@I@Z  (codegen-like: 20 bytes against the majority copy's 18; unreferenced, not a blocker)
-  diagnostic  ?deallocate@?$_STLP_alloc_proxy@IU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@_STL@@V?$allocator@U?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@_STL@@@2@@_STL@@QAEXPAU?$_Hashtable_node@U?$pair@$$CBHH@_STL@@@2@I@Z  (codegen-like: 20 bytes against the majority copy's 18; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 362 bytes (3.8s)

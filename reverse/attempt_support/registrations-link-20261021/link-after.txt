@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp: LINKS  LINKED 0 -> 388 bytes (census 2026-10-21 18:42 at d08db10acb; file's own bytes 388)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 388 bytes (4.4s)

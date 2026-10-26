@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/SpellRechargeModifierUpgradeModuleDataDtor.cpp
-Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeModuleDataDtor.cpp
-Code/GameEngine/Source/Common/System/Snapshot.cpp

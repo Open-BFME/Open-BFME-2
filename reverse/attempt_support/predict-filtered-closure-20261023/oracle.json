@@ -1,9 +1,0 @@
-{
-  "source": "/work7/Open-BFME-2/build/predict-fields-20261023/filt-order-703.cpp",
-  "cases": 1238,
-  "failures": 0,
-  "source_sha256": "89812aee3f256f10a1b1dae42976f01e32d2b7c412e3a0013ac6959eca298000",
-  "retail_sha256": "4db8db0dc2d1b92c009d33e823955f3c4a75bd9a7cb5adab3f72f3a4784a0e52",
-  "compiled_sha256": "4db8db0dc2d1b92c009d33e823955f3c4a75bd9a7cb5adab3f72f3a4784a0e52",
-  "examples": []
-}

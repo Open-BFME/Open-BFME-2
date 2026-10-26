@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?Set_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@ABVMatrix3D@@@Z (Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperMatrix3DTransformBFME2.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (1 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

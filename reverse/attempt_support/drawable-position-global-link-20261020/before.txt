@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/DrawableRva0027B18C.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 761)
-  unresolved  ?getPosition@BFMERopeDrawable@@QBEPBUCoord3D@@XZ
-  unresolved  _g_pRva003BD424
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp: LINKS  LINKED 691 -> 691 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 691)
-link_check: 1 of 2 link cleanly; LINKED 691 -> 691 bytes (3.5s)

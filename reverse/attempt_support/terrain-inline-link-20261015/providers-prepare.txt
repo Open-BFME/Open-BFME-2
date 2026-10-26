@@ -1,9 +1,0 @@
-link_check: preparing 6 explicit safe provider(s), no extra sources
-Compile: 0 of 6 TU(s) (deps-cache: 6 current)
-Source claims: OK (6 sources, scoped byte-verified)
-Compile: 0 of 6 TU(s) (deps-cache: 6 current)
-Functions: OK 15/15 matched across 6 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (1 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)
-link_check: 6 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

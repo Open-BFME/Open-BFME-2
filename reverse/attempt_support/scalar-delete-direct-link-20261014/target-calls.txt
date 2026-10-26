@@ -1,5 +1,0 @@
-BfmeConv1325.cpp: ?bfmeDelTWB@BfmeThingTWB@@QAEPAXE@Z row0x006634E0/68B REL32+0x37 => retail0x0002FD60; old name ?bfmeFreeTWB@@YAXPAX@Z
-BfmeConv583.cpp: ?bfmeGoCDE@BfmeThingCDE@@QAEXXZ row0x0073B220/38B REL32+0x1D => retail0x0002FD60; old name ?bfmeFreeCDE@@YAXPAX@Z
-BfmeThreeHundredFiftyFive.cpp: ?bfmeKillUD@BfmeThingUD@@QAEPAXH@Z row0x000F1CF7/34B REL32+0x17 => retail0x0002FD60; old name ?bfmeFreeUD@@YAXPAX@Z
-BfmeThreeHundredSixtyTwo.cpp: ?bfmeKillVE@BfmeThingVE@@QAEPAXH@Z row0x000AD930/40B REL32+0x1D => retail0x0002FD60; old name ?bfmeFreeVE@@YAXPAX@Z
-BfmeConv730.cpp: ?bfmeGoDMC@BfmeThingDMC@@QAEPAXE@Z row0x006C0D20/77B REL32+0x3F => retail0x0002FD60; old name ?bfmeFreeDMC@@YAXPAX@Z

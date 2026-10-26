@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva005C76C0Ctor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-25 03:51 at ce1b975697; file's own bytes 578)
-  unresolved  ?g_Rva009D2398Basis@@3UD3DXMATRIX@@B
-Code/GameEngine/Source/Common/Rva0055A0DDEvaluate.cpp: LINKS  LINKED 360 -> 360 bytes (census 2026-10-25 03:51 at ce1b975697; file's own bytes 360)
-link_check: 1 of 2 link cleanly; LINKED 360 -> 360 bytes (4.7s)

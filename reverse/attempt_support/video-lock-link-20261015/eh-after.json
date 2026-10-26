@@ -1,7 +1,0 @@
-{
-"?createVideoBuffer@W3DDisplay@@UAEPAVVideoBuffer@@_N@Z@0x00044D7F": [
-"EXACT",
-"",
-"Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCreate_W3DDisplay_createVideoBuffer.cpp"
-]
-}

@@ -1,2 +1,0 @@
-Compile: 0 of 3 TU(s) (deps-cache: 3 current)
-code identity: 9 row(s), 0 new finding(s), 5.0s, mode shadow

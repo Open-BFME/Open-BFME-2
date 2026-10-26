@@ -1,4 +1,0 @@
-references: 2
-  owner      1
-  fold       1
-rows with a wrong binding: 0

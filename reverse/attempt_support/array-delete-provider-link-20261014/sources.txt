@@ -1,6 +1,0 @@
-Code/GameEngine/Source/Common/BfmeConv909.cpp
-Code/GameEngine/Source/Common/BfmeConv1393.cpp
-Code/GameEngine/Source/Common/BfmeConv908.cpp
-Code/GameEngine/Source/Common/BfmeConv943.cpp
-Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp
-Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp

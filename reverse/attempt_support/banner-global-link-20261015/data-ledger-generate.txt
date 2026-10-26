@@ -1,2 +1,0 @@
-data_ledger: 512 matched source(s) have no object; build first
-data_ledger: 24087 addresses {'unowned': 1081, 'literal': 17570, 'provisional': 1110, 'owned': 4326} -> build/banner-global-link-20261015/generated-data-ledger.csv

@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/GameLogicSetBuildableStatusOverride.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:52 at 3f413ed3ff; file's own bytes 91)
-  comdat      ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z  (retail: not retail's body)
-  selected    ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/VAsciiStringRva002460C3.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:52 at 3f413ed3ff; file's own bytes 131)
-  selected    ??A?$hash_map@VAsciiString@@W4BuildableStatus@@U?$hash@VAsciiString@@@rts@@U?$equal_to@VAsciiString@@@4@V?$allocator@U?$pair@$$CBVAsciiString@@W4BuildableStatus@@@_STL@@@_STL@@@_STL@@QAEAAW4BuildableStatus@@ABVAsciiString@@@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.5s)

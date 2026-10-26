@@ -1,4 +1,0 @@
-from trials import *
-b=(ROOT/'Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp').read_text();inc='#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"\n'
-for name,t in [('include-first',b.replace(inc,'').replace('#include <list>',inc+'#include <list>')),('include-last',b.replace(inc,'').replace('extern GameLogic *TheGameLogic;',inc+'\nextern GameLogic *TheGameLogic;'))]:
- if trial(name,t,'?translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z',0x43218a,1701,'header-repair').get('exact'):break

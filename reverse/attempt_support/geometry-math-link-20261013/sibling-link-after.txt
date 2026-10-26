@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/System/GeometryInfoCalcBoundingStuff.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,440)
-  unresolved  ?GeometryNames@@3QBQBDB
-  comdat      ?zero@Coord3D@@QAEXXZ  (retail: not retail's body)
-  comdat      ??0?$StringBase@D@@AAE@XZ  (retail: unproven and differs from the kept copy)
-  comdat      ??$bfmeMax@M@@YAABMABM0@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??$bfmeMin@M@@YAABMABM0@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??0AsciiString@@QAE@XZ  (retail: unproven and differs from the kept copy)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

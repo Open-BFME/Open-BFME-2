@@ -1,5 +1,0 @@
-// compiler:clang23-x86
-// cl: /GS- /clang:-mllvm /clang:-branch-folder-reorder-blocks=false /clang:-mllvm /clang:-tail-dup-size=20 /clang:-mllvm /clang:-tail-dup-placement=true /clang:-mllvm /clang:-tail-dup-placement-threshold=20
-typedef unsigned long long U64;
-extern "C" U64  __attribute__((regparm(3))) f(unsigned lo,unsigned hi,unsigned char n) __asm__("__allshl");
-U64  __attribute__((regparm(3))) f(unsigned lo,unsigned hi,unsigned char n){if(__builtin_expect(n>=64,0))return 0; if(__builtin_expect(n>=32,0)){n&=31;return (U64)(lo<<n)<<32;} unsigned h=__builtin_elementwise_fshl(hi,lo,(unsigned)n);unsigned l=lo<<n;return ((U64)h<<32)|l;}

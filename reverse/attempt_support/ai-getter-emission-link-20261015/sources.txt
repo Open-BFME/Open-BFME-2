@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendCheckForIdleMoodTarget.cpp
-Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp
-Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeInitiate.cpp
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamGarrisonNearestBuilding.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckStateMachineOnEnter.cpp
-Code/GameEngine/Source/GameLogic/AI/AIGroupScatter.cpp

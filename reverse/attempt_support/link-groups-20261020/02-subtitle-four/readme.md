@@ -1,7 +1,0 @@
-# Four native subtitle provider repairs
-
-Retire the unowned integer growth/fill instantiation, keep the three existing subtitle/copy rows with their already-exact native allocator owner, make wide StringBase null initialization inline-only, and restore the manager growth allocator profile. The four distinct retired names are in strict-four.json; the live manager growth copy is the complete native 217-byte body at 0x006887F0 with exact resolved relocations. All 25 owned rows, literals, imports and parser EH remain exact. No pin, shared header or verifier changed.
-
-The paired current-object preview uses the same published index and improves 0 to 470 nonpadding bytes across the three sources, with no new findings. The remaining single finding is the UnicodeString default ctor: its complete emitted body is 9 bytes versus native 6 at 0x00326BE6. Its size-profile repair is deliberately deferred to the next one-fix group. This is scoped linker evidence, not a full-game or closed-strict result and not new C++ recovery.
-
-A first split that deferred the allocator profile while applying the Unicode size profile passed all 25 rows but added a competing __node_alloc deallocate finding after the int provider was removed. It was rejected before commit/publication. The candidate patch and reason are retained here; grouping allocator growth with the int repair removes that conflict. The original semantic donor and target-layout provenance remain in the source comments.

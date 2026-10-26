@@ -1,3 +1,0 @@
-from search import *
-FLAGS=['/EHs','/EHa','/EHac','/EHs-','/EHsc-','/Oa','/Ow','/Oa /Ow','/Og-','/Oi-','/Z7','/Zi','/GA','/GT','/Gf','/GF','/GS-']
-if __name__=='__main__':run([('setting-%02d'%n,BASE.replace('/O1 /Ireference', '/O1 '+f+' /Ireference'))for n,f in enumerate(FLAGS)],'settings')

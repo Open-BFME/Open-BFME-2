@@ -1,7 +1,0 @@
-{
-"?do_get@?$money_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@@@_STL@@MBE?AV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@2@V32@0_NAAVios_base@2@AAHAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@2@@Z@0x00011230": [
-"EXACT",
-"",
-"Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_string.cpp"
-]
-}

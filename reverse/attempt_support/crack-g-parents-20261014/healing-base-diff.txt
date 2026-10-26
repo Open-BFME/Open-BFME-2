@@ -1,4 +1,0 @@
-@ ours[59:59] retail[59:60] insert
-+  fmul dword ptr [0xdba4f8]
-@ ours[60:61] retail[61:61] delete
--  fmul dword ptr [0xf44d8b00]

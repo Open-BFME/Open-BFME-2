@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp
-Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp
-Code/GameEngine/Source/GameClient/GUI/ChatWindowsLan.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp

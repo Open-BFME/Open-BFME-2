@@ -1,6 +1,0 @@
-data_check (converged, enforced): 0 source(s), 8 address(es), 0 second name(s), 0 unjudged row(s)
-Functions: OK 2406/2406 matched across 188 source file(s)
-Functions: OK 453/453 matched across 32 source file(s)
-EH verify: 250 row(s) with EH data (EXACT 250); 0 not exact, 0 in baseline; 0 row(s) without an object; 2.4s
-data_check (converged, enforced): 220 source(s), 8 address(es), 0 second name(s), 0 unjudged row(s)
-PRE-COMMIT OK (ledger integrity + 220 source(s) byte-verified)

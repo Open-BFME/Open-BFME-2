@@ -1,3 +1,0 @@
-Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp
-Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp
-Code/GameEngine/Source/Common/Rva005EEA20Find.cpp

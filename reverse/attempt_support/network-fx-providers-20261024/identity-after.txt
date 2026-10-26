@@ -1,6 +1,0 @@
-definition: divergent | ??0?$_Bit_iter@_NPB_N@_STL@@QAE@ABU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@1@@Z
-definition: divergent | ??0TracerFXNugget@@QAE@XZ
-definition: divergent | ??0Vector3@@QAE@ABV0@@Z
-definition: divergent | ?begin@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBE?AU?$_Bit_iter@_NPB_N@2@XZ
-definition: divergent | ?end@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBE?AU?$_Bit_iter@_NPB_N@2@XZ
-code identity 73 rows; 5 findings; shadow

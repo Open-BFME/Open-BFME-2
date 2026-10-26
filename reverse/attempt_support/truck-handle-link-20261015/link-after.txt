@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 14:25 at ac77c85054; file's own bytes 381)
-  unresolved  ?slot8C@DrawInterface8C@@UAEXXZ
-  unresolved  ?slotC@DrawInterfaceC@@UAEXXZ
-Code/GameEngine/Source/Common/System/SmartPtrCopyCtor.cpp: LINKS  LINKED 0 -> 114 bytes (census 2026-10-15 14:25 at ac77c85054; file's own bytes 114)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 114 bytes (2.7s)

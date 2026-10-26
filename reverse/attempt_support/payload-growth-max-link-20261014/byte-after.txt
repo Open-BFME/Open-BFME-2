@@ -1,5 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-  FAIL catch_0032db06 (Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecAddTeam.cpp)
-    unverifiable: symbol not found in object: $L4413
-Functions: FAIL 1/6
-1 function(s) failed byte comparison

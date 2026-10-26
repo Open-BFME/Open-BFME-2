@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp: LINKS  LINKED 0 -> 3,129 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 3,129)
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046C7A4.cpp: LINKS  LINKED 0 -> 904 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 904)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 4,033 bytes (5.5s)

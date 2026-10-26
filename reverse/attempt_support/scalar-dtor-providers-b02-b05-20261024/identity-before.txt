@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-binding: Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB02.cpp | ??_GRva005FED52@@UAEPAXI@Z | ??1Rva005FED52@@UAE@XZ | 0x005FED52 | wrong
-binding: Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp | ??1Rva002C6354@@UAE@XZ | ??1Rva00506B1B@@UAE@XZ | 0x00506B28 | wrong
-binding: Code/GameEngine/Source/Common/Rva00285BECDtor.cpp | uw_00773e82 | ??1Rva00285BECSnapshotBase@@UAE@XZ | 0x0049B47C | wrong
-definition: divergent | ??1RadiusDecalTemplate@@QAE@XZ
-code identity 162 rows; 4 findings; shadow

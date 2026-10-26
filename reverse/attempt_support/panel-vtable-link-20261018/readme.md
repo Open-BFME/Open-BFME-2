@@ -1,8 +1,0 @@
-Panel callback table link repair
-===============================
-
-The constructor declares both Rva005FAD8D overrides, while its destructor previously inherited the base callbacks. This made its two-entry derived table conflict with the constructor's copy. Declare the same overrides in the destructor view. The constructor's existing base slot-1 alias also incorrectly selected the derived swap worker at 0x5FA98C; retail's base entry is the empty RET20 at 0x25EF04, already owned by RenderObjClass::Set_Animation.
-
-Target evidence: data_ledger.csv gives complete eight-byte tables at 0x875284 and 0x879ED4. The adjacent tables start at 0x87528C and 0x879EDC; their owners have independently matched constructors/deleting destructors. The four emitted table copies now reproduce both complete retail pointer entries after DIR32 relocation. table-proof.json records each callback, existing alias target, bytes and object hash. There are no new pins or alias directives. These callback declarations preserve established neutral names, without claiming an original panel identity or callback signature.
-
-Paired legacy previews refresh the same two current objects against index SHA256 90bd1bed6c06692963e0e6e96411614d502ca33f48b3e26d5338daaae99cf761. Before: constructor links, destructor blocked, 378 bytes. After: both link, 486 bytes (+108). Both sides pass 7/7 normal byte checks with strict reusable receipts, including the complete destructor EH cleanup despite label renumbering. This is a legacy selection-preview gain with self-strict byte evidence, not a closed-strict or full link-cycle result. Frozen-source checks, CSV integrity and shadow data checking also pass.

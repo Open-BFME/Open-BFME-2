@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteRecVectorCopy.cpp: LINKS  LINKED 0 -> 172 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 172)
-Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteCopyCtor.cpp: LINKS  LINKED 145 -> 145 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 145)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_2cf5b1_allocate_copy.cpp: LINKS  LINKED 120 -> 120 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 120)
-link_check: 3 of 3 link cleanly; LINKED 265 -> 437 bytes (3.7s)

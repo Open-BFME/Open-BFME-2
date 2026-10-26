@@ -1,7 +1,0 @@
-The initializer at RVA 7ADE2F and cleanup 7B77B9 address retail 9FEA44. The existing data row owns its zero-initialized first four bytes in Rva007B6880Thunks.cpp. Rename that owner to the data ledger name g_bfmeBegKA and pointer type already used by SubTitleWindowDestructor.cpp and BfmeConv902, then bind the initializer to it. The pointed-to element retains its existing neutral name; this does not recover an original class or container identity. No alias or pin added.
-
-Paired legacy preview at census c2c5ac8c27, with both current providers replaced in memory in both runs: 0/2, 0 B -> 1/2, 203 B. Only the initializer unit gains linkability; the cleanup unit retains independent blockers. Self-strict preparation passes both providers, all 917 function rows and 24 data rows, before and after. This is not closed-strict evidence or authored C++ growth.
-
-check_csv and the enforced converged-data check pass. The shadow data check still reports unrelated old names/duplicate definitions (25 outside its baseline); none names the repaired global. The other registry words at 9FEA48/4C remain unowned. The legacy preview does not establish contiguous registry storage or whole-program data closure; no such gain is claimed.
-
-Commands: python3 tools/link_check.py [--prepare-current] Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp Code/GameEngine/Source/Common/Rva007ABB96AllocCtorInits_Rva007ABB96.cpp. Complete local diagnostics remain in build/seat-begka-{before,after,strict-before,strict-after}.txt.

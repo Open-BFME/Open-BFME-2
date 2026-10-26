@@ -1,9 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/Common/Rva005FEAAFFactory.cpp",
-  "asm": "Code/masm_dumps/EHStateCleanupRange39.asm",
-  "cleanup_label": "$L1225",
-  "rva": "0x007A64A9",
-  "bytes": 25,
-  "canonical_ownership_destructor": "0x005F8F96",
-  "normal_gates": "passed"
-}

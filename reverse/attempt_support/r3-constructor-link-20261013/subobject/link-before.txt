@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 505)
-  comdat      ??1BfmeStringRecord000B9534@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
-Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp: LINKS  LINKED 2,685 -> 2,685 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 2,685)
-link_check: 1 of 2 link cleanly; LINKED 2,685 -> 2,685 bytes (3.7s)

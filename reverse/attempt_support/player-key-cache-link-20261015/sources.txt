@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-Code/GameEngine/Source/Common/RTS/PlayerListRva002A8008.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp

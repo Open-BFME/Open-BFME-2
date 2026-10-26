@@ -1,6 +1,0 @@
-?Rva004C74D4Destroy@@YAXPAU?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@Z (Code/Libraries/Source/WWVegas/WWLib/Rva004C7542DestroyPairs.cpp)
-target RVA: 0x004C74D4
-target size: 9 bytes
-compiled symbol size: 9 bytes
-classification: exact match
-OK: bytes match

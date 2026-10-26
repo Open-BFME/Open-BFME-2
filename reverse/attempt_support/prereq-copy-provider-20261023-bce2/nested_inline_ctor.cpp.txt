@@ -1,7 +1,0 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
-// stlport
-#include <vector>
-#include "ascii_string.h"
-class ProductionPrerequisite {public: struct PrereqUnitRec {unsigned int first,second; AsciiString name; PrereqUnitRec(); PrereqUnitRec(const PrereqUnitRec &o):first(o.first),second(o.second),name(o.name){} ~PrereqUnitRec();};
-};
-template _STL::vector<ProductionPrerequisite::PrereqUnitRec>::vector(const _STL::vector<ProductionPrerequisite::PrereqUnitRec> &);

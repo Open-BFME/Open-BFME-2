@@ -1,9 +1,0 @@
-OnlineHome ownership and format binding repair
-
-Keep the sole 400-byte faction win-ratio definition in the existing caller unit, where MSVC preserves the retail x87 schedule. Remove its duplicate from the ticker unit and move its existing ledger row to that owner. The 351-byte caller and all six global definitions stay unchanged. Replace the unresolved format datum with the full retail wide literal `%d%s%d%%`; the normal string-reference gate proves its retail content and relocation.
-
-Paired local link_check against index c2c5ac8c27 (2026-10-18 11:36, hash in current-context.json): both units unlinked before (duplicate helper, undefined format datum); both link after, 0 -> 855 existing authored bytes. This is a legacy census projection with self-strict current objects, not closed-strict provider closure or a full link-cycle result. Authored C++ coverage grows by zero.
-
-Bounded strict preparation before and after passes all 3 function rows and six data rows; after also verifies one string and three float references. EH: 1 EXACT. Class gate, frozen-definition scan, new-variant admission and converged-data check pass. The general shadow data checker still reports the six existing FactionStatBlock global wrong-name references in the unchanged caller; no converged address is involved and no shadow baseline is changed.
-
-Reviewed official BFME1 donor d348fca17814122303884ebe194cbc877a2c0bb0 and a59c6c1dcd58955bda7112ed4be945ce01f0810e: their single-owner duplicate-definition repairs support this repair pattern, but target identity, byte matching and ownership are established by BFME2 evidence. No donor code imported. Verified gitlink/clean checkout 64d369b90170b7e9ec917d646f020b11f13eb0d5 retained; no reference freshness success claimed. Prior full old-input freshness baseline remains incomplete, so pointer advancement is a separate prerequisite. Original source/object backups remain under ignored build/online-ratio-owner-link-20261018/before.

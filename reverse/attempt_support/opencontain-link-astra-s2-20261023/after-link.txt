@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp: LINKS  LINKED 0 -> 290 bytes (census 2026-10-23 03:12 at 491a8b3d87; file's own bytes 290)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 290 bytes (17.0s)

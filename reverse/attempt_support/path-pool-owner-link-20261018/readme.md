@@ -1,3 +1,0 @@
-Both Path units defined g_pathNodePool, producing a strong-symbol duplicate. Keep the existing definition in PathRva003649B1.cpp and declare it extern in the split query unit. The existing global type, name, calls and target references stay identical. The donor global-owner repair reviewed at BFME 1 d348fca178 is a pattern lead; the local duplicate symbols and byte-exact target references establish this repair.
-
-Same-index local preview: 0/2 units and 0 B before; 2/2 and 192 B after (144 + 48). The scope byte gate passes 3/3 matched rows and its compiler float literal. Strict reusable self-byte receipts were prepared for both final providers; no closed-strict closure was measured. No new authored C++ coverage is claimed.

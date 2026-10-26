@@ -1,8 +1,0 @@
-Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-Code/GameEngine/Source/Common/RTS/PlayerList_setLocalPlayer_Rva002A7B34.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShroudCtor.cpp
-Code/GameEngine/Source/Common/GameEngineInit.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp
-Code/GameEngine/Source/Common/TerrainLogicRva00283262.cpp

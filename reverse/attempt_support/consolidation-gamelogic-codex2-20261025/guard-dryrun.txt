@@ -1,7 +1,0 @@
-tu: Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
-approved: 33
-mixed: {'Code/GameEngine/Source/Common/ConstIntGetters4.cpp': 265, 'Code/GameEngine/Source/Common/ModuleNameGetters3.cpp': 118, 'Code/GameEngine/Source/Common/Rva004D759CDerived.cpp': 29, 'Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp': 184, 'Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp': 92, 'Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp': 7, 'Code/GameEngine/Source/GameLogic/AI/AITNGuardScan.cpp': 3, 'Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp': 2}
-refused: {'Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/GameEngine/Source/GameLogic/AI/AITNGuardInnerStateCtor.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)'}
-accepted: []
-rejected: {}
-blocked: no verified merge of two or more donors

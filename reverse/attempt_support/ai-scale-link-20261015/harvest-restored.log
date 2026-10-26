@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?onEnter@Rva00544EB1@@UAE?AW4StateReturnType@@XZ (Code/GameEngine/Source/GameLogic/AI/Rva00544EB1OnEnter.cpp)
-String-ref verify: OK (1 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

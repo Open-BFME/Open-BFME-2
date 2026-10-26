@@ -1,6 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-STLport folds: 2 complete emitted constructor(s) verified against retail owners and resolved callees
-Functions: OK 12/12 matched across 3 source file(s)
-String-ref verify: OK (1 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (7 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

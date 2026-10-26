@@ -1,4 +1,0 @@
-All 17 matched body digests and normalized relocation tuples unchanged.
-Two DIR32 operands bind sole canonical const StaticNameKey owner and independently contain retail VA 0x00DBDC84.
-All three explicit objects have strict-current reusable compiler receipts.
-Duplicate cache definition removed; provider initializer verified by normal data gate.

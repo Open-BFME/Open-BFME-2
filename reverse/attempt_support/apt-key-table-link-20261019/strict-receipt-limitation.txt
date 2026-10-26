@@ -1,6 +1,0 @@
-link_check: preparing 4 explicit safe provider(s), no extra sources
-Compile: 3 of 4 TU(s) (deps-cache: 1 current)
-deps-cache: no include inventory for Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp — ['(an included header lies outside the inventoried search roots)']
-deps-cache: no include inventory for Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp — ['(an included header lies outside the inventoried search roots)']
-deps-cache: no include inventory for Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp — ['(an included header lies outside the inventoried search roots)']
-link_check: Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp has no strict reusable compiler receipt; uncacheable inputs are not prepared by this mode

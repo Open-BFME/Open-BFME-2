@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-21 06:00 at 2b4d1fb42a; file's own bytes 691)
-  comdat      ?allocate@?$__node_alloc@$00$0A@@_STL@@SAPAXI@Z  (first: differs from the first copy in link order (no retail address))
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.6s)

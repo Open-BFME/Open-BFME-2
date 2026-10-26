@@ -1,3 +1,0 @@
-Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioSubtitleDrain.cpp
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusScreen.cpp
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp

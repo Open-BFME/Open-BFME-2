@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/AI/AIPlayer.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 3,311)
-  unresolved  ?isSupplySourceAttacked@AIPlayer@@QAE_NXZ
-  comdat      ??_GRva0026137EFilter@@UAEPAXI@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z  (retail: not retail's body)
-  selected    ?getPlayerSuperweaponValue@AIPlayer@@KAHPAUCoord3D@@HM@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp: LINKS  LINKED 1,185 -> 1,185 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 1,185)
-link_check: 1 of 2 link cleanly; LINKED 1,185 -> 1,185 bytes (2.7s)

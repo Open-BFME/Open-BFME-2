@@ -1,8 +1,0 @@
-H=' for(AmoebaNode *node=range.list->head->next;node!=range.list->head;node=node->next) {'
-V={
-'vol':[(H,' for(AmoebaNode *volatile node=range.list->head->next;node!=range.list->head;node=node->next) {')],
-'addr':[(H,' AmoebaNode *node; AmoebaNode **pn=&node;\n for(node=range.list->head->next;node!=range.list->head;node=node->next) {')],
-'addr2':[(H,' AmoebaNode *node=range.list->head->next; AmoebaNode *&rn=node;\n for(;rn!=range.list->head;rn=rn->next) {')],
-'L_while':[(H,' AmoebaNode *node=range.list->head->next;\n for(;node!=range.list->head;node=node->next) {')],
-'A_pos1':[(' entry.position=unit->m_position;',' entry.position=*unit->getPosition();')],
-}

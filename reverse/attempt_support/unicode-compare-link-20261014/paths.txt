@@ -1,3 +1,0 @@
-Code/GameEngineDevice/Source/Win32Device/Common/Win32LocalFileSystemGetFileListWide.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_compare.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_unicode_string_set.cpp

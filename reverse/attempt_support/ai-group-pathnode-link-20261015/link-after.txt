@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/AI/AIGroupGetCenter.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 13:35 at a2839ea429; file's own bytes 1,060)
-  unresolved  ?FindGroundPath@Pathfinder@@QAEPAVPath@@PAVObject@@PBUCoord3D@@1H@Z
-  duplicate   ?getCenter@AIGroup@@QAE_NPAUCoord3D@@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.8s)

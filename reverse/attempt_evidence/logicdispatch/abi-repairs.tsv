@@ -1,6 +1,0 @@
-"rva"	"size"	"evidence"
-"0x001DE2DA"	"247"	"Confirmed ABI debt: native bool/enum/(Coord3D*,Coord3D*) contract; existing Eva void/int/position/int pins are wrong (prior full-body/WB proof)."
-"0x002AEA9F"	"1032"	"Confirmed owner/ABI debt: Player asset transfer has Player* and bool; old BfmeLinkedObj::link(Player*,int) pin is not the target identity. Donor one-argument transfer also differs."
-"0x003775F7"	"28"	"Confirmed ownership debt: WB getSingleObjectFromSelection; native incoming ECX is AIGroup*, existing BfmeObjectReference::resolve uses a member-pointer cast. Needs real dispatcher-home helper contract, not another pin."
-"0x00376E92"	"466"	"Donor mismatch: canonical GameLogic::rva00376E92 takes two bools; BFME1 clearGameData takes one."
-"0x000E01A3"	"13"	"Owner review: native selection-group empty predicate; donor AIGroup::isEmpty declaration does not resolve to current address-derived owner."

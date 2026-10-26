@@ -1,8 +1,0 @@
-[
-  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp",
-  "Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp",
-  "Code/GameEngine/Source/GameLogic/AI/AIAttackStatesIsAttack.cpp",
-  "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
-  "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
-  "Code/GameEngine/Source/GameLogic/AI/AITunnelNetworkGuardStateUpdate.cpp"
-]

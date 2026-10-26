@@ -1,5 +1,0 @@
-#!/bin/bash
-# reps.sh DIR -> score one representative obj per distinct body hash; flag guard (G) and esi/edi vft hoist (V)
-d=$1
-python3 build/qAo/bh.py $d/*.obj | while read h sz n rest; do set -- $rest; echo "$d/$1.obj $h $n"; done > $d/reps.txt
-cat $d/reps.txt | xargs -P 16 -L 1 bash -c 'o=$0; s=$(build/qAf/objscore.sh $o 2>/dev/null); g=$(python3 build/q8/odis.py $o 0xd8 0xf8 | rg -c "test +eax, eax"); v=$(python3 build/q8/odis.py $o 0xd8 0x110 | rg -c "mov +e(si|di), 0$"); echo "$s hash=$1 n=$2 G=$g V=$v"' | sort -t= -k5 -n

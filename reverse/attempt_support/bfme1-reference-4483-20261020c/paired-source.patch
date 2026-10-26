@@ -1,8 +1,0 @@
-diff --git a/Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp b/Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
-index 4be612931a..2b8e32a35a 100644
---- a/Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
-+++ b/Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
-@@ -41,0 +42,3 @@ enum ScienceType
-+// Retail calls the shared ScienceType push_back at 0x002E01C6.
-+namespace _STL { template <> void vector<ScienceType>::push_back(const ScienceType &); }
-+

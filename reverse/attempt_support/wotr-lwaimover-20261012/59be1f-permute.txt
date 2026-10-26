@@ -1,2 +1,0 @@
-{"rva": "0x0059be1f", "symbol": "?rva0059BE1F@LivingWorldAIArmyMover@@QAEXPAUArmyMoverRegion@@HHPAV?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@11PAVRva004FF5B7@@H@Z", "size": 497, "start": 0.8871, "best": 0.9317, "exact": false, "trials": 1455, "stop": "deadline", "v": 3, "wb": "WB: (unnamed)  (LivingWorldAIArmyMover.cpp, score 3, callgraph)"}
-permute: 0 of 1 closed exactly
