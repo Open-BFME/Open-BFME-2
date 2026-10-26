@@ -318,15 +318,6 @@ extern "C" unsigned int strlen(const char *s);
 
 extern "C" char *_mbscpy(char *dst, const char *src);
 
-extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__ThrowInfo *pThrowInfo);
-
-// Address anchor only: the throw site pushes this object's address as an
-// immediate (DIR32, copied from retail's int throwinfo at 0x8FE2C8). Content
-// is never compared; the real chain lives in the retail image.
-struct ParseBitString8ThrowInfoAnchor { int a; int b; int c; int d; };
-
-static const ParseBitString8ThrowInfoAnchor parseBitString8ThrowInfoAnchor = { 0, 0, 0, 0 };
-
 class INI
 {
 public:
@@ -1280,19 +1271,10 @@ void INI::parsePositiveNonZeroReal(INI *ini, void *instance, void *store, const 
 
 // ---- from Code/GameEngine/Source/Common/System/INI_parseBitString8.cpp
 
-//
-// ?parseBitString8@INI@@SAXPAV1@PAX1PBX@Z, retail 0x002F1DC, 56 bytes.
-// Dedicated TU (same INI verb family as INI_parseBitString32.cpp, framed).
-//
-// BFME1 reference (reference/open-bfme-1/Code/GameEngine/Source/Common/INI/INI_stl.cpp,
-// INI::parseBitString8, plus the converted
-// reference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib/INI_parseBitString16.cpp
-// for the 16-bit twin): parse through parseBitString32, range-check the
-// result, narrow into the store. BFME2 deltas (all retail-measured): the
-// DEBUG_CRASH/throw-ERROR_BUG pair is a bare `throw 1` (the 16-bit twin's TU
-// proves the idiom; replicated here as the equivalent tmp-set plus direct
-// _CxxThrowException call since the family builds /GX-), thrown through the
-// int throwinfo at 0x8FE2C8.
+// Retail 0x0002F1DC..0x0002F21A (62 bytes): parse the unsigned value,
+// reject bits outside the byte, then store its low byte. The error arm
+// reuses the local stack slot for ERROR_BUG and throws the integer through
+// retail's throw info at RVA 0x008FE2C8.
 
 // ?parseBitString8@INI@@SAXPAV1@PAX1PBX@Z
 void INI::parseBitString8(INI *ini, void * /*instance*/, void *store, const void *userData)
@@ -1300,8 +1282,7 @@ void INI::parseBitString8(INI *ini, void * /*instance*/, void *store, const void
 	unsigned int tmp;
 	INI::parseBitString32(ini, NULL, &tmp, userData);
 	if (tmp & 0xffffff00) {
-		tmp = 1;
-		_CxxThrowException(&tmp, (const _s__ThrowInfo *)&parseBitString8ThrowInfoAnchor); __assume(0);
+		throw ERROR_BUG;
 	}
 	*(unsigned char *)store = (unsigned char)tmp;
 }

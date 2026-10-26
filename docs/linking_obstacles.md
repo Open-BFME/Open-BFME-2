@@ -813,6 +813,14 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   stops on Eva.cpp's include-inventory prerequisite described in LINK-008;
   neither the seven-donor consolidation nor its stale-index diagnostics are
   upgraded to a full linking verdict.
+- **Native integer-throw cleanup (2026-10-26, base `091dbc15da`):**
+  [The byte parser](../reverse/attempt_support/ini-byte-parser-clean-throw-20261026.md)
+  replaces its manual runtime call and zero-filled anchor with `throw ERROR_BUG`.
+  All 62 body bytes, all 53 TU rows, the cohort's eight EH graphs and 178 code
+  bindings remain verified. Retail and compiled exception metadata agree on
+  a four-byte `int`. Ordinary preview retains the same seven duplicate/five
+  selected old-index findings, with no new unresolved reference or linking
+  gain claimed.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
