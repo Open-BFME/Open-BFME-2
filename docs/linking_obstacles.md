@@ -823,6 +823,27 @@ inspected revision: `2f9834aa34`.**
   judge the descriptor/vector bindings. Do not hand-change pins or labels.
 - **Clearance / census confirmation:** none claimed.
 
+### LINK-016: AIUpdate TU span combines weak propagation and disputed placement
+
+**Status: Blocked on independent routing evidence and classification review.
+Updated: 2026-10-26; inspected revision: `766153ce00`.**
+
+- **Evidence / scope:** [the current-input routing handoff](../reverse/attempt_support/aiupdate-tu-approval-20261026/readme.md)
+  separates 299 proposed rows from the seed's eight verified rows (241 bytes,
+  one EXACT EH graph). The official plan has zero approved rows and one mixed
+  file. No source, name, register or map was changed.
+- **Completed:** six distant K-only assignments explain the broad span;
+  the nonvirtual inline getter at 0x0026FF1E also extends it past Upgrade.cpp.
+  A read-only diagnostic using the mapper's actual anchored roots still finds
+  DisplayStringManager::link at 0x00262027 as a blocker after narrowing those
+  bounds. Its WorldBuilder seed is not independent identity proof.
+- **Remaining / next check:** prove that row's retail identity/ICF/placement,
+  review weak propagation and inline classification separately, and retain
+  genuine cross-TU anchors. The seed also retains its mixed rows and ordinary
+  link blockers (17 unresolved, six COMDAT, five selected against f995f30157).
+- **Clearance / census confirmation:** none. Neither a false reject nor a new
+  matched, linked or debt-retirement gain is claimed.
+
 ## Investigation-specific validation limitation
 
 The initial investigation preserved a pre-existing BFME 1 checkout at

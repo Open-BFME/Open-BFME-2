@@ -263,7 +263,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/Rva007AEA2CArrayInits.cpp` | 249 | 10 (U=10) | Open |
 | `Code/GameEngine/Source/Common/Rva006CBF40Deferred.cpp` | 245 | 14 (C=7, S=7) | Open |
 | `Code/GameEngine/Source/GameLogic/AI/StateMachineDefineState.cpp` | 233 | 4 (C=2, S=2) | Open |
-| `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp` | 231 | 28 (U=17, C=6, S=5) | Open |
+| `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp` | 231 | 28 (U=17, C=6, S=5) | 2026-10-26 at 766153ce00: current eight rows/241 B and one EH graph pass; ordinary preview retains 17 U, 6 C, 5 S and 0 linked bytes. TU approval remains 0 rows/1 mixed seed; see [routing handoff](../reverse/attempt_support/aiupdate-tu-approval-20261026/readme.md), LINK-016. |
 | `Code/Libraries/Source/WWVegas/WWLib/Rva00240230VectorInsertOverflow_Rva00541d10.cpp` | 231 | 8 (U=2, C=3, S=3) | Open |
 | `Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDtor_Unresolved.cpp` | 230 | 3 (C=3) | 2026-10-25: aa31e9bac4 and paired current-provider checks clear 222 B and 14 public consumers (1,212 B); LINK-014. Census pending. |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00584405.cpp` | 225 | 3 (U=1, C=1, S=1) | Open |
