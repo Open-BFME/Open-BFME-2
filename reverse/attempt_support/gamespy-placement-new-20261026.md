@@ -18,3 +18,18 @@ declarations and zero failed classifications for this source. The ordinary
 link preview remains clean at 355 -> 355 authored nonpadding bytes against
 index `f995f30157` (2026-10-25 21:36). Credit is one removed local definition;
 no generated queue, register, hatch, matched-byte or census gain is claimed.
+
+## Buddy request helpers
+
+The adjacent queued `BuddyRequestDequePushBackAux.cpp` has the same local
+placement-new definition. Its whole source was separately claimed and read.
+Replacing only that definition with `<new.h>` preserves both matched rows:
+the 24-byte `_Construct` at `0x00550798..0x005507B0` and 23-byte
+`_M_set_node` at `0x005507E7..0x005507FE`. The old comment about a larger
+push-back body is not evidence that this file owns such a row.
+
+Before/after normal and frozen-file checks pass. The Microsoft-header scan
+reports zero local definitions/declarations and zero failed classifications.
+The ordinary preview remains clean at 47 -> 47 authored bytes against the
+same index. This removes one additional local definition, with no row, pin,
+shared-header, flag or register change.
