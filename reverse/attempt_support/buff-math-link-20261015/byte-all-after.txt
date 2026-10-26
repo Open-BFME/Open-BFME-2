@@ -1,9 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-Data rows: OK (1 row(s) byte-verified)
-Compile: 0 of 3 TU(s) (deps-cache: 3 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_007641d1 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterDrawOceanWater.cpp): $L9335 was renumbered; verified parent EH data places $L9347 at 0x007641D1
-Functions: OK 9/9 matched across 3 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (8 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

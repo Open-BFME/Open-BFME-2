@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/MapUtil_unk_YA_NAAVDataChunkInput_PAUDataChunkInfo_PAX_Z.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_pod8_resize_byvalue.cpp

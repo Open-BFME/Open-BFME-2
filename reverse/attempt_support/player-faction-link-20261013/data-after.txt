@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp	duplicate-def	?g_00DBDC84@@3VRva00148F5ECache@@A	0x009BDC84
-data_check: Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp	wrong-name	?g_00DBDC84@@3VRva00148F5ECache@@A	0x009BDC84
-data_check: Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp	wrong-name	?SidesListNeutralDisplayName@@3QBGB	0x0080DA78
-data_check: Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp	wrong-name	?g_00DBDE24@@3VRva00148F5ECache@@A	0x009BDE24
-data_check (shadow): 4 source(s), 4 finding(s), 4 outside the baseline {'duplicate-def': 1, 'wrong-name': 3}; 1.8s

@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-10 19:06 at 7bcd61f5c1; file's own bytes 582)
-  unresolved  ?canDoSpecialPowerAtLocation@ActionManager@@QAE_NPBVObject@@PBUCoord3D@@W4CommandSourceType@@PBVSpecialPowerTemplate@@0I_N@Z
-  unresolved  ?rva0039DA2A@Team@@QBEPAUCoord3D@@PAU2@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.2s)

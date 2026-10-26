@@ -1,8 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_num_get_bool.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_long_double.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_time_get_readers.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_get_formatted_time.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_money_get.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_money_get_string.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istreambuf_iterator_equal.cpp

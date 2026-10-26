@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp",
-  "problems": [
-    "definition: divergent | ??_GRva0059EB41@@UAEPAXI@Z"
-  ],
-  "mode": "shadow",
-  "rows": 5
-}

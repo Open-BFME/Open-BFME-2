@@ -1,9 +1,0 @@
-# Existing malloc-vector providers, 2026-10-24
-
-Seven existing STLport helper rows now belong to six existing consumer units that already emit the same named, complete retail-exact bodies. Source, flags, identity and layout claims, pins and existing gen-alias/object-symbol annotations are unchanged. The original collector remains blocked by unrelated selected/copy COMDATs. This ownership repair reuses the BFME2 providers, without importing new donor source; the BFME1 reviewed pointer remains f5140c1cff6a58e16276fd6de6788186286953d4.
-
-Paired refreshed link_check on these seven units at the same tree/index: **1,127 -> 1,346 B, +219 B legacy linked availability**, six of seven units clean before/after. The seven row extents total 257 B: the pre-existing 38 B gen-alias at 0x2BF70F contributes no measured progress, and is not added to the gain. No new C++, unique bytes, self-strict or closed-strict gain is claimed. Index: 11b3872700, 2026-10-23 23:06; no census or full link cycle run.
-
-Each preflight checks complete body bytes/relocations, zero unresolved relocations and zero wrong allowed-symbol binding. Scoped build.sh: 32/32, all literal/import/reference checks pass; EH 2/2 exact. Frozen checks, check_csv and diff --check pass. Scoped shadow identity findings are the same six before/after (logs included). The alias remains an existing alias, not a new hatch. Call-site/type identity and provisional footprints remain the source/ledger's existing evidence.
-
-Commands: tools/link_check.py --refresh --paths-from build/link-malloc-rehome-paths.txt before/after; build.sh on those paths; tools/eh_verify.py --sources-from; code_identity_gate.check; tools/find_declared_unmatched.py per path; tools/check_csv.py; git diff --check. Rows and exact paths are in rows.json and measurement logs. Collector's remaining blockers are listed in both measurements; they are not repaired here.

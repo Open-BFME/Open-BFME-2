@@ -1,7 +1,0 @@
-{
-  "0x1f16a24": "PathfindCell::Info::Free",
-  "0x1e62a88": "c:\\projects\\bfme2\\code\\gameengine\\source\\gamelogic\\pathfinder\\pathfinder_cell.inl",
-  "0x1f16a40": "m_ptr[k]==NULL",
-  "0x1f169c8": "PathfinderCell::Info m_ptr not cleared at %i, %i (Unit Name: '%s', Type: '%s', ID: %i) \n",
-  "0x1f16980": "PathfinderCell::Info m_ptr not cleared at %i, %i (Object: <NULL>) \n"
-}

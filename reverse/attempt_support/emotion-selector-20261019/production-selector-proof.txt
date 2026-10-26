@@ -1,6 +1,0 @@
-?rva004B13D8@EmotionTrackerUpdate@@QAEPAVEmotionNugget@@XZ (Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp)
-target RVA: 0x004B13D8
-target size: 470 bytes
-compiled symbol size: 470 bytes
-classification: exact match
-OK: bytes match

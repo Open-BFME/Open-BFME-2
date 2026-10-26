@@ -1,4 +1,0 @@
-// cl: /O2 /GS-
-extern "C" unsigned __security_cookie;
-extern "C" __declspec(noreturn) void report_failure();
-extern "C" void __fastcall __security_check_cookie(unsigned cookie){if(cookie != __security_cookie) { report_failure(); __assume(0); }}

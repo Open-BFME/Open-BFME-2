@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp | ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z | ??1S4SortElem20@@QAE@XZ | 0x003372B7 | wrong
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp | ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z | ??1S4SortElem20@@QAE@XZ | 0x003372B7 | wrong
-definition: divergent | ?Init@Matrix4@@QAEXABVVector4@@000@Z
-definition: divergent | ?getMapCRC@GameInfo@@QBEIXZ
-definition: divergent | ?setIsTerrain@W3DTreeBuffer@@QAEXXZ
-code identity 36 rows; 5 findings; shadow

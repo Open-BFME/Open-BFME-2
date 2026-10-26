@@ -1,4 +1,0 @@
-??0?$RefCountPtr@VTextureClass@@@@QAE@XZ
-object entire section: 8bc1832000c3
-retail RVA 00326BE6 six bytes: 8bc1832000c3
-relocations: []

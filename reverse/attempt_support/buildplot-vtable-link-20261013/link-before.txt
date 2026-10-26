@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIconCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 306)
-  unresolved  ??0Rva00539411@@QAE@PAXPBH@Z
-  comdat      ?reserve@?$vector@PAVRva005C4230@@V?$allocator@PAVRva005C4230@@@_STL@@@_STL@@QAEXI@Z  (retail: not retail's body)
-  selected    ?reserve@?$vector@PAVRva005C4230@@V?$allocator@PAVRva005C4230@@@_STL@@@_STL@@QAEXI@Z  (the definition the link keeps is not retail's)
-Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 810)
-  unresolved  ??1Rva00578189@@UAE@XZ
-  comdat      ??_7Rva0053947D@@6B@  (first: differs from the first copy in link order (no retail address))
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.5s)

@@ -1,5 +1,0 @@
-// cl: /O1 /G6 /MD /EHsc
-extern "C" long __cdecl _InterlockedExchange(long volatile *,long);
-extern "C" long __cdecl _InterlockedCompareExchange(long volatile *,long,long);
-#pragma intrinsic(_InterlockedExchange,_InterlockedCompareExchange)
-extern "C" int exchangeProbe(int x) {long word=x;_InterlockedExchange(&word,word); return 1;}

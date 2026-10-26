@@ -1,3 +1,0 @@
-from trials import *
-items=[('control-bank',BASE),('control-throwing',BASE.replace('template <> void StringBase<char>::releaseBuffer() throw();\n','')),('control-alternate',(DIR/'carry081200.cpp').read_text()),('control-pointer',(DIR/'carrypointer.cpp').read_text())]
-if __name__=='__main__':batch(items,'controls')

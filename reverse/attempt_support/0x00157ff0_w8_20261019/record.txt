@@ -1,1 +1,0 @@
-recorded: ?Store_Thai_GDI_Glyph@FontCharsClass@@AAEPBVFontCharsClassCharDataStruct@@G@Z @ 0x00157FF0 -> partial

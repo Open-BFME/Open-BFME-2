@@ -1,3 +1,0 @@
-$ python3 tools/link_check.py --new-variants Code/GameEngine/Source/GameLogic/Object/Damage/HordeTransportContainDamageCallback.cpp
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-exit=0

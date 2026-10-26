@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva00506B74Tactic.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 12:37 at 825b86983f; file's own bytes 1,613)
-  unresolved  ?rva005AD99C@AIBase@@QAEXABVAsciiString@@PAV?$vector@PAVRva00506FE9Hit@@V?$allocator@PAVRva00506FE9Hit@@@_STL@@@_STL@@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

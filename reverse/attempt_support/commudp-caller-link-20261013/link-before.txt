@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/DirtySock/Y4CommTransportLife.c: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 5,701)
-  unresolved  _Rva00817B30
-  unresolved  _g_Rva012C4F88Name
-Code/Libraries/Source/DirtySock/commudp.cpp: LINKS  LINKED 0 -> 4,740 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 4,740)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 4,740 bytes (2.9s)

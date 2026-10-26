@@ -1,2 +1,0 @@
-// cl: /O2 /G7 /arch:SSE /DNDEBUG /MD /EHsc
-int alignmentProbe(unsigned n,int *p){n ^= n>>7;n += n<<3;for(unsigned i=0;i<n;++i) p[i]+=(int)(n-i); return (int)n;}

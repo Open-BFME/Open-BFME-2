@@ -1,5 +1,0 @@
---- a/0x001c5e30.cpp
-+++ b/0x001c5e30.cpp
-@@ -112 +112 @@
--		mvy = pbi->vectors[block].y;
-+		if (mask) { mvy = pbi->vectors[block].y; } else { mvy = pbi->vectors[block].y; }

@@ -1,6 +1,0 @@
-??$uninitialized_copy@PADPAD@_STL@@YAPADPAD00@Z (C:\Users\clemens\Documents\Experiments\Open-BFME-2\build\string-copy-canonical-oct20\pod-copy.cpp)
-target RVA: 0x000179B0
-target size: 41 bytes
-compiled symbol size: 41 bytes
-classification: exact match
-OK: bytes match

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/MultiplayerSettings.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 116)
-  comdat      ?getAsInt@RGBColor@@QBEHXZ  (retail: not retail's body)
-Code/GameEngine/Source/Common/MultiplayerColorDefinitionCtor.cpp: LINKS  LINKED 226 -> 226 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 226)
-Code/Libraries/Source/WWVegas/WWMath/color.cpp: LINKS  LINKED 656 -> 656 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 656)
-link_check: 2 of 3 link cleanly; LINKED 882 -> 882 bytes (4.2s)

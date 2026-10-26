@@ -1,9 +1,0 @@
-Model drawing: canonical animation table and constant kind-bit test
-
-The existing buildPlayingAnimationStringInfo at C14F5 contains a DIR32 operand at +7E targeting VA DB4E44. Its TheAnimModeNames declaration had no linked provider. The address already has the verified BfmeAnimationModeNames owner in W3DAnimationRecordParse.cpp, including all seven native modes and the null sentinel. Use that single owner; no new table, data row, alias or pin. Native entries are MANUAL, LOOP, ONCE, LOOP_PINGPONG, PLAY_TO_FRAME, LOOP_BACKWARDS, ONCE_BACKWARDS, null. BFME1 rendobj.h at a0e8f345a9b22b4b42088e402962287d7015e3c2 supplied the donor semantic lead; native operand and existing data row establish the shared target.
-
-The same unit emitted an unnecessary out-of-line ThingTemplate::isKindOf private-view copy even though its only use is a constant bit28 test in the matched caller. Spell that target-proven bit test directly and remove the unrowed helper. This retains the measured kind-mask offset108 while eliminating the no-address COMDAT conflict. No helper identity is invented or rebound.
-
-Normal before/after gates preserve 4/4 functions across consumer and existing provider, verify all20 existing data rows and every string reference. Both drawing bodies (756 bytes) and every relocation are identical after normalizing only the table name. Both parent EH graphs are EXACT before and after. Stock published-index control first reproduces the old missing data name and kind-helper COMDAT; the current consumer LINKS with both removed and exactly one canonical table provider. No full-game link claim or gate changes.
-
-An initial duplicate-table experiment passed its scoped byte check but was refused by the normal commit integrity gate because the address was already owned. It was fully removed; this final patch changes only the consumer.

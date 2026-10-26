@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/discrete_circle.cpp: LINKS  LINKED 0 -> 317 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 317)
-  diagnostic  ?deallocate@?$_STLP_alloc_proxy@PAUHorzLine@@U1@V?$allocator@UHorzLine@@@_STL@@@_STL@@QAEXPAUHorzLine@@I@Z  (codegen-like: 5 bytes against the majority copy's 18; unreferenced, not a blocker)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e12_allocate_copy.cpp: LINKS  LINKED 170 -> 170 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 170)
-link_check: 2 of 2 link cleanly; LINKED 170 -> 487 bytes (3.2s)

@@ -1,7 +1,0 @@
-#!/bin/sh
-# cst.sh src tag: count, print state + direct nd
-cd /work/Open-BFME-2/build/db
-python3 count15.py "$1" "$2" >/dev/null 2>&1
-[ -s tr/$2.cnt.ids ] || python3 count15.py "$1" "$2" >/dev/null 2>&1
-nd=$(python3 dd.py "$1" | awk '{print $5}')
-echo "$(python3 st.py $2 2>&1 | tail -1 | python3 -c "import ast,sys;d=ast.literal_eval(sys.stdin.read());print(d['t'],'f15=%d B=%d A=%d G0=%d G1=%d tail=%s'%(d['first15'],d['B'],d['A'],d['G0'],d['G1'],d['tail']))") nd=$nd"

@@ -1,8 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Data rows: OK (2 row(s) byte-verified)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Functions: OK 1/1 matched
-  ?rva002431CB@Rva002431CB@@QAEXXZ (Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp)
-String-ref verify: OK (12 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (16 compiler literals verified)
-Import-ref verify: OK (3 named imports verified)

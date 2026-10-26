@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 112)
-  duplicate   ??1Rva004A9DF3Element@@QAE@XZ
-  comdat      ??1Rva004A9DF3Element@@QAE@XZ  (retail: not retail's body)
-Code/GameEngine/Source/Common/Rva004A9DF3ElementDtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 5)
-  duplicate   ??1Rva004A9DF3Element@@QAE@XZ
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.5s)

@@ -1,2 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor.cpp
-Code/Libraries/Source/WWVegas/WW3D2/ShaderClassApply.cpp

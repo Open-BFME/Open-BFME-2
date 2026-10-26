@@ -1,8 +1,0 @@
-import sys
-from pathlib import Path
-sys.path.insert(0,str(Path(__file__).resolve().parent));import search as s
-s.SYM='?rva00507D84@DamageNugget@@UAEXPAXPBUCoord3D@@@Z'
-x=(s.OUT/'paths-008-0-1.cpp').read_text().replace('Made002CC5E1 :','DamageNugget :').replace('Made002CC5E1();','DamageNugget();').replace('Made002CC5E1::Made002CC5E1()','DamageNugget::DamageNugget()').replace('void Made002CC5E1::rva00507D84','void DamageNugget::rva00507D84')
-a=x.index('DamageNugget::DamageNugget()');z=x.index('// The single-target exit',a)
-x=x[:a]+x[z:]
-print(s.safe_score('separate',x),flush=True)

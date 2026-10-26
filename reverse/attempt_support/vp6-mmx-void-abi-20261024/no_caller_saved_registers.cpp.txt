@@ -1,2 +1,0 @@
-// compiler: clang23-x86
-extern "C" __attribute__((no_caller_saved_registers)) void probe(short *input, short *output) { unsigned i=0; do { output[i] = short(input[i]+input[(i+1)&7]); } while(++i != 8); }

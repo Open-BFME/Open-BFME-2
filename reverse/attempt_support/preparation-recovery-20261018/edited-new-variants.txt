@@ -1,2 +1,0 @@
-link_check: this census index has no reference graph (it predates retail-truth-2); no-address COMDAT copies are judged under retail-truth-1
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)

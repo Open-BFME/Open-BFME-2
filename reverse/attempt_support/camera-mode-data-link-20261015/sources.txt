@@ -1,3 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DCamTransform.cpp
-Code/GameEngine/Source/Common/Rva007AB85CAtexitInits.cpp
-Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp

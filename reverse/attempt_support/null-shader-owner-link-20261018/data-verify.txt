@@ -1,2 +1,0 @@
-data_rows: 896 row(s), integrity OK
-Data rows: OK (1 row(s) byte-verified)

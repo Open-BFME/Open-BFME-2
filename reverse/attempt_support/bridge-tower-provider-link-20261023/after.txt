@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp: LINKS  LINKED 0 -> 99 bytes (census 2026-10-22 23:07 at 0fa62a2841; file's own bytes 99)
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehaviorCtor.cpp: LINKS  LINKED 0 -> 113 bytes (census 2026-10-22 23:07 at 0fa62a2841; file's own bytes 113)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 212 bytes (4.3s)

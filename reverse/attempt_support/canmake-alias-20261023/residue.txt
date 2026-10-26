@@ -1,5 +1,0 @@
-retail 08b pop esi
-bank   08b pop ebx
-
-retail 094 mov eax, esi
-bank   094 mov eax, ebx

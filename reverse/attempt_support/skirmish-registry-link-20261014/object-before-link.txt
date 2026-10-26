@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DCC4.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 284)
-  unresolved  ?TheFireLogic@@3PAVFireLogicSystem@@A
-  unresolved  ?TheSkirmishAIManager@@3PAVSkirmishAIManager@@A
-  unresolved  ?g_Va00DFE7A8@@3IA
-  unresolved  ?rva00333E5B@LuaDrawableState@@QAEXPAVObject@@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.3s)

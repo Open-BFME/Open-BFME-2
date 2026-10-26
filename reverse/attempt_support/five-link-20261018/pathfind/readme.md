@@ -1,9 +1,0 @@
-PathfindCell destructor ownership and native array deallocation
-
-The two existing MixFileCreator destructor identities were refuted by independent shipped WorldBuilder debug assertions and native constructor/destructor callback relationships. Rename physical owners to PathfindCell (17-byte scalar destructor and 75-byte vector destructor), retaining exact native behavior and the existing helper/global ABI names. Remove the fake Mix payload adapters in pathfinding callers; preserve genuine Mix file-info classes unchanged. Findings and shipped-address evidence are included. No new pins, second identity aliases, or verifier changes.
-
-A scoped linker check then identified a concrete code-generation disagreement in the two allocation units: without an explicit delete[] declaration their generated vector destructors called scalar operator delete at RVA2FD60 where retail calls operator delete[] at RVA2FD80. Declare the real array deallocator in both allocation units. Their matched parent bytes stay exact, and the generated destructors become retail true.
-
-Normal whole-file gate: 15/15 matched rows across seven owners/callers, with 17 floating literals and 12 imports verified. Stock index preview refreshes explicit current sources and registers new providers, forgetting only the deleted unowned old sources. Scalar/vector providers, Pathfinder reset, layer allocation and the other layer-reset unit now link. The split bridge-classification reset source still needs getBridgeHeight; NewMap retains its separate footprint/zone helper blockers. No full-game link claim. All affected EH graphs are EXACT; count is in proof.json.
-
-Reference source was reviewed at BFME1 a0e8f345a9b22b4b42088e402962287d7015e3c2. REA game static analysis succeeded. Its WB bridge cleanup failed; no target execution or installation occurred. Static shipped-PE disassembly and raw debug strings supplied the independent WB evidence. These limitations are detailed in findings.txt.

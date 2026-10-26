@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/FormationPreviewPoolLookup.cpp findings 2 -> 0 legacy local LINKED 0 -> 252
-Code/GameEngine/Source/Common/Rva0041573FParse.cpp findings 2 -> 0 legacy local LINKED 0 -> 163

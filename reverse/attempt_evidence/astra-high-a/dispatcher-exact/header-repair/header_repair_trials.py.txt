@@ -1,8 +1,0 @@
-from trials import *
-b=(ROOT/'Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp').read_text();mark='\tcase 23:';a,c=b.split(mark,1)
-vs=[]
-for old,new in [('const ThingTemplate *build =','__declspec(align(4)) const ThingTemplate *build ='),('Object *builderObj =','__declspec(align(4)) Object *builderObj ='),('const ThingTemplate *build =','const ThingTemplate *const build ='),('Object *builderObj =','Object *const builderObj =')]:vs.append(('storage-'+str(len(vs)),a+mark+c.replace(old,new)))
-vs.append(('decl-builder-early',a+mark+c.replace('const ThingTemplate *build =','Object *builderObj;\n\t\tconst ThingTemplate *build =').replace('Object *builderObj =','builderObj =')))
-vs.append(('decl-build-outer',a.replace('switch (','const ThingTemplate *build;\n\tswitch (')+mark+c.replace('const ThingTemplate *build =','build =')))
-for name,t in vs:
- if trial(name,t,'?translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z',0x43218a,1701,'header-repair').get('exact'):break

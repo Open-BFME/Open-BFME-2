@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	duplicate-def	?g_Va00DEC3D7@@3EA	0x009EC3D7
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	wrong-name	?LODMeshCacheSetting@@3EA	0x009EC410
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	wrong-name	?g_Va00DEC3D7@@3EA	0x009EC3D7
-data_check: Code/Libraries/Source/WWVegas/WW3D2/render2d.cpp	wrong-name	?g_Va00DEC3D7@@3EA	0x009EC3D7
-data_check (shadow): 3 source(s), 23 finding(s), 4 outside the baseline {'duplicate-def': 1, 'wrong-name': 3}; 0.4s

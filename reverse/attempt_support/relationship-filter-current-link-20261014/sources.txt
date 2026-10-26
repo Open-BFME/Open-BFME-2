@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameLogic/AI/PartitionFilterCtorCopies.cpp
-Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp
-Code/GameEngine/Source/GameLogic/Object/SpecialPower/GrabPassengerSpecialPowerRva004C51A0.cpp

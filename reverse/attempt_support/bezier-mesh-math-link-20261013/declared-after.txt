@@ -1,3 +1,0 @@
-note: Code/GameEngine/Source/Common/bezier_segment.cpp: 2 matched row(s), 10 unclaimed definition(s)
-note: Code/Libraries/Source/WWVegas/WW3D2/meshbuild.cpp: 1 matched row(s), 23 unclaimed definition(s)
-All defined functions are already matched.

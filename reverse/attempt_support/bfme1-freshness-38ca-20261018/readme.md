@@ -1,9 +1,0 @@
-# BFME 1 reference comparison, 18 October 2026
-
-At BFME 2 source revision 53bbd476d791dc87744d6a2557c6c5091d300efc, compared the verified BFME 1 pointer 64d369b90170b7e9ec917d646f020b11f13eb0d5 with fetched official master 67f4eab2437e8a7ab3f22d3b3f9bf1eac91e081b. Both complete normal ./build.sh runs exited 1. The intervening local commit changed only the attempt log, not any gate input.
-
-Both runs verified all 96,635 function rows and 927 data rows. String, float, import, pin, module registry, source claims, and no-op patch checks passed. The sole failure in both was DIR32 consistency: ??_7Rva0007DF07@@6B@ resolves to both 0xBC6F20 and 0xC7A630. This proves the failure predates this reference update; it does not approve the update. The old pointer is restored, no successful freshness stamp was written, and future freshness checks remain due. No verifier or baseline was changed.
-
-The migrated game/, inputs/reference/, inputs/toolchains/, inputs/baselines/, inputs/vendor/, and targets/game/reverse/ paths were checked. Actual Debug.h and WWMath/vector3.h reference headers existed. Candidate donor sweeps were refreshed: 5,518 unique BFME 1 placements, zero ranked donor files, and no bodies from clean DrawableGetHealthBoxPosition / BannerCarrierUpdateParseExpLevelDraw donor compilation trials. Forced ZH compilation built 919 of 987 units (68 compilation failures), and its match pass found no unclaimed exact unique placement. These discovery results are candidate-revision evidence, not accepted recovery or a baseline comparison of the ZH compilation failures. The candidate BFME 1 scan cache was moved out of the active cache path after restoring the prior pointer.
-
-The attached logs are the full outputs of both completed gates. This evidence-only change claims zero new byte-exact C++ bytes. The reference-update claim was released.

@@ -1,7 +1,0 @@
-diff --git a/Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp b/Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp
-index 3426e85bb2..9ccc45995f 100644
---- a/Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp
-+++ b/Code/GameEngine/Source/GameClient/GUI/FontLibraryCtor.cpp
-@@ -65,0 +66,2 @@
-+	// Retail VA BE5AD0 slot 1 selects the rowed override at RVA 217561.
-+	virtual void init();

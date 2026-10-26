@@ -1,4 +1,0 @@
-Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteVectorAssign.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 206)
-  comdat      ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ  (retail: not retail's body)
-Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteInsertOverflow.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 386)
-  comdat      ?size@?$vector@VProductionPrerequisite@@V?$allocator@VProductionPrerequisite@@@_STL@@@_STL@@QBEIXZ  (retail: not retail's body)

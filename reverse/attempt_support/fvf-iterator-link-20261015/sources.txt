@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingTextureBFME.cpp
-Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingMaterialBFME.cpp

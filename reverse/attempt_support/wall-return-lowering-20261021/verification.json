@@ -1,9 +1,0 @@
-{
-  "revision": "dc2fda309d00db6cadc375454e374120149ae6cf",
-  "reference": "3f00bbbe9b0c477c2182782b7401aa4fa8b1aa80",
-  "trials": 16,
-  "size": 204,
-  "native_size": 218,
-  "bank_sha256": "126ef57240de9919e19d2b7afe3e40d608f14b3d7b967dcb0c392da51a0c3e55",
-  "bank_changed": false
-}

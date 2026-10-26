@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-pin admission: REFUSED 1; nothing written
-  ??1SceneClass@@UAE@XZ,0x00724510: 0x00724510 already carries the real name ??1BfmeSceneBase@@UAE@XZ; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: only 3 non-relocation bytes; too few to prove a fold without a proven tail-jump callee: not one five-byte direct tail jump with a zero-addend REL32

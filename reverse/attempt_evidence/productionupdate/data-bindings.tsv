@@ -1,6 +1,0 @@
-draft_name	target_va	existing_owner	status
-BfmeLogicFramesPerSecond	0x00DBA4E4	g_Va00DBA4E4	ColdGlobalDwordGetters.cpp canonical owner; 158 consumers
-BfmeClientFramesPerSecond	0x00DBA4E8	g_009BA4E8	LivingWorldEyeTowerProcessItems.cpp canonical owner; 40 consumers; initial30 not milliseconds
-ProductionDoorOpeningFlags	0x00C51304	g_00C51304	Rva0049D3BC.cpp; four unsigned words21 25 29 33
-ProductionDoorClosingFlags	0x00C51314	g_00C51314	Rva0049D3BC.cpp; four unsigned words22 26 30 34
-ProductionDoorWaitingOpenFlags	0x00C51324	g_00C51324	Rva0049D3BC.cpp; four unsigned words23 27 31 35; data_ledger stale unowned204 but definition exists

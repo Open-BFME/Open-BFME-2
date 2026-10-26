@@ -1,5 +1,0 @@
-BfmeConv1325.cpp: 68B object row unchanged; only relocation-name replacement ?bfmeFreeTWB@@YAXPAX@Z -> ??3@YAXPAX@Z
-BfmeConv583.cpp: 38B object row unchanged; only relocation-name replacement ?bfmeFreeCDE@@YAXPAX@Z -> ??3@YAXPAX@Z
-BfmeThreeHundredFiftyFive.cpp: 34B object row unchanged; only relocation-name replacement ?bfmeFreeUD@@YAXPAX@Z -> ??3@YAXPAX@Z
-BfmeThreeHundredSixtyTwo.cpp: 40B object row unchanged; only relocation-name replacement ?bfmeFreeVE@@YAXPAX@Z -> ??3@YAXPAX@Z
-BfmeConv730.cpp: 77B object row unchanged; only relocation-name replacement ?bfmeFreeDMC@@YAXPAX@Z -> ??3@YAXPAX@Z

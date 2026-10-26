@@ -1,3 +1,0 @@
-note: Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp: 4 matched row(s), 6 unclaimed definition(s)
-note: Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp: 17 matched row(s), 34 unclaimed definition(s)
-All defined functions are already matched.

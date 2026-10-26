@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/INIStatsRecordTextures.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 435)
-  unresolved  __imp_??1?$DynamicVectorClass@VStringClass@@@@UAE@XZ
-  comdat      ??_G?$VectorClass@VStringClass@@@@UAEPAXI@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.0s)

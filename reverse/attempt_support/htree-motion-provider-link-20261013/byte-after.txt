@@ -1,7 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_00768880 (Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp): $L16297 was renumbered; verified parent EH data places $L16065 at 0x00768880
-Functions: OK 27/27 matched across 2 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (19 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

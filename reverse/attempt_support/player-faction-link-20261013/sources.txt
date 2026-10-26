@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp
-Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp
-Code/GameEngine/Source/GameLogic/Map/SidesListRva0032A5FCWriteBuildLists.cpp
-Code/GameEngine/Source/Common/RTS/PlayerSkirmishSideFind.cpp

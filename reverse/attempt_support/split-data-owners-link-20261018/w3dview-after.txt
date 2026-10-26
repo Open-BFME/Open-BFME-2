@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp: LINKS  LINKED 0 -> 1,019 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 1,019)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 685)
-  unresolved  ?rva00312118@Rva00312C95@@QAEXXZ
-  comdat      ?Set_Viewport@CameraClass@@QAEXABVVector2@@0@Z  (retail: not retail's body)
-  comdat      ?Get_Viewport@CameraClass@@QBEXAAVVector2@@0@Z  (retail: not retail's body)
-  selected    ?Get_Viewport@CameraClass@@QBEXAAVVector2@@0@Z  (the definition the link keeps is not retail's)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 1,019 bytes (9.7s)

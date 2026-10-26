@@ -1,6 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	wrong-name	?$S1@?3??rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z@4IA	0x009FE944
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	wrong-name	?TheSkirmishGameInfo@@3PAVSkirmishGameInfo@@A	0x00A02EF0
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	wrong-name	?g_00DFEFF0@@3PAXA	0x009FEFF0
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	wrong-name	?g_rva00200BD9Holder@@3PAURva00200BD9Holder@@A	0x009FF488
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp	wrong-name	?invalid@?3??rva0023FB58@GameLogic@@QAEABVAsciiString@@H@Z@4V3@A	0x009FE940
-data_check (enforce): 3 source(s), 5 finding(s), 5 outside the baseline {'wrong-name': 5}; 1.6s

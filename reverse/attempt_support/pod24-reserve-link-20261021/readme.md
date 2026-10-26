@@ -1,9 +1,0 @@
-# 24-byte vector reserve link repair
-
-At parent b3d442b893, StlportReserveRva0047B35E.cpp links 0/125 bytes. It emits an exception-enabled copy of its called allocation/copy member, while retail 0x0047A6C0 is the existing 45-byte no-EH helper owned by stlport_vector_pod24_allocate_copy.cpp. That provider already uses STLport _STLP_NO_EXCEPTIONS. Compile this reserve unit with the same setting: reserve 0x0047B35E remains fully byte-exact and its emitted helper is now retail-compatible.
-
-The paired legacy predictor uses the saved original object and the current object against the same published 3f413ed3ff index, with each variant replacing the same object slot. It improves 0 -> 125 bytes. paired.json records object/index hashes and all blocker classes. This is not a closed-strict or full-link measurement. A strict-current preparation separately verifies 1/1 code rows and creates the reusable receipt; the ordinary gate also verifies literals, floats and imports. EH check has zero EH-bearing rows. Converged data: zero second names/unjudged rows; frozen definitions, class gate and CSV checks pass.
-
-Scope sweep: the only other source spelling this element view is AODHordeContainInitOffsets.cpp. Its current probe remains 0/755 bytes, with two unresolved callees and independent reserve/insert copies, so it is not credited or modified. DiscreteCircle already links 317 bytes on current master; its old index-era reserve finding is not new work.
-
-Identity limits are preserved: Rva0047B35EElement is an opaque 24-byte emission view, not an application type. The existing caller/helper relationship and two direct helper calls establish the compiler-setting repair; no new name, alias, pin, baseline, layout, or source identity is introduced. Reference source is STLport 4.5.3 _vector.h; the BFME1 pointer reviewed this session is 68c5ce2789e974f36b6c742d57437d157bc159e9.

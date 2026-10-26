@@ -1,8 +1,0 @@
-tree 024809e525880ec94833872c361db27ad6bf85cf
-parent b345dbb6256088a4049d237c1c14b28ae85345c1
-author Ostkannit <Konstantin.von.eltz@gmail.com> 1792882599 +0200
-committer Ostkannit <Konstantin.von.eltz@gmail.com> 1792883215 +0200
-
-Keep the damage-module view within its single translation unit
-
-Retain identical class tokens and canonical zero-table references while avoiding a new header in broadly inventoried include roots. The existing unpinned inline destructor is honestly declared as such; all matched bodies and data still pass. Refresh the final object evidence without repeating ledger landings.

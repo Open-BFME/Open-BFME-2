@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp: does not link  LINKED 1,511 -> 0 bytes (census 2026-10-10 19:06 at 7bcd61f5c1; file's own bytes 2,637)
-  unresolved  ?Rva002223FECreateLayout@@YGPAVAptWindowLayout@@PAX@Z
-  unresolved  ?Rva006CC600@@YAXPBDPAD@Z
-  duplicate   ?AddExternHandler@AptPlayer@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z
-  selected    ?AddExternHandler@AptPlayer@@QAEXABVAsciiString@@HV?$AptRef@VAptExternHandler@@@@@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 1,511 -> 0 bytes (3.4s)

@@ -1,6 +1,0 @@
-?erase@?$list@UScriptPositionRecord@@V?$allocator@UScriptPositionRecord@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UScriptPositionRecord@@U?$_Nonconst_traits@UScriptPositionRecord@@@_STL@@@2@U32@@Z (build/w7g1-r2/position-providers.cpp)
-target RVA: 0x00438539
-target size: 32 bytes
-compiled symbol size: 32 bytes
-classification: exact match
-OK: bytes match

@@ -1,9 +1,0 @@
-// cl: /O2 /Ob2 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
-#include <memory>
-namespace _STL {
-template<> char *uninitialized_copy<char*,char*>(char *first,char *last,char *result) {
- return last==first ? result :
-  ((char*)memmove(result,first,last-first))+(last-first);
-}
-}

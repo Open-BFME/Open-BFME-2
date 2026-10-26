@@ -1,9 +1,0 @@
-{
-  "cases": 1791,
-  "executions": 3582,
-  "result": "equal length, one sequential read through terminator, unchanged callee-saved registers, cdecl stack cleanup",
-  "target_sha256": "6380d28e3bfd0a4c68d0eb6afba94b857a64356e0cde8820f2d9adfa1c18ea27",
-  "candidate_sha256": "0deec1358301db9943d9628fee6e0dfef478264d197f1b9345466b503f76f034",
-  "candidate_hex": "8b4c24048a1184d28d410174078a104084d275f92bc148c3",
-  "limitations": "Small independently implemented opcode interpreter, not a general x86 emulator; no claim about caller/owner identity or all possible machine states"
-}

@@ -1,6 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicPopulateGameReport.cpp
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineEvaluateAndProgressAllSequentialScripts.cpp
-Code/GameEngine/Source/GameClient/GUI/GameWindowManagerMessageBox.cpp
-Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp

@@ -1,3 +1,0 @@
-v0001.cpp
-build\cgd-barriers-20261023\read\v0001.cpp(9) : warning C4163: '_ReadBarrier' : not available as an intrinsic function
-cl : Command line warning D4025 : overriding '/EHc-' with '/EHc'

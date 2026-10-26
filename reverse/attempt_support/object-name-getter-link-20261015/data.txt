@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp	wrong-name	?$S1@?3??rva003E5267@ScriptConditions@@IAE_NPAVParameter@@0@Z@4IA	0x00A02E28
-data_check: Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp	wrong-name	?$S2@?BI@??evaluateCanBuildAtBase@ScriptConditions@@IAE_NPAVParameter@@0@Z@4IA	0x00A02E30
-data_check (enforce): 2 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.9s

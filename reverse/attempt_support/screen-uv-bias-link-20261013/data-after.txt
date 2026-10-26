@@ -1,2 +1,0 @@
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	wrong-name	?LODMeshCacheSetting@@3EA	0x009EC410
-data_check (shadow): 3 source(s), 20 finding(s), 1 outside the baseline {'wrong-name': 1}; 0.4s

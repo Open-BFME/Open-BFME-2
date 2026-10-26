@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?rva005BB3A1@Rva005BB3A1@@QAE_NXZ (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/QuickMatchPopulateSideComboBoxRva005BB3A1.cpp)
-String-ref verify: OK (2 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

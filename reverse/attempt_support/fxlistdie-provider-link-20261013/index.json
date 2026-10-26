@@ -1,9 +1,0 @@
-{
-  "census": {
-    "commit": "cb660e4d97",
-    "date": "2026-10-13 04:02"
-  },
-  "index_sha256": "4bc4fd38c27a025c8545b51f02fd25445391b93e51e964dfb8077a45aea9244e",
-  "proof_level": "same-index local legacy preview; two providers self-strict byte-verified; no closed-strict closure or measured census gain",
-  "starting_head": "faf8348924"
-}

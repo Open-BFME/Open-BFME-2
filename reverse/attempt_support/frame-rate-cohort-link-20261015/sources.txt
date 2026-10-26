@@ -1,8 +1,0 @@
-Code/GameEngine/Source/Common/Rva001E4DB0Ctor.cpp
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineRva0020A586.cpp
-Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUIUpdate.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeSwarmFindMeleeAttackPosition.cpp
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormationFindMeleeAttackPosition.cpp
-Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourCreateWaypoints.cpp
-Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp

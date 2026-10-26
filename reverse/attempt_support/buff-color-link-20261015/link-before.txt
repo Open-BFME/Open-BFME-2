@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/BuffNuggetFXNuggetCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 333)
-  addresses   3 hard-coded image address(es), e.g. 0x00BC4DD8
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.4s)

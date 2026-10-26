@@ -1,1 +1,0 @@
-6 DIR32 operands retain offsets, types and addends; 4 consumer objects remove one unresolved global each. All remaining legacy preview findings unchanged. Strict receipts current for 5 sources.

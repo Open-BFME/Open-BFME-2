@@ -1,5 +1,0 @@
-EH verify: 2 row(s) with EH data (bytes_differ 2); 2 not exact, 0 in baseline; 0 row(s) without an object; 0.5s
-  differing sections: .text$x dllimport 2
-  FAIL ??1Rva0023DBC3@@QAE@XZ 0x0023DBC3 (Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp): bytes_differ -- .text$x dllimport @0x770F15: 8 byte(s)
-  FAIL ??1Rva0048C200Owner@@QAE@XZ 0x002019E1 (Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp): bytes_differ -- .text$x dllimport @0x76C54F: 8 byte(s)
-EH verify: FAIL 2 row(s) not exact and not in reverse/eh_baseline.csv

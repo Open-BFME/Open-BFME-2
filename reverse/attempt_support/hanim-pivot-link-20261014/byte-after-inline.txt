@@ -1,7 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_007689e0 (Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp): $L15056 was renumbered; verified parent EH data places $L14998 at 0x007689E0
-Functions: OK 23/23 matched across 1 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (15 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

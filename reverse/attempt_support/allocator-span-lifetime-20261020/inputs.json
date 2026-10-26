@@ -1,7 +1,0 @@
-{
-  "revision": "9e42834dd0a7dcab4052951565b6687e02d65ab3",
-  "reference": "0dc8a26a9c6041c73dc564754cd059dc54faa72a",
-  "bank_sha256": "eca97dd9a1bd99bf9c768167839806f39d84317ad1e81acc843602d36be41894",
-  "compiler": "vc71 13.10.3077",
-  "flags": "unchanged bank /MD plus normal build defaults"
-}

@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchRva005A20A7.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreenConstructor.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchDtor.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchPlayerTooltip.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchOptions.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionGridCallbacks.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit.cpp: unresolved  ?g_Va00E063F8@@3PAVRva005A6D47@@A
-7 blockers removed; 0 added. All other blockers unchanged.

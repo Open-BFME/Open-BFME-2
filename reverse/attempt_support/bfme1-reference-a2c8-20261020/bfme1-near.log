@@ -1,7 +1,0 @@
-1 near candidate(s), 25 bytes, classes served: immediate-only, imm+reg
-
- align  bytes  class           b2 rva     source
- 94.1%     25  immediate-only  0x0076962A game/GameEngine/Source/GameClient/GUI/Fade0060F010.cpp
-
-next: python3 tools/bfme1_sweep.py near --show '?dup_00C3E1D7@@YAXXZ'
-COMMAND_EXIT_CODE=0

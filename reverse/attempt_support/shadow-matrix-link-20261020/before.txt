@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 365)
-  unresolved  ??0Matrix4x4@@QAE@XZ
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (6.1s)

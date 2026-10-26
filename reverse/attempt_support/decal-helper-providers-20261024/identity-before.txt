@@ -1,9 +1,0 @@
-binding: Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp | uw_00768726 | ??1MeshMdlTextureVector@@UAE@XZ | 0x0016FDB0 | wrong
-binding: Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextCtor.cpp | uw_007687a6 | ??1MeshMdlTextureVector@@UAE@XZ | 0x0016FDB0 | wrong
-definition: divergent | ??0BFMEDX8DeviceLock@@QAE@XZ
-definition: divergent | ??0Vector3@@QAE@ABV0@@Z
-definition: divergent | ??4Matrix4@@QAEAAV0@ABV0@@Z
-definition: divergent | ??AMatrix3D@@QBEABVVector4@@H@Z
-definition: divergent | ??AMatrix4@@QAEAAVVector4@@H@Z
-definition: divergent | ?Init@Matrix4@@QAEXABVVector4@@000@Z
-code identity 491 rows; 8 findings; shadow

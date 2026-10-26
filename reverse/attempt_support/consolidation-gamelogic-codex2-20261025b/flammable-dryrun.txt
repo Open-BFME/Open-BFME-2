@@ -1,7 +1,0 @@
-tu: Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp
-approved: 31
-mixed: {'Code/GameEngine/Source/Common/ConstIntGetters4.cpp': 268, 'Code/GameEngine/Source/Common/INI/INILevelUpFxParse.cpp': 2, 'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateDtor.cpp': 4, 'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataCtor.cpp': 2, 'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateModuleDataDtor.cpp': 1, 'Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp': 81, 'Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp': 27, 'Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp': 41, 'Code/Libraries/Source/WWVegas/WWLib/stlport_copy_camera_marker.cpp': 1}
-refused: {'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdateCtor.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdatePoolKey.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0048D628.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)', 'Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0048D48F.cpp': 'keyed in a protected path-keyed register (needs a Verifier-Change commit)'}
-accepted: []
-rejected: {}
-blocked: no verified merge of two or more donors

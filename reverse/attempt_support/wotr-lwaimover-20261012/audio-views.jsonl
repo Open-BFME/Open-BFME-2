@@ -1,6 +1,0 @@
-{"rva": "0x59df60", "variant": "rawptr", "fitness": 0.93421, "exact": false, "class": "structural", "size": 154}
-{"rva": "0x59df60", "variant": "rawword", "fitness": 0.93421, "exact": false, "class": "structural", "size": 154}
-{"rva": "0x59df60", "variant": "rawrange", "fitness": 0.93421, "exact": false, "class": "structural", "size": 154}
-{"rva": "0x59dffb", "variant": "rawptr", "fitness": 0.91503, "exact": false, "class": "structural", "size": 147}
-{"rva": "0x59dffb", "variant": "rawword", "fitness": 0.91503, "exact": false, "class": "structural", "size": 147}
-{"rva": "0x59dffb", "variant": "rawrange", "fitness": 0.91503, "exact": false, "class": "structural", "size": 147}

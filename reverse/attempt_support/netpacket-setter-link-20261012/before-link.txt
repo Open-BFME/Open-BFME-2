@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameNetwork/NetPacket.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 27,978)
-  unresolved  ?setCurrentTask@DozerAIUpdate@@UAEXW4DozerTask@@@Z
-Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp: LINKS  LINKED 27 -> 27 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 27)
-link_check: 1 of 2 link cleanly; LINKED 27 -> 27 bytes (9.0s)

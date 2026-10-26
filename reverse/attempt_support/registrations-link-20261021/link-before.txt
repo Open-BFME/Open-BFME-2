@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-21 18:42 at d08db10acb; file's own bytes 388)
-  unresolved  ?g_Va00C63398@@3QBQBXB
-  unresolved  ?g_Va00C745A0@@3QBQBXB
-  unresolved  ?g_Va00C74698@@3QBQBXB
-  unresolved  ?g_Va00C7475C@@3QBQBXB
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.2s)

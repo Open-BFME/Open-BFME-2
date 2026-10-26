@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainOnRemoving.cpp: LINKS  LINKED 0 -> 735 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 735)
-  diagnostic  ?clearCondition@Object@@QAEXI@Z  (codegen-like: 67 bytes against the majority copy's 46; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 735 bytes (3.6s)

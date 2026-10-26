@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/STLport/IosBaseCopyState.cpp: LINKS  LINKED 0 -> 429 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 429)
-  diagnostic  ?_Ret@?$_BothPtrType@PBHPAH@_STL@@SA?AU__true_type@2@XZ  (codegen-like: 3 bytes against the majority copy's 17; unreferenced, not a blocker)
-  diagnostic  ?_Ret@?$_OKToMemCpy@HH@_STL@@SA?AU__true_type@2@XZ  (codegen-like: 3 bytes against the majority copy's 17; unreferenced, not a blocker)
-  diagnostic  ??$_IsOKToMemCpy@HH@_STL@@YA?AU?$_OKToMemCpy@HH@0@PAH0@Z  (codegen-like: 3 bytes against the majority copy's 17; unreferenced, not a blocker)
-  diagnostic  ??$__copy_ptrs@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z  (codegen-like: 41 bytes against the majority copy's 21; unreferenced, not a blocker)
-  diagnostic  ??$__copy_aux@PBHPAH@_STL@@YAPAHPBH0PAHABU__true_type@0@@Z  (codegen-like: 41 bytes against the majority copy's 21; unreferenced, not a blocker)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 429 bytes (3.8s)

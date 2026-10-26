@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z (Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRva0047AC8F.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (14 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWMath/Vector4ScaleO1.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 69)
-  comdat      ??0Vector4@@QAE@MMMM@Z  (retail: not retail's body)
-  comdat      ??D@YA?AVVector4@@ABV0@M@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

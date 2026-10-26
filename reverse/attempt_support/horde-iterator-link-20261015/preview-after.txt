@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainApplyUpgradeMask.cpp: LINKS  LINKED 0 -> 411 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 411)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 411 bytes (2.9s)

@@ -1,9 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/dispatcher/owned-bindings/c1.cpp').read_text();sym='?logicMessageDispatcher@LivingWorldLogic@@QAEXPAVGameMessage@@PAX@Z'
-at='if(((Rva00210C66CmpBoolField*)TheGameLogic)->get()&&active'
-old='if(preference==0){first=2;second=8;}else if(preference==1){first=8;second=2;}'
-vs=[]
-for typ in ['int','const int','unsigned','const unsigned','long']:
- t=b.replace(at,typ+' originalFlags=flags;'+at).replace(old,old+'else{first=originalFlags;second=originalFlags;}')
- vs.append(('defined-backup-'+str(len(vs)),t))
-for name,t in vs:trial(name,t,sym,0x2bdb4c,3058,'dispatcher')

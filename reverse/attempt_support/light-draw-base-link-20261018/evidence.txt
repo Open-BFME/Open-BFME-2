@@ -1,5 +1,0 @@
-Target: W3DLightDraw constructor RVA 000CF91D, extent287, existing independently matched row and BFME1 provenance retained.
-Repair: declaration-only DrawModule destructor binds existing provider instead of emitting private incomplete base vtable and deleting destructor. No new pin, alias, or class layout assertion.
-Before/after legacy current-object preview against unchanged census c2c5ac8c27: 0 -> 287 linked bytes. This is not closed-strict evidence. Final own source has strict dependency receipt and normal byte verification1/1.
-Related dtor sweep: projectile142B, light125B total rows, boat116B total rows retain inline DrawModule base vptr restoration in native normal teardown; cannot reuse ctor-only suppression. All unchanged, claims released; canonical 62-slot base reconciliation prerequisite.
-BFME1 lead review at upstream8619c4c:06a23066 declaration-only destructor pattern; target bytes, layout and existing provider independently govern change. BFME1 pointer64d369b retained due existing mandatory DIR32 vtable gate blockers recorded in re_attempts; no freshness stamp written.

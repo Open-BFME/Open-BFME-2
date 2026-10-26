@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 5,625)
-  comdat      ?Get_Vertex_Count@DynamicVBAccessClass@@QBEGXZ  (retail: not retail's body)
-  comdat      ?Convert_Color@DX8Wrapper@@SAIABVVector3@@M@Z  (retail: not retail's body)
-  addresses   1 hard-coded image address(es), e.g. 0x540452u
-Code/Libraries/Source/WWVegas/WW3D2/DynamicVBAccessClassDeinit.cpp: LINKS  LINKED 254 -> 254 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 254)
-link_check: 1 of 2 link cleanly; LINKED 254 -> 254 bytes (4.2s)

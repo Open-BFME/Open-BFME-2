@@ -1,2 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp
-Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp

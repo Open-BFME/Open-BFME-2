@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/System/BuildAssistant.cpp: LINKS  LINKED 0 -> 8,611 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 8,611)
-Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 2,218)
-  comdat      ?toAngle@Coord2D@@QBEMXZ  (retail: not retail's body)
-Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp: LINKS  LINKED 1,112 -> 1,112 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 1,112)
-link_check: 2 of 3 link cleanly; LINKED 1,112 -> 9,723 bytes (3.8s)

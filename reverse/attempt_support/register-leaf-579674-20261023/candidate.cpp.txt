@@ -1,1 +1,0 @@
-extern "C" unsigned __attribute__((regparm(1))) rva00579674(unsigned value) { return value + 1; }

@@ -1,9 +1,0 @@
-Path *Pathfinder::FindGroundPath(Object *obj,
-=====
-extern int g_sinkG[16];
-Path *Pathfinder::FindGroundPath(Object *obj,
-%%%%%
-    goal->allocateInfo((In002E6BA1 *)&cell);
-=====
-    goal->allocateInfo((In002E6BA1 *)&cell);
-    g_sinkG[0]=(int)goal;

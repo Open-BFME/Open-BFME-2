@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0023A076.cpp: LINKS  LINKED 0 -> 178 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 178)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00058BBD.cpp: LINKS  LINKED 0 -> 177 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 177)
-Code/Libraries/Source/WWVegas/WWLib/RvaTreeMInsertGenP12pod0016DBC0.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 182)
-  comdat      ??$_Construct@U?$pair@$$CBUGen_p12pod@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUGen_p12pod@@H@0@ABU10@@Z  (retail: not retail's body)
-  selected    ??$_Construct@U?$pair@$$CBUGen_p12pod@@H@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBUGen_p12pod@@H@0@ABU10@@Z  (the definition the link keeps is not retail's)
-link_check: 2 of 3 link cleanly; LINKED 0 -> 355 bytes (4.3s)

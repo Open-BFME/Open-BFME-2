@@ -1,1 +1,0 @@
-32 retained COMDATs and all other nondebug sections/relocations unchanged; four unreferenced copies removed (two conflicts and two empty destructor shells); paired legacy consumer LINKS 0 -> 392B; providers unchanged

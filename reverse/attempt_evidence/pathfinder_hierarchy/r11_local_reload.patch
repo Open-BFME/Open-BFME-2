@@ -1,5 +1,0 @@
---- a/reverse/attempts/0x002f71a6.cpp
-+++ b/reverse/attempts/0x002f71a6.cpp
-@@ -121 +121 @@
--  parentCell->PutOnClosedList(&m_closedList);
-+  (*(PathfindCell * volatile *)&parentCell)->PutOnClosedList(&m_closedList);

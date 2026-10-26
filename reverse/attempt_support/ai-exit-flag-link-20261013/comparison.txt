@@ -1,4 +1,0 @@
-112 complete matched bodies keep their SHA256 and extents.
-3 bodies have 7 zero-addend DIR32 bindings renamed to the sole global at retail VA 0x00E03624.
-Every other relocation tuple is unchanged; all before/after objects have strict-current receipts.
-Index hash unchanged: 4bc4fd38c27a025c8545b51f02fd25445391b93e51e964dfb8077a45aea9244e

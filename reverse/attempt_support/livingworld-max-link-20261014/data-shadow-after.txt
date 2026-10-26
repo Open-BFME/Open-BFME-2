@@ -1,4 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp	wrong-name	?g_00E02E88@@3VRva002B7250@@A	0x00A02E88
-data_check: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp	wrong-name	?g_00E04424@@3VRva002B7250@@A	0x00A04424
-data_check: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp	wrong-name	?g_00E044F0@@3VRva002B7250@@A	0x00A044F0
-data_check (shadow): 2 source(s), 3 finding(s), 3 outside the baseline {'wrong-name': 3}; 0.9s

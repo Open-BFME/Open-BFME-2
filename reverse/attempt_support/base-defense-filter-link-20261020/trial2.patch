@@ -1,4 +1,0 @@
---- Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicBaseDefense.cpp
-+++ Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetHeuristics/AITargetHeuristicBaseDefense.cpp
-@@ -89,0 +90 @@
-+	__declspec(dllimport) __forceinline virtual ~Rva00260F1BFilter() {}

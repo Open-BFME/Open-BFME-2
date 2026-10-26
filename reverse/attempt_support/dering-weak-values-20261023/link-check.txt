@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/VP6/DeringBlockStrongC.cpp: LINKS  LINKED 2,030 -> 3,556 bytes (census 2026-10-22 17:08 at 08160bc2c9; file's own bytes 3,556)
-link_check: 1 of 1 link cleanly; LINKED 2,030 -> 3,556 bytes (27.6s)

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 4,213)
-  unresolved  ??0Rva005D4DA9@@QAE@HABVAsciiString@@@Z
-  unresolved  ??1Rva005F3444Base@@QAE@XZ
-  unresolved  ??BAptTextPlusStringPlusStringText@@QAE?AVAsciiString@@XZ
-  unresolved  ?rva005F3652@Impl@ArmyDetailsMovieClip@StrategicHUD@@QAE?AURva005F38D8Ref@@H@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

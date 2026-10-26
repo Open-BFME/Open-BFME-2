@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva003B9EC4.cpp	wrong-name	?g_00DFE7A8@@3EA	0x009FE7A8
-data_check: Code/GameEngine/Source/Common/Rva003B9EC4.cpp	wrong-name	?g_00DFE7B0@@3VAsciiString@@A	0x009FE7B0
-data_check (shadow): 2 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.9s

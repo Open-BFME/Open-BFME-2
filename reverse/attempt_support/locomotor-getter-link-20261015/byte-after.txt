@@ -1,9 +1,0 @@
-Source claims: OK (6 sources, scoped byte-verified)
-Compile: 0 of 6 TU(s) (deps-cache: 6 current)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    uw_00797fdb (Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStates.cpp): $L2982 was renumbered; verified parent EH data places $L3062 at 0x00797FDB
-    uw_0078e28b (Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateScan.cpp): $L917 was renumbered; verified parent EH data places $L916 at 0x0078E28B
-Functions: OK 69/69 matched across 6 source file(s)
-String-ref verify: OK (62 literals + 4 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (32 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)
