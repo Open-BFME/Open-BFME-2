@@ -116,8 +116,8 @@ unsigned int rva0011F620();
 class WW3D
 {
 	friend bool rva00118610(const char *name, float rate, int a, bool b);
-public:
 	static bool IsCapturing;
+public:
 	static void Stop_Movie_Capture();
 };
 

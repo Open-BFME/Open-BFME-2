@@ -365,6 +365,14 @@ authored-byte previews or commit-title gains into a projected headline.
   ledger must be reconciled with each real owner; no second symbol is a fix.
   Other provisional disappeared-provider findings still require current
   replacement objects or a new census and are not cleared by these examples.
+- **Capture data owner repaired (2026-10-26, base `d41006c64d`):**
+  [The verified one-byte owner](../reverse/attempt_support/ww3d-capture-data-owner-20261026.md)
+  reconciles five consumer declarations with ww3d.cpp's existing private flag.
+  Seven native operands establish its address; the normal sizeof/initial-data
+  gate verifies the new data row. All 30 cohort function rows, five data rows
+  and three EH graphs pass, with no new data findings. The five consumers
+  recover their 818 already-censused bytes in the ordinary current-object
+  preview; ww3d.cpp's separate blockers remain. No new census gain is claimed.
 - **Remaining / next check:** resolve the real existing owner, parameter types,
   ABI and data ownership from native references; reconcile canonical headers
   with implementations and consumers as a batch. Verify all affected rows and

@@ -6,7 +6,7 @@ The source push completed normally, without bypassing or restarting a gate.
 ## Verified publication scope
 
 Bounded supported preparation supplied strict reusable receipts for all 54
-changed sources, verifying 932 function rows and nine data rows. The subsequent
+changed sources, verifying 932 function rows and nineteen data rows. The subsequent
 pre-push full gate passed all **98,252 functions**, **2,216 data rows**,
 214 STLport constructor folds, named references, pins, module/source checks
 and the no-op image. Its final changed-source check retained **116 EXACT EH
