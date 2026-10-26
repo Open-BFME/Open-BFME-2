@@ -553,6 +553,13 @@ authored-byte previews or commit-title gains into a projected headline.
   retires its final identity key with zero remaining source findings. The
   six-unit ordinary preview remains 6/6 clean at 10,184 -> 10,689 bytes.
   No wider class identity, strict closure or census clearance is implied.
+- **Stale streak-clear data keys (2026-10-26, `2edd747b85`):**
+  [Whole-file verification](../reverse/attempt_support/streak-clear-data-retirement-20261026.md)
+  confirms `Rva0012641FClear.cpp` already uses the two existing pointer globals
+  since `0bb6eb81be`. Three wrapper/owner rows and both four-byte data rows
+  pass; the owning tool retires two obsolete names with zero remaining source
+  findings. The wrapper's ordinary preview remains 20 -> 20 bytes. This is
+  stale debt retirement only, with no new binding or census gain.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

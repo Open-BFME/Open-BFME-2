@@ -94,7 +94,7 @@ Each row retains the handoff's investigation lead alongside the census category.
 | `StlportVectorDtorDeferred.cpp` | 461 | Two unresolved | Current-provider verification pending |
 | `Rva00066A9ABody.cpp` | 371 | Two unresolved | Two global providers |
 | `Rva007B7280Siblings.cpp` | 354 | COMDAT + wrong selected | LINK-015: blocked; its own inlined `??_G` loses while no copy is proven |
-| `LargeGroupAudioKeyMapBfmeAddKey.cpp` | 324 | Two unresolved | 2026-10-26: one verified tree store and direct native resize owner; four rows, data row and two EH graphs exact. Six-unit ordinary preview clean; this unit 0 -> 314 authored bytes. [Evidence](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md), LINK-007; separate identity-retirement and census prerequisites remain. |
+| `LargeGroupAudioKeyMapBfmeAddKey.cpp` | 324 | Two unresolved | 2026-10-26: one verified tree store, native resize/insert owners and canonical string cleanup; four rows, data row and two EH graphs exact. Six-unit ordinary preview clean; this unit 0 -> 314 authored bytes. The owning tool retires both identity keys with zero remaining source findings. [Evidence](../reverse/attempt_support/largegroup-keylist-storage-link-20261026.md), LINK-007; strict closure and census confirmation remain open. |
 | `FXListStoreCtor.cpp` | 280 | COMDAT + wrong selected | Current-provider verification pending |
 | `PolygonTriggerCtor.cpp` | 186 | Unresolved + COMDAT | LINK-011 preview cleared 157 authored bytes; reconcile scope |
 | **Total: 10 units** | **33,987** | | |

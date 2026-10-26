@@ -1544,8 +1544,6 @@ Code/Libraries/Source/WWVegas/WW3D2/Rva00118C20State.cpp	wrong-name	?g_Va00DEC4A
 Code/Libraries/Source/WWVegas/WW3D2/Rva00118C20State.cpp	wrong-name	?g_Va00DEC4A4@@3IA	0x009EC4A4
 Code/Libraries/Source/WWVegas/WW3D2/Rva00118C20State.cpp	wrong-name	?g_Va00DEC4A8@@3IA	0x009EC4A8
 Code/Libraries/Source/WWVegas/WW3D2/Rva001263B7Finish.cpp	wrong-name	?g_009B624C@@3HA	0x009B624C
-Code/Libraries/Source/WWVegas/WW3D2/Rva0012641FClear.cpp	wrong-name	?g_00DEE86C@@3VRva005F2577Holder@@A	0x009EE86C
-Code/Libraries/Source/WWVegas/WW3D2/Rva0012641FClear.cpp	wrong-name	?g_00DEE870@@3VRva005F2577Holder@@A	0x009EE870
 Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp	wrong-name	_textureStatisticsString	0x009EE91C
 Code/Libraries/Source/WWVegas/WW3D2/Rva001499D0Cluster.cpp	wrong-name	?g_rva009eda24@@3HA	0x009EDA24
 Code/Libraries/Source/WWVegas/WW3D2/Rva0014A4F0Cluster.cpp	wrong-name	?g_Va00DEDA24@@3HA	0x009EDA24
