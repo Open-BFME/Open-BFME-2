@@ -124,6 +124,14 @@ authored-byte previews or commit-title gains into a projected headline.
   After upstream `b85e569cee` moves the body to FlammableUpdate.cpp, the
   complete eight-row unit is reverified and the owning retirement tool
   removes the transferred key at its new path; one separate finding remains.
+- **Window video follow-up (2026-10-26, `9e1ca7f93f`):**
+  [the verified marker cleanup](../reverse/attempt_support/window-video-debt-cleanup-20261026.md)
+  retires 15 stale unmatched exemptions; all 38 rows (2,155 bytes) and seven
+  EH graphs remain exact. Current INI/lower-bound providers make the unchanged
+  window bodies preview LINKS for 2,116 authored bytes. This confirms earlier
+  repairs, not a new linking gain; the joint command retains INI's separate
+  historical-index blockers. Four identity keys remain, with the narrow EH
+  retirement discrepancy tracked in LINK-017.
 - **Clearance / census confirmation:** graphics ordinary-preview scope cleared
   at the revision above; other families and census confirmation remain pending.
   Keep individual repair previews separate from later census confirmation.
@@ -848,6 +856,12 @@ inspected revision: `2f9834aa34`.**
 - **Remaining / next check:** reconcile the retirement tool with verified parent
   EH resolution in a separate tooling change, refresh providers, then repair and
   judge the descriptor/vector bindings. Do not hand-change pins or labels.
+- **Additional consumer (2026-10-26, `9e1ca7f93f`):**
+  [window video's current check](../reverse/attempt_support/window-video-debt-cleanup-20261026.md)
+  reproduces the same literal-label refusal for four funclets whose parents
+  pass all seven EH graphs. Five other retirement findings are not classified
+  as false rejects. No identity key is removed; the separate 15-marker hatch
+  cleanup preserves every matched byte.
 - **Clearance / census confirmation:** none claimed.
 
 ### LINK-016: AIUpdate TU span combines weak propagation and disputed placement
