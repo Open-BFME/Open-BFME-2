@@ -836,6 +836,12 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   A further verified declaration cleanup uses the already included `string.h`
   for `strlen`/`_strcmpi` and adds `stdio.h` for `sscanf`: five local prototypes
   become two (`_mbscpy`/`_mbscat`), retaining all 53 rows and seven EH graphs.
+  [Standard multibyte declarations](../reverse/attempt_support/ini-multibyte-header-adoption-20261026.md)
+  then replace the last two prototypes. Both readers' six native calls are
+  verified against the named CRT import thunks; standard unsigned-character
+  pointers and header-specific import configuration preserve all 53 rows,
+  seven EH graphs and 168 code bindings. The owning scoped refresh removes
+  INI.cpp's Microsoft-declaration queue item; the linking prerequisites remain.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).
