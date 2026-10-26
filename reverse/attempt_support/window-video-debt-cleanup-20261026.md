@@ -65,7 +65,7 @@ byte/EH gates resolve them from their verified parents:
 | 0x00797C8C | $L9318 | $L9533 |
 | 0x00797CBB | $L11082 | $L11686 |
 
-That narrow verifier discrepancy extends LINK-015. The refusal also reports
+That narrow verifier discrepancy extends LINK-017. The refusal also reports
 five other findings; those are not declared false rejects or cleared by this
 pass. All four existing identity-register keys remain. Reconcile EH resolution
 in a separate tooling change and then assess the remaining current bindings.

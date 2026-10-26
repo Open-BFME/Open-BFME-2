@@ -65,3 +65,25 @@ CRT classification remains; this retires five redundant occurrences, not the
 entire header-queue item. Unrelated queue entries remain byte-for-byte intact.
 
 Logs: `build/codex-cleanup-20261025/iteration20-dedup-{build,eh,frozen,ms}.log`.
+
+## Publication and upstream reconciliation
+
+Published as `5994f7c59a` at 2026-10-26 04:46 UTC. The normal push hook checks
+33 upstream data-debt retirements, then passes 85 functions and 12 EXACT EH
+graphs across INI.cpp, the updated upstream SpecialPower destructor and the
+additional Eva.cpp dependency. The two explicitly changed units separately
+pass 58/58 rows with strict reusable receipts. The shadow batch-link audit
+again stops on Eva's known include-inventory prerequisite; no repeated
+preparation is attempted without new evidence. Its saved index `763dc8759f`
+also predates outgoing base `7d17532afb`.
+
+The required post-push rebase onto `c330885439` preserves the upstream
+VectorClass repair and the audio repair notes in two documentation conflicts.
+Upstream now owns LINK-015; the local EH-label obstacle becomes LINK-016 and
+the AIUpdate placement obstacle LINK-017, with their references reconciled.
+No game source conflict was resolved. Upstream's reference pointer advances
+to `ff391a5e90`, a descendant of the previously verified `f633d0e97a`; the
+clean reference checkout is synchronized to that pinned revision. A new full
+verification is required before taking further source measurements. The
+older reference-success stamp is retained until the new verification passes;
+no fresh success is claimed here.

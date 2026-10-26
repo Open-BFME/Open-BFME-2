@@ -614,6 +614,9 @@ authored-byte previews or commit-title gains into a projected headline.
   outgoing base `0edae3a354`. No provider-change/lost-byte verdict, false reject
   or closure is inferred; complete include inventory and a suitable comparison
   baseline remain prerequisites.
+  The subsequent `5994f7c59a` publication passes 85 functions and 12 EXACT EH
+  graphs in three sources, but its audit reaches the same Eva.cpp prerequisite.
+  The failed strict preparation is not relaunched without new include evidence.
 
 ### LINK-009: split-identity destructors; the alias route needs an admission path
 
@@ -997,7 +1000,7 @@ inspected revision: `2f9834aa34`.**
   cleanup preserves every matched byte.
 - **Clearance / census confirmation:** none claimed.
 
-### LINK-016: AIUpdate TU span combines weak propagation and disputed placement
+### LINK-018: AIUpdate TU span combines weak propagation and disputed placement
 
 **Status: Blocked on independent routing evidence and classification review.
 Updated: 2026-10-26; inspected revision: `766153ce00`.**
