@@ -48,3 +48,26 @@ The same paired link control preserves the consumer's 1,489 authored bytes,
 three diagnostics and the provider's seven blockers. This removes one local
 Microsoft declaration, separately from the two prior hatch retirements;
 it changes no register, compiler flag, pin or ledger row.
+
+## Publication audit qualification
+
+The publication of `0edae3a354` over prior branch head `a5cb102c02` passed
+47/47 functions across nine changed/dependent sources, one data row and nine
+EXACT EH graphs. Upstream had meanwhile added `link_batch_audit.py` to the
+pre-push hook; this was its one automatic run for the outgoing batch.
+
+It reported an INCONCLUSIVE baseline (`f995f30157` versus `a5cb102c02`) and
+INCONCLUSIVE input freshness: nine source objects lacked current strict
+receipts, first `AnimatedParticleSysBoneClientUpdate.cpp`. It stopped before
+a selected-provider/lost-byte verdict. No no-regression or loss claim follows.
+
+Read-only receipt witnesses for both that upstream unit and the changed
+material collector report `normal_current=True`, `strict_current=False`;
+their sidecars contain only `cmd`, `deps`, `object`, `path` and `source`.
+The new audit requires the full include-search inventory or a census-owned
+compile witness through `link_census.object_current`. Thus the normal gate
+does not satisfy its stricter freshness requirement. No check or receipt was
+relaxed or fabricated, and no extra census/measurement runner was started.
+Carry this batch into the next census with current input proof and a suitable
+comparison baseline; the ordinary paired preview above remains its bounded
+local linking evidence. LINK-008 tracks this open qualification.

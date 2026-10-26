@@ -593,6 +593,17 @@ authored-byte previews or commit-title gains into a projected headline.
   witnesses. Clearance and closed-strict confirmation remain pending; no census
   change is claimed for this inventory work.
 
+- **Outgoing-batch audit follow-up (2026-10-26, published `0edae3a354`):**
+  The new pre-push audit is [inconclusive for this batch](../reverse/attempt_support/material-collector-anchor-cleanup-20261026.md#publication-audit-qualification):
+  its index `f995f30157` predates outgoing base `a5cb102c02`, and nine objects
+  lack strict current receipts. Normal publication verification passes 47
+  functions, one data row and nine EH graphs. Read-only witnesses for the
+  material collector and the first reported upstream particle-update unit
+  confirm ordinary cache validity but no strict include inventory. No selected
+  provider or lost-byte verdict was reached. Carry the batch into the next
+  census with current input proof and an appropriate comparison baseline;
+  no regression, clearance, false reject or new linking gain is inferred.
+
 ### LINK-009: split-identity destructors; the alias route needs an admission path
 
 **Status: Blocked on an identity merge or a maintainer admission decision.
