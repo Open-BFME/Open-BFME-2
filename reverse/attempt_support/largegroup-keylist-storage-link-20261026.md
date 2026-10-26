@@ -136,3 +136,28 @@ destructor finding is also absent. The tool explicitly retains **one** key:
 the insert-unique binding at `0x003ED8B1`. Thus this retires one identity key,
 not all code-identity debt. No header-queue row existed for this source, so
 no header-queue retirement is counted. Shared headers and pins are unchanged.
+
+## Native insert owner follow-up
+
+The remaining AddKey binding now uses the existing record-tree specialization
+owned by `stlport_rb_tree_BfmeStringRecord004071F7_insert.cpp` at `0x003ED8B1`.
+That provider's three rows pass the normal gate. Its existing 12-byte record
+view is retained verbatim; no application identity is inferred from its name.
+Compile-time checks establish matching record and tree-storage sizes. The
+caller retains its original pair construction and reads the returned node's
+two scalar fields through its established pair view. Native instructions at
+`0x003EDA7C`, `0x003EDA84` and `0x003EDA93` prove the insert target and node
+offsets 24/20 respectively. The returned hidden pair slot is unchanged.
+
+A declaration-only insert trial enlarged the caller's frame from 20 to 28
+bytes. Keeping the native insert template visible, with only its rowed
+`_M_insert` worker declared externally, restores the exact 168-byte caller.
+No nonmatching trial is retained in `Code/`. No pin, alias, ledger ownership
+or shared-header change is needed.
+
+The final whole-file normal gate passes all four rows and the data row;
+both EH graphs are EXACT and the frozen-file check passes. The six-source
+ordinary preview still passes 6/6 at **10,184 -> 10,689** authored bytes.
+`repair_queue.py retire identity` removes the final insert key and reports
+**zero remaining findings for this source**. This is one additional retired
+identity key, with no further preview-byte or census claim.

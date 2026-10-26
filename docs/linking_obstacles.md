@@ -546,6 +546,13 @@ authored-byte previews or commit-title gains into a projected headline.
   owning tool removes its registered destructor-binding key and no longer
   finds the separate accessor-destructor issue. One insert-unique key at
   `0x003ED8B1` remains; no class-wide identity clearance is claimed.
+- **Native insert follow-up (2026-10-26, after `97e5e68584`):**
+  The same handoff proves the existing record-tree owner at `0x003ED8B1`
+  and the caller's scalar offsets. AddKey now uses that specialization;
+  its four rows, data row and two EH graphs remain exact. The owning tool
+  retires its final identity key with zero remaining source findings. The
+  six-unit ordinary preview remains 6/6 clean at 10,184 -> 10,689 bytes.
+  No wider class identity, strict closure or census clearance is implied.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

@@ -82,6 +82,28 @@ typedef _STL::_Rb_tree<AsciiString, Rva003D3F90Pair,
 
 typedef char KeyRecordTreeStorageSize[
 	sizeof(Rva003D3F90Tree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
+
+// Use the rowed 0x003ED8B1 provider's record view. The native caller passes
+// this 12-byte string/scalar record and reads scalars at node offsets 20/24.
+struct BfmeStringRecord004071F7 { AsciiString key; char payload[8]; };
+struct RecordNocaseLess
+{
+	bool operator()(const BfmeStringRecord004071F7 &, const BfmeStringRecord004071F7 &) const;
+};
+typedef _STL::_Rb_tree<BfmeStringRecord004071F7, BfmeStringRecord004071F7,
+	_STL::_Identity<BfmeStringRecord004071F7>, RecordNocaseLess,
+	_STL::allocator<BfmeStringRecord004071F7> > NativeKeyRecordTree;
+typedef char NativeKeyRecordSize[
+	sizeof(BfmeStringRecord004071F7) == sizeof(Rva003D3F90Pair) ? 1 : -1];
+typedef char NativeKeyRecordTreeStorageSize[
+	sizeof(NativeKeyRecordTree) == sizeof(g_lgaKeyRecords) ? 1 : -1];
+namespace _STL
+{
+template <> NativeKeyRecordTree::iterator
+NativeKeyRecordTree::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *,
+	const BfmeStringRecord004071F7 &, _Rb_tree_node_base *);
+}
+
 // Next key handed out by bfmeAddKey (retail RVA 0x00A02E4C, zero at load, just
 // below g_lgaKeyRecords); bfmeClearMembers (LargeGroupAudioKeyList.cpp) resets it.
 unsigned int g_lgaNextKey = 0;
@@ -100,14 +122,17 @@ void LargeGroupAudioKeyMap::bfmeAddKey(const AsciiString &name)
 {
 	Rva003D3F90Value empty = { 0, 0 };
 	Rva003D3F90Pair value(name, empty);
-	_STL::pair<Rva003D3F90Tree::iterator, bool> inserted =
-		reinterpret_cast<Rva003D3F90Tree *>(g_lgaKeyRecords)->insert_unique(value);
+	_STL::pair<NativeKeyRecordTree::iterator, bool> inserted =
+		reinterpret_cast<NativeKeyRecordTree *>(g_lgaKeyRecords)->insert_unique(
+			reinterpret_cast<const BfmeStringRecord004071F7 &>(value));
+	_STL::_Rb_tree_node<Rva003D3F90Pair> *record =
+		reinterpret_cast<_STL::_Rb_tree_node<Rva003D3F90Pair> *>(inserted.first._M_node);
 
-	++inserted.first->second.m_useCount;
+	++record->_M_value_field.second.m_useCount;
 	if (inserted.second)
-		inserted.first->second.m_key = g_lgaNextKey++;
+		record->_M_value_field.second.m_key = g_lgaNextKey++;
 
-	unsigned int key = inserted.first->second.m_key;
+	unsigned int key = record->_M_value_field.second.m_key;
 	unsigned int word = key >> 5;
 	unsigned int mask = 1 << (key & 0x1F);
 	if (word >= size())
