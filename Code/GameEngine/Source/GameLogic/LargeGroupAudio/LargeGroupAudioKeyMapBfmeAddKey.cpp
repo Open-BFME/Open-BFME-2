@@ -86,6 +86,8 @@ typedef char KeyRecordTreeStorageSize[
 // below g_lgaKeyRecords); bfmeClearMembers (LargeGroupAudioKeyList.cpp) resets it.
 unsigned int g_lgaNextKey = 0;
 
+class Drawable;
+
 class LargeGroupAudioKeyMap :
 	public _STL::vector<void *, _STL::allocator<void *> >
 {
@@ -109,7 +111,9 @@ void LargeGroupAudioKeyMap::bfmeAddKey(const AsciiString &name)
 	unsigned int word = key >> 5;
 	unsigned int mask = 1 << (key & 0x1F);
 	if (word >= size())
-		resize(word + 1, 0);
+		// Native 0x000E6D39 owns this by-value four-byte-element resize.
+		// The call view does not identify the bitmap words as Drawable pointers.
+		reinterpret_cast<_STL::vector<Drawable *, _STL::allocator<Drawable *> > *>(this)->resize(word + 1, 0);
 	((unsigned int *)begin())[word] |= mask;
 }
 

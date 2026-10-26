@@ -533,6 +533,13 @@ authored-byte previews or commit-title gains into a projected headline.
   address-global occurrences. Thunk retirement remains refused on other
   findings. This storage subset is cleared in the stated current-object
   scope; full convergence, strict closure and census confirmation are unclaimed.
+- **Key insertion resize follow-up (2026-10-26, after `d453de7462`):**
+  The same evidence records the direct native resize-owner call. AddKey's four
+  rows (324 bytes), data row and two EH graphs remain exact; the final six-unit
+  ordinary preview is 6/6 clean, 10,184 -> 10,689 authored bytes (505 gained).
+  This clears the stated ordinary-preview cohort, not its strict or census
+  status. Identity retirement still refuses a separate AsciiString-destructor
+  binding in the static accessor; its existing identity key is retained.
 - **Remaining / next check:** shader/filter root-object ownership remains
   open. The [current witnesses](../reverse/attempt_support/vp6-scale-tables-link-20261025/remaining-witnesses.json)
   show InitPostProcessing still closure-blocked through GetProcessorFlags and

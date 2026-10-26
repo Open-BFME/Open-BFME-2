@@ -96,3 +96,28 @@ No `data_converged.csv` or generated `data_ledger.csv` change is made: the new
 verified data owner takes precedence over the historical index. Broader
 whole-tree convergence and the remaining vector resize dependency are separate
 work. Matched and C++ exact coverage are preserved.
+
+## AddKey resize follow-up
+
+After storage commit `d453de7462`, the whole AddKey source keeps its existing
+bitmap/vector views but calls the native `0x000E6D39` owner through the
+already-used `vector<Drawable *>` resize signature. This is the same by-value
+four-byte-element call made by the merge consumer. It passes only zero as
+the fill value and does not identify bitmap words as Drawable pointers.
+The 63-byte provider in `DrawableVectorResize.cpp` passes its normal gate.
+No new pin or alias is added; the old `vector<void *>` pin remains.
+
+The entire AddKey source passes before/after frozen-file and normal gates:
+four rows, 324 bytes, its four-byte data row and both EXACT EH graphs.
+The final six-current-source ordinary preview is **6/6 clean**,
+**10,184 -> 10,689 authored bytes**. It retains the four earlier clean units,
+adds KeyList's 191 and AddKey's 314 authored bytes, for a bounded **505-byte**
+gain against the same published index. The command now exits zero.
+No current census or complete-image claim follows from this preview.
+
+The owning identity-retirement tool refuses to remove AddKey's existing
+insert-unique key because it separately finds a divergent AsciiString
+destructor reference in the static accessor at `0x002862C9`, targeting
+`0x00036410`. No identity key is removed and no false-reject claim is made.
+That finding is separate from the ordinary link verdict and remains a
+code-identity prerequisite for the whole source.
