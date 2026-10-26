@@ -165,7 +165,7 @@ Code/GameEngine/Source/Common/Gen009F5040Handle.cpp,,3,3,region default loses ro
 Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightBelowPosition.cpp,,2,1,region default loses rows
-Code/GameEngine/Source/Common/INI/INI.cpp,-O1 -arch:SSE,2,2,region default loses rows
+Code/GameEngine/Source/Common/INI/INI.cpp,-O1 -arch:SSE,53,2,region default loses rows
 Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp,-O1 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParse_Rva005051da.cpp,-Os,1,1,region default loses rows
 Code/GameEngine/Source/Common/MultiplayerSettings.cpp,-G7 -arch:SSE,3,2,region default loses rows

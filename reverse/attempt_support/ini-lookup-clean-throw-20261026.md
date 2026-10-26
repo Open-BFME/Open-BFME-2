@@ -78,3 +78,26 @@ parseAsciiStringVectorAppend. These are first trial diagnostics, not proven
 independent root causes. The original byte-matched bodies remain intact.
 
 Logs: `build/codex-cleanup-20261025/iteration19-{dry-run,merge,merged-build,merged-identity,merged-link}.log`.
+
+## Final flags and path-consumer audit
+
+After rebasing on `origin/master` at `561f16348d`, the owning
+`flag_defaults.py propose` tool measures the final 53-row TU. The existing
+`-O1 -arch:SSE` override remains necessary: the region default loses two rows.
+Only the measured row count changes from two to 53; effective compilation
+flags do not change. Log: `iteration19-flags-final.log`.
+
+The complete source-path delta in `561f16348d..37dc9e234d` removes exactly the
+seven donors listed above and in the preceding consolidation handoff. A single
+combined search of their full paths and basenames across active tools, hooks,
+workflows, source/header files, build configuration, registers and documentation
+finds no active consumer requiring another path change. INI-specific directory
+and glob checks likewise find no dependency on those retired files. Existing
+generic source discovery and source-keyed register transfers use the new TU.
+
+Remaining old-path mentions are source/provenance comments, immutable attempt
+evidence, append-only attempt history and the saved census's `link_status.csv`.
+Those historical records are intentionally retained. No include, hook, active
+function/data owner, override, header queue or tooling path still requires a
+deleted donor. Audit log: `iteration19-path-consumers.log`. Recheck this audit
+only if a later change adds another move or alters a relevant consumer.
