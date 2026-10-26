@@ -33,3 +33,18 @@ reports zero local definitions/declarations and zero failed classifications.
 The ordinary preview remains clean at 47 -> 47 authored bytes against the
 same index. This removes one additional local definition, with no row, pin,
 shared-header, flag or register change.
+
+## Buddy response helpers and combined scope
+
+The separately claimed `BuddyResponseDequePushBackAux.cpp` permits the same
+one-line replacement. Before/after normal and frozen-file checks preserve
+its 24-byte `_Construct` at `0x005507B0..0x005507C8` and 23-byte `_M_set_node`
+at `0x0055081D..0x00550834`. Its Microsoft-header scan likewise reports zero
+local definitions/declarations and zero failed classifications.
+
+The three-source ordinary preview is clean at **449 -> 449** authored bytes
+against the same index. In total this removes three local placement-new
+definitions while preserving **ten function rows (499 bytes)** and the
+staging-room copy's exact EH graph. Each source is banked separately. The
+two deque files own only their two helper rows each; no larger template body
+or new runtime/identity result is claimed.
