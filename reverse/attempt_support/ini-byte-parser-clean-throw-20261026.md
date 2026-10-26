@@ -117,3 +117,27 @@ closure of the header-queue item or a linking gain. Independent read-only
 review found no blocker in the source or scoped register update.
 
 Logs: `build/codex-cleanup-20261025/iteration21-macros-{build,eh,frozen,ms}.log`.
+
+## Standard CRT declaration follow-up
+
+Base `2c0f5aac4c`. The next homogeneous declaration cleanup first removes the
+local `strlen` and `_strcmpi` prototypes: `ascii_string.h` already includes
+standard `string.h`. The native VS 2003 x86 header supplies an ordinary
+`size_t __cdecl strlen(const char *)` and an imported
+`int __cdecl _strcmpi(const char *, const char *)`, matching the local types
+and call configuration. That intermediate whole-file build passes 53/53.
+
+Adding `<stdio.h>` then replaces the local imported `sscanf` declaration with
+the standard declaration of the same signature. The existing `_CRTIMP`
+configuration and compiler flags are retained. The final whole-file build
+again passes 53/53 rows / 3,945 bytes, all 54 strings plus one empty reference,
+one float and nine named imports. Seven EH graphs are EXACT and the frozen
+check passes. The owning scoped queue refresh changes only INI.cpp from
+five local declarations to two, `_mbscpy` and `_mbscat`; their ABI findings
+and the CRT configuration finding remain, with zero failed classifications.
+This retires three local declarations, not the remaining header-queue item.
+Independent read-only review confirms the x86 signatures, calling convention,
+import configuration and include order, with no source or register blocker.
+
+Logs: `build/codex-cleanup-20261025/iteration21-string-header-build.log` and
+`iteration21-crt-header-{build,eh,frozen,ms}.log` in the same directory.

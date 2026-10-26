@@ -833,6 +833,9 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
   The new full build against the maintainer's pinned BFME 1 `ff391a5e90`
   also passes all 98,252 function and 2,216 data rows; it does not resolve the
   strict batch-link inventory prerequisite or confirm a new census gain.
+  A further verified declaration cleanup uses the already included `string.h`
+  for `strlen`/`_strcmpi` and adds `stdio.h` for `sscanf`: five local prototypes
+  become two (`_mbscpy`/`_mbscat`), retaining all 53 rows and seven EH graphs.
 - **Remaining / next check:** the next census confirms the six units. INI.cpp's own link
   also depends on the separate `__lower_bound` provider repair.
 - **Clearance:** preview scope only (five of six units against the f995f30157 index).

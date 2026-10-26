@@ -10,6 +10,7 @@
 #define TheINIMacroTable (*(INIMacroTable *)BfmeINIMacroTableStorage)
 #define ERROR_BUG ((ErrorCode)1)
 #include <cstddef>
+#include <stdio.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../../Libraries/Include/Lib/Coord2D.h"
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
@@ -231,8 +232,6 @@ typedef void (__cdecl *BuildMultiIniFieldProc)(MultiIniFieldParse &);
 
 typedef int Int;
 
-extern "C" unsigned int __cdecl strlen(const char *string);
-
 extern "C" char *__cdecl _mbscpy(char *dest, const char *source);
 
 extern "C" char *__cdecl _mbscat(char *dest, const char *source);
@@ -271,13 +270,9 @@ private:
 	char m_body[0x30]; // after the vptr: 0x34 bytes in all
 };
 
-extern "C" __declspec(dllimport) int __cdecl _strcmpi(const char *a, const char *b);
-
 typedef unsigned int UnsignedInt;
 
 typedef bool Bool;
-
-extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buf, const char *fmt, ...);
 
 // The rowed out-of-line erase: an explicit specialization declaration keeps
 // the call instead of inlining STLport's in-class body.
