@@ -671,6 +671,14 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
     `INI::scanInt`, …) from `INI_ctor.obj` and `INI_scanInt.obj`. Those units were merged
     into INI.cpp after f995f30157, so these duplicates are stale-index artifacts, not this
     repair.
+- **Historical guarded-input check (2026-10-26, `9e1ca7f93f`):**
+  [the guarded INI check](../reverse/attempt_support/ini-current-ledger-prerequisites-20261026.md)
+  preserves all 39 rows (3,039 bytes) and five EXACT EH graphs. The published
+  index remains `f995f30157`; ordinary preview retains 11 duplicate and eight
+  selected findings. The supported current-ledger preview refuses before its
+  link verdict because 11,481 providers lack current compiler evidence. This
+  count is a strict currency prerequisite, not byte mismatches or a new source
+  regression. No source edit, new linked-byte gain or false reject is claimed.
 - **Current-provider verification:** the LINK-014 follow-up checks all eight
   insert_unique / _M_find units together and previews all 11,872 B clean,
   including INI.cpp. The historical duplicate-index and __lower_bound
