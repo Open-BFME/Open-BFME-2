@@ -1,0 +1,154 @@
+{
+  "model": "gpt-6",
+  "native_table_va": "0x00C0BBCC",
+  "native_extent": 44,
+  "next_table_va": "0x00C0BBF8",
+  "native_words_including_next_table": [
+    "0x714ac4",
+    "0x4a0cff",
+    "0x504e45",
+    "0x49dc05",
+    "0x48ff56",
+    "0x49fd78",
+    "0x713913",
+    "0x43b810",
+    "0x71393a",
+    "0x48ff78",
+    "0x90b5c6",
+    "0x7149ea",
+    "0x71455e",
+    "0x714581",
+    "0x714596"
+  ],
+  "old_compiled_size": 48,
+  "current_copies": {
+    "Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "__purecall"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "__purecall"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "__purecall"
+        ],
+        [
+          36,
+          6,
+          "__purecall"
+        ],
+        [
+          40,
+          6,
+          "__purecall"
+        ]
+      ]
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "__purecall"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "__purecall"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "__purecall"
+        ],
+        [
+          36,
+          6,
+          "__purecall"
+        ],
+        [
+          40,
+          6,
+          "__purecall"
+        ]
+      ]
+    }
+  },
+  "remaining_incorrect_pure_slots": [
+    2,
+    6,
+    8,
+    9,
+    10
+  ],
+  "scope": "width and existing slots1/4 fixed; complete data-byte recovery not claimed"
+}

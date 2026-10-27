@@ -190,7 +190,7 @@ public:
 	virtual void slot08();
 	virtual void slot09();
 	virtual Bool windowSlot10();
-	virtual void winSetFont(GameFont *font);
+	void winSetFont(GameFont *font);
 	Int winSetInstanceData(WinInstanceData *data);
 	int m_field04;
 	UnsignedInt m_status;

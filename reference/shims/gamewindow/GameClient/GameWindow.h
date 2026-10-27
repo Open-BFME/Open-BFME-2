@@ -319,7 +319,7 @@ public:
 	UnicodeString winGetText( void );  ///< get text string
 	Int winGetTextLength(); ///< get number of chars in text string
 	GameFont *winGetFont( void );  ///< get the font being used by this window
-	virtual void winSetFont( GameFont *font );  ///< set font for window
+	void winSetFont( GameFont *font );  ///< set font for window
 	void winSetEnabledTextColors( Color color, Color borderColor );
 	void winSetDisabledTextColors( Color color, Color borderColor );
 	void winSetIMECompositeTextColors( Color color, Color borderColor );

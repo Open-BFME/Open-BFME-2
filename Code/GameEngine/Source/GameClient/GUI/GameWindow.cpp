@@ -708,13 +708,13 @@ class GameWindow
 protected:
 	virtual ~GameWindow();
 public:
-	virtual void vslot1() = 0;
+	virtual WindowMsgHandledType input(UnsignedInt, WindowMsgData, WindowMsgData);
 public:
 	virtual void vslot2() = 0;
 public:
 	virtual Int draw(void *);
 public:
-	virtual void vslot4() = 0;
+	virtual Int tooltip(WinInstanceData *, UnsignedInt);
 public:
 	virtual Int rva0009FD78();
 public:
@@ -732,7 +732,7 @@ public:
 public:
 	Int winSetSize(Int width, Int height);
 public:
-	virtual void winSetFont(GameFont *);
+	void winSetFont(GameFont *);
 public:
 	void winSetEnabledTextColors(int color, int borderColor);
 public:

@@ -83,23 +83,25 @@ public:
 
 class GameFont;
 
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+
 // GameWindow.cpp's virtual list, so both units emit the same ??_7GameWindow.
 class GameWindow
 {
 protected:
   virtual ~GameWindow();
 public:
-  virtual void vslot1() = 0;
+  virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
   virtual void vslot2() = 0;
   virtual int draw( void * );
-  virtual void vslot4() = 0;
+  virtual int tooltip(WinInstanceData *, unsigned int);
   virtual int rva0009FD78();
   virtual void vslot6() = 0;
   virtual void *fetchCreateInstance() = 0;
   virtual void vslot8() = 0;
   virtual void vslot9() = 0;
   virtual void vslot10() = 0;
-  virtual void winSetFont( GameFont * );
+  void winSetFont( GameFont * );
 private:
 	GameWindowAnchor *m_anchor;
 	int m_status;

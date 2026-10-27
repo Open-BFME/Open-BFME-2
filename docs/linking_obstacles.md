@@ -2229,6 +2229,17 @@ Whole-unit clearance and census confirmation remain pending.
   GameWindow.cpp's 12-slot virtual list keeps all 6 rows byte-exact and makes
   link_check report LINKS (0 -> 249 B). Both views still declare 12 slots against
   retail's 11; that reconciliation remains open. Census confirmation pending.
+- **GameWindow native-width and font ABI repair (2026-10-28, inspected `8ce068f96d7`):**
+  [The native boundary and caller proof](../reverse/attempt_support/gamewindow-font-abi-link-20261028/readme.md)
+  makes the existing121-byte winSetFont nonvirtual, updates all four direct
+  callers and the project-owned shim, and removes the false twelfth slot from
+  both table emitters. Existing input/tooltip owners now occupy slots1/4.
+  The normal six-unit build passes106/106, and the seven-unit build with the
+  unchanged callback provider passes156/156. Both tables now have44 bytes.
+  The before-preview already links the six callers for13351 authored bytes;
+  no new census gain is claimed. The shared-header reach is66 ledger sources
+  and awaits its normal hook gate. Slots2,6,8,9,10 still need their actual
+  non-pure owners; complete table recovery and census confirmation remain open.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its

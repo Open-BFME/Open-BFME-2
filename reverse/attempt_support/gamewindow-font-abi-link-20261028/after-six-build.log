@@ -1,0 +1,10 @@
+Source claims: OK (6 sources, scoped byte-verified)
+Compile: 5 of 6 TU(s) (deps-cache: 1 current)
+Funclet pins: 3 row(s) verified past a renumbered $L label
+    Unwind@00b7a4ec (Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp): $L1160 was renumbered; verified parent EH data places $L3246 at 0x0077A4EC
+    Unwind@00b7a4f4 (Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp): $L1161 was renumbered; verified parent EH data places $L3247 at 0x0077A4F4
+    Unwind@00b7a4ff (Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp): $L1162 was renumbered; verified parent EH data places $L3248 at 0x0077A4FF
+Functions: OK 106/106 matched across 6 source file(s)
+String-ref verify: OK (209 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (1 compiler literals verified)
+Import-ref verify: OK (1 named imports verified)

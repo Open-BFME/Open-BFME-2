@@ -38,7 +38,7 @@ class GameWindow
 {
 public:
 	GameFont *winGetFont();
-	virtual void winSetFont(GameFont *font);
+	void winSetFont(GameFont *font);
 };
 
 // GadgetUserDataOr0032060D.cpp's 0x0032060D and the text entry's maximum
