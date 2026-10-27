@@ -33,7 +33,11 @@ with the unchanged existing callback provider, all156/156 rows pass, including
 209 literal references. Both emitted tables now have44 bytes and the correct
 slot1/4 symbol references. Frozen-file preflight passes for all six direct units.
 Header reach is bounded to66 ledger sources by the normal header_dependents
-tool; the normal commit hook must verify that complete reach before landing.
+tool. The complete normal commit hook passes537/537 functions in those66
+units and all27 data rows. Its direct staged-source gate also passes75/75
+rows and six EXACT EH graphs. name_dependents scans22302 units and finds
+zero remaining consumers of the withdrawn virtual font symbol. The log
+records zero new identity/data findings and no pin or hatch growth.
 
 The before-preview already links all six direct units, retaining13351 authored
 nonpadding bytes against index73061d9452 (2026-10-27 14:34). Its printed historical
@@ -57,3 +61,9 @@ The official BFME1 upstream was fetched at2eb9ecaeead6c05e79d5306ea95bae227e4fe7
 The checkout and committed pointer stay at the verified E744 input. The earlier
 native old/new control recorded DIR32 failures; latest upstream is unqualified,
 not a new passed comparison. No freshness success stamp was written.
+
+The published census index lacks per-object consumer names for 22654 current
+index entries. This is independently read from the current index, not inferred
+from a passed source gate. Whole-batch loss/selection closure is unverified;
+carry the66-file header reach and the direct seven-source cohort to the next
+normal census. No new linked-byte gain is asserted.

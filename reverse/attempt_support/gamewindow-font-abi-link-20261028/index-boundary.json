@@ -1,0 +1,9 @@
+{
+  "provider_meta": {
+    "date": "2026-10-27 14:34",
+    "commit": "73061d9452",
+    "clean_tree": true
+  },
+  "objects_missing_consumer_names": 22654,
+  "whole_batch_closure": "unverified; current per-object consumer metadata required"
+}

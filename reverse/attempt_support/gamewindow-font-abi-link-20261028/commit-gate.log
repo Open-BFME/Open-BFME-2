@@ -1,0 +1,8 @@
+code identity: 75 row(s), 0 new finding(s), 5.8s, mode shadow
+header_dependents: 1 changed header(s) and 5 included file(s) reach 66 ledger source(s)
+Data rows: OK (27 row(s) byte-verified)
+Functions: OK 537/537 matched across 66 source file(s)
+name_dependents: 1 call target(s) and 1 data-row target(s) lost (?winSetFont@GameWindow@@UAEXPAVGameFont@@@Z); 0 referencing unit(s) of 22302 scanned in 8.4s
+Functions: OK 75/75 matched across 5 source file(s)
+EH verify: 6 row(s) with EH data (EXACT 6); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.3s
+PRE-COMMIT OK (ledger integrity + 5 source(s) byte-verified)

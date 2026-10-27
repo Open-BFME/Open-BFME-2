@@ -2237,9 +2237,13 @@ Whole-unit clearance and census confirmation remain pending.
   The normal six-unit build passes106/106, and the seven-unit build with the
   unchanged callback provider passes156/156. Both tables now have44 bytes.
   The before-preview already links the six callers for13351 authored bytes;
-  no new census gain is claimed. The shared-header reach is66 ledger sources
-  and awaits its normal hook gate. Slots2,6,8,9,10 still need their actual
-  non-pure owners; complete table recovery and census confirmation remain open.
+  no new census gain is claimed. The normal shared-header gate now passes
+  537/537 functions across66 units and all27 data rows; the direct gate
+  passes75/75 and six EXACT EH graphs. No old font-symbol consumers remain
+  in the22302-unit name-dependents scan. The index lacks consumer metadata,
+  so whole-batch selection/loss closure remains unverified; carry this
+  header reach and the direct cohort to the next normal census. Slots2,6,8,9,10
+  still need their actual non-pure owners; complete table recovery remains open.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its
