@@ -57,7 +57,6 @@
 
 //-------------------------------------------------------------------------------------------------
 // byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Module/DieMuxDataGetFieldParseThunk.cpp
-// ?getFieldParse@DieMuxData@@ present-unmatched
 const FieldParse* DieMuxData::getFieldParse() 
 {
 	static const FieldParse dataFieldParse[] = 
