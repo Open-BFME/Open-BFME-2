@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/FXListStoreCtor.cpp: LINKS  LINKED 0 -> 109 bytes (census 2026-10-25 13:53 at 51fde01dff; file's own bytes 109)
-Code/GameEngine/Source/GameClient/FXListMapNodeEmit.cpp: LINKS  LINKED 41 -> 41 bytes (census 2026-10-25 13:53 at 51fde01dff; file's own bytes 41)
-  diagnostic  ?allocate@?$allocator@U?$_List_node@PAVFXNugget@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVFXNugget@@@2@IPBX@Z  (codegen-like: 34 bytes against the majority copy's 28; unreferenced, not a blocker)
-  diagnostic  ?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVFXNugget@@@_STL@@U12@V?$allocator@U?$_List_node@PAVFXNugget@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVFXNugget@@@2@I@Z  (codegen-like: 34 bytes against the majority copy's 14; unreferenced, not a blocker)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva001E2F8E.cpp: LINKS  LINKED 74 -> 74 bytes (census 2026-10-25 13:53 at 51fde01dff; file's own bytes 74)
-Code/GameEngine/Source/GameLogic/Object/Armor.cpp: LINKS  LINKED 502 -> 502 bytes (census 2026-10-25 13:53 at 51fde01dff; file's own bytes 502)
-link_check: 4 of 4 link cleanly; LINKED 617 -> 726 bytes (5.5s)

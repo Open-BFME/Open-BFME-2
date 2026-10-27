@@ -1,4 +1,0 @@
-link_check: no census index at build/link_census/link_index.pkl (never tracked).
-  download the last published census's:  python3 tools/link_check.py --fetch-index
-  build one (keep the tree still until it ends; rewrites reverse/link_status.csv):
-                            python3 tools/link_census.py --build --measure

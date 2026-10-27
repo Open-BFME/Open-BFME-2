@@ -1,5 +1,0 @@
-definition: divergent | ??0Vector3@@QAE@ABV0@@Z
-definition: divergent | ??A?$VectorClass@VVector3@@@@QAEAAVVector3@@H@Z
-definition: divergent | ??AMatrix3D@@QBEABVVector4@@H@Z
-definition: divergent | ?Init@Matrix4@@QAEXABVVector4@@000@Z
-code identity 236 rows; 4 findings; shadow

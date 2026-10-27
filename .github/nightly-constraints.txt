@@ -1,7 +1,0 @@
-# Exact package versions for .github/workflows/nightly-measure.yml (pip -c): the versions the
-# byte-verification host resolves today (Python 3.13.15). Change them together, on purpose.
-capstone==5.0.7
-pefile==2024.8.26
-numpy==2.5.1
-pytest==9.1.1
-unicorn==2.1.4

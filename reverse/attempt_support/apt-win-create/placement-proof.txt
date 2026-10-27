@@ -1,6 +1,0 @@
-?WinCreate@AptPlayer@@QAEPAVGameWindow@@PBVAsciiString@@PAUAptLayoutInfoView@@@Z (build/sole-wincreate-home-placement.cpp)
-target RVA: 0x00223263
-target size: 323 bytes
-compiled symbol size: 323 bytes
-classification: exact match
-OK: bytes match

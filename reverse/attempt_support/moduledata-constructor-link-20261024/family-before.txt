@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp: LINKS  LINKED 313 -> 313 bytes (census 2026-10-24 02:54 at 268f876e3b; file's own bytes 313)
-link_check: 1 of 1 link cleanly; LINKED 313 -> 313 bytes (5.0s)

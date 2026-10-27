@@ -1,9 +1,0 @@
-import sys
-from pathlib import Path
-ROOT=Path('/work/Open-BFME-2'); sys.path.insert(0,str(ROOT/'tools'))
-import build
-RVA=0x1C2B80; SIZE=916; SYM='_DiagonalBlur'
-comp,rel=build.read_object_symbol_bytes(Path(sys.argv[1]),SYM,code_only=True)
-tgt=build.read_target_bytes(RVA,SIZE)
-n=len(comp); nd=sum(1 for i in range(SIZE) if i>=n or comp[i]!=tgt[i])
-print(sys.argv[1],'len',n,'nd',nd)

@@ -1,6 +1,0 @@
-Source claims: OK (0 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?BFME_DX8_Thread_Assert@@YA_NXZ (Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (3 named imports verified)

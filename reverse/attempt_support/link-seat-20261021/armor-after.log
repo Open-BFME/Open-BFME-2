@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Rva00427157Ctor.cpp: LINKS  LINKED 0 -> 691 bytes (census 2026-10-21 06:00 at 2b4d1fb42a; file's own bytes 691)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 691 bytes (4.2s)

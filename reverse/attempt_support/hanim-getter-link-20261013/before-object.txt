@@ -1,9 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp: self-strict=True
-?Get_Motion@HAnimComboClass@@QAEPAVHAnimClass@@H@Z: raw=8b41048b4c24048b14888b0285c07403ff4004c20400 relocs=[]; retail=8b41048b4c24048b14888b0285c0740483400401c20400 exact=False; full length=22
-?Get_Pivot_Weight_Map@HAnimComboClass@@QAEPAVPivotMapClass@@H@Z: raw=8b41048b4c24048b0c888b410c85c07403ff401c8b410cc20400 relocs=[]; retail=8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400 exact=False; full length=26
-Code/Libraries/Source/WWVegas/WW3D2/HAnimComboClassGetMotion.cpp: self-strict=True
-?Get_Motion@HAnimComboClass@@QAEPAVHAnimClass@@H@Z: raw=8b41048b4c24048b14888b0285c0740483400401c20400 relocs=[]; retail=8b41048b4c24048b14888b0285c0740483400401c20400 exact=True; full length=23
-?Get_Pivot_Weight_Map@HAnimComboClass@@QAEPAVPivotMapClass@@H@Z: raw=8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400 relocs=[]; retail=8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400 exact=True; full length=27
-Code/Libraries/Source/WWVegas/WW3D2/HAnimComboBFME1.cpp: self-strict=False
-?Get_Motion@HAnimComboClass@@QAEPAVHAnimClass@@H@Z: not defined
-?Get_Pivot_Weight_Map@HAnimComboClass@@QAEPAVPivotMapClass@@H@Z: raw=8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400 relocs=[]; retail=8b41048b4c24048b0c888b410c85c0740483401c018b410cc20400 exact=True; full length=27

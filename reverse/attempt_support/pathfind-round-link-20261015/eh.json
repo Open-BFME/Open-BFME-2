@@ -1,7 +1,0 @@
-{
-"?allocateCells@PathfindLayer@@QAEXPBUIRegion2D@@@Z@0x0036683D": [
-"EXACT",
-"",
-"Code/GameEngine/Source/GameLogic/Pathfinder/PathfindLayerAllocateCells.cpp"
-]
-}

@@ -1,2 +1,0 @@
-hatch_counters: note: address_global: g_Va00DDF58C in Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp is down to 0 (register says 2) -- `tools/hatch_counters.py --update` tightens it
-hatch_counters: note: address_global: g_Va00DDF5B4 in Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp is down to 0 (register says 2) -- `tools/hatch_counters.py --update` tightens it

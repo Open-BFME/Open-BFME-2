@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/System/ParticleBaseConstructor.cpp	wrong-name	?TheGameClient@@3PAVClientFrameSubsystem@@A	0x009FE77C
-data_check: Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	wrong-name	?TheGameClient@@3PAVClientFrameSubsystem@@A	0x009FE77C
-data_check (shadow): 2 source(s), 3 finding(s), 2 outside the baseline {'wrong-name': 2}; 1.0s

@@ -1,7 +1,0 @@
-@ ours[44:44] retail[44:45] insert
-+  lea ebx, [esp + eax + 0x38]
-@ ours[50:51] retail[51:51] delete
--  lea ebx, [edi + 0xc]
-@ ours[54:55] retail[54:55] replace
--  lea esp, [esp]
-+  lea ecx, [ecx]

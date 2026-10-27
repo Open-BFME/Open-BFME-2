@@ -1,9 +1,0 @@
-import sys,json
-from pathlib import Path
-sys.path.insert(0,'build/fxinit-seat22');import search as h
-D=Path('build/fxinit-admit23');r=json.loads((D/'trace-verification.json').read_text())
-for label,control in [('volatile-guard-cost','build/fxinit-cost22/trials/guards_001.obj'),('value-view-cost',str(D/'trials/valuebundlesafe_0000110.obj'))]:
- a=h.build.read_object_symbol_bytes(D/(label+'.obj'),h.NAME,code_only=True);b=h.build.read_object_symbol_bytes(Path(control),h.NAME,code_only=True)
- assert a==b,(label,'trace changed ordinary bytes/relocations')
- e=json.loads((D/(label+'.obj.events.json')).read_text());r[label]={'bytes_equal':a[0]==b[0],'relocations_equal':a[1]==b[1],'size':len(a[0]),'cost_events':[{'ip':z['ip'],'round_zero_based':z['round']+1,'candidate':z['record'][7],'symbol':hex(z['record'][0]),'serial':z['record'][17],'old':z['record'][3],'reference_cost':z['record'][6],'factor':z.get('factor'),'new':z.get('new')}for z in e if z['ip']=='0x8292a' or label=='volatile-guard-cost'and z['ip']=='0x82a4d']}
-(D/'trace-verification.json').write_text(json.dumps(r,indent=2));print('Verified five trace controls against ordinary complete bytes and relocations')

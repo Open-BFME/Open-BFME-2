@@ -1,5 +1,0 @@
-INI texture-vector emission lead, 2026-10-20
-
-At BFME2 2c5c1dfc73, current link_check shows 435 B in INIStatsRecordTextures.cpp held by DynamicVectorClass<StringClass> complete destructor and VectorClass<StringClass> scalar deleting destructor COMDATs. The source already marks the base destructor dllimport forceinline. Native unwind 0x7945AF uses folded complete destructor 0x121E20; base scalar deleting destructor is rowed at 0x122130 in dx8wrapper.cpp.
-
-One diagnostic attempt adds dllimport to both class templates to suppress the incidental bodies. MSVC 7.1 refuses C2487 because the existing imported member destructor duplicates the class dll-interface annotation. No bytes were produced, and the trial was stopped at runner wind-down. The patch is retained only as preparation; remove redundant member dllimport before investigating this direction, then prove all native rows and no new IAT references. Source restored and normal byte gate rerun. No improvement or partial recovery claimed; claims released.

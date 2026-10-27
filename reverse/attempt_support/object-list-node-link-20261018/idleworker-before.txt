@@ -1,6 +1,0 @@
-Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 727)
-  comdat      ?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z  (retail: not retail's body)
-  selected    ?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z  (the definition the link keeps is not retail's)
-  diagnostic  ?allocate@?$allocator@U?$_List_node@PAVObject@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVObject@@@2@IPBX@Z  (codegen-like: 25 bytes against the majority copy's 28; unreferenced, not a blocker)
-  diagnostic  ?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVObject@@@_STL@@U12@V?$allocator@U?$_List_node@PAVObject@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVObject@@@2@I@Z  (codegen-like: 25 bytes against the majority copy's 14; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.8s)

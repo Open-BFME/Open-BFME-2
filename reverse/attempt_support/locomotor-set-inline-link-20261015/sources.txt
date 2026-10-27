@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/AI/AIFollowPathStateMethods.cpp
-Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit.cpp
-Code/GameEngine/Source/GameLogic/AI/AIGuardRetaliateStates.cpp
-Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp
-Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp
-Code/GameEngine/Source/GameLogic/AI/AIGroupMoveFormation.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateScan.cpp
-Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp

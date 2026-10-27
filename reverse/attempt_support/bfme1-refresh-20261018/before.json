@@ -1,9 +1,0 @@
-{
-  "time": "2026-10-18T19:28:09.317221+00:00",
-  "bfme2_revision": "27640eb71bc94ec38a2b86496757dd980b2a8935",
-  "before_pointer": "64d369b90170b7e9ec917d646f020b11f13eb0d5",
-  "before_checkout": "64d369b90170b7e9ec917d646f020b11f13eb0d5",
-  "candidate": "91c5204c276f44faa1251ca03b52a11a19d43e51",
-  "candidate_already_fetched": "2026-10-18T16:15:43Z",
-  "submodule_clean": true
-}

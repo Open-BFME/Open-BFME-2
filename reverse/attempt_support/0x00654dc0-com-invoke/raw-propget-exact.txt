@@ -1,6 +1,0 @@
-?_com_dispatch_raw_propget@@YGJPAUIDispatch@@JGPAX@Z (build/resume-eh-local/turn41-invoke.cpp)
-target RVA: 0x00655440
-target size: 35 bytes
-compiled symbol size: 35 bytes
-classification: exact match
-OK: bytes match

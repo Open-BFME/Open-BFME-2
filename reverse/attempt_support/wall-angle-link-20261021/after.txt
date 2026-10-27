@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/System/BuildAssistant.cpp: LINKS  LINKED 0 -> 8,611 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 8,611)
-Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp: LINKS  LINKED 0 -> 2,218 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 2,218)
-Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp: LINKS  LINKED 1,112 -> 1,112 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 1,112)
-link_check: 3 of 3 link cleanly; LINKED 1,112 -> 11,941 bytes (3.4s)

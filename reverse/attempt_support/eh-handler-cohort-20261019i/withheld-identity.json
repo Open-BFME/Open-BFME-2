@@ -1,9 +1,0 @@
-{
-  "problems": [
-    "definition: divergent | ??AMatrix3D@@QBEABVVector4@@H@Z",
-    "definition: divergent | ?getTemplateGeometryInfo@ThingTemplate@@QBEABVGeometryInfo@@XZ"
-  ],
-  "mode": "shadow",
-  "seconds": 5.160516977310181,
-  "rows": 75
-}

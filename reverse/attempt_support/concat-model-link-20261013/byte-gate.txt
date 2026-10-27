@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?rva00562BF7@Rva00562BF7Owner@@QAE?AVAsciiString@@XZ (Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00562BF7SelectModelName.cpp)
-String-ref verify: OK (5 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (7 compiler literals verified)
-Import-ref verify: OK (3 named imports verified)

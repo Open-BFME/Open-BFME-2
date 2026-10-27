@@ -1,3 +1,0 @@
-binding: Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp | ??$_Destroy@PAUTreeHintRef00217D4C@@@_STL@@YAXPAUTreeHintRef00217D4C@@0@Z | ??$__destroy_aux@PAUTreeHintRef00217D4C@@@_STL@@YAXPAUTreeHintRef00217D4C@@0ABU__false_type@0@@Z | 0x004F72ED | wrong
-binding: Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp | ?erase@?$vector@UBfmeAssignRecord104@@V?$allocator@UBfmeAssignRecord104@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord104@@PAU3@0@Z | ??$_Destroy@PAUBfmeAssignRecord104@@@_STL@@YAXPAUBfmeAssignRecord104@@0@Z | 0x003B8E13 | wrong
-code identity 142 rows; 2 findings; shadow

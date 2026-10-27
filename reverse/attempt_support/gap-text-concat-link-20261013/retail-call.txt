@@ -1,6 +1,0 @@
-00419bb8: 80790400 cmp byte ptr [ecx + 4], 0
-00419bbc: 740c je 0x419bca
-00419bbe: ff74240c push dword ptr [esp + 0xc]
-00419bc2: 83c108 add ecx, 8
-00419bc5: e85fbabeff call 0x5629
-00419bca: c20c00 ret 0xc

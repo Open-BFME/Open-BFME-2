@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_prerequnitrec_allocate_copy.cpp: LINKS  LINKED 258 -> 258 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 258)
-link_check: 1 of 1 link cleanly; LINKED 258 -> 258 bytes (3.9s)

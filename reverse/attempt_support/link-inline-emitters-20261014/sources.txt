@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp
-Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp
-Code/GameEngine/Source/GameClient/System/ParticleSystemDebugDisplayBody.cpp
-Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawDoDrawModule.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva003093F6BasesSamplers.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewSetCameraTransformBfme.cpp
-Code/Libraries/Source/WWVegas/WWLib/ini.cpp

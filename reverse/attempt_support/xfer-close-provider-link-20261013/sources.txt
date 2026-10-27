@@ -1,8 +1,0 @@
-Code/GameEngine/Source/Common/System/SaveGame/SaveGameInfoCopyBFME2.cpp
-Code/GameEngine/Source/Common/Rva002DBC97Get.cpp
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp
-Code/GameEngine/Source/Common/GameEngineInit.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-Code/GameEngine/Source/GameNetwork/ConnectionManager_heroData.cpp
-Code/GameEngine/Source/Common/Recorder.cpp
-Code/GameEngine/Source/Common/Gen009D6DD0.cpp

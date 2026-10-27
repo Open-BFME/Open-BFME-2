@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 1,195)
-  comdat      ??0Matrix4@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.4s)

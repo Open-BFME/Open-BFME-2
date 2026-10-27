@@ -1,5 +1,0 @@
-Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp
-Code/GameEngine/Source/Common/Rva003EE746ColorProvider.cpp
-Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp
-Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp
-Code/GameEngine/Source/GameClient/Credits.cpp

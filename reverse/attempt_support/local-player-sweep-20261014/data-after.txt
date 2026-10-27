@@ -1,4 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp	wrong-name	?$S1@?7??IdleWorkerSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z@4IA	0x009FEE10
-data_check: Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp	wrong-name	?MessageStreamSubsystem@@3PAVMessageStream@@A	0x00A00950
-data_check: Code/GameEngine/Source/GameClient/InGameUIUpdate.cpp	wrong-name	?$S1@?BA@??update@InGameUI@@UAEXXZ@4IA	0x009FEEDC
-data_check (shadow): 3 source(s), 3 finding(s), 3 outside the baseline {'wrong-name': 3}; 0.2s

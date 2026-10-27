@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp: LINKS  LINKED 0 -> 304 bytes (census 2026-10-24 07:31 at a9f880ad06; file's own bytes 304)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 304 bytes (5.1s)

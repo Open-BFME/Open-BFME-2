@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E7DF3.cpp: LINKS  LINKED 0 -> 1,388 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,388)
-Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescGetUVArrayRva000D1F1A.cpp: LINKS  LINKED 38 -> 38 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 38)
-link_check: 2 of 2 link cleanly; LINKED 38 -> 1,426 bytes (3.4s)

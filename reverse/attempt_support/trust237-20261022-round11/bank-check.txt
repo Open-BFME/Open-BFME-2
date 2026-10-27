@@ -1,1 +1,0 @@
-?Rva00237D3DCheck@@YAHXZ: 219B vs 226B retail, 21 differing, first at +0xCD

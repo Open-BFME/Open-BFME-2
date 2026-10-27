@@ -1,9 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Data rows: OK (1 row(s) byte-verified)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_0076499e (Code/GameEngine/Source/Common/Rva00785FD0RendererReset.cpp): $L7571 was renumbered; verified parent EH data places $L7596 at 0x0076499E
-Functions: OK 6/6 matched across 1 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (11 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

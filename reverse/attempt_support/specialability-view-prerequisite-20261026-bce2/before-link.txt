@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp: LINKS  LINKED 5,959 -> 5,959 bytes (census 2026-10-26 19:02 at 5ce093a71a; file's own bytes 5,959)
-Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EECACheck.cpp: LINKS  LINKED 98 -> 98 bytes (census 2026-10-26 19:02 at 5ce093a71a; file's own bytes 98)
-link_check: 2 of 2 link cleanly; LINKED 6,057 -> 6,057 bytes (4.1s)

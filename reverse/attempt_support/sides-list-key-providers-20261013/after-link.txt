@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/Rva0030D4F2Getter.cpp: LINKS  LINKED 0 -> 254 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 254)
-Code/GameEngine/Source/GameLogic/Map/SidesListAddPlayerByTemplate.cpp: LINKS  LINKED 0 -> 527 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 527)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 781 bytes (3.9s)

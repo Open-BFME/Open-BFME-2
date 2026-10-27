@@ -1,6 +1,0 @@
-// compiler:clang23-x86
-// cl: /O1 /G6 /GS- /MD
-typedef unsigned long long U64;
-extern "C" U64 __ull_rshift(U64,int);
-#pragma intrinsic(__ull_rshift)
-extern "C" U64 __attribute__((regparm(3))) probe(unsigned lo,unsigned hi,unsigned char n){if(n>=64)return 0;if(n>=32)return hi>>(n&31);return __ull_rshift(((U64)hi<<32)|lo,n);}

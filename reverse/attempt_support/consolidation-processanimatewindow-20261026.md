@@ -1,5 +1,0 @@
-# Consolidation handoff: ProcessAnimateWindow.cpp
-
-Allocated destination: `Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp` (shard 0/5, allocation check passed). Scoped planner report/check passed. Plan: 35 approved rows, 7 donors, 3 mixed files. Unchanged merge dry-run accepts no donors. Five source donors fail on class/view declarations (`ICoord2D` redefinition plus missing `finished`, missing `AnimateWindow::setStartTime_RV`/`setVel_RV`, or missing `setVel_RV`). No bodies or headers were repaired.
-
-Mixed `ProcessAnimateWindowSpiralCtor.cpp` row 0x005C4F88 cannot be carved because no definition spells the row's name. `Disp8ByteFieldGetters.cpp` row 0x005C4FEB split dry-run accepts one row but does not make a merge batch with the other donors. `ProcessAnimateWindowRightFastInitReverse.cpp` has 14 routed rows, but split dry-run is blocked because a copied helper/datum would grow an escape-hatch count. No split, edit or claim was made. Preserve for Sol's declaration and hatch work.

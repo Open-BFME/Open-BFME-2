@@ -1,9 +1,0 @@
-import sys,re,itertools
-sys.path.insert(0,'build/netpacket-20261022'); from search import *
-
-def single_index(code):
- head,body=code.split('NetCommandList *NetPacket::getCommandList()\n',1)
- body=body.replace('\tInt offset;\n','').replace('\t\t\toffset = i;\n','').replace('\t\t\ti = offset;\n','');body=re.sub(r'\boffset\b','i',body)
- return head+'NetCommandList *NetPacket::getCommandList()\n'+body
-if __name__=='__main__':
- batch([(f'single_eh_{i:03x}',single_index(throw_variant(i))) for i in range(512)],'single-throw')

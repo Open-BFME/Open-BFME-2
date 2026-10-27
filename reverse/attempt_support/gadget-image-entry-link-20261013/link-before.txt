@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva00324D84Permuted.cpp: LINKS  LINKED 270 -> 270 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 270)
-Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetListBoxSystem.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 3,107)
-  unresolved  ?addImageEntry@@YAHPBVImage@@HHHPAVGameWindow@@HH@Z
-link_check: 1 of 2 link cleanly; LINKED 270 -> 270 bytes (8.7s)

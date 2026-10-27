@@ -1,9 +1,0 @@
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp | ?insert@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXPAUBfmePod28@@IABU3@@Z | ?_M_fill_insert@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXPAUBfmePod28@@IABU3@@Z | 0x00584405 | wrong
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_pod_noexc_bodies.cpp | ?reserve@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@QAEXI@Z | ??$_M_allocate_and_copy@PAUBfmePod28@@@?$vector@UBfmePod28@@V?$allocator@UBfmePod28@@@_STL@@@_STL@@IAEPAUBfmePod28@@IPAU2@0@Z | 0x0054124E | wrong
-definition: divergent | ??$__destroy@PAVCreateAHeroSubClass@CreateAHeroManager@@V12@@_STL@@YAXPAVCreateAHeroSubClass@CreateAHeroManager@@00@Z
-definition: divergent | ??0?$_Bit_iter@_NPB_N@_STL@@QAE@ABU?$_Bit_iter@U_Bit_reference@_STL@@PAU12@@1@@Z
-definition: divergent | ?_M_clear@?$vector@DV?$allocator@D@_STL@@@_STL@@IAEXXZ
-definition: divergent | ?begin@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBE?AU?$_Bit_iter@_NPB_N@2@XZ
-definition: divergent | ?deallocate@?$allocator@UBfmePod16@@@_STL@@QBEXPAUBfmePod16@@I@Z
-definition: divergent | ?end@?$vector@_NV?$allocator@_N@_STL@@@_STL@@QBE?AU?$_Bit_iter@_NPB_N@2@XZ
-code identity 241 rows; 8 findings; shadow

@@ -1,2 +1,0 @@
-// cl: /O1 /arch:SSE /G7 -DNDEBUG -MD -EHsc -Ireference/open-bfme-1/game
-#include "@ROOT/reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Update/S4Elem0039EBE0Destructor.cpp"

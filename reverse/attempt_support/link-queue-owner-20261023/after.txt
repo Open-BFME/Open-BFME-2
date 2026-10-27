@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/VslotSmallBodiesM.cpp: LINKS  LINKED 117 -> 77 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 77)
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp: LINKS  LINKED 633 -> 673 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 673)
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 285)
-  comdat      ??_7Rva0041A644@@6B@  (first: differs from the first copy in link order (no retail address))
-link_check: 2 of 3 link cleanly; LINKED 750 -> 750 bytes (3.5s)

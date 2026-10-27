@@ -1,4 +1,0 @@
-from search import *
-from header_weight import source
-items=[(f'hdepth_probe_{m}{d}',source(m,0,63,d)) for m in [1,2] for d in range(2,6)]
-if __name__=='__main__':batch(items,'depth-probes')

@@ -1,9 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/dispatcher/global-pref-both/c1.cpp').read_text()
-b=b.replace('class AsciiString;\nclass Rva002BA8F1Logic','struct DispatcherPlayer;\nclass AsciiString;\nclass Rva002BA8F1Logic')
-b=b.replace('char m_pad00[0xB0];','char m_pad00[0x8c];\n _STL::vector<DispatcherPlayer*> players;\n char m_pad98[0xB0-0x98];')
-b=b.replace('_STL::vector<DispatcherPlayer*>&players=*(_STL::vector<DispatcherPlayer*>*)((char*)this+0x8c);','')
-r=trial('global-pref-member-count',b,'?logicMessageDispatcher@LivingWorldLogic@@QAEXPAVGameMessage@@PAX@Z',0x2bdb4c,3170,'dispatcher')
-p=ROOT/'build/astra-high-a/dispatcher_exactcheck.py'
-s=p.read_text().replace("global-pref-both","global-pref-member-count")
-exec(compile(s,str(p),'exec'))

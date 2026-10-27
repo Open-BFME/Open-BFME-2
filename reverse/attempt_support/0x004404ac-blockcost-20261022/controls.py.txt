@@ -1,9 +1,0 @@
-from search import OUT, BASE, HEAD, BODY, MARK
-import re
-
-OUT.mkdir(parents=True, exist_ok=True)
-(OUT/'bank.cpp').write_text(BASE)
-a=BODY.index('\n\tif (!game)')
-b=BODY.index('\n\tif (slot == -1 || slot >= 8)')
-early=HEAD+MARK+BODY[:a]+'\n\tint index = slot;'+BODY[a:b]+re.sub(r'\bslot\b','index',BODY[b:])
-(OUT/'early.cpp').write_text(early)

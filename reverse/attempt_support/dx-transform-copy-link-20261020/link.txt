@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperMatrix3DTransformBFME2.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 1,034)
-  selected    ?Set_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@ABVMatrix3D@@@Z  (the definition the link keeps is not retail's)
-  diagnostic  ??AMatrix4@@QAEAAVVector4@@H@Z  (codegen-like: 15 bytes against the majority copy's 12; unreferenced, not a blocker)
-  diagnostic  ??AMatrix4@@QBEABVVector4@@H@Z  (codegen-like: 15 bytes against the majority copy's 12; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.2s)

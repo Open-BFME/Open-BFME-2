@@ -1,4 +1,0 @@
-19 executable sections: all bytes, flags and defined symbols unchanged.
-Exactly two REL32 referents change from the void alias to the rowed bool owner:
-[('.text', 0), ('??1DeviceLock@@QAE@XZ', 0)] (1, 20, '?BFME_DX8_Thread_Assert@@YAXXZ') -> (1, 20, '?BFME_DX8_Thread_Assert@@YA_NXZ')
-[('.text', 0), ('?rva0007F0FB@Rva0007F0FBOwner@@QAEXPAVCameraClass@@_N@Z', 0)] (1900, 20, '?BFME_DX8_Thread_Assert@@YAXXZ') -> (1900, 20, '?BFME_DX8_Thread_Assert@@YA_NXZ')

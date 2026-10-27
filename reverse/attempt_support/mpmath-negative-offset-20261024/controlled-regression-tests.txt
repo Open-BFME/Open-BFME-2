@@ -1,7 +1,0 @@
-........................................................................ [ 56%]
-......................................................s                  [100%]
-=========================== short test summary info ============================
-SKIPPED [1] tools/tests/test_gate_exploits.py:408: got empty parameter set for (fixture)
-126 passed, 1 skipped in 5.58s
-
-actual-exit=0

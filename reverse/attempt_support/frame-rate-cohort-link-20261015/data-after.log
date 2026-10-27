@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00DBD0F0@@3HA	0x009BD0F0
-data_check: Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_currentAptOnlineCustomMatch@@3HA	0x00A063EC
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?FogEnable@DX8Wrapper@@2_NA	0x009EDA21
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check (shadow): 8 source(s), 12 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.2s

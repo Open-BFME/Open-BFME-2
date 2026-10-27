@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameClient/InGameUIHeadingQuery.cpp 1 -> 0 5 retained COMDATs unchanged
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawReactToTransformChange.cpp 2 -> 1 25 retained COMDATs unchanged

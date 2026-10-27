@@ -1,2 +1,0 @@
-{"rva": "0x00102f83", "symbol": "?rva00102F83@W3DCamTransform@@QAEXPAUCameraTransformInput@@@Z", "size": 4299, "start": 0.9571, "best": 0.9571, "exact": false, "trials": 1106, "stop": "deadline", "v": 3, "wb": "WB: (unnamed)  (vector3.h, score 3, callgraph)"}
-permute: 0 of 1 closed exactly

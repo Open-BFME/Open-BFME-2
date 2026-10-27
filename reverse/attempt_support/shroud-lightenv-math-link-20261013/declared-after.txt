@@ -1,2 +1,0 @@
-note: Code/Libraries/Source/WWVegas/WW3D2/lightenvironment.cpp: 29 matched row(s), 5 unclaimed definition(s)
-All defined functions are already matched.

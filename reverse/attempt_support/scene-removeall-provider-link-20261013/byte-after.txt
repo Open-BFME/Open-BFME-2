@@ -1,8 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-Compile: 0 of 3 TU(s) (deps-cache: 3 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_00767e90 (Code/Libraries/Source/WWVegas/WW3D2/static_sort_list.cpp): $L23431 was renumbered; verified parent EH data places $L9333 at 0x00767E90
-Functions: OK 35/35 matched across 3 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (7 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

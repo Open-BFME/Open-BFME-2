@@ -1,8 +1,0 @@
-from search import *
-import itertools
-s=(W/'base.cpp').read_text();vs=[]
-choices=list(itertools.product(['/G3','/G4','/G5','/G6','/G7','/GB'],['/O1 /Os','/O1 /Ot','/O2 /Os','/O2 /Ot'],['/arch:SSE','/arch:SSE2'],['/Oi','/Oi-'],['/Ob1','/Ob2']))
-line=next(l for l in s.splitlines() if l.startswith('// cl:'))
-for n,flags in enumerate(choices):vs.append((f'cpu_{n:03d}',s.replace(line,line+' '+' '.join(flags))))
-(W/'cpu-choices.json').write_text(json.dumps(choices))
-run(vs,'cpu384')

@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Made002CC5E1DamageScalar.cpp: LINKS  LINKED 0 -> 387 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 387)
-Code/GameEngine/Source/GameLogic/Object/Made002CC5E1Ctor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 463)
-  unresolved  __imp_?deallocate@?$__node_alloc@$00$0A@@_STL@@SAXPAXI@Z
-  comdat      ?deallocate@?$allocator@UMade002CC5E1DamageScalar@@@_STL@@QBEXPAUMade002CC5E1DamageScalar@@I@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??1Made002CC5E1DamageScalar@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
-  comdat      ??1?$_Vector_base@UMade002CC5E1DamageScalar@@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
-  comdat      ??1?$vector@UMade002CC5E1DamageScalar@@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAE@XZ  (retail: not retail's body)
-  diagnostic  ?deallocate@?$_STLP_alloc_proxy@PAUMade002CC5E1DamageScalar@@U1@V?$allocator@UMade002CC5E1DamageScalar@@@_STL@@@_STL@@QAEXPAUMade002CC5E1DamageScalar@@I@Z  (codegen-like: 5 bytes against the majority copy's 20; unreferenced, not a blocker)

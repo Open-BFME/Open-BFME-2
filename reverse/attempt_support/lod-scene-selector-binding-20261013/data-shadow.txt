@@ -1,7 +1,0 @@
-data_check: Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check: Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	wrong-name	?g_bfmeDisplayAnimationSyncClock@@3HA	0x009E1B40
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneFlush.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?FogEnable@DX8Wrapper@@2_NA	0x009EDA21
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check: Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneRenderOneObject.cpp	wrong-name	?g_Va00DBA4E4@@3HA	0x009BA4E4
-data_check (shadow): 3 source(s), 12 finding(s), 6 outside the baseline {'wrong-name': 6}; 0.2s

@@ -1,4 +1,0 @@
-PASS: all nondebug home sections and bindings unchanged; all 13 removed copies retained; sole duplicate gone; paired legacy 0 -> 588 bytes
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00358076AudioComplete.cpp: LINKS  LINKED 0 -> 588 bytes (census 2026-10-15 12:37 at 825b86983f; file's own bytes 588)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 588 bytes (2.1s)

@@ -1,3 +1,0 @@
-COMMAND: python3 tools/data_check.py Code/GameEngine/Source/GameLogic/Object/Contain/Rva004F571BReplaceContainedOwner.cpp
-EXIT: 0
-data_check (shadow): 1 source(s), 0 finding(s), 0 outside the baseline {}; 0.2s

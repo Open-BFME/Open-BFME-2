@@ -1,6 +1,0 @@
-COMMAND: python3 tools/data_check.py Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp Code/GameEngine/Source/Common/BfmeConv909.cpp Code/GameEngine/Source/Common/BfmeConv1393.cpp Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp Code/GameEngine/Source/Common/BfmeConv943.cpp Code/GameEngine/Source/Common/BfmeConv908.cpp
-data_check (shadow): 6 source(s), 0 finding(s), 0 outside the baseline {}; 0.2s
-COMMAND: python3 tools/data_check.py --converged Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp Code/GameEngine/Source/Common/BfmeConv909.cpp Code/GameEngine/Source/Common/BfmeConv1393.cpp Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp Code/GameEngine/Source/Common/BfmeConv943.cpp Code/GameEngine/Source/Common/BfmeConv908.cpp
-data_check (converged, enforced): 6 source(s), 8 address(es), 0 second name(s), 0 unjudged row(s)
-COMMAND: python3 tools/class_gate.py Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp Code/GameEngine/Source/Common/BfmeConv909.cpp Code/GameEngine/Source/Common/BfmeConv1393.cpp Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp Code/GameEngine/Source/Common/BfmeConv943.cpp Code/GameEngine/Source/Common/BfmeConv908.cpp
-COMMAND: python3 tools/check_case_collisions.py

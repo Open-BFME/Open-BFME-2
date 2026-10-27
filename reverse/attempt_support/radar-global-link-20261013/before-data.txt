@@ -1,6 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva0008F32CFactory.cpp	wrong-name	?TheRva002D3627Host@@3PAVRva002D3627Host@@A	0x009FF028
-data_check: Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp	wrong-name	?g_Va00DFE750@@3PAXA	0x009FE750
-data_check: Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp	wrong-name	?g_Va00DFE754@@3PAXA	0x009FE754
-data_check: Code/GameEngine/Source/GameClient/System/Rva0021237EAudioEvents.cpp	wrong-name	?TheRva002D3627Host@@3PAVRva002D3627Host@@A	0x009FF028
-data_check: Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions.cpp	wrong-name	?ThePalantir@@3PAVPalantir@@A	0x009FF028
-data_check (shadow): 10 source(s), 11 finding(s), 5 outside the baseline {'wrong-name': 5}; 0.8s

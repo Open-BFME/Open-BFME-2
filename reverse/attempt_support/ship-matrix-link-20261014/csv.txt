@@ -1,3 +1,0 @@
-check_csv: OK (functions.csv 88174 rows, symbols.csv 17112 rows, data_rows.csv 397 rows)
-
-exit=0

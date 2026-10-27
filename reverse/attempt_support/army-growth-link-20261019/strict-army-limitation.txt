@@ -1,3 +1,0 @@
-link_check: preparing 1 explicit safe provider(s), no extra sources
-deps-cache: no include inventory for Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIArmyMover.cpp — ['(an included header lies outside the inventoried search roots)']
-link_check: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldAISupport/LivingWorldAIArmyMover.cpp has no strict reusable compiler receipt; uncacheable inputs are not prepared by this mode

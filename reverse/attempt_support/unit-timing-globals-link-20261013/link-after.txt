@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/GameLogicUnitTimings.cpp: LINKS  LINKED 0 -> 2,423 bytes (census 2026-10-12 22:20 at d753dedd98; file's own bytes 2,423)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 2,423 bytes (2.9s)

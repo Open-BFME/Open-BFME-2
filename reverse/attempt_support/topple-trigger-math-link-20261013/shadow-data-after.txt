@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp	wrong-name	?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A	0x009BD0F4
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp	wrong-name	?$S4@?8??applyTopplingForce@ToppleUpdate@@QAEXPBUCoord3D@@MI@Z@4IA	0x00A03C88
-data_check (shadow): 2 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 0.2s

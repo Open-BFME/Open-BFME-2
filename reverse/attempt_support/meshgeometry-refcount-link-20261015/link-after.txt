@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryCopy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 13:35 at a2839ea429; file's own bytes 1,032)
-  comdat      ??_GRefCountClass@@MAEPAXI@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??0MultiListObjectClass@@QAE@XZ  (first: differs from the first copy in link order (no retail address))
-  comdat      ??_GMultiListObjectClass@@UAEPAXI@Z  (retail: not retail's body)
-  comdat      ??_7MeshGeometryClass@@6BRefCountClass@@@  (first: differs from the first copy in link order (no retail address))
-  selected    ??_GMultiListObjectClass@@UAEPAXI@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.7s)

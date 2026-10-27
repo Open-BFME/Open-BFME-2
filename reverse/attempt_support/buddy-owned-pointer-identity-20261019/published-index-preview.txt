@@ -1,9 +1,0 @@
-Lib members: 12 extracted from 1 archive(s)
-Object store: 348 of 519 stale TU(s) restored
-link_check: recompiled 519 stale ledger object(s) and replaced their census definitions
-link_check: replaced the census definitions of 140 object(s) rebuilt since the census
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-link_check: not in census 8eecc93d07, so not previewable (the next census measures it): Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadClassThreadFunction.cpp

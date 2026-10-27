@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_append_O1.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 337)
-  comdat      ?assign@?$char_traits@G@_STL@@SAXAAGABG@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?_M_construct_null@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@AAEXPAG@Z  (retail: not retail's body)
-  comdat      ?deallocate@?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAEXPAGI@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ??$max@I@_STL@@YAABIABI0@Z  (retail: not retail's body)
-  selected    ?assign@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAEAAV12@PBG0@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.9s)

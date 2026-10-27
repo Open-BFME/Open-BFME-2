@@ -1,7 +1,0 @@
-Formation preview Matrix3D linking repair
-
-At parent 6f04adc45b plus this seat's two earlier repair commits, the strict-current 2,462-byte updateFormationPreview body passes its full byte, 21 float and import checks. Its axis-angle Matrix3D constructor and alias-aware Transform_Vector are fully expanded in the parent, but the emitted fallback copies differ from the retail owners (0x00102A12 and 0x0007B501). Retain the visible math and use the established imported forceinline consumer pattern for just these two definitions. No data layout, arithmetic, retail rows or addresses change.
-
-Donor review: reference/open-bfme-1 at 92f6bbe8e1dcdb46b5d27da0674313efc822b790 game/Libraries/Source/WWVegas/WWMath/matrix3d.h supplies the same axis-angle and alias-aware transform formulas; existing BFME2 bfme_matrix3d_full_link shim establishes the imported forceinline consumer mechanism. The linked gain is established from BFME2 objects and retail gates, not inferred from the donor.
-
-Paired same-index current-object legacy preview: 0 -> 2,453 nonpadding bytes, one clean unit. Strict preparation before and after passes 1/1 rows; EH 1 EXACT, converged data 0 second names. This is strict self byte verification and a legacy closure prediction, not a closed-strict link measurement. Published census 2026-10-20 12:21 at 5366c4f808 unchanged. Other four losing consumers (coltest, mesh, Locomotor, LineGroupClassRender) have 9-39 independent blockers and were left unchanged. No authored C++ recovery growth or new pins.

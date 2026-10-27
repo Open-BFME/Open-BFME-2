@@ -1,5 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b9534_allocate_copy.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b9534_vector_base.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_b9534_allocator.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawSubObjectVisibility.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawXfer.cpp

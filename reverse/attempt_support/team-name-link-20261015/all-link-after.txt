@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/RTS/TeamUpdateState.cpp: LINKS  LINKED 0 -> 1,158 bytes (census 2026-10-15 09:31 at 28269d8e8d; file's own bytes 1,158)
-Code/GameEngine/Source/Common/RTS/TeamCtor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 09:31 at 28269d8e8d; file's own bytes 471)
-  unresolved  ?crc@Team@@MAEXPAVXfer@@@Z
-  comdat      ??1?$_Rb_tree@VAsciiString@@V1@U?$_Identity@VAsciiString@@@_STL@@U?$less@VAsciiString@@@3@V?$allocator@VAsciiString@@@3@@_STL@@QAE@XZ  (retail: not retail's body)
-  selected    ??0Rva003A393A@@QAE@XZ  (the definition the link keeps is not retail's)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 1,158 bytes (3.0s)

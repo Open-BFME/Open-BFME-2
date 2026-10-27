@@ -1,5 +1,0 @@
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp
-Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp
-Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp
-Code/Libraries/Source/WWVegas/WWLib/Rva00580E10SiftHeap.cpp
-Code/Libraries/Source/WWVegas/WWLib/Rva00580C0EPopHeap.cpp

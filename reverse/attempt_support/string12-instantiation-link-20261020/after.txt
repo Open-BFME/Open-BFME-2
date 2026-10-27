@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_331962_allocate_copy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 273)
-  comdat      ??4BfmeStringRecord000331962@@QAEAAU0@ABU0@@Z  (retail: not retail's body)
-  selected    ??4BfmeStringRecord000331962@@QAEAAU0@ABU0@@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.3s)

@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 905)
-  comdat      ??_GAsciiString@@QAEPAXI@Z  (retail: unproven and differs from the kept copy)
-  comdat      ??$_Destroy@VAsciiString@@@_STL@@YAXPAVAsciiString@@@Z  (retail: unproven and differs from the kept copy)
-  comdat      ?clear@?$_List_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAEXXZ  (retail: unproven and differs from the kept copy)
-  comdat      ?insert_unique@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@_N@2@ABH@Z  (retail: not retail's body)
-  selected    ??0?$_List_base@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV?$allocator@VAsciiString@@@1@@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.8s)

@@ -1,2 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleGetResolutionOptions.cpp	wrong-name	?TheSkirmishGameInfo@@3PAVSkirmishGameInfo@@A	0x00A02EF0
-data_check (shadow): 2 source(s), 1 finding(s), 1 outside the baseline {'wrong-name': 1}; 0.9s

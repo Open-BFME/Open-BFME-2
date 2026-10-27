@@ -1,6 +1,0 @@
-?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z (Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp)
-target RVA: 0x00049DC5
-target size: 37 bytes
-compiled symbol size: 37 bytes
-classification: exact match
-OK: bytes match

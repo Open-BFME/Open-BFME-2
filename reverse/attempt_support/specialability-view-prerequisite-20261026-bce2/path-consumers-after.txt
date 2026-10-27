@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp:1678:// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EECACheck.cpp
-reverse/attempt_support/consolidation-flammable-frame-20261025-codex.md:102:`Rva0044EECACheck.cpp` reports C2039 (`m_val20` is not a member of
-reverse/attempt_support/consolidation-specialabilityupdate-blocked-20261025.md:16:- `Rva0044EECACheck.cpp`: C2039, `m_val20` is not a member of `Overridable`.
-reverse/link_status.csv:14823:Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EECACheck.cpp,yes,0,0,0,0,0

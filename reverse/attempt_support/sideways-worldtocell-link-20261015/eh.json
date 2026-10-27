@@ -1,7 +1,0 @@
-{
-"?FindAttackPathSideways@Pathfinder@@QAEPAVPath@@PAVObject@@ABVLocomotorSet@@PBUCoord3D@@02PAVRva002C9B80Owner@@@Z@0x002FC9B1": [
-"EXACT",
-"",
-"Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderSidewaysAttack.cpp"
-]
-}

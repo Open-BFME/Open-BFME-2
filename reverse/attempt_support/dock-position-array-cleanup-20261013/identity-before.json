@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateLoadDockPositions.cpp",
-  "mode": "shadow",
-  "rows": 1,
-  "problems": [
-    "definition: divergent | ??A?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEAAUCoord3D@@I@Z"
-  ]
-}

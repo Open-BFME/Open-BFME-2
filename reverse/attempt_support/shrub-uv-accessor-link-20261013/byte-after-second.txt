@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?rva000E7DF3@W3DShrubBuffer@@QAEXXZ (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferRva000E7DF3.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (1 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

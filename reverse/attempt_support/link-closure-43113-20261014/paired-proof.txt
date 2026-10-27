@@ -1,1 +1,0 @@
-{"gains": 43, "unique": 43113, "strict": true, "threshold_met": true}

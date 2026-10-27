@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva0028BAC0.cpp	wrong-name	?g_Va00DFE754@@3PAXA	0x009FE754
-data_check: Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp	wrong-name	?g_Va00DFE754@@3PAXA	0x009FE754
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp	wrong-name	?g_Va00DFE754@@3PAXA	0x009FE754
-data_check: Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp	wrong-name	?g_bfmeDoneAPB@@3_NA	0x00A02D87
-data_check (shadow): 4 source(s), 6 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.6s

@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/R3ScalarFieldConstructors1.cpp: LINKS  LINKED 0 -> 91 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 91)
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B7EC2.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 158)
-  unresolved  ?rva003B7C47@Rva003B573E@@QAEHABV?$StringBase@D@@@Z
-link_check: 1 of 2 link cleanly; LINKED 0 -> 91 bytes (3.6s)

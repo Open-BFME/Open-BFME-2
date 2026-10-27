@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree.cpp: LINKS  LINKED 0 -> 1,321 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 1,321)
-Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_tree_insert.cpp: LINKS  LINKED 0 -> 134 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 134)
-Code/Libraries/Source/WWVegas/WWLib/stlport_hero_integer_vector_map_insert.cpp: LINKS  LINKED 0 -> 52 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 52)
-link_check: 3 of 3 link cleanly; LINKED 0 -> 1,507 bytes (3.7s)

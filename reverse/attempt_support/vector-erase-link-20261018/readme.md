@@ -1,9 +1,0 @@
-Vector range-erase and growth provider repair, 2026-10-18
-
-At the same published census (c2c5ac8c27, 2026-10-18 11:36), current original objects link 0/4 units and candidate objects link 4/4: 1,159 + 658 + 176 + 141 = 2,134 additional matched bytes. Counts exclude alignment padding and are bounded legacy link-selection predictions; no closed-strict link-closure result is claimed. Explicit current providers have self-strict reusable receipts from link_check --prepare-current and all 21 ledger rows pass normal byte verification.
-
-Target evidence: the region-ID range erase calls the four-argument const-reference-tag copy helper at 0x0025BF40. The bfmealloc algobase shim force-inlines a by-value dispatch to the five-argument __copy instead. LivingWorldScenario selects the original vendored dispatch, preserving its existing whole-body fold-proof pin; _STLP_BFME_COPY_TRIVIAL_EXTERN retains the existing retail trivial-copy provider. The same header selection makes the OCLUpgradePair range-erase copy reproduce retail rather than emitting its competing body. No new pins or layout assertions are introduced.
-
-LinearCampaign calls the existing ScienceType range erase, push_back and overflow providers; explicit specialization declarations suppress its conflicting copies. The narrow-string destruction-only view similarly calls the existing range-erase provider rather than emitting copying through its intentionally incomplete element view. All parent bodies remain byte-exact. These changes repair provider selection; they do not add authored C++ coverage.
-
-The wider ScienceType sweep also checked LivingWorldPathFinder and Rva0035BB4BCtor. Both retain unrelated unresolved BfmeSlotVecG::bfmeErase and other helper blockers; neither was edited or counted. No full census or maintainer-only runner was started.

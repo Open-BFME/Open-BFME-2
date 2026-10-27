@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWDebug/DebugPreStaticInit.cpp: LINKS  LINKED 0 -> 124 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 124)
-Code/Libraries/Source/WWVegas/WWDebug/Rva00891540DebugIOConCreate.cpp: LINKS  LINKED 0 -> 99 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 99)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 223 bytes (2.7s)

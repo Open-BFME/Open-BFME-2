@@ -1,9 +1,0 @@
-# Transport onRemoving linking (+735 B)
-
-At BFME2 74eb0e2dab, against unchanged published legacy census e7a7769fe5 (2026-10-20 18:36), TransportContainOnRemoving moves from 0 to 735 nonpadding linked bytes. The 726-byte parent and 10-byte EH row both remain exact; no authored C++ coverage is added.
-
-The two old blockers are addressed independently: g_00DBA500 becomes the existing BfmeClientFramesPerMillisecond global (VA 00DBA500, data ledger RVA009BA500, initialized as 0.03f by Rva00524FA7.cpp); and the bitset<101> mask helper is explicitly imported and forced inline with its unchanged STLport semantics, 1UL << (pos % 32). This suppresses the incompatible out-of-line copy without changing the constant-folded bit61 test. A declaration-only specialization was tested first, but stopped the test from inlining and introduced an unresolved _Unchecked_test call; it was discarded. No new data alias, pin, class layout or retail identity is asserted.
-
-Acceptance: build.sh2/2 exact, empty-string and float references checked; prepare-current strict compiler receipt with the same ordinary byte/reference gates; new-variant, class and declared-unmatched checks. Before/after logs use the same frozen index. This is a legacy-index link prediction with a self-strict compiled unit, not closed-strict dependency closure or an executed link cycle. Object::clearCondition remains an unreferenced diagnostic under retail-truth-2 and is intentionally unchanged.
-
-Donor provenance remains the original recorded BFME1 9cbfb551fe20 transfer and WB01159EA0 identity. Current BFME1 pointer4483e88da1c2f3b9a273f779baac7458bd8bb891 was reviewed for shared ownership repairs; the present global and relocation binding are proven from BFME2 rows/data, and mask semantics are unchanged STLport code already present in the unit.

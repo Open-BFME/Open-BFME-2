@@ -1,5 +1,0 @@
-RVA 0x002BC830; extent 153 bytes, ending 0x002BC8C9.
-Native calls equality 0x4CAD, payload push 0x4DFCB0, constructor 0x2B8ED2 and record push 0x2BC58D. Layout uses coordinate prefix0 and three-pointer payload vector8, stride20 independently evidenced by existing constructor/copy/push bodies. Original helper/record names and hierarchy remain unknown.
-Scorer exact=true,153/153,zero unresolved relocations. add_match full gate verified both rows in existing StlportCoordVectorRecordInsert.cpp. No pins or byte masks added.
-Breakthrough: initialize unsigned i before records.size()/records.begin(), producing TEST EAX,EAX at +0x22 and AND [EBP+8],EBX at +0x29. Volatile update is an explicit local codegen constraint, not an original qualifier claim.
-Previous same-size bank differed at +0x22,+0x23,+0x29.

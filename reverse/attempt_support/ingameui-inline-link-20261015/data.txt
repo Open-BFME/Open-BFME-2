@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	wrong-name	?$S1@?CF@??updateMilitarySubtitle@InGameUI@@IAEXXZ@4IA	0x009FEEA8
-data_check: Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	wrong-name	?click@?CF@??updateMilitarySubtitle@InGameUI@@IAEXXZ@4UBfmeAudioEventPrefix136@@A	0x009FEE20
-data_check (enforce): 4 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 1.0s

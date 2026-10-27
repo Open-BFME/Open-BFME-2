@@ -1,4 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008C3AC.cpp:30:extern Rva0007BB79Owner *TheWaterRenderObj;
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008C3AC.cpp:561:        if(TheWaterRenderObj){reinterpret_cast<Rva0007D9B5Host*>(TheWaterRenderObj)->rva0007D9B5((int)m_3DCamera);Rva0008B689Element extra=TheWaterRenderObj->rva0007BB79();if(!extra.isNull())cameras.push_back(extra);}
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterBoundingSphere.cpp:232:WaterRenderObjClass *TheWaterRenderObj=NULL; ///<global water rendering object
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisual.cpp:187:	TheWaterRenderObj = NULL;

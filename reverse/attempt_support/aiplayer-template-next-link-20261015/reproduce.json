@@ -1,6 +1,0 @@
-{
-  "proof_script_sha256": "54ed74b1b7630581278b8e76278573babad7875f6f90f8553fe5f64caf768a15",
-  "before_source_sha256": "730a479e1fd8927bbd6f19716b84b6c3b68bc0f2c8b83f0701483e9c76f72994",
-  "after_source_sha256": "befeb9075985223af05096bcb7b7a2ab0453f12a2312f89b595263fdf5e55911",
-  "proof_basis": "reverse/attempt_support/stealth-object-inline-link-20261015/proof.py; change BASE to build/aiplayer-template-next-link-20261015 and removed_helpers to {?friend_getNextTemplate@ThingTemplate@@QBEPAV1@XZ}"
-}

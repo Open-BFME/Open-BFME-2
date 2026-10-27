@@ -1,7 +1,0 @@
-P1=' Object *parent=victim->rva002931F5(false);\n if(parent) victim=parent;\n'
-CH=[
- [[],[(P1,' if(Object *parent=victim->rva002931F5(false)) victim=parent;\n')],[(P1,' Object *parent=victim->rva002931F5(false);\n victim=parent?parent:victim;\n')]],
- [[],[(' ((AmoebaPositionProvider *)((char *)held+0x11c))->setLeader(amoebaLeader(held));',' Object *leader=amoebaLeader(held);\n ((AmoebaPositionProvider *)((char *)held+0x11c))->setLeader(leader);')]],
- [[],[(' AmoebaRange range;',' int count=0;\n AmoebaRange range;'),(' Rva00588195Elem ordered[50];\n int count=0;',' Rva00588195Elem ordered[50];')]],
- [[],[(' AmoebaRange range;',' Rva00588195Elem ordered[50];\n AmoebaRange range;'),('&range);\n Rva00588195Elem ordered[50];','&range);')]],
-]

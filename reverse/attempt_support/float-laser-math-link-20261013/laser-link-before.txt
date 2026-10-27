@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DLaserDrawBfmeDoDraw.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 1,683)
-  unresolved  ?GameGetColorComponentsReal@@YAXHPAM000@Z
-  unresolved  ?apply@Rva0094F960@@QAEXABQAVTextureClass@@@Z
-  unresolved  ?apply@Rva0094FCF0@@QAEXMM@Z
-  comdat      ?cos@@YAMM@Z  (retail: unproven and differs from the kept copy)
-  comdat      ?scale@Coord3D@@QAEXM@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.7s)

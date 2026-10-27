@@ -1,6 +1,0 @@
-?_M_create_node@?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObject@@@2@ABQAVObject@@@Z (Code/GameEngine/Source/Common/RTS/Player.cpp)
-target RVA: 0x001EB9AC
-target size: 28 bytes
-compiled symbol size: 28 bytes
-classification: exact match
-OK: bytes match

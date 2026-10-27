@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DPropBufferCtor.cpp: LINKS  LINKED 0 -> 319 bytes (census 2026-10-21 09:22 at 17918792f6; file's own bytes 319)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 319 bytes (4.4s)

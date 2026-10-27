@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWMath/Rva0007671FCtor.cpp: LINKS  LINKED 22 -> 22 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 22)
-link_check: 1 of 1 link cleanly; LINKED 22 -> 22 bytes (5.8s)

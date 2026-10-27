@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appendMessage_Rva00341350AdjustVariableForwarder.cpp
-Code/Libraries/Source/WWVegas/WWLib/string_base.cpp
-Code/GameEngine/Source/Common/CommandLineMapPath.cpp
-Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp
-Code/GameEngine/Source/GameLogic/Map/SidesList_findSideInfo.cpp
-Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_setControlBarSchemeByPlayerTemplate.cpp
-Code/GameEngine/Source/Common/Rva000A9F48FileOpen.cpp
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva00562BF7SelectModelName.cpp

@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/Rva0053FDE6Init.cpp: LINKS  LINKED 0 -> 56 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 56)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 56 bytes (7.9s)

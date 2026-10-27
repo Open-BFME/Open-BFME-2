@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateInitLaser.cpp: LINKS  LINKED 756 -> 756 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 756)
-link_check: 1 of 1 link cleanly; LINKED 756 -> 756 bytes (3.7s)

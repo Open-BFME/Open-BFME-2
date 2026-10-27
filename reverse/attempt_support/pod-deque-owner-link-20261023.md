@@ -1,9 +1,0 @@
-# POD deque slow-path ownership, 2026-10-23
-
-Inputs: BFME2 27dd681fd2; committed BFME1 96c88c73a5cd1a58fc2f8db691beea50acd996db; published retail-truth-4 census 456ce161c5, 2026-10-23 06:28. (The BFME2 revision is recorded by the containing commit parent.)
-
-The 45-byte push_back at RVA 0041AB95 calls the recovered 135-byte narrow-record slow path at 0041A9E8. The existing record/header and helper recovery establish the 16-byte stride, string copy, 128-byte node allocation and temporary cleanup. The POD deque unit instead emitted a trivial-element slow path; both its COMDAT and the selected definition were proven non-retail. An inline-only specialization now calls the existing Rva0041A9E8 owner through the established narrow-record view. No new identity, address pin, data layout or helper body is claimed.
-
-Acceptance: build.sh and --prepare-current both pass 7/7 rows; the latter establishes a self-strict reusable receipt. find_declared_unmatched passes; eh_verify reports no EH-bearing rows in this unit. Paired current-object link_check with the unchanged Rva0041A9E8PushBackAux.cpp provider changes the deque unit from 0/244 to 244/244 B, retaining the provider at 135/135 B: total 135 -> 379 B. This is +244 B scoped legacy prediction, not closed-strict or a full executable link.
-
-Same-cause sweep of the census finds no other consumer of the offending Pod16 slow-path symbol. Other Pod16 units have different teardown/iterator/string blockers; no unreferenced copies were suppressed. Donor linking history reviewed through BFME1 96c88c73, including 94f453a5 (replace an invented helper by its established provider) and DequePushBackAuxVThunk.cpp. These support the repair pattern only; target bytes and existing target recovery supply this call identity. No donor source or target layout was imported. Official upstream advanced to f5140c1c after the committed pointer; retained the verified inputs, without claiming a newly verified reference update.

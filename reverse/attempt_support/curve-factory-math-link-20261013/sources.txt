@@ -1,3 +1,0 @@
-Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
-Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp
-Code/GameEngine/Source/Common/bezier_segment.cpp

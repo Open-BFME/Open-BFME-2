@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDetailsArmiesPage.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 616)
-  unresolved  ??1Rva005E1E9BElement@@QAE@XZ
-Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 430)
-  comdat      ?_M_push_back_aux_v@?$deque@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@V?$allocator@V?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@_STL@@@2@@_STL@@IAEXABV?$deque@UBfmeWordValue4@@V?$allocator@UBfmeWordValue4@@@_STL@@@2@@Z  (retail: not retail's body)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (2.7s)

@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-hatch_counters: admitted pin in reverse/symbols.csv: 0x004C3121 -- pin_admission --add: 2 checked pin(s)
-hatch_counters: admitted pin in reverse/symbols.csv: 0x00507958 -- pin_admission --add: 2 checked pin(s)
-pin admission: added ??$__uninitialized_copy@PAUAudioTriggerArea@@PAU1@@_STL@@YAPAUAudioTriggerArea@@PAU1@00ABU__false_type@0@@Z,0x004C3121
-pin admission: added ??$__uninitialized_fill_n@PAUAudioTriggerArea@@IU1@@_STL@@YAPAUAudioTriggerArea@@PAU1@IABU1@ABU__false_type@0@@Z,0x00507958
-pin admission: note: 836 other pin address(es) in reverse/symbols.csv are not granted by reverse/hatch_baseline.tsv (not written by this call); `python3 tools/hatch_counters.py --staged` names them

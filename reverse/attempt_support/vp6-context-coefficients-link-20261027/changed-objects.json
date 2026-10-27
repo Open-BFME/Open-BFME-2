@@ -1,8 +1,0 @@
-[
-  {
-    "object": "build/match/^code_^libraries_^source_^v^p6_^configure^contexts.obj",
-    "source": "Code/Libraries/Source/VP6/ConfigureContexts.cpp",
-    "before": "1b1d361bf8999dd2752ab8babd1209a2ddca37e49567022085d3ad1b410c5bf2",
-    "after": "9cb35cd0119df280dd656be942f475adfe7fbd6a713dd92e195cab9d2266253c"
-  }
-]

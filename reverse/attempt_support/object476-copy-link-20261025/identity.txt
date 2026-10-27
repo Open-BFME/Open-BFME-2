@@ -1,9 +1,0 @@
-references: 253
-  owner      224
-  fold       13
-  eh         7
-  alias      6
-  divergent  3
-rows with a wrong binding: 3
-  divergent/unknown: 3
-alternatenames: 3

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp: LINKS  LINKED 0 -> 159 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 159)
-Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightBelowPosition.cpp: LINKS  LINKED 101 -> 101 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 101)
-Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp: LINKS  LINKED 209 -> 209 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 209)
-link_check: 3 of 3 link cleanly; LINKED 310 -> 469 bytes (2.8s)

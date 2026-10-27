@@ -1,8 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	wrong-name	?$S1@?BJ@??GetCurrentPortraitImage@Impl@PalantirCommandInterface@@QAEPBVImage@@PAVObject@@@Z@4IA	0x00A0499C
-data_check: Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	wrong-name	?$S3@?CE@??rva00529B6E@Rva00529B6E@@QAEXPAVObject@@@Z@4IA	0x00A049A8
-data_check: Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	wrong-name	?heroRank@?CE@??rva00529B6E@Rva00529B6E@@QAEXPAVObject@@@Z@4VAsciiString@@A	0x00A049A4
-data_check: Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	wrong-name	?multiPortrait@?BJ@??GetCurrentPortraitImage@Impl@PalantirCommandInterface@@QAEPBVImage@@PAVObject@@@Z@4VAsciiString@@B	0x00A04998
-data_check: Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterfacePortrait.cpp	wrong-name	?timeRemaining@?CE@??rva00529B6E@Rva00529B6E@@QAEXPAVObject@@@Z@4VAsciiString@@A	0x00A049A0
-data_check: Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit.cpp	wrong-name	?MessageStreamSubsystem@@3PAVMessageStream@@A	0x00A00950
-data_check: Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyStagingRoomSlotInit.cpp	wrong-name	?g_currentAptOnlineCustomMatch@@3HA	0x00A063EC
-data_check (enforce): 2 source(s), 7 finding(s), 7 outside the baseline {'wrong-name': 7}; 0.2s

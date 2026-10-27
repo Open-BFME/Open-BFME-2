@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/StlportCoordVectorRecordInsert.cpp: LINKS  LINKED 0 -> 258 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 258)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 258 bytes (4.0s)

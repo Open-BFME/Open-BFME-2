@@ -1,9 +1,0 @@
-# Local-player constructor linking handoff
-
-Base 4a31eab426; BFME1 donor 4483e88; MSVC 7.1, existing /O1 /G7 /arch:SSE /MD /EHsc. Published census 3f413ed3ff, 2026-10-20 18:52. No source or ledger changes retained.
-
-StrategicInGameUILocalPlayerData.cpp (245 authored bytes) emits a competing Rva005E9742 payload constructor: its novtable declaration suppresses the native C78038 store. Removing novtable preserves all four rows exactly. Defining the same empty virtual destructor as the old constructor provider also preserves all rows. Moving the 31-byte constructor row into this consumer and removing the old provider definition passes all 5/5 consumer and 1/1 remaining provider byte rows and removes the duplicate. Paired current-object preview still links zero bytes: vtable and scalar-deleting destructor disagree with the earlier RvaCloneValueReturns.cpp provider. Restored all edits and the ledger after measurement.
-
-The native C78038 table contains three slots: deleting destructor 5FAA31, clone 5E9993, and factory 5E9761. The current clone view has only two slots and merely declares its virtual destructor; the constructor provider has one slot and an empty destructor. Native 5FAA31 calls 4E84A4, which restores BC6F20 before returning. Thus the empty-destructor trial is not a sufficient class contract. The existing canonical Rva0007DF07 header supplies this counted base (word +4), but adopting it also requires reconciling m_ref with inherited m_04, three virtual slots and their established return ABIs across constructor, clone and factory consumers. Do not repeat declaration suppression or the isolated constructor move. The attached patch is only the byte-exact diagnostic trial, not a proposed repair.
-
-Separate remaining old-provider blocker: undefined Rva005CEB57 virtual destructor. No closed-strict or full-link gain claimed. Claims released.

@@ -1,7 +1,0 @@
-diff --git a/Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp b/Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp
-index fc61ce525c..51d12770a8 100644
---- a/Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp
-+++ b/Code/Libraries/Source/WWVegas/WW3D2/Rva0012CB67AssetReader.cpp
-@@ -40,0 +41,2 @@
-+// Bind the shared pointer-set constructor instead of emitting this flag variant.
-+namespace _STL { template <> set<Rva001408C0Target *, less<Rva001408C0Target *>, allocator<Rva001408C0Target *> >::set(); }

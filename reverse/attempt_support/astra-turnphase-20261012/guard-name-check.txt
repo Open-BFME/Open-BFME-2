@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
-BASE ['?$S1@?BJ@??startUnpacking@SpecialAbilityUpdate@@UAEXXZ@4IA']
-NEW  ['?$S1@?BJ@??startUnpacking@SpecialAbilityUpdate@@UAEXXZ@4IA']
-UNCHANGED True
-Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp
-BASE ['?$S1@?1??rva00373D5E@StealthUpdate@@QAEXXZ@4IA', '?$S2@?O@??rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z@4IA']
-NEW  ['?$S1@?1??rva00373D5E@StealthUpdate@@QAEXXZ@4IA', '?$S2@?O@??rva00373F59@StealthUpdate@@QAE_NPBUCoord3D@@0@Z@4IA']
-UNCHANGED True

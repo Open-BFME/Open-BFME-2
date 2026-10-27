@@ -1,8 +1,0 @@
-{
-  "production_commit": "b389c9f0a205dc65c125f74f322e5176f8c23979",
-  "measured_commit": "d8d65b08cc9767cd8a338685933a25dd8055cf7f",
-  "source": "Code/Libraries/Source/VP6/InitQuantizer.cpp",
-  "source_sha256": "b852d271d5af2a59c22ca319d451374e69a81b3e814c1aa3579c823357f94b39",
-  "production_source_blob": "810d564c34ea5f6bd84466fa50687b9f4996493e",
-  "source_bytes_identical": true
-}

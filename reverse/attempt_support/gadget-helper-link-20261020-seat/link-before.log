@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetUserDataHelpers_Rva0032857F.cpp: LINKS  LINKED 43 -> 43 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 43)
-Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript_createGadget.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 1,722)
-  unresolved  ?Rva0032857F@@YAXPAVGameWindow@@H@Z
-link_check: 1 of 2 link cleanly; LINKED 43 -> 43 bytes (3.8s)

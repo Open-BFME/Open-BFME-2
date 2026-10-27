@@ -1,4 +1,0 @@
-deps-cache: no include inventory for Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp — ['(macro or parent-traversing include has unknown search roots)', '(an included header lies outside the inventoried search roots)']
-link_check: preparing 8 explicit safe provider(s), no extra sources
-Compile: 3 of 8 TU(s) (deps-cache: 5 current)
-link_check: Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp has no strict reusable compiler receipt; uncacheable inputs are not prepared by this mode

@@ -1,6 +1,0 @@
-data_check: Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp	wrong-name	?BfmeAIExitDoorFlag@@3_NA	0x00A03624
-data_check: Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp	wrong-name	?g_IntKeyedTreeNodePool@@3VRva002E8548@@A	0x009BD4B0
-data_check: Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp	wrong-name	?g_Va00DBD0F0@@3HA	0x009BD0F0
-data_check: Code/GameEngine/Source/GameLogic/AI/AIExitStateMethods.cpp	wrong-name	?BfmeAIExitDoorFlag@@3_NA	0x00A03624
-data_check: Code/GameEngine/Source/GameLogic/AI/AIHordeCowerStateSlots.cpp	wrong-name	?BfmeAIExitDoorFlag@@3_NA	0x00A03624
-data_check (shadow): 3 source(s), 5 finding(s), 5 outside the baseline {'wrong-name': 5}; 0.2s
