@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -MD /D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// cl: -DNDEBUG -DWIN32 -MD /D_STLP_USE_STATIC_LIB -Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/Object /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 
 #include <vector>
