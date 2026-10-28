@@ -2167,6 +2167,16 @@ Whole-unit clearance and census confirmation remain pending.
   references. Nine rejected donors and eleven mixed donors retain their
   declaration, STL and byte prerequisites. Census confirmation remains pending;
   no new linked bytes, ownership gain or debt retirement is claimed.
+- **Science pool ownership prerequisite (2026-10-28):**
+  [Current provider and overlap evidence](../reverse/attempt_support/science-pool-ownership-consolidation-20261028-codexb4.md)
+  shows the supported merge cannot admit the seed/list pair against published
+  index `d92e7e6635`: the existing pool moved into AIPathfind.cpp, but has no
+  matched complete data row. A temporary 24-byte row verifies with 72/72 code
+  rows and two data rows; global integrity correctly refuses its overlap with
+  GapBodiesGE53.cpp's separate pointer at pool+8. That file is held by another
+  worker. Reconcile the interior pointer and complete ownership before retrying
+  the merge; declaration/STL/byte prerequisites remain. The temporary row was
+  removed. No source move, census gain or debt retirement is claimed.
 - **Keyboard declaration prerequisites (2026-10-26):**
   [the shared receiver repair](../reverse/attempt_support/consolidation-keyboard-resync-prerequisite-20261026-codex.md)
   first made the seed and 166-byte resync donor compose (13 existing rows).
