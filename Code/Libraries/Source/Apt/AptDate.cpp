@@ -4,6 +4,7 @@
 #pragma intrinsic(abs)
 #include <math.h>
 #pragma intrinsic(abs)
+#pragma intrinsic(abs)
 
 // AptDate.cpp (retail __FILE__ names it; tu_map approved). The clock and
 // calendar units that shared these flags are folded in below; setDates is
@@ -196,6 +197,21 @@ public:
 public:
 	static AptValue *sMethod_toString(AptValue *,int);
 };
+
+// Target date dispatch key toString reaches this formatter through callback
+// 0x006F5080. Target calls and literals establish date formatting behavior;
+// original method spelling and EAStringC-reference ABI come from Godfather
+// QA PDB Apt.obj procedure/type records. No donor source is available.
+// Fields are the same target access view as the verified date getters.
+// Preserve retail Jly spelling, unbounded sprintf and four-byte numeric slot;
+// this is a recovery, including its year-buffer overflow, not a safety repair.
+// The scoped EAStringC temp reproduces target construction/unwind lifetime.
+// Evidence: reverse/godfather_disk_evidence.json, apt_date_string_formatter.
+extern "C" int __cdecl sprintf(char *,const char *,...);
+
+extern "C" int __cdecl abs(int);
+
+// ---- from Code/Libraries/Source/Apt/AptDate.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptDate.cpp
 
@@ -596,8 +612,6 @@ AptValue *AptDate::sMethod_getYear(AptValue *value,int argc)
     return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year-1900);
 }
 
-// tu-skeleton: 0x006F4460 606B ?toString@AptDate@@QAEXAAVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateString.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/AptDateSetters.cpp
 
 AptValue *AptDate::sMethod_setDate(AptValue *value,int argc)
@@ -776,19 +790,51 @@ AptValue *AptDate::sMethod_setYear(AptValue *value,int argc)
 // ?gpUndefinedValue@@3PAVAptValue@@A: the global at this VA is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A; this name is an alias for it.
 // ?gpUndefinedValue@@3PAVAptValue@@A: the global at VA 0xe18078 is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A.
 
-// tu-skeleton: 0x006F5080 120B ?sMethod_toString@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateStringCallback.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptDateString.cpp
+
+void AptDate::toString(EAStringC &out)
+{
+    char days[7][4]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
+    char months[12][4]={"Jan","Feb","Mar","Apr","May","Jun","Jly","Aug","Sep","Oct","Nov","Dec"};
+    char buffer[4];
+    { EAStringC weekday(days[getDayOfWeek(local.Year,local.Month,local.Date)]); out=weekday; }
+    out.Rva006D50A0Append(" ");
+    out.Rva006D50A0Append(months[local.Month]);
+    out.Rva006D50A0Append(" ");
+    sprintf(buffer,"%d",local.Date);
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append(" ");
+    sprintf(buffer,"%02d",local.Hour);
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append(":");
+    sprintf(buffer,"%02d",local.Minute);
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append(":");
+    sprintf(buffer,"%02d",local.Second);
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append(" GMT");
+    out.Rva006D50A0Append(timezoneHours<0?"-":"+");
+    sprintf(buffer,"%02d",abs(timezoneHours));
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append("00 ");
+    sprintf(buffer,"%d",local.Year);
+    out.Rva006D50A0Append(buffer);
+}
+
+// ---- from Code/Libraries/Source/Apt/AptDateStringCallback.cpp
+
+AptValue *AptDate::sMethod_toString(AptValue *value,int argc)
+{
+    AptValue *result=reinterpret_cast<AptValue *>(AptString::Create());
+    EAStringC text;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->toString(text);
+    result->SetString(text.rva00620090());
+    return result;
+}
 
 // tu-skeleton: 0x006F5100 6B ?Rva006F5100Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x006F5110 5056B ?objectMemberLookup@AptDate@@UBEPAVAptValue@@QAV2@QBVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9DA0 8B uw_007a9da0 -- matched in Code/Libraries/Source/Apt/AptDateString.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9DA8 10B __ehhandler$?toString@AptDate@@QAEXAAVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateString.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9DC0 8B uw_007a9dc0 -- matched in Code/Libraries/Source/Apt/AptDateStringCallback.cpp (not merged yet)
-
-// tu-skeleton: 0x007A9DC8 10B __ehhandler$?sMethod_toString@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateStringCallback.cpp (not merged yet)
 
 // tu-skeleton: 0x007A9DE0 15B Unwind@00ba9de0 -- matched in Code/Libraries/Source/Apt/AptDateLookup.cpp (not merged yet)
 

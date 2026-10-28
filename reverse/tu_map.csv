@@ -59044,7 +59044,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F4120,136,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,F,F=Code/Libraries/Source/Apt/AptDate.cpp N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F41B0,216,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F4290,450,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
-0x006F4460,606,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDateString.cpp
+0x006F4460,606,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F46C0,22,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F46E0,63,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F4720,22,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
@@ -59079,7 +59079,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006F4F30,112,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F4FA0,112,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F5010,110,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
-0x006F5080,120,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDateStringCallback.cpp
+0x006F5080,120,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
 0x006F5100,6,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,C,C=0x006F5080..0x006F5110,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp
 0x006F5110,5056,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp W=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDateLookup.cpp
 0x006F64D0,782,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,N,N=Code/Libraries/Source/Apt/AptDate.cpp,Code/Libraries/Source/Apt/AptDate.cpp
@@ -92040,10 +92040,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A9D80,8,code,Code/Libraries/Source/Apt/AptObject/AptSound.cpp,approved,P,P=0x006F38B0@FuncInfo0x00963604 provisional,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 0x007A9D88,8,code,Code/Libraries/Source/Apt/AptObject/AptSound.cpp,approved,P,P=0x006F38B0@FuncInfo0x00963604 provisional,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 0x007A9D90,10,code,Code/Libraries/Source/Apt/AptObject/AptSound.cpp,approved,P,P=0x006F38B0@FuncInfo0x00963604 provisional,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
-0x007A9DA0,8,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F4460@FuncInfo0x00963628,Code/Libraries/Source/Apt/AptDateString.cpp
-0x007A9DA8,10,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F4460@FuncInfo0x00963628,Code/Libraries/Source/Apt/AptDateString.cpp
-0x007A9DC0,8,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5080@FuncInfo0x0096364C,Code/Libraries/Source/Apt/AptDateStringCallback.cpp
-0x007A9DC8,10,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5080@FuncInfo0x0096364C,Code/Libraries/Source/Apt/AptDateStringCallback.cpp
+0x007A9DA0,8,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F4460@FuncInfo0x00963628,Code/Libraries/Source/Apt/AptDate.cpp
+0x007A9DA8,10,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F4460@FuncInfo0x00963628,Code/Libraries/Source/Apt/AptDate.cpp
+0x007A9DC0,8,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5080@FuncInfo0x0096364C,Code/Libraries/Source/Apt/AptDate.cpp
+0x007A9DC8,10,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5080@FuncInfo0x0096364C,Code/Libraries/Source/Apt/AptDate.cpp
 0x007A9DE0,15,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5110@FuncInfo0x00963790,Code/Libraries/Source/Apt/AptDateLookup.cpp
 0x007A9DEF,15,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5110@FuncInfo0x00963790,Code/Libraries/Source/Apt/AptDateLookup.cpp
 0x007A9DFE,15,code,Code/Libraries/Source/Apt/AptDate.cpp,approved,P,P=0x006F5110@FuncInfo0x00963790,Code/Libraries/Source/Apt/AptDateLookup.cpp
