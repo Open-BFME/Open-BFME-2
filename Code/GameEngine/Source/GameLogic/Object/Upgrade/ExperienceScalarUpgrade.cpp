@@ -24,12 +24,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ExperienceScalarUpgrade
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 //
 // ??0ExperienceScalarUpgradeModuleData@@QAE@XZ, retail 0x004B6187, 29 bytes.
 // Frameless store-only ctor over the rowed Rva00253487Base base
@@ -55,6 +49,79 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
+//
+// ExperienceScalarUpgrade::upgradeImplementation, retail 0x004B6213 (35 bytes), and
+// ExperienceScalarUpgrade::upgradeRemovalImplementation, retail 0x004B6236 (35 bytes): slots 10 and
+// 8 of the +0x10 UpgradeMux vtable 0x00C584A0 installed by the matched ExperienceScalarUpgrade
+// ctor (slot 9 is setUpgradeExecuted, the rowed UpgradeMux::rva00452354).
+// Bodies: the Zero Hour ExperienceScalarUpgrade.cpp body adding the module data scalar
+// (+0x118) to the experience tracker's scalar (Object+0x264, tracker +0x1C);
+// the removal subtracts it.
+typedef bool Bool;
+
+typedef float Real;
+
+class ExperienceTracker
+{
+public:
+	Real getExperienceScalar() const { return m_experienceScalar; }
+	void setExperienceScalar(Real scalar) { m_experienceScalar = scalar; }
+private:
+	unsigned char m_pad00[0x1C];
+	Real m_experienceScalar; // +0x1C
+};
+
+class Object
+{
+public:
+	ExperienceTracker *getExperienceTracker() const { return m_experienceTracker; }
+private:
+	unsigned char m_pad000[0x264];
+	ExperienceTracker *m_experienceTracker; // +0x264
+};
+
+class ModuleData;
+
+class ObjectModuleBase
+{
+public:
+	virtual ~ObjectModuleBase();
+protected:
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+class UpgradeModuleInterface
+{
+public:
+	virtual void upgradeModuleInterfaceAnchor();
+};
+
+template <int N> class ExperienceScalarUpgradeMuxSlots : public ExperienceScalarUpgradeMuxSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+
+template <> class ExperienceScalarUpgradeMuxSlots<0>
+{
+};
+
+// UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
+// setUpgradeExecuted, slot 10 upgradeImplementation.
+class UpgradeMuxIface : public ExperienceScalarUpgradeMuxSlots<8>
+{
+protected:
+	virtual void upgradeRemovalImplementation() = 0;
+	virtual void setUpgradeExecuted(Bool executed) = 0;
+	virtual void upgradeImplementation() = 0;
+};
+
+class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
+{
+};
+
 class ExperienceScalarUpgradeModuleData : public Rva00253487Base
 {
 public:
@@ -62,6 +129,19 @@ public:
 
 	float m_addXPScalar; // +0x118
 };
+
+class ExperienceScalarUpgrade : public UpgradeModule
+{
+protected:
+	virtual void upgradeRemovalImplementation();
+	virtual void upgradeImplementation();
+private:
+	const ExperienceScalarUpgradeModuleData *getExperienceScalarUpgradeModuleData() const { return (const ExperienceScalarUpgradeModuleData *)m_moduleData; }
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradePoolKey.cpp
 
@@ -90,6 +170,27 @@ ExperienceScalarUpgradeModuleData::ExperienceScalarUpgradeModuleData()
 
 // tu-skeleton: 0x004B61F7 28B ??_GRva004B611C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B6213 35B ?upgradeImplementation@ExperienceScalarUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeUpgradeImplementation.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeUpgradeImplementation.cpp
 
-// tu-skeleton: 0x004B6236 35B ?upgradeRemovalImplementation@ExperienceScalarUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeUpgradeImplementation.cpp (not merged yet)
+void ExperienceScalarUpgrade::upgradeImplementation()
+{
+	//Grant the experience scalar bonus
+	Object *obj = getObject();
+	ExperienceTracker *xpTracker = obj->getExperienceTracker();
+	if (xpTracker)
+	{
+		Real scalar = xpTracker->getExperienceScalar() + getExperienceScalarUpgradeModuleData()->m_addXPScalar;
+		xpTracker->setExperienceScalar(scalar);
+	}
+}
+
+void ExperienceScalarUpgrade::upgradeRemovalImplementation()
+{
+	Object *obj = getObject();
+	ExperienceTracker *xpTracker = obj->getExperienceTracker();
+	if (xpTracker)
+	{
+		Real scalar = xpTracker->getExperienceScalar() - getExperienceScalarUpgradeModuleData()->m_addXPScalar;
+		xpTracker->setExperienceScalar(scalar);
+	}
+}
