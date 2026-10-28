@@ -49785,9 +49785,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005C8DBF,75,code,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp,approved,N,N=Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp W=Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioGridCell.cpp provisional,Code/GameEngine/Source/Common/TargetObj005C8DBF.cpp
 0x005C8E0A,34,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,N,N=Code/GameEngine/Source/Common/HostClass005C8E0A.cpp provisional,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 0x005C8E2C,135,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,N,N=Code/GameEngine/Source/Common/HostClass005C8E0A.cpp provisional,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
-0x005C8EB3,100,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8E2C..0x005C8F17 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005C8EB3.cpp
+0x005C8EB3,100,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8E2C..0x005C8F17 provisional,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 0x005C8F17,57,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,N,N=Code/GameEngine/Source/Common/HostClass005C8E0A.cpp provisional,Code/GameEngine/Source/Common/HostClass005C8F17.cpp
-0x005C8F50,74,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8F17..0x005C8F9A provisional,Code/GameEngine/Source/Common/Rva005C8F50Method.cpp
+0x005C8F50,74,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8F17..0x005C8F9A provisional,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 0x005C8F9A,35,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8F17..0x005C8FBD provisional,Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp
 0x005C8FBD,94,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8F17..0x005C901B provisional,Code/GameEngine/Source/Common/Rva005C8FBD.cpp
 0x005C901B,15,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,C,C=0x005C8F17..0x005C902A provisional,Code/GameEngine/Source/Common/HostClass005C815B.cpp
@@ -88691,8 +88691,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A0DCF,25,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8E2C@FuncInfo0x00958040 provisional,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
 0x007A0DE8,8,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8E2C@FuncInfo0x00958040 provisional,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
 0x007A0DF0,10,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8E2C@FuncInfo0x00958040 provisional,Code/GameEngine/Source/Common/HostClass005C8E2C.cpp
-0x007A0DFA,11,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8EB3@FuncInfo0x00958064 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005C8EB3.cpp
-0x007A0E05,10,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8EB3@FuncInfo0x00958064 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005C8EB3.cpp
+0x007A0DFA,11,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8EB3@FuncInfo0x00958064 provisional,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
+0x007A0E05,10,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8EB3@FuncInfo0x00958064 provisional,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 0x007A0E0F,11,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8FBD@FuncInfo0x00958098 provisional,Code/GameEngine/Source/Common/Rva005C8FBD.cpp
 0x007A0E1A,11,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8FBD@FuncInfo0x00958098 provisional,Code/GameEngine/Source/Common/Rva005C8FBD.cpp
 0x007A0E25,11,code,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,approved,P,P=0x005C8FBD@FuncInfo0x00958098 provisional,Code/GameEngine/Source/Common/Rva005C8FBD.cpp
