@@ -25,11 +25,11 @@ unsigned __fastcall Get_Bits_Per_Pixel(WW3DFormat format);
 struct Rva00131B1FSurface
 {
 	int m_pad00[3]; // +0x00..0x0B
-	int m_type0C; // +0x0C: 2 selects the *6 upscale
+	int m_textureType; // +0x0C: 2 selects the *6 upscale
 	int m_pad10[6]; // +0x10..0x27
-	int m_dim28; // +0x28
-	int m_dim2C; // +0x2C
-	int m_dim30; // +0x30
+	int m_width; // +0x28
+	int m_height; // +0x2C
+	int m_depth; // +0x30
 	int m_pad34[4]; // +0x34..0x43
 	int m_mipLevelCount; // +0x44: 1 skips the *4/3 upscale
 	int m_pad48; // +0x48..0x4B
@@ -43,8 +43,8 @@ struct Rva00131B1FSurface
 unsigned Rva00131B1FSurface::Get_Memory_Size() const
 {
 	unsigned mem = Get_Bits_Per_Pixel((WW3DFormat)m_format)
-		* m_dim30 * m_dim2C * m_dim28 >> 3;
-	if (m_type0C == 2)
+		* m_depth * m_height * m_width >> 3;
+	if (m_textureType == 2)
 		mem *= 6;
 	if (m_mipLevelCount != 1)
 		mem = mem * 4 / 3;

@@ -3981,3 +3981,4 @@ __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCa
 ?rva000E6AA4@Rva000E6AC0@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ,0x000E6AA4,"Renamed to ?getTexture@Rva000E6AC0@@QAE?AV?$RefCountPtr@VTextureClass@@@@XZ by tools/rename.py (inferred)"
 ?rva001542A0@@YAHG@Z,0x001542A0,"Renamed to ?isThaiCharacter@@YAHG@Z by tools/rename.py (inferred)"
 ?Rva003B7190RecordFieldParseTable@@3QBUFieldParse@@B,0x008619E0,"Renamed to ?FlashRegionsEventFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
+?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z,0x0047B9AD,"Renamed to ?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"

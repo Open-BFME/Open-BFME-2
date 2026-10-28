@@ -32,8 +32,8 @@ struct Rva0054A82C {
 };
 int Rva0054A82C::nextWithNumeric(int *out)
 {
-	DequeE8Iter tmp = it24;
-	if (it04._M_cur != tmp._M_cur) {
+	DequeE8Iter endIterator = it24;
+	if (it04._M_cur != endIterator._M_cur) {
 		if (out) {
 			*(int *)out = *(int *)&it04._M_cur->b;
 		}

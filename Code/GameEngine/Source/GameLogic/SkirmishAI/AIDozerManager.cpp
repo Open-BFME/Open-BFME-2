@@ -83,16 +83,16 @@ namespace _STL { template <> void sort<Rva00599435Keyframe *, Rva00599435Compare
 
 // Coord3D::sub and Coord3D::GetLengthSqrd2D as the WB twin calls them;
 // retail inlines both.
-static inline void subCoord3D(Coord3D *dst, const Coord3D *a)
+static inline void subCoord3D(Coord3D *dst, const Coord3D *source)
 {
-	dst->x -= a->x;
-	dst->y -= a->y;
-	dst->z -= a->z;
+	dst->x -= source->x;
+	dst->y -= source->y;
+	dst->z -= source->z;
 }
-static inline float lengthSqrd2D(const Coord3D *c)
+static inline float lengthSqrd2D(const Coord3D *coord)
 {
-	float x_value = c->x;
-	float y_value = c->y;
+	float x_value = coord->x;
+	float y_value = coord->y;
 	return x_value * x_value + y_value * y_value;
 }
 
@@ -137,7 +137,7 @@ void AIDozerManager::preEmptivelyBuildDozers()
 		_STL::sort(candidates.begin(), candidates.end(), Rva00599435Compare());
 		unsigned int count = m_factories.size() - m_dozers.size();
 		if (count != 0)
-			for (Rva00599435Keyframe *p = candidates.begin(); p != candidates.end() && count > 0; ++p, --count)
-				buildDozer((Object *)p->m_frame);
+			for (Rva00599435Keyframe *candidateIter = candidates.begin(); candidateIter != candidates.end() && count > 0; ++candidateIter, --count)
+				buildDozer((Object *)candidateIter->m_frame);
 	}
 }

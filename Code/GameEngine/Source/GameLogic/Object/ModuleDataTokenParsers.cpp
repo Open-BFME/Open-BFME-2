@@ -57,7 +57,7 @@ public:
 class SiegeEngineContainModuleData
 {
 public:
-	static void rva0047B9AD(INI *ini, void *instance, void *store, const void *);
+	static void parseInitialCrew(INI *ini, void *instance, void *store, const void *);
 
 	unsigned char m_unreconstructed_00[0x194];
 	InitialRoster m_initialCrew;		// +0x194
@@ -92,8 +92,8 @@ void bfmeAnchorGarrisonContainModuleDataparseInitialRoster(GarrisonContainModule
 	garrisonContainModuleData->parseInitialRoster(ini, instance, a2, a3);
 }
 
-// ?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z
-void SiegeEngineContainModuleData::rva0047B9AD(INI *ini, void *instance, void * /*store*/, const void *)
+// ?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z
+void SiegeEngineContainModuleData::parseInitialCrew(INI *ini, void *instance, void * /*store*/, const void *)
 {
 	SiegeEngineContainModuleData *self = (SiegeEngineContainModuleData *)instance;
 	const char *name = ini->getNextToken();
