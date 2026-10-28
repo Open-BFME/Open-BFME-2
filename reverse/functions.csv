@@ -31311,7 +31311,7 @@ _Rva006FD040,,0x006FD040,26,Code/Libraries/Source/Apt/AptActionInterpreter.cpp,m
 ?Rva006568C0@@YGXPAUBfmeSetupRecord@@@Z,,0x006568C0,44,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,single-key acct TXN setup writer; DIR32 global is the only per-member difference
 ?Rva00656980@@YGXPAUBfmeSetupRecord@@@Z,,0x00656980,44,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,single-key acct TXN setup writer; DIR32 global is the only per-member difference
 ?Rva006569B0@@YGXPAUBfmeSetupRecord@@@Z,,0x006569B0,44,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,single-key acct TXN setup writer; DIR32 global is the only per-member difference
-?rva00719800@Rva00719800@@QBEHXZ,,0x00719800,41,Code/Libraries/Source/WWVegas/WWMath/Rva00719800Cluster.cpp,matched,address-derived element-wise min>=max box predicate next to Init_Empty; identity unproven
+?rva00719800@Rva00719800@@QBEHXZ,,0x00719800,41,Code/Libraries/Source/WWVegas/WWMath/aabox.cpp,matched,address-derived element-wise min>=max box predicate next to Init_Empty; identity unproven
 ?Rva00129640Get@@YAHH@Z,,0x00129640,23,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,matched,bounded array read over g_stat10 and the 0x00DEE8E8 buffer; identity unproven
 ?Rva00129690@@YAXXZ,,0x00129690,86,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,matched,cumulative push into the 0x00DEE8E8 three-entry buffer capped at 3; /G7 add idiom
 ?Rva0002ACC0@BfmeS1155@@QAEIPBDI@Z,,0x0002ACC0,42,Code/GameEngine/Source/Common/Rva0002ACC0Cluster.cpp,matched,length bridge over BfmeS1155::bfmeFind1155; method name is the image address
