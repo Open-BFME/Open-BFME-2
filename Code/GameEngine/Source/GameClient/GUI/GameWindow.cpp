@@ -710,7 +710,7 @@ protected:
 public:
 	virtual WindowMsgHandledType input(UnsignedInt, WindowMsgData, WindowMsgData);
 public:
-	virtual void vslot2() = 0;
+	virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
 public:
 	virtual Int draw(void *);
 public:

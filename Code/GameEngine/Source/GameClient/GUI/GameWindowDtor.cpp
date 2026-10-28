@@ -92,7 +92,7 @@ protected:
   virtual ~GameWindow();
 public:
   virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
-  virtual void vslot2() = 0;
+  virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
   virtual int draw( void * );
   virtual int tooltip(WinInstanceData *, unsigned int);
   virtual int rva0009FD78();
