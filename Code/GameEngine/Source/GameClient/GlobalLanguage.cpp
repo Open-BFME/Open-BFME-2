@@ -393,7 +393,7 @@ void famgenDeleteGlobalLanguage(GlobalLanguage *globalLanguage) { delete globalL
 // ??0GlobalLanguage@@QAE@XZ, retail 0x001EA9B5, 502 bytes.
 //
 // The pin has carried this ctor address since the GameEngine::init recovery,
-// and GlobalLanguageDtor.cpp (rowed 0x001EABAB) fixes the same member offsets
+// and the dtor (rowed 0x001EABAB, above) fixes the same member offsets
 // this ctor constructs: subsystem base 0x001B4E63, vtable 0x007DEFC8, the
 // separator strings ".", "," and ":" at +0xC/+0x10/+0x14, the language string
 // from the rowed GetRegistryLanguage 0x00235029 at +0x20, bool +0x24 and int

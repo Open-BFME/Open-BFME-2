@@ -20,7 +20,7 @@ public:
 };
 
 // The language override records are 12-byte FontDesc prefixes, not the
-// 16-byte returned values. GlobalLanguageDtor.cpp independently establishes
+// 16-byte returned values. GlobalLanguage.cpp's dtor independently establishes
 // their 12-byte stride through +0x128. Only name, size and bold are copied.
 struct Rva0029F8B8FontOverride
 {
