@@ -1407,6 +1407,21 @@ under another name, so only the out-of-line calls bind to the declaration.
 Clearance: pending.
 Census confirmation: not claimed.
 
+#### Identity fold rows that move a unit (halilkkaya-cid4, 2026-10-28)
+
+The identity batch "row 12 STL helper folds as ICF twins in 8 units" adds fold rows
+below five units' lowest rows: `stlport_map_int_ptr_tree_copy3.cpp` and `...copy4.cpp`
+(0x004FFEAF/0x004FFF54 -> 0x00382B7F), `StlportReserveRva0047B35E.cpp` (0x0047B35E ->
+0x000B413D), `AnimateWindowManager.cpp` and `ShellMenuScheme_Rva0020066C.cpp`
+(0x00200667 -> 0x0014F3C4). Before landing each, every external COMDAT (code and
+data) the unit defines was compared with its first definer among the objects the unit
+jumps over, by section bytes plus relocation target names: 0 differ (17, 21, 1, 544
+and 544 shared copies identical), so no kept copy changes and no consumer can select a
+different body. All five preview LINKS before and after (index `41c28839bf`). Use the
+same comparison before admitting any fold row that lowers its unit's position. If the
+census rule above stops counting fold rows, these units return to their old places
+with no selection change. Census confirmation: not claimed.
+
 #### AssetList consumer refresh (2026-10-28)
 
 At `9974966c04`, a refreshed preview against index `41c28839bf` replaces
