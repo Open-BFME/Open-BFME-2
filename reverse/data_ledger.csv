@@ -1864,7 +1864,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CDB60,192,.rdata,global,?g_00BCDB60@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp,owned,,1,1
 0x007CDC20,336,.rdata,global,?g_00BCDC20@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDraw.cpp,owned,,1,1
 0x007CDD70,372,.rdata,vtable,??_7W3DBoatWakeModelDraw@@6B@,,literal,??_7W3DBoatWakeModelDraw@@6B@;_vtbl_00BCDD70,0,2
-0x007CDEE4,52,.rdata,global,?g_00BCDEE4@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDrawModuleDataCtor.cpp,owned,,1,1
+0x007CDEE4,52,.rdata,global,?g_00BCDEE4@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDraw.cpp,owned,,1,1
 0x007CDF18,152,.rdata,vtable,??_7W3DProjectileStreamDrawModuleData@@6B@,,literal,??_7W3DProjectileStreamDrawModuleData@@6B@;_vtbl_00BCDF18,0,2
 0x007CDFB0,96,.rdata,global,?g_00BCDFB0@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDraw.cpp,owned,,1,1
 0x007CE010,248,.rdata,vtable,??_7W3DProjectileStreamDraw@@6B@,,literal,,0,1
@@ -18143,8 +18143,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EBBF0,4,.data,global,?TheW3DSailModelDrawPoolKey@?1??getModuleNameKey@W3DSailModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDraw.cpp,owned,,1,2
 0x009EBBF4,4,.data,global,?$S1@?1??getModuleNameKey@W3DSailModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDraw.cpp,owned,,1,4
 0x009EBC08,4,.data,global,_s_rva007AC58D,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009EBC0C,4,.data,global,?TheW3DBoatWakeModelDrawPoolKey@?1??getModuleNameKey@W3DBoatWakeModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBoatWakeModelDrawPoolKey.cpp,owned,,1,2
-0x009EBC10,4,.data,global,?$S1@?1??getModuleNameKey@W3DBoatWakeModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBoatWakeModelDrawPoolKey.cpp,owned,,1,4
+0x009EBC0C,4,.data,global,?TheW3DBoatWakeModelDrawPoolKey@?1??getModuleNameKey@W3DBoatWakeModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDraw.cpp,owned,,1,2
+0x009EBC10,4,.data,global,?$S1@?1??getModuleNameKey@W3DBoatWakeModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDraw.cpp,owned,,1,4
 0x009EBC14,4,.data,global,_s_rva007AC5B7,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBC18,4,.data,global,?TheW3DProjectileStreamDrawPoolKey@?1??getModuleNameKey@W3DProjectileStreamDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDraw.cpp,owned,,1,2
 0x009EBC1C,4,.data,global,?$S1@?1??getModuleNameKey@W3DProjectileStreamDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDraw.cpp,owned,,1,2
