@@ -9204,7 +9204,7 @@ _D3DXCheckTextureRequirements@28,0x0062AF86,Named d3dx9_27.dll PE import thunk F
 ??1Rva0083702CObserver@@QAE@XZ,0x003F3F7C,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005E1BD5Destructor.cpp
 ??1Rva0086E330Callback@@QAE@XZ,0x005E186A,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005E1BD5Destructor.cpp
 ??1Rva005E4AE2Listener@@UAE@XZ,0x005E3947,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005E4925Dtor.cpp
-??1Rva005E626DListener@@QAE@XZ,0x003F3F7C,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005E626DCtor.cpp
+??1Rva005E626DListener@@QAE@XZ,0x003F3F7C,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/GUI/StrategicInGameUI.cpp
 ??1Rva005EEF2FBase4@@UAE@XZ,0x004E84A4,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp
 ??1Rva005FSecondaryCallbacks@@QAE@XZ,0x005E394E,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/GUI/StrategicUiArmyHandler.cpp
 ??1Rva005F5819Mid@@UAE@XZ,0x005E3947,ICF fold of this destructor: retail unwind funclets of matched parents reach it at this address; fold-proof=Code/GameEngine/Source/GameClient/StrategicInGameUI.cpp
