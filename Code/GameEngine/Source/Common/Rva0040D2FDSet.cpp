@@ -20,18 +20,18 @@ class ArmySummarySystem
 {
 public:
 	void *rva0040D008(int id);
-	void rva0040D2FD(int a, int b, Rva0040D2FDVec *v);
+	void rva0040D2FD(int a, int delaySeconds, Rva0040D2FDVec *coordinates);
 };
-void ArmySummarySystem::rva0040D2FD(int a, int b, Rva0040D2FDVec *v)
+void ArmySummarySystem::rva0040D2FD(int a, int delaySeconds, Rva0040D2FDVec *coordinates)
 {
-	float f[2];
+	float coordinateCopy[2];
 	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(a);
 	if (y == 0)
 		return;
 	y->m_2c &= 0;
-	y->m_30 = (int)((float)b * LOGICFRAMES_PER_SECONDS_REAL);
-	f[0] = v->x;
-	f[1] = v->y;
-	y->m_58 = *(int *)&f[0];
-	y->m_5c = *(int *)&f[1];
+	y->m_30 = (int)((float)delaySeconds * LOGICFRAMES_PER_SECONDS_REAL);
+	coordinateCopy[0] = coordinates->x;
+	coordinateCopy[1] = coordinates->y;
+	y->m_58 = *(int *)&coordinateCopy[0];
+	y->m_5c = *(int *)&coordinateCopy[1];
 }

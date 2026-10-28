@@ -125,10 +125,10 @@ struct Rva004B2B64Owner
 // ?Rva004B2B64_ParseReplaceObject@INI@@SAXPAV1@PAX1PBX@Z
 void INI::Rva004B2B64_ParseReplaceObject(INI *ini, void *instance, void *, const void *)
 {
-	MultiIniFieldParse p;
+	MultiIniFieldParse parseTables;
 	Rva004B2B2F *entry = 0;
-	p.add(g_00C56D20, 0);
+	parseTables.add(g_00C56D20, 0);
 	entry = new Rva004B2B2F;
-	ini->initFromINIMulti(entry, p);
+	ini->initFromINIMulti(entry, parseTables);
 	((Rva004B2B64Owner *)instance)->m_entries.push_back(entry);
 }

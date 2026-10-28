@@ -3944,3 +3944,9 @@ param,maxv::b,maxv::rightValue,inferred,agree:nl-b4775c30610c,Code/GameEngine/So
 param,maxi::a,maxi::firstValue,inferred,agree:nl-c3db29b07edf,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp,
 param,maxi::b,maxi::secondValue,inferred,agree:nl-38e5f8107ffb,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp,
 local,Rva005DAC85::updatePriority::v,Rva005DAC85::updatePriority::priorityAdjustment,inferred,agree:nl-63f799a9927e,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/Rva005DAC85Slot5.cpp,0x005DACC0
+member,BfmeThingTQD::m_bfmeField4,BfmeThingTQD::m_printCallback,inferred,agree:nl-d42a48075c6c,Code/GameEngine/Source/Common/BfmeConv1321.cpp,
+param,ArmySummarySystem::rva0040D2FD::b,ArmySummarySystem::rva0040D2FD::delaySeconds,inferred,agree:nl-71843cbb0c84,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
+param,ArmySummarySystem::rva0040D2FD::v,ArmySummarySystem::rva0040D2FD::coordinates,inferred,agree:nl-25f6fbf370e1,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
+local,ArmySummarySystem::rva0040D2FD::f,ArmySummarySystem::rva0040D2FD::coordinateCopy,inferred,agree:nl-c30038f175c2,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
+param,FunctorBinding::m,FunctorBinding::functorMethod,inferred,agree:nl-54c796054ff0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp,
+local,INI::Rva004B2B64_ParseReplaceObject::p,INI::Rva004B2B64_ParseReplaceObject::parseTables,inferred,agree:nl-d3831f47dd81,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp,0x004B2B64

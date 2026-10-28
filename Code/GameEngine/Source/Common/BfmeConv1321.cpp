@@ -20,7 +20,7 @@ public:
 	BfmeThingTQD();
 	void *bfmeDelTQD(unsigned char flags);
 	void *m_bfmeVft;
-	void *m_bfmeField4;
+	void *m_printCallback;
 	unsigned int m_bfmeField8;
 	void *m_bfmeItem;
 	unsigned int m_bfmeField10;
@@ -48,7 +48,7 @@ void Rva006587B0Print(void *context, const char *text)
 BfmeThingTQD::BfmeThingTQD()
 {
 	m_bfmeVft = g_bfmeVftTDA;
-	m_bfmeField4 = reinterpret_cast<void *>(&Rva006587B0Print);
+	m_printCallback = reinterpret_cast<void *>(&Rva006587B0Print);
 	m_bfmeField8 = 0;
 	m_bfmeItem = 0;
 	m_bfmeField10 = 0;
