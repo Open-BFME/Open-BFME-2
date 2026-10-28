@@ -1819,7 +1819,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeThingSVA.cpp	?bfmeInsertV17@Bfme
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredEightyFour.cpp	?bfmeHitAEA@BfmeEntryAEA@@QAE_NPAUBfmeKeyAEA@@PAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	?bfmeDropVIH@BfmeSubVIH@@QAEXPAVBfmeThingVIH@@@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp	?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A	1
-alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyOne.cpp	??0stdio_streambuf_base@_SgI@@QAE@PAU_iobuf@@@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp	??1Rva0061ED80@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredFiftyThree.cpp	??1Rva009EB810TailBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThreeHundredThirtyEight_Rva001320d0.cpp	?handle@BfmeThingSJ@@UAEXXZ	1
@@ -2624,6 +2623,7 @@ alternatename	Code/GameEngine/Source/Common/S3PolymorphicArrayClear128.cpp	?bfme
 alternatename	Code/GameEngine/Source/Common/SmallGaps/Rva007F5A70VideoBufferValue.cpp	?m@Gen_007e88b0@@QAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/SpawnArmyCopyCtor.cpp	??0BfmePod88@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/Common/StateMachineXfer.cpp	?XferObjectID@@YAAAVXfer@@PAV1@PAW4ObjectID@@@Z	1
+alternatename	Code/GameEngine/Source/Common/StdioStreambufBase.cpp	??0stdio_streambuf_base@_SgI@@QAE@PAU_iobuf@@@Z	1
 alternatename	Code/GameEngine/Source/Common/StrategicHUD.cpp	?g_Va007C9260@@3QBGB	1
 alternatename	Code/GameEngine/Source/Common/StringContainerRecordVector.cpp	?_M_clear@?$vector@URva0004B22EElement@@V?$allocator@URva0004B22EElement@@@_STL@@@_STL@@IAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/StringVectorRecordCtorC0BEC.cpp	??0BfmeAsciiStringStorage000BDD48@@QAE@ABUBfmeAsciiStringAllocator000BDD48@@@Z	1
