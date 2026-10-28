@@ -11,14 +11,22 @@ enum NameKeyType
 
 enum ArmorSetType { ARMORSET_NONE = 0 };
 
+class Xfer;
+
+// Retail slot order (docs/linking_obstacles.md, "Module base chain"):
+// Snapshot's three slots, then getModuleNameKey and the four empty hooks.
 class Module
 {
 public:
-	virtual void _dtor() = 0;
-	virtual void _r1() = 0;
-	virtual void _r2() = 0;
-	virtual void _r3() = 0;
+	virtual ~Module();
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *xfer) = 0;
 	virtual NameKeyType getModuleNameKey() const = 0;
+	virtual void onObjectCreated() {}
+	virtual void onDrawableBoundToObject() {}
+	virtual void preloadAssets() {}
+	virtual void onDelete() {}
 };
 
 class BodyFwd

@@ -103,13 +103,31 @@ public:
 	virtual bool rva78() const;				// +0x78
 };
 
+class Xfer;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+
+// Retail slot order (docs/linking_obstacles.md, "Module base chain"):
+// Snapshot's three slots, then getModuleNameKey and the four empty hooks.
 class Module
 {
 public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04();
-	virtual void onObjectCreated();				// +0x14
-	virtual void s06(); virtual void s07(); virtual void s08(); virtual void s09();
+	virtual ~Module();
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual NameKeyType getModuleNameKey() const = 0;
+	virtual void onObjectCreated() {}
+	virtual void onDrawableBoundToObject() {}
+	virtual void preloadAssets() {}
+	virtual void onDelete() {}
+};
+
+// DrawableModule (vftable 0x00C07E54) adds slots 9 and 10; both return 0 by
+// default. Every drawable module list holds DrawableModules.
+class DrawableModule : public Module
+{
+public:
+	virtual void s09();
 	virtual const ModuleData *rva28();			// +0x28
 };
 
@@ -481,7 +499,7 @@ Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits
 		if (TheWritableGlobalData->m_useDrawModuleLOD && newModData->getMinimumRequiredGameLOD() > lodLevel)
 			continue;
 		*module = TheModuleFactory->newModule(this, drawMI.getNthName(modIdx), newModData, MODULETYPE_DRAW);
-		addIface((*module)->rva28());
+		addIface(static_cast<DrawableModule *>(*module)->rva28());
 		if (!newModData->rva78())
 			m_3ab = true;
 		++module;
@@ -496,7 +514,7 @@ Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits
 		{
 			const ModuleData *newModData = cuMI.getNthData(modIdx);
 			*module = TheModuleFactory->newModule(this, cuMI.getNthName(modIdx), newModData, MODULETYPE_CLIENT_UPDATE);
-			addIface((*module)->rva28());
+			addIface(static_cast<DrawableModule *>(*module)->rva28());
 			++module;
 		}
 		*module = 0;
@@ -510,7 +528,7 @@ Drawable::Drawable(const ThingTemplate *thingTemplate, DrawableStatus statusBits
 		{
 			const ModuleData *newModData = moduleInfo.getNthData(modIdx);
 			*module = TheModuleFactory->newModule(this, moduleInfo.getNthName(modIdx), newModData, MODULETYPE_3);
-			addIface((*module)->rva28());
+			addIface(static_cast<DrawableModule *>(*module)->rva28());
 			++module;
 		}
 		*module = 0;

@@ -38,18 +38,29 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_NONE = 0
 };
 
+class Xfer;
+
+// Retail slot order (docs/linking_obstacles.md, "Module base chain"):
+// Snapshot's three slots, then getModuleNameKey and the four empty hooks.
 class Module
 {
 public:
-	virtual void f00();
-	virtual void f01();
-	virtual void f02();
-	virtual void f03();
-	virtual void f04();
-	virtual void f05();
-	virtual void f06();
-	virtual void f07();
-	virtual void f08();
+	virtual ~Module();
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual NameKeyType getModuleNameKey() const = 0;
+	virtual void onObjectCreated() {}
+	virtual void onDrawableBoundToObject() {}
+	virtual void preloadAssets() {}
+	virtual void onDelete() {}
+};
+
+// ToggleHiddenSpecialAbilityUpdate's slot 23 (+0x5C) is turnOff; slots 9-22
+// are the update-module slots this unit never calls.
+class ToggleHiddenSpecialAbilityUpdate : public Module
+{
+public:
 	virtual void f09();
 	virtual void f10();
 	virtual void f11();
@@ -120,7 +131,7 @@ bool Rva00439E0C::rva00438E5B(Object *obj, int state, Rva004393D6 *record, Rva00
 			static NameKeyType key_ToggleHiddenSpecialAbilityUpdate = TheNameKeyGenerator->nameToKey("ToggleHiddenSpecialAbilityUpdate");
 			Module *toggle = obj->findModule(key_ToggleHiddenSpecialAbilityUpdate);
 			if (toggle && obj->testStatus((ObjectStatusTypes)0x10))
-				toggle->turnOff();
+				static_cast<ToggleHiddenSpecialAbilityUpdate *>(toggle)->turnOff();
 		}
 		if (state == 2)
 		{

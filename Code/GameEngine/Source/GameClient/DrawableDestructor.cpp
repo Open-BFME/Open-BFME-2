@@ -88,15 +88,23 @@ public:
 	virtual bool rva78() const;				// +0x78
 };
 
+class Xfer;
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+
+// Retail slot order (docs/linking_obstacles.md, "Module base chain"):
+// Snapshot's three slots, then getModuleNameKey and the four empty hooks.
 class Module
 {
 public:
 	virtual void *deleteInstance(int arg);
-	virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04();
-	virtual void onObjectCreated();				// +0x14
-	virtual void s06(); virtual void s07(); virtual void s08(); virtual void s09();
-	virtual const ModuleData *rva28();			// +0x28
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual NameKeyType getModuleNameKey() const = 0;
+	virtual void onObjectCreated() {}
+	virtual void onDrawableBoundToObject() {}
+	virtual void preloadAssets() {}
+	virtual void onDelete() {}
 };
 
 class ModuleFactory

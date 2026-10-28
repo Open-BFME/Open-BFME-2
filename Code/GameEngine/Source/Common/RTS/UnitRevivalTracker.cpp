@@ -130,14 +130,22 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Xfer;
+
+// Retail slot order (docs/linking_obstacles.md, "Module base chain"):
+// Snapshot's three slots, then getModuleNameKey and the four empty hooks.
 class Module
 {
 public:
-#define SLOT(n) virtual void v##n();
-	SLOT(0) SLOT(1) SLOT(2) SLOT(3) SLOT(4) SLOT(5) SLOT(6)
-	SLOT(7) SLOT(8) SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
-#undef SLOT
-	virtual const Image *v14();
+	virtual ~Module();
+	virtual void loadPostProcess() = 0;
+	virtual const char *GetSnapshotName() const = 0;
+	virtual void xfer(Xfer *xfer) = 0;
+	virtual NameKeyType getModuleNameKey() const = 0;
+	virtual void onObjectCreated() {}
+	virtual void onDrawableBoundToObject() {}
+	virtual void preloadAssets() {}
+	virtual void onDelete() {}
 };
 
 class Rva004AFB01
@@ -146,9 +154,15 @@ public:
 	int rva004AFB01();
 	int rva004AFB16();
 };
-class RespawnUpdate
+// RespawnUpdate's slot 14 (+0x38) returns the revive image; slots 9-13 are
+// the update-module slots this unit never calls.
+class RespawnUpdate : public Module
 {
 public:
+#define SLOT(n) virtual void v##n();
+	SLOT(9) SLOT(10) SLOT(11) SLOT(12) SLOT(13)
+#undef SLOT
+	virtual const Image *v14();
 	void *rva004AF25D();
 };
 struct RevivalTemplateView
@@ -418,7 +432,7 @@ UnitRevivalEntry::UnitRevivalEntry(Object *object)
  static NameKeyType respawnUpdateKey = TheNameKeyGenerator->nameToKey("RespawnUpdate");
  Module *module = object->findModule(respawnUpdateKey);
  if (module) {
-  m_reviveImage = module->v14();
+  m_reviveImage = static_cast<RespawnUpdate*>(module)->v14();
   m_94 = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB01();
   m_9c = reinterpret_cast<Rva004AFB01*>(module)->rva004AFB16();
   revivalTemplateView = static_cast<RevivalTemplateView*>(reinterpret_cast<RespawnUpdate*>(module)->rva004AF25D());
