@@ -7123,21 +7123,21 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000D1AD5,30,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelGetShaderO1.cpp
 0x000D1AF3,173,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,N,N=Code/GameEngine/Source/Common/System/TBuff.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp provisional,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp
 0x000D1BA0,6,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1BA6 provisional,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp
-0x000D1BA6,68,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1BEA provisional,Code/GameEngine/Source/Common/Bfme/Rva006DABB0Destructor.cpp
-0x000D1BEA,38,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1C10 provisional,Code/GameEngine/Source/Common/Rva000D1BEA.cpp
-0x000D1C10,115,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1C83 provisional,Code/GameEngine/Source/Common/Rva000D1C10.cpp
-0x000D1C83,158,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,U,N=Code/GameEngine/Source/Common/W3DBuffBuffer.cpp provisional,Code/GameEngine/Source/Common/W3DBuffBuffer_allocateBuffBuffers.cpp
-0x000D1D21,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1D26 provisional,Code/GameEngine/Source/Common/Rva000D1D21Permuted.cpp
+0x000D1BA6,68,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1BEA provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x000D1BEA,38,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1C10 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x000D1C10,115,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1AF3..0x000D1C83 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x000D1C83,158,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,U,N=Code/GameEngine/Source/Common/W3DBuffBuffer.cpp provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x000D1D21,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1D26 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D1D26,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1D2B provisional,Code/GameEngine/Source/GameLogic/Map/TerrainLogicCtor.cpp
 0x000D1D2B,8,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1D33 provisional,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp
-0x000D1D33,149,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1DC8 provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
-0x000D1DC8,26,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1DE2 provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
+0x000D1D33,149,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1DC8 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x000D1DC8,26,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1DE2 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D1DE2,110,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1E50 provisional,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
-0x000D1E50,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1E6C provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
+0x000D1E50,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1E6C provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D1E6C,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1E88 provisional,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
 0x000D1E88,26,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1EA2 provisional,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
 0x000D1EA2,8,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D1EAA provisional,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp
-0x000D1EAA,78,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D204B provisional,Code/GameEngine/Source/Common/Rva006DB2F0Set.cpp
+0x000D1EAA,78,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D204B provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D1EF8,34,code,,displaced,-,Z=Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp S=Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp N=Code/Libraries/Source/WWVegas/WW3D2/UVBufferClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MatInfoUVBufferO1Inlines.cpp
 0x000D1F1A,38,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass_Get_UV_Array.cpp
 0x000D1F40,125,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/meshmatdesc.cpp N=Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshMatDescGetUVArrayByIndex.cpp
@@ -7146,7 +7146,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000D204B,20,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D208D provisional,Code/GameEngine/Source/Common/GapBodiesGE37.cpp
 0x000D205F,11,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererSkin.cpp
 0x000D206A,35,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/MeshModelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/MeshModelSingleTexture.cpp
-0x000D208D,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20A9 provisional,Code/GameEngine/Source/Common/Bfme/Rva006DABB0Destructor.cpp
+0x000D208D,28,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20A9 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x000D20A9,45,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20D6 provisional,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
 0x000D20D6,5,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D20DB provisional,Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp
 0x000D20DB,33,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,C,C=0x000D1C83..0x000D211D provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp
@@ -63784,12 +63784,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00762A3F,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTornadoDraw.cpp,approved,P,P=0x000D18F8@FuncInfo0x009062D0 provisional,Code/GameEngine/Source/GameClient/Drawable/Update/W3DTornadoDrawRadius.cpp
 0x00762A49,8,code,,,-,,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp
 0x00762A51,10,code,,,-,,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp
-0x00762A5B,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/W3DBuffBuffer_allocateBuffBuffers.cpp
-0x00762A65,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/W3DBuffBuffer_allocateBuffBuffers.cpp
-0x00762A6F,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/W3DBuffBuffer_allocateBuffBuffers.cpp
-0x00762A79,8,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
-0x00762A81,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
-0x00762A8B,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp
+0x00762A5B,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x00762A65,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x00762A6F,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1C83@FuncInfo0x00906320 provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x00762A79,8,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x00762A81,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
+0x00762A8B,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1D33@FuncInfo0x0090634C provisional,Code/GameEngine/Source/Common/System/TBuff.cpp
 0x00762A95,8,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1DE2@FuncInfo0x00906370 provisional,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
 0x00762A9D,10,code,Code/GameEngine/Source/Common/System/TBuff.cpp,approved,P,P=0x000D1DE2@FuncInfo0x00906370 provisional,Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassUnsignedCtor.cpp
 0x00762AA7,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D21B5@FuncInfo0x009063B8 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp

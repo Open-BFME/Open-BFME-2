@@ -1693,7 +1693,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	??0BfmeScopeCO@@QAE
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeStepCN@BfmeTargetCN@@QAEDH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1945.cpp	?Rva00627810@ShroudManager@@QAEXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv2008.cpp	?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv2131.cpp	?bfmeOneCDE@BfmeOwnerCDE@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv443.cpp	?bfmeCbVJM@@YGXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv479.cpp	?bfmeDoBLA@@YGXH@Z	1
@@ -1764,6 +1763,7 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?rva00372B09@BfmeC98
 alternatename	Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp	_vtbl_00BE3994	1
 alternatename	Code/GameEngine/Source/Common/BfmeFiveArgCtorWI.cpp	??1AsciiStringWI@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeH1052.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
+alternatename	Code/GameEngine/Source/Common/BfmeLexEAN.cpp	?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeMakeBZA.cpp	?bfme5MakeObj70@@YAPAUBfme5Obj70@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeNodeValueEBDDestructor.cpp	??1CountUpBuffer@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeObject476Copy.cpp	?_M_copy_from@?$hashtable@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBHURva001FDCE1Record@@@_STL@@@2@@_STL@@AAEXABV12@@Z	1
@@ -10734,6 +10734,8 @@ pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp	"",o
 pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/GameState.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/Rva002DDD48Insert.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/SaveGame/Rva002DDD48Insert.cpp	"y",on	1
+pragma_optimize	Code/GameEngine/Source/Common/System/TBuff.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/Common/System/TBuff.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/System/XferUnicodeStringVector.cpp	"t",on	1
@@ -11934,8 +11936,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_unsigned_copy_ctor.
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_unsigned_copy_ctor.cpp	"s",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_copy_ctor.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_copy_ctor.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector2_ctor.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_copy_ctor.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_copy_ctor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/sharebuf_vector3_copy_ctor.cpp	"s",on	1
@@ -15799,4 +15799,3 @@ present_unmatched	reference/shims/disconnectmanager/GameNetwork/DisconnectManage
 present_unmatched	reference/shims/pathfind/GameLogic/AIPathfind.h	?	1
 present_unmatched	reference/shims/water/W3DDevice/GameClient/W3DWater.h	?	1
 selectany	Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp	__declspec(selectany) Int g_00DFEE18 = 0;	1
-alternatename	Code/GameEngine/Source/Common/BfmeLexEAN.cpp	?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z	1
