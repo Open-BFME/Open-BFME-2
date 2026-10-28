@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Retail 4ABDC3 constructs the pointer registry at +4 and clears +11.
 // Retail 4ABE53 restores the same vtable; sets +11; destroys the registry.
 // C549F0 slot zero is key collection4ABDDC; destruction is nonvirtual.

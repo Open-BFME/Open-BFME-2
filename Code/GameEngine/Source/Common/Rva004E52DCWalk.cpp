@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /O1 /Op /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /ICode/Libraries/Include/Lib
-// stlport
+// stlport46
 //
 // Native4E52DC walks a circular list and calls4E50C8 on each node's member.
 // The separate4E7277 notification state gate calls the verified UpdateNotice

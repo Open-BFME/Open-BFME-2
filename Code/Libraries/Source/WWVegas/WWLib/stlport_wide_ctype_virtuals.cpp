@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // The single-character half of ctype<wchar_t>'s vftable at 0x007BBAD0. Slot
 // order follows the same reversed-overload rule as ctype<char>: each range

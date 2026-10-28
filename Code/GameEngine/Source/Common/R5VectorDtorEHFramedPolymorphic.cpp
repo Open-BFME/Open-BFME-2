@@ -1,5 +1,5 @@
 // cl: /EHsc
-// stlport
+// stlport46
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic.cpp (donor revision

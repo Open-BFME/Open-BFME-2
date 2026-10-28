@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ?Rva00426F17Xfer@@YAPAVXfer@@PAV1@PAV?$vector@UBfmeStringRecord00426A5B@@V?$allocator@UBfmeStringRecord00426A5B@@@_STL@@@_STL@@@Z @0x00426F17 248B evidence: version 1 1 via slot 0x28 plus size via slots 0x2C 0x78 plus isSaving via 0x08 plus per-element via rowed 0x4266BC plus reserve 0x426BE5 plus push_back 0x426EE0 plus default ctor 0x4267CC plus releaseBuffer 0x36410 plus FormatText 0x60C36E plus Throw 0x629094 plus strings std-vector Vector-must-be-empty
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.

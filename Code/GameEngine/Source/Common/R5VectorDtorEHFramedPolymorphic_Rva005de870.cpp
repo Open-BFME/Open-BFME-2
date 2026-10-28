@@ -1,5 +1,5 @@
 // cl: -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// stlport
+// stlport46
 // ??0?$vector@UGen003AA0D0@@V?$allocator@UGen003AA0D0@@@_STL@@@_STL@@QAE@I@Z
 // retail 0x005DE870, 93 bytes. Dedicated TU ported from the Open-BFME-1 donor
 // game/GameEngine/Source/Common/R5VectorDtorEHFramedPolymorphic.cpp: the donor

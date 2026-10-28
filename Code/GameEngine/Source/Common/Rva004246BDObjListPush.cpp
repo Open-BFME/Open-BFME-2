@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 #include <list>
 class Rva004246BDObj;
 // Declared only: retail's node allocation is the separately rowed 34-byte body
