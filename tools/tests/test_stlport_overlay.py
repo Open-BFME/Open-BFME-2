@@ -11,6 +11,40 @@ import build
 import stlport_overlay as overlay
 import stlport_trial
 
+SHARED = overlay.ROOT / "build/stlport46"
+
+
+def tree_state(root):
+    """Every entry under ROOT (the root itself included) with its mtime: the file set
+    and every timestamp a write would move. None when ROOT does not exist."""
+    if not root.exists():
+        return None
+    return {p.relative_to(root).as_posix(): (p.is_dir(), p.stat().st_mtime_ns)
+            for p in [root, *root.rglob("*")]}
+
+
+@pytest.fixture(autouse=True)
+def shared_tree_untouched():
+    """A live ./build.sh or add_match in this checkout reads build/stlport46: no test
+    may create, repair, corrupt or plant anything there (one planted header once failed
+    a concurrent add_match). Materializing tests use `isolated` instead."""
+    before = tree_state(SHARED)
+    yield
+    assert tree_state(SHARED) == before, "a test wrote into the shared build/stlport46 tree"
+
+
+@pytest.fixture
+def isolated(tmp_path, monkeypatch):
+    """materialize() under tmp_path: its output root is stlport_overlay.ROOT's build/stlport46;
+    the pristine release and patches it reads stay the repository's."""
+    monkeypatch.setattr(overlay, "ROOT", tmp_path)
+    return tmp_path / "build/stlport46"
+
+
+def test_materialize_writes_only_under_the_injected_root(isolated):
+    result = overlay.materialize()
+    assert result.parent == isolated and (result / "base/stl/_list.h").is_file()
+
 
 def test_patch_roundtrip_and_stale_context():
     original = "one\ntwo\nthree\n"
@@ -22,7 +56,7 @@ def test_patch_roundtrip_and_stale_context():
         overlay.apply_patch(original, patch.replace("stl/x.h", "stl/../../x.h"))
 
 
-def test_locale_source_patch_is_bounded_and_binds_existing_owner():
+def test_locale_source_patch_is_bounded_and_binds_existing_owner(isolated):
     patch = (overlay.PATCHES / "_c_locale_win32.c.patch").read_text(encoding="utf-8")
     original = (overlay.TREE / overlay.LOCALE_SOURCE).read_text(encoding="utf-8")
     rel, transformed = overlay.apply_patch(original, patch)
@@ -36,7 +70,7 @@ def test_locale_source_patch_is_bounded_and_binds_existing_owner():
         overlay.apply_patch(original.replace("static void __FixGrouping", "void __FixGrouping"), patch)
 
 
-def test_all_committed_patches_materialize_and_repair_cache():
+def test_all_committed_patches_materialize_and_repair_cache(isolated):
     result = overlay.materialize()
     header = result / "base/stl/_list.h"
     expected = header.read_bytes()
@@ -45,12 +79,9 @@ def test_all_committed_patches_materialize_and_repair_cache():
     assert b"_BFME_RETAIL_TREE_INSERT_LAYOUT" in (result / "base/stl/_tree.c").read_bytes()
     assert b"static char* allocate" in (result / "bfmealloc/stl/_alloc.h").read_bytes()
     assert b"allocator<char>::allocate" not in (result / "base/stl/_list.h").read_bytes()
-    try:
-        header.write_bytes(b"corrupt generated header")
-        assert overlay.materialize() == result
-        assert header.read_bytes() == expected
-    finally:
-        header.write_bytes(expected)
+    header.write_bytes(b"corrupt generated header")
+    assert overlay.materialize() == result
+    assert header.read_bytes() == expected
 
 
 def test_missing_or_changed_upstream_fails_before_cache(tmp_path):
@@ -155,16 +186,13 @@ def test_repair_queue_calls_the_stlport_lane(monkeypatch):
     assert calls == [True]
 
 
-def test_unlisted_generated_header_cannot_shadow_upstream():
+def test_unlisted_generated_header_cannot_shadow_upstream(isolated):
     result = overlay.materialize()
     injected = result / "base/stl/_alloc.h"
     assert not injected.exists()
-    try:
-        injected.write_bytes(b"wrong allocator")
-        with pytest.raises(ValueError, match="unlisted generated"):
-            overlay.materialize()
-    finally:
-        injected.unlink(missing_ok=True)
+    injected.write_bytes(b"wrong allocator")
+    with pytest.raises(ValueError, match="unlisted generated"):
+        overlay.materialize()
 
 
 def test_queue_does_not_reserve_an_already_opted_in_file(tmp_path, monkeypatch, capsys):
