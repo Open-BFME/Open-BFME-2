@@ -76,6 +76,14 @@ def tree(tmp_path):
 def seat(monkeypatch):
     """Each test sets its seats' worker identity through BFME_CLAIM_OWNER."""
     monkeypatch.setenv("BFME_CLAIM_OWNER", "seat-default")
+    # Miniature repositories have no coordination remote. Claim tests opt in;
+    # ordinary naming tests must not spend time retrying a nonexistent origin.
+    monkeypatch.setenv("BFME_CLAIMS", "off")
+
+
+@pytest.fixture
+def claim_coordination(monkeypatch):
+    monkeypatch.setenv("BFME_CLAIMS", "on")
 
 
 def be(worker):
@@ -429,6 +437,76 @@ def test_one_approved_row_cannot_route_a_mixed_source(tree, monkeypatch):
            "confidence": "approved", "by": "F", "evidence": "F=Code/Game/AI/Owner.cpp"}
     monkeypatch.setattr(tu_map, "load", lambda root: {0x00401000: [row]})
     assert lane_of(tree).subsystem(SOURCE) == ("Code/Game", "source-directory")
+
+
+@pytest.mark.usefixtures("claim_coordination")
+def test_next_reads_one_claim_snapshot_and_skips_busy_files_before_owned_scan(tree, monkeypatch, capsys):
+    from unittest.mock import Mock
+    import claims
+    free = add_subsystem_source(tree, "AI", 1)
+    snapshot = Mock(return_value={claims.file_key(SOURCE)})
+    monkeypatch.setattr(claims, "busy_keys", snapshot)
+    owned = name_lane.Lane.owned
+    def scan(self, rel, *args, **kwargs):
+        assert rel != SOURCE, "busy source must not undergo naming analysis"
+        return owned(self, rel, *args, **kwargs)
+    monkeypatch.setattr(name_lane.Lane, "owned", scan)
+    subsystem_next(tree, count=20, list_only=True, subsystem="Code/Game/AI")
+    output = capsys.readouterr()
+    assert [r["file"] for r in json.loads(output.out)] == [free]
+    assert "held by other workers" in output.err
+    snapshot.assert_called_once_with(tree)
+
+
+@pytest.mark.parametrize("kind", ["file", "rva", "class", "persisted"])
+@pytest.mark.usefixtures("claim_coordination")
+def test_next_uses_standard_expanded_claim_footprints(tree, monkeypatch, capsys, kind):
+    import claims
+    if kind == "class":
+        ledger = tree / "reverse/functions.csv"
+        ledger.write_bytes(ledger.read_bytes() +
+            f"?run@BusyType@@QAEXXZ,,0x00403000,10,{SOURCE},matched,\n".encode())
+    key = {"file": claims.file_key(SOURCE), "rva": 0x00401000,
+           "class": claims.class_key("BusyType"), "persisted": 0x00ABCDEF}[kind]
+    info = {"owner": "other-worker"}
+    if kind == "persisted":
+        info["locks"] = [claims.file_key(SOURCE)]
+    monkeypatch.setattr(claims, "_blocking_records", lambda root: iter([{key: info}]))
+    subsystem_next(tree, file=SOURCE, list_only=True)
+    assert json.loads(capsys.readouterr().out) == []
+    assert not (tree / "build/name_lane").exists()
+
+
+@pytest.mark.usefixtures("claim_coordination")
+def test_busy_priority_file_cannot_anchor_the_subsystem(tree, monkeypatch):
+    import claims
+    free = add_subsystem_source(tree, "Audio", 1)
+    lane = lane_of(tree)
+    lane.append(name_lane.VOTES, name_lane.VOTE_COLUMNS, [{"key": FN_KEY, "hash": "x",
+        "worker": "w-0123456789ab", "model": "other-model", "session": "other", "date": "2026-10-28"}])
+    monkeypatch.setattr(claims, "busy_keys", lambda root: {claims.file_key(SOURCE),
+                         claims.file_key("Code/Game/Slow.cpp")})
+    record = subsystem_next(tree)
+    assert set(record["files"]) == {free}
+    assert record["subsystem"] == "Code/Game/Audio"
+
+
+@pytest.mark.usefixtures("claim_coordination")
+def test_a_new_claim_after_serving_still_blocks_apply(tree, tmp_path, monkeypatch):
+    import claims
+    monkeypatch.setattr(claims, "busy_keys", lambda root: set())
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    before = (tree / SOURCE).read_bytes()
+    def refused(*args, **kwargs):
+        raise rename.Refusal("claimed by another worker after serving")
+    monkeypatch.setattr(rename, "take_claims", refused)
+    args = SimpleNamespace(retry_blocked=False, lead=2, min_models=1, claim=True,
+                           only_labels=None, key=None, no_batch=False)
+    name_lane.cmd_apply(lane_of(tree), args,
+        verify=lambda *args: pytest.fail("claim refusal must precede compilation"), checks=no_checks)
+    assert (tree / SOURCE).read_bytes() == before
+    assert lane_of(tree).state()[PARAM_KEY]["status"] == "blocked"
+    assert not rows(tree, "reverse/name_basis.csv")
 
 
 # ---------------------------------------------------------------- submit
@@ -1080,6 +1158,7 @@ def test_scoped_batch_claims_union_once_and_releases_on_failure(tree, tmp_path, 
 
 # ---------------------------------------------------------------- real tree
 
+@pytest.mark.usefixtures("claim_coordination")
 def test_real_tree_list_only(capsys):
     lane = name_lane.Lane()
     if not (lane.root / "reverse/functions.csv").exists():

@@ -129,6 +129,19 @@ selects exactly that file; a conflicting subsystem restriction is refused.
 `--mixed` retains the old shuffled multi-subsystem batches for comparison.
 Apply, review thresholds, claims and verification are unchanged.
 
+Before choosing a subsystem or scanning source bodies, `next` reads one shared
+claim snapshot and skips files locked by other workers. The standard claim
+footprint includes file locks and files covered by RVA/class claims, persisted
+locks and configured read-only mirrors. This worker's own claims remain
+eligible; foreign namespaces do not grant ownership just because their owner
+label matches. The picker reports skipped files on stderr, keeping
+`--list-only` JSON clean. An explicitly requested busy `--file` yields no task.
+
+This check does not acquire claims or reserve a file. A new claim can arrive
+after serving, so apply still takes claims normally and refuses conflicts.
+When origin is unreachable, the existing claim helper warns and retains known
+cached peer locks; the picker does not invent a claim-free snapshot.
+
 Before renaming a fragmented subsystem, `python3 tools/name_lane.py consolidate`
 builds original-path and donor evidence packets alongside the naming work.
 It catalogues every retail path, WorldBuilder paths, ZH structure and BFME 1 EA

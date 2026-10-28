@@ -106,6 +106,7 @@ sys.path.insert(0, str(ROOT / "tools"))
 import name_agreement  # noqa: E402
 import name_metric  # noqa: E402
 import rename  # noqa: E402
+import claims  # noqa: E402
 
 VOTES = name_agreement.VOTES
 AGREED = name_agreement.AGREED
@@ -739,6 +740,7 @@ Write a JSON object mapping each key below to a name or "skip", then run:
 """ + ("\n".join(evidence) or "  (none)") + "\n"
 
 
+@claims.pick_snapshot()
 def cmd_next(lane, args):
     session, model = session_id(args.session), model_id(args.model)
     worker = lane.worker()
@@ -754,6 +756,16 @@ def cmd_next(lane, args):
     prefix = subsystem_prefix(args.subsystem) if getattr(args, "subsystem", None) else None
     if mixed and prefix:
         fail("--mixed and --subsystem cannot be combined")
+    # One shared snapshot for the whole pick. The standard footprint expands
+    # RVA/class claims and persisted locks to files, excluding our own claims
+    # but retaining foreign namespaces and mirrors. Do this before choosing a
+    # subsystem or scanning bodies so busy files cannot anchor/waste a batch.
+    busy = claims.busy_keys(lane.root)
+    available = [rel for rel in files if claims.file_key(rel) not in busy]
+    skipped = len(files) - len(available)
+    if skipped:
+        print(f"name_lane: skipped {skipped} source file(s) held by other workers", file=sys.stderr)
+    files = available
     sticky = lane.path(f"{LANE_DIR}/subsystems/{worker}.json")
     preferred = current.get("subsystem")
     if not mixed and not prefix and not args.file:
