@@ -142,6 +142,18 @@ template<> BfmeRetailLocomotorVector::iterator BfmeRetailLocomotorVector::erase(
 template<> void BfmeRetailLocomotorVector::push_back(const value_type&);
 template<> void BfmeRetailLocomotorVector::clear();
 template<> void _Destroy<BfmeRetailLocomotorPair>(BfmeRetailLocomotorPair*); }
+// Every use of the locomotor tree's node allocate is inlined here; the /G7
+// out-of-line copy this unit would also emit is not retail's (that one is
+// ThingTemplateConstructor.cpp's). Import-inline: same inline body, no copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+_Rb_tree_node<BfmeRetailLocomotorPair> *
+allocator<_Rb_tree_node<BfmeRetailLocomotorPair> >::allocate(size_type __n, const void *) const
+{
+    return __n != 0 ? (_Rb_tree_node<BfmeRetailLocomotorPair> *)allocator<char>::allocate(
+        __n * sizeof(_Rb_tree_node<BfmeRetailLocomotorPair>), 0) : 0;
+}
+}
 
 #define SLEEPY_AI
 

@@ -172,6 +172,22 @@ Completed:
   `erase(first, last)` keeps digest 45b9ab4d4135. The unit itself still does not link
   (unchanged: its `registerTabList` COMDAT names the `list` assignment row 0x0046F0C2
   where retail calls 0x002C54EE; see the 2026-10-26 split-name recheck).
+- `AIUpdate.cpp` (halilkkaya-lk6): every use of the locomotor tree's node
+  `allocator::allocate` is inlined (the out-of-line /G7 copy, 31a17b736d02, had only its
+  own FPO reference); an import-inline (`__declspec(dllimport) __forceinline`)
+  specialization with the bfmealloc body keeps the inlining and drops the copy, so
+  ThingTemplateConstructor.cpp's retail copy (010668febc82) is first. 9/9 rows exact;
+  no other COMDAT digest of the object changes; the unit's own pre-existing blockers
+  are unchanged and ThingTemplateConstructor.cpp LINKS (1,881 B).
+- Blocked (re_attempts.log, 2026-10-29): `stlport_deque_e12_new_elements.cpp`
+  (`copy<const_iterator, iterator>`), `FontLibraryInit.cpp` (`insert_unique`) and
+  `StlportVectorCopyCtorFamily.cpp` (`__uninitialized_copy<const vector<BfmeE8> *, ...>`):
+  a declaration-only specialization keeps the call but changes the calling row (the
+  caller must then materialise an empty tag argument, as in LINK-132's FVF trial, or
+  set up the hidden return slot differently). `HordeContainRva00475F61.cpp`'s
+  `less<int>::operator()` copy is emitted although every use is inlined; a
+  declaration would stop the inlining. Not tried: ArmorHashtableRtsCtor.cpp,
+  Rva0052CD81Finish.cpp.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
