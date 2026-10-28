@@ -38,3 +38,26 @@ base, and six affected source objects lack current receipts, first
 providers and the saved declaration/data repairs into the next scheduled
 census. The successful hook is not full consumer-link verification, and no
 census-linked-byte or image-ownership gain is claimed.
+
+## Publisher retirement refusal and preserved upstream deferral
+
+Subsequent upstream advances were rebased without skipping commits. Independent
+obstacle and queue entries were retained. Upstream now carries the shared-header
+adoptions, including the geometry helper; its only source conflict was the saved
+explanatory comment, which is retained alongside the upstream include.
+
+The repeated local dry run at base `4ccc160a05` passed the same 229 function,
+three data and fifteen EH checks. The fleet publisher then tested the batch at
+`3dbbc13cb7` and refused the geometry helper's Coord3D queue retirement because
+`link_check produced no usable per-unit verdict`. The local ordinary preview
+still gives LINKS, 121 -> 121 bytes. Upstream commit `4ccc160a05` had already
+deferred this exact retirement for the same publisher limitation; replaying
+the saved batch removed that restored row again.
+
+Restore the exact upstream queue row in a new corrective commit. The source
+and original adoption evidence stay intact; this batch claims no retirement
+of that key. Retry the owning acceptance tool only when the publisher can
+obtain its required per-unit preview. Its queue failure text remains historical.
+No verifier is changed. The publisher refusal is saved in
+`build/recovery-publish-third.log`, and the local dry run in
+`build/recovery-push-dry-run-rebased.log`. All preparation backups remain intact.

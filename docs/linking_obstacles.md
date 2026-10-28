@@ -3941,6 +3941,14 @@ separate strict receipt limitation encountered there.
 
 ### LINK-018: canonical `Coord3D` member growth blocks header-adoption until dependents are recomputed
 
+**Preserved-batch recovery follow-up (2026-10-28):** replay of the older
+Coord3D batch removed the geometry helper's deferred queue row again. The
+publisher at `3dbbc13cb7` still has no usable per-unit verdict, while the local
+preview preserves 121 -> 121 bytes. Recovery restores that exact upstream row
+in a new commit and retains the verified source. The retirement remains pending;
+[recovery evidence](../reverse/attempt_support/preparation-recovery-20261028-codex.md)
+records the refusal and preserved attempt. No header-debt gain is claimed.
+
 **Companion retirement deferred for publication (2026-10-28):** the
 constructor-companion adoptions in Rva003A35A0Element,
 Rva00506CF5HomePoint and stlport_vector_geometryshape_base stay in source and
