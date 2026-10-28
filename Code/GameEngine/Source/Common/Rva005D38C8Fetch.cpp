@@ -64,16 +64,16 @@ extern GameTextInterface *TheGameText;
 
 UnicodeString StrategicHUD::FormatCommandPointsString(int a, int b)
 {
-	UnicodeString tmp;
+	UnicodeString formattedText;
 	if (b >= 0) {
 		Bool exists;
 		UnicodeString fetched = TheGameText->fetch("STRATEGICHUD:ArmyUnitSwapperCP", &exists);
 		if (exists) {
 			const wchar_t *fmt = fetched.str();
-			tmp.format(fmt, a, b);
+			formattedText.format(fmt, a, b);
 		}
 	}
-	return tmp;
+	return formattedText;
 }
 
 // StrategicHUD::SetCommandPointsString retail 0x005D3966 132B

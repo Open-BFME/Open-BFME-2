@@ -3682,3 +3682,16 @@ function,?Rva000E227FMacroTexture@@YAXPAUID3DXEffect@@PBD@Z,?setMacroTexture@@YA
 function,?Rva000E27D9MaskTexture@@YAXPAUID3DXEffect@@PBD@Z,?setMaskTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-087f05e9cb21,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E27D9
 function,?Rva000E28C3LowTexture@@YAXPAUID3DXEffect@@PBD@Z,?setLowTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-64d0072fd8d3,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E28C3
 function,?Rva000E29A2HighTexture@@YAXPAUID3DXEffect@@PBD@Z,?setHighTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-da7251b316b2,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E29A2
+local,GetStr0050FDDC::t,GetStr0050FDDC::stringData,inferred,agree:nl-ba64b5b242b6,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp,
+local,Rva0050FC54::~Rva0050FC54::tmp,Rva0050FC54::~Rva0050FC54::screenName,inferred,agree:nl-3d3cbaaf9b10,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB11.cpp,0x0050FDDC
+param,Rva000A8B23::rva000A8B23::a,Rva000A8B23::rva000A8B23::loopCount,inferred,agree:nl-b29aaa2048d5,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,0x000A8B23
+param,Rva000A8B4B::rva000A8B4B::a,Rva000A8B4B::rva000A8B4B::completionCallback,inferred,agree:nl-a063c15f8f36,Code/GameEngine/Source/Common/PinnedForwarders1830.cpp,0x000A8B4B
+local,release::p,release::releasedObject,inferred,agree:nl-1231df98a07d,Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp,
+param,Rva000AD6F4::p,Rva000AD6F4::ownedObject,inferred,agree:nl-bf7b2f2d7719,Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp,
+local,~Rva000AD6F4::q,~Rva000AD6F4::deletedStorage,inferred,agree:nl-171f8c3ea771,Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp,
+member,Rva001E48E8Inner::m_14,Rva001E48E8Inner::m_surfaces,inferred,agree:nl-e3495be28398,Code/GameEngine/Source/Common/Rva001E48E8Find.cpp,
+local,Rva0053947D::rva00539316::tmp,Rva0053947D::rva00539316::adjustedPosition,inferred,agree:nl-2eada929bc50,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,0x00539316
+local,Rva0053947D::rva005392EC::p,Rva0053947D::rva005392EC::child,inferred,agree:nl-211d3dc00ca8,Code/GameEngine/Source/Common/Rva00539316Slot5.cpp,0x005392EC
+local,StrategicHUD::FormatCommandPointsString::tmp,StrategicHUD::FormatCommandPointsString::formattedText,inferred,agree:nl-c4b9f9de0e83,Code/GameEngine/Source/Common/Rva005D38C8Fetch.cpp,0x005D38C8
+param,Rva0023E8D8Impl::p,Rva0023E8D8Impl::functionPointerAddress,inferred,agree:nl-c06dad07e7ee,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadSavePrompt.cpp,
+param,extendConstraint::v,extendConstraint::coordinate,inferred,agree:nl-d1712d2fda9f,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewMoveAlongWaypointPath.cpp,

@@ -412,8 +412,8 @@ Rva005105D7::Rva005105D7(EmitVtableTag *)
 
 __forceinline const char *GetStr0050FDDC(const AsciiString &asciiString)
 {
-	char *t = *(char **)(const void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char **)(const void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 class Rva000B3F84Pair
@@ -469,10 +469,10 @@ Rva0050FC54::Rva0050FC54(EmitVtableTag *)
 // Original class and complete parent layout remain unproven.
 Rva0050FC54::~Rva0050FC54()
 {
-	AsciiString tmp;
-	tmp.format("_level%u.%s", m_5c, GetStr0050FDDC(m_60));
-	_bfme_closeAptScreen(tmp + "_InitTextEntry");
-	_bfme_closeAptScreen(tmp + "_InitSlider");
+	AsciiString screenName;
+	screenName.format("_level%u.%s", m_5c, GetStr0050FDDC(m_60));
+	_bfme_closeAptScreen(screenName + "_InitTextEntry");
+	_bfme_closeAptScreen(screenName + "_InitSlider");
 }
 
 class Rva0050FF55

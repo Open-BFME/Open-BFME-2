@@ -159,9 +159,9 @@ class Rva002E3E2AOut
  }
  Rva002E3E2AObject* release()
  {
-  Rva002E3E2AObject*p=pointer;
+  Rva002E3E2AObject*releasedObject=pointer;
   pointer=0;
-  return p;
+  return releasedObject;
   
  }
  Rva002E3E2AObject *pointer;
@@ -171,7 +171,7 @@ class Rva002E3E2AOut
 class Rva000AD6F4 
 {
  public:
- explicit Rva000AD6F4(Rva002E3E2AObject*p):pointer(p)
+ explicit Rva000AD6F4(Rva002E3E2AObject*ownedObject):pointer(ownedObject)
  {
   
  }
@@ -182,12 +182,12 @@ class Rva000AD6F4
   struct Slot0 { virtual void *virt0(unsigned int); };
   Rva002E3E2AObject *p=pointer;
   pointer=0;
-  void *q;
+  void *deletedStorage;
   if(p)
-   q=((Slot0 *)p)->virt0(0);
+   deletedStorage=((Slot0 *)p)->virt0(0);
   else
-   q=0;
-  ::operator delete(q);
+   deletedStorage=0;
+  ::operator delete(deletedStorage);
  }
  void clear();
  Rva002E3E2AOut rva002E3E2A();

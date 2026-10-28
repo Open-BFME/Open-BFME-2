@@ -280,15 +280,15 @@ public:
 class Rva000A8B23
 {
 public:
-	void rva000A8B23(int a);
+	void rva000A8B23(int loopCount);
 private:
 	Rva0010FDE9 *m_ptr;
 };
 
-void Rva000A8B23::rva000A8B23(int a)
+void Rva000A8B23::rva000A8B23(int loopCount)
 {
 	if (m_ptr)
-		m_ptr->rva0010FDE9(a);
+		m_ptr->rva0010FDE9(loopCount);
 }
 
 class Rva0010FE6D
@@ -322,15 +322,15 @@ public:
 class Rva000A8B4B
 {
 public:
-	void rva000A8B4B(int a);
+	void rva000A8B4B(int completionCallback);
 private:
 	Rva0010FEF3 *m_ptr;
 };
 
-void Rva000A8B4B::rva000A8B4B(int a)
+void Rva000A8B4B::rva000A8B4B(int completionCallback)
 {
 	if (m_ptr)
-		m_ptr->rva0010FEF3(a);
+		m_ptr->rva0010FEF3(completionCallback);
 }
 
 // Native callee10FFA2 reads packet dwords0/4 and float8; A8C6E forwards

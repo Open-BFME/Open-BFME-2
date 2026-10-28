@@ -91,12 +91,12 @@ void Rva0053947D::rva00539316(const Vector3 *position)
 	for (int i = 0; i < count; ++i)
 	{
 		Rva00539316Elem *p = s15(i);
-		Vector3 tmp;
-		tmp.x = position->x;
-		tmp.y = position->y;
-		tmp.z = position->z;
-		tmp.z += p->m_b4;
-		p->f07(&tmp);
+		Vector3 adjustedPosition;
+		adjustedPosition.x = position->x;
+		adjustedPosition.y = position->y;
+		adjustedPosition.z = position->z;
+		adjustedPosition.z += p->m_b4;
+		p->f07(&adjustedPosition);
 	}
 	m_18 = *position;
 }
@@ -106,8 +106,8 @@ void Rva0053947D::rva005392EC()
 	int count = s13();
 	for (int i = 0; i < count; ++i)
 	{
-		Rva00539316Elem *p = s15(i);
-		p->f03();
+		Rva00539316Elem *child = s15(i);
+		child->f03();
 	}
 }
 

@@ -90,7 +90,7 @@ class Rva0023E8D8Impl : public Rva00080221RefImpl
 {
 public:
 	void *m_func;
-	Rva0023E8D8Impl(void *p) { m_func = *(void **)p; }
+	Rva0023E8D8Impl(void *functionPointerAddress) { m_func = *(void **)functionPointerAddress; }
 };
 class Rva0023E8D8
 {

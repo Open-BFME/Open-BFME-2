@@ -128,10 +128,10 @@ static __forceinline Real interpolate(Real a, Real b, Real factor)
 	return a + (b - a)*factor;
 }
 
-static inline void extendConstraint(Real &lo, Real &hi, Real v)
+static inline void extendConstraint(Real &lo, Real &hi, Real coordinate)
 {
-	if (lo > v) lo = v;
-	else if (v > hi) hi = v;
+	if (lo > coordinate) lo = coordinate;
+	else if (coordinate > hi) hi = coordinate;
 }
 
 void W3DView::moveAlongWaypointPath(Int milliseconds)

@@ -8,7 +8,7 @@
 struct Rva001E48E8Inner
 {
 	char _00[0x14];
-	unsigned m_14;
+	unsigned m_surfaces;
 };
 struct Rva001E48E8Elem
 {
@@ -29,7 +29,7 @@ void *Rva001E48E8::rva001E48E8(unsigned mask)
 	Rva001E48E8Elem **end = m_08;
 	for (; it != end; ++it) {
 		Rva001E48E8Elem *p = *it;
-		if (p && (p->m_04->m_14 & mask))
+		if (p && (p->m_04->m_surfaces & mask))
 			return p;
 	}
 	return 0;
