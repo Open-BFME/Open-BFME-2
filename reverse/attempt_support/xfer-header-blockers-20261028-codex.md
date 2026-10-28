@@ -106,3 +106,28 @@ the existing Render2DSentenceDrawBFME2.cpp repair makes that consumer LINKS
 (121 authored bytes); the provider itself remains blocked on its unproven
 Add_Quad copy, as already documented by LINK-132/LINK-133. No mouse change
 was necessary, and that scope claim was released.
+
+## Publication recovery
+
+The runner's rebase onto `0e9a68f517` stopped on two older queued commits.
+The Coord3D conflict was resolved by rerunning the owning acceptance tool
+for W3DViewGetAxisAlignedViewRegion and stlport_vector_geometryshape_base;
+both pass and their two queue removals are retained. The ScriptEngine
+MS-header queue conflict contained independent locale and ScriptEngine
+entries; both are preserved. No acceptance or debt check was bypassed.
+
+After aligning the clean BFME 1 checkout with upstream's committed
+`0424131c818fba6641613ef826222ecf30845025` pointer, the three restored
+Xfer trial sources plus FireWeaponUpdate pass 94/94 rows, and ScriptEngine
+passes 51/51. The CSV check passes. The Xfer trial sources remain identical
+to the original inspection base.
+
+The refreshed outgoing path audit covers `0e9a68f517..d4b8ed7d02`: all
+nineteen removed ScriptEngine/FireWeaponUpdate fragments, searched together
+by full path and basename in tools, hooks, workflows, Code, reference shims,
+docs, reverse registries and root build/configuration files. Its 88 hits
+are merger/provenance comments, earlier-fragment or external-donor prose,
+attempt evidence, deleted-row history, census status or historical ledger
+notes. No active include, tool, queue or source-column consumer selects a
+removed file. The prior inconclusive batch-audit and census limitations
+remain as documented in the consolidation handoffs.
