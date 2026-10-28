@@ -100,7 +100,7 @@ public:
 extern const FieldParse g_00C61830;
 extern const FieldParse g_00C61884;
 
-void rva004E12C4(INI *ini, void *instance, void *store, const void *userData)
+void parseSpawnArmy(INI *ini, void *instance, void *store, const void *userData)
 {
 	ini->initFromINI(store, SpawnArmy::m_fieldParseTable);
 }

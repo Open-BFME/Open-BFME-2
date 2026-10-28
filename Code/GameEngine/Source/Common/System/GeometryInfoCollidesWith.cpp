@@ -133,15 +133,15 @@ bool GeometryInfo::CollidesWith(const Coord3D &pos,float angle,const GeometryInf
  for(GeometryShape *geometryShape=begin;geometryShape!=end;++geometryShape) {
   if(!geometryShape->enabled) continue;
   if(found) break;
-  Rva0087E900Coord temp;
-  Rva006BEB80Point ownCenter=*Rva0087E900(&temp,(const Rva0087E900Coord *)&pos,(const Rva0087E900Shape *)geometryShape,angle);
+  Rva0087E900Coord transformedPosition;
+  Rva006BEB80Point ownCenter=*Rva0087E900(&transformedPosition,(const Rva0087E900Coord *)&pos,(const Rva0087E900Shape *)geometryShape,angle);
   GeometryContact a(*geometryShape,ownCenter,angle);
   float h=topExtent(*geometryShape);
   for(GeometryShape *otherShape=other.begin;otherShape!=other.end;++otherShape) {
    if(!otherShape->enabled) continue;
    if(found) break;
-   Rva0087E900Coord temp2;
-   Rva006BEB80Point otherCenter=*Rva0087E900(&temp2,(const Rva0087E900Coord *)&otherPos,(const Rva0087E900Shape *)otherShape,otherAngle);
+   Rva0087E900Coord otherTransformedPosition;
+   Rva006BEB80Point otherCenter=*Rva0087E900(&otherTransformedPosition,(const Rva0087E900Coord *)&otherPos,(const Rva0087E900Shape *)otherShape,otherAngle);
    GeometryContact b(*otherShape,otherCenter,otherAngle);
    float ht=topExtent(*otherShape);
    float lower=0.0f;
@@ -168,9 +168,9 @@ bool GeometryInfo::getBestContactPoint(Coord3D*out,const Coord3D*caller,const ch
    int index=seed%(count-1);
    ContactPoint first=contacts[index].position;
    ContactPoint second=contacts[index+1].position;
-   float t=(float)((seed>>8)&255);t/=255.0f;
-   first.x*=t;first.y*=t;first.z*=t;
-   float inverse=1.0f-t;second.x*=inverse;second.y*=inverse;second.z*=inverse;
+   float blendFactor=(float)((seed>>8)&255);blendFactor/=255.0f;
+   first.x*=blendFactor;first.y*=blendFactor;first.z*=blendFactor;
+   float inverse=1.0f-blendFactor;second.x*=inverse;second.y*=inverse;second.z*=inverse;
    first.x+=second.x;first.y+=second.y;first.z+=second.z;
    contactCopy(*out,first);
   }

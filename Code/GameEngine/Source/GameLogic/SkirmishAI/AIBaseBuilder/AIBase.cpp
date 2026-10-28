@@ -432,5 +432,5 @@ void AIBase::parseTemplateIntoPhases(const Coord3D *point, float angle, Rva0041E
 // WB 0x01534F60 AIBase::buildFortressIfNeeded (AIBase.cpp), native RVA 0x005ADAB2.
 // The held pointer and fence preserve the native load before the branch;
 // visibility of the rowed terrain setter preserves scheduling around zero.
-__forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&p){Rva00573E7C*q=p;_ReadWriteBarrier();return q;}
+__forceinline Rva00573E7C*heldOwned(Rva00573E7C*const&ownedOrder){Rva00573E7C*heldOrder=ownedOrder;_ReadWriteBarrier();return heldOrder;}
 

@@ -108,7 +108,7 @@ struct BfmeElemVIA
 	AsciiString m_commentForWB;
 	char m_hasSubtitles;
 	char m_bfmePad0d[3];
-	int m_bfme10;
+	int m_volume;
 	char m_isDefault;
 	char m_bfmePad15[3];
 	int m_subtitleManager;
@@ -268,7 +268,7 @@ BfmeElemVIA *__cdecl bfmeCopyVIA(BfmeElemVIA *first, BfmeElemVIA *last, BfmeElem
 			((StringBase<char> *)&dest->m_internalName)->set(*(const StringBase<char> *)&first->m_internalName);
 			((StringBase<char> *)&dest->m_commentForWB)->set(*(const StringBase<char> *)&first->m_commentForWB);
 			dest->m_hasSubtitles = first->m_hasSubtitles;
-			dest->m_bfme10 = first->m_bfme10;
+			dest->m_volume = first->m_volume;
 			dest->m_isDefault = first->m_isDefault;
 			dest->m_subtitleManager = first->m_subtitleManager;
 			++first;

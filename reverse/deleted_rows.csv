@@ -3973,3 +3973,4 @@ __ehhandler$?Rva00410223@@YGPAXPAX@Z,0x00785A98,"Renamed to __ehhandler$?createB
 ?Rva00515BCA@@YAXD@Z,0x00515BCA,"Renamed to ?startGoodCampaign@@YAXD@Z by tools/rename.py (inferred)"
 ?Rva00515C17@@YAXD@Z,0x00515C17,"Renamed to ?startEvilCampaign@@YAXD@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCampaign@@YAXD@Z by tools/rename.py (inferred)"
+?rva004E12C4@@YAXPAVINI@@PAX1PBX@Z,0x004E12C4,"Renamed to ?parseSpawnArmy@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"

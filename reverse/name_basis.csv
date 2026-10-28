@@ -3898,3 +3898,15 @@ param,BfmeC986::privateGatherAndMoveInFormationToPosition::e,BfmeC986::privateGa
 param,Rva00515Handle::arg,Rva00515Handle::callbackPointer,inferred,agree:nl-80db579bc8b3,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,
 function,?Rva00515BCA@@YAXD@Z,?startGoodCampaign@@YAXD@Z,inferred,agree:nl-0087eea521ba,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,0x00515BCA
 function,?Rva00515C17@@YAXD@Z,?startEvilCampaign@@YAXD@Z,inferred,agree:nl-f623e19153f2,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,0x00515C17
+function,?rva004E12C4@@YAXPAVINI@@PAX1PBX@Z,?parseSpawnArmy@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-951a0b260783,Code/GameEngine/Source/Common/GapBodiesS3E.cpp,0x004E12C4
+param,Rva0027F13CHost::rva0027F13C::a,Rva0027F13CHost::rva0027F13C::queryObject,inferred,agree:nl-57ff4dbddf41,Code/GameEngine/Source/Common/Rva0027F13C.cpp,0x0027F13C
+local,GeometryInfo::CollidesWith::temp,GeometryInfo::CollidesWith::transformedPosition,inferred,agree:nl-97f1be4681ac,Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp,0x006BEB80
+local,GeometryInfo::CollidesWith::temp2,GeometryInfo::CollidesWith::otherTransformedPosition,inferred,agree:nl-70f738280b69,Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp,0x006BEB80
+local,GeometryInfo::getBestContactPoint::t,GeometryInfo::getBestContactPoint::blendFactor,inferred,agree:nl-7fe131b7455c,Code/GameEngine/Source/Common/System/GeometryInfoCollidesWith.cpp,0x006BEF80
+member,BfmeElemVIA::m_bfme10,BfmeElemVIA::m_volume,inferred,agree:nl-d52c306ed657,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,
+param,GateOffset::a,GateOffset::xCoord,inferred,agree:nl-0251ea7c9604,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,
+param,GateOffset::b,GateOffset::yCoord,inferred,agree:nl-693c9995180f,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,
+param,GateOffset::z,GateOffset::zCoord,inferred,agree:nl-4b21490276b3,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,
+param,AIGateUpdate::rva004B0A24::y,AIGateUpdate::rva004B0A24::offsetY,inferred,agree:nl-99c78bc7a5ae,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,0x004B0A24
+param,heldOwned::p,heldOwned::ownedOrder,inferred,agree:nl-8ee0d853ca1e,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,
+local,heldOwned::q,heldOwned::heldOrder,inferred,agree:nl-da3bd074f894,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,

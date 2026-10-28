@@ -2,7 +2,7 @@
 
 struct GateOffset {
  float X,Y,Z;
- GateOffset(float a,float b,float z):X(a),Y(b),Z(z){}
+ GateOffset(float xCoord,float yCoord,float zCoord):X(xCoord),Y(yCoord),Z(zCoord){}
  __forceinline void rotate(float s,float c) {
   float tx=X,ty=Y;
   X=c*tx-s*ty;
@@ -79,8 +79,8 @@ void AIGateUpdate::rva004B09E7(Object *o,AIGateUpdate *gate,bool entered) {
 // donor-compatible representation, not an independently recovered target type.
 // WB122F5A0 inlines Vector3::Rotate_Z from vector3.h. GateOffset preserves that
 // donor pattern at BFME1 revision9e3be919; local type spelling is neutral.
-Vector2 AIGateUpdate::rva004B0A24(float x,float y) {
- GateOffset v(x,y,0);
+Vector2 AIGateUpdate::rva004B0A24(float x,float offsetY) {
+ GateOffset v(x,offsetY,0);
  float a=object->angle;
  float sinAngle=(float)sin(a),c=(float)cos(a);
  const float &ss=sinAngle,&cc=c;

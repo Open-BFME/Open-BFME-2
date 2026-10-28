@@ -22,13 +22,13 @@ public:
 class Rva0027F13CHost
 {
 public:
-	int rva0027F13C(int a, int center, float radius);
+	int rva0027F13C(int queryObject, int center, float radius);
 };
 // ?rva0027F13C@Rva0027F13CHost@@QAEHHHM@Z
-int Rva0027F13CHost::rva0027F13C(int a, int center, float radius)
+int Rva0027F13CHost::rva0027F13C(int queryObject, int center, float radius)
 {
 	Rva0027F13CBuf buf;
-	((Rva0027D244 *)&buf)->rva0027D244(a);
+	((Rva0027D244 *)&buf)->rva0027D244(queryObject);
 	((Rva0027DF9D *)this)->rva0027DF9D((Coord3D *)center, radius, (Rva0027D244 *)&buf, false, 2);
 	return buf.m_14;
 }
