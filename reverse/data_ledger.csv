@@ -20533,8 +20533,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04028,4,.data,global,_s_rva007B25E0,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A0402C,4,.data,global,_s_rva007B25F2,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A04030,4,.data,global,_s_rva007B2604,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
-0x00A04034,4,.data,global,?TheAODCrushCollidePoolKey@?1??getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/AODCrushCollidePoolKey.cpp,owned,,1,2
-0x00A04038,4,.data,global,?$S1@?1??getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/AODCrushCollidePoolKey.cpp,owned,,1,4
+0x00A04034,4,.data,global,?TheAODCrushCollidePoolKey@?1??getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,owned,,1,2
+0x00A04038,4,.data,global,?$S1@?1??getModuleNameKey@AODCrushCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollide.cpp,owned,,1,4
 0x00A0403C,4,.data,global,_s_rva007B2630,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04040,4,.data,global,?TheHordeMemberCollidePoolKey@?1??getModuleNameKey@HordeMemberCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/HordeMemberCollidePoolKey.cpp,owned,,1,2
 0x00A04044,4,.data,global,?$S1@?1??getModuleNameKey@HordeMemberCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/HordeMemberCollidePoolKey.cpp,owned,,1,4
