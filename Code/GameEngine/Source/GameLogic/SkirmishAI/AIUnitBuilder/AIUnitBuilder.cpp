@@ -281,6 +281,19 @@ struct MidVecHolder
 	_STL::vector<AsciiString> m_vec;
 };
 
+// Address-named build item made by the two factories (slot 6 starts it).
+class Rva00598C3AItem
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6(int value, int flags);
+};
+
 class AIUnitBuilder
 {
 public:
@@ -288,11 +301,15 @@ public:
 	bool rva0059802E();
 	void *rva00598016();
 	int rva00598192(const AsciiString &key);
+	void build();
+	Rva00598C3AItem *createBestHeroToBuild();
+	Rva00598C3AItem *createBestUnitToMake();
 private:
-	char _pad[0x14];
-	_STL::list<int> m_list;	// +0x14
-	char m_pad18[0x30 - 0x14 - sizeof(_STL::list<int>)];
+	unsigned char m_pad00[0x14];
+	_STL::list<Rva00598C3AItem *> m_items; // +0x14
+	unsigned char m_pad18[0x30 - 0x18];
 	Player *m_player;	// +0x30
+	bool m_34; // +0x34
 };
 
 struct Rva00506C82Arg
@@ -413,8 +430,8 @@ void *AIUnitBuilder::rva00598016()
 int AIUnitBuilder::rva00598192(const AsciiString &key)
 {
 	int count = 0;
-	for (_STL::list<int>::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it) {
-		Rva00598192Item *item = (Rva00598192Item *)(int)*it;
+	for (_STL::list<Rva00598C3AItem *>::iterator it = m_items.begin(); it._M_node != m_items.end()._M_node; ++it) {
+		Rva00598192Item *item = (Rva00598192Item *)*it;
 		if (item->m_name.compare(key) == 0)
 			++count;
 	}
