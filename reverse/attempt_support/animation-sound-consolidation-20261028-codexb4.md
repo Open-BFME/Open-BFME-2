@@ -89,13 +89,33 @@ INCONCLUSIVE: index `d92e7e6635` predates the base, and affected consumer
 receipt. Consumer selection remains unverified. Carry this unit and its
 affected consumers into the next scheduled census.
 
+## Tree declaration prerequisite
+
+The assignment composition is committed as `d7593a8100` and handed to the
+runner, which still reports the maintainer publication lock.
+
+The constructor at 0x004CA6DA needs two declarations in the seed tree view:
+its constructor and the existing `rva004CA13D(const void*, const void*)`
+initializer. The signatures and the call's `throw()` spelling are preserved
+from the already-matched constructor source. The initializer's provider is
+rowed in the mixed AnimationSoundTreeFree.cpp source and remains there.
+No fields or layouts change. The constructor body itself accesses no tree
+field; it passes the two scoped dummy addresses to that initializer.
+
+With these declarations the current destination passes all 18 rows, ten
+strings plus one empty-string reference, its named import and both EXACT EH
+graphs. The frozen-file check passes. All 44 external definitions and COMDAT
+fingerprints, 43 unresolved names and both weak aliases remain equal to the
+original destination-plus-assignment objects. This prerequisite emits no
+constructor body and claims no additional row. Next: refresh the planner and
+retry the supported merge after committing these declarations.
+
 ## Remaining work
 
-The tree constructor at 0x004CA6DA calls the already-rowed initializer at
-0x004CA13D without accessing tree fields. Its missing constructor and
-initializer declarations are a small next prerequisite to test. Client
-inheritance/vtable differences, entry/tree field views, the STL node duplicate
-and module-data parser declarations remain separate reconciliation work.
+The constructor merge still needs the supported tool's compile/byte/link
+verdict. Client inheritance/vtable differences, entry/tree field views, the
+STL node duplicate and module-data parser declarations remain separate
+reconciliation work.
 
 The runner accepted the prerequisite for publication but reports a maintainer
 lock on master; queued commits remain immutable and await its retry. No census,

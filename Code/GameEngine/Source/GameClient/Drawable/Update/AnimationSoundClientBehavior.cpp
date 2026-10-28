@@ -69,6 +69,8 @@ struct AnimationSoundTreeNode { int color; AnimationSoundTreeNode *parent,*left,
 
 class AnimationSoundTree {
 public:
+	AnimationSoundTree();
+	AnimationSoundTree *rva004CA13D(const void*,const void*) throw();
 	AnimationSoundTreeNode *rva004C9FE0(const void*);
 public:
 	AnimationSoundTreeNode*header;

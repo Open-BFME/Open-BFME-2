@@ -585,8 +585,10 @@ aliases equal the original input union. The strict receipt passes and the
 ordinary preview preserves LINKS for 1,933 authored bytes. The outgoing audit
 is INCONCLUSIVE: its index predates the base and AIHarvestPrepareSiteState.cpp
 lacks a current receipt. Carry the composed unit and consumers into the next
-census. Nine clean donors and seven mixed sources remain; next test the tree
-constructor's missing declarations before broader layout/interface work.
+census. Nine clean donors and seven mixed sources remain. The next prerequisite
+adds only the tree constructor and existing initializer declarations: all 18
+current rows, both EH graphs and the external object facts remain unchanged.
+Next: retry the supported constructor merge before broader layout/interface work.
 Census confirmation remains pending.
 [Evidence](../reverse/attempt_support/animation-sound-consolidation-20261028-codexb4.md).
 
