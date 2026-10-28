@@ -19,10 +19,12 @@ public:
     EAStringC &operator=(const EAStringC &);
     EAStringC &Rva006D50A0Append(const char *);
 };
+struct AptSysClock {
+    int Second,Minute,Hour,Day,Date,Month,Year,Hundredths;
+};
 class AptDate {
     char prefix[0x20];
-    int seconds,minutes,hours,unused2c,date,month,year,subsecond;
-    int utc[8];
+    AptSysClock local,utc;
     int timezoneHours;
 public:
     int getDayOfWeek(int,int,int);
@@ -33,26 +35,26 @@ void AptDate::toString(EAStringC &out)
     char days[7][4]={"Sun","Mon","Tue","Wed","Thu","Fri","Sat"};
     char months[12][4]={"Jan","Feb","Mar","Apr","May","Jun","Jly","Aug","Sep","Oct","Nov","Dec"};
     char buffer[4];
-    { EAStringC weekday(days[getDayOfWeek(year,month,date)]); out=weekday; }
+    { EAStringC weekday(days[getDayOfWeek(local.Year,local.Month,local.Date)]); out=weekday; }
     out.Rva006D50A0Append(" ");
-    out.Rva006D50A0Append(months[month]);
+    out.Rva006D50A0Append(months[local.Month]);
     out.Rva006D50A0Append(" ");
-    sprintf(buffer,"%d",date);
+    sprintf(buffer,"%d",local.Date);
     out.Rva006D50A0Append(buffer);
     out.Rva006D50A0Append(" ");
-    sprintf(buffer,"%02d",hours);
-    out.Rva006D50A0Append(buffer);
-    out.Rva006D50A0Append(":");
-    sprintf(buffer,"%02d",minutes);
+    sprintf(buffer,"%02d",local.Hour);
     out.Rva006D50A0Append(buffer);
     out.Rva006D50A0Append(":");
-    sprintf(buffer,"%02d",seconds);
+    sprintf(buffer,"%02d",local.Minute);
+    out.Rva006D50A0Append(buffer);
+    out.Rva006D50A0Append(":");
+    sprintf(buffer,"%02d",local.Second);
     out.Rva006D50A0Append(buffer);
     out.Rva006D50A0Append(" GMT");
     out.Rva006D50A0Append(timezoneHours<0?"-":"+");
     sprintf(buffer,"%02d",abs(timezoneHours));
     out.Rva006D50A0Append(buffer);
     out.Rva006D50A0Append("00 ");
-    sprintf(buffer,"%d",year);
+    sprintf(buffer,"%d",local.Year);
     out.Rva006D50A0Append(buffer);
 }
