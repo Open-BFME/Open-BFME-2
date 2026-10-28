@@ -52,7 +52,7 @@ current preview remains LINKS, 198 -> 198 bytes. No proven loss was reported.
 
 ## Applied composition
 
-After publishing the prerequisite (f8126b8f30), tu_skeleton.py --merge applied
+After publishing "Isolate INIWater parser declarations for composition", tu_skeleton.py --merge applied
 its accepted subset: Rva00200CB1Assign.cpp, Rva00200D38Ctor.cpp and
 Rva00200E95Dtor.cpp are absorbed into the approved INIWater.cpp. SOURCE FILES
 falls by three. Nine ledger rows and the one data row move; eight corresponding
@@ -97,3 +97,37 @@ Remaining: the transparency parser's INI declaration lacks the two seed parser
 members; its Overridable and WaterTransparencySetting views must also reconcile.
 The four mixed donor files remain intact. No unmatched interior range has been
 claimed as newly lost code.
+
+## Parser-view prerequisite after composition
+
+Applied tu_views.py --class INI --class INIException to the destination and
+transparency residual. Both now use the same declaration of each class; the
+INI view preserves the residual's verified load-type field at +0x08 and adds
+the seed's token reader/parser declarations. The exception view preserves its
+eight-byte layout and existing names, using the seed's m_argCount spelling.
+The tool re-read layouts, byte-verified both sources and checked frozen-source
+coverage before keeping each class. An inherited trailing space in a moved
+comment was also removed.
+
+The two objects' complete COFF facts are unchanged from immediately before
+this prerequisite: destination 22 COMDATs, residual 26, identical byte/relocation
+fingerprints and sizes, strong/undefined names and weak aliases. Strict-current
+preparation passes all 16 rows and two data rows. No ledger/path changes.
+
+Supported merge dry-run still accepts no residual donor, now at the next
+independent blocker: WaterTransparencySetting(int) is absent from the residual's
+selected declaration. tu_views also reports the primary base's explicit m_vptr
+under the destination's real vfptr and different secondary base clauses.
+The mixed WaterTransparencySettingCtor.cpp already calls the rowed registration
+constructor 0x00200D38 on this+0x10; its virtual secondary-base view differs from
+the destructor fragment's value-only Rva00200E95Second view. Resolve those views
+against the constructor, vtables and destructor before changing inheritance.
+The identical FieldParse function-pointer member also produces a tu_views
+source-reader diagnostic (parse absent from its parsed source member list);
+that diagnostic does not show a target layout mismatch. No tool gate was changed
+or bypassed in this pass.
+
+Final parser-view preview: both sources LINKS with the same 738 total own bytes.
+Its outgoing audit remains inconclusive against the older index, naming
+0CreateAHeroManager21FE49.cpp as the missing current affected-consumer receipt.
+No new source-path move was added after the composition's compatibility audit.

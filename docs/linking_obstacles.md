@@ -9478,8 +9478,10 @@ three function/EH rows, string/import checks, converged data and strict-current
 preparation pass. The supported dry-run now accepts three donors together
 (eleven rows), whereas the original seed accepted none. The seed retains LINKS
 198 -> 198 against index 2026-10-28 15:58 at `d92e7e6635`.
-Remaining / next check: reconcile the transparency parser's INI/Overridable/setting views separately.
-The supported merge has now absorbed three donors, reducing SOURCE FILES by
+Remaining / next check: the INI and INIException views now reconcile through
+tu_views with unchanged COFF facts in both parsers. The transparency residual
+still needs its Overridable/setting constructor and secondary-base views
+resolved against the mixed constructor and retail vtables. The supported merge has now absorbed three donors, reducing SOURCE FILES by
 three; strict-current verification preserves all sixteen rows and two data rows
 in the original five-file scope. Destination and residual preview LINKS with
 738 total bytes, unchanged from the original scope. Outgoing link audit is
