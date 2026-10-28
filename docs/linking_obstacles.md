@@ -8064,3 +8064,31 @@ relative to the accepted originals. Its 47 rows and six EH graphs still
 verify; the original three constructor-binding findings remain.
 The final preview retains LINKS for 2,341 authored bytes; the refreshed
 outgoing audit has the same older-index and six-receipt limitations above.
+
+### Module base chain: canonical headers block the most TU merges (2026-10-28)
+
+`header_adopt_lane.py order --merges` ("Rank the class-header tier by TU-merge donors unblocked") ranks classes by queued
+merge donors whose private views they split. The module chain leads after
+Object/Thing: Module, ObjectModule, BehaviorModule(Interface),
+UpdateModule(Interface) score 296 donors (UpdateModule's own views: 296
+donors, 1,065 rows, 89 TUs); UpgradeModule 50 donors in 22 TUs. In many upgrade
+TUs the leaf class also conflicts only because its base clause differs, so it
+waits on the same header. Static verdicts agree with `tu_views --dry-run` on 25
+of 29 classes sampled across 6 TUs.
+
+None can be settled through the lane yet:
+- `class_contract.py --class Module` (82 views) queues vtable slots 1-4 and
+  11-14 (placeholder names `s01`/`v1`/`f01` against `onObjectCreated`,
+  `getModuleNameKey`, `preloadAssets`). BehaviorModule and UpdateModule inherit
+  those slots. Settle them from retail vftables and ZH `Module.h` first.
+- `--class UpgradeModule` (71 views) settles with no queue, but it flattens
+  base fields (`m_moduleData` +4, `m_object` +8, extra vfptrs) into the class
+  and names four bases without headers (BehaviorModule, BehaviorModuleInterface,
+  UpgradeMux, ModuleInterface). An unapplied
+  `run --generate --sample 12` passes 0/12 in all three variants (C2143 7, C3861
+  4, C2039 1). The bases need headers first, and the contract has to stop
+  re-declaring inherited fields.
+- MemoryPoolObject (zh-decided, sizeof 4) and Team (no queue, sizeof 52, only
+  the vfptr decided) settle. In Team.cpp, though, Team, TeamPrototype,
+  TeamFactory and TeamTemplateInfo also block, so no donor is unblocked by one
+  header alone.
