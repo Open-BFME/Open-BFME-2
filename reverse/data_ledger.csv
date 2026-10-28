@@ -21692,7 +21692,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A180E4,4,.data,global,?g_bfmeAptHashAtE180E4@@3PAUAptNativeHash@@A,Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp,provisional,?g_bfmeAptHashAtE180E4@@3PAUAptNativeHash@@A;?g_bfmeAptHashAtE180E4@@3PAVAptNativeHash@@A,1,4
 0x00A180E8,4,.data,global,?g_shutdownAtE180E8@@3PAVAptValue@@A,Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp,owned,,1,3
 0x00A180EC,4,.data,global,?g_aptReleaseGateAtE180EC@@3_NA,Code/Libraries/Source/Apt/AptValue/AptValueRefCountBFME2.cpp,provisional,?g_00E180EC@@3EA;?g_aptReleaseGateAtE180EC@@3_NA,1,7
-0x00A180F0,4,.data,global,?gpObjectPrototype@@3PAVAptPrototype@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,owned,,1,1
+0x00A180F0,4,.data,global,?gpObjectPrototype@@3PAVAptPrototype@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,1
 0x00A180F4,4,.data,global,?m_pStackBase@AptMath@@0PAUClipTransform_t@1@A,Code/Libraries/Source/Apt/AptMathClipStack.cpp,owned,,1,7
 0x00A180F8,4,.data,global,?g_00E180F8@@3PAXA,Code/Libraries/Source/Apt/AptMathClipStack.cpp,owned,,1,2
 0x00A180FC,4,.data,global,?m_nStackCapacity@AptMath@@0GA,Code/Libraries/Source/Apt/AptMathClipStack.cpp,provisional,?m_nStackCapacity@AptMath@@0GA;?m_nStackCapacity@AptMath@@2GA,1,7
@@ -21786,7 +21786,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A18350,4,.data,global,?spRegBlockCurrentFrameBase@AptScriptFunctionBase@@2PAPAVAptValue@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,22
 0x00A18354,4,.data,global,?snRegBlockCurrentFrameCount@AptScriptFunctionBase@@2HA,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,14
 0x00A18358,4,.data,global,?snRegisterBlockSize@AptScriptFunctionBase@@2HA,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,owned,,1,7
-0x00A1835C,4,.data,global,?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,provisional,?g_bfmeFrameStackAtE1835C@@3PAVAptFrameStack@@A;?g_rva00709A00Pending@@3PAXA;?g_rva00709E50Pending@@3PAXA;?g_rva00A1835C@@3PAVRva006FBED0Root@@A;?g_rva00A1835C@@3PAVRva8D0D80Result@@A;?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A;?spFrameStack@AptScriptFunctionBase@@2PAVAptFrameStack@@A,1,25
+0x00A1835C,4,.data,global,?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A,Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,provisional,?g_bfmeFrameStackAtE1835C@@3PAVAptFrameStack@@A;?g_rva00709A00Pending@@3PAXA;?g_rva00709E50Pending@@3PAXA;?g_rva00A1835C@@3PAVRva006FBED0Root@@A;?g_rva00A1835C@@3PAVRva8D0D80Result@@A;?spFrameStack@AptScriptFunctionBase@@1PAVAptFrameStack@@A;?spFrameStack@AptScriptFunctionBase@@2PAVAptFrameStack@@A,1,25
 0x00A18360,8,.data,global,?g_shutdownAtE18360@@3PAVAptValue@@A,Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp,owned,,1,3
 0x00A18368,4,.data,global,?g_00E18368@@3PAPAUStringNode0070D9F0@@A,Code/Libraries/Source/Apt/string/StringPool.cpp,owned,,1,9
 0x00A1836C,4,.data,global,?g_00E1836C@@3HA,Code/Libraries/Source/Apt/string/StringPool.cpp,owned,,1,8

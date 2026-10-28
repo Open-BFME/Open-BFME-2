@@ -490,7 +490,7 @@ Code/Libraries/Source/Apt/AptMovieFrameControls.cpp,-O2,10,1,region default lose
 Code/Libraries/Source/Apt/AptObject/AptArrayConstructor.cpp,-O2,12,8,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptCIHProceduralAllocation.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp,-O2,13,3,region default loses rows
-Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp,-O2,6,1,region default loses rows
+Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp,-O2,6,1,region default loses rows
 Code/Libraries/Source/Apt/AptRefArrayResize.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Apt/AptRenderingContext.cpp,,6,1,region default loses rows
 Code/Libraries/Source/Apt/AptValue.cpp,-O2,1,1,region default loses rows
