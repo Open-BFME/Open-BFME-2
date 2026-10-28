@@ -3071,8 +3071,8 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehav
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorCtor.cpp	??0ClearanceTestingSlowDeathBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataCtor.cpp	_vtbl_00BF36C0	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorDtor.cpp	?stancesInterfaceA@StancesBehavior@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorDtor.cpp	?stancesInterfaceB@StancesBehavior@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	?stancesInterfaceA@StancesBehavior@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	?stancesInterfaceB@StancesBehavior@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	?g_Va00DE0878@@3IA	2
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/ActiveBodyConstructor.cpp	?g_str009E0878@@3V?$StringBase@D@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	??1Rva004BF951@@UAE@XZ	1
@@ -13255,7 +13255,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	orderSlavesToClearDisabled@SpawnBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	startSpawning@SpawnBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp	stopSpawning@SpawnBehavior@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorNameKey.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp	0Rva00148F5ECache@@QAE@PBD@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1?$StringBase@D@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/BodyModuleDeletingDtors.cpp	1FreePtr@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp	1ImmortalBody@@UAE@XZ	1
