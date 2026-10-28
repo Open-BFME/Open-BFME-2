@@ -114,7 +114,7 @@ public:
 #define _OPERATOR_NEW_DEFINED_
 #include "vector3.h"
 #include <set>
-#include "../../Code/Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
 struct Rva001408C0Target;
 class AssetList {public:AssetList():pad(0),changed(true){} private:_STL::set<Rva001408C0Target*> prototypes;unsigned pad;bool changed;};
 struct AssetLoadMode{bool alternate;AssetLoadMode():alternate(false){}};
@@ -270,7 +270,6 @@ static Object *placeObjectAtPosition(int slot, AsciiString name, const Coord3D *
 	}
 	return obj;
 }
-#include "../../Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 class Rva003F468D;
 class Rva0020E89C;
