@@ -8504,6 +8504,12 @@ byte-verify, and the frozen-file check passes. The consumer declares and calls
 the provider; the existing AIBuilder operation and context trials above remain
 the prerequisite. Recheck this consumer after that provider is reconciled.
 No repair or census gain is claimed.
+2026-10-28 consumer check at `c6ce78d8c9`, index `d92e7e6635`:
+`Object/Rva004E00BA.cpp` remains blocked on selected `vector<Object *>::push_back`
+and `_M_insert_overflow` copies (31 authored bytes). Its local overflow copy is
+already suppressed. The scoped build verifies its single row; recheck this
+consumer after the selected provider is repaired and in the next census. No
+linking gain is claimed.
 
 2026-10-28 append/overflow follow-up at `d6a91b0f7e6`, index `41c28839bf`:
 the served HordeContain file still has exactly the three AIBuilder-selected
