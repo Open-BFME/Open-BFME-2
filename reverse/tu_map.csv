@@ -45336,11 +45336,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005468BB,38,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp
 0x005468E1,59,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderDtor.cpp
 0x0054691C,10,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp
-0x00546926,64,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
+0x00546926,64,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
 0x00546966,28,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderDtor.cpp
-0x00546982,59,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
-0x005469BD,64,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
-0x005469FD,55,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
+0x00546982,59,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
+0x005469BD,64,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
+0x005469FD,55,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
 0x00546A34,68,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderXfer.cpp
 0x00546A78,72,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderSlot4.cpp
 0x00546AC0,16,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderSlot4.cpp
@@ -84943,9 +84943,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079805F,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp
 0x00798069,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp
 0x00798073,8,code,,,-,,Code/gen_small/uw_gen_013.cpp
-0x0079807B,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
-0x00798085,10,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,P,P=0x005469FD@FuncInfo0x0094C2E4 provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
-0x0079808F,10,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,P,P=0x005469FD@FuncInfo0x0094C2E4 provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrderCtor.cpp
+0x0079807B,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
+0x00798085,10,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,P,P=0x005469FD@FuncInfo0x0094C2E4 provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
+0x0079808F,10,code,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp,approved,P,P=0x005469FD@FuncInfo0x0094C2E4 provisional,Code/GameEngine/Source/GameLogic/AI/SynchronizeGroupOrder.cpp
 0x00798099,10,code,Code/GameEngine/Source/GameLogic/AI/ChangeStanceGroupOrder.cpp,approved,P,P=0x00546B34@FuncInfo0x0094C308 provisional,Code/GameEngine/Source/GameLogic/AI/GroupOrderClones.cpp
 0x007980A3,10,code,Code/GameEngine/Source/GameLogic/AI/ChangeStanceGroupOrder.cpp,approved,P,P=0x00546B34@FuncInfo0x0094C308 provisional,Code/GameEngine/Source/GameLogic/AI/GroupOrderClones.cpp
 0x007980AD,10,code,Code/GameEngine/Source/GameLogic/AI/GarrisonObjectGroupOrder.cpp,approved,P,P=0x00546CB8@FuncInfo0x0094C32C provisional,Code/GameEngine/Source/GameLogic/AI/GroupOrderClones.cpp
