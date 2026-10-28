@@ -210,7 +210,6 @@ address_global	Code/GameEngine/Source/Common/Rva000308E0AddHeap.cpp	g_Va00DE03E8
 address_global	Code/GameEngine/Source/Common/Rva00062B17Init.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43A4	3
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43AC	3
-address_global	Code/GameEngine/Source/Common/Rva00078BEEGetters.cpp	g_Va001FDEB0	3
 address_global	Code/GameEngine/Source/Common/Rva00094B08Finish.cpp	g_Va00BBB8D8	1
 address_global	Code/GameEngine/Source/Common/Rva000B2EB5.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/Rva000B3814.cpp	g_Va00BBB8D8	2
@@ -366,7 +365,6 @@ address_global	Code/GameEngine/Source/Common/Rva005FD8E5Apt.cpp	g_Va0087A290	1
 address_global	Code/GameEngine/Source/Common/Rva005FFCCBAppend.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/GameEngine/Source/Common/Rva0060147B.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/Rva0062AF7Rva0027D815.cpp	g_Va00DBB710	2
-address_global	Code/GameEngine/Source/Common/Rva00755C80GuardedQuery.cpp	g_Va001FDEB0	2
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits.cpp	g_Va009F6F30	2
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits.cpp	g_Va00DDEB24	2
 address_global	Code/GameEngine/Source/Common/Rva007AB81ACtorInits.cpp	g_Va00DE4878	2
@@ -886,6 +884,7 @@ address_global	Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp	g_Va00DC908C
 address_global	Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp	g_Va00A04908	2
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00740A60Table	3
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00789900Table	1
+address_global	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	g_Va001FDEB0	4
 address_global	Code/GameEngine/Source/Common/WW3DOptionSetter.cpp	g_Va00DEC40C	3
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BF8	2
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BFC	2
@@ -2769,6 +2768,7 @@ alternatename	Code/GameEngine/Source/Common/VptrCleanupDeletingDestructors.cpp	?
 alternatename	Code/GameEngine/Source/Common/VptrZeroPrefixCtors.cpp	?vptrZeroAnchor@VptrZeroHead@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva001FF3A9@Rva001FF3A9@@QAEXABUTreeHintRef00217D4C@@@Z	1
 alternatename	Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp	?rva005CC208@Rva005CC208@@UAE_NXZ	1
+alternatename	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z	1
 alternatename	Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp	?rva0009A338@Gen0003AC38@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Rva00602635VTableInstall@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Win32BIGFileSystem@@UAE@XZ	1
@@ -4181,7 +4181,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0050477B.cpp	??$_C
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva0054107F.cpp	??4Rva0054107FRecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlHelperRva005C847B.cpp	??1Rva005C847BRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00057FC1.cpp	??1Rva00057FC1Record@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00079ED4.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000BDBFA.cpp	??4Rva000BDBFARecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DA05E.cpp	??$_Construct@URva001DA05ERecord@@U1@@_STL@@YAXPAURva001DA05ERecord@@ABU1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DA05E.cpp	??1Rva001DA05ERecord@@QAE@XZ	1
@@ -10752,6 +10751,9 @@ pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"s",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ThingFactory.cpp	"gsy",on	1
+pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/rva00104A75Rva00104A75Farm.cpp	"w",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/DrawableFields.cpp	"",on	1
@@ -11624,9 +11626,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0005893D.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0007989C.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0007989C.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0007989C.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00079ED4.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00079ED4.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00079ED4.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000A7E31.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000A7E31.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000A7E31.cpp	"t",on	1

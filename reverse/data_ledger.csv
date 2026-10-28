@@ -17970,12 +17970,12 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009E1F88,4,.data,global,_s_rva007ABF6B,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009E1F8C,32,.data,global,?m_Textures@Rva00075655@@2PAV?$RefCountPtr@VTextureClass@@@@A,,unowned,?g_Va00DE1F8C@@3PAVAssetReference@@A;?g_bfmeTableDU@@3PAVBfmeHandleCX@@A;?m_Textures@Rva00075655@@2PAV?$RefCountPtr@VTextureClass@@@@A,0,4
 0x009E1FAC,4,.data,global,?TheW3DFileSystem@@3PAVW3DFileSystem@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFileSystem.cpp,provisional,?TheW3DFileSystem@@3PAVW3DFileSystem@@A;?g_009E1FAC@@3HA,1,4
-0x009E1FB0,4,.data,global,?g_Va001FDEB0@@3HA,Code/GameEngine/Source/Common/Rva00078BEEGetters.cpp,owned,,1,2
+0x009E1FB0,4,.data,global,?g_Va001FDEB0@@3HA,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,owned,,1,2
 0x009E1FB4,4,.data,global,?TheW3DHordeModelDrawCount@@3HA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp,owned,,1,2
 0x009E1FB8,4,.data,global,?TheW3DHordeModelDrawManager@@3PAVW3DHordeModelDrawManager@@A,Code/GameEngine/Source/Common/Rva000789A0Update.cpp,owned,,1,2
 0x009E1FBC,4,.data,global,_s_rva007ABFB9,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009E1FC0,4,.data,global,?TheW3DHordeModelDrawPoolKey@?1??getModuleNameKey@W3DHordeModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDrawPoolKey.cpp,owned,,1,2
-0x009E1FC4,4,.data,global,?$S1@?1??getModuleNameKey@W3DHordeModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DHordeModelDrawPoolKey.cpp,owned,,1,4
+0x009E1FC0,4,.data,global,?TheW3DHordeModelDrawPoolKey@?1??getModuleNameKey@W3DHordeModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,owned,,1,2
+0x009E1FC4,4,.data,global,?$S1@?1??getModuleNameKey@W3DHordeModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,owned,,1,4
 0x009E1FC8,40,.data,global,?g_Va00DE1FC8@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00DE1FC8@@3IA;?s_bfmeHelperYS@?1??rva0007A7DD@W3DHordeModelDraw@@QAEXXZ@4VBfmeHelperYS@@A@Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp,2,3
 0x009E1FF0,8,.data,global,?$S1@?1??onDrawableBoundToObject@W3DHordeModelDraw@@QAEXXZ@4IA,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeFamily.cpp,owned,,1,4
 0x009E1FF8,4,.data,global,?Rva00DE1FF8Manager@@3PAVRva0007DA23ResourceManager@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp,owned,,1,9
