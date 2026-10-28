@@ -61,13 +61,13 @@ void LinearCampaign::onCurrentMissionWon(){
  }
  if(ThePlayerList){
   for(int i=0;i<ThePlayerList->count;++i){
-   Player*p=ThePlayerList->getNthPlayer(i);
-   if(p){Rva0037E421*r=&p->revival;
-    if(r){int j=0;void*u;
-     while((u=r->rva0037E421(j))!=0){
-      if(((unsigned char*)u)[0xa1]){
+   Player*currentPlayer=ThePlayerList->getNthPlayer(i);
+   if(currentPlayer){Rva0037E421*revivalList=&currentPlayer->revival;
+    if(revivalList){int j=0;void*reviveEntry;
+     while((reviveEntry=revivalList->rva0037E421(j))!=0){
+      if(((unsigned char*)reviveEntry)[0xa1]){
        units.push_back(*reinterpret_cast<const BfmePod172*>(&CarryoverUnit()));
-       reinterpret_cast<Rva0037EACC*>(u)->rva0037EACC(&units.back());
+       reinterpret_cast<Rva0037EACC*>(reviveEntry)->rva0037EACC(&units.back());
        ++units.back().a[0x94/4];
       }++j;
      }
@@ -78,7 +78,7 @@ void LinearCampaign::onCurrentMissionWon(){
  used.clear();
  if(ThePlayerList){
   Player*player=0;struct MaskStore{int mask;ScienceType s;} ms;ms.mask=ThePlayerList->rva002A7D30();
-  while(!player&&ms.mask){Player*p=ThePlayerList->getEachPlayerFromMask(ms.mask);if(p&&p->value5C==0)player=p;}
+  while(!player&&ms.mask){Player*currentPlayer=ThePlayerList->getEachPlayerFromMask(ms.mask);if(currentPlayer&&currentPlayer->value5C==0)player=currentPlayer;}
   if(player){
    value10=player->value14;sciences.clear();
    const _STL::vector<ScienceType>&ps=player->sciences;

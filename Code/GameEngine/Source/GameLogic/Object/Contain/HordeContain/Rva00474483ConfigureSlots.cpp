@@ -155,7 +155,7 @@ void Rva00474431::rva00474483(Rva00474483Definition *definition)
 // BF1 f98983a7 Rva00245010RecordBuild is the semantic/structural guide.
 // Native474519..474842 RET4 supplies target rank16 records, per-rank map,
 // partner linkage, occupied slot exclusion, notifier and exact jitter strings.
-void Rva00474431::rva00474519(int arg)
+void Rva00474431::rva00474519(int force)
 {
  Rva00474483Definition *data=definition;
  const _STL::vector<Rva00474519Rank*> &ranks=data->ranks;
@@ -183,7 +183,7 @@ void Rva00474431::rva00474519(int arg)
    else record.partner=-1;
    recordList.push_back(*(const Rva00064640Record*)&record);
    }
-   if(arg || (((const _STL::list<void*> *)((Rva0046247DDescriptor *)this)->rva0046247D().b)->empty() && field174==0)) {
+   if(force || (((const _STL::list<void*> *)((Rva0046247DDescriptor *)this)->rva0046247D().b)->empty() && field174==0)) {
     _STL::map<int,int>::iterator it=occupied.begin();
     for(;it!=occupied.end();++it) if(it->second==recordList.size()-1) break;
     if(it==occupied.end()) available.push_back(recordList.size()-1);

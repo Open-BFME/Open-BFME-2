@@ -73,7 +73,7 @@ struct Rva006E4B80Slot {
     int field4;
     int field8;
     int fieldC;
-    void *field10;
+    void *m_actions;
     AptCIH *field14;
 };
 class AptActionQueueC {
@@ -235,7 +235,7 @@ void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
                 __debugbreak();
         }
         ((Rva006E4B80Slot *)m_pEnd)->fieldC = pCIH->m_pAt4C->m_val28;
-        ((Rva006E4B80Slot *)m_pEnd)->field10 = pArg1;
+        ((Rva006E4B80Slot *)m_pEnd)->m_actions = pArg1;
         ((Rva006E4B80Slot *)m_pEnd)->field14 = pCIH;
         pCIH->AddRef();
         ((Rva006E4B80Slot *)m_pEnd)->field8 = iArg4;
@@ -272,7 +272,7 @@ void AptActionQueueC::rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
         }
         ((Rva006E4B80Slot *)m_pCurrent)->fieldC = pCIH->m_pAt4C->m_val28;
         ((Rva006E4B80Slot *)m_pCurrent)->eActionType = 1;
-        ((Rva006E4B80Slot *)m_pCurrent)->field10 = pArg1;
+        ((Rva006E4B80Slot *)m_pCurrent)->m_actions = pArg1;
         ((Rva006E4B80Slot *)m_pCurrent)->field14 = pCIH;
         pCIH->AddRef();
         ((Rva006E4B80Slot *)m_pCurrent)->field8 = iArg4;

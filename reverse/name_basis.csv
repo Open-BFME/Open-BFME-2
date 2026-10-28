@@ -3808,3 +3808,10 @@ local,Rva004ADB1B::handlePackingProcessing::c8,Rva004ADB1B::handlePackingProcess
 local,Rva004B0164::handlePackingProcessing::c8,Rva004B0164::handlePackingProcessing::disguiseOpacity,inferred,agree:nl-b65cd00bf13e,Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,0x004B0348
 local,Rva007E9FC0Owner::begin::r,Rva007E9FC0Owner::begin::resultCode,inferred,agree:nl-65ef3c9e0647,Code/GameEngine/Source/GameNetwork/Rva007E9FC0Begin.cpp,0x00656F70
 param,MilesAudioManager::rva0005DAE6::b,MilesAudioManager::rva0005DAE6::resumeHandle,inferred,agree:nl-fb9de0e68c96,Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerSmallSlots_Rva0005DABB.cpp,0x0005DAE6
+param,Rva005E1008::showTimerOverlay::v,Rva005E1008::showTimerOverlay::progress,inferred,agree:nl-1c8825917ee6-m21b0258a43ce50bea4d970b9,Code/GameEngine/Source/Common/Rva005E1008Method.cpp,0x005E1008
+function,?Rva0021A1E1DumpTemplates@@YAXXZ,?dumpThingTemplates@@YAXXZ,inferred,agree:nl-6f44e766dccb,Code/GameEngine/Source/Common/Thing/Rva0021A1E1ThingDump.cpp,0x0021A1E1
+param,Rva00474431::rva00474519::arg,Rva00474431::rva00474519::force,inferred,agree:nl-bd0e5d01723f-ma50127d49f2f06fa7cb03808,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp,0x00474519
+local,LinearCampaign::onCurrentMissionWon::p,LinearCampaign::onCurrentMissionWon::currentPlayer,inferred,agree:nl-1207233d762a-ma84a5f63d841e68fc7eec499,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp,0x001EC3B5
+local,LinearCampaign::onCurrentMissionWon::r,LinearCampaign::onCurrentMissionWon::revivalList,inferred,agree:nl-9ddd64226de8-mc9263ecd1173ef5a7f9ea55b,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp,0x001EC3B5
+local,LinearCampaign::onCurrentMissionWon::u,LinearCampaign::onCurrentMissionWon::reviveEntry,inferred,agree:nl-d26b46364e56-mb8d8f469c64a237aeba099ea,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp,0x001EC3B5
+member,Rva006E4B80Slot::field10,Rva006E4B80Slot::m_actions,inferred,agree:nl-92f360e4e8ea,Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,

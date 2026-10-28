@@ -3958,3 +3958,4 @@ __ehhandler$?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00794C
 ?rva00493301@Rva00493313@@QBEEXZ,0x00493301,"Renamed to ?hasPublicTimer@Rva00493313@@QBEEXZ by tools/rename.py (inferred)"
 ?rva0049330A@Rva00493313@@QBEHXZ,0x0049330A,"Renamed to ?getViewObjectDuration@Rva00493313@@QBEHXZ by tools/rename.py (inferred)"
 ?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z,0x005E1170,"Renamed to ?hideProductionCount@@YIXPAVRva005F8A7ESub@@@Z by tools/rename.py (inferred)"
+?Rva0021A1E1DumpTemplates@@YAXXZ,0x0021A1E1,"Renamed to ?dumpThingTemplates@@YAXXZ by tools/rename.py (inferred)"

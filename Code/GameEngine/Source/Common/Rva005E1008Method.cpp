@@ -14,7 +14,7 @@ void __cdecl Rva005277D9Fire(Rva00222A8BTarget *target, void *level, const char 
 class Rva005E1008
 {
 public:
-	void showTimerOverlay(float v);
+	void showTimerOverlay(float progress);
 	void hideTimerOverlay();
 	void rva005E0E99(bool);
 private:
@@ -29,7 +29,7 @@ private:
 	bool m_flag43;
 };
 
-void Rva005E1008::showTimerOverlay(float v)
+void Rva005E1008::showTimerOverlay(float progress)
 {
 	if (m_flag43 == 0) {
 		if (m_flag40 != 0) {
@@ -39,7 +39,7 @@ void Rva005E1008::showTimerOverlay(float v)
 		}
 		m_flag43 = true;
 	}
-	m_float3C = v;
+	m_float3C = progress;
 }
 
 // Native005E105E..005E10A8 clears timer-overlay flag43, after the

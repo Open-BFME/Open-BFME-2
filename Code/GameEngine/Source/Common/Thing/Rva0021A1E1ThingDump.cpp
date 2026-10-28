@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD
 // platformsdk
 //
-// ?Rva0021A1E1DumpTemplates@@YAXXZ retail 0x0021A1E1 (470B): a debugger-output
+// ?dumpThingTemplates@@YAXXZ retail 0x0021A1E1 (470B): a debugger-output
 // listing of TheThingFactory's templates (first at +0x0C, next at +0x484) by
 // class: five passes over the list, one per KindOf bit (+0x109 bit 0, +0x113
 // bit 2, +0x109 bits 2, 1 and 3, labelled INFANTRY, HERO, MONSTER, CAVALRY
@@ -45,7 +45,7 @@ static __forceinline void rva0021A1E1Line(const char *label, const Rva0021A1E1Te
 	OutputDebugStringA("\n");
 }
 
-void Rva0021A1E1DumpTemplates()
+void dumpThingTemplates()
 {
 	Rva0021A1E1Template *t;
 	for (t = ((Rva0021A1E1Factory *)TheThingFactory)->m_first; t; t = t->m_next)

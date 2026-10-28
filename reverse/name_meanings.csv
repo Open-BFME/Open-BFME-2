@@ -1,1 +1,11 @@
 key,hash,model,session,worker,date,meaning
+Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp|local|Rva004B65E4::rva004B65E4|w,6c5b588e92b331dae9d53bfb,gpt-6.1-sol,w3-10282257-2,w-46dfa4623b23,2026-10-28,d825e72c341a535ff40feba0
+Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp|param|Rva00474431::rva00474519|arg,bd0e5d01723fcd78a304ffbc,gpt-6.1-sol,w3-10282257-3,w-46dfa4623b23,2026-10-28,a50127d49f2f06fa7cb03808
+Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp|local|LinearCampaign::onCurrentMissionWon|p,45fbdc1549f2fe0ef1c9dadd,gpt-6.1-sol,w3-10282257-4,w-46dfa4623b23,2026-10-28,a84a5f63d841e68fc7eec499
+Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp|local|LinearCampaign::onCurrentMissionWon|r,e4489ac97994e8b7714c3fe5,gpt-6.1-sol,w3-10282257-4,w-46dfa4623b23,2026-10-28,c9263ecd1173ef5a7f9ea55b
+Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp|local|LinearCampaign::onCurrentMissionWon|u,02558d963eb08f2f346162e6,gpt-6.1-sol,w3-10282257-4,w-46dfa4623b23,2026-10-28,b8d8f469c64a237aeba099ea
+Code/GameEngine/Source/Common/Thing/Rva0021A1E1ThingDump.cpp|param|rva0021A1E1Line|t,e2b1f60f92d71a945d799ad2,gpt-6.1-sol,w3-10282257-8,w-46dfa4623b23,2026-10-28,dfb157644234f5cb643b1549
+Code/GameEngine/Source/Common/Thing/Rva0021A1E1ThingDump.cpp|local|Rva0021A1E1DumpTemplates|t,2ae6aba2e29f652d22637cdc,gpt-6.1-sol,w3-10282257-8,w-46dfa4623b23,2026-10-28,b4c7f869fd1aad5bb5de0a35
+Code/GameEngine/Source/Common/Rva005E1008Method.cpp|param|Rva005E1008::showTimerOverlay|v,cf6ef760ce06178626e5148c,gpt-6.1-sol,w3-10282257-9,w-46dfa4623b23,2026-10-28,21b0258a43ce50bea4d970b9
+Code/Libraries/Source/Apt/Rva006E3230Validate.cpp|local|AptActionQueueC::rva006E39A0|a,2a20912b6070ea3e8e8f9535,gpt-6.1-sol,w3-10282257-10,w-46dfa4623b23,2026-10-28,eccb1c9d6d4984accea71f70
+Code/GameEngine/Source/GameLogic/Object/Made002CCA37Parse.cpp|local|q4Notify002CCA37|tmp,8e9b9710eef1d42195b6cc9e,gpt-6.1-sol,w3-10282257-11,w-46dfa4623b23,2026-10-28,da677a1f03b0d7f3e2a10122
