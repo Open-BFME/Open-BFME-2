@@ -17850,7 +17850,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009DF574,4,.data,global,?_S_lock@?$_Node_Alloc_Lock@$00$0A@@_STL@@2VNodeAllocMutex@2@A,Code/Libraries/Source/WWVegas/WWLib/node_alloc_M_deallocateThunk.cpp,provisional,?_S_lock@?$_Node_Alloc_Lock@$00$0A@@_STL@@2VNodeAllocMutex@2@A;?g_bfme0130b254@@3UGen_0082ad50@@A;?g_bfmeRegVLZ@@3VBfmeRegVLZ@@A,1,8
 0x009DF578,4,.data,global,?theBlockParseList@@3PAUBlockParse@@A,,unowned,?g_Va00DDF578@@3HA;?theBlockParseList@@3PAUBlockParse@@A,1,266
 0x009DF57C,4,.data,global,?g_00DDF57C@@3PAXA,Code/GameEngine/Source/Common/INI/INI.cpp,owned,,1,6
-0x009DF580,12,.data,global,?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,Code/GameEngine/Source/Common/Thing/Rva00200D38Ctor.cpp,provisional,?g_Va00DDF580@@3IA;?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,1,6
+0x009DF580,12,.data,global,?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,Code/GameEngine/Source/Common/INI/INIWater.cpp,provisional,?g_Va00DDF580@@3IA;?g_vec00200D38@@3V?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@A,1,6
 0x009DF58C,32,.data,global,?BfmeINIMacroTableStorage@@3PAIA,Code/GameEngine/Source/Common/System/INI_loadFile.cpp,owned,,1,4
 0x009DF5AC,4,.data,global,?BfmeINIMacroGeneration@@3HA,Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp,owned,,1,4
 0x009DF5B0,4,.data,global,?BfmeINISavedMacroGeneration@@3HA,Code/GameEngine/Source/Common/System/SaveGame/Rva0002BBC9Update.cpp,owned,,1,2

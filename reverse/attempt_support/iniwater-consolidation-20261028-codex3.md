@@ -49,3 +49,51 @@ b35ccaab0e and the affected-consumer check lacks a current receipt for
 Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp. This is not a clean
 consumer audit; carry it into the next scheduled census. The seed's own strict
 current preview remains LINKS, 198 -> 198 bytes. No proven loss was reported.
+
+## Applied composition
+
+After publishing the prerequisite (f8126b8f30), tu_skeleton.py --merge applied
+its accepted subset: Rva00200CB1Assign.cpp, Rva00200D38Ctor.cpp and
+Rva00200E95Dtor.cpp are absorbed into the approved INIWater.cpp. SOURCE FILES
+falls by three. Nine ledger rows and the one data row move; eight corresponding
+committed TU-map source cells are mechanically repointed, not regenerated.
+The existing generated/EH identities, data extent and placeholder class names
+are preserved. The existing vector data-row size 1 versus data-ledger extent 12
+is pre-existing debt, not a layout claim introduced by this merge.
+
+Verification on composition:
+
+- ./build.sh: 12/12 function/EH rows and the moved data row pass. Together with
+  the untouched transparency parser, strict-current preparation passes the
+  same 16/16 rows and two data rows as the original five-file scope.
+- check_csv.py and find_declared_unmatched.py pass. eh_verify.py: three EXACT
+  parent graphs. Converged data check: zero second names or unjudged rows.
+- The merged object has 22 retained COMDATs, all with fingerprints and sizes
+  equal to at least one corresponding original copy. Five strong definitions,
+  26 undefined names and the one weak alias equal the union of the originals.
+  The already-dropped vector iterator is the only removed COMDAT.
+- Supported link guard accepts the merge of census-linked donors. Current
+  preview: destination LINKS with 484 own bytes; transparency LINKS with 254.
+  Total 738 bytes is unchanged from the five-file baseline. This is source
+  recovery, not a linking gain or new census result.
+- Outgoing link_batch_audit remains inconclusive: the index predates the base,
+  and six identity-affected objects lack current receipts, first INI/INI.cpp.
+  LINK-135 retains this scope for the next scheduled census. No proven loss is
+  reported; consumer-wide stability is not asserted.
+
+Batch path-consumer audit (prerequisite plus this composition): searched the
+three absorbed paths/basenames across tools, hooks, workflows, source/includes,
+root/build configuration, docs and reverse registers. No active path consumer
+requires an edit beyond tu_skeleton's ledger/data-owner repoints. Remaining
+mentions are historical attempt evidence, the census-owned link_status.csv,
+merge provenance comments, and explanatory comments about the old fragments.
+They are intentionally retained. No fold-proof references name a removed path.
+No identity/data debt keys or hatch/flag keys require transfer. The merge's
+refresh_reports step refreshed header_queue and ms_header_queue for the
+combined destination and removed sources; neither queue requires a changed row.
+The refreshed name_lane consolidation snapshot passes --check after composition.
+
+Remaining: the transparency parser's INI declaration lacks the two seed parser
+members; its Overridable and WaterTransparencySetting views must also reconcile.
+The four mixed donor files remain intact. No unmatched interior range has been
+claimed as newly lost code.

@@ -9478,11 +9478,16 @@ three function/EH rows, string/import checks, converged data and strict-current
 preparation pass. The supported dry-run now accepts three donors together
 (eleven rows), whereas the original seed accepted none. The seed retains LINKS
 198 -> 198 against index 2026-10-28 15:58 at `d92e7e6635`.
-Remaining / next check: land the supported merge and reconcile the transparency
-parser's INI/Overridable/setting views separately. Outgoing link audit is
+Remaining / next check: reconcile the transparency parser's INI/Overridable/setting views separately.
+The supported merge has now absorbed three donors, reducing SOURCE FILES by
+three; strict-current verification preserves all sixteen rows and two data rows
+in the original five-file scope. Destination and residual preview LINKS with
+738 total bytes, unchanged from the original scope. Outgoing link audit is
 inconclusive: the index predates the inspected base and affected consumer
-`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
-receipt. Carry that scope into the next scheduled census.
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacked a current
+receipt in the prerequisite audit. The composition audit additionally lacks
+current receipts for six identity-affected sources, first
+`Code/GameEngine/Source/Common/INI/INI.cpp`. Carry that scope into the next scheduled census.
 Clearance: the seed's own current-input preview is clean; consumer-wide
-clearance and composition are pending. No new linking gain claimed.
+clearance is pending. The supported composition passes its link guard. No new linking gain claimed.
 Census confirmation: awaiting the next scheduled measurement.
