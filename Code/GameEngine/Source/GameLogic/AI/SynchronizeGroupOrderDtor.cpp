@@ -4,7 +4,7 @@
 // SynchronizeGroupOrder destructor: reinstalls vtable 0x0086A314, destroys the +0x18
 // member through the rowed ??1Rva002EE9B7 (state 0), then calls the rowed
 // base ??1GroupOrder at 0x00548948 (state -1). Layout from the
-// rowed ctor 0x00546982 in SynchronizeGroupOrderCtor.cpp (GroupOrder base
+// rowed ctor 0x00546982 in SynchronizeGroupOrder.cpp (GroupOrder base
 // 0x18, member at +0x18, bool at +0x24). Member is the opaque rowed tree/pool
 // type so the call mangles to the row name and links; vtable immediate is
 // DIR32.
