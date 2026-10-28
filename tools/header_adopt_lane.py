@@ -865,15 +865,21 @@ def merge_inputs_key():
     when stale) and the views are a pure function of those."""
     head = _git("rev-parse", "HEAD")
     dirty = _git("status", "--porcelain", "--untracked-files=all", "--", "Code", "reverse")
-    pins = _git("submodule", "status")
-    if not head or dirty is None or pins is None:
+    if not head or dirty is None:
         return None
-    dirty = "\n".join(filter(None, [dirty] + [ln for ln in pins.splitlines() if ln[:1] in "+-U"]))
+    pins = []                                    # `git submodule status` costs seconds; this, a few calls
+    for path in (_git("config", "-f", ".gitmodules", "--get-regexp", r"\.path$") or "").split("\n"):
+        path = path.split(" ", 1)[-1].strip()
+        if path:
+            want, got = _git("rev-parse", f"HEAD:{path}"), _git("-C", path, "rev-parse", "HEAD")
+            if want != got:
+                pins.append(f"+{got} {path}")
+    dirty = "\n".join(filter(None, [dirty] + pins))
     if not dirty:
         return head
     digest = class_layouts.hashlib.sha256(dirty.encode())
     for line in sorted(dirty.splitlines()):
-        if line[:1] not in "+-U":                                  # a submodule line names its commit
+        if line[:1] != "+":                                        # a submodule line names its commit
             path = ROOT / line[3:].split(" -> ")[-1].strip('"')
             digest.update(class_layouts.file_sha(path).encode())
     return f"{head}+{digest.hexdigest()[:16]}"
