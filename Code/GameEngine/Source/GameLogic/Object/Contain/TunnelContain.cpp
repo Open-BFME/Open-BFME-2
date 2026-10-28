@@ -30,13 +30,31 @@ public:
 
 void __stdcall bfmeDoBPC(BfmeThingBPC *one, void *two);
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 // tu-skeleton: 0x0047DB00 67B ??1TunnelContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DB43 69B ?getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp
+
+// ?getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ
+NameKeyType TunnelContain::getModuleNameKey() const
+{
+	static NameKeyType TheTunnelContainPoolKey =
+		TheNameKeyGenerator->nameToKey("TunnelContain");
+	return TheTunnelContainPoolKey;
+}
 
 // tu-skeleton: 0x0047DB88 6B ?name@TunnelContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0047DB8E 7B ?get@Rva0047DB8EByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeConv507.cpp
 
@@ -108,9 +126,7 @@ void TunnelContain::xfer( Xfer *xfer )
 
   // end xfer
 
-// tu-skeleton: 0x0047DBF7 98B ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047DC59 28B ??_GTunnelContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp
 
@@ -292,8 +308,6 @@ void TunnelContain::onSelling()
 	rva0047DF81();
 }
 
-// tu-skeleton: 0x0047DC88 87B ?removeFromContain@TunnelContain@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveFromContain.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainContainedList.cpp
 
 // ?rva0047DD0F@TunnelContain@@UAE?AVRva0036AE51ListView@@XZ retail
@@ -310,6 +324,12 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 	return ((Rva00466398 *)owningPlayer->m_2E8)->rva00466398();
 }
 
+// tu-skeleton: 0x0047DBF7 98B ??0TunnelContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047DC59 28B ??_GTunnelContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0047DC88 87B ?removeFromContain@TunnelContain@@UAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveFromContain.cpp (not merged yet)
+
 // tu-skeleton: 0x0047DE6C 117B ?Rva0047DE6CVisit@@YAXPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRva0047DE6C.cpp (not merged yet)
 
 // tu-skeleton: 0x0047DEE1 99B ?rva0047DEE1@TunnelContain@@UAEPAVRva0047DEE1Rider@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainGetRider.cpp (not merged yet)
@@ -323,3 +343,7 @@ Rva0036AE51ListView TunnelContain::rva0047DD0F()
 // tu-skeleton: 0x0047E0CE 157B ?removeAllContained@TunnelContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)
 
 // tu-skeleton: 0x0047E16B 253B ?scatterToNearbyPosition@TunnelContain@@IAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainScatter.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B7AE 8B $L4107 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)
+
+// tu-skeleton: 0x0078B7B6 10B __ehhandler$?removeAllContained@TunnelContain@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainRemoveAllContained.cpp (not merged yet)

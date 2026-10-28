@@ -19989,8 +19989,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03718,4,.data,global,?$S1@?1??getModuleNameKey@HordeSiegeEngineContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainPoolKey.cpp,owned,,1,4
 0x00A03720,4,.data,global,?$S1@?1??rva0047D53A@HordeSiegeEngineContain@@QAEXPAVObject@@W4ExitDoorType@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeSiegeEngineContainRva0047D53A.cpp,owned,,1,2
 0x00A03724,4,.data,global,_s_rva007B0F20,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03728,4,.data,global,?TheTunnelContainPoolKey@?1??getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp,owned,,1,2
-0x00A0372C,4,.data,global,?$S1@?1??getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContainPoolKey.cpp,owned,,1,4
+0x00A03728,4,.data,global,?TheTunnelContainPoolKey@?1??getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp,owned,,1,2
+0x00A0372C,4,.data,global,?$S1@?1??getModuleNameKey@TunnelContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/TunnelContain.cpp,owned,,1,4
 0x00A03730,4,.data,global,_s_rva007B0F4A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03734,4,.data,global,?TheRiderChangeContainPoolKey@?1??getModuleNameKey@RiderChangeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainPoolKey.cpp,owned,,1,2
 0x00A03738,4,.data,global,?$S1@?1??getModuleNameKey@RiderChangeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContainPoolKey.cpp,owned,,1,4
