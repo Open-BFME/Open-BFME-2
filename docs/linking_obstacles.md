@@ -155,7 +155,12 @@ Completed:
   (funclet labels renumber, parent EH data verified); `link_check` LINKS 404 -> 404 B.
   Seven other names the copy pulled in leave the object; each keeps the same first
   copy in retail-truth-5 order, and the copy constructor's first copy turns retail.
-- `FXParticleSystemModules.cpp` (halilkkaya-lk6): its /O1 /GX- vtables instantiated
+- `FXParticleSystemModules.cpp` (halilkkaya-lk6): **reverted 2026-10-29** (with the `??_G`
+  repair below): the explicit copy-constructor instantiations reordered the unit's
+  `ModuleTag<...>::s_key`/`s_name` template statics, so 16 of them resolved to two retail
+  bases (full-gate DIR32 consistency red; rows stayed 227/227). Redo the factory/clone
+  suppression without moving any template static's emission (check `DIR32 consistency`
+  over the unit's rows). Original repair, for the redo: its /O1 /GX- vtables instantiated
   22 `ConcreteModuleClass::createTemplate()` and 3 `ConcreteModuleTemplate::clone()`
   bodies (GPU_DRAW, RENDEROBJECT_DRAW, LIFE_EVENT) whose retail copies, with
   `__EH_prolog`, are rows of the /EHsc FXParticleSystemFactories.cpp. Declaring those
@@ -217,7 +222,8 @@ LivingWorldLogicDtorRva002B964F.cpp (717 B; three `LivingWorldLogic` vtables, fi
 LivingWorldLogicCtorBfme.cpp's), W3DDisplayCtorRva00049DEA.cpp (302 B; `vector<int>`
 destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
 [rt5_losers.py and output](../reverse/attempt_support/rt5-order-losses-20261029/rt5_losers.txt).
-- `FXParticleSystemModules.cpp` (halilkkaya-lk6): the RENDEROBJECT_UPDATE and LIFE_EVENT
+- `FXParticleSystemModules.cpp` (halilkkaya-lk6), **reverted 2026-10-29** with the factory
+  repair above (it was built on it): the RENDEROBJECT_UPDATE and LIFE_EVENT
   named wrappers' `??_G` inlined the 5-byte wrapper destructor and called the module
   template's destructor directly (unproven f8e666291096 / 2b715f6d1187); retail's
   (Factories rows 0x003AA1EA, 0x003AB92A) call the wrapper destructor. Declaring both
