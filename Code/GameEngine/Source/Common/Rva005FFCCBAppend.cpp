@@ -300,7 +300,7 @@ struct Rva005FFA60AptMode
 	int m_mode; // +0x318
 };
 
-// BfmePathLeafAfterMarker.cpp's path helpers (pinned).
+// AptUtils.cpp's path helpers (pinned).
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 

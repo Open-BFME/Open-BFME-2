@@ -196,7 +196,7 @@ public:
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva0052519DFire(void *target, void *level, const char *prefix, const char *function, int *value);
 
-// BfmePathLeafAfterMarker.cpp's path helpers and the pinned Apt parameter
+// AptUtils.cpp's path helpers and the pinned Apt parameter
 // reader 0x004128F0.
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }

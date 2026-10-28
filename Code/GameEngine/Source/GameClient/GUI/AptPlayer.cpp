@@ -613,7 +613,7 @@ GameWindow *AptPlayer::WinCreate(const AsciiString *name,AptLayoutInfoView *layo
 // parameters' "_timerId" (map at +0xB8) or else under the path without its
 // level prefix runs its functor into the result; no timer leaves {1.0, null}.
 // WB B935C0 shape; the fraction/image pair is the consumer's
-// (AptImageDrawRva00412BFF.cpp) RadialClockResult.
+// (AptUtils.cpp) RadialClockResult.
 struct RadialClockResult
 {
 	float fraction;

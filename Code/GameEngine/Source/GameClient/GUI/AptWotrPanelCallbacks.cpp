@@ -15,7 +15,7 @@
 // the kept copy serves the link. The rows here inline it: dllimport + __forceinline body emits no copy.
 namespace _STL { template <> __declspec(dllimport) __forceinline _List_iterator<int, _Nonconst_traits<int> > &_List_iterator<int, _Nonconst_traits<int> >::operator--() { this->_M_node = this->_M_node->_M_prev; return *this; } }
 
-// BfmePathLeafAfterMarker.cpp's path helpers.
+// AptUtils.cpp's path helpers.
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 

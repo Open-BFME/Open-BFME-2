@@ -16,7 +16,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// BfmePathLeafAfterMarker.cpp's path helpers, and the unrowed 0x004128F0
+// AptUtils.cpp's path helpers, and the unrowed 0x004128F0
 // (239 bytes) next to them that reads one "key=value" parameter, pinned by
 // address.
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }

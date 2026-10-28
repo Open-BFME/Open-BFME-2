@@ -14,7 +14,7 @@ class AptPlayer { public: bool HideLevel(int); };
 #include "ascii_string.h"
 
 
-// BfmePathLeafAfterMarker.cpp's path helpers.
+// AptUtils.cpp's path helpers.
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 

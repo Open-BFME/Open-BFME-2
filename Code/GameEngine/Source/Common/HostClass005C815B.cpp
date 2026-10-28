@@ -7,7 +7,7 @@ struct Rva005C847BRecord {
 	void method_005C9311(int m14, int a0, float a1);
 };
 
-// 0x005C8F50 is rowed as Rva005C8F50Elem::rva005C8F50 (Rva005C8F50Method.cpp),
+// 0x005C8F50 is rowed as Rva005C8F50Elem::rva005C8F50 (HostClass005C8E0A.cpp),
 // the same 0x48-byte record viewed through its filtered-erase member.
 class Rva005C8F50Elem { public: void rva005C8F50(int a, int b); };
 

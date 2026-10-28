@@ -82,7 +82,7 @@ template<class T> struct IconSlotVector:public _STL::vector<T*> {
  using _STL::vector<T*>::_M_finish;
  using _STL::vector<T*>::_M_end_of_storage;
 };
-// BfmePathLeafAfterMarker.cpp's path helpers.
+// AptUtils.cpp's path helpers.
 namespace AptUtils { const char *__cdecl SkipLevelN(const char *path); }
 namespace AptUtils { int __cdecl LevelIndexFromTarget(const char *path); }
 
