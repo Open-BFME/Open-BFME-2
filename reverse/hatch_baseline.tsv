@@ -10814,8 +10814,8 @@ pragma_optimize	Code/GameEngine/Source/GameClient/View.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"s",off	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"t",on	3
-pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrderDtor.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrderDtor.cpp	"gsy",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
