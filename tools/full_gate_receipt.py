@@ -23,17 +23,26 @@ pointer change, at most --limit dependents), and no tree-wide baseline changed. 
 that change from C0 to C1 can reach -- exactly the scope a push from C0 to C1
 would verify -- instead of every source: C0's full gate already verified the
 rest with the same inputs. The checks that compare sources with each other
-(build.cross_source_checks) still run over every row, as do the exception-data
-and converged-data audits when their lists changed. Nothing is trusted from
+(build.cross_source_checks) still judge every row, as do the exception-data
+and converged-data audits when their lists changed. The DIR32 check reads again
+only the objects this push verified: the receipt keeps the passed check's index
+(every row's DIR32 pairs and every object's size and mtime), and a row outside
+the verified sources reuses its pairs only while its ledger key and its object's
+stamp are unchanged; anything else checks every row. Nothing is trusted from
 another clone or host.
 
   python3 tools/full_gate_receipt.py record SHA [--loads DIR] [--loads-from SHA]
+                                       [--dir32-index FILE]
                                                   # the full gate passed at SHA
   python3 tools/full_gate_receipt.py find SHA     # prints a usable C0, or nothing
-  python3 tools/full_gate_receipt.py cross-checks # build.cross_source_checks (a script:
+  python3 tools/full_gate_receipt.py cross-checks [--since C0 --verified-from LIST]
+                                       [--index-out FILE]
+                                                  # build.cross_source_checks (a script:
                                                   # the build's process pool re-imports it)
 """
 import argparse
+import os
+import shutil
 import subprocess
 import sys
 import time
@@ -76,7 +85,12 @@ def gate_loads(folder):
     return entries if "tools/build.py" in entries else None
 
 
-def record(sha, now=None, loads=None, loads_from=None):
+def index_path(sha):
+    """Where the receipt for `sha` keeps its DIR32 index."""
+    return receipts_dir() / f"{sha}.dir32.gz"
+
+
+def record(sha, now=None, loads=None, loads_from=None, dir32_index=None):
     """Record that the full gate passed at `sha`; `loads` is build.py's
     BFME_GATE_LOADS folder. A carried push (no full gate of its own) passes
     `loads_from`, the receipt it carried from: its verdict rests on that gate's
@@ -91,6 +105,11 @@ def record(sha, now=None, loads=None, loads_from=None):
     entries = gate_loads(loads)
     if entries is None and loads_from and full_sha(loads_from) and (folder / full_sha(loads_from)).is_file():
         entries = receipt_loads(full_sha(loads_from))
+    index_path(sha).unlink(missing_ok=True)
+    if dir32_index and Path(dir32_index).is_file() and Path(dir32_index).stat().st_size:
+        temp = folder / f"{sha}.dir32.{os.getpid()}.tmp"
+        shutil.copyfile(dir32_index, temp)
+        os.replace(temp, index_path(sha))
     (folder / sha).write_text(f"{int(now)}\n" + "".join(f"{e}\n" for e in sorted(entries or ())))
     for old in folder.iterdir():
         if old.is_file() and old.stat().st_mtime < now - KEEP_HOURS * 3600:
@@ -184,15 +203,33 @@ def main(argv=None):
     rec.add_argument("sha")
     rec.add_argument("--loads", help="build.py's BFME_GATE_LOADS folder from that full gate")
     rec.add_argument("--loads-from", help="the receipt a carried push carried from (its tool list)")
+    rec.add_argument("--dir32-index", help="the passed DIR32 check's index (build.verify_dir32_consistency)")
     sub.add_parser("find", help="print a recorded commit whose full gate carries to SHA").add_argument("sha")
-    sub.add_parser("cross-checks", help="the full gate's cross-source checks over every row")
+    cross = sub.add_parser("cross-checks", help="the full gate's cross-source checks over every row")
+    cross.add_argument("--since", help="the carried receipt: reuse its DIR32 index where proven unchanged")
+    cross.add_argument("--verified-from", help="NUL-separated sources this push byte-verified")
+    cross.add_argument("--index-out", help="write the passing DIR32 check's index here")
     args = ap.parse_args(argv)
     if args.cmd == "cross-checks":
+        if args.since and args.verified_from is None:
+            raise SystemExit("full_gate_receipt: --since needs --verified-from")
+        verified = None
+        if args.verified_from is not None:
+            raw = Path(args.verified_from).read_bytes()
+            if raw and not raw.endswith(b"\0"):
+                raise SystemExit("full_gate_receipt: unterminated --verified-from list")
+            verified = {path.decode("utf-8") for path in raw.split(b"\0") if path}
+        since = full_sha(args.since) if args.since else None
+        if args.since and since is None:
+            raise SystemExit(f"full_gate_receipt: {args.since} is not a commit")
+        carried = index_path(since) if since and index_path(since).is_file() else None
+        if since and carried is None:
+            print(f"cross-source checks: the receipt for {since} keeps no DIR32 index; checking every row")
         sys.path.insert(0, str(ROOT / "tools"))
         import build
-        return build.cross_source_checks()
+        return build.cross_source_checks(carried_index=carried, verified=verified, index_out=args.index_out)
     if args.cmd == "record":
-        return record(args.sha, loads=args.loads, loads_from=args.loads_from)
+        return record(args.sha, loads=args.loads, loads_from=args.loads_from, dir32_index=args.dir32_index)
     old = find(args.sha)
     if old:
         print(old)

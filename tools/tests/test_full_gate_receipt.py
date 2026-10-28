@@ -195,7 +195,7 @@ def test_cross_checks_byte_verify_what_they_had_to_rebuild(monkeypatch):
     monkeypatch.setattr(build, "stale_sources", stale_sources)
     monkeypatch.setattr(build, "compile_rows", lambda rows, sources, **kw: None)
     monkeypatch.setattr(build, "main", lambda only=None, **kw: verified.append(kw["exact_sources"]))
-    monkeypatch.setattr(build, "verify_dir32_consistency", lambda rows: None)
+    monkeypatch.setattr(build, "verify_dir32_consistency", lambda rows, **kw: None)
     monkeypatch.setattr(check_module_registry, "verify", lambda: None)
     assert build.cross_source_checks() == 0
     assert verified == [{"Code/a.cpp"}]
@@ -241,7 +241,7 @@ def test_large_restored_scope_stays_exact_and_fail_closed(monkeypatch, failure):
         verified.append(exact_sources)
         if failure == "bytes":
             raise SystemExit(1)
-    def dir32(scope):
+    def dir32(scope, **kw):
         global_rows.append(scope)
         if failure == "dir32":
             raise SystemExit(1)
@@ -316,7 +316,7 @@ def test_exact_function_scope_checks_bytes_without_rewriting_full_derived_file(t
         return patch
     monkeypatch.setattr(build, "compile_function", compile_function)
     assert build.verify_functions(exact_sources={"Code/a.cpp"}) == [patch]
-    assert visited == ["Code/a.cpp"]
+    assert set(visited) == {"Code/a.cpp"}
     patch["bytes"] = b"\xcc"
     with pytest.raises(SystemExit):
         build.verify_functions(exact_sources={"Code/a.cpp"})
@@ -373,3 +373,151 @@ def test_cross_source_global_proof_still_checks_unchanged_owners(tmp_path, monke
     assert collisions == (["$L123"] if unchanged_funclet else [])
     if not unchanged_funclet:
         assert "NEW inconsistent symbol" in capsys.readouterr().out
+
+
+
+# --- carried cross-checks: the DIR32 index ------------------------------------
+
+def dir32_fixture(tmp_path, monkeypatch, bases=None):
+    """Rows a and b each address `_shared_global`; their retail bytes put it at
+    `bases[source]` (one address: consistent). Returns (rows, objects, visited, stale)."""
+    import build
+    import check_module_registry
+    import struct
+    bases = bases if bases is not None else {"Code/a.cpp": 0x402000, "Code/b.cpp": 0x402000}
+    (tmp_path / "reverse").mkdir(exist_ok=True)
+    (tmp_path / "reverse/dir32_consistency_whitelist.txt").write_text("")
+    match = tmp_path / "build" / "match"
+    match.mkdir(parents=True, exist_ok=True)
+    rows = [{"source": f"Code/{letter}.cpp", "name": f"function{i}",
+             "target_rva": hex(0x1000 + i * 0x10), "target_size": "7", "notes": ""}
+            for i, letter in enumerate("ab")]
+    objects = {row["source"]: match / (row["source"][5] + ".obj") for row in rows}
+    for obj in objects.values():
+        obj.write_bytes(b"fixture")
+    by_rva = {int(row["target_rva"], 16): row["source"] for row in rows}
+    visited, stale = [], []
+    monkeypatch.setattr(build, "ROOT", tmp_path)
+    monkeypatch.setattr(build, "BUILD_DIR", match)
+    monkeypatch.setattr(build, "ensure_case_shims", lambda: None)
+    monkeypatch.setattr(build, "ensure_reference_current", lambda: None)
+    monkeypatch.setattr(build, "load_function_rows", lambda: rows)
+    monkeypatch.setattr(build, "stale_sources", lambda scope, outputs, workers=1, **kw:
+                        [s for s in scope if s.relative_to(tmp_path).as_posix() in stale])
+    monkeypatch.setattr(build, "compile_rows", lambda rows, sources, **kw: None)
+    monkeypatch.setattr(build, "main", lambda only=None, **kw: None)
+    monkeypatch.setattr(build, "row_object", lambda row: objects[row["source"]])
+
+    def require(row):
+        visited.append(row["source"])
+        return objects[row["source"]]
+    monkeypatch.setattr(build, "require_row_object", require)
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size:
+                        b"\xd9\x05" + struct.pack("<I", bases[by_rva[rva]]) + b"\xc3")
+    monkeypatch.setattr(build, "read_object_symbol_bytes", lambda *args:
+                        (b"\xd9\x05\x00\x00\x00\x00\xc3", [(2, 6, "_shared_global")]))
+    monkeypatch.setattr(build, "_object_layout", lambda *args: (b"", [], []))
+    monkeypatch.setattr(check_module_registry, "verify", lambda: None)
+    return rows, objects, visited, stale, bases
+
+
+def passed_index(tmp_path, monkeypatch):
+    """A full cross-check pass that writes its index, as a full gate does."""
+    import build
+    fixture = dir32_fixture(tmp_path, monkeypatch)
+    index = tmp_path / "passed.dir32.gz"
+    assert build.cross_source_checks(index_out=str(index)) == 0
+    assert index.is_file()
+    fixture[2].clear()
+    return fixture, index
+
+
+def test_carried_cross_checks_read_only_the_verified_objects(tmp_path, monkeypatch, capsys):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    out = tmp_path / "next.dir32.gz"
+    assert build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"}, index_out=str(out)) == 0
+    assert set(visited) == {"Code/a.cpp"}
+    assert "1 row(s) carried" in capsys.readouterr().out
+    # the carried push's own index carries the next retry the same way
+    visited.clear()
+    assert build.cross_source_checks(carried_index=out, verified=set()) == 0
+    assert visited == []
+
+
+def test_carried_cross_checks_refuse_a_collision_with_an_unread_row(tmp_path, monkeypatch, capsys):
+    # What the full pass refuses: a verified row now puts the global elsewhere than
+    # an unchanged row the carried index answers for.
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    bases["Code/a.cpp"] = 0x403000
+    assert build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"}) == 1
+    assert set(visited) == {"Code/a.cpp"}
+    assert "NEW inconsistent symbol" in capsys.readouterr().out
+    visited.clear()
+    assert build.cross_source_checks() == 1     # the full pass agrees
+
+
+def test_a_rebuilt_unverified_object_checks_every_row(tmp_path, monkeypatch, capsys):
+    import build
+    import os
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    stat = objects["Code/b.cpp"].stat()
+    os.utime(objects["Code/b.cpp"], ns=(stat.st_atime_ns, stat.st_mtime_ns + 10**9))
+    assert build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"}) == 0
+    assert "rebuilt since the carried check" in capsys.readouterr().out
+    assert set(visited) == {"Code/a.cpp", "Code/b.cpp"}
+
+
+def test_a_changed_unverified_row_checks_every_row(tmp_path, monkeypatch, capsys):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    rows[1]["notes"] = "object-symbol=other"
+    build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"})
+    assert "not in the carried index" in capsys.readouterr().out
+    assert "Code/b.cpp" in visited
+
+
+@pytest.mark.parametrize("damage", ["missing", "corrupt", "version"])
+def test_an_unusable_index_checks_every_row(tmp_path, monkeypatch, capsys, damage):
+    import build
+    import gzip
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    if damage == "missing":
+        index.unlink()
+    elif damage == "corrupt":
+        index.write_bytes(b"not gzip")
+    else:
+        with gzip.open(index, "wt") as handle:
+            handle.write('{"version": 0, "rows": {}, "objects": {}}')
+    assert build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"}) == 0
+    assert "no carried DIR32 index" in capsys.readouterr().out
+    assert set(visited) == {"Code/a.cpp", "Code/b.cpp"}
+
+
+def test_a_verified_object_that_is_not_current_fails(tmp_path, monkeypatch, capsys):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    stale.append("Code/a.cpp")
+    assert build.cross_source_checks(carried_index=index, verified={"Code/a.cpp"}) == 1
+    assert "verified object(s) not current" in capsys.readouterr().out
+
+
+def test_a_receipt_keeps_its_index_and_cross_checks_find_it(repo, monkeypatch, tmp_path):
+    import build
+    sha = commit(repo, "Code/a.cpp", "a")
+    index = tmp_path / "index.gz"
+    index.write_bytes(b"index")
+    R.record(sha, now=time.time(), dir32_index=str(index))
+    assert R.index_path(sha).read_bytes() == b"index"
+    assert R.recorded() == [sha]               # the index is not a receipt
+    seen = {}
+    monkeypatch.setattr(build, "cross_source_checks", lambda **kw: seen.update(kw) or 0)
+    listing = tmp_path / "verified"
+    listing.write_bytes(b"Code/a.cpp\0")
+    assert R.main(["cross-checks", "--since", sha, "--verified-from", str(listing)]) == 0
+    assert seen["carried_index"] == R.index_path(sha) and seen["verified"] == {"Code/a.cpp"}
+    R.record(sha, now=time.time())             # a receipt without an index drops the old one
+    assert not R.index_path(sha).exists()
+    assert R.main(["cross-checks", "--since", sha, "--verified-from", str(listing)]) == 0
+    assert seen["carried_index"] is None

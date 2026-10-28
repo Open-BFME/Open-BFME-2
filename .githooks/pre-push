@@ -449,6 +449,9 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Asked for an unbounded dependency change or at least 512 sources: even a
     # bounded header scope below the full-build threshold can take minutes on Windows.
     carried=""
+    carried_dir=""
+    dir32_index=""
+    gate_loads=""
     large_scope=0
     if [ "$header_all" -ne 0 ] || [ "${#verify[@]}" -ge 512 ]; then
         large_scope=1
@@ -499,8 +502,13 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         gate_loads="$(mktemp -d)" || fail "temporary directory for the full gate's tool list"
         gate_loads="$(cygpath -m "$gate_loads" 2>/dev/null || printf '%s' "$gate_loads")"
         export BFME_GATE_LOADS="$gate_loads"
+        # The DIR32 check's per-row index, kept with the receipt: a carried retry
+        # reads again only the objects it verifies (tools/full_gate_receipt.py).
+        dir32_index="$gate_loads/dir32-index.gz"
+        export BFME_DIR32_INDEX="$dir32_index"
         BUILD_POOL="${BUILD_POOL:-4}" run_build \
             || fail "full byte-verify of outgoing sources (see above)"
+        unset BFME_DIR32_INDEX
         build_chunks "byte-verify of additional outgoing sources (see above)" "${extra[@]}"
         unset BFME_GATE_LOADS
     else
@@ -513,7 +521,19 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # every source (tools/full_gate_receipt.py).
     if [ -n "$carried" ]; then
         git diff --quiet "$local_sha" -- Code             || fail "a tracked source differs from the pushed commit $local_sha in the working tree: check it out or stash first"
-        BUILD_POOL="${BUILD_POOL:-4}" python3 tools/full_gate_receipt.py cross-checks             || fail "cross-source checks over every row (carried full gate; see above)"
+        # Every row is judged; only the objects this push verified are read again,
+        # the rest keep the carried check's DIR32 pairs while their ledger key and
+        # object stamp are unchanged (anything unproven checks every row).
+        carried_dir=$(mktemp -d) || fail "temporary directory for the carried cross-checks"
+        carried_dir="$(cygpath -m "$carried_dir" 2>/dev/null || printf '%s' "$carried_dir")"
+        : > "$carried_dir/verified" || fail "writing the verified source list"
+        if [ "${#verify[@]}" -ne 0 ]; then
+            printf '%s\0' "${verify[@]}" > "$carried_dir/verified" || fail "writing the verified source list"
+        fi
+        dir32_index="$carried_dir/dir32-index.gz"
+        BUILD_POOL="${BUILD_POOL:-4}" python3 tools/full_gate_receipt.py cross-checks --since "$carried" \
+            --verified-from "$carried_dir/verified" --index-out "$dir32_index" \
+            || fail "cross-source checks over every row (carried full gate; see above)"
         if ! git diff --quiet "$carried" "$local_sha" -- reverse/eh_baseline.csv; then
             python3 tools/eh_verify.py --all                 || fail "exception data differs from retail (eh_baseline.csv changed since $carried; see above)"
         fi
@@ -579,10 +599,11 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # The receipt keeps the tools its full gate loaded (a carried push inherits them).
     if [ "$full_scope" -ne 0 ] || [ "$large_scope" -ne 0 ]; then
         python3 tools/full_gate_receipt.py record "$local_sha" --loads "${gate_loads:-}" \
-            ${carried:+--loads-from "$carried"} \
+            ${carried:+--loads-from "$carried"} ${dir32_index:+--dir32-index "$dir32_index"} \
             || echo "pre-push: could not record the full gate for $local_sha (a retry runs it again)" >&2
         [ -z "${gate_loads:-}" ] || rm -rf "$gate_loads"
     fi
+    [ -z "${carried_dir:-}" ] || rm -rf "$carried_dir"
     stage "receipt record"
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"

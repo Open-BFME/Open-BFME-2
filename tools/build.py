@@ -3887,17 +3887,69 @@ def verify_import_refs(rows):
     print(f"Import-ref verify: OK ({checked} named imports verified)")
 
 
-def verify_dir32_consistency(rows):
+DIR32_INDEX_VERSION = 1
+
+
+def dir32_row_key(row):
+    """What a row's DIR32 pairs depend on besides its object's bytes."""
+    return "\t".join((row["name"], row["target_rva"], row["target_size"], row["source"],
+                      row.get("notes", ""), ledger_object_symbol(row)))
+
+
+def object_stamp(obj):
+    stat = Path(obj).stat()
+    return [stat.st_size, stat.st_mtime_ns]
+
+
+def _object_key(obj):
+    return Path(obj).resolve().relative_to(resolved(BUILD_DIR)).as_posix()
+
+
+def load_dir32_index(path):
+    """{"rows": {row key: [[identity, base]]}, "objects": {object: [size, mtime_ns]}}
+    written by a passed DIR32 check (write_dir32_index), or None."""
+    import gzip
+    try:
+        with gzip.open(path, "rt", encoding="utf-8") as handle:
+            index = json.load(handle)
+    except (OSError, ValueError, EOFError):
+        return None
+    if not isinstance(index, dict) or index.get("version") != DIR32_INDEX_VERSION:
+        return None
+    if not isinstance(index.get("rows"), dict) or not isinstance(index.get("objects"), dict):
+        return None
+    return index
+
+
+def write_dir32_index(path, row_pairs, stamps):
+    import gzip
+    temp = Path(f"{path}.{os.getpid()}.tmp")
+    with gzip.open(temp, "wt", encoding="utf-8") as handle:
+        json.dump({"version": DIR32_INDEX_VERSION, "rows": row_pairs, "objects": stamps}, handle)
+    os.replace(temp, path)
+
+
+def verify_dir32_consistency(rows, *, reuse=None, reuse_stamps=None, index_out=None):
     """Regression gate for the non-string DIR32s (globals/vtables/func-addrs) build.py masks. A symbol
     has one address, so every reference must resolve to the same base once the addend is subtracted
     (base = binary_addr - compiled_addend). A symbol with >1 base is a candidate hidden discrepancy.
     Whitelist (reverse/dir32_consistency_whitelist.txt) holds the CURRENT known-legitimate cases
     (double-linked TUs CRC32_Table/_COLLISION_EPSILON; the investigated FX ctor/dtor vtable artifacts).
     Hand-written only: an absent whitelist is a hard failure listing the candidates, never an
-    auto-written free pass, and any NEW inconsistency FAILS."""
+    auto-written free pass, and any NEW inconsistency FAILS.
+
+    `reuse` maps row keys (dir32_row_key) to the pairs a passed check read from
+    the same objects (`reuse_stamps`; cross_source_checks proves that); those rows
+    are not read again, and the verdict is taken over every row all the same. A passing check
+    writes every row's pairs and every object's stamp to `index_out`
+    ($BFME_DIR32_INDEX in a full gate) for the next carried push."""
     from collections import defaultdict
     whitelist_path = ROOT / "reverse" / "dir32_consistency_whitelist.txt"
+    index_out = index_out or os.environ.get("BFME_DIR32_INDEX")
+    reuse = reuse or {}
     sym2base = defaultdict(set)
+    row_pairs = {}
+    stamps = dict(reuse_stamps or {})
     static_symbols = {}
     object_paths = RowObjectPaths(require_row_object)
     # Retail order scatters siblings beyond _object_layout's bounded cache.
@@ -3906,7 +3958,16 @@ def verify_dir32_consistency(rows):
     for row in sorted(rows, key=lambda row: (
             row["source"], ledger_member(row)
             if Path(row["source"]).suffix.lower() == LIB_SUFFIX else "")):
+        key = dir32_row_key(row) if index_out or reuse else None
+        if key in reuse:
+            row_pairs[key] = reuse[key]
+            for identity, base in reuse[key]:
+                sym2base[identity].add(base)
+            continue
         obj = object_paths.get(row)
+        if index_out and _object_key(obj) not in stamps:
+            stamps[_object_key(obj)] = object_stamp(obj)
+        pairs = row_pairs.setdefault(key, []) if key is not None else []
         trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
         target = read_target_bytes(trva, tsz)
         try:
@@ -3961,6 +4022,7 @@ def verify_dir32_consistency(rows):
                 if len(thunk) == 5 and thunk[:4] == b"\x8b\x01\xff\x60":
                     identity = f"{identity} [vcall-slot+0x{thunk[4]:02X}]"
             sym2base[identity].add(base)
+            pairs.append([identity, base])
     object_paths.check()
     inconsistent = sorted(s for s, b in sym2base.items() if len(b) > 1)
     # Duplicate IAT entries can independently declare the exact same import.
@@ -3995,8 +4057,13 @@ def verify_dir32_consistency(rows):
         for s in new[:12]:
             print(f"    {s}: bases {[hex(b) for b in sorted(sym2base[s])]}")
         raise SystemExit(1)
+    if index_out:
+        # Stamps taken before each object was read: one rewritten since then no
+        # longer matches, so a later carried push reads it again.
+        write_dir32_index(index_out, row_pairs, stamps)
     print(f"DIR32 consistency: OK ({len(sym2base)} symbols; {len(inconsistent)} whitelisted, "
-          f"{len(import_duplicates)} PE-verified duplicate import(s), 0 new)")
+          f"{len(import_duplicates)} PE-verified duplicate import(s), 0 new"
+          + (f"; {len(reuse):,} row(s) carried" if reuse else "") + ")")
 
 
 UNMATCHED_MARKER_RE = re.compile(
@@ -4129,14 +4196,56 @@ def _report_reference_result(result):
         raise SystemExit(code)
 
 
-def cross_source_checks():
+def carried_dir32_rows(rows, index, verified):
+    """({row key: pairs}, {object: stamp}) to reuse from a passed check's `index`
+    for every row outside the `verified` sources, or (None, reason) when any such row cannot
+    be proven unchanged: its key (ledger columns, object symbol) or its object's
+    stamp differs from the index. A verified source's rows are read again."""
+    reuse = {}
+    stamps = {}
+    for row in rows:
+        if row["source"] in verified:
+            continue
+        key = dir32_row_key(row)
+        if key not in index["rows"]:
+            return None, f"{row['source']}: row {row['name']} not in the carried index"
+        obj = row_object(row)
+        try:
+            okey = _object_key(obj)
+            if okey not in stamps:
+                stamps[okey] = object_stamp(obj)
+        except (OSError, ValueError):
+            return None, f"{row['source']}: object missing"
+        if index["objects"].get(okey) != stamps[okey]:
+            return None, f"{row['source']}: object rebuilt since the carried check"
+        reuse[key] = index["rows"][key]
+    return (reuse, stamps), None
+
+
+def cross_source_checks(*, carried_index=None, verified=None, index_out=None):
     """The full gate's checks that compare sources with each other rather than
     each with retail: one retail address per DIR32 symbol across every object
     (verify_dir32_consistency) and the module registry. A push that carries a
     passed full gate (.githooks/pre-push, tools/full_gate_receipt.py) byte-verifies
     only what changed, then runs these over every row, after bringing every
-    object up to date (what is current is reused). Returns an exit status."""
+    object up to date (what is current is reused). Returns an exit status.
+
+    With the passed check's `carried_index` and the `verified` sources the push
+    just byte-verified, rows outside them whose ledger key and object stamp are
+    unchanged keep their recorded DIR32 pairs (the object is the one the passed
+    check read), the verified sources' objects must be current and are read
+    again, and the verdict is taken over every row. Anything unproven runs the
+    full pass. A passing check writes its index to `index_out`."""
     import check_module_registry
+    if carried_index is not None:
+        index = load_dir32_index(carried_index)
+        status = None
+        if index is None:
+            print("cross-source checks: no carried DIR32 index; checking every row")
+        else:
+            status = _carried_cross_checks(index, set(verified or ()), index_out)
+        if status is not None:
+            return status
     ensure_case_shims()
     ensure_reference_current()
     rows = load_function_rows()
@@ -4165,7 +4274,7 @@ def cross_source_checks():
             if exc.code:
                 return 1
     failed = 0
-    for label, check in (("dir32 consistency", lambda: verify_dir32_consistency(rows)),
+    for label, check in (("dir32 consistency", lambda: verify_dir32_consistency(rows, index_out=index_out)),
                          ("module registry", check_module_registry.verify)):
         try:
             check()
@@ -4177,6 +4286,41 @@ def cross_source_checks():
     if stale:
         print(f"cross-source checks: {len(stale)} object(s) became stale, e.g. {stale[0].relative_to(ROOT)}")
         failed = 1
+    return failed
+
+
+def _carried_cross_checks(index, verified, index_out):
+    """cross_source_checks over a carried index: an exit status, or None to run
+    the full pass instead."""
+    import check_module_registry
+    ensure_case_shims()
+    ensure_reference_current()
+    rows = load_function_rows()
+    mine = [row for row in rows if row["source"] in verified]
+    compiled = list(dict.fromkeys(ROOT / row["source"] for row in mine
+                                  if Path(row["source"]).suffix.lower() != LIB_SUFFIX))
+    stale = stale_sources(compiled, {s: obj_path(s) for s in compiled}, _pool_size())
+    if stale:
+        print(f"cross-source checks: {len(stale)} verified object(s) not current, "
+              f"e.g. {stale[0].relative_to(ROOT)}")
+        return 1
+    extract_lib_members([row for row in mine if Path(row["source"]).suffix.lower() == LIB_SUFFIX])
+    carried, reason = carried_dir32_rows(rows, index, verified)
+    if carried is None:
+        print(f"cross-source checks: {reason}; checking every row")
+        return None
+    reuse, reuse_stamps = carried
+    failed = 0
+    for label, check in (("dir32 consistency",
+                          lambda: verify_dir32_consistency(rows, reuse=reuse, reuse_stamps=reuse_stamps,
+                                                          index_out=index_out)),
+                         ("module registry", check_module_registry.verify)):
+        try:
+            check()
+        except SystemExit as exc:
+            if exc.code:
+                print(f"{label}: FAIL")
+                failed = 1
     return failed
 
 

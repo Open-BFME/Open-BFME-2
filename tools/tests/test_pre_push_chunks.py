@@ -125,9 +125,17 @@ def test_full_gate_failure_stops_before_eh_and_data(repo):
     assert not calls(repo[0], 'conv-calls.jsonl')
 
 
+# Logs the subcommand and its commit (cross-checks: the receipt it carries and the
+# sources it was told were verified); temporary paths and empty options are not logged.
 RECORD_RECEIPT = """import json, os, sys
+args = sys.argv[1:]
+entry = args[:2]
+if args[:1] == ['cross-checks']:
+    entry = ['cross-checks', args[args.index('--since') + 1]]
+    with open(args[args.index('--verified-from') + 1], 'rb') as listing:
+        entry.append(sorted(p.decode() for p in listing.read().split(b'\\0') if p))
 with open('receipt-calls.jsonl', 'a', encoding='utf-8') as out:
-    out.write(json.dumps(sys.argv[1:]) + '\\n')
+    out.write(json.dumps(entry) + '\\n')
 if sys.argv[1:2] == ['find'] and os.environ.get('CARRY_FROM'):
     print(os.environ['CARRY_FROM'])
 """
@@ -186,7 +194,7 @@ def medium_receipt_fixture(repo):
     # failure propagation and receipt ordering; real receipt eligibility is
     # separately covered by test_full_gate_receipt.py.
     hooks.write(path, 'tools/full_gate_receipt.py', RECORD_RECEIPT + """
-if sys.argv[1:] == ['cross-checks'] and os.environ.get('FAIL_RETRY') == 'cross':
+if sys.argv[1:2] == ['cross-checks'] and os.environ.get('FAIL_RETRY') == 'cross':
     raise SystemExit(5)
 """)
     hooks.write(path, 'tools/delta_sources.py', """import os, sys
@@ -246,7 +254,8 @@ def test_medium_carried_retry_checks_new_delta_and_preserves_failures(repo, fail
     assert calls(path)[prior_builds:] == [[source]]
     expected = [['find', pushed]]
     if failure != 'build':
-        expected += [['cross-checks']]
+        # every row is judged; only the source this retry verified is read again
+        expected += [['cross-checks', verified, [source]]]
     if failure is None:
         # A passed carried retry becomes the nearest receipt for the next retry.
         expected += [['record', pushed]]
