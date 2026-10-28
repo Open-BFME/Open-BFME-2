@@ -48,8 +48,8 @@ preview reports LINKS for 133 authored bytes, against the seed's former 128;
 the five-byte difference moves existing coverage and is not a census gain.
 
 Neither absorbed-source code/data-identity keys nor header queue keys exist.
-The merge refreshes header queues and runs the hatch update; neither queue nor
-the hatch register changes. The seed's data-ledger owners stay intact, and no
+The merge refreshes header queues. No hatch transfer is needed, so the hatch
+update is not invoked; neither queue nor the hatch register changes. The seed's data-ledger owners stay intact, and no
 fold-proof source names the removed donor. No register debt is retired.
 
 ## Complete pending-batch path audit
