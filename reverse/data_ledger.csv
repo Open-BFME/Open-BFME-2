@@ -18125,8 +18125,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EBBA4,8,.data,global,_s_rva007AC467,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBBAC,4,.data,global,?g_Va00DEBBAC@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp,owned,,1,2
 0x009EBBB0,4,.data,global,_s_rva007AC491,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009EBBB4,4,.data,global,?TheW3DBuffDrawPoolKey@?1??getModuleNameKey@W3DBuffDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBuffDrawPoolKey.cpp,owned,,1,2
-0x009EBBB8,4,.data,global,?$S1@?1??getModuleNameKey@W3DBuffDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DBuffDrawPoolKey.cpp,owned,,1,4
+0x009EBBB4,4,.data,global,?TheW3DBuffDrawPoolKey@?1??getModuleNameKey@W3DBuffDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDraw.cpp,owned,,1,2
+0x009EBBB8,4,.data,global,?$S1@?1??getModuleNameKey@W3DBuffDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBuffDraw.cpp,owned,,1,4
 0x009EBBBC,4,.data,global,_s_rva007AC4BB,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009EBBC0,4,.data,global,?TheW3DPropDrawPoolKey@?1??rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp,owned,,1,2
 0x009EBBC4,4,.data,global,?$S1@?1??rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp,owned,,1,4
