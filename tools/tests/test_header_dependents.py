@@ -1,5 +1,8 @@
 """header_dependents: a header change reaches exactly the sources that can include it, and
 every doubt widens the set or falls back to the full gate."""
+import hashlib
+import json
+import re
 import shutil
 import subprocess
 import sys
@@ -93,10 +96,17 @@ def test_macro_include_counts_as_including_everything(repo, capsys):
     assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/D.cpp"])
 
 
-def test_toolchain_or_vendor_change_needs_the_full_gate(repo, capsys):
+@pytest.mark.parametrize("path", ["build/toolchains/vc71/include/stdio.h", "reference/open-bfme-1"])
+def test_toolchain_or_bfme1_pointer_change_needs_the_full_gate(repo, capsys, path):
+    base(repo)
+    put(repo, path, "x\n")
+    assert run(repo, capsys, "--staged")[0] == 2
+
+
+def test_a_vendored_change_without_receipts_reaches_every_compiled_unit(repo, capsys):
     base(repo)
     put(repo, "vendor/stlport/stl/_vector.h", "x\n")
-    assert run(repo, capsys, "--staged")[0] == 2
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/B.cpp", "Code/C.cpp"])
 
 
 MACRO_INCLUDER = '#define H "x.h"\n#include H\nvoid d() {}\n'
@@ -112,19 +122,6 @@ def test_a_game_unit_named_stlport_is_not_vendored(repo, capsys):
     git(repo, "commit", "-qm", "named")
     put(repo, "Code/Lib/StlportVectorThing.cpp", "void s2() {}\n")
     assert run(repo, capsys, "--staged")[0] == 0
-
-
-@pytest.mark.parametrize("path", ["Code/Libraries/Source/STLport/_ios_base.h",
-                                  "Code/Libraries/Source/STLport/_ios_base.c.inl",
-                                  "vendor/stlport/stl/_ios_base.h"])
-def test_a_change_to_an_stlport_header_needs_the_full_gate(repo, capsys, path):
-    base(repo)
-    put(repo, "Code/D.cpp", MACRO_INCLUDER)
-    put(repo, path, "int i;\n")
-    ledger(repo, "Code/A.cpp", "Code/B.cpp", "Code/C.cpp", "Code/D.cpp")
-    git(repo, "commit", "-qm", "lib")
-    put(repo, path, "int i2;\n")
-    assert run(repo, capsys, "--staged")[0] == 2
 
 
 @pytest.mark.parametrize("path", ["Code/stlport/NarrowFilebufInputError.cpp",
@@ -143,6 +140,19 @@ def test_a_game_unit_in_an_stlport_directory_is_bounded(repo, capsys, path):
     assert run(repo, capsys, "--staged") == (0, ["Code/D.cpp"])
     git(repo, "commit", "-qm", "edit")
     assert run(repo, capsys, "--range", old, head(repo)) == (0, ["Code/D.cpp"])
+
+
+def test_an_stlport_directory_under_code_is_bounded_by_the_graph(repo, capsys):
+    # Code/stlport/ and Code/Libraries/Source/STLport/ hold game units on no
+    # include path: their includers (here only the macro includer) are the scope.
+    base(repo)
+    put(repo, "Code/D.cpp", MACRO_INCLUDER)
+    put(repo, "Code/Libraries/Source/STLport/IosBase.cpp", "void i() {}\n")
+    ledger(repo, "Code/A.cpp", "Code/B.cpp", "Code/C.cpp", "Code/D.cpp",
+           "Code/Libraries/Source/STLport/IosBase.cpp")
+    git(repo, "commit", "-qm", "lib")
+    put(repo, "Code/Libraries/Source/STLport/IosBase.cpp", "void i2() {}\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/D.cpp"])
 
 
 def test_limit_falls_back_to_the_full_gate(repo, capsys):
@@ -193,12 +203,14 @@ def test_a_source_nothing_includes_skips_the_graph(repo, capsys, monkeypatch):
     assert run(repo, capsys, "--staged") == (0, [])
 
 
-def test_an_included_vendored_file_needs_the_full_gate(repo, capsys):
+def test_an_included_vendored_file_without_receipts_reaches_every_unit(repo, capsys):
     included_base(repo)
     put(repo, "Code/Alloc.cpp", "#include <stl/_alloc.c>\n")
+    ledger(repo, "Code/Net/Inc.cpp", "Code/Net/Host.cpp", "Code/Lib/Outer.cpp", "Code/Lib/Huff.cpp",
+           "Code/Alloc.cpp")
     git(repo, "commit", "-qm", "alloc")
     put(repo, "vendor/stlport/stl/_alloc.c", "x\n")
-    assert run(repo, capsys, "--staged")[0] == 2
+    assert "Code/Alloc.cpp" in run(repo, capsys, "--staged")[1]
 
 
 def one_includer(repo, includer, text, extra=None):
@@ -393,15 +405,198 @@ def test_a_data_ledger_under_a_miscased_directory_is_refused(repo, capsys):
         H.main(["--range", old, head(repo)])
 
 
-@pytest.mark.parametrize("path", ["vendor/stlport-4.6-bfme/_tree.c.patch",
-    "vendor/stlport-4.6/stlport/vector", "tools/stlport_overlay.py"])
-def test_stlport_generated_inputs_force_full_gate(repo, capsys, path):
-    base(repo)
-    put(repo, path, "input\n")
+
+# --- vendored changes: bounded by compile receipts and opt-ins -------------------
+
+def receipt(repo, source, deps, path=None):
+    """The build/match/*.deps.json build.py writes for `source` after compiling it
+    (tools/build.py _write_deps_sidecar), hashing the working tree now."""
+    def md5(rel):
+        return hashlib.md5((repo / rel).read_bytes()).hexdigest()
+    target = H.receipt_path(source)
+    target.parent.mkdir(parents=True, exist_ok=True)
+    target.write_text(json.dumps({"cmd": "x", "source": md5(source), "path": path or source,
+                                  "deps": {dep.replace("/", "\\"): md5(dep) for dep in deps}}))
+
+
+def vendored_base(repo, extra=None):
+    """A, B, C units with current receipts; A includes vendor/lib/a.h."""
+    put(repo, "vendor/lib/a.h", "int a;\n")
+    put(repo, "vendor/lib/b.h", "int b;\n")
+    put(repo, "Code/A.cpp", "#include <a.h>\nvoid a() {}\n")
+    put(repo, "Code/B.cpp", "#include <b.h>\nvoid b() {}\n")
+    put(repo, "Code/C.cpp", "void c() {}\n")
+    for path, text in (extra or {}).items():
+        put(repo, path, text)
+    ledger(repo, "Code/A.cpp", "Code/B.cpp", "Code/C.cpp", *[p for p in (extra or {}) if p.endswith(".cpp")])
+    git(repo, "commit", "-qm", "base")
+    receipt(repo, "Code/A.cpp", ["vendor/lib/a.h"])
+    receipt(repo, "Code/B.cpp", ["vendor/lib/b.h"])
+    receipt(repo, "Code/C.cpp", [])
+    for path in extra or {}:
+        if path.endswith(".cpp"):
+            receipt(repo, path, [])
+
+
+def test_a_modified_vendored_header_reaches_only_the_units_recording_it(repo, capsys):
+    vendored_base(repo)
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp"])
+
+
+def test_a_new_vendored_package_nothing_opts_into_reaches_no_unit(repo, capsys):
+    vendored_base(repo)
+    old = head(repo)
+    put(repo, "vendor/stlport-4.6/stlport/vector", "#include <stl/_vector.h>\n")
+    put(repo, "vendor/stlport-4.6/stlport/stl/_vector.h", "x\n")
+    assert run(repo, capsys, "--staged") == (0, [])
+    git(repo, "commit", "-qm", "import")
+    assert run(repo, capsys, "--range", old, head(repo)) == (0, [])
+
+
+@pytest.mark.parametrize("text", ["// stlport46\nvoid o() {}\n", "// cl: /Ivendor/STLPORT-4.6/stlport\nvoid o() {}\n"])
+def test_a_unit_opting_into_a_new_package_is_reached(repo, capsys, text):
+    vendored_base(repo, {"Code/Opt.cpp": text})
+    put(repo, "vendor/stlport-4.6/stlport/vector", "x\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/Opt.cpp"])
+
+
+def test_a_header_opting_in_reaches_its_includers(repo, capsys):
+    vendored_base(repo, {"Code/Uses.cpp": '#include "uses.h"\n', "Code/uses.h": '#include "../vendor/newlib/x.h"\n'})
+    put(repo, "vendor/newlib/x.h", "x\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/Uses.cpp"])
+
+
+def test_a_macro_includer_opts_into_every_package(repo, capsys):
+    vendored_base(repo, {"Code/D.cpp": MACRO_INCLUDER})
+    put(repo, "vendor/newlib/x.h", "x\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/D.cpp"])
+
+
+def test_an_added_file_reaches_every_unit_recording_its_package(repo, capsys):
+    # a new header can shadow one a unit resolves later on its search path
+    vendored_base(repo)
+    put(repo, "vendor/lib/c.h", "int c;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/B.cpp"])
+
+
+def test_a_deleted_file_reaches_every_unit_recording_its_package(repo, capsys):
+    vendored_base(repo)
+    git(repo, "rm", "-q", "vendor/lib/b.h")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/B.cpp"])
+
+
+def test_an_unrecorded_tool_input_reaches_the_opted_in_units(repo, capsys):
+    # PROVENANCE.txt is read by build.py, never #included: no receipt bounds it
+    vendored_base(repo, {"Code/Dx.cpp": "// dxsdk\nvoid d() {}\n",
+                         "vendor/dxsdk-aug2005/PROVENANCE.txt": "a\n"})
+    put(repo, "vendor/dxsdk-aug2005/PROVENANCE.txt", "b\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/Dx.cpp"])
+
+
+def test_vendored_stlport_reaches_reference_units_by_path(repo, capsys):
+    vendored_base(repo, {"reference/open-bfme-1/x/Unit.cpp": "void u() {}\n"})
+    put(repo, "vendor/stlport/new_header", "x\n")
+    assert run(repo, capsys, "--staged") == (0, ["reference/open-bfme-1/x/Unit.cpp"])
+
+
+def test_a_stale_receipt_counts_as_missing(repo, capsys):
+    vendored_base(repo)
+    put(repo, "Code/C.cpp", '#include <a.h>\nvoid c() {}\n')
+    git(repo, "commit", "-qm", "c includes a.h now; C's receipt predates it")
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/C.cpp"])
+
+
+def test_a_receipt_with_a_changed_recorded_header_counts_as_missing(repo, capsys):
+    vendored_base(repo, {"Code/inc.h": "int i;\n"})
+    receipt(repo, "Code/C.cpp", ["Code/inc.h"])
+    put(repo, "Code/inc.h", "int i2;\n")
+    git(repo, "commit", "-qm", "header moved on since C compiled")
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/C.cpp"])
+
+
+def test_a_dirty_unit_counts_as_missing(repo, capsys):
+    vendored_base(repo)
+    (repo / "Code/B.cpp").write_text("#include <a.h>\n")
+    receipt(repo, "Code/B.cpp", [])     # hashed from the dirty file
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    git(repo, "commit", "-qm", "vendor")
+    old = subprocess.run(["git", "rev-parse", "HEAD~1"], cwd=repo, capture_output=True, text=True).stdout.strip()
+    assert run(repo, capsys, "--range", old, head(repo)) == (0, ["Code/A.cpp", "Code/B.cpp"])
+
+
+def test_a_receipt_for_another_source_counts_as_missing(repo, capsys):
+    # Code/a_b.cpp and Code/a/b.cpp share one object name
+    vendored_base(repo)
+    receipt(repo, "Code/B.cpp", [], path="Code/b.cpp")
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/A.cpp", "Code/B.cpp"])
+
+
+@pytest.mark.parametrize("path", ["vendor/msvc71crt/msvcrt.lib", "vendor/lib/tool.exe",
+                                  "vendor/vc71-sp1/provenance.txt"])
+def test_binaries_and_compiler_profiles_need_the_full_gate(repo, capsys, path):
+    vendored_base(repo, {"vendor/vc71-sp1/bin/cl.exe": "exe"})
+    put(repo, path, "changed\n")
     assert run(repo, capsys, "--staged")[0] == 2
-    git(repo, "commit", "-qm", "STLport input")
+
+
+def test_the_vendored_limit_falls_back_to_the_full_gate(repo, capsys):
+    vendored_base(repo)
+    put(repo, "vendor/lib/a.h", "int a2;\n")
+    assert run(repo, capsys, "--staged", "--limit", "0")[0] == 2
+
+
+def test_every_vendored_package_the_build_names_has_an_opt_in():
+    """A package build.py (or a module it loads) puts on an include path must be
+    in OPT_IN, or the evidence scope could miss its marker units."""
+    text = "".join((TOOLS / name).read_text(encoding="utf-8") for name in
+                   ("build.py", "compiler_profiles.py", "stlport_overlay.py") if (TOOLS / name).exists())
+    named = set(re.findall(r'"vendor"\s*/\s*"([\w.+-]+)"', text)) | {n.rstrip(".") for n in re.findall(r'vendor/([A-Za-z0-9][\w.+-]*)', text)}
+    profiles = {p.parent.parent.name for p in (TOOLS.parent / "vendor").glob("*/bin/*")} | \
+        {p.parent.name for p in (TOOLS.parent / "vendor").glob("*/compiler.zip")}
+    missing = sorted(n for n in named if n not in H.OPT_IN and n not in profiles)
+    assert not missing, f"vendored packages build.py names without an OPT_IN entry: {missing}"
+
+
+def test_an_unrecorded_document_no_tool_reads_reaches_no_unit(repo, capsys):
+    vendored_base(repo, {"Code/S.cpp": "// stlport\nvoid s() {}\n", "vendor/lib/README.md": "a\n"})
+    put(repo, "vendor/lib/README.md", "b\n")
+    assert run(repo, capsys, "--staged") == (0, [])
+
+
+def test_an_unrecorded_file_a_tool_names_reaches_the_package(repo, capsys):
+    # build.py tests vendor/stlport/list for existence
+    vendored_base(repo, {"Code/S.cpp": "// stlport\nvoid s() {}\n", "vendor/stlport/list": "a\n",
+                         "tools/build.py": 'if (path / "list").exists(): pass\n'})
+    put(repo, "vendor/stlport/list", "b\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/S.cpp"])
+
+
+def test_stlport_overlay_code_forces_the_full_gate(repo, capsys):
+    # stlport_overlay.selected runs for every unit in build.compiler_environment
+    base(repo)
+    put(repo, "tools/stlport_overlay.py", "input\n")
+    assert run(repo, capsys, "--staged")[0] == 2
+    git(repo, "commit", "-qm", "overlay")
+    before = head(repo)
+    git(repo, "rm", "-q", "tools/stlport_overlay.py")
+    git(repo, "commit", "-qm", "remove overlay")
+    assert run(repo, capsys, "--range", before, head(repo))[0] == 2
+
+
+@pytest.mark.parametrize("path", ["vendor/stlport-4.6-bfme/_tree.c.patch", "vendor/stlport-4.6/stlport/vector"])
+def test_stlport46_inputs_reach_the_opted_in_units(repo, capsys, path):
+    # the overlay patches vendor/stlport-4.6 into build/stlport46/<digest>/, which only
+    # `// stlport46` units search: no receipt names the input, the marker does
+    vendored_base(repo, {"Code/S46.cpp": "// stlport46\nvoid s() {}\n", "Code/S.cpp": "// stlport\nvoid t() {}\n",
+                         path: "input\n"})
+    put(repo, path, "changed\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/S46.cpp"])
+    git(repo, "commit", "-qm", "input")
     before = head(repo)
     git(repo, "rm", "-q", path)
-    assert run(repo, capsys, "--staged")[0] == 2
     git(repo, "commit", "-qm", "remove input")
-    assert run(repo, capsys, "--range", before, head(repo))[0] == 2
+    assert run(repo, capsys, "--range", before, head(repo)) == (0, ["Code/S46.cpp"])

@@ -28,8 +28,18 @@ Under-counting would let a broken TU through, so every doubt widens the set:
     includers are still found;
   - a changed .cpp, .c or table that a scanned file #includes by name compiles
     inside that file, so it reaches its includers like a header does;
-  - toolchain, vendored-library and STLport-directory changes, or a set larger
-    than --limit sources, exit 2: the caller runs the full gate.
+  - a vendored tree (vendor/) is not scanned, so its change is bounded by
+    evidence instead (vendored_dependents): the units whose compile receipt
+    (build/match/*.deps.json, written from /showIncludes) lists a changed file;
+    every unit without a receipt current at the snapshot; and, for an added,
+    deleted or tool-read file (which can change what resolves without changing
+    a recorded byte), every unit that records any file of that package or
+    whose text opts into it (a build.py marker, the package's name, a macro
+    include). A brand-new package nothing opts into reaches no unit;
+  - an STLport directory under Code/ is ordinary game source: the graph bounds it;
+  - toolchain, BFME 1 pointer, STLport overlay code, vendored binary and
+    compiler-profile changes, or a set larger than --limit sources, exit 2: the
+    caller runs the full gate.
 
   python3 tools/header_dependents.py --staged           # pre-commit
   python3 tools/header_dependents.py --range OLD NEW    # pre-push
@@ -38,19 +48,49 @@ full gate (reason on stderr).
 """
 import argparse
 import csv
+import hashlib
 import io
+import json
 import os
 import re
 import subprocess
 import sys
 from collections import defaultdict
+from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 HEADER_SUFFIXES = (".h", ".hpp", ".hh", ".hxx", ".inl", ".inc")
 SOURCE_SUFFIXES = (".cpp", ".c", ".cc", ".cxx", ".cp", ".c++")
 SCANNED_ROOTS = ("Code/", "reference/")
-FULL_GATE_ROOTS = ("build/toolchains/", "vendor/", "reference/open-bfme-1")
+FULL_GATE_ROOTS = ("build/toolchains/", "reference/open-bfme-1")
+# Code that decides, for every unit, whether it compiles against a generated
+# include tree (stlport_overlay.selected runs in build.compiler_environment).
+FULL_GATE_TOOLS = ("tools/stlport_overlay.py",)
+VENDOR = "vendor/"
+# Vendored files a tool other than the preprocessor consumes: archives the
+# ledger and the link read, and compilers (tools/compiler_profiles.py runs
+# vendor/<profile>/bin/ or compiler.zip). No include receipt bounds them.
+BINARY_SUFFIXES = (".lib", ".obj", ".a", ".exe", ".dll", ".zip", ".pdb")
+# The text a unit carries to put a vendored package on its include path
+# (tools/build.py compiler_environment/compiler_command, tools/stlport_overlay.py),
+# matched case-insensitively as a substring, so `// stlport` also finds
+# `// stlport46`. Every package also counts any mention of its own name (a
+# `// cl: /Ivendor/<name>` line, a relative #include path). Keep in step with
+# build.py: tools/tests/test_header_dependents.py checks every package it names.
+OPT_IN = {
+    "stlport": ("// stlport",),
+    "stlport-4.6": ("// stlport46",),
+    "stlport-4.6-bfme": ("// stlport46",),
+    "dxsdk-aug2005": ("// dxsdk",),
+}
+# build.py compiles every vendored Zero Hour/Generals unit (reference/open-bfme-1)
+# against vendor/stlport by path, with no marker.
+PATH_OPT_IN = {"stlport": ("reference/open-bfme-1/",)}
+# Packages a tool checks file by file against a manifest or patches into a
+# generated tree (build.py verify_dxsdk, stlport_overlay.py verify_tree and
+# materialize): every file of them is a tool input, recorded or not.
+MANIFEST_PACKAGES = ("stlport-4.6", "stlport-4.6-bfme", "dxsdk-aug2005")
 IGNORED_ROOTS = ("mods/",)
 LEDGER = "reverse/functions.csv"
 DATA_ROWS = "reverse/data_rows.csv"
@@ -88,9 +128,17 @@ def git(*args):
 
 
 def changed(args):
+    return [path for _, path in changed_status(args)]
+
+
+def changed_status(args):
+    """[(status letter, path)] of the change, renames split into delete + add."""
     if args.staged:
-        return git("diff", "--cached", "--name-only", "--no-renames", "--diff-filter=ACMRTD").splitlines()
-    return git("diff", "--name-only", "--no-renames", args.range[0], args.range[1]).splitlines()
+        out = git("diff", "--cached", "--name-status", "-z", "--no-renames", "--diff-filter=ACMRTD")
+    else:
+        out = git("diff", "--name-status", "-z", "--no-renames", args.range[0], args.range[1])
+    fields = [f for f in out.split("\0") if f]
+    return [(status[:1], path) for status, path in zip(fields[::2], fields[1::2])]
 
 
 def snapshot(args):
@@ -102,24 +150,6 @@ def snapshot(args):
 
 def is_wide(path):
     return path.lower().endswith(HEADER_SUFFIXES) or path.startswith(("reference/shims/", "build/toolchains/"))
-
-
-STLPORT_ROOTS = ("code/libraries/source/stlport/",)
-
-
-def in_stlport(path):
-    """Whether `path` is part of an STLport tree: a vendored release
-    (vendor/stlport*/, already a full-gate root) or a header or inline file under
-    Code/Libraries/Source/STLport/. Matching the file NAME sent every edit of the
-    ~1,200 game units named Stlport*.cpp / stlport_*.cpp to the full gate (a macro
-    include anywhere makes every changed unit a root); matching any directory
-    named stlport did the same for the game units in Code/stlport/ (694c36df81
-    voided the STLport 4.6 push's receipt). A compiled source there is an
-    ordinary unit, bounded like any other."""
-    lower = path.replace("\\", "/").lower()
-    if lower.startswith("vendor/stlport"):
-        return True
-    return lower.startswith(STLPORT_ROOTS) and not lower.endswith(SOURCE_SUFFIXES)
 
 
 def name(path):
@@ -320,34 +350,180 @@ def dependents(headers, includers, macro):
     return reached
 
 
+def package(path):
+    """The vendored package (vendor/<name>/) holding `path`."""
+    return path[len(VENDOR):].split("/", 1)[0]
+
+
+def compiler_package(snaps, name):
+    """Whether vendor/<name>/ is a compiler profile at any of `snaps` (None: the index)."""
+    for snap in snaps:
+        for probe in (f"{VENDOR}{name}/bin", f"{VENDOR}{name}/compiler.zip"):
+            listing = (git("ls-files", "--", probe) if snap is None
+                       else git("ls-tree", "--name-only", snap, "--", probe))
+            if listing.strip():
+                return True
+    return False
+
+
+def norm(path):
+    return path.replace("\\", "/").lower()
+
+
+def receipt_path(source):
+    """build.py's obj_path(source) with .deps.json: build/match/<parts joined by _,
+    capitals as ^x>.deps.json. A receipt it does not find counts as missing."""
+    stem = "_".join(Path(source).with_suffix("").parts)
+    encoded = "".join(("^" + c.lower()) if c.isupper() else c for c in stem)
+    return ROOT / "build" / "match" / (encoded + ".deps.json")
+
+
+def dirty_paths(args):
+    """Tracked paths whose working-tree bytes differ from the snapshot (lowercased):
+    a receipt hashed from them says nothing about the snapshot."""
+    if args.staged:
+        out = git("diff", "--name-only", "-z", "--no-renames")
+    else:
+        out = git("diff", "--name-only", "-z", "--no-renames", args.range[1])
+    return {norm(p) for p in out.split("\0") if p}
+
+
+def receipts(sources, dirty):
+    """{source: (current, [recorded include paths, lowercased])}: current is False
+    when the unit has no compile receipt current at the snapshot (missing,
+    unreadable, written for another source, or any recorded input now differs or
+    is dirty); the paths of a receipt that is readable but stale still show which
+    files some compile included."""
+    memo = {}
+
+    def digest(path):
+        if path not in memo:
+            try:
+                memo[path] = hashlib.md5(Path(path).read_bytes()).hexdigest()
+            except OSError:
+                memo[path] = None
+        return memo[path]
+
+    def one(source):
+        try:
+            meta = json.loads(receipt_path(source).read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            return False, []
+        deps = meta.get("deps") if isinstance(meta, dict) else None
+        if not isinstance(deps, dict) or meta.get("path") != source:
+            return False, []
+        if not all(isinstance(dep, str) and dep and "\0" not in dep for dep in deps):
+            return False, []
+        listed = [norm(dep) for dep in deps]
+        current = (norm(source) not in dirty and meta.get("source") is not None
+                   and meta.get("source") == digest(str(ROOT / source)))
+        for dep, recorded in deps.items() if current else ():
+            absolute = os.path.isabs(dep)
+            if ((not absolute and norm(dep) in dirty) or recorded is None
+                    or digest(dep if absolute else str(ROOT / dep)) != recorded):
+                current = False
+                break
+        return current, listed
+
+    ordered = sorted(sources)
+    with ThreadPoolExecutor(8) as pool:
+        return dict(zip(ordered, pool.map(one, ordered)))
+
+
+def mentions(snap, needles):
+    """Scanned files whose text holds any of `needles` (case-insensitive)."""
+    args = ["-l", "-i", "-F"]
+    for needle in sorted(needles):
+        args += ["-e", needle]
+    return {p for p, _ in grep(snap, *args)}
+
+
+def tool_named(snap, basenames):
+    """The `basenames` (lowercased) some non-test tools/*.py at the snapshot spells."""
+    if not basenames:
+        return set()
+    spec = [] if snap is None else [snap]
+    args = ["git", "-c", "submodule.recurse=false", "grep", "-h", "-o", "-i", "-F"]
+    for base_name in sorted(basenames):
+        args += ["-e", base_name]
+    result = subprocess.run([*args, *(["--cached"] if snap is None else spec), "--", "tools/*.py",
+                             ":(exclude)tools/tests/*"], cwd=ROOT, capture_output=True, text=True,
+                            encoding="utf-8", errors="replace")
+    if result.returncode not in (0, 1):
+        raise SystemExit(f"header_dependents: git grep failed: {result.stderr.strip()}")
+    return {line.strip().lower() for line in result.stdout.splitlines() if line.strip()}
+
+
+def vendored_dependents(args, snap, changes, rows, edges, macro):
+    """Ledger sources a change to vendored files can reach, from evidence: every
+    unit without a receipt current at the snapshot, every unit whose receipt
+    lists a changed file, and, for a package with a change no receipt bounds (a
+    file added or deleted, which can change what an include resolves to, or one
+    no unit records, which a tool rather than the preprocessor reads), every unit
+    recording any file of that package or opting into it. Binaries and compiler
+    profiles widen."""
+    for _, path in changes:
+        if path.lower().endswith(BINARY_SUFFIXES):
+            raise Widen(f"{path} is a vendored binary")
+    snaps = [snap, "HEAD"] if args.staged else [snap, args.range[0]]
+    for package_name in sorted({package(p) for _, p in changes}):
+        if compiler_package(snaps, package_name):
+            raise Widen(f"{VENDOR}{package_name}/ is a compiler profile")
+    compiled = [s for s in rows if s.lower().endswith((".c", ".cpp", ".asm"))]
+    recorded = receipts(compiled, dirty_paths(args))
+    reached = {s for s, (current, _) in recorded.items() if not current}
+    changed_paths = {norm(p) for _, p in changes}
+    listed_anywhere = set().union(*(set(listed) for _, listed in recorded.values()))
+    # A modified file no compile recorded is read by a tool if by anything: a
+    # manifest package's, or one a tool names (vendor/stlport/list). Otherwise
+    # (a README) it can change no unit: units without a receipt are reached above.
+    unlisted = [p for status, p in changes if status == "M" and norm(p) not in listed_anywhere]
+    named = tool_named(snap, {p.rsplit("/", 1)[-1] for p in unlisted})
+    wide = {package(p) for status, p in changes if status != "M"}
+    wide |= {package(p) for p in unlisted
+             if package(p) in MANIFEST_PACKAGES or p.rsplit("/", 1)[-1].lower() in named}
+    prefixes = tuple(norm(f"{VENDOR}{n}/") for n in wide)
+    for source, (_, listed) in recorded.items():
+        if any(key in changed_paths or (prefixes and key.startswith(prefixes)) for key in listed):
+            reached.add(source)
+    if wide:
+        needles = {needle.lower() for n in wide for needle in (n,) + OPT_IN.get(n, ())}
+        opted = mentions(snap, needles)
+        # a macro include could spell any path, so it opts into every package
+        opted |= dependents(opted, graph(edges), macro) if opted else set(macro)
+        reached |= {p for p in opted if p in rows}
+        by_path = tuple(prefix for n in wide for prefix in PATH_OPT_IN.get(n, ()))
+        if by_path:
+            reached |= {s for s in rows if s.startswith(by_path)}
+    return reached
+
+
 def select(args):
-    paths = [p for p in changed(args) if not p.startswith(IGNORED_ROOTS)]
-    # Extensionless upstream headers and patch files carry includes/code too;
-    # generated include paths have no static #include edge to their patch inputs.
-    stlport_inputs = [p for p in paths if p.startswith(("vendor/stlport-4.6/",
-                      "vendor/stlport-4.6-bfme/")) or p == "tools/stlport_overlay.py"]
-    if stlport_inputs:
-        raise Widen(f"{stlport_inputs[0]} is an STLport release/overlay input")
+    statuses = [(st, p) for st, p in changed_status(args) if not p.startswith(IGNORED_ROOTS)]
+    blocked = [p for _, p in statuses if p.startswith(FULL_GATE_ROOTS) or p in FULL_GATE_TOOLS]
+    if blocked:
+        raise Widen(f"{blocked[0]} is toolchain/BFME 1 pointer/STLport overlay")
+    vendored = [(st, p) for st, p in statuses if p.startswith(VENDOR)]
+    paths = [p for _, p in statuses if not p.startswith(VENDOR)]
     wide = [p for p in paths if is_wide(p)]
-    others = [p for p in paths if not is_wide(p) and p.startswith(("Code/", "reference/", "vendor/"))]
-    if not wide and not others:
-        return 0, [], 0
+    others = [p for p in paths if not is_wide(p) and p.startswith(("Code/", "reference/"))]
+    if not wide and not others and not vendored:
+        return 0, [], 0, 0
     snap = snapshot(args)
     edges, macro = scan(snap)
     names = set().union(*edges.values())
     # a macro include may name any changed file, whatever its suffix
     included = [p for p in others if macro or name(p) in names]
     roots = wide + included
-    if not roots:
-        return 0, [], 0
-    blocked = [p for p in roots if p.startswith(FULL_GATE_ROOTS) or in_stlport(p)]
-    if blocked:
-        raise Widen(f"{blocked[0]} is toolchain/vendored/STLport")
+    if not roots and not vendored:
+        return 0, [], 0, 0
     rows = ledger_sources(snap)
-    reached = dependents(roots, graph(edges), macro)
+    reached = dependents(roots, graph(edges), macro) if roots else set()
+    if vendored:
+        reached |= vendored_dependents(args, snap, vendored, rows, edges, macro)
     # a changed file that is itself a ledger source (a shim .cpp) is verified too
     sources = sorted({p for p in reached if p in rows} | {p for p in wide if p in rows})
-    return len(wide), sources, len(included)
+    return len(wide), sources, len(included), len(vendored)
 
 
 def main(argv=None):
@@ -360,18 +536,18 @@ def main(argv=None):
     args = ap.parse_args(argv)
     sys.stdout.reconfigure(newline="\n")  # the hooks read this with mapfile
     try:
-        wide, sources, included = select(args)
+        wide, sources, included, vendored = select(args)
     except Widen as why:
         print(f"header_dependents: {why}: full gate", file=sys.stderr)
         return 2
-    if not wide and not included:
+    if not wide and not included and not vendored:
         return 0
     if len(sources) > args.limit:
         print(f"header_dependents: {len(sources):,} dependent sources exceed --limit {args.limit:,}: full gate",
               file=sys.stderr)
         return 2
-    print(f"header_dependents: {wide} changed header(s) and {included} included file(s) "
-          f"reach {len(sources):,} ledger source(s)",
+    print(f"header_dependents: {wide} changed header(s), {included} included file(s) and "
+          f"{vendored} vendored file(s) reach {len(sources):,} ledger source(s)",
           file=sys.stderr)
     for path in sources:
         print(path)
