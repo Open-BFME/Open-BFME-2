@@ -19,6 +19,9 @@ namespace _STL { template <> SaveMapPreview * _STLP_alloc_proxy<SaveMapPreview *
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class SaveMapPreview;
 namespace _STL { template <> void allocator<SaveMapPreview>::deallocate(SaveMapPreview *,unsigned int) const; }
+// The copy constructor calls _Vector_base(n, alloc) out of line; this unit's
+// /O1 copy of it is not retail's (Rva0054103EVectorInsertOverflow.cpp's is).
+namespace _STL { template <> _Vector_base<SaveMapPreview, allocator<SaveMapPreview> >::_Vector_base(unsigned int, allocator<SaveMapPreview> const &); }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {

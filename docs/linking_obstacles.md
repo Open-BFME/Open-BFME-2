@@ -184,7 +184,7 @@ Completed:
   `StlportVectorCopyCtorFamily.cpp` (`__uninitialized_copy<const vector<BfmeE8> *, ...>`):
   a declaration-only specialization keeps the call but changes the calling row (the
   caller must then materialise an empty tag argument, as in LINK-132's FVF trial, or
-  set up the hidden return slot differently). Not tried: Rva0052CD81Finish.cpp.
+  set up the hidden return slot differently).
 - `HordeContainRva00475F61.cpp` (halilkkaya-lk6): its /O1 /G7 build emitted
   `less<int>::operator()` (475d42af7839) although every use is inlined; the same
   import-inline specialization drops it, so stlport_list_int.cpp's retail 0x00626F90
@@ -195,6 +195,15 @@ Completed:
   declaration-only specialization drops it with its `clear` and node helpers, so
   Armor.cpp's retail copies (destructor 536bacaa8f30, `clear` e5f4c01a0c16) are first.
   3/3 rows exact, no other COMDAT digest changes; both units LINK (607 B, unchanged).
+- `Rva0052CD81Finish.cpp` (halilkkaya-lk6): its copy constructor (0x0052CD81) calls
+  `_Vector_base<SaveMapPreview>(n, alloc)` out of line; a declaration-only
+  specialization drops the unit's /O1 copy (0aad7a9d42b3) so
+  Rva0054103EVectorInsertOverflow.cpp's retail one (c9402de9d640) is first. 1/1 row
+  exact, no other COMDAT digest changes; the unit's pre-existing blockers are unchanged,
+  Rva0054103EVectorInsertOverflow.cpp and SaveMapPreviewCopy.cpp LINK.
+Summary (2026-10-29): 7 of the 10 providers repaired, covering 32 of the 35 lost
+names; the three left (deque `copy`, FontLibraryInit `insert_unique`, BfmeE8
+`__uninitialized_copy`) touch 7 census-linked units, 7,828 B upper bound.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
