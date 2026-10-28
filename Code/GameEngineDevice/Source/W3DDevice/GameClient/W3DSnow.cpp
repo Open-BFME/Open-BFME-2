@@ -52,9 +52,9 @@ W3DSnowManager::W3DSnowManager()
     , m_A8(0)
     , m_AC(0)
 {
-    float *pair98 = &m_98;
-    pair98[0] = 0.0f;
-    pair98[1] = 0.0f;
+    float *origin = &m_98;
+    origin[0] = 0.0f;
+    origin[1] = 0.0f;
 }
 
 void W3DSnowManager::ReleaseResources()
@@ -147,8 +147,8 @@ float W3DSnowManager::rva000932E1()
 	const WeatherSetting *weatherSetting = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
 	if (weatherSetting->m_54 != 0) {
 		if (m_50 != 0) {
-			const WeatherSetting *o2 = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
-			return o2->m_58.getValue();
+			const WeatherSetting *lightningSettings = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
+			return lightningSettings->m_58.getValue();
 		}
 	}
 	return def;
@@ -166,12 +166,12 @@ void W3DSnowManager::rva00093349()
 	const WeatherSetting *gv = TheWeatherSetting.m_object;
 	const WeatherSetting *weatherSetting = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
 	m_58 = weatherSetting->m_70;
-	const WeatherSetting *gv2 = TheWeatherSetting.m_object;
-	const WeatherSetting *o2 = (gv2 == 0) ? 0 : (const WeatherSetting *)gv2->getFinalOverride();
-	m_5c = o2->m_74;
-	const WeatherSetting *gv3 = TheWeatherSetting.m_object;
-	const WeatherSetting *o3 = (gv3 == 0) ? 0 : (const WeatherSetting *)gv3->getFinalOverride();
-	m_60 = o3->m_78;
+	const WeatherSetting *rampStartSettingsBase = TheWeatherSetting.m_object;
+	const WeatherSetting *rampStartSettings = (rampStartSettingsBase == 0) ? 0 : (const WeatherSetting *)rampStartSettingsBase->getFinalOverride();
+	m_5c = rampStartSettings->m_74;
+	const WeatherSetting *rampEndSettingsBase = TheWeatherSetting.m_object;
+	const WeatherSetting *rampEndSettings = (rampEndSettingsBase == 0) ? 0 : (const WeatherSetting *)rampEndSettingsBase->getFinalOverride();
+	m_60 = rampEndSettings->m_78;
 }
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00093457Finish.cpp
@@ -199,17 +199,17 @@ void W3DSnowManager::rva00093457()
 		m_targetFlag41 = false;
 		m_14 = m_68;
 	} else {
-		const WeatherSetting *o2 = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
-		m_3c = o2->m_3c;
-		const WeatherSetting *o3 = TheWeatherSetting.m_object;
-		if (o3 != 0)
-			o3 = (const WeatherSetting *)o3->getFinalOverride();
-		m_14 = o3->m_40;
-		const WeatherSetting *o4 = TheWeatherSetting.m_object;
-		if (o4 != 0)
-			o4 = (const WeatherSetting *)o4->getFinalOverride();
-		m_48 = o4->m_4c;
-		m_4c = o4->m_50;
+		const WeatherSetting *snowSpacingSettings = (gv == 0) ? 0 : (const WeatherSetting *)gv->getFinalOverride();
+		m_3c = snowSpacingSettings->m_3c;
+		const WeatherSetting *snowSpeedSettings = TheWeatherSetting.m_object;
+		if (snowSpeedSettings != 0)
+			snowSpeedSettings = (const WeatherSetting *)snowSpeedSettings->getFinalOverride();
+		m_14 = snowSpeedSettings->m_40;
+		const WeatherSetting *snowDriftSettings = TheWeatherSetting.m_object;
+		if (snowDriftSettings != 0)
+			snowDriftSettings = (const WeatherSetting *)snowDriftSettings->getFinalOverride();
+		m_48 = snowDriftSettings->m_4c;
+		m_4c = snowDriftSettings->m_50;
 	}
 }
 

@@ -55,8 +55,8 @@ public:
 };
 bool Rva00260E44Filter::allow(Object *obj)
 {
-	const Rva00260E44Arg *arg = (const Rva00260E44Arg *)obj;
-	if (TheExperienceLevelSystem && reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA(arg->m_264))
+	const Rva00260E44Arg *experienceObject = (const Rva00260E44Arg *)obj;
+	if (TheExperienceLevelSystem && reinterpret_cast<Rva00288CFA *>(TheExperienceLevelSystem)->rva00288CFA(experienceObject->m_264))
 		return true;
 	return false;
 }
@@ -347,13 +347,13 @@ public:
 class Rva00508F1E : public Rva00507823
 {
 public:
-	bool rva00508F1E(const void *arg, Object *target);
+	bool rva00508F1E(const void *weapon, Object *target);
 };
 
 // ?rva00508F1E@Rva00508F1E@@QAE_NPBXPAVObject@@@Z @0x00508F1E (51B)
-bool Rva00508F1E::rva00508F1E(const void *arg, Object *target)
+bool Rva00508F1E::rva00508F1E(const void *weapon, Object *target)
 {
-	if (!rva005075D6(arg, target))
+	if (!rva005075D6(weapon, target))
 		return false;
 	if (target && target->isKindOf((KindOfType)0x220))
 		return false;

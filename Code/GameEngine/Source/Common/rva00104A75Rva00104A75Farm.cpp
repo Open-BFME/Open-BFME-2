@@ -261,7 +261,7 @@ public:
 	float *GetRadarViewBoxCorner(int index);
 };
 
-inline float sqr(float v) { return v * v; }
+inline float sqr(float operand) { return operand * operand; }
 
 // Its inline members compile as PathfinderSidewaysAttack.cpp's (built /Ow)
 // do, so the COMDAT copies this unit emits agree with the ones the link keeps.
@@ -315,21 +315,21 @@ void Rva0010461F::rva00104A75()
 			next -= 4;
 		Coord2D *innerNext = &m_68[next];
 		Coord2D *outerNext = &m_48[next];
-		Coord2D uv0;		uv0.x = uv->lo.x;
-		uv0.y = uv->lo.y;
-		Coord2D uv1;
-		uv1.x = uv->hi.x;
-		uv1.y = uv->lo.y;
-		Coord2D uv2;
-		uv2.x = uv->hi.x;
-		uv2.y = uv->hi.y;
-		Coord2D uv3;
-		uv3.x = uv->lo.x;
-		uv3.y = uv->hi.y;
+		Coord2D uvTopLeft;		uvTopLeft.x = uv->lo.x;
+		uvTopLeft.y = uv->lo.y;
+		Coord2D uvTopRight;
+		uvTopRight.x = uv->hi.x;
+		uvTopRight.y = uv->lo.y;
+		Coord2D uvBottomRight;
+		uvBottomRight.x = uv->hi.x;
+		uvBottomRight.y = uv->hi.y;
+		Coord2D uvBottomLeft;
+		uvBottomLeft.x = uv->lo.x;
+		uvBottomLeft.y = uv->hi.y;
 		Coord2D *outer = &m_48[i];
 		Coord2D *inner = &m_68[i];
-		Rva001049C7AddTriangle(renderer, outer, inner, innerNext, &uv0, &uv1, &uv2);
-		Rva001049C7AddTriangle(renderer, outer, innerNext, outerNext, &uv0, &uv2, &uv3);
+		Rva001049C7AddTriangle(renderer, outer, inner, innerNext, &uvTopLeft, &uvTopRight, &uvBottomRight);
+		Rva001049C7AddTriangle(renderer, outer, innerNext, outerNext, &uvTopLeft, &uvBottomRight, &uvBottomLeft);
 	}
 	renderer->Render();
 }

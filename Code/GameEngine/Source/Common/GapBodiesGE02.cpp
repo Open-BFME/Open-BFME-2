@@ -316,9 +316,9 @@ struct Rva0058C475Arg
 	int m_28;
 };
 
-int Rva0058C475(const Rva0058C475Arg *arg)
+int Rva0058C475(const Rva0058C475Arg *command)
 {
-	return arg->m_28 + 0x19;
+	return command->m_28 + 0x19;
 }
 
 int Rva0058C480() { return 0x1A; }

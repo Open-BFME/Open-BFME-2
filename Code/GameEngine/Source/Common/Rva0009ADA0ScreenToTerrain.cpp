@@ -215,9 +215,9 @@ void Rva0009D55BProduct::screenToTerrain(const int *screen, Vector3 *world)
 	end.Y = dir.Y + start.Y;
 	end.Z = dir.Z + start.Z;
 
-	float z = reinterpret_cast<Rva0009ADA0Manager *>(TheLivingWorldManager)->m_heightE4;
-	world->X = Vector3::Find_X_At_Z(z, m_cameraC0->Get_Position(), end);
-	world->Y = Vector3::Find_Y_At_Z(z, m_cameraC0->Get_Position(), end);
+	float terrainHeight = reinterpret_cast<Rva0009ADA0Manager *>(TheLivingWorldManager)->m_heightE4;
+	world->X = Vector3::Find_X_At_Z(terrainHeight, m_cameraC0->Get_Position(), end);
+	world->Y = Vector3::Find_Y_At_Z(terrainHeight, m_cameraC0->Get_Position(), end);
 	world->Z = 0.0f;
 }
 
