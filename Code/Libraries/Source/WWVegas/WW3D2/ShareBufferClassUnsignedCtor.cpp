@@ -23,15 +23,13 @@
 class RefCountClass
 {
 public:
-	RefCountClass() : m_refs(1) {}
-	RefCountClass(const RefCountClass &) : m_refs(1) {}
+	RefCountClass() : NumRefs(1) {}
+	RefCountClass(const RefCountClass &) : NumRefs(1) {}
 	virtual void Delete_This();
-
 protected:
 	virtual ~RefCountClass() {}
-
 private:
-	int m_refs;
+	int NumRefs; // +0x04
 };
 
 // The canonical class view declares the destructor out of line. This unit

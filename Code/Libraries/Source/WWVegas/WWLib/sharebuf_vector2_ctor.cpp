@@ -23,12 +23,10 @@ public:
 	RefCountClass() : NumRefs(1) {}
 	RefCountClass(const RefCountClass &) : NumRefs(1) {}
 	virtual void Delete_This();
-
 protected:
 	virtual ~RefCountClass() {}
-
 private:
-	int NumRefs;
+	int NumRefs; // +0x04
 };
 #pragma optimize("", on)
 
