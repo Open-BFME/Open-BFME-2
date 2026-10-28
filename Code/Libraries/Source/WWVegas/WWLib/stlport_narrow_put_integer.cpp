@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 stl/_num_put.c and stl/_algobase.h.
 // The narrow integer grouping helper reads the stream's cached numpunct and
