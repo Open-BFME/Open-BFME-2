@@ -6,6 +6,7 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "RainOfFireUpdateView.h"
+
 //
 // ??0RainOfFireUpdateModuleData@@QAE@XZ, retail 0x004AC03D, 89 bytes.
 // Frameless SSE ctor: two global floats into +0x10/+0x14, vtable literal,
@@ -76,6 +77,16 @@ public:
 
 extern Display *TheDisplay;
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateModuleDataCtor.cpp
 
   // folded nine-class vftable 0x00C4ED70, by its data-ledger name
@@ -95,12 +106,6 @@ RainOfFireUpdateModuleData::RainOfFireUpdateModuleData()
 	offset.x = 0.0f;
 	offset.y = 0.0f;
 }
-
-// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC0A8 135B ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 
@@ -217,15 +222,25 @@ UpdateSleepTime RainOfFireUpdate::update() {
  return (UpdateSleepTime)1;
 }
 
-// tu-skeleton: 0x004AC148 69B ?getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp (not merged yet)
+// tu-skeleton: 0x004AC097 17B ?buildFieldParse@RainOfFireUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC0A8 135B ??0RainOfFireUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AC12F 6B ?Rva004AC12FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp
+
+// ?getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType RainOfFireUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheRainOfFireUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("RainOfFireUpdate");
+	return TheRainOfFireUpdatePoolKey;
+}
 
 // tu-skeleton: 0x004AC24D 91B ??1RainOfFireUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004AC5D9 28B ??_GRainOfFireUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E30E 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E31B 10B __ehhandler$?getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E325 8B Unwind@00b8e325 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp (not merged yet)
 

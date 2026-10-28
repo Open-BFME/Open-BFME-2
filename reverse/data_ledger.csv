@@ -20330,8 +20330,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03CD8,4,.data,global,?TheLargeGroupAudioUpdatePoolKey@?1??getModuleNameKey@LargeGroupAudioUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,owned,,1,2
 0x00A03CDC,4,.data,global,?$S1@?1??getModuleNameKey@LargeGroupAudioUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,owned,,1,4
 0x00A03CE0,20,.data,global,?g_Va00E03CE0@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00E03CE0@@3URva00E03CE0@@A;?g_00E03CE0@@3VRva004ABFB2@@A;?g_Va00E03CE0@@3IA,1,3
-0x00A03CF4,4,.data,global,?TheRainOfFireUpdatePoolKey@?1??getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp,owned,,1,2
-0x00A03CF8,4,.data,global,?$S1@?1??getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp,owned,,1,4
+0x00A03CF4,4,.data,global,?TheRainOfFireUpdatePoolKey@?1??getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,owned,,1,2
+0x00A03CF8,4,.data,global,?$S1@?1??getModuleNameKey@RainOfFireUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,owned,,1,4
 0x00A03CFC,4,.data,global,?TheDestroyEnvironmentUpdatePoolKey@?1??getModuleNameKey@DestroyEnvironmentUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp,owned,,1,2
 0x00A03D00,4,.data,global,?$S1@?1??getModuleNameKey@DestroyEnvironmentUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp,owned,,1,4
 0x00A03D04,4,.data,global,_s_rva007B1CF2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

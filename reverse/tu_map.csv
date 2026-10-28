@@ -38914,7 +38914,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004AC0A8,135,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateCtor.cpp
 0x004AC12F,6,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,C,C=0x004AC0A8..0x004AC135,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x004AC135,19,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
-0x004AC148,69,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp
+0x004AC148,69,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 0x004AC18D,62,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 0x004AC1CB,92,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 0x004AC227,38,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
@@ -80942,8 +80942,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078E2F1,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioUpdateModuleData.cpp
 0x0078E2F9,11,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioUpdateModuleData.cpp
 0x0078E304,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioUpdateModuleData.cpp
-0x0078E30E,13,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC148@FuncInfo0x0093EA64,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp
-0x0078E31B,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC148@FuncInfo0x0093EA64,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdatePoolKey.cpp
+0x0078E30E,13,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC148@FuncInfo0x0093EA64,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
+0x0078E31B,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC148@FuncInfo0x0093EA64,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp
 0x0078E325,8,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC24D@FuncInfo0x0093EA88,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp
 0x0078E32D,10,code,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdate.cpp,approved,P,P=0x004AC24D@FuncInfo0x0093EA88,Code/GameEngine/Source/GameLogic/Object/Update/RainOfFireUpdateDtor.cpp
 0x0078E337,13,code,Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdate.cpp,approved,P,P=0x004AC686@FuncInfo0x0093EAAC provisional,Code/GameEngine/Source/GameLogic/Object/Update/DestroyEnvironmentUpdatePoolKey.cpp
