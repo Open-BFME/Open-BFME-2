@@ -73,6 +73,7 @@ public:
 class StringClass
 {
 public:
+	StringClass(const char *name, bool flag);
 	~StringClass() { Free_String(); }
 private:
 	void Free_String();
