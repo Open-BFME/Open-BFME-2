@@ -63,11 +63,18 @@ public:
 	unsigned char m_pad[0x118];
 	Bool m_118; // +0x118
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class LocomotorSetUpgrade : public UpgradeModule
 {
 protected:
 	virtual void upgradeRemovalImplementation();
 	virtual void upgradeImplementation();
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 void LocomotorSetUpgrade::upgradeImplementation()
 {

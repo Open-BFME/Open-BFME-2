@@ -24,8 +24,67 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class LocomotorSetUpgrade
+typedef bool Bool;
+typedef float Real;
+class AIUpdateInterface
 {
+public:
+	void rva00262804(unsigned char upgraded);
+};
+class Object
+{
+public:
+	AIUpdateInterface *getAI() const { return m_ai; }
+private:
+	unsigned char m_pad000[0x258];
+	AIUpdateInterface *m_ai; // +0x258
+};
+class ModuleData;
+class ObjectModuleBase
+{
+public:
+	virtual ~ObjectModuleBase();
+protected:
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+class UpgradeModuleInterface
+{
+public:
+	virtual void upgradeModuleInterfaceAnchor();
+};
+template <int N> class LocomotorSetUpgradeMuxSlots : public LocomotorSetUpgradeMuxSlots<N - 1>
+{
+public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class LocomotorSetUpgradeMuxSlots<0>
+{
+};
+// UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
+// setUpgradeExecuted, slot 10 upgradeImplementation.
+class UpgradeMuxIface : public LocomotorSetUpgradeMuxSlots<8>
+{
+protected:
+	virtual void upgradeRemovalImplementation() = 0;
+	virtual void setUpgradeExecuted(Bool executed) = 0;
+	virtual void upgradeImplementation() = 0;
+};
+class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
+{
+};
+class LocomotorSetUpgradeModuleData
+{
+public:
+	unsigned char m_pad[0x118];
+	Bool m_118; // +0x118
+};
+class LocomotorSetUpgrade : public UpgradeModule
+{
+protected:
+	virtual void upgradeRemovalImplementation();
+	virtual void upgradeImplementation();
 public:
 	virtual NameKeyType getModuleNameKey() const;
 };
