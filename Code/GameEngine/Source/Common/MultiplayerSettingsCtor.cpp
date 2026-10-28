@@ -1,94 +1,146 @@
 // cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
-//
-// MultiplayerSettings constructor (retail 0x003811D8, 159B): constructs
-// the SubsystemInterface base, installs the vtable, constructs the +0x34
-// color map through the rowed 0x003811A2 body and the observer/random
-// definitions at +0x44/+0x84 through the rowed 0x00380C4E body, then
-// stores the countdown/beacon/flag/credit defaults. The singleton is
-// 0xC4 bytes (push 0xC4 at the 0x1EF393 creation site), so both color
-// definitions are full 0x40-byte values. All constructions resolve to
-// rowed bodies or pins; nothing extra is defined here.
+// MultiplayerSettings constructor (retail RVA 0x003811D8, 159 bytes).
+// The native 0xC4 object has the 0x0C SubsystemInterface base, a 0x0C map at
+// +0x34 and two 0x40-byte color definitions at +0x44/+0x84. Its table at
+// RVA 0x008191B8 has fourteen slots; slot zero is the virtual deleting
+// destructor at RVA 0x00381277. The compiler supplies this table and the
+// implicit virtual lifetime bodies from the same native view as the seed TU.
+#include <stl/_algobase.h>
 #include <map>
-
+#include <cstddef>
 #include "ascii_string.h"
-
 #include "../../../Libraries/Include/Lib/RGBColor.h"
+
+typedef bool Bool;
+typedef int Int;
+typedef int Color;
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+
+// The native base has fourteen virtual slots and occupies 0x0C bytes.
+// Avoid PreRTS.h: its Zero Hour SubsystemInterface and inline RGBColor
+// declarations conflict with the target interfaces used by this TU.
+#define _MULTIPLAYERSETTINGS_H_
+
+// Only static parser callbacks are needed here; no INI object is constructed.
+// Signatures and FieldParse's four-word layout are the existing INI contract.
+class INI
+{
+public:
+    static void parseAsciiString(INI *, void *, void *, const void *);
+    static void parseRGBColor(INI *, void *, void *, const void *);
+    static void parseInt(INI *, void *, void *, const void *);
+    static void parseBool(INI *, void *, void *, const void *);
+};
+
+typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
+struct FieldParse
+{
+    const char *token;
+    INIFieldParseProc parse;
+    const void *userData;
+    Int offset;
+};
+
+// The existing GameInfo constants, also selected by getColor's retail tests.
+enum { PLAYERTEMPLATE_RANDOM = -1, PLAYERTEMPLATE_OBSERVER = -2 };
 
 class MultiplayerColorDefinition
 {
 public:
-	MultiplayerColorDefinition();
+    MultiplayerColorDefinition();
+    // The pair copy at 0x00380DA3 calls the native color copy out of line.
+    MultiplayerColorDefinition(const MultiplayerColorDefinition &other);
+    static const FieldParse m_colorFieldParseTable[];
+    const FieldParse *getFieldParse() const { return m_colorFieldParseTable; }
+
+    AsciiString getTooltipName() const { return m_tooltipName; }
+    RGBColor getRGBValue() const { return m_rgbValue; }
+    RGBColor getRGBNightValue() const { return m_rgbValueNight; }
+    Color getColor() const { return m_color; }
+    Color getNightColor() const { return m_colorNight; }
+    void setColor(RGBColor rgb);
+    void setNightColor(RGBColor rgb);
+    MultiplayerColorDefinition *operator=(const MultiplayerColorDefinition &other);
 
 private:
-	AsciiString m_tooltipName; // +0x00
-	RGBColor m_rgbValue; // +0x04
-	int m_color; // +0x10
-	RGBColor m_rgbValueNight; // +0x14
-	int m_colorNight; // +0x20
-	RGBColor m_rgbExtra1; // +0x24
-	RGBColor m_rgbExtra2; // +0x30
-	bool m_extraFlag; // +0x3C
+    AsciiString m_tooltipName; // +0x00
+    RGBColor m_rgbValue; // +0x04
+    Color m_color; // +0x10
+    RGBColor m_rgbValueNight; // +0x14
+    Color m_colorNight; // +0x20
+    RGBColor m_rgbExtra1; // +0x24, LivingWorldColor in the native parse table
+    RGBColor m_rgbExtra2; // +0x30, LivingWorldBannerColor in the native table
+    Bool m_extraFlag; // +0x3C, AvailableInWotR in the native table
 };
 
-extern const void *const g_00C191B8[];
+typedef _STL::pair<const int, MultiplayerColorDefinition> ColorMapValue;
+typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<_STL::pair<const int, MultiplayerColorDefinition> > > MultiplayerColorList;
+typedef MultiplayerColorList::iterator MultiplayerColorIter;
 
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();
-	~SubsystemInterface();
-};
-
+// Existing providers: map constructor3811A2 and tree destructor38103F.
 namespace _STL
 {
-template <>
-class map<int, MultiplayerColorDefinition, less<int>, allocator<pair<const int, MultiplayerColorDefinition> > >
-{
-public:
-	map();
-	~map();
-
-private:
-	char m_pad[0xC];
-};
+template <> map<int, MultiplayerColorDefinition>::map();
+template <> _Rb_tree<int, ColorMapValue, _Select1st<ColorMapValue>, less<int>, allocator<ColorMapValue> >::~_Rb_tree();
 }
-
-typedef _STL::map<int, MultiplayerColorDefinition, _STL::less<int>, _STL::allocator<_STL::pair<const int, MultiplayerColorDefinition> > > MultiplayerColorList;
 
 class MultiplayerSettings : public SubsystemInterface
 {
 public:
-	MultiplayerSettings();
-	~MultiplayerSettings();
+    MultiplayerSettings();
+    virtual void init() {}
+    virtual void reset() {}
+    virtual void update() {}
+
+    static const FieldParse m_multiplayerSettingsFieldParseTable[];
+    const FieldParse *getFieldParse() const { return m_multiplayerSettingsFieldParseTable; }
+    MultiplayerColorDefinition *findMultiplayerColorDefinitionByName(AsciiString name);
+    MultiplayerColorDefinition *newMultiplayerColorDefinition(AsciiString name);
+    Int getStartCountdownTimerSeconds() { return m_startCountdownTimerSeconds; }
+    Int getMaxBeaconsPerPlayer() { return m_maxBeaconsPerPlayer; }
+    Bool isShroudInMultiplayer() { return m_isShroudInMultiplayer; }
+    Bool showRandomPlayerTemplate() { return m_showRandomPlayerTemplate; }
+    Bool showRandomStartPos() { return m_showRandomStartPos; }
+    Bool showRandomColor() { return m_showRandomColor; }
+    Int getNumColors()
+    {
+        if (m_numColors == 0)
+            m_numColors = m_colorList.size();
+        return m_numColors;
+    }
+    MultiplayerColorDefinition *getColor(Int which);
 
 private:
-	const void *m_vtable; // +0x00, retail vtable 0x008191B8 (instruction holds 0x00C191B8)
-	char m_pad04[8]; // +0x04, preserves +0x0C layout (empty base via EBO)
-	int m_unknown0C; // +0x0C, zeroed
-	int m_startCountdownTimerSeconds; // +0x10, retail default 0x2710
-	int m_unknown14; // +0x14, zeroed
-	int m_maxBeaconsPerPlayer; // +0x18, retail default 3
-	bool m_isShroudInMultiplayer; // +0x1C
-	bool m_showRandomPlayerTemplate; // +0x1D
-	bool m_showRandomStartPos; // +0x1E
-	bool m_showRandomColor; // +0x1F
-	int m_initialCredits[5]; // +0x20 VeryLow Low Medium High VeryHigh
-	MultiplayerColorList m_colorList; // +0x34 (node count at +0x38 doubles as the refill source)
-	int m_numColors; // +0x40, zeroed (lazy refill)
-	MultiplayerColorDefinition m_observerColor; // +0x44
-	MultiplayerColorDefinition m_randomColor; // +0x84
+    Int m_unknown0C; // +0x0C, zeroed by the native constructor
+    Int m_unknown10; // +0x10, native constructor stores 0x2710
+    Int m_startCountdownTimerSeconds; // +0x14, native parse table and zero store
+    Int m_maxBeaconsPerPlayer; // +0x18
+    Bool m_isShroudInMultiplayer; // +0x1C
+    Bool m_showRandomPlayerTemplate; // +0x1D
+    Bool m_showRandomStartPos; // +0x1E
+    Bool m_showRandomColor; // +0x1F
+    Int m_initialCredits[5]; // +0x20, VeryLow through VeryHigh
+    MultiplayerColorList m_colorList; // +0x34, node count at +0x38
+    Int m_numColors; // +0x40, lazy refill
+    MultiplayerColorDefinition m_observerColor; // +0x44
+    MultiplayerColorDefinition m_randomColor; // +0x84
 };
 
-// ??0MultiplayerSettings@@QAE@XZ @0x3811D8
+typedef char MultiplayerBaseSize[sizeof(SubsystemInterface) == 0x0C ? 1 : -1];
+typedef char MultiplayerMapSize[sizeof(MultiplayerColorList) == 0x0C ? 1 : -1];
+typedef char MultiplayerColorSize[sizeof(MultiplayerColorDefinition) == 0x40 ? 1 : -1];
+typedef char MultiplayerSettingsSize[sizeof(MultiplayerSettings) == 0xC4 ? 1 : -1];
+typedef char MultiplayerFieldParseSize[sizeof(FieldParse) == 0x10 ? 1 : -1];
+
+
 MultiplayerSettings::MultiplayerSettings()
 	: SubsystemInterface()
-	, m_vtable(reinterpret_cast<const void *>(g_00C191B8))
 {
 	m_unknown0C = 0;
-	m_unknown14 = 0;
+	m_startCountdownTimerSeconds = 0;
 	m_numColors = 0;
-	m_startCountdownTimerSeconds = 0x2710;
+	m_unknown10 = 0x2710;
 	m_maxBeaconsPerPlayer = 3;
 	m_isShroudInMultiplayer = true;
 	m_showRandomPlayerTemplate = true;
