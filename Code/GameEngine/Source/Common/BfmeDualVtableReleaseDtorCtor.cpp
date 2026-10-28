@@ -19,21 +19,8 @@ extern "C" const void *const vtbl_00BE3994[];  // ??_7BfmeDualVtableReleaseDtor@
 #pragma comment(linker, "/alternatename:_vtbl_00BE3994=??_7BfmeDualVtableReleaseDtor@@6B@")
 extern "C" const void *const __identifier("??_7FunctorNotSet@@6B@")[];
 
-typedef void *HMODULE;
-typedef int (__stdcall *FARPROC)();
-extern "C" __declspec(dllimport) FARPROC __stdcall GetProcAddress(HMODULE module, const char *name);
-
-class __declspec(dllimport) exception
-{
-public:
-	exception();
-	exception(const exception &that);
-	virtual ~exception();
-
-private:
-	const char *m_what;
-	int m_doFree;
-};
+#include <windows.h>
+#include <exception>
 
 class DllHandle
 {
@@ -61,7 +48,7 @@ private:
 	BfmeReleaseTarget *m_target; // +0x08
 };
 
-class LoadFailure : public exception
+class LoadFailure : public std::exception
 {
 public:
 	LoadFailure()
