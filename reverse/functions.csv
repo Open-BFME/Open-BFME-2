@@ -25275,7 +25275,7 @@ __Locale_wchar_toupper,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva008
 ??1LifeEventModuleInfo@FXParticleSystem@@UAE@XZ,0x003A9F8A,0x003A9F8A,48,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoDtor.cpp,matched,dtor via copyctor layout and BBB554 base
 ??$__introsort_loop@PAHHHVRva00422CA8@@@_STL@@YAXPAH00HVRva00422CA8@@@Z,,0x00425385,123,Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop_rva00422ca8.cpp,matched,chain via rowed partition plus median plus partial
 ?updateSubObjects@Drawable@@QAEXXZ,,0x002723ED,39,Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp,matched,Drawable 0x14C walk via 0xA8 to 0x74 same as siblings
-??0BfmeObject544@@QAE@XZ,,0x004CAD17,74,Code/GameEngine/Source/Common/BfmeObject544Ctor.cpp,matched,dtor plus vector plus caller prove class; callees rowed and pinned
+??0BfmeObject544@@QAE@XZ,,0x004CAD17,74,Code/GameEngine/Source/Common/BfmeObject544.cpp,matched,dtor plus vector plus caller prove class; callees rowed and pinned
 ?Rva006CC950SetMousePos@@YAXHH@Z,,0x006CC950,65,Code/GameEngine/Source/Common/Rva006CC950Mouse.cpp,matched,chain lane mouse position forward via Apt globals
 ?rva00535DBF@UserPreferences@@QAEXVAsciiString@@H@Z,,0x00535DBF,71,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences LossStreak via slot2C gap same TU
 ?rva00535E50@UserPreferences@@QAEXVAsciiString@@H@Z,,0x00535E50,71,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,UserPreferences BestWinStreak via slot2C gap same TU
