@@ -1914,7 +1914,9 @@ def tu_evidence_items():
     or a __FILE__ string, often a mis-named row whose Z fails) or a missing bracket, never an
     asserted TU. The item claims its sources (`file:`). PASS TEST: the map rebuilt from
     current inputs gives the run's rows a TU (tools/tu_evidence.py --source SRC lists what
-    reaches them; never commit a regenerated map from this lane)."""
+    reaches them; never commit a regenerated map from this lane). Also served: one `wb-path`
+    lead per non-editor WorldBuilder source path the map has no TU for
+    (tools/wb_source_paths.py triage_items), to investigate, never to approve or create a TU."""
     if not (ROOT / TU_MAP).exists():
         return [], f"{TU_MAP} absent: TU-evidence queue skipped"
     tools_on_path()
@@ -1957,8 +1959,12 @@ def tu_evidence_items():
     stale = " (tu_map.csv stale: rebuilt in memory, never written)" if tu_skeleton._CACHE.get("stale") else ""
     image = "" if st is not None else "; no retail image, so no layout evidence"
     served = len({src for i in items for src in i["sources"]})
-    return items, (f"{len(items)} unmapped run(s) holding {served} of {bare} source(s) with "
-                   f"no TU evidence, from {TU_MAP}{stale}{image}")
+    note = (f"{len(items)} unmapped run(s) holding {served} of {bare} source(s) with "
+            f"no TU evidence, from {TU_MAP}{stale}{image}")
+    # WorldBuilder path leads (tools/wb_source_paths.py): investigate-only, never an approval.
+    import wb_source_paths
+    leads, lead_note = wb_source_paths.triage_items(out, root=ROOT)
+    return items + leads, f"{note}; {lead_note}"
 
 
 def ms_header_queue_items():

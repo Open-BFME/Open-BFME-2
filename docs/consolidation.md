@@ -191,6 +191,21 @@ mis-named row whose Z fails) or a missing bracket through the naming lanes. It n
 asserts a TU. The item passes when the map rebuilt from current inputs gives the
 run's rows a TU.
 
+The same tier also serves `wb-path` leads from `tools/wb_source_paths.py`. It
+inventories every `.cpp`/`.c` path string in `worldbuilder.exe` and `game.dat`
+into `reverse/worldbuilder_source_paths.csv` (`inventory` rewrites it, `check`
+compares it with a rebuild). The tool emits one lead for each non-editor
+WorldBuilder path that has no TU in the live map. Each lead lists the
+`wb_name_leads.csv` game RVAs whose paired WB body pushes that path (every file
+the body pushes, not only the first), with their owners and map confidence. It
+also lists same-basename TUs already in the map and whether game.dat's own strings
+carry the path. WorldBuilder paths are donor facts. A path proves that a file of
+that spelling existed in the editor build. It does not prove that a game function
+belongs to that file, and the WorldBuilder path count is not a game file count. A
+lead approves nothing: tu_map's W route (`wb_name_leads` and its `w_score` gate)
+and the F/Z/S anchors stay the only way to approve, and a lead is never a reason to
+create an empty TU.
+
 ## Carving a mixed file (the split lane)
 
 A mixed file holds matched rows of several TUs, and often rows with no approved
