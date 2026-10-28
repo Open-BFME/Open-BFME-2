@@ -144,16 +144,27 @@ struct BfmeNarrowRecord00427F75
 	~BfmeNarrowRecord00427F75();
 };
 
-struct VersionBlockEntry : public BfmeNarrowRecord00427F75
-{
-	VersionBlockEntry();
-	~VersionBlockEntry();
-};
-
 class ProductionPrerequisite
 {
 public:
 	ProductionPrerequisite &operator=(const ProductionPrerequisite &other);
+};
+
+struct Pivot24
+{
+	Pivot24(const Pivot24 &other);
+	~Pivot24();
+	BfmeNarrowRecord00427F75 narrow;
+};
+
+void __cdecl Rva00428372AdjustHeap(VersionBlockEntry *first, int holeIndex, int len, Pivot24 val, VersionBlockKeyCompare comp);
+
+void __cdecl Rva00428594PopHeap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockEntry *result, Pivot24 val, VersionBlockKeyCompare comp, int extra);
+
+struct VersionBlockEntry : public BfmeNarrowRecord00427F75
+{
+	VersionBlockEntry();
+	~VersionBlockEntry();
 };
 
 class VersionBlockKeyCompare
@@ -171,16 +182,27 @@ public:
 	bool lessKeyEntry(const char *key, const VersionBlockEntry *entry) const;
 };
 
-struct Pivot24
+void __cdecl Rva004285F3MakeHeap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockKeyCompare comp);
+
+void __cdecl Rva0042864BPopHeap(VersionBlockEntry *first, VersionBlockEntry *last, int unused, VersionBlockKeyCompare comp);
+
+void __cdecl Rva00428716PopHeap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockKeyCompare comp);
+
+namespace _STL
 {
-	Pivot24(const Pivot24 &other);
-	~Pivot24();
-	BfmeNarrowRecord00427F75 narrow;
-};
+template <class _RandomAccessIter, class _Compare>
+void __sort_heap(_RandomAccessIter first, _RandomAccessIter last, _Compare comp)
+{
+	while (last - first > 1)
+	{
+		Rva00428716PopHeap(first, last, comp);
+		--last;
+	}
+}
+template void __sort_heap<VersionBlockEntry *, VersionBlockKeyCompare>(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare);
+}
 
-void __cdecl Rva00428372AdjustHeap(VersionBlockEntry *first, int holeIndex, int len, Pivot24 val, VersionBlockKeyCompare comp);
-
-void __cdecl Rva00428594PopHeap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockEntry *result, Pivot24 val, VersionBlockKeyCompare comp, int extra);
+// ---- from Code/GameEngine/Source/Common/VersionBlockParser.cpp
 
 // ---- from Code/GameEngine/Source/Common/VersionBlockSearch.cpp
 
@@ -274,42 +296,13 @@ found:
 	return found;
 }
 
-// tu-skeleton: 0x00427EDA 58B ?lookupVersionValue@VersionBlockParser@@QAEPBDPBD0@Z -- matched in Code/GameEngine/Source/Common/VersionBlockLookup.cpp (not merged yet)
-
-// tu-skeleton: 0x00427F14 50B ?rva00427F14Text@VersionBlockParser@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABURva00427F14KeyPrefix@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserText.cpp (not merged yet)
-
-// tu-skeleton: 0x00427F46 47B ?rva00427F46Text@VersionBlockParser@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABURva00427F14KeyPrefix@@0@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserText.cpp (not merged yet)
-
-// tu-skeleton: 0x00427FB2 324B ?rva00427FB2@Rva00427FB2@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ -- matched in Code/GameEngine/Source/Common/Rva00427FB2Serialize.cpp (not merged yet)
-
-// tu-skeleton: 0x004280F6 45B ??$_Construct@UBfmeNarrowRecord00427F75@@U1@@_STL@@YAXPAUBfmeNarrowRecord00427F75@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00428123 38B ??$__uninitialized_copy@PBUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord00427F75Helpers.cpp (not merged yet)
-
-// tu-skeleton: 0x00428149 37B ??$__uninitialized_fill_n@PAUBfmeNarrowRecord00427F75@@IU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord00427F75Helpers.cpp (not merged yet)
-
-// tu-skeleton: 0x0042816E 33B ??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
-
-// tu-skeleton: 0x0042818F 75B ?Rva0042818FSwap@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0042818FSwap.cpp (not merged yet)
-
-// tu-skeleton: 0x004281DA 89B ?Rva004281DAInsert@@YAXPAUVersionBlockEntry@@UPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004281DAInsert.cpp (not merged yet)
-
-// tu-skeleton: 0x00428233 138B ?Rva00428233PushHeap@@YAXPAUVersionBlockEntry@@HHUPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428233PushHeap.cpp (not merged yet)
-
-// tu-skeleton: 0x004282BD 50B ??$__copy_backward@PAUBfmeAssignRecord24@@PAU1@H@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x004282EF 30B ?_M_clear@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042830D.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
-// tu-skeleton: 0x0042833F 5B ?j_0042833f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 
-// tu-skeleton: 0x00428344 46B ??$__unguarded_insertion_sort_aux@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
 
-// tu-skeleton: 0x00428372 175B ?Rva00428372AdjustHeap@@YAXPAUVersionBlockEntry@@HHUPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428372Finish.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00428421.cpp
 
@@ -320,15 +313,10 @@ found:
 // stlport_asciistring_record_bodies.cpp. The element type is that row's (identity unresolved
 // beyond it); the callee is only declared here, so this unit emits the forwarder alone.
 
-// tu-skeleton: 0x0042843E 183B ?_M_insert_overflow@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXPAUBfmeNarrowRecord00427F75@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x004284F5 29B ??$__copy_ptrs@PAUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
-// tu-skeleton: 0x00428512 107B ?Rva00428512Partition@@YAPAUVersionBlockEntry@@PAU1@0UPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428512Partition.cpp (not merged yet)
 
-// tu-skeleton: 0x0042857D 23B ??$__unguarded_insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSort.cpp (not merged yet)
 
-// tu-skeleton: 0x00428594 95B ?Rva00428594PopHeap@@YAXPAUVersionBlockEntry@@00UPivot24@@VVersionBlockKeyCompare@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00428594PopHeap.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004285F3MakeHeap.cpp
 
@@ -353,32 +341,6 @@ void __cdecl Rva0042864BPopHeap(VersionBlockEntry *first, VersionBlockEntry *las
 {
 	Rva00428594PopHeap(first, last - 1, last - 1, *(Pivot24 *)(last - 1), comp, 0);
 }
-
-// tu-skeleton: 0x00428678 55B ?push_back@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEXABUBfmeNarrowRecord00427F75@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x004286AF 51B ?erase@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEPAUBfmeNarrowRecord00427F75@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x004286E2 25B ?Rva004286E2Wrap@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004286E2MakeHeapWrap.cpp (not merged yet)
-
-// tu-skeleton: 0x004286FB 27B ??$copy_backward@PAUBfmeAssignRecord24@@PAU1@@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_copy_backward_assign24.cpp (not merged yet)
-
-// tu-skeleton: 0x00428716 23B ?Rva00428716PopHeap@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428716PopHeap.cpp (not merged yet)
-
-// tu-skeleton: 0x0042872D 122B ??$__linear_insert@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0U1@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva0042872DFinish.cpp (not merged yet)
-
-// tu-skeleton: 0x004287A7 65B ??$__sort_heap@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004287A7SortHeap.cpp (not merged yet)
-
-// tu-skeleton: 0x004287E8 57B ??$__insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004287E8InsertionSort.cpp (not merged yet)
-
-// tu-skeleton: 0x00428821 102B ??$__partial_sort@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@000VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428821PartialSort.cpp (not merged yet)
-
-// tu-skeleton: 0x00428887 71B ??$__final_insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
-
-// tu-skeleton: 0x004288CE 27B ??$partial_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004288CEPartialSort.cpp (not merged yet)
-
-// tu-skeleton: 0x004288E9 137B ??$__introsort_loop@PAUVersionBlockEntry@@U1@HVVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00HVVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
-
-// tu-skeleton: 0x00428972 70B ??$sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSort.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/VersionBlockParserParse.cpp
 
@@ -482,6 +444,85 @@ void VersionBlockParser::rva00428BF0(const _STL::basic_string<char> &key, const 
 {
 	rva00428B27(key.c_str(), value.c_str());
 }
+
+// tu-skeleton: 0x00427EDA 58B ?lookupVersionValue@VersionBlockParser@@QAEPBDPBD0@Z -- matched in Code/GameEngine/Source/Common/VersionBlockLookup.cpp (not merged yet)
+
+// tu-skeleton: 0x00427F14 50B ?rva00427F14Text@VersionBlockParser@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABURva00427F14KeyPrefix@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserText.cpp (not merged yet)
+
+// tu-skeleton: 0x00427F46 47B ?rva00427F46Text@VersionBlockParser@@QAE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@ABURva00427F14KeyPrefix@@0@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserText.cpp (not merged yet)
+
+// tu-skeleton: 0x00427FB2 324B ?rva00427FB2@Rva00427FB2@@QBE?AV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@XZ -- matched in Code/GameEngine/Source/Common/Rva00427FB2Serialize.cpp (not merged yet)
+
+// tu-skeleton: 0x004280F6 45B ??$_Construct@UBfmeNarrowRecord00427F75@@U1@@_STL@@YAXPAUBfmeNarrowRecord00427F75@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00428123 38B ??$__uninitialized_copy@PBUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord00427F75Helpers.cpp (not merged yet)
+
+// tu-skeleton: 0x00428149 37B ??$__uninitialized_fill_n@PAUBfmeNarrowRecord00427F75@@IU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/NarrowStringRecord00427F75Helpers.cpp (not merged yet)
+
+// tu-skeleton: 0x0042816E 33B ??4ProductionPrerequisite@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingFactory.cpp (not merged yet)
+
+// tu-skeleton: 0x0042818F 75B ?Rva0042818FSwap@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva0042818FSwap.cpp (not merged yet)
+
+// tu-skeleton: 0x004281DA 89B ?Rva004281DAInsert@@YAXPAUVersionBlockEntry@@UPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004281DAInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x00428233 138B ?Rva00428233PushHeap@@YAXPAUVersionBlockEntry@@HHUPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428233PushHeap.cpp (not merged yet)
+
+// tu-skeleton: 0x004282BD 50B ??$__copy_backward@PAUBfmeAssignRecord24@@PAU1@H@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x004282EF 30B ?_M_clear@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x0042833F 5B ?j_0042833f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x00428344 46B ??$__unguarded_insertion_sort_aux@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
+
+// tu-skeleton: 0x00428372 175B ?Rva00428372AdjustHeap@@YAXPAUVersionBlockEntry@@HHUPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428372Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x0042843E 183B ?_M_insert_overflow@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@IAEXPAUBfmeNarrowRecord00427F75@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004284F5 29B ??$__copy_ptrs@PAUBfmeNarrowRecord00427F75@@PAU1@@_STL@@YAPAUBfmeNarrowRecord00427F75@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00428512 107B ?Rva00428512Partition@@YAPAUVersionBlockEntry@@PAU1@0UPivot24@@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428512Partition.cpp (not merged yet)
+
+// tu-skeleton: 0x0042857D 23B ??$__unguarded_insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSort.cpp (not merged yet)
+
+// tu-skeleton: 0x00428594 95B ?Rva00428594PopHeap@@YAXPAUVersionBlockEntry@@00UPivot24@@VVersionBlockKeyCompare@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00428594PopHeap.cpp (not merged yet)
+
+// tu-skeleton: 0x00428678 55B ?push_back@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEXABUBfmeNarrowRecord00427F75@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x004286AF 51B ?erase@?$vector@UBfmeNarrowRecord00427F75@@V?$allocator@UBfmeNarrowRecord00427F75@@@_STL@@@_STL@@QAEPAUBfmeNarrowRecord00427F75@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004286E2MakeHeapWrap.cpp
+
+void __cdecl Rva004286E2Wrap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockKeyCompare comp)
+{
+	typedef void (__cdecl *MakeHeap5)(VersionBlockEntry *, VersionBlockEntry *, VersionBlockKeyCompare, int, int);
+	((MakeHeap5)Rva004285F3MakeHeap)(first, last, comp, 0, 0);
+}
+
+// tu-skeleton: 0x004286FB 27B ??$copy_backward@PAUBfmeAssignRecord24@@PAU1@@_STL@@YAPAUBfmeAssignRecord24@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_copy_backward_assign24.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00428716PopHeap.cpp
+
+void __cdecl Rva00428716PopHeap(VersionBlockEntry *first, VersionBlockEntry *last, VersionBlockKeyCompare comp)
+{
+	Rva0042864BPopHeap(first, last, 0, comp);
+}
+
+// tu-skeleton: 0x0042872D 122B ??$__linear_insert@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0U1@VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva0042872DFinish.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004287A7SortHeap.cpp
+
+// tu-skeleton: 0x004287E8 57B ??$__insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004287E8InsertionSort.cpp (not merged yet)
+
+// tu-skeleton: 0x00428821 102B ??$__partial_sort@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@000VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva00428821PartialSort.cpp (not merged yet)
+
+// tu-skeleton: 0x00428887 71B ??$__final_insertion_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
+
+// tu-skeleton: 0x004288CE 27B ??$partial_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/Rva004288CEPartialSort.cpp (not merged yet)
+
+// tu-skeleton: 0x004288E9 137B ??$__introsort_loop@PAUVersionBlockEntry@@U1@HVVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00HVVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp (not merged yet)
+
+// tu-skeleton: 0x00428972 70B ??$sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0VVersionBlockKeyCompare@@@Z -- matched in Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSort.cpp (not merged yet)
 
 // tu-skeleton: 0x00428C04 63B ??0VersionBlockParser@@QAE@PBD@Z -- matched in Code/GameEngine/Source/Common/VersionBlockParserCtor.cpp (not merged yet)
 

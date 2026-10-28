@@ -34510,11 +34510,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042864B,45,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x00428678 provisional,Code/GameEngine/Source/Common/VersionBlockParser.cpp
 0x00428678,55,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004286AF provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x004286AF,51,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004286E2 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
-0x004286E2,25,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004286FB provisional,Code/GameEngine/Source/Common/Rva004286E2MakeHeapWrap.cpp
+0x004286E2,25,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004286FB provisional,Code/GameEngine/Source/Common/VersionBlockParser.cpp
 0x004286FB,27,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x00428716 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_backward_assign24.cpp
-0x00428716,23,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x0042872D provisional,Code/GameEngine/Source/Common/Rva00428716PopHeap.cpp
+0x00428716,23,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x0042872D provisional,Code/GameEngine/Source/Common/VersionBlockParser.cpp
 0x0042872D,122,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004287A7 provisional,Code/GameEngine/Source/Common/Rva0042872DFinish.cpp
-0x004287A7,65,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004287E8 provisional,Code/GameEngine/Source/Common/Rva004287A7SortHeap.cpp
+0x004287A7,65,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004287E8 provisional,Code/GameEngine/Source/Common/VersionBlockParser.cpp
 0x004287E8,57,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x00428821 provisional,Code/GameEngine/Source/Common/Rva004287E8InsertionSort.cpp
 0x00428821,102,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x00428887 provisional,Code/GameEngine/Source/Common/Rva00428821PartialSort.cpp
 0x00428887,71,code,Code/GameEngine/Source/Common/VersionBlockParser.cpp,approved,C,C=0x00427F46..0x004288CE provisional,Code/GameEngine/Source/Common/VersionBlockUnguardedInsertionSortAux.cpp
