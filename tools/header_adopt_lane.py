@@ -916,7 +916,8 @@ def merge_inputs():
 
 
 def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
-    """{class: {donors, rows, tus, kinds, bases, files}} over the merge queue (tu_skeleton.queue).
+    """{class: {donors, rows, tus, kinds, bases, files, virtual}} over the merge queue
+    (tu_skeleton.queue); `virtual` when a blocking view declares a virtual or a vtable member.
     donors_of(tu) -> {file: rows}; read(file) -> text; both injectable for tests."""
     import tu_skeleton
     if queue is None:
@@ -936,7 +937,7 @@ def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
                     sig_cache[f] = {}
         for name, (kind, fs) in tu_blockers(sorted(don), sig_cache, canon).items():
             d = out.setdefault(name, {"donors": 0, "rows": 0, "tus": [], "kinds": {}, "bases": set(),
-                                      "files": []})
+                                      "files": [], "virtual": False})
             d["donors"] += len(fs)
             d["rows"] += sum(len(don[f]) for f in fs)
             d["tus"].append(tu)
@@ -944,6 +945,7 @@ def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
             d["files"].extend(fs)
             for f in fs:
                 d["bases"].update(base_names(sig_cache[f][name][2]))
+                d["virtual"] = d["virtual"] or sig_cache[f][name][3] or sig_cache[f][name][4]
     for d in out.values():
         d["bases"] = sorted(d["bases"])
         d["tus"] = sorted(d["tus"])
@@ -1017,6 +1019,7 @@ def header_destination(name, index, exists=None):
 MERGE_CENSUS_CLASSES = 60   # header-less classes ranked first get a census and a destination
 MERGE_CACHE_HOURS = 12      # a ranking from an ancestor of HEAD this recent is reused (it only orders work)
 MERGE_LOCK_SECONDS = 3600   # a refresh lock older than this is stale (its process died)
+MERGE_PAYLOAD_VERSION = 2   # bump when the payload's shape changes: older entries are misses
 
 
 def merge_cache_dir():
@@ -1072,7 +1075,9 @@ def cached_merge_payload(inputs, directory=None):
     directory = directory or merge_cache_dir()
     head, fingerprint = inputs
     try:
-        return json.loads((directory / _entry_name(head, fingerprint)).read_text(encoding="utf-8"))["payload"]
+        exact = json.loads((directory / _entry_name(head, fingerprint)).read_text(encoding="utf-8"))
+        if exact.get("version") == MERGE_PAYLOAD_VERSION:
+            return exact["payload"]
     except (OSError, ValueError, KeyError):
         pass
     suffix = "+" + (fingerprint or "clean") + ".json"
@@ -1086,7 +1091,7 @@ def cached_merge_payload(inputs, directory=None):
             cached = json.loads(path.read_text(encoding="utf-8"))
         except (OSError, ValueError):
             continue
-        if (cached.get("fingerprint") == fingerprint and "payload" in cached
+        if (cached.get("fingerprint") == fingerprint and cached.get("version") == MERGE_PAYLOAD_VERSION
                 and time.time() - cached.get("time", 0) < MERGE_CACHE_HOURS * 3600
                 and _git("merge-base", "--is-ancestor", cached.get("head", ""), head) is not None):
             return cached["payload"]
@@ -1098,7 +1103,8 @@ def store_merge_payload(inputs, payload, directory=None):
         return
     head, fingerprint = inputs
     _write_json((directory or merge_cache_dir()) / _entry_name(head, fingerprint),
-                {"head": head, "fingerprint": fingerprint, "time": int(time.time()), "payload": payload})
+                {"head": head, "fingerprint": fingerprint, "time": int(time.time()),
+                 "version": MERGE_PAYLOAD_VERSION, "payload": payload})
 
 
 def merge_payload(refresh=False):

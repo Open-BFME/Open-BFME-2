@@ -2476,21 +2476,32 @@ MERGE_PAYLOAD = {
         "Coord3D": {"donors": 2, "rows": 3, "tus": ["Code/T.cpp"], "kinds": {"canonical-copy": 1},
                     "bases": [], "files": ["Code/GameEngine/Body.cpp"]},
         "UpdateModule": {"donors": 300, "rows": 900, "tus": ["Code/U.cpp", "Code/V.cpp"], "kinds": {"base": 2},
-                         "bases": ["BehaviorModule"], "files": ["Code/U.cpp", "Code/U_xfer.cpp"]},
+                         "bases": ["BehaviorModule"], "files": ["Code/U.cpp", "Code/U_xfer.cpp"], "virtual": True},
         "BehaviorModule": {"donors": 5, "rows": 9, "tus": ["Code/U.cpp"], "kinds": {"base": 1}, "bases": [],
-                           "files": ["Code/U.cpp"]},
+                           "files": ["Code/U.cpp"], "virtual": False},
+        "Plain": {"donors": 3, "rows": 3, "tus": ["Code/P.cpp"], "kinds": {"base": 1}, "bases": [],
+                  "files": ["Code/P.cpp"], "virtual": False},
+        "Contracted": {"donors": 2, "rows": 2, "tus": ["Code/Q.cpp"], "kinds": {"base": 1}, "bases": [],
+                       "files": ["Code/Q.cpp"], "virtual": False},
         "Uncensused": {"donors": 4, "rows": 4, "tus": ["Code/W.cpp"], "kinds": {"base": 1}, "bases": [],
                        "files": ["Code/W.cpp"]}},
     # run --apply rewrites every census unit, including ones no merge donor names
-    "census": {"UpdateModule": ["Code/U.cpp", "Code/Elsewhere/NoRows.cpp"], "BehaviorModule": ["Code/U.cpp"]},
+    "census": {"UpdateModule": ["Code/U.cpp", "Code/Elsewhere/NoRows.cpp"], "BehaviorModule": ["Code/U.cpp"],
+               "Plain": ["Code/P.cpp"], "Contracted": ["Code/Q.cpp"]},
     "destinations": {"UpdateModule": {"header": "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
                                       "evidence": "bfme1: game/GameEngine/Include/GameLogic/Module/UpdateModule.h"},
-                     "BehaviorModule": {"header": None, "why": "bfme1 defines BehaviorModule in 2 headers"}},
+                     "BehaviorModule": {"header": None, "why": "bfme1 defines BehaviorModule in 2 headers"},
+                     "Plain": {"header": "Code/GameEngine/Include/Common/Plain.h", "evidence": "zh: Plain.h"},
+                     "Contracted": {"header": "Code/GameEngine/Include/Common/Contracted.h", "evidence": "zh: C.h"}},
 }
 
 
 def _merge_lane(rq, monkeypatch, payload, note=""):
     import header_adopt_lane
+    contracts = Path(rq.ROOT) / "reverse/class_contracts"
+    contracts.mkdir(parents=True, exist_ok=True)
+    (contracts / "Contracted.json").write_text(json.dumps({"fields": [{"kind": "VPTR"}], "vslots": {"0": {}}}))
+    monkeypatch.setattr(header_adopt_lane.class_contract, "CONTRACTS", contracts)
     monkeypatch.setattr(header_adopt_lane, "ROOT", Path(rq.ROOT))
     monkeypatch.setattr(header_adopt_lane, "registered", lambda: {"Coord3D": "Coord3D.h", "AsciiString": "a.h"})
     monkeypatch.setattr(header_adopt_lane, "merge_payload_nonblocking", lambda: (payload, note))
@@ -2508,14 +2519,21 @@ def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_pat
     assert [i["merge_donors"] for i in items if i["check"] == "class-header"] == [40, 40]
     establish = {i["class"]: i for i in items if i["check"] == "class-header-establish"}
     assert [(i["class"], i["merge_donors"]) for i in items if i["check"] == "class-header-establish"] == [
-        ("BehaviorModule", 300), ("UpdateModule", 300)]                 # Uncensused: footprint unknown
+        ("BehaviorModule", 300), ("UpdateModule", 300), ("Plain", 3), ("Contracted", 2)]  # not Uncensused
     assert "1 more without a cached census not served" in note
-    assert "2 class(es) without a header ranked by merge donors" in note
+    assert "4 class(es) without a header ranked by merge donors" in note
     um = establish["UpdateModule"]
     assert um["claim"] == ["class:UpdateModule", "file:Code/Elsewhere/NoRows.cpp",
                            "file:Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
                            "file:Code/U.cpp", "file:Code/U_xfer.cpp"]
-    assert "--header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h --generate" in um["start"]
+    # polymorphic: generate() writes no virtuals, so the header is written by hand and adopted as given
+    assert "generate() emits no virtual functions" in um["obstacle"] and "OBSTACLE" in um["why"]
+    assert "by hand at Code/GameEngine/Include/GameLogic/Module/UpdateModule.h" in um["start"]
+    assert "--header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h --sample 60 (no --generate)" in um["start"]
+    assert " --generate --sample" not in um["start"]
+    plain, contracted = establish["Plain"], establish["Contracted"]
+    assert "obstacle" not in plain and "--header Code/GameEngine/Include/Common/Plain.h --generate" in plain["start"]
+    assert "obstacle" in contracted and " --generate --sample" not in contracted["start"]   # its contract has slots
     bm = establish["BehaviorModule"]
     assert "--header" not in bm["start"].split("then python3")[0] and "dest --class BehaviorModule" in bm["start"]
     assert "never invent" in bm["start"] and "class_contract.py --class BehaviorModule" in bm["start"]

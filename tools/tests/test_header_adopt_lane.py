@@ -392,6 +392,7 @@ def test_compute_merge_blockers_counts_donors_rows_tus_and_bases():
     um = got["UpdateModule"]
     assert (um["donors"], um["rows"], um["tus"]) == (4, 5, ["Code/A.cpp", "Code/B.cpp"])
     assert um["kinds"] == {"base": 2} and um["bases"] == ["Module"]
+    assert um["virtual"] is True and got["Coord3D"]["virtual"] is False    # XFER_VIEW declares a virtual
     assert got["Coord3D"]["kinds"] == {"canonical-copy": 1}
 
 
@@ -451,6 +452,15 @@ def test_merge_cache_reuses_an_ancestor_only_with_the_same_fingerprint(merge_cac
     state["ancestor"] = False
     state["inputs"] = ("headE", "")
     assert lane.merge_blockers() == {"X": {"donors": 3}}
+
+
+def test_merge_cache_ignores_an_entry_of_another_payload_version(merge_cache, monkeypatch):
+    _, state = merge_cache
+    lane.merge_blockers()
+    monkeypatch.setattr(lane, "MERGE_PAYLOAD_VERSION", lane.MERGE_PAYLOAD_VERSION + 1)
+    state["inputs"] = ("headB", "")                                    # neither exact nor ancestor reuse
+    assert lane.cached_merge_payload(("headA", "")) is None and lane.cached_merge_payload(state["inputs"]) is None
+    assert lane.merge_blockers() == {"X": {"donors": 2}}
 
 
 def test_porcelain_z_keeps_the_first_path_whole_and_both_rename_paths():

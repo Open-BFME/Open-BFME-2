@@ -1187,6 +1187,15 @@ def data_identity_items():
 HEADER_ESTABLISH_LIMIT = 30   # classes without a header served at once, by merge donors unblocked
 
 
+def _contract_virtual(path):
+    """Does the frozen contract at `path` give the class a vfptr or virtual slots?"""
+    try:
+        contract = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return False
+    return bool(contract.get("vslots")) or any(f.get("kind") == "VPTR" for f in contract.get("fields", ()))
+
+
 def header_items():
     """(items, note): reverse/header_queue.tsv units that did not adopt their class's
     canonical header (tools/header_adopt_lane.py run --apply queues them), classes whose
@@ -1263,12 +1272,29 @@ def header_items():
         dest = destinations.get(name) or {"header": None, "why": "no destination cached"}
         files = sorted(set(d.get("files", ())) | set(census[name]) | ({dest["header"]} if dest["header"] else set()))
         contract = contracts / (header_adopt_lane.class_contract.portable_component(name) + ".json")
-        generate = (f"python3 tools/header_adopt_lane.py run --class {name} --header {dest['header']} --generate "
-                    f"--sample 60 (destination from {dest['evidence']}), then --apply" if dest["header"] else
-                    f"no header destination ({dest['why']}): run python3 tools/header_adopt_lane.py dest --class "
-                    f"{name}, choose an official BFME path from its evidence (never invent one), then python3 "
-                    f"tools/header_adopt_lane.py run --class {name} --header PATH --generate --sample 60, then --apply")
+        if d.get("virtual") or _contract_virtual(contract):
+            # generate() writes no virtual functions yet (docs/linking_obstacles.md, "Module base
+            # chain"): a polymorphic class's header is written by hand and adopted as a fixed header
+            where = (f"at {dest['header']} (from {dest['evidence']})" if dest["header"] else
+                     f"at the official BFME path python3 tools/header_adopt_lane.py dest --class {name} names "
+                     f"(none now: {dest['why']}; choose from its evidence, never invent one)")
+            obstacle = ("header_adopt_lane generate() emits no virtual functions (docs/linking_obstacles.md, "
+                        "\"Module base chain\"), and this class is polymorphic")
+            generate = (f"write {name}'s canonical header by hand {where} from the contract and the retail "
+                        f"vtables (class_contract.py's vslots, reverse/vtables.tsv), then python3 "
+                        f"tools/header_adopt_lane.py run --class {name} --header "
+                        f"{dest['header'] or 'PATH'} --sample 60 (no --generate), then --apply")
+        else:
+            obstacle = ""
+            generate = (f"python3 tools/header_adopt_lane.py run --class {name} --header {dest['header']} "
+                        f"--generate --sample 60 (destination from {dest['evidence']}), then --apply"
+                        if dest["header"] else
+                        f"no header destination ({dest['why']}): run python3 tools/header_adopt_lane.py dest "
+                        f"--class {name}, choose an official BFME path from its evidence (never invent one), then "
+                        f"python3 tools/header_adopt_lane.py run --class {name} --header PATH --generate --sample "
+                        "60, then --apply")
         establish.append({
+            **({"obstacle": obstacle} if obstacle else {}),
             "tier": "header", "check": "class-header-establish", "class": name, "target_rva": "",
             "function": name, "source": (d.get("files") or [""])[0], "size": 0, "credit": 0,
             "rank": rank.get(name, len(rank)), "ranks": len(rank) + 1, "merge_donors": score,
@@ -1277,7 +1303,7 @@ def header_items():
                             "; the rest through classes that need it first)"),
             "why": (f"no canonical header for {name}; its private views disagree inside queued merges ("
                     + (", ".join(f"{k} {n}" for k, n in sorted(d.get("kinds", {}).items())) or
-                       "needed first by a class that does") + ")"),
+                       "needed first by a class that does") + ")" + (f"; OBSTACLE: {obstacle}" if obstacle else "")),
             "header": dest["header"] or "",
             "start": ((f"python3 tools/class_contract.py --class {name} --write; " if not contract.exists() else
                        f"read {contract.relative_to(ROOT).as_posix()}; ") + generate
