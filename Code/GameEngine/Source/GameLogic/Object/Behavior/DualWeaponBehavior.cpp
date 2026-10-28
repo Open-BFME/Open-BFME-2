@@ -30,6 +30,7 @@
 class Thing;
 class ModuleData;
 class Object;
+class Xfer;
 class BehaviorModuleBase
 {
 public:
@@ -62,6 +63,7 @@ class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime frame);
 private:
