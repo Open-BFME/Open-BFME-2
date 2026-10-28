@@ -47,7 +47,6 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class ElvenWoodSpecialPower : public SpecialPowerModule
 {
 public:
@@ -338,6 +337,8 @@ public:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp
+
 // Reuse the verified bool-constructor link view: inline the header body while
 // retaining retail's existing out-of-line owner at 0x0004C91A.
 
@@ -487,11 +488,32 @@ NameKeyType DarknessSpecialPower::getModuleNameKey() const
 	return TheDarknessSpecialPowerPoolKey;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerModuleDataCtor.cpp
+
+TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
+	: SpecialPowerModuleData()
+{
+	int *taintObject = &m_taintObject;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C5D608);
+	*taintObject = 0;
+	m_taintFX = 0;
+	m_taintOCL = 0;
+	m_taintRadius = 10.0f;
+}
+
 // tu-skeleton: 0x004C38FF 6B ?Rva004C38FFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004C3905 25B ??1Rva004C3905@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004C391E 69B ?getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp
+
+// ?getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ
+NameKeyType ElvenWoodSpecialPower::getModuleNameKey() const
+{
+	static NameKeyType TheElvenWoodSpecialPowerPoolKey =
+		TheNameKeyGenerator->nameToKey("ElvenWoodSpecialPower");
+	return TheElvenWoodSpecialPowerPoolKey;
+}
 
 // tu-skeleton: 0x004C3963 28B ??_GRva004C3905@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
 
@@ -597,19 +619,6 @@ NameKeyType DarknessSpecialPower::getModuleNameKey() const
 
 // tu-skeleton: 0x004C49AE 266B ?rva004C49AE@TaintSpecialPower@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerRva004C49AE.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerModuleDataCtor.cpp
-
-TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
-	: SpecialPowerModuleData()
-{
-	int *taintObject = &m_taintObject;
-	*(unsigned int *)this = ((unsigned int)vtbl_00C5D608);
-	*taintObject = 0;
-	m_taintFX = 0;
-	m_taintOCL = 0;
-	m_taintRadius = 10.0f;
-}
-
 // tu-skeleton: 0x004C4AEB 28B ??_GTaintSpecialPowerModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4B07 53B ??1TaintSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TaintSpecialPowerModuleDataDtor.cpp (not merged yet)
@@ -651,10 +660,6 @@ TaintSpecialPowerModuleData::TaintSpecialPowerModuleData()
 // tu-skeleton: 0x004C4F1C 71B ?doSpecialPowerAtLocation@DarknessSpecialPower@@UAEXPBUCoord3D@@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp (not merged yet)
 
 // tu-skeleton: 0x004C4F63 38B ??0DarknessSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/DarknessSpecialPowerModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FF3D 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078FF4A 10B __ehhandler$?getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078FF54 14B $L6620 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 

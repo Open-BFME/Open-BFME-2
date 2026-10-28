@@ -20603,8 +20603,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A041BC,4,.data,global,?$S1@?1??getModuleNameKey@ProductionSpeedBonus@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ProductionSpeedBonus.cpp,owned,,1,4
 0x00A041C0,4,.data,global,?TheOCLSpecialPowerPoolKey@?1??rva0004C3147@OCLSpecialPower@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerPoolKey.cpp,owned,,1,2
 0x00A041C4,4,.data,global,?$S1@?1??rva0004C3147@OCLSpecialPower@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerPoolKey.cpp,owned,,1,4
-0x00A041C8,4,.data,global,?TheElvenWoodSpecialPowerPoolKey@?1??getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp,owned,,1,2
-0x00A041CC,4,.data,global,?$S1@?1??getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPowerPoolKey.cpp,owned,,1,4
+0x00A041C8,4,.data,global,?TheElvenWoodSpecialPowerPoolKey@?1??getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
+0x00A041CC,4,.data,global,?$S1@?1??getModuleNameKey@ElvenWoodSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,4
 0x00A041D0,4,.data,global,_s_rva007B2906,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A041D4,4,.data,global,?TheWeaponChangeSpecialPowerModulePoolKey@?1??getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,2
 0x00A041D8,8,.data,global,?$S2@?1??getModuleNameKey@WeaponChangeSpecialPowerModule@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,owned,,1,4
