@@ -67,8 +67,6 @@ public:
 	void setDrawableHidden(bool hidden);
 };
 class Matrix3D;
-// Pure slot placeholders for the consumed interface views; kept defined
-// so the views compose in any order.
 #define PURE_SLOT(n) virtual void s##n()=0;
 class RiderContain
 {
@@ -81,21 +79,55 @@ struct Rva0047727EObjectPositionView;
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #pragma intrinsic(memcpy)
 #include <stl/_construct.h>
+#pragma intrinsic(memcpy)
+// ?xfer@HordeTransportContain@@MAEXPAVXfer@@@Z, retail 0x0047714A, 59 bytes.
+// Slot 3 (offset 0x0C) of vtable 0x00845EB8 (class of
+// ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z in
+// HordeTransportContainCtor.cpp). Version1 via rowed 0x000053EE then
+// rowed TransportContain::xfer 0x00466DBC then int at +0x120 via Xfer
+// slot 0x7c and bool at +0x124 via Xfer slot 0x90 (same slots as
+// TransportContain::xfer uses for int at +0x100 and bool at +0x10C).
+// Layout from HordeTransportContainCtor (int -1000 at +0x120 and zero
+// byte at +0x124); Xfer declaration copied verbatim from
+// TransportContainXfer.cpp per xfer recipe.
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../../Include/Common/BfmeXfer.h"
+
 // Use the local scalar placement copy without emitting a competing template.
 namespace _STL {
 static inline void _Construct(int *dest, const int &value)
 { new (dest) int(value); }
 }
-#pragma intrinsic(memcpy)
+
 // The flattened output list holds raw object words.
 typedef _STL::list<int> RiderWordList;
+
 namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
+
 class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
+
 class Rva002716Holder 
 {
  public:void rva00271601(unsigned char);
  
 };
+
 class RemovalNotice {public:
 PURE_SLOT(00) PURE_SLOT(01) PURE_SLOT(02) PURE_SLOT(03) PURE_SLOT(04) PURE_SLOT(05) PURE_SLOT(06) PURE_SLOT(07) PURE_SLOT(08) PURE_SLOT(09)
 PURE_SLOT(10) PURE_SLOT(11) PURE_SLOT(12) PURE_SLOT(13) PURE_SLOT(14) PURE_SLOT(15) PURE_SLOT(16) PURE_SLOT(17) PURE_SLOT(18) PURE_SLOT(19)
@@ -766,6 +798,7 @@ public:
 };
 
 class DamageInfo;
+
 class Xfer;
 
 enum NameKeyType { NK_UNKNOWN = 0 };
@@ -787,28 +820,6 @@ public:
 	virtual UpdateSleepTime update();
 protected:
 	virtual void xfer(Xfer *xfer);
-};
-
-// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
-// bare jmp to the TransportContain base dtor.
-class __declspec(novtable) HordeTransportContain : public TransportContain {
-public:
-	virtual ~HordeTransportContain();
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void onDie(const DamageInfo *damageInfo);
-	virtual void exitObjectViaDoor(Object *,ExitDoorType);
-	void rva004779F9();
-	void rva0047778B();
-	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
-	void rva0047727E(Thing *object);
-	void rva0047748E();
-	void redeployOccupants();
-	void rva00463A4D(ContainmentList objects, int context);
-protected:
-	virtual void xfer(Xfer *xfer);
-private:
-	unsigned char prefix04[4];
-	Rva0047727EObjectPositionView *m_object;
 };
 
 class Rva00477AF3UpdateReceiver {
@@ -1101,6 +1112,49 @@ public:
 	virtual void slot18();
 };
 
+typedef bool Bool;
+
+typedef int Int;
+
+typedef unsigned int UnsignedInt;
+
+// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
+// bare jmp to the TransportContain base dtor.
+class __declspec(novtable) HordeTransportContain : public TransportContain {
+public:
+	virtual ~HordeTransportContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+	void rva004779F9();
+	void rva0047778B();
+	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
+	void rva0047727E(Thing *object);
+	void rva0047748E();
+	void redeployOccupants();
+	void rva00463A4D(ContainmentList objects, int context);
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	unsigned char prefix04[4];
+	Rva0047727EObjectPositionView *m_object;
+};
+
+// Saved state past the TransportContain base (offsets from the ctor's
+// stores: int -1000 at +0x120, zero byte at +0x124), read through a view so
+// the class keeps the shared polymorphic declaration.
+struct HordeTransportContainXferView
+{
+	char m_unrecovered00[ 0x120 ];
+	Int m_int120;
+	Bool m_bool124;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp
+
+// Pure slot placeholders for the consumed interface views; kept defined
+// so the views compose in any order.
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp
@@ -1388,24 +1442,6 @@ void HordeTransportContain::onDie(const DamageInfo *damageInfo)
 	}
 }
 
-// tu-skeleton: 0x00477003 149B ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00477098 6B ?Rva00477098Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004770A6 56B ?rva004770A6@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047710B 22B ?rva004632E0@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00477121 41B ?rva0050B238@HordeTransportContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047714A 59B ?xfer@HordeTransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004771CA 28B ??_GHordeTransportContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004771EB 147B ?isValidContainerFor@HordeTransportContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIsValidContainerFor.cpp (not merged yet)
-
-// tu-skeleton: 0x004772B8 25B ?rva00465011@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00477305Status.cpp
 
 void Rva00477305Owner::rva00477305(Object *src)
@@ -1425,10 +1461,6 @@ void Rva00477305Owner::rva00477305(Object *src)
 	this->slot18();
 	((Rva0046781F *)(self + 0x20))->rva0046781F(src, false);
 }
-
-// tu-skeleton: 0x004773D6 92B ?addToContain@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047748E 133B ?rva0047748E@HordeTransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainNestedRiders.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain_redeployOccupants.cpp
 
@@ -1480,6 +1512,37 @@ void HordeTransportContain::redeployOccupants()
  rva00463A4D(*reinterpret_cast<ContainmentList *>(&objects),(int)((char*)this+0x48));
  
 }
+
+// tu-skeleton: 0x00477003 149B ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00477098 6B ?Rva00477098Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004770A6 56B ?rva004770A6@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x0047710B 22B ?rva004632E0@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00477121 41B ?rva0050B238@HordeTransportContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainXfer.cpp
+
+void HordeTransportContain::xfer( Xfer *xfer )
+{
+	HordeTransportContainXferView *view = (HordeTransportContainXferView *)this;
+	xfer->Version1();
+	TransportContain::xfer( xfer );
+	*xfer == view->m_int120;
+	*xfer == view->m_bool124;
+}
+
+// tu-skeleton: 0x004771CA 28B ??_GHordeTransportContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004771EB 147B ?isValidContainerFor@HordeTransportContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x004772B8 25B ?rva00465011@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x004773D6 92B ?addToContain@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x0047748E 133B ?rva0047748E@HordeTransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainNestedRiders.cpp (not merged yet)
 
 // tu-skeleton: 0x00477BA2 447B ?rva00477BA2@HordeTransportContain@@QAEXPAVOldContain@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainRva00477BA2.cpp (not merged yet)
 
