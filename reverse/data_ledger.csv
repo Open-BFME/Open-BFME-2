@@ -20112,8 +20112,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0390C,4,.data,global,?$S21@?1??allow@PartitionFilterFlammable@@UAE_NPAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp,owned,,1,4
 0x00A03910,4,.data,global,?key_FlammableUpdate@?BB@??update@FireSpreadUpdate@@UAE?AW4UpdateSleepTime@@XZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp,owned,,1,2
 0x00A03914,4,.data,global,?$S1@?BB@??update@FireSpreadUpdate@@UAE?AW4UpdateSleepTime@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp,owned,,1,2
-0x00A03918,4,.data,global,?TheFireWeaponUpdatePoolKey@?1??getModuleNameKey@FireWeaponUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdatePoolKey.cpp,owned,,1,2
-0x00A0391C,4,.data,global,?$S1@?1??getModuleNameKey@FireWeaponUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdatePoolKey.cpp,owned,,1,4
+0x00A03918,4,.data,global,?TheFireWeaponUpdatePoolKey@?1??getModuleNameKey@FireWeaponUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,owned,,1,2
+0x00A0391C,4,.data,global,?$S1@?1??getModuleNameKey@FireWeaponUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp,owned,,1,4
 0x00A03920,4,.data,global,?TheOilSpillUpdatePoolKey@?1??getModuleNameKey@OilSpillUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdate.cpp,owned,,1,2
 0x00A03924,4,.data,global,?$S1@?1??getModuleNameKey@OilSpillUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdate.cpp,owned,,1,4
 0x00A03928,4,.data,global,_s_rva007B148C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
