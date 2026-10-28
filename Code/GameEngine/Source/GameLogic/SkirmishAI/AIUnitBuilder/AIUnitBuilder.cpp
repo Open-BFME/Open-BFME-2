@@ -95,16 +95,22 @@ public:
 
 // ?getAI@AIUnitBuilder@@QAEPAURva002A8AB1Record@@XZ @0x00598007 15B
 // Evidence: leaf lookup via global and rowed Rva002A8F24 rva002A8AB1 on member at +0x30; ready caller 0x00598CBC uses eax as pointer plus 0x160.
+struct MidVecHolder;
 struct Rva002A8AB1Record
 {
-	char _pad[0x16c];
-	void *m_16c;
+public:
+	char m_pad00[0x160];
+	MidVecHolder *m_160; // +0x160
+	char m_pad164[0x8];
+	void *m_16c; // +0x16C
 };
 
+class Player;
 class Rva002A8F24
 {
 public:
 	Rva002A8AB1Record *rva002A8AB1(void *p);
+	void *rva002A8F24(Player *player);
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -114,9 +120,13 @@ class AIUnitBuilder
 public:
 	Rva002A8AB1Record *getAI();
 	bool rva0059802E();
+	void *rva00598016();
+	int rva00598192(const AsciiString &key);
 private:
-	char _pad[0x30];
-	void *m_30;
+	char _pad[0x14];
+	_STL::list<int> m_list;	// +0x14
+	char m_pad18[0x30 - 0x14 - sizeof(_STL::list<int>)];
+	Player *m_player;	// +0x30
 };
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
@@ -260,13 +270,13 @@ template _STL::hashtable<_STL::pair<int const, Rva00598C7CElement>, int, _STL::h
 
 Rva002A8AB1Record *AIUnitBuilder::getAI()
 {
-	Rva002A8AB1Record *p = TheSkirmishAIManager->rva002A8AB1(m_30);
+	Rva002A8AB1Record *p = TheSkirmishAIManager->rva002A8AB1(m_player);
 	return p;
 }
 
 bool AIUnitBuilder::rva0059802E()
 {
-	Rva002A8AB1Record *p = TheSkirmishAIManager->rva002A8AB1(m_30);
+	Rva002A8AB1Record *p = TheSkirmishAIManager->rva002A8AB1(m_player);
 	return p->m_16c == 0;
 }
 

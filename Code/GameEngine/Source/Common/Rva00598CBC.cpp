@@ -35,8 +35,11 @@ struct MidVecHolder
 
 struct Rva002A8AB1Record
 {
-	char _pad0[0x160];
-	MidVecHolder *m_160;
+public:
+	char m_pad00[0x160];
+	MidVecHolder *m_160; // +0x160
+	char m_pad164[0x8];
+	void *m_16c; // +0x16C
 };
 
 class AIUnitBuilder
