@@ -52,3 +52,35 @@ No new census-linked coverage, image ownership or source-file reduction is
 claimed for the prerequisite. Current consumer-wide selection evidence remains
 bounded by the cached index; carry outgoing audit gaps into the next scheduled
 census. Raw checks and before objects are under `build/codex3-w3dview-*`.
+
+## Wind-down handoff
+
+The prerequisite is `54bf6d31b3` after publication's rebase and has been handed
+to the runner's shared publisher. The rebase preserved both obstacle-register
+entries and all distinct Microsoft-header queue records at its two conflicts.
+The ledger check passes after resolution. The refreshed naming snapshot is
+current (99 groups, 823 sources, 258 unresolved, no missing inputs).
+
+A supported post-prerequisite dry run was stopped after five minutes when
+`/control/codex3.winddown` appeared. It had no final accepted set or refusal
+verdict and applied no changes; its temporary source was removed normally.
+Do not interpret either interrupted trial as proof that the trimmed seed
+solves or retains the prior include failure. Retry the supported dry run in
+the next pass before planning donor changes.
+
+The prerequisite also passes `link_check.py --prepare-current`: one explicitly
+selected provider has strict reusable byte receipts. That check does not
+measure link closure or change the census/index/status.
+
+The first full post-rebase gate passed 98,945 functions, 2,203 data rows, all
+string/float/import references, DIR32 consistency, pin consistency, module
+registrations and the no-op patch. Its only failure was source presence:
+the concurrently running dry run's temporary `.W3DView.*.tu_skeleton.cpp`
+was visible to that check. The dry run's cleanup removed the file. A full
+gate on the stable tree without a concurrent merge trial passes every check:
+98,945 functions, 2,203 data rows, 31,537 string literals plus 2,247 empty
+references, 9,116 float literals, 6,424 imports, DIR32 consistency, pins,
+module registrations, source presence and the no-op patch. Retain both logs
+under `build/codex3-post-rebase-*full-gate.log`.
+
+All 53 file-scope claims were released at wind-down.

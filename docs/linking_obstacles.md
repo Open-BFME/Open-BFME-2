@@ -9534,3 +9534,11 @@ stack, then reconcile its private-view rejects. The fresh pre-edit exhaustive
 trial was interrupted after 32 minutes without a final verdict; no paths moved.
 Preserve existing header and hatch debt. Consumer-wide selection and census
 confirmation remain pending; no new linking gain is claimed.
+
+Wind-down handoff: prerequisite `54bf6d31b3` is handed to the shared publisher.
+The post-prerequisite supported dry run was interrupted after five minutes by
+the runner's wind-down signal, without a final verdict or applied changes.
+Retry the supported dry run before changing donors. Strict reusable byte
+receipts cover the seed; they do not establish link closure.
+The stable post-rebase full gate passes every check (98,945 function rows and
+2,203 data rows). All 53 file-scope claims are released.
