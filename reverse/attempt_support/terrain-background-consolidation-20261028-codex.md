@@ -44,6 +44,12 @@ interrupted after several minutes without a verdict; a completed merge trial
 is needed to establish whether the reset donor can now be absorbed. The other view,
 declaration and mixed-source prerequisites below remain open.
 
+The next session refreshed the consolidation packet and retried the supported
+dry run at commit `0e5c37f39c`. It was interrupted after approximately half an
+hour while still compiling combinations, without an acceptance or rejection
+report. Do not infer a merge verdict from either interrupted run; a completed
+trial is still required.
+
 The complete dry run accepts only the seed, W3DMouseCursorSlotQuartet.cpp,
 Rva00112291TerrainDtor.cpp and Common/Rva00115DA7.cpp. Their combined 12 rows
 total 469 bytes. Its isolated candidate preserves all 579 external COMDAT
