@@ -44,6 +44,59 @@ original object. The frozen-file check passes. The ordinary two-input preview
 preserves LINKS for 1,882 destination bytes and 51 assignment bytes, 1,933
 authored bytes total, against index `d92e7e6635` (2026-10-28 15:58).
 
-Next: retry the supported merge after committing this prerequisite. Preserve
-the remaining fragments until their private views reconcile. No census,
+## Assignment composition
+
+The prerequisite is committed as `d0ffa98614`. After refreshing and reviewing
+the scoped planner, the supported merge accepts the destination and
+`Common/U4GlobalGuardedNotifies_Rva004ca223.cpp`. It removes one net source
+file and repoints exactly one function-ledger source cell and one TU-map
+source cell. TU assignments are not regenerated. Nine clean donors and all
+seven mixed files remain untouched. The merger's score is 16; the normal
+ledger verifier covers all 18 rows, including the retained EH rows.
+
+The composed unit passes `./build.sh` (18/18 rows, ten strings plus one empty
+string and one named import), strict current-receipt preparation, both EXACT
+EH graphs and the frozen-file check. Original versus composed COFF facts
+preserve all 44 external definitions, 44 external COMDAT byte-and-symbolic-
+relocation fingerprints, 43 unresolved names and both weak aliases. The
+merger's census-linked-input guard passes. The ordinary preview LINKS for
+1,933 authored bytes, equal to the two original units' sum; the destination's
+apparent increase is moved ownership, not new census coverage.
+
+## Registers and tooling audit
+
+Audit scope: `17e504a240` through the prerequisite and this assignment move.
+The combined old-path/basename search covers tools, hooks, workflows, source
+and header includes, root build/configuration files, docs and registers. No
+active consumer needs an update. Remaining mentions are the source-origin
+banner, historical evidence and the published link-status snapshot; these are
+preserved. No directory moves or discovery rules change.
+
+The absorbed assignment source owns no code/data identity baseline keys,
+header-adoption or Microsoft-header queue entries, flag overrides or hatches.
+The seed's existing hatch totals are unchanged. The supported merger transfers
+header ownership and refreshes the Microsoft-header queue; a repeat scoped
+refresh reports no delta. A standalone scan's whole-queue output was discarded
+before this scoped refresh. Both tracked queues retain unrelated entries.
+TU ownership and staged Microsoft-header checks pass. Data identity reports
+zero findings; converged enforcement checks eleven addresses with no second
+names or unjudged rows. Active function/map paths resolve to the destination.
+
+The outgoing audit of staged tree
+`ff6bb8441529bf47fbec91dbfa0f93671bdc6db4` against `17e504a240` is
+INCONCLUSIVE: index `d92e7e6635` predates the base, and affected consumer
+`Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp` lacks a current
+receipt. Consumer selection remains unverified. Carry this unit and its
+affected consumers into the next scheduled census.
+
+## Remaining work
+
+The tree constructor at 0x004CA6DA calls the already-rowed initializer at
+0x004CA13D without accessing tree fields. Its missing constructor and
+initializer declarations are a small next prerequisite to test. Client
+inheritance/vtable differences, entry/tree field views, the STL node duplicate
+and module-data parser declarations remain separate reconciliation work.
+
+The runner accepted the prerequisite for publication but reports a maintainer
+lock on master; queued commits remain immutable and await its retry. No census,
 smoke or ownership measurement is run, and no new linked bytes are claimed.

@@ -577,12 +577,17 @@ Status: Open. Inspected base: `17e504a240`; preview index: `d92e7e6635`
 (2026-10-28 15:58). The supported dry run rejects all ten clean donors beside
 the Update TU. Private manager/client declarations, tree/entry layouts and
 the STL node view need reconciliation; seven mixed sources remain untouched.
-The first prerequisite adds only the existing manager assignment-notification
-declaration. All 17 destination rows and both EH graphs stay exact; external
-definitions, COMDAT fingerprints, unresolved names and weak aliases are
-unchanged. Destination and assignment ordinary previews preserve LINKS for
-1,933 authored bytes. Next: retry the supported merge, then verify its accepted
-subset and affected consumers. Census confirmation remains pending.
+The prerequisite `d0ffa98614` adds only the existing manager notification
+declaration. The supported merge then absorbs the assignment donor, removing
+one source file. All 18 composed rows and both EH graphs stay exact; all 44
+external definitions and COMDAT fingerprints, 43 unresolved names and two weak
+aliases equal the original input union. The strict receipt passes and the
+ordinary preview preserves LINKS for 1,933 authored bytes. The outgoing audit
+is INCONCLUSIVE: its index predates the base and AIHarvestPrepareSiteState.cpp
+lacks a current receipt. Carry the composed unit and consumers into the next
+census. Nine clean donors and seven mixed sources remain; next test the tree
+constructor's missing declarations before broader layout/interface work.
+Census confirmation remains pending.
 [Evidence](../reverse/attempt_support/animation-sound-consolidation-20261028-codexb4.md).
 
 ### AptArray bounded composition (2026-10-28)

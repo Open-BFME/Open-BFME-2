@@ -326,6 +326,84 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// Three bodies from the 0x005E97B0..0x0060D680 slice whose whole content is a
+// null test around one call.
+//
+// 0x006057C0 (51 bytes) -- assignment with a self-check:
+//
+//     mov eax,[esp+4] / push esi / mov esi,ecx / cmp eax,esi / je OUT
+//     mov ecx,[eax+4]  / mov [esi+4], ecx
+//     mov edx,[eax+8]  / mov [esi+8], edx
+//     mov eax,[eax+0x10] / mov [esi+0x10],eax
+//     mov ecx,[<GLOBAL>] / test ecx,ecx / je OUT / push esi / call <A>
+//     OUT: mov eax,esi / pop esi / ret 4
+//
+// WHAT THE BYTES SHOW.  `mov eax,esi` before `ret 4` returns the receiver, and
+// the argument is compared against `this` before anything is copied: that is
+// `if (&other != this)` guarding a copy-assignment, and the returned receiver
+// is `return *this`.  THE COPIED FIELDS ARE 4, 8 AND 0x10 ONLY -- 0 and 0xC are
+// read by nothing and written by nothing, so the operator assigns three of the
+// class's members and leaves the others alone.  A compiler-generated assignment
+// would copy every member; a `memcpy`-shaped one would not skip a hole.  Both
+// jumps land on the same instruction, so the global test is INSIDE the
+// self-check, not after it.
+//
+// 0x00604C00 (22 bytes) -- the same global, a different call:
+//
+//     mov eax,ecx / mov ecx,[<GLOBAL>] / test ecx,ecx / je OUT
+//     add eax,-0xC / push eax / call <B> / OUT: ret
+//
+// `add eax,-0xC` on `this` with NO null guard around it is a pointer adjustment
+// the compiler knows cannot be null -- which `this` never is.  Subtracting is
+// base-to-DERIVED, so the receiver is a subobject at offset 0xC of the object
+// being handed over.  The two calls take differently adjusted pointers, so they
+// are two different entry points, and both are reached through the same global
+// dword at 0x012F10D0, which is therefore a pointer and is loaded into ecx --
+// a __thiscall receiver -- rather than pushed.
+//
+// 0x0060C2C0 (21 bytes) -- a free function guarding the receiver itself:
+//
+//     mov ecx,[esp+4] / test ecx,ecx / je OUT
+//     mov eax,[esp+8] / push eax / call <C> / OUT: ret 8
+//
+// The receiver arrives as an ORDINARY STACK ARGUMENT and is moved into ecx, and
+// the function pops its own two dwords: __stdcall wrapping a __thiscall call.
+// The null test is on the receiver, so the source tests the pointer it was
+// handed before calling through it.
+//
+// IDENTITY IS NOT RECOVERED.  Every name here is derived from an address, the
+// global's address is a DIR32 operand copied from retail, and the three call
+// targets are pinned in targets/game/reverse/symbols.csv by the addresses their REL32s
+// resolve to.  The unread fields are spelled `int` because a slot nothing
+// touches has no type in evidence.
+
+class U4Owner00604C00;
+
+class U4Assign006057C0;
+
+// The object the global at 0x012F10D0 points at.  Its two entry points are
+// 0x00409040 and 0x004090C0.
+class U4Notify
+{
+public:
+	void noteOwner( U4Owner00604C00 *o );
+};
+
+extern class AnimationSoundModuleManager *TheAnimationSoundModuleManager;
+
+// ---------------------------------------------------------------- 0x006057C0
+
+class U4Assign006057C0
+{
+public:
+	U4Assign006057C0 &operator=( const U4Assign006057C0 &other );
+	int m_f00;
+	int m_f04;
+	int m_f08;
+	int m_f0C;
+	int m_f10;
+};
+
 // tu-skeleton: 0x004C9DC9 80B ??1AnimationSoundClientBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
@@ -335,6 +413,8 @@ public:
 // tu-skeleton: 0x004C9E33 21B ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9E48 21B ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Behavior/AnimationSoundClientBehavior.cpp
 
@@ -400,10 +480,6 @@ void AnimationSoundClientBehavior::updateAnimationSounds()
  }
 }
 
-// tu-skeleton: 0x004C9E94 95B ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004C9EF3 69B ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002390CBDtor.cpp
 
 inline Rva002390CB::~Rva002390CB() {
@@ -423,11 +499,8 @@ void _bfmeRva002390CBInlineAnchor(Rva002390CB *p)
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x004C9F45 28B ??_GAnimationSoundClientBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9F61 21B ??0Rva004C9F61@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004C9F76 73B ??0Rva004C9E94@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/V3PolyDerivedCopyCtors.cpp
 
@@ -437,52 +510,12 @@ Rva004C9FBF::Rva004C9FBF(const Rva004C9FBF &other)
 	m_field08 = other.m_field08;
 }
 
-// tu-skeleton: 0x004C9FE0 56B ?rva004C9FE0@AnimationSoundTree@@QAEPAUAnimationSoundTreeNode@@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA018 39B ?rva004CA018@AnimationSoundTree@@QAEPAV1@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA03F 9B ??$_Destroy@VRva002390CB@@@_STL@@YAXPAVRva002390CB@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035BB4BDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA048 18B ?Rva004CA048Construct@@YAXPAXABVRva004C9E94@@@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA05A 203B ??0AnimationSoundClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004CA125Copy.cpp
 
 Rva00252B68::Rva00252B68(const Rva00252B68 &other)
 	: Rva004C9FBF(other)
 {
 }
-
-// tu-skeleton: 0x004CA13D 42B ?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA167 53B ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA19C 37B ?rva004CA19C@AnimationSoundTree@@QAEPAXPBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA1C1 98B ??0AnimationSoundClientBehavior@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorCopy.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA223 51B ??4U4Assign006057C0@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/Common/U4GlobalGuardedNotifies_Rva004ca223.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA256 20B ?rva004CA256@AnimationSoundTree@@QAE?AURva004CA256Cursor@@PBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA26A 41B ?rva004CA26A@AnimationSoundTree@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA293 149B ?rva004CA293@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PAU2@1PBX1@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA653 56B ??1AnimationSoundTree@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA68B 74B ?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA6DA 25B ??0AnimationSoundTree@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTree.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA6F3 26B ?insert@?$multiset@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Const_traits@H@_STL@@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA70D 63B ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorParse.cpp
 
@@ -553,6 +586,69 @@ void AnimationSoundClientBehaviorModuleData::buildFieldParse(MultiIniFieldParse 
 {
 	parse.add(reinterpret_cast<const FieldParse *>(s_animSoundFieldTable), 0);
 }
+
+// tu-skeleton: 0x004C9E94 95B ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9EF3 69B ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9F45 28B ??_GAnimationSoundClientBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9F61 21B ??0Rva004C9F61@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9F76 73B ??0Rva004C9E94@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x004C9FE0 56B ?rva004C9FE0@AnimationSoundTree@@QAEPAUAnimationSoundTreeNode@@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA018 39B ?rva004CA018@AnimationSoundTree@@QAEPAV1@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA03F 9B ??$_Destroy@VRva002390CB@@@_STL@@YAXPAVRva002390CB@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035BB4BDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA048 18B ?Rva004CA048Construct@@YAXPAXABVRva004C9E94@@@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA05A 203B ??0AnimationSoundClientBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundClientBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA13D 42B ?rva004CA13D@AnimationSoundTree@@QAEPAV1@PBX0@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA167 53B ?rva004CA167@AnimationSoundTree@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA19C 37B ?rva004CA19C@AnimationSoundTree@@QAEPAXPBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA1C1 98B ??0AnimationSoundClientBehavior@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorCopy.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/U4GlobalGuardedNotifies_Rva004ca223.cpp
+
+U4Assign006057C0 &U4Assign006057C0::operator=( const U4Assign006057C0 &other )
+{
+	if ( &other != this )
+	{
+		m_f04 = other.m_f04;
+		m_f08 = other.m_f08;
+		m_f10 = other.m_f10;
+		if ( (*(U4Notify **)&TheAnimationSoundModuleManager) != 0 )
+			(*(AnimationSoundModuleManager **)&TheAnimationSoundModuleManager)->rva00432E5D( (Rva00432F23Node *)this );
+	}
+	return *this;
+}
+
+// tu-skeleton: 0x004CA256 20B ?rva004CA256@AnimationSoundTree@@QAE?AURva004CA256Cursor@@PBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA26A 41B ?rva004CA26A@AnimationSoundTree@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA293 149B ?rva004CA293@AnimationSoundTree@@QAEXAAPAUAnimationSoundTreeNode@@PAU2@1PBX1@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA653 56B ??1AnimationSoundTree@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA68B 74B ?rva004CA68B@AnimationSoundTree@@QAEPAPAUAnimationSoundTreeNode@@PAPAU2@PBX@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA6DA 25B ??0AnimationSoundTree@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTree.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA6F3 26B ?insert@?$multiset@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Const_traits@H@_STL@@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA70D 63B ??0AnimationSoundClientBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CA74C 28B ??_GAnimationSoundClientBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/ClientModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x007905B4 13B $L310 -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
 
