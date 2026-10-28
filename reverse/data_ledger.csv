@@ -20539,8 +20539,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04040,4,.data,global,?TheHordeMemberCollidePoolKey@?1??getModuleNameKey@HordeMemberCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/HordeMemberCollidePoolKey.cpp,owned,,1,2
 0x00A04044,4,.data,global,?$S1@?1??getModuleNameKey@HordeMemberCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Die/HordeMemberCollidePoolKey.cpp,owned,,1,4
 0x00A04048,4,.data,global,_s_rva007B265A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A0404C,4,.data,global,?TheHealCrateCollidePoolKey@?1??getModuleNameKey@HealCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/HealCrateCollidePoolKey.cpp,owned,,1,2
-0x00A04050,4,.data,global,?$S1@?1??getModuleNameKey@HealCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/HealCrateCollidePoolKey.cpp,owned,,1,4
+0x00A0404C,4,.data,global,?TheHealCrateCollidePoolKey@?1??getModuleNameKey@HealCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp,owned,,1,2
+0x00A04050,4,.data,global,?$S1@?1??getModuleNameKey@HealCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/HealCrateCollide.cpp,owned,,1,4
 0x00A04054,4,.data,global,?TheMoneyCrateCollidePoolKey@?1??getModuleNameKey@MoneyCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,owned,,1,2
 0x00A04058,4,.data,global,?$S1@?1??getModuleNameKey@MoneyCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/MoneyCrateCollide.cpp,owned,,1,2
 0x00A0405C,4,.data,global,?TheShroudCrateCollidePoolKey@?1??getModuleNameKey@ShroudCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/ShroudCrateCollidePoolKey.cpp,owned,,1,2
