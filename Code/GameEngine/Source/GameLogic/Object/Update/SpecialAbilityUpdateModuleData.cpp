@@ -38,17 +38,17 @@ class Rva0044EB54Fields18
 public:
 	__forceinline Rva0044EB54Fields18()
 	{
-		m_1C = 0;
+		m_customAnimTime = 0;
 		m_20 = 0;
-		m_18 = -1;
-		m_24 = -1;
+		m_customAnimState = -1;
+		m_grabPassengerAnimState = -1;
 	}
 
 private:
-	int m_18;
-	int m_1C;
+	int m_customAnimState;
+	int m_customAnimTime;
 	int m_20;
-	int m_24;
+	int m_grabPassengerAnimState;
 };
 
 class SpecialAbilityUpdateModuleData : public Snapshot

@@ -38,8 +38,8 @@ class __declspec(novtable) Rva003ACD0F : public Rva003AC0DA
 public:
 	Rva003ACD0F(void *a, void *b);
 };
-Rva003ACD0F::Rva003ACD0F(void *a, void *b)
-	: Rva003AC0DA(a, b)
+Rva003ACD0F::Rva003ACD0F(void *a, void *moduleTemplate)
+	: Rva003AC0DA(a, moduleTemplate)
 {
 	*(void **)this = (void *)g_00C1CBE4;
 	*(void **)((char *)this + 0x14) = (void *)&s_slot3E4first;

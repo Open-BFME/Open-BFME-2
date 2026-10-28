@@ -37,13 +37,13 @@ inline FeNode *WaterTracksRenderSystem::findTrack(const float *start, const floa
 	FeNode *node = m_tail10;
 	while (node != 0)
 	{
-		unsigned char d1 = (node->m_60 == end[0]) ? 1 : 0;
-		unsigned char a1 = (node->m_64 == end[1]) ? 1 : 0;
-		if ((d1 & a1) != 0)
+		unsigned char endXMatches = (node->m_60 == end[0]) ? 1 : 0;
+		unsigned char endYMatches = (node->m_64 == end[1]) ? 1 : 0;
+		if ((endXMatches & endYMatches) != 0)
 		{
-			unsigned char d2 = (node->m_58 == start[0]) ? 1 : 0;
-			unsigned char a2 = (node->m_5c == start[1]) ? 1 : 0;
-			if ((d2 & a2) != 0)
+			unsigned char startXMatches = (node->m_58 == start[0]) ? 1 : 0;
+			unsigned char startYMatches = (node->m_5c == start[1]) ? 1 : 0;
+			if ((startXMatches & startYMatches) != 0)
 			{
 				if (node->m_30 == type)
 					return node;

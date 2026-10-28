@@ -78,8 +78,8 @@ public:
 	void bfmeSleepBJ(int first, int second, int third, int fourth, int fifth);
 
 	unsigned char m_bfmeHeadBJ[0x1c];
-	char m_bfmeDoneBJ;
-	char m_bfmeArmedBJ;
+	char m_active;
+	char m_pending;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerModuleDataParse.cpp
@@ -115,15 +115,15 @@ NameKeyType DeflectSpecialPower::getModuleNameKey() const
 
 void BfmeOwnBJ::bfmeSleepBJ(int first, int second, int third, int fourth, int fifth)
 {
-	if (m_bfmeDoneBJ)
+	if (m_active)
 		return;
 
-	if (m_bfmeArmedBJ)
+	if (m_pending)
 		return;
 
 	void *object = *(void **)((char *)this - 0x18);
 
-	m_bfmeArmedBJ = 1;
+	m_pending = 1;
 
 	((BfmeWakeBJ *)((char *)this - 0x20))->bfmeSetWakeBJ(object, 1);
 }

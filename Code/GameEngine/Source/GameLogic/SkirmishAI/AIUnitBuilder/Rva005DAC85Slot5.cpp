@@ -117,8 +117,8 @@ private:
 	void *m_40;
 };
 
-inline float maxv(float a, float b) { return a >= b ? a : b; }
-inline float maxi(float a, float b) { if (a >= b) return a; return b; }
+inline float maxv(float leftValue, float rightValue) { return leftValue >= rightValue ? leftValue : rightValue; }
+inline float maxi(float firstValue, float secondValue) { if (firstValue >= secondValue) return firstValue; return secondValue; }
 struct Rva005DACC0PlayerView { char pad[0x60]; Rva002A7389 sk; };
 // Retail 0x005DACC0..0x005DADD1, vtable 0x008765F8 slot 5. The player's
 // score-keeper subobject (+0x60) is read through a typed view: a pointer
@@ -138,9 +138,9 @@ void Rva005DAC85::updatePriority()
 	Rva005DACC0PlayerView *pv = (Rva005DACC0PlayerView *)m_40;
 	float fa = (float)pv->sk.get(0);
 	float div = fa / (float)((Rva002A7461 *)&pv->sk)->rva002A7461();
-	float v = rec->m_160->arrA[rec->m_16C] - div;
-	v *= rec->m_160->arrB[rec->m_16C];
-	float sum = slot2() + v;
+	float priorityAdjustment = rec->m_160->arrA[rec->m_16C] - div;
+	priorityAdjustment *= rec->m_160->arrB[rec->m_16C];
+	float sum = slot2() + priorityAdjustment;
 	float priority;
 	if (!(sum >= rec->m_160->arrA[3])) priority = rec->m_160->arrA[3];
 	else priority = sum;

@@ -296,17 +296,17 @@ struct Rva005C456FSub08
 class Rva005C456F
 {
 public:
-	void rva005C456F(Rva003F7B59 *arg);
+	void rva005C456F(Rva003F7B59 *evaBucket);
 private:
 	Int m_00;
 	Rva005C456FSub04 *m_04;
 	Rva005C456FSub08 *m_08;
 };
-void Rva005C456F::rva005C456F(Rva003F7B59 *arg)
+void Rva005C456F::rva005C456F(Rva003F7B59 *evaBucket)
 {
 	Rva005C456FSub08 *s = m_08;
-	if (s->m_08 != 0 || m_04->m_24 == arg->m_00)
-		arg->rva003F7B59((const AsciiString *)&s->m_0C, (Int)&s->m_10);
+	if (s->m_08 != 0 || m_04->m_24 == evaBucket->m_00)
+		evaBucket->rva003F7B59((const AsciiString *)&s->m_0C, (Int)&s->m_10);
 }
 
 class Rva005C47DC
@@ -319,9 +319,9 @@ private:
 };
 void Rva005C47DC::rva005C47DC(Int)
 {
-	Int v = m_14;
-	if (v > 0)
-		m_14 = v - 1;
+	Int remainingCount = m_14;
+	if (remainingCount > 0)
+		m_14 = remainingCount - 1;
 }
 
 class AsciiStringRef
@@ -346,9 +346,9 @@ private:
 };
 Int Rva0032AFA4::rva0032AFA4(char *buf)
 {
-	Rva0032AFA4Pair *p = m_04;
-	Int n = p->m_a.write(buf);
-	return p->m_b.write(buf + n) + n;
+	Rva0032AFA4Pair *stringPair = m_04;
+	Int bytesWritten = stringPair->m_a.write(buf);
+	return stringPair->m_b.write(buf + bytesWritten) + bytesWritten;
 }
 
 struct Rva003678D6Sub04

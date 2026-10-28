@@ -126,7 +126,7 @@ class Rva000E6AC0
 public:
 	virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
 	virtual bool slot04() = 0;
-	RefCountPtr<TextureClass> rva000E6AA4();
+	RefCountPtr<TextureClass> getTexture();
 
 	char m_pad004[0x38 - 4];
 	RefCountPtr<TextureClass> m_38;
@@ -241,8 +241,8 @@ void Rva000E6878IsAlphaBlendEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 void Rva000E69E6BaseTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E6AC0 *buffer = g_009EBC90;
-	if (buffer && buffer->rva000E6AA4())
-		effect->SetTexture(handle, buffer->rva000E6AA4().Peek_D3D_Base_Texture());
+	if (buffer && buffer->getTexture())
+		effect->SetTexture(handle, buffer->getTexture().Peek_D3D_Base_Texture());
 	else
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
@@ -252,11 +252,11 @@ void Rva000E69E6BaseTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 // rounding mode and a 32-bit FISTP. C++ casts instead emit truncation helpers;
 // /QIfist is incompatible with this unit's required /arch:SSE. Keep only this
 // proven x87 conversion in assembly; interpolation and upload are ordinary C++.
-static __forceinline long FloatToLong(float f)
+static __forceinline long FloatToLong(float inputValue)
 {
 	long i;
 	__asm {
-		fld [f]
+		fld [inputValue]
 		fistp [i]
 	}
 	return i;
@@ -282,10 +282,10 @@ void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle)
 			int minOffset = FloatToLong((float)floor((double)buffer->m_curSwayOffset[i]));
 			if (minOffset >= 0 && minOffset + 1 < NUM_SWAY_ENTRIES)
 			{
-				float f2 = buffer->m_curSwayOffset[i] - minOffset;
-				float f1 = 1.0f - f2;
-				Vector3 swayFactor = f1 * buffer->m_swayOffsets[minOffset]
-					+ f2 * buffer->m_swayOffsets[minOffset + 1];
+				float nextWeight = buffer->m_curSwayOffset[i] - minOffset;
+				float currentWeight = 1.0f - nextWeight;
+				Vector3 swayFactor = currentWeight * buffer->m_swayOffsets[minOffset]
+					+ nextWeight * buffer->m_swayOffsets[minOffset + 1];
 				float factor = buffer->m_curSwayFactor[i];
 				StoreSway(sway[i + 1], swayFactor.X * factor,
 					swayFactor.Y * factor, swayFactor.Z * factor);
@@ -295,7 +295,7 @@ void Rva000E68C5SwayOffsets(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVectorArray(handle, sway, MAX_SWAY_TYPES + 1);
 }
 
-RefCountPtr<TextureClass> Rva000E6AC0::rva000E6AA4()
+RefCountPtr<TextureClass> Rva000E6AC0::getTexture()
 {
 	return m_38;
 }
