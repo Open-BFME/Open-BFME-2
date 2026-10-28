@@ -29126,7 +29126,7 @@ _$E4,,0x007ACD20,26,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTex
 ?rva0049AE5E@Rva0049AE5E@@QAEXXZ,,0x0049AE5E,70,Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate.cpp,matched,triple findObjectByID clears flag via TheGameLogic
 ?_M_erase@Rva0018C262@@QAEXPAURva0018C262Node@@@Z,,0x0018C262,45,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,matched,recursive node free via rowed free caller 0x0018C316
 ?clear@Rva0018C262@@QAEXXZ,,0x0018C316,41,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,matched,list clear via rowed 0x0018C262 caller 0x0018C3E6
-??0Rva0018C54E@@QAE@XZ,,0x0018C54E,46,Code/Libraries/Source/WWVegas/WWLib/Rva0018C54ECtor.cpp,matched,ctor vector BfmeE16 at 0x14 caller new 0x28
+??0Rva0018C54E@@QAE@XZ,,0x0018C54E,46,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,matched,ctor vector BfmeE16 at 0x14 caller new 0x28
 ?rva00599534@Rva00599534@@QAEXH@Z,,0x00599534,48,Code/Libraries/Source/WWVegas/WWLib/Rva00599534EraseFirst.cpp,matched,list at +4 erase first match via rowed erase 0x00438539 callers 0x004EC911
 ??1IngameNoticeDisplay@@UAE@XZ,,0x004E61C8,105,Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp,matched,dtor vtable 0x008623CC calls 0x4E5D6E deletes +0xc virtual vector +0x10 base
 ??0Rva00785140Handle@@QAE@ABVAssetReference@@@Z,,0x000A9EB2,27,Code/GameEngine/Source/Common/Rva00785140HandleCtor.cpp,matched,vtable 0x00BC940C plus AssetReference copy via rowed callee
