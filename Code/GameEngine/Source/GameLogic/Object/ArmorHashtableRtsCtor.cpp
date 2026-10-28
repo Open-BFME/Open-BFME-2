@@ -101,6 +101,14 @@ struct equal_to
 
 typedef _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> > ArmorRtsMap;
 
+// Nothing here calls the table's destructor; this unit's unreferenced copy of
+// it is not retail's (Armor.cpp supplies that one).
+namespace _STL {
+template <> hashtable<pair<const NameKeyType, ArmorTemplate>, NameKeyType, rts::hash<NameKeyType>,
+    _Select1st<pair<const NameKeyType, ArmorTemplate> >, rts::equal_to<NameKeyType>,
+    allocator<pair<const NameKeyType, ArmorTemplate> > >::~hashtable();
+}
+
 // Instantiate the rowed constructors without the unresolved insertion path.
 // See ArmorHashtableRtsInsertDeferred.cpp for the original insertion rows.
 template _STL::hash_map<NameKeyType, ArmorTemplate, rts::hash<NameKeyType>, rts::equal_to<NameKeyType> >::hash_map();
