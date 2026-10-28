@@ -301,10 +301,13 @@ public:
 };
 
 class Anim2DTemplate;
-class Anim2DCollection
+class Anim2DCollection;
+// The 0x002D752D lookup is owned by this existing call-only view.
+struct Rva002D752DNode;
+class Rva002D752D
 {
 public:
-	Anim2DTemplate *findTemplate(const AsciiString &name);
+	Rva002D752DNode *rva002D752D(const StringBase<char> &name);
 };
 extern Anim2DCollection *TheAnim2DCollection;
 
@@ -689,7 +692,7 @@ UpdateSleepTime AutoHealBehavior::update()
 								const AsciiString &animName = TheGlobalData->m_getHealedAnimationName;
 								if (!((const StringBase<char> *)&animName)->isEmpty())
 								{
-									Anim2DTemplate *animTemplate = TheAnim2DCollection->findTemplate(animName);
+									Anim2DTemplate *animTemplate = (Anim2DTemplate *)((Rva002D752D *)TheAnim2DCollection)->rva002D752D(*(const StringBase<char> *)&animName);
 
 									if (animTemplate)
 									{

@@ -85,9 +85,3 @@ void INI::parseAnim2DDefinition( INI *ini )
 		ini->initFromINI( animTemplate, Anim2DTemplate::s_anim2DFieldParseTable );
 	}
 }
-
-// Placeholder names this unit's own object settles.  In retail each one holds
-// what the unit's matched code references or installs: the rowed function of
-// the vftable slot it occupies, or the function or datum the instruction
-// reaches, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?findTemplate@Anim2DCollection@@QAEPAVAnim2DTemplate@@ABVAsciiString@@@Z=?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z")

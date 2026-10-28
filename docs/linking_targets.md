@@ -26,6 +26,14 @@ The global selected-copy issue and full consumer/census confirmation remain
 open; the outgoing audit is inconclusive.
 [Evidence](../reverse/attempt_support/pathfinder-footprint-floor-link-20261028-codex.md).
 
+Additional current target (2026-10-28, base `2d245982a2`, index `41c28839bf`):
+AutoHealBehaviorPlayerScan.cpp now calls the existing animation lookup owner
+directly, retiring the alias from INI_parseAnim2DDefinition.cpp. All 15 affected
+rows and both EH graphs remain exact; parser, caller and provider preserve
+LINKS for 1,872 authored preview bytes. Full consumer/census verification
+remains pending after an inconclusive batch audit.
+[Evidence](../reverse/attempt_support/anim2d-alias-cleanup-20261028-codex.md).
+
 Additional current target (2026-10-28, base `cea5d968c5`, index `41c28839bf`):
 `W3DAptComponentColorPicker.cpp` previews LINKS for 1,660 authored bytes after
 keeping its unused inline `floorf` local. All 14 rows, both EH graphs and

@@ -1,0 +1,38 @@
+[
+  {
+    "source": "Code/GameEngine/Source/Common/INI/INI_parseAnim2DDefinition.cpp",
+    "before_sha256": "237b9047433bc28994a67a65d9fcbbca3d7a1d36f000912b982b47f8b1c3f79c",
+    "after_sha256": "27d2d3a58b7f03cc425e62463ed99357486ca478ad9904f43d32ac5dbe336bff",
+    "external_comdats": 3,
+    "same_comdat_names": true,
+    "bodies_and_relocations_equal_after_alias_resolution": true,
+    "changed_digests": [],
+    "removed_external_symbols": [],
+    "added_external_symbols": []
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "before_sha256": "2bc6dd008c3431eee89cc62e9c0bfc314da9f95cb7c226402a4d4642bb3aead4",
+    "after_sha256": "d735067f02c3249f43b9380d7f709e2e03a9fdcc1167690d74878cb824bf64f5",
+    "external_comdats": 43,
+    "same_comdat_names": true,
+    "bodies_and_relocations_equal_after_alias_resolution": true,
+    "changed_digests": [
+      "?update@AutoHealBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+    ],
+    "removed_external_symbols": [
+      [
+        "?findTemplate@Anim2DCollection@@QAEPAVAnim2DTemplate@@ABVAsciiString@@@Z",
+        false,
+        0
+      ]
+    ],
+    "added_external_symbols": [
+      [
+        "?rva002D752D@Rva002D752D@@QAEPAURva002D752DNode@@ABV?$StringBase@D@@@Z",
+        false,
+        0
+      ]
+    ]
+  }
+]
