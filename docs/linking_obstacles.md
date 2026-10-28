@@ -582,6 +582,20 @@ removes the public copy. `./build.sh`: 4/4 rows, 14 float literals, 4 named
 imports; EH graph EXACT. Ordinary preview: blocked to LINKS, 1,493 authored
 bytes. Preview only; carry into the next normal census.
 
+#### Streak renderer consumer subset (2026-10-28)
+
+Scoped repair at `771fab033f`, preview index `41c28839bf`:
+StreakRendererRenderStreak.cpp keeps math.h's unused inline `floorf` local.
+All four rows and the EH graph remain exact; all 80 retained external
+COMDAT fingerprints and dependency bindings are unchanged. The renderer's
+ordinary preview changes from blocked to LINKS for 14,007 authored bytes.
+Strict receipts cover it and the existing retail floor owner (6/6 rows).
+The owner retains its global selected-copy blocker. The outgoing audit is
+INCONCLUSIVE because its index predates the base and affected consumer
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry this
+scope into the next normal census; global clearance and census confirmation
+remain pending. [Evidence](../reverse/attempt_support/streak-renderer-floor-link-20261028-codex.md).
+
 ### BannerCarrierUpdate string-header composition (2026-10-28)
 
 Status: destructor prerequisite repaired and merged into the approved TU;

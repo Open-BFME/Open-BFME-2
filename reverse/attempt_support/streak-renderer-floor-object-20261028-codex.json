@@ -1,0 +1,18 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/StreakRendererRenderStreak.cpp",
+  "base_revision": "771fab033f8438b89fd91ca1521f9fadb0078e16",
+  "before_obj_sha256": "e0b426688502d18b7a8e05d788f950973cc5db6429c8149050dfe0432470acd7",
+  "after_obj_sha256": "f1eca64ebc42eb9662b1daf525dee40f66758cf9e1f7e5cf23a485afeda7e52c",
+  "removed": [
+    "_floorf"
+  ],
+  "added": [],
+  "changed": {},
+  "retained_comdats": 80,
+  "floorf_referenced_before": false,
+  "roots_unchanged": true,
+  "retained_edges_unchanged": true,
+  "strong_unchanged": true,
+  "undefined_unchanged": true,
+  "weak_unchanged": true
+}

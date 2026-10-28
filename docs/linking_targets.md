@@ -50,6 +50,14 @@ exact, and the owning tool retires one identity key. Full provider closure and
 consumer/census confirmation remain pending (LINK-134).
 [Evidence](../reverse/attempt_support/subsystem-registration-identity-20261028-codexb.md).
 
+Additional current target (2026-10-28, base `771fab033f`, preview index
+`41c28839bf`): `WW3D2/StreakRendererRenderStreak.cpp` now previews LINKS
+for 14,007 authored bytes after keeping its unused inline `floorf` local.
+All four rows, the EH graph and 80 retained COMDAT fingerprints remain exact.
+The outgoing consumer audit is inconclusive; global LINK-132/LINK-133 and
+census confirmation remain pending.
+[Evidence](../reverse/attempt_support/streak-renderer-floor-link-20261028-codex.md).
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):
