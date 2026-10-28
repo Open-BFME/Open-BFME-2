@@ -87,14 +87,14 @@ private:
 	unsigned int m_numElements;
 };
 
-_STL::pair<const AsciiString, TreeHintPayload00410E23> *Rva000427195::rva00410E23(const _STL::pair<const AsciiString, TreeHintPayload00410E23> *arg)
+_STL::pair<const AsciiString, TreeHintPayload00410E23> *Rva000427195::rva00410E23(const _STL::pair<const AsciiString, TreeHintPayload00410E23> *entry)
 {
 	rva00212858(m_numElements + 1);
-	int bucket = bucketIndex(&arg->first);
+	int bucket = bucketIndex(&entry->first);
 	void *old = m_beginBuckets[bucket];
-	void *n = (void *)((Pod44Table *)this)->_M_new_node(*(const Pod44Pair *)(const void *)arg);
-	*(void **)n = old;
-	m_beginBuckets[bucket] = n;
+	void *newNode = (void *)((Pod44Table *)this)->_M_new_node(*(const Pod44Pair *)(const void *)entry);
+	*(void **)newNode = old;
+	m_beginBuckets[bucket] = newNode;
 	++m_numElements;
-	return (_STL::pair<const AsciiString, TreeHintPayload00410E23> *)((char *)n + 4);
+	return (_STL::pair<const AsciiString, TreeHintPayload00410E23> *)((char *)newNode + 4);
 }

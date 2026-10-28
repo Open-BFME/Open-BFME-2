@@ -8,7 +8,7 @@ struct Rva0039161CBase
 class Rva0039161C : public Rva0039161CBase
 {
 public:
-	Rva0039161C(void const *p1, void const *p2, float f, bool b);
+	Rva0039161C(void const *position, void const *p2, float angle, bool b);
 	// Empty: retail's vtable 0x0081A05C slot 0 0x00395A19 calls 0x0049C38A, one vtable store and ret.
 	virtual ~Rva0039161C() {}
 private:
@@ -20,14 +20,14 @@ private:
 	bool m_1c;
 	bool m_1d;
 };
-Rva0039161C::Rva0039161C(void const *p1, void const *p2, float f, bool b)
+Rva0039161C::Rva0039161C(void const *position, void const *p2, float angle, bool b)
 {
-	int const *q = (int const *)p1;
+	int const *q = (int const *)position;
 	m_08 = q[0];
 	m_0c = q[1];
 	m_10 = q[2];
 	m_14 = p2;
-	m_18 = f;
+	m_18 = angle;
 	m_1c = b;
 	m_1d = true;
 }

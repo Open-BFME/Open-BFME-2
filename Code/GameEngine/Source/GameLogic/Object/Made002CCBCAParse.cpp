@@ -43,8 +43,8 @@ public:
 
 void q4Notify002CCBCA(void *ini, Made002CCBCA *m, int store, int d)
 {
-    MultiIniFieldParse tmp;
-    tmp.add((const FieldParse *)Rva00507552Get(), 0);
-    tmp.add(g_00864DCC, 0);
-    ((INI *)ini)->initFromINIMulti(m, tmp);
+    MultiIniFieldParse multiParse;
+    multiParse.add((const FieldParse *)Rva00507552Get(), 0);
+    multiParse.add(g_00864DCC, 0);
+    ((INI *)ini)->initFromINIMulti(m, multiParse);
 }

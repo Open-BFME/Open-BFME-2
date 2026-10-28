@@ -410,7 +410,7 @@ void Rva005105D7::OnRowShown(const char *params)
 // implicit destructor and the row constructor emitted in this unit.
 #pragma inline_depth(0)
 // ?bfmeAnchorRva005105D7Dtor absent-from-retail
-void bfmeAnchorRva005105D7Dtor(Rva005105D7 *p) { p->Rva005105D7::~Rva005105D7(); }
+void bfmeAnchorRva005105D7Dtor(Rva005105D7 *statusPage) { statusPage->Rva005105D7::~Rva005105D7(); }
 // ?bfmeAnchorAptRowListRow absent-from-retail
 void bfmeAnchorAptRowListRow(AptRowListRow *aptRowListRow) { aptRowListRow->AptRowListRow::AptRowListRow(); }
 #pragma inline_depth()

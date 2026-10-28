@@ -122,16 +122,16 @@ Rva00367E59::Rva00367E59(StateMachine *machine)
 class Rva004884ED : public State
 {
 public:
-	Rva004884ED(StateMachine *machine, int arg0);
+	Rva004884ED(StateMachine *machine, int task);
 
 private:
 	int m_20; // +0x20
 	int m_24; // +0x24
 };
 
-Rva004884ED::Rva004884ED(StateMachine *machine, int arg0)
+Rva004884ED::Rva004884ED(StateMachine *machine, int task)
 	: State(machine, 0xAA55FE2Fu)
-	, m_20(arg0)
+	, m_20(task)
 	, m_24(0)
 {
 }

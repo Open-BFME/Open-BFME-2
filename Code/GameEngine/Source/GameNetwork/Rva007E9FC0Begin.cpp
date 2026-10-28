@@ -72,10 +72,10 @@ void Rva007E9FC0Owner::begin(int n, void *peer)
 		m_264 = n;
 		m_254->m_inner->slot2(2, 0);
 		Rva007E9FC0Slot *s = m_250;
-		int r = s->slot4(m_258, m_230);
-		if (r)
+		int resultCode = s->slot4(m_258, m_230);
+		if (resultCode)
 		{
-			int tmp = r;
+			int tmp = resultCode;
 			m_254->m_inner->slot2(0, &tmp);
 		}
 	}

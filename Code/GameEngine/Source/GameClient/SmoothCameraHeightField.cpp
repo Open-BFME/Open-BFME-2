@@ -60,9 +60,9 @@ void SmoothCameraHeightField::Initialize( const R3HeightSample *source, int unus
 		high = 9999999.0f;
 	if( high < low )
 	{
-		float temporary = high;
+		float swapValue = high;
 		high = low;
-		low = temporary;
+		low = swapValue;
 	}
 
 	m_width = ( sourceWidth + 3 ) / 4;

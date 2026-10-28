@@ -108,10 +108,10 @@ void Rva0050407AParseColorControlPointBlock(INI *ini, void *instance, void *, co
 		record.m_base.m_time = msecToFramesRva00503E4F(record.m_base.m_time);
 		Rva002BE7DBValue color;
 		Rva002BE7DBValue &rv = ((Rva002BE7DB *)&record)->rva002BE7DB(color);
-		float v = rv.x;
-		color.x = v;
-		color.y = v;
-		color.z = v;
+		float intensity = rv.x;
+		color.x = intensity;
+		color.y = intensity;
+		color.z = intensity;
 		*(Block12 *)&record = *(const Block12 *)&color;
 		Rva0050407ACallback callback = (Rva0050407ACallback)userData;
 		if (callback)

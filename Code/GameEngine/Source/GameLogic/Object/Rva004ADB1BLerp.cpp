@@ -71,9 +71,9 @@ bool Rva004ADB1B::handlePackingProcessing()
 		denom = m_src->m_88;
 		other = m_src->m_c8;
 	} else {
-		float c8 = m_src->m_c8;
+		float targetOpacity = m_src->m_c8;
 		denom = m_src->m_84;
-		base = c8;
+		base = targetOpacity;
 		other = g_00BBB8D8;
 	}
 	float ratio = (float)m_num / (float)denom;
@@ -99,9 +99,9 @@ bool Rva004B0164::handlePackingProcessing()
 		denom = m_src->m_88;
 		other = m_src->m_cc;
 	} else {
-		float c8 = m_src->m_cc;
+		float disguiseOpacity = m_src->m_cc;
 		denom = m_src->m_84;
-		base = c8;
+		base = disguiseOpacity;
 		other = g_00BBB8D8;
 	}
 	float ratio = (float)m_num / (float)denom;

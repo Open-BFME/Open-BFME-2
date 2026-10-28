@@ -49,14 +49,14 @@ private:
 	char m_pad[0x1C];
 	bool m_20;
 	char m_pad2[3];
-	float m_24;
+	float m_radius;
 };
 
 void Rva0055D3F5::rva0055D3F5(Xfer *xfer)
 {
 	xfer->Version1();
 	*xfer == m_20;
-	*xfer == m_24;
+	*xfer == m_radius;
 }
 
 // Native 0x0055D422..0x0055D48C (106 bytes, RET 0xC): slot 4 of the same
@@ -66,8 +66,8 @@ void Rva0055D3F5::rva0055D3F5(Xfer *xfer)
 // The centre arrives by value and is moved in place.
 void Rva0055D3F5::rva0055D422(Coord3D pos)
 {
-	pos.z -= m_24 * 0.5f;
-	((TacticalView *)TheTacticalView)->slot12(&pos, m_24, 0xCCAAFFFF);
-	pos.z += m_24;
-	((TacticalView *)TheTacticalView)->slot12(&pos, m_24, 0xCCAAFFFF);
+	pos.z -= m_radius * 0.5f;
+	((TacticalView *)TheTacticalView)->slot12(&pos, m_radius, 0xCCAAFFFF);
+	pos.z += m_radius;
+	((TacticalView *)TheTacticalView)->slot12(&pos, m_radius, 0xCCAAFFFF);
 }

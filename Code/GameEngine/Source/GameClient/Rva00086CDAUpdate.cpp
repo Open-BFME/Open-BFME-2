@@ -21,8 +21,8 @@ void Rva00086761CameraMove::rva00086CDA()
 		float factor = m_220(num / denom);
 		float start = m_210;
 		float range = m_214 - start;
-		float v = range * factor + start;
-		m_3C = v;
+		float interpolatedValue = range * factor + start;
+		m_3C = interpolatedValue;
 	}
 	if (m_20C < m_208)
 		return;
