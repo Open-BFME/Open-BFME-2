@@ -10739,7 +10739,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00847B98,2164,.rdata,vtable,??_7Rva0047EB78@@6BRva0026E836_Root@@@,,literal,??_7Rva0047EB78@@6BRva0026E836_Root@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdateCtor.cpp,1,2
 0x0084840C,12,.rdata,vtable,??_7CivilianSpawnUpdate@@6BPB_Iface2@@@,,literal,??_7CivilianSpawnUpdate@@6BPB_Iface2@@@;??_7Rva0047F92D@@6BRva0047F92D_B2@@@,0,2
 0x00848418,96,.rdata,vtable,??_7CivilianSpawnUpdate@@6BPB_DeepBase@@@,,literal,??_7CivilianSpawnUpdate@@6BPB_DeepBase@@@;??_7Rva0047F92D@@6BRva0024A797@@@,0,2
-0x00848478,80,.rdata,global,?g_00C48478@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdateModuleDataCtor.cpp,owned,,1,1
+0x00848478,80,.rdata,global,?g_00C48478@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdate.cpp,owned,,1,1
 0x008484C8,104,.rdata,string,??_C@_0GH@MBBPFHHH@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,3
 0x00848530,124,.rdata,vtable,??_7CivilianSpawnUpdateModuleData@@6B@,,literal,,0,1
 0x008485AC,4,.rdata,vtable,??_7Rva0047FE25@@6B@,,literal,??_7Rva0047FE25@@6B@;??_7ShareExperienceBehavior@@6B@,0,2
@@ -19999,8 +19999,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03745,3,.data,global,?g_00E03745@@3EA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceIgnoreObstacle.cpp,owned,,1,162
 0x00A03748,4,.data,global,?TheAnimalAIUpdatePoolKey@?1??getModuleNameKey@AnimalAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp,owned,,1,2
 0x00A0374C,4,.data,global,?$S1@?1??getModuleNameKey@AnimalAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp,owned,,1,4
-0x00A03750,4,.data,global,?TheCivilianSpawnUpdatePoolKey@?1??getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdatePoolKey.cpp,owned,,1,2
-0x00A03754,4,.data,global,?$S1@?1??getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdatePoolKey.cpp,owned,,1,4
+0x00A03750,4,.data,global,?TheCivilianSpawnUpdatePoolKey@?1??getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdate.cpp,owned,,1,2
+0x00A03754,4,.data,global,?$S1@?1??getModuleNameKey@CivilianSpawnUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/CivilianSpawnUpdate.cpp,owned,,1,4
 0x00A03758,4,.data,global,_s_rva007B0FB8,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A0375C,4,.data,global,?TheShareExperienceBehaviorPoolKey@?1??getModuleNameKey@ShareExperienceBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,owned,,1,2
 0x00A03760,4,.data,global,?$S1@?1??getModuleNameKey@ShareExperienceBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp,owned,,1,4
