@@ -45,9 +45,36 @@ public:
 	unsigned char m_minimum;
 };
 
-// tu-skeleton: 0x004B6A5E 91B ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp
+
+//
+// ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B6A5E,
+// 91 bytes. Behavior-side module ctor: UpgradeModule base plus the four
+// most-derived vtable slots and the upgrade-name string cleared in the body.
+// Identity is the rowed GeometryUpgrade::friend_newModuleInstance at
+// 0x0025060A (news 0x20, calls this ctor with Thing* and ModuleData*) plus
+// the BFME1 GeometryUpgradeConstructor donor (same base call, same four
+// vtable slots at +0/+0xC/+0x10/+0x18, same AsciiString at +0x1C cleared
+// through the folded 0x36410).
+//
+// Shape follows the donor and the SubObjectsUpgrade file-unit (same four
+// slots; +0xC/+0x18 reuse 0xC57328/0xC58790 family-wide): the slots live
+// inside the 0x1C UpgradeModule footprint, so the most-derived ctor
+// re-emits all four before the member init (sibling
+// GeometryUpgradeModuleDataCtor precedent: compiler vtable store precedes
+// member nulls). No explicit stores and no statics; all four immediates
+// are DIR32-masked in comparison.
+
+// ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x004B6A5E
+GeometryUpgrade::GeometryUpgrade(Thing *thing, const ModuleData *moduleData) :
+	UpgradeModule(thing, moduleData)
+{
+	m_upgradeName.clear();
+}
 
 // tu-skeleton: 0x004B6AB9 6B ?Rva004B6AB9Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/GeometryUpgradePoolKey.cpp
 
@@ -194,19 +221,31 @@ void GeometryUpgrade::xfer(Xfer *xfer)
 	UpgradeModule::xfer(xfer);
 }
 
-// tu-skeleton: 0x004B6C39 28B ??_GGeometryUpgrade@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp (not merged yet)
-
 // tu-skeleton: 0x004B6C55 53B ??1GeometryUpgrade@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B6EE2 131B ??0GeometryUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004B6F81 114B ??1GeometryUpgradeModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp
 
-// tu-skeleton: 0x0078EEFF 8B Unwind@00b8eeff -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp (not merged yet)
+//
+// ??1GeometryUpgradeModuleData@@UAE@XZ, retail 0x004B6F81, 114 bytes.
+// ModuleData dtor: destroys the three AsciiStrings at +0x138 (state 4) then
+// +0x134 (state 3) then +0x130 (state 2) through the folded StringBase<char>
+// teardown at 0x00036410 then the two AsciiString vectors at +0x124 (state 1)
+// then +0x118 (state 0) through the rowed 0x2CC70 body then restores the
+// canonical Snapshot base vtable 0x00BBB554. Empty derived body with no
+// out-of-line base call; the inherited 0x118-byte state has no cleanup here.
+// Layout from the rowed ctor 0x004B6EE2
+// (base 0x118 via OpenContain 0x253487, vectors at +0x118/+0x124, strings at
+// +0x130/+0x134/+0x138, size 0x13C via factory 0x00250642) and table 0x858918.
+// Caller is the slot-0 ??_G at 0x004B6F65 (vtable 0x008589F0). Shape follows
+// RemoveUpgradeUpgradeModuleDataDtor (inline Snapshot teardown, novtable
+// derived, empty body, vectors via 0x2CC70). Canonical Snapshot also makes
+// the EH cleanup bind the existing 0x0049B47C destructor provider.
 
-// tu-skeleton: 0x0078EF07 11B Unwind@00b8ef07 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EF12 10B __ehhandler$??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeCtor.cpp (not merged yet)
+GeometryUpgradeModuleData::~GeometryUpgradeModuleData()
+{
+}
 
 // tu-skeleton: 0x0078EF33 8B Unwind@00b8ef33 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp (not merged yet)
 
@@ -225,15 +264,3 @@ void GeometryUpgrade::xfer(Xfer *xfer)
 // tu-skeleton: 0x0078EF85 14B Unwind@00b8ef85 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078EF93 10B __ehhandler$??0GeometryUpgradeModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EF9D 8B Unwind@00b8ef9d -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFA5 14B Unwind@00b8efa5 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFB3 14B Unwind@00b8efb3 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFC1 14B Unwind@00b8efc1 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFCF 14B Unwind@00b8efcf -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EFDD 10B __ehhandler$??1GeometryUpgradeModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeModuleDataDtor.cpp (not merged yet)
