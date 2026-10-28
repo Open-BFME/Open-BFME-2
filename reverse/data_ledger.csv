@@ -10546,8 +10546,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00840D64,56,.rdata,global,_s_vtable,Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeTowerBehavior.cpp,owned,,1,1
 0x00840D9C,12,.rdata,vtable,??_7Rva00458AAE@@6BRva00458AAE_B2@@@,,literal,??_7Rva00458AAE@@6BRva00458AAE_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehaviorCtor.cpp,1,2
 0x00840DA8,488,.rdata,vtable,??_7RampageBehavior@@6B@,,literal,??_7RampageBehavior@@6B@;??_7Rva00458AAE@@6BRva0024A797@@@,0,2
-0x00840F90,32,.rdata,global,?g_00C40F90@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehaviorModuleDataCtor.cpp,owned,,1,1
-0x00840FB0,12,.rdata,global,_s_secondary10,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehaviorCtor.cpp,owned,,1,1
+0x00840F90,32,.rdata,global,?g_00C40F90@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehavior.cpp,owned,,1,1
+0x00840FB0,12,.rdata,global,_s_secondary10,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehavior.cpp,owned,,1,1
 0x00840FBC,60,.rdata,vtable,??_7EnragedBehavior@@6B@,,literal,,0,1
 0x00840FF8,12,.rdata,vtable,??_7Rva00459154@@6BRva00459154_B2@@@,,literal,??_7Rva00459154@@6BRva00459154_B2@@@;_s_secondary10@Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp,1,2
 0x00841004,388,.rdata,vtable,??_7HitReactionBehavior@@6B@,,literal,??_7HitReactionBehavior@@6B@;??_7Rva00459154@@6BRva0024A797@@@,0,2
