@@ -158,7 +158,47 @@ def test_a_file_string_row_is_never_an_island(tmp_path):
     assert out[0x1000]["confidence"] == "proposed" and "noncontiguous" in out[0x1000]["evidence"]
 
 
-WB_HEADER = "target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
+def _helper_tu(tmp_path, ledger):
+    """A and B anchored (ZH defines their methods); M only hinted (no ZH, N=Code/X/M.cpp)."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X"
+    zh.mkdir(parents=True)
+    (zh / "A.cpp").write_text("".join(f"void A::{m}()\n{{\n}}\n" for m in "fgh"))
+    (zh / "B.cpp").write_text("".join(f"void B::{m}()\n{{\n}}\n" for m in "fghi"))
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join(
+        row(f"?{m}@{c}@@QAEXXZ", rva, 16, f"Code/X/{c}{m}.cpp") for c, m, rva in ledger))
+    return {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+
+
+def test_hinted_tu_reaching_past_two_anchored_tus_merges_with_neither(tmp_path):
+    """Retail 0x004A0E47..0x004A17C1: one MonsterDockUpdate row inside SupplyCenterDockUpdate's
+    run, its own run after RepairDockUpdate's. Merged into the first anchored TU it starts in,
+    that TU's span covered the second and neither was approved."""
+    out = _helper_tu(tmp_path, [("A", "f", 0x1000), ("A", "g", 0x1100), ("M", "s", 0x1180),
+                                ("A", "h", 0x1200), ("B", "f", 0x1400), ("B", "g", 0x1500),
+                                ("M", "a", 0x1700), ("M", "b", 0x1800), ("M", "c", 0x1900)])
+    for rva in (0x1000, 0x1100, 0x1200):
+        assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/X/A.cpp", "approved"), hex(rva)
+    for rva in (0x1400, 0x1500):
+        assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/X/B.cpp", "approved"), hex(rva)
+    for rva in (0x1180, 0x1700, 0x1800, 0x1900):
+        assert out[rva]["tu"] == "Code/X/M.cpp" and out[rva]["by"] == "N", hex(rva)
+
+
+def test_hinted_tu_within_its_anchored_neighbours_still_merges(tmp_path):
+    """Negative control (header-inline LZBuffer rows between Lz.cpp's and Huff.cpp's): every M
+    row lies inside the anchored TUs' extent, so M merges into A (U) and its row inside B's
+    run is an island, as before."""
+    out = _helper_tu(tmp_path, [("A", "f", 0x1000), ("A", "g", 0x1100), ("M", "s", 0x1180),
+                                ("A", "h", 0x1200), ("B", "f", 0x1300), ("B", "g", 0x1400),
+                                ("M", "a", 0x1450), ("B", "h", 0x1500), ("B", "i", 0x1600)])
+    assert (out[0x1180]["tu"], out[0x1180]["by"], out[0x1180]["confidence"]) == ("Code/X/A.cpp", "U", "approved")
+    assert out[0x1450]["tu"] == "Code/X/A.cpp" and "island" in out[0x1450]["evidence"]
+    for rva in (0x1300, 0x1400, 0x1500, 0x1600):
+        assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/X/B.cpp", "approved"), hex(rva)
+
+
+WB_HEADER ="target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
 
 
 def _wb(tmp_path, monkeypatch, foo_lead, bar_lead="Bar.cpp", foo_name="X::f", foo_was="",

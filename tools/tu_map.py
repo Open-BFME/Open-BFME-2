@@ -923,11 +923,14 @@ def build(layout, ledger=None):
             k = parent[k]
         return k
     order = sorted(span, key=lambda k: (span[k][0], k))
+    torn = contested(order, span, anchored)
     for i, a in enumerate(order):
         for b in order[i + 1:]:
             if span[b][0] > span[a][1]:
                 break
             if span[a][1] - span[a][0] > UNION_SPAN or span[b][1] - span[b][0] > UNION_SPAN:
+                continue
+            if a in torn or b in torn:
                 continue
             ra, rb = find(a), find(b)
             if ra == rb or (ra in anchored and rb in anchored):
@@ -1099,6 +1102,30 @@ def canonical_tu(row):
     """True when a tu_map row is approved under a name its evidence proves (not provisional):
     the only kind of approval rename.py and rename_files.py read as a canonical file name."""
     return row.get("confidence") == "approved" and not provisional_name(row)
+
+
+def contested(order, span, anchored):
+    """Unanchored TU keys whose span interleaves with two or more anchored TUs' spans (each
+    small enough to merge, UNION_SPAN) and also reaches past all of them. Interleaving says
+    the hinted class shares a file with one of them, not which, and the U merge would take
+    whichever starts first, stretching it across the other: MonsterDockUpdate's own run
+    0x004A137F..0x004A17C1 follows RepairDockUpdate, but one row at 0x004A0E47 inside
+    SupplyCenterDockUpdate's merged the whole class into SupplyCenterDockUpdate.cpp, whose
+    span then covered RepairDockUpdate; AIHarvestPrepareSiteState (0x00544AB3..0x00544FC6)
+    likewise stretched AIDock.cpp across AIHarvest.cpp's __FILE__ row 0x00544C62. Such a TU
+    merges with neither and stays its own unanchored TU, which breaks no span. A hinted TU
+    whose rows all lie within its anchored neighbours' extent (header-inline LZBuffer rows
+    between Lz.cpp's and Huff.cpp's) still merges: there islands() judges each row."""
+    small = [k for k in order if span[k][1] - span[k][0] <= UNION_SPAN]
+    out = set()
+    for k in small:
+        if k in anchored:
+            continue
+        lo, hi = span[k]
+        near = [span[a] for a in small if a in anchored and span[a][0] <= hi and span[a][1] >= lo]
+        if len(near) >= 2 and (lo < min(a for a, _ in near) or hi > max(b for _, b in near)):
+            out.add(k)
+    return out
 
 
 def islands(assigned, roots):
