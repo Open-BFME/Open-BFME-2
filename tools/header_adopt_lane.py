@@ -767,7 +767,6 @@ def run(args):
 # the most merge donors. The test is textual (tu_views' shared_classes plus each
 # view's head), so it is cheap; tu_views --dry-run gives the compiled verdict.
 
-MERGE_CACHE = SCRATCH / "merge_blockers.json"
 MERGE_KINDS = ("canonical-copy", "base", "fake-vtable", "vfptr", "vslot", "key/declspec")
 FIRST_VIRTUAL = re.compile(r"\bvirtual\b[^;{}()]*?(~?[A-Za-z_]\w*)\s*\(")
 FAKE_VTABLE = re.compile(r"\b(?:m_vtable|m_vtbl|m_vfptr|m_vptr|vtable|vfptr|vptr|_vptr)\b")
@@ -870,39 +869,54 @@ def merge_rank(blockers, canon, order=DEPENDENCY_ORDER):
     return sorted(((c, s, own[c]) for c, s in score.items() if s), key=lambda r: (-r[1], -needed_by[r[0]], -r[2], r[0]))
 
 
-def _git(*args):
-    got = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
-    return got.stdout.strip() if got.returncode == 0 else None
-
-
-def merge_inputs_key():
-    """HEAD plus the content of every dirty input (Code/, reverse/, a submodule off its pin),
-    or None when git cannot say: the merge queue (tu_map rebuilt from the reference trees
-    when stale) and the views are a pure function of those."""
-    head = _git("rev-parse", "HEAD")
-    dirty = _git("status", "--porcelain", "--untracked-files=all", "--", "Code", "reverse")
-    if not head or dirty is None:
+def _git(*args, strip=True):
+    got = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True, errors="replace")
+    if got.returncode:
         return None
-    pins = []                                    # `git submodule status` costs seconds; this, a few calls
-    for path in (_git("config", "-f", ".gitmodules", "--get-regexp", r"\.path$") or "").split("\n"):
-        path = path.split(" ", 1)[-1].strip()
+    return got.stdout.strip() if strip else got.stdout
+
+
+def porcelain_paths(status):
+    """[(code, path)] from `git status --porcelain -z`: a rename or copy carries its source as a
+    second NUL field, and both paths are inputs."""
+    fields, out, i = status.split("\0"), [], 0
+    while i < len(fields):
+        entry = fields[i]
+        i += 1
+        if len(entry) < 4:
+            continue
+        code = entry[:2]
+        out.append((code, entry[3:]))
+        if "R" in code or "C" in code:
+            if i < len(fields) and fields[i]:
+                out.append((code, fields[i]))
+            i += 1
+    return out
+
+
+def merge_inputs():
+    """(HEAD, dirty fingerprint) or None when git cannot say. The fingerprint is "" for a clean
+    tree, else a digest of every dirty Code/ or reverse/ path with its content and of every
+    submodule off its pin: the merge queue (tu_map rebuilt from the reference trees when stale),
+    the views and the registry are a pure function of those."""
+    head = _git("rev-parse", "HEAD")
+    status = _git("status", "--porcelain", "-z", "--untracked-files=all", "--", "Code", "reverse", strip=False)
+    if not head or status is None:
+        return None
+    parts = [f"{code} {path} {class_layouts.file_sha(ROOT / path)}" for code, path in porcelain_paths(status)]
+    for line in (_git("config", "-f", ".gitmodules", "--get-regexp", r"\.path$") or "").split("\n"):
+        path = line.split(" ", 1)[-1].strip()    # `git submodule status` costs seconds; this, two calls
         if path:
             want, got = _git("rev-parse", f"HEAD:{path}"), _git("-C", path, "rev-parse", "HEAD")
             if want != got:
-                pins.append(f"+{got} {path}")
-    dirty = "\n".join(filter(None, [dirty] + pins))
-    if not dirty:
-        return head
-    digest = class_layouts.hashlib.sha256(dirty.encode())
-    for line in sorted(dirty.splitlines()):
-        if line[:1] != "+":                                        # a submodule line names its commit
-            path = ROOT / line[3:].split(" -> ")[-1].strip('"')
-            digest.update(class_layouts.file_sha(path).encode())
-    return f"{head}+{digest.hexdigest()[:16]}"
+                parts.append(f"pin {path} {got}")
+    if not parts:
+        return head, ""
+    return head, class_layouts.sha("\n".join(sorted(parts)).encode())[:16]
 
 
 def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
-    """{class: {donors, rows, tus, kinds, bases}} over the merge queue (tu_skeleton.queue).
+    """{class: {donors, rows, tus, kinds, bases, files}} over the merge queue (tu_skeleton.queue).
     donors_of(tu) -> {file: rows}; read(file) -> text; both injectable for tests."""
     import tu_skeleton
     if queue is None:
@@ -937,38 +951,226 @@ def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
     return out
 
 
-MERGE_CACHE_HOURS = 12   # a ranking from an ancestor of HEAD this recent is reused (it only orders work)
+def census_index(names, sources=None, read=None):
+    """{class: [sources]} for `names`: every authored ledger source declaring a namespace-scope
+    body of the class, the units `run --apply` may rewrite (class_contract.census, in one pass;
+    the dependency views it strips with the class, STRIP_WITH, live in those same units)."""
+    names = set(names)
+    if sources is None:
+        sources = sorted({r["source"] for r in class_contract.ledger_rows()
+                          if r["source"].lower().endswith((".cpp", ".c"))
+                          and not r["source"].startswith(class_contract.GENERATED)})
+    read = read or (lambda f: (ROOT / f).read_text(encoding="latin-1"))
+    out = {n: [] for n in sorted(names)}
+    for source in sources:
+        try:
+            text = read(source)
+        except OSError:
+            continue
+        for name in set(class_layouts.class_bodies(text)) & names:
+            out[name].append(source)
+    return out
+
+
+# Official BFME header trees a canonical header's path is taken from: BFME 1's own game tree
+# first, then Zero Hour's (both mirror Code/ from their root).
+REFERENCE_HEADER_TREES = (("bfme1", "reference/open-bfme-1/game"),
+                          ("zh", "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"))
+
+
+def reference_header_index(trees=REFERENCE_HEADER_TREES, root=None):
+    """{tree label: {class: [header paths relative to the tree]}} for every namespace-scope body."""
+    root = Path(root or ROOT)
+    out = {}
+    for label, tree in trees:
+        index = collections.defaultdict(list)
+        base = root / tree
+        for path in sorted(base.rglob("*.h")) if base.is_dir() else ():
+            try:
+                text = path.read_text(encoding="latin-1")
+            except OSError:
+                continue
+            for name in dict.fromkeys(class_layouts.class_bodies(text)):
+                index[name].append(path.relative_to(base).as_posix())
+        out[label] = dict(index)
+    return out
+
+
+def header_destination(name, index, exists=None):
+    """{header, evidence} for `name`: the one official header (BFME 1, else ZH) that defines it,
+    at the same path under Code/; else {header: None, why}. An ambiguous or occupied path is
+    refused, never guessed: choose from the evidence and pass --header PATH to `run`."""
+    exists = exists or (lambda p: (ROOT / p).exists())
+    for label, tree in REFERENCE_HEADER_TREES:
+        found = index.get(label, {}).get(name, [])
+        if len(found) > 1:
+            return {"header": None, "why": f"{label} defines {name} in {len(found)} headers: " + ", ".join(found[:4])}
+        if found:
+            header = "Code/" + found[0]
+            if exists(header):
+                return {"header": None, "why": f"{header} ({label}: {tree}/{found[0]}) already exists; generating "
+                                               "would overwrite it"}
+            return {"header": header, "evidence": f"{label}: {tree}/{found[0]}"}
+    return {"header": None, "why": f"neither BFME 1 nor ZH defines {name} in a header"}
+
+
+MERGE_CENSUS_CLASSES = 60   # header-less classes ranked first get a census and a destination
+MERGE_CACHE_HOURS = 12      # a ranking from an ancestor of HEAD this recent is reused (it only orders work)
+MERGE_LOCK_SECONDS = 3600   # a refresh lock older than this is stale (its process died)
+
+
+def merge_cache_dir():
+    """The shared, content-addressed picker cache (repair_queue.cache_dir()): every worktree of
+    the clone shares one compute."""
+    import repair_queue
+    return repair_queue.cache_dir() / "merge_blockers"
+
+
+def _write_json(path, value):
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_suffix(f".{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(value, sort_keys=True), encoding="utf-8")
+        os.replace(tmp, path)
+    except OSError:
+        pass
+
+
+def reference_headers():
+    """reference_header_index(), cached by the BFME 1 submodule pin."""
+    pin = _git("rev-parse", "HEAD:reference/open-bfme-1") or "none"
+    path = merge_cache_dir() / f"reference_headers_{pin}.json"
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        index = reference_header_index()
+        _write_json(path, index)
+        return index
+
+
+def compute_merge_payload():
+    """{classes, census, destinations} for the current tree: the ranking and, for the
+    MERGE_CENSUS_CLASSES header-less classes ranked first, what establishing each touches."""
+    classes = compute_merge_blockers()
+    canon = registered()
+    top = [c for c, _, _ in merge_rank(classes, canon) if c not in canon][:MERGE_CENSUS_CLASSES]
+    index = reference_headers()
+    return {"classes": classes, "census": census_index(top),
+            "destinations": {c: header_destination(c, index) for c in top}}
+
+
+def _entry_name(head, fingerprint):
+    return f"{head}+{fingerprint or 'clean'}.json"
+
+
+def cached_merge_payload(inputs, directory=None):
+    """The payload stored for `inputs` = (head, fingerprint), else the newest one stored in the
+    last MERGE_CACHE_HOURS for an ancestor of HEAD with the same fingerprint (clean matches clean
+    only), else None."""
+    if inputs is None:
+        return None
+    directory = directory or merge_cache_dir()
+    head, fingerprint = inputs
+    try:
+        return json.loads((directory / _entry_name(head, fingerprint)).read_text(encoding="utf-8"))["payload"]
+    except (OSError, ValueError, KeyError):
+        pass
+    suffix = "+" + (fingerprint or "clean") + ".json"
+    try:
+        entries = sorted((p for p in directory.glob("*" + suffix) if p.name.endswith(suffix)),
+                         key=lambda p: (p.stat().st_mtime, p.name), reverse=True)
+    except OSError:
+        return None
+    for path in entries[:20]:
+        try:
+            cached = json.loads(path.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        if (cached.get("fingerprint") == fingerprint and "payload" in cached
+                and time.time() - cached.get("time", 0) < MERGE_CACHE_HOURS * 3600
+                and _git("merge-base", "--is-ancestor", cached.get("head", ""), head) is not None):
+            return cached["payload"]
+    return None
+
+
+def store_merge_payload(inputs, payload, directory=None):
+    if inputs is None:
+        return
+    head, fingerprint = inputs
+    _write_json((directory or merge_cache_dir()) / _entry_name(head, fingerprint),
+                {"head": head, "fingerprint": fingerprint, "time": int(time.time()), "payload": payload})
+
+
+def merge_payload(refresh=False):
+    """The payload for this tree, computed synchronously on a miss (`order --merges`, the
+    background refresh); refresh recomputes. A ranking orders work only."""
+    inputs = merge_inputs()
+    payload = None if refresh else cached_merge_payload(inputs)
+    if payload is None:
+        payload = compute_merge_payload()
+        store_merge_payload(inputs, payload)
+    return payload
 
 
 def merge_blockers(refresh=False):
-    """compute_merge_blockers(), cached in build/header_lane/: reused for the same inputs
-    (merge_inputs_key), or from an ancestor of HEAD computed in the last MERGE_CACHE_HOURS
-    (a pull moves the ranking little and a recompute walks every queued TU); --refresh
-    recomputes. A ranking orders work only; every verdict stays the lane's own."""
-    key = merge_inputs_key()
-    if not refresh and MERGE_CACHE.exists():
-        try:
-            cached = json.loads(MERGE_CACHE.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            cached = {}
-        if key and cached.get("key") == key:
-            return cached["classes"]
-        head = cached.get("head")
-        if (key and head and time.time() - cached.get("time", 0) < MERGE_CACHE_HOURS * 3600
-                and _git("merge-base", "--is-ancestor", head, "HEAD") is not None):
-            return cached["classes"]
-    classes = compute_merge_blockers()
-    if key:
-        SCRATCH.mkdir(parents=True, exist_ok=True)
-        MERGE_CACHE.write_text(json.dumps({"key": key, "head": key.split("+")[0], "time": int(time.time()),
-                                           "classes": classes}, sort_keys=True), encoding="utf-8")
-    return classes
+    return merge_payload(refresh)["classes"]
+
+
+def refresh_allowed():
+    """No detached refresh in CI, under pytest, or when BFME_NO_MERGE_REFRESH is set."""
+    return not any(os.environ.get(v) for v in ("CI", "PYTEST_CURRENT_TEST", "BFME_NO_MERGE_REFRESH"))
+
+
+def start_refresh(directory=None, spawn=None):
+    """Start one detached `refresh-merges` unless a refresh holds the lock (any seat of the clone;
+    a lock older than MERGE_LOCK_SECONDS is stale and taken over). Returns what happened."""
+    if not refresh_allowed():
+        return "no background refresh here (CI, pytest or BFME_NO_MERGE_REFRESH)"
+    directory = directory or merge_cache_dir()
+    lock = directory / "refresh.lock"
+    try:
+        directory.mkdir(parents=True, exist_ok=True)
+        if lock.exists() and time.time() - lock.stat().st_mtime > MERGE_LOCK_SECONDS:
+            lock.unlink()
+        fd = os.open(lock, os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+    except FileExistsError:
+        return "a background refresh is already running"
+    except OSError as exc:
+        return f"no background refresh ({exc})"
+    with os.fdopen(fd, "w") as handle:
+        handle.write(f"{os.getpid()} {int(time.time())}\n")
+    command = [sys.executable, str(Path(__file__).resolve()), "refresh-merges", "--lock", str(lock)]
+    try:
+        (spawn or _spawn_detached)(command)
+    except OSError as exc:
+        lock.unlink(missing_ok=True)
+        return f"no background refresh ({exc})"
+    return "a background refresh started (header_adopt_lane.py refresh-merges)"
+
+
+def _spawn_detached(command):
+    flags = {}
+    if os.name == "nt":
+        flags["creationflags"] = subprocess.DETACHED_PROCESS | subprocess.CREATE_NEW_PROCESS_GROUP
+    else:
+        flags["start_new_session"] = True
+    subprocess.Popen(command, cwd=ROOT, stdin=subprocess.DEVNULL, stdout=subprocess.DEVNULL,
+                     stderr=subprocess.DEVNULL, close_fds=True, **flags)
+
+
+def merge_payload_nonblocking():
+    """(payload or None, note) for the picker, which never computes: on a miss it starts one
+    background refresh and the caller ranks by DEPENDENCY_ORDER alone."""
+    payload = cached_merge_payload(merge_inputs())
+    if payload is not None:
+        return payload, ""
+    return None, "merge ranking not cached for this tree, DEPENDENCY_ORDER only; " + start_refresh()
 
 
 def print_merge_order(limit, refresh=False):
     canon, blockers = registered(), merge_blockers(refresh)
     contracts = {p.stem for p in class_contract.CONTRACTS.glob("*.json")} if class_contract.CONTRACTS.exists() else set()
-    print(f"classes by merge donors unblocked ({len(blockers)} block a queued merge; cache {MERGE_CACHE.relative_to(ROOT).as_posix()}):")
+    print(f"classes by merge donors unblocked ({len(blockers)} block a queued merge; cache {merge_cache_dir()}):")
     print(f"  {'class':<32} {'score':>5} {'own':>5} {'rows':>5} {'TUs':>4}  header/contract  kinds")
     for c, score, own in merge_rank(blockers, canon)[:limit]:
         d = blockers.get(c, {})
@@ -976,6 +1178,16 @@ def print_merge_order(limit, refresh=False):
             "contract" if class_contract.portable_component(c) in contracts else "-")
         kinds = " ".join(f"{k}:{n}" for k, n in sorted(d.get("kinds", {}).items()))
         print(f"  {c:<32} {score:5} {own:5} {d.get('rows', 0):5} {len(d.get('tus', ())):4}  {state:<15}  {kinds}")
+
+
+def print_destination(name):
+    """Where `run --generate` should write `name`'s header, with the evidence, or why not."""
+    dest = header_destination(name, reference_headers())
+    if dest["header"]:
+        print(f"{name}: --header {dest['header']}  ({dest['evidence']})")
+        return 0
+    print(f"{name}: no destination: {dest['why']}; choose an official BFME path and pass --header PATH")
+    return 1
 
 
 def main(argv=None):
@@ -986,6 +1198,10 @@ def main(argv=None):
     p.add_argument("--merges", type=int, nargs="?", const=30, metavar="N",
                    help="rank classes by merge donors their canonical header unblocks (top N, default 30)")
     p.add_argument("--refresh", action="store_true", help="recompute the merge-blocker cache")
+    p = sub.add_parser("dest", help="the official header path for a class's canonical header")
+    p.add_argument("--class", dest="name", required=True)
+    p = sub.add_parser("refresh-merges", help=argparse.SUPPRESS)   # the picker's detached refresh
+    p.add_argument("--lock", required=True)
     p = sub.add_parser("run")
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
@@ -1016,6 +1232,14 @@ def main(argv=None):
             print(f"{stage}:")
             for name in names:
                 print(f"  {name:<14} {len(class_contract.census(name)):5} private views  {canon.get(name, '-')}")
+        return 0
+    if args.cmd == "dest":
+        return print_destination(args.name)
+    if args.cmd == "refresh-merges":
+        try:
+            merge_payload(refresh=True)
+        finally:
+            Path(args.lock).unlink(missing_ok=True)
         return 0
     if args.cmd == "run":
         return run(args)

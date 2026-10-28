@@ -1198,7 +1198,12 @@ def header_items():
     (`class-header-establish`: contract, generate, apply through the lane).
     Each item claims `class:NAME` and includes every queued source of that class in
     its work footprint, even private views without member rows in the ledger. The
-    first diagnostic is often a member the header lacks, so the fix is class-wide. PASS TEST: the row's
+    first diagnostic is often a member the header lacks, so the fix is class-wide. An
+    establish item claims every file `run --apply` may rewrite: the class's census (every
+    authored unit with a private body of it, which holds the dependency views stripped with
+    it) and its header destination; a class whose census is not cached is not served. The
+    ranking is read from the shared picker cache only (header_adopt_lane.merge_payload_nonblocking):
+    a miss ranks by DEPENDENCY_ORDER and starts one background refresh. PASS TEST: the row's
     acceptance (`header_adopt_lane.py accept`), which retires the row when it passes."""
     if not (ROOT / HEADER_QUEUE).exists():
         return [], f"{HEADER_QUEUE} absent: class-header queue skipped"
@@ -1206,15 +1211,18 @@ def header_items():
     import header_adopt_lane
     rank = {name: i for i, (_, names) in enumerate(header_adopt_lane.DEPENDENCY_ORDER) for name in names}
     canon = header_adopt_lane.registered()
+    payload, merge_note = None, ""
     try:
         if Path(ROOT).resolve() != header_adopt_lane.ROOT.resolve():
             raise RuntimeError(f"the lane's tree is {header_adopt_lane.ROOT}, not {ROOT}")
-        blockers = header_adopt_lane.merge_blockers()
-        merges = {c: score for c, score, _ in header_adopt_lane.merge_rank(blockers, canon)}
-        merge_note = ""
+        payload, merge_note = header_adopt_lane.merge_payload_nonblocking()
     except Exception as exc:  # noqa: BLE001 - the ranking is advisory; say so instead of hiding it
-        blockers, merges = {}, {}
-        merge_note = f"; merge ranking unavailable ({type(exc).__name__}: {exc}): DEPENDENCY_ORDER only"
+        merge_note = f"merge ranking unavailable ({type(exc).__name__}: {exc}), DEPENDENCY_ORDER only"
+    merge_note = f"; {merge_note}" if merge_note else ""
+    payload = payload or {}
+    blockers, census, destinations = (payload.get("classes") or {}, payload.get("census") or {},
+                                      payload.get("destinations") or {})
+    merges = {c: score for c, score, _ in header_adopt_lane.merge_rank(blockers, canon)}
     credit = sources_bytes()
     items, gone = [], {}
     queued = list(csv.DictReader(io.StringIO(_read(HEADER_QUEUE)), delimiter="\t"))
@@ -1244,12 +1252,22 @@ def header_items():
         })
     queued_classes = {i["class"] for i in items}
     contracts = header_adopt_lane.class_contract.CONTRACTS
-    establish = []
+    establish, uncensused = [], 0
     for name, score, own in header_adopt_lane.merge_rank(blockers, canon):
         if name in canon or name in queued_classes or len(establish) >= HEADER_ESTABLISH_LIMIT:
             continue
+        if name not in census:            # its footprint is unknown: never serve a partial claim
+            uncensused += 1
+            continue
         d = blockers.get(name, {})
+        dest = destinations.get(name) or {"header": None, "why": "no destination cached"}
+        files = sorted(set(d.get("files", ())) | set(census[name]) | ({dest["header"]} if dest["header"] else set()))
         contract = contracts / (header_adopt_lane.class_contract.portable_component(name) + ".json")
+        generate = (f"python3 tools/header_adopt_lane.py run --class {name} --header {dest['header']} --generate "
+                    f"--sample 60 (destination from {dest['evidence']}), then --apply" if dest["header"] else
+                    f"no header destination ({dest['why']}): run python3 tools/header_adopt_lane.py dest --class "
+                    f"{name}, choose an official BFME path from its evidence (never invent one), then python3 "
+                    f"tools/header_adopt_lane.py run --class {name} --header PATH --generate --sample 60, then --apply")
         establish.append({
             "tier": "header", "check": "class-header-establish", "class": name, "target_rva": "",
             "function": name, "source": (d.get("files") or [""])[0], "size": 0, "credit": 0,
@@ -1260,11 +1278,11 @@ def header_items():
             "why": (f"no canonical header for {name}; its private views disagree inside queued merges ("
                     + (", ".join(f"{k} {n}" for k, n in sorted(d.get("kinds", {}).items())) or
                        "needed first by a class that does") + ")"),
+            "header": dest["header"] or "",
             "start": ((f"python3 tools/class_contract.py --class {name} --write; " if not contract.exists() else
-                       f"read {contract.relative_to(ROOT).as_posix()}; ")
-                      + f"python3 tools/header_adopt_lane.py run --class {name} --generate --sample 60, then --apply "
-                      "(the contract's evidence rules decide every attribute; an undecided one is not guessed)"),
-            "claim": [f"class:{name}"],
+                       f"read {contract.relative_to(ROOT).as_posix()}; ") + generate
+                      + " (the contract's evidence rules decide every attribute; an undecided one is not guessed)"),
+            "claim": [f"class:{name}"] + [f"file:{f}" for f in files],
             "pass_test": (f"reverse/canonical_classes.csv registers {name} through header_adopt_lane.py run --apply, "
                           "the adopted units build exact and the rest are queued in " + HEADER_QUEUE),
         })
@@ -1276,7 +1294,8 @@ def header_items():
     return vanished_items("header", gone, HEADER_QUEUE) + items + establish, (
         f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
         + f"; {len(establish)} class(es) without a header ranked by merge donors unblocked "
-          "(header_adopt_lane.py order --merges)" + merge_note)
+          "(header_adopt_lane.py order --merges)"
+        + (f", {uncensused} more without a cached census not served" if uncensused else "") + merge_note)
 
 
 def identity_items():

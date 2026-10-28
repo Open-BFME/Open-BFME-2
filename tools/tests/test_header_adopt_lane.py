@@ -1,6 +1,8 @@
 """header_adopt_lane: source surgery, header generation, failure taxonomy and the closure check."""
 import csv
+import os
 import sys
+import time
 from pathlib import Path
 from types import SimpleNamespace
 
@@ -407,19 +409,125 @@ def test_merge_rank_lifts_prerequisites_and_drops_invented_bases():
     assert lane.merge_rank(blockers, {}, order) == ranked              # deterministic
 
 
-def test_merge_blockers_cache_is_keyed_and_refreshable(tmp_path, monkeypatch):
-    monkeypatch.setattr(lane, "SCRATCH", tmp_path)
-    monkeypatch.setattr(lane, "MERGE_CACHE", tmp_path / "merge_blockers.json")
-    calls = []
-    monkeypatch.setattr(lane, "compute_merge_blockers", lambda: calls.append(1) or {"X": {"donors": len(calls)}})
-    key = ["abc"]
-    monkeypatch.setattr(lane, "merge_inputs_key", lambda: key[0])
-    monkeypatch.setattr(lane, "_git", lambda *a: None)                 # "abc" is no ancestor of a new HEAD
+@pytest.fixture
+def merge_cache(tmp_path, monkeypatch):
+    """The lane's merge cache in tmp_path, a fake tree state, and a counting compute."""
+    directory = tmp_path / "cache" / "merge_blockers"
+    monkeypatch.setattr(lane, "merge_cache_dir", lambda: directory)
+    state = {"inputs": ("headA", ""), "ancestor": True, "calls": 0}
+    monkeypatch.setattr(lane, "merge_inputs", lambda: state["inputs"])
+
+    def git(*args, strip=True):
+        if args[:2] == ("merge-base", "--is-ancestor"):
+            return "" if state["ancestor"] else None
+        return None
+    monkeypatch.setattr(lane, "_git", git)
+
+    def compute():
+        state["calls"] += 1
+        return {"classes": {"X": {"donors": state["calls"]}}, "census": {}, "destinations": {}}
+    monkeypatch.setattr(lane, "compute_merge_payload", compute)
+    return directory, state
+
+
+def test_merge_cache_is_keyed_by_head_and_dirty_fingerprint_and_refreshable(merge_cache):
+    _, state = merge_cache
     assert lane.merge_blockers() == {"X": {"donors": 1}}
-    assert lane.merge_blockers() == {"X": {"donors": 1}} and len(calls) == 1
+    assert lane.merge_blockers() == {"X": {"donors": 1}} and state["calls"] == 1
     assert lane.merge_blockers(refresh=True) == {"X": {"donors": 2}}
-    key[0] = "def"
+    state["inputs"] = ("headA", "f00d")                                # same HEAD, Code/ edited: a miss
     assert lane.merge_blockers() == {"X": {"donors": 3}}
-    key[0] = "ghi"
-    monkeypatch.setattr(lane, "_git", lambda *a: "")                   # an ancestor, recent: reused
-    assert lane.merge_blockers() == {"X": {"donors": 3}} and len(calls) == 3
+
+
+def test_merge_cache_reuses_an_ancestor_only_with_the_same_fingerprint(merge_cache):
+    _, state = merge_cache
+    lane.merge_blockers()                                              # clean headA
+    state["inputs"] = ("headB", "beef")                                # headA is an ancestor, but dirty
+    assert lane.merge_blockers() == {"X": {"donors": 2}} and state["calls"] == 2
+    state["inputs"] = ("headC", "")                                    # clean reuses clean headA
+    assert lane.merge_blockers() == {"X": {"donors": 1}} and state["calls"] == 2
+    state["inputs"] = ("headD", "beef")                                # dirty reuses the same dirt only
+    assert lane.merge_blockers() == {"X": {"donors": 2}} and state["calls"] == 2
+    state["ancestor"] = False
+    state["inputs"] = ("headE", "")
+    assert lane.merge_blockers() == {"X": {"donors": 3}}
+
+
+def test_porcelain_z_keeps_the_first_path_whole_and_both_rename_paths():
+    status = " M Code/x.cpp\0R  Code/new.cpp\0Code/old.cpp\0?? reverse/n.csv\0"
+    assert lane.porcelain_paths(status) == [(" M", "Code/x.cpp"), ("R ", "Code/new.cpp"), ("R ", "Code/old.cpp"),
+                                            ("??", "reverse/n.csv")]
+
+
+def test_merge_inputs_fingerprint_follows_the_first_dirty_file(tmp_path, monkeypatch):
+    (tmp_path / "Code").mkdir()
+    edited = tmp_path / "Code/x.cpp"
+    edited.write_text("int a;\n")
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    answers = {("rev-parse", "HEAD"): "head", ("config", "-f", ".gitmodules", "--get-regexp", r"\.path$"): ""}
+
+    def git(*args, strip=True):
+        if args[0] == "status":
+            assert strip is False and "-z" in args
+            return " M Code/x.cpp\0"
+        return answers.get(args)
+    monkeypatch.setattr(lane, "_git", git)
+    before = lane.merge_inputs()
+    edited.write_text("int b;\n")
+    after = lane.merge_inputs()
+    assert before[0] == after[0] == "head" and before[1] and before[1] != after[1]
+
+
+def test_census_index_lists_every_unit_with_a_private_body():
+    texts = {"Code/A.cpp": CTOR_VIEW, "Code/B.cpp": XFER_VIEW, "Code/C.cpp": "class Module;\n"}
+    got = lane.census_index(["UpdateModule", "Module", "Absent"], sources=sorted(texts), read=texts.__getitem__)
+    assert got == {"Absent": [], "Module": ["Code/A.cpp"], "UpdateModule": ["Code/A.cpp", "Code/B.cpp"]}
+
+
+def test_header_destination_takes_one_official_path_and_never_guesses(tmp_path):
+    bfme1, zh = (tmp_path / tree for _, tree in lane.REFERENCE_HEADER_TREES)
+    for base, rel, text in ((bfme1, "GameEngine/Include/GameLogic/Module/UpgradeModule.h", "class UpgradeModule { };\n"),
+                            (zh, "GameEngine/Include/GameLogic/Module/UpgradeModule.h", "class UpgradeModule { };\n"),
+                            (zh, "GameEngine/Include/Common/Team.h", "class Team { };\nclass TeamA { };\n"),
+                            (zh, "GameEngine/Include/Common/Team2.h", "class TeamA { };\n"),
+                            (zh, "GameEngine/Include/Common/Fwd.h", "class Absent;\n")):
+        (base / rel).parent.mkdir(parents=True, exist_ok=True)
+        (base / rel).write_text(text)
+    index = lane.reference_header_index(root=tmp_path)
+    none = lambda p: False                                             # noqa: E731
+    got = lane.header_destination("UpgradeModule", index, none)
+    assert got["header"] == "Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h"
+    assert got["evidence"].startswith("bfme1: ")                       # BFME 1 before ZH
+    assert lane.header_destination("Team", index, none)["header"] == "Code/GameEngine/Include/Common/Team.h"
+    assert lane.header_destination("TeamA", index, none)["header"] is None    # two headers: ambiguous
+    assert lane.header_destination("Absent", index, none)["header"] is None   # a declaration is no definition
+    occupied = lane.header_destination("Team", index, lambda p: True)
+    assert occupied["header"] is None and "overwrite" in occupied["why"]
+
+
+def test_picker_never_computes_and_starts_one_refresh(merge_cache, monkeypatch):
+    directory, state = merge_cache
+    monkeypatch.setattr(lane, "compute_merge_payload", lambda: pytest.fail("the picker computed the ranking"))
+    monkeypatch.setattr(lane, "refresh_allowed", lambda: True)
+    spawned = []
+    monkeypatch.setattr(lane, "_spawn_detached", spawned.append)
+    payload, note = lane.merge_payload_nonblocking()
+    assert payload is None and "DEPENDENCY_ORDER only" in note and "refresh started" in note
+    assert len(spawned) == 1 and "refresh-merges" in spawned[0] and (directory / "refresh.lock").exists()
+    payload, note = lane.merge_payload_nonblocking()                   # the lock holds: no duplicate
+    assert payload is None and "already running" in note and len(spawned) == 1
+    old = time.time() - lane.MERGE_LOCK_SECONDS - 60                   # a dead refresh's lock is taken over
+    os.utime(directory / "refresh.lock", (old, old))
+    lane.merge_payload_nonblocking()
+    assert len(spawned) == 2
+    lane.store_merge_payload(state["inputs"], {"classes": {"X": {"donors": 9}}})
+    assert lane.merge_payload_nonblocking() == ({"classes": {"X": {"donors": 9}}}, "")
+
+
+def test_no_background_refresh_under_pytest_or_ci(tmp_path, monkeypatch):
+    assert not lane.refresh_allowed()                                  # PYTEST_CURRENT_TEST is set here
+    monkeypatch.delenv("PYTEST_CURRENT_TEST", raising=False)
+    monkeypatch.setenv("CI", "true")
+    assert not lane.refresh_allowed()
+    assert "no background refresh" in lane.start_refresh(tmp_path, spawn=lambda c: pytest.fail("spawned"))
+    assert not (tmp_path / "refresh.lock").exists()

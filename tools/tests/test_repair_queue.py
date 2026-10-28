@@ -2469,13 +2469,8 @@ def test_transfer_requires_destination_in_index_not_just_worktree(tmp_path, monk
     assert rq.verify_missing_debt() == []
 
 
-def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_path, monkeypatch):
-    rq, _, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
-    import header_adopt_lane
-    import next_work
-    monkeypatch.setattr(header_adopt_lane, "ROOT", Path(rq.ROOT))
-    monkeypatch.setattr(header_adopt_lane, "registered", lambda: {"Coord3D": "Coord3D.h", "AsciiString": "a.h"})
-    monkeypatch.setattr(header_adopt_lane, "merge_blockers", lambda refresh=False: {
+MERGE_PAYLOAD = {
+    "classes": {
         "AsciiString": {"donors": 40, "rows": 90, "tus": ["Code/T.cpp"], "kinds": {"canonical-copy": 1},
                         "bases": [], "files": ["Code/GameEngine/Loco.cpp"]},
         "Coord3D": {"donors": 2, "rows": 3, "tus": ["Code/T.cpp"], "kinds": {"canonical-copy": 1},
@@ -2483,21 +2478,63 @@ def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_pat
         "UpdateModule": {"donors": 300, "rows": 900, "tus": ["Code/U.cpp", "Code/V.cpp"], "kinds": {"base": 2},
                          "bases": ["BehaviorModule"], "files": ["Code/U.cpp", "Code/U_xfer.cpp"]},
         "BehaviorModule": {"donors": 5, "rows": 9, "tus": ["Code/U.cpp"], "kinds": {"base": 1}, "bases": [],
-                           "files": ["Code/U.cpp"]}})
+                           "files": ["Code/U.cpp"]},
+        "Uncensused": {"donors": 4, "rows": 4, "tus": ["Code/W.cpp"], "kinds": {"base": 1}, "bases": [],
+                       "files": ["Code/W.cpp"]}},
+    # run --apply rewrites every census unit, including ones no merge donor names
+    "census": {"UpdateModule": ["Code/U.cpp", "Code/Elsewhere/NoRows.cpp"], "BehaviorModule": ["Code/U.cpp"]},
+    "destinations": {"UpdateModule": {"header": "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
+                                      "evidence": "bfme1: game/GameEngine/Include/GameLogic/Module/UpdateModule.h"},
+                     "BehaviorModule": {"header": None, "why": "bfme1 defines BehaviorModule in 2 headers"}},
+}
+
+
+def _merge_lane(rq, monkeypatch, payload, note=""):
+    import header_adopt_lane
+    monkeypatch.setattr(header_adopt_lane, "ROOT", Path(rq.ROOT))
+    monkeypatch.setattr(header_adopt_lane, "registered", lambda: {"Coord3D": "Coord3D.h", "AsciiString": "a.h"})
+    monkeypatch.setattr(header_adopt_lane, "merge_payload_nonblocking", lambda: (payload, note))
+    monkeypatch.setattr(header_adopt_lane, "merge_payload", lambda refresh=False: pytest.fail("the picker computed"))
+
+
+def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_path, monkeypatch):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    import next_work
+    _merge_lane(rq, monkeypatch, MERGE_PAYLOAD)
     items, note = rq.header_items()
     queued = [(i["class"], i["source"]) for i in items if i["check"] == "class-header"]
     # Coord3D's two donors rank with AsciiString's 40, and first: DEPENDENCY_ORDER puts value types before strings
     assert queued == [("Coord3D", "Code/GameEngine/Body.cpp"), ("AsciiString", "Code/GameEngine/Loco.cpp")]
     assert [i["merge_donors"] for i in items if i["check"] == "class-header"] == [40, 40]
-    establish = [i for i in items if i["check"] == "class-header-establish"]
-    assert [(i["class"], i["merge_donors"]) for i in establish] == [("BehaviorModule", 300), ("UpdateModule", 300)]
-    assert establish[0]["claim"] == ["class:BehaviorModule"] and "class_contract.py --class BehaviorModule" in \
-        establish[0]["start"] and "canonical_classes.csv registers BehaviorModule" in establish[0]["pass_test"]
+    establish = {i["class"]: i for i in items if i["check"] == "class-header-establish"}
+    assert [(i["class"], i["merge_donors"]) for i in items if i["check"] == "class-header-establish"] == [
+        ("BehaviorModule", 300), ("UpdateModule", 300)]                 # Uncensused: footprint unknown
+    assert "1 more without a cached census not served" in note
     assert "2 class(es) without a header ranked by merge donors" in note
+    um = establish["UpdateModule"]
+    assert um["claim"] == ["class:UpdateModule", "file:Code/Elsewhere/NoRows.cpp",
+                           "file:Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
+                           "file:Code/U.cpp", "file:Code/U_xfer.cpp"]
+    assert "--header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h --generate" in um["start"]
+    bm = establish["BehaviorModule"]
+    assert "--header" not in bm["start"].split("then python3")[0] and "dest --class BehaviorModule" in bm["start"]
+    assert "never invent" in bm["start"] and "class_contract.py --class BehaviorModule" in bm["start"]
+    assert "canonical_classes.csv registers BehaviorModule" in bm["pass_test"]
     factor = {i["class"]: next_work.debt_rank_factor(i) for i in items if i["check"] != "vanished-source"}
     assert factor["UpdateModule"] == 10 and factor["BehaviorModule"] == 10  # 1 + bit length of the donors
     assert factor["AsciiString"] == max(7, items[2]["ranks"] - items[2]["rank"])  # the larger of the two weights
     assert next_work.debt_rank_factor({"tier": "header", "rank": 0, "ranks": 9}) == 9
+
+
+def test_header_items_on_a_cache_miss_rank_by_dependency_order_only(tmp_path, monkeypatch):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    _merge_lane(rq, monkeypatch, None, "merge ranking not cached for this tree, DEPENDENCY_ORDER only; "
+                                       "a background refresh started")
+    items, note = rq.header_items()
+    assert [(i["class"], i["merge_donors"]) for i in items if i["check"] == "class-header"] == [
+        ("Coord3D", 0), ("AsciiString", 0)]
+    assert not [i for i in items if i["check"] == "class-header-establish"]
+    assert "DEPENDENCY_ORDER only" in note
 
 
 def test_header_claim_includes_queued_private_views_without_member_rows(tmp_path, monkeypatch, seats):

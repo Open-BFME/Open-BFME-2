@@ -98,10 +98,15 @@ unit and queues the rest in `reverse/header_queue.tsv`. The header tier serves
 classes by the queued TU-merge donors their header unblocks:
 `header_adopt_lane.py order --merges [N]` lists them (private views in one
 approved TU that tu_views cannot reconcile, or private copies of a registered
-class; textual, cached in `build/header_lane/`, `--refresh` recomputes), never
-ranking a prerequisite (a base, an earlier DEPENDENCY_ORDER stage) below what
-needs it. Classes without a header there are served as
-`class-header-establish` items. Claim scope-wide work:
+class; textual, `--refresh` recomputes), never ranking a prerequisite (a base,
+an earlier DEPENDENCY_ORDER stage) below what needs it. The ranking lives in the
+shared picker cache (`<git common dir>/bfme-picker-cache/merge_blockers/`).
+The picker never computes it: on a miss it ranks by DEPENDENCY_ORDER and starts
+one locked background refresh (never in CI or under pytest). Classes without a
+header there are served as `class-header-establish` items. These claim every
+unit `run --apply` may rewrite and name the header destination from BFME 1 or
+ZH (`header_adopt_lane.py dest --class NAME`); an ambiguous destination is
+left for the seat to choose. Claim scope-wide work:
 `python3 tools/claims.py claim class:NAME` or `file:PATH`.
 
 ## A dedicated linking pass: BFME 1 repairs first
