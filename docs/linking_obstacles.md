@@ -180,7 +180,8 @@ Completed:
   no other COMDAT digest of the object changes; the unit's own pre-existing blockers
   are unchanged and ThingTemplateConstructor.cpp LINKS (1,881 B).
 - Blocked (re_attempts.log, 2026-10-29): `stlport_deque_e12_new_elements.cpp`
-  (`copy<const_iterator, iterator>`), `FontLibraryInit.cpp` (`insert_unique`) and
+  (`copy<const_iterator, iterator>`), `FontLibraryInit.cpp` (`insert_unique`; since
+  repaired, below) and
   `StlportVectorCopyCtorFamily.cpp` (`__uninitialized_copy<const vector<BfmeE8> *, ...>`):
   a declaration-only specialization keeps the call but changes the calling row (the
   caller must then materialise an empty tag argument, as in LINK-132's FVF trial, or
@@ -261,6 +262,13 @@ wrong-selected name in 122 (SquadCtor.cpp repaired above). Two show an unresolve
 only because the providers were renamed after the census: W3DProjectedShadowDecalHelpers.cpp
 (`BoundedShortGrid::load`, BoundedShortGridLoad.cpp) and W3DTankDrawDoDrawModule.cpp
 (`W3DTankDraw::updateTreadPositions`); previewed with those providers both LINK (11,109 B).
+- `FontLibraryInit.cpp` (halilkkaya-lk6): its `insert_unique` copy differed from retail's
+  only in the begin()-insert branch layout; building it with
+  `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` (the vendored _tree.c opt-in 344 units use) gives
+  retail's digest ff7306be33ea. 24/24 rows exact; no other COMDAT digest changes; the
+  five units touching the name (2,559 B) keep linking under retail-truth-5. Remaining
+  LINK-135 losses: deque `copy` (stl header variant; 3,003 B) and BfmeE8
+  `__uninitialized_copy` (tag argument; 2,266 B).
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy
