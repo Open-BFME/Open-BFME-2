@@ -111,6 +111,14 @@ the base and Common/0CreateAHeroManager21FE49.cpp lacks a current receipt;
 carry the removed-helper scope and consumer into the next normal census.
 [Evidence](../reverse/attempt_support/static-text-link-20261028-codex3.md).
 
+Additional composition follow-up (2026-10-28, base `4e52d316e4`, index
+`d92e7e6635`): AnimationAsset.cpp absorbs its approved prototype constructor
+and handler, removing one source file with all 17 destination rows and four
+EH graphs exact. Preview LINKS for 571 authored bytes; no census gain is
+claimed. Consumer confirmation, prototype identity, HAnim owner reconciliation
+and LINK-095's generated unwind remain open.
+[Evidence and current-input limits](../reverse/attempt_support/animationasset-consolidation-20261028-codexb4.md).
+
 The handoff found no earlier served-queue entry for these 16 units. Follow-up:
 **Open / current-input verification pending** for each row.
 

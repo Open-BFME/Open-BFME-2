@@ -129,6 +129,27 @@ extern HierarchyPrototypeRef __cdecl Rva0061F230_GetPrototype(const char *name);
 // ownership. Cursor and particle callers pass this object to Set_Animation.
 class HAnimClass { public: char unknown00[4]; int m_refCount; };
 
+class GenBase009EB7D0
+{
+public:
+	GenBase009EB7D0();
+	virtual ~GenBase009EB7D0();
+};
+
+class Rva0014CE67_Prototype : public GenBase009EB7D0
+{
+public:
+	Rva0014CE67_Prototype(const char *name, int offset, int size);
+
+	char m_pad04[0x10]; // +0x04..+0x13, untouched by this body
+	PrototypeTreeRef *m_tree; // +0x14
+	StringClass m_name; // +0x18
+	int m_arg1C; // +0x1C
+	int m_arg20; // +0x20
+};
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/animasset.cpp
 
 //
@@ -177,7 +198,6 @@ HAnimClass *AnimationAsset::GetAnim(const char *name)
 
 // Existing Get_HAnim callers share this same verified animation body.
 
-// tu-skeleton: 0x0014CE67 77B ??0Rva0014CE67_Prototype@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva0014CE67Ctor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0014CD63Dtor.cpp
 
@@ -202,11 +222,19 @@ void _bfmeRva0014CD63InlineAnchor(Rva0014CD63 *p)
     p->Rva0014CD63::~Rva0014CD63();
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0014CE67Ctor.cpp
+
+// ??0Rva0014CE67_Prototype@@QAE@PBDHH@Z
+Rva0014CE67_Prototype::Rva0014CE67_Prototype(const char *name, int offset, int size)
+	: m_tree(0), m_name(name, false)
+{
+	m_arg1C = offset;
+	m_arg20 = size;
+}
+
 // tu-skeleton: 0x0014CED0 49B ??0HAnimPrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HAnimPrototypeOwnerCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007668C0 8B uw_007668c0 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
-
-// tu-skeleton: 0x007668C8 10B __ehhandler$??0Rva0014CE67_Prototype@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva0014CE67Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x007668D2 8B uw_007668d2 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
