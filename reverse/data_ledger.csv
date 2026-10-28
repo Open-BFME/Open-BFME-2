@@ -20690,8 +20690,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0436C,4,.data,global,?TheRandomSoundSelectorClientBehaviorPoolKey@?1??getModuleNameKey@RandomSoundSelectorClientBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameClient/Drawable/Behavior/RandomSoundSelectorClientBehavior.cpp,owned,,1,2
 0x00A04370,4,.data,global,?$S1@?1??getModuleNameKey@RandomSoundSelectorClientBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameClient/Drawable/Behavior/RandomSoundSelectorClientBehavior.cpp,owned,,1,4
 0x00A04374,4,.data,global,_s_rva007B2CB0,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A04378,4,.data,global,?TheModelConditionAudioLoopClientBehaviorPoolKey@?1??getModuleNameKey@ModelConditionAudioLoopClientBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorPoolKey.cpp,owned,,1,2
-0x00A0437C,4,.data,global,?$S1@?1??getModuleNameKey@ModelConditionAudioLoopClientBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehaviorPoolKey.cpp,owned,,1,4
+0x00A04378,4,.data,global,?TheModelConditionAudioLoopClientBehaviorPoolKey@?1??getModuleNameKey@ModelConditionAudioLoopClientBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehavior.cpp,owned,,1,2
+0x00A0437C,4,.data,global,?$S1@?1??getModuleNameKey@ModelConditionAudioLoopClientBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ModelConditionAudioLoopClientBehavior.cpp,owned,,1,4
 0x00A04380,4,.data,global,_s_rva007B2CDA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A04384,4,.data,global,?TheTemporarilyDefectUpdatePoolKey@?1??getModuleNameKey@TemporarilyDefectUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp,owned,,1,2
 0x00A04388,4,.data,global,?$S1@?1??getModuleNameKey@TemporarilyDefectUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdate.cpp,owned,,1,4
