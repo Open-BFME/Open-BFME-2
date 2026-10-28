@@ -156,7 +156,7 @@ Completed:
   Seven other names the copy pulled in leave the object; each keeps the same first
   copy in retail-truth-5 order, and the copy constructor's first copy turns retail.
 - `FXParticleSystemModules.cpp` (halilkkaya-lk6): its /O1 /GX- vtables instantiated
-  23 `ConcreteModuleClass::createTemplate()` and 3 `ConcreteModuleTemplate::clone()`
+  22 `ConcreteModuleClass::createTemplate()` and 3 `ConcreteModuleTemplate::clone()`
   bodies (GPU_DRAW, RENDEROBJECT_DRAW, LIFE_EVENT) whose retail copies, with
   `__EH_prolog`, are rows of the /EHsc FXParticleSystemFactories.cpp. Declaring those
   specializations (`FX_FACTORY_ELSEWHERE`, `FX_CLONE_ELSEWHERE`) stops the copies;
@@ -165,6 +165,13 @@ Completed:
   `link_check` LINKS for Modules, Factories and FXParticleSystem.cpp (13,604 B, unchanged).
   All 25 lost names' first copy turns retail; the 36 other names leaving the object
   (STREAK/QUAD/BUTTERFLY template ctor, vtables, v1, dtors) keep their first copy.
+- `GameWindowManager_registerTabList.cpp` (halilkkaya-lk6): its retail-digest
+  `list<GameWindow *>::erase(first, last)` calls the single-node `erase` out of line
+  (REL32); a declaration-only specialization drops the unit's /EHs copy (641dc4771d86)
+  so GameWindowManagerScript.cpp's retail one (9c5cf8aa042e) is first. 4/4 rows exact;
+  `erase(first, last)` keeps digest 45b9ab4d4135. The unit itself still does not link
+  (unchanged: its `registerTabList` COMDAT names the `list` assignment row 0x0046F0C2
+  where retail calls 0x002C54EE; see the 2026-10-26 split-name recheck).
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.

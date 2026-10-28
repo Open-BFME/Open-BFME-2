@@ -17,6 +17,12 @@ class GameWindow;
 
 typedef _STL::list<GameWindow *> GameWindowList;
 
+// erase(first, last) calls the single-node erase out of line; this unit's /EHs
+// copy of it is not retail's, which GameWindowManagerScript.cpp supplies.
+namespace _STL {
+template <> GameWindowList::iterator GameWindowList::erase(GameWindowList::iterator);
+}
+
 class GameWindowManager
 {
 public:
