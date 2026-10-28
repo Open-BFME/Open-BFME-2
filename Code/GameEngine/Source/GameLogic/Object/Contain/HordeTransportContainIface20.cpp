@@ -52,6 +52,25 @@ class Rva00477305Owner
 {
 public:
 	void rva00477305(Object *obj);
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
 };
 
 class Rva00468657
@@ -61,15 +80,19 @@ public:
 	void rva00468657(Object *obj, bool flag);
 };
 
+class Rva00588E44Contain;
 class Rva0047A040Base9E0
 {
 public:
-	// Rows 0x00588C4E / 0x00588F61 spellings.
-	void *rva00588B8A(void *key);
+	void *rva00588B8A(void *);
 	void rva00588BA8(Object *obj, bool flag);
 	Object *rva00588C4E(void *contain, const struct Coord3D *obj);
 	void rva00588F61(void *contain, Object *owner, enum CommandSourceType obj);
 	void rva00588D99(Object *obj);
+	void rva00588E20(Object *object);
+	Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);
+	bool rva00588D24(void *owner, Object *obj);
+	void rva00588E44(void *argument);
 };
 
 #define SLOT08(a,b,c,d,e,f,g,h) virtual void a(); virtual void b(); virtual void c(); virtual void d(); virtual void e(); virtual void f(); virtual void g(); virtual void h();

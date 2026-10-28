@@ -27,10 +27,19 @@ public:
 	void *m_hordeMember;	// +0x250
 };
 
+struct Coord3D;
 class Rva0047A040Base9E0
 {
 public:
+	void *rva00588B8A(void *);
+	void rva00588BA8(Object *obj, bool flag);
+	Object *rva00588C4E(void *contain, const struct Coord3D *obj);
+	void rva00588F61(void *contain, Object *owner, enum CommandSourceType obj);
+	void rva00588D99(Object *obj);
+	void rva00588E20(Object *object);
 	Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);
+	bool rva00588D24(void *owner, Object *obj);
+	void rva00588E44(void *argument);
 };
 
 struct HordeTransportContainModuleData

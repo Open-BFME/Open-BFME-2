@@ -21,10 +21,20 @@ public:
 	Bits status;	// +0x128
 };
 
+struct Coord3D;
+class Rva00588E44Contain;
 class Rva0047A040Base9E0
 {
 public:
+	void *rva00588B8A(void *);
+	void rva00588BA8(Object *obj, bool flag);
+	Object *rva00588C4E(void *contain, const struct Coord3D *obj);
+	void rva00588F61(void *contain, Object *owner, enum CommandSourceType obj);
+	void rva00588D99(Object *obj);
+	void rva00588E20(Object *object);
+	Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);
 	bool rva00588D24(void *owner, Object *obj);
+	void rva00588E44(void *argument);
 };
 
 class Rva0046781F
@@ -36,6 +46,7 @@ public:
 class Rva00477305Owner
 {
 public:
+	void rva00477305(Object *obj);
 	virtual void slot00();
 	virtual void slot01();
 	virtual void slot02();
@@ -55,7 +66,6 @@ public:
 	virtual void slot16();
 	virtual void slot17();
 	virtual void slot18();
-	void rva00477305(Object *src);
 };
 
 void Rva00477305Owner::rva00477305(Object *src)

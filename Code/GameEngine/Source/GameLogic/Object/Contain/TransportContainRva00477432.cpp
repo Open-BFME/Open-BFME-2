@@ -27,11 +27,20 @@ public:
 	Drawable *getDrawable() const;
 };
 
+struct Coord3D;
+class Rva00588E44Contain;
 class Rva0047A040Base9E0
 {
 public:
-	void *rva00588B8A(void *key);
+	void *rva00588B8A(void *);
+	void rva00588BA8(Object *obj, bool flag);
+	Object *rva00588C4E(void *contain, const struct Coord3D *obj);
+	void rva00588F61(void *contain, Object *owner, enum CommandSourceType obj);
+	void rva00588D99(Object *obj);
 	void rva00588E20(Object *object);
+	Rva00588E44Contain *rva00588BF3(void *contain, Object *obj);
+	bool rva00588D24(void *owner, Object *obj);
+	void rva00588E44(void *argument);
 };
 
 class Rva00477432Outer
@@ -110,13 +119,13 @@ public:
 class Rva00270260
 {
 public:
-    bool rva00270260();
+	bool rva00270260();
 };
 
 class Drawable
 {
 public:
-    void setDrawableHidden(bool hidden);
+	void setDrawableHidden(bool hidden);
 };
 
 struct TransportRemovalObjectFlags

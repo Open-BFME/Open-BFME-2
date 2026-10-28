@@ -42,8 +42,16 @@ struct Rva00477BA2Vector {float x,y,z; Rva00477BA2Vector(float xx,float yy,float
 inline Rva00477BA2Vector Matrix3D::Get_X_Vector() const {return Rva00477BA2Vector(rows[0].x,rows[1].x,rows[2].x);}
 class Thing {public:void setTransformMatrix(const Matrix3D*);};
 enum DamageType{DAMAGE=8}; enum DeathType{DEATH=0};
-class Rva003909FAObj {public:void consume(void*,int,int);};
-class PhysicsBehavior {public:void rva00390629(bool);};
+class Rva003909FAObj
+{
+public:
+	void consume(void *,int,int);
+};
+class PhysicsBehavior
+{
+public:
+	void rva00390629(bool);
+};
 class Rva00477BA2Flags {public:unsigned int word[19];unsigned int test(unsigned int b)const{return word[b>>5]&(1U<<(b&31));}void set(unsigned int b){word[b>>5]|=1U<<(b&31);}};
 class Object: public Thing {public:
  int getMultiLogicalBonePosition(const char*,int,Coord3D*,Matrix3D*,bool,int)const;
@@ -56,7 +64,11 @@ class Object: public Thing {public:
  char pad158[0x25C-0x158]; PhysicsBehavior*physics;
 };
 int GetGameLogicRandomValue(int,int,char*,int);
-class Rva00463235 {public:AsciiString rva00463235(Thing*);};
+class Rva00463235
+{
+public:
+	AsciiString rva00463235(Thing *);
+};
 class OldContain {public:
 virtual void d0();
 virtual void d1();
