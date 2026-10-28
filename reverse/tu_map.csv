@@ -43260,8 +43260,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0050B95B,32,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp
 0x0050B97B,20,code,,,-,,Code/GameEngine/Source/Common/S3SubObjectAdjusters.cpp
 0x0050B98F,383,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DDtor.cpp
-0x0050BB0E,88,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DCtor.cpp
-0x0050BB66,28,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DCtor.cpp
+0x0050BB0E,88,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp
+0x0050BB66,28,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp
 0x0050BB82,74,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DDtor.cpp
 0x0050BBCC,31,code,Code/GameEngine/Source/Common/BfmeThingCEE.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingCEE.cpp,Code/GameEngine/Source/Common/BfmeConv821.cpp
 0x0050BBEB,58,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Made002CCC90Parse.cpp
@@ -83377,8 +83377,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079443B,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCAA1.cpp,approved,P,P=0x0050B391@FuncInfo0x009474AC provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCAA1Ctor.cpp
 0x00794445,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp,approved,P,P=0x0050B519@FuncInfo0x009474D0 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp
 0x0079444D,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp,approved,P,P=0x0050B519@FuncInfo0x009474D0 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp
-0x00794457,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB0E@FuncInfo0x009474F4 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DCtor.cpp
-0x0079445F,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB0E@FuncInfo0x009474F4 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DCtor.cpp
+0x00794457,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB0E@FuncInfo0x009474F4 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp
+0x0079445F,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB0E@FuncInfo0x009474F4 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp
 0x00794469,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB82@FuncInfo0x00947520 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DDtor.cpp
 0x00794471,14,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB82@FuncInfo0x00947520 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DDtor.cpp
 0x0079447F,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC2D.cpp,approved,P,P=0x0050BB82@FuncInfo0x00947520 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC2DDtor.cpp
