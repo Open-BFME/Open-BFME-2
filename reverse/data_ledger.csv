@@ -20548,8 +20548,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04064,4,.data,global,?TheUnitCrateCollidePoolKey@?1??getModuleNameKey@UnitCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp,owned,,1,2
 0x00A04068,4,.data,global,?$S1@?1??getModuleNameKey@UnitCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/UnitCrateCollide.cpp,owned,,1,4
 0x00A0406C,4,.data,global,_s_rva007B26EC,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A04070,4,.data,global,?TheVeterancyCrateCollidePoolKey@?1??getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollidePoolKey.cpp,owned,,1,2
-0x00A04074,4,.data,global,?$S1@?1??getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollidePoolKey.cpp,owned,,1,4
+0x00A04070,4,.data,global,?TheVeterancyCrateCollidePoolKey@?1??getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp,owned,,1,2
+0x00A04074,4,.data,global,?$S1@?1??getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp,owned,,1,4
 0x00A04078,4,.data,global,?TheSalvageCrateCollidePoolKey@?1??getModuleNameKey@SalvageCrateCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp,owned,,1,2
 0x00A0407C,4,.data,global,?$S1@?1??getModuleNameKey@SalvageCrateCollide@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/SalvageCrateCollide.cpp,owned,,1,4
 0x00A04080,4,.data,global,?TheCivilianSpawnCollidePoolKey@?1??getModuleNameKey@CivilianSpawnCollide@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/CivilianSpawnCollidePoolKey.cpp,owned,,1,2

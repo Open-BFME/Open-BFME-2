@@ -107,21 +107,6 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class VeterancyCrateCollide : public CrateCollide
-{
-protected:
-	virtual bool executeCrateBehavior(Object *other);
-	virtual bool isValidToExecute(const Object *other) const;
-private:
-	const VeterancyCrateCollideModuleData *getVeterancyCrateCollideModuleData() const
-	{
-		return (const VeterancyCrateCollideModuleData *)m_moduleData;
-	}
-	int getLevelsToGain() const;
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 class Player
 {
 public:
@@ -196,15 +181,48 @@ public:
 	Holder *m_holder;
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class VeterancyCrateCollide : public CrateCollide
+{
+protected:
+	virtual bool executeCrateBehavior(Object *other);
+	virtual bool isValidToExecute(const Object *other) const;
+private:
+	const VeterancyCrateCollideModuleData *getVeterancyCrateCollideModuleData() const
+	{
+		return (const VeterancyCrateCollideModuleData *)m_moduleData;
+	}
+	int getLevelsToGain() const;
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
 // tu-skeleton: 0x004BCE32 42B ??0VeterancyCrateCollide@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollideCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004BCE5C 6B ?Rva004BCE5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004BCE62 25B ??1Rva004BCE62@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
 
-// tu-skeleton: 0x004BCE7B 69B ?getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollidePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollidePoolKey.cpp
+
+// ?getModuleNameKey@VeterancyCrateCollide@@UBE?AW4NameKeyType@@XZ
+NameKeyType VeterancyCrateCollide::getModuleNameKey() const
+{
+	static NameKeyType TheVeterancyCrateCollidePoolKey =
+		TheNameKeyGenerator->nameToKey("VeterancyCrateCollide");
+	return TheVeterancyCrateCollidePoolKey;
+}
 
 // tu-skeleton: 0x004BCEC0 28B ??_GRva004BCE62@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004BC4FCDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp
 
