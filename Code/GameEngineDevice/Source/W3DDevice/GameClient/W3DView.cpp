@@ -68,73 +68,16 @@
 #include <stdlib.h>
 #include <windows.h>
 
-// BFME added this nonvirtual notifier after the shared Zero Hour declaration;
-// injecting it on this TU's first include keeps the vendored header unchanged.
-#define forceUnfreezeTime(argument) notifyCameraChange(argument); void forceUnfreezeTime(argument)
-#include "GameLogic/ScriptEngine.h"
-#undef forceUnfreezeTime
-
-// USER INCLUDES //////////////////////////////////////////////////////////////////////////////////
-#include "Common/BuildAssistant.h"
+// Headers used by the seven bodies still owned by this unit. The split camera
+// routines supply their own declarations when they are consolidated.
 #include "Common/GlobalData.h"
-#include "Common/Module.h"
-#include "Common/RandomValue.h"
-#include "Common/ThingTemplate.h"
-#include "Common/ThingSort.h"
-#include "Common/PerfTimer.h"
-#include "Common/PlayerList.h"
-#include "Common/Player.h"
-
-#include "GameClient/Color.h"
-#include "GameClient/CommandXlat.h"
-#include "GameClient/Drawable.h"
-#include "GameClient/GameClient.h"
-#include "GameClient/GameWindowManager.h"
-#include "GameClient/Image.h"
-#include "GameClient/InGameUI.h"
-#include "GameClient/Line2D.h"
-#include "GameClient/SelectionInfo.h"
-#include "GameClient/Shell.h"
-#include "GameClient/TerrainVisual.h"
-#include "GameClient/Water.h"
-
-#include "GameLogic/AI.h"			///< For AI debug (yes, I'm cheating for now)
-#include "GameLogic/AIPathfind.h"			///< For AI debug (yes, I'm cheating for now)
-#include "GameLogic/ExperienceTracker.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/Module/AIUpdate.h"
-#include "GameLogic/Module/BodyModule.h"
-#include "GameLogic/Module/ContainModule.h"
-#include "GameLogic/Module/OpenContain.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/TerrainLogic.h"									///< @todo This should be TerrainVisual (client side)
-#include "Common/AudioEventInfo.h"
-
+#include "GameClient/ClientRandomValue.h"
 #include "W3DDevice/Common/W3DConvert.h"
-#include "W3DDevice/GameClient/HeightMap.h"
-#include "W3DDevice/GameClient/W3DAssetManager.h"
-#include "W3DDevice/GameClient/W3DDisplay.h"
-#include "W3DDevice/GameClient/W3DScene.h"
-#define moveCameraAlongWaypointPath(a, b, c, d, e, f) moveCameraAlongWaypointPath(a, b, c, d, e, f); void moveCameraOrLocatorAlongSplinePathInit(Waypoint *, Int, Int, Real, Real, Real, Bool)
 #include "W3DDevice/GameClient/W3DView.h"
-#undef moveCameraAlongWaypointPath
-#include "D3dx8math.h"
 #include "W3DDevice/GameClient/W3DShaderManager.h"
-#include "W3DDevice/GameClient/Module/W3DModelDraw.h"
-#include "W3DDevice/GameClient/W3DCustomScene.h"
-
-#include "WW3D2/DX8Renderer.h"
-#include "WW3D2/Light.h"
 #include "WW3D2/Camera.h"
-#include "WW3D2/Coltype.h"
-#include "WW3D2/PredLod.h"
-#include "WW3D2/WW3D.h"
-
 #include "W3DDevice/GameClient/camerashakesystem.h"
 
-#include "WinMain.h"  /** @todo Remove this, it's only here because we
-													are using timeGetTime, but we can remove that
-													when we have our own timer */
 // BFME adds View and Display virtuals that the shared Zero Hour headers omit;
 // these scoped views preserve the witnessed slots and +0x104 camera offset.
 class BfmeW3DViewViewportVtable
