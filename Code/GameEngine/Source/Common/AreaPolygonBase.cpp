@@ -65,6 +65,7 @@ struct AreaPolygonBase {
     bool m_dirty;
     AreaPolygonBase(const AreaPolygonBase& that);
     void insertPoint(int index, const BfmeE8& point);
+    void reserve(int n);
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)

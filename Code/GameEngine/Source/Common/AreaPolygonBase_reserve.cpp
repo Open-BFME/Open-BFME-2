@@ -14,12 +14,12 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(un
 struct AreaPolygonBase
 {
 	void reserve(int n);
-	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_vec;
+	_STL::vector<BfmeE8, _STL::allocator<BfmeE8> > m_points;
 };
 
 void AreaPolygonBase::reserve(int n)
 {
 	if (n < 2)
 		n = 2;
-	m_vec.reserve(n);
+	m_points.reserve(n);
 }
