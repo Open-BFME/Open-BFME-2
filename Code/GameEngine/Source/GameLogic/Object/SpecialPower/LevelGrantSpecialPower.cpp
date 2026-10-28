@@ -367,19 +367,6 @@ public:
 	const FXList *m_levelFX;	// +0xD4
 };
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
-
-extern NameKeyGenerator *TheNameKeyGenerator;
-
 class SpecialAbilityUpdate
 {
 public:
@@ -414,7 +401,6 @@ class LevelGrantSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual void triggerAbilityEffect();
-	virtual NameKeyType getModuleNameKey() const;
 	void rva004C2C7B(Object *obj);
 	void rva004C2D2B(Object *obj, std::vector<ObjectID> &seen);
 private:
