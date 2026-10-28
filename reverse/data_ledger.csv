@@ -21491,7 +21491,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0A950,592,.data,global,_g_Rva0130AF38Lock,,unowned,?g_Rva0130AF38Lock@@3PADA;_g_Rva0130AF38Lock,0,12
 0x00A0ABA0,4,.data,global,_g_Rva0130B188List,Code/Libraries/Source/DirtySock/Y4CommTransportLife.c,owned,,1,7
 0x00A0ABA4,4,.data,global,?g_00E0ABA4@@3DA,Code/Libraries/Source/DirtySock/Rva0081B010CommWorker.cpp,owned,,1,1
-0x00A0ABA8,4,.data,global,?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,Code/GameEngine/Source/GameClient/parseSubtitle.cpp,provisional,?TheVideoPlayer@@3PAVVideoPlayer@@A;?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,1,19
+0x00A0ABA8,4,.data,global,?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,provisional,?TheVideoPlayer@@3PAVVideoPlayer@@A;?TheVideoPlayer@@3PAVVideoPlayerInterface@@A,1,19
 0x00A0ABAC,4,.data,global,_s_videoPlayerInitialised,Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp,owned,,1,2
 0x00A0ABB0,4,.data,global,_g_bfmeHeadEQB,,unowned,?g_Va00E0ABB0@@3HA;?g_bfmeThingUCHead@@3PAVBfmeNodeUC@@A;_g_bfmeHeadEQB,1,4
 0x00A0ABB4,16,.data,global,?g_bfmeVideoTableStorage@@3UBfmeVideoTableStorage@@A,Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,provisional,?g_Va00E0ABB4@@3IA;?g_bfmeVideoTableStorage@@3UBfmeVideoTableStorage@@A,2,30
