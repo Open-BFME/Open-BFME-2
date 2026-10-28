@@ -16,6 +16,9 @@ Does it work?
                       "game data & assets: not measured yet" until the image
                       ownership history (tools/image_ownership.py record) holds
                       a row, then that row's share of the image that is ours.
+  Game code in C++*   authored and generated C++ plus intentionally retained
+                      assembly, over executable game code (libraries and
+                      embedded data excluded); the parts are named below it.
   Builds normally     the census's LINKING: executable game code in units that
                       link cleanly, over the census tree's executable game code
                       (one census snapshot; it holds still between censuses).
@@ -29,8 +32,6 @@ Does it work?
                       the first playtest.
 
 Is the source clean?
-  Hand-written code   authored C++ over executable game code (progress.py's
-                      AUTHORED C++, a part of GAME CODE C++*).
   Readable names      declared names that are not placeholders (name_metric).
   Shortcuts removed   escape-hatch items retired since Phase 2 began, from
                       reverse/hatch_baseline.tsv (asm_bytes, a byte count, apart).
@@ -76,15 +77,16 @@ FOOTER = (f"Shortcuts, file layout and shared classes count from the start of Ph
 
 # (key, label, caption) for "Does it work?"; (key, label) for "Is the source clean?".
 WORKS = (("matched", "Byte match", "Every byte of the game's program code is recreated by compiling our source"),
+         ("cpp", "Game code in C++*", "of executable game code (libraries and embedded data excluded)"),
          ("linked", "Builds normally", "Code that fits together cleanly."))
-CLEAN = (("authored", "Hand-written code"), ("names", "Readable names"), ("shortcuts", "Shortcuts removed"),
+CLEAN = (("names", "Readable names"), ("shortcuts", "Shortcuts removed"),
          ("layout", "Original file layout"), ("classes", "Shared class definitions"))
 LABELS = {key: label for key, label, *_ in WORKS + CLEAN}
-CARD_FILL = {"matched": "#2ea043", "linked": "#d29922", "authored": "#58a6ff", "names": "#a371f7",
-             "shortcuts": "#e05c7a", "layout": "#f0883e", "classes": "#e05c7a"}
+CARD_FILL = {"matched": "#2ea043", "cpp": "#388bfd", "linked": "#d29922", "authored": "#58a6ff",
+             "names": "#a371f7", "shortcuts": "#e05c7a", "layout": "#f0883e", "classes": "#e05c7a"}
 # Discord draws each bar as ten square emoji (a wider row wraps on a phone); it has no pink square.
-BLOCK = {"matched": "\U0001f7e9", "linked": "\U0001f7e8", "authored": "\U0001f7e6", "names": "\U0001f7ea",
-         "shortcuts": "\U0001f7e5", "layout": "\U0001f7e7", "classes": "\U0001f7e5"}
+BLOCK = {"matched": "\U0001f7e9", "cpp": "\U0001f7e6", "linked": "\U0001f7e8", "authored": "\U0001f7e6",
+         "names": "\U0001f7ea", "shortcuts": "\U0001f7e5", "layout": "\U0001f7e7", "classes": "\U0001f7e5"}
 REST_BLOCK = "⬛"
 WIDTH = 10
 # Counts, not bytes: their change compares the displayed percentages, so a
@@ -110,6 +112,7 @@ def measures(current):
     total = current["total"]
     game = progress.game_executable(current, total)
     matched, authored = progress.rebuildable(current), current["authored"]
+    cpp = progress.game_represented(current)
     inclusive = any(k in current for k in ('linked_game_executable', 'game_executable', 'link_coverage_rules'))
     if inclusive and any(current.get(k) in (None, '') for k in
                          ('linked_game_executable', 'game_executable', 'link_coverage_rules')):
@@ -118,7 +121,7 @@ def measures(current):
                           else (current.get("linked_authored"), current.get("linked_game_code")))
     if (linked is None) != (linked_game is None):
         raise ValueError("A census stored linked_authored without game_code, or the reverse")
-    if not 0 <= authored <= game <= total or not 0 <= matched <= total or (
+    if not 0 <= authored <= cpp <= game <= total or not 0 <= matched <= total or (
             linked is not None and not 0 <= linked <= linked_game <= total):
         raise ValueError("Invalid progress split")
     readable, names = current.get("readable_names"), current.get("declared_names")
@@ -129,8 +132,8 @@ def measures(current):
     if target is not None and target >= progress.PHASE2_SOURCE_FILES:
         raise ValueError(f"Invalid tu_target: {target} TUs, not fewer than the {progress.PHASE2_SOURCE_FILES} files")
     since = progress.PHASE2_HATCH_ITEMS, progress.PHASE2_SOURCE_FILES, progress.PHASE2_CLASS_COPIES
-    return {"matched": (matched, total), "linked": (linked, linked_game), "authored": (authored, game),
-            "names": (readable, names),
+    return {"matched": (matched, total), "cpp": (cpp, game), "linked": (linked, linked_game),
+            "authored": (authored, game), "names": (readable, names),
             "shortcuts": (since[0] - items, since[0]) if items is not None else (None, None),
             "layout": ((since[1] - files, since[1] - target) if files is not None and target is not None
                        else (None, None)),
@@ -184,15 +187,26 @@ def side_note(current, key):
         owned = current.get("ownership")
         return (f"whole game file: {share(owned['ours'], owned['content'])} ours ({owned['date']})" if owned
                 else NOT_MEASURED_DATA)
+    if key == "cpp":
+        return None
     census = current.get("census")
     return f"measured {census['date'][:10]}" if census else None
 
 
-def caption(current, key, text):
+def caption(current, key, text, value=None, denominator=None):
+    if key == "cpp" and value is not None:
+        text = f"{value:,} / {denominator:,} bytes {text}"
     found = blockers(current) if key == "linked" else None
     if found:
         text += f" About {found['total']:,} problems left before the game builds without shortcuts"
     return text
+
+
+def footnote(current, key):
+    """The line under Game code in C++*: what the inclusive count holds."""
+    if key != "cpp":
+        return None
+    return f"{progress.GAME_CPP_ANNOTATION} {progress.game_cpp_breakdown(current, current['total'])}"
 
 
 def rules_changed(previous, current):
@@ -339,7 +353,7 @@ def render(current, previous=None):
             number = share(value, denominator)
             width = TEXT_WIDTH * min(max(progress.percent(value, denominator), 0), 100) / 100
             found = tag(previous, current, key, value, denominator)
-            lines, note = wrap(caption(current, key, words)), side_note(current, key)
+            lines, note = wrap(caption(current, key, words, value, denominator)), side_note(current, key)
         body.append(_text(LEFT, y, "strong", 15, label, 600, markup=_tspan(found, 13)))
         body.append(_text(RIGHT, y, "strong", 20, number, 700, "end"))
         body.append(f'    <rect class="track" x="{LEFT}" y="{y + 10}" width="{TEXT_WIDTH}" height="14" rx="7"/>\n'
@@ -347,6 +361,9 @@ def render(current, previous=None):
         if note and progress.text_width(lines[-1], TEXT_PX) + 24 + progress.text_width(note, TEXT_PX) > TEXT_WIDTH:
             lines, note = lines + [note], None  # no room beside the caption: a line of its own
         if value is not None:
+            starred = footnote(current, key)
+            if starred:
+                lines += wrap(starred)
             lines += [piece for line in notes(previous, current, key) for piece in wrap(line)]
         body += [_text(LEFT, y + 44 + LINE_STEP * n, "muted", TEXT_PX, line) for n, line in enumerate(lines)]
         if note:
@@ -379,9 +396,9 @@ def render(current, previous=None):
     footer = wrap(FOOTER, size=12)
     body += [_text(LEFT, y + 16 * n, "muted", 12, line) for n, line in enumerate(footer)]
     height = y + 16 * (len(footer) - 1) + 20
-    matched, linked = rows["matched"], rows["linked"]
+    matched, cpp, linked = rows["matched"], rows["cpp"], rows["linked"]
     found = blockers(current)
-    summary = (f"{share(*matched)} byte match, "
+    summary = (f"{share(*matched)} byte match, {share(*cpp)} game code in C++*, "
                + (f"{share(*linked)} builds normally" if linked[0] is not None else "builds normally not measured")
                + (f" (about {found['total']:,} problems left)" if found else ""))
     clean = ", ".join(f"{LABELS[key].lower()} {share(*rows[key]) if rows[key][0] is not None else 'soon'}"
@@ -453,11 +470,13 @@ def announcement(current, previous):
             continue
         found = tag(previous, current, key, value, denominator)
         note = side_note(current, key)
+        starred = footnote(current, key)
         lines += [f"**{label}: {share(value, denominator)}**"
                   + ("" if not found else f"  ({found[1]})" if found[0] == "muted" and found[1][0] != DOT
                      else f"  {found[1]}"),
                   blocks(value, denominator, BLOCK[key]),
-                  caption(current, key, words) + (f" ({note})" if note else ""),
+                  caption(current, key, words, value, denominator) + (f" ({note})" if note else ""),
+                  *([starred] if starred else []),
                   *notes(previous, current, key), ""]
     lines += [f"> {milestone(current)}", "", f"**{CLEAN_HEADING}**"]
     for key, label in CLEAN:
