@@ -7,7 +7,7 @@
 // - WorldBuilder 0x011B3DE0 is CivilianSpawnUpdate::update
 //   (CivilianSpawnUpdate.cpp). Retail's __FILE__ string is at VA 0x00C484C8.
 // - The module data fields come from the rowed parse table 0x00C48478
-//   (CivilianSpawnUpdateModuleDataCtor.cpp): SpawnDelayTime +0x08,
+//   (CivilianSpawnUpdate.cpp): SpawnDelayTime +0x08,
 //   RunToFilter +0x0C, MaximumDistance +0x10, Civilian names +0x14.
 // - m_spawnFrame +0x20 comes from the rowed ctor 0x0047F9D4.
 //
