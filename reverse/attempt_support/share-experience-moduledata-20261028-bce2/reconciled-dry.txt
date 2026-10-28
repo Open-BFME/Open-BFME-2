@@ -1,0 +1,9 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
+approved: 21
+mixed: {'Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp': 40, 'Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp': 14, 'Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp': 1}
+refused: {}
+accepted: []
+rejected: {'Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp': "compile: Code\\GameEngine\\Source\\GameLogic\\Object\\Behavior\\.ShareExperienceBehavior.7fce4048c129f5e1.tu_skeleton.cpp(422) : error C2511: 'ShareExperienceBehavior::ShareExperienceBehavior(Thing *,const ModuleData *)' : overloaded member function not found in 'ShareExperienceBehavior' | Code\\GameEngine\\Source\\G", 'Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp': 'link: Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp links at the census; the merged object would not: a file without a census object would place the merged unit earlier in link order than the guard can judge'}
+link_guard: census-linked: Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp, Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp
+blocked: no verified merge of two or more donors
+reconcile: python3 tools/tu_views.py Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp --dry-run, then without --dry-run: the donors declare their own views of Rva003623E5Filter, ShareExperienceBehavior, ShareExperienceBehaviorModuleData, ShareExperienceBehaviorModuleDataBase (docs/consolidation.md, "Workflow per TU", step 4)

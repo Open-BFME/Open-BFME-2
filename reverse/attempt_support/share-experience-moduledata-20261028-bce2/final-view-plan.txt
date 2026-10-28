@@ -1,0 +1,13 @@
+tu: Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
+seed: Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp  (3 files)
+  ShareExperienceBehaviorModuleData: plan (2 files)
+        | class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDataBase
+        | {
+        | public:
+        | 	ShareExperienceBehaviorModuleData();
+        | 	char m_pad04[0x4];
+        | 	float m_radius; // +0x08
+        | 	float m_dropOff; // +0x0C
+        | 	float m_percentage; // +0x10 +0x10 the share
+        | 	Rva003623E5Filter m_objectFilter; // +0x14 +0x14 the object filter
+        | };

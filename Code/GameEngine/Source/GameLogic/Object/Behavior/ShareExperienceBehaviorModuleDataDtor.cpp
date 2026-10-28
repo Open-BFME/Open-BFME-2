@@ -26,18 +26,16 @@ class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDa
 public:
 	ShareExperienceBehaviorModuleData();
 // Implicit virtual dtor (never declared, never defined)
-private:
-	unsigned char m_unk04[4];
-	float m_r8;
-	float m_rC;
-	float m_r10;
-	Rva003623E5Filter m_filter;
+	unsigned char m_pad04[4];
+	float m_radius;
+	float m_dropOff;
+	float m_percentage;
+	Rva003623E5Filter m_objectFilter;
 };
 // Same verified76B constructor as the home; select-any emission avoids the
 // former strong dummy constructor that conflicted with its actual definition.
-// ??0ShareExperienceBehaviorModuleData@@QAE@XZ present-unmatched
 inline ShareExperienceBehaviorModuleData::ShareExperienceBehaviorModuleData()
-	: m_r8(0.0f), m_rC(0.0f), m_r10(1.0f)
+	: m_radius(0.0f), m_dropOff(0.0f), m_percentage(1.0f)
 {
 }
 void deleteShareExperienceBehaviorModuleData(ShareExperienceBehaviorModuleData *shareExperienceBehaviorModuleData)

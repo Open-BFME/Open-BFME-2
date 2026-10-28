@@ -1,0 +1,12 @@
+Source claims: OK (3 sources, scoped byte-verified)
+Compile: 2 of 3 TU(s) (deps-cache: 1 current)
+Funclet pins: 7 row(s) verified past a renumbered $L label
+    Unwind@00b8b937 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1048 was renumbered; verified parent EH data places $L1268 at 0x0078B937
+    Unwind@00b8b93f (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1049 was renumbered; verified parent EH data places $L1269 at 0x0078B93F
+    Unwind@00b8b947 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1050 was renumbered; verified parent EH data places $L1270 at 0x0078B947
+    Unwind@00b8b94f (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1051 was renumbered; verified parent EH data places $L1271 at 0x0078B94F
+    Unwind@00b8b957 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1052 was renumbered; verified parent EH data places $L1272 at 0x0078B957
+Functions: OK 18/18 matched across 3 source file(s)
+String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (3 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

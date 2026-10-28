@@ -1,0 +1,39 @@
+check_csv: OK (functions.csv 98945 rows, symbols.csv 9416 rows, data_rows.csv 2203 rows)
+Pin consistency: OK (5 multi-pinned symbols of 9411; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs 2400d7451e718cd3a0aeca0f996f4d4d19384bcd, 0 added)
+========================================================================
+PROTECTED VERIFIER/BASELINE PATHS in d2298c38d1 Reconcile ShareExperience module-data vi
+    reverse/hatch_baseline.tsv
+  Verifier-Change: retire one stale ShareExperience constructor marker through hatch_counters.py --update
+========================================================================
+pin admission: OK
+reverse/gate_baseline.txt: OK (no line added)
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+header_dependents: 0 changed header(s) and 2 included file(s) reach 3 ledger source(s)
+Source claims: OK (5 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 0 of 5 TU(s) (deps-cache: 5 current)
+Funclet pins: 13 row(s) verified past a renumbered $L label
+    Unwind@00b8b937 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1048 was renumbered; verified parent EH data places $L1352 at 0x0078B937
+    Unwind@00b8b93f (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1049 was renumbered; verified parent EH data places $L1353 at 0x0078B93F
+    Unwind@00b8b947 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1050 was renumbered; verified parent EH data places $L1354 at 0x0078B947
+    Unwind@00b8b94f (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1051 was renumbered; verified parent EH data places $L1355 at 0x0078B94F
+    Unwind@00b8b957 (Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp): $L1052 was renumbered; verified parent EH data places $L1356 at 0x0078B957
+Functions: OK 53/53 matched across 5 source file(s)
+String-ref verify: OK (14 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (8 compiler literals verified)
+Import-ref verify: OK (11 named imports verified)
+EH verify: 7 row(s) with EH data (EXACT 7); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.3s
+data_check (converged, enforced): 5 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+link batch audit: INCONCLUSIVE baseline: index at d92e7e6635, outgoing base 2400d7451e718cd3a0aeca0f996f4d4d19384bcd; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 3 source object(s) lack current receipts; first: Code/GameEngine/Source/GameClient/Eva.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+PRE-PUSH OK (5 outgoing source(s) byte-verified)
+To https://github.com/Open-BFME/Open-BFME-2.git
+ ! [rejected]                HEAD -> master (fetch first)
+error: failed to push some refs to 'https://github.com/Open-BFME/Open-BFME-2.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.

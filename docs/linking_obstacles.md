@@ -668,6 +668,24 @@ consumer selection and new census-linked bytes remain unclaimed.
 
 ### ShareExperienceBehavior update composition (2026-10-28)
 
+2026-10-28 module-data prerequisite, base `24454a208b3`, index `d92e7e6635`:
+the seed and destructor donor now share the existing polymorphic layout and
+the +0x14 filter type. All 15 changed-file rows and three EH graphs remain
+exact. All 39 scoped bindings and external object facts are unchanged, with
+zero data findings. One stale constructor marker is retired through the
+hatch counter tool (3717 -> 3716). The supported merge remains blocked:
+the destination lacks a census object and would move earlier than the guard
+can judge. No merge or linking gain is claimed. Retry after census coverage;
+the behavior constructor's base clauses and three mixed sources remain.
+[Verification and preserved refusal](../reverse/attempt_support/share-experience-moduledata-20261028-bce2/README.md).
+The outgoing audit at `2400d7451e7` is INCONCLUSIVE: index `d92e7e6635`
+predates the base and affected consumer Common/0CreateAHeroManager21FE49.cpp
+lacks a current receipt. Carry these declarations and consumer coverage into
+the next census; full batch linking remains unverified.
+The normal hook's wider five-source scope passes 53 rows, two data rows and
+seven EH graphs; its audit lacks three current source receipts (first:
+GameClient/Eva.cpp). Retain that wider scope for the next census too.
+
 Status: update-interface prerequisite and two-fragment composition verified;
 remaining class contracts and census confirmation pending. Inspected base: `76c011c831`; preview index:
 `c8734bec0c`. [Scoped evidence and remaining prerequisites](../reverse/attempt_support/share-experience-consolidation-20261028-codexb.md).

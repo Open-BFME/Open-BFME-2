@@ -1,0 +1,90 @@
+{
+  "blockers": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp: data-ownership-review: 16 ledger rows",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp: internal-linkage-review",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp: placement-needs-target-corroboration",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp: internal-linkage-review",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp: path-keyed-registers: reverse/data_ledger.csv, reverse/hatch_baseline.tsv",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp: placement-needs-target-corroboration",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp: quoted-include-resolution-review",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp: macro-or-pragma-context",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp: path-keyed-registers: reverse/hatch_baseline.tsv",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp: placement-needs-target-corroboration",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp: mixed-or-incomplete-routing; split/review every row first",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp: placement-needs-target-corroboration",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp: quoted-include-resolution-review",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp: unledgered-definitions: retain and reconcile declarations before draining source",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp: path-keyed-registers: reverse/hatch_baseline.tsv",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp: placement-needs-target-corroboration",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp: quoted-include-resolution-review",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp: unledgered-definitions: retain and reconcile declarations before draining source",
+    "compiler-settings-disagree: reconcile cl lines, region flags and overrides",
+    "duplicate-type-definitions: Rva003623E5Filter, ShareExperienceBehavior, ShareExperienceBehaviorModuleData, ShareExperienceBehaviorModuleDataBase, UpdateSleepTime",
+    "stale-tu-map: regenerate and recheck before using map assignments"
+  ],
+  "file_count": 5,
+  "files": [
+    {
+      "complete": false,
+      "packet_key": "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp",
+      "rows": 15,
+      "sha256": "98b697037344d5b2f42b67dc8c7c546c9d2aa06e79ab2aaac0fcccd4eb40363a",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp"
+    },
+    {
+      "complete": true,
+      "packet_key": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+      "rows": 13,
+      "sha256": "6c143d4e572b05e1e37085a95c235bbacc44ef64a4511a3e20deb441babc915a",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp"
+    },
+    {
+      "complete": true,
+      "packet_key": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp",
+      "rows": 3,
+      "sha256": "3a6aeddb202a7e6da4a654a1de22a8734873466b7f3158f6460ccdfa5fa59b4d",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp"
+    },
+    {
+      "complete": false,
+      "packet_key": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp",
+      "rows": 4,
+      "sha256": "7a624d4df6ff6b2faee7f41c286fa92e891bcd77f5232c56cb46635e55969598",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp"
+    },
+    {
+      "complete": true,
+      "packet_key": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp",
+      "rows": 2,
+      "sha256": "4bdde2cf46f13d7a1189d94003d5cc307345eb69c950d6ee7bf87aebfc6bb54a",
+      "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp"
+    }
+  ],
+  "next_checks": [
+    [
+      "python3",
+      "tools/name_evidence.py"
+    ],
+    [
+      "python3",
+      "tools/class_views.py",
+      "--class",
+      "<owner>"
+    ],
+    [
+      "python3",
+      "tools/find_declared_unmatched.py",
+      "Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp",
+      "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp"
+    ]
+  ],
+  "potential_file_reduction": 4,
+  "stage": "investigate",
+  "target": "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+  "unique_bytes": 1385,
+  "verified": false
+}

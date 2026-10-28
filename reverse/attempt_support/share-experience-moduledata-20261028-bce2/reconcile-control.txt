@@ -1,0 +1,2 @@
+18 original scoped rows; all 39 normalized bindings identical.
+All 3 external object-fact records identical (COMDATs, definitions, undefineds, weak aliases).

@@ -125,14 +125,31 @@ struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_9F; };
 
 extern GameLogic *TheGameLogic;
 
-class ShareExperienceBehaviorModuleData
+#include "Common/Snapshot.h"
+class Rva003623E5Filter
 {
 public:
-	unsigned char m_pad[8];
+	Rva003623E5Filter();
+	~Rva003623E5Filter();
+private:
+	unsigned char m_data[4];
+};
+class ShareExperienceBehaviorModuleDataBase
+{
+public:
+	virtual ~ShareExperienceBehaviorModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+};
+// The existing constructor/destructor owners supply this polymorphic layout.
+// The filter's storage is still passed through the existing call view below.
+class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDataBase
+{
+public:
+	ShareExperienceBehaviorModuleData();
+	unsigned char m_pad04[4];
 	float m_radius;
 	float m_dropOff;
 	float m_percentage;		// +0x10 the share
-	int m_objectFilter;		// +0x14 the object filter
+	Rva003623E5Filter m_objectFilter;	// +0x14 the object filter
 };
 
 class Module
