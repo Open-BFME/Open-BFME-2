@@ -58,9 +58,9 @@ private:
 
 void Rva002B52CE::rva002B52CE()
 {
-	int d = m_end90 - m_begin8C;
+	int playerArrayBytes = m_end90 - m_begin8C;
 	int i = 0;
-	if ((d >> 2) <= 0)
+	if ((playerArrayBytes >> 2) <= 0)
 		return;
 	do {
 		Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->GetPlayerAtIndex(i);

@@ -20,7 +20,7 @@
 class Rva0073F778 : public Rva00514E6B
 {
 public:
-	bool rva0073F778(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
+	bool createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
 };
 
 class Rva000A880F
@@ -57,7 +57,7 @@ private:
 Rva0073F708::Rva0073F708(void *a1, int priority)
 	: m_a1(a1), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->rva0073F778(Rva0073F6FCCb, this, 1, 0, priority, 0);
+	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
 }
 
 // ??0Rva000A8893Worker@@QAE@PAXH@Z @0x000A8893 112B: byte-identical to Rva0073F708's constructor
@@ -76,5 +76,5 @@ private:
 Rva000A8893Worker::Rva000A8893Worker(void *a1, int priority)
 	: m_a1(a1), m_thread(new Rva0073F778), m_event(1, 0, 0, 0)
 {
-	m_thread.get()->rva0073F778(Rva0073F6FCCb, this, 1, 0, priority, 0);
+	m_thread.get()->createThread(Rva0073F6FCCb, this, 1, 0, priority, 0);
 }

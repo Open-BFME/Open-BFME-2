@@ -1,6 +1,6 @@
 // cl: /MD
 // platformsdk
-// ?rva0073F778@Rva0073F778@@QAE_NP6GIPAX@Z0HIH0@Z @0x0073F778 129B.
+// ?createThread@Rva0073F778@@QAE_NP6GIPAX@Z0HIH0@Z @0x0073F778 129B.
 // Creates a suspended thread via _beginthreadex, sets priority from an index,
 // optionally resumes, and reports success. Evidence: unlock lane packet;
 // IAT imports via dllimport; switch maps 0-6 to priorities.
@@ -10,13 +10,13 @@ class Rva0073F778 {
     char _pad[4];
     void *m_handle;
 public:
-    bool rva0073F778(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
+    bool createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
     bool rva0073F83F(int resume, unsigned stackSize, int priority, void *security);
     int resume();
     bool suspend();
 };
 unsigned __stdcall Rva0073F833Cb(void *arg);
-bool Rva0073F778::rva0073F778(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security)
+bool Rva0073F778::createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security)
 {
     void *h = (void *)_beginthreadex(security, stackSize, start, arglist, 4, (unsigned *)&arglist);
     m_handle = h;
@@ -44,7 +44,7 @@ bool Rva0073F778::rva0073F778(unsigned (__stdcall *start)(void *), void *arglist
 // Evidence: chain lane packet; same this; ret 0x10.
 bool Rva0073F778::rva0073F83F(int resume, unsigned stackSize, int priority, void *security)
 {
-    return rva0073F778((unsigned (__stdcall *)(void *))Rva0073F833Cb, this, resume, stackSize, priority, security);
+    return createThread((unsigned (__stdcall *)(void *))Rva0073F833Cb, this, resume, stackSize, priority, security);
 }
 
 // ?Rva0073F833Cb@@YGIPAX@Z @0x0073F833 12B. Thread-start thunk calling virtual slot 3 on its arg.

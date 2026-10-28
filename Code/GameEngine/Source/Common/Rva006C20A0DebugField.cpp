@@ -26,9 +26,9 @@ class GeneralAllocatorDebug
 public:
 	void *rva006C20A0(void *block, unsigned length, unsigned short id, const void *data, unsigned dataLength);
 	static unsigned rva006C16D0(const void *chunk);
-	void rva006C1710(int a, int b, int c);
+	void rva006C1710(int allocationFunction, int freeFunction, int allocationContext);
 	int rva006C1770(short option);
-	bool Init(void *a, unsigned int size, bool b, void *c, void *d, void *e);
+	bool Init(void *coreMemory, unsigned int size, bool freeCore, void *trimCore, void *coreFreeFunction, void *coreFreeContext);
 };
 
 void *GeneralAllocatorDebug::rva006C20A0(void *block, unsigned length, unsigned short id, const void *data, unsigned dataLength)
@@ -87,12 +87,12 @@ unsigned GeneralAllocatorDebug::rva006C16D0(const void *chunk)
 }
 
 // 0x006C1710 (24B): stores three values at +0x14/+0x18/+0x1C.
-void GeneralAllocatorDebug::rva006C1710(int a, int b, int c)
+void GeneralAllocatorDebug::rva006C1710(int allocationFunction, int freeFunction, int allocationContext)
 {
 	int *fields = (int *)((char *)this + 0x14);
-	fields[0] = a;
-	fields[1] = b;
-	fields[2] = c;
+	fields[0] = allocationFunction;
+	fields[1] = freeFunction;
+	fields[2] = allocationContext;
 }
 
 // 0x006C1770 (22B): option 11 reads as 0, any other as the +0x67C word.
@@ -173,9 +173,9 @@ struct Rva006C19F0State
 	int m_674;
 };
 
-bool GeneralAllocatorDebug::Init(void *a, unsigned int size, bool b, void *c, void *d, void *e)
+bool GeneralAllocatorDebug::Init(void *coreMemory, unsigned int size, bool freeCore, void *trimCore, void *coreFreeFunction, void *coreFreeContext)
 {
-	bool result = ((Rva00033B90Allocator *)this)->rva00033700(a, size, b, c, d, e);
+	bool result = ((Rva00033B90Allocator *)this)->rva00033700(coreMemory, size, freeCore, trimCore, coreFreeFunction, coreFreeContext);
 	Rva006C19F0State *state = (Rva006C19F0State *)this;
 	if (!state->m_initialized)
 	{

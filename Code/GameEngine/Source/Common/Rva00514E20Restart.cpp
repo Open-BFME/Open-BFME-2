@@ -10,7 +10,7 @@ class Rva0073F778 {
     char _pad[4];
     void *m_handle;
 public:
-    bool rva0073F778(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
+    bool createThread(unsigned (__stdcall *start)(void *), void *arglist, int resume, unsigned stackSize, int priority, void *security);
     bool rva0073F83F(int resume, unsigned stackSize, int priority, void *security);
 };
 class AptMainMenu {

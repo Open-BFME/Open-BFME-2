@@ -3965,3 +3965,6 @@ __ehhandler$?Rva00410223@@YGPAXPAX@Z,0x00785A98,"Renamed to __ehhandler$?createB
 ?g_00C036E8@@3QBUFieldParse@@B,0x008036E8,"Renamed to ?m_imageFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
 ?g_00C1EE54@@3QBUFieldParse@@B,0x0081EE54,"Renamed to ?g_waterTextureFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
 ?Rva001ED62EGet@@YAHXZ,0x001ED62E,"Renamed to ?getImageFieldParseTable@@YAHXZ by tools/rename.py (inferred)"
+?rva0053FA0A@Rva0053FA0A@@QAEXXZ,0x0053FA0A,"Renamed to ?destroy@Rva0053FA0A@@QAEXXZ by tools/rename.py (inferred)"
+?rva0073F778@Rva0073F778@@QAE_NP6GIPAX@Z0HIH0@Z,0x0073F778,"Renamed to ?createThread@Rva0073F778@@QAE_NP6GIPAX@Z0HIH0@Z by tools/rename.py (inferred)"
+?rva005F53A2@Rva005F53A2@@QAEXXZ,0x005F53A2,"Renamed to ?SwapArmyMembers@Rva005F53A2@@QAEXXZ by tools/rename.py (inferred)"

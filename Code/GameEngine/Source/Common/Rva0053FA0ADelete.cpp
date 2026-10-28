@@ -1,7 +1,7 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
 #include "ascii_string.h"
 //
-// ?rva0053FA0A@Rva0053FA0A@@QAEXXZ @ 0x0053FA0A 40B
+// ?destroy@Rva0053FA0A@@QAEXXZ @ 0x0053FA0A 40B
 // Evidence: forEach row 0x0053F9EC plus slot-3 update dispatch at 0x005CB265;
 // virtual slot 6 plus operator delete row 0x0002FD60; Release 0x0053FA32
 // uses refcount +0x14; list +4 per Rva0053F97FListenerWalks.
@@ -37,7 +37,7 @@ public:
   virtual void v4();
   virtual void v5();
   virtual void *v6(int);
-  void rva0053FA0A();
+  void destroy();
   void release();
   void setName(const AsciiString &name);
   void rva0053FA74(int value);
@@ -56,7 +56,7 @@ public:
   virtual void slot0(void *);
   virtual void slot1(void *);
 };
-void Rva0053FA0A::rva0053FA0A()
+void Rva0053FA0A::destroy()
 {
   m_list04.forEach(reinterpret_cast<void (Rva0053F9ECListener::*)(void *)>(&ProcessAnimateWindowSlideFromBottomTimed::updateAnimateWindow), this);
   void *p = 0;
@@ -71,7 +71,7 @@ void Rva0053FA0A::release()
   if (m_ref14 > 0) {
     return;
   }
-  rva0053FA0A();
+  destroy();
 }
 void Rva0053FA0A::setName(const AsciiString &name)
 {

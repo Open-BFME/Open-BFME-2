@@ -69,7 +69,7 @@ struct Rva0029FD1BNode
 class InGameUI
 {
 public:
-	void rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int arg3);
+	void rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int isValid);
 protected:
 	void handleRadiusCursor();
 public:
@@ -129,7 +129,7 @@ typedef _STL::hashtable<_STL::pair<const unsigned, void *>, unsigned, _STL::hash
 void *rva002888D4(void *table, int *key);
 
 
-void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int arg3)
+void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int isValid)
 {
 	if (m_888 != (id ? id : id))
 	{
@@ -202,7 +202,7 @@ void InGameUI::rva0029FD1B(int id, MaterialPassClass *mp, Overridable *ov, int a
 		this->handleRadiusCursor();
 	}
 
-	int color = (unsigned char)arg3 ? -1 : (int)0xFFFF1414;
+	int color = (unsigned char)isValid ? -1 : (int)0xFFFF1414;
 	if (m_890)
 		(m_890) ? (m_890->setColor(color)) : (m_890->setColor(color));
 }

@@ -144,8 +144,8 @@ static __declspec(noinline) void SendSwapArmyMembersMessage(int army1,const Rva0
 // in source-army / source-selection / target-army / target-selection order.
 struct Rva005FEntryPtr {Rva005FEntryView*value;Rva005FEntryView*operator->()const{return value;}};
 struct Rva005F53A2Context {char prefix[12];Rva005FEntryPtr source,target;};
-class Rva005F53A2 {public:void rva005F53A2();char prefix[8];Rva005F53A2Context*context;Rva005F53A2Context*getContext(){return context;}};
-void Rva005F53A2::rva005F53A2(){
+class Rva005F53A2 {public:void SwapArmyMembers();char prefix[8];Rva005F53A2Context*context;Rva005F53A2Context*getContext(){return context;}};
+void Rva005F53A2::SwapArmyMembers(){
  Rva005F53A2Context*owner=getContext();
  Rva005FArmyView*source=owner->source->army;
  Rva005FSelectionView&first=getContext()->source->selection;

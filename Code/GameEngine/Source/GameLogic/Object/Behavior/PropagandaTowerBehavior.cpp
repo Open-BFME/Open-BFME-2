@@ -103,9 +103,9 @@ struct Rva00481A9EInfo
 {
 	char m_pad00[0x0c];
 	UnsignedInt m_extra; // +0x0c
-	float m_f10; // +0x10
+	float m_autoHealPercentPerSecond; // +0x10
 	char m_pad14[0x08];
-	float m_f1c; // +0x1c
+	float m_upgradedAutoHealPercentPerSecond; // +0x1c
 };
 
 extern int BfmeLogicFramesPerSecond;
@@ -327,9 +327,9 @@ void Rva0048180C::rva00481A9E(Object *tgt, bool flag, Rva00481A9EInfo *info)
 			return;
 		float fsel;
 		if (hasUpgrade)
-			fsel = info->m_f1c;
+			fsel = info->m_upgradedAutoHealPercentPerSecond;
 		else
-			fsel = info->m_f10;
+			fsel = info->m_autoHealPercentPerSecond;
 
 		// Retail ends the x87 chain with a single `fmulp st(1),st`; the product
 		// is a named float argument temp (inline call-argument forms keep the

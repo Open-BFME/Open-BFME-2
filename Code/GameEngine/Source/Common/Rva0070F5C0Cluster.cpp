@@ -78,10 +78,10 @@ void Rva0070F5C0::rva0070F5C0(AptCIH *pCIH, int idx)
             info.m_4 = 0;
             info.m_8 = "AptFrameActions";
             info.m_c = 0x200000;
-            void *r = ((Rva00700090 *)&g_aptDateInterpreter)->rva00700090(&info);
-            void *p = pCIH ? ((Rva006CD650 *)pCIH->rva006E0CB0())->rva006CD650() : 0;
-            ((Rva007002C0 *)&g_aptDateInterpreter)->rva007002C0(q[1], pCIH, -1, p);
-            ((Rva00706950 *)&g_aptDateInterpreter)->rva00706950(r, &info);
+            void *savedState = ((Rva00700090 *)&g_aptDateInterpreter)->rva00700090(&info);
+            void *character = pCIH ? ((Rva006CD650 *)pCIH->rva006E0CB0())->rva006CD650() : 0;
+            ((Rva007002C0 *)&g_aptDateInterpreter)->rva007002C0(q[1], pCIH, -1, character);
+            ((Rva00706950 *)&g_aptDateInterpreter)->rva00706950(savedState, &info);
         }
     }
 }

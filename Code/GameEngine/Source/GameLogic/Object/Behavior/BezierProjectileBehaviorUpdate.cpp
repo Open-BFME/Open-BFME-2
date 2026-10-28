@@ -23,7 +23,7 @@ extern GameLogic *TheGameLogic;
 extern PartitionManager *ThePartitionManager;
 struct BezCoord : Coord3D {
  BezCoord() {}
- BezCoord(const Coord3D &p) { x=p.x; y=p.y; z=p.z; }
+ BezCoord(const Coord3D &sourcePosition) { x=sourcePosition.x; y=sourcePosition.y; z=sourcePosition.z; }
  BezCoord &operator=(const Coord3D &p) { Coord3D::operator=(p); return *this; }
  ~BezCoord() {}
 };
