@@ -20,7 +20,7 @@ private:
 struct Rva005B61B3Elem
 {
 	char m_00[8];
-	StringBase<unsigned short> m_08;
+	StringBase<unsigned short> m_name;
 	int m_0C;
 	int m_10;
 	char m_14[0x48 - 0x14];
@@ -38,11 +38,11 @@ private:
 
 bool Rva005B61B3::rva005B61B3(void *a_raw, void *b_raw)
 {
-	Rva005B61B3Elem *a = (Rva005B61B3Elem *)a_raw;
-	Rva005B61B3Elem *b = (Rva005B61B3Elem *)b_raw;
-	int nameDiff = a->m_08.compareNoCase(b->m_08);
-	int verDiff = (a->m_0C - b->m_0C) * 100 + (a->m_10 - b->m_10);
-	int flagDiff = (int)a->m_48 - (int)b->m_48;
+	Rva005B61B3Elem *leftHero = (Rva005B61B3Elem *)a_raw;
+	Rva005B61B3Elem *rightHero = (Rva005B61B3Elem *)b_raw;
+	int nameDiff = leftHero->m_name.compareNoCase(rightHero->m_name);
+	int verDiff = (leftHero->m_0C - rightHero->m_0C) * 100 + (leftHero->m_10 - rightHero->m_10);
+	int flagDiff = (int)leftHero->m_48 - (int)rightHero->m_48;
 	int crit = m_key0;
 	for (int i = 0; i < 2; ++i) {
 		switch (crit) {

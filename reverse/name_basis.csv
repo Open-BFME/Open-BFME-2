@@ -3910,3 +3910,13 @@ param,GateOffset::z,GateOffset::zCoord,inferred,agree:nl-4b21490276b3,Code/GameE
 param,AIGateUpdate::rva004B0A24::y,AIGateUpdate::rva004B0A24::offsetY,inferred,agree:nl-99c78bc7a5ae,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateTrigger.cpp,0x004B0A24
 param,heldOwned::p,heldOwned::ownedOrder,inferred,agree:nl-8ee0d853ca1e,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,
 local,heldOwned::q,heldOwned::heldOrder,inferred,agree:nl-da3bd074f894,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/AIBase.cpp,
+function,?Rva003B9CF3@@YAHQAPADH@Z,?parseHideLivingWorldRegions@@YAHQAPADH@Z,inferred,agree:nl-966f48b21bbd,Code/GameEngine/Source/Common/GapBodiesGE14.cpp,0x003B9CF3
+function,?Rva003B9D13@@YAHQAPADH@Z,?parseLivingWorldTurbo@@YAHQAPADH@Z,inferred,agree:nl-8725b6f15c47,Code/GameEngine/Source/Common/GapBodiesGE14.cpp,0x003B9D13
+member,Rva005B61B3Elem::m_08,Rva005B61B3Elem::m_name,inferred,agree:nl-4daaf2e60675,Code/GameEngine/Source/Common/Rva005B61B3Comparer.cpp,
+local,Rva005B61B3::rva005B61B3::a,Rva005B61B3::rva005B61B3::leftHero,inferred,agree:nl-8c9ec565432d,Code/GameEngine/Source/Common/Rva005B61B3Comparer.cpp,0x005B61B3
+local,Rva005B61B3::rva005B61B3::b,Rva005B61B3::rva005B61B3::rightHero,inferred,agree:nl-1755f3c9ea5b,Code/GameEngine/Source/Common/Rva005B61B3Comparer.cpp,0x005B61B3
+local,ObjectSMCHelper::framesUntilNext::f,ObjectSMCHelper::framesUntilNext::expirationFrame,inferred,agree:nl-4f5fa97f122d,Code/GameEngine/Source/GameLogic/Object/Helper/ObjectSMCHelper_framesUntilNext.cpp,0x004DE700
+param,Rva002B8767::rva002B8767::a,Rva002B8767::rva002B8767::movieName,inferred,agree:nl-b0715a2e5012,Code/Libraries/Source/WWVegas/WWLib/Rva002B8767.cpp,0x002B8767
+param,Rva002B8767::rva002B8767::b,Rva002B8767::rva002B8767::playNextActAfterMovie,inferred,agree:nl-75967750698c,Code/Libraries/Source/WWVegas/WWLib/Rva002B8767.cpp,0x002B8767
+param,Rva002B8767::rva002B8767::c,Rva002B8767::rva002B8767::eventName,inferred,agree:nl-7782b68692dd,Code/Libraries/Source/WWVegas/WWLib/Rva002B8767.cpp,0x002B8767
+local,Rva002B8767::rva002B8767::tmp,Rva002B8767::rva002B8767::eventRecord,inferred,agree:nl-90e904074732,Code/Libraries/Source/WWVegas/WWLib/Rva002B8767.cpp,0x002B8767

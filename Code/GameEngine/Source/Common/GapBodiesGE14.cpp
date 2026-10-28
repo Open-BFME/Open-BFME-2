@@ -71,7 +71,7 @@ int Rva003B9CDF(char *args[], int)
 	return 1;
 }
 
-int Rva003B9CF3(char *args[], int)
+int parseHideLivingWorldRegions(char *args[], int)
 {
 	((Rva003B9CDFGlobalData *)TheWritableGlobalData)->m_hideLivingWorldRegions = true;
 	return 1;
@@ -83,7 +83,7 @@ int Rva003B9D03(char *args[], int)
 	return 1;
 }
 
-int Rva003B9D13(char *args[], int)
+int parseLivingWorldTurbo(char *args[], int)
 {
 	((Rva003B9CDFGlobalData *)TheWritableGlobalData)->m_livingWorldTurbo = true;
 	return 1;

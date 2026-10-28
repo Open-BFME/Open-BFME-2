@@ -59,10 +59,10 @@ int ObjectSMCHelper::framesUntilNext()
 		do
 		{
 			Rva004DE700TimerValue value = node->m_value;
-			unsigned int f = value.m_frame;
+			unsigned int expirationFrame = value.m_frame;
 			node = node->m_next;
-			if (f < best)
-				best = f;
+			if (expirationFrame < best)
+				best = expirationFrame;
 		} while (node != m_timers.end());
 	}
 	int delta = best - frame;

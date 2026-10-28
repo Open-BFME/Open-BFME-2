@@ -70,7 +70,7 @@ struct Rva002B8767Counter
 class Rva002B8767
 {
 public:
-	void rva002B8767(BfmePairWI pair, const AsciiStringWI &a, bool b, const AsciiStringWI &c);
+	void rva002B8767(BfmePairWI pair, const AsciiStringWI &movieName, bool playNextActAfterMovie, const AsciiStringWI &eventName);
 private:
 	char m_pad00[0xB0];
 	Rva002B8767Counter *volatile m_00B0;
@@ -78,10 +78,10 @@ private:
 	_STL::vector<const ModuleData *> m_00BC;
 };
 
-void Rva002B8767::rva002B8767(BfmePairWI pair, const AsciiStringWI &a, bool b, const AsciiStringWI &c)
+void Rva002B8767::rva002B8767(BfmePairWI pair, const AsciiStringWI &movieName, bool playNextActAfterMovie, const AsciiStringWI &eventName)
 {
-	Gen_003BEA30 *obj = new Gen_003BEA30(pair, ++m_00B0->m_count, a, b, c);
-	const ModuleData *tmp = (const ModuleData *)obj;
+	Gen_003BEA30 *obj = new Gen_003BEA30(pair, ++m_00B0->m_count, movieName, playNextActAfterMovie, eventName);
+	const ModuleData *eventRecord = (const ModuleData *)obj;
 	TheLivingWorldManager->CreateBeaconObject(obj->m_bfmeKind, (const Coord2D *)obj, 2);
-	m_00BC.push_back(tmp);
+	m_00BC.push_back(eventRecord);
 }
