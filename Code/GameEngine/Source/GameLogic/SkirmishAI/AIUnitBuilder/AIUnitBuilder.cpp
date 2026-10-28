@@ -49,6 +49,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <hash_map>
 #include <cstddef>
+#include <stl/_algobase.h>
 
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
@@ -96,6 +97,7 @@ public:
 // ?getAI@AIUnitBuilder@@QAEPAURva002A8AB1Record@@XZ @0x00598007 15B
 // Evidence: leaf lookup via global and rowed Rva002A8F24 rva002A8AB1 on member at +0x30; ready caller 0x00598CBC uses eax as pointer plus 0x160.
 struct MidVecHolder;
+
 struct Rva002A8AB1Record
 {
 public:
@@ -106,6 +108,7 @@ public:
 };
 
 class Player;
+
 class Rva002A8F24
 {
 public:
@@ -114,20 +117,6 @@ public:
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
-
-class AIUnitBuilder
-{
-public:
-	Rva002A8AB1Record *getAI();
-	bool rva0059802E();
-	void *rva00598016();
-	int rva00598192(const AsciiString &key);
-private:
-	char _pad[0x14];
-	_STL::list<int> m_list;	// +0x14
-	char m_pad18[0x30 - 0x14 - sizeof(_STL::list<int>)];
-	Player *m_player;	// +0x30
-};
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
@@ -266,6 +255,77 @@ struct Rva00598C7CElement {Rva00598C7CElement();Rva00598C7CElement(const Rva0059
 // needing the element's undefined operations and kept the unit from linking.
 template _STL::hashtable<_STL::pair<int const, Rva00598C7CElement>, int, _STL::hash<int>, _STL::_Select1st<_STL::pair<int const, Rva00598C7CElement> >, _STL::equal_to<int>, _STL::allocator<_STL::pair<int const, Rva00598C7CElement> > >::hashtable(unsigned int, _STL::hash<int> const &, _STL::equal_to<int> const &, _STL::allocator<_STL::pair<int const, Rva00598C7CElement> > const &);
 
+struct Rva002A8AB1Record;
+
+struct Rva00598192Item
+{
+	char m_pad00[0xC];
+	AsciiString m_name;
+};
+
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> COMDAT copies, so the calls bind the kept rowed copies.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString&);
+template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
+template <> void vector<AsciiString, allocator<AsciiString> >::_M_insert_overflow(AsciiString*, const AsciiString&, const __false_type&, size_t, bool);
+}
+
+struct MidVecHolder
+{
+	char _pad[0x8c];
+	_STL::vector<AsciiString> m_vec;
+};
+
+class AIUnitBuilder
+{
+public:
+	Rva002A8AB1Record *getAI();
+	bool rva0059802E();
+	void *rva00598016();
+	int rva00598192(const AsciiString &key);
+private:
+	char _pad[0x14];
+	_STL::list<int> m_list;	// +0x14
+	char m_pad18[0x30 - 0x14 - sizeof(_STL::list<int>)];
+	Player *m_player;	// +0x30
+};
+
+struct Rva00506C82Arg
+{
+	char _pad[0x50];
+	int m_50;
+};
+
+class GameSlot
+{
+public:
+	char _pad[0x50];
+	int m_50;
+};
+
+GameSlot *__cdecl Rva00506C82Find(const Rva00506C82Arg *arg);
+
+// Owned here (its only reader); retail .data zero-initializes it (VA 0x00E063D4, BSS tail).
+AsciiString g_00E063D4;
+
+class Rva00598CBC
+{
+public:
+	void rva00598CBC();
+private:
+	char _pad0[0x30];
+	void *m_30;
+	char _pad1[0x4c - 0x34];
+	_STL::vector<AsciiString> m_vec;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva00598007.cpp
 
 Rva002A8AB1Record *AIUnitBuilder::getAI()
@@ -279,18 +339,6 @@ bool AIUnitBuilder::rva0059802E()
 	Rva002A8AB1Record *p = TheSkirmishAIManager->rva002A8AB1(m_player);
 	return p->m_16c == 0;
 }
-
-// tu-skeleton: 0x00598016 15B ?rva00598016@AIUnitBuilder@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/Rva00598016Get.cpp (not merged yet)
-
-// tu-skeleton: 0x00598025 9B ?get@Rva00598025CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0059804A 8B ?set@Rva0059804AStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00598052 161B ?Rva00598052@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
-
-// tu-skeleton: 0x005980F3 45B ?rva005980F3@Rva005980F3@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00598120 41B ?rva00598120@Rva005980F3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00598149Map.cpp
 
@@ -310,7 +358,68 @@ void Rva00598149::rva00598149(void *key)
 	m_done = true;
 }
 
-// tu-skeleton: 0x00598192 51B ?rva00598192@AIUnitBuilder@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00598192Count.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00598B2AClear.cpp
+
+// ?rva00598B2A@Rva00598B2A@@QAEXXZ @0x00598B2A 78B via tree-list-vector clear with virtual delete
+// Evidence: thiscall ret0; tree clear 0x00598120 at +8; list walk with virtual slot0 int0 plus rowed delete 0x0002FD60; rowed List_base<int> clear 0x0023DAA5 at +0x14; rowed vector<AsciiString> erase 0x0002CCFC at +0x4C; caller unclaimed 0x00598CFD
+
+void Rva00598B2A::rva00598B2A()
+{
+	m_tree.rva00598120();
+	for (_STL::list<int>::iterator it = m_list.begin(); it != m_list.end(); ++it) {
+		RvaObj00598B2A *o = (RvaObj00598B2A *)(int)*it;
+		::operator delete(o ? o->get(0) : 0);
+	}
+	m_list.clear();
+	_STL::vector<AsciiString> &v = m_vec;
+	v.erase(v.begin(), v.end());
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00598C7C.cpp
+
+
+// ---- from Code/GameEngine/Source/Common/Rva00598CFDDtor.cpp
+
+// ??1Rva00598B2A@@UAE@XZ @0x00598CFD 125B via clear plus members plus virtual base
+// Evidence: virtual dtor vtable 0x00870D2C; rowed clear 0x00598B2A; vector dtor 0x0002CC70 at +0x4C; holder free at +0x3C via rowed _free 0x00030830; rowed hashtable dtor 0x005982AC at +0x18; rowed List_base dtor 0x004EC395 at +0x14; rowed tree dtor 0x005981CA at +8; base dtor pinned at 0x00506B28
+
+Rva00598B2A::~Rva00598B2A()
+{
+	rva00598B2A();
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00598016Get.cpp
+
+void *AIUnitBuilder::rva00598016()
+{
+	return TheSkirmishAIManager->rva002A8F24(m_player);
+}
+
+// tu-skeleton: 0x00598025 9B ?get@Rva00598025CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0059804A 8B ?set@Rva0059804AStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00598052 161B ?Rva00598052@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
+
+// tu-skeleton: 0x005980F3 45B ?rva005980F3@Rva005980F3@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00598120 41B ?rva00598120@Rva005980F3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00598192Count.cpp
+
+// ?rva00598192@AIUnitBuilder@@QAEHABVAsciiString@@@Z @0x00598192 51B via list count with StringBase compare
+// Evidence: thiscall ret4 one AsciiString arg; list at +0x14 with int payloads; payload+0xC AsciiString compared via rowed StringBase<char>::compare 0x000069D6; callers unclaimed 0x00598202 0x0059858C
+
+int AIUnitBuilder::rva00598192(const AsciiString &key)
+{
+	int count = 0;
+	for (_STL::list<int>::iterator it = m_list.begin(); it._M_node != m_list.end()._M_node; ++it) {
+		Rva00598192Item *item = (Rva00598192Item *)(int)*it;
+		if (item->m_name.compare(key) == 0)
+			++count;
+	}
+	return count;
+}
 
 // tu-skeleton: 0x005981C5 5B ?rva005981C5@Rva005981C5@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
@@ -342,39 +451,26 @@ void Rva00598149::rva00598149(void *key)
 
 // tu-skeleton: 0x00598A3D 237B ?rebuildArmyPercentages@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00598B2AClear.cpp
-
-// ?rva00598B2A@Rva00598B2A@@QAEXXZ @0x00598B2A 78B via tree-list-vector clear with virtual delete
-// Evidence: thiscall ret0; tree clear 0x00598120 at +8; list walk with virtual slot0 int0 plus rowed delete 0x0002FD60; rowed List_base<int> clear 0x0023DAA5 at +0x14; rowed vector<AsciiString> erase 0x0002CCFC at +0x4C; caller unclaimed 0x00598CFD
-
-void Rva00598B2A::rva00598B2A()
-{
-	m_tree.rva00598120();
-	for (_STL::list<int>::iterator it = m_list.begin(); it != m_list.end(); ++it) {
-		RvaObj00598B2A *o = (RvaObj00598B2A *)(int)*it;
-		::operator delete(o ? o->get(0) : 0);
-	}
-	m_list.clear();
-	_STL::vector<AsciiString> &v = m_vec;
-	v.erase(v.begin(), v.end());
-}
-
 // tu-skeleton: 0x00598B78 194B ?createBestUnitToMake@AIUnitBuilder@@QAEPAVRva00598C3AItem@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
 // tu-skeleton: 0x00598C3A 66B ?build@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderBuild.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00598C7C.cpp
+// ---- from Code/GameEngine/Source/Common/Rva00598CBC.cpp
 
-// tu-skeleton: 0x00598CBC 65B ?rva00598CBC@Rva00598CBC@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00598CBC.cpp (not merged yet)
+// ?rva00598CBC@Rva00598CBC@@QAEXXZ @0x00598CBC 65B via vector-assign plus slot-gated push_back
+// Evidence: chain from 0x00598007; caller 0x004EBFC2; vector at +0x4C like Rva00598B2A; m_30 at +0x30 like AIUnitBuilder; rowed vector assign 0x000BDB46 and push_back 0x0002DBE6 and Find 0x00506C82; global g_00E063D4
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
 
-// ---- from Code/GameEngine/Source/Common/Rva00598CFDDtor.cpp
-
-// ??1Rva00598B2A@@UAE@XZ @0x00598CFD 125B via clear plus members plus virtual base
-// Evidence: virtual dtor vtable 0x00870D2C; rowed clear 0x00598B2A; vector dtor 0x0002CC70 at +0x4C; holder free at +0x3C via rowed _free 0x00030830; rowed hashtable dtor 0x005982AC at +0x18; rowed List_base dtor 0x004EC395 at +0x14; rowed tree dtor 0x005981CA at +8; base dtor pinned at 0x00506B28
-
-Rva00598B2A::~Rva00598B2A()
+void Rva00598CBC::rva00598CBC()
 {
-	rva00598B2A();
+	Rva002A8AB1Record *rec = ((AIUnitBuilder *)this)->getAI();
+	_STL::vector<AsciiString> &src = rec->m_160->m_vec;
+	m_vec = src;
+	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
+	if (slot && slot->m_50 != 0) {
+		m_vec.push_back(g_00E063D4);
+	}
 }
 
 // tu-skeleton: 0x00598D7A 40B ?Rva00598D7A@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
