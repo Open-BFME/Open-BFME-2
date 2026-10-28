@@ -336,15 +336,49 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-class LevelGrantSpecialPowerModuleData
+class SpecialAbilityUpdateModuleData
 {
 public:
-	char m_pad00[0xC8];
-	int m_experience;		// +0xC8 the amount
-	float m_CC;		// +0xCC the radius
-	char m_D0[4];		// +0xD0
-	const FXList *m_D4;	// +0xD4
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+
+private:
+	unsigned char m_pad[0xC8 - 4];
 };
+
+class Rva003623E5Member
+{
+public:
+	Rva003623E5Member();
+
+private:
+	unsigned char m_data[4];
+};
+
+class LevelGrantSpecialPowerModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	LevelGrantSpecialPowerModuleData();
+	virtual ~LevelGrantSpecialPowerModuleData();
+
+	int m_experience;		// +0xC8 the amount
+	float m_radiusEffect;		// +0xCC the radius
+	Rva003623E5Member m_acceptanceFilter;	// +0xD0
+	const FXList *m_levelFX;	// +0xD4
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 class SpecialAbilityUpdate
 {
@@ -380,6 +414,7 @@ class LevelGrantSpecialPower : public SpecialAbilityUpdate
 {
 public:
 	virtual void triggerAbilityEffect();
+	virtual NameKeyType getModuleNameKey() const;
 	void rva004C2C7B(Object *obj);
 	void rva004C2D2B(Object *obj, std::vector<ObjectID> &seen);
 private:
@@ -456,7 +491,7 @@ void LevelGrantSpecialPower::rva004C2C7B(Object *obj)
 		if (count) {
 			Rva004C2B57Args args;
 			args.m_amount = (float)data->m_experience / (float)count;
-			args.m_D4 = data->m_D4;
+			args.m_D4 = data->m_levelFX;
 			args.m_source = source;
 			obj->m_250->rvaSlot68(rva004C2B57, &args, true);
 		}
@@ -464,7 +499,7 @@ void LevelGrantSpecialPower::rva004C2C7B(Object *obj)
 		Rva004C2B57Args args;
 		args.m_source = 0;
 		args.m_amount = (float)data->m_experience;
-		args.m_D4 = data->m_D4;
+		args.m_D4 = data->m_levelFX;
 		rva004C2B57(obj, &args);
 	}
 }
@@ -491,11 +526,11 @@ void LevelGrantSpecialPower::triggerAbilityEffect()
 	const LevelGrantSpecialPowerModuleData *data = getLevelGrantSpecialPowerModuleData();
 	std::vector<ObjectID> seen;
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(
-		&m_44, data->m_CC, 0,
+		&m_44, data->m_radiusEffect, 0,
 		Rva002614DFFilter(obj).link(rva004C2D9DAddress(Rva00260EB1Filter(obj, 4, false)))
 			->link(rva004C2D9DAddress(Rva0026119DFilter()))
 			->link(rva004C2D9DAddress(Rva002611BFFilter(obj)))
-			->link(rva004C2D9DAddress(Rva002614ECFilter(data->m_D0, obj->getControllingPlayer(), true))), 1);
+			->link(rva004C2D9DAddress(Rva002614ECFilter(&data->m_acceptanceFilter, obj->getControllingPlayer(), true))), 1);
 	Object *other;
 	while ((other = hits.next()) != 0)
 		rva004C2D2B(other, seen);
