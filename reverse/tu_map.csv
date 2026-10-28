@@ -58153,7 +58153,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006CBAD0,80,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp
 0x006CBB20,84,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp provisional,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
 0x006CBB80,112,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBBF0 provisional,Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp
-0x006CBBF0,28,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC10 provisional,Code/GameEngine/Source/GameClient/Rva006CBBF0.cpp
+0x006CBBF0,28,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC10 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 0x006CBC10,7,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC20 provisional,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x006CBC20,30,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC40 provisional,Code/Libraries/Source/Apt/AptGapLeaves.cpp
 0x006CBC40,6,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC50 provisional,Code/Libraries/Source/Apt/Apt.cpp
@@ -58168,7 +58168,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006CBDA0,25,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBDC0 provisional,Code/Libraries/Source/Apt/AptGapLeaves.cpp
 0x006CBDC0,10,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBDD0 provisional,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp
 0x006CBDD0,9,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBDE0 provisional,Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp
-0x006CBDE0,200,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBEB0 provisional,Code/GameEngine/Source/Common/Rva006CBDE0Ctor.cpp
+0x006CBDE0,200,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBEB0 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 0x006CBEB0,32,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBED0 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp
 0x006CBED0,10,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBF40 provisional,Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp
 0x006CBEE0,87,code,,displaced,-,N=Code/Libraries/Source/Apt/AptValue/BfmeAptValue006DCD20.cpp,Code/Libraries/Source/Apt/AptValue/AptValueTypePredicatesBFME2.cpp
@@ -91490,9 +91490,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A8006,10,code,Code/Libraries/Source/WWVegas/WWLib/PooledString.cpp,approved,P,P=0x006CB7C0@FuncInfo0x00961A34 provisional,Code/Libraries/Source/WWVegas/WWLib/PooledStringSetString.cpp
 0x007A8010,15,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp
 0x007A801F,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp
-0x007A8030,8,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/GameEngine/Source/Common/Rva006CBDE0Ctor.cpp
-0x007A8038,11,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/GameEngine/Source/Common/Rva006CBDE0Ctor.cpp
-0x007A8043,10,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/GameEngine/Source/Common/Rva006CBDE0Ctor.cpp
+0x007A8030,8,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
+0x007A8038,11,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
+0x007A8043,10,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,P,P=0x006CBDE0@FuncInfo0x00961A84 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 0x007A8050,15,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CC380@FuncInfo0x00961AB0,Code/gen_small/uw_gen_014.cpp
 0x007A805F,15,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CC380@FuncInfo0x00961AB0,Code/gen_small/uw_gen_014.cpp
 0x007A806E,10,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CC380@FuncInfo0x00961AB0,Code/Libraries/Source/Apt/Apt.cpp
