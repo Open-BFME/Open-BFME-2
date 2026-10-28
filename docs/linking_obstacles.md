@@ -2774,6 +2774,18 @@ No registered-debt, ownership, census or runtime gain is claimed; see LINK-095.
 
 **Status: Open. Updated: 2026-10-28.**
 
+
+**Authentication string cleanup (2026-10-28, inspected `b48e23b5d2`):**
+[The scoped evidence](../reverse/attempt_support/connection-auth-string-cleanup-20261028-codex.md)
+records shared AsciiString adoption in the 149-byte authentication-key fragment,
+removal of five aliases and supported retirement of one code-identity key.
+Its row stays exact and before/after ordinary previews both say LINKS against
+`d92e7e6635`. The consumer audit is INCONCLUSIVE: the index predates the base
+and Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Consumer and
+census confirmation remain pending. The proposed Common/BFMEConnectionManager
+TU still has no approved rows; reconcile its interleaved placement evidence
+before merging. This clears only the stated alias and identity debt.
+
 - **Publication full control (2026-10-28, `b0238684f4`):**
   [The completed post-rebase gate](../reverse/attempt_support/critter-emitter-consolidation-20261028-codex.md#completed-full-gate-control-after-conflict-resolution)
   exits 1 solely on two existing DIR32 conflicts: `Rva003F498ACallback` tables

@@ -41,6 +41,15 @@ update its follow-up with the date, revision, result, evidence link and remainin
 dependency. Record cleared scope and census confirmation separately; retain the
 snapshot bytes and history. Add newly encountered causes to the obstacle register.
 
+Additional current target (2026-10-28, base `b48e23b5d2`, index `d92e7e6635`):
+`GameNetwork/ConnectionManager_processGameSpyStatsAuthKey_Rva004CFE24.cpp`
+retains its exact 149-byte row and LINKS preview while removing five aliases
+and one identity key through shared strings. Consumer audit remains INCONCLUSIVE
+(older index; missing current consumer receipt); the wider ConnectionManager
+and proposed-TU prerequisites remain. See
+[the evidence](../reverse/attempt_support/connection-auth-string-cleanup-20261028-codex.md)
+and LINK-005 for the bounded clearance and remaining checks.
+
 Additional current target (2026-10-28, base `72a0f2d577`, preview index
 `41c28839bf`): `GameLogic/AI/PathfinderClassifyObjectFootprint.cpp` now
 previews LINKS for 3,378 authored bytes after keeping its unused inline
