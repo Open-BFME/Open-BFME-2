@@ -41,6 +41,10 @@ namespace _STL
   {
    
   }
+  // Declared only: the unwind funclet calls retail's ~vector<int> (a 5-byte
+  // jump to ~_Vector_base); this view's implicit copy is not retail's and,
+  // from this unit's link place (0x00049DEA), would be the first copy.
+  ~vector();
   
  }
  ;

@@ -242,6 +242,16 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   one of the units retail-truth-5 frees (`vector<Object *>` selection) and would
   otherwise lose `cos` instead (found by running rt5_losers.py over census-unlinked units:
   7 units, 25,594 B); ProcessAnimateWindow.cpp and Rva00468E98Rotate.cpp keep linking (1,988 B).
+- `W3DDisplayCtorRva00049DEA.cpp` (halilkkaya-lk6): its private `vector` view's implicit
+  `~vector<int>` (unproven a8b8bf46d7cc), called only by the unwind funclet, would be
+  first from 0x00049DEA and lose; declaring the destructor in the view keeps the call
+  and drops the copy (69 other definers; first becomes a retail copy). 5/5 rows exact
+  (funclet labels renumber, parent EH data verified); link_check LINKS 302 B.
+Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
+2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
+stub; 717 B): both need the class views reconciled (header lane), not a copy
+suppression. MapUtil.cpp, AIUpdate.cpp, ThingFactory.cpp, Player.cpp and SquadCtor.cpp
+also gain rt5 losers but are blocked by other causes anyway.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
