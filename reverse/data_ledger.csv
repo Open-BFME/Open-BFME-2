@@ -10000,7 +10000,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008397C8,8,.rdata,string,??_C@_07BJADIKJG@fadeout?$AA@,,literal,,0,1
 0x008397D0,8,.rdata,string,??_C@_06JFGPOFJL@fadein?$AA@,,literal,,0,1
 0x008397D8,60,.rdata,string,??_C@_06FAOKFMOD@_level?$AA@,,literal,,0,1
-0x00839814,48,.rdata,global,_imageModes,Code/GameEngine/Source/GameClient/GUI/AptImageModeParser.cpp,owned,,1,2
+0x00839814,48,.rdata,global,_imageModes,Code/GameEngine/Source/Common/AptUtils.cpp,owned,,1,2
 0x00839844,176,.rdata,string,??_C@_05OGFGEMMJ@_mode?$AA@,,literal,,0,1
 0x008398F4,116,.rdata,string,??_C@_0M@JAOKBFKC@CloseWindow?$AA@,,literal,,0,1
 0x00839968,200,.rdata,global,?g_00C39968@@3UFieldParse@@B,,unowned,,0,1
@@ -19708,7 +19708,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0300C,20,.data,global,?g_Va00E0300C@@3URva00411112GlobalTable@@A,Code/GameEngine/Source/GameClient/Rva00411112Get.cpp,owned,,1,5
 0x00A03020,12,.data,global,?g_Va00E03020@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,5
 0x00A0302C,12,.data,global,?g_Va00E0302C@@3EA,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp,owned,,1,2
-0x00A03038,8,.data,global,?$S1@?4??Rva00412BFF@@YAXPBVCoord2D@@0PBD1@Z@4IA,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp,owned,,1,4
+0x00A03038,8,.data,global,?$S1@?4??Rva00412BFF@@YAXPBVCoord2D@@0PBD1@Z@4IA,Code/GameEngine/Source/Common/AptUtils.cpp,owned,,1,4
 0x00A03040,4,.data,global,?g_00E03040@@3PAUHandicapStore@@A,,unowned,,0,2
 0x00A03044,24,.data,global,_s_block,Code/GameEngine/Source/Common/Rva004134E3Lookup.cpp,owned,,1,7
 0x00A0305C,8,.data,global,?TheLivingWorldAutoResolveSciencePurchasePointBonusScheduleStore@@3PAVRva0022C38BSubsystem@@A,,unowned,,0,2

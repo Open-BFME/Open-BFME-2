@@ -33480,17 +33480,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004127D3,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x004127DE,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x004127E9,92,code,,,-,,Code/GameEngine/Source/GameClient/Rva0046ED80BackgroundCommand.cpp
-0x00412845,68,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp provisional,Code/GameEngine/Source/Common/BfmePathLeafAfterMarker.cpp
-0x00412889,50,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp C=0x00412845..0x004128BB provisional,Code/GameEngine/Source/Common/BfmePathLeafAfterMarker.cpp
-0x004128BB,45,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp provisional,Code/GameEngine/Source/Common/BfmePathLeafAfterMarker.cpp
+0x00412845,68,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00412889,50,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp C=0x00412845..0x004128BB provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x004128BB,45,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp W=Code/GameEngine/Source/GameClient/GUI/AptUtils.cpp provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x004128E8,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x004128BB..0x004128F0 provisional,Code/GameEngine/Source/Common/GlobalByteFlagSetters.cpp
 0x004128F0,239,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x004128BB..0x004129DF provisional,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp
 0x004129DF,93,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x004128BB..0x00412A3C provisional,Code/GameEngine/Source/GameClient/GUI/AptParameterParsing.cpp
-0x00412A3C,21,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCN.cpp provisional,Code/GameEngine/Source/Common/BfmeOneHundredEightyThree.cpp
+0x00412A3C,21,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingCN.cpp provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00412A51,162,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412AF3 provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
-0x00412AF3,161,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412B94 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageModeParser.cpp
-0x00412B94,107,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412BFF provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412B94.cpp
-0x00412BFF,473,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412DD8 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
+0x00412AF3,161,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412B94 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00412B94,107,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412BFF provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00412BFF,473,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,C,C=0x00412A3C..0x00412DD8 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00412DD8,158,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00412E76,158,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,N,N=Code/GameEngine/Source/Common/AptUtils.cpp provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00412F14,987,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptGlobalCallbackRegistration.cpp
@@ -77522,13 +77522,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00785E1F,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412A51@FuncInfo0x00932A10 provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x00785E27,11,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412A51@FuncInfo0x00932A10 provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
 0x00785E32,10,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412A51@FuncInfo0x00932A10 provisional,Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp
-0x00785E3C,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412AF3@FuncInfo0x00932A34 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageModeParser.cpp
-0x00785E44,10,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412AF3@FuncInfo0x00932A34 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageModeParser.cpp
-0x00785E4E,13,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
-0x00785E5B,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
-0x00785E63,13,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
-0x00785E70,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
-0x00785E78,10,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/GameClient/GUI/AptImageDrawRva00412BFF.cpp
+0x00785E3C,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412AF3@FuncInfo0x00932A34 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E44,10,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412AF3@FuncInfo0x00932A34 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E4E,13,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E5B,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E63,13,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E70,8,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
+0x00785E78,10,code,Code/GameEngine/Source/Common/AptUtils.cpp,approved,P,P=0x00412BFF@FuncInfo0x00932A70 provisional,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00785E82,8,code,,,-,,Code/gen_small/uw_gen_008.cpp
 0x00785E8A,25,code,,,-,,Code/GameEngine/Source/Common/AptUtils.cpp
 0x00785EA3,10,code,,,-,,Code/GameEngine/Source/Common/AptUtils.cpp
