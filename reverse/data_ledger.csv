@@ -13833,7 +13833,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00876684,32,.rdata,string,??_C@_0BN@JEKNONFM@ExperienceTrackerAutoResolve?$AA@,,literal,,0,1
 0x008766A4,20,.rdata,vtable,??_7ExperienceTrackerAutoResolve@@6B@,,literal,??_7ExperienceTrackerAutoResolve@@6B@;??_7Rva005DB100@@6B@,0,2
 0x008766B8,76,.rdata,vtable,??_7LivingWorldBuildPlotIconSubObject@@6B@,,literal,??_7LivingWorldBuildPlotIconSubObject@@6B@;??_7Rva005DB221@@6B@,0,2
-0x00876704,8,.rdata,global,?g_00C76704@@3QBGB,Code/GameEngine/Source/Common/Rva005DB3B3Method.cpp,owned,,1,1
+0x00876704,8,.rdata,global,?g_00C76704@@3QBGB,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptConnectionScreen.cpp,owned,,1,1
 0x0087670C,28,.rdata,string,??_C@_0BL@IBDIHDFH@APT?3ConnectionPlayerNum_?$CFd?$AA@,,literal,,0,1
 0x00876728,28,.rdata,string,??_C@_0BM@PJMFONHC@APT?3ConnectionPlayerName_?$CFd?$AA@,,literal,,0,1
 0x00876744,12,.rdata,string,??_C@_0M@HLIEAOM@_connecting?$AA@,,literal,,0,1
