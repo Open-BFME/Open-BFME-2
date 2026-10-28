@@ -66,6 +66,15 @@ authored-byte previews or commit-title gains into a projected headline.
 
 ## Obstacles and handoffs
 
+Recovery verification of the preserved seventeen-commit batch (2026-10-28,
+base `696149099c`, checked tip `6f76860438`): the dry-run push gate passes
+229 function rows, three data rows and fifteen EH graphs. Its link audit is
+still INCONCLUSIVE against index `41c28839bf`: six affected objects lack current
+receipts, first `GameClient/Eva.cpp`. Carry this consumer scope and the saved
+FireWeaponUpdate/ScriptEngine moves and declaration/data repairs into the next
+scheduled census. No measured linking gain is claimed.
+[Recovery, conflict resolutions and complete path audit](../reverse/attempt_support/preparation-recovery-20261028-codex.md).
+
 ### ProneUpdate constructor composition (2026-10-28)
 
 Status: Blocked on constructor and polymorphic-base reconciliation. At base
