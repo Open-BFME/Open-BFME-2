@@ -206,6 +206,230 @@ def view_methods(name, sources, known=()):
     return {sig: max(spellings, key=lambda m: ("{" in m, spellings[m])) for sig, spellings in seen.items()}
 
 
+# ---------------------------------------------------------------- virtual slots
+#
+# A polymorphic class's layout includes its vtable, so the header must declare
+# every slot the contract decided, in slot order. The contract names each slot
+# (CodeView `name(args)`); the declaration text (return type, parameters,
+# const, pure, an inline body) comes from the views that voted for it, by
+# majority of signature. A slot no view spells, a tie, or a gap in the slot
+# run refuses generation: a header that guessed a slot would shift every slot
+# after it.
+
+VIRTUAL_NAME = re.compile(r"(~?[A-Za-z_]\w*)\s*\(")
+
+
+def arg_count(text):
+    """Parameters in the first parenthesized list of `text` (`()` and `(void)` are 0)."""
+    depth, args, seen = 0, 0, ""
+    for char in text:
+        if char == "(":
+            depth += 1
+            if depth == 1:
+                continue
+        elif char == ")":
+            depth -= 1
+            if depth == 0:
+                break
+        if depth == 1 and char == ",":
+            args += 1
+        if depth >= 1:
+            seen += char
+    return 0 if seen.strip() in ("", "void") else args + 1
+
+
+def has_base_clause(text, name):
+    """Whether the view of `name` in `text` spells a base clause."""
+    span = body_span(text, name)
+    if not span:
+        return False
+    head = masked(text[span[0]:span[1]]).split("{")[0]
+    return bool(re.search(r"(?<!:):(?!:)", head))
+
+
+def virtual_members(text, name):
+    """[(member name, argument count, declaration)] of the virtuals a view of `name` declares.
+
+    A destructor is named `~` (CodeView calls its slot __vecDelDtor)."""
+    span = body_span(text, name)
+    if not span:
+        return []
+    code = re.sub(r"//[^\n]*|/\*.*?\*/", "", text[span[0]:span[1]], flags=re.S)
+    if "{" not in code:
+        return []
+    inner = code[code.index("{") + 1:code.rindex("}")]
+    out = []
+    for member in split_members(inner):
+        member = re.sub(r"^(?:(?:public|private|protected)\s*:\s*)+", "", member).strip()
+        if not re.match(r"virtual\b", member):
+            continue
+        found = VIRTUAL_NAME.search(member.split("{")[0])
+        if not found:
+            continue
+        member_name = "~" if found.group(1).startswith("~") else found.group(1)
+        out.append((member_name, 0 if member_name == "~" else arg_count(member[found.end() - 1:]),
+                    re.sub(r"\s+", " ", member).strip()))
+    return out
+
+
+def slot_key(member):
+    """(name, argument count) of a contract slot member such as `xfer(Xfer*)` or `__vecDelDtor(uint)`."""
+    found = VIRTUAL_NAME.match(member)
+    if not found:
+        return None, 0
+    name = found.group(1)
+    if name.startswith("~") or name in ("__vecDelDtor", "__delDtor"):
+        return "~", 0
+    return name, arg_count(member[found.end() - 1:])
+
+
+PARAM_SPELL = {"unsignedint": "uint", "unsignedshort": "ushort", "unsignedchar": "uchar", "unsignedlong": "ulong",
+               "unsigned": "uint", "__int64": "int64", "unsigned__int64": "uint64", "wchar_t": "wchar"}
+
+
+def param_types(text):
+    """Normalized parameter types of the first parenthesized list (`Xfer *x` -> `Xfer*`)."""
+    inner = text[text.index("(") + 1:]
+    depth, out, current = 1, [], ""
+    for char in inner:
+        depth += char == "("
+        depth -= char == ")"
+        if depth == 0:
+            break
+        if char == "," and depth == 1:
+            out.append(current)
+            current = ""
+        else:
+            current += char
+    out.append(current)
+    types = []
+    for param in out:
+        param = re.sub(r"=.*$", "", param)
+        param = re.sub(r"\b(const|struct|class|enum|volatile)\b", "", param).strip()
+        param = re.sub(r"\s*([*&])\s*", r"\1 ", param).strip()
+        words = param.split()
+        if len(words) > 1 and re.match(r"^[A-Za-z_]\w*$", words[-1]) and not words[-1].endswith(("*", "&")):
+            words = words[:-1]                       # the parameter's name
+        spelled = "".join(words)
+        types.append(PARAM_SPELL.get(spelled, spelled))
+    return [] if types in ([""], ["void"]) else types
+
+
+def matching(found, want, member):
+    """The declarations in one view's `found` that spell contract slot `member`.
+
+    Name and parameter count select; when one view declares several such
+    overloads, the parameter types must also agree with the contract's."""
+    hits = [text for n, args, text in found if (n, args) == want]
+    if len(hits) > 1 and want[0] != "~":
+        exact = [t for t in hits if param_types(t.split("{")[0]) == param_types(member)]
+        hits = exact if len(exact) == 1 else []
+    return hits
+
+
+def declaration_key(text):
+    head = text.split("{")[0].rstrip(" ;")
+    pure = bool(re.search(r"=\s*0\s*$", head))
+    return signature(re.sub(r"\s*=\s*0\s*$", "", head), ""), pure
+
+
+def pick_declaration(spellings):
+    """The majority declaration among `spellings` (Counter of text), or None on a tie.
+
+    Votes are on the signature with purity; an inline body beats a bare
+    declaration of the same signature (units that inline it need the body)."""
+    votes = collections.Counter()
+    for text, count in spellings.items():
+        votes[declaration_key(text)] += count
+    top = votes.most_common(2)
+    if not top or (len(top) > 1 and top[0][1] == top[1][1]):
+        return None
+    winners = {t: n for t, n in spellings.items() if declaration_key(t) == top[0][0]}
+    best = max(winners, key=lambda t: ("{" in t, winners[t], -len(t)))
+    return best if best.endswith(("}", ";")) else best + ";"
+
+
+def base_slot_names(contract, known=None):
+    """Virtual member names the contract's registered base headers declare (their overridable slots)."""
+    known = registered() if known is None else known
+    names = set()
+    for base in contract.get("bases", []):
+        path = known.get(base_identity(base))
+        if not path or not (ROOT / path).exists():
+            continue
+        text = masked((ROOT / path).read_text(encoding="latin-1"))
+        for found in re.finditer(r"\bvirtual\b[^;{}]*?(~?[A-Za-z_]\w*)\s*\(", text):
+            names.add("~" if found.group(1).startswith("~") else found.group(1))
+    return names
+
+
+def rename_destructor(text, short):
+    return re.sub(r"~\s*[A-Za-z_]\w*", "~" + short, text, count=1)
+
+
+def slot_declarations(contract, sources, read=None, known=None):
+    """([own slot declaration, emit order], [override declaration], [problem]) for the contract's vslots.
+
+    Own slots are the ones the contract decided (a derived contract holds only
+    its introductions); a base's slots are never re-emitted, and a view's
+    virtual whose name a registered base header declares is an override,
+    spelled by majority like an own slot."""
+    name = contract["class"]
+    short = name.split("::")[-1]
+    read = read or (lambda s: (ROOT / s).read_text(encoding="latin-1"))
+    slots = {int(k): v["member"] for k, v in (contract.get("vslots") or {}).items()}
+    problems = [f"{q['attribute']} undecided" for q in contract.get("queue", []) if q["attribute"].startswith("slot")]
+    views, derived = {}, set()
+    for source in sources:
+        try:
+            text = read(source)
+        except OSError:
+            continue
+        views[source] = virtual_members(text, name)
+        if has_base_clause(text, name):
+            derived.add(source)
+    if slots:
+        start = (contract.get("evidence", {}).get("inherited", {}).get("inherited_slots", 0)
+                 if contract.get("bases") else 0)
+        start = min(start, min(slots))
+        problems += [f"slot{k} undecided" for k in range(start, max(slots) + 1)
+                     if k not in slots and f"slot{k} undecided" not in problems]
+    decided = {}
+    for slot, member in sorted(slots.items()):
+        want = slot_key(member)
+        spellings = collections.Counter(text for found in views.values() for text in matching(found, want, member))
+        text = pick_declaration(spellings)
+        if text is None:
+            problems.append(f"slot{slot} {member}: " + ("no view spells it" if not spellings else "spellings tie"))
+            continue
+        decided[slot] = (want[0], rename_destructor(text, short) if want[0] == "~" else text)
+    # MSVC lays an overload group out at its first declaration in REVERSE
+    # declaration order (tools/class_layouts.py, "THE TRAP"): emit each run of
+    # same-name slots reversed. A name split across non-adjacent slots cannot
+    # be declared at all.
+    runs = []
+    for slot in sorted(decided):
+        member_name = decided[slot][0]
+        if runs and runs[-1][0] == member_name and runs[-1][1][-1] == slot - 1:
+            runs[-1][1].append(slot)
+            continue
+        if any(r[0] == member_name for r in runs):
+            problems.append(f"slot{slot} {member_name}: overloads in non-adjacent slots")
+        runs.append((member_name, [slot]))
+    order = [decided[s][1] for _, run in runs for s in reversed(run)]
+    own = {n for n, _ in decided.values()}
+    overrides = []
+    # Only a view that spells a base clause declares an override; a view that
+    # copied the base's slots into the class re-declares them, never overrides.
+    for member_name in sorted(base_slot_names(contract, known) - own):
+        spellings = collections.Counter(text for source, found in views.items() if source in derived
+                                        for n, _, text in found if n == member_name)
+        text = pick_declaration(spellings) if spellings else None
+        if text is not None:
+            overrides.append(rename_destructor(text, short) if member_name == "~" else text)
+    return order, overrides, problems
+
+
 SPELL = {"uint": "unsigned int", "ushort": "unsigned short", "uchar": "unsigned char", "ulong": "unsigned long",
          "int64": "__int64", "uint64": "unsigned __int64", "wchar": "wchar_t", "int8": "signed char",
          "uint8": "unsigned char"}
@@ -246,7 +470,7 @@ def nested_includes(contract, header):
     return lines + [""] if lines else []
 
 
-def generate(contract, variant, methods, header=None):
+def generate(contract, variant, methods, header=None, slots=None):
     name, key = contract["class"], contract["key"]
     guard = re.sub(r"\W", "_", f"CANONICAL_{name}_H").upper()
     lines = [f"// {name}: canonical layout, generated by tools/header_adopt_lane.py from",
@@ -268,6 +492,14 @@ def generate(contract, variant, methods, header=None):
     if "copy" in variant.split("+"):
         # an out-of-line copy constructor: retail calls one (a matched ??0X@@QAE@ABU0@@Z row)
         lines.append(f"    {name}(const {name} &that);")
+    if slots is not None:
+        # The vtable is layout: every variant declares the decided slots in
+        # slot order, then the overrides of the bases' slots the views spell.
+        # The view methods then contribute no virtual of their own.
+        own, overrides = slots
+        for member in own + overrides:
+            lines.append("    " + member)
+        methods = {k: v for k, v in methods.items() if not re.match(r"\s*virtual\b", v)}
     if "methods" in variant:
         # A leading destructor would put the delete-dtor in earlier vtable
         # slots: every non-destructor method must precede it.
@@ -370,12 +602,17 @@ def tournament(name, contract, sources, header, variants, jobs, fixed_header=Fal
     strip = [name] + STRIP_WITH.get(name, [])
     nested = {f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")} & set(registered())
     methods = view_methods(name, sources, nested) if not fixed_header else {}
+    slots = None
+    if not fixed_header and contract.get("vslots"):
+        own, overrides, _ = slot_declarations(contract, sources)
+        slots = (own, overrides)
     results = {}
     keep = (ROOT / header).read_bytes() if (ROOT / header).exists() else None
     for variant in variants:
         if not fixed_header:
             (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
-            (ROOT / header).write_text(generate(contract, variant, methods, header), encoding="utf-8", newline="\n")
+            (ROOT / header).write_text(generate(contract, variant, methods, header, slots), encoding="utf-8",
+                                       newline="\n")
         started = time.time()
         with cf.ThreadPoolExecutor(jobs) as pool:
             got = list(pool.map(lambda s: try_unit(s, strip, header, contract["key"]), sources))
@@ -717,6 +954,11 @@ def run(args):
     if missing:
         print(f"  contract names base(s) with no canonical header; adopt them first: {missing}")
         return 2
+    if not fixed and contract.get("vslots"):
+        _, _, problems = slot_declarations(contract, sources)
+        if problems:
+            print(f"  {len(problems)} virtual slot(s) cannot be declared; refusing to generate: {problems}")
+            return 2
     variants = args.variants.split(",") if not fixed else ["registered"]
     results = tournament(name, contract, sources, header, variants, args.jobs, fixed_header=fixed)
     winner = max(variants, key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -variants.index(v)))
