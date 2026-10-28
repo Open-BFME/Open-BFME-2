@@ -1,0 +1,60 @@
+{
+  "comparison_base": "b740e71229 plus the GameLogic.cpp include fix committed just before this pointer bump (7fb4f3db0a in seat halilkkaya-bf1's worktree)",
+  "bfme2_code_tree": "109a1ad3ae0dbad840ea145e4696de3b660d3a34",
+  "bfme2_patch_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "function_ledger_sha256": "b59faa2a5e053772b7bce1f8ef5a8a131ff898f735a3ae3ebf8e0836a4073642",
+  "data_ledger_sha256": "8a6a8b18c021407258f5a3aa315f3943f259bb7303b962b8595f6de46d1261e5",
+  "old_reference": "0424131c818fba6641613ef826222ecf30845025",
+  "selected_official_reference": "f1648ab18ea1b34b8378f1f20d650fae57bbf24c",
+  "upstream_check": "git ls-remote https://github.com/Open-BFME/Open-BFME-1.git refs/heads/master returned f1648ab18e before and after both gates",
+  "delta": {
+    "commits": 49,
+    "files": 89,
+    "game_c_cpp_sources": 49,
+    "changed_headers": [],
+    "added_headers": [],
+    "toolchain_or_baseline_paths": [],
+    "nested_reference_pointer": "inputs/reference/open-bfme-2 moved; not initialized (no recursive reference)",
+    "list": "changed-paths.txt"
+  },
+  "reference_preflight": "Gitlink staged before the new run; worktree_setup check reports the staged pin differs from HEAD, as expected for an uncommitted bump.",
+  "source_delta_consumers": "No changed BFME 1 path appears among the 1,566 BFME 1 paths recorded in the build dependency sidecars; the new run found all 21,089 compiled units dependency-current. Code/ and reference/shims/ name changed donor basenames only in provenance comments (for example W3DViewIterateDrawablesInRegion.cpp), never in an #include. BFME 2 tools do not import the changed tools/comdat_families.py.",
+  "donor_scan": {
+    "command": "python3 tools/bfme1_sweep.py scan --min-size 16",
+    "old": {
+      "reference_revision": "0424131c818fba6641613ef826222ecf30845025",
+      "exit_code": 0,
+      "match_json_sha256": "d7a68063e496e106a346b7f95811d8cffbd3c46c1e64166fdd2c5a27dea04571",
+      "donors": 38884,
+      "no_usable_needle": 1093
+    },
+    "new": {
+      "reference_revision": "f1648ab18ea1b34b8378f1f20d650fae57bbf24c",
+      "exit_code": 0,
+      "match_json_sha256": "aa36159299ced94ab8b0bc474347d879dfa36f79ebf715b7d97347c64b306e5f",
+      "donors": 38888,
+      "no_usable_needle": 1097
+    },
+    "unchanged": "unique placements 5538 (all on claimed ground), 5531 independent boundary controls, 0 free placements, 3325 ambiguous, 617 near misses; the records, near and ambiguous sections of match.json are identical",
+    "affected_compile_trials": "None cached in this worktree; no donor compile trial is reused."
+  },
+  "gate_results": {
+    "old": {
+      "exit_code": 0,
+      "window_utc": "2026-10-28T22:16:55Z..22:29:37Z",
+      "log_sha256": "d19f5eb17991ded63a7daaf70eb89a2bed35d4cd7a187aedeb8b4bc74fbc4aee",
+      "functions": 98945,
+      "function_sources": 21090,
+      "data_rows": 2203
+    },
+    "new": {
+      "exit_code": 0,
+      "window_utc": "2026-10-28T22:30:15Z..22:44:27Z",
+      "log_sha256": "d19f5eb17991ded63a7daaf70eb89a2bed35d4cd7a187aedeb8b4bc74fbc4aee",
+      "functions": 98945,
+      "function_sources": 21090,
+      "data_rows": 2203
+    }
+  },
+  "pre_existing_failure": "At b740e71229 itself the first full gate in this nested worktree failed: GameLogic.cpp did not compile (C2011 on GameLogicObjectLookupView.h), turning functions, string, float, import and DIR32 checks red. Cause: a \"../../Code/...\" include resolved through /I. into the parent checkout. Independent of the reference; fixed in its own commit before both compared runs."
+}

@@ -1,0 +1,35 @@
+  2000/38888 donors, 271 placed, 3s elapsed, ~60s left
+  4000/38888 donors, 409 placed, 7s elapsed, ~58s left
+  6000/38888 donors, 601 placed, 10s elapsed, ~54s left
+  8000/38888 donors, 838 placed, 13s elapsed, ~52s left
+  10000/38888 donors, 1002 placed, 20s elapsed, ~56s left
+  12000/38888 donors, 1314 placed, 23s elapsed, ~52s left
+  14000/38888 donors, 1752 placed, 27s elapsed, ~48s left
+  16000/38888 donors, 2161 placed, 30s elapsed, ~43s left
+  18000/38888 donors, 2341 placed, 33s elapsed, ~39s left
+  20000/38888 donors, 2642 placed, 38s elapsed, ~35s left
+  22000/38888 donors, 2858 placed, 41s elapsed, ~31s left
+  24000/38888 donors, 3102 placed, 44s elapsed, ~27s left
+  26000/38888 donors, 3357 placed, 47s elapsed, ~23s left
+  28000/38888 donors, 3459 placed, 50s elapsed, ~19s left
+  30000/38888 donors, 3675 placed, 53s elapsed, ~16s left
+  32000/38888 donors, 3789 placed, 56s elapsed, ~12s left
+  34000/38888 donors, 3981 placed, 59s elapsed, ~8s left
+  36000/38888 donors, 4163 placed, 62s elapsed, ~5s left
+  38000/38888 donors, 5246 placed, 67s elapsed, ~2s left
+Baseline: OK 2 file(s) (bfme2.workshop-vanilla-1.06)
+bfme1 .text 0x00001000 13049856 bytes
+bfme2 .text 0x00001000 8096994 bytes
+donors: 38888 clean Open-BFME-1 bodies >= 16B
+
+unique placements       5538
+  on claimed ground     5538 (5531 at exactly the claimed RVA+size)
+  on free ground        0  (0 bytes)
+ambiguous (>1 place)    3325
+needle too common       0
+no placement            28928
+  of those, near misses 617 (>=90% aligned at a plausible boundary)
+no usable needle        1097
+
+CONTROL: 5531 placements reproduce a boundary this repo matched independently.
+wrote build\bfme1_sweep\match.json
