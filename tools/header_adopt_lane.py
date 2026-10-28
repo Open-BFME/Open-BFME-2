@@ -740,11 +740,230 @@ def run(args):
     return 0
 
 
+# ---------------------------------------------------------------- merge blockers
+#
+# tu_skeleton --merge rejects a donor that does not compile beside the seed, and
+# the commonest cause is two private views of one class in one approved TU that
+# tools/tu_views.py cannot reconcile (different bases, a hand-written vtable
+# member, a vfptr in one view only, another class-key or declspec) or a private
+# copy of a class that already has a canonical header. One canonical header per
+# class is the fix, so the lane serves first the classes whose header unblocks
+# the most merge donors. The test is textual (tu_views' shared_classes plus each
+# view's head), so it is cheap; tu_views --dry-run gives the compiled verdict.
+
+MERGE_CACHE = SCRATCH / "merge_blockers.json"
+MERGE_KINDS = ("canonical-copy", "base", "fake-vtable", "vfptr", "vslot", "key/declspec")
+FIRST_VIRTUAL = re.compile(r"\bvirtual\b[^;{}()]*?(~?[A-Za-z_]\w*)\s*\(")
+FAKE_VTABLE = re.compile(r"\b(?:m_vtable|m_vtbl|m_vfptr|m_vptr|vtable|vfptr|vptr|_vptr)\b")
+VIEW_HEAD = re.compile(r"(?:class|struct)\s+((?:__declspec\([^)]*\)\s*)*)[A-Za-z_]\w*\s*(?::(?!:)([^{]*))?\{$")
+BASE_NAME = re.compile(r"(?:\b(?:public|protected|private|virtual)\s+)*([A-Za-z_]\w*)\s*(?:<[^>]*>)?\s*$")
+
+
+def view_signatures(text):
+    """{class: (key, declspecs, base clause, fake vtable member, declares virtuals, first virtual)}
+    for every namespace-scope body in `text` (a class declared twice keeps its first body)."""
+    code = masked(text)
+    out = {}
+    for name, start, end, key in class_layouts.class_body_spans(text):
+        if "::" in name or name in out:
+            continue
+        brace = code.find("{", start)
+        head = " ".join(code[start:brace + 1].split())
+        found = VIEW_HEAD.search(head)
+        body = code[brace + 1:end - 1]
+        out[name] = (key, " ".join((found.group(1) or "").split()) if found else "",
+                     " ".join((found.group(2) or "").split()) if found else "?",
+                     bool(FAKE_VTABLE.search(body)), bool(re.search(r"\bvirtual\b", body)),
+                     (m.group(1) if (m := FIRST_VIRTUAL.search(body)) else ""))
+    return out
+
+
+def base_names(clause):
+    while re.search(r"<[^<>]*>", clause):                       # template arguments hold commas
+        clause = re.sub(r"<[^<>]*>", "", clause)
+    return [m.group(1) for part in clause.split(",") if (m := BASE_NAME.search(part.strip()))]
+
+
+def disagreement(sigs, canonical):
+    """Why views `sigs` (one per file) of one class block a merge, or None when tu_views can
+    reconcile them (one head, one vfptr shape, one slot 0): the first of MERGE_KINDS that
+    applies. Textual, so a proxy: tu_views --dry-run gives the compiled verdict."""
+    if canonical:
+        return "canonical-copy"
+    vals = set(sigs)
+    if len(vals) < 2:
+        return None
+    if len({v[2] for v in vals}) > 1:
+        return "base"
+    if any(v[3] for v in vals):
+        return "fake-vtable"
+    if len({v[4] for v in vals}) > 1:
+        return "vfptr"
+    if not next(iter(vals))[2] and len({v[5] for v in vals}) > 1:   # no base: the first virtual is slot 0
+        return "vslot"
+    if len({(v[0], v[1]) for v in vals}) > 1:
+        return "key/declspec"
+    return None
+
+
+def tu_blockers(files, sigs, canon):
+    """{class: (kind, [files])} for the classes two or more of `files` declare privately whose
+    views block the merge; `sigs` is {file: view_signatures(text)}."""
+    seen = collections.defaultdict(list)
+    for f in files:
+        for name in sigs.get(f, {}):
+            seen[name].append(f)
+    out = {}
+    for name, fs in seen.items():
+        if len(fs) < 2:
+            continue
+        kind = disagreement([sigs[f][name] for f in fs], name in canon)
+        if kind:
+            out[name] = (kind, sorted(fs))
+    return out
+
+
+def merge_rank(blockers, canon, order=DEPENDENCY_ORDER):
+    """[(class, score, own)] most merge donors unblocked first. `own` is the donor count
+    the class's own views block; `score` is the largest `own` of the class and of every
+    class that needs it first: the bases its views name (transitively) and the earlier
+    stages of DEPENDENCY_ORDER. A prerequisite therefore never ranks below what depends
+    on it, and at one score comes first. Only classes that block a merge themselves rank: a base name one view invents
+    (and the typedef stage) is no header-lane item."""
+    own = {c: d["donors"] for c, d in blockers.items()}
+    needs = collections.defaultdict(set)                          # class -> classes it needs first
+    for c, d in blockers.items():
+        needs[c].update(b for b in d.get("bases", ()) if b != c)
+    stages = [names for _, names in order]
+    for i, names in enumerate(stages):
+        for later in stages[i + 1:]:
+            for c in later:
+                needs[c].update(names)
+    score, needed_by = dict(own), collections.Counter()
+    for c in sorted(own):
+        stack, seen = [c], {c}
+        while stack:
+            for b in sorted(needs.get(stack.pop(), ())):
+                if b not in seen:
+                    seen.add(b)
+                    stack.append(b)
+                    if b in own:
+                        score[b] = max(score[b], own[c])
+                        needed_by[b] += 1
+    # at one score, what more classes need comes first (a prerequisite before its dependents)
+    return sorted(((c, s, own[c]) for c, s in score.items() if s), key=lambda r: (-r[1], -needed_by[r[0]], -r[2], r[0]))
+
+
+def _git(*args):
+    got = subprocess.run(["git", *args], cwd=ROOT, capture_output=True, text=True)
+    return got.stdout.strip() if got.returncode == 0 else None
+
+
+def merge_inputs_key():
+    """HEAD plus the content of every dirty input (Code/, reverse/, a submodule off its pin),
+    or None when git cannot say: the merge queue (tu_map rebuilt from the reference trees
+    when stale) and the views are a pure function of those."""
+    head = _git("rev-parse", "HEAD")
+    dirty = _git("status", "--porcelain", "--untracked-files=all", "--", "Code", "reverse")
+    pins = _git("submodule", "status")
+    if not head or dirty is None or pins is None:
+        return None
+    dirty = "\n".join(filter(None, [dirty] + [ln for ln in pins.splitlines() if ln[:1] in "+-U"]))
+    if not dirty:
+        return head
+    digest = class_layouts.hashlib.sha256(dirty.encode())
+    for line in sorted(dirty.splitlines()):
+        if line[:1] not in "+-U":                                  # a submodule line names its commit
+            path = ROOT / line[3:].split(" -> ")[-1].strip('"')
+            digest.update(class_layouts.file_sha(path).encode())
+    return f"{head}+{digest.hexdigest()[:16]}"
+
+
+def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
+    """{class: {donors, rows, tus, kinds, bases}} over the merge queue (tu_skeleton.queue).
+    donors_of(tu) -> {file: rows}; read(file) -> text; both injectable for tests."""
+    import tu_skeleton
+    if queue is None:
+        queue = tu_skeleton.queue(root=ROOT)
+    donors_of = donors_of or (lambda tu: tu_skeleton.donors(tu, tu_skeleton.skeleton(tu))[0])
+    read = read or (lambda f: (ROOT / f).read_text(encoding="latin-1"))
+    canon = registered() if canon is None else canon
+    sig_cache, out = {}, {}
+    for entry in queue:
+        tu = entry["tu"]
+        don = donors_of(tu)
+        for f in don:
+            if f not in sig_cache:
+                try:
+                    sig_cache[f] = view_signatures(read(f))
+                except OSError:
+                    sig_cache[f] = {}
+        for name, (kind, fs) in tu_blockers(sorted(don), sig_cache, canon).items():
+            d = out.setdefault(name, {"donors": 0, "rows": 0, "tus": [], "kinds": {}, "bases": set(),
+                                      "files": []})
+            d["donors"] += len(fs)
+            d["rows"] += sum(len(don[f]) for f in fs)
+            d["tus"].append(tu)
+            d["kinds"][kind] = d["kinds"].get(kind, 0) + 1
+            d["files"].extend(fs)
+            for f in fs:
+                d["bases"].update(base_names(sig_cache[f][name][2]))
+    for d in out.values():
+        d["bases"] = sorted(d["bases"])
+        d["tus"] = sorted(d["tus"])
+        d["files"] = sorted(set(d["files"]))
+    return out
+
+
+MERGE_CACHE_HOURS = 12   # a ranking from an ancestor of HEAD this recent is reused (it only orders work)
+
+
+def merge_blockers(refresh=False):
+    """compute_merge_blockers(), cached in build/header_lane/: reused for the same inputs
+    (merge_inputs_key), or from an ancestor of HEAD computed in the last MERGE_CACHE_HOURS
+    (a pull moves the ranking little and a recompute walks every queued TU); --refresh
+    recomputes. A ranking orders work only; every verdict stays the lane's own."""
+    key = merge_inputs_key()
+    if not refresh and MERGE_CACHE.exists():
+        try:
+            cached = json.loads(MERGE_CACHE.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            cached = {}
+        if key and cached.get("key") == key:
+            return cached["classes"]
+        head = cached.get("head")
+        if (key and head and time.time() - cached.get("time", 0) < MERGE_CACHE_HOURS * 3600
+                and _git("merge-base", "--is-ancestor", head, "HEAD") is not None):
+            return cached["classes"]
+    classes = compute_merge_blockers()
+    if key:
+        SCRATCH.mkdir(parents=True, exist_ok=True)
+        MERGE_CACHE.write_text(json.dumps({"key": key, "head": key.split("+")[0], "time": int(time.time()),
+                                           "classes": classes}, sort_keys=True), encoding="utf-8")
+    return classes
+
+
+def print_merge_order(limit, refresh=False):
+    canon, blockers = registered(), merge_blockers(refresh)
+    contracts = {p.stem for p in class_contract.CONTRACTS.glob("*.json")} if class_contract.CONTRACTS.exists() else set()
+    print(f"classes by merge donors unblocked ({len(blockers)} block a queued merge; cache {MERGE_CACHE.relative_to(ROOT).as_posix()}):")
+    print(f"  {'class':<32} {'score':>5} {'own':>5} {'rows':>5} {'TUs':>4}  header/contract  kinds")
+    for c, score, own in merge_rank(blockers, canon)[:limit]:
+        d = blockers.get(c, {})
+        state = ("header" if c in canon else "-") + "/" + (
+            "contract" if class_contract.portable_component(c) in contracts else "-")
+        kinds = " ".join(f"{k}:{n}" for k, n in sorted(d.get("kinds", {}).items()))
+        print(f"  {c:<32} {score:5} {own:5} {d.get('rows', 0):5} {len(d.get('tus', ())):4}  {state:<15}  {kinds}")
+
+
 def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0],
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
     sub = parser.add_subparsers(dest="cmd", required=True)
-    sub.add_parser("order")
+    p = sub.add_parser("order")
+    p.add_argument("--merges", type=int, nargs="?", const=30, metavar="N",
+                   help="rank classes by merge donors their canonical header unblocks (top N, default 30)")
+    p.add_argument("--refresh", action="store_true", help="recompute the merge-blocker cache")
     p = sub.add_parser("run")
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
@@ -767,6 +986,9 @@ def main(argv=None):
     p.add_argument("after")
     args = parser.parse_args(argv)
     if args.cmd == "order":
+        if args.merges:
+            print_merge_order(args.merges, args.refresh)
+            return 0
         canon = registered()
         for stage, names in DEPENDENCY_ORDER:
             print(f"{stage}:")

@@ -1184,11 +1184,18 @@ def data_identity_items():
         + ", ".join(f"{k} {n}" for k, n in sorted(kinds.items())) + ")" + gone_note(gone, "keys"))
 
 
+HEADER_ESTABLISH_LIMIT = 30   # classes without a header served at once, by merge donors unblocked
+
+
 def header_items():
     """(items, note): reverse/header_queue.tsv units that did not adopt their class's
-    canonical header (tools/header_adopt_lane.py run --apply queues them), classes in
-    header_adopt_lane.DEPENDENCY_ORDER first (a header is adopted once the types it uses
-    have one definition), then by source; `rank` carries that order into the draw.
+    canonical header (tools/header_adopt_lane.py run --apply queues them), classes whose
+    header unblocks the most queued merge donors first (header_adopt_lane.merge_rank, which
+    never ranks a prerequisite below what needs it), then by DEPENDENCY_ORDER (a header is
+    adopted once the types it uses have one definition) and source; `rank` and
+    `merge_donors` carry that order into the draw. After them, up to HEADER_ESTABLISH_LIMIT
+    classes without a header whose private views block queued merges
+    (`class-header-establish`: contract, generate, apply through the lane).
     Each item claims `class:NAME` and includes every queued source of that class in
     its work footprint, even private views without member rows in the ledger. The
     first diagnostic is often a member the header lacks, so the fix is class-wide. PASS TEST: the row's
@@ -1198,6 +1205,16 @@ def header_items():
     tools_on_path()
     import header_adopt_lane
     rank = {name: i for i, (_, names) in enumerate(header_adopt_lane.DEPENDENCY_ORDER) for name in names}
+    canon = header_adopt_lane.registered()
+    try:
+        if Path(ROOT).resolve() != header_adopt_lane.ROOT.resolve():
+            raise RuntimeError(f"the lane's tree is {header_adopt_lane.ROOT}, not {ROOT}")
+        blockers = header_adopt_lane.merge_blockers()
+        merges = {c: score for c, score, _ in header_adopt_lane.merge_rank(blockers, canon)}
+        merge_note = ""
+    except Exception as exc:  # noqa: BLE001 - the ranking is advisory; say so instead of hiding it
+        blockers, merges = {}, {}
+        merge_note = f"; merge ranking unavailable ({type(exc).__name__}: {exc}): DEPENDENCY_ORDER only"
     credit = sources_bytes()
     items, gone = [], {}
     queued = list(csv.DictReader(io.StringIO(_read(HEADER_QUEUE)), delimiter="\t"))
@@ -1217,6 +1234,7 @@ def header_items():
             "tier": "header", "check": "class-header", "class": name, "target_rva": rvas[0] if rvas else "",
             "function": name, "source": source, "size": 0, "credit": credit.get(source, 0),
             "header": row.get("header", ""), "rank": rank.get(name, len(rank)), "ranks": len(rank) + 1,
+            "merge_donors": merges.get(name, 0),
             "why": f"adopt {row.get('header') or 'the canonical header'} for {name}: {row.get('failure', '')}",
             "claim": [f"class:{name}"] + [f"file:{s}" for s in sorted(class_sources[name])],
             "baseline": HEADER_QUEUE,
@@ -1224,10 +1242,41 @@ def header_items():
             "pass_test": (header_adopt_lane.acceptance_command(name, source) + ": the unit #includes the header, "
                           "declares no private body and byte-matches; the command then retires the row"),
         })
-    items.sort(key=lambda i: (i["rank"], i["class"], i["source"]))
+    queued_classes = {i["class"] for i in items}
+    contracts = header_adopt_lane.class_contract.CONTRACTS
+    establish = []
+    for name, score, own in header_adopt_lane.merge_rank(blockers, canon):
+        if name in canon or name in queued_classes or len(establish) >= HEADER_ESTABLISH_LIMIT:
+            continue
+        d = blockers.get(name, {})
+        contract = contracts / (header_adopt_lane.class_contract.portable_component(name) + ".json")
+        establish.append({
+            "tier": "header", "check": "class-header-establish", "class": name, "target_rva": "",
+            "function": name, "source": (d.get("files") or [""])[0], "size": 0, "credit": 0,
+            "rank": rank.get(name, len(rank)), "ranks": len(rank) + 1, "merge_donors": score,
+            "credit_note": (f"unblocks up to {score} merge donor(s) ({own} of its own views"
+                            f"{', ' + str(d.get('rows', 0)) + ' rows in ' + str(len(d.get('tus', ()))) + ' TU(s)' if d else ''}"
+                            "; the rest through classes that need it first)"),
+            "why": (f"no canonical header for {name}; its private views disagree inside queued merges ("
+                    + (", ".join(f"{k} {n}" for k, n in sorted(d.get("kinds", {}).items())) or
+                       "needed first by a class that does") + ")"),
+            "start": ((f"python3 tools/class_contract.py --class {name} --write; " if not contract.exists() else
+                       f"read {contract.relative_to(ROOT).as_posix()}; ")
+                      + f"python3 tools/header_adopt_lane.py run --class {name} --generate --sample 60, then --apply "
+                      "(the contract's evidence rules decide every attribute; an undecided one is not guessed)"),
+            "claim": [f"class:{name}"],
+            "pass_test": (f"reverse/canonical_classes.csv registers {name} through header_adopt_lane.py run --apply, "
+                          "the adopted units build exact and the rest are queued in " + HEADER_QUEUE),
+        })
+    # The classes whose header unblocks the most queued merge donors first; DEPENDENCY_ORDER
+    # stays a floor (merge_rank never ranks a prerequisite below what needs it).
+    items.sort(key=lambda i: (-i["merge_donors"], i["rank"], i["class"], i["source"]))
+    establish.sort(key=lambda i: (-i["merge_donors"], i["class"]))
     classes = len({i["class"] for i in items})
-    return vanished_items("header", gone, HEADER_QUEUE) + items, (
-        f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows"))
+    return vanished_items("header", gone, HEADER_QUEUE) + items + establish, (
+        f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
+        + f"; {len(establish)} class(es) without a header ranked by merge donors unblocked "
+          "(header_adopt_lane.py order --merges)" + merge_note)
 
 
 def identity_items():

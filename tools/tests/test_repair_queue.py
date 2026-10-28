@@ -2468,6 +2468,37 @@ def test_transfer_requires_destination_in_index_not_just_worktree(tmp_path, monk
     assert rq.verify_missing_debt() == []
 
 
+def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_path, monkeypatch):
+    rq, _, _ = load(tmp_path, "bfme2", LEDGER, DEBT_FILES)
+    import header_adopt_lane
+    import next_work
+    monkeypatch.setattr(header_adopt_lane, "ROOT", Path(rq.ROOT))
+    monkeypatch.setattr(header_adopt_lane, "registered", lambda: {"Coord3D": "Coord3D.h", "AsciiString": "a.h"})
+    monkeypatch.setattr(header_adopt_lane, "merge_blockers", lambda refresh=False: {
+        "AsciiString": {"donors": 40, "rows": 90, "tus": ["Code/T.cpp"], "kinds": {"canonical-copy": 1},
+                        "bases": [], "files": ["Code/GameEngine/Loco.cpp"]},
+        "Coord3D": {"donors": 2, "rows": 3, "tus": ["Code/T.cpp"], "kinds": {"canonical-copy": 1},
+                    "bases": [], "files": ["Code/GameEngine/Body.cpp"]},
+        "UpdateModule": {"donors": 300, "rows": 900, "tus": ["Code/U.cpp", "Code/V.cpp"], "kinds": {"base": 2},
+                         "bases": ["BehaviorModule"], "files": ["Code/U.cpp", "Code/U_xfer.cpp"]},
+        "BehaviorModule": {"donors": 5, "rows": 9, "tus": ["Code/U.cpp"], "kinds": {"base": 1}, "bases": [],
+                           "files": ["Code/U.cpp"]}})
+    items, note = rq.header_items()
+    queued = [(i["class"], i["source"]) for i in items if i["check"] == "class-header"]
+    # Coord3D's two donors rank with AsciiString's 40, and first: DEPENDENCY_ORDER puts value types before strings
+    assert queued == [("Coord3D", "Code/GameEngine/Body.cpp"), ("AsciiString", "Code/GameEngine/Loco.cpp")]
+    assert [i["merge_donors"] for i in items if i["check"] == "class-header"] == [40, 40]
+    establish = [i for i in items if i["check"] == "class-header-establish"]
+    assert [(i["class"], i["merge_donors"]) for i in establish] == [("BehaviorModule", 300), ("UpdateModule", 300)]
+    assert establish[0]["claim"] == ["class:BehaviorModule"] and "class_contract.py --class BehaviorModule" in \
+        establish[0]["start"] and "canonical_classes.csv registers BehaviorModule" in establish[0]["pass_test"]
+    assert "2 class(es) without a header ranked by merge donors" in note
+    factor = {i["class"]: next_work.debt_rank_factor(i) for i in items if i["check"] != "vanished-source"}
+    assert factor["UpdateModule"] == 10 and factor["BehaviorModule"] == 10  # 1 + bit length of the donors
+    assert factor["AsciiString"] == max(7, items[2]["ranks"] - items[2]["rank"])  # the larger of the two weights
+    assert next_work.debt_rank_factor({"tier": "header", "rank": 0, "ranks": 9}) == 9
+
+
 def test_header_claim_includes_queued_private_views_without_member_rows(tmp_path, monkeypatch, seats):
     import claims
     import next_work

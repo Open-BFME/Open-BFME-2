@@ -322,3 +322,104 @@ def test_bad_byte_gate_does_not_run_link_preview(tmp_path, monkeypatch):
 
     monkeypatch.setattr(lane, "link_ok", unexpected)
     assert lane.verdict("Snapshot", "FX.cpp", "Snapshot.h", gate=lambda source: "bytes differ") == ["bytes differ"]
+
+
+# ---- merge blockers: the classes whose header unblocks the most merge donors rank first
+
+CTOR_VIEW = """class Module { public: virtual ~Module(); };
+class UpdateModule : public Module
+{
+public:
+    UpdateModule();
+    int m_phase;
+};
+"""
+XFER_VIEW = """class UpdateModule
+{
+public:
+    virtual int getModuleNameKey() const;   // slot 0 of its own
+    int m_phase;
+};
+"""
+FAKE_VIEW = """struct UpdateModule
+{
+    void *m_vtable;
+    int m_phase;
+};
+"""
+SAME_VIEW = """class Helper { int a; };
+"""
+
+
+def test_view_signatures_read_head_bases_and_vtable_shape():
+    sigs = lane.view_signatures(CTOR_VIEW + "// class Ghost : public X { };\n")
+    assert sigs["UpdateModule"] == ("class", "", "public Module", False, False, "")
+    assert lane.view_signatures(XFER_VIEW)["UpdateModule"][5] == "getModuleNameKey"
+    assert sigs["Module"][4] is True and "Ghost" not in sigs
+    assert lane.view_signatures(FAKE_VIEW)["UpdateModule"][3] is True
+    assert lane.base_names("public BehaviorModule, public virtual UpdateModuleInterface, Pair<int, int>") == [
+        "BehaviorModule", "UpdateModuleInterface", "Pair"]
+
+
+def test_disagreement_names_the_first_blocking_kind():
+    ctor, xfer, fake = (lane.view_signatures(t)["UpdateModule"] for t in (CTOR_VIEW, XFER_VIEW, FAKE_VIEW))
+    assert lane.disagreement([ctor, xfer], False) == "base"
+    assert lane.disagreement([xfer, fake], False) == "fake-vtable"
+    assert lane.disagreement([xfer, ("class", "", "", False, False, "")], False) == "vfptr"
+    assert lane.disagreement([xfer, ("class", "", "", False, True, "~UpdateModule")], False) == "vslot"
+    assert lane.disagreement([("class", "", "public M", False, True, "a"), ("class", "", "public M", False, True, "b")],
+                             False) is None                            # an override introduces no slot
+    assert lane.disagreement([xfer, ("struct", "", "", False, True, "getModuleNameKey")], False) == "key/declspec"
+    assert lane.disagreement([xfer, xfer], False) is None              # tu_views reconciles these
+    assert lane.disagreement([xfer, xfer], True) == "canonical-copy"   # a registered class: the lane's work
+
+
+def _queue(files):
+    tus = {"Code/A.cpp": {"Code/A.cpp": [1], "Code/A_xfer.cpp": [1, 2]},
+           "Code/B.cpp": {"Code/B.cpp": [1], "Code/B2.cpp": [1], "Code/B3.cpp": [1]}}
+    return ([{"tu": t} for t in sorted(tus)], lambda tu: tus[tu], lambda f: files[f])
+
+
+def test_compute_merge_blockers_counts_donors_rows_tus_and_bases():
+    files = {"Code/A.cpp": CTOR_VIEW + SAME_VIEW, "Code/A_xfer.cpp": XFER_VIEW + SAME_VIEW,
+             "Code/B.cpp": CTOR_VIEW + "class Coord3D { float x; };\n",
+             "Code/B2.cpp": FAKE_VIEW + "class Coord3D { float x; };\n", "Code/B3.cpp": "int x;\n"}
+    queue, donors_of, read = _queue(files)
+    got = lane.compute_merge_blockers(queue, donors_of, read, canon={"Coord3D": "Coord3D.h"})
+    assert sorted(got) == ["Coord3D", "UpdateModule"]                  # Helper agrees; Module is in one file per TU
+    um = got["UpdateModule"]
+    assert (um["donors"], um["rows"], um["tus"]) == (4, 5, ["Code/A.cpp", "Code/B.cpp"])
+    assert um["kinds"] == {"base": 2} and um["bases"] == ["Module"]
+    assert got["Coord3D"]["kinds"] == {"canonical-copy": 1}
+
+
+def test_merge_rank_lifts_prerequisites_and_drops_invented_bases():
+    blockers = {"UpdateModule": {"donors": 50, "bases": ["BehaviorModule", "InventedBase"]},
+                "BehaviorModule": {"donors": 5, "bases": ["Module"]},
+                "Module": {"donors": 1, "bases": []},
+                "Object": {"donors": 70, "bases": ["Thing"]},
+                "Coord3D": {"donors": 2, "bases": []},
+                "Lonely": {"donors": 3, "bases": []}}
+    order = [("value types", ["Coord3D"]), ("object", ["Object"])]
+    ranked = lane.merge_rank(blockers, {}, order)
+    assert ranked == [("Coord3D", 70, 2), ("Object", 70, 70), ("Module", 50, 1),
+                      ("BehaviorModule", 50, 5), ("UpdateModule", 50, 50), ("Lonely", 3, 3)]
+    assert lane.merge_rank(blockers, {}, order) == ranked              # deterministic
+
+
+def test_merge_blockers_cache_is_keyed_and_refreshable(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "SCRATCH", tmp_path)
+    monkeypatch.setattr(lane, "MERGE_CACHE", tmp_path / "merge_blockers.json")
+    calls = []
+    monkeypatch.setattr(lane, "compute_merge_blockers", lambda: calls.append(1) or {"X": {"donors": len(calls)}})
+    key = ["abc"]
+    monkeypatch.setattr(lane, "merge_inputs_key", lambda: key[0])
+    monkeypatch.setattr(lane, "_git", lambda *a: None)                 # "abc" is no ancestor of a new HEAD
+    assert lane.merge_blockers() == {"X": {"donors": 1}}
+    assert lane.merge_blockers() == {"X": {"donors": 1}} and len(calls) == 1
+    assert lane.merge_blockers(refresh=True) == {"X": {"donors": 2}}
+    key[0] = "def"
+    assert lane.merge_blockers() == {"X": {"donors": 3}}
+    key[0] = "ghi"
+    monkeypatch.setattr(lane, "_git", lambda *a: "")                   # an ancestor, recent: reused
+    assert lane.merge_blockers() == {"X": {"donors": 3}} and len(calls) == 3

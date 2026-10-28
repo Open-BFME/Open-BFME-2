@@ -94,7 +94,14 @@ copies of it. To give a class a canonical header, follow
 `python3 tools/header_adopt_lane.py order`: `tools/class_contract.py` decides its
 ABI from evidence (bytes, retail access, retail vftables, ZH, majority), and
 `header_adopt_lane.py run --generate --apply` generates the header, gates each
-unit and queues the rest in `reverse/header_queue.tsv`. Claim scope-wide work:
+unit and queues the rest in `reverse/header_queue.tsv`. The header tier serves
+classes by the queued TU-merge donors their header unblocks:
+`header_adopt_lane.py order --merges [N]` lists them (private views in one
+approved TU that tu_views cannot reconcile, or private copies of a registered
+class; textual, cached in `build/header_lane/`, `--refresh` recomputes), never
+ranking a prerequisite (a base, an earlier DEPENDENCY_ORDER stage) below what
+needs it. Classes without a header there are served as
+`class-header-establish` items. Claim scope-wide work:
 `python3 tools/claims.py claim class:NAME` or `file:PATH`.
 
 ## A dedicated linking pass: BFME 1 repairs first

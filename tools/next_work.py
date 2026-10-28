@@ -1083,7 +1083,9 @@ def apply_shard(candidates, shard):
 def debt_rank_factor(candidate):
     """How much a debt queue's own ranking multiplies a draw: header units by their
     class's place in DEPENDENCY_ORDER (rank 0 of N weighs N, the last 1: a class is
-    adopted once the types it uses have one definition), data keys by how many keys
+    adopted once the types it uses have one definition) or, when larger, by the queued
+    merge donors its header unblocks (1 + bit length, capped at 16:
+    header_adopt_lane.merge_rank), data keys by how many keys
     share their address (one declaration fix, repeated) and doubly for duplicate-def
     (a link blocker), link units by how few blockers they have left, stub groups by the
     stubs they close, merges by the files they remove, TU approvals by the files their
@@ -1095,7 +1097,9 @@ def debt_rank_factor(candidate):
         return 16
     tier = candidate.get("tier")
     if tier == "header":
-        return max(1, int(candidate.get("ranks", 1)) - int(candidate.get("rank", 0)))
+        dependency = max(1, int(candidate.get("ranks", 1)) - int(candidate.get("rank", 0)))
+        donors = int(candidate.get("merge_donors") or 0)
+        return max(dependency, min(16, 1 + donors.bit_length())) if donors else dependency
     if tier == "data":
         return min(16, int(candidate.get("keys_at_address", 1))) * (2 if candidate.get("check") == "duplicate-def"
                                                                     else 1)
@@ -1812,7 +1816,7 @@ def print_candidate(label, candidate, meta, candidates=()):
         print(f"       start: {candidate.get('start') or 'fix it in ' + candidate['source']}; done when the pass "
               "test passes:")
         print(f"       pass test: {candidate['pass_test']}")
-        if candidate.get("tier") in ("data", "header", "identity"):
+        if candidate.get("tier") in ("data", "header", "identity") and candidate.get("baseline"):
             print("       done: only when the owning tool's verdict on fresh objects passes and retires the line "
                   f"from {candidate.get('baseline')} itself; the pre-commit hook refuses a commit that deletes "
                   "a line without that verdict (repair_queue.py verify-removed)")
