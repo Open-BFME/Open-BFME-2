@@ -63,3 +63,67 @@ one Microsoft-header queue entry; this prerequisite leaves their owners intact.
 The second dry run still rejects the direct Rva00216517Fire donor for declaration
 ordering, along with 13 donors with other compile failures. The early Apt
 interface only clears ordering for the accepted subset, not every composition.
+
+## Verified composition after the prerequisite
+
+At prerequisite revision `5304c4c17f` (runner-rebased identity), the supported
+`tu_skeleton.py --merge` accepts the same six inputs. It absorbs the five
+fragments listed above into BannerUI.cpp and repoints seven function rows,
+including compiler EH companions. SOURCE FILES falls by five. The TU map is
+only path-repointed; its assignments are rebuilt in memory for verification,
+not regenerated into the committed map.
+
+`./build.sh` passes 36/36 merged rows, and `eh_verify.py` passes 9/9 graphs.
+The frozen-file check passes with the existing marked helper still present.
+All 77 unique COMDAT name/digest/size entries in the six original objects survive
+unchanged, as do every exclusive definition and all weak bindings. There are no
+new undefined references. Four references become internal definitions: the
+Gen_003A8BE0 and Rva00216108 destructors, Rva00216245::rva00216245 and
+Rva000427195::rva00216D5C. The merge guard accepts the selected copies and
+bindings for this subset of census-linked inputs.
+
+Fresh strict preparation verifies all 79 rows and two data rows across the
+fifteen remaining files. Converged-data checking remains clean at 11 addresses.
+All fifteen ordinary previews report LINKS against index `d92e7e6635`; the
+merged unit has 2,093 authored bytes. Its higher per-file total includes moved
+rows and is not a global linked-byte gain. No census or image-ownership change
+is claimed.
+
+### Registers and compatibility audit
+
+The complete pending range was audited from merge base `0684091649` through
+`5304c4c17f` plus this staged merge, after fetching upstream `f4d813d60d`. It
+includes eleven removed paths across the BannerUI, INIWater and CallHelpOnDamage
+merges. Combined old paths and basenames were searched across current tracked
+content and upstream's active tool, hook, workflow, source, shim and doxygen
+trees. No active hard-coded consumer or include needs changing. These moves
+retain their directories, so directory globs and derived paths remain valid.
+
+Remaining old paths are composition-origin comments, other source comments,
+historical attempts/handoffs, a deleted-row explanation, the published census
+status and one historical STLport trial. The latter's queue explicitly checks
+current source/name/RVA/extent identity; `stlport_trial.py queue --tsv` serves
+none of the removed paths. Its old compile verdict must not be transferred to
+the newly composed TU. Historical evidence and census status are retained.
+
+No removed donor owns a code-identity, data-debt, header-queue, flag-override or
+data-ledger key. The merge refreshes the Microsoft-header entry (the same
+allocator/CRT warning) and transfers the existing present-unmatched helper key
+with `hatch_counters.py --update`. The tool also normalizes the previously
+duplicated `bfmeExpandEAN` alias key left by `cc1d235e04`: the vanished
+BfmeConv2008.cpp key is removed and the already-existing BfmeLexEAN.cpp key is
+retained once. The source still contains one alias; this is stale-register
+normalization, not a newly removed code hatch. All protected registers resolve
+the five removed donors to their current owner; no debt retirement is claimed.
+
+Fourteen whole-file donors and eleven mixed files still need their own
+reconciliation. Preserve their existing rows and verify broader consumers in
+the next normal census.
+
+The composition's staged-tree batch audit remains INCONCLUSIVE. Its first
+missing receipt was DestroyInstances.cpp; explicit safe preparation then passes
+all 58 rows there. With that fresh receipt, the audit reaches another affected
+consumer without one, `Common/0CreateAHeroManager21FE49.cpp`. The index is also
+older than the outgoing base. No proven loss is reported in the checked scope,
+but this is not consumer clearance: carry the changed providers and the broader
+consumer closure into the next normal census. No census or smoke run was started.

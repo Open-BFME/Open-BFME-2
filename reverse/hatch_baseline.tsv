@@ -12261,7 +12261,6 @@ present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerAction
 present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerActionState::slot16	1
 present_unmatched	Code/GameEngine/Source/Common/DrawableVectorResize.cpp	size@?$vector@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBEIXZ	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00214ADC.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
-present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00216108.cpp	famgenDelete00216108@@YAXPAVRva00216108@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003AE358.cpp	@0x003AE33C	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp	famgenDelete005E0DC0@@YAXPAVRva005E0DC0@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-1DD38E.cpp	famgenDelete001DD38E@@YAXPAVBfmeRecord001DD3BC@@@Z	1
@@ -12883,6 +12882,7 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/Strateg
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDRegionDetailsStructuresMovieClip_IconSlot.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicVeterancy.cpp	Rva005FA874::Rva005FA874	1
+present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	famgenDelete00216108@@YAXPAVRva00216108@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameToggleStanceCommandButton.cpp	StanceToButtonSlot@@YAHPAVCommandButton@@H@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptCommandMapAdder::AddCommandMapDelegate	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp	AptOverButtonHandlerAdder::AddOverButtonHandlerDelegate	1
