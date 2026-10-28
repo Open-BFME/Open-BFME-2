@@ -20,6 +20,12 @@ Signals, strongest first (one letter each in the `by` and `evidence` columns):
      defines is MSVC's implicit COMDAT, emitted wherever a copy is made
      (`implicit_copy()`), and it carries no S or N either.
   S  every ZH definition of `Class::` sits in one .cpp: the class's site.
+     A Z or S that names a file of ZH's Tools/ programs (WorldBuilder, the 3ds Max
+     exporter's pluglib, Autorun, ...) anchors nothing: those files were never linked
+     into the game, so their TU is neither anchored nor provisional. pluglib defines
+     Matrix3/Matrix4, the names ZH's own WWMath gives Matrix3x3/Matrix4x4, and five
+     Matrix4 rows were approved into Code/Tools/WW3D/pluglib/matrix4.cpp. The hint
+     itself is kept, so the rows still group as before.
   N  naming convention `<dir>/<Class>.cpp` (ModuleData suffix stripped); used
      only inside the address cluster an F/Z/S anchor or a run of N rows forms.
   U  the row's own naming hint (N, never F/Z/S) names a small TU whose rows
@@ -323,17 +329,20 @@ class Paths:
 
 def zh_index(layout, paths):
     """({(class, method): file}, {class: its one site file}, classes whose copy
-    constructor a ZH .cpp defines out of line)."""
-    meth, sites, copies = {}, collections.defaultdict(set), set()
+    constructor a ZH .cpp defines out of line, the files of ZH's Tools/ programs)."""
+    meth, sites, copies, tools = {}, collections.defaultdict(set), set(), set()
     if not layout.zh.exists():
-        return meth, {}, copies
+        return meth, {}, copies, tools
     for dp, dn, fn in sorted(os.walk(layout.zh)):
         dn.sort()
+        tool = Path(dp).relative_to(layout.zh).parts[:1] == ("Tools",)
         for f in sorted(fn):
             if not f.lower().endswith(".cpp"):
                 continue
             p = Path(dp) / f
             rel = paths.repo(p.relative_to(layout.zh).as_posix())
+            if tool:
+                tools.add(rel)
             try:
                 text = p.read_text(encoding="latin-1")
             except OSError:
@@ -342,7 +351,7 @@ def zh_index(layout, paths):
                 meth.setdefault((c, m), rel)
                 sites[c].add(rel)
             copies.update(m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text)))
-    return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}, copies
+    return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}, copies, tools
 
 
 def implicit_copy(name, cls, meth, zmeth, zsite, copies):
@@ -837,7 +846,7 @@ def evidence_rows(layout, ledger=None):
         return None
 
     paths = Paths(layout, {r["source"] for r in rows if r["source"]})
-    zmeth, zsite, zcopy = zh_index(layout, paths)
+    zmeth, zsite, zcopy, ztools = zh_index(layout, paths)
     zhead = zh_header_members(layout)
     F = file_strings(layout, paths, owner)
     W = wb_files(layout, paths)
@@ -870,6 +879,7 @@ def evidence_rows(layout, ledger=None):
         r["L"] = r["Lcand"] if use_l else None
         r["hard"] = r["F"] or r["Z"] or r["S"] or r["L"]
         r["hint"] = r["hard"] or r["N"]
+        r["tool"] = bool(r["hard"]) and r["hard"] in ztools
         r["C"] = r["K"] = None
     return rows
 
@@ -897,7 +907,7 @@ def build(layout, ledger=None):
         # an anchor: a row's own F/Z/S, or a WorldBuilder lead naming this very path (W) on a
         # row whose naming did not come from that lead (else the lead confirms itself)
         if any(x["hard"] and x["hard"].lower() == key or use_w and same(x["W"], key) and not x["Wself"]
-               for x in best):
+               for x in best) and not any(x["tool"] for x in members):
             anchored.add(key)
         for x in best:
             main[id(x)] = key
@@ -1063,7 +1073,8 @@ def provisional(assigned, roots, lo_hi):
     anchored one's or another candidate's, islands aside -- sits inside its span, and its
     span overlaps no anchored TU's. Its name is the naming hint, still unproven: its rows
     carry PROV_TOKEN, so the naming lanes and the counts can tell them apart."""
-    cand = {k for k in lo_hi if k not in roots}
+    tool = {r["A"].lower() for r in assigned if r["tool"]}
+    cand = {k for k in lo_hi if k not in roots and k not in tool}
     both = roots | cand
     island_p = islands(assigned, both)
     span, count = {}, collections.Counter()

@@ -198,7 +198,28 @@ def test_hinted_tu_within_its_anchored_neighbours_still_merges(tmp_path):
         assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/X/B.cpp", "approved"), hex(rva)
 
 
-WB_HEADER ="target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
+@pytest.mark.parametrize("zh_dir, approved", [("Tools/WW3D/pluglib", False), ("Libraries/WWMath", True)])
+def test_a_zh_tools_file_anchors_no_game_tu(tmp_path, zh_dir, approved):
+    """Retail 0x00715550..0x00715EB0: Matrix4 rows took Z/S from ZH's 3ds Max exporter
+    (Tools/WW3D/pluglib/matrix4.cpp) and were approved into that tool path. A Tools/
+    program is never linked into the game, so its file anchors nothing; the same file
+    under the game's own tree (negative control) still does."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code" / zh_dir
+    zh.mkdir(parents=True)
+    (zh / "matrix4.cpp").write_text("".join(f"void Matrix4::{m}()\n{{\n}}\n" for m in "fgh"))
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join(
+        row(f"?{m}@Matrix4@@QAEXXZ", rva, 16, f"Code/W/Matrix4{m}.cpp")
+        for m, rva in (("f", 0x1000), ("g", 0x1010), ("h", 0x1020))))
+    out = {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+    for rva in (0x1000, 0x1010, 0x1020):
+        r = out[rva]
+        assert (r["by"], r["tu"]) == ("Z", f"Code/{zh_dir}/matrix4.cpp"), hex(rva)
+        assert (r["confidence"] == "approved") is approved, hex(rva)
+        assert "provisional" not in r["evidence"]
+
+
+WB_HEADER = "target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
 
 
 def _wb(tmp_path, monkeypatch, foo_lead, bar_lead="Bar.cpp", foo_name="X::f", foo_was="",
