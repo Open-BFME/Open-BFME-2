@@ -249,8 +249,6 @@ static const char *getWSAErrorString( Int error )
 #undef CASE
 #endif
 
-void __cdecl free(void *);
-
 struct Rva0041A3C4 {
     BfmeNarrowRecord0041A5D2 *_M_cur;
     BfmeNarrowRecord0041A5D2 *_M_first;
