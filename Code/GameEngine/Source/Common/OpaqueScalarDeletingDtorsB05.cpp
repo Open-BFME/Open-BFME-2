@@ -322,7 +322,7 @@ struct XferUnknown11;
 class Xfer::Version { public: Version(unsigned char a,unsigned char b):current(a),minimum(b){} unsigned char current,minimum; };
 class Coord3DBase {
 public:
- Coord3DBase(float a, float b, float c) : x(a), y(b), z(c) {}
+ Coord3DBase(float xCoord, float yCoord, float zCoord) : x(xCoord), y(yCoord), z(zCoord) {}
  ~Coord3DBase() {}
  float x,y,z;
 };
@@ -362,8 +362,8 @@ public:
 	virtual ~Rva002C6354();
     void DoXfer(Xfer *x);
 private:
-    unsigned m_08;
-    AITargetChooser *m_0C;
+    unsigned m_player;
+    AITargetChooser *m_targetChooser;
     AITacticsGenerator *m_10;
     char m_unmodelled14[12];
     Rva002C6354Buffer m_buffer;
@@ -427,9 +427,9 @@ void Rva002C6354::DoXfer(Xfer *x)
 {
  Xfer::Version version(1,1);
  (*x == version);
- bool hasChooser = m_0C != 0;
+ bool hasChooser = m_targetChooser != 0;
  (*x == hasChooser);
- if (m_0C) m_0C->xfer(x);
+ if (m_targetChooser) m_targetChooser->xfer(x);
  m_10->DoXfer(x);
  _STL::vector<const ModuleData *> &entries =
      *reinterpret_cast<_STL::vector<const ModuleData *> *>(&m_buffer);
@@ -441,7 +441,7 @@ void Rva002C6354::DoXfer(Xfer *x)
    ((Rva002C5EF0 *)*it)->rva002C5EF0(x);
  } else if (x->IsLoading()) {
   for (unsigned i=0; i<count; ++i) {
-   const ModuleData *slot = (const ModuleData *)new Rva002C5EF0(Coord3DBase(0,0,0), 0.0f, m_08);
+   const ModuleData *slot = (const ModuleData *)new Rva002C5EF0(Coord3DBase(0,0,0), 0.0f, m_player);
    ((Rva002C5EF0 *)slot)->rva002C5EF0(x);
    entries.push_back(slot);
   }

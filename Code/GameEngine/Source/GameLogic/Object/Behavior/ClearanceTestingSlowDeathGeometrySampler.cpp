@@ -77,17 +77,17 @@ float Sin(float);
 // Constructor boundary: native4DC1BF..4DC5EF RET12; the old served1126
 // extent included four following routines. Target owns a5C GeometryInfo copy
 // then angle5C/position60/bounds6C..78/corners7C..A8/cursorsAC,B0.
-Rva004DC1BF::Rva004DC1BF(const GeometryInfo &source,float a,const Vector3 &p)
- :geometry(source),angle(a),position(p)
+Rva004DC1BF::Rva004DC1BF(const GeometryInfo &source,float orientation,const Vector3 &p)
+ :geometry(source),angle(orientation),position(p)
 {
  if(reinterpret_cast<const BfmeThingTemplateShadowSelector *>(&source)->usePluralShadowName()) {
   float minor,major;
   major=source.extentX; minor=source.extentY;
-  float c=Cos(a),s=Sin(a);
-  corner0.Set(p.X-major*c-minor*s,p.Y+minor*c-major*s,0.0f);
-  corner1.Set(major*c+p.X-minor*s,p.Y+major*s+minor*c,0.0f);
-  corner2.Set(minor*s+major*c+p.X,p.Y-minor*c+major*s,0.0f);
-  corner3.Set(p.X-major*c+minor*s,p.Y-minor*c-major*s,0.0f);
+  float cosAngle=Cos(orientation),s=Sin(orientation);
+  corner0.Set(p.X-major*cosAngle-minor*s,p.Y+minor*cosAngle-major*s,0.0f);
+  corner1.Set(major*cosAngle+p.X-minor*s,p.Y+major*s+minor*cosAngle,0.0f);
+  corner2.Set(minor*s+major*cosAngle+p.X,p.Y-minor*cosAngle+major*s,0.0f);
+  corner3.Set(p.X-major*cosAngle+minor*s,p.Y-minor*cosAngle-major*s,0.0f);
   float minX=corner0.X;
   if(minX>corner1.X) minX=corner1.X;
   if(minX>corner2.X) minX=corner2.X;

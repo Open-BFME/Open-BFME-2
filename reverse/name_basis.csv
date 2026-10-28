@@ -3741,3 +3741,12 @@ member,Rva00486CF6_P04::m_38,Rva00486CF6_P04::m_collapsingTime,inferred,agree:nl
 member,Rva00486CF6_P04::m_3C,Rva00486CF6_P04::m_stayOnRadar,inferred,agree:nl-4c91206a9b86,Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp,
 param,__stl_alloc_rebind::a,__stl_alloc_rebind::sourceAllocator,inferred,agree:nl-f9a37d53bdb4,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp,
 param,create_allocator::a,create_allocator::originalAllocator,inferred,agree:nl-9d8ebd30e7fe,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdateRva004911AE.cpp,
+function,?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,inferred,agree:nl-62dd8109ac11,Code/GameEngine/Source/Common/GapBodiesS3L.cpp,0x005114C6
+member,Rva002C6354::m_08,Rva002C6354::m_player,inferred,agree:nl-ab4f9df0334d,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,
+member,Rva002C6354::m_0C,Rva002C6354::m_targetChooser,inferred,agree:nl-3dbe1a51ebe0,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,
+param,Coord3DBase::a,Coord3DBase::xCoord,inferred,agree:nl-d96f4335c73b,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,
+param,Coord3DBase::b,Coord3DBase::yCoord,inferred,agree:nl-e1973f52e37f,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,
+param,Coord3DBase::c,Coord3DBase::zCoord,inferred,agree:nl-b8c75d92d411,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB05.cpp,
+param,Rva004DC1BF::Rva004DC1BF::a,Rva004DC1BF::Rva004DC1BF::orientation,inferred,agree:nl-bcbea1d82422,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathGeometrySampler.cpp,0x004DC1BF
+local,Rva004DC1BF::Rva004DC1BF::c,Rva004DC1BF::Rva004DC1BF::cosAngle,inferred,agree:nl-2b431a66207f,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathGeometrySampler.cpp,0x004DC1BF
+local,Rva004BCF92::rva004BCF92::p,Rva004BCF92::rva004BCF92::cratePosition,inferred,agree:nl-8a4d580528e9,Code/GameEngine/Source/GameLogic/Object/Collide/CrateCollide/VeterancyCrateCollide.cpp,0x004BCF92

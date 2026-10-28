@@ -136,10 +136,10 @@ private:
 class Rva005114C6
 {
 public:
-	virtual Rva005114C6Messenger *rva005114C6(void *owner);
+	virtual Rva005114C6Messenger *createMessenger(void *owner);
 };
 
-Rva005114C6Messenger *Rva005114C6::rva005114C6(void *owner)
+Rva005114C6Messenger *Rva005114C6::createMessenger(void *owner)
 {
 	Rva005114C6Messenger *messenger = 0;
 	if (TheGameSpyInfo)

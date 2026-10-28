@@ -298,11 +298,11 @@ bool VeterancyCrateCollide::executeCrateBehavior(Object *other)
 void Rva004BCF92::rva004BCF92(const Object *obj, int text)
 {
 	const Object *heldObj = obj;
-	Coord3D *p = (Coord3D *)((char *)m_holder + 0x38);
+	Coord3D *cratePosition = (Coord3D *)((char *)m_holder + 0x38);
 	Coord3D pos;
-	pos.x = p->x;
-	pos.y = p->y;
-	pos.z = p->z + 10.0f;
+	pos.x = cratePosition->x;
+	pos.y = cratePosition->y;
+	pos.z = cratePosition->z + 10.0f;
 	Player *player = heldObj->getControllingPlayer();
 	int color = player->m_unk280 | 0xe6000000;
 	TheInGameUI->unk1A0(text, &pos, color);
