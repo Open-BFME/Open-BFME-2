@@ -11240,8 +11240,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp	"",o
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva007B73C0.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva007B73C0.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva00910F10DeviceSlot79.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva00910F10DeviceSlot79.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva0092CC40BoxOutsideFrustum.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva0092CC40BoxOutsideFrustum.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/Rva0092CC40BoxOutsideFrustum.cpp	"s",on	1
@@ -11498,8 +11496,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/scene_Is_Done_SimpleSceneIte
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/segline.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/segline.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/segline.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	"",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/shader.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/sharebuf_float_ctor.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/sharebuf_float_ctor.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/sharebuf_float_ctor.cpp	"s",on	1

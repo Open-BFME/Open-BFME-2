@@ -1,7 +1,8 @@
-// cl: /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/zhmd /arch:SSE2 /Ireference/shims/bfmeshader /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /O2 /arch:SSE /G7 /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/shims/wwstring_teardown/zhmd /Ireference/shims/bfmeshader /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/shims/bfme_dx8wrapper_home_link /Ireference/shims/bfmecamera
+// stlport
+// TU Code/Libraries/Source/WWVegas/WW3D2/shader.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 // platformsdk
 // dxsdk
-// stlport
 // readable body of ?Invert_Backface_Culling@ShaderClass@@: Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWater.cpp
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
@@ -16,6 +17,206 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
+#include <dx8caps.h> // BFME2 layout must win the reference include guard.
+#include "shader.h"
+#include "w3d_file.h"
+#include "wwdebug.h"
+#include "Dx8Wrapper.h"
+#include "dx8caps.h"
+#define SC_OPAQUE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ADDITIVE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_BUMPENVMAP ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_BUMPENVMAP, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_ADD, DETAILALPHA_DISABLE) )
+#define SC_ALPHA ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_SRC_ALPHA, \
+	DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_MULTIPLICATIVE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ZERO, \
+	DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_OP_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_OP_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ADD_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ALPHA_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
+	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ADD_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ONE, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ALPHA_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
+	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_OPAQUE_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_DISABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ADDITIVE_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ONE, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_DISABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ALPHA_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_MODULATE, \
+	SECONDARY_GRADIENT_DISABLE, TEXTURING_DISABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ATEST_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_ENABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ATEST_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_ENABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ATESTBLEND_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
+	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_ENABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_ATESTBLEND_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
+	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_ENABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_SCREEN_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
+	DSTBLEND_ONE_MINUS_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_SCREEN_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ONE, DSTBLEND_ONE_MINUS_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_MUL_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ZERO, \
+	DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
+	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#define SC_MUL_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
+	SRCBLEND_ZERO, DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
+	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
+	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
+#pragma optimize("gsy", on)
+#pragma optimize("", on)
+#include "dx8wrapper.h"
+
+extern unsigned long _PolygonCullMode;
+
+ShaderClass ShaderClass::_PresetOpaqueShader(SC_OPAQUE);
+
+ShaderClass ShaderClass::_PresetAdditiveShader(SC_ADDITIVE);
+
+ShaderClass ShaderClass::_PresetBumpenvmapShader(SC_BUMPENVMAP);
+
+ShaderClass ShaderClass::_PresetAlphaShader(SC_ALPHA);
+
+ShaderClass ShaderClass::_PresetMultiplicativeShader(SC_MULTIPLICATIVE);
+
+ShaderClass ShaderClass::_PresetOpaque2DShader(SC_OP_2D);
+
+ShaderClass ShaderClass::_PresetOpaqueSpriteShader(SC_OP_SPRITE);
+
+ShaderClass ShaderClass::_PresetAdditive2DShader(SC_ADD_2D);
+
+ShaderClass ShaderClass::_PresetAlpha2DShader(SC_ALPHA_2D);
+
+ShaderClass ShaderClass::_PresetAdditiveSpriteShader(SC_ADD_SPRITE);
+
+ShaderClass ShaderClass::_PresetAlphaSpriteShader(SC_ALPHA_SPRITE);
+
+ShaderClass ShaderClass::_PresetOpaqueSolidShader(SC_OPAQUE_SOLID);
+
+ShaderClass ShaderClass::_PresetAdditiveSolidShader(SC_ADDITIVE_SOLID);
+
+ShaderClass ShaderClass::_PresetAlphaSolidShader(SC_ALPHA_SOLID);
+
+ShaderClass ShaderClass::_PresetATest2DShader(SC_ATEST_2D);
+
+ShaderClass ShaderClass::_PresetATestSpriteShader(SC_ATEST_SPRITE);
+
+ShaderClass ShaderClass::_PresetATestBlend2DShader(SC_ATESTBLEND_2D);
+
+ShaderClass ShaderClass::_PresetATestBlendSpriteShader(SC_ATESTBLEND_SPRITE);
+
+ShaderClass ShaderClass::_PresetScreen2DShader(SC_SCREEN_2D);
+
+ShaderClass ShaderClass::_PresetScreenSpriteShader(SC_SCREEN_SPRITE);
+
+ShaderClass ShaderClass::_PresetMultiplicative2DShader(SC_MUL_2D);
+
+ShaderClass ShaderClass::_PresetMultiplicativeSpriteShader(SC_MUL_SPRITE);
+
+class Blend
+{
+public:
+
+	Blend(D3DBLEND f, bool ab)
+	{
+		func = f;
+		useAlpha = ab;
+	}
+
+	D3DBLEND	func;
+	bool		useAlpha;
+};
+
+const Blend srcBlendLUT[ShaderClass::SRCBLEND_MAX] = 
+{
+	Blend(D3DBLEND_ZERO, false),
+	Blend(D3DBLEND_ONE, false),
+	Blend(D3DBLEND_SRCALPHA, true),
+ 	Blend(D3DBLEND_DESTCOLOR, true)
+};
+
+const Blend dstBlendLUT[ShaderClass::DSTBLEND_MAX] = 
+{
+	Blend(D3DBLEND_ZERO, false),
+	Blend(D3DBLEND_ONE, false),
+ 	Blend(D3DBLEND_SRCCOLOR, false),
+ 	Blend(D3DBLEND_INVSRCCOLOR, false),
+ 	Blend(D3DBLEND_SRCALPHA, true),
+ 	Blend(D3DBLEND_INVSRCALPHA, true)
+};
+
+// BFME2 added a 7th primary-gradient value (retail Get_Description at
+// 0x138280 prints GRADIENT_MODULATE_OR_2X for bits 10-12 == 6). The shared
+// shader.h still ends at GRADIENT_MODULATE2X, so the value lives here until
+// the header catches up; unqualified lookup will prefer the enumerator once
+// it exists, so this line goes inert on its own.
+static const ShaderClass::PriGradientType GRADIENT_MODULATE_OR_2X = (ShaderClass::PriGradientType)6;
+
+struct Rva00910F10Device;
+
+struct Rva00910F10Vtable
+{
+	void *m_prior[79];
+	long (__stdcall *m_slot79)(Rva00910F10Device *, unsigned);
+};
+
+struct Rva00910F10Device
+{
+	Rva00910F10Vtable *m_vtable;
+};
+
+extern unsigned int number_of_DX8_calls;
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -58,203 +259,79 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
  *   ShaderClass::Guess_Sort_Level -- Guess the static sort level                              *
  * - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - */
 
-#include <dx8caps.h> // BFME2 layout must win the reference include guard.
-
-#include "shader.h"
-#include "w3d_file.h"
-#include "wwdebug.h"
-#include "Dx8Wrapper.h"
-#include "dx8caps.h"
-
-extern unsigned long _PolygonCullMode;
-
-
 /*
 ** Definitions of the preset shaders:
 */
 
 // Texturing, zbuffer, primary gradient, no blending
 
-#define SC_OPAQUE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetOpaqueShader(SC_OPAQUE);
-
 // Texturing, zbuffer, disabled zbuffer write, primary gradient, additive blending
-#define SC_ADDITIVE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAdditiveShader(SC_ADDITIVE);
 
 // Texturing, zbuffer, disabled zbuffer write, primary gradient, additive blending, bumpenvmap
-#define SC_BUMPENVMAP ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_BUMPENVMAP, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_ADD, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetBumpenvmapShader(SC_BUMPENVMAP);
 
 // Texturing, zbuffer, disabled zbuffer write, primary gradient, alpha blending
-#define SC_ALPHA ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_SRC_ALPHA, \
-	DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAlphaShader(SC_ALPHA);
 
 // Texturing, zbuffer, disabled zbuffer write, primary gradient, multiplicative blending
-#define SC_MULTIPLICATIVE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ZERO, \
-	DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetMultiplicativeShader(SC_MULTIPLICATIVE);
 
 // Texturing, no zbuffer reading/writing, no gradients, no blending, no
 // fogging - mostly for opaque 2D objects.
-#define SC_OP_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetOpaque2DShader(SC_OP_2D);
 
 // Texturing, default zbuffer reading, no zbuffer writing, no gradients, no blending, no
 // fogging - mostly for opaque sprite objects.
-#define SC_OP_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetOpaqueSpriteShader(SC_OP_SPRITE);
-
 
 // Texturing, no zbuffer reading/writing, no gradients, additive blending,
 // no fogging - mostly for additive 2D objects.
-#define SC_ADD_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ONE, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAdditive2DShader(SC_ADD_2D);
 
 // Texturing, no zbuffer reading/writing, no gradients, alpha blending, no
 // fogging - mostly for alpha-blended 2D objects.
-#define SC_ALPHA_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
-	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAlpha2DShader(SC_ALPHA_2D);
 
 // Texturing, default zbuffer reading, no zbuffer writing, no gradients,
 // additive blending, no fogging - mostly for use in additive sprite
 // objects.
-#define SC_ADD_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ONE, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAdditiveSpriteShader(SC_ADD_SPRITE);
 
 // Texturing, default zbuffer reading, no zbuffer writing, no gradients,
 // alpha blending, no fogging - mostly for use in alpha-blended sprite
 // objects.
-#define SC_ALPHA_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
-	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAlphaSpriteShader(SC_ALPHA_SPRITE);
 
 // No texturing, default zbuffer reading/writing, primary gradient, no
 // blending, no fogging - mostly for use in solid-colored opaque objects.
-#define SC_OPAQUE_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_DISABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetOpaqueSolidShader(SC_OPAQUE_SOLID);
 
 // No texturing, default zbuffer reading, no zbuffer writing, primary
 // gradient, additive blending, no fogging - mostly for use in solid-colored
 // additive objects.
-#define SC_ADDITIVE_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ONE, FOG_DISABLE, GRADIENT_MODULATE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_DISABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAdditiveSolidShader(SC_ADDITIVE_SOLID);
 
 // No texturing, default zbuffer reading, no zbuffer writing, primary
 // gradient, alpha blending, no fogging - mostly for use in solid-colored
 // alpha objects.
-#define SC_ALPHA_SOLID ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_MODULATE, \
-	SECONDARY_GRADIENT_DISABLE, TEXTURING_DISABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetAlphaSolidShader(SC_ALPHA_SOLID);
 
 // Texturing, no zbuffer reading/writing, no gradients, no blending, alpha
 // testing, no fogging - mostly for "pure" alpha-tested 2D objects.
-#define SC_ATEST_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_ENABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetATest2DShader(SC_ATEST_2D);
 
 // Texturing, default zbuffer reading and writing, no gradients, no
 // blending, alpha testing, no fogging - mostly for "pure" alpha-tested
 // sprite objects.
-#define SC_ATEST_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ZERO, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_ENABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetATestSpriteShader(SC_ATEST_SPRITE);
 
 // Texturing, no zbuffer reading/writing, no gradients, alpha blending AND
 // alpha testing, no fogging - mostly for alpha-tested and blended 2D
 // objects.
-#define SC_ATESTBLEND_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
-	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_ENABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetATestBlend2DShader(SC_ATESTBLEND_2D);
 
 // Texturing, default zbuffer reading and writing, no gradients, alpha
 // blending AND alpha testing, no fogging - mostly for use in alpha-tested
 // and blended sprite objects.
-#define SC_ATESTBLEND_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_ENABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_SRC_ALPHA, DSTBLEND_ONE_MINUS_SRC_ALPHA, FOG_DISABLE, GRADIENT_DISABLE, \
-	SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_ENABLE, CULL_MODE_ENABLE, DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetATestBlendSpriteShader(SC_ATESTBLEND_SPRITE);
 
 // Texturing, no zbuffer reading/writing, no gradients, screen blending,
 // no fogging - mostly for screen-blended 2D objects.
-#define SC_SCREEN_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ONE, \
-	DSTBLEND_ONE_MINUS_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetScreen2DShader(SC_SCREEN_2D);
 
 // Texturing, default zbuffer reading, no zbuffer writing, no gradients,
 // screen blending, no fogging - mostly for use in screen-blended sprite
 // objects.
-#define SC_SCREEN_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ONE, DSTBLEND_ONE_MINUS_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetScreenSpriteShader(SC_SCREEN_SPRITE);
 
 // Texturing, no zbuffer reading/writing, no gradients, multiplicative
 // blending, no fogging - mostly for multiplicatively blended 2D objects.
-#define SC_MUL_2D ( SHADE_CNST(PASS_ALWAYS, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, SRCBLEND_ZERO, \
-	DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, TEXTURING_ENABLE, \
-	ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetMultiplicative2DShader(SC_MUL_2D);
 
 // Texturing, default zbuffer reading, no zbuffer writing, no gradients,
 // multiplicative blending, no fogging - mostly for use in multiplicatively
 // blended sprite objects.
-#define SC_MUL_SPRITE ( SHADE_CNST(PASS_LEQUAL, DEPTH_WRITE_DISABLE, COLOR_WRITE_ENABLE, \
-	SRCBLEND_ZERO, DSTBLEND_SRC_COLOR, FOG_DISABLE, GRADIENT_DISABLE, SECONDARY_GRADIENT_DISABLE, \
-	TEXTURING_ENABLE, ALPHATEST_DISABLE, CULL_MODE_ENABLE, \
-	DETAILCOLOR_DISABLE, DETAILALPHA_DISABLE) )
-ShaderClass ShaderClass::_PresetMultiplicativeSpriteShader(SC_MUL_SPRITE);
-
 
 /***********************************************************************************************
  * ShaderClass::Init_From_Material3 -- Initialize a shader from a Material3 structure          *
@@ -276,7 +353,6 @@ void ShaderClass::Init_From_Material3(const W3dMaterial3Struct & mat3)
 		Set_Src_Blend_Func( SRCBLEND_SRC_ALPHA );
 	}
 }
-
 
 /***********************************************************************************************
  * ShaderClass::Enable_Fog -- Turn on fog for this shader.                                     *
@@ -343,7 +419,6 @@ void ShaderClass::Enable_Fog (const char *source)
 	}
 }
 
-
 /***********************************************************************************************
  * ShaderClass::Report_Unable_To_Fog --																		  *	
  *                                                                                             *
@@ -378,39 +453,6 @@ void ShaderClass::Report_Unable_To_Fog (const char *source)
 	}
 	#endif
 }
-
-class Blend
-{
-public:
-
-	Blend(D3DBLEND f, bool ab)
-	{
-		func = f;
-		useAlpha = ab;
-	}
-
-	D3DBLEND	func;
-	bool		useAlpha;
-};
-
-const Blend srcBlendLUT[ShaderClass::SRCBLEND_MAX] = 
-{
-	Blend(D3DBLEND_ZERO, false),
-	Blend(D3DBLEND_ONE, false),
-	Blend(D3DBLEND_SRCALPHA, true),
- 	Blend(D3DBLEND_DESTCOLOR, true)
-};
-
-const Blend dstBlendLUT[ShaderClass::DSTBLEND_MAX] = 
-{
-	Blend(D3DBLEND_ZERO, false),
-	Blend(D3DBLEND_ONE, false),
- 	Blend(D3DBLEND_SRCCOLOR, false),
- 	Blend(D3DBLEND_INVSRCCOLOR, false),
- 	Blend(D3DBLEND_SRCALPHA, true),
- 	Blend(D3DBLEND_INVSRCALPHA, true)
-};
-
 
 /***********************************************************************************************
  * ShaderClass::Apply -- Apply the renderstates for this shader                                *
@@ -447,7 +489,6 @@ void ShaderClass::Invert_Backface_Culling(bool onoff)
 	}
 	Invalidate();
 }
-
 
 /***********************************************************************************************
  * ShaderClass::Get_SS_Category -- Helper function for static sort system                      *
@@ -486,7 +527,6 @@ ShaderClass::StaticSortCategoryType ShaderClass::Get_SS_Category(void) const
 	// category: Everything else
 	return SSCAT_OTHER;
 }
-
 
 /***********************************************************************************************
  * ShaderClass::Guess_Sort_Level -- Guess the static sort level                                *
@@ -543,13 +583,6 @@ bool ShaderClass::Is_Backface_Culling_Inverted(void)
 {
 	return (_PolygonCullMode == D3DCULL_CCW);
 }
-
-// BFME2 added a 7th primary-gradient value (retail Get_Description at
-// 0x138280 prints GRADIENT_MODULATE_OR_2X for bits 10-12 == 6). The shared
-// shader.h still ends at GRADIENT_MODULATE2X, so the value lives here until
-// the header catches up; unqualified lookup will prefer the enumerator once
-// it exists, so this line goes inert on its own.
-static const ShaderClass::PriGradientType GRADIENT_MODULATE_OR_2X = (ShaderClass::PriGradientType)6;
 
 const StringClass& ShaderClass::Get_Description(StringClass& str) const
 {
@@ -661,3 +694,17 @@ void RvaShaderDx8CapsAnchor()
 	(void)&DX8Caps::Is_Fog_Allowed;
 	(void)&DX8Caps::Support_ModAlphaAddClr;
 }
+
+// tu-skeleton: 0x001374A0 9B ?Get_Post_Detail_Alpha_Func@ShaderClass@@QBE?AW4DetailAlphaFuncType@1@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva00910F10DeviceSlot79.cpp
+
+void rva00910F10DeviceSlot79(unsigned value)
+{
+	reinterpret_cast<Rva00910F10Device *>(DX8Wrapper::_Get_D3D_Device8())->m_vtable->m_slot79(reinterpret_cast<Rva00910F10Device *>(DX8Wrapper::_Get_D3D_Device8()), value);
+	++number_of_DX8_calls;
+}
+
+// tu-skeleton: 0x00137540 7B ?get@Rva00137540DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00137590 2932B ?Apply@ShaderClass@@AAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/ShaderClassApply.cpp (not merged yet)

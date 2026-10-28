@@ -9083,7 +9083,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001374C0,9,code,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/shader.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x001374D0,9,code,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/shader.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x001374E0,7,code,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/shader.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
-0x001374F0,27,code,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,approved,C,C=0x001374E0..0x00137540,Code/Libraries/Source/WWVegas/WW3D2/Rva00910F10DeviceSlot79.cpp
+0x001374F0,27,code,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp,approved,C,C=0x001374E0..0x00137540,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x00137510,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp N=Code/Libraries/Source/WWVegas/WW3D2/DX8Caps.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x00137520,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp N=Code/Libraries/Source/WWVegas/WW3D2/DX8Caps.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x00137530,7,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp N=Code/Libraries/Source/WWVegas/WW3D2/DX8Caps.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
