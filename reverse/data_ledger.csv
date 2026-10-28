@@ -20151,8 +20151,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A039A8,4,.data,global,_s_rva007B15F1,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A039AC,4,.data,global,?TheModelConditionSpecialAbilityUpdatePoolKey@?1??getModuleNameKey@ModelConditionSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp,owned,,1,2
 0x00A039B0,4,.data,global,?$S1@?1??getModuleNameKey@ModelConditionSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdate.cpp,owned,,1,4
-0x00A039B4,4,.data,global,?TheDamageFieldUpdatePoolKey@?1??getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdatePoolKey.cpp,owned,,1,2
-0x00A039B8,4,.data,global,?$S1@?1??getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdatePoolKey.cpp,owned,,1,4
+0x00A039B4,4,.data,global,?TheDamageFieldUpdatePoolKey@?1??getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp,owned,,1,2
+0x00A039B8,4,.data,global,?$S1@?1??getModuleNameKey@DamageFieldUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DamageFieldUpdate.cpp,owned,,1,4
 0x00A039BC,4,.data,global,?TheMonitorConditionUpdatePoolKey@?1??getModuleNameKey@MonitorConditionUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdatePoolKey.cpp,owned,,1,2
 0x00A039C0,4,.data,global,?$S1@?1??getModuleNameKey@MonitorConditionUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdatePoolKey.cpp,owned,,1,4
 0x00A039C4,4,.data,global,?TheAttachUpdatePoolKey@?1??getModuleNameKey@AttachUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp,owned,,1,2
