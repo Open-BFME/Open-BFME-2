@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /GX
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/moduledata
+// stlport
 //
 // ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x004B6A5E,
 // 91 bytes. Behavior-side module ctor: UpgradeModule base plus the four
@@ -17,72 +18,7 @@
 // member nulls). No explicit stores and no statics; all four immediates
 // are DIR32-masked in comparison.
 
-class Thing;
-class ModuleData;
-
-class __declspec(novtable) UpgradeIfaceA
-{
-public:
-	virtual void upgradeIfaceAAnchor();
-
-private:
-	unsigned char m_padA[8];
-};
-
-class __declspec(novtable) UpgradeIfaceB
-{
-public:
-	virtual void upgradeIfaceBAnchor();
-};
-
-class BehaviorModule : public UpgradeIfaceA, public UpgradeIfaceB
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-	~BehaviorModule();
-};
-
-class __declspec(novtable) UpgradeMuxBase
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	unsigned int m_executed;
-};
-
-class UpgradeMux : public UpgradeMuxBase
-{
-public:
-	UpgradeMux();
-};
-
-class __declspec(novtable) UpgradeTailBase
-{
-public:
-	virtual void upgradeTailAnchor();
-};
-
-class UpgradeModule : public BehaviorModule, public UpgradeMux, public UpgradeTailBase
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~UpgradeModule(); // retail ??1UpgradeModule@@MAE@XZ, 0x0046089D
-};
-
-#include "ascii_string.h"
-
-class GeometryUpgrade : public UpgradeModule
-{
-public:
-	GeometryUpgrade(Thing *thing, const ModuleData *moduleData);
-	virtual ~GeometryUpgrade();
-
-private:
-	AsciiString m_upgradeName; // +0x1C
-};
+#include "GeometryUpgradeView.h"
 
 // ??0GeometryUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z @0x004B6A5E
 GeometryUpgrade::GeometryUpgrade(Thing *thing, const ModuleData *moduleData) :
