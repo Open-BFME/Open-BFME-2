@@ -4,8 +4,8 @@
 The README card and the Discord post (tools/readme_progress.py) draw their
 figures from the functions here, so this prints the same figures: BYTE-MATCHED
 ("Byte match"), GAME CODE C++* (its parts are broken out as AUTHORED C++),
-LINKING ("Builds normally") with STRICT BLOCKERS (its "problems
-left"), then READABLE NAMES (worktree only),
+LINKING ("Linking") with LINK PROBLEMS (its "problems recorded"), then
+READABLE NAMES (worktree only),
 SHORTCUTS, FILE LAYOUT and SHARED CLASSES, the last three counted from the start
 of Phase 2 (PHASE2_START). BYTE-MATCHED ("rebuilt from source") is everything that rebuilds
 to game.dat's exact bytes (authored and generated C++, vendored source,
@@ -922,11 +922,12 @@ def _line(label, value, denominator, delta, note):
 
 
 def print_headline(padding, denominator, old_split, new_split, old_census, new_census, census_rows=(),
-                   tool_rules=None):
+                   tool_rules=None, problems=None):
     """The README card's and the daily Discord post's byte figures, computed
     the same way, then what they are made of. Every figure counts 0xCC out,
     so the lines below add up to the lines above. `tool_rules`: the rules
-    tools/link_census.py measures under at the new state (census_tool_rules_at)."""
+    tools/link_census.py measures under at the new state (census_tool_rules_at);
+    `problems`: link_problems_at for it."""
     matched, before = rebuildable(new_split), rebuildable(old_split)
     game, game_before = game_executable(new_split, denominator), game_executable(old_split, denominator)
     print(_line("BYTE-MATCHED", matched, denominator, f"delta {format_delta(matched, before, denominator)}",
@@ -981,15 +982,17 @@ def print_headline(padding, denominator, old_split, new_split, old_census, new_c
     else:
         census_line("LINKING", "linked_authored", "game_code",
                     "legacy authored-only accounting (inclusive census evidence unavailable)")
-    blockers = strict_blockers(new_census)
-    if blockers:
-        print(f"{'STRICT BLOCKERS':<15}{blockers['total']:>12,}  <- {blockers['unresolved']:,} unresolved names + "
-              f"{blockers['addresses']:,} hard-coded addresses + {blockers['duplicates']:,} duplicate names, census "
-              f"{new_census['date']} at {new_census['commit']} (the card's \"problems left\")")
+    if problems:
+        print(f"{'LINK PROBLEMS':<15}{problems['total']:>12,}  <- {problems['unresolved']:,} unresolved names + "
+              f"{problems['addresses']:,} hard-coded addresses + {problems['duplicates']:,} duplicate names (census "
+              f"{new_census['date']} at {new_census['commit']}) + {problems['comdat_losers']:,} losing COMDAT copies + "
+              f"{problems['wrong_selected']:,} wrongly selected providers ({LINK_STATUS}); the card's \"problems recorded\"")
+    elif new_census:
+        print(f"{'LINK PROBLEMS':<15}{'n/a':>12}  <- {LINK_STATUS} is missing or not the newest census's")
     if new_census and tool_rules and tool_rules != census_rules(new_census):
         print(f"               {CENSUS_TOOL} now measures under {tool_rules}; this census used "
               f"{census_rules(new_census)}: being re-measured")
-    print("               (BYTE-MATCHED, LINKING and STRICT BLOCKERS: the card's \"Does it work?\"; "
+    print("               (BYTE-MATCHED, LINKING and LINK PROBLEMS: the card's \"Does it work?\"; "
           "the same figures as the README card and the Discord post)")
     census_line("LINKED", "linked_bytes", None,
                 "linked own source in files that link cleanly", over_total=decompiled(new_split))
@@ -1221,19 +1224,36 @@ def phase2_baselines():
             "class_copies": class_copies_at(PHASE2_START)["extra"]}
 
 
-# The census row's counts that stand between the tree and a link without
-# shortcuts: names nothing defines, hard-coded image addresses, names two
-# objects define. The census records no stub or pin count of its own.
-STRICT_BLOCKER_FIELDS = ("unresolved", "addresses", "duplicates")
+# What the newest census recorded against linking the tree into one program
+# without shortcuts. The history row counts names nothing defines (DLL imports
+# included), hard-coded image addresses and names two objects define; the
+# reverse/link_status.csv the same census wrote counts, per file, losing COMDAT
+# copies and names the link resolved to a provider proven not retail's.
+CENSUS_PROBLEM_FIELDS = ("unresolved", "addresses", "duplicates")
+STATUS_PROBLEM_FIELDS = ("comdat_losers", "wrong_selected")
 
 
-def strict_blockers(census):
-    """{field: count, "total": sum} from one census history row; None when the
-    row lacks any of STRICT_BLOCKER_FIELDS."""
-    if not census or any(not str(census.get(field) or "").strip().isdigit() for field in STRICT_BLOCKER_FIELDS):
+def link_problems(census, status_text):
+    """{category: count, "total": sum} from a census history row and the
+    link_status.csv text written with it; None when either is missing, lacks a
+    category, or the status file is not that census's (its file and linked-file
+    counts differ from the row's): a partial count would understate the work."""
+    if not census or not status_text or any(not str(census.get(field) or "").strip().isdigit()
+                                            for field in CENSUS_PROBLEM_FIELDS + ("files", "files_linked")):
         return None
-    counts = {field: int(census[field]) for field in STRICT_BLOCKER_FIELDS}
+    rows = list(csv.DictReader(status_text.splitlines()))
+    if not rows or any(field not in rows[0] for field in STATUS_PROBLEM_FIELDS + ("linked",)):
+        return None
+    if len(rows) != int(census["files"]) or sum(row["linked"] == "yes" for row in rows) != int(census["files_linked"]):
+        return None
+    counts = {field: int(census[field]) for field in CENSUS_PROBLEM_FIELDS}
+    counts.update({field: sum(int(row[field] or 0) for row in rows) for field in STATUS_PROBLEM_FIELDS})
     return {**counts, "total": sum(counts.values())}
+
+
+def link_problems_at(ref):
+    """link_problems for the newest census at one state."""
+    return link_problems(census_at(ref), _text_at(ref, LINK_STATUS))
 
 
 CENSUS_TOOL = "tools/link_census.py"
@@ -1393,7 +1413,7 @@ def main():
         new_census = dict(new_census, **(linking_coverage_at(ref2) or {}))
     print_headline(padding, denominator, real_split(old, old_notes, text_start, text_size, old_naked, text_data=old_data),
                    real_split(new, new_notes, text_start, text_size, new_naked, text_data=new_data), old_census, new_census,
-                   census_rows_at(ref2), census_tool_rules_at(ref2))
+                   census_rows_at(ref2), census_tool_rules_at(ref2), link_problems_at(ref2))
     print()
     memo = {}
     import name_metric

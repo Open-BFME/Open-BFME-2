@@ -414,7 +414,7 @@ def map_svg(tiles, W, H):
 def _chart(history, census_rows):
     """An SVG line chart: byte-matched per day (blue) and, per census, Linking
     (green): the game's own linked C++ over that census tree's game code, the
-    README card's "Builds normally"."""
+    README card's Linking row."""
     if not history:
         return '<p class="muted">No history yet.</p>'
     W, H, L, R, T, B = 1100, 190, 40, 8, 10, 24

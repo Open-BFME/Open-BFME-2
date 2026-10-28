@@ -19,17 +19,21 @@ Does it work?
   Game code in C++*   authored and generated C++ plus intentionally retained
                       assembly, over executable game code (libraries and
                       embedded data excluded); the parts are named below it.
-  Builds normally     the census's LINKING: executable game code in units that
+  Linking             the census's LINKING: executable game code in units that
                       link cleanly, over the census tree's executable game code
                       (one census snapshot; it holds still between censuses).
-                      Its caption counts the newest census row's strict-link
-                      blockers (progress.strict_blockers: unresolved names +
-                      hard-coded addresses + duplicate names). While
+                      Units linking under census rules is not a normal build,
+                      so the caption counts every problem the newest census
+                      recorded (progress.link_problems: unresolved names,
+                      hard-coded addresses, duplicate names, losing COMDAT
+                      copies, wrongly selected providers). While
                       tools/link_census.py measures under rules the newest row
                       was not measured under, that row predates a rule change:
                       the row shows "being re-measured", not a change.
-  Next milestone      the first normal build while any blocker remains, then
-                      the first playtest.
+  Next milestone      the first normal build, then the first playtest. It moves
+                      on only on a record of the exit test (a whole-program link
+                      with no /FORCE and no stubs); no census or link_cycle
+                      record shows one yet, so it stays put (MILESTONE).
 
 Is the source clean?
   Readable names      declared names that are not placeholders (name_metric).
@@ -45,19 +49,27 @@ counts and --check-baselines compares them with the recorded ones.
 
 The change beside a figure is the change in its percentage since the last
 Discord post, from the figures that post saved (docs/discord-progress.json).
-When the census behind Builds normally changed its rules since then, or the TU
+When the census behind Linking changed its rules since then, or the TU
 estimate behind file layout changed, the two figures measure different things:
 the row says "accounting changed" and why, never an arrow.
 
 --discord posts every time (the daily run); --discord-on-change posts only when
-a "Does it work?" figure differs from the last post's (the hourly runs).
+a "Does it work?" figure differs from the last post's (the hourly runs). With
+--post-record PATH a successful post is recorded in PATH before anything else
+(the workflow keeps it across re-runs with actions/cache, keyed on the run ID),
+so a retried run neither posts twice nor loses the post's saved figures.
+--publish commits the card and pushes it, drawing it again on the tree it pushes
+onto whenever commits that landed meanwhile changed an input.
 """
 import argparse
 import csv
 import json
 import os
+import subprocess
 import sys
+import time
 from datetime import datetime, timezone
+from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.request import Request, urlopen
 
@@ -78,7 +90,7 @@ FOOTER = (f"Shortcuts, file layout and shared classes count from the start of Ph
 # (key, label, caption) for "Does it work?"; (key, label) for "Is the source clean?".
 WORKS = (("matched", "Byte match", "Every byte of the game's program code is recreated by compiling our source"),
          ("cpp", "Game code in C++*", "of executable game code (libraries and embedded data excluded)"),
-         ("linked", "Builds normally", "Code that fits together cleanly."))
+         ("linked", "Linking", "Share of game code that links into one program"))
 CLEAN = (("names", "Readable names"), ("shortcuts", "Shortcuts removed"),
          ("layout", "Original file layout"), ("classes", "Shared class definitions"))
 LABELS = {key: label for key, label, *_ in WORKS + CLEAN}
@@ -106,7 +118,7 @@ def _count(current, key):
 
 def measures(current):
     """{key: (count, denominator)}; (None, None) for a figure the state lacks.
-    Builds normally is one census snapshot: its bytes and its denominator (the
+    Linking is one census snapshot: its bytes and its denominator (the
     census tree's executable game code) both come from the census. The Phase 2
     figures count what was retired since progress.PHASE2_START."""
     total = current["total"]
@@ -145,10 +157,9 @@ def share(value, denominator):
     return f"{progress.percent(value, denominator):.2f}%"
 
 
-def blockers(current):
-    """The newest census row's strict-link blockers ({unresolved, addresses,
-    duplicates, total}), or None."""
-    return progress.strict_blockers(current.get("census"))
+def problems(current):
+    """Every link problem the newest census recorded (progress.link_problems), or None."""
+    return current.get("link_problems")
 
 
 def remeasuring(current):
@@ -160,10 +171,15 @@ def remeasuring(current):
     return None
 
 
+# The exit test is a whole-program link with no /FORCE and no stubs. The census
+# links under /FORCE and link_cycle links with stubs, and neither records such a
+# link, so no figure moves the milestone; fewer counted problems are not that
+# evidence. It moves when a tool records the exit test.
+MILESTONE = "Next milestone: first normal build, then the first playtest"
+
+
 def milestone(current):
-    found = blockers(current)
-    return ("Next milestone: the first playtest" if found and found["total"] == 0
-            else "Next milestone: first normal build, then the first playtest")
+    return MILESTONE
 
 
 def ownership(root=None):
@@ -196,10 +212,8 @@ def side_note(current, key):
 def caption(current, key, text, value=None, denominator=None):
     if key == "cpp" and value is not None:
         text = f"{value:,} / {denominator:,} bytes {text}"
-    found = blockers(current) if key == "linked" else None
-    if found:
-        text += f" About {found['total']:,} problems left before the game builds without shortcuts"
-    return text
+    found = problems(current) if key == "linked" else None
+    return text + (f"; {found['total']:,} problems recorded" if found else "")
 
 
 def footnote(current, key):
@@ -210,7 +224,7 @@ def footnote(current, key):
 
 
 def rules_changed(previous, current):
-    """(previous rules, current rules) when the census behind Builds normally
+    """(previous rules, current rules) when the census behind Linking
     was measured under other rules at the last post, else None."""
     if previous and previous.get('link_coverage_rules') != current.get('link_coverage_rules'):
         return (previous.get('link_coverage_rules') or 'authored-only',
@@ -397,10 +411,10 @@ def render(current, previous=None):
     body += [_text(LEFT, y + 16 * n, "muted", 12, line) for n, line in enumerate(footer)]
     height = y + 16 * (len(footer) - 1) + 20
     matched, cpp, linked = rows["matched"], rows["cpp"], rows["linked"]
-    found = blockers(current)
+    found = problems(current)
     summary = (f"{share(*matched)} byte match, {share(*cpp)} game code in C++*, "
-               + (f"{share(*linked)} builds normally" if linked[0] is not None else "builds normally not measured")
-               + (f" (about {found['total']:,} problems left)" if found else ""))
+               + (f"{share(*linked)} linking" if linked[0] is not None else "linking not measured")
+               + (f" ({found['total']:,} problems recorded)" if found else ""))
     clean = ", ".join(f"{LABELS[key].lower()} {share(*rows[key]) if rows[key][0] is not None else 'soon'}"
                       for key, _ in CLEAN)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="880" height="{height}" viewBox="0 0 880 {height}" role="img" aria-labelledby="title desc">
@@ -455,7 +469,7 @@ def saved_linking(previous):
 
 def blocks(value, total, block, width=WIDTH):
     """`width` square emoji: the value's share in `block`, the rest dark."""
-    count = min(max(round(width * value / total), 0), width) if total else 0
+    count = int(min(max(width * value // total, 0), width)) if total else 0   # floor: ten squares only at 100%
     return block * count + REST_BLOCK * (width - count)
 
 
@@ -496,15 +510,15 @@ def announcement(current, previous):
 
 
 def headline(state):
-    """The "Does it work?" figures as the post prints them; None for a state
-    they cannot be read from."""
+    """The "Does it work?" figures as the post prints them, the game-data note
+    beside byte match included; None for a state they cannot be read from."""
     try:
         rows = measures(state)
     except (KeyError, ValueError, TypeError):
         return None
-    found = blockers(state)
-    return tuple(share(*rows[key]) if rows[key][0] is not None else None for key in ("matched", "linked")) + (
-        found["total"] if found else None, remeasuring(state), milestone(state))
+    found = problems(state)
+    return tuple(share(*rows[key]) if rows[key][0] is not None else None for key, *_ in WORKS) + (
+        side_note(state, "matched"), found["total"] if found else None, remeasuring(state), milestone(state))
 
 
 def previous_state():
@@ -512,13 +526,46 @@ def previous_state():
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
-def notify(current, on_change=False):
-    """Post to Discord and save the figures the post was drawn from. With
+def _write_json(path, value):
+    """Write `value` to `path` whole or not at all (a temporary file, then a rename)."""
+    path = Path(path)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(json.dumps(value, indent=2) + "\n", encoding="utf-8")
+    os.replace(temporary, path)
+
+
+def read_record(path):
+    """The post record at `path`: the state a successful post saved, or None."""
+    return json.loads(Path(path).read_text(encoding="utf-8")) if path and Path(path).exists() else None
+
+
+def restore_post(record_path):
+    """Put this run's recorded post back into docs/discord-progress.json when the
+    checkout lacks it: a retried run on a fresh checkout, or a card drawn again
+    after publish() reset onto newer commits. The card then compares with the
+    post that went out, and the commit carries its figures. A record of another
+    run, or one older than the saved state, is left alone."""
+    record, run_id = read_record(record_path), os.environ.get("GITHUB_RUN_ID")
+    if not record or not run_id or record.get("run_id") != run_id:
+        return False
+    saved = previous_state()
+    if saved and (saved.get("run_id") == run_id or str(saved.get("updated_at", "")) >= str(record.get("updated_at", ""))):
+        return False
+    _write_json(progress.ROOT / STATE, record)
+    print("Discord: this run's post restored from its record")
+    return True
+
+
+def notify(current, on_change=False, record_path=None):
+    """Post to Discord and save the figures the post was drawn from: first to
+    `record_path` (kept outside the repository, so a failure in a later render
+    or push cannot lose it), then to docs/discord-progress.json. With
     `on_change`, post only when a "Does it work?" figure moved since the last post."""
-    state_path = progress.ROOT / STATE
     previous = previous_state()
     run_id = os.environ.get("GITHUB_RUN_ID")
-    if run_id and previous and previous.get("run_id") == run_id:
+    recorded = read_record(record_path)
+    if run_id and any(state and state.get("run_id") == run_id for state in (previous, recorded)):
         print("Discord: this run already posted")
         return
     if on_change and previous and headline(previous) == headline(current):
@@ -538,10 +585,79 @@ def notify(current, on_change=False):
         raise SystemExit(f"Discord update failed: HTTP {exc.code}") from None
     except URLError:
         raise SystemExit("Discord update failed: connection error") from None
-    state_path.write_text(json.dumps({**current, "updated_at": datetime.now(timezone.utc).isoformat(),
-                                      "message_id": message["id"], "run_id": run_id}, indent=2) + "\n",
-                          encoding="utf-8")
+    state = {**current, "updated_at": datetime.now(timezone.utc).isoformat(), "message_id": message["id"],
+             "run_id": run_id}
+    if record_path:
+        _write_json(record_path, state)
+    _write_json(progress.ROOT / STATE, state)
     print("Discord: new progress message posted")
+
+
+# What the workflow commits, and the steps that draw it (in order; without a
+# post: the workflow's own card step posts once, before publish()).
+OUTPUTS = ("docs/progress.svg", "docs/progress_chart.svg", "docs/progress_map.svg", STATE,
+           "reverse/progress_history.csv", "docs/progress_v2.svg", "reverse/progress_v2_history.csv")
+RENDER = (("tools/progress_site.py", "history", "--today"), ("tools/readme_progress.py",),
+          ("tools/progress_v2.py", "--today", "--svg", "docs/progress_v2.svg"),
+          ("tools/progress_site.py", "render", "build/site/index.html", "--svg", "docs"))
+OPTIONAL = frozenset({"tools/progress_v2.py"})   # the workflow lets the rules-v2 card fail
+
+
+def render_again(record_path=None):
+    """Draw every output again from the checkout, in fresh processes (progress's
+    caches hold the older tree)."""
+    for step in RENDER:
+        command = [sys.executable, *step]
+        if step[0] == "tools/readme_progress.py" and record_path:
+            command += ["--post-record", str(record_path)]
+        if subprocess.run(command, cwd=progress.ROOT).returncode and step[0] not in OPTIONAL:
+            raise SystemExit(f"readme_progress: {' '.join(step)} failed")
+
+
+def _git(*args, check=True):
+    done = subprocess.run(["git", *args], cwd=progress.ROOT, capture_output=True, text=True)
+    if check and done.returncode:
+        raise SystemExit(f"readme_progress: git {' '.join(args)} failed: {done.stderr.strip()}")
+    return done
+
+
+def _commit_outputs():
+    _git("add", "--", *(path for path in OUTPUTS if (progress.ROOT / path).exists()))
+    if _git("diff", "--cached", "--quiet", check=False).returncode == 0:
+        return False
+    _git("commit", "-q", "-m", "docs: update README progress card")
+    return True
+
+
+def publish(render, remote="origin", branch="master", tries=6, wait=time.sleep):
+    """Commit the outputs and push them to `branch` so that the card pushed is
+    the card of the tree it lands on. Commits land on master continuously: when
+    those that landed since the render changed anything but the outputs, reset
+    onto them and `render` again (a rebase would carry over a card drawn from
+    the older tree); otherwise rebase. Retry a rejected push."""
+    base = _git("rev-parse", "HEAD").stdout.strip()
+    if not _commit_outputs():
+        print("publish: nothing to commit")
+        return
+    for attempt in range(1, tries + 1):
+        _git("fetch", "-q", remote, branch)
+        upstream = _git("rev-parse", "FETCH_HEAD").stdout.strip()
+        inputs = _git("diff", "--quiet", base, upstream, "--", ".", *(f":(exclude){path}" for path in OUTPUTS),
+                      check=False).returncode
+        if inputs or _git("rebase", "-q", upstream, check=False).returncode:
+            _git("rebase", "--abort", check=False)
+            _git("reset", "-q", "--hard", upstream)
+            render()
+            base = upstream
+            print(f"publish: inputs changed; drawn again on {upstream[:10]}")
+            if not _commit_outputs():
+                print("publish: nothing to commit on the newer tree")
+                return
+        if _git("push", "-q", remote, f"HEAD:{branch}", check=False).returncode == 0:
+            print(f"publish: pushed {_git('rev-parse', '--short=10', 'HEAD').stdout.strip()}")
+            return
+        wait(10 * attempt)
+    raise SystemExit(f"readme_progress: the card was not pushed after {tries} tries")
 
 
 def collect():
@@ -560,6 +676,7 @@ def collect():
                "linked_authored": int(census["linked_authored"]) if census and census.get("linked_authored") else None,
                "linked_game_code": int(census["game_code"]) if census and census.get("game_code") else None,
                "census_tool_rules": progress.census_tool_rules_at(None), "ownership": ownership(),
+               "link_problems": progress.link_problems_at(None),
                **progress.cleanup_figures_at(None),
                **{lane: split.get(lane, 0) for lane in ("authored", "vendored", "generated", "library", "data", "assembly")}}
     if census:
@@ -586,10 +703,18 @@ def main():
                         help="post only when a \"Does it work?\" figure changed since the last post")
     parser.add_argument("--check-baselines", action="store_true",
                         help=f"recount the Phase 2 baselines at {progress.PHASE2_START} and compare")
+    parser.add_argument("--post-record", metavar="PATH",
+                        help="record a successful post here first, and restore this run's post from it")
+    parser.add_argument("--publish", action="store_true",
+                        help="commit the outputs and push them, drawn again if their inputs moved meanwhile")
     args = parser.parse_args()
     if args.check_baselines:
         check_baselines()
         return
+    if args.publish:
+        publish(lambda: render_again(args.post_record))
+        return
+    restore_post(args.post_record)
     current = collect()
     output = progress.ROOT / "docs" / "progress.svg"
     output.write_text(render(current, previous_state()), encoding="utf-8", newline="\n")
@@ -598,7 +723,7 @@ def main():
         f"{label} {share(*rows[key])}" if rows[key][0] is not None else f"{label} not measured"
         for key, label in LABELS.items()))
     if args.discord or args.discord_on_change:
-        notify(current, on_change=not args.discord)
+        notify(current, on_change=not args.discord, record_path=args.post_record)
 
 
 if __name__ == "__main__":

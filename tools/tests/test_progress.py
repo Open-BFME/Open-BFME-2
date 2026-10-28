@@ -473,7 +473,7 @@ def test_dump_pass_moved_zero_recovered_bytes():
 
 
 def test_readme_headline_is_a_recovered_figure():
-    """The badge's figures -- byte match, game code in C++* and builds normally
+    """The badge's figures -- byte match, game code in C++* and linking
     -- may not exceed what progress.py prints for them (BYTE-MATCHED,
     GAME CODE C++*, LINKING).
 
@@ -494,7 +494,7 @@ def test_readme_headline_is_a_recovered_figure():
     svg = (ROOT / "docs/progress.svg").read_text(encoding="utf-8")
     title = re.search(r"<title[^>]*>BFME 2 · Road to a finished decomp: ([\d.]+)% byte match, "
                       r"([\d.]+)% game code in C\+\+\*, "
-                      r"(?:([\d.]+)% builds normally|builds normally not measured)", svg)
+                      r"(?:([\d.]+)% linking|linking not measured)", svg)
     assert title, "the badge's title no longer states its figures"
     badge = {"rebuilt": float(title.group(1)), "cpp": float(title.group(2)),
              "linking": float(title.group(3) or 0)}
