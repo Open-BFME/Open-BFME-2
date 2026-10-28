@@ -35,6 +35,15 @@ that its bindings survive composition.
 
 ## Bounded composition and remaining prerequisites
 
+2026-10-28 follow-up: the seed's quartet view now exposes the reset donor's
+existing fields at +0x88..+0xCC and declares its `rva00112197` method.
+The paired build verifies 13/13 rows and the seed's EH graph remains EXACT.
+Both sources preview LINKS against index `41c28839bf` (425 and 49 authored
+bytes respectively); this is not a census gain. The follow-up dry run was
+interrupted after several minutes without a verdict; a completed merge trial
+is needed to establish whether the reset donor can now be absorbed. The other view,
+declaration and mixed-source prerequisites below remain open.
+
 The complete dry run accepts only the seed, W3DMouseCursorSlotQuartet.cpp,
 Rva00112291TerrainDtor.cpp and Common/Rva00115DA7.cpp. Their combined 12 rows
 total 469 bytes. Its isolated candidate preserves all 579 external COMDAT

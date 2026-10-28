@@ -323,6 +323,16 @@ offset-store trial preserves each file's rows separately, but the supported
 dry merge rejects the composed bytes. The trial was reverted; no source path
 moved or linking gain is claimed. Compare emitted constructor and vtable
 context before retrying. [Trial details](../reverse/attempt_support/prone-update-consolidation-20261028-codex4.md).
+### Terrain background quartet declaration (2026-10-28)
+
+Status: declaration prerequisite verified; composition and census confirmation
+pending. The seed's quartet view exposes the reset donor's existing fields and
+method. The paired build verifies 13 rows, the seed's EH graph is EXACT, and
+both units preview LINKS against index `41c28839bf` (474 authored bytes in
+total). This does not establish that they compile together or claim a census
+gain. Check the supported merge trial and carry any moved providers and their
+consumers into the next census. [Composition history and remaining donor
+prerequisites](../reverse/attempt_support/terrain-background-consolidation-20261028-codex.md).
 
 ### ParticleSys bounded composition (2026-10-28)
 

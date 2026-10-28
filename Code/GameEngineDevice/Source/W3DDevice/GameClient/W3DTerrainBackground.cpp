@@ -129,11 +129,16 @@ struct Rva0011216CSlotQuartet
 	CursorTextureSlot m_slot40;
 	char m_pad44[0x84 - 0x44];
 	bool m_ready84;
-	char m_pad85[0xD0 - 0x85];
+	char m_pad85[3];
+	int m_one88, m_one8C, m_one90, m_one94;
+	char m_pad98[0x30];
+	int m_zeroC8;
+	float m_zeroCC;
 	Rva00112153Elem *m_ptrD0; // +0xD0 array cleaned by 0x00112153 via delete[]
 
 	void FillFourSlots(void);
 	void rva00112153(void); // @0x00112153 25B abutting FillFourSlots
+	void rva00112197(void);
 };
 
 class Rva00112291TerrainOwner {
