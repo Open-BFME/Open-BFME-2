@@ -2244,6 +2244,22 @@ Whole-unit clearance and census confirmation remain pending.
   so whole-batch selection/loss closure remains unverified; carry this
   header reach and the direct cohort to the next normal census. Slots2,6,8,9,10
   still need their actual non-pure owners; complete table recovery remains open.
+- **GameWindow system-slot follow-up (2026-10-28):**
+  [the slot2 handoff](../reverse/attempt_support/gamewindow-system-slot-link-20261028/readme.md)
+  binds the native35B callback body at104E45 to GameWindow in its existing
+  source and replaces slot2's false purecall in both table emitters. The
+  original method name remains unknown; bfmeGoEHCb is retained. All114
+  four-source rows pass and4/4 ordinary previews LINK. No census gain.
+- **GameWindow predicate-slot follow-up (2026-10-28):**
+  [the slots6/8/9 handoff](../reverse/attempt_support/gamewindow-predicate-slots-link-20261028/readme.md)
+  recovers their GameWindow ownership, keeps the existing vslot placeholders
+  and rebinds all eight direct gadget consumers. All184 rows across13
+  sources and16 data rows pass; both44B native-width table copies select
+  the correct members at slots2,6,8,9. The13/13 ordinary previews retain
+  4697 authored per-source bytes before and after; no new census credit.
+  **Remaining:** slot10 still needs the heavily shared0050B5C6 constant
+  provider; slot7 is genuinely pure. Original method names, complete object
+  layout and consumer-metadata-backed whole-batch closure remain open.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its

@@ -10,10 +10,10 @@ void __identifier("?system@Rva000A6097Window@@UAE?AW4WindowMsgHandledType@@III@Z
 void __identifier("?draw@Rva000A6007Window@@UAEHPAVWinInstanceData@@@Z")();
 void __identifier("?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z")();
 void __identifier("?rva0009FD78@Rva000A495EWindow@@UAEHXZ")();
-void __identifier("?get@Rva00313913CmpBoolField@@QBE_NXZ")();
+void __identifier("?vslot6@GameWindow@@UBE_NXZ")();
 void __identifier("?Rva000A52A2Get@@YAHXZ")();
 void __identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")();
-void __identifier("?get@Rva0008FF78CmpBoolField@@QBE_NXZ")();
+void __identifier("?vslot9@GameWindow@@UBE_NXZ")();
 void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 }
 extern const void *const g_00BC9204[11] = {
@@ -23,10 +23,10 @@ extern const void *const g_00BC9204[11] = {
 	(const void *)&__identifier("?draw@Rva000A6007Window@@UAEHPAVWinInstanceData@@@Z"), // slot 3 0x000A6007
 	(const void *)&__identifier("?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z"), // slot 4 0x0008FF56
 	(const void *)&__identifier("?rva0009FD78@Rva000A495EWindow@@UAEHXZ"), // slot 5 0x000A495E
-	(const void *)&__identifier("?get@Rva00313913CmpBoolField@@QBE_NXZ"), // slot 6 0x00313913
+	(const void *)&__identifier("?vslot6@GameWindow@@UBE_NXZ"), // slot 6 0x00313913
 	(const void *)&__identifier("?Rva000A52A2Get@@YAHXZ"), // slot 7 0x000A52A2
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ"), // slot 8 0x0050B5C6
-	(const void *)&__identifier("?get@Rva0008FF78CmpBoolField@@QBE_NXZ"), // slot 9 0x0008FF78
+	(const void *)&__identifier("?vslot9@GameWindow@@UBE_NXZ"), // slot 9 0x0008FF78
 	(const void *)&__identifier("?IsCRC@Xfer@@UBE_NXZ"), // slot 10 0x0047A699
 };
 

@@ -40,10 +40,10 @@ public:
     virtual int draw(void *);
     virtual int tooltip(WinInstanceData *, unsigned int);
     virtual int rva0009FD78();
-    virtual void vslot6() = 0;
+    virtual bool vslot6() const;
     virtual void *fetchCreateInstance() = 0;
-    virtual void vslot8() = 0;
-    virtual void vslot9() = 0;
+    virtual bool vslot8() const;
+    virtual bool vslot9() const;
     virtual void vslot10() = 0;
 private:
     unsigned char m_unmodelled04[0x1E4 - 4];

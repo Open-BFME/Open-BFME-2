@@ -1,0 +1,150 @@
+{
+  "native_table_va": "0x00C0BBCC",
+  "bodies": {
+    "0x0008FF78": {
+      "old_symbol": "?get@Rva0008FF78CmpBoolField@@QBE_NXZ",
+      "new_symbol": "?vslot9@GameWindow@@UBE_NXZ",
+      "size": 12,
+      "bytes": "33c03981ec0100000f95c0c3"
+    },
+    "0x00313913": {
+      "old_symbol": "?get@Rva00313913CmpBoolField@@QBE_NXZ",
+      "new_symbol": "?vslot6@GameWindow@@UBE_NXZ",
+      "size": 16,
+      "bytes": "33c081b9e0010000ce2080000f94c0c3"
+    },
+    "0x0031393A": {
+      "old_symbol": "?get@Rva0031393ACmpBoolField@@QBE_NXZ",
+      "new_symbol": "?vslot8@GameWindow@@UBE_NXZ",
+      "size": 16,
+      "bytes": "33c081b9e00100005d7e72000f94c0c3"
+    }
+  },
+  "native_table_bytes": "c44a7100ff0c4a00454e500005dc490056ff480078fd49001339710010b843003a39710078ff4800c6b59000",
+  "table_copies": {
+    "Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "?vslot6@GameWindow@@UBE_NXZ"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "?vslot8@GameWindow@@UBE_NXZ"
+        ],
+        [
+          36,
+          6,
+          "?vslot9@GameWindow@@UBE_NXZ"
+        ],
+        [
+          40,
+          6,
+          "__purecall"
+        ]
+      ]
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "?vslot6@GameWindow@@UBE_NXZ"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "?vslot8@GameWindow@@UBE_NXZ"
+        ],
+        [
+          36,
+          6,
+          "?vslot9@GameWindow@@UBE_NXZ"
+        ],
+        [
+          40,
+          6,
+          "__purecall"
+        ]
+      ]
+    }
+  },
+  "remaining_reconstruction_gap": {
+    "slot10": "native 0x0050B5C6 shared constant provider; not a pure slot",
+    "slot7": "native genuine purecall"
+  }
+}

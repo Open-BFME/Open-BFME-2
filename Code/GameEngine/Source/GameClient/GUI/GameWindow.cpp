@@ -718,13 +718,13 @@ public:
 public:
 	virtual Int rva0009FD78();
 public:
-	virtual void vslot6() = 0;
+	virtual bool vslot6() const;
 public:
 	virtual void *fetchCreateInstance() = 0;
 public:
-	virtual void vslot8() = 0;
+	virtual bool vslot8() const;
 public:
-	virtual void vslot9() = 0;
+	virtual bool vslot9() const;
 public:
 	virtual void vslot10() = 0;
 public:

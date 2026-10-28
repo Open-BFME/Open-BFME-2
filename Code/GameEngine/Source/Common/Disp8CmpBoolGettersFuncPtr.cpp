@@ -1,28 +1,40 @@
-// Two disp32 compare bool getters split out of Disp8CmpBoolGetters.cpp: each
-// tests the dword at this+0x1E0 against a code address (retail compares it
-// with the VAs 0x008020CE and 0x00727E5D, the rowed window input callbacks
-// LeftHUDInput 0x004020CE and GadgetPushButtonInput 0x00327E5D, so +0x1E0 is
-// a GameWindow input callback). Identity is not recovered: names derive from
-// the addresses.
+// Native GameWindow table C0BBCC slots6/8 compare input callback+1E0.
+// Class ownership follows the constructor/table and callback offsets; the
+// existing slot placeholders deliberately make no original method-name claim.
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-
 enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
 class GameWindow;
-WindowMsgHandledType LeftHUDInput(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2);
-WindowMsgHandledType GadgetPushButtonInput(GameWindow *window, unsigned int msg, unsigned int mData1, unsigned int mData2);
+WindowMsgHandledType LeftHUDInput(GameWindow *, unsigned int, unsigned int, unsigned int);
+WindowMsgHandledType GadgetPushButtonInput(GameWindow *, unsigned int, unsigned int, unsigned int);
+typedef WindowMsgHandledType (__cdecl *GameWinInputFunc)(GameWindow *, unsigned int, unsigned int, unsigned int);
 
-#define BFME_DISP8_CMP_IMM_BOOL_GETTER(NAME, DISP, IMM, OP) \
-	class NAME \
-	{ \
-	public: \
-		bool get() const; \
-		char m_lead[DISP]; \
-		int m_value; \
-	}; \
-	bool NAME::get() const \
-	{ \
-		return m_value OP IMM; \
-	}
+class WinInstanceData;
+class GameWindow
+{
+protected:
+    virtual ~GameWindow();
+public:
+    virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
+    virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
+    virtual int draw(void *);
+    virtual int tooltip(WinInstanceData *, unsigned int);
+    virtual int rva0009FD78();
+    virtual bool vslot6() const;
+    virtual void *fetchCreateInstance() = 0;
+    virtual bool vslot8() const;
+    virtual bool vslot9() const;
+    virtual void vslot10() = 0;
+private:
+    unsigned char m_unmodelled04[0x1E0 - 4];
+    GameWinInputFunc m_input;
+};
 
-BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva00313913CmpBoolField, 0x1E0, (int)&LeftHUDInput, ==)
-BFME_DISP8_CMP_IMM_BOOL_GETTER(Rva0031393ACmpBoolField, 0x1E0, (int)&GadgetPushButtonInput, ==)
+bool GameWindow::vslot6() const
+{
+    return m_input == LeftHUDInput;
+}
+
+bool GameWindow::vslot8() const
+{
+    return m_input == GadgetPushButtonInput;
+}

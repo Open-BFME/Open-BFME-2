@@ -159,7 +159,34 @@ BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva001F349ECmpBoolField, 0x08, ==)
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0020E2F8CmpBoolField, 0x44, ==)
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0026224BCmpBoolField, 0x50, !=)
 BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0059EB27CmpBoolField, 0x2B0, !=)
-BFME_DISP8_CMP_ZERO_BOOL_GETTER(Rva0008FF78CmpBoolField, 0x1EC, !=)
+// Native GameWindow table C0BBCC slot9 tests tooltip callback+1EC.
+// Keep the existing slot placeholder: no original method name is proven.
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+class WinInstanceData;
+class GameWindow
+{
+protected:
+    virtual ~GameWindow();
+public:
+    virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
+    virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
+    virtual int draw(void *);
+    virtual int tooltip(WinInstanceData *, unsigned int);
+    virtual int rva0009FD78();
+    virtual bool vslot6() const;
+    virtual void *fetchCreateInstance() = 0;
+    virtual bool vslot8() const;
+    virtual bool vslot9() const;
+    virtual void vslot10() = 0;
+private:
+    unsigned char m_unmodelled04[0x1EC - 4];
+    void *m_tooltip;
+};
+
+bool GameWindow::vslot9() const
+{
+    return m_tooltip != 0;
+}
 
 // Zero-displacement members: the compared dword is the first field, so no
 // lead padding is emitted (a zero-length pad array is not legal C++).
