@@ -13,3 +13,14 @@ accepted no donors:
 
 Result: `blocked: no verified merge of two or more donors`. No files or claims
 were changed. Sol owns the declaration prerequisites.
+
+## Resolved 2026-10-28
+
+`RadarUpgradePoolKey.cpp` had already been absorbed. The seed and
+`RadarUpgradeUpgradeImplementation.cpp` were given one class view (the
+`CommandSetUpgrade.cpp` UpgradeMux view; commit "RadarUpgrade: one class view
+for the seed and its upgradeImplementation donor"); the dry run then accepted
+both and `tu_skeleton.py --merge` absorbed the donor (8 rows, all matched).
+`FireWeaponWhenDeadBehaviorDerived.cpp` stays mixed and still holds 0x004B47BF
+(`??_G` of the placeholder `Rva004B46F9`, whose slot-8 body 0x004B47DB, now in the TU, has the shape of
+Zero Hour's `RadarUpgrade::onDelete`; a naming inference, not yet renamed).
