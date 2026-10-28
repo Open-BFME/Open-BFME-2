@@ -199,19 +199,19 @@ class LightningDrawModule:public ParticleModule005F2CA0,public LightningDrawModu
 }
 
 
-static inline void Rva00561564AddP(const Vector3 *a,const Coord3D *b,Coord3D *r){
- r->x=a->X+b->x;
- r->y=a->Y+b->y;
- r->z=a->Z+b->z;
+static inline void Rva00561564AddP(const Vector3 *position,const Coord3D *b,Coord3D *resultPosition){
+ resultPosition->x=position->X+b->x;
+ resultPosition->y=position->Y+b->y;
+ resultPosition->z=position->Z+b->z;
 }
-static inline void Rva00561564CrossProduct(const FXParticleSystem::LightningDrawModule::Vec *a,const FXParticleSystem::LightningDrawModule::Vec *b,FXParticleSystem::LightningDrawModule::Vec *r){
- r->x=(a->y*b->z-a->z*b->y);
- r->y=(a->z*b->x-a->x*b->z);
- r->z=(a->x*b->y-a->y*b->x);
+static inline void Rva00561564CrossProduct(const FXParticleSystem::LightningDrawModule::Vec *firstVector,const FXParticleSystem::LightningDrawModule::Vec *secondVector,FXParticleSystem::LightningDrawModule::Vec *crossResult){
+ crossResult->x=(firstVector->y*secondVector->z-firstVector->z*secondVector->y);
+ crossResult->y=(firstVector->z*secondVector->x-firstVector->x*secondVector->z);
+ crossResult->z=(firstVector->x*secondVector->y-firstVector->y*secondVector->x);
 }
 int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,void* bounds,int* particleCount) {
  if(WW3D::IsCurrentlyRenderingShadowMap)return 0;
- int n=0;
+ int numParticles=0;
  Vector3* locs=g_00E065C8->Get_Array();
  float* widths=g_00E065D0->Get_Array();
  Vector4* colors=g_00E065CC->Get_Array();
@@ -224,37 +224,37 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
  for(;streakParticle;streakParticle=streakParticle->m_next) {
   float size=((Rva001F4D2D*)streakParticle)->rva001F4D2D();
   if(refresh)streakParticle->seed=savedSeed;
-  ids[n]=streakParticle->m_id;
-  locs[n].X=streakParticle->m_pos.X;locs[n].Y=streakParticle->m_pos.Y;locs[n].Z=streakParticle->m_pos.Z;
-  widths[n]=size;
+  ids[numParticles]=streakParticle->m_id;
+  locs[numParticles].X=streakParticle->m_pos.X;locs[numParticles].Y=streakParticle->m_pos.Y;locs[numParticles].Z=streakParticle->m_pos.Z;
+  widths[numParticles]=size;
   const RGBColor* color=((Rva001F4E1BSlot*)streakParticle)->get();
-  if(color){colors[n].X=color->red;colors[n].Y=color->green;colors[n].Z=color->blue;}
-  else{colors[n].X=0;colors[n].Y=0;colors[n].Z=0;}
-  colors[n].W=((Rva001F4DF9*)streakParticle)->rva001F4DF9();
-  angles[n]=(unsigned char)(((Rva001F4DC4*)streakParticle)->rva001F4DC4()*255.0f/6.2831855f);
-  n++;if(n==512)break;
+  if(color){colors[numParticles].X=color->red;colors[numParticles].Y=color->green;colors[numParticles].Z=color->blue;}
+  else{colors[numParticles].X=0;colors[numParticles].Y=0;colors[numParticles].Z=0;}
+  colors[numParticles].W=((Rva001F4DF9*)streakParticle)->rva001F4DF9();
+  angles[numParticles]=(unsigned char)(((Rva001F4DC4*)streakParticle)->rva001F4DC4()*255.0f/6.2831855f);
+  numParticles++;if(numParticles==512)break;
  }
  }
- if(g_00E0626C && n>=2){
+ if(g_00E0626C && numParticles>=2){
   BFME2ParticleTextureHandle texture=TextureAsset::Get(getSystem()->m_textureName.str(),0,0);
   if(refresh){
-   axisA.Set(locs[n-1].X-locs[0].X,locs[n-1].Y-locs[0].Y,locs[n-1].Z-locs[0].Z);axisA.normalize();
+   axisA.Set(locs[numParticles-1].X-locs[0].X,locs[numParticles-1].Y-locs[0].Y,locs[numParticles-1].Z-locs[0].Z);axisA.normalize();
    axisC.x=0;axisC.y=0;axisC.z=1;
    LightningDrawModule *self=this;
    Rva00561564CrossProduct(&self->axisC,&self->axisA,&axisB);
    Rva00561564CrossProduct(&axisA,&axisB,&axisC);
-   for(int j=0;j<count;j++){ Rva00561C34Point *out=pointsA[j]; Rva00561C34Point *tL0=pointsB[j];Rva00561C34Point *offset=tL0; for(int i=0;i<n;i++){
-    if(i!=0 && i!=n-1){
-     float v0=((GameClientRandomVariable*)&a)->getValue();
-     float v1=((GameClientRandomVariable*)&b)->getValue();
-     float v2=((GameClientRandomVariable*)&c)->getValue();
-     float sumX=v2*axisA.x;
-     sumX=sumX+v0*axisB.x;
-     sumX=sumX+v1*axisC.x;
+   for(int j=0;j<count;j++){ Rva00561C34Point *out=pointsA[j]; Rva00561C34Point *generatedOffsets=pointsB[j];Rva00561C34Point *offset=generatedOffsets; for(int i=0;i<numParticles;i++){
+    if(i!=0 && i!=numParticles-1){
+     float lateralNoise=((GameClientRandomVariable*)&a)->getValue();
+     float normalNoise=((GameClientRandomVariable*)&b)->getValue();
+     float longitudinalNoise=((GameClientRandomVariable*)&c)->getValue();
+     float sumX=longitudinalNoise*axisA.x;
+     sumX=sumX+lateralNoise*axisB.x;
+     sumX=sumX+normalNoise*axisC.x;
      offset[i].x=sumX;
-     offset[i].y=v2*axisA.y+v0*axisB.y+v1*axisC.y;
-     offset[i].z=v2*axisA.z+v0*axisB.z+v1*axisC.z;
-     Rva00561C34Point *o=&out[i];Rva00561C34Point *f=&offset[i];Vector3 *l=&locs[i];Rva00561564AddP(l,f,o);
+     offset[i].y=longitudinalNoise*axisA.y+lateralNoise*axisB.y+normalNoise*axisC.y;
+     offset[i].z=longitudinalNoise*axisA.z+lateralNoise*axisB.z+normalNoise*axisC.z;
+     Rva00561C34Point *displacedPoint=&out[i];Rva00561C34Point *pointOffset=&offset[i];Vector3 *particlePosition=&locs[i];Rva00561564AddP(particlePosition,pointOffset,displacedPoint);
     }else{
      out[i].x=offset[i].x=locs[i].X;
      out[i].y=offset[i].y=locs[i].Y;
@@ -262,12 +262,12 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
     }
    }
   }}else{
-   for(int j=0;j<count;j++){ Rva00561C34Point *out=pointsA[j]; Rva00561C34Point *tJ0=pointsB[j];Rva00561C34Point *offset=tJ0; for(int i=0;i<n;i++){
-    if(i!=0 && i!=n-1){
-     Rva00561C34Point *f=&offset[i];Vector3 *l=&locs[i];
-     out[i].x=f->x+l->X;
-     out[i].y=f->y+l->Y;
-     out[i].z=f->z+l->Z;
+   for(int j=0;j<count;j++){ Rva00561C34Point *out=pointsA[j]; Rva00561C34Point *cachedOffsets=pointsB[j];Rva00561C34Point *offset=cachedOffsets; for(int i=0;i<numParticles;i++){
+    if(i!=0 && i!=numParticles-1){
+     Rva00561C34Point *pointOffset=&offset[i];Vector3 *particlePosition=&locs[i];
+     out[i].x=pointOffset->x+particlePosition->X;
+     out[i].y=pointOffset->y+particlePosition->Y;
+     out[i].z=pointOffset->z+particlePosition->Z;
     }else{
      out[i].x=offset[i].x;
      out[i].y=offset[i].y;
@@ -285,10 +285,10 @@ int FXParticleSystem::LightningDrawModule::doParticles(RenderInfoClass& rinfo,vo
   }
   if(DX8Wrapper::Get_Fog_Enable())shader.Enable_Fog("HardwareFog");g_00E0626C->Set_Shader(shader);
   for(int j=0;j<count;j++){
-   g_00E0626C->Set_LocsWidthsColors(n,(Vector3*)&pointsA[j][0],g_00E065D0->Get_Array(),g_00E065CC->Get_Array(),ids);
-   if(!flag)g_00E0626C->Set_Texture_Tile_Factor(1.0f/(n-1));else g_00E0626C->Set_Texture_Tile_Factor(1.0f);
+   g_00E0626C->Set_LocsWidthsColors(numParticles,(Vector3*)&pointsA[j][0],g_00E065D0->Get_Array(),g_00E065CC->Get_Array(),ids);
+   if(!flag)g_00E0626C->Set_Texture_Tile_Factor(1.0f/(numParticles-1));else g_00E0626C->Set_Texture_Tile_Factor(1.0f);
    g_00E0626C->Render(rinfo);
   }
  }
- return n;
+ return numParticles;
 }

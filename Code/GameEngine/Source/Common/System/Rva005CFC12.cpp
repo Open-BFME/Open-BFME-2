@@ -25,11 +25,11 @@ static __forceinline float fast_floor(float f)
 	return (float)floor((double)f);
 }
 
-static __forceinline long fast_round(float f)
+static __forceinline long fast_round(float roundValue)
 {
 	long i;
 	__asm {
-		fld [f]
+		fld [roundValue]
 		fistp [i]
 	}
 	return i;
@@ -66,12 +66,12 @@ void Rva005D00A6::rva005CFC12(INI *ini)
 		float a;
 		float b;
 	};
-	TwoFloats v;
-	v.a = g_00BBB9AC;
-	v.b = g_00BBB9AC;
-	ini->initFromINI(&v, g_00C75344);
-	if (v.a >= 0.0f)
-		m_08 = fast_round(fast_floor(v.a * 1000.0f + 0.5f));
-	if (v.b >= 0.0f)
-		m_0c = fast_round(fast_floor(v.b * 1000.0f + 0.5f));
+	TwoFloats durationSettings;
+	durationSettings.a = g_00BBB9AC;
+	durationSettings.b = g_00BBB9AC;
+	ini->initFromINI(&durationSettings, g_00C75344);
+	if (durationSettings.a >= 0.0f)
+		m_08 = fast_round(fast_floor(durationSettings.a * 1000.0f + 0.5f));
+	if (durationSettings.b >= 0.0f)
+		m_0c = fast_round(fast_floor(durationSettings.b * 1000.0f + 0.5f));
 }

@@ -31,7 +31,7 @@ public:
     unsigned int getType() const { return word&15; }
     Int getLayer() const { return (word>>4)&63; }
     unsigned int getRawWord() const { return word; }
-    Bool bit(int n) const { return ((word>>n)&1)!=0; }
+    Bool bit(int bitIndex) const { return ((word>>bitIndex)&1)!=0; }
     __forceinline Bool hasOccupants() const { return info ? info->occupants!=0 : false; }
     __forceinline Bool hasGoals() const { return info ? info->goals!=0 : false; }
     __forceinline Bool hasReservations() const { return info ? info->reservations!=0 : false; }
@@ -53,10 +53,10 @@ static __forceinline void copyCoord3D(Coord3D *dest,const Coord3D *src){dest->x=
 static __forceinline void subCoord3D(Coord3D *dest,const Coord3D *src){dest->x-=src->x;dest->y-=src->y;dest->z-=src->z;}
 struct PathGroundCoord : Coord3D {
 PathGroundCoord() {}
-PathGroundCoord(const Coord3D &v) { x=v.x; y=v.y; z=v.z; }
+PathGroundCoord(const Coord3D &sourceCoord) { x=sourceCoord.x; y=sourceCoord.y; z=sourceCoord.z; }
 PathGroundCoord(const PathGroundCoord &pathGroundCoord) { x=pathGroundCoord.x; y=pathGroundCoord.y; z=pathGroundCoord.z; }
-void Sub(const Coord3D *v) { x-=v->x; y-=v->y; z-=v->z; }
-void Add(const Coord3D *v) { x+=v->x; y+=v->y; z+=v->z; }
+void Sub(const Coord3D *subtractCoord) { x-=subtractCoord->x; y-=subtractCoord->y; z-=subtractCoord->z; }
+void Add(const Coord3D *addCoord) { x+=addCoord->x; y+=addCoord->y; z+=addCoord->z; }
 void Set(const Coord3D &v) { Coord3D::operator=(v); }
 };
 Path *Pathfinder::BuildGroundPath(const Coord3D *fromPos, PathfindCell *goalCell, Bool center, Int pathDiameter)
@@ -82,9 +82,9 @@ dir.x += v2.x;
 dir.y += v2.y;
 dir.z = 0;
 dir.Normalize();
-float r = 2.0f * TheAI->getAiData()->m_a0;
-dir.x *= r;
-dir.y *= r;
+float cornerOffsetDistance = 2.0f * TheAI->getAiData()->m_a0;
+dir.x *= cornerOffsetDistance;
+dir.y *= cornerOffsetDistance;
 PathGroundCoord newPos(node->pos);
 if (cross < 0) {
 newPos.x += -dir.y;

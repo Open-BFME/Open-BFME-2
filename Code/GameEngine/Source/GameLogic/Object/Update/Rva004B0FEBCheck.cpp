@@ -153,12 +153,12 @@ body:
 		return false;
 	if (other->m_template->m_115 & 0x20)
 		return false;
-	unsigned flags10c = other->m_template->m_10c;
-	if ((flags10c & 0x400000) != 0)
+	unsigned kindOfHigh = other->m_template->m_10c;
+	if ((kindOfHigh & 0x400000) != 0)
 		return false;
 	if ((flags108 & 4) != 0)
 		return false;
-	if ((flags10c & 0x8000) != 0)
+	if ((kindOfHigh & 0x8000) != 0)
 		return false;
 
 	if (objA->getRelationship(other) != ENEMIES)
