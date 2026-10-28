@@ -247,6 +247,10 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   first from 0x00049DEA and lose; declaring the destructor in the view keeps the call
   and drops the copy (69 other definers; first becomes a retail copy). 5/5 rows exact
   (funclet labels renumber, parent EH data verified); link_check LINKS 302 B.
+- `ArmorHashtableRtsCtor.cpp` (halilkkaya-lk6): its rowed constructor calls
+  `_M_initialize_buckets` out of line; a declaration-only specialization drops the
+  unit's unproven copy (ef03b9ac339d), which would be first and lose against Armor.cpp's
+  retail row 0x00148DDF. 3/3 rows exact, no other digest changes; LINKS (105 B).
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy

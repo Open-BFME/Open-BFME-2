@@ -107,6 +107,11 @@ namespace _STL {
 template <> hashtable<pair<const NameKeyType, ArmorTemplate>, NameKeyType, rts::hash<NameKeyType>,
     _Select1st<pair<const NameKeyType, ArmorTemplate> >, rts::equal_to<NameKeyType>,
     allocator<pair<const NameKeyType, ArmorTemplate> > >::~hashtable();
+// The constructor calls _M_initialize_buckets out of line; Armor.cpp's row
+// 0x00148DDF is retail's body, this unit's unproven copy is not.
+template <> void hashtable<pair<const NameKeyType, ArmorTemplate>, NameKeyType, rts::hash<NameKeyType>,
+    _Select1st<pair<const NameKeyType, ArmorTemplate> >, rts::equal_to<NameKeyType>,
+    allocator<pair<const NameKeyType, ArmorTemplate> > >::_M_initialize_buckets(size_type);
 }
 
 // Instantiate the rowed constructors without the unresolved insertion path.
