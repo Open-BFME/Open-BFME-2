@@ -20,76 +20,42 @@
 // slot8). Sibling 0x004B47DB already matched elsewhere; dumped both tables
 // (0x00857890 full 12-slot + interior 0x008578A8) to prove adjacency but
 // NOT co-landed without identity proof.
+class Thing;
+
+class ModuleData;
+
+class Object;
+
 typedef bool Bool;
-enum NameKeyType
-{
-	NAMEKEY_INVALID = 0
-};
-class NameKeyGenerator
-{
-public:
-	NameKeyType nameToKey(const char *name);
-};
-extern NameKeyGenerator *TheNameKeyGenerator;
-class Player
-{
-public:
-	void removeRadar(Bool disableProof);
-	void addRadar(Bool disableProof);
-};
-template <int NUMBITS>
-class BitFlags
-{
-public:
-	Bool any() const;
-private:
-	unsigned int m_bits[(NUMBITS + 31) / 32];
-};
-// Object +0x1C8 as byte-pointer arithmetic on the Object pointer, so cl 7.1
-// emits mov ecx,[reg+8] / add ecx,0x1C8 (not lea) like retail 0x004B4828.
-#define OBJECT_DISABLED_MASK(object) \
-	((const BitFlags<11> *)((const char *)(object) + 0x1C8))
-class Module;
-class UpdateModule;
-class Object
-{
-public:
-	Player *getControllingPlayer() const;
-	UpdateModule *findUpdateModule(NameKeyType key) const { return (UpdateModule *)findModule(key); }
-protected:
-	Module *findModule(NameKeyType key) const;
-};
-class RadarUpdate
-{
-public:
-	void extendRadar();
-};
+
+class MultiIniFieldParse;
+
 class RadarUpgradeModuleData
 {
 public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	unsigned char m_pad[0x118];
-	Bool m_isDisableProof; // +0x118
+	bool m_isDisableProof; // +0x118
 };
-class ModuleData;
-class ObjectModuleBase
+
+class BehaviorModule
 {
 public:
-	virtual ~ObjectModuleBase();
+	virtual void behaviorModuleAnchor();
+
 protected:
 	Object *getObject() const { return m_object; }
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
-class UpgradeModuleInterface
+
+class BehaviorModuleInterface
 {
 public:
-	virtual void upgradeModuleInterfaceAnchor();
+	virtual void behaviorModuleInterfaceAnchor();
 };
-// UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slots 1-7 gaps,
-// slot 8 upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
-// upgradeImplementation. Explicit slots (TooltipUpgradeRemoval pattern) so
-// onCapture can call slot0/slot9 as real virtuals with no alias pins.
-class UpgradeMuxIface
+
+class UpgradeMux
 {
 public:
 	virtual Bool isAlreadyUpgraded() const = 0;
@@ -100,23 +66,97 @@ public:
 	virtual void m05() = 0;
 	virtual void m06() = 0;
 	virtual void m07() = 0;
+
 protected:
 	virtual void upgradeRemovalImplementation() = 0;
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
+
+private:
+	bool m_upgradeExecuted;
 };
-class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
+
+class ModuleInterface
 {
+public:
+	virtual void moduleInterfaceAnchor();
 };
+
+class UpgradeModule : public BehaviorModule,
+	public BehaviorModuleInterface,
+	public UpgradeMux,
+	public ModuleInterface
+{
+public:
+	UpgradeModule( Thing *thing, const ModuleData *moduleData );
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+template<unsigned int N> class BitFlags
+{
+public:
+	bool any() const;
+};
+
+class Player
+{
+public:
+	void removeRadar(bool b);
+	void addRadar(bool disableProof);
+};
+
+class Module;
+
+class UpdateModule;
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	UpdateModule *findUpdateModule(NameKeyType key) const { return (UpdateModule *)findModule(key); }
+protected:
+	Module *findModule(NameKeyType key) const;
+private:
+	char m_pad[0x1C8];
+public:
+	BitFlags<11> m_flags1C8;
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class RadarUpdate
+{
+public:
+	void extendRadar();
+};
+
 class RadarUpgrade : public UpgradeModule
 {
 public:
+	RadarUpgrade( Thing *thing, const ModuleData *moduleData );
+public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void onCapture(Player *oldOwner, Player *newOwner);
 protected:
 	virtual void upgradeImplementation();
 private:
 	const RadarUpgradeModuleData *getRadarUpgradeModuleData() const { return (const RadarUpgradeModuleData *)m_moduleData; }
 };
+
+// Object +0x1C8 as byte-pointer arithmetic on the Object pointer, so cl 7.1
+// emits mov ecx,[reg+8] / add ecx,0x1C8 (not lea) like retail 0x004B4828.
+#define OBJECT_DISABLED_MASK(object) \
+	((const BitFlags<11> *)((const char *)(object) + 0x1C8))
 void RadarUpgrade::upgradeImplementation()
 {
 	const RadarUpgradeModuleData *data = getRadarUpgradeModuleData();

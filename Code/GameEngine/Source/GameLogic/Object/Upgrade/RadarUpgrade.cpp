@@ -62,6 +62,8 @@ class RadarUpgradeModuleData
 {
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	unsigned char m_pad[0x118];
+	bool m_isDisableProof; // +0x118
 };
 
 class StatusBitsUpgradeModuleData
@@ -170,14 +172,20 @@ class Thing;
 
 class ModuleData;
 
+class Object;
+
+typedef bool Bool;
+
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 class BehaviorModule
 {
 public:
 	virtual void behaviorModuleAnchor();
 
-private:
-	unsigned char m_data[8];
+protected:
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -188,10 +196,25 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpgradeModule.h
+// UpgradeMux interface at +0x10: slot 0 isAlreadyUpgraded, slots 1-7 gaps,
+// slot 8 upgradeRemovalImplementation, slot 9 setUpgradeExecuted, slot 10
+// upgradeImplementation (the CommandSetUpgrade.cpp view).
 class UpgradeMux
 {
 public:
-	virtual void upgradeMuxAnchor();
+	virtual Bool isAlreadyUpgraded() const = 0;
+	virtual void m01() = 0;
+	virtual void m02() = 0;
+	virtual void m03() = 0;
+	virtual void m04() = 0;
+	virtual void m05() = 0;
+	virtual void m06() = 0;
+	virtual void m07() = 0;
+
+protected:
+	virtual void upgradeRemovalImplementation() = 0;
+	virtual void setUpgradeExecuted(Bool executed) = 0;
+	virtual void upgradeImplementation() = 0;
 
 private:
 	bool m_upgradeExecuted;
@@ -236,12 +259,20 @@ class Player
 {
 public:
 	void removeRadar(bool b);
+	void addRadar(bool disableProof);
 };
+
+class Module;
+
+class UpdateModule;
 
 class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	UpdateModule *findUpdateModule(NameKeyType key) const { return (UpdateModule *)findModule(key); }
+protected:
+	Module *findModule(NameKeyType key) const;
 private:
 	char m_pad[0x1C8];
 public:
@@ -291,12 +322,23 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class RadarUpdate
+{
+public:
+	void extendRadar();
+};
+
 class RadarUpgrade : public UpgradeModule
 {
 public:
 	RadarUpgrade( Thing *thing, const ModuleData *moduleData );
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onCapture(Player *oldOwner, Player *newOwner);
+protected:
+	virtual void upgradeImplementation();
+private:
+	const RadarUpgradeModuleData *getRadarUpgradeModuleData() const { return (const RadarUpgradeModuleData *)m_moduleData; }
 };
 
 // ---- from Code/GameEngine/Source/Common/System/RadarUpgradePoolKey.cpp
