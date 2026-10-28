@@ -11,6 +11,13 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
+enum RubbleRiseStateType
+{
+	RISESTATE_WAITING = 0,
+	RISESTATE_RISING,
+	RISESTATE_DONE
+};
+
 class Thing;
 class ModuleData;
 
@@ -18,6 +25,7 @@ class UpdateModule
 {
 protected:
 	void setWakeFrame(Object *obj, UpdateSleepTime t);
+	Object *getObject() const { return m_object; }
 
 	const void *m_vtable;
 	const ModuleData *m_moduleData;
@@ -36,23 +44,23 @@ public:
 
 private:
 	const void *m_secondary20;
-	unsigned int m_24;
-	unsigned int m_28;
-	unsigned int m_2C;
-	float m_30;
-	float m_34;
-	float m_38;
+	unsigned int m_unused24; // +0x24
+	unsigned int m_nextBurstFrame; // +0x28
+	RubbleRiseStateType m_riseState; // +0x2C
+	float m_riseVelocity; // +0x30
+	float m_currentHeight; // +0x34
+	float m_rubbleHeight; // +0x38
 };
 
 void RubbleRiseUpdate::rva004A4D70()
 {
 	int zero = 0;
 	float fzero = 0.0f;
-	m_24 = zero;
-	m_2C = zero;
-	m_30 = fzero;
-	m_28 = zero;
-	m_34 = fzero;
-	m_38 = fzero;
-	setWakeFrame(m_object, UPDATE_SLEEP_NONE);
+	m_unused24 = zero;
+	m_riseState = (RubbleRiseStateType)zero;
+	m_riseVelocity = fzero;
+	m_nextBurstFrame = zero;
+	m_currentHeight = fzero;
+	m_rubbleHeight = fzero;
+	setWakeFrame(getObject(), UPDATE_SLEEP_NONE);
 }

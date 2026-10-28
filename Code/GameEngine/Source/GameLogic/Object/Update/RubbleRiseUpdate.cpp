@@ -241,11 +241,33 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 
 class ModuleData;
+class DamageInfo;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class DieMuxData
+{
+public:
+	bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const; // 0x004CE588
+};
 
 class RubbleRiseUpdateModuleData
 {
 public:
-	unsigned char m_pad000[0x40];
+	unsigned char m_pad000[0x08];
+	DieMuxData m_dieMuxData; // +0x08
+	unsigned char m_pad009[0x40 - 0x09];
 	UnsignedInt m_minBurstDelay; // +0x40
 	UnsignedInt m_maxBurstDelay; // +0x44
 	Int m_bigBurstFrequency; // +0x48
@@ -286,6 +308,9 @@ public:
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+protected:
+	void setWakeFrame(Object *obj, UpdateSleepTime t); // 0x0044DF71
+
 private:
 	UnsignedInt m_nextCallFrameAndPhase; // +0x14
 	Int m_indexInLogic; // +0x18
@@ -295,7 +320,7 @@ private:
 class DieModuleInterface
 {
 public:
-	virtual void dieModuleInterfaceSlot();
+	virtual void onDie(const DamageInfo *damageInfo) = 0;
 };
 
 class RubbleRiseUpdate;
@@ -303,7 +328,10 @@ class RubbleRiseUpdate;
 class RubbleRiseUpdate : public UpdateModule, public DieModuleInterface
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	virtual void onDie(const DamageInfo *damageInfo);
+	void rva004A4D70(); // the rise start, 0x004A4D70
 
 protected:
 	void doPhaseStuff(RubbleRisePhaseType rrphase, const Coord3D *target);

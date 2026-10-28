@@ -16,8 +16,9 @@ public:
 	bool isDieApplicable(const Object *obj, const DamageInfo *damageInfo) const;
 };
 
-struct RubbleRiseUpdateModuleData
+class RubbleRiseUpdateModuleData
 {
+public:
 	unsigned char m_pad00[8];
 	DieMuxData m_dieMuxData; // +0x08
 };
@@ -27,6 +28,8 @@ class UpdateModule
 public:
 	virtual ~UpdateModule();
 protected:
+	Object *getObject() const { return m_object; }
+
 	const RubbleRiseUpdateModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 private:
@@ -44,12 +47,18 @@ class RubbleRiseUpdate : public UpdateModule, public DieModuleInterface
 public:
 	virtual void onDie(const DamageInfo *damageInfo);
 	void rva004A4D70(); // the rise start, rowed in Rva004A4D70.cpp
+
+protected:
+	const RubbleRiseUpdateModuleData *getRubbleRiseUpdateModuleData() const
+	{
+		return m_moduleData;
+	}
 };
 
 void RubbleRiseUpdate::onDie(const DamageInfo *damageInfo)
 {
-	Object *obj = m_object;
-	const RubbleRiseUpdateModuleData *rubbleRiseUpdateModuleData = m_moduleData;
+	Object *obj = getObject();
+	const RubbleRiseUpdateModuleData *rubbleRiseUpdateModuleData = getRubbleRiseUpdateModuleData();
 	if (!rubbleRiseUpdateModuleData->m_dieMuxData.isDieApplicable(obj, damageInfo))
 		return;
 	rva004A4D70();
