@@ -3836,3 +3836,4 @@ param,__uninitialized_fill_n::n,__uninitialized_fill_n::count,inferred,agree:nl-
 param,__uninitialized_fill_n::x,__uninitialized_fill_n::fillValue,inferred,agree:nl-aa69222556ec,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,
 param,uninitialized_fill_n::x,uninitialized_fill_n::initialValue,inferred,agree:nl-eebb50c4066f,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,
 local,AptScoreScreen::PreCollectGameData::p,AptScoreScreen::PreCollectGameData::objectiveText,inferred,agree:nl-68dedfb31772,Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp,0x0051C241
+class,Rva00474519Rank,HordeRankInfo,inferred,agree:nl-e6f5e8a39d3a,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/Rva00474483ConfigureSlots.cpp,

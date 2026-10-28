@@ -70,7 +70,7 @@ struct Rva00474519Jitter {
  __forceinline Rva00474519Jitter(const Rva00474519Jitter &other) :x(other.x),y(other.y) {}
 };
 struct Rva00474519Position { Coord2D position; int partner,localIndex; };
-struct Rva00474519Rank { int key; AsciiString name; _STL::vector<Rva00474519Position> positions; };
+struct HordeRankInfo { int key; AsciiString name; _STL::vector<Rva00474519Position> positions; };
 struct Rva00474519RecordValues { int key; Coord2D position,original; float value; unsigned partner; };
 class Rva00064640Record {
 public:
@@ -81,7 +81,7 @@ public:
 };
 namespace _STL { template<> void _Construct<Rva00064640Record,Rva00064640Record>(Rva00064640Record*,const Rva00064640Record&); }
 struct Rva00474483Definition {
- char opaque00[0x18c]; _STL::vector<Rva00474519Rank*> ranks;
+ char opaque00[0x18c]; _STL::vector<HordeRankInfo*> ranks;
  char opaque198[0x1d0-0x198]; Rva00474519Jitter jitter;
  char opaque1d8[0x1f4-0x1d8]; _STL::vector<int> extraSlots;
  Rva00474431Pair extraPosition;
@@ -158,7 +158,7 @@ void Rva00474431::rva00474483(Rva00474483Definition *definition)
 void Rva00474431::rva00474519(int force)
 {
  Rva00474483Definition *data=definition;
- const _STL::vector<Rva00474519Rank*> &ranks=data->ranks;
+ const _STL::vector<HordeRankInfo*> &ranks=data->ranks;
  int total=0; unsigned i=0; unsigned count=ranks.size();
  for(;i<count;++i) total+=ranks[i]->positions.size();
  _STL::vector<Rva00064640Record> &recordList=records;
