@@ -98,7 +98,7 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-void GadgetButtonSetEnabledImage(GameWindow *win, const Image *image);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image);
 
 struct MoneyInner
 {
@@ -145,14 +145,14 @@ int ControlBar::rva0031AA86()
 	if (win == 0)
 		return 0;
 	if (m_0278 == 0) {
-		GadgetButtonSetEnabledImage(win, m_p0270);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0270);
 		return 0;
 	}
 	unsigned int frame = TheGameLogic->getFrame();
 	int period = BfmeLogicFramesPerSecond;
 	if (frame % (unsigned int)period > (unsigned int)(period / 2))
-		GadgetButtonSetEnabledImage(win, m_p0274);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0274);
 	else
-		GadgetButtonSetEnabledImage(win, m_p0270);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0270);
 	return 0;
 }

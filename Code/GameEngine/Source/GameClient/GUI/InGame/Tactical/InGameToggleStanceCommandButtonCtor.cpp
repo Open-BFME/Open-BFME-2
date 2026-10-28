@@ -52,7 +52,7 @@ struct Rva005681CE { Rva005681CE(unsigned); ~Rva005681CE(); void *start,*finish,
 class Rva00200667 : public _STL::list<int> {public:~Rva00200667();};
 Rva00200667 *Rva005680F9GetInstances();
 void *GadgetButtonGetData(GameWindow *);
-void GadgetButtonSetEnabledImage(GameWindow *,const Image *);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
 class HotKeyManager {public:AsciiString searchHotKey(const AsciiString &);};
 class Rva00E01E28Owner;class HotKeyManager;
 extern HotKeyManager *TheHotKeyManager;
@@ -124,6 +124,6 @@ InGameToggleStanceCommandButton::Impl::Impl(Rva00005C357FPtrChaseField *owner,St
  }
  int slot=StanceToButtonSlot(button14,stance);
  if(slot>=0)reinterpret_cast<Rva0035B424 *>(button14)->rva0035B424(slot);
- GadgetButtonSetEnabledImage(window10,button14->rva0035B19E());
+ GadgetButtonSetEnabledImage_Rva002C0433(window10,button14->rva0035B19E());
  rva00567DA6();
 }

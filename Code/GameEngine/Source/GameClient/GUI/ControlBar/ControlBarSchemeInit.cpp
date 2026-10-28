@@ -134,10 +134,10 @@ virtual void slot59();
 virtual GameWindow *winGetWindowFromId(GameWindow *,NameKeyType);
 };
 extern GameWindowManager *TheWindowManager;
-void GadgetButtonSetEnabledImage(GameWindow *, const Image *);
-void GadgetButtonSetHiliteImage(GameWindow *, const Image *);
-void GadgetButtonSetHiliteSelectedImage(GameWindow *, const Image *);
-void GadgetButtonSetDisabledImage(GameWindow *, const Image *);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
+void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *, const Image *);
+void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *, const Image *);
+void GadgetButtonSetDisabledImage_Rva002C0487(GameWindow *, const Image *);
 enum { COMMAND_BAR_SIZE_OFFSET=0 };
 class ControlBarScheme { public: void init(); };
 struct BfmeControlBarSchemeInitView
@@ -233,10 +233,10 @@ void ControlBarScheme::init(void)
 	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:PopupCommunicator" ) );
 	if(win)
 	{
-		GadgetButtonSetEnabledImage(win, self->m_buddyButtonEnable);
-		GadgetButtonSetHiliteImage(win, self->m_buddyButtonHightlited);
-		GadgetButtonSetHiliteSelectedImage(win, self->m_buddyButtonPushed);
-		GadgetButtonSetDisabledImage(win, self->m_buddyButtonDisabled);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_buddyButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_buddyButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_buddyButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_buddyButtonDisabled);
 
 		Int x, y;
 		GameWindow* parent =win->winGetParent();
@@ -258,10 +258,10 @@ void ControlBarScheme::init(void)
 	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonIdleWorker" ) );
 	if(win)
 	{
-		GadgetButtonSetEnabledImage(win, self->m_idleWorkerButtonEnable);
-		GadgetButtonSetHiliteImage(win, self->m_idleWorkerButtonHightlited);
-		GadgetButtonSetHiliteSelectedImage(win, self->m_idleWorkerButtonPushed);
-		GadgetButtonSetDisabledImage(win, self->m_idleWorkerButtonDisabled);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_idleWorkerButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_idleWorkerButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_idleWorkerButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_idleWorkerButtonDisabled);
 
 		Int x, y;
 		GameWindow* parent =win->winGetParent();
@@ -290,10 +290,10 @@ void ControlBarScheme::init(void)
 	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonOptions" ) );
 	if(win)
 	{
-		GadgetButtonSetEnabledImage(win, self->m_optionsButtonEnable);
-		GadgetButtonSetHiliteImage(win, self->m_optionsButtonHightlited);
-		GadgetButtonSetHiliteSelectedImage(win, self->m_optionsButtonPushed);
-		GadgetButtonSetDisabledImage(win, self->m_optionsButtonDisabled);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_optionsButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_optionsButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_optionsButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_optionsButtonDisabled);
 		Int x, y;
 		GameWindow* parent =win->winGetParent();
 		if(parent)
@@ -314,10 +314,10 @@ void ControlBarScheme::init(void)
 	win= TheWindowManager->winGetWindowFromId( NULL, TheNameKeyGenerator->nameToKey( "ControlBar.wnd:ButtonPlaceBeacon" ) );
 	if(win)
 	{
-		GadgetButtonSetEnabledImage(win, self->m_beaconButtonEnable);
-		GadgetButtonSetHiliteImage(win, self->m_beaconButtonHightlited);
-		GadgetButtonSetHiliteSelectedImage(win, self->m_beaconButtonPushed);
-		GadgetButtonSetDisabledImage(win, self->m_beaconButtonDisabled);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_beaconButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_beaconButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_beaconButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_beaconButtonDisabled);
 
 		Int x, y;
 		GameWindow* parent =win->winGetParent();
@@ -385,10 +385,10 @@ void ControlBarScheme::init(void)
 	if(win)
 	{
 
-		GadgetButtonSetEnabledImage(win, self->m_generalButtonEnable);
-		GadgetButtonSetHiliteImage(win, self->m_generalButtonHightlited);
-		GadgetButtonSetHiliteSelectedImage(win, self->m_generalButtonPushed);
-		GadgetButtonSetDisabledImage(win, self->m_generalButtonDisabled);
+		GadgetButtonSetEnabledImage_Rva002C0433(win, self->m_generalButtonEnable);
+		GadgetButtonSetHiliteImage_Rva002C04DB(win, self->m_generalButtonHightlited);
+		GadgetButtonSetHiliteImage123_Rva002C0505(win, self->m_generalButtonPushed);
+		GadgetButtonSetDisabledImage_Rva002C0487(win, self->m_generalButtonDisabled);
 
 		Int x, y;
 		GameWindow* parent =win->winGetParent();

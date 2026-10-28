@@ -19,48 +19,48 @@ public:
 	int winSetHiliteImage(int index, const Image *image);
 };
 
-// ?GadgetButtonSetEnabledImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetEnabledImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetEnabledImage_Rva002C0433@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image)
 {
 	win->winSetEnabledImage(0, image);
 	win->winSetEnabledImage(5, NULL);
 	win->winSetEnabledImage(6, NULL);
 }
 
-// ?GadgetButtonSetEnabledSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetEnabledSelectedImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetEnabledImage123_Rva002C045D@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetEnabledImage123_Rva002C045D(GameWindow *win, const Image *image)
 {
 	win->winSetEnabledImage(1, image);
 	win->winSetEnabledImage(2, NULL);
 	win->winSetEnabledImage(3, NULL);
 }
 
-// ?GadgetButtonSetDisabledImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetDisabledImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetDisabledImage_Rva002C0487@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetDisabledImage_Rva002C0487(GameWindow *win, const Image *image)
 {
 	win->winSetDisabledImage(0, image);
 	win->winSetEnabledImage(5, NULL);
 	win->winSetEnabledImage(6, NULL);
 }
 
-// ?GadgetButtonSetDisabledSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetDisabledSelectedImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetDisabledImage123_Rva002C04B1@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetDisabledImage123_Rva002C04B1(GameWindow *win, const Image *image)
 {
 	win->winSetDisabledImage(1, image);
 	win->winSetEnabledImage(2, NULL);
 	win->winSetEnabledImage(3, NULL);
 }
 
-// ?GadgetButtonSetHiliteImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetHiliteImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetHiliteImage_Rva002C04DB@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image)
 {
 	win->winSetHiliteImage(0, image);
 	win->winSetEnabledImage(5, NULL);
 	win->winSetEnabledImage(6, NULL);
 }
 
-// ?GadgetButtonSetHiliteSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z
-void GadgetButtonSetHiliteSelectedImage(GameWindow *win, const Image *image)
+// ?GadgetButtonSetHiliteImage123_Rva002C0505@@YAXPAVGameWindow@@PBVImage@@@Z
+void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image)
 {
 	win->winSetHiliteImage(1, image);
 	win->winSetEnabledImage(2, NULL);

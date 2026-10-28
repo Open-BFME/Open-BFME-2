@@ -191,7 +191,7 @@ struct PopulateButtonInfo {
     GameWindow **inventoryButtons;
 };
 const Image *getButtonImage(ThingTemplate *, Object *);
-void GadgetButtonSetEnabledImage(GameWindow *, const Image *);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
 void Rva003284ED(GameWindow *, int);
 
 class ControlBar

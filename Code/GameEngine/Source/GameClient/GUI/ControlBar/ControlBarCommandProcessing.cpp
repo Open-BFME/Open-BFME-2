@@ -973,7 +973,7 @@ CBCommandStatus ControlBar::processCommandUI(const CommandButton *commandButton,
 // front half; BFME 2's name for it is not established.
 class Image;
 void *GadgetButtonGetData(GameWindow *window);
-void GadgetButtonSetEnabledImage(GameWindow *window, const Image *image);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *window, const Image *image);
 class Rva0053B1CFWindow { public:
 virtual void v0(); virtual void v1(); virtual void v2(); virtual void v3();
 virtual void v4(); virtual void v5(); virtual void v6(); virtual void v7();
@@ -995,6 +995,6 @@ CBCommandStatus ControlBar::rva0053B1CF(GameWindow *control, unsigned int gadget
     ((Rva0053B1CFButtonWindow *)commandButton)->window = control;
     CBCommandStatus result = processCommandUI(commandButton, gadgetMessage != 0x4009, gadgetMessage == 0x400B);
     if ((CommandButton *)GadgetButtonGetData(control) == commandButton && commandButton->getCommandType() != 0x10)
-        GadgetButtonSetEnabledImage(control, commandButton->rva0035B19E());
+        GadgetButtonSetEnabledImage_Rva002C0433(control, commandButton->rva0035B19E());
     return result;
 }

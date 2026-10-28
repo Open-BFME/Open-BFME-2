@@ -237,7 +237,7 @@ public:
 };
 extern GameTextInterface *TheGameText;
 void Rva00328518(GameWindow *window, Int data);	// ZH GadgetButtonSetData
-void GadgetButtonSetEnabledImage(GameWindow *window, const Image *image);
+void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *window, const Image *image);
 void GadgetStaticTextSetText(GameWindow *window, UnicodeString text);
 
 class ControlBar
@@ -296,7 +296,7 @@ void ControlBar::populateObserverList(void)
 				if (((const ParticleSystem *)player)->isSaveable())
 					continue;
 				Rva00328518(buttonPlayer[currentButton], (Int)player);
-				GadgetButtonSetEnabledImage(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());
+				GadgetButtonSetEnabledImage_Rva002C0433(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());
 				buttonPlayer[currentButton]->winSetTooltip(player->m_playerDisplayName);
 				buttonPlayer[currentButton]->winHide(false);
 				buttonPlayer[currentButton]->winSetStatus(0x200000);
@@ -332,7 +332,7 @@ void ControlBar::populateObserverList(void)
 			if (player && !((const ParticleSystem *)player)->isSaveable() && player->m_playerType == 0)
 			{
 				Rva00328518(buttonPlayer[currentButton], (Int)player);
-				GadgetButtonSetEnabledImage(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());
+				GadgetButtonSetEnabledImage_Rva002C0433(buttonPlayer[currentButton], player->m_playerTemplate->getEnabledImage());
 				buttonPlayer[currentButton]->winSetTooltip(player->m_playerDisplayName);
 				buttonPlayer[currentButton]->winHide(false);
 				buttonPlayer[currentButton]->winSetStatus(0x200000);

@@ -8,10 +8,10 @@ public:
 };
 class GameWindow;
 class Image;
-void __cdecl GadgetButtonSetEnabledImage(GameWindow *win, const Image *image);
+void __cdecl GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image);
 void __cdecl Rva002C055FSet(Rva003140C8DwordField *holder, const Image *image)
 {
 	int v = holder->get();
 	if (v)
-		GadgetButtonSetEnabledImage((GameWindow *)v, image);
+		GadgetButtonSetEnabledImage_Rva002C0433((GameWindow *)v, image);
 }
