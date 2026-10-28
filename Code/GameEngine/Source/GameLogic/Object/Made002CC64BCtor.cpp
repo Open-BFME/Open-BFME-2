@@ -18,13 +18,21 @@
 
 #include "ascii_string.h"
 
+struct Coord3D;
+struct Rva00508987Weapon;
+class Object;
+
 class Rva00507823
 {
 public:
-	virtual ~Rva00507823();
 	Rva00507823();
+	virtual ~Rva00507823();
+	virtual bool accepts(Rva00508987Weapon *weapon, Object *target) = 0;
+	virtual void s08() = 0; virtual void s0C() = 0; virtual void s10() = 0;
+	virtual void rva00508B9E(Rva00508987Weapon *weapon, Object *target) = 0;
+	virtual void rva00508C46(Rva00508987Weapon *weapon, const Coord3D *position) = 0;
 private:
-	unsigned char m_pad[0x128 - 4];
+	char m_pad[0x128 - 4];
 };
 
 typedef unsigned int UnsignedInt;
@@ -33,22 +41,31 @@ template <int NUM_BITS>
 class BitFlags
 {
 public:
-	BitFlags();
+	BitFlags() throw();
 private:
 	UnsignedInt m_words[1];
 };
 
+class FXList;
+
+// AttributeModifierNugget (vtable 0x00C64370, 0x140 bytes from the parser's
+// new): the constructor 0x00508BE5 and the effect body 0x00508987 witness
+// name +0x128, 0x1D at +0x12C, radius +0x130, angle +0x134, mask +0x138
+// and FX +0x13C.
 class Made002CC64B : public Rva00507823
 {
 public:
 	Made002CC64B();
+	void rva00508987(Rva00508987Weapon *weapon, Object *target);
+	virtual void rva00508B9E(Rva00508987Weapon *weapon, Object *target);
+	virtual void rva00508C46(Rva00508987Weapon *weapon, const Coord3D *position);
 private:
 	AsciiString m_name128;
 	int m_12C;
-	float m_130;
+	float m_130;	// +0x130, the effect radius
 	float m_angle134;
 	BitFlags<11> m_mask138;
-	void *m_fx13C;
+	FXList *m_fx13C;
 };
 
 Made002CC64B::Made002CC64B()

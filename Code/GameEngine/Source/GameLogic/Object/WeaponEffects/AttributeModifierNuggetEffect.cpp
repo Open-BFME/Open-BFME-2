@@ -28,28 +28,68 @@ class FXList {public:static void doFXObj(const FXList*,const Object*,const Objec
 extern GameLogic *TheGameLogic;
 float Cos(float);
 struct Rva00508987Weapon {char pad[8];ObjectID id;};
-class Made002CC64B {public:
- void rva00508987(Rva00508987Weapon*,Object*);
- char pad[0x128];AsciiString name;char pad12c[8];float angle;int mask;FXList *fx;
+class Rva00507823
+{
+public:
+	Rva00507823();
+	virtual ~Rva00507823();
+	virtual bool accepts(Rva00508987Weapon *weapon, Object *target) = 0;
+	virtual void s08() = 0; virtual void s0C() = 0; virtual void s10() = 0;
+	virtual void rva00508B9E(Rva00508987Weapon *weapon, Object *target) = 0;
+	virtual void rva00508C46(Rva00508987Weapon *weapon, const Coord3D *position) = 0;
+private:
+	char m_pad[0x128 - 4];
+};
+
+typedef unsigned int UnsignedInt;
+
+template <int NUM_BITS>
+class BitFlags
+{
+public:
+	BitFlags() throw();
+private:
+	UnsignedInt m_words[1];
+};
+
+
+// AttributeModifierNugget (vtable 0x00C64370, 0x140 bytes from the parser's
+// new): the constructor 0x00508BE5 and the effect body 0x00508987 witness
+// name +0x128, 0x1D at +0x12C, radius +0x130, angle +0x134, mask +0x138
+// and FX +0x13C.
+class Made002CC64B : public Rva00507823
+{
+public:
+	Made002CC64B();
+	void rva00508987(Rva00508987Weapon *weapon, Object *target);
+	virtual void rva00508B9E(Rva00508987Weapon *weapon, Object *target);
+	virtual void rva00508C46(Rva00508987Weapon *weapon, const Coord3D *position);
+private:
+	AsciiString m_name128;
+	int m_12C;
+	float m_130;	// +0x130, the effect radius
+	float m_angle134;
+	BitFlags<11> m_mask138;
+	FXList *m_fx13C;
 };
 void Made002CC64B::rva00508987(Rva00508987Weapon *weapon,Object *target){
  Object*source=TheGameLogic->findObjectByID(weapon->id);
- if(angle<3.1415927f && source){
+ if(m_angle134<3.1415927f && source){
   AttributeLocalPoint delta;delta.set(&target->position.x);delta.sub(&source->position.x);
   AttributeLocalVector facing(source->matrix[0],source->matrix[4],source->matrix[8]);
   AttributeLocalVector direction(delta.x,delta.y,delta.z);
   facing.Normalize();direction.Normalize();
-  if(AttributeLocalVector::Dot_Product(direction,facing)<Cos(angle))return;
+  if(AttributeLocalVector::Dot_Product(direction,facing)<Cos(m_angle134))return;
  }
- if(!name.isEmpty()){
-  target->addAttributeModifierToPool(name,-1);
+ if(!m_name128.isEmpty()){
+  target->addAttributeModifierToPool(m_name128,-1);
   AttributeModifierPoolUpdate *pool=target->findAttributeModifierPoolUpdate();
   if(pool){
-   int index=TheAttributeModifierStore->rva00214713((int)TheNameKeyGenerator->nameToKey(name.str()));
+   int index=TheAttributeModifierStore->rva00214713((int)TheNameKeyGenerator->nameToKey(m_name128.str()));
    int duration=(int)TheAttributeModifierStore->getDuration(index);
    if(duration>0){
-    pool->rva00403415(&mask,TheGameLogic->getFrame()+duration);
-    if(fx)FXList::doFXObj(fx,target,0);
+    pool->rva00403415((int *)&m_mask138,TheGameLogic->getFrame()+duration);
+    if(m_fx13C)FXList::doFXObj(m_fx13C,target,0);
    }
   }
  }
