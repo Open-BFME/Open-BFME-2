@@ -116,6 +116,8 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataParse.cpp
 
 // ?buildFieldParse@SiegeDeployHordeSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004C636B
@@ -123,6 +125,25 @@ void SiegeDeployHordeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse 
 {
 	Rva005890EDBase::buildFieldParse(parse);
 	parse.add(g_00C5DD44, 0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerPoolKey.cpp
+
+// ?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ
+NameKeyType SiegeDeployHordeSpecialPower::getModuleNameKey() const
+{
+	static NameKeyType TheSiegeDeployHordeSpecialPowerPoolKey =
+		TheNameKeyGenerator->nameToKey("SiegeDeployHordeSpecialPower");
+	return TheSiegeDeployHordeSpecialPowerPoolKey;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataCtor.cpp
+
+SiegeDeployHordeSpecialPowerModuleData::SiegeDeployHordeSpecialPowerModuleData()
+	: AIUpdateModuleData()
+{
+	*(unsigned int *)this = ((unsigned int)__identifier("??_7DeflectSpecialPowerModuleData@@6B@"));
+	m_flag18 = false;
 }
 
 // tu-skeleton: 0x004C6386 82B ??0SiegeDeployHordeSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerCtor.cpp (not merged yet)
@@ -135,28 +156,13 @@ void SiegeDeployHordeSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse 
 
 // tu-skeleton: 0x004C6416 92B ?xfer@SiegeDeployHordeSpecialPower@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerXfer.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerPoolKey.cpp
-
-// ?getModuleNameKey@SiegeDeployHordeSpecialPower@@UBE?AW4NameKeyType@@XZ
-NameKeyType SiegeDeployHordeSpecialPower::getModuleNameKey() const
-{
-	static NameKeyType TheSiegeDeployHordeSpecialPowerPoolKey =
-		TheNameKeyGenerator->nameToKey("SiegeDeployHordeSpecialPower");
-	return TheSiegeDeployHordeSpecialPowerPoolKey;
-}
-
 // tu-skeleton: 0x004C64B7 28B ??_GSiegeDeployHordeSpecialPower@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerDtor.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataCtor.cpp
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataDtor.cpp
 
-SiegeDeployHordeSpecialPowerModuleData::SiegeDeployHordeSpecialPowerModuleData()
-	: AIUpdateModuleData()
+SiegeDeployHordeSpecialPowerModuleData::~SiegeDeployHordeSpecialPowerModuleData()
 {
-	*(unsigned int *)this = ((unsigned int)__identifier("??_7DeflectSpecialPowerModuleData@@6B@"));
-	m_flag18 = false;
 }
-
-// tu-skeleton: 0x004C64E9 5B ??1SiegeDeployHordeSpecialPowerModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C64EE 154B ?update@SiegeDeployHordeSpecialPower@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeployHordeSpecialPowerUpdate.cpp (not merged yet)
 
