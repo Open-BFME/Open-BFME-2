@@ -46,6 +46,20 @@ have 73 matched rows; their twelve EH graphs are EXACT. Their combined
 ordinary preview preserves 3,123 authored linked bytes. Full external
 consumer selection remains for the outgoing batch audit and normal census.
 
+Post-handover batch check against `bef6d6aaef3e24555350f14542c7b158b5bba9b2`:
+all six accepted units and the two pre-existing SDK serializer changes have
+strict receipts, with 75/75 function rows exact. The batch audit remains
+INCONCLUSIVE: index `41c28839bf` predates that base and affected consumer
+`Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt. Carry these
+declaration changes and that consumer into the next normal census; the
+bounded source checks do not establish complete consumer selection.
+
+The commit hook's shadow identity warning names the geometry unit's
+`??0Coord3D@@QAE@ABU0@@Z` copy. Its pre-edit and post-edit external COMDAT
+fingerprints are identical: 25 bytes, digest `79571e26f4e7`, no relocations.
+This is an inherited copy-selection prerequisite, not a new body divergence;
+no identity debt is retired or registered by this change.
+
 ## Home-point adoption remains blocked by provider visibility
 
 `Rva00506CF5HomePoint.cpp` was tested with `Coord3DCtorView.h` followed by

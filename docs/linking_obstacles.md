@@ -3813,6 +3813,14 @@ await a census containing that provider or a separate provider-aware
 retirement diagnostic. Library class-key/member-growth prerequisites below
 remain open. Carry changed declarations into the normal consumer audit.
 
+Post-handover verification against `bef6d6aaef3`: all eight outgoing/scoped
+sources have strict receipts and 75/75 rows exact. The batch audit remains
+INCONCLUSIVE because index `41c28839bf` predates that base and affected
+consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt.
+Carry the declarations and consumer into the next normal census. The hook's
+shadow Coord3D copy-constructor divergence has the identical pre/post-edit
+25-byte fingerprint; that inherited selection prerequisite remains open.
+
 **Matrix4D class-key prerequisite (2026-10-28):** The canonical struct changes
 eight existing class-key decorated Matrix4D symbols; a class forward declaration
 does not preserve them. The trial was reverted and the original unit passes
