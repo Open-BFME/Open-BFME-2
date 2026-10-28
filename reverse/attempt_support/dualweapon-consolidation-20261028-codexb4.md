@@ -42,3 +42,28 @@ any measured linking gain remain unclaimed.
 Both whole-file donors preview LINKS against that index: transfer retains
 75 linked bytes and pool key retains 68. These are baseline predictions,
 not census measurements.
+
+## Post-prerequisite merge verdict
+
+At `c424759b95`, refresh the scoped planner under
+`Code/GameEngine/Source/GameLogic/Object/Behavior/` (551 sources, 62 groups;
+target packets still unresolved with a stale committed map), then rerun:
+
+```
+python3 tools/tu_skeleton.py --merge Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp --dry-run
+```
+
+The transfer donor now clears composition's compile/byte checks. LinkGuard
+refuses it because "a file without a census object would place the merged
+unit earlier in link order than the guard can judge". The destination lacks
+the required census object; both whole-file donors are census-linked. This
+is unverified link order, not a proven linking regression or a false reject.
+The pool-key donor still fails its missing getModuleNameKey declaration.
+No applying merge, ledger repointing, source-path move or tooling consumer
+change was performed. The worktree is restored by the dry-run tool.
+
+Retry the supported merge after the normal census/index includes the seed;
+do not launch a measurement or weaken LinkGuard for this pass. Reconcile the
+pool-key virtual contract separately with vtable/consumer evidence. Keep the
+two mixed sources separate until their own supported split prerequisites
+are met. Source-file and census linking figures are unchanged by this pass.
