@@ -64,13 +64,13 @@ public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
+enum UpdateSleepTime {};
+
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
-
-enum UpdateSleepTime {};
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
@@ -129,6 +129,9 @@ class FireWeaponWhenDamagedBehavior : public UpdateModule, public UpgradeMux, pu
 public:
 	FireWeaponWhenDamagedBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~FireWeaponWhenDamagedBehavior();
+	// Retail's +0x10 interface table (0x00849594) names the existing
+	// 0x00482B24 update body, as in FireWeaponWhenDamagedBehaviorUpdate.cpp.
+	virtual UpdateSleepTime update();
 
 private:
 	const FireWeaponWhenDamagedBehaviorModuleData *getFireWeaponWhenDamagedBehaviorModuleData() const

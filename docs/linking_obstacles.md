@@ -1559,6 +1559,24 @@ Whole-unit clearance and census confirmation remain pending.
   20261026-codex.md. Pool/update/xfer methods, mixed donors and the Libraries
   allocator-specialization provider remain prerequisites. No merge, debt
   retirement or measured linking gain is claimed.
+- **FireWeaponWhenDamaged update interface follow-up (2026-10-28):** the scoped
+  ctor/dtor view now declares the existing derived UpdateSleepTime override,
+  replacing its obsolete base `void update()` reference. Retail's table at
+  0x00849594 names that rowed 0x00482B24 body in slot zero. Both consumers
+  retain 4/4 exact rows and two EXACT EH graphs; strict receipts, paired ordinary
+  preview (830 authored bytes) and paired new-variants checks pass at index
+  `41c28839bf`. Only the four-byte interface table's DIR32 referent changes;
+  other external COMDATs, definitions and weak bindings are preserved.
+  The supported merge remains blocked by singleton trials comparing the new
+  table with the peer's old census copy; no guard override or merge is applied.
+  Carry both corrected consumers into the next scheduled census, then retry.
+  Private update/pool/xfer views and mixed/provider donors still need work.
+  [Scoped evidence](../reverse/attempt_support/fireweapondamaged-update-interface-20261028-codexb4.md).
+  Outgoing strict preparation passes 462/462 rows across eight sources. The
+  batch audit remains inconclusive: its index predates the base and affected
+  AIHarvestPrepareSiteState.cpp lacks a current receipt. Carry that consumer
+  and the earlier audio batch's measurement prerequisites into the next census.
+  No source-count, registered-debt, census-link or ownership gain is claimed.
 - **UpdateModule current-verifier follow-up (2026-10-26):** ordinary dry run now
   accepts seed/xfer (two rows / 116 bytes); scoped build, strict receipts and COFF
   composition checks preserve three external definitions and all bindings/data.
