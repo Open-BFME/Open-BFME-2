@@ -67,6 +67,11 @@ public:
 	unsigned char m_pad[0x118];
 	Real m_addXPScalar; // +0x118
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class ExperienceScalarUpgrade : public UpgradeModule
 {
 protected:
@@ -74,6 +79,8 @@ protected:
 	virtual void upgradeImplementation();
 private:
 	const ExperienceScalarUpgradeModuleData *getExperienceScalarUpgradeModuleData() const { return (const ExperienceScalarUpgradeModuleData *)m_moduleData; }
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 void ExperienceScalarUpgrade::upgradeImplementation()
 {

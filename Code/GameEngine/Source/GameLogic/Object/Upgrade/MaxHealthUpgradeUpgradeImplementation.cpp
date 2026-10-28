@@ -86,6 +86,11 @@ public:
 	Real m_addMaxHealth; // +0x118
 	MaxHealthChangeType m_maxHealthChangeType; // +0x11C
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class MaxHealthUpgrade : public UpgradeModule
 {
 protected:
@@ -93,6 +98,8 @@ protected:
 	virtual void upgradeImplementation();
 private:
 	const MaxHealthUpgradeModuleData *getMaxHealthUpgradeModuleData() const { return (const MaxHealthUpgradeModuleData *)m_moduleData; }
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 void MaxHealthUpgrade::upgradeImplementation()
 {

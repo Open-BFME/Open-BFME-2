@@ -61,8 +61,7 @@ class UnpauseSpecialPowerUpgradeModuleData : public Rva00253487Base
 public:
 	UnpauseSpecialPowerUpgradeModuleData();
 
-private:
-	int m_specialPowerTemplate; // +0x118
+	const class SpecialPowerTemplate *m_specialPowerTemplate; // +0x118
 	bool m_obeyRechargeOnTrigger; // +0x11C
 	unsigned char m_padTail[0x120 - 0x11D]; // +0x11D, retail never stores
 };

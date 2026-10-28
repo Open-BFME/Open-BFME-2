@@ -101,9 +101,14 @@ class UnpauseSpecialPowerUpgradeModuleData
 {
 public:
 	unsigned char m_pad[0x118];
-	const SpecialPowerTemplate *m_specialPower; // +0x118
-	Bool m_11C; // +0x11C
+	const SpecialPowerTemplate *m_specialPowerTemplate; // +0x118
+	Bool m_obeyRechargeOnTrigger; // +0x11C
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class UnpauseSpecialPowerUpgrade : public UpgradeModule
 {
 protected:
@@ -112,6 +117,8 @@ protected:
 	virtual void upgradeImplementation();
 private:
 	const UnpauseSpecialPowerUpgradeModuleData *getUnpauseSpecialPowerUpgradeModuleData() const { return (const UnpauseSpecialPowerUpgradeModuleData *)m_moduleData; }
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 void UnpauseSpecialPowerUpgrade::onCreate()
 {
@@ -126,10 +133,10 @@ void UnpauseSpecialPowerUpgrade::upgradeImplementation()
 		if (!sp)
 			continue;
 		const SpecialPowerTemplate *specialPowerTemplate = sp->getSpecialPowerTemplate();
-		if (specialPowerTemplate != getUnpauseSpecialPowerUpgradeModuleData()->m_specialPower)
+		if (specialPowerTemplate != getUnpauseSpecialPowerUpgradeModuleData()->m_specialPowerTemplate)
 			continue;
 		sp->pauseCountdown(FALSE);
-		if (!getUnpauseSpecialPowerUpgradeModuleData()->m_11C)
+		if (!getUnpauseSpecialPowerUpgradeModuleData()->m_obeyRechargeOnTrigger)
 			sp->setReadyFrame(TheGameLogic->getFrame());
 	}
 }
@@ -142,7 +149,7 @@ void UnpauseSpecialPowerUpgrade::upgradeRemovalImplementation()
 		SpecialPowerModuleInterface *sp = (*behaviorModule)->getBehaviorModuleInterface()->getSpecialPower();
 		if (!sp)
 			continue;
-		if (sp->getSpecialPowerTemplate() != getUnpauseSpecialPowerUpgradeModuleData()->m_specialPower)
+		if (sp->getSpecialPowerTemplate() != getUnpauseSpecialPowerUpgradeModuleData()->m_specialPowerTemplate)
 			continue;
 		sp->pauseCountdown(TRUE);
 	}

@@ -56,14 +56,18 @@ private:
 	unsigned char m_pad[0x118 - 4];
 };
 
+enum MaxHealthChangeType
+{
+	SAME_CURRENTHEALTH = 0
+};
+
 class MaxHealthUpgradeModuleData : public Rva00253487Base
 {
 public:
 	MaxHealthUpgradeModuleData();
 
-private:
 	float m_addMaxHealth; // +0x118
-	int m_changeType; // +0x11C
+	MaxHealthChangeType m_maxHealthChangeType; // +0x11C
 };
 
 // ---- from Code/GameEngine/Source/Common/System/MaxHealthUpgradePoolKey.cpp
@@ -84,7 +88,7 @@ NameKeyType MaxHealthUpgrade::getModuleNameKey() const
 MaxHealthUpgradeModuleData::MaxHealthUpgradeModuleData()
 {
 	m_vtable = reinterpret_cast<void *>(((unsigned int)__identifier("??_7WeaponSetUpgradeModuleData@@6B@")));
-	m_changeType = 0;
+	m_maxHealthChangeType = SAME_CURRENTHEALTH;
 	m_addMaxHealth = 0.0f;
 }
 

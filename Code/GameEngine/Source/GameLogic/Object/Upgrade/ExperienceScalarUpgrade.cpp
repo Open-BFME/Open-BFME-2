@@ -60,7 +60,6 @@ class ExperienceScalarUpgradeModuleData : public Rva00253487Base
 public:
 	ExperienceScalarUpgradeModuleData();
 
-private:
 	float m_addXPScalar; // +0x118
 };
 
