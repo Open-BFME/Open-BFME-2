@@ -1861,7 +1861,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CDB38,20,.rdata,string,??_C@_05PDOBBJNA@Color?$AA@,,literal,,0,11
 0x007CDB4C,8,.rdata,string,??_C@_05IBAMDCFI@Width?$AA@,,literal,,0,1
 0x007CDB54,12,.rdata,string,??_C@_06MHCOIGNA@Length?$AA@,,literal,,0,1
-0x007CDB60,192,.rdata,global,?g_00BCDB60@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor.cpp,owned,,1,1
+0x007CDB60,192,.rdata,global,?g_00BCDB60@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp,owned,,1,1
 0x007CDC20,336,.rdata,global,?g_00BCDC20@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DSailModelDraw.cpp,owned,,1,1
 0x007CDD70,372,.rdata,vtable,??_7W3DBoatWakeModelDraw@@6B@,,literal,??_7W3DBoatWakeModelDraw@@6B@;_vtbl_00BCDD70,0,2
 0x007CDEE4,52,.rdata,global,?g_00BCDEE4@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DBoatWakeModelDrawModuleDataCtor.cpp,owned,,1,1

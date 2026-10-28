@@ -10924,6 +10924,9 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp	"s",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawModule.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DProjectileStreamDrawModule.cpp	"t",on	1
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp	"",on	1
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp	"s",off	1
+pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp	"",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp	"s",on	1
@@ -12011,9 +12014,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bool_assignme
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_clear.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_clear.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_clear.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_insert_overflow.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_insert_overflow.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_insert_overflow.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp	"t",on	1
