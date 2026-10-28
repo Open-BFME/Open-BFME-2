@@ -1310,6 +1310,10 @@ per unit, all rows exact:
   `re_attempts.log` (0x0055401D, 0x00622290).
 - `window_video_manager.cpp` was already repaired upstream by fe7faa1c69; both of its
   units preview LINKS (2,340 B).
+  Rechecked 2026-10-28 against index `d92e7e6635`: the current
+  `window_video_manager.cpp` alone previews LINKS for 2,206 authored bytes.
+  Its two non-retail-looking node cleanup copies are unreferenced diagnostics,
+  not blockers in this preview. Census confirmation remains pending.
 
 2026-10-28 follow-up at `71781d61e0`, index `d92e7e6635`: the published index
 still predates the CollectKeys provider repair. With the current CollectKeys
