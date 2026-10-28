@@ -111,25 +111,25 @@ bool rva00343DD8(void *state, void *arg)
 	const Weapon *weapon = self->getCurrentWeapon(0);
 	if (goal == 0) return true;
 	if (weapon != 0) {
-		bool e = true;
+		bool onGround = true;
 		Rva00343DD8Slot *slot=self->m_slot258;
-		bool b=false;
-		if(slot) e=slot->rva00343DD8Slot137();
+		bool viewBlocked=false;
+		if(slot) onGround=slot->rva00343DD8Slot137();
 		if ((self->m_flags4->m_pad[0x108] & 4) != 0)
-			e = true;
+			onGround = true;
 		if ((self->m_flags4->m_pad[0x112] & 0x10) != 0)
-			e = true;
+			onGround = true;
 		if (self->m_aux274 != 0) {
 			if ((self->m_aux274->m_flags->m_pad[0x108] & 0x80) != 0
 				|| (self->m_aux274->shifted() & 1) == 0)
-				e = true;
+				onGround = true;
 		}
 		if (!((const WeaponTemplate *)weapon->m_field4)->isContactWeapon()
 			&& weapon->m_field4->get() == 0
-			&& e
+			&& onGround
 			&& !goal->isSignificantlyAboveTerrain())
-			b = !rva003430A3(self, goal, (Weapon*)weapon);
-		if (!weapon->rva002C95F0() && b) return true;
+			viewBlocked = !rva003430A3(self, goal, (Weapon*)weapon);
+		if (!weapon->rva002C95F0() && viewBlocked) return true;
 		if (!weapon->rva002C95F0() && !weapon->isWithinAttackRange(self,goal,0.0f,1)) return true;
 	}
 	return false;

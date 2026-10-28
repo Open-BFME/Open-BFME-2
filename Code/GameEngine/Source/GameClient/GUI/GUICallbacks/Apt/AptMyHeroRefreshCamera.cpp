@@ -107,24 +107,24 @@ class MyHeroTacticalView {
 #include <math.h>
 struct MyHeroOffset {
 	float X,Y,Z;
-	MyHeroOffset(float x,float y,float z){
-		X=x;
-		Y=y;
-		Z=z;
+	MyHeroOffset(float xCoord,float yCoord,float zCoord){
+		X=xCoord;
+		Y=yCoord;
+		Z=zCoord;
 	}
 	__forceinline void Rotate_ZF(float angle){
 		Rotate_Z(sinf(angle),cosf(angle));
 	}
 	__forceinline void Rotate_Z(float s_angle,float c_angle){
-		float tmp_x=X;
-		float tmp_y=Y;
-		X=c_angle*tmp_x-s_angle*tmp_y;
-		Y=s_angle*tmp_x+c_angle*tmp_y;
+		float originalX=X;
+		float originalY=Y;
+		X=c_angle*originalX-s_angle*originalY;
+		Y=s_angle*originalX+c_angle*originalY;
 	}
 };
 struct CameraPosition {
 	float x,y,z;
-	CameraPosition(float a,float b,float c):x(a),y(b),z(c){
+	CameraPosition(float initialX,float initialY,float initialZ):x(initialX),y(initialY),z(initialZ){
 	}
 	CameraPosition &operator+=(const CameraPosition &p){
 		x+=p.x;
@@ -156,9 +156,9 @@ void AptMyHero::rva005B1019(){
 	BfmePod8 *info=GetObjectInfo(firstIndex);
 	object->setOrientation(field168+info->b);
 	int b=field10;
-	int a=field0C;
-	const MyHeroCameraView2 *view=reinterpret_cast<const MyHeroCameraView2 *>(TheCreateAHeroManager->GetViewInfo(a,b));
-	float t=field16C;
+	int classIndex=field0C;
+	const MyHeroCameraView2 *view=reinterpret_cast<const MyHeroCameraView2 *>(TheCreateAHeroManager->GetViewInfo(classIndex,b));
+	float interpolationFactor=field16C;
 	const MyHeroCameraPreset *preset=&view->preset18;
 	bool useLerp=true;
 	if(field170){
@@ -168,11 +168,11 @@ void AptMyHero::rva005B1019(){
 		else preset=&view->preset48;
 	}
 	Rva005B01D3 *lerp=(Rva005B01D3 *)view;
-	float offsetY=useLerp?lerp->rva005B05E8(t):preset->field10;
-	float v00=useLerp?lerp->rva005B0569(t):preset->field00;
-	float v04=useLerp?lerp->rva005B0588(t):preset->field04;
-	float v08=useLerp?lerp->rva005B05A8(t):preset->field08;
-	float m_offsetX=useLerp?lerp->rva005B05C8(t):preset->field0C;
+	float offsetY=useLerp?lerp->rva005B05E8(interpolationFactor):preset->field10;
+	float pitch=useLerp?lerp->rva005B0569(interpolationFactor):preset->field00;
+	float zoom=useLerp?lerp->rva005B0588(interpolationFactor):preset->field04;
+	float floor=useLerp?lerp->rva005B05A8(interpolationFactor):preset->field08;
+	float m_offsetX=useLerp?lerp->rva005B05C8(interpolationFactor):preset->field0C;
 	float fovZoom=0.83f;
 	float roll=0;
 	float rot=view->field64;
@@ -181,6 +181,6 @@ void AptMyHero::rva005B1019(){
 	offset.Rotate_ZF(angle);
 	CameraPosition pos(object->getX(),object->posY,object->posZ);
 	pos+=CameraPosition(offset.X,offset.Y,offset.Z);
-	Rva0008A234 camera(*(const StringBase<char> *)&AsciiString("TempCamera"),(const ThreeInts *)&pos,v08,angle+1.5707964f,v00,v04,fovZoom,roll);
+	Rva0008A234 camera(*(const StringBase<char> *)&AsciiString("TempCamera"),(const ThreeInts *)&pos,floor,angle+1.5707964f,pitch,zoom,fovZoom,roll);
 	((MyHeroTacticalView *)TheTacticalView)->slot60(0,&camera,0,true,0.0f,0.0f);
 }

@@ -26,8 +26,8 @@ struct Db12
 // Keep the established dword storage view: +0 is MapSize (int), +4 is
 // MaxViewDistance (float bits 1000.0f), and +8 is MinShadowedTerrainHeight
 // (float bits 0.0f), as independently witnessed by the field parse table.
-Db12 g_00DB4470 = { 1024, 0x447A0000, 0 };
-Db12 g_00DB447C = { 1024, 0x447A0000, 0 };
+Db12 g_defaultShadowMapSettings = { 1024, 0x447A0000, 0 };
+Db12 g_shadowMapSettings = { 1024, 0x447A0000, 0 };
 
 class INI;
 typedef void (*INIFieldParseProc)(INI *, void *, void *, const void *);
@@ -94,16 +94,16 @@ private:
 
 void Rva0007BA35::rva0007BA35()
 {
-	g_00DB447C = g_00DB4470;
+	g_shadowMapSettings = g_defaultShadowMapSettings;
 	GameLODManager *mgr = TheGameLODManager;
 	int lod = mgr->m_177c;
 	if (lod >= 4)
 	{
 		int minimumMapSize = 0x800;
-		int *mapSize = &g_00DB447C.v0;
-		if (g_00DB447C.v0 < 0x800)
+		int *mapSize = &g_shadowMapSettings.v0;
+		if (g_shadowMapSettings.v0 < 0x800)
 			mapSize = &minimumMapSize;
-		g_00DB447C.v0 = *mapSize;
+		g_shadowMapSettings.v0 = *mapSize;
 	}
 	if (m_20 != 0)
 	{
@@ -123,25 +123,25 @@ void Rva0007BA35::rva0007BA35()
 // MinShadowedTerrainHeight. The other tested fields remain unnamed here.
 void parseShadowMapBlock(INI *ini)
 {
-	g_00DB447C = g_00DB4470;
+	g_shadowMapSettings = g_defaultShadowMapSettings;
 	if (*reinterpret_cast<int *>(reinterpret_cast<char *>(ini) + 8) == 2 &&
 		TheGameLODManager->m_177c >= 4)
 	{
 		int minimumMapSize = 0x800;
 		int *mapSize;
-		if (g_00DB447C.v0 < minimumMapSize)
+		if (g_shadowMapSettings.v0 < minimumMapSize)
 			mapSize = &minimumMapSize;
 		else
-			mapSize = &g_00DB447C.v0;
-		g_00DB447C.v0 = *mapSize;
+			mapSize = &g_shadowMapSettings.v0;
+		g_shadowMapSettings.v0 = *mapSize;
 	}
-	ini->initFromINI(&g_00DB447C, g_shadowMapFieldParseTable);
+	ini->initFromINI(&g_shadowMapSettings, g_shadowMapFieldParseTable);
 	int mode = *reinterpret_cast<int *>(reinterpret_cast<char *>(ini) + 8);
 	if (mode != 2 && mode != 4)
 	{
 		if (*reinterpret_cast<unsigned char *>(
 			reinterpret_cast<char *>(TheWritableGlobalData) + 0xD45))
-			g_00DB447C.v0 = 0x1000;
-		g_00DB4470 = g_00DB447C;
+			g_shadowMapSettings.v0 = 0x1000;
+		g_defaultShadowMapSettings = g_shadowMapSettings;
 	}
 }

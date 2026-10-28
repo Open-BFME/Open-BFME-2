@@ -44,7 +44,7 @@ struct Db12
 	int v1;
 	int v2;
 };
-extern Db12 g_00DB447C;
+extern Db12 g_shadowMapSettings;
 extern unsigned char g_009E1FFC;
 
 template <class T>
@@ -295,7 +295,7 @@ void W3DShadowMapManager::UpdateShadowMap(RTS3DScene *scene)
 		return;
 
 	if (m_needsReset || (m_renderTarget.Ptr != 0 &&
-		g_00DB447C.v0 != ShadowMin<unsigned int>(reinterpret_cast<const TextureBaseClass &>(m_renderTarget).rva0013275A(),
+		g_shadowMapSettings.v0 != ShadowMin<unsigned int>(reinterpret_cast<const TextureBaseClass &>(m_renderTarget).rva0013275A(),
 			reinterpret_cast<const TextureBaseClass &>(m_renderTarget).rva00132784())))
 	{
 		reinterpret_cast<Rva0007BAD6 *>(this)->rva0007BAD6();
@@ -351,19 +351,19 @@ bool Rva0007DA23ResourceManager::ReAcquireResources()
         return true;
     if (!target.Referent)
     {
-        target = DX8Wrapper::Create_Render_Target(g_00DB447C.v0,
-            g_00DB447C.v0, (WW3DFormat)0x72);
-        g_00DB447C.v0 = ShadowMin<unsigned int>(
+        target = DX8Wrapper::Create_Render_Target(g_shadowMapSettings.v0,
+            g_shadowMapSettings.v0, (WW3DFormat)0x72);
+        g_shadowMapSettings.v0 = ShadowMin<unsigned int>(
             ((TextureBaseClass *)&target)->rva0013275A(),
             ((TextureBaseClass *)&target)->rva00132784());
     }
     if (!post.Referent && g_009E1FFC)
-        post = DX8Wrapper::Create_Render_Target(g_00DB447C.v0,
-            g_00DB447C.v0, (WW3DFormat)0x72);
+        post = DX8Wrapper::Create_Render_Target(g_shadowMapSettings.v0,
+            g_shadowMapSettings.v0, (WW3DFormat)0x72);
     if (!depth)
     {
         IDirect3DDevice8 *device = DX8Wrapper::D3DDevice;
-        device->vtable->createDepth(device, g_00DB447C.v0, g_00DB447C.v0,
+        device->vtable->createDepth(device, g_shadowMapSettings.v0, g_shadowMapSettings.v0,
             0x4b, 0, 0, 1, &depth, 0);
     }
     _STL::vector<Rva0007BB16Record> parameters;

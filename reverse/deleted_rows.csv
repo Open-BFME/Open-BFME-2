@@ -3949,3 +3949,5 @@ __ehhandler$?Rva000E227FMacroTexture@@YAXPAUID3DXEffect@@PBD@Z,0x00763123,"Renam
 ?Rva000E27D9MaskTexture@@YAXPAUID3DXEffect@@PBD@Z,0x000E27D9,"Renamed to ?setMaskTexture@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
 ?Rva000E28C3LowTexture@@YAXPAUID3DXEffect@@PBD@Z,0x000E28C3,"Renamed to ?setLowTexture@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
 ?Rva000E29A2HighTexture@@YAXPAUID3DXEffect@@PBD@Z,0x000E29A2,"Renamed to ?setHighTexture@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
+?g_00DB4470@@3UDb12@@A,0x009B4470,"Renamed to ?g_defaultShadowMapSettings@@3UDb12@@A by tools/rename.py (inferred)"
+?g_00DB447C@@3UDb12@@A,0x009B447C,"Renamed to ?g_shadowMapSettings@@3UDb12@@A by tools/rename.py (inferred)"

@@ -38,9 +38,9 @@
 // below inline all three, so none of the defs can just go away. The helpers
 // keep calls in the source (regalloc preserved) while the three losers go
 // unused.
-static bool VecSharedEdgesEqual(const Vector3 &a, const Vector3 &b)
+static bool VecSharedEdgesEqual(const Vector3 &lhs, const Vector3 &rhs)
 {
-    return ((a.X == b.X) && (a.Y == b.Y) && (a.Z == b.Z));
+    return ((lhs.X == rhs.X) && (lhs.Y == rhs.Y) && (lhs.Z == rhs.Z));
 }
 static void InitSharedEdgesMatrix3D(Matrix3D &matrix3D, bool init)
 {
@@ -52,20 +52,20 @@ static void InitSharedEdgesMatrix3D(Matrix3D &matrix3D, bool init)
 // product retains MSVC7.1's X-before-Z SSE scheduling without changing it.
 static __forceinline void transformVertex(const Matrix3D &matrix3D, const Vector3 &in, Vector3 *out)
 {
-    Vector3 tmp;
-    Vector3 *v;
-    if (out == &in) { tmp = in; v = &tmp; }
-    else { v = (Vector3 *)&in; }
-    out->X = +(+(matrix3D[0][0] * v->X)) + (matrix3D[0][2] * v->Z);
-    out->X += matrix3D[0][1] * v->Y;
+    Vector3 sourceCopy;
+    Vector3 *sourceVertex;
+    if (out == &in) { sourceCopy = in; sourceVertex = &sourceCopy; }
+    else { sourceVertex = (Vector3 *)&in; }
+    out->X = +(+(matrix3D[0][0] * sourceVertex->X)) + (matrix3D[0][2] * sourceVertex->Z);
+    out->X += matrix3D[0][1] * sourceVertex->Y;
     out->X += matrix3D[0][3];
-    out->Y = matrix3D[1][1] * v->Y;
-    out->Y += matrix3D[1][2] * v->Z;
-    out->Y += matrix3D[1][0] * v->X;
+    out->Y = matrix3D[1][1] * sourceVertex->Y;
+    out->Y += matrix3D[1][2] * sourceVertex->Z;
+    out->Y += matrix3D[1][0] * sourceVertex->X;
     out->Y += matrix3D[1][3];
-    out->Z = matrix3D[2][1] * v->Y;
-    out->Z += matrix3D[2][2] * v->Z;
-    out->Z += matrix3D[2][0] * v->X;
+    out->Z = matrix3D[2][1] * sourceVertex->Y;
+    out->Z += matrix3D[2][2] * sourceVertex->Z;
+    out->Z += matrix3D[2][0] * sourceVertex->X;
     out->Z += matrix3D[2][3];
 }
 

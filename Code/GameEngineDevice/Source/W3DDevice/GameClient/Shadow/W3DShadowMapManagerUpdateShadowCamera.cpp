@@ -415,7 +415,7 @@ struct Db12
 	float v1;
 	float v2;
 };
-extern Db12 g_00DB447C;
+extern Db12 g_shadowMapSettings;
 
 template <class T> inline const T &ShadowMin(const T &a, const T &b) { return b < a ? b : a; }
 template <class T> inline const T &ShadowMax(const T &a, const T &b) { return a < b ? b : a; }
@@ -472,14 +472,14 @@ void W3DShadowMapManager::UpdateShadowCamera()
 	AABoxClass box;
 	TheTerrainRenderObject->getShadowCameraBox(&*m_sceneCamera, &box);
 	float minZ = box.Center.Z - box.Extent.Z;
-	PlaneClass ground(Vector3(0.0f, 0.0f, -1.0f), ShadowMax(minZ, g_00DB447C.v2));
+	PlaneClass ground(Vector3(0.0f, 0.0f, -1.0f), ShadowMax(minZ, g_shadowMapSettings.v2));
 	PlaneClass ceiling(Vector3(0.0f, 0.0f, 1.0f), box.Center.Z + box.Extent.Z + 400.0f);
 
 	Vector3 corners[8];
 	float znear = 0.0f;
 	float zfar = 0.0f;
 	m_sceneCamera->Get_Clip_Planes(znear, zfar);
-	m_sceneCamera->Set_Clip_Planes(znear, ShadowMin(zfar, g_00DB447C.v1));
+	m_sceneCamera->Set_Clip_Planes(znear, ShadowMin(zfar, g_shadowMapSettings.v1));
 	const FrustumClass &frustum = m_sceneCamera->Get_Frustum();
 	for (int i = 0; i < 4; i++) {
 		corners[i] = frustum.Corners[i];

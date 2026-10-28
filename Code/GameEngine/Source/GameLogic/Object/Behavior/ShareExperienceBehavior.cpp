@@ -244,7 +244,7 @@ class ShareExperienceBehavior : public Module, public BehaviorModuleInterface, p
 	public Rva00480093Iface20
 {
 public:
-	float GetDropOffValue(Coord3D *a, Pos0047FFFE *b);
+	float GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient);
 	virtual UpdateSleepTime update();
 	virtual void rva00480093(float amount);
 public:
@@ -286,22 +286,22 @@ UpdateSleepTime ShareExperienceBehavior::update()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorFalloff.cpp
 
-float ShareExperienceBehavior::GetDropOffValue(Coord3D *a, Pos0047FFFE *b)
+float ShareExperienceBehavior::GetDropOffValue(Coord3D *a, Pos0047FFFE *recipient)
 {
 	const ShareExperienceBehaviorModuleData *md = m_moduleData;
 	if (md->m_dropOff == g_Va00BBB8D8)
 	{
 		Coord3D diff;
-		diff.x = b->x;
-		diff.y = b->y;
-		diff.z = b->z;
+		diff.x = recipient->x;
+		diff.y = recipient->y;
+		diff.z = recipient->z;
 		diff.x -= a->x;
 		diff.y -= a->y;
 		diff.z -= a->z;
 		float len = diff.GetLength();
-		float f = g_Va00BBB8D8 - len / md->m_radius;
-		if (f >= 0.0f)
-			return f;
+		float falloffFactor = g_Va00BBB8D8 - len / md->m_radius;
+		if (falloffFactor >= 0.0f)
+			return falloffFactor;
 		return 0.0f;
 	}
 	return g_Va00BBB8D8;
