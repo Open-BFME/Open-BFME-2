@@ -1,0 +1,41 @@
+{
+  "base": "49397dc664",
+  "preview_index": "41c28839bf",
+  "preview_time": "2026-10-28 11:08",
+  "family_trial": {
+    "old_external_comdats": 29,
+    "trial_external_comdats": 29,
+    "unchanged_retained": 28,
+    "removed": {
+      "??0Xfer@@QAE@PAUEmitVtableTag@@@Z": [
+        "fa2e582be50c",
+        11
+      ]
+    },
+    "added": {
+      "??0Xfer@@QAE@XZ": [
+        "e121e6aafdd8",
+        9
+      ]
+    },
+    "changed_retained": {}
+  },
+  "text_trial": {
+    "before": 88,
+    "after": 89,
+    "unchanged": 88,
+    "removed": {},
+    "added": {
+      "??0Xfer@@QAE@XZ": [
+        "e121e6aafdd8",
+        9
+      ]
+    },
+    "changed": {}
+  },
+  "restored_source_sha256": {
+    "Code/GameEngine/Source/Common/FamilyDeletingDtors.cpp": "d936d2cbec431dcfea336204055813ac576ccf4ac698b8d6bbb39cab03b41bfc",
+    "Code/GameEngine/Source/Common/System/SaveGame/GameStateAutoSave.cpp": "3c7a51840b39a68f33a39f73ed9ea70fcb7fda10dc750ef94f5e2c0481e01d5c",
+    "Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp": "7d954e8ccf9ffa2bff02a47191e58ed0a4c99dbefc6e661bd55bc28abadd1c2e"
+  }
+}
