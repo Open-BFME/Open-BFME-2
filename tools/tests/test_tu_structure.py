@@ -86,6 +86,47 @@ def test_unledgered_retail_function_between_anchors_gets_no_ledger_source(mapped
     assert 0x1030 not in mapped or mapped[0x1030]["kind"] == "code-unledgered"
 
 
+def test_retail_fesl_source_root_anchors_its_contiguous_rows(tmp_path):
+    rev = tmp_path / "reverse"
+    rev.mkdir()
+    src = "Code/GameEngine/Source/GameNetwork"
+    (rev / "functions.csv").write_text(HEADER + "".join([
+        row("?read@Rva001000@@QAEXXZ", 0x1000, 16, f"{src}/Read.cpp"),
+        row("?next@Rva001010@@QAEXXZ", 0x1010, 16, f"{src}/Next.cpp"),
+        row("?write@Rva001020@@QAEXXZ", 0x1020, 16, f"{src}/Write.cpp"),
+    ]))
+    (rev / "string_xrefs.tsv").write_text(
+        "\\views\\feslbuild_main\\jabba\\fesl\\source\\blobservice.cpp\t0x1004,0x1024\n")
+    out = {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+    for rva in (0x1000, 0x1010, 0x1020):
+        assert out[rva]["tu"] == "Code/Libraries/Source/Fesl/blobservice.cpp"
+        assert tu_map.canonical_tu(out[rva])
+    assert out[0x1000]["by"] == out[0x1020]["by"] == "F"
+    assert out[0x1010]["by"] == "C"
+
+
+@pytest.mark.parametrize("text", [
+    r"\views\otherbuild\jabba\fesl\source\blobservice.cpp",
+    r"\views\feslbuild_main\jabba\other\source\blobservice.cpp",
+    r"\views\feslbuild_main\jabba\fesl\source\util.h",
+    r"\views\feslbuild_main\jabba\fesl\source\..\blobservice.cpp",
+    r"\views\feslbuild_main\jabba\fesl\source\nested\\blobservice.cpp",
+    r"C:\donor\fesl\source\blobservice.cpp",
+    "blobservice.cpp",
+])
+def test_unrecognised_or_non_source_sdk_paths_do_not_anchor_tus(tmp_path, text):
+    paths = tu_map.Paths(tu_map.Layout(tmp_path), set())
+    assert tu_map.retail_file_tu(text, paths) is None
+
+
+def test_fesl_source_root_preserves_nested_paths_and_repo_spelling(tmp_path):
+    paths = tu_map.Paths(tu_map.Layout(tmp_path), {
+        "Code/Libraries/Source/Fesl/gamebrowser/GameBrowser.cpp"})
+    assert tu_map.retail_file_tu(
+        "/views/feslbuild_main/jabba/fesl/source/gamebrowser/gamebrowser.cpp", paths
+    ) == "Code/Libraries/Source/Fesl/gamebrowser/GameBrowser.cpp"
+
+
 def test_map_is_deterministic(tmp_path, mapped):
     layout = tu_map.Layout(tmp_path)
     assert tu_map.render(tu_map.build(layout)) == tu_map.render(tu_map.build(layout))

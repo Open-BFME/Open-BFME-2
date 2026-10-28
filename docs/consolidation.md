@@ -5,6 +5,13 @@ Retail was linked from real translation units, and a TU's functions sit next to
 each other in `.text` in object order. This lane merges the small files back into
 the TU retail built them from, one TU at a time, without losing a matched row.
 
+The retail FESL SDK diagnostics name a separate
+`\views\feslbuild_main\jabba\fesl\source\` build root. The TU mapper recognises
+that exact root and represents its source-relative paths under
+`Code/Libraries/Source/Fesl/`. This repository location does not claim that the
+SDK's original path was inside BFME 2's `Code/` tree. Unrecognised external
+paths and header paths do not supply TU anchors.
+
 Five tools support the workflow; a seat does the judgement.
 
 Start a consolidation or subsystem naming pass with the read-only

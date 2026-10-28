@@ -11,7 +11,10 @@ invariant (tools/tu_ownership.py) work from one table instead of a guess each.
 Signals, strongest first (one letter each in the `by` and `evidence` columns):
 
   F  the function references a `__FILE__` string naming a .cpp (assert/debug
-     paths survive in retail); the string IS the TU.
+     paths survive in retail); the string IS the TU. The retail FESL SDK's
+     separate `views/feslbuild_main/jabba/fesl/source/` root is represented
+     under `Libraries/Source/Fesl/`; this is a repository placement, not an
+     assertion that the SDK lived under BFME 2's original Code/ directory.
   Z  `Class::method(` is defined in that file of the Zero Hour reference (an
      out-of-line definition at file scope: balanced parameters, then a body
      `{`; a call such as `Base::f(x);` or a data initializer is not one). A
@@ -606,6 +609,22 @@ def beside_own_site(rva, site, z_anchors, z_rvas):
                and z_anchors[j][1] == site for j in (i - 1, i))
 
 
+def retail_file_tu(text, paths):
+    """Recognise retail source roots, retaining the source-relative SDK path."""
+    m = re.search(r"[\\/]Code[\\/](.+\.(?:cpp|c))$", text, re.I)
+    if m:
+        return paths.repo(m.group(1))
+    # This exact build root occurs in retail's diagnostic calls. Do not infer
+    # a library home from an arbitrary absolute path or just its basename.
+    m = re.fullmatch(r"[\\/]views[\\/]feslbuild_main[\\/]jabba[\\/]fesl[\\/]source[\\/]"
+                     r"(.+\.(?:cpp|c))", text, re.I)
+    if m:
+        rel = m.group(1).replace("\\", "/")
+        if all(part not in ("", ".", "..") for part in rel.split("/")):
+            return paths.repo("Libraries/Source/Fesl/" + rel)
+    return None
+
+
 def file_strings(layout, paths, owner):
     out = {}
     path = layout.path("string_xrefs.tsv")
@@ -613,10 +632,9 @@ def file_strings(layout, paths, owner):
         return out
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         text, _, refs = line.rpartition("\t")
-        m = re.search(r"[\\/]Code[\\/](.+\.(?:cpp|c))$", text, re.I)
-        if not m or not refs.startswith("0x"):
+        tu = retail_file_tu(text, paths)
+        if not tu or not refs.startswith("0x"):
             continue
-        tu = paths.repo(m.group(1))
         for ref in refs.split(","):
             try:
                 o = owner(int(ref, 16))
