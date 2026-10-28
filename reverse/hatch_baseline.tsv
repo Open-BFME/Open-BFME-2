@@ -972,8 +972,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineS
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp	g_Va00E06544	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp	g_Va00E06548	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsConstructor.cpp	g_Va00A04908	3
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp	g_Va00A04450	6
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp	g_Va00A04450	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusScreen.cpp	g_Va00A04450	6
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptQuitMenuCallbacks.cpp	g_Va00E0492C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbacks.cpp	g_Va00E032E8	2

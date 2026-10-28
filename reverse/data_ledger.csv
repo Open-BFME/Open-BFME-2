@@ -11790,7 +11790,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008620A8,100,.rdata,string,??_C@_0DJ@DJHFAHIJ@SplineEffect?3?3ParseGeometryName?3@,,literal,,0,1
 0x0086210C,60,.rdata,string,??_C@_0DF@HPOOAKGG@SplineEffect?3?3ParseINIBlock?3?3Inv@,,literal,,0,1
 0x00862148,96,.rdata,global,?Rva003BB730RecordFieldParseTable@@3QBUFieldParse@@B,,unowned,,0,1
-0x008621A8,72,.rdata,global,_s_externNames,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusScreen.cpp,owned,,1,1
+0x008621A8,72,.rdata,global,_s_externNames,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp,owned,,1,1
 0x008621F0,16,.rdata,global,?g_00C621F0@@3QBQBXB,,unowned,,0,1
 0x00862200,16,.rdata,string,??_C@_0P@BLHIDOFC@ObjectivesMenu?$AA@,,literal,,0,1
 0x00862210,20,.rdata,string,??_C@_0BD@HHHECNMK@PlayerStatus?3?3Mute?$AA@,,literal,,0,1
