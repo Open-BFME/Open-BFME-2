@@ -143,6 +143,17 @@ __uninitialized_copy<const Rva005668E9Element *, Rva005668E9Element *>(const Rva
         _Construct(cur, *first);
     return cur;
 }
+// vector<vector<BfmeE8> >'s copy loop too (retail 0x0032B5C5, the copy
+// SidesListCastleBuildLists.cpp compiles): without it this /EHsc unit emits
+// STLport's try/catch rollback, which retail's loop does not have.
+template <> __declspec(noinline) inline vector<BfmeE8> *
+__uninitialized_copy<const vector<BfmeE8> *, vector<BfmeE8> *>(const vector<BfmeE8> *first, const vector<BfmeE8> *last, vector<BfmeE8> *result, const __false_type &)
+{
+    vector<BfmeE8> *cur = result;
+    for (; first != last; ++first, ++cur)
+        _Construct(cur, *first);
+    return cur;
+}
 }
 
 template _STL::vector<Rva002B72C9>::vector(const _STL::vector<Rva002B72C9> &);

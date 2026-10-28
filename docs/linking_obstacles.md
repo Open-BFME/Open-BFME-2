@@ -266,9 +266,14 @@ only because the providers were renamed after the census: W3DProjectedShadowDeca
   only in the begin()-insert branch layout; building it with
   `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` (the vendored _tree.c opt-in 344 units use) gives
   retail's digest ff7306be33ea. 24/24 rows exact; no other COMDAT digest changes; the
-  five units touching the name (2,559 B) keep linking under retail-truth-5. Remaining
-  LINK-135 losses: deque `copy` (stl header variant; 3,003 B) and BfmeE8
-  `__uninitialized_copy` (tag argument; 2,266 B).
+  five units touching the name (2,559 B) keep linking under retail-truth-5.
+- `StlportVectorCopyCtorFamily.cpp` (halilkkaya-lk6): its `__uninitialized_copy<const
+  vector<BfmeE8> *, vector<BfmeE8> *>` carried STLport's /EHsc try/catch rollback; an
+  explicit noinline loop specialization, the one the file already gives four other
+  element types, compiles to retail's 38-byte loop (067a12a09458). 7/7 rows exact (the
+  calling row still sees a definition, so its tag argument is unchanged); no other
+  digest changes; both units LINK (2,266 B). Remaining LINK-135 loss: the deque
+  `copy<const_iterator, iterator>` (STLport header variant; 3,003 B).
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy
