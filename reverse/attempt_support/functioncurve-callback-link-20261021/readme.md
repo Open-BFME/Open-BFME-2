@@ -1,9 +1,0 @@
-Function-curve callback link repair, 2026-10-21
-
-Native parser 5051DA..50525C stores VA9050EA at505231 into the Key FieldParse callback, with &accumulator as user data and offset8. This directly identifies the independently rowed static parseKey callback at5050EA; no new symbol pin or thunk is required. The donor-carried j_0003a562 name had no provider. Declare and use the callback with its actual INIFieldParseProc signature. The old finish alternatename directive refers only to a previously removed method call and has no incoming relocation; remove it. Also correct the inherited BFME1 address comment and remove an unused include search root. No layout, literal, algorithm or ABI changes.
-
-Paired preview against unchanged legacy census03035cf02c (2026-10-20 22:09) changes the parser from0 to130 nonpadding linked bytes. The callback provider remains239/239 linked bytes. Both sources have current strict receipts and pass their complete own byte gates and string/float/import reference checks. This is self-strict plus a legacy index preview; closed-strict gain and executable placement are unmeasured.
-
-proof.py checks every retained nondebug section, byte, flag, definition and symbolic relocation, allowing only the proved callback symbol substitution and deletion of the unused alternatename token. The index hash is unchanged. All defined functions are declared by the ledger. Source provenance remains the BFME1 donor already recorded in the row; callback identity and parameter use are established independently by BFME2 native bytes and the existing callback body.
-
-Related unresolved j_ names were surveyed in the rank: the audio/tree wrappers, LibraryMaps registration and mouse each have additional independent blockers or require a separate callback/type recovery, so this is one completed repair rather than a partial multi-unit suppression. t=8 model=gpt-6.1-sol.

@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingTextureBFME.cpp: LINKS  LINKED 0 -> 429 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 429)
-Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryFindMatchingMaterialBFME.cpp: LINKS  LINKED 0 -> 387 bytes (census 2026-10-15 09:33 at 19a2565407; file's own bytes 387)
-link_check: 2 of 2 link cleanly; LINKED 0 -> 816 bytes (2.8s)

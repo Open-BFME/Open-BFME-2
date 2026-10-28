@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/ScreenMapperCalculate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-21 18:42 at d08db10acb; file's own bytes 821)
-  comdat      ??_H@YGXPAXIHP6EPAX0@Z@Z  (retail: not retail's body)
-  comdat      ??0Matrix4@@QAE@ABVVector4@@000@Z  (retail: not retail's body)
-  comdat      ?Transpose@Matrix4@@QBE?AV1@XZ  (retail: not retail's body)
-  selected    ?Floor@WWMath@@SAMM@Z  (the definition the link keeps is not retail's)
-  diagnostic  ?Get_Transform@DX8Wrapper@@SAXW4_D3DTRANSFORMSTATETYPE@@AAVMatrix4@@@Z  (codegen-like: 830 bytes against the majority copy's 1107; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.9s)

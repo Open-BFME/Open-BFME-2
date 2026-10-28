@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Map/TerrainLogicRva0028449F.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 1,572)
-  unresolved  ?rva0028641F@Rva002872BA@@QAEXIPAVRva0027D098@@@Z
-  unresolved  ?rva004DC096@Rva004DC1BF@@QAE_NPAVCoord2D@@@Z
-  selected    ??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.9s)

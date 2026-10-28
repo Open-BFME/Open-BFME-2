@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00584D3F.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-23 21:22 at 5afa24afe9; file's own bytes 17)
-  unresolved  ??MRva00584D3FElement@@QBE_NABU0@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.0s)

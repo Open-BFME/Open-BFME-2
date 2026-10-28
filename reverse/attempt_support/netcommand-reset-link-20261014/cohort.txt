@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameNetwork/ConnectionManager_reset.cpp
-Code/GameEngine/Source/GameNetwork/FrameData.cpp
-Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp
-Code/GameEngine/Source/GameNetwork/NetCommandList.cpp

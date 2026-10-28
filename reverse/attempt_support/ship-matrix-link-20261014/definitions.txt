@@ -1,3 +1,0 @@
-All defined functions are already matched.
-
-exit=0

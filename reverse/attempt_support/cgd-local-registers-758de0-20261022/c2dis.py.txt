@@ -1,6 +1,0 @@
-import sys,capstone,pefile
-from pathlib import Path
-P=Path(__file__).resolve().parents[2]/'reference/open-bfme-1/inputs/toolchains/vs2003/Program Files/Microsoft Visual Studio .NET 2003/Vc7/bin/c2.dll'
-pe=pefile.PE(str(P));md=capstone.Cs(capstone.CS_ARCH_X86,capstone.CS_MODE_32)
-a=int(sys.argv[1],16);n=int(sys.argv[2],0) if len(sys.argv)>2 else 200
-for i in md.disasm(pe.get_data(a,n),pe.OPTIONAL_HEADER.ImageBase+a):print('%08x %-8s %s'%(i.address,i.mnemonic,i.op_str))

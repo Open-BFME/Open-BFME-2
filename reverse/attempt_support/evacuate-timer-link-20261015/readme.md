@@ -1,7 +1,0 @@
-# Evacuate timer-list declaration adoption blocked
-
-Base BFME 2 ee2e3c8e401deef2de4f08913d4df68755935b8c; preview index 825b86983f at 2026-10-15 12:37 (SHA in index-meta.json). Consumer has four COMDAT conflicts: the generic timer-node creator, allocator, proxy allocator and node allocator. The existing SpecialPowerTimerList.cpp provider passes its three-row byte gate and local link check. Both units had strict current receipts before the trial.
-
-Declaring the independently matched `_M_create_node` specialization before consumer instantiation removes the local generic definition and its allocator dependencies, but changes onDamage's instruction order before push_back: retail loads TheGameLogic/frame before the damage amount; the declaration-only version loads and stores the amount first. Both an ordinary and explicit-inline specialization declaration fail the 144-byte parent. The second 214-byte row still passes. This is compiler-visible body sensitivity, not missing identity evidence. The generic STLport list is the source guide; the 16-byte node/8-byte record and provider are existing target facts. No donor ABI or flags were transplanted.
-
-Both trials were reverted and the original two-row byte gate rerun before release. No recovery or link gain claimed. A future repair needs codegen evidence that preserves the parent schedule while reconciling callable node/allocator bodies. Do not retry the same declaration-only shapes without new evidence.

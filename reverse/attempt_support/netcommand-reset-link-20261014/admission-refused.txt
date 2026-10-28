@@ -1,5 +1,0 @@
-link_check [refused] Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp: its copy of ?reset@ConnectionManager@@UAEXXZ would replace the one other units link against (link.exe keeps the first copy in link order): give it their body (the shared header and flags) or keep it out of line
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)

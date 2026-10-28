@@ -1,9 +1,0 @@
-Source claims: OK (7 sources, scoped byte-verified)
-Compile: 0 of 7 TU(s) (deps-cache: 7 current)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    $L5866 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDraw.cpp): $L5866 was renumbered; verified parent EH data places $L5817 at 0x0076236E
-    uw_00762364 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DRopeDraw.cpp): $L5866 was renumbered; verified parent EH data places $L5816 at 0x00762364
-Functions: OK 32/32 matched across 7 source file(s)
-String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (2 named imports verified)

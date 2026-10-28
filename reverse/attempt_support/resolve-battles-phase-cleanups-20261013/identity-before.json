@@ -1,8 +1,0 @@
-{
-  "source": "Code/GameEngine/Source/Common/Rva00576C4BDtor.cpp",
-  "mode": "shadow",
-  "rows": 7,
-  "problems": [
-    "definition: duplicate | ??0Base0_00576C4B@@QAE@XZ"
-  ]
-}

@@ -1,8 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Funclet pins: 2 row(s) verified past a renumbered $L label
-    $L10880 (Code/GameEngine/Source/Common/System/ParticleControlCtorFamily.cpp): $L10880 was renumbered; verified parent EH data places $L10920 at 0x0078462B
-    $L9952 (Code/GameEngine/Source/Common/System/ParticleControlCtorFamily.cpp): $L9952 was renumbered; verified parent EH data places $L9976 at 0x00784536
-Functions: OK 13/13 matched across 1 source file(s)
-String-ref verify: OK (1 literals + 1 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (11 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

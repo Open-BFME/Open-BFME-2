@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva004F6986_reserve.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 104)
-  comdat      ??$_Construct@URva004F6986@@U1@@_STL@@YAXPAURva004F6986@@ABU1@@Z  (retail: not retail's body)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_Rva004F6986_allocate_copy.cpp: LINKS  LINKED 0 -> 223 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 223)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 223 bytes (4.7s)

@@ -1,1 +1,0 @@
-rename: refused: canonical:wb: tools/name_evidence.py does not grade rva002E3AA8 -> adjustCameraMovement as proof: wb-assert grades it a hint: score 3 < 4

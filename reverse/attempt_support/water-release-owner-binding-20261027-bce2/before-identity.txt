@@ -1,5 +1,0 @@
-references: 21
-  owner      17
-  alias      3
-  eh         1
-rows with a wrong binding: 0

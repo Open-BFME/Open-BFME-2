@@ -1,9 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-Compile: 0 of 2 TU(s) (deps-cache: 2 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    $L8934 (Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp): $L8934 was renumbered; verified parent EH data places $L9538 at 0x0078289E
-STLport folds: 1 complete emitted constructor(s) verified against retail owners and resolved callees
-Functions: OK 51/51 matched across 2 source file(s)
-String-ref verify: OK (3 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (6 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

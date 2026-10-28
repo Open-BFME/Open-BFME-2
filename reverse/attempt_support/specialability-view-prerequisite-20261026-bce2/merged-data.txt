@@ -1,3 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp	wrong-name	?$S1@?CE@??onExit@SpecialAbilityUpdate@@MAEX_N0@Z@4IA	0x00A033A0
-data_check: Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp	wrong-name	?$S2@?BJ@??startUnpacking@SpecialAbilityUpdate@@UAEXXZ@4IA	0x00A033A8
-data_check (shadow): 1 source(s), 2 finding(s), 2 outside the baseline {'wrong-name': 2}; 1.6s

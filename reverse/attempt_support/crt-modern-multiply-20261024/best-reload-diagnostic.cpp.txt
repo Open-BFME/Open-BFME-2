@@ -1,5 +1,0 @@
-// cl: /O1 /GS- /MD
-typedef unsigned __int64 U64;
-extern "C" U64 __cdecl __emulu(unsigned,unsigned);
-#pragma intrinsic(__emulu)
-extern "C" U64 __stdcall _allmul(volatile unsigned a_low,volatile unsigned a_high,volatile unsigned b_low,volatile unsigned b_high){unsigned ah=a_high;unsigned bh=b_high;unsigned bl=b_low;if((ah|bh)==0)return __emulu(a_low,bl);unsigned cross=(unsigned)__emulu(ah,bl);cross+=(unsigned)__emulu(a_low,b_high);union{U64 value;struct{unsigned low,high;}words;}low;low.value=__emulu(a_low,bl);low.words.high+=cross;return low.value;}

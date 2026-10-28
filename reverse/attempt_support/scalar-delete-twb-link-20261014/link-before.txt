@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/BfmeConv1325.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 127)
-  unresolved  ?g_bfmeVftCTWA@@3PAPAXA
-Code/Libraries/Source/WWVegas/WWLib/mem_ops.cpp: LINKS  LINKED 80 -> 80 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 80)
-link_check: 1 of 2 link cleanly; LINKED 80 -> 80 bytes (10.7s)

@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp: LINKS  LINKED 0 -> 460 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 460)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 460 bytes (4.1s)

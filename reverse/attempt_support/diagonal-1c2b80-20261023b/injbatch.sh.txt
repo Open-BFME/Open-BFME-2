@@ -1,7 +1,0 @@
-#!/bin/sh
-# injbatch.sh src plan  -> prints "plan nd"
-cd /work/Open-BFME-2/build/db
-t=i_$(echo "$2" | tr ':,' '_x')
-timeout 600 python3 inject2.py "$1" "$t" "$2" > tr/$t.out 2>&1
-echo "$2 $(python3 scoreobj.py tr/$t.obj 2>&1 | awk '{print $NF}') $(grep -o 'log.*' tr/$t.out)"
-rm -f tr/$t.obj tr/$t.log

@@ -1,1 +1,0 @@
-Object assertions pass: setter sole DIR32+6 binds matched provider with zero addend; all other bytes, complete provider bytes and provider relocation unchanged; both receipts strict-current.

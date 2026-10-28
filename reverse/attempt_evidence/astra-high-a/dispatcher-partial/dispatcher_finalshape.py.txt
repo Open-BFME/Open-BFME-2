@@ -1,8 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/dispatcher/entry-inline-1/c1.cpp').read_text().replace('dispatchSpawnFromMessage','rva002B2D5E')
-b=b.replace('if(i<0||i>=(int)msg->getArgumentCount())return false;','if(i<0)return false; if(i>=(int)msg->getArgumentCount())return false;')
-sym='?logicMessageDispatcher@LivingWorldLogic@@QAEXPAVGameMessage@@PAX@Z'
-trial('owned-bindings',b,sym,0x2bdb4c,3058,'dispatcher')
-for flag in ['/G7','/G6','/Og','/Oi','/Ob2','/Op','/Zc:forScope','/Zc:forScope-']:
- t=b.replace('// cl: ','// cl: '+flag+' ')
- trial('flag-'+flag[1:].replace(':',''),t,sym,0x2bdb4c,3058,'dispatcher')

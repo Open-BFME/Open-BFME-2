@@ -1,2 +1,0 @@
-Code/GameEngine/Source/GameLogic/System/GameLogicLoadPostProcess.cpp 30 retained COMDATs identical; external max replaced by unreferenced private helper
-Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainModuleDataParse.cpp 47 retained COMDATs identical; external max replaced by unreferenced private helper

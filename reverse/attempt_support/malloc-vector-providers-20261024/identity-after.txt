@@ -1,7 +1,0 @@
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp | ??4?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z | ??$_M_allocate_and_copy@PBUBfmePod8@@@?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@IAEPAUBfmePod8@@IPBU2@0@Z | 0x001D9AD9 | wrong
-binding: Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp | ?_M_fill_insert@?$vector@UBfmePod8@@V?$allocator@UBfmePod8@@@_STL@@@_STL@@QAEXPAUBfmePod8@@IABU3@@Z | ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z | 0x004C3121 | divergent
-definition: divergent | ??$__uninitialized_copy@PAUBfmePod8@@PAU1@@_STL@@YAPAUBfmePod8@@PAU1@00ABU__false_type@0@@Z
-definition: divergent | ??$__uninitialized_fill_n@PAUBfmePod8@@IU1@@_STL@@YAPAUBfmePod8@@PAU1@IABU1@ABU__false_type@0@@Z
-definition: divergent | ?deallocate@?$_STLP_alloc_proxy@PAUBfmePod16@@U1@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAEXPAUBfmePod16@@I@Z
-definition: divergent | ?deallocate@?$allocator@UBfmePod16@@@_STL@@QBEXPAUBfmePod16@@I@Z
-code identity 32 rows; 6 findings; shadow

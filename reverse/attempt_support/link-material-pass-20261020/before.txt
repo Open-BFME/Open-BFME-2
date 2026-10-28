@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/MaterialPassInstallMaterials.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 271)
-  comdat      ??0StringClass@@QAE@H_N@Z  (retail: not retail's body)
-  comdat      ?Set_Shader@DX8Wrapper@@SAXABVShaderClass@@@Z  (retail: not retail's body)
-  diagnostic  ?Add_Ref@VertexMaterialClass@@QAEXXZ  (codegen-like: 5 bytes against the majority copy's 4; unreferenced, not a blocker)
-  diagnostic  ?Release_Ref@VertexMaterialClass@@QAEXXZ  (codegen-like: 11 bytes against the majority copy's 10; unreferenced, not a blocker)
-  diagnostic  ?Set_Material@DX8Wrapper@@SAXPAVVertexMaterialClass@@@Z  (codegen-like: 55 bytes against the majority copy's 52; unreferenced, not a blocker)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.5s)

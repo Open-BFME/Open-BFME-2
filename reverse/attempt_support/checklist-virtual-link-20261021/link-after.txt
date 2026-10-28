@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva0057A4E7Dtor.cpp: LINKS  LINKED 53 -> 53 bytes (census 2026-10-20 22:09 at 03035cf02c; file's own bytes 53)
-Code/GameEngine/Source/Common/Rva0057A4E7Ctor.cpp: LINKS  LINKED 0 -> 182 bytes (census 2026-10-20 22:09 at 03035cf02c; file's own bytes 182)
-Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp: does not link  LINKED 976 -> 0 bytes (census 2026-10-20 22:09 at 03035cf02c; file's own bytes 976)
-  unresolved  ?GeometryContactSphere@@3IA
-link_check: 2 of 3 link cleanly; LINKED 1,029 -> 235 bytes (4.5s)

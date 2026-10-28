@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva009F66F0.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-12 22:16 at d753dedd98; file's own bytes 263)
-  unresolved  ?bfmeIntersects@GeometryInfo@@QBE_NABUCoord3D@@MABV1@0M@Z
-  selected    ??0GeometryInfo@@QAE@W4GeometryType@@_NMMM@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.6s)

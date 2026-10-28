@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/RenderObjCopy.cpp: LINKS  LINKED 0 -> 578 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 578)
-Code/Libraries/Source/WWVegas/WW3D2/RenderObjCtor.cpp: LINKS  LINKED 0 -> 262 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 262)
-Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp: LINKS  LINKED 1,035 -> 1,035 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 1,035)
-link_check: 3 of 3 link cleanly; LINKED 1,035 -> 1,875 bytes (3.5s)

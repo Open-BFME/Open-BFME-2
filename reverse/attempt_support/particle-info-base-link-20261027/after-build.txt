@@ -1,9 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Funclet pins: 3 row(s) verified past a renumbered $L label
-    uw_00799c3e (Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056224FCtor.cpp): $L515 was renumbered; verified parent EH data places $L581 at 0x00799C3E
-    Unwind@00b99c2b (Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056224FCtor.cpp): $L524 was renumbered; verified parent EH data places $L579 at 0x00799C2B
-    $L525 (Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056224FCtor.cpp): $L525 was renumbered; verified parent EH data places $L580 at 0x00799C33
-Functions: OK 7/7 matched across 1 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (1 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

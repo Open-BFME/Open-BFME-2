@@ -1,5 +1,0 @@
-data_check: Code/GameEngine/Source/Common/Rva002DBC97Get.cpp	wrong-name	?TheSkirmishGameInfo@@3PAVSkirmishGameInfo@@A	0x00A02EF0
-data_check: Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp	wrong-name	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	0x009FE4CC
-data_check: Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp	wrong-name	?MessageStreamSubsystem@@3PAVMessageStream@@A	0x00A00950
-data_check: Code/GameEngine/Source/GameNetwork/LANAPICallbacks.cpp	wrong-name	?g_Va00E03354@@3PAURva004469D1Receiver@@A	0x00A03354
-data_check (shadow): 12 source(s), 5 finding(s), 4 outside the baseline {'wrong-name': 4}; 0.9s

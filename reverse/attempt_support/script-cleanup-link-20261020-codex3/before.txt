@@ -1,2 +1,0 @@
-Code/GameEngine/Source/Common/RTS/PlayerSkirmishTeamCopy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 656)
-  unresolved  ?rva003B693A@ScriptList@@QAEXXZ

@@ -1,8 +1,0 @@
-Code/GameEngine/Source/Common/GapBodiesGE31.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MaterialPassClassCtorThunk.cpp
-Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassTextureCopyCtor.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowGeometryCtorThunk.cpp
-Code/Libraries/Source/WWVegas/WW3D2/MeshGeometrySlot64ShareBuffer.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/TileDataGetRGBDataForWidth.cpp
-Code/Libraries/Source/WWVegas/WW3D2/Rva0015AC00Siblings.cpp
-Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainTracksRenderObjClassConstructor.cpp

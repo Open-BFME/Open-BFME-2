@@ -1,9 +1,0 @@
-link_check: preparing 1 explicit safe provider(s), no extra sources
-Source claims: OK (1 sources, scoped byte-verified)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Functions: OK 1/1 matched
-  ?rva000ECF79@W3DTreeBuffer@@QAEXIURva000ECF79Coord@@MPBVMatrix3D@@MPBURva000ECF79Data@@HABVAsciiString@@3@Z (Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTree.cpp)
-String-ref verify: OK (2 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)
-link_check: 1 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

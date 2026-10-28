@@ -1,7 +1,0 @@
-data_check: Code/GameEngine/Source/Common/GapBodiesGE53.cpp	wrong-name	?LODMeshCacheSetting@@3EA	0x009EC410
-data_check: Code/GameEngine/Source/Common/GapBodiesGE53.cpp	wrong-name	?LODTextureReduction@@3HA	0x009B5FA0
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	duplicate-def	?g_Va00DEC3D7@@3EA	0x009EC3D7
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	wrong-name	?LODMeshCacheSetting@@3EA	0x009EC410
-data_check: Code/GameEngine/Source/Common/GlobalByteGetters.cpp	wrong-name	?g_Va00DEC3D7@@3EA	0x009EC3D7
-data_check: Code/Libraries/Source/WWVegas/WW3D2/Rva00173230Finish.cpp	wrong-name	?LODMeshCacheSetting@@3EA	0x009EC410
-data_check (shadow): 3 source(s), 15 finding(s), 6 outside the baseline {'wrong-name': 5, 'duplicate-def': 1}; 0.4s

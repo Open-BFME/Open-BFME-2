@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/VersionDestructor.cpp: LINKS  LINKED 1,275 -> 1,275 bytes (census 2026-10-22 17:08 at 08160bc2c9; file's own bytes 1,275)
-Code/GameEngine/Source/Common/VersionInitGlobals.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-22 17:08 at 08160bc2c9; file's own bytes 200)
-  unresolved  ?Rva00237D3DCheck@@YAHXZ
-link_check: 1 of 2 link cleanly; LINKED 1,275 -> 1,275 bytes (3.6s)

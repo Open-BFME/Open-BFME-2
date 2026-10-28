@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:52 at 3f413ed3ff; file's own bytes 187)
-  comdat      ??0AsciiString@@QAE@XZ  (retail: unproven and differs from the kept copy)
-  comdat      ??4AsciiString@@QAEAAV0@PBD@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.9s)

@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/System/BuildAssistant.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 09:31 at 28269d8e8d; file's own bytes 7,589)
-  unresolved  ?g_00E027C4@@3MA
-  comdat      ?getMoney@Player@@QAEPAVMoney@@XZ  (first: differs from the first copy in link order (no retail address))
-  comdat      ??_GObjectSellInfo@@UAEPAXI@Z  (retail: not retail's body)
-  selected    ??_GObjectSellInfo@@UAEPAXI@Z  (the definition the link keeps is not retail's)
-  selected    ?onStructureConstructionComplete@Player@@QAEXPAVObject@@0_N@Z  (the definition the link keeps is not retail's)
-  selected    ?onStructureCreated@Player@@QAEXPAVObject@@0@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

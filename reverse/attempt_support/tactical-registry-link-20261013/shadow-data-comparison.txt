@@ -1,4 +1,0 @@
-Wrong-name findings reconstructed from captured relocations and byte-identical complete rows using data_check.findings; no source swap or cache mutation.
-before: [["Code/GameEngine/Source/Common/ThingTemplateBuildFacility.cpp", "wrong-name", "?g_tacticalAIRegistry@@3PAVRva002A8F24@@A", "0x009FEEF8"], ["Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp", "wrong-name", "?$S1@?EE@??rva002FF07B@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z@4IA", "0x009FF108"], ["Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp", "wrong-name", "?g_tacticalAIRegistry@@3PAVRva002A8F24@@A", "0x009FEEF8"]]
-after: [["Code/GameEngine/Source/GameLogic/AI/AIClosestEnemySearch.cpp", "wrong-name", "?$S1@?EE@??rva002FF07B@Rva002FFFCA@@QAEPAXPAVObject@@PBUCoord3D@@MIHHH@Z@4IA", "0x009FF108"]]
-Two registry wrong-name findings removed; the remaining static-local finding is pre-existing. No baseline edited.

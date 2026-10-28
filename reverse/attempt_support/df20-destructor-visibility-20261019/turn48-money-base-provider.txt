@@ -1,6 +1,0 @@
-??1?$_String_base@GV?$allocator@G@_STL@@@_STL@@QAE@XZ (build/resume-eh-local/turn48-money-base-provider.cpp)
-target RVA: 0x0000B3C0
-target size: 63 bytes
-compiled symbol size: 63 bytes
-classification: exact match
-OK: bytes match

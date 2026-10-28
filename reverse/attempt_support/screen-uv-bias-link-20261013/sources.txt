@@ -1,3 +1,0 @@
-Code/GameEngine/Source/Common/GlobalByteGetters.cpp
-Code/Libraries/Source/WWVegas/WW3D2/render2d.cpp
-Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp

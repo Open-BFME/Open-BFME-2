@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-  FAIL ?onDamage@EvacuateDamage@@UAEXPAUDamageInfo@@@Z (Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageRva004BAF55.cpp)
-    target:   55 8b ec 51 51 56 57 8b 7d 08 85 ff 8b f1 74 7a 53 8b 5e 04 8b 43 0c 3b 47 10 75 6d 8b 46 08 83 b8 54 02 00 00 00 74 61 a1 8c e7 df 00 8b 40 40 f3 0f 10 47 20 89 45 fc 8d 45 f8 50 8d 4e 14 f3 0f 11 45 f8 e8 af 37 02 00 8b 46 08 8b 88 54 02 00 00 8b 01 ff 50 18 d9 5d 08 8b ce e8 0b fe ff ff d9 45 08 d8 4b 10 d9 c9 df f1 dd d8 72 1a ff 77 08 8b 0d 8c e7 df 00 e8 f3 ed b8 ff 85 c0 74 08 50 8b ce e8 4f ff ff ff 5b 5f 5e c9 c2 04 00
-    compiled: 55 8b ec 51 51 56 57 8b 7d 08 85 ff 8b f1 74 7a 53 8b 5e 04 8b 43 0c 3b 47 10 75 6d 8b 46 08 83 b8 54 02 00 00 00 74 61 f3 0f 10 47 20 a1 40 40 f3 0f f3 0f 11 45 f8 8b 40 40 89 45 fc 8d 45 f8 50 8d 4e 14 e8 af 37 02 00 8b 46 08 8b 88 54 02 00 00 8b 01 ff 50 18 d9 5d 08 8b ce e8 0b fe ff ff d9 45 08 d8 4b 10 d9 c9 df f1 dd d8 72 1a ff 77 08 8b 0d 8c e7 df 00 e8 f3 ed b8 ff 85 c0 74 08 50 8b ce e8 4f ff ff ff 5b 5f 5e c9 c2 04 00
-Functions: FAIL 1/2
-1 function(s) failed byte comparison

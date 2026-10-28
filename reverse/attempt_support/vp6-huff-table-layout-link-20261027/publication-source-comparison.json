@@ -1,8 +1,0 @@
-{
-  "production_commit": "c2c41c0cb571f85ac802ff5227223b8865ffcebf",
-  "measured_commit": "dc81d055af9167b9dd982000688ceb47f2bbd81c",
-  "source": "Code/Libraries/Source/VP6/HuffTokens.cpp",
-  "source_sha256": "7d3e9ff71f258c0c1aa0e644f298f80c98439a115adf16d7fc34f151a356c93b",
-  "production_source_blob": "9b72bfe7c7ca761fb048f9315526e60039b72ed3",
-  "source_bytes_identical": true
-}

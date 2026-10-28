@@ -1,6 +1,0 @@
-wineserver: using server-side synchronization.
-Source claims: OK (5 sources, scoped byte-verified)
-Functions: OK 56/56 matched across 5 source file(s)
-String-ref verify: OK (15 literals + 2 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (42 named imports verified)

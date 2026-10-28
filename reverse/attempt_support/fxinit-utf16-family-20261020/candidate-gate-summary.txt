@@ -1,9 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-Compile: 1 of 2 TU(s) (deps-cache: 1 current)
-  FAIL ??0?$_Vector_base@FV?$Rva00513D55Allocator@F@@@_STL@@QAE@IABV?$Rva00513D55Allocator@F@@@Z (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp)
-    unresolved call(s): ??0?$_STLP_alloc_proxy@PAFFV?$Rva00513D55Allocator@F@@@_STL@@QAE@ABV?$Rva00513D55Allocator@F@@PAF@Z (add to reverse/symbols.csv)
-  FAIL ?Rva00513ED1@@YA?AVUnicodeString@@ABV1@@Z (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    ?rva0079509f@@YAXXZ (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCreateAHeroDrawMapComponent.cpp): $L5675 was renumbered by an edit to this TU; the body is $L5750 in the object built now (stale ledger pin, not a byte mismatch)
-Functions: FAIL 2/14
-2 function(s) failed byte comparison

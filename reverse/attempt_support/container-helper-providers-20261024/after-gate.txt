@@ -1,9 +1,0 @@
-Source claims: OK (13 sources, scoped byte-verified)
-Data rows: OK (1 row(s) byte-verified)
-Compile: 0 of 13 TU(s) (deps-cache: 13 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    Unwind@00b793b6 (Code/GameEngine/Source/GameClient/MapUtil.cpp): $L64653 was renumbered; verified parent EH data places $L64643 at 0x007793B6
-Functions: OK 109/109 matched across 13 source file(s)
-String-ref verify: OK (3 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (27 compiler literals verified)
-Import-ref verify: OK (3 named imports verified)

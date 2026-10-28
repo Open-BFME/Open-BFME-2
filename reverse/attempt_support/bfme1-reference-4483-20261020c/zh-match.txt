@@ -1,7 +1,0 @@
-match: 26994 function(s) from 918 object(s)
-  exact-multi                791 funcs    35,799 bytes
-  exact-unique-claimed      1094 funcs    57,988 bytes
-  near                      4753 funcs   352,666 bytes
-  no-needle                 4744 funcs   170,036 bytes
-  no-placement             15612 funcs 3,794,483 bytes
-  -> build/zh_sweep/match.json

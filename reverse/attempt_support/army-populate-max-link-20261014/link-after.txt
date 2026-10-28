@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 295)
-  comdat      ?deallocate@?$allocator@W4ScienceType@@@_STL@@QBEXPAW4ScienceType@@I@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?deallocate@?$_STLP_alloc_proxy@PAHHV?$allocator@H@_STL@@@_STL@@QAEXPAHI@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?deallocate@?$_STLP_alloc_proxy@PAW4ScienceType@@W41@V?$allocator@W4ScienceType@@@_STL@@@_STL@@QAEXPAW4ScienceType@@I@Z  (first: differs from the first copy in link order (no retail address))
-  comdat      ?_M_clear@?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@IAEXXZ  (first: differs from the first copy in link order (no retail address))
-  selected    ??1?$_Vector_base@HV?$allocator@H@_STL@@@_STL@@QAE@XZ  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.8s)

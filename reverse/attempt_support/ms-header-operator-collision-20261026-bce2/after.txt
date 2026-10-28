@@ -1,3 +1,0 @@
-reference/shims/bfme_colmathaabox/vector3.h: clean; /MD=no; headers []
-  reference/shims/bfme_colmathaabox/vector3.h:78	via-include always.h                     unknown   (unresolved include "always.h" at reference/shims/bfme_colmathaabox/vector3.h:78: its definitions are unchecked)
-  reference/shims/bfme_colmathaabox/wwmath.h:45	via-include always.h                     unknown   (unresolved include "always.h" at reference/shims/bfme_colmathaabox/wwmath.h:45: its definitions are unchecked)

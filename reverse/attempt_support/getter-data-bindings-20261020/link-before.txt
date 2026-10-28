@@ -1,6 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/ConstIntGetters5.cpp: LINKS  LINKED 360 -> 360 bytes (census 2026-10-19 19:24 at d5ae1ce9c2; file's own bytes 360)
-Code/GameEngine/Source/Common/ConstIntGetters5Addr.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-19 19:24 at d5ae1ce9c2; file's own bytes 161)
-  addresses   27 hard-coded image address(es), e.g. 0x00c0cd88
-link_check: 1 of 2 link cleanly; LINKED 360 -> 360 bytes (4.1s)

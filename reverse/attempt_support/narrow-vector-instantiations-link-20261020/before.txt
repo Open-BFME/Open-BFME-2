@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00541021_allocate_copy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 281)
-  unresolved  ??0Rva00541021@@QAE@XZ
-Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_allocate_copy.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 12:21 at 5366c4f808; file's own bytes 197)
-  unresolved  ??0BfmeStringRecord00063BE4@@QAE@XZ
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.6s)

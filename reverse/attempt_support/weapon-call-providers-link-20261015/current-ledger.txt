@@ -1,2 +1,0 @@
-Lib members: 28 extracted from 3 archive(s)
-link_check: 800 current-ledger object(s) missing: ^code_^game^engine_^source_^common_^inline^dtor^deleting^dtors^c03.obj, ^code_^libraries_^source_^w^w^vegas_^w^w^lib_^rva0000234^d^vector^deleting^dtors.obj, ^code_^game^engine_^source_^common_^system_^wide^length^or^zero.obj, ^code_^libraries_^source_^w^w^vegas_^w^w^math_^rva000062^f^d^segment.obj, ^code_^libraries_^source_^a^t^l_^rva00006856^dtor.obj

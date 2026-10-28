@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/VP6/ConfigureMvEntropyDecoder.cpp: LINKS  LINKED 330 -> 330 bytes (census 2026-10-27 00:39 at bf3dd31211; file's own bytes 330)
-link_check: 1 of 1 link cleanly; LINKED 330 -> 330 bytes (3.6s)

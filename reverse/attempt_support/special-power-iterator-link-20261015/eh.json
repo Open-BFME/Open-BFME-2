@@ -1,7 +1,0 @@
-{
-"?canSelectedObjectsDoSpecialPower@InGameUI@@QBE_NPBVCommandButton@@PBVObject@@PBUCoord3D@@W4SelectionRules@1@IPAV3@@Z@0x002A395C": [
-"EXACT",
-"",
-"Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoSpecialPower.cpp"
-]
-}

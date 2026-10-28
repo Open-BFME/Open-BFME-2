@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPopulate.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_wide_string_append_O1.cpp
-Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_init.cpp

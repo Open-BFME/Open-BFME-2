@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042FFC0.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 15:34 at 144ed0ccab; file's own bytes 74)
-  comdat      ??1?$allocator@PAX@_STL@@QAE@XZ  (retail: unproven and differs from the kept copy)
-  comdat      ??1?$_STLP_alloc_proxy@PAPAXPAXV?$allocator@PAX@_STL@@@_STL@@QAE@XZ  (retail: unproven and differs from the kept copy)
-  comdat      ??0?$_Vector_base@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z  (retail: unproven and differs from the kept copy)
-  comdat      ??0?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@QAE@ABV?$allocator@PAX@1@@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (4.7s)

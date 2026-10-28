@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00620A00.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 137)
-  selected    ??R?$less@H@_STL@@QBE_NABH0@Z  (the definition the link keeps is not retail's)
-Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 137)
-  selected    ??R?$less@H@_STL@@QBE_NABH0@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (3.9s)

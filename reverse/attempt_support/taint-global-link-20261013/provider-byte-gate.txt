@@ -1,2 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Data rows: OK (12 row(s) byte-verified)

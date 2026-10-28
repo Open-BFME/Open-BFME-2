@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/DX8FVFCategoryMigrateBFME2.cpp: LINKS  LINKED 0 -> 1,910 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 1,910)
-Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespacesas.cpp: LINKS  LINKED 11,651 -> 11,651 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 11,651)
-Code/Libraries/Source/WWVegas/WW3D2/Rva001447B0Dtor.cpp: LINKS  LINKED 0 -> 165 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 165)
-link_check: 3 of 3 link cleanly; LINKED 11,651 -> 13,726 bytes (3.9s)

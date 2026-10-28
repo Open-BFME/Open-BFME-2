@@ -1,9 +1,0 @@
-link_check: preparing 5 explicit safe provider(s), no extra sources
-Compile: 2 of 5 TU(s) (deps-cache: 3 current)
-Source claims: OK (5 sources, scoped byte-verified)
-Compile: 0 of 5 TU(s) (deps-cache: 5 current)
-  FAIL catch_0032db06 (Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecAddTeam.cpp)
-    unverifiable: symbol not found in object: $L4413
-  FAIL ?setGameOptions@GameSpyInfo@@UAEXXZ (Code/GameEngine/Source/GameNetwork/GameSpy/PeerDefsGameOptions.cpp)
-Functions: FAIL 2/31
-2 function(s) failed byte comparison

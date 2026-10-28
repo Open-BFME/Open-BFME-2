@@ -1,8 +1,0 @@
-{
-  "equal": true,
-  "sha256": "76c843d3c11b941498efa932ce702f363cf25462d11b903b5b70a9986ceaa9c2",
-  "exact": 11870,
-  "baselined_bytes_differ": 23,
-  "baselined_retail_only": 1,
-  "missing_objects": 0
-}

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-pin admission: REFUSED 2; nothing written
-  ?get_allocator@?$vector@VScoredKillTracker@@V?$allocator@VScoredKillTracker@@@_STL@@@_STL@@QBE?AV?$allocator@VScoredKillTracker@@@2@XZ,0x0021983A: 0x0021983A already carries the real name ?get_allocator@?$_Bvector_base@V?$allocator@_N@_STL@@@_STL@@QBE?AV?$allocator@_N@2@XZ; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: only 7 non-relocation bytes; too few to prove a fold without a proven tail-jump callee: not one five-byte direct tail jump with a zero-addend REL32
-  ??$__uninitialized_copy@PBVScoredKillTracker@@PAV1@@_STL@@YAPAVScoredKillTracker@@PBV1@0PAV1@ABU__false_type@0@@Z,0x00414359: 0x00414359 already carries the real name ??$__uninitialized_copy@PAVScoredKillTracker@@PAV1@@_STL@@YAPAVScoredKillTracker@@PAV1@00ABU__false_type@0@@Z; one address, one identity (rename the owner instead of stacking a second name); no ICF fold proof: Code/GameEngine/Source/Common/Rva004147CFCopyCtor.cpp compiles ??$__uninitialized_copy@PBVScoredKillTracker@@PAV1@@_STL@@YAPAVScoredKillTracker@@PBV1@0PAV1@ABU__false_type@0@@Z to 96 bytes; the ledger body at 0x00414359 is 38

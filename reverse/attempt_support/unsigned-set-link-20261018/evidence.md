@@ -1,9 +1,0 @@
-# Unsigned-set vector helper link repair, 2026-10-18
-
-The unsigned-key set helper unit emitted an optimized copy of vector<unsigned>::_M_set, whose real rowed /Od /Ob1 provider is stlport_vector_uint.cpp at 0x00023C80 (39 bytes). Keep the vendor header's three pointer assignments verbatim in a TU-scoped imported forceinline specialization. This preserves inline use and emits no external or imported call; only the competing helper COMDAT disappears. No name, layout, identity or pin changes.
-
-Normal byte gate passes both rows before and after. Strict-current preparation passes all 7 rows across consumer and provider. All 19 retained COMDAT digests/extents/verdicts are identical; no new COMDAT appears. EH verifier finds no EH-bearing matched parent. Paired legacy checks refresh the same census c2c5ac8c27 index with both current providers in each state: consumer changes from one live wrong-retail COMDAT to no blockers, 0 -> 185 existing bytes; provider stays clean at 218 bytes. Diagnostic unreferenced differences do not block under retail-truth-2 and are unchanged. No closed-strict, full-link or new authored-byte gain is claimed.
-
-Commands: ./build.sh <consumer>; link_check.py --prepare-current <consumer> <provider>; eh_verify.py <consumer>; find_declared_unmatched.py <consumer>; paired object proof in build/unsigned-set-link-20261018/proof.py; link_check.py <consumer> <provider>. Original source/object and detailed logs remain in that scratch directory. proof.json records object/index hashes and findings.
-
-Cause sweep: the only other indexed consumer is assetmanager_impl.cpp with 25 blockers; this change would not link that unit, so it is deferred rather than included as an unmeasured repair. Reviewed donor principle e1bf2108 at the verified BFME1 checkpoint 64d369b90170: use one real helper provider and avoid competing copies. No donor body or newer unverified pointer is imported.

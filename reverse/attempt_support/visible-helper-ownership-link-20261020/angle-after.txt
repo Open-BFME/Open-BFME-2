@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWMath/VectorAngleRva00363B4B.cpp: LINKS  LINKED 0 -> 122 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 122)
-Code/GameEngine/Source/GameLogic/AI/PathRva00365309.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 18:36 at e7a7769fe5; file's own bytes 2,170)
-  unresolved  ?rva00364AA2@Path@@QAEXPAVPathNode@@00M@Z
-  comdat      ?scale@Coord3D@@QAEXM@Z  (retail: not retail's body)
-link_check: 1 of 2 link cleanly; LINKED 0 -> 122 bytes (3.6s)

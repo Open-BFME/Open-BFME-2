@@ -1,4 +1,0 @@
-Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp self-strict True
-?Lerp@Vector3@@SAXABV1@0MPAV1@@Z not emitted
-Code/Libraries/Source/WWVegas/WWMath/vector3.cpp self-strict True
-?Lerp@Vector3@@SAXABV1@0MPAV1@@Z 85 d858ac913ecf [] 558bec8b45088b4d0cf30f1001f30f5c00f30f594510f30f58008b5514f30f1102f30f104104f30f5c4004f30f594510f30f584004f30f114204f30f104108f30f5c4008f30f594510f30f584008f30f1142085dc3

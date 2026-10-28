@@ -1,9 +1,0 @@
-link_check: preparing 7 explicit safe provider(s), no extra sources
-Compile: 0 of 7 TU(s) (deps-cache: 7 current)
-Source claims: OK (7 sources, scoped byte-verified)
-Compile: 0 of 7 TU(s) (deps-cache: 7 current)
-Functions: OK 31/31 matched across 7 source file(s)
-String-ref verify: OK (82 literals + 19 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (8 named imports verified)
-link_check: 7 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

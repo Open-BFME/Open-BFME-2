@@ -1,8 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Data rows: OK (16 row(s) byte-verified)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Functions: OK 1/1 matched
-  _VP6_init_quantizer (Code/Libraries/Source/VP6/InitQuantizer.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (10 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

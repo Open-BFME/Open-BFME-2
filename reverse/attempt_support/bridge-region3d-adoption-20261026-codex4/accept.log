@@ -1,4 +1,0 @@
-  PASS Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp
-  PASS Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferAddBridge.cpp
-  PASS Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeCtor.cpp
-  retired 3 row(s) from reverse/header_queue.tsv; commit it with the adoption

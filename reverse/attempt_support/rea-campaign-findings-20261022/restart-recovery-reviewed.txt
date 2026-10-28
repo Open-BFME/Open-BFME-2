@@ -1,9 +1,0 @@
-Recovery review, 2026-10-22
-
-FESL RVA00655B90: completed DeepSeek task read and independently reviewed. Saved candidate accepted: full 549-byte COFF extent, 220 instructions, 11 relocation records, zero non-relocation differences, all referenced data independently checked. Existing function/data ledgers are not yet integrated; no landed-byte credit is claimed. Evidence: fesl_exact_review7/report.txt and audit.json.
-
-Cancelled native reviewer c2_assignment_skeptic4 had completed older particle reviews but was interrupted during sse_route_review6. Replacement sse_route_resume6 finished this review and its result was received. Generic descriptor store834BD supports XMM;834C0 is valid after-store observation. Descriptor+20 is width in bits, not established class mask. Both polygon probes folded, so allocator exclusion and scheduler-only causation are unsupported. Evidence: sse_route_review6/report.txt and result.json.
-
-FESL integration delegated to DeepSeek as fesl_integrate_round7. Exact taskId and full brief: fesl-integration-round7-registry.json. Only minimal owning-TU and corresponding ledger/pin edits authorized; fresh four-function byte/data gates required, no commits/push/linking by worker. Parent review remains required before claiming integration.
-
-Other recovered round6 results retained in round6-recovered-results.json. Their conclusions remain worker reports, not automatically accepted proof. Dering's engineered declaration-count diagnostic is excluded from recovery credit; its claim that original source must contain 81 extra locals is not established by that experiment. Polygon causation overclaims are superseded by the resumed review. REA dossiers task was still running at recovery check; do not duplicate it.

@@ -1,7 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 159)
-  comdat      _atan2f  (retail: not retail's body)
-  comdat      _sqrtf  (first: differs from the first copy in link order (no retail address))
-  comdat      ?sqrt@@YAMM@Z  (first: differs from the first copy in link order (no retail address))
-  selected    ?atan2@@YAMMM@Z  (the definition the link keeps is not retail's)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (2.9s)

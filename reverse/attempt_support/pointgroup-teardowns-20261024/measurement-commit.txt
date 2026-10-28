@@ -1,6 +1,0 @@
-tree 36b69c1d5405c7b1d7d72787a8a6b4e528fc771c
-parent 4627541fff173253e57554b91fd195684f7a6927
-author Ostkannit <Konstantin.von.eltz@gmail.com> 1792833991 +0200
-committer Ostkannit <Konstantin.von.eltz@gmail.com> 1792834743 +0200
-
-Use real VectorClass destructors for PointGroup global teardown

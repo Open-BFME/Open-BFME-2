@@ -1,6 +1,0 @@
-?CollidesWith@GeometryInfo@@QBE_NABUCoord3D@@MABV1@0M@Z (build/round43-contact-combopodpos.cpp)
-target RVA: 0x006BEB80
-target size: 821 bytes
-compiled symbol size: 821 bytes
-classification: exact match
-OK: bytes match

@@ -1,8 +1,0 @@
-Code/GameEngine/Source/GameLogic/Object/Update/CritterEmitterUpdateUpdate.cpp
-Code/GameEngine/Source/Common/Rva0028BAC0.cpp
-Code/GameEngine/Source/Common/System/SaveGame/GameStateInit.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicGetCRC.cpp
-Code/GameEngine/Source/Common/System/SubsystemSingletonPointers.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicInit.cpp
-Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp
-Code/GameEngine/Source/GameLogic/Object/ObjectRva0028DCC4.cpp

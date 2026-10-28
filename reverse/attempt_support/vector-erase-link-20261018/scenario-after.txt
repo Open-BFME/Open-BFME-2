@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenario.cpp: LINKS  LINKED 0 -> 1,159 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 1,159)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 1,159 bytes (3.4s)

@@ -1,6 +1,0 @@
-link_check: preparing 17 explicit safe provider(s), no extra sources
-deps-cache: no include inventory for Code\GameEngine\Source\Common\W3DShadowTextureCtor.cpp — ['(macro or parent-traversing include has unknown search roots)', '(an included header lies outside the inventoried search roots)']
-deps-cache: no include inventory for Code\GameEngineDevice\Source\W3DDevice\GameClient\Drawable\Draw\W3DDebrisDraw.cpp — ['(macro or parent-traversing include has unknown search roots)', '(an included header lies outside the inventoried search roots)']
-deps-cache: no include inventory for Code\GameEngineDevice\Source\W3DDevice\GameClient\Drawable\Draw\W3DDebrisDrawLegacy.cpp — ['(macro or parent-traversing include has unknown search roots)', '(an included header lies outside the inventoried search roots)']
-deps-cache: no include inventory for Code\GameEngineDevice\Source\W3DDevice\GameClient\Shadow\W3DVolumetricShadow.cpp — ['(macro or parent-traversing include has unknown search roots)', '(an included header lies outside the inventoried search roots)']
-link_check: Code\GameEngine\Source\Common\W3DShadowTextureCtor.cpp has no strict reusable compiler receipt; uncacheable inputs are not prepared by this mode

@@ -1,9 +1,0 @@
-{
-  "problems": [],
-  "receipt": {
-    "output": "/work7/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^message^stream_^selection^i^d^map^destructor.obj",
-    "bindings": {
-      "?clear@?$hashtable@U?$pair@$$CBH_N@_STL@@HU?$hash@H@2@U?$_Select1st@U?$pair@$$CBH_N@_STL@@@2@U?$equal_to@H@2@V?$allocator@U?$pair@$$CBH_N@_STL@@@2@@_STL@@QAEXXZ": 1948892
-    }
-  }
-}

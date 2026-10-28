@@ -1,2 +1,0 @@
-EH verify: 11718 row(s) with EH data (EXACT 11679, bytes_differ 37, retail_only 2); 39 not exact, 39 in baseline; 0 row(s) without an object; 95.2s
-  differing sections: .text$x 22, .xdata$x 8, .text$x dllimport 7

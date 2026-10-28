@@ -1,9 +1,0 @@
-link_check: preparing 10 explicit safe provider(s), no extra sources
-Compile: 0 of 10 TU(s) (deps-cache: 10 current)
-Source claims: OK (10 sources, scoped byte-verified)
-Compile: 0 of 10 TU(s) (deps-cache: 10 current)
-Functions: OK 74/74 matched across 10 source file(s)
-String-ref verify: OK (96 literals + 4 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (4 compiler literals verified)
-Import-ref verify: OK (3 named imports verified)
-link_check: 10 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

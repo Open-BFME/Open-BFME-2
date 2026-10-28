@@ -1,7 +1,0 @@
-Source claims: OK (2 sources, scoped byte-verified)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_0077e6b0 (Code/GameEngine/Source/GameLogic/AI/AIGroupScatter.cpp): $L5084 was renumbered; verified parent EH data places $L5162 at 0x0077E6B0
-Functions: OK 4/4 matched across 2 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

@@ -1,2 +1,0 @@
-data_check: Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp	wrong-name	?g_Va00DBD0F0@@3HA	0x009BD0F0
-data_check (enforce): 2 source(s), 1 finding(s), 1 outside the baseline {'wrong-name': 1}; 0.9s

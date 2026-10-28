@@ -1,6 +1,0 @@
-from trials import *
-b=(ROOT/'Code/GameEngine/Source/GameClient/MessageStream/PlaceEventTranslator.cpp').read_text();a,c=b.split('\tcase 23:',1)
-for old,names in [('build',['pendingBuild','buildTemplate','templateToBuild','type','pendingType']),('builderObj',['builderObject','builder','sourceObject','dozer'])]:
- for new in names:
-  t=a+'\tcase 23:'+re.sub(r'\b'+old+r'\b',new,c)
-  if trial('name-'+new,t,'?translateGameMessage@PlaceEventTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z',0x43218a,1701,'header-repair').get('exact'):raise SystemExit(0)

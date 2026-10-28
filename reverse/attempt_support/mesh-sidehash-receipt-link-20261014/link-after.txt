@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WW3D2/meshmdl_sidehash.cpp: LINKS  LINKED 0 -> 2,408 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 2,408)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 2,408 bytes (3.1s)

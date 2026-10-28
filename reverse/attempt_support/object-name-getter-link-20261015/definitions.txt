@@ -1,2 +1,0 @@
-note: Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateTeamStateIs.cpp: 50 matched row(s), 1 unclaimed definition(s)
-All defined functions are already matched.

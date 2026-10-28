@@ -1,3 +1,0 @@
-Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenMotionBlurFilterSet.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 448)
-  comdat      ?Set_Material@DX8Wrapper@@SAXPBVVertexMaterialClass@@@Z  (retail: unproven and differs from the kept copy)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (5.9s)

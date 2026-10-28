@@ -1,7 +1,0 @@
-{
-  "?getCommandList@NetPacket@@QAEPAVNetCommandList@@XZ@0x00593F15": [
-    "EXACT",
-    "",
-    "Code/GameEngine/Source/GameNetwork/NetPacket.cpp"
-  ]
-}

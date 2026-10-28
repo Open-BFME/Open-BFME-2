@@ -1,4 +1,0 @@
-Coord3D: 1 units, header Code/Libraries/Include/Lib/Coord3D.h (registered)
-  variant registered     0/1 pass  (4s)
-Coord3D: winner registered: 0/1 pass (0%), 1 queued
-  failures: {'bytes/callee identity': 1}

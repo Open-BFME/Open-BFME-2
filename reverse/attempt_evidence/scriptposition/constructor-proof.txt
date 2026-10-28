@@ -1,6 +1,0 @@
-??0ScriptPositionRecord@@QAE@XZ (build/w7g1-r2/position-providers.cpp)
-target RVA: 0x00326BE6
-target size: 6 bytes
-compiled symbol size: 6 bytes
-classification: exact match
-OK: bytes match

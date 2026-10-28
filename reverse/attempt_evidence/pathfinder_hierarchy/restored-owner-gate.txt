@@ -1,7 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    $L11985 (Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp): $L11985 was renumbered; verified parent EH data places $L14053 at 0x00778DC0
-Functions: OK 56/56 matched across 1 source file(s)
-String-ref verify: OK (101 literals + 3 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (36 compiler literals verified)
-Import-ref verify: OK (10 named imports verified)

@@ -1,5 +1,0 @@
-link_check: replaced the census definitions of 1,739 object(s) rebuilt since the census
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-25 03:51 at ce1b975697; file's own bytes 302)
-  unresolved  ?_M_create_node@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@IAEPAU?$_Rb_tree_node@URva0027EA49@@@2@ABURva0027EA49@@@Z
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (21.6s)

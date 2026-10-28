@@ -1,5 +1,0 @@
-# Final Unicode constructor provider repair
-
-Use the native size profile while the existing Unicode header defines the manager's default constructor, then restore the source's normal optimization settings. The source now matches the original complete five-fix candidate exactly. The constructor is the complete native 6-byte body at 0x00326BE6 instead of a conflicting 9-byte copy. The complete 217-byte subtitle vector growth body and all of its resolved relocations remain exact; no masked or unresolved reference is accepted.
-
-All 25 owned rows, string/import references, parser EH, frozen-source and CSV checks pass. The paired current-object preview improves 470 to 2270 nonpadding linked bytes across the same three sources on the same published index: this final fix adds 1800 bytes, with zero remaining scoped findings and no native-body regression. The preceding four-fix group cleared the other four distinct blocker names. This is a linkage repair, not new C++ recovery or a full-game/closed-strict link.

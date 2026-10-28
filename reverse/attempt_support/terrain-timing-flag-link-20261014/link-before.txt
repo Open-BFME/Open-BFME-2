@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 445)
-  unresolved  ??0Rva00082329@@QAE@XZ
-  unresolved  ?g_Va00DFE7A8@@3IA
-  unresolved  ?rva0009A254@W3DShadowManager@@QAEXXZ
-Code/GameEngine/Source/Common/Rva003B9EC4.cpp: LINKS  LINKED 108 -> 108 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 108)
-link_check: 1 of 2 link cleanly; LINKED 108 -> 108 bytes (3.0s)

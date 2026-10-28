@@ -1,2 +1,0 @@
-Lib members: 28 extracted from 3 archive(s)
-link_check: 22,249 current-ledger object(s) missing: ^code_^game^engine_^source_^common_^disp^dword^field^getters.obj, ^code_^game^engine_^source_^common_^disp^byte^field^setters.obj, ^code_^game^engine_^source_^common_^bfme5^small^tests.obj, ^code_^game^engine_^source_^common_^rva^small^vtable^ctors.obj, ^code_^game^engine_^source_^common_^vector^deleting^dtors^v07.obj

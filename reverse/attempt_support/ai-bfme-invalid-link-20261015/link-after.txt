@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-15 12:36 at 4b7e7091c4; file's own bytes 5,952)
-  unresolved  ?Rva002F1BA2@Pathfinder@@QAE_NPAX0W4PathfindLayerEnum@@PBUCoord3D@@2@Z
-  unresolved  ?rva003468F5@AIChargeTargetState@@AAE_NXZ
-  unresolved  ?rva0034BFFF@AIChargeTargetState@@AAEXPAVObject@@@Z
-  unresolved  ?rva0049CB57@WeaponTemplate@@QBEMXZ
-  comdat      ?scale@Coord3D@@QAEXM@Z  (retail: not retail's body)
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (3.1s)

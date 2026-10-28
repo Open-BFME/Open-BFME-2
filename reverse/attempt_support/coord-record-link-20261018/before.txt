@@ -1,2 +1,0 @@
-Code/Libraries/Source/WWVegas/WWLib/StlportCoordVectorRecordInsert.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 11:36 at c2c5ac8c27; file's own bytes 258)
-  comdat      ??0ICoord2D@@QAE@XZ  (retail: unproven and differs from the kept copy)

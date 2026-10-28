@@ -1,5 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollideOnCollide.cpp: LINKS  LINKED 0 -> 1,152 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 1,152)
-Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp: LINKS  LINKED 45 -> 45 bytes (census 2026-10-20 05:34 at b73720bed9; file's own bytes 45)
-link_check: 2 of 2 link cleanly; LINKED 45 -> 1,197 bytes (5.1s)

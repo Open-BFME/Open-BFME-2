@@ -1,8 +1,0 @@
-[
-  {
-    "object": "build/match/^code_^libraries_^source_^v^p6_^init^quantizer.obj",
-    "source": "Code/Libraries/Source/VP6/InitQuantizer.cpp",
-    "before": "844a41eaea5b7ec621961c1c4c6470a2914099ae6013b1fa9ea985b723007491",
-    "after": "917c0673b66e8192db1c3b5fcd4a797dacfd8edbbc1c292ce04ef0a44b55cbca"
-  }
-]

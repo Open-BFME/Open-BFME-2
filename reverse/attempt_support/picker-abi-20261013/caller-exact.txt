@@ -1,6 +1,0 @@
-?rva005CBB4A@Rva005CBB4A@@QAEXPAXHH@Z (build/w6-sol2-r2-picker/caller-b.cpp)
-target RVA: 0x005CBB4A
-target size: 331 bytes
-compiled symbol size: 331 bytes
-classification: exact match
-OK: bytes match

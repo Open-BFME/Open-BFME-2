@@ -1,4 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-23 03:12 at 491a8b3d87; file's own bytes 290)
-  unresolved  ??1?$_Rb_tree@URva00463D59Element@@U1@U?$_Identity@URva00463D59Element@@@_STL@@U?$less@URva00463D59Element@@@3@V?$allocator@URva00463D59Element@@@3@@_STL@@QAE@XZ
-link_check: 0 of 1 link cleanly; LINKED 0 -> 0 bytes (19.2s)

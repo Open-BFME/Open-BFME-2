@@ -1,1 +1,0 @@
-name_dependents: 7 call target(s) and 4 data-row target(s) lost (?rva00031430@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z, ?rva000327E0@GeneralAllocator@Allocator@EA@@QAEHPBXIPAD@Z, ?rva00034d10@Rva000353B0@@QAEPAXHHHH@Z, ...); 0 referencing unit(s) of 23434 scanned in 2.5s

@@ -1,9 +1,0 @@
-{
-  "source": "/work7/Open-BFME-2/build/vp6-1c5e30-20261023/dup-r0-unfiltered-s2-p1-t0.cpp",
-  "cases": 1238,
-  "failures": 0,
-  "source_sha256": "b03a75e3b0d8177a6d006a2b89eb3ab51d2abe484c212947b221bc69e9d97e99",
-  "retail_sha256": "4db8db0dc2d1b92c009d33e823955f3c4a75bd9a7cb5adab3f72f3a4784a0e52",
-  "compiled_sha256": "8e5c1c610aa21e867f911d771663b2dcec1e703eb060b93905cf9f411a7715b2",
-  "examples": []
-}

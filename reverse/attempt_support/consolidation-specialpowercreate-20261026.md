@@ -1,5 +1,0 @@
-# Consolidation handoff: SpecialPowerCreate.cpp
-
-Allocated destination: `Code/GameEngine/Source/GameLogic/Object/Create/SpecialPowerCreate.cpp` (shard 0/5, allocation check passed). Scoped name-lane report/check passed. Plan: 6 approved rows, 3 donor files, 2 mixed files, none refused. Unchanged merge dry-run accepts `SpecialPowerCreatePoolKey.cpp` and `SpecialPowerCreateOnBuildComplete.cpp`, but rejects `SpecialPowerCreateConstructor.cpp` with C2511: `SpecialPowerCreate::SpecialPowerCreate(Thing *, const ModuleData *)` has no matching declaration.
-
-Mixed `ConstIntGetters4.cpp` row 0x004B936F split dry-run is accepted unchanged, but the only row cannot be committed in isolation under this lane; leave for a batch with the TU merge it enables. Mixed `Rva004B8CDEDerived.cpp` row 0x004B9375 split dry-run is blocked because a copied helper/datum would grow an escape-hatch count. Neither split was applied. No claims or edits were made. Constructor signature repair and hatch ownership need Sol; retain this exact evidence and move to another TU.

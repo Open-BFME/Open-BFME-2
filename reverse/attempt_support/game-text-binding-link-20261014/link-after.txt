@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameClient/Rva0059F9FBProgressLabel.cpp: LINKS  LINKED 0 -> 340 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 340)
-Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 552)
-  unresolved  ?getSupplyBoxValue@Player@@QAEHXZ
-  unresolved  ?rva0039AE04@ExperienceTracker@@QBE_NXZ
-Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp: LINKS  LINKED 153 -> 153 bytes (census 2026-10-14 07:27 at 147cfae2cb; file's own bytes 153)
-link_check: 2 of 3 link cleanly; LINKED 153 -> 493 bytes (3.0s)

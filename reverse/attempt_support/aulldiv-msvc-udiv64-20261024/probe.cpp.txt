@@ -1,4 +1,0 @@
-// cl: /O1 /G6 /GS- /MD
-extern "C" unsigned __cdecl _udiv64(unsigned __int64,unsigned,unsigned *);
-#pragma intrinsic(_udiv64)
-extern "C" unsigned __stdcall probe(unsigned __int64 n,unsigned d,unsigned *rem) { return _udiv64(n,d,rem); }

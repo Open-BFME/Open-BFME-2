@@ -1,3 +1,0 @@
-Code/GameEngine/Source/GameClient/System/FXParticleSystem/RenderObjectDrawModuleDoParticles.cpp
-Code/Libraries/Source/WWVegas/WW3D2/texproject.cpp
-Code/Libraries/Source/WWVegas/WWMath/matrix3d.cpp

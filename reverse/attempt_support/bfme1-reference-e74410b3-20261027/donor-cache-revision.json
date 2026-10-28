@@ -1,5 +1,0 @@
-{
-  "reference": "e74410b3738a2bb75d626085d9ebfd3406a43ff7",
-  "scan_command": "python3 tools/bfme1_sweep.py scan --min-size 16",
-  "match_sha256": "c9522eb1da45369c924d1c250aef6ffe7654579936b3b5547a06ee3c0e519b2a"
-}

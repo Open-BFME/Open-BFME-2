@@ -1,7 +1,0 @@
-# NameKeyGenerator lowercase-key link handoff
-
-The original 187-byte body at RVA 0x00620500 is unchanged. Its current legacy link probe reports 0/187 B: the donor namekeygenerator ASCII shim emits a differing default AsciiString constructor and non-retail char-pointer assignment. No repair landed.
-
-At BFME2 b3d442b893, BFME1 donor 68c5ce2789e974f36b6c742d57437d157bc159e9, two trials were made with the existing canonical bfme2_ascii_zh / bfme2_ascii headers force-included before PreRTS.h. The first changed the inline explicit-length StringBase::set call into AsciiString::operator=(char const*) and failed the full byte gate. The second (trial.patch) calls StringBase<char>::set(text, strlen(text)) explicitly, retaining the target callee, but register allocation, hash-index lifetime and loop shape still differ; it also failed. Diagnostic gate outputs are retained. No false rejection is asserted.
-
-Target evidence: native body uses a 12-byte nonvirtual legacy bucket, sockets at this+4, next ID at this+0x2bf40, and StringBase<char>::set(text, length). These intentionally differ from the other NameKeyGenerator methods. Preserve that existing local ABI view. The donor shim's inline strlen wrapper and compiler inlining context remain the likely prerequisite; these trials do not establish that the canonical wrapper can replace it. No additional source/codegen variants were attempted after the seat's two-failure limit. The source was restored; revisit only with new wrapper/codegen evidence.

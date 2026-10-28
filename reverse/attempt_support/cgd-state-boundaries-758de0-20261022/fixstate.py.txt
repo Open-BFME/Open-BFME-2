@@ -1,7 +1,0 @@
-from pathlib import Path
-W=Path(__file__).resolve().parent
-out=W/'fixedstate';out.mkdir(exist_ok=True)
-for src in sorted((W/'fieldmodels').glob('*.cpp')):
- if not 512<=int(src.stem[1:])<768:continue
- s=src.read_text().replace('node->state==0','node->state==0U').replace('node->state==2','node->state==2U')
- (out/src.name).write_text(s)

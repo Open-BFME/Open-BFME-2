@@ -1,5 +1,0 @@
-Code/GameEngine/Source/Common/RTS/TeamCtor.cpp | ??0Team@@QAE@PAVTeamPrototype@@H@Z | RVA 0x003a39a7 extent 471 | REL32 +0x173 | call 0x003a3b19 -> 0x00005629
-Code/GameEngine/Source/Common/RTS/TeamCtor.cpp | ??0Team@@QAE@PAVTeamPrototype@@H@Z | RVA 0x003a39a7 extent 471 | REL32 +0x18c | call 0x003a3b32 -> 0x00005629
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp | ?parseBaseTemplateFiles@BaseTemplateLibrary@@QAEXXZ | RVA 0x0041f095 extent 457 | REL32 +0x74 | call 0x0041f108 -> 0x00005629
-Code/GameEngine/Source/GameLogic/SkirmishAI/AIBaseBuilder/BaseTemplateLibraryParseBaseTemplateFiles.cpp | ?parseBaseTemplateFiles@BaseTemplateLibrary@@QAEXXZ | RVA 0x0041f095 extent 457 | REL32 +0x8d | call 0x0041f121 -> 0x00005629
-Code/GameEngine/Source/GameClient/MapCacheWriteCacheINI.cpp | ?writeCacheINI@MapCache@@AAEX_N@Z | RVA 0x00303409 extent 1503 | REL32 +0xa1 | call 0x003034a9 -> 0x00005629

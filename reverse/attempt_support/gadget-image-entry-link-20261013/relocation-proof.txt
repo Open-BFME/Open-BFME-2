@@ -1,7 +1,0 @@
-?GadgetListBoxSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z 0x00325FBF 3111 strict-current=True object=/work3/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^g^u^i_^gadget_^gadget^list^box^system.obj
-caller REL32 +674 -> 00324D84 helper=?addImageEntry@@YAHPBVImage@@HHHPAVGameWindow@@HH@Z
-extent tail=e86a72006a6b72002e6b7200
-?addImageEntry@@YAHPBVImage@@HHHPAVGameWindow@@HH@Z 0x00324D84 270 strict-current=True object=/work3/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^g^u^i_^gadget_^gadget^list^box^system.obj
-helper DIR32 +10 ?TheWritableGlobalData@@3PAVGlobalData@@A retailVA=00DFE758 addend=0
-helper DIR32 +B5 ?TheDisplayStringManager@@3PAVDisplayStringManager@@A retailVA=00DFEAD8 addend=0
-extent tail=1059eb0383c8ff5f5e5b5dc3

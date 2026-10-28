@@ -1,8 +1,0 @@
-Source claims: OK (3 sources, scoped byte-verified)
-Data rows: OK (1 row(s) byte-verified)
-Compile: 1 of 3 TU(s) (deps-cache: 2 current)
-  FAIL ??0Rva00355D66@@QAE@XZ (Code/GameEngine/Source/Common/Rva00355D4ECtor.cpp)
-    target:   8b d1 e8 0b ff ff ff 83 62 08 00 c7 02 5c 4e c1 00 c6 42 0c 01 8b c2 c3
-    compiled: 56 8b f1 e8 0a ff ff ff 83 66 08 00 c7 06 4e c1 00 c6 c6 46 0c 01 8b c6
-Functions: FAIL 1/5
-1 function(s) failed byte comparison

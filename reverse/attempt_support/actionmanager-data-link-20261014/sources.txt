@@ -1,4 +1,0 @@
-Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp
-Code/GameEngine/Source/GameLogic/AI/AIEnterStateOnEnter.cpp
-Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp
-Code/GameEngine/Source/GameClient/GameClient.cpp

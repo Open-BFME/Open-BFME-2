@@ -1,9 +1,0 @@
-from trials import *
-b=(ROOT/'build/astra-high-a/merge/string-inclass-6/c1.cpp').read_text();sym='?rva002B49A8@LivingWorldLogic@@QAEXXZ'
-b=b.replace('void LivingWorldLogic::rva002B49A8(){','extern "C" void _ReadWriteBarrier();\n#pragma intrinsic(_ReadWriteBarrier)\nvoid LivingWorldLogic::rva002B49A8(){')
-old='Rva002B5334ArmyList *regions=m_field0B0->m_armySet;';vs=[]
-for repl in ['_ReadWriteBarrier();'+old, old+'_ReadWriteBarrier();', 'LivingWorldRegionManager*mgr=m_field0B0;_ReadWriteBarrier();Rva002B5334ArmyList*regions=mgr->m_armySet;', 'Rva002B5334ArmySet*set=m_field0B0->m_armySet;_ReadWriteBarrier();Rva002B5334ArmyList*regions=set;', 'Rva002B5334ArmySet*const&set=m_field0B0->m_armySet;Rva002B5334ArmyList*regions=set;', 'Rva002B5334ArmySet**slot=&m_field0B0->m_armySet;Rva002B5334ArmyList*regions=*slot;', 'Rva002B5334ArmySet*volatile&slot=m_field0B0->m_armySet;Rva002B5334ArmyList*regions=*(Rva002B5334ArmySet**)&slot;']:
- vs.append(('entry-barrier-'+str(len(vs)),b.replace(old,repl)))
-for name,t in vs:
- r=trial(name,t,sym,0x2b49a8,336,'merge')
- if r.get('exact'):break

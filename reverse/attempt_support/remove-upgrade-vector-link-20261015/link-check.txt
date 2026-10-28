@@ -1,3 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgradeImplementation.cpp: LINKS  LINKED 0 -> 528 bytes (census 2026-10-15 12:37 at 825b86983f; file's own bytes 528)
-link_check: 1 of 1 link cleanly; LINKED 0 -> 528 bytes (3.3s)

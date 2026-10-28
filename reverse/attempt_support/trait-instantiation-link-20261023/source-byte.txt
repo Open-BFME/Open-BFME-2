@@ -1,6 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Functions: OK 1/1 matched
-  ?_Ret@?$_OKToMemCpy@URva00584D3FElement@@U1@@_STL@@SA?AU__false_type@2@XZ (Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva00584D3F.cpp)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (0 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

@@ -1,7 +1,0 @@
-from pathlib import Path
-import re
-W=Path('build/netpacket-20261022c');W.mkdir(parents=True,exist_ok=True)
-bank=Path('reverse/attempts/0x00593f15.cpp').read_text();(W/'bank.cpp').write_text(bank)
-sig='NetCommandList *NetPacket::getCommandList()\n';h,b=bank.split(sig,1)
-b=b.replace('\tInt offset;\n','').replace('\t\t\toffset = i;\n','').replace('\t\t\ti = offset;\n','');b=re.sub(r'\boffset\b','i',b)
-(W/'single.cpp').write_text(h+sig+b)

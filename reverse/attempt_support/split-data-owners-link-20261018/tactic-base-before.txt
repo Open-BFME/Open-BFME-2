@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/Rva005A990BTactic.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 239)
-  duplicate   ?AIBasePenetrationTroopsTactic_IsRunning@@3VAsciiString@@A
-  duplicate   ?g_00E06408@@3HA
-Code/GameEngine/Source/Common/Rva005A990BTactic_CanRun.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-18 08:17 at 2967eab33e; file's own bytes 128)
-  unresolved  ?checkTarget@AITacticOffensive@@QAEEPAX@Z
-  duplicate   ?AIBasePenetrationTroopsTactic_IsRunning@@3VAsciiString@@A
-  duplicate   ?g_00E06408@@3HA
-link_check: 0 of 2 link cleanly; LINKED 0 -> 0 bytes (4.1s)

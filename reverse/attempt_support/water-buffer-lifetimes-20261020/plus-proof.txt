@@ -1,6 +1,0 @@
-??H@YA?AVMathCoord2D@@V0@ABV0@@Z (C:/Users/clemens/Documents/Experiments/Open-BFME-2/build/water-bank-ready-oct20/best.cpp)
-target RVA: 0x0007DEC8
-target size: 39 bytes
-compiled symbol size: 39 bytes
-classification: exact match
-OK: bytes match

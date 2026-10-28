@@ -1,1 +1,0 @@
-native FF15+14 and IAT operand+16 BBA518; emitted [(16, 6, '__imp___strcmpi')]; unmasked byte differences []

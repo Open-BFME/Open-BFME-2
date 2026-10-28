@@ -1,8 +1,0 @@
-references: 191
-  owner      172
-  alias      11
-  eh         5
-  fold       2
-  wrong      1
-rows with a wrong binding: 1
-  wrong/extent: 1

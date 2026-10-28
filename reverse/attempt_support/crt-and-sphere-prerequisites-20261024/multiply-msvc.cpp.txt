@@ -1,2 +1,0 @@
-// cl: /O1 /G6 /GS- /MD
-extern "C" unsigned __int64 __stdcall _allmul(unsigned __int64 a,unsigned __int64 b){unsigned al=(unsigned)a,bl=(unsigned)b,ah=(unsigned)(a>>32),bh=(unsigned)(b>>32); if((ah|bh)==0) return (unsigned __int64)al*bl; unsigned c=ah*bl; c+=al*bh; unsigned __int64 p=(unsigned __int64)al*bl; return p+((unsigned __int64)c<<32);}

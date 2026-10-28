@@ -1,5 +1,0 @@
-row ??6@YAAAVDebug@@AAV0@ABURegion3D@@@Z 0x0000517C 47
-object C:\Users\nleig\.codex\worktrees\bce2\Open-BFME-2\build\match\^code_^libraries_^source_^w^w^vegas_^w^w^math_region.obj
-bytes 568b74240c56ff74240ce8000000008b10595983c60c5668000000008bc8ff523850e8000000008b44241059595ec3
-references [(11, 20, '??6@YAAAVDebug@@AAV0@ABUCoord3D@@@Z', 0), (24, 6, '??_C@_03NLJIHOMM@?5?9?5?$AA@', 69), (35, 20, '??6@YAAAVDebug@@AAV0@ABUCoord3D@@@Z', 0)]
-retail 568b74240c56ff74240ce82fffffff8b10595983c60c566808b9bb008bc8ff523850e817ffffff8b44241059595ec3

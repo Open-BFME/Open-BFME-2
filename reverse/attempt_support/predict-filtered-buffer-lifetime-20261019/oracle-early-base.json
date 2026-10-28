@@ -1,9 +1,0 @@
-{
-  "source": "build\\predict-buffer-lifetime-oct19\\early-base.cpp",
-  "cases": 1238,
-  "failures": 0,
-  "source_sha256": "342be7be3a86a6849f355a0631adeb9bd22b918a4d383e5b488b11a36343d676",
-  "retail_sha256": "4db8db0dc2d1b92c009d33e823955f3c4a75bd9a7cb5adab3f72f3a4784a0e52",
-  "compiled_sha256": "8fb81451fefd2cfbc4a5c3eaf90bbe7960fbec631baf7f971a463a2106a855fc",
-  "examples": []
-}

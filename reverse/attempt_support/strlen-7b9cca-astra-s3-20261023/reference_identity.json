@@ -1,8 +1,0 @@
-{
-  "bfme1_hex": "8b4c24048a118d410184d274078a104084d275f92bc148c3",
-  "bfme1_exact": true,
-  "bfme1_image_sha256": "1fbdc0ced8f283732c094c4f0804ce8dc1e3e3675b720bcab066c94fed964e75",
-  "bfme1_rva": "0x00C72A59",
-  "toolchain_files": 274,
-  "toolchain_hits": []
-}

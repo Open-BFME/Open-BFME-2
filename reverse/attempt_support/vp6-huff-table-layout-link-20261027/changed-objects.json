@@ -1,8 +1,0 @@
-[
-  {
-    "object": "build/match/^code_^libraries_^source_^v^p6_^huff^tokens.obj",
-    "source": "Code/Libraries/Source/VP6/HuffTokens.cpp",
-    "before": "fd5be5d1e41bf995bdbea12e5606e253d34f596d62389dc0bac3676cf3b6f1b7",
-    "after": "767b1dacb593845cf66f8c2f1fd7811e176cea6893602658d704c4c1e1d7f0a3"
-  }
-]

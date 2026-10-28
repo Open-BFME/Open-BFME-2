@@ -1,6 +1,0 @@
-Published index: {'date': '2026-10-26 19:02', 'commit': '5ce093a71a', 'clean_tree': True}
-Current receipt: ^code_^game^engine_^source_^game^logic_^object_^update_^special^ability^update.obj
-Retired donor object: ^code_^game^engine_^source_^game^logic_^object_^update_^rva0044^e^e^c^a^check.obj
-Composition result: {'unresolved': [], 'duplicates': [], 'comdat': [], 'addresses': [], 'selected': [], 'unreferenced_differs': []}
-Moved predicate binding: 20 ?friend_getFinalOverride@Overridable@@QBEPBV1@XZ 0x288609 owner 
-Moved predicate binding: 71 ?friend_getFinalOverride@Overridable@@QBEPBV1@XZ 0x288609 owner 

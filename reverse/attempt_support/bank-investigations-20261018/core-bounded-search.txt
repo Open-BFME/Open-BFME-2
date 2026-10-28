@@ -1,2 +1,0 @@
-{"rva": "0x00032b00", "symbol": "?rva00032B00@GeneralAllocator@Allocator@EA@@QAEPAXI@Z", "size": 343, "start": 0.9741, "best": 0.9741, "exact": false, "trials": 1250, "stop": "no gain in 600 trials", "v": 3}
-permute: 0 of 1 closed exactly

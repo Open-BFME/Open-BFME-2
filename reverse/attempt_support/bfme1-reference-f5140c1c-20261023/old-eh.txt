@@ -1,2 +1,0 @@
-EH verify: 11894 row(s) with EH data (EXACT 11870, bytes_differ 23, retail_only 1); 24 not exact, 24 in baseline; 0 row(s) without an object; 8.4s
-  differing sections: .text$x 16, .xdata$x 7

@@ -1,9 +1,0 @@
-{
-  "index_sha256": "690c439e363fa77529591edc18a0939404a7a9ca58ec95972585241c9413f53a",
-  "meta": {
-    "date": "2026-10-14 07:27",
-    "commit": "147cfae2cb"
-  },
-  "base": "de546401389634e1006f7dfe3f7692e5297cb937",
-  "donor_revision": "a7c38d3b2597121f178ab5190b3062478823257d"
-}

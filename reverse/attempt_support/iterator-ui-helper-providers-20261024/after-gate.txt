@@ -1,9 +1,0 @@
-Source claims: OK (8 sources, scoped byte-verified)
-Data rows: OK (2 row(s) byte-verified)
-Compile: 0 of 8 TU(s) (deps-cache: 8 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    $L4590 (Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp): $L4590 was renumbered; verified parent EH data places $L4499 at 0x0077C2EA
-Functions: OK 36/36 matched across 8 source file(s)
-String-ref verify: OK (207 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (3 compiler literals verified)
-Import-ref verify: OK (2 named imports verified)

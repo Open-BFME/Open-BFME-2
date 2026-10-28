@@ -1,6 +1,0 @@
-tree 3296f61b94a7b9cf6eeb53567c2ae902a02c6167
-parent 7319984d1f2ac91c1029a0f4c9c70fca8b1630f4
-author Ostkannit <Konstantin.von.eltz@gmail.com> 1792657970 +0200
-committer Ostkannit <Konstantin.von.eltz@gmail.com> 1792657970 +0200
-
-Remove ineffective PointGroup optimization regions and verify link closure

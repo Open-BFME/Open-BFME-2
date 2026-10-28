@@ -1,2 +1,0 @@
-## 1 bodies, 0 pins
-BODY	0x001494F0	22	Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorCollectMaterials.cpp	??0?$RefCountPtr@VTextureClass@@@@QAE@ABV0@@Z

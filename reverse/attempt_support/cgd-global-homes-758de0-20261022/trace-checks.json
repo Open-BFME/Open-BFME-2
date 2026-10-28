@@ -1,7 +1,0 @@
-{
-  "early-bank": {"size":333,"relocations":0,"sha256":"01e69aef7e003a734f1bc04dc4faf28fd44f3c0d6757d8db6f5fb935382ab90e","positional_differences":31},
-  "late-bank": {"size":333,"relocations":0,"sha256":"01e69aef7e003a734f1bc04dc4faf28fd44f3c0d6757d8db6f5fb935382ab90e","positional_differences":31},
-  "early-global": {"size":333,"relocations":0,"sha256":"01e69aef7e003a734f1bc04dc4faf28fd44f3c0d6757d8db6f5fb935382ab90e","positional_differences":31},
-  "rounds": {"size":333,"relocations":0,"sha256":"01e69aef7e003a734f1bc04dc4faf28fd44f3c0d6757d8db6f5fb935382ab90e","positional_differences":31},
-  "early-offset": {"size":333,"relocations":0,"sha256":"8851ad5ac257511fa8dacd626f7fe2ba7224265fcfe57c40b2fa6d1173a93dec","positional_differences":72}
-}

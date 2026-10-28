@@ -1,4 +1,0 @@
-#!/bin/bash
-# vrun.sh DIR : compile + score every DIR/*.cpp in parallel (8), print sorted "name size nd fitness"
-cd /work2/Open-BFME-2/build/c2tr
-ls $1/*.cpp | xargs -P 8 -I{} sh -c 'rm -f {}.obj; python3 cerr.py {} >/dev/null 2>&1; r=$(timeout 300 python3 objscore.py {}.obj {} 2>&1 | tail -1); echo "$(basename {}) $r"' | sort -k3n

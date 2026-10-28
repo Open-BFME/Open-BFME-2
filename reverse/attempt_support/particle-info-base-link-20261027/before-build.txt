@@ -1,8 +1,0 @@
-Source claims: OK (1 sources, scoped byte-verified)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Funclet pins: 1 row(s) verified past a renumbered $L label
-    uw_00799c3e (Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva0056224FCtor.cpp): $L515 was renumbered; verified parent EH data places $L526 at 0x00799C3E
-Functions: OK 7/7 matched across 1 source file(s)
-String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
-Float-ref verify: OK (1 compiler literals verified)
-Import-ref verify: OK (0 named imports verified)

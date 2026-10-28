@@ -1,9 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp: LINKS  LINKED 572 -> 572 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 572)
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup.cpp: LINKS  LINKED 633 -> 633 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 633)
-Code/GameEngine/Source/GameNetwork/GameSpy/Thread/GameResultsQueueStartup_Unresolved.cpp: does not link  LINKED 0 -> 0 bytes (census 2026-10-23 06:28 at 456ce161c5; file's own bytes 285)
-  comdat      ??_7Rva0041A644@@6B@  (first: differs from the first copy in link order (no retail address))
-link_check: 2 of 3 link cleanly; LINKED 1,205 -> 1,205 bytes (4.3s)
-
-VslotSmallBodiesM unchanged from index:117/117 B links. Four-unit before total1322 B.

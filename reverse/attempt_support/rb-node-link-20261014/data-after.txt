@@ -1,2 +1,0 @@
-data_check: Code/GameEngine/Source/GameClient/GUI/TerrainResourceClaimFeedback.cpp	wrong-name	?TheProjectedShadowManager@@3PAVProjectedShadowManager@@A	0x009EC2D4
-data_check (shadow): 3 source(s), 1 finding(s), 1 outside the baseline {'wrong-name': 1}; 0.2s

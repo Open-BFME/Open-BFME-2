@@ -1,8 +1,0 @@
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Compile: 0 of 1 TU(s) (deps-cache: 1 current)
-Code/GameEngine/Source/Common/FprintfAppendLine.cpp: LINKS  LINKED 0 -> 118 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 118)
-Code/GameEngine/Source/GameLogic/Object/Upgrade/GeometryUpgradeDtor.cpp: LINKS  LINKED 0 -> 63 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 63)
-Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp: does not link  LINKED 940 -> 0 bytes (census 2026-10-13 04:02 at cb660e4d97; file's own bytes 940)
-  duplicate   ??1?$StringBase@D@@QAE@XZ
-link_check: 2 of 3 link cleanly; LINKED 940 -> 181 bytes (12.6s)

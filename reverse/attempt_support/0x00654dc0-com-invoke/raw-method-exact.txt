@@ -1,6 +1,0 @@
-?_com_dispatch_raw_method@@YAJPAUIDispatch@@JGGPAXPBGZZ (build/resume-eh-local/turn41-invoke.cpp)
-target RVA: 0x006553F0
-target size: 74 bytes
-compiled symbol size: 74 bytes
-classification: exact match
-OK: bytes match
