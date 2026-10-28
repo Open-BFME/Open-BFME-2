@@ -36081,7 +36081,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0045E98E,28,code,,displaced,-,N=Code/GameEngine/Source/Common/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-b055.cpp
 0x0045E9AA,74,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorCtor.cpp
 0x0045E9F4,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,C,C=0x0045E9AA..0x0045E9FA,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x0045E9FA,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorPoolKey.cpp
+0x0045E9FA,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
 0x0045EA3F,39,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,C,C=0x0045E9FA..0x0045EA66,Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp
 0x0045EA66,156,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,F,F=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp W=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
 0x0045EB02,524,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
@@ -79434,8 +79434,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078A6C5,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,approved,P,P=0x0045E6B8@FuncInfo0x00939010,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorUpdate.cpp
 0x0078A6CF,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,approved,P,P=0x0045E8A9@FuncInfo0x00939034,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp
 0x0078A6D7,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,approved,P,P=0x0045E8A9@FuncInfo0x00939034,Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorParsers.cpp
-0x0078A6E1,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,P,P=0x0045E9FA@FuncInfo0x00939058,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorPoolKey.cpp
-0x0078A6EE,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,P,P=0x0045E9FA@FuncInfo0x00939058,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorPoolKey.cpp
+0x0078A6E1,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,P,P=0x0045E9FA@FuncInfo0x00939058,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
+0x0078A6EE,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp,approved,P,P=0x0045E9FA@FuncInfo0x00939058,Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
 0x0078A6F8,8,code,,,-,,Code/gen_small/uw_gen_001.cpp
 0x0078A700,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp
 0x0078A70A,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehavior.cpp,approved,P,P=0x0045EFBC@FuncInfo0x009390A0 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/StancesBehaviorPoolKey.cpp

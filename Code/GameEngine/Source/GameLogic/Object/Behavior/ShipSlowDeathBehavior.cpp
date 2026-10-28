@@ -99,6 +99,16 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorModuleDataCtor.cpp
 
 // ??0ShipSlowDeathBehaviorModuleData@@QAE@XZ @0x0045E961
@@ -114,14 +124,6 @@ void ShipSlowDeathBehaviorModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	SlowDeathBehaviorModuleData::buildFieldParse(parse);
 	parse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
 }
-
-// tu-skeleton: 0x0045E9AA 74B ??0ShipSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045E9F4 6B ?Rva45E9F4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0045E9FA 69B ?getModuleNameKey@ShipSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0045EA3F 39B ??1Rva0045EA3F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp
 
@@ -183,3 +185,19 @@ void ShipSlowDeathBehavior::xfer(Xfer *xfer)
 		return;
 	xfer->Version1();
 }
+
+// tu-skeleton: 0x0045E9AA 74B ??0ShipSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0045E9F4 6B ?Rva45E9F4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@ShipSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType ShipSlowDeathBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheShipSlowDeathBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("ShipSlowDeathBehavior");
+	return TheShipSlowDeathBehaviorPoolKey;
+}
+
+// tu-skeleton: 0x0045EA3F 39B ??1Rva0045EA3F@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
