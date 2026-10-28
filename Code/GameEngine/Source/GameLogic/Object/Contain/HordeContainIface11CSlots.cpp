@@ -13,6 +13,10 @@
 // that gives the direct setne.
 // Retail 0x0046D1AC (75 bytes), slot 9: the only name of the AsciiString list at
 // module data +0xA4, else AsciiString::TheEmptyString, returned by value.
+// Keep math.h's float cos overload local: every use here is inlined, and this
+// unit's out-of-line copy (only its own FPO record refers to it) is not retail's
+// (0x0002FBC0). Exported, it would be the first in retail-truth-5 link order.
+static float __cdecl cos(float);
 #include "ascii_string.h"
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.

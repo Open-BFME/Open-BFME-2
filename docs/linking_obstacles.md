@@ -231,6 +231,17 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   first and it keeps linking (9,120 B). 11/11 rows exact; only the unmatched
   `Player::xfer` COMDAT (sole definer) changes digest; every dropped name keeps a
   definer; AIPlayerTeamBuild.cpp has no rt5 loser left.
+- `cos`/`sin` (halilkkaya-lk6): retail's `float cos(float)`/`sin(float)` copies sit at
+  0x0002FBC0/0x0002FBB0 as ICF-twin rows of AptMathCallbacksBFME2.cpp, which therefore
+  no longer places that unit early. HordeContainIface11CSlots.cpp, Rva00468E98Rotate.cpp
+  and ProcessAnimateWindow.cpp emit unproven copies (1d05f2cde23b / 6f922c457873) that
+  then come first and lose; every use is inlined (only their FPO records refer to them).
+  A `static` declaration ahead of math.h (the LINK-132 `floorf` pattern) keeps them
+  local, so BfmeCalcBWF.cpp's retail copies come first. 183/183 rows exact, no other
+  COMDAT digest changes, no rt5 loser left. HordeContainIface11CSlots.cpp (23,871 B) is
+  one of the units retail-truth-5 frees (`vector<Object *>` selection) and would
+  otherwise lose `cos` instead (found by running rt5_losers.py over census-unlinked units:
+  7 units, 25,594 B); ProcessAnimateWindow.cpp and Rva00468E98Rotate.cpp keep linking (1,988 B).
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.

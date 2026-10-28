@@ -9,6 +9,11 @@
 // retail explicitly does both sin/cos calls then the hardware pair. This
 // bounded x87 codegen blocker was isolated before reconstructing the C++ math.
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// Keep math.h's float cos/sin overloads local: every use here is inlined, and this
+// unit's out-of-line copies (only its own FPO record refers to them) are not retail's
+// (0x0002FBC0/0x0002FBB0). Exported, they would be the first in retail-truth-5 link order.
+static float __cdecl cos(float);
+static float __cdecl sin(float);
 #include <math.h>
 
 class Rva00468E98Point
