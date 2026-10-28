@@ -3121,6 +3121,25 @@ parents (including newly rehomed 0x0077F308) and approved-TU composition remain
 pending; this is not a census gain or clearance
 of the constructor obstacle. [Evidence and remaining work](../reverse/attempt_support/multiplayer-settings-layout-20261028.md).
 
+**Multiplayer native constructor repair (2026-10-29, verified on `d4cc5cd822`,
+index `d92e7e6635`):** the constructor now uses the native base/map/color view
+and ordinary implicit virtual lifetime emission. Its existing 159-byte row
+and EH graph remain exact; both unresolved names disappear and ordinary
+preview changes from blocked to LINKS/159 bytes. The current object also
+proves the native 83-byte complete destructor, 28-byte deleting destructor,
+56-byte table and all four EH bodies, including cleanup `0x0077F308`.
+The paired indexed-provider audit removes or displaces no existing provider
+and finds no new outside COMDAT losses or wrong-selected copies.
+This is a bounded constructor repair, not a census gain or full ABI merge.
+
+The actual stock TU merge dry-run accepts no donors (exit 2): constructor and
+deleting-destructor donors have no baseline match in the carried environment;
+the complete destructor loses three rows under carried `-G7 -arch:SSE`.
+The existing `SubsystemInterface` header-adoption prerequisite remains.
+All seven lifetime rows retain their current owners; QAE-to-UAE ledger/EH
+correction and approved-TU consolidation still need a coherent verified
+transition. [Native proof, reproduction and next steps](../reverse/attempt_support/multiplayer-settings-lifetime-20261029/README.md).
+
 ### LINK-010: folded STL table bases need the actual native predecessor
 
 **Status: Blocked on supported native data-placement / ownership reconciliation.
