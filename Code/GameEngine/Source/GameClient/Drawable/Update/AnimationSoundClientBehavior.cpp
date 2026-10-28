@@ -406,6 +406,44 @@ public:
 	int m_f10;
 };
 
+// ??0AnimationSoundTree@@QAE@XZ
+// Pinned ctor for AnimationSoundTree, retail 0x004CA6DA, 25 bytes.
+// The header init is done by the rowed ?rva004CA13D@AnimationSoundTree (0x004CA13D),
+// which takes two unused dummy addresses; retail materialises a separate one-byte
+// local for each argument, so the body pushes two distinct `lea` forms.
+// The slot, not the expression, is what distinguishes them: retail recomputes
+// the SAME address twice (`lea eax,[ebp-1]` / push / `lea eax,[ebp-1]` / push).
+//
+// Reaching that shape needs two levers that pull in opposite directions. Passing
+// one local twice lets cl 7.1 CSE the two addresses into a single lea + two pushes
+// (22 bytes); passing two distinct locals keeps both leas but places the second
+// one byte lower, because two live one-byte locals always occupy adjacent slots
+// (ebp-1 then ebp-2). Unions, references, array/pointer aliasing and +0 pointer
+// arithmetic all fold back to the one-lea form.
+//
+// Giving the two dummies DISJOINT SCOPES resolves both: each is a separate local
+// object, so cl keeps both leas, but the first is dead when the second is declared,
+// so the stack slot is reused and both addresses are [ebp-1]. Verified 25 bytes,
+// exact match, in an isolated scratch TU.
+// Evidence: sole caller 0x004CA72B in
+// Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp;
+// prev 0x004CA653 dtor and the 0x004CA13D header-init body share this // cl: line.
+
+namespace _STL
+{
+template <class _Tp> class allocator
+{
+public:
+	static _Tp *allocate(unsigned int __n, void const *__hint);
+};
+}
+
+class AnimationSoundTreeHeaderHandle
+{
+public:
+	void *m_header;
+};
+
 // tu-skeleton: 0x004C9DC9 80B ??1AnimationSoundClientBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9E19 6B ?name@AnimationSoundClientBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
@@ -415,6 +453,8 @@ public:
 // tu-skeleton: 0x004C9E33 21B ?rva004C9E33@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9E48 21B ?rva004C9E48@AnimationSoundClientBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp
 
@@ -589,6 +629,21 @@ void AnimationSoundClientBehaviorModuleData::buildFieldParse(MultiIniFieldParse 
 	parse.add(reinterpret_cast<const FieldParse *>(s_animSoundFieldTable), 0);
 }
 
+// ---- from Code/GameEngine/Source/Common/U4GlobalGuardedNotifies_Rva004ca223.cpp
+
+U4Assign006057C0 &U4Assign006057C0::operator=( const U4Assign006057C0 &other )
+{
+	if ( &other != this )
+	{
+		m_f04 = other.m_f04;
+		m_f08 = other.m_f08;
+		m_f10 = other.m_f10;
+		if ( (*(U4Notify **)&TheAnimationSoundModuleManager) != 0 )
+			(*(AnimationSoundModuleManager **)&TheAnimationSoundModuleManager)->rva00432E5D( (Rva00432F23Node *)this );
+	}
+	return *this;
+}
+
 // tu-skeleton: 0x004C9E94 95B ??0Rva004C9E94@@QAE@ABVRva0036CA00Str@@PBHMABVWeaponTemplateSetHead@@2@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/Rva004C9E94Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C9EF3 69B ?getModuleNameKey@AnimationSoundClientBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorPoolKey.cpp (not merged yet)
@@ -617,21 +672,6 @@ void AnimationSoundClientBehaviorModuleData::buildFieldParse(MultiIniFieldParse 
 
 // tu-skeleton: 0x004CA1C1 98B ??0AnimationSoundClientBehavior@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorCopy.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/U4GlobalGuardedNotifies_Rva004ca223.cpp
-
-U4Assign006057C0 &U4Assign006057C0::operator=( const U4Assign006057C0 &other )
-{
-	if ( &other != this )
-	{
-		m_f04 = other.m_f04;
-		m_f08 = other.m_f08;
-		m_f10 = other.m_f10;
-		if ( (*(U4Notify **)&TheAnimationSoundModuleManager) != 0 )
-			(*(AnimationSoundModuleManager **)&TheAnimationSoundModuleManager)->rva00432E5D( (Rva00432F23Node *)this );
-	}
-	return *this;
-}
-
 // tu-skeleton: 0x004CA256 20B ?rva004CA256@AnimationSoundTree@@QAE?AURva004CA256Cursor@@PBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004CA26A 41B ?rva004CA26A@AnimationSoundTree@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
@@ -644,7 +684,20 @@ U4Assign006057C0 &U4Assign006057C0::operator=( const U4Assign006057C0 &other )
 
 // tu-skeleton: 0x004CA6D5 5B ??1Rva004CA6D5@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x004CA6DA 25B ??0AnimationSoundTree@@QAE@XZ -- matched in Code/GameEngine/Source/Common/AnimationSoundTree.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/AnimationSoundTree.cpp
+
+AnimationSoundTree::AnimationSoundTree()
+{
+	void const *first;
+	{
+		char firstDummy;
+		first = &firstDummy;
+	}
+	{
+		char secondDummy;
+		rva004CA13D(first, &secondDummy);
+	}
+}
 
 // tu-skeleton: 0x004CA6F3 26B ?insert@?$multiset@HU?$less@H@_STL@@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Const_traits@H@_STL@@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp (not merged yet)
 

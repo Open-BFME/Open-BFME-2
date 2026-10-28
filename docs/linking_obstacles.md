@@ -585,10 +585,19 @@ aliases equal the original input union. The strict receipt passes and the
 ordinary preview preserves LINKS for 1,933 authored bytes. The outgoing audit
 is INCONCLUSIVE: its index predates the base and AIHarvestPrepareSiteState.cpp
 lacks a current receipt. Carry the composed unit and consumers into the next
-census. Nine clean donors and seven mixed sources remain. The next prerequisite
-adds only the tree constructor and existing initializer declarations: all 18
-current rows, both EH graphs and the external object facts remain unchanged.
-Next: retry the supported constructor merge before broader layout/interface work.
+census. Prerequisite `430ae0284c` adds only the tree constructor and existing
+initializer declarations, preserving the 18 current rows and object facts.
+The next supported merge absorbs the constructor donor, removing a second
+source file. All 19 final rows and both EH graphs are exact; the three-input
+object union preserves 45 external definitions and COMDAT fingerprints, 44
+unresolved names and both weak aliases. Strict preparation passes; the preview
+LINKS for 1,958 authored bytes, equal to the original inputs' sum. The combined
+path/register audit passes. The final outgoing audit remains INCONCLUSIVE for
+the same baseline and missing consumer receipt; consumer coverage is unverified.
+Eight clean donors and seven mixed sources remain. Next: reconcile the manager
+`remove` and client `updateAnimationSounds` declarations, client inheritance,
+entry/tree views, duplicate STL node and module-data parser declarations in
+separate verified prerequisites before another supported merge.
 Census confirmation remains pending.
 [Evidence](../reverse/attempt_support/animation-sound-consolidation-20261028-codexb4.md).
 
