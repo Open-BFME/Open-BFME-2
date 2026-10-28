@@ -11021,7 +11021,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0084F428,296,.rdata,string,??_C@_08IBJHBHCI@MyHealth?$AA@,,literal,,0,1
 0x0084F550,12,.rdata,vtable,??_7Rva0049669A@@6BRva0049669A_B2@@@,,literal,??_7Rva0049669A@@6BRva0049669A_B2@@@;_s_dummy10@Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateCtor.cpp,1,2
 0x0084F55C,284,.rdata,vtable,??_7BoredUpdate@@6B@,,literal,??_7BoredUpdate@@6B@;??_7Rva0049669A@@6BRva0024A797@@@,0,2
-0x0084F678,428,.rdata,global,_s_boredUpdateFile,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateCtor.cpp,owned,,1,1
+0x0084F678,428,.rdata,global,_s_boredUpdateFile,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp,owned,,1,1
 0x0084F824,8,.rdata,string,??_C@_04JLAJABDJ@Show?$AA@,,literal,,0,5
 0x0084F82C,12,.rdata,vtable,??_7Rva004969FF@@6BRva004969FF_B2@@@,,literal,??_7Rva004969FF@@6BRva004969FF_B2@@@;_vtbl_00C4F82C,0,2
 0x0084F838,56,.rdata,vtable,??_7Rva004969FF@@6BRva0024A797@@@,,literal,??_7Rva004969FF@@6BRva0024A797@@@;_vtbl_00C4F838,0,2
