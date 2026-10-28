@@ -77,10 +77,20 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
+class SpecialPowerTemplate;
+struct Coord3D;
+class Waypoint;
+class Rva0049C5D9;
+
 class SpecialAbilityUpdate
 {
+	friend class Rva0049C5D9;
 public:
 	virtual UpdateSleepTime update();
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
+
+protected:
+	virtual void onExit(bool a, bool b);
 };
 
 class Rva0049C93F
