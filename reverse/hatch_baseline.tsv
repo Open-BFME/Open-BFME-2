@@ -13854,15 +13854,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HelicopterSlowD
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HelicopterSlowDeathUpdate.cpp	update@HelicopterSlowDeathBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HelicopterSlowDeathUpdate.cpp	xfer@HelicopterSlowDeathBehavior@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp	xfer@HijackerUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	0HordeUpdateModuleData@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	1HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	isAllowedNationalism@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	joinOrLeaveHorde@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	loadPostProcess@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	onDrawableBoundToObject@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	showHideFlag@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	update@HordeUpdate@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	xfer@HordeUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1

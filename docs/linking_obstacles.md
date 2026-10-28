@@ -6110,7 +6110,7 @@ entries citing LINK-063 for a ZH-port rehome trial mean this entry. Every other
 LINK-063 reference means the `OrCondition` entry. WWLib `wwfont.cpp`, the same
 shape outside the module tree, is recorded under LINK-065.)
 
-**Status: Open (6 units repaired; inline-only units parked). Updated: 2026-10-26.**
+**Status: Open (7 units repaired; remaining inline-only units parked). Updated: 2026-10-28.**
 
 - **Evidence / scope:** several `Code/` units are verbatim Zero Hour ports of
   module classes that retail BFME 2 does not contain. Test, per class: game.dat
@@ -6228,6 +6228,22 @@ shape outside the module tree, is recorded under LINK-065.)
     retail class owns it; name/home first.
   - `BridgeScaffoldBehavior.cpp` already links in a current preview (952 B);
     its census `UpdateModule::loadPostProcess` blocker is stale.
+
+**HordeUpdate bounded emission repair (2026-10-28, base `afeacf59f4`,
+index `d92e7e6635`):** the sole 14-byte row now emits as an ordinary
+out-of-line override using bounded declarations, without the unrelated Zero
+Hour implementation. Before/after `./build.sh` is exact 1/1; strict preparation
+passes. Nine present-unmatched hatches and their allowances are removed.
+Ordinary preview changes U5 -> LINKS, 0 -> 14 authored bytes. No new pin,
+anchor, alias, name or source-path move is involved. This clears the emission
+obstacle in that unit only; its legacy HordeUpdate identity and approved
+LargeGroupBonusUpdate.cpp home still need reconciliation. COFF comparison
+removes 688 external definitions and retains the one matched method unchanged;
+42 removed names lack another indexed provider but have no other indexed
+consumer. The outgoing audit is **UNVERIFIED**: the index predates the base,
+and affected `Common/0CreateAHeroManager21FE49.cpp` has no current receipt.
+Carry consumer preservation into the next census; no census gain is claimed.
+[Target, donor and verification evidence](../reverse/attempt_support/horde-inline-link-20261028-codex3.md).
 
 **Assigned inline-unit recheck (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`, index `d1f046749a`):** HackInternetAIUpdate.cpp and EMPUpdate.cpp already report LINKS in the initial 26-unit preview and retain that result in the paired current-provider preview. Their ten and thirteen authored bytes are inherited repairs, not new gains from this worker. The other assigned inline-only ZH units retain the emission, identity and approved-home prerequisites above; no anchor, row move, new body or repeated rehome trial was added. Raw evidence: `build/c136-logic/before.log`, `final-cohort-before.log`, `final-cohort-after.log` and `all-assigned-build.log`. These two units are cleared in ordinary-preview scope; census confirmation pending.
 
