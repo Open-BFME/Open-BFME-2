@@ -18,7 +18,7 @@ extern "C" GameFreeFunction __gameMemFreePtr;
 
 extern "C" GameAllocateFunction __gameMemAllocatePtr;
 
-// Owned as the cdecl ?_AddHeap@MemoryPool@@YAXII@Z slot (Rva000308E0AddHeap.cpp).
+// Owned as the cdecl ?_AddHeap@MemoryPool@@YAXII@Z slot (_AddHeap below).
 extern void (__cdecl *g_Va00DE03E8)(unsigned int, unsigned int);
 
 void * __gameMemInitPtr;

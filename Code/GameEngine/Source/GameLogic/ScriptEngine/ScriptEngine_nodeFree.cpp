@@ -3,7 +3,7 @@
 // ?rva00204136@Rva00204136@@QAEXPAX@Z at retail 0x00204136 (45B).
 // Frees a malloc'd node tree with links at +8 (next) and +0xC (other) via rowed _free;
 // recurses on +0xC then loops on +8. Target evidence: caller 0x00204984 re-inits list head
-// after call; self-recursion at 0x00204148; _free row GameMemoryFree.cpp.
+// after call; self-recursion at 0x00204148; _free row GameMemory.cpp.
 
 #include <stdlib.h>
 

@@ -8,7 +8,7 @@
 #include "ascii_string.h"
 
 #include <string.h>
-// STLport's allocator calls the C++-linkage free owned by GameMemoryFree.cpp.
+// STLport's allocator calls the C++-linkage free owned by GameMemory.cpp.
 // Its existing binding selects the game allocator rather than the CRT thunk.
 namespace _STL { void __cdecl free(void *); }
 

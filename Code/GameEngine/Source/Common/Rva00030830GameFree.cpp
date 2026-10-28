@@ -1,5 +1,5 @@
 // cl: /O2 /MD /EHsc
-// Target30830/17B and existing GameMemoryFree.cpp establish the allocator
+// Target30830/17B and the free wrapper in GameMemory.cpp establish the allocator
 // wrapper: block and memory class3 through the existing pointer. /O2 gives
 // the retail register load and stack cleanup; the Common record uses /O1.
 // This is a genuine full-byte/relocation fold of _free and adds no unique bytes.

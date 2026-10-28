@@ -3,7 +3,7 @@
 // 0x00030810 is a 27-byte 4-argument thunk that shuffles its arguments
 // through registers and calls the runtime-resolved function pointer at
 // 0x00DE0400. The middle argument is the immediate 3. The pointer is
-// g_00DE0400, defined in Rva00030730Init.cpp (which stores it from
+// g_00DE0400, defined in GameMemory.cpp (which stores it from
 // GetProcAddress); this thunk calls it through its four-argument type.
 extern void *__gameMemReallocatePtr;
 
