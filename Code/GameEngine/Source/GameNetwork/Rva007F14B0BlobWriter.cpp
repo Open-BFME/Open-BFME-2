@@ -30,7 +30,7 @@ public:
 	void bfmeGoCIB(void *key, void *value);
 };
 
-struct Rva007F14B0Attribute
+struct BlobAttribute
 {
 	const char *type;
 	const char *name;
@@ -47,7 +47,7 @@ struct Rva007F14B0Record
 	const char *shortDescription;
 	const char *longDescription;
 	const char *locale;
-	Rva007F14B0Attribute *attributes;
+	BlobAttribute *attributes;
 	int downloadCount;
 };
 

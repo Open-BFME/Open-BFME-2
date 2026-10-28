@@ -3859,3 +3859,4 @@ param,Sub::v,Sub::subtractCoord,inferred,agree:nl-208db4803ad3,Code/GameEngine/S
 param,Add::v,Add::addCoord,inferred,agree:nl-ffebf4e0ca18,Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp,
 local,Pathfinder::BuildGroundPath::r,Pathfinder::BuildGroundPath::cornerOffsetDistance,inferred,agree:nl-93f12f17d011,Code/GameEngine/Source/GameLogic/AI/PathfinderBuildGroundPath.cpp,0x002EF908
 local,EmotionTrackerUpdate::TauntPointFilter::Allow::flags10c,EmotionTrackerUpdate::TauntPointFilter::Allow::kindOfHigh,inferred,agree:nl-f7ec86e96f3e,Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp,0x004B0FEB
+class,Rva007F14B0Attribute,BlobAttribute,inferred,agree:nl-28659be9bd17,Code/GameEngine/Source/GameNetwork/Rva007F14B0BlobWriter.cpp,
