@@ -9,10 +9,12 @@ struct Rva002A8AB1Record
     char m_pad164[0x16c - 0x164];
     int m_16c;
 };
+struct Rva002A8B59Data;
 class Rva002A8F24
 {
 public:
-    Rva002A8AB1Record *rva002A8AB1(void *owner);
+	Rva002A8B59Data *rva002A8B59(void *);
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
 };
 extern Rva002A8F24 *TheSkirmishAIManager;
 class AIWallBuilder

@@ -42,8 +42,8 @@ struct XferUnknown11;
 class NameKeyGenerator
 {
 public:
-	const AsciiString &keyToName(NameKeyType key);
-	NameKeyType nameToKey(const AsciiString &name);
+	NameKeyType nameToKey(const AsciiString &);
+	const AsciiString &keyToName(NameKeyType);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;

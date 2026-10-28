@@ -62,6 +62,8 @@ struct AIWallIDView { unsigned char unknown[0x44]; unsigned int id; };
 
 class AIWall;
 
+enum NameKeyType {NAMEKEY_INVALID=0,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
+
 class AIWallBuilder {
 public: void DoXfer(Xfer *); float rva004E98B4(AIWall *);
     unsigned char canBuildAnyWall();
@@ -96,7 +98,7 @@ float g_00C62804 = 7e+01f;
 // are walls, not ModuleData objects. The vector methods must remain visible.
 // Preserve the registered data owner's RvaVector type name. Field labels
 // describe its three-word storage without asserting the original typedef.
-struct RvaVector { void **begin, **end, **capacity; };
+struct RvaVector { void **begin, **end, **capacity; void **erase(void **first, void **last); };
 
 extern RvaVector g_00E04484;
 
@@ -113,11 +115,20 @@ public:
     bool init();
     bool rva004EB7CC(void *owner);
     void activate(void *owner, float delay, const void *name);
+    void DoXfer(Xfer *xfer, bool loadingNew);
+    unsigned char m_pad00[0x48];
+    NameKeyType m_nameKey; // +0x48
 };
 
 struct Rva002A8B59Data { char unknown[0x28]; };
 
-class Rva002A8F24 { public: Rva002A8B59Data *rva002A8B59(void *); };
+struct Rva002A8AB1Record;
+class Rva002A8F24
+{
+public:
+	Rva002A8B59Data *rva002A8B59(void *);
+	Rva002A8AB1Record *rva002A8AB1(void *owner);
+};
 
 extern Rva002A8F24 *TheSkirmishAIManager;
 
@@ -167,16 +178,21 @@ class Rva0030D808 {public:AsciiString rva0030D808();};
 
 class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
 
-enum NameKeyType {NAMEKEY_INVALID=0,FORCE_NAMEKEYTYPE_LONG=0x7fffffff};
 
-class NameKeyGenerator {
-public:NameKeyType nameToKey(const AsciiString &);const AsciiString &keyToName(NameKeyType);
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &);
+	const AsciiString &keyToName(NameKeyType);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+// The 0x4C-byte wall: built here and by the library Xfer's throwaway wall,
+// destroyed through the rowed virtual 0x004EB5E9.
 class Rva004EB583 {
-public:Rva004EB583(int);unsigned char storage[0x4c];
+public:Rva004EB583(int value);virtual ~Rva004EB583();
+private:unsigned char m_pad04[0x4C - 0x04];
 };
 
 class Rva00596CDF {

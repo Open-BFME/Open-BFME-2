@@ -13,9 +13,7 @@
 
 struct RvaVector
 {
-	void **m_begin;
-	void **m_end;
-	void **m_cap;
+	void **begin, **end, **capacity;
 	void **erase(void **first, void **last);
 };
 
@@ -37,9 +35,9 @@ public:
 void Rva004E9B70::rva004E9B70()
 {
 	RvaVector *rvaVector = &m_vec;
-	rvaVector->erase(rvaVector->m_begin, rvaVector->m_end);
-	void **pp = g_00E04484.m_begin;
-	void **end = g_00E04484.m_end;
+	rvaVector->erase(rvaVector->begin, rvaVector->end);
+	void **pp = g_00E04484.begin;
+	void **end = g_00E04484.end;
 	if (pp != end) {
 		do {
 			Elem *elem = (Elem *)*pp;
@@ -47,6 +45,6 @@ void Rva004E9B70::rva004E9B70()
 			::operator delete(p);
 			++pp;
 		} while (pp != end);
-		g_00E04484.erase(g_00E04484.m_begin, g_00E04484.m_end);
+		g_00E04484.erase(g_00E04484.begin, g_00E04484.end);
 	}
 }

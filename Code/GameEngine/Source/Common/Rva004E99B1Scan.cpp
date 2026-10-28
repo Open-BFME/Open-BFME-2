@@ -13,17 +13,15 @@ struct Rva004E99B1Rec
 
 struct RvaVector
 {
-	Rva004E99B1Rec **m_begin;
-	Rva004E99B1Rec **m_end;
-	Rva004E99B1Rec **m_cap;
+	void **begin, **end, **capacity;
 };
 
 extern RvaVector g_00E04484;
 
 void *rva004E99B1(void *key)
 {
-	Rva004E99B1Rec **end = g_00E04484.m_end;
-	for (Rva004E99B1Rec **p = g_00E04484.m_begin; p != end; ++p) {
+	Rva004E99B1Rec **last = (Rva004E99B1Rec **)g_00E04484.end;
+	for (Rva004E99B1Rec **p = (Rva004E99B1Rec **)g_00E04484.begin; p != last; ++p) {
 		if ((*p)->m_44 == key)
 			return *p;
 	}
