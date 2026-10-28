@@ -31,6 +31,11 @@ enum ObjectID
 };
 // Bind allocator<ObjectID>::deallocate to the kept retail copy.
 namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }
+// Likewise the ObjectID vector's destructors (called only by the implicit
+// ~Squad, not by the rowed constructor): this unit's unproven copies would
+// be the first from 0x00268CAC and lose to the retail ones.
+namespace _STL { template <> vector<ObjectID, allocator<ObjectID> >::~vector(); }
+namespace _STL { template <> _Vector_base<ObjectID, allocator<ObjectID> >::~_Vector_base(); }
 
 class Object;
 class Xfer;

@@ -251,6 +251,16 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   `_M_initialize_buckets` out of line; a declaration-only specialization drops the
   unit's unproven copy (ef03b9ac339d), which would be first and lose against Armor.cpp's
   retail row 0x00148DDF. 3/3 rows exact, no other digest changes; LINKS (105 B).
+- `SquadCtor.cpp` (halilkkaya-lk6): one of the units retail-truth-5 frees; its unproven
+  `vector<ObjectID>`/`_Vector_base<ObjectID>` destructors (called only by the implicit
+  `~Squad`) would be first and lose. Declaration-only, like its Object* ones; 1/1 row
+  exact; only `~Squad` (sole definer, no row) changes digest; no rt5 blocker left.
+Freed-unit check (2026-10-29): of the 123 existing units retail-truth-5 frees, 49 already
+LINK in the ordinary preview; rt5_check on current objects finds no loser or
+wrong-selected name in 122 (SquadCtor.cpp repaired above). Two show an unresolved name
+only because the providers were renamed after the census: W3DProjectedShadowDecalHelpers.cpp
+(`BoundedShortGrid::load`, BoundedShortGridLoad.cpp) and W3DTankDrawDoDrawModule.cpp
+(`W3DTankDraw::updateTreadPositions`); previewed with those providers both LINK (11,109 B).
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy
