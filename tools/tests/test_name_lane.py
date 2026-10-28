@@ -188,6 +188,74 @@ def test_wins_rules():
     assert name_lane.wins({"s1": "a", "s2": "b"}, [], min_models=2)
 
 
+def role_descriptor(**changes):
+    return dict(dict(role="source", entity="box", units="none", ownership="borrowed"), **changes)
+
+
+def semantic_votes(entries, key=PARAM_KEY):
+    votes, meanings = [], []
+    for i, (name, descriptor) in enumerate(entries):
+        vote_row = dict(key=key, hash=name_agreement.digest(key, name), model=f"seat-{i}",
+                        worker=f"w-{i:012x}", session=f"s{i}", date="2026-10-28")
+        votes.append(vote_row)
+        if descriptor is not None:
+            meanings.append(dict(vote_row, meaning=name_agreement.meaning_digest(key, descriptor)))
+    return votes, meanings
+
+
+def test_explicit_same_role_combines_different_spellings_but_not_unvoted_names():
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("inputBox", role_descriptor())])
+    assert name_agreement.digest(PARAM_KEY, "box") != name_agreement.digest(PARAM_KEY, "inputBox")
+    mine, rivals, role = name_agreement.support(name_agreement.tally(votes, meanings), {}, PARAM_KEY, "box")
+    assert len(mine) == 2 and rivals == [] and role == meanings[0]["meaning"]
+    assert name_agreement.verify(votes, [], PARAM_KEY, "box", meaning_votes=meanings, meaning=role) == []
+    assert name_agreement.verify(votes, [], PARAM_KEY, "sourceBox", meaning_votes=meanings, meaning=role)
+
+
+@pytest.mark.parametrize("difference", [dict(role="destination"), dict(units="bytes"), dict(ownership="owned")])
+def test_same_spelling_cannot_hide_explicit_meaning_disagreement(difference):
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("box", role_descriptor(**difference))])
+    role = meanings[0]["meaning"]
+    assert name_agreement.verify(votes, [], PARAM_KEY, "box", meaning_votes=meanings, meaning=role)
+    mine, rivals, _ = name_agreement.support(name_agreement.tally(votes, meanings), {}, PARAM_KEY, "box", role)
+    assert len(mine) == 1 and [len(v) for v in rivals] == [1]
+
+
+@pytest.mark.parametrize("field,value", [("worker", "w-abcdef123456"), ("key", PARAM_KEY + "x"),
+                                         ("session", "other-session"), ("hash", "0" * 24), ("meaning", None)])
+def test_meaning_annotation_must_bind_an_actual_vote(field, value):
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("inputBox", role_descriptor())])
+    meanings[1][field] = value
+    assert name_agreement.verify(votes, [], PARAM_KEY, "box", meaning_votes=meanings,
+                                 meaning=meanings[0]["meaning"])
+
+
+def test_legacy_exact_spelling_remains_compatible_and_unknown_alias_is_a_rival():
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("box", None)])
+    mine, rivals, _ = name_agreement.support(name_agreement.tally(votes, meanings), {}, PARAM_KEY, "box")
+    assert len(mine) == 2 and not rivals
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("inputBox", None)])
+    assert name_agreement.verify(votes, [], PARAM_KEY, "box", meaning_votes=meanings)
+
+
+def test_conflicting_annotations_fail_closed_and_disputes_cover_equivalent_aliases():
+    votes, meanings = semantic_votes([("box", role_descriptor()), ("inputBox", role_descriptor())])
+    role = meanings[0]["meaning"]
+    disputed = [dict(key=PARAM_KEY, new="box", status="disputed", id=name_lane.record_id(PARAM_KEY, "box", role))]
+    assert name_agreement.verify(votes, disputed, PARAM_KEY, "inputBox", meaning_votes=meanings, meaning=role)
+    meanings.append(dict(meanings[0], meaning=name_agreement.meaning_digest(PARAM_KEY, role_descriptor(role="destination"))))
+    assert name_agreement.verify(votes, [], PARAM_KEY, "box", meaning_votes=meanings, meaning=role)
+
+
+@pytest.mark.parametrize("descriptor", [None, {}, dict(role="source"), role_descriptor(entity="unknown"),
+                                         role_descriptor(role=[]), role_descriptor(units="metres_per_second")])
+def test_meaning_contract_rejects_missing_generic_or_malformed_fields(descriptor):
+    with pytest.raises(ValueError):
+        name_agreement.meaning_digest(PARAM_KEY, descriptor)
+    with pytest.raises(ValueError):
+        name_agreement.meaning_digest(FN_KEY, role_descriptor())
+
+
 def test_owned_kinds(tree):
     items = lane_of(tree).owned(SOURCE)
     got = {(k, s, i) for k, s, i, _ in items}
@@ -593,6 +661,39 @@ def test_single_scoped_proposal_lands_and_disputes_through_engine(tree, tmp_path
     name_lane.cmd_dispute(lane_of(tree), args, verify=ok_verify, checks=no_checks)
     assert "Rva00401000Box *param_1" in (tree / SOURCE).read_text()
     assert lane_of(tree).state()[PARAM_KEY]["status"] == "disputed"
+
+
+def test_semantic_aliases_land_through_engine_and_the_meaning_is_revocable(tree, tmp_path):
+    # Both briefs are served blind before either proposal creates an approval.
+    for seat in ("first", "second"):
+        serve(tree, seat)
+    for seat, name in (("first", "box"), ("second", "inputBox")):
+        be("seat-" + seat)
+        answer = tmp_path / (seat + "-meaning.json")
+        answer.write_text(json.dumps({"rva00401000:param_1": {"name": name, "meaning": role_descriptor()}}))
+        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=seat, model="claude-opus-5-5", answer=str(answer)))
+    state = lane_of(tree).state()[PARAM_KEY]
+    assert name_agreement.record_meaning(state["id"])
+    assert len(rows(tree, name_lane.MEANINGS)) == 2
+    assert "source" not in (tree / name_lane.MEANINGS).read_text()  # role text stays blind
+    assert apply(tree) == 0
+    landed = lane_of(tree).state()[PARAM_KEY]
+    assert landed["status"] == "landed" and len(landed["agents"].split(";")) == 2
+    assert "Rva00401000Box *box" in (tree / SOURCE).read_text()
+    args = SimpleNamespace(keys=[PARAM_KEY], reason="not a box input", claim=False)
+    name_lane.cmd_dispute(lane_of(tree), args, verify=ok_verify, checks=no_checks)
+    assert "Rva00401000Box *param_1" in (tree / SOURCE).read_text()
+    assert "~meaning:" + name_agreement.record_meaning(state["id"]) in lane_of(tree).disputed()[PARAM_KEY]
+
+
+def test_forged_meaning_record_without_annotations_cannot_authorize_alias(tree, tmp_path):
+    agree_on(tree, tmp_path, {"rva00401000:param_1": "box"})
+    state = lane_of(tree).state()[PARAM_KEY]
+    forged = dict(state, id=state["id"] + "-m" + "0" * 24)
+    lane_of(tree).append(name_lane.AGREED, name_lane.AGREED_COLUMNS, [forged])
+    with pytest.raises(rename.Refusal, match="agreement record"):
+        rename.plan_rename("param", ctx=rename.Context(tree, object_scan=False), source=SOURCE,
+            function="rva00401000", name="param_1", new="box", basis="inferred", evidence="agree:" + forged["id"])
 
 
 def test_late_rival_stops_single_proposal_before_source_analysis(tree, tmp_path):

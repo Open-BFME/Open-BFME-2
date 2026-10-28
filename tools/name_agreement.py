@@ -21,7 +21,8 @@ independent blind proposals. Two things make that rule checkable:
             as sha256(key|canon(name))[:24]. The agreement record in
             reverse/name_agreed.csv is only an index into those votes: the
             engine recomputes the approval from them (the required distinct
-            workers voted the landed spelling's hash, no rival spelling has as
+            workers voted that spelling or explicitly the same scoped meaning,
+            no rival has as
             many, the record and the spelling are not disputed), so a
             hand-written agreement row authorises nothing.
 
@@ -33,6 +34,7 @@ m_ladderComboBox and m_comboBoxLadder are one vote.
 import argparse
 import collections
 import hashlib
+import json
 import os
 import re
 import sys
@@ -42,11 +44,50 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 VOTES = "reverse/name_votes.csv"
 AGREED = "reverse/name_agreed.csv"
+MEANINGS = "reverse/name_meanings.csv"
 VOTE_COLUMNS = ["key", "hash", "model", "session", "worker", "date"]
+MEANING_COLUMNS = VOTE_COLUMNS + ["meaning"]
 AGREED_COLUMNS = ["id", "kind", "old", "new", "rva", "agents", "key", "status", "detail"]
 SYNONYMS = {"num": "count", "number": "count", "cnt": "count", "idx": "index", "len": "length", "pos": "position",
             "str": "string", "msg": "message", "btn": "button", "wnd": "window", "tex": "texture", "obj": "object"}
 WORKER = re.compile(r"w-[0-9a-f]{12}")
+HASH = re.compile(r"[0-9a-f]{24}")
+ROLES = {"source", "destination", "input", "output", "inout", "index", "count", "length", "size",
+         "flag", "callback", "handle", "owner", "result", "radius", "diameter", "angle", "position",
+         "duration", "deadline"}
+UNITS = {"none", "bytes", "elements", "pixels", "radians", "degrees", "frames", "seconds",
+         "milliseconds", "world_units", "boolean", "identifier", "unspecified"}
+
+
+def meaning_digest(key, descriptor):
+    """Exact structured role agreement, not a dictionary of spelling synonyms."""
+    if (not scoped_key(key) or not isinstance(descriptor, dict)
+            or set(descriptor) != {"role", "entity", "units", "ownership"}
+            or not all(isinstance(value, str) for value in descriptor.values())
+            or descriptor["role"] not in ROLES or descriptor["units"] not in UNITS
+            or descriptor["ownership"] not in {"borrowed", "owned", "shared", "value", "unspecified"}
+            or not isinstance(descriptor["entity"], str)
+            or not re.fullmatch(r"[a-z][a-z0-9_]{1,63}", descriptor["entity"])
+            or descriptor["entity"] in {"unknown", "thing", "value", "data", "parameter", "local"}):
+        raise ValueError("meaning needs role, a specific snake_case entity, units and ownership")
+    return hash_canon(key, "meaning-v1:" + json.dumps(descriptor, sort_keys=True, separators=(",", ":")))
+
+
+def record_meaning(record_id):
+    found = re.search(r"-m([0-9a-f]{24})$", record_id or "")
+    return found.group(1) if found else None
+
+
+class VoteTally(collections.defaultdict):
+    def __init__(self):
+        super().__init__(lambda: collections.defaultdict(dict))
+        self.meanings = collections.defaultdict(lambda: collections.defaultdict(set))
+
+
+def scoped_key(key):
+    parts = (key or "").split("|")
+    return (len(parts) == 4 and parts[0].startswith("Code/")
+            and parts[1] in ("param", "local") and bool(parts[2]) and bool(parts[3]))
 
 
 def canon(name):
@@ -78,14 +119,20 @@ def worker_identity(root=None):
     return "w-" + hashlib.sha256(raw.encode("utf-8")).hexdigest()[:12]
 
 
-def tally(votes):
+def tally(votes, meaning_votes=()):
     """key -> hash -> {worker: model}. A vote without a well-formed worker id
     counts for nothing: it cannot be told apart from its voter's other votes."""
-    out = collections.defaultdict(lambda: collections.defaultdict(dict))
+    votes = list(votes)
+    out = VoteTally()
+    bindings = {tuple(v.get(c, "") for c in VOTE_COLUMNS) for v in votes}
     for v in votes:
         worker = (v.get("worker") or "").strip()
         if WORKER.fullmatch(worker):
             out[v.get("key", "")][v.get("hash", "")][worker] = v.get("model", "")
+    for v in meaning_votes:
+        if (scoped_key(v.get("key")) and tuple(v.get(c, "") for c in VOTE_COLUMNS) in bindings
+                and HASH.fullmatch(v.get("meaning") or "") and WORKER.fullmatch(v.get("worker") or "")):
+            out.meanings[v["key"]][v["hash"], v["worker"]].add(v["meaning"])
     return out
 
 
@@ -95,7 +142,54 @@ def disputed(agreed_rows):
     for row in agreed_rows:
         if row.get("status") == "disputed":
             out[row.get("key", "")].add(canon(row.get("new", "")))
+            meaning = record_meaning(row.get("id"))
+            if meaning:
+                out[row.get("key", "")].add("~meaning:" + meaning)
     return out
+
+
+def support(counts, refused, key, name, meaning=None):
+    """(workers, rivals, meaning hash) bound to votes for this exact key/name.
+
+    Annotated aliases share support only under identical descriptors. Unknown
+    legacy votes inherit a meaning only for the exact same spelling with one
+    unambiguous role. Conflicting descriptors never collapse into one vote.
+    """
+    gone = refused.get(key, ())
+    banned = {hash_canon(key, c) for c in gone if not c.startswith("~meaning:")}
+    blocked_meanings = {c[len("~meaning:"):] for c in gone if c.startswith("~meaning:")}
+    annotations = getattr(counts, "meanings", {}).get(key, {})
+    roles = collections.defaultdict(set)
+    for (spelling, _worker), values in annotations.items():
+        roles[spelling].update(values)
+    groups = collections.defaultdict(dict)
+    spellings = collections.defaultdict(set)
+    for spelling, voters in counts[key].items():
+        if spelling in banned:
+            continue
+        for worker, model in voters.items():
+            values = annotations.get((spelling, worker), set())
+            if not values and len(roles[spelling]) == 1:
+                values = roles[spelling]
+            if len(values) == 1:
+                role = next(iter(values))
+                if role in blocked_meanings:
+                    continue
+                group = "meaning:" + role
+            elif values:
+                group = "conflicting:" + worker + ":" + spelling
+            else:
+                group = "spelling:" + spelling
+            groups[group][worker] = model
+            spellings[group].add(spelling)
+    wanted = digest(key, name)
+    candidates = [g for g in groups if wanted in spellings[g]
+                  and (meaning is None or g == "meaning:" + meaning)]
+    if len(candidates) != 1:
+        return {}, list(groups.values()), meaning
+    chosen = candidates[0]
+    role = chosen[len("meaning:"):] if chosen.startswith("meaning:") else None
+    return dict(groups[chosen]), [v for g, v in groups.items() if g != chosen], role
 
 
 def review_workers(key, rivals):
@@ -104,10 +198,7 @@ def review_workers(key, rivals):
     A missing or malformed key never opts into lighter review. Rivals are
     already filtered for disputed spellings by the caller.
     """
-    parts = (key or "").split("|")
-    scoped = (len(parts) == 4 and parts[0].startswith("Code/")
-              and parts[1] in ("param", "local") and parts[2] and parts[3])
-    return 1 if scoped and not any(rivals) else 2
+    return 1 if scoped_key(key) and not any(rivals) else 2
 
 
 def review_detail(key, voters, rivals=()):
@@ -129,16 +220,14 @@ def wins(mine, rivals, *, lead=2, min_models=1, key=None):
             and len(mine) - max((len(r) for r in rivals), default=0) >= margin)
 
 
-def standing(votes, agreed_rows, key, name):
+def standing(votes, agreed_rows, key, name, *, meaning_votes=(), meaning=None):
     """(mine, rivals) for spelling `name` of `key`: the workers that voted its
     hash, and the voter sets of every other spelling not refused by a dispute."""
-    counts = tally(votes)[key]
-    gone = {hash_canon(key, c) for c in disputed(agreed_rows).get(key, ())}
-    h = digest(key, name)
-    return dict(counts.get(h, {})), [v for h2, v in counts.items() if h2 != h and h2 not in gone]
+    mine, rivals, _ = support(tally(votes, meaning_votes), disputed(agreed_rows), key, name, meaning)
+    return mine, rivals
 
 
-def verify(votes, agreed_rows, key, name, *, lead=1):
+def verify(votes, agreed_rows, key, name, *, lead=1, meaning_votes=(), meaning=None):
     """Problems (empty when the votes carry `name` for `key`): the floor the
     engine enforces whatever --lead the lane ran with: one worker for an
     uncontested scoped name, otherwise two and no equally supported rival
@@ -146,7 +235,9 @@ def verify(votes, agreed_rows, key, name, *, lead=1):
     problems = []
     if canon(name) in disputed(agreed_rows).get(key, ()):
         problems.append(f"{name} was disputed for {key}")
-    mine, rivals = standing(votes, agreed_rows, key, name)
+    if meaning and "~meaning:" + meaning in disputed(agreed_rows).get(key, ()):
+        problems.append("the proposed meaning was disputed")
+    mine, rivals = standing(votes, agreed_rows, key, name, meaning_votes=meaning_votes, meaning=meaning)
     needed = review_workers(key, rivals)
     if len(mine) < needed:
         requirement = "one is needed for an uncontested scoped name" if needed == 1 else "two are needed"

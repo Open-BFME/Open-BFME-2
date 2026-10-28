@@ -516,6 +516,57 @@ canonical or prove its meaning correct.
 Do not show your proposal to another seat or read theirs, and do not cast votes for a
 second seat yourself.
 
+## Meaning before spelling for parameters and locals
+
+A scoped answer may include a role descriptor instead of just a string:
+
+```json
+{
+  "copyBuffer:param_1": {
+    "name": "destination",
+    "meaning": {
+      "role": "destination",
+      "entity": "buffer",
+      "units": "bytes",
+      "ownership": "borrowed"
+    }
+  }
+}
+```
+
+The worker classifies the role independently from the code. All four fields
+must match exactly before different spellings share support. There is no
+global `target = destination` synonym rule. A source/destination, byte/element,
+radius/diameter or borrowed/owned disagreement stays a rival even when both
+workers chose the same identifier. Ordinary vote leads and model requirements
+still apply to those rivals.
+
+`role` is one of `source`, `destination`, `input`, `output`, `inout`, `index`,
+`count`, `length`, `size`, `flag`, `callback`, `handle`, `owner`, `result`,
+`radius`, `diameter`, `angle`, `position`, `duration`, `deadline`. `entity` is a
+specific lowercase snake_case concept (not `unknown`, `thing`, `value`, `data`,
+`parameter` or `local`). Units are `none`, `bytes`, `elements`, `pixels`,
+`radians`, `degrees`, `frames`, `seconds`, `milliseconds`, `world_units`,
+`boolean`, `identifier` or `unspecified`. Ownership is `borrowed`, `owned`,
+`shared`, `value` or `unspecified`. Different qualifiers stay distinct.
+
+`reverse/name_meanings.csv` stores only a descriptor hash, bound to the exact
+key, spelling vote, worker, model, session and date in `name_votes.csv`. No
+role prose is exposed to the next blind worker. Submit writes both records;
+stage the votes, meanings and agreement records together. A meaning-based
+agreement id carries the descriptor hash, and `rename.py` independently checks
+its support. The chosen identifier must be one someone actually proposed.
+An unbacked metadata/approval row grants no support. Disputing a meaning-based
+name also blocks that meaning under alternative spellings.
+
+Plain string answers and old votes remain supported. An old vote may join an
+annotated role only for the exact same spelling with one unambiguous meaning;
+an old differently spelled vote has no recoverable role and remains a rival.
+The first approved spelling can remain while other equivalent proposals add
+support. Functions, classes, members and globals retain spelling agreement in
+this first version. Meaning agreement is inferred and revocable, not proof of
+original naming or semantic correctness. Byte and ledger checks are unchanged.
+
 ## Disputes
 
 A landed inferred name that the code contradicts goes back through the lane:

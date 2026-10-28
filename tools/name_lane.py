@@ -112,6 +112,8 @@ VOTES = name_agreement.VOTES
 AGREED = name_agreement.AGREED
 VOTE_COLUMNS = name_agreement.VOTE_COLUMNS
 AGREED_COLUMNS = name_agreement.AGREED_COLUMNS
+MEANINGS = name_agreement.MEANINGS
+MEANING_COLUMNS = name_agreement.MEANING_COLUMNS
 LANE_DIR = "build/name_lane"
 EVIDENCE_TSV = "build/name_evidence.tsv"
 MAX_CHARS = 15000
@@ -157,8 +159,19 @@ def refuted(key, canons):
     return {name_agreement.hash_canon(key, c) for c in canons}
 
 
-def record_id(key, name):
-    return "nl-" + hashlib.sha256(f"{key}|{name}".encode()).hexdigest()[:12]
+def record_id(key, name, meaning=None):
+    return "nl-" + hashlib.sha256(f"{key}|{name}".encode()).hexdigest()[:12] + \
+        ("-m" + meaning if meaning else "")
+
+
+def approval_support(tally, refused, row):
+    return name_agreement.support(tally, refused, row["key"], row["new"],
+                                  name_agreement.record_meaning(row["id"]))
+
+
+def approval_detail(tally, refused, row):
+    mine, rivals, meaning = approval_support(tally, refused, row)
+    return ("meaning agreement; " if meaning else "") + name_agreement.review_detail(row["key"], mine, rivals)
 
 
 def model_id(text):
@@ -287,7 +300,7 @@ class Lane:
 
     def tally(self):
         """key -> hash -> {worker: model}: distinct workers, not session labels."""
-        return name_agreement.tally(self.votes())
+        return name_agreement.tally(self.votes(), self.table(MEANINGS, MEANING_COLUMNS))
 
     def worker(self):
         """This environment's worker id (tools/name_agreement.py)."""
@@ -595,10 +608,8 @@ def needs_review(key, state, tally, refused):
         return True
     if row["status"] != "agreed" or split_key(key)[1] not in ("param", "local"):
         return False
-    h = digest(key, row["new"])
-    gone = refuted(key, refused.get(key, ()))
-    rivals = [v for other, v in tally[key].items() if other != h and other not in gone]
-    return not wins(tally[key].get(h, {}), rivals, key=key)
+    mine, rivals, _ = approval_support(tally, refused, row)
+    return not wins(mine, rivals, key=key)
 
 
 def answer_key(kind, scope, ident):
@@ -732,6 +743,15 @@ that a game or Zero Hour header declares, answer that class's name.
 Write a JSON object mapping each key below to a name or "skip", then run:
   python3 tools/name_lane.py submit <that file> --session {session} --model {model}
 
+For a parameter/local, first identify its role before choosing a spelling.
+When that role is justified, prefer {{"name":"destination","meaning":
+{{"role":"destination","entity":"buffer","units":"bytes","ownership":"borrowed"}}}}.
+Use the code's role, a specific snake_case entity, units and ownership; see
+docs/naming.md for allowed values. Classify independently, never from another
+worker's proposal. Identical role descriptors can agree despite different
+spellings. Conflicting roles/units/ownership remain competing votes. Omit the
+structured form or skip if you cannot justify its meaning.
+
 {listing}
 
 --- {rel}
@@ -850,7 +870,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
         fail(f"files not served to session {session}: {', '.join(sorted(unknown)[:4])}")
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
-    votes, agreed, rejected = [], [], []
+    votes, meanings, agreed, rejected = [], [], [], []
     for rel, mapping in answers.items():
         entry = files[rel]
         text = lane.text(rel) or ""
@@ -863,7 +883,18 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
             fail(f"keys not served for {rel}: {', '.join(sorted(unknown)[:8])}")
         file_words, taken = set(name_metric.WORD.findall(name_metric.strip(text))), set()
         for kind, scope, ident, rva in items:
-            answer = str(mapping.get(answer_key(kind, scope, ident), "skip")).strip()
+            proposal = mapping.get(answer_key(kind, scope, ident), "skip")
+            meaning = None
+            if isinstance(proposal, dict):
+                try:
+                    if set(proposal) != {"name", "meaning"}:
+                        raise ValueError("structured answers need exactly name and meaning")
+                    meaning = name_agreement.meaning_digest(key_of(rel, kind, scope, ident), proposal["meaning"])
+                    proposal = proposal["name"]
+                except (ValueError, TypeError) as exc:
+                    rejected.append(f"{answer_key(kind, scope, ident)}: {exc}")
+                    continue
+            answer = str(proposal).strip()
             if answer.lower() == "skip":
                 continue
             key = key_of(rel, kind, scope, ident)
@@ -880,21 +911,25 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
             if kind in NAMED:
                 taken.add(canon(answer))
             h = digest(key, answer)
-            votes.append({"key": key, "hash": h, "model": model, "session": session, "worker": worker,
-                          "date": now})
+            vote = {"key": key, "hash": h, "model": model, "session": session, "worker": worker, "date": now}
+            votes.append(vote)
             tally[key][h][worker] = model
+            if meaning:
+                meanings.append({**vote, "meaning": meaning})
+                tally.meanings[key][h, worker].add(meaning)
             open_key = needs_review(key, state, tally, refused)
-            gone = refuted(key, refused.get(key, ()))
-            rivals = [v for h2, v in tally[key].items() if h2 != h and h2 not in gone]
-            if open_key and wins(tally[key][h], rivals, lead=lead, min_models=min_models, key=key):
-                agents = ";".join(f"{w}@{m}" for w, m in sorted(tally[key][h].items()))
+            mine, rivals, role = name_agreement.support(tally, refused, key, answer, meaning)
+            if open_key and wins(mine, rivals, lead=lead, min_models=min_models, key=key):
+                agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
                 name = lane_spelling(lane, answer, kind)
-                row = {"id": record_id(key, name), "kind": kind, "old": ident, "new": name,
+                row = {"id": record_id(key, name, role), "kind": kind, "old": ident, "new": name,
                        "rva": f"0x{rva:08X}" if rva is not None else "", "agents": agents, "key": key,
-                       "status": "agreed", "detail": name_agreement.review_detail(key, tally[key][h], rivals)}
+                       "status": "agreed"}
+                row["detail"] = approval_detail(tally, refused, row)
                 agreed.append(row)
                 state[key] = row
     lane.append(VOTES, VOTE_COLUMNS, votes)
+    lane.append(MEANINGS, MEANING_COLUMNS, meanings)
     lane.append(AGREED, AGREED_COLUMNS, agreed)
     for rel in answers:
         files.pop(rel, None)
@@ -908,6 +943,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
         print(f"  AGREED: {a['key']} -> {a['new']} ({a['agents']})")
     print(f"name_lane: {len(votes)} vote(s) recorded as hashes, {len(rejected)} rejected, {len(agreed)} newly agreed"
           + ("; run `python3 tools/name_lane.py apply` to land them" if agreed else ""))
+    if meanings:
+        print(f"name_lane: stage {VOTES}, {MEANINGS} and {AGREED} together for structured meanings")
     return 0
 
 
@@ -958,16 +995,15 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             continue
         if row["status"] == "agreed" or (args.retry_blocked and row["status"] == "blocked"):
             pending = True
-            mine = tally[key].get(digest(key, row["new"]), {})
+            mine, rivals, _ = approval_support(tally, refused, row)
             if only and not own_voters(mine, only):
                 outside += 1
                 continue
-            gone = refuted(key, refused.get(key, ()))
-            rivals = [v for h, v in tally[key].items() if h != digest(key, row["new"]) and h not in gone]
             if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
                 print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
-            todo[split_key(key)[0]].append(row)
+            agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
+            todo[split_key(key)[0]].append(dict(row, agents=agents))
     if not pending:
         print("name_lane: nothing agreed is waiting to land.")
         return 0
@@ -1000,8 +1036,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 else:
                     for candidate in scoped:
                         lane.append(AGREED, AGREED_COLUMNS, [dict(candidate, status="landed",
-                                    detail=name_agreement.review_detail(candidate["key"],
-                                        tally[candidate["key"]][digest(candidate["key"], candidate["new"])]))])
+                                    detail=approval_detail(tally, refused, candidate))])
                         batched.add(candidate["key"])
                     landed += len(scoped)
                     if key in batched:
@@ -1015,8 +1050,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                     rename.run(kind, lane.ctx, claim=args.claim, verify=verify, checks=checks,
                                basis="inferred", evidence=f"agree:{row['id']}",
                                **rename_kwargs(kind, scope, ident, row["new"], row["rva"], rel))
-                    outcome.update(status="landed", detail=name_agreement.review_detail(key,
-                        tally[key][digest(key, row["new"])]))
+                    outcome.update(status="landed", detail=approval_detail(tally, refused, row))
                     landed += 1
                 except (rename.Refusal, rename.VerifyFailed) as exc:
                     outcome.update(status="blocked", detail=" ".join(str(exc).split())[:300])
@@ -1025,7 +1059,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 lane.ctx._cache.clear()
             lane.append(AGREED, AGREED_COLUMNS, [outcome])
     print(f"name_lane: landed {landed}, blocked {blocked}, stale {stale}. Stage the files rename.py listed "
-          f"and {AGREED}; the lander commits.")
+          f"and {AGREED} (plus {MEANINGS} when structured votes added it); the lander commits.")
     if only:
         print(f"name_lane: --only-labels {','.join(sorted(only))}: {outside} key(s) with a voter outside those "
               "labels left untouched.")
@@ -1079,10 +1113,7 @@ def cmd_status(lane, args):
         for key, row in state.items():
             if row["status"] != "agreed":
                 continue
-            h = digest(key, row["new"])
-            gone = refuted(key, refused.get(key, ()))
-            rivals = [v for h2, v in tally[key].items() if h2 != h and h2 not in gone]
-            mine = tally[key].get(h, {})
+            mine, rivals, _ = approval_support(tally, refused, row)
             picked += wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key) and own_voters(mine, only)
         print(f"--only-labels {','.join(sorted(only))}: apply would select {picked} of {count['agreed']} "
               f"waiting key(s) (--lead {args.lead} --min-models {args.min_models})")

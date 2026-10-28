@@ -70,7 +70,8 @@ Both bases are checked, never asserted:
              hashed votes in reverse/name_votes.csv (tools/name_agreement.py):
              one worker for an uncontested parameter/local, otherwise two
              distinct workers -- identities taken from the environment, not
-             from a session label -- voted the spelling, no
+             from a session label -- voted the spelling (or the same explicit
+             scoped meaning), no
              rival spelling has as many, nothing disputed it. The record is an
              index, never the authority. A file may instead take mechanical:<rows>, a stem
              derived from a real-named row it owns. Refused, too, over a
@@ -1281,7 +1282,7 @@ def check_agreement(ctx, kind, evidence, old_names, new_names, rva):
     source|kind|scope|placeholder); its `agents` column is not trusted. The
     agreement is recomputed from reverse/name_votes.csv by
     tools/name_agreement.py: one worker for an uncontested scoped name,
-    otherwise two distinct workers voted the landed spelling; no rival
+    otherwise two distinct workers voted the spelling or the same scoped meaning; no rival
     spelling has as many, and neither the record nor the
     spelling has been disputed."""
     match = re.fullmatch(r"agree:([A-Za-z0-9_.:-]+)", evidence.strip())
@@ -1310,7 +1311,8 @@ def check_agreement(ctx, kind, evidence, old_names, new_names, rva):
         problems.append("the record was disputed")
     if not problems:
         problems = name_agreement.verify(ctx.dicts(name_agreement.VOTES), ctx.dicts(AGREED), key,
-                                         row.get("new", ""))
+                                         row.get("new", ""), meaning_votes=ctx.dicts(name_agreement.MEANINGS),
+                                         meaning=name_agreement.record_meaning(rid))
     if problems:
         raise Refusal(f"agreement record {rid} does not agree to this rename: {'; '.join(problems)}")
 
