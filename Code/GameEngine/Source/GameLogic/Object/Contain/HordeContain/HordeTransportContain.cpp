@@ -751,26 +751,43 @@ public:
 	void add(const FieldParse *parseTable, unsigned int extraOffset);
 };
 
-class HordeTransportContain {
+class Thing;
+class Object;
+class DamageInfo;
+struct Rva0047727EObjectPositionView;
+enum NameKeyType { NK_UNKNOWN = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum ExitDoorType { DOOR_1 = 0 };
+
+class OpenContain {
 public:
-	void rva004779F9();
-public:
-	void rva0047778B();
-public:
-	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
-public:
-	void rva0047727E(Thing *object);
-private:
-	unsigned char prefix00[8];
-private:
-	Rva0047727EObjectPositionView *m_object;
-public:
-	void rva0047748E();
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
 };
 
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+class TransportContain : public OpenContain {
+public:
+	virtual ~TransportContain();
+	virtual UpdateSleepTime update();
+};
 
-class TransportContain {public:virtual UpdateSleepTime update();};
+// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
+// bare jmp to the TransportContain base dtor.
+class __declspec(novtable) HordeTransportContain : public TransportContain {
+public:
+	virtual ~HordeTransportContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+	void rva004779F9();
+	void rva0047778B();
+	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
+	void rva0047727E(Thing *object);
+	void rva0047748E();
+private:
+	unsigned char prefix04[4];
+	Rva0047727EObjectPositionView *m_object;
+};
+
 
 class Rva00477AF3UpdateReceiver {
 public:void update();

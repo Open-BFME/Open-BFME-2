@@ -44,12 +44,45 @@ public:
 	V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) virtual Rva0036AE51ListView s108()=0;
 };
 #undef V
-enum ExitDoorType {DOOR_1=0};
 template<int N> class ExitGetSlots:public ExitGetSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
 template<>class ExitGetSlots<0>{};
 class ExitObjectContain:public ExitGetSlots<31>{public:virtual RiderContain*get()=0;};
-class OpenContain{public:virtual void exitObjectViaDoor(Object*,ExitDoorType);};
-class HordeTransportContain:public OpenContain{public:virtual void exitObjectViaDoor(Object*,ExitDoorType);};
+class Thing;
+class Object;
+class DamageInfo;
+struct Rva0047727EObjectPositionView;
+enum NameKeyType { NK_UNKNOWN = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum ExitDoorType { DOOR_1 = 0 };
+
+class OpenContain {
+public:
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+};
+
+class TransportContain : public OpenContain {
+public:
+	virtual ~TransportContain();
+	virtual UpdateSleepTime update();
+};
+
+// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
+// bare jmp to the TransportContain base dtor.
+class __declspec(novtable) HordeTransportContain : public TransportContain {
+public:
+	virtual ~HordeTransportContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+	void rva004779F9();
+	void rva0047778B();
+	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
+	void rva0047727E(Thing *object);
+	void rva0047748E();
+private:
+	unsigned char prefix04[4];
+	Rva0047727EObjectPositionView *m_object;
+};
 
 void HordeTransportContain::exitObjectViaDoor(Object*newObj,ExitDoorType exitDoor){
  if(!newObj->getTemplate()->isHorde()){OpenContain::exitObjectViaDoor(newObj,exitDoor);return;}
