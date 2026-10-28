@@ -239,7 +239,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 // Implementation of the message stream
 // Author: Michael S. Booth, February 2001
 
-// ??0GameMessage@@ present-unmatched
 GameMessage::GameMessage( GameMessage::Type type ) 
 { 
 	m_playerIndex = ((BfmeMessagePlayerListView *)ThePlayerList)->local->index;
