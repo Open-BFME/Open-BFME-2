@@ -28,6 +28,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Object;
 namespace _STL { template <> Object * * allocator<Object *>::allocate(unsigned int,void const *) const; }
+// Keep growth out of line so push_back uses retail's initialized POD tag.
+namespace _STL { template <> void vector<Object *>::_M_insert_overflow(Object **, Object *const &, const __true_type &, unsigned, bool); }
+// The matched size() body remains part of this unit.
+template unsigned _STL::vector<Object *>::size() const;
 
 // An enum, as in the game: STLport then copies ids element by element on
 // erase instead of memmove, which is what retail does.

@@ -673,6 +673,8 @@ LINK-131.
 
 ### LINK-132 Object-pointer vector destructor follow-up outside the original snapshot
 
+2026-10-28, inspected `ee6402fcd2cc9839702b7ac7f40f1422103f296e`, index `d92e7e6635`: SquadGetAllObjectsAndRemoveDead.cpp now emits retail's 58-byte `push_back` and declares growth out of line, preserving its three matched rows through an explicit `size()` instantiation. All twelve assigned units pass final builds (165 rows), frozen-file, EH and shadow data checks. The 29-unit ordinary preview preserves the existing linked consumer and adds no blocker, but none of the twelve assigned units links because AIBuilder's selected copies remain wrong. All other source trials are reversed, including AITeamBuilder's ineffective declaration and its failing growth-definition removal. No linking or census gain is claimed. [Current provider evidence and remaining compiler-context prerequisite](linking_obstacles.md#link-132-aibuilder-selects-a-non-retail-object-pointer-vector-destructor).
+
 2026-10-28, control `3bb77a8a89`, ordinary-preview index `54b83e4f69`:
 SplitHordeSpecialPower_doSpecialPower.cpp's selected vector destructor comes
 from AIBuilder.cpp ahead of existing retail providers. Five source trials
