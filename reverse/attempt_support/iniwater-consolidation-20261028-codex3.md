@@ -131,3 +131,10 @@ Final parser-view preview: both sources LINKS with the same 738 total own bytes.
 Its outgoing audit remains inconclusive against the older index, naming
 0CreateAHeroManager21FE49.cpp as the missing current affected-consumer receipt.
 No new source-path move was added after the composition's compatibility audit.
+
+Final hook handoff: code-identity shadow mode reports a divergent definition for
+`??B?$OVERRIDE@VWaterTransparencySetting@@@@QBEPBVWaterTransparencySetting@@XZ`
+when the residual is checked. The OVERRIDE template itself was not edited;
+all 26 residual COFF facts equal the original snapshot. Keep this warning with
+the remaining override/setting reconciliation; no baseline admission or debt
+retirement was attempted. The hook passes byte, data and all four EH graphs.

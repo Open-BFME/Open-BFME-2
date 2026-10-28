@@ -9492,4 +9492,8 @@ current receipts for six identity-affected sources, first
 `Code/GameEngine/Source/Common/INI/INI.cpp`. Carry that scope into the next scheduled census.
 Clearance: the seed's own current-input preview is clean; consumer-wide
 clearance is pending. The supported composition passes its link guard. No new linking gain claimed.
+Additional handoff: the final hook reports the residual OVERRIDE conversion as
+a divergent definition in code-identity shadow mode. Its template is unchanged
+and its COFF facts equal the pre-edit snapshot; retain that warning with the
+override/setting reconciliation. No register was expanded or retired.
 Census confirmation: awaiting the next scheduled measurement.
