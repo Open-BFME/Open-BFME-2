@@ -7483,7 +7483,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000E6D78,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp
 0x000E6D94,341,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E6D94AllocateBuffers.cpp
 0x000E6EE9,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp
-0x000E6EF0,216,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DShrubBuffer.cpp noncontiguous provisional,Code/GameEngine/Source/Common/Rva000E6EF0Bucket.cpp
+0x000E6EF0,216,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DShrubBuffer.cpp noncontiguous provisional,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp
 0x000E6FC8,27,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,proposed,C,C=0x000E6EF0..0x000E6FE3 noncontiguous,Code/GameEngine/Source/Common/Rva000E6FC8.cpp
 0x000E6FE3,51,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,proposed,C,C=0x000E6EF0..0x000E7016 noncontiguous,Code/GameEngine/Source/Common/Rva000E6FE3.cpp
 0x000E7016,195,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngine/Source/Common/W3DShrubBuffer.cpp noncontiguous provisional,Code/GameEngine/Source/Common/Rva000E7016Reset.cpp
@@ -7509,7 +7509,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000E89BD,624,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E8C2D,880,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E8F9D,318,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
-0x000E90DB,79,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,proposed,N,N=Code/GameEngine/Source/Common/W3DShrubBuffer.cpp noncontiguous island,Code/GameEngine/Source/Common/Rva000E6EF0Bucket.cpp
+0x000E90DB,79,code,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,proposed,N,N=Code/GameEngine/Source/Common/W3DShrubBuffer.cpp noncontiguous island,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp
 0x000E912A,164,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp
 0x000E91CE,1254,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,F,F=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer_addShrub.cpp
 0x000E96B4,1272,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBufferDoXfer.cpp
