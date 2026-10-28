@@ -64,7 +64,8 @@ def test_class_without_bases_keeps_its_contract(monkeypatch):
         [(0, 4, "float", "x"), (4, 4, "float", "y"), (8, 4, "float", "z")]
     assert got["evidence"]["inherited"] == {"inherited_spans": [], "inherited_slots": 0, "base_views": 0}
     flat = {"Base": [(0, 4, "VPTR", "__vfptr", "void*"), (4, 4, "P", "m_moduleData", "ModuleData*")]}
-    own, slots, _ = contract.own_members([], {"Base": BASE}, flat, {"Base": {"Base": BASE}})
+    own, slots, _, queue = contract.own_members("Base", [], {"Base": BASE}, flat, {"Base": {"Base": BASE}})
+    assert queue == []
     assert own == flat and slots == {"Base": {0: "__vecDelDtor(uint)", 1: "getKey()"}}
 
 
@@ -92,6 +93,59 @@ def test_lane_refuses_a_base_without_a_header_and_includes_registered_bases(monk
     text = lane.generate(derived, "data", {}, "Code/Include/Derived.h")
     assert '#include "Base.h"' in text and "class Derived : public Base {" in text
     assert "m_moduleData" not in text and "Object *m_object;" in text
+
+
+def layout(size, fields=(), bases=(), slots=None, vfptr=False):
+    return {"fwd": False, "key": "class", "size": size, "bases": [list(b) for b in bases], "fields": list(fields),
+            "vslots": slots or {}, "vfptr": vfptr}
+
+
+def decide_with(monkeypatch, views, tables=None, access=None):
+    monkeypatch.setattr(contract, "retail_access", lambda n, rows, builder: access or {})
+    got = decide(monkeypatch, "D", views)
+    if tables is None:
+        return got
+    monkeypatch.setattr(contract, "retail_vtable", lambda n, rows, builder: tables)
+    return contract.decide("D", sources=sorted(views))
+
+
+@pytest.mark.parametrize("reverse", [False, True])
+def test_disagreeing_base_extents_queue_in_either_order(monkeypatch, reverse):
+    # One view's base ends at +12 with a float at +8; the other's base ends at +4
+    # and the class's own int sits at +8. Neither may silently win by source order.
+    big = layout(12, [(0, "b", "int", 4), (8, "base_extra", "float", 4)])
+    small = layout(8, [(0, "b", "int", 4)])
+    views = [("a.cpp", {"D": layout(12, bases=[("B", 0)]), "B": big}),
+             ("b.cpp", {"D": layout(12, [(8, "own", "int", 4)], bases=[("B", 0)]), "B": small})]
+    got = decide_with(monkeypatch, dict(reversed(views) if reverse else views), access={8: {4: 2}})
+    attributes = [q["attribute"] for q in got["queue"]]
+    assert "base-extent" in attributes and "field@0x8" in attributes
+    assert got["evidence"]["inherited"]["inherited_spans"] == []
+
+
+def test_flattened_leaf_the_base_does_not_declare_is_queued(monkeypatch):
+    flat = dict(FLAT, fields=[[4, "m_other", "float", 4], [8, "m_object", "Object*", 4]])
+    views = {"a.cpp": {"Derived": DERIVED, "Base": BASE}, "flat.cpp": {"Derived": flat}}
+    got = decide(monkeypatch, "Derived", views)
+    assert "inherited@0x4" in [q["attribute"] for q in got["queue"]]
+
+
+def test_inherited_slots_are_judged_against_the_retail_vftable(monkeypatch):
+    base = layout(4, slots={"0": "f()", "1": "g()", "2": "invented()"}, vfptr=True)
+    views = {"a.cpp": {"D": layout(4, bases=[("B", 0)]), "B": base},
+             "flat.cpp": {"D": layout(4, slots={"0": "f()", "1": "g()", "2": "invented()"}, vfptr=True)}}
+    got = decide_with(monkeypatch, views, tables={"0x123": {"stores": 1, "slots": {"0": "f", "1": "g"}}})
+    attributes = [q["attribute"] for q in got["queue"]]
+    assert "slot2" in attributes and "base-slots" in attributes
+
+
+def test_virtual_base_is_looked_up_and_included_by_its_class_name(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {"B": "Code/B.h"})
+    derived = {"class": "D", "key": "class", "key_by": "bytes", "size": 8, "size_by": "majority",
+               "bases": ["virtual B"], "fields": []}
+    assert lane.unheadered_bases(derived) == []
+    assert lane.nested_includes(derived, "Code/D.h") == ['#include "B.h"', ""]
+    assert "class D : public virtual B {" in lane.generate(derived, "data", {}, "Code/D.h")
 
 
 if __name__ == "__main__":

@@ -191,24 +191,47 @@ def slot_count(layout, every, depth=0):
     return max([count] + [k + 1 for k in own])
 
 
-def own_members(bases, good, flat, every):
+def own_members(name, bases, good, flat, every):
     """Restrict every view to the members the class declares itself, given its decided `bases`.
 
     A view that spells the decided bases proves where they end (the union of the
-    bases' extents) and how many primary slots they bring; the majority of those
-    views fixes both. Every view then drops the leaves inside those spans and the
-    introducing slots below that count: a view that copied a base's fields or
-    vfptr into the class (no base clause, or a stub base) votes only on the
-    members the class itself adds. Returns (flat, vslots by view, evidence)."""
-    spans, counts = collections.Counter(), collections.Counter()
+    bases' extents), what lies inside them and how many primary slots they
+    bring. Only when every such view agrees does any view drop the leaves inside
+    those spans and the introducing slots below that count: a view that copied a
+    base's fields or vfptr into the class (no base clause, or a stub base) then
+    votes only on the members the class itself adds. Views that disagree on the
+    extent or the slot count, or a leaf inside the span that the bases do not
+    declare at that offset, width and kind, are queued and nothing is dropped:
+    the per-offset votes then see every conflict, as without a base. Returns
+    (flat, vslots by view, evidence, queue)."""
+    spans, counts, inside_leaves = collections.Counter(), collections.Counter(), set()
     for source, layout in good.items():
-        if bases and [b for b, _ in layout.get("bases", [])] == list(bases)                 and all(b in every[source] for b in bases):
-            spans[tuple(inherited_spans(layout, every[source]))] += 1
+        if bases and [b for b, _ in layout.get("bases", [])] == list(bases) \
+                and all(b in every[source] for b in bases):
+            got = tuple(inherited_spans(layout, every[source]))
+            spans[got] += 1
             counts[max((slot_count(every[source][b], every[source]) for b, offset in layout["bases"] if offset == 0),
                        default=0)] += 1
-    span = list(spans.most_common(1)[0][0]) if spans else []
-    inherited = counts.most_common(1)[0][0] if counts else 0
+            for base_name, offset in layout["bases"]:
+                if offset >= 0:
+                    inside_leaves.update((o, size, k) for o, size, k, _, _ in
+                                         flatten(every[source][base_name], every[source], offset, 1, True))
+    queue, span, inherited = [], [], 0
+    if len(spans) > 1:
+        queue.append({"class": name, "attribute": "base-extent",
+                      "candidates": {repr(list(map(list, k))): n for k, n in spans.items()}})
+    elif len(counts) > 1:
+        queue.append({"class": name, "attribute": "base-slots", "candidates": {str(k): n for k, n in counts.items()}})
+    elif spans:
+        span, inherited = list(next(iter(spans))), next(iter(counts))
     inside = lambda offset: any(a <= offset < b for a, b in span)
+    for offset in sorted({leaf[0] for items in flat.values() for leaf in items if inside(leaf[0])}):
+        shapes = {(o, size, k) for items in flat.values() for o, size, k, _, _ in items if o == offset}
+        if shapes - inside_leaves:
+            queue.append({"class": name, "attribute": f"inherited@{offset:#x}",
+                          "candidates": {f"{size}:{k}": 1 for _, size, k in sorted(shapes)}})
+    if queue:
+        span, inherited = [], 0
     own_flat = {s: [leaf for leaf in items if not inside(leaf[0])] for s, items in flat.items()}
     vslots = {}
     for source, layout in good.items():
@@ -216,7 +239,7 @@ def own_members(bases, good, flat, every):
         vslots[source] = {int(k): v for k, v in layout.get("vslots", {}).items()
                           if spelled_bases or int(k) >= inherited}
     return own_flat, vslots, {"inherited_spans": [list(x) for x in span], "inherited_slots": inherited,
-                              "base_views": sum(spans.values())}
+                              "base_views": sum(spans.values())}, queue
 
 
 RULE_STRENGTH = ("bytes", "retail-access", "zh", "majority")
@@ -414,7 +437,8 @@ def decide(name, sources=None, jobs=8, sample=None):
         bases, base_rule = zh_bases, "zh"
     else:
         bases, base_rule = (list(base_votes.most_common(1)[0][0]) if base_votes else []), "majority"
-    flat, view_slots, inherited = own_members(bases, good, flat, every)
+    flat, view_slots, inherited, base_queue = own_members(name, bases, good, flat, every)
+    queue += base_queue
     if bases and inherited["inherited_spans"]:
         start = max(b for _, b in inherited["inherited_spans"])
         zh_at = {o: v for o, v in zh_at.items() if o >= start}
@@ -510,19 +534,30 @@ def decide(name, sources=None, jobs=8, sample=None):
         view_keys = collections.Counter(L["key"] for L in good.values())
         key, key_rule = view_keys.most_common(1)[0][0] if view_keys else "struct", "majority"
 
-    slot_votes = collections.defaultdict(collections.Counter)
+    slot_votes, every_vote = collections.defaultdict(collections.Counter), collections.defaultdict(collections.Counter)
     for source in good:
         for slot, member in view_slots[source].items():
             slot_votes[slot][member] += 1
+        for slot, member in good[source].get("vslots", {}).items():
+            every_vote[int(slot)][member] += 1
     # A constructor may prove the table address before vtables.tsv inventories
     # its entries. Missing slot evidence is unknown, not a zero-slot ABI bound.
     retail_slots = max((len(v["slots"]) for v in vtables.values() if v["slots"]), default=None)
     zh_slots = {int(k): v for k, v in zh["layout"].get("vslots", {}).items()} if zh and "layout" in zh else {}
     vslots = {}
+    # The retail bound judges every view's slot evidence, including the
+    # inherited slots own_members set aside: a base that claims more slots than
+    # the retail vftable holds is a conflict, never a reason to stop looking.
+    if retail_slots is not None:
+        for slot, votes in sorted(every_vote.items()):
+            if slot >= retail_slots:
+                queue.append({"class": name, "attribute": f"slot{slot}", "candidates": dict(votes),
+                              "why": f"beyond the retail vftable's {retail_slots} slots"})
+        if inherited["inherited_slots"] > retail_slots:
+            queue.append({"class": name, "attribute": "base-slots", "candidates": {str(inherited["inherited_slots"]): 1},
+                          "why": f"bases claim more than the retail vftable's {retail_slots} slots"})
     for slot, votes in sorted(slot_votes.items()):
         if retail_slots is not None and slot >= retail_slots:
-            queue.append({"class": name, "attribute": f"slot{slot}", "candidates": dict(votes),
-                          "why": f"beyond the retail vftable's {retail_slots} slots"})
             continue
         if len(votes) == 1:
             vslots[slot] = (next(iter(votes)), "bytes")

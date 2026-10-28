@@ -220,16 +220,21 @@ def spelled(type_name, field):
     return f"{SPELL.get(stem, stem)} {stars}{field}"
 
 
+def base_identity(base):
+    """The class a base spelling names: CodeView spells virtual inheritance `virtual B`."""
+    return re.sub(r"^(?:(?:virtual|public|protected|private)\s+)+", "", base).strip()
+
+
 def unheadered_bases(contract):
     """The contract's bases with no registered canonical header: the class cannot be generated yet."""
     known = registered()
-    return [b for b in contract.get("bases", []) if b not in known]
+    return [b for b in contract.get("bases", []) if base_identity(b) not in known]
 
 
 def nested_includes(contract, header):
     """`#include` lines for the canonical headers of the contract's bases and member aggregates."""
     lines, known = [], registered()
-    wanted = list(contract.get("bases", []))
+    wanted = [base_identity(b) for b in contract.get("bases", [])]
     wanted += [f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")]
     for type_name in wanted:
         if type_name not in known:
