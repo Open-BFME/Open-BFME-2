@@ -115,7 +115,7 @@ public:
 	virtual void v8();
 	virtual void v9();
 	virtual void v10();
-	virtual void onEntry( BfmeEntryZI *entry, int value );
+	virtual void onEntry( BfmeEntryZI *entry, int flag );
 };
 
 struct Rva007EB810Diag
@@ -129,10 +129,16 @@ public:
 
 extern Rva007EB810Diag *Rva007EB810Get();
 
+struct Rva00800920Host;
+class DemanglerListener;
 class Rva00800920Owner
 {
 public:
+	Rva00800920Owner( Rva00800920Host *host );
+	void set0c( DemanglerListener *value ) { m_0c = value; }
 	int rva00800a40( void *input, unsigned char flag, int value );
+	char m_pad00[0xC];
+	DemanglerListener *m_0c; // +0x0C
 };
 
 // ?rva007F7DA0@BfmeThingZI@@QAEXPAVRva007E8810Message@@@Z

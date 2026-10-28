@@ -37,10 +37,11 @@ static int BfmeThingDGDVTableAnchorH8;
 class Rva00803080
 {
 public:
+	Rva00803080 &set( int value );
+	void initPool();
+	void clear( void );
 	virtual void slot0( void ) = 0;
 	virtual ~Rva00803080();
-
-	void clear( void );
 };
 
 class Rva007F8090Owned0
@@ -95,10 +96,9 @@ private:
 class Gen_007e86c0
 {
 public:
-	void m( void );
-
+	void m();
 private:
-	unsigned char m_unmodelled[ 0x10 ];
+	unsigned char m_unmodelled[ 0x10 ]; // +0x00
 };
 
 class Rva00800290Buffer

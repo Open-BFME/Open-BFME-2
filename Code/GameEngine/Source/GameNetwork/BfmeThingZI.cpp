@@ -137,17 +137,19 @@ class Rva00803080
 public:
 	Rva00803080 &set( int value );
 	void initPool();
+	void clear( void );
+	virtual void slot0( void ) = 0;
+	virtual ~Rva00803080();
 };
 
 class Rva00800920Owner
 {
 public:
 	Rva00800920Owner( Rva00800920Host *host );
-
 	void set0c( DemanglerListener *value ) { m_0c = value; }
-
-	unsigned char m_pad[ 0x0c ];
-	DemanglerListener *m_0c;
+	int rva00800a40( void *input, unsigned char flag, int value );
+	char m_pad00[0xC];
+	DemanglerListener *m_0c; // +0x0C
 };
 
 class Gen007F0130
@@ -332,7 +334,9 @@ public:
 class Gen_007e86c0
 {
 public:
-    void m();
+	void m();
+private:
+	unsigned char m_unmodelled[ 0x10 ]; // +0x00
 };
 
 class Rva007F7360Sender

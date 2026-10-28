@@ -55,7 +55,10 @@ public:
 class BfmeMsg
 {
 public:
+	BfmeMsg();
 	virtual ~BfmeMsg();
+protected:
+	int m_state; // +0x04
 };
 
 class SnapshotDupReplica
