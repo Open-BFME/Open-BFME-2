@@ -82,9 +82,7 @@ class AptDate {
 private:
 	char prefix[0x20];
 private:
-	int seconds,minutes,hours,unused2c,day,month,year,milliseconds;
-private:
-	int utcSeconds,utcMinutes,utcHours,unused4c,utcDay,utcMonth,utcYear,utcMilliseconds;
+	AptSysClock local,utc;
 private:
 	int timezoneHours;
 public:
@@ -435,46 +433,46 @@ int AptDate::getDayOfWeek(int year,int month,int day)
 
 AptValue *AptDate::sMethod_getDate(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->day);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Date);
 }
 
 AptValue *AptDate::sMethod_getDay(AptValue *value,int argc)
 {
     int weekday=reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->getDayOfWeek(
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->year,
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->month,
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->day);
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Month,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Date);
     return AptInteger::Create(weekday);
 }
 
 AptValue *AptDate::sMethod_getFullYear(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->year);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year);
 }
 
 AptValue *AptDate::sMethod_getHours(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->hours);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Hour);
 }
 
 AptValue *AptDate::sMethod_getMilliseconds(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->milliseconds);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Hundredths);
 }
 
 AptValue *AptDate::sMethod_getMinutes(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->minutes);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Minute);
 }
 
 AptValue *AptDate::sMethod_getMonth(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->month);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Month);
 }
 
 AptValue *AptDate::sMethod_getSeconds(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->seconds);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Second);
 }
 
 AptValue *AptDate::sMethod_getTime(AptValue *value,int argc)
@@ -489,51 +487,51 @@ AptValue *AptDate::sMethod_getTimezoneOffset(AptValue *value,int argc)
 
 AptValue *AptDate::sMethod_getUTCDate(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcDay);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Date);
 }
 
 AptValue *AptDate::sMethod_getUTCDay(AptValue *value,int argc)
 {
     int weekday=reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->getDayOfWeek(
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcYear,
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcMonth,
-        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcDay);
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Year,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Month,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Date);
     return AptInteger::Create(weekday);
 }
 
 AptValue *AptDate::sMethod_getUTCFullYear(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcYear);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Year);
 }
 
 AptValue *AptDate::sMethod_getUTCHours(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcHours);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Hour);
 }
 
 AptValue *AptDate::sMethod_getUTCMilliseconds(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcMilliseconds);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Hundredths);
 }
 
 AptValue *AptDate::sMethod_getUTCMinutes(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcMinutes);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Minute);
 }
 
 AptValue *AptDate::sMethod_getUTCMonth(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcMonth);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Month);
 }
 
 AptValue *AptDate::sMethod_getUTCSeconds(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utcSeconds);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Second);
 }
 
 AptValue *AptDate::sMethod_getYear(AptValue *value,int argc)
 {
-    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->year-1900);
+    return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year-1900);
 }
 
 // tu-skeleton: 0x006F4950 110B ?sMethod_setDate@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
