@@ -206,7 +206,6 @@ address_global	Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp	g_Va00DFE0
 address_global	Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp	g_Va00DFE1D8	5
 address_global	Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp	g_Va00DFEB64	5
 address_global	Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp	g_Va00DFEFE0	5
-address_global	Code/GameEngine/Source/Common/Rva000308E0AddHeap.cpp	g_Va00DE03E8	2
 address_global	Code/GameEngine/Source/Common/Rva00062B17Init.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43A4	3
 address_global	Code/GameEngine/Source/Common/Rva00066A9ABody.cpp	g_Va00DB43AC	3
@@ -854,13 +853,13 @@ address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va007BB5C4	2
 address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/System/FileSystemRestricted.cpp	g_Va00E06E60	2
 address_global	Code/GameEngine/Source/Common/System/FormationBuild.cpp	g_Va00E03174	2
+address_global	Code/GameEngine/Source/Common/System/GameMemory.cpp	g_Va00DE03E8	4
 address_global	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	g_Va00BC2424	1
 address_global	Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp	g_Va00BBAEAC	1
 address_global	Code/GameEngine/Source/Common/System/GlobalChainCleanup.cpp	g_Va00DFEBE4	3
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC17CCNames	4
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DC85C4Names	4
 address_global	Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp	g_Va00DD263CNames	4
-address_global	Code/GameEngine/Source/Common/System/Rva00030730Init.cpp	g_Va00DE03E8	2
 address_global	Code/GameEngine/Source/Common/System/Rva0005CE32Method.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/System/Rva0007517FCtor.cpp	g_Va00BBB8D8	13
 address_global	Code/GameEngine/Source/Common/System/Rva0007517FCtor_Unresolved.cpp	g_Va00BBB8D8	1
@@ -2641,10 +2640,11 @@ alternatename	Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp	??0Rv
 alternatename	Code/GameEngine/Source/Common/System/CompositeRvoGetters.cpp	??0Rva00394173Member@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/DataChunkInput.cpp	?consume@DataChunkInput@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/System/DataChunkInput.cpp	?deleteInstance@UserParser@@UAEPAXH@Z	1
-alternatename	Code/GameEngine/Source/Common/System/GameMemoryFree.cpp	?free@@YAXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/System/GameMemoryFree.cpp	?free@_STL@@YAXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/System/GameMemoryFree.cpp	?freeWayPointVecStorage@@YAXPAX@Z	1
-alternatename	Code/GameEngine/Source/Common/System/GameMemoryFree.cpp	__free	1
+alternatename	Code/GameEngine/Source/Common/System/GameMemory.cpp	?allocate@BucketAlloc@@SAPAXIPBX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/GameMemory.cpp	?free@@YAXPAX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/GameMemory.cpp	?free@_STL@@YAXPAX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/GameMemory.cpp	?freeWayPointVecStorage@@YAXPAX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/GameMemory.cpp	__free	1
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp	?copyFrom@BfmeElem440@@QAEXPBU1@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp	?copyFrom@BfmeElemFC@@QAEXPAU1@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	_INV	1
@@ -4304,7 +4304,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bod
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeAssignRecord24@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeStringHeadRecord184@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp	??4BfmeStringTailRecord144@@QAEAAU0@ABU0@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_byte_allocator.cpp	?allocate@BucketAlloc@@SAPAXIPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?_M_decr@_Locale_impl@_STL@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?_M_incr@_Locale_impl@_STL@@UAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_classic_locale.cpp	?do_in@?$codecvt@DDH@_STL@@MBE?AW4result@codecvt_base@2@AAHPBD1AAPBDPAD3AAPAD@Z	1

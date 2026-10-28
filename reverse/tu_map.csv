@@ -1928,17 +1928,17 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00030630,80,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp,Code/GameEngine/Source/Common/System/memory_pool.cpp
 0x00030680,42,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp,Code/GameEngine/Source/Common/System/memory_pool.cpp
 0x000306B0,128,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp W=Code/Libraries/Source/memorypool/memorypool_allocator.cpp,Code/GameEngine/Source/Common/System/memory_pool.cpp
-0x00030730,190,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp W=Code/Libraries/Source/memorypool/memorypool_allocator.cpp,Code/GameEngine/Source/Common/System/Rva00030730Init.cpp
-0x000307F0,22,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030810,Code/Libraries/Source/WWVegas/WWLib/stlport_byte_allocator.cpp
+0x00030730,190,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp W=Code/Libraries/Source/memorypool/memorypool_allocator.cpp,Code/GameEngine/Source/Common/System/GameMemory.cpp
+0x000307F0,22,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030810,Code/GameEngine/Source/Common/System/GameMemory.cpp
 0x00030810,27,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030830,Code/Libraries/Source/Compression/ZLib/Rva00030810Siblings.cpp
-0x00030830,17,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030850,Code/GameEngine/Source/Common/System/GameMemoryFree.cpp
+0x00030830,17,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030850,Code/GameEngine/Source/Common/System/GameMemory.cpp
 0x00030850,6,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030860,Code/GameEngine/Source/Common/System/GameMemoryBlockSlots.cpp
 0x00030860,19,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030880,Code/GameEngine/Source/Common/System/GameMemoryBlockSlots.cpp
 0x00030880,6,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030890,Code/GameEngine/Source/Common/System/GameMemoryBlockSlots.cpp
 0x00030890,17,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x000308B0,Code/GameEngine/Source/Common/System/GameMemory.cpp
 0x000308B0,17,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x000308D0,Code/GameEngine/Source/Common/System/GameMemory.cpp
 0x000308D0,6,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x000308E0,Code/GameEngine/Source/Common/GlobalByteGetters.cpp
-0x000308E0,16,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x000308F0,Code/GameEngine/Source/Common/Rva000308E0AddHeap.cpp
+0x000308E0,16,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x000308F0,Code/GameEngine/Source/Common/System/GameMemory.cpp
 0x000308F0,6,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,C,C=0x00030730..0x00030900,Code/GameEngine/Source/Common/System/GameMemoryBlockSlots.cpp
 0x00030900,16,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp,Code/GameEngine/Source/Common/System/memory_pool.cpp
 0x00030910,90,code,Code/GameEngine/Source/Common/System/GameMemory.cpp,approved,S,S=Code/GameEngine/Source/Common/System/GameMemory.cpp N=Code/GameEngine/Source/Common/System/MemoryPool.cpp,Code/GameEngine/Source/Common/System/memory_pool.cpp
