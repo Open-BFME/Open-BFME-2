@@ -50,7 +50,7 @@ public:
 class Rva00068119
 {
 public:
-	void rva00068119(const Coord3D *a, const GeometryInfo *b, float f);
+	void rva00068119(const Coord3D *position, const GeometryInfo *b, float angle);
 // (b rides as a pointer and is dereferenced at the call, matching the
 // callee's const-ref parameter without moving any bytes)
 	unsigned char m_pad[0x3858];
@@ -58,11 +58,11 @@ public:
 };
 
 // ?Rva00068119::rva00068119 present-unmatched
-void Rva00068119::rva00068119(const Coord3D *a, const GeometryInfo *geometryInfo, float f)
+void Rva00068119::rva00068119(const Coord3D *position, const GeometryInfo *geometryInfo, float angle)
 {
 	W3DPropBuffer *buf = m_buf;
 	if (buf)
-		buf->removePropsForConstruction(a, *geometryInfo, f);
+		buf->removePropsForConstruction(position, *geometryInfo, angle);
 }
 
 // ?Rva00068441::rva00068441 present-unmatched
@@ -138,9 +138,9 @@ public:
 	}
 };
 
-float rva0007B851(const Rva0007B851Point *a, const Rva0007B851Point *b)
+float rva0007B851(const Rva0007B851Point *pointA, const Rva0007B851Point *pointB)
 {
-	float dx = a->x - b->x;
-	float dy = a->y - b->y;
+	float dx = pointA->x - pointB->x;
+	float dy = pointA->y - pointB->y;
 	return Rva0007B851Math::Sqrt(dx * dx + dy * dy);
 }

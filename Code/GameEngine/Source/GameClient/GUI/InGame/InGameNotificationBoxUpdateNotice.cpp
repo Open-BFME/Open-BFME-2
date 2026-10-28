@@ -42,9 +42,9 @@ class Rva004E6A37 {
 public:
  Rva004E6935 *m_ptr;
  Rva004E6A37(Rva004E6935 *p=0):m_ptr(p) {}
- __forceinline Rva004E6935 *release() { Rva004E6935 *p=m_ptr; m_ptr=0; return p; }
- Rva004E6A37(Rva004E6A37 &v) { Rva004E6935 *p=v.m_ptr; v.m_ptr=0; m_ptr=p; }
- Rva004E6A37(Rva004E6A37Ref r) { m_ptr=r.release(); }
+ __forceinline Rva004E6935 *release() { Rva004E6935 *releasedPointer=m_ptr; m_ptr=0; return releasedPointer; }
+ Rva004E6A37(Rva004E6A37 &sourceOwner) { Rva004E6935 *movedPointer=sourceOwner.m_ptr; sourceOwner.m_ptr=0; m_ptr=movedPointer; }
+ Rva004E6A37(Rva004E6A37Ref transferReference) { m_ptr=transferReference.release(); }
  operator Rva004E6A37Ref() { return Rva004E6A37Ref(m_ptr,m_ptr); }
  ~Rva004E6A37();
  Rva004E6A37 &operator=(Rva004E6A37);

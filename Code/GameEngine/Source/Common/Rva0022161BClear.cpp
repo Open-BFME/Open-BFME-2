@@ -24,11 +24,11 @@ private:
 
 void Rva0022161B::rva0022161B()
 {
-	Rva002215F4 *p = m_ptr;
+	Rva002215F4 *ownedObject = m_ptr;
 	m_ptr = 0;
-	if (p) {
-		p->Rva002215F4::~Rva002215F4();
-		::operator delete(p);
+	if (ownedObject) {
+		ownedObject->Rva002215F4::~Rva002215F4();
+		::operator delete(ownedObject);
 	}
 }
 // ??1Rva0022167C@@QAE@XZ, retail 0x0022167C 14B.

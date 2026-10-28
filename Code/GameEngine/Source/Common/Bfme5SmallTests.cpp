@@ -95,13 +95,13 @@ unsigned int __cdecl rva00306B85(unsigned int bits)
 // table, constructor, destructor, or original class identity is claimed.
 struct Rva001DBA9BSectionView
 {
-    _RTL_CRITICAL_SECTION *m_section00;
+    _RTL_CRITICAL_SECTION *m_criticalSection;
     void leave();
 };
 #pragma optimize("s", on)
 void Rva001DBA9BSectionView::leave()
 {
-    LeaveCriticalSection(m_section00);
+    LeaveCriticalSection(m_criticalSection);
 }
 #pragma optimize("", on)
 
@@ -192,7 +192,7 @@ unsigned long rva0000118E(unsigned long bits)
 // and returns32-bit zero/one for two inclusive unsigned ranges. Original
 // owner, semantic name, and character/enum interpretation remain unknown.
 #pragma optimize("t", on)
-int rva001542A0(unsigned short bits)
+int isThaiCharacter(unsigned short bits)
 {
     if ((bits < 0x0E01 || bits > 0x0E3A) &&
         (bits < 0x0E3F || bits > 0x0E5B))

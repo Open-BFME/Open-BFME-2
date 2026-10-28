@@ -3950,3 +3950,14 @@ param,ArmySummarySystem::rva0040D2FD::v,ArmySummarySystem::rva0040D2FD::coordina
 local,ArmySummarySystem::rva0040D2FD::f,ArmySummarySystem::rva0040D2FD::coordinateCopy,inferred,agree:nl-c30038f175c2,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
 param,FunctorBinding::m,FunctorBinding::functorMethod,inferred,agree:nl-54c796054ff0,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineQuickMatchConstructor.cpp,
 local,INI::Rva004B2B64_ParseReplaceObject::p,INI::Rva004B2B64_ParseReplaceObject::parseTables,inferred,agree:nl-d3831f47dd81,Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdateFieldParse.cpp,0x004B2B64
+member,Rva001DBA9BSectionView::m_section00,Rva001DBA9BSectionView::m_criticalSection,inferred,agree:nl-ef2d241787c2,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,
+function,?rva001542A0@@YAHG@Z,?isThaiCharacter@@YAHG@Z,inferred,agree:nl-1b5ababcfcfe,Code/GameEngine/Source/Common/Bfme5SmallTests.cpp,0x001542A0
+param,Rva00068119::rva00068119::a,Rva00068119::rva00068119::position,inferred,agree:nl-9070ac8b999d,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,0x00068119
+param,Rva00068119::rva00068119::f,Rva00068119::rva00068119::angle,inferred,agree:nl-6ee4ac7f0973,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,0x00068119
+param,rva0007B851::a,rva0007B851::pointA,inferred,agree:nl-65f8f7459564,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,0x0007B851
+param,rva0007B851::b,rva0007B851::pointB,inferred,agree:nl-fd5865453f9e,Code/GameEngine/Source/Common/Rva00068119Bodies.cpp,0x0007B851
+local,Rva0022161B::rva0022161B::p,Rva0022161B::rva0022161B::ownedObject,inferred,agree:nl-6779b68d80e6,Code/GameEngine/Source/Common/Rva0022161BClear.cpp,0x0022161B
+local,release#2::p,release#2::releasedPointer,inferred,agree:nl-38fc7f827e97,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp,
+param,Rva004E6A37#2::v,Rva004E6A37#2::sourceOwner,inferred,agree:nl-8ce29c65c712,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp,
+local,Rva004E6A37#2::p,Rva004E6A37#2::movedPointer,inferred,agree:nl-d0e902719147,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp,
+param,Rva004E6A37#3::r,Rva004E6A37#3::transferReference,inferred,agree:nl-236e183c557a,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationBoxUpdateNotice.cpp,
