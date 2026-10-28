@@ -203,7 +203,7 @@ Completed:
   Rva0054103EVectorInsertOverflow.cpp and SaveMapPreviewCopy.cpp LINK.
 Summary (2026-10-29): 7 of the 10 providers repaired, covering 32 of the 35 lost
 names; the three left (deque `copy`, FontLibraryInit `insert_unique`, BfmeE8
-`__uninitialized_copy`) touch 7 census-linked units, 7,828 B upper bound.
+`__uninitialized_copy`) touch 9 census-linked units, 7,828 B upper bound.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
@@ -635,6 +635,13 @@ and census confirmation remain open.
 [Verification and object receipt](../reverse/attempt_support/color-picker-floor-link-20261028-codexb.md).
 
 Status: Open; needs a census link-order rule decision (maintainer).
+Update (2026-10-29, halilkkaya-lk6): the rule decision landed as retail-truth-5
+(0d26afd6d2, `code_places` skips rows whose address another object's row claims),
+after the 2026-10-28 15:58 census (d92e7e6635, still retail-truth-4). Re-ranking that
+census index under the new rule turns 10 names' kept copy non-wrong (125 units,
+271,771 B blocked only by them) and 35 names wrong (50 linked units, 43,547 B upper
+bound); the second set is LINK-135. Census confirmation awaits the first retail-truth-5
+census.
 Updated: 2026-10-28; inspected revision: `4506f9bc93`, index at `c8734bec0c`.
 Evidence / affected units: `link_census.link_order` (and `allowed_symbols.link_order`,
 `link_check`, `tu_skeleton`) places an object by the lowest RVA of any matched row,
