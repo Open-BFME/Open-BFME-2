@@ -40958,8 +40958,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004D46FC,861,code,Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp S=Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp N=Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp
 0x004D4A59,39,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4A80,14,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4A8E,Code/GameEngine/Source/GameNetwork/Transport.cpp
-0x004D4A8E,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AC0,Code/GameEngine/Source/GameNetwork/Transport_encryptBuf.cpp
-0x004D4AC0,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AF2,Code/GameEngine/Source/GameNetwork/Transport_decryptBuf.cpp
+0x004D4A8E,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AC0,Code/GameEngine/Source/GameNetwork/Transport.cpp
+0x004D4AC0,50,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,C,C=0x004D4A59..0x004D4AF2,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4AF2,153,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D4B8B,28,code,,displaced,-,N=Code/GameEngine/Source/Common/UDP.cpp,Code/GameEngine/Source/Common/Rva0059510DClear.cpp
 0x004D4BA7,353,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp W=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
@@ -40979,7 +40979,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004D53B5,225,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D5496,43,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D54C1,115,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
-0x004D5534,95,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport_init_AsciiString_Rva004d5534.cpp
+0x004D5534,95,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/Transport.cpp S=Code/GameEngine/Source/GameNetwork/Transport.cpp N=Code/GameEngine/Source/GameNetwork/Transport.cpp,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x004D5593,37,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp S=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp N=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp
 0x004D55B8,4,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,C,C=0x004D5593..0x004D55BC,Code/GameEngine/Source/Common/Disp8DwordFieldIncDec.cpp
 0x004D55BC,26,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp S=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp N=Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,Code/GameEngine/Source/GameNetwork/NetCommandMsg_detach.cpp
@@ -82046,8 +82046,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00790FE0,10,code,Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,approved,P,P=0x004D46FC@FuncInfo0x00942F0C,Code/GameEngine/Source/GameNetwork/DisconnectManagerO1.cpp
 0x00790FEA,10,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5219@FuncInfo0x00942F30,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x00790FF4,10,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5219@FuncInfo0x00942F30,Code/GameEngine/Source/GameNetwork/Transport.cpp
-0x00790FFE,8,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5534@FuncInfo0x00942F54,Code/GameEngine/Source/GameNetwork/Transport_init_AsciiString_Rva004d5534.cpp
-0x00791006,10,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5534@FuncInfo0x00942F54,Code/GameEngine/Source/GameNetwork/Transport_init_AsciiString_Rva004d5534.cpp
+0x00790FFE,8,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5534@FuncInfo0x00942F54,Code/GameEngine/Source/GameNetwork/Transport.cpp
+0x00791006,10,code,Code/GameEngine/Source/GameNetwork/Transport.cpp,approved,P,P=0x004D5534@FuncInfo0x00942F54,Code/GameEngine/Source/GameNetwork/Transport.cpp
 0x00791010,8,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,P,P=0x004D5B4C@FuncInfo0x00942F90,Code/GameEngine/Source/GameNetwork/NetCommandMsgContents.cpp
 0x00791018,8,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,P,P=0x004D5B4C@FuncInfo0x00942F90,Code/GameEngine/Source/GameNetwork/NetCommandMsgContents.cpp
 0x00791020,8,code,Code/GameEngine/Source/GameNetwork/NetCommandMsg.cpp,approved,P,P=0x004D5B4C@FuncInfo0x00942F90,Code/GameEngine/Source/GameNetwork/NetCommandMsgContents.cpp
