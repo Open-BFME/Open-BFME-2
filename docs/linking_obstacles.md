@@ -4968,8 +4968,15 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   present-unmatched ZH `initiateIntentToDoSpecialPower`. Retail's 0x004946F3 makes no AcademyStats call,
   so there is no retail body to recover. Find a retail caller of the stat, or drop the ZH call from the
   unmatched body.
-- `g_00DB5BD4` (U in `Rva000FDCD7Get.cpp`): lies inside the 144-byte data row `g_00DB5B88`
-  (0x9B5B88..0x9B5C18). This needs a data-ledger split.
+- `g_00DB5BD4` (U in `Rva000FDCD7Get.cpp`): the old inferred 144-byte
+  `data_ledger.csv` interval at `0x009B5B88` does not prove storage for this
+  filter. The matched data row at its start owns only the four-byte
+  `BfmeScreenTransitionSwapCounter`. Rechecked 2026-10-28 at `ee6402fcd2`,
+  ordinary index `d92e7e6635`: the caller remains byte-exact (26 B), with this
+  filter object its sole unresolved reference. Recover the complete object
+  and initialized vtable before registering ownership, as LINK-007 requires;
+  a ledger split alone cannot clear it.
+  [Evidence](../reverse/attempt_support/filter-slot9-owner-20261028-codex3.md).
 - `latest_texture` (U in `DebugStatisticsTextureShutdown.cpp`): a file-static in
   `DebugStatisticsRecordTexture.cpp`; the thunk belongs in that TU (consolidation).
   Cleared in ordinary-preview scope, 2026-10-28: the recording unit now owns

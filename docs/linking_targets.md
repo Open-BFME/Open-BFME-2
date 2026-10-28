@@ -162,7 +162,7 @@ The handoff found no earlier served-queue entry for these 16 units. Follow-up:
 | `StlSweepW5Rva0042830DAssignTwin.cpp` | 33 | Unresolved | Open |
 | `StlportVectorClearRva00475F2A.cpp` | 30 | Unresolved | Open |
 | `Weapon_getName_Thunk.cpp` | 26 | Wrong selected | Open |
-| `Rva000FDCD7Get.cpp` | 26 | Unresolved | Open |
+| `Rva000FDCD7Get.cpp` | 26 | Unresolved | 2026-10-28: byte-exact; ordinary index `d92e7e6635` still reports only `g_00DB5BD4`. Complete filter-object/vtable recovery required (LINK-007, LINK-020); the old inferred data interval is not storage proof. [Evidence](../reverse/attempt_support/filter-slot9-owner-20261028-codex3.md). |
 | `ConstIntGetters2Addr.cpp` | 6 | Addresses | Open |
 | **Total: 16 units** | **2,809** | | |
 
