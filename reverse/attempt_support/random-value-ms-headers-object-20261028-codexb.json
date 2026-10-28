@@ -1,0 +1,95 @@
+{
+  "base": "6d7a215d6b5750842fec9bc00334158a232e69e7",
+  "index": {
+    "date": "2026-10-28 15:58",
+    "commit": "d92e7e6635",
+    "clean_tree": true
+  },
+  "objects": [
+    {
+      "source": "Code/GameEngine/Source/Common/GameLogicRandomValue_getValueInt.cpp",
+      "identical_external_object_facts": true,
+      "before_sha256": "037eb7cc1de2dd20c2ebebb383e3f5b3bd76bb0a3eac4823c641208a4e27a8c0",
+      "after_sha256": "4b9be66ea572e9201ee00cd894b5b65f0511d002968ac0b772f446d4fddeb970",
+      "facts": {
+        "comdats": {
+          "?GetGameLogicRandomValue@@YAHHHPADH@Z": [
+            "d99eeacabb04",
+            86
+          ],
+          "??_C@_0BL@BABKGBCF@logicrandom?5?$DN?5?$CFi?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@": [
+            "d70052b674fa",
+            27
+          ]
+        },
+        "strong": [
+          "?GetGameLogicRandomValue@@YAHHHPADH@Z"
+        ],
+        "undefined": [
+          "?randomValue@@YIIPAI@Z",
+          "__imp__strrchr",
+          "_fprintf",
+          "_theGameLogicSeed"
+        ],
+        "weak": [],
+        "roots": [
+          "??_C@_0BL@BABKGBCF@logicrandom?5?$DN?5?$CFi?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@",
+          "?randomValue@@YIIPAI@Z",
+          "__imp__strrchr",
+          "_fprintf",
+          "_theGameLogicSeed"
+        ],
+        "edges": {
+          "??_C@_0BL@BABKGBCF@logicrandom?5?$DN?5?$CFi?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@": []
+        }
+      }
+    },
+    {
+      "source": "Code/GameEngine/Source/Common/GameLogicRandomValue_getValueReal.cpp",
+      "identical_external_object_facts": true,
+      "before_sha256": "3e0a2ce478119b6bf6fc23ee084065ac1c66265c91a031cf3535f080597b8ab2",
+      "after_sha256": "f01000b9f4e6502175808c8926bfbaf275df3aafb5ab4d3b7a3c21c3edd9ccca",
+      "facts": {
+        "comdats": {
+          "?GetGameLogicRandomValueReal@@YAMMMPADH@Z": [
+            "30f0490b608e",
+            127
+          ],
+          "??_C@_0BL@GCIOPOFE@logicrandom?5?$DN?5?$CFf?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@": [
+            "256a7e7864a6",
+            27
+          ],
+          "__real@4f800000": [
+            "74021c61cee0",
+            4
+          ]
+        },
+        "strong": [
+          "?GetGameLogicRandomValueReal@@YAMMMPADH@Z"
+        ],
+        "undefined": [
+          "?randomValue@@YIIPAI@Z",
+          "__fltused",
+          "__imp__strrchr",
+          "_fprintf",
+          "_theGameLogicSeed",
+          "_theMultFactor"
+        ],
+        "weak": [],
+        "roots": [
+          "??_C@_0BL@GCIOPOFE@logicrandom?5?$DN?5?$CFf?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@",
+          "?randomValue@@YIIPAI@Z",
+          "__imp__strrchr",
+          "__real@4f800000",
+          "_fprintf",
+          "_theGameLogicSeed",
+          "_theMultFactor"
+        ],
+        "edges": {
+          "??_C@_0BL@GCIOPOFE@logicrandom?5?$DN?5?$CFf?5?$CI?$CFs?0?5?$CFi?$CJ?6?$AA@": [],
+          "__real@4f800000": []
+        }
+      }
+    }
+  ]
+}

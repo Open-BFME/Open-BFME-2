@@ -92,6 +92,21 @@ through its tool), then `return (int)&Name;` in the getters. 0x00E032DC is only
 the address-named `g_Va00E032DC` hatch; the other 10 values have no ledger row.
 No source change made.
 
+### Game-logic random CRT declaration cleanup (2026-10-28)
+
+Status: scoped cleanup verified; full consumer/census confirmation pending.
+Inspected base `6d7a215d6b`, preview index `d92e7e6635`. The integer and real
+GameLogicRandomValue units use the real string header for imported strrchr
+and remove their misleading FILE aliases. Their game-side `_fprintf` call
+remains bound to RVA 0x002CEC42, not the CRT stream operation. Both rows
+remain exact, all external object facts are unchanged, and both ordinary
+previews retain LINKS (213 authored bytes). Four local header declarations
+are removed; the two logger-name findings remain.
+[Evidence and remaining prerequisites](../reverse/attempt_support/random-value-ms-headers-20261028-codexb.md).
+The outgoing batch audit is INCONCLUSIVE: the index predates the base and
+Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry
+that scope into the next scheduled census. No census-linked gain is claimed.
+
 ### Grid culling inline floor linkage (2026-10-28)
 
 Status: scoped preview repaired; external consumer and census confirmation pending.
@@ -7462,6 +7477,12 @@ Remaining / next check: emit that explicit specialization (the existing `Rva0039
 Census confirmation: pending for the units not yet linked at 73061d9452 (Rva00415704Ctor.cpp, PlayerRelationMapCtor.cpp, V3PolyDeferredCopyCtors2.cpp).
 
 ### LINK-113: BoneFXDamage imports the Zero Hour DamageModule Snapshot contract
+
+2026-10-28 recheck at `6d7a215d6b`, refreshed index `d92e7e6635`: the
+claimed BoneFXDamage consumer still reports the same three unresolved
+DamageModule snapshot methods and one constructor-copy conflict (U3/L1).
+No source trial was repeated; the shared-contract prerequisites below remain.
+
 Status: Blocked on shared module interface and existing row identity reconciliation. Updated: 2026-10-27; inspected revision: a0b82f68445de8ab0254437ef7e97332ce48cfb0.
 Evidence / affected units: `GameLogic/Object/Damage/BoneFXDamage.cpp` remains U3/L1 with the current `DamageModuleCtor.cpp` provider against ordinary-preview index `bf3dd31211`. The unresolved `DamageModule::crc`, `xfer` and `loadPostProcess` names occur in unrowed BoneFXDamage donor methods and the emitted 56-byte DamageModule primary table. They are not direct REL32 references in the matched BoneFXDamage bodies. Native constructor 0x004B979C calls the rowed base constructor 0x004B9704, which installs table 0x008598E4. That native table begins with deleting destructor 0x004B973B, load hook 0x0058B03E, DamageModule name getter 0x004B9735 and xfer 0x004CE56D; the imported table begins crc, xfer and loadPostProcess instead.
 Completed: all seven BoneFXDamage rows pass byte verification, and the current-object references and native table were inspected without modifying source. Existing native owners include `UpdateModuleLoadPostProcess.cpp`, `ConstIntGetters4.cpp` and `Rva004CE56DXfer.cpp`; the latter xfer still has a placeholder owner. The base constructor provider retains LINKS. No unrelated donor body was removed and no new body or pin was added.
@@ -8099,6 +8120,13 @@ Clearance: source consolidation and scoped byte/data/EH checks only. Full select
 ### LINK-133: ICF-twin rows moved objects ahead in link order, so their wrong COMDAT copies became the kept copy
 
 Status: Placement cause cleared by census rule `retail-truth-5` (re-baseline at `840db2d676`); 56 newly exposed units open as source repairs (below). Updated: 2026-10-29.
+
+2026-10-28 consumer recheck at `6d7a215d6b`, refreshed index `d92e7e6635`:
+`WWLib/Rva0006C995Insert.cpp` still fails solely on the selected pointer-set
+`insert` and `insert_unique` copies. The existing CollectKeys provider/context
+prerequisite remains; no unchanged suppression trial was repeated.
+
+
 Status: Open; Render2DSentenceDrawBFME2.cpp repair landed / awaiting census. Updated: 2026-10-28; inspected revision: `3868d198bf`; index 41c28839bf (census c8734bec0c).
 Status: Duplicate of LINK-132 (same cause, filed in parallel); new results are tracked under LINK-132, and this entry keeps the whole-ledger simulation history. Updated: 2026-10-28; inspected revision: `1e9d0f5a75`; index 73061d9452.
 

@@ -3,16 +3,21 @@
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp
 // (GetGameLogicRandomValue). Dedicated TU mirroring the landed Real twin;
 // integer divide plus the logic-random log-file block.
+// Retail calls strrchr through msvcr71's IAT slot at VA 0x00BBA5A8.
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
-typedef void FILE;
 
 extern "C" UnsignedInt theGameLogicSeed[6];
 
-static FILE *theLogicRandomLogFile;
+static void *theLogicRandomLogFile;
 
-extern "C" __declspec(dllimport) char *__cdecl strrchr(const char *string, int c);
-extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+// The existing _fprintf owner at RVA 0x002CEC42 appends to a game object;
+// this is not the CRT stream operation declared by stdio.h.
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 UnsignedInt __fastcall randomValue(UnsignedInt *seed);
 

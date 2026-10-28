@@ -3,20 +3,25 @@
 // from Open-BFME-1 Code/GameEngine/Source/Common/System/random_value.cpp
 // (GetGameLogicRandomValueReal). Dedicated TU mirroring the landed
 // GameClient twin at 0x00234111; adds the logic-random log-file block
-// (fprintf via the statically linked CRT body, strrchr import).
+// (game-side logging helper, strrchr import).
+// Retail calls strrchr through msvcr71's IAT slot at VA 0x00BBA5A8.
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+
 typedef float Real;
 typedef unsigned int UnsignedInt;
-typedef void FILE;
 
 // Shared writable multiplier initialized by RandomValueMultFactorInit.cpp.
 extern "C" Real theMultFactor;
 
 extern "C" UnsignedInt theGameLogicSeed[6];
 
-static FILE *theLogicRandomLogFile;
+static void *theLogicRandomLogFile;
 
-extern "C" __declspec(dllimport) char *__cdecl strrchr(const char *string, int c);
-extern "C" int __cdecl fprintf(FILE *stream, const char *format, ...);
+// The existing _fprintf owner at RVA 0x002CEC42 appends to a game object;
+// this is not the CRT stream operation declared by stdio.h.
+extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 UnsignedInt __fastcall randomValue(UnsignedInt *seed);
 
