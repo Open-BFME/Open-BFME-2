@@ -100,6 +100,7 @@ import argparse
 import ast
 import bisect
 import csv
+import functools
 import hashlib
 import json
 import os
@@ -116,6 +117,7 @@ import boundary_validator
 import claims
 import landability
 import re_log
+import tier_tuning
 import wb_context
 import yield_model
 
@@ -1569,6 +1571,10 @@ TIER_LABELS = dict(zip(DEBT_TIERS, DEBT_LABELS))
 # Naming is not a default tier (it never was): --wb and tools/name_lane.py serve it on
 # request. BFME_TIER_WEIGHTS="link=30,stubs=15,..." overrides any subset; a tier at 0 is
 # still tried, last.
+# These are PRIORS since 2026-10-28: tools/tier_tuning.py moves each share within 0.5x-2x
+# of its prior toward the tiers whose landings moved a headline figure over the last 48 h
+# (--weights shows how; BFME_TIER_TUNING=off, --static-weights or any BFME_TIER_WEIGHTS
+# override restores these numbers).
 TIER_WEIGHTS = {"link": 26, "stubs": 12, "header": 15, "consolidate": 20, "tu-approval": 4, "tu-evidence": 3,
                 "data": 8, "identity": 4, "ms-headers": 4, "dx": 1, "stlport": 3}
 BUILT = []                  # debt queues this run built, in order (lazy: tests read it)
@@ -1576,12 +1582,55 @@ _DEBT = {}
 
 
 def tier_weights():
+    """The default pick's shares: TIER_WEIGHTS tuned by tools/tier_tuning.py on
+    origin/master, or the priors with any BFME_TIER_WEIGHTS override applied (an override,
+    BFME_TIER_TUNING=off or --static-weights turns tuning off)."""
     weights = dict(TIER_WEIGHTS)
     for part in filter(None, os.environ.get("BFME_TIER_WEIGHTS", "").split(",")):
         name, _, value = part.partition("=")
         if name.strip() in weights and value.strip().isdigit():
             weights[name.strip()] = int(value)
-    return weights
+    return tier_tuning.weights(weights, tuning_ref())[0]
+
+
+@functools.lru_cache(maxsize=1)
+def tuning_ref():
+    """The commit tuning measures: origin/master, so every seat on the same SHA agrees."""
+    return "origin/master" if subprocess.run(
+        ["git", "rev-parse", "--verify", "--quiet", "origin/master"], cwd=ROOT,
+        capture_output=True).returncode == 0 else "HEAD"
+
+
+def print_weights(args, busy):
+    """--weights: per tier the prior, the measured yield, the queue depth (live, claimed)
+    and the final share, with the reason. Building every queue takes as long as --ranked."""
+    weights = dict(TIER_WEIGHTS)
+    _, rows, note = tier_tuning.weights(weights, tuning_ref())
+    final = tier_weights()
+    depth = {}
+    for name in DEBT_TIERS[1:]:
+        items, _ = build_debt(name)
+        pool, _ = prepare_debt(items, busy, args)
+        depth[name] = (len(items), len([c for c in pool if not c.get("deferred_attempts")]))
+    live = sum(final[n] for n in depth if depth[n][1] and final[n] > 0) or 1
+    print(f"default-pick shares: {note}")
+    print(f"{'tier':12} {'prior':>6} {'yield':>9} {'gap %':>7} {'ratio':>6} {'weight':>7} {'queue':>7} "
+          f"{'open':>6} {'first%':>7}  reason")
+    for name in DEBT_TIERS[1:]:
+        row = (rows or {}).get(name, {})
+        y = "" if row.get("yield") is None else f"{row['yield']:,}"
+        frac = "" if row.get("fraction") is None else f"{100 * row['fraction']:.3f}"
+        ratio = "" if row.get("ratio") is None else f"{row['ratio']:.2f}"
+        first = 100 * final[name] / live if depth[name][1] and final[name] > 0 else 0.0
+        reason = row.get("reason") or note
+        if not depth[name][1]:
+            reason += "; queue empty or every item claimed: falls through (0)"
+        print(f"{name:12} {TIER_WEIGHTS[name]:>6} {y:>9} {frac:>7} {ratio:>6} {final[name]:>7} "
+              f"{depth[name][0]:>7} {depth[name][1]:>6} {first:>6.1f}%  {reason}")
+    for line in SKIPPED:
+        print(f"skipped {line}")
+    print("first% is the chance a pick tries the tier first among the queues that can serve now "
+          "(an empty or fully claimed queue falls through, so its share goes to the rest pro rata).")
 
 
 def debt_order(rng=None):
@@ -2053,7 +2102,14 @@ def main():
     ap.add_argument("--include-logged", action="store_true",
                     help="keep candidates already recorded no-match in "
                          "reverse/re_attempts.log (they are dropped by default)")
+    ap.add_argument("--weights", action="store_true",
+                    help="print each default tier's prior, measured yield, queue depth and final share "
+                         "(tools/tier_tuning.py), then exit; builds every queue")
+    ap.add_argument("--static-weights", action="store_true",
+                    help="kill switch: use the hand-set TIER_WEIGHTS priors (same as BFME_TIER_TUNING=off)")
     args = ap.parse_args()
+    if args.static_weights:
+        os.environ["BFME_TIER_TUNING"] = "off"
     if args.claim and args.ranked:
         ap.error("--claim selects one candidate; omit --ranked")
     ledger = check_ledger()  # exit 2 happens in there; nothing below matters if red
@@ -2061,6 +2117,8 @@ def main():
         return serve_dx(args)
     global repair_queue
     import repair_queue  # after the health check: a corrupt ledger exits first
+    if args.weights:
+        return print_weights(args, busy_keys())
     # The debt queues first, lazily: each is built only when the weighted order reaches
     # it, and the new-match tiers below are computed only when every debt queue is empty
     # or claimed. --ranked builds everything (a human view).

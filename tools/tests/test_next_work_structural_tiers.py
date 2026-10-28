@@ -39,6 +39,7 @@ def test_every_structural_tier_is_a_default_tier_with_a_share():
 
 def test_first_draw_shares_follow_the_weights(monkeypatch):
     monkeypatch.delenv("BFME_TIER_WEIGHTS", raising=False)
+    monkeypatch.setenv("BFME_TIER_TUNING", "off")          # the priors; tools/tests/test_tier_tuning.py tunes
     rng = random.Random(20261025)
     firsts = collections.Counter()
     draws = 20000

@@ -2114,6 +2114,7 @@ def test_debt_order_interleaves_every_lane_by_weight(monkeypatch):
     import collections
     import next_work
     monkeypatch.delenv("BFME_TIER_WEIGHTS", raising=False)
+    monkeypatch.setenv("BFME_TIER_TUNING", "off")          # the priors; tools/tests/test_tier_tuning.py tunes
     rng = random.Random(20261024)
     firsts = collections.Counter()
     for _ in range(4000):

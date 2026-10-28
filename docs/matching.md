@@ -630,6 +630,29 @@ not a default tier: `--wb` and `tools/name_lane.py` serve it on request. A stand
 end drops it. Debt whose source no longer exists is served first in its queue, as
 a regression.
 
+Those numbers are priors. `tools/tier_tuning.py` (called by `next_work.tier_weights`)
+moves each share within 0.5x to 2x of its prior toward the tiers whose landings
+moved a headline figure in the 48 h before `origin/master`'s tip. Yield is read
+from ledger state on that SHA, never from commits or subjects: Code/ source files
+removed net per commit (a move scores 0) for consolidate, as a fraction of the
+source gap (files minus the TUs `tu_map.csv` names); keys the data, code-identity
+and header registers lost, as a fraction of the debt headline (gate baseline,
+those registers and hatch counts). The other tiers keep their prior: linked
+bytes are census-only and fleet-wide, stubs come from a local link cycle, and
+tu_map approval also moves with renames and rebuilds. A measured tier's
+multiplier is the square root of its yield per prior share over the measured
+tiers' mean; the shares are then scaled to sum to 100 inside the band. An empty
+or fully claimed queue already gets nothing: the draw falls through it, which
+shares it out pro rata. The measurement is cached per SHA in `build/tier_tuning/`
+(about 2 s warm, 5 s cold), so every seat on one SHA draws from the same shares.
+Tuned shares can put consolidate above link; that is intended.
+
+- `python3 tools/next_work.py --weights`: per tier the prior, measured yield,
+  fraction of the gap closed, ratio to the mean, final share, queue depth (built
+  like `--ranked`, so as slow) and the chance each tier is tried first now.
+- Kill switch: `BFME_TIER_TUNING=off` or `--static-weights` restores the priors;
+  any `BFME_TIER_WEIGHTS` override also turns tuning off.
+
 After the debt queues come the new-match tiers (Zero Hour packets, reloc-named,
 drift, structural, Ghidra- and string-anchored). They should have no new uncovered
 bytes to serve in the current tree. If a candidate appears, first check current
