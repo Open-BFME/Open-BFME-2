@@ -80,10 +80,22 @@ class ModuleData;
 // rep prefix); the timer and vtable stay body assignments in retail order.
 // Row supersedes the sole-caller pin.
 
-extern "C" const void *const __identifier("??_7BeaconClientUpdateModuleData@@6B@")[];  // folded, 9 classes; via ??_7BeaconClientUpdateModuleData@@6B@
+extern "C" const void *const __identifier("??_7BeaconClientUpdateModuleData@@6B@")[];
 #include <cstring>
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp
+
+  // folded, 9 classes; via ??_7BeaconClientUpdateModuleData@@6B@
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp
 
@@ -198,8 +210,6 @@ void ClickReactionBehavior::rva004596F9()
 		m_cooldown = data->m_cooldown[index];
 }
 
-// tu-skeleton: 0x004595AB 69B ?getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorPoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorModuleDataCtor.cpp
 
   // folded, 9 classes; via ??_7BeaconClientUpdateModuleData@@6B@
@@ -212,15 +222,21 @@ ClickReactionBehaviorModuleData::ClickReactionBehaviorModuleData()
 	memset(m_cooldown, 0, sizeof(m_cooldown));
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType ClickReactionBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheClickReactionBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("ClickReactionBehavior");
+	return TheClickReactionBehaviorPoolKey;
+}
+
 // tu-skeleton: 0x0045960C 17B ?buildFieldParse@ClickReactionBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
 // tu-skeleton: 0x0045961D 102B ??0ClickReactionBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp (not merged yet)
 
 // tu-skeleton: 0x00459683 28B ??_GRva00459553@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A27E 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A28B 10B __ehhandler$?getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078A295 8B Unwind@00b8a295 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp (not merged yet)
 
