@@ -115,9 +115,10 @@ template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiStr
 template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
+// Default construction is inlined at every use. Suppress its unused external
+// copy, as with the inline-only container adapters below.
 class S3Money : public Snapshot { public: int words[2];
- __forceinline S3Money(){words[0]=0;words[1]=0;}
- // ?S3Money::S3Money present-unmatched
+ __declspec(dllimport) __forceinline S3Money(){words[0]=0;words[1]=0;}
  __forceinline S3Money(const S3Money&s3Money){words[0]=s3Money.words[0];words[1]=s3Money.words[1];}
  virtual ~S3Money() {}
  virtual void loadPostProcess();

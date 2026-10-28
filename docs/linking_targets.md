@@ -84,6 +84,14 @@ confirmation remain open under LINK-132/LINK-133. The batch audit remains
 inconclusive for external consumers.
 [Evidence](../reverse/attempt_support/gridcull-floor-link-20261028-codexb.md).
 
+Additional current target (2026-10-28, base `34926aa896`, index `d92e7e6635`):
+`Common/BfmeObject476Copy.cpp` retains LINKS for 2,519 authored bytes after
+suppressing an unused S3Money default-constructor copy. All 147 rows, seven
+EH graphs and 178 retained COMDAT fingerprints are preserved; one unmatched
+hatch retires. Proposed TU placement and three container-wrapper prerequisites
+remain open; no census gain is claimed.
+[Evidence](../reverse/attempt_support/bfmeobject476-cleanup-20261028-codexb.md).
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):

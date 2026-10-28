@@ -1,0 +1,77 @@
+{
+  "source": "Code/GameEngine/Source/Common/BfmeObject476Copy.cpp",
+  "base": "34926aa896efd36aa649065b0d54b977c2af496d",
+  "index_meta": {
+    "date": "2026-10-28 15:58",
+    "commit": "d92e7e6635",
+    "clean_tree": true
+  },
+  "removed": [
+    "??0S3Money@@QAE@XZ"
+  ],
+  "retained_comdats": 178,
+  "checks": {
+    "strong": true,
+    "undefined": true,
+    "weak": true,
+    "roots": true,
+    "retained_edges": true,
+    "removed_wrapper_unreferenced": true
+  },
+  "before": {
+    "object_sha256": "e614901ac827d8b19527c4ee51198f94789cf5df295caefd6ee268e126fc23a3",
+    "comdat_count": 179,
+    "retained_comdats_sha256": "d56acb4340bc85301959bde505ca0343882f849b68c37ab4a1aa98d43e12697d",
+    "retained_edges_sha256": "53ecf6d5878a968ef9c708ca0192321d22f036eb27aab1d5d7071627aea26998",
+    "strong": {
+      "count": 10,
+      "sha256": "397904e14771f7835399728a32e33f461fcee72ccb4c04b12ae3c81fd07dc4f9"
+    },
+    "undefined": {
+      "count": 50,
+      "sha256": "a61907ee7686c2ca06b0dc5571ba1941d38e99fd34be53ea94b8a8b587513c3b"
+    },
+    "weak": {
+      "count": 5,
+      "sha256": "f24dba399d4db06f599fcd155f0a9385d9394a7e4356891d816e26891f2cf8ef"
+    },
+    "roots": {
+      "count": 51,
+      "sha256": "45fb70e17bdef583c6c65db47530c9bf31d9434b1cdc578206b29795ae2e68fc"
+    }
+  },
+  "after": {
+    "object_sha256": "a73680473dcb770fbba4bd8e7ab0810bdc5ddf938dfa03c500636e1abdcf5378",
+    "comdat_count": 178,
+    "retained_comdats_sha256": "d56acb4340bc85301959bde505ca0343882f849b68c37ab4a1aa98d43e12697d",
+    "retained_edges_sha256": "53ecf6d5878a968ef9c708ca0192321d22f036eb27aab1d5d7071627aea26998",
+    "strong": {
+      "count": 10,
+      "sha256": "397904e14771f7835399728a32e33f461fcee72ccb4c04b12ae3c81fd07dc4f9"
+    },
+    "undefined": {
+      "count": 50,
+      "sha256": "a61907ee7686c2ca06b0dc5571ba1941d38e99fd34be53ea94b8a8b587513c3b"
+    },
+    "weak": {
+      "count": 5,
+      "sha256": "f24dba399d4db06f599fcd155f0a9385d9394a7e4356891d816e26891f2cf8ef"
+    },
+    "roots": {
+      "count": 51,
+      "sha256": "45fb70e17bdef583c6c65db47530c9bf31d9434b1cdc578206b29795ae2e68fc"
+    }
+  },
+  "digest_encoding": "SHA-256 of UTF-8 JSON, sorted keys, compact separators",
+  "removed_facts": {
+    "??0S3Money@@QAE@XZ": {
+      "digest_and_size": [
+        "4a934cf44e18",
+        17
+      ],
+      "outgoing_edges": [
+        "??_7S3Money@@6B@"
+      ]
+    }
+  }
+}
