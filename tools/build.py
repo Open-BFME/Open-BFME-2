@@ -3896,13 +3896,36 @@ def dir32_row_key(row):
                       row.get("notes", ""), ledger_object_symbol(row)))
 
 
-def object_stamp(obj):
-    stat = Path(obj).stat()
-    return [stat.st_size, stat.st_mtime_ns]
+def object_stamps():
+    """{object file name: [size, mtime_ns]} for every object in BUILD_DIR, from one
+    directory listing: obj_path puts every object, compiled or a library member,
+    directly there under a name unique to its source (and member). Statting the
+    ~21,000 objects one by one took 16 s on Windows."""
+    stamps = {}
+    with os.scandir(BUILD_DIR) as entries:
+        for entry in entries:
+            if entry.name.endswith(".obj"):
+                stat = entry.stat()
+                stamps[entry.name] = [stat.st_size, stat.st_mtime_ns]
+    return stamps
 
 
 def _object_key(obj):
-    return Path(obj).resolve().relative_to(resolved(BUILD_DIR)).as_posix()
+    return Path(obj).name
+
+
+def _ledger_object_name(row):
+    """obj_path's file name for a row, from the ledger spelling alone (no path
+    resolution: resolving ~21,000 sources took longer than the DIR32 pass). A
+    spelling obj_path would resolve differently names no indexed object, so
+    the caller runs the full pass."""
+    head, _, last = row["source"].rpartition("/")
+    dot = last.rfind(".")
+    stem = (f"{head}/" if head else "") + (last[:dot] if dot > 0 else last)
+    stem = stem.replace("/", "_")
+    if row["source"].lower().endswith(LIB_SUFFIX):
+        stem += "_" + member_stem(ledger_member(row))
+    return "".join(("^" + c.lower()) if c.isupper() else c for c in stem) + ".obj"
 
 
 def load_dir32_index(path):
@@ -3950,6 +3973,9 @@ def verify_dir32_consistency(rows, *, reuse=None, reuse_stamps=None, index_out=N
     sym2base = defaultdict(set)
     row_pairs = {}
     stamps = dict(reuse_stamps or {})
+    # Stamps from one listing taken before any object is read: an object
+    # rewritten after it no longer matches, so a later carried push reads it again.
+    listing = object_stamps() if index_out else {}
     static_symbols = {}
     object_paths = RowObjectPaths(require_row_object)
     # Retail order scatters siblings beyond _object_layout's bounded cache.
@@ -3966,7 +3992,7 @@ def verify_dir32_consistency(rows, *, reuse=None, reuse_stamps=None, index_out=N
             continue
         obj = object_paths.get(row)
         if index_out and _object_key(obj) not in stamps:
-            stamps[_object_key(obj)] = object_stamp(obj)
+            stamps[_object_key(obj)] = listing.get(_object_key(obj))
         pairs = row_pairs.setdefault(key, []) if key is not None else []
         trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
         target = read_target_bytes(trva, tsz)
@@ -4203,21 +4229,19 @@ def carried_dir32_rows(rows, index, verified):
     stamp differs from the index. A verified source's rows are read again."""
     reuse = {}
     stamps = {}
+    listing = object_stamps()
     for row in rows:
         if row["source"] in verified:
             continue
         key = dir32_row_key(row)
         if key not in index["rows"]:
             return None, f"{row['source']}: row {row['name']} not in the carried index"
-        obj = row_object(row)
-        try:
-            okey = _object_key(obj)
-            if okey not in stamps:
-                stamps[okey] = object_stamp(obj)
-        except (OSError, ValueError):
+        okey = _ledger_object_name(row)
+        if okey not in listing:
             return None, f"{row['source']}: object missing"
-        if index["objects"].get(okey) != stamps[okey]:
+        if index["objects"].get(okey) != listing[okey]:
             return None, f"{row['source']}: object rebuilt since the carried check"
+        stamps[okey] = listing[okey]
         reuse[key] = index["rows"][key]
     return (reuse, stamps), None
 

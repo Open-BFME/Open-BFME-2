@@ -392,7 +392,7 @@ def dir32_fixture(tmp_path, monkeypatch, bases=None):
     rows = [{"source": f"Code/{letter}.cpp", "name": f"function{i}",
              "target_rva": hex(0x1000 + i * 0x10), "target_size": "7", "notes": ""}
             for i, letter in enumerate("ab")]
-    objects = {row["source"]: match / (row["source"][5] + ".obj") for row in rows}
+    objects = {row["source"]: match / build._ledger_object_name(row) for row in rows}
     for obj in objects.values():
         obj.write_bytes(b"fixture")
     by_rva = {int(row["target_rva"], 16): row["source"] for row in rows}
@@ -521,3 +521,12 @@ def test_a_receipt_keeps_its_index_and_cross_checks_find_it(repo, monkeypatch, t
     assert not R.index_path(sha).exists()
     assert R.main(["cross-checks", "--since", sha, "--verified-from", str(listing)]) == 0
     assert seen["carried_index"] is None
+
+
+def test_the_ledger_object_name_is_obj_paths():
+    import build
+    for row in ({"source": "Code/GameEngine/Source/GameClient/Eva.cpp", "notes": ""},
+                {"source": "Code/stlport/LocaleTimeDestroy.c", "notes": ""},
+                {"source": "Code/a.b/Unit.Name.cpp", "notes": ""},
+                {"source": "vendor/msvc71crt/msvcrt.lib", "notes": "member=obj\i386\stack.obj"}):
+        assert build._ledger_object_name(row) == build.row_object(row).name
