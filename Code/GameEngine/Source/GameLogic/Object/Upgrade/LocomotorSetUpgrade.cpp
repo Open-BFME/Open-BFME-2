@@ -25,12 +25,15 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 typedef bool Bool;
+
 typedef float Real;
+
 class AIUpdateInterface
 {
 public:
 	void rva00262804(unsigned char upgraded);
 };
+
 class Object
 {
 public:
@@ -39,7 +42,9 @@ private:
 	unsigned char m_pad000[0x258];
 	AIUpdateInterface *m_ai; // +0x258
 };
+
 class ModuleData;
+
 class ObjectModuleBase
 {
 public:
@@ -49,19 +54,23 @@ protected:
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
 };
+
 class UpgradeModuleInterface
 {
 public:
 	virtual void upgradeModuleInterfaceAnchor();
 };
+
 template <int N> class LocomotorSetUpgradeMuxSlots : public LocomotorSetUpgradeMuxSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
+
 template <> class LocomotorSetUpgradeMuxSlots<0>
 {
 };
+
 // UpgradeMux interface at +0x10: slot 8 upgradeRemovalImplementation, slot 9
 // setUpgradeExecuted, slot 10 upgradeImplementation.
 class UpgradeMuxIface : public LocomotorSetUpgradeMuxSlots<8>
@@ -71,15 +80,18 @@ protected:
 	virtual void setUpgradeExecuted(Bool executed) = 0;
 	virtual void upgradeImplementation() = 0;
 };
+
 class UpgradeModule : public ObjectModuleBase, public UpgradeModuleInterface, public UpgradeMuxIface
 {
 };
+
 class LocomotorSetUpgradeModuleData
 {
 public:
 	unsigned char m_pad[0x118];
 	Bool m_118; // +0x118
 };
+
 class LocomotorSetUpgrade : public UpgradeModule
 {
 protected:
@@ -92,6 +104,8 @@ public:
 // tu-skeleton: 0x004B3EA0 32B ??1LocomotorSetUpgrade@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleTailDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x004B3EC0 6B ?name@LocomotorSetUpgrade@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/LocomotorSetUpgradePoolKey.cpp
 
@@ -107,6 +121,18 @@ NameKeyType LocomotorSetUpgrade::getModuleNameKey() const
 
 // tu-skeleton: 0x004B3F3C 28B ??_GLocomotorSetUpgrade@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleTailDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004B3F58 35B ?upgradeImplementation@LocomotorSetUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeUpgradeImplementation.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeUpgradeImplementation.cpp
 
-// tu-skeleton: 0x004B3F7B 21B ?upgradeRemovalImplementation@LocomotorSetUpgrade@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeUpgradeImplementation.cpp (not merged yet)
+void LocomotorSetUpgrade::upgradeImplementation()
+{
+	AIUpdateInterface *ai = getObject()->getAI();
+	if (ai)
+		ai->rva00262804(((const LocomotorSetUpgradeModuleData *)m_moduleData)->m_118 == 0);
+}
+
+void LocomotorSetUpgrade::upgradeRemovalImplementation()
+{
+	AIUpdateInterface *ai = getObject()->getAI();
+	if (ai)
+		ai->rva00262804(0);
+}
