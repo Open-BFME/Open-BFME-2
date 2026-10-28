@@ -291,7 +291,7 @@ public:
 	virtual void slot3();
 	virtual void slot4();
 	virtual void slot5();
-	virtual void slot6(int value, int flags);
+	virtual void slot6(Player *player, int flags);
 };
 
 class AIUnitBuilder
