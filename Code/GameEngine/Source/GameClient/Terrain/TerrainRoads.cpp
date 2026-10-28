@@ -270,6 +270,8 @@ class Rva0027F5A6 { public: AsciiString rva0027F5A6(); };
 
 // ---- from Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp
 
+// ---- from Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp
+
 // ---- from Code/GameEngine/Source/Common/TerrainRoadCollection.cpp
 
 TerrainRoadCollection::TerrainRoadCollection()
@@ -630,10 +632,6 @@ TerrainRoadType *TerrainRoadCollection::newRoad(AsciiString name)
     return road;
 }
 
-// tu-skeleton: 0x002DAD19 52B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x002DB1CA 327B ??0TerrainRoadType@@QAE@XZ -- matched in Code/GameEngine/Source/Common/TerrainRoadType.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002DB311Dtor.cpp
 
 // Native scalar strings own one pointer and release it directly. Keep the
@@ -737,3 +735,28 @@ TerrainRoadType *TerrainRoadCollection::newBridge( AsciiString name )
 }
 
   // end newBridge
+
+// tu-skeleton: 0x002DAD19 52B (unledgered) -- unmatched, no code, never credited
+
+// ---- from Code/GameEngine/Source/Common/TerrainRoadType.cpp
+
+// Native scalar strings own one pointer and release it directly. Keep the
+// array element's native cleanup ABI by using the same genuine ownership.
+
+// TerrainRoadType::~TerrainRoadType: defined in GameClient/Terrain/TerrainRoads.cpp (its row's unit).
+TerrainRoadType::TerrainRoadType()
+{
+	float v0 = 0.0f;
+	float v1C = 1.0f;
+	m_isBridge = false;
+	m_id = 0;
+	m_next = 0;
+	m_numFXPerType = 0;
+	m_roadWidth = v0;
+	m_roadWidthInTexture = v0;
+	m_bridgeScale = v1C;
+	m_radarColor[0] = v0;
+	m_radarColor[1] = v0;
+	m_radarColor[2] = v0;
+	m_transitionEffectsHeight = v0;
+}
