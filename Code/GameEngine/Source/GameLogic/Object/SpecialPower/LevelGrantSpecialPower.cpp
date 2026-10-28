@@ -414,7 +414,17 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-// tu-skeleton: 0x004C2AA0 83B ??0LevelGrantSpecialPowerModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPowerModuleDataCtor.cpp
+
+// ??0LevelGrantSpecialPowerModuleData@@QAE@XZ @0x4C2AA0
+LevelGrantSpecialPowerModuleData::LevelGrantSpecialPowerModuleData()
+	: SpecialAbilityUpdateModuleData()
+	, m_experience(0)
+	, m_acceptanceFilter()
+	, m_radiusEffect(0.0f)
+	, m_levelFX(0)
+{
+}
 
 // tu-skeleton: 0x004C2AF3 27B ?buildFieldParse@LevelGrantSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
@@ -423,6 +433,8 @@ public:
 // tu-skeleton: 0x004C2B3F 6B ?Rva004C2B3FGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004C2B45 18B ??0Rva004C2B45@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp
 
