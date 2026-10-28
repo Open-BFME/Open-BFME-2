@@ -14,14 +14,14 @@ struct Rva002A74C3Inner
 struct Rva002A74C3Outer
 {
 	char m_pad[4];
-	Rva002A74C3Inner *m_p04;
+	Rva002A74C3Inner *m_template;
 };
 int __stdcall Rva002A74C3Get(void *a)
 {
-	Rva002A74C3Outer *o = (Rva002A74C3Outer *)a;
-	int v = o->m_p04->m_val61C;
+	Rva002A74C3Outer *objectView = (Rva002A74C3Outer *)a;
+	int commandPointBonus = objectView->m_template->m_val61C;
 	float out = 0.0f;
 	if (((Object *)a)->rva0028C149(0x18, &out, 0))
-		v = (int)((float)v + out);
-	return v;
+		commandPointBonus = (int)((float)commandPointBonus + out);
+	return commandPointBonus;
 }

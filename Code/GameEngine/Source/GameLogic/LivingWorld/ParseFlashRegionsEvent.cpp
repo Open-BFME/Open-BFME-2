@@ -42,7 +42,7 @@ private:
 
 // BFME 2's complete table at RVA 0x008619E0. Each callback and offset
 // comes from the native table, independently of the donor's addresses.
-extern const FieldParse Rva003B7190RecordFieldParseTable[4] = {
+extern const FieldParse FlashRegionsEventFieldParseTable[4] = {
     { "DelayFromActStart", INI::dup_002F0F7, 0, 4 },
     { "FlashTime", INI::dup_002F0F7, 0, 12 },
     { "SummaryEvent", INI::parseBool, 0, 8 },
@@ -64,7 +64,7 @@ void ParseFlashRegionsEvent(INI *ini, void *instance, void *, const void *)
         throw INIException(3, "ParseFlashRegionsEvent::Invalid data passed in.");
 
     Rva003B7190Record record;
-    ini->initFromINI(&record, Rva003B7190RecordFieldParseTable);
+    ini->initFromINI(&record, FlashRegionsEventFieldParseTable);
     // The rowed 0x0056655F thunk has the native reference ABI. Its element
     // spelling is a callable view, not an assertion of this record's identity.
     static_cast<Rva0056655FOwner *>(instance)->rva0056655F(

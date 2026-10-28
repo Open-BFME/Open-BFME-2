@@ -36,9 +36,9 @@ int ArmySummarySystem::ComputePlayerEarnedSpellPoints(_Rva0040CA61Arg *player)
 {
 	if (!player)
 		return 0;
-	int n = player->m_1C;
+	int rank = player->m_1C;
 	int total = 0;
-	for (int i = 1; i <= n; ++i) {
+	for (int i = 1; i <= rank; ++i) {
 		Rva002000D7Config *cfg = ((Rva002000D7Store *)TheRankInfoStore)->get(i);
 		if (cfg)
 			total += cfg->m_34;

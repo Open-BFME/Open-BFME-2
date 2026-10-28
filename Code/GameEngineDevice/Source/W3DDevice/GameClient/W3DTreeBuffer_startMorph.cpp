@@ -58,7 +58,7 @@ struct Rva000ECA4DType
 	unsigned char m_pad24[0x4c - 0x24];
 	AsciiString m_modelName;
 	unsigned char m_pad50[0x58 - 0x50];
-	Int m_field58;
+	Int m_morphTreeType;
 };
 
 struct Rva000ECA4DTree
@@ -70,11 +70,11 @@ struct Rva000ECA4DTree
 	unsigned char m_pad44[0x58 - 0x44];
 	Int m_drawableID;
 	unsigned char m_pad5c[0x80 - 0x5c];
-	Int m_field80;
+	Int m_toppleState;
 	unsigned char m_pad84[0xc4 - 0x84];
 	bool m_flagc4;
 	unsigned char m_padc5[0xc8 - 0xc5];
-	Int m_fieldc8;
+	Int m_morphState;
 	unsigned char m_padcc[0xd0 - 0xcc];
 	Int m_fieldd0;
 	Int m_morphFramesLeft;
@@ -124,15 +124,15 @@ void W3DTreeBuffer::startMorph(Int index, Int request)
 		if (!m_treeTypes[type].m_data->m_flag54)
 			return;
 	}
-	if (!m_trees[index].m_flagc4 && m_trees[index].m_field80 != 0) {
+	if (!m_trees[index].m_flagc4 && m_trees[index].m_toppleState != 0) {
 		((Rva0027F2D6 *)TheTerrainLogic)->rva0027F2D6(m_trees[index].m_drawableID);
 		return;
 	}
-	if (m_trees[index].m_flagc4 || m_trees[index].m_field80 != 0)
+	if (m_trees[index].m_flagc4 || m_trees[index].m_toppleState != 0)
 		return;
 
 	m_trees[index].m_morphFramesLeft = m_treeTypes[type].m_data->m_duration;
-	m_trees[index].m_fieldc8 = request;
+	m_trees[index].m_morphState = request;
 	if (m_trees[index].m_fieldd8 != 0) {
 		m_trees[index].m_fieldd8->Release_Ref();
 		m_trees[index].m_fieldd8 = 0;
@@ -153,7 +153,7 @@ void W3DTreeBuffer::startMorph(Int index, Int request)
 		m_trees[index].m_fielddc->Release_Ref();
 		m_trees[index].m_fielddc = 0;
 	}
-	if (m_treeTypes[type].m_field58 != -2) {
+	if (m_treeTypes[type].m_morphTreeType != -2) {
 		m_trees[index].m_fielddc = Create_Render_Obj(m_treeTypes[m_trees[index].m_fieldd0].m_data->m_modelName.str());
 		rva0010E4F6(m_trees[index].m_fielddc, false);
 		reinterpret_cast<SceneClass *>(W3DDisplay::m_3DScene)->Add_Render_Object(m_trees[index].m_fielddc);

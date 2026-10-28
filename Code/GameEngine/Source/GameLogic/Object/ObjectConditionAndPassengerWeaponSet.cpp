@@ -144,7 +144,7 @@ public:
 	void *rva0028C197() const;
 	void setWeaponSetFlag(WeaponSetType wst);
 	void clearWeaponSetFlag(WeaponSetType wst);
-	void rva00290758(int a, int b);
+	void rva00290758(int maxBoxes, int boxes);
 	void rva00293DAC(WeaponSetType wst);
 	void rva00293E08(WeaponSetType wst);
 	void rva0029130C(int mode);
@@ -187,9 +187,9 @@ private:
 	unsigned char m_pad22C[0x455 - 0x22C];
 	bool m_statusPropagationGuard455; // Native 0x293D3B tests this byte; meaning unproven.
 };
-void Object::rva00290758(int a, int b)
+void Object::rva00290758(int maxBoxes, int boxes)
 {
-	if (b > 0)
+	if (boxes > 0)
 	{
 		if (m_conditionBits.test(2 * 32 + 21) == 0)
 		{
@@ -206,7 +206,7 @@ void Object::rva00290758(int a, int b)
 		}
 	}
 	if (m_84)
-		m_84->Rva0027164EBroadcast(a, b);
+		m_84->Rva0027164EBroadcast(maxBoxes, boxes);
 }
 void Object::rva0029130C(int mode)
 {

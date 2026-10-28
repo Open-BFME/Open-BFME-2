@@ -261,9 +261,9 @@ int StrategicHUD::BattlePromptPlayerPageMovieClip::Impl::AddHeroArmyPanel(const 
 {
 	int idx = m_48;
 	m_48 = idx + 1;
-	Rva005FFCCBElem *e = (Rva005FFCCBElem *)((char *)this + (idx + 3) * 12);
-	e->m_hint = factory;
-	e->m_8 = idx;
+	Rva005FFCCBElem *panelSlot = (Rva005FFCCBElem *)((char *)this + (idx + 3) * 12);
+	panelSlot->m_hint = factory;
+	panelSlot->m_8 = idx;
 	AsciiString panelName;
 	panelName.format("%s%d", "hero", idx);
 	const char *raw = *(const char *const *)&panelName;

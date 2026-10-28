@@ -68,9 +68,9 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-static const float &float_max(const float &a, const float &b)
+static const float &float_max(const float &lhs, const float &rhs)
 {
-	return (a > b) ? a : b;
+	return (lhs > rhs) ? lhs : rhs;
 }
 
 class AIUpdateInterface
@@ -99,8 +99,8 @@ void AIUpdateInterface::rva00263910(const Coord3D *pos, float range, int flag)
 			if ((m_object->m_flags109->m_flags & 0x10) != 0) {
 				if (m_object->isSignificantlyAboveTerrain()) {
 					if (m_height != 0) {
-						float v = m_height->m_val;
-						h = float_max(h, v);
+						float preferredHeight = m_height->m_val;
+						h = float_max(h, preferredHeight);
 					}
 				}
 			}

@@ -119,15 +119,15 @@ void StrategicInGameUI::RegionDetailsStructuresPage::Impl::Icon::OnRegionDetails
 {
 	(void)ignored;
 	Rva005E2338Elem *elem = m_8->m_C->m_170[m_C];
-	Rva004E0625 *o = elem->m_20;
-	if (o == 0)
+	Rva004E0625 *building = elem->m_20;
+	if (building == 0)
 		return;
-	int r = o->rva004E0625();
+	int r = building->rva004E0625();
 	if (r == 0)
 		return;
 	Rva005E2338Inner *inner = m_8;
 	Rva005E2338Virt *v = (Rva005E2338Virt *)inner->m_8;
-	v->rva005E2338Slot(o);
+	v->rva005E2338Slot(building);
 }
 
 // Retail 0x005E215E (12 B), vtable 0x00877B04 slot 3 (WorldBuilder
