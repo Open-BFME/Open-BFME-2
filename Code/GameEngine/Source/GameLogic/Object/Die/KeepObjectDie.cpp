@@ -78,8 +78,8 @@ extern Radar *TheRadar;
 struct Rva00486CF6_P04
 {
 	char m_pad[0x38];
-	unsigned int m_38;
-	unsigned char m_3C;
+	unsigned int m_collapsingTime;
+	unsigned char m_stayOnRadar;
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
@@ -144,10 +144,10 @@ void KeepObjectDie::onDie(const DamageInfo *damageInfo)
 		TheGameLogic->destroyObject(obj);
 		return;
 	}
-	m_08->setSpecialModelConditionState(MCF_335, m_04->m_38);
+	m_08->setSpecialModelConditionState(MCF_335, m_04->m_collapsingTime);
 	if (!isDieApplicable(damageInfo))
 		return;
-	if (m_04->m_3C == 0)
+	if (m_04->m_stayOnRadar == 0)
 		return;
 	if (obj == 0)
 		return;

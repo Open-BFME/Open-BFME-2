@@ -96,7 +96,7 @@ public:
 	void rva001F4696(void *pos, void *arg, bool b, void *info);
 };
 
-void ParticleSystem::rva001F4696(void *posArg, void *arg2, bool b, void *infoArg)
+void ParticleSystem::rva001F4696(void *posArg, void *priority, bool b, void *infoArg)
 {
 	ParticleView *self = (ParticleView *)this;
 	Coord3D *pos = (Coord3D *)posArg;
@@ -111,18 +111,18 @@ void ParticleSystem::rva001F4696(void *posArg, void *arg2, bool b, void *infoArg
 			self->fieldEC.v[1] = info->v[1];
 			self->fieldEC.v[2] = info->v[2];
 			self->fieldEC.v[3] = info->v[3];
-			int *d1 = &self->fieldEC.v[4];
-			int *s1 = &info->v[4];
-			d1[0] = s1[0];
-			d1[1] = s1[1];
-			d1[2] = s1[2];
-			d1[3] = s1[3];
-			int *d2 = &self->fieldEC.v[8];
-			int *s2 = &info->v[8];
-			d2[0] = s2[0];
-			d2[1] = s2[1];
-			d2[2] = s2[2];
-			d2[3] = s2[3];
+			int *destinationYRow = &self->fieldEC.v[4];
+			int *sourceYRow = &info->v[4];
+			destinationYRow[0] = sourceYRow[0];
+			destinationYRow[1] = sourceYRow[1];
+			destinationYRow[2] = sourceYRow[2];
+			destinationYRow[3] = sourceYRow[3];
+			int *destinationZRow = &self->fieldEC.v[8];
+			int *sourceZRow = &info->v[8];
+			destinationZRow[0] = sourceZRow[0];
+			destinationZRow[1] = sourceZRow[1];
+			destinationZRow[2] = sourceZRow[2];
+			destinationZRow[3] = sourceZRow[3];
 		}
 		Coord3D *dstPos = &self->m_pos;
 		*dstPos = *pos;
@@ -137,12 +137,12 @@ void ParticleSystem::rva001F4696(void *posArg, void *arg2, bool b, void *infoArg
 		if (self->holderA4 != 0)
 		{
 			int scaled = (int)((float)count * self->m_countCoeff);
-			self->holderA4->v9(arg2, scaled);
+			self->holderA4->v9(priority, scaled);
 		}
-		int m = (int)self->m_burstDelay.getValue();
-		float f = (float)(unsigned int)m;
-		float g = f * self->m_delayCoeff;
-		self->m_burstDelayLeft = (int)g;
+		int burstDelay = (int)self->m_burstDelay.getValue();
+		float burstDelayFloat = (float)(unsigned int)burstDelay;
+		float scaledBurstDelay = burstDelayFloat * self->m_delayCoeff;
+		self->m_burstDelayLeft = (int)scaledBurstDelay;
 	}
 	else
 	{
@@ -161,5 +161,5 @@ void ParticleSystem::rva001F4696(void *posArg, void *arg2, bool b, void *infoArg
 		return;
 	_ReadWriteBarrier();
 	ParticleSystem *next = slavePtr->operator->();
-	next->rva001F4696(&self->m_pos, arg2, b, info);
+	next->rva001F4696(&self->m_pos, priority, b, info);
 }

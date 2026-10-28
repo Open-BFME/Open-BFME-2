@@ -70,33 +70,33 @@ int CreateAHeroClass::GetAttributeDefaultValue(UnsignedInt attribute, UnsignedIn
 // (index, pointer) argument order reproduces the add-then-push sequence.
 int CreateAHeroSubClass::GetAttributeMinValue(UnsignedInt attribute) const
 {
-	int r;
-	void *p = rva0021BD22(attribute);
-	if (!p)
-		r = -1;
+	int minValue;
+	void *minAttributeData = rva0021BD22(attribute);
+	if (!minAttributeData)
+		minValue = -1;
 	else
-		r = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)p + 4));
-	return r;
+		minValue = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)minAttributeData + 4));
+	return minValue;
 }
 
 int CreateAHeroSubClass::GetAttributeMaxValue(UnsignedInt attribute) const
 {
-	int r;
-	void *p = rva0021BD22(attribute);
-	if (!p)
-		r = -1;
+	int maxValue;
+	void *maxAttributeData = rva0021BD22(attribute);
+	if (!maxAttributeData)
+		maxValue = -1;
 	else
-		r = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)p + 8));
-	return r;
+		maxValue = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)maxAttributeData + 8));
+	return maxValue;
 }
 
 int CreateAHeroSubClass::GetAttributeDefaultValue(UnsignedInt attribute) const
 {
-	int r;
-	void *p = rva0021BD22(attribute);
-	if (!p)
-		r = -1;
+	int defaultValue;
+	void *defaultAttributeData = rva0021BD22(attribute);
+	if (!defaultAttributeData)
+		defaultValue = -1;
 	else
-		r = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)p + 0xC));
-	return r;
+		defaultValue = const_cast<CreateAHeroSubClass *>(this)->GetBlingIndex(attribute, *(const AsciiString *)((char *)defaultAttributeData + 0xC));
+	return defaultValue;
 }

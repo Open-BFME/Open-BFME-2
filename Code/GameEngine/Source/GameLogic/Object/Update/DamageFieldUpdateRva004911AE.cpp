@@ -24,8 +24,8 @@
 template <class T> class BfmeObjectIdPoolAllocator;
 namespace _STL {
 template <class T, class U>
-inline BfmeObjectIdPoolAllocator<U> &__stl_alloc_rebind(BfmeObjectIdPoolAllocator<T> &a, const U *)
-{ return (BfmeObjectIdPoolAllocator<U> &)a; }
+inline BfmeObjectIdPoolAllocator<U> &__stl_alloc_rebind(BfmeObjectIdPoolAllocator<T> &sourceAllocator, const U *)
+{ return (BfmeObjectIdPoolAllocator<U> &)sourceAllocator; }
 template <class T, class U>
 inline BfmeObjectIdPoolAllocator<U> __stl_alloc_create(const BfmeObjectIdPoolAllocator<T> &, const U *)
 { return BfmeObjectIdPoolAllocator<U>(); }
@@ -154,7 +154,7 @@ namespace _STL {
 template <class T, class U> struct _Alloc_traits<T, BfmeObjectIdPoolAllocator<U> > {
     typedef BfmeObjectIdPoolAllocator<U> _Orig;
     typedef BfmeObjectIdPoolAllocator<T> allocator_type;
-    static allocator_type create_allocator(const _Orig &a) { return allocator_type(a); }
+    static allocator_type create_allocator(const _Orig &originalAllocator) { return allocator_type(originalAllocator); }
 };
 }
 namespace _STL {

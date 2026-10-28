@@ -9,7 +9,7 @@
 class ThreatBreakdown
 {
 public:
-	void postInit(const void *arg);
+	void postInit(const void *thingTemplate);
 
 private:
 	int m_val;
@@ -23,13 +23,13 @@ struct Rva0033A920Arg
 	unsigned int m_110;
 };
 
-void ThreatBreakdown::postInit(const void *arg)
+void ThreatBreakdown::postInit(const void *thingTemplate)
 {
 	if (m_val != -1)
 		return;
-	const Rva0033A920Arg *a = (const Rva0033A920Arg *)arg;
-	if (a->m_108 & 0x80)
+	const Rva0033A920Arg *objectTemplate = (const Rva0033A920Arg *)thingTemplate;
+	if (objectTemplate->m_108 & 0x80)
 		m_val = 6;
 	else
-		m_val = (a->m_110 & 0x4000000) ? 10 : 0;
+		m_val = (objectTemplate->m_110 & 0x4000000) ? 10 : 0;
 }

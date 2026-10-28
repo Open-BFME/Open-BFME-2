@@ -45,8 +45,8 @@ void Rva00086E24::rva00086E24()
 		float factor = m_1FC(num / denom);
 		float start = m_1EC;
 		float range = m_1F0 - start;
-		float v = range * factor + start;
-		m_70 = v;
+		float interpolatedValue = range * factor + start;
+		m_70 = interpolatedValue;
 	}
 	if (m_1E4 < m_1E0)
 		return;
