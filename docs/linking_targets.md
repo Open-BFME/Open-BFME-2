@@ -91,6 +91,13 @@ EH graphs and 178 retained COMDAT fingerprints are preserved; one unmatched
 hatch retires. Proposed TU placement and three container-wrapper prerequisites
 remain open; no census gain is claimed.
 [Evidence](../reverse/attempt_support/bfmeobject476-cleanup-20261028-codexb.md).
+Additional current target (2026-10-28, base `66ae34555a`, index `d92e7e6635`):
+`W3DVerticalSlider.cpp` previews LINKS for 844 authored bytes after replacing
+its unused W3DGadget renderer include with GameWindow and retaining the existing
+border-width constant. All 16 rows and 33 retained external COMDAT fingerprints
+are unchanged; strict receipt, frozen-file, EH and data checks pass. Global
+LINK-132/LINK-133 selection and consumer/census confirmation remain pending.
+[Evidence](../reverse/attempt_support/vertical-slider-link-20261028-codexb4.md).
 
 ## One blocker: fresh candidates
 

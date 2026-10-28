@@ -1130,6 +1130,21 @@ to them. Remaining definers of the wrong digest after it: objects 1998
 (Render2DSentenceBuildThaiBFME2), 3716 (render2dsentence), 4131
 (Render2DSentenceGlyphSurfaceBFME2) and later, all after the retail W3DComboBox copy.
 Clearance: preview only; census confirmation awaiting the next census.
+#### Vertical slider consumer subset (2026-10-28)
+
+At `66ae34555a`, index `d92e7e6635` (2026-10-28 15:58),
+W3DVerticalSlider.cpp repeats the unused W3DGadget renderer dependency above.
+Including GameWindow directly and retaining the border-width constant removes
+only the PendingSurfaceStruct destructor and vector-construction iterator.
+All 16 rows and 33 retained external COMDAT fingerprints are unchanged;
+strict receipt, frozen-file, EH and data checks pass. Ordinary preview changes
+from blocked to LINKS for 844 authored bytes. This clears only this consumer
+in preview; global LINK-132/LINK-133 selection and census confirmation remain
+pending. [Evidence](../reverse/attempt_support/vertical-slider-link-20261028-codexb4.md).
+The outgoing audit is INCONCLUSIVE: its index predates the base and affected
+consumer Common/AIHarvestPrepareSiteState.cpp lacks a current receipt. Carry
+the removed-helper scope and affected consumers into the next census; complete
+consumer selection remains unverified.
 
 #### Pathfinder footprint consumer subset (2026-10-28)
 

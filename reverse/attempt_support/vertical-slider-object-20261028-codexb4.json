@@ -1,0 +1,32 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DVerticalSlider.cpp",
+  "base_revision": "66ae34555a",
+  "index_meta": {
+    "date": "2026-10-28 15:58",
+    "commit": "d92e7e6635",
+    "clean_tree": true
+  },
+  "before_obj_sha256": "fdb81d781c6752e9a7294ff68ecbd5c53e8c022a44d315b0cf431e93fcf617ba",
+  "after_obj_sha256": "8e14d06383e971ca8568fd1a5c5e48d98d4f5c4900d50a86abcd73b909931666",
+  "removed": [
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "added": [],
+  "changed": {},
+  "retained_comdats": 33,
+  "definitions_removed": [
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "definitions_added": [],
+  "undefined_removed": [
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ",
+    "??3@YAXPAX@Z",
+    "??_M@YGXPAXIHP6EX0@Z@Z",
+    "??_V@YAXPAX@Z"
+  ],
+  "undefined_added": [],
+  "weak_before": [],
+  "weak_after": []
+}
