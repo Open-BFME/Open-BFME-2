@@ -223,7 +223,7 @@ void rva007B53D4()
 	atexit(rva007B9A37);
 }
 
-// VA 0x00E182E0 is AptDateSetters.cpp's ?g_aptDateInterpreter@@3UAptActionInterpreter@@A.
+// VA 0x00E182E0 is AptDate.cpp's ?g_aptDateInterpreter@@3UAptActionInterpreter@@A.
 extern AptActionInterpreter g_aptDateInterpreter;
 void __cdecl rva007B9C50();
 

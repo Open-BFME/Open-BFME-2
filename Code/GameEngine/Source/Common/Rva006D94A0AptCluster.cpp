@@ -25,7 +25,7 @@ public:
 };
 
 // The interpreter value stack is the first member of the ledger global
-// g_aptDateInterpreter at VA 0x00E182E0 (AptDateSetters.cpp). The matched bodies
+// g_aptDateInterpreter at VA 0x00E182E0 (AptDate.cpp). The matched bodies
 // use it only through AptBasePtrStack, so they read it through that view.
 struct AptActionInterpreter;
 extern AptActionInterpreter g_aptDateInterpreter;

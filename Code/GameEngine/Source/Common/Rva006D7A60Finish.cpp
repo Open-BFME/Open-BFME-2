@@ -77,7 +77,7 @@ public:
 };
 
 struct AptActionInterpreter { AptBasePtrStack stack; };
-extern AptActionInterpreter g_aptDateInterpreter;	// VA 0x00E182E0 (AptDateSetters.cpp); its value stack is the first member
+extern AptActionInterpreter g_aptDateInterpreter;	// VA 0x00E182E0 (AptDate.cpp); its value stack is the first member
 
 class AptString
 {
