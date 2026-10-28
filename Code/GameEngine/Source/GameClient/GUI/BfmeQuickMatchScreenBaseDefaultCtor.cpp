@@ -23,24 +23,24 @@ public:
 
 private:
 	AsciiString m_slot; // +0x04
-	int m_08; // +0x08
-	int m_0c; // +0x0C
+	void *m_head; // +0x08
+	int m_0C; // +0x0C
 	int m_10; // +0x10
 	bool m_14; // +0x14
 	char m_pad15[3];
 	int m_18; // +0x18
-	int m_1c; // +0x1C
+	int m_1C; // +0x1C
 	int m_20; // +0x20
 };
 
 BfmeQuickMatchScreenBase::BfmeQuickMatchScreenBase()
 {
 	m_slot.set("EmptyLayout");
-	m_08 = 0;
-	m_0c = 0;
+	m_head = 0;
+	m_0C = 0;
 	m_10 = 0;
 	m_14 = false;
 	m_18 = 0;
-	m_1c = 0;
+	m_1C = 0;
 	m_20 = 0;
 }
