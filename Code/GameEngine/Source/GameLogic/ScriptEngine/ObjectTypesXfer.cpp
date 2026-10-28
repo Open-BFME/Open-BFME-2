@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 //
 // ?xfer@ObjectTypes@@MAEXPAVXfer@@@Z, retail 0x00376B70, 224 bytes.
@@ -41,7 +41,8 @@ class RealRange;
 class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
-class Snapshot;
+
+#include "Common/Snapshot.h"
 
 #include "../../../Include/Common/BfmeXfer.h"
 
@@ -57,10 +58,12 @@ public:
 };
 
 
-class ObjectTypes
+class __declspec(novtable) ObjectTypes : public Snapshot
 {
 protected:
 	virtual void xfer(Xfer *xfer);
+public:
+	virtual ~ObjectTypes();
 private:
 	AsciiString m_listName;
 	_STL::vector<AsciiString> m_objectTypes;
