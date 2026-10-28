@@ -108,14 +108,20 @@ public:
 	virtual void s16();
 	virtual void triggerAbilityEffect();
 protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
+	const class ModuleData *m_moduleData; // +0x04
+	class Object *m_object; // +0x08
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
 class FlingPassengerSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual void triggerAbilityEffect();
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ?triggerAbilityEffect@FlingPassengerSpecialAbilityUpdate@@UAEXXZ @0x00494FCC
