@@ -51,6 +51,7 @@ struct XferUnknown11;
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
 #pragma comment(linker, "/alternatename:?v1@Rva004E9B46@@UAEXXZ=?update@AIWallBuilder@@QAEXXZ")
 #pragma comment(linker, "/alternatename:?v2@Rva004E9B46@@UAEXXZ=?rva004E9B70@Rva004E9B70@@QAEXXZ")
+typedef unsigned int UnsignedInt;
 
 class ModuleData;
 
@@ -123,6 +124,7 @@ public:
 struct Rva002A8B59Data { char unknown[0x28]; };
 
 struct Rva002A8AB1Record;
+
 class Rva002A8F24
 {
 public:
@@ -178,7 +180,6 @@ class Rva0030D808 {public:AsciiString rva0030D808();};
 
 class Rva0030D631 {public:BfmeRetBWF *rva0030D631();};
 
-
 class NameKeyGenerator
 {
 public:
@@ -227,6 +228,57 @@ public:
     virtual void v1();
     virtual void v2();
 };
+
+// AIWallBuilder::canBuildAnyWall (WorldBuilder name, AIWallBuilder.cpp line 186: the same +0x08 player test through 0x002A8AB1).
+// was ?rva004E98DE@Rva004E98DE@@QAEEXZ, retail 0x004E98DE, 25 bytes.
+// thiscall reads this+8 as owner for rowed-adjacent pin rva002A8AB1 0x002A8AB1 via TheSkirmishAIManager then tests +0x16c > 0. Caller 0x004E9DB8.
+struct Rva002A8AB1Record
+{
+    char m_pad00[0x160];
+    void *m_160;
+    char m_pad164[0x16c - 0x164];
+    int m_16c;
+};
+
+struct Rva002A8B59Data;
+
+//
+// ?rva004E99B1@@YAPAXPAX@Z @0x004E99B1 37B.
+// Scan of the global RvaVector g_00E04484 (same view as Rva004E9B70Finish.cpp):
+// walk [m_begin, m_end) and return the first entry whose +0x44 field equals
+// the key, else null. Retail is end-first loads, jmp-to-compare loop, je to
+// a reloading return (37B).
+struct Rva004E99B1Rec
+{
+	char m_pad[0x44];
+	void *m_44;
+};
+
+class __declspec(novtable) Rva004EB5E9 : public Rva004EB583
+{
+public:
+	Rva004EB5E9(int value) : Rva004EB583(value) {}
+	virtual ~Rva004EB5E9();
+};
+
+void **rva004E99D6(void **first, void **last, const void *key);
+
+struct Elem
+{
+	virtual void *deleteInstance(int flags);
+};
+
+RvaVector g_00E04484;
+
+class Rva004E9B70
+{
+	char m_pad[0x0C];
+	RvaVector m_vec; // +0x0C
+public:
+	void rva004E9B70();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp
 
@@ -375,12 +427,6 @@ void AIWallBuilder::update()
     tryToStartWallProduction();
 }
 
-// tu-skeleton: 0x004E98DE 25B ?canBuildAnyWall@AIWallBuilder@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder_canBuildAnyWall.cpp (not merged yet)
-
-// tu-skeleton: 0x004E99B1 37B ?rva004E99B1@@YAPAXPAX@Z -- matched in Code/GameEngine/Source/Common/Rva004E99B1Scan.cpp (not merged yet)
-
-// tu-skeleton: 0x004E99F1 341B ?Rva004E99F1Xfer@@YAXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E9B46Ctor.cpp
 
 // ??0Rva004E9B46@@QAE@H@Z @0x004E9B46 42B ctor base Rva00506B1B + int at +8 + vector<BfmeE16> at +0xc vtable 0x00862874 callees 0x00506B1B 0x00211E58 caller 0x004EC488
@@ -396,21 +442,99 @@ Rva004E9B46::Rva004E9B46(int x) : m_08(x)
 // Native C62874 has three slots: deleting destructor, update, then cleanup.
 // The last entry is the same cleanup this class's complete destructor calls.
 
-// tu-skeleton: 0x004E9B70 86B ?rva004E9B70@Rva004E9B70@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004E9B70Finish.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder_canBuildAnyWall.cpp
+
+unsigned char AIWallBuilder::canBuildAnyWall()
+{
+    return TheSkirmishAIManager->rva002A8AB1(m_owner)->m_16c > 0;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva004E99B1Scan.cpp
+
+void *rva004E99B1(void *key)
+{
+	Rva004E99B1Rec **last = (Rva004E99B1Rec **)g_00E04484.end;
+	for (Rva004E99B1Rec **p = (Rva004E99B1Rec **)g_00E04484.begin; p != last; ++p) {
+		if ((*p)->m_44 == key)
+			return *p;
+	}
+	return 0;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp
+
+// ?Rva004E99F1Xfer@@YAXPAVXfer@@@Z retail 0x004E99F1..0x004E9B46 (341 bytes).
+// Save/load of the shared AI wall library (the pointer vector at 0x00A04484
+// that AIWallBuilder.cpp's library loader fills): the wall count goes
+// through Xfer slot +0x78; when saving, each wall's name key (+0x48) is
+// written as its name (rowed NameKeyGenerator::keyToName 0x00148C95, Xfer
+// +0x6C) followed by the rowed AIWall::DoXfer 0x004EB092 (false); when
+// loading, each name is read back, keyed (rowed nameToKey 0x0009FA65) and
+// looked up in the library (rowed 0x004E99D6): a known wall loads into its
+// entry, an unknown one into a throwaway wall built by the rowed ctor
+// 0x004EB583 (0) and destroyed by the rowed 0x004EB5E9 (DoXfer true).
+// Called from 0x002A8C78. WorldBuilder twin 0x01380C90 is unnamed; it keys
+// the name through the char* overload.
+
+void Rva004E99F1Xfer(Xfer *xfer)
+{
+	UnsignedInt count = g_00E04484.end - g_00E04484.begin;
+	xfer->operator==(count);
+	if (xfer->IsStoring())
+	{
+		void **end = g_00E04484.end;
+		for (void **it = g_00E04484.begin; it != end; ++it)
+		{
+			AsciiString name = TheNameKeyGenerator->keyToName(((AIWall *)*it)->m_nameKey);
+			xfer->operator==(name);
+			((AIWall *)*it)->DoXfer(xfer, false);
+		}
+	}
+	else if (xfer->IsLoading())
+	{
+		for (UnsignedInt i = 0; i < count; ++i)
+		{
+			AsciiString name;
+			xfer->operator==(name);
+			NameKeyType key = TheNameKeyGenerator->nameToKey(name);
+			void **found = rva004E99D6(g_00E04484.begin, g_00E04484.end, &key);
+			if (found != g_00E04484.end)
+			{
+				((AIWall *)*found)->DoXfer(xfer, false);
+			}
+			else
+			{
+				Rva004EB5E9 wall(0);
+				((AIWall *)&wall)->DoXfer(xfer, true);
+			}
+		}
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva004E9B70Finish.cpp
+
+void Rva004E9B70::rva004E9B70()
+{
+	RvaVector *rvaVector = &m_vec;
+	rvaVector->erase(rvaVector->begin, rvaVector->end);
+	void **pp = g_00E04484.begin;
+	void **end = g_00E04484.end;
+	if (pp != end) {
+		do {
+			Elem *elem = (Elem *)*pp;
+			void *p = elem ? elem->deleteInstance(0) : 0;
+			::operator delete(p);
+			++pp;
+		} while (pp != end);
+		g_00E04484.erase(g_00E04484.begin, g_00E04484.end);
+	}
+}
 
 // tu-skeleton: 0x004E9BC6 77B ??1Rva004E9B46@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004E9F52 28B ??_GRva004E9B46@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004E9F6E 68B ?postInit@AIWallBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004E9F6EGate.cpp (not merged yet)
-
-// tu-skeleton: 0x00792558 8B Unwind@00b92558 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00792560 8B Unwind@00b92560 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00792568 8B uw_00792568 -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00792570 10B __ehhandler$?Rva004E99F1Xfer@@YAXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallLibraryXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0079257A 8B $L350 -- matched in Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp (not merged yet)
 

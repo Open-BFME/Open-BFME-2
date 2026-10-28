@@ -20750,7 +20750,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04478,4,.data,global,?g_Va00E04478@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,provisional,?g_Va00E04478@@3HA;?g_Va00E04478@@3PAURva004E855CState@@A,1,13
 0x00A0447C,4,.data,global,?g_00E0447C@@3VUnicodeString@@A,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLobbyScreenInitCallbacks.cpp,provisional,?g_00E0447C@@3VUnicodeString@@A;?g_Va00E0447C@@3IA,1,5
 0x00A04480,4,.data,global,_s_rva007B3162,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
-0x00A04484,12,.data,global,?g_00E04484@@3URvaVector@@A,Code/GameEngine/Source/Common/Rva004E9B70Finish.cpp,provisional,?g_00E04484@@3URvaVector@@A;?g_Va00E04484@@3IA,2,27
+0x00A04484,12,.data,global,?g_00E04484@@3URvaVector@@A,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWallBuilder.cpp,provisional,?g_00E04484@@3URvaVector@@A;?g_Va00E04484@@3IA,2,27
 0x00A04490,4,.data,global,?g_Va00E04490@@3IA,,unowned,?g_00E04490@@3V?$StringBase@D@@B;?g_Va00E04490@@3IA,0,3
 0x00A04494,12,.data,global,?m_farmList@AIEconomyBuilder@@2UAIEconomyFarmLibraryStorage@@A,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,11
 0x00A044A0,8,.data,global,?g_00E044A0@@3HA,Code/Libraries/Source/WWVegas/WWLib/Rva004EB583Ctor.cpp,owned,,1,4
