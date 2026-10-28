@@ -27,17 +27,17 @@ class Rva006DAEB0 {
     int m_used;
     int m_count;
 public:
-    Rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2);
+    Rva006DAEB0(unsigned int a1, int poolSize, int dummy, unsigned int maxSize, unsigned char nextOffset, unsigned char flag0, unsigned char sizeOffset, unsigned char flag1, unsigned char prevOffset);
 };
 // Keep the pool byte stores ordered as retail before computing the pool size.
 // The volatile lvalues preserve the two ordered writes without changing the field layout.
-Rva006DAEB0::Rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSize, unsigned char off0, unsigned char flag0, unsigned char off1, unsigned char flag1, unsigned char off2)
+Rva006DAEB0::Rva006DAEB0(unsigned int a1, int poolSize, int dummy, unsigned int maxSize, unsigned char nextOffset, unsigned char flag0, unsigned char sizeOffset, unsigned char flag1, unsigned char prevOffset)
 {
     m_table = 0;
     m_firstPool = 0;
     m_maxSize = maxSize;
     (void)dummy;
-    m_unk08 = a2;
+    m_unk08 = poolSize;
     m_cfg = (m_cfg & 0xcfffffff) | ((((flag1 & 1) << 1) | (flag0 & 1)) << 28);
     m_used = 0;
     m_count = 0;
@@ -45,12 +45,12 @@ Rva006DAEB0::Rva006DAEB0(unsigned int a1, int a2, int dummy, unsigned int maxSiz
     m_firstPool = g_bfmeAptAllocAtE17728(a1);
     memset(m_table, 0, m_maxSize + 4);
     memset(m_firstPool, 0x0d, a1);
-    m_b0 = (unsigned char)(off0 >> 2);
+    m_b0 = (unsigned char)(nextOffset >> 2);
     _DOGMA_MemPool *pool = (_DOGMA_MemPool *)m_firstPool;
-    unsigned char b1 = (unsigned char)(off1 >> 2);
-    *reinterpret_cast<volatile unsigned char *>(&m_b1) = b1;
-    unsigned char b2 = (unsigned char)(off2 >> 2);
-    *reinterpret_cast<volatile unsigned char *>(&m_b2) = b2;
+    unsigned char sizeIndex = (unsigned char)(sizeOffset >> 2);
+    *reinterpret_cast<volatile unsigned char *>(&m_b1) = sizeIndex;
+    unsigned char prevIndex = (unsigned char)(prevOffset >> 2);
+    *reinterpret_cast<volatile unsigned char *>(&m_b2) = prevIndex;
     unsigned int inner = a1 - 15;
     pool->mpNextPool = 0;
     pool->mnPoolSize = inner;

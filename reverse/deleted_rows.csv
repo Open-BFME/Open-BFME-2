@@ -3953,3 +3953,8 @@ __ehhandler$?Rva000E227FMacroTexture@@YAXPAUID3DXEffect@@PBD@Z,0x00763123,"Renam
 ?g_00DB447C@@3UDb12@@A,0x009B447C,"Renamed to ?g_shadowMapSettings@@3UDb12@@A by tools/rename.py (inferred)"
 ?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x005114C6,"Renamed to ?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z by tools/rename.py (inferred)"
 __ehhandler$?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00794CA8,"Renamed to __ehhandler$?createMessenger@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z by tools/rename.py (inferred)"
+?rva004932EF@Rva00493313@@QBEPBHXZ,0x004932EF,"Renamed to ?getInitiateSound@Rva00493313@@QBEPBHXZ by tools/rename.py (inferred)"
+?rva004932F8@Rva00493313@@QBEPBHXZ,0x004932F8,"Renamed to ?getInitiateAtTargetSound@Rva00493313@@QBEPBHXZ by tools/rename.py (inferred)"
+?rva00493301@Rva00493313@@QBEEXZ,0x00493301,"Renamed to ?hasPublicTimer@Rva00493313@@QBEEXZ by tools/rename.py (inferred)"
+?rva0049330A@Rva00493313@@QBEHXZ,0x0049330A,"Renamed to ?getViewObjectDuration@Rva00493313@@QBEHXZ by tools/rename.py (inferred)"
+?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z,0x005E1170,"Renamed to ?hideProductionCount@@YIXPAVRva005F8A7ESub@@@Z by tools/rename.py (inferred)"

@@ -74,7 +74,7 @@ private:
  rts::hash<AsciiString> hash;
  _STL::vector<void*> buckets;
  unsigned int count;
- unsigned int bucketForKey(const AsciiString &key,unsigned int n) const { return hash(key)%n; }
+ unsigned int bucketForKey(const AsciiString &key,unsigned int bucketCount) const { return hash(key)%bucketCount; }
 };
 void Rva0002C7FD::resize(unsigned int hint) {
  const unsigned int oldCount=buckets.size();
@@ -82,16 +82,16 @@ void Rva0002C7FD::resize(unsigned int hint) {
   // Reuse the existing receiver-independent prime chooser. Its48B target
   // body never reads ECX; this projection claims neither Armor payload nor
   // original container specialization, and introduces no alias pin.
-  const unsigned int n=reinterpret_cast<const RvaRehashPrimeProvider*>(this)->_M_next_size(hint);
-  if(n>oldCount) {
+  const unsigned int newBucketCount=reinterpret_cast<const RvaRehashPrimeProvider*>(this)->_M_next_size(hint);
+  if(newBucketCount>oldCount) {
    union BucketConstructionScratch { void *empty; unsigned int bucket; } scratch;
    scratch.empty = 0;
-   _STL::vector<void*> tmp(n,scratch.empty,buckets.get_allocator());
+   _STL::vector<void*> tmp(newBucketCount,scratch.empty,buckets.get_allocator());
    {
    for(scratch.bucket=0;scratch.bucket<oldCount;++scratch.bucket) {
     Rva0002C7FDNodePrefix *first=static_cast<Rva0002C7FDNodePrefix*>(buckets[scratch.bucket]);
     while(first) {
-     unsigned int newBucket=bucketForKey(first->key,n);
+     unsigned int newBucket=bucketForKey(first->key,newBucketCount);
      buckets[scratch.bucket]=first->next;
      void *&newHead=tmp[newBucket];
      first->next=static_cast<Rva0002C7FDNodePrefix*>(newHead);

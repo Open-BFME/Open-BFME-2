@@ -46,18 +46,18 @@ public:
 class Rva005E1178
 {
 public:
-	void ShowTimerOverlay(float v);
+	void ShowTimerOverlay(float progress);
 private:
 	char m_pad00[8];
 	Rva005E1008 *m_ptr08;
 };
 
-void Rva005E1178::ShowTimerOverlay(float v)
+void Rva005E1178::ShowTimerOverlay(float progress)
 {
-	m_ptr08->showTimerOverlay(v);
+	m_ptr08->showTimerOverlay(progress);
 }
 
-// ?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z @0x005E1170 8B
+// ?hideProductionCount@@YIXPAVRva005F8A7ESub@@@Z @0x005E1170 8B
 // Free fastcall forwarder via +8 to rowed 0x005E0FBE, same shape as the 8B
 // method forwarders above. Evidence: gap between 0x005E1158 and 0x005E1178 in
 // this TU, pin names free fastcall, caller 0x005F8AE9, flags /O1 /arch:SSE /G7.
@@ -74,9 +74,9 @@ public:
 	Rva005E0FBE *m_ptr08;
 };
 
-void __fastcall rva005E1170(Rva005F8A7ESub *p)
+void __fastcall hideProductionCount(Rva005F8A7ESub *commandButton)
 {
-	p->m_ptr08->rva005E0FBE();
+	commandButton->m_ptr08->rva005E0FBE();
 }
 
 // ?rva005E1168@Rva005E1168@@QAEXH@Z @0x005E1168 8B
@@ -100,7 +100,7 @@ void Rva005E1168::rva005E1168(int count)
 
 // Native5E118B..5E1193 loads the same subobject word8 then jumps5E105E.
 // Existing fastcall pin uses only ECX; original outer name remains unknown.
-void __fastcall HideTimerOverlay(Rva005F8A7ESub *p)
+void __fastcall HideTimerOverlay(Rva005F8A7ESub *movieClip)
 {
-    reinterpret_cast<Rva005E1008 *>(p->m_ptr08)->hideTimerOverlay();
+    reinterpret_cast<Rva005E1008 *>(movieClip->m_ptr08)->hideTimerOverlay();
 }

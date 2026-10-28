@@ -152,9 +152,9 @@ void ScriptActions::Rva003BAAD6()
 // ?Rva003BB141Notify@ScriptActions@@QAEXABV?$StringBase@D@@@Z @0x003BB141 34B chain via 0x0033070E caller 0x003CAE0D globals 0xE01DB0 0xDFEA3C slot 0x68
 void ScriptActions::Rva003BB141Notify(const StringBase<char> &key)
 {
-	Rva0033070EEntry *e = Rva00E01DB0->rva0033070E(key);
-	if (e)
-		Rva00DFEA3C->s026(e);
+	Rva0033070EEntry *cameraAnimation = Rva00E01DB0->rva0033070E(key);
+	if (cameraAnimation)
+		Rva00DFEA3C->s026(cameraAnimation);
 }
 
 // ?doMoviePlayRadar@ScriptActions@@QAEXABVAsciiString@@@Z @0x003BB61E 14B free forwarder to virtual slot 0x15C via global 0xDFEDF0 caller 0x003CBBCE
@@ -198,25 +198,25 @@ void ScriptActions::doEnableSpecialPowerDisplay()
 // ?Rva003BB641@ScriptActions@@QAEXXZ @0x003BB641 19B null-guarded forwarder to vslot 0x16C via global 0xDFE6E8 caller 0x003CE42B
 void ScriptActions::Rva003BB641()
 {
-	Rva003BAAD6Holder *p = Rva00DFE6E8;
-	if (p)
-		p->s091();
+	Rva003BAAD6Holder *audioManager = Rva00DFE6E8;
+	if (audioManager)
+		audioManager->s091();
 }
 
 // ?Rva003BB62C@ScriptActions@@QAEXH@Z @0x003BB62C 21B null-guarded forwarder to vslot 0x164 via global 0xDFE6E8 caller 0x003CE41F forwards stdcall int
-void ScriptActions::Rva003BB62C(int v)
+void ScriptActions::Rva003BB62C(int roomType)
 {
-	Rva003BAAD6Holder *p = Rva00DFE6E8;
-	if (p)
-		p->s089(v);
+	Rva003BAAD6Holder *audio = Rva00DFE6E8;
+	if (audio)
+		audio->s089(roomType);
 }
 
 // ?Rva003BB654@ScriptActions@@QAEXXZ @0x003BB654 19B null-guarded forwarder to vslot 0x17C via global 0xDFE6E8 caller 0x003CE477
 void ScriptActions::Rva003BB654()
 {
-	Rva003BAAD6Holder *p = Rva00DFE6E8;
-	if (p)
-		p->s095();
+	Rva003BAAD6Holder *audioSystem = Rva00DFE6E8;
+	if (audioSystem)
+		audioSystem->s095();
 }
 
 // ?doNamedHideSpecialPowerDisplay@ScriptActions@@QAEXPAVParameter@@@Z @0x003BBFB1 37B leaf caller 0x003CC46D globals 0xDFE16C 0xDFEDF0 slots getUnitNamed 0x9C
@@ -343,9 +343,9 @@ class AIUpdateInterface
 public:
 	void rva0026DE3B(int);
 };
-void ScriptActions::Rva003BB274Ai(Parameter *p, int attitude)
+void ScriptActions::Rva003BB274Ai(Parameter *unitName, int attitude)
 {
-	Object *o = TheScriptEngine->getUnitNamed(p);
+	Object *o = TheScriptEngine->getUnitNamed(unitName);
 	if (!o)
 		return;
 	AIUpdateInterface *ai = *(AIUpdateInterface **)((char *)o + 0x258);
@@ -406,8 +406,8 @@ public:
 	virtual void s23(int a1, int a2);
 };
 #define Rva00DFEDF0_BBEF4 (*(Rva003BBEF4Holder **)&TheInGameUI)
-void ScriptActions::doMilitaryCaption(int briefing, float a2)
+void ScriptActions::doMilitaryCaption(int briefing, float duration)
 {
-	int v = (int)ceil(a2 * 1000.0f);
+	int v = (int)ceil(duration * 1000.0f);
 	Rva00DFEDF0_BBEF4->s23(briefing, v);
 }

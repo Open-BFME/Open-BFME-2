@@ -68,16 +68,16 @@ struct Holder00525D9A
 	char m_pad[0x14];
 	_STL::list<BfmePod12> m_list;
 	void Rva005258F8(int a, NodeRef00525D9A node);
-	void Rva00525D9A(Obj00525D9A *o);
+	void Rva00525D9A(Obj00525D9A *builder);
 };
 
-void Holder00525D9A::Rva00525D9A(Obj00525D9A *o)
+void Holder00525D9A::Rva00525D9A(Obj00525D9A *builder)
 {
 	Pod12Node00525D9A *head = m_list.m_head;
 	Pod12Node00525D9A *node = head->m_next;
 	if (node != head)
 	{
-		int key = o->m_74;
+		int key = builder->m_74;
 		do
 		{
 			if (node->m_data.m_0 == key)
@@ -87,7 +87,7 @@ void Holder00525D9A::Rva00525D9A(Obj00525D9A *o)
 	}
 	{
 		BfmePod12 elem;
-		elem.m_0 = o->m_74;
+		elem.m_0 = builder->m_74;
 		elem.m_4 = 0;
 		elem.m_8 = g_00BBB9AC;
 		m_list.push_back(elem);
