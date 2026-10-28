@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Modified reconstruction of STLport 4.5.3 src/locale_impl.cpp and the time
 // facets in stl/_time_facets.h. Retail make_classic_locale is 908 bytes at
