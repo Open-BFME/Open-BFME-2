@@ -51,6 +51,26 @@ separate handoff.
   removed duplicate helpers into the next normal census. No census or smoke
   run was started.
 
+## Publication verification follow-up
+
+The normal commit hooks pass all 51 rows, EH, literals, imports, pin consistency,
+source claims, class checks, hatch checks and both data checks (zero findings).
+The code-identity gate remains in shadow and reports two divergent definitions:
+`__introsort_loop<int *, int, int, Rva00204BB8>` and `list<int>::size`.
+These are not cleared: the final object comparison proves the merged copies
+retain their original fingerprints, while global selected-provider and consumer
+closure remains subject to the inconclusive batch audit above. No register key
+was added or retired for these diagnostics.
+
+Publication rebased the batch onto current upstream, preserving independent
+obstacle entries and the AptArray MS-header queue row. The existing queued decal
+fix overlapped upstream's identical linkage change; its resolved source passes
+17/17 rows. Rebased ScriptEngine and FireWeaponUpdate pass 67/67 rows, and strict
+preparation of the ScriptEngine/provider set again passes 133/133 rows. Incoming
+tool changes only add full-gate dependency logging; no ScriptEngine input changed.
+The runner accepted the merge as `b11bf6c9fb` in its nine-commit publishing bundle;
+this is a handoff to the fleet publisher, not a new census measurement.
+
 ## Debt and path audit
 
 The accepted paths have no code/data debt keys, header-adoption queue entries,
