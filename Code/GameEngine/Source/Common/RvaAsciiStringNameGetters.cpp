@@ -47,14 +47,14 @@ AsciiString Rva004BD9CB::rva004BD9CB() const
 	return AsciiString("");
 }
 
-// ?rva005C44C3@Rva005C44C3@@UBE?AVAsciiString@@XZ @0x005C44C3 28B: "IncreaseCommandPoints"
+// ?getName@Rva005C44C3@@UBE?AVAsciiString@@XZ @0x005C44C3 28B: "IncreaseCommandPoints"
 class Rva005C44C3
 {
 public:
-	virtual AsciiString rva005C44C3() const;
+	virtual AsciiString getName() const;
 };
 
-AsciiString Rva005C44C3::rva005C44C3() const
+AsciiString Rva005C44C3::getName() const
 {
 	return AsciiString("IncreaseCommandPoints");
 }

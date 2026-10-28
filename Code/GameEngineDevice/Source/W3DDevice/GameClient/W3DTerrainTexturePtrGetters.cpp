@@ -192,12 +192,12 @@ public:
 	bool m_b5;
 };
 
-void Rva000E222FResourceTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+void setResourceTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	effect->SetTexture(handle, Rva00132F30BlackTexture().Peek_D3D_Base_Texture());
 }
 
-void Rva000E227FMacroTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMacroTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->getMacroTexture() && TheWritableGlobalData && TheWritableGlobalData->m_useLightMap)
 		effect->SetTexture(handle, TheTerrainRenderObject->getMacroTexture().Peek_D3D_Base_Texture());
@@ -215,7 +215,7 @@ void Rva000E24C5ShroudTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
 
-void Rva000E27D9MaskTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMaskTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_387c && TheTerrainRenderObject->m_387c->getMaskTexture())
 		effect->SetTexture(handle, TheTerrainRenderObject->get387c()->getMaskTexture().Peek_D3D_Base_Texture());
@@ -223,7 +223,7 @@ void Rva000E27D9MaskTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
 
-void Rva000E28C3LowTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+void setLowTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->getLowTexture())
 		effect->SetTexture(handle, TheTerrainRenderObject->getLowTexture().Peek_D3D_Base_Texture());
@@ -231,7 +231,7 @@ void Rva000E28C3LowTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 		effect->SetTexture(handle, Rva00132E76WhiteTexture().Peek_D3D_Base_Texture());
 }
 
-void Rva000E29A2HighTexture(ID3DXEffect *effect, D3DXHANDLE handle)
+void setHighTexture(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	if (TheTerrainRenderObject && TheTerrainRenderObject->getHighTexture())
 		effect->SetTexture(handle, TheTerrainRenderObject->getHighTexture().Peek_D3D_Base_Texture());
@@ -315,9 +315,9 @@ void Rva000E2763Scale(ID3DXEffect *, const char *);
 // Target identity: native BCE4D8 slot 1 in the Terrain binder's +0C subobject,
 // WB 7C1080 names SourceNamespace_Taint::ResolveBindings and the full six-arm CFG.
 // Native E25DE..E26CF RET12; six named parameter callbacks. Qualified name follows WorldBuilder; storage is the proven four-byte polymorphic base.
-void Rva000E27D9MaskTexture(ID3DXEffect *, const char *);
-void Rva000E28C3LowTexture(ID3DXEffect *, const char *);
-void Rva000E29A2HighTexture(ID3DXEffect *, const char *);
+void setMaskTexture(ID3DXEffect *, const char *);
+void setLowTexture(ID3DXEffect *, const char *);
+void setHighTexture(ID3DXEffect *, const char *);
 // Scope-only containing type; no storage or extent claim is made for it.
 class TerrainFXShaderParameterSourceNamespace
 {
@@ -362,9 +362,9 @@ void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint::ResolveBind
   Rva001530E9Parse(name,&path);
   int (__cdecl *compare)(const char *,const char *)=_strcmpi;
   if(compare(path.m_name,"IsEnabled")==0) registry->AddBinding(Rva000E26CFIsEnabled,handle);
-  else if(compare(path.m_name,"MaskTexture")==0) registry->AddBinding(Rva000E27D9MaskTexture,handle);
-  else if(compare(path.m_name,"LowTexture")==0) registry->AddBinding(Rva000E28C3LowTexture,handle);
-  else if(compare(path.m_name,"HighTexture")==0) registry->AddBinding(Rva000E29A2HighTexture,handle);
+  else if(compare(path.m_name,"MaskTexture")==0) registry->AddBinding(setMaskTexture,handle);
+  else if(compare(path.m_name,"LowTexture")==0) registry->AddBinding(setLowTexture,handle);
+  else if(compare(path.m_name,"HighTexture")==0) registry->AddBinding(setHighTexture,handle);
   else if(compare(path.m_name,"Offset")==0) registry->AddBinding(Rva000E2700Offset,handle);
   else if(compare(path.m_name,"Scale")==0) registry->AddBinding(Rva000E2763Scale,handle);
  }

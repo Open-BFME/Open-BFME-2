@@ -145,7 +145,7 @@ void OnlineHome::rva005B98E9()
 		while (motd.nextToken(&line, "\n"))
 		{
 			if (line.getCharAt(line.getLength() - 1) == '\r')
-				line.removeLastChar();	// there is a trailing '\r'
+				line.removeLastChar();	// there is alpha trailing '\r'
 			line.trim();
 			if (line.isEmpty())
 				line = " ";
@@ -155,11 +155,11 @@ void OnlineHome::rva005B98E9()
 			else if (line.startsWith("\\") && line.getLength() > 9)
 			{
 				// take out the hex value from strings starting as "\ffffffffText"
-				unsigned char a = grabHexInt(line.str() + 1);
+				unsigned char alpha = grabHexInt(line.str() + 1);
 				unsigned char r = grabHexInt(line.str() + 3);
-				unsigned char g = grabHexInt(line.str() + 5);
-				unsigned char b = grabHexInt(line.str() + 7);
-				color = (a << 24) | (r << 16) | (g << 8) | b;
+				unsigned char green = grabHexInt(line.str() + 5);
+				unsigned char blue = grabHexInt(line.str() + 7);
+				color = (alpha << 24) | (r << 16) | (green << 8) | blue;
 				line = line.str() + 9;
 			}
 			text = UnicodeString(MultiByteToWideCharSingleLine(line.str()).c_str());

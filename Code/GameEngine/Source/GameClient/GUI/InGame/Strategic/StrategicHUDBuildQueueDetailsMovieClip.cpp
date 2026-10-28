@@ -71,13 +71,13 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::rva005F6AE8
 
 
 // Native81B state setter; WB owner and vtable8797F4 slot24 agree.
-extern const char *const g_00C78D64[];
+extern const char *const s_iconSlotStateNames[];
 // Retail 0x005F6883: the icon-slot state suffix lookup ("_empty", "_up",
 // "_selected", ...), a TU static the setters inline; cl keeps this
 // register-convention copy (state in EAX).
 static const char *iconSlotStateName(int state)
 {
- return g_00C78D64[state];
+ return s_iconSlotStateNames[state];
 }
 int __cdecl Rva0050E9FEAptCall(Rva00222A8BTarget*,void*,const char*,const char*,const char**);
 struct IconOwner { char unknown[4]; void *level; AsciiString name; char unknownC[4]; int overlayArg; };

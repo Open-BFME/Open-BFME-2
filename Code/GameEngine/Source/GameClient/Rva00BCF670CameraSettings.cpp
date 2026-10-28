@@ -241,10 +241,10 @@ void Rva00BCF670CameraSettings::getCameraOffset(Coord3D *offset, float *yaw)
 		if (offset)
 		{
 			float dist = m_maxHeight08 * 1.642665f;
-			float s = sin(m_pitchAngle0C * PI * (1.0 / 180.0));
-			float c = cos(m_pitchAngle0C * PI * (1.0 / 180.0));
-			offset->z = s * dist;
-			offset->y = 0.0f - c * dist;
+			float sinPitch = sin(m_pitchAngle0C * PI * (1.0 / 180.0));
+			float cosPitch = cos(m_pitchAngle0C * PI * (1.0 / 180.0));
+			offset->z = sinPitch * dist;
+			offset->y = 0.0f - cosPitch * dist;
 			offset->x = 0.0f;
 		}
 		if (yaw)

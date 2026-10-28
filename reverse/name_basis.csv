@@ -3669,3 +3669,16 @@ local,Rva001F52CC::rva001F52CC::d,Rva001F52CC::rva001F52CC::zRotationDamping,inf
 function,?Rva004D6B6E@@YAMM@Z,?focalLengthToFov@@YAMM@Z,inferred,agree:nl-45e83b04049f,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6B6E
 function,?Rva004D6BB8@@YAMM@Z,?focalLengthToFovDegrees@@YAMM@Z,inferred,agree:nl-97cfabd7bab2,Code/GameEngine/Source/Common/Rva004D6B6EAngle.cpp,0x004D6BB8
 local,FadeInTextRender::rva00596908::w,FadeInTextRender::rva00596908::textWidth,inferred,agree:nl-40ce7034084c,Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/rva00596908Rva00596908Farm.cpp,0x00596908
+param,Rva00167ED8::rva00167ED8::f,Rva00167ED8::rva00167ED8::width,inferred,agree:nl-9f782f1217c1,Code/GameEngine/Source/Common/Rva00167E5AFamily.cpp,0x00167ED8
+function,?rva005C44C3@Rva005C44C3@@UBE?AVAsciiString@@XZ,?getName@Rva005C44C3@@UBE?AVAsciiString@@XZ,inferred,agree:nl-7f7821a94718,Code/GameEngine/Source/Common/RvaAsciiStringNameGetters.cpp,0x005C44C3
+global,?g_00C78D64@@3QBQBDB,?s_iconSlotStateNames@@3QBQBDB,inferred,agree:nl-694655dc510e,Code/GameEngine/Source/GameClient/GUI/AptWotrIconSlotCallbacks.cpp,0x00878D64
+local,OnlineHome::rva005B98E9::a,OnlineHome::rva005B98E9::alpha,inferred,agree:nl-4ab13ef30879,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeTimeZone.cpp,
+local,OnlineHome::rva005B98E9::g,OnlineHome::rva005B98E9::green,inferred,agree:nl-b46bc4396c46,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeTimeZone.cpp,
+local,OnlineHome::rva005B98E9::b,OnlineHome::rva005B98E9::blue,inferred,agree:nl-31f44ab8d239,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineHomeTimeZone.cpp,
+local,Rva00BCF670CameraSettings::getCameraOffset::s,Rva00BCF670CameraSettings::getCameraOffset::sinPitch,inferred,agree:nl-2f8dc49f68aa,Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp,0x001018CD
+local,Rva00BCF670CameraSettings::getCameraOffset::c,Rva00BCF670CameraSettings::getCameraOffset::cosPitch,inferred,agree:nl-8f4b34016997,Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp,0x001018CD
+function,?Rva000E222FResourceTexture@@YAXPAUID3DXEffect@@PBD@Z,?setResourceTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-b3331c66a273,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E222F
+function,?Rva000E227FMacroTexture@@YAXPAUID3DXEffect@@PBD@Z,?setMacroTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-be298a93c019,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E227F
+function,?Rva000E27D9MaskTexture@@YAXPAUID3DXEffect@@PBD@Z,?setMaskTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-087f05e9cb21,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E27D9
+function,?Rva000E28C3LowTexture@@YAXPAUID3DXEffect@@PBD@Z,?setLowTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-64d0072fd8d3,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E28C3
+function,?Rva000E29A2HighTexture@@YAXPAUID3DXEffect@@PBD@Z,?setHighTexture@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-da7251b316b2,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainTexturePtrGetters.cpp,0x000E29A2

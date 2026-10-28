@@ -8,7 +8,7 @@ public:
 };
 
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-extern const char *const g_00C78D64[];
+extern const char *const s_iconSlotStateNames[];
 
 int __cdecl Rva005252CDInvoke(Rva00222A8BTarget *target, void *level, const char *prefix, const char *name, const int &a, const char *const &b);
 
@@ -44,7 +44,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot::DoSetState(
 {
 	if (index == m_14)
 		return;
-	const char *icon = g_00C78D64[index];
+	const char *icon = s_iconSlotStateNames[index];
 	Rva005F7559Owner *owner = m_owner1C;
 	const char *prefix = owner->m_team08 ? owner->m_team08->m_name : "";
 	Rva005252CDInvoke((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), owner->m_level04, prefix, "SetQueuedIconSlotState", m_20, icon);

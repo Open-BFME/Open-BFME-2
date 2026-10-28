@@ -371,9 +371,9 @@ void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Weather::ResolveBi
 // and the four-word FunctorBinding copy without intermediate handle copies.
 // No new provider name or pin is introduced. Target member-pointer words
 // and callbacks are independently established by this native body.
-void Rva000E227FMacroTexture(ID3DXEffect *,const char *);
+void setMacroTexture(ID3DXEffect *,const char *);
 void Rva000E20DFIsMacroTextureStrechedToMapSize(ID3DXEffect *,const char *);
-void Rva000E222FResourceTexture(ID3DXEffect *,const char *);
+void setResourceTexture(ID3DXEffect *,const char *);
 void Rva000E213CIsResourceTextureEnabled(ID3DXEffect *,const char *);
 void TerrainFXShaderParameterSourceNamespace::ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry)
 {
@@ -387,9 +387,9 @@ void TerrainFXShaderParameterSourceNamespace::ResolveBindings(const char *name,c
  else if(compare(path.m_name,"Map")==0) m_18.ResolveBindings(path.m_rest,handle,registry);
  else if(compare(path.m_name,"BaseTexture")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&TerrainFXShaderParameterSourceNamespace::Rva000E214DBaseTexture),reinterpret_cast<FunctorTarget *>(this)),handle);
  else if(compare(path.m_name,"NormalTexture")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&TerrainFXShaderParameterSourceNamespace::Rva000E21BENormalTexture),reinterpret_cast<FunctorTarget *>(this)),handle);
- else if(compare(path.m_name,"MacroTexture")==0) registry->AddBinding(Rva000E227FMacroTexture,handle);
+ else if(compare(path.m_name,"MacroTexture")==0) registry->AddBinding(setMacroTexture,handle);
  else if(compare(path.m_name,"IsMacroTextureStrechedToMapSize")==0) registry->AddBinding(Rva000E20DFIsMacroTextureStrechedToMapSize,handle);
  else if(compare(path.m_name,"RenderingMode")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&TerrainFXShaderParameterSourceNamespace::Rva000E2110RenderingMode),reinterpret_cast<FunctorTarget *>(this)),handle);
- else if(compare(path.m_name,"ResourceTexture")==0) registry->AddBinding(Rva000E222FResourceTexture,handle);
+ else if(compare(path.m_name,"ResourceTexture")==0) registry->AddBinding(setResourceTexture,handle);
  else if(compare(path.m_name,"IsResourceTextureEnabled")==0) registry->AddBinding(Rva000E213CIsResourceTextureEnabled,handle);
 }

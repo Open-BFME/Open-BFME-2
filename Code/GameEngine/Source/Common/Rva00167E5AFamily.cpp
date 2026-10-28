@@ -18,7 +18,7 @@ public:
 class Rva00167ED8
 {
 public:
-	void rva00167ED8(float f);
+	void rva00167ED8(float width);
 private:
 	char m_pad[0x12];
 	char m_flags;
@@ -41,9 +41,9 @@ private:
 };
 
 // ?rva00167ED8@Rva00167ED8@@QAEXM@Z
-void Rva00167ED8::rva00167ED8(float f)
+void Rva00167ED8::rva00167ED8(float width)
 {
-	float v = (f > 0.0f) ? f : 0.0f;
+	float v = (width > 0.0f) ? width : 0.0f;
 	m_flags &= ~2;
 	m_val = v;
 }
