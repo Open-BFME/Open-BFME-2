@@ -51299,7 +51299,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005E3A76,44,code,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUI.cpp,proposed,K,K=Rva005E3A76,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
 0x005E3AA2,8,code,,,-,,Code/GameEngine/Source/Common/RvaVirtualFwdThunks.cpp
 0x005E3AAA,55,code,,,-,,Code/GameEngine/Source/Common/Rva005E39AEUpdate.cpp
-0x005E3AE1,57,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,proposed,K,K=Rva005E3AE1,Code/GameEngine/Source/Common/Rva005E3AE1.cpp
+0x005E3AE1,57,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,proposed,K,K=Rva005E3AE1,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x005E3B1A,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,proposed,C,C=0x005E3AE1..0x005E3B25,Code/GameEngine/Source/Common/Rva005F2278MapContains.cpp
 0x005E3B25,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,proposed,C,C=0x005E3AE1..0x005E3B2D,Code/GameEngine/Source/Common/Rva005E3B25.cpp
 0x005E3B2D,29,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp
@@ -51313,7 +51313,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005E3C6F,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3C7A provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp
 0x005E3C7A,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3C85 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp
 0x005E3C85,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3C90 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/ArmyHeroIconCtor.cpp
-0x005E3C90,146,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D22 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E3C90Ctor.cpp
+0x005E3C90,146,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D22 provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x005E3D22,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D2A provisional,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
 0x005E3D2A,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D35 provisional,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
 0x005E3D35,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D40 provisional,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
@@ -51323,10 +51323,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005E3D84,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D8C provisional,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
 0x005E3D8C,9,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3D95 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3D8CIsZero.cpp
 0x005E3D95,83,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3DE8 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp
-0x005E3DE8,53,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3E1D provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Dtor.cpp
-0x005E3E1D,36,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDisplay.cpp C=0x005E3B9E..0x005E3E41 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Dtor.cpp
+0x005E3DE8,53,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3E1D provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
+0x005E3E1D,36,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIRegionDisplay.cpp C=0x005E3B9E..0x005E3E41 provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x005E3E41,31,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3E60 provisional,Code/GameEngine/Source/Common/Rva005E3E41Twins.cpp
-0x005E3E60,42,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3E8A provisional,Code/GameEngine/Source/Common/Rva005E3AE1.cpp
+0x005E3E60,42,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,C,C=0x005E3B9E..0x005E3E8A provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x005E3E8A,38,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp W=Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIArmyDetailsPanel.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp
 0x005E3EB0,9,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp
 0x005E3EB9,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_sbserver.cpp
@@ -89761,14 +89761,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A37A0,28,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3BD5@FuncInfo0x0095BB28 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp
 0x007A37BC,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3BD5@FuncInfo0x0095BB28 provisional,Code/gen_small/uw_gen_014.cpp
 0x007A37C7,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3BD5@FuncInfo0x0095BB28 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp
-0x007A37D1,28,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E3C90Ctor.cpp
-0x007A37ED,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E3C90Ctor.cpp
-0x007A37F8,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E3C90Ctor.cpp
+0x007A37D1,28,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
+0x007A37ED,11,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
+0x007A37F8,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3C90@FuncInfo0x0095BB54 provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x007A3802,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3D95@FuncInfo0x0095BB88 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp
 0x007A380A,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3D95@FuncInfo0x0095BB88 provisional,Code/gen_small/uw_gen_011.cpp
 0x007A3812,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3D95@FuncInfo0x0095BB88 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp
-0x007A381C,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3DE8@FuncInfo0x0095BBAC provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Dtor.cpp
-0x007A3824,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3DE8@FuncInfo0x0095BBAC provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Dtor.cpp
+0x007A381C,8,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3DE8@FuncInfo0x0095BBAC provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
+0x007A3824,10,code,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp,approved,P,P=0x005E3DE8@FuncInfo0x0095BBAC provisional,Code/Libraries/Source/WWVegas/WWLib/SBServer.cpp
 0x007A382E,11,code,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUI.cpp,proposed,P,P=0x005E4202@FuncInfo0x0095BBD0,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
 0x007A3839,10,code,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUI.cpp,proposed,P,P=0x005E4202@FuncInfo0x0095BBD0,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
 0x007A3843,11,code,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUI.cpp,proposed,P,P=0x005E426F@FuncInfo0x0095BBF4,Code/GameEngine/Source/Common/Rva005F422CDtor.cpp
