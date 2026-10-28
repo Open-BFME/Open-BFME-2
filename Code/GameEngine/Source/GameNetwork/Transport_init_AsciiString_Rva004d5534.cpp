@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/inputs/reference/shims/stringbaseascii -ICode/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/shims/sweep -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas -Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib -Ireference/open-bfme-1/game/GameEngine/Source/GameNetwork
 
 // Transport::init(AsciiString, UnsignedShort), 0x00684490, 127 bytes.
 //
@@ -19,10 +19,9 @@
 // reference's two-overload init pair with BFME's address-struct signature
 // substituted for the reference's (UnsignedInt, UnsignedShort).
 //
-// Only what this body touches is declared: Transport's other members would
-// drag in the whole shim header set for nothing, and the address struct is
-// only ever passed by pointer here, so its two fields at +0 and +4 are all
-// that has to be right.
+// Transport comes from the shared BFME 2 header, which declares both init
+// overloads; the address struct is the Transport TU's own (ip, port) view,
+// passed by pointer, so its two fields at +0 and +4 are all that matter.
 
 #include "Common/AsciiString.h"
 
@@ -32,25 +31,19 @@ typedef unsigned short UnsignedShort;
 typedef unsigned char UnsignedByte;
 typedef bool Bool;
 
-struct TransportAddress
-{
-	UnsignedInt ip;
-	UnsignedShort port;
-};
-
 UnsignedInt ResolveIP(AsciiString host);
 
-class Transport
+#include "GameNetwork/Transport.h"
+
+struct TransportAddress
 {
-public:
-	Bool init(const TransportAddress *addr);
-	Bool init(AsciiString ip, UnsignedShort port);
+	unsigned int ip;
+	unsigned short port;
+	TransportAddress(unsigned int a, unsigned short b) : ip(a), port(b) {}
 };
 
 Bool Transport::init(AsciiString ip, UnsignedShort port)
 {
-	TransportAddress addr;
-	addr.ip = ResolveIP(ip);
-	addr.port = port;
+	TransportAddress addr(ResolveIP(ip), port);
 	return init(&addr);
 }

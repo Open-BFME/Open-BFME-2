@@ -32,13 +32,11 @@
 //																																						//
 ////////////////////////////////////////////////////////////////////////////////
 
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-
-#include "GameNetwork/Transport.h"
-#include "GameNetwork/NetworkInterface.h"
-
-// Retail's packet check calls the WWLib CRC through the thunk at 0x0000A984.
-extern unsigned long CRC_Memory( const unsigned char *data, unsigned long length, unsigned long crc );
+// Self-contained: the Zero Hour PreRTS.h/NetworkDefs.h chain this body was
+// first built against clashes with the BFME 2 Transport TU it belongs to.
+typedef int Int;
+typedef unsigned int UnsignedInt;
+extern "C" __declspec(dllimport) unsigned long __stdcall htonl(unsigned long);
 
 // This assumes the buf is a multiple of 4 bytes.  Extra is not encrypted.
 static inline void encryptBuf( unsigned char *buf, Int len )
@@ -54,31 +52,6 @@ static inline void encryptBuf( unsigned char *buf, Int len )
 		mask -= 0x7F39C50E;
 	}
 }
-
-// This assumes the buf is a multiple of 4 bytes.  Extra is not encrypted.
-static inline void decryptBuf( unsigned char *buf, Int len )
-{
-	UnsignedInt mask = 0x38D9B7D4;
-
-	UnsignedInt *uintPtr = (UnsignedInt *) (buf);
-
-	for (int i=0 ; i<len/4 ; i++) {
-		*uintPtr = htonl(*uintPtr);
-		*uintPtr = (*uintPtr) ^ mask;
-		uintPtr++;
-		mask -= 0x7F39C50E;
-	}
-}
-
-// The six bandwidth metrics are the reference's, unchanged, and retail lays
-// them out in this order -- each one identified by the statistics array its
-// unrolled loop indexes.
-
-// Transport::init(AsciiString, UnsignedShort) is matched from
-// Transport_init_AsciiString.cpp, not from here. It needs an AsciiString whose
-// copy constructor is declared and not defined so that ResolveIP's by-value
-// argument is built by an out-of-line call, and the header set this file
-// compiles against defines that constructor inline.
 
 // Emission anchor: encryptBuf is static and its callers are not carried here.
 // MSVC gives a static whose address is never taken a register calling
