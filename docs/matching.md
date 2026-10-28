@@ -634,8 +634,10 @@ Those numbers are priors. `tools/tier_tuning.py` (called by `next_work.tier_weig
 moves each share within 0.5x to 2x of its prior toward the tiers whose landings
 moved a headline figure in the 48 h before `origin/master`'s tip. Yield is read
 from ledger state on that SHA, never from commits or subjects: Code/ source files
-removed net per commit (a move scores 0) for consolidate, as a fraction of the
-source gap (files minus the TUs `tu_map.csv` names); keys the data and
+removed net per commit (a move scores 0, and the total is capped at the window's
+real drop in source files, so restore-then-remove churn earns nothing) for
+consolidate, as a fraction of the source gap at the window's start (files minus
+the TUs that commit's `tu_map.csv` names); keys the data and
 code-identity registers lost, as a fraction of the debt headline (gate baseline,
 the data, identity and header registers and hatch counts). The other tiers keep
 their prior: linked bytes are census-only and fleet-wide, stubs come from a local
@@ -646,7 +648,11 @@ multiplier is the square root of its yield per prior share over the measured
 tiers' mean; the shares are then scaled to sum to 100 inside the band. An empty
 or fully claimed queue already gets nothing: the draw falls through it, which
 shares it out pro rata. The measurement is cached per SHA in `build/tier_tuning/`
-(about 2 s warm, 5 s cold), so every seat on one SHA draws from the same shares.
+(about 2 s for a new SHA, 4 s cold), so every seat on one SHA draws from the same
+shares; a cache entry is used only if it validates, and a git read that fails is a
+measurement error (priors, never cached), not an empty register. Every default
+pick prints `tier shares: ...`, and `--json` carries `selection_meta.tier_tuning`
+(`in_force` and the reason), so a failed measurement is visible.
 Tuned shares can put consolidate above link; that is intended.
 
 - `python3 tools/next_work.py --weights`: per tier the prior, measured yield,

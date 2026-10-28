@@ -1590,7 +1590,19 @@ def tier_weights():
         name, _, value = part.partition("=")
         if name.strip() in weights and value.strip().isdigit():
             weights[name.strip()] = int(value)
-    return tier_tuning.weights(weights, tuning_ref())[0]
+    tuning = tier_tuning.weights(weights, tuning_ref())
+    TUNING.update(in_force=tuning.in_force, reason=tuning.note)
+    return tuning.weights
+
+
+# Whether the last tier_weights() served tuned shares, and why not: the default pick prints
+# it, and --json carries it as selection_meta.tier_tuning.
+TUNING = {"in_force": False, "reason": "tier shares not computed (an explicit --tier)"}
+
+
+def tuning_line():
+    return ("tier shares: " + TUNING["reason"] if TUNING["in_force"]
+            else f"tier shares: static priors -- {TUNING['reason']}")
 
 
 @functools.lru_cache(maxsize=1)
@@ -1605,7 +1617,7 @@ def print_weights(args, busy):
     """--weights: per tier the prior, the measured yield, the queue depth (live, claimed)
     and the final share, with the reason. Building every queue takes as long as --ranked."""
     weights = dict(TIER_WEIGHTS)
-    _, rows, note = tier_tuning.weights(weights, tuning_ref())
+    _, rows, note, _ = tier_tuning.weights(weights, tuning_ref())
     final = tier_weights()
     depth = {}
     for name in DEBT_TIERS[1:]:
@@ -1743,6 +1755,7 @@ def emit_debt(args, ledger, picked):
     meta = {"pool": len(pool), "suppressed_logged": picked["suppressed"],
             "deferred_pool": sum(1 for c in pool if c.get("deferred_attempts")),
             "tiers_built": list(BUILT), "tiers_passed_over": picked["tried"],
+            "tier_tuning": dict(TUNING),
             "shard": None if args.shard is None else {"index": args.shard[0], "count": args.shard[1]}}
     if args.json:
         if args.claim:
@@ -1751,6 +1764,8 @@ def emit_debt(args, ledger, picked):
                           "selection": candidate, "selection_meta": meta}, indent=2))
         return
     print(ledger)
+    if args.tier is None:
+        print(tuning_line())
     for line in SKIPPED:
         print(f"skipped {line}")
     if picked["tried"]:
@@ -2332,6 +2347,8 @@ def main():
             "deferred_pool": deferred, "shard": shard_meta}
     if args.tier == "wb":
         meta["wb_set_aside"] = wb_aside
+    if args.tier is None:
+        meta["tier_tuning"] = dict(TUNING)
     if args.json:
         meta = dict(meta, cluster=[
             c["function"] for c in cluster_of(candidate, candidates)]) \
@@ -2342,6 +2359,8 @@ def main():
                           "selection": candidate, "selection_meta": meta}, indent=2))
         return
     print(ledger)
+    if args.tier is None:
+        print(tuning_line())
     for line in SKIPPED:
         print(f"skipped {line}")
     if suppressed:

@@ -10,8 +10,10 @@ YIELD, NOT ACTIVITY. A tier's yield is read from ledger state on origin/master, 
 from commits, subjects, trailers or markers:
   consolidate  Code/ source files (.cpp/.c/.asm, progress.py's SOURCE FILES rule) that
                commits removed net: per commit, deletions minus additions when positive,
-               so a move or a split scores 0. As a fraction of the source gap at the
-               window's start (files minus the TUs reverse/tu_map.csv names).
+               so a move or a split scores 0; the sum is capped at the window's real drop
+               in source files, so a file restored and removed again earns nothing. As a
+               fraction of the source gap at the window's start (files minus the TUs the
+               start's reverse/tu_map.csv names).
   data         keys the shrink-only register lost over the window (start minus end,
   identity     never below 0), as a fraction of the debt headline at the window's start
                (gate baseline + data, identity and header registers + hatch counts).
@@ -34,13 +36,17 @@ through it to the next drawn queue, which is exactly a proportional redistributi
 
 DETERMINISTIC AND CHEAP. Inputs are git objects reachable from one commit (origin/master,
 else HEAD) and the window ends at that commit's committer time, so every seat on the same
-SHA computes the same shares. One measurement (~3 s, a git log and a few blob reads) is
-cached in build/tier_tuning/<sha>.json.
+SHA computes the same shares. One measurement (a git log and a few blob reads) is cached
+in build/tier_tuning/<sha>.json, and each commit's removal count in commits.json; both are
+written atomically and a cache entry is used only if it validates (same SHA, version,
+window and schema). A git failure is a measurement error (priors, never cached), not an
+empty register.
 
 KILL SWITCH. BFME_TIER_TUNING=off (or next_work.py --static-weights) restores the priors;
 an explicit BFME_TIER_WEIGHTS override also turns tuning off.
 """
 
+import collections
 import json
 import math
 import os
@@ -49,7 +55,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CACHE = ROOT / "build" / "tier_tuning"
-MEASURE_VERSION = 1
+MEASURE_VERSION = 2
 WINDOW_HOURS = 48            # two days of landings: one big merge batch moves a share, not the fleet
 BAND = (0.5, 2.0)            # a share stays within half to twice its hand-set prior
 SOURCE_SUFFIXES = (".cpp", ".c", ".asm")
@@ -86,14 +92,28 @@ def disabled():
 
 # ---------------------------------------------------------------- measurement (git)
 
+class MeasureError(Exception):
+    """A git read that should have worked did not: the measurement is incomplete."""
+
+
 def _git(root, *args):
     return subprocess.run(["git", *args], cwd=root, capture_output=True, text=True,
                           encoding="utf-8", errors="replace")
 
 
+def _ok(root, *args):
+    run = _git(root, *args)
+    if run.returncode:
+        raise MeasureError(f"git {args[0]} failed: {run.stderr.strip()[:120]}")
+    return run.stdout
+
+
 def _blob(root, sha, path):
-    run = _git(root, "show", f"{sha}:{path}")
-    return run.stdout if run.returncode == 0 else ""
+    """PATH's text at SHA; "" only when the tree has no such path (a register not yet
+    created, or deleted). Any other failure is a MeasureError, never an empty register."""
+    if not _ok(root, "ls-tree", sha, "--", path).strip():
+        return ""
+    return _ok(root, "show", f"{sha}:{path}")
 
 
 def register_keys(text):
@@ -127,90 +147,135 @@ def is_source(path):
     return path.startswith("Code/") and path.lower().endswith(SOURCE_SUFFIXES)
 
 
+def source_count(root, sha):
+    return sum(1 for p in _ok(root, "ls-tree", "-r", "--name-only", sha, "Code").splitlines() if is_source(p))
+
+
+def _is_sha(value):
+    return isinstance(value, str) and len(value) == 40 and all(c in "0123456789abcdef" for c in value)
+
+
+def _is_count(value):
+    return isinstance(value, int) and not isinstance(value, bool) and value >= 0
+
+
+def _write_atomic(path, data):
+    """Write JSON DATA to PATH through a temporary file and os.replace (never a torn file)."""
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        tmp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+        tmp.write_text(json.dumps(data, sort_keys=True), encoding="utf-8")
+        os.replace(tmp, path)
+    except OSError:
+        pass
+
+
+def _read_commit_cache(cache):
+    """{sha: count} from CACHE when every entry is valid under this MEASURE_VERSION, else {}."""
+    try:
+        got = json.loads(cache.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+    counts = got.get("counts") if isinstance(got, dict) and got.get("version") == MEASURE_VERSION else None
+    if not isinstance(counts, dict) or not all(_is_sha(k) and _is_count(v) for k, v in counts.items()):
+        return {}
+    return counts
+
+
 def commit_removals(root, start, end, cache=None):
-    """Code/ source files the first-parent commits START..END removed net, each commit
-    counted alone (deletions minus additions, when positive): a move or a split is 0.
-    A commit's count never changes, so counts are kept in CACHE/commits.json and only
-    commits not seen before are diffed (a cold 48 h window is ~5 s, a warm one ~0.2 s)."""
+    """Code/ source files the first-parent commits START..END removed, each commit counted
+    alone (deletions minus additions, when positive): a move or a split is 0. Churn across
+    commits (a file restored, then removed again) is capped by measure(). A commit's count
+    never changes, so counts are kept in CACHE/commits.json and only commits not seen before
+    are diffed. Raises MeasureError when git fails."""
     cache = Path(cache) if cache else (CACHE / "commits.json" if root == ROOT else None)
-    known = {}
-    if cache and cache.exists():
-        try:
-            known = json.loads(cache.read_text(encoding="utf-8"))
-        except (OSError, ValueError):
-            known = {}
-    shas = _git(root, "rev-list", "--first-parent", f"{start}..{end}").stdout.split()
+    known = _read_commit_cache(cache) if cache and cache.exists() else {}
+    shas = _ok(root, "rev-list", "--first-parent", f"{start}..{end}").split()
     fresh = [sha for sha in shas if sha not in known]
     if fresh:
         # Commits come newest first; one log back to the oldest unseen commit covers them all.
-        log = _git(root, "log", "--first-parent", "--no-renames", "--format=tformat:@@%H", "--name-status",
-                   "--diff-filter=AD", f"{fresh[-1]}^..{end}", "--", "Code/")
-        if log.returncode:
-            return None
+        log = _ok(root, "log", "--first-parent", "--no-renames", "--format=tformat:@@%H", "--name-status",
+                  "--diff-filter=AD", f"{fresh[-1]}^..{end}", "--", "Code/")
         counts, sha, adds, dels = {}, None, 0, 0
-        for line in log.stdout.splitlines() + ["@@"]:
+        for line in log.splitlines() + ["@@"]:
             if line.startswith("@@"):
                 if sha:
                     counts[sha] = max(0, dels - adds)
                 sha, adds, dels = line[2:] or None, 0, 0
                 continue
-            status, _, path = line.partition("	")
+            status, _, path = line.partition("\t")
             if is_source(path):
                 adds += status == "A"
                 dels += status == "D"
         for sha in fresh:
             known[sha] = counts.get(sha, 0)
         if cache:
-            try:
-                cache.parent.mkdir(parents=True, exist_ok=True)
-                cache.write_text(json.dumps({sha: known[sha] for sha in shas}, sort_keys=True), encoding="utf-8")
-            except OSError:
-                pass
+            _write_atomic(cache, {"version": MEASURE_VERSION, "counts": {sha: known[sha] for sha in shas}})
     return sum(known[sha] for sha in shas)
 
 
 def measure(ref="origin/master", root=ROOT):
-    """The window's headline movement at REF: a dict (JSON-safe), or {"error": why}."""
+    """The window's headline movement at REF: a dict (JSON-safe), or {"error": why} when
+    any read fails (an error is never cached)."""
     end = _git(root, "rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}").stdout.strip()
     if not end:
         return {"error": f"{ref} does not resolve"}
-    end_time = int(_git(root, "show", "-s", "--format=%ct", end).stdout.strip())
-    start_time = end_time - WINDOW_HOURS * 3600
-    start = _git(root, "rev-list", "-1", "--first-parent", f"--before={start_time}", end).stdout.strip()
-    if not start:
-        return {"sha": end, "error": f"no first-parent commit {WINDOW_HOURS} h before {end[:10]}"}
-    removed = commit_removals(root, start, end)
-    if removed is None:
-        return {"sha": end, "error": "git log of the window failed"}
-    files = sum(1 for p in _git(root, "ls-tree", "-r", "--name-only", start, "Code").stdout.splitlines()
-                if is_source(p))
-    tus = tu_count(_blob(root, end, TU_MAP))
-    keys = {tier: (register_keys(_blob(root, start, path)), register_keys(_blob(root, end, path)))
-            for tier, path in REGISTERS.items()}
-    debt = (sum(k[0] for k in keys.values()) + register_keys(_blob(root, start, GATE_BASELINE))
-            + hatch_total(_blob(root, start, HATCH_BASELINE)))
+    try:
+        end_time = int(_ok(root, "show", "-s", "--format=%ct", end).strip())
+        start = _ok(root, "rev-list", "-1", "--first-parent",
+                    f"--before={end_time - WINDOW_HOURS * 3600}", end).strip()
+        if not start:
+            return {"sha": end, "error": f"no first-parent commit {WINDOW_HOURS} h before {end[:10]}"}
+        credited = commit_removals(root, start, end)
+        files, files_end = source_count(root, start), source_count(root, end)
+        tus = tu_count(_blob(root, start, TU_MAP))           # the gap at the window's start
+        keys = {tier: (register_keys(_blob(root, start, path)), register_keys(_blob(root, end, path)))
+                for tier, path in REGISTERS.items()}
+        debt = (sum(k[0] for k in keys.values()) + register_keys(_blob(root, start, GATE_BASELINE))
+                + hatch_total(_blob(root, start, HATCH_BASELINE)))
+    except (MeasureError, ValueError) as error:
+        return {"sha": end, "error": str(error) or "git read failed"}
+    # A file restored and then removed again is credited to both removing commits; only the
+    # window's real reduction in source files counts.
+    removed = min(credited, max(0, files - files_end))
     return {"version": MEASURE_VERSION, "sha": end, "start": start, "hours": WINDOW_HOURS,
-            "source_gap": max(1, files - tus), "files_at_start": files, "tus": tus, "debt_gap": max(1, debt),
+            "source_gap": max(1, files - tus), "files_at_start": files, "files_at_end": files_end,
+            "tus": tus, "debt_gap": max(1, debt),
             "yield": {"consolidate": removed, **{t: max(0, a - b) for t, (a, b) in keys.items()}}}
 
 
+YIELD_KEYS = frozenset(("consolidate",) + tuple(REGISTERS))
+
+
+def valid_measurement(m, sha):
+    """Whether M is a complete measurement of SHA under this version and window."""
+    if not isinstance(m, dict):
+        return False
+    y = m.get("yield")
+    return (m.get("version") == MEASURE_VERSION and m.get("sha") == sha and _is_sha(sha)
+            and _is_sha(m.get("start")) and m.get("hours") == WINDOW_HOURS
+            and all(_is_count(m.get(k)) for k in ("source_gap", "files_at_start", "files_at_end", "tus", "debt_gap"))
+            and m["source_gap"] == max(1, m["files_at_start"] - m["tus"]) and m["debt_gap"] >= 1
+            and isinstance(y, dict) and set(y) == YIELD_KEYS and all(_is_count(v) for v in y.values())
+            and y["consolidate"] <= max(0, m["files_at_start"] - m["files_at_end"])
+            and all(y[t] <= m["debt_gap"] for t in REGISTERS))
+
+
 def cached_measure(ref="origin/master", root=ROOT):
+    """measure() of REF, from build/tier_tuning/<sha>.json only when that file is a valid
+    measurement of the same SHA; anything else is discarded and recomputed."""
     sha = _git(root, "rev-parse", "--verify", "--quiet", f"{ref}^{{commit}}").stdout.strip()
     path = CACHE / f"{sha}.json"
     if sha and path.exists():
         try:
             got = json.loads(path.read_text(encoding="utf-8"))
-            if got.get("version") == MEASURE_VERSION:
-                return got
         except (OSError, ValueError):
-            pass
+            got = None
+        if valid_measurement(got, sha):
+            return got
     got = measure(sha or ref, root)
-    if sha and "error" not in got:
-        try:
-            CACHE.mkdir(parents=True, exist_ok=True)
-            path.write_text(json.dumps(got, sort_keys=True), encoding="utf-8")
-        except OSError:
-            pass
+    if sha and valid_measurement(got, sha):
+        _write_atomic(path, got)
     return got
 
 
@@ -277,13 +342,18 @@ def allocate(priors, m):
     return rows
 
 
+Tuning = collections.namedtuple("Tuning", "weights rows note in_force")
+
+
 def weights(priors, ref="origin/master", root=ROOT):
-    """(weights, rows, note): the tuned shares, or the priors when tuning is off."""
+    """Tuning(weights, rows, note, in_force): the tuned shares, or the priors when tuning is
+    off (rows None) or the measurement failed (in_force False; NOTE says why)."""
     off = disabled()
     if off:
-        return dict(priors), None, off
+        return Tuning(dict(priors), None, off, False)
     m = cached_measure(ref, root)
     rows = allocate(priors, m)
-    note = (f"tuned on {m['sha'][:10]} over {m['hours']} h" if "error" not in m
+    ok = "error" not in m
+    note = (f"tuned on {m['sha'][:10]} over {m['hours']} h" if ok
             else f"tuning unavailable ({m['error']}): priors")
-    return {t: r["weight"] for t, r in rows.items()}, rows, note
+    return Tuning({t: r["weight"] for t, r in rows.items()}, rows, note, ok)
