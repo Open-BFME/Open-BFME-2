@@ -1310,6 +1310,10 @@ per unit, all rows exact:
   `slist<int>(const allocator &)` at 0x00071233 is the 18-byte frameless body this
   TU emits just ahead of Visibility_Check, and /Oy- had made it a 21-byte ebp-framed
   copy. 4/4 rows; the unit and stlport_slist_int_ctor.cpp go 0 -> 995 B.
+  Refresh (2026-10-28, base `d14dea8af7`, index `d92e7e6635`): current
+  cached object previews LINKS for 977 authored bytes. The unreferenced
+  RefRenderObjListIterator constructor diagnostic is not a blocker. This
+  confirms the scoped preview only; census confirmation remains pending.
 - `BfmeFVFDescriptorVertexDeclaration.cpp` (760b73e4df): its import-inline
   `__uninitialized_copy<ICoord2D *>` constructs with placement new. A call inside a
   dllimport `__forceinline` body is never inlined, so `_Construct` stayed out of line
