@@ -24329,7 +24329,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030B876,110,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B85A..0x0030B8E4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp
 0x0030B8E4,72,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B92C,63,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B8E4..0x0030B96B provisional,Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp
-0x0030B96B,21,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase_reserve.cpp
+0x0030B96B,21,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AreaPolygonBase.cpp provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B980,74,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9CA provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp
 0x0030B9CA,19,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9DD provisional,Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 0x0030B9DD,22,code,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,approved,C,C=0x0030B96B..0x0030B9F3 provisional,Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp

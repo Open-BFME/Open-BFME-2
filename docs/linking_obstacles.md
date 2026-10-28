@@ -639,6 +639,15 @@ owns that body in AreaPolygonBase, which is absent from the census preview.
 The refreshed published index remains at `41c28839bf`. Verify that provider
 and its consumer together in the next census; no linked-byte gain is claimed.
 
+Reserve composition follow-up at `460c91f9d2`, index `d92e7e6635`: absorb
+AreaPolygonBase_reserve.cpp into its approved AreaPolygonBase TU, preserving
+15 matched rows and all external object facts. The destination previews LINKS
+(694 authored bytes); the 21-byte attribution change moves existing coverage.
+The writer consumer/census prerequisite above remains open. The full outgoing
+audit is inconclusive on stale baseline/current receipts; carry the affected
+cohort into the next census. [Composition, remaining donor blockers and
+verification](../reverse/attempt_support/area-polygon-consolidation-20261028-codexb4.md).
+
 ### SpawnArmy snapshot destructor split (2026-10-28)
 
 Status: Blocked on selected vtable context. At `a6d64019bb`, the supported
