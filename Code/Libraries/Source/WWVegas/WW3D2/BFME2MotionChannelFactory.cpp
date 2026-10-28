@@ -7,7 +7,7 @@
 // Only Load and destruction are invoked here. UnknownSlot declarations
 // preserve observed virtual positions without claiming their original APIs;
 // slots 3-5 carry the signatures of their stream-encoding definitions in
-// BFME2StreamMotionChannelEvaluate.cpp so these tables bind to them.
+// BFME2StreamMotionChannel.cpp so these tables bind to them.
 // Constructors and table identities are independently established by their
 // initialization, load methods, and factory call sites; no table bytes count
 // as executable progress.

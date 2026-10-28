@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Oy-
 // BFME 2 stream motion channel encoding 1: nibble adaptive-delta decoders, called from the
-// slot 3/4/5 evaluators (BFME2StreamMotionChannelEvaluate.cpp). The decoder continues from a
+// slot 3/4/5 evaluators (BFME2StreamMotionChannel.cpp). The decoder continues from a
 // cached state (first value record, frame) to `frame` and writes the values at `frame` and
 // `frame + 1`; blocks are 16 frames, each component packet is a filter byte plus 16 signed
 // nibbles (9 bytes). Structure is BFME 1 motchan.cpp AdaptiveDeltaMotionChannelClass::decompress
