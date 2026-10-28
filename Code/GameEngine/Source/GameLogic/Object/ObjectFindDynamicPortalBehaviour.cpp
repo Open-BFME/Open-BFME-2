@@ -18,19 +18,7 @@ class Xfer;
 
 // Retail slot order (docs/linking_obstacles.md, "Module base chain"):
 // Snapshot's three slots, then getModuleNameKey and the four empty hooks.
-class Module
-{
-public:
-	virtual ~Module();
-	virtual void loadPostProcess() = 0;
-	virtual const char *GetSnapshotName() const = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-	virtual NameKeyType getModuleNameKey() const = 0;
-	virtual void onObjectCreated() {}
-	virtual void onDrawableBoundToObject() {}
-	virtual void preloadAssets() {}
-	virtual void onDelete() {}
-};
+#include "../../../Include/Common/Module.h"
 
 class Object
 {

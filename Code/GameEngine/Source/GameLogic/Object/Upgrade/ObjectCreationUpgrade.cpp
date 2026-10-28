@@ -32,9 +32,7 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Module
-{
-};
+#include "../../../../Include/Common/Module.h"
 class NetWrapperCommandMsg
 {
 public:

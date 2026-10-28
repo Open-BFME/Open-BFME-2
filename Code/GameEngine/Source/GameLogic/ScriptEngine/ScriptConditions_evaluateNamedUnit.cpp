@@ -19,11 +19,7 @@ public:
 enum NameKeyType
 {
 };
-class Module
-{
-public:
-    virtual void moduleSlot();
-};
+#include "../../../Include/Common/Module.h"
 class Object
 {
 public:

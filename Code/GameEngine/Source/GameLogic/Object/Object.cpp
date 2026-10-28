@@ -187,11 +187,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-public:
- virtual void rva00296749ModuleSlot00();
-};
+#include "../../../Include/Common/Module.h"
 
 // The update interface sits at +0x10 of the auto-ability module; slot 1 is
 // ZH UpdateModuleInterface::getDisabledTypesToProcess (hidden return slot).

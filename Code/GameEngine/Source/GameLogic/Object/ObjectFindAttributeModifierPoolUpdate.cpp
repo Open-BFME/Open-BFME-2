@@ -25,9 +25,7 @@ public:
 	bool rva00403382(int id, float *value, int index);
 };
 
-class Module
-{
-};
+#include "../../../Include/Common/Module.h"
 
 struct Rva0028CE7BTemplateView
 {

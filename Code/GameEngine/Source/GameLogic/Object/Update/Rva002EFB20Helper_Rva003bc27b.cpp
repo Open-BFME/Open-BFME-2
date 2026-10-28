@@ -36,9 +36,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-};
+#include "../../../../Include/Common/Module.h"
 
 namespace Rva002EFB20
 {

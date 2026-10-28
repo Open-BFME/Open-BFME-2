@@ -25,9 +25,7 @@ class SpecialPowerCompletionDie
 {
 };
 
-class Module
-{
-};
+#include "../../../Include/Common/Module.h"
 
 class Object
 {

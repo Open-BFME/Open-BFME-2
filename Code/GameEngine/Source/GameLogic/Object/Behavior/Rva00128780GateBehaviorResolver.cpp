@@ -11,11 +11,7 @@ enum NameKeyType { };
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class Module
-{
-public:
-	virtual void moduleSlot();
-};
+#include "../../../../Include/Common/Module.h"
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/UpdateModule.h
 class UpdateModule

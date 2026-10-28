@@ -1,7 +1,7 @@
 // cl: /O1 /DNDEBUG /MD
 // ?rva00796023@@YAHPAVObject@@PAX@Z @0x00396023 154B evidence: LINK BONUS names it free int(Object void*) neighbour Rva003960BDSearch box with 2 Vecs flag18 callees rowed findModule CastleBehavior key plus pinned trigger tests
 enum NameKeyType { NAMEKEY_INVALID = 0 };
-class Module { public: virtual ~Module(); };
+#include "../../../../Include/Common/Module.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class PolygonTrigger { public: bool rva002E3A39(const Coord3D &p); };
 class Rva00395E53 { public: void *rva00395E53(unsigned int i); };

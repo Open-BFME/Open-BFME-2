@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 
 class Parameter;
-class Module
-{
-public:
-	virtual void m0();
-};
+#include "../../../Include/Common/Module.h"
 enum NameKeyType {};
 class Object
 {

@@ -5,7 +5,7 @@
 // caller parseOpenGateNugget 0x002CCAC6; prev Made002CCAA1Parse same
 // /O1 DNDEBUG MD plus arch:SSE for xorps float zero; vtable 0x00864C94
 // plus float at +0x128 zero.
-class Module {public: virtual void s00();};
+#include "../../../Include/Common/Module.h"
 enum NameKeyType {};
 class Made002CCAA1;
 class Object {friend class Made002CCAA1;protected:Module *findModule(NameKeyType) const;};

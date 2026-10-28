@@ -35,15 +35,7 @@ public:
 	virtual Drawable *asDrawableMeth(); // slot 0x10 (BFME1 name, position from retail)
 };
 
-class Module
-{
-public:
-	Module(const ModuleData *moduleData) : m_moduleData(moduleData) {}
-	~Module();
-
-protected:
-	const ModuleData *m_moduleData; // +0
-};
+#include "../../../../Include/Common/Module.h"
 
 class DrawableModule : public Module
 {

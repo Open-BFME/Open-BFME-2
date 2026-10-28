@@ -32,11 +32,7 @@ enum CommandSourceType
 #include "Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 
-class Module
-{
-public:
-	char m_pad[0x20];
-};
+#include "../../../Include/Common/Module.h"
 
 class NetWrapperCommandMsg
 {

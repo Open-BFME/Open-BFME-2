@@ -1,0 +1,224 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Module",
+ "evidence": {
+  "census": 81,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "1": 14,
+   "4": 26,
+   "8": 13,
+   "12": 4,
+   "16": 4,
+   "20": 1,
+   "24": 2,
+   "28": 2,
+   "32": 1,
+   "33": 3,
+   "36": 2,
+   "40": 1,
+   "45": 1,
+   "61": 1,
+   "140": 6
+  },
+  "views": 81,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Module.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 53,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 340
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_xferDrawableModules.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/SupplyCenterCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/FiringTrackerCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B8A6DisablePower.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackSpecialPowerAction.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerAtLocation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerFindOCL.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004C2A35Do.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDo.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleRva0049466D.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsModuleQuery.cpp",
+    "Code/GameEngine/Source/GameLogic/System/CastleBehaviorPackingEva.cpp",
+    "Code/GameEngine/Source/GameLogic/System/GameLogic.cpp"
+   ],
+   "views": 21
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Create/SupplyCenterCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Rva004AC7C9FindModuleObject.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsModuleQuery.cpp"
+   ],
+   "views": 3
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/Rva00496B48Finish.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397F45.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectUpdateUpgradeModules.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableShroud.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 25,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 32,
+   "sources": [
+    "Code/GameEngine/Source/GameClient/InGameUISiegeDeployTarget.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C30D9.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C3175.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003C0E87.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 37,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 44,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDefectionComplete.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/WeaponRva002CB2D1Range.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 136,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4921Finish.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003E4B83Siege.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003E6ED0.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_Rva003EA566.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateCanBuildObjectTypeAtBase.cpp",
+    "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_rva003E59B0.cpp"
+   ],
+   "views": 6
+  }
+ ],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "loadPostProcess()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "GetSnapshotName()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "xfer(Xfer*)"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "getModuleNameKey()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "onObjectCreated()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "onDrawableBoundToObject()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "preloadAssets()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "onDelete()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "loadPostProcess()"
+  }
+ }
+}

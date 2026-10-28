@@ -151,11 +151,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-public:
-	virtual void moduleSlot();
-};
+#include "../../../../Include/Common/Module.h"
 
 class DetachableRiderUpdate
 {

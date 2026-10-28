@@ -32,15 +32,7 @@ public:
 	virtual Object *asObjectMeth(); // slot 8 (BFME1 name, position from retail)
 };
 
-class Module
-{
-public:
-	Module(const ModuleData *moduleData) : m_moduleData(moduleData) {}
-	~Module();
-
-protected:
-	const ModuleData *m_moduleData; // +0
-};
+#include "../../../../Include/Common/Module.h"
 
 class ObjectModule : public Module
 {

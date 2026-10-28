@@ -61,9 +61,7 @@ struct DetachableRiderBodyModuleData
 	Real m_riderlessDeathChance;			// +0x17C
 };
 
-class Module
-{
-};
+#include "../../../../Include/Common/Module.h"
 
 class DetachableRiderUpdate
 {

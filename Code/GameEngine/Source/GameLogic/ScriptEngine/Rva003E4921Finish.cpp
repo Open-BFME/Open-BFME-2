@@ -32,13 +32,7 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-public:
-	virtual void moduleSlot();
-	char m_pad04[0x84];
-	unsigned m_boxesStored; // +0x88 +0x88
-};
+#include "../../../Include/Common/Module.h"
 
 class Object
 {

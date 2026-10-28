@@ -27,7 +27,7 @@ template<int N> class BitFlags {public:bool any()const;};
 class Object {char pad[0x38];public:Coord3D pos;Player *getControllingPlayer()const;};
 class ObjectCreationList {public:void create(void*,void*,void*,void*,int);};
 int __cdecl Rva004C30BC(ObjectCreationList*,void*,void*);
-class Module {public:virtual ~Module();protected:Rva004C31A8DataWords *m_data;};
+#include "../../../../Include/Common/Module.h"
 class ObjectModule:public Module {protected:Object *m_object;};
 class BehaviorModuleInterface {public:virtual void behaviorSlot0();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};

@@ -35,14 +35,7 @@ public:
 	virtual void updateModuleInterface() = 0;
 };
 
-class Module
-{
-protected:
-	virtual ~Module();
-
-private:
-	const void *m_moduleData;
-};
+#include "../../../Include/Common/Module.h"
 
 class ObjectModule : public Module
 {

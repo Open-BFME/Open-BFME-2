@@ -14,9 +14,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
-{
-};
+#include "../../../../Include/Common/Module.h"
 
 class Object
 {

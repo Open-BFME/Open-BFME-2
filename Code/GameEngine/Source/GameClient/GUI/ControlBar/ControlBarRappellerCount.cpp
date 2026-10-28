@@ -66,7 +66,7 @@ template <> __declspec(dllimport) __forceinline _Vector_base<ScienceType, alloca
 
 typedef _STL::vector<ScienceType> ScienceVec;
 
-class Module { public: virtual void moduleSlot0(); };
+#include "../../../../Include/Common/Module.h"
 class Player;
 class Weapon;
 class Drawable;

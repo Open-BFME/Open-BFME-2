@@ -9,9 +9,7 @@ enum NameKeyType
 
 NameKeyType Rva0045EE2CGet(void);
 
-class Module
-{
-};
+#include "../../Include/Common/Module.h"
 
 class Object
 {

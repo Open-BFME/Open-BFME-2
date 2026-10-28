@@ -18,12 +18,7 @@ class Rva004A7D55
 public:
     void rva004A7F78(int v);
 };
-class Module
-{
-public:
-    char m_pad00[0x20];
-    unsigned char m_20;
-};
+#include "../../../Include/Common/Module.h"
 
 class Object
 {

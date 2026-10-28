@@ -24,11 +24,7 @@ public:
 	NameKeyType nameToKey(const char *s);
 };
 
-class Module
-{
-public:
-	virtual ~Module();
-};
+#include "../../../../Include/Common/Module.h"
 
 class BoneFXUpdate : public Module
 {

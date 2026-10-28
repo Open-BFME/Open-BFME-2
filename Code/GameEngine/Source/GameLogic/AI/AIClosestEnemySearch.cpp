@@ -289,7 +289,7 @@ class WeaponTemplate { public: bool isContactWeapon() const; };
 class Weapon { public: char pad0[4]; Rva002CA9CA *info; };
 class BodyModuleInterface : public QuerySlots<6> { public: virtual float getHealth() const = 0; };
 class GatePrimary : public QuerySlots<6> { public: virtual bool isOpen() const = 0; };
-class Module { public: virtual ~Module(); };
+#include "../../../Include/Common/Module.h"
 class GateBehavior : public GatePrimary, public Module {};
 class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
 extern NameKeyGenerator *TheNameKeyGenerator;

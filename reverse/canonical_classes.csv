@@ -141,3 +141,4 @@ Rva00285635,Code/GameEngine/Source/Common/Rva00285635.h,existing header; contrac
 Rva00285BEC,Code/GameEngine/Source/Common/Rva00285BEC.h,existing header; contract class_contracts/Rva00285BEC.json; 6/7 sampled units adopt
 Rva00285D27,Code/GameEngine/Source/GameLogic/Map/FireLogicSystemParseRegistration.h,existing header; contract class_contracts/Rva00285D27.json; 1/1 sampled units adopt
 Gen_t_00595870_p12cd,Code/Libraries/Source/WWVegas/WWLib/Gen00595870Payload.h,existing header; contract class_contracts/Gen_t_00595870_p12cd.json; 4/4 sampled units adopt
+Module,Code/GameEngine/Include/Common/Module.h,existing header; contract class_contracts/Module.json; 39/81 sampled units adopt

@@ -32,7 +32,7 @@ class Object {char pad[0x38];public:Coord3D pos;Player *getControllingPlayer()co
  bool isDisabled()const{return reinterpret_cast<const BitFlags<11>*>(reinterpret_cast<const char*>(this)+0x1C8)->any();}
  const Coord3D *getPosition()const{return &pos;}
 };
-class Module {public:virtual ~Module();protected:CashHackDataView *m_data;};
+#include "../../../../Include/Common/Module.h"
 class ObjectModule:public Module {protected:Object *m_object;};
 class BehaviorModuleInterface {public:virtual void behaviorSlot0();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};
