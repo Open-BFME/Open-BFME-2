@@ -8,6 +8,9 @@
 #include _STLP_NATIVE_C_HEADER(process.h)
 
 extern "C" unsigned int __stdcall BFMENetworkBackendThreadStart(void *);
+// Spelled out because thread.cpp's sweep windows.h shim does not declare it
+// (same prototype as the Platform SDK's winbase.h).
+extern "C" __declspec(dllimport) unsigned long __stdcall ResumeThread(void *thread);
 
 class ThreadClass
 {
