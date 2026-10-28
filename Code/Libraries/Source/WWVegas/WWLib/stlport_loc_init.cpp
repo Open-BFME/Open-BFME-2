@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 classic-locale initialisation, the four bodies that guard
 // _Stl_classic_locale_impl at 0x00DDEB18 with the counter at 0x00DDEB20.

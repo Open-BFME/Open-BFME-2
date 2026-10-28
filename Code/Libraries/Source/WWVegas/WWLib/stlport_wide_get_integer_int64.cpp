@@ -1,5 +1,5 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 wide signed 64-bit integer accumulator. The implementation
 // is the upstream __get_integer body from vendor/stlport/stl/_num_get.c.

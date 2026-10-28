@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 wide __get_formatted_time, the worker behind
 // time_get<wchar_t>::do_get_time and do_get_date. Its its four callees

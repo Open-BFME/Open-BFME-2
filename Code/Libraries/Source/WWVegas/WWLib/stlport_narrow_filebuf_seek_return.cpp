@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_filebuf<char>::_M_seek_return. On a real position it
 // leaves input mode and clears the four mode flags at 0x67..0x6A, then blanks

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfmecamera /DNDEBUG /MD /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/Code/GameEngine/Source/Common/System /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/GameEngine/Source/Common /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS /D_CRTIMP=
-// stlport
+// stlport46
 //
 // Size-optimised (/O1) instantiation of vector<Coord3D>::_M_fill_insert.
 //
