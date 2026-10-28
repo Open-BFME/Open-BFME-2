@@ -635,11 +635,13 @@ moves each share within 0.5x to 2x of its prior toward the tiers whose landings
 moved a headline figure in the 48 h before `origin/master`'s tip. Yield is read
 from ledger state on that SHA, never from commits or subjects: Code/ source files
 removed net per commit (a move scores 0) for consolidate, as a fraction of the
-source gap (files minus the TUs `tu_map.csv` names); keys the data, code-identity
-and header registers lost, as a fraction of the debt headline (gate baseline,
-those registers and hatch counts). The other tiers keep their prior: linked
-bytes are census-only and fleet-wide, stubs come from a local link cycle, and
-tu_map approval also moves with renames and rebuilds. A measured tier's
+source gap (files minus the TUs `tu_map.csv` names); keys the data and
+code-identity registers lost, as a fraction of the debt headline (gate baseline,
+the data, identity and header registers and hatch counts). The other tiers keep
+their prior: linked bytes are census-only and fleet-wide, stubs come from a local
+link cycle, tu_map approval also moves with renames and rebuilds, and the header
+tier's yield is mostly the TU merges a canonical header unblocks, which land as
+consolidate removals, so its own queue keys would undercount it. A measured tier's
 multiplier is the square root of its yield per prior share over the measured
 tiers' mean; the shares are then scaled to sum to 100 inside the band. An empty
 or fully claimed queue already gets nothing: the draw falls through it, which

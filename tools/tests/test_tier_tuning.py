@@ -54,7 +54,9 @@ def test_no_movement_or_no_measurement_keeps_the_priors():
 def test_a_yielding_tier_gains_and_a_stalled_one_loses():
     rows = tt.allocate(PRIORS, measurement(consolidate=1500, data=750, identity=230, header=520))
     assert rows["consolidate"]["weight"] > PRIORS["consolidate"]
-    assert rows["header"]["weight"] < PRIORS["header"]
+    assert rows["data"]["weight"] < PRIORS["data"]
+    # header's yield lands as the merges it unblocks (consolidate): never tuned down by its own queue keys
+    assert rows["header"]["multiplier"] == 1.0 and "merges" in rows["header"]["reason"]
     assert rows["link"]["yield"] is None and rows["link"]["multiplier"] == 1.0   # unmeasured: prior
 
 

@@ -14,11 +14,13 @@ from commits, subjects, trailers or markers:
                window's start (files minus the TUs reverse/tu_map.csv names).
   data         keys the shrink-only register lost over the window (start minus end,
   identity     never below 0), as a fraction of the debt headline at the window's start
-  header       (gate baseline + data, identity and header registers + hatch counts).
+               (gate baseline + data, identity and header registers + hatch counts).
 The other tiers keep their prior (multiplier 1) because no ledger diff attributes their
 landings to them: linked bytes come only from the census, which measures the whole
 fleet (every tier links units); stubs come from a local link cycle; tu_map approval also
 moves with renames and map rebuilds; ms-headers, dx and stlport retire no headline debt.
+The header tier's main yield is the TU merges a canonical header unblocks, which land as
+consolidate removals; its own queue keys undercount it, so it keeps its prior too.
 UNMEASURED says why for each.
 
 ALLOCATION. Seat-hours are taken as proportional to the prior, so a measured tier's
@@ -54,11 +56,14 @@ SOURCE_SUFFIXES = (".cpp", ".c", ".asm")
 TU_MAP = "reverse/tu_map.csv"
 GATE_BASELINE = "reverse/gate_baseline.txt"
 HATCH_BASELINE = "reverse/hatch_baseline.tsv"
-# tier -> the shrink-only register whose lost keys are its yield (repair_queue.DEBT_QUEUES)
+# tier -> the shrink-only register whose lost keys are its yield (repair_queue.DEBT_QUEUES);
+# all three count toward the debt gap, but only MEASURED tiers are tuned by them
 REGISTERS = {"data": "reverse/data_check_baseline.txt", "identity": "reverse/code_identity_baseline.tsv",
              "header": "reverse/header_queue.tsv"}
-MEASURED = ("consolidate",) + tuple(REGISTERS)
+MEASURED = ("consolidate", "data", "identity")
 UNMEASURED = {
+    "header": "its yield is mostly the TU merges a header unblocks (credited to consolidate); "
+              "queue keys retired undercount it",
     "link": "linked bytes are census-only and fleet-wide; no per-tier attribution",
     "stubs": "stub count comes from a local link cycle, not origin/master",
     "tu-approval": "tu_map approval also moves with renames and map rebuilds",
