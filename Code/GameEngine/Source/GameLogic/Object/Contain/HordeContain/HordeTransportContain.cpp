@@ -38,7 +38,6 @@ public:
 	void *a; // +0x00
 	IntList *objects; // +0x04
 };
-class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
 class Object;
 struct Coord3D;
 class Rva00588E44Contain;
@@ -75,13 +74,6 @@ public:
 	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) virtual void sA8(Object *)=0;
 	V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) virtual Rva0036AE51ListView s108()=0;
 };
-class RemovalNotice {public:
-V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
-virtual void sA4(Object *,int)=0;
-};
 #undef V
 class Thing;
 struct Rva0047727EObjectPositionView;
@@ -90,6 +82,31 @@ struct Rva0047727EObjectPositionView;
 #define V(n) virtual void s##n()=0;
 #undef V
 #define V(n) virtual void s##n()=0;
+#undef V
+#include <stl/_construct.h>
+// Use the local scalar placement copy without emitting a competing template.
+namespace _STL {
+static inline void _Construct(int *dest, const int &value)
+{ new (dest) int(value); }
+}
+#pragma intrinsic(memcpy)
+// The flattened output list holds raw object words.
+typedef _STL::list<int> RiderWordList;
+namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
+class Rva0046247D {public:void rva0046247D(Rva0046247DPair &);};
+class Rva002716Holder 
+{
+ public:void rva00271601(unsigned char);
+ 
+};
+#define V(n) virtual void s##n()=0;
+class RemovalNotice {public:
+V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
+V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
+virtual void sA4(Object *,int)=0;
+};
 #undef V
 
 // bfme link decl-only begin
@@ -982,6 +999,40 @@ struct ExitTemplateView {char pad[0x115];unsigned char flags;bool isHorde()const
 
 struct ExitObjectView {void*vptr;ExitTemplateView*type;char pad8[0x248];ExitObjectContain*contain;};
 
+template<int N> class ExitGetSlots:public ExitGetSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
+
+template<>class ExitGetSlots<0>{};
+
+class ExitObjectContain:public ExitGetSlots<31>{public:virtual RiderContain*get()=0;};
+
+//
+// Target evidence: 0x00477003 installs vtable 0x00C45D2C at the
+// HordeTransportContain +0x28 subobject; its first entry is 0x00477B69.
+// The target reads module data through this-0x24 and the owner through
+// this-0x28, then optionally calls the helper at this+0xF5. The address-only
+// callee 0x0047778B is reached directly from the target's REL32 call.
+//
+// Identity inference: the BFME1 OpenContain hierarchy places DieModuleInterface
+// after CollideModuleInterface, consistent with the target's +0x28 vtable and
+// one-pointer ABI. That supports the onDie name; the +0x82 module-data flag and
+// helper meaning remain unnamed target fields. Donor source is a layout/slot
+// lead, not proof of BFME2 field semantics.
+class Rva00462785
+{
+public:
+	int rva00462785();
+};
+
+// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@H@_STL@@@_STL@@QBEXPAU?$_List_node@H@2@I@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> void allocator<_List_node<int> >::deallocate(_List_node<int> *, size_t) const; }
+
+class Bits {public: unsigned test(unsigned n)const{return words[n>>5]&(1u<<(n&31));} void set(unsigned n){words[n>>5]|=1u<<(n&31);} unsigned words[20];};
+
+// Object prefix view: the status bit array starts at +0x10C (bit 242 is
+// the word at +0x128).
+struct Rva00477305ObjectView { char m_pad[0x10C]; Bits status; };
+
 class Object {
 public:
 	Drawable *getDrawable() const;
@@ -1009,31 +1060,46 @@ public:
 	__forceinline ExitObjectContain*exitContain()const{return ((const ExitObjectView*)this)->contain;}
 public:
 	bool exitFlag454()const{return *((const unsigned char*)this+0x454)!=0;}
+public:
+	bool rva0029091E(unsigned int flag) const;
+public:
+	void setWeaponSetFlag(WeaponSetType set);
+public:
+	__forceinline Bits &statusBits() { return ((Rva00477305ObjectView *)this)->status; }
 };
 
-template<int N> class ExitGetSlots:public ExitGetSlots<N-1>{public:virtual void gap(char(*)[N])=0;};
-
-template<>class ExitGetSlots<0>{};
-
-class ExitObjectContain:public ExitGetSlots<31>{public:virtual RiderContain*get()=0;};
-
-//
-// Target evidence: 0x00477003 installs vtable 0x00C45D2C at the
-// HordeTransportContain +0x28 subobject; its first entry is 0x00477B69.
-// The target reads module data through this-0x24 and the owner through
-// this-0x28, then optionally calls the helper at this+0xF5. The address-only
-// callee 0x0047778B is reached directly from the target's REL32 call.
-//
-// Identity inference: the BFME1 OpenContain hierarchy places DieModuleInterface
-// after CollideModuleInterface, consistent with the target's +0x28 vtable and
-// one-pointer ABI. That supports the onDie name; the +0x82 module-data flag and
-// helper meaning remain unnamed target fields. Donor source is a layout/slot
-// lead, not proof of BFME2 field semantics.
-class Rva00462785
+class Rva0046781F
 {
 public:
-	int rva00462785();
+	void rva0046781F(Object *obj, bool flag);
 };
+
+class Rva00477305Owner
+{
+public:
+	void rva00477305(Object *obj);
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain.cpp
 
@@ -1258,18 +1324,6 @@ void rva004772D1(Object *object, const Rva004772D1RangePrefix &range)
 	}
 }
 
-// tu-skeleton: 0x00477003 149B ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00477098 6B ?Rva00477098Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004770A6 56B ?rva004770A6@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047710B 22B ?rva004632E0@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00477121 41B ?rva0050B238@HordeTransportContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047714A 59B ?xfer@HordeTransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainXfer.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/HordeTransportContainPoolKey.cpp
 
 // ?getModuleNameKey@HordeTransportContain@@UBE?AW4NameKeyType@@XZ
@@ -1280,25 +1334,11 @@ NameKeyType HordeTransportContain::getModuleNameKey() const
 	return TheHordeTransportContainPoolKey;
 }
 
-// tu-skeleton: 0x004771CA 28B ??_GHordeTransportContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainDtor.cpp
 
 HordeTransportContain::~HordeTransportContain()
 {
 }
-
-// tu-skeleton: 0x004771EB 147B ?isValidContainerFor@HordeTransportContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIsValidContainerFor.cpp (not merged yet)
-
-// tu-skeleton: 0x004772B8 25B ?rva00465011@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x00477305 96B ?rva00477305@Rva00477305Owner@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00477305Status.cpp (not merged yet)
-
-// tu-skeleton: 0x004773D6 92B ?addToContain@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
-
-// tu-skeleton: 0x0047748E 133B ?rva0047748E@HordeTransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainNestedRiders.cpp (not merged yet)
-
-// tu-skeleton: 0x00477513 234B ?redeployOccupants@HordeTransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain_redeployOccupants.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainExitObjectViaDoor.cpp
 
@@ -1344,6 +1384,99 @@ void HordeTransportContain::onDie(const DamageInfo *damageInfo)
 		if ((unsigned char)owner->rva00462785() != 0)
 			((Rva0047A040Base9E0 *)((char *)this + 0xF5))->rva00588E44(owner);
 	}
+}
+
+// tu-skeleton: 0x00477003 149B ??0HordeTransportContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00477098 6B ?Rva00477098Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004770A6 56B ?rva004770A6@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x0047710B 22B ?rva004632E0@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x00477121 41B ?rva0050B238@HordeTransportContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x0047714A 59B ?xfer@HordeTransportContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004771CA 28B ??_GHordeTransportContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004771EB 147B ?isValidContainerFor@HordeTransportContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x004772B8 25B ?rva00465011@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva00477305Status.cpp
+
+void Rva00477305Owner::rva00477305(Object *src)
+{
+	char *self = (char *)this;
+	if (!((Rva0047A040Base9E0 *)(self + 0x11D))->rva00588D24(this, src))
+		return;
+	if (src->rva0029091E(0x14))
+	{
+		src->setWeaponSetFlag((WeaponSetType)0x14);
+		if (!(src->statusBits().test(242)))
+		{
+			src->statusBits().set(242);
+			src->rva0028AE6D();
+		}
+	}
+	this->slot18();
+	((Rva0046781F *)(self + 0x20))->rva0046781F(src, false);
+}
+
+// tu-skeleton: 0x004773D6 92B ?addToContain@HordeTransportContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeTransportContainIface20.cpp (not merged yet)
+
+// tu-skeleton: 0x0047748E 133B ?rva0047748E@HordeTransportContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainNestedRiders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContain_redeployOccupants.cpp
+
+// ?redeployOccupants@HordeTransportContain@@QAEXXZ
+// BFME1 ba7ddda7 Rva0024CAE0MaintainNestedRiders.cpp supplies the nested
+// rider-maintenance algorithm. BFME2's update at477AF3 calls4779F9 first;
+// its ctor and interface wrappers establish the primary receiver, +11D
+// helper, and +20 removal-notification view. Native body4779F9..477AF3
+// establishes list-descriptor slot108, removal slotsA8/A4, and owned
+// Object::kill/GetDrawable calls. The original method name is unresolved.
+// Both lists use the shared four-byte opaque element whose insertion chain
+// is independently recovered. Declared virtual slots are ABI views only;
+// this unit creates no interface objects or invented vtable data.
+
+// Native477513..4775FD is a complete EH-protected body. WB119FE80 supplies
+// the list-flattening algorithm; native calls, offsets and element accesses
+// establish the target-specific adaptations. BF1 f98983a7's whole
+// Rva0024C940ProcessNestedRiders.cpp is a related subsystem lead, but its
+// callback/first-rider algorithm differs and is not imported as this body.
+// List elements remain the shared opaque four-byte containment view.
+// Element shape (closer seat c3): WB keeps the element in a local (`obj = *it`) that the
+// else branch passes to push_back by reference (retail: lea [ebp-0x18]), tests
+// obj->getTemplate() through the inline accessor (its `this` copy is retail's mov eax,ecx),
+// and passes the re-dereferenced *it to the +0x11D helper (retail: push ecx).
+void HordeTransportContain::redeployOccupants() 
+{
+ RiderWordList objects;
+ Rva0046247DPair outer;
+ ((Rva0046247D*)this)->rva0046247D(outer);
+ for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) 
+ {
+  Object *object=(Object *)containmentFirstWord(*i);
+  if (object->getTemplate()->flags & 0x20) 
+  {
+   RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((Object*)containmentFirstWord(*i));
+   rva0047727E((Thing*)object);
+   Rva0036AE51ListView nested=contain->s108();
+   for (ContainmentList::iterator j=nested.b->begin();j!=nested.b->end();++j)
+   objects.push_back(containmentFirstWord(*j));
+   
+  }
+  else 
+  {
+   objects.push_back(*(int *)&object);
+   
+  }
+  
+ }
+ rva00463A4D(*reinterpret_cast<ContainmentList *>(&objects),(int)((char*)this+0x48));
+ 
 }
 
 // tu-skeleton: 0x00477BA2 447B ?rva00477BA2@HordeTransportContain@@QAEXPAVOldContain@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeTransportContainRva00477BA2.cpp (not merged yet)
