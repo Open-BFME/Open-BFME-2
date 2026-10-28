@@ -5,7 +5,7 @@
 // pushed local), the accessor 0x00620090 on the returned EAStringC, then
 // AptValue::SetString 0x006CBF70. The SEH frame belongs to the EAStringC
 // temporary's destructor 0x006D3010. Layout/flags match the sibling
-// AptDateStringCallback.cpp factory body at 0x006F5080.
+// AptDate.cpp sMethod_toString factory body at 0x006F5080.
 // Identity of the class and method names is not proven; they are
 // address-derived on the target addresses.
 
