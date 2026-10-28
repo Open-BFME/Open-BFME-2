@@ -41335,10 +41335,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004DCAE4,341,code,Code/GameEngine/Source/Common/EmotionNuggetTemplate.cpp,proposed,N,N=Code/GameEngine/Source/Common/EmotionNuggetTemplate.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp,Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp
 0x004DCC39,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_004DC87E.cpp
 0x004DCC62,34,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_node_004DCC62.cpp
-0x004DCC84,461,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnActivation.cpp
+0x004DCC84,461,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x004DCE51,56,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCE89 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
 0x004DCE89,5,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCE8E provisional,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp
-0x004DCE8E,54,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCEC4 provisional,Code/GameEngine/Source/Common/INI/Rva004DCE8EDtor.cpp
+0x004DCE8E,54,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCC84..0x004DCEC4 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x004DCEC4,340,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/Emotion.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
 0x004DCECE,330,code-unledgered,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,C,C=0x004DCEC4..0x004DD018 provisional,
 0x004DD018,494,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp W=Code/GameEngine/Source/GameLogic/System/EmotionNugget.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp
@@ -82215,9 +82215,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00791686,11,code,Code/GameEngine/Source/Common/EmotionNuggetTemplate.cpp,proposed,P,P=0x004DCAE4@FuncInfo0x0094377C,Code/gen_small/uw_gen_005.cpp
 0x00791691,8,code,Code/GameEngine/Source/Common/EmotionNuggetTemplate.cpp,proposed,P,P=0x004DCAE4@FuncInfo0x0094377C,Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp
 0x00791699,10,code,Code/GameEngine/Source/Common/EmotionNuggetTemplate.cpp,proposed,P,P=0x004DCAE4@FuncInfo0x0094377C,Code/GameEngine/Source/Common/Rva004DCAD2Parse.cpp
-0x007916A3,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnActivation.cpp
-0x007916AB,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnActivation.cpp
-0x007916B3,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetOnActivation.cpp
+0x007916A3,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
+0x007916AB,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
+0x007916B3,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCC84@FuncInfo0x009437A8 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp
 0x007916BD,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCE51@FuncInfo0x009437CC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
 0x007916C5,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCE51@FuncInfo0x009437CC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004DCE51.cpp
 0x007916CF,8,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionNugget.cpp,approved,P,P=0x004DCEC4@FuncInfo0x009437F0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionUpdateStep.cpp
