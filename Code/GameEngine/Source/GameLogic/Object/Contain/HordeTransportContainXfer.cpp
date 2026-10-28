@@ -33,41 +33,65 @@ typedef bool Bool;
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
-class OpenContain
-{
+class Thing;
+class Object;
+class DamageInfo;
+class Xfer;
+struct Rva0047727EObjectPositionView;
+enum NameKeyType { NK_UNKNOWN = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum ExitDoorType { DOOR_1 = 0 };
+
+class OpenContain {
+public:
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
 protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[ 0x100 - 0x04 ];
+	virtual void xfer(Xfer *xfer);
 };
 
-class TransportContain : public OpenContain
-{
+class TransportContain : public OpenContain {
+public:
+	virtual ~TransportContain();
+	virtual UpdateSleepTime update();
 protected:
-	virtual void xfer( Xfer *xfer );
-private:
-	Int m_extraSlotsInUse;
-	UnsignedInt m_frameExitNotBusy;
-	char m_unrecovered108[ 0x10C - 0x108 ];
-	Bool m_payloadCreated;
+	virtual void xfer(Xfer *xfer);
 };
 
-class HordeTransportContain : public TransportContain
-{
+// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
+// bare jmp to the TransportContain base dtor.
+class __declspec(novtable) HordeTransportContain : public TransportContain {
+public:
+	virtual ~HordeTransportContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+	void rva004779F9();
+	void rva0047778B();
+	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
+	void rva0047727E(Thing *object);
+	void rva0047748E();
 protected:
-	virtual void xfer( Xfer *xfer );
+	virtual void xfer(Xfer *xfer);
 private:
-	char m_pad110[ 0x120 - 0x110 ];
+	unsigned char prefix04[4];
+	Rva0047727EObjectPositionView *m_object;
+};
+
+// Saved state past the TransportContain base (offsets from the ctor's
+// stores: int -1000 at +0x120, zero byte at +0x124), read through a view so
+// the class keeps the shared polymorphic declaration.
+struct HordeTransportContainXferView
+{
+	char m_unrecovered00[ 0x120 ];
 	Int m_int120;
 	Bool m_bool124;
 };
 
 void HordeTransportContain::xfer( Xfer *xfer )
 {
+	HordeTransportContainXferView *view = (HordeTransportContainXferView *)this;
 	xfer->Version1();
 	TransportContain::xfer( xfer );
-	*xfer == m_int120;
-	*xfer == m_bool124;
+	*xfer == view->m_int120;
+	*xfer == view->m_bool124;
 }

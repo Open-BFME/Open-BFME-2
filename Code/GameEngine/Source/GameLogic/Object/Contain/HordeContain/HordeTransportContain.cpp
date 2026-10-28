@@ -67,22 +67,19 @@ public:
 	void setDrawableHidden(bool hidden);
 };
 class Matrix3D;
-#define V(n) virtual void s##n()=0;
+// Pure slot placeholders for the consumed interface views; kept defined
+// so the views compose in any order.
+#define PURE_SLOT(n) virtual void s##n()=0;
 class RiderContain
 {
 public:
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) virtual void sA8(Object *)=0;
-	V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) virtual Rva0036AE51ListView s108()=0;
+	PURE_SLOT(00) PURE_SLOT(01) PURE_SLOT(02) PURE_SLOT(03) PURE_SLOT(04) PURE_SLOT(05) PURE_SLOT(06) PURE_SLOT(07) PURE_SLOT(08) PURE_SLOT(09) PURE_SLOT(10) PURE_SLOT(11) PURE_SLOT(12) PURE_SLOT(13) PURE_SLOT(14) PURE_SLOT(15) PURE_SLOT(16) PURE_SLOT(17) PURE_SLOT(18) PURE_SLOT(19) PURE_SLOT(20) PURE_SLOT(21) PURE_SLOT(22) PURE_SLOT(23) PURE_SLOT(24) PURE_SLOT(25) PURE_SLOT(26) PURE_SLOT(27) PURE_SLOT(28) PURE_SLOT(29) PURE_SLOT(30) PURE_SLOT(31) PURE_SLOT(32) PURE_SLOT(33) PURE_SLOT(34) PURE_SLOT(35) PURE_SLOT(36) PURE_SLOT(37) PURE_SLOT(38) PURE_SLOT(39) PURE_SLOT(40) PURE_SLOT(41) virtual void sA8(Object *)=0;
+	PURE_SLOT(43) PURE_SLOT(44) PURE_SLOT(45) PURE_SLOT(46) PURE_SLOT(47) PURE_SLOT(48) PURE_SLOT(49) PURE_SLOT(50) PURE_SLOT(51) PURE_SLOT(52) PURE_SLOT(53) PURE_SLOT(54) PURE_SLOT(55) PURE_SLOT(56) PURE_SLOT(57) PURE_SLOT(58) PURE_SLOT(59) PURE_SLOT(60) PURE_SLOT(61) PURE_SLOT(62) PURE_SLOT(63) PURE_SLOT(64) PURE_SLOT(65) virtual Rva0036AE51ListView s108()=0;
 };
-#undef V
 class Thing;
 struct Rva0047727EObjectPositionView;
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 #pragma intrinsic(memcpy)
-#define V(n) virtual void s##n()=0;
-#undef V
-#define V(n) virtual void s##n()=0;
-#undef V
 #include <stl/_construct.h>
 // Use the local scalar placement copy without emitting a competing template.
 namespace _STL {
@@ -99,15 +96,13 @@ class Rva002716Holder
  public:void rva00271601(unsigned char);
  
 };
-#define V(n) virtual void s##n()=0;
 class RemovalNotice {public:
-V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40)
+PURE_SLOT(00) PURE_SLOT(01) PURE_SLOT(02) PURE_SLOT(03) PURE_SLOT(04) PURE_SLOT(05) PURE_SLOT(06) PURE_SLOT(07) PURE_SLOT(08) PURE_SLOT(09)
+PURE_SLOT(10) PURE_SLOT(11) PURE_SLOT(12) PURE_SLOT(13) PURE_SLOT(14) PURE_SLOT(15) PURE_SLOT(16) PURE_SLOT(17) PURE_SLOT(18) PURE_SLOT(19)
+PURE_SLOT(20) PURE_SLOT(21) PURE_SLOT(22) PURE_SLOT(23) PURE_SLOT(24) PURE_SLOT(25) PURE_SLOT(26) PURE_SLOT(27) PURE_SLOT(28) PURE_SLOT(29)
+PURE_SLOT(30) PURE_SLOT(31) PURE_SLOT(32) PURE_SLOT(33) PURE_SLOT(34) PURE_SLOT(35) PURE_SLOT(36) PURE_SLOT(37) PURE_SLOT(38) PURE_SLOT(39) PURE_SLOT(40)
 virtual void sA4(Object *,int)=0;
 };
-#undef V
 
 // bfme link decl-only begin
 namespace _STL { template <> void ** __copy_ptrs<void **, void **>(void **, void **, void **, __true_type); }
@@ -771,6 +766,7 @@ public:
 };
 
 class DamageInfo;
+class Xfer;
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
@@ -781,12 +777,16 @@ enum ExitDoorType { DOOR_1 = 0 };
 class OpenContain {
 public:
 	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 class TransportContain : public OpenContain {
 public:
 	virtual ~TransportContain();
 	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // Retail stores no HordeTransportContain vptr (novtable): its dtor is a
@@ -804,6 +804,8 @@ public:
 	void rva0047748E();
 	void redeployOccupants();
 	void rva00463A4D(ContainmentList objects, int context);
+protected:
+	virtual void xfer(Xfer *xfer);
 private:
 	unsigned char prefix04[4];
 	Rva0047727EObjectPositionView *m_object;
