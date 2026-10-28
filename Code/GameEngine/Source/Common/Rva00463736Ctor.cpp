@@ -13,7 +13,7 @@ class Rva00463469
 public:
 	Rva00463469(unsigned dummy);
 protected:
-	unsigned m_ptrVal;
+	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_proxy;
 };
 
 class Rva00463736 : public Rva00463469
@@ -28,8 +28,8 @@ Rva00463736::Rva00463736(const unsigned char &srcByte, unsigned dummy) : Rva0046
 {
 	(void)srcByte;
 	m_4 = 0;
-	((char *)m_ptrVal)[0] = 0;
-	*(int *)((char *)m_ptrVal + 4) = 0;
-	*(char **)((char *)m_ptrVal + 8) = (char *)m_ptrVal;
-	*(char **)((char *)m_ptrVal + 12) = (char *)m_ptrVal;
+	((char *)m_proxy._M_data)[0] = 0;
+	*(int *)((char *)m_proxy._M_data + 4) = 0;
+	*(char **)((char *)m_proxy._M_data + 8) = (char *)m_proxy._M_data;
+	*(char **)((char *)m_proxy._M_data + 12) = (char *)m_proxy._M_data;
 }

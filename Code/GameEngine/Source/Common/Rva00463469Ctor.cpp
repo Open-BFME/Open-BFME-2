@@ -13,7 +13,7 @@ class Rva00463469
 {
 public:
 	Rva00463469(unsigned dummy);
-private:
+protected:
 	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_proxy;
 };
 

@@ -318,7 +318,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/Common/BfmeConv1292DeferredWalkers.cpp` | 298 | 6 (U=6) | Open |
 | `Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp` | 290 | 4 (U=3, C=1) | Open |
 | `Code/GameEngine/Source/Common/VslotSmallBodiesAG_Rva00131CF2.cpp` | 286 | 10 (U=10) | Open |
-| `Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp` | 283 | 13 (U=11, C=1, S=1) | Open |
+| `Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp` | 283 | 13 (U=11, C=1, S=1) | 2026-10-28 at `bd2b10af97`: unchanged seed verifies 4/4 rows and previews LINKS for 283 authored bytes against index `41c28839bf`. Allocator-view prerequisite repaired in two donors; broader private views and fresh merger trial remain. [Evidence and batch-audit limitation](../reverse/attempt_support/opencontain-proxy-views-20261028-codex.md). |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001DF2D3.cpp` | 281 | 4 (U=2, C=1, S=1) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00215949.cpp` | 274 | 5 (U=3, C=1, S=1) | 2026-10-28 at `284a099880`: all three rows verify and current-object preview against index `14dc3d2467` reports LINKS for 274 authored bytes; earlier record reconcile retained (LINK-002). No new source change; census confirmation pending. |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001524F9.cpp` | 273 | 5 (U=3, C=1, S=1) | 2026-10-26 at `58598f540f`: Current-provider preview remains U3/L1/S1; reconcile the native element and rowed copy/destructor/assignment/overflow names (LINK-002). Evidence: `build/c136-w4sweep/`, `build/link-report.md`; census pending. |
