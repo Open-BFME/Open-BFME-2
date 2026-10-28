@@ -7159,11 +7159,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000D2301,1529,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp
 0x000D28FA,4166,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp
 0x000D3940,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3945 provisional,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
-0x000D3945,56,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D397D provisional,Code/Libraries/Source/WWVegas/WWLib/Rva000D20A9TreeDtor.cpp
+0x000D3945,56,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D397D provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp
 0x000D397D,20,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3991 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva004ABFB2Method.cpp
 0x000D3991,5,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3996 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp
 0x000D3996,129,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3A17 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp
-0x000D3A17,90,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3A71 provisional,Code/GameEngine/Source/Common/Rva000D3A17.cpp
+0x000D3A17,90,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3A71 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp
 0x000D3A71,25,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3A8A provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_set_base.cpp
 0x000D3A8A,157,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,C,C=0x000D28FA..0x000D3B27 provisional,Code/GameEngine/Source/Common/Rva000D3A8ACtor.cpp
 0x000D3B27,214,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer_AddBuff.cpp
@@ -63829,7 +63829,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00762BB9,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D28FA@FuncInfo0x009064DC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp
 0x00762BC1,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D28FA@FuncInfo0x009064DC provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBufferFill.cpp
 0x00762BCB,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3945@FuncInfo0x00906500 provisional,Code/gen_small/uw_gen_010.cpp
-0x00762BD3,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3945@FuncInfo0x00906500 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva000D20A9TreeDtor.cpp
+0x00762BD3,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3945@FuncInfo0x00906500 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp
 0x00762BDD,22,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3996@FuncInfo0x0090652C provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp
 0x00762BF3,24,code-unledgered,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3996@FuncInfo0x0090652C provisional,
 0x00762C0B,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp,approved,P,P=0x000D3996@FuncInfo0x0090652C provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp

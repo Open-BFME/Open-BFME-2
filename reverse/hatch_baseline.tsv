@@ -14407,6 +14407,7 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DPr
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdate.cpp	updateProjectionParameters@W3DProjectedShadow@@QAEXABVMatrix3D@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdate.cpp	updateRenderTargetTextures@W3DProjectedShadowManager@@QAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp	W3DBridge::getModelVertices	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBuffBuffer.cpp	Rva000D3945Head::~Rva000D3945Head	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDrawImageBFME2.cpp	the	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	0W3DGameClient@@QAE@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp	1W3DGameClient@@UAE@XZ	1
@@ -15516,7 +15517,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL:
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	begin@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0007300FErase.cpp	end@Rva00072FE6@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva000D20A9TreeDtor.cpp	Rva000D3945Head::~Rva000D3945Head	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00136642HintInsert.cpp	0Rva001364F7Iter@@QAE@PAURvaNode1364F7@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp	Rva00150C97Entry::Rva00150C97Entry	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00150C97IndexedVector.cpp	Rva00BC6F24Base::Rva00BC6F24Base	1
