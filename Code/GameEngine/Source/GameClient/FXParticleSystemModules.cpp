@@ -825,11 +825,20 @@ FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateM
 class RenderObjectParticleUpdateModule;
 FX_FACTORY_ELSEWHERE(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule,
     RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule)
+// The named wrappers' deleting destructors call the wrapper destructor out of
+// line, as retail's (FXParticleSystemFactories.cpp rows 0x003AA1EA, 0x003AB92A)
+// do; inlined, the 5-byte wrapper destructor would become a direct call to the
+// module template's. This one is also this unit's 0x003A9397 row.
+template <> __declspec(noinline) inline ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY,
+    RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate,
+    RenderObjectParticleUpdateModule> >::~ConcreteModuleTemplate() {}
 FX_NAMED_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule,
     RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule)
 class ParticleLifeEventModule;
 FX_FACTORY_ELSEWHERE(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
 FX_CLONE_ELSEWHERE(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
+template <> __declspec(noinline) ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY,
+    LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> >::~ConcreteModuleTemplate();
 FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
 extern const char *const TERRAIN_COLLISION_MODULE_KEY;
 extern const char *const TERRAIN_COLLISION_MODULE_NAME;

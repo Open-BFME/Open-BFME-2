@@ -41,3 +41,11 @@ make the copy retail's; then the next definer in retail-truth-5 order, which
 holds the retail copy, is kept. Verify by the unit's rows (`./build.sh`), its
 `link_check` preview, and the first copy in this script's order.
 Structural inference from the census index; no census confirmation claimed.
+
+## Second class: keep_rule losers (`rt5_losers.py`)
+
+Re-judging every multi-copy name's `keep_rule` under the same order (with the census's
+referenced-name set; on the census order this reproduces the census's multi-copy losers
+exactly) finds 9 census-linked units, 18,739 B, whose own copy newly loses: a name
+without a retail address whose new first copy differs from theirs, or an unproven
+copy that is now first and differs from the proven one. `rt5_losers.txt` lists them.

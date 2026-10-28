@@ -1,0 +1,26 @@
+census-linked units whose own copy newly loses under rt5: 9, 18,739 B
+   9,120 Code/GameEngine/Source/GameLogic/AI/AIPlayerTeamBuild.cpp
+           first: ?clear@?$_List_base@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@QAEXXZ  first=Code/GameEngine/Source/Common/RTS/Player.cpp
+           first: ?_M_create_node@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVTeamPrototyp  first=Code/GameEngine/Source/Common/RTS/Player.cpp
+   3,856 Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp
+           retail: ??_G?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UP  first=ode/GameEngine/Source/GameClient/FXParticleSystemModules.cpp
+           retail: ??_G?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2  first=ode/GameEngine/Source/GameClient/FXParticleSystemModules.cpp
+   1,881 Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp
+           first: ??_7ThingTemplate@@6B@  first=Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp
+   1,869 Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindow.cpp
+           retail: ?cos@@YAMM@Z  first=ource/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp
+           retail: ?sin@@YAMM@Z  first=Code/GameEngine/Source/Common/Rva00468E98Rotate.cpp
+     770 Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp
+           first: ??_7ThingTemplate@@6B@  first=Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp
+     717 Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldLogicDtorRva002B964F.cpp
+           first: ??_7LivingWorldLogic@@6BLivingWorldBuildingObserver@@@  first=ce/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp
+           first: ??_7LivingWorldLogic@@6BSnapshot@@@  first=ce/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp
+           first: ??_7LivingWorldLogic@@6BSubsystemInterface@@@  first=ce/GameLogic/System/LivingWorld/LivingWorldLogicCtorBfme.cpp
+     302 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp
+           retail: ??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ  first=ce/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp
+     119 Code/GameEngine/Source/Common/Rva00468E98Rotate.cpp
+           retail: ?cos@@YAMM@Z  first=ource/GameLogic/Object/Contain/HordeContainIface11CSlots.cpp
+           retail: ?sin@@YAMM@Z  first=Code/GameEngine/Source/Common/Rva00468E98Rotate.cpp
+     105 Code/GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp
+           retail: ?clear@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Sel  first=GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp
+           retail: ?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyTyp  first=GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp

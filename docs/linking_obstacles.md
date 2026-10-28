@@ -204,6 +204,26 @@ Completed:
 Summary (2026-10-29): 7 of the 10 providers repaired, covering 32 of the 35 lost
 names; the three left (deque `copy`, FontLibraryInit `insert_unique`, BfmeE8
 `__uninitialized_copy`) touch 9 census-linked units, 7,828 B upper bound.
+Second loss class (2026-10-29, halilkkaya-lk6): the same re-ranking also changes
+`keep_rule`'s verdict on units' own copies (with the census's referenced-name set; on
+the census order the computation reproduces the census's multi-copy losers exactly).
+Nine census-linked units (18,739 B) newly lose a copy: AIPlayerTeamBuild.cpp (9,120 B;
+`list<TeamPrototype *>` `clear`/`_M_create_node`, first copy becomes Player.cpp's),
+FXParticleSystemModules.cpp (3,856 B; two named-wrapper `??_G`), ThingTemplateConstructor.cpp
+and Rva0033DDA1Dtor.cpp (2,651 B; `??_7ThingTemplate`, first becomes ThingTemplate.cpp's),
+ProcessAnimateWindow.cpp and Rva00468E98Rotate.cpp (1,988 B; `cos`/`sin`),
+LivingWorldLogicDtorRva002B964F.cpp (717 B; three `LivingWorldLogic` vtables, first becomes
+LivingWorldLogicCtorBfme.cpp's), W3DDisplayCtorRva00049DEA.cpp (302 B; `vector<int>`
+destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
+[rt5_losers.py and output](../reverse/attempt_support/rt5-order-losses-20261029/rt5_losers.txt).
+- `FXParticleSystemModules.cpp` (halilkkaya-lk6): the RENDEROBJECT_UPDATE and LIFE_EVENT
+  named wrappers' `??_G` inlined the 5-byte wrapper destructor and called the module
+  template's destructor directly (unproven f8e666291096 / 2b715f6d1187); retail's
+  (Factories rows 0x003AA1EA, 0x003AB92A) call the wrapper destructor. Declaring both
+  wrapper destructors `__declspec(noinline)` (RENDEROBJECT_UPDATE's keeps its inline
+  definition: it is this unit's 0x003A9397 row) gives both `??_G` retail's digests
+  (38f68adc5995, 28e3c4687c29). 227/227 rows exact; no rt5 loser left in the unit;
+  link_check unchanged (13,604 B over the three FX units).
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
