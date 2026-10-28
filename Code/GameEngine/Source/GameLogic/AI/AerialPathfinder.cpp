@@ -100,6 +100,8 @@ extern AerialPathfinder *TheAerialPathfinder;
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/AI/AerialPathfinder.cpp
+
 // BFME1 donor f98983a7d: game/GameEngine/Source/GameLogic/AI/
 // AerialPathfinder_separationPush.cpp supplies the separation algorithm.
 // Native 00375C28..00375DFF, RET16, proves Object geometry+A8/radius+BC,
@@ -181,7 +183,47 @@ bool AerialPathfinder::rva00375DFF(Object *obj, Rva00375A73Context *context, flo
 	return (above == true && clear == true) ? true : false;
 }
 
-// tu-skeleton: 0x00375ED7 453B ?rva00375ED7@AerialPathfinder@@QAEHPAVObject@@PBUCoord3D@@PAU3@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AerialPathfinderHeightPush.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AerialPathfinderHeightPush.cpp
+
+// Native 00375ED7..0037609C/453B RET12. WB F2BE60 corroborates five
+// height probes: center, then four corners, and final separation push.
+// The original method name is unknown. Target proves AI+258, motion+1F0,
+// clearance+48 and Object bounding radius+BC. Probe vector reuse and the
+// initial comparison against zero follow the debug body and native SSE.
+// Keep the separation provider external: visible body knowledge changes
+// MSVC's receiver allocation. The final object read preserves its native
+// parameter home; local volatile qualification asserts no original type.
+
+int AerialPathfinder::rva00375ED7(Object*obj,const Coord3D*pos,Coord3D*push)
+{
+ AerialAI*ai=obj->ai;
+ if(!ai)return 2;
+ push->x=0;push->y=0;push->z=0;
+ float height=ai->motion->height;
+ float radius=obj->geometry.radius;
+ Coord3D sample={0,0,0};
+ float worst=0;
+ sample.z=pos->z-height*0.5f;
+ sample.x=pos->x;sample.y=pos->y;
+ float ground=rva00375B7A(sample.x,sample.y);
+ if(ground-sample.z>0.0f)worst=ground-sample.z;
+ sample.z=pos->z-height*0.5f*0.777f;
+ sample.x=pos->x-radius;sample.y=pos->y-radius;
+ ground=rva00375B7A(sample.x,sample.y);
+ if(ground-sample.z>worst)worst=ground-sample.z;
+ sample.y=pos->y+radius;
+ ground=rva00375B7A(sample.x,sample.y);
+ if(ground-sample.z>worst)worst=ground-sample.z;
+ sample.x=pos->x+radius;
+ ground=rva00375B7A(sample.x,sample.y);
+ if(ground-sample.z>worst)worst=ground-sample.z;
+ sample.y=pos->y-radius;
+ ground=rva00375B7A(sample.x,sample.y);
+ if(ground-sample.z>worst)worst=ground-sample.z;
+ push->z+=worst;
+ rva00375C28(*(Object*volatile*)&obj,pos,&worst,push);
+ return worst>0.0f ? 1:0;
+}
 
 // tu-skeleton: 0x0037609C 2148B ?computeAerialPath@AerialPathfinder@@QAE_NPAXPBUCoord3D@@PAVRva00312C95@@PBE3_N@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AerialPathfinderComputePath.cpp (not merged yet)
 
