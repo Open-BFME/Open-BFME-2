@@ -19359,8 +19359,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A028C4,4,.data,global,?g_Va00E028C4@@3IA,,unowned,,0,3
 0x00A028C8,4,.data,global,?key@?8??rva003A23A5@Team@@QAEXH_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/Common/RTS/TeamGateMembership.cpp,owned,,1,2
 0x00A028CC,4,.data,global,?$S1@?8??rva003A23A5@Team@@QAEXH_N@Z@4IA,Code/GameEngine/Source/Common/RTS/TeamGateMembership.cpp,owned,,1,4
-0x00A028D0,4,.data,global,?TheFadeAndDieOrnamentUpdatePoolKey@?1??getModuleNameKey@FadeAndDieOrnamentUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp,owned,,1,2
-0x00A028D4,4,.data,global,?$S1@?1??getModuleNameKey@FadeAndDieOrnamentUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp,owned,,1,4
+0x00A028D0,4,.data,global,?TheFadeAndDieOrnamentUpdatePoolKey@?1??getModuleNameKey@FadeAndDieOrnamentUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,owned,,1,2
+0x00A028D4,4,.data,global,?$S1@?1??getModuleNameKey@FadeAndDieOrnamentUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,owned,,1,4
 0x00A028D8,4,.data,global,_s_rva007AF369,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A028DC,4,.data,global,_s_rva007AF393,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A028E0,4,.data,global,?TheLifetimeUpdatePoolKey@?1??getModuleNameKey@LifetimeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp,owned,,1,2

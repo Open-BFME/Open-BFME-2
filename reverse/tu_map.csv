@@ -29479,7 +29479,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003A4322,25,code,,,-,,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 0x003A433B,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x003A4341,23,code,,displaced,-,Z=Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.cpp
-0x003A4358,69,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp
+0x003A4358,69,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp
 0x003A439D,79,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdateCtor.cpp
 0x003A43EC,28,code,,,-,,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 0x003A4408,84,code,,,-,,Code/GameEngine/Source/Common/Rva003A4322Xfer.cpp
@@ -75788,8 +75788,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00781B23,8,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,P,P=0x003A4182@FuncInfo0x0092CA64,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x00781B2B,10,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,P,P=0x003A4182@FuncInfo0x0092CA64,Code/GameEngine/Source/Common/RTS/Team.cpp
 0x00781B35,10,code,Code/GameEngine/Source/Common/RTS/Team.cpp,approved,P,P=0x003A4182@FuncInfo0x0092CA64,Code/GameEngine/Source/Common/RTS/Team.cpp
-0x00781B3F,13,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,P,P=0x003A4358@FuncInfo0x0092CA88 provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp
-0x00781B4C,10,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,P,P=0x003A4358@FuncInfo0x0092CA88 provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdatePoolKey.cpp
+0x00781B3F,13,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,P,P=0x003A4358@FuncInfo0x0092CA88 provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp
+0x00781B4C,10,code,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp,approved,P,P=0x003A4358@FuncInfo0x0092CA88 provisional,Code/GameEngine/Source/GameLogic/Object/Update/FadeAndDieOrnamentUpdate.cpp
 0x00781B56,14,code,,,-,,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
 0x00781B64,10,code,,,-,,Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
 0x00781B6E,11,code,,,-,,Code/gen_small/uw_gen_004.cpp
