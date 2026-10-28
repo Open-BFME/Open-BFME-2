@@ -7,9 +7,11 @@
 // it sets that flag and the 0x40000 status bit once, then calls the virtual
 // slot 0x48 on this and the interface at +0x20 with (argument, false).
 // Callees are rowed or pinned; class names are address-derived.
-enum WeaponSetType { WEAPONSET_RETAIL_14 = 0x14 };
+enum WeaponSetType { WEAPONSET_NONE = 0 };
 class Bits {public: unsigned test(unsigned n)const{return words[n>>5]&(1u<<(n&31));} void set(unsigned n){words[n>>5]|=1u<<(n&31);} unsigned words[20];};
-class Object;
+// Object prefix view: the status bit array starts at +0x10C (bit 242 is
+// the word at +0x128).
+struct Rva00477305ObjectView { char m_pad[0x10C]; Bits status; };
 
 class Object
 {
@@ -17,8 +19,7 @@ public:
 	bool rva0029091E(unsigned int flag) const;
 	void setWeaponSetFlag(WeaponSetType set);
 	void rva0028AE6D();
-	char m_pad[0x10C];
-	Bits status;	// +0x128
+	__forceinline Bits &statusBits() { return ((Rva00477305ObjectView *)this)->status; }
 };
 
 struct Coord3D;
@@ -75,10 +76,10 @@ void Rva00477305Owner::rva00477305(Object *src)
 		return;
 	if (src->rva0029091E(0x14))
 	{
-		src->setWeaponSetFlag(WEAPONSET_RETAIL_14);
-		if (!(src->status.test(242)))
+		src->setWeaponSetFlag((WeaponSetType)0x14);
+		if (!(src->statusBits().test(242)))
 		{
-			src->status.set(242);
+			src->statusBits().set(242);
 			src->rva0028AE6D();
 		}
 	}

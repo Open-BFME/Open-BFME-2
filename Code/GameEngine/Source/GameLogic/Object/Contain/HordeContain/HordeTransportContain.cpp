@@ -785,6 +785,8 @@ public:
 	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
 	void rva0047727E(Thing *object);
 	void rva0047748E();
+	void redeployOccupants();
+	void rva00463A4D(ContainmentList objects, int context);
 private:
 	unsigned char prefix04[4];
 	Rva0047727EObjectPositionView *m_object;

@@ -20,21 +20,16 @@ static inline void _Construct(int *dest, const int &value)
 #include <string.h>
 #pragma intrinsic(memcpy)
 #include "../../../../../Include/GameLogic/ContainmentListView.h"
-typedef _STL::list<int> IntList;
+typedef ContainmentList IntList;
+// The flattened output list holds raw object words.
+typedef _STL::list<int> RiderWordList;
 // Local comparison keeps this consumer from emitting a competing iterator.
-namespace _STL 
-{
- template<class T, class Traits>
- static inline bool operator!=(const _List_iterator<T, Traits>&a,const _List_iterator<T, Traits>&b)
- 
- {
-  return a._M_node != b._M_node;
-  
- }
- template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();
- template<> _List_base<int,allocator<int> >::~_List_base();
- 
-}
+namespace _STL {
+template<class T, class Traits>
+static inline bool operator!=(const _List_iterator<T, Traits>&a,const _List_iterator<T, Traits>&b)
+{ return a._M_node != b._M_node; }
+template<> _List_base<Rva0036ADF9Element,allocator<Rva0036ADF9Element> >::~_List_base();}
+namespace _STL { template<> _List_base<int,allocator<int> >::~_List_base(); }
 struct Rva0046247DPair
 {
 public:
@@ -83,21 +78,15 @@ enum DeathType
 class Drawable;
 // Only the accessed template prefix is established here: native477556
 // tests byte115 bit20, independently agreeing with WB's kind-of109 test.
-struct Rva00477513TemplateView 
-{
- unsigned char prefix00[0x115];
- unsigned char flags115;
- 
-};
+class ExitObjectContain;
+struct ExitTemplateView {char pad[0x115];unsigned char flags;bool isHorde()const{return(flags&0x20)!=0;}};
+struct ExitObjectView {void*vptr;ExitTemplateView*type;char pad8[0x248];ExitObjectContain*contain;};
 class Object 
 {
  public:
  Drawable *getDrawable() const;
  void kill(DamageType,DeathType);
- void *vptr;
- const Rva00477513TemplateView *templateView;
- const Rva00477513TemplateView *getTemplate() const { return templateView; }
- 
+ __forceinline ExitTemplateView*getTemplate()const{return ((const ExitObjectView*)this)->type;}
 };
 #define V(n) virtual void s##n()=0;
 class RiderContain
@@ -118,18 +107,42 @@ class RemovalNotice
 };
 #undef V
 class Thing;
+class Object;
+class DamageInfo;
 struct Rva0047727EObjectPositionView;
-class HordeTransportContain 
-{
- public:
- void rva004779F9();
- void rva0047727E(Thing *object);
- void redeployOccupants();
- void rva00463A4D(ContainmentList objects, int context);
- private:
- unsigned char prefix00[8];
- Rva0047727EObjectPositionView *m_object;
- 
+enum NameKeyType { NK_UNKNOWN = 0 };
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum ExitDoorType { DOOR_1 = 0 };
+
+class OpenContain {
+public:
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+};
+
+class TransportContain : public OpenContain {
+public:
+	virtual ~TransportContain();
+	virtual UpdateSleepTime update();
+};
+
+// Retail stores no HordeTransportContain vptr (novtable): its dtor is a
+// bare jmp to the TransportContain base dtor.
+class __declspec(novtable) HordeTransportContain : public TransportContain {
+public:
+	virtual ~HordeTransportContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+	virtual void exitObjectViaDoor(Object *,ExitDoorType);
+	void rva004779F9();
+	void rva0047778B();
+	void rva004776E7(const struct Rva004776E7UpgradeMask *,bool);
+	void rva0047727E(Thing *object);
+	void rva0047748E();
+	void redeployOccupants();
+	void rva00463A4D(ContainmentList objects, int context);
+private:
+	unsigned char prefix04[4];
+	Rva0047727EObjectPositionView *m_object;
 };
 #include "../../../../../../Libraries/Include/Lib/Coord3D.h"
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_List_node@H@_STL@@@_STL@@QBEXPAU?$_List_node@H@2@I@Z:
@@ -152,15 +165,15 @@ class Thing
 // and passes the re-dereferenced *it to the +0x11D helper (retail: push ecx).
 void HordeTransportContain::redeployOccupants() 
 {
- IntList objects;
+ RiderWordList objects;
  Rva0046247DPair outer;
  ((Rva0046247D*)this)->rva0046247D(outer);
  for (IntList::iterator i=outer.objects->begin();i!=outer.objects->end();++i) 
  {
-  Object *object=(Object *)*i;
-  if (object->getTemplate()->flags115 & 0x20) 
+  Object *object=(Object *)containmentFirstWord(*i);
+  if (object->getTemplate()->flags & 0x20) 
   {
-   RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((Object*)*i);
+   RiderContain *contain=(RiderContain*)((Rva0047A040Base9E0*)((char*)this+0x11D))->rva00588B8A((Object*)containmentFirstWord(*i));
    rva0047727E((Thing*)object);
    Rva0036AE51ListView nested=contain->s108();
    for (ContainmentList::iterator j=nested.b->begin();j!=nested.b->end();++j)
