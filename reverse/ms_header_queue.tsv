@@ -153,7 +153,6 @@ Code/GameEngine/Source/GameLogic/AI/AIAttackStatesIsAttack.cpp	unverified	unveri
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046267AConstruct.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<string.h>,<new.h>	no	yes	hand			operator new:unverified,size_t:same
 Code/GameEngine/Source/GameLogic/Object/SpecialPower/CashHackUpgradesCopyCtor.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<string.h>,<new.h>	no	yes	hand			operator new:unverified,size_t:same
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	1	0	<windows.h>,<GdiPlus.h>	yes	yes	hand			REAL_EPSILON:unverified,NULL:same
-Code/GameEngine/Source/GameLogic/Object/Upgrade/UnpauseSpecialPowerUpgradeUpgradeImplementation.cpp	unverified	unverified	2	0	0	0	2	0	0	0	0	0	0	<windows.h>	yes	yes	hand			FALSE:unverified,TRUE:unverified
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_livingWorldRegion.cpp	unverified	unverified	2	0	0	0	1	0	0	1	0	1	0	<adoctint.h>,<windows.h>	yes	yes	hand			TEXT:unverified
 Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp	unverified	unverified	2	0	0	0	2	0	0	0	0	0	0	<windows.h>	yes	yes	hand			TRUE:unverified,FALSE:unverified
 Code/GameEngine/Source/GameNetwork/LANGameInfoParseGameOptionsString.cpp	unverified	unverified	2	1	0	0	1	0	0	0	0	0	0	<crtdbg.h>,<windows.h>	yes	yes	hand			free:unverified,timeGetTime:same
@@ -954,3 +953,4 @@ Code/GameEngine/Source/Common/System/XferSaveAsText.cpp	conflicting	abi	4	0	0	0	
 Code/Libraries/Source/Apt/AptDate.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<stdio.h>,<stdlib.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	sprintf:same,abs:same
 Code/GameEngine/Source/GameNetwork/Transport.cpp	conflicting	mangle	14	9	1	4	0	0	0	0	0	1	0	<windows.h>,<WinSock2.h>,<new>,<string.h>	yes	yes	hand			WSACleanup:unknown,htonl:unknown,htons:unknown,WSAStartup:source,timeGetTime:same,NULL:same,memcpy:same,TRUE:same,FALSE:same,operator new:same,operator delete:same
 Code/GameEngine/Source/GameClient/Terrain/TerrainRoads.cpp	unverified	unverified	4	0	0	0	4	0	0	0	0	0	0	<windows.h>	yes	yes	hand			TRUE:unverified,FALSE:unverified
+Code/GameEngine/Source/GameLogic/Object/Upgrade/UnpauseSpecialPowerUpgrade.cpp	unverified	unverified	2	0	0	0	2	0	0	0	0	0	0	<windows.h>	yes	yes	hand			FALSE:unverified,TRUE:unverified
