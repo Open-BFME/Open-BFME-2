@@ -15174,7 +15174,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ??0GrantUpgradeCreate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B8F62,42,Code/GameEngine/Source/GameLogic/Object/Create/GrantUpgradeCreate.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0ExperienceLevelCreate@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B917B,42,Code/GameEngine/Source/GameLogic/Object/Create/ExperienceLevelCreateCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0BoneFXDamage@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B979C,42,Code/GameEngine/Source/GameLogic/Object/Damage/BoneFXDamage.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-??0ReflectDamage@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BABB4,42,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamageConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0ReflectDamage@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004BABB4,42,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0HighlanderBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C0781,42,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0ImmortalBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C086E,42,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0OathbreakerBody@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004C1EC7,42,Code/GameEngine/Source/GameLogic/Object/Body/OathbreakerBodyConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls

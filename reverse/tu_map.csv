@@ -39681,7 +39681,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004BAB4F,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x004BAB55,69,code,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp
 0x004BAB9A,26,code,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/ReflectDamage.cpp
-0x004BABB4,42,code,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamageConstructor.cpp
+0x004BABB4,42,code,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp
 0x004BABDE,28,code,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,approved,C,C=0x004BABB4..0x004BABFA provisional,Code/GameEngine/Source/Common/Rva004B96CCDerived.cpp
 0x004BABFA,137,code,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Damage/ReflectDamageOnDamage.cpp
 0x004BAC83,44,code,Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamage.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Damage/EvacuateDamageXfer.cpp
