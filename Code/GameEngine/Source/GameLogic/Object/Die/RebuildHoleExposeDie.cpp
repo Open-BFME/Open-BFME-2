@@ -58,8 +58,10 @@ private:
 // size 42 corrects the 39B park note which cut the ret.
 
 class Thing;
+class Object;
 class ModuleData;
 class DamageInfo;
+class Xfer;
 
 // Zero Hour's DieModule shape, as CreateCrateDie.cpp declares it: ObjectModule
 // at +0, BehaviorModuleInterface at +0x0C and DieModuleInterface at +0x10.
@@ -71,9 +73,14 @@ class ObjectModule
 {
 public:
 	virtual void objectModuleAnchor();
+
+protected:
+	const ModuleData *getModuleData() const { return m_moduleData; }
+	Object *getObject() const { return m_object; }
+
 private:
 	const ModuleData *m_moduleData;	// +0x04
-	void *m_object;	// +0x08
+	Object *m_object;	// +0x08
 };
 
 class BehaviorModuleInterface
@@ -92,6 +99,9 @@ class DieModule : public ObjectModule, public BehaviorModuleInterface, public Di
 {
 public:
 	DieModule(Thing *thing, const ModuleData *moduleData);
+
+protected:
+	bool isDieApplicable(const DamageInfo *damageInfo) const;
 };
 
 // ?getModuleNameKey@RebuildHoleExposeDie@@UBE?AW4NameKeyType@@XZ @0x486792
@@ -124,6 +134,9 @@ public:
 	virtual void onDie(const DamageInfo *damageInfo);
 public:
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x004866F3 44B ?xfer@RebuildHoleExposeDie@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieXfer.cpp (not merged yet)

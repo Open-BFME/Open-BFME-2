@@ -210,7 +210,9 @@ extern AI *TheAI;
 
 extern GameLogic *TheGameLogic;
 
-class RebuildHoleExposeDieModuleData
+// Field view of RebuildHoleExposeDieModuleData; the TU's class keeps the ctor's
+// word-and-zero spelling of HoleName.
+class RebuildHoleExposeDieDieData
 {
 public:
 	unsigned char m_dieModuleData[0x38];	// DieModuleData
@@ -256,12 +258,6 @@ class RebuildHoleExposeDie : public DieModule
 {
 public:
 	virtual void onDie(const DamageInfo *damageInfo);
-
-private:
-	const RebuildHoleExposeDieModuleData *getRebuildHoleExposeDieModuleData() const
-	{
-		return (const RebuildHoleExposeDieModuleData *)getModuleData();
-	}
 };
 
 // ?onDie@RebuildHoleExposeDie@@UAEXPBVDamageInfo@@@Z
@@ -270,7 +266,7 @@ void RebuildHoleExposeDie::onDie(const DamageInfo *damageInfo)
 	if (!isDieApplicable(damageInfo))
 		return;
 
-	const RebuildHoleExposeDieModuleData *modData = getRebuildHoleExposeDieModuleData();
+	const RebuildHoleExposeDieDieData *modData = (const RebuildHoleExposeDieDieData *)getModuleData();
 	Object *us = getObject();
 
 	//

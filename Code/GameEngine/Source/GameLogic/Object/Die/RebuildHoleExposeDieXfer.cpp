@@ -44,7 +44,9 @@ public:
 	void xfer(Xfer *xfer);
 };
 
-class RebuildHoleExposeDie : public Rva004CE56D
+// The TU's RebuildHoleExposeDie derives from DieModule; the rowed base xfer
+// is reached through Rva004CE56D at the same this.
+class RebuildHoleExposeDie
 {
 protected:
 	virtual void xfer(Xfer *xfer);
@@ -54,5 +56,5 @@ void RebuildHoleExposeDie::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	Rva004CE56D::xfer(xfer);
+	((Rva004CE56D *)this)->xfer(xfer);
 }
