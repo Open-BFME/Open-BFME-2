@@ -89,6 +89,15 @@ public:
 	bool rva003552C2(NameKeyType key);
 };
 
+struct BcastNode
+{
+	BcastNode *m_next;
+	char m_pad4[4];
+	void *m_08;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva00355201.cpp
 
 void AiOrdersManager::rva00355201(int kind, void *a2, GroupOrder *groupOrder)
@@ -111,8 +120,6 @@ void AiOrdersManager::rva00355201(int kind, void *a2, GroupOrder *groupOrder)
 		((Rva00548117 *)armor)->rva005481F9(arg2->m_id, flags);
 	}
 }
-
-// tu-skeleton: 0x00355257 57B (unledgered) -- unmatched, no code, never credited
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva003552BD.cpp
 
@@ -142,6 +149,47 @@ bool Rva00355B61::rva003552C2(NameKeyType key)
 	return false;
 }
 
-// tu-skeleton: 0x0035530F 73B ?rva0035530F@AiOrdersManager@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0035530F.cpp (not merged yet)
+// tu-skeleton: 0x00355257 57B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x00355358 52B ?rva00355358@AiOrdersManager@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00355358Broadcast.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0035530F.cpp
+
+void AiOrdersManager::rva0035530F(int a, void *holder)
+{
+	int code;
+	switch (a) {
+	case 0:
+		code = 3;
+		break;
+	case 1:
+		code = 2;
+		break;
+	default:
+		return;
+	}
+	BcastNode *head = *(BcastNode **)((char *)holder + 4);
+	BcastNode *cur = head->m_next;
+	if (cur == head)
+		return;
+	do {
+		void *content = cur->m_08;
+		if (content)
+			clearOrders(code, *(int *)((char *)content + 0x74));
+		cur = cur->m_next;
+	} while (cur != *(BcastNode **)((char *)holder + 4));
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva00355358Broadcast.cpp
+
+void AiOrdersManager::rva00355358(int a, void *holder)
+{
+	BcastNode *head = *(BcastNode **)((char *)holder + 4);
+	BcastNode *cur = head->m_next;
+	if (cur == head)
+		return;
+	do {
+		void *content = cur->m_08;
+		if (content)
+			clearOrders(a, *(int *)((char *)content + 0x74));
+		cur = cur->m_next;
+	} while (cur != *(BcastNode **)((char *)holder + 4));
+}
