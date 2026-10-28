@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Dedicated TU for STLport _Stl_atod. Do not add this to
 // stlport_string_to_double.cpp; that would inline into the landed wrappers.
