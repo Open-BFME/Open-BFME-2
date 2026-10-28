@@ -18,9 +18,9 @@ Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	wrong-name	?g_Va00E02C4C@@3I
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	duplicate-def	?g_rva00E08D3CString@@3VStringClass@@A	0x00A08D3C
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	wrong-name	?g_rva00E08D3CString@@3VStringClass@@A	0x00A08D3C
 Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp	wrong-name	?g_rva0134FB38@@3URva0134FB38Storage@@A	0x00A09E50
-Code/GameEngine/Source/Common/VslotSmallBodiesK.cpp	wrong-name	?g_rva00318A95Source@@3VAsciiString@@A	0x00A01CF0
-Code/GameEngine/Source/Common/VslotSmallBodiesK.cpp	wrong-name	?g_rva00318A95Target@@3VAsciiString@@A	0x00A01CF4
-Code/GameEngine/Source/Common/VslotSmallBodiesK.cpp	wrong-name	?g_rva004AB9D5Value@@3VBfmeFixedStorage002CF0F0@@A	0x00A030D0
+Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp	wrong-name	?g_rva00318A95Source@@3VAsciiString@@A	0x00A01CF0
+Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp	wrong-name	?g_rva00318A95Target@@3VAsciiString@@A	0x00A01CF4
+Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp	wrong-name	?g_rva004AB9D5Value@@3VBfmeFixedStorage002CF0F0@@A	0x00A030D0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp	wrong-name	?$S1@?1??updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z@4IA	0x00A05F64
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp	wrong-name	?$S1@?3??setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z@4IA	0x00A01D34
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	wrong-name	?ApplicationHWnd@@3PAUHWND__@@A	0x009DE024

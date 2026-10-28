@@ -38870,11 +38870,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004AB811,120,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateCtor.cpp
 0x004AB889,6,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,C,C=0x004AB811..0x004AB897,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x004AB88F,8,code,,displaced,-,N=Code/GameEngine/Source/Common/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp
-0x004AB897,69,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdatePoolKey.cpp
+0x004AB897,69,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 0x004AB8DC,46,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp
 0x004AB90A,152,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB90A.cpp
 0x004AB9A2,51,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate004AB9A2.cpp
-0x004AB9D5,21,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,C,C=0x004AB9A2..0x004AB9EA,Code/GameEngine/Source/Common/VslotSmallBodiesK.cpp
+0x004AB9D5,21,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,C,C=0x004AB9A2..0x004AB9EA,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 0x004AB9EA,135,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateXfer.cpp
 0x004ABA71,8,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 0x004ABA79,8,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
@@ -80932,8 +80932,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078E283,8,code,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp,approved,P,P=0x004AB57E@FuncInfo0x0093E9A0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
 0x0078E28B,8,code,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp,approved,P,P=0x004AB57E@FuncInfo0x0093E9A0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
 0x0078E293,10,code,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp,approved,P,P=0x004AB57E@FuncInfo0x0093E9A0 provisional,Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
-0x0078E29D,13,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,P,P=0x004AB897@FuncInfo0x0093E9C4,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdatePoolKey.cpp
-0x0078E2AA,10,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,P,P=0x004AB897@FuncInfo0x0093E9C4,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdatePoolKey.cpp
+0x0078E29D,13,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,P,P=0x004AB897@FuncInfo0x0093E9C4,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
+0x0078E2AA,10,code,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp,approved,P,P=0x004AB897@FuncInfo0x0093E9C4,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp
 0x0078E2B4,8,code,,,-,,Code/GameEngine/Source/Common/ModuleDataKeyMapDestructor.cpp
 0x0078E2BC,10,code,,,-,,Code/GameEngine/Source/Common/ModuleDataKeyMapDestructor.cpp
 0x0078E2C6,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/Rva0020DXXXRva003EDD68.cpp
