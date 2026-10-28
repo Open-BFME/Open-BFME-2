@@ -73,3 +73,25 @@ and affected consumer `Common/0CreateAHeroManager21FE49.cpp` lacks a current
 receipt. The four explicitly checked objects have strict receipts. Carry the
 changed string provider and external consumers into the next scheduled census;
 bounded byte/ownership verification does not establish complete link closure.
+
+## Post-commit identity warning
+
+The normal commit hook passes in shadow mode but reports one new binding:
+initializer `??__EtextureStatisticsString@@YAXXZ` references local `_$E2`
+at cleanup RVA `0x007B7050`, classified `wrong / static-unknown`. This is
+not a disproven byte or relocation: `Identity.certify` returns `unknown`.
+The cleanup is still the same ten-byte `mov ecx, string; jmp Free_String`.
+Its DIR32 now names `?texture_statistics_string@@3VStringClass@@A`; that
+name has no entry in either `RetailTruth.ledger` or `RetailTruth.pinned`.
+The data-ownership index updated by this repair is not one of those inputs.
+Previously the checker inferred the file-local object's address from other
+matched callers; that local-data proof does not apply to external names.
+
+A scratch-only diagnostic supplies the independently evidenced string RVA
+`0x009EE91C` in a copied RetailTruth mapping. With no other changes,
+`Identity.certify(object, "_$E2", 0x007B7050)` returns `retail`.
+No gate, register, pin or production truth mapping was changed to obtain this
+result. The outstanding task is to carry the string's independently verified
+data identity into the census/identity inputs through their supported admission
+path. Preserve this warning in the scheduled census handoff; the passing shadow
+hook is not a claim of a clean identity scan.

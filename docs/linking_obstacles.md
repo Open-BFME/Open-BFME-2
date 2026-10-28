@@ -156,6 +156,13 @@ claimed. [Evidence and prerequisites](../reverse/attempt_support/baseheightmap-a
 
 ### Texture report string storage ownership (2026-10-28)
 
+Post-commit identity follow-up: the shadow gate reports the initializer's
+`_$E2` cleanup at `0x007B7050` as `wrong / static-unknown`. The external string
+name is absent from RetailTruth's data bindings; supplying its independently
+proved RVA `0x009EE91C` in a scratch mapping certifies the unchanged cleanup
+as retail. No gate or baseline was changed. Carry this data identity into the
+supported census inputs and recheck; see the evidence file's post-commit section.
+
 Status: bounded data repair verified; external consumer and census confirmation
 pending. Base `ec06839de0`, preview index `41c28839bf`. The report's initialized
 StringClass now supplies the existing texture_statistics_string symbol, and
