@@ -11,6 +11,8 @@
 
 class AsciiString;
 class Rva00594DC0;
+class AsciiString;
+class ConnectionManager;
 struct NetPacketAddress;
 struct TransportAddress;
 

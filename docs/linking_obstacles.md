@@ -333,6 +333,18 @@ open globally. Carry the removed-copy scope into the next normal census.
 The outgoing batch audit is INCONCLUSIVE: the index predates the base and
 Common/0CreateAHeroManager21FE49.cpp lacks a current affected-consumer
 receipt. Carry that consumer into the next census. No census-linked gain is claimed.
+### Transport remaining consumer header adoption (2026-10-28)
+
+Status: header debt retired; census confirmation pending. The canonical
+Transport header now declares the existing AsciiString init overload and
+grants ConnectionManager access to the receive ring. The relay consumer casts
+the ring element to its existing packet-constructor view; this does not claim
+the original message type's identity. Both consumers use the canonical header,
+and the header adoption lane accepted and retired their two queue entries.
+Their nine function rows match and both EH graphs are EXACT. Against census
+index `d92e7e6635`, the pair retains LINKS for 817 authored bytes. This is a
+preview, not a census gain. Carry the changed header and consumers into the
+next census; the separate Transport composition obstacles remain open.
 
 ### ProneUpdate constructor composition (2026-10-28)
 
