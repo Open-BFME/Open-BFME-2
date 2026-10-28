@@ -44,9 +44,14 @@ public:
 public:
 	virtual void v4();
 public:
+	virtual void v5();
+public:
 	void rva00537E7C(bool v);
 private:
-	unsigned char m_pad[0x28];
+	unsigned char m_pad[0x1C];
+	AsciiString m_s20;
+	AsciiString m_s24;
+	float m_f28;
 private:
 	bool m_b2C;
 public:
