@@ -3985,6 +3985,12 @@ separate strict receipt limitation encountered there.
   accepted donor set, staged patch and exact audit result are preserved under
   `build/consolidation/gamememory/`; `Rva000308E0AddHeap.cpp` was rejected for
   a duplicate `MemoryPool::HeapTable`.
+  Update 2026-10-28: the commit "Merge 5 files into GameMemory.cpp (6 rows,
+  tu_map approved TU, retail order)" landed `Rva00030730Init.cpp`,
+  `GameMemoryFree.cpp`, `Rva000308E0AddHeap.cpp` and
+  `stlport_byte_allocator.cpp` in `GameMemory.cpp` (`./build.sh` 6/6 rows
+  verified, link_guard accepted every donor). It awaits a census receipt for
+  the merged object.
 - For `AptScriptColour.cpp`, the whole-file dry run accepted no donors. Two
   mixed-file split dry runs carved matched rows and compiled beside the TU, but
   remain blocked on the same provider/consumer audit. The

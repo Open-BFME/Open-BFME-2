@@ -164,7 +164,7 @@ int W3DBuffBuffer::addBuffType(const AsciiString &model, const BuffInfoView *inf
 // owns the header storage while clear runs, then state -1 precedes free.
 // The owning-head view preserves the established 8B head/count layout.
 // C++ free is the existing game-allocator spelling at30830; its global
-// binding lives in GameMemoryFree.cpp and retains the native EH transition.
+// binding lives in GameMemory.cpp and retains the native EH transition.
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport. /EHs lets free throw,
