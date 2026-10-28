@@ -1,4 +1,5 @@
 // cl: /EHs /MD
+// stlport46
 //
 // ??0Rva005344C0@@QAE@ABU0@@Z @0x00534676 (29B).
 // Pair copy: copy first int then copy-construct second via rowed Rb_tree copy
