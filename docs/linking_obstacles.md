@@ -273,7 +273,12 @@ only because the providers were renamed after the census: W3DProjectedShadowDeca
   element types, compiles to retail's 38-byte loop (067a12a09458). 7/7 rows exact (the
   calling row still sees a definition, so its tag argument is unchanged); no other
   digest changes; both units LINK (2,266 B). Remaining LINK-135 loss: the deque
-  `copy<const_iterator, iterator>` (STLport header variant; 3,003 B).
+  `copy<const_iterator, iterator>` (3,003 B). Cause, found 2026-10-29: the bfmealloc
+  shim's `_algobase.h` makes `__copy_aux` `__forceinline` with the tag by value, so this
+  unit inlines it; retail's copy calls the stock `__copy_aux(..., const __false_type &)`
+  out of line (o1 sibling). A noinline specialization is refused (C2912: only the shim's
+  by-value overloads exist). Next: the stock header for this unit, or a shim scoped so
+  `copy`'s `__copy_aux` keeps the stock form, verified against all eight rows.
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy
