@@ -2955,6 +2955,16 @@ its row is untouched. Census confirmation remains pending.
   (a signature change rename.py cannot express) plus the 14-slot view in the
   constructor. No source change, alias or pin was landed by this audit.
 
+**Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
+`d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
+complete 0x40-byte colors and native INI tables. Its two rows and singleton
+remain exact; ordinary preview stays LINKS/97 bytes. Independent complete-table
+and provider checks preserve the selected bindings, including the LINK-042
+out-of-line pair-copy contract. The lifetime ABI repair, all three cleanup
+parents (including newly rehomed 0x0077F308) and approved-TU composition remain
+pending; this is not a census gain or clearance
+of the constructor obstacle. [Evidence and remaining work](../reverse/attempt_support/multiplayer-settings-layout-20261028.md).
+
 ### LINK-010: folded STL table bases need the actual native predecessor
 
 **Status: Blocked on supported native data-placement / ownership reconciliation.
@@ -4440,6 +4450,15 @@ const-first instantiation that `_M_allocate_and_copy<const T *>` uses, so the re
 - **Census confirmation:** awaiting the next census.
 
 ### LINK-042: the census at d1f046749a's other 10 lost units (IsCapturing respelling and four TU merges)
+
+**Multiplayer seed follow-up (2026-10-28, `d5843cec`, index `d92e7e6635`):**
+native layout/table reconciliation retains the explicit out-of-line color-copy
+declaration, exact pair/getColor rows and LINKS/97-byte prediction. Removing
+donor-wide includes drops only data COMDATs already selected from the unchanged
+FiringTrackerXfer provider; the native VCI provider also remains selected.
+This preserves the pair-copy fix and prepares LINK-009's later lifetime merge;
+it does not clear the whole register or claim a new census result.
+[Independent evidence and limits](../reverse/attempt_support/multiplayer-settings-layout-20261028.md).
 
 **Status: Open (partial repair landed). Updated: 2026-10-26; inspected revision: e9bab0ff07.**
 
