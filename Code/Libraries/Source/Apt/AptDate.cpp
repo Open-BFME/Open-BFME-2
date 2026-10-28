@@ -74,9 +74,23 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 class AptValue;
 
-class BfmeAptValue006DCD20 { public: BfmeAptValue006DCD20 *rva006DD160(); };
-
 class AptInteger { public: static AptValue *Create(int); };
+
+class BfmeAptValue006DCD20 {
+public:
+	BfmeAptValue006DCD20 *rva006DD160();
+public:
+	int toInteger() const;
+};
+
+class AptBasePtrStack { public: BfmeAptValue006DCD20 *At(int); int count,capacity; BfmeAptValue006DCD20 **elements; };
+
+struct AptActionInterpreter { AptBasePtrStack stack; };
+
+// g_aptDateInterpreter: matched references place it at VA 0xe182e0 (zero-filled; a plain-data view).
+AptActionInterpreter g_aptDateInterpreter;
+
+extern AptValue *gpUndefinedValue;
 
 class AptDate {
 private:
@@ -133,7 +147,39 @@ public:
 	int dateGetNumDaysInMonth(int month,int year);
 public:
 	void setDates(AptSysClock *,AptSysClock *,int);
+public:
+	static AptValue *sMethod_setDate(AptValue *,int);
+public:
+	static AptValue *sMethod_setFullYear(AptValue *,int);
+public:
+	static AptValue *sMethod_setHours(AptValue *,int);
+public:
+	static AptValue *sMethod_setMilliseconds(AptValue *,int);
+public:
+	static AptValue *sMethod_setMinutes(AptValue *,int);
+public:
+	static AptValue *sMethod_setMonth(AptValue *,int);
+public:
+	static AptValue *sMethod_setSeconds(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCDate(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCFullYear(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCHours(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCMilliseconds(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCMinutes(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCMonth(AptValue *,int);
+public:
+	static AptValue *sMethod_setUTCSeconds(AptValue *,int);
+public:
+	static AptValue *sMethod_setYear(AptValue *,int);
 };
+
+// ---- from Code/Libraries/Source/Apt/AptDate.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptDate.cpp
 
@@ -419,8 +465,6 @@ int AptDate::getDayOfWeek(int year,int month,int day)
     return result;
 }
 
-// tu-skeleton: 0x006F4460 606B ?toString@AptDate@@QAEXAAVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateString.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/AptDateGetters.cpp
 
 // Target date dispatch keys and per-case native callbacks identify each getter.
@@ -534,35 +578,185 @@ AptValue *AptDate::sMethod_getYear(AptValue *value,int argc)
     return AptInteger::Create(reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year-1900);
 }
 
-// tu-skeleton: 0x006F4950 110B ?sMethod_setDate@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+// tu-skeleton: 0x006F4460 606B ?toString@AptDate@@QAEXAAVEAStringC@@@Z -- matched in Code/Libraries/Source/Apt/AptDateString.cpp (not merged yet)
 
-// tu-skeleton: 0x006F49C0 187B ?sMethod_setFullYear@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptDateSetters.cpp
 
-// tu-skeleton: 0x006F4A80 110B ?sMethod_setHours@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setDate(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Date=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4AF0 110B ?sMethod_setMilliseconds@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setFullYear(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year=g_aptDateInterpreter.stack.At(0)->toInteger();
+    if(argc>1)
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Month=g_aptDateInterpreter.stack.At(1)->toInteger();
+    if(argc>2)
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Date=g_aptDateInterpreter.stack.At(2)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4B60 110B ?sMethod_setMinutes@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setHours(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Hour=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4BD0 110B ?sMethod_setMonth@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setMilliseconds(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Hundredths=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4C40 110B ?sMethod_setSeconds@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setMinutes(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Minute=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4CB0 112B ?sMethod_setUTCDate@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setMonth(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Month=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4D20 189B ?sMethod_setUTCFullYear@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setSeconds(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Second=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4DE0 112B ?sMethod_setUTCHours@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCDate(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Date=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4E50 112B ?sMethod_setUTCMilliseconds@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCFullYear(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Year=g_aptDateInterpreter.stack.At(0)->toInteger();
+    if(argc>1)
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Month=g_aptDateInterpreter.stack.At(1)->toInteger();
+    if(argc>2)
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Date=g_aptDateInterpreter.stack.At(2)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4EC0 112B ?sMethod_setUTCMinutes@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCHours(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Hour=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4F30 112B ?sMethod_setUTCMonth@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCMilliseconds(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Hundredths=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F4FA0 112B ?sMethod_setUTCSeconds@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCMinutes(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Minute=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
 
-// tu-skeleton: 0x006F5010 110B ?sMethod_setYear@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateSetters.cpp (not merged yet)
+AptValue *AptDate::sMethod_setUTCMonth(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Month=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
+
+AptValue *AptDate::sMethod_setUTCSeconds(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc.Second=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        -reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
+
+AptValue *AptDate::sMethod_setYear(AptValue *value,int argc)
+{
+    if(argc<1) return gpUndefinedValue;
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local.Year=g_aptDateInterpreter.stack.At(0)->toInteger();
+    reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->setDates(
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->local,
+        &reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->utc,
+        reinterpret_cast<AptDate *>(reinterpret_cast<BfmeAptValue006DCD20 *>(value)->rva006DD160())->timezoneHours);
+    return AptInteger::Create(0);
+}
+
+// ?gpUndefinedValue@@3PAVAptValue@@A: the global at this VA is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A; this name is an alias for it.
+// ?gpUndefinedValue@@3PAVAptValue@@A: the global at VA 0xe18078 is ?g_aptUndefinedAtE18078@@3PAVBfmeAptValue006DCD20@@A.
 
 // tu-skeleton: 0x006F5080 120B ?sMethod_toString@AptDate@@SAPAVAptValue@@PAV2@H@Z -- matched in Code/Libraries/Source/Apt/AptDateStringCallback.cpp (not merged yet)
 
