@@ -339,10 +339,10 @@ const char *ProfileHighLevel::Id::GetCurrentValue(void) const
 // ?GetValue@Id@ProfileHighLevel@@QBEPBDI@Z
 const char *ProfileHighLevel::Id::GetValue(unsigned frame) const
 {
-	double v;
-	if (!m_idPtr || !m_idPtr->GetFrameValue(frame, v))
+	double frameValue;
+	if (!m_idPtr || !m_idPtr->GetFrameValue(frame, frameValue))
 		return NULL;
-	return m_idPtr->AsString(v);
+	return m_idPtr->AsString(frameValue);
 }
 
 // ?GetTotalValue@Id@ProfileHighLevel@@QBEPBDXZ (0x006C64E0)

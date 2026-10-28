@@ -160,7 +160,7 @@ struct GapRefList
 class Rva0015A840
 {
 public:
-	GapRefItem *rva0015A840(int i, int stage);
+	GapRefItem *getMaterial(int i, int stage);
 	GapRefItem *rva0015A890(int i, int stage);
 	GapRefItem *rva0015A960(int i, int stage) const;
 private:
@@ -171,7 +171,7 @@ private:
 	GapRefList *m_108[8];
 };
 
-GapRefItem *Rva0015A840::rva0015A840(int i, int stage)
+GapRefItem *Rva0015A840::getMaterial(int i, int stage)
 {
 	GapRefList *list = m_E8[stage];
 	if (list)

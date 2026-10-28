@@ -876,7 +876,7 @@ int Rva0056A983Get(void)
 // Rowed code owners whose entry addresses the two getters below return
 // (AptComponents.cpp's 0x00410223 factory; LocomotorStore_newLocomotor.cpp's 0x005C9886).
 extern "C" {
-void __identifier("?Rva00410223@@YGPAXPAX@Z")();
+void __identifier("?createBinkGameWindow@@YGPAXPAX@Z")();
 void __identifier("?rva005C9886@Rva005C9886@@QBEPAVRva005C96EB@@PAX@Z")();
 }
 
@@ -886,7 +886,7 @@ void __identifier("?rva005C9886@Rva005C9886@@QBEPAVRva005C96EB@@PAX@Z")();
 // Opaque address-derived name.
 int Rva0056D749Get(void)
 {
-	return reinterpret_cast<int>(&__identifier("?Rva00410223@@YGPAXPAX@Z"));
+	return reinterpret_cast<int>(&__identifier("?createBinkGameWindow@@YGPAXPAX@Z"));
 }
 
 // ?Rva005C9880Get@@YAHXZ @ 0x005C9880 (6B): returns 0x009C9886.

@@ -3815,3 +3815,11 @@ local,LinearCampaign::onCurrentMissionWon::p,LinearCampaign::onCurrentMissionWon
 local,LinearCampaign::onCurrentMissionWon::r,LinearCampaign::onCurrentMissionWon::revivalList,inferred,agree:nl-9ddd64226de8-mc9263ecd1173ef5a7f9ea55b,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp,0x001EC3B5
 local,LinearCampaign::onCurrentMissionWon::u,LinearCampaign::onCurrentMissionWon::reviveEntry,inferred,agree:nl-d26b46364e56-mb8d8f469c64a237aeba099ea,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignOnMissionWon.cpp,0x001EC3B5
 member,Rva006E4B80Slot::field10,Rva006E4B80Slot::m_actions,inferred,agree:nl-92f360e4e8ea,Code/Libraries/Source/Apt/Rva006E3230Validate.cpp,
+function,?rva0015A840@Rva0015A840@@QAEPAUGapRefItem@@HH@Z,?getMaterial@Rva0015A840@@QAEPAUGapRefItem@@HH@Z,inferred,agree:nl-7c4d1dda7273,Code/GameEngine/Source/Common/GapBodiesGE43.cpp,0x0015A840
+local,Rva00220B04::Rva00220B04::p,Rva00220B04::Rva00220B04::descriptionData,inferred,agree:nl-f49e9a8ea071,Code/GameEngine/Source/GameClient/ArmySummaryDescription.cpp,0x00220B04
+param,Rva004102C8Update::a1,Rva004102C8Update::windowData,inferred,agree:nl-38978be4e45c,Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,0x004102C8
+function,?Rva00410223@@YGPAXPAX@Z,?createBinkGameWindow@@YGPAXPAX@Z,inferred,agree:nl-e96f88bd2101,Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,0x00410223
+member,ReplenishUnitsModuleData::m_138,ReplenishUnitsModuleData::m_startsActive,inferred,agree:nl-2a04b0ce6825,Code/GameEngine/Source/GameLogic/Object/Update/ReplenishUnitsBehaviorCtor.cpp,
+param,BfmeSceneVector::rva00142170::n,BfmeSceneVector::rva00142170::childStride,inferred,agree:nl-47829253f3dd,Code/Libraries/Source/WWVegas/WW3D2/SceneSpatialCollectBFME2.cpp,0x00142170
+local,BfmeSceneVector::rva00142410::t,BfmeSceneVector::rva00142410::intersectionFraction,inferred,agree:nl-1083da42d499,Code/Libraries/Source/WWVegas/WW3D2/SceneSpatialCollectBFME2.cpp,0x00142410
+local,ProfileHighLevel::Id::GetValue::v,ProfileHighLevel::Id::GetValue::frameValue,inferred,agree:nl-509c2517c834,Code/Libraries/Source/profile/profile_highlevel.cpp,0x006C64A0

@@ -45,29 +45,29 @@ struct Rva004102C8Arg
 };
 
 struct ComponentPosition{float x,y;ComponentPosition(float a,float b):x(a),y(b){}};
-void Rva004102C8Update(Rva004102C8Arg *a1, float *a2, float *size)
+void Rva004102C8Update(Rva004102C8Arg *windowData, float *a2, float *size)
 {
 	int ix;
 	int iy;
 	GameWindow* gameWindow;
 	ComponentPosition pos(a2[0],a2[1]);
-	gameWindow = a1->m_window->winGetParent();
+	gameWindow = windowData->m_window->winGetParent();
 	if (gameWindow != 0) {
 		((GameWindow *)gameWindow)->winGetPosition(&ix, &iy);
 		pos.x -= (float)ix;
 		pos.y -= (float)iy;
 	}
-	if (pos.x != a1->m_x || pos.y != a1->m_y) {
-		a1->m_x = pos.x;
-		a1->m_y = pos.y;
-		if (a1->m_window != 0)
-			((GameWindow *)a1->m_window)->winSetPosition((int)pos.x, (int)pos.y);
+	if (pos.x != windowData->m_x || pos.y != windowData->m_y) {
+		windowData->m_x = pos.x;
+		windowData->m_y = pos.y;
+		if (windowData->m_window != 0)
+			((GameWindow *)windowData->m_window)->winSetPosition((int)pos.x, (int)pos.y);
 	}
-	if (size[0] != a1->m_width || size[1] != a1->m_height) {
-		a1->m_width = size[0];
-		a1->m_height = size[1];
-		if (a1->m_window != 0)
-			((GameWindow *)a1->m_window)->winSetSize((int)size[0], (int)size[1]);
+	if (size[0] != windowData->m_width || size[1] != windowData->m_height) {
+		windowData->m_width = size[0];
+		windowData->m_height = size[1];
+		if (windowData->m_window != 0)
+			((GameWindow *)windowData->m_window)->winSetSize((int)size[0], (int)size[1]);
 	}
 }
 
@@ -111,7 +111,7 @@ extern unsigned int AptComponentWindowDataTableStorage[5];extern unsigned g_Va00
 class AptShutdownReceiverView;extern AptShutdownReceiverView*AptShutdownReceiverInstance;
 enum NameKeyType;
 class NameKeyGenerator {public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator*TheNameKeyGenerator;
-void*__stdcall Rva00410223(void*);void*__stdcall createAptScreenInGameChat(void*);
+void*__stdcall createBinkGameWindow(void*);void*__stdcall createAptScreenInGameChat(void*);
 Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const char*path,const char*params,const AsciiString*name){
  int level=AptUtils::LevelIndexFromTarget(path);
  GameWindow*window=(GameWindow*)((AptPlayer*)g_bfmeAptWindowManager)->PeekGameWindow(level);
@@ -119,7 +119,7 @@ Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const c
  AsciiString load;
  if(!Rva004128F0GetParam(params,"_Load",load))return 0;
  if(strcmp(load.str(),"BinkGameWindow::Create")==0){
-  Rva004121D1Context context;context.word[1]=0x8000001;context.word[6]=(unsigned int)Rva00410223;context.word[0]=(unsigned int)window;
+  Rva004121D1Context context;context.word[1]=0x8000001;context.word[6]=(unsigned int)createBinkGameWindow;context.word[0]=(unsigned int)window;
   window=TheWindowManager->createFromContext(&context);
  }else if(strcmp(load.str(),"LivingWorldMap")==0){
   Rva004121D1Context context;context.word[1]=0x8000009;context.word[6]=(unsigned int)createAptScreenInGameChat;context.word[0]=(unsigned int)window;
@@ -147,7 +147,7 @@ Rva004102C8Arg*Rva004115A9Create(const Coord2D*origin,const Coord2D*size,const c
 // Apt screen base and this BinkGameWindow::Create branch refute the former
 // LocomotorTemplate argument label. Native forwards an opaque context pointer.
 class Rva0056D690 {public:Rva0056D690(void*);private:char unmodelled[0x270];};
-void*__stdcall Rva00410223(void*context){return new Rva0056D690(context);}
+void*__stdcall createBinkGameWindow(void*context){return new Rva0056D690(context);}
 
 // WB10935F0 identifies ComponentGameWindow; native411EC3..4120B3 RET0
 // supplies the complete496B boundary and the same four callback arguments as

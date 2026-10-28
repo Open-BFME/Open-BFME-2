@@ -34,7 +34,7 @@ struct ReplenishUnitsModuleData
 {
 	unsigned char m_pad00[0x134];
 	Int m_replenishDelay;
-	bool m_138;
+	bool m_startsActive;
 };
 
 class UpgradeMux
@@ -91,7 +91,7 @@ ReplenishUnitsBehavior::ReplenishUnitsBehavior(Thing *thing, const ModuleData *m
 	m_secondary0C = (const void *)((unsigned int)__identifier("??_7AttributeModifierAuraUpdate@@6BBehaviorModuleInterface@@@"));
 	m_secondary10 = (const void *)((unsigned int)__identifier("??_7ReplenishUnitsBehavior@@6BUpdateModule@@@"));
 	*(void **)&m_20 = (void *)((unsigned int)__identifier("??_7FireWeaponWhenDamagedBehavior@@6BUpgradeMux@@@"));
-	if (((const ReplenishUnitsModuleData *)m_moduleData)->m_138)
+	if (((const ReplenishUnitsModuleData *)m_moduleData)->m_startsActive)
 	{
 		m_20.giveSelfUpgrade();
 		int hi = ((const ReplenishUnitsModuleData *)m_moduleData)->m_replenishDelay;

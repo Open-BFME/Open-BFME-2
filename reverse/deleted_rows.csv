@@ -3959,3 +3959,6 @@ __ehhandler$?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00794C
 ?rva0049330A@Rva00493313@@QBEHXZ,0x0049330A,"Renamed to ?getViewObjectDuration@Rva00493313@@QBEHXZ by tools/rename.py (inferred)"
 ?rva005E1170@@YIXPAVRva005F8A7ESub@@@Z,0x005E1170,"Renamed to ?hideProductionCount@@YIXPAVRva005F8A7ESub@@@Z by tools/rename.py (inferred)"
 ?Rva0021A1E1DumpTemplates@@YAXXZ,0x0021A1E1,"Renamed to ?dumpThingTemplates@@YAXXZ by tools/rename.py (inferred)"
+?rva0015A840@Rva0015A840@@QAEPAUGapRefItem@@HH@Z,0x0015A840,"Renamed to ?getMaterial@Rva0015A840@@QAEPAUGapRefItem@@HH@Z by tools/rename.py (inferred)"
+?Rva00410223@@YGPAXPAX@Z,0x00410223,"Renamed to ?createBinkGameWindow@@YGPAXPAX@Z by tools/rename.py (inferred)"
+__ehhandler$?Rva00410223@@YGPAXPAX@Z,0x00785A98,"Renamed to __ehhandler$?createBinkGameWindow@@YGPAXPAX@Z by tools/rename.py (inferred)"

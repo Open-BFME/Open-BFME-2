@@ -44,7 +44,7 @@ struct SceneCollectRect {
 };
 class BfmeSceneVector {
 public:
- void rva00142170(Gen_00943CF0_Node **out,SceneCollectCell *node,unsigned n,int xmin,int ymin,int xmax,int ymax,int ox,int oy,int extent);
+ void rva00142170(Gen_00943CF0_Node **out,SceneCollectCell *node,unsigned childStride,int xmin,int ymin,int xmax,int ymax,int ox,int oy,int extent);
  void rva00142330(Gen_00943CF0_Node **out,const SceneCollectRect &rect,const float *margin);
  void rva00142410(Gen_00943CF0_Node **out,CameraClass *camera,const float *margin);
  float bounds[6]; SceneCollectCell *vector; int vector_max; float scale; unsigned level_mask;
@@ -104,7 +104,7 @@ struct SceneCollectListView
 // last quadrant is a tail call. Shape of BFME 1's Rva009441D0Recurse (early
 // return on an empty subtree, in-place halving, repeated midpoint sums). The
 // sibling rva00142330 establishes the signature. Original names are unknown.
-void BfmeSceneVector::rva00142170(Gen_00943CF0_Node **out, SceneCollectCell *node, unsigned n, int xmin, int ymin, int xmax, int ymax, int ox, int oy, int extent)
+void BfmeSceneVector::rva00142170(Gen_00943CF0_Node **out, SceneCollectCell *node, unsigned childStride, int xmin, int ymin, int xmax, int ymax, int ox, int oy, int extent)
 {
 	if (((SceneCollectListView *)&node->objects)->Head.Next != &((SceneCollectListView *)&node->objects)->Head) {
 		MultiListIterator<RenderObjClass> it(&node->objects);
@@ -123,12 +123,12 @@ void BfmeSceneVector::rva00142170(Gen_00943CF0_Node **out, SceneCollectCell *nod
 	extent /= 2;
 	++node;
 	if (ymin < oy + extent) {
-		if (xmin < ox + extent) rva00142170(out, node, n >> 2, xmin, ymin, xmax, ymax, ox, oy, extent);
-		if (xmax >= ox + extent) rva00142170(out, node + n, n >> 2, xmin, ymin, xmax, ymax, ox + extent, oy, extent);
+		if (xmin < ox + extent) rva00142170(out, node, childStride >> 2, xmin, ymin, xmax, ymax, ox, oy, extent);
+		if (xmax >= ox + extent) rva00142170(out, node + childStride, childStride >> 2, xmin, ymin, xmax, ymax, ox + extent, oy, extent);
 	}
 	if (ymax >= oy + extent) {
-		if (xmin < ox + extent) rva00142170(out, node + 2 * n, n >> 2, xmin, ymin, xmax, ymax, ox, oy + extent, extent);
-		if (xmax >= ox + extent) rva00142170(out, node + 3 * n, n >> 2, xmin, ymin, xmax, ymax, ox + extent, oy + extent, extent);
+		if (xmin < ox + extent) rva00142170(out, node + 2 * childStride, childStride >> 2, xmin, ymin, xmax, ymax, ox, oy + extent, extent);
+		if (xmax >= ox + extent) rva00142170(out, node + 3 * childStride, childStride >> 2, xmin, ymin, xmax, ymax, ox + extent, oy + extent, extent);
 	}
 }
 
@@ -172,10 +172,10 @@ void BfmeSceneVector::rva00142410(Gen_00943CF0_Node **out, CameraClass *camera, 
 	PlaneClass plane;
 	if (camera->Get_Transform()[2][2] < 0.0f) plane.D = 800.0f;
 	for (int i = 0; i < 4; ++i) {
-		float t;
-		if (!plane.Compute_Intersection(corners[i], corners[i + 4], &t)) t = 1.0f;
+		float intersectionFraction;
+		if (!plane.Compute_Intersection(corners[i], corners[i + 4], &intersectionFraction)) intersectionFraction = 1.0f;
 		Vector3 point;
-		Vector3::Lerp(corners[i], corners[i + 4], t, &point);
+		Vector3::Lerp(corners[i], corners[i + 4], intersectionFraction, &point);
 		rect.Add_Point(Vector2(point.X, point.Y));
 	}
 	rva00142330(out, rect, margin);

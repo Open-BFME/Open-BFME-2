@@ -84,8 +84,8 @@ Rva00220B04::Rva00220B04(int a)
 	  m_vec14raw(_STL::allocator<int>())
 {
 	m_rule = a;
-	Pointed10 *p = *(Pointed10 **)&g_00DFE490;
-	int count = (int)(p->m_finish - p->m_begin);
+	Pointed10 *descriptionData = *(Pointed10 **)&g_00DFE490;
+	int count = (int)(descriptionData->m_finish - descriptionData->m_begin);
 	((_STL::vector<Drawable *, _STL::allocator<Drawable *> > *)&m_vec14raw)->resize((unsigned)count, (Drawable *)0);
 }
 
