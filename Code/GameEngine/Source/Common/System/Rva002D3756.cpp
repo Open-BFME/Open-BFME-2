@@ -11,7 +11,7 @@ public:
 struct Rva002D3756Mid
 {
 	char m_pad[0xC4];
-	Rva005258B2 *m_c4;
+	Rva005258B2 *m_heroSelectInterface;
 };
 
 class Rva002D3756
@@ -27,7 +27,7 @@ void Rva002D3756::rva002D3756(void *hero)
 {
 	if (hero == 0)
 		return;
-	Rva005258B2 *inner = m_mid->m_c4;
+	Rva005258B2 *inner = m_mid->m_heroSelectInterface;
 	if (inner != 0)
 		inner->rva005258B2(hero);
 }

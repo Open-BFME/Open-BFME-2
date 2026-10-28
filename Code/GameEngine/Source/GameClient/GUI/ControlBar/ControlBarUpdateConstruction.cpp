@@ -189,7 +189,7 @@ struct PopulateButtonInfo {
     GameWindow **inventoryButtons;
 };
 const Image *getButtonImage(ThingTemplate *, Object *);
-void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
+void GadgetButtonSetEnabledImage(GameWindow *, const Image *);
 void Rva003284ED(GameWindow *, int);
 
 class ControlBar
@@ -611,7 +611,7 @@ void ControlBar::populateButtonProc(Object *obj, void *userData)
     ControlBarInventoryEntries[info->buttonIndex].objectID = (int)obj->getID();
     ThingTemplate *thingTemplate = *(ThingTemplate **)((char *)obj + 4);
     const Image *image = getButtonImage(thingTemplate, obj);
-    GadgetButtonSetEnabledImage_Rva002C0433(info->inventoryButtons[info->buttonIndex], image);
+    GadgetButtonSetEnabledImage(info->inventoryButtons[info->buttonIndex], image);
     image = calculateVeterancyOverlayForObject(obj);
     Rva003284ED(info->inventoryButtons[info->buttonIndex], (int)image);
     info->inventoryButtons[info->buttonIndex]->winEnable(true);
@@ -664,7 +664,7 @@ void ControlBar::populateStructureInventory(Object *building, bool contested)
         commandWindows[i]->winClearStatus(0x400000);
         commandWindows[i]->winClearStatus(0x80000000);
         setControlCommand(commandWindows[i], exitCommand);
-        if (buttonImage) GadgetButtonSetEnabledImage_Rva002C0433(commandWindows[i], buttonImage);
+        if (buttonImage) GadgetButtonSetEnabledImage(commandWindows[i], buttonImage);
         Rva003284ED(commandWindows[i], 0);
         if (disableUnavailable && (commandWindows[i]->winGetStatus() & 8)) {
             commandWindows[i]->winEnable(false);

@@ -1263,7 +1263,7 @@ class Pathfinder
 public:
 	void AddObjectToPathfindMap(Object *object);
 	void GetCellType(int pos, void *isValid, void *isBlocked, void *cellType, int layer);
-	void *rva001E4461(int layer, int pos);
+	void *getObstacleID(int layer, int pos);
 	Bool QuickDoesPathExist(Object *, const Coord3D *, const Coord3D *, Int);
 };
 
@@ -2251,7 +2251,7 @@ void checkSampleBuildLocation( const Coord3D *samplePoint, void *userData )
 
 				case 4:
 				{
-					ObjectID id = (ObjectID)(Int)TheAI->pathfinder()->rva001E4461(
+					ObjectID id = (ObjectID)(Int)TheAI->pathfinder()->getObstacleID(
 						TheTerrainLogic->getHighestLayerForDestination( samplePoint, FALSE ), (int)samplePoint );
 					Object *obj = TheGameLogic->findObjectByID( id );
 					if( obj == NULL || obj->getTemplate()->isKindOf( KINDOF_INERT ) )

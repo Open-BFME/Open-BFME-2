@@ -289,7 +289,7 @@ class Image;
 
 const Image *__cdecl getButtonImage(ThingTemplate *, Object *);
 
-void __cdecl GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *, const Image *);
+void __cdecl GadgetButtonSetEnabledImage(GameWindow *, const Image *);
 
 struct ControlBarInventoryEntry { GameWindow *window; int objectID; };
 
@@ -461,7 +461,7 @@ void __cdecl ControlBar::populateInvDataCallback(Object *obj, void *infoParam)
 		ControlBarInventoryEntries[info->current].window = gameWindow;
 		ControlBarInventoryEntries[info->current].objectID = *(int *)((char *)obj + 0x74);
 		info->current++;
-		GadgetButtonSetEnabledImage_Rva002C0433(gameWindow, img);
+		GadgetButtonSetEnabledImage(gameWindow, img);
 		Rva003284ED(gameWindow, 0);
 		if (i == 0) {
 			gameWindow->winEnable(true);

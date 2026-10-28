@@ -98,9 +98,9 @@ public:
 
 extern GameWindowManager *TheWindowManager;
 
-void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image);
-void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image);
-void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image);
+void GadgetButtonSetEnabledImage(GameWindow *win, const Image *image);
+void GadgetButtonSetHiliteImage(GameWindow *win, const Image *image);
+void GadgetButtonSetHiliteSelectedImage(GameWindow *win, const Image *image);
 
 class ControlBar : public SubsystemInterface
 {
@@ -125,12 +125,12 @@ void ControlBar::rva0031AE13()
 	if (win == 0)
 		return;
 	if (m_0024 == 2) {
-		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0254);
-		GadgetButtonSetHiliteImage_Rva002C04DB(win, m_p0250);
-		GadgetButtonSetHiliteImage123_Rva002C0505(win, m_p0258);
+		GadgetButtonSetEnabledImage(win, m_p0254);
+		GadgetButtonSetHiliteImage(win, m_p0250);
+		GadgetButtonSetHiliteSelectedImage(win, m_p0258);
 	} else {
-		GadgetButtonSetEnabledImage_Rva002C0433(win, m_p0260);
-		GadgetButtonSetHiliteImage_Rva002C04DB(win, m_p025C);
-		GadgetButtonSetHiliteImage123_Rva002C0505(win, m_p0264);
+		GadgetButtonSetEnabledImage(win, m_p0260);
+		GadgetButtonSetHiliteImage(win, m_p025C);
+		GadgetButtonSetHiliteSelectedImage(win, m_p0264);
 	}
 }

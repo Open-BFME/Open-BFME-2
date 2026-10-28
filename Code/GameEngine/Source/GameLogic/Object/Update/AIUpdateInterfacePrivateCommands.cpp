@@ -1099,7 +1099,7 @@ enum MoodMatrixParameters
 class AIUpdateInterface : public BfmeVirtualSlots<96>
 {
 public:
-	void rva00263910(const Coord3D *pos, float range, int commandSource);
+	void setGoalPositionClipped(const Coord3D *pos, float range, int commandSource);
 	void rva00265667(const Coord3D *pos, int commandSource);
 public:
 	virtual Bool bfmeCurrentWeaponTemplateFlag4() const;
@@ -1904,7 +1904,7 @@ void AIUpdateInterface::privateAttackMoveToPositionAndOrientation(const Coord3D 
 		return;
 
 	m_stateMachine->clear();
-	rva00263910(position, range, commandSource);
+	setGoalPositionClipped(position, range, commandSource);
 	m_lastCommandSource = commandSource;
 	m_stateMachine->setState(BFME_AI_ATTACK_MOVE_TO);
 
@@ -2155,7 +2155,7 @@ void AIUpdateInterface::privateMoveToPosition(const Coord3D *position, float ran
 	if (!reinterpret_cast<AIUpdateSlot110 *>(this)->isIdle() && commandSource == CMD_FROM_AI)
 	{
 		reinterpret_cast<Rva0033FCC8 *>(m_stateMachine)->rva0033FCC8();
-		rva00263910(position, range, commandSource);
+		setGoalPositionClipped(position, range, commandSource);
 		m_blockedFrames = 0;
 		m_isBlocked = false;
 		reinterpret_cast<AIStateMachine *>(m_stateMachine)->setTemporaryState(BFME_AI_MOVE_TO, BfmeLogicFramesPerSecond * 20);
@@ -2163,7 +2163,7 @@ void AIUpdateInterface::privateMoveToPosition(const Coord3D *position, float ran
 	}
 
 	m_stateMachine->clear();
-	rva00263910(position, range, commandSource);
+	setGoalPositionClipped(position, range, commandSource);
 	m_blockedFrames = 0;
 	m_isBlocked = false;
 	m_lastCommandSource = commandSource;

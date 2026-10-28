@@ -26,8 +26,8 @@ class Src
 {
 public:
 	char m_pad[0x84];
-	unsigned int m_84;
-	unsigned int m_88;
+	unsigned int m_packTime;
+	unsigned int m_unpackTime;
 	char m_gap[0xc8 - 0x8c];
 	float m_c8;
 	float m_cc;
@@ -68,7 +68,7 @@ bool Rva004ADB1B::handlePackingProcessing()
 	unsigned int denom;
 	if (m_kind == 2) {
 		base = g_00BBB8D8;
-		denom = m_src->m_88;
+		denom = m_src->m_unpackTime;
 		other = m_src->m_c8;
 	} else {
 		float targetOpacity = m_src->m_c8;
@@ -96,7 +96,7 @@ bool Rva004B0164::handlePackingProcessing()
 	unsigned int denom;
 	if (m_kind == 2) {
 		base = g_00BBB8D8;
-		denom = m_src->m_88;
+		denom = m_src->m_unpackTime;
 		other = m_src->m_cc;
 	} else {
 		float disguiseOpacity = m_src->m_cc;

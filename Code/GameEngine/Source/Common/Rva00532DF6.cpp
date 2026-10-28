@@ -14,30 +14,30 @@ struct Rva00532DF6Less {bool operator()(const Rva00532DF6Entry&a,unsigned short 
 struct Rva00532DF6Node {Rva00532DF6Node*next;unsigned short id,count;union{Rva00532DF6Entry one;Rva00532DF6Entry*array;};};
 class Rva00532DF6 {public:bool remove(unsigned short a,unsigned short b);bool add(unsigned short a,unsigned short b);Rva00532DF6Node*buckets[4001];Rva00532DF6Node*freeNodes;};
 bool Rva00532DF6::remove(unsigned short a,unsigned short b) {
- if(b<a){unsigned short savedId=a;a=b;b=savedId;}
- Rva00532DF6Node **p=buckets+(a%4001u);
+ if(b<a){unsigned short temp=a;a=b;b=temp;}
+ Rva00532DF6Node **link=buckets+(a%4001u);
  goto check;
 body: {
-  Rva00532DF6Node*n=*p;
-  if(n->id==a){
-   if(n->count==1) {
-    if(n->one.id!=b)return false;
-    if(--n->one.count)return false;
-    *p=n->next;n->next=freeNodes;freeNodes=n;return true;
+  Rva00532DF6Node*node=*link;
+  if(node->id==a){
+   if(node->count==1) {
+    if(node->one.id!=b)return false;
+    if(--node->one.count)return false;
+    *link=node->next;node->next=freeNodes;freeNodes=node;return true;
    }
-   Rva00532DF6Entry *end=n->array+n->count;
-   Rva00532DF6Entry *hit=_STL::lower_bound(n->array,end,b,Rva00532DF6Less());
+   Rva00532DF6Entry *end=node->array+node->count;
+   Rva00532DF6Entry *hit=_STL::lower_bound(node->array,end,b,Rva00532DF6Less());
    if(hit!=end&&hit->id==b) {
     if(--hit->count)return false;
     while(++hit!=end)hit[-1]=*hit;
-    if(--n->count==1){Rva00532DF6Entry value=n->array[0];delete[] n->array;n->one=value;}
+    if(--node->count==1){Rva00532DF6Entry value=node->array[0];delete[] node->array;node->one=value;}
     return true;
    }
   }
-  p=&(*p)->next;
+  link=&(*link)->next;
  }
 check:
- if(*p)goto body;
+ if(*link)goto body;
  return false;
 }
 

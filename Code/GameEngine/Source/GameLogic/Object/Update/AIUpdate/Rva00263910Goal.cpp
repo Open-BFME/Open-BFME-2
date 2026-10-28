@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD
-// ?rva00263910@AIUpdateInterface@@QAEXPBUCoord3D@@MH@Z
+// ?setGoalPositionClipped@AIUpdateInterface@@QAEXPBUCoord3D@@MH@Z
 //
 // retail 0x00263910 (297 bytes). AIUpdate goal-position helper: copy pos to
 // local, when flag==0 adjust height from TheWritableGlobalData+0xD4 scaled by
@@ -76,7 +76,7 @@ static const float &float_max(const float &lhs, const float &rhs)
 class AIUpdateInterface
 {
 public:
-	void rva00263910(const Coord3D *pos, float range, int flag);
+	void setGoalPositionClipped(const Coord3D *pos, float range, int flag);
 	void rva00265667(const Coord3D *pos, int flag);
 	char m_pad00[8];
 	Object *m_object; // +8
@@ -86,36 +86,36 @@ public:
 	HeightHolder *m_height; // +0x1F0
 };
 
-void AIUpdateInterface::rva00263910(const Coord3D *pos, float range, int flag)
+void AIUpdateInterface::setGoalPositionClipped(const Coord3D *pos, float range, int flag)
 {
 	Coord3D local;
-	float h;
+	float fudge;
 	if (pos != 0) {
 		local.x = pos->x;
 		local.y = pos->y;
 		local.z = pos->z;
 		if (flag == 0) {
-			h = TheWritableGlobalData->m_val * 0.5f;
+			fudge = TheWritableGlobalData->m_val * 0.5f;
 			if ((m_object->m_flags109->m_flags & 0x10) != 0) {
 				if (m_object->isSignificantlyAboveTerrain()) {
 					if (m_height != 0) {
-						float preferredHeight = m_height->m_val;
-						h = float_max(h, preferredHeight);
+						float v = m_height->m_val;
+						fudge = float_max(fudge, v);
 					}
 				}
 			}
-			Extents e;
-			TheTerrainLogic->getExtents(&e);
-			float loX = e.m_min.x + h;
+			Extents mapRegion;
+			TheTerrainLogic->getExtents(&mapRegion);
+			float loX = mapRegion.m_min.x + fudge;
 			if (loX > local.x)
 				local.x = loX;
-			float hiX = e.m_max.x - h;
+			float hiX = mapRegion.m_max.x - fudge;
 			if (local.x > hiX)
 				local.x = hiX;
-			float loY = e.m_min.y + h;
+			float loY = mapRegion.m_min.y + fudge;
 			if (loY > local.y)
 				local.y = loY;
-			float hiY = e.m_max.y - h;
+			float hiY = mapRegion.m_max.y - fudge;
 			if (local.y > hiY)
 				local.y = hiY;
 			m_machine->setGoalPosition(&local, range);
@@ -133,5 +133,5 @@ void AIUpdateInterface::rva00263910(const Coord3D *pos, float range, int flag)
 // 0x00263910 with unchanged ecx; ret 8 matches (pos flag); 15 callers pass pos plus flag.
 void AIUpdateInterface::rva00265667(const Coord3D *pos, int flag)
 {
-	rva00263910(pos, 3.4028235e+38f, flag);
+	setGoalPositionClipped(pos, 3.4028235e+38f, flag);
 }

@@ -48,7 +48,7 @@ struct ShortcutCommandButtonSetView
 class Rva0035AFD0 { public: int rva0035AFD0(); };
 class Rva0031417CDwordSlot { public: void set(int); };
 void GadgetButtonEnableCheckLike(GameWindow *,bool,bool);
-void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
+void GadgetButtonSetEnabledImage(GameWindow *,const Image *);
 void GadgetButtonSetText(GameWindow *,UnicodeString);
 void Rva00328518(GameWindow *,int);
 void Rva00327D86Update(GameWindow *,bool);
@@ -119,11 +119,11 @@ void ControlBar::setControlCommand(GameWindow *button,const CommandButton *comma
     if (commandButton && commandButton->rva0035B19E())
     {
         GadgetButtonSetText(button,UnicodeString::TheEmptyString);
-        GadgetButtonSetEnabledImage_Rva002C0433(button,commandButton->rva0035B19E());
+        GadgetButtonSetEnabledImage(button,commandButton->rva0035B19E());
     }
     else
     {
-        GadgetButtonSetEnabledImage_Rva002C0433(button,0);
+        GadgetButtonSetEnabledImage(button,0);
         if (command && strncmp(command->name.str(),"NonCommand_",11)!=0)
         {
             UnicodeString text;

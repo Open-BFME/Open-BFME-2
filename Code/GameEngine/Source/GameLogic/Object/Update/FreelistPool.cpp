@@ -141,7 +141,7 @@ class FreelistPool
 {
 public:
 	FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6);
-	bool rva002AA35C(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
+	bool init(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6);
 private:
 	int m_00;
 	void* m_04;
@@ -279,5 +279,5 @@ FreelistPool::FreelistPool(int a1, int a2, int a3, int a4, int a5, int a6)
 	m_alloc = Rva0002FFC0Alloc;
 	m_free = Rva0002FFE0Free;
 	m_14 = 0;
-	rva002AA35C(a1, a2, a3, (void* (__cdecl*)(int, int))a4, a5, a6);
+	init(a1, a2, a3, (void* (__cdecl*)(int, int))a4, a5, a6);
 }

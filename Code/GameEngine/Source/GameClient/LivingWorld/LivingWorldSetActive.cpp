@@ -104,9 +104,9 @@ struct LivingWorldShadowManagerView
 struct LivingWorldStaticLODInfo
 {
 	unsigned char m_pad[0xC];
-	bool m_0C;
+	bool m_shadowVolumes;
 	bool m_0D;
-	bool m_0E;
+	bool m_shadowMapping;
 	unsigned char m_tail[0x4C - 0xF];
 };
 class GameLODManager;
@@ -201,9 +201,9 @@ void LivingWorld::rva002BF391(bool active)
 		slot20(false);
 		int level = ((LivingWorldLODManagerView *)TheGameLODManager)->m_staticLevel;
 		((LivingWorldGlobalDataView *)TheWritableGlobalData)->m_useShadowMapping =
-			((LivingWorldLODManagerView *)TheGameLODManager)->m_staticInfo[level].m_0E;
+			((LivingWorldLODManagerView *)TheGameLODManager)->m_staticInfo[level].m_shadowMapping;
 		((LivingWorldGlobalDataView *)TheWritableGlobalData)->m_useShadowVolumes =
-			((LivingWorldLODManagerView *)TheGameLODManager)->m_staticInfo[level].m_0C;
+			((LivingWorldLODManagerView *)TheGameLODManager)->m_staticInfo[level].m_shadowVolumes;
 		LivingWorldGlobalDataView *data = (LivingWorldGlobalDataView *)TheWritableGlobalData;
 		if (data->m_useShadowMapping && data->m_useShadowVolumes)
 			data->m_useShadowVolumes = false;

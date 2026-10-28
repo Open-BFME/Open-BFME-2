@@ -101,7 +101,7 @@ public:
     int rva00214713(int key);
     void *rva00214801(void *out, int index);
     void *rva00214862(void *out, int index);
-    void *rva002147A1(int index,Object *object);
+    void *getFX(int index,Object *object);
     void *getDelayedUpgrade(int index);
     bool getModifier(int index, void *key, float *value, const StringBase<char> *name);
     void *getEndFX(int index, Object *object);
@@ -166,7 +166,7 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
             setWakeFrame(getObject(),(UpdateSleepTime)length);
         }
         const FXList *fx;
-        if(frame<it->expiration) { Object *fxObj=(Object *)object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->rva002147A1(fxIndex,fxObj); }
+        if(frame<it->expiration) { Object *fxObj=(Object *)object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getFX(fxIndex,fxObj); }
         else { Object *fxObj=(Object *)object; int fxIndex=it->index; fx=(const FXList *)TheAttributeModifierStore->getEndFX(fxIndex,fxObj); }
         if(fx) { Object *obj=(Object *)object; FXList::doFXObj(fx,obj,0); }
         return true;
@@ -193,7 +193,7 @@ bool AttributeModifierPoolUpdate::addModifierToPool(const AsciiString &name,int 
     if(((ModifierFrameView *)TheGameLogic)->frame<entry.expiration) {
         Drawable *drawable=((const Thing *)object)->getDrawable();
         if(drawable) {
-            const FXList *fx=(const FXList *)TheAttributeModifierStore->rva002147A1(entry.index,(Object *)object);
+            const FXList *fx=(const FXList *)TheAttributeModifierStore->getFX(entry.index,(Object *)object);
             if(fx) { Object *obj=(Object *)object; FXList::doFXObj(fx,obj,0); }
         }
     }

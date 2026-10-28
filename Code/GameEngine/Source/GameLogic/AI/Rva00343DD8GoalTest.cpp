@@ -102,7 +102,7 @@ public:
 
 bool rva003430A3(Object*,Object*,Weapon*);
 
-bool rva00343DD8(void *state, void *arg)
+bool rva00343DD8(void *state, void *userData)
 {
 	Rva00343F8A *st = (Rva00343F8A *)state;
 	StateMachine *mach = st->m_machine;

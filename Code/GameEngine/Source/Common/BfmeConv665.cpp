@@ -4,7 +4,7 @@ class BfmeSubDDB
 public:
 	int bfmeTailDDB();
 	unsigned char m_bfmeHead[0x39];
-	bool m_bfmeFlag;
+	bool m_affect;
 };
 
 class BfmeThingDDB
@@ -18,7 +18,7 @@ public:
 int BfmeThingDDB::bfmeGoDDB()
 {
 	BfmeSubDDB *s = m_bfmeSub;
-	if (s != 0 && s->m_bfmeFlag)
+	if (s != 0 && s->m_affect)
 		return s->bfmeTailDDB();
 	return 0;
 }

@@ -24,10 +24,10 @@ class Connection
 {
 public:
 	NetCommandRef *processAck(UnsignedShort commandID, UnsignedByte playerID, UnsignedInt timestamp, UnsignedInt executionFrame);
-	NetCommandRef *rva0058BD4F(void *p);
+	NetCommandRef *rva0058BD4F(void *msg);
 };
-NetCommandRef *Connection::rva0058BD4F(void *p)
+NetCommandRef *Connection::rva0058BD4F(void *msg)
 {
-	Rva0058BD4FPkt *pkt = (Rva0058BD4FPkt *)p;
-	return processAck(((Rva004D5767WordField *)p)->get(), ((Rva004543C6ByteField *)p)->get(), pkt->field20, pkt->field24);
+	Rva0058BD4FPkt *pkt = (Rva0058BD4FPkt *)msg;
+	return processAck(((Rva004D5767WordField *)msg)->get(), ((Rva004543C6ByteField *)msg)->get(), pkt->field20, pkt->field24);
 }

@@ -164,12 +164,12 @@ class GadgetAppearanceManagerView { public:
 
 class Rva003140C8DwordField;
 class BfmeKeyLC;
-void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
-void GadgetButtonSetEnabledImage123_Rva002C045D(GameWindow *,const Image *);
-void GadgetButtonSetDisabledImage_Rva002C0487(GameWindow *,const Image *);
-void GadgetButtonSetDisabledImage123_Rva002C04B1(GameWindow *,const Image *);
-void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *,const Image *);
-void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *,const Image *);
+void GadgetButtonSetEnabledImage(GameWindow *,const Image *);
+void GadgetButtonSetEnabledSelectedImage(GameWindow *,const Image *);
+void GadgetButtonSetDisabledImage(GameWindow *,const Image *);
+void GadgetButtonSetDisabledSelectedImage(GameWindow *,const Image *);
+void GadgetButtonSetHiliteImage(GameWindow *,const Image *);
+void GadgetButtonSetHiliteSelectedImage(GameWindow *,const Image *);
 void Rva002C055FSet(Rva003140C8DwordField *,const Image *);
 void Rva002C0579Set(Rva003140C8DwordField *,int);
 void Rva002C0594Set(Rva003140C8DwordField *,int);
@@ -267,29 +267,29 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 	{
 
 		// enabled background
-		GadgetButtonSetEnabledImage_Rva002C0433(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabled" ) );
+		GadgetButtonSetEnabledImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabled" ) );
 		GadgetButtonSetEnabledColor( gadget, red );
 		GadgetButtonSetEnabledBorderColor( gadget, lightRed );
 		// enabled selected button
-		GadgetButtonSetEnabledImage123_Rva002C045D(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabledSelected" ) );
+		GadgetButtonSetEnabledSelectedImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabledSelected" ) );
 		GadgetButtonSetEnabledSelectedColor( gadget, yellow );
 		GadgetButtonSetEnabledSelectedBorderColor( gadget, white );
 
 		// Disabled background
-		GadgetButtonSetDisabledImage_Rva002C0487(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabled" ) );
+		GadgetButtonSetDisabledImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabled" ) );
 		GadgetButtonSetDisabledColor( gadget, gray );
 		GadgetButtonSetDisabledBorderColor( gadget, lightGray );
 		// Disabled selected button
-		GadgetButtonSetDisabledImage123_Rva002C04B1(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabledSelected" ) );
+		GadgetButtonSetDisabledSelectedImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabledSelected" ) );
 		GadgetButtonSetDisabledSelectedColor( gadget, lightGray );
 		GadgetButtonSetDisabledSelectedBorderColor( gadget, gray );
 
 		// Hilite background
-		GadgetButtonSetHiliteImage_Rva002C04DB(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHilite" ) );
+		GadgetButtonSetHiliteImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHilite" ) );
 		GadgetButtonSetHiliteColor( gadget, green );
 		GadgetButtonSetHiliteBorderColor( gadget, darkGreen );
 		// Hilite selected button
-		GadgetButtonSetHiliteImage123_Rva002C0505(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHiliteSelected" ) );
+		GadgetButtonSetHiliteSelectedImage(gadget, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHiliteSelected" ) );
 		GadgetButtonSetHiliteSelectedColor( gadget, yellow );
 		GadgetButtonSetHiliteSelectedBorderColor( gadget, white );
 
@@ -599,30 +599,30 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 			// up button ------------------------------------------------------------
 
 			// enabled
-			GadgetButtonSetEnabledImage_Rva002C0433(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
-			GadgetButtonSetEnabledImage123_Rva002C045D(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
+			GadgetButtonSetEnabledImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
+			GadgetButtonSetEnabledSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
 
 			// disabled
-			GadgetButtonSetDisabledImage_Rva002C0487(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
-			GadgetButtonSetDisabledImage123_Rva002C04B1(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
+			GadgetButtonSetDisabledImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
+			GadgetButtonSetDisabledSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
 
 			// hilite
-			GadgetButtonSetHiliteImage_Rva002C04DB(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHilite" ) );
-			GadgetButtonSetHiliteImage123_Rva002C0505(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHiliteSelected" ) );
+			GadgetButtonSetHiliteImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHilite" ) );
+			GadgetButtonSetHiliteSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHiliteSelected" ) );
 
 			// down button ----------------------------------------------------------
 
 			// enabled
-			GadgetButtonSetEnabledImage_Rva002C0433(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
-			GadgetButtonSetEnabledImage123_Rva002C045D(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
+			GadgetButtonSetEnabledImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
+			GadgetButtonSetEnabledSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
 
 			// disabled
-			GadgetButtonSetDisabledImage_Rva002C0487(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
-			GadgetButtonSetDisabledImage123_Rva002C04B1(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
+			GadgetButtonSetDisabledImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
+			GadgetButtonSetDisabledSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
 
 			// hilite
-			GadgetButtonSetHiliteImage_Rva002C04DB(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHilite" ) );
-			GadgetButtonSetHiliteImage123_Rva002C0505(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHiliteSelected" ) );
+			GadgetButtonSetHiliteImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHilite" ) );
+			GadgetButtonSetHiliteSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHiliteSelected" ) );
 
 		}  // end if
 
@@ -676,19 +676,19 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 		if ( dropDownButton )
 		{
 			// enabled background
-			GadgetButtonSetEnabledImage_Rva002C0433(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabled" ) );
+			GadgetButtonSetEnabledImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabled" ) );
 			// enabled selected button
-			GadgetButtonSetEnabledImage123_Rva002C045D(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabledSelected" ) );
+			GadgetButtonSetEnabledSelectedImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonEnabledSelected" ) );
 
 			// Disabled background
-			GadgetButtonSetDisabledImage_Rva002C0487(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabled" ) );
+			GadgetButtonSetDisabledImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabled" ) );
 			// Disabled selected button
-			GadgetButtonSetDisabledImage123_Rva002C04B1(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabledSelected" ) );
+			GadgetButtonSetDisabledSelectedImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonDisabledSelected" ) );
 
 			// Hilite background
-			GadgetButtonSetHiliteImage_Rva002C04DB(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHilite" ) );
+			GadgetButtonSetHiliteImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHilite" ) );
 			// Hilite selected button
-			GadgetButtonSetHiliteImage123_Rva002C0505(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHiliteSelected" ) );
+			GadgetButtonSetHiliteSelectedImage(dropDownButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "PushButtonHiliteSelected" ) );
 
 		}
 
@@ -779,30 +779,30 @@ void GameWindowManager::assignDefaultGadgetLook( GameWindow *gadget,
 				// up button ------------------------------------------------------------
 
 				// enabled
-				GadgetButtonSetEnabledImage_Rva002C0433(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
-				GadgetButtonSetEnabledImage123_Rva002C045D(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
+				GadgetButtonSetEnabledImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
+				GadgetButtonSetEnabledSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonEnabled" ) );
 
 				// disabled
-				GadgetButtonSetDisabledImage_Rva002C0487(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
-				GadgetButtonSetDisabledImage123_Rva002C04B1(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
+				GadgetButtonSetDisabledImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
+				GadgetButtonSetDisabledSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonDisabled" ) );
 
 				// hilite
-				GadgetButtonSetHiliteImage_Rva002C04DB(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHilite" ) );
-				GadgetButtonSetHiliteImage123_Rva002C0505(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHiliteSelected" ) );
+				GadgetButtonSetHiliteImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHilite" ) );
+				GadgetButtonSetHiliteSelectedImage(upButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeUpButtonHiliteSelected" ) );
 
 				// down button ----------------------------------------------------------
 
 				// enabled
-				GadgetButtonSetEnabledImage_Rva002C0433(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
-				GadgetButtonSetEnabledImage123_Rva002C045D(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
+				GadgetButtonSetEnabledImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
+				GadgetButtonSetEnabledSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonEnabled" ) );
 
 				// disabled
-				GadgetButtonSetDisabledImage_Rva002C0487(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
-				GadgetButtonSetDisabledImage123_Rva002C04B1(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
+				GadgetButtonSetDisabledImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
+				GadgetButtonSetDisabledSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonDisabled" ) );
 
 				// hilite
-				GadgetButtonSetHiliteImage_Rva002C04DB(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHilite" ) );
-				GadgetButtonSetHiliteImage123_Rva002C0505(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHiliteSelected" ) );
+				GadgetButtonSetHiliteImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHilite" ) );
+				GadgetButtonSetHiliteSelectedImage(downButton, reinterpret_cast<GadgetAppearanceManagerView *>(this)->winFindImage( "VSliderLargeDownButtonHiliteSelected" ) );
 
 			}  // end if
 		}

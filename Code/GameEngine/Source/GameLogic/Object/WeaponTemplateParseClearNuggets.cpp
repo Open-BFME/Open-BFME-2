@@ -1,6 +1,6 @@
 // cl: /DNDEBUG /MD /GX-
 //
-// ?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x002CA8E8 (90B): the
+// ?parseClearNuggets@@YAXPAVINI@@PAX1PBX@Z, retail 0x002CA8E8 (90B): the
 // ClearNuggets FieldParse proc of the WeaponTemplate table (row 0x00C011D8).
 // Walks the nugget list at instance + 0x17C (STLport list<int> nodes holding
 // nugget pointers), globally deleting every nugget (virtual destructor in slot
@@ -50,8 +50,8 @@ struct Rva002CA8E8Template
 	_STL::_List_base<int, _STL::allocator<int> > m_nuggets;	// +0x17C
 };
 
-// ?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z
-void Rva002CA8E8Parse(INI *, void *instance, void *, const void *)
+// ?parseClearNuggets@@YAXPAVINI@@PAX1PBX@Z
+void parseClearNuggets(INI *, void *instance, void *, const void *)
 {
 	Rva002CA8E8Template *self = (Rva002CA8E8Template *)instance;
 	_STL::_List_base<int, _STL::allocator<int> > &nuggets = self->m_nuggets;

@@ -4484,3 +4484,66 @@ member,MyHeroCameraPreset::field08,MyHeroCameraPreset::m_floor,inferred,agree:nl
 member,ArmySwapSummaryView::first40,ArmySwapSummaryView::m_entriesBegin,inferred,agree:nl-79c96f061df8,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,
 member,ArmySwapSummaryView::last44,ArmySwapSummaryView::m_entriesEnd,inferred,agree:nl-86f4eeb03d69,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,
 member,ArmySwapView::audio88,ArmySwapView::m_armyIcon,inferred,agree:nl-7e83c5b5c854,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp,
+member,BfmeThingUUA::m_bfmeRef,BfmeThingUUA::m_protoPingRef,inferred,agree:nl-0698972b5868,Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+member,BfmeThingUUA::m_bfmeQueue,BfmeThingUUA::m_pendingQueue,inferred,agree:nl-ef6bc7a6617b,Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+member,BfmeThingUUA::m_bfmePending,BfmeThingUUA::m_numPendingRequests,inferred,agree:nl-e3d5076db090,Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+class,BfmeThingUUA,GameBrowserPinger,inferred,agree:nl-58a03ab5cd5f,Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+carry,BfmeThingUUA::m_protoPingRef,GameBrowserPinger::m_protoPingRef,inferred,scope renamed by Rename BfmeThingUUA to GameBrowserPinger (inferred),Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+carry,BfmeThingUUA::m_pendingQueue,GameBrowserPinger::m_pendingQueue,inferred,scope renamed by Rename BfmeThingUUA to GameBrowserPinger (inferred),Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+carry,BfmeThingUUA::m_numPendingRequests,GameBrowserPinger::m_numPendingRequests,inferred,scope renamed by Rename BfmeThingUUA to GameBrowserPinger (inferred),Code/GameEngine/Source/Common/BfmeConv1343.cpp,
+member,BfmeSubDDB::m_bfmeFlag,BfmeSubDDB::m_affect,inferred,agree:nl-cb1b7d3a8f4f,Code/GameEngine/Source/Common/BfmeConv665.cpp,
+param,Rva0004263F::rva0004263F::a,Rva0004263F::rva0004263F::startX,inferred,agree:nl-ea055dcd26a3,Code/GameEngine/Source/Common/Rva0004263F.cpp,0x0004263F
+param,Rva0004263F::rva0004263F::b,Rva0004263F::rva0004263F::startY,inferred,agree:nl-81304f312deb,Code/GameEngine/Source/Common/Rva0004263F.cpp,0x0004263F
+param,Rva0004263F::rva0004263F::c,Rva0004263F::rva0004263F::width,inferred,agree:nl-1a6c2b592f27,Code/GameEngine/Source/Common/Rva0004263F.cpp,0x0004263F
+param,Rva0004263F::rva0004263F::d,Rva0004263F::rva0004263F::height,inferred,agree:nl-5090ba469ac3,Code/GameEngine/Source/Common/Rva0004263F.cpp,0x0004263F
+param,Rva0004263F::rva0004263F::e,Rva0004263F::rva0004263F::color,inferred,agree:nl-26cd0d139cd9,Code/GameEngine/Source/Common/Rva0004263F.cpp,0x0004263F
+param,Pathfinder::rva001E4461::a1,Pathfinder::rva001E4461::layer,inferred,agree:nl-e87fadb52ec9,Code/GameEngine/Source/Common/Rva001E4461Func.cpp,0x001E4461
+param,Pathfinder::rva001E4461::a2,Pathfinder::rva001E4461::pos,inferred,agree:nl-488c7648a01b,Code/GameEngine/Source/Common/Rva001E4461Func.cpp,0x001E4461
+function,?rva001E4461@Pathfinder@@QAEPAXHH@Z,?getObstacleID@Pathfinder@@QAEPAXHH@Z,inferred,agree:nl-ad4962b555e7,Code/GameEngine/Source/Common/Rva001E4461Func.cpp,0x001E4461
+carry,Pathfinder::rva001E4461::layer,Pathfinder::getObstacleID::layer,inferred,scope renamed by Rename rva001E4461 to getObstacleID (inferred),Code/GameEngine/Source/Common/Rva001E4461Func.cpp,0x001E4461
+carry,Pathfinder::rva001E4461::pos,Pathfinder::getObstacleID::pos,inferred,scope renamed by Rename rva001E4461 to getObstacleID (inferred),Code/GameEngine/Source/Common/Rva001E4461Func.cpp,0x001E4461
+member,Rva00214738Slot::m_18,Rva00214738Slot::m_duration,inferred,agree:nl-babbfe9193c0,Code/GameEngine/Source/Common/Rva002147D1Get.cpp,
+function,?rva002147A1@AttributeModifierStore@@QAEPAXHPAVObject@@@Z,?getFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z,inferred,agree:nl-0c45fa1b1a35,Code/GameEngine/Source/Common/Rva002147D1Get.cpp,0x002147A1
+local,Rva002B52CE::rva002B52CE::p,Rva002B52CE::rva002B52CE::player,inferred,agree:nl-9b3bc423a587,Code/GameEngine/Source/Common/Rva002B52CE.cpp,0x002B52CE
+param,ArmySummarySystem::rva0040D2FD::a,ArmySummarySystem::rva0040D2FD::armyId,inferred,agree:nl-d9f948ee9fc4,Code/GameEngine/Source/Common/Rva0040D2FDSet.cpp,0x0040D2FD
+param,Rva004ADC38::rva004ADC38::a,Rva004ADC38::rva004ADC38::specialPowerTemplate,inferred,agree:nl-2410fdd7a0a1,Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp,0x004ADC38
+param,Rva004ADC38::rva004ADC38::b,Rva004ADC38::rva004ADC38::targetObj,inferred,agree:nl-b235dc1d48c3,Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp,0x004ADC38
+param,Rva004ADC38::rva004ADC38::c,Rva004ADC38::rva004ADC38::targetPos,inferred,agree:nl-66b7ac3b9e56,Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp,0x004ADC38
+param,Rva004ADC38::rva004ADC38::d,Rva004ADC38::rva004ADC38::commandOptions,inferred,agree:nl-455860e2dcaa,Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp,0x004ADC38
+param,Rva004ADC38::rva004ADC38::e,Rva004ADC38::rva004ADC38::way,inferred,agree:nl-df33036502e2,Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp,0x004ADC38
+local,Rva00532DF6::remove::p,Rva00532DF6::remove::link,inferred,agree:nl-8b6a7c9d53fc,Code/GameEngine/Source/Common/Rva00532DF6.cpp,0x00532DF6
+local,Rva00532DF6::remove::n,Rva00532DF6::remove::node,inferred,agree:nl-8fd397efa52d,Code/GameEngine/Source/Common/Rva00532DF6.cpp,0x00532DF6
+member,Rva005CE4B2Held::m_04,Rva005CE4B2Held::m_refCount,inferred,agree:nl-57e16df53708,Code/GameEngine/Source/Common/Rva005CE4B2.cpp,
+member,Rva005F20C5Node::m_child04,Rva005F20C5Node::m_parent,inferred,agree:nl-bb0eac82d641,Code/GameEngine/Source/Common/Rva005F20C5.cpp,
+member,Rva005F20C5Node::m_next08,Rva005F20C5Node::m_left,inferred,agree:nl-e6112d6d2e1b,Code/GameEngine/Source/Common/Rva005F20C5.cpp,
+member,Rva005F20C5Node::m_link0C,Rva005F20C5Node::m_right,inferred,agree:nl-903adb791393,Code/GameEngine/Source/Common/Rva005F20C5.cpp,
+param,Rva005F20C5::rva005F20C5::p,Rva005F20C5::rva005F20C5::node,inferred,agree:nl-03db27b540e7,Code/GameEngine/Source/Common/Rva005F20C5.cpp,0x005F20C5
+function,?rva005F20C5@Rva005F20C5@@QAEXPAURva005F20C5Node@@@Z,?erase@Rva005F20C5@@QAEXPAURva005F20C5Node@@@Z,inferred,agree:nl-4ec48930e0c5,Code/GameEngine/Source/Common/Rva005F20C5.cpp,0x005F20C5
+carry,Rva005F20C5::rva005F20C5::node,Rva005F20C5::erase::node,inferred,scope renamed by Rename rva005F20C5 to erase (inferred),Code/GameEngine/Source/Common/Rva005F20C5.cpp,0x005F20C5
+member,Rva002D3756Mid::m_c4,Rva002D3756Mid::m_heroSelectInterface,inferred,agree:nl-bfd777f3f24b,Code/GameEngine/Source/Common/System/Rva002D3756.cpp,
+param,HotKeyTranslator::translateGameMessage::a,HotKeyTranslator::translateGameMessage::msg,inferred,agree:nl-45e81681261e,Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp,0x00359729
+function,?GadgetButtonSetEnabledImage_Rva002C0433@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetEnabledImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-96f885f4a23f,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C0433
+function,?GadgetButtonSetEnabledImage123_Rva002C045D@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetEnabledSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-be3eda94126c,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C045D
+function,?GadgetButtonSetDisabledImage_Rva002C0487@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetDisabledImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-dd19f3e19610,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C0487
+function,?GadgetButtonSetDisabledImage123_Rva002C04B1@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetDisabledSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-c2fd23e0a649,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C04B1
+function,?GadgetButtonSetHiliteImage_Rva002C04DB@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetHiliteImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-1b6df85df080,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C04DB
+function,?GadgetButtonSetHiliteImage123_Rva002C0505@@YAXPAVGameWindow@@PBVImage@@@Z,?GadgetButtonSetHiliteSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z,inferred,agree:nl-4f904e81b076,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetButtonImageHelpers.cpp,0x002C0505
+member,Rva0057621A::m_30,Rva0057621A::m_phaseEnder,inferred,agree:nl-84adcff43b5f,Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp,
+member,Rva0057621A::m_40,Rva0057621A::m_statusDisplayer,inferred,agree:nl-24ab4f00ca12,Code/GameEngine/Source/GameClient/GUI/Rva0057621ACtor.cpp,
+member,LivingWorldStaticLODInfo::m_0C,LivingWorldStaticLODInfo::m_shadowVolumes,inferred,agree:nl-72d04ab97e38,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp,
+member,LivingWorldStaticLODInfo::m_0E,LivingWorldStaticLODInfo::m_shadowMapping,inferred,agree:nl-22bbc571f4be,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp,
+param,Rva006EE520::rva00047F79::c,Rva006EE520::rva00047F79::width,inferred,agree:nl-c3bfd875a342,Code/GameEngine/Source/GameClient/Rva006EE520SubtitleStart.cpp,0x00047F79
+param,Rva006EE520::rva00047F79::d,Rva006EE520::rva00047F79::lineCount,inferred,agree:nl-054a5f5dca99,Code/GameEngine/Source/GameClient/Rva006EE520SubtitleStart.cpp,0x00047F79
+param,rva00343DD8::arg,rva00343DD8::userData,inferred,agree:nl-0b0915fe399d,Code/GameEngine/Source/GameLogic/AI/Rva00343DD8GoalTest.cpp,0x00343DD8
+member,Src::m_84,Src::m_packTime,inferred,agree:nl-1c4798b686f5,Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,
+member,Src::m_88,Src::m_unpackTime,inferred,agree:nl-fe4fc006a09b,Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,
+local,AIUpdateInterface::rva00263910::h,AIUpdateInterface::rva00263910::fudge,inferred,agree:nl-fa555e7fd859,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp,0x00263910
+local,AIUpdateInterface::rva00263910::e,AIUpdateInterface::rva00263910::mapRegion,inferred,agree:nl-06179aa0f5e4,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp,0x00263910
+function,?rva00263910@AIUpdateInterface@@QAEXPBUCoord3D@@MH@Z,?setGoalPositionClipped@AIUpdateInterface@@QAEXPBUCoord3D@@MH@Z,inferred,agree:nl-5b87e0984fd9,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp,0x00263910
+carry,AIUpdateInterface::rva00263910::fudge,AIUpdateInterface::setGoalPositionClipped::fudge,inferred,scope renamed by Rename rva00263910 to setGoalPositionClipped (inferred),Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp,0x00263910
+carry,AIUpdateInterface::rva00263910::mapRegion,AIUpdateInterface::setGoalPositionClipped::mapRegion,inferred,scope renamed by Rename rva00263910 to setGoalPositionClipped (inferred),Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva00263910Goal.cpp,0x00263910
+function,?rva002AA35C@FreelistPool@@QAE_NHHHP6APAXHH@ZHH@Z,?init@FreelistPool@@QAE_NHHHP6APAXHH@ZHH@Z,inferred,agree:nl-75038e1b79b9,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
+function,?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z,?parseClearNuggets@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-20ac63aa6c86,Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp,0x002CA8E8
+param,Connection::rva0058BD4F::p,Connection::rva0058BD4F::msg,inferred,agree:nl-4cc21ecd3e8e,Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp,0x0058BD4F
+param,Rva0033331BCopy::p1,Rva0033331BCopy::first,inferred,agree:nl-7c282c5e826d,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
+param,Rva0033331BCopy::p2,Rva0033331BCopy::last,inferred,agree:nl-ca3cd2378b11,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B

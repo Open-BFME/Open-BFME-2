@@ -749,7 +749,7 @@ extern TerrainLogic *TheTerrainLogic;
 class Pathfinder
 {
 public:
-	void *rva001E4461(int layer, int pos); // 0x001E4461: the wall object's ID at a position
+	void *getObstacleID(int layer, int pos); // 0x001E4461: the wall object's ID at a position
 };
 class AIGroup
 
@@ -1344,7 +1344,7 @@ void Locomotor::rva001E9083(Object *obj, const Coord3D *goalPos, Real onPathDist
 		Real nextHeight = TheTerrainLogic->getLayerHeight(pos.x, pos.y, obj->rva0028B511(), NULL, true);
 		Real bias = (height - nextHeight + 0.1f < 0.0f) ? 0.0f : height - nextHeight + 0.1f;
 		PathfindLayerEnum layer = TheTerrainLogic->getLayerForDestination(obj, &pos);
-		ObjectID wallID = (ObjectID)(int)TheAI->pathfinder()->rva001E4461(layer, (int)&pos);
+		ObjectID wallID = (ObjectID)(int)TheAI->pathfinder()->getObstacleID(layer, (int)&pos);
 		Object *wall = TheGameLogic->findObjectByID(wallID);
 		Bool climbing = false;
 		Bool descending = false;

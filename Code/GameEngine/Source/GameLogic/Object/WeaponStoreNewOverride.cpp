@@ -74,7 +74,7 @@ void __identifier("?parseScatterTarget@WeaponTemplate@@CAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva002CE849Parse@@YAXPAVINI@@PAX@Z")();
 void __identifier("?Rva002CA88BParse@@YAXPAX0@Z")();
 void __identifier("?parseDamageNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z")();
-void __identifier("?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseClearNuggets@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseDamageFieldNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z")();
 void __identifier("?parseWeaponOCLNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z")();
 void __identifier("?parseProjectileNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z")();
@@ -201,7 +201,7 @@ extern const FieldParse g_00C00B48[125] = {
 	{ "LinearTarget", (FieldParseProc)&__identifier("?Rva002CE849Parse@@YAXPAVINI@@PAX@Z"), 0, 0x0 },
 	{ "WeaponBonus", (FieldParseProc)&__identifier("?Rva002CA88BParse@@YAXPAX0@Z"), 0, 0x0 },
 	{ "DamageNugget", (FieldParseProc)&__identifier("?parseDamageNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z"), 0, 0x0 },
-	{ "ClearNuggets", (FieldParseProc)&__identifier("?Rva002CA8E8Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+	{ "ClearNuggets", (FieldParseProc)&__identifier("?parseClearNuggets@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
 	{ "DamageFieldNugget", (FieldParseProc)&__identifier("?parseDamageFieldNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z"), 0, 0x0 },
 	{ "WeaponOCLNugget", (FieldParseProc)&__identifier("?parseWeaponOCLNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z"), 0, 0x0 },
 	{ "ProjectileNugget", (FieldParseProc)&__identifier("?parseProjectileNugget@@YAXPAVINI@@PAVWeaponTemplate@@@Z"), 0, 0x0 },

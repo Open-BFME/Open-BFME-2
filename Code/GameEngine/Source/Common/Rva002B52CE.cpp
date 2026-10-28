@@ -63,14 +63,14 @@ void Rva002B52CE::rva002B52CE()
 	if ((playerArrayBytes >> 2) <= 0)
 		return;
 	do {
-		Rva002E2903Player *p = ((Rva002BA8F1Logic *)this)->GetPlayerAtIndex(i);
-		if (p != m_sentinel98) {
-			if (p->m_44 == 1) {
-				p->state2();
+		Rva002E2903Player *player = ((Rva002BA8F1Logic *)this)->GetPlayerAtIndex(i);
+		if (player != m_sentinel98) {
+			if (player->m_44 == 1) {
+				player->state2();
 			}
 			else {
-				p->state1();
-				p->m_4C.rva004FBB25(m_f4);
+				player->state1();
+				player->m_4C.rva004FBB25(m_f4);
 			}
 		}
 		++i;

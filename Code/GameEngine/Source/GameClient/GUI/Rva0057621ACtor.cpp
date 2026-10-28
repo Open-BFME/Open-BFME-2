@@ -174,15 +174,15 @@ private:
 	Rva005CC61E m_24;				// +0x24
 	Rva000AD6F4 m_28;				// +0x28
 	Rva000AD6F4 m_2C;				// +0x2C
-	Wrap2000576C4B m_30;				// +0x30
-	Rva005CD651 m_40;				// +0x40
+	Wrap2000576C4B m_phaseEnder;				// +0x30
+	Rva005CD651 m_statusDisplayer;				// +0x40
 };
 
 Rva0057621A::Rva0057621A(Rva00575D45 *owner, int value)
 	: m_owner(owner), m_value(value),
 	  m_20(((Rva002B2B66 *)TheLivingWorldLogic)->rva002B2B66()),
-	  m_30(m_owner->m_04, this),
-	  m_40(((const Rva00328A83PtrChaseField *)m_owner->m_04)->get())
+	  m_phaseEnder(m_owner->m_04, this),
+	  m_statusDisplayer(((const Rva00328A83PtrChaseField *)m_owner->m_04)->get())
 {
 	if ((unsigned char)((Rva002B254F *)TheLivingWorldLogic)->rva002B254F())
 		((Rva005A0B4CList *)((char *)((Rva002B256E *)TheLivingWorldLogic)->rva002B256E() + 4))

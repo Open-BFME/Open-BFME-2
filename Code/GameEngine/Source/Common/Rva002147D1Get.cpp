@@ -24,7 +24,7 @@ inline void *__cdecl operator new(unsigned int, void *p) { return p; }
 class AttributeModifierStore
 {
 public:
-	void *rva002147A1(int index, Object *obj);
+	void *getFX(int index, Object *obj);
 	void *getEndFX(int index, Object *obj);
 	void *GetCategoryContainer(int index);
 	int rva00214713(int key);
@@ -37,10 +37,10 @@ private:
 	int m_begin;
 	int m_end;
 };
-// ?rva002147A1@AttributeModifierStore@@QAEPAXHPAVObject@@@Z retail 0x002147A1 48B sibling
+// ?getFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z retail 0x002147A1 48B sibling
 // of 0x002147D1 differing only by callee rva0040327B vs rva004032D3; same
 // guarded fetch via barrier reload. Evidence: chain from 0x0040327B.
-void *AttributeModifierStore::rva002147A1(int index, Object *obj)
+void *AttributeModifierStore::getFX(int index, Object *obj)
 {
 	if (index < 0)
 		return 0;
@@ -93,7 +93,7 @@ int AttributeModifierStore::rva00214713(int key)
 	}
 	return -1;
 }
-struct Rva00214738Slot { char _pad[0x18]; void *m_18; };
+struct Rva00214738Slot { char _pad[0x18]; void *m_duration; };
 // ?getDuration@AttributeModifierStore@@QAEPAXH@Z retail 0x00214738 42B guarded fetch of
 // slot +0x18 from same +0x0c array as 0x002147D1. Evidence: same +0x0c +0x10
 // layout with dec/ja bound plus null slot check; callers at 0x0049410F.
@@ -106,7 +106,7 @@ void *AttributeModifierStore::getDuration(int index)
 	_ReadWriteBarrier();
 	Rva00214738Slot *slot = *(Rva00214738Slot **)(m_begin + index * 4);
 	if (slot != 0)
-		return slot->m_18;
+		return slot->m_duration;
 	return 0;
 }
 struct Rva002148C3Slot { char _pad[0xCC]; void *m_cc; };

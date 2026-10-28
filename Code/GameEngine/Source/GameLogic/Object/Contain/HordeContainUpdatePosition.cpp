@@ -374,7 +374,7 @@ class Pathfinder {
     int CountOverlapHordeGoalUnits(Object *, const Coord3D *);
     bool IsValidObjectMovement(Object *, const Coord3D *, const Coord3D *);
     bool IsValidMovementPositionForObject(const Coord3D *, int, int, const Object *);
-    void *rva001E4461(int, int);
+    void *getObstacleID(int, int);
 };
 class AI {
   public:
@@ -665,7 +665,7 @@ void HordeContain::_updatePosition(Object *obj, const Coord3D *destination, floa
         bool adjusted = false;
         if (iface.s238()) {
             Object *bridge = TheGameLogic->findObjectByID(
-                (ObjectID)(int)TheAI->getPathfinder()->rva001E4461(1, (int)&obj->pos));
+                (ObjectID)(int)TheAI->getPathfinder()->getObstacleID(1, (int)&obj->pos));
             if (bridge) {
                 const Coord3D *heading = ((Thing *)owner)->getUnitDirectionVector2D();
                 Coord3D direction;

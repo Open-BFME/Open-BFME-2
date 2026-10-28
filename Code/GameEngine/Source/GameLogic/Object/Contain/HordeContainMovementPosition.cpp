@@ -173,7 +173,7 @@ class TerrainLogic
 class Pathfinder
 {
   public:
-    void *rva001E4461(int layer, int pos);
+    void *getObstacleID(int layer, int pos);
 };
 
 class AI
@@ -205,7 +205,7 @@ class HordeContain
 __forceinline Object *Rva0046B05BFindAt(PathfindLayerEnum layer, const Coord3D *pos)
 {
     return TheGameLogic->findObjectByID(
-        (ObjectID)(int)TheAI->getPathfinder()->rva001E4461(layer, (int)pos));
+        (ObjectID)(int)TheAI->getPathfinder()->getObstacleID(layer, (int)pos));
 }
 
 void HordeContain::rva0046B05B(Object *objArg, Coord3D *posArg, Object *otherArg)

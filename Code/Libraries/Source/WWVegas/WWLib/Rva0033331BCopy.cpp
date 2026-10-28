@@ -23,11 +23,11 @@ private:
 
 void Rva00333295Construct(Rva00332EC8 *dest, const Rva00332EC8 &src) throw();
 
-Rva00332EC8 *Rva0033331BCopy(Rva00332EC8 *p1, Rva00332EC8 *p2, Rva00332EC8 *p3, const void *ignored)
+Rva00332EC8 *Rva0033331BCopy(Rva00332EC8 *first, Rva00332EC8 *last, Rva00332EC8 *p3, const void *ignored)
 {
 	Rva00332EC8 *output = p3;
-	Rva00332EC8 *source = p1;
-	Rva00332EC8 *sourceEnd = p2;
+	Rva00332EC8 *source = first;
+	Rva00332EC8 *sourceEnd = last;
 	while (source != sourceEnd)
 	{
 		Rva00333295Construct(output, *source);

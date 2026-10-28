@@ -14,7 +14,7 @@ class CommandButton {public:int getStance(int);const Image *rva0035B19E()const;
 class Rva0035B424 {public:void rva0035B424(int);};
 class Rva0057C22FByteChaseField {public:unsigned char get()const;};
 class Rva005C39AA {public:void rva005C39AA();};
-void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *,const Image *);
+void GadgetButtonSetEnabledImage(GameWindow *,const Image *);
 // ?StanceToButtonSlot@@YAHPAVCommandButton@@H@Z present-unmatched
 __declspec(noinline) static int StanceToButtonSlot(CommandButton *button,int stance) {
  int count=button->stances.size();
@@ -54,7 +54,7 @@ class StanceOwnerView {public:virtual void v0();virtual void v1();virtual void v
 class Rva00525E55 {public:void SetStance(int);char pad[0xC];StanceOwnerView *owner;GameWindow *window;CommandButton *button;};
 void Rva00525E55::SetStance(int stance) {
  reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
- GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
+ GadgetButtonSetEnabledImage(window,button->rva0035B19E());
  GameMessage *message=TheMessageStream->createMessage(0x468);
  message->appendIntegerArgument(stance);
  void *menu=owner->currentMenu();
@@ -78,7 +78,7 @@ class InGameToggleStanceCommandButton::Impl {public:
 };
 void InGameToggleStanceCommandButton::Impl::onStancesBehaviorStanceChanged(StancesBehavior &,int,int stance) {
  reinterpret_cast<Rva0035B424 *>(button)->rva0035B424(StanceToButtonSlot(button,stance));
- GadgetButtonSetEnabledImage_Rva002C0433(window,button->rva0035B19E());
+ GadgetButtonSetEnabledImage(window,button->rva0035B19E());
 }
 
 // Native56786B..567960 245B hidden TreeHintRef result; WB142F400 has

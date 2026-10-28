@@ -74,12 +74,12 @@ class Rva0004263F
 	virtual void _M_slot_63();
 	virtual void _M_slot_64();
 public:
-	void rva0004263F(float a, float b, float c, float d, int e);
+	void rva0004263F(float startX, float startY, float width, float height, int color);
 };
 
-void Rva0004263F::rva0004263F(float a, float b, float c, float d, int e)
+void Rva0004263F::rva0004263F(float startX, float startY, float width, float height, int color)
 {
 	_M_slot_53();
-	_M_slot_57(a, b, c, d, e);
+	_M_slot_57(startX, startY, width, height, color);
 	_M_slot_64();
 }

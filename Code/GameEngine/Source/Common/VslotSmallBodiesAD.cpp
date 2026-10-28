@@ -116,12 +116,12 @@ extern HotKeyManager *TheHotKeyManager;
 class HotKeyTranslator
 {
 public:
-	virtual GameMessageDisposition translateGameMessage(const GameMessage *a);
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 };
-GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage *a)
+GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage *msg)
 {
 	if (TheHotKeyManager)
-		return TheHotKeyManager->translate(a);
+		return TheHotKeyManager->translate(msg);
 	return KEEP_MESSAGE;
 }
 
