@@ -4276,7 +4276,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cp
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?destroy@CustomAsciiStringShim@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?release@Rva0048C200String@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StringBaseWideReleaseBuffer.cpp	?releaseBuffer@UnicodeString@@IAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp	?stop@Rva006105F0@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/URva005F8F96Rva001537D8.cpp	?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00ABUTag@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/UnicodeStringEmptyCleanup.cpp	?destroy@UnicodeStringCleanup@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/VectorCopyDispatchRva003F5B3E.cpp	?backwardDeep@@YAPAURva003F5B3ERecord@@PAU1@00ABURva003F5B3ETag@@PAH@Z	1
@@ -4453,6 +4452,7 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp	
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_compare_range.cpp	?compareRangeNoCase@@YAHPBGH0HUCharCompare@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp	??0?$StringBase@D@@QAE@PBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp	?init@CustomAsciiStringShim@@QAEXPBD@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	?stop@Rva006105F0@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/wwlib_pod_container_bodies.cpp	?Grow@?$SimpleDynVecClass@VVector3@@@@QAE_NH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot00@Rva005EA0F6StateBase@@UAEPAXI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/Rva005EA0F6Method.cpp	?slot04@Rva005EA0F6State@@UAEXXZ	1
@@ -11882,8 +11882,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva0014F4C2Over
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva005DBCD1Overflow.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/ThreadClassLifecycle.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/UnicodeFromAscii.cpp	"t",on	1
@@ -12035,6 +12033,8 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/strtok_r.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/strtok_r.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/systimer.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/systimer.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	"s",off	1
+pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/thread.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/trim.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/trim.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWMath/AABTreeCullO1Inlines.cpp	"",on	1
