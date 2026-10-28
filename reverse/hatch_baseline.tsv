@@ -1847,6 +1847,8 @@ alternatename	Code/GameEngine/Source/Common/CursorCompaction.cpp	?rva005B09D8@@Y
 alternatename	Code/GameEngine/Source/Common/D3DXTexCLockVolume.cpp	??0MaterialPassStage@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/D3DXTexCLockVolume.cpp	??0TextureClassPtr@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/D3DXTexCLockVolume.cpp	?b_00025e1e@@YAXXZ	1
+alternatename	Code/GameEngine/Source/Common/DOTManager.cpp	?rva0043B30F@Rva0043B2E2@@QAEPAXPBX@Z	1
+alternatename	Code/GameEngine/Source/Common/DOTManager.cpp	?rva0043B3A1Hidden@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@PAURva0043B2E2Node@@0PBH0@Z	1
 alternatename	Code/GameEngine/Source/Common/Debug_recordCallsite.cpp	?SkipNext@BfmeResetDebug@@SA_N_N@Z	1
 alternatename	Code/GameEngine/Source/Common/DictPairClear.cpp	?bfmeInitUBB@BfmeSubUBB@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp	??1Rva00539926Base@@UAE@XZ	1
@@ -4157,8 +4159,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0032E51BRangeForward.cpp	?R
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp	??1Rva003615E5Record@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva004152E6NewNode.cpp	?rva004152E6@Rva000427195@@QAEPAXPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00425CBEForEach.cpp	??RRva00425B75Deleter@@QBEXPAVLightPoint@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	?rva0043B30F@Rva0043B2E2@@QAEPAXPBX@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	?rva0043B3A1Hidden@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@PAURva0043B2E2Node@@0PBH0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp	?ji_006291ae@@YAPAXPAXHI@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00523DB7Ctor.cpp	?Rva0023FC23@@YAHPAUOut00524477@@PAHH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054103ECopy.cpp	??4Rva0054103E@@QAEAAV0@ABV0@@Z	1
@@ -12261,6 +12261,11 @@ present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	R
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::length	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	Rva00311FE2Words::Rva00311FE2Words	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	emitRva00311FE2Copy	1
+present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
+present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntTree::upper_bound	1
+present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	begin@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	end@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	rva0043B3A1@Rva0043B2E2@@QAEXAAPAU...	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFX::DamageFX	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFX::clear	1
 present_unmatched	Code/GameEngine/Source/Common/DamageFX.cpp	DamageFXStore::DamageFXStore	1
@@ -15549,11 +15554,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0020EE29Clear.cpp	rva00
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002299F1MetadataConstructors.cpp	RvaMapCacheEmptyAllocator::RvaMapCacheEmptyAllocator	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva002AE3F4Finish.cpp	append@Rva002A1B6FNativeList@@QAEXABQAX@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00383BACFinish.cpp	_M_insert@?$_Rb_tree@HU?$pair@$$CBHH@_STL@@U?$_Select1st@U?$pair@$$CBHH@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHH@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHH@_STL@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBHH@2@0@Z	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	_STL::EraseIntTree::upper_bound	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	begin@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	end@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva0043B35DErase.cpp	rva0043B3A1@Rva0043B2E2@@QAEXAAPAU...	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Iter@@QAE@PAURva004D1C81Node@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Pair@@QAE@PAURva004D1C81Node@@_N@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva004D1C81.cpp	0Rva004D1C81Pair@@QAE@URva004D1C81Iter@@_N@Z	1
