@@ -76,6 +76,7 @@ class AIGameTeam
 {
 public:
 	void addPlayer(const ModuleData *parent);
+	void *getMasterPlayer();
 
 private:
 	_STL::map<int, int> m_map; // +0x0
