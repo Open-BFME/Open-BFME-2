@@ -14,6 +14,10 @@
 // the same compiler flags meshgeometry.cpp uses, so the COMDATs come back
 // byte-identical to the ones Reset_Geometry used to pull in.
 
+#include <new>
+// The toolchain supplies placement operators too; suppress always.h's copies.
+#define _OPERATOR_NEW_DEFINED_
+
 // retail keeps one `vector constructor iterator' (??_H) copy, the /O1 body at
 // 0x00001423; this unemitted anchor makes this unit's copy that same body.
 struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
@@ -31,8 +35,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
 #include "meshgeometry.h"
-
-extern void __cdecl operator delete[](void *) throw();
 
 // ShareBufferClass<uint8> owns a raw byte array; the destructor frees it.
 // The rowed constructor installs vtable 0xBD43F8, whose deleting destructor
