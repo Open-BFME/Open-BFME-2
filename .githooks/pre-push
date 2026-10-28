@@ -17,6 +17,18 @@ fail() {
     exit 1
 }
 
+# stage NAME: report the seconds since the previous stage on stderr, so a slow push
+# shows where its time went (`pre-push: <stage> <seconds>s`). Bash's own clock, no fork.
+_stage_clock=${EPOCHREALTIME:-}
+stage() {
+    [ -n "$_stage_clock" ] || return 0
+    local now=$EPOCHREALTIME
+    local us=$(( (10#${now/./} - 10#${_stage_clock/./}) ))
+    printf 'pre-push: %s %d.%02ds
+' "$1" $((us / 1000000)) $((us % 1000000 / 10000)) >&2
+    _stage_clock=$now
+}
+
 # shadow_cap CMD...: a backstop for a shadow detector, which bounds itself
 # (tools/shadow_budget.py, $BFME_SHADOW_BUDGET_S, default 10 s): GNU timeout at the
 # budget plus 30 s where it exists (Git Bash, Linux, Wine runners). Windows' own
@@ -58,6 +70,7 @@ scope_from() {
     capture delta_out "delta_sources" python3 tools/delta_sources.py --range "$base" "$local_sha"
     mapfile -t delta < "$delta_out"
     rm -f "$delta_out"
+    stage "scope: delta_sources"
     # Units that call a name the range renames, removes or re-addresses (a row
     # or a pin) resolve their call sites through it: verify them too
     # (pre-commit's 3a; tools/name_dependents.py).
@@ -65,6 +78,7 @@ scope_from() {
         python3 tools/name_dependents.py --range "$base" "$local_sha"
     mapfile -t name_deps < "$name_deps_out"
     rm -f "$name_deps_out"
+    stage "scope: name_dependents"
 
     # Sources the range EDITS while leaving their ledger rows alone are absent
     # from that delta, so nothing byte-verifies them — yet one such edit can
@@ -100,10 +114,12 @@ for path in sorted(set(touched) & claimed):
 PY
     mapfile -t edited < "$edited_out"
     rm -f "$edited_out"
+    stage "scope: edited sources"
 
     capture flag_delta_out "flag_delta_sources" python3 tools/flag_delta_sources.py --range "$base" "$local_sha"
     mapfile -t flag_delta < "$flag_delta_out"
     rm -f "$flag_delta_out"
+    stage "scope: flag_delta_sources"
 
     # Sources a changed header or shim reaches (tools/header_dependents.py, as
     # pre-commit's scoped header gate) are byte-verified with the rest, so the
@@ -125,6 +141,7 @@ PY
         header_all=1
     fi
     rm -f "$header_range_out"
+    stage "scope: header_dependents"
 }
 
 # collect_verify: the scope_from lists, deduplicated in order, into verify.
@@ -307,13 +324,16 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
     # The build below reads the working-tree ledgers: they must be the pushed commit's.
     python3 tools/ledger_guard.py --commit "$local_sha" || fail "working-tree ledgers differ from $local_sha (see above)"
+    stage "ledger_guard"
     # Every gate below reads the ledgers by exact spelling: one tracked under
     # another case (Reverse/data_rows.csv) is served to the build by a
     # case-insensitive file system while those lookups miss it.
     python3 tools/check_case_collisions.py --ref "$local_sha" \
         || fail "case-only path collision, or a control path not in lowercase, in $local_sha (see above)"
+    stage "check_case_collisions"
 
     python3 tools/check_csv.py --ref "$local_sha" || fail "ledger integrity at $local_sha (see above)"
+    stage "check_csv"
 
     if [ "$remote_sha" != "$ZERO" ] && git cat-file -e "$remote_sha" 2>/dev/null; then
         base="$remote_sha"
@@ -329,6 +349,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # already on master pushed 57 of them on 2026-10-08..12 (277bfd21a8 landed, then 14
     # empty copies of it); every gate below passes a commit that changes no file. One git log.
     python3 tools/empty_commits.py --range "$base" "$local_sha" || fail "empty commit(s) in the outgoing range (see above)"
+    stage "empty_commits"
 
     # Direction gate over the OUTGOING range, same call verify_pr.sh makes on a
     # PR. pre-commit runs it too, but --no-verify and clones that never ran
@@ -337,6 +358,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # CONSTRUCTION. 89 lift commits reached origin through exactly this gap.
     # Runs before the build because it costs a second and the build costs minutes.
     python3 tools/conversion_gate.py "$base" "$local_sha" || fail "conversion direction (see above)"
+    stage "conversion_gate"
 
     # Identity, for the same reason conversion_gate runs here: byte-verification
     # cannot see it. reverse/symbols.csv is an ADDITIVE candidate list, so a pin
@@ -346,6 +368,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
     python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
         || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
+    stage "pin_consistency"
     # Verifier code and baselines: every outgoing commit that changes one
     # carries a Verifier-Change trailer, and shrink-only lists do not grow.
     # Judged by the checker as of the remote tip, so an outgoing edit to the
@@ -357,6 +380,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         git show "$local_sha:tools/protected_paths.py" | python3 - --range "$base" "$local_sha" \
             || fail "protected verifier/baseline change in outgoing range (see above)"
     fi
+    stage "protected_paths"
     # Recheck retirement even when commit-time hooks were skipped. Use the remote
     # implementation when available, and judge outgoing blobs/messages, not the index.
     capture debt_changes_out "listing outgoing debt-register changes" \
@@ -388,15 +412,19 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         rm -f "$debt_checker"
     fi
     rm -f "$debt_changes_out"
+    stage "debt registers"
     python3 tools/pin_admission.py --range "$base" "$local_sha" \
         || fail "pin/alias admission across the outgoing range (see above)"
+    stage "pin_admission"
     if git cat-file -e "$base:tools/gate_baseline.py" 2>/dev/null; then
         git show "$base:tools/gate_baseline.py" | python3 - --range "$base" "$local_sha" \
             || fail "gate_baseline.txt grew across the outgoing range (see above)"
     fi
+    stage "gate_baseline"
 
     python3 tools/eh_verify.py --assert-shrink-range "$base" "$local_sha" \
         || fail "eh_baseline.csv grew across the outgoing range (see above)"
+    stage "eh shrink-only"
 
     # The build below reads the working tree: bind it to the pushed commit for every
     # file the push changes and every tracked header or shim, so an edit left on
@@ -411,6 +439,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     fi
     git diff --quiet "$local_sha" -- '*.h' '*.hpp' '*.hh' '*.hxx' '*.inl' '*.inc' reference/shims vendor/stlport-4.6 vendor/stlport-4.6-bfme tools/stlport_overlay.py \
         || fail "a tracked header or shim differs from $local_sha in the working tree: commit or stash it first"
+    stage "working tree binding"
 
     scope_from "$base"
     collect_verify
@@ -425,6 +454,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         large_scope=1
         carried="$(python3 tools/full_gate_receipt.py find "$local_sha")" || carried=""
     fi
+    stage "receipt lookup"
     if [ -n "$carried" ]; then
         echo "pre-push: $carried passed the full gate in this clone; verifying what differs from it"
         scope_from "$carried"
@@ -433,6 +463,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     fi
     # The pushed commit, not HEAD: a push of an older commit builds what it pushes.
     check_worktree_chunks "$local_sha" "${verify[@]}"
+    stage "source binding"
     # Verify in chunks: a first push of a branch whose remote ref does not exist
     # yet falls back to merge-base, which on a fork rebased onto a much newer
     # upstream can list thousands of sources. Windows caps the argument list, so
@@ -475,6 +506,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     else
         build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
     fi
+    stage "byte-verify (${#verify[@]} sources, full=$full_scope)"
     # A carried full gate keeps the full gate's tree-wide checks: the checks that
     # compare sources with each other run over every row, and an exception-data or
     # converged-data list that changed since the carried commit is audited over
@@ -489,6 +521,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             python3 tools/data_check.py --converged --all --ref "$local_sha" --converged-base "$base"                 || fail "data identity over every source (data_converged.csv changed since $carried; see above)"
         fi
     fi
+    stage "carried cross-checks"
     # Data identity at converged addresses, ENFORCED: all sources for an
     # unbounded dependency change, otherwise exactly the byte-verified scope.
     if [ "$header_all" -ne 0 ]; then
@@ -509,6 +542,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from - \
             || fail "data identity: a second name for a converged data address in outgoing sources (see above)"
     fi
+    stage "eh + data audits"
     # Fail proven link regressions. Stale or missing evidence stays explicitly
     # inconclusive; it cannot establish either a regression or a clean result.
     link_scope=$(mktemp) || fail "temporary link audit source list"
@@ -526,6 +560,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         2|124|137) echo "pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out" >&2 ;;
         *) fail "link batch audit failed to run (exit $link_status)" ;;
     esac
+    stage "link_batch_audit"
     # Replayed commits, SHADOW: an outgoing commit with the author, author date and
     # subject of one already upstream (a possible replay), or whose patch-id or added
     # ledger lines are already there (a replay). Seats re-pushed old commits 3,541 times
@@ -534,6 +569,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # 10 s), then shadow_cap. Reports, never fails the push.
     shadow_cap python3 tools/replay_check.py --shadow --range "$base" "$local_sha" < /dev/null \
         || echo "pre-push: replay_check shadow check failed to run (ignored)" >&2
+    stage "replay_check"
     # A bounded scope of 512+ sources can also lose the race with master while
     # its chunks run, so it is recorded after all required checks pass. A rebased retry
     # carries it under the same verifier and dependency guards as a full gate.
@@ -547,7 +583,9 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             || echo "pre-push: could not record the full gate for $local_sha (a retry runs it again)" >&2
         [ -z "${gate_loads:-}" ] || rm -rf "$gate_loads"
     fi
+    stage "receipt record"
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"
 # Publisher rollout (tools/publisher_hook.py; mode in reverse/publisher_mode): shadow submits the landed range as a unit in the background and never fails the push; enforce queues it and refuses (exit 3).
 [ ! -f tools/publisher_hook.py ] || [ -n "${CHECKER_DIGEST:-}" ] || python3 tools/publisher_hook.py pre-push "${1:-origin}" <<< "$refs" || [ $? != 3 ] || exit 1
+stage "publisher_hook"
