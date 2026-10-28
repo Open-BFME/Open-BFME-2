@@ -358,6 +358,50 @@ def test_header_inline_anchor_no_longer_splits_its_class_span(header_inline):
     assert header_inline[0x600000]["tu"] == "Code/GameEngine/Source/Damage/DamageModule.cpp"
 
 
+def _copy_ctor(tmp_path, slot_cpp):
+    """Retail 0x0044B27F: LANGameSlot's copy constructor sits among LANAPI's rows (LANAPI's
+    RequestGameCreate copies a slot), while ZH's LANGameInfo.cpp defines only the default
+    constructor. Both files' rows here are Z anchors, so a Z on the copy breaks both spans."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Net"
+    zh.mkdir(parents=True)
+    (zh / "LANAPI.cpp").write_text("".join(f"void LANAPI::{m}()\n{{\n}}\n" for m in "fghi"))
+    (zh / "LANGameInfo.cpp").write_text(slot_cpp + "void LANGameInfo::f()\n{\n}\nvoid LANGameInfo::g()\n{\n}\n")
+    (tmp_path / "reverse").mkdir()
+    d = "Code/Net"
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("??0LANGameSlot@@QAE@XZ", 0x1000, 16, f"{d}/LANGameSlot.cpp"),
+        row("?f@LANGameInfo@@QAEXXZ", 0x1010, 16, f"{d}/LANGameInfo.cpp"),
+        row("?g@LANGameInfo@@QAEXXZ", 0x1020, 16, f"{d}/LANGameInfo.cpp"),
+        row("?f@LANAPI@@QAEXXZ", 0x2000, 16, f"{d}/LANAPI.cpp"),
+        row("?g@LANAPI@@QAEXXZ", 0x2010, 16, f"{d}/LANAPI.cpp"),
+        row("??0LANGameSlot@@QAE@ABV0@@Z", 0x2020, 16, f"{d}/LANGameSlotCopy.cpp"),
+        row("?h@LANAPI@@QAEXXZ", 0x2030, 16, f"{d}/LANAPI.cpp"),
+        row("?i@LANAPI@@QAEXXZ", 0x2040, 16, f"{d}/LANAPI.cpp"),
+    ]))
+    return {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+
+
+def test_implicit_copy_constructor_takes_no_anchor_from_another_constructor(tmp_path):
+    out = _copy_ctor(tmp_path, "LANGameSlot::LANGameSlot()\n{\n}\n")
+    copy = out[0x2020]
+    assert not any(k in copy["evidence"] for k in ("Z=", "S=", "N="))
+    assert (copy["tu"], copy["by"], copy["confidence"]) == ("Code/Net/LANAPI.cpp", "C", "approved")
+    for rva in (0x1000, 0x1010, 0x1020):
+        assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/Net/LANGameInfo.cpp", "approved"), hex(rva)
+    for rva in (0x2000, 0x2010, 0x2030, 0x2040):
+        assert (out[rva]["tu"], out[rva]["confidence"]) == ("Code/Net/LANAPI.cpp", "approved"), hex(rva)
+
+
+def test_copy_constructor_zh_defines_out_of_line_keeps_its_anchor(tmp_path):
+    # negative control: ZH's own `X::X( const X &` definition is an out-of-line Z anchor
+    out = _copy_ctor(tmp_path, "LANGameSlot::LANGameSlot()\n{\n}\n"
+                               "LANGameSlot::LANGameSlot( const LANGameSlot &that )\n{\n}\n")
+    copy = out[0x2020]
+    assert (copy["by"], copy["tu"]) == ("Z", "Code/Net/LANGameInfo.cpp")
+    assert "island" not in copy["evidence"]
+    assert out[0x2000]["confidence"] == "proposed" and "noncontiguous" in out[0x2000]["evidence"]
+
+
 # The W3DGameClient layout in retail: two in-class virtual factories (0x0004C4F9
 # createFontLibrary, 0x0004C5F8 createSnowManager) with the class's twelve
 # neighbouring rows between and after them, then W3DGameClient's own out-of-line

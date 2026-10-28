@@ -14,7 +14,11 @@ Signals, strongest first (one letter each in the `by` and `evidence` columns):
      paths survive in retail); the string IS the TU.
   Z  `Class::method(` is defined in that file of the Zero Hour reference (an
      out-of-line definition at file scope: balanced parameters, then a body
-     `{`; a call such as `Base::f(x);` or a data initializer is not one).
+     `{`; a call such as `Base::f(x);` or a data initializer is not one). A
+     copy constructor needs ZH's own `Class::Class(const Class &` definition:
+     another constructor of the class does not place it, because one ZH never
+     defines is MSVC's implicit COMDAT, emitted wherever a copy is made
+     (`implicit_copy()`), and it carries no S or N either.
   S  every ZH definition of `Class::` sits in one .cpp: the class's site.
   N  naming convention `<dir>/<Class>.cpp` (ModuleData suffix stripped); used
      only inside the address cluster an F/Z/S anchor or a run of N rows forms.
@@ -230,6 +234,10 @@ CTOR = re.compile(r"^\?\?(_G|_E|0|1)([A-Za-z_]\w*)@@")
 METHOD = re.compile(r"^\?([A-Za-z_]\w*)@([A-Za-z_]\w*)@@")
 PLACEHOLDER = re.compile(r"^(Rva|rva|Gen|gen|Sub|sub|FUN_)[0-9A-Fa-f_]")
 COMDAT = re.compile(r"^\?\?_[GE]|^\?friend_new|^\?\?[01]\w*ModuleData@@")
+# A copy constructor, `X::X(const X &)` (private, protected or public).
+COPY_CTOR = re.compile(r"^\?\?0([A-Za-z_]\w*)@@[AIQ]AE@ABV0@@Z$")
+# Its out-of-line definition in a ZH .cpp (comments and literals blanked first).
+COPY_DEF = re.compile(r"\b([A-Za-z_]\w*)\s*::\s*\1\s*\(\s*const\s+\1\s*&")
 # Comments and literals, so a commented-out or quoted `X::y(` is never read as code.
 CPP_NOISE = re.compile(r"//[^\n]*|/\*.*?\*/|\"(?:\\.|[^\"\\\n])*\"|'(?:\\.|[^'\\\n])*'", re.S)
 # An out-of-line definition opens at file scope: column 0, no statement keyword, no
@@ -314,9 +322,11 @@ class Paths:
 
 
 def zh_index(layout, paths):
-    meth, sites = {}, collections.defaultdict(set)
+    """({(class, method): file}, {class: its one site file}, classes whose copy
+    constructor a ZH .cpp defines out of line)."""
+    meth, sites, copies = {}, collections.defaultdict(set), set()
     if not layout.zh.exists():
-        return meth, {}
+        return meth, {}, copies
     for dp, dn, fn in sorted(os.walk(layout.zh)):
         dn.sort()
         for f in sorted(fn):
@@ -331,7 +341,18 @@ def zh_index(layout, paths):
             for c, m in zh_definitions(text):
                 meth.setdefault((c, m), rel)
                 sites[c].add(rel)
-    return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}
+            copies.update(m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text)))
+    return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}, copies
+
+
+def implicit_copy(name, cls, meth, zmeth, zsite, copies):
+    """True for a copy constructor of a class ZH knows (it defines a constructor of the
+    class or has a site) but whose copy form no ZH .cpp defines: MSVC wrote it, and emits
+    it as a COMDAT in whichever unit makes a copy (LANAPI's for ??0LANGameSlot@@QAE@ABV0@@Z
+    at 0x0044B27F), not in the file defining another constructor. Like a header-inline
+    body it gets no Z, S or N."""
+    return bool(cls and COPY_CTOR.match(name) and cls not in copies
+                and ((cls, meth) in zmeth or cls in zsite))
 
 
 # `class X ... {` and, inside it, the name that opens a member head: the first
@@ -816,7 +837,7 @@ def evidence_rows(layout, ledger=None):
         return None
 
     paths = Paths(layout, {r["source"] for r in rows if r["source"]})
-    zmeth, zsite = zh_index(layout, paths)
+    zmeth, zsite, zcopy = zh_index(layout, paths)
     zhead = zh_header_members(layout)
     F = file_strings(layout, paths, owner)
     W = wb_files(layout, paths)
@@ -827,7 +848,8 @@ def evidence_rows(layout, ledger=None):
         r["F"] = F.get(r["rva"])
         r["W"], lead = W.get(r["rva"], (None, None))
         r["Wself"] = bool(lead and wb_self(lead, r))
-        r["Z"] = zmeth.get((r["cls"], r["meth"])) if r["cls"] else None
+        r["implicit"] = implicit_copy(r["name"], r["cls"], r["meth"], zmeth, zsite, zcopy)
+        r["Z"] = zmeth.get((r["cls"], r["meth"])) if r["cls"] and not r["implicit"] else None
         lib = upstream.get(r["source"], (None,))[0]
         r["Lcand"] = r["source"] if lib and defined.get((lib, c_symbol(r["name"]))) == r["source"] else None
     z_anchors = sorted((r["rva"], r["Z"]) for r in rows if r["Z"])   # out-of-line ZH definitions
@@ -838,6 +860,7 @@ def evidence_rows(layout, ledger=None):
         if inline and not r["name"].startswith("??0") and beside_own_site(r["rva"], zsite.get(cls),
                                                                              z_anchors, z_rvas):
             inline = False
+        inline = inline or r["implicit"]
         r["S"] = zsite.get(cls) if cls and not COMDAT.match(r["name"]) and not inline else None
         base = re.sub(r"ModuleData$", "", cls or "")
         r["N"] = (os.path.dirname(r["source"]) + "/" + base + ".cpp") if base and r["source"] \
