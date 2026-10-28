@@ -557,6 +557,8 @@ public:
 	void init(Vector3 fromLoc, Vector3 toLoc, AsciiString name);
 public:
 	bool load(BodyDamageType curDamageState);
+public:
+	void getIndicesNVertices(unsigned short *destination_ib, VertexFormatXYZNDUV1 *destination_vb, int *curIndexP, int *curVertexP, RefRenderObjListIterator *pLightsIterator);
 };
 
 class W3DBridgeBuffer
@@ -596,6 +598,8 @@ public:
 public:
 	void clearAllBridges(void);
 };
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBuffer.cpp
 
@@ -881,8 +885,6 @@ void W3DBridgeBuffer::loadBridges(W3DTerrainLogic *pTerrainLogic, bool saveGame)
 		pTerrainLogic->updateBridgeDamageStates();
 }
 
-// tu-skeleton: 0x000DD97F 239B ??0W3DBridge@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeDestructor.cpp
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/AsciiString.h
@@ -891,8 +893,6 @@ W3DBridge::~W3DBridge(void)
 {
 	clearBridge();
 }
-
-// tu-skeleton: 0x000DDAB7 96B ?renderBridge@W3DBridge@@QAEXPAVRenderingMethod@FXShader@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferDrawBridges.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVertices.cpp
 
@@ -981,18 +981,6 @@ void _bfmeW3DBridgeGetModelVerticesAnchor()
 		*(Vector3 *)0, *(const Matrix3D *)0, 0, 0);
 }
 
-// tu-skeleton: 0x000DE2AE 573B ?getModelVerticesFixed@W3DBridge@@IAEHPAUVertexFormatXYZNDUV1@@HABVMatrix3D@@PAVMeshClass@@PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp (not merged yet)
-
-// tu-skeleton: 0x000DE59C 27B ?rva000DE59C@Rva000DE59C@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp (not merged yet)
-
-// tu-skeleton: 0x000DE5B7 27B ?rva000DE5B7@Rva000DE5B7@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp (not merged yet)
-
-// tu-skeleton: 0x000DE648 2774B ?load@W3DBridge@@QAE_NW4BodyDamageType@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp (not merged yet)
-
-// tu-skeleton: 0x000DF11E 1038B ?getIndicesNVertices@W3DBridge@@QAEXPAGPAUVertexFormatXYZNDUV1@@PAH2PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp (not merged yet)
-
-// tu-skeleton: 0x000DF52C 230B ?loadBridgesInVertexAndIndexBuffers@W3DBridgeBuffer@@QAEXPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferAddBridge.cpp
 
 //
@@ -1023,6 +1011,39 @@ void W3DBridgeBuffer::addBridge(Vector3 fromLeft, Vector3 fromRight, AsciiString
 	}
 }
 
+// tu-skeleton: 0x000DD97F 239B ??0W3DBridge@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000DDAB7 96B ?renderBridge@W3DBridge@@QAEXPAVRenderingMethod@FXShader@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferDrawBridges.cpp (not merged yet)
+
+// tu-skeleton: 0x000DE2AE 573B ?getModelVerticesFixed@W3DBridge@@IAEHPAUVertexFormatXYZNDUV1@@HABVMatrix3D@@PAVMeshClass@@PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp (not merged yet)
+
+// tu-skeleton: 0x000DE59C 27B ?rva000DE59C@Rva000DE59C@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp (not merged yet)
+
+// tu-skeleton: 0x000DE5B7 27B ?rva000DE5B7@Rva000DE5B7@@QAE?AVAsciiString@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DTerrainLogic.cpp (not merged yet)
+
+// tu-skeleton: 0x000DE648 2774B ?load@W3DBridge@@QAE_NW4BodyDamageType@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp (not merged yet)
+
+// tu-skeleton: 0x000DF11E 1038B ?getIndicesNVertices@W3DBridge@@QAEXPAGPAUVertexFormatXYZNDUV1@@PAH2PAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeGetModelVerticesFixed.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp
+
+// ?loadBridgesInVertexAndIndexBuffers@W3DBridgeBuffer@@QAEXPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z @0x000DF52C
+void W3DBridgeBuffer::loadBridgesInVertexAndIndexBuffers(RefRenderObjListIterator *pLightsIterator)
+{
+	if (!m_indexBridge || !m_vertexBridge || !m_initialized || !m_numBridges)
+		return;
+
+	m_curNumBridgeVertices = 0;
+	m_curNumBridgeIndices = 0;
+	BFMEDX8DeviceLock lock;
+	IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexBridge, 0x2000);
+	VertexBufferClass::WriteLockClass lockVtxBuffer(m_vertexBridge, 0x2000);
+	VertexFormatXYZNDUV1 *vb = (VertexFormatXYZNDUV1 *)lockVtxBuffer.Get_Vertex_Array();
+	unsigned short *ib = lockIdxBuffer.Get_Index_Array();
+	for (int curBridge = 0; curBridge < m_numBridges; curBridge++)
+		m_bridges[curBridge].getIndicesNVertices(ib, vb, &m_curNumBridgeIndices, &m_curNumBridgeVertices, pLightsIterator);
+}
+
 // tu-skeleton: 0x000DF776 966B ?drawBridges@W3DBridgeBuffer@@QAEXAAVRenderInfoClass@@V?$RefCountPtr@VRenderingMethod@FXShader@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferDrawBridges.cpp (not merged yet)
 
 // tu-skeleton: 0x00762E2C 11B $L1249 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeCtor.cpp (not merged yet)
@@ -1032,14 +1053,6 @@ void W3DBridgeBuffer::addBridge(Vector3 fromLeft, Vector3 fromRight, AsciiString
 // tu-skeleton: 0x00762E9C 8B $L1941 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp (not merged yet)
 
 // tu-skeleton: 0x00762EA4 10B __ehhandler$?load@W3DBridge@@QAE_NW4BodyDamageType@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeLoad.cpp (not merged yet)
-
-// tu-skeleton: 0x00762EAE 8B uw_00762eae -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp (not merged yet)
-
-// tu-skeleton: 0x00762EB6 8B Unwind@00b62eb6 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp (not merged yet)
-
-// tu-skeleton: 0x00762EBE 8B Unwind@00b62ebe -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp (not merged yet)
-
-// tu-skeleton: 0x00762EC6 10B __ehhandler$?loadBridgesInVertexAndIndexBuffers@W3DBridgeBuffer@@QAEXPAV?$RefMultiListIterator@VRenderObjClass@@@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferLoadBridgesInVertexAndIndexBuffers.cpp (not merged yet)
 
 // tu-skeleton: 0x00762ED0 8B Unwind@00b62ed0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DBridgeBufferDrawBridges.cpp (not merged yet)
 
