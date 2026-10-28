@@ -33,6 +33,7 @@ protected:
 	class Object *m_object;		// +0x08
 	unsigned char m_pad0C[0x20 - 0x0C];
 };
+
 class SpecialPowerUpdateInterface
 {
 public:
@@ -40,11 +41,13 @@ public:
 	virtual void u4(); virtual void u5(); virtual void u6(); virtual void u7();
 	virtual bool rva0044EDA6(int value);
 };
+
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
 	virtual bool rva0044EDA6(int value);
 };
+
 class ToggleDeploySpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
@@ -52,11 +55,36 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+//
+// ToggleDeploySpecialAbilityUpdate slot 8 of its +0x20 interface table
+// 0x00C55348, retail 0x004AE583 (53 bytes), so `this` is that subobject (the
+// Object at -0x18): false for an Object of kind 0x5E or 0x60, otherwise the
+// SpecialAbilityUpdate +0x20 slot-8 base 0x0044EDA6 (the slot-8 entry of the
+// special-ability +0x20 tables; pinned by address). Named by the base's
+// address.
+typedef bool Bool;
+
+enum KindOfType
+{
+	KINDOF_BFME_5E = 0x5e,
+	KINDOF_BFME_60 = 0x60
+};
+
+class Object
+{
+public:
+	Bool isKindOf(KindOfType kind) const;
+};
+
+class ModuleData;
+
 // tu-skeleton: 0x004AE4AB 49B ??0ToggleDeploySpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE4DC 6B ?Rva004AE4DCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004AE4E2 32B ??1Rva004AE4E2@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdatePoolKey.cpp
 
@@ -72,7 +100,15 @@ NameKeyType ToggleDeploySpecialAbilityUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x004AE567 28B ??_GRva004AE4E2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
 
-// tu-skeleton: 0x004AE583 53B ?rva0044EDA6@ToggleDeploySpecialAbilityUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot8.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot8.cpp
+
+Bool ToggleDeploySpecialAbilityUpdate::rva0044EDA6(int value)
+{
+	Object *obj = m_object;
+	if (obj->isKindOf(KINDOF_BFME_5E) || obj->isKindOf(KINDOF_BFME_60))
+		return false;
+	return SpecialAbilityUpdate::rva0044EDA6(value);
+}
 
 // tu-skeleton: 0x004AE5B8 124B ?rva004AE5B8@ToggleDeploySpecialAbilityUpdate@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot23.cpp (not merged yet)
 
