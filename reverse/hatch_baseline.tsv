@@ -10785,8 +10785,8 @@ pragma_optimize	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightF
 pragma_optimize	Code/GameEngine/Source/GameClient/GUI/ProcessAnimateWindowRightFastInitReverse.cpp	"y",on	2
 pragma_optimize	Code/GameEngine/Source/GameClient/GameClient.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/GameClient.cpp	"gsy",on	1
-pragma_optimize	Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp	"gsy",on	1
+pragma_optimize	Code/GameEngine/Source/GameClient/GlobalLanguage.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameClient/GlobalLanguage.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/InGameUI.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/InGameUI.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameClient/InGameUIMessages.cpp	"",on	1

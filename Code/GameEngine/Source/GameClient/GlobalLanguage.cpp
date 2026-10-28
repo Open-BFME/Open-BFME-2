@@ -9,56 +9,36 @@ extern "C" char *__cdecl _mbscat(char *dest, const char *source);
 #define REAL_TO_INT_FLOOR(x) (fast_float2long_round((Real)floor((double)(x))))
 #pragma comment(linker, "/alternatename:??1Rva001EAD69Entry@@QAE@XZ=??1Rva001EA443@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?push_front@Rva001EAD69List@@QAEXABURva001EAD69Entry@@@Z=?push_front@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@QAEXABUBfmeStringRecord001EA478@@@Z")
-
 typedef void *HANDLE;
-
 typedef void *HMODULE;
-
 typedef unsigned long DWORD;
-
 typedef int BOOL;
-
 extern "C" __declspec(dllimport) HMODULE __stdcall LoadLibraryA(const char*);
-
 extern "C" __declspec(dllimport) void * __stdcall GetProcAddress(HMODULE,const char*);
-
 extern "C" __declspec(dllimport) BOOL __stdcall FreeLibrary(HMODULE);
-
 extern "C" __declspec(dllimport) DWORD __stdcall GetTempPathA(DWORD,char*);
-
 extern "C" __declspec(dllimport) BOOL __stdcall CreateDirectoryA(const char*,void*);
-
 extern "C" __declspec(dllimport) DWORD __stdcall GetTempFileNameA(const char*,const char*,DWORD,char*);
-
 extern "C" __declspec(dllimport) HANDLE __stdcall CreateFileA(const char*,DWORD,DWORD,void*,DWORD,DWORD,HANDLE);
-
 extern "C" __declspec(dllimport) BOOL __stdcall WriteFile(HANDLE,const void*,DWORD,DWORD*,void*);
-
 extern "C" __declspec(dllimport) BOOL __stdcall CloseHandle(HANDLE);
-
 extern "C" __declspec(dllimport) BOOL __stdcall DeleteFileA(const char*);
-
 extern const char BfmeFontExtractionDirectoryName[]="{70FF7DF1-E69E-47df-9AA6-F062FADD6146}";
-
 const char *BfmeFontExtractionDirectory=BfmeFontExtractionDirectoryName;
-
 class Xfer;
-
 enum INILoadType{INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
-
 class File{public:
  virtual void v0();virtual void v1();virtual void v2();virtual void v3();virtual void v4();virtual void v5();
  virtual void v6();virtual void v7();virtual void v8();virtual void v9();virtual void v10();virtual int size();virtual void v12();virtual char *readEntireAndClose();
  char unknown04[9];bool deleteWhenClosed;
  void deleteOnClose(){deleteWhenClosed=true;}
 };
-
 class FileSystem{public:File *openFile(const char*,int,int=0);};
-
 extern FileSystem *TheFileSystem;
-
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include <stl/_alloc.h>
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 
 struct FontDesc
 {
@@ -152,7 +132,6 @@ public:
 };
 
 extern class GlobalData *TheWritableGlobalData;
-
 
 // INI::parseLanguageDefinition, retail 0x001EA3F4 (25 bytes): the "Language"
 // block parser (registration VA 0x00DB8F98 binds the token to 0x001EA3F4,
@@ -250,6 +229,24 @@ class Rva001EAD69List {public:void push_front(const Rva001EAD69Entry&);};
 
 struct Rva001EAD69Owner {unsigned char unknown[0x138];Rva001EAD69List entries;};
 
+// Preserve retail's inline node/buffer free; the public allocator is supplied by its verified owner.
+namespace _STL {
+#pragma optimize("gsy", on)
+template <> __forceinline void allocator<_List_node< ::Rva001EA443 > >::deallocate(_List_node< ::Rva001EA443 > *p, size_t) const { if (p != 0) free(p); }
+#pragma optimize("", on)
+}
+
+// bfme link decl-only begin
+namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
+
+namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned int); }
+
+// bfme link decl-only end
+
+AsciiString GetRegistryLanguage();
+
+// ---- from Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GlobalLanguage.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GlobalLanguageAdjustFontSize.cpp
@@ -327,34 +324,6 @@ void GlobalLanguage::init(){
  }
 }
 
-// tu-skeleton: 0x001EA443 53B ??1Rva001EA443@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA478 61B ??0BfmeStringRecord001EA478@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA4B5 28B ??_GRva001EA443@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA4D1 45B ??$_Construct@UBfmeStringRecord001EA478@@U1@@_STL@@YAXPAUBfmeStringRecord001EA478@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA4FE 9B ??$_Destroy@URva001EA443@@@_STL@@YAXPAURva001EA443@@@Z -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA507 34B ?_M_create_node@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeStringRecord001EA478@@@2@ABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA529 49B ?clear@?$_List_base@URva001EA443@@V?$allocator@URva001EA443@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA77F 473B ?onGameEngineExit@GlobalLanguage@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA958 37B ?insert@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord001EA478@@U?$_Nonconst_traits@UBfmeStringRecord001EA478@@@_STL@@@2@U32@ABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA97D 23B ??1?$_List_base@URva001EA443@@V?$allocator@URva001EA443@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA994 28B ?push_front@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@QAEXABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA9B0 5B ??1?$list@URva001EA443@@V?$allocator@URva001EA443@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001EA9B5 502B ??0GlobalLanguage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001EABAB 446B ??1GlobalLanguage@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/INI/StringEntryParserRva001EAD69.cpp
 
 // Target Ghidra [0x001EAD69,0x001EADD4),107B. This body consumes an
@@ -376,7 +345,76 @@ void parseStringEntryRva001EAD69(INI*ini,Rva001EAD69Owner*owner) {
  owner->entries.push_front(entry);
 }
 
-// tu-skeleton: 0x001EADD4 28B ??_GGlobalLanguage@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
+// tu-skeleton: 0x001EA443 53B ??1Rva001EA443@@QAE@XZ -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA478 61B ??0BfmeStringRecord001EA478@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA4B5 28B ??_GRva001EA443@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA4D1 45B ??$_Construct@UBfmeStringRecord001EA478@@U1@@_STL@@YAXPAUBfmeStringRecord001EA478@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp
+
+// ??1GlobalLanguage@@UAE@XZ retail 0x001EABAB 446 bytes.
+// GlobalLanguage destructor: vtable 0x007DEFC8 then list at +0x138 via rowed
+// List_base dtor 0x001EA97D then 28 string members via rowed releaseBuffer
+// 0x00036410 then base SubsystemInterface dtor 0x001B4E74. Layout from
+// retail offsets: 5 AsciiStrings at +0xC-0x1C then 23 FontDescs at
+// +0x20-0x128 (AsciiString at +0) then Real at +0x134 then list at +0x138.
+// Identity: vtable followed by Language string plus same class as rowed
+// adjustFontSize 0x001EA40D plus initSubsystem<GlobalLanguage> literal
+// 0x00DFDC84 plus callers feeding getFont. ZH donor GlobalLanguage.h plus
+// BFME1 GlobalLanguage.cpp field table; BFME2 adds members so retail offsets
+// rule. Base size 0xC and destructor are owned by subsystem/SubsystemInterface.cpp.
+
+inline bool operator==(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
+
+inline bool operator<(const Rva001EA443 &x, const Rva001EA443 &y) { return false; }
+
+GlobalLanguage::~GlobalLanguage() {}
+
+void famgenDeleteGlobalLanguage(GlobalLanguage *globalLanguage) { delete globalLanguage; }
+
+// tu-skeleton: 0x001EA507 34B ?_M_create_node@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeStringRecord001EA478@@@2@ABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA529 49B ?clear@?$_List_base@URva001EA443@@V?$allocator@URva001EA443@@@_STL@@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA77F 473B ?onGameEngineExit@GlobalLanguage@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA958 37B ?insert@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeStringRecord001EA478@@U?$_Nonconst_traits@UBfmeStringRecord001EA478@@@_STL@@@2@U32@ABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA97D 23B ??1?$_List_base@URva001EA443@@V?$allocator@URva001EA443@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_rva001EA443_clear.cpp (not merged yet)
+
+// tu-skeleton: 0x001EA994 28B ?push_front@?$list@UBfmeStringRecord001EA478@@V?$allocator@UBfmeStringRecord001EA478@@@_STL@@@_STL@@QAEXABUBfmeStringRecord001EA478@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_001ea478_insert.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp
+
+//
+// ??0GlobalLanguage@@QAE@XZ, retail 0x001EA9B5, 502 bytes.
+//
+// The pin has carried this ctor address since the GameEngine::init recovery,
+// and GlobalLanguageDtor.cpp (rowed 0x001EABAB) fixes the same member offsets
+// this ctor constructs: subsystem base 0x001B4E63, vtable 0x007DEFC8, the
+// separator strings ".", "," and ":" at +0xC/+0x10/+0x14, the language string
+// from the rowed GetRegistryLanguage 0x00235029 at +0x20, bool +0x24 and int
+// +0x28, twenty-two FontDesc members at +0x2C..+0x128 through the rowed
+// FontDesc ctor 0x00376900, the 0.7f at +0x134 (the shared constant at
+// 0x00BC8180), and the list at +0x138. The three trailing releaseBuffer calls
+// destroy +0x18, +0x1C and again +0x18, matching the three clear() calls.
+
+GlobalLanguage::GlobalLanguage()
+	: m_s00C("."),
+	  m_s010(","),
+	  m_s014(":"),
+	  m_language(GetRegistryLanguage()),
+	  m_useHardWrap(false),
+	  m_militaryCaptionSpeed(0),
+	  m_res134(0.7f)
+{
+	m_s018.clear();
+	m_s01C.clear();
+	m_s018.clear();
+}
 
 // tu-skeleton: 0x0076A17C 14B uw_0076a17c -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
@@ -390,124 +428,4 @@ void parseStringEntryRva001EAD69(INI*ini,Rva001EAD69Owner*owner) {
 
 // tu-skeleton: 0x0076A1C1 10B __ehhandler$?onGameEngineExit@GlobalLanguage@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageOnGameEngineExit.cpp (not merged yet)
 
-// tu-skeleton: 0x0076A1CB 8B Unwind@00b6a1cb -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A1D3 11B Unwind@00b6a1d3 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A1DE 11B Unwind@00b6a1de -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A1E9 11B Unwind@00b6a1e9 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A1F4 11B Unwind@00b6a1f4 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A1FF 11B Unwind@00b6a1ff -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A20A 11B Unwind@00b6a20a -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A215 11B $L6140 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A220 11B $L6141 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A22B 11B $L6142 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A236 11B $L6143 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A241 11B $L6144 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A24C 11B $L6145 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A257 11B $L6146 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A262 14B $L6147 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A270 14B $L6148 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A27E 14B $L6149 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A28C 14B $L6150 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A29A 14B $L6151 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2A8 14B $L6152 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2B6 14B $L6153 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2C4 14B $L6154 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2D2 14B $L6155 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2E0 14B $L6156 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2EE 14B $L6157 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A2FC 14B $L6158 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A30A 14B $L6159 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A318 14B $L6160 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A326 14B $L6161 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
 // tu-skeleton: 0x0076A334 14B uw_0076a334 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A342 10B __ehhandler$??0GlobalLanguage@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A34C 8B Unwind@00b6a34c -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A354 11B Unwind@00b6a354 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A35F 11B Unwind@00b6a35f -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A36A 11B Unwind@00b6a36a -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A375 11B Unwind@00b6a375 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A380 11B Unwind@00b6a380 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A38B 11B $L5980 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A396 11B $L5981 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3A1 11B $L5982 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3AC 11B $L5983 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3B7 11B $L5984 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3C2 11B $L5985 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3CD 11B $L5986 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3D8 11B $L5987 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3E3 14B $L5988 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3F1 14B $L5989 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A3FF 14B $L5990 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A40D 14B $L5991 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A41B 14B $L5992 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A429 14B $L5993 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A437 14B $L5994 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A445 14B $L5995 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A453 14B $L5996 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A461 14B $L5997 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A46F 14B $L5998 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A47D 14B $L5999 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A48B 14B $L6000 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A499 14B $L6001 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A4A7 14B $L6002 -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076A4B5 10B __ehhandler$??1GlobalLanguage@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GlobalLanguageDtor.cpp (not merged yet)
