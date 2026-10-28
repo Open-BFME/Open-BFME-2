@@ -18,13 +18,17 @@ public:
 	Bool isKindOf(KindOfType kind) const;
 };
 class ModuleData;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
 class UpdateModule
 {
 public:
 	virtual ~UpdateModule();
 protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
+	const class ModuleData *m_moduleData;	// +0x04
+	class Object *m_object;		// +0x08
 	unsigned char m_pad0C[0x20 - 0x0C];
 };
 class SpecialPowerUpdateInterface
@@ -32,17 +36,18 @@ class SpecialPowerUpdateInterface
 public:
 	virtual void u0(); virtual void u1(); virtual void u2(); virtual void u3();
 	virtual void u4(); virtual void u5(); virtual void u6(); virtual void u7();
-	virtual Bool rva0044EDA6(int value);
+	virtual bool rva0044EDA6(int value);
 };
 class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
 {
 public:
-	virtual Bool rva0044EDA6(int value);
+	virtual bool rva0044EDA6(int value);
 };
 class ToggleDeploySpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
-	virtual Bool rva0044EDA6(int value);
+	virtual bool rva0044EDA6(int value);
+	virtual NameKeyType getModuleNameKey() const;
 };
 Bool ToggleDeploySpecialAbilityUpdate::rva0044EDA6(int value)
 {
