@@ -168,7 +168,6 @@ Code/Libraries/Source/WWVegas/WW3D2/MaterialCollectorDestructor.cpp	?Resize@?$Ve
 Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoCopyCtor.cpp	uw_00767978	??1MaterialVector@@QAE@XZ	0x0016F580	wrong
 Code/Libraries/Source/WWVegas/WW3D2/MaterialInfoCopyCtor.cpp	uw_00767983	??1TextureVector@@UAE@XZ	0x0016FDB0	wrong
 Code/Libraries/Source/WWVegas/WW3D2/Rva943E10CompressedAnimFree.cpp	?free@Rva943E10CompressedAnim@@QAEXXZ	??1Rva943E10NodeMotion@@QAE@XZ	0x00141CA0	wrong
-Code/Libraries/Source/WWVegas/WW3D2/ShareBufferClassTextureCopyCtor.cpp	??0?$ShareBufferClass@PAVTextureClass@@@@QAE@ABV0@@Z	??0TextureSlot@@QAE@XZ	0x00326BE6	wrong
 Code/Libraries/Source/WWVegas/WW3D2/SimpleSceneClass_dtor.cpp	uw_007660a0	??1BfmeSceneBase@@UAE@XZ	0x00724510	wrong
 Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	??0DX8FVFCategoryContainer@@QAE@I_N@Z	??0?$MultiListClass@VDX8TextureCategoryClass@@@@QAE@XZ	0x00143D40	wrong
 Code/Libraries/Source/WWVegas/WW3D2/dx8renderer.cpp	??0DX8FVFCategoryContainer@@QAE@I_N@Z	??1?$MultiListClass@VDX8TextureCategoryClass@@@@UAE@XZ	0x001446F0	wrong

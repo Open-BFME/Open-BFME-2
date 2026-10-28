@@ -1772,6 +1772,17 @@ removed-provider scope in the next census. The batch audit remains inconclusive.
 
 **Status: Open. Updated: 2026-10-26; inspected revision: 896af216804e1f1e34de28bd318285fbbbfcc536.**
 
+**Texture share-buffer callback identity (2026-10-28, inspected `af996f496c`, index `d92e7e6635`):**
+ShareBufferClassTextureCopyCtor.cpp now allocates its texture slots with the
+existing `RefCountPtr<TextureClass>` callback identity instead of the private
+`TextureSlot` spelling. All four rows and the parent EH graph remain exact;
+all ten COMDATs retain their bytes and relocation fingerprints after translating
+only those callback/helper names. The owning identity scan reports zero wrong
+bindings, and `repair_queue.py retire identity` removes its one registered key.
+The ordinary preview preserves LINKS (294 authored bytes); this clears only
+this unit's callback identity debt, with no census coverage gain claimed.
+[Scoped evidence](../reverse/attempt_support/texture-sharebuffer-identity-20261028-codex3.md).
+
 **GameSpy map header identities (2026-10-28, inspected `35dfb290bb`):**
 corrected the string-pair and string/list-pair tree-header constructors to call
 the native byte allocator with `(24, 0)`, and suppressed the shared provider's

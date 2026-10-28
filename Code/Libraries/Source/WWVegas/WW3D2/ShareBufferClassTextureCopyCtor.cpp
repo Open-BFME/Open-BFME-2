@@ -5,7 +5,7 @@
 // (reference/open-bfme-1/.../WWLib/sharebuf.h, Array = new T[Count] then
 // RawBuffer = Array, plus the alignment branch from the 3-arg ctor) copies
 // raw pointers, but BFME2's texture elements are ref-counted, so each slot
-// goes through vector-new over a 4-byte init-once slot type (retail calls
+// goes through vector-new over a 4-byte RefCountPtr<TextureClass> (retail calls
 // the eh-vector constructor at 0x629512) and the copy loop AddRefs the
 // incoming pointer (word at +4, inline) while releasing the outgoing one
 // out of line (TextureBaseClass::Release_Ref at 0x61ED10) before the store
@@ -28,12 +28,17 @@ class TextureClass : public TextureBaseClass
 {
 };
 
-struct TextureSlot
+// The vector-new callback pair is the existing RefCountPtr<TextureClass>
+// constructor at 0x00326BE6 and destructor at 0x0017098D. Use that provider
+// identity, as fxshadernamespacesas.cpp does for its texture handles.
+template <class T>
+class RefCountPtr
 {
-	TextureSlot() : m_ptr(0) {}
-	~TextureSlot() { if (m_ptr != 0) m_ptr->Release_Ref(); }
+public:
+	RefCountPtr() : m_ptr(0) {}
+	~RefCountPtr() { if (m_ptr != 0) m_ptr->Release_Ref(); }
 
-	TextureClass *m_ptr;
+	T *m_ptr;
 };
 
 #pragma optimize("s", on)
@@ -84,7 +89,7 @@ ShareBufferClass<T>::ShareBufferClass(const ShareBufferClass<T> &that) :
 	m_alignment = that.m_alignment;
 	if (m_alignment == 0)
 	{
-		m_rawBuffer = (T *)new TextureSlot[m_count];
+		m_rawBuffer = (T *)new RefCountPtr<TextureClass>[m_count];
 		m_array = m_rawBuffer;
 	}
 	else
