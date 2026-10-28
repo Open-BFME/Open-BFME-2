@@ -24553,7 +24553,7 @@ __Locale_wchar_toupper,,0x00020AC0,39,Code/Libraries/Source/WWVegas/WWLib/Rva008
 ?Rva004E432ASet@@YAXE@Z,,0x004E432A,34,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,matched,flag setter on 4E4179 block via rowed enable caller 3BD412
 ??0Rva00585B16@@QAE@ABV0@@Z,,0x0058596B,91,Code/Libraries/Source/WWVegas/WWLib/Rva00585B16Dtor.cpp,matched,copy ctor copies scalars deque m50 same layout
 ??$_Construct@VRva00585B16@@V1@@_STL@@YAXPAVRva00585B16@@ABV1@@Z,,0x005859C6,45,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva585B16.cpp,matched,null-guarded placement copy calls rowed copy 0x58596B
-??0Made002CC971@@QAE@XZ,,0x0050ABF7,18,Code/GameEngine/Source/GameLogic/Object/Made002CC971Ctor.cpp,matched,SlaveAttack ctor via base 0x0050775B vtable caller 0x002CC996
+??0Made002CC971@@QAE@XZ,,0x0050ABF7,18,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,matched,SlaveAttack ctor via base 0x0050775B vtable caller 0x002CC996
 ??1Rva0050A7AD@@UAE@XZ,,0x0050A7AD,56,Code/GameEngine/Source/GameLogic/Object/Rva0050A7ADDtor.cpp,matched,dtor filter at 0x160 base 0x00507823 caller 0x0050A791
 ??_GRva0025EF18@@UAEPAXI@Z,,0x0025EFF1,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-06-25EFF1.cpp,matched,deleting dtor calls rowed 0x25EF18 plus delete
 ??$_M_allocate_and_copy@PAVRva000BB4AC@@@?$vector@VRva000BB4AC@@V?$allocator@VRva000BB4AC@@@_STL@@@_STL@@IAEPAVRva000BB4AC@@IPAV2@0@Z,,0x000BC6D1,45,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva000bb4ac_allocate_copy.cpp,matched,chain from 0x000BBB12 plus caller 0x000C21CE
