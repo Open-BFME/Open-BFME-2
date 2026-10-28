@@ -165,6 +165,60 @@ def leaf_shape(layout, every, offset):
     return [(o, size, k) for o, size, k, _, _ in flatten(layout, every, offset, 1, True)]
 
 
+def inherited_spans(layout, every):
+    """[(start, end)] the layout's known bases occupy, from each base's own flattened extent.
+
+    An empty base (no vfptr, field or base of its own) occupies nothing: MSVC lays
+    the derived class's first member over it. A base the view never defines gives
+    no span either; its fields cannot be told from the class's own."""
+    out = []
+    for base_name, offset in layout.get("bases", []):
+        if base_name not in every or offset < 0:
+            continue
+        leaves = flatten(every[base_name], every, max(offset, 0), 1, False)
+        if leaves:
+            out.append((min(o for o, *_ in leaves), max(o + size for o, size, *_ in leaves)))
+    return out
+
+
+def slot_count(layout, every, depth=0):
+    """Slots of the layout's primary vftable: the offset-0 base's count, then its own introductions."""
+    count = 0
+    for base_name, offset in layout.get("bases", []):
+        if offset == 0 and base_name in every and depth < 6:
+            count = max(count, slot_count(every[base_name], every, depth + 1))
+    own = [int(k) for k in layout.get("vslots", {})]
+    return max([count] + [k + 1 for k in own])
+
+
+def own_members(bases, good, flat, every):
+    """Restrict every view to the members the class declares itself, given its decided `bases`.
+
+    A view that spells the decided bases proves where they end (the union of the
+    bases' extents) and how many primary slots they bring; the majority of those
+    views fixes both. Every view then drops the leaves inside those spans and the
+    introducing slots below that count: a view that copied a base's fields or
+    vfptr into the class (no base clause, or a stub base) votes only on the
+    members the class itself adds. Returns (flat, vslots by view, evidence)."""
+    spans, counts = collections.Counter(), collections.Counter()
+    for source, layout in good.items():
+        if bases and [b for b, _ in layout.get("bases", [])] == list(bases)                 and all(b in every[source] for b in bases):
+            spans[tuple(inherited_spans(layout, every[source]))] += 1
+            counts[max((slot_count(every[source][b], every[source]) for b, offset in layout["bases"] if offset == 0),
+                       default=0)] += 1
+    span = list(spans.most_common(1)[0][0]) if spans else []
+    inherited = counts.most_common(1)[0][0] if counts else 0
+    inside = lambda offset: any(a <= offset < b for a, b in span)
+    own_flat = {s: [leaf for leaf in items if not inside(leaf[0])] for s, items in flat.items()}
+    vslots = {}
+    for source, layout in good.items():
+        spelled_bases = bool(layout.get("bases"))
+        vslots[source] = {int(k): v for k, v in layout.get("vslots", {}).items()
+                          if spelled_bases or int(k) >= inherited}
+    return own_flat, vslots, {"inherited_spans": [list(x) for x in span], "inherited_slots": inherited,
+                              "base_views": sum(spans.values())}
+
+
 RULE_STRENGTH = ("bytes", "retail-access", "zh", "majority")
 
 
@@ -352,6 +406,19 @@ def decide(name, sources=None, jobs=8, sample=None):
     vtables = retail_vtable(name, rows, builder)
     queue, fields = [], []
 
+    # The bases first: a derived class's contract declares only its own members
+    # and names its bases, never copies of their fields, vfptrs or slots.
+    zh_bases = [b for b, _ in zh["layout"]["bases"]] if zh and "layout" in zh else None
+    base_votes = collections.Counter(tuple(b for b, _ in L.get("bases", [])) for L in good.values())
+    if zh_bases is not None and tuple(zh_bases) in base_votes:
+        bases, base_rule = zh_bases, "zh"
+    else:
+        bases, base_rule = (list(base_votes.most_common(1)[0][0]) if base_votes else []), "majority"
+    flat, view_slots, inherited = own_members(bases, good, flat, every)
+    if bases and inherited["inherited_spans"]:
+        start = max(b for _, b in inherited["inherited_spans"])
+        zh_at = {o: v for o, v in zh_at.items() if o >= start}
+
     candidates = collections.defaultdict(collections.Counter)
     names = collections.defaultdict(collections.Counter)
     types = collections.defaultdict(collections.Counter)
@@ -443,17 +510,10 @@ def decide(name, sources=None, jobs=8, sample=None):
         view_keys = collections.Counter(L["key"] for L in good.values())
         key, key_rule = view_keys.most_common(1)[0][0] if view_keys else "struct", "majority"
 
-    zh_bases = [b for b, _ in zh["layout"]["bases"]] if zh and "layout" in zh else None
-    base_votes = collections.Counter(tuple(b for b, _ in L.get("bases", [])) for L in good.values())
-    if zh_bases is not None and tuple(zh_bases) in base_votes:
-        bases, base_rule = zh_bases, "zh"
-    else:
-        bases, base_rule = (list(base_votes.most_common(1)[0][0]) if base_votes else []), "majority"
-
     slot_votes = collections.defaultdict(collections.Counter)
-    for L in good.values():
-        for slot, member in L.get("vslots", {}).items():
-            slot_votes[int(slot)][member] += 1
+    for source in good:
+        for slot, member in view_slots[source].items():
+            slot_votes[slot][member] += 1
     # A constructor may prove the table address before vtables.tsv inventories
     # its entries. Missing slot evidence is unknown, not a zero-slot ABI bound.
     retail_slots = max((len(v["slots"]) for v in vtables.values() if v["slots"]), default=None)
@@ -483,7 +543,7 @@ def decide(name, sources=None, jobs=8, sample=None):
                      "view_sizes": dict(sizes), "zh": {k: v for k, v in (zh or {}).items() if k in ("header", "error")},
                      "retail_member_rows": len(thiscall_rows(name, rows)[0]),
                      "retail_access": {"%#x" % k: v for k, v in access.items()},
-                     "witness_offsets": sorted(witness), "retail_vtables": vtables},
+                     "witness_offsets": sorted(witness), "retail_vtables": vtables, "inherited": inherited},
         "queue": queue,
         "outliers": outliers,
         "sources": sorted(good),

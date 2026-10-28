@@ -220,12 +220,19 @@ def spelled(type_name, field):
     return f"{SPELL.get(stem, stem)} {stars}{field}"
 
 
+def unheadered_bases(contract):
+    """The contract's bases with no registered canonical header: the class cannot be generated yet."""
+    known = registered()
+    return [b for b in contract.get("bases", []) if b not in known]
+
+
 def nested_includes(contract, header):
-    """`#include` lines for the canonical headers of the contract's member aggregates."""
+    """`#include` lines for the canonical headers of the contract's bases and member aggregates."""
     lines, known = [], registered()
-    for field in contract["fields"]:
-        type_name = field["kind"][2:] if field["kind"].startswith("S:") else None
-        if not type_name or type_name not in known:
+    wanted = list(contract.get("bases", []))
+    wanted += [f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")]
+    for type_name in wanted:
+        if type_name not in known:
             continue
         spelling = os.path.relpath(ROOT / known[type_name], (ROOT / header).parent) if header else known[type_name]
         line = f'#include "{Path(spelling).as_posix()}"'
@@ -700,6 +707,10 @@ def run(args):
     if contract["queue"] and not fixed:
         print(f"  contract has {len(contract['queue'])} undecided attribute(s); refusing to generate: "
               f"{[q['attribute'] for q in contract['queue']]}")
+        return 2
+    missing = unheadered_bases(contract) if not fixed else []
+    if missing:
+        print(f"  contract names base(s) with no canonical header; adopt them first: {missing}")
         return 2
     variants = args.variants.split(",") if not fixed else ["registered"]
     results = tournament(name, contract, sources, header, variants, args.jobs, fixed_header=fixed)
