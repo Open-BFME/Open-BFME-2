@@ -86,7 +86,10 @@ class Rva001DFE56 { public: bool rva001DFE56(const void*,const void*) const; };
 
 class Rva00432F23Node;
 
-class AnimationSoundModuleManager { public: void rva00432EC0(Rva00432F23Node*); };
+class AnimationSoundModuleManager { public:
+ void rva00432EC0(Rva00432F23Node*);
+ void rva00432E5D(Rva00432F23Node*);
+};
 
 extern AnimationSoundModuleManager *TheAnimationSoundModuleManager;
 

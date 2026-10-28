@@ -571,6 +571,19 @@ Carry this alias removal into the next normal census. Anim2D TU approval
 remains blocked by the interleaved parser's donor-path anchor; no placement
 or census gain is claimed.
 [Checks and prerequisites](../reverse/attempt_support/anim2d-alias-cleanup-20261028-codex.md).
+### AnimationSoundClientBehavior composition prerequisites (2026-10-28)
+
+Status: Open. Inspected base: `17e504a240`; preview index: `d92e7e6635`
+(2026-10-28 15:58). The supported dry run rejects all ten clean donors beside
+the Update TU. Private manager/client declarations, tree/entry layouts and
+the STL node view need reconciliation; seven mixed sources remain untouched.
+The first prerequisite adds only the existing manager assignment-notification
+declaration. All 17 destination rows and both EH graphs stay exact; external
+definitions, COMDAT fingerprints, unresolved names and weak aliases are
+unchanged. Destination and assignment ordinary previews preserve LINKS for
+1,933 authored bytes. Next: retry the supported merge, then verify its accepted
+subset and affected consumers. Census confirmation remains pending.
+[Evidence](../reverse/attempt_support/animation-sound-consolidation-20261028-codexb4.md).
 
 ### AptArray bounded composition (2026-10-28)
 
