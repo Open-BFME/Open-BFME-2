@@ -1,0 +1,47 @@
+{
+  "comdat": {
+    "before_count": 5,
+    "after_count": 5,
+    "equal": true,
+    "before_sha256": "65a608e1fe095558fbe4fb4e7c0cbb9bc4b8ead982dbabc44806bcac44699cd5",
+    "after_sha256": "65a608e1fe095558fbe4fb4e7c0cbb9bc4b8ead982dbabc44806bcac44699cd5"
+  },
+  "strong": {
+    "before_count": 1,
+    "after_count": 1,
+    "equal": true,
+    "before_sha256": "6ae19adbd8f5ee1193c9deb3c330d6123b7b1b67e80961d158e86caceb4b9bc7",
+    "after_sha256": "6ae19adbd8f5ee1193c9deb3c330d6123b7b1b67e80961d158e86caceb4b9bc7"
+  },
+  "undefined": {
+    "before_count": 8,
+    "after_count": 8,
+    "equal": true,
+    "before_sha256": "9454b2ea3583b8550b28106395b944816197f54a4c9d04e4af200b4f0f0ada51",
+    "after_sha256": "9454b2ea3583b8550b28106395b944816197f54a4c9d04e4af200b4f0f0ada51"
+  },
+  "weak": {
+    "before_count": 0,
+    "after_count": 0,
+    "equal": true,
+    "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "after_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "roots": {
+    "before_count": 8,
+    "after_count": 8,
+    "equal": true,
+    "before_sha256": "3e4cfd6c44da234e72693768807d675a03b0b7cb8872ffaa37c24f38658ced79",
+    "after_sha256": "3e4cfd6c44da234e72693768807d675a03b0b7cb8872ffaa37c24f38658ced79"
+  },
+  "edges": {
+    "before_count": 4,
+    "after_count": 4,
+    "equal": true,
+    "before_sha256": "2b34c5e393434e6a5b6416e72081ed1d455d4102893393cfe9ca189bd9f48fc6",
+    "after_sha256": "2b34c5e393434e6a5b6416e72081ed1d455d4102893393cfe9ca189bd9f48fc6"
+  },
+  "scope": "External COMDAT byte/relocation digests, object definitions/references and reference graph; no runtime claim.",
+  "base": "7dce1ebcf1dc429a8e829823bca41b356f01d4bd",
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateUpdate.cpp"
+}

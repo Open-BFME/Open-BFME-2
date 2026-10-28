@@ -167,6 +167,7 @@ UpdateSleepTime WoundArrowUpdate::update()
 				dir.x = target->m_pos.x - owner->m_pos.x;
 				dir.y = target->m_pos.y - owner->m_pos.y;
 				const WoundArrowUpdateModuleData *data = m_moduleData;
+				// Preserve the double CRT overload when math.h also offers sqrt(float).
 				float length = ((float)sqrt((double)(dir.y * dir.y + dir.x * dir.x)));
 				float nx = dir.x / length;
 				float ny = dir.y / length;
