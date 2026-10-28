@@ -64,7 +64,7 @@ public:
 	void bfmePrep986C();
 	char rva0036D3A3(int a, int b);
 	void bfmeSend986C(int a, int b, int c, int d, int e);
-	char privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int, int e);
+	char privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int attackMove, int, int adjustGroundPath);
 	void groupGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int d);
 	void groupGatherAndAttackInFormationToPosition(int pos, int cmdSource, int c, int d);
 	void rva00372B09(int a, int b, int c);
@@ -83,7 +83,7 @@ void BfmeC986::bfmeGo986C(int a, int b, int c, int d)
 	bfmeSend986C(a, b, 0, c, d);
 }
 
-char BfmeC986::privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int c, int, int e)
+char BfmeC986::privateGatherAndMoveInFormationToPosition(int pos, int cmdSource, int attackMove, int, int adjustGroundPath)
 {
 	if (bfmeReady986C()) {
 		char any = 0;
@@ -103,8 +103,8 @@ char BfmeC986::privateGatherAndMoveInFormationToPosition(int pos, int cmdSource,
 		bfmePrep986C();
 		if (!rva0036D3A3(pos, cmdSource))
 			return 0;
-		((AIGroup *)this)->createFormation(cmdSource, c);
-		bfmeSend986C(pos, cmdSource, c, e, 0);
+		((AIGroup *)this)->createFormation(cmdSource, attackMove);
+		bfmeSend986C(pos, cmdSource, attackMove, adjustGroundPath, 0);
 	}
 	return 1;
 }

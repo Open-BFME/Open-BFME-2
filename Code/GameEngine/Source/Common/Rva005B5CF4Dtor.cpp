@@ -15,8 +15,8 @@
 
 void _bfme_closeAptScreen(const AsciiString &name);
 void Rva0023D614Set(StringBase<char> *out);
-void __cdecl Rva00515BCA(char side);
-void __cdecl Rva00515C17(char side);
+void __cdecl startGoodCampaign(char side);
+void __cdecl startEvilCampaign(char side);
 
 extern GameLogic *TheGameLogic;
 
@@ -97,10 +97,10 @@ Rva005B5CF4::~Rva005B5CF4()
 			break;
 		}
 		case 3:
-			Rva00515C17('E');
+			startEvilCampaign('E');
 			break;
 		case 2:
-			Rva00515BCA('E');
+			startGoodCampaign('E');
 			break;
 		}
 	}

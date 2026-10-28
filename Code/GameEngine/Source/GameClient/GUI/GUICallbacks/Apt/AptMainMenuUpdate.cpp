@@ -14,7 +14,7 @@
 // through the rowed 0x003FE7E6 registry, skirmish after rowed
 // GameLogic::clearGameData), then idles.
 // Inner case bodies are written in retail's layout order.
-// Rowed callees: ?Rva00515BCA@@YAXD@Z / ?Rva00515C17@@YAXD@Z (retail passes
+// Rowed callees: ?startGoodCampaign@@YAXD@Z / ?startEvilCampaign@@YAXD@Z (retail passes
 // the side byte as is: mov al,[esi+0x2A8]; push eax) and
 // ?rva00514E20@AptMainMenu@@QAEXXZ (0x00514E20 is entered with the menu in ECX).
 // Frame: the callback wrapper constructor 0x00211E75 is defined in this unit
@@ -28,8 +28,8 @@ class AptSaveLoad { public: static void OpenScreen(int mode, int screen, bool fl
 class AptOptions { public: static void OpenScreen(bool a, bool b, bool c, bool d); };
 class AptCreateAHero { public: static void OpenScreen(int mode); };
 class AptSkirmish { public: static void OpenScreen(int mode); };
-void Rva00515BCA(char side);	// 0x00515BCA
-void Rva00515C17(char side);	// 0x00515C17
+void startGoodCampaign(char side);	// 0x00515BCA
+void startEvilCampaign(char side);	// 0x00515C17
 void Rva00437E84(int owner, const UnicodeString &title, const UnicodeString &message);	// AptMessageBox::Show
 
 // The callback wrapper (rowed ctor 0x00211E75, 53B, impl vtable VA 0xBE5128;
@@ -220,8 +220,8 @@ int AptMainMenu::rva00515C64()
 		case 4: AptOptions::OpenScreen(false, true, true, false); break;
 		case 5: AptOptions::OpenScreen(false, true, true, true); break;
 		case 9: AptCreateAHero::OpenScreen(1); break;
-		case 11: Rva00515BCA(m_side); break;
-		case 12: Rva00515C17(m_side); break;
+		case 11: startGoodCampaign(m_side); break;
+		case 12: startEvilCampaign(m_side); break;
 		case 6:
 		{
 			rva00514E20();

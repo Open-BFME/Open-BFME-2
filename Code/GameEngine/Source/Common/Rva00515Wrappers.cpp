@@ -32,7 +32,7 @@ void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 class Rva00515Handle : public Rva00211E75
 {
 public:
-	explicit Rva00515Handle(const int *arg) : Rva00211E75(arg) {}
+	explicit Rva00515Handle(const int *callbackPointer) : Rva00211E75(callbackPointer) {}
 
 	~Rva00515Handle()
 	{
@@ -48,16 +48,16 @@ void __cdecl rva00515B0A(Rva00515Handle *handle, char side);
 int goodCampaignRva00515921(float time, bool start);
 int evilCampaignRva005158C2(float time, bool start);
 
-// ?Rva00515BCA@@YAXD@Z @0x00515BCA 77B
-void __cdecl Rva00515BCA(char side)
+// ?startGoodCampaign@@YAXD@Z @0x00515BCA 77B
+void __cdecl startGoodCampaign(char side)
 {
 	const int callback = reinterpret_cast<int>(&goodCampaignRva00515921);
 	Rva00515Handle handle(&callback);
 	rva00515B0A(&handle, side);
 }
 
-// ?Rva00515C17@@YAXD@Z @0x00515C17 77B
-void __cdecl Rva00515C17(char side)
+// ?startEvilCampaign@@YAXD@Z @0x00515C17 77B
+void __cdecl startEvilCampaign(char side)
 {
 	const int callback = reinterpret_cast<int>(&evilCampaignRva005158C2);
 	Rva00515Handle handle(&callback);

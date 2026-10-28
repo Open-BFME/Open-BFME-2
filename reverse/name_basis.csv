@@ -3892,3 +3892,9 @@ local,ToppleUpdate::update::tmp,ToppleUpdate::update::newPosition,inferred,agree
 local,Rva0033331BCopy::d,Rva0033331BCopy::output,inferred,agree:nl-001d2fa581bb,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
 local,Rva0033331BCopy::s,Rva0033331BCopy::source,inferred,agree:nl-deebb41dabab,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
 local,Rva0033331BCopy::e,Rva0033331BCopy::sourceEnd,inferred,agree:nl-0e74bced98bd,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
+member,Rva005AA647Record::m_point0C,Rva005AA647Record::m_position,inferred,agree:nl-c3e2e17b9dfd,Code/GameEngine/Source/Common/AISimpleAttackTactic.cpp,
+param,BfmeC986::privateGatherAndMoveInFormationToPosition::c,BfmeC986::privateGatherAndMoveInFormationToPosition::attackMove,inferred,agree:nl-fb380a0ca373,Code/GameEngine/Source/Common/BfmeConv986.cpp,0x003724B8
+param,BfmeC986::privateGatherAndMoveInFormationToPosition::e,BfmeC986::privateGatherAndMoveInFormationToPosition::adjustGroundPath,inferred,agree:nl-84b7058fbfe5,Code/GameEngine/Source/Common/BfmeConv986.cpp,0x003724B8
+param,Rva00515Handle::arg,Rva00515Handle::callbackPointer,inferred,agree:nl-80db579bc8b3,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,
+function,?Rva00515BCA@@YAXD@Z,?startGoodCampaign@@YAXD@Z,inferred,agree:nl-0087eea521ba,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,0x00515BCA
+function,?Rva00515C17@@YAXD@Z,?startEvilCampaign@@YAXD@Z,inferred,agree:nl-f623e19153f2,Code/GameEngine/Source/Common/Rva00515Wrappers.cpp,0x00515C17

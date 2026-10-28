@@ -18,7 +18,7 @@
 struct Rva005AA647Record
 {
 	char m_pad00[0x0C];
-	char m_point0C[0x0C];	// +0x0C
+	char m_position[0x0C];	// +0x0C
 	bool m_18;		// +0x18
 };
 
@@ -73,7 +73,7 @@ bool AISimpleAttackTactic::canRun(void *request)
 
 void AISimpleAttackTactic::run()
 {
-	rva004ED342(m_record->m_point0C);
+	rva004ED342(m_record->m_position);
 }
 
 void AISimpleAttackTactic::update()
