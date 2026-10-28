@@ -1111,6 +1111,14 @@ audit evidence is recorded in the handoff before publication.
 
 ### LINK-132: ICF fold rows move their unit early in census link order, so its non-retail copies are selected
 
+**Living World callback consumer (2026-10-28, base `da546383b783`, index
+`41c28839bf`):** `Rva002B8573Method.cpp` previews blocked solely on the
+selected `vector<Object *>::push_back` copy, for 343 authored bytes. The
+consumer already declares that specialization out of line, so this check
+does not repair the selected provider. Recheck it after the AIBuilder
+selection prerequisite is resolved and carry it into the next normal census;
+no new census-linked coverage is claimed.
+
 **Color-picker subset (2026-10-28, base `cea5d968c5`, index `41c28839bf`):**
 W3DAptComponentColorPicker.cpp now keeps math.h's unused `floorf` local.
 All 14 rows and both EH graphs remain exact; all 29 retained external COMDAT
