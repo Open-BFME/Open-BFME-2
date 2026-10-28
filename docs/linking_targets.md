@@ -141,6 +141,15 @@ with 19 additional authored bytes counting the existing fold. The older-index
 consumer audit is inconclusive; no new census-linked gain is claimed.
 [Evidence and remaining checks](../reverse/attempt_support/apt-skirmish-fold-debt-20261028-codex.md), LINK-125.
 
+Additional current target (2026-10-28, base `7c93954985cd`, index `d92e7e6635`):
+W3DCheckBox.cpp retains its existing paired LINKS preview (948 authored bytes)
+after removing an unused renderer dependency and making its existing shim
+search root explicit. All three rows and 39 retained COMDAT fingerprints
+remain exact; strict preparation passes. The batch audit is inconclusive on
+an older index and an affected consumer receipt; LINK-133's provider/census
+prerequisites remain. No new linking gain is claimed.
+[Evidence](../reverse/attempt_support/checkbox-dependencies-20261028-codex.md).
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):

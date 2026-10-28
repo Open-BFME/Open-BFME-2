@@ -1,0 +1,60 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DCheckBox.cpp",
+  "base_revision": "7c93954985cdef420a3f8b897c93c773b783f0eb",
+  "before_obj_sha256": "ab73947c1c96e2fd3860b484f5c5a168f26e9a473519d3d67efa0e094fa8f104",
+  "after_obj_sha256": "ed0d0216e0c82128225dba5cb10aafc36fa6e498fbe61b009a21669885a9bfbd",
+  "retained_comdats": 39,
+  "removed": [
+    "??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z"
+  ],
+  "added": [],
+  "changed": {},
+  "index_meta": {
+    "date": "2026-10-28 15:58",
+    "commit": "d92e7e6635",
+    "clean_tree": true
+  },
+  "strong_before": [
+    "?W3DGadgetCheckBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z",
+    "?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z"
+  ],
+  "strong_after": [
+    "?W3DGadgetCheckBoxDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z",
+    "?W3DGadgetCheckBoxImageDraw@@YAXPAVGameWindow@@PAVWinInstanceData@@@Z"
+  ],
+  "undefined_before": [
+    "??1PendingSurfaceStruct@Render2DSentenceClass@@QAE@XZ",
+    "??3@YAXPAX@Z",
+    "??_M@YGXPAXIHP6EX0@Z@Z",
+    "??_V@YAXPAX@Z",
+    "?TheWindowManager@@3PAVGameWindowManager@@A",
+    "?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetDisabledTextColor@GameWindow@@QAEHXZ",
+    "?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetEnabledTextColor@GameWindow@@QAEHXZ",
+    "?winGetFont@GameWindow@@QAEPAVGameFont@@XZ",
+    "?winGetHiliteTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetHiliteTextColor@GameWindow@@QAEHXZ",
+    "?winGetScreenPosition@GameWindow@@QAEHPAH0@Z",
+    "?winGetSize@GameWindow@@QAEHPAH0@Z",
+    "?winGetStatus@GameWindow@@QAEIXZ",
+    "__fltused"
+  ],
+  "undefined_after": [
+    "?TheWindowManager@@3PAVGameWindowManager@@A",
+    "?winGetDisabledTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetDisabledTextColor@GameWindow@@QAEHXZ",
+    "?winGetEnabledTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetEnabledTextColor@GameWindow@@QAEHXZ",
+    "?winGetFont@GameWindow@@QAEPAVGameFont@@XZ",
+    "?winGetHiliteTextBorderColor@GameWindow@@QAEHXZ",
+    "?winGetHiliteTextColor@GameWindow@@QAEHXZ",
+    "?winGetScreenPosition@GameWindow@@QAEHPAH0@Z",
+    "?winGetSize@GameWindow@@QAEHPAH0@Z",
+    "?winGetStatus@GameWindow@@QAEIXZ",
+    "__fltused"
+  ],
+  "weak_before": [],
+  "weak_after": []
+}

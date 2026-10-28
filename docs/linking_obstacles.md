@@ -8652,6 +8652,17 @@ Status: Placement cause cleared by census rule `retail-truth-5` (re-baseline at 
 `insert` and `insert_unique` copies. The existing CollectKeys provider/context
 prerequisite remains; no unchanged suppression trial was repeated.
 
+Checkbox consumer cleanup (2026-10-28, base `7c93954985cd`, index `d92e7e6635`):
+W3DCheckBox.cpp already previews LINKS with the current renderer repair.
+Removing its unused renderer include preserves all three rows and 39 retained
+COMDAT fingerprints, while removing two helpers and four unused dependencies.
+The explicit path to the same DisplayString shim enables a strict reusable
+receipt. Paired preview remains LINKS for 948 authored bytes; the renderer's
+Add_Quad blocker remains. This is dependency cleanup, not a new linking gain.
+The outgoing audit is INCONCLUSIVE (older index; missing current receipt for
+Common/0CreateAHeroManager21FE49.cpp). Carry this removed-helper scope into
+the next census; full consumer and runtime verification remain pending.
+[Checks and evidence](../reverse/attempt_support/checkbox-dependencies-20261028-codex.md).
 
 Status: Open; Render2DSentenceDrawBFME2.cpp repair landed / awaiting census. Updated: 2026-10-28; inspected revision: `3868d198bf`; index 41c28839bf (census c8734bec0c).
 Status: Duplicate of LINK-132 (same cause, filed in parallel); new results are tracked under LINK-132, and this entry keeps the whole-ledger simulation history. Updated: 2026-10-28; inspected revision: `1e9d0f5a75`; index 73061d9452.

@@ -1,4 +1,4 @@
-// cl: /O1 /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /Ireference/open-bfme-1/inputs/reference/shims /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfme2gwm /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
 // drawCheckBoxText 0x000A43CD (261B), W3DGadgetCheckBoxDraw 0x000A44D2 (485B)
 // and W3DGadgetCheckBoxImageDraw 0x000A46B7 (204B): Zero Hour's W3DCheckBox.cpp
 // through BFME1's donor of the same name (Open-BFME-1 game/GameEngineDevice/
@@ -65,7 +65,7 @@
 // SYSTEM INCLUDES ////////////////////////////////////////////////////////////
 #include <stdlib.h>
 
-#include "../../../../../../../inputs/reference/shims/w3ddisplaystring/GameClient/DisplayString.h"
+#include "w3ddisplaystring/GameClient/DisplayString.h"
 
 // USER INCLUDES //////////////////////////////////////////////////////////////
 #include "GameClient/GadgetCheckBox.h"
@@ -116,10 +116,8 @@ struct CtorCoord : ICoord2D
 	CtorCoord() {}
 };
 
-// drawCheckBoxText ===========================================================
-/** Draw the text for a checkbox */
-//=============================================================================
-static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
+// drawCheckBoxText ====================================================/** Draw the text for a checkbox */
+//======================================================================static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
 {
 	CtorCoord origin, size, textPos;
 	Int width, height;
@@ -174,10 +172,8 @@ static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-// W3DGadgetCheckBoxDraw ======================================================
-/** Draw colored check box using standard graphics */
-//=============================================================================
-void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
+// W3DGadgetCheckBoxDraw ===============================================/** Draw colored check box using standard graphics */
+//======================================================================void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
 {
 	Int checkOffsetFromLeft;
 	Color backColor,
@@ -299,10 +295,8 @@ void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
 
 }  // end W3DGadgetCheckBoxDraw
 
-// W3DGadgetCheckBoxImageDraw =================================================
-/** Draw check box with user supplied images */
-//=============================================================================
-void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
+// W3DGadgetCheckBoxImageDraw ==========================================/** Draw check box with user supplied images */
+//======================================================================void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
 {
 	Int checkOffsetFromLeft;
 	const Image  *boxImage = NULL;//*backgroundImage = NULL,
