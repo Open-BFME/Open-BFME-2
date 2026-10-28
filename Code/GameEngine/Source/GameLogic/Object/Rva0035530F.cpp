@@ -1,11 +1,15 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
 // ?rva0035530F@AiOrdersManager@@QAEXHPAX@Z @0x0035530F 73B
 // Evidence: AiOrdersManager via rowed pin 0x355183 call with this; holder+4 circular list like rowed 0x355358; switch 0->3 1->2 from sub/dec/je/jne; no callers
+class GroupOrder;
+
 class AiOrdersManager
 {
 public:
 	void clearOrders(int a, int b);
+	void rva00355201(int kind, void *a2, GroupOrder *a3);
 	void rva0035530F(int a, void *holder);
+	void rva00355358(int a, void *holder);
 };
 struct BcastNode
 {
