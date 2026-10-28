@@ -339,7 +339,11 @@ def triage_items(map_rows, root=ROOT):
                       + (f"tools/wb_show.py {cands[0]['rva']} --gd; " if cands else "")
                       + "approval only through tools/tu_map.py's own evidence (wb_name_leads + w_score, F/Z/S "
                         "anchors via tools/name_evidence.py and tools/rename.py)"),
-            "claim": [f"file:{rec['path']}"],
+            # the whole footprint a worker reads and may repoint: the proposed path, every
+            # candidate's source and every candidate RVA (its class through claims.lock_keys)
+            "claim": ([f"file:{rec['path']}"]
+                      + [f"file:{s}" for s in sorted({c["source"] for c in cands if c["source"]} - {rec["path"]})]
+                      + sorted({c["rva"] for c in cands})),
             "pass_test": ("the map rebuilt from current inputs gives the paired rows a TU by its own gates, or the "
                           "lead is recorded as not this file (tools/re_log.py); never commit a regenerated map from "
                           "this lane"),

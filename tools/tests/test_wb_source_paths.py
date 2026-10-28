@@ -113,11 +113,38 @@ def test_triage_items_say_lead_not_proof_and_skip_without_inputs(tmp_path, monke
         fh.write(json.dumps({"gd_va": 0x402004, "wb_va": 0x500000}) + "\n")
     items, note = wsp.triage_items([_map(0x2000, 0x20, "", "", "Code/Common/Rva2000.cpp")], root=tmp_path)
     (item,) = items
+    # the claim fences every candidate source and RVA, not only the proposed path
     assert item["tier"] == "tu-evidence" and item["check"] == "wb-path" and item["claim"] == [
-        "file:Code/Common/FCurve.cpp"]
+        "file:Code/Common/FCurve.cpp", "file:Code/Common/Rva2000.cpp", "0x00002004"]
     assert item["start"].startswith("investigate; this is a lead, not proof; never create an empty TU.")
     assert "0x00002004 WB FCurve::eval" in item["why"] and "owner Fn" in item["why"]
     assert item["target_rva"] == "0x00002004" and "1 with paired game RVAs" in note
+
+
+def test_claim_fences_a_busy_candidate_beyond_the_first(tmp_path, monkeypatch):
+    """A seat busy in a later candidate's source (or on its RVA) must keep the lead from
+    being served: the picker fenced only the proposed path and the first RVA."""
+    import claims
+    import next_work
+    for p in (wsp.OUT, wsp.LEADS, wsp.WB_FUNCTIONS, wsp.WB_MATCHES, wsp.FUNCTIONS):
+        (tmp_path / p).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / p).touch()
+    cand = lambda rva, src: {"rva": rva, "wb_va": "0x00500000", "wb_name": "A::f", "score": "4.0",  # noqa: E731
+                             "owner": "", "source": src, "tu": "", "confidence": ""}
+    record = {"path": "Code/Common/AreaPolygon.cpp", "producer_root": "bfme2-code", "in_game_dat": False,
+              "raw": [], "alternatives": [],
+              "candidates": [cand("0x00001000", "Code/Common/AreaPolygon_first.cpp"),
+                             cand("0x00002000", "Code/Common/AreaPolygonBase_setPoint.cpp"),
+                             cand("0x00003000", "")]}
+    for name, value in (("_leads", {}), ("wb_pairs", {}), ("read", []), ("wb_body_files", {}),
+                        ("_ledger_names", {})):
+        monkeypatch.setattr(wsp, name, lambda *a, _v=value, **k: _v)
+    monkeypatch.setattr(wsp, "triage", lambda *a, **k: [record])
+    (item,) = wsp.triage_items([], root=tmp_path)[0]
+    keys = next_work.claim_keys(item)
+    assert claims.file_key("Code/Common/AreaPolygonBase_setPoint.cpp") in keys
+    assert {0x2000, 0x3000} <= keys                     # an unrowed candidate is fenced by its RVA
+    assert next_work.claim_targets(item)[0] == "file:Code/Common/AreaPolygon.cpp"
 
 
 def test_render_is_deterministic_csv():

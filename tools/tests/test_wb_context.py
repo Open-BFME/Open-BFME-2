@@ -185,4 +185,5 @@ def test_live_files_load():
     if not wb_context.LEADS_CSV.exists():
         pytest.skip("reverse/wb_name_leads.csv not present")
     assert len(wb_context.leads()) > 1000
-    assert wb_context.lead(0x003CA4BE)["wb_name"] == "ScriptActions::executeAction"
+    # the raw snapshot: the live view drops this lead once the address lands under its real name
+    assert wb_context.leads(live=False)[0x003CA4BE]["wb_name"] == "ScriptActions::executeAction"
