@@ -49457,7 +49457,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005BF2C7,501,code,,,-,W=Code/GameEngine/Source/Common/StatsReporter.cpp,Code/GameEngine/Source/Common/StatsReporterChallenge.cpp
 0x005BF4BC,2169,code,,,-,,Code/GameEngine/Source/Common/StatsReporterRealTime.cpp
 0x005BFD35,2297,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,N,N=Code/GameEngine/Source/Common/StatsReporter.cpp W=Code/GameEngine/Source/Common/StatsReporter.cpp provisional,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp
-0x005C062E,4658,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,N,N=Code/GameEngine/Source/Common/StatsReporter.cpp W=Code/GameEngine/Source/Common/StatsReporter.cpp provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
+0x005C062E,4658,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,N,N=Code/GameEngine/Source/Common/StatsReporter.cpp W=Code/GameEngine/Source/Common/StatsReporter.cpp provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
 0x005C1860,18,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x005C1872,7,code,,,-,,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp
 0x005C1879,29,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
@@ -88428,27 +88428,27 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A03E4,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005BFD35@FuncInfo0x0095737C provisional,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp
 0x007A03EC,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005BFD35@FuncInfo0x0095737C provisional,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp
 0x007A03F4,10,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005BFD35@FuncInfo0x0095737C provisional,Code/GameEngine/Source/Common/StatsReporterStrategicResults.cpp
-0x007A03FE,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0409,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0414,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A041F,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A042A,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0435,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0440,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A044B,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0453,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A045E,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0469,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0471,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0479,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0484,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A048C,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A0494,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A049F,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A04A7,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A04AF,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A04B7,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
-0x007A04C2,10,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporterOnlineResults.cpp
+0x007A03FE,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0409,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0414,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A041F,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A042A,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0435,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0440,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A044B,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0453,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A045E,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0469,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0471,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0479,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0484,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A048C,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A0494,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A049F,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A04A7,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A04AF,8,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A04B7,11,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
+0x007A04C2,10,code,Code/GameEngine/Source/Common/StatsReporter.cpp,approved,P,P=0x005C062E@FuncInfo0x00957438 provisional,Code/GameEngine/Source/Common/StatsReporter.cpp
 0x007A04CC,8,code,,,-,,Code/gen_small/uw_gen_014.cpp
 0x007A04D4,10,code,,,-,,Code/GameEngine/Source/Common/Rva005C18F0Dtor.cpp
 0x007A04DE,8,code,,,-,,Code/GameEngine/Source/Common/Rva005C1A36Ctor.cpp
