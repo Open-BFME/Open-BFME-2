@@ -244,7 +244,7 @@ struct Rva002A8B59Data;
 
 //
 // ?rva004E99B1@@YAPAXPAX@Z @0x004E99B1 37B.
-// Scan of the global RvaVector g_00E04484 (same view as Rva004E9B70Finish.cpp):
+// Scan of the global RvaVector g_00E04484 (same view as rva004E9B70 below):
 // walk [m_begin, m_end) and return the first entry whose +0x44 field equals
 // the key, else null. Retail is end-first loads, jmp-to-compare loop, je to
 // a reloading return (37B).
