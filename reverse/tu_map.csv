@@ -5870,8 +5870,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000A8F3C,28,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A8F58 provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp
 0x000A8F58,6,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A8F5E provisional,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp
 0x000A8F5E,6,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A8F64 provisional,Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp
-0x000A8F64,52,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A8F98 provisional,Code/GameEngine/Source/Common/Rva000A8F64Set.cpp
-0x000A8F98,217,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A9071 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAuxPreDrawRva000A8F98.cpp
+0x000A8F64,52,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A8F98 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
+0x000A8F98,217,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A8E9C..0x000A9071 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
 0x000A9071,63,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp
 0x000A90B0,226,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9192 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A9192,65,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A91D3 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
@@ -5880,15 +5880,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000A91DD,20,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A91F1 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A91F1,12,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A91FD provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A91FD,20,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9211 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
-0x000A9211,45,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A923E provisional,Code/GameEngine/Source/Common/Rva000A9211Format.cpp
+0x000A9211,45,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A923E provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
 0x000A923E,31,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A925D provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A925D,69,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A92A2 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A92A2,7,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A92A9 provisional,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x000A92A9,7,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A92B0 provisional,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x000A92B0,585,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A94F9 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
-0x000A94F9,66,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A953B provisional,Code/GameEngine/Source/Common/Rva000A953BCtor.cpp
-0x000A953B,22,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9551 provisional,Code/GameEngine/Source/Common/Rva000A953BCtor.cpp
-0x000A9551,22,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9567 provisional,Code/GameEngine/Source/Common/Rva000A953BCtor.cpp
+0x000A94F9,66,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A953B provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
+0x000A953B,22,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9551 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
+0x000A9551,22,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,C,C=0x000A9071..0x000A9567 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
 0x000A9567,9,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AptDisplayStringBase.cpp provisional,Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp
 0x000A9570,569,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/BfmeT982.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/BfmeT982.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp
 0x000A97A9,32,code,,,-,,Code/GameEngine/Source/Common/Rva000A97A9Func.cpp
@@ -63086,8 +63086,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00760DB1,11,code,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudio.cpp,approved,P,P=0x000A8E0A@FuncInfo0x00903F44 provisional,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudioConstructor.cpp
 0x00760DBC,11,code,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudio.cpp,approved,P,P=0x000A8E0A@FuncInfo0x00903F44 provisional,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudioConstructor.cpp
 0x00760DC7,10,code,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudio.cpp,approved,P,P=0x000A8E0A@FuncInfo0x00903F44 provisional,Code/GameEngineDevice/Source/MilesAudioDevice/PlayingAudioConstructor.cpp
-0x00760DD1,10,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,P,P=0x000A8F98@FuncInfo0x00903F68 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAuxPreDrawRva000A8F98.cpp
-0x00760DDB,10,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,P,P=0x000A8F98@FuncInfo0x00903F68 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAuxPreDrawRva000A8F98.cpp
+0x00760DD1,10,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,P,P=0x000A8F98@FuncInfo0x00903F68 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
+0x00760DDB,10,code,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,approved,P,P=0x000A8F98@FuncInfo0x00903F68 provisional,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp
 0x00760DE5,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,approved,P,P=0x000A9CC7@FuncInfo0x00903F94 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp
 0x00760DED,11,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,approved,P,P=0x000A9CC7@FuncInfo0x00903F94 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp
 0x00760DF8,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp,approved,P,P=0x000A9CC7@FuncInfo0x00903F94 provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptShapeContainer.cpp

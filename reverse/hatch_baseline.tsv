@@ -4,6 +4,7 @@
 address_global	Code/GameEngine/Include/Common/Rva002E8548Pool.h	g_Va00DB9440	1
 address_global	Code/GameEngine/Include/Common/Rva002E8548Pool.h	g_Va00DBD4C8	1
 address_global	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	g_Va00DFE348	3
+address_global	Code/GameEngine/Source/Common/AptDisplayStringBase.cpp	g_Va00DEC49C	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va007C9260	1
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText.cpp	g_Va00E06398	2
 address_global	Code/GameEngine/Source/Common/AptHeroPowerText_Rva0043C8E4.cpp	g_Va007C9260	2
@@ -1318,7 +1319,6 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.c
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DB5FC8	1
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DE6194	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux.cpp	g_Va00DEC49C	1
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAuxPreDrawRva000A8F98.cpp	g_Va00DEC49C	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DB5FB0	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DB5FC8	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptAux_PostDraw.cpp	g_Va00DE6194	2
@@ -1618,6 +1618,7 @@ alternatename	Code/GameEngine/Source/Common/AISimpleAttackTactic.cpp	?v4@AITacti
 alternatename	Code/GameEngine/Source/Common/AISimpleAttackTactic.cpp	?v5@AITactic@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/AISimpleAttackTactic.cpp	?v8@AITactic@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp	?rva004C9D93Compare@Rva004C9D93Cmp@@QBE_NPAX0@Z	1
+alternatename	Code/GameEngine/Source/Common/AptDisplayStringBase.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
 alternatename	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	??1ArmyMemberIconMovieClip@StrategicHUD@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	??1ArmyMemberIconMovieClip@StrategicHUD@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/AtlSimpleArrayHInstanceAdd.cpp	?realloc@@YAPAXPAXI@Z	1
@@ -2084,7 +2085,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp	?slot1@Rva0009FD
 alternatename	Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp	?slot2@Rva0009FDBD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp	?slot3@Rva0009FDBD@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0009FDBDCtor.cpp	?slot4@Rva0009FDBD@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva000A9211Format.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva000AAD06Ctor.cpp	?_0@Rva000AAD06@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva000AAE3DCtor.cpp	?_0@Rva000AAE3D@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva000B2EB5.cpp	?g_00BBB9AC@@3MB	1

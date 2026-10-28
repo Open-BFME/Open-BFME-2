@@ -16794,7 +16794,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B4720,204,.data,global,?g_00DB4720@@3VShaderClass@@A,,unowned,,0,1
 0x009B47EC,700,.data,global,?g_Va00DB47EC@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,1
 0x009B4AA8,568,.data,global,?g_00DB4AA8@@3MA,,unowned,,0,1
-0x009B4CE0,92,.data,global,?g_00DB4CE0@@3EA,Code/GameEngine/Source/Common/Rva000A8F64Set.cpp,owned,,1,2
+0x009B4CE0,92,.data,global,?g_00DB4CE0@@3EA,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,owned,,1,2
 0x009B4D3C,4,.data,global,?g_00DB4D3C@@3MA,,unowned,,0,1
 0x009B4D40,360,.data,global,?g_00DB4D40@@3MA,,unowned,,0,1
 0x009B4EA8,1224,.data,global,?g_00DB4EA8@@3PAUFieldParse@@A,,unowned,,0,2
@@ -18073,8 +18073,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009E6170,4,.data,global,?s_renderer@W3DAptAux@@0PAVBfmeHub982@@A,,unowned,?g_00DE6170@@3PAVRva0011018B@@A;?g_bfmeHub982@@3PAVBfmeHub982@@A;?g_rva00785FD0Renderer@@3PAVRva00785FD0Renderer@@A;?s_renderer@W3DAptAux@@0PAVBfmeHub982@@A,1,10
 0x009E6174,4,.data,global,?s_syncTime0@W3DAptAux@@0IA,,unowned,,0,1
 0x009E6178,4,.data,global,?s_syncTime1@W3DAptAux@@0IA,,unowned,,0,1
-0x009E617C,4,.data,global,?g_00DE617C@@3KA,Code/GameEngine/Source/Common/Rva000A8F64Set.cpp,owned,,1,1
-0x009E6180,8,.data,global,?g_00DE6180@@3KA,Code/GameEngine/Source/Common/Rva000A8F64Set.cpp,owned,,1,2
+0x009E617C,4,.data,global,?g_00DE617C@@3KA,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,owned,,1,1
+0x009E6180,8,.data,global,?g_00DE6180@@3KA,Code/GameEngine/Source/Common/AptDisplayStringBase.cpp,owned,,1,2
 0x009E6188,4,.data,global,?Rva00783F90Red@@3MA,,unowned,,0,1
 0x009E618C,4,.data,global,?Rva00783F90Green@@3MA,,unowned,,0,1
 0x009E6190,4,.data,global,?Rva00783F90Blue@@3MA,,unowned,,0,1
