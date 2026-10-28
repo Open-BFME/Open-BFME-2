@@ -75,6 +75,15 @@ selected-provider repair and census confirmation remain pending. No incremental
 master-wide linked-byte gain is claimed.
 [Evidence](../reverse/attempt_support/decal-floor-link-20261028-codex.md).
 
+Additional current target (2026-10-28, base `9dc3b3d773`, index `d92e7e6635`):
+`WWMath/gridcull.cpp` previews LINKS for 11,117 authored bytes after keeping
+its unused inline `floorf` local. All 48 rows, its EH graph and all 89
+retained external COMDAT fingerprints remain exact/unchanged. Strict
+preparation and scoped data checks pass; global selection and census
+confirmation remain open under LINK-132/LINK-133. The batch audit remains
+inconclusive for external consumers.
+[Evidence](../reverse/attempt_support/gridcull-floor-link-20261028-codexb.md).
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):

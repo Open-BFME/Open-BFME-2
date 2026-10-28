@@ -12,8 +12,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 
 
+// Calls inline to the CRT floor import; keep math.h's unused floorf copy local.
+extern "C" { static float __cdecl floorf(float); }
+
 // Retail links the size-form copies of these header inlines (RefCountClass
-// Release_Ref 0x005D1A7D, the CRT floorf, WWMath::Fabs as vector3.cpp emits it).
+// Release_Ref 0x005D1A7D, WWMath::Fabs as vector3.cpp emits it).
 // The spin-locked BFME object pool (as multilist.cpp): mempool.h first, by -I, so the
 // submodule copy multilist.h reaches from its own directory loses the include guard.
 #include "mempool.h"

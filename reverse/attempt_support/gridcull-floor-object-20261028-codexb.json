@@ -1,0 +1,1240 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWMath/gridcull.cpp",
+  "base_revision": "9dc3b3d773e7982e4623a0ff8543e49135221eca",
+  "index_meta": {
+    "date": "2026-10-28 15:58",
+    "commit": "d92e7e6635",
+    "clean_tree": true
+  },
+  "removed": [
+    "_floorf"
+  ],
+  "added": [],
+  "changed": {},
+  "retained_comdats": 89,
+  "checks": {
+    "strong": true,
+    "undefined": true,
+    "weak": true,
+    "roots": true,
+    "retained_edges": true,
+    "no_floorf_reference_before": true
+  },
+  "before": {
+    "sha256": "c3d4a3ce6159fc5db6b5b395a06d9559eea4ac18499e62a2118f849057c054bb",
+    "comdats": {
+      "??_H@YGXPAXIHP6EPAX0@Z@Z": [
+        "6246c280fc30",
+        34
+      ],
+      "??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z": [
+        "78a6e6fdb2d1",
+        20
+      ],
+      "??1BFMEPoolLock@@QAE@XZ": [
+        "243c51d9bb3b",
+        9
+      ],
+      "?Add_Ref@RefCountClass@@QAEXXZ": [
+        "4f998886577e",
+        4
+      ],
+      "?Release_Ref@RefCountClass@@QAEXXZ": [
+        "7f419470c995",
+        10
+      ],
+      "_floorf": [
+        "d9d07276ff39",
+        18
+      ],
+      "?floor@@YAMM@Z": [
+        "d9d07276ff39",
+        18
+      ],
+      "?Fabs@WWMath@@SAMM@Z": [
+        "67d8fbebb1a9",
+        19
+      ],
+      "??0Vector3@@QAE@XZ": [
+        "03ca90960a9c",
+        3
+      ],
+      "??0Vector3@@QAE@ABV0@@Z": [
+        "79571e26f4e7",
+        25
+      ],
+      "??0Vector3@@QAE@MMM@Z": [
+        "7476688645e4",
+        37
+      ],
+      "??4Vector3@@QAEAAV0@ABV0@@Z": [
+        "79571e26f4e7",
+        25
+      ],
+      "??AVector3@@QAEAAMH@Z": [
+        "d75bd894e707",
+        10
+      ],
+      "??AVector3@@QBEABMH@Z": [
+        "d75bd894e707",
+        10
+      ],
+      "??H@YA?AVVector3@@ABV0@0@Z": [
+        "54a535b1bef7",
+        55
+      ],
+      "??G@YA?AVVector3@@ABV0@0@Z": [
+        "23b78761656e",
+        55
+      ],
+      "?Subtract@Vector3@@SAXABV1@0PAV1@@Z": [
+        "9ae78ca4c1c2",
+        55
+      ],
+      "??0CullLinkClass@@QAE@PAVCullSystemClass@@@Z": [
+        "65becd53e60e",
+        18
+      ],
+      "??_7CullLinkClass@@6B@": [
+        "6754fb3ddcb0",
+        4
+      ],
+      "??1CullLinkClass@@UAE@XZ": [
+        "826f7cc89d22",
+        7
+      ],
+      "?Set_Culling_System@CullLinkClass@@QAEXPAVCullSystemClass@@@Z": [
+        "b0b76be60207",
+        10
+      ],
+      "??_GCullLinkClass@@UAEPAXI@Z": [
+        "63ef4a71ec6d",
+        31
+      ],
+      "?Get_Cull_Box@CullableClass@@QBEABVAABoxClass@@XZ": [
+        "601407d42442",
+        4
+      ],
+      "?Set_Cull_Link@CullableClass@@QAEXPAVCullLinkClass@@@Z": [
+        "0ac1192e606a",
+        10
+      ],
+      "?Get_Cull_Link@CullableClass@@QBEPAVCullLinkClass@@XZ": [
+        "dbc10ce76e7d",
+        4
+      ],
+      "?Get_Bound_Min@FrustumClass@@QBEABVVector3@@XZ": [
+        "ac86c6ca7aac",
+        7
+      ],
+      "?Get_Bound_Max@FrustumClass@@QBEABVVector3@@XZ": [
+        "12a9c080ecbf",
+        7
+      ],
+      "??AMatrix3@@QBEABVVector3@@H@Z": [
+        "961e263a2091",
+        13
+      ],
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z": [
+        "4b87e60539d4",
+        262
+      ],
+      "?First@GridListIterator@@QAEXPAVCullableClass@@@Z": [
+        "104bbca3676c",
+        12
+      ],
+      "?Next@GridListIterator@@QAEXXZ": [
+        "a9f1d937a971",
+        17
+      ],
+      "?Is_Done@GridListIterator@@QAE_NXZ": [
+        "4107930d856d",
+        9
+      ],
+      "?Peek_Obj@GridListIterator@@QAEPAVCullableClass@@XZ": [
+        "78e4fbf1d9d9",
+        4
+      ],
+      "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z": [
+        "87d2f10e9388",
+        84
+      ],
+      "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z": [
+        "e5e87d66b83a",
+        271
+      ],
+      "?map_indices_to_address@GridCullSystemClass@@IAEHHHH@Z": [
+        "b8908d69e4db",
+        23
+      ],
+      "?total_cell_count@GridCullSystemClass@@IAEHXZ": [
+        "312227299317",
+        12
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z": [
+        "010a38998e2b",
+        665
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVAABoxClass@@PAUVolumeStruct@1@@Z": [
+        "af738e3a3d1e",
+        704
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVOBBoxClass@@PAUVolumeStruct@1@@Z": [
+        "e6ce3644500c",
+        730
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVFrustumClass@@PAUVolumeStruct@1@@Z": [
+        "ccede09eea38",
+        694
+      ],
+      "??0VolumeStruct@GridCullSystemClass@@QAE@XZ": [
+        "03ca90960a9c",
+        3
+      ],
+      "?Is_Empty@VolumeStruct@GridCullSystemClass@@QBE_NXZ": [
+        "c83f662ff5ae",
+        38
+      ],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z": [
+        "d2b117bdff0b",
+        124
+      ],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z": [
+        "e18b92c2c000",
+        262
+      ],
+      "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z": [
+        "cbffe5fae960",
+        33
+      ],
+      "??_7GridLinkClass@@6B@": [
+        "bc853142906e",
+        4
+      ],
+      "??1GridLinkClass@@UAE@XZ": [
+        "826f7cc89d22",
+        7
+      ],
+      "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z": [
+        "aa2403b3a217",
+        236
+      ],
+      "?Reset_Statistics@GridCullSystemClass@@QAEXXZ": [
+        "684ebf6043b5",
+        30
+      ],
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z": [
+        "4f430b7176d6",
+        42
+      ],
+      "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z": [
+        "1879bdf56f2c",
+        65
+      ],
+      "?Get_Object_Count@GridCullSystemClass@@UBEHXZ": [
+        "58fb2cf41e8b",
+        4
+      ],
+      "??0?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "cfd02dde8c4d",
+        16
+      ],
+      "??1?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "eec35cdc005a",
+        40
+      ],
+      "??2?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAPAXI@Z": [
+        "4cc20ad1f568",
+        10
+      ],
+      "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z": [
+        "2967d042e7d7",
+        39
+      ],
+      "?Contains@AABoxClass@@QBE_NABVVector3@@@Z": [
+        "c4f4f9852feb",
+        144
+      ],
+      "??0GridListIterator@@QAE@PAVCullableClass@@@Z": [
+        "a48bcf089551",
+        14
+      ],
+      "?map_point_to_address@GridCullSystemClass@@IAE_NABVVector3@@AAH@Z": [
+        "775f27506b86",
+        318
+      ],
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z": [
+        "e9dfaabf565f",
+        112
+      ],
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "c7d628eca0b0",
+        89
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z": [
+        "1eda4ce49107",
+        157
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z": [
+        "9477689d8202",
+        188
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z": [
+        "07df9b247a5e",
+        63
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z": [
+        "18818cb586c9",
+        63
+      ],
+      "??3?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAXPAX@Z": [
+        "b238d0eee2e7",
+        20
+      ],
+      "??_GGridLinkClass@@UAEPAXI@Z": [
+        "fe71d999da52",
+        36
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z": [
+        "0fb9b109ec7f",
+        886
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z": [
+        "032be0e704fd",
+        924
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z": [
+        "eb28ff70c5e7",
+        995
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z": [
+        "93336674c97b",
+        961
+      ],
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ": [
+        "6b5295e5a073",
+        363
+      ],
+      "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z": [
+        "8a6fb444454e",
+        327
+      ],
+      "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "08ec079781f4",
+        63
+      ],
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "89743d203ed9",
+        323
+      ],
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z": [
+        "f8589187cd82",
+        555
+      ],
+      "__real@3f000000": [
+        "fd1edc7bc3cb",
+        4
+      ],
+      "__real@40000000": [
+        "4ea1b3f4f253",
+        4
+      ],
+      "__real@3f800000": [
+        "5bb96baed2a6",
+        4
+      ],
+      "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z": [
+        "b02fb268e32c",
+        387
+      ],
+      "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "f21b26fcdbf8",
+        77
+      ],
+      "??0GridCullSystemClass@@QAE@XZ": [
+        "41df3d1f3a85",
+        260
+      ],
+      "__real@42c80000": [
+        "2c0975101c36",
+        4
+      ],
+      "__real@c2c80000": [
+        "4b3d41e9e1e8",
+        4
+      ],
+      "??_7GridCullSystemClass@@6B@": [
+        "1fc0a75decfd",
+        40
+      ],
+      "__real@41700000": [
+        "dcbd25175316",
+        4
+      ],
+      "__real@41200000": [
+        "400bec6bce4c",
+        4
+      ],
+      "??_GGridCullSystemClass@@UAEPAXI@Z": [
+        "10631ff2eaab",
+        30
+      ],
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A": [
+        "abfdcfe1dc3e",
+        20
+      ]
+    },
+    "strong": [
+      "??0GridCullSystemClass@@QAE@XZ",
+      "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
+      "??1GridLinkClass@@UAE@XZ",
+      "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+      "?Get_Object_Count@GridCullSystemClass@@UBEHXZ",
+      "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+      "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Reset_Statistics@GridCullSystemClass@@QAEXXZ",
+      "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+      "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z"
+    ],
+    "undefined": [
+      "??0CullSystemClass@@QAE@XZ",
+      "??1CullSystemClass@@UAE@XZ",
+      "??1GridCullSystemClass@@UAE@XZ",
+      "??3@YAXPAX@Z",
+      "??_GCullLinkClass@@UAEPAXI@Z",
+      "??_GGridCullSystemClass@@UAEPAXI@Z",
+      "??_GGridLinkClass@@UAEPAXI@Z",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+      "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z",
+      "?Close_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?End_Chunk@ChunkSaveClass@@QAE_NXZ",
+      "?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ",
+      "?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z",
+      "?Lock@BFMEPoolCriticalSection@@QAEXXZ",
+      "?Open_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z",
+      "?Read@ChunkLoadClass@@QAEKPAXK@Z",
+      "?Reset_Collection@CullSystemClass@@QAEXXZ",
+      "?Write@ChunkSaveClass@@QAEKPBXK@Z",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__fltused",
+      "__ftol2",
+      "__imp__floor",
+      "_atexit"
+    ],
+    "weak": [
+      [
+        "??_ECullLinkClass@@UAEPAXI@Z",
+        "??_GCullLinkClass@@UAEPAXI@Z"
+      ],
+      [
+        "??_EGridCullSystemClass@@UAEPAXI@Z",
+        "??_GGridCullSystemClass@@UAEPAXI@Z"
+      ],
+      [
+        "??_EGridLinkClass@@UAEPAXI@Z",
+        "??_GGridLinkClass@@UAEPAXI@Z"
+      ]
+    ],
+    "roots": [
+      "??0CullSystemClass@@QAE@XZ",
+      "??1CullSystemClass@@UAE@XZ",
+      "??_7CullLinkClass@@6B@",
+      "??_7GridCullSystemClass@@6B@",
+      "??_7GridLinkClass@@6B@",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+      "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z",
+      "?Close_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+      "?End_Chunk@ChunkSaveClass@@QAE_NXZ",
+      "?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ",
+      "?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z",
+      "?Open_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z",
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+      "?Read@ChunkLoadClass@@QAEKPAXK@Z",
+      "?Reset_Collection@CullSystemClass@@QAEXXZ",
+      "?Write@ChunkSaveClass@@QAEKPBXK@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "___CxxFrameHandler",
+      "___DebugIncludeInLink1",
+      "__except_list",
+      "__imp__floor",
+      "__real@3f000000",
+      "__real@3f800000",
+      "__real@40000000",
+      "__real@41200000",
+      "__real@41700000",
+      "__real@42c80000",
+      "__real@c2c80000"
+    ],
+    "edges": {
+      "??0?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [],
+      "??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z": [
+        "?Lock@BFMEPoolCriticalSection@@QAEXXZ"
+      ],
+      "??0CullLinkClass@@QAE@PAVCullSystemClass@@@Z": [
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??0GridListIterator@@QAE@PAVCullableClass@@@Z": [],
+      "??0Vector3@@QAE@ABV0@@Z": [],
+      "??0Vector3@@QAE@MMM@Z": [],
+      "??0Vector3@@QAE@XZ": [],
+      "??0VolumeStruct@GridCullSystemClass@@QAE@XZ": [],
+      "??1?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "??3@YAXPAX@Z"
+      ],
+      "??1BFMEPoolLock@@QAE@XZ": [],
+      "??1CullLinkClass@@UAE@XZ": [
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??2?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAPAXI@Z": [
+        "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A"
+      ],
+      "??3?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAXPAX@Z": [
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z"
+      ],
+      "??4Vector3@@QAEAAV0@ABV0@@Z": [],
+      "??AMatrix3@@QBEABVVector3@@H@Z": [],
+      "??AVector3@@QAEAAMH@Z": [],
+      "??AVector3@@QBEABMH@Z": [],
+      "??G@YA?AVVector3@@ABV0@0@Z": [],
+      "??H@YA?AVVector3@@ABV0@0@Z": [],
+      "??_7CullLinkClass@@6B@": [
+        "??_ECullLinkClass@@UAEPAXI@Z"
+      ],
+      "??_7GridCullSystemClass@@6B@": [
+        "??_EGridCullSystemClass@@UAEPAXI@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+        "?Get_Object_Count@GridCullSystemClass@@UBEHXZ",
+        "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+        "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+        "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+        "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z"
+      ],
+      "??_7GridLinkClass@@6B@": [
+        "??_EGridLinkClass@@UAEPAXI@Z"
+      ],
+      "??_GCullLinkClass@@UAEPAXI@Z": [
+        "??3@YAXPAX@Z",
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??_GGridCullSystemClass@@UAEPAXI@Z": [
+        "??1GridCullSystemClass@@UAE@XZ",
+        "??3@YAXPAX@Z"
+      ],
+      "??_GGridLinkClass@@UAEPAXI@Z": [
+        "??1GridLinkClass@@UAE@XZ",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z"
+      ],
+      "??_H@YGXPAXIHP6EPAX0@Z@Z": [],
+      "?Add_Ref@RefCountClass@@QAEXXZ": [],
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A": [
+        "??3@YAXPAX@Z",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "_atexit"
+      ],
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z": [],
+      "?Contains@AABoxClass@@QBE_NABVVector3@@@Z": [],
+      "?Fabs@WWMath@@SAMM@Z": [],
+      "?First@GridListIterator@@QAEXPAVCullableClass@@@Z": [],
+      "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z": [
+        "?Lock@BFMEPoolCriticalSection@@QAEXXZ"
+      ],
+      "?Get_Bound_Max@FrustumClass@@QBEABVVector3@@XZ": [],
+      "?Get_Bound_Min@FrustumClass@@QBEABVVector3@@XZ": [],
+      "?Get_Cull_Box@CullableClass@@QBEABVAABoxClass@@XZ": [],
+      "?Get_Cull_Link@CullableClass@@QBEPAVCullLinkClass@@XZ": [],
+      "?Is_Done@GridListIterator@@QAE_NXZ": [],
+      "?Is_Empty@VolumeStruct@GridCullSystemClass@@QBE_NXZ": [],
+      "?Next@GridListIterator@@QAEXXZ": [],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z": [],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z": [],
+      "?Peek_Obj@GridListIterator@@QAEPAVCullableClass@@XZ": [],
+      "?Release_Ref@RefCountClass@@QAEXXZ": [],
+      "?Set_Cull_Link@CullableClass@@QAEXPAVCullLinkClass@@@Z": [],
+      "?Set_Culling_System@CullLinkClass@@QAEXPAVCullSystemClass@@@Z": [],
+      "?Subtract@Vector3@@SAXABV1@0PAV1@@Z": [],
+      "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z": [],
+      "?floor@@YAMM@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVAABoxClass@@PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVFrustumClass@@PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVOBBoxClass@@PAUVolumeStruct@1@@Z": [
+        "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?map_indices_to_address@GridCullSystemClass@@IAEHHHH@Z": [],
+      "?map_point_to_address@GridCullSystemClass@@IAE_NABVVector3@@AAH@Z": [
+        "__imp__floor"
+      ],
+      "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z": [
+        "__ftol2",
+        "__imp__floor"
+      ],
+      "?total_cell_count@GridCullSystemClass@@IAEHXZ": [],
+      "__real@3f000000": [],
+      "__real@3f800000": [],
+      "__real@40000000": [],
+      "__real@41200000": [],
+      "__real@41700000": [],
+      "__real@42c80000": [],
+      "__real@c2c80000": [],
+      "_floorf": [
+        "__imp__floor"
+      ]
+    }
+  },
+  "after": {
+    "sha256": "ce73a3cd71a444d564a374424a95ea389a0673604fb6a1fd038b87a5813e9f39",
+    "comdats": {
+      "??_H@YGXPAXIHP6EPAX0@Z@Z": [
+        "6246c280fc30",
+        34
+      ],
+      "??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z": [
+        "78a6e6fdb2d1",
+        20
+      ],
+      "??1BFMEPoolLock@@QAE@XZ": [
+        "243c51d9bb3b",
+        9
+      ],
+      "?Add_Ref@RefCountClass@@QAEXXZ": [
+        "4f998886577e",
+        4
+      ],
+      "?Release_Ref@RefCountClass@@QAEXXZ": [
+        "7f419470c995",
+        10
+      ],
+      "?floor@@YAMM@Z": [
+        "d9d07276ff39",
+        18
+      ],
+      "?Fabs@WWMath@@SAMM@Z": [
+        "67d8fbebb1a9",
+        19
+      ],
+      "??0Vector3@@QAE@XZ": [
+        "03ca90960a9c",
+        3
+      ],
+      "??0Vector3@@QAE@ABV0@@Z": [
+        "79571e26f4e7",
+        25
+      ],
+      "??0Vector3@@QAE@MMM@Z": [
+        "7476688645e4",
+        37
+      ],
+      "??4Vector3@@QAEAAV0@ABV0@@Z": [
+        "79571e26f4e7",
+        25
+      ],
+      "??AVector3@@QAEAAMH@Z": [
+        "d75bd894e707",
+        10
+      ],
+      "??AVector3@@QBEABMH@Z": [
+        "d75bd894e707",
+        10
+      ],
+      "??H@YA?AVVector3@@ABV0@0@Z": [
+        "54a535b1bef7",
+        55
+      ],
+      "??G@YA?AVVector3@@ABV0@0@Z": [
+        "23b78761656e",
+        55
+      ],
+      "?Subtract@Vector3@@SAXABV1@0PAV1@@Z": [
+        "9ae78ca4c1c2",
+        55
+      ],
+      "??0CullLinkClass@@QAE@PAVCullSystemClass@@@Z": [
+        "65becd53e60e",
+        18
+      ],
+      "??_7CullLinkClass@@6B@": [
+        "6754fb3ddcb0",
+        4
+      ],
+      "??1CullLinkClass@@UAE@XZ": [
+        "826f7cc89d22",
+        7
+      ],
+      "?Set_Culling_System@CullLinkClass@@QAEXPAVCullSystemClass@@@Z": [
+        "b0b76be60207",
+        10
+      ],
+      "??_GCullLinkClass@@UAEPAXI@Z": [
+        "63ef4a71ec6d",
+        31
+      ],
+      "?Get_Cull_Box@CullableClass@@QBEABVAABoxClass@@XZ": [
+        "601407d42442",
+        4
+      ],
+      "?Set_Cull_Link@CullableClass@@QAEXPAVCullLinkClass@@@Z": [
+        "0ac1192e606a",
+        10
+      ],
+      "?Get_Cull_Link@CullableClass@@QBEPAVCullLinkClass@@XZ": [
+        "dbc10ce76e7d",
+        4
+      ],
+      "?Get_Bound_Min@FrustumClass@@QBEABVVector3@@XZ": [
+        "ac86c6ca7aac",
+        7
+      ],
+      "?Get_Bound_Max@FrustumClass@@QBEABVVector3@@XZ": [
+        "12a9c080ecbf",
+        7
+      ],
+      "??AMatrix3@@QBEABVVector3@@H@Z": [
+        "961e263a2091",
+        13
+      ],
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z": [
+        "4b87e60539d4",
+        262
+      ],
+      "?First@GridListIterator@@QAEXPAVCullableClass@@@Z": [
+        "104bbca3676c",
+        12
+      ],
+      "?Next@GridListIterator@@QAEXXZ": [
+        "a9f1d937a971",
+        17
+      ],
+      "?Is_Done@GridListIterator@@QAE_NXZ": [
+        "4107930d856d",
+        9
+      ],
+      "?Peek_Obj@GridListIterator@@QAEPAVCullableClass@@XZ": [
+        "78e4fbf1d9d9",
+        4
+      ],
+      "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z": [
+        "87d2f10e9388",
+        84
+      ],
+      "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z": [
+        "e5e87d66b83a",
+        271
+      ],
+      "?map_indices_to_address@GridCullSystemClass@@IAEHHHH@Z": [
+        "b8908d69e4db",
+        23
+      ],
+      "?total_cell_count@GridCullSystemClass@@IAEHXZ": [
+        "312227299317",
+        12
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z": [
+        "010a38998e2b",
+        665
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVAABoxClass@@PAUVolumeStruct@1@@Z": [
+        "af738e3a3d1e",
+        704
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVOBBoxClass@@PAUVolumeStruct@1@@Z": [
+        "e6ce3644500c",
+        730
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVFrustumClass@@PAUVolumeStruct@1@@Z": [
+        "ccede09eea38",
+        694
+      ],
+      "??0VolumeStruct@GridCullSystemClass@@QAE@XZ": [
+        "03ca90960a9c",
+        3
+      ],
+      "?Is_Empty@VolumeStruct@GridCullSystemClass@@QBE_NXZ": [
+        "c83f662ff5ae",
+        38
+      ],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z": [
+        "d2b117bdff0b",
+        124
+      ],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z": [
+        "e18b92c2c000",
+        262
+      ],
+      "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z": [
+        "cbffe5fae960",
+        33
+      ],
+      "??_7GridLinkClass@@6B@": [
+        "bc853142906e",
+        4
+      ],
+      "??1GridLinkClass@@UAE@XZ": [
+        "826f7cc89d22",
+        7
+      ],
+      "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z": [
+        "aa2403b3a217",
+        236
+      ],
+      "?Reset_Statistics@GridCullSystemClass@@QAEXXZ": [
+        "684ebf6043b5",
+        30
+      ],
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z": [
+        "4f430b7176d6",
+        42
+      ],
+      "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z": [
+        "1879bdf56f2c",
+        65
+      ],
+      "?Get_Object_Count@GridCullSystemClass@@UBEHXZ": [
+        "58fb2cf41e8b",
+        4
+      ],
+      "??0?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "cfd02dde8c4d",
+        16
+      ],
+      "??1?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "eec35cdc005a",
+        40
+      ],
+      "??2?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAPAXI@Z": [
+        "4cc20ad1f568",
+        10
+      ],
+      "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z": [
+        "2967d042e7d7",
+        39
+      ],
+      "?Contains@AABoxClass@@QBE_NABVVector3@@@Z": [
+        "c4f4f9852feb",
+        144
+      ],
+      "??0GridListIterator@@QAE@PAVCullableClass@@@Z": [
+        "a48bcf089551",
+        14
+      ],
+      "?map_point_to_address@GridCullSystemClass@@IAE_NABVVector3@@AAH@Z": [
+        "775f27506b86",
+        318
+      ],
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z": [
+        "e9dfaabf565f",
+        112
+      ],
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "c7d628eca0b0",
+        89
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z": [
+        "1eda4ce49107",
+        157
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z": [
+        "9477689d8202",
+        188
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z": [
+        "07df9b247a5e",
+        63
+      ],
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z": [
+        "18818cb586c9",
+        63
+      ],
+      "??3?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAXPAX@Z": [
+        "b238d0eee2e7",
+        20
+      ],
+      "??_GGridLinkClass@@UAEPAXI@Z": [
+        "fe71d999da52",
+        36
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z": [
+        "0fb9b109ec7f",
+        886
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z": [
+        "032be0e704fd",
+        924
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z": [
+        "eb28ff70c5e7",
+        995
+      ],
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z": [
+        "93336674c97b",
+        961
+      ],
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ": [
+        "6b5295e5a073",
+        363
+      ],
+      "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z": [
+        "8a6fb444454e",
+        327
+      ],
+      "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "08ec079781f4",
+        63
+      ],
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "89743d203ed9",
+        323
+      ],
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z": [
+        "f8589187cd82",
+        555
+      ],
+      "__real@3f000000": [
+        "fd1edc7bc3cb",
+        4
+      ],
+      "__real@40000000": [
+        "4ea1b3f4f253",
+        4
+      ],
+      "__real@3f800000": [
+        "5bb96baed2a6",
+        4
+      ],
+      "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z": [
+        "b02fb268e32c",
+        387
+      ],
+      "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z": [
+        "f21b26fcdbf8",
+        77
+      ],
+      "??0GridCullSystemClass@@QAE@XZ": [
+        "41df3d1f3a85",
+        260
+      ],
+      "__real@42c80000": [
+        "2c0975101c36",
+        4
+      ],
+      "__real@c2c80000": [
+        "4b3d41e9e1e8",
+        4
+      ],
+      "??_7GridCullSystemClass@@6B@": [
+        "1fc0a75decfd",
+        40
+      ],
+      "__real@41700000": [
+        "dcbd25175316",
+        4
+      ],
+      "__real@41200000": [
+        "400bec6bce4c",
+        4
+      ],
+      "??_GGridCullSystemClass@@UAEPAXI@Z": [
+        "10631ff2eaab",
+        30
+      ],
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A": [
+        "abfdcfe1dc3e",
+        20
+      ]
+    },
+    "strong": [
+      "??0GridCullSystemClass@@QAE@XZ",
+      "??0GridLinkClass@@QAE@PAVGridCullSystemClass@@@Z",
+      "??1GridLinkClass@@UAE@XZ",
+      "?Add_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+      "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+      "?Get_Object_Count@GridCullSystemClass@@UBEHXZ",
+      "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+      "?Remove_Object_Internal@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Reset_Statistics@GridCullSystemClass@@QAEXXZ",
+      "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+      "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?unlink_object_from_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z"
+    ],
+    "undefined": [
+      "??0CullSystemClass@@QAE@XZ",
+      "??1CullSystemClass@@UAE@XZ",
+      "??1GridCullSystemClass@@UAE@XZ",
+      "??3@YAXPAX@Z",
+      "??_GCullLinkClass@@UAEPAXI@Z",
+      "??_GGridCullSystemClass@@UAEPAXI@Z",
+      "??_GGridLinkClass@@UAEPAXI@Z",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+      "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z",
+      "?Close_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?End_Chunk@ChunkSaveClass@@QAE_NXZ",
+      "?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ",
+      "?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z",
+      "?Lock@BFMEPoolCriticalSection@@QAEXXZ",
+      "?Open_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z",
+      "?Read@ChunkLoadClass@@QAEKPAXK@Z",
+      "?Reset_Collection@CullSystemClass@@QAEXXZ",
+      "?Write@ChunkSaveClass@@QAEKPBXK@Z",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__fltused",
+      "__ftol2",
+      "__imp__floor",
+      "_atexit"
+    ],
+    "weak": [
+      [
+        "??_ECullLinkClass@@UAEPAXI@Z",
+        "??_GCullLinkClass@@UAEPAXI@Z"
+      ],
+      [
+        "??_EGridCullSystemClass@@UAEPAXI@Z",
+        "??_GGridCullSystemClass@@UAEPAXI@Z"
+      ],
+      [
+        "??_EGridLinkClass@@UAEPAXI@Z",
+        "??_GGridLinkClass@@UAEPAXI@Z"
+      ]
+    ],
+    "roots": [
+      "??0CullSystemClass@@QAE@XZ",
+      "??1CullSystemClass@@UAE@XZ",
+      "??_7CullLinkClass@@6B@",
+      "??_7GridCullSystemClass@@6B@",
+      "??_7GridLinkClass@@6B@",
+      "??_U@YAPAXI@Z",
+      "??_V@YAXPAX@Z",
+      "?Add_To_Collection@CullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+      "?Begin_Chunk@ChunkSaveClass@@QAE_NK@Z",
+      "?Close_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Collect_And_Unlink_All@GridCullSystemClass@@IAEXXZ",
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+      "?End_Chunk@ChunkSaveClass@@QAE_NXZ",
+      "?Get_First_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@XZ",
+      "?Get_Next_Collected_Object_Internal@CullSystemClass@@IAEPAVCullableClass@@PAV2@@Z",
+      "?Open_Chunk@ChunkLoadClass@@QAE_NXZ",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVFrustumClass@@ABVAABoxClass@@@Z",
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVOBBoxClass@@ABVAABoxClass@@@Z",
+      "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+      "?Read@ChunkLoadClass@@QAEKPAXK@Z",
+      "?Reset_Collection@CullSystemClass@@QAEXXZ",
+      "?Write@ChunkSaveClass@@QAEKPBXK@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVAABoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVFrustumClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVOBBoxClass@@PAVCullableClass@@@Z",
+      "?collect_objects_in_leaf@GridCullSystemClass@@IAEXABVVector3@@PAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "?link_object@GridCullSystemClass@@IAEXPAVCullableClass@@H@Z",
+      "?link_object_to_list@GridCullSystemClass@@IAEXPAPAVCullableClass@@PAV2@@Z",
+      "?unlink_object@GridCullSystemClass@@IAEXPAVCullableClass@@@Z",
+      "___CxxFrameHandler",
+      "___DebugIncludeInLink1",
+      "__except_list",
+      "__imp__floor",
+      "__real@3f000000",
+      "__real@3f800000",
+      "__real@40000000",
+      "__real@41200000",
+      "__real@41700000",
+      "__real@42c80000",
+      "__real@c2c80000"
+    ],
+    "edges": {
+      "??0?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [],
+      "??0BFMEPoolLock@@QAE@AAVBFMEPoolCriticalSection@@@Z": [
+        "?Lock@BFMEPoolCriticalSection@@QAEXXZ"
+      ],
+      "??0CullLinkClass@@QAE@PAVCullSystemClass@@@Z": [
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??0GridListIterator@@QAE@PAVCullableClass@@@Z": [],
+      "??0Vector3@@QAE@ABV0@@Z": [],
+      "??0Vector3@@QAE@MMM@Z": [],
+      "??0Vector3@@QAE@XZ": [],
+      "??0VolumeStruct@GridCullSystemClass@@QAE@XZ": [],
+      "??1?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAE@XZ": [
+        "??3@YAXPAX@Z"
+      ],
+      "??1BFMEPoolLock@@QAE@XZ": [],
+      "??1CullLinkClass@@UAE@XZ": [
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??2?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAPAXI@Z": [
+        "?Allocate_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEPAVGridLinkClass@@XZ",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A"
+      ],
+      "??3?$AutoPoolClass@VGridLinkClass@@$0BAA@@@SAXPAX@Z": [
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z"
+      ],
+      "??4Vector3@@QAEAAV0@ABV0@@Z": [],
+      "??AMatrix3@@QBEABVVector3@@H@Z": [],
+      "??AVector3@@QAEAAMH@Z": [],
+      "??AVector3@@QBEABMH@Z": [],
+      "??G@YA?AVVector3@@ABV0@0@Z": [],
+      "??H@YA?AVVector3@@ABV0@0@Z": [],
+      "??_7CullLinkClass@@6B@": [
+        "??_ECullLinkClass@@UAEPAXI@Z"
+      ],
+      "??_7GridCullSystemClass@@6B@": [
+        "??_EGridCullSystemClass@@UAEPAXI@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVAABoxClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVFrustumClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVOBBoxClass@@@Z",
+        "?Collect_Objects@GridCullSystemClass@@UAEXABVVector3@@@Z",
+        "?Get_Object_Count@GridCullSystemClass@@UBEHXZ",
+        "?Load@GridCullSystemClass@@UAEXAAVChunkLoadClass@@@Z",
+        "?Re_Partition@GridCullSystemClass@@UAEXABVVector3@@0M@Z",
+        "?Save@GridCullSystemClass@@UAEXAAVChunkSaveClass@@@Z",
+        "?Update_Culling@GridCullSystemClass@@UAEXPAVCullableClass@@@Z"
+      ],
+      "??_7GridLinkClass@@6B@": [
+        "??_EGridLinkClass@@UAEPAXI@Z"
+      ],
+      "??_GCullLinkClass@@UAEPAXI@Z": [
+        "??3@YAXPAX@Z",
+        "??_7CullLinkClass@@6B@"
+      ],
+      "??_GGridCullSystemClass@@UAEPAXI@Z": [
+        "??1GridCullSystemClass@@UAE@XZ",
+        "??3@YAXPAX@Z"
+      ],
+      "??_GGridLinkClass@@UAEPAXI@Z": [
+        "??1GridLinkClass@@UAE@XZ",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z"
+      ],
+      "??_H@YGXPAXIHP6EPAX0@Z@Z": [],
+      "?Add_Ref@RefCountClass@@QAEXXZ": [],
+      "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A": [
+        "??3@YAXPAX@Z",
+        "?Allocator@?$AutoPoolClass@VGridLinkClass@@$0BAA@@@0V?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@A",
+        "_atexit"
+      ],
+      "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z": [],
+      "?Contains@AABoxClass@@QBE_NABVVector3@@@Z": [],
+      "?Fabs@WWMath@@SAMM@Z": [],
+      "?First@GridListIterator@@QAEXPAVCullableClass@@@Z": [],
+      "?Free_Object_Memory@?$ObjectPoolClass@VGridLinkClass@@$0BAA@@@QAEXPAVGridLinkClass@@@Z": [
+        "?Lock@BFMEPoolCriticalSection@@QAEXXZ"
+      ],
+      "?Get_Bound_Max@FrustumClass@@QBEABVVector3@@XZ": [],
+      "?Get_Bound_Min@FrustumClass@@QBEABVVector3@@XZ": [],
+      "?Get_Cull_Box@CullableClass@@QBEABVAABoxClass@@XZ": [],
+      "?Get_Cull_Link@CullableClass@@QBEPAVCullLinkClass@@XZ": [],
+      "?Is_Done@GridListIterator@@QAE_NXZ": [],
+      "?Is_Empty@VolumeStruct@GridCullSystemClass@@QBE_NXZ": [],
+      "?Next@GridListIterator@@QAEXXZ": [],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@0@Z": [],
+      "?Overlap_Test@CollisionMath@@SA?AW4OverlapType@1@ABVAABoxClass@@ABVVector3@@@Z": [],
+      "?Peek_Obj@GridListIterator@@QAEPAVCullableClass@@XZ": [],
+      "?Release_Ref@RefCountClass@@QAEXXZ": [],
+      "?Set_Cull_Link@CullableClass@@QAEXPAVCullLinkClass@@@Z": [],
+      "?Set_Culling_System@CullLinkClass@@QAEXPAVCullSystemClass@@@Z": [],
+      "?Subtract@Vector3@@SAXABV1@0PAV1@@Z": [],
+      "?clamp_indices_to_grid@GridCullSystemClass@@IAEXPAH00@Z": [],
+      "?floor@@YAMM@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVAABoxClass@@PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVFrustumClass@@PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVOBBoxClass@@PAUVolumeStruct@1@@Z": [
+        "?Compute_Axis_Aligned_Extent@OBBoxClass@@QBEXPAVVector3@@@Z",
+        "__imp__floor"
+      ],
+      "?init_volume@GridCullSystemClass@@IAEXABVVector3@@0PAUVolumeStruct@1@@Z": [
+        "__imp__floor"
+      ],
+      "?map_indices_to_address@GridCullSystemClass@@IAEHHHH@Z": [],
+      "?map_point_to_address@GridCullSystemClass@@IAE_NABVVector3@@AAH@Z": [
+        "__imp__floor"
+      ],
+      "?map_point_to_cell@GridCullSystemClass@@IAE_NABVVector3@@AAH11@Z": [
+        "__ftol2",
+        "__imp__floor"
+      ],
+      "?total_cell_count@GridCullSystemClass@@IAEHXZ": [],
+      "__real@3f000000": [],
+      "__real@3f800000": [],
+      "__real@40000000": [],
+      "__real@41200000": [],
+      "__real@41700000": [],
+      "__real@42c80000": [],
+      "__real@c2c80000": []
+    }
+  }
+}
