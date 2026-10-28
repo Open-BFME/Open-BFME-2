@@ -1,0 +1,33 @@
+{
+  "comdat": {
+    "before_count": 104,
+    "after_count": 104,
+    "equal": true,
+    "before_sha256": "76a02fe9d6119c0bbff4f5583692c340ee30657095af2a55384ca8605abd4433",
+    "after_sha256": "76a02fe9d6119c0bbff4f5583692c340ee30657095af2a55384ca8605abd4433"
+  },
+  "strong": {
+    "before_count": 3,
+    "after_count": 3,
+    "equal": true,
+    "before_sha256": "413cc02733dea6d4b59f6e6b222b056d56caaa207af788b0c62ea7176356f856",
+    "after_sha256": "413cc02733dea6d4b59f6e6b222b056d56caaa207af788b0c62ea7176356f856"
+  },
+  "undefined": {
+    "before_count": 19,
+    "after_count": 19,
+    "equal": true,
+    "before_sha256": "e9a068aae59708cc59fea5207837d829d053aa9372b5e6690094ce38d1b785fe",
+    "after_sha256": "e9a068aae59708cc59fea5207837d829d053aa9372b5e6690094ce38d1b785fe"
+  },
+  "weak": {
+    "before_count": 0,
+    "after_count": 0,
+    "equal": true,
+    "before_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+    "after_sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+  },
+  "scope": "External COMDAT byte/relocation digests and object definitions/references; no runtime claim.",
+  "base": "b3417cdde8",
+  "source": "Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp"
+}

@@ -9,7 +9,15 @@
 // calls the 30-byte Construct at41360E. This also preserves the real map
 // temporary lifetimes without layout padding or artificial wrapper objects.
 // Evidence: reverse/attempt_support/big-archive-recovery-20261020.md.
-#define strncmp HeaderStrncmp
+// Retail imports strncmp, while _mbscpy and the allocation operators use
+// direct calls. Select each CRT header's linkage before its first inclusion.
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#include <new>
 #define _STLP_BFME_TREE_NODE_BASE_O2
 #include <map>
 // ?init@Win32BIGFileSystem@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Win32BIGFileSystem@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
@@ -102,9 +110,6 @@ public:
 unsigned int __cdecl Rva009CC290Swap(unsigned int);
 char *Rva00605365(char *);
 
-extern "C" unsigned char *__cdecl _mbscpy(unsigned char *, const unsigned char *);
-void *__cdecl operator new[](unsigned int);
-void __cdecl operator delete[](void *) throw();
 
 // WorldBuilder16507D0 names the method and source path. Native C7A94C
 // vtable slot5 selects6046B0; complete RET8 body314 bytes. ZH's BIG parser
@@ -142,8 +147,6 @@ bool Win32BIGFileSystem::rva006045A2(const char *folder, const char *name,
 }
 
 
-#undef strncmp
-extern "C" __declspec(dllimport) int __cdecl strncmp(const char*,const char*,unsigned);
 bool Win32BIGFileSystem::addArchiveFile(const char *filename, bool overwrite) {
     bool success = false;
     File *file=TheArchiveFileSystem->openFile(filename,0x41,0);
