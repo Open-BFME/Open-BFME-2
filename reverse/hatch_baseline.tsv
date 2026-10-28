@@ -294,8 +294,6 @@ address_global	Code/GameEngine/Source/Common/Rva0043DB3DGlobalSet.cpp	g_Va00E033
 address_global	Code/GameEngine/Source/Common/Rva004421E1Dtor.cpp	g_Va00E0333C	3
 address_global	Code/GameEngine/Source/Common/Rva00446A71Get.cpp	g_Va00A0335C	4
 address_global	Code/GameEngine/Source/Common/Rva00446A77Enable.cpp	g_Va00A0335C	2
-address_global	Code/GameEngine/Source/Common/Rva004E84ABMethod.cpp	g_Va00E04478	4
-address_global	Code/GameEngine/Source/Common/Rva004E855CMethod.cpp	g_Va00E04478	2
 address_global	Code/GameEngine/Source/Common/Rva004EA2C5.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/Common/Rva004EA420Init.cpp	g_Va00E04490	2
 address_global	Code/GameEngine/Source/Common/Rva004EDDD3.cpp	g_Va00BBB8D8	2
@@ -926,7 +924,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/DisconnectMenu/DisconnectMe
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCampaignMenu.cpp	g_Va00E0492C	6
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptFileTransferPopupCtor.cpp	g_Va00E06398	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptGuiFXCallbacks.cpp	g_Va00E022E0	2
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp	g_Va00E04478	5
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptInGameChat.cpp	g_Va00E04478	9
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreen.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLoadScreenCtor.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	g_Va00DD1538	2
