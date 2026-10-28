@@ -20227,8 +20227,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03B30,4,.data,global,?TheAttributeModifierAuraUpdatePoolKey@?1??getModuleNameKey@AttributeModifierAuraUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdatePoolKey.cpp,owned,,1,2
 0x00A03B34,4,.data,global,?$S1@?1??getModuleNameKey@AttributeModifierAuraUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdatePoolKey.cpp,owned,,1,4
 0x00A03B38,4,.data,global,_s_rva007B18A3,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03B3C,4,.data,global,?TheRadiateFearUpdatePoolKey@?1??getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdatePoolKey.cpp,owned,,1,2
-0x00A03B40,4,.data,global,?$S1@?1??getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdatePoolKey.cpp,owned,,1,4
+0x00A03B3C,4,.data,global,?TheRadiateFearUpdatePoolKey@?1??getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,owned,,1,2
+0x00A03B40,4,.data,global,?$S1@?1??getModuleNameKey@RadiateFearUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RadiateFearUpdate.cpp,owned,,1,4
 0x00A03B44,4,.data,global,_s_rva007B18CD,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03B48,4,.data,global,?TheGiveUpgradeUpdatePoolKey@?1??getModuleNameKey@GiveUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,owned,,1,2
 0x00A03B4C,4,.data,global,?$S1@?1??getModuleNameKey@GiveUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,owned,,1,4
