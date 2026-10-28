@@ -50654,10 +50654,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005D76F4,18,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp provisional,Code/GameEngine/Source/Common/Rva005EE30CDerivedCtors_muse-1b6d.cpp
 0x005D7706,11,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp provisional,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
 0x005D7711,28,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp provisional,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
-0x005D772D,24,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,C,C=0x005D7711..0x005D7745 provisional,Code/GameEngine/Source/Common/Rva005D772D.cpp
+0x005D772D,24,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,C,C=0x005D7711..0x005D7745 provisional,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp
 0x005D7745,17,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,C,C=0x005D7711..0x005D7756 provisional,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x005D7756,16,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,C,C=0x005D7711..0x005D7766 provisional,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
-0x005D7766,221,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp provisional,Code/GameEngine/Source/Common/AISpellBookTreeKiller_shouldActivate.cpp
+0x005D7766,221,code,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp provisional,Code/GameEngine/Source/Common/AISpellBookTreeKiller.cpp
 0x005D7843,18,code,,,-,,Code/GameEngine/Source/Common/Rva005EE30CDerivedCtors_muse-1b6d.cpp
 0x005D7855,11,code,,,-,,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp
 0x005D7860,101,code,,,-,,Code/GameEngine/Source/Common/Rva005D7860.cpp
