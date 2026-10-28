@@ -1,5 +1,5 @@
 // cl: /Od /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 _Rb_global<bool>'s two rotations and the red-black delete
 // fixup, all three verbatim from vendor/stlport/stl/_tree.c.
