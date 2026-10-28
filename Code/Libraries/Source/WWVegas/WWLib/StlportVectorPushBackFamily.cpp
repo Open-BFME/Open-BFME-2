@@ -243,13 +243,16 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void vector<Rva
 
 // The six-byte placement copy is rowed at 0x002861B0.
 __declspec(nothrow) void __cdecl Rva002861B0Copy(void *, const void *);
+// The four-byte placement copy (a counted pointer) is rowed at 0x00087A5C.
+__declspec(nothrow) void __cdecl Rva00087A5CCopy(void **, void **);
 // Placement-copy calls bind to the ledger or pinned owners retail calls.
 namespace _STL
 {
 template <> __declspec(nothrow) void _Construct<RvaSmartPtr12, RvaSmartPtr12>(RvaSmartPtr12 *__p, const RvaSmartPtr12 &__val);
 template <> __declspec(nothrow) void _Construct<Rva00082BE6Element, Rva00082BE6Element>(Rva00082BE6Element *__p, const Rva00082BE6Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva00082C1DElement, Rva00082C1DElement>(Rva00082C1DElement *__p, const Rva00082C1DElement &__val);
-template <> __declspec(nothrow) void _Construct<Rva0008B689Element, Rva0008B689Element>(Rva0008B689Element *__p, const Rva0008B689Element &__val);
+template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Construct<Rva0008B689Element, Rva0008B689Element>(Rva0008B689Element *__p, const Rva0008B689Element &__val)
+{ Rva00087A5CCopy((void **)__p, (void **)&__val); }
 template <> __declspec(nothrow) void _Construct<Rva0008DE1CElement, Rva0008DE1CElement>(Rva0008DE1CElement *__p, const Rva0008DE1CElement &__val);
 template <> __declspec(nothrow) void _Construct<Rva000AB3E2Element, Rva000AB3E2Element>(Rva000AB3E2Element *__p, const Rva000AB3E2Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva000AB419Element, Rva000AB419Element>(Rva000AB419Element *__p, const Rva000AB419Element &__val);
@@ -314,7 +317,8 @@ template <> __declspec(nothrow) void _Construct<Rva005334A4Element, Rva005334A4E
 template <> __declspec(nothrow) void _Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *__p, const Rva0052BE33 &__val);
 template <> __declspec(nothrow) void _Construct<Rva005668E9Element, Rva005668E9Element>(Rva005668E9Element *__p, const Rva005668E9Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva00568A20, Rva00568A20>(Rva00568A20 *__p, const Rva00568A20 &__val);
-template <> __declspec(nothrow) void _Construct<Rva00578425Element, Rva00578425Element>(Rva00578425Element *__p, const Rva00578425Element &__val);
+template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Construct<Rva00578425Element, Rva00578425Element>(Rva00578425Element *__p, const Rva00578425Element &__val)
+{ Rva00087A5CCopy((void **)__p, (void **)&__val); }
 template <> __declspec(nothrow) void _Construct<Rva005C8624Element, Rva005C8624Element>(Rva005C8624Element *__p, const Rva005C8624Element &__val);
 template <> __declspec(nothrow) void _Construct<Rva005E1E9BElement, Rva005E1E9BElement>(Rva005E1E9BElement *__p, const Rva005E1E9BElement &__val);
 template <> __declspec(nothrow) void _Construct<Rva005E71C6Ref, Rva005E71C6Ref>(Rva005E71C6Ref *__p, const Rva005E71C6Ref &__val);
