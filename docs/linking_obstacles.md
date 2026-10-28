@@ -1266,6 +1266,14 @@ per unit, all rows exact:
 - `window_video_manager.cpp` was already repaired upstream by fe7faa1c69; both of its
   units preview LINKS (2,340 B).
 
+2026-10-28 follow-up at `71781d61e0`, index `d92e7e6635`: the published index
+still predates the CollectKeys provider repair. With the current CollectKeys
+object included in the preview, `AssetManagerImplRefresh.cpp` reports LINKS
+for 3,267 authored bytes; its scoped build verifies all eight rows. CollectKeys
+itself remains blocked on its separate signed `find<int>` copy. The refresh
+consumer's selection and the tree-storage provider still need confirmation in
+the next census; this paired preview is not a census gain.
+
 For every name whose first definer was one of these objects, the kept copy becomes
 proven retail's or the next definer's retail copy, so no consumer can lose. Of the
 seven census-linked consumers of those names, five LINK. CastleBehaviorCtor.cpp and
