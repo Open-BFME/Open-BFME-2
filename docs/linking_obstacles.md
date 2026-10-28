@@ -3083,6 +3083,21 @@ Updated: 2026-10-25; inspected revision: `4f111811802`.**
 
 **Assigned current-provider recheck (2026-10-27, inspected `97c23353111e60304b56434c02d20bee3465d83f`, index `5ce093a71a`, retail-truth-4):** `shattersystem.cpp` retains U3/L2/S2 with current named providers and its 133-byte Matrix3D::Scale row remains exact. `Add_Vertex_Material` at 0x00189670 (85 B) and `Peek_Single_Material` at 0x002C8ECF (14 B) are still owned by `dynamesh.cpp`; `Get_Z_Vector` at 0x00143260 (32 B) is owned by `lightenvironment.cpp`. The unresolved texture/normal operations occur in emitted unrowed shatter code rather than the matched Scale row. The existing WWLib/WW3D2 and mesh-material shim reconciliation remains the prerequisite; no shared header was edited and no earlier failed trial was repeated. No source change or further clearance is claimed. Census confirmation remains pending.
 
+- **Mesh material I/O seed cleanup (2026-10-28, base `5ab8984c4c`, index `41c28839bf`):**
+  [The cleanup and provider comparison](../reverse/attempt_support/meshmdlio-seed-cleanup-20261028-codex.md)
+  remove disabled donor save code (22 obsolete hatch entries) and the unused
+  getter-emission anchor. The four removed getter COMDATs are byte-and-symbolic-
+  relocation twins of their existing owners in MeshModelLegacyMaterials.cpp and
+  MeshLoadContextAddLegacyMaterial.cpp; all retained seed COMDATs are unchanged.
+  All 38 rows across those three units verify, and ordinary preview keeps their
+  3,801 authored bytes linking. No new linking credit or TU merge is claimed.
+  Fresh view planning still requires material-class layout/inheritance and
+  shared-header reconciliation before composition. The outgoing batch audit is
+  inconclusive: its index predates the base and affected consumer
+  `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+  receipt. Broader provider-selection clearance and census confirmation remain
+  open; include the removed duplicate providers in the next scheduled census.
+
 ### LINK-013: INI consolidation made a non-retail `set<AsciiString, BfmeStringNoCaseLess>::insert_unique` the kept copy
 
 **Status: Cleared in the eight-unit ordinary preview; census pending. Updated: 2026-10-25; inspected revision: aa31e9bac4.**

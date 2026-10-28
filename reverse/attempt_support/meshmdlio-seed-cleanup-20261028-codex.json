@@ -1,0 +1,43 @@
+{
+  "base": "5ab8984c4c",
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp",
+  "before_object_sha256": "fe6d57de02325ac6f2044439540cd570662a0382e275ed98f9bb5612129e1262",
+  "after_object_sha256": "a9adb806d08aab3d0933acffdd53565f5dd6198be323f56e43823b6434b6784b",
+  "before_comdats": 80,
+  "after_comdats": 75,
+  "retained_digests_unchanged": true,
+  "added": [],
+  "removed": [
+    "?Peek_Legacy_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z",
+    "?Peek_Legacy_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z",
+    "?Peek_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z",
+    "?Peek_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z",
+    "?_bfmeMeshLoadContextInlineAnchor@@YAXPAVMeshLoadContextClass@@VShaderClass@@PAVVertexMaterialClass@@H@Z"
+  ],
+  "verified_primary_providers": {
+    "?Peek_Legacy_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z": {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp",
+      "digest": "656d66a7370b",
+      "size": 34,
+      "equals_removed": true
+    },
+    "?Peek_Legacy_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z": {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshModelLegacyMaterials.cpp",
+      "digest": "8ecc09f27d10",
+      "size": 38,
+      "equals_removed": true
+    },
+    "?Peek_Vertex_Material@MeshLoadContextClass@@AAEPAVVertexMaterialClass@@H@Z": {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+      "digest": "ca7a25ab537a",
+      "size": 16,
+      "equals_removed": true
+    },
+    "?Peek_Shader@MeshLoadContextClass@@AAE?AVShaderClass@@H@Z": {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/MeshLoadContextAddLegacyMaterial.cpp",
+      "digest": "cc360b04f274",
+      "size": 22,
+      "equals_removed": true
+    }
+  }
+}
