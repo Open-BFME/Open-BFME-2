@@ -29,6 +29,8 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 
 class __declspec(novtable) ObjectTypes : public Snapshot
 {
+protected:
+	virtual void xfer(Xfer *xfer);
 public:
 	virtual ~ObjectTypes();
 private:
