@@ -1,5 +1,5 @@
-"""next_work's Phase 2 structural tiers: stubs, consolidate, tu-approval, ms-headers and dx
-are default tiers with stated shares, built lazily, claimed through claim_choice and fallen
+"""next_work's Phase 2 structural tiers: stubs, consolidate, tu-approval, tu-evidence,
+ms-headers, dx and stlport are default tiers with stated shares, built lazily, claimed through claim_choice and fallen
 through like the debt queues; each builder reads only its owning tool's evidence."""
 import argparse
 import collections
@@ -19,7 +19,7 @@ import claims  # noqa: E402
 import next_work  # noqa: E402
 import repair_queue as rq  # noqa: E402
 
-STRUCTURAL = ("stubs", "consolidate", "tu-approval", "tu-evidence", "ms-headers", "dx")
+STRUCTURAL = ("stubs", "consolidate", "tu-approval", "tu-evidence", "ms-headers", "dx", "stlport")
 
 
 # ---- weights and order
@@ -164,11 +164,39 @@ def test_a_structural_pick_prints_its_own_credit_not_bytes(capsys):
     assert "pass test: t" in out
 
 
+def test_the_stlport_tier_claims_its_file_and_falls_through_when_a_peer_holds_it(picker, monkeypatch):
+    files = [item("stlport", "S1"), item("stlport", "S2")]
+    got = picker(["repair", "stlport"], stlport=files)
+    assert got["name"] == "stlport" and got["label"] == "STLport 4.6 migration"
+    busy = {claims.file_key("Code/S1.cpp"), claims.file_key("Code/S2.cpp")}
+    got = picker(["repair", "stlport", "dx"], busy=busy, stlport=files, dx=[item("dx", "D")])
+    assert got["name"] == "dx" and got["tried"] == ["repair", "stlport"]
+    picker.args.claim = True
+    taken = []
+
+    def claim_choice(pool, label):
+        taken.append((label, next_work.claim_targets(pool[0])))
+        return pool[0], ["held"]
+    monkeypatch.setattr(next_work, "claim_choice", claim_choice)
+    got = picker(["repair", "stlport"], stlport=[item("stlport", "S1")])
+    picker.args.claim = False
+    assert got["acquired"] == ["held"] and taken == [("STLport 4.6 migration", ["file:Code/S1.cpp"])]
+
+
 def test_draw_weight_follows_the_queue_s_own_ranking():
     small = next_work.candidate_weight({"tier": "consolidate", "count": 1})
     big = next_work.candidate_weight({"tier": "consolidate", "count": 12})
     capped = next_work.candidate_weight({"tier": "stubs", "count": 400})
     assert big == 12 * small and capped == 16 * small
+
+
+def test_stlport_draw_weighs_rows_only_for_a_clean_unit_trial():
+    unit = {"tier": "stlport", "count": 12, "lead": "unit", "trial_fails": 0}
+    one = next_work.candidate_weight(dict(unit, count=1))
+    assert next_work.candidate_weight(unit) == 12 * one
+    assert next_work.candidate_weight(dict(unit, count=40)) == 16 * one
+    assert next_work.candidate_weight(dict(unit, lead="library")) == one     # never compiled under 4.6
+    assert next_work.candidate_weight(dict(unit, trial_fails=3)) == one      # a row of it failed the trial
 
 
 # ---- the builders
@@ -270,6 +298,33 @@ def test_a_class_stub_group_locks_every_referencing_file_against_a_second_owner(
         assert got is None and not held                                           # B.cpp is a's
 
 
+def test_an_stlport_file_claim_locks_the_file_against_a_second_owner(tmp_path, monkeypatch):
+    """Against a local bare origin: the first seat's --claim holds file:SOURCE; a second
+    seat drawing the same file is refused, and the tier then has nothing to give it."""
+    move = item("stlport", "Move")
+    monkeypatch.setattr(claims, "scope_index", lambda root=None: ({}, {}, {}))
+    for name in ("BFME_RUN_ID", "BFME_CLAIMS"):
+        monkeypatch.delenv(name, raising=False)
+    monkeypatch.setattr(claims, "NS", "refs/claims/")
+    monkeypatch.setattr(claims, "REMOTE", "origin")
+    monkeypatch.setattr(next_work, "weighted_choice", lambda candidates: candidates[0])
+    origin = tmp_path / "origin.git"
+    git(tmp_path, "init", "-q", "--bare", str(origin))
+    for name in ("a", "b"):
+        clone = tmp_path / name
+        git(tmp_path, "init", "-q", str(clone))
+        git(clone, "remote", "add", "origin", str(origin))
+        monkeypatch.setattr(claims, "ROOT", clone)
+        monkeypatch.setenv("BFME_CLAIM_OWNER", name)
+        claims.active.cache_clear()
+        claims.mirrored.cache_clear()
+        got, held = next_work.claim_choice([move], "STLport 4.6 migration")
+        if name == "a":
+            assert got is move and held
+        else:
+            assert got is None and not held
+
+
 def test_stub_items_refuse_a_list_that_is_not_the_receipts(cycle):
     root, out = cycle
     stubs = json.loads((out / "stubs.json").read_text())
@@ -358,3 +413,43 @@ def test_ms_header_and_dx_items_carry_a_file_claim_and_a_reason(tmp_path, monkey
     for item in (ms, dx):                         # the start names the claimed file, never another picker
         assert "in Code/A.cpp only" in item["start"] and "./build.sh Code/A.cpp" in item["start"]
         assert " next" not in item["start"] and "--class" not in item["start"]
+
+
+def test_stlport_items_serve_the_trial_queue_with_the_move_and_a_file_claim(tmp_path, monkeypatch):
+    import stlport_trial
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "Code").mkdir()
+    (tmp_path / rq.STLPORT_TRIAL).write_text("")
+    (tmp_path / "Code/A.cpp").write_text("// cl: /O2 /Ireference/shims/bfmealloc /DX\n// stlport\n")
+    (tmp_path / "Code/B.cpp").write_text("// stlport\n")
+    monkeypatch.setattr(rq, "ROOT", tmp_path)
+    alloc = "?allocate@?$allocator@PAUX@@@_STL@@QBEPAPAUX@@IPBX@Z"
+    monkeypatch.setattr(stlport_trial, "queue_files", lambda: [
+        {"source": "Code/B.cpp", "rows": [{"name": alloc}], "bytes": 60, "knobs": ["adapt"], "fails": 2,
+         "lead": "library"},
+        {"source": "Code/Gone.cpp", "rows": [{"name": "g"}], "bytes": 50, "knobs": [], "fails": 0, "lead": "unit"},
+        {"source": "Code/A.cpp", "rows": [{"name": "f"}, {"name": "h"}], "bytes": 40, "knobs": ["-shim"],
+         "fails": 0, "lead": "unit"}])
+    items, note = rq.stlport_items()
+    assert [i["source"] for i in items] == ["Code/A.cpp", "Code/B.cpp"]          # vanished not served; clean first
+    a, b = items
+    assert a["tier"] == "stlport" and a["claim"] == ["file:Code/A.cpp"] and a["count"] == 2
+    assert a["check"] == "unit trial +-shim" and "2 row(s) (40 B)" in a["why"] and "40 B" in a["credit_note"]
+    for got, source in ((a, "Code/A.cpp"), (b, "Code/B.cpp")):  # the lane's own move, on the claimed file only
+        assert got["start"].startswith(f"in {source} only: change its `// stlport` line to `// stlport46`")
+        assert f"./build.sh {source} (every row in the file" in got["start"]
+        assert (f"python3 tools/add_match.py <name> <rva> <size> {source} --replace-existing --notes "
+                '"<its notes>; migrated=stlport-4.6"') in got["start"]
+        assert " next" not in got["start"] and f"./build.sh {source}" in got["pass_test"]
+    assert ("only if that fails, apply the trial's knob and rebuild: delete /Ireference/shims/bfmealloc from "
+            "its `// cl:` line") in a["start"]
+    assert a["start"].index("./build.sh") < a["start"].index("delete /I") < a["start"].index("add_match")
+    assert b["start"].index("drop the 4.5.3-only `const`") < b["start"].index("./build.sh")   # adapt always applies
+    assert f"rename {alloc} to the non-const 4.6 mangling" in b["start"] and "only if" not in b["start"]
+    assert b["check"] == "library lead +adapt" and "2 other row(s) of the file failed the trial" in b["why"]
+    assert "2 file(s), 3 trial row(s)" in note
+
+
+def test_stlport_items_skip_without_the_trial_report(tmp_path, monkeypatch):
+    monkeypatch.setattr(rq, "ROOT", tmp_path)
+    assert rq.stlport_items() == ([], f"{rq.STLPORT_TRIAL} absent: STLport 4.6 queue skipped")

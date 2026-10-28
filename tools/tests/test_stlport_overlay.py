@@ -120,6 +120,33 @@ def test_queue_uses_live_identity_and_extent(tmp_path, monkeypatch, capsys):
     assert "a.cpp" in output and "b.cpp" not in output
 
 
+def test_queue_files_carry_knobs_failures_and_the_lead(tmp_path, monkeypatch):
+    report = tmp_path / "report.csv"
+    report.write_text("kind,rva,size,name,source,header_46,knob,library_46\n"
+                      "header,0x10,30,f,a.cpp,match-4.6,,\n"
+                      "collateral,0x11,8,c,a.cpp,match-knob,-shim,\n"       # game code needing a knob
+                      "collateral,0x12,8,d,a.cpp,mismatch,,\n"              # a whole-file move breaks it
+                      "header,0x13,8,e,a.cpp,control-fail,,\n"              # the trial's own artifact
+                      "header,0x14,8,gone,a.cpp,mismatch,,\n"               # no longer in the ledger
+                      "library-copy,0x20,40,g,b.cpp,not-sampled,,match\n"
+                      "library-copy,0x21,9,h,b.cpp,not-sampled,,mismatch\n"
+                      "library-copy,0x22,9,i,b.cpp,not-sampled,,\n")       # no evidence either way
+    ledger = tmp_path / "functions.csv"
+    ledger.write_text("name,target_rva,target_size,source,status\n"
+                      + "".join(f"{n},{rva},{size},{src},matched\n" for n, rva, size, src in (
+                          ("f", "0x10", 30, "a.cpp"), ("c", "0x11", 8, "a.cpp"), ("d", "0x12", 8, "a.cpp"),
+                          ("e", "0x13", 8, "a.cpp"), ("g", "0x20", 40, "b.cpp"), ("h", "0x21", 9, "b.cpp"),
+                          ("i", "0x22", 9, "b.cpp"))))
+    monkeypatch.setattr(stlport_trial, "ROOT", tmp_path)
+    monkeypatch.setattr(stlport_trial, "REPORT", report)
+    monkeypatch.setattr(build, "FUNCTIONS", ledger)
+    b, a = stlport_trial.queue_files()                                     # most bytes first
+    assert (a["source"], [r["name"] for r in a["rows"]], a["bytes"]) == ("a.cpp", ["f"], 30)
+    assert a["knobs"] == ["-shim"] and a["fails"] == 1 and a["lead"] == "unit"
+    assert (b["source"], [r["name"] for r in b["rows"]]) == ("b.cpp", ["g"])
+    assert b["knobs"] == [] and b["fails"] == 1 and b["lead"] == "library"
+
+
 def test_repair_queue_calls_the_stlport_lane(monkeypatch):
     import repair_queue
     calls = []

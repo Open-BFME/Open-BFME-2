@@ -44,6 +44,8 @@ Sections, in priority order:
                     the retail layout evidence tools/tu_evidence.py re-derives for them
        ms-headers   reverse/ms_header_queue.tsv (repair_queue.py ms-headers)
        dx           reverse/dx_migration_queue.tsv; --tier dx keeps its own view
+       stlport      whole files to move onto STLport 4.6 (repair_queue.py stlport, from
+                    reverse/stlport_trial.csv): opt in, knobs, ./build.sh, repoint
      Naming is not a default tier: --wb and tools/name_lane.py serve it on request.
   New matches (tiers 1-4, then the Zero Hour packets) appear only on regressions
   now; each is served only when its input file exists, and a tier whose input is
@@ -87,7 +89,7 @@ in `prior_attempt` in --json. Text output prints it before the start command,
 including evidence paths; read it before repeating a failed trial.
 
 Usage:
-  python3 tools/next_work.py [--claim] [--tier link|data|header|identity|stubs|consolidate|tu-approval|tu-evidence|ms-headers|...]
+  python3 tools/next_work.py [--claim] [--tier link|data|header|identity|stubs|consolidate|tu-approval|tu-evidence|ms-headers|stlport|...]
   python3 tools/next_work.py --wb [--claim] [--ranked]
   python3 tools/next_work.py --ranked [--limit 10] [--json]
 
@@ -1085,8 +1087,10 @@ def debt_rank_factor(candidate):
     share their address (one declaration fix, repeated) and doubly for duplicate-def
     (a link blocker), link units by how few blockers they have left, stub groups by the
     stubs they close, merges by the files they remove, TU approvals by the files their
-    proposed rows span, TU-evidence runs by the sources they hold (each capped at 16),
-    and debt whose source vanished (a regression) first. 1 for anything else."""
+    proposed rows span, TU-evidence runs by the sources they hold, STLport files by the
+    trial rows they move when the trial compiled the unit itself and saw no row of it
+    fail (each capped at 16; a library lead or a file with a failed row weighs 1), and
+    debt whose source vanished (a regression) first. 1 for anything else."""
     if candidate.get("check") == "vanished-source":
         return 16
     tier = candidate.get("tier")
@@ -1099,6 +1103,9 @@ def debt_rank_factor(candidate):
         return max(1, 8 - int(candidate["blockers"]))
     if tier in ("stubs", "consolidate", "tu-approval", "tu-evidence"):   # stubs closed, files a merge removes or could
         return max(1, min(16, int(candidate.get("count") or 1)))
+    if tier == "stlport":
+        clean = candidate.get("lead") == "unit" and not candidate.get("trial_fails")
+        return max(1, min(16, int(candidate.get("count") or 1))) if clean else 1
     return 1
 
 
@@ -1484,7 +1491,7 @@ DEFAULT_ORDER = ("repair", "link", "data", "header", "identity",
 EMPTY_LABEL = "default order"
 DEBT_LABELS = ("gate-debt repair", "link-cycle repair", "data-identity debt", "class-header adoption",
                "code-identity debt", "link-stub closure", "TU consolidation", "TU approval", "TU evidence",
-               "Microsoft-header migration", "DirectX SDK migration")
+               "Microsoft-header migration", "DirectX SDK migration", "STLport 4.6 migration")
 
 
 def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
@@ -1514,7 +1521,7 @@ def selected_queue(tier, drifts, structural, ghidra_absent, anchored, named,
 
 
 DEBT_TIERS = ("repair", "link", "data", "header", "identity",
-              "stubs", "consolidate", "tu-approval", "tu-evidence", "ms-headers", "dx")
+              "stubs", "consolidate", "tu-approval", "tu-evidence", "ms-headers", "dx", "stlport")
 STRUCTURAL_TIERS = DEBT_TIERS[5:]          # repair_queue.STRUCTURAL_QUEUES
 TIER_LABELS = dict(zip(DEBT_TIERS, DEBT_LABELS))
 # Shares of the default pick among the queues after gate debt (always first: it is wrong
@@ -1545,13 +1552,21 @@ TIER_LABELS = dict(zip(DEBT_TIERS, DEBT_LABELS))
 #   data 8         2,229 data-identity keys, a link prerequisite (one name per datum),
 #                  cut from 20 to 10, then 8, to pay for the structural tiers.
 #   identity 4     844 code-identity keys, reported in shadow; halved from 10.
-#   ms-headers 4   3,421 audited files; mechanical, byte-gated, file-local.
-#   dx 4           33 servable units; bounded and mechanical.
+#   ms-headers 4   3,421 audited files (972 left 2026-10-28); mechanical, byte-gated,
+#                  file-local.
+#   dx 1           33 servable units when this was 4, none on 2026-10-28: a seat that
+#                  draws it falls straight through. 1 keeps it tried early if the scan
+#                  serves units again; the other 3 went to stlport.
+#   stlport 3      repair_queue.py stlport (2026-10-28): 532 files, 1,504 trial rows,
+#                  101,072 B that matched retail under STLport 4.6, of the 5,755
+#                  `// stlport` units still compiled against 4.5.3 (retail linked 4.6).
+#                  Mechanical, file-local and byte-gated like ms-headers, with about half
+#                  its files, so a little less. Taken from dx.
 # Naming is not a default tier (it never was): --wb and tools/name_lane.py serve it on
 # request. BFME_TIER_WEIGHTS="link=30,stubs=15,..." overrides any subset; a tier at 0 is
 # still tried, last.
 TIER_WEIGHTS = {"link": 26, "stubs": 12, "header": 15, "consolidate": 20, "tu-approval": 4, "tu-evidence": 3,
-                "data": 8, "identity": 4, "ms-headers": 4, "dx": 4}
+                "data": 8, "identity": 4, "ms-headers": 4, "dx": 1, "stlport": 3}
 BUILT = []                  # debt queues this run built, in order (lazy: tests read it)
 _DEBT = {}
 
@@ -2023,7 +2038,7 @@ def main():
     ap.add_argument("--tier",
                     choices=("repair", "link", "data", "header", "identity", "stubs", "consolidate",
                              "tu-approval", "tu-evidence", "ms-headers", "packet", "named", "harvest",
-                             "structural", "ghidra", "anchored", "similar", "wb", "dx"),
+                             "structural", "ghidra", "anchored", "similar", "wb", "dx", "stlport"),
                     help="choose from only this task lane")
     ap.add_argument("--wb", action="store_const", const="wb", dest="tier",
                     help="shorthand for --tier wb: serve bodies by WorldBuilder name lead")

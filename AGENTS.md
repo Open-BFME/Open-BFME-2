@@ -247,8 +247,8 @@ Maintenance and measurement rules: `docs/linking.md` ("Shared obstacle register"
    affected sources and repair regressions.
 1. `python3 tools/next_work.py --claim` serves, in order: regressions and gate
    debt (`python3 tools/repair_queue.py repair`), then link, stub-closure, header,
-   TU-approval, consolidation, data, code-identity, ms-headers and dx queues by
-   weight (`docs/matching.md`, "The default pick"). Check any new-match candidate against current
+   TU-approval, consolidation, data, code-identity, ms-headers, dx and stlport
+   (STLport 4.6 file moves) queues by weight (`docs/matching.md`, "The default pick"). Check any new-match candidate against current
    covered ranges, generated/alias owners, input freshness and history. Restore
    a proven lost row in its approved unit, never a fresh one-function file;
    existing-placeholder identity work stays in the naming/cleanup lanes.

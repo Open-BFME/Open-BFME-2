@@ -614,15 +614,15 @@ AGENTS.md ("Work loop") gives the order; this is how the picker applies it.
 
 `python3 tools/next_work.py --claim` tries gate debt first, then the link, stub
 closure, header, TU-approval, TU-evidence, consolidation, data, code-identity,
-Microsoft-header and DirectX queues in an order drawn by weight (link 30, stubs 15,
-header 15, tu-approval 5, tu-evidence 3, consolidate 7, data 10, identity 5,
-ms-headers 5, dx 5; the
+Microsoft-header, DirectX and STLport 4.6 queues in an order drawn by weight (link
+26, stubs 12, header 15, tu-approval 4, tu-evidence 3, consolidate 20, data 8,
+identity 4, ms-headers 4, dx 1, stlport 3; the
 evidence for each number is beside `TIER_WEIGHTS` in `tools/next_work.py`;
 `BFME_TIER_WEIGHTS` overrides), falling through when one is empty or fully
 claimed. The structural queues (`repair_queue.STRUCTURAL_QUEUES`) retire no
 register line: each item's pass test is its owning tool's verdict (a later link
 cycle for stubs, `tu_skeleton.py --merge` for consolidation, the rebuilt
-`tu_map` for approval, the byte gate for header migrations). The stub queue
+`tu_map` for approval, the byte gate for header and STLport migrations). The stub queue
 reads a local link cycle's `stubs.json` checked against its receipt and the
 receipt's commit against HEAD; elsewhere it is skipped with a note. Naming is
 not a default tier: `--wb` and `tools/name_lane.py` serve it on request. A standing deferral (blocked, attempted) in
@@ -668,7 +668,11 @@ coverage, ownership, freshness and history checks as other apparent gaps.
   whose rows the trial lane (`tools/stlport_trial.py`, `reverse/stlport_trial.csv`)
   saw match under 4.6; the queue is a lead, `./build.sh` of the whole file is the
   proof. Repoint every row with `add_match.py --replace-existing`, notes gaining
-  `migrated=stlport-4.6`.
+  `migrated=stlport-4.6`. `next_work.py --tier stlport [--claim]` serves one file
+  with its move and a `file:` claim. Its `adapt` knob (drop 4.5.3's `const` from the
+  unit's allocator declarations) always applies; try the others (`-shim`, `-D`) only
+  if the marker alone fails, since the opt-in already swaps each `reference/shims`
+  STLport overlay for its 4.6 port.
 
 ### Work the file, not the row
 

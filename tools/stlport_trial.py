@@ -723,38 +723,78 @@ def report(args):
             print("  %-17s " % variant + "  ".join("%s=%d" % kv for kv in sorted(counts.items())))
 
 
-def queue(args):
+HEADER_MATCH = ("match-4.6", "match-knob")
+
+
+def trial_failed(row):
+    """A report row the trial saw fail under 4.6 with every knob: the unit's own compile
+    (headers lane), or, for a unit never compiled under 4.6, pristine src/ (library
+    lane). A control failure is the trial's own artifact, not a 4.6 verdict."""
+    if row["header_46"] in HEADER_MATCH + ("control-fail",):
+        return False
+    if row["kind"] == "collateral" or row["header_46"] != "not-sampled":
+        return row.get("library_46") != "match"
+    return row.get("library_46") == "mismatch"
+
+
+def queue_files():
+    """The repoint queue as data, most bytes first: one dict per file without the
+    `// stlport46` opt-in holding report rows that matched under 4.6 and that the
+    ledger still holds matched under the same identity and extent. `rows` are those
+    leads; `knobs` every knob a live row of the file needed (its game code included);
+    `fails` the file's live rows the trial saw fail (trial_failed: a whole-file move
+    must fix them); `lead` is "unit" when the headers lane compiled this unit itself
+    for every lead, else "library" (pristine 4.6 src/ reproduced the bodies)."""
     if not REPORT.exists():
         raise SystemExit("no %s yet: run `stlport_trial.py headers` and `report`"
                          % REPORT.relative_to(ROOT).as_posix())
     with REPORT.open(encoding="utf-8", newline="") as handle:
-        rows = [r for r in csv.DictReader(handle)
-                if r["kind"] not in ("collateral",)
-                and (r["header_46"] in ("match-4.6", "match-knob") or r["library_46"] == "match")]
+        report = list(csv.DictReader(handle))
+    rows = [r for r in report if r["kind"] not in ("collateral",)
+            and (r["header_46"] in HEADER_MATCH or r["library_46"] == "match")]
     # The report is historical lead evidence. Do not re-serve migrated/deleted
     # rows, changed extents, or names that the current ledger no longer holds.
     candidates = {(r["source"], r["rva"], r["name"], int(r["size"])) for r in rows}
+    sources = {r["source"] for r in report}
+    live, held = set(), set()
     with build.FUNCTIONS.open(encoding="utf-8", newline="") as handle:
-        live = {(r["source"], r["target_rva"], r["name"], int(r["target_size"]))
-                for r in csv.DictReader(handle)
-                if r["status"] == "matched"
-                and (r["source"], r["target_rva"], r["name"], int(r["target_size"])) in candidates}
+        for r in csv.DictReader(handle):
+            if r["status"] == "matched" and r["source"] in sources:
+                held.add((r["source"], r["target_rva"]))
+                key = (r["source"], r["target_rva"], r["name"], int(r["target_size"]))
+                if key in candidates:
+                    live.add(key)
     by_source = collections.defaultdict(list)
     for row in rows:
         if ((row["source"], row["rva"], row["name"], int(row["size"])) in live
                 and not stlport_overlay.selected(ROOT / row["source"])):
             by_source[row["source"]].append(row)
-    ranked = sorted(by_source.items(), key=lambda kv: -sum(int(r["size"]) for r in kv[1]))
-    for source, members in ranked:
-        total = sum(int(r["size"]) for r in members)
-        knobs = sorted({r["knob"] for r in members if r["knob"]})
+    report_by_source = collections.defaultdict(list)
+    for row in report:
+        if row["source"] in by_source and (row["source"], row["rva"]) in held:
+            report_by_source[row["source"]].append(row)
+    files = []
+    for source, members in by_source.items():
+        others = report_by_source[source]
+        files.append({
+            "source": source, "rows": members, "bytes": sum(int(r["size"]) for r in members),
+            "knobs": sorted({r["knob"] for r in others if r["knob"] and r["header_46"] in HEADER_MATCH}),
+            "fails": len({r["rva"] for r in others if trial_failed(r)}),
+            "lead": "unit" if all(r["header_46"] in HEADER_MATCH for r in members) else "library"})
+    return sorted(files, key=lambda f: -f["bytes"])
+
+
+def queue(args):
+    for entry in queue_files():
+        source, members, knobs = entry["source"], entry["rows"], entry["knobs"]
         if args.tsv:
             for r in members:
                 print("\t".join([r["rva"], r["size"], source, r["kind"], r["header_46"],
                                  r["knob"], r["library_46"], r["name"]]))
         else:
-            print("%6d B %4d rows  %s%s" % (total, len(members), source,
-                                            ("  knobs " + ",".join(knobs)) if knobs else ""))
+            print("%6d B %4d rows  %s%s%s" % (entry["bytes"], len(members), source,
+                                              ("  knobs " + ",".join(knobs)) if knobs else "",
+                                              ("  trial-fails %d" % entry["fails"]) if entry["fails"] else ""))
 
 
 def main():

@@ -126,6 +126,11 @@ Verifier-Change explains verifier edits; it never excuses retiring a debt key.
           file:SOURCE through next_work's lock_keys/acquire selection path.
 
   python3 tools/repair_queue.py ms-headers [--class drop-in-candidate|adapt|unverified|conflicting|shim|failed] [--limit N] [--claim]
+  stlport  whole files to move onto STLport 4.6 (`// stlport46`): the leads of
+          reverse/stlport_trial.csv (tools/stlport_trial.py) the ledger still holds.
+          next_work.py --tier stlport serves one with its move and a file:SOURCE claim.
+
+  python3 tools/repair_queue.py stlport [--tsv]
   python3 tools/repair_queue.py dest 0xRVA
   python3 tools/repair_queue.py pass-test "<baseline line>"
   python3 tools/repair_queue.py retire data|identity SOURCE   # the tool's verdict retires keys
@@ -1705,6 +1710,7 @@ LINK_CYCLE_SET = os.environ.get("REPAIR_LINK_CYCLE")         # named by hand: us
 LINK_CYCLE = LINK_CYCLE_SET or str(ROOT / "build" / "link_cycle")
 MS_HEADER_QUEUE = f"{REV}/ms_header_queue.tsv"               # tools/ms_header_audit.py
 DX_QUEUE = f"{REV}/dx_migration_queue.tsv"                   # tools/dx_migration.py scan
+STLPORT_TRIAL = f"{REV}/stlport_trial.csv"                   # tools/stlport_trial.py report
 TU_MAP = f"{REV}/tu_map.csv"                                 # tools/tu_map.py (rebuilt in memory when stale)
 UNRESOLVED = re.compile(r'^(o\d+\.obj) : error LNK20(?:01|19): unresolved external symbol '
                         r'(?:"[^"]*" \((\S+)\)|(\S+))')
@@ -1993,6 +1999,82 @@ def dx_items():
     return items, f"{len(items)} unit(s) from {DX_QUEUE}"
 
 
+def stlport_move(source, knobs, renames):
+    """The lane's move for one file (docs/matching.md, "Cleanup lane details": STLport):
+    opt in, byte-verify the whole file, repoint every row. `adapt` is always applied (4.6
+    refuses 4.5.3's const allocator declarations); the other knobs only when the marker
+    alone fails, because the trial ran 4.6 under the unit's 4.5.3 overlay copies and the
+    opt-in swaps each overlay /I for its 4.6 port (vendor/stlport-4.6-bfme), which may
+    already match."""
+    tools_on_path()
+    import stlport_trial
+    try:
+        text = (ROOT / source).read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        text = ""
+    flags = " ".join(line for line in text.splitlines() if line.startswith("// cl:"))
+    overlays = [o for o in stlport_trial.STL_OVERLAYS if "/I" + o in flags or "-I" + o in flags]
+    steps, fallback = [f"in {source} only: change its `// stlport` line to `// stlport46`"], []
+    for knob in sorted({part for knob in knobs for part in knob.split("+")}):
+        if knob == "adapt":
+            steps.append("drop the 4.5.3-only `const` from its allocator<T>::allocate/deallocate/construct/"
+                         "destroy declarations (4.6's are non-const)")
+        elif knob == "-shim":
+            fallback.append("delete " + (" ".join("/I" + o for o in overlays) or "its reference/shims STLport overlay /I")
+                            + " from its `// cl:` line")
+        else:
+            fallback.append(f"add /D{knob.removeprefix('-D')} to its `// cl:` line")
+    if renames:
+        steps.append(f"rename {', '.join(renames)} to the non-const 4.6 mangling (QBE->QAE, "
+                     "stlport_trial.const_twin) with tools/rename.py (docs/naming.md)")
+    steps.append(f"./build.sh {source} (every row in the file, not only the trial's)")
+    if fallback:
+        steps.append("only if that fails, apply the trial's knob and rebuild: " + " and ".join(fallback))
+    steps.append(f"repoint each matched row of the file: python3 tools/add_match.py <name> <rva> <size> {source} "
+                 "--replace-existing --notes \"<its notes>; migrated=stlport-4.6\"")
+    return "; ".join(steps)
+
+
+def stlport_items():
+    """(items, note): whole files to move onto STLport 4.6, what next_work.py --tier
+    stlport serves: stlport_trial.queue_files (repair_queue.py stlport), the trial's
+    leads the ledger still holds in files not yet opted in. The trial is a lead; the
+    pass test is ./build.sh of the whole file under `// stlport46`."""
+    if not (ROOT / STLPORT_TRIAL).exists():
+        return [], f"{STLPORT_TRIAL} absent: STLport 4.6 queue skipped"
+    tools_on_path()
+    import stlport_trial
+    items = []
+    for entry in stlport_trial.queue_files():
+        source, rows = entry["source"], entry["rows"]
+        if not (ROOT / source).is_file():
+            continue
+        renames = [r["name"] for r in rows if stlport_trial.ALLOCATOR_MEMBER.match(r["name"])]
+        check = ("unit trial" if entry["lead"] == "unit" else "library lead") + (
+            " +" + ",".join(entry["knobs"]) if entry["knobs"] else "")
+        items.append({
+            "tier": "stlport", "check": check, "function": source, "source": source, "target_rva": "",
+            "size": 0, "count": len(rows), "lead": entry["lead"], "knobs": entry["knobs"],
+            "trial_fails": entry["fails"], "claim": ["file:" + source],
+            "credit_note": f"{len(rows)} trial row(s), {entry['bytes']:,} B moved onto STLport 4.6",
+            "start": stlport_move(source, entry["knobs"], renames),
+            "why": (f"[{check}] {len(rows)} row(s) ({entry['bytes']:,} B) of this unit matched retail under "
+                    "STLport 4.6 in the trial; retail linked 4.6 and the unit still compiles against 4.5.3"
+                    + ("" if entry["lead"] == "unit" else
+                       "; library lead: pristine 4.6 src/ reproduced them, the unit itself was never compiled "
+                       "under 4.6")
+                    + (f"; {entry['fails']} other row(s) of the file failed the trial: fix them in the same "
+                       "move or revert it" if entry["fails"] else "")),
+            "pass_test": (f"./build.sh {source} with `// stlport46` and every row repointed "
+                          "(migrated=stlport-4.6); repair_queue.py stlport no longer serves it"),
+            "bytes": entry["bytes"]})
+    # Units the trial compiled itself and saw no row of fail first, then by bytes.
+    items.sort(key=lambda i: (i["lead"] != "unit" or bool(i["trial_fails"]), -i["bytes"]))
+    rows = sum(i["count"] for i in items)
+    return items, (f"{len(items)} file(s), {rows} trial row(s) from {STLPORT_TRIAL} "
+                   "(repair_queue.py stlport)")
+
+
 # {tier: (input file, builder)}: tools/next_work.py serves them in this order.
 DEBT_QUEUES = {"data": (DATA_BASELINE, data_identity_items), "header": (HEADER_QUEUE, header_items),
                "identity": (IDENTITY_BASELINE, identity_items)}
@@ -2000,7 +2082,7 @@ DEBT_QUEUES = {"data": (DATA_BASELINE, data_identity_items), "header": (HEADER_Q
 # with a note when an input is absent.
 STRUCTURAL_QUEUES = {"stubs": stub_items, "consolidate": consolidation_items, "tu-approval": tu_approval_items,
                      "tu-evidence": tu_evidence_items,
-                     "ms-headers": ms_header_queue_items, "dx": dx_items}
+                     "ms-headers": ms_header_queue_items, "dx": dx_items, "stlport": stlport_items}
 
 
 # ---------------------------------------------------------------- destination
