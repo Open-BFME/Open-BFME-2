@@ -176,11 +176,11 @@ NameKeyType ToppleUpdate::getModuleNameKey() const
 
 	// math.h's float overload, retail 0x000422CD
 
-inline float stdAngleDiff(float a1,float a2){return normalizeAngle(a1-a2);}
+inline float stdAngleDiff(float firstAngle,float secondAngle){return normalizeAngle(firstAngle-secondAngle);}
 
-static float angleClosestTo(float a1,float a2,float desired) {
- a1=normalizeAngle(a1);a2=normalizeAngle(a2);
- return fabs(stdAngleDiff(desired,a1))<fabs(stdAngleDiff(desired,a2))?a1:a2;
+static float angleClosestTo(float firstCandidate,float secondCandidate,float desired) {
+ firstCandidate=normalizeAngle(firstCandidate);secondCandidate=normalizeAngle(secondCandidate);
+ return fabs(stdAngleDiff(desired,firstCandidate))<fabs(stdAngleDiff(desired,secondCandidate))?firstCandidate:secondCandidate;
 }
 
 // The donor and retail use x87 current-mode rounding; a C cast emits a
@@ -290,11 +290,11 @@ UpdateSleepTime ToppleUpdate::update()
 					pos.Z = ((GeometryInfo *)((char *)obj + 0xa8))->getMaxHeightAbovePosition();
 					Matrix3D::Transform_Vector(*obj->getTransformMatrix(), pos, &pos);
 
-					Coord3D tmp;
-					tmp.x = pos.X;
-					tmp.y = pos.Y;
-					tmp.z = pos.Z;
-					obj->setPosition(&tmp);
+					Coord3D newPosition;
+					newPosition.x = pos.X;
+					newPosition.y = pos.Y;
+					newPosition.z = pos.Z;
+					obj->setPosition(&newPosition);
 					obj->setOrientation(obj->angle);
 				}
 			}

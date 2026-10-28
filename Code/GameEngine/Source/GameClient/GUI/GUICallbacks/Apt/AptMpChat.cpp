@@ -358,13 +358,13 @@ Rva0057FE6B::~Rva0057FE6B()
 void Rva0057FECE::rva0057FECE()
 {
 	g_Va00E06394 = 0;
-	void *p;
+	void *memory;
 	if (m_64 != 0) {
-		p = m_64->f2(0);
+		memory = m_64->f2(0);
 	} else {
-		p = 0;
+		memory = 0;
 	}
-	::operator delete(p);
+	::operator delete(memory);
 	m_64 = 0;
 	m_68 = 0;
 	((Rva0052493F *)this)->rva0052493F();

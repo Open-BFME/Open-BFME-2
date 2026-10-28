@@ -238,10 +238,10 @@ void Object::setOrRestoreTeam(Team *team, Bool restoring)
 
 	if (m_team)
 	{
-		Team *t = m_team;
-		if (t->isInList_TeamMemberList(this))
+		Team *currentTeam = m_team;
+		if (currentTeam->isInList_TeamMemberList(this))
 		{
-			t->removeFrom_TeamMemberList(this);
+			currentTeam->removeFrom_TeamMemberList(this);
 			m_team->getControllingPlayer()->becomingTeamMember(this, false);
 		}
 	}
@@ -257,10 +257,10 @@ void Object::setOrRestoreTeam(Team *team, Bool restoring)
 
 	if (m_team)
 	{
-		Team *t = m_team;
-		if (!t->isInList_TeamMemberList(this))
+		Team *currentTeam = m_team;
+		if (!currentTeam->isInList_TeamMemberList(this))
 		{
-			t->prependTo_TeamMemberList(this);
+			currentTeam->prependTo_TeamMemberList(this);
 			m_team->getControllingPlayer()->becomingTeamMember(this, true);
 		}
 

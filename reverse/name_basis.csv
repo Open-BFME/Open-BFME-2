@@ -3879,3 +3879,16 @@ function,?rva005F53A2@Rva005F53A2@@QAEXXZ,?SwapArmyMembers@Rva005F53A2@@QAEXXZ,i
 param,BezCoord#2::p,BezCoord#2::sourcePosition,inferred,agree:nl-8f1bd4e00341,Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorUpdate.cpp,
 member,Rva00481A9EInfo::m_f10,Rva00481A9EInfo::m_autoHealPercentPerSecond,inferred,agree:nl-3a9ba7054419,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,
 member,Rva00481A9EInfo::m_f1c,Rva00481A9EInfo::m_upgradedAutoHealPercentPerSecond,inferred,agree:nl-24a6a183f84b,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,
+local,Rva0057FECE::rva0057FECE::p,Rva0057FECE::rva0057FECE::memory,inferred,agree:nl-610a0d362ab8,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp,0x0057FECE
+function,?rva005F6916@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAEXPAX@Z,?OnBackButtonRollOver@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAEXPAX@Z,inferred,agree:nl-e3250b3bb05d,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueDetailsMovieClip.cpp,0x005F6916
+function,?rva005F691D@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAEXPAX@Z,?OnBackButtonRollOut@Impl@BuildQueueDetailsMovieClip@StrategicHUD@@QAEXPAX@Z,inferred,agree:nl-5650da70c393,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDBuildQueueDetailsMovieClip.cpp,0x005F691D
+param,subtract::r,subtract::other,inferred,agree:nl-846c8218623e,Code/GameEngine/Source/GameLogic/Object/LocomotorTransformSetup.cpp,
+local,Object::setOrRestoreTeam::t,Object::setOrRestoreTeam::currentTeam,inferred,agree:nl-60d09c62c691,Code/GameEngine/Source/GameLogic/Object/ObjectSetTeam.cpp,0x00297379
+param,stdAngleDiff::a1,stdAngleDiff::firstAngle,inferred,agree:nl-060cfa13b378,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,0x001E3499
+param,stdAngleDiff::a2,stdAngleDiff::secondAngle,inferred,agree:nl-f299c903ccad,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,0x001E3499
+param,angleClosestTo::a1,angleClosestTo::firstCandidate,inferred,agree:nl-f976db56ed78,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,0x004A80B7
+param,angleClosestTo::a2,angleClosestTo::secondCandidate,inferred,agree:nl-6a62c6ee5cc3,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,0x004A80B7
+local,ToppleUpdate::update::tmp,ToppleUpdate::update::newPosition,inferred,agree:nl-a3e55ca17bf3,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,0x004A878F
+local,Rva0033331BCopy::d,Rva0033331BCopy::output,inferred,agree:nl-001d2fa581bb,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
+local,Rva0033331BCopy::s,Rva0033331BCopy::source,inferred,agree:nl-deebb41dabab,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B
+local,Rva0033331BCopy::e,Rva0033331BCopy::sourceEnd,inferred,agree:nl-0e74bced98bd,Code/Libraries/Source/WWVegas/WWLib/Rva0033331BCopy.cpp,0x0033331B

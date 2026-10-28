@@ -25,14 +25,14 @@ void Rva00333295Construct(Rva00332EC8 *dest, const Rva00332EC8 &src) throw();
 
 Rva00332EC8 *Rva0033331BCopy(Rva00332EC8 *p1, Rva00332EC8 *p2, Rva00332EC8 *p3, const void *ignored)
 {
-	Rva00332EC8 *d = p3;
-	Rva00332EC8 *s = p1;
-	Rva00332EC8 *e = p2;
-	while (s != e)
+	Rva00332EC8 *output = p3;
+	Rva00332EC8 *source = p1;
+	Rva00332EC8 *sourceEnd = p2;
+	while (source != sourceEnd)
 	{
-		Rva00333295Construct(d, *s);
-		++s;
-		++d;
+		Rva00333295Construct(output, *source);
+		++source;
+		++output;
 	}
-	return d;
+	return output;
 }

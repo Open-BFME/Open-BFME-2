@@ -45,7 +45,7 @@ Rva002226E5TextPlusString operator+(const char*,const AsciiString&);
 Rva005F17C6S16 Rva005F17C6Build(const Rva005F17C6S12&,int);
 Rva005D2F96S24 Rva005D2F96Build(const Rva005D2F96S16&,const char*);
 class BfmeAptWindowManager{public:void bfmeSetText(const AsciiString&,const UnicodeString&,bool);};extern BfmeAptWindowManager*g_bfmeAptWindowManager;
-namespace StrategicHUD{class BuildQueueDetailsMovieClip{public:class Impl{public:class QueuedIconSlot;class InProgressIconSlot;void rva005F68FE(void*);void rva005F6916(void*);void rva005F691D(void*);};};}
+namespace StrategicHUD{class BuildQueueDetailsMovieClip{public:class Impl{public:class QueuedIconSlot;class InProgressIconSlot;void rva005F68FE(void*);void OnBackButtonRollOver(void*);void OnBackButtonRollOut(void*);};};}
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot{public:QueuedIconSlot(Impl*,int);char bytes[0x2c];};
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot{public:InProgressIconSlot(Impl*);char bytes[0x2c];};
 struct Rva005F74BA{Rva005F74BA(void*p=0):ptr(p){}~Rva005F74BA();void*ptr;};
@@ -60,5 +60,5 @@ Rva005F830AHeap::Rva005F830AHeap(void*o,void*l,void*n,void*t,void*w):owner(o),le
 for(int i=0;i<7;++i)((Rva005F74D4*)&queued[i])->rva005F74D4(new StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot((StrategicHUD::BuildQueueDetailsMovieClip::Impl*)this,i));
 AsciiString prefix;prefix.format("_level%u.",level);
 TEXT("_BuildingName",title);TEXT("_UnitName",UnicodeString::TheEmptyString);TEXT("_BuildTime",UnicodeString::TheEmptyString);TEXT("_CommandPoints",UnicodeString::TheEmptyString);
-BIND("_OnBackButtonClicked",rva005F68FE);BIND("_OnBackButtonRollOver",rva005F6916);BIND("_OnBackButtonRollOut",rva005F691D);
+BIND("_OnBackButtonClicked",rva005F68FE);BIND("_OnBackButtonRollOver",OnBackButtonRollOver);BIND("_OnBackButtonRollOut",OnBackButtonRollOut);
 }

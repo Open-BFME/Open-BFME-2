@@ -17,7 +17,7 @@ struct SteeringCoord : Coord3D
     SteeringCoord() {}
     void copy(const Coord3D &r) { x = r.x; y = r.y; z = r.z; }
     SteeringCoord(const Coord3D &r) { copy(r); }
-    void subtract(const Coord3D &r) { x -= r.x; y -= r.y; z -= r.z; }
+    void subtract(const Coord3D &other) { x -= other.x; y -= other.y; z -= other.z; }
 };
 #include <math.h>
 Real normalizeAngle(Real angle);

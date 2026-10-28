@@ -9,7 +9,7 @@
 class BuildQueueOwnerView {public:virtual void unknown0();virtual void onBack();};
 namespace StrategicHUD {
 class BuildQueueDetailsMovieClip {
-public: class Impl { public: class QueuedIconSlot; class InProgressIconSlot; void rva005F68FE(void*); void rva005F6916(void*); void rva005F691D(void*); private: BuildQueueOwnerView *owner; char unknown[0x63]; bool backHover; };
+public: class Impl { public: class QueuedIconSlot; class InProgressIconSlot; void rva005F68FE(void*); void OnBackButtonRollOver(void*); void OnBackButtonRollOut(void*); private: BuildQueueOwnerView *owner; char unknown[0x63]; bool backHover; };
 };
 }
 class StrategicHUD::BuildQueueDetailsMovieClip::Impl::QueuedIconSlot {
@@ -109,7 +109,7 @@ void StrategicHUD::BuildQueueDetailsMovieClip::Impl::InProgressIconSlot::rva005F
 void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F68FE(void*) { if(((QueuedAptModeView*)g_bfmeAptWindowManager)->mode==0)owner->onBack(); }
 
 // Ctor5F7F21 binding: _OnBackButtonRollOver.
-void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F6916(void*) { backHover=true; }
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::OnBackButtonRollOver(void*) { backHover=true; }
 
 // Ctor5F7F21 binding: _OnBackButtonRollOut.
-void StrategicHUD::BuildQueueDetailsMovieClip::Impl::rva005F691D(void*) { backHover=false; }
+void StrategicHUD::BuildQueueDetailsMovieClip::Impl::OnBackButtonRollOut(void*) { backHover=false; }
