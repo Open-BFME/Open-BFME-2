@@ -17029,7 +17029,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B9588,48,.data,global,?theWeatherBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B95B8,12,.data,global,?theWeaponBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009B95C4,48,.data,global,?theHeaderTemplateBlockParse@@3UBlockParse@@A,,unowned,,0,2
-0x009B95F4,168,.data,global,?BfmeLODLevelNames@@3PAPBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setStaticGameLOD.cpp,provisional,?BfmeLODLevelNames@@3PAPBDA;?g_00DB95F4@@3PAPBDA;?rva00202B6CNames@@3PAPBDA,2,6
+0x009B95F4,168,.data,global,?BfmeLODLevelNames@@3PAPBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,provisional,?BfmeLODLevelNames@@3PAPBDA;?g_00DB95F4@@3PAPBDA;?rva00202B6CNames@@3PAPBDA,2,6
 0x009B969C,20,.data,global,?bfmeStaticLODNames@@3PAPBDA,Code/GameEngine/Source/Common/GameLODManagerGetStaticGameLODIndex.cpp,provisional,?bfmeStaticLODNames@@3PAPBDA;_DynamicGameLODNames@Code/GameEngine/Source/Common/GameLOD.cpp,2,3
 0x009B96B0,8,.data,global,?bfmeTabEYC@@3PAPBDA,Code/GameEngine/Source/Common/GameLODManagerGetAudioLODIndex.cpp,provisional,?bfmeTabEYC@@3PAPBDA;?g_00DB96B0@@3PAPBDA,1,2
 0x009B96B8,136,.data,global,?CPUNames@@3PAPBDA,Code/GameEngine/Source/Common/GameLOD.cpp,owned,,1,4
@@ -17182,8 +17182,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BD0A8,72,.data,global,?theLivingWorldPlayerTemplateBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009BD0F0,4,.data,global,?s_currentID@PolygonTrigger@@0HA,,unowned,?g_Va00DBD0F0@@3HA;?s_currentID@PolygonTrigger@@0HA,1,4
 0x009BD0F4,44,.data,global,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A,Code/GameEngine/Source/Common/Rva002E373CClear.cpp,provisional,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A;?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A,1,6
-0x009BD120,112,.data,global,?BfmeEnumTable@@3PAUBfmeEnumTableEntry@@A,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_enumDispatch.cpp,owned,,1,10
-0x009BD190,136,.data,global,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_getVolume.cpp,provisional,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA;_volumeNames@Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionPreferences_setVolume.cpp,2,2
+0x009BD120,112,.data,global,?BfmeEnumTable@@3PAUBfmeEnumTableEntry@@A,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,owned,,1,10
+0x009BD190,136,.data,global,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,provisional,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA;_volumeNames@Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,2,2
 0x009BD218,1,.data,global,?g_useStringFile@@3_NA,,unowned,,0,1
 0x009BD2F8,68,.data,global,?g_bfme939Str@@3PADA,,unowned,,0,1
 0x009BD33C,48,.data,global,?g_00DBD33C@@3PAIA,Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp,owned,,1,3

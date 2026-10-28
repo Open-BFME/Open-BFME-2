@@ -56,7 +56,7 @@ public:
 	void rva00518359();
 };
 
-// OptionPreferences_enumDispatch.cpp's enum table at 0x00DBD120.
+// OptionsMenu.cpp's OptionPreferences enum table at 0x00DBD120.
 struct BfmeEnumTableEntry
 {
 	const char *m_key;

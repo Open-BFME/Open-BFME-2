@@ -8,7 +8,7 @@
 // callee-destroys rule), which is the trailing releaseBuffer call. Twin of
 // getStaticGameLODIndex (GameLODManagerGetStaticGameLODIndex.cpp, 70 B,
 // five-entry table at 0xDB969C); this table at 0xDB95F4 holds six entries
-// (VeryLow..Custom per OptionPreferences_getStaticGameDetail.cpp). Retail
+// (VeryLow..Custom per OptionPreferences::getStaticGameDetail, OptionsMenu.cpp). Retail
 // facts:
 // - compareNoCase: the canonical AsciiString forwards to the declared-only
 //   StringBase<char> 1-arg body (retail calls 0x00037980), declared throw()
