@@ -123,6 +123,15 @@ are unchanged; strict receipt, frozen-file, EH and data checks pass. Global
 LINK-132/LINK-133 selection and consumer/census confirmation remain pending.
 [Evidence](../reverse/attempt_support/vertical-slider-link-20261028-codexb4.md).
 
+Additional current target (2026-10-28, base `f4d813d60d`, index `d92e7e6635`):
+`AptSkirmishCallbacks.cpp` already previews LINKS for 4,008 authored bytes after
+the earlier TheMessageStream correction. Its existing folded message appender
+now has a verified row, retiring one pin and one present-unmatched marker.
+All 55 rows and 11 EH graphs remain exact; the after-preview remains LINKS
+with 19 additional authored bytes counting the existing fold. The older-index
+consumer audit is inconclusive; no new census-linked gain is claimed.
+[Evidence and remaining checks](../reverse/attempt_support/apt-skirmish-fold-debt-20261028-codex.md), LINK-125.
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):

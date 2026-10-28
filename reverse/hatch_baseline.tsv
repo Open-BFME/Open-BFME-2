@@ -6998,7 +6998,6 @@ pin	reverse/symbols.csv	0x0030F47A	1
 pin	reverse/symbols.csv	0x0030F4EA	1
 pin	reverse/symbols.csv	0x0030F57C	1
 pin	reverse/symbols.csv	0x0030F8FF	2
-pin	reverse/symbols.csv	0x0030F936	1
 pin	reverse/symbols.csv	0x00311537	1
 pin	reverse/symbols.csv	0x003115AD	2
 pin	reverse/symbols.csv	0x003115CC	1
@@ -12847,7 +12846,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMess
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	TreeHintRef00217D4C::~TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessageBoxMovieClip.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptRowPageCtor_Rva0051066A.cpp	text)	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp	GameMessage::wb00EC9680	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getPreferredColor@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getPreferredFaction@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getSlotList@SkirmishPreferences@@	1

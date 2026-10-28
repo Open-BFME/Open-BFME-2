@@ -753,7 +753,7 @@ extern MessageStream *TheMessageStream;
 // StartGameAfterCDCheck. Keep the existing target-address method identity.
 // WorldBuilder calls two distinct tag-zero word appenders; native folds the
 // second (WB 0x00EC9680) onto appendIntegerArgument at 0x0030F936. The full
-// emitted helper and its allocArg relocation are verified before binding it.
+// emitted helper and its allocArg relocation have their own verified fold row.
 void AptSkirmish::StartGameAfterCDCheck() {
  TheGameLogic->clearGameData(false,false);
  TheWritableGlobalData->map=(*(GameInfo * *)&TheSkirmishGameInfo)->getMap();
@@ -781,7 +781,7 @@ void AptSkirmish::StartGameAfterCDCheck() {
  }
 }
 
-// ?GameMessage::wb00EC9680 present-unmatched
+// Same whole-body ICF fold as appendIntegerArgument at 0x0030F936.
 void GameMessage::wb00EC9680(int value) { GameMessageArgument *gameMessageArgument=allocArg();gameMessageArgument->type=0;gameMessageArgument->value=value; }
 
 class Rva0004582DSarAvgField {public:int get() const;};

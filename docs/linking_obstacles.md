@@ -8387,6 +8387,21 @@ Clearance: ordinary current-object preview only. Census confirmation: awaiting.
 
 ### LINK-125: AptSkirmish callbacks bind a second Apt manager global
 
+**2026-10-28 follow-up, base `f4d813d60d`, index `d92e7e6635`:**
+The served unresolved lead is stale: b46f564676 already switched the consumer
+back to the current TheMessageStream data-row owner, and ordinary preview
+retains LINKS for 4,008 authored bytes. The existing pinned GameMessage helper
+at 0x0030F936 now has a verified whole-body ICF row, retiring its pin and
+present-unmatched marker. All 55 source rows and 11 EH graphs remain exact;
+strict preparation also verifies the MessageStream owner (73 cohort rows and
+one data row). The direct-call simplification trial changed branch layout and
+was reverted. This is hatch retirement, with no census gain claimed. The after-preview remains
+LINKS; its extra 19 authored bytes count the existing fold, not new coverage.
+The outgoing audit is INCONCLUSIVE because the index predates the base and
+Common/0CreateAHeroManager21FE49.cpp lacks a current affected-consumer receipt.
+Carry this fold/provider scope into the next scheduled census.
+[Evidence and remaining verification](../reverse/attempt_support/apt-skirmish-fold-debt-20261028-codex.md).
+
 Status: Cleared for this consumer's data bindings. Updated: 2026-10-27;
 inspected revision: 2eab7a67c3; ordinary-preview index: 73061d9452.
 
