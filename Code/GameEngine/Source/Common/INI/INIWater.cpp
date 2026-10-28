@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/ini /Ireference/open-bfme-1/inputs/reference/shims/water /Ireference/open-bfme-1/inputs/reference/shims/iniexception /Ireference/open-bfme-1/inputs/reference/shims/ini_noinline /Ireference/open-bfme-1/inputs/reference/shims/sweep /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main
+// cl: /O1 /Ireference/shims/bfme2_ascii_common /Ireference/shims/bfme2_ascii /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc
 // stlport
 //
 // Bodies ported from Open-BFME-1's GameEngine/Source/Common/INI/INIWater.cpp
@@ -11,9 +11,6 @@
 // One adaptation read off retail: the AsciiString assignment from a C string
 // calls StringBase<char>::set (0x000055F5) directly rather than the rowed
 // operator= at 0x000065B8, so it is spelled as set().
-#define Matrix4x4 Matrix4  // BFME renamed it
-#define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
-// stlport
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -43,45 +40,55 @@
 // Desc:   Water settings 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+// Keep the parser's BFME 2 views local to this TU. The donor headers also
+// declare unrelated STL, override and water-transparency types, which prevent
+// composition with the other verified INIWater fragments.
+#include "ascii_string.h"
 
-// BFME de-pooled this glue: retail's per-class `operator delete(void*, MagicEnum)`
-// is one 12-byte body (0x007EFFF0) that calls the CRT free IMPORT THUNK -- a
-// `call rel32` into `jmp [__imp__free]` -- where ::operator delete (0x00881EB0)
-// is a different function. <stdlib.h> declares free __declspec(dllimport) under
-// /MD, which compiles to the `ff 15` indirect form instead, so the C-linkage
-// redeclaration below is what names `_free` for the linker's thunk; it is
-// namespaced so every other free() call in this TU keeps the indirect form
-// retail also uses. Same TU-scoped override Team.cpp already carries.
-namespace BfmePoolGlue { extern "C" void __cdecl free(void *); }
-#undef MEMORY_POOL_GLUE_WITHOUT_GCMP
-#define MEMORY_POOL_GLUE_WITHOUT_GCMP(ARGCLASS) \
-protected: \
-	virtual ~ARGCLASS(); \
-public: \
-	enum ARGCLASS##MagicEnum { ARGCLASS##_GLUE_NOT_IMPLEMENTED = 0 }; \
-public: \
-	inline void *operator new(size_t s, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ return MP_GLUE_ALLOCATE(ARGCLASS); } \
-public: \
-	inline void operator delete(void *p, ARGCLASS##MagicEnum e DECLARE_LITERALSTRING_ARG2) \
-	{ BfmePoolGlue::free(p); } \
-protected: \
-	inline void *operator new(size_t s) { return ::operator new(s); } \
-	inline void operator delete(void *p) { ::operator delete(p); } \
-private: \
-	virtual MemoryPool *getObjectMemoryPool() { return ARGCLASS::getClassMemoryPool(); } \
+class INI;
+struct FieldParse
+{
+	const char *token;
+	void (__cdecl *parse)(INI *ini, void *instance, void *store, const void *userData);
+	const void *userData;
+	int offset;
+};
+
+class INI
+{
 public:
+	const char *getNextToken(const char *separators = 0);
+	void initFromINI(void *what, const FieldParse *parseTable);
+	static void parseWaterSettingDefinition(INI *ini);
+};
 
-#define DEFINE_TIME_OF_DAY_NAMES
+class INIException
+{
+public:
+	char *mFailureMessage;
+	int m_argCount;
+	INIException(const char *errorMessage);
+	INIException(int argCount, const char *errorMessage, ...);
+	INIException(const INIException &that);
+	~INIException();
+};
 
-#include "Common/INI.h"
-#include "Common/INIException.h"
-#include "Common/GameType.h"
+// Target: WaterSettingsArray.cpp's rowed initializer constructs six 0x7C-byte
+// elements. Only the virtual destructor, stride and field table are used here.
+class WaterSetting
+{
+public:
+	virtual ~WaterSetting();
+	const FieldParse *getFieldParse() { return m_waterSettingFieldParseTable; }
+	static const FieldParse m_waterSettingFieldParseTable[];
 
-#include "GameClient/TerrainVisual.h"
-#include "GameClient/Water.h"
+private:
+	char m_body[0x78];
+};
+
+extern WaterSetting WaterSettings[6];
+extern char *TimeOfDayNames[];
+typedef int Int;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////

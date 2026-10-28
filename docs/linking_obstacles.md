@@ -9466,3 +9466,23 @@ The declaration batch audit is INCONCLUSIVE: older index d92e7e6635 and
 missing current receipt for affected consumer
 Common/0CreateAHeroManager21FE49.cpp. Carry it and this provider scope into
 the next normal census.
+
+### LINK-135: INIWater composition needs compatible private views and current consumer receipts
+
+Status: Open. Updated: 2026-10-28; inspected revision: `b35ccaab0e`.
+Evidence / affected units: `Code/GameEngine/Source/Common/INI/INIWater.cpp`,
+its four clean donors and four mixed donors. Evidence:
+`reverse/attempt_support/iniwater-consolidation-20261028-codex3.md`.
+Completed: replaced the seed's broad donor headers with local declarations;
+three function/EH rows, string/import checks, converged data and strict-current
+preparation pass. The supported dry-run now accepts three donors together
+(eleven rows), whereas the original seed accepted none. The seed retains LINKS
+198 -> 198 against index 2026-10-28 15:58 at `d92e7e6635`.
+Remaining / next check: land the supported merge and reconcile the transparency
+parser's INI/Overridable/setting views separately. Outgoing link audit is
+inconclusive: the index predates the inspected base and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Carry that scope into the next scheduled census.
+Clearance: the seed's own current-input preview is clean; consumer-wide
+clearance and composition are pending. No new linking gain claimed.
+Census confirmation: awaiting the next scheduled measurement.
