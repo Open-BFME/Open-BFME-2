@@ -95,6 +95,11 @@ public:
 	virtual bool rva004ABACB() = 0;
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class LargeGroupAudioUpdate : public BehaviorModule, public BehaviorModuleInterface,
 	public UpdateModuleInterface, public Rva004ABA71Iface, public Rva004ABABCIface
 {
@@ -114,6 +119,8 @@ private:
 	Rva004ABA81Pair m_28; // +0x28
 	unsigned char m_pad30[0x8D - 0x30];
 	bool m_8D; // +0x8D
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 #endif

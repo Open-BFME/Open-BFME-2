@@ -187,6 +187,11 @@ protected:
 public:
 	virtual bool isValidContainerFor(Object *obj, bool checkCapacity, bool a3);
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class TunnelContain : public HordeGarrisonContain
 {
 public:
@@ -209,6 +214,8 @@ private:
 	char m_pad9AC[0x9AC];
 	bool m_flag9B0;
 	bool m_flag9B1;
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 #endif

@@ -68,6 +68,11 @@ public:
     virtual void rvaSlot0(float) = 0;
     virtual void rva004AC135(float) = 0;
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class RainOfFireUpdate : public UpdateModule, public Secondary20
 {
 public:
@@ -80,5 +85,7 @@ protected:
 public:
     unsigned frame;
     float darkness, scale, pending, ramp;
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 #endif

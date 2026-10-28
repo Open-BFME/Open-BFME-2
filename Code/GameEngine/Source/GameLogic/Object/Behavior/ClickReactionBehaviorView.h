@@ -47,6 +47,11 @@ private:
 	int m_f1c;
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class ClickReactionBehavior : public UpdateModule, public ClickReactionBehaviorIface
 {
 public:
@@ -58,4 +63,6 @@ protected:
 private:
 	int m_clicks; // +0x24
 	int m_cooldown; // +0x28
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };

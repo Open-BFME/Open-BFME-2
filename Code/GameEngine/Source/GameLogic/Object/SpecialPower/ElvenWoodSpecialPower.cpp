@@ -43,6 +43,11 @@ public:
 	// Public: the rowed dtor at 0x00493DEF is ??1SpecialPowerModule@@UAE@XZ.
 	virtual ~SpecialPowerModule();
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class ElvenWoodSpecialPower : public SpecialPowerModule
 {
 public:
@@ -51,6 +56,8 @@ public:
 
 protected:
 	virtual ~ElvenWoodSpecialPower();
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 ElvenWoodSpecialPower::ElvenWoodSpecialPower( Thing *thing, const ModuleData *moduleData )
 	: SpecialPowerModule( thing, moduleData )
@@ -162,11 +169,6 @@ class Snapshot;
 // and the address carries no getClassMemoryPool row anywhere. /EHsc for the
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
-
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
 
 class NameKeyGenerator
 {

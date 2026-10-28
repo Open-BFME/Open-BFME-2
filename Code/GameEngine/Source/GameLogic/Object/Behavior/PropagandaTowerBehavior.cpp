@@ -136,6 +136,11 @@ public:
 	ObjectTracker *next;
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class PropagandaTowerBehavior
 {
 public:
@@ -160,6 +165,8 @@ private:
 	const PropagandaTowerBehaviorModuleData *m_moduleData;
 	unsigned char m_pad08[0x20];
 	ObjectTracker *m_insideList;
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 //

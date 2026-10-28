@@ -55,6 +55,11 @@ protected:
 private:
     char pad28[0x28];
 };
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class ShipSlowDeathBehavior : public SlowDeathBehavior
 {
 public:
@@ -66,4 +71,6 @@ private:
     float m_pitchRate;
     float m_rollRate;
     float m_rotation;
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };

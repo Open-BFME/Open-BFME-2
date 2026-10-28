@@ -102,6 +102,11 @@ protected:
 	Object *m_object;		// +0x08
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class VeterancyCrateCollide : public CrateCollide
 {
 protected:
@@ -113,6 +118,8 @@ private:
 		return (const VeterancyCrateCollideModuleData *)m_moduleData;
 	}
 	int getLevelsToGain() const;
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 class Player
