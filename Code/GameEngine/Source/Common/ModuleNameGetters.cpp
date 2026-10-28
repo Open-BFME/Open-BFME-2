@@ -54,7 +54,6 @@ BFME_LITERAL_NAME_GETTER(AnimationSoundClientBehavior, "AnimationSoundClientBeha
 BFME_LITERAL_NAME_GETTER(Rva004C5013Named, "GrabPassengerSpecialPower")
 BFME_LITERAL_NAME_GETTER(ActiveBody, "ActiveBody")
 BFME_LITERAL_NAME_GETTER(Rva004BB6FCNamed, "FireWeaponCollide")
-BFME_LITERAL_NAME_GETTER(OathbreakersFadeAwayBehavior, "OathbreakersFadeAwayBehavior")
 BFME_LITERAL_NAME_GETTER(Rva004B8797Named, "SpawnUnitBehavior")
 BFME_LITERAL_NAME_GETTER(AudioLoopUpgrade, "AudioLoopUpgrade")
 BFME_LITERAL_NAME_GETTER(AISpecialPowerUpdate, "AISpecialPowerUpdate")
