@@ -41,6 +41,13 @@ namespace _STL { void __cdecl free(void *); }
 #include <map>
 #include <bitset>
 #include <algorithm>
+// Every use of less<int> here is inlined, yet /O1 /G7 would still emit an
+// out-of-line copy that is not retail's (stlport_list_int.cpp's 0x00626F90).
+// Import-inline: same inline body, no copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &__x, const int &__y) const { return __x < __y; }
+}
 #undef free
 #include <string.h>
 #include "../../../Common/GameLogicObjectLookupView.h"

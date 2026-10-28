@@ -184,10 +184,13 @@ Completed:
   `StlportVectorCopyCtorFamily.cpp` (`__uninitialized_copy<const vector<BfmeE8> *, ...>`):
   a declaration-only specialization keeps the call but changes the calling row (the
   caller must then materialise an empty tag argument, as in LINK-132's FVF trial, or
-  set up the hidden return slot differently). `HordeContainRva00475F61.cpp`'s
-  `less<int>::operator()` copy is emitted although every use is inlined; a
-  declaration would stop the inlining. Not tried: ArmorHashtableRtsCtor.cpp,
+  set up the hidden return slot differently). Not tried: ArmorHashtableRtsCtor.cpp,
   Rva0052CD81Finish.cpp.
+- `HordeContainRva00475F61.cpp` (halilkkaya-lk6): its /O1 /G7 build emitted
+  `less<int>::operator()` (475d42af7839) although every use is inlined; the same
+  import-inline specialization drops it, so stlport_list_int.cpp's retail 0x00626F90
+  copy is first. 6/6 rows exact, no other COMDAT digest changes; the unit's own
+  pre-existing blockers are unchanged and stlport_list_int.cpp LINKS.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
