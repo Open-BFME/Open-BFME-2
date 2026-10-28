@@ -8000,22 +8000,22 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00106663,80,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp
 0x001066B3,88,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,approved,Z,Z=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp S=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp
 0x0010670B,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationType.cpp
-0x00106715,108,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
-0x00106781,145,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
-0x00106812,98,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeB996.cpp provisional,Code/GameEngine/Source/Common/Rva007E3080MovePair.cpp
-0x00106874,27,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106812..0x0010688F provisional,Code/GameEngine/Source/Common/Rva00106874Host.cpp
-0x0010688F,24,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106812..0x001068A7 provisional,Code/GameEngine/Source/Common/Rva007E3160Ready.cpp
+0x00106715,108,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x00106781,145,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x00106812,98,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeB996.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x00106874,27,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106812..0x0010688F provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x0010688F,24,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106812..0x001068A7 provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x001068A7,42,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeB996.cpp provisional,Code/GameEngine/Source/Common/Rva007E3190BfmeSendIfState7.cpp
-0x001068D1,60,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
-0x0010690D,62,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
-0x0010694B,37,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
-0x00106970,150,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A06 provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
+0x001068D1,60,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x0010690D,62,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x0010694B,37,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x00106970,150,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A06 provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106A06,19,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A19 provisional,Code/GameEngine/Source/Common/Rva007E3410VirtualCall.cpp
 0x00106A19,20,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A2D provisional,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
-0x00106A2D,47,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A5C provisional,Code/GameEngine/Source/Common/Rva00106874Host.cpp
-0x00106A5C,109,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range06A5C.cpp
+0x00106A2D,47,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A5C provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x00106A5C,109,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106AC9,256,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106A5C..0x00106BC9 provisional,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp
-0x00106BC9,176,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeConv996RangeCheck.cpp
+0x00106BC9,176,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106C79,37,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,proposed,K,K=Rva00106C79Holder,Code/GameEngine/Source/Common/Rva00106C79Check.cpp
 0x00106C9E,78,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,proposed,K,K=Rva00106AC9,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp
 0x00106CEC,4,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
@@ -64464,8 +64464,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00764485,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,approved,P,P=0x00106277@FuncInfo0x00908498,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp
 0x0076448F,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,approved,P,P=0x001065D9@FuncInfo0x009084BC,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 0x00764497,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp,approved,P,P=0x001065D9@FuncInfo0x009084BC,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
-0x007644A1,8,code,,,-,,Code/GameEngine/Source/Common/Rva00106874Host.cpp
-0x007644A9,10,code,,,-,,Code/GameEngine/Source/Common/Rva00106874Host.cpp
+0x007644A1,8,code,,,-,,Code/GameEngine/Source/Common/BfmeB996Range.cpp
+0x007644A9,10,code,,,-,,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x007644B3,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp
 0x007644BD,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp
 0x007644C7,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerReAcquire.cpp
