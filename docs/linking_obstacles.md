@@ -2145,6 +2145,15 @@ Whole-unit clearance and census confirmation remain pending.
   the seven-commit batch retires five header and two Microsoft-header items.
   The synchronized upstream BFME 1 pointer de077dd5dd still requires the
   outgoing publication gate at these inputs; no new census is asserted.
+- **TunnelTracker Xfer iterator composition prerequisite (2026-10-28):**
+  [The scoped comparison cleanup](../reverse/attempt_support/tunneltracker-xfer-comparison-20261028-codexb4.md)
+  removes the duplicate private iterator-comparison template and its unused
+  12-byte local helper. All 13 retained object sections, 12 external COMDATs
+  and 16 external bindings agree; the 192-byte Xfer row remains exact and
+  ordinary preview retains LINKS at index `d92e7e6635`. Supported composition
+  clears C2995 and reaches the existing missing Xfer/list declarations.
+  The append identity key remains registered. No merge, census gain or debt
+  retirement is claimed; receiver/list and other virtual declarations remain.
 - **Science purchase-cost header prerequisite (2026-10-26):**
   [canonical GameLogic adoption](../reverse/attempt_support/consolidation-science-cost-prerequisite-20261026-codex.md)
   preserves the 86-byte cost donor and retires one header-queue row through
