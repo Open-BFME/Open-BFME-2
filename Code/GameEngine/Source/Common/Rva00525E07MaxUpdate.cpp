@@ -57,17 +57,17 @@ void Holder00525E07::Rva00525E07(const AsciiString *name, int value)
 	Node00525E07 *node = head->m_next;
 	if (node != head)
 	{
-		int b = value;
+		int flashFrames = value;
 		do
 		{
-			Object00525E07 *o = (Object00525E07 *)TheGameLogic->findObjectByID((ObjectID)node->m_objectID);
-			if (o != 0)
+			Object00525E07 *heroObject = (Object00525E07 *)TheGameLogic->findObjectByID((ObjectID)node->m_objectID);
+			if (heroObject != 0)
 			{
-				NameHolder00525E07 *h = o->getHolder();
+				NameHolder00525E07 *h = heroObject->getHolder();
 				if (((const StringBase<char> *)&h->m_name)->compare(*(const StringBase<char> *)name) == 0)
 				{
-					if (b > node->m_10)
-						node->m_10 = b;
+					if (flashFrames > node->m_10)
+						node->m_10 = flashFrames;
 				}
 			}
 			node = node->m_next;

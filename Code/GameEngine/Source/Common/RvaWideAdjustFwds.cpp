@@ -99,7 +99,7 @@ public:
 class Rva004EC072Owner
 {
 public:
-	void fwd(void *arg);
+	void fwd(void *teamPrototype);
 };
 
 // Native AddArmy2E24FA supplies this plus one stack argument, no EDX input.
@@ -161,9 +161,9 @@ void GameLogic::rva0023D0C2(Object *obj, int value)
 }
 
 
-void Rva004EC072Owner::fwd(void *arg)
+void Rva004EC072Owner::fwd(void *teamPrototype)
 {
-	((AITeamBuilder *)((char *)this + 0x90))->registerTeamPrototype((Arg *)arg);
+	((AITeamBuilder *)((char *)this + 0x90))->registerTeamPrototype((Arg *)teamPrototype);
 }
 
 // WB D0B960 calls named ArmySummarySystem::GetArmyNameByID; native
@@ -199,9 +199,9 @@ void *Rva0023D049::rva0023D049(int value)
 // ?rva0023D054@GameLogic@@QAEXHHPAURva0040D2FDVec@@@Z, native 0x0023D054..
 // 0x0023D05F (11B): the same adjustment and a tail jump to 0x0040D2FD with
 // its three arguments.
-void GameLogic::rva0023D054(int a, int b, Rva0040D2FDVec *out)
+void GameLogic::rva0023D054(int armyID, int b, Rva0040D2FDVec *out)
 {
-	((ArmySummarySystem *)((char *)this + 0x184))->rva0040D2FD(a, b, out);
+	((ArmySummarySystem *)((char *)this + 0x184))->rva0040D2FD(armyID, b, out);
 }
 
 // ?rva0023D028@GameLogic@@QAEXXZ, native 0x0023D028..0x0023D033 (11B): the

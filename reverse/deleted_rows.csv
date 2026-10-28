@@ -3962,3 +3962,6 @@ __ehhandler$?rva005114C6@Rva005114C6@@UAEPAVRva005114C6Messenger@@PAX@Z,0x00794C
 ?rva0015A840@Rva0015A840@@QAEPAUGapRefItem@@HH@Z,0x0015A840,"Renamed to ?getMaterial@Rva0015A840@@QAEPAUGapRefItem@@HH@Z by tools/rename.py (inferred)"
 ?Rva00410223@@YGPAXPAX@Z,0x00410223,"Renamed to ?createBinkGameWindow@@YGPAXPAX@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva00410223@@YGPAXPAX@Z,0x00785A98,"Renamed to __ehhandler$?createBinkGameWindow@@YGPAXPAX@Z by tools/rename.py (inferred)"
+?g_00C036E8@@3QBUFieldParse@@B,0x008036E8,"Renamed to ?m_imageFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
+?g_00C1EE54@@3QBUFieldParse@@B,0x0081EE54,"Renamed to ?g_waterTextureFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
+?Rva001ED62EGet@@YAHXZ,0x001ED62E,"Renamed to ?getImageFieldParseTable@@YAHXZ by tools/rename.py (inferred)"

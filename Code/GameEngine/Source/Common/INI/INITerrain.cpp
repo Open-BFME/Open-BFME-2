@@ -156,7 +156,7 @@ extern Debug *theDebug;
 // TheSpecialPowerStore is the preceding cell E02D4C; its broad data-ledger
 // extent does not establish ownership of this texture-table pointer.
 Rva003B1820 *g_00E02D50;
-extern const FieldParse g_00C1EE54[];
+extern const FieldParse g_waterTextureFieldParseTable[];
 extern void _bfme_debugRecordCallsite(int kind);
 
 void iniParseWaterTexturesDefinition(INI *ini)
@@ -179,7 +179,7 @@ void iniParseWaterTexturesDefinition(INI *ini)
 	}
 	else
 	{
-		ini->initFromINI(list, g_00C1EE54);
+		ini->initFromINI(list, g_waterTextureFieldParseTable);
 		list->dump();
 	}
 }

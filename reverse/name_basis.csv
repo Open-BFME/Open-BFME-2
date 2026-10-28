@@ -3823,3 +3823,16 @@ member,ReplenishUnitsModuleData::m_138,ReplenishUnitsModuleData::m_startsActive,
 param,BfmeSceneVector::rva00142170::n,BfmeSceneVector::rva00142170::childStride,inferred,agree:nl-47829253f3dd,Code/Libraries/Source/WWVegas/WW3D2/SceneSpatialCollectBFME2.cpp,0x00142170
 local,BfmeSceneVector::rva00142410::t,BfmeSceneVector::rva00142410::intersectionFraction,inferred,agree:nl-1083da42d499,Code/Libraries/Source/WWVegas/WW3D2/SceneSpatialCollectBFME2.cpp,0x00142410
 local,ProfileHighLevel::Id::GetValue::v,ProfileHighLevel::Id::GetValue::frameValue,inferred,agree:nl-509c2517c834,Code/Libraries/Source/profile/profile_highlevel.cpp,0x006C64A0
+global,?g_00C036E8@@3QBUFieldParse@@B,?m_imageFieldParseTable@@3QBUFieldParse@@B,inferred,agree:nl-97e6f1bc33f3,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,0x008036E8
+global,?g_00C1EE54@@3QBUFieldParse@@B,?g_waterTextureFieldParseTable@@3QBUFieldParse@@B,inferred,agree:nl-ab2ec52597d6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,0x0081EE54
+function,?Rva001ED62EGet@@YAHXZ,?getImageFieldParseTable@@YAHXZ,inferred,agree:nl-824ae0320320,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,0x001ED62E
+local,Holder00525E07::Rva00525E07::b,Holder00525E07::Rva00525E07::flashFrames,inferred,agree:nl-4d1bbe1dddbd,Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,0x00525E07
+local,Holder00525E07::Rva00525E07::o,Holder00525E07::Rva00525E07::heroObject,inferred,agree:nl-1d3d16738358,Code/GameEngine/Source/Common/Rva00525E07MaxUpdate.cpp,0x00525E07
+local,StrategicHUD::SetCommandPointsString::tmp,StrategicHUD::SetCommandPointsString::commandPointsText,inferred,agree:nl-d758fb47def6,Code/GameEngine/Source/Common/Rva005EF096Apt.cpp,0x005EF096
+param,Rva004EC072Owner::fwd::arg,Rva004EC072Owner::fwd::teamPrototype,inferred,agree:nl-6ba7b296adef,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,0x004EC072
+param,GameLogic::rva0023D054::a,GameLogic::rva0023D054::armyID,inferred,agree:nl-6abfe5d8b7c7,Code/GameEngine/Source/Common/RvaWideAdjustFwds.cpp,0x0023D054
+local,ThingFactory::addTemplate::t,ThingFactory::addTemplate::currentTemplate,inferred,agree:nl-f743ae2ef22f,Code/GameEngine/Source/Common/Thing/ThingFactoryReset.cpp,0x002D04A3
+param,__uninitialized_fill_n::n,__uninitialized_fill_n::count,inferred,agree:nl-45ad298a6085,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,
+param,__uninitialized_fill_n::x,__uninitialized_fill_n::fillValue,inferred,agree:nl-aa69222556ec,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,
+param,uninitialized_fill_n::x,uninitialized_fill_n::initialValue,inferred,agree:nl-eebb50c4066f,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerConstructor.cpp,
+local,AptScoreScreen::PreCollectGameData::p,AptScoreScreen::PreCollectGameData::objectiveText,inferred,agree:nl-68dedfb31772,Code/Libraries/Source/WWVegas/WWLib/Rva0051C0E7Ctor.cpp,0x0051C241

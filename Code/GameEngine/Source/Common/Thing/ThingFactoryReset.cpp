@@ -223,11 +223,11 @@ void ThingFactory::addTemplate(ThingTemplate *thingTemplate)
         m_firstTemplate = thingTemplate;
         old->m_matchingReplacementCount = 0;
         thingTemplate->m_matchingReplacementCount = 0;
-        ThingTemplate *t=m_firstTemplate;
+        ThingTemplate *currentTemplate=m_firstTemplate;
         g_flag1 = true;
-        for (; t; t=t->m_nextTemplate) {
-            if (t->m_templateID >= g_replacementTemplateCounter.nextID && t->m_name.compare(*name) == 0)
-                ++t->m_matchingReplacementCount;
+        for (; currentTemplate; currentTemplate=currentTemplate->m_nextTemplate) {
+            if (currentTemplate->m_templateID >= g_replacementTemplateCounter.nextID && currentTemplate->m_name.compare(*name) == 0)
+                ++currentTemplate->m_matchingReplacementCount;
         }
     } else {
         thingTemplate->m_nextTemplate = m_firstTemplate;

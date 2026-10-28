@@ -127,15 +127,15 @@ namespace _STL
 
 	struct __true_type {};
 
-	template <class O, class S, class T> inline O __uninitialized_fill_n(O first, S n, const T &x, const __true_type &)
+	template <class O, class S, class T> inline O __uninitialized_fill_n(O first, S count, const T &fillValue, const __true_type &)
 	{
-		return fill_n(first, n, x);
+		return fill_n(first, count, fillValue);
 	}
 
 	// STLport's POD dispatch for a 4-byte element: the fill is fill_n.
-	template <class O, class S, class T> inline O uninitialized_fill_n(O first, S n, const T &x)
+	template <class O, class S, class T> inline O uninitialized_fill_n(O first, S n, const T &initialValue)
 	{
-		return __uninitialized_fill_n(first, n, x, __true_type());
+		return __uninitialized_fill_n(first, n, initialValue, __true_type());
 	}
 
 	template <class T, class A = allocator<T> > class vector : public _Vector_base<T, A>

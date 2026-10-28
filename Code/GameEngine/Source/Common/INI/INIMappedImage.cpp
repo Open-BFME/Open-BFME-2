@@ -20,7 +20,7 @@ public:
 	static void parseMappedImageDefinition(INI *ini);
 };
 
-extern const FieldParse g_00C036E8[];
+extern const FieldParse m_imageFieldParseTable[];
 
 class Image
 {
@@ -28,7 +28,7 @@ public:
 	Image();
 
 	void setName(const AsciiString &name) { m_name = name; }
-	const FieldParse *getFieldParse(void) const { return g_00C036E8; }
+	const FieldParse *getFieldParse(void) const { return m_imageFieldParseTable; }
 
 private:
 	void *m_vptr;          // +0x00

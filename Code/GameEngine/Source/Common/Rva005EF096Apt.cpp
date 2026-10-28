@@ -73,16 +73,16 @@ extern GameTextInterface *TheGameText;
 
 void __cdecl StrategicHUD::SetCommandPointsString(int level, Rva005EF096Outer *outer, int a, int b)
 {
-	UnicodeString tmp;
+	UnicodeString commandPointsText;
 	Bool exists;
 	UnicodeString fetched = TheGameText->fetch("STRATEGICHUD:StatsCommandPoints", &exists);
 	if (exists)
 	{
 		const wchar_t *fmt = fetched.str();
-		tmp.format(fmt, a, b);
+		commandPointsText.format(fmt, a, b);
 	}
 	AsciiString key;
 	const char *mid = outer->m_ptr ? outer->m_ptr->m_name : "";
 	key.format("APT:_level%u.%s_CommandPoints", level, mid);
-	g_bfmeAptWindowManager->bfmeSetText(key, tmp, true);
+	g_bfmeAptWindowManager->bfmeSetText(key, commandPointsText, true);
 }

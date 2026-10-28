@@ -103,8 +103,8 @@ void AptScoreScreen::PreCollectGameData(Rva0051C0E7 *obj)
 			continue;
 		unsigned char f = vec->rva004268F6(i);
 		obj->m_28[obj->m_04] = (char)f;
-		void *p = vec->rva004267E9(i);
-		obj->m_08[obj->m_04].setCopyInline(*(AsciiString *)p);
+		void *objectiveText = vec->rva004267E9(i);
+		obj->m_08[obj->m_04].setCopyInline(*(AsciiString *)objectiveText);
 		obj->m_04++;
 	}
 }

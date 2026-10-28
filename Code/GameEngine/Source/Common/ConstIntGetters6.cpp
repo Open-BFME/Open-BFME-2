@@ -33,7 +33,7 @@ public:
 };
 
 // Retail VA 0x00C036E8 (.rdata): 5 field records and a zero sentinel.
-extern const FieldParse g_00C036E8[] = {
+extern const FieldParse m_imageFieldParseTable[] = {
 	{ "Texture", &INI::parseAsciiString, 0, 0x8 },
 	{ "TextureWidth", &INI::parseInt, 0, 0xC },
 	{ "TextureHeight", &INI::parseInt, 0, 0x10 },
@@ -43,17 +43,17 @@ extern const FieldParse g_00C036E8[] = {
 };
 
 // Retail VA 0x00C1EE54 (.rdata): 1 field records and a zero sentinel.
-extern const FieldParse g_00C1EE54[] = {
+extern const FieldParse g_waterTextureFieldParseTable[] = {
 	{ "Texture", &INI::parseAsciiStringVectorAppend, 0, 0x8 },
 	{ 0, 0, 0, 0 }
 };
 
-// ?Rva001ED62EGet@@YAHXZ @ 0x001ed62e (6B): returns 0x00c036e8.
+// ?getImageFieldParseTable@@YAHXZ @ 0x001ed62e (6B): returns 0x00c036e8.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
-int Rva001ED62EGet(void)
+int getImageFieldParseTable(void)
 {
-	return (int)g_00C036E8;
+	return (int)m_imageFieldParseTable;
 }
 
 // ?Rva002009FBGet@@YAHXZ @ 0x002009fb (6B): returns 0x00c1ee54.
@@ -61,7 +61,7 @@ int Rva001ED62EGet(void)
 // no branch sources. Opaque address-derived name.
 int Rva002009FBGet(void)
 {
-	return (int)g_00C1EE54;
+	return (int)g_waterTextureFieldParseTable;
 }
 
 // ?Rva00252B62Get@@YAHXZ @ 0x00252b62 (6B): returns 0x00001000.

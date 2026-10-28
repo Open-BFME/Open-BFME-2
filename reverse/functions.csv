@@ -11822,7 +11822,7 @@ _luaX_lex,,0x00757C90,1324,Code/Libraries/Source/Lua/llex.c,matched,BFME1 byte-i
 ?Rva00534B22Get@@YAHXZ,,0x00534B22,6,Code/GameEngine/Source/Common/ConstIntGetters5.cpp,matched,B8-6 returner ret c68ae8; prev C2-04-00 with no vtable and no callers; opaque name
 ?Resize@?$DynamicVectorClass@VModelNodeClass@HLodClass@@@@UAE_NHPBVModelNodeClass@HLodClass@@@Z,,0x0019E9F0,47,Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp,matched,located by masked whole-text search of the compiled body - single hit
 ?bfmeAttachAlways@Gen009D6E10@@QAEPAV1@PAVBfmePeer@@@Z,,0x0060D565,47,Code/GameEngine/Source/Common/Gen009D90D0.cpp,matched,BFME1 donor Gen009D90D0 with O1 for eax coloring; bfmeReset pinned
-?Rva001ED62EGet@@YAHXZ,,0x001ED62E,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c036e8; prev C3 with no vtable and no callers; opaque name
+?getImageFieldParseTable@@YAHXZ,,0x001ED62E,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c036e8; prev C3 with no vtable and no callers; opaque name
 ?Rva002009FBGet@@YAHXZ,,0x002009FB,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret c1ee54; prev C3 with no vtable and no callers; opaque name
 ?Rva00252B62Get@@YAHXZ,,0x00252B62,6,Code/GameEngine/Source/Common/ConstIntGetters6.cpp,matched,B8-6 returner ret 1000; prev C3 with no vtable and no callers; opaque name
 ?Get_Int_Bitfield@INIClass@@QAEHPBD0HQAPAD@Z,,0x006173A0,210,Code/Libraries/Source/WWVegas/WWLib/ini.cpp,matched,BFME1 donor verbatim; TU-local _STL::free decl reaches pinned 0x30830 direct call like stlport_ios_base_dtor precedent
