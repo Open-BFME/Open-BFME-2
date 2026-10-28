@@ -224,6 +224,13 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   definition: it is this unit's 0x003A9397 row) gives both `??_G` retail's digests
   (38f68adc5995, 28e3c4687c29). 227/227 rows exact; no rt5 loser left in the unit;
   link_check unchanged (13,604 B over the three FX units).
+- `Player.cpp` (halilkkaya-lk6): the donor unit (11 rows, placed at 0x000B6464 by its
+  `getAcademyStats` row) emitted `list<TeamPrototype *>` `clear` and `_M_create_node`
+  from unmatched code; declaration-only specializations (beside its existing
+  TeamPrototype `deallocate` one) drop them, so AIPlayerTeamBuild.cpp's copies are
+  first and it keeps linking (9,120 B). 11/11 rows exact; only the unmatched
+  `Player::xfer` COMDAT (sole definer) changes digest; every dropped name keeps a
+  definer; AIPlayerTeamBuild.cpp has no rt5 loser left.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.

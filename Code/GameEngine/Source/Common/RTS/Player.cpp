@@ -238,6 +238,11 @@ namespace _STL { template <> void _List_base<Object *, allocator<Object *> >::cl
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class TeamPrototype;
 namespace _STL { template <> void allocator<_List_node<TeamPrototype *> >::deallocate(_List_node<TeamPrototype *> *,unsigned int) const; }
+// Same for list<TeamPrototype *>'s clear and node construction: this unit
+// (placed at 0x000B6464 by its getAcademyStats row) would otherwise hold the
+// first copies, and AIPlayerTeamBuild.cpp's differ from them.
+namespace _STL { template <> void _List_base<TeamPrototype *, allocator<TeamPrototype *> >::clear(); }
+namespace _STL { template <> _List_node<TeamPrototype *> *list<TeamPrototype *, allocator<TeamPrototype *> >::_M_create_node(TeamPrototype * const &); }
 // Suppress this TU's non-retail copy of ?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> bool _Base_bitset<4>::_M_is_equal(_Base_bitset<4> const &) const; }
