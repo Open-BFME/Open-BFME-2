@@ -47699,11 +47699,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005801DE,10,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/GameSorter.cpp provisional,Code/GameEngine/Source/GameNetwork/GameSorterDestructor.cpp
 0x005801E8,10,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/GameSorter.cpp provisional,Code/GameEngine/Source/GameNetwork/GameSorterDestructor.cpp
 0x005801F2,4,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x005801F6 provisional,Code/GameEngine/Source/GameClient/FXParticleSystem.cpp
-0x005801F6,109,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580263 provisional,Code/GameEngine/Source/GameClient/GUI/Rva005801F6Compare.cpp
-0x00580263,179,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580316 provisional,Code/GameEngine/Source/GameClient/GUI/OnlineCustomMatchPrefs.cpp
-0x00580316,170,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x005803C0 provisional,Code/GameEngine/Source/GameClient/GUI/OnlineCustomMatchPrefs.cpp
+0x005801F6,109,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580263 provisional,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
+0x00580263,179,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580316 provisional,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
+0x00580316,170,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x005803C0 provisional,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
 0x005803C0,619,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x0058062B provisional,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp
-0x0058062B,27,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580646 provisional,Code/GameEngine/Source/GameNetwork/Rva0058062BCtor.cpp
+0x0058062B,27,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580646 provisional,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
 0x00580646,191,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580705 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp
 0x00580705,113,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x00580776 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva005810B6Sort.cpp
 0x00580776,88,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,C,C=0x005801E8..0x005807CE provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00580776LinearInsert.cpp
@@ -86767,8 +86767,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079C776,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp,approved,P,P=0x0057FFB9@FuncInfo0x009520A4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp
 0x0079C780,8,code,,,-,,Code/gen_small/uw_gen_002.cpp
 0x0079C788,8,code,,,-,,Code/gen_small/uw_gen_008.cpp
-0x0079C790,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/OnlineCustomMatchPrefs.cpp
-0x0079C798,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/OnlineCustomMatchPrefs.cpp
+0x0079C790,8,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
+0x0079C798,10,code,,,-,,Code/GameEngine/Source/GameNetwork/GameSorter.cpp
 0x0079C7A2,8,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,P,P=0x005803C0@FuncInfo0x00952104 provisional,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp
 0x0079C7AA,25,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,P,P=0x005803C0@FuncInfo0x00952104 provisional,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp
 0x0079C7C3,10,code,Code/GameEngine/Source/GameNetwork/GameSorter.cpp,approved,P,P=0x005803C0@FuncInfo0x00952104 provisional,Code/GameEngine/Source/GameClient/GUI/Rva005803C0Compare.cpp
