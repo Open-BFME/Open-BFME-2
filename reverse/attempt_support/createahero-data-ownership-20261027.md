@@ -75,3 +75,42 @@ Verification:
 This closes the recorded accessor data-ownership prerequisite and its debt.
 No game source, function row, pin or source path changes. No new census-linked
 coverage or image-ownership result is claimed.
+## Resolved data-index follow-up (2026-10-28)
+
+Inspected base `58c6924a71`, seat codex. The prerequisite above was repaired by
+`76a2500f64`: the four existing atexit rows now belong to the accessor unit,
+and the old address-named definitions and explicit data rows were removed.
+The committed data index still selected those four removed names, producing
+four current wrong-name findings and preventing retirement of all thirteen
+historical register keys.
+
+Generated `build/createahero-data-ledger.csv` with `tools/data_ledger.py --out`
+and copied only its four complete, unmodified rows at 0x009FE3E8,
+0x009FE420, 0x009FE440 and 0x009FE448. Each generated row is four bytes,
+status `owned`, one definition, and names the accessor's function-local
+`AsciiString err`. No old global spelling remains in Code, pins, explicit
+data rows or the converged register. These are compiler-local identities,
+not evidence for retail identifier spelling or new data-row ownership.
+The generator reported 54 unrelated sources without objects; the complete
+index was not adopted. Both the accessor and former thunk source have
+current build receipts.
+
+Verification:
+
+- `./build.sh` accessor: 91/91 rows; all 13 literals verified.
+- `./build.sh` former thunk source: 63/63 rows and 31 data rows verified.
+- `eh_verify.py` accessor: 13 EXACT graphs, no missing objects.
+- `find_declared_unmatched.py`: both sources have every definition rowed.
+- `data_check.py --converged` accessor: 11 addresses, no second names or
+  unjudged rows.
+- `data_check.py --enforce` accessor: zero findings; `check_csv.py` passes.
+- Whole-tree `data_check.py --all`: 534 -> 530 findings, 449 -> 445 outside
+  the register; the exact finding-set comparison removes only these four
+  accessor findings and adds none (21,596 sources inspected).
+- `repair_queue.py verify-removed`: PASS against the staged retirement.
+- `repair_queue.py retire data` accessor: PASS; all 13 registered keys
+  retired by the owning tool, zero still found.
+
+This closes the scoped data-index/debt prerequisite. No game source,
+function rows, pins or paths change; no new linked-byte or image-ownership
+measurement is claimed.
