@@ -8,16 +8,28 @@
 // Identity is the ctor TU plus sole caller UNCLAIMED 0x004C5683 (28B ??_G).
 // Shape follows ReplaceSelfUpgradeDtor (novtable empty body tail-jmp).
 
+class MultiIniFieldParse;
+
 class AIUpdateModuleData
 {
 public:
+	AIUpdateModuleData();
 	virtual ~AIUpdateModuleData();
+
+private:
+	// The vfptr occupies +0x00; the remaining base storage ends at +0x18.
+	unsigned char m_opaque[0x14];
 };
 
 class __declspec(novtable) SiegeDeployHordeSpecialPowerModuleData : public AIUpdateModuleData
 {
 public:
+	SiegeDeployHordeSpecialPowerModuleData();
 	virtual ~SiegeDeployHordeSpecialPowerModuleData();
+private:
+	bool m_flag18;
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
 SiegeDeployHordeSpecialPowerModuleData::~SiegeDeployHordeSpecialPowerModuleData()
