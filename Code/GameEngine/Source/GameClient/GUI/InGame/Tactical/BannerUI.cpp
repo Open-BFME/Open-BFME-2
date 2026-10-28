@@ -316,7 +316,11 @@ void BannerUI::init() {
 // cleared. Returns the slot.
 extern GameLogic *TheGameLogic;
 
-class Rva00222A8BTarget;
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4);
+};
 int __cdecl Rva00216496Invoke(Rva00222A8BTarget *target, void *owner, const char *name, const unsigned int &a, const AsciiString &b, const AsciiString &c);
 
 class BfmeAptWindowManager
@@ -538,16 +542,29 @@ public:
 	void appendIntegerArgument(int arg);	// 0x0030F936
 };
 
-#define V(n) virtual void vslot##n() = 0;
 class MessageStream
 {
 public:
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17)
+	virtual void vslot0() = 0;
+	virtual void vslot1() = 0;
+	virtual void vslot2() = 0;
+	virtual void vslot3() = 0;
+	virtual void vslot4() = 0;
+	virtual void vslot5() = 0;
+	virtual void vslot6() = 0;
+	virtual void vslot7() = 0;
+	virtual void vslot8() = 0;
+	virtual void vslot9() = 0;
+	virtual void vslot10() = 0;
+	virtual void vslot11() = 0;
+	virtual void vslot12() = 0;
+	virtual void vslot13() = 0;
+	virtual void vslot14() = 0;
+	virtual void vslot15() = 0;
+	virtual void vslot16() = 0;
+	virtual void vslot17() = 0;
 	virtual GameMessage *appendMessage(int type) = 0;	// slot 18, 0x0030F6D4
 };
-#undef V
 extern MessageStream *TheMessageStream;
 
 class ScriptEngine
