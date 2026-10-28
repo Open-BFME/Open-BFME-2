@@ -51,6 +51,7 @@ struct AsciiString
 	void *m_data;
 };
 
+// GeometryShape's copy uses Coord3D's member-wise user copy constructor.
 #include "../../../Include/Lib/Coord3DCtorView.h"
 
 struct GeometryShape

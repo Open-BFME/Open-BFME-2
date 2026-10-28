@@ -3794,6 +3794,25 @@ remains 0 -> 0 with the three existing vector<Object *> selected-copy blockers
 This clears four header-debt entries only; no census gain is claimed.
 [Scoped evidence](../reverse/attempt_support/coord3d-companion-retirement-20261028-codexb.md).
 
+**Companion adoption (2026-10-28; inspected `20c2620db2`):** The owning
+acceptance tool retires six Coord3D queue entries: four existing companion
+users and new adoptions in stlport_vector_geometryshape_base.cpp and
+W3DViewGetAxisAlignedViewRegion.cpp. The edited units retain all five rows,
+the viewport EH graph and all external COMDAT/definition/reference facts.
+Across the six accepted units, twelve EH graphs remain EXACT and ordinary
+preview retains 3,123 authored linked bytes (index `41c28839bf`).
+AIStructureCreepTactic's existing vector-provider conflicts remain blocked
+at zero linked bytes. No new census-linked coverage is claimed.
+[Scope, checks and remaining prerequisites](../reverse/attempt_support/coord3d-companion-adoption-20261028-codex.md).
+
+The home-point companion trial also matches all six rows, but acceptance
+refuses the same missing-provider preview as the restored original.
+Both missing names now belong to consolidated Common/AIBaseBuilder.cpp,
+which is absent from the cached census. Source and queue row are restored;
+await a census containing that provider or a separate provider-aware
+retirement diagnostic. Library class-key/member-growth prerequisites below
+remain open. Carry changed declarations into the normal consumer audit.
+
 **Matrix4D class-key prerequisite (2026-10-28):** The canonical struct changes
 eight existing class-key decorated Matrix4D symbols; a class forward declaration
 does not preserve them. The trial was reverted and the original unit passes
