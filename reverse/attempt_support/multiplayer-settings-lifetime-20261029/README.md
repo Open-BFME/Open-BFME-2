@@ -113,11 +113,30 @@ existing `SubsystemInterface` header-adoption prerequisite. Three mixed donors
 stay outside the merge. This is a real baseline/compile-environment refusal;
 it is not a demonstrated commit or PR rejection. No merge was applied.
 
+**Flag-default follow-up (2026-10-29, base `b31de0a2`):** isolated
+`flag_defaults generate` scans of the seed under `current` and `default`
+both compile and preserve its two rows. The exception's `-G7 -arch:SSE`
+retained the compiler's initial `/O2`; the region default is
+`-O1 -arch:SSE -G7`. Its recorded three-row/two-loss requirement is obsolete
+after the native seed reconciliation. `flag_defaults propose` therefore
+removes this one override through the supported retirement path.
+
+No source or row identity changes accompany that retirement. The ordinary
+seed build passes 2/2 code rows and its singleton data row. All 22 emitted
+COMDAT bodies and relocations are identical between current/default/production
+objects; both full INI tables (112 and 192 bytes, 34 relocations) are unchanged.
+The paired published-index provider check reports no removed definitions,
+selection changes, new losses or new variants. Ordinary preview keeps the
+seed LINKS/97 bytes and the constructor LINKS/159 bytes against `d92e7e6635`.
+This retires one obsolete override; it does not establish a new census result
+or approve a merge. The stock merge must now be retried under normal flags.
+
 The remaining sequence is:
 
-1. Reconcile effective seed/donor compiler environments and the header-adoption
-   prerequisite through their normal verified paths. Do not alter a protected
-   override merely to force a merge.
+1. Retry stock consolidation after the verified flag-default prerequisite.
+   Keep the existing header-adoption debt unless its normal acceptance passes;
+   the updated tool still requires the registered canonical header or an
+   explicitly listed companion, which the full subsystem shim is not.
 2. Correct the complete/deleting destructor and handler identities from `QAE`
    to `UAE`, retaining their existing RVAs/extents, old-identity tombstones,
    consistent consumers and all three cleanup `parent=` notes. This corrects

@@ -3158,6 +3158,17 @@ All seven lifetime rows retain their current owners; QAE-to-UAE ledger/EH
 correction and approved-TU consolidation still need a coherent verified
 transition. [Native proof, reproduction and next steps](../reverse/attempt_support/multiplayer-settings-lifetime-20261029/README.md).
 
+**Multiplayer flag-default prerequisite (2026-10-29, base `b31de0a2`):** fresh
+isolated current/default scans preserve both seed rows, so
+`flag_defaults propose` retires its obsolete `-G7 -arch:SSE` exception.
+The normal `/O1 /arch:SSE /G7` build preserves 2/2 code rows and the singleton;
+all 22 COMDATs and both complete INI tables with 34 relocations are unchanged.
+The paired published-index audit changes no provider selection or outside
+loss, and ordinary previews retain seed LINKS/97 and constructor LINKS/159.
+One flag override is retired, with no source, row-identity or ownership edit.
+Retry the stock merge under normal flags; canonical-header debt and the
+QAE-to-UAE ownership transition remain pending. No census gain is claimed.
+
 ### LINK-010: folded STL table bases need the actual native predecessor
 
 **Status: Blocked on supported native data-placement / ownership reconciliation.
