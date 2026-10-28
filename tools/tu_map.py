@@ -18,7 +18,11 @@ Signals, strongest first (one letter each in the `by` and `evidence` columns):
      copy constructor needs ZH's own `Class::Class(const Class &` definition:
      another constructor of the class does not place it, because one ZH never
      defines is MSVC's implicit COMDAT, emitted wherever a copy is made
-     (`implicit_copy()`), and it carries no S or N either.
+     (`implicit_copy()`), and it carries no S or N either. A member written inside
+     a class that a ZH .cpp itself defines (ObjectCreationList.cpp's nuggets,
+     FXList.cpp's, hlod.cpp's ProxyRecordClass) is defined in that file too: no
+     other unit can see the class, so the body is emitted only there. It counts
+     when exactly one .cpp writes it and no out-of-line definition exists.
   S  every ZH definition of `Class::` sits in one .cpp: the class's site.
      A Z or S that names a file of ZH's Tools/ programs (WorldBuilder, the 3ds Max
      exporter's pluglib, Autorun, ...) anchors nothing: those files were never linked
@@ -329,8 +333,12 @@ class Paths:
 
 def zh_index(layout, paths):
     """({(class, method): file}, {class: its one site file}, classes whose copy
-    constructor a ZH .cpp defines out of line, the files of ZH's Tools/ programs)."""
+    constructor a ZH .cpp defines out of line, the files of ZH's Tools/ programs).
+    A member written inside a class body in a game .cpp is that file's definition
+    when no other .cpp writes the same (class, member); such a class counts each
+    .cpp that writes it as a site."""
     meth, sites, copies, tools = {}, collections.defaultdict(set), set(), set()
+    local = collections.defaultdict(set)     # (class, member) written inside a class a .cpp defines
     if not layout.zh.exists():
         return meth, {}, copies, tools
     for dp, dn, fn in sorted(os.walk(layout.zh)):
@@ -350,7 +358,14 @@ def zh_index(layout, paths):
             for c, m in zh_definitions(text):
                 meth.setdefault((c, m), rel)
                 sites[c].add(rel)
+            if not tool:
+                for c, m in class_inline_members(text):
+                    local[(c, m)].add(rel)
             copies.update(m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text)))
+    for (c, m), rels in local.items():
+        if len(rels) == 1 and (c, m) not in meth:
+            meth[(c, m)] = next(iter(rels))
+        sites[c].update(rels)
     return meth, {c: next(iter(v)) for c, v in sites.items() if len(v) == 1}, copies, tools
 
 

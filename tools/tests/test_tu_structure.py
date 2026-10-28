@@ -219,6 +219,43 @@ def test_a_zh_tools_file_anchors_no_game_tu(tmp_path, zh_dir, approved):
         assert "provisional" not in r["evidence"]
 
 
+def _local_class(tmp_path, other_cpp=""):
+    """ObjectCreationList.cpp's shape: nugget classes written whole inside the .cpp."""
+    zh = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X"
+    zh.mkdir(parents=True)
+    (zh / "Ocl.cpp").write_text(
+        "class Nugget : public Base\n{\npublic:\n\tNugget() : m_a(0) { }\n"
+        "\tvirtual void create(int x) const\n\t{\n\t\tdoIt(x);\n\t}\nprivate:\n\tint m_a;\n};\n"
+        "void ObjectCreationList::clear()\n{\n}\nvoid ObjectCreationList::addNugget()\n{\n}\n")
+    if other_cpp:
+        (zh / "Other.cpp").write_text(other_cpp)
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("?clear@ObjectCreationList@@QAEXXZ", 0x1000, 16, "Code/X/OclClear.cpp"),
+        row("??0Nugget@@QAE@XZ", 0x1010, 16, "Code/W/NuggetCtor.cpp"),
+        row("?create@Nugget@@UBEXH@Z", 0x1020, 16, "Code/W/NuggetCreate.cpp"),
+        row("?addNugget@ObjectCreationList@@QAEXXZ", 0x1030, 16, "Code/X/OclAdd.cpp"),
+    ]))
+    return {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+
+
+def test_member_of_a_class_written_inside_a_zh_cpp_is_defined_there(tmp_path):
+    out = _local_class(tmp_path)
+    for rva in (0x1010, 0x1020):
+        r = out[rva]
+        assert (r["by"], r["tu"], r["confidence"]) == ("Z", "Code/X/Ocl.cpp", "approved"), hex(rva)
+        assert "S=Code/X/Ocl.cpp" in r["evidence"], hex(rva)
+
+
+def test_a_local_class_two_zh_cpps_write_anchors_neither(tmp_path):
+    # negative control (colmathaabtri.cpp and colmathobbtri.cpp each write a BTCollisionStruct):
+    # a member both write names no file, and the class has no single site
+    out = _local_class(tmp_path, "class Nugget\n{\npublic:\n\tNugget() { }\n};\n")
+    ctor = out[0x1010]
+    assert "Z=" not in ctor["evidence"] and "S=" not in ctor["evidence"]
+    assert (out[0x1020]["by"], out[0x1020]["tu"]) == ("Z", "Code/X/Ocl.cpp")
+
+
 WB_HEADER = "target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
 
 
