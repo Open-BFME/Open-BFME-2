@@ -613,6 +613,14 @@ handoff's reported matched-byte values.
 
 ### Data-ownership follow-up outside the blocked shortlist
 
+2026-10-28, base `ec06839de0`, index `41c28839bf`: the texture report's real
+StringClass storage now supplies the existing getter/cleanup symbol, retaining
+its rowed initializer and retiring two data keys. All 960 cohort rows, 18 data
+rows and four EH graphs pass. Fixed-index before/after previews are unchanged;
+mode storage and the thunk unit's unrelated Rva001EAF7B dependency remain.
+The outgoing consumer audit is inconclusive; census confirmation is pending.
+[Evidence](../reverse/attempt_support/texture-statistics-string-owner-20261028-codex.md).
+
 2026-10-27, control `b76477cafd`: nineteen standalone update cached-key units
 preserve LINKS (1,493 authored bytes) while their generated key/guard index rows
 catch up with the landed E039 guard cleanup and getter renames. All 57 rows,

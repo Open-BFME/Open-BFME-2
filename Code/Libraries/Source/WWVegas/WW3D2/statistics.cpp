@@ -60,11 +60,10 @@ namespace Debug_Statistics
 // Debug_Statistics::Get_Record_Texture_String, retail 0x00129500, 6 bytes.
 // Returns the address of the statistics string object.
 
-class StringClass
-{
-};
+class StringClass;
 
-StringClass texture_statistics_string;
+// The reporting unit owns the StringClass and its rowed dynamic initializer.
+extern StringClass texture_statistics_string;
 
 namespace Debug_Statistics
 {

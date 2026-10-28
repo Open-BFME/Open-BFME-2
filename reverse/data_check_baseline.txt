@@ -88,9 +88,7 @@ Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp	wrong-name	__GUI
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_record_count	0x009EE8B4
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp	duplicate-def	_texture_change_count	0x009EE888
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	duplicate-def	_recordTextureMode	0x009EE8F4
-Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	duplicate-def	_textureStatisticsString	0x009EE91C
 Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	wrong-name	_recordTextureMode	0x009EE8F4
-Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp	wrong-name	_textureStatisticsString	0x009EE91C
 Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	wrong-name	?BfmeCurrentCaps@@3PAEA	0x009EDA7C
 Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	wrong-name	?TheBoxTextureDirtyMask@@3IA	0x009EC4F4
 Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp	wrong-name	?g_00DEDA4C@@3IA	0x009EDA4C

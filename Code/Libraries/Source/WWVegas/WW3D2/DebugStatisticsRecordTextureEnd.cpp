@@ -228,7 +228,8 @@ public:
 };
 
 static Debug_Statistics::RecordTextureMode recordTextureMode;
-static StringClass textureStatisticsString;
+// Shared with statistics.cpp's getter and cleanup; retain the real initializer.
+StringClass texture_statistics_string;
 
 void Record_Texture_End()
 {
@@ -241,14 +242,14 @@ void Record_Texture_End()
 	lastFrameRecordCount = record_count;
 	last_frame_texture_change_count = texture_change_count;
 
-	textureStatisticsString.bfmeAssignInline("");
+	texture_statistics_string.bfmeAssignInline("");
 	if (recordTextureMode == Debug_Statistics::RECORD_TEXTURE_DETAILS)
 	{
 		char temporary[1024];
 		_snprintf(temporary, sizeof(temporary),
 			"Set_DX8_Texture count: %d\nactual changes: %d\n\nid      refs changes  size      name\n--------------------------------------\n",
 			lastFrameRecordCount, last_frame_texture_change_count);
-		textureStatisticsString += temporary;
+		texture_statistics_string += temporary;
 		for (int index = 0; index < texture_count; ++index)
 		{
 			StringClass workingString;
@@ -258,7 +259,7 @@ void Record_Texture_End()
 			workingString.Format("%4.4d  %3.3d   %3.3d     %s ", id,
 				texture_statistics[index].usage_count,
 				texture_statistics[index].change_count, flash.Peek_Buffer());
-			textureStatisticsString += workingString;
+			texture_statistics_string += workingString;
 
 			StringClass error("", false, StringClass::COPY_INLINE);
 			if (texture.Peek() != 0)
@@ -270,31 +271,31 @@ void Record_Texture_End()
 				initialized = reinterpret_cast<TextureStateView *>(texture.Peek())->Is_Initialized();
 				if (initialized == false)
 					goto texture_status_missing;
-				textureStatisticsString += "  ";
+				texture_statistics_string += "  ";
 				goto texture_status_done;
 			texture_status_missing:
-				textureStatisticsString += "*";
+				texture_statistics_string += "*";
 			texture_status_done: ;
 				workingString.Format("%4.4dkb         ", bytes / 1024);
-				textureStatisticsString += workingString;
+				texture_statistics_string += workingString;
 			}
 			else
 			{
-				textureStatisticsString += "N/A  ";
+				texture_statistics_string += "N/A  ";
 			}
-			textureStatisticsString += reinterpret_cast<const BFME2ParticleTextureHandle &>(texture).Get_Texture_Name();
-			textureStatisticsString += error;
-			textureStatisticsString += "\n";
+			texture_statistics_string += reinterpret_cast<const BFME2ParticleTextureHandle &>(texture).Get_Texture_Name();
+			texture_statistics_string += error;
+			texture_statistics_string += "\n";
 		}
-		textureStatisticsString += "\nid              = id of texture. Use with command 'flash_texture [id]'\n";
-		textureStatisticsString += "refs          = # of times texture is used when rendering\n";
-		textureStatisticsString += "changes    = # of times texture change needed - BAD IF HIGH!\n";
-		textureStatisticsString += "red         = texture reduction factor\n";
-		textureStatisticsString += "size          = amount of memory needed for texture\n";
-		textureStatisticsString += "(w/o red)     = size of reduction not used\n";
-		textureStatisticsString += "percent    = savings of reduction system, in percents\n";
-		textureStatisticsString += "\n* = thumbnail used\n";
-		textureStatisticsString += "\n";
+		texture_statistics_string += "\nid              = id of texture. Use with command 'flash_texture [id]'\n";
+		texture_statistics_string += "refs          = # of times texture is used when rendering\n";
+		texture_statistics_string += "changes    = # of times texture change needed - BAD IF HIGH!\n";
+		texture_statistics_string += "red         = texture reduction factor\n";
+		texture_statistics_string += "size          = amount of memory needed for texture\n";
+		texture_statistics_string += "(w/o red)     = size of reduction not used\n";
+		texture_statistics_string += "percent    = savings of reduction system, in percents\n";
+		texture_statistics_string += "\n* = thumbnail used\n";
+		texture_statistics_string += "\n";
 	}
 }
 

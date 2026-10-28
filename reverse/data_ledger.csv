@@ -18430,7 +18430,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EE910,4,.data,global,?g_stat8@@3HA,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,owned,,1,6
 0x009EE914,4,.data,global,?g_stat7@@3HA,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,owned,,1,3
 0x009EE918,4,.data,global,?latest_texture@@3V?$RefCountPtr@VTextureClass@@@@A,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,owned,,1,12
-0x009EE91C,4,.data,global,?texture_statistics_string@@3VStringClass@@A,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,provisional,?g_Va009EE91C@@3IA;?texture_statistics_string@@3VStringClass@@A;_textureStatisticsString;_textureStatisticsString@Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp,2,26
+0x009EE91C,4,.data,global,?texture_statistics_string@@3VStringClass@@A,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTextureEnd.cpp,owned,,1,26
 0x009EE920,24,.data,global,?texture_statistics@@3V?$DynamicVectorClass@UTextureStatisticsStruct@@@@A,Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp,owned,,1,11
 0x009EE938,4,.data,global,?g_Va009EE938@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va009EE938@@3IA;_CapsWorkString@Code/Libraries/Source/WWVegas/WW3D2/dx8caps.cpp,2,77
 0x009EE93C,4,.data,global,?g_00DEE93C@@3VAsciiString@@A,Code/Libraries/Source/WWVegas/WW3D2/Rva0012CAC3Run.cpp,provisional,?g_00DEE93C@@3VAsciiString@@A;?g_Va00DEE93C@@3IA,1,7
