@@ -6650,6 +6650,19 @@ Completed: diagnosis only; no source edit. The record copy is seven dwords, an A
 Remaining / next check: reconcile the vector row and its consumers onto the existing 36-byte record family through the naming lane, preserving the real Money users separately. The three unresolved Money virtuals come only from the wrong whole-vector instantiation; they do not establish missing native Money methods. No new match or independently proven fold pin was established.
 Clearance: pending.
 
+**Header-adoption prerequisite (2026-10-28, base `fa53c16f5f`):** the default
+AsciiString queue trial exposes another identity boundary in this record
+family. The canonical header preserves three of five rows in
+stlport_vector_stringrecord_allocate_copy.cpp, but fill 0x000AD806 and
+copy_backward 0x000AD897 require raw nine-dword assignment, while the
+established 0x00063BE4 constructor owns a string at +0x1C. The original private
+view makes assignment trivial. The masked-placement notes do not prove these
+assignment helpers share the constructor's application type. Trial reverted;
+the original source byte-verifies. Recover their actual caller/element identity
+before adoption; the header queue and all registers remain unchanged.
+[Evidence and separate false CRT queue lead](../reverse/attempt_support/ascii-record-header-20261028-codexb4.md).
+No linking or census gain is claimed.
+
 **Overflow cleanup follow-up (2026-10-28, inspected `48da62f9b2`, index
 `41c28839bf`):** the existing 0x006BF5E0 provider now destroys its owned
 AsciiString member directly, retiring one releaseBuffer linker alias.
