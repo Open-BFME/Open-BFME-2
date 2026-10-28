@@ -58,6 +58,15 @@ The outgoing consumer audit is inconclusive; global LINK-132/LINK-133 and
 census confirmation remain pending.
 [Evidence](../reverse/attempt_support/streak-renderer-floor-link-20261028-codex.md).
 
+Additional current target (2026-10-28, base `e6588f7665`, preview index
+`41c28839bf`): `Shadow/W3DProjectedShadowDecalHelpers.cpp` previews LINKS
+for 10,338 authored bytes after keeping its unused inline `floorf` local.
+All 17 rows, both EH graphs and 82 retained COMDAT fingerprints remain exact.
+The outgoing consumer audit is inconclusive; the separate LINK-132/LINK-133
+selected-provider repair and census confirmation remain pending. No incremental
+master-wide linked-byte gain is claimed.
+[Evidence](../reverse/attempt_support/decal-floor-link-20261028-codex.md).
+
 ## One blocker: fresh candidates
 
 Additional current target (2026-10-28, base `4154365966`, index `41c28839bf`):

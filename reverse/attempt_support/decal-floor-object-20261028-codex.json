@@ -1,0 +1,18 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowDecalHelpers.cpp",
+  "base_revision": "e6588f7665d316281a7c7906298082815cda0a0b",
+  "before_obj_sha256": "d70c5a2c3317987122d6728580608ad157fc49747b403dc3b2cd362914a7c428",
+  "after_obj_sha256": "ade0c2895ae361baf2272b8ea3586b2ce6358e6de49869156f0b30d9a15f7644",
+  "removed": [
+    "_floorf"
+  ],
+  "added": [],
+  "changed": {},
+  "retained_comdats": 82,
+  "floorf_referenced_before": false,
+  "roots_unchanged": true,
+  "retained_edges_unchanged": true,
+  "strong_unchanged": true,
+  "undefined_unchanged": true,
+  "weak_unchanged": true
+}
