@@ -1,40 +1,55 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="880" height="436" viewBox="0 0 880 436" role="img" aria-labelledby="title desc">
-  <title id="title">BFME 2: 100.00% rebuilt from source, 100.00% game code in C++*, 98.46% linking</title>
-  <desc id="desc">7,978,351 of 7,978,500 code bytes rebuild to the original's exact bytes; 7,512,509 of 7,512,658 executable game-code bytes are represented. Includes generated C++ and intentionally retained assembly.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="880" height="566" viewBox="0 0 880 566" role="img" aria-labelledby="title desc">
+  <title id="title">BFME 2 · Road to a finished decomp: 100.00% byte match, 95.24% builds normally (about 4,135 problems left)</title>
+  <desc id="desc">Finished means: the whole game is built from readable source, builds the normal way, and plays. Is the source clean? hand-written code 96.41%, readable names 68.96%, shortcuts removed 32.40%, original file layout 10.41%, shared class definitions 3.55%. Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README.</desc>
   <style>
-    .card { fill: #0d1117; stroke: #30363d; } .track { fill: #21262d; }
+    .card { fill: #0d1117; stroke: #30363d; } .track { fill: #21262d; } .box { fill: #161b22; stroke: #30363d; }
     .strong { fill: #f0f6fc; } .muted { fill: #8b949e; } .up { fill: #3fb950; } .down { fill: #f85149; }
     @media (prefers-color-scheme: light) {
-      .card { fill: #ffffff; stroke: #d0d7de; } .track { fill: #eaeef2; }
+      .card { fill: #ffffff; stroke: #d0d7de; } .track { fill: #eaeef2; } .box { fill: #f6f8fa; stroke: #d0d7de; }
       .strong { fill: #1f2328; } .muted { fill: #59636e; } .up { fill: #1a7f37; } .down { fill: #cf222e; }
     }
   </style>
-  <rect class="card" x="0.5" y="0.5" width="879" height="435" rx="12"/>
+  <rect class="card" x="0.5" y="0.5" width="879" height="565" rx="12"/>
   <g font-family="'Segoe UI',Arial" text-rendering="optimizeSpeed" kerning="0" style="font-kerning:none;font-feature-settings:'kern' 0">
-    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">BFME 2 · REBUILD PROGRESS</text>
-    <text x="28" y="64" class="strong" font-size="15" font-weight="600">Rebuilt from source</text>
-    <text x="852" y="64" class="strong" font-size="20" font-weight="700" text-anchor="end">100.00%</text>
-    <rect class="track" x="28" y="74" width="824" height="14" rx="7"/>
-    <rect x="28" y="74" width="823.98" height="14" rx="7" fill="#2ea043"/>
-    <text x="28" y="108" class="muted" font-size="12.5">7,978,351 / 7,978,500 bytes rebuilt without copying the original game.dat (v1.06)</text>
-    <text x="28" y="138" class="strong" font-size="15" font-weight="600">Game code in C++*</text>
-    <text x="852" y="138" class="strong" font-size="20" font-weight="700" text-anchor="end">100.00%</text>
-    <rect class="track" x="28" y="148" width="824" height="14" rx="7"/>
-    <rect x="28" y="148" width="823.98" height="14" rx="7" fill="#388bfd"/>
-    <text x="28" y="182" class="muted" font-size="12.5">7,512,509 / 7,512,658 bytes of executable game code (libraries and embedded data excluded)</text>
-    <text x="28" y="198" class="muted" font-size="12.5">* Includes generated C++ and intentionally retained assembly. Of it:</text>
-    <text x="28" y="214" class="muted" font-size="12.5">authored C++ 96.41%, generated C++ 3.48%, reviewed assembly 0.11% of executable game code.</text>
-    <text x="28" y="244" class="strong" font-size="15" font-weight="600">Linking<tspan class="up" dx="10" font-size="13" font-weight="600">▲ 0.99</tspan></text>
-    <text x="852" y="244" class="strong" font-size="20" font-weight="700" text-anchor="end">98.46%</text>
-    <rect class="track" x="28" y="254" width="824" height="14" rx="7"/>
-    <rect x="28" y="254" width="811.30" height="14" rx="7" fill="#d29922"/>
-    <text x="28" y="288" class="muted" font-size="12.5">7,396,853 / 7,512,658 bytes of executable game code in link-clean units (libraries and embedded data excluded) (measured 2026-10-27,</text>
-    <text x="28" y="304" class="muted" font-size="12.5">retail-truth-4 rules)</text>
-    <text x="28" y="334" class="strong" font-size="15" font-weight="600">Readable names<tspan class="up" dx="10" font-size="13" font-weight="600">▲ 0.17</tspan></text>
-    <text x="852" y="334" class="strong" font-size="20" font-weight="700" text-anchor="end">68.75%</text>
-    <rect class="track" x="28" y="344" width="824" height="14" rx="7"/>
-    <rect x="28" y="344" width="566.51" height="14" rx="7" fill="#a371f7"/>
-    <text x="28" y="378" class="muted" font-size="12.5">377,140 / 548,562 declared names (files, types, functions, members, globals, parameters, locals) that are not placeholders</text>
-    <text x="28" y="404" class="muted" font-size="12.5">Historical strict link check (2026-10-10 at d093315a52, no longer updated): 28.91% self-strict, 13.95% fully linked, of all retail .text</text>
+    <text x="28" y="38" class="strong" font-size="20" font-weight="700">BFME 2 · Road to a finished decomp</text>
+    <text x="28" y="60" class="muted" font-size="13">Finished means: the whole game is built from readable source, builds the normal way, and plays</text>
+    <text x="28" y="96" class="muted" font-size="12" font-weight="600" letter-spacing="1.2">DOES IT WORK?</text>
+    <text x="28" y="126" class="strong" font-size="15" font-weight="600">Byte match</text>
+    <text x="852" y="126" class="strong" font-size="20" font-weight="700" text-anchor="end">100.00%</text>
+    <rect class="track" x="28" y="136" width="824" height="14" rx="7"/>
+    <rect x="28" y="136" width="824.00" height="14" rx="7" fill="#2ea043"/>
+    <text x="28" y="170" class="muted" font-size="12.5">Every byte of the game's program code is recreated by compiling our source</text>
+    <text x="852" y="170" class="muted" font-size="12.5" text-anchor="end">game data &amp; assets: not measured yet</text>
+    <text x="28" y="202" class="strong" font-size="15" font-weight="600">Builds normally<tspan class="muted" dx="10" font-size="13" font-weight="600">being re-measured</tspan></text>
+    <text x="852" y="202" class="strong" font-size="20" font-weight="700" text-anchor="end">95.24%</text>
+    <rect class="track" x="28" y="212" width="824" height="14" rx="7"/>
+    <rect x="28" y="212" width="784.76" height="14" rx="7" fill="#d29922"/>
+    <text x="28" y="246" class="muted" font-size="12.5">Code that fits together cleanly. About 4,135 problems left before the game builds without shortcuts</text>
+    <text x="28" y="262" class="muted" font-size="12.5">The counting rules changed (retail-truth-4 to retail-truth-5): this is the last figure under the old rules until the next census</text>
+    <text x="852" y="246" class="muted" font-size="12.5" text-anchor="end">measured 2026-10-28</text>
+    <rect class="box" x="28" y="288" width="824" height="34" rx="8"/>
+    <text x="44" y="310" class="muted" font-size="14" font-weight="600">Next milestone:<tspan class="strong"> first normal build, then the first playtest</tspan></text>
+    <text x="28" y="362" class="muted" font-size="12" font-weight="600" letter-spacing="1.2">IS THE SOURCE CLEAN?</text>
+    <text x="28" y="392" class="strong" font-size="14" font-weight="600">Hand-written code</text>
+    <rect class="track" x="215" y="382" width="553" height="10" rx="5"/>
+    <rect x="215" y="382" width="533.15" height="10" rx="5" fill="#58a6ff"/>
+    <text x="852" y="392" class="strong" font-size="15" font-weight="700" text-anchor="end">96.41%</text>
+    <text x="28" y="422" class="strong" font-size="14" font-weight="600">Readable names<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.21</tspan></text>
+    <rect class="track" x="215" y="412" width="553" height="10" rx="5"/>
+    <rect x="215" y="412" width="381.34" height="10" rx="5" fill="#a371f7"/>
+    <text x="852" y="422" class="strong" font-size="15" font-weight="700" text-anchor="end">68.96%</text>
+    <text x="28" y="452" class="strong" font-size="14" font-weight="600">Shortcuts removed</text>
+    <rect class="track" x="215" y="442" width="553" height="10" rx="5"/>
+    <rect x="215" y="442" width="179.16" height="10" rx="5" fill="#e05c7a"/>
+    <text x="852" y="452" class="strong" font-size="15" font-weight="700" text-anchor="end">32.40%</text>
+    <text x="28" y="482" class="strong" font-size="14" font-weight="600">Original file layout</text>
+    <rect class="track" x="215" y="472" width="553" height="10" rx="5"/>
+    <rect x="215" y="472" width="57.56" height="10" rx="5" fill="#f0883e"/>
+    <text x="852" y="482" class="strong" font-size="15" font-weight="700" text-anchor="end">10.41%</text>
+    <text x="28" y="512" class="strong" font-size="14" font-weight="600">Shared class definitions</text>
+    <rect class="track" x="215" y="502" width="553" height="10" rx="5"/>
+    <rect x="215" y="502" width="19.62" height="10" rx="5" fill="#e05c7a"/>
+    <text x="852" y="512" class="strong" font-size="15" font-weight="700" text-anchor="end">3.55%</text>
+    <text x="28" y="546" class="muted" font-size="12">Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README</text>
   </g>
 </svg>

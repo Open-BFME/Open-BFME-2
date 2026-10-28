@@ -1,56 +1,60 @@
 #!/usr/bin/env python3
-"""Render the README card and the daily Discord post: four measures, four bars.
+"""Render the README progress card and the Discord post: the road to a finished decomp.
 
-Each measure has its own stated denominator:
+Finished means the whole game is built from readable source, builds the normal
+way, and plays. The card asks two questions; every figure states what it
+divides by (README, "How each figure is measured"), and every one comes from
+the repository at a commit or from a recorded census row: no clock enters a
+figure and nothing is predicted.
 
-  REBUILT FROM SOURCE  everything that rebuilds to the original's exact bytes
-                       (our C++, library source, generated C++, attached
-                       prebuilt libraries, reviewed assembly and verified .text data: progress.py's REBUILDS, counted
-                       without 0xCC), over all code.
-  GAME CODE IN C++*    authored and generated C++ plus intentionally retained
-                       reviewed assembly, over executable game code (libraries
-                       and verified embedded data excluded). Its footnote gives
-                       the three parts (progress.game_cpp_breakdown), so the
-                       starred label never presents assembly or generated code
-                       as hand-written C++.
-  LINKING              executable game code in files that link cleanly,
-                       including generated C++ and assessed reviewed assembly.
-                       Libraries and embedded data are excluded. Both figures
-                       use one census snapshot and hold still between censuses.
+Does it work?
+  Byte match          progress.py's BYTE-MATCHED: everything that rebuilds to
+                      the original's exact bytes (our C++, library source,
+                      generated C++, attached prebuilt libraries, reviewed
+                      assembly, verified .text data), over all non-padding
+                      .text bytes. Program code only: the note beside it reads
+                      "game data & assets: not measured yet" until the image
+                      ownership history (tools/image_ownership.py record) holds
+                      a row, then that row's share of the image that is ours.
+  Builds normally     the census's LINKING: executable game code in units that
+                      link cleanly, over the census tree's executable game code
+                      (one census snapshot; it holds still between censuses).
+                      Its caption counts the newest census row's strict-link
+                      blockers (progress.strict_blockers: unresolved names +
+                      hard-coded addresses + duplicate names). While
+                      tools/link_census.py measures under rules the newest row
+                      was not measured under, that row predates a rule change:
+                      the row shows "being re-measured", not a change.
+  Next milestone      the first normal build while any blocker remains, then
+                      the first playtest.
 
-The card and the post draw the same numbers. The change shown beside a number
-is the change in that bar's percentage since the last post, measured from the
-figures the post saved (docs/discord-progress.json), so output depends
-only on the repository: no clock enters the card. progress.py prints the full
-breakdown.
+Is the source clean?
+  Hand-written code   authored C++ over executable game code (progress.py's
+                      AUTHORED C++, a part of GAME CODE C++*).
+  Readable names      declared names that are not placeholders (name_metric).
+  Shortcuts removed   escape-hatch items retired since Phase 2 began, from
+                      reverse/hatch_baseline.tsv (asm_bytes, a byte count, apart).
+  Original file layout  (files then - files now) / (files then - TUs), files the
+                      .cpp/.c/.asm under Code/, TUs the count the committed
+                      reverse/tu_map.csv names (an estimate).
+  Shared class definitions  duplicate private class copies removed since Phase 2
+                      began (progress.class_copies_at).
+"Then" is progress.PHASE2_START; progress.phase2_baselines() recomputes its
+counts and --check-baselines compares them with the recorded ones.
 
-When the census measuring Linking changed its rules since the last post (the
-history row's `rules`), the two percentages measure different things: the
-Linking bar then shows "accounting changed" and the previous figure with its rules,
-never an arrow.
+The change beside a figure is the change in its percentage since the last
+Discord post, from the figures that post saved (docs/discord-progress.json).
+When the census behind Builds normally changed its rules since then, or the TU
+estimate behind file layout changed, the two figures measure different things:
+the row says "accounting changed" and why, never an arrow.
 
-Under the bars, a line gives the strict link check from the committed
-link_cycle receipt (reverse/link_cycle/receipt.json, stored by
-tools/progress_v2.py --store-receipt). That receipt is HISTORY: receipts are no
-longer committed, and the current measurement is the newest published
-link-cycle bundle (tools/cycle_artifacts.py). The line says so ("Historical
-strict link check", with the receipt's date and commit); once a bundle has been
-published (PUBLISHED), a second line names the command that fetches the current
-one. This tool does not read a bundle, because the card must depend on the
-repository alone. The check itself: the tree linked at the original's
-addresses with every reference checked. Self-strict counts placed code whose
-own references land where retail's do; fully linked (closed-strict) also needs
-everything it reaches to be right. Both are shares of ALL retail .text, as the
-receipt counts them (vendored and prebuilt library code included, unlike the
-Linking bar's game-code-only denominator), with the receipt's date and commit.
-An unreadable receipt shows as "unavailable" and never stops the post. It sits beside the
-census's Linking bar, never in place of it: the census asks whether each file
-links on its own, the receipt whether the program links at retail addresses.
+--discord posts every time (the daily run); --discord-on-change posts only when
+a "Does it work?" figure differs from the last post's (the hourly runs).
 """
 import argparse
+import csv
 import json
 import os
-import re
 import sys
 from datetime import datetime, timezone
 from urllib.error import HTTPError, URLError
@@ -60,39 +64,52 @@ import name_metric
 import progress
 
 STATE = "docs/discord-progress.json"
-RECEIPT = "reverse/link_cycle/receipt.json"
-EXE = "the original game.dat (v1.06)"
-TITLE = "BFME 2"
+OWNERSHIP = "reverse/image_ownership_history.csv"
 README = "https://github.com/Open-BFME/Open-BFME-2#readme"
+DOT = "·"
+UP, DOWN = "▲", "▼"
+TITLE = f"BFME 2 {DOT} Road to a finished decomp"
+SUBTITLE = "Finished means: the whole game is built from readable source, builds the normal way, and plays"
+WORKS_HEADING, CLEAN_HEADING = "Does it work?", "Is the source clean?"
+FOOTER = (f"Shortcuts, file layout and shared classes count from the start of Phase 2 ({progress.PHASE2_DATE}). "
+          "How each figure is measured: README")
 
-# (key, label, what the bytes are); the denominator is stated beside each value.
-ROWS = (("matched", "Rebuilt from source", f"rebuilt without copying {EXE}"),
-        ("cpp", "Game code in C++*", "of executable game code (libraries and embedded data excluded)"),
-        ("linked", "Linking", "of the game's own code linked"),
-        ("names", "Readable names", "declared names (files, types, functions, members, globals, parameters, locals) "
-                                    "that are not placeholders"))
-CARD_FILL = {"matched": "#2ea043", "cpp": "#388bfd", "linked": "#d29922", "names": "#a371f7"}
-# Discord draws each bar as ten square emoji (a wider row wraps on a phone).
-BLOCK = {"matched": "\U0001f7e9", "cpp": "\U0001f7e6", "linked": "\U0001f7e8", "names": "\U0001f7ea"}
+# (key, label, caption) for "Does it work?"; (key, label) for "Is the source clean?".
+WORKS = (("matched", "Byte match", "Every byte of the game's program code is recreated by compiling our source"),
+         ("linked", "Builds normally", "Code that fits together cleanly."))
+CLEAN = (("authored", "Hand-written code"), ("names", "Readable names"), ("shortcuts", "Shortcuts removed"),
+         ("layout", "Original file layout"), ("classes", "Shared class definitions"))
+LABELS = {key: label for key, label, *_ in WORKS + CLEAN}
+CARD_FILL = {"matched": "#2ea043", "linked": "#d29922", "authored": "#58a6ff", "names": "#a371f7",
+             "shortcuts": "#e05c7a", "layout": "#f0883e", "classes": "#e05c7a"}
+# Discord draws each bar as ten square emoji (a wider row wraps on a phone); it has no pink square.
+BLOCK = {"matched": "\U0001f7e9", "linked": "\U0001f7e8", "authored": "\U0001f7e6", "names": "\U0001f7ea",
+         "shortcuts": "\U0001f7e5", "layout": "\U0001f7e7", "classes": "\U0001f7e5"}
 REST_BLOCK = "⬛"
 WIDTH = 10
-# Muted card text wraps within the measured 824 px between its margins.
-TEXT_WIDTH, TEXT_PX = 824, 12.5
-LINE_STEP = 16
-UP, DOWN, DOT = "▲", "▼", "·"
+# Counts, not bytes: their change compares the displayed percentages, so a
+# visible 0.01 change keeps its arrow and "· 0.00" means unchanged.
+COUNTED = frozenset({"names", "shortcuts", "layout", "classes"})
+NOT_MEASURED_DATA = "game data & assets: not measured yet"
+# Card geometry: text wraps within the 824 px between the margins.
+LEFT, RIGHT, TEXT_WIDTH, TEXT_PX, LINE_STEP = 28, 852, 824, 12.5, 16
 
 
-def game_code(current):
-    """The blue bar's executable game code, excluding libraries and data."""
-    return progress.game_executable(current, current["total"])
+def _count(current, key):
+    value = current.get(key)
+    if value is not None and (type(value) is not int or value < 0):
+        raise ValueError(f"Invalid {key}: {value!r}")
+    return value
 
 
 def measures(current):
-    """{key: (bytes, denominator)}. Linking is one census snapshot: its bytes
-    and its denominator (the census tree's game code) both come from the
-    census; (None, None) when the last census stored neither."""
-    total, game = current["total"], game_code(current)
-    matched, cpp = progress.rebuildable(current), progress.game_represented(current)
+    """{key: (count, denominator)}; (None, None) for a figure the state lacks.
+    Builds normally is one census snapshot: its bytes and its denominator (the
+    census tree's executable game code) both come from the census. The Phase 2
+    figures count what was retired since progress.PHASE2_START."""
+    total = current["total"]
+    game = progress.game_executable(current, total)
+    matched, authored = progress.rebuildable(current), current["authored"]
     inclusive = any(k in current for k in ('linked_game_executable', 'game_executable', 'link_coverage_rules'))
     if inclusive and any(current.get(k) in (None, '') for k in
                          ('linked_game_executable', 'game_executable', 'link_coverage_rules')):
@@ -101,103 +118,85 @@ def measures(current):
                           else (current.get("linked_authored"), current.get("linked_game_code")))
     if (linked is None) != (linked_game is None):
         raise ValueError("A census stored linked_authored without game_code, or the reverse")
-    if not 0 <= cpp <= game <= total or not 0 <= matched <= total or (
+    if not 0 <= authored <= game <= total or not 0 <= matched <= total or (
             linked is not None and not 0 <= linked <= linked_game <= total):
         raise ValueError("Invalid progress split")
     readable, names = current.get("readable_names"), current.get("declared_names")
     if (readable is None) != (names is None) or (names is not None and not 0 <= readable <= names):
         raise ValueError("Invalid readable-names count")
-    return {"matched": (matched, total), "cpp": (cpp, game), "linked": (linked, linked_game), "names": (readable, names)}
+    items, files, target, copies = (_count(current, key) for key in
+                                    ("hatch_items", "source_files", "tu_target", "class_copies"))
+    if target is not None and target >= progress.PHASE2_SOURCE_FILES:
+        raise ValueError(f"Invalid tu_target: {target} TUs, not fewer than the {progress.PHASE2_SOURCE_FILES} files")
+    since = progress.PHASE2_HATCH_ITEMS, progress.PHASE2_SOURCE_FILES, progress.PHASE2_CLASS_COPIES
+    return {"matched": (matched, total), "linked": (linked, linked_game), "authored": (authored, game),
+            "names": (readable, names),
+            "shortcuts": (since[0] - items, since[0]) if items is not None else (None, None),
+            "layout": ((since[1] - files, since[1] - target) if files is not None and target is not None
+                       else (None, None)),
+            "classes": (since[2] - copies, since[2]) if copies is not None else (None, None)}
 
 
-def strict_link(root=None):
-    """The committed link_cycle receipt's strict figures: {date, commit,
-    authoritative, self_strict, closed_strict, text} (bytes, with retail .text
-    as `text`); None without a receipt; {"invalid": why} for one this cannot
-    read. The receipt is optional context beside the bars, so a bad one is
-    reported on the line and stderr and never stops the daily post (the
-    receipt's own tools are where it should fail loudly)."""
-    path = (root or progress.ROOT) / RECEIPT
-    try:
-        if not path.exists():
-            return None
-        receipt = json.loads(path.read_text(encoding="utf-8"))
-        series = receipt["series"]
-
-        def count(value):
-            if type(value) is not int:  # not bool, float or str: the receipt writes ints
-                raise TypeError(f"expected an integer byte count, got {type(value).__name__}")
-            return value
-        date, commit = receipt["date_utc"], receipt["commit"]
-        if not (isinstance(date, str) and re.fullmatch(r"\d{4}-\d{2}-\d{2}( \d{2}:\d{2}:\d{2})?", date)):
-            raise ValueError("date_utc is not a date")
-        if not (isinstance(commit, str) and re.fullmatch(r"[0-9a-f]{7,40}", commit)):
-            raise ValueError("commit is not a git hash")
-        strict = {"date": date[:10], "commit": commit[:10],
-                  "authoritative": receipt.get("authoritative") is True,
-                  "self_strict": count(series["real"]["placed_self_strict"]["unique_bytes"]),
-                  "closed_strict": count(series["credit_unique_bytes"]),
-                  "text": count(series["retail_text_bytes"])}
-        if not 0 <= strict["closed_strict"] <= strict["self_strict"] <= strict["text"] or not strict["text"]:
-            raise ValueError("strict link figures out of order")
-        if strict["text"] > 0xFFFFFFFF:  # a PE section cannot exceed 4 GiB
-            raise ValueError(f"implausible retail .text size {strict['text']}")
-        for key in ("self_strict", "closed_strict"):
-            progress.percent(strict[key], strict["text"])  # representable before it reaches the card
-    except (OSError, ValueError, KeyError, TypeError, OverflowError, AttributeError, RecursionError) as error:
-        why = f"{RECEIPT} unreadable ({type(error).__name__}: {error})"
-        print(f"readme_progress: warning: {why}; strict link check not shown", file=sys.stderr)
-        return {"invalid": why}
-    return strict
+def share(value, denominator):
+    """The figure as the card prints it."""
+    return f"{progress.percent(value, denominator):.2f}%"
 
 
-CURRENT_LINE = ("Current strict link measurement: the newest published link-cycle bundle "
-                "(python3 tools/cycle_artifacts.py fetch --latest)")
+def blockers(current):
+    """The newest census row's strict-link blockers ({unresolved, addresses,
+    duplicates, total}), or None."""
+    return progress.strict_blockers(current.get("census"))
 
 
-def strict_line(current):
-    """`Historical strict link check (2026-10-09 at 9193fd8247, no longer updated): 25.78%
-    self-strict, 13.09% fully linked, of all retail .text`; None without a receipt. The
-    committed receipt is an earlier measurement, never the current one (CURRENT_LINE)."""
-    strict = current.get("strict")
-    if not strict:
+def remeasuring(current):
+    """(census tool rules, the newest row's rules) while tools/link_census.py
+    measures under rules the newest census row was not measured under, else None."""
+    census, tool = current.get("census"), current.get("census_tool_rules")
+    if census and tool and tool != progress.census_rules(census):
+        return tool, progress.census_rules(census)
+    return None
+
+
+def milestone(current):
+    found = blockers(current)
+    return ("Next milestone: the first playtest" if found and found["total"] == 0
+            else "Next milestone: first normal build, then the first playtest")
+
+
+def ownership(root=None):
+    """The newest image-ownership history row as {date, ours, content}, or None
+    (no history yet: game data and assets are not measured)."""
+    path = (root or progress.ROOT) / OWNERSHIP
+    if not path.exists():
         return None
-    if strict.get("invalid"):
-        return "Strict link check unavailable: the stored link_cycle receipt could not be read"
-    share = lambda key: f"{progress.percent(strict[key], strict['text']):.2f}%"  # noqa: E731
-    return (f"Historical strict link check ({strict['date']} at {strict['commit']}, no longer updated): "
-            f"{share('self_strict')} self-strict, {share('closed_strict')} fully linked, of all retail .text"
-            + ("" if strict["authoritative"] else " (not authoritative)"))
+    rows = list(csv.DictReader(path.read_text(encoding="utf-8").splitlines()))
+    if not rows:
+        return None
+    ours, content = int(rows[-1]["ours"]), int(rows[-1]["content_bytes"])
+    if not 0 <= ours <= content or not content:
+        raise ValueError(f"{OWNERSHIP}: invalid ownership figures")
+    return {"date": rows[-1]["date"][:10], "ours": ours, "content": content}
 
 
-PUBLISHED = False                            # True from the first verified published bundle; until one
-#                                              exists the card does not send readers to an empty feed
-
-
-def strict_lines(current):
-    """The lines under the bars: the historical receipt's and, once a bundle is PUBLISHED,
-    where the current measurement is."""
-    strict = strict_line(current)
-    return ([strict, CURRENT_LINE] if PUBLISHED else [strict]) if strict else []
-
-
-def measured(current):
+def side_note(current, key):
+    """The note on the right of a "Does it work?" caption."""
+    if key == "matched":
+        owned = current.get("ownership")
+        return (f"whole game file: {share(owned['ours'], owned['content'])} ours ({owned['date']})" if owned
+                else NOT_MEASURED_DATA)
     census = current.get("census")
-    return (f"measured {census['date'][:10]}, {progress.census_rules(census)} rules" if census
-            else "not measured yet")
+    return f"measured {census['date'][:10]}" if census else None
 
 
-def detail(current, key, value, denominator, what):
-    if key == 'linked' and current.get('link_coverage_rules'):
-        what = 'of executable game code in link-clean units (libraries and embedded data excluded)'
-    elif key == 'linked':
-        what = 'of game code linked (legacy authored-only accounting)'
-    text = f"{value:,} / {denominator:,} {'' if key == 'names' else 'bytes '}{what}"
-    return f"{text} ({measured(current)})" if key == "linked" else text
+def caption(current, key, text):
+    found = blockers(current) if key == "linked" else None
+    if found:
+        text += f" About {found['total']:,} problems left before the game builds without shortcuts"
+    return text
 
 
 def rules_changed(previous, current):
-    """(previous rules, current rules) when the census behind the Linking bar
+    """(previous rules, current rules) when the census behind Builds normally
     was measured under other rules at the last post, else None."""
     if previous and previous.get('link_coverage_rules') != current.get('link_coverage_rules'):
         return (previous.get('link_coverage_rules') or 'authored-only',
@@ -208,72 +207,48 @@ def rules_changed(previous, current):
     return (before, after) if before != after else None
 
 
-def cpp_accounting_changed(previous, current):
-    return bool(previous and current.get("cpp_rules")
-                and previous.get("cpp_rules") != current["cpp_rules"])
-
-
-def detail_text(current, previous, key, value, denominator, what):
-    """The line under a bar: what the bytes are, then why it cannot be
-    compared with the last post when that is so (changes)."""
-    return detail(current, key, value, denominator, what) + "".join(note for _, note in changes(previous, current, key))
-
-
-def footnote(key, current=None):
-    """The line under the bar's detail that its starred label refers to, if any: the
-    annotation, then (given the figures) the bar's parts, so its authored C++, generated
-    C++ and reviewed assembly are each shown and assembly never reads as C++."""
-    if key != "cpp":
-        return None
-    parts = f" {progress.game_cpp_breakdown(current, current['total'])}" if current else ""
-    return f"* {progress.GAME_CPP_ANNOTATION}{parts}"
-
-
-def wrap(text, width=TEXT_WIDTH, separators=("; ", ": ", ", ", " ")):
-    """Card lines at most `width` px wide (progress.text_width), broken after a `;`
-    clause where one fits, else after a `:` or `,`, else between words; a
-    single word wider than `width` stays whole."""
-    if progress.text_width(text, TEXT_PX) <= width or not separators:
-        return [text]
-    separator, rest = separators[0], separators[1:]
-    parts = text.split(separator)
-    pieces = [part + separator.rstrip() for part in parts[:-1]] + parts[-1:]
-    lines = []
-    for piece in pieces:
-        if lines and progress.text_width(lines[-1] + " " + piece, TEXT_PX) <= width:
-            lines[-1] += " " + piece
-        else:
-            lines += wrap(piece, width, rest)
-    return lines
+def target_changed(previous, current):
+    """(previous, current) TU estimates when the map's count moved since the last post."""
+    if previous and previous.get("tu_target") is not None and current.get("tu_target") is not None \
+            and previous["tu_target"] != current["tu_target"]:
+        return previous["tu_target"], current["tu_target"]
+    return None
 
 
 def changes(previous, current, key):
-    """Why the bar's percentage cannot be compared with the last post's:
+    """Why the figure cannot be compared with the last post's:
     [(what changed, note)], empty when it can."""
     if not previous or current is None:
         return []
     out = []
     if key == "matched" and "assembly" not in previous and "assembly" in current:
         out.append(("accounting", "; reviewed assembly now counted, not new recovery"))
-    if key == "cpp" and cpp_accounting_changed(previous, current):
-        out.append(("accounting", ""))
     rules = rules_changed(previous, current) if key == "linked" else None
     if rules:
         out.append(("accounting", rule_note(previous, rules)))
+    target = target_changed(previous, current) if key == "layout" else None
+    if target:
+        out.append(("accounting", f"; the TU map's estimate moved from {target[0]:,} to {target[1]:,} files, "
+                                  "not a change in progress"))
     return out
 
 
+def notes(previous, current, key):
+    """changes()' notes and the re-measuring note, as sentences for their own lines."""
+    lines = [note[2:3].upper() + note[3:] for _, note in changes(previous, current, key) if note]
+    pending = remeasuring(current) if key == "linked" else None
+    if pending:
+        lines.append(f"The counting rules changed ({pending[1]} to {pending[0]}): this is the last figure under the "
+                     "old rules until the next census")
+    return lines
+
+
 def delta_since(previous, key, value, denominator, current=None):
-    """The change in the bar's percentage since the last post, in points,
-    measured from the figures that post saved; None when that post has no
-    such figure, a byte measure's change rounds to 0.00, or (Linking) the census
-    rules changed in between. Names compare displayed percentages, including zero."""
-    if (key == "matched" and previous and current is not None
-            and "assembly" not in previous and "assembly" in current):
-        return None  # accounting change, not newly reconstructed bytes
-    if key == "linked" and current is not None and rules_changed(previous, current):
-        return None
-    if key == "cpp" and current is not None and cpp_accounting_changed(previous, current):
+    """The change in the figure's percentage since the last post, in points,
+    from the figures that post saved; None when that post has no such figure,
+    a byte figure's change rounds to 0.00, or (changes) the two do not measure
+    the same thing. Counts compare displayed percentages, including zero."""
+    if current is not None and (changes(previous, current, key) or (key == "linked" and remeasuring(current))):
         return None
     try:
         was, was_over = measures(previous)[key] if previous else (None, None)
@@ -281,8 +256,7 @@ def delta_since(previous, key, value, denominator, current=None):
         return None  # a state saved before these figures existed
     if was is None:
         return None
-    if key == "names":
-        # Compare the printed percentages so a visible 0.01 change cannot lose its arrow.
+    if key in COUNTED:
         return round(round(progress.percent(value, denominator), 2) - round(progress.percent(was, was_over), 2), 2)
     delta = progress.percent(value, denominator) - progress.percent(was, was_over)
     return delta if round(abs(delta), 2) else None
@@ -293,55 +267,138 @@ def arrow(delta):
     return f"{UP if delta > 0 else DOWN if delta < 0 else DOT} {abs(delta):.2f}"
 
 
+def tag(previous, current, key, value, denominator):
+    """(css class, text) beside a figure's label, or None."""
+    if key == "linked" and remeasuring(current):
+        return "muted", "being re-measured"
+    if changes(previous, current, key):
+        return "muted", "accounting changed"
+    delta = delta_since(previous, key, value, denominator, current)
+    if delta is None:
+        return None
+    return ("up" if delta > 0 else "down" if delta < 0 else "muted"), arrow(delta)
+
+
+def wrap(text, width=TEXT_WIDTH, separators=(". ", "; ", ": ", ", ", " "), size=TEXT_PX):
+    """Card lines at most `width` px wide (progress.text_width), broken after a
+    sentence where one fits, else a `;` clause, a `:` or `,`, else between
+    words; a single word wider than `width` stays whole."""
+    if progress.text_width(text, size) <= width or not separators:
+        return [text]
+    separator, rest = separators[0], separators[1:]
+    parts = text.split(separator)
+    pieces = [part + separator.rstrip() for part in parts[:-1]] + parts[-1:]
+    lines = []
+    for piece in pieces:
+        if lines and progress.text_width(lines[-1] + " " + piece, size) <= width:
+            lines[-1] += " " + piece
+        else:
+            lines += wrap(piece, width, rest, size)
+    return lines
+
+
+def escape(text):
+    return text.replace("&", "&amp;").replace("<", "&lt;").replace(">", "&gt;")
+
+
+def _text(x, y, css, size, body, weight=None, anchor=None, extra="", markup=""):
+    """One <text>: `body` is plain text (escaped here), `markup` SVG appended after it."""
+    return (f'    <text x="{x}" y="{y}" class="{css}" font-size="{size}"'
+            + (f' font-weight="{weight}"' if weight else "") + (f' text-anchor="{anchor}"' if anchor else "")
+            + f"{extra}>{escape(body)}{markup}</text>\n")
+
+
+def _tspan(found, size):
+    return (f'<tspan class="{found[0]}" dx="10" font-size="{size}" font-weight="600">{found[1]}</tspan>'
+            if found else "")
+
+
+def bar_x(rows, current, previous):
+    """Where the compact bars start: past the widest label and its tag."""
+    widest = 0
+    for key, label in CLEAN:
+        value, denominator = rows[key]
+        found = tag(previous, current, key, value, denominator) if value is not None else None
+        widest = max(widest, progress.text_width(label, 14) + (10 + progress.text_width(found[1], 12) if found else 0))
+    return LEFT + int(widest) + 24
+
+
 def render(current, previous=None):
     rows = measures(current)
-    strict = [piece for line in strict_lines(current) for piece in wrap(line)]
-    body, y = [], 64
-    for key, label, what in ROWS:
+    body = [_text(LEFT, 38, "strong", 20, TITLE, 700)]
+    subtitle = wrap(SUBTITLE, size=13)
+    body += [_text(LEFT, 60 + 17 * n, "muted", 13, line) for n, line in enumerate(subtitle)]
+    y = 60 + 17 * (len(subtitle) - 1) + 36
+    body.append(_text(LEFT, y, "muted", 12, WORKS_HEADING.upper(), 600, extra=' letter-spacing="1.2"'))
+    y += 30
+    for key, label, words in WORKS:
         value, denominator = rows[key]
-        moved = ""
         if value is None:
-            number, width, text = "not measured", 0, "not measured yet"
+            number, width, found, lines, note = "not measured", 0, None, ["not measured yet"], None
         else:
-            percent = progress.percent(value, denominator)
-            number, width = f"{percent:.2f}%", 824 * percent / 100
-            text = detail_text(current, previous, key, value, denominator, what)
-            delta = delta_since(previous, key, value, denominator, current)
-            found = changes(previous, current, key)
-            if found:
-                moved = f'<tspan class="muted" dx="10" font-size="13" font-weight="600">accounting changed</tspan>'
-            elif delta is not None:
-                moved = (f'<tspan class="{"up" if delta > 0 else "down" if delta < 0 else "muted"}" dx="10" font-size="13" '
-                         f'font-weight="600">{arrow(delta)}</tspan>')
-        lines = wrap(text) + (wrap(footnote(key, current)) if footnote(key) else [])
-        body.append(f'''    <text x="28" y="{y}" class="strong" font-size="15" font-weight="600">{label}{moved}</text>
-    <text x="852" y="{y}" class="strong" font-size="20" font-weight="700" text-anchor="end">{number}</text>
-    <rect class="track" x="28" y="{y + 10}" width="824" height="14" rx="7"/>
-    <rect x="28" y="{y + 10}" width="{width:.2f}" height="14" rx="7" fill="{CARD_FILL[key]}"/>
-''' + "".join(f'''    <text x="28" y="{y + 44 + LINE_STEP * n}" class="muted" font-size="{TEXT_PX}">{line}</text>
-''' for n, line in enumerate(lines)))
-        y += 74 + LINE_STEP * (len(lines) - 1)  # a wrapped line grows its row
-    for n, line in enumerate(strict):
-        body.append(f'''    <text x="28" y="{y - 4 + 18 * n}" class="muted" font-size="{TEXT_PX}">{line}</text>
-''')
-    height = y + 6 + (22 + 18 * (len(strict) - 1) if strict else 0)
-    (matched, total), (cpp, game), (linked, linked_over) = rows["matched"], rows["cpp"], rows["linked"]
-    linking = (f"{progress.percent(linked, linked_over):.2f}% linking"
-               if linked is not None else "linking not measured")
+            number = share(value, denominator)
+            width = TEXT_WIDTH * min(max(progress.percent(value, denominator), 0), 100) / 100
+            found = tag(previous, current, key, value, denominator)
+            lines, note = wrap(caption(current, key, words)), side_note(current, key)
+        body.append(_text(LEFT, y, "strong", 15, label, 600, markup=_tspan(found, 13)))
+        body.append(_text(RIGHT, y, "strong", 20, number, 700, "end"))
+        body.append(f'    <rect class="track" x="{LEFT}" y="{y + 10}" width="{TEXT_WIDTH}" height="14" rx="7"/>\n'
+                    f'    <rect x="{LEFT}" y="{y + 10}" width="{width:.2f}" height="14" rx="7" fill="{CARD_FILL[key]}"/>\n')
+        if note and progress.text_width(lines[-1], TEXT_PX) + 24 + progress.text_width(note, TEXT_PX) > TEXT_WIDTH:
+            lines, note = lines + [note], None  # no room beside the caption: a line of its own
+        if value is not None:
+            lines += [piece for line in notes(previous, current, key) for piece in wrap(line)]
+        body += [_text(LEFT, y + 44 + LINE_STEP * n, "muted", TEXT_PX, line) for n, line in enumerate(lines)]
+        if note:
+            body.append(_text(RIGHT, y + 44, "muted", TEXT_PX, note, anchor="end"))
+        y += 76 + LINE_STEP * (len(lines) - 1)
+    y -= 6
+    body.append(f'    <rect class="box" x="{LEFT}" y="{y}" width="{TEXT_WIDTH}" height="34" rx="8"/>\n')
+    head, _, rest = milestone(current).partition(": ")
+    body.append(_text(LEFT + 16, y + 22, "muted", 14, f"{head}:", 600,
+                      markup=f'<tspan class="strong"> {escape(rest)}</tspan>'))
+    y += 34 + 40
+    body.append(_text(LEFT, y, "muted", 12, CLEAN_HEADING.upper(), 600, extra=' letter-spacing="1.2"'))
+    start = bar_x(rows, current, previous)
+    span = RIGHT - 84 - start
+    for key, label in CLEAN:
+        y += 30
+        value, denominator = rows[key]
+        found = tag(previous, current, key, value, denominator) if value is not None else None
+        number = share(value, denominator) if value is not None else "soon"
+        width = span * min(max(progress.percent(value, denominator), 0), 100) / 100 if value is not None else 0
+        body.append(_text(LEFT, y, "strong", 14, label, 600, markup=_tspan(found, 12)))
+        body.append(f'    <rect class="track" x="{start}" y="{y - 10}" width="{span}" height="10" rx="5"/>\n'
+                    f'    <rect x="{start}" y="{y - 10}" width="{width:.2f}" height="10" rx="5" fill="{CARD_FILL[key]}"/>\n')
+        body.append(_text(RIGHT, y, "strong", 15, number, 700, "end"))
+        extra = [piece for line in notes(previous, current, key) for piece in wrap(line)] if value is not None else []
+        for line in extra:
+            y += LINE_STEP
+            body.append(_text(LEFT, y, "muted", TEXT_PX, line))
+    y += 34
+    footer = wrap(FOOTER, size=12)
+    body += [_text(LEFT, y + 16 * n, "muted", 12, line) for n, line in enumerate(footer)]
+    height = y + 16 * (len(footer) - 1) + 20
+    matched, linked = rows["matched"], rows["linked"]
+    found = blockers(current)
+    summary = (f"{share(*matched)} byte match, "
+               + (f"{share(*linked)} builds normally" if linked[0] is not None else "builds normally not measured")
+               + (f" (about {found['total']:,} problems left)" if found else ""))
+    clean = ", ".join(f"{LABELS[key].lower()} {share(*rows[key]) if rows[key][0] is not None else 'soon'}"
+                      for key, _ in CLEAN)
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="880" height="{height}" viewBox="0 0 880 {height}" role="img" aria-labelledby="title desc">
-  <title id="title">{TITLE}: {progress.percent(matched, total):.2f}% rebuilt from source, {progress.percent(cpp, game):.2f}% game code in C++*, {linking}</title>
-  <desc id="desc">{matched:,} of {total:,} code bytes rebuild to the original's exact bytes; {cpp:,} of {game:,} executable game-code bytes are represented. {progress.GAME_CPP_ANNOTATION}</desc>
+  <title id="title">{escape(f"{TITLE}: {summary}")}</title>
+  <desc id="desc">{escape(f"{SUBTITLE}. Is the source clean? {clean}. {FOOTER}.")}</desc>
   <style>
-    .card {{ fill: #0d1117; stroke: #30363d; }} .track {{ fill: #21262d; }}
+    .card {{ fill: #0d1117; stroke: #30363d; }} .track {{ fill: #21262d; }} .box {{ fill: #161b22; stroke: #30363d; }}
     .strong {{ fill: #f0f6fc; }} .muted {{ fill: #8b949e; }} .up {{ fill: #3fb950; }} .down {{ fill: #f85149; }}
     @media (prefers-color-scheme: light) {{
-      .card {{ fill: #ffffff; stroke: #d0d7de; }} .track {{ fill: #eaeef2; }}
+      .card {{ fill: #ffffff; stroke: #d0d7de; }} .track {{ fill: #eaeef2; }} .box {{ fill: #f6f8fa; stroke: #d0d7de; }}
       .strong {{ fill: #1f2328; }} .muted {{ fill: #59636e; }} .up {{ fill: #1a7f37; }} .down {{ fill: #cf222e; }}
     }}
   </style>
   <rect class="card" x="0.5" y="0.5" width="879" height="{height - 1}" rx="12"/>
   <g font-family="{progress.FONT_STACK}" {progress.NO_KERN}>
-    <text x="28" y="30" class="muted" font-size="13" font-weight="600" letter-spacing="1.3">{TITLE} {DOT} REBUILD PROGRESS</text>
 {"".join(body)}  </g>
 </svg>
 '''
@@ -381,39 +438,54 @@ def saved_linking(previous):
 
 def blocks(value, total, block, width=WIDTH):
     """`width` square emoji: the value's share in `block`, the rest dark."""
-    count = round(width * value / total) if total else 0
+    count = min(max(round(width * value / total), 0), width) if total else 0
     return block * count + REST_BLOCK * (width - count)
 
 
 def announcement(current, previous):
-    """The daily post: the card's four measures, then a link to the README."""
+    """The Discord post: the card's figures, then a link to the README."""
     rows = measures(current)
-    lines = []
-    for key, label, what in ROWS:
+    lines = [f"*{SUBTITLE}*", "", f"**{WORKS_HEADING}**"]
+    for key, label, words in WORKS:
         value, denominator = rows[key]
-        if lines:
-            lines.append("")
         if value is None:
-            lines += [f"**{label}:** not measured yet", REST_BLOCK * WIDTH]
+            lines += [f"**{label}:** not measured yet", REST_BLOCK * WIDTH, ""]
             continue
-        delta = delta_since(previous, key, value, denominator, current)
-        changed = rules_changed(previous, current) if key == "linked" else None
-        assembly_change = key == "matched" and previous and "assembly" not in previous and "assembly" in current
-        cpp_change = key == "cpp" and cpp_accounting_changed(previous, current)
-        lines += [f"**{label}: {progress.percent(value, denominator):.2f}%**"
-                  + ("  (accounting changed)" if cpp_change or changed or assembly_change else f"  {arrow(delta)}" if delta is not None else ""),
+        found = tag(previous, current, key, value, denominator)
+        note = side_note(current, key)
+        lines += [f"**{label}: {share(value, denominator)}**"
+                  + ("" if not found else f"  ({found[1]})" if found[0] == "muted" and found[1][0] != DOT
+                     else f"  {found[1]}"),
                   blocks(value, denominator, BLOCK[key]),
-                  detail(current, key, value, denominator, what) + (rule_note(previous, changed) if changed else "")
-                  + ("; reviewed assembly now counted, not new recovery" if assembly_change else "")]
-        if key == "cpp":
-            lines.append(footnote(key, current))
-    strict = strict_lines(current)
-    if strict:
-        lines += ["", *strict]
-    lines += ["", f"[What each bar measures, with charts: README]({README})"]
+                  caption(current, key, words) + (f" ({note})" if note else ""),
+                  *notes(previous, current, key), ""]
+    lines += [f"> {milestone(current)}", "", f"**{CLEAN_HEADING}**"]
+    for key, label in CLEAN:
+        value, denominator = rows[key]
+        if value is None:
+            lines.append(f"{REST_BLOCK * WIDTH} {label}: soon")
+            continue
+        found = tag(previous, current, key, value, denominator)
+        lines.append(f"{blocks(value, denominator, BLOCK[key])} **{share(value, denominator)}** {label}"
+                     + ("" if not found else f"  ({found[1]})" if found[0] == "muted" and found[1][0] != DOT
+                        else f"  {found[1]}"))
+        lines += [f"-# {line}" for line in notes(previous, current, key)]
+    head, _, _ = FOOTER.rpartition(" How each figure is measured: README")
+    lines += ["", f"{head} [How each figure is measured: README]({README})"]
     return {"allowed_mentions": {"parse": []},
-            "embeds": [{"title": f"{TITLE} {DOT} Rebuild progress", "color": 0x2EA043,
-                        "description": "\n".join(lines)}]}
+            "embeds": [{"title": TITLE, "color": 0x2EA043, "description": "\n".join(lines)}]}
+
+
+def headline(state):
+    """The "Does it work?" figures as the post prints them; None for a state
+    they cannot be read from."""
+    try:
+        rows = measures(state)
+    except (KeyError, ValueError, TypeError):
+        return None
+    found = blockers(state)
+    return tuple(share(*rows[key]) if rows[key][0] is not None else None for key in ("matched", "linked")) + (
+        found["total"] if found else None, remeasuring(state), milestone(state))
 
 
 def previous_state():
@@ -421,12 +493,17 @@ def previous_state():
     return json.loads(path.read_text(encoding="utf-8")) if path.exists() else None
 
 
-def notify(current):
+def notify(current, on_change=False):
+    """Post to Discord and save the figures the post was drawn from. With
+    `on_change`, post only when a "Does it work?" figure moved since the last post."""
     state_path = progress.ROOT / STATE
     previous = previous_state()
     run_id = os.environ.get("GITHUB_RUN_ID")
     if run_id and previous and previous.get("run_id") == run_id:
         print("Discord: this run already posted")
+        return
+    if on_change and previous and headline(previous) == headline(current):
+        print("Discord: no \"Does it work?\" figure changed since the last post; not posted")
         return
     webhook = os.environ.get("DISCORD_PROGRESS_WEBHOOK", "").strip()
     if not webhook.startswith("https://discord.com/api/webhooks/"):
@@ -448,15 +525,13 @@ def notify(current):
     print("Discord: new progress message posted")
 
 
-def main():
-    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument("--discord", action="store_true", help="post a new main Discord progress message")
-    args = parser.parse_args()
+def collect():
+    """Every figure the card draws, from the worktree (CI: the checkout)."""
     matched = progress.matched_at(None)
-    notes = progress.notes_at(None)
+    notes_ = progress.notes_at(None)
     start, size = progress.retail_text()
     naked = progress.naked_cpp_rows_at(matched, None)
-    split = progress.real_split(matched, notes, start, size, naked, text_data=progress.text_data_at(None))
+    split = progress.real_split(matched, notes_, start, size, naked, text_data=progress.text_data_at(None))
     census = progress.census_at(None)
     _, total = progress.real_code_denominator(start, size)
     names, placeholders = name_metric.readable()
@@ -465,19 +540,47 @@ def main():
                "linked": int(census["linked_bytes"]) if census else None,
                "linked_authored": int(census["linked_authored"]) if census and census.get("linked_authored") else None,
                "linked_game_code": int(census["game_code"]) if census and census.get("game_code") else None,
-               "strict": strict_link(),
+               "census_tool_rules": progress.census_tool_rules_at(None), "ownership": ownership(),
+               **progress.cleanup_figures_at(None),
                **{lane: split.get(lane, 0) for lane in ("authored", "vendored", "generated", "library", "data", "assembly")}}
     if census:
         current.update(progress.linking_coverage_at(None) or {})
+    return current
+
+
+def check_baselines():
+    """Compare the recorded Phase 2 counts with a recount at progress.PHASE2_START."""
+    recorded = {"hatch_items": progress.PHASE2_HATCH_ITEMS, "source_files": progress.PHASE2_SOURCE_FILES,
+                "class_copies": progress.PHASE2_CLASS_COPIES}
+    found = progress.phase2_baselines()
+    for key, value in recorded.items():
+        print(f"{key}: recorded {value:,}, at {progress.PHASE2_START} {found[key]:,}"
+              + ("" if found[key] == value else "  MISMATCH"))
+    if found != recorded:
+        raise SystemExit("readme_progress: the recorded Phase 2 counts differ from the commit's")
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
+    parser.add_argument("--discord", action="store_true", help="post a new Discord progress message")
+    parser.add_argument("--discord-on-change", action="store_true",
+                        help="post only when a \"Does it work?\" figure changed since the last post")
+    parser.add_argument("--check-baselines", action="store_true",
+                        help=f"recount the Phase 2 baselines at {progress.PHASE2_START} and compare")
+    args = parser.parse_args()
+    if args.check_baselines:
+        check_baselines()
+        return
+    current = collect()
     output = progress.ROOT / "docs" / "progress.svg"
     output.write_text(render(current, previous_state()), encoding="utf-8", newline="\n")
     rows = measures(current)
     print(f"{output.relative_to(progress.ROOT)}: " + ", ".join(
-        f"{label} {progress.percent(rows[key][0], rows[key][1]):.2f}%" if rows[key][0] is not None
-        else f"{label} not measured" for key, label, _ in ROWS))
-    if args.discord:
-        notify(current)
+        f"{label} {share(*rows[key])}" if rows[key][0] is not None else f"{label} not measured"
+        for key, label in LABELS.items()))
+    if args.discord or args.discord_on_change:
+        notify(current, on_change=not args.discord)
 
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

@@ -1,9 +1,12 @@
 #!/usr/bin/env python3
 """Report how much of game.dat we can rebuild from what the repository holds.
 
-BYTE-MATCHED, GAME CODE C++* and LINKING print first: the three numbers on the
-README card and in the daily Discord post (tools/readme_progress.py), computed
-the same way. BYTE-MATCHED ("rebuilt from source") is everything that rebuilds
+The README card and the Discord post (tools/readme_progress.py) draw their
+figures from the functions here, so this prints the same figures: BYTE-MATCHED
+("Byte match"), LINKING ("Builds normally") with STRICT BLOCKERS (its "problems
+left"), AUTHORED C++ ("Hand-written code"), then READABLE NAMES (worktree only),
+SHORTCUTS, FILE LAYOUT and SHARED CLASSES, the last three counted from the start
+of Phase 2 (PHASE2_START). BYTE-MATCHED ("rebuilt from source") is everything that rebuilds
 to game.dat's exact bytes (authored and generated C++, vendored source,
 attached prebuilt libraries, reviewed assembly and verified data in .text; dumps excluded), over
 all non-padding .text bytes. Embedded data has its own lane, never authored
@@ -297,7 +300,9 @@ def naked_cpp_rows(matched, source_texts, target_reader=build.read_target_bytes)
     return naked
 
 
-def _batch_git_texts(ref, paths):
+def _batch_git_blobs(ref, paths, missing_ok=False):
+    """{path: bytes} of `paths` at `ref`, through one git cat-file; a path the
+    tree lacks is left out when `missing_ok`, else refused."""
     if not paths:
         return {}
     request = "".join(f"{ref}:{path}\n" for path in paths).encode()
@@ -323,13 +328,19 @@ def _batch_git_texts(ref, paths):
             raise SystemExit(f"cannot read {path} at {ref}: malformed git cat-file output")
         header = output[offset:line_end].decode(errors="replace")
         offset = line_end + 1
+        if missing_ok and header.endswith(" missing"):
+            continue
         fields = header.rsplit(" ", 2)
         if len(fields) != 3 or fields[1] != "blob":
             raise SystemExit(f"cannot read {path} at {ref}: {header}")
         size = int(fields[2])
-        texts[path] = output[offset:offset + size].decode("utf-8", errors="replace")
+        texts[path] = output[offset:offset + size]
         offset += size + 1  # blob plus cat-file's separating newline
     return texts
+
+
+def _batch_git_texts(ref, paths):
+    return {path: blob.decode("utf-8", errors="replace") for path, blob in _batch_git_blobs(ref, paths).items()}
 
 
 def naked_source_texts(matched, ref):
@@ -909,10 +920,12 @@ def _line(label, value, denominator, delta, note):
     return (f"{label:<14} {value:>12,.0f} bytes ({percent(value, denominator):6.2f}%)  {delta}  <- {note}")
 
 
-def print_headline(padding, denominator, old_split, new_split, old_census, new_census, census_rows=()):
-    """The README card's and the daily Discord post's three numbers, computed
+def print_headline(padding, denominator, old_split, new_split, old_census, new_census, census_rows=(),
+                   tool_rules=None):
+    """The README card's and the daily Discord post's byte figures, computed
     the same way, then what they are made of. Every figure counts 0xCC out,
-    so the lines below add up to the lines above."""
+    so the lines below add up to the lines above. `tool_rules`: the rules
+    tools/link_census.py measures under at the new state (census_tool_rules_at)."""
     matched, before = rebuildable(new_split), rebuildable(old_split)
     game, game_before = game_executable(new_split, denominator), game_executable(old_split, denominator)
     print(_line("BYTE-MATCHED", matched, denominator, f"delta {format_delta(matched, before, denominator)}",
@@ -922,6 +935,10 @@ def print_headline(padding, denominator, old_split, new_split, old_census, new_c
                 if game == game_before else "delta n/a (the game's own code changed size)",
                 f"executable game code ({game:,} bytes: libraries and embedded data excluded)"))
     print(f"               * {GAME_CPP_ANNOTATION} {game_cpp_breakdown(new_split, denominator)}")
+    print(_line("AUTHORED C++", new_split["authored"], game,
+                f"delta {format_delta(new_split['authored'], old_split['authored'], game)}"
+                if game == game_before else "delta n/a (the game's own code changed size)",
+                "hand-written C++ over executable game code (the card's \"Hand-written code\")"))
 
     def census_line(label, field, over_field, note, over_total=None):
         """One census figure over its denominator: `over_field` names the
@@ -963,7 +980,16 @@ def print_headline(padding, denominator, old_split, new_split, old_census, new_c
     else:
         census_line("LINKING", "linked_authored", "game_code",
                     "legacy authored-only accounting (inclusive census evidence unavailable)")
-    print("               (the three figures on the README card and in the daily Discord post)")
+    blockers = strict_blockers(new_census)
+    if blockers:
+        print(f"{'STRICT BLOCKERS':<15}{blockers['total']:>12,}  <- {blockers['unresolved']:,} unresolved names + "
+              f"{blockers['addresses']:,} hard-coded addresses + {blockers['duplicates']:,} duplicate names, census "
+              f"{new_census['date']} at {new_census['commit']} (the card's \"problems left\")")
+    if new_census and tool_rules and tool_rules != census_rules(new_census):
+        print(f"               {CENSUS_TOOL} now measures under {tool_rules}; this census used "
+              f"{census_rules(new_census)}: being re-measured")
+    print("               (BYTE-MATCHED, LINKING and STRICT BLOCKERS: the card's \"Does it work?\"; "
+          "the same figures as the README card and the Discord post)")
     census_line("LINKED", "linked_bytes", None,
                 "linked own source in files that link cleanly", over_total=decompiled(new_split))
 
@@ -1072,6 +1098,196 @@ def print_source_recovery(old, new):
           f"already their TU (tools/tu_skeleton.py --queue merges the rest)")
 
 
+# The README card's "Is the source clean?" figures (tools/readme_progress.py).
+# Three of them count from the start of Phase 2: commit PHASE2_START, where
+# AGENTS.md pointed the fleet at linking and cleanup (2026-10-25). A CI checkout
+# is shallow, so the counts at that commit are recorded here; phase2_baselines()
+# recomputes them from the commit and tools/readme_progress.py --check-baselines
+# compares the two.
+PHASE2_START = "e041aec055"
+PHASE2_DATE = "Oct 25"
+PHASE2_HATCH_ITEMS = 32_858      # hatch_items_at(PHASE2_START)[0]
+PHASE2_SOURCE_FILES = 23_488     # len(source_files_at(PHASE2_START))
+PHASE2_CLASS_COPIES = 77_814     # class_copies_at(PHASE2_START)["extra"]
+HATCHES = "reverse/hatch_baseline.tsv"
+# Hatch kinds whose count is bytes, not occurrences: summing them with the
+# others would weigh one raw `db` byte like one pin.
+BYTE_HATCHES = frozenset({"asm_bytes"})
+CANONICAL_CLASSES = "reverse/canonical_classes.csv"
+
+
+def hatch_items_at(ref):
+    """(escape-hatch items, asm bytes) the shrink-only register
+    (tools/hatch_counters.py) records at one state; None without a register.
+    Items sum every kind's occurrences except asm_bytes, reported apart."""
+    text = _text_at(ref, HATCHES)
+    if text is None:
+        return None
+    items = byte_count = 0
+    for number, line in enumerate(text.splitlines(), 1):
+        if not line.strip() or line.startswith("#"):
+            continue
+        fields = line.split("\t")
+        if len(fields) < 4 or not fields[3].isdigit():
+            raise ValueError(f"{HATCHES} line {number}: no count")
+        if fields[0] in BYTE_HATCHES:
+            byte_count += int(fields[3])
+        else:
+            items += int(fields[3])
+    return items, byte_count
+
+
+def tu_target_at(ref):
+    """The number of translation units the committed reverse/tu_map.csv names
+    (code rows, approved or proposed) at one state: the map's estimate of how
+    many source files retail was built from, not a proven count. None without
+    a map. Read from the committed file so CI needs no Open-BFME-1 checkout to
+    rebuild it (source_recovery_at's worktree figure rebuilds it)."""
+    text = _text_at(ref, TU_MAP)
+    if text is None:
+        return None
+    return len({row["tu"].lower() for row in csv.DictReader(text.splitlines())
+                if row["kind"] == "code" and row["tu"]})
+
+
+def _class_names(text):
+    """Classes `text` declares a namespace-scope body for (tools/class_views.py's
+    private views)."""
+    import class_layouts
+    return frozenset(class_layouts.class_bodies(text))
+
+
+def _class_names_all(texts):
+    """_class_names of each text, in order, on every core when there are many."""
+    if len(texts) < 2000:
+        return [_class_names(text) for text in texts]
+    import concurrent.futures
+    import os
+    with concurrent.futures.ProcessPoolExecutor(max_workers=min(os.cpu_count() or 1, 16)) as pool:
+        return list(pool.map(_class_names, texts, chunksize=200))
+
+
+def class_view_sources(matched):
+    """The units tools/class_views.py surveys: matched, hand-written C/C++ sources."""
+    return sorted({source for _, source in matched.values()
+                   if source.lower().endswith((".cpp", ".c")) and not source.startswith(GENERATED_ROOTS)})
+
+
+def class_copies_at(ref, memo=None):
+    """Duplicate private class copies at one state: {extra, copies, classes}.
+
+    A private copy is a namespace-scope class or struct body a unit declares
+    for itself (tools/class_views.py's survey: matched, hand-written .cpp/.c
+    ledger sources). `extra` counts the copies beyond one definition per
+    class: every copy of a class registered in reverse/canonical_classes.csv
+    (its header is the one definition), and all but one copy of any other
+    class. One definition per class leaves 0. `memo` ({digest: names}) lets
+    two states share the parsing of identical files."""
+    import hashlib
+    memo = {} if memo is None else memo
+    sources = class_view_sources(matched_at(ref))
+    if ref is None:
+        blobs = {}
+        for source in sources:
+            try:
+                blobs[source] = (ROOT / source).read_bytes()
+            except OSError:
+                continue
+    else:
+        blobs = _batch_git_blobs(ref, sources, missing_ok=True)
+    digests = {source: hashlib.sha1(blob).digest() for source, blob in blobs.items()}
+    todo = {digest: blobs[source] for source, digest in digests.items() if digest not in memo}
+    keys = list(todo)
+    for digest, names in zip(keys, _class_names_all([todo[key].decode("latin-1") for key in keys])):
+        memo[digest] = names
+    units = Counter(name for source in blobs for name in memo[digests[source]])
+    raw = _text_at(ref, CANONICAL_CLASSES)
+    canonical = {row["class"] for row in csv.DictReader(raw.splitlines()) if row.get("class")} if raw else set()
+    extra = sum(count if name in canonical else count - 1 for name, count in units.items())
+    return {"extra": extra, "copies": sum(units.values()), "classes": len(units)}
+
+
+def phase2_share(start, now, target=0):
+    """How much of the way from `start` (the count at PHASE2_START) to
+    `target` the count `now` has come, in percent. Below 0 when it grew."""
+    return percent(start - now, start - target)
+
+
+def phase2_baselines():
+    """The PHASE2_* counts recomputed from PHASE2_START (needs that commit)."""
+    return {"hatch_items": hatch_items_at(PHASE2_START)[0],
+            "source_files": len(source_files_at(PHASE2_START)),
+            "class_copies": class_copies_at(PHASE2_START)["extra"]}
+
+
+# The census row's counts that stand between the tree and a link without
+# shortcuts: names nothing defines, hard-coded image addresses, names two
+# objects define. The census records no stub or pin count of its own.
+STRICT_BLOCKER_FIELDS = ("unresolved", "addresses", "duplicates")
+
+
+def strict_blockers(census):
+    """{field: count, "total": sum} from one census history row; None when the
+    row lacks any of STRICT_BLOCKER_FIELDS."""
+    if not census or any(not str(census.get(field) or "").strip().isdigit() for field in STRICT_BLOCKER_FIELDS):
+        return None
+    counts = {field: int(census[field]) for field in STRICT_BLOCKER_FIELDS}
+    return {**counts, "total": sum(counts.values())}
+
+
+CENSUS_TOOL = "tools/link_census.py"
+CENSUS_RULES_RE = re.compile(r'^RULES = "([^"]+)"', re.M)
+
+
+def census_tool_rules_at(ref):
+    """The rules tools/link_census.py measures under at one state (its RULES),
+    or None when it cannot be read. When they differ from the newest census
+    row's, that row predates a rule change and the next census re-measures."""
+    text = _text_at(ref, CENSUS_TOOL)
+    found = CENSUS_RULES_RE.search(text or "")
+    return found.group(1) if found else None
+
+
+def cleanup_figures_at(ref, memo=None):
+    """The card's "Is the source clean?" counts at one state (names apart:
+    tools/name_metric.py reads the worktree)."""
+    hatches = hatch_items_at(ref)
+    return {"hatch_items": hatches[0] if hatches else None, "asm_bytes": hatches[1] if hatches else None,
+            "source_files": len(source_files_at(ref)), "tu_target": tu_target_at(ref),
+            "class_copies": class_copies_at(ref, memo)["extra"]}
+
+
+def print_cleanup(old, new, names=None):
+    """The card's "Is the source clean?" figures other than hand-written code
+    (print_headline's AUTHORED C++), then what each counts. A change is the
+    count retired between the two states and its share in points."""
+    def line(label, key, unit, start, target, note):
+        share = phase2_share(start, new[key], target(new))
+        same = old[key] is not None and target(old) == target(new)
+        delta = (f"delta {old[key] - new[key]:+,} {unit}, {share - phase2_share(start, old[key], target(old)):+.2f} pp"
+                 if same else "delta n/a")
+        print(f"{label:<15}{share:>11.2f}%  {delta}  <- {note}")
+    if names:
+        total, placeholders = names       # name_metric.readable()
+        readable = total - placeholders
+        print(f"{'READABLE NAMES':<15}{percent(readable, total):>11.2f}%  delta n/a  <- {readable:,} of {total:,} "
+              "declared names in the worktree are not placeholders (tools/name_metric.py)")
+    if new["hatch_items"] is not None:
+        line("SHORTCUTS", "hatch_items", "items", PHASE2_HATCH_ITEMS, lambda state: 0,
+             f"escape-hatch items retired since {PHASE2_START}: {PHASE2_HATCH_ITEMS:,} then, "
+             f"{new['hatch_items']:,} now in {HATCHES} (asm_bytes apart: {new['asm_bytes']:,} bytes)")
+    if new["tu_target"] is not None:
+        line("FILE LAYOUT", "source_files", "files", PHASE2_SOURCE_FILES, lambda state: state["tu_target"],
+             f"(files at {PHASE2_START} - files now) / (files at {PHASE2_START} - TUs): ({PHASE2_SOURCE_FILES:,} - "
+             f"{new['source_files']:,}) / ({PHASE2_SOURCE_FILES:,} - {new['tu_target']:,} TUs the committed "
+             f"{TU_MAP} names, an estimate)")
+    line("SHARED CLASSES", "class_copies", "copies", PHASE2_CLASS_COPIES, lambda state: 0,
+         f"duplicate private class copies removed since {PHASE2_START}: {PHASE2_CLASS_COPIES:,} then, "
+         f"{new['class_copies']:,} now (class_copies_at)")
+    print("               (with AUTHORED C++ above: the card's \"Is the source clean?\" rows; "
+          f"shortcuts, file layout and shared classes count from {PHASE2_DATE})")
+
+
 def marker_delta(ref1, ref2):
     """Net present-unmatched/absent-from-retail markers added between states."""
     cmd = ["git", "diff", ref1] + ([ref2] if ref2 else []) + ["--", "Code"]
@@ -1176,7 +1392,12 @@ def main():
         new_census = dict(new_census, **(linking_coverage_at(ref2) or {}))
     print_headline(padding, denominator, real_split(old, old_notes, text_start, text_size, old_naked, text_data=old_data),
                    real_split(new, new_notes, text_start, text_size, new_naked, text_data=new_data), old_census, new_census,
-                   census_rows_at(ref2))
+                   census_rows_at(ref2), census_tool_rules_at(ref2))
+    print()
+    memo = {}
+    import name_metric
+    print_cleanup(cleanup_figures_at(ref1, memo), cleanup_figures_at(ref2, memo),
+                  name_metric.readable() if ref2 is None else None)
     print()
     print_source_recovery(source_recovery_at(ref1), source_recovery_at(ref2))
     print_scorecard(ref1, label2, old_stats, new_stats)

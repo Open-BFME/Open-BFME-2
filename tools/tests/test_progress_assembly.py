@@ -23,7 +23,7 @@ def test_reviewed_assembly_union_padding_and_cpp_precedence(monkeypatch):
     assert (split['authored'], split['assembly'], split['dump']) == (4, 11, 16)
     assert progress.rebuildable(split) == 15
     assert progress.decompiled(split) == 4
-    assert readme_progress.measures(dict(split, total=31))['cpp'] == (15, 31)
+    assert readme_progress.measures(dict(split, total=31))['authored'] == (4, 31)  # assembly is not hand-written
     assert readme_progress.measures(dict(split, total=31))['matched'] == (15, 31)
     owners = progress_site.per_source(matched, notes, 0x1000, 32, ())
     for lane in progress.SOURCE_LANES:

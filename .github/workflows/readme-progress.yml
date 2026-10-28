@@ -1,9 +1,15 @@
-name: Daily BFME2 progress
+name: BFME2 progress card
 
+# Hourly: re-render the README card, the chart and the map from the repository,
+# and post to Discord only when a "Does it work?" figure (byte match, builds
+# normally, its problem count, the milestone) changed since the last post.
+# Daily (08:37 New York) and by hand: the Discord post, and the interactive
+# report on GitHub Pages.
 on:
   schedule:
     - cron: '37 8 * * *'
       timezone: America/New_York
+    - cron: '7 * * * *'
   workflow_dispatch:
 
 permissions:
@@ -19,12 +25,20 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-      pages: write      # the interactive report on GitHub Pages
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.pages.outputs.page_url }}
+    outputs:
+      daily: ${{ steps.mode.outputs.daily }}
     steps:
+      - id: mode
+        name: Daily post or hourly refresh
+        env:
+          EVENT: ${{ github.event_name }}
+          SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          if [ "$EVENT" = workflow_dispatch ] || [ "$SCHEDULE" = '37 8 * * *' ]; then
+            echo "daily=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "daily=false" >> "$GITHUB_OUTPUT"
+          fi
       - uses: actions/checkout@v4
         with:
           ref: master
@@ -33,29 +47,52 @@ jobs:
           python-version: '3.12'
       - name: Record today's byte-matched point for the chart
         run: python tools/progress_site.py history --today
-      - name: Generate bar and post BFME2 progress
+      - name: Render the card and post BFME2 progress
         env:
           DISCORD_PROGRESS_WEBHOOK: ${{ secrets.DISCORD_PROGRESS_WEBHOOK }}
-        run: python tools/readme_progress.py --discord
-      - name: Render the rules=v2 card next to the bars (what each bar is made of)
-        # never blocks the bars above: a v2 failure leaves yesterday's card
+          POST: ${{ steps.mode.outputs.daily == 'true' && '--discord' || '--discord-on-change' }}
+        run: python tools/readme_progress.py "$POST"
+      - name: Render the rules=v2 card (what the byte figures are made of)
+        # never blocks the card above: a v2 failure leaves the last card
         continue-on-error: true
         run: python tools/progress_v2.py --today --svg docs/progress_v2.svg
       - name: Render the chart, the map and the interactive report
         run: python tools/progress_site.py render build/site/index.html --svg docs
-      - name: Commit updated bar
+      - name: Commit the updated card
         run: |
-          git add docs/progress.svg docs/progress_chart.svg docs/progress_map.svg docs/discord-progress.json             reverse/progress_history.csv docs/progress_v2.svg reverse/progress_v2_history.csv
+          git add docs/progress.svg docs/progress_chart.svg docs/progress_map.svg docs/discord-progress.json \
+            reverse/progress_history.csv docs/progress_v2.svg reverse/progress_v2_history.csv
           if git diff --cached --quiet; then
             exit 0
           fi
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git commit -m "docs: update README progress bar"
-          git pull --rebase origin master
-          git push origin HEAD:master
-      - uses: actions/upload-pages-artifact@v3
+          git commit -m "docs: update README progress card"
+          # The fleet pushes to master continuously: rebase and retry, so a
+          # Discord post's saved figures are never left uncommitted.
+          for attempt in 1 2 3 4 5 6; do
+            if git pull --rebase origin master && git push origin HEAD:master; then
+              exit 0
+            fi
+            git rebase --abort 2>/dev/null || true
+            sleep $((attempt * 10))
+          done
+          exit 1
+      - if: steps.mode.outputs.daily == 'true'
+        uses: actions/upload-pages-artifact@v3
         with:
           path: build/site
+
+  pages:
+    needs: update
+    if: needs.update.outputs.daily == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write      # the interactive report on GitHub Pages
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
       - id: pages
         uses: actions/deploy-pages@v4

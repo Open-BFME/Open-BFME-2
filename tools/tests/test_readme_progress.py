@@ -1,9 +1,12 @@
-"""README card and daily Discord post; no network requests."""
+"""README card and Discord post; no network requests."""
+import csv
 import html
 import io
 import re
 import json
+import subprocess
 import sys
+import xml.etree.ElementTree as ET
 from pathlib import Path
 from urllib.error import URLError
 
@@ -14,15 +17,32 @@ import readme_progress as daily
 import progress
 
 UP = "▲"
+P2 = (progress.PHASE2_HATCH_ITEMS, progress.PHASE2_SOURCE_FILES, progress.PHASE2_CLASS_COPIES)
 
 
 def sample(authored=40, linked_authored=9, linked_game_code=90):
     # rebuilt 60 of 100; game's own code = 100 - 5 vendored - 5 library = 90;
-    # represented game code 50 (40 authored + 10 generated); the census's
-    # independent authored-only Linking figure remains 9/90.
+    # hand-written 40 of it; the census's authored-only Linking figure is 9/90.
     return {"total": 100, "linked": 12, "linked_authored": linked_authored, "linked_game_code": linked_game_code,
             "authored": authored, "vendored": 5, "generated": 10, "library": 5, "census": None,
             "cpp_rules": daily.progress.GAME_CPP_RULES}
+
+
+def cleanup(items=P2[0] - 3_000, files=P2[1] - 2_000, target=2_000, copies=P2[2] - 1_000, **changes):
+    """The Phase 2 counts: 3,000 hatch items, 2,000 files and 1,000 class copies gone."""
+    return {"hatch_items": items, "asm_bytes": 67_972, "source_files": files, "tu_target": target,
+            "class_copies": copies, **changes}
+
+
+def census(date="2026-10-28 10:03", rules="retail-truth-4", unresolved=3_090, addresses=1_043, duplicates=1):
+    return {"date": date, "commit": "c8734bec0c", "rules": rules, "unresolved": str(unresolved),
+            "addresses": str(addresses), "duplicates": str(duplicates), "linked_bytes": "12"}
+
+
+def full(**changes):
+    """A state with every figure on the card."""
+    return {**sample(), **cleanup(), "declared_names": 200, "readable_names": 142, "census": census(),
+            "census_tool_rules": "retail-truth-4", **changes}
 
 
 def previous(**changes):
@@ -39,6 +59,21 @@ def setup_state(tmp_path, monkeypatch, state=None):
     return path
 
 
+def fake_collection(monkeypatch, split=None):
+    """main() without the repository: every source of a figure replaced."""
+    for name, value in (("matched_at", lambda *a: []), ("notes_at", lambda *a: {}), ("retail_text", lambda: (0, 100)),
+                        ("naked_cpp_rows_at", lambda *a: []), ("real_split", lambda *a, **k: split or sample()),
+                        ("census_at", lambda *a: None), ("real_code_denominator", lambda *a: (0, 100)),
+                        ("census_tool_rules_at", lambda *a: "retail-truth-4"),
+                        ("cleanup_figures_at", lambda *a: cleanup())):
+        monkeypatch.setattr(daily.progress, name, value)
+    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+
+
+def text_of(svg):
+    return " ".join(" ".join(ET.fromstring(svg).itertext()).split())
+
+
 def test_retry_does_not_duplicate_post(tmp_path, monkeypatch):
     monkeypatch.setenv("GITHUB_RUN_ID", "run-123")
     setup_state(tmp_path, monkeypatch, {"total": 100, "message_id": "123", "run_id": "run-123"})
@@ -46,7 +81,7 @@ def test_retry_does_not_duplicate_post(tmp_path, monkeypatch):
     daily.notify(sample())
 
 
-def test_success_posts_the_bars_and_saves_the_figures(tmp_path, monkeypatch):
+def test_success_posts_the_card_and_saves_the_figures(tmp_path, monkeypatch):
     path = setup_state(tmp_path, monkeypatch)
     monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token\n")
 
@@ -54,22 +89,42 @@ def test_success_posts_the_bars_and_saves_the_figures(tmp_path, monkeypatch):
         assert request.full_url.endswith("token?wait=true")
         payload = json.loads(request.data)
         assert payload["allowed_mentions"] == {"parse": []}
-        assert "**Rebuilt from source: 60.00%**" in payload["embeds"][0]["description"]
+        assert payload["embeds"][0]["title"] == "BFME 2 · Road to a finished decomp"
+        assert "**Byte match: 60.00%**" in payload["embeds"][0]["description"]
         return io.BytesIO(b'{"id":"123"}')
     monkeypatch.setattr(daily, "urlopen", send)
-    daily.notify(sample())
+    daily.notify(full())
     state = json.loads(path.read_text())
     assert state["message_id"] == "123"
-    assert daily.measures(state) == daily.measures(sample())  # the next post's arrows start from these
+    assert daily.measures(state) == daily.measures(full())  # the next post's arrows start from these
 
 
-def test_each_run_posts_new_message_even_if_unchanged(tmp_path, monkeypatch):
+def test_each_daily_run_posts_new_message_even_if_unchanged(tmp_path, monkeypatch):
     monkeypatch.setenv("GITHUB_RUN_ID", "new-run")
     path = setup_state(tmp_path, monkeypatch, previous())
     monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
     monkeypatch.setattr(daily, "urlopen", lambda request, timeout: io.BytesIO(b'{"id":"456"}'))
     daily.notify(sample())
     assert json.loads(path.read_text())["message_id"] == "456"
+
+
+def test_hourly_runs_post_only_when_a_does_it_work_figure_moves(tmp_path, monkeypatch):
+    monkeypatch.setenv("GITHUB_RUN_ID", "hourly")
+    path = setup_state(tmp_path, monkeypatch, {**full(), "message_id": "1", "run_id": "daily"})
+    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
+    monkeypatch.setattr(daily, "urlopen", lambda *a, **k: pytest.fail("Unexpected post"))
+    # the source-cleanup figures move every hour; they wait for the daily post
+    daily.notify(full(**cleanup(items=P2[0] - 3_100), declared_names=210), on_change=True)
+    assert json.loads(path.read_text())["message_id"] == "1"
+    posted = []
+    monkeypatch.setattr(daily, "urlopen", lambda request, timeout: posted.append(request) or io.BytesIO(b'{"id":"2"}'))
+    for moved in (full(census=census(unresolved=3_000)),                # a new census: fewer problems
+                  full(census_tool_rules="retail-truth-5"),             # a rule change awaiting its census
+                  full(linked_authored=10)):                            # builds normally moved
+        monkeypatch.setenv("GITHUB_RUN_ID", f"hourly-{len(posted)}")
+        path.write_text(json.dumps({**full(), "message_id": "1", "run_id": "daily"}), encoding="utf-8")
+        daily.notify(moved, on_change=True)
+    assert len(posted) == 3 and json.loads(path.read_text())["message_id"] == "2"
 
 
 def test_failed_post_does_not_advance_state_or_leak_url(tmp_path, monkeypatch):
@@ -84,87 +139,213 @@ def test_failed_post_does_not_advance_state_or_leak_url(tmp_path, monkeypatch):
     assert not path.exists()
 
 
-def test_discord_posts_four_measures_and_links_the_readme():
-    names = {"declared_names": 200, "readable_names": 142}
-    embed = daily.announcement({**sample(), **names}, previous(authored=36, generated=10, declared_names=200,
-                                                              readable_names=140))["embeds"][0]
-    M, C, L, N = (daily.BLOCK[key] for key in ("matched", "cpp", "linked", "names"))
+def test_discord_post_mirrors_the_card():
+    embed = daily.announcement(full(), previous(authored=36, generated=10, declared_names=200, readable_names=140,
+                                                **cleanup(items=P2[0] - 2_900)))["embeds"][0]
+    M, L, A, N, S, F, C = (daily.BLOCK[key] for key in
+                           ("matched", "linked", "authored", "names", "shortcuts", "layout", "classes"))
     R = daily.REST_BLOCK
+    shortcuts, was = 100 * 3000 / P2[0], 100 * 2900 / P2[0]
+    assert embed["title"] == "BFME 2 · Road to a finished decomp"
     assert embed["description"].split("\n") == [
-        f"**Rebuilt from source: 60.00%**  {UP} 4.00",
+        "*Finished means: the whole game is built from readable source, builds the normal way, and plays*",
+        "",
+        "**Does it work?**",
+        f"**Byte match: 60.00%**  {UP} 4.00",
         f"{M * 6}{R * 4}",
-        f"60 / 100 bytes rebuilt without copying {daily.EXE}",
+        "Every byte of the game's program code is recreated by compiling our source "
+        "(game data & assets: not measured yet)",
         "",
-        f"**Game code in C++*: 55.56%**  {UP} 4.44",
-        f"{C * 6}{R * 4}",
-        "50 / 90 bytes of executable game code (libraries and embedded data excluded)",
-        "* Includes generated C++ and intentionally retained assembly. Of it: authored C++ 44.44%, generated C++ "
-        "11.11%, reviewed assembly 0.00% of executable game code.",
-        "",
-        "**Linking: 10.00%**",
+        "**Builds normally: 10.00%**",
         f"{L * 1}{R * 9}",
-        "9 / 90 bytes of game code linked (legacy authored-only accounting) (not measured yet)",
+        "Code that fits together cleanly. About 4,134 problems left before the game builds without shortcuts "
+        "(measured 2026-10-28)",
         "",
-        f"**Readable names: 71.00%**  {UP} 1.00",
-        f"{N * 7}{R * 3}",
-        "142 / 200 declared names (files, types, functions, members, globals, parameters, locals) "
-        "that are not placeholders",
+        "> Next milestone: first normal build, then the first playtest",
         "",
-        f"[What each bar measures, with charts: README]({daily.README})"]
-    assert "footer" not in embed and "Whole game" not in embed["description"]
+        "**Is the source clean?**",
+        f"{A * 4}{R * 6} **44.44%** Hand-written code  {UP} 4.44",
+        f"{N * 7}{R * 3} **71.00%** Readable names  {UP} 1.00",
+        f"{S * 1}{R * 9} **{shortcuts:.2f}%** Shortcuts removed  {UP} {round(shortcuts, 2) - round(was, 2):.2f}",
+        f"{F * 1}{R * 9} **{100 * 2000 / (P2[1] - 2000):.2f}%** Original file layout  {daily.DOT} 0.00",
+        f"{C * 0}{R * 10} **{100 * 1000 / P2[2]:.2f}%** Shared class definitions  {daily.DOT} 0.00",
+        "",
+        "Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). "
+        f"[How each figure is measured: README]({daily.README})"]
 
 
-def test_card_shows_the_same_three_measures():
-    svg = daily.render(sample(), previous(authored=36, generated=10))
-    for text in (">Rebuilt from source<", ">60.00%<", ">Game code in C++*<", ">55.56%<", ">Linking<", ">10.00%<",
-                 f"60 / 100 bytes rebuilt without copying {daily.EXE}", f">{UP} 4.44<",
-                 "60.00% rebuilt from source, 55.56% game code in C++*, 10.00% linking",
-                 "* Includes generated C++ and intentionally retained assembly."):
-        assert text in svg
-    assert "prefers-color-scheme: light" in svg and "Whole game" not in svg
+def test_card_shows_both_sections():
+    svg = daily.render(full(), previous(authored=36, generated=10))
+    text = text_of(svg)
+    for piece in ("BFME 2 · Road to a finished decomp", daily.SUBTITLE, "DOES IT WORK?", "Byte match", "60.00%",
+                  "Builds normally", "10.00%", "About 4,134 problems left before the game builds without shortcuts",
+                  "game data & assets: not measured yet", "measured 2026-10-28",
+                  "Next milestone: first normal build, then the first playtest", "IS THE SOURCE CLEAN?",
+                  "Hand-written code", "44.44%", "Readable names", "71.00%", "Shortcuts removed",
+                  "Original file layout", "Shared class definitions", daily.FOOTER, f"{UP} 4.44"):
+        assert piece in text, piece
+    assert "game data &amp; assets" in svg   # escaped XML
+    assert "prefers-color-scheme: light" in svg and "Plays" not in text and "Rebuilt from source" not in text
+    for colour in ("#2ea043", "#d29922", "#a371f7", "#58a6ff", "#f0883e", "#e05c7a"):
+        assert f'fill="{colour}"' in svg
 
 
-def test_completed_game_code_includes_reviewed_assembly_and_excludes_data():
+def test_strict_blockers_sum_the_census_counts():
+    assert progress.strict_blockers(census()) == {"unresolved": 3_090, "addresses": 1_043, "duplicates": 1,
+                                                 "total": 4_134}
+    assert progress.strict_blockers(None) is None
+    assert progress.strict_blockers({**census(), "addresses": ""}) is None  # a row before the column
+    assert "About" not in daily.caption({"census": {**census(), "addresses": ""}}, "linked", "Code.")
+
+
+def test_milestone_moves_on_when_nothing_blocks_a_normal_build():
+    assert daily.milestone(full()) == "Next milestone: first normal build, then the first playtest"
+    assert daily.milestone(full(census=None)) == "Next milestone: first normal build, then the first playtest"
+    done = full(census=census(unresolved=0, addresses=0, duplicates=0))
+    assert daily.milestone(done) == "Next milestone: the first playtest"
+    assert "Next milestone: the first playtest" in text_of(daily.render(done))
+    assert "About 0 problems left" in text_of(daily.render(done))
+
+
+def test_a_pending_census_rule_change_shows_being_re_measured(tmp_path, monkeypatch):
+    tool = tmp_path / progress.CENSUS_TOOL
+    tool.parent.mkdir()
+    tool.write_text('RULES_X = "no"\nRULES = "retail-truth-5"\nRULES_NO_WRONG_SELECTED = "x"\n', encoding="utf-8")
+    monkeypatch.setattr(progress, "ROOT", tmp_path)
+    assert progress.census_tool_rules_at(None) == "retail-truth-5"
+    pending = full(census_tool_rules="retail-truth-5", linked_authored=12)
+    old = {**full(), "message_id": "1"}
+    assert daily.remeasuring(pending) == ("retail-truth-5", "retail-truth-4")
+    assert daily.delta_since(old, "linked", *daily.measures(pending)["linked"], pending) is None
+    svg, post = daily.render(pending, old), daily.announcement(pending, old)["embeds"][0]["description"]
+    assert ">being re-measured<" in svg and UP not in svg.split("Hand-written")[0]
+    assert "**Builds normally: 13.33%**  (being re-measured)" in post
+    assert "(retail-truth-4 to retail-truth-5): this is the last figure under the old rules" in post
+    # once the census measures under the new rules the row compares again (accounting changed vs the last post)
+    measured = full(census=census(rules="retail-truth-5"), census_tool_rules="retail-truth-5")
+    assert daily.remeasuring(measured) is None
+    assert "**Builds normally: 10.00%**  (accounting changed)" in daily.announcement(measured, old)["embeds"][0][
+        "description"]
+    assert daily.remeasuring(full(census_tool_rules=None)) is None  # unreadable tool: the normal delta
+
+
+def test_phase2_figures_count_from_the_start_of_phase_2():
+    rows = daily.measures(full())
+    assert rows["shortcuts"] == (3_000, P2[0])
+    assert rows["layout"] == (2_000, P2[1] - 2_000)
+    assert rows["classes"] == (1_000, P2[2])
+    assert progress.phase2_share(100, 100) == 0 and progress.phase2_share(100, 40, 40) == 100
+    grown = full(**cleanup(items=P2[0] + 10))
+    assert daily.measures(grown)["shortcuts"][0] < 0  # a register that grew shows below zero ...
+    assert daily.share(*daily.measures(grown)["shortcuts"]).startswith("-")
+    assert 'width="0.00" height="10" rx="5" fill="#e05c7a"' in daily.render(grown)  # ... with an empty bar
+    assert daily.measures(sample())["shortcuts"] == (None, None)
+    assert "Shortcuts removed: soon" in daily.announcement(sample(), None)["embeds"][0]["description"]
+    for bad in ({"hatch_items": -1}, {"source_files": "9"}, {"tu_target": P2[1]}, {"class_copies": 1.5}):
+        with pytest.raises(ValueError):
+            daily.measures(full(**bad))
+
+
+def test_a_new_tu_estimate_is_not_progress():
+    old = {**full(), "message_id": "1"}
+    now = full(tu_target=1_900)
+    assert daily.delta_since(old, "layout", *daily.measures(now)["layout"], now) is None
+    post = daily.announcement(now, old)["embeds"][0]["description"]
+    assert "Original file layout  (accounting changed)" in post
+    assert "-# The TU map's estimate moved from 2,000 to 1,900 files, not a change in progress" in post
+    assert "estimate moved from 2,000 to 1,900" in text_of(daily.render(now, old))
+
+
+def test_count_figures_compare_displayed_percentages():
+    old = {**full(), "message_id": "1"}
+    now = full(**cleanup(items=P2[0] - 3_001))     # one more item: below a displayed hundredth
+    assert daily.delta_since(old, "shortcuts", *daily.measures(now)["shortcuts"], now) == 0
+    assert f"Shortcuts removed  {daily.DOT} 0.00" in daily.announcement(now, old)["embeds"][0]["description"]
+
+
+def test_hatch_items_leave_asm_bytes_apart(monkeypatch):
+    register = ("# Escape-hatch register\n# mode: enforce\n"
+                "pin\tCode/a.cpp\t?f@@\t3\naddress_global\tCode/a.cpp\tg_Va1\t2\n"
+                "asm_bytes\tCode/b.asm\t*\t5000\npresent_unmatched\tCode/c.cpp\t?g@@\t1\tallow=abc\n")
+    monkeypatch.setattr(progress, "_text_at", lambda ref, path: register if path == progress.HATCHES else None)
+    assert progress.hatch_items_at(None) == (6, 5000)
+    monkeypatch.setattr(progress, "_text_at", lambda ref, path: "pin\tCode/a.cpp\t?f@@\n")
+    with pytest.raises(ValueError, match="no count"):
+        progress.hatch_items_at(None)
+    monkeypatch.setattr(progress, "_text_at", lambda ref, path: None)
+    assert progress.hatch_items_at(None) is None
+
+
+def test_tu_target_counts_the_committed_maps_code_units(monkeypatch):
+    table = ("rva,size,kind,tu,confidence,by,evidence,source\n"
+             "0x1,1,code,Code/A.cpp,approved,-,,Code/x.cpp\n0x2,1,code,code/a.CPP,proposed,-,,Code/y.cpp\n"
+             "0x3,1,code,Code/B.cpp,proposed,-,,Code/y.cpp\n0x4,1,code,,displaced,-,,Code/z.cpp\n"
+             "0x5,1,data:.rdata,Code/C.cpp,approved,-,,Code/z.cpp\n")
+    monkeypatch.setattr(progress, "_text_at", lambda ref, path: table if path == progress.TU_MAP else None)
+    assert progress.tu_target_at(None) == 2
+
+
+def test_class_copies_count_copies_beyond_one_definition(tmp_path, monkeypatch):
+    files = {"Code/a.cpp": "class Foo { int a; };\nstruct Bar { int b; };\nclass Fwd;\n",
+             "Code/b.cpp": "class Foo { int a; int c; };\nclass Solo { };\nvoid f() { struct Local { }; }\n",
+             "Code/c.c": "struct Bar { int b; };\n",
+             "Code/gen_small/g.cpp": "class Foo { };\n",
+             "Code/d.cpp": "template <class T> class Tmpl { };\nclass Hdr { };\n"}
+    for path, text in files.items():
+        (tmp_path / path).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / path).write_text(text, encoding="utf-8")
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / progress.CANONICAL_CLASSES).write_text("class,header,notes\nHdr,Code/Hdr.h,\n", encoding="utf-8")
+    monkeypatch.setattr(progress, "ROOT", tmp_path)
+    monkeypatch.setattr(progress, "matched_at", lambda ref: {(path, "0x1"): (4, path) for path in files})
+    # Foo twice (+1), Bar twice (+1), Solo once (0), Hdr once but registered (+1); generated
+    # sources, forward declarations, local and template classes are not private copies.
+    assert progress.class_copies_at(None) == {"extra": 3, "copies": 6, "classes": 4}
+
+
+def test_recorded_phase2_counts_match_the_commit():
+    have = subprocess.run(["git", "cat-file", "-e", f"{progress.PHASE2_START}^{{commit}}"],
+                          cwd=progress.ROOT, capture_output=True).returncode == 0
+    if not have:
+        pytest.skip(f"{progress.PHASE2_START} not in this clone (CI checks out one commit)")
+    assert progress.hatch_items_at(progress.PHASE2_START)[0] == progress.PHASE2_HATCH_ITEMS
+    assert len(progress.source_files_at(progress.PHASE2_START)) == progress.PHASE2_SOURCE_FILES
+    # The class-copy count parses every unit at that commit (about a minute):
+    # `python3 tools/readme_progress.py --check-baselines` compares all three.
+
+
+def test_image_ownership_replaces_not_measured_once_recorded(tmp_path):
+    assert daily.ownership(tmp_path) is None
+    path = tmp_path / daily.OWNERSHIP
+    path.parent.mkdir()
+    with path.open("w", newline="", encoding="utf-8") as handle:
+        writer = csv.DictWriter(handle, ["date", "ours", "content_bytes", "north_star"])
+        writer.writeheader()
+        writer.writerow({"date": "2026-11-02 04:00", "ours": 750, "content_bytes": 1000, "north_star": 250})
+    owned = daily.ownership(tmp_path)
+    assert owned == {"date": "2026-11-02", "ours": 750, "content": 1000}
+    assert daily.side_note(full(ownership=owned), "matched") == "whole game file: 75.00% ours (2026-11-02)"
+    assert daily.side_note(full(), "matched") == daily.NOT_MEASURED_DATA
+
+
+def test_hand_written_code_is_authored_cpp_only():
     current = dict(sample(), total=7_978_500, authored=7_240_277,
                    generated=267_704, assembly=7_986, vendored=457_607,
                    library=822, data=4_104)
-    assert daily.measures(current)['cpp'] == (7_515_967, 7_515_967)
+    assert daily.measures(current)['authored'] == (7_240_277, 7_515_967)
     text = daily.announcement(current, None)['embeds'][0]['description']
-    assert '**Game code in C++*: 100.00%**' in text
-    assert daily.progress.GAME_CPP_ANNOTATION in text
-    # Replacing a generated body with its parent's recovered code is useful
-    # ownership work, but creates no newly represented executable bytes.
-    reconciled = dict(current, authored=current['authored'] + 100,
-                      generated=current['generated'] - 100)
-    assert daily.measures(reconciled)['cpp'] == daily.measures(current)['cpp']
-    assert daily.delta_since(current, 'cpp', *daily.measures(reconciled)['cpp'], reconciled) is None
+    assert '**96.33%** Hand-written code' in text
+    # Replacing a generated body with recovered C++ is new hand-written code.
+    reconciled = dict(current, authored=current['authored'] + 1_000, generated=current['generated'] - 1_000)
+    assert daily.delta_since(current, 'authored', *daily.measures(reconciled)['authored'], reconciled) > 0
     assert daily.measures(current)['linked'] == (9, 90)
-
-
-def test_missing_coverage_cannot_be_rounded_or_clamped_to_complete():
-    current = dict(sample(), assembly=5, data=5)
-    assert daily.measures(current)['cpp'] == (55, 85)
-    text = daily.announcement(current, None)['embeds'][0]['description']
-    assert '**Game code in C++*: 64.71%**' in text
-
-
-def test_blue_accounting_correction_does_not_claim_new_progress():
-    current = sample()
-    old = previous()
-    del old['cpp_rules']
-    assert daily.delta_since(old, 'cpp', *daily.measures(current)['cpp'], current) is None
-    text = daily.announcement(current, old)['embeds'][0]['description']
-    assert '**Game code in C++*: 55.56%**  (accounting changed)' in text
-    assert 'accounting changed' in daily.render(current, old)
-    assert 'rules changed' not in text and 'rules changed' not in daily.render(current, old)
-    assert daily.UP not in text and daily.DOWN not in text
 
 
 def test_linking_is_one_census_snapshot():
     # The census tree's game code (80) is the denominator, not today's (90).
     current = sample(linked_authored=8, linked_game_code=80)
     assert daily.measures(current)["linked"] == (8, 80)
-    assert "8 / 80 bytes of game code linked (legacy authored-only accounting)" in daily.announcement(current, None)["embeds"][0]["description"]
+    assert "**Builds normally: 10.00%**" in daily.announcement(current, None)["embeds"][0]["description"]
     with pytest.raises(ValueError):
         daily.measures(sample(linked_game_code=None))  # bytes without their denominator
     with pytest.raises(ValueError):
@@ -173,38 +354,40 @@ def test_linking_is_one_census_snapshot():
 
 def test_linking_without_a_census_figure_says_so():
     current = sample(linked_authored=None, linked_game_code=None)
-    assert "**Linking:** not measured yet" in daily.announcement(current, None)["embeds"][0]["description"]
+    assert "**Builds normally:** not measured yet" in daily.announcement(current, None)["embeds"][0]["description"]
     assert ">not measured<" in daily.render(current)
 
 
-def test_arrow_is_the_change_in_the_bars_percentage():
+def test_arrow_is_the_change_in_the_figures_percentage():
     # Linking went from 9/90 = 10.00% to 8/80 = 10.00%: same share, no arrow,
     # though the bytes and the denominator both moved.
     text = daily.announcement(sample(linked_authored=8, linked_game_code=80), previous())["embeds"][0]["description"]
     assert UP not in text and "▼" not in text
     # 9/90 -> 12/90: +3.33 points.
-    assert f"**Linking: 13.33%**  {UP} 3.33" in daily.announcement(sample(linked_authored=12), previous())[
+    assert f"**Builds normally: 13.33%**  {UP} 3.33" in daily.announcement(sample(linked_authored=12), previous())[
         "embeds"][0]["description"]
     # A move that rounds to 0.00 shows nothing.
-    assert UP not in daily.announcement(sample(), previous(authored=39.999, generated=10.001))["embeds"][0][
-        "description"]
+    assert UP not in daily.announcement(sample(), previous(authored=39.999))["embeds"][0]["description"]
 
 
 def test_old_state_without_figures_gives_no_arrow():
     old = {"total": 100, "matched_total": 55, "message_id": "1", "run_id": "old"}  # before these figures existed
     assert UP not in daily.announcement(sample(), old)["embeds"][0]["description"]
-    # A state from before the census stored Linking: the other bars still compare.
+    # A state from before the census stored Linking: the other figures still compare.
     text = daily.announcement(sample(), previous(authored=36, generated=10, linked_authored=None,
                                                  linked_game_code=None))["embeds"][0]["description"]
-    assert f"55.56%**  {UP} 4.44" in text and "**Linking: 10.00%**\n" in text
+    assert f"**44.44%** Hand-written code  {UP} 4.44" in text and "**Builds normally: 10.00%**\n" in text
+    # A state saved by the old four-bar card has no Phase 2 counts: no arrow on them.
+    text = daily.announcement(full(), previous())["embeds"][0]["description"]
+    assert re.search(r"Shortcuts removed$", text, re.M) and re.search(r"Shared class definitions$", text, re.M)
 
 
 def test_nothing_claims_the_game_is_100_percent_done():
-    text = daily.announcement(sample(), previous())["embeds"][0]["description"] + daily.render(sample(), previous())
-    assert "100%" not in text
+    text = daily.announcement(full(), previous())["embeds"][0]["description"] + text_of(daily.render(full(), previous()))
+    assert "100%" not in text and "100.00%" not in text
 
 
-@pytest.mark.parametrize("value", [0, 1, 4, 5, 49, 50, 95, 96, 100])
+@pytest.mark.parametrize("value", [-5, 0, 1, 4, 5, 49, 50, 95, 96, 100, 120])
 def test_blocks_always_fill_exactly_ten(value):
     text = daily.blocks(value, 100, daily.BLOCK["matched"])
     assert text.count(daily.BLOCK["matched"]) + text.count(daily.REST_BLOCK) == 10
@@ -220,22 +403,22 @@ def test_names_always_compare_the_displayed_percentages(before, after, change):
     current = {**sample(), "declared_names": 100_000, "readable_names": round(after * 1000)}
     old = previous(declared_names=100_000, readable_names=round(before * 1000))
     text = daily.announcement(current, old)["embeds"][0]["description"]
-    assert f"**Readable names: {after:.2f}%**  {change}" in text
+    assert f"**{after:.2f}%** Readable names  {change}" in text
     assert f">{change}<" in daily.render(current, old)
     if change.startswith("·"):
-        assert f'class="muted" dx="10" font-size="13" font-weight="600">{change}<' in daily.render(current, old)
+        assert f'class="muted" dx="10" font-size="12" font-weight="600">{change}<' in daily.render(current, old)
 
 
 def test_names_compare_shares_not_counts():
     current = {**sample(), "declared_names": 400, "readable_names": 280}
     old = previous(declared_names=200, readable_names=142)
-    assert "**Readable names: 70.00%**  ▼ 1.00" in daily.announcement(current, old)["embeds"][0]["description"]
+    assert "**70.00%** Readable names  ▼ 1.00" in daily.announcement(current, old)["embeds"][0]["description"]
 
 
 def test_first_names_measurement_has_no_invented_delta():
     current = {**sample(), "declared_names": 200, "readable_names": 142}
     for old in (None, previous()):
-        assert "**Readable names: 71.00%**\n" in daily.announcement(current, old)["embeds"][0]["description"]
+        assert "**71.00%** Readable names\n" in daily.announcement(current, old)["embeds"][0]["description"]
 
 
 @pytest.mark.parametrize("counts", [
@@ -248,147 +431,43 @@ def test_invalid_names_counts_fail(counts):
         daily.measures({**sample(), **counts})
 
 
-def test_main_measures_names_and_persists_them(tmp_path, monkeypatch):
+def test_main_measures_every_figure_and_persists_them(tmp_path, monkeypatch):
     path = setup_state(tmp_path, monkeypatch)
     monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
     monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
     monkeypatch.setattr(daily, "urlopen", lambda *a, **k: io.BytesIO(b'{"id":"123"}'))
-    monkeypatch.setattr(daily.progress, "matched_at", lambda *a: [])
-    monkeypatch.setattr(daily.progress, "notes_at", lambda *a: {})
-    monkeypatch.setattr(daily.progress, "retail_text", lambda: (0, 100))
-    monkeypatch.setattr(daily.progress, "naked_cpp_rows_at", lambda *a: [])
-    monkeypatch.setattr(daily.progress, "real_split", lambda *a, **k: dict(sample(), data=7))
-    monkeypatch.setattr(daily.progress, "census_at", lambda *a: None)
-    monkeypatch.setattr(daily.progress, "real_code_denominator", lambda *a: (0, 100))
-    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+    fake_collection(monkeypatch, dict(sample(), data=7))
     daily.main()
     state = json.loads(path.read_text())
     assert state['data'] == 7 and daily.measures(state)['matched'] == (67, 100)
     assert state["declared_names"] == 200 and state["readable_names"] == 142
-    assert ">71.00%<" in (tmp_path / "docs/progress.svg").read_text()
+    assert state["hatch_items"] == cleanup()["hatch_items"] and state["census_tool_rules"] == "retail-truth-4"
+    svg = (tmp_path / "docs/progress.svg").read_text(encoding="utf-8")
+    assert ">71.00%<" in svg and ">Shortcuts removed<" in svg
 
 
-def receipt(self_strict=2_000, closed=1_000, text=8_000, authoritative=True):
-    return {"tool": "link_cycle", "commit": "9193fd824711fe616f8ac6ee2b9f8fad405f3e3f",
-            "date_utc": "2026-10-09 07:57:15", "authoritative": authoritative,
-            "series": {"retail_text_bytes": text, "credit_unique_bytes": closed,
-                       "real": {"placed_self_strict": {"unique_bytes": self_strict}}}}
-
-
-def test_strict_link_reads_the_committed_receipt(tmp_path):
-    assert daily.strict_link(tmp_path) is None
-    path = tmp_path / daily.RECEIPT
-    path.parent.mkdir(parents=True)
-    path.write_text(json.dumps(receipt()), encoding="utf-8")
-    assert daily.strict_link(tmp_path) == {"date": "2026-10-09", "commit": "9193fd8247", "authoritative": True,
-                                           "self_strict": 2_000, "closed_strict": 1_000, "text": 8_000}
-    for bad in (receipt(self_strict=500, closed=1_000), {**receipt(), "series": {}}):
-        path.write_text(json.dumps(bad), encoding="utf-8")
-        assert "invalid" in daily.strict_link(tmp_path)
-    path.write_text('{"series": {"retail_text_bytes": Infinity}}', encoding="utf-8")
-    assert "invalid" in daily.strict_link(tmp_path)
-
-
-def test_strict_line_sits_beside_linking_never_instead(tmp_path, monkeypatch):
-    path = tmp_path / daily.RECEIPT
-    path.parent.mkdir(parents=True)
-    path.write_text(json.dumps(receipt()), encoding="utf-8")
-    current = {**sample(), "strict": daily.strict_link(tmp_path)}
-    line = ("Historical strict link check (2026-10-09 at 9193fd8247, no longer updated): 25.00% self-strict, "
-            "12.50% fully linked, of all retail .text")
-    lines = daily.announcement(current, None)["embeds"][0]["description"].split("\n")
-    readme = f"[What each bar measures, with charts: README]({daily.README})"
-    # until a bundle is published the card names no feed: one historical line
-    assert daily.PUBLISHED is False
-    assert "**Linking: 10.00%**" in lines and lines[-3:] == [line, "", readme]
-    svg = daily.render(current)
-    assert line in svg and daily.CURRENT_LINE not in svg and ">10.00%<" in svg and 'height="420"' in svg   # the footnote's parts wrap
-    # from the first published bundle a second line says where the current measurement is
-    monkeypatch.setattr(daily, "PUBLISHED", True)
-    lines = daily.announcement(current, None)["embeds"][0]["description"].split("\n")
-    assert lines[-4:] == [line, daily.CURRENT_LINE, "", readme]
-    assert "published link-cycle bundle" in daily.CURRENT_LINE and "cycle_artifacts.py fetch --latest" in daily.CURRENT_LINE
-    svg = daily.render(current)
-    assert line in svg and daily.CURRENT_LINE in svg and ">10.00%<" in svg and 'height="438"' in svg
-    assert 'height="398"' in daily.render(sample())
-
-
-def test_strict_line_flags_a_receipt_that_is_not_authoritative(tmp_path):
-    path = tmp_path / daily.RECEIPT
-    path.parent.mkdir(parents=True)
-    path.write_text(json.dumps(receipt(authoritative=False)), encoding="utf-8")
-    assert daily.strict_line({"strict": daily.strict_link(tmp_path)}).endswith("(not authoritative)")
-
-
-def test_unreadable_receipt_never_stops_the_daily_post(tmp_path, monkeypatch):
-    path = setup_state(tmp_path, monkeypatch)
-    receipt_path = tmp_path / daily.RECEIPT
-    receipt_path.parent.mkdir(parents=True)
-    receipt_path.write_text(json.dumps(receipt(self_strict=500, closed=1_000)), encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
-    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
-    posted = []
-    monkeypatch.setattr(daily, "urlopen", lambda request, *a, **k: posted.append(request) or io.BytesIO(b'{"id":"9"}'))
-    monkeypatch.setattr(daily.progress, "matched_at", lambda *a: [])
-    monkeypatch.setattr(daily.progress, "notes_at", lambda *a: {})
-    monkeypatch.setattr(daily.progress, "retail_text", lambda: (0, 100))
-    monkeypatch.setattr(daily.progress, "naked_cpp_rows_at", lambda *a: [])
-    monkeypatch.setattr(daily.progress, "real_split", lambda *a, **k: sample())
-    monkeypatch.setattr(daily.progress, "census_at", lambda *a: None)
-    monkeypatch.setattr(daily.progress, "real_code_denominator", lambda *a: (0, 100))
-    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
+def test_on_change_main_renders_but_does_not_post_an_unchanged_headline(tmp_path, monkeypatch):
+    fake_collection(monkeypatch)
+    state = setup_state(tmp_path, monkeypatch)
+    monkeypatch.setattr(sys, "argv", ["readme_progress.py"])
+    daily.main()                                       # the card alone: no webhook needed
+    assert (tmp_path / "docs/progress.svg").exists() and not state.exists()
+    current = daily.collect()
+    state.write_text(json.dumps({**current, "message_id": "5", "run_id": "daily"}), encoding="utf-8")
+    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord-on-change"])
+    monkeypatch.setattr(daily, "urlopen", lambda *a, **k: pytest.fail("Unexpected post"))
     daily.main()
-    assert posted and json.loads(path.read_text())["message_id"] == "9"
-    assert "Strict link check unavailable" in (tmp_path / "docs/progress.svg").read_text()
-
-
-def test_huge_or_unreachable_receipts_degrade(tmp_path, monkeypatch):
-    path = tmp_path / daily.RECEIPT
-    path.parent.mkdir(parents=True)
-    path.write_text(json.dumps(receipt(self_strict=10, closed=5, text=10**400)), encoding="utf-8")
-    strict = daily.strict_link(tmp_path)
-    assert "invalid" in strict and daily.strict_line({"strict": strict}).startswith("Strict link check unavailable")
-
-    def denied(self):
-        raise PermissionError("denied")
-    monkeypatch.setattr(type(path), "exists", denied)
-    assert "invalid" in daily.strict_link(tmp_path)
-
-
-@pytest.mark.parametrize("text", [
-    "[" * 10000 + "0" + "]" * 10000,
-    json.dumps({**receipt(), "date_utc": "\ud800"}),
-    json.dumps({**receipt(), "commit": "\ud800"}),
-    json.dumps({**receipt(), "series": {**receipt()["series"], "credit_unique_bytes": True}}),
-    json.dumps({**receipt(), "series": {**receipt()["series"], "retail_text_bytes": "8000"}}),
-])
-def test_malformed_receipts_never_stop_main(tmp_path, monkeypatch, text):
-    path = setup_state(tmp_path, monkeypatch)
-    receipt_path = tmp_path / daily.RECEIPT
-    receipt_path.parent.mkdir(parents=True)
-    receipt_path.write_text(text, encoding="utf-8")
-    monkeypatch.setattr(sys, "argv", ["readme_progress.py", "--discord"])
-    monkeypatch.setenv("DISCORD_PROGRESS_WEBHOOK", "https://discord.com/api/webhooks/test/token")
-    monkeypatch.setattr(daily, "urlopen", lambda *a, **k: io.BytesIO(b'{"id":"7"}'))
-    for name, value in (("matched_at", lambda *a: []), ("notes_at", lambda *a: {}), ("retail_text", lambda: (0, 100)),
-                        ("naked_cpp_rows_at", lambda *a: []), ("real_split", lambda *a, **k: sample()),
-                        ("census_at", lambda *a: None), ("real_code_denominator", lambda *a: (0, 100))):
-        monkeypatch.setattr(daily.progress, name, value)
-    monkeypatch.setattr(daily.name_metric, "readable", lambda: (200, 58))
-    daily.main()
-    assert json.loads(path.read_text())["message_id"] == "7"
-    assert "Strict link check unavailable" in (tmp_path / "docs/progress.svg").read_text(encoding="utf-8")
+    assert json.loads(state.read_text())["message_id"] == "5"
 
 
 def real_size(**changes):
     """A state with the tree's real magnitudes, so the card's longest lines are tested."""
-    return {"total": 7_978_500, "authored": 7_240_075, "vendored": 457_218, "generated": 267_831, "library": 1_286,
-            "data": 4_104, "assembly": 7_986, "linked": 7_355_718, "linked_authored": 6_898_514,
-            "linked_game_code": 7_520_010, "declared_names": 558_118,
-            "readable_names": 381_236, "census": {"date": "2026-10-24 06:00", "rules": "retail-truth-4"},
-            "cpp_rules": progress.GAME_CPP_RULES,
-            "strict": {"date": "2026-10-10", "commit": "d093315a52", "authoritative": True, "self_strict": 2_340_800,
-                       "closed_strict": 1_129_757, "text": 8_096_994}, **changes}
+    return {"total": 7_978_500, "authored": 7_243_014, "vendored": 460_881, "generated": 261_693, "library": 857,
+            "data": 4_104, "assembly": 7_951, "linked": 7_384_266, "linked_authored": 6_898_514,
+            "linked_game_code": 7_520_010, "declared_names": 543_787,
+            "readable_names": 374_965, "census": census(date="2026-10-24 06:00"),
+            "cpp_rules": progress.GAME_CPP_RULES, "census_tool_rules": "retail-truth-4",
+            **cleanup(items=22_241, files=21_324, target=2_264, copies=75_134), **changes}
 
 
 # Advance widths, in font units (2048 an em), of the card's characters, read
@@ -518,56 +597,77 @@ def test_svgs_name_only_measured_faces():
 
 
 
+
+
 def inclusive_size(**changes):
-    return real_size(linked_game_executable=7_300_000, game_executable=7_515_906,
+    return real_size(linked_game_executable=7_171_638, game_executable=7_512_658,
                      link_coverage_rules=progress.LINK_COVERAGE_RULES, **changes)
 
 
-OTHER_RULES = {"census": {"date": "2026-10-23 06:00", "rules": "retail-truth-3"}}
+OTHER_RULES = {"census": census(date="2026-10-23 06:00", rules="retail-truth-3")}
+PENDING = {"census_tool_rules": "retail-truth-5"}
+OWNED = {"ownership": {"date": "2026-11-02", "ours": 9_000_000, "content": 12_345_678}}
 
 
 @pytest.mark.parametrize("now,before,notes", [
-    (real_size(), real_size(), ["legacy authored-only accounting"]),
-    (inclusive_size(), inclusive_size(), ["of executable game code in link-clean units"]),
-    (inclusive_size(), real_size(), ["generated linked code now counted"]),
-    (real_size(), inclusive_size(), ["census accounting changed to authored-only"]),
-    (real_size(), real_size(**OTHER_RULES), ["census accounting changed to retail-truth-4 (91.74% under retail-truth-3)"]),
-    (inclusive_size(), inclusive_size(**OTHER_RULES), ["census accounting changed to retail-truth-4 (97.13% under retail-truth-3)"]),
-    (inclusive_size(), {k: v for k, v in real_size(**OTHER_RULES).items() if k != "cpp_rules"},
-     ["generated linked code now counted"]),
-], ids=["legacy", "inclusive", "accounting", "reverse-accounting", "legacy-rules", "inclusive-rules", "both-bars"])
+    (real_size(), real_size(), []),
+    (inclusive_size(), inclusive_size(), []),
+    (inclusive_size(), real_size(), ["Generated linked code now counted"]),
+    (real_size(), inclusive_size(), ["Census accounting changed to authored-only"]),
+    (real_size(), real_size(**OTHER_RULES), ["Census accounting changed to retail-truth-4 (91.74% under retail-truth-3)"]),
+    (inclusive_size(), inclusive_size(**OTHER_RULES), ["Census accounting changed to retail-truth-4 (95.46% under retail-truth-3)"]),
+    (inclusive_size(**PENDING), inclusive_size(), ["this is the last figure under the old rules"]),
+    (inclusive_size(**PENDING, **OWNED), inclusive_size(**OTHER_RULES), ["Census accounting changed to retail-truth-4"]),
+    (inclusive_size(tu_target=2_300), inclusive_size(), ["estimate moved from 2,264 to 2,300 files"]),
+    ({k: v for k, v in real_size().items() if k not in cleanup()}, real_size(), []),
+], ids=["legacy", "inclusive", "accounting", "reverse-accounting", "legacy-rules", "inclusive-rules", "pending",
+        "pending-owned", "tu-estimate", "no-phase2-counts"])
 def test_card_lines_fit_the_card(now, before, notes):
     svg = daily.render(now, {**before, "message_id": "1"})
-    lines = re.findall(r'<text x="28" y="(\d+)" class="muted" font-size="12.5">([^<]*)</text>', svg)
-    assert lines and all(measured(text, 12.5, REGULAR) <= 824 for _, text in lines), [t for _, t in lines]
-    ys = [int(y) for y, _ in lines]
-    assert ys == sorted(ys) and len(set(ys)) == len(ys)
-    assert ys[-1] < int(re.search(r'height="(\d+)"', svg).group(1)) - 6
-    rows = re.findall(r'class="strong" font-size="15" font-weight="600">([^<]*)(?:<tspan[^>]*>([^<]*)</tspan>)?</text>'
-                      r'\s*<text x="852" y="\d+" class="strong" font-size="20" font-weight="700" text-anchor="end">'
-                      r'([^<]*)</text>', svg)
-    assert [label for label, _, _ in rows] == [label for _, label, _ in daily.ROWS]
-    for label, tag, number in rows:
-        used = measured(label, 15, SEMIBOLD) + (10 + measured(tag, 13, SEMIBOLD) if tag else 0)
-        assert used + 20 + measured(number, 20, BOLD) <= 824, (label, tag, number)
-    joined = " ".join(text for _, text in lines)
+    root = ET.fromstring(svg)
+    texts = [(int(node.attrib["y"]), node) for node in root.iter() if node.tag.endswith("}text")]
+    height = int(root.attrib["height"])
+    assert all(y < height - 6 for y, _ in texts)
+    weights = {"600": SEMIBOLD, "700": BOLD}
+    rows = {}
+    for y, node in texts:
+        size = float(node.attrib["font-size"])
+        used = measured(node.text or "", size, weights.get(node.attrib.get("font-weight"), REGULAR))
+        for span in node:                       # a tag beside a label, the milestone's rest
+            used += float(span.attrib.get("dx", 0)) + measured(span.text or "", float(span.attrib.get(
+                "font-size", size)), weights.get(span.attrib.get("font-weight", node.attrib.get("font-weight")),
+                                                 REGULAR))
+        x = float(node.attrib["x"])
+        left = x - used if node.attrib.get("text-anchor") == "end" else x
+        assert 28 <= left and left + used <= 852 + 0.5, (node.text, left, used)
+        rows.setdefault(y, []).append((left, left + used, node.text))
+    for spans in rows.values():                 # a caption and its note never overlap
+        spans.sort()
+        assert all(a[1] + 12 <= b[0] for a, b in zip(spans, spans[1:])), spans
+    bars = [node for node in root.iter() if node.tag.endswith("}rect") and node.attrib.get("class") == "track"]
+    labels = {node.text: node for _, node in texts}
+    for _, label in daily.CLEAN:                # every compact label, with its tag, ends before its bar
+        node = labels[label]
+        end = 28 + measured(label, 14, SEMIBOLD) + sum(10 + measured(span.text, 12, SEMIBOLD) for span in node)
+        bar = next(b for b in bars if abs(float(b.attrib["y"]) - (int(node.attrib["y"]) - 10)) < 0.5)
+        assert end + 12 <= float(bar.attrib["x"]), (label, end, bar.attrib["x"])
+        assert float(bar.attrib["x"]) + float(bar.attrib["width"]) + 12 <= 852 - measured("-100.00%", 15, BOLD)
+    joined = text_of(svg)
     for note in notes:
         assert note in joined, (note, joined)
-    assert any(text.startswith(f"* {progress.GAME_CPP_ANNOTATION}") for _, text in lines)
-    assert "reviewed assembly" in joined.split(f"* {progress.GAME_CPP_ANNOTATION}", 1)[1]
-    assert (("Game code in C++*", "accounting changed") in [row[:2] for row in rows]) == ("cpp_rules" not in before)
+    assert "Byte match" in labels and "Builds normally" in labels
 
 
 def test_rule_note_tells_an_absent_figure_from_invalid_saved_data():
-    rules = {"census": {"date": "2026-10-24 06:00", "rules": "retail-truth-4"}}
+    rules = {"census": census(date="2026-10-24 06:00")}
     current = {**sample(), **rules}
-    old_rules = {"census": {"date": "2026-10-23 06:00", "rules": "retail-truth-3"}}
+    old_rules = {"census": census(date="2026-10-23 06:00", rules="retail-truth-3")}
     absent = previous(linked_authored=None, linked_game_code=None, **old_rules)
     text = daily.announcement(current, absent)["embeds"][0]["description"]
-    assert ("census accounting changed to retail-truth-4 (was retail-truth-3; the last post saved no Linking figure)"
+    assert ("Census accounting changed to retail-truth-4 (was retail-truth-3; the last post saved no Linking figure)"
             in text)
     text = daily.announcement(current, previous(**old_rules))["embeds"][0]["description"]
-    assert "census accounting changed to retail-truth-4 (10.00% under retail-truth-3)" in text
+    assert "Census accounting changed to retail-truth-4 (10.00% under retail-truth-3)" in text
     for bad in ({"linked_authored": "9"}, {"linked_authored": 100}, {"linked_game_code": 5},
                 {"linked_authored": None}, {"linked_game_code": None}):
         with pytest.raises(ValueError, match="saved"):
@@ -593,22 +693,13 @@ def test_invalid_inclusive_saved_linking_raises(bad):
 
 
 def test_saved_linking_uses_upstream_inclusive_fields():
-    assert daily.saved_linking(inclusive_size()) == (7_300_000, 7_515_906)
+    assert daily.saved_linking(inclusive_size()) == (7_171_638, 7_512_658)
     assert daily.saved_linking(real_size()) == (6_898_514, 7_520_010)
     assert daily.saved_linking({}) is None
 
 
-def test_the_starred_bar_shows_its_parts_so_assembly_never_reads_as_cpp():
-    """The blue bar keeps its definition (authored + generated C++ + reviewed assembly over
-    executable game code); its footnote names each part, and the parts add up to the bar."""
-    current = dict(sample(), total=7_978_500, authored=7_240_277, generated=267_704, assembly=7_986,
-                   vendored=457_607, library=822, data=4_104)
-    value, game = daily.measures(current)["cpp"]
-    note = daily.footnote("cpp", current)
-    assert note.startswith(f"* {daily.progress.GAME_CPP_ANNOTATION} Of it: authored C++ ")
-    shares = [float(x) for x in re.findall(r"(\d+\.\d+)%", note)]
-    assert len(shares) == 3 and shares[2] > 0                      # assembly is shown, not folded into C++
-    assert abs(sum(shares) - daily.progress.percent(value, game)) < 0.02
-    assert daily.footnote("linked", current) is None
-    svg = daily.render(current)
-    assert "reviewed assembly" in svg and ">Game code in C++*<" in svg
+def test_workflow_posts_daily_and_refreshes_hourly():
+    flow = (Path(progress.ROOT) / ".github/workflows/readme-progress.yml").read_text(encoding="utf-8")
+    assert "cron: '37 8 * * *'" in flow and re.search(r"cron: '\d+ \* \* \* \*'", flow)
+    assert "--discord-on-change" in flow and "--discord" in flow
+    assert "git pull --rebase origin master" in flow

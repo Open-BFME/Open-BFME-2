@@ -43,7 +43,7 @@ def test_inclusive_snapshot_and_accounting_transition():
     assert daily.measures(old)['linked'] == (50, 90)
     text = daily.announcement(new, old)['embeds'][0]['description']
     assert 'accounting changed' in text and daily.UP not in text
-    assert 'libraries and embedded data excluded' in text
+    assert 'Generated linked code now counted' in text
     svg = ET.fromstring(daily.render(new, old))
     assert max(float(node.attrib['y']) for node in svg.iter() if node.tag.endswith('text')) < float(svg.attrib['height'])
     del new['game_executable']

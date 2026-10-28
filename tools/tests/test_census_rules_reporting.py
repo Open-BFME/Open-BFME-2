@@ -94,7 +94,7 @@ def test_card_and_post_mark_the_rule_change_instead_of_an_arrow():
     assert daily.DOWN not in svg  # no "lost 7 points" arrow on Linking
     assert "16.00% under majority-0" in svg
     post = daily.announcement(now, before)["embeds"][0]["description"]
-    assert "**Linking: 9.00%**  (accounting changed)" in post
+    assert "**Builds normally: 9.00%**  (accounting changed)" in post
     assert daily.DOWN not in post
 
 

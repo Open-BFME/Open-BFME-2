@@ -87,5 +87,5 @@ def test_keyboard_table_counts_4094_without_becoming_function_code(monkeypatch):
     assert progress.decompiled(split) == split['authored'] == 0
     current = dict(split, total=4094, linked_authored=None, linked_game_code=None)
     assert readme_progress.measures(current)['matched'] == (4094, 4094)
-    assert readme_progress.measures(current)['cpp'] == (0, 0)  # data is never code C++ could cover
-    assert readme_progress.blocks(0, 0, readme_progress.BLOCK['cpp']) == readme_progress.REST_BLOCK * 10
+    assert readme_progress.measures(current)['authored'] == (0, 0)  # data is never code C++ could cover
+    assert readme_progress.blocks(0, 0, readme_progress.BLOCK['authored']) == readme_progress.REST_BLOCK * 10
