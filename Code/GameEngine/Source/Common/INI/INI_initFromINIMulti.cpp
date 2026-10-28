@@ -76,8 +76,7 @@ protected:
 	void readLine();
 private:
 	unsigned char m_pad0[0x14];
-	char m_buffer[0x400];			// +0x14
-	const char *m_x414;
+	char m_buffer[0x418 - 0x14];		// +0x14
 	const char *m_seps;			// +0x418
 	const char *m_x41C;
 	const char *m_x420;
