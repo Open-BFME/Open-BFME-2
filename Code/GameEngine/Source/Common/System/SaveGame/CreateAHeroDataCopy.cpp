@@ -40,6 +40,13 @@ namespace _STL { template <> pair<const AsciiString, TreeHintPayload001F8ACB>::~
 namespace _STL {
 template <> vector<unsigned int>::vector(const vector<unsigned int> &);
 }
+// The copy below calls vector<AsciiString>'s copy constructor (REL32); its
+// retail body (0x000BC07E, with EH frame) is supplied by
+// stlport_vector_asciistring_copy_backward.cpp. This TU's /EHs copy is not
+// retail's, and from this unit's link place (0x00069F75) it would be kept.
+namespace _STL {
+template <> vector<AsciiString>::vector(const vector<AsciiString> &);
+}
 
 typedef _STL::map<int,int> IntegerMap;
 typedef _STL::map<AsciiString,TreeHintPayload001F8ACB> StringPayloadMap;

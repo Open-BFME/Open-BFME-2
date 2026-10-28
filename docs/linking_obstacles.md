@@ -128,6 +128,38 @@ consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry thi
 scope into the next census; no linking gain is claimed.
 [Evidence and checks](../reverse/attempt_support/winmain-ms-headers-20261028-codexb.md).
 
+### LINK-135: retail-truth-5 order makes early units' non-retail COMDAT copies the kept ones
+
+Status: Open; per-provider repairs landing / awaiting census. Updated: 2026-10-29;
+inspected revision: `b740e71229`; index `d92e7e6635` (census 2026-10-28 15:58, retail-truth-4).
+Evidence / affected units: retail-truth-5 (0d26afd6d2) places objects by their own
+unshared rows. Re-ranking the census index by `code_places` over the census commit's
+own `functions.csv` (the retail-truth-4 rule on that ledger reproduces the index order
+exactly) turns 10 names' kept copy from wrong to non-wrong (125 census-unlinked units,
+271,771 B blocked only by them: the expected LINK-132/LINK-133 recovery) and 35 names
+the other way (50 census-linked units, 43,547 B upper bound). A retail-copy holder that
+sat early only through an ICF row moves back to its own code, and the next definer,
+early through its own unshared COMDAT row, holds a non-retail copy. Providers that
+become first: CreateAHeroDataCopy.cpp (`vector<AsciiString>` copy ctor, 26 users /
+18,926 B), FXParticleSystemModules.cpp (25 FXParticleSystem module factory names,
+8,121 B), GameWindowManager_registerTabList.cpp (3,042 B),
+stlport_deque_e12_new_elements.cpp (3,003 B), FontLibraryInit.cpp (2,559 B),
+HordeContainRva00475F61.cpp (2,426 B), StlportVectorCopyCtorFamily.cpp (2,266 B),
+AIUpdate.cpp (1,915 B), Rva0052CD81Finish.cpp (682 B), ArmorHashtableRtsCtor.cpp (607 B).
+[Simulation script, output and table](../reverse/attempt_support/rt5-order-losses-20261029/README.md).
+Completed:
+- `CreateAHeroDataCopy.cpp` (halilkkaya-lk6): its copy constructor at 0x00409D4D calls
+  `vector<AsciiString>`'s copy constructor (REL32); a declaration-only specialization
+  stops the unit emitting its /EHs copy (digest 851ff550b937; retail 82e371045a40 at
+  0x000BC07E, owned by stlport_vector_asciistring_copy_backward.cpp). 9/9 rows exact
+  (funclet labels renumber, parent EH data verified); `link_check` LINKS 404 -> 404 B.
+  Seven other names the copy pulled in leave the object; each keeps the same first
+  copy in retail-truth-5 order, and the copy constructor's first copy turns retail.
+Remaining / next check: repair the other providers above the same way (each one's
+rows, `link_check`, and its first copy in the script's order), then carry the scope
+into the next census, the first under retail-truth-5.
+Clearance: none. Census confirmation: awaiting the first retail-truth-5 census.
+
 ### LINK-134: Subsystem registration pair-vector identity
 
 Status: code-identity debt retired; full consumer/census confirmation pending.

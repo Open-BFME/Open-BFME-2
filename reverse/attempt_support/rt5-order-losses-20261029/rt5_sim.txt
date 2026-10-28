@@ -1,0 +1,124 @@
+index 2026-10-28 15:58 at d92e7e6635; retail-truth-4 order reproduced: True
+names whose kept copy turns non-wrong: 10; turns wrong: 35
+  - ??$__uninitialized_copy@PBV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z
+      kept was Code/GameEngine/Source/GameLogic/Map/SidesListCastleBuildLists.cpp (retail), becomes Code/Libraries/Source/WWVegas/WWLib/StlportVectorCopyCtorFamily.cpp (wrong); census-linked users 2, 2,266 B
+  - ??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@0U10@@Z
+      kept was Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp (retail), becomes Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp (wrong); census-linked users 2, 3,003 B
+  - ??0?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@IABV?$allocator@VSaveMapPreview@@@1@@Z
+      kept was Code/Libraries/Source/WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp (retail), becomes Code/GameEngine/Source/Common/System/SaveGame/Rva0052CD81Finish.cpp (wrong); census-linked users 2, 682 B
+  - ??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z
+      kept was Code/GameEngine/Source/Common/BfmeObject476Copy.cpp (retail), becomes Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp (wrong); census-linked users 26, 18,926 B
+  - ??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ
+      kept was Code/GameEngine/Source/GameLogic/Object/Armor.cpp (retail), becomes Code/GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp (wrong); census-linked users 2, 607 B
+  - ??R?$less@H@_STL@@QBE_NABH0@Z
+      kept was Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp (retail), becomes Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp (wrong); census-linked users 2, 2,426 B
+  - ?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@IPBX@Z
+      kept was Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp (retail), becomes Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp (wrong); census-linked users 2, 1,915 B
+  - ?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVGpuDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVRenderObjectDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 3, 8,121 B
+  - ?createTemplate@?$ConcreteModuleClass@UOrthoEmissionVelocityModuleTag@FXParticleSystem@@@FXParticleSystem@@UBEPAVOrthoEmissionVelocityModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$00@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$00@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$01@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$01@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$02@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$02@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$05@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$05@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$06@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$06@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$DefaultModuleTag@$0A@@FXParticleSystem@@@FXParticleSystem@@UBEPAV?$DefaultModuleTemplate@$0A@@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVRenderObjectUpdateModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$03$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?CYLINDRICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVCylindricalEmissionVelocityModule@2@VCylindricalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVCylindricalEmissionVelocityModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$03$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?HEMISPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVHemisphericalEmissionVelocityModule@2@VHemisphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVHemisphericalEmissionVelocityModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$03$E?OUTWARD_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?OUTWARD_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVOutwardEmissionVelocityModule@2@VOutwardEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVOutwardEmissionVelocityModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$03$E?SPHERICAL_EMISSION_VELOCITY_MODULE_KEY@FXParticleSystem@@3QBDB$E?SPHERICAL_EMISSION_VELOCITY_MODULE_NAME@2@3QBDBVSphericalEmissionVelocityModule@2@VSphericalEmissionVelocityModuleTemplate@2@V?$DefaultParticleModule@$03@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVSphericalEmissionVelocityModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$04$E?LIGHTNING_EMISSION_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_EMISSION_MODULE_NAME@2@3QBDBVLightningEmissionModule@2@VLightningEmissionModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLightningEmissionModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$04$E?TERRAIN_FIRE_EMISSION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_FIRE_EMISSION_MODULE_NAME@2@3QBDBVTerrainFireEmissionModule@2@VTerrainFireEmissionModuleTemplate@2@V?$DefaultParticleModule@$04@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVTerrainFireEmissionModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?BUTTERFLY_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?BUTTERFLY_DRAW_MODULE_NAME@2@3QBDBVButterflyDrawModule@2@VButterflyDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVButterflyDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVGpuDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?LIGHTNING_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIGHTNING_DRAW_MODULE_NAME@2@3QBDBVLightningDrawModule@2@VLightningDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLightningDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?QUAD_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?QUAD_DRAW_MODULE_NAME@2@3QBDBVQuadDrawModule@2@VQuadDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVQuadDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?RENDEROBJECT_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_DRAW_MODULE_NAME@2@3QBDBVRenderObjectDrawModule@2@VRenderObjectDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVRenderObjectDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$05$E?STREAK_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?STREAK_DRAW_MODULE_NAME@2@3QBDBVStreakDrawModule@2@VStreakDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVStreakDrawModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?createTemplate@?$ConcreteModuleClass@V?$ModuleTag@$07$E?TERRAIN_COLLISION_MODULE_KEY@FXParticleSystem@@3QBDB$E?TERRAIN_COLLISION_MODULE_NAME@2@3QBDBVTerrainCollisionModule@2@VTerrainCollisionModuleTemplate@2@VParticleTerrainCollisionModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVTerrainCollisionModuleTemplate@2@XZ
+      kept was Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp (retail), becomes Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp (wrong); census-linked users 2, 7,955 B
+  - ?erase@?$deque@UBfmeE12@@V?$allocator@UBfmeE12@@@_STL@@@_STL@@QAE?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@2@U32@0@Z
+      kept was Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp (retail), becomes Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp (wrong); census-linked users 2, 3,003 B
+  - ?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z
+      kept was Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp (retail), becomes Code/GameEngine/Source/GameClient/GUI/GameWindowManager_registerTabList.cpp (wrong); census-linked users 4, 3,042 B
+  - ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z
+      kept was Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp (retail), becomes Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (wrong); census-linked users 5, 2,559 B
+census-linked units touching a lost name: 50, 43,547 B
+     4,099 Code/GameEngine/Source/GameClient/FXParticleSystemFactories.cpp
+     3,856 Code/GameEngine/Source/GameClient/FXParticleSystemModules.cpp
+     2,865 Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp
+     2,519 Code/GameEngine/Source/Common/BfmeObject476Copy.cpp
+     2,376 Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
+     2,359 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineResponse.cpp
+     1,881 Code/GameEngine/Source/Common/Thing/ThingTemplateConstructor.cpp
+     1,714 Code/GameEngine/Source/GameLogic/Map/SidesList_sidesInfo.cpp
+     1,596 Code/GameEngine/Source/GameLogic/Map/SidesListCastleBuildLists.cpp
+     1,526 Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_o1.cpp
+     1,477 Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp
+     1,134 Code/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFX.cpp
+     1,094 Code/GameEngine/Source/GameLogic/Object/SpecialPower/OCLSpecialPowerAtLocation.cpp
+     1,093 Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeImplementation.cpp
+     1,044 Code/GameEngine/Source/Common/StringVectorRecordCopyBFME2.cpp
+     1,004 Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp
+     1,001 Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp
+       989 Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp
+       984 Code/Libraries/Source/WWVegas/WWLib/OwnedRecord840Copy.cpp
+       963 Code/GameEngine/Source/GameLogic/Object/Upgrade/ReplaceSelfUpgradeRva004B7110.cpp
+       878 Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp
+       670 Code/Libraries/Source/WWVegas/WWLib/StlportVectorCopyCtorFamily.cpp
+       613 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawConditionInfoCopy.cpp
+       502 Code/GameEngine/Source/GameLogic/Object/Armor.cpp
+       473 Code/Libraries/Source/WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp
+       421 Code/Libraries/Source/WWVegas/WWLib/OwnedRecord900Copy.cpp
+       404 Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataCopy.cpp
+       383 Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_pod_insert_g7.cpp
+       355 Code/GameEngine/Source/GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp
+       348 Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva003F9FE6CopyCtor.cpp
+       333 Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
+       300 Code/GameEngine/Source/Common/System/Upgrade.cpp
+       295 Code/GameEngine/Source/Common/SpawnArmyCopyCtor.cpp
+       221 Code/Libraries/Source/WWVegas/WWLib/Rva004045B4.cpp
+       209 Code/GameEngine/Source/Common/System/SaveGame/SaveMapPreviewCopy.cpp
+       197 Code/GameEngine/Source/GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPowerDoSpecialPower.cpp
+       180 Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp
+       167 Code/Libraries/Source/WWVegas/WWLib/stlport_vector_asciistring_copy_backward.cpp
+       166 Code/GameEngine/Source/Common/VectorDeletingDtorsV06.cpp
+       110 Code/GameEngine/Source/Common/RTS/Rva002AF581Ctor.cpp
+       109 Code/GameEngine/Source/Common/Rva001ED03CCopy.cpp
+       105 Code/GameEngine/Source/GameLogic/Object/ArmorHashtableRtsCtor.cpp
+       100 Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_pod52_tree_dtor.cpp
+        86 Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_pod52_o1.cpp
+        79 Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp
+        76 Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_copy.cpp
+        70 Code/Libraries/Source/WWVegas/WWLib/Rva00403927Assign.cpp
+        67 Code/Libraries/Source/WWVegas/WWLib/stlport_list_int.cpp
+        34 Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_locomotor_create_node.cpp
+        22 Code/Libraries/Source/WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp
+census-unlinked units blocked only by wrong_selected on gained names: 125, 271,771 B
