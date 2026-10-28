@@ -40,11 +40,12 @@ class Rva0051E766
 {
 public:
 	void rva0051E766(int which, char *buffer, bool probing);
+	char m_pad00[0x284];
 private:
-	char m_pad000[0x284];
-	int m_mode;					// +0x284
-	_STL::vector<Rva0051E766Record> m_records;	// +0x288
-	bool m_294;
+	int m_mode; // +0x284 +0x284
+	_STL::vector<Rva0051E766Record> m_records; // +0x288 +0x288
+	bool m_294; // +0x294
+	char m_pad295[0x3];
 };
 
 void Rva0051E766::rva0051E766(int which, char *buffer, bool probing)

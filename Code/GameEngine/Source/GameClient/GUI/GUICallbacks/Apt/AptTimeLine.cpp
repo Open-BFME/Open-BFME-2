@@ -51,13 +51,19 @@ public:
     virtual float value(int index);
 };
 
-class Rva0051E354 {
+class Rva0051E354
+{
 public:
- Vector2 rva0051E354(TimelineSeries*,int);
- void rva0051E664(TimelineSeries*,int,class Image*);
- void rva0051E511(TimelineSeries*,float,float,unsigned long);
- float baseline()const{return y+height;}
- float x,y,width,height;int frames;float maximum;
+	Vector2 rva0051E354(TimelineSeries*,int);
+	void rva0051E664(TimelineSeries*,int,class Image*);
+	void rva0051E511(TimelineSeries*,float,float,unsigned long);
+	float baseline()const{return y+height;}
+	float x; // +0x00
+	float y; // +0x04
+	float width; // +0x08
+	float height; // +0x0C
+	int frames; // +0x10
+	float maximum; // +0x14
 };
 
 class Image {public:char beforeDimensions[0x24];int width,height;};
@@ -77,9 +83,15 @@ class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,int,int
 
 extern class Display*TheDisplay;
 
-class Render2DClass {
-public:unsigned shader;char beforeFlag[0x48-4];bool flag;
- void Add_Line(const Vector2&,const Vector2&,float,unsigned long);
+class Render2DClass
+{
+public:
+	void Add_Line(const Vector2&,const Vector2&,float,unsigned long);
+	void Render();
+	unsigned shader; // +0x00
+	char m_pad04[0x44];
+	bool flag; // +0x48
+	char m_pad49[0x3];
 };
 
 class Rva0011A040Target {public:void rva0011A040();};
@@ -242,8 +254,7 @@ public:
 	GameWindow();
 protected:
 	virtual ~GameWindow();
-private:
-	unsigned char unknown[0x218 - 4];
+	char m_pad04[0x214];
 };
 
 class Rva005248D0
@@ -260,8 +271,10 @@ public:
 	_bfme_AptGameWindow(void *context);
 	virtual ~_bfme_AptGameWindow();
 private:
-	AsciiString filename270;
-	unsigned char m_pad274[8];
+	AsciiString filename270; // +0x270
+	int m_274; // +0x274
+	char m_278; // +0x278
+	char m_pad279[0x3];
 };
 
 class Image;
@@ -469,9 +482,10 @@ namespace _STL { template <> void vector<ScienceType>::push_back(const ScienceTy
 
 struct BfmePod40;
 
-class Rva0040AAD5 {
+class Rva0040AAD5
+{
 public:
-    struct BfmePod40 *rva0040AAD5(int key);
+	struct BfmePod40 *rva0040AAD5(int key);
 };
 
 extern class Rva0040AAD5 *TheAwardSystemManager;

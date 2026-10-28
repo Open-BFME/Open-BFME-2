@@ -37,7 +37,7 @@ struct BfmePod40
 class Rva0040AAD5
 {
 public:
-	BfmePod40 *rva0040AAD5(int id);
+	struct BfmePod40 *rva0040AAD5(int key);
 };
 
 extern class Rva0040AAD5 *TheAwardSystemManager;
@@ -168,10 +168,14 @@ class Rva005202C8 { public: static Rva005202C8 *s_instance; };
 
 // TheLivingWorldLogic (0x00DFEF10): the pinned 0x002B3740 and rowed
 // 0x002B3753 queries.
+class Rva002E2903Player;
+class LivingWorldPlayer;
 class Rva002BA8F1Logic
 {
 public:
-	bool rva002B3740();
+	Rva002E2903Player *GetPlayerAtIndex(int);
+	char m_pad00[0x8C];
+	_STL::vector<LivingWorldPlayer*> m_players; // +0x8C
 };
 
 class Rva002B3753
@@ -214,7 +218,7 @@ public:
 class Rva00222A8BTarget
 {
 public:
-	void rva00222F55(bool value);
+	void rva002233A6(int);
 };
 
 
@@ -415,7 +419,11 @@ private:
 
 struct AptTimeLineGameLogicView { unsigned char m_pad[0x110]; int m_mode; int m_gameType; };
 
-class Shell { public: void push(AsciiString name, bool flag); };
+class Shell
+{
+public:
+	void rva0035BF4C(bool show);
+};
 
 class AptTimeLineScreen { public: void rva00520CD1(); };
 

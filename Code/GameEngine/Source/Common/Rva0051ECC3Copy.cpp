@@ -13,11 +13,14 @@ public:
 class Rva0039B893
 {
 public:
-	int m00;
-	int m04;
-	int m08;
-	int m0C;
-	int m10;
+	Rva0039B893 &operator=(const Rva0039B893 &other);
+	virtual ~Rva0039B893();
+	int m_field04; // +0x04
+	int m_field08; // +0x08
+	short m_field0C; // +0x0C
+	short m_field0E; // +0x0E
+	short m_field10; // +0x10
+	char m_pad12[0x2];
 };
 class AsciiString;
 namespace _STL {

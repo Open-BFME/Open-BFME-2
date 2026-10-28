@@ -75,7 +75,7 @@ extern GameTextInterface *TheGameText;
 class BfmeAptWindowManager
 {
 public:
-	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
+	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool flag);
 };
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
@@ -174,6 +174,7 @@ public:
 class AptTimeLineStats
 {
 public:
+	void rva005BF177();
 	void CollectPlayerData(int index, LivingWorldPlayer *player);
 	void CollectPlayerData(int index, class Player *player);
 };
@@ -257,7 +258,17 @@ private:
 };
 
 // resize(n) is the rowed 0x0052076F body.
-class Rva00520703Vector { public: void resize(unsigned); };
+struct Rva005205DAElement;
+class Rva00520703Vector
+{
+public:
+	void resize(unsigned count,Rva005205DAElement value);
+	void resize(unsigned count);
+private:
+	Rva005205DAElement *start; // +0x00
+	Rva005205DAElement *finish; // +0x04
+	Rva005205DAElement *end; // +0x08
+};
 
 void AptTimeLine::CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source *source)
 {
@@ -336,8 +347,23 @@ void AptTimeLine::CollectPlayerData(LivingWorldPlayer *player, Rva00520923Source
 // supplies the row ABI only; its LivingWorldPlayer layout is kept separate.
 // All direct calls use their admitted provider names. The flag reader and
 // victory interface retain consuming views; their original types are unknown.
-class Player { public: bool isLocalPlayer() const; };
-class GameSlot { public: bool disconnected() const; };
+class Player
+{
+public:
+	bool isLocalPlayer() const;
+	bool isPlayerObserver()const;
+};
+class GameSlot
+{
+public:
+	bool disconnected() const;
+	bool isOccupied()const;
+	void *getTemplate()const{return m_template;}
+	char m_pad00[0x34];
+	AsciiString m_name; // +0x34
+	char m_pad38[0x14];
+	void *m_template; // +0x4C
+};
 class Rva0051F6DF { public: Rva0051F6DF &operator=(const Rva0051F6DF &); };
 class Rva001EB0CAHolder { public: unsigned char rva001EB0D9(); };
 class LinearCampaignManager;

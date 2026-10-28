@@ -25,9 +25,15 @@ struct Rva00520211Element;
 namespace _STL {
 template<> Rva00520211Element* vector<Rva00520211Element>::erase(Rva00520211Element*,Rva00520211Element*);
 }
-class Rva00520703Vector {
- Rva005205DAElement *start,*finish,*end;
-public: void resize(unsigned count,Rva005205DAElement value);
+class Rva00520703Vector
+{
+public:
+	void resize(unsigned count,Rva005205DAElement value);
+	void resize(unsigned count);
+private:
+	Rva005205DAElement *start; // +0x00
+	Rva005205DAElement *finish; // +0x04
+	Rva005205DAElement *end; // +0x08
 };
 void Rva00520703Vector::resize(unsigned count,Rva005205DAElement value) {
  if(count<(unsigned)(finish-start))

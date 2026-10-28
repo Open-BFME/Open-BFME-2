@@ -11,7 +11,11 @@
 // view avoids emitting a second, non-retail family of helpers over that element
 // (StlSweepR3Rva003F318C.cpp uses the same bounded specialization pattern).
 struct Rva0051F7ADRecord { char bytes[12]; };
-class ProductionPrerequisite { public: struct PrereqUnitRec; };
+class ProductionPrerequisite
+{
+public:
+	struct PrereqUnitRec;
+};
 struct Rva0052BFB5Elem;
 struct Rva0051EC31Input;
 struct Rva0051EC31Output;

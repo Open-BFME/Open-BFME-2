@@ -10,31 +10,75 @@
 struct Rva00520211Element { char storage[80]; };
 extern template Rva00520211Element *_STL::vector<Rva00520211Element>::erase(Rva00520211Element *,Rva00520211Element *);
 extern template void _STL::vector<Rva00520211Element>::reserve(unsigned);
-class Rva00520703Vector {public:void resize(unsigned);};
+struct Rva005205DAElement;
+class Rva00520703Vector
+{
+public:
+	void resize(unsigned count,Rva005205DAElement value);
+	void resize(unsigned count);
+private:
+	Rva005205DAElement *start; // +0x00
+	Rva005205DAElement *finish; // +0x04
+	Rva005205DAElement *end; // +0x08
+};
 struct Rva0051C0E7;
 class AptScoreScreen {public: static void PreCollectGameData(Rva0051C0E7*);};
 class IDBufferClass {public:void Enable_Two_Sided_Rendering(bool);};
 enum NameKeyType {NAMEKEY_INVALID=0};
 class Player;
-class NameKeyGenerator {public:NameKeyType nameToKey(const AsciiString &);};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const AsciiString &name);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 class PlayerList {public:Player *findPlayerWithNameKey(NameKeyType);char pad00[0x10];Player *m_local;};
 extern PlayerList *ThePlayerList;
-class Player {public:bool isPlayerObserver()const;};
-class GameSlot {public:bool isOccupied()const;char pad00[0x34];AsciiString m_name;char pad38[0x4c-0x38];void *m_template; void *getTemplate()const{return m_template;}};
+class Player
+{
+public:
+	bool isLocalPlayer() const;
+	bool isPlayerObserver()const;
+};
+class GameSlot
+{
+public:
+	bool disconnected() const;
+	bool isOccupied()const;
+	void *getTemplate()const{return m_template;}
+	char m_pad00[0x34];
+	AsciiString m_name; // +0x34
+	char m_pad38[0x14];
+	void *m_template; // +0x4C
+};
 class GameInfo {public:GameSlot *getSlot(int);};
 extern GameInfo *TheGameInfo;
 class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class LivingWorldPlayer;
 class Rva002E2903Player;
-class Rva002BA8F1Logic {public:Rva002E2903Player *GetPlayerAtIndex(int);char pad00[0x8c];_STL::vector<LivingWorldPlayer*>m_players;};
+class Rva002BA8F1Logic
+{
+public:
+	Rva002E2903Player *GetPlayerAtIndex(int);
+	char m_pad00[0x8C];
+	_STL::vector<LivingWorldPlayer*> m_players; // +0x8C
+};
 class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class LivingWorldPlayer {public:char pad00[0x14];void *m_template;};
-class Rva002E0687 {public:bool rva002E0687()const;};
+class Rva002E0687
+{
+public:
+	bool rva002E0687() const; // the local (observing) player
+};
 class GameSpyStagingRoom;
 extern GameSpyStagingRoom *TheGameSpyGame;
-class StatsReporter {public:static void ProcessOnlineGameResults(Player*);};
+class StatsReporter
+{
+public:
+	static void ProcessStrategicSinglePlayerGame(LivingWorldPlayer *player);
+	static void ProcessOnlineGameResults(class Player *player);
+};
 class Rva00520923Source;
 class AptTimeLine {public:
 	void rva00520CD1();void CollectPlayerData(Player*,const GameSlot*);

@@ -16,12 +16,12 @@ class Rva0039B893
 public:
 	Rva0039B893 &operator=(const Rva0039B893 &other);
 	virtual ~Rva0039B893();
-	int m_field04;
-	int m_field08;
-	short m_field0C;
-	short m_field0E;
-	short m_field10;
-	char m_pad12[2];
+	int m_field04; // +0x04
+	int m_field08; // +0x08
+	short m_field0C; // +0x0C
+	short m_field0E; // +0x0E
+	short m_field10; // +0x10
+	char m_pad12[0x2];
 };
 
 struct Rva0052BF9BElem;

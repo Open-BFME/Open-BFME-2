@@ -8,10 +8,7 @@ struct PrereqUnitRec
 class ProductionPrerequisite
 {
 public:
-	struct PrereqUnitRec
-	{
-		unsigned int m_data[3];
-	};
+	struct PrereqUnitRec;
 };
 class AsciiString;
 namespace _STL {

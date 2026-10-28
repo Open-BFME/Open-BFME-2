@@ -94,15 +94,20 @@ public:
 
 // Vtable 0x00867270 (slots 0x0051E754 / 0x0051E9D2).
 
+class Vector2;
 class Rva0051E354
 {
 public:
-	void rva0051E664(TimelineSeries *series, int index, Image *image);
-	void rva0051E511(TimelineSeries *series, float a, float b, unsigned long color);
-
-	float x, y, width, height;
-	int frames;
-	float maximum;
+	Vector2 rva0051E354(TimelineSeries*,int);
+	void rva0051E664(TimelineSeries*,int,class Image*);
+	void rva0051E511(TimelineSeries*,float,float,unsigned long);
+	float baseline()const{return y+height;}
+	float x; // +0x00
+	float y; // +0x04
+	float width; // +0x08
+	float height; // +0x0C
+	int frames; // +0x10
+	float maximum; // +0x14
 };
 
 class Rva0051E31A

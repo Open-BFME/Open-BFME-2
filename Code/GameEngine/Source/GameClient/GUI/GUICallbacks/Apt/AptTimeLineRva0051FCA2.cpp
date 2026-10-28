@@ -29,10 +29,11 @@
 
 class GameWindow
 {
+public:
+	GameWindow();
 protected:
 	virtual ~GameWindow();
-private:
-	unsigned char m_pad004[0x218 - 4];
+	char m_pad04[0x214];
 };
 
 class __multiple_inheritance FunctorTarget;
@@ -168,9 +169,10 @@ public:
 	_bfme_AptGameWindow(void *context);
 	virtual ~_bfme_AptGameWindow();
 private:
-	AsciiString m_filename; // +0x270
-	int m_274;
-	char m_278;
+	AsciiString filename270; // +0x270
+	int m_274; // +0x274
+	char m_278; // +0x278
+	char m_pad279[0x3];
 };
 
 
@@ -186,10 +188,14 @@ public:
 class BfmeAptWindowManager;
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 
+class LivingWorldPlayer;
+class Player;
 class AptTimeLineStats
 {
 public:
 	void rva005BF177();
+	void CollectPlayerData(int index, LivingWorldPlayer *player);
+	void CollectPlayerData(int index, class Player *player);
 };
 
 struct Pair0051E31A;
@@ -211,10 +217,17 @@ class BfmeM1020
 public:
 	void bfmeGo1020M(int unused);
 };
+struct Rva0051E766Record;
 class Rva0051E766
 {
 public:
-	void rva0051E766(int query, char *value, bool set);
+	void rva0051E766(int which, char *buffer, bool probing);
+	char m_pad00[0x284];
+private:
+	int m_mode; // +0x284 +0x284
+	_STL::vector<Rva0051E766Record> m_records; // +0x288 +0x288
+	bool m_294; // +0x294
+	char m_pad295[0x3];
 };
 
 class AptTimeLine : public _bfme_AptGameWindow

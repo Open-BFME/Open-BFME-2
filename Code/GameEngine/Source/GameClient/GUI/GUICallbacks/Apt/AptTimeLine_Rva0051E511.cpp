@@ -14,13 +14,19 @@ public:
     virtual int count() = 0;
     virtual float value(int index) = 0;
 };
-class Rva0051E354 {
+class Rva0051E354
+{
 public:
- Vector2 rva0051E354(TimelineSeries*,int);
- void rva0051E664(TimelineSeries*,int,class Image*);
- void rva0051E511(TimelineSeries*,float,float,unsigned long);
- float baseline()const{return y+height;}
- float x,y,width,height;int frames;float maximum;
+	Vector2 rva0051E354(TimelineSeries*,int);
+	void rva0051E664(TimelineSeries*,int,class Image*);
+	void rva0051E511(TimelineSeries*,float,float,unsigned long);
+	float baseline()const{return y+height;}
+	float x; // +0x00
+	float y; // +0x04
+	float width; // +0x08
+	float height; // +0x0C
+	int frames; // +0x10
+	float maximum; // +0x14
 };
 
 
@@ -38,10 +44,15 @@ class W3DDisplay {public:void rva0004D6B3(Image*,float,float,float,float,int,int
 extern class Display*TheDisplay;
 
 
-class Render2DClass {
-public:unsigned shader;char beforeFlag[0x48-4];bool flag;
- void Add_Line(const Vector2&,const Vector2&,float,unsigned long);
- void Render();
+class Render2DClass
+{
+public:
+	void Add_Line(const Vector2&,const Vector2&,float,unsigned long);
+	void Render();
+	unsigned shader; // +0x00
+	char m_pad04[0x44];
+	bool flag; // +0x48
+	char m_pad49[0x3];
 };
 // Consuming Display view: native slot17C supplies the Render2D batch. All
 // other slots are intentionally unnamed; the actual Display global keeps

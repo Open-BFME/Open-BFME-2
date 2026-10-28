@@ -10,8 +10,14 @@ struct Rva005205DAElement : Rva0051F87B {
  ~Rva005205DAElement();
 };
 typedef char TimelineRecordExtent[sizeof(Rva005205DAElement)==80?1:-1];
-class Rva00520703Vector {public:
- void resize(unsigned count,Rva005205DAElement value);
- void resize(unsigned count);
+class Rva00520703Vector
+{
+public:
+	void resize(unsigned count,Rva005205DAElement value);
+	void resize(unsigned count);
+private:
+	Rva005205DAElement *start; // +0x00
+	Rva005205DAElement *finish; // +0x04
+	Rva005205DAElement *end; // +0x08
 };
 void Rva00520703Vector::resize(unsigned count) {resize(count,Rva005205DAElement());}
