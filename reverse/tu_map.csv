@@ -27472,9 +27472,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00360C64,15,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1C.cpp
 0x00360C73,61,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_vector_sciencetype.cpp
 0x00360CB0,61,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp
-0x00360CED,57,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilter_isValid.cpp
+0x00360CED,57,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp
 0x00360D26,8,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,C,C=0x00360CED..0x00360D2E provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilterRelease.cpp
-0x00360D2E,139,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilterRva00360D2EDescribe.cpp
+0x00360D2E,139,code,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFilter.cpp
 0x00360DB9,171,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp W=Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp provisional,Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp
 0x00360E64,241,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00360DB9..0x00360F55 provisional,Code/GameEngine/Source/GameLogic/Object/Rva00360E64Equal.cpp
 0x00360F55,134,code,Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp,approved,C,C=0x00360DB9..0x00360FDB provisional,Code/GameEngine/Source/GameLogic/Object/Rva00360F55Ctor.cpp
