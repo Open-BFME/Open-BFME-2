@@ -8092,3 +8092,86 @@ None can be settled through the lane yet:
   the vfptr decided) settle. In Team.cpp, though, Team, TeamPrototype,
   TeamFactory and TeamTemplateInfo also block, so no donor is unblocked by one
   header alone.
+
+Update 2026-10-28 (module-contract pass):
+
+- **Module's retail vtable (target facts).** No Module table exists in the
+  image: its constructor is inlined and the store eliminated. The derived
+  tables fix it. ObjectModule (VA 0x00C07E1C, installed by
+  `??0ObjectModule` 0x00306AA7) has exactly 10 slots, then its name literal;
+  DrawableModule (0x00C07E54) 11; BehaviorModule (0x00BEEA7C) 12. Shared
+  slots 0-8: 0 deleting dtor; 1 empty `ret` (UpdateModule overrides it with
+  `loadPostProcess` 0x0058B03E); 2 a per-class name-literal getter
+  (`mov eax, imm; ret`); 3 xfer (`?xfer@ObjectModule` 0x00560AE1); 4
+  `__purecall`; 5-8 the empty `ret` 0x000B3FD0. Slot 9 differs per class
+  (ObjectModule `ret 8`, DrawableModule `xor eax,eax; ret`), so Module has 9
+  slots. Slots 1-3 are Snapshot's (`reference/shims/moduledata/Common/Snapshot.h`:
+  loadPostProcess, GetSnapshotName, xfer). `??_GObjectModule` 0x004A10FD calls
+  0x0049B47C, which restores Snapshot's table 0x00BBB554 at `[this]`: the only
+  non-empty base destructor is Snapshot's, at offset 0. The ObjectModule and
+  DrawableModule constructors store the ModuleData argument at +4.
+- **Overriders (ledger names, target).** Over the 323 Module-family tables
+  (slot 4 pure or `getModuleNameKey`), slot 5 is `onObjectCreated` (18
+  matched overriders), slot 6 `onDrawableBoundToObject` (7), slot 8
+  `onDelete` (32). Slot 4 is `getModuleNameKey`: InvisibilityUpdate's own
+  slot-4 row, and `Object::findModule` (0x0028B6D6, byte-matched) calls
+  `[vtable+0x10]`. Slot 7 has one distinct overrider, 0x000B7C18
+  (W3DScriptedModelDraw, 7 tables). It takes no stack argument.
+- **Donor facts.** In ZH, Module derives from MemoryPoolObject and Snapshot,
+  with getModuleNameKey, onObjectCreated, onDrawableBoundToObject,
+  `preloadAssets(TimeOfDay)` and onDelete. BFME 1's Module.h drops the
+  Snapshot base and keeps crc/xfer/loadPostProcess.
+- **Decision (inference from the above).** BFME2 `Module : Snapshot` at
+  offset 0: slots 1-3 inherited, 4 `getModuleNameKey() const = 0`, 5
+  `onObjectCreated()`, 6 `onDrawableBoundToObject()`, 7 a zero-argument
+  virtual in ZH's `preloadAssets` position (ZH's TimeOfDay argument is gone:
+  every implementation is a plain `ret`; the name is a hint, not proof), 8
+  `onDelete()`. `m_moduleData` is at +4 and sizeof is 8. ObjectModule adds
+  `onCapture` (slot 9, two stack arguments) and `m_object` +8.
+  The contract cannot reach this decision yet. Of 81 views, 14 are empty, 26
+  are vfptr-only, 13 have sizeof 8 and 6 have sizeof 140 (other classes named
+  Module), so the majority sizeof is 4 and +4 is a 21-view outlier. None
+  spells the Snapshot base. Eight views vote on slots: UnitRevivalTracker
+  (v0-v14), InvisibilityManagerRva00438E5B (f00-f22, turnOff 23),
+  DrawableConstructor and DrawableDestructor (s00-s09, rva28; they merge
+  DrawableModule into Module), ObjectFindModule and
+  ObjectFindDynamicPortalBehaviour (`_r1`-`_r3`, getModuleNameKey 4: right
+  shape), GateOpenAndCloseBehaviorOnObjectCreated (onObjectCreated at 1) and
+  GameLogic.cpp (ZH order). Slots 9-23 come from views that call a derived
+  class's slot through `Module *` (`findModule(...)->v14()`). Those calls need
+  a derived view with a cast, not more Module slots. `class_contract` has no
+  retail rule for a class without its own constructor rows (`retail_vtable`
+  reads only tables those constructors store, slotted from the stale
+  `reverse/vtables.tsv`, 161 tables, none in this family).
+- **class_contract fixed (8d9328de31).** A derived contract now names its
+  bases and votes only on members outside their extent (from the views that
+  spell the bases); views that copied the base in no longer tie inherited
+  slots. header_adopt_lane includes registered base headers and refuses a
+  base with no header. UpgradeModule now decides no own fields (sizeof 28
+  from the four bases) and stops on the four unheadered bases.
+- **`run --generate` cannot adopt a polymorphic class.** `generate()` emits
+  fields (skipping VPTR) and, in the methods variant, view methods that name no
+  unknown type. It emits no vslots, so a generated Module header would have no
+  vfptr. The module chain needs hand-written canonical headers from the retail
+  facts, like Snapshot.h, adopted through the fixed-header path
+  (`run --class X --header PATH` without `--generate`).
+- **Merge candidates fail on other blockers.** Recomputed: 137 single-blocker
+  TUs. UpgradeModule-only: CommandSetUpgrade, RadarUpgrade. UpdateModule-only:
+  StealthDetectorUpdate. UpgradeMux-only: UpgradeModule.cpp. ArmorUpgrade is
+  blocked by BehaviorModule and UpgradeModule. `tu_skeleton --merge --dry-run`
+  accepts no donor in any of them:
+  CommandSetUpgrade (Rva004B3AFFNotify: C2143 `TheControlBar`), RadarUpgrade
+  (Object nested in `Rva004B46F9`), StealthDetectorUpdate
+  (`UPDATE_SLEEP_FOREVER` C2365, then the leaf class), UpgradeModule.cpp
+  (UpgradeMuxCtor C2600, an undeclared special member) and ArmorUpgrade
+  (C2039 `upgradeImplementation`, a leaf view). The textual ranking
+  overstates the chain. Every candidate also has a mixed donor
+  (FireWeaponWhenDeadBehaviorDerived, ModuleDataBuildFieldParse,
+  ConstIntGetters5, ModuleNameGetters3) that must be split first.
+- **Next prerequisites, in order.** (1) A hand-written canonical
+  `Module.h` (Snapshot base, the 9 slots above, m_moduleData), then
+  ObjectModule and DrawableModule, adopted unit by unit. Retarget the eight
+  slot-voting views first, moving derived-slot calls onto derived views.
+  (2) BehaviorModuleInterface, UpgradeMux and ModuleInterface from their
+  retail tables (UpgradeModule installs 0x00C42720 (18 slots) and 0x00C42768).
+  (3) The per-TU leaf and Object views named above.
