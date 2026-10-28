@@ -141,34 +141,6 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class PropagandaTowerBehavior
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-protected:
-	virtual void removeAllInfluence();
-	virtual void doScan();
-	virtual void effectLogic(Object *obj, bool giving, const PropagandaTowerBehaviorModuleData *modData);
-private:
-	const PropagandaTowerBehaviorModuleData *m_moduleData;
-	unsigned char m_pad08[0x20];
-	ObjectTracker *m_insideList;
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 //
 // PropagandaTowerBehaviorModuleData file-unit (parse first; the ctor
 // remains pinned for a follow-up). Distinct TU name because
@@ -246,13 +218,59 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class PropagandaTowerBehavior
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+protected:
+	virtual void removeAllInfluence();
+	virtual void doScan();
+	virtual void effectLogic(Object *obj, bool giving, const PropagandaTowerBehaviorModuleData *modData);
+private:
+	const PropagandaTowerBehaviorModuleData *m_moduleData;
+	unsigned char m_pad08[0x20];
+	ObjectTracker *m_insideList;
+public:
+	virtual NameKeyType getModuleNameKey() const;
+};
+
 // tu-skeleton: 0x00481842 216B ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x0048191A 69B ?getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType PropagandaTowerBehavior::getModuleNameKey() const
+{
+	static NameKeyType ThePropagandaTowerBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("PropagandaTowerBehavior");
+	return ThePropagandaTowerBehaviorPoolKey;
+}
 
 // tu-skeleton: 0x0048195F 29B ??_GRva0048195F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtors1.cpp (not merged yet)
 
 // tu-skeleton: 0x0048197C 66B ??0PropagandaTowerBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataCtor2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorModuleDataParse.cpp
 
@@ -261,10 +279,6 @@ void PropagandaTowerBehaviorModuleData::buildFieldParse(MultiIniFieldParse &pars
 {
 	parse.add(g_00C49368, 0);
 }
-
-// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp
 
@@ -360,6 +374,10 @@ void PropagandaTowerBehavior::removeAllInfluence()
 	}
 }
 
+// tu-skeleton: 0x004819CF 105B ??0PropagandaTowerBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00481A38 28B ??_GRva0048180C@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
 // tu-skeleton: 0x00481A6E 48B ?rva00481A6E@Rva00481A6E@@UAEXHPAX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
 
 // tu-skeleton: 0x00481B7F 44B ??0?$BitFlags@$0L@@@QAE@W4BogusInitType@0@H@Z -- matched in Code/GameEngine/Source/Common/System/BitFlags11DisabilityCtors.cpp (not merged yet)
@@ -373,10 +391,6 @@ void PropagandaTowerBehavior::removeAllInfluence()
 // tu-skeleton: 0x00481C0C 320B ?update@PropagandaTowerBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00481DA4 478B ?doScan@PropagandaTowerBehavior@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorDoScan.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BAF1 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BAFE 10B __ehhandler$?getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BB08 8B Unwind@00b8bb08 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorConstructor.cpp (not merged yet)
 

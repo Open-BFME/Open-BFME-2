@@ -20012,8 +20012,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03778,4,.data,global,?TheProductionQueueHordeContainPoolKey@?1??getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp,owned,,1,2
 0x00A0377C,4,.data,global,?$S1@?1??getModuleNameKey@ProductionQueueHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainPoolKey.cpp,owned,,1,4
 0x00A03780,4,.data,global,_s_rva007B1026,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03784,4,.data,global,?ThePropagandaTowerBehaviorPoolKey@?1??getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp,owned,,1,2
-0x00A03788,4,.data,global,?$S1@?1??getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehaviorPoolKey.cpp,owned,,1,4
+0x00A03784,4,.data,global,?ThePropagandaTowerBehaviorPoolKey@?1??getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,owned,,1,2
+0x00A03788,4,.data,global,?$S1@?1??getModuleNameKey@PropagandaTowerBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/PropagandaTowerBehavior.cpp,owned,,1,4
 0x00A0378C,4,.data,global,_s_rva007B1050,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03790,4,.data,global,?TheTerrainResourceBehaviorPoolKey@?1??getModuleNameKey@TerrainResourceBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp,owned,,1,2
 0x00A03794,4,.data,global,?$S1@?1??getModuleNameKey@TerrainResourceBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/TerrainResourceBehavior.cpp,owned,,1,4
