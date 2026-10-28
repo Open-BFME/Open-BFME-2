@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // STLport 4.5.3 basic_streambuf<char> destructor. Fourteen bytes: restore the
 // vtable, then tail-jump into the locale destructor for the member at +0x4C -

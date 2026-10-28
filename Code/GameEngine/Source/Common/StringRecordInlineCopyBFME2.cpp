@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /arch:SSE /G7
-// stlport
+// stlport46
 // BFME2 record copies with verified StringBase member operations.
 // Layouts are read from the complete retail constructors and their STLport
 // placement-copy callers. Application names and scalar meanings are unknown.
