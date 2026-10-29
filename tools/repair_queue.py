@@ -664,9 +664,14 @@ LINK_BLOCKERS = ("unresolved", "duplicates", "comdat", "addresses", "selected") 
 def tools_on_path():
     """Put tools/ on sys.path for a lazy import: the hooks run this file through stdin
     (verify-removed) without it."""
-    tools = str(Path(_SCRIPT).resolve().parent if _HAS_SCRIPT else ROOT / "tools")
+    tools = _tools_dir()
     if tools not in sys.path:
         sys.path.insert(0, tools)
+
+
+@lru_cache(maxsize=1)
+def _tools_dir():
+    return str(Path(_SCRIPT).resolve().parent if _HAS_SCRIPT else ROOT / "tools")
 
 
 def changed_since(commit):
@@ -730,9 +735,22 @@ def units_of(rows):
 
 
 def ledger_units_at(commit):
-    """units_of the ledger at COMMIT, or None when this clone cannot read it."""
-    got = _git("show", f"{commit}:{LEDGER}")
-    return None if got.returncode else units_of(csv.DictReader(io.StringIO(got.stdout)))
+    """units_of the ledger at COMMIT, or None when this clone cannot read it. A commit never
+    changes, so the answer is kept in the shared picker cache by its id."""
+    def read():
+        got = _git("show", f"{commit}:{LEDGER}")
+        if got.returncode:
+            return None
+        return {source: sorted(keys, key=str) for source, keys
+                in units_of(csv.DictReader(io.StringIO(got.stdout))).items()}
+    full = (_git("rev-parse", "--verify", "--quiet", f"{commit}^{{commit}}").stdout or "").strip()
+    if not _HAS_SCRIPT or not full:
+        got = read()
+    else:
+        tools_on_path()
+        import picker_cache
+        got = picker_cache.keyed("repair-ledger-units", [full, LEDGER, picker_cache.file_digest(_SCRIPT)], read)
+    return None if got is None else {source: frozenset(tuple(k) for k in keys) for source, keys in got.items()}
 
 
 def digest_of(path):
@@ -800,8 +818,9 @@ def link_predictions(sources, census_commit):
         deps = deps_of[unit] = unit_deps(unit) if headers or unit in sources or unit in moved else set()
         if unit in moved or unit in rehomed or (headers and deps is None) or (deps and deps & headers):
             providers.append(unit)
+    unit_set = set(units)
     gone = [p for p in moved if p.startswith(SOURCE_PREFIX) and p.lower().endswith((".cpp", ".c", ".asm"))
-            and p not in set(units)]
+            and p not in unit_set]
     if gone:
         return none(f"{len(gone)} unit(s) changed since the index hold no ledger row now (e.g. {gone[0]}): "
                     "their old definitions cannot be retracted here, so LINKS is not provable")
