@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /I.
+// stlport
 // ?update@BannerUI@@QAEXXZ retail 0x002167A3..0x00216A2E (651B).
 // Same-TU callee lever: stateString's address goes to Rva00216332Call
 // (0x00216332) and progress's to Rva0021639AInvoke (0x0021639A); with both
@@ -24,6 +25,7 @@
 // banner's army through ControlBar 0x00405C04 and is cleared.
 // Banner record layout: BannerUI.cpp's BfmePod28 (+0x0C state +0x10 progress
 // +0x14 timer +0x18 delete flag).
+#include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
@@ -42,20 +44,8 @@ struct BfmePod28
 };
 
 namespace _STL {
-template <class T> class allocator { public: allocator() {} };
-template <class T, class A> class vector {
-public:
-	typedef T *iterator;
-	iterator begin() { return _M_start; }
-	iterator end() { return _M_finish; }
-	unsigned int size() const { return _M_finish - _M_start; }
-	T &operator[](unsigned int n) { return _M_start[n]; }
-	iterator erase(iterator position);
-private:
-	iterator _M_start;
-	iterator _M_finish;
-	iterator _M_end_of_storage;
-};
+// Bind the single-element erase to the rowed BfmePod28 erase.
+template <> BfmePod28 *vector<BfmePod28, allocator<BfmePod28> >::erase(BfmePod28 *position);
 }
 
 class Rva00222A8BTarget { public: int invoke(void *owner, const char *name, int argc, const char *a0, void *a1, void *a2, void *a3, void *a4); };
