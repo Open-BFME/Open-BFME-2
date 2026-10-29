@@ -87,3 +87,14 @@ Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp|local
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp|local|Rva000D20A9::rva000D3BFD|n,caf1c5f7e2da524488a43535,gpt-6.1-sol,w3-10290133-10,w-46dfa4623b23,2026-10-29,a51238f2abe01d2cd7af2670
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp|local|Rva00362AB5::rva00362B89|n,a2aaa7a6d0510a445533b5cc,gpt-6.1-sol,w3-10290133-10,w-46dfa4623b23,2026-10-29,3f2cbe8ce3e7a6ea7bbf0cf7
 Code/GameEngine/Source/Common/DamageFX.cpp|local|DamageFX::clear|v,44a821c33952bc38f8e2ff86,gpt-6.1-sol,w4-10290303-7,w-eb83eac9adc1,2026-10-29,ae7ac869c6a79281c01e8bde
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp|param|Rva005D839BCheck|p,858648f7a24f544598568b8c,drz-k10,drz-k10-2,w-88a32c4f7da7,2026-10-29,64a83e2f3c4aecf13540a541
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookAssistBattle.cpp|local|Rva005D839BCheck|r,0ad0bf9198dabde4f2ce4d69,drz-k10,drz-k10-2,w-88a32c4f7da7,2026-10-29,55008daa4483f4058d142fda
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp|param|Rva005D8571Check|p,1ff4b67ef078ce67f2f5d58c,drz-k10,drz-k10-3,w-88a32c4f7da7,2026-10-29,76a09fd4f2ad2f0dd74ad88f
+Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookArmyBreaker.cpp|local|Rva005D8571Check|r,c77ac4b8b4e8dcae8ce9ffa7,drz-k10,drz-k10-3,w-88a32c4f7da7,2026-10-29,93f618147d479c0d0884e3d9
+Code/GameEngine/Source/Common/Rva005CDE01MouseForwarder.cpp|param|Rva005CDE31::rva005CDE31|a,b26eb241730d2b39a53eb8b5,drz-k10,drz-k10-n17b-8,w-88a32c4f7da7,2026-10-29,8b10fd5364b6325a3fcf7fd3
+Code/GameEngine/Source/Common/Rva005CDE01MouseForwarder.cpp|param|Rva005CDE31::rva005CDE31|b,0d292dee2c15d9de49cfc146,drz-k10,drz-k10-n17b-8,w-88a32c4f7da7,2026-10-29,789196cc927378771f72a7d4
+Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp|param|copy|f,e96848edb747fd0e92b4a5c3,drz-k10,drz-k10-n17b-11,w-88a32c4f7da7,2026-10-29,c5d60217ce7b6024f10249b9
+Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp|param|copy|l,33aaa99ace62493ed26dafa5,drz-k10,drz-k10-n17b-11,w-88a32c4f7da7,2026-10-29,dcea900389c50f670e66d2e0
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva0058AF47Check|p,ee9ff7ce856f233d2b3a9934,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,e27df1301f84e3f1af5432f0
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva002A9BF2::fromGate|p,6e8c313ff60b0b29b1af0530,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,710e145e68ce851965d7897a
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|AIDifficulty::allowEconomyUpgrade|p,5dad0715b8420c20f3aa5210,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,ed03180ae865e4a0dc1fb345
