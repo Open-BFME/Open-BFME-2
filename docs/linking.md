@@ -113,6 +113,23 @@ first; only a contract with undecided virtual slots sends the seat to write the
 header by hand. Claim scope-wide work:
 `python3 tools/claims.py claim class:NAME` or `file:PATH`.
 
+Bulk mode: `header_adopt_lane.py run --all` walks the establish classes in
+`order --merges` rank, a class never before a ranked base it names. For each
+class it claims `class:X` (a held class or unit is skipped and recorded), runs
+the contract, `--generate` with every variant (`includes` among them) and a
+trial apply. It then drops each adopted unit whose `link_check` prediction loses
+census-linked bytes or gives no verdict, and commits the class on its own. What
+it cannot decide goes to `reverse/header_decisions.jsonl`, one record per class,
+ranked by merge donors unblocked: an undecided contract attribute with its
+competing candidates, a slot no view can declare, a base without a header, no
+destination, no adopting unit, a link regression, a refused commit or a held
+claim. The header tier serves these as `class-header-decide` items in place of
+establish items. `--resume` skips classes a pass adopted or queued,
+`--budget-min` stops starting classes, `--jobs N` runs classes that share no
+unit side by side, `--only CLASS...` retries a decision, and `--dry-run` only
+reports. Push the class commits, then `header_adopt_lane.py release --class X`
+and `claims.py release class:X`.
+
 ## A dedicated linking pass: BFME 1 repairs first
 
 In a dedicated linking pass, sweep BFME 1's linking repairs before rediscovering

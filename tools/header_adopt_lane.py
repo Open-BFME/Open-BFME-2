@@ -1470,6 +1470,422 @@ def print_merge_order(limit, refresh=False):
         print(f"  {c:<32} {score:5} {own:5} {d.get('rows', 0):5} {len(d.get('tus', ())):4}  {state:<15}  {kinds}")
 
 
+
+# ---------------------------------------------------------------- bulk mode (run --all)
+#
+# One pass over the establish classes `order --merges` ranks, doing mechanically what
+# an agent did per class: contract -> generate (every variant, `includes` among them)
+# -> trial apply -> link check -> one commit per class. Whatever the pipeline cannot
+# decide is recorded, with the evidence, in the decision queue (DECISIONS), which the
+# header tier serves to seats as "decide <attribute> of <class>" items ranked by the
+# merge donors the class's header unblocks. The pass never guesses: an undecided
+# contract attribute, a slot no view can declare, a base without a header, a missing
+# destination, a held claim or a unit whose link would regress all become records.
+
+DECISIONS = REVERSE / "header_decisions.jsonl"
+BULK_STATE = SCRATCH / "run_all_state.json"
+BULK_DONE = ("adopted", "queued")     # --resume skips these; "claimed" and errors are retried
+# Kinds a seat can act on; the picker serves these. `claimed` is transient (the holder
+# is working on it) and `base-unheadered` is served through the base's own record.
+DECIDABLE = ("undecided", "slot-undeclarable", "no-destination", "no-unit-adopts", "link-regression",
+             "commit-refused", "error")
+
+
+def plan_order(ranked, blockers, canon):
+    """The classes to try, in rank order, a class never before a ranked base it names.
+
+    `ranked` is merge_rank's [(class, score, own)]. A registered class is done; a
+    ranked base is pulled ahead of the class that needs it (merge_rank already ranks
+    a prerequisite no lower, so this only fixes ties and cycles' order)."""
+    names = [c for c, _, _ in ranked if c not in canon]
+    known = set(names)
+    out, placed = [], set()
+
+    def place(name, stack):
+        if name in placed or name in stack:
+            return
+        stack.add(name)
+        for base in sorted(blockers.get(name, {}).get("bases", ())):
+            base = base_identity(base)
+            if base in known and base != name:
+                place(base, stack)
+        placed.add(name)
+        out.append(name)
+
+    for name in names:
+        place(name, set())
+    return out
+
+
+def held_elsewhere(keys):
+    """{key: owner} for the claim keys (`class:X`, `file:P`) another worker holds."""
+    import claims
+    wanted = {claims.key_of(k): k for k in keys}
+    out = {}
+    try:
+        for records in claims._blocking_records(ROOT):
+            for key, info in records.items():
+                if key in wanted:
+                    out[wanted[key]] = info.get("owner", "another worker")
+    except claims.ClaimsUnavailable as exc:
+        return {k: f"claims unavailable: {exc}" for k in keys}
+    return out
+
+
+def claim_class(name):
+    """Claim `class:NAME` for the pass: None when won, else the holder."""
+    import claims
+    key = f"class:{name}"
+    try:
+        result = claims.claim([key], note="header_adopt_lane run --all", root=ROOT, atomic_only=True)
+    except claims.ClaimsUnavailable as exc:
+        return f"claims unavailable: {exc}"
+    if result.refused:
+        return held_elsewhere([key]).get(key, "another worker")
+    return None
+
+
+def decision(name, kind, detail, attributes=(), **evidence):
+    """One decision-queue record: what blocks `name`, the competing evidence, and how to resume."""
+    return {"class": name, "kind": kind, "detail": detail, "attributes": list(attributes),
+            "resume": f"python3 tools/header_adopt_lane.py run --all --only {name}", **evidence}
+
+
+def contract_decisions(contract):
+    """[{attribute, candidates, why}] for every attribute the contract leaves undecided."""
+    return [{"attribute": q.get("attribute"), "candidates": q.get("candidates", {}),
+             **({"why": q["why"]} if q.get("why") else {})} for q in contract.get("queue", ())]
+
+
+def write_decisions(records, path=None, canon=None):
+    """Merge `records` ({class: record}) into the decision queue, drop classes now registered,
+    rank by merge donors unblocked (then class), and write it as JSON lines."""
+    path = Path(path or DECISIONS)
+    canon = registered() if canon is None else canon
+    current = {}
+    if path.exists():
+        for line in path.read_text(encoding="utf-8").splitlines():
+            if line.strip():
+                row = json.loads(line)
+                current[row["class"]] = row
+    current.update(records)
+    rows = [r for c, r in current.items() if c not in canon and r is not None]
+    rows.sort(key=lambda r: (-int(r.get("merge_donors", 0)), r["class"]))
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text("".join(json.dumps(r, sort_keys=True) + "\n" for r in rows), encoding="utf-8", newline="\n")
+    return rows
+
+
+def read_decisions(path=None):
+    path = Path(path or DECISIONS)
+    if not path.exists():
+        return []
+    return [json.loads(line) for line in path.read_text(encoding="utf-8").splitlines() if line.strip()]
+
+
+def load_state(path=None):
+    path = Path(path or BULK_STATE)
+    try:
+        return json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return {}
+
+
+def save_state(state, path=None):
+    path = Path(path or BULK_STATE)
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    tmp.write_text(json.dumps(state, indent=1, sort_keys=True), encoding="utf-8")
+    os.replace(tmp, path)
+
+
+def bulk_prepare(name, ctx):
+    """Everything up to the tournament for one class: {"record": decision} when it cannot be
+    generated, else {"contract", "sources", "header", "results", "winner"}. Writes nothing to
+    the tree except the tournament's own temporary swaps, which it restores."""
+    info = ctx["info"].get(name, {})
+    donors = {"merge_donors": info.get("score", 0), "own_donors": info.get("own", 0),
+              "tus": len(info.get("tus", ()))}
+    if ctx["dry_run"]:
+        holder = held_elsewhere([f"class:{name}"]).get(f"class:{name}")
+    else:
+        holder = claim_class(name)
+    if holder:
+        return {"record": decision(name, "claimed", f"class:{name} is held by {holder}", holder=holder, **donors)}
+    dest = ctx["destination"](name)
+    if not dest.get("header"):
+        return {"record": decision(name, "no-destination", dest.get("why", "no header destination"),
+                                   command=f"python3 tools/header_adopt_lane.py dest --class {name}", **donors)}
+    header = dest["header"]
+    sources = class_contract.census(name, ctx["rows"])
+    if ctx["sample"] and len(sources) > ctx["sample"]:
+        sources = sorted(random.Random(ctx["seed"]).sample(sources, ctx["sample"]))
+    if not sources:
+        return {"record": decision(name, "no-unit-adopts", "the census finds no private view", header=header, **donors)}
+    held = held_elsewhere([f"file:{s}" for s in sources])
+    if held and not ctx["dry_run"]:
+        sources = [s for s in sources if f"file:{s}" not in held]
+    path = class_contract.contract_path(name)
+    if path.exists():
+        contract = json.loads(path.read_text(encoding="utf-8"))
+    else:
+        contract = class_contract.decide(name, sources=sources, jobs=ctx["unit_jobs"])
+    contract_rel = path.relative_to(ROOT).as_posix()
+    evidence = dict(donors, header=header, contract=contract_rel, units=len(sources),
+                    **({"held_units": sorted(held.items())[:20]} if held else {}))
+    undecided = contract_decisions(contract)
+    if undecided:
+        first = undecided[0]
+        return {"record": decision(name, "undecided",
+                                   f"decide {first['attribute']} of {name}" + (f" (+{len(undecided) - 1} more)"
+                                                                                if len(undecided) > 1 else ""),
+                                   undecided, **evidence), "contract": contract}
+    missing = unheadered_bases(contract)
+    if missing:
+        return {"record": decision(name, "base-unheadered", f"adopt the base header(s) first: {', '.join(missing)}",
+                                   bases=missing, **evidence), "contract": contract}
+    if contract.get("vslots"):
+        _, _, problems = slot_declarations(contract, sources)
+        if problems:
+            return {"record": decision(name, "slot-undeclarable", f"{len(problems)} slot(s) cannot be declared: "
+                                       + "; ".join(problems[:3]),
+                                       [{"attribute": p.split()[0], "why": p} for p in problems], **evidence),
+                    "contract": contract}
+    if ctx["dry_run"]:
+        return {"would": {"class": name, "header": header, "units": len(sources), "contract": contract_rel},
+                "contract": contract}
+    results = tournament(name, contract, sources, header, ctx["variants"], ctx["unit_jobs"])
+    winner = max(ctx["variants"],
+                 key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -ctx["variants"].index(v)))
+    return {"contract": contract, "sources": sources, "header": header, "results": results, "winner": winner,
+            "evidence": evidence}
+
+
+def bulk_land(name, prepared, ctx):
+    """Trial-apply the winning variant, drop every unit whose link would regress, then
+    register, queue and commit the class. ("adopted", None, commit) or ("queued", record, None)."""
+    best, header = prepared["results"][prepared["winner"]], prepared["header"]
+    evidence = prepared["evidence"]
+    passed = sorted(s for s, v in best["verdicts"].items() if v is None)
+    failed = {s: v for s, v in best["verdicts"].items() if v is not None}
+    if not passed:
+        reasons = collections.Counter(failure_class(v) for v in failed.values())
+        return "queued", decision(name, "no-unit-adopts", f"no unit adopts in any variant ({dict(reasons)})",
+                                  failures=dict(sorted(failed.items())[:10]), **evidence), None
+    held = claim_rewrites(name, [header] + passed)
+    if held:
+        return "queued", decision(name, "claimed", f"{len(held)} unit(s) are held: "
+                                  + "; ".join(f"{k} ({w})" for k, w in held[:4]), holder=held[0][1], **evidence), None
+    originals = {s: (ROOT / s).read_bytes() for s in passed}
+    header_path = ROOT / header
+    header_before = header_path.read_bytes() if header_path.exists() else None
+    header_path.parent.mkdir(parents=True, exist_ok=True)
+    header_path.write_text(best["header"], encoding="utf-8", newline="\n")
+    for source in passed:
+        (ROOT / source).write_bytes(best["texts"][source].encode("latin-1"))
+    verdicts = ctx["link_check"](passed)
+    kept = [s for s in passed if verdicts.get(s) is True]
+    dropped = {s: ("link regression: the census-linked unit would stop linking with the header"
+                   if verdicts.get(s) is False else "link unverified: link_check gave no verdict")
+               for s in passed if verdicts.get(s) is not True}
+    for source in dropped:
+        (ROOT / source).write_bytes(originals[source])
+    if not kept:
+        if header_before is None:
+            header_path.unlink()
+        else:
+            header_path.write_bytes(header_before)
+        release_rewrites(name)
+        return "queued", decision(name, "link-regression", f"every adopting unit would lose its link "
+                                  f"({len(dropped)} unit(s))", units_dropped=dict(sorted(dropped.items())[:20]),
+                                  **evidence), None
+    contract_path = class_contract.contract_path(name)
+    if not contract_path.exists():
+        contract_path.parent.mkdir(parents=True, exist_ok=True)
+        contract_path.write_text(json.dumps({k: v for k, v in prepared["contract"].items() if k != "sources"},
+                                            indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    register(name, header, f"generated by header_adopt_lane run --all from class_contracts/{contract_path.name}; "
+             f"variant {prepared['winner']}; {len(kept)}/{len(prepared['sources'])} units adopt")
+    renamed = [r for s in kept for r in best["renames"].get(s, [])]
+    rewrite_ledger(renamed)
+    write_queue(name, header, {**failed, **dropped})
+    reasons = collections.Counter(failure_class(v) for v in failed.values())
+    message = (f"Generate and adopt the canonical {name} header in {len(kept)} units\n\n"
+               f"header_adopt_lane.py run --all: {contract_path.relative_to(ROOT).as_posix()}, variant "
+               f"{prepared['winner']}, header {header}. {len(kept)}/{len(prepared['sources'])} units adopt and "
+               f"byte-match; {len(failed)} queued ({', '.join(f'{k} {n}' for k, n in reasons.most_common(6)) or '-'})"
+               + (f"; {len(dropped)} dropped by the link check" if dropped else "") + ".\n"
+               + "".join(f"\n{t}" for t in ctx["trailers"]) + ("\n" if ctx["trailers"] else ""))
+    paths = [header, contract_path.relative_to(ROOT).as_posix(), REGISTRY.relative_to(ROOT).as_posix(),
+             QUEUE.relative_to(ROOT).as_posix()] + kept + ([LEDGER.relative_to(ROOT).as_posix()] if renamed else [])
+    ok, sha, tail = ctx["commit"](paths, message)
+    if not ok:
+        ctx["undo"](paths, header if header_before is None else None)
+        release_rewrites(name)
+        return "queued", decision(name, "commit-refused", "the pre-commit hook refused the class's commit",
+                                  hook_tail=tail[-1500:], **evidence), None
+    record = None
+    if dropped:
+        record = decision(name, "link-regression", f"{len(dropped)} unit(s) dropped by the link check; "
+                          f"{len(kept)} adopted", units_dropped=dict(sorted(dropped.items())[:20]), **evidence)
+    return "adopted", record, sha
+
+
+def git_commit(paths, message):
+    """Stage exactly `paths` and commit through the repository's hooks: (ok, sha, output tail)."""
+    git = ["git", "-c", "core.hooksPath=.githooks"]
+    present = [p for p in paths if (ROOT / p).exists() or _git("ls-files", "--", p)]
+    add = subprocess.run(git + ["add", "--", *present], cwd=ROOT, capture_output=True, text=True, errors="replace")
+    if add.returncode:
+        return False, None, add.stdout + add.stderr
+    done = subprocess.run(git + ["commit", "-q", "-F", "-"], cwd=ROOT, input=message, capture_output=True,
+                          text=True, errors="replace")
+    if done.returncode:
+        return False, None, done.stdout + done.stderr
+    return True, _git("rev-parse", "HEAD"), done.stdout[-500:]
+
+
+def git_undo(paths, new_header=None):
+    """Put `paths` back to HEAD after a refused commit (index and tree); remove a new header."""
+    subprocess.run(["git", "reset", "-q", "--", *paths], cwd=ROOT, capture_output=True)
+    tracked = [p for p in paths if _git("ls-files", "--", p)]
+    if tracked:
+        subprocess.run(["git", "checkout", "--", *tracked], cwd=ROOT, capture_output=True)
+    for p in paths:
+        if p not in tracked and (ROOT / p).exists() and (p == new_header or p.startswith("reverse/class_contracts/")):
+            (ROOT / p).unlink()
+
+
+def bulk_guard():
+    """The files a class commit stages must carry no unrelated edits (they would be committed)."""
+    shared = [REGISTRY, QUEUE, LEDGER]
+    dirty = _git("status", "--porcelain", "--", *[p.relative_to(ROOT).as_posix() for p in shared])
+    return dirty.strip()
+
+
+def census_index(rows, names):
+    """{class: {sources}} for `names` in one read of every authored ledger source
+    (class_contract.census's sources, class_layouts.class_bodies' views)."""
+    wanted, out = set(names), {n: {n} for n in names}
+    sources = sorted({r["source"] for r in rows if r["source"].lower().endswith((".cpp", ".c"))
+                      and not r["source"].startswith(class_contract.GENERATED)})
+    for source in sources:
+        try:
+            text = (ROOT / source).read_text(encoding="latin-1")
+        except OSError:
+            continue
+        for name in set(class_layouts.class_bodies(text)) & wanted:
+            out[name].add(source)
+    return out
+
+
+def bulk_batches(order, files, needs, jobs):
+    """Batches of up to `jobs` classes that share no file, a class never batched with
+    (or before) a class it needs that is still pending."""
+    pending, out = list(order), []
+    while pending:
+        batch, used, waiting = [], set(), set()
+        for name in list(pending):
+            if len(batch) >= jobs:
+                break
+            blocked = needs.get(name, set()) & (set(pending) - {name})
+            if blocked & (waiting | set(batch)) or any(order.index(b) < order.index(name) for b in blocked):
+                waiting.add(name)
+                continue
+            if files.get(name, set()) & used:
+                waiting.add(name)
+                continue
+            batch.append(name)
+            used |= files.get(name, set())
+        if not batch:                      # a dependency cycle: take the first as it stands
+            batch = [pending[0]]
+        for name in batch:
+            pending.remove(name)
+        out.append(batch)
+    return out
+
+
+def run_all(args, ctx=None):
+    """`run --all`: one bulk pass. Returns 0, or 2 when the shared files carry unrelated edits."""
+    started = time.time()
+    canon = registered()
+    if ctx is None:
+        if not args.dry_run and bulk_guard():
+            print("run --all: reverse/canonical_classes.csv, header_queue.tsv or functions.csv has uncommitted "
+                  "edits; commit or set them aside first (each class commit stages them)")
+            return 2
+        blockers = merge_blockers()
+        ranked = merge_rank(blockers, canon)
+        index = reference_headers()
+        ctx = {"blockers": blockers, "ranked": ranked, "rows": class_contract.ledger_rows(),
+               "destination": lambda n: header_destination(n, index), "link_check": link_ok,
+               "commit": git_commit, "undo": git_undo}
+    ctx.setdefault("dry_run", args.dry_run)
+    ctx.setdefault("sample", args.sample)
+    ctx.setdefault("seed", args.seed)
+    ctx.setdefault("unit_jobs", args.unit_jobs)
+    ctx.setdefault("variants", args.variants.split(","))
+    ctx.setdefault("trailers", list(args.trailer or ()))
+    ctx.setdefault("state_path", BULK_STATE)
+    ctx.setdefault("decisions_path", SCRATCH / "decision_queue.dry.jsonl" if args.dry_run else DECISIONS)
+    blockers, ranked = ctx["blockers"], ctx["ranked"]
+    ctx["info"] = {c: dict(blockers.get(c, {}), score=s, own=o) for c, s, o in ranked}
+    order = plan_order(ranked, blockers, canon)
+    if args.only:
+        order = [c for c in order if c in set(args.only)] + [c for c in args.only if c not in order and c not in canon]
+    state = load_state(ctx["state_path"])
+    if args.resume:
+        order = [c for c in order if state.get(c, {}).get("status") not in BULK_DONE]
+    if args.limit:
+        order = order[:args.limit]
+    # Classes run side by side only when no unit holds views of both: each tournament
+    # swaps its units' text in place.
+    files = census_index(ctx["rows"], order) if args.jobs > 1 else {c: {c} for c in order}
+    needs = {c: {base_identity(b) for b in blockers.get(c, {}).get("bases", ())} & set(order) for c in order}
+    print(f"run --all: {len(order)} class(es) to try ({'dry run' if ctx['dry_run'] else 'apply'}, "
+          f"jobs {args.jobs}, budget {args.budget_min or '-'} min)", flush=True)
+    records, tally = {}, collections.Counter()
+    for batch in bulk_batches(order, files, needs, max(1, args.jobs)):
+        if args.budget_min and time.time() - started > args.budget_min * 60:
+            print(f"run --all: budget of {args.budget_min} min spent; resume with --resume", flush=True)
+            break
+        with cf.ThreadPoolExecutor(max(1, min(args.jobs, len(batch)))) as pool:
+            futures = {name: pool.submit(bulk_prepare, name, ctx) for name in batch}
+        for name in batch:                 # land in rank order, one commit at a time
+            try:
+                prepared = futures[name].result()
+                if "record" in prepared:
+                    status, record, sha = ("claimed" if prepared["record"]["kind"] == "claimed" else "queued",
+                                           prepared["record"], None)
+                elif "would" in prepared:
+                    status, record, sha = "would-generate", None, None
+                else:
+                    status, record, sha = bulk_land(name, prepared, ctx)
+            except Exception as exc:  # noqa: BLE001 - one class's failure is a record, not the pass's end
+                status, record, sha = "error", decision(name, "error", f"{type(exc).__name__}: {exc}"[:500]), None
+            records[name] = record
+            tally[status] += 1
+            state[name] = {"status": status, "at": int(time.time()), **({"commit": sha} if sha else {}),
+                           **({"kind": record["kind"]} if record else {})}
+            if not ctx["dry_run"]:
+                save_state(state, ctx["state_path"])
+            line = f"  {name:<32} {status:<15}"
+            if record:
+                line += f" {record['kind']}: {record['detail'][:120]}"
+            if sha:
+                line += f" {sha[:10]}"
+            print(line, flush=True)
+    for name, rec in records.items():
+        if rec is not None:
+            rec.setdefault("merge_donors", ctx["info"].get(name, {}).get("score", 0))
+    adopted = {n for n, s in state.items() if s.get("status") == "adopted"} if not ctx["dry_run"] else set()
+    rows = write_decisions(records, ctx["decisions_path"], canon=set(canon) | adopted)
+    print(f"run --all: {dict(tally)}; {len(rows)} record(s) in {Path(ctx['decisions_path']).as_posix()}"
+          + ("" if ctx["dry_run"] else "; push, then `header_adopt_lane.py release --class X` for each adopted "
+                                       "class and `claims.py release class:X`"), flush=True)
+    return 0
+
+
 def print_destination(name):
     """Where `run --generate` should write `name`'s header, with the evidence, or why not."""
     dest = header_destination(name, reference_headers())
@@ -1495,14 +1911,26 @@ def main(argv=None):
     p = sub.add_parser("refresh-merges", help=argparse.SUPPRESS)   # the picker's detached refresh
     p.add_argument("--lock", required=True)
     p = sub.add_parser("run")
-    p.add_argument("--class", dest="name", required=True)
+    p.add_argument("--class", dest="name")
+    p.add_argument("--all", action="store_true",
+                   help="bulk pass over the establish classes in `order --merges` rank (decisions it cannot make "
+                        "go to reverse/header_decisions.jsonl)")
+    p.add_argument("--only", nargs="+", metavar="CLASS", help="--all: just these classes")
+    p.add_argument("--resume", action="store_true", help="--all: skip classes a previous pass adopted or queued")
+    p.add_argument("--budget-min", type=float, help="--all: start no class after this many minutes")
+    p.add_argument("--limit", type=int, help="--all: try at most N classes")
+    p.add_argument("--dry-run", action="store_true", help="--all: decide and report; claim, write and commit nothing")
+    p.add_argument("--unit-jobs", type=int, default=max(2, (os.cpu_count() or 4) // 2),
+                   help="--all: parallel unit gates inside one class")
+    p.add_argument("--trailer", action="append", help="--all: a trailer line for each class commit")
     p.add_argument("--header")
     p.add_argument("--generate", action="store_true", help="generate the header from the contract (tournament)")
     p.add_argument("--variants", default="data,data+ctor,data+methods,data+includes",
                    help="tokens joined by +: data, ctor (inline default ctor), copy (out-of-line copy ctor), methods, includes (headers of registered classes the slots name)")
     p.add_argument("--sample", type=int)
     p.add_argument("--seed", type=int, default=20261006)
-    p.add_argument("--jobs", type=int, default=max(2, (os.cpu_count() or 4) // 2))
+    p.add_argument("--jobs", type=int, help="parallel unit gates (one class); with --all, classes run side by side "
+                                            "(default 1)")
     p.add_argument("--apply", action="store_true")
     p = sub.add_parser("accept")
     p.add_argument("--class", dest="name", required=True)
@@ -1536,6 +1964,12 @@ def main(argv=None):
             Path(args.lock).unlink(missing_ok=True)
         return 0
     if args.cmd == "run":
+        if args.all:
+            args.jobs = args.jobs or 1
+            return run_all(args)
+        if not args.name:
+            parser.error("run needs --class NAME or --all")
+        args.jobs = args.jobs or max(2, (os.cpu_count() or 4) // 2)
         return run(args)
     if args.cmd == "accept":
         return accept(args.name, args.files, args.header)

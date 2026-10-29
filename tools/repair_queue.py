@@ -1187,6 +1187,53 @@ def data_identity_items():
 HEADER_ESTABLISH_LIMIT = 30   # classes without a header served at once, by merge donors unblocked
 
 
+HEADER_DECISIONS = "reverse/header_decisions.jsonl"
+
+
+def decision_items(records, canon, rank=None):
+    """`class-header-decide` items from header_adopt_lane's decision queue (`run --all`):
+    one per class the bulk pass could not generate, ranked by the merge donors its header
+    unblocks, with the competing evidence. Registered classes, claims held elsewhere (the
+    holder is on it) and classes waiting on a base (served through the base) are not served."""
+    tools_on_path()
+    import header_adopt_lane
+    rank = rank or {}
+    items = []
+    for row in records:
+        name, kind = row.get("class") or "", row.get("kind") or ""
+        if not name or name in canon or kind not in header_adopt_lane.DECIDABLE:
+            continue
+        attributes = row.get("attributes") or []
+        evidence = "; ".join(
+            f"{a.get('attribute')}: " + (", ".join(f"{k} x{v}" for k, v in sorted((a.get("candidates") or {}).items(),
+                                                                                 key=lambda kv: -kv[1]))
+                                         or a.get("why", "no candidates"))
+            for a in attributes[:4])
+        files = [f"file:{f}" for f in ([row["header"]] if row.get("header") else [])]
+        contract = row.get("contract") or ""
+        items.append({
+            "tier": "header", "check": "class-header-decide", "class": name, "target_rva": "", "function": name,
+            "source": contract, "size": 0, "credit": 0, "rank": rank.get(name, len(rank)), "ranks": len(rank) + 1,
+            "merge_donors": int(row.get("merge_donors", 0)), "kind": kind,
+            "credit_note": f"unblocks up to {row.get('merge_donors', 0)} merge donor(s) "
+                           f"({row.get('own_donors', 0)} of its own views, {row.get('tus', 0)} TU(s))",
+            "why": f"{row.get('detail', kind)}" + (f" [{evidence}]" if evidence else ""),
+            "header": row.get("header", ""),
+            "start": (f"read {contract} and the record in {HEADER_DECISIONS}; settle the attribute from evidence "
+                      "(retail bytes and vftables, then ZH; class_contract's rule order), by retargeting the "
+                      "private views that vote wrong (./build.sh each) or recording why it stays open; never "
+                      f"guess. Then {row.get('resume', 'header_adopt_lane.py run --all --only ' + name)}"
+                      if kind == "undecided" else
+                      f"{row.get('detail', kind)}; resolve it, then "
+                      f"{row.get('resume', 'header_adopt_lane.py run --all --only ' + name)}"),
+            "claim": [f"class:{name}"] + files,
+            "pass_test": (f"{name} is registered in reverse/canonical_classes.csv by header_adopt_lane run --all, "
+                          f"which drops its record from {HEADER_DECISIONS}"),
+        })
+    items.sort(key=lambda i: (-i["merge_donors"], i["class"]))
+    return items
+
+
 def _contract_undecided_slots(path):
     """The virtual slots the frozen contract at `path` leaves undecided (its queue)."""
     try:
@@ -1269,10 +1316,14 @@ def header_items():
                           "declares no private body and byte-matches; the command then retires the row"),
         })
     queued_classes = {i["class"] for i in items}
+    # Classes the bulk pass (`run --all`) already tried are served as decisions, in
+    # place of establish items: the mechanical part is done, a judgement remains.
+    decided = decision_items(header_adopt_lane.read_decisions(ROOT / HEADER_DECISIONS), canon, rank)
+    tried = {r.get("class") for r in header_adopt_lane.read_decisions(ROOT / HEADER_DECISIONS)}
     contracts = header_adopt_lane.class_contract.CONTRACTS
     establish = []
     for name, score, own in header_adopt_lane.merge_rank(blockers, canon):
-        if name in canon or name in queued_classes or len(establish) >= HEADER_ESTABLISH_LIMIT:
+        if name in canon or name in queued_classes or name in tried or len(establish) >= HEADER_ESTABLISH_LIMIT:
             continue
         d = blockers.get(name, {})
         dest = destinations.get(name) or {"header": None, "why": "no destination cached"}
@@ -1326,8 +1377,9 @@ def header_items():
     items.sort(key=lambda i: (-i["merge_donors"], i["rank"], i["class"], i["source"]))
     establish.sort(key=lambda i: (-i["merge_donors"], i["class"]))
     classes = len({i["class"] for i in items})
-    return vanished_items("header", gone, HEADER_QUEUE) + items + establish, (
+    return vanished_items("header", gone, HEADER_QUEUE) + items + decided + establish, (
         f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
+        + (f"; {len(decided)} class decision(s) from {HEADER_DECISIONS}" if decided else "")
         + f"; {len(establish)} class(es) without a header ranked by merge donors unblocked "
           "(header_adopt_lane.py order --merges)" + merge_note)
 
