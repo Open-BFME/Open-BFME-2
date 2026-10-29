@@ -450,6 +450,25 @@ int rva00078BFA(void)
 	return count;
 }
 
+// Retail 0x00078C82 (26 B): a free __cdecl clamp of three Int arguments by
+// value (low, value, high); no relocation in the body, so the name is
+// address-derived. Moved from Code/gen_small/U3_leaf_helpers_Rva0007C680Clamp.cpp
+// (Open-BFME-1 donor game/gen_small/U3_leaf_ctors.cpp) into its approved TU.
+Int Rva0007C680Clamp(Int low, Int value, Int high)
+{
+	if (value < low)
+	{
+		return low;
+	}
+
+	if (value > high)
+	{
+		return high;
+	}
+
+	return value;
+}
+
 // WorldBuilder GetLODIndex, WB VA 0x00919CB0 (callgraph lead, score 1.0).
 __declspec(noinline) int GetLODIndex(void)
 {
