@@ -97,7 +97,7 @@ public:
 	}
 };
 
-// Partition filters (see the BroadcastStealthUpdateUpdate.cpp view).
+// Partition filters (see the BroadcastStealthUpdate.cpp view).
 class Rva000421C8
 {
 public:

@@ -5,7 +5,7 @@
 // "DamageScalar" -> 0x00508862, offset 0x168) and the vector growth path it
 // reaches. The nugget keeps the address-derived name its ctor 0x00507C2D
 // carries; its implicit destructor (0x00508684) and ??_G (0x00508668) come
-// out of that ctor's TU, Made002CC5E1Ctor.cpp, where the vtable is emitted.
+// out of that ctor's TU, DamageNugget.cpp, where the vtable is emitted.
 //
 // Target evidence:
 //   0x00508862  parser: builds an 8-byte entry on the stack (filter ctor
