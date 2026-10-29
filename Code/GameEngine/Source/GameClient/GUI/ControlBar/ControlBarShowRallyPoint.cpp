@@ -22,11 +22,12 @@ public:
 	Object *m_object; // +0xFC +0xFC
 };
 
-class Thing
+class Matrix3D
 {
 public:
-	void setOrientation(float angle);
+	float m_row[3][4];
 };
+#include "../../../Common/Thing/thing.h"
 
 
 class ThingTemplate;
