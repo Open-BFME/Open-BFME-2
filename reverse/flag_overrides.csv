@@ -295,7 +295,6 @@ Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp,,1,1,region default lo
 Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,-O2,5,2,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,-O1 -G7,1,1,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp,-G7 -arch:SSE,5,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp,-G7 -arch:SSE,4,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,,4,4,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,-G7 -arch:SSE,3,1,region default loses rows
