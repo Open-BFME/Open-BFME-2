@@ -46,12 +46,7 @@ enum CommandSourceType
 class Object;
 class AIUpdateInterface;
 
-class Thing
-{
-public:
-	void setOrientation(Real angle);
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

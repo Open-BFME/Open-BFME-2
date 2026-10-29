@@ -17,17 +17,28 @@
 
 #pragma once
 
-#ifndef __BFME2_MATRIX3D_H_
-#define __BFME2_MATRIX3D_H_
+// WWMath's matrix3d.h guard: a unit that includes the full WWMath header keeps it
+// (same layout), and this storage view then adds nothing.
+#ifndef MATRIX3D_H
+#define MATRIX3D_H
 
 #include "Vector4Data.h"
 
 class Matrix3D
 {
 public:
-	Matrix3D( void ) { }
+	__forceinline Matrix3D( void ) { }
+
+	// Make_Identity: the three units above spell it identically (Zero Hour
+	// matrix3d.h's Make_Identity) and inline it through Vector4::Set.
+	__forceinline void Make_Identity()
+	{
+		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
+		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
+		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
+	}
 
 	Vector4 Row[3];
 };
 
-#endif // __BFME2_MATRIX3D_H_
+#endif // MATRIX3D_H

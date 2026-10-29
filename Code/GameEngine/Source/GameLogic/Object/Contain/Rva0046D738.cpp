@@ -7,11 +7,7 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class Object;
-class Thing
-{
-public:
-	void setOrientation(float ang);
-};
+#include "../../../Common/Thing/thing.h"
 extern GameLogic *TheGameLogic;
 class Object : public Thing
 {

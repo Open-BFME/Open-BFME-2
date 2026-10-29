@@ -41,7 +41,7 @@ static __forceinline void aiMoveToPosition(AICommandInterface &ai, const Coord3D
 }
 class StrafeAreaUpdate { public: bool rva003A4F21(const Coord3D *, const Coord3D *); };
 class AIUpdateView { public: char pad[0x20]; AICommandInterface command; };
-class Thing { public: void setOrientation(float); };
+#include "../../Common/Thing/thing.h"
 float normalizeAngle(float);
 
 class Player;

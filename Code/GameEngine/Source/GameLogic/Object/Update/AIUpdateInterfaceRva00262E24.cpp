@@ -8,7 +8,7 @@
 struct Rva003642DFNode;
 struct Rva003642DFResult { Rva003642DFNode *m_node; Coord3D m_pos; };
 class Path { public: Rva003642DFResult rva003642DF(float dist); };
-class Thing { public: const Coord3D *getUnitDirectionVector2D() const; };
+#include "../../../Common/Thing/thing.h"
 class Object {
 public:
     unsigned char m_prefix[0x38];

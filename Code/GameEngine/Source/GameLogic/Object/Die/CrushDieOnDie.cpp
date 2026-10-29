@@ -120,23 +120,18 @@ public:
 	unsigned int m_bits[ 0x4C / 4 ];
 };
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../../../Common/Thing/thing.h"
 
+// Object's own members start after the canonical Thing (0x60 bytes); its position
+// is Thing's cached position at +0x38 (Thing::getPosition).
 class Object : public Thing
 {
 public:
 	BodyModuleInterface *getBodyModule() const { return m_body; }
-	const Coord3D *getPosition() const { return &m_pos; }
 	const GeometryInfo &getGeometryInfo() const { return m_geometryInfo; }
 	ObjectID getID() const { return m_id; }
 	void rva0028CFB2( const int *clr, const int *set );
-	unsigned char m_pad00[0x38];
-	Coord3D m_pos;
-	unsigned char m_pad44[0x74 - 0x44];
+	unsigned char m_pad60[0x74 - 0x60];
 	ObjectID m_id;
 	unsigned char m_pad78[0xA8 - 0x78];
 	GeometryInfo m_geometryInfo;

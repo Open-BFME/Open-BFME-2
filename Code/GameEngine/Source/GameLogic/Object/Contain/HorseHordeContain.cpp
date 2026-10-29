@@ -195,7 +195,7 @@ class Rva001E46E1 {public:float rva001E4845(Object*);float rva001E46E1(Object*);
 
 class View {public:virtual void setHeightAboveGround(float);};
 
-class Thing {public:void setPosition(const Coord3D*);};
+#include "../../../Common/Thing/thing.h"
 
 enum KindOfType {KINDOF_0088=0x88};
 

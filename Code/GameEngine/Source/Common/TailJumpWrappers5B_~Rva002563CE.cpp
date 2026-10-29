@@ -669,11 +669,7 @@ public:
 
 struct Coord3D;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "Thing/thing.h"
 
 class Drawable : public Thing
 {

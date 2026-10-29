@@ -171,19 +171,7 @@ public:
 	void rva002783F6(int v);
 };
 
-class Vector4 { public: __forceinline Vector4() {} __forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; } float X, Y, Z, W; };
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-	Vector4 Row[3];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 struct Coord3DZero
 {

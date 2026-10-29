@@ -26,12 +26,7 @@ enum ExitDoorType
 	DOOR_1 = 0
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(float angle);
-};
+#include "../../../../Common/Thing/thing.h"
 
 class Object
 {

@@ -11,11 +11,7 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object
 {

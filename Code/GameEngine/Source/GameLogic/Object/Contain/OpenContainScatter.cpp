@@ -17,7 +17,7 @@ extern float Sin(float);
 enum CommandSourceType { CMD_FROM_AI = 2 };
 class AICommandInterface { public: void aiMoveToPosition(const Coord3D *, CommandSourceType); };
 class AIUpdateInterface { public: void ignoreObstacle(const Object *); };
-class Thing { public: void setPosition(const Coord3D *); };
+#include "../../../Common/Thing/thing.h"
 class Object : public Thing {
 public:
     float GetRelativeAngle(const Coord3D *) const;

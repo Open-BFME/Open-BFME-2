@@ -8,11 +8,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_NONE = 1
 };
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-};
+#include "Thing/thing.h"
 
 class Object : public Thing
 {

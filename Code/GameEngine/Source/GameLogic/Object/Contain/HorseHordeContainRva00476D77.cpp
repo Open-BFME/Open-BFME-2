@@ -162,7 +162,7 @@ struct LocoTemplate {char pad[0x70];int appearance;};
 class Locomotor {public:float getMaxTurnRate(Object*)const;char pad[4];const LocoTemplate*data;};
 class Rva001E46E1 {public:bool rva001E543F(Object*);float rva001E4845(Object*);};
 class View {public:virtual void setHeightAboveGround(float);};
-class Thing {public:void setPosition(const Coord3D*);};
+#include "../../../Common/Thing/thing.h"
 enum ObjectStatusTypes {STATUS_75=75};
 enum KindOfType {KINDOF_0088=0x88};
 struct FlagBytes{unsigned char w[8];

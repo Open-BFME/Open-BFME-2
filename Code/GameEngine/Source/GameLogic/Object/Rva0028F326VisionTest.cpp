@@ -42,7 +42,7 @@ inline float Coord3D::operator*(const Coord3DBase &r) const { return (x*r.x)+(y*
 struct Vec2 {float x,y;};
 extern bool Rva004DF8D8Test(const Vec2*,const Vec2*,const Vec2*,float,float,float,float);
 extern float Cos(float),Sin(float);
-class Thing {public:const Coord3D*getUnitDirectionVector2D()const;};
+#include "../../Common/Thing/thing.h"
 class Object {public:float getVisionRange()const;};
 struct RangeTemplate {char pad[0x53C];float visionAngle;};
 struct FacingVector {float x,y,z;FacingVector():x(0),y(0),z(0){}

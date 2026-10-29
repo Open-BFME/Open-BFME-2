@@ -129,12 +129,7 @@ public:
 	Object *container;
 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-void getUnitDirectionVector2D(Coord3D&)const;
-};
+#include "../../Common/Thing/thing.h"
 struct Rva002E7ED6Info;
 class Pathfinder;
 // Native aircraft-path node ABI agrees with the rowed ctor and prepend provider.

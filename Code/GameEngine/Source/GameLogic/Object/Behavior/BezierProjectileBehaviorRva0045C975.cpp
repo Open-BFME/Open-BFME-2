@@ -41,11 +41,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class AICommandInterface
 {

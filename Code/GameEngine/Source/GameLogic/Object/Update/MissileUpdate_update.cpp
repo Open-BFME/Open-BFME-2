@@ -7,7 +7,7 @@
 #include <math.h>
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
 enum PathfindLayerEnum {GROUND_LAYER=0,BRIDGE_LAYER=1};
-class Thing {public:virtual void anchor();void setPosition(const Coord3D*);const Coord3D *getPosition()const{return &m_position;}char pad[0x34];Coord3D m_position;};
+#include "../../../Common/Thing/thing.h"
 struct MissilePoint:public Coord3D {MissilePoint(const Coord3D &p){x=p.x;y=p.y;z=p.z;}void setXY(const Coord3D&p,float height){x=p.x;y=p.y;z=height;}};
 class Object:public Thing {public:int rva0028B511()const;void setLayer(PathfindLayerEnum);};
 #include "../../../Common/GameLogicObjectLookupView.h"

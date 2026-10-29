@@ -59,11 +59,7 @@ public:
     int rva0028B511() const;
     void rva0028ACEE(int position, int layer);
 };
-class Thing
-{
-public:
-    void setPosition(const Coord3D *position);
-};
+#include "../../../Common/Thing/thing.h"
 struct Rva0046A10DListNode
 {
     Rva0046A10DListNode *next;

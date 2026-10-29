@@ -20,11 +20,7 @@ enum CommandSourceType
 	Rva0029660C_SOURCE_2 = 2
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../Common/Thing/thing.h"
 
 class Rva002747F9
 {

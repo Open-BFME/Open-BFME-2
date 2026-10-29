@@ -8,10 +8,7 @@
 
 typedef bool Bool;
 class Object;
-class Thing {
-public:
-    void getUnitDirectionVector2D(Coord3D &) const;
-};
+#include "../../Common/Thing/thing.h"
 struct Direction4015Template {
     char pad00[0x74];
     int mode74;

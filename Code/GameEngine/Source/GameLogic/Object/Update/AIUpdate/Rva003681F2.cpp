@@ -10,11 +10,7 @@ struct Rva00368C7AObject
 	char unknown00[0x38];
 	Coord3D position;
 };
-class Thing
-{
-public:
-	void setPositionZ(float z);
-};
+#include "../../../../Common/Thing/thing.h"
 // The rowed complete-object constructor places this 0x60-byte member at
 // +0x4C8. Retail's slot +8 takes six words, including two float arguments;
 // the point at +0x54 is copied into the owner's previous point.

@@ -151,11 +151,7 @@ class Rva00270260
     bool rva00270260();
 };
 
-class Thing
-{
-  public:
-    void setPositionZ(float);
-};
+#include "../../../Common/Thing/thing.h"
 
 class InGameUI;
 

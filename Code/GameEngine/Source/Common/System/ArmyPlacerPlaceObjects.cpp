@@ -8,7 +8,7 @@
 #include "Coord3D.h"
 #include "../GameLogicObjectLookupView.h"
 class Player;
-class Thing {public:void setOrientation(float);};
+#include "../Thing/thing.h"
 class ArmyLocomotor {public:char pad[0x48];float flightHeight;};
 class ArmyLocomotorSet {public:char pad[0x1d0];ArmyLocomotor**locomotors;};
 class ArmyUnitAI {public:

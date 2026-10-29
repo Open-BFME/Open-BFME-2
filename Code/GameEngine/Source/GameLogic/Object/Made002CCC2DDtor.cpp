@@ -31,12 +31,7 @@ public:
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
 };
 extern ThingFactory *TheThingFactory;
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(float angle);
-};
+#include "../../Common/Thing/thing.h"
 enum DamageType { DAMAGE_UNKNOWN = 8 };
 enum DeathType { DEATH_UNKNOWN = 22 };
 class Object

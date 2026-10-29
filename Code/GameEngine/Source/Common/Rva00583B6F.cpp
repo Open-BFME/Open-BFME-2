@@ -5,12 +5,7 @@
 //   and Thing::setPosition 0x0030AA80; circular list walk with x87 float arg.
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-	void setPosition(const Coord3D *pos);
-};
+#include "Thing/thing.h"
 
 class Rva00583B6FIface
 {

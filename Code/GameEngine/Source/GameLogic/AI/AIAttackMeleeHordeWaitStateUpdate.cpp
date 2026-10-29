@@ -27,11 +27,7 @@ enum StateReturnType
 
 class Player;
 class Object;
-class Thing
-{
-public:
-	void setOrientation(Real angle);
-};
+#include "../../Common/Thing/thing.h"
 
 class ProviderInner
 {

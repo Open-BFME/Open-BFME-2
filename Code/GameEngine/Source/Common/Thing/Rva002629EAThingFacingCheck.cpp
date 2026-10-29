@@ -19,14 +19,7 @@
 
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-	char m_pad[0x38];
-	Coord3D m_cachedPos;
-};
+#include "thing.h"
 
 bool Rva002629EACheck(const Thing *thing, const Thing *b)
 {

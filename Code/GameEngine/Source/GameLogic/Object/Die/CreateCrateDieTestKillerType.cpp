@@ -39,12 +39,7 @@ public:
 	KindOfMaskType m_kindof;	// +0x108
 };
 
-class Thing
-{
-public:
-	void *m_vptr;
-	const ThingTemplate *m_template;	// +0x04
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

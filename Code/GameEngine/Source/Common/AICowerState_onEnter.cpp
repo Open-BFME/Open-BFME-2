@@ -6,11 +6,7 @@
 // Evidence: unlock lane, caller 0x00347EA8 tail-jmp same this, callees rowed getGoalObject 0x004D7726 plus setOrientation 0x0030AB9D plus winPrevTab 0x000D43D0 plus pin GetRelativeAngle, virtuals 0x244 0x7c 0x19c 0x1a0 0x1d0
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setOrientation(float angle);
-};
+#include "Thing/thing.h"
 
 class Object
 {

@@ -25,7 +25,7 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
 // uses its verified pair view0046247D with no owner destructor in either body.
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 class Object;
-class Thing { public: void setPosition(const Coord3D*); };
+#include "../../../Common/Thing/thing.h"
 struct ChildNode { ChildNode *next,*prev; Object *object; };
 typedef _STL::list<Object*> ChildList;
 struct Rva0046247DPair { void *first; ChildList *second; };

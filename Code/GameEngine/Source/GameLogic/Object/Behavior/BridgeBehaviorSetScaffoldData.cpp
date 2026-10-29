@@ -15,13 +15,7 @@ extern const Real g_00BC2A10;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void *m_vtable;
-	void setPosition(const Coord3D *position);
-	void setOrientation(Real angle);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

@@ -30,12 +30,7 @@ enum NameKeyType
  
 };
 
-class Thing 
-
-{
- public: void setPosition(const Coord3D *);
- 
-};
+#include "../../Common/Thing/thing.h"
 
 class Object : public Thing
 

@@ -33,7 +33,7 @@ enum ObjectStatusTypes{STATUS_UNK=-1};
 class Object{public:char pad[4];TeleportThingTemplate *thingTemplate;char pad08[0x38-8];Coord3D position;float orientation;char pad48[0x74-0x48];ObjectID id,storedByID;char pad7C[0x258-0x7C];TeleportAI *ai;
  void teleportTo(const Coord3D*,bool);Player *getControllingPlayer()const;bool testStatus(ObjectStatusTypes)const;};
 
-class Thing{public:void setOrientation(float);};
+#include "../../../Common/Thing/thing.h"
 
 class FXList;
 

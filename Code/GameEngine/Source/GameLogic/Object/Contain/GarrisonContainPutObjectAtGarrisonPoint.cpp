@@ -6,11 +6,7 @@
 // copy plus setPosition row plus ID stores plus TheGameLogic frame plus inc;
 // layout plus-0x100 data plus-0x420 count plus-0x424 points from remove TU.
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
-class Thing
-{
-public:
-    void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 class Object : public Thing
 {
 public:

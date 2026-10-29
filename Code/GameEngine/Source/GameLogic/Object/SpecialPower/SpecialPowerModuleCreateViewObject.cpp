@@ -54,11 +54,7 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

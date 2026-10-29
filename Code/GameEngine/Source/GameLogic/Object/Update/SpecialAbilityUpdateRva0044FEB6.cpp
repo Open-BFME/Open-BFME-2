@@ -63,11 +63,7 @@ protected:
 	friend class SpecialAbilityUpdate;
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object
 {

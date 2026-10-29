@@ -18,9 +18,9 @@
 // declaration order; MSVC lays each asObjectMeth/asDrawableMeth overload pair
 // out in reverse declaration order, which puts the const getters first.
 // Slot 6 has no recovered name; `vslot6` is a placeholder.
-// The members by value need Coord3D's and Matrix3D's definitions: the unit
-// declares them before including this header. Members below follow Zero
-// Hour's declarations (Thing.h); only the inline ones are defined here.
+// The members by value need Coord3D's and Matrix3D's definitions, which come from
+// their canonical headers. Members below follow Zero Hour's declarations
+// (Thing.h); only the inline ones are defined here.
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 #pragma once
@@ -28,11 +28,12 @@
 #ifndef __BFME2_THING_H_
 #define __BFME2_THING_H_
 
+#include "../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
+
 class Drawable;
-class Matrix3D;
 class Object;
 class ThingTemplate;
-struct Coord3D;
 
 //-------------------------------------------------------------------------------------------------
 class Thing

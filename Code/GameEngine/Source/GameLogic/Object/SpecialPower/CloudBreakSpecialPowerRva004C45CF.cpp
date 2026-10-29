@@ -14,7 +14,7 @@ class Team;
 struct CreateMask { char m_pad[0x10]; };
 class Object;
 class ThingFactory { public: const ThingTemplate *findTemplate(const AsciiString &name); Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag); };
-class Thing { public: void setPosition(const Coord3D *pos); };
+#include "../../../Common/Thing/thing.h"
 void __stdcall Rva004C45CFCreate(const Coord3D *pos, const AsciiString *name)
 {
     void *tmpl = (void *)TheThingFactory->findTemplate(*name);

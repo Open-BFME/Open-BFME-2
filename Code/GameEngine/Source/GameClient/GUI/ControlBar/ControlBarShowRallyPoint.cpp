@@ -22,11 +22,7 @@ public:
 	Object *m_object; // +0xFC +0xFC
 };
 
-class Matrix3D
-{
-public:
-	float m_row[3][4];
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 #include "../../../Common/Thing/thing.h"
 
 

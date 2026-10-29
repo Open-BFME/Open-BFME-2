@@ -23,11 +23,7 @@ typedef float Real;
 typedef int Int;
 typedef bool Bool;
 
-class Thing
-{
-public:
-	void getUnitDirectionVector2D(Coord3D &dir) const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

@@ -157,11 +157,7 @@ public:
 	unsigned char m_status438;		// +0x438
 };
 
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "../Common/Thing/thing.h"
 
 Real Sin(Real x);
 Int GetGameClientRandomValue(Int lo, Int hi, char *file, Int line);

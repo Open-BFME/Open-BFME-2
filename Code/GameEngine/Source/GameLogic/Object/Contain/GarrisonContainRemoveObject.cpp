@@ -8,15 +8,7 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	const Coord3D *getPosition() const { return (const Coord3D *)((const char *)this + 0x38); }
-private:
-	unsigned char m_pad[0x38];
-	Coord3D m_pos;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

@@ -43,10 +43,7 @@ class DeployStyleAIUpdate
 public:
 	void rva0048E6D2();
 };
-struct Thing {
-	char m_pad[0xCC];
-	OpaqueRefElement4 m_opaque;
-};
+#include "../../../Common/Thing/thing.h"
 struct Rva004AE5B8Data08 {
 	char m_pad[0x74];
 	int m_74;

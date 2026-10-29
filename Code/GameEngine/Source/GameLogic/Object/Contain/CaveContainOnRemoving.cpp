@@ -180,21 +180,7 @@ private:
 	Team *m_defaultTeam;
 };
 
-class Thing
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot04() = 0;
-	virtual void slot08() = 0;
-	virtual void slot0C() = 0;
-	virtual void slot10() = 0;
-	virtual void slot14() = 0;
-	virtual void slot18() = 0;
-	virtual void slot1C() = 0;
-	virtual void slot20() = 0;
-	virtual void slot24() = 0;
-	void setPosition( const Coord3D *pos );
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

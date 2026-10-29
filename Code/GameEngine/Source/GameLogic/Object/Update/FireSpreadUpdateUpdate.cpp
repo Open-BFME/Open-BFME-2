@@ -66,15 +66,7 @@ public:
 	void tryToIgnite();
 };
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-
-private:
-	char m_unknown00[0x38];
-	Coord3D m_position; // +0x38
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object : public Thing
 {

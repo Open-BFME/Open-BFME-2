@@ -41,31 +41,8 @@ class ThingTemplate : public Overridable
 {
 };
 
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	__forceinline void Set(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D() {}
-	__forceinline void Make_Identity()
-	{
-		Row[0].Set(1.0f, 0.0f, 0.0f, 0.0f);
-		Row[1].Set(0.0f, 1.0f, 0.0f, 0.0f);
-		Row[2].Set(0.0f, 0.0f, 1.0f, 0.0f);
-	}
-
-private:
-	Vector4 Row[3];
-};
 
 // Live Thing instance count (WorldBuilder asserts m_instances>0 in
 // Thing::~Thing); the data ledger still names it after the destructor's

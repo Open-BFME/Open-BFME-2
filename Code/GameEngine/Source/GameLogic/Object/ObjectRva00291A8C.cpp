@@ -114,7 +114,7 @@ public:
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../../Common/GameLogicObjectLookupView.h"
 class Matrix3D;
-class Thing { public: void setTransformMatrix(const Matrix3D *); };
+#include "../../Common/Thing/thing.h"
 class Object;
 struct Rva00287C21Other;
 class FireLogicSystem { public: void RegisterObject(Rva00287C21Other *); void UnregisterObject(Rva00287C21Other *); };

@@ -151,12 +151,7 @@ public:
 public:
 	Object *newObject(const ThingTemplate *tmpl, Team *team, const CreateMask *mask, ObjectID flag);
 };
-class Thing
-{
-public:
-	void setOrientation(float v);
-	void setPosition(const Coord3D *pos);
-};
+#include "../../Common/Thing/thing.h"
 class ThingTemplate
 {
 public:

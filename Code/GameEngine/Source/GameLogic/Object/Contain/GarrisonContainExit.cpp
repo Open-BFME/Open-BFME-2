@@ -44,7 +44,7 @@ public:
     const LocomotorSet &set() const { return *reinterpret_cast<const LocomotorSet *>(reinterpret_cast<const char *>(this)+0x1CC); }
     AICommandInterface *commands() { return reinterpret_cast<AICommandInterface *>(reinterpret_cast<char *>(this)+0x20); }
 };
-class Thing { public: void setOrientation(float); };
+#include "../../../Common/Thing/thing.h"
 class Object:public Thing {
 public:
     void teleportTo(const Coord3D *,bool); bool rva002931BA(); void *rva0029439D(); void rva0028ACDC(int);

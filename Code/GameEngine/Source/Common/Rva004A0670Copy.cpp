@@ -11,12 +11,7 @@ enum PathfindLayerEnum
 	PATHFIND_LAYER_GROUND = 0
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-	void setOrientation(float angle);
-};
+#include "Thing/thing.h"
 
 // Zero Hour's AICommandInterface takes a CommandSourceType (row 0x0026C26D).
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT, CMD_FROM_AI, CMD_FROM_DOZER, CMD_DEFAULT_SWITCH_WEAPON };

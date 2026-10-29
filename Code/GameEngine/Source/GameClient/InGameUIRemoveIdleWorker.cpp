@@ -109,15 +109,7 @@ enum ObjectID { INVALID_ID = 0 };
 
 class Drawable;
 
-class Thing
-{
-public:
-	Drawable *getDrawable() const;
-	const Coord3D *getPosition() const { return &m_cachedPos; }
-private:
-	char m_unknown00[0x38];
-	Coord3D m_cachedPos;
-};
+#include "../Common/Thing/thing.h"
 
 class Object : public Thing
 {

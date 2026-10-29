@@ -15,11 +15,7 @@ public:
 	float m_3C;
 };
 
-class Thing
-{
-public:
-	void getUnitDirectionVector2D(Coord3D &out) const;
-};
+#include "../../../Common/Thing/thing.h"
 
 class Rva00469012
 {

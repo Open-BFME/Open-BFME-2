@@ -16,11 +16,7 @@
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *pos);
-};
+#include "../../../Common/Thing/thing.h"
 
 class Object
 {

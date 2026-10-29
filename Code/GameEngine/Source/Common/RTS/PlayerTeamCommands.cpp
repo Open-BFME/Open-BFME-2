@@ -276,7 +276,7 @@ public:
 };
 
 
-class Thing {public:bool isAnyKindOf(const BitFlags<69>&) const;};
+#include "../Thing/thing.h"
 class AICommandInterface {public:void rva0026C347(Object *target, CommandSourceType cmdSource);void aiMoveToPosition(const Coord3D*,CommandSourceType);void aiHunt(CommandSourceType);void aiIdle(CommandSourceType);void aiEvacuate(bool,CommandSourceType);};
 struct Rva2AE9B8AI {char pad[32];AICommandInterface commands;};
 struct Rva2AE9B8Template {char pad[0x108];unsigned kinds;};

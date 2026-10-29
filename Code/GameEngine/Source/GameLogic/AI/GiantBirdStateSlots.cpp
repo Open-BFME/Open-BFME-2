@@ -58,11 +58,7 @@ class Rva00368C7A
 public:
 	void rva00368C7A(float amount, const Coord3D *position, bool argument);
 };
-class Thing
-{
-public:
-	void setPosition(const Coord3D *position);
-};
+#include "../../Common/Thing/thing.h"
 
 class Rva0010CBits
 {

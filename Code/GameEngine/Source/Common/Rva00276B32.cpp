@@ -1,10 +1,6 @@
 // cl: /O1 /MD
 struct Coord3D;
-class Thing
-{
-public:
-	const Coord3D *getUnitDirectionVector2D() const;
-};
+#include "Thing/thing.h"
 // Native 002763E6 is the existing Drawable position accessor.
 class Drawable
 {

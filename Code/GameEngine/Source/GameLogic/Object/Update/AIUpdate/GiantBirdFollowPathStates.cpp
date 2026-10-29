@@ -63,11 +63,7 @@ enum StateExitType
 	EXIT_NORMAL = 0
 };
 
-class Thing
-{
-public:
-	void setPosition(const Coord3D *position);
-};
+#include "../../../../Common/Thing/thing.h"
 class BfmeVec3EJ;
 class Gen_000E5A50
 {
