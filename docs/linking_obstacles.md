@@ -825,6 +825,18 @@ census index under the new rule turns 10 names' kept copy non-wrong (125 units,
 271,771 B blocked only by them) and 35 names wrong (50 linked units, 43,547 B upper
 bound); the second set is LINK-135. Census confirmation awaits the first retail-truth-5
 census.
+Census confirmation (2026-10-29, swift-wt2): the retail-truth-5 re-baseline 93614acd90
+(census of `840db2d676`) records the `vector<Object *>` family linked: AIBuilder.cpp,
+GameEngineInit.cpp, AITactic.cpp, AIStructureCreepTactic.cpp, AISPecialPowerTargetAoE.cpp,
+GenericObjectCreationNuggetReallyCreate.cpp/PositionCreate.cpp, SquadGetAllObjectsAndRemoveDead.cpp,
+SiegeDeployHordeInitiate.cpp, SplitHordeSpecialPower_doSpecialPower.cpp,
+ScriptActions_doTeamPartialUseCommandButton.cpp, AIRva005D8B0BCheck.cpp, AIRoamingDefenseTacticRoam.cpp,
+AITeamBuilder_checkIdleTeams.cpp, GameLogicDestructor.cpp and StlportVectorPushBackSiblings.cpp
+(16 of 18). HordeContainIface11CSlots.cpp (23,871 B) no longer shows the vector selections in
+`rt5_lc.py` order; it waits only on `Pathfinder::RemoveObjectFromPathfindMap` and
+`RemoveObjectGoalFromPathfindMap`, rowed in AIPathfind.cpp, whose merge (48bda983ba) postdates the
+census index. HordeContainRva00475F61.cpp is the LINK-135 provider loss. No AIBuilder source change
+was needed; plain `link_check` still shows the old blockers until the next index.
 Preview (2026-10-29, halilkkaya-lk7, tree `0e1f80a20e`): link_check judges selection by census
 index position, so it still shows these holders' copies as kept. With the index permuted into
 retail-truth-5 order over the current ledger (`rt5_lc.py`, evidence directory of LINK-135), the
@@ -8006,6 +8018,9 @@ Outgoing audit: INCONCLUSIVE against parent `f7755f211c`; index `54b83e4f69` pre
 Clearance: unchanged prerequisite bytes/bindings only. Composition and selected-consumer coverage remain unverified; no linked-byte, source-file, debt, runtime or ownership gain is claimed.
 
 ### LINK-132: AIBuilder selects a non-retail Object-pointer vector destructor
+
+Resolved by the link-order rule (2026-10-29): see the census confirmation under the first
+LINK-132 entry; the AIBuilder trials below were not needed.
 
 Status: Blocked on the common selected-provider repair; bounded Squad copy cleanup verified. Updated: 2026-10-28; inspected revision: `ee6402fcd2cc9839702b7ac7f40f1422103f296e`; ordinary-preview index: `d92e7e6635` (2026-10-28 15:58 UTC, retail-truth-4).
 
