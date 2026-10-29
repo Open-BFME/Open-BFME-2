@@ -20140,8 +20140,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0397C,4,.data,global,_s_rva007B155E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03980,4,.data,global,?TheHeightDieUpdatePoolKey@?1??getModuleNameKey@HeightDieUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp,owned,,1,2
 0x00A03984,4,.data,global,?$S1@?1??getModuleNameKey@HeightDieUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp,owned,,1,4
-0x00A03988,4,.data,global,?TheLargeGroupBonusUpdatePoolKey@?1??getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdatePoolKey.cpp,owned,,1,2
-0x00A0398C,4,.data,global,?$S1@?1??getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdatePoolKey.cpp,owned,,1,4
+0x00A03988,4,.data,global,?TheLargeGroupBonusUpdatePoolKey@?1??getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp,owned,,1,2
+0x00A0398C,4,.data,global,?$S1@?1??getModuleNameKey@LargeGroupBonusUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupBonusUpdate.cpp,owned,,1,4
 0x00A03990,4,.data,global,_s_rva007B15A2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03994,4,.data,global,?g_00E03994@@3HA,,unowned,,0,1
 0x00A03998,4,.data,global,?TheSiegeAIUpdatePoolKey@?1??getModuleNameKey@SiegeAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/SiegeAIUpdate.cpp,owned,,1,2
