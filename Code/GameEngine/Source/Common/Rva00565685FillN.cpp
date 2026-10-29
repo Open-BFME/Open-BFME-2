@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// stlport46
 //
 // ??$__uninitialized_fill_n@PAVRva0052BE33@@IV1@@_STL@@YAPAVRva0052BE33@@PAV1@IABV1@ABU__false_type@0@@Z @0x00565685 (37B).
 // _STL::__uninitialized_fill_n<Rva0052BE33> retail 37 bytes. Dedicated TU
@@ -13,23 +14,9 @@ public:
 	Rva0052BE33(const Rva0052BE33 &that);
 };
 
-namespace _STL
-{
+#include <memory>
 
-struct __false_type {};
-
-template <class T1, class T2>
-void _Construct(T1 *p, const T2 &value);
-
-template <class ForwardIter, class Size, class T>
-ForwardIter __uninitialized_fill_n(ForwardIter first, Size n, const T &x, const __false_type &)
-{
-	ForwardIter cur = first;
-	for (; n > 0; --n, ++cur)
-		_Construct(cur, x);
-	return cur;
-}
-
-}
+// _Construct stays declared only, so the element copy remains an out-of-line call.
+namespace _STL { template <> void _Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *, const Rva0052BE33 &); }
 
 template Rva0052BE33 *_STL::__uninitialized_fill_n(Rva0052BE33 *, unsigned int, const Rva0052BE33 &, const _STL::__false_type &);
