@@ -13946,3 +13946,5 @@ Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec
 Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp|member|TeamRecord0019B850|field08,66f9c35c26b4dc0071abeb21,gpt-6.1-sol,w4-10290053-10,w-eb83eac9adc1,2026-10-29
 Code/GameEngine/Source/Common/Rva0040DAA0Finish.cpp|local|Rva0040DAA0::findByName|t,331ac912940ea4e1469bb7be,gpt-6.1-sol,w4-10290053-11,w-eb83eac9adc1,2026-10-29
 Code/GameEngine/Source/GameLogic/Object/PartitionFilterAllowSlots.cpp|class||Rva00271B3COwner,1c4701af6043cfee5dd7777a,gpt-6.1-sol,w4-10290053-12,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp|member|BfmeNodeZK|m_bfmeIdZK,fde2ef9a4f6063def4e35de4,gpt-6.1-sol,review-33496f10afa54bd9,w-df5b3c5a1182,2026-10-28
+Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp|member|BfmeNodeZK|m_bfmeKindZK,f63e97c99555ac84770cae76,gpt-6.1-sol,review-33496f10afa54bd9,w-df5b3c5a1182,2026-10-28

@@ -4046,3 +4046,5 @@ param,_List_iterator#2::r,_List_iterator#2::other,inferred,agree:nl-d4c10a4af320
 local,UpdateFragQIndex::p,UpdateFragQIndex::postProcessor,inferred,agree:nl-00aa66ec2dc4,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001B6930
 local,SetupLoopFilter::p,SetupLoopFilter::loopFilterState,inferred,agree:nl-2e1cc4712425,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001BFF20
 local,SetupDeblocker::p,SetupDeblocker::deblockerState,inferred,agree:nl-9f2064bb9dd3,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001BD630
+member,BfmeNodeZK::m_bfmeIdZK,BfmeNodeZK::m_index,inferred,agree:nl-b4669357bf34,Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp,
+member,BfmeNodeZK::m_bfmeKindZK,BfmeNodeZK::m_referenceCount,inferred,agree:nl-fc1a8bc61a2d,Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp,

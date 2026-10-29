@@ -60,8 +60,8 @@ public:
 struct BfmeNodeZK
 {
 	BfmeNodeZK *m_next;
-	int m_bfmeIdZK;
-	int m_bfmeKindZK;
+	int m_index;
+	int m_referenceCount;
 };
 
 struct BfmeHeadZK
@@ -111,12 +111,12 @@ void ScriptList::takeScript(BfmeKeyZK *key, BfmeHeadZK *list, BfmeNodeZK *node,
 // changes here. Node words at +0/+4/+8 follow the three native stores.
 void ScriptList::bfmeMoveZK(BfmeKeyZK *key, BfmeNodeZK **from, BfmeNodeZK **to)
 {
-	int id = (*from)->m_bfmeIdZK;
+	int id = (*from)->m_index;
 	int index = m_table.take((Rva003B573E *)key->m_table, id);
 	if (index == -1)
 		return;
-	(*from)->m_bfmeIdZK = index;
-	(*from)->m_bfmeKindZK = m_table.m_records[index].m_references;
+	(*from)->m_index = index;
+	(*from)->m_referenceCount = m_table.m_records[index].m_references;
 	BfmeNodeZK *next = (*from)->m_next;
 	(*from)->m_next = *to;
 	*to = *from;
@@ -143,18 +143,18 @@ void ScriptList::takeScripts(ScriptList *source,BfmeNodeZK **from,BfmeNodeZK **t
 
 void ScriptList::rva003B8383(BfmeNodeZK *node, const StringBase<char> &key)
 {
-	int current = node->m_bfmeIdZK;
+	int current = node->m_index;
 	int index = m_earlyTable.rva003B7F46(current, key);
-	node->m_bfmeIdZK = index;
-	node->m_bfmeKindZK = m_earlyTable.m_records[index].m_references;
+	node->m_index = index;
+	node->m_referenceCount = m_earlyTable.m_records[index].m_references;
 }
 
 void ScriptList::rva003B844D(BfmeNodeZK *node, const StringBase<char> &key)
 {
-	int current = node->m_bfmeIdZK;
+	int current = node->m_index;
 	int index = m_table.rva003B81C5(current, key);
-	node->m_bfmeIdZK = index;
-	node->m_bfmeKindZK = m_table.m_records[index].m_references;
+	node->m_index = index;
+	node->m_referenceCount = m_table.m_records[index].m_references;
 }
 
 
