@@ -12,9 +12,9 @@
 
 #include "Lib/Coord2D.h"
 template<class T> inline volatile T &__vref(T &x){return *(volatile T *)&x;}
-inline float facingSqr(float x)
+inline float facingSqr(float component)
 {
-    return x * x;
+    return component * component;
 }
 class FacingCoord : public Coord2D
 {
@@ -22,10 +22,10 @@ class FacingCoord : public Coord2D
     FacingCoord()
     {
     }
-    FacingCoord(float a, float b)
+    FacingCoord(float xCoord, float yCoord)
     {
-        x = a;
-        y = b;
+        x = xCoord;
+        y = yCoord;
     }
     ~FacingCoord()
     {

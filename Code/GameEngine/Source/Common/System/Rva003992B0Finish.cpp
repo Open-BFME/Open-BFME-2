@@ -54,12 +54,12 @@ struct Rva0039834C {
 	RvaNode0039834C *m_root;
 	unsigned m_count;
 	void rva0039834C(RvaNode0039834C *&out, RvaNode0039834C *a, RvaNode0039834C *b, const Rva0039627D *v, RvaNode0039834C *c);
-	RvaInsertOut *rva003992B0(RvaInsertOut *out, const Rva0039627D *v);
-	RvaInsertOut *rva003997B9(RvaInsertOut *out, const Rva0039627D *v);
+	RvaInsertOut *rva003992B0(RvaInsertOut *out, const Rva0039627D *entry);
+	RvaInsertOut *rva003997B9(RvaInsertOut *out, const Rva0039627D *valueToInsert);
 };
 typedef Rva0039834CIter (Rva0039834C::*Rva0039834CIterFn)(RvaNode0039834C *, RvaNode0039834C *, const Rva0039627D *, RvaNode0039834C *);
 
-RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *v)
+RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *entry)
 {
 	RvaNode0039834C *header = m_root;
 	RvaNode0039834C *x = header->_parent;
@@ -68,7 +68,7 @@ RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *v)
 	if (x != 0) {
 		do {
 			y = x;
-			comp = v->m_key < x->_key10;
+			comp = entry->m_key < x->_key10;
 			x = comp ? x->_left : x->_right;
 		} while (x != 0);
 	}
@@ -76,14 +76,14 @@ RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *v)
 	Rva0039834CIterFn insert = (Rva0039834CIterFn)&Rva0039834C::rva0039834C;
 	if (comp) {
 		if (y == header->_left) {
-			out->node = (this->*insert)(y, y, v, 0).m_node;
+			out->node = (this->*insert)(y, y, entry, 0).m_node;
 			out->inserted = true;
 			return out;
 		}
 		j = (RvaNode0039834C *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)j);
 	}
-	if (j->_key10 < v->m_key) {
-		out->node = (this->*insert)(x, y, v, 0).m_node;
+	if (j->_key10 < entry->m_key) {
+		out->node = (this->*insert)(x, y, entry, 0).m_node;
 		out->inserted = true;
 		return out;
 	}
@@ -96,8 +96,8 @@ RvaInsertOut *Rva0039834C::rva003992B0(RvaInsertOut *out, const Rva0039627D *v)
 // @0x003997B9 20B: the container-level insert(value) over the worker above,
 // forwarding the hidden pair<iterator,bool> slot and the value and handing
 // the slot back. Skeleton twin of map<int,int>::equal_range 0x002B8120.
-RvaInsertOut *Rva0039834C::rva003997B9(RvaInsertOut *out, const Rva0039627D *v)
+RvaInsertOut *Rva0039834C::rva003997B9(RvaInsertOut *out, const Rva0039627D *valueToInsert)
 {
-	rva003992B0(out, v);
+	rva003992B0(out, valueToInsert);
 	return out;
 }

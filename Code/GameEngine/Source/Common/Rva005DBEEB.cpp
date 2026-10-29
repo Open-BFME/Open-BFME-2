@@ -41,7 +41,7 @@ class PortNegotiationSchema
 public:
 	void *peekPing(unsigned short x, unsigned short y);
 	bool receivedAPong(unsigned short x, unsigned short y, int a);
-	bool setPingStats(unsigned short x, unsigned short y, float a, float b, float c);
+	bool setPingStats(unsigned short x, unsigned short y, float a, float b, float pongsReceived);
 private:
 	char m_pad00[4];
 	Rva005DBE6AList m_list;
@@ -59,12 +59,12 @@ bool PortNegotiationSchema::receivedAPong(unsigned short x, unsigned short y, in
 
 // ?setPingStats@PortNegotiationSchema@@QAE_NGGMMM@Z @0x005DBE95 86B: float triple setter
 // sibling of 0x005DBEEB with rowed 0x005DB8F7 plus same forEach.
-bool PortNegotiationSchema::setPingStats(unsigned short x, unsigned short y, float a, float b, float c)
+bool PortNegotiationSchema::setPingStats(unsigned short x, unsigned short y, float a, float b, float pongsReceived)
 {
 	void *elem = peekPing(x, y);
 	if (!elem)
 		return false;
-	((Elem005DB98E *)elem)->rva005DB8F7(a, b, c);
+	((Elem005DB98E *)elem)->rva005DB8F7(a, b, pongsReceived);
 	m_list.forEach((void (Rva005DBE6AListener::*)(void *, int, int))&Rva005CB260::rva005CB260, this, x, y);
 	return true;
 }

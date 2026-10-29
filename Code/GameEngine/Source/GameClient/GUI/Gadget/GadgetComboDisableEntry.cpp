@@ -13,12 +13,12 @@ void * __cdecl bfmeGo925A(BfmeKeyLC *key);
 void __cdecl GadgetListBoxDisableEntry(GameWindow *window, int a, unsigned char b);
 
 // WorldBuilder GadgetComboDisableEntry, WB VA 0x013AD4E0 (align lead, score 1.0).
-void __cdecl GadgetComboDisableEntry(BfmeKeyLC *comboBox, int b, unsigned char c)
+void __cdecl GadgetComboDisableEntry(BfmeKeyLC *comboBox, int b, unsigned char disabled)
 {
 	if (!comboBox)
 		return;
 	void *listBox = bfmeGo925A(comboBox);
 	if (!listBox)
 		return;
-	GadgetListBoxDisableEntry((GameWindow *)listBox, b, c);
+	GadgetListBoxDisableEntry((GameWindow *)listBox, b, disabled);
 }

@@ -14,9 +14,9 @@
 
 struct Base003F86F9
 {
-	Base003F86F9(int a, int b) : m_04(a), m_08(b) {}
+	Base003F86F9(int a, int b) : m_04(a), m_phase(b) {}
 	int m_04;
-	int m_08;
+	int m_phase;
 };
 
 class Rva003F8728 : public Base003F86F9

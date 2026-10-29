@@ -45,11 +45,11 @@ typedef int Int;
 #include <math.h>
 
 
-__forceinline long FloatToLong(float f)
+__forceinline long FloatToLong(float floatValue)
 {
 	long i;
 	__asm {
-		fld [f]
+		fld [floatValue]
 		fistp [i]
 	}
 	return i;
@@ -113,7 +113,7 @@ public:
 struct FireCoord3D : public Coord3D
 {
 	void sub(const Coord3D *o) { x -= o->x; y -= o->y; z -= o->z; }
-	float dot(const Coord3D *o) const { return x * o->x + y * o->y + z * o->z; }
+	float dot(const Coord3D *other) const { return x * other->x + y * other->y + z * other->z; }
 };
 // The area's shape (PolygonTrigger +8): its bounds come back through
 // 0x0030B6E3 and 0x00285B66 tests a cell centre against it.

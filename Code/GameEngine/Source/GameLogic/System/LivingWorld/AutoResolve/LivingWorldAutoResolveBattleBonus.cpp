@@ -130,7 +130,7 @@ struct Rva003F751ANode
 struct Rva003F75D8Iterator
 {
     Rva003F751ANode *node;
-    Rva003F75D8Iterator(Rva003F751ANode *n) : node(n) {}
+    Rva003F75D8Iterator(Rva003F751ANode *treeNode) : node(treeNode) {}
 };
 class Rva003F751A
 {

@@ -251,7 +251,7 @@ void LinearCampaign::addCarryoverStuffToMap()
 					bool missing = !reinterpret_cast<Rva001EB8A4 *>(mission)->rva001EB8A4(
 						*reinterpret_cast<const Rva001EB8A4Elem *>(unit));
 					if (missing) {
-						for (int n = unit->m_quantity; n > 0; --n) {
+						for (int remainingUnits = unit->m_quantity; remainingUnits > 0; --remainingUnits) {
 							Object *obj = unit->createSingleObject(player);
 							if (obj) {
 								reinterpret_cast<Rva001EC63DObjectView *>(obj)->m_statusBits |= 0x10;

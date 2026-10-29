@@ -55,7 +55,7 @@ public:Rva005E62F1(void*,int,int,void*,Rva005CB84A*,void*,StrategicInGameUI::Pla
 virtual int rva005E57A2(void*);virtual void rva0050B238(void*,unsigned);virtual void third()=0;virtual void fourth()=0;virtual void fifth()=0;
 private:void*a4;int a8,aC;void*a10;Rva005CB84A*a14;void*a18;Rva005F2381 record;Ref ref38;bool flag;Owned owned;
 };
-Rva005E62F1::Rva005E62F1(void*p4,int p8,int pC,void*p10,Rva005CB84A*p14,void*p18,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*factory):a4(p4),a8(p8),aC(pC),a10(p10),a14(p14),a18(p18),flag(false) {
+Rva005E62F1::Rva005E62F1(void*p4,int p8,int pC,void*ui,Rva005CB84A*p14,void*army,StrategicInGameUI::PlanningPhaseArmySelection::DetailsPanelFactoryFactory*factory):a4(p4),a8(p8),aC(pC),a10(ui),a14(p14),a18(army),flag(false) {
  reinterpret_cast<Rva005A0B4CList*>(static_cast<char*>(a18)+8)->append(reinterpret_cast<Rva002BA8F1Listener*>(this));
  reinterpret_cast<Rva00319B0AOwner*>(a18)->rva00319B0A();
  Widget*widget=reinterpret_cast<Widget*>(reinterpret_cast<Rva0042D703PtrChaseField*>(a10)->get());
@@ -68,7 +68,7 @@ Rva005E62F1::Rva005E62F1(void*p4,int p8,int pC,void*p10,Rva005CB84A*p14,void*p18
  int info=reinterpret_cast<Rva0042D6B4PtrChaseField*>(a10)->get();
  if(info) {
   PanelWidget*detail=reinterpret_cast<PanelWidget*>(reinterpret_cast<Rva0042D6FDPtrChaseField*>(a10)->get());
-  if(detail) {Context c={info,reinterpret_cast<int>(p18),&record,true};detail->factory(&factory->CreatePanelFactory(&c));}
+  if(detail) {Context c={info,reinterpret_cast<int>(army),&record,true};detail->factory(&factory->CreatePanelFactory(&c));}
   PanelWidget*entries=reinterpret_cast<PanelWidget*>(reinterpret_cast<Rva0042D69DPtrChaseField*>(a10)->get());
   if(entries) {
    {Rva005E59A5::Payload p1(info,reinterpret_cast<int>(a18),reinterpret_cast<int>(&record));entries->entry(1,&Rva005E5C63Create(&p1));}
@@ -83,7 +83,7 @@ struct Rva00080221RefImpl {virtual ~Rva00080221RefImpl(){} int refs;Rva00080221R
 struct Impl005773DB: Rva00080221RefImpl {int value;Impl005773DB(const int &v):value(v){}};
 // ??0Rva005773DB@@QAE@PBH@Z: retail 0x005773DB (53B). Its home is this unit: a
 // second, strong definition elsewhere was a duplicate symbol at link.
-inline Rva005773DB::Rva005773DB(const int *arg){Impl005773DB *p=new Impl005773DB(*arg);pointer=(TargetRef00217D4C*)p;if(p)++p->refs;}
+inline Rva005773DB::Rva005773DB(const int *valuePtr){Impl005773DB *impl=new Impl005773DB(*valuePtr);pointer=(TargetRef00217D4C*)impl;if(impl)++impl->refs;}
 
 int Rva005E62F1::rva005E57A2(void*){return reinterpret_cast<Rva005E57A2Callback*>(a4)->invoke();}
 void Rva005E62F1::rva0050B238(void*,unsigned){}
