@@ -18,6 +18,13 @@ DUMP = (".386\n.model flat\n_TEXT SEGMENT\n"
         "    db 0C3h\n?d_00002000@@YAXXZ ENDP\n_TEXT ENDS\nEND\n")
 
 
+@pytest.fixture(autouse=True)
+def scratch_cache(tmp_path, monkeypatch):
+    """Results reused by tree pair live with the test, not in this clone's cache."""
+    import ledger_cache
+    monkeypatch.setattr(ledger_cache, "folder", lambda: tmp_path / "ledger-cache")
+
+
 @pytest.fixture
 def repo(tmp_path, monkeypatch):
     monkeypatch.chdir(tmp_path)
@@ -366,3 +373,54 @@ def test_show_reads_utf8_sources_regardless_of_locale(repo):
     commit()
     text = gate.show("HEAD", "Code/Old.cpp")
     assert text is not None and "quoted" in text
+
+
+# --- results reused by tree pair -----------------------------------------------
+
+def counted(monkeypatch):
+    """Count each rule's evaluations from here on."""
+    calls = []
+    for name in ("_gen_asm_diff_offences", "added_lift_lines", "clean_coverage_lost"):
+        real = getattr(gate, name)
+        monkeypatch.setattr(gate, name, lambda *a, real=real, name=name: calls.append(name) or real(*a))
+    return calls
+
+
+def test_the_staged_index_and_its_tree_are_refused_alike(repo, monkeypatch):
+    git, write, commit, base = repo
+    wave(write)
+    write("Code/Other.cpp", "int other() { return 2; }\n")
+    git("add", "Code", "reverse/functions.csv")
+    write("Code/Other.cpp", "int other() { return 3; }\n")        # worktree differs from the index
+    tree = git("write-tree")
+    staged = gate.gen_asm_offences("HEAD", ":")
+    assert staged and any(o.startswith("C3 ") for o in staged)
+    assert gate._gen_asm_diff_offences("HEAD", tree) == staged
+    assert gate.added_lift_lines("HEAD", tree) == gate.added_lift_lines("HEAD", ":")
+
+
+def test_a_refusal_is_never_kept(repo, monkeypatch):
+    git, write, commit, base = repo
+    wave(write)
+    write("Code/Other.cpp", "int other() { return 2; }\n")
+    tip = commit()
+    calls = counted(monkeypatch)
+    for _ in range(2):
+        assert check_main(monkeypatch, base, tip) == 1
+    assert calls.count("_gen_asm_diff_offences") >= 4                # judged again each time
+
+
+def test_a_one_commit_push_reuses_pre_commits_results(repo, monkeypatch):
+    git, write, commit, base = repo
+    write("Code/New.cpp", "int fresh() { return 4; }\n")
+    git("add", "Code")
+    monkeypatch.setattr(sys, "argv", ["conversion_gate.py", "HEAD", ":"])
+    assert gate.main() == 0                                         # pre-commit
+    tip = commit()
+    calls = counted(monkeypatch)
+    assert check_main(monkeypatch, base, tip) == 0                  # the push of that commit
+    assert calls == []
+    write("Code/New.cpp", "int fresh() { return 5; }\n")
+    tip2 = commit()
+    assert check_main(monkeypatch, base, tip2) == 0                 # another pair: judged
+    assert "added_lift_lines" in calls and "_gen_asm_diff_offences" in calls

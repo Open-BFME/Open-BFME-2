@@ -148,6 +148,63 @@ def _gen_asm_diff_offences(old, new):
     return offences
 
 
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+_TREES = {}
+
+
+class _Found(Exception):
+    """A non-empty result: shown, never kept."""
+
+    def __init__(self, items):
+        super().__init__(len(items))
+        self.items = items
+
+
+def _tree(rev):
+    """The tree `rev` names: ":" is the index (git write-tree), None the empty
+    tree. Only a full commit id is remembered: the index and refs can move."""
+    if rev is None:
+        return EMPTY_TREE
+    if rev in _TREES:
+        return _TREES[rev]
+    tree = (run("git", "write-tree") if rev == ":" else
+            run("git", "rev-parse", "--verify", "--end-of-options", rev + "^{tree}")).strip()
+    if re.fullmatch(r"[0-9a-f]{40}", rev):
+        _TREES[rev] = tree
+    return tree
+
+
+def _code_and_retail():
+    """The hash of the code computing a result and the retail image it reads."""
+    import hashlib
+    import build
+    import ledger_cache
+    tools = Path(__file__).resolve().parent
+    code = ledger_cache.code_hash(*(tools / name for name in (
+        "conversion_gate.py", "list_naked_candidates.py", "progress.py", "build.py", "pe_imports.py")))
+    return code, hashlib.sha1(build.EXE.read_bytes()).hexdigest()
+
+
+def by_trees(kind, old, new, compute):
+    """compute(), a list of findings for the change from `old` to `new`, reused
+    when it was empty for the same two trees under the same code and retail
+    image (tools/ledger_cache.py): every rule reads only the two states' git
+    objects and the retail image, and a diff of two commits is the diff of
+    their trees (":" is the index, `git write-tree`). Findings are never kept."""
+    import ledger_cache
+    code, retail = _code_and_retail()
+
+    def passing():
+        found = compute()
+        if found:
+            raise _Found(found)
+        return found
+    try:
+        return ledger_cache.memo(f"conversion_gate.{kind}", f"{_tree(old)}:{_tree(new)}:{retail}", passing, code)
+    except _Found as found:
+        return found.items
+
+
 def gen_asm_offences(old, new):
     """Check wave atomicity per commit, including when verifying a push range.
 
@@ -158,14 +215,16 @@ def gen_asm_offences(old, new):
     brought in by the merge are also inspected individually.
     """
     if new == ":":
-        return _gen_asm_diff_offences(old, new)
-    offences = [offence for offence in _gen_asm_diff_offences(old, new)
+        return by_trees("gen_asm", old, new, lambda: _gen_asm_diff_offences(old, new))
+    offences = [offence for offence in by_trees("gen_asm", old, new, lambda: _gen_asm_diff_offences(old, new))
                 if not offence.startswith("C3 ")]
     commits = run("git", "rev-list", "--reverse", "--topo-order", "--parents",
                   new, "^" + old).splitlines()
     for entry in commits:
         commit, *parents = entry.split()
-        for offence in _gen_asm_diff_offences(parents[0] if parents else None, commit):
+        parent = parents[0] if parents else None
+        for offence in by_trees("gen_asm", parent, commit,
+                                lambda parent=parent, commit=commit: _gen_asm_diff_offences(parent, commit)):
             if offence.startswith("C3 "):
                 offence += " (commit %s)" % commit
             offences.append(offence)
@@ -285,7 +344,7 @@ def main():
         raise SystemExit(__doc__.strip().splitlines()[2].strip())
     old, new = sys.argv[1], sys.argv[2]
     failed = False
-    for path, line in added_lift_lines(old, new):
+    for path, line in by_trees("lift", old, new, lambda: added_lift_lines(old, new)):
         failed = True
         print("conversion gate: %s adds a naked/__emit body outside Code/gen_small/:\n"
               "    %s" % (path, line), file=sys.stderr)
@@ -297,7 +356,7 @@ def main():
     for offence in gen_asm_offences(old, new):
         failed = True
         print("conversion gate: " + offence, file=sys.stderr)
-    for rva, name, old_src, new_src in clean_coverage_lost(old, new):
+    for rva, name, old_src, new_src in by_trees("coverage", old, new, lambda: clean_coverage_lost(old, new)):
         failed = True
         print("conversion gate: %s (%s) was clean C++ at %s, repointed to %s.\n"
               "C++ exact never goes backward: retract the row in its own commit if the\n"
