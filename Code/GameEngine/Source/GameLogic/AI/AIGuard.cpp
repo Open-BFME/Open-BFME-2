@@ -51,6 +51,8 @@ typedef unsigned int UnsignedInt;
 
 typedef UnsignedInt TeamID;
 
+typedef UnsignedInt StateID;
+
 enum Relationship
 {
 	ENEMIES = 0,
@@ -80,6 +82,7 @@ enum CanAttackResult
 
 enum ObjectStatusTypes
 {
+	OBJECT_STATUS_BFME_26 = 0x26,
 	OBJECT_STATUS_BFME_44 = 0x44
 };
 
@@ -117,6 +120,8 @@ public:
 	{
 		return m_kindOf[bit >> 5] & (1U << (bit & 0x1f));
 	}
+	Bool isKindOfBfme108Bit7() const { return (((const unsigned char *)m_kindOf)[0] & 0x80) != 0; }
+	Bool testBfme115Bit5() const { return (((const unsigned char *)m_kindOf)[0x115 - 0x108] & 0x20) != 0; }
 	char m_pad000[0x108];
 	UnsignedInt m_kindOf[8];
 };
@@ -156,6 +161,10 @@ public:
 	AttackPriorityInfo *m_attackInfo;
 	char m_pad74[0x1CC - 0x74];
 	unsigned char m_locomotorSet[0x238 - 0x1CC]; // +0x1CC
+public:
+	Real getLocomotorDistanceToGoal();
+	ObjectID getCrateID() const { return m_crateCreated; }
+	ObjectID m_crateCreated; // +0x238
 };
 
 struct TeamTemplateInfo
@@ -168,6 +177,7 @@ class Team
 {
 public:
 	Object *getTeamTargetObject();
+	void setTeamTargetObject(Object *target);
 	void rva0039E5B9(Coord3D *pos);
 	char m_pad[0x30];
 	TeamTemplateInfo *m_prototype;
@@ -192,6 +202,22 @@ class Module;
 
 class BodyModuleInterface;
 
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
+
+enum WeaponStatus
+{
+	WEAPON_STATUS_BFME_4 = 4
+};
+
+class Weapon
+{
+public:
+	WeaponStatus computeStatus(Bool *noAmmo = NULL) const;
+};
+
 class Object
 {
 public:
@@ -202,6 +228,11 @@ public:
 	Player *getControllingPlayer() const;
 	Bool testStatus(ObjectStatusTypes status) const;
 	Object *adjustVictim(Object *attacker, Bool a, Int b);
+	const Weapon *getCurrentWeapon(WeaponSlotType *wslot = NULL) const;
+	int rva0028B511() const;
+	Real rva002C97E8(const Coord3D *a, const Coord3D *b) const;
+	Object *getBfme274() const { return m_bfme274; }
+	Bool testBfme438Bit0() const { return (m_privateStatus & 1) != 0; }
 protected:
 	Module *findModule(NameKeyType key) const;
 	friend class AIGuardMachine;
@@ -211,7 +242,8 @@ public:
 	ObjectID getID() const { return m_id; }
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() const { return m_ai; }
-	Team *getTeam() const { return m_team; }
+	// The callers inline +0x304; do not emit a competing accessor COMDAT.
+	__declspec(dllimport) __forceinline Team *getTeam() const { return m_team; }
 	BodyModuleInterface *getBodyModule() const { return m_body; }
 	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 
@@ -225,7 +257,9 @@ private:
 	char m_pad078[0x254 - 0x78];
 	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai;
-	char m_pad25C[0x304 - 0x25C];
+	char m_pad25C[0x274 - 0x25C];
+	Object *m_bfme274; // +0x274
+	char m_pad278[0x304 - 0x278];
 	Team *m_team;
 	char m_pad308[0x438 - 0x308];
 	unsigned char m_privateStatus; // +0x438
@@ -241,13 +275,13 @@ NameKeyType Rva0045EE2CGet();
 
 extern GameLogic *TheGameLogic;
 
-struct AIData
+struct TAiData
 {
-	char m_pad00[0x3C];
+	unsigned char m_pad00[0x3C];
 	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardAreaScanInterval; // +0x40
+	UnsignedInt m_guardEnemyScanRate; // +0x40
 	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-	char m_pad48[0x67 - 0x48];
+	unsigned char m_pad48[0x67 - 0x48];
 	Bool m_67;
 	Bool m_68;
 };
@@ -270,12 +304,14 @@ class AI
 public:
 	Object *findClosestEnemy(const Object *me, Real range, UnsignedInt qualifiers,
 		const AttackPriorityInfo *info, PartitionFilter *optionalFilter, Int b);
-	const AIData *getAiData() const { return m_aiData; }
+	const TAiData *getAiData() const { return m_aiData; }
+	static Real getAdjustedVisionRangeForObject(const Object *object, int factorsToConsider);
+	static Bool rva002FE193(Object *obj, Object *nemesis);
 	Pathfinder *pathfinder() { return m_pathfinder; }
 	char m_pad[0x10];
 	Pathfinder *m_pathfinder; // +0x10
 	char m_pad14[0x18 - 0x14];
-	AIData *m_aiData; // +0x18
+	TAiData *m_aiData; // +0x18
 };
 
 extern AI *TheAI;
@@ -291,6 +327,7 @@ class PolygonTrigger
 public:
 	void getCenterPoint(Coord3D *pOutCoord) const;
 	Bool pointInTrigger(const ICoord3D &point);
+	const Rva0030B719Shape *getShape() const { return &m_shape; }
 	const AsciiString &getTriggerName( void ) const { return m_triggerName; }
 	char m_pad[8];
 	Rva0030B719Shape m_shape;
@@ -323,11 +360,21 @@ class StateMachine
 public:
 	Object *getOwner() const { return m_owner; }
 	void setGoalPosition(const Coord3D *pos, Real radius);
+	Object *getGoalObject();
 protected:
 	virtual void v00();
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer( Xfer *xfer );
+	virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+public:
+	virtual StateReturnType setState(StateID newStateID); // slot 8
+protected:
+	virtual void v09(); virtual void v10(); virtual void v11();
+	virtual void v12(); virtual void v13();
+public:
+	virtual void setGoalObject(const Object *obj); // slot 14
+protected:
 	unsigned char m_pad04[0x14 - 0x04];
 	Object *m_owner; // +0x14
 };
@@ -340,8 +387,14 @@ public:
 	static Real getStdGuardRange(const Object *obj);
 	Object *findTargetToGuardByID() const { return TheGameLogic->findObjectByID(m_targetToGuard); }
 	Team *findTeamToGuardByID() const { return TheTeamFactory->findTeamByID(m_teamToGuard); }
-	void setNemesisID(ObjectID id) { m_nemesisID = id; }
+	void setNemesisID(ObjectID id) { m_nemesisToAttack = id; }
 	Real getBfmeGuardRadius() const { return m_bfmeGuardRadius; }
+	ObjectID getNemesisID() const { return m_nemesisToAttack; }
+	const PolygonTrigger *getAreaToGuard(void) const { return m_areaToGuard; }
+	const Coord3D *getPositionToGuard(void) const { return &m_positionToGuard; }
+	int getGuardMode() const { return m_guardMode; }
+	Bool hasBfmeAreaCenter() const { return m_bfmeAreaCenterValid; }
+	const Coord3D *getBfmeAreaCenter() const { return &m_bfmeAreaCenter; }
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
@@ -353,7 +406,7 @@ private:
 	Coord3D m_bfmeAreaCenter; // +0x54
 	Bool m_bfmeAreaCenterValid; // +0x60
 	Real m_bfmeGuardRadius; // +0x64
-	ObjectID m_nemesisID; // +0x68
+	ObjectID m_nemesisToAttack; // +0x68
 	int m_guardMode; // +0x6C
 	UnsignedInt m_nextAreaScanFrame; // +0x70
 };
@@ -387,6 +440,7 @@ public:
 struct State
 {
 public:
+	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
 protected:
 	virtual void v01();
@@ -398,37 +452,86 @@ public:
 	virtual StateReturnType update();
 	StateMachine *getMachine() const { return m_machine; }
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
+	Object *getMachineGoalObject() const { return m_machine->getGoalObject(); }
 protected:
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
 };
 
+class AttackExitConditionsInterface
+{
+public:
+	virtual Bool shouldExit(const StateMachine *machine) const = 0;
+};
+
+class ExitConditions : public AttackExitConditionsInterface
+{
+public:
+	enum ExitConditionsEnum
+	{
+		ATTACK_ExitIfOutsideRadius = 0x01,
+		ATTACK_ExitIfExpiredDuration = 0x02,
+		ATTACK_ExitIfNoUnitFound = 0x04
+	};
+	ExitConditions();
+	virtual Bool shouldExit(const StateMachine *machine) const;
+	int m_conditionsToConsider; // +0x04 (state +0x24)
+	Coord3D m_center; // +0x08 (state +0x28)
+	Real m_radiusSqr; // +0x14
+	UnsignedInt m_attackGiveUpFrame; // +0x18 (state +0x38)
+};
+
+class AIAttackState : public State
+{
+public:
+	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
+private:
+	unsigned char m_pad1C[0x50 - 0x1C]; // sizeof(AIAttackState) 0x50 (the operator new size)
+};
+
 // ------------------------------------------------------------------------------------------------
 class AIGuardInnerState : public State
 {
+public:
+	AIGuardInnerState(StateMachine *machine);
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered1C[ 0x3C - 0x1C ];
-	Snapshot *m_attackState;																									///< 0x3C
-	char m_unrecovered40[ 0x44 - 0x40 ];
-	UnsignedInt m_bfmeTime44;																									///< 0x44
+	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
+	char m_unrecovered1C[ 0x20 - 0x1C ];
+	ExitConditions m_exitConditions;																					///< 0x20
+	AIAttackState *m_attackState;																							///< 0x3C
+	Bool m_bfmeRestart;																												///< 0x40
+	char m_unrecovered41[ 0x44 - 0x41 ];
+	UnsignedInt m_bfmeDeadline;																								///< 0x44
 };
 
 // ------------------------------------------------------------------------------------------------
 class AIGuardOuterState : public State
 {
+public:
+	AIGuardOuterState(StateMachine *machine);
+	virtual StateReturnType update();
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
-	char m_unrecovered1C[ 0x3C - 0x1C ];
-	Snapshot *m_attackState;																									///< 0x3C
+	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
+	char m_unrecovered1C[ 0x20 - 0x1C ];
+	ExitConditions m_exitConditions;																					///< 0x20
+	AIAttackState *m_attackState;																							///< 0x3C
+	Bool m_bfme40;																														///< 0x40
 };
 
 // ------------------------------------------------------------------------------------------------
 class AIInternalMoveToState : public State
 {
 public:
+	AIInternalMoveToState(StateMachine *machine, unsigned int hash);
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
@@ -445,6 +548,7 @@ protected:
 class AIGuardReturnState : public AIInternalMoveToState
 {
 public:
+	AIGuardReturnState(StateMachine *machine);
 	virtual StateReturnType onEnter();
 	virtual StateReturnType update();
 protected:
@@ -457,12 +561,16 @@ private:
 // ------------------------------------------------------------------------------------------------
 class AIGuardIdleState : public State
 {
+public:
+	virtual StateReturnType onEnter();
+	virtual StateReturnType update();
 protected:
 	virtual void xfer( Xfer *xfer );
 private:
+	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
 	char m_unrecovered1C[ 0x20 - 0x1C ];
 	UnsignedInt m_nextEnemyScanTime;																					///< 0x20
-	Coord3DBase m_bfmePosition24;																							///< 0x24
+	Coord3D m_guardeePos;																											///< 0x24
 };
 
 class AIUpdateInterface;
@@ -489,33 +597,7 @@ public:
 	virtual ObjectID getClearableLastAttacker() const = 0; // slot 18 (+0x48)
 };
 
-enum WeaponSlotType
-{
-	PRIMARY_WEAPON = 0
-};
-
-enum WeaponStatus
-{
-	WEAPON_STATUS_BFME_4 = 4
-};
-
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(Bool *noAmmo = NULL) const;
-};
-
 class Pathfinder;
-
-struct TAiData
-{
-	unsigned char m_pad00[0x3C];
-	UnsignedInt m_guardChaseUnitFrames; // +0x3C
-	UnsignedInt m_guardEnemyScanRate; // +0x40
-	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
-};
-
-typedef UnsignedInt StateID;
 
 enum
 {
@@ -523,39 +605,10 @@ enum
 	GUARDMODE_GUARD_WITHOUT_PURSUIT = 1
 };
 
-class AttackExitConditionsInterface
-{
-public:
-	virtual Bool shouldExit(const StateMachine *machine) const = 0;
-};
-
-class ExitConditions : public AttackExitConditionsInterface
-{
-public:
-	enum ExitConditionsEnum
-	{
-		ATTACK_ExitIfOutsideRadius = 0x01,
-		ATTACK_ExitIfExpiredDuration = 0x02,
-		ATTACK_ExitIfNoUnitFound = 0x04
-	};
-	virtual Bool shouldExit(const StateMachine *machine) const;
-	int m_conditionsToConsider; // +0x04 (state +0x24)
-	Coord3D m_center; // +0x08 (state +0x28)
-	Real m_radiusSqr; // +0x14
-	UnsignedInt m_attackGiveUpFrame; // +0x18 (state +0x38)
-};
-
-class AIAttackState : public State
-{
-public:
-	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
-private:
-	unsigned char m_pad1C[0x50 - 0x1C]; // sizeof(AIAttackState) 0x50 (the operator new size)
-};
-
 class AIGuardAttackAggressorState : public State
 {
 public:
+	AIGuardAttackAggressorState(StateMachine *machine);
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
@@ -634,10 +687,10 @@ void AIGuardInnerState::xfer( Xfer *xfer )
 	*xfer == version;
 
 	if( xfer->IsCRC() && m_attackState )
-		*xfer == *m_attackState;
+		*xfer == *(Snapshot *)m_attackState;
 
 	if( version.m_minimum >= 2 )
-		*xfer == m_bfmeTime44;
+		*xfer == m_bfmeDeadline;
 }
 
   // end xfer
@@ -650,7 +703,7 @@ void AIGuardOuterState::xfer( Xfer *xfer )
 	xfer->Version1();
 
 	if( xfer->IsCRC() && m_attackState )
-		*xfer == *m_attackState;
+		*xfer == *(Snapshot *)m_attackState;
 }
 
   // end xfer
@@ -673,7 +726,7 @@ void AIGuardIdleState::xfer( Xfer *xfer )
 {
 	xfer->Version1();
 	*xfer == m_nextEnemyScanTime;
-	*xfer == m_bfmePosition24;
+	*xfer == (Coord3DBase &)m_guardeePos;
 }
 
   // end xfer
@@ -815,7 +868,7 @@ Bool AIGuardMachine::lookForInnerTarget()
 	Bool doScan = true;
 	if (area)
 	{
-		UnsignedInt scanRate = TheAI->m_aiData->m_guardAreaScanInterval;
+		UnsignedInt scanRate = TheAI->m_aiData->m_guardEnemyScanRate;
 		UnsignedInt nextScan = scanRate + m_nextAreaScanFrame;
 		if (TheGameLogic->getFrame() < nextScan)
 			doScan = false;
@@ -953,7 +1006,7 @@ void AIGuardMachine::xfer( Xfer *xfer )
 
 	XferObjectID( xfer, &m_targetToGuard );
 	*xfer == m_teamToGuard;
-	XferObjectID( xfer, &m_nemesisID );
+	XferObjectID( xfer, &m_nemesisToAttack );
 	*xfer == (Coord3DBase &)m_positionToGuard;
 	*xfer == (Coord3DBase &)m_bfmeAreaCenter;
 	*xfer == m_bfmeAreaCenterValid;

@@ -332,16 +332,17 @@ public:
 		ATTACK_ExitIfExpiredDuration = 0x02,
 		ATTACK_ExitIfNoUnitFound = 0x04
 	};
-	ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
-	{
-		guardZero(m_center);
-	}
+	ExitConditions();
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04 (state +0x24)
 	Coord3D m_center; // +0x08 (state +0x28)
 	Real m_radiusSqr; // +0x14
 	UnsignedInt m_attackGiveUpFrame; // +0x18 (state +0x38)
 };
+inline ExitConditions::ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
+{
+	guardZero(m_center);
+}
 class AIAttackState : public State
 {
 public:
@@ -540,7 +541,9 @@ public:
 	};
 	Rva00367F19ExitConditions() : m_attackGiveUpFrame(0), m_conditionsToConsider(0), m_radiusSqr(0.0f)
 	{
-		guardZero(m_center);
+		m_center.x = 0.0f;
+		m_center.y = 0.0f;
+		m_center.z = 0.0f;
 	}
 	virtual Bool shouldExit(const StateMachine *machine) const;
 	int m_conditionsToConsider; // +0x04
