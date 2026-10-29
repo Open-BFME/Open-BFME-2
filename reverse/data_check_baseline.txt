@@ -22,8 +22,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp	wrong-n
 Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdate.cpp	wrong-name	?g_rva004AB9D5Value@@3VBfmeFixedStorage002CF0F0@@A	0x00A030D0
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp	wrong-name	?$S1@?1??updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z@4IA	0x00A05F64
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp	wrong-name	?$S1@?3??setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z@4IA	0x00A01D34
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	wrong-name	?ApplicationHWnd@@3PAUHWND__@@A	0x009DE024
-Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenuCallbacks.cpp	wrong-name	?g_Va00E06474@@3PAVAptMainMenuCredits@@A	0x00A06474
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp	wrong-name	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	0x009FE4CC
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/MapSelectMenu.cpp	duplicate-def	_isShuttingDown	0x00A045C4
@@ -71,7 +69,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerPing.c	wrong-name	_piNextID	
 Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	duplicate-def	_piNextID	0x00A0C0EC
 Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	duplicate-def	_piSettingData	0x00A0C104
 Code/GameEngine/Source/GameNetwork/GameSpy/pinger/pingerMain.c	wrong-name	_piNextID	0x00A0C0EC
-Code/GameEngine/Source/GameNetwork/LANAPILobbyMenuForwarders.cpp	wrong-name	?g_Va00E03354@@3PAURva004469D1Receiver@@A	0x00A03354
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_mutex	0x009E4B34
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouse.cpp	wrong-name	_threadMutex	0x009E5DA0
 Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp	wrong-name	?g_Rva0112A210Lower@@3QBEB	0x008E1A60

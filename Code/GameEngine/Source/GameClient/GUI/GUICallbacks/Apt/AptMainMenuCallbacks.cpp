@@ -202,9 +202,8 @@ public:
 	virtual void v09();
 };
 
-// g_Va00E06474 is only an alias of the owned global g_bfmeSinkBOE (ledger names column); this unit reads the owner through its own view type.
+// Credits callbacks use the owned manager through their local interface view.
 extern class BfmeSinkBOE *g_bfmeSinkBOE;
-#define g_Va00E06474 (*(AptMainMenuCredits * *)&g_bfmeSinkBOE)
 
 // The credits roll's class (0x48 bytes; Rva005B77F1Dtor.cpp's rowed
 // constructor 0x005B776E).
@@ -270,7 +269,7 @@ extern "C" __declspec(dllimport) long __stdcall GetWindowLongA(HWND window, int 
 extern "C" __declspec(dllimport) int __stdcall AdjustWindowRect(tagRECT *rect, unsigned long style, int menu);
 extern "C" __declspec(dllimport) int __stdcall SetWindowPos(HWND window, HWND after, int x, int y, int width, int height, unsigned int flags);
 
-extern HWND ApplicationHWnd;
+extern void *ApplicationHWnd;
 
 // TheDisplay: windowed (vslot 21), width (16) and height (17).
 class Display
@@ -520,11 +519,11 @@ void AptMainMenu::BattleSchool(const char *unused)
 // rate at 100 (CreditsExit undoes it).
 void AptMainMenu::Credits(const char *unused)
 {
-	if (g_Va00E06474)
-		::operator delete(g_Va00E06474->deleteInstance(0));
-	g_Va00E06474 = (AptMainMenuCredits *)new Rva005B77F1;
-	g_Va00E06474->v02();
-	g_Va00E06474->v01();
+	if (g_bfmeSinkBOE)
+		::operator delete(((AptMainMenuCredits *)g_bfmeSinkBOE)->deleteInstance(0));
+	g_bfmeSinkBOE = (BfmeSinkBOE *)new Rva005B77F1;
+	((AptMainMenuCredits *)g_bfmeSinkBOE)->v02();
+	((AptMainMenuCredits *)g_bfmeSinkBOE)->v01();
 	TheTransitionHandler->setGroup(AsciiString("MainMenuToCreditsScreen"), false);
 	if (TheShell)
 		((Rva0035BD3F *)TheShell)->rva0035BD3F();
@@ -542,11 +541,11 @@ void AptMainMenu::Credits(const char *unused)
 // the "MainMenuToCreditsScreen" transition and resets the menu.
 void AptMainMenu::CreditsExit(const char *unused)
 {
-	if (g_Va00E06474)
+	if (g_bfmeSinkBOE)
 	{
-		g_Va00E06474->v09();
-		::operator delete(g_Va00E06474 ? g_Va00E06474->deleteInstance(0) : 0);
-		g_Va00E06474 = 0;
+		((AptMainMenuCredits *)g_bfmeSinkBOE)->v09();
+		::operator delete(g_bfmeSinkBOE ? ((AptMainMenuCredits *)g_bfmeSinkBOE)->deleteInstance(0) : 0);
+		g_bfmeSinkBOE = 0;
 	}
 	if (!TheShell || !TheShell->rva0035BD5D())
 	{
