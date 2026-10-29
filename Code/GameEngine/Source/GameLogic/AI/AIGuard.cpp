@@ -27,6 +27,18 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../Include/Common/BfmeXfer.h"
+#define NULL 0
+enum
+{
+	AI_VISIONFACTOR_OWNERTYPE = 0x01,
+	AI_VISIONFACTOR_MOOD = 0x02,
+	AI_VISIONFACTOR_GUARDINNER = 0x04
+};
+#include "../../../../Libraries/Include/Lib/Coord3DInline.h"
+#define LOGICFRAMES_PER_SECOND BfmeLogicFramesPerSecond
+#define PATHFIND_CELL_SIZE_F 10.0f
+#define STATE_SLEEP(n) ((StateReturnType)(n))
+#define AIGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIGuard.cpp"
 
 typedef bool Bool;
 
@@ -70,6 +82,7 @@ template <int N> class VSlots : public VSlots<N - 1>
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
+
 template <> class VSlots<0>
 {
 };
@@ -420,11 +433,130 @@ private:
 	Coord3DBase m_bfmePosition24;																							///< 0x24
 };
 
+class AIUpdateInterface;
+
+extern int BfmeLogicFramesPerSecond;
+
+struct DamageInfoInput
+{
+	unsigned char m_pad00[0x08];
+	ObjectID m_sourceID; // +0x08
+};
+
+struct DamageInfo
+{
+	DamageInfoInput in;
+};
+
+class BodyModuleInterface : public VSlots<15>
+{
+public:
+	virtual const DamageInfo *getLastDamageInfo() const = 0;
+};
+
+enum WeaponSlotType
+{
+	PRIMARY_WEAPON = 0
+};
+
+enum WeaponStatus
+{
+	WEAPON_STATUS_BFME_4 = 4
+};
+
+class Weapon
+{
+public:
+	WeaponStatus computeStatus(Bool *noAmmo = NULL) const;
+};
+
+class Pathfinder;
+
+struct TAiData
+{
+	unsigned char m_pad00[0x3C];
+	UnsignedInt m_guardChaseUnitFrames; // +0x3C
+	UnsignedInt m_guardEnemyScanRate; // +0x40
+	UnsignedInt m_guardEnemyReturnScanRate; // +0x44
+};
+
+typedef UnsignedInt StateID;
+
+enum
+{
+	GUARDMODE_NORMAL = 0,
+	GUARDMODE_GUARD_WITHOUT_PURSUIT = 1
+};
+
+class AttackExitConditionsInterface
+{
+public:
+	virtual Bool shouldExit(const StateMachine *machine) const = 0;
+};
+
+class ExitConditions : public AttackExitConditionsInterface
+{
+public:
+	enum ExitConditionsEnum
+	{
+		ATTACK_ExitIfOutsideRadius = 0x01,
+		ATTACK_ExitIfExpiredDuration = 0x02,
+		ATTACK_ExitIfNoUnitFound = 0x04
+	};
+	virtual Bool shouldExit(const StateMachine *machine) const;
+	int m_conditionsToConsider; // +0x04 (state +0x24)
+	Coord3D m_center; // +0x08 (state +0x28)
+	Real m_radiusSqr; // +0x14
+	UnsignedInt m_attackGiveUpFrame; // +0x18 (state +0x38)
+};
+
+class AIAttackState : public State
+{
+public:
+	AIAttackState(StateMachine *machine, Bool follow, Bool attackingObject, Bool forceAttacking, AttackExitConditionsInterface *attackParameters);
+private:
+	unsigned char m_pad1C[0x50 - 0x1C]; // sizeof(AIAttackState) 0x50 (the operator new size)
+};
+
+class AIGuardAttackAggressorState : public State
+{
+public:
+	virtual StateReturnType onEnter();
+	virtual void onExit(StateExitType status);
+	virtual StateReturnType update();
+private:
+	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
+	unsigned char m_pad1C[0x20 - 0x1C];
+	ExitConditions m_exitConditions; // +0x20
+	AIAttackState *m_attackState; // +0x3C
+	Bool m_bfmeRestart; // +0x40
+};
+
+struct FprintfTarget
+{
+	char m_pad[4];
+};
+
+extern "C" void fprintf(FprintfTarget *target, const char *format, ...);
+
+extern unsigned char g_00E03745;
+
+extern "C" void *theLogicRandomLogFile;
+
+enum
+{
+	AI_GUARD_GET_CRATE = 5004
+};
+
+int GetGameLogicRandomValue(int low, int high, char *file, int line);
+
 // tu-skeleton: 0x00542C19 11B ??1AIGuardMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00542C24 6B ?name@AIGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // tu-skeleton: 0x00542C2A 14B ?getStdGuardRange@AIGuardMachine@@SAMPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
 
@@ -730,36 +862,6 @@ Bool AIGuardMachine::lookForInnerTarget()
 	return false;
 }
 
-// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
-
-// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
-// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardMachineXfer.cpp
 
 /*
@@ -842,6 +944,36 @@ void AIGuardMachine::xfer( Xfer *xfer )
 
   // end xfer
 
+// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
 // tu-skeleton: 0x005430E7 124B ?rva005430E7@@YA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp (not merged yet)
 
 // tu-skeleton: 0x00543163 451B ??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
@@ -854,7 +986,56 @@ void AIGuardMachine::xfer( Xfer *xfer )
 
 // tu-skeleton: 0x00543B5A 362B ?update@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00543CC4 301B ?onEnter@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardReturnStateOnEnter.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardReturnStateOnEnter.cpp
+
+// Coord3D: shared header/view; no private copy.
+
+StateReturnType AIGuardReturnState::onEnter( void )
+{
+	UnsignedInt now = TheGameLogic->getFrame();
+	m_nextReturnScanTime = now + GetGameLogicRandomValue(0, TheAI->getAiData()->m_guardEnemyReturnScanRate, AIGUARD_FILE, 881);
+
+	m_goalPosition = getGuardMachine()->rva00543326();
+	m_bfmeGoalRadius = getGuardMachine()->getBfmeGuardRadius();
+
+	Object *owner = getMachineOwner();
+	Bool near = false;
+	if (owner)
+	{
+		Coord3D delta;
+		delta.set(owner->getPosition());
+		delta.sub(&m_goalPosition);
+		near = (delta.GetLengthEstimate() < 5.0f);
+	}
+	if (!near)
+	{
+		AIUpdateInterface *ai = getMachineOwner()->getAI(); 
+		if (ai)
+		{
+			if (ai->isDoingGroundMovement()) 
+			{
+				TheAI->pathfinder()->AdjustDestination(getMachineOwner(), ai->getLocomotorSet(), &m_goalPosition);
+			}
+			ai->destroyPath();
+		}
+		getMachine()->setGoalPosition(&m_goalPosition, m_bfmeGoalRadius);
+		if (g_00E03745)
+		{
+			FprintfTarget *log = (FprintfTarget *)theLogicRandomLogFile;
+			if (log)
+				fprintf(log, "CritterDesync: setAdjustDestination(TRUE) 3");
+		}
+		setAdjustsDestination(true);
+		return AIInternalMoveToState::onEnter();
+	}
+	return STATE_SUCCESS;
+}
+
+// AIGuardReturnState::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00543DF1).
+
+// AIGuardIdleState::onEnter is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00542D88).
+
+// AIGuardIdleState::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00543E5D).
 
 // tu-skeleton: 0x00543DF1 108B ?update@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
