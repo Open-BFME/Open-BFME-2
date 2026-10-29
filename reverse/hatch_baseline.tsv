@@ -1923,6 +1923,7 @@ alternatename	Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp	??1S4Base0
 alternatename	Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp	?dateIsYearLeap@AptDate@@QAE_NH@Z	1
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getChars@NarrowStrSource0059B0DD@@UBEHPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getLength@NarrowStrSource0059B0DD@@UBEHXZ	1
+alternatename	Code/GameEngine/Source/Common/LivingWorldBuilding.cpp	?rva0052B003@Rva0052B278@@QAEX_N@Z	1
 alternatename	Code/GameEngine/Source/Common/LocomotorSetXferSelfAndCurLocoPtrRva001E70C2.cpp	?Version1@Rva001E70C2XferView@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/MainMenuMediumScaleUpTransition.cpp	_vtbl_00C16574	1
 alternatename	Code/GameEngine/Source/Common/NarrowStringRecordCopyBFME2.cpp	??0Pivot24@@QAE@ABU0@@Z	1
@@ -2354,7 +2355,6 @@ alternatename	Code/GameEngine/Source/Common/Rva004C0D4F.cpp	?bfmeAskDHB@BfmeOute
 alternatename	Code/GameEngine/Source/Common/Rva004C0D4F.cpp	?bfmeAskDHC@BfmeOuterDHC@@QAE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004CE36Dtor.cpp	??0Rva0004CDAFSlot@@QAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Rva004CE36Dtor.cpp	??1Rva0004CDAFSlot@@QAE@XZ	2
-alternatename	Code/GameEngine/Source/Common/Rva004E063FFactory.cpp	?rva0052B003@Rva0052B278@@QAEX_N@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp	??0BfmeVNITree@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp	?v1@Rva004E9B46@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004E9BC6Dtor.cpp	?v2@Rva004E9B46@@UAEXXZ	1
