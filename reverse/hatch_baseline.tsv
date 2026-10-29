@@ -893,6 +893,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMessageBoxUpdateDispatch.cpp	g_Va00E04478	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva0043DC40.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/AptMpGameSetupRva00440BDF.cpp	g_Va00E0333C	1
+address_global	Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp	g_Va00E0330C	1
+address_global	Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp	g_Va00E03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptWotrPanelCallbacks.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/GameClient/GUI/BfmeAptScreenInGameChatDestructor.cpp	g_Va00E04478	3
@@ -1040,8 +1042,6 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cp
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E0330C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E03314	2
-address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp	g_Va00E0330C	1
-address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp	g_Va00E03314	2
 address_global	Code/GameEngine/Source/GameClient/GameClientXfer.cpp	g_Va00E00944	3
 address_global	Code/GameEngine/Source/GameClient/GameText.cpp	g_Va00DFF0C4	3
 address_global	Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp	g_Va00A04450	3

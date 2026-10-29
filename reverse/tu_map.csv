@@ -35153,7 +35153,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043D467,356,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,C=0x0043D3BE..0x0043D5CB provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x0043D5CB,42,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/SpellStore.cpp C=0x0043D3BE..0x0043D5F5 provisional,Code/GameEngine/Source/Common/Rva0043D3DAClear.cpp
 0x0043D5F5,145,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
-0x0043D686,917,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
+0x0043D686,917,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x0043DA1B,58,code,,,-,,Code/GameEngine/Source/Common/Rva002D1E55Factories.cpp
 0x0043DA55,16,code,,,-,,Code/GameEngine/Source/Common/Rva005232D0Eq.cpp
 0x0043DA65,24,code,,,-,,Code/GameEngine/Source/Common/Rva0043DA65Getter.cpp
@@ -78628,18 +78628,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00788790,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D467@FuncInfo0x00936520 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x00788798,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D467@FuncInfo0x00936520 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
 0x007887A0,10,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D467@FuncInfo0x00936520 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp
-0x007887AA,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887B2,14,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
+0x007887AA,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887B2,14,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x007887C0,14,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/gen_small/uw_gen_012.cpp
-0x007887CE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887D6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887DE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887E6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887EE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887F6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x007887FE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x00788806,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
-0x0078880E,10,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk_Unresolved.cpp
+0x007887CE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887D6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887DE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887E6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887EE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887F6,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x007887FE,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x00788806,8,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
+0x0078880E,10,code,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp,approved,P,P=0x0043D686@FuncInfo0x00936594 provisional,Code/GameEngine/Source/GameClient/GUI/AptSpellStore.cpp
 0x00788818,10,code,,,-,,Code/GameEngine/Source/Common/Rva002D1E55Factories.cpp
 0x00788822,10,code,,,-,,Code/GameEngine/Source/Common/Rva002D1E55Factories.cpp
 0x0078882C,8,code,Code/GameEngine/Source/GameClient/GUI/AptMpGameSetup.cpp,approved,P,P=0x0043DE19@FuncInfo0x009365E4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MpGameSetupSlots_Init_InitGadgets_InitGadgets.cpp
