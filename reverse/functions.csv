@@ -15083,7 +15083,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ??0DelayedUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B3C75,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0StealthUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B5378,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/StealthUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0LocomotorSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B3F0B,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgradeConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
-??0WeaponSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B5718,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgradeConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+??0WeaponSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B5718,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0ExperienceScalarUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B61C6,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/ExperienceScalarUpgradeConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0GarrisonUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B5839,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/GarrisonUpgradeCtor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0TooltipUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z,,0x004B7A50,49,Code/GameEngine/Source/GameLogic/Object/Upgrade/TooltipUpgrade.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls

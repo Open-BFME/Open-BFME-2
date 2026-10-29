@@ -581,6 +581,7 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Thing;
+
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
@@ -633,6 +634,8 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgrade.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/WeaponSetUpgradePoolKey.cpp
 
 // ?getModuleNameKey@WeaponSetUpgrade@@UBE?AW4NameKeyType@@XZ
@@ -660,4 +663,11 @@ void WeaponSetUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // collided with select-any copies. The anchor keeps this unit's row copies;
 // it is not retail code.
 
-// tu-skeleton: 0x004B5718 49B ??0WeaponSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgradeConstructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponSetUpgradeConstructor.cpp
+
+// ??0WeaponSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z
+WeaponSetUpgrade::WeaponSetUpgrade(
+	Thing *thing, const ModuleData *moduleData )
+	: UpgradeModule( thing, moduleData )
+{
+}
