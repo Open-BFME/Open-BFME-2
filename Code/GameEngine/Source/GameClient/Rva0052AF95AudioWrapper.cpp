@@ -62,7 +62,7 @@ public:
 struct AudioRefs0052 { char unknown[0x10]; OpaqueRefElement4 r10,r14,r18; };
 struct AudioID0052 { char unknown[0x18]; int id; };
 class Rva005391A9 { public: void rva005391A9(); };
-class Holder0052B003 { public: void rva0052B003(int); };
+class Rva0052B278 { public: void rva0052B003(bool); };
 struct Receiver0052 {
  char unknown00[0x14]; AudioRefs0052 *refs;
  char unknown18[0x20]; AudioID0052 *owner;
@@ -86,7 +86,7 @@ void Rva0052B10F::rva0052B10F() {
   OwnerAudioEvent0052 event((owner?refs->r14:refs->r14),owner->id);
   ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
  }
- done:((Holder0052B003 *)this)->rva0052B003(1);
+ done:((Rva0052B278 *)this)->rva0052B003(true);
 }
 void Rva0052B17F::rva0052B17F() {
  if(!(refs?refs:refs)->r18.referent)goto done;
@@ -95,5 +95,5 @@ void Rva0052B17F::rva0052B17F() {
   OwnerAudioEvent0052 event((owner?refs->r18:refs->r18),owner->id);
   ((Rva0052AudioView *)TheAudio)->addAudioEvent(event.get());
  }
- done:((Holder0052B003 *)this)->rva0052B003(0);
+ done:((Rva0052B278 *)this)->rva0052B003(false);
 }

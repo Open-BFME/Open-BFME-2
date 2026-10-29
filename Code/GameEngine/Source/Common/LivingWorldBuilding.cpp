@@ -3,7 +3,6 @@
 #define TheRva00DFEF10 (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)
 #include "ascii_string.h"
 #include <new>
-#pragma comment(linker, "/alternatename:?rva0052B003@Rva0052B278@@QAEX_N@Z=?rva0052B003@Holder0052B003@@QAEXH@Z")
 // ?createGhostObject@LivingWorldBuilding@@QAEXXZ @0x004E0A96 69B flush pending pointer at +0x2c via dword clearer then add Upgrades pair with amount 1 through global holder at +0x264
 class Rva0023D2D8DwordClearer
 {
@@ -165,11 +164,6 @@ public:
 class Rva002B7250;
 
 extern Rva002B7250 g_00E04424;
-
-struct Holder0052B003
-{
-	void rva0052B003(int value);
-};
 
 class Rva004E0B60
 {
@@ -843,12 +837,12 @@ void Rva004E0B60::rva004E0D19(int arg)
 }
 
 // ?rva004E0CB6@Rva004E0B60@@QAEXXZ @ 0x004E0CB6 (21B).
-// Calls Holder0052B003::rva0052B003(0) at 0x0052B003 through m_2C, then
+// Calls Rva0052B278::rva0052B003(false) at 0x0052B003 through m_2C, then
 // tail-jmps to rowed rva004E0C49. Caller 0x004FC437. Class proven by the
 // tail edge and prev/next in this TU.
 void Rva004E0B60::rva004E0CB6()
 {
-	((Holder0052B003 *)m_2C)->rva0052B003(0);
+	((Rva0052B278 *)m_2C)->rva0052B003(false);
 	rva004E0C49();
 }
 
@@ -922,10 +916,6 @@ void LivingWorldBuilding::createIcon()
 	m_2C = new Rva0052B278(lookup, this, &m_48);
 	m_2C->rva0052B003(m_20 == -1);
 }
-
-// The retail call in this body reads 0x0052B003, an address the ledger already
-// carries as ?rva0052B003@Holder0052B003@@QAEXH@Z. Bind the donor spelling to that rowed owner so one
-// address keeps one definition and the unit links.
 
 // tu-skeleton: 0x004E06B8 67B ?BeginTurn@LivingWorldBuilding@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp (not merged yet)
 

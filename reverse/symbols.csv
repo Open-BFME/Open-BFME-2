@@ -6344,7 +6344,6 @@ name,address,notes
 ?rva0051274F@Rva0051274F@@QAEHHHH@Z,0x0051274F,thiscall int callee of 0x004E8D3E read from its REL32 displacement (this plus 3); body unrowed
 ?rva00513B94@Rva00513B94Target@@QAEXXZ,0x00513B94,"method a vtable-slot forwarder tail-jumps to (ret 0); opaque address name"
 ?rva0051B09B@Rva0051BED7@@QAEXXZ,0x0051B09B,this-shaped call site in the 0x0051BED7 poll (mov ecx,esi with no stack args); rowed free fn Rva0051B09BEnable lives here; address from retail REL32
-?rva0052B003@Rva0052B278@@QAEX_N@Z,0x0052B003,thiscall bool callee of 0x004E063F read from its REL32 displacement; body unrowed
 ?rva00533BEC@Rva002E713F460@@QAEXPAX00@Z,0x00533BEC,pin for 0x2E713F thiscall void (void*x3) on +0x460
 ?rva0053444F@Rva004FFD09@@QAEPAURva004FFD09Node@@PAU2@@Z,0x0053444F,thiscall twin of rowed int-int _M_clone_node via Locomotor copy call sites 0x004FFD16 0x004FFD49
 ?rva005392EC@Rva003FE402Host@@QAEXXZ,0x005392EC,"member vtable slot 0x003FE402 tail-jumps to; opaque address name"
