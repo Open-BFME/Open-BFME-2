@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /MD
+// stlport46
 //
 // ?rva0060147B@Rva0060126D@@QAEAAV?$_Rb_tree@URva00600A40Element@@U1@U?$_Identity@URva00600A40Element@@@_STL@@U?$less@URva00600A40Element@@@3@V?$allocator@URva00600A40Element@@@3@@_STL@@PBD@Z
 // retail 0x0060147B (167B, ret 4).
