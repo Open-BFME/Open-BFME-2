@@ -4595,8 +4595,10 @@ Remaining prerequisites: the shared AIUpdate layout puts clearWaypointQueue's fi
 
 Rejected trials: a getCurrentStateID attribute macro also expands the nested getter call in AIUpdate.h and fails C2061/C2039/C2232. A precise-Z dllimport/forceinline attribute macro still emits an import reference from an unrowed donor body, adding unresolved `__imp_?setUsePreciseZPos@Locomotor@@QAEX_N@Z`. Both trials were reversed. Do not repeat them without resolving those declaration/call contexts. Next check: reconcile the native receiver/layout/signature contracts and placeholder owners in a lane that can edit shared headers and names, then repeat the complete provider/consumer preview and await the normal census.
 
-### LINK-122: StateMachine view split, ICF twins and forwardable callees (2026-10-24 Opus pass)
-Status: Open. Updated: 2026-10-27; inspected revision: d37c84f6c3.
+### LINK-144: StateMachine view split, ICF twins and forwardable callees (2026-10-24 Opus pass)
+(Registered as LINK-122 in bc18bc988b, which collided with the census-hygiene LINK-122 below; re_attempts' StateMachine.cpp tu-merge line cites this entry by the old number.)
+Status: Mostly cleared; three units open (below). Updated: 2026-10-29; inspected revision: 38dbdee4d7; census 2026-10-29 15:08 at 85f6b7f40c (retail-truth-5).
+Census confirmation (2026-10-29, `reverse/link_status.csv` at 85f6b7f40c): linked=yes for DozerAIUpdateCtor.cpp, WorkerAIUpdateCtor.cpp, StrategicHUDBattlePromptMovieClip.cpp, StlportVectorDtorDeferredOwners.cpp, ActiveBodyConstructor.cpp, BackAwayAndCowerStateMachine.cpp (was Rva003444CEStates.cpp; the StateMachine vtable split no longer blocks it) and IntFloatMapSubscript.cpp (repaired by other seats). Still linked=no: CrateCreationEntryList.cpp, AptPlayerTooltipMap.cpp, Rva008312E0StringReplace.cpp (the constructor and /Od-frame leads below stand).
 Evidence / affected units: `link_check.py --refresh` over the 543 census-blocked units (index 7e43384268), then per-unit rechecks.
 Completed (each verified with `./build.sh` and `link_check.py --refresh`; census confirmation pending):
 - 47da7755f1: 0x004D750F is `StateMachine::setGoalObject(const Object *)` (slot 14 of 25 StateMachine vtables), 0x004D7435 its worker `internalSetGoalObject`; rows renamed, the `/alternatename` alias removed. `DozerAIUpdateCtor.cpp` and `WorkerAIUpdateCtor.cpp` LINK (0 -> 12,691 B).
