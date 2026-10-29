@@ -1349,8 +1349,6 @@ _AtlWinModuleTerm@8,,0x000058C3,96,Code/Libraries/Source/ATL/atlbase.cpp,matched
 ??8?$VectorClass@U_ArcInfoStruct@VehicleCurveClass@@@@UBE_NABV0@@Z,,0x00124580,25,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??0_ArcInfoStruct@VehicleCurveClass@@QAE@XZ,,0x0022239C,43,Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?Clear@?$ShareBufferClass@E@@QAEXXZ,,0x00169930,27,Code/Libraries/Source/WWVegas/WW3D2/MeshGeometryShareBufferInstantiations.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-??1bad_alloc@std@@UAE@XZ,,0x00023850,29,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
-??_Gbad_alloc@std@@UAEPAXI@Z,,0x00024CC0,44,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ??6Debug@@QAEAAV0@_N@Z,,0x00038890,30,Code/Libraries/Source/WWVegas/WWDebug/debug_operator_bool.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
 ?DuplicateCRCError@INIClass@@QAEXPBD00@Z,,0x00615C00,91,Code/Libraries/Source/WWVegas/WWLib/ini_duplicate_crc_error.cpp,matched,WWLib INIClass duplicate-CRC warning; named from the Generals declaration. This engine takes a third argument for the section
 ??0AABoxClass@@QAE@ABVVector3@@0@Z,,0x00108B65,46,Code/Libraries/Source/WWVegas/WWMath/aabtreecull.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan
@@ -98942,3 +98940,5 @@ __ehhandler$??1?$time_get@DV?$istreambuf_iterator@DV?$char_traits@D@_STL@@@_STL@
 ?_M_snextc_aux@?$basic_streambuf@DV?$char_traits@D@_STL@@@_STL@@AAEHXZ,,0x0001CBF0,94,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_streambuf_snextc_aux.cpp,matched,bfme1 WWLib sweep exact-unique placement; verbatim source import; migrated=stlport-4.6
 __Locale_wctomb,,0x00020D50,92,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleWctomb.c,matched,BFME1 byte-identical donor; b1 0x0084DA90; migrated=stlport-4.6
 ?_M_throw_runtime_error@locale@_STL@@SAXPBD@Z,,0x00007080,88,Code/Libraries/Source/WWVegas/WWLib/Rva008320A0LocaleThrowRuntimeError.cpp,matched,BFME1 byte-identical donor; b1 0x008320A0; 2 DIR32 string literal(s) agree; migrated=stlport-4.6
+??1bad_alloc@std@@UAE@XZ,,0x00023850,29,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan; migrated=stlport-4.6
+??_Gbad_alloc@std@@UAEPAXI@Z,,0x00024CC0,44,Code/Libraries/Source/WWVegas/WWLib/BadAllocDestructor.cpp,matched,ported from the Open-BFME-1 conversion; placed by masked byte-scan; migrated=stlport-4.6

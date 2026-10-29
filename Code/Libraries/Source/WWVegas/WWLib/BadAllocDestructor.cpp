@@ -1,4 +1,5 @@
 // cl: /Od /MD /EHsc
+// stlport46
 
 // VC7's <new> declares std::bad_alloc's destructor inline, so including it
 // cannot emit the retail out-of-line body.  This TU keeps the ABI-bearing
