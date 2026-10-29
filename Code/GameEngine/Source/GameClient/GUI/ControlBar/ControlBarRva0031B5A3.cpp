@@ -52,7 +52,7 @@ public:
 	void rva0031B5A3(const Player *player);
 private:
 	char m_pad0C[0x28 - 0x0C];
-	unsigned char m_0028;
+	unsigned char m_UIDirty;
 	char m_pad29[0x270 - 0x29];
 	const void *m_p0270;
 	const void *m_p0274;
@@ -79,5 +79,5 @@ void ControlBar::rva0031B5A3(const Player *player)
 	TheTransitionHandler->setGroup(AsciiString("ControlBarArrow"), 0);
 done:
 	m_0278 = 1;
-	m_0028 = 1;
+	m_UIDirty = 1;
 }

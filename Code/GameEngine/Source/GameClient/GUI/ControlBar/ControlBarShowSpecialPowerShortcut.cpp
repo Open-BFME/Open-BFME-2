@@ -41,22 +41,22 @@ protected:
     void populateSpecialPowerShortcut(Player *);
 private:
     char m_pad0C[0xA8 - 0x0C];
-    GameWindow *shortcutButtons[5];
-    GameWindow *shortcutButtonParents[5];
-    int shortcutButtonCount;
+    GameWindow *m_specialPowerShortcutButtons[5];
+    GameWindow *m_specialPowerShortcutButtonParents[5];
+    int m_currentlyUsedSpecialPowersButtons;
     char unknownD4[4];
     GameWindow *shortcutParent;
 };
 void ControlBar::showSpecialPowerShortcut()
 {
     if (((const ShortcutTimerView *)TheScriptEngine)->isGameEnding()
-        || !shortcutParent || !shortcutButtons || !ThePlayerList
+        || !shortcutParent || !m_specialPowerShortcutButtons || !ThePlayerList
         || !((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())
         return;
     bool dontAnimate=true;
-    for (int i=0; i<shortcutButtonCount; ++i)
+    for (int i=0; i<m_currentlyUsedSpecialPowersButtons; ++i)
     {
-        if (shortcutButtons[i]->winGetUserData())
+        if (m_specialPowerShortcutButtons[i]->winGetUserData())
         {
             dontAnimate=false;
             break;

@@ -122,7 +122,7 @@ private:
     ControlBarAnimateUpdateView *animateManager;
     ControlBarAnimateUpdateView *shortcutAnimateManager;
     char unknown18[0x10];
-    bool uiDirty;
+    bool m_UIDirty;
     char unknown29[0x1B];
     Rva0031FA8E *schemeManager;
     char unknown48[0x24];
@@ -178,7 +178,7 @@ void ControlBar::update()
                 --command->flashCount;
         }
     }
-    if (uiDirty)
+    if (m_UIDirty)
     {
         rva0031D230();
         populateSpecialPowerShortcut((Player *)((BfmeThingRV *)ThePlayerList)->bfmePickRV());

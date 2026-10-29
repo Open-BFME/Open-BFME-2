@@ -81,9 +81,9 @@ private:
     char unknown18[0x30];
     GameWindow *contextParent[9]; // [0] is the master window
     char unknown6C[0x3C];
-    GameWindow *shortcutButtons[5];
-    GameWindow *shortcutButtonParents[5];
-    int shortcutButtonCount;
+    GameWindow *m_specialPowerShortcutButtons[5];
+    GameWindow *m_specialPowerShortcutButtonParents[5];
+    int m_currentlyUsedSpecialPowersButtons;
     char unknownD4[4];
     GameWindow *shortcutParent;
     char unknownDC[0x12C];
@@ -91,7 +91,7 @@ private:
 };
 void ControlBar::rva0031B210()
 {
-    if (!shortcutParent || !shortcutButtons || !ThePlayerList
+    if (!shortcutParent || !m_specialPowerShortcutButtons || !ThePlayerList
         || !((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())
         return;
     if (((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter()
@@ -112,9 +112,9 @@ void ControlBar::rva0031B210()
     }
     if (contextParent[0] && !contextParent[0]->winIsHidden() && shortcutParent->winIsHidden())
         showSpecialPowerShortcut();
-    for (int i=0; i<shortcutButtonCount; ++i)
+    for (int i=0; i<m_currentlyUsedSpecialPowersButtons; ++i)
     {
-        GameWindow *win=shortcutButtons[i];
+        GameWindow *win=m_specialPowerShortcutButtons[i];
         if (win->winIsHidden()==true) continue;
         const CommandButton *command=(const CommandButton *)GadgetButtonGetData(win);
         if (!command) continue;

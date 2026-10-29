@@ -175,7 +175,7 @@ private:
 	AnimateWindowManager *m_generalsScreenAnimate;
 	ICoord2D m_defaultControlBarPosition;
 	int m_0024;
-	bool m_0028;
+	bool m_UIDirty;
 	char m_pad29[3];
 	void *m_002C;
 	_STL::hash_map<int, Rva0031DBFCElement> m_0030;
@@ -193,8 +193,8 @@ private:
 	char m_pad8C[0xA0 - 0x8C];
 	GameWindow *m_rightHUDUnitSelectParent;
 	GameWindow *m_communicatorButton;
-	GameWindow *m_00A8[5];
-	GameWindow *m_00BC[5];
+	GameWindow *m_specialPowerShortcutButtons[5];
+	GameWindow *m_specialPowerShortcutButtonParents[5];
 	char m_padD0[4];
 	void *m_00D4;
 	void *m_00D8;
@@ -216,7 +216,7 @@ private:
 	bool m_020C;
 	char m_pad20D[3];
 	void *m_0210;
-	bool m_0214;
+	bool m_showBuildToolTipLayout;
 	char m_pad215[3];
 	int m_commandButtonBorderBuildColor;
 	int m_commandButtonBorderActionColor;
@@ -250,7 +250,7 @@ private:
 	_STL::vector<PlayerAITypeEntry> m_02A8;
 };
 
-ControlBar::ControlBar() : m_0214(false), m_commandWindowUserData(0)
+ControlBar::ControlBar() : m_showBuildToolTipLayout(false), m_commandWindowUserData(0)
 {
 	m_002C = 0;
 	m_controlBarSchemeManager = 0;
@@ -277,15 +277,15 @@ ControlBar::ControlBar() : m_0214(false), m_commandWindowUserData(0)
 	m_genStarFlash = false;
 	m_genStarOff = 0;
 	m_genStarOn = 0;
-	m_0028 = false;
+	m_UIDirty = false;
 	for (int i = 0; i < 9; ++i)
 		m_contextParent[i] = 0;
 	for (int i = 0; i < 32; ++i)
 		m_commandWindows[i] = 0;
 	for (int i = 0; i < 5; ++i)
 	{
-		m_00A8[i] = 0;
-		m_00BC[i] = 0;
+		m_specialPowerShortcutButtons[i] = 0;
+		m_specialPowerShortcutButtonParents[i] = 0;
 	}
 	m_00D8 = 0;
 	m_00D4 = 0;
