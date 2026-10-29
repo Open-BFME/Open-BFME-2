@@ -144,6 +144,8 @@ class AINavyUnitBattleShip : public Rva005DCC4B
 public:
 	AINavyUnitBattleShip(const Rva005DCC4BSource *source);
 public:
+	virtual void update();
+public:
 	virtual ~AINavyUnitBattleShip();
 public:
 	Int m_field08;

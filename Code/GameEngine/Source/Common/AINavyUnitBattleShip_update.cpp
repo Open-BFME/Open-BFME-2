@@ -10,45 +10,31 @@
 // cl: /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
 // stlport
 //
-// ??0AINavyUnitBattleShip@@QAE@PBURva005DCC4BSource@@@Z @ 0x005AD6C3 39B
-// Derived of rowed Rva005DCC4B: base converts source+0x74, then +0x08=0 and
-// +0x0C=TheGameLogic frame+0x40. Evidence: call at 0x005AD6CA to rowed
-// ??0Rva005DCC4B@@QAE@PBURva005DCC4BSource@@@Z, vtable 0x0087258C at [this],
-// TheGameLogic 0x00DFE78C deref +0x40, caller 0x00506AC4 new 0x10 pushes Object
-// into vector<ModuleData*>.
-//
-// The assert path its bodies pass GetGameLogicRandomValue names the retail
-// file GameLogic/SkirmishAI/AITacticalAI/AITacticalNavy/AINavyUnitBattleShip.cpp.
-// Layout: +0x04 the ship's id (base), +0x08 the current target's id, +0x0C
-// the frame the next attack order is due.
-//
 //   0x005AD806  slot 0 (the vtable's only entry): keep attacking the target
 //               every 25 frames, forget it once gone, or pick a random one of
 //               the owner's tracked targets; with none, 0x005AD6F5
-//   0x005AD6F5  when the ship's AI is idle, attack the first tracked target
-//               whose template has +0x11F bit 4, else a random such object
-#include <vector>
 
 typedef int Int;
-
+struct Rva005DCC4BSource
+{
+	char m_bytes00[0x74];
+	Int m_field74;
+};
 #include "GameLogicObjectLookupView.h"
+#include <vector>
+
+extern GameLogic *TheGameLogic;
 
 enum CommandSourceType
 {
 	CMD_FROM_PLAYER = 0
 };
 
-struct Rva005DCC4BSource
-{
-	char m_bytes00[0x74];
-	Int m_field74;
-};
-
 class Rva005DCC4B
 {
 public:
 	Rva005DCC4B(const Rva005DCC4BSource *source);
-	virtual void update() = 0;
+	virtual ~Rva005DCC4B();
 
 	Int m_field04;
 };
@@ -117,9 +103,6 @@ public:
 	Rva005AD6C3AI *m_ai;		// +0x258
 };
 
-
-extern GameLogic *TheGameLogic;
-
 struct Rva002A8AB1Record
 {
 	void *rva002C6ACB();
@@ -157,6 +140,7 @@ public:
 	Rva002A8AB1Record *rva002A8AB1(void *owner);
 	void *rva002A8F24(Player *player);
 };
+
 extern Rva002A8F24 *TheSkirmishAIManager;
 
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
@@ -165,14 +149,17 @@ class AINavyUnitBattleShip : public Rva005DCC4B
 {
 public:
 	AINavyUnitBattleShip(const Rva005DCC4BSource *source);
+public:
 	virtual void update();
-	void patrol();
-
+public:
+	virtual ~AINavyUnitBattleShip();
+public:
 	Int m_field08;
+public:
 	Int m_field0C;
+public:
+	void patrol();
 };
-
-// AINavyUnitBattleShip::patrol is defined with its retail-matched body in Code/GameEngine/Source/Common/Rva005AD6F5Finish.cpp (0x005AD6F5).
 
 void AINavyUnitBattleShip::update()
 {
