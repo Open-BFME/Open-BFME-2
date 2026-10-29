@@ -167,23 +167,51 @@ collect_verify() {
 # race anyway). It fails open and never blocks past the TTL.
 # BFME_LANDING_LEASE=off skips it.
 LANDING_TOKEN=""
+LANDING_TOKEN_FILE=""
+LANDING_HEARTBEAT=""
 landing_ok=0
+# On exit: stop the heartbeat, then release the window unless the hook passed.
+# A renewal replaces the token, so the latest one is read from the token file.
 release_landing_on_failure() {
+    if [ -n "$LANDING_HEARTBEAT" ]; then
+        kill "$LANDING_HEARTBEAT" 2>/dev/null || true
+        wait "$LANDING_HEARTBEAT" 2>/dev/null || true
+        LANDING_HEARTBEAT=""
+    fi
+    if [ -n "$LANDING_TOKEN_FILE" ] && [ -s "$LANDING_TOKEN_FILE" ]; then
+        LANDING_TOKEN="$(cat "$LANDING_TOKEN_FILE")"
+    fi
     if [ -n "$LANDING_TOKEN" ] && [ "$landing_ok" -ne 1 ]; then
         python3 tools/push_lease.py release "$LANDING_TOKEN" >/dev/null 2>&1 || true
         LANDING_TOKEN=""
     fi
+    [ -z "$LANDING_TOKEN_FILE" ] || rm -f "$LANDING_TOKEN_FILE" "$LANDING_TOKEN_FILE.new"
 }
 trap release_landing_on_failure EXIT
 landing_enabled() {
     [ "${BFME_LANDING_LEASE:-on}" != "off" ] && [ -f tools/push_lease.py ] \
         && [ "${_remote_ref:-}" = "refs/heads/master" ]
 }
+# take_landing_window SHA: take the window, then renew it every
+# $BFME_LANDING_HEARTBEAT_SECONDS (default 600) while this hook runs: a full gate
+# on a loaded seat took 29 minutes plus its checks, longer than the 30-minute TTL.
 take_landing_window() {
     landing_enabled || return 0
     LANDING_TOKEN="$(python3 tools/push_lease.py acquire "$1")" || LANDING_TOKEN=""
     if [ -n "$LANDING_TOKEN" ]; then
         echo "pre-push: holding the landing window (tools/push_lease.py) for $1"
+        LANDING_TOKEN_FILE=$(mktemp) || return 0
+        printf '%s' "$LANDING_TOKEN" > "$LANDING_TOKEN_FILE"
+        (
+            while sleep "${BFME_LANDING_HEARTBEAT_SECONDS:-600}"; do
+                renewed="$(python3 tools/push_lease.py renew "$1" 2>/dev/null)" || renewed=""
+                if [ -n "$renewed" ]; then
+                    printf '%s' "$renewed" > "$LANDING_TOKEN_FILE.new" \
+                        && mv -f "$LANDING_TOKEN_FILE.new" "$LANDING_TOKEN_FILE"
+                fi
+            done
+        ) > /dev/null 2>&1 &
+        LANDING_HEARTBEAT=$!
     fi
 }
 wait_landing_window() {

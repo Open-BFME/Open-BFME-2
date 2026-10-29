@@ -23,14 +23,19 @@ Its note names the commit being landed.
   * Every other push to master WAITS at the end of its hook while another
     owner holds a live window whose commit is not yet on origin/master; once
     that commit lands, the window counts as free.
-  * Nothing blocks past the TTL: a crashed holder's window expires, and a
-    waiter gives up after BFME_LANDING_LEASE_WAIT_MINUTES (default: the TTL)
-    and pushes, saying so. The window is a turn, never a reason to fail a push.
+  * While the hook holds the window it renews it every 10 minutes (the
+    heartbeat, BFME_LANDING_HEARTBEAT_SECONDS), so a full gate longer than the
+    TTL keeps it; the heartbeat stops when the hook exits.
+  * A waiter follows the live window, re-reading its expiry each poll, and
+    gives up only after BFME_LANDING_LEASE_WAIT_MINUTES (default 90) and pushes,
+    saying so. Nothing blocks past a crashed holder's TTL: its window expires.
+    The window is a turn, never a reason to fail a push.
   * Fail-open: when origin's claims cannot be read, acquire and wait warn and
     return; the push then races as it would without the window.
 
   python3 tools/push_lease.py status
   python3 tools/push_lease.py acquire SHA     # prints the lease token
+  python3 tools/push_lease.py renew SHA       # the holder's heartbeat; prints the new token
   python3 tools/push_lease.py wait
   python3 tools/push_lease.py release TOKEN
 """
@@ -48,7 +53,10 @@ import claims  # noqa: E402
 SCOPE = "lease:landing"
 KEY = claims.key_of(SCOPE)
 MINUTES = float(os.environ.get("BFME_LANDING_LEASE_MINUTES", "30"))
-WAIT_MINUTES = float(os.environ.get("BFME_LANDING_LEASE_WAIT_MINUTES", str(MINUTES)))
+# A waiter follows the live window: it waits while the window is held and
+# renewed (a full gate on a loaded seat outlasts one TTL), and gives up only at
+# this hard cap, so a crashed holder's window still frees everyone at its expiry.
+WAIT_MINUTES = float(os.environ.get("BFME_LANDING_LEASE_WAIT_MINUTES", "90"))
 POLL_SECONDS = float(os.environ.get("BFME_LANDING_LEASE_POLL_SECONDS", "30"))
 NOTE = "full-gate push of {sha}"
 NOTE_SHA = re.compile(r"full-gate push of ([0-9a-f]{40})")
@@ -87,10 +95,11 @@ def _until(expires):
 
 def acquire(sha, minutes=MINUTES, wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, root=None, say=say_err):
     """Take (or, as its holder, renew) the window for landing `sha`, waiting while
-    another owner holds it. Returns the lease token, or None when origin's
-    claims are unreachable or the wait ran out (the push goes ahead without it)."""
-    deadline = time.time() + wait_minutes * 60
-    told = False
+    another owner holds it, at most `wait_minutes`. Returns the lease token, or
+    None when origin's claims are unreachable or the wait ran out (the push goes
+    ahead without it)."""
+    cap = time.time() + wait_minutes * 60
+    shown = None
     while True:
         try:
             got = claims.claim([SCOPE], ttl_hours=minutes / 60, note=NOTE.format(sha=sha), root=root)
@@ -100,7 +109,7 @@ def acquire(sha, minutes=MINUTES, wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, 
         if got.claimed:
             return got.tokens[KEY]
         now = time.time()
-        if now >= deadline:
+        if now >= cap:
             say(f"push_lease: the landing window is still held after {wait_minutes:g} min; "
                 "landing without it")
             return None
@@ -108,19 +117,32 @@ def acquire(sha, minutes=MINUTES, wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, 
             held = holder(root)
         except claims.ClaimsUnavailable:
             held = None
-        if held and not told:
+        if held and held[1] != shown:
             say(f"push_lease: {held[0]} holds the landing window until {_until(held[1])}; waiting")
-            told = True
-        time.sleep(min(poll, max(0.0, deadline - now)))
+            shown = held[1]
+        time.sleep(min(poll, max(0.0, cap - now)))
+
+
+def renew(sha, minutes=MINUTES, root=None):
+    """The holder's heartbeat: renew the window for `sha` without waiting.
+    Returns the new token, or None when another owner holds it or origin's
+    claims are unreachable."""
+    try:
+        got = claims.claim([SCOPE], ttl_hours=minutes / 60, note=NOTE.format(sha=sha), root=root)
+    except claims.ClaimsUnavailable:
+        return None
+    return got.tokens[KEY] if got.claimed else None
 
 
 def wait(wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, root=None, say=say_err):
     """Block while ANOTHER owner holds a live window whose commit has not
-    landed. True when the window is free, ours or landed; False when the wait
-    ran out or origin's claims are unreachable (the push goes ahead)."""
+    landed, following its current expiry (re-read each poll: the holder renews
+    it during a long gate), at most `wait_minutes`. True when the window is free,
+    ours, expired or landed; False when the cap ran out or origin's claims are
+    unreachable (the push goes ahead)."""
     me = claims._names(claims.owner(root), root)
-    deadline = time.time() + wait_minutes * 60
-    told = False
+    cap = time.time() + wait_minutes * 60
+    shown = None
     while True:
         try:
             held = holder(root)
@@ -130,16 +152,17 @@ def wait(wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, root=None, say=say_err):
         if not held or held[0] in me or landed(held[2], root):
             return True
         now = time.time()
-        if not told:
+        if held[1] != shown:
             say(f"push_lease: {held[0]} is landing a full-gate push"
                 + (f" ({held[2][:10]})" if held[2] else "")
-                + f"; waiting until it lands or {_until(min(held[1], deadline))}")
-            told = True
-        if now >= deadline:
+                + f"; waiting until it lands or {_until(min(held[1], cap))}"
+                + (" (renewed)" if shown is not None else ""))
+            shown = held[1]
+        if now >= cap:
             say(f"push_lease: {held[0]} still holds the landing window after {wait_minutes:g} min "
                 f"(until {_until(held[1])}); pushing anyway")
             return False
-        time.sleep(min(poll, max(0.0, deadline - now)))
+        time.sleep(min(poll, max(0.0, cap - now)))
 
 
 def release(token, root=None):
@@ -156,6 +179,8 @@ def main(argv=None):
     sub.add_parser("status", help="who holds the landing window")
     acq = sub.add_parser("acquire", help="take the window for SHA (waiting your turn); prints the token")
     acq.add_argument("sha")
+    ren = sub.add_parser("renew", help="the holder's heartbeat: renew the window for SHA; prints the token")
+    ren.add_argument("sha")
     sub.add_parser("wait", help="wait while another owner holds the window")
     rel = sub.add_parser("release", help="release the window you hold")
     rel.add_argument("token")
@@ -171,6 +196,11 @@ def main(argv=None):
         return 0
     if args.cmd == "acquire":
         token = acquire(args.sha)
+        if token:
+            print(token)
+        return 0
+    if args.cmd == "renew":
+        token = renew(args.sha)
         if token:
             print(token)
         return 0

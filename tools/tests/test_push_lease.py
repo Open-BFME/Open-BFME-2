@@ -197,21 +197,30 @@ def _bash():
     pytest.skip("Bash is required to exercise the hook")
 
 
-def landing_hook(tmp_path, outcome):
+STUB = """import sys
+open('calls', 'a').write(' '.join(sys.argv[1:]) + '\\n')
+if sys.argv[1] == 'acquire':
+    print('TOKEN')
+if sys.argv[1] == 'renew':
+    print('TOKEN%d' % sum(1 for line in open('calls') if line.startswith('renew')))
+"""
+
+
+def landing_hook(tmp_path, outcome, env=None):
     """The hook's landing-window helpers around a stub push_lease.py: take the
-    window, then pass (landing_ok=1) or fail; returns the calls the stub saw."""
+    window, then run `outcome` (pass: landing_ok=1; fail; or shell text);
+    returns the run and the calls the stub saw. Each renewal issues a new token."""
     text = HOOK.read_text(encoding="utf-8")
     helpers = text[text.index('LANDING_TOKEN=""'):text.index("# full_gate_pool:")]
     stub = tmp_path / "tools" / "push_lease.py"
     stub.parent.mkdir()
-    stub.write_text("import sys\nopen('calls', 'a').write(' '.join(sys.argv[1:]) + '\\n')\n"
-                    "print('TOKEN') if sys.argv[1] == 'acquire' else None\n", newline="\n")
-    body = {"pass": "landing_ok=1\n", "fail": "exit 1\n"}[outcome]
+    stub.write_text(STUB, newline="\n")
+    body = {"pass": "landing_ok=1\n", "fail": "exit 1\n"}.get(outcome, outcome)
     script = tmp_path / "hook.sh"
     script.write_text(f"_remote_ref=refs/heads/master\n{helpers}\ntake_landing_window {SHA}\n{body}",
                       newline="\n")
     done = subprocess.run([_bash(), "--noprofile", "--norc", script.as_posix()], cwd=tmp_path,
-                          capture_output=True, text=True)
+                          capture_output=True, text=True, env=dict(os.environ, **(env or {})))
     return done, (tmp_path / "calls").read_text().split("\n")[:-1]
 
 
@@ -226,3 +235,85 @@ def test_the_hook_keeps_the_window_through_a_passing_push(tmp_path):
     assert done.returncode == 0, done.stderr
     assert calls == [f"acquire {SHA}"]
     assert "holding the landing window" in done.stdout
+
+
+def test_the_holder_renews_the_window_through_a_long_gate(tmp_path):
+    # a full gate outlasting the TTL keeps the window; a failure releases the
+    # latest token, since each renewal replaces it
+    done, calls = landing_hook(tmp_path, "sleep 4\nexit 1\n", {"BFME_LANDING_HEARTBEAT_SECONDS": "1"})
+    assert done.returncode == 1
+    renewals = [c for c in calls if c.startswith("renew")]
+    assert calls[0] == f"acquire {SHA}" and len(renewals) >= 2
+    assert all(c == f"renew {SHA}" for c in renewals)
+    assert calls[-1] == f"release TOKEN{len(renewals)}"
+
+
+def test_the_heartbeat_stops_when_the_hook_exits(tmp_path):
+    import time
+    done, calls = landing_hook(tmp_path, "sleep 2\nlanding_ok=1\n", {"BFME_LANDING_HEARTBEAT_SECONDS": "1"})
+    assert done.returncode == 0, done.stderr
+    time.sleep(3)
+    assert (tmp_path / "calls").read_text().split("\n")[:-1] == calls
+    assert not any(c.startswith("release") for c in calls)
+
+
+class Clock:
+    """time.time advancing `step` seconds per sleep, for claims and push_lease alike."""
+    def __init__(self, step):
+        self.now, self.step = 1_800_000_000.0, step
+
+    def time(self):
+        return self.now
+
+
+def test_a_waiter_follows_a_renewed_window_past_its_first_expiry(hosts, monkeypatch):
+    clock = Clock(20 * 60)
+    monkeypatch.setattr(push_lease.time, "time", clock.time)
+    hosts("a")
+    tokens = [push_lease.acquire(SHA, say=quiet)]            # expires in 30 min
+    hosts("b")
+    polls, told = [], []
+
+    def renew_then_release(seconds):
+        clock.now += clock.step
+        polls.append(seconds)
+        hosts("a")
+        if len(polls) < 3:
+            tokens.append(push_lease.renew(SHA))             # the holder's heartbeat
+            assert tokens[-1]
+        else:
+            assert push_lease.release(tokens[-1])
+        hosts("b")
+    monkeypatch.setattr(push_lease.time, "sleep", renew_then_release)
+    # 60 minutes in, past the window's first expiry, the waiter is still waiting
+    assert push_lease.wait(say=told.append) is True
+    assert len(polls) == 3
+    assert any("(renewed)" in line for line in told)
+
+
+def test_a_waiter_gives_up_at_the_hard_cap(hosts, monkeypatch):
+    clock = Clock(20 * 60)
+    monkeypatch.setattr(push_lease.time, "time", clock.time)
+    hosts("a")
+    assert push_lease.acquire(SHA, say=quiet)
+    hosts("b")
+
+    def renew_forever(seconds):
+        clock.now += clock.step
+        hosts("a")
+        assert push_lease.renew(SHA)
+        hosts("b")
+    monkeypatch.setattr(push_lease.time, "sleep", renew_forever)
+    told = []
+    started = clock.now
+    assert push_lease.wait(wait_minutes=90, say=told.append) is False
+    assert 90 * 60 <= clock.now - started <= 110 * 60
+    assert "still holds the landing window after 90 min" in told[-1]
+
+
+def test_the_holder_cannot_renew_a_window_another_seat_holds(hosts):
+    hosts("a")
+    assert push_lease.acquire(SHA, say=quiet)
+    hosts("b")
+    assert push_lease.renew("b" * 40) is None
+    assert push_lease.holder()[0] == "a"
