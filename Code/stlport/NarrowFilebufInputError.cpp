@@ -1,4 +1,4 @@
-// stlport
+// stlport46
 // STLport 4.5.3 narrow filebuf input-error transition.
 
 #include <windows.h>
