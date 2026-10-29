@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /MD
+// stlport46
 // Native constructors copy a four-byte key then construct the twelve-byte
 // tree at +4. Their call is to the full tree-copy entry 0x00600A40;
 // EDX is unused. The prior fastcall/mid-entry interpretation was incorrect.
