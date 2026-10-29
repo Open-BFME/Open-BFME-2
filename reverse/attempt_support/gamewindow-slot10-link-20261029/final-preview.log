@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/VtableConstantPredicates.cpp: LINKS  LINKED 48 -> 48 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 48)
+Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp: LINKS  LINKED 2,785 -> 2,785 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 2,785)
+Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp: LINKS  LINKED 249 -> 249 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 249)
+link_check: 3 of 3 link cleanly; LINKED 3,082 -> 3,082 bytes (5.3s)

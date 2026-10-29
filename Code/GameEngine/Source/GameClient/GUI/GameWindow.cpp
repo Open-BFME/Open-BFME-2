@@ -726,7 +726,7 @@ public:
 public:
 	virtual bool vslot9() const;
 public:
-	virtual void vslot10() = 0;
+	virtual bool vslot10();
 public:
 	GameWindow *winPointInChild(int, int, bool, bool = false);
 public:

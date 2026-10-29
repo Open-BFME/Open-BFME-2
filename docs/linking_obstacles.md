@@ -2789,6 +2789,17 @@ Whole-unit clearance and census confirmation remain pending.
   **Remaining:** slot10 still needs the heavily shared0050B5C6 constant
   provider; slot7 is genuinely pure. Original method names, complete object
   layout and consumer-metadata-backed whole-batch closure remain open.
+- **GameWindow slot10 native fold (2026-10-29, base e584f589295):**
+  [The complete table and byte/relocation proof](../reverse/attempt_support/gamewindow-slot10-link-20261029/readme.md)
+  replaces the false purecall in both44B table emitters with the native
+  true-return virtual member. The existing constant provider admits the
+  GameWindow member through add_match's verified ICF-owner route; unrelated
+  opaque consumers keep their identities. All73 provider/emitter rows pass;
+  the two tables preserve slots0..9 and change only slot10. Both members
+  have exactly native b001c3 with no relocations. Ordinary preview retains
+  3/3 LINKS and3082 authored bytes against index85f6b7f40c. Unique coverage
+  gain is0; no census credit is claimed. Slot7 remains genuinely pure.
+  Original member names, full layout and consumer/census closure remain open.
 - **GameWindow input duplicate retired / publication audited (2026-10-29):**
   [the input-owner and publication handoff](../reverse/attempt_support/gamewindow-input-owner-cleanup-20261029/readme.md)
   removes the old BfmeThingEHCa duplicate of A0CFF and binds both gadget

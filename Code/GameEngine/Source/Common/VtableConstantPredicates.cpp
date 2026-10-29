@@ -10,8 +10,8 @@
 // counted by progress.py) and prohibits a plausible guessed class, which no
 // gate can see. The class exists to give the body the retail __thiscall
 // convention -- `ret N` cleans the arguments, which a free __cdecl spelling
-// would not reproduce. None of these classes has a virtual member, so no vtable
-// is emitted and the TU adds no symbol the ledger lacks.
+// would not reproduce. The opaque classes have no virtual members. The later
+// GameWindow fold uses its observed virtual list without emitting a table here.
 //
 // Retail bodies:
 //   0x0050B5C6   3B   b0 01 c3              mov al,1 ; ret
@@ -28,6 +28,34 @@ public:
 };
 
 bool Rva0050B5C6::rva0050B5C6()
+{
+	return true;
+}
+
+// Retail GameWindow's installed table at RVA 0080BBCC has eleven slots.
+// Slot 10 selects this same three-byte constant body (0050B5C6), an ICF
+// fold shared with unrelated classes. Keep the opaque owner for those
+// consumers; the original name and const qualification remain unknown.
+class WinInstanceData;
+enum WindowMsgHandledType { MSG_IGNORED, MSG_HANDLED };
+class GameWindow
+{
+protected:
+	virtual ~GameWindow();
+public:
+	virtual WindowMsgHandledType input(unsigned int, unsigned int, unsigned int);
+	virtual WindowMsgHandledType bfmeGoEHCb(unsigned int, unsigned int, unsigned int);
+	virtual int draw(void *);
+	virtual int tooltip(WinInstanceData *, unsigned int);
+	virtual int rva0009FD78();
+	virtual bool vslot6() const;
+	virtual void *fetchCreateInstance() = 0;
+	virtual bool vslot8() const;
+	virtual bool vslot9() const;
+	virtual bool vslot10();
+};
+
+bool GameWindow::vslot10()
 {
 	return true;
 }

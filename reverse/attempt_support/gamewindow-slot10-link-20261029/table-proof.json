@@ -1,0 +1,130 @@
+{
+  "native_table_rva": "0x0080BBCC",
+  "native_table_bytes": "c44a7100ff0c4a00454e500005dc490056ff480078fd49001339710010b843003a39710078ff4800c6b59000",
+  "native_body_rva": "0x0050B5C6",
+  "native_body_bytes": "b001c3",
+  "unique_coverage_gain": 0,
+  "copies": {
+    "Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "?vslot6@GameWindow@@UBE_NXZ"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "?vslot8@GameWindow@@UBE_NXZ"
+        ],
+        [
+          36,
+          6,
+          "?vslot9@GameWindow@@UBE_NXZ"
+        ],
+        [
+          40,
+          6,
+          "?vslot10@GameWindow@@UAE_NXZ"
+        ]
+      ]
+    },
+    "Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp": {
+      "size": 44,
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EGameWindow@@MAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          8,
+          6,
+          "?bfmeGoEHCb@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"
+        ],
+        [
+          12,
+          6,
+          "?draw@GameWindow@@UAEHPAX@Z"
+        ],
+        [
+          16,
+          6,
+          "?tooltip@GameWindow@@UAEHPAVWinInstanceData@@I@Z"
+        ],
+        [
+          20,
+          6,
+          "?rva0009FD78@GameWindow@@UAEHXZ"
+        ],
+        [
+          24,
+          6,
+          "?vslot6@GameWindow@@UBE_NXZ"
+        ],
+        [
+          28,
+          6,
+          "__purecall"
+        ],
+        [
+          32,
+          6,
+          "?vslot8@GameWindow@@UBE_NXZ"
+        ],
+        [
+          36,
+          6,
+          "?vslot9@GameWindow@@UBE_NXZ"
+        ],
+        [
+          40,
+          6,
+          "?vslot10@GameWindow@@UAE_NXZ"
+        ]
+      ]
+    }
+  },
+  "byte_and_relocation_twins": true
+}

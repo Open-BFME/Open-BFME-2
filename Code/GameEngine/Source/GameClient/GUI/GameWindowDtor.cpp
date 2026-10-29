@@ -100,7 +100,7 @@ public:
   virtual void *fetchCreateInstance() = 0;
   virtual bool vslot8() const;
   virtual bool vslot9() const;
-  virtual void vslot10() = 0;
+  virtual bool vslot10();
   void winSetFont( GameFont * );
 private:
 	GameWindowAnchor *m_anchor;

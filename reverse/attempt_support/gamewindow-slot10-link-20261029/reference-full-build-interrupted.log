@@ -1,0 +1,32 @@
+Full verification
+Baseline: OK 2 file(s) (bfme2.workshop-vanilla-1.06)
+Lib members: 11 extracted from 1 archive(s)
+Compile: 4874 of 20756 TU(s) (deps-cache: 15882 current)
+Object store: 2389 of 4874 stale TU(s) restored
+Traceback (most recent call last):
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 4555, in <module>
+    main(sys.argv[1:])
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 4522, in main
+    patches = run("functions", verify_functions)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 4512, in run
+    return check()
+           ^^^^^^^
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 3520, in verify_functions
+    source_outputs = compile_rows(rows, sources)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 3476, in compile_rows
+    compile_source(s, source_outputs[s], **proof)
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 2338, in compile_source
+    ok, text, code = try_compile_source(source, output, input_proof=input_proof, inventory=inventory)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/tools/build.py", line 2293, in try_compile_source
+    result = subprocess.run(
+             ^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 550, in run
+    stdout, stderr = process.communicate(input, timeout=timeout)
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3.12/subprocess.py", line 1196, in communicate
+    stdout = self.stdout.read()
+             ^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

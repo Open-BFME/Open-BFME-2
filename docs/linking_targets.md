@@ -1,5 +1,13 @@
 # Linking target checklist
 
+GameWindow slot10 follow-up (2026-10-29, base `e584f589295`): both native-width
+table emitters replace their false purecall with the existing constant body's
+verified GameWindow ICF member. All 73 rows and exact 44-byte table relocation
+lists pass; 3/3 previews retain 3,082 authored bytes against index `85f6b7f40c`.
+This adds zero unique matched bytes and claims no census gain. Full consumer
+closure, original member names and complete layout remain open.
+[Native proof and admission](../reverse/attempt_support/gamewindow-slot10-link-20261029/readme.md).
+
 XferSaveAsText header follow-up (2026-10-29, base `eb384b72a1`): the shared
 Xfer header's opt-in imported-inline constructor preserves the existing
 emission contract and removes the text saver's private base definition.
