@@ -1,0 +1,34 @@
+Full verification
+Baseline: OK 2 file(s) (bfme2.workshop-vanilla-1.06)
+Lib members: 11 extracted from 1 archive(s)
+Compile: 23 of 20805 TU(s) (deps-cache: 20782 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Funclet pins: 15931 row(s) verified past a renumbered $L label
+    $L5782 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp): $L5782 was renumbered; verified parent EH data places $L6245 at 0x00791B6E
+    $L6162 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp): $L6162 was renumbered; verified parent EH data places $L6476 at 0x00791C0A
+    $L6160 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp): $L6160 was renumbered; verified parent EH data places $L6474 at 0x00791BF2
+    $L5911 (Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp): $L5911 was renumbered; verified parent EH data places $L6225 at 0x00791B4F
+    $L2883 (Code/Libraries/Source/Apt/Apt_Rva006CDB70Owner.cpp): $L2883 was renumbered; verified parent EH data places $L1626 at 0x007A82E0
+STLport folds: 223 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 98943/98943 matched across 20806 source file(s)
+Reloc names: 0 anonymous function(s) named from byte-true call sites (0 recovered identity, 0 generated placeholder) -> reverse/reloc_names.csv
+String-ref verify: OK (31537 literals + 2247 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (9116 compiler literals verified)
+Import-ref verify: OK (6424 named imports verified)
+DIR32 consistency: OK (18886 symbols; 1 whitelisted, 9 PE-verified duplicate import(s), 0 new)
+Pin consistency: OK (5 multi-pinned symbols of 9408; 0 baselined, 0 new, 0 stale)
+Module registry: OK (329 registrations; 2 allowlisted, 0 baselined, 0 new, 0 stale)
+Source claims: OK (20636 sources, all byte-verified)
+Data rows: OK (2235 row(s) byte-verified)
+No-op patch: OK build/patch/game.noop.dat
+
+FULL GATE: OK — every check green

@@ -1,0 +1,18 @@
+{
+  "archived_to": "build/bfme1-refresh-f64f0f32/stale-bfme1-sweep",
+  "reason": "Donor identity metadata predates the proposed reference; retained only as obsolete scratch evidence.",
+  "files": [
+    {
+      "path": "build/bfme1_sweep/match.json",
+      "sha256": "91730d534eba251d10ce1b3a2ea0c8140b6790a1c1ede186185e542f7b18e1dc"
+    },
+    {
+      "path": "build/bfme1_sweep/codexb-20261026-inputs.json",
+      "sha256": "34d6dad10e5d3032fca9ba933c1cc36c3a8fa74502e91919dd00356363d275d7"
+    },
+    {
+      "path": "build/bfme1_sweep/link-seat-inputs.json",
+      "sha256": "3e510b0cb4edcae8c5f192d2d0dea803727f97b47941c2d216903e8639db956a"
+    }
+  ]
+}

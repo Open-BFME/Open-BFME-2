@@ -1,0 +1,90 @@
+{
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_privateHarvest.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_doSingleBoneName.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/AI/AIGetAdjustedVisionRange.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/Common/Rva000BE245ValidateCachedBones.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h",
+    "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/System/AIGroup_groupForceAttackObject.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h",
+    "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContain.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/Common/BfmeConv643.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h",
+    "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h",
+    "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h",
+    "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h"
+  ],
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ],
+  "Code/GameEngine/Source/Common/BfmeConv642.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h"
+  ],
+  "Code/GameEngine/Source/GameLogic/AI/ai.cpp": [
+    "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h",
+    "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h"
+  ]
+}

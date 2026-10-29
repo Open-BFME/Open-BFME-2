@@ -1,0 +1,22 @@
+{
+  "scope": "changed non-VP6 donor metadata and retail bytes only",
+  "donor_revision": "f64f0f32d56adf72bee366d42cbb2a72cf192ae3",
+  "donor_source_text_read": false,
+  "full_sweep_run": false,
+  "global_control_floor_claimed": false,
+  "source_transfer_or_identity_claimed": false,
+  "target_head": "d2cd76f186722d448490064e0501819dddceead6",
+  "donor_retail_sha256": "c1a907c44b84df129c1f18dc7365ea25ba438f9b8f39a374b86ed852936ff0a9",
+  "target_retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "selected_ledger_rows": 2635,
+  "inspected_native_bodies": 1528,
+  "changed_non_decoder_source_count": 387,
+  "verdicts": {
+    "unique-native-placement": 113,
+    "ambiguous-native-placement": 122,
+    "no-exact-placement": 1283,
+    "no-discriminating-needle": 10
+  },
+  "full_result_sha256": "b69e4f19f52fccd1c415d48616a6dd61af64130563e0b089e128bea327b14b2c",
+  "reproduction_script": "reverse/attempt_support/bfme1-reference-f64f0f32-20261029/affected_donors.py"
+}

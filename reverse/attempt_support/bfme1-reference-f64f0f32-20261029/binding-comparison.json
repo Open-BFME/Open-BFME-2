@@ -1,0 +1,194 @@
+{
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp": {
+    "old_object_sha256": "86f9521dffe0c966ecc03776b47b80f75578dd2e5ea9d96a35eca7421cfea3db",
+    "new_object_sha256": "d7d29a8e952561dfa648509234b123ca03acc2c151205e7126f6bb21210119e4",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp": {
+    "old_object_sha256": "53563b97adb84fa896520f1e5ec60e2f0e74c598d27e831d676064b2ce2c9468",
+    "new_object_sha256": "ed4c924eac5fb54098da5838c8115567a1b153833055476e22aa4641f29a8ba3",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_doSingleBoneName.cpp": {
+    "old_object_sha256": "4b0f97ae596a125bfece068f398510b1ad54f131af9ca8f03aa831b001ef3001",
+    "new_object_sha256": "1a20dd57434597eafd7737612e8ecd9a858b149b396f75fa156e50b0c841dd7d",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp": {
+    "old_object_sha256": "55ee6681b858b369033a1fc348ce6887f5289510e1b68975c2d18a1378efd093",
+    "new_object_sha256": "3beaaffb91a838111138f8c2abdb2c7b3d856f6bb3ec21ca035f903b8c0b0b7c",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp": {
+    "old_object_sha256": "d4dfd89cd7abd505ea7381c803a27d995eb572bfcfb6e426e87272e24b44cdb9",
+    "new_object_sha256": "9f36437c57b0625e5caeef2fcb119a16a5c032ac3101d0874c1f83bd3a54b9a7",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/System/AIGroup_groupForceAttackObject.cpp": {
+    "old_object_sha256": "e102e5f283814476668e3bc1da8dd783b1d206c158721231fb3b59ebea6deff9",
+    "new_object_sha256": "63fb6da4725c45521170ba15768ccd3c449ee0ee5ee52af815049a1af5ae6b2a",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/AI/ai.cpp": {
+    "old_object_sha256": "1be488371e70f37f484bd0c94d5bbe4e365a1e1f08dde3d7023102b52296b043",
+    "new_object_sha256": "ffd852745c098a667b45eebcbbcb10f6993ee2a92d281d95779bdc39a51a79b0",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp": {
+    "old_object_sha256": "74c9b8eaab1a9f382d1eeeb719b3ec4ddf4b8c067958c54ec853e460284154ee",
+    "new_object_sha256": "81914b537b22578b5a222db7211efe4530c5cc8bca374dbd36376397c90de1d9",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp": {
+    "old_object_sha256": "626987f955839d8116bd33d9c3121ea44fede4c3cf53e3cf5cb5a4c594263fbe",
+    "new_object_sha256": "a9d348c9c6b7bc2fd2594240af018ebe1bba7bf9bdf6f1d391dda030d6a2b79f",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContain.cpp": {
+    "old_object_sha256": "ee50738831f06afac7c4881735a75792793bc9546778fbf184a2c1a51d4ce1fe",
+    "new_object_sha256": "700b59b08254140136133c48771476c74af3052ff3069b0c0628018ce63dde0b",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp": {
+    "old_object_sha256": "75d17e6327384ceee091d128075eb4bbfe11aee202be69ad0b5e64281f9e62b2",
+    "new_object_sha256": "40f649f56bfc694d9b4fbc7b1e4804f2e8919882a287ba12a286860d5575d3a1",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp": {
+    "old_object_sha256": "f54eb955d19206403e7f7c307e1c54d43da2a32edf08656e1fa305704e78bc6a",
+    "new_object_sha256": "24c6c38b76a794b8d84e8253ef2d92c1052237d80fc0582e55c1096003707c7c",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp": {
+    "old_object_sha256": "438567e923922e20c27aaf54abd9475a6b961d510b2c5f2f968cb5cab1e9362e",
+    "new_object_sha256": "64cf38187af657d30c4cb1d7c5fb4537bd2ec40243e4d220ad307899fa6212b4",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameClient/Drawable.cpp": {
+    "old_object_sha256": "ac04da0f21950ae2aa799cb00df5caff6502617e78059f788d4d81cd6a3a03b2",
+    "new_object_sha256": "ac04da0f21950ae2aa799cb00df5caff6502617e78059f788d4d81cd6a3a03b2",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp": {
+    "old_object_sha256": "9cfe9129b9a5a2fa5d7998fbfcde09f222d52cde6ca366c450ec716730fc88f7",
+    "new_object_sha256": "06b3516561bbc7474a64af7f1a12e821d911b3b3caa500a12922d9fb31ee8841",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp": {
+    "old_object_sha256": "99389d72ed3ff0b9884fbba04cd6a2bf7dab0c6f498501467ab4050fd58c903d",
+    "new_object_sha256": "04685336d901be594537b0b2756f6e0d34c298226138913a39f6b96dfa0e9bcf",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_privateHarvest.cpp": {
+    "old_object_sha256": "2f22fa1f5aeddfcf74df5c6e7007a82f149270f58c05d51d36aa6e78b66b6684",
+    "new_object_sha256": "6e63ef6b6eabe83209549c0af04c4fa85cb1ced5c3163ba88da346e06e07bf28",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp": {
+    "old_object_sha256": "5c4278968b7a5a565d7549d33412228858b3900490d55ad194a5633f4d838f0e",
+    "new_object_sha256": "fa8466576ea9076093001e09e2f863364d933449178625ec22805ceea9fd5cba",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp": {
+    "old_object_sha256": "90dca62de7f91e74bc710ed4ca10fbcca4893753412ad33181f6bb6d6fdc9bfd",
+    "new_object_sha256": "a49c38d437e981ba6ed541364e5fd30bd7fca1dabf1f0418a8ca0539e77375a4",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp": {
+    "old_object_sha256": "01c99febbecc516c6e8f7e5197b647edbead579f411e50d0942bc137a3166177",
+    "new_object_sha256": "abdcc3f7d707634666df8ae24b5cd85b8cef1b0a940ec265810123c6ec397297",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/Common/Rva000BE245ValidateCachedBones.cpp": {
+    "old_object_sha256": "80884f2aaaaacb878f115e0d4be06d45274b2a53377ba5f5fa22c6d30a0bd5e0",
+    "new_object_sha256": "9b41c05deb92b8ffff02d3d53666494f173442b7fbac291dabd9c17523dde537",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/Common/BfmeConv643.cpp": {
+    "old_object_sha256": "ba1dd20eb3045443cfe3239adaac9a01892a6e9293ed86056be12ee9671c2a7a",
+    "new_object_sha256": "0fb07f30dab77b5281a29514600ae641a1a6cbe42ff8008e89decb3cf9f33b8d",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/Common/BfmeConv642.cpp": {
+    "old_object_sha256": "ea7d836410f730a2d7a89d5eabac08f185e74c94129b4d931610ea5ae432c0fe",
+    "new_object_sha256": "bad7fd4d9affc99b3bcaeb1770240b665b9539f8efc695701fb8046783dfb1da",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  },
+  "Code/GameEngine/Source/GameLogic/AI/AIGetAdjustedVisionRange.cpp": {
+    "old_object_sha256": "b96e9d1869acaa8ded32ce806045c565362855c6f47ac3ce233dc3306f13ff38",
+    "new_object_sha256": "8bab316a24b69b1d9925c9bd09e72aa4fbcf6bbace42c03787567d311c24e0bf",
+    "same_comdat_bodies": true,
+    "same_definitions": true,
+    "same_undefined": true,
+    "same_weak": true
+  }
+}

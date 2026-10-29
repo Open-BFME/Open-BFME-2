@@ -1,0 +1,313 @@
+[
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView_MoveCameraOrLocatorAlongSplinePathInit.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view_^move^camera^or^locator^along^spline^path^init.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DView.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^w3^d^view.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw_doSingleBoneName.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine^device_^source_^w3^d^device_^game^client_^drawable_^draw_^w3^d^model^draw_do^single^bone^name.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/TurretAI.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^a^i_^turret^a^i.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h": {
+        "recorded": "d7bf958e0fc2c8a258c0ee1f5fcf868d",
+        "current": "d7bf958e0fc2c8a258c0ee1f5fcf868d"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/GameLogicDispatch.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^system_^game^logic^dispatch.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/System/AIGroup_groupForceAttackObject.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^system_^a^i^group_group^force^attack^object.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/ai.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^a^i_ai.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Object_Object_topple.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^object_^object_topple.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Weapon_Weapon_getAttackRange.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^weapon_^weapon_get^attack^range.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Contain/RiderChangeContain.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^contain_^rider^change^contain.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/InstantDeathBehavior.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^behavior_^instant^death^behavior.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/Drawable_Rva0030a040.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^drawable_^rva0030a040.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/Drawable_Rva00309ffd.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^drawable_^rva00309ffd.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/Drawable.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^drawable.deps.json",
+    "changed_dependencies": {}
+  },
+  {
+    "source": "Code/GameEngine/Source/GameClient/Drawable_Rva00309fb3.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^client_^drawable_^rva00309fb3.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeam.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^a^i^update^interface_private^follow^waypoint^path^as^team.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h": {
+        "recorded": "177c335acd3dc9b005c3cd8399901c61",
+        "current": "177c335acd3dc9b005c3cd8399901c61"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h": {
+        "recorded": "d7bf958e0fc2c8a258c0ee1f5fcf868d",
+        "current": "d7bf958e0fc2c8a258c0ee1f5fcf868d"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_privateHarvest.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update^interface_private^harvest.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateDock.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^a^i^update^interface_private^dock.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h": {
+        "recorded": "177c335acd3dc9b005c3cd8399901c61",
+        "current": "177c335acd3dc9b005c3cd8399901c61"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h": {
+        "recorded": "d7bf958e0fc2c8a258c0ee1f5fcf868d",
+        "current": "d7bf958e0fc2c8a258c0ee1f5fcf868d"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_privateFollowWaypointPathAsTeamExact.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^a^i^update^interface_private^follow^waypoint^path^as^team^exact.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h": {
+        "recorded": "177c335acd3dc9b005c3cd8399901c61",
+        "current": "177c335acd3dc9b005c3cd8399901c61"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h": {
+        "recorded": "d7bf958e0fc2c8a258c0ee1f5fcf868d",
+        "current": "d7bf958e0fc2c8a258c0ee1f5fcf868d"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateInterface_transferAttack.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^object_^update_^a^i^update_^a^i^update^interface_transfer^attack.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/aiupdatelayout/GameLogic/Module/AIUpdate.h": {
+        "recorded": "177c335acd3dc9b005c3cd8399901c61",
+        "current": "177c335acd3dc9b005c3cd8399901c61"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/turretai/Common/StateMachine.h": {
+        "recorded": "d7bf958e0fc2c8a258c0ee1f5fcf868d",
+        "current": "d7bf958e0fc2c8a258c0ee1f5fcf868d"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/Rva000BE245ValidateCachedBones.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^rva000^b^e245^validate^cached^bones.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/BfmeConv643.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^bfme^conv643.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/Common/BfmeConv642.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^common_^bfme^conv642.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  },
+  {
+    "source": "Code/GameEngine/Source/GameLogic/AI/AIGetAdjustedVisionRange.cpp",
+    "receipt": "/work/Open-BFME-2/build/match/^code_^game^engine_^source_^game^logic_^a^i_^a^i^get^adjusted^vision^range.deps.json",
+    "changed_dependencies": {
+      "reference/open-bfme-1/inputs/reference/shims/sweep/GameLogic/Module/AIUpdate.h": {
+        "recorded": "d0bcc9ae6dc4da67057c958edd84bf65",
+        "current": "d0bcc9ae6dc4da67057c958edd84bf65"
+      },
+      "reference/open-bfme-1/inputs/reference/shims/sweep/Common/StateMachine.h": {
+        "recorded": "92b537f98dbd1aec3d62aa0ff6faf0da",
+        "current": "92b537f98dbd1aec3d62aa0ff6faf0da"
+      }
+    }
+  }
+]
