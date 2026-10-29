@@ -51,34 +51,9 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(basic_string<char, char_traits<char>, allocator<char> > const &); }
 namespace _STL { template <> char * basic_string<char, char_traits<char>, allocator<char> >::erase(char *, char *); }
 namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, char const *, unsigned int); }
+// less<string>::operator() is the rowed body 0x00389117; _S_merge calls it.
+namespace _STL { template <> bool less<basic_string<char, char_traits<char>, allocator<char> > >::operator()(basic_string<char, char_traits<char>, allocator<char> > const &, basic_string<char, char_traits<char>, allocator<char> > const &) const; }
 // bfme link decl-only end
-// Suppress this TU's non-retail copy of ??$_S_sort@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void _S_sort<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > >,less<basic_string<char,char_traits<char>,allocator<char> > > >(list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > > &,less<basic_string<char,char_traits<char>,allocator<char> > >); }
-// Suppress this TU's non-retail copy of ??1?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::~list(); }
-// Suppress this TU's non-retail copy of ??0?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::list(allocator<basic_string<char,char_traits<char>,allocator<char> > > const &); }
-// Suppress this TU's non-retail copy of ??$_S_merge@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void _S_merge<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > >,less<basic_string<char,char_traits<char>,allocator<char> > > >(list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > > &,list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > > &,less<basic_string<char,char_traits<char>,allocator<char> > >); }
-// Suppress this TU's non-retail copy of ??1?$_List_base@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocat:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> _List_base<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::~_List_base(); }
-// Suppress this TU's non-retail copy of ??0?$_List_base@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocat:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> _List_base<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::_List_base(allocator<basic_string<char,char_traits<char>,allocator<char> > > const &); }
-// Suppress this TU's non-retail copy of ?_M_create_node@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> _List_node<basic_string<char,char_traits<char>,allocator<char> > > * list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::_M_create_node(basic_string<char,char_traits<char>,allocator<char> > const &); }
-// Suppress this TU's non-retail copy of ??$swap@V?$_STLP_alloc_proxy@PAU?$_List_node@V?$basic_string@DV?$char_traits@D@_STL@@V?$al:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void swap<_STLP_alloc_proxy<_List_node<basic_string<char,char_traits<char>,allocator<char> > > *,_List_node<basic_string<char,char_traits<char>,allocator<char> > >,allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > > > >(_STLP_alloc_proxy<_List_node<basic_string<char,char_traits<char>,allocator<char> > > *,_List_node<basic_string<char,char_traits<char>,allocator<char> > >,allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > > > &,_STLP_alloc_proxy<_List_node<basic_string<char,char_traits<char>,allocator<char> > > *,_List_node<basic_string<char,char_traits<char>,allocator<char> > >,allocator<_List_node<basic_string<char,char_traits<char>,allocator<char> > > > > &); }
-// Suppress this TU's non-retail copy of ?splice@?$list@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocato:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > >::splice(_List_iterator<basic_string<char,char_traits<char>,allocator<char> >,_Nonconst_traits<basic_string<char,char_traits<char>,allocator<char> > > >,list<basic_string<char,char_traits<char>,allocator<char> >,allocator<basic_string<char,char_traits<char>,allocator<char> > > > &,_List_iterator<basic_string<char,char_traits<char>,allocator<char> >,_Nonconst_traits<basic_string<char,char_traits<char>,allocator<char> > > >); }
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
@@ -95,8 +70,9 @@ template <> __declspec(dllimport) __forceinline void _STLP_alloc_proxy<StringLis
 { allocator<StringListNode>::deallocate(p, n); }
 }
 
-namespace _STL {
-template <> void _S_unique<basic_string<char>, allocator<basic_string<char> >, equal_to<basic_string<char> > >(list<basic_string<char> > &, equal_to<basic_string<char> >);
-}
+// The list constructor, destructor and splice, _S_sort, _S_merge, _S_unique, the
+// node proxy swap, the _List_base constructor and destructor and _M_create_node
+// have no retail row; this unit emits them for its explicit instantiation rather
+// than leaning on w3d_dep.cpp's unrowed copies.
 template class _STL::list<_STL::basic_string<char> >;
 template bool _STL::equal_to<_STL::basic_string<char> >::operator()(const _STL::basic_string<char> &, const _STL::basic_string<char> &) const;
