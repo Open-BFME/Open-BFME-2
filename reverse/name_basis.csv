@@ -4074,3 +4074,15 @@ local,CollisionManagerImpl::rva007586F0::B,CollisionManagerImpl::rva007586F0::ri
 local,CollisionManagerImpl::rva007586F0::b,CollisionManagerImpl::rva007586F0::rightRemaining,inferred,agree:nl-7487390afdaa-md89cf54ee24bdf5c1af0028e,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp,0x007586F0
 local,CollisionManagerImpl::rva007586F0::a,CollisionManagerImpl::rva007586F0::leftRemaining,inferred,agree:nl-2a033e19a55b-mf16005777ebe6777a098fc78,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp,0x007586F0
 local,CollisionManagerImpl::rva007586F0::p,CollisionManagerImpl::rva007586F0::currentEndpoint,inferred,agree:nl-461717796b4d-m484f526832b22b4c9452a378,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp,0x007586F0
+member,BfmeE1173::m_bfme48,BfmeE1173::m_transaction,inferred,agree:nl-e51074c70ac6,Code/GameEngine/Source/Common/BfmeConv1173.cpp,
+param,BfmeE1173::bfmeHit1173::a2,BfmeE1173::bfmeHit1173::transactions,inferred,agree:nl-3c7b1f44f48f,Code/GameEngine/Source/Common/BfmeConv1173.cpp,0x0066DAE0
+local,BfmeE1173::bfmeHit1173::c,BfmeE1173::bfmeHit1173::nextSlot,inferred,agree:nl-e7b3702ce776,Code/GameEngine/Source/Common/BfmeConv1173.cpp,0x0066DAE0
+local,BfmeE1173::bfmeHit1173::d,BfmeE1173::bfmeHit1173::slotCount,inferred,agree:nl-ea65ffdecb92,Code/GameEngine/Source/Common/BfmeConv1173.cpp,0x0066DAE0
+param,Rva002B2955::rva002B2955::b,Rva002B2955::rva002B2955::reinforcements,inferred,agree:nl-64b44a5e8634,Code/GameEngine/Source/Common/EbpParamForwarders.cpp,0x002B2955
+local,Rva0073C450Raster::y,Rva0073C450Raster::scanlineY,inferred,agree:nl-4c75da4efe6d,Code/GameEngine/Source/Common/RTS/Rva0073C450Raster.cpp,0x0073C450
+member,Rva00405C04ScriptEngineView::m_1A104,Rva00405C04ScriptEngineView::m_endGameTimer,inferred,agree:nl-5f4411956bb0,Code/GameEngine/Source/Common/Rva00405C04Show.cpp,
+function,?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z,inferred,agree:nl-293eeb80802e,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005D5F86ChatPlayerTooltip.cpp,0x005D5F86
+local,~Rva005F38D8Ref::p,~Rva005F38D8Ref::iconSlot,inferred,agree:nl-3126b3eb9a80,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp,
+param,FreelistPool::rva002AA35C::a1,FreelistPool::rva002AA35C::blockCount,inferred,agree:nl-4b4ebb58939b,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
+param,FreelistPool::rva002AA35C::a6,FreelistPool::rva002AA35C::allocatorArgument,inferred,agree:nl-354243c1122c,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
+param,HordeContain::rva00468CB6::a,HordeContain::rva00468CB6::aiUpdate,inferred,agree:nl-f0b4620ddfde,Code/GameEngine/Source/GameLogic/Object/Update/Rva00468CB6Check.cpp,0x00468CB6

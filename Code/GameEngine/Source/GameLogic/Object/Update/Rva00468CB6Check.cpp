@@ -142,15 +142,15 @@ public:
 // The body does not consume it; stdcall and thiscall body bytes coincide.
 // Keep one owner with the call-site-proven member ABI rather than an alias.
 class HordeContain { public: bool rva00468CB6(Rva00468CB6A *,Object *); };
-bool HordeContain::rva00468CB6(Rva00468CB6A *a, Object *object)
+bool HordeContain::rva00468CB6(Rva00468CB6A *aiUpdate, Object *object)
 {
-	if (a == 0 || object == 0)
+	if (aiUpdate == 0 || object == 0)
 		return false;
 	Object *related1 = object->rva002931F5(false);
 	bool ok = false;
-	if (a->isAllowed())
+	if (aiUpdate->isAllowed())
 	{
-		Object *goal = a->m_turretStateMachine->getGoalObject();
+		Object *goal = aiUpdate->m_turretStateMachine->getGoalObject();
 		if (goal != 0)
 		{
 			if (object == goal)

@@ -140,15 +140,15 @@ public:
 class Rva002B2955
 {
 public:
-	void rva002B2955(int regionID, int b, int c, int d, int e, int f, int g);
+	void rva002B2955(int regionID, int reinforcements, int c, int d, int e, int f, int g);
 private:
 	char m_pad00[0xB0];
 	LivingWorldRegionManager *m_regionManager; // +0xB0
 };
 
-void Rva002B2955::rva002B2955(int regionID, int b, int c, int d, int e, int f, int g)
+void Rva002B2955::rva002B2955(int regionID, int reinforcements, int c, int d, int e, int f, int g)
 {
-	m_regionManager->SetRegionReinforcements(regionID, b, c, d, e, f, g);
+	m_regionManager->SetRegionReinforcements(regionID, reinforcements, c, d, e, f, g);
 }
 
 // Each retail call in this body reads an address the ledger already carries

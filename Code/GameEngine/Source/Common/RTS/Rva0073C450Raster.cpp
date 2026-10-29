@@ -50,7 +50,7 @@ __forceinline int nextIndex(int i, int count) { return i + 1 == count ? 0 : i + 
 
 char __cdecl Rva0073C450Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
 {
-	int y;
+	int scanlineY;
 	int kept = 1;
 	int i;
 	RasterEdge left;
@@ -78,7 +78,7 @@ char __cdecl Rva0073C450Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
 		if (ys[i] < ys[top] || (ys[i] == ys[top] && xs[i] < xs[top]))
 			top = i;
 	}
-	y = ys[top];
+	scanlineY = ys[top];
 	left.index = top;
 	left.set(xs[left.index], xs[prevIndex(left.index, n)], ys[prevIndex(left.index, n)] - ys[left.index]);
 	left.index = prevIndex(left.index, n);
@@ -90,7 +90,7 @@ char __cdecl Rva0073C450Raster(int *xs, int *ys, int n, Rva0073BAA0Base updater)
 
 	for (;;)
 	{
-		if (!updater.rva0073BB40(left.x(), right.x(), y++))
+		if (!updater.rva0073BB40(left.x(), right.x(), scanlineY++))
 			return 0;
 		if (!left.advance())
 		{

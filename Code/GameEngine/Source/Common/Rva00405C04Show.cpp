@@ -69,7 +69,7 @@ extern ScriptEngine *TheScriptEngine;
 struct Rva00405C04ScriptEngineView
 {
 	char m_pad[0x1A104];
-	int m_1A104;
+	int m_endGameTimer;
 };
 
 class DisconnectMenu;
@@ -103,7 +103,7 @@ private:
 
 void Rva00405A50::rva00405C04(BfmeThingGX *hint)
 {
-	if (TheInGameUI->slot111() || ((Rva00405C04ScriptEngineView *)TheScriptEngine)->m_1A104 >= 0)
+	if (TheInGameUI->slot111() || ((Rva00405C04ScriptEngineView *)TheScriptEngine)->m_endGameTimer >= 0)
 		return;
 
 	bool expired = false;

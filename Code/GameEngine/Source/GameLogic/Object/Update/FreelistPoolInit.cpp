@@ -14,15 +14,15 @@ private:
 	int m_14;
 };
 
-bool FreelistPool::rva002AA35C(int a1, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int a6)
+bool FreelistPool::rva002AA35C(int blockCount, int a2, int a3, void* (__cdecl* a4)(int, int), int a5, int allocatorArgument)
 {
-	if (a1 != 0)
-		m_00 = a1;
+	if (blockCount != 0)
+		m_00 = blockCount;
 	if (a4 != 0)
 		m_alloc = a4;
 	if (a5 != 0)
 		m_10 = a5;
-	m_14 = a6;
+	m_14 = allocatorArgument;
 	if (m_04 == 0)
 		return grow(a2, a3);
 	return false;

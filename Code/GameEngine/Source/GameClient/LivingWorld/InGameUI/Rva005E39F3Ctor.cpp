@@ -58,9 +58,9 @@ struct Rva005F38D8Ref
 	Inner *m_ptr;
 	__forceinline ~Rva005F38D8Ref()
 	{
-		Inner *p = m_ptr;
-		if (p && --p->references == 0)
-			p->release();
+		Inner *iconSlot = m_ptr;
+		if (iconSlot && --iconSlot->references == 0)
+			iconSlot->release();
 	}
 };
 

@@ -1,7 +1,7 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /EHsc /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 //
-// ?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z
+// ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z
 // Retail 0x005D5F86..0x005D62E8 (866 bytes) RET4, ecx unused. The chat
 // player tooltip: translates the player name, looks up its PlayerInfo
 // through TheGameSpyInfo slot 0x58, then builds the locale label
@@ -119,10 +119,10 @@ UnicodeString Rva005D59F0Get(int rank);
 class Rva005D5F86
 {
 public:
-    void rva005D5F86(const AsciiString &name);
+    void showPlayerTooltip(const AsciiString &name);
 };
 
-void Rva005D5F86::rva005D5F86(const AsciiString &name)
+void Rva005D5F86::showPlayerTooltip(const AsciiString &name)
 {
     if (!TheGameSpyInfo)
         return;

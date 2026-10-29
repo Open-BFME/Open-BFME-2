@@ -3988,3 +3988,5 @@ __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCa
 ?Rva003E468FCheck@@YAHXZ,0x003E468F,"Renamed to ?evaluateMultiplayerPlayerDefeat@@YAHXZ by tools/rename.py (inferred)"
 ?Rva007F5DF0Callback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z,0x00662590,"Renamed to ?pendingActiveReplyCallback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z by tools/rename.py (inferred)"
 ?rva0009B510@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z,0x0009B510,"Renamed to ?buildCameraTransform@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z by tools/rename.py (inferred)"
+?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x005D5F86,"Renamed to ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
+__ehhandler$?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed to __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
