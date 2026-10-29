@@ -181,7 +181,7 @@ public:
 	AutoAbilityBehavior(Thing *thing, const ModuleData *moduleData);
 	void rva0045A413();
 	void rva0045A6FE(void *button);
-	int isAutoAbilityCommand(const Rva0045A6D3Arg *arg);
+	int isAutoAbilityCommand(const Rva0045A6D3Arg *commandButton);
 
 private:
 	const AutoAbilityBehaviorModuleData *getAutoAbilityBehaviorModuleData() const { return (const AutoAbilityBehaviorModuleData *)m_moduleData; }
@@ -211,9 +211,9 @@ private:
 // BFME1 donor AutoAbilityBehaviorDestructorThunk.cpp:65 proves the string
 // plus UpdateModule base; retail followed.
 
-int AutoAbilityBehavior::isAutoAbilityCommand(const Rva0045A6D3Arg *arg)
+int AutoAbilityBehavior::isAutoAbilityCommand(const Rva0045A6D3Arg *commandButton)
 {
-	if (m_str20.isEmpty() || m_str20.compare(arg->m_10) != 0)
+	if (m_str20.isEmpty() || m_str20.compare(commandButton->m_10) != 0)
 		return 0;
 	return 1;
 }

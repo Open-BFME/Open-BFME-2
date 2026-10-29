@@ -34,7 +34,7 @@ struct TwoBools
 class ActivateModuleSpecialPowerModuleData
 {
 public:
-    virtual void Rva00254CCF(Rva00254CCFArg *arg);
+    virtual void Rva00254CCF(Rva00254CCFArg *xfer);
 
 private:
     char m_pad00[0x0C];
@@ -42,13 +42,13 @@ private:
     int *m_end14;
 };
 
-void ActivateModuleSpecialPowerModuleData::Rva00254CCF(Rva00254CCFArg *arg)
+void ActivateModuleSpecialPowerModuleData::Rva00254CCF(Rva00254CCFArg *xfer)
 {
     TwoBools t;
     t.a = true;
     t.b = true;
-    arg->v10(&t);
+    xfer->v10(&t);
     for (int *p = m_begin10; p != m_end14; ++p) {
-        arg->v12(*p);
+        xfer->v12(*p);
     }
 }
