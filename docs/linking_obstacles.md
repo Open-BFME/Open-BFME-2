@@ -4619,6 +4619,8 @@ Remaining / next check: rename/reconcile the `Rva004E0D67` destructor and deleti
 Clearance: holder destructor binding cleared in ordinary-preview scope; census confirmation pending. The complete constructor unit remains blocked on the two names above.
 Census confirmation: not claimed.
 
+Path update (2026-10-29): `tu_skeleton --merge` moved the constructor unit into its approved TU `Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp` with `DoXfer`, both on the constructor's class view; all 14 rows stay exact. The two unresolved names above are unchanged; no clearance is claimed.
+
 Current destructor-side inspection (2026-10-26, revision `896af216804e1f1e34de28bd318285fbbbfcc536`; index `d1f046749a`): `Rva004E0D67Dtor.cpp` still has four unresolved virtual names. Its table at RVA 0x00861618 puts the name getter `LivingWorldBuilding::GetSnapshotName` (0x004E0777) where the private view spells `crc`, and `LivingWorldBuilding::DoXfer` (0x004E0E78) where it spells `xfer`. `Gen_uwm_004edfff::s0` also conflates the derived listener slot at 0x004E06B8 (`LivingWorldBuilding::BeginTurn`) and its base slot at 0x0050B238. These are signature/type conflicts, not requests for one same-signature alias. No source trial was made. Raw table-slot witnesses and row homes are in `build/link-worker-w1/native-witnesses.log`; the unchanged destructor unit passes the combined byte gate. The class/observer reconciliation above remains the prerequisite; no clearance or census change is claimed.
 
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type

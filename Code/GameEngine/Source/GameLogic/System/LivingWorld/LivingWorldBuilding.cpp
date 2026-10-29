@@ -38,6 +38,9 @@ class Rva00330757Member:public Header{public:__declspec(noinline) Rva00330757Mem
 inline Rva00330757Member::Rva00330757Member(){flag|=-1;}
 class Rva004EDFFFDwordImmSetter {public:void apply();};
 #include "../../../../Include/Common/RegionTurnObserverView.h"
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_NONCONST_NAME_SLOT
 
 class Xfer;
 
@@ -48,18 +51,21 @@ public:
 };
 
 struct Rva004E0790Inner;
+
 class ArmySummaryEntry
 {
 public:
 	ArmySummaryEntry();
 	char m_pad[0xC8];
 };
+
 class Rva004E0790
 {
 public:
 	void rva004E0790();
 	void rva004E08F6(Rva004E0790Inner *p);
 };
+
 struct ArmySummaryEntryRef
 {
 	__forceinline ArmySummaryEntryRef():m_ptr(0) {}
@@ -72,12 +78,14 @@ struct BuildingNuggetTemplateView
 	char m_pad00[4];
 	AsciiString m_name;
 };
+
 struct BuildingNuggetView
 {
 	char m_pad00[8];
 	BuildingNuggetTemplateView *m_template;
 	BuildingNuggetTemplateView *getTemplate() const { return m_template; }
 };
+
 class LivingWorldRegion
 {
 public:
@@ -145,6 +153,20 @@ public:
 class Rva0022C0CDSubsystem;
 
 extern Rva0022C0CDSubsystem *TheLivingWorldBuildingTemplateStore;
+
+struct Rva003F1BD3TemplateView {char opaque00[9];bool army;char pad0A[2];AsciiString armyType;};
+
+struct Rva002BA8F1Listener;
+
+class Rva005A0B4CList{public:void append(Rva002BA8F1Listener*);};
+
+class LivingWorldLogic;
+
+extern LivingWorldLogic*TheLivingWorldLogic;
+
+class Rva002E00F9 {public:void rva002E00F9(void*,void*);};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingDoXfer.cpp
 
@@ -263,18 +285,30 @@ void LivingWorldBuilding::DoXfer(Xfer *xfer)
 	}
 }
 
-// tu-skeleton: 0x004E119C 288B ??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp
 
-// tu-skeleton: 0x00791965 8B Unwind@00b91965 -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
+// LivingWorldBuilding constructor, retail 0x004E119C (288 B).
+// Facts from target evidence: layout (+8 holder vector, +18 id, +1C/+20 -1, +24 region, +28 template, +2C 0,
+// +30 nugget vector, +3C army-entry holder, +48 position, +50/+51 bytes), the RegionTurnObserverView base, the
+// Snapshot vptrs and the callee rows 0x002E00F9 / 0x004E08F6 / 0x004E0809 / 0x005A0B4C come from the native body and the
+// matched LivingWorldBuilding::DoXfer neighbour (LivingWorldBuildingDoXfer.cpp). Coord2D is the non-POD view
+// (Lib/Coord2DCtorView.h: retail exports Coord2D's user copy constructor 0x005CFBC2), so m_position(position) is the
+// inlined constructor's scalar copy. Structural inference, not a donor fact: the equal-arm ternaries at the
+// rva002E00F9 call and the army test reproduce retail's operand and register order.
 
-// tu-skeleton: 0x0079196D 11B Unwind@00b9196d -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791978 11B $L5461 -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
+LivingWorldBuilding::LivingWorldBuilding(LivingWorldRegion *region,const Coord2D &position,const Rva003F1BD3TemplateView *definition,int id)
+ :m_id(id),m_1C(-1),m_20(-1),m_region(region),m_template((const AsciiString*)definition),m_2C(0),m_nuggets(_STL::allocator<BuildingNuggetView*>()),word40(0),word44(0),m_position(position),m_pad50(false),m_51(false)
+{
+ createIcon();
+ ((Rva002E00F9*)m_template)->rva002E00F9(this,(m_template ? &m_nuggets : &m_nuggets));
+ const Rva003F1BD3TemplateView *d=(const Rva003F1BD3TemplateView*)m_template;
+ if((d->army ? d->army : d->army) && !((const StringBase<char>*)&d->armyType)->isEmpty()) {
+  ((Rva004E0790 *)&m_armyEntry)->rva004E08F6((Rva004E0790Inner*)new ArmySummaryEntry);
+  ((StringBase<char>*)((char*)m_armyEntry.m_ptr+4))->set(*(const StringBase<char>*)&((const Rva003F1BD3TemplateView*)m_template)->armyType);
+  *(int*)((char*)m_armyEntry.m_ptr+0xB4)=m_id;
+ }
+ rva004E0809();
+ ((Rva005A0B4CList*)((char*)TheLivingWorldLogic+0x1C))->append((Rva002BA8F1Listener*)(RegionTurnObserverView*)this);
+}
 
 // tu-skeleton: 0x00791983 11B uw_00791983 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// tu-skeleton: 0x0079198E 11B $L5471 -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00791999 10B uw_00791999 -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x007919A3 10B __ehhandler$??0LivingWorldBuilding@@QAE@PAVLivingWorldRegion@@ABVCoord2D@@PBURva003F1BD3TemplateView@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp (not merged yet)
