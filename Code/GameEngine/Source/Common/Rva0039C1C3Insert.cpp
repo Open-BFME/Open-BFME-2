@@ -1,4 +1,5 @@
 // cl: /Oy-
+// stlport46
 
 // ?rva0039C1C3@Rva0039C1C3@@QAEXPAVRva0039B893@@ABV2@ABU__false_type@_STL@@I_N@Z @0x0039C1C3 186B
 // Vector fill-insert realloc path: len = old + max(old,n), allocate, copy [start,pos),

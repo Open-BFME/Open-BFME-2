@@ -27234,7 +27234,6 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?Rva0052906BUpdate@@YAXH@Z,,0x0052906B,197,Code/GameEngine/Source/Common/Rva0052906BUpdate.cpp,matched,Apt HeroRank label update via GameText rank fetch
 ?rva00529130@Rva00529130@@QAEXH@Z,,0x00529130,27,Code/GameEngine/Source/Common/Rva00529130Setter.cpp,matched,chain on 0x0052906B rank setter flag 0x0C
 ?rva002B22AF@Rva002B22AF@@QAEXPAVRva002B22AFArg@@@Z,,0x002B22AF,68,Code/GameEngine/Source/Common/Rva002B22AFMarshal.cpp,matched,virtual forwarder 5 slots
-?rva0039C1C3@Rva0039C1C3@@QAEXPAVRva0039B893@@ABV2@ABU__false_type@_STL@@I_N@Z,,0x0039C1C3,186,Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp,matched,chain lane calls 0x0039B8D8 just landed callers 0x0039C2AB and 0x0039C4EB stride 0x14 ret 0x14 plus /G7 for imul
 ?SetDefaultColors@CreateAHeroHero@@QAE_NXZ,,0x00407020,94,Code/GameEngine/Source/Common/CreateAHeroHero_SetDefaultColors.cpp,matched,chain via 0x406F12 now ready callees rowed callers 0x5B48BC 0x5B4CFB 0x5B56DC
 ?Rva0040707EUpdate@@YAXPAX00PAVRva00406FBF@@@Z,,0x0040707E,27,Code/GameEngine/Source/Common/Rva0040707E.cpp,matched,chain via 0x00406FBF caller 0x00407279 4-arg cdecl virtual slot 0x78
 ?Rva00407099Update@@YAXPAVXfer@@PAW4ObjectID@@PAXPAVRva00406FBF@@@Z,,0x00407099,29,Code/GameEngine/Source/Common/Rva00407099.cpp,matched,chain via 0x00406FBF caller 0x00408C72 4-arg cdecl XferObjectID plus CRC
@@ -27273,7 +27272,6 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva00536465@UserPreferences@@QAEHVAsciiString@@@Z,,0x00536465,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,concat UnitsCreatedRTS 0x00868F6C slot 0x18 releaseBuffer gap same TU unlock
 ?rva005364F6@UserPreferences@@QAEHVAsciiString@@@Z,,0x005364F6,74,Code/GameEngine/Source/Common/UserPreferences.cpp,matched,concat UnitsLostRTS 0x00868F7C slot 0x18 releaseBuffer gap same TU unlock
 ?GetObjectInfo@AptMyHero@@QAEPAUBfmePod8@@H@Z,,0x005B0E9F,71,Code/Libraries/Source/WWVegas/WWLib/Rva005B0E9F.cpp,matched,callers 0x005B1046 int-plus-float use proves 8B int-float element
-?rva0039C27D@Rva0039C1C3@@QAEXPAVRva0039B893@@@Z,,0x0039C27D,56,Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp,matched,chain lane calls 0x0039C1C3 just landed caller 0x0039C5B8 stride 0x14 ret 4 null-guarded
 ?parseScriptAction@@YAXPAVINI@@@Z,,0x00206DFF,100,Code/GameEngine/Source/GameLogic/ScriptEngine/parseScriptAction.cpp,matched,chain via Rva003B39C7 ctor dtor plus INI and StringSearch
 ?parseScriptCondition@@YAXPAVINI@@@Z,,0x00206E63,100,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00206E63Search.cpp,matched,chain sibling via Rva003B39C7 plus 0x00205A8D
 ?Rva00101FD8Create@@YGPAVLookupTablePostEffect@@ABV?$StringBase@D@@@Z,,0x00101FD8,78,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00101FD8Create.cpp,matched,factory compare global then new LookupTablePostEffect
@@ -98942,3 +98940,5 @@ __Locale_mbtowc,,0x00020C50,252,Code/Libraries/Source/WWVegas/WWLib/stlport_Loca
 ___mbtowc,,0x00020BE0,106,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleMbtowc.c,matched,placed by masked whole-.text search of the compiled body - single hit; migrated=stlport-4.6
 ___isleadbyte,,0x00020BD0,14,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleMbtowc.c,matched,STLport 4.5.3 _Locale static helper; unique masked placement (place_bodies --min 8); immediately precedes rowed __mbtowc which follows it in source; no direct retail caller found; migrated=stlport-4.6
 __Locale_strcmp,,0x00021C40,272,Code/Libraries/Source/WWVegas/WWLib/stlport_LocaleStrcmp.c,matched,BFME1 byte-identical donor; b1 0x0084EAB0; migrated=stlport-4.6
+?rva0039C1C3@Rva0039C1C3@@QAEXPAVRva0039B893@@ABV2@ABU__false_type@_STL@@I_N@Z,,0x0039C1C3,186,Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp,matched,chain lane calls 0x0039B8D8 just landed callers 0x0039C2AB and 0x0039C4EB stride 0x14 ret 0x14 plus /G7 for imul; migrated=stlport-4.6
+?rva0039C27D@Rva0039C1C3@@QAEXPAVRva0039B893@@@Z,,0x0039C27D,56,Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp,matched,chain lane calls 0x0039C1C3 just landed caller 0x0039C5B8 stride 0x14 ret 4 null-guarded; migrated=stlport-4.6
