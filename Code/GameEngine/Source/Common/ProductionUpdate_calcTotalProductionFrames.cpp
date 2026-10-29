@@ -16,11 +16,7 @@ public:
 	bool rva0028C15E(int code, float *scale, int c, int d);
 };
 
-class ThingTemplate
-{
-public:
-	int calcTimeToBuild(const Player *player, int second, int third) const;
-};
+#include "../../Include/Common/ThingTemplate.h"
 
 class UpgradeTemplate
 {

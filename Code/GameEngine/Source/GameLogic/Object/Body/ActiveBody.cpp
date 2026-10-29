@@ -316,22 +316,7 @@ public:
 
 struct BfmeCopyElementA;
 
-class ThingTemplate
-{
-public:
-	UnsignedInt testKindOf(Int k) const { return m_kindOf[k >> 5] & (1U << (k & 31)); }
-	const GeometryInfo &getTemplateGeometryInfo() const { return m_geometryInfo; }
-	Real getStructureRubbleHeight() const { return (Real)m_structureRubbleHeight; }
-
-	unsigned char m_pad000[0xA0];
-	GeometryInfo m_geometryInfo;		// +0xA0
-	unsigned char m_pad0A1[0x108 - 0xA1];
-	UnsignedInt m_kindOf[0x10];		// +0x108
-	unsigned char m_pad148[0x5F7 - 0x148];
-	signed char m_structureRubbleHeight;	// +0x5F7
-	unsigned char m_pad5F8[0x632 - 0x5F8];
-	Bool m_byte632;				// +0x632
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class BodyModuleInterface;
 
@@ -1327,7 +1312,7 @@ Real ActiveBody::estimateDamage(DamageInfoInput &damageInfo) const
 void ActiveBody::onDelete()
 {
 	Object *obj = getObject();
-	if (!(obj->m_flags438 & 1) && !obj->getTemplate()->testKindOf(25) && !obj->getTemplate()->testKindOf(89))
+	if (!(obj->m_flags438 & 1) && !(obj->getTemplate()->m_kindof[0] & (1U << 25)) && !(obj->getTemplate()->m_kindof[2] & (1U << 25)))
 		rva004BF9ED();
 	deleteAllParticleSystems();
 }
@@ -1382,7 +1367,7 @@ void ActiveBody::attemptHealing(DamageInfo *damageInfo)
 	}
 
 	const ThingTemplate *thingTemplate = obj->getTemplate();
-	if (!thingTemplate->m_byte632 && !thingTemplate->testKindOf(150) && !thingTemplate->testKindOf(22) && !thingTemplate->testKindOf(24)
+	if (!thingTemplate->m_keepSelectableWhenDead && !(thingTemplate->m_kindof[4] & (1U << 22)) && !(thingTemplate->m_kindof[0] & (1U << 22)) && !(thingTemplate->m_kindof[0] & (1U << 24))
 		&& (obj->m_flags438 & 1))
 		return;
 
@@ -1408,7 +1393,7 @@ void ActiveBody::attemptHealing(DamageInfo *damageInfo)
 					damageModule->onHealing(damageInfo);
 			}
 
-			if (!obj->getTemplate()->testKindOf(7) && md->m_healingFX && !obj->testStatusBit6())
+			if (!(obj->getTemplate()->m_kindof[0] & (1U << 7)) && md->m_healingFX && !obj->testStatusBit6())
 				FXList::doFXObj(md->m_healingFX, obj, 0);
 
 			TheGameLogic->m_dotManager->rva0043B72D(obj->getID());
@@ -1685,9 +1670,9 @@ void ActiveBody::internalChangeHealth(Real delta, DamageInfo *damageInfo)
 Bool ActiveBody::shouldRetaliate(Object *obj)
 {
 	const ThingTemplate *thingTemplate = obj->getTemplate();
-	if (thingTemplate->testKindOf(173))
+	if ((thingTemplate->m_kindof[5] & (1U << 13)))
 		return false;
-	if (thingTemplate->testKindOf(2))
+	if ((thingTemplate->m_kindof[0] & (1U << 2)))
 		return false;
 
 	AIUpdateInterface *ai = obj->getAI();
@@ -1882,12 +1867,12 @@ void ActiveBody::setCorrectDamageState(Bool arg)
 		rva004BE69C();
 
 	Object *obj = getObject();
-	if (obj->getTemplate()->testKindOf(60))
+	if ((obj->getTemplate()->m_kindof[1] & (1U << 28)))
 	{
 		if (m_curDamageState < BODY_RUBBLE)
 		{
 			if (oldState == BODY_RUBBLE)
-				obj->rva0029895A((BfmeCopyElementA *)&obj->getTemplate()->getTemplateGeometryInfo());
+				obj->rva0029895A((BfmeCopyElementA *)&(*(const GeometryInfo *)obj->getTemplate()->m_geometryInfo));
 		}
 		else
 		{
@@ -1934,7 +1919,7 @@ void ActiveBody::setCorrectDamageState(Bool arg)
 		}
 		m_field34 = 0;
 	}
-	else if (getObject()->getTemplate()->testKindOf(7))
+	else if ((getObject()->getTemplate()->m_kindof[0] & (1U << 7)))
 	{
 		if (m_curDamageState > oldState && m_curDamageState == BODY_RUBBLE)
 		{
@@ -1956,13 +1941,13 @@ void ActiveBody::setCorrectDamageState(Bool arg)
 		}
 		if (m_curDamageState < BODY_RUBBLE && oldState == BODY_RUBBLE)
 		{
-			obj->setGeometryInfoZ(getObject()->getTemplate()->getTemplateGeometryInfo().getMaxHeightAbovePosition());
+			obj->setGeometryInfoZ((*(const GeometryInfo *)getObject()->getTemplate()->m_geometryInfo).getMaxHeightAbovePosition());
 			TheAI->pathfinder()->AddObjectToPathfindMap(obj);
 			obj->setStatus(OBJECT_STATUS_4, false);
 		}
 		else if (m_curDamageState == BODY_RUBBLE)
 		{
-			Real rubbleHeight = getObject()->getTemplate()->getStructureRubbleHeight();
+			Real rubbleHeight = (Real)getObject()->getTemplate()->m_structureRubbleHeight;
 			if (rubbleHeight <= 0.0f)
 				rubbleHeight = TheWritableGlobalData->m_defaultStructureRubbleHeight;
 			obj->setGeometryInfoZ(rubbleHeight);
@@ -2167,7 +2152,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 		return;
 
 	Object *container = obj->getContainedBy();
-	if (container && !obj->getTemplate()->testKindOf(55) && container->getContain())
+	if (container && !(obj->getTemplate()->m_kindof[1] & (1U << 23)) && container->getContain())
 		container->getContain()->onContainedDamage(obj, this, damageInfo);
 
 	damageInfo->m_actualDamageDealt = 0.0f;
@@ -2257,7 +2242,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 			{
 				if (srcObj1)
 				{
-					if (srcObj2->getTemplate()->testKindOf(9) || srcObj2->getTemplate()->testKindOf(8)
+					if ((srcObj2->getTemplate()->m_kindof[0] & (1U << 9)) || (srcObj2->getTemplate()->m_kindof[0] & (1U << 8))
 						|| srcObj2->isFactionStructure())
 					{
 						*(Rva003427DD *)&m_lastDamageInfo = *(const Rva003427DD *)damageInfo;
@@ -2369,7 +2354,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 					}
 
 					if (!contained && damageInfo->in.m_sourceID != INVALID_ID
-						&& !obj->getTemplate()->testKindOf(25) && !obj->getTemplate()->testKindOf(89))
+						&& !(obj->getTemplate()->m_kindof[0] & (1U << 25)) && !(obj->getTemplate()->m_kindof[2] & (1U << 25)))
 						rva004BF9ED();
 				}
 			}
@@ -2395,7 +2380,7 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 
 	doDamageFX(damageInfo);
 
-	if (TheAI->getAiData()->m_enableRepulsors && obj->getTemplate()->testKindOf(45))
+	if (TheAI->getAiData()->m_enableRepulsors && (obj->getTemplate()->m_kindof[1] & (1U << 13)))
 		obj->setStatus(OBJECT_STATUS_8, true);
 
 	if (clipped)

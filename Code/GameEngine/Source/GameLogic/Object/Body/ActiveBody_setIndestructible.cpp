@@ -70,11 +70,7 @@ public:
 	virtual void s32();
 	virtual void setIndestructible(bool v) = 0; // +0x84
 };
-struct ThingTemplate
-{
-	unsigned char m_pad000[0x10A];
-	unsigned char m_10A;
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 class Object
 {
 public:
@@ -136,7 +132,7 @@ void ActiveBody::setIndestructible(bool v)
 {
 	m_C7 = v;
 	Object *obj = m_object;
-	if (obj->m_template->m_10A & 0x40)
+	if (((const unsigned char *)obj->m_template->m_kindof)[2] & 0x40)
 	{
 		BridgeBehaviorInterface *bbi = BridgeBehavior::getBridgeBehaviorInterfaceFromObject(obj);
 		if (bbi)

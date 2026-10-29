@@ -240,47 +240,8 @@ struct Rva0049D0DEMask
 	UnsignedInt m_bits[1];
 };
 
-// ZH Overridable: the next override is at +4 (rowed chain walk 0x001E35DF).
-class Rva001E35DFView
-{
-public:
-	const Rva001E35DFView *getFinalOverride() const
-	{
-		if (m_nextOverride)
-			return m_nextOverride->getFinalOverride();
-		return this;
-	}
-
-	void *m_vtable;
-	Rva001E35DFView *m_nextOverride;
-	Bool m_isOverride;
-};
-
 class Image;
-class ThingTemplate : public Rva001E35DFView
-{
-public:
-	Int rva0033A69A(const Player *,int,int) const;
-	const Image *getButtonImage();
-	UnsignedInt productionCostFlags() const { return m_kindFlags[4]; }
-	Bool isEquivalentTo(const ThingTemplate *tt) const;
-	const AsciiString &getName() const { return m_name; }
-	UnsignedInt getProductionPriorityKind() const { return m_kindFlags[0] & (1 << 14); }
-
-private:
-	char m_unknown0C[0x64 - 0xC];
-	AsciiString m_name; // +0x64
-	char m_unknown68[0x7c-0x68];
-	AsciiString m_upgradeCameos[5];
-	char m_unknown90[0x108-0x90];
-	UnsignedInt m_kindFlags[7]; // +0x108, 218 KindOfType bits
-public:
-	unsigned int productionSkipsDoor() const { return m_kindFlags[6]&0x8000; }
-	const AsciiString *upgradeCameos() const { return m_upgradeCameos; }
-	char m_unknown124[0x348-0x124];
-	_STL::vector<AsciiString> m_auxiliaryTemplates;
-	Real m_buildVariationDuration; // +354
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 enum ObjectID; class ThingFactory
 {
@@ -1251,7 +1212,7 @@ const Rva0049D1B1 *ProductionUpdate::GetEntryToProcess()
 	const Rva0049D1B1 *entry;
 	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
 	{
-		if (entry->isUnit() && entry->getProductionObject()->getProductionPriorityKind())
+		if (entry->isUnit() && (entry->getProductionObject()->m_kindof[0] & (1 << 14)))
 			return entry;
 	}
 	for (entry = m_productionQueue; entry; entry = nextProduction(entry))
@@ -1903,7 +1864,7 @@ UpdateSleepTime ProductionUpdate::update()
   int numberToTry=production->m_productionQuantityTotal-production->m_productionQuantityProduced;
   for(int i=0;i<numberToTry;++i) {
    ExitDoorType exitDoor=production->m_exitDoor;
-   if(production->m_objectToProduce && production->m_objectToProduce->productionSkipsDoor()) exitDoor=(ExitDoorType)-2;
+   if(production->m_objectToProduce && (production->m_objectToProduce->m_kindof[6]&0x8000)) exitDoor=(ExitDoorType)-2;
    if(exitDoor==(ExitDoorType)-1) { exitDoor=exitInterface->reserveDoorForExit(production->m_objectToProduce,0); production->m_exitDoor=exitDoor; }
    if(exitDoor==(ExitDoorType)-1) continue;
    DoorInfo *door=(exitDoor>=0 && exitDoor<4)? &m_doors[exitDoor] : 0;
@@ -1980,7 +1941,7 @@ UpdateSleepTime ProductionUpdate::update()
     }
     const ThingTemplate *thingTemplate=newObj->m_template;
     newObj->setStatus((ObjectStatusTypes)0x5a,true);
-    if(thingTemplate->m_buildVariationDuration>0.0f) {
+    if(thingTemplate->m_buildFadeInOnCreateTime>0.0f) {
      Coord3D rally; if(exitInterface->getNaturalRallyPoint(&rally,true)) ((ProductionAIView *)TheAI)->getPathfinder()->MoveAlliesAwayFromDestination(newObj,&us->m_position,&rally);
     }
     if(production->m_bfme30!=-1) {
@@ -2000,13 +1961,13 @@ UpdateSleepTime ProductionUpdate::update()
      pickAndPlayUnitVoiceResponse(&list,(GameMessage::Type)0x7da,(PickAndPlayInfo *)&info);
     }
     rva0049DF81((Rva0049DF81Input *)production,newObj);
-    float buildDuration=thingTemplate->m_buildVariationDuration;
+    float buildDuration=thingTemplate->m_buildFadeInOnCreateTime;
     m_bfme118=(unsigned int)(buildDuration*(float)BfmeLogicFramesPerSecond);
     newObj->setSpecialModelConditionState((ModelConditionFlagType)0xda,m_bfme118);
     newObj->setSpecialModelConditionState((ModelConditionFlagType)0x14d,5);
     newObj->setDisabledUntil((DisabledType)3,TheGameLogic->getFrame()+m_bfme118);
     if(!revival) { Drawable *draw=((Thing *)newObj)->getDrawable(); if(draw) { drawable->rva002723C0(m_bfme118); draw->rva00274176(true); } }
-    const _STL::vector<AsciiString> &names=thingTemplate->m_auxiliaryTemplates;
+    const _STL::vector<AsciiString> &names=*(const _STL::vector<AsciiString> *)thingTemplate->m_buildFadeInOnCreateList;
     if(!names.empty()) {
      for(_STL::vector<AsciiString>::const_iterator it=names.begin();it!=names.end();++it) {
       const ThingTemplate *extraTemplate=TheThingFactory->findTemplate(*it); if(!extraTemplate) continue;
@@ -2030,7 +1991,7 @@ UpdateSleepTime ProductionUpdate::update()
    if(horde) { const ThingTemplate *thingTemplate=TheThingFactory->findTemplate(horde->getTemplateName()); int extraCount=horde->getExtraCount();
     if(thingTemplate) { ++extraCount; production->m_cost=0; production->m_objectToProduce=thingTemplate; production->m_productionQuantityTotal=extraCount; production->m_bfme34=true; } }
    if(!m_bfme11C) {
-    float duration=getObject()->m_template->m_buildVariationDuration;
+    float duration=getObject()->m_template->m_buildFadeInOnCreateTime;
     if(!m_createdAuxiliary.empty()) for(_STL::list<ObjectID>::iterator it=m_createdAuxiliary.begin();it!=m_createdAuxiliary.end();++it) {
      Object *extra=TheGameLogic->findObjectByID(*it); if(!extra) continue;
      ((Thing *)extra)->getDrawable()->setDrawableHidden(false); ((Thing *)extra)->getDrawable()->rva000B3FD0();
@@ -2081,7 +2042,7 @@ UpdateSleepTime ProductionUpdate::update()
   }
   if(upgrade->getUpgradeType()==UPGRADE_TYPE_PLAYER) player->addUpgrade(upgrade,(UpgradeStatusType)2,0); else us->rva00293077(upgrade);
   Drawable *draw=((ProductionInGameUIView *)TheInGameUI)->getSelectedDrawable(); Object *selected=draw ? ((ProductionDrawableView *)draw)->object : 0;
-  if(selected) { const ThingTemplate *selectedTemplate=selected->getTemplate(); for(int i=0;i<5;++i) if(TheUpgradeCenter->findUpgrade(selectedTemplate->upgradeCameos()[i])==upgrade) { ((ProductionControlBarView *)TheControlBar)->dirty=true; break; } }
+  if(selected) { const ThingTemplate *selectedTemplate=selected->getTemplate(); for(int i=0;i<5;++i) if(TheUpgradeCenter->findUpgrade(selectedTemplate->m_upgradeCameoUpgradeNames[i])==upgrade) { ((ProductionControlBarView *)TheControlBar)->dirty=true; break; } }
   removeFromProductionQueue(production); ::delete production; m_bfme120=(ObjectID)0;
   break;
  }
@@ -2116,7 +2077,7 @@ Bool ProductionUpdate::queueCreateUnit( const ThingTemplate *unitType, Int reviv
 	Bool isRevival = revival;
 	if( isRevival )
 		cost = reinterpret_cast<Rva0037E6E8 *>(&player->m_revivalTracker)->rva0037E649( revivalIndex, getObject() );
-	else if (!(unitType->productionCostFlags() & 0x20000000))
+	else if (!(unitType->m_kindof[4] & 0x20000000))
 		cost = unitType->rva0033A69A( player, reinterpret_cast<Int>(getObject()), -1 );
 
 	Rva003B0D7C *money = player->getMoney();

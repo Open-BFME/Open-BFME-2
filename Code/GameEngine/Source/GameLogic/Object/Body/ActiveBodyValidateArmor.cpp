@@ -54,9 +54,7 @@ public:
 };
 extern ArmorStore *TheArmorStore;
 
-class ThingTemplate
-{
-};
+#include "../../../../Include/Common/ThingTemplate.h"
 
 class WeaponTemplateSet;
 struct Rva0033DCB8
