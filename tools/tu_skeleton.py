@@ -710,12 +710,19 @@ class Verifier:
             # keep the TU's suffix: cl compiles a .c TU as C, and as C++ every row misses
             src = self.tu.parent / f".{self.tu.stem}.{key}.tu_skeleton{self.tu.suffix}"
             obj = self.tmp / f"{key}.obj"
+            # a TU no checkout file lives in yet: make its directory for the
+            # scratch file and take back only what was made
+            made = [d for d in reversed(src.parents) if not d.exists()]
+            src.parent.mkdir(parents=True, exist_ok=True)
             src.write_text(text, encoding="utf-8", newline="")
             try:
                 with contextlib.redirect_stdout(io.StringIO()), self.fd.forced_mode("current"):
                     ok, msg, _ = self.B.try_compile_source(src, obj)
             finally:
                 src.unlink()
+                for d in reversed(made):
+                    if not any(d.iterdir()):
+                        d.rmdir()
             errors = [] if ok else [l.strip() for l in (msg or "").splitlines() if " error " in l]
             # attempt() uses redefinition diagnostics to choose its next text.
             # A cached failure must restore its own errors, not the last trial's.

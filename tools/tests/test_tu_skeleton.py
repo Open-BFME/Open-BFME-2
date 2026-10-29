@@ -411,6 +411,15 @@ class VerifierCacheTests(unittest.TestCase):
             self.assertEqual((v.all_errors, v.errors), ([], []))
             self.assertEqual(len(compiled), 2)
 
+    def test_tu_in_a_missing_directory_compiles_and_leaves_no_directory(self):
+        # a merge into a TU whose directory no file has yet (Fesl/util.cpp)
+        with tempfile.TemporaryDirectory() as tmp:
+            v, compiled = self.verifier(Path(tmp))
+            v.tu = Path(tmp) / "Fesl" / "sub" / "util.cpp"
+            self.assertEqual(v.matched("exact", self.ROWS), {"0x1000"})
+            self.assertEqual(compiled, ["exact"])
+            self.assertFalse((Path(tmp) / "Fesl").exists())
+
     def test_candidate_keeps_the_tu_suffix(self):
         # a C TU compiled through a .cpp scratch file gets C++ linkage and misses every row
         with tempfile.TemporaryDirectory() as tmp:
