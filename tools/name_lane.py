@@ -1090,6 +1090,9 @@ def rename_kwargs(kind, scope, old, new, rva, rel):
 
 
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
+    max_files = getattr(args, "max_files", 25)
+    if max_files < 1:
+        fail("--max-files must be positive")
     state, tally, refused = lane.state(), lane.tally(), lane.disputed()
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
@@ -1133,7 +1136,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
                 requests = []
                 for candidate in scoped:
                     _, k, s, old = split_key(candidate["key"])
-                    requests.append((k, dict(basis="inferred", evidence=f"agree:{candidate['id']}",
+                    requests.append((k, dict(basis="inferred", evidence=f"agree:{candidate['id']}", max_files=max_files,
                                             **rename_kwargs(k, s, old, candidate["new"], candidate["rva"], rel))))
                 try:
                     rename.run_scoped_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks)
@@ -1154,7 +1157,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             else:
                 try:
                     rename.run(kind, lane.ctx, claim=args.claim, verify=verify, checks=checks,
-                               basis="inferred", evidence=f"agree:{row['id']}",
+                               basis="inferred", evidence=f"agree:{row['id']}", max_files=max_files,
                                **rename_kwargs(kind, scope, ident, row["new"], row["rva"], rel))
                     outcome.update(status="landed", detail=approval_detail(tally, refused, row))
                     landed += 1
@@ -1299,6 +1302,7 @@ def main(argv=None, lane=None):
     a = sub.add_parser("apply", help="land agreed names through tools/rename.py")
     a.add_argument("--retry-blocked", action="store_true", help="try blocked names again, e.g. after a fix")
     a.add_argument("--key", action="append", help="apply only this exact source|kind|scope|placeholder key (repeatable)")
+    a.add_argument("--max-files", type=int, default=25, help="maximum affected sources; every selected source is still verified")
     a.add_argument("--no-batch", action="store_true", help="verify each parameter/local rename separately")
     a.add_argument("--lead", type=int, default=2)
     a.add_argument("--min-models", type=int, default=1)

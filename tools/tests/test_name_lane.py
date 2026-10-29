@@ -1442,3 +1442,37 @@ def test_class_collision_handoff_is_read_only_and_requires_identity(tree, tmp_pa
     assert lane_of(tree).state()[SOURCE + "|class||Rva00401000Box"]["status"] == "blocked"
     name_lane.main(["reconcile", "--key", "unknown"], lane=lane_of(tree))
     assert json.loads(capsys.readouterr().out) == []
+
+
+@pytest.mark.parametrize("limit,lands,refuse_verify", [(25, False, False), (40, True, False), (40, False, True)])
+def test_configurable_fanout_verifies_all_consumers_and_rolls_back(tree, tmp_path, limit, lands, refuse_verify):
+    header = "Code/Game/BoxApi.h"
+    (tree / header).write_bytes(b"struct Rva00401000Box; int rva00401000(Rva00401000Box *,int);\n")
+    source = tree / SOURCE
+    source.write_bytes(b'#include "BoxApi.h"\n' + source.read_bytes())
+    for n in range(26):
+        rel = f"Code/Game/Consumer{n}.cpp"
+        (tree / rel).write_bytes(f'#include "BoxApi.h"\nint consumer{n}() {{ return 0; }}\n'.encode())
+        with (tree / "reverse/functions.csv").open("a", newline="") as f:
+            f.write(f"?consumer{n}@@YAHXZ,,0x{0x500000+n*16:08X},8,{rel},matched,test\n")
+    _git(tree, "add", "Code")
+    agree_on(tree, tmp_path, {"rva00401000": "sumBox"})
+    before = {p: (tree / p).read_bytes() for p in (SOURCE, header, "reverse/functions.csv")}
+    builds = []
+    def verify(ctx, sources):
+        builds.append(sources)
+        return not refuse_verify
+    args = SimpleNamespace(key=[FN_KEY], retry_blocked=False, lead=2, min_models=1,
+                           claim=False, only_labels=None, max_files=limit)
+    name_lane.cmd_apply(lane_of(tree), args, verify=verify, checks=no_checks)
+    assert (lane_of(tree).state()[FN_KEY]["status"] == "landed") is lands
+    assert len(builds) == (1 if limit > 25 else 0)
+    if builds:
+        assert set(builds[0]) == {SOURCE} | {f"Code/Game/Consumer{n}.cpp" for n in range(26)}
+    if not lands:
+        assert before == {p: (tree / p).read_bytes() for p in before}
+
+
+def test_apply_max_files_must_be_positive(tree):
+    with pytest.raises(SystemExit):
+        name_lane.main(["apply", "--max-files", "0"], lane=lane_of(tree))

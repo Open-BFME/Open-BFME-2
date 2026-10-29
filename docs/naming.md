@@ -673,3 +673,11 @@ The command changes no source, votes or status and does not certify identity.
 A reviewer must prove identity from uses and target evidence, reconcile layout
 and ABI, then verify the source and affected consumers in a separate commit.
 Equal fields alone do not justify replacing a private view with a shared type.
+
+### Larger verified fan-out
+
+`name_lane.py apply --max-files 80` raises the default 25-source planning bound
+for a deliberate larger batch, including transitive header consumers. Every
+affected source remains in the verification set; claims, ledger checks, byte
+checks, failure rollback and publication link audit still apply. The limit
+must be positive. Increase it only when prepared to verify that whole fan-out.
