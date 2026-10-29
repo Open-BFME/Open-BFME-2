@@ -27,6 +27,15 @@ source adoption and retain the queue row until publication-side acceptance is
 available. This batch retires no header debt. The evidence handoff records the
 checks and preserved recovery backup.
 
+Player dictionary CRT cleanup (2026-10-29, base `656dc5717d`): remove
+one redundant memcmp declaration while retaining 31/31 matched rows and the
+4,707-byte LINKS preview. The remaining free/memset removals reproduce the
+existing parent/funclet code-generation blocker. Strict preparation passes;
+the older-index batch audit lacks a current CreateAHeroManager consumer
+receipt, so broader clearance remains unverified. Carry this cleanup into the next scheduled census; no
+census gain is claimed.
+[Evidence](../reverse/attempt_support/player-init-msheaders-20261029-codexb4.md).
+
 Connection ack cleanup (2026-10-29, base `01bdf8d618`): one alias and one
 unused pin removed from the ConnectionProcessAck dispatcher. All 19 scoped
 rows verify and dispatcher/provider preview retains LINKS for 81 authored

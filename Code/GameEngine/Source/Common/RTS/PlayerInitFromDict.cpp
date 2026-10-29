@@ -244,7 +244,6 @@ struct CharCompare {char m_unused;};
 int compareRange(const char*,int,const char*,int,CharCompare);
 template<> inline __declspec(noinline) int StringBase<char>::compare(const char *str,int len)const {return compareRange(m_data?&m_data->data[0]:"",m_data?m_data->length:0,str,len,CharCompare());}
 template<> inline __declspec(noinline) int StringBase<char>::compare(const char *str)const{return compare(str,str?(int)strlen(str):0);}
-extern "C" int memcmp(const void*,const void*,unsigned);
 inline __declspec(noinline) int compareRange(const char *a,int alen,const char *b,int blen,CharCompare tag){int length=alen<blen?alen:blen;int result=memcmp(a,b,length);if(result!=0)return result;return alen-blen;}
 
 void Player::initFromDict(const Dict*dict){

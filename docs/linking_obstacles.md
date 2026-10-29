@@ -5214,6 +5214,18 @@ everse/re_attempts.log.
 - **Census confirmation:** n/a (adoption lane; surfaced via the scoped header
   gate, not the link census).
 
+**Player CRT declaration follow-up (2026-10-29, base `656dc5717d`):**
+Removing only the redundant memcmp prototype preserves 31/31 rows, all four
+EH graphs, 52 COMDAT fingerprints and 157 external symbol entries. The
+header queue drops one finding. Removing free or memset separately still
+changes initFromDict and makes $L10490 ambiguous; both declarations remain.
+This confirms the existing declaration-sensitive prerequisite and does not
+clear Coord3D member growth. Strict preparation passes and the ordinary
+preview retains LINKS for 4,707 authored bytes at index `85f6b7f40c`. The
+older-index batch audit lacks a current CreateAHeroManager consumer receipt;
+carry both sources into the next scheduled census.
+[Trials and remaining work](../reverse/attempt_support/player-init-msheaders-20261029-codexb4.md).
+
 #### Assigned Coord3D package, 2026-10-27
 
 - **Inspected `d01dd5afd355`; ordinary preview index `5ce093a71a`, retail-truth-4:** `FiringTrackerXfer.cpp` adopts the registered Coord3D header and the existing Coord3DBase companion. Its transfers and equality calls use `asBase`; the existing public `zero()` member keeps its inline definition in the unit. The owning acceptance tool retires its Coord3D queue row. All matched rows, exception graphs, declaration and data checks pass, and its clean ordinary link preview is preserved. No census gain is claimed.
