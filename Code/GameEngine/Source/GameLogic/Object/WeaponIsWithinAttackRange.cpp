@@ -14,13 +14,7 @@ public:
 	Coord3D m_position;
 };
 
-class Weapon
-{
-public:
-	bool isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const;
-	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;
-	bool isWithinAttackRange(Object *a, const Coord3D *b, Object *c, const Coord3D *d, float e, bool f);	// 0x002CB35C
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // The six-slot worker 0x002CB35C (WeaponRva002CB2D1Range.cpp) is called
 // through a member-pointer cast that keeps retail's untyped argument shape.

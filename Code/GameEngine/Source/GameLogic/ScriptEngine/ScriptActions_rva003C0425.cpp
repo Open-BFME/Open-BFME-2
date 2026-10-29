@@ -66,11 +66,7 @@ public:
 	void set(int value);
 };
 
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Player
 {

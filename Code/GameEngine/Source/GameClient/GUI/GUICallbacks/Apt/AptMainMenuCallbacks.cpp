@@ -84,11 +84,7 @@ public:
 
 // The event's +0x49 flag is set through the rowed Weapon::setLeechRangeActive
 // body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool value);
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 class Shell
 {

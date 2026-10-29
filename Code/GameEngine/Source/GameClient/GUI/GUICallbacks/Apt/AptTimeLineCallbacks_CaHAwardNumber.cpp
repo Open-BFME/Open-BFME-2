@@ -146,11 +146,7 @@ extern AudioManager *TheAudio;
 
 // The event's +0x49 flag is set through the rowed Weapon::setLeechRangeActive
 // body it folds with (as Rva0043A278Slot2.cpp's Weapon-cast).
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool value);
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 // The score screen the time line belongs to (0x00E0491C); its +0x284 says
 // how the game ended.

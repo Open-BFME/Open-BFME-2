@@ -212,11 +212,7 @@ enum WeaponStatus
 	WEAPON_STATUS_BFME_4 = 4
 };
 
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(Bool *noAmmo = NULL) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

@@ -860,7 +860,7 @@ extern Debug*theDebug;bool bfmeRva000387C0();void _bfme_debugRecordCallsite(int)
 #define ADDBG ((AdjustDebug*)theDebug)
 #define ADSTART() _bfme_debugRecordCallsite(1);ADDBG->begin()
 struct Coord3D;enum WeaponStatus {WSTATUS0};
-class Weapon {public:WeaponStatus computeStatus(bool*)const;int getPreAttackDelay(const class Object*,const Object*,const Coord3D*)const;int rva002C9D3B(const Object*,unsigned)const;};
+#include "../../../../../../GameEngine/Include/GameLogic/Weapon.h"
 class Rva002C9504BinarySubField {public:int get()const;};
 struct AdjustDrawable {char pad[0xfc];Object*object;__forceinline Object*getObject()const{return object;}};
 struct Rva00334133Context;

@@ -77,19 +77,7 @@ private:
 	bool m_flag16F; // +0x16F
 };
 
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	bool fireWeapon(const Object *source, const Coord3D *pos, int *reAcquire);
-	bool rva002CE74B(const Object *source, const Object *target);
-	bool rva002CE6C5(const Object *source, int fireParam, const Object *target, int *out);
-
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class FiringTracker
 {

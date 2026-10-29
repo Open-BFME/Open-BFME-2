@@ -65,7 +65,7 @@ class MilesMutexGuard {public:MilesMutexGuard(void*,int);~MilesMutexGuard();bool
 class Rva001D9A00 {public:bool rva001D9A00();};
 class Rva001D98BD {public:bool rva001D9781();};
 class AudioInfoNames {public:virtual ~AudioInfoNames();virtual const AsciiString&getAudioName()const;};
-class Weapon {public:void setLeechRangeActive(bool);};
+#include "../../../GameEngine/Include/GameLogic/Weapon.h"
 class FileStatus {public:virtual bool check(int);};
 struct PendingAudioFile {char pad0[0x44];FileStatus ready;char pad48[4];FileStatus failed;};
 class Rva00691110Handle {public:Rva00691110Handle(const Rva00691110Handle&);PendingAudioFile*target;};

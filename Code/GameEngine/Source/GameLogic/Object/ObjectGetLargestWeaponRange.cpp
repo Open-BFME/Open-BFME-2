@@ -13,11 +13,7 @@ enum WeaponSlotType
 	WEAPONSLOT_COUNT = 6
 };
 class Object;
-class Weapon
-{
-public:
-	float getAttackRange(const Object *source) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class WeaponSet
 {
 public:

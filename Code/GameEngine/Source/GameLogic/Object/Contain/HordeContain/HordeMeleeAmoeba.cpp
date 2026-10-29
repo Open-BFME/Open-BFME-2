@@ -28,7 +28,7 @@ class Object;
 enum ObjectStatusTypes { AMOEBA_STATUS_1C=0x1c, AMOEBA_STATUS_45=0x45 };
 enum WeaponSlotType { PRIMARY_WEAPON=0 };
 enum CommandSourceType { AMOEBA_COMMAND=2 };
-class Weapon { public: bool isWithinAttackRange(const Object *,const Object *,float,int) const; };
+#include "../../../../../Include/GameLogic/Weapon.h"
 template<int N> class AmoebaSlots : public AmoebaSlots<N-1> { public: virtual void gap(char (*)[N])=0; };
 template<> class AmoebaSlots<0> {};
 class AmoebaRangeQuery : public AmoebaSlots<18> { public: virtual Object *query(int,const Coord3D *,float,int,int)=0; };

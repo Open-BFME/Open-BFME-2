@@ -164,12 +164,7 @@ class Path { public:
  unsigned int pad; PathNode *head,*tail; Bool optimized, m_blockedByAlly; char rest[0x28-14];
 };
 class WeaponTemplate { public: Bool isContactWeapon()const; };
-class Weapon { public:
- Bool isWithinAttackRange(const Object*,const Object*,float,int)const;
- Bool isWithinAttackRange(Object*,const Coord3D*,Object*,const Coord3D*,float,Bool); // 0x002CB35C
- unsigned int pad; WeaponTemplate *templ;
- Bool computeApproachTarget(const Object*,const Object*,const Coord3D*,float,Coord3D&) const;
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 // updateLastNode, rowed under its address name.
 class Rva003638BA
 {

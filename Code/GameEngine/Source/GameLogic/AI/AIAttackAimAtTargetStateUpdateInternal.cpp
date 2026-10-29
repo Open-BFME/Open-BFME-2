@@ -121,19 +121,7 @@ public:
 	Real m_aimDelta; // +0x2C
 	Real m_aimOffset; // +0x30
 };
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const
-	{
-		return m_template;
-	}
-	Bool isWithinAttackRange(const Object *source, const Object *target, Real extra, Int flag) const; // 0x002CB933
-	char isWithinAttackRange(Object *source, void *pos, Real extra, Int flag) const; // 0x002CB902
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 // The vision-range reach test 0x0028F326, pinned under this view.
 class Rva0028F326Owner
 {

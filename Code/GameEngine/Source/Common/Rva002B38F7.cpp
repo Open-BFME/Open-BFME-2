@@ -108,11 +108,7 @@ public:
 // 0x009FE1C8 under its data-ledger primary name (defined in Rva003FD7CEParse.cpp).
 extern LivingWorldManager *TheLivingWorldManager;
 
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool value);
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 class Rva002BA8F1Logic
 {

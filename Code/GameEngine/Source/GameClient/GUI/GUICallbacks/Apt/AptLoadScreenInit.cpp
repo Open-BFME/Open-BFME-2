@@ -288,11 +288,7 @@ extern AudioManager *TheAudio;
 
 // The event's flag setter is identical-code-folded with the rowed
 // Weapon::setLeechRangeActive.
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool active);
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 #include "GameLogicObjectLookupView.h"
 

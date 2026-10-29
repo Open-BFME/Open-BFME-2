@@ -652,7 +652,7 @@ private:
 // Event field setters rowed by address: 0x002D94CE stores the view type at
 // +0x30 and the ICF-folded Weapon::setLeechRangeActive (0x002D95FE) a flag.
 class Rva002D94CE { public: void rva002D94CE(int value); };
-class Weapon { public: void setLeechRangeActive(bool value); };
+#include "../../../GameEngine/Include/GameLogic/Weapon.h"
 class Rva002D9BDC { public: void rva002D9BDC(float lo, float hi); };
 // WorldBuilder calls this AudioEventRTS::setExtraVolumeMultiplier; retail
 // folded it to 0x00481FAF, rowed under this neutral float-slot name.

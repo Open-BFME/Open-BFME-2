@@ -107,16 +107,7 @@ class Rva002C9400ByteField
 public:
 	unsigned char get() const;
 };
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	bool isWithinAttackRange(const Object *source, const Object *target, float extra, int flag) const;
-	char isWithinAttackRange(Object *source, void *pos, float extra, int flag) const;
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template;	// +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 class ThingTemplate
 {
 public:

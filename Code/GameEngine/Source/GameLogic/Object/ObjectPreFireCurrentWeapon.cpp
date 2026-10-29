@@ -53,19 +53,7 @@ private:
 	bool m_flag16F; // +0x16F
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	unsigned int getPossibleNextShotFrame() const { return m_whenWeCanFireAgain; }
-	void preFireWeapon(const Object *source, const Object *victim, const Coord3D *pos);
-
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-	unsigned char m_pad08[0x18 - 0x08];
-	unsigned int m_whenWeCanFireAgain; // +0x18
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {

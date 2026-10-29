@@ -65,13 +65,7 @@ public:
 };
 extern WeaponStore *TheWeaponStore;
 
-class Weapon
-{
-public:
-	void loadAmmoNow(const Object *source);
-	char m_pad00[8];
-	Int m_ownerID;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {

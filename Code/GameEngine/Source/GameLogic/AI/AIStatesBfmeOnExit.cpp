@@ -286,15 +286,7 @@ private:
 	Real m_aimDelta; // +0x2C
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	WeaponStatus computeStatus(Bool *valid) const;
-private:
-	unsigned char m_pad00[0x04];
-	const WeaponTemplate *m_template; // +0x04
-};
+#include "../../../Include/GameLogic/Weapon.h"
 #define FAST_AS_POSSIBLE 999999.0f
 
 class Locomotor

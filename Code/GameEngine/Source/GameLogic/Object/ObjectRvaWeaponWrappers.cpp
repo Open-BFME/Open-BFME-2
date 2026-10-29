@@ -31,11 +31,7 @@ public:
 	class Weapon *findWaypointFollowingCapableWeapon();
 };
 
-class Weapon
-{
-public:
-	unsigned getRemainingAmmo(bool flag) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

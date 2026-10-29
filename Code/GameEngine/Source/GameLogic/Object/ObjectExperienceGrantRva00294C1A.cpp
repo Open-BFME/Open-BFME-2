@@ -168,7 +168,7 @@ enum KindOfType { KINDOF_84=0x84 };
 enum Relationship { ENEMIES=0,NEUTRAL=1,ALLIES=2 };
 enum WeaponSlotType { PRIMARY=0 };
 class Rva002C9400ByteField { public: unsigned char get() const; };
-class Weapon { public: char pad[4]; Rva002C9400ByteField *info; };
+#include "../../../Include/GameLogic/Weapon.h"
 struct ObjectExperienceTemplate { char pad[0x11f]; unsigned char flags11f; };
 class Object {
 public:

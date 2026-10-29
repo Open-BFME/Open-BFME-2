@@ -42,11 +42,7 @@ enum WeaponSlotType
 	PRIMARY_WEAPON = 0
 };
 
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim, const Coord3D *victimPos, Real extra, Bool flag);
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 class AIUpdateInterface
 {

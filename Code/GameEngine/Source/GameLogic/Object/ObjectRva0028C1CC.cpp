@@ -24,11 +24,7 @@ enum WeaponStatus
 	WEAPON_STATUS_5
 };
 
-class Weapon
-{
-public:
-	WeaponStatus computeStatus(bool *cacheable) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

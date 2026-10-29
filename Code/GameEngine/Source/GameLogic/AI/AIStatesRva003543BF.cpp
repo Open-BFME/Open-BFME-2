@@ -74,14 +74,7 @@ public:
 	Object *m_containedBy;	// +0x274
 };
 
-class Weapon
-{
-public:
-	// 0x002C9BE4 (PartitionManager_Rva002C9C37.cpp): the range against the victim's
-	// position.  WorldBuilder calls its twin with the current weapon as
-	// receiver here.
-	float getAttackRange(const Object *source, const Object *victim) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Rva000421C8
 {

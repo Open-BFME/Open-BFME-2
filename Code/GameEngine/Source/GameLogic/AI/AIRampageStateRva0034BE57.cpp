@@ -28,11 +28,7 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_D = 0x0D
 };
 
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

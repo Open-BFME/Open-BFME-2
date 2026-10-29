@@ -14,11 +14,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-class Weapon
-{
-public:
-	char isWithinAttackRange(Object *a, void *b, float range, int flags) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

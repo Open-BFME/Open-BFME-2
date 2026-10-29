@@ -33,12 +33,7 @@ public:
 	Int m_index174;
 };
 
-class Weapon
-{
-public:
-	void *m_vtable;
-	const WeaponTemplate *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 enum WeaponSlotType
 {

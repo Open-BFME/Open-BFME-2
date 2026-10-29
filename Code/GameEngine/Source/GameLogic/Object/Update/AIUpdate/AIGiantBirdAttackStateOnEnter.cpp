@@ -156,16 +156,7 @@ private:
 	Bool m_flag157; // +0x157
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	WeaponStatus getStatus() const;
-	void reloadAmmo(const Object *sourceObj);
-private:
-	void *m_vtbl;
-	const WeaponTemplate *m_template; // +4
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 class ModuleData
 {
