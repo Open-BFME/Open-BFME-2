@@ -10435,6 +10435,12 @@ Common/Rva003A5DA0Write.cpp. Carry that cohort into the next scheduled census;
 broader consumer closure remains unverified.
 The other historical consumers require current-object revalidation and
 migration or a proven provider repair; the old helper has not been restored.
+The migration retains one shadow allocator-definition finding: suppressing its
+21-byte allocator<char>::allocate copy keeps all six rows exact and cleans the
+identity scan, but makes the current overflow/setbuf unit lose COMDAT selection
+(joint preview 3/4, down from 4/4). That isolated suppression is restored;
+reconcile the allocator provider cohort before removing this copy. No identity
+debt retirement is claimed.
 [Checks and evidence](../reverse/attempt_support/ostringstream-stlport46-link-20261029-codexb4.md).
 
 ### LINK-141: removing the 0x48BA39 alias left four placeholder string destructors unresolved (2026-10-29, seat yasinschroeder-claudeb2)

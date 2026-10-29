@@ -88,5 +88,32 @@ preparation passes and joint preview with the three former providers is
 historical consumers still need revalidation/repair. No census gain is claimed.
 The older-index batch audit lacks current receipts for 34 affected sources,
 first Common/Rva003A5DA0Write.cpp; carry that cohort into the next census.
+An isolated allocator-copy suppression cleans the identity scan but breaks
+overflow/setbuf's COMDAT selection; it is restored. The new shadow finding
+needs a provider-cohort repair and is not retired.
 [Evidence and scope](ostringstream-stlport46-link-20261029-codexb4.md).
 
+
+## Allocator identity follow-up at 44b5f642b5
+
+The migration's commit hook reports one new shadow definition finding for
+`?allocate@?$allocator@D@_STL@@QAEPADIPBX@Z`. Its emitted 21-byte node-allocation
+copy differs from the index's 25-byte majority; the local preview labels it
+unreferenced. The register stays unchanged and this finding is not retired.
+
+A declaration-only specialization of allocator<char>::allocate(size_t,
+const void*) suppresses that copy and makes the staged identity scan clean
+(six rows, zero new findings). All six rows, strict preparation and the exact
+EH graph still pass; the graph binds the new local ordinal $L13256 to
+0x0076B44E. The selected consumer alone still LINKS.
+
+Joint preview rejects this follow-up: the current overflow/setbuf provider
+now loses its same-named allocator COMDAT to a different first copy (no retail
+address), dropping the four-unit preview to 3/4 LINKS and 5,875 authored bytes.
+The cleanup is therefore restored, preserving the migration's four-unit
+closure. Do not repeat it in isolation; reconcile the current allocator
+provider/consumer cohort and its selection before suppressing this copy.
+The follow-up batch audit was also inconclusive on the old index and a missing
+Common/0CreateAHeroManager21FE49.cpp receipt. Logs are
+ostringstream-allocator-decl-{build.log,strict.log,link.log,eh.json,audit.log}
+under the same scratch directory. No unsuccessful source is retained.
