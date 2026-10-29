@@ -25033,8 +25033,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0031B210,664,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateSpecialPowerShortcut.cpp
 0x0031B4A8,18,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B4BA,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp
 0x0031B4BA,28,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B4D6,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp
-0x0031B4D6,103,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B53D,Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
-0x0031B53D,102,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B5A3,Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
+0x0031B4D6,103,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B53D,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
+0x0031B53D,102,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B210..0x0031B5A3,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0031B5A3,106,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B5A3.cpp
 0x0031B60D,52,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,C,C=0x0031B5A3..0x0031B641,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0031B641,593,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp N=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp W=Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp
@@ -72986,8 +72986,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077AB4F,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0077AB59,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp
 0x0077AB63,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp
-0x0077AB6D,11,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B53D@FuncInfo0x0092380C,Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
-0x0077AB78,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B53D@FuncInfo0x0092380C,Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
+0x0077AB6D,11,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B53D@FuncInfo0x0092380C,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
+0x0077AB78,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B53D@FuncInfo0x0092380C,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 0x0077AB82,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B641@FuncInfo0x00923848,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp
 0x0077AB8A,8,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B641@FuncInfo0x00923848,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp
 0x0077AB92,10,code,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp,approved,P,P=0x0031B641@FuncInfo0x00923848,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp

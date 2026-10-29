@@ -7959,6 +7959,8 @@ Applied: the normal merger absorbs the seven-row clearer donor into the 44-row s
 
 Remaining: reconcile private ControlBar/CommandButton/Player layouts and incompatible STLport views in independently verified prerequisites. All 48 remaining donor refusals are unchanged; nine mixed sources remain intact. The older guard placement refusals still require current census evidence. Full evidence, register audit and initial per-donor refusals: [ControlBar handoff](../reverse/attempt_support/controlbar-consolidation-20261027-codex.md). Census confirmation remains pending.
 
+Applied (2026-10-29, claude, census 2026-10-28 20:44 at 840db2d676): with the newer census the normal merger's guard now judges Rva0031B4D6Load and accepts it (a 103 B thiscall loader, 4 code rows); the TU builds 55/55 with renumbered funclets verified through parent EH data, declared-unmatched and check_csv pass, and ordinary link_check reports LINKS 4,565 -> 4,767 B (preview only). Rva0031BF1BRemove is still refused: the merged object would break another unit's copy of `__node_alloc<1,0>::deallocate`. ControlBarForgetStaleCommandSet now links at the census but the merged object would break other units' `VideoPair` ctor copies. StlSweepW5Rva0031B9EB loses bytes. The other 43 donors fail to compile against the seed's private ControlBar/CommandButton/Player/GameWindow views and STLport copies; the dry run lists ShowPurchaseScience (ScriptEngine) and ShowRallyPoint (Thing) as canonical-header adoptions needed first.
+
 ### ProcessAnimateWindow consolidation: compiler anchors and accessor declarations
 
 Status: Four clean donors consolidated; remaining slide declarations remain open. Updated: 2026-10-27; starting revision: f8924e3512; preview index: bf3dd31211.
