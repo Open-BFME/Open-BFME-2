@@ -169,6 +169,8 @@ extern void *g_Va00E01E74;
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+extern class BuffLogic *TheBuffLogic;
+#include "../../Common/GameLogicObjectLookupView.h"
 
 // WorldBuilder names this complete 70-byte retail body MakeGlowOutlineBuff.
 // The caller 0x003627F9 passes this in ECX, six stack arguments, and a float
@@ -520,6 +522,17 @@ public:
 	void rva00362862(int a, int b);
 };
 
+extern GameLogic *TheGameLogic;
+
+struct DrawObj
+{
+	char m_pad[8];
+	int effectState;
+	float effectIntensity;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0036247CCtor.cpp
 
 // Native 36247C (23B) and 362D25 (65B). The first pointer is the real
@@ -535,8 +548,6 @@ BuffInstance::BuffInstance() throw()
 {
     m_color.red=0.0f; m_color.green=0.0f; m_color.blue=0.0f;
 }
-
-// tu-skeleton: 0x00362493 6B ?GetSnapshotName@GlowMaterial@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/BuffManager.cpp
 
@@ -695,10 +706,6 @@ void Rva00409580::set(int value)
 	m_10 = value;
 }
 
-// tu-skeleton: 0x003624C4 58B ?DoXfer@GlowMaterial@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00362518 171B ?MakeNormalBuff@BuffInstance@@QAE_NHHPAX0H@Z -- matched in Code/GameEngine/Source/Common/BuffInstance_MakeNormalBuff.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva00409930SlotArray.cpp
 
 // ?Rva00409850SubObject::method present-unmatched
@@ -800,8 +807,6 @@ void Rva003626CE::rva003626EA(const Block3 &pos)
 	} while (--count != 0);
 }
 
-// tu-skeleton: 0x00362702 109B ?DoXfer@BuffManager@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva00362862Notify.cpp
 
 void Rva00362862Item::rva00362862(int a, int b)
@@ -818,8 +823,6 @@ void Rva00362862Item::rva00362862(int a, int b)
 		((Rva0036276F *)this)->rva0036276F();
 	}
 }
-
-// tu-skeleton: 0x003628A6 45B ?rva003628A6@Rva003628A6@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Bfme/Rva003628A6Free.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/BuffInstance_DoXfer.cpp
 
@@ -876,10 +879,6 @@ void BuffInstance::DoXfer(Xfer *xfer) {
  m_material.DoXfer(xfer);
 }
 
-// tu-skeleton: 0x00362AB5 41B ?rva00362AB5@Rva00362AB5@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva003628A6Free.cpp (not merged yet)
-
-// tu-skeleton: 0x00362ADE 68B ?rva00362ADE@Rva00362AB5@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Bfme/Rva00362B22Dtor.cpp
 
 //
@@ -899,10 +898,6 @@ Rva00362AB5::~Rva00362AB5()
 Rva00362B5ADtor::~Rva00362B5ADtor()
 {
 }
-
-// tu-skeleton: 0x00362B5F 42B ?equal_range@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@U12@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x00362B89 73B ?rva00362B89@Rva00362AB5@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva0040AD80ReferenceState_Rva00362c9f.cpp
 
@@ -969,8 +964,6 @@ void Rva0040AD80ReferenceState::rva00362BD2(int key, float value)
 	m_field0C = 0;
 }
 
-// tu-skeleton: 0x00362C9A 5B ?rva00362C9A@Rva00362C9A@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00362D6CDtor.cpp
 
 // Retail 362D6C (81B) and 362CF2 (51B), including exact EH cleanup.
@@ -989,16 +982,12 @@ GlowMaterial::~GlowMaterial()
 
 void BuffInstance::LoadPostProcess() {}
 
-// tu-skeleton: 0x00362D66 6B ?GetSnapshotName@BuffInstance@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BuffManager.cpp
 
 BuffManager::BuffManager(int v) : m_drawable((void *)v)
 {
     ((Rva00239FE4 *)((ClientFrameSubsystem *)TheGameClient))->rva00239FE4((const ModuleData *)this);
 }
-
-// tu-skeleton: 0x00362E16 6B ?GetSnapshotName@BuffManager@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00362E1CDtor.cpp
 
@@ -1018,5 +1007,72 @@ BuffManager::~BuffManager()
 }
 
 void BuffManager::LoadPostProcess() {}
+
+// tu-skeleton: 0x00362493 6B ?GetSnapshotName@GlowMaterial@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x003624C4 58B ?DoXfer@GlowMaterial@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BuffInstance_MakeNormalBuff.cpp
+
+bool BuffInstance::MakeNormalBuff(int a, int b, void *c, void *d, int e)
+{
+	if (a >= 9 || a < 1)
+		return false;
+	if (c == 0)
+		return false;
+	if (d == 0)
+		return false;
+	if (m_glow == 0)
+	{
+		m_type = a;
+		m_subType = b;
+		m_thing = (const ThingTemplate *)c;
+		m_glow = (Rva00419BA5 *)((BuffLogic *)TheBuffLogic)->addBuff(c, d);
+	}
+	else
+	{
+		if (c != m_thing)
+		{
+			((Rva00419BA5 *)m_glow)->rva00419BA5();
+			m_glow = 0;
+			m_type = a;
+			m_subType = b;
+			m_thing = (const ThingTemplate *)c;
+			m_glow = (Rva00419BA5 *)((BuffLogic *)TheBuffLogic)->addBuff(c, d);
+		}
+		else if (((DrawObj *)m_glow)->effectState == 2)
+		{
+			((DrawObj *)m_glow)->effectState = 1;
+			((DrawObj *)m_glow)->effectIntensity = 1.0f;
+		}
+	}
+	if (m_glow != 0)
+	{
+		m_duration = e;
+		m_active = true;
+		m_frameLimit = TheGameLogic->getFrame() + e;
+		return true;
+	}
+	m_active = false;
+	return false;
+}
+
+// tu-skeleton: 0x00362702 109B ?DoXfer@BuffManager@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x003628A6 45B ?rva003628A6@Rva003628A6@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/Bfme/Rva003628A6Free.cpp (not merged yet)
+
+// tu-skeleton: 0x00362AB5 41B ?rva00362AB5@Rva00362AB5@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva003628A6Free.cpp (not merged yet)
+
+// tu-skeleton: 0x00362ADE 68B ?rva00362ADE@Rva00362AB5@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00362B5F 42B ?equal_range@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@U12@@2@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x00362B89 73B ?rva00362B89@Rva00362AB5@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Unresolved.cpp (not merged yet)
+
+// tu-skeleton: 0x00362C9A 5B ?rva00362C9A@Rva00362C9A@@QAEIABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily_Rva00082BE1.cpp (not merged yet)
+
+// tu-skeleton: 0x00362D66 6B ?GetSnapshotName@BuffInstance@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00362E16 6B ?GetSnapshotName@BuffManager@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x0077E1B5 8B uw_0077e1b5 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
