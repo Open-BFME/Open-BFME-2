@@ -472,6 +472,15 @@ class RepointTests(unittest.TestCase):
             self.assertEqual(run.call_args.args[0],
                              ["git", "add", "--", "Code/T.cpp", "reverse/header_queue.tsv"])
 
+    def test_apply_writes_a_tu_in_a_missing_directory(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "Code").mkdir()
+            with patch("header_adopt_lane.transfer_sources", return_value=0), \
+                    patch.object(T.subprocess, "run"):
+                T.apply("Code/Fesl/util.cpp", ["Code/A.cpp"], "int x;\n", root=root)
+            self.assertEqual((root / "Code/Fesl/util.cpp").read_text(), "int x;\n")
+
     def test_apply_stages_the_refreshed_header_queue(self):
         with tempfile.TemporaryDirectory() as tmp:
             root = Path(tmp)

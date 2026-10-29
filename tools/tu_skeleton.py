@@ -2954,6 +2954,7 @@ def apply(tu, accepted, text, root=ROOT, carry=None):
         if others:
             raise SystemExit("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
                              "the other modified files first: " + ", ".join(others[:5]))
+    (Path(root) / tu).parent.mkdir(parents=True, exist_ok=True)   # a TU in a directory nothing lives in yet
     moved = repoint_all(root, gone, tu)
     if carry:
         moved.update({rel: carry.moved[rel] for rel in carry.write()})
