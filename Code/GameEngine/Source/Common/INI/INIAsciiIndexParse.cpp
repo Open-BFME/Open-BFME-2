@@ -82,7 +82,7 @@ const char *g_00DD3068[] = {
 class Rva004DBFF1Name : public AsciiString
 {
 public:
-	Rva004DBFF1Name(const char *s) : AsciiString(s) {}
+	Rva004DBFF1Name(const char *initialText) : AsciiString(initialText) {}
 	int compareText(const char *text) const throw();
 };
 
@@ -131,7 +131,7 @@ static inline int Rva0058A617Index(const char *name)
 // in AISpecialPowerUpdateModuleData's rowed field-parse unit. The target
 // inlines the neighbouring 0x0058A5C7 search over the same table. The
 // original parser name is unresolved; identity here is the registered field.
-void Rva0058A617Parse(INI *ini, void *, void *store, const void *)
+void parseSpecialPowerAIType(INI *ini, void *, void *store, const void *)
 {
 	*(int *)store = Rva0058A617Index(ini->getNextAsciiString().str());
 }

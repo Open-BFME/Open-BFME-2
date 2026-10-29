@@ -93,12 +93,12 @@ void Rva0010225F::rva00102284()
 {
 	if (m_00) {
 		m_00->rva00116496();
-		void *p = m_00 ? m_00->s04(0) : (void *)0;
-		::operator delete(p);
+		void *allocation = m_00 ? m_00->s04(0) : (void *)0;
+		::operator delete(allocation);
 	}
-	Rva00116496 *tmp = m_10;
-	m_00 = tmp;
-	if (tmp)
+	Rva00116496 *savedEffect = m_10;
+	m_00 = savedEffect;
+	if (savedEffect)
 		rva0010225F(m_14);
 	m_10 = 0;
 }

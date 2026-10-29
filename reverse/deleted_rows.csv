@@ -3990,3 +3990,5 @@ __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCa
 ?rva0009B510@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z,0x0009B510,"Renamed to ?buildCameraTransform@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z by tools/rename.py (inferred)"
 ?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x005D5F86,"Renamed to ?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
 __ehhandler$?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed to __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
+?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0058A617,"Renamed to ?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
+__ehhandler$?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0079CC92,"Renamed to __ehhandler$?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"

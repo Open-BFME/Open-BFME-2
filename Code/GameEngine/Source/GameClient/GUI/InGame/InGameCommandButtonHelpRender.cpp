@@ -31,7 +31,7 @@ typedef bool Bool;
 struct FloatPair
 {
  FloatPair(){}
- FloatPair(float a,float b):x(a),y(b){}
+ FloatPair(float xCoord,float yCoord):x(xCoord),y(yCoord){}
  FloatPair(const FloatPair &floatPair):x(floatPair.x),y(floatPair.y){}
 	float x;
 	float y;
@@ -138,7 +138,7 @@ static void DrawIcon(Image *image,FloatPair position,const FloatPair &maximum,co
  position.y+=(maximum.y-icon.y)*0.5f;
  ((W3DDisplay*)TheDisplay)->rva0004D6B3(image,position.x,position.y,position.x+icon.x,position.y+icon.y,-1,2);
 }
-void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *floatPair, FloatPair *b, FloatPair *out)
+void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *floatPair, FloatPair *descriptionIconSize, FloatPair *out)
 {
 	ScalePair *scale = reinterpret_cast<Rva00222A8BTarget *>(g_bfmeAptWindowManager)->v15();
 	if (m_icon30 != 0) {
@@ -149,21 +149,21 @@ void InGameCommandButtonHelp::Impl::ComputeIconSizes(FloatPair *floatPair, Float
 		floatPair->y = 0.0f;
 	}
 	if (m_icon34 != 0) {
-		b->x = (float)m_icon34->v24 * scale->x;
-		b->y = (float)m_icon34->m_height * scale->y;
+		descriptionIconSize->x = (float)m_icon34->v24 * scale->x;
+		descriptionIconSize->y = (float)m_icon34->m_height * scale->y;
 	} else {
-		b->x = 0.0f;
-		b->y = 0.0f;
+		descriptionIconSize->x = 0.0f;
+		descriptionIconSize->y = 0.0f;
 	}
 	float *px;
-	if (b->x > floatPair->x)
-		px = &b->x;
+	if (descriptionIconSize->x > floatPair->x)
+		px = &descriptionIconSize->x;
 	else
 		px = &floatPair->x;
 	out->x = *px;
 	float *py;
-	if (b->y > floatPair->y)
-		py = &b->y;
+	if (descriptionIconSize->y > floatPair->y)
+		py = &descriptionIconSize->y;
 	else
 		py = &floatPair->y;
 	out->y = *py;

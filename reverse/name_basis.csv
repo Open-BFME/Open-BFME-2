@@ -4086,3 +4086,10 @@ local,~Rva005F38D8Ref::p,~Rva005F38D8Ref::iconSlot,inferred,agree:nl-3126b3eb9a8
 param,FreelistPool::rva002AA35C::a1,FreelistPool::rva002AA35C::blockCount,inferred,agree:nl-4b4ebb58939b,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
 param,FreelistPool::rva002AA35C::a6,FreelistPool::rva002AA35C::allocatorArgument,inferred,agree:nl-354243c1122c,Code/GameEngine/Source/GameLogic/Object/Update/FreelistPoolInit.cpp,0x002AA35C
 param,HordeContain::rva00468CB6::a,HordeContain::rva00468CB6::aiUpdate,inferred,agree:nl-f0b4620ddfde,Code/GameEngine/Source/GameLogic/Object/Update/Rva00468CB6Check.cpp,0x00468CB6
+param,Rva004DBFF1Name::s,Rva004DBFF1Name::initialText,inferred,agree:nl-82fb272c0591,Code/GameEngine/Source/Common/INI/INIAsciiIndexParse.cpp,
+function,?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z,inferred,agree:nl-a0b0361ea822,Code/GameEngine/Source/Common/INI/INIAsciiIndexParse.cpp,0x0058A617
+local,Rva0010225F::rva00102284::p,Rva0010225F::rva00102284::allocation,inferred,agree:nl-63c340a2a5fa,Code/GameEngine/Source/Common/Rva0010225FMethod.cpp,0x00102284
+local,Rva0010225F::rva00102284::tmp,Rva0010225F::rva00102284::savedEffect,inferred,agree:nl-59544a8a7ac5,Code/GameEngine/Source/Common/Rva0010225FMethod.cpp,0x00102284
+param,FloatPair#2::a,FloatPair#2::xCoord,inferred,agree:nl-72949f95cace,Code/GameEngine/Source/GameClient/GUI/InGame/InGameCommandButtonHelpRender.cpp,
+param,FloatPair#2::b,FloatPair#2::yCoord,inferred,agree:nl-ba2d9e60cbd5,Code/GameEngine/Source/GameClient/GUI/InGame/InGameCommandButtonHelpRender.cpp,
+param,InGameCommandButtonHelp::Impl::ComputeIconSizes::b,InGameCommandButtonHelp::Impl::ComputeIconSizes::descriptionIconSize,inferred,agree:nl-140e6573574d,Code/GameEngine/Source/GameClient/GUI/InGame/InGameCommandButtonHelpRender.cpp,0x0056C7F1
