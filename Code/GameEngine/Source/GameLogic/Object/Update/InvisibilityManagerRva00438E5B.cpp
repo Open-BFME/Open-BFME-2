@@ -10,7 +10,7 @@
 // Otherwise the state is applied (0x004384F2); an info +0x20 request turns a
 // newly revealed object's ToggleHiddenSpecialAbilityUpdate module off while
 // the owner still has status 0x10 (vftable slot 23, turnOff in
-// ToggleHiddenSpecialAbilityUpdateSlots23And24.cpp).  Entering state 2 plays
+// ToggleHiddenSpecialAbilityUpdate.cpp).  Entering state 2 plays
 // the info's +0x0C FX list when coming from state 0 and arms the record
 // (0x00438C6C, with the info's +0x04 byte) and returns true; leaving state 2
 // plays the info's +0x08 FX list when going to state 0 and stamps the logic
