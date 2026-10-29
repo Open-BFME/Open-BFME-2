@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHs /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 #include <memory>
 //
 // ??1Rva00B9AC2@@QAE@XZ, retail 0x000B9AC2, 61B, under the name its 3

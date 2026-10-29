@@ -1,5 +1,5 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ??1Rva0035BB4B@@UAE@XZ @0x0035BB4B 368B
 // Virtual dtor of large Common record (vptr 0x00816204) over base Overridable.

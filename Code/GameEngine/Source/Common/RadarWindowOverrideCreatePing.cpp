@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /Ireference/shims/bfmealloc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Native ping family: vftable 0x00C02C1C has scalar-delete/release/move/fade
 // at RVAs 2D579A/2D3D2A/2D4AEF/2D4BA5. The base vftable 0x00C02A84
 // has scalar-delete 2D3556 then three pure virtual slots. WB Palantir radar

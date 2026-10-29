@@ -12,7 +12,7 @@
 // 21F19B file vector construction; 4099CA file load with one-byte mode argument.
 // Existing registered 4099CA helper uses an int prototype; do not fake its pin.
 // Qualified ::delete is required by native vslot0(flags0) then global delete.
-// stlport
+// stlport46
 // CreateAHero.cpp -- CreateAHeroManager forwarding accessors recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
 // function and its nesting (CreateAHeroManager::CreateAHeroClass, ::

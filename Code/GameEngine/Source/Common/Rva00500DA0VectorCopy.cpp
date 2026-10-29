@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ??0?$vector@URva00501E3FElement@@V?$allocator@URva00501E3FElement@@@_STL@@@_STL@@QAE@ABV01@@Z @0x00500DA0 96B
 // vector<Rva00501E3FElement> copy ctor. 0x14-byte element forces the

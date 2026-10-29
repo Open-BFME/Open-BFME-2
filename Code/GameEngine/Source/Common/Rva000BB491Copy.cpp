@@ -1,5 +1,5 @@
 // cl: /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 #include <memory>
 //
 // ??0Rva000BB491@@QAE@ABV0@@Z retail 0x000BB491 27B

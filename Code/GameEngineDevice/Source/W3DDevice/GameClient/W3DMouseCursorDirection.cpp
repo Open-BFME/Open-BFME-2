@@ -1,6 +1,7 @@
 // ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z
 // Verified native245B; canonical coordinate layout and ordered8B snapshot.
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// stlport46
 //
 // ?setCursorDirection@W3DMouse@@AAEXW4MouseCursor@Mouse@@@Z, retail 0x0009910E, 245 bytes.
 // Zero Hour's W3DMouse::setCursorDirection. It sits between W3DMouse::init's

@@ -1,5 +1,5 @@
 // cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // STLport 4.5.3 pointer-range algorithms over the CreateAHeroData* vector
 // (see Rva0040A3F9Find.cpp): for_each releasing every element through
 // TheHeroManager (rowed 0x21929D), and the 4x unrolled random-access

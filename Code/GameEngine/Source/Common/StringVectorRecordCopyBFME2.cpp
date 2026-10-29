@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /DNDEBUG /D_STLP_NO_EXCEPTIONS /DWIN32 /D_WINDOWS
-// stlport
+// stlport46
 // BFME2 records containing AsciiString and STLport vector<AsciiString>.
 // The vector copy is the established 93-byte constructor at 0xBC07E.
 // Layouts are read from the complete retail constructors and their STLport
@@ -28,7 +28,7 @@ namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
-template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t);
 template <> vector<AsciiString, allocator<AsciiString> >::vector(const vector<AsciiString, allocator<AsciiString> >&);
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::_Vector_base(size_t, const allocator<AsciiString>&);
 template <> AsciiString *__uninitialized_copy(const AsciiString*, const AsciiString*, AsciiString*, const __false_type&);

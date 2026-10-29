@@ -1,6 +1,6 @@
 // cl: /O1 /arch:SSE2 /D_STLP_USE_MALLOC /MD /EHsc /Ireference/shims/bfme2_ascii /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // platformsdk
-// stlport
+// stlport46
 // Reference shape: ZH PlayerTemplate's automatic member copy, reconciled
 // against target1FE352/957 and PlayerTemplate store/vector476-byte callers.
 // Base copy3664DD resets the override links. The native EH map at9114D0
@@ -94,7 +94,7 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear()
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *); }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
 // bfme link decl-only end
@@ -112,7 +112,7 @@ namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
-template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t);
 template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString*, AsciiString*);
 }
 // Default construction is inlined at every use. Suppress its unused external

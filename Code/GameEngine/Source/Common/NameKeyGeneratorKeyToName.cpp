@@ -10,7 +10,7 @@
 // Construct the iterator before the scoped key copy and assign the result;
 // this preserves retail's iterator table home and argument-slot reuse.
 // cl: /Ireference/shims/bfmevector /Ireference/shims/bfmehashtable /Ireference/shims/bfme2_ascii /MD /O1 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /EHs-
-// stlport
+// stlport46
 #include <hash_map>
 #include <cstddef>
 #include "ascii_string.h"

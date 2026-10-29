@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Native AA83B..AA867: 44B constructor, RET0; WB container allocation40.
 // Existing Rva000AADC1 destructor and BC942C vtable establish this neutral owner.
 // Target fixes vptr0, pointer-storage header4..F and24 zero bytes10..27.

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /O1 /G7 /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Retail evidence: erase 0x002821CF advances in eight-byte records, calls
 // copy 0x00281AB7 and destroys the final record with Rva0027EA49::~Rva0027EA49.
 // Assignment 0x0027F589 copies the first word and assigns the reference at +4

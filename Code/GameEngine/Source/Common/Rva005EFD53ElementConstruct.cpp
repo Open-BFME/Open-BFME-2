@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ??$_Construct@URva005EFD53Element@@U1@@_STL@@YAXPAURva005EFD53Element@@ABU1@@Z
 // retail 0x005F09FF (24 B): STLport's _Construct placement-copying an element

@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /GX /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 //
 // ?Rva00506CF5@@YA?AUCoord3D@@PAXPAU1@@Z
 // Retail 0x00506CF5..0x00506FE9 (756 bytes, cdecl, Coord3D returned through

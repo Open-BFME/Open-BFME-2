@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // Color-tree destructor (retail 0x0038103F, 56B): clears the int-keyed
 // multiplayer-color tree through the rowed 0x00380F08 body, then frees the

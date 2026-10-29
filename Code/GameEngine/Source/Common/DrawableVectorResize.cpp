@@ -1,5 +1,5 @@
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ?resize@?$vector@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAEXIPAVDrawable@@@Z, retail 0x000E6D39 63B.
 // Evidence: unlock lane making 2 ready; rowed erase 0x0031BD55 plus Drawable fill-insert 0x00233A5A; ret-8 by-value shape with lea-push forwarding; 63B Pod8 and ObjectID resize precedents.

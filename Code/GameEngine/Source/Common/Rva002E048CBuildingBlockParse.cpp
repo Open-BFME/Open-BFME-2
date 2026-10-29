@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /EHsc /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ?parseLivingWorldBuildingDefinition@@YAXPAVINI@@@Z retail 0x002E048C 318 bytes.
 // LivingWorldBuilding INI block parse: the parse function of the block-parse
 // entry at 0x009BD07C (name VA 0x00C046E8 "LivingWorldBuilding") and its only

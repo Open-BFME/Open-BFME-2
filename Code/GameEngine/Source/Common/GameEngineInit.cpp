@@ -15,7 +15,7 @@
 // of the actual setter (one hook call, write to +4, no escaped this pointer)
 // restores retail's frame and sharing with expired catch/connection locals.
 // This remains C++ with ordinary lifetimes, not an explicit storage overlay.
-// stlport
+// stlport46
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 namespace _STL {
@@ -53,7 +53,7 @@ namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear()
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *); }
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
 namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
@@ -62,7 +62,7 @@ namespace _STL { template <> allocator<void *>::~allocator(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBHURva001D9651Element@@@_STL@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct Rva001D9651Element;
-namespace _STL { template <> void allocator<_Hashtable_node<pair<int const ,Rva001D9651Element> > >::deallocate(_Hashtable_node<pair<int const ,Rva001D9651Element> > *,unsigned int) const; }
+namespace _STL { template <> void allocator<_Hashtable_node<pair<int const ,Rva001D9651Element> > >::deallocate(_Hashtable_node<pair<int const ,Rva001D9651Element> > *,unsigned int); }
 // Suppress this TU's non-retail copy of ??1?$vector@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Object;
@@ -70,7 +70,7 @@ namespace _STL { template <> vector<Object *,allocator<Object *> >::~vector(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_ST:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 enum NameKeyType; class ArmorTemplate;
-namespace _STL { template <> void allocator<_Hashtable_node<pair<NameKeyType const ,ArmorTemplate> > >::deallocate(_Hashtable_node<pair<NameKeyType const ,ArmorTemplate> > *,unsigned int) const; }
+namespace _STL { template <> void allocator<_Hashtable_node<pair<NameKeyType const ,ArmorTemplate> > >::deallocate(_Hashtable_node<pair<NameKeyType const ,ArmorTemplate> > *,unsigned int); }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {
@@ -81,7 +81,7 @@ void _STLP_CALL __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@PAVObject@@@_STL@@QBEXPAPAVObject@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Object;
-namespace _STL { template <> void allocator<Object *>::deallocate(Object **, size_t) const; }
+namespace _STL { template <> void allocator<Object *>::deallocate(Object **, size_t); }
 // Suppress this TU's non-retail copy of ??1?$_Vector_base@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@QAE@XZ:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class Object;

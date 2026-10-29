@@ -1,5 +1,5 @@
 // cl: /MD
-// stlport
+// stlport46
 // STLport 4.5.3 lower_bound over counted ushort adjacency entries.
 // Target 0x0053249D..0x005324D8: native caller 0x00532DF6 pushes
 // first, last, key reference, empty comparator and distance-type pointer.

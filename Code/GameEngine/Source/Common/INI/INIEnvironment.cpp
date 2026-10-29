@@ -1,5 +1,5 @@
 // cl: /GX /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ?iniParseEnvironmentSkyboxTextureDefinition@@YAXPAVINI@@@Z @0x0020D6F5 177B.
 // Target identity: WB 0x00B4F600 names this function and INIEnvironment.cpp;
 // game.dat block registration 0x007AD845 binds "SkyboxTextureSet" to it.

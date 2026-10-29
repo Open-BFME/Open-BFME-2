@@ -1,5 +1,5 @@
 // cl: /O1 /Ob1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 // Rva0010225F: the planning UI post-effect holder; 0x0010231F is its Update.
 // Native 0x0010231F..0x00102404 (229 bytes) and WB 0x007760E0 independently
 // establish saving the +0/+4 pair into +10/+14, creating the lookup-table
@@ -32,7 +32,7 @@ struct EvaMessageInfo
 namespace _STL {
 // Existing Eva provider emits the native free-backed deallocator; do not
 // emit the stock node-allocator import from this caller configuration.
-template <> void allocator<EvaMessageInfo>::deallocate(EvaMessageInfo *, unsigned int) const;
+template <> void allocator<EvaMessageInfo>::deallocate(EvaMessageInfo *, unsigned int);
 template <> vector<EvaMessageInfo>& vector<EvaMessageInfo>::operator=(
  const vector<EvaMessageInfo>&);
 template <> vector<EvaMessageInfo>::~vector();

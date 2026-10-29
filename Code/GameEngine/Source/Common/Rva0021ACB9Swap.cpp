@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 //
 // ?Rva0021ACB9Swap@@YAXPAVRva0021915B@@0@Z, retail 0x0021ACB9, 74 bytes.
 // Swap 8-byte Rva0021915B entries via temp pair<const AsciiString,char>

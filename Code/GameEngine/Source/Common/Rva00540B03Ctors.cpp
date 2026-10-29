@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // Three related non-polymorphic ctors, 69B each, differing only in the final
 // member-init call (and the EH funclet id):

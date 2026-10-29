@@ -1,6 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // cl: /EHsc /Ireference/shims/moduledata /ICode/Libraries/Include/Lib
-// stlport
+// stlport46
 // ??0Rva00538E22@@QAE@H@Z, retail 0x00538E22, 28 bytes.
 // Ctor: 16-byte record vector at +0 plus int at +0xc. Calls rowed _Vector_base ctor 0x00211E58 then stores arg.
 // Evidence: retail lea [ebp+0xb] allocator temp plus mov [esi+0xc] plus ret 4 plus returns this.
@@ -84,7 +84,7 @@ namespace _STL { template <> _Vector_base<BfmeVectorRecord00319C84,allocator<Bfm
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeVectorRecord00319C84@@@_STL@@QBEXPAUBfmeVectorRecord00319C84@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeVectorRecord00319C84;
-namespace _STL { template <> void allocator<BfmeVectorRecord00319C84>::deallocate(BfmeVectorRecord00319C84 *,unsigned int) const; }
+namespace _STL { template <> void allocator<BfmeVectorRecord00319C84>::deallocate(BfmeVectorRecord00319C84 *,unsigned int); }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {

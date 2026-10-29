@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // Owning vector teardown for BfmeContainerRecord00048139 at 0x004B193.
 // The three sibling bodies live in StringContainerRecordVector.cpp
