@@ -46,6 +46,7 @@ class BfmeThingTTD
 {
 public:
 	BfmeThingTTD();
+	~BfmeThingTTD();
 	bool rva005B7032();
 	const unsigned short *m_name;
 	const unsigned short *m_imageFileName;
