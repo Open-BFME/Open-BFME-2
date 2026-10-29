@@ -1303,7 +1303,7 @@ LineGroupClass::LineGroupClass(void) :
 
 // LineGroupClass::~LineGroupClass: defined in LineGroupClassDestructor.cpp (its row's unit).
 
-// LineGroupClass::Set_Arrays: defined in LineGroupClassSetArrays.cpp (its row's unit).
+// LineGroupClass::Set_Arrays: defined in linegrp.cpp (its row's unit).
 
 // LineGroupClass::Set_Line_Size: defined in linegrp_float_setters.cpp (its row's unit).
 
