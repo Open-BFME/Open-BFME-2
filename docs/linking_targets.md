@@ -546,7 +546,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp` | 361 | 29 (U=22, C=6, S=1) | Open |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp` | 352 | 26 (U=14, C=7, S=5) | Open |
 | `Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva005E39F3Ctor.cpp` | 345 | 7 (U=7) | Open |
-| `Code/Libraries/Source/WWVegas/WWMath/tcbspline.cpp` | 340 | 17 (U=15, C=1, S=1) | Open |
+| `Code/Libraries/Source/WWVegas/WWMath/tcbspline.cpp` | 340 | 17 (U=15, C=1, S=1) | 2026-10-29: donor cleanup removes U=15; C=1/S=1 resize identity remains. Paired preview preserves peers; batch audit inconclusive, census pending. [Evidence](../reverse/attempt_support/tcbspline-emission-20261029-codex.md) |
 | `Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient.cpp` | 337 | 14 (U=10, C=2, S=2) | Open |
 | `Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp` | 327 | 3 (U=3) | Blocked: dtor rowed as placeholder `Rva004E0D67` (LINK-024); 2026-10-29: merged into `LivingWorldBuilding.cpp` |
 | `Code/Libraries/Source/WWVegas/WW3D2/decalmsh.cpp` | 326 | 6 (U=6) | Open |
