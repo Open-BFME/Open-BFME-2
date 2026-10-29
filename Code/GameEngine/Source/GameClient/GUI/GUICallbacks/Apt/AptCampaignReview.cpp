@@ -8,6 +8,11 @@
 // result text it sets and its TotalCampaignScore query. BFME 1's
 // AptScreenFactories.cpp (BfmeAptScreenCampaignReview) is the donor.
 
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP
 #include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
@@ -156,8 +161,6 @@ public:
 	int rva002B4DE2();
 	int rva002B5C1D();
 };
-
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 
 class GameTextInterface
 {
