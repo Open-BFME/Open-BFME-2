@@ -18,14 +18,6 @@ private:
 	int m_14;
 };
 
-class Rva0048BA39StringElement
-{
-public:
-	~Rva0048BA39StringElement();
-private:
-	AsciiString m_string;
-};
-
 class __declspec(novtable) TeamTemplateInfo : public Snapshot
 {
 public:
@@ -45,7 +37,7 @@ private:
 	char m_pad108[8];
 	AsciiString m_string110;
 	char m_pad114[4];
-	Rva0048BA39StringElement m_items118[32];
+	AsciiString m_items118[32];
 	char m_pad198[0x1EC - 0x198];
 };
 
