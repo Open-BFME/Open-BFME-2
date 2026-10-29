@@ -63,6 +63,73 @@ template <> list<int, allocator<int> >::iterator list<int, allocator<int> >::era
 }
 #include "GameLogicObjectLookupView.h"
 #include "GameLogic/ContainmentListView.h"
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<_List_node<Object *> >::deallocate(_List_node<Object *>* __p, size_t __n) const {
+ _STLP_ASSERT( (__p == 0) == (__n == 0) )
+ if (__p != 0) ::free((void*)__p);
+}
+template <> __declspec(dllimport) __forceinline
+void _STLP_alloc_proxy<_List_node<Object *>*,_List_node<Object *>,allocator<_List_node<Object *> > >::deallocate(_List_node<Object *>* __p, size_t __n) {
+ __stl_alloc_rebind(static_cast<allocator<_List_node<Object *> >&>(*this),(_List_node<Object *>*)0).deallocate(__p,__n);
+}
+}
+namespace _STL {
+template<> _List_base<int,allocator<int> >::_List_base(const allocator<int>&);
+template<> _List_base<int,allocator<int> >::~_List_base();
+}
+template <> void _STL::_List_base<int, _STL::allocator<int> >::clear();
+template <> _STL::_List_base<int, _STL::allocator<int> >::~_List_base();
+template <> _STL::_List_base<Object *, _STL::allocator<Object *> >::~_List_base();
+// __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU
+// COMDATs (one byte shape per TU malloc/free wiring); explicit
+// dllimport+forceinline specializations take those calls inline so this
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void *__malloc_alloc<0>::allocate(size_t __n)
+{ void *__r = malloc(__n); if (!__r) __r = _S_oom_malloc(__n); return __r; }
+template <> __declspec(dllimport) __forceinline
+void __malloc_alloc<0>::deallocate(void *__p, size_t)
+{ free((char *)__p); }
+}
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+class Coord3DBase
+{
+public:
+	float x;
+	float y;
+	float z;
+};
+typedef unsigned short UnsignedShort;
+// The native four-byte append is the rowed list<int> member at 0x0005548F,
+// also used by TunnelTracker's other ID list. Keep it out of line here.
+namespace _STL { template <> void list<int, allocator<int> >::push_back(const int &); }
 
 // ?Rva004F53A3Destroy@@YAXPAVObject@@@Z, retail 0x004F53A3, 32 bytes.
 // Chain from 0x0028FB6F: pushes Object+0x274 into Object::rva0028FB6F then
@@ -188,6 +255,46 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 
 class Rva00466398 {public:Rva0036AE51ListView rva00466398();};
 
+void XferObjectID( Xfer *xfer, ObjectID *value );
+
+Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<int> *values );
+
+class XferException
+{
+public:
+    XferException(int, const char *, ...);
+    XferException(const XferException &);
+    ~XferException();
+    char *text;
+    int tag;
+};
+
+// The existing matched Drawable provider sets Drawable's hidden byte at +0x43D
+// and refreshes it; the Object manager cascade is Object::rva0028BAC0
+// (0x0028BAC0). Neither original name is claimed here.
+class Drawable { public: void setDrawableHidden(bool hidden); };
+
+class Pathfinder { public: void RemoveObjectFromPathfindMap(Object *); };
+
+class AI
+{
+public:
+    char opaque00[0x10];
+    Pathfinder *m_pathfinder;
+};
+
+extern AI *TheAI;
+
+// Retail uses the existing four-byte list-node carriers for insertion/clear.
+// Pointer and ObjectID payloads have the same node width and trivial lifetime.
+namespace _STL
+{
+    template<> void list<int>::push_back(const int &);
+    template<> void _List_base<int, allocator<int> >::clear();
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
+
 // ---- from Code/GameEngine/Source/Common/RTS/TunnelTrackerContain.cpp
 
 //
@@ -260,8 +367,6 @@ void TunnelTracker::healObject( Object *obj, void *frames)
 
 	}  // end else
 }
-
-// tu-skeleton: 0x004F5391 18B ?rva004F5391@TunnelTracker@@UAEX_N@Z -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
 
@@ -434,12 +539,6 @@ bool TunnelTracker::isInContainer(ObjectID val)
 		!= reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->end();
 }
 
-// tu-skeleton: 0x004F55A0 119B ??0TunnelTracker@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x004F5617 6B ?GetSnapshotName@TunnelTracker@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x004F561D 103B ??1TunnelTracker@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004F56FCAdd.cpp
 
 // ?rva004F56FC@Rva004F56FC@@QAEXPAVObject@@@Z, retail 0x004F56FC, 31 bytes.
@@ -484,26 +583,174 @@ bool Rva004F56FC::rva004F571B(const Object*dead){
 
 inline __declspec(noinline) Rva0036AE51ListView Rva00466398::rva00466398(){Rva0036AE51ListView out;out.a=this?(void*)((char*)this+4):(void*)0;out.b=(ContainmentList*)((char*)this+16);return out;}
 
-// tu-skeleton: 0x004F579C 192B ?xfer@TunnelTracker@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp
 
-// tu-skeleton: 0x004F585C 188B ?loadPostProcess@TunnelTracker@@MAEXXZ -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerLoadPostProcess.cpp (not merged yet)
+TunnelTracker::TunnelTracker()
+{
+    m_tunnelCount = 0;
+    m_containListSize = 0;
+    m_curNemesisID = 0;
+    m_nemesisTimestamp = 0;
+    m_counter = 0;
+}
+
+void TunnelTracker::rva004F5391(bool up)
+{
+    if (up) ++m_counter;
+    else --m_counter;
+}
+
+const char *TunnelTracker::GetSnapshotName() const
+{
+    return "TunnelTracker";
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp
+
+// ??1TunnelTracker@@MAE@XZ retail 0x004F561D 103B
+// Zero Hour TunnelTracker::~TunnelTracker shape: clear the tunnel-ID list at
+// +8 (rowed folded _List_base<int>::clear 0x0023DAA5, EH state 3), then the
+// lists at +0x14, +0x10 and +8 are destroyed through the rowed folded
+// _List_base<int> dtor 0x004EC395; own vptrs C63234 (+0) and C63230 (+4, an
+// interface base with no dtor); the inline Snapshot-style base dtor restores
+// BBB554. Retail folds the element types to int; helper names are local.
+
+TunnelTracker::~TunnelTracker()
+{
+	m_tunnelIDs.clear();
+}
+
+// ---- from Code/GameEngine/Source/Common/RTS/TunnelTrackerXfer.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+// TunnelTracker::xfer, ported from Zero Hour's GameEngine/Source/Common/RTS/
+// TunnelTracker.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of the vftable whose
+// name getter returns "TunnelTracker".
+//
+// BFME 2 opens with the light-CRC gate and Version1. ZH's xferSTLObjectIDList
+// is the rowed helper 0x0036ABAF (over list<int>). The load loop appends
+// through the out-of-line list push_back 0x0005548F. ZH's fields are at
+// +0x08..+0x1C; BFME 2 adds an ObjectID (+0x20) and an UnsignedInt (+0x24).
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void TunnelTracker::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	// tunnel object id list
+	Rva0036ABAFXfer( xfer, &m_tunnelIDs );
+
+	// contain list count
+	*xfer == m_containListSize;
+
+	// contain list data
+	ObjectID objectID;
+	if( xfer->IsStoring() )
+	{
+		ContainedItemsList::const_iterator it;
+
+		for( it = m_containList.begin(); it != m_containList.end(); ++it )
+		{
+
+			objectID = (ObjectID)(*it)->getID();
+			XferObjectID( xfer, &objectID );
+
+		}  // end for, it
+
+	}  // end if, save
+	else
+	{
+
+		for( UnsignedShort i = 0; i < m_containListSize; ++i )
+		{
+
+			XferObjectID( xfer, &objectID );
+			m_xferContainList.push_back( reinterpret_cast<const int &>(objectID) );
+
+		}  // end for, i
+
+	}  // end else, load
+
+	// tunnel count
+	*xfer == m_tunnelCount;
+
+	XferObjectID( xfer, (ObjectID *)&m_curNemesisID );
+	*xfer == m_nemesisTimestamp;
+
+}
+
+  // end xfer
+
+// ---- from Code/GameEngine/Source/Common/RTS/TunnelTrackerLoadPostProcess.cpp
+
+// WB 0x01103EB0 names TunnelTracker::LoadPostProcess. Retail 0x004F585C..
+// 0x004F5918 proves the contained-object list at +0x10, saved IDs at +0x14,
+// and AI pathfinder at +0x10. ZH TunnelTracker.cpp and clean BFME1 donor
+// ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f's loadPostProcess supply the
+// save/load purpose and sequence; target-specific calls/layout come from retail.
+// The two failures share one throw tail; the enclosing scope lets its eight-byte
+// exception reuse the dead object-pointer home, as the retail stack frame does.
+
+// ?loadPostProcess@TunnelTracker@@MAEXXZ
+void TunnelTracker::loadPostProcess()
+{
+    {
+        unsigned count = 0;
+        _STL::_List_node_base *sentinel = m_containList._M_node._M_data;
+        for (_STL::_List_node_base *node = sentinel->_M_next;
+             node != sentinel; node = node->_M_next)
+            ++count;
+        if (count != 0)
+            goto failed;
+        Object *object;
+        _STL::list<int>::const_iterator it;
+        for (it = m_xferContainList.begin();
+             it._M_node != m_xferContainList.end()._M_node; ++it)
+        {
+            object = TheGameLogic->findObjectByID((ObjectID)*it);
+            if (!object)
+                goto failed;
+            reinterpret_cast<_STL::list<int> *>(&m_containList)->push_back(
+                reinterpret_cast<const int &>(object));
+            object->leaveGroup();
+            object->rva0028BAC0();
+            if (object->getDrawable())
+                object->getDrawable()->setDrawableHidden(true);
+            if (TheAI)
+                TheAI->m_pathfinder->RemoveObjectFromPathfindMap(object);
+        }
+        m_xferContainList.clear();
+        return;
+    }
+failed:
+    throw XferException(5, 0);
+}
 
 // tu-skeleton: 0x004F5919 28B ??_GTunnelTracker@@MAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerDeleter.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F60 8B Unwind@00b92f60 -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F68 11B $L4525 -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F73 11B Unwind@00b92f73 -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F7E 10B __ehhandler$??0TunnelTracker@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F88 8B uw_00792f88 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F90 11B uw_00792f90 -- matched in Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792F9B 11B $L3482 -- matched in Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792FA6 11B $L3483 -- matched in Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00792FB1 10B __ehhandler$??1TunnelTracker@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/TunnelTrackerDtor.cpp (not merged yet)
