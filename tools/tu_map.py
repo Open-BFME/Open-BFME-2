@@ -331,12 +331,13 @@ class Paths:
         return rel
 
 
-def zh_index(layout, paths):
+def zh_index(layout, paths, header_classes=frozenset()):
     """({(class, method): file}, {class: its one site file}, classes whose copy
     constructor a ZH .cpp defines out of line, the files of ZH's Tools/ programs).
     A member written inside a class body in a game .cpp is that file's definition
-    when no other .cpp writes the same (class, member); such a class counts each
-    .cpp that writes it as a site."""
+    when no other .cpp writes the same (class, member) and no ZH header defines a class
+    of that name (`header_classes`); such a class counts each .cpp that writes it as a
+    site."""
     meth, sites, copies, tools = {}, collections.defaultdict(set), set(), set()
     local = collections.defaultdict(set)     # (class, member) written inside a class a .cpp defines
     game = collections.defaultdict(set)      # (class, member) -> game .cpp files defining it out of line
@@ -371,6 +372,8 @@ def zh_index(layout, paths):
         else:
             meth[key] = next(iter(rels))     # a game file wins over a Tools/ copy
     for (c, m), rels in local.items():
+        if c in header_classes:              # a header's class of that name (WWLib's Pipe, not netserv.cpp's)
+            continue
         if len(rels) == 1 and (c, m) not in meth:
             meth[(c, m)] = next(iter(rels))
         sites[c].update(rels)
@@ -514,7 +517,8 @@ def expand_macros(text, macros, depth=3):
 def zh_header_members(layout):
     """{(class, member)} whose ZH body sits in a header: written inside the class (by hand
     or by a ZH header macro such as MAKE_STANDARD_MODULE_MACRO), or as an `inline X::y(`
-    definition at header scope."""
+    definition at header scope. A class whose body a header writes also gives
+    (class, None), so zh_index can tell a header's class from a .cpp's local one."""
     out = set()
     if not layout.zh.exists():
         return out
@@ -532,6 +536,7 @@ def zh_header_members(layout):
     for text in texts:
         out.update(zh_definitions(text))
         out.update(class_inline_members(expand_macros(text, macros)))
+        out.update((m.group(1), None) for m in CLASS_HEAD.finditer(CPP_NOISE.sub(_blank, text)))
     return out
 
 
@@ -869,8 +874,8 @@ def evidence_rows(layout, ledger=None):
         return None
 
     paths = Paths(layout, {r["source"] for r in rows if r["source"]})
-    zmeth, zsite, zcopy, ztools = zh_index(layout, paths)
     zhead = zh_header_members(layout)
+    zmeth, zsite, zcopy, ztools = zh_index(layout, paths, {c for c, _ in zhead})
     F = file_strings(layout, paths, owner)
     W = wb_files(layout, paths)
     upstream = upstream_files(layout, ledger)

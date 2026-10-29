@@ -256,6 +256,18 @@ def test_a_local_class_two_zh_cpps_write_anchors_neither(tmp_path):
     assert (out[0x1020]["by"], out[0x1020]["tu"]) == ("Z", "Code/X/Ocl.cpp")
 
 
+def test_a_local_class_sharing_a_header_class_name_anchors_nothing(tmp_path):
+    """Retail 0x00615890 ??0Pipe@@QAE@XZ is WWLib's Pipe (pipe.h); netserv.cpp writes an
+    unrelated local `class Pipe`. A header class of the same name vetoes the local one."""
+    out = _local_class(tmp_path, "")
+    assert out[0x1010]["by"] == "Z"                    # control: no header defines Nugget
+    hdr = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/X/Nugget.h"
+    hdr.write_text("class Nugget\n{\npublic:\n\tNugget(void);\n};\n")
+    out = {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+    for rva in (0x1010, 0x1020):
+        assert "Z=Code/X/Ocl.cpp" not in out[rva]["evidence"], hex(rva)
+
+
 def test_a_member_two_zh_game_files_define_names_neither(tmp_path):
     """CollisionMath::Collide has one overload per colmath*.cpp, and BW_Render::Buffer::
     Buffer reads as Buffer::Buffer beside WWLib's buff.cpp: a (class, member) that two
