@@ -43626,13 +43626,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00516EA7,25,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp
 0x00516EC0,19,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp
 0x00516ED3,22,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp
-0x00516EE9,31,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516ED3..0x00516F08 provisional,Code/GameEngine/Source/Common/Rva00517048Close.cpp
+0x00516EE9,31,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516ED3..0x00516F08 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00516F08,25,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
 0x00516F21,30,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516F3F provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00516F3F,36,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516F63 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00516F63,61,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516FA0 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00516FA0,9,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516FA9 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
-0x00516FA9,60,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516FE5 provisional,Code/GameEngine/Source/Common/Rva00516FA9Init.cpp
+0x00516FA9,60,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00516FE5 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00516FE5,66,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00516F08..0x00517027 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x00517027,33,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,U,N=Code/GameEngine/Source/Common/AptOnlineShell.cpp provisional,Code/GameEngine/Source/Common/Rva00517027Set.cpp
 0x00517048,108,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517027..0x005170B4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp

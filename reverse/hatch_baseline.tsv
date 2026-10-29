@@ -311,7 +311,6 @@ address_global	Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp	g_Va00E04450	
 address_global	Code/GameEngine/Source/Common/Rva00515Wrappers.cpp	g_Va00DD1538	5
 address_global	Code/GameEngine/Source/Common/Rva00515Wrappers.cpp	g_Va00E048DC	2
 address_global	Code/GameEngine/Source/Common/Rva00516E92Enable.cpp	g_Va00A04904	2
-address_global	Code/GameEngine/Source/Common/Rva00516FA9Init.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/Common/Rva00518262Enable.cpp	g_Va00A04908	3
 address_global	Code/GameEngine/Source/Common/Rva005185D8Init.cpp	g_Va00A04908	8
 address_global	Code/GameEngine/Source/Common/Rva00518769Dtor.cpp	g_Va00A04908	3
@@ -931,6 +930,7 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMesseng
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerFriendMenu.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMessengerOnline.cpp	g_Va00E046BC	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp	g_Va00E06394	3
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp	g_Va00A04904	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp	g_Va00E063F0	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCtor.cpp	g_Va00E063F0	2
