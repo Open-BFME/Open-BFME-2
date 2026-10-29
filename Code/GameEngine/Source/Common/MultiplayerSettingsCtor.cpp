@@ -31,14 +31,7 @@ private:
 	bool m_extraFlag; // +0x3C
 };
 
-extern const void *const g_00C191B8[];
-
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();
-	~SubsystemInterface();
-};
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 namespace _STL
 {
@@ -63,8 +56,6 @@ public:
 	~MultiplayerSettings();
 
 private:
-	const void *m_vtable; // +0x00, retail vtable 0x008191B8 (instruction holds 0x00C191B8)
-	char m_pad04[8]; // +0x04, preserves +0x0C layout (empty base via EBO)
 	int m_unknown0C; // +0x0C, zeroed
 	int m_startCountdownTimerSeconds; // +0x10, retail default 0x2710
 	int m_unknown14; // +0x14, zeroed
@@ -83,7 +74,6 @@ private:
 // ??0MultiplayerSettings@@QAE@XZ @0x3811D8
 MultiplayerSettings::MultiplayerSettings()
 	: SubsystemInterface()
-	, m_vtable(reinterpret_cast<const void *>(g_00C191B8))
 {
 	m_unknown0C = 0;
 	m_unknown14 = 0;

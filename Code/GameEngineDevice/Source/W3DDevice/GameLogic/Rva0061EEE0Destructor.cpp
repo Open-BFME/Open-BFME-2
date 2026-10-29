@@ -16,13 +16,7 @@
 // member is the asset-registry object; named here after the BFME2 ctor.
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Snapshot.h
 // Base ctor 0x001B4E63 / dtor 0x001B4E74 by their row names ??0/??1SubsystemInterface (SubsystemInterface.cpp).
-class SubsystemInterface
-{
-public:
-	SubsystemInterface();
-	virtual void anchor();
-	virtual ~SubsystemInterface();
-};
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 #define _STLP_USE_STATIC_LIB 1
 
@@ -249,10 +243,6 @@ public:
 	virtual ~Rva0061EEE0();
 
 private:
-	void *m_debugName;
-	// BFME2 reads the member at +0x0C (BFME1: +0x08): one unidentified dword
-	// sits between the debug name and the render object.
-	void *m_bfme08;
 	AssetManagerImpl *m_renderObject;
 };
 
@@ -260,11 +250,6 @@ Rva0061EEE0::~Rva0061EEE0()
 {
 	delete m_renderObject;
 }
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?anchor@SubsystemInterface@@UAEXXZ=??_GRva0061EEE0@@UAEPAXI@Z")
 
 // Clean BFME1 donor 9cbfb551fe20dae985f91f2319d8997287b6a705:
 // game/Libraries/Source/assetmanager/Gen_dtor_009eb9e0_Destructor.cpp.
