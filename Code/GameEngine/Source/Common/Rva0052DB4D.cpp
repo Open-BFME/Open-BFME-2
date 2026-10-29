@@ -5,7 +5,7 @@
 struct Rva0052DB4DObj
 {
 	char _pad00[0x74];
-	int m_74;
+	int m_id;
 };
 
 struct Rva0052DB4DNode
@@ -31,12 +31,12 @@ private:
 
 bool Rva0052DB4D::rva0052DB4D(int arg)
 {
-	Rva0052DB4DHead *h = m_0;
-	if (!h)
+	Rva0052DB4DHead *cellInfo = m_0;
+	if (!cellInfo)
 		return false;
-	for (Rva0052DB4DNode *node = h->m_1c; node; node = node->m_next)
+	for (Rva0052DB4DNode *node = cellInfo->m_1c; node; node = node->m_next)
 	{
-		if (((Rva0052DB4DObj *)node->m_8)->m_74 != arg)
+		if (((Rva0052DB4DObj *)node->m_8)->m_id != arg)
 			return true;
 	}
 	return false;

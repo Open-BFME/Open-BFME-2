@@ -393,11 +393,11 @@ bool Rva00369FDFGuardMachine::lookForInnerTarget()
 			visionRange = area->getRadius();
 			area->getCenterPoint(&pos);
 		}
-		PartitionFilterIsFlying f3;
+		PartitionFilterIsFlying flyingFilter;
 		if (getGuardMode() == GUARDMODE_GUARD_FLYING_UNITS_ONLY)
-			f1.link(&f3);
-		Rva0026119DFilter f4;
-		f1.link(&f4);
+			f1.link(&flyingFilter);
+		Rva0026119DFilter aliveFilter;
+		f1.link(&aliveFilter);
 		Rva0004584D f5(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 			*(const BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x36));
 		Rva00369FDFStatusNone none;
@@ -433,14 +433,14 @@ bool Rva00369FDFGuardMachine::lookForInnerTarget()
 		Rva00260EB1Filter f1(owner, 1, false);
 		Rva00261723Filter f2(area);
 		f1.link(&f2);
-		Rva0026119DFilter f4;
-		f1.link(&f4);
+		Rva0026119DFilter aliveFilter;
+		f1.link(&aliveFilter);
 		Rva0004584D f5(*(const BfmeFixedStorage0004543D *)&KINDOFMASK_NONE,
 			*(const BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x36));
 		f1.link(&f5);
-		PartitionFilterIsFlying f3;
+		PartitionFilterIsFlying flyingFilter;
 		if (getGuardMode() == GUARDMODE_GUARD_FLYING_UNITS_ONLY)
-			f1.link(&f3);
+			f1.link(&flyingFilter);
 		target = ThePartitionManager->getClosestObject(&pos, 99999.0f, 1, &f1);
 		if (target)
 		{

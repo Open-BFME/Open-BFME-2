@@ -87,10 +87,10 @@ class Rva005B5BDC
     unsigned int m_1C;
     bool m_20;
 public:
-    void rva005B5BDC(unsigned int arg);
+    void setSortColumn(unsigned int arg);
 };
 
-void Rva005B5BDC::rva005B5BDC(unsigned int arg)
+void Rva005B5BDC::setSortColumn(unsigned int arg)
 {
     unsigned int next = arg + 1;
     unsigned int old = m_18;
@@ -107,15 +107,15 @@ void Rva005B5BDC::rva005B5BDC(unsigned int arg)
 // 0x005B6A31 / 0x005B6A40 / 0x005B6A4F (15B each, RET4): column-header
 // callbacks that set sort column 0/2/4 and repopulate the hero list.
 void AptCreateAHero::Manager::rva005B6A31(void *) {
- reinterpret_cast<Rva005B5BDC *>(this)->rva005B5BDC(0);
+ reinterpret_cast<Rva005B5BDC *>(this)->setSortColumn(0);
  PopulateHeroList();
 }
 void AptCreateAHero::Manager::rva005B6A40(void *) {
- reinterpret_cast<Rva005B5BDC *>(this)->rva005B5BDC(2);
+ reinterpret_cast<Rva005B5BDC *>(this)->setSortColumn(2);
  PopulateHeroList();
 }
 void AptCreateAHero::Manager::rva005B6A4F(void *) {
- reinterpret_cast<Rva005B5BDC *>(this)->rva005B5BDC(4);
+ reinterpret_cast<Rva005B5BDC *>(this)->setSortColumn(4);
  PopulateHeroList();
 }
 void AptCreateAHero::Manager::rva005B6A05() {
@@ -182,7 +182,7 @@ struct Rva004F6986Member {
  __forceinline Rva004F6986Member(DelegateDesc desc) {
   reinterpret_cast<Rva00579E47 *>(this)->Rva00579E47::Rva00579E47(desc);
  }
- Rva004F6986Member(const Rva004F6986Member &o):ptr(o.ptr){if(ptr)++ptr->references;}
+ Rva004F6986Member(const Rva004F6986Member &otherBinding):ptr(otherBinding.ptr){if(ptr)++ptr->references;}
  ~Rva004F6986Member(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 class Rva004C5DD0 {public:Rva004C5DD0(const Rva004C5DD0 &other);private:TargetRef00217D4C *a,*b;};
@@ -193,7 +193,7 @@ struct Rva0044BA4E : Rva004C5DD0 {
 struct Rva0044BF40 {
  TargetRef00217D4C *ptr;
  Rva0044BF40(Rva004C5DD0 pair);
- Rva0044BF40(const Rva0044BF40 &o):ptr(o.ptr){if(ptr)++ptr->references;}
+ Rva0044BF40(const Rva0044BF40 &otherCallback):ptr(otherCallback.ptr){if(ptr)++ptr->references;}
  ~Rva0044BF40(){if(ptr)ReleaseTreeHintRef00217D4C(ptr);}
 };
 namespace n0044BF40 {extern "C" void __cdecl Rva00437F61(int,const UnicodeString &,const UnicodeString &,Rva0044BF40);}

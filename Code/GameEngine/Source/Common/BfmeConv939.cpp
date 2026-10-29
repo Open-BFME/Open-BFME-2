@@ -132,10 +132,10 @@ FieldParse g_bfmePathfinderFieldParse[2] = {
 
 class BfmeSub939E;
 
-void parsePathfinderDefinition(BfmeSub939E *a)
+void parsePathfinderDefinition(BfmeSub939E *ini)
 {
 	int tmp;
-	reinterpret_cast<INI *>(a)->initFromINI(&tmp, g_bfmePathfinderFieldParse);
+	reinterpret_cast<INI *>(ini)->initFromINI(&tmp, g_bfmePathfinderFieldParse);
 }
 
 // The pinned bfmeCall939G (0x0044BD79) is the rowed BfmeA1042N::bfmeGo1042D
@@ -163,7 +163,7 @@ public:
 
 void BfmeThing939G::bfmeGo939G(void *a)
 {
-	BfmeSub939G *s = &m_bfmeSub;
-	if (!a && s->m_bfmeP)
-		reinterpret_cast<BfmeA1042N *>(s)->bfmeGo1042D();
+	BfmeSub939G *callback = &m_bfmeSub;
+	if (!a && callback->m_bfmeP)
+		reinterpret_cast<BfmeA1042N *>(callback)->bfmeGo1042D();
 }

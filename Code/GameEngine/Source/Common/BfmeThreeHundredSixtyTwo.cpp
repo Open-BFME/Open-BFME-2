@@ -23,14 +23,14 @@ class BfmeThingVE
 public:
 	void *bfmeKillVE(int flags);
 	void *m_bfmeVft;
-	BfmeSubVE *m_bfmeSub;
-	void *m_bfmeWhat;
+	BfmeSubVE *m_input;
+	void *m_parser;
 };
 
 void *BfmeThingVE::bfmeKillVE(int flags)
 {
-	void *what = m_bfmeWhat;
-	BfmeSubVE *sub = m_bfmeSub;
+	void *what = m_parser;
+	BfmeSubVE *sub = m_input;
 	m_bfmeVft = __identifier("??_7BfmeParserBindingBaseVE@@6B@");
 	sub->bfmeDropVE(what);
 	if ((flags & 1) != 0)

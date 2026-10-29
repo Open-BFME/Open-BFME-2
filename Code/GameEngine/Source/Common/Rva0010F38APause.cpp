@@ -64,46 +64,46 @@ private:
 
 void Rva0010F38A::rva0010F38A()
 {
-    Rva00041004 *p;
+    Rva00041004 *streamLock;
     Rva0010F38AInner *inner = m_inner;
     if (inner != 0) {
-        Rva0010F38AMid *o = inner->m_outer;
-        if (o == 0)
-            p = 0;
+        Rva0010F38AMid *streamOwner = inner->m_outer;
+        if (streamOwner == 0)
+            streamLock = 0;
         else
-            p = (Rva00041004 *)((char *)o + 0x38);
+            streamLock = (Rva00041004 *)((char *)streamOwner + 0x38);
     } else
-        p = 0;
-    Rva0010F38AGuard g;
-    g.m_target = p;
-    g.m_locked = 0;
-    ((Rva0010F24F *)&g)->rva0010F24F();
+        streamLock = 0;
+    Rva0010F38AGuard lockGuard;
+    lockGuard.m_target = streamLock;
+    lockGuard.m_locked = 0;
+    ((Rva0010F24F *)&lockGuard)->rva0010F24F();
     void *stream = m_inner->m_stream;
     if (stream != 0)
         AIL_pause_stream(stream, 1);
-    if (g.m_locked != 0)
-        ((Rva0010F26E *)&g)->rva0010F26E();
+    if (lockGuard.m_locked != 0)
+        ((Rva0010F26E *)&lockGuard)->rva0010F26E();
 }
 
 void Rva0010F3DA::rva0010F3DA()
 {
-    Rva00041004 *p;
+    Rva00041004 *resumeLock;
     Rva0010F38AInner *inner = m_inner;
     if (inner != 0) {
-        Rva0010F38AMid *o = inner->m_outer;
-        if (o == 0)
-            p = 0;
+        Rva0010F38AMid *resumeOwner = inner->m_outer;
+        if (resumeOwner == 0)
+            resumeLock = 0;
         else
-            p = (Rva00041004 *)((char *)o + 0x38);
+            resumeLock = (Rva00041004 *)((char *)resumeOwner + 0x38);
     } else
-        p = 0;
-    Rva0010F38AGuard g;
-    g.m_target = p;
-    g.m_locked = 0;
-    ((Rva0010F24F *)&g)->rva0010F24F();
+        resumeLock = 0;
+    Rva0010F38AGuard resumeGuard;
+    resumeGuard.m_target = resumeLock;
+    resumeGuard.m_locked = 0;
+    ((Rva0010F24F *)&resumeGuard)->rva0010F24F();
     void *stream = m_inner->m_stream;
     if (stream != 0)
         AIL_pause_stream(stream, 0);
-    if (g.m_locked != 0)
-        ((Rva0010F26E *)&g)->rva0010F26E();
+    if (resumeGuard.m_locked != 0)
+        ((Rva0010F26E *)&resumeGuard)->rva0010F26E();
 }

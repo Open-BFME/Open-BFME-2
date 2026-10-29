@@ -29,10 +29,10 @@ public:
 	void initFromINIMulti(void *p, const MultiIniFieldParse &m);
 };
 
-void q4Notify002CC971(void *ini, Made002CC971 *m, int store, int userData)
+void q4Notify002CC971(void *ini, Made002CC971 *nugget, int store, int userData)
 {
-	MultiIniFieldParse tmp;
-	tmp.add((FieldParse *)Rva00507552Get(), 0);
-	tmp.add((const FieldParse *)g_emptyFieldParseTable, 0);
-	((INI *)ini)->initFromINIMulti(m, tmp);
+	MultiIniFieldParse multiFieldParse;
+	multiFieldParse.add((FieldParse *)Rva00507552Get(), 0);
+	multiFieldParse.add((const FieldParse *)g_emptyFieldParseTable, 0);
+	((INI *)ini)->initFromINIMulti(nugget, multiFieldParse);
 }

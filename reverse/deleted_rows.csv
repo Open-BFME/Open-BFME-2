@@ -3992,3 +3992,4 @@ __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCa
 __ehhandler$?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed to __ehhandler$?showPlayerTooltip@Rva005D5F86@@QAEXABVAsciiString@@@Z by tools/rename.py (inferred)"
 ?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0058A617,"Renamed to ?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0079CC92,"Renamed to __ehhandler$?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
+?rva005B5BDC@Rva005B5BDC@@QAEXI@Z,0x005B5BDC,"Renamed to ?setSortColumn@Rva005B5BDC@@QAEXI@Z by tools/rename.py (inferred)"

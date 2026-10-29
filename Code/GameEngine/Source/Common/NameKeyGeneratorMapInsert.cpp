@@ -116,12 +116,12 @@ public:
 		insert_result do_insert(const value_type &value);
 		int *insertNode(const value_type &value);
 
-		static int lookupKey(const value_type &v) { return v.first; }
+		static int lookupKey(const value_type &entry) { return entry.first; }
 		unsigned tableSize() const { return m_table.size(); }
 		Bucket *&tableAt(unsigned n) { return m_table.at(n); }
 		unsigned bkt_num_key(int key) const { return m_hash(key) % tableSize(); }
 		unsigned bkt_num(const value_type &obj) const { return bkt_num_key(lookupKey(obj)); }
-		bool keysEqual(int a, int b) const { return m_equals(a, b); }
+		bool keysEqual(int leftKey, int rightKey) const { return m_equals(leftKey, rightKey); }
 	};
 };
 
