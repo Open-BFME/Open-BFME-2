@@ -9,6 +9,14 @@
 #define FALSE false
 #define TRUE true
 #define FALSE false
+#define TRUE true
+#define FALSE false
+#define TRUE true
+#define FALSE false
+#define TRUE true
+#define FALSE false
+#define TRUE true
+#define FALSE false
 
 typedef bool Bool;
 
@@ -214,6 +222,8 @@ extern GameClient *TheGameClient;
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -298,20 +308,6 @@ void W3DDisplayString::computeExtents()
 		m_sizeY = extents.Y;
 	}
 }
-
-// tu-skeleton: 0x00105FE4 82B ?rva00105FE4@Rva00105FE4@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
-
-// tu-skeleton: 0x00106036 82B ?rva00106036@Rva00106036@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
-
-// tu-skeleton: 0x00106088 203B ??0W3DDisplayString@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00106153 15B ?getTextLength@DisplayString@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
-
-// tu-skeleton: 0x00106162 92B ??1W3DDisplayString@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001061BE 157B ?reset@W3DDisplayString@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0010625B 28B ??_GW3DDisplayString@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp
 
@@ -457,20 +453,92 @@ void W3DDisplayString::draw( Int x, Int y, Color xDrop, Color yDrop )
 		m_lastResourceFrame = TheGameClient->getFrame();
 }
 
+// tu-skeleton: 0x00105FE4 82B ?rva00105FE4@Rva00105FE4@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+
+// tu-skeleton: 0x00106036 82B ?rva00106036@Rva00106036@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp
+
+// ??0W3DDisplayString@@QAE@XZ, 0x00106088, 203B: W3DDisplayString::W3DDisplayString (named).
+// Evidence: pin plus BFME1 donor game/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
+// plus BFME2 layout of W3DDisplayStringDtor.cpp and W3DDisplayStringComputeExtents.cpp
+// (renderers +0x14/+0xD8 size 0xC4 and reset twin 0x001061BE) plus caller 0x00090619.
+
+W3DDisplayString::W3DDisplayString()
+{
+	m_textChanged = false;
+	m_textPos.x = 0;
+	m_textPos.y = 0;
+	for (int i = 0; i < 4; ++i) {
+		m_textColors[i] = 0;
+		m_dropColors[i] = 0;
+	}
+	m_hotKeyColor = -1;
+	m_sizeX = 0;
+	m_sizeY = 0;
+	m_fontChanged = false;
+	m_clipRegion.lo.x = 0;
+	m_clipRegion.lo.y = 0;
+	m_clipRegion.hi.x = 0;
+	m_clipRegion.hi.y = 0;
+	m_lastResourceFrame = 0;
+	m_useHotKey = false;
+	m_hotKeyPos.x = 0;
+	m_hotKeyPos.y = 0;
+	m_colorKey = 0;
+	m_bfmeColorsChanged = true;
+}
+
+// tu-skeleton: 0x00106153 15B ?getTextLength@DisplayString@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp
+
+//
+// ??1W3DDisplayString@@UAE@XZ, retail 0x00106162, 92 bytes (pinned; rowed
+// deleting wrapper 0x0010625B). The Zero Hour destructor is empty; what
+// retail runs is member and base teardown. Retail's unwind map destroys
+// the DisplayString base (rowed dtor 0x00358994) in state 0 and two
+// Render2DSentenceClass members at +0x14 and +0xD8 in states 1 and 2
+// (m_textRenderer, m_textRendererHotKey), whose destructor is 0x00157C70.
+// The UnicodeString released first at +0x19C directly follows them, so
+// Render2DSentenceClass is 0xC4 bytes here. 0x00157C70 restores vtable
+// 0x007D3C80, whose only slot is the rowed Render2DSentenceClass::Reset, so
+// it is that class's non-virtual destructor, pinned from these calls.
+// Supersedes the blocked BFME1 transfer, which had those members at
+// +0xE0/+0x1B0.
+
+W3DDisplayString::~W3DDisplayString()
+{
+}
+
+void W3DDisplayString::reset()
+{
+	DisplayString::reset();
+	(&m_textRenderer)->Reset();
+	(&m_textRendererHotKey)->Reset();
+	m_textChanged = false;
+	m_textPos.x = 0;
+	m_textPos.y = 0;
+	for (int i = 0; i < 4; ++i) {
+		m_textColors[i] = 0;
+		m_dropColors[i] = 0;
+	}
+	m_hotKeyColor = -1;
+	m_sizeX = 0;
+	m_sizeY = 0;
+	m_fontChanged = false;
+	m_clipRegion.lo.x = 0;
+	m_clipRegion.lo.y = 0;
+	m_clipRegion.hi.x = 0;
+	m_clipRegion.hi.y = 0;
+	m_lastResourceFrame = 0;
+	m_useHotKey = false;
+	m_hotKeyPos.x = 0;
+	m_hotKeyPos.y = 0;
+	m_bfmeColorsChanged = true;
+	m_hotkey.clear();
+}
+
 // tu-skeleton: 0x00106663 80B ?notifyTextChanged@W3DDisplayString@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
 
 // tu-skeleton: 0x001066B3 88B ?setFont@W3DDisplayString@@UAEXPAVGameFont@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
-
-// tu-skeleton: 0x0076441D 8B $L1897 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764425 11B $L1898 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764430 10B __ehhandler$??0W3DDisplayString@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076443A 8B uw_0076443a -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764442 11B ?rva00764442@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076444D 14B ?rva0076444d@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0076445B 10B __ehhandler$??1W3DDisplayString@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
