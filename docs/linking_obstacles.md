@@ -10168,6 +10168,14 @@ reports LINKS, 4,872 -> 4,872 authored bytes against index `840db2d676`
 `free:abi` finding; the existing static `floorf` declaration remains to keep
 the header inline local. No census gain or ownership improvement is claimed.
 
+Post-rebase batch audit: INCONCLUSIVE. Index `840db2d676` predates the outgoing
+base, and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Carry that consumer and this provider into the next scheduled census;
+the clean ordinary preview and unchanged object facts establish only the
+scoped result above. Rebased verification again passes all 31 rows and LINKS
+4,872 -> 4,872 bytes.
+
 ### LINK-145: InGameUI.cpp host kept unrowed Zero Hour bodies whose callees BFME 2 does not provide (2026-10-29)
 
 Status: partly repaired; the host does not link yet. Census 2026-10-29 15:08 at
