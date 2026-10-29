@@ -341,6 +341,17 @@ or two names, repaired where the cause is local:
   declares it too; only that vtable's digest changes (cc9059c20428 -> 236251dce123, equal
   to the unit's). 8/8 donor rows; scoped DIR32 over the donor and the seven
   FireWeaponWhenDead sources OK; link_check (census and rt5 order) 2,236 -> 2,445 B.
+Verification (halilkkaya-lk7, 2026-10-29, tree `0e1f80a20e`): re-ranking the census index by
+retail-truth-5 over the current ledger (`rt5_now`-style simulation: objects gone from the ledger
+keep their census-ledger place) lists 58 census-linked units that would newly fail on census
+copies. The retail-truth-5-ordered link_check (`rt5_lc.py`) over those 58 plus the 13 repaired
+providers' current objects: 53 of 61 link (77,016 B). Of the eight that do not, four are
+providers the census already counts unlinked (registerTabList, AIUpdate, Rva0052CD81Finish,
+Player.cpp: 0 -> 0); three are the class-view cases above (ThingTemplateConstructor.cpp,
+Rva0033DDA1Dtor.cpp, LivingWorldLogicDtorRva002B964F.cpp: 3,368 B); and
+Rva005E3AE1Dtor.cpp (22 B) only because its retail `??_GRva005E3AE1` provider is now the merged
+SBServer.cpp, which the census index lacks (its object holds retail digest 9b3295d907e3 and
+sorts first, 0x005E3AE1 < 0x005F4AA3). No other loss is open.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
@@ -797,6 +808,16 @@ census index under the new rule turns 10 names' kept copy non-wrong (125 units,
 271,771 B blocked only by them) and 35 names wrong (50 linked units, 43,547 B upper
 bound); the second set is LINK-135. Census confirmation awaits the first retail-truth-5
 census.
+Preview (2026-10-29, halilkkaya-lk7, tree `0e1f80a20e`): link_check judges selection by census
+index position, so it still shows these holders' copies as kept. With the index permuted into
+retail-truth-5 order over the current ledger (`rt5_lc.py`, evidence directory of LINK-135), the
+`vector<Object *>`, `floorf`/`??_EPendingSurfaceStruct` and `set<Rva001408C0Target>` consumers LINK:
+HordeContainIface11CSlots.cpp (23,871 B), GameEngineInit.cpp (9,424 B), AIStructureCreepTactic.cpp,
+AITactic.cpp, GenericObjectCreationNuggetReallyCreate.cpp, AIBuilder.cpp, AISPecialPowerTargetAoE.cpp,
+HordeContainRva00475F61.cpp, render2dsentence.cpp, W3DVideoStateAllocate.cpp, CastleBehaviorRva00398E9A.cpp
+and the TerrainResourceManager units; so do the holders Rva00622290CollectKeys.cpp (3,183 B)
+and Render2DSentenceDrawBFME2.cpp (2,448 B), which census-order link_check still shows losing one
+COMDAT each. Preview only; no census gain claimed.
 Updated: 2026-10-28; inspected revision: `4506f9bc93`, index at `c8734bec0c`.
 Evidence / affected units: `link_census.link_order` (and `allowed_symbols.link_order`,
 `link_check`, `tu_skeleton`) places an object by the lowest RVA of any matched row,
