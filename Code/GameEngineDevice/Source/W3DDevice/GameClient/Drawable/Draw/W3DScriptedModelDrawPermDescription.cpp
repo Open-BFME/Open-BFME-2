@@ -47,7 +47,7 @@ void W3DScriptedModelDraw::rva000BB4CE(AsciiString *out, int perLine)
 	n = perms.size();
 	for (i = 0; i < n; i++)
 	{
-		const Rva000BB4CEEntry &e = m_permanents[i];
+		const Rva000BB4CEEntry &stateEntry = m_permanents[i];
 		if (!first)
 			reinterpret_cast<StringBase<char> *>(out)->concat(", ");
 		if (count >= perLine)
@@ -55,14 +55,14 @@ void W3DScriptedModelDraw::rva000BB4CE(AsciiString *out, int perLine)
 			count = 0;
 			reinterpret_cast<StringBase<char> *>(out)->concat("\n");
 		}
-		if (e.m_off)
+		if (stateEntry.m_off)
 		{
-			entry.format("-Perm:%s", e.m_name.str());
+			entry.format("-Perm:%s", stateEntry.m_name.str());
 			out->concat(entry);
 		}
 		else
 		{
-			entry.format("+Perm:%s", e.m_name.str());
+			entry.format("+Perm:%s", stateEntry.m_name.str());
 			out->concat(entry);
 		}
 		first = false;
@@ -72,7 +72,7 @@ void W3DScriptedModelDraw::rva000BB4CE(AsciiString *out, int perLine)
 	n = states.size();
 	for (i = 0; i < n; i++)
 	{
-		const Rva000BB4CEEntry &e = m_states[i];
+		const Rva000BB4CEEntry &stateEntry = m_states[i];
 		if (!first)
 			reinterpret_cast<StringBase<char> *>(out)->concat(", ");
 		if (count >= perLine)
@@ -80,14 +80,14 @@ void W3DScriptedModelDraw::rva000BB4CE(AsciiString *out, int perLine)
 			count = 0;
 			reinterpret_cast<StringBase<char> *>(out)->concat("\n");
 		}
-		if (e.m_off)
+		if (stateEntry.m_off)
 		{
-			entry.format("-%s", e.m_name.str());
+			entry.format("-%s", stateEntry.m_name.str());
 			out->concat(entry);
 		}
 		else
 		{
-			entry.format("+%s", e.m_name.str());
+			entry.format("+%s", stateEntry.m_name.str());
 			out->concat(entry);
 		}
 		first = false;

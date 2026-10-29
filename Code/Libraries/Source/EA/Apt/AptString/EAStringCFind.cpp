@@ -161,9 +161,9 @@ int EAStringC::Replace(char cOld, char cNew)
 		if (g_bfmeAptBreakOnAssertAtDDC01C)
 			__debugbreak();
 	}
-	char *p = GetInternalBuffer();
-	while ((p = strchr(p, cOld)) != 0)
-		*p++ = cNew;
+	char *cursor = GetInternalBuffer();
+	while ((cursor = strchr(cursor, cOld)) != 0)
+		*cursor++ = cNew;
 	return 0;
 }
 
@@ -180,8 +180,8 @@ bool EAStringC::startsWith(const char *text) const
 	unsigned int len = strlen(text);
 	if ((unsigned int)m_pData->m_uSize < len)
 		return false;
-	bool r = memcmp(GetInternalBuffer(), text, len) == 0;
-	return r;
+	bool prefixMatches = memcmp(GetInternalBuffer(), text, len) == 0;
+	return prefixMatches;
 }
 
 // ?endsWith@EAStringC@@QBE_NPBD@Z, retail 0x006D3B30 (105B): text assert

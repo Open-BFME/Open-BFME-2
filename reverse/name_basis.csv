@@ -3995,3 +3995,15 @@ member,Rva00131B1FSurface::m_dim28,Rva00131B1FSurface::m_width,inferred,agree:nl
 member,Rva00131B1FSurface::m_dim2C,Rva00131B1FSurface::m_height,inferred,agree:nl-00e0c8d6d49b,Code/Libraries/Source/WWVegas/WW3D2/TextureSurfaceMemory.cpp,
 member,Rva00131B1FSurface::m_dim30,Rva00131B1FSurface::m_depth,inferred,agree:nl-3bdec307abaa,Code/Libraries/Source/WWVegas/WW3D2/TextureSurfaceMemory.cpp,
 local,Rva0054A82C::nextWithNumeric::tmp,Rva0054A82C::nextWithNumeric::endIterator,inferred,agree:nl-013e9e227ad1,Code/Libraries/Source/WWVegas/WWLib/Rva0054A67BSiftUp.cpp,0x0054A82C
+param,Rva005F8CB0Ref::p,Rva005F8CB0Ref::buttonObject,inferred,agree:nl-6e0e9088645a-m27aae6347402efa60308b73a,Code/GameEngine/Source/Common/Bfme/Rva005E8AAFCtor.cpp,
+local,Rva002E6F92Info::cellCallback::t,Rva002E6F92Info::cellCallback::worldPosition,inferred,agree:nl-6b76f2123139-me93e438e2a09d5f270e5b206,Code/GameEngine/Source/Common/Rva002E6F92Finish.cpp,0x002E6F92
+param,Rva004C6F77Median::a,Rva004C6F77Median::firstCandidate,inferred,agree:nl-aab496c613f5,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,0x004C6F77
+param,Rva004C6F77Median::b,Rva004C6F77Median::secondCandidate,inferred,agree:nl-2e92556823fa,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,0x004C6F77
+param,Rva004C6F77Median::c,Rva004C6F77Median::thirdCandidate,inferred,agree:nl-04ec59ca1b03,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,0x004C6F77
+local,Rva004C7449Sort::v,Rva004C7449Sort::sortValue,inferred,agree:nl-20cf07aed407,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,0x004C7449
+function,?Rva002221A9ForEach@@YAXAAVRva002221A9Visitor@@@Z,?forEachInGameNotificationType@@YAXAAVRva002221A9Visitor@@@Z,inferred,agree:nl-d8654fec38d8,Code/GameEngine/Source/GameClient/GUI/InGame/InGameNotificationType.cpp,0x002221A9
+local,Rva00086D73::rva00086D73::v,Rva00086D73::rva00086D73::angleDegrees,inferred,agree:nl-caa38d2ce885-m80d5b4b8fe97d2ce4e08ce87,Code/GameEngine/Source/GameClient/Rva00086D73Update.cpp,0x00086D73
+local,ScriptActions::Rva003C5825Do::s,ScriptActions::Rva003C5825Do::commandSetName,inferred,agree:nl-9d06aac6fa91-m18591595233faf6e1164628f,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C5825Do.cpp,0x003C5825
+local,W3DScriptedModelDraw::rva000BB4CE::e,W3DScriptedModelDraw::rva000BB4CE::stateEntry,inferred,agree:nl-8b926633b5a1-m6f0dfff0e35ef8c040beb4be,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawPermDescription.cpp,0x000BB4CE
+local,EAStringC::Replace::p,EAStringC::Replace::cursor,inferred,agree:nl-b2516bf8a12d-m4d85409a34ca36f601bcc6c2,Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,0x006D3A40
+local,EAStringC::startsWith::r,EAStringC::startsWith::prefixMatches,inferred,agree:nl-b7368a8b2a31-m6cc92ded631475d1acc81b98,Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,0x006D3AD0

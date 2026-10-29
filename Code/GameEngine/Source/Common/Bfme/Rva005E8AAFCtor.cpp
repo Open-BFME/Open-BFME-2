@@ -89,7 +89,7 @@ public:
  virtual ~Rva005F8CB0();
 };
 struct Rva005F8CB0Ref {
- Rva005F8CB0Ref(Rva005F8CB0* p):m_object(p) { if(p) ++p->Rva005F8CB0Base0::m_04; }
+ Rva005F8CB0Ref(Rva005F8CB0* buttonObject):m_object(buttonObject) { if(buttonObject) ++buttonObject->Rva005F8CB0Base0::m_04; }
  ~Rva005F8CB0Ref();
  Rva005F8CB0 *m_object;
 };

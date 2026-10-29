@@ -282,7 +282,7 @@ public:
 	virtual bool visit(InGameNotificationType *type) = 0;
 };
 
-void Rva002221A9ForEach(Rva002221A9Visitor &visitor)
+void forEachInGameNotificationType(Rva002221A9Visitor &visitor)
 {
 	if (!g_00DFE4C4.m_ptr)
 		Rva002220DCInit();

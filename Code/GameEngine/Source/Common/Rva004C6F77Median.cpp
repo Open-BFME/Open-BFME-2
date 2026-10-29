@@ -7,20 +7,20 @@
 // the STL __median pivot helper used by the 0x004C755B binary search.
 typedef bool (__cdecl *Rva004C6F77Pred)(void *a, void *b);
 
-void *Rva004C6F77Median(void *a, void *b, void *c, Rva004C6F77Pred pred)
+void *Rva004C6F77Median(void *firstCandidate, void *secondCandidate, void *thirdCandidate, Rva004C6F77Pred pred)
 {
-	if (pred(a, b)) {
-		if (pred(b, c))
-			return b;
-		if (pred(a, c))
-			return c;
-		return a;
+	if (pred(firstCandidate, secondCandidate)) {
+		if (pred(secondCandidate, thirdCandidate))
+			return secondCandidate;
+		if (pred(firstCandidate, thirdCandidate))
+			return thirdCandidate;
+		return firstCandidate;
 	} else {
-		if (pred(a, c))
-			return a;
-		if (pred(b, c))
-			return c;
-		return b;
+		if (pred(firstCandidate, thirdCandidate))
+			return firstCandidate;
+		if (pred(secondCandidate, thirdCandidate))
+			return thirdCandidate;
+		return secondCandidate;
 	}
 }
 
@@ -82,8 +82,8 @@ void Rva004C7449Sort(void *first, void *last, Rva004C6F77Pred pred)
 	if (first == last)
 		return;
 	for (char *esi = (char *)first + 8; esi != last; esi += 8) {
-		Rva004C6FD0Val v = *(Rva004C6FD0Val *)esi;
-		Rva004C73C5Insert(first, esi, v, pred);
+		Rva004C6FD0Val sortValue = *(Rva004C6FD0Val *)esi;
+		Rva004C73C5Insert(first, esi, sortValue, pred);
 	}
 }
 

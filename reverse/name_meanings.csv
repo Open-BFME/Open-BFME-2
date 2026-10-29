@@ -11,3 +11,15 @@ Code/Libraries/Source/Apt/Rva006E3230Validate.cpp|local|AptActionQueueC::rva006E
 Code/GameEngine/Source/GameLogic/Object/Made002CCA37Parse.cpp|local|q4Notify002CCA37|tmp,8e9b9710eef1d42195b6cc9e,gpt-6.1-sol,w3-10282257-11,w-46dfa4623b23,2026-10-28,da677a1f03b0d7f3e2a10122
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ACD0FCtor.cpp|param|Rva003ACD0F::Rva003ACD0F|a,874ed838df407bed921eeb6b,gpt-6.1-sol,w1-10290009-7,w-6d5d2b593eca,2026-10-29,55518e08d2715b66b2f05566
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003ACD0FCtor.cpp|param|Rva003ACD0F::Rva003ACD0F|b,da43f0cf1408d54e339bc4d5,gpt-6.1-sol,w1-10290009-7,w-6d5d2b593eca,2026-10-29,952dfebc9e4a3f744283a2dd
+Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp|local|EAStringC::Replace|p,b2516bf8a12d862f4f66d41b,gpt-6.1-sol,w1-10290045-2,w-6d5d2b593eca,2026-10-29,4d85409a34ca36f601bcc6c2
+Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp|local|EAStringC::startsWith|r,68351536359a296ab2666761,gpt-6.1-sol,w1-10290045-2,w-6d5d2b593eca,2026-10-29,6cc92ded631475d1acc81b98
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C5825Do.cpp|param|ScriptActions::Rva003C5825Do|p,1a12b46abce7c64ab9311705,gpt-6.1-sol,w1-10290045-5,w-6d5d2b593eca,2026-10-29,09bce8ed63dc806392b84af9
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C5825Do.cpp|local|ScriptActions::Rva003C5825Do|s,d3ac96aa358e386868eaa80e,gpt-6.1-sol,w1-10290045-5,w-6d5d2b593eca,2026-10-29,18591595233faf6e1164628f
+Code/GameEngine/Source/Common/Rva004EDDD3.cpp|local|AITactic::calcLastTeamPos|p,de7ed655a54834bac9bbe469,gpt-6.1-sol,w1-10290045-6,w-6d5d2b593eca,2026-10-29,551fefb005bc172eefa950ed
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawPermDescription.cpp|local|W3DScriptedModelDraw::rva000BB4CE|n,de7077db966f52974628dc2b,gpt-6.1-sol,w1-10290045-7,w-6d5d2b593eca,2026-10-29,d4846ff573b66421c8818446
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawPermDescription.cpp|local|W3DScriptedModelDraw::rva000BB4CE|e,3407d054837f46982e499dbb,gpt-6.1-sol,w1-10290045-7,w-6d5d2b593eca,2026-10-29,6f0dfff0e35ef8c040beb4be
+Code/GameEngine/Source/GameClient/Rva00086D73Update.cpp|local|Rva00086D73::rva00086D73|v,1d882122cda93b4fec350dae,gpt-6.1-sol,w1-10290045-10,w-6d5d2b593eca,2026-10-29,80d5b4b8fe97d2ce4e08ce87
+Code/GameEngine/Source/Common/Bfme/Rva005E8AAFCtor.cpp|param|Rva005F8CB0Ref|p,99296e01430c6c4fdc24813d,gpt-6.1-sol,w1-10290045-11,w-6d5d2b593eca,2026-10-29,27aae6347402efa60308b73a
+Code/GameEngine/Source/Common/Rva002E6F92Finish.cpp|param|Rva002E6F92Info::cellCallback|a,7df421fed2a1f6d9ec6db4cb,gpt-6.1-sol,w1-10290045-12,w-6d5d2b593eca,2026-10-29,dee90fe293fb647df10297ac
+Code/GameEngine/Source/Common/Rva002E6F92Finish.cpp|param|Rva002E6F92Info::cellCallback|b,bfe7ecdbc42bbb82787631b1,gpt-6.1-sol,w1-10290045-12,w-6d5d2b593eca,2026-10-29,c8234d1259a82911bd4fd31a
+Code/GameEngine/Source/Common/Rva002E6F92Finish.cpp|local|Rva002E6F92Info::cellCallback|t,3ebb169b41fac0e59b9f8b0d,gpt-6.1-sol,w1-10290045-12,w-6d5d2b593eca,2026-10-29,e93e438e2a09d5f270e5b206

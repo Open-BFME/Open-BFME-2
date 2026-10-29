@@ -35,11 +35,11 @@ int Rva002E6F92Info::cellCallback(PathfindCell *previous, PathfindCell *current,
 	int bits = in->m_bits & 0xF;
 	if (bits == 7 || bits == 1) {
 		struct TwoFloats { float a, b; };
-		TwoFloats t;
-		t.a = (float)(a * 10);
-		t.b = (float)(b * 10);
-		m_00 = t.a;
-		m_04 = t.b;
+		TwoFloats worldPosition;
+		worldPosition.a = (float)(a * 10);
+		worldPosition.b = (float)(b * 10);
+		m_00 = worldPosition.a;
+		m_04 = worldPosition.b;
 		m_08 = 0.0f;
 		return 0;
 	}
