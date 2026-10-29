@@ -17,9 +17,7 @@ class Vector3
 {
 };
 
-class Vector4
-{
-};
+#include "../WWMath/Vector4Data.h"
 
 class SphereClass
 {

@@ -125,11 +125,7 @@ void BFME2Set_Texture(unsigned stage, const BFME2TextureRef &texture);
 // slot 57, SetPixelShader 107, SetPixelShaderConstantF 109.
 struct IDirect3DDevice8;
 
-class Vector4
-{
-public:
-	float X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 struct D3DXVECTOR4
 {

@@ -56,13 +56,7 @@ enum PathfindLayerEnum
 	LAYER_INVALID = 0
 };
 
-struct Vector4
-{
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

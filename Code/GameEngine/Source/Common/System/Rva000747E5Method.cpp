@@ -75,15 +75,7 @@ void Rva000747E5::rva000748DF(int val)
 // Evidence: unlock lane, static init caller 0x00074AFF with ecx=0xDE1ED8, size 0x10 count 3 per retail.
 // Rva000748F6Builders.cpp identifies +4 as Matrix3D; its three rows are
 // Vector4 in the BFME1 WWMath declaration. Keep the provider declaration-only.
-class Vector4
-{
-public:
-	Vector4() throw();
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Rva000748F6
 {

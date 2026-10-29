@@ -11,7 +11,7 @@
 void __cdecl operator delete[](void *) throw();
 
 class Vector3 { public: Vector3() {} float X, Y, Z; };
-class Vector4 { public: Vector4() {} float X, Y, Z, W; };
+#include "../WWMath/Vector4Data.h"
 
 #include "simplevec.h"
 

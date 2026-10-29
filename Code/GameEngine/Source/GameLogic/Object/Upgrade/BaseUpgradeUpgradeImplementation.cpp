@@ -36,16 +36,7 @@ struct Rva004B37CAPosition : Coord3D {
  ~Rva004B37CAPosition() {}
  void set(float ax,float ay,float az) {x=ax;y=ay;z=az;}
 };
-class Vector4
-{
-public:
-	Vector4() {}
-
-	Real X;
-	Real Y;
-	Real Z;
-	Real W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Matrix3D
 {

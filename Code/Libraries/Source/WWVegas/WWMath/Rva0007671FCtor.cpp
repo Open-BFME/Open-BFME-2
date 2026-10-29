@@ -11,15 +11,7 @@
 // (0x0014D44C, 0x0007C1AE, 0x0007C220) and use them in Matrix4::Multiply
 // chains, so the rows are WWMath Vector4s (Zero Hour vector4.h: four floats,
 // empty inline ctor).
-class Vector4
-{
-public:
-	Vector4() {}
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "Vector4Data.h"
 class Rva0007671F
 {
 public:

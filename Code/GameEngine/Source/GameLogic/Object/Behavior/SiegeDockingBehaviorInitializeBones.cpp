@@ -32,15 +32,7 @@ struct BfmeRadarWorldPoint : Coord3D { BfmeRadarWorldPoint(); ~BfmeRadarWorldPoi
 // One 16-byte transform row (Vector4 layout); the nullary row ctor is the
 // shared inline Vector4 body, so this TU's Matrix3D default ctor matches the
 // linked copy instead of offering a SpawnBoneRow-ctor variant to the link.
-class Vector4
-{
-public:
-	__forceinline Vector4() {}
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 // The bone transform: three 16-byte rows and an empty inline constructor.
 class Matrix3D

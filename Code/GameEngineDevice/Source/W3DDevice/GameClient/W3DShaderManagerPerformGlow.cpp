@@ -44,14 +44,7 @@ public:
 	float Z;
 };
 
-class Vector4
-{
-public:
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 struct D3DXVECTOR4
 {

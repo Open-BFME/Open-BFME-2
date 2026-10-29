@@ -39,7 +39,7 @@ struct D3DXVECTOR4
 	D3DXVECTOR4(float xValue, float yValue, float zValue, float wValue) : x(xValue), y(yValue), z(zValue), w(wValue) {}
 };
 
-class Vector4 { public: float X, Y, Z, W; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 struct IDirect3DSurface8;
 struct IDirect3DTexture8;

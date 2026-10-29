@@ -40,12 +40,7 @@ struct Rva0007BB16Record
 
 // The 36-byte FXShader parameter record: name and type through the rowed
 // constructor, the float vector value at +0x0C and the integer value at +0x1C.
-struct Vector4
-{
-	float X, Y, Z, W;
-	Vector4() {}
-	Vector4(float x, float y, float z, float w) { X = x; Y = y; Z = z; W = w; }
-};
+#include "../WWMath/Vector4Data.h"
 struct BfmeAssignRecord36
 {
 	BfmeAssignRecord36(const char *name, int type);

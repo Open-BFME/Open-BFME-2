@@ -51,11 +51,7 @@ public:
 	Real X, Y, Z;
 };
 
-class Vector4
-{
-public:
-	Real X, Y, Z, W;
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 #include "../../../../../Libraries/Include/Lib/RGBColor.h"
 

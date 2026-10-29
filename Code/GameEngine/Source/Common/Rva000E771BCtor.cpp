@@ -8,15 +8,7 @@
 // Evidence: pushes 0x87A6A9 3 0x10 lea +0x10 call 0x1423 mov eax,esi;
 // prev W3DShrubBuffer::rva000E76B8 ends at 0xE771B; caller at 0x000E98C5.
 
-class Vector4
-{
-public:
-	Vector4() {}
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class Rva000E771B
 {

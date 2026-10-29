@@ -287,7 +287,7 @@ struct ZeroCoord2D { float x, y; ZeroCoord2D() { x = 0.0f; y = 0.0f; } };
 struct ZeroICoord2D { int x, y; ZeroICoord2D() { x = 0; y = 0; } };
 struct ZeroICoord3D { int x, y, z; ZeroICoord3D() { x = 0; y = 0; z = 0; } };
 class Rva0042526Member { public: Rva0042526Member(); unsigned char m_data[0x4C]; };
-class Vector4 { public: __forceinline Vector4() {} float X, Y, Z, W; };
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 class Matrix3D { public: __forceinline Matrix3D() {} Vector4 Row[3]; };
 class Rva002913EB
 {

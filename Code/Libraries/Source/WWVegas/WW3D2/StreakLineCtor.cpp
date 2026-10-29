@@ -23,12 +23,7 @@ void operator delete[](void *) throw();
 
 #include "simplevec.h"
 
-class Vector4
-{
-public:
- Vector4() {}
-	float X, Y, Z, W;
-};
+#include "../WWMath/Vector4Data.h"
 
 // Emit only the owned Vector4 template bodies.
 template bool SimpleVecClass<Vector4>::Resize(int);

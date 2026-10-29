@@ -29,11 +29,7 @@
 
 struct IDirect3DDevice8;
 
-class Vector4
-{
-public:
-	float X, Y, Z, W;
-};
+#include "../WWMath/Vector4Data.h"
 
 extern unsigned number_of_DX8_calls;
 

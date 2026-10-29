@@ -164,12 +164,7 @@ struct IDirect3DDevice8;
 
 extern unsigned number_of_DX8_calls;
 
-class Vector4
-{
-public:
-	Vector4(float x, float y, float z, float w) : X(x), Y(y), Z(z), W(w) {}
-	float X, Y, Z, W;
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
 class DX8Caps;
 
