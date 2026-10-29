@@ -1100,10 +1100,10 @@ address_global	Code/GameEngine/Source/GameLogic/Object/GlowMaterial.cpp	g_Va00E0
 address_global	Code/GameEngine/Source/GameLogic/Object/LocomotorCtor.cpp	g_Va00DFDC64	2
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Made002CCB04.cpp	g_Va00DFEFD8	2
+address_global	Code/GameEngine/Source/GameLogic/Object/Object.cpp	g_Va00BFBC84	3
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FCD9.cpp	g_Va00BFBF34	6
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectRva002E6B89.cpp	g_Va00DFECD0	2
 address_global	Code/GameEngine/Source/GameLogic/Object/ObjectSetTriggerAreaFlagsForChangeInPosition.cpp	g_Va00DBD0F4	2
-address_global	Code/GameEngine/Source/GameLogic/Object/Object_healCompletely.cpp	g_Va00BFBC84	3
 address_global	Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp	g_Va00E049D8	3
 address_global	Code/GameEngine/Source/GameLogic/Object/Rva005003DF.cpp	g_Va00E04544	2
 address_global	Code/GameEngine/Source/GameLogic/Object/SpecialPower/CloudBreakSpecialPowerModuleDataCtor.cpp	g_Va00BC2428	1
@@ -3196,6 +3196,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp	?
 alternatename	Code/GameEngine/Source/GameLogic/Object/Die/DieMuxDataInit.cpp	??0DieMuxData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp	??1ExperienceTracker@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/GhostObjectCtorDtor.cpp	?crc@GhostObject@@MAEXPAVXfer@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Object.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationList.cpp	?findObjectCreationList@ObjectCreationListStore@@QAEPBVObjectCreationList@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBPB@BfmeSubBPB@@QAEXPAX00@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/ObjectCreationListRva001F0878.cpp	?bfmeDoBUC@BfmeSubBUC@@QAEXPAX000@Z	1
@@ -3211,7 +3212,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Rva000AA867ArmorFind.cpp	?
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?Rva00030830FreeAllocation@@YAXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?rvaClear@Rva001E7087@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	?g_00DFE490@@3VRva00575674@@A	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva0028D8EB.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00355BDADtor.cpp	??1ArmorTemplateMap@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00361594Assign.cpp	?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva003623E5MemberCtor.cpp	??0Rva003623E5Filter@@QAE@XZ	1
@@ -10813,8 +10813,8 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemo
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain_onContaining.cpp	"y",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/ObjectRva00293330.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/ObjectRva00293330.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Object.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/PartitionManager.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp	"",on	2
