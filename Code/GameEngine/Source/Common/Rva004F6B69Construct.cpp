@@ -5,10 +5,11 @@
 // 0x004F6B9B 0x004F6BC6 0x004F8A8B 0x004F902A walk 0xC-sized elements; the
 // __uninitialized_copy 0x004F6B8D reaches it under the library name, which
 // symbols.csv pins here. The template is STLport's generic placement-new
-// body, declared locally with a nothrow placement new that has no placement
-// delete (<new>'s pulls an EH state; retail has no frame here), whose
-// non-throwing contract gives retail's null test.
-inline void *__cdecl operator new(unsigned int, void *p) throw() { return p; }
+// body. The real <new> supplies nonthrowing placement new and placement
+// delete. The copy ctor at 0x004F6966 only copies fields and increments the
+// pointed-to reference count; its nonthrowing contract avoids an EH frame
+// for placement delete and preserves retail's null test.
+#include <new>
 
 namespace _STL {
 template <class _T1, class _T2>
@@ -29,7 +30,7 @@ struct Rva004F6966
 	TargetRef00217D4C *m_00;
 	int m_04;
 	int m_08;
-	Rva004F6966(const Rva004F6966 &other);
+	Rva004F6966(const Rva004F6966 &other) throw();
 };
 
 template void _STL::_Construct<Rva004F6966, Rva004F6966>(

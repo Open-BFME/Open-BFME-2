@@ -15,10 +15,10 @@ struct Rva004F6966
 	TargetRef00217D4C *m_00;
 	int m_04;
 	int m_08;
-	Rva004F6966(const Rva004F6966 &other);
+	Rva004F6966(const Rva004F6966 &other) throw();
 };
 
-Rva004F6966::Rva004F6966(const Rva004F6966 &other)
+Rva004F6966::Rva004F6966(const Rva004F6966 &other) throw()
 {
 	m_00 = other.m_00;
 	if (m_00 != 0)

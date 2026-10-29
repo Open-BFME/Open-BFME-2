@@ -71,6 +71,14 @@ full consumer/census confirmation remains pending. No census gain or
 source-file reduction is claimed.
 [Evidence](../reverse/attempt_support/physics-trajectory-objectmodule-20261030-codex.md).
 
+Holder placement-new header cleanup (2026-10-29, base `d17e3dcdeb82`):
+the construct/copy-provider pair preserves both rows, all COMDAT/external facts
+and its 50-byte LINKS preview after replacing the private allocator with
+Microsoft `<new>`. One header finding is removed. The older-index outgoing
+audit lacks a current CreateAHeroManager consumer receipt; full consumer and
+census confirmation remain pending. No census gain is claimed.
+[Scoped evidence](../reverse/attempt_support/holder-placement-new-header-20261029-codex4.md).
+
 TeamTemplateInfo destructor follow-up (2026-10-30, base `734530a648`, LINK-141):
 remove one stale destructor exemption and its hatch key while preserving 14/14
 rows, the EXACT EH graph and the 236-byte LINKS preview against `85f6b7f40c`.
