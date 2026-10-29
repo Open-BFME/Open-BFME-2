@@ -1,4 +1,5 @@
 // cl: /O1 /MD
+// stlport46
 // ?rva002E2578@Rva002E2578@@QAEXABV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@Z, retail 0x002E2578, 97 bytes.
 // Filter src sciences into the vector at +0x1CC keeping only the non-grantable ones:
 // erase the whole range via the rowed erase at 0x00532803, then index loop over src
