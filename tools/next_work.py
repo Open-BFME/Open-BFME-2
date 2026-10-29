@@ -2192,6 +2192,15 @@ _CHECK_LEDGER = check_ledger
 
 @claims.pick_snapshot()
 def main():
+    try:
+        return _main()
+    finally:                          # one run's prefetches and read-only promise end with it
+        _PREFETCH.clear()
+        _LEDGER_CHECK.clear()
+        picker_cache.READ_ONLY = False
+
+
+def _main():
     import build
     ap = argparse.ArgumentParser(description=__doc__,
                                  formatter_class=argparse.RawDescriptionHelpFormatter)

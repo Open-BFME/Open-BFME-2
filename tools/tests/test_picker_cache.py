@@ -335,6 +335,14 @@ def test_a_lazy_prefetched_pick_equals_building_every_queue_first(tmp_path, monk
 
 # ---- the rebuilt TU map and LinkGuard's link rank, shared by their inputs
 
+def test_a_run_leaves_no_prefetch_behind(monkeypatch):
+    monkeypatch.setattr(sys, "argv", ["next_work.py", "--tier", "dx"])
+    monkeypatch.setattr(next_work, "check_ledger", lambda: "ledger healthy")
+    monkeypatch.setattr(next_work, "serve_dx", lambda args: next_work._PREFETCH.update(stale=object()))
+    next_work.main()
+    assert next_work._PREFETCH == {} and next_work._LEDGER_CHECK == {} and picker_cache.READ_ONLY is False
+
+
 def test_a_stale_map_rebuild_is_read_back_by_its_input_fingerprint(tmp_path, monkeypatch):
     import types
     import tu_map
