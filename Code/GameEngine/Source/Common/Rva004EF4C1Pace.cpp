@@ -16,12 +16,6 @@ public:
 	unsigned char m_338;
 };
 
-class BfmeThingDTK
-{
-public:
-	void bfmeTailDTK();
-};
-
 class Rva004EF4C1
 {
 public:

@@ -386,13 +386,19 @@ extern TerrainLogic *TheTerrainLogic;
 
 Int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
 
+class Xfer;
+class BfmeThingDTK;
+class Rva004EF4C1;
+
 class AIPlayer
 {
+	friend class BfmeThingDTK;
+	friend class Rva004EF4C1;
 protected:
 	virtual void slot00();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void slot03();
+	virtual void xfer(Xfer *xfer);					// +0x0C
 public:
 	virtual void computeSuperweaponTarget(const SpecialPowerTemplate *power, Coord3D *pos, Int playerNdx, Real weaponRadius);	// +0x10
 	virtual void update();						// +0x14
@@ -421,6 +427,7 @@ protected:
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);	// +0x64
 
 	Bool isPossibleToBuildTeam(TeamPrototype *proto, Bool requireIdleFactory, Bool &notEnoughMoney);
+	void queueUnits();
 public:
 	void prependTo_TeamReadyQueue(TeamInQueue *team);
 protected:
@@ -462,19 +469,20 @@ protected:
 	virtual Bool selectTeamToReinforce(Int minPriority);
 	virtual Bool startTraining(WorkOrder *order, Bool busyOK, AsciiString teamName);
 	virtual Bool isAGoodIdeaToBuildTeam(TeamPrototype *proto);
+	virtual void xfer(Xfer *xfer);
 
 	Int getMyEnemyPlayerIndex();
 	void acquireEnemy();
 	void adjustBuildList(BuildListInfo *list);
 
-	Int m_curFlankBaseDefense;		// +0x78
-	Int m_curFrontBaseDefense;		// +0x7C
-	Real m_curFlankLeftDefenseAngle;	// +0x80
-	Real m_curFlankRightDefenseAngle;	// +0x84
-	Real m_curFrontLeftDefenseAngle;	// +0x88
-	Real m_curFrontRightDefenseAngle;	// +0x8C
-	Real m_curLeftFlankRightDefenseAngle;	// +0x90
-	Real m_curRightFlankLeftDefenseAngle;	// +0x94
+	Int m_curFrontBaseDefense;		// +0x78
+	Int m_curFlankBaseDefense;		// +0x7C
+	Real m_curFrontLeftDefenseAngle;	// +0x80
+	Real m_curFrontRightDefenseAngle;	// +0x84
+	Real m_curLeftFlankLeftDefenseAngle;	// +0x88
+	Real m_curLeftFlankRightDefenseAngle;	// +0x8C
+	Real m_curRightFlankLeftDefenseAngle;	// +0x90
+	Real m_curRightFlankRightDefenseAngle;	// +0x94
 	unsigned int m_frameToCheckEnemy;	// +0x98
 	Player *m_currentEnemy;			// +0x9C
 };
