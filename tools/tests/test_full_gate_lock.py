@@ -1,5 +1,5 @@
 """full_gate_lock: one full gate per machine. Two processes contend and only one holds
-the lock; a dead holder's lock is taken over; a holder's child acquires as nested."""
+the lock; a dead holder's lock is taken over; no token stands in for the OS lock."""
 import os
 import subprocess
 import sys
@@ -10,6 +10,8 @@ import pytest
 TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 import full_gate_lock as L  # noqa: E402
+
+TOKEN = "BFME_FULL_GATE_LOCK"      # the variable a removed nesting rule once honoured
 
 # Acquire once (no wait), say what happened, then hold until stdin closes.
 CHILD = ("import sys; sys.path.insert(0, sys.argv[1]); import full_gate_lock as L; "
@@ -31,7 +33,7 @@ def finish(proc):
 
 @pytest.fixture
 def path(tmp_path, monkeypatch):
-    monkeypatch.delenv(L.TOKEN_ENV, raising=False)
+    monkeypatch.delenv(TOKEN, raising=False)
     return tmp_path / "home" / "full-gate.lock"
 
 
@@ -68,11 +70,22 @@ def test_a_dead_holders_lock_is_reclaimed(path):
         L.release(got)
 
 
-def test_a_holders_child_acquires_as_nested(path):
-    with L.hold(0, path=path) as got:
-        proc, said = child(path, env=got.env())
-        finish(proc)
-        assert said == "nested"
-        proc, said = child(path)                   # an unrelated process still waits
+def test_a_copied_or_stale_token_still_waits_on_the_os_lock(path):
+    with L.hold(0, path=path):
+        copied = L.holder(path)["token"]
+        proc, said = child(path, env={TOKEN: copied})      # the holder record's token, copied
         finish(proc)
         assert said == "busy"
+    dead, said = child(path)
+    assert said == "held"
+    stale = L.holder(path)["token"]
+    dead.kill()
+    dead.wait(timeout=30)
+    first, said = child(path, env={TOKEN: stale})          # a dead holder's token
+    try:
+        assert said == "held"                              # the real lock, not a bypass
+        proc, said = child(path, env={TOKEN: stale})
+        finish(proc)
+        assert said == "busy"
+    finally:
+        finish(first)

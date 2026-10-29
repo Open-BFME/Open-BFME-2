@@ -15,9 +15,10 @@ is msvcrt/fcntl on ~/.cache/open-bfme/full-gate.lock, shared by every clone and
 worktree of the user, and the OS releases it when the holder exits, however it
 exits. A record beside it (full-gate.lock.json) names the holder (pid, host,
 started, note) for waiters and `status`; a record whose pid is dead is stale, and
-the lock is taken as soon as the OS lets go of it. A holder's children inherit
-BFME_FULL_GATE_LOCK (the holder's token) and acquire as nested, so a gate launched
-under the lock never waits on its own parent.
+the lock is taken as soon as the OS lets go of it. Only the OS lock admits a holder:
+no token, record or environment variable stands in for it. Nothing a holder runs
+takes it again: the pre-push hook takes it around its full-gate command, and
+master_verify runs tools/build.py and the audits directly, never a hook.
 
   python3 tools/full_gate_lock.py status
   python3 tools/full_gate_lock.py run [--timeout S] [--note TEXT] -- CMD ARG...
@@ -36,7 +37,6 @@ from dataclasses import dataclass
 from pathlib import Path
 
 DEFAULT = Path.home() / ".cache" / "open-bfme" / "full-gate.lock"
-TOKEN_ENV = "BFME_FULL_GATE_LOCK"
 TIMED_OUT = 75
 
 
@@ -47,12 +47,8 @@ class Busy(RuntimeError):
 @dataclass
 class Held:
     path: Path
-    token: str
-    handle: object = None       # None: nested under the holder that launched this process
-
-    def env(self):
-        """What a child launched under the lock needs to see it as held by its parent."""
-        return {TOKEN_ENV: self.token}
+    token: str                  # names this holder's record, so release removes only its own
+    handle: object = None
 
 
 def record_path(path):
@@ -136,9 +132,6 @@ def acquire(timeout=0.0, *, path=None, note="", poll=0.5):
     """Held, or None when the lock is still held after TIMEOUT seconds (None: wait
     as long as it takes; 0: one try)."""
     path = Path(path or DEFAULT)
-    inherited = os.environ.get(TOKEN_ENV)
-    if inherited and holder(path).get("token") == inherited:
-        return Held(path, inherited)
     deadline = None if timeout is None else time.monotonic() + timeout
     told = False
     while True:
@@ -203,8 +196,8 @@ def main(argv=None):
     if not command:
         ap.error("run needs a command after --")
     try:
-        with hold(args.timeout, note=args.note or " ".join(command)[:200]) as got:
-            return subprocess.run(command, env={**os.environ, **got.env()}).returncode
+        with hold(args.timeout, note=args.note or " ".join(command)[:200]):
+            return subprocess.run(command).returncode
     except Busy as error:
         print(f"full_gate_lock: {error}", file=sys.stderr)
         return TIMED_OUT

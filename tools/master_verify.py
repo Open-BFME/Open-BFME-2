@@ -367,10 +367,9 @@ def record_receipt(cfg, sha, tmp):
     return done.returncode == 0, (done.stdout + done.stderr).strip()
 
 
-def stage_env(cfg, stage, lock_env=None):
+def stage_env(cfg, stage):
     env = {k: v for k, v in os.environ.items() if k not in DROP_ENV}
     env.update({"BUILD_POOL": str(cfg.pool), "PYTHONIOENCODING": "utf-8"})
-    env.update(lock_env or {})      # a gate launched under the lock never waits on it
     env.update(stage.env)
     return env
 
@@ -414,7 +413,7 @@ def excerpt(text):
     return "\n".join(out)
 
 
-def run_stages(cfg, sha, why, lock_env):
+def run_stages(cfg, sha, why):
     """Check SHA out and run the gate's stages: (tmp, log, started, verdict, checks,
     the output of every stage that was not green)."""
     set_phase(cfg, sha=sha, phase=why, started=now_iso())
@@ -432,7 +431,7 @@ def run_stages(cfg, sha, why, lock_env):
             out = tmp / f"stage{n}.log"
             with out.open("wb") as handle:
                 code = subprocess.run(stage.argv, cwd=cfg.worktree, stdout=handle, stderr=subprocess.STDOUT,
-                                      env=stage_env(cfg, stage, lock_env)).returncode
+                                      env=stage_env(cfg, stage)).returncode
             text = out.read_text(encoding="utf-8", errors="replace")
             combined.write(f"== {stage.label} (exit {code}): {' '.join(stage.argv)}\n{text}\n")
             got, labels = classify(stage, code, text)
@@ -458,9 +457,12 @@ def run_gate(cfg, sha, state, why, keep=False, fresh=False):
         say(f"{sha[:10]} ({why}): {cached['verdict']} (cached)")
         return dict(cached, cached=True)
     wait_until_free(cfg)            # the process snapshot: a cheap early defer
-    try:                            # the machine's one full gate, for the whole gate
-        with full_gate_lock.hold(cfg.busy_wait, path=cfg.gate_lock, note=f"master_verify {why} {sha[:10]}") as lock:
-            tmp, log, started, verdict, checks, texts = run_stages(cfg, sha, why, lock.env())
+    # The machine's one full gate, for the whole gate. Under it run only the worktree's
+    # checkout and the stages themselves (tools/build.py and the audits, never a hook);
+    # publish, whose push runs the hooks, comes after the lock is released.
+    try:
+        with full_gate_lock.hold(cfg.busy_wait, path=cfg.gate_lock, note=f"master_verify {why} {sha[:10]}"):
+            tmp, log, started, verdict, checks, texts = run_stages(cfg, sha, why)
     except full_gate_lock.Busy as error:
         raise Deferred(str(error)) from None
     text = excerpt("\n".join(texts))
