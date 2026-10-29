@@ -39,7 +39,6 @@ BFME_LITERAL_NAME_GETTER(Rva000CEA33Named, "W3DTankDraw")
 BFME_LITERAL_NAME_GETTER(W3DStreakDraw, "W3DStreakDraw")
 BFME_LITERAL_NAME_GETTER(W3DSailModelDraw, "W3DSailModelDraw")
 BFME_LITERAL_NAME_GETTER(Rva000E6B93Named, "W3DVegetationBufferBase")
-BFME_LITERAL_NAME_GETTER(Rva000E9C0FNamed, "W3DShrubBuffer")
 BFME_LITERAL_NAME_GETTER(Rva000EDB39Named, "W3DTreeBuffer")
 // Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
 // is EEFE6: the canonical Snapshot GetSnapshotName slot.
