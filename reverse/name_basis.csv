@@ -4275,3 +4275,7 @@ local,Rva00800E50Owner::onDispatch::t04,Rva00800E50Owner::onDispatch::headerFlag
 local,Rva00800E50Owner::onDispatch::t18,Rva00800E50Owner::onDispatch::addressType,inferred,agree:nl-a4ebecfddd97,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
 local,Rva00800E50Owner::onDispatch::t1c,Rva00800E50Owner::onDispatch::ipAddress,inferred,agree:nl-d21b4c5c1809,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
 local,Rva00800E50Owner::onDispatch::t20,Rva00800E50Owner::onDispatch::port,inferred,agree:nl-912c832eea22,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
+param,Rva00503E76::rva00503E76::a1,Rva00503E76::rva00503E76::xfer,inferred,agree:nl-8e4766673c2d,Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp,0x00503E76
+member,Rva006F69D0DescriptorBody::m_block24,Rva006F69D0DescriptorBody::m_colorTransform,inferred,agree:nl-4c14f2a8a46c,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
+member,Rva006F69D0DescriptorBody::m_word34,Rva006F69D0DescriptorBody::m_clipDepth,inferred,agree:nl-872d1bc6fd4c,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
+member,Rva006F69D0DescriptorBody::m_ptr38,Rva006F69D0DescriptorBody::m_clipActions,inferred,agree:nl-a72c5b79f1f2,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,

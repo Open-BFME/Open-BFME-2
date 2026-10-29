@@ -47,7 +47,7 @@ struct Rva00503E76Arg1
 class Rva00503E76
 {
 public:
-	void rva00503E76(Rva00503E76Arg1 *a1);
+	void rva00503E76(Rva00503E76Arg1 *xfer);
 private:
 	char m_pad00[0x0C];
 	char m_0C[4];
@@ -55,13 +55,13 @@ private:
 	char m_14[4];
 	char m_18[4];
 };
-void Rva00503E76::rva00503E76(Rva00503E76Arg1 *a1)
+void Rva00503E76::rva00503E76(Rva00503E76Arg1 *xfer)
 {
-	a1->_slot24(this);
-	a1->_slot28(&m_0C);
-	a1->_slot28(&m_10);
-	a1->_slot28(&m_14);
-	a1->_slot30(&m_18);
+	xfer->_slot24(this);
+	xfer->_slot28(&m_0C);
+	xfer->_slot28(&m_10);
+	xfer->_slot28(&m_14);
+	xfer->_slot30(&m_18);
 }
 
 // ?Rva00503EB7Call@@YAPAURva00503E76Arg1@@PAU1@PAVRva00503E76@@@Z @0x00503EB7 18B

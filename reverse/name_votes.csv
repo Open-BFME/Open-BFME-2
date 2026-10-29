@@ -14512,3 +14512,14 @@ Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp|param|r
 Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp|param|rva0055794C|a2,2419026018eea061a4c32855,gpt-6.1-sol,w1-10290400-5,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp|param|rva00557971|a2,4d43d31b06bb4ce526f15d17,gpt-6.1-sol,w1-10290400-5,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/Common/Rva004D839ARva004D839A.cpp|local|Rva004D839A::rva004D839A|c,bfe3b427a46de39aacd7a21e,gpt-6.1-sol,w1-10290400-6,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|function|0x000E0E64|Rva000E0E64OnlyEmissiveDraws,8b9340ee4ff753f148d29e11,gpt-6.1-sol,w2-10290410-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|member|Rva00503E76|m_0C,8df308af8ec3ea413c9e97b8,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|member|Rva00503E76|m_10,314666ac7400ba3abcb0b7c5,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|member|Rva00503E76|m_14,f6ab1b5020c0b60795a8d8cb,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|member|Rva00503E76|m_18,8c3be4f43553a7affc2ccd31,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|function|0x00503E76|rva00503E76,3c3cb0ba539ccca9fab09278,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|function|0x00503EB7|Rva00503EB7Call,a82546ce2f5d4fdace2b3cd7,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|param|Rva00503E76::rva00503E76|a1,8e4766673c2d78885a832092,gpt-6.1-sol,w2-10290410-3,w-dce04682aaeb,2026-10-29
+Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_block24,954ba0f695ac00380e11355b,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
+Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_word34,d208c01e0e5d225a617cefe9,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
+Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_ptr38,8b15bffc2c072e878964946d,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
