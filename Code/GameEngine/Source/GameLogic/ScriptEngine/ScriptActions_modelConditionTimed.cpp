@@ -6,8 +6,9 @@
 // the model-condition flag a script names (the 591 ModelConditionNames at
 // 0x00DBAA98) and set it on the named unit for a time given in seconds,
 // converted to logic frames (Object 0x002949AE, WorldBuilder's
-// BitFlags<591>::SetBit caller in Object.cpp). Built without /arch:SSE: the
-// seconds-to-frames product goes through x87 and _ftol2 in retail.
+// BitFlags<591>::SetBit caller in Object.cpp). The seconds-to-frames product
+// is computed in double, so even under /arch:SSE it goes through x87 and
+// _ftol2 as in retail.
 
 #include "ascii_string.h"
 
@@ -64,7 +65,7 @@ void ScriptActions::rva003C596A(const AsciiString &unitName, const AsciiString &
 		if (flagName.compare(name) == 0) {
 			flag = i;
 			found = true;
-			frames = (int)(LogicFramesPerSecond() * seconds);
+			frames = (int)((double)LogicFramesPerSecond() * seconds);
 			break;
 		}
 	}
@@ -74,7 +75,7 @@ void ScriptActions::rva003C596A(const AsciiString &unitName, const AsciiString &
 
 // BFME 1 f98983a7d doTeamSetModelConditionForDuration supplies the
 // name-search and member walk. Target3C5A00..3C5AB8 proves 591 names,
-// x87 frame conversion, 24-byte iterator and direct rowed Object setter.
+// x87 (double) frame conversion, 24-byte iterator and direct rowed Object setter.
 // Dispatcher RET10 establishes this free action ABI; original name unproven.
 void ScriptActions::Rva003C5A00Do(const AsciiString &teamName, const AsciiString &flagName,
     float seconds, float value)
@@ -89,7 +90,7 @@ void ScriptActions::Rva003C5A00Do(const AsciiString &teamName, const AsciiString
         AsciiString name(ModelConditionNames[flag]);
         if (flagName.compare(name) == 0)
         {
-            frames = (int)(LogicFramesPerSecond() * seconds);
+            frames = (int)((double)LogicFramesPerSecond() * seconds);
             goto matched;
         }
     }
