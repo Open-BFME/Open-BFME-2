@@ -126,9 +126,9 @@ private:
 	float m_14;
 	float m_18;
 	int m_1c;
-	float m_20;
-	float m_24;
-	float m_28;
+	float m_angleXY;
+	float m_angularRateXY;
+	float m_angularDampingXY;
 };
 
 void Rva0055F76C::xfer(Xfer *xfer)
@@ -146,9 +146,9 @@ void Rva0055F76C::xfer(Xfer *xfer)
 	XferRotationType(xfer, &m_1c);
 	if (ver.value.minimum < 2)
 		return;
-	*xfer == m_20;
-	*xfer == m_24;
-	*xfer == m_28;
+	*xfer == m_angleXY;
+	*xfer == m_angularRateXY;
+	*xfer == m_angularDampingXY;
 }
 
 class Rva0055F805

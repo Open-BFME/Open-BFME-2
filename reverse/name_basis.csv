@@ -4309,3 +4309,7 @@ param,rva001EF05B::b,rva001EF05B::rightString,inferred,agree:nl-e80823eff54e,Cod
 function,?rva001EDFCB@Rva001EDFCB@@QBEPBDH@Z,?getCursorName@Rva001EDFCB@@QBEPBDH@Z,inferred,agree:nl-5588e46c6897,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EDFCB
 function,?rva001FD1E8@Rva001FD1E8@@QAEPBVImage@@XZ,?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ,inferred,agree:nl-61276308320a,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001FD1E8
 function,?rva001FD20E@Rva001FD1E8@@QAEPBVImage@@XZ,?getSideIconImage@Rva001FD1E8@@QAEPBVImage@@XZ,inferred,agree:nl-a4e1efd51c23,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001FD20E
+member,Rva003186A5Owner::m_handle14,Rva003186A5Owner::m_audioHandle,inferred,agree:nl-03fd11610a09,Code/GameEngine/Source/Common/Rva003186A5Reset.cpp,
+member,Rva0055F76C::m_20,Rva0055F76C::m_angleXY,inferred,agree:nl-91885d9fd27d,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,
+member,Rva0055F76C::m_24,Rva0055F76C::m_angularRateXY,inferred,agree:nl-7d1934883bb2,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,
+member,Rva0055F76C::m_28,Rva0055F76C::m_angularDampingXY,inferred,agree:nl-3f612f78084a,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,

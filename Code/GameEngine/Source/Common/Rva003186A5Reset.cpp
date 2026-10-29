@@ -55,7 +55,7 @@ public:
 private:
     unsigned char pad00[0x10];
     int m_10;
-    AudioHandle m_handle14;
+    AudioHandle m_audioHandle;
     int m_18;
     int m_1c;
     AsciiString m_str20;
@@ -71,8 +71,8 @@ void Rva003186A5Owner::reset()
     m_10 = 0;
     m_28 = 0;
     m_2c = 0;
-    TheAudio->removeAudioEvent(m_handle14);
-    m_handle14 = 1;
+    TheAudio->removeAudioEvent(m_audioHandle);
+    m_audioHandle = 1;
     m_18 = 0;
     m_str20 = "";
     memset(&m_58, 0, 4);
