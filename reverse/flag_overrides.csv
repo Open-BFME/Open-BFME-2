@@ -322,6 +322,7 @@ Code/GameEngine/Source/GameNetwork/BfmeHostBT_bfmeReportBT.cpp,-O2,1,1,region de
 Code/GameEngine/Source/GameNetwork/BfmeOneHundredFiftyEight.cpp,,3,3,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,,5,2,region default loses rows
+Code/GameEngine/Source/GameNetwork/BfmeThingTWA.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,-O2,4,4,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,,17,6,region default loses rows
 Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp,-O2 -arch:SSE,1,1,region default loses rows
@@ -373,7 +374,6 @@ Code/GameEngine/Source/GameNetwork/Rva007F6B30FindRecord.cpp,-O2,1,1,region defa
 Code/GameEngine/Source/GameNetwork/Rva007F6B80ArrayIndex.cpp,-O2,2,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F7980BrowserRva007F63F0.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva007F8790Demangler.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F91D0DemanglerLog.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F94A0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007F96C0Txn.cpp,,1,1,region default loses rows
