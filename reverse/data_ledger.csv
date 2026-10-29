@@ -20643,8 +20643,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A042B0,4,.data,global,?TheWoundArrowUpdatePoolKey@?1??getModuleNameKey@WoundArrowUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp,owned,,1,2
 0x00A042B4,4,.data,global,?$S1@?1??getModuleNameKey@WoundArrowUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp,owned,,1,4
 0x00A042B8,4,.data,global,_s_rva007B2A60,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A042BC,4,.data,global,?TheFellBeastSwoopPowerPoolKey@?1??getModuleNameKey@FellBeastSwoopPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/FellBeastSwoopPowerPoolKey.cpp,owned,,1,2
-0x00A042C0,4,.data,global,?$S1@?1??getModuleNameKey@FellBeastSwoopPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/FellBeastSwoopPowerPoolKey.cpp,owned,,1,4
+0x00A042BC,4,.data,global,?TheFellBeastSwoopPowerPoolKey@?1??getModuleNameKey@FellBeastSwoopPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/FellBeastSwoopPower.cpp,owned,,1,2
+0x00A042C0,4,.data,global,?$S1@?1??getModuleNameKey@FellBeastSwoopPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/FellBeastSwoopPower.cpp,owned,,1,4
 0x00A042C4,4,.data,global,?TheManTheWallsSpecialPowerPoolKey@?1??getModuleNameKey@ManTheWallsSpecialPower@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPowerPoolKey.cpp,owned,,1,2
 0x00A042C8,4,.data,global,?$S1@?1??getModuleNameKey@ManTheWallsSpecialPower@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ManTheWallsSpecialPowerPoolKey.cpp,owned,,1,4
 0x00A042CC,4,.data,global,_s_rva007B2AA4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
