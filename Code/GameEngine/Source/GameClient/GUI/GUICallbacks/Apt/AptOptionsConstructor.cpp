@@ -50,16 +50,7 @@ namespace _STL { template <> _Bvector_base<allocator<bool> >::~_Bvector_base(); 
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> _Bvector_base<allocator<bool> >::_Bvector_base(const allocator<bool> &); }
 
-namespace _STL
-{
-template <> struct less<AsciiString>
-{
-	bool operator()(const AsciiString &left, const AsciiString &right) const
-	{
-		return left < right;
-	}
-};
-}
+#include "AptOptionsConstructor_less.h"
 
 class GameWindow
 {
