@@ -8554,7 +8554,7 @@ _CreatePostProcInstance,,0x001B6890,63,Code/Libraries/Source/VP6/PostProcInstanc
 ??1BfmeNodeAllocLock@@QAE@XZ,,0x00024830,27,Code/GameEngine/Source/Common/BfmeSmallAllocPR.cpp,matched,BfmeNodeAllocLock is the local stand-in for _STL::_Node_Alloc_Lock<false;0>; its compiler-emitted 27B destructor is byte-identical to retail 0x00024830 and the rowed parent 0x000279A0 unwind cleanup calls it; replaces the BFME1 donor model row
 ?bfmeAddFO@BfmeHostFO@@QAEHPBD0@Z,,0x0066DCA0,82,Code/GameEngine/Source/Common/BfmeConv2049.cpp,matched,BFME1 byte-identical donor; b1 0x008019A0
 ?go@Rva007E8980@@QAEXHE@Z,,0x00655A10,51,Code/GameEngine/Source/Common/Rva007E8980Guard.cpp,matched,BFME1 byte-identical donor; b1 0x007E8980
-?bfmeAddFP@BfmeHostFP@@QAEHPBD0@Z,,0x0066E6F0,82,Code/GameEngine/Source/Common/BfmeConv2050.cpp,matched,BFME1 byte-identical donor; b1 0x008024B0
+?bfmeAddFP@BfmeHostFP@@QAEHPBD0@Z,,0x0066E6F0,82,Code/GameEngine/Source/Common/BfmeSlot1173.cpp,matched,BFME1 byte-identical donor; b1 0x008024B0
 ?push_back@BfmeVec440@@QAEXPBUBfmeElem440@@@Z,,0x006BFEA0,59,Code/GameEngine/Source/Common/Rva00880440Push.cpp,matched,BFME1 byte-identical donor; b1 0x00880440
 ?bfmeLookupZL@BfmeHostZL@@QAEPAXPBD@Z,,0x0066D6D0,51,Code/GameEngine/Source/Common/BfmeConv2109.cpp,matched,BFME1 byte-identical donor; b1 0x00801380
 ?bfmeOneCNG@BfmeSubCNG@@QAEXPAX@Z,,0x006BEB00,62,Code/GameEngine/Source/Common/Rva0087F270GeometryRecordUpdate.cpp,matched,BFME1 byte-identical donor; b1 0x0087F270; calcBoundingStuff pin @0x6BE700 (donor member spelling)

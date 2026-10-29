@@ -105,6 +105,43 @@ public:
 	char **m_keys;
 };
 
+class BfmeVecFN
+{
+public:
+	unsigned char m_bfmeHeadFN[4];
+};
+
+class BfmeBufFN
+{
+public:
+	void bfmeAppendFN(const char *s);
+
+	unsigned char m_bfmeHeadFN[8];
+};
+
+class BfmeOwnerFN
+{
+public:
+	int bfmeFindFN(BfmeVecFN *v, const char *name);
+
+	unsigned char m_bfmeHeadFN[0x2b8];
+	BfmeVecFN m_bfmeVecFN;
+};
+
+class BfmeHostFP
+{
+public:
+	int bfmeAddFP(const char *name, const char *text);
+
+	void *m_bfmeVfFN;
+	BfmeOwnerFN *m_bfmeOwnerFN;
+	unsigned char m_bfmeGapFN[0x18];
+	BfmeBufFN *m_bfmeBufsFN;
+	int m_bfmeCountFN;
+};
+
+// ---- from Code/GameEngine/Source/Common/BfmeSlot1173.cpp
+
 // ---- from Code/GameEngine/Source/Common/BfmeConv1173Store.cpp
 
 void BfmeSlot1173::measure( Rva007F5010Player *record )
@@ -162,6 +199,20 @@ void BfmeSlot1173::bfmeStore1173( void *recordValue, int hostValue )
 
 // tu-skeleton: 0x0066E6B0 59B ?get@Rva00802470Get@@QAEHPBD@Z -- matched in Code/GameEngine/Source/GameNetwork/FeslHost_get_rva00802470.cpp (not merged yet)
 
-// tu-skeleton: 0x0066E6F0 82B ?bfmeAddFP@BfmeHostFP@@QAEHPBD0@Z -- matched in Code/GameEngine/Source/Common/BfmeConv2050.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/BfmeConv2050.cpp
+
+int BfmeHostFP::bfmeAddFP(const char *name, const char *text)
+{
+	int idx = m_bfmeOwnerFN->bfmeFindFN(&m_bfmeOwnerFN->m_bfmeVecFN, name);
+
+	if (idx == -1)
+		return -106;
+
+	BfmeBufFN *b = idx >= m_bfmeCountFN ? 0 : &m_bfmeBufsFN[idx];
+
+	b->bfmeAppendFN(text);
+
+	return 0;
+}
 
 // tu-skeleton: 0x0066E750 56B ??_GRva00802380Owner@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameNetwork/Y2FeslBrowserDestructors.cpp (not merged yet)
