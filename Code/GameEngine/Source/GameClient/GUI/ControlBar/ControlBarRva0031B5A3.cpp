@@ -1,6 +1,8 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Ireference/shims/subsystem_bfme2
 // ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z @0x0031B5A3 106B ControlBar arrow group refresh for local player.
 // Evidence: isLocalPlayer rowed 0x002A9D89; money via ThePlayerList 0x009FEEE8 plus 0x10 plus 0x24 vs +0x27C; TheTransitionHandler 0x00DFDC14 null plus TheInGameUI 0x009FEDF0 bytes 0x15 0x16; ControlBarArrow literal via rowed StringBase ctor 0x00037BA0 plus setGroup rowed 0x001DC252; sets +0x278 and +0x28; callers 0x002A9F95 0x002A9FED 0x002A9FFE; neighbours share /O1.
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "ascii_string.h"
 
 class Player
@@ -44,12 +46,12 @@ public:
 	void remove(AsciiString groupName, bool skipPending);
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031B5A3(const Player *player);
 private:
-	char m_pad00[0x28];
+	char m_pad0C[0x28 - 0x0C];
 	unsigned char m_0028;
 	char m_pad29[0x270 - 0x29];
 	const void *m_p0270;

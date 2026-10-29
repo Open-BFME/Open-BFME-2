@@ -1,8 +1,10 @@
-// cl: /O1 /DNDEBUG /MD /EHsc
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // Clean BFME1 ControlBar.cpp showSpecialPowerShortcut at ba7ddda7 supplies
 // the workflow. Native 0x0031DAF8..0x0031DB83 proves the complete 139B body,
 // timer +0x1A104, local player +0x10, five windows +0xA8, count +0xD0,
 // and parent +0xD8. WB 0x00C31690 has the same calls but no original name.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class ScriptEngine;
 class PlayerList;
 class Object;
@@ -31,14 +33,14 @@ public:
     void *winGetUserData();
     int winHide(bool);
 };
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
     void showSpecialPowerShortcut();
 protected:
     void populateSpecialPowerShortcut(Player *);
 private:
-    char unknown00[0xA8];
+    char m_pad0C[0xA8 - 0x0C];
     GameWindow *shortcutButtons[5];
     GameWindow *shortcutButtonParents[5];
     int shortcutButtonCount;

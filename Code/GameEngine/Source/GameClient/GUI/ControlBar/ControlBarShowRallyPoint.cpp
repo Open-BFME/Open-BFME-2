@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /DNDEBUG /MD /EHsc /Ireference/shims/subsystem_bfme2
 // ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z @0x0031B892 264B
 // Named WB 0x00C2F300 and native 0x0031B892..0x0031B99A establish
 // the identity, dispatch slots and accessed fields. Clean BFME1 ba7ddda7
@@ -6,6 +6,8 @@
 // field adaptation. The original nested destroy/find expression preserves
 // native vtable evaluation order. Global pointer declarations agree with
 // GameClient.cpp, ThingFactory.cpp and PlayerList.cpp actual providers.
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
@@ -95,12 +97,12 @@ struct DrawableWithStatus
 	unsigned int m_status;
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void showRallyPoint(const Coord3D *loc);
 private:
-	char m_pad00[0x74];
+	char m_pad0C[0x74 - 0x0C];
 	int m_rallyPointDrawableID;
 };
 

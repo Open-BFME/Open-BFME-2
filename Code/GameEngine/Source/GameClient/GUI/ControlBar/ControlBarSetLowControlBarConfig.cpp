@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 //
 // ?setLowControlBarConfig@ControlBar@@IAEXXZ retail 0x0031B134, 136 bytes.
 // Zero Hour ControlBar::setLowControlBarConfig over the BFME 2 offsets:
@@ -8,6 +8,8 @@
 // BFME 2 truncates the 10% band to Int before subtracting it (one __ftol2,
 // then an integer sub). setUpDownImages is the rowed ControlBar::rva0031AE13
 // (tail call).
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -64,7 +66,7 @@ enum ControlBarStages
 	CONTROL_BAR_STAGE_HIDDEN
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031AE13(void); // setUpDownImages
@@ -74,7 +76,7 @@ protected:
 	void setDefaultControlBarConfig(void);
 
 private:
-	unsigned char m_pad00[0x1C];
+	unsigned char m_pad0C[0x1C - 0x0C];
 	ICoord2D m_defaultControlBarPosition;       // +0x1C
 	ControlBarStages m_currentControlBarStage;  // +0x24
 	unsigned char m_pad28[0x48 - 0x28];

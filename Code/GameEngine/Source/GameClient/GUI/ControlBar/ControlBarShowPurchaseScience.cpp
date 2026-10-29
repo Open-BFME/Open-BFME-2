@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ControlBar::showPurchaseScience, retail 0x0031AD5A (53 bytes):
 // ?showPurchaseScience@ControlBar@@QAEXXZ
 // Identity (target): WorldBuilder's debug ControlBar.cpp
@@ -10,6 +10,8 @@
 // non-negative or there is no active local player; otherwise clear the
 // +0x278 flag and open the science purchase screen through 0x0043CB48, a
 // free function whose name is not recovered.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class Player
 {
 public:
@@ -41,13 +43,13 @@ extern ScriptEngine *TheScriptEngine;
 
 void finishShowPurchaseScience();
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void showPurchaseScience();
 
 private:
-	unsigned char m_pad000[0x278];
+	unsigned char m_pad0C[0x278 - 0x0C];
 	bool m_flag278; // +0x278
 };
 

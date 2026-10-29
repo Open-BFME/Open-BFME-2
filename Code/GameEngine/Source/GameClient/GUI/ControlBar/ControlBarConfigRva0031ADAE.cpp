@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
+// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // stlport
 // Native Ghidra 0031ADAE..0031AE01, 83B, no-argument thiscall.
 // Reference lead: GeneralsMD ControlBar::setSquishedControlBarConfig, under
@@ -9,6 +9,8 @@
 // DIR32 globals and the Display height/View setHeight slots are established
 // by the surrounding ControlBar and scheme-manager bodies. Local player10
 // and its PlayerTemplate34 supply the same argument as the reference lead.
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 #include "ControlBarSchemeManagerView.h"
 
@@ -59,12 +61,12 @@ extern Display *TheDisplay;
 extern View *TheTacticalView;
 extern PlayerList *ThePlayerList;
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
     void rva0031ADAE();
 private:
-    char unknown00[0x1C];
+    char m_pad0C[0x1C - 0x0C];
     int defaultX, defaultY;
     int stage;
     char unknown28[0x44 - 0x28];

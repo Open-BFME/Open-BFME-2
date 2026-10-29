@@ -1,7 +1,9 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE2
+// cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE2 /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // BFME1 ba7ddda7 ControlBar_updateSpecialPowerShortcut.cpp guides behavior.
 // Native 0x0031B210..0x0031B4A8 establishes BFME2 layout, state cases,
 // disallowed flag calls, five-button array and SSE percentage conversion.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class Object;
 class GameWindow
 {
@@ -63,7 +65,7 @@ enum CommandAvailability
 	COMMAND_DONE = 8
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
     void showSpecialPowerShortcut();
@@ -74,7 +76,7 @@ public:
     // the original return enum, access level or complete target declaration.
     CommandAvailability getCommandAvailability(const CommandButton *,GameWindow *,Object *,float *,bool) const;
 private:
-    char unknown00[0x14];
+    char m_pad0C[0x14 - 0x0C];
     ShortcutAnimateManagerView *animateManager;
     char unknown18[0x30];
     GameWindow *contextParent[1];

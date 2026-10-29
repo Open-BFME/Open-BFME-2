@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP= /D_STLP_NO_CSTD_FUNCTION_IMPORTS /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // stlport
 // BFME1 semantic donor: ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp.
@@ -10,6 +10,8 @@
 // and adds 0x140 in place for the command-set lookup: the name's address is
 // passed straight into findCommandSet's call (a pointer local for it is
 // computed into EAX instead).
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;
@@ -139,9 +141,9 @@ public:
 	void rva0035B7D9(Rva0035B7D9 *source, bool notify);
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
-	unsigned char m_unreconstructed_00[0x2C];
+	unsigned char m_pad0C[0x2C - 0x0C];
 	CommandButton *m_commandButtons;
 	unsigned char m_unreconstructed_2C[0x18];
 	GameWindow *m_contextParent;

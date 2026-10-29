@@ -1,6 +1,8 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z @0x0031C5C8 469B chain: ControlBar observer bar switch
 // Evidence: donor BFME1 ControlBar::setControlBarSchemeByPlayerTemplate (ButtonPlaceBeacon/IdleWorker/General statics, winGetWindowFromId NULL+id, FactionObserver compare, switchToContext 9/0, m_isObserverCommandBar +0x20c, winHide/winEnable, switchControlBarStage DEFAULT, hidePurchaseScience); callers none; manager callee 0x31FD0D now rowed.
+typedef bool Bool;
+#include "subsystem_interface.h"
 enum NameKeyType
 {
 	NK_INVALID = 0
@@ -108,7 +110,7 @@ public:
 	void setControlBarSchemeByPlayerTemplate(const PlayerTemplate *pt, bool useSmall);
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void setControlBarSchemeByPlayer(Player *p);
@@ -116,7 +118,7 @@ public:
 	void switchToContext(int ctx, void *param);
 	void switchControlBarStage(ControlBarStages stage);
 private:
-	char _head[0x44];
+	char m_pad0C[0x44 - 0x0C];
 	ControlBarSchemeManager *m_controlBarSchemeManager;
 	char _mid[0x20c - 0x44 - 4];
 	bool m_isObserverCommandBar;

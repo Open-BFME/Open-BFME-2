@@ -1,10 +1,12 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ?setCommandBarBorder@ControlBar@@QAEXPAVGameWindow@@W4CommandButtonMappedBorderType@@@Z
 // @0x0031ABD9 96B: Zero Hour's ControlBar::setCommandBarBorder
 // (ControlBar.cpp). The border colors sit at +0x218 (build), +0x21C (action),
 // +0x220 (upgrade) and +0x224 (system) as in Zero Hour's member order; BFME 2
 // adds a fifth border type with its color at +0x228. Anything else clears the
 // border (GAME_COLOR_UNDEFINED, not drawn).
+typedef bool Bool;
+#include "subsystem_interface.h"
 
 typedef int Color;
 typedef bool Bool;
@@ -33,14 +35,14 @@ enum CommandButtonMappedBorderType
 	COMMAND_BUTTON_BORDER_BFME5
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void setCommandBarBorder(GameWindow *button, CommandButtonMappedBorderType type);
 	void setPortraitByImage(const Image *image);
 
 private:
-	unsigned char m_pad000[0x84];
+	unsigned char m_pad0C[0x84 - 0x0C];
 	GameWindow *m_rightHUDWindow;						// +0x84
 	GameWindow *m_rightHUDCameoWindow;					// +0x88
 	GameWindow *m_rightHUDUpgradeCameos[MAX_UPGRADE_CAMEO_UPGRADES];	// +0x8C

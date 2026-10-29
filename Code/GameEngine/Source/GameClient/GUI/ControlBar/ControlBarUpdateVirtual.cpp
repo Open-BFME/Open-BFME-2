@@ -1,8 +1,10 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // Clean BFME1 ba7ddda7 ControlBarUpdateVirtual.cpp supplies the workflow.
 // Named WB 0x00C2B8A0 and full native 0x0031E25E..0x0031E4BA supply
 // the BFME2 offsets, 32-button loops, radar cleanup and actual call routes.
+typedef bool Bool;
 #include "ascii_string.h"
+#include "subsystem_interface.h"
 class GameWindow { public: bool winIsHidden(); int winHide(bool); };
 class Player;
 class Drawable;
@@ -90,7 +92,7 @@ public:
     virtual unsigned int getFrame()=0;
 };
 #undef SLOT
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
     virtual void update();
@@ -115,7 +117,6 @@ protected:
     // The home construction unit owns the exact149-byte provider at53EAEC.
     void updateContextStructureInventory();
 private:
-    char unknown04[8];
     ControlBarManagerUpdateView *videoManager;
     ControlBarAnimateUpdateView *animateManager;
     ControlBarAnimateUpdateView *shortcutAnimateManager;

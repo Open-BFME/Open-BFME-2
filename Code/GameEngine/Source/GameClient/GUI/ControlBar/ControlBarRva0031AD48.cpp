@@ -1,20 +1,22 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ?rva0031AD48@ControlBar@@QAEX_N@Z @ 0x0031AD48 18B: ControlBar window hide
 // via +0xA4 with tail-jmp to rowed winHide. Evidence: gap between 0x0031AD14
 // and 0x0031AE13 plus caller 0x00248278 plus rowed winHide 0x00313C64.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class GameWindow
 {
 public:
 	int winHide(bool hide);
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031AD48(bool hide);
 
 private:
-	char m_pad00[0xa4];
+	char m_pad0C[0xA4 - 0x0C];
 	GameWindow *m_p00A4;
 };
 

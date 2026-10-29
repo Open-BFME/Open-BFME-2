@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/subsystem_bfme2
 //
 // ?rva0031D230@ControlBar@@QAEXXZ -- retail 0x0031D230..0x0031D5F8 (968 bytes).
 // ControlBar context evaluation (Zero Hour ControlBar::evaluateContextUI): clears
@@ -15,6 +15,8 @@
 // test compares PlayerTemplate +0x17C with the template name at +0x64.
 // The selection is Zero Hour's STLport std::list<Drawable *> (DrawableList).
 // stlport
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "ascii_string.h"
 #include <list>
 
@@ -193,14 +195,14 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 int Rva0043C99AGet();
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031D230();
 	void showPurchaseScience();
 	void switchToContext(int context, void *draw);
 
-	char pad00[0x28];
+	char m_pad0C[0x28 - 0x0C];
 	bool m_UIDirty;	// +0x28
 };
 

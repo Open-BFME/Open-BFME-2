@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // Clean donor: reference/open-bfme-1 @575ba2b04743f190f069805fbdc59936123c45da
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowershortcutBar.cpp.
 // Donor names the initialization workflow. WB C30790 keeps its literals and calls
@@ -8,6 +8,8 @@
 // Player template34 with name144/count148; window-manager slots80/F0.
 // Target uses StringBase::isEmpty and pointer-format overload. Qualified global
 // delete reproduces virtual destructor flag0 then global free rather than flag1.
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "ascii_string.h"
 
 typedef int Int;
@@ -154,13 +156,13 @@ private:
 	const PlayerTemplate *m_playerTemplate;        // target+0x34
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031BAC3(Player *player);
 
 private:
-	char m_unmodelled00[0xA8];
+	char m_pad0C[0xA8 - 0x0C];
 	GameWindow *m_specialPowerShortcutButtons[MAX_SPECIAL_POWER_SHORTCUTS];        // target+0xA8
 	GameWindow *m_specialPowerShortcutButtonParents[MAX_SPECIAL_POWER_SHORTCUTS];  // target+0xBC
 	Int m_currentlyUsedSpecialPowersButtons;                                       // target+0xD0

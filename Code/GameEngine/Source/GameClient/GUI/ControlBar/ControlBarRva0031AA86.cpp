@@ -1,10 +1,12 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ?rva0031AA86@ControlBar@@QAEHXZ @ 0x0031AA86 152B: ControlBar ButtonGeneral
 // refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral")) then
 // GadgetButtonSetEnabledImage on +0x270/+0x274 blinked by frame%period.
 // Evidence: string literal plus rowed nameToKey plus rowed Gadget helper
 // plus caller 0x0031E25E plus ControlBar sibling 0x0031AE13 layout.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class Image;
 
 class GameWindow
@@ -118,13 +120,13 @@ extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	int rva0031AA86();
 
 private:
-	char m_pad00[0x270];
+	char m_pad0C[0x270 - 0x0C];
 	const Image *m_p0270;
 	const Image *m_p0274;
 	unsigned char m_0278;

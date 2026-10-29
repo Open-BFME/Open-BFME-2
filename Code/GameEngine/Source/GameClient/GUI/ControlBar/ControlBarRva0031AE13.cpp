@@ -1,10 +1,12 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ?rva0031AE13@ControlBar@@QAEXXZ @ 0x0031AE13 128B: ControlBar button-large
 // image refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonLarge")) then
 // GadgetButton helpers on +0x250/+0x254/+0x258 when +0x24==2 else
 // +0x260/+0x25c/+0x264. Evidence: string literal plus rowed nameToKey plus
 // rowed Gadget helpers plus caller 0x0031B0CE family plus neighbours.
+typedef bool Bool;
+#include "subsystem_interface.h"
 class Image;
 
 class GameWindow
@@ -100,13 +102,13 @@ void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image
 void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image);
 void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image);
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void rva0031AE13();
 
 private:
-	char m_pad00[0x24];
+	char m_pad0C[0x24 - 0x0C];
 	int m_0024;
 	char m_pad28[0x250 - 0x28];
 	const Image *m_p0250;
