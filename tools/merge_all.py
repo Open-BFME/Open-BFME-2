@@ -315,7 +315,9 @@ class State:
         return None
 
     def merged(self, tu, commit, keys, follow_up):
-        self.data["merged"][tu] = {"commit": commit, "claim_keys": keys, "follow_up": follow_up}
+        kept = self.data["merged"].get(tu, {}).get("claim_keys", [])   # an earlier partial merge's, unreleased
+        self.data["merged"][tu] = {"commit": commit, "claim_keys": sorted(set(kept) | set(keys)),
+                                   "follow_up": follow_up}
         self.data["retry"].pop(tu, None)
         self.data["failed"].pop(tu, None)
 
@@ -488,7 +490,7 @@ def coordinate(args, ts=None, run=None, workers=None, integrate_fn=None, now=tim
         ts._CACHE.clear()
         entries = ts.queue(args.under, args.limit, root=root)
         try:
-            held = set().union(*(set(rec) for rec in ts.claims._blocking_records(root)))
+            held = set(ts.claims.busy_keys(root))   # lock keys: a class claim covers its members' files
         except Exception:   # noqa: BLE001 - no origin: nothing is known to be held
             held = set()
         jobs = plan(entries, lambda tu: ts.donors(tu, ts.skeleton(tu)), held, ts.claims.key_of, ts.claim_keys)
@@ -546,12 +548,14 @@ def coordinate(args, ts=None, run=None, workers=None, integrate_fn=None, now=tim
                         progress += 1
                         log(f"merge-all: {tu}: {len(gone)} file(s) absorbed ({detail[:10]})")
                     elif status == "conflict":
+                        ts.claims.release(res.get("claim_keys", []))   # not integrated: the next pass re-claims
                         state.retry(tu, detail)
                         tried.discard(tu)
                         items.append(item("conflict", tu, tu, job["removes"], job["rows"],
                                           "the verified merge does not apply on the integrated branch; retried "
                                           "next pass", evidence=detail))
                     else:
+                        ts.claims.release(res.get("claim_keys", []))
                         state.failed(tu, job["digest"], status)
                         items.append(item(status, tu, tu, job["removes"], job["rows"], detail))
                 else:

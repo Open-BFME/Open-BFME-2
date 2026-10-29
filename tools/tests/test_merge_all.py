@@ -51,8 +51,10 @@ class FakeTs:
         self.held = set(held)
         self.mixed = mixed or {}
         self._CACHE = {}
+        self.released = []
         self.claims = SimpleNamespace(owner=lambda root=None: "seat-test",
-                                      _blocking_records=lambda root=None: [dict.fromkeys(self.held, {"owner": "x"})],
+                                      busy_keys=lambda root=None: set(self.held),
+                                      release=self.released.extend,
                                       key_of=lambda k: k)
 
     def queue(self, under="", limit=None, root=None):
@@ -119,6 +121,38 @@ def test_a_tu_another_seat_holds_is_never_run_and_is_recorded_with_its_holders(t
     claimed = [i for i in doc["items"] if i["kind"] == "claimed"]
     assert claimed == [dict(claimed[0], tu="Code/T2.cpp", holders=["file:Code/B1.cpp"])]
     assert claimed[0]["frees"] == 1
+
+
+def test_a_class_claim_holds_the_tus_whose_files_define_that_class(tree, tmp_path):
+    ts = FakeTs(TUS)       # header work holds only class:X; busy_keys expands it to X's member files
+    ts.claims.busy_keys = lambda root=None: {"class/Thing", "file:Code/B1.cpp"}
+    ran = []
+
+    def run(wt, tu, dry_run, owner):
+        ran.append(tu)
+        return {"report": {"accepted": [], "blocked": "no verified merge"}}
+    M.coordinate(args(dry_run=True, state_dir=tmp_path / "s"), ts=ts, run=run, root=tree, log=lambda *a: None)
+    assert "Code/T2.cpp" not in ran
+
+
+def test_a_merge_that_does_not_integrate_gives_its_claims_back(tree, tmp_path):
+    ts = FakeTs({"Code/T1.cpp": TUS["Code/T1.cpp"]})
+
+    def run(wt, tu, dry_run, owner):
+        return {"report": {"accepted": [tu, "Code/A1.cpp"], "subject": "Merge"}, "commit": "c1",
+                "claim_keys": ["file:Code/T1.cpp", "file:Code/A1.cpp"]}
+    M.coordinate(args(state_dir=tmp_path / "s", passes=1), ts=ts, run=run, workers=FakeWorkers(),
+                 integrate_fn=lambda root, commit, tu, absorbed: ("conflict", "CONFLICT"), root=tree,
+                 log=lambda *a: None)
+    assert ts.released == ["file:Code/T1.cpp", "file:Code/A1.cpp"]
+
+
+def test_a_second_partial_merge_keeps_the_first_ones_claims(tmp_path):
+    state = M.State(tmp_path / "state.json")
+    state.merged("Code/T.cpp", "c1", ["file:Code/T.cpp", "file:Code/A.cpp"], [])
+    state.merged("Code/T.cpp", "c2", ["file:Code/T.cpp", "file:Code/B.cpp"], [])
+    assert state.data["merged"]["Code/T.cpp"]["claim_keys"] == [
+        "file:Code/A.cpp", "file:Code/B.cpp", "file:Code/T.cpp"]
 
 
 # ---- parallel
