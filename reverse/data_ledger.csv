@@ -20676,8 +20676,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04334,4,.data,global,?TheBeaconClientUpdatePoolKey@?1??getModuleNameKey@BeaconClientUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp,owned,,1,2
 0x00A04338,4,.data,global,?$S1@?1??getModuleNameKey@BeaconClientUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameClient/Drawable/Update/BeaconClientUpdate.cpp,owned,,1,2
 0x00A0433C,4,.data,global,_s_rva007B2BB4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A04340,4,.data,global,?TheEvaAnnounceClientCreatePoolKey@?1??getModuleNameKey@EvaAnnounceClientCreate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameClient/Drawable/Update/EvaAnnounceClientCreatePoolKey.cpp,owned,,1,2
-0x00A04344,4,.data,global,?$S1@?1??getModuleNameKey@EvaAnnounceClientCreate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameClient/Drawable/Update/EvaAnnounceClientCreatePoolKey.cpp,owned,,1,4
+0x00A04340,4,.data,global,?TheEvaAnnounceClientCreatePoolKey@?1??getModuleNameKey@EvaAnnounceClientCreate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Create/EvaAnnounceClientCreate.cpp,owned,,1,2
+0x00A04344,4,.data,global,?$S1@?1??getModuleNameKey@EvaAnnounceClientCreate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Create/EvaAnnounceClientCreate.cpp,owned,,1,4
 0x00A04348,4,.data,global,_s_rva007B2BDE,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A0434C,4,.data,global,?TheRadarMarkerClientUpdatePoolKey@?1??getModuleNameKey@RadarMarkerClientUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RadarMarkerClientUpdate.cpp,owned,,1,2
 0x00A04350,4,.data,global,?$S1@?1??getModuleNameKey@RadarMarkerClientUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RadarMarkerClientUpdate.cpp,owned,,1,4
