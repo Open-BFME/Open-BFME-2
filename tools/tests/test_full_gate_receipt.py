@@ -528,5 +528,5 @@ def test_the_ledger_object_name_is_obj_paths():
     for row in ({"source": "Code/GameEngine/Source/GameClient/Eva.cpp", "notes": ""},
                 {"source": "Code/stlport/LocaleTimeDestroy.c", "notes": ""},
                 {"source": "Code/a.b/Unit.Name.cpp", "notes": ""},
-                {"source": "vendor/msvc71crt/msvcrt.lib", "notes": "member=obj\i386\stack.obj"}):
+                {"source": "vendor/msvc71crt/msvcrt.lib", "notes": r"member=obj\i386\stack.obj"}):
         assert build._ledger_object_name(row) == build.row_object(row).name

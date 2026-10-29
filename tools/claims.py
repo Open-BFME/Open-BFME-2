@@ -71,8 +71,8 @@ header, draining a source file, re-homing split rows - is claimed by scope:
 
   python3 tools/claims.py claim file:Code/.../Unit.cpp   # refs/claims/file/<hash>
   python3 tools/claims.py claim class:RenderObjClass     # refs/claims/class/<name>
-  (lease:<name>, refs/claims/lease/<name>, is a short-lived shared window; the
-  master push window that used it was retired for tools/full_gate_receipt.py)
+  (lease:<name>, refs/claims/lease/<name>, is a short-lived shared window:
+  lease:landing is the landing window for full-gate pushes, tools/push_lease.py)
 
 Same refs, same TTL, same compare-and-swap; `list` shows them with the path
 or class. Mutual exclusion is by FILE (lock_keys): an RVA locks itself and its

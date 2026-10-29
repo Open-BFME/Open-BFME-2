@@ -158,6 +158,39 @@ collect_verify() {
     done
 }
 
+# Landing window (tools/push_lease.py, the claim lease:landing, 30-minute TTL).
+# A full-gate or carried push to master takes it before its gate, so scoped
+# pushes do not move master under it; every other push to master waits for it
+# at the end of this hook, until the holder's commit lands or the TTL passes.
+# The hook releases it when it fails; on success it keeps it, because git sends
+# the pack after this hook ends (a window released here let a waiter win the
+# race anyway). It fails open and never blocks past the TTL.
+# BFME_LANDING_LEASE=off skips it.
+LANDING_TOKEN=""
+landing_ok=0
+release_landing_on_failure() {
+    if [ -n "$LANDING_TOKEN" ] && [ "$landing_ok" -ne 1 ]; then
+        python3 tools/push_lease.py release "$LANDING_TOKEN" >/dev/null 2>&1 || true
+        LANDING_TOKEN=""
+    fi
+}
+trap release_landing_on_failure EXIT
+landing_enabled() {
+    [ "${BFME_LANDING_LEASE:-on}" != "off" ] && [ -f tools/push_lease.py ] \
+        && [ "${_remote_ref:-}" = "refs/heads/master" ]
+}
+take_landing_window() {
+    landing_enabled || return 0
+    LANDING_TOKEN="$(python3 tools/push_lease.py acquire "$1")" || LANDING_TOKEN=""
+    if [ -n "$LANDING_TOKEN" ]; then
+        echo "pre-push: holding the landing window (tools/push_lease.py) for $1"
+    fi
+}
+wait_landing_window() {
+    landing_enabled || return 0
+    python3 tools/push_lease.py wait || true
+}
+
 # full_gate_pool: the process pool for a full-gate run. An explicit BUILD_POOL
 # wins; otherwise a third of the machine's cores, at least 4 and at most 8 (a
 # 24-core seat ran its full gate in 54 minutes at a pool of 2). Scoped builds
@@ -482,6 +515,12 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         [ "$header_all" -eq 0 ] || fail "carried full gate from $carried is unbounded"
         collect_verify
     fi
+    # A full-gate or carried push takes the landing window before its gate; a
+    # retry by the holder renews it (tools/push_lease.py).
+    if [ "$large_scope" -ne 0 ]; then
+        take_landing_window "$local_sha"
+        stage "landing window"
+    fi
     # The pushed commit, not HEAD: a push of an older commit builds what it pushes.
     check_worktree_chunks "$local_sha" "${verify[@]}"
     stage "source binding"
@@ -623,8 +662,16 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     fi
     [ -z "${carried_dir:-}" ] || rm -rf "$carried_dir"
     stage "receipt record"
+    # Any other push waits while another seat lands a full-gate push.
+    if [ "$large_scope" -eq 0 ]; then
+        wait_landing_window
+        stage "landing window wait"
+    fi
     echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
 done <<< "$refs"
 # Publisher rollout (tools/publisher_hook.py; mode in reverse/publisher_mode): shadow submits the landed range as a unit in the background and never fails the push; enforce queues it and refuses (exit 3).
 [ ! -f tools/publisher_hook.py ] || [ -n "${CHECKER_DIGEST:-}" ] || python3 tools/publisher_hook.py pre-push "${1:-origin}" <<< "$refs" || [ $? != 3 ] || exit 1
 stage "publisher_hook"
+# Passed: keep the landing window for git's push of the pack (it lapses or counts
+# as free once origin/master holds the commit).
+landing_ok=1

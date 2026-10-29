@@ -21,6 +21,14 @@ stable, distinct `BFME_CLAIM_OWNER` for each seat.
 Claims are refs on origin. They expire after four hours and do not change
 `master` publication. `python3 tools/claims.py list` shows owners.
 
+One claim does pace publication: the landing window `lease:landing`
+(`tools/push_lease.py`, 30-minute TTL). The pre-push hook takes it before a
+full-gate or carried push to master and releases it if the hook fails; every
+other push to master waits at the end of its hook while another seat holds it,
+until the holder's commit is on origin/master or the TTL passes. Check it with
+`python3 tools/push_lease.py status`. A crashed holder blocks no one past the
+TTL, and unreachable claims never block a push.
+
 ## Settling and releasing
 
 A verified `add_match` or `add_match_batch` keeps the claim and queues the row.
