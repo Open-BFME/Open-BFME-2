@@ -33,6 +33,7 @@ public:
 class DisplayString
 {
 public:
+	DisplayString();
 	virtual ~DisplayString();
 	virtual void setText( UnicodeString text );
 	virtual UnicodeString getText( void );
@@ -66,9 +67,13 @@ protected:
 	DisplayString *m_prev;
 };
 
+class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); };
+class Rva00155AD0 { public: void rva00155AD0( void ); };
+
 class Render2DSentenceClass
 {
 public:
+	Render2DSentenceClass();
 	~Render2DSentenceClass();
 	Vector2 Get_Formatted_Text_Extents(const unsigned short *text);
 	FontCharsClass *Peek_Font() { return Font; }
@@ -80,6 +85,22 @@ public:
 		return true;
 	}
 	virtual void Reset();
+	bool	Set_Wrapping_Width (float width)					{ if(WrapWidth == width)
+																											return false;
+																										WrapWidth = width; 
+																										return true;	}
+	void Set_Use_Hard_Word_Wrap( bool onoff ) { UseHardWordWrap = onoff; }
+	void Set_Hot_Key_Parse( bool parseHotKey ) { ParseHotKey = parseHotKey; }
+	void Set_Font( FontCharsClass *font );
+	void	Set_Clipping_Rect( const RectClass &rect )	{ ClipRect = rect; IsClippedEnabled = true; }
+	// Rowed under address-derived names: Build_Sentence 0x00159FC0 and Render
+	// 0x00155AD0; the four-colour Draw_Sentence 0x00155B00 is pinned.
+	void Build_Sentence( const wchar_t *text, Int *hkX, Int *hkY )
+	{ reinterpret_cast<Gen_00942BC0 *>(this)->process( (void *)text, hkX, hkY ); }
+	void Reset_Polys( void );
+	void Set_Location( const Vector2 &loc );
+	void Draw_Sentence( unsigned long c0, unsigned long c1, unsigned long c2, unsigned long c3 );
+	void Render( void ) { reinterpret_cast<Rva00155AD0 *>(this)->rva00155AD0(); }
 private:
 	char m_unrecovered04[ 0x4C - 0x04 ];
 	FontCharsClass *Font;
@@ -98,7 +119,9 @@ private:
 class W3DDisplayString : public DisplayString
 {
 public:
+	W3DDisplayString();
 	virtual ~W3DDisplayString();
+	virtual void reset();
 	virtual Int getWidth(Int charPos = -1);
 	virtual void setWordWrapCentered(Bool isCentered);
 	virtual void notifyTextChanged();

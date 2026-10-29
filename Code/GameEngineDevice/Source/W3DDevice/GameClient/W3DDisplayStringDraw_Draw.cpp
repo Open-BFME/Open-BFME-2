@@ -34,48 +34,28 @@
 // at +0x14/+0xD8, m_textChanged at +0x1A0); the ZH-layout W3DDisplayString.cpp
 // beside this file places them elsewhere. In the 0xC4-byte BFME 2
 // Render2DSentenceClass the wrap width sits at +0x84 and the hard-wrap flag at
-// +0xAE; GlobalLanguage::m_useHardWrap is at +0x24.
+// +0xAE. The class views below are W3DDisplayString.cpp's, verbatim, so the
+// three units compose into that retail TU.
 
 #include "ascii_string.h"
 #include "unicode_string.h"
+#include "../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "../../../../Libraries/Include/Lib/IRegion2D.h"
+#include "../../../../../reference/shims/wwmath/Vector2.h"
 
 typedef bool Bool;
+
 typedef int Int;
+
 typedef int Color;
-#define TRUE true
-#define FALSE false
 
-class FontCharsClass;
+class GameFont;
 
-// BFME 2 GameFont: name at +0x08, point size (a Real here) at +0x0C and the
-// renderer font data at +0x14.
-class GameFont
+class FontCharsClass
 {
 public:
-	char m_unrecovered00[ 0x08 ];
-	AsciiString nameString;															///< 0x08
-	float pointSize;																		///< 0x0C
-	char m_unrecovered10[ 0x04 ];
-	void *fontData;																			///< 0x14
+ int Get_Char_Spacing(unsigned short ch);
 };
-
-class FontLibrary
-{
-public:
-	GameFont *getFont( const AsciiString *name, float pointSize, Bool bold );
-};
-extern FontLibrary *TheFontLibrary;
-
-struct GlobalLanguage
-{
-	char m_unrecovered00[ 0x24 ];
-	Bool m_useHardWrap;																	///< 0x24
-};
-extern GlobalLanguage *TheGlobalLanguageData;
-
-#include "../../../../Libraries/Include/Lib/ICoord2D.h"
-
-#include "../../../../Libraries/Include/Lib/IRegion2D.h"
 
 class RectClass
 {
@@ -88,13 +68,10 @@ public:
 	RectClass &operator=( const RectClass &r );
 };
 
-// BFME 2 DisplayString vftable (??_7DisplayString 0x00C15338, W3DDisplayString
-// 0x00BCF900): Zero Hour's order with the six-argument draw dropped, three
-// colour setters and a two-argument draw added after setWordWrapCentered, two
-// float setters after getWidth, and a string append after appendChar.
 class DisplayString
 {
 public:
+	DisplayString();
 	virtual ~DisplayString();
 	virtual void setText( UnicodeString text );
 	virtual UnicodeString getText( void );
@@ -130,12 +107,21 @@ protected:
 
 class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); };
 class Rva00155AD0 { public: void rva00155AD0( void ); };
-#include "../../../../../reference/shims/wwmath/Vector2.h"
 
 class Render2DSentenceClass
 {
 public:
+	Render2DSentenceClass();
 	~Render2DSentenceClass();
+	Vector2 Get_Formatted_Text_Extents(const unsigned short *text);
+	FontCharsClass *Peek_Font() { return Font; }
+	bool Set_Word_Wrap_Centered(bool centered)
+	{
+		if (IsWordWrapCentered == centered)
+			return false;
+		IsWordWrapCentered = centered;
+		return true;
+	}
 	virtual void Reset();
 	bool	Set_Wrapping_Width (float width)					{ if(WrapWidth == width)
 																											return false;
@@ -154,9 +140,12 @@ public:
 	void Draw_Sentence( unsigned long c0, unsigned long c1, unsigned long c2, unsigned long c3 );
 	void Render( void ) { reinterpret_cast<Rva00155AD0 *>(this)->rva00155AD0(); }
 private:
-	char m_unrecovered04[ 0x84 - 0x04 ];
+	char m_unrecovered04[ 0x4C - 0x04 ];
+	FontCharsClass *Font;
+	char m_unrecovered50[ 0x84 - 0x50 ];
 	float WrapWidth;																		///< 0x84
-	char m_unrecovered88[ 0x8C - 0x88 ];
+	bool IsWordWrapCentered;
+	char m_unrecovered89[ 0x8C - 0x89 ];
 	RectClass ClipRect;																	///< 0x8C
 	char m_unrecovered9C[ 0xAC - 0x9C ];
 	bool IsClippedEnabled;															///< 0xAC
@@ -168,7 +157,11 @@ private:
 class W3DDisplayString : public DisplayString
 {
 public:
+	W3DDisplayString();
 	virtual ~W3DDisplayString();
+	virtual void reset();
+	virtual Int getWidth(Int charPos = -1);
+	virtual void setWordWrapCentered(Bool isCentered);
 	virtual void notifyTextChanged();
 	virtual void setWordWrap( Int wordWrap );
 	virtual void setFont( GameFont *font );
@@ -203,6 +196,9 @@ private:
 	IRegion2D m_clipRegion;															///< 0x1E4
 	unsigned int m_lastResourceFrame;										///< 0x1F4
 };
+
+#define TRUE true
+#define FALSE false
 
 // The hot key lookup (Zero Hour HotKeyManager::searchHotKey) on the manager at
 // retail [0x00E01E28]; pinned at 0x00358B9E.
