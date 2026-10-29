@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // ControlBar::hideSpecialPowerShortcut ported from BFME1 donor
 // reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarFields.cpp
 // (// cl: /DNDEBUG /DWIN32 /MD /EHsc, stlport).
@@ -17,12 +18,14 @@ public:
 	int winHide( bool hide );
 };
 
-class ControlBar
+typedef bool Bool;
+#include "subsystem_interface.h"
+class ControlBar : public SubsystemInterface
 {
 public:
 	void hideSpecialPowerShortcut( void );
 
-	unsigned char m_pad[ 0xD8 ];
+	unsigned char m_pad[ 0xD8 - 0x0C ];
 	GameWindow *m_specialPowerShortcutParent;			///< retail this+0xD8 (BFME1 header has this+0xFC)
 };
 

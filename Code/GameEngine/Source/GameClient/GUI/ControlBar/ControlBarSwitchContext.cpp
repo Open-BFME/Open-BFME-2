@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
+// cl: /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // stlport
 // BFME1 ba7ddda7 ControlBar.cpp supplies the context-selection workflow.
 // WB 0x00C2DCC0 names switchToContext. Native 0x0031BF64..0x0031C3E2
@@ -213,7 +213,9 @@ struct ContextControlBarView {
     _STL::vector<BfmePod8> selections;
 };
 struct Coord3D;
-class ControlBar {
+typedef bool Bool;
+#include "subsystem_interface.h"
+class ControlBar : public SubsystemInterface {
 public:
     void switchToContext(int,void *);
     void showRallyPoint(const Coord3D *);

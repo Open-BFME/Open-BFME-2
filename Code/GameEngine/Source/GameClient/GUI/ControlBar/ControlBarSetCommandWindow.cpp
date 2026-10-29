@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
 // BFME1 ba7ddda7 ControlBar_setControlCommand_GameWindow.cpp is the guide.
 // Named WB 0x00C2E790 and full native 0x0031B641..0x0031B892 establish
 // the target layout, image/text route, unconditional production flag and
@@ -102,7 +102,9 @@ enum CommandButtonMappedBorderType
     COMMAND_BUTTON_BORDER_SYSTEM,
     COMMAND_BUTTON_BORDER_BFME5
 };
-class ControlBar
+typedef bool Bool;
+#include "subsystem_interface.h"
+class ControlBar : public SubsystemInterface
 {
 public:
     void setControlCommand(GameWindow *,const CommandButton *);

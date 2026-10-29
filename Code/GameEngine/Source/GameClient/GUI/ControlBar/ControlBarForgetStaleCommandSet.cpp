@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/subsystem_bfme2
 // stlport
 // ControlBar.cpp WB 0x00C2D580: forgetStaleCommandSet; native 0x0031E879..0x0031E8D5.
 // Native map cursor has {node, owner}; its value at node+8 is removed from
@@ -41,7 +41,9 @@ struct VideoPair {
 class Rva000427195 { public: void rva003A37DC(VideoPair); };
 struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
 struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
-class ControlBar { public: void forgetStaleCommandSet(const AsciiString &); };
+typedef bool Bool;
+#include "subsystem_interface.h"
+class ControlBar : public SubsystemInterface { public: void forgetStaleCommandSet(const AsciiString &); };
 void ControlBar::forgetStaleCommandSet(const AsciiString &name)
 {
     Rva00056F61 *table = (Rva00056F61 *)((char *)this+0x30);

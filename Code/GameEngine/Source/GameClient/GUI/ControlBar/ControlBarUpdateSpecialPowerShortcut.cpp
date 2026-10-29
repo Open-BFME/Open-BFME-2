@@ -77,7 +77,7 @@ public:
     CommandAvailability getCommandAvailability(const CommandButton *,GameWindow *,Object *,float *,bool) const;
 private:
     char m_pad0C[0x14 - 0x0C];
-    ShortcutAnimateManagerView *animateManager;
+    ShortcutAnimateManagerView *m_animateWindowManagerForGenShortcuts;
     char unknown18[0x30];
     GameWindow *contextParent[9]; // [0] is the master window
     char unknown6C[0x3C];
@@ -102,7 +102,7 @@ void ControlBar::rva0031B210()
         ((Rva0031AF54 *)this)->rva0031AF54(true);
     }
     else if (!((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter()
-        && !shortcutParent->winIsHidden() && !animateManager->isFinished())
+        && !shortcutParent->winIsHidden() && !m_animateWindowManagerForGenShortcuts->isFinished())
         ((Rva0031AF54 *)this)->rva0031AF54(false);
     if (shortcutParent->winIsHidden()) return;
     if (!((BfmeMemberRV *)((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())->bfmeAskRV())
