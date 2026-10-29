@@ -92,6 +92,16 @@ and consumer-wide confirmation remain; the outgoing audit is inconclusive on
 the older index and missing CreateAHeroManager consumer receipt. No census gain
 is claimed. [Evidence](../reverse/attempt_support/emotion-tracker-base-header-20261029-codex.md).
 
+EmotionTracker constructor follow-up (2026-10-29, base `025f81f0ca`, index
+`85f6b7f40c`): canonical ObjectModule adoption resolves the primary-vtable
+conflict, preserves all 11 constructor/destructor rows and both exact EH graphs,
+and retires one header queue row. Ordinary preview reports constructor LINKS
+for 430 authored bytes and preserves the destructor's 159. Concrete derived
+virtual overrides, Thing header adoption and full consumer/census confirmation
+remain pending; the affected CreateAHeroManager consumer lacks a current
+receipt. No census gain is claimed.
+[Scoped evidence](../reverse/attempt_support/emotion-ctor-objectmodule-20261029-codex3.md).
+
 XferSaveAsText header follow-up (2026-10-29, base `eb384b72a1`): the shared
 Xfer header's opt-in imported-inline constructor preserves the existing
 emission contract and removes the text saver's private base definition.
