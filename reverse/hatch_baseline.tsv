@@ -3300,7 +3300,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityManager
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp	?f20@LargeGroupAudioUpdate_B20@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp	?f24@LargeGroupAudioUpdate_B24@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LargeGroupAudioUpdateDtor.cpp	?f2@Rva0024A797_B2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	?loadPostProcess@Rva006DCD20@@MAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp	?behaviorSlot@BehaviorModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateFriendNew.cpp	??0ModelConditionSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
@@ -3848,6 +3847,7 @@ alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	
 alternatename	Code/Libraries/Source/Apt/AptValue/AptScalarValueConstructors.cpp	?vtableSlot0@Rva006D8860BoolValue@@UAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueConstructorBFME2.cpp	??0Rva006DCD20@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueDonorBitsBFME2.cpp	?rva006dbd80@AptCIH@@QAEXXZ	1
+alternatename	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	?loadPostProcess@Rva006DCD20@@MAEXXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetBool@AptBoolean@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?GetInt@AptInteger@@QBEHXZ	1
 alternatename	Code/Libraries/Source/Apt/AptValue/AptValueToBoolBFME2.cpp	?c_integer@AptValue@@QBEPAVAptInteger@@XZ	1
@@ -10837,8 +10837,6 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/AssistedTargeting
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/FlammableUpdate.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgrade.cpp	"",on	1
@@ -10966,6 +10964,8 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObject.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	"gsy",on	1
+pragma_optimize	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	"",on	1
+pragma_optimize	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/Apt/AptValue/Rva006CDE50Collect.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/Apt/AptValue/Rva006CDE50Collect.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/Apt/AptValueShutdownBFME2.cpp	"",on	1
@@ -13868,13 +13868,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	update@HordeUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HordeUpdate.cpp	xfer@HordeUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::crc	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::initLaser	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::loadPostProcess	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::setDecayFrames	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::updateEndPos	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	LaserUpdate::updateStartPos	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp	RvaLaserAnchor	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp	1StoreObjectsSpecialPower@@	1
@@ -14556,6 +14549,13 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cp
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueWithHash::AptValueWithHash	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp	AptObject::AptObject	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::crc	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::initLaser	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::loadPostProcess	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::setDecayFrames	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::updateEndPos	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	LaserUpdate::updateStartPos	1
+present_unmatched	Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp	RvaLaserAnchor	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva006DA4D0::Rva006DA4D0	1
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	0Rva006560E0@@QAE@XZ	1
