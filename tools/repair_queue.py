@@ -1187,6 +1187,15 @@ def data_identity_items():
 HEADER_ESTABLISH_LIMIT = 30   # classes without a header served at once, by merge donors unblocked
 
 
+def _contract_undecided_slots(path):
+    """The virtual slots the frozen contract at `path` leaves undecided (its queue)."""
+    try:
+        contract = json.loads(Path(path).read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return []
+    return [q["attribute"] for q in contract.get("queue", ()) if re.fullmatch(r"slot\d+", str(q.get("attribute")))]
+
+
 def _contract_virtual(path):
     """Does the frozen contract at `path` give the class a vfptr or virtual slots?"""
     try:
@@ -1208,9 +1217,10 @@ def header_items():
     Each item claims `class:NAME` and includes every queued source of that class in
     its work footprint, even private views without member rows in the ledger. The
     first diagnostic is often a member the header lacks, so the fix is class-wide. An
-    establish item claims every file `run --apply` may rewrite: the class's census (every
-    authored unit with a private body of it, which holds the dependency views stripped with
-    it) and its header destination; a class whose census is not cached is not served. The
+    establish item claims the class, its header destination and its merge donors; `run
+    --apply` claims the other census units it rewrites right before rewriting them. It is
+    sent to `run --generate` first, and to a hand-written header only when the contract
+    leaves virtual slots undecided (or generation then refuses). The
     ranking is read from the shared picker cache only (header_adopt_lane.merge_payload_nonblocking):
     a miss ranks by DEPENDENCY_ORDER and starts one background refresh. PASS TEST: the row's
     acceptance (`header_adopt_lane.py accept`), which retires the row when it passes."""
@@ -1229,8 +1239,7 @@ def header_items():
         merge_note = f"merge ranking unavailable ({type(exc).__name__}: {exc}), DEPENDENCY_ORDER only"
     merge_note = f"; {merge_note}" if merge_note else ""
     payload = payload or {}
-    blockers, census, destinations = (payload.get("classes") or {}, payload.get("census") or {},
-                                      payload.get("destinations") or {})
+    blockers, destinations = payload.get("classes") or {}, payload.get("destinations") or {}
     merges = {c: score for c, score, _ in header_adopt_lane.merge_rank(blockers, canon)}
     credit = sources_bytes()
     items, gone = [], {}
@@ -1261,38 +1270,37 @@ def header_items():
         })
     queued_classes = {i["class"] for i in items}
     contracts = header_adopt_lane.class_contract.CONTRACTS
-    establish, uncensused = [], 0
+    establish = []
     for name, score, own in header_adopt_lane.merge_rank(blockers, canon):
         if name in canon or name in queued_classes or len(establish) >= HEADER_ESTABLISH_LIMIT:
             continue
-        if name not in census:            # its footprint is unknown: never serve a partial claim
-            uncensused += 1
-            continue
         d = blockers.get(name, {})
         dest = destinations.get(name) or {"header": None, "why": "no destination cached"}
-        files = sorted(set(d.get("files", ())) | set(census[name]) | ({dest["header"]} if dest["header"] else set()))
+        # Pick-time scope: the class, its header and the merge donors. `run --apply` claims the
+        # other units it rewrites itself, right before rewriting them, and refuses if any is held.
+        files = sorted(set(d.get("files", ())) | ({dest["header"]} if dest["header"] else set()))
         contract = contracts / (header_adopt_lane.class_contract.portable_component(name) + ".json")
-        if d.get("virtual") or _contract_virtual(contract):
-            # generate() writes no virtual functions yet (docs/linking_obstacles.md, "Module base
-            # chain"): a polymorphic class's header is written by hand and adopted as a fixed header
-            where = (f"at {dest['header']} (from {dest['evidence']})" if dest["header"] else
-                     f"at the official BFME path python3 tools/header_adopt_lane.py dest --class {name} names "
-                     f"(none now: {dest['why']}; choose from its evidence, never invent one)")
-            obstacle = ("header_adopt_lane generate() emits no virtual functions (docs/linking_obstacles.md, "
-                        "\"Module base chain\"), and this class is polymorphic")
-            generate = (f"write {name}'s canonical header by hand {where} from the contract and the retail "
-                        f"vtables (class_contract.py's vslots, reverse/vtables.tsv), then python3 "
-                        f"tools/header_adopt_lane.py run --class {name} --header "
-                        f"{dest['header'] or 'PATH'} --sample 60 (no --generate), then --apply")
+        header = dest["header"] or "PATH"
+        choose = ("" if dest["header"] else
+                  f"no header destination ({dest['why']}): run python3 tools/header_adopt_lane.py dest --class "
+                  f"{name} and choose an official BFME path from its evidence (never invent one); ")
+        by_hand = (f"write {name}'s canonical header by hand at {header} from the contract and the retail vtables "
+                   f"(its vslots, reverse/vtables.tsv), then python3 tools/header_adopt_lane.py run --class {name} "
+                   f"--header {header} --sample 60 (no --generate), then --apply")
+        undecided = _contract_undecided_slots(contract)
+        if undecided:
+            # generate() declares decided slots only; a contract leaving slots open cannot be generated
+            obstacle = (f"the contract leaves virtual slot(s) {', '.join(undecided[:6])} undecided, so `run "
+                        "--generate` refuses (docs/linking_obstacles.md, \"Module base chain\")")
+            generate = choose + by_hand
         else:
             obstacle = ""
-            generate = (f"python3 tools/header_adopt_lane.py run --class {name} --header {dest['header']} "
-                        f"--generate --sample 60 (destination from {dest['evidence']}), then --apply"
-                        if dest["header"] else
-                        f"no header destination ({dest['why']}): run python3 tools/header_adopt_lane.py dest "
-                        f"--class {name}, choose an official BFME path from its evidence (never invent one), then "
-                        f"python3 tools/header_adopt_lane.py run --class {name} --header PATH --generate --sample "
-                        "60, then --apply")
+            generate = (choose + f"python3 tools/header_adopt_lane.py run --class {name} --header {header} --generate "
+                        "--sample 60" + (f" (destination from {dest['evidence']})" if dest["header"] else "")
+                        + ", then --apply"
+                        + (f". If generation refuses (undecided contract attributes, a base without a canonical "
+                           f"header, a slot it cannot declare) or no variant passes, record why and {by_hand}"
+                           if d.get("virtual") or _contract_virtual(contract) else ""))
         establish.append({
             **({"obstacle": obstacle} if obstacle else {}),
             "tier": "header", "check": "class-header-establish", "class": name, "target_rva": "",
@@ -1309,8 +1317,9 @@ def header_items():
                        f"read {contract.relative_to(ROOT).as_posix()}; ") + generate
                       + " (the contract's evidence rules decide every attribute; an undecided one is not guessed)"),
             "claim": [f"class:{name}"] + [f"file:{f}" for f in files],
-            "pass_test": (f"reverse/canonical_classes.csv registers {name} through header_adopt_lane.py run --apply, "
-                          "the adopted units build exact and the rest are queued in " + HEADER_QUEUE),
+            "pass_test": (f"reverse/canonical_classes.csv registers {name} through header_adopt_lane.py run --apply "
+                          "(which claims the units it rewrites), the adopted units build exact and the rest are "
+                          f"queued in {HEADER_QUEUE}; after the push, header_adopt_lane.py release --class {name}"),
         })
     # The classes whose header unblocks the most queued merge donors first; DEPENDENCY_ORDER
     # stays a floor (merge_rank never ranks a prerequisite below what needs it).
@@ -1320,8 +1329,7 @@ def header_items():
     return vanished_items("header", gone, HEADER_QUEUE) + items + establish, (
         f"{len(items)} unit(s) of {classes} class(es) from {HEADER_QUEUE}" + gone_note(gone, "rows")
         + f"; {len(establish)} class(es) without a header ranked by merge donors unblocked "
-          "(header_adopt_lane.py order --merges)"
-        + (f", {uncensused} more without a cached census not served" if uncensused else "") + merge_note)
+          "(header_adopt_lane.py order --merges)" + merge_note)
 
 
 def identity_items():

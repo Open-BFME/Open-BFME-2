@@ -976,6 +976,13 @@ def run(args):
     SCRATCH.mkdir(parents=True, exist_ok=True)
     (SCRATCH / f"{class_contract.portable_component(name)}.json").write_text(json.dumps(summary, indent=1), encoding="utf-8")
     if args.apply:
+        # The picker claims only the class, its header and the merge donors; the units
+        # rewritten here are claimed now, right before they change, and refused if held.
+        held = claim_rewrites(name, ([] if fixed else [header]) + passed)
+        if held:
+            print(f"  refusing to apply: {len(held)} file(s) another worker holds: " + "; ".join(
+                f"{key} ({who})" for key, who in held[:8]) + (" ..." if len(held) > 8 else ""))
+            return 3
         if not fixed:
             (ROOT / header).parent.mkdir(parents=True, exist_ok=True)
             (ROOT / header).write_text(best["header"], encoding="utf-8", newline="\n")
@@ -995,7 +1002,56 @@ def run(args):
                   f"{LEDGER.relative_to(ROOT).as_posix()} in the same commit as their units")
         write_queue(name, header, failed)
         print(f"  applied: {len(passed)} units rewritten, {len(failed)} queued in {QUEUE.relative_to(ROOT).as_posix()}")
+        print(f"  after the apply commit is pushed: python3 tools/header_adopt_lane.py release --class {name}")
     return 0
+
+
+def rewrite_claims_path(name):
+    return SCRATCH / f"{class_contract.portable_component(name)}.claims"
+
+
+def claim_rewrites(name, files):
+    """Claim `file:` keys for the files `run --apply` is about to rewrite: [] when all are
+    ours (recorded for `release`), else [(path, holder)] after giving back what this call won."""
+    import claims
+    keys = [f"file:{f}" for f in sorted(set(files))]
+    if not keys:
+        return []
+    try:
+        result = claims.claim(keys, note=f"header_adopt_lane apply {name}", root=ROOT, atomic_only=True)
+    except claims.ClaimsUnavailable as exc:
+        return [("(claims unavailable)", str(exc))]
+    if result.refused:
+        prior = set(getattr(result, "prior", ()))
+        won = [k for k in result.claimed if k not in prior]
+        if won:
+            claims.release(won, root=ROOT)
+        names = {claims.key_of(k): k[len("file:"):] for k in keys}
+        owners = {}
+        try:
+            for records in claims._blocking_records(ROOT):
+                owners.update({k: info.get("owner", "?") for k, info in records.items()})
+        except claims.ClaimsUnavailable:
+            pass
+        return [(names.get(k, str(k)), owners.get(k, "another worker")) for k in result.refused]
+    SCRATCH.mkdir(parents=True, exist_ok=True)
+    rewrite_claims_path(name).write_text("\n".join(keys) + "\n", encoding="utf-8")
+    return []
+
+
+def release_rewrites(name):
+    """Release the file claims `run --apply` took for `name` (after its commit is pushed)."""
+    import claims
+    path = rewrite_claims_path(name)
+    if not path.exists():
+        print(f"{name}: no apply-time claims recorded ({path.relative_to(ROOT).as_posix()})")
+        return 0
+    keys = [k for k in path.read_text(encoding="utf-8").split() if k]
+    done = claims.release(keys, root=ROOT)
+    print(f"{name}: released {len(done)} of {len(keys)} apply-time file claim(s)")
+    if len(done) == len(keys):
+        path.unlink()
+    return 0 if len(done) == len(keys) else 1
 
 
 # ---------------------------------------------------------------- merge blockers
@@ -1195,27 +1251,6 @@ def compute_merge_blockers(queue=None, donors_of=None, read=None, canon=None):
     return out
 
 
-def census_index(names, sources=None, read=None):
-    """{class: [sources]} for `names`: every authored ledger source declaring a namespace-scope
-    body of the class, the units `run --apply` may rewrite (class_contract.census, in one pass;
-    the dependency views it strips with the class, STRIP_WITH, live in those same units)."""
-    names = set(names)
-    if sources is None:
-        sources = sorted({r["source"] for r in class_contract.ledger_rows()
-                          if r["source"].lower().endswith((".cpp", ".c"))
-                          and not r["source"].startswith(class_contract.GENERATED)})
-    read = read or (lambda f: (ROOT / f).read_text(encoding="latin-1"))
-    out = {n: [] for n in sorted(names)}
-    for source in sources:
-        try:
-            text = read(source)
-        except OSError:
-            continue
-        for name in set(class_layouts.class_bodies(text)) & names:
-            out[name].append(source)
-    return out
-
-
 # Official BFME header trees a canonical header's path is taken from: BFME 1's own game tree
 # first, then Zero Hour's (both mirror Code/ from their root).
 REFERENCE_HEADER_TREES = (("bfme1", "reference/open-bfme-1/game"),
@@ -1258,10 +1293,10 @@ def header_destination(name, index, exists=None):
     return {"header": None, "why": f"neither BFME 1 nor ZH defines {name} in a header"}
 
 
-MERGE_CENSUS_CLASSES = 60   # header-less classes ranked first get a census and a destination
+MERGE_DEST_CLASSES = 60     # header-less classes ranked first get a header destination
 MERGE_CACHE_HOURS = 12      # a ranking from an ancestor of HEAD this recent is reused (it only orders work)
 MERGE_LOCK_SECONDS = 3600   # a refresh lock older than this is stale (its process died)
-MERGE_PAYLOAD_VERSION = 2   # bump when the payload's shape changes: older entries are misses
+MERGE_PAYLOAD_VERSION = 3   # bump when the payload's shape changes: older entries are misses
 
 
 def merge_cache_dir():
@@ -1294,14 +1329,13 @@ def reference_headers():
 
 
 def compute_merge_payload():
-    """{classes, census, destinations} for the current tree: the ranking and, for the
-    MERGE_CENSUS_CLASSES header-less classes ranked first, what establishing each touches."""
+    """{classes, destinations} for the current tree: the ranking and, for the MERGE_DEST_CLASSES
+    header-less classes ranked first, where each one's canonical header goes."""
     classes = compute_merge_blockers()
     canon = registered()
-    top = [c for c, _, _ in merge_rank(classes, canon) if c not in canon][:MERGE_CENSUS_CLASSES]
+    top = [c for c, _, _ in merge_rank(classes, canon) if c not in canon][:MERGE_DEST_CLASSES]
     index = reference_headers()
-    return {"classes": classes, "census": census_index(top),
-            "destinations": {c: header_destination(c, index) for c in top}}
+    return {"classes": classes, "destinations": {c: header_destination(c, index) for c in top}}
 
 
 def _entry_name(head, fingerprint):
@@ -1446,6 +1480,8 @@ def main(argv=None):
     p.add_argument("--merges", type=int, nargs="?", const=30, metavar="N",
                    help="rank classes by merge donors their canonical header unblocks (top N, default 30)")
     p.add_argument("--refresh", action="store_true", help="recompute the merge-blocker cache")
+    p = sub.add_parser("release", help="release the file claims `run --apply` took for a class")
+    p.add_argument("--class", dest="name", required=True)
     p = sub.add_parser("dest", help="the official header path for a class's canonical header")
     p.add_argument("--class", dest="name", required=True)
     p = sub.add_parser("refresh-merges", help=argparse.SUPPRESS)   # the picker's detached refresh
@@ -1481,6 +1517,8 @@ def main(argv=None):
             for name in names:
                 print(f"  {name:<14} {len(class_contract.census(name)):5} private views  {canon.get(name, '-')}")
         return 0
+    if args.cmd == "release":
+        return release_rewrites(args.name)
     if args.cmd == "dest":
         return print_destination(args.name)
     if args.cmd == "refresh-merges":

@@ -426,7 +426,7 @@ def merge_cache(tmp_path, monkeypatch):
 
     def compute():
         state["calls"] += 1
-        return {"classes": {"X": {"donors": state["calls"]}}, "census": {}, "destinations": {}}
+        return {"classes": {"X": {"donors": state["calls"]}}, "destinations": {}}
     monkeypatch.setattr(lane, "compute_merge_payload", compute)
     return directory, state
 
@@ -488,10 +488,68 @@ def test_merge_inputs_fingerprint_follows_the_first_dirty_file(tmp_path, monkeyp
     assert before[0] == after[0] == "head" and before[1] and before[1] != after[1]
 
 
-def test_census_index_lists_every_unit_with_a_private_body():
-    texts = {"Code/A.cpp": CTOR_VIEW, "Code/B.cpp": XFER_VIEW, "Code/C.cpp": "class Module;\n"}
-    got = lane.census_index(["UpdateModule", "Module", "Absent"], sources=sorted(texts), read=texts.__getitem__)
-    assert got == {"Absent": [], "Module": ["Code/A.cpp"], "UpdateModule": ["Code/A.cpp", "Code/B.cpp"]}
+def _apply_run(tmp_path, monkeypatch, claim_result, released):
+    """run --apply of a fixed header over two census units whose tournament passes both."""
+    import json
+    import claims
+    import class_contract
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "SCRATCH", tmp_path / "build/header_lane")
+    monkeypatch.setattr(lane, "QUEUE", tmp_path / "header_queue.tsv")
+    monkeypatch.setattr(class_contract, "CONTRACTS", tmp_path / "contracts")
+    units = ["Code/A.cpp", "Code/Elsewhere/NoRows.cpp"]
+    for unit in units:
+        (tmp_path / unit).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / unit).write_text("struct Coord3D { float x, y, z; };\n")
+    monkeypatch.setattr(class_contract, "census", lambda name: list(units))
+    path = class_contract.contract_path("Coord3D")
+    path.parent.mkdir()
+    path.write_text(json.dumps({**CONTRACT, "queue": []}), encoding="utf-8")
+    monkeypatch.setattr(lane, "tournament", lambda *a, **k: {"registered": {
+        "verdicts": dict.fromkeys(units), "seconds": 0.0, "header": "", "renames": {},
+        "texts": {u: '#include "Coord3D.h"\n' for u in units}}})
+    registered = []
+    monkeypatch.setattr(lane, "register", lambda *a: registered.append(a))
+    monkeypatch.setattr(lane, "write_queue", lambda *a: None)
+    asked = []
+
+    def claim(keys, **kwargs):
+        asked.append((list(keys), kwargs.get("atomic_only")))
+        return claim_result(keys)
+    monkeypatch.setattr(claims, "claim", claim)
+    monkeypatch.setattr(claims, "release", lambda keys, **k: released.extend(keys) or list(keys))
+    monkeypatch.setattr(claims, "_blocking_records", lambda root=None: [
+        {claims.key_of("file:Code/Elsewhere/NoRows.cpp"): {"owner": "seat-7"}}])
+    args = type("A", (), {"name": "Coord3D", "header": "Coord3D.h", "generate": False, "sample": None, "seed": 1,
+                          "jobs": 1, "variants": "data", "apply": True})()
+    return lane.run(args), units, asked, registered
+
+
+def test_apply_refuses_when_a_census_unit_is_held_by_another_seat(tmp_path, monkeypatch, capsys):
+    import claims
+    held = claims.key_of("file:Code/Elsewhere/NoRows.cpp")
+    released = []
+    code, units, asked, registered = _apply_run(
+        tmp_path, monkeypatch, lambda keys: claims.ClaimResult([], [held]), released)
+    assert code == 3 and not registered
+    assert asked == [(["file:Code/A.cpp", "file:Code/Elsewhere/NoRows.cpp"], True)]   # all or nothing
+    assert all((tmp_path / u).read_text().startswith("struct Coord3D") for u in units)  # nothing rewritten
+    out = capsys.readouterr().out
+    assert "refusing to apply" in out and "Code/Elsewhere/NoRows.cpp (seat-7)" in out
+    assert not (tmp_path / "build/header_lane/Coord3D.claims").exists()
+
+
+def test_apply_claims_the_units_it_rewrites_and_release_gives_them_back(tmp_path, monkeypatch, capsys):
+    import claims
+    released = []
+    code, units, asked, registered = _apply_run(
+        tmp_path, monkeypatch, lambda keys: claims.ClaimResult([claims.key_of(k) for k in keys], []), released)
+    assert code == 0 and registered
+    assert all((tmp_path / u).read_text().startswith("#include") for u in units)
+    assert "header_adopt_lane.py release --class Coord3D" in capsys.readouterr().out
+    assert lane.main(["release", "--class", "Coord3D"]) == 0
+    assert released == ["file:Code/A.cpp", "file:Code/Elsewhere/NoRows.cpp"]
+    assert not (tmp_path / "build/header_lane/Coord3D.claims").exists()
 
 
 def test_header_destination_takes_one_official_path_and_never_guesses(tmp_path):

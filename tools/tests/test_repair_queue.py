@@ -2560,18 +2560,13 @@ MERGE_PAYLOAD = {
                            "files": ["Code/U.cpp"], "virtual": False},
         "Plain": {"donors": 3, "rows": 3, "tus": ["Code/P.cpp"], "kinds": {"base": 1}, "bases": [],
                   "files": ["Code/P.cpp"], "virtual": False},
-        "Contracted": {"donors": 2, "rows": 2, "tus": ["Code/Q.cpp"], "kinds": {"base": 1}, "bases": [],
-                       "files": ["Code/Q.cpp"], "virtual": False},
-        "Uncensused": {"donors": 4, "rows": 4, "tus": ["Code/W.cpp"], "kinds": {"base": 1}, "bases": [],
-                       "files": ["Code/W.cpp"]}},
-    # run --apply rewrites every census unit, including ones no merge donor names
-    "census": {"UpdateModule": ["Code/U.cpp", "Code/Elsewhere/NoRows.cpp"], "BehaviorModule": ["Code/U.cpp"],
-               "Plain": ["Code/P.cpp"], "Contracted": ["Code/Q.cpp"]},
+        "Undecided": {"donors": 2, "rows": 2, "tus": ["Code/Q.cpp"], "kinds": {"base": 1}, "bases": [],
+                      "files": ["Code/Q.cpp"], "virtual": False}},
     "destinations": {"UpdateModule": {"header": "Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
                                       "evidence": "bfme1: game/GameEngine/Include/GameLogic/Module/UpdateModule.h"},
                      "BehaviorModule": {"header": None, "why": "bfme1 defines BehaviorModule in 2 headers"},
                      "Plain": {"header": "Code/GameEngine/Include/Common/Plain.h", "evidence": "zh: Plain.h"},
-                     "Contracted": {"header": "Code/GameEngine/Include/Common/Contracted.h", "evidence": "zh: C.h"}},
+                     "Undecided": {"header": "Code/GameEngine/Include/Common/Undecided.h", "evidence": "zh: U.h"}},
 }
 
 
@@ -2579,7 +2574,9 @@ def _merge_lane(rq, monkeypatch, payload, note=""):
     import header_adopt_lane
     contracts = Path(rq.ROOT) / "reverse/class_contracts"
     contracts.mkdir(parents=True, exist_ok=True)
-    (contracts / "Contracted.json").write_text(json.dumps({"fields": [{"kind": "VPTR"}], "vslots": {"0": {}}}))
+    (contracts / "Undecided.json").write_text(json.dumps({
+        "fields": [{"kind": "VPTR"}], "vslots": {"0": {}},
+        "queue": [{"attribute": "slot1"}, {"attribute": "slot2"}, {"attribute": "name@0x8"}]}))
     monkeypatch.setattr(header_adopt_lane.class_contract, "CONTRACTS", contracts)
     monkeypatch.setattr(header_adopt_lane, "ROOT", Path(rq.ROOT))
     monkeypatch.setattr(header_adopt_lane, "registered", lambda: {"Coord3D": "Coord3D.h", "AsciiString": "a.h"})
@@ -2598,24 +2595,30 @@ def test_header_items_rank_by_merge_donors_and_serve_headerless_blockers(tmp_pat
     assert [i["merge_donors"] for i in items if i["check"] == "class-header"] == [40, 40]
     establish = {i["class"]: i for i in items if i["check"] == "class-header-establish"}
     assert [(i["class"], i["merge_donors"]) for i in items if i["check"] == "class-header-establish"] == [
-        ("BehaviorModule", 300), ("UpdateModule", 300), ("Plain", 3), ("Contracted", 2)]  # not Uncensused
-    assert "1 more without a cached census not served" in note
+        ("BehaviorModule", 300), ("UpdateModule", 300), ("Plain", 3), ("Undecided", 2)]
     assert "4 class(es) without a header ranked by merge donors" in note
     um = establish["UpdateModule"]
-    assert um["claim"] == ["class:UpdateModule", "file:Code/Elsewhere/NoRows.cpp",
-                           "file:Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
+    # pick-time scope only: the class, its header and the merge donors (run --apply claims the census)
+    assert um["claim"] == ["class:UpdateModule", "file:Code/GameEngine/Include/GameLogic/Module/UpdateModule.h",
                            "file:Code/U.cpp", "file:Code/U_xfer.cpp"]
-    # polymorphic: generate() writes no virtuals, so the header is written by hand and adopted as given
-    assert "generate() emits no virtual functions" in um["obstacle"] and "OBSTACLE" in um["why"]
-    assert "by hand at Code/GameEngine/Include/GameLogic/Module/UpdateModule.h" in um["start"]
-    assert "--header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h --sample 60 (no --generate)" in um["start"]
-    assert " --generate --sample" not in um["start"]
-    plain, contracted = establish["Plain"], establish["Contracted"]
+    assert "release --class UpdateModule" in um["pass_test"]
+    # polymorphic with no undecided slot: generate first, by hand only if generation refuses
+    assert "obstacle" not in um and "OBSTACLE" not in um["why"]
+    gen = "run --class UpdateModule --header Code/GameEngine/Include/GameLogic/Module/UpdateModule.h --generate"
+    assert gen in um["start"] and um["start"].index(gen) < um["start"].index("by hand")
+    assert "If generation refuses" in um["start"] and "record why" in um["start"]
+    plain = establish["Plain"]
     assert "obstacle" not in plain and "--header Code/GameEngine/Include/Common/Plain.h --generate" in plain["start"]
-    assert "obstacle" in contracted and " --generate --sample" not in contracted["start"]   # its contract has slots
+    assert "by hand" not in plain["start"]                                 # not polymorphic: nothing to fall back to
+    undecided = establish["Undecided"]
+    assert "slot1, slot2 undecided" in undecided["obstacle"] and "OBSTACLE" in undecided["why"]
+    assert " --generate --sample" not in undecided["start"] and "by hand at Code/GameEngine/Include/Common/Undecided.h" in \
+        undecided["start"] and "--header Code/GameEngine/Include/Common/Undecided.h --sample 60 (no --generate)" in \
+        undecided["start"]
     bm = establish["BehaviorModule"]
-    assert "--header" not in bm["start"].split("then python3")[0] and "dest --class BehaviorModule" in bm["start"]
-    assert "never invent" in bm["start"] and "class_contract.py --class BehaviorModule" in bm["start"]
+    assert "dest --class BehaviorModule" in bm["start"] and "never invent" in bm["start"]
+    assert bm["start"].index("dest --class") < bm["start"].index("--header PATH --generate")
+    assert "class_contract.py --class BehaviorModule" in bm["start"]
     assert "canonical_classes.csv registers BehaviorModule" in bm["pass_test"]
     factor = {i["class"]: next_work.debt_rank_factor(i) for i in items if i["check"] != "vanished-source"}
     assert factor["UpdateModule"] == 10 and factor["BehaviorModule"] == 10  # 1 + bit length of the donors
