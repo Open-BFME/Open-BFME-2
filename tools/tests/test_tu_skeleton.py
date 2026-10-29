@@ -79,6 +79,20 @@ class DirectiveCompositionTests(unittest.TestCase):
             self.assertEqual(out.count('#pragma optimize("s", on)'), 2)
             self.assertIn(text.replace("\n", "\n\n").rstrip(), out)
 
+    def test_a_seeds_trailing_optimization_state_ends_the_unit(self):
+        # hrawanim.cpp ends in optimize("gsy", on) for the ??_E it emits at the end
+        # of the unit; a donor body composed after the seed must not take that state
+        sk = [({"rva": "0x1000", "size": "8"}, {"source": "Seed.cpp", "status": "matched"}),
+              ({"rva": "0x1010", "size": "8"}, {"source": "Donor.cpp", "status": "matched"})]
+        texts = {"Seed.cpp": 'int f() { return 1; }\n// the unit ends size-optimised\n'
+                             '#pragma optimize("gsy", on)\n',
+                 "Donor.cpp": "int g() { return 2; }\n"}
+        out = T.compose("Seed.cpp", sk, ["Seed.cpp", "Donor.cpp"], texts, [], "first")
+        self.assertEqual(out.count('#pragma optimize("gsy", on)'), 1)
+        self.assertLess(out.index("int g()"), out.index("// the unit ends size-optimised"))
+        self.assertLess(out.index("// the unit ends size-optimised"), out.index('#pragma optimize("gsy", on)'))
+        self.assertLess(out.index("int f()"), out.index("int g()"))
+
     def test_unterminated_region_is_not_silently_closed(self):
         out = self.compose("#ifdef DEBUG\nint f() { return 1; }\n")
         self.assertIn("#ifdef DEBUG\n", out)
