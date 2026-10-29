@@ -1,4 +1,5 @@
 // platformsdk
+// stlport46
 /* STLport 4.5.3 c_locale_win32.c: _Locale_unshift and _Locale_strwcmp.
    Transferred unchanged in code from Open-BFME-1 5cae4bdff
    game/Libraries/Source/STLport/LocaleUnshiftStrwcmp.c (BFME1 0x0084DAF0 63 B,
