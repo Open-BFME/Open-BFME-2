@@ -236,7 +236,7 @@ public:
     Rva0047BE4CNode *riders;
 };
 
-extern const int s_hordeSiegeEngineFieldTable[];
+extern const FieldParse s_hordeSiegeEngineFieldTable[];
 
 class HordeTransportContainModuleData
 {

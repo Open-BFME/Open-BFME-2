@@ -23,6 +23,7 @@ void __identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva000CF713Parse@@YAXPAVINI@@PAVRva000CF713Owner@@@Z")();
 void __identifier("?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva002C8C06Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z")();
@@ -49,8 +50,10 @@ void __identifier("?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseLink@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseLookupList@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseOCL@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -61,6 +64,9 @@ void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
+
+struct LookupListRec { const char *name; int value; };
+extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
@@ -383,17 +389,17 @@ extern const FieldParse s_laserDrawFieldTable[17] = {
 };
 
 // Retail VA 0x00bcd918: 10 entries (no terminator) (160B).
-extern const int s_lightDrawFieldTable[40] = {
-    0x00BCD90C, 0x0042F259, 0x00000000, 0x00000008,
-    0x00BCD904, 0x0042F259, 0x00000000, 0x00000014,
-    0x00BCD8F8, 0x0042F259, 0x00000000, 0x00000020,
-    0x00BCD8F0, 0x0042EFC0, 0x00000000, 0x0000002C,
-    0x00BCD8E4, 0x0042EFC0, 0x00000000, 0x00000030,
-    0x00BCD8D0, 0x0042EFC0, 0x00000000, 0x00000034,
-    0x00BCD8BC, 0x0042EFC0, 0x00000000, 0x00000038,
-    0x00BCD8AC, 0x0042EFC0, 0x00000000, 0x0000003C,
-    0x00BCD89C, 0x0042EFC0, 0x00000000, 0x00000040,
-    0x00BCB278, 0x0042F11E, 0x00000000, 0x00000044,
+extern const FieldParse s_lightDrawFieldTable[10] = {
+    { "Ambient", (FieldParseProc)&__identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "Diffuse", (FieldParseProc)&__identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "Specular", (FieldParseProc)&__identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "Radius", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x2C },
+    { "Intensity", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
+    { "FlickerAmplitude", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x34 },
+    { "FlickerFrequency", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x38 },
+    { "PulseAmplitude", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "PulseFrequency", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "AttachToBoneInAnotherModule", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
 };
 
 // Retail VA 0x00c5f064: 2 entries + terminator (48B).
@@ -713,22 +719,22 @@ extern const FieldParse s_citadelSlaughterFieldTable[5] = {
 };
 
 // Retail VA 0x00c4e8b0: 4 entries + terminator (80B).
-extern const int s_weaponModeFieldTable[20] = {
-    0x00C0D77C, 0x00738B30, 0x00000000, 0x0000001C,
-    0x00C3C280, 0x0042F11E, 0x00000000, 0x00000018,
-    0x00C4E8A0, 0x0042ECAF, 0x00C00698, 0x00000020,
-    0x00C4D9BC, 0x006C8C06, 0x00000000, 0x00000024,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_weaponModeFieldTable[5] = {
+    { "Duration", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "AttributeModifier", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "LockWeaponSlot", (FieldParseProc)&__identifier("?parseLookupList@INI@@SAXPAV1@PAX1PBX@Z"), TheWeaponSlotTypeNamesLookupList, 0x20 },
+    { "WeaponSetFlags", (FieldParseProc)&__identifier("?Rva002C8C06Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x24 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c47208: 6 entries (no terminator) (96B).
-extern const int s_hordeSiegeEngineFieldTable[24] = {
-    0x00C46EB8, 0x00761CA5, 0x00000000, 0x0000018C,
-    0x00C46EB0, 0x0042EF56, 0x00000000, 0x00000190,
-    0x00C46EA4, 0x0087B9AD, 0x00000000, 0x00000000,
-    0x00C46E90, 0x0042F1BA, 0x00000000, 0x0000019C,
-    0x00C46E7C, 0x0042E850, 0x00000000, 0x000001A0,
-    0x00C46E68, 0x00864081, 0x00000000, 0x000001A4,
+extern const FieldParse s_hordeSiegeEngineFieldTable[6] = {
+    { "CrewFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x18C },
+    { "CrewMax", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x190 },
+    { "InitialCrew", (FieldParseProc)&__identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "SpeedPercentPerCrew", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x19C },
+    { "CrewAllowedToFire", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A0 },
+    { "ObjectStatusOfCrew", (FieldParseProc)&__identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A4 },
 };
 
 // Retail VA 0x00bc6b80: 1 entries + terminator (32B).
