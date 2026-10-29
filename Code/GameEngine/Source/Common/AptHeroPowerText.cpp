@@ -13,10 +13,6 @@
 #include "ascii_string.h"
 #include "unicode_string.h"
 
-#ifndef NULL
-#define NULL 0
-#endif
-
 class BfmeAptWindowManager
 {
 public:
