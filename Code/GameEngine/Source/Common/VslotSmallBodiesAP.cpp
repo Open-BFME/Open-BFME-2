@@ -62,11 +62,11 @@ public:
 	void rva000B197C(Int firstValue, Int secondValue);
 private:
 	char m_pad00[0x0C];
-	Rva000B0F82 *m_0C;
+	Rva000B0F82 *m_heightMap;
 };
 void Rva000B197C::rva000B197C(Int firstValue, Int secondValue)
 {
-	m_0C->ParseSizeOnly(*(DataChunkInput *)firstValue, (DataChunkInfo *)secondValue);
+	m_heightMap->ParseSizeOnly(*(DataChunkInput *)firstValue, (DataChunkInfo *)secondValue);
 }
 
 class Rva005254C5

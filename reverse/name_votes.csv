@@ -14855,3 +14855,10 @@ Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9F8
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9F8C|Rva003B9F8CParse,38fa7ddc6ad11f11340586ce,gpt-6.1-sol,w1-10290645-2,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B984D|Rva003B984DParse,7cc435dae8a1b71ca14a0d8a,gpt-6.1-sol,w1-10290645-2,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|global||g_00E02D8B,018f7006d03f5b66ece5dfb9,gpt-6.1-sol,w1-10290645-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|member|Rva000B197C|m_0C,17a7a6d71e7dbccf76904189,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x0059B420|rva0059B420,f9cf16283da2fedb8c1c2f6b,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x005C3586|rva005C3586,2aed6d577151a011ba50c875,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x005C358E|rva005C358E,845f0ebc6f9f4597c6811f06,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x005C3596|rva005C3596,0fba341acc6c2ac802f2fa6b,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x005C359E|rva005C359E,ba202cebf5e798c18345d0ca,gpt-6.1-sol,w4-10290653-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp|local|Rva002BFAD6::rva002BFAD6|n,530011e1350d68b2a1841836,gpt-6.1-sol,w4-10290653-3,w-eb83eac9adc1,2026-10-29
