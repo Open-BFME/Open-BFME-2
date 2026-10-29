@@ -147,6 +147,8 @@ class ControlBar : public SubsystemInterface
 public:
 	ControlBar();
 	virtual void init(void);
+	// Retail vtable 0x00C0CC88 slot 9 is 0x0031E09E (ControlBarReset.cpp).
+	virtual void reset(void);
 	virtual void update(void);
 	void rva0031AD14(int a, int b, int c, int d, int e);
 
