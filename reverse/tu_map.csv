@@ -27174,7 +27174,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00359E13,122,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x00359E8D provisional,Code/GameEngine/Source/GameLogic/System/Rva00359E13Ctor.cpp
 0x00359E8D,6,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x00359E93 provisional,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x00359E93,370,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A005 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp
-0x0035A005,330,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A14F provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp
+0x0035A005,330,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A14F provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0035A14F,62,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A18D provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0035A18D,75,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A1D8 provisional,Code/GameEngine/Source/Common/Rva0035A18DVectorDeletingDtor.cpp
 0x0035A1D8,96,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x00359D42..0x0035A238 provisional,Code/GameEngine/Source/Common/Rva0035A1D8Clear.cpp
@@ -27185,7 +27185,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0035A61F,696,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0035A8D7,167,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035A97E provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A8D7.cpp
 0x0035A97E,22,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035A994 provisional,Code/GameEngine/Source/Common/GapBodiesS3D.cpp
-0x0035A994,45,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035A9C1 provisional,Code/GameEngine/Source/Common/Rva0035A994Slot1.cpp
+0x0035A994,45,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035A9C1 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0035A9C1,125,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035AA3E provisional,Code/GameEngine/Source/Common/Rva0035A9C1Dtor.cpp
 0x0035AA3E,5,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,C,C=0x0035A61F..0x0035AA43 provisional,Code/GameEngine/Source/Common/TailJumpWrappers5B.cpp
 0x0035AA43,316,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp W=Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager_tryToClaimCell.cpp
@@ -74157,9 +74157,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077D98A,13,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x00359E93@FuncInfo0x00927618 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp
 0x0077D997,8,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x00359E93@FuncInfo0x00927618 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp
 0x0077D99F,10,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x00359E93@FuncInfo0x00927618 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp
-0x0077D9A9,13,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A005@FuncInfo0x00927644 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp
+0x0077D9A9,13,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A005@FuncInfo0x00927644 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0077D9B6,8,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A005@FuncInfo0x00927644 provisional,Code/gen_small/uw_gen_006.cpp
-0x0077D9BE,10,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A005@FuncInfo0x00927644 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp
+0x0077D9BE,10,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A005@FuncInfo0x00927644 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 0x0077D9C8,10,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A2DC@FuncInfo0x00927668 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A2DC.cpp
 0x0077D9D2,10,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A2DC@FuncInfo0x00927668 provisional,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A2DC.cpp
 0x0077D9DC,8,code,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,approved,P,P=0x0035A9C1@FuncInfo0x0092769C provisional,Code/GameEngine/Source/Common/Rva0035A9C1Dtor.cpp

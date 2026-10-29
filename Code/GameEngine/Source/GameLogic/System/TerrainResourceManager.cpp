@@ -228,6 +228,60 @@ private:
 	}
 };
 
+enum NameKeyType { NAMEKEY_INVALID = 0 };
+
+class Module;
+
+class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Rva0035A292;
+
+class Object
+{
+public:
+	float x38() const { return *(const float *)((const char *)this + 0x38); }
+	float y3C() const { return *(const float *)((const char *)this + 0x3c); }
+	unsigned int id74() const { return *(const unsigned int *)((const char *)this + 0x74); }
+protected:
+	Module *findModule(NameKeyType) const;
+	friend class Rva0035A292;
+};
+
+class Rva00481FAFFloatSlot { public: void store(float); };
+
+class Rva000CBA20;
+
+class Rva00359853: public Rva0035A97EVisitor
+{
+public:
+	__declspec(dllimport) __forceinline Rva00359853(unsigned int field04, unsigned int field08)
+	{
+		m_field04 = field04;
+		m_field08 = field08;
+	}
+	virtual void slot00(int, int);
+private:
+	unsigned int m_field04;
+	unsigned int m_field08;
+};
+
+class Rva0035A292
+{
+public:
+	void rva0035A005(int argument, float value);
+private:
+	char pad00[0x18];
+	float m_18;
+	float m_originX1C;
+	float m_originY20;
+	char pad24[0x18];
+	float m_cell3C;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp
 
 // TerrainResourceManager's grid traversal. WB names the neighboring
@@ -331,8 +385,6 @@ void TerrainResourceManager::updateMapConstantCells()
  }
 }
 
-// tu-skeleton: 0x003598CB 8B ?get@Rva003598CBCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceClaimVisitor.cpp
 
 // Native ctor3598D3 installs one callback slot, table8153DC, not a destructor.
@@ -410,10 +462,6 @@ void Rva00359BE8List::apply(const Rva00359AECCall &call)
 	}
 }
 
-// tu-skeleton: 0x00359BCC 28B ?push_front@?$list@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEXABUBfmePod12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00359D42 87B ?enumerateRegisteredClaimants@TerrainResourceManager@@QAEXHPAVCb00359D42@@@Z -- matched in Code/GameEngine/Source/Common/Rva00359D42.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Rva0035A238.cpp
 
 // Retail 0x0035A238, 90 bytes, RET 16. The owner is unresolved.
@@ -464,26 +512,6 @@ void Rva0035A238::rva0035A14F(Rva0035A238Argument *argument)
 	}
 }
 
-// tu-skeleton: 0x00359E04 15B ?rva00359E04@Rva00359E04Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00359E04Notifier.cpp (not merged yet)
-
-// tu-skeleton: 0x00359E13 122B ??0Rva00359E13@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/Rva00359E13Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00359E8D 6B ?name@Rva00359E8DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00359E93 370B ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A005 330B ?rva0035A005@Rva0035A292@@QAEXHM@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A18D 75B ??_ERva0035A18D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0035A18DVectorDeletingDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A1D8 96B ?rva0035A1D8@Rva0035A1D8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0035A1D8Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A292 74B ?rva0035A292@Rva0035A292@@QAEXHM@Z -- matched in Code/GameEngine/Source/GameLogic/Rva0035A292.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A2DC 455B ?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A2DC.cpp (not merged yet)
-
-// tu-skeleton: 0x0035A4A3 380B ?isCellClaimable@TerrainResourceManager@@QAE_NHHHH_NH@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerCellClaim.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerOverlayAlpha.cpp
 
 void TerrainResourceManager::rva0035A61F(Rva0035A61FColor *color, int x, int y, int claimant)
@@ -531,11 +559,62 @@ void TerrainResourceManager::rva0035A61F(Rva0035A61FColor *color, int x, int y, 
 }
 }
 
+// tu-skeleton: 0x003598CB 8B ?get@Rva003598CBCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00359BCC 28B ?push_front@?$list@UBfmePod12@@V?$allocator@UBfmePod12@@@_STL@@@_STL@@QAEXABUBfmePod12@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00359D42 87B ?enumerateRegisteredClaimants@TerrainResourceManager@@QAEXHPAVCb00359D42@@@Z -- matched in Code/GameEngine/Source/Common/Rva00359D42.cpp (not merged yet)
+
+// tu-skeleton: 0x00359E04 15B ?rva00359E04@Rva00359E04Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00359E04Notifier.cpp (not merged yet)
+
+// tu-skeleton: 0x00359E13 122B ??0Rva00359E13@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/Rva00359E13Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x00359E8D 6B ?name@Rva00359E8DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00359E93 370B ?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp
+
+void Rva0035A292::rva0035A005(int argument, float value)
+{
+	static NameKeyType key = TheNameKeyGenerator->nameToKey("TerrainResourceBehavior");
+	Object *object = reinterpret_cast<Object *>(argument);
+	Module *module = object->findModule(key);
+	if (module == 0)
+		return;
+	float x = object->x38() - m_originX1C;
+	float y = object->y3C() - m_originY20;
+	int cellX = cellInteger((float)floor((x / m_cell3C) + 0.5f));
+	int cellY = cellInteger((float)floor((y / m_cell3C) + 0.5f));
+	int cellRadius = cellInteger((float)ceil(value / m_cell3C));
+	Rva00359853 visitor((unsigned int)this, object->id74());
+	reinterpret_cast<TerrainResourceManager *>(this)->rva0035997F(cellX, cellY, cellRadius, &visitor);
+	reinterpret_cast<Rva00481FAFFloatSlot *>(module)->store(0.0f);
+	reinterpret_cast<Rva0035A238 *>(this)->rva00359D99(reinterpret_cast<Rva000CBA20 *>(object), m_18 + value);
+}
+
+// tu-skeleton: 0x0035A18D 75B ??_ERva0035A18D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0035A18DVectorDeletingDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0035A1D8 96B ?rva0035A1D8@Rva0035A1D8@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0035A1D8Clear.cpp (not merged yet)
+
+// tu-skeleton: 0x0035A292 74B ?rva0035A292@Rva0035A292@@QAEXHM@Z -- matched in Code/GameEngine/Source/GameLogic/Rva0035A292.cpp (not merged yet)
+
+// tu-skeleton: 0x0035A2DC 455B ?rva0035A2DC@Rva0035A2DC@@QAEXPAURegion3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A2DC.cpp (not merged yet)
+
+// tu-skeleton: 0x0035A4A3 380B ?isCellClaimable@TerrainResourceManager@@QAE_NHHHH_NH@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerCellClaim.cpp (not merged yet)
+
 // tu-skeleton: 0x0035A8D7 167B ?rva0035A8D7@Rva0035A8D7@@QAEXPAX00@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A8D7.cpp (not merged yet)
 
 // tu-skeleton: 0x0035A97E 22B ?slot00@Rva00359853@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3D.cpp (not merged yet)
 
-// tu-skeleton: 0x0035A994 45B ?slot00@Rva0035986C@@UAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva0035A994Slot1.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0035A994Slot1.cpp
+
+void Rva0035986C::slot00(int a, int b)
+{
+	++m_10;
+	if (reinterpret_cast<TerrainResourceManager *>(m_04)->isCellClaimable(a, b, m_08, 0, m_18, m_0C))
+		++m_14;
+}
 
 // tu-skeleton: 0x0035A9C1 125B ??1Rva0035A9C1@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035A9C1Dtor.cpp (not merged yet)
 
@@ -561,11 +640,7 @@ void TerrainResourceManager::rva0035A61F(Rva0035A61FColor *color, int x, int y, 
 
 // tu-skeleton: 0x0077D99F 10B __ehhandler$?rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp (not merged yet)
 
-// tu-skeleton: 0x0077D9A9 13B $L1226 -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp (not merged yet)
-
 // tu-skeleton: 0x0077D9B6 8B uw_0077d9b6 -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
-
-// tu-skeleton: 0x0077D9BE 10B __ehhandler$?rva0035A005@Rva0035A292@@QAEXHM@Z -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D9C8 10B uw_0077d9c8 -- matched in Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerGridRva0035A2DC.cpp (not merged yet)
 

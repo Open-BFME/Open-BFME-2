@@ -19197,8 +19197,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A01E28,4,.data,global,?TheHotKeyManager@@3PAVHotKeyManager@@A,,unowned,?TheHotKeyManager@@3PAVHotKeyManager@@A;?g_00E01E28@@3PAVRva00E01E28Owner@@A;?g_rva00359729Target@@3PAVRva00359556@@A,0,27
 0x00A01E2C,4,.data,global,?key@?1??rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp,owned,,1,2
 0x00A01E30,4,.data,global,?$S1@?1??rva00359E93@Rva0035A238@@QAEXPAURva0035A238Argument@@M_N1@Z@4IA,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerClaimRva00359E93.cpp,owned,,1,2
-0x00A01E34,4,.data,global,?key@?1??rva0035A005@Rva0035A292@@QAEXHM@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp,owned,,1,2
-0x00A01E38,8,.data,global,?$S1@?1??rva0035A005@Rva0035A292@@QAEXHM@Z@4IA,Code/GameEngine/Source/GameLogic/System/TerrainResourceManagerRva0035A005.cpp,owned,,1,4
+0x00A01E34,4,.data,global,?key@?1??rva0035A005@Rva0035A292@@QAEXHM@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,owned,,1,2
+0x00A01E38,8,.data,global,?$S1@?1??rva0035A005@Rva0035A292@@QAEXHM@Z@4IA,Code/GameEngine/Source/GameLogic/System/TerrainResourceManager.cpp,owned,,1,4
 0x00A01E40,1,.data,global,?g_Va00E01E40@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,2
 0x00A01E41,3,.data,global,?g_00E01E41@@3IA,,unowned,,0,1
 0x00A01E44,4,.data,global,_s_rva007AECC6,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
