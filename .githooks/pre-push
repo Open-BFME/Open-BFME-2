@@ -176,12 +176,8 @@ landing_ok=0
 # rather than killed, which would leave its renewal rotating the token unseen.
 release_landing_on_failure() {
     if [ -n "$LANDING_HEARTBEAT" ]; then
+        # no cutoff: a renewal's claim calls carry their own network timeouts
         : > "$LANDING_TOKEN_FILE.stop"
-        for _ in $(seq 1 60); do
-            kill -0 "$LANDING_HEARTBEAT" 2>/dev/null || break
-            sleep 1
-        done
-        kill "$LANDING_HEARTBEAT" 2>/dev/null || true
         wait "$LANDING_HEARTBEAT" 2>/dev/null || true
         LANDING_HEARTBEAT=""
     fi
