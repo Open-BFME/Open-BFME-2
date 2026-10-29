@@ -28,17 +28,17 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
+#include "../../../../Include/GameLogic/ScriptEngine.h"
+
+// The canonical ScriptEngine keeps +0x10..+0x1A4E0 opaque; this unit reads
+// the int at +0x1A104 through its own view.
+struct ScriptEngineView
 {
-public:
 	int getValue1A104() const { return m_value1A104; }
 
-private:
 	unsigned char m_pad00000[0x1A104];
 	int m_value1A104; // +0x1A104
 };
-
-extern ScriptEngine *TheScriptEngine;
 
 void finishShowPurchaseScience();
 
@@ -286,7 +286,7 @@ private:
 
 void ControlBar::showPurchaseScience()
 {
-	if (TheScriptEngine->getValue1A104() >= 0)
+	if (((ScriptEngineView *)TheScriptEngine)->getValue1A104() >= 0)
 		return;
 	Player *player = ThePlayerList->local;
 	if (!player || !player->isPlayerActive())
