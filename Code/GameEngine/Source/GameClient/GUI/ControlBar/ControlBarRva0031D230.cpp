@@ -146,36 +146,93 @@ public:
 	Object *m_object; // +0xFC +0xFC
 };
 
+class Drawable;
+class UnicodeString;
 typedef std::list<Drawable *> DrawableList;
-
 class InGameUI
 {
 public:
-	virtual void vf000(); virtual void vf004(); virtual void vf008(); virtual void vf00C();
-	virtual void vf010(); virtual void vf014(); virtual void vf018(); virtual void vf01C();
-	virtual void vf020(); virtual void vf024(); virtual void vf028(); virtual void vf02C();
-	virtual void vf030(); virtual void vf034(); virtual void vf038(); virtual void vf03C();
-	virtual void vf040(); virtual void vf044(); virtual void vf048(); virtual void vf04C();
-	virtual void vf050(); virtual void vf054(); virtual void vf058(); virtual void vf05C();
-	virtual void vf060(); virtual void vf064(); virtual void vf068(); virtual void vf06C();
-	virtual void vf070(); virtual void vf074(); virtual void vf078(); virtual void vf07C();
-	virtual void vf080(); virtual void vf084(); virtual void vf088(); virtual void vf08C();
-	virtual void vf090(); virtual void vf094(); virtual void vf098(); virtual void vf09C();
-	virtual void vf0A0(); virtual void vf0A4(); virtual void vf0A8(); virtual void vf0AC();
-	virtual void vf0B0(); virtual void vf0B4(); virtual void vf0B8(); virtual void vf0BC();
-	virtual void vf0C0(); virtual void vf0C4(); virtual void vf0C8(); virtual void vf0CC();
-	virtual void vf0D0(); virtual void vf0D4(); virtual void vf0D8(); virtual void vf0DC();
-	virtual void vf0E0(); virtual void vf0E4(); virtual void vf0E8(); virtual void vf0EC();
-	virtual void vf0F0(); virtual void vf0F4(); virtual void vf0F8(); virtual void vf0FC();
-	virtual void vf100(); virtual void vf104(); virtual void vf108(); virtual void vf10C();
-	virtual void vf110(); virtual void vf114();
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void __cdecl message(UnicodeString format, ...);	// +0x40
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void notify();	// +0x110
+	virtual void v69();
 	virtual int getSelectCount();	// +0x118
-	virtual void vf11C(); virtual void vf120();
+	virtual void v71();
+	virtual void v72();
 	virtual const DrawableList *getAllSelectedDrawables() const;	// +0x124
-	virtual void vf128(); virtual void vf12C();
+	virtual void v74();
+	virtual void v75();
 	virtual int getSoloNexusSelectedDrawableID();	// +0x130
-
 	bool areSelectedObjectsControllable() const;	// 0x0029C752
+	char m_pad04[0x11];
+	unsigned char m_15;
+	unsigned char m_16;
 };
 
 class GameClient

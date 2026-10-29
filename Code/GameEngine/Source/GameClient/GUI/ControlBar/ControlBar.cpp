@@ -18,6 +18,7 @@
 // the donor statement is the same, and are address-derived otherwise.
 typedef bool Bool;
 #include "ascii_string.h"
+#include <list>
 #include "subsystem_interface.h"
 #include "../GameWindowManagerRecordView.h"
 #include "ControlBarSchemeManagerView.h"
@@ -432,78 +433,93 @@ public:
 	virtual void v17();
 	virtual GameMessage *appendType(int type);
 };
+class Drawable;
+class UnicodeString;
+typedef std::list<Drawable *> DrawableList;
 class InGameUI
 {
 public:
-	virtual void w00();
-	virtual void w01();
-	virtual void w02();
-	virtual void w03();
-	virtual void w04();
-	virtual void w05();
-	virtual void w06();
-	virtual void w07();
-	virtual void w08();
-	virtual void w09();
-	virtual void w10();
-	virtual void w11();
-	virtual void w12();
-	virtual void w13();
-	virtual void w14();
-	virtual void w15();
-	virtual void w16();
-	virtual void w17();
-	virtual void w18();
-	virtual void w19();
-	virtual void w20();
-	virtual void w21();
-	virtual void w22();
-	virtual void w23();
-	virtual void w24();
-	virtual void w25();
-	virtual void w26();
-	virtual void w27();
-	virtual void w28();
-	virtual void w29();
-	virtual void w30();
-	virtual void w31();
-	virtual void w32();
-	virtual void w33();
-	virtual void w34();
-	virtual void w35();
-	virtual void w36();
-	virtual void w37();
-	virtual void w38();
-	virtual void w39();
-	virtual void w40();
-	virtual void w41();
-	virtual void w42();
-	virtual void w43();
-	virtual void w44();
-	virtual void w45();
-	virtual void w46();
-	virtual void w47();
-	virtual void w48();
-	virtual void w49();
-	virtual void w50();
-	virtual void w51();
-	virtual void w52();
-	virtual void w53();
-	virtual void w54();
-	virtual void w55();
-	virtual void w56();
-	virtual void w57();
-	virtual void w58();
-	virtual void w59();
-	virtual void w60();
-	virtual void w61();
-	virtual void w62();
-	virtual void w63();
-	virtual void w64();
-	virtual void w65();
-	virtual void w66();
-	virtual void w67();
-	virtual void notify();
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void __cdecl message(UnicodeString format, ...);	// +0x40
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void notify();	// +0x110
+	virtual void v69();
+	virtual int getSelectCount();	// +0x118
+	virtual void v71();
+	virtual void v72();
+	virtual const DrawableList *getAllSelectedDrawables() const;	// +0x124
+	virtual void v74();
+	virtual void v75();
+	virtual int getSoloNexusSelectedDrawableID();	// +0x130
+	bool areSelectedObjectsControllable() const;	// 0x0029C752
+	char m_pad04[0x11];
+	unsigned char m_15;
+	unsigned char m_16;
 };
 extern class MessageStream *TheMessageStream;
 extern InGameUI *TheInGameUI;
