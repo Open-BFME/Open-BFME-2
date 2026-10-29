@@ -7138,6 +7138,26 @@ Clearance: preview (link_check on current objects). Census confirmation: pending
 
 ### LINK-095: generated EH funclets whose parent TU emits an unpinned or wrong dtor callee
 
+**Nested-vector constructor prerequisite repaired (2026-10-29, base
+`58059061af`):** the allocator-only shim and `/EHs` make the allocation base
+and full inner vector destructor reproduce retail in
+`Rva0019D850NestedVectorRelease_Rva002bc339.cpp`. Pin admission proved the
+63-byte destructor and its EH graph at `0x002BBB57`; its incorrect harvested
+base-destructor pin was removed, with no net pin growth. One identity debt key
+was retired through `repair_queue.py`. The three changed sources preserve
+177/177 rows and 37 EXACT EH graphs. Preview index `85f6b7f40c` (2026-10-29 15:08) predicts the
+constructor LINKS 0 -> 127 authored bytes and preserves LivingWorldLogic,
+the fill worker and the destroy provider (20,081/37/272 bytes). Clearance is
+limited to this prerequisite and preview; census confirmation is pending.
+The strict staged-tree batch audit exits 2: the census commit is behind this
+base and three changed sources lack census-grade receipts. Its comparison is
+unverified; carry these consumers into the next census and repeat the audit.
+The allocation-base identity key remains unknown to the identity checker.
+Generated `0x0077685B`/`0x00776863` stay in place: establish the former's
+outer-base destructor identity, then consolidate the parent into its approved
+LivingWorldLogic TU before repointing. Full evidence and remaining scope:
+[`nested-vector-link-20261029.md`](../reverse/attempt_support/nested-vector-link-20261029.md).
+
 **2026-10-28 picker recheck (base `47c952289b`):** `uw_gen_008.cpp`
 still fails the ordinary preview against index `14dc3d2467`, on
 `??1Gen_uw_0048ba39@@QAE@XZ` and `gen_uw_ext`. Its 58 remaining generated

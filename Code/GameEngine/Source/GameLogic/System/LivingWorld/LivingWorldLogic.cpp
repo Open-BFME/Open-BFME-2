@@ -3506,8 +3506,9 @@ struct ICoord2DBase {int x,y;};
 struct Rva002B72C9 {int x,y;_STL::vector<unsigned> values;};
 void __cdecl Rva002BC830Append(_STL::vector<Rva002B72C9>&,unsigned,const ICoord2DBase&);
 // Existing constructor specialization initializes12B inner vector headers.
-// Its opaque element spelling is retained; callers observe20B records.
-struct Rva002BC339Value{int words[3];};
+// Its element spelling is retained without defining a conflicting layout;
+// callers observe20B records.
+struct Rva002BC339Value;
 struct Rva002BB6BE20Rec{int x,y;_STL::vector<unsigned> values;};
 namespace _STL {
 template<> vector<vector<Rva002BB6BE20Rec> >::~vector();

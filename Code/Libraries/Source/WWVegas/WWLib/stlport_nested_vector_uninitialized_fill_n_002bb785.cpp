@@ -10,10 +10,8 @@
 // vendored STLport _uninitialized.h worker with its exception cleanup disabled.
 #include <vector>
 
-struct Rva002BC339Value
-{
-	int m_words[3];
-};
+// This helper only needs the inner vector header, not its element layout.
+struct Rva002BC339Value;
 
 typedef _STL::vector<Rva002BC339Value, _STL::allocator<Rva002BC339Value> > Rva002BC339InnerVector;
 
