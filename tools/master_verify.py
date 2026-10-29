@@ -53,7 +53,8 @@ OUTPUT. Only the queue file and build/master_verify/ (state.json, run.lock,
 run.json, logs/, the worktree). Commits use the runner's git identity
 (GIT_AUTHOR_*/GIT_COMMITTER_* or user.*).
 
-EXIT. --once: 0 green, nothing to do or deferred; 1 red (queued); 2 no verdict.
+EXIT. --once: 0 green, nothing to do or deferred; 1 red (queued now or before,
+an already-checked red tip included); 2 no verdict.
 
   python3 tools/master_verify.py --once
   python3 tools/master_verify.py --watch --interval 300
@@ -752,7 +753,7 @@ def check_tip(cfg, state):
     tip = fetch_tip(cfg)
     last = state.get("last_run") or {}
     if last.get("sha") == tip and last.get("verdict") in ("green", "red") and last.get("complete"):
-        return 0, f"{tip[:10]} already checked: {last['verdict']}"
+        return (1 if last["verdict"] == "red" else 0), f"{tip[:10]} already checked: {last['verdict']}"
     if last.get("complete") and last.get("verdict") in ("green", "red") and only_queue_changed(
             cfg, last["sha"], tip):
         # This tool's own queue commits: the gate reads nothing they change.

@@ -259,3 +259,12 @@ def test_repair_queue_serves_master_regressions_first(tmp_path, monkeypatch, cap
         assert picked["candidate"]["check"] == "master-red"
     finally:
         importlib.reload(repair_queue)
+
+
+def test_an_already_checked_red_tip_still_exits_red(toy, tmp_path):
+    cfg = config(toy, tmp_path, [], publish=False)    # no queue commit: the tip stays put
+    assert M.run_once(cfg)[0] == 0
+    commit(toy, "bad", "dir32 consistency\n")
+    tip = push(toy)
+    assert M.run_once(cfg)[0] == 1
+    assert M.run_once(cfg) == (1, f"{tip[:10]} already checked: red")
