@@ -1,0 +1,14 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "bad_include_files": [
+      "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/reference/shims/eva_vector/EvaVectorABI.h"
+    ]
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/thread.cpp",
+    "bad_include_files": [
+      "/var/home/ostkannit/projects/Open-BFME-2/build/worktrees/finish-lane-r-next-20261020/Code/Libraries/Source/WWVegas/WWLib/thread.cpp"
+    ]
+  }
+]

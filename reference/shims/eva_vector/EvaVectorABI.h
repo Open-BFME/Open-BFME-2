@@ -631,7 +631,7 @@ _STLP_END_NAMESPACE
 #endif
 
 #if defined (_STLP_IMPORT_VENDOR_STD) && ! defined (_STLP_MINIMUM_IMPORT_STD)
-#  include _STLP_NATIVE_HEADER(vector)
+#  include <../include/vector> // MSVC 7.1 native-header path, made explicit.
 #endif
 
 # if (_STLP_OUTERMOST_HEADER_ID == 0x77)

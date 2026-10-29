@@ -1,0 +1,24 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "strict_current": true,
+    "receipt_version": 2,
+    "header_paths_unchanged": true,
+    "header_count": 76,
+    "changed_header_contents": [
+      "reference/shims/eva_vector/EvaVectorABI.h"
+    ],
+    "object_sha256": "31538fc5d2ce3140e15817f313f7235ffadb9c319fdbae30580bc4841a150f6f",
+    "before_object_sha256": "18b1ff09487b448377e9b5fb06859a49c96a62443b8ca438464b62d2fd43646f"
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/thread.cpp",
+    "strict_current": true,
+    "receipt_version": 2,
+    "header_paths_unchanged": true,
+    "header_count": 42,
+    "changed_header_contents": [],
+    "object_sha256": "384a58f9a8721c48a49fa58eec197227b81f6c52faf9b923cfcb00385511bd58",
+    "before_object_sha256": "68ce064526c262a30064392415dd36f18e5b894b5f668e497734e0593579d129"
+  }
+]

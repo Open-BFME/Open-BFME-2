@@ -2814,6 +2814,15 @@ Whole-unit clearance and census confirmation remain pending.
   byte verification and exact lookup evidence, then re-run strict receipt
   preparation and consumer auditing. No census gain or whole-batch
   clearance is claimed. Work is stopped under the contributor gate rule.
+- **GameWindow input receipt prerequisite repaired (2026-10-29):**
+  [the separate source include repair](../reverse/attempt_support/consumer-include-roots-20261029/readme.md)
+  spells the existing MSVC7.1 native-header operands literally in the
+  project Eva shim and thread.cpp. The supported strict preparation now
+  passes38/38 rows and2 data rows; both version2 receipts are reusable,
+  and actual header-path sets remain exactly76/42. Joint ordinary preview
+  is2/2 LINKS,3471 authored bytes preserved. No verifier or baseline changes.
+  This clears the prior Eva/thread include-inventory refusal in that scope;
+  complete outgoing consumer/loss auditing and census confirmation remain.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its
@@ -3891,6 +3900,13 @@ decision remains necessary; census clearance is not claimed.
 
 **Status: Blocked on complete include inventories. Updated: 2026-10-27.**
 
+- **Eva/thread subset repaired (2026-10-29):**
+  [explicit native include operands](../reverse/attempt_support/consumer-include-roots-20261029/readme.md)
+  remove the two macro-include ambiguities without changing the resolved
+  header sets. Both supported strict preparations pass with version2
+  reusable receipts,38 matched rows and2 data rows;2/2 ordinary previews
+  preserve3471 authored bytes. This clears only these two recurring
+  publication consumers, not the graphics cases or whole-batch closure.
 - **Evidence / scope:** [graphics verification at `91fe970939`](../reverse/attempt_support/weightinfo-verification-20261025/readme.md)
   ran the normal gates successfully for 34 units, but its initial 17-unit
   `--prepare-current` run refused strict reuse. W3DShadowTextureCtor,

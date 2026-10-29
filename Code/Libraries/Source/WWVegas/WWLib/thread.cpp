@@ -8,7 +8,7 @@
 #include "except.h"
 #include "wwdebug.h"
 #include <stl/_config.h>
-#include _STLP_NATIVE_C_HEADER(process.h)
+#include <../include/process.h> // MSVC 7.1 native header; keep the sweep shim out.
 #include <windows.h>
 #pragma warning ( push )
 #pragma warning ( disable : 4201 )
@@ -139,7 +139,7 @@ private:
 // ---- from Code/Libraries/Source/WWVegas/WWLib/thread.cpp
 
 // The sweep process.h lacks _beginthreadex. Select the CRT header through
-// STLport's native-header path, retaining this unit's existing include order.
+// the explicit native-header path, retaining this unit's include order.
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/ThreadClassCtor.cpp
 
