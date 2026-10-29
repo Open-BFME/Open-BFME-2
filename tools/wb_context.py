@@ -143,28 +143,37 @@ def _parse_landed(path):
     demangler's subset are skipped: they cannot be classified, so they retire
     nothing.
     """
+    import picker_cache                 # one index per ledger content, shared by every worktree
+    wb_gold = _wb_gold()
+    ranges = picker_cache.stamped(path, _landed_ranges, "wb-landed", extra=[__file__, wb_gold.__file__])
+    ranges = [tuple(r) for r in ranges]
+    return [r[0] for r in ranges], ranges
+
+
+def _landed_ranges(path):
+    """Sorted [start, end, name] of _parse_landed."""
+    import picker_cache
     wb_gold = _wb_gold()
     ranges = []
-    with open(path, newline="", encoding="utf-8") as fh:
-        for row in csv.DictReader(fh):
-            if row.get("status") != "matched":
-                continue
-            start = to_rva(row.get("target_rva"))
-            if start is None:
-                continue
-            try:
-                info = wb_gold.describe(row["name"], row.get("source", ""))
-            except Exception:  # DemangleError
-                continue
-            if not info or info["kind"] != "REAL":
-                continue
-            try:
-                size = int(row.get("target_size") or 0)
-            except ValueError:
-                size = 0
-            ranges.append((start, start + max(size, 1), info["name"]))
+    for row in picker_cache.ledger_rows(path):
+        if row.get("status") != "matched":
+            continue
+        start = to_rva(row.get("target_rva"))
+        if start is None:
+            continue
+        try:
+            info = wb_gold.describe(row["name"], row.get("source", ""))
+        except Exception:  # DemangleError
+            continue
+        if not info or info["kind"] != "REAL":
+            continue
+        try:
+            size = int(row.get("target_size") or 0)
+        except ValueError:
+            size = 0
+        ranges.append((start, start + max(size, 1), info["name"]))
     ranges.sort()
-    return [r[0] for r in ranges], ranges
+    return ranges
 
 
 def landed(rva, ledger=None):
@@ -172,7 +181,11 @@ def landed(rva, ledger=None):
     value = to_rva(rva)
     if value is None:
         return None
-    starts, ranges = _cached(str(ledger or FUNCTIONS_CSV), _parse_landed)
+    return _landed_in(_cached(str(ledger or FUNCTIONS_CSV), _parse_landed), value)
+
+
+def _landed_in(table, value):
+    starts, ranges = table
     if not ranges:
         return None
     index = bisect.bisect_right(starts, value)
@@ -185,8 +198,9 @@ def landed(rva, ledger=None):
 
 
 def _live(snapshot, ledger):
+    table = _cached(str(ledger or FUNCTIONS_CSV), _parse_landed)      # read once, not once per lead
     return {rva: entry for rva, entry in snapshot.items()
-            if landed(rva, ledger) is None}
+            if to_rva(rva) is None or _landed_in(table, to_rva(rva)) is None}
 
 
 def leads(path=None, ledger=None, live=True):

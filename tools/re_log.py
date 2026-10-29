@@ -32,6 +32,7 @@ is the one status that retracts rather than decides; see VOID_STATUS.
 """
 import csv
 import re
+import threading
 from datetime import date
 from pathlib import Path
 
@@ -127,13 +128,24 @@ def _parse(fields):
     return None
 
 
+_LOAD_LOCK = threading.RLock()      # the picker warms the index in a background thread
+
+
 def _load():
-    global _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA, _EVIDENCE, _LATEST_EVIDENCE
     if _BY_BOUNDARY is not None:
         return
-    _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA = {}, {}, {}, {}
-    _EVIDENCE, _LATEST_EVIDENCE = {}, {}
+    with _LOAD_LOCK:
+        if _BY_BOUNDARY is None:
+            _load_locked()
+
+
+def _load_locked():
+    """Build the index into locals and publish it whole: a reader never sees it half built."""
+    global _BY_BOUNDARY, _LATEST, _ATTEMPTS, _BY_RVA, _EVIDENCE, _LATEST_EVIDENCE
+    by_boundary, latest, attempts, by_rva, evidence_of, latest_evidence = {}, {}, {}, {}, {}, {}
     if not RE_ATTEMPTS.exists():
+        _BY_RVA, _ATTEMPTS, _LATEST, _EVIDENCE, _LATEST_EVIDENCE = by_rva, attempts, latest, evidence_of, latest_evidence
+        _BY_BOUNDARY = by_boundary
         return
     rows = []
     with RE_ATTEMPTS.open(encoding="utf-8", errors="replace") as handle:
@@ -159,27 +171,32 @@ def _load():
     # A void retracts only the rows ABOVE it at its own (symbol, rva), so the
     # log stays chronological and re-recording the same boundary later works.
     live = [True] * len(rows)
+    above = {}                       # (symbol, rva) -> indices of rows not yet voided
     for index, (symbol, status, rva, _evidence) in enumerate(rows):
+        pending = above.setdefault((symbol, rva), [])
         if status != VOID_STATUS:
+            pending.append(index)
             continue
         live[index] = False
-        for earlier in range(index):
-            if rows[earlier][0] == symbol and rows[earlier][2] == rva:
-                live[earlier] = False
+        for earlier in pending:
+            live[earlier] = False
+        pending.clear()
 
     for keep, (symbol, status, rva, evidence) in zip(live, rows):
         if not keep:
             continue
-        _BY_BOUNDARY.setdefault(symbol, {})[rva] = status
-        _EVIDENCE.setdefault(symbol, {})[rva] = evidence
-        _LATEST_EVIDENCE[symbol] = evidence
-        _LATEST[symbol] = status
+        by_boundary.setdefault(symbol, {})[rva] = status
+        evidence_of.setdefault(symbol, {})[rva] = evidence
+        latest_evidence[symbol] = evidence
+        latest[symbol] = status
         if rva is not None:
-            # Same last-write-wins as _BY_BOUNDARY, and voided rows are already
+            # Same last-write-wins as by_boundary, and voided rows are already
             # dropped, so this holds exactly the verdicts that still stand.
-            _BY_RVA.setdefault(rva, {})[symbol] = (status, evidence)
+            by_rva.setdefault(rva, {})[symbol] = (status, evidence)
         if status in DEFERRED_STATUSES:
-            _ATTEMPTS[symbol] = _ATTEMPTS.get(symbol, 0) + 1
+            attempts[symbol] = attempts.get(symbol, 0) + 1
+    _BY_RVA, _ATTEMPTS, _LATEST, _EVIDENCE, _LATEST_EVIDENCE = by_rva, attempts, latest, evidence_of, latest_evidence
+    _BY_BOUNDARY = by_boundary      # last: _load's unlocked test reads it
 
 
 def is_dead_end(symbol, rva=None, *, boundary_moved=False):
@@ -255,8 +272,8 @@ def ledger_rows():
     ledger = RE_ATTEMPTS.parent / "functions.csv"
     if not ledger.exists():
         return []
-    with ledger.open(encoding="utf-8", errors="replace", newline="") as handle:
-        return list(csv.DictReader(handle))
+    import picker_cache
+    return list(picker_cache.ledger_rows(ledger))     # parsed once per process; rows shared, never mutated
 
 
 def _rva_of(row):
@@ -266,16 +283,29 @@ def _rva_of(row):
         return None
 
 
-def _load_ledger():
-    global _MATCHED, _LEDGER_ANY
-    _MATCHED, _LEDGER_ANY = set(), set()
+def _ledger_sets(ledger=None):
+    """[sorted matched provider RVAs, sorted RVAs of any matched row] of the ledger."""
+    matched, any_row = set(), set()
     for row in ledger_rows():
         rva = _rva_of(row)
         if rva is None or row.get("status") != "matched":
             continue
-        _LEDGER_ANY.add(rva)
+        any_row.add(rva)
         if _is_provider(row):
-            _MATCHED.add(rva)
+            matched.add(rva)
+    return [sorted(matched), sorted(any_row)]
+
+
+def _load_ledger():
+    global _MATCHED, _LEDGER_ANY
+    with _LOAD_LOCK:
+        ledger = RE_ATTEMPTS.parent / "functions.csv"
+        if not ledger.exists():
+            _LEDGER_ANY, _MATCHED = set(), set()
+            return
+        import picker_cache             # one index per ledger content, shared by every worktree
+        matched, any_row = picker_cache.stamped(ledger, _ledger_sets, "re_log-ledger", extra=[__file__])
+        _LEDGER_ANY, _MATCHED = set(any_row), set(matched)
 
 
 def matched_rvas():

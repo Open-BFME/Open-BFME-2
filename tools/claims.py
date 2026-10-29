@@ -291,11 +291,41 @@ def _git(*args, cwd=None, input_text=None, timeout=60):
     env = _git_env(cwd)
     if args[:1] == ("push",):
         _pace(cwd)
+    reads = getattr(_pick_state, "git_reads", None)       # inside read_once(): see there
+    key = (os.path.normcase(os.path.abspath(str(cwd))), args, input_text)
+    if reads is not None:
+        if args[:1] not in _READ_ONLY_GIT:
+            reads.clear()                                  # anything else may move a ref
+        elif key in reads:
+            return reads[key]
     try:
-        return subprocess.run(["git", *extra, *args], cwd=cwd, capture_output=True, text=True,
-                              input=input_text, timeout=timeout, env=env)
+        got = subprocess.run(["git", *extra, *args], cwd=cwd, capture_output=True, text=True,
+                             input=input_text, timeout=timeout, env=env)
     except subprocess.TimeoutExpired as error:
         return subprocess.CompletedProcess(error.cmd, 124, "", f"timed out after {timeout}s")
+    if reads is not None and args[:1] in _READ_ONLY_GIT and got.returncode == 0:
+        reads[key] = got
+    return got
+
+
+# Git commands that only read: within read_once() one answer serves every repeat.
+_READ_ONLY_GIT = {("for-each-ref",), ("symbolic-ref",), ("config",), ("rev-parse",)}
+
+
+@contextmanager
+def read_once():
+    """Within this scope (one thread) a read-only git command run twice with the same
+    arguments returns the first answer; any other git command (a fetch, an update-ref)
+    drops every remembered answer first. busy_keys reads each claim mirror and the owner
+    several times over one fetch: each read once."""
+    outer = getattr(_pick_state, "git_reads", None)
+    if outer is None:
+        _pick_state.git_reads = {}
+    try:
+        yield
+    finally:
+        if outer is None:
+            del _pick_state.git_reads
 
 
 def owner(root=None):
@@ -675,25 +705,35 @@ def _ledger_stamp(root):
         return None
 
 
+def _scope_rows(path):
+    """[[rva, file key, class key or None]] of the ledger's matched rows, in ledger order."""
+    import picker_cache
+    out, fkeys = [], {}
+    for row in picker_cache.ledger_rows(path):
+        if row.get("status") != "matched" or not (row.get("target_rva") or "").startswith("0x"):
+            continue
+        source = row["source"]
+        if source not in fkeys:
+            fkeys[source] = file_key(source)
+        out.append([int(row["target_rva"], 16), fkeys[source], class_key(member_class(row["name"]))])
+    return out
+
+
 @lru_cache(maxsize=4)
 def _scope_index(root, stamp):
     """(rva -> (file key, class key or None), file key -> {class keys},
-    class key -> {file keys}) over the ledger's matched rows at `root`."""
-    import csv
+    class key -> {file keys}) over the ledger's matched rows at `root`. The rows come
+    from the shared picker cache, one entry per ledger content (tools/picker_cache.py)."""
+    import picker_cache
     of_rva, classes, files = {}, {}, {}
-    try:
-        handle = (Path(root or ROOT) / LEDGER).open(newline="", encoding="utf-8")
-    except OSError:
+    path = Path(root or ROOT) / LEDGER
+    if stamp is None or not path.is_file():
         return of_rva, classes, files
-    with handle:
-        for row in csv.DictReader(handle):
-            if row.get("status") != "matched" or not (row.get("target_rva") or "").startswith("0x"):
-                continue
-            fkey, ckey = file_key(row["source"]), class_key(member_class(row["name"]))
-            of_rva[int(row["target_rva"], 16)] = (fkey, ckey)
-            if ckey:
-                classes.setdefault(fkey, set()).add(ckey)
-                files.setdefault(ckey, set()).add(fkey)
+    for rva, fkey, ckey in picker_cache.stamped(path, _scope_rows, "claims-scope", extra=[__file__]):
+        of_rva[rva] = (fkey, ckey)
+        if ckey:
+            classes.setdefault(fkey, set()).add(ckey)
+            files.setdefault(ckey, set()).add(fkey)
     return of_rva, classes, files
 
 
@@ -711,8 +751,18 @@ def lock_keys(keys, root=None, records=None):
     """The canonical lock keys of work occupying `keys` (claim keys): an RVA is itself
     and its ledger row's file, a class is itself and every file defining its members,
     a file or lease is itself. collide(a, b) is lock_keys(a) & lock_keys(b): symmetric."""
-    of_rva, _, files = scope_index(root)
     records = records if records is not None else _local_lock_records(str(Path(root or ROOT).resolve()))
+    return _lock_keys(keys, scope_index(root), records)
+
+
+def lock_records(root=None):
+    """The local lock records lock_keys reads when not given any: pass them to lock_keys when
+    asking it of thousands of key sets (it resolves the root path each time otherwise)."""
+    return _local_lock_records(str(Path(root or ROOT).resolve()))
+
+
+def _lock_keys(keys, index, records):
+    of_rva, _, files = index
     out = set()
     for key in keys:
         out.add(key)
@@ -766,8 +816,9 @@ def busy_keys(root=None):
     """The lock keys of every claim that this checkout cannot edit."""
     if os.environ.get("BFME_CLAIMS", "on") == "off":
         return set()
-    return {lock for records in _blocking_records(root)
-            for lock in lock_keys(records, root, records=records)}
+    with read_once():
+        return {lock for records in _blocking_records(root)
+                for lock in lock_keys(records, root, records=records)}
 
 
 def busy_rvas(root=None):
