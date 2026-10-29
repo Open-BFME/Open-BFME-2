@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmelist /O1 /DNDEBUG /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /Ireference/shims/bfmelist /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ??1ShellMenuScheme@@QAE@XZ @0x002006B0 196B (was the placeholder Rva002006B0).
 // Two-list cleanup dtor with StringBase release. Evidence: EH prolog scope
@@ -18,19 +18,11 @@ void _STLP_alloc_proxy<_List_node<int>*, _List_node<int>, allocator<_List_node<i
 { __stl_alloc_rebind(static_cast<_Base&>(*this), (_List_node<int>*)0).deallocate(p, n); }
 }
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
-
-// Existing public narrow teardown spelling resolves to the verified
+// The canonical frozen StringBase replaces the private copy; the switch
+// declares the narrow destructor, which resolves to the verified
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 
 class Payload002006B0 : public StringBase<char>

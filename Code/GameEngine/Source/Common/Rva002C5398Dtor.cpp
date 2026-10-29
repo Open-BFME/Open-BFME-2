@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// stlport
 // ??1Rva002C5398@@UAE@XZ retail 0x002C5398 112B
 // Own vptr BFF658; under EH state 1 this object runs the rowed
 // ?winDestroyAll@GameWindowManager@@UAEHXZ 0x002C124C and
@@ -8,22 +9,13 @@
 // then the STLport list base at +0x30 (rowed 0x004EC395) and the rowed base
 // dtor ??1GameEngineDeletingBase@@UAE@XZ 0x001B4E74. Names address-derived.
 
+#include <list>
+
 namespace _STL
 {
-	template <class T> class allocator
-	{
-	public:
-		allocator() {}
-	};
-
-	template <class T, class A> class _List_base
-	{
-	public:
-		_List_base(const A &);
-		~_List_base();
-	private:
-		void *m_node;
-	};
+	// Bind the base construction and teardown to the rowed workers.
+	template <> _List_base<int, allocator<int> >::_List_base(const allocator<int> &alloc);
+	template <> _List_base<int, allocator<int> >::~_List_base();
 }
 
 class GameWindowTransitionsHandler;
