@@ -137,6 +137,10 @@ The outgoing audit is INCONCLUSIVE on the older index and a missing current
 receipt for Common/0CreateAHeroManager21FE49.cpp. Carry that consumer and this
 provider scope into the next scheduled census; no census gain is claimed.
 [Evidence](../reverse/attempt_support/emotion-tracker-base-header-20261029-codex.md).
+Commit-hook follow-up: two shadow identity findings remain for the existing
+Rva004DD489 vector push_back (0x004DFCB0) and Rva002EE9B7 cleanup (0x002F0F02).
+The saved pre-edit object proves these named bindings unchanged. Their real
+container/owner reconciliation is separate from the cleared COMDAT conflict.
 
 ### Strategic player status CRT header cleanup (2026-10-29)
 

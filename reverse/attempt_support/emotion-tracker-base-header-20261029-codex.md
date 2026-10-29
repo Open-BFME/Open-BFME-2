@@ -48,3 +48,15 @@ ledger, pin, hatch register or data identity changes.
 
 Local raw before-source/object and audit output are in
 `build/emotion-tracker-link/`; the checked facts above are recorded here.
+
+## Commit-hook identity warnings
+
+Repair `251ddd9644` passes the normal commit hook. Its shadow identity check
+reports two binding findings: the constructor's Rva004DD489 pointer-vector
+push_back at 0x004DFCB0 and uw_0078e905's Rva002EE9B7 destructor at
+0x002F0F02. These warnings remain unresolved; header adoption is not identity
+retirement. The saved pre-edit constructor and current object have identical
+complete constructor bytes and relocation lists. The unwind body also preserves
+its bytes and named destructor relocation; only the following EH-data local
+label renumbers. These bindings predate this repair. Reconcile their real
+container/owner identities before claiming complete unit recovery.
