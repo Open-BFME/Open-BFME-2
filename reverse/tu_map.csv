@@ -4502,7 +4502,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007C49F,39,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007C454..0x0007C4C6,Code/GameEngine/Source/Common/Rva0007C49FAssign.cpp
 0x0007C4C6,58,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,K,K=Rva007C454,Code/GameEngine/Source/Common/Rva007C454Clone.cpp
 0x0007C500,11,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007C4C6..0x0007C50B,Code/Libraries/Source/WWVegas/WWLib/StlportVectorClearNoDestroyFamily.cpp
-0x0007C50B,174,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007C4C6..0x0007C5B9,Code/GameEngine/Source/Common/Rva0007C50BCtor.cpp
+0x0007C50B,174,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007C4C6..0x0007C5B9,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp
 0x0007C5B9,28,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,K,K=Rva007C454,Code/GameEngine/Source/Common/Rva007C454Ctor.cpp
 0x0007C5D5,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_dtor.cpp
 0x0007C614,30,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_destroy.cpp
@@ -62405,10 +62405,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075F2F9,10,code,,,-,,Code/GameEngine/Source/Common/Rva007C454Dtor.cpp
 0x0075F303,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C4C6@FuncInfo0x00901D44 p-group provisional,Code/GameEngine/Source/Common/Rva007C454Clone.cpp
 0x0075F30D,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C4C6@FuncInfo0x00901D44 p-group provisional,Code/GameEngine/Source/Common/Rva007C454Clone.cpp
-0x0075F317,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/GameEngine/Source/Common/Rva0007C50BCtor.cpp
-0x0075F321,8,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/GameEngine/Source/Common/Rva0007C50BCtor.cpp
-0x0075F329,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/GameEngine/Source/Common/Rva0007C50BCtor.cpp
-0x0075F333,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/GameEngine/Source/Common/Rva0007C50BCtor.cpp
+0x0075F317,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp
+0x0075F321,8,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp
+0x0075F329,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp
+0x0075F333,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007C50B@FuncInfo0x00901D78 p-group provisional,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp
 0x0075F33D,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_dtor.cpp
 0x0075F345,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0007bb16_dtor.cpp
 0x0075F34F,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapConvexHull.cpp
