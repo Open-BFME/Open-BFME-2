@@ -75,6 +75,7 @@ import argparse
 import ast
 import collections
 import csv
+import functools
 import json
 import os
 import re
@@ -123,6 +124,7 @@ def no_comments(text):
                   text, flags=re.S)
 
 
+@functools.lru_cache(maxsize=4096)
 def head_re(name):
     return re.compile(r"^[ \t]*(template\s*<[^;{}]*>\s*)?(class|struct)[ \t]+(?:__declspec\([^)]*\)\s+)*"
                       + re.escape(name) + r"\b\s*(?::(?!:)[^{;]*)?\{", re.M)
@@ -1029,32 +1031,67 @@ def canonical(path=CANONICAL):
         return {r["class"]: r["header"] for r in csv.DictReader(fh)}
 
 
+def file_classes(text):
+    """The classes one file gives a namespace-scope body (a body class_span refuses counts:
+    it is reported when the class is planned), first-seen order."""
+    code = hal.masked(text)
+    out = []
+    for c in dict.fromkeys(class_layouts.class_bodies(text)):
+        try:
+            if "::" in c or not class_span(text, c, code):
+                continue
+        except Refused:
+            pass                                           # reported when the class is planned
+        out.append(c)
+    return out
+
+
 def shared_classes(files, texts):
     """{class: [files with a namespace-scope body]} for classes two or more files declare."""
     seen = collections.defaultdict(list)
     for f in files:
-        code = hal.masked(texts[f])
-        for c in dict.fromkeys(class_layouts.class_bodies(texts[f])):
-            try:
-                if "::" in c or not class_span(texts[f], c, code):
-                    continue
-            except Refused:
-                pass                                       # reported when the class is planned
+        for c in file_classes(texts[f]):
             seen[c].append(f)
     return {c: fs for c, fs in seen.items() if len(fs) >= 2}
+
+
+_FILE_CLASSES = None
+
+
+def _cached_file_classes(root, rel):
+    """file_classes of ROOT/REL from the shared picker cache (by content; a picker run names a
+    clean tracked file by its blob, unread), or None when the file cannot be read."""
+    global _FILE_CLASSES
+    import picker_cache
+    if _FILE_CLASSES is None:
+        here = Path(__file__).resolve()
+        _FILE_CLASSES = picker_cache.FileMemo("tu_views-file-classes", [
+            here, here.with_name("header_adopt_lane.py"), here.with_name("class_layouts.py")])
+    key = picker_cache.blob_key(rel, root)
+    if key is not None:
+        return _FILE_CLASSES.get(key, lambda: file_classes(read_source(Path(root) / rel)))
+    try:
+        text = read_source(Path(root) / rel)
+    except OSError:
+        return None
+    return _FILE_CLASSES.get(picker_cache.text_key(text), lambda: file_classes(text))
 
 
 def shared_private(files, root=ROOT, canon=None):
     """Classes without a canonical header that two or more of `files` declare privately:
     the cheap, textual test tu_skeleton and the consolidate queue use to point here."""
-    texts = {}
+    seen = collections.defaultdict(list)
     for f in files:
         try:
-            texts[f] = read_source(Path(root) / f)
+            classes = _cached_file_classes(root, f)
         except OSError:
             continue
+        if classes is None:
+            continue
+        for c in classes:
+            seen[c].append(f)
     canon = canonical() if canon is None else canon
-    return sorted(c for c in shared_classes(list(texts), texts) if c not in canon)
+    return sorted(c for c, fs in seen.items() if len(fs) >= 2 and c not in canon)
 
 
 def dependency_order(classes, layouts):

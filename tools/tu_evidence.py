@@ -76,6 +76,7 @@ import bisect
 import collections
 import csv
 import io
+import itertools
 import re
 import struct
 import sys
@@ -410,12 +411,40 @@ def approvable(out):
 
 
 def inside_other(spans, rva, key):
+    """The key of the first span in SPANS (sorted, as approvable() returns them) strictly
+    containing `rva` under another key, else None. apply() asks it of every row, so the
+    span list's SpanIndex is kept between calls (the list must not change in place)."""
+    if _SPANS[0] is not spans:
+        _SPANS[:] = [spans, SpanIndex(spans) if all(a <= b for a, b in zip(spans, spans[1:])) else None]
+    if _SPANS[1] is not None:
+        return _SPANS[1].other(rva, key)
     for lo, hi, k in spans:
         if lo > rva:
             break
         if k != key and lo < rva < hi:
             return k
     return None
+
+
+_SPANS = [None, None]       # the last span list inside_other saw, and its SpanIndex
+
+
+class SpanIndex:
+    """inside_other over one sorted span list, asked for many rows: a span ending at or before
+    `rva` cannot contain it, and the running maximum of the ends finds the first that may."""
+
+    def __init__(self, spans):
+        self.spans = spans
+        self.los = [lo for lo, _, _ in spans]
+        self.reach = list(itertools.accumulate((hi for _, hi, _ in spans), max))
+
+    def other(self, rva, key):
+        end = bisect.bisect_right(self.los, rva)                 # inside_other stops at lo > rva
+        for j in range(bisect.bisect_right(self.reach, rva, 0, end), end):
+            lo, hi, k = self.spans[j]
+            if k != key and lo < rva < hi:
+                return k
+        return None
 
 
 def apply(layout, out, signals=None, st=None):

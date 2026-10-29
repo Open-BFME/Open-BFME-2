@@ -332,6 +332,49 @@ class Paths:
         return rel
 
 
+def _zh_cached(layout, kind, compute):
+    """compute() once per git-identified ZH tree and version of this tool (the shared picker
+    cache, tools/picker_cache.py): the ZH tree moves only with the submodule pin, the ledger
+    every commit. A dirty, custom or missing tree is computed directly."""
+    try:
+        import picker_cache
+    except ImportError:
+        return compute()
+    if not picker_cache.enabled():
+        return compute()
+    ident, _ = zh_identity(layout)
+    if not ident.startswith("git:"):
+        return compute()
+    return picker_cache.keyed(kind, [ident, _digest(Path(__file__).resolve())], compute)
+
+
+def zh_scan(layout):
+    """[[path relative to the ZH tree, a Tools/ file, its zh_definitions, its
+    class_inline_members (none for a Tools/ file), the classes COPY_DEF finds]] per ZH .cpp
+    in walk order; an unreadable file carries None for the three lists. zh_index's per-file
+    part, cached per ZH tree."""
+    def scan():
+        out = []
+        for dp, dn, fn in sorted(os.walk(layout.zh)):
+            dn.sort()
+            tool = Path(dp).relative_to(layout.zh).parts[:1] == ("Tools",)
+            for f in sorted(fn):
+                if not f.lower().endswith(".cpp"):
+                    continue
+                p = Path(dp) / f
+                zrel = p.relative_to(layout.zh).as_posix()
+                try:
+                    text = p.read_text(encoding="latin-1")
+                except OSError:
+                    out.append([zrel, tool, None, None, None])
+                    continue
+                out.append([zrel, tool, [list(d) for d in zh_definitions(text)],
+                            [] if tool else [list(d) for d in class_inline_members(text)],
+                            [m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text))]])
+        return out
+    return _zh_cached(layout, "tu_map-zh-scan", scan)
+
+
 def zh_index(layout, paths, header_classes=frozenset()):
     """({(class, method): file}, {class: its one site file}, classes whose copy
     constructor a ZH .cpp defines out of line, the files of ZH's Tools/ programs).
@@ -344,29 +387,20 @@ def zh_index(layout, paths, header_classes=frozenset()):
     game = collections.defaultdict(set)      # (class, member) -> game .cpp files defining it out of line
     if not layout.zh.exists():
         return meth, {}, copies, tools
-    for dp, dn, fn in sorted(os.walk(layout.zh)):
-        dn.sort()
-        tool = Path(dp).relative_to(layout.zh).parts[:1] == ("Tools",)
-        for f in sorted(fn):
-            if not f.lower().endswith(".cpp"):
-                continue
-            p = Path(dp) / f
-            rel = paths.repo(p.relative_to(layout.zh).as_posix())
-            if tool:
-                tools.add(rel)
-            try:
-                text = p.read_text(encoding="latin-1")
-            except OSError:
-                continue
-            for c, m in zh_definitions(text):
-                meth.setdefault((c, m), rel)
-                sites[c].add(rel)
-                if not tool:
-                    game[(c, m)].add(rel)
+    for zrel, tool, defs, inline, copied in zh_scan(layout):
+        rel = paths.repo(zrel)
+        if tool:
+            tools.add(rel)
+        if defs is None:                     # unreadable
+            continue
+        for c, m in defs:
+            meth.setdefault((c, m), rel)
+            sites[c].add(rel)
             if not tool:
-                for c, m in class_inline_members(text):
-                    local[(c, m)].add(rel)
-            copies.update(m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text)))
+                game[(c, m)].add(rel)
+        for c, m in inline:
+            local[(c, m)].add(rel)
+        copies.update(copied)
     for key, rels in game.items():           # overloads one per file: no file is the definition
         if len(rels) > 1:
             del meth[key]
@@ -520,9 +554,14 @@ def zh_header_members(layout):
     or by a ZH header macro such as MAKE_STANDARD_MODULE_MACRO), or as an `inline X::y(`
     definition at header scope. A class whose body a header writes also gives
     (class, None), so zh_index can tell a header's class from a .cpp's local one."""
-    out = set()
     if not layout.zh.exists():
-        return out
+        return set()
+    return {tuple(m) for m in _zh_cached(layout, "tu_map-zh-header-members",
+                                          lambda: sorted(_zh_header_members(layout), key=repr))}
+
+
+def _zh_header_members(layout):
+    out = set()
     texts = []
     for dp, dn, fn in sorted(os.walk(layout.zh)):
         dn.sort()

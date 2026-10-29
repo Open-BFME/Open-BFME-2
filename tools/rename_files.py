@@ -206,9 +206,28 @@ class Tree:
             yield "recorded canonical in name_basis.csv"
         if posixpath.basename(source).lower() in self.included:
             yield "#included by another file (phase 1 does not rewrite includes)"
-        data = ctx.read(source) or b""
-        if "__FILE__" in name_metric.strip(data.decode("utf-8", errors="surrogateescape")):
+        if self.expands_file(source):
             yield "expands __FILE__: the path reaches its bytes"
+
+    def expands_file(self, source):
+        """Whether `source` expands __FILE__ outside comments and literals (by content, from
+        the shared picker cache in a picker run: tools/picker_cache.py)."""
+        ctx = self.ctx
+
+        def check(data):
+            return "__FILE__" in name_metric.strip((data or b"").decode("utf-8", errors="surrogateescape"))
+        import picker_cache
+        key = picker_cache.blob_key(source, ctx.root)
+        if key is None:
+            return check(ctx.read(source))
+        if _EXPANDS_FILE[0] is None:
+            here = Path(__file__).resolve()
+            _EXPANDS_FILE[0] = picker_cache.FileMemo("rename_files-expands-file",
+                                                     [here, here.with_name("name_metric.py")])
+        return _EXPANDS_FILE[0].get(key, lambda: check(ctx.read(source)))
+
+
+_EXPANDS_FILE = [None]      # the picker cache's FileMemo, made on first use
 
 
 def owned_rows(ctx):
