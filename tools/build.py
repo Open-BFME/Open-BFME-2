@@ -3529,13 +3529,20 @@ def _restore_stale(sources, source_outputs, workers=1):
     return [source for source, ok in zip(sources, done) if not ok]
 
 
+COMPILE_TIMINGS = {}  # compile_rows' last call: each phase's wall seconds (link_census's stage profile)
+
+
 def compile_rows(rows, sources, *, input_proof=None, strict=False):
     """Compile every source whose object is not current; return {source: object}.
     The compile phase of verify_functions, callable on its own (link_census).
     `strict` (link_census --build): currency is compile_is_current(strict=True)
     and every compile records its include search inventory; `input_proof`
     witnesses each compile's inputs (census_receipts)."""
+    timings = COMPILE_TIMINGS
+    timings.clear()
+    started = time.monotonic()
     extract_lib_members(rows)
+    timings["lib members"] = time.monotonic() - started
     sources = [s for s in sources if s.suffix.lower() != LIB_SUFFIX]
     source_outputs = {s: obj_path(s) for s in sources}
     if len(set(source_outputs.values())) != len(source_outputs):
@@ -3559,7 +3566,9 @@ def compile_rows(rows, sources, *, input_proof=None, strict=False):
         # no sidecar (first gate after this change, or flagged uncacheable)
         # recompiles. This is what turns a header-edit gate from ~17 min of
         # recompile-the-world into seconds-per-actual-includer.
+        started = time.monotonic()
         to_compile = stale_sources(sources, source_outputs, _pool_size(), strict=strict)
+        timings["stale check"] = time.monotonic() - started
         cached = len(sources) - len(to_compile)
         if cached:
             print(f"Compile: {len(to_compile)} of {len(sources)} TU(s) "
@@ -3585,8 +3594,11 @@ def compile_rows(rows, sources, *, input_proof=None, strict=False):
         lock_path = _full_compile_lock_path()
         lock_path.parent.mkdir(parents=True, exist_ok=True)
         lock_file = lock_path.open("a")
+        started = time.monotonic()
         lock(lock_file, exclusive=True,
              wait_notice="waiting for build lock (another full build shares this compiler scope)...")
+        timings["build lock wait"] = time.monotonic() - started
+    started = time.monotonic()
     try:
         proof = {"input_proof": input_proof, "inventory": True} if strict or input_proof is not None else {}
         if pool_size == 1 or len(to_compile) <= 1:
@@ -3601,6 +3613,7 @@ def compile_rows(rows, sources, *, input_proof=None, strict=False):
         if lock_file is not None:
             unlock(lock_file)
             lock_file.close()
+    timings[f"cl ({len(to_compile)} TUs)"] = time.monotonic() - started
     return source_outputs
 
 

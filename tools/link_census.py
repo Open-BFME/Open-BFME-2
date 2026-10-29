@@ -28,6 +28,7 @@ them into the classes the integration work has to clear:
   python3 tools/link_census.py --report   # summarise the last census
   python3 tools/link_census.py --status   # redo link_status.csv + LINKED from the last log
   python3 tools/link_census.py --selected # which COMDAT copy the link selected (/MAP), vs retail truth
+  python3 tools/link_census.py --build --history --dry   # the whole census, recording nothing (DRY_OUT)
 
 `--history` records the census in link_census_history.csv, with LINKED
 (linked_bytes) measured on this tree, and writes
@@ -82,6 +83,33 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 
+
+_PROFILE = False  # main() turns the stage profile on; a tool importing this module stays quiet
+
+
+def _stage_line(name, seconds):
+    """`link_census: <stage> <seconds>s` on stderr: the census's stage profile
+    (the runner's log keeps it; nothing parses it)."""
+    if not _PROFILE:
+        return
+    print(f"link_census: {name} {seconds:.1f}s", file=sys.stderr, flush=True)
+
+
+def _timed(name):
+    """Report each call's wall time under `name` (_stage_line)."""
+    import functools
+
+    def wrap(fn):
+        @functools.wraps(fn)
+        def run(*args, **kwargs):
+            started = time.monotonic()
+            try:
+                return fn(*args, **kwargs)
+            finally:
+                _stage_line(name, time.monotonic() - started)
+        return run
+    return wrap
+
 OUT = ROOT / "build" / "link_census"
 # The linker prints `"<demangled>" (<mangled>)` for a C++ name and the bare name for a C one.
 UNRESOLVED = re.compile(r'error LNK20(?:01|19): unresolved external symbol (?:"[^"]*" \((\S+)\)|(\S+))')
@@ -116,6 +144,7 @@ def compile_sources(rows):
     return list(dict.fromkeys([ROOT / row["source"] for row in rows] + data_sources()))
 
 
+@_timed('data verification')
 def verify_data_objects():
     """Require the existing data byte gate before using these providers."""
     import data_rows
@@ -534,6 +563,7 @@ def pe_defect(path):
     return None
 
 
+@_timed('classify')
 def classify(log, rows):
     pinned = pins()
     data = data_names()
@@ -1036,6 +1066,7 @@ def _truth_init(rows):
     _TRUTH = RetailTruth(rows)
 
 
+@_timed('comdat_conflicts (COFF parse)')
 def comdat_conflicts(objs):
     """{name: [(sha, size, obj), ...]} for COMDAT symbols whose copies differ.
 
@@ -1209,6 +1240,7 @@ def object_references(obj):
     return roots, {name: frozenset(found) for name, found in edges.items()}
 
 
+@_timed('read_references (COFF parse)')
 def read_references(objs):
     """object_references for every object, in parallel (BUILD_POOL processes)."""
     workers = build._pool_size()
@@ -1257,6 +1289,7 @@ def referenced_names(roots, edges, kept=(), links=(), known=frozenset()):
     return found
 
 
+@_timed('link_references')
 def link_references(present, facts, owners, references=None):
     """(merged edges, referenced names) of one census's objects: the names
     referenced_names reaches from every object's roots, every ledger owner's
@@ -1388,6 +1421,7 @@ def _weak_externals(data):
     return found
 
 
+@_timed('read_facts (COFF parse + retail truth)')
 def read_facts(objs, rows):
     """object_facts for every object, in parallel (BUILD_POOL processes)."""
     workers = build._pool_size()
@@ -1399,6 +1433,7 @@ def read_facts(objs, rows):
     return [object_facts(obj, truth) for obj in objs]
 
 
+@_timed('comdat_losers')
 def comdat_losers(objs, rows=None, stats=None, facts=None, referenced=None, retail_kept=True,
                   retail_first=True):
     """{object name: {symbol}} for COMDAT copies that are not retail's body.
@@ -1514,6 +1549,7 @@ def comdat_section_bodies(obj, names, digests=False):
         return {}  # a diagnostic never fails a census or a check
 
 
+@_timed('unreferenced_differs')
 def unreferenced_differs(objs, facts, referenced):
     """{object name: [entry]} for every COMDAT copy keep_rule's `unreferenced`
     rule exempts that differs from the majority copy of its name: a name with
@@ -1633,6 +1669,7 @@ def touched_names(fact):
     return names
 
 
+@_timed('selection_verdicts')
 def selection_verdicts(present, facts, owners, kept):
     """({name: result}, {name: holder index or None}) for every name the census
     objects define, judged on the definition the link kept (`kept`, from the
@@ -1905,8 +1942,19 @@ def main(argv=None):
                          "(selected.csv, aliased.csv); on the census's own commit, records nothing")
     ap.add_argument("--status", action="store_true",
                     help="redo link_status.csv and the last history row's LINKED from the last link log, on the census's own commit")
+    ap.add_argument("--dry", action="store_true",
+                    help="with --history: run the whole census (compile, both links, every check, the judgment) but "
+                         "write every output, link_status.csv, the history and the link index included, under "
+                         "build/link_census_dry/: nothing recorded, nothing for --publish-index (profiling, "
+                         "equality runs)")
     args = ap.parse_args(argv)
-    global _INPUT_RECEIPTS
+    global _INPUT_RECEIPTS, _PROFILE
+    if args.dry:
+        if not args.history or args.report or args.selected or args.status or args.measure or args.scaffold:
+            ap.error("--dry goes with --history (and --build) only")
+        use_dry_outputs(DRY_OUT)
+    _PROFILE = True
+    run_started = time.monotonic()
     path = OUT / "census.json"
     if args.report:
         report(json.loads(path.read_text(encoding="utf-8")))
@@ -1940,6 +1988,8 @@ def main(argv=None):
         _INPUT_RECEIPTS = census_receipts.Receipts(OUT / "compile_inputs.json", collect=True)
         _INPUT_RECEIPTS.path.unlink(missing_ok=True)
         build.compile_rows(rows, compile_sources(rows), input_proof=_INPUT_RECEIPTS, strict=True)
+        for name, seconds in getattr(build, "COMPILE_TIMINGS", {}).items():
+            _stage_line(f"compile: {name}", seconds)
         _INPUT_RECEIPTS.save()
         if _INPUT_RECEIPTS.failures:
             raise SystemExit(f"link_census: {len(_INPUT_RECEIPTS.failures):,} compiled objects have no census "
@@ -1966,6 +2016,7 @@ def main(argv=None):
         _start_preselection(present, predicted)
     fresh_outputs(OUT / "census.exe")
     log, seconds, code = link(present)
+    _stage_line("link (plain)", seconds)
     unexplained_exit(code, log, OUT / "census.exe")
     if census_state(present) != state or stale_objects(present, sources):
         raise SystemExit("link_census: compiler inputs, tools or objects changed during link; nothing recorded"
@@ -2010,7 +2061,30 @@ def main(argv=None):
         record(census, rows)
     elif args.measure:
         measure(census, rows, present, final_log(census), state, sources)
+    _stage_line("total", time.monotonic() - run_started)
     return 0
+
+
+DRY_OUT = ROOT / "build" / "link_census_dry"
+
+
+def use_dry_outputs(directory):
+    """Point every output of a --history census under `directory` (census_rebaseline's
+    load_old redirects the same names): census.json, the logs, link_status.csv, the
+    history (a copy of reverse/'s, which the row is appended to) and the link index.
+    The last real census's log seeds the selection link's prediction, as it would
+    in a real census."""
+    global OUT, STATUS, HISTORY, UNREFERENCED_COPIES, SELECTED, DUPLICATES, ALIASED, SELECTION
+    import link_check
+    real = OUT
+    directory.mkdir(parents=True, exist_ok=True)
+    if not (directory / "census.log").exists() and (real / "census.log").exists():
+        (directory / "census.log").write_bytes((real / "census.log").read_bytes())
+    (directory / HISTORY.name).write_bytes(HISTORY.read_bytes() if HISTORY.exists() else b"")
+    OUT, HISTORY, STATUS = directory, directory / HISTORY.name, directory / STATUS.name
+    UNREFERENCED_COPIES, SELECTED, DUPLICATES, ALIASED, SELECTION = (
+        directory / path.name for path in (UNREFERENCED_COPIES, SELECTED, DUPLICATES, ALIASED, SELECTION))
+    link_check.INDEX = directory / link_check.INDEX.name
 
 
 def measure(census, rows, present, log, state, sources):
@@ -2107,6 +2181,7 @@ def _start_preselection(present, names):
     _PRESELECTION["thread"].start()
 
 
+@_timed('selection link (wait or relink)')
 def selection_link(present, log):
     """The /MAP text of a relink of `present` in which every name the plain
     link (`log`) left unresolved is defined in one stub section, so the link
@@ -2308,14 +2383,18 @@ def write_status(log, rows, present, meta, kept, publish=True, previous_rules=No
     that no history row describes.
     """
     import link_debt
+    started = time.monotonic()
     crt = build.vc71_root() / "Vc7" / "lib" / "msvcrt.lib"
     runtime, thunks = library_symbols(crt), import_stubs()
     imported = retail_imports()
     if present is None:
         present, _ = objects(rows)
+    _stage_line("write_status: runtime and imports", time.monotonic() - started)
     stats, previous_stats = {}, {}
     facts = read_facts(present, rows)
+    started = time.monotonic()
     owners = ledger_owners(rows)
+    _stage_line("write_status: ledger owners", time.monotonic() - started)
     references = read_references(present)
     edges, referenced = link_references(present, facts, owners, references)
     losers = comdat_losers(present, rows, stats, facts, referenced)
@@ -2350,6 +2429,7 @@ def write_status(log, rows, present, meta, kept, publish=True, previous_rules=No
     # VC7.1's predeclared C-linkage helper forces on a (void *, void *)
     # declaration, to __CxxThrowException@8). Chains are followed, as link.exe does.
     import link_check
+    started = time.monotonic()
     aliases = collections.defaultdict(set)
     for obj in present:
         for alias, target in link_check.alternate_names(obj).items():
@@ -2405,6 +2485,7 @@ def write_status(log, rows, present, meta, kept, publish=True, previous_rules=No
                             "duplicates": sorted(duplicates.get(obj, ())), "losers": sorted(losers.get(obj, ())),
                             "addresses": counts[3], "wrong_selected": wrong_selected.get(obj, []),
                             "unreferenced_differs": differs.get(obj, [])}
+    _stage_line("write_status: log and per-source rows", time.monotonic() - started)
     clean = {source for source, r in out.items() if r["linked"] == "yes"}
     stale = {source: entry["unreferenced_differs"] for source, entry in blockers.items()
              if entry["unreferenced_differs"]}
@@ -2414,6 +2495,7 @@ def write_status(log, rows, present, meta, kept, publish=True, previous_rules=No
           + (" (layout-like: a stale private class view?)" if stale_copies.get("layout") else ""))
 
     def accept():
+        started = time.monotonic()
         temp = STATUS.with_suffix(".csv.tmp")
         with temp.open("w", newline="", encoding="utf-8") as handle:
             writer = csv.DictWriter(handle, STATUS_FIELDS, lineterminator="\n")
@@ -2430,6 +2512,7 @@ def write_status(log, rows, present, meta, kept, publish=True, previous_rules=No
         link_check.write_index(present, facts, blockers, {"runtime": runtime, "imported": imported, "stubs": thunks},
                                meta or {}, {"exceptions": exceptions, "owners": dict(owners)},
                                references={"edges": edges, "referenced": referenced})
+        _stage_line("write_status: status, copies and link index written", time.monotonic() - started)
         print(f"link_census: wrote {STATUS.relative_to(ROOT).as_posix()} ({len(clean):,} of {len(out):,} sources "
               f"link cleanly; {len(clean_prev):,} before wrong_selected; {len(unknown_only):,} of the clean ones use "
               "a selected definition nothing proves or disproves)")
@@ -2511,6 +2594,7 @@ def object_current(source, obj, *, inventory_cache=None, allow_fresh=True):
     return receipts is not None and receipts.current(source, obj)
 
 
+@_timed('currency proof (stale_objects)')
 def stale_objects(present, sources):
     """The objects in `present` that are not current for their source
     (object_current); objects with no source (library members) are taken
@@ -2568,6 +2652,7 @@ def object_stamps(present):
     return stamps
 
 
+@_timed('objects_digest')
 def objects_digest(present):
     """The objects' bytes, one digest (census_rebaseline compares two runs)."""
     digest = hashlib.sha256()
@@ -2582,6 +2667,7 @@ def moved(before, after):
     return ", ".join(key for key in before if before[key] != after.get(key)) or "objects went stale"
 
 
+@_timed('census_state')
 def census_state(present):
     """What must hold still from the first currency check to the record: HEAD
     and the uncommitted diff of every compiler input, the census tools and
@@ -2684,6 +2770,7 @@ def record(census, rows, rerun=False, rebaseline=None):
     import link_debt
     started = time.time()
     kept = selected_definitions(selection_link(present, log))
+    _stage_line("selection link and map parse", time.time() - started)
     print(f"link_census: selection (/MAP) link {time.time() - started:.0f}s, after the plain link's "
           f"{census.get('seconds', 0):.0f}s", flush=True)
     guard("during the selection link")
@@ -2716,7 +2803,9 @@ def record(census, rows, rerun=False, rebaseline=None):
     rendered = render_history(history)  # validated before anything is written
     guard("during judgment")
     prepared["accept"]()
+    started = time.monotonic()
     write_history(history, rendered)
+    _stage_line("history written", time.monotonic() - started)
     print(f"link_census: LINKED {figure['linked_bytes']:,} bytes ({figure['linked_bytes_prev_rule']:,} under "
           f"{figure['prev_rules']}), authored {figure['linked_authored']:,} ({figure['linked_authored_prev_rule']:,}); "
           f"{'updated' if rerun else 'appended'} {HISTORY.name} ({RULES})")
