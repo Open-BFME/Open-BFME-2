@@ -1,0 +1,7 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehaviorCtor.cpp: does not link  LINKED 74 -> 0 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 74)
+  unresolved  ??1ShipSlowDeathBehavior@@UAE@XZ
+  unresolved  ?slot0@BehaviorModuleInterface@@UAEXXZ
+Code/GameEngine/Source/GameLogic/Object/Behavior/ShipSlowDeathBehavior.cpp: LINKS  LINKED 833 -> 833 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 833)
+link_check: 1 of 2 link cleanly; LINKED 907 -> 833 bytes (3.7s)

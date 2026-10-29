@@ -25,6 +25,13 @@ Rva00566695Assign.cpp's existing two COMDAT/one selected-copy failures;
 LINK-064's family identity prerequisite remains. No census gain is claimed.
 [Checks and selection handoff](../reverse/attempt_support/tree-erase-crt-header-20261027.md#scoped-queue-retirement-2026-10-29).
 
+ShipSlowDeathBehavior constructor composition (2026-10-29, `5eb27ead8e`):
+shared-view construction preserves 9/9 paired rows, but loses the constructor's
+74 preview-linked bytes until the placeholder-owned destructor and complete
+virtual interfaces are reconciled. Sources restored; paired LINKS retains
+907 bytes against `85f6b7f40c`. No move or census gain.
+[Trial and remaining prerequisite](../reverse/attempt_support/ship-slow-death-constructor-20261029/README.md).
+
 EmotionTrackerUpdate constructor base-header repair (2026-10-29, `f143cd5169`):
 ObjectModule.h replaces the one-slot private base, preserving 11/11 paired rows
 and exact constructor EH. The primary table now agrees with the destructor;
