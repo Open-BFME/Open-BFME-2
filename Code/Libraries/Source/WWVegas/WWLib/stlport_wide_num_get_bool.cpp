@@ -1,5 +1,5 @@
 // cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 num_get<bool> input reconstruction.
 // boolalpha compares both facet names; numeric input delegates to the long
