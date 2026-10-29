@@ -34,10 +34,7 @@ struct Rva005897FBCoordLifetime : Coord3D
     ~Rva005897FBCoordLifetime() {}
 };
 
-class Matrix3D
-{
-	float m[12];
-};
+#include "../../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Drawable
 {

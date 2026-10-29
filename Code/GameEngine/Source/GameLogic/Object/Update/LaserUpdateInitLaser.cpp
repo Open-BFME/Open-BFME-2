@@ -11,13 +11,7 @@
 #include "ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 class GeometryInfo { public: float getMaxHeightAbovePosition() const; };
-class Matrix3D { public: float m[12];
- __forceinline Matrix3D(bool identity) { if(identity) {
- m[0]=1.0F;m[1]=0;m[2]=0;m[3]=0;m[4]=0;m[5]=1.0F;m[6]=0;m[7]=0;m[8]=0;m[9]=0;m[10]=1.0F;m[11]=0; } }
- float Get_X_Translation() const {return m[3];}
- float Get_Y_Translation() const {return m[7];}
- float Get_Z_Translation() const {return m[11];}
-};
+#include "../../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 static inline void coordSet(Coord3D *to,const Coord3D *from) {to->x=from->x;to->y=from->y;to->z=from->z;}
 static inline void coordSet(Coord3D *to,float x,float y,float z) {to->x=x;to->y=y;to->z=z;}
 static inline void coordAdd(Coord3D *to,const Coord3D *from) {to->x=to->x+from->x;to->y=to->y+from->y;to->z=to->z+from->z;}

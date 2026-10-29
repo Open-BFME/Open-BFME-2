@@ -17,10 +17,7 @@ typedef int Int;
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class Matrix3D
-{
-	float m[12];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 enum CellShroudStatus
 {

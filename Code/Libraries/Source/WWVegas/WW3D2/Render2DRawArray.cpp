@@ -39,11 +39,7 @@ public:
 	char *Buffer;
 };
 
-class Matrix3D
-{
-public:
-	float Row[3][4];
-};
+#include "../WWMath/Matrix3DData.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/proxy.h
 class ProxyClass

@@ -8,10 +8,7 @@ class RenderInfoClass
 {
 };
 
-class Matrix3D
-{
-	float Values[12];
-};
+#include "../WWMath/Matrix3DData.h"
 
 class Vector3
 {

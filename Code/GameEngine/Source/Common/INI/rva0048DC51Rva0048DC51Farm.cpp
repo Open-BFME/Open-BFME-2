@@ -86,14 +86,7 @@ public:
 	float Z;
 };
 
-class Matrix3D
-{
-public:
-	Matrix3D();
-	void buildTransformMatrix(const Vector3 &pos, const Vector3 &dir);
-private:
-	float m_row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 // Bezier segment over four control points (see Rva0055A246Ctor.cpp).
 class Rva0055A246

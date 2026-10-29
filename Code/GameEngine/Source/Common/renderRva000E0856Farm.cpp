@@ -8,7 +8,7 @@
 #include <windows.h>
 class BfmeVecHF {public:float x,y,z;};
 class Gen_0094AC70 {public:void bfmeSetPair(const BfmeVecHF*,const BfmeVecHF*);};
-class Matrix3D {public:float cells[12];};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class LightEnvironmentClass {public:void Pre_Render_Update(const Matrix3D&);};
 #include "../../../../reference/shims/wwmath/Vector2.h"
 class SegmentedLineClass {public:void rva0015E3E0(const Vector2&);};

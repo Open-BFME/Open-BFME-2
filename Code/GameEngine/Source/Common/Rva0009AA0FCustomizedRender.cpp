@@ -94,11 +94,7 @@ public:
 	float X, Y, Z;
 };
 
-class Matrix3D
-{
-public:
-	float Row[3][4];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class CameraClass
 {

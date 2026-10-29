@@ -3,13 +3,7 @@
 // Honest ctor for 0x90-byte member at +0x3AC in 0x2797BD holder.
 // Evidence: 2x Matrix3D 0x30 via 0x000423C5 plus 4x Coord3D 0x0C via ehvec 0x00629512;
 // rowed Coord3D ctor dtor ICF folds at 0x0047A6A9 0x000B3FD0; caller 0x00279ADB with next field at +0x43C.
-class Matrix3D
-{
-public:
-	Matrix3D();
-private:
-	unsigned char m_bytes[0x30];
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 // Coord3D: shared header/view; no private copy.
 #define COORD3D_VIEW_DTOR

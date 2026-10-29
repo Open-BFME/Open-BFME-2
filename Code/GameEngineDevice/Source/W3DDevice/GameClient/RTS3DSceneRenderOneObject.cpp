@@ -81,11 +81,7 @@ inline bool Spheres_Intersect(const SphereClass &sphere, const SphereClass &s1)
 	}
 }
 
-class Matrix3D
-{
-public:
-	Real Row[3][4];
-};
+#include "../../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class RefCountClass
 {

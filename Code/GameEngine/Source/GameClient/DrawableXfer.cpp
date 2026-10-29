@@ -225,14 +225,7 @@ class ModelConditionFlags : public BitFlags<591>
 
 #include "../../../Libraries/Source/WWVegas/WWMath/Vector4Data.h"
 
-class Matrix3D
-{
-public:
-	__forceinline Matrix3D(const Matrix3D &matrix3D) : Row0(matrix3D.Row0), Row1(matrix3D.Row1), Row2(matrix3D.Row2) {}
-	Vector4 Row0;
-	Vector4 Row1;
-	Vector4 Row2;
-};
+#include "../../../Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 
 class Rva00271826
 {
