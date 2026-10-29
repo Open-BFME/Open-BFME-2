@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Retail STLport narrow file-stream name and descriptor constructors.
 // BFME 1 repair eea5e6fad5 at donor f98983a7d3; BFME 2 retains its
 // four verified narrow filename/descriptor constructor owners.
