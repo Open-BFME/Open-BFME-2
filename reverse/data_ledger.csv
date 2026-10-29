@@ -16816,7 +16816,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009B5ED8,4,.data,global,?BfmeShadowStencilWriteShader@@3VShaderClass@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp,owned,,1,1
 0x009B5EDC,4,.data,global,?BfmeShadowStencilTestShader@@3VShaderClass@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp,owned,,1,1
 0x009B5EE0,80,.data,global,?BfmeShadowStencilAlphaTestShader@@3VShaderClass@@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowManagerFlushDecals.cpp,owned,,1,1
-0x009B5F30,76,.data,global,?g_00DB5F30@@3PAIA,,unowned,?g_00DB5F30@@3PAIA;?g_Va00DB5F30@@3PAHA;_SlotFVFTypeIndexList@Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp,1,3
+0x009B5F30,76,.data,global,?g_00DB5F30@@3PAIA,,unowned,?g_00DB5F30@@3PAIA;?g_Va00DB5F30@@3PAHA;_SlotFVFTypeIndexList@Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp,1,3
 0x009B5F7C,1,.data,global,?IsSortingEnabled@WW3D@@0_NA,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,provisional,?IsSortingEnabled@WW3D@@0_NA;?_IsSortingEnabled@WW3D@@2_NA,1,10
 0x009B5F7D,7,.data,global,?g_Va00DB5F7D@@3EA,Code/GameEngine/Source/Common/GlobalByteGetters.cpp,owned,,1,2
 0x009B5F84,4,.data,global,?ShaderOverbrightEnabled@@3_NA,Code/Libraries/Source/WWVegas/WW3D2/ShaderClassApply.cpp,owned,,1,9
