@@ -1,116 +1,48 @@
-// cl: /O2 /G7 /MD
+// cl: /O2 /arch:SSE /DBFME_WWSTRING_NATIVE_CSTR_ASSIGN /Ireference/shims/wwstring_teardown/bfme /G7 /Ireference/shims/bfmerendobj /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
 //
 // LineGroupClass::Set_Arrays, retail 0x001B3790, 268 bytes.
-// Dedicated TU. Dword REF_PTR_SET; vslot 0 is a no-arg Destroy not a
-// deleting destructor.
+// Zero Hour LineGroupClass::Set_Arrays over the real share-buffer and line
+// group headers (linegrp.cpp's flags and views): REF_PTR_SET inlines the
+// dword refcount and Delete_This at vtable slot 0.
 
-class Vector3 {};
-class Vector4 {};
-
-template <class T>
-class ShareBufferClass
-{
-public:
-	virtual void Destroy();
-	int Refs;
-	int Pad8;
-	int PadC;
-	int Count;
-};
-
-class LineGroupClass
-{
-public:
-	virtual ~LineGroupClass();
-	void Set_Arrays(
-		ShareBufferClass<Vector3> *startlocs,
-		ShareBufferClass<Vector3> *endlocs,
-		ShareBufferClass<Vector4> *diffuse,
-		ShareBufferClass<Vector4> *taildiffuse,
-		ShareBufferClass<unsigned> *alt,
-		ShareBufferClass<float> *sizes,
-		ShareBufferClass<float> *ucoords,
-		int active_line_count);
-
-private:
-	ShareBufferClass<Vector3> *StartLineLoc;
-	ShareBufferClass<Vector3> *EndLineLoc;
-	ShareBufferClass<Vector4> *LineDiffuse;
-	ShareBufferClass<Vector4> *TailDiffuse;
-	ShareBufferClass<unsigned> *ALT;
-	ShareBufferClass<float> *LineSize;
-	ShareBufferClass<float> *LineUCoord;
-	int LineCount;
-};
+#include "wwdebug.h"
+#include "sharebuf.h"
+#include "linegrp.h"
 
 void LineGroupClass::Set_Arrays(
 	ShareBufferClass<Vector3> *startlocs,
 	ShareBufferClass<Vector3> *endlocs,
 	ShareBufferClass<Vector4> *diffuse,
 	ShareBufferClass<Vector4> *taildiffuse,
-	ShareBufferClass<unsigned> *alt,
+	ShareBufferClass<unsigned int> *alt,
 	ShareBufferClass<float> *sizes,
 	ShareBufferClass<float> *ucoords,
-	int active_line_count)
+	int active_line_count
+	)
 {
-	if (startlocs)
-		startlocs->Refs++;
-	if (ShareBufferClass<Vector3> *p = StartLineLoc) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	StartLineLoc = startlocs;
+	// The Line locations arrays are NOT optional!
+	WWASSERT(startlocs);
+	WWASSERT(endlocs);
 
-	if (endlocs)
-		endlocs->Refs++;
-	if (ShareBufferClass<Vector3> *p = EndLineLoc) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	EndLineLoc = endlocs;
+	// Ensure lengths of all arrays are the same:
+	WWASSERT(startlocs->Get_Count() == endlocs->Get_Count());
+	WWASSERT(!diffuse || startlocs->Get_Count() == diffuse->Get_Count());
+	WWASSERT(!alt || startlocs->Get_Count() == alt->Get_Count());
+	WWASSERT(!sizes || startlocs->Get_Count() == sizes->Get_Count());
+	WWASSERT(!ucoords || startlocs->Get_Count() == ucoords->Get_Count());
+	WWASSERT(!taildiffuse || startlocs->Get_Count() == taildiffuse->Get_Count());
 
-	if (diffuse)
-		diffuse->Refs++;
-	if (ShareBufferClass<Vector4> *p = LineDiffuse) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	LineDiffuse = diffuse;
+	REF_PTR_SET(StartLineLoc,startlocs);
+	REF_PTR_SET(EndLineLoc,endlocs);
+	REF_PTR_SET(LineDiffuse,diffuse);
+	REF_PTR_SET(TailDiffuse,taildiffuse);
+	REF_PTR_SET(ALT,alt);
+	REF_PTR_SET(LineSize,sizes);
+	REF_PTR_SET(LineUCoord,ucoords);
 
-	if (taildiffuse)
-		taildiffuse->Refs++;
-	if (ShareBufferClass<Vector4> *p = TailDiffuse) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	TailDiffuse = taildiffuse;
-
-	if (alt)
-		alt->Refs++;
-	if (ShareBufferClass<unsigned> *p = ALT) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	ALT = alt;
-
-	if (sizes)
-		sizes->Refs++;
-	if (ShareBufferClass<float> *p = LineSize) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	LineSize = sizes;
-
-	if (ucoords)
-		ucoords->Refs++;
-	if (ShareBufferClass<float> *p = LineUCoord) {
-		if (!(p->Refs += -1))
-			p->Destroy();
-	}
-	LineUCoord = ucoords;
-
-	if (ALT)
+	if (ALT) {
 		LineCount = active_line_count;
-	else
-		LineCount = (active_line_count >= 0) ? active_line_count : StartLineLoc->Count;
+	} else {
+		LineCount = (active_line_count >= 0) ? active_line_count : StartLineLoc->Get_Count();
+	}
 }
