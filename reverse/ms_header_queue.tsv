@@ -192,8 +192,6 @@ Code/GameEngine/Source/Common/Rva0039C1C3Insert.cpp	unverified	unverified	1	0	0	
 Code/GameEngine/Source/Common/Rva0043B1C9TreeAlloc.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva004F6B69Construct.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified
-Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp	unverified	unverified	1	0	1	0	0	0	0	0	0	0	1	<new>,<math.h>	no	yes	hand	27: reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/always.h:61 malloc(unknown); reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/always.h:62 calloc(unknown); reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/always.h:63 realloc(unknown)		ceil:source
-Code/GameEngine/Source/Common/Rva0055EFE1Ctor.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva005DBD78FillN.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	no	hand			operator new:unverified
 Code/GameEngine/Source/Common/Rva005F2CBAProgress.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<crtdbg.h>	no	yes	hand	3: reference/shims/bfmealloc/stl/_algobase.h:51 stl/_pair.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:55 stl/_iterator_base.h(unknown); reference/shims/bfmealloc/stl/_algobase.h:573 stl/_algobase.c(unknown)		free:unverified
 Code/GameEngine/Source/Common/Rva00752630UninitializedCopy.cpp	unverified	unverified	1	0	0	0	1	0	0	0	0	0	0	<new.h>	no	yes	hand			operator new:unverified

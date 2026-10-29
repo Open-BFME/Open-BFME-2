@@ -20,15 +20,7 @@
 // this+8 and zeroes surrounding ints/floats.
 
 #define __PLACEMENT_VEC_NEW_INLINE
-// LINK: hide math.h's inline float ceil wrapper (r3 LK4 atan2f/cos recipe).
-// The wrappers ?ceil@@YAMM@Z/_ceilf inline at the call below but this TU's
-// copies lose (first-copy); with them hidden the float promotes to the CRT
-// double ceil directly with identical codegen; the extern decl keeps the E8
-// byte-identical. No flags touched.
-#define ceil bfme_hidden_ceil
 #include <math.h>
-#undef ceil
-extern "C" __declspec(dllimport) double __cdecl ceil(double x);
 #include "vector3.h"
 #include <vector>
 
@@ -340,7 +332,7 @@ Bool BezierProjectileBehavior::calcFlightPath(Bool recalcNumSegments)
 		else
 			speed = m_flightPathSpeed * 0.5f;
 		Real flightDistance = flightCurve.rva0055A627(1.0f);
-		m_flightPathSegments = (Int)ceil(flightDistance / speed);
+		m_flightPathSegments = (Int)ceil((double)(flightDistance / speed));
 	}
 	if (m_flightPathSegments < 2)
 		m_flightPathSegments = 2;
