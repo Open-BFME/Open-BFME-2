@@ -4383,3 +4383,9 @@ param,Rva000858EE::a,Rva000858EE::start,inferred,agree:nl-7d6d52b63a81,Code/Game
 param,Rva000858EE::b,Rva000858EE::end,inferred,agree:nl-8afadcc18993,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000858EE
 function,?rva0004C6C6@Rva0004C6C6@@QAEXM@Z,?setFrameRate@Rva0004C6C6@@QAEXM@Z,inferred,agree:nl-6c0dac4c240d,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x0004C6C6
 param,AptMpChat::InitGadgets::argument,AptMpChat::InitGadgets::userData,inferred,agree:nl-818da7415bff,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp,0x0057FDEF
+param,RectClass#2::w,RectClass#2::right,inferred,agree:nl-ecec53d5627b,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,
+param,RectClass#2::h,RectClass#2::bottom,inferred,agree:nl-41a3db160c8a,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,
+local,W3DDisplay::setWidth::h,W3DDisplay::setWidth::displayHeight,inferred,agree:nl-7c20d86e40c1,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x000433AC
+local,W3DDisplay::setWidth::w,W3DDisplay::setWidth::displayWidth,inferred,agree:nl-44b996f82fc6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x000433AC
+local,W3DDisplay::setHeight::h,W3DDisplay::setHeight::screenHeight,inferred,agree:nl-bcf9baa6bf32,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x00043340
+local,W3DDisplay::setHeight::w,W3DDisplay::setHeight::screenWidth,inferred,agree:nl-e7a334b2aaed,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x00043340

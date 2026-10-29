@@ -14,3 +14,7 @@ agree:nl-912c832eea22,Rva00800E50Owner::onDispatch::t20,Rva00800E50Owner::onDisp
 agree:nl-f2f32135f9e4,Rva0073BE00::rva0073BE00::x,Rva0073BE00::rva0073BE00::centerY,Code/GameEngine/Source/Common/BfmeCellAt.cpp,2eedf5bffcfeb36099d886a4bc533ed241cac42ca74e554695d3ad2b6ef9fe21
 agree:nl-83045f6396d5,Rva0073BE00::rva0073BE00::y,Rva0073BE00::rva0073BE00::centerX,Code/GameEngine/Source/Common/BfmeCellAt.cpp,2eedf5bffcfeb36099d886a4bc533ed241cac42ca74e554695d3ad2b6ef9fe21
 agree:nl-0b421c6b98e4,rva00094E2C::r,rva00094E2C::sphereDistance,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,310707b2d9352120b31c85fe97de47e53ab7a4aca21ecd5dee6f2e1ded5e8903
+agree:nl-7c20d86e40c1,W3DDisplay::setWidth::h,W3DDisplay::setWidth::displayHeight,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,cecf24e75280d3043087804eb4e03f9bcaa34864e7a64d4486a834f9954a445e
+agree:nl-44b996f82fc6,W3DDisplay::setWidth::w,W3DDisplay::setWidth::displayWidth,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,cecf24e75280d3043087804eb4e03f9bcaa34864e7a64d4486a834f9954a445e
+agree:nl-bcf9baa6bf32,W3DDisplay::setHeight::h,W3DDisplay::setHeight::screenHeight,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,d6c8d0e5bad31778db1b70cfa40d6a4262e4dad8a61dc786276b312c0d57ba2d
+agree:nl-e7a334b2aaed,W3DDisplay::setHeight::w,W3DDisplay::setHeight::screenWidth,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,d6c8d0e5bad31778db1b70cfa40d6a4262e4dad8a61dc786276b312c0d57ba2d

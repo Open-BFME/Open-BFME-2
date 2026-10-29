@@ -10,7 +10,7 @@ class RectClass
 {
 public:
 	RectClass() {}
-	RectClass(float x, float y, float w, float h) : X(x), Y(y), Width(w), Height(h) {}
+	RectClass(float x, float y, float right, float bottom) : X(x), Y(y), Width(right), Height(bottom) {}
 	float X;
 	float Y;
 	float Width;
@@ -98,9 +98,9 @@ private:
 void W3DDisplay::setWidth(unsigned int width)
 {
 	Display::setWidth(width);
-	float h = (float)getHeight();
-	float w = (float)getWidth();
-	RectClass rc(0.0f, 0.0f, w, h);
+	float displayHeight = (float)getHeight();
+	float displayWidth = (float)getWidth();
+	RectClass rc(0.0f, 0.0f, displayWidth, displayHeight);
 	m_render2D->Set_Coordinate_Range(rc);
 }
 
@@ -110,9 +110,9 @@ void W3DDisplay::setWidth(unsigned int width)
 void W3DDisplay::setHeight(unsigned int height)
 {
 	Display::setHeight(height);
-	float h = (float)getHeight();
-	float w = (float)getWidth();
-	RectClass rc(0.0f, 0.0f, w, h);
+	float screenHeight = (float)getHeight();
+	float screenWidth = (float)getWidth();
+	RectClass rc(0.0f, 0.0f, screenWidth, screenHeight);
 	m_render2D->Set_Coordinate_Range(rc);
 }
 
