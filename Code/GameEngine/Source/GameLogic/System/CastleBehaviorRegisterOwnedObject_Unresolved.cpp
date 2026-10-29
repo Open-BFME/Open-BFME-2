@@ -60,32 +60,49 @@ class Team;
 struct Coord3D;
 class Drawable;
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
-class Object {
-public:
- float getCastleValue() const { return *(const float*)((const char*)this+0x324); }
- float GetRelativeAngle(const Coord3D*) const;
- Coord3D* getPlanarDirectionTo(Coord3D*,const Object*) const;
- float getBoundingCircleRadius() const { return *(const float*)((const char*)this+0xb8); }
- Relationship getRelationship(const Object*) const;
- int rva0028B511() const;
- bool testStatus(ObjectStatusTypes) const;
- Object* rva002931F5(bool);
- void* rva0028C197() const;
- void teleportTo(const Coord3D*,bool);
- Drawable* getDrawable() const;
- void* rva0028BCF4() const;
- void kill(DamageType,DeathType);
- void rva0028D282(void*);
- Player* getControllingPlayer() const;
- void setStatus(ObjectStatusTypes,bool);
- void setTeam(Team*); void rva0028BAC0(); void rva0028DCC4(); void rva0028D253(); void rva0028AE6D();
+class Rva003979FB;
+class AsciiString;
+class Object
+{
 protected:
- Module* findModule(NameKeyType) const;
- friend class CastleBehavior;
- friend class Rva00399959;
- friend void Rva00396BC5SetCastleId(_STL::vector<ObjectID>*,ObjectID);
+	friend class CastleBehavior;
+private:
+	friend class Rva003979FB;
+protected:
+	friend class Rva00399959;
+	friend void Rva00396BC5SetCastleId(_STL::vector<ObjectID>*,ObjectID);
+public:
+	const AsciiString &getName() const { return *(const AsciiString *)((const char *)this + 0x58); }
+protected:
+	Module *findModule(NameKeyType) const;
+public:
+	void rva0028CFB2(const int*,const int*);
+	float getCastleValue() const { return *(const float*)((const char*)this+0x324); }
+	float GetRelativeAngle(const Coord3D*) const;
+	Coord3D* getPlanarDirectionTo(Coord3D*,const Object*) const;
+	float getBoundingCircleRadius() const { return *(const float*)((const char*)this+0xb8); }
+	Relationship getRelationship(const Object*) const;
+	int rva0028B511() const;
+	bool testStatus(ObjectStatusTypes) const;
+	Object* rva002931F5(bool);
+	void* rva0028C197() const;
+	void teleportTo(const Coord3D*,bool);
+	void* rva0028BCF4() const;
+	void kill(DamageType,DeathType);
+	void rva0028D282(void*);
+	Player* getControllingPlayer() const;
+	void setStatus(ObjectStatusTypes,bool);
+	void setTeam(Team*);
+	void rva0028BAC0();
+	void rva0028DCC4();
+	void rva0028D253();
+	void rva0028AE6D();
 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char*); };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *);
+};
 extern NameKeyGenerator* TheNameKeyGenerator;
 
 extern GameLogic* TheGameLogic;
@@ -106,7 +123,26 @@ public:
  virtual void slot2()=0;
  virtual bool slot3()=0;
 };
-class CastleBehavior : public FoundationAIUpdate, public CastleBehaviorInterface { public: virtual void rva00395DAC(); void rva0039865E(PolygonTrigger*); Object* buildCastleStructure(BuildListInfo*,bool); void* GetArmyIDFromClosestObject(); Object* createOwnedObject(void*); void rva003993F2(bool); void teleportStragglersFromWallToGround(bool); void registerOwnedObject(Object*); bool checkForAutoPack(); bool checkForInstantUnPack(); void rva00397B03(ObjectStatusTypes,bool); virtual void DoXfer(Xfer*); void rva00399370(); void rva0039792B(); void initiateUnpack(bool,const ThingTemplate*); };
+class CastleBehavior : public FoundationAIUpdate, public CastleBehaviorInterface
+{
+public:
+	void playEvaEventsForCastlePacking();
+	virtual void rva00395DAC();
+	void rva0039865E(PolygonTrigger*);
+	Object* buildCastleStructure(BuildListInfo*,bool);
+	void* GetArmyIDFromClosestObject();
+	Object* createOwnedObject(void*);
+	void rva003993F2(bool);
+	void teleportStragglersFromWallToGround(bool);
+	void registerOwnedObject(Object*);
+	bool checkForAutoPack();
+	bool checkForInstantUnPack();
+	void rva00397B03(ObjectStatusTypes,bool);
+	void rva00399370();
+	void rva0039792B();
+	void initiateUnpack(bool,const ThingTemplate*);
+	virtual void DoXfer(Xfer*);
+};
 void CastleBehavior::registerOwnedObject(Object* object) {
  void* data=field<void*>(this,4);
  Object* owner=field<Object*>(this,8);
@@ -235,7 +271,6 @@ class Rva0039585A { public: void mapLoadPostProcess(int context); };
 // ABI view: these caller fields contain ObjectIDs, not established sciences.
 // Field +0x98 is AsciiString, independently witnessed by unpack.
 // One shared ObjectID temporary preserves native stack-slot reuse.
-class AsciiString;
 struct CastleXferVersion { unsigned char first,second; CastleXferVersion(unsigned char a,unsigned char b):first(a),second(b){} };
 class Snapshot;
 class UnicodeString;
@@ -337,7 +372,15 @@ static __forceinline void addCastlePathObject(Object* object) {
 // The record scalar is forwarded unchanged to the existing opaque 3980BF ABI.
 #include <ascii_string.h>
 class Team;
-class PlayerList { public: Player* getNthPlayer(int); };
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() const { return local; }
+	Player* getNthPlayer(int);
+	char m_pad00[0x10];
+private:
+	Player *local; // +0x10
+};
 class ThingTemplate;
 class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
 extern ThingFactory* TheThingFactory;
@@ -436,7 +479,12 @@ static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
                               const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
-class Drawable { public: void rva00274176(bool); void fadeIn(unsigned); };
+class Drawable
+{
+public:
+	void rva00274176(bool);
+	void fadeIn(unsigned);
+};
 struct FindPositionOptions {
  FindPositionOptions() { flags=0;minRadius=0;maxRadius=0;startAngle=-99999.9f;maxZDelta=1e10f;ignoreObject=0;sourceToPathToDest=0;relationshipObject=0; }
  unsigned flags; float minRadius,maxRadius,startAngle,maxZDelta;
@@ -548,7 +596,13 @@ public:
 // lets MSVC preserve EDX across the native call, as retail does. Its own bytes
 // remain exact; this move adds no recovered bytes.
 class W3DBridge { char pad[0x110]; bool enabled; public: void setEnabled(bool); bool isEnabled() const { return enabled; } };
-class Player { char pad[0x3bc]; W3DBridge buildControl; public: W3DBridge* getBuildControl() { return &buildControl; } };
+class Player
+{
+public:
+	Relationship getRelationship(const Team *) const;
+	int getPlayerIndex() const { return *(const int *)((const char *)this + 0x54); }
+	W3DBridge* getBuildControl() { return (W3DBridge*)((char*)this+0x3bc); }
+};
 class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
 class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
 extern TerrainLogic* TheTerrainLogic;
