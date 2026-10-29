@@ -19,7 +19,7 @@
 // GetAssociatedMessageType 0x00567700 HotKeyManager::addMessageAction
 // 0x003597A8 StringBase<char>::releaseBuffer 0x00036410; pinned
 // HotKeyManager::searchHotKey 0x00358CCD and addHotKey 0x00359302 (views as
-// in ControlBarSetCommandWindow.cpp). The method name is address-derived.
+// in ControlBar.cpp, setCommandWindow). The method name is address-derived.
 #include <vector>
 #include "ascii_string.h"
 
