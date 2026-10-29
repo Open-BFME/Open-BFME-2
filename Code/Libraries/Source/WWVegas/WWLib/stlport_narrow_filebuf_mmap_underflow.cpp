@@ -1,5 +1,5 @@
 // cl: /EHsc /MD
-// stlport
+// stlport46
 // platformsdk
 
 // STLport 4.5.3 specialized narrow-file underflow helper, retail 0x0084B210.
