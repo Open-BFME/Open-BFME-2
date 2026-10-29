@@ -55,6 +55,17 @@ def test_a_chain_of_receipted_commits_proves_its_units(repo):
     assert P.cover(base, c2) == {"Code/a.cpp", "Code/b.cpp", "Code/c.cpp"}
 
 
+def test_a_dirty_verifier_records_no_units(repo):
+    # verified with an unstaged tool or baseline edit: a receipt would name the committed verifier
+    base = git(repo, "rev-parse", "HEAD")
+    c1 = commit(repo, "Code/a.cpp", "a")
+    (repo / "tools/build.py").write_text("an unstaged exception")
+    receipt_for(repo, c1, {"Code/a.cpp"})
+    assert P.cover(base, c1) == set()
+    P.record_push(c1, base, None, ["Code/a.cpp"])
+    assert P.push_receipt(c1) is None
+
+
 def test_a_commit_without_a_receipt_proves_nothing(repo):
     # --no-verify, an amend, a rebase: no receipt for that tree over that parent
     base = git(repo, "rev-parse", "HEAD")

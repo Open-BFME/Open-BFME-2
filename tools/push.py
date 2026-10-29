@@ -23,9 +23,9 @@ WHAT each attempt does:
   5. a lost race (cannot lock ref, fetch first, non-fast-forward, moved past
      this push's base) goes straight back to 1; anything else stops.
 Same-account spacing: a successful push writes the shared clock file
-(<git common dir>/bfme-last-push, or $BFME_PUSH_CLOCK); the first attempt
-waits until $BFME_PUSH_SPACING_S (default 300) have passed since the last one.
-Retries after a lost race do not wait: nothing landed.
+(<git common dir>/bfme-last-push, or $BFME_PUSH_CLOCK); every attempt waits
+until $BFME_PUSH_SPACING_S (default 300) have passed since the last one (the
+race an attempt lost may be another seat of the same account landing).
 
   python3 tools/push.py [--tries 20] [--email ADDRESS] [--dry-run]
 Prints one line per attempt with its time; exit 0 when it landed.
@@ -165,9 +165,9 @@ def push_once(previous, dry_run):
 
 def land(tries=20, email=None, dry_run=False, say=print):
     name, email = push_identity(email)
-    wait_for_spacing(say)
     previous = None
     for attempt in range(1, tries + 1):
+        wait_for_spacing(say)
         started = time.time()
         before, tip = rebase(name, email)
         if previous is None and before != tip:

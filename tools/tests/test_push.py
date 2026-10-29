@@ -27,6 +27,8 @@ if [ -f "$state/race" ] && [ "$n" -lt "$(cat "$state/race")" ]; then
     ( unset GIT_CONFIG_PARAMETERS GIT_CONFIG_COUNT GIT_DIR GIT_WORK_TREE GIT_INDEX_FILE
       cd "$state/other" && git pull -q --rebase origin master && echo "$n" >> other.txt \\
         && git add other.txt && git commit -qm "other seat $n" && git push -q origin HEAD:master )
+    # that seat pushed as this account: it moved the shared clock
+    [ ! -f "$state/same-account" ] || date +%s > "$BFME_PUSH_CLOCK"
 fi
 if [ -f "$state/lease" ]; then
     echo "push_lease: other is landing a full-gate push; waiting until it lands or 12:00:00" >&2
@@ -181,6 +183,19 @@ def test_the_same_account_spacing_holds_before_the_first_attempt(seat, capsys, m
     assert time.time() - started >= 2
     assert "waiting" in out
     assert float((tmp_path / "clock").read_text()) >= started
+
+
+def test_a_retry_waits_when_the_race_was_lost_to_the_same_account(seat, capsys, monkeypatch):
+    path, other, origin, state = seat
+    work(path)
+    monkeypatch.setenv("BFME_PUSH_SPACING_S", "3")
+    (state / "race").write_text("1")
+    (state / "same-account").write_text("")
+    started = time.time()
+    code, out = run(capsys)
+    assert code == 0, out
+    assert "attempt 1: lost the race" in out and "waiting" in out and "attempt 2: landed" in out
+    assert time.time() - started >= 2
 
 
 def test_nothing_to_push(seat, capsys):

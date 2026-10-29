@@ -140,13 +140,23 @@ def clean_units(scope):
     return sorted(unit for unit, (current, _) in receipts.items() if current)
 
 
+def verifier_dirty(rev=None):
+    """Whether the working tree's verifier (full_gate_receipt.VERIFIER) differs
+    from `rev` (default: the index) or holds an untracked file: a verify run on
+    it is not the verifier a receipt for `rev` names."""
+    paths = full_gate_receipt.VERIFIER
+    if git("diff", "--quiet", *([rev] if rev else []), "--", *paths, check=False).returncode:
+        return True
+    return bool(git("ls-files", "--others", "--exclude-standard", "-z", "--", *paths).stdout)
+
+
 def record_commit(tree, parent, loads_dir, scope):
     """pre-commit verified `scope` (every unit the staged change can affect) at
     `tree`, the commit's tree, over `parent`, its parent's."""
     loads = loads_of(loads_dir)
     _write(f"commit-{tree}-{parent}.json", {
         "kind": "commit", "tree": tree, "parent": parent, "scope": sorted(scope),
-        "units": clean_units(scope) if scope else [],
+        "units": clean_units(scope) if scope and not verifier_dirty() else [],
         "loads": sorted(loads) if loads is not None else None,
         "verifier": identity(tree, loads)})
 
@@ -157,6 +167,8 @@ def record_push(commit, base, loads_dir, units, carried_from=None):
     commit = full_sha(commit)
     if commit is None:
         raise SystemExit("push_receipts: record-push needs a commit")
+    if verifier_dirty(commit):
+        return
     loads = loads_of(loads_dir) if loads_dir else None
     used = [r for r in (chain_receipts(base, commit) or []) + [push_receipt(carried_from)] if r]
     if loads is not None or used:
