@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // STLport 4.5.3 src/ctype.cpp: ctype<wchar_t>::do_scan_is/do_scan_not.
 
 #include <algorithm>
