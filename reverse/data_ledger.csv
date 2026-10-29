@@ -21636,7 +21636,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A177C8,4,.data,global,?g_aptGetStageHeightSlot@@3PAXA,Code/Libraries/Source/Apt/Apt.cpp,owned,,1,1
 0x00A177CC,8,.data,global,?g_aptGetStageWidthSlot@@3PAXA,Code/Libraries/Source/Apt/Apt.cpp,owned,,1,1
 0x00A177D4,12,.data,global,?g_eaStringAtE177D4@@3VEAStringC@@A,,unowned,,0,7
-0x00A177E0,1,.data,global,?g_00E177E0@@3EA,Code/GameEngine/Source/Common/Rva006D29E0Cluster.cpp,owned,,1,14
+0x00A177E0,1,.data,global,?g_00E177E0@@3EA,Code/Libraries/Source/Apt/AptValueGCAllocator.cpp,owned,,1,14
 0x00A177E1,1,.data,global,?g_00E177E1@@3EA,,unowned,,0,4
 0x00A177E2,2,.data,global,?g_00E177E2@@3EA,,unowned,,0,3
 0x00A177E4,4,.data,global,?g_00E177E4@@3HA,,unowned,,0,3
