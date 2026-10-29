@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /DNDEBUG
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /Ivendor /Ireference/shims/bfmealloc
+// stlport
 // Clean reference: BFME1 game/GameEngine/Source/GameLogic/Object/
 // ObjectTypesRemoveObjectType.cpp at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
 // itself preserving the Zero Hour ObjectTypes::removeObjectType algorithm.
@@ -23,15 +24,13 @@
 // uninitialized empty copy tag carries no value, as the native caller does.
 
 #include "ascii_string.h"
-namespace _STL {
-struct __false_type {};
+#include <stlport/stl/_algobase.h>
+#include <vector>
 
-template<class Input,class Output> Output __copy_ptrs(Input,Input,Output,const __false_type&);
-}
-struct Rva0048BA39StringElement {
- void *data;
- ~Rva0048BA39StringElement();
-};
+// Retail's vector<AsciiString>::erase calls the out-of-line pointer copy (the
+// rowed 0x000B6614 wrapper); the explicit instantiation declaration keeps the
+// call on that external instance instead of expanding the template inline.
+template AsciiString * _STL::__copy_ptrs<AsciiString *, AsciiString *>(AsciiString *, AsciiString *, AsciiString *, _STL::__false_type const &);
 class Rva003769C2StringVector {
 public:
  AsciiString *first;
@@ -49,12 +48,10 @@ AsciiString *Rva003769C2StringVector::erase(AsciiString *position) {
   _STL::__copy_ptrs(position+1,end(),position,tag);
  }
  --finish;
- reinterpret_cast<Rva0048BA39StringElement *>(finish)->~Rva0048BA39StringElement();
+ ((AsciiString *)finish)->~AsciiString();
  return position;
 }
 
-
-#pragma comment(linker, "/alternatename:??1Rva0048BA39StringElement@@QAE@XZ=??1AsciiString@@QAE@XZ")
 
 #pragma comment(linker, "/alternatename:?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z=?erase@Rva003769C2StringVector@@QAEPAVAsciiString@@PAV2@@Z")
 

@@ -3357,7 +3357,6 @@ alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/BfmeOwnZC_rva00204F3
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0DelayedWeaponSetUpgradeUpdateModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/DelayedLuaEventUpdateModuleDataCtorThunk.cpp	??0HordeTransportContainDamageModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp	??4Rva003371B1@@QAEAAV0@ABV0@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp	??1Rva0048BA39StringElement@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectTypesRemoveObjectType.cpp	?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/OrConditionCtor.cpp	??1OrCondition@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020453CHolderBaseDtor.cpp	?holderSlot0@Rva0020453CHolderBase@@UAEXXZ	1
