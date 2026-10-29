@@ -27,23 +27,25 @@ class LivingWorldManager; extern LivingWorldManager *TheLivingWorldManager;
 #include <string.h>
 #pragma function(memset)
 
+class Rva0052B278;
+
 class LivingWorldBuilding
 {
 public:
 	void createGhostObject();
 private:
 	char m_pad00[0x2c];
-	Rva0023D2D8DwordClearer *m_2c;
+	Rva0052B278 *m_2C;
 };
 
 void LivingWorldBuilding::createGhostObject()
 {
-	if (!m_2c)
+	if (!m_2C)
 		return;
-	m_2c->clear();
+	((Rva0023D2D8DwordClearer *)m_2C)->clear();
 	int val;
 	memset(&val, 0, 4);
 	val |= 1;
-	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2c, val);
-	m_2c = 0;
+	((Rva0021294A *)TheLivingWorldManager)->m_264->rva003FA681((int)m_2C, val);
+	m_2C = 0;
 }

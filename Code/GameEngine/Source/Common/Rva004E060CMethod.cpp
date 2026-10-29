@@ -11,6 +11,8 @@ public:
 	void rva0052B024(unsigned char v);
 };
 
+class Rva0052B278;
+
 class LivingWorldBuilding
 {
 public:
@@ -18,13 +20,13 @@ public:
 
 private:
 	char m_pad[0x2C];
-	Rva0052B024 *m_2C;
+	Rva0052B278 *m_2C;
 	char m_pad30[0x51 - 0x30];
 	unsigned char m_51;
 };
 
 void LivingWorldBuilding::rva004E060C(unsigned char v)
 {
-	m_2C->rva0052B024(v);
+	((Rva0052B024 *)m_2C)->rva0052B024(v);
 	m_51 = v;
 }

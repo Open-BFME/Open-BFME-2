@@ -19,7 +19,7 @@ struct TargetRef00217D4C
 struct Rva004E0790Inner
 {
 	BfmeAssignRecord172 m_00;
-	TargetRef00217D4C m_ac;
+	TargetRef00217D4C m_ref;
 	int m_b4;
 	int m_b8;
 	int m_bc;

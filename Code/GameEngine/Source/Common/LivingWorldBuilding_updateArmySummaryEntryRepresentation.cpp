@@ -17,7 +17,7 @@ struct TargetRef00217D4C
 struct Rva004E0790Inner
 {
 	BfmeAssignRecord172 m_00;
-	TargetRef00217D4C m_ac;
+	TargetRef00217D4C m_ref;
 	int m_b4;
 	int m_b8;
 	int m_bc;
@@ -38,8 +38,9 @@ private:
 class Rva004E0790
 {
 public:
+	void rva004E0790();
 	void rva004E08F6(Rva004E0790Inner *p);
-	Rva004E0790Inner *m_ptr;
+	Rva004E0790Inner *m_ptr; // +0x00
 };
 
 class LivingWorldBuilding

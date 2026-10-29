@@ -214,6 +214,17 @@ public:
 	virtual void *vf10();
 };
 
+struct Rva004E0790Inner;
+class Rva0052B278;
+
+class Rva004E0790
+{
+public:
+	void rva004E0790();
+	void rva004E08F6(Rva004E0790Inner *p);
+	Rva004E0790Inner *m_ptr; // +0x00
+};
+
 class LivingWorldBuilding
 {
 public:
@@ -223,13 +234,19 @@ public:
 public:
 	void rva004E0860(Rva003F7BB4 *b);
 public:
-	char m_pad[0x24];
+	char m_pad[0x18];
+public:
+	int m_18;
+public:
+	char m_pad1C[0x20 - 0x1C];
+public:
+	int m_20;
 public:
 	int m_24;
 public:
 	Rva004E0860Flag *m_28;
 public:
-	char m_pad2c[4];
+	Rva0052B278 *m_2C;
 public:
 	Rva004E0809Elem **m_begin;
 public:
@@ -237,13 +254,25 @@ public:
 public:
 	char m_pad38[4];
 public:
-	int m_3c;
+	Rva004E0790 m_3c;
 public:
 	void *m_40;
 public:
 	void *m_44;
 public:
+	void *m_48;
+public:
+	char m_pad4C[0x51 - 0x4C];
+public:
+	unsigned char m_51;
+public:
 	void createGhostObject();
+public:
+	void rva004E060C(unsigned char v);
+public:
+	void createIcon();
+public:
+	void updateArmySummaryEntryRepresentation(const Rva004E0790Inner &arg);
 };
 
 // ?rva004E0625@Rva004E0625@@QBEHXZ @0x004E0625 13B + ?rva004E0632@Rva004E0632@@QBEHXZ @0x004E0632 13B
@@ -430,10 +459,23 @@ struct TargetRef00217D4C
 
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
+struct BfmeAssignRecord172
+{
+	BfmeAssignRecord172 &operator=(const BfmeAssignRecord172 &other);
+	char m_pad[0xAC];
+};
+
 struct Rva004E0790Inner
 {
-	char m_pad[0xAC];
+	BfmeAssignRecord172 m_00;
 	TargetRef00217D4C m_ref;
+	int m_b4;
+	int m_b8;
+	int m_bc;
+	int m_c0;
+	unsigned char m_c4;
+	unsigned char m_c5;
+	Rva004E0790Inner &rva004E09FB(const Rva004E0790Inner &other);
 };
 
 struct Rva004E08A9World
@@ -456,14 +498,6 @@ class Rva002E071E
 {
 public:
 	int rva002E0BC0(int v);
-};
-
-class Rva004E0790
-{
-public:
-	void rva004E0790();
-	void rva004E08F6(Rva004E0790Inner *p);
-	Rva004E0790Inner *m_ptr;
 };
 
 class Rva0052B10F
@@ -641,8 +675,8 @@ void LivingWorldBuilding::rva004E0860(Rva003F7BB4 *b)
 	Rva004E0809Elem **end = m_end;
 	for (Rva004E0809Elem **p = m_begin; p != end; ++p)
 		(*p)->vf5(b);
-	int *pe = &m_3c;
-	if (*pe == 0)
+	Rva004E0790 *pe = &m_3c;
+	if (pe->m_ptr == 0)
 		return;
 	if (m_28->m_flag == 0)
 		return;
