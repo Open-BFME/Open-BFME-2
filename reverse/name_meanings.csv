@@ -131,3 +131,5 @@ Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|g,76289713df4d
 Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|b,0e7e8c1f64b2b80594ef16dc,drz-k8,drz-k8-204,w-87ae7cdc64ef,2026-10-30,ead0f750e40c363c9d43b95c
 Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp|param|rva00344EB2Gate|a,b5292731fd620ff71ff1106b,drz-k8,drz-k8-207,w-87ae7cdc64ef,2026-10-30,ab55f6a3a921ea097e15fafc
 Code/GameEngine/Source/Common/Rva0059ECD2.cpp|local|AptOnlineCustomMatch::rva0059EC72|s,b20a67586b49251911249e84,drz-k8,drz-k8-208,w-87ae7cdc64ef,2026-10-30,b8e8a9385bf9fceb96189ccd
+Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp|param|bfmeEmitMapMetaDataCopy|p,a13120d9d41b65c459a19ca2,drz-k3,drz-k3-15,w-077d7aeb666b,2026-10-29,59ddb176c9ce267376a2f9be
+Code/GameEngine/Source/GameClient/MapMetaDataCopy.cpp|param|bfmeEmitMapMetaDataCopy|w,5037d4e8b10298a9dcf41eab,drz-k3,drz-k3-15,w-077d7aeb666b,2026-10-29,d7ba0400a7013ce33ff1ed11
