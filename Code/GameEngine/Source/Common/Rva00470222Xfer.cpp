@@ -1,5 +1,5 @@
 // cl: /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
-// stlport
+// stlport46
 // 0x00470222 217B evidence: map<int int> Xfer twin of vector sister Rva0046EFDBXfer; version {1,1} via slot 0x28
 // typename "std::map" via slot 0x2c count via slot 0x78 isSaving via slot 8; save loop via rowed _M_increment
 // 0x0024250 with per-item Rva00469124Xfer 0x00469124; load throws "Map must be empty on load" via bfmeFormatText
