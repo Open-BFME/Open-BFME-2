@@ -73,13 +73,37 @@ public:
 };
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 
+struct FieldParse;
 class Overridable
 {
 public:
-	virtual ~Overridable();
-	Overridable *m_nextOverride;
-	bool m_isOverride;
-	Overridable *deleteOverrides();
+    virtual ~Overridable();
+    const Overridable *getFinalOverride() const;
+    Overridable *deleteOverrides();
+    bool isOverride() const { return m_isOverride; }
+    void markAsOverride() { m_isOverride = true; }
+    void setNextOverride(Overridable *next) { m_nextOverride = next; }
+    void clearStale() { m0C = 0; }
+private:
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    int m0C;
+};
+class CommandSet : public Overridable
+{
+public:
+    CommandSet(const AsciiString &, int);
+    virtual ~CommandSet();
+    const AsciiString &getName() const { return m_name; }
+    const class CommandButton *getCommandButton(int) const;
+    void refreshIfStale();
+    static const FieldParse m_commandSetFieldParseTable[];
+    static void parseCommandButton(class INI *, void *, const class CommandButton **, int);
+private:
+    AsciiString m_name;
+    void *m_buttons[32];
+    int m_count;
+    int m_mode98;
 };
 
 // Command-set/button node for the +0x2C list: next link at +0x18 and the

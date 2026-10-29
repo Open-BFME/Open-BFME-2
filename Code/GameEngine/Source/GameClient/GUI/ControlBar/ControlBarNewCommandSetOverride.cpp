@@ -5,21 +5,32 @@
 // constructor mode 0, named +0x10 string, override-copy guard, +0x08 byte,
 // and original's +0x04 link. Reuse actual ctor/copy/base owners.
 #include "ascii_string.h"
-class Overridable {
+struct FieldParse;
+class Overridable
+{
 public:
     virtual ~Overridable();
-    void markAsOverride() { m_override=true; }
-    void setNextOverride(Overridable *next) { m_next=next; }
+    const Overridable *getFinalOverride() const;
+    Overridable *deleteOverrides();
+    bool isOverride() const { return m_isOverride; }
+    void markAsOverride() { m_isOverride = true; }
+    void setNextOverride(Overridable *next) { m_nextOverride = next; }
+    void clearStale() { m0C = 0; }
 private:
-    Overridable *m_next;
-    bool m_override;
-    int m_stale;
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    int m0C;
 };
-class CommandSet : public Overridable {
+class CommandSet : public Overridable
+{
 public:
-    CommandSet(const AsciiString &,int);
+    CommandSet(const AsciiString &, int);
     virtual ~CommandSet();
     const AsciiString &getName() const { return m_name; }
+    const class CommandButton *getCommandButton(int) const;
+    void refreshIfStale();
+    static const FieldParse m_commandSetFieldParseTable[];
+    static void parseCommandButton(class INI *, void *, const class CommandButton **, int);
 private:
     AsciiString m_name;
     void *m_buttons[32];

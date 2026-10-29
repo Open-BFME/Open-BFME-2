@@ -316,10 +316,37 @@ private:
     AsciiString m248;
     Block128 m24c;
 };
+struct FieldParse;
 class Overridable
 {
 public:
+    virtual ~Overridable();
     const Overridable *getFinalOverride() const;
+    Overridable *deleteOverrides();
+    bool isOverride() const { return m_isOverride; }
+    void markAsOverride() { m_isOverride = true; }
+    void setNextOverride(Overridable *next) { m_nextOverride = next; }
+    void clearStale() { m0C = 0; }
+private:
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    int m0C;
+};
+class CommandSet : public Overridable
+{
+public:
+    CommandSet(const AsciiString &, int);
+    virtual ~CommandSet();
+    const AsciiString &getName() const { return m_name; }
+    const class CommandButton *getCommandButton(int) const;
+    void refreshIfStale();
+    static const FieldParse m_commandSetFieldParseTable[];
+    static void parseCommandButton(class INI *, void *, const class CommandButton **, int);
+private:
+    AsciiString m_name;
+    void *m_buttons[32];
+    int m_count;
+    int m_mode98;
 };
 struct Rva0031BE07Node
 {
@@ -677,11 +704,6 @@ public:
 	char bfmeCall939D();
 };
 class Rva0035B456Owner {public:void rva0035B3E7();};
-class CommandSet
-{
-public:
-    const CommandButton *getCommandButton(int) const;
-};
 class Rva0031D5F8
 {
 public:

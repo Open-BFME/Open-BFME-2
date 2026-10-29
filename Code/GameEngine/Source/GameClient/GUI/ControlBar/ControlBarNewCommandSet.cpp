@@ -6,18 +6,32 @@
 // The map replaces the donor's list, and layout comes from matched ctor
 // 0x00409FFA and its rowed sibling methods rather than the donor.
 #include "ascii_string.h"
-class Overridable {
+struct FieldParse;
+class Overridable
+{
 public:
     virtual ~Overridable();
+    const Overridable *getFinalOverride() const;
+    Overridable *deleteOverrides();
+    bool isOverride() const { return m_isOverride; }
+    void markAsOverride() { m_isOverride = true; }
+    void setNextOverride(Overridable *next) { m_nextOverride = next; }
+    void clearStale() { m0C = 0; }
 private:
-    Overridable *m_next;
-    bool m_override;
-    int m_stale;
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    int m0C;
 };
-class CommandSet : public Overridable {
+class CommandSet : public Overridable
+{
 public:
     CommandSet(const AsciiString &, int);
     virtual ~CommandSet();
+    const AsciiString &getName() const { return m_name; }
+    const class CommandButton *getCommandButton(int) const;
+    void refreshIfStale();
+    static const FieldParse m_commandSetFieldParseTable[];
+    static void parseCommandButton(class INI *, void *, const class CommandButton **, int);
 private:
     AsciiString m_name;
     void *m_buttons[32];

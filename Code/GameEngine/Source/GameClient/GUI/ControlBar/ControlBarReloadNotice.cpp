@@ -316,27 +316,39 @@ template <class T> struct hash
 };
 }
 
-class Overridable {
-public:
-    virtual ~Overridable();
-    bool isOverride() const { return m_override; }
-    void markAsOverride() { m_override=true; }
-    void clearStale() { m_stale=0; }
-private:
-    Overridable *m_next;
-    bool m_override;
-    int m_stale;
-};
-
 // The map's values: each gets refreshIfStale (0x00409FCC). The INI field
 // table and button parser further down belong to the same class.
 struct FieldParse;
+class Overridable
+{
+public:
+    virtual ~Overridable();
+    const Overridable *getFinalOverride() const;
+    Overridable *deleteOverrides();
+    bool isOverride() const { return m_isOverride; }
+    void markAsOverride() { m_isOverride = true; }
+    void setNextOverride(Overridable *next) { m_nextOverride = next; }
+    void clearStale() { m0C = 0; }
+private:
+    Overridable *m_nextOverride;
+    bool m_isOverride;
+    int m0C;
+};
 class CommandSet : public Overridable
 {
 public:
-	void refreshIfStale();
-	static const FieldParse m_commandSetFieldParseTable[];
-	static void parseCommandButton(class INI *,void *,const class CommandButton **,int);
+    CommandSet(const AsciiString &, int);
+    virtual ~CommandSet();
+    const AsciiString &getName() const { return m_name; }
+    const class CommandButton *getCommandButton(int) const;
+    void refreshIfStale();
+    static const FieldParse m_commandSetFieldParseTable[];
+    static void parseCommandButton(class INI *, void *, const class CommandButton **, int);
+private:
+    AsciiString m_name;
+    void *m_buttons[32];
+    int m_count;
+    int m_mode98;
 };
 
 // Value view for the map below. Its iterator increment (0x00411084) and begin
