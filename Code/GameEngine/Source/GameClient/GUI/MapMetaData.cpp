@@ -69,6 +69,37 @@ public:
 	virtual AsciiString getMapDir() const;
 };
 
+class Rva00300D7A : public Rva00300489
+{
+public:
+	AsciiString rva00300D7A();
+};
+
+class MapCache : public Rva00300D7A
+{
+};
+
+extern MapCache *TheMapCache;
+
+class GameInfo
+{
+public:
+	void *m_vtable;
+	char m_pad04[0x0C];
+	bool m_inGame;
+	char m_pad11[0x2F];
+	AsciiString m_map;
+	unsigned int m_mapCRC;
+	unsigned int m_mapSize;
+	unsigned char m_pad4C;
+	unsigned char m_flag4D;
+	AsciiString getMap() const;
+};
+
+typedef char GameInfoMapOffset40[(offsetof(GameInfo,m_map)==0x40)?1:-1];
+
+typedef char GameInfoMapFlagOffset4D[(offsetof(GameInfo,m_flag4D)==0x4D)?1:-1];
+
 class MapMetaData
 {
 public:
@@ -101,44 +132,36 @@ public:
 	UnicodeString bfme_getDescriptionFirstLine();
 };
 
-class Rva00300D7A : public Rva00300489
+// ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
+
+UnicodeString MapMetaData::getDescription()
 {
-public:
-	AsciiString rva00300D7A();
-};
+	if (m_cachedDescription.getLength() == 0)
+	{
+		const char *slash = ((StringBase<char> &)m_fileName).reverseFind('\\');
+		if (slash)
+		{
+			AsciiString stringFileName(m_fileName, 0,
+				(int)(slash - ((StringBase<char> &)m_fileName).str()) + 1);
+			((StringBase<char> &)stringFileName).concat("map.str");
+			TheGameText->initMapStringFile(stringFileName);
+		}
 
-class MapCache : public Rva00300D7A
-{
-};
+		AsciiString label;
+		label.translate(m_descriptionLabel);
 
-extern MapCache *TheMapCache;
+		bool exists = false;
+		m_cachedDescription.set(TheGameText->fetch(label, &exists));
+		if (!exists)
+			m_cachedDescription.set(m_descriptionLabel);
 
-class GameInfo
-{
-public:
-	void *m_vtable;
-	char m_pad04[0x0C];
-	bool m_inGame;
-	char m_pad11[0x2F];
-	AsciiString m_map;
-	unsigned int m_mapCRC;
-	unsigned int m_mapSize;
-	unsigned char m_pad4C;
-	unsigned char m_flag4D;
-	AsciiString getMap() const;
-};
+		TheGameText->reset();
+	}
 
-typedef char GameInfoMapOffset40[(offsetof(GameInfo,m_map)==0x40)?1:-1];
+	return m_cachedDescription;
+}
 
-typedef char GameInfoMapFlagOffset4D[(offsetof(GameInfo,m_flag4D)==0x4D)?1:-1];
-
-// tu-skeleton: 0x00779469 8B Unwind@00b79469 -- matched in Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp (not merged yet)
-
-// tu-skeleton: 0x00779471 8B Unwind@00b79471 -- matched in Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp (not merged yet)
-
-// tu-skeleton: 0x00779479 8B Unwind@00b79479 -- matched in Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp (not merged yet)
-
-// tu-skeleton: 0x00779481 10B __ehhandler$?getDescription@MapMetaData@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
 
@@ -270,6 +293,21 @@ bool __cdecl Rva00300E42Check(GameInfo *info)
 	return ((const StringBase<char> *)&info->getMap())->startsWithNoCase(*(const StringBase<char> *)&TheMapCache->rva00300D7A());
 }
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
+
+UnicodeString MapMetaData::bfme_getDescriptionFirstLine()
+{
+	UnicodeString description = getDescription();
+	const WideChar *found = description.find(10);
+	if (found)
+	{
+		const WideChar *text = description.str();
+		UnicodeString first(description, 0, ((int)found - (int)text) >> 1);
+		description.set(first);
+	}
+	return description;
+}
+
 // tu-skeleton: 0x00779560 8B Unwind@00b79560 -- matched in Code/GameEngine/Source/GameClient/MapPreviewImage.cpp (not merged yet)
 
 // tu-skeleton: 0x00779568 8B Unwind@00b79568 -- matched in Code/GameEngine/Source/GameClient/MapPreviewImage.cpp (not merged yet)
@@ -301,18 +339,3 @@ bool __cdecl Rva00300E42Check(GameInfo *info)
 // tu-skeleton: 0x007795D6 8B Unwind@00b795d6 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp (not merged yet)
 
 // tu-skeleton: 0x007795DE 10B __ehhandler$??RRva003014D6Cmp@@QBE_NPAVMapMetaData@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
-
-UnicodeString MapMetaData::bfme_getDescriptionFirstLine()
-{
-	UnicodeString description = getDescription();
-	const WideChar *found = description.find(10);
-	if (found)
-	{
-		const WideChar *text = description.str();
-		UnicodeString first(description, 0, ((int)found - (int)text) >> 1);
-		description.set(first);
-	}
-	return description;
-}
