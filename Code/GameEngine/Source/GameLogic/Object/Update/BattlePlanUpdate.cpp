@@ -64,7 +64,24 @@ private:
     Rva002857B0Target *m_target;
 };
 
-class Player { public: char pad[0x54]; int index; };
+enum BattlePlanStatus
+{
+	PLANSTATUS_NONE = 0, NONE=0, BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY
+};
+
+class Rva002AA14DBonuses;
+class Object;
+class Team;
+class Player
+{
+public:
+	void changeBattlePlan(BattlePlanStatus,int,Rva002AA14DBonuses *);
+	int iterateObjects(int (__cdecl *)(Object *,void *),void *) const;
+	char m_pad00[0x54];
+	int index; // +0x54
+	char m_pad58[0x294];
+	Team *m_team; // +0x2EC +0x2ec
+};
 
 class Drawable { public: void setAnimationLoopDuration(unsigned); };
 
@@ -176,11 +193,6 @@ extern GameTextInterface *TheGameText;
  extern InGameUI *TheInGameUI;
 
 extern Radar *TheRadar;
-
-enum BattlePlanStatus
-{
-	PLANSTATUS_NONE = 0, NONE=0, BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY
-};
 
 class Object
 {

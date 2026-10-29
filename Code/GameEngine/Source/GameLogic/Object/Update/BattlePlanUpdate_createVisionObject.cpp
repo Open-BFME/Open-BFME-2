@@ -53,11 +53,21 @@ public:
 
 extern class ThingFactory *TheThingFactory; // ?g_009FF000@@3PAVRva002D06CA@@A
 
+enum BattlePlanStatus
+{
+	PLANSTATUS_NONE = 0, NONE=0, BOMBARDMENT, HOLDTHELINE, SEARCHANDDESTROY
+};
+
+class Rva002AA14DBonuses;
 class Player
 {
 public:
-	char m_pad00[0x2ec];
-	Team *m_team; // +0x2ec
+	void changeBattlePlan(BattlePlanStatus,int,Rva002AA14DBonuses *);
+	int iterateObjects(int (__cdecl *)(Object *,void *),void *) const;
+	char m_pad00[0x54];
+	int index; // +0x54
+	char m_pad58[0x294];
+	Team *m_team; // +0x2EC +0x2ec
 };
 
 class PlayerList

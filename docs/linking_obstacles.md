@@ -5104,6 +5104,19 @@ this scope into the next census; no linking gain is claimed.
   composition; exact-base batch closure and census confirmation remain pending.
   No new linked bytes or image-ownership result is claimed.
 
+  **Player-view prerequisite (2026-10-29, input `e4cdc1ce6442`):**
+  [The scoped follow-up](../reverse/attempt_support/battleplan-player-views-20261029-codexb4.md)
+  reconciles Player in the seed, SetBattlePlan and createVisionObject. All
+  20 affected rows, 31 COMDAT fingerprints and 83 external symbol records are
+  preserved; strict current receipts pass and the preview retains 2,437 LINKS
+  bytes against `85f6b7f40c`. The supported merge still accepts no donors:
+  declaration ordering, module/member interfaces, Xfer/BitFlags and Thing's
+  canonical-header prerequisites remain. No file move or debt retirement occurs.
+  Carry this bounded source cleanup into the next scheduled census; full
+  provider/consumer closure remains unverified. The older-index batch audit is
+  inconclusive because the affected 0CreateAHeroManager21FE49.cpp consumer lacks
+  a current receipt.
+
 - **Current-frame texture-counter probe (2026-10-27, `83f299b390`):**
   [The scoped audit](../reverse/attempt_support/texture-current-frame-data-20261027.md)
   has three strict current receipts, but index `bf3dd31211` predates the source

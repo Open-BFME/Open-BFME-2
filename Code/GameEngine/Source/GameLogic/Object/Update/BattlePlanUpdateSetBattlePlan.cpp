@@ -16,7 +16,17 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class Module;
 class Object;
 class Rva002AA14DBonuses { public: Real m_armorScalar;int m_bombardment,m_searchAndDestroy,m_holdTheLine;Real m_sightRangeScalar;char masks[0x38]; };
-class Player { public: void changeBattlePlan(BattlePlanStatus,int,Rva002AA14DBonuses *); int iterateObjects(int (__cdecl *)(Object *,void *),void *) const; };
+class Team;
+class Player
+{
+public:
+	void changeBattlePlan(BattlePlanStatus,int,Rva002AA14DBonuses *);
+	int iterateObjects(int (__cdecl *)(Object *,void *),void *) const;
+	char m_pad00[0x54];
+	int index; // +0x54
+	char m_pad58[0x294];
+	Team *m_team; // +0x2EC +0x2ec
+};
 class BattlePlanBodyInterfaceView { public:
  virtual void slot0();
  virtual void slot1();
