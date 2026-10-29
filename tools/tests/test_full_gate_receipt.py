@@ -36,7 +36,7 @@ def repo(tmp_path, monkeypatch):
 
 def test_a_rebased_push_carries_the_full_gate_it_passed(repo):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     assert R.find(c0) == c0
     c1 = commit(repo, "Code/b.cpp", "2")  # master moved: the rebased push
     assert R.find(c1) == c0
@@ -44,16 +44,16 @@ def test_a_rebased_push_carries_the_full_gate_it_passed(repo):
 
 def test_no_carry_across_a_verifier_change(repo):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     assert R.find(commit(repo, "tools/build.py", "changed")) is None
     c2 = commit(repo, "Code/c.cpp", "3")
-    R.record(c2)
+    R.record(c2, base=c2)
     assert R.find(commit(repo, ".githooks/pre-push", "changed")) is None
 
 
 def test_no_carry_when_the_change_is_unbounded(repo, monkeypatch):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     c1 = commit(repo, "vendor/stlport/x.h", "2")
     monkeypatch.setattr(R, "bounded", lambda old, new: False)
     assert R.find(c1) is None
@@ -61,7 +61,7 @@ def test_no_carry_when_the_change_is_unbounded(repo, monkeypatch):
 
 def test_expired_or_foreign_receipts_carry_nothing(repo):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     stale = time.time() - (R.KEEP_HOURS + 1) * 3600
     os.utime(R.receipts_dir() / c0, (stale, stale))
     assert R.find(commit(repo, "Code/b.cpp", "2")) is None
@@ -71,10 +71,10 @@ def test_expired_or_foreign_receipts_carry_nothing(repo):
 
 def test_the_nearest_receipt_is_tried_first(repo, monkeypatch):
     far = commit(repo, "Code/a.cpp", "1")
-    R.record(far)
+    R.record(far, base=far)
     commit(repo, "Code/b.cpp", "2")
     near = commit(repo, "Code/c.cpp", "3")
-    R.record(near)
+    R.record(near, base=near)
     os.utime(R.receipts_dir() / near, (time.time() - 60, time.time() - 60))  # older record, nearer tree
     tried = []
     monkeypatch.setattr(R, "bounded", lambda old, new: tried.append(old) or True)
@@ -83,10 +83,10 @@ def test_the_nearest_receipt_is_tried_first(repo, monkeypatch):
 
 def test_no_carry_across_a_tree_wide_baseline_change(repo):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     assert R.find(commit(repo, "reverse/gate_baseline.txt", "one debt line fewer")) is None
     c2 = commit(repo, "Code/b.cpp", "2")
-    R.record(c2)
+    R.record(c2, base=c2)
     # the exception-data and converged lists are re-audited by the hook instead
     assert R.find(commit(repo, "reverse/eh_baseline.csv", "shrunk")) == c2
 
@@ -103,7 +103,7 @@ def test_a_tool_the_gate_never_loaded_does_not_void_its_receipt(repo, tmp_path):
     commit(repo, "tools/tu_skeleton.py", "1")
     commit(repo, "tools/tests/test_tu_skeleton.py", "1")
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0, loads=_loads(tmp_path, "tools/build.py", "tools/ledger_io.py", "tools/"))
+    R.record(c0, base=c0, loads=_loads(tmp_path, "tools/build.py", "tools/ledger_io.py", "tools/"))
     commit(repo, "tools/tu_skeleton.py", "2")  # another seat's tool and its test landed
     assert R.find(commit(repo, "tools/tests/test_tu_skeleton.py", "2")) == c0
 
@@ -112,10 +112,10 @@ def test_a_loaded_tool_or_hook_change_voids_the_receipt(repo, tmp_path):
     commit(repo, "tools/build.py", "b")
     c0 = commit(repo, "tools/ledger_io.py", "1")
     loads = _loads(tmp_path, "tools/build.py", "tools/ledger_io.py", "tools/")
-    R.record(c0, loads=loads)
+    R.record(c0, base=c0, loads=loads)
     assert R.find(commit(repo, "tools/ledger_io.py", "2")) is None
     c2 = commit(repo, "Code/b.cpp", "2")
-    R.record(c2, loads=loads)
+    R.record(c2, base=c2, loads=loads)
     assert R.find(commit(repo, ".githooks/pre-push", "changed")) is None
 
 
@@ -124,16 +124,16 @@ def test_an_added_or_removed_entry_of_a_listed_directory_voids_the_receipt(repo,
     commit(repo, "tools/tests/test_a.py", "1")
     c0 = commit(repo, "tools/old_tool.py", "1")
     loads = _loads(tmp_path, "tools/build.py", "tools/")
-    R.record(c0, loads=loads)
+    R.record(c0, base=c0, loads=loads)
     assert R.find(commit(repo, "tools/json.py", "shadows an import")) is None
     c2 = commit(repo, "Code/b.cpp", "2")
-    R.record(c2, loads=loads)
+    R.record(c2, base=c2, loads=loads)
     assert R.find(commit(repo, "tools/tests/test_b.py", "1")) == c2  # tools/tests/ was not listed
     c4 = commit(repo, "Code/c.cpp", "3")
-    R.record(c4, loads=loads)
+    R.record(c4, base=c4, loads=loads)
     assert R.find(commit(repo, "tools/newpkg/__init__.py", "")) is None  # a new subdirectory
     c6 = commit(repo, "Code/d.cpp", "4")
-    R.record(c6, loads=loads)
+    R.record(c6, base=c6, loads=loads)
     git(repo, "rm", "-q", "tools/old_tool.py")
     git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit", "-q", "-m", "rm")
     assert R.find(git(repo, "rev-parse", "HEAD")) is None
@@ -143,23 +143,23 @@ def test_a_carried_push_keeps_the_tool_list_of_the_receipt_it_carried_from(repo,
     commit(repo, "tools/build.py", "b")
     commit(repo, "tools/tu_skeleton.py", "0")
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0, loads=_loads(tmp_path, "tools/build.py", "tools/"))
+    R.record(c0, base=c0, loads=_loads(tmp_path, "tools/build.py", "tools/"))
     c1 = commit(repo, "Code/b.cpp", "2")
-    R.record(c1, loads="", loads_from=c0)          # the pre-push hook's carried-push record
+    R.record(c1, base=c1, loads="", loads_from=c0)          # the pre-push hook's carried-push record
     assert R.receipt_loads(c1) == R.receipt_loads(c0)
     commit(repo, "tools/tu_skeleton.py", "1")       # a tool neither gate loaded changed: both carry
     assert R.find(commit(repo, "Code/c.cpp", "3")) in (c0, c1)
     c4 = commit(repo, "Code/d.cpp", "4")
-    R.record(c4, loads_from="0" * 40)               # an unknown receipt: all of tools/ counts
+    R.record(c4, base=c4, loads_from="0" * 40)               # an unknown receipt: all of tools/ counts
     assert R.receipt_loads(c4) is None
 
 
 def test_a_receipt_without_a_usable_load_list_counts_all_of_tools(repo, tmp_path):
     c0 = commit(repo, "Code/a.cpp", "1")
-    R.record(c0)
+    R.record(c0, base=c0)
     assert R.find(commit(repo, "tools/tu_skeleton.py", "1")) is None
     c2 = commit(repo, "Code/b.cpp", "2")
-    R.record(c2, loads=_loads(tmp_path, "tools/ledger_io.py"))  # no build.py: an incomplete log
+    R.record(c2, base=c2, loads=_loads(tmp_path, "tools/ledger_io.py"))  # no build.py: an incomplete log
     assert R.receipt_loads(c2) is None
     assert R.find(commit(repo, "tools/tu_skeleton.py", "2")) is None
     assert R.gate_loads(tmp_path / "missing") is None
@@ -508,7 +508,7 @@ def test_a_receipt_keeps_its_index_and_cross_checks_find_it(repo, monkeypatch, t
     sha = commit(repo, "Code/a.cpp", "a")
     index = tmp_path / "index.gz"
     index.write_bytes(b"index")
-    R.record(sha, now=time.time(), dir32_index=str(index))
+    R.record(sha, base=sha, now=time.time(), dir32_index=str(index))
     assert R.index_path(sha).read_bytes() == b"index"
     assert R.recorded() == [sha]               # the index is not a receipt
     seen = {}
@@ -517,7 +517,7 @@ def test_a_receipt_keeps_its_index_and_cross_checks_find_it(repo, monkeypatch, t
     listing.write_bytes(b"Code/a.cpp\0")
     assert R.main(["cross-checks", "--since", sha, "--verified-from", str(listing)]) == 0
     assert seen["carried_index"] == R.index_path(sha) and seen["verified"] == {"Code/a.cpp"}
-    R.record(sha, now=time.time())             # a receipt without an index drops the old one
+    R.record(sha, base=sha, now=time.time())             # a receipt without an index drops the old one
     assert not R.index_path(sha).exists()
     assert R.main(["cross-checks", "--since", sha, "--verified-from", str(listing)]) == 0
     assert seen["carried_index"] is None
@@ -540,5 +540,54 @@ def test_a_gzip_file_beside_the_tool_logs_is_not_a_log(repo, tmp_path):
     loads = _loads(tmp_path, "tools/build.py", "tools/ledger_io.py")
     with gzip.open(loads / "dir32-index.gz", "wt") as handle:
         handle.write("{}")
-    R.record(c0, loads=loads)
+    R.record(c0, base=c0, loads=loads)
     assert R.receipt_loads(c0) == {"tools/build.py", "tools/ledger_io.py"}
+
+
+# --- catch-up: the receipt's base and verifier identity ------------------------
+
+def test_a_receipt_records_its_base_and_verifier(repo):
+    c0 = commit(repo, "Code/a.cpp", "1")
+    R.record(c0, base=c0)
+    base, identity = R.receipt_meta(c0)
+    assert base == c0 and identity == R.verifier_identity(c0, None)
+
+
+def test_catch_up_needs_the_same_verifier_blobs(repo, tmp_path):
+    c0 = commit(repo, "tools/build.py", "gate")
+    commit(repo, "tools/other.py", "unloaded")
+    c1 = commit(repo, "Code/a.cpp", "1")
+    R.record(c1, base=c0, loads=_loads(tmp_path, "tools/build.py"))
+    assert R.find(commit(repo, "tools/other.py", "unloaded, changed")) == c1    # not the verifier
+    assert R.find(commit(repo, "tools/build.py", "gate, changed")) is None      # the verifier moved
+
+
+def test_an_incoming_hook_change_forces_the_full_gate(repo):
+    c0 = commit(repo, "Code/a.cpp", "1")
+    R.record(c0, base=c0)
+    assert R.find(commit(repo, ".githooks/pre-push", "incoming")) is None
+
+
+def test_a_receipt_without_base_or_identity_forces_the_full_gate(repo):
+    c0 = commit(repo, "Code/a.cpp", "1")
+    R.record(c0, base=c0)
+    path = R.receipts_dir() / c0
+    lines = path.read_text().splitlines()
+    path.write_text("\n".join([lines[0]] + lines[2:]) + "\n")     # a receipt from before this change
+    assert R.receipt_meta(c0) is None
+    assert R.find(commit(repo, "Code/b.cpp", "2")) is None
+
+
+def test_a_receipt_whose_base_the_push_does_not_descend_from_forces_the_full_gate(repo):
+    c0 = commit(repo, "Code/a.cpp", "1")
+    empty = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"    # git's empty tree: an unrelated history
+    foreign = git(repo, "-c", "user.name=t", "-c", "user.email=t@t", "commit-tree", empty, "-m", "foreign")
+    R.record(c0, base=foreign)
+    assert R.find(commit(repo, "Code/b.cpp", "2")) is None
+
+
+def test_record_refuses_a_receipt_without_a_base(repo):
+    c0 = commit(repo, "Code/a.cpp", "1")
+    with pytest.raises(SystemExit):
+        R.record(c0)
+

@@ -660,7 +660,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # The receipt keeps the tools its full gate loaded (a carried push inherits them).
     if [ "$full_scope" -ne 0 ] || [ "$large_scope" -ne 0 ]; then
         python3 tools/full_gate_receipt.py record "$local_sha" --loads "${gate_loads:-}" \
-            ${carried:+--loads-from "$carried"} ${dir32_index:+--dir32-index "$dir32_index"} \
+            --base "$base" ${carried:+--loads-from "$carried"} ${dir32_index:+--dir32-index "$dir32_index"} \
             || echo "pre-push: could not record the full gate for $local_sha (a retry runs it again)" >&2
         [ -z "${gate_loads:-}" ] || rm -rf "$gate_loads"
     fi
