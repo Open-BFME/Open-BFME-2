@@ -1,5 +1,5 @@
 // cl: /Od /EHsc /Ob2
-// stlport
+// stlport46
 // STLport basic_string<char> size constructor at retail RVA 0x00830860.
 
 namespace _STL
