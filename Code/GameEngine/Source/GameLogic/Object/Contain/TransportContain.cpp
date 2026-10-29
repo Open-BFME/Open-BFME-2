@@ -250,9 +250,9 @@ private:
 
 class MultiIniFieldParse;
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_transportContainFieldTable[];
+extern const FieldParse s_transportContainFieldTable[];
 
 //
 // Target evidence: the existing ModuleFactory callback pin and its registry

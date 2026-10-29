@@ -1,7 +1,6 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?buildFieldParse@Rva0033A8FC@@SAXAAVMultiIniFieldParse@@@Z @0x0033A8FC 36B
 // Static buildFieldParse registering two FieldParse tables via rowed
-extern const int s_rva0033A8FCFieldTableB[];
 // MultiIniFieldParse::add at 0x0002BC6E: table VA 0x00DBECD8 extra 0 plus
 // table VA 0x00C100C0 extra 0x124 (RVAs 0x009BECD8 and 0x008100C0). Same two-add shape as Rva005088CE and the
 // ModuleDataBuildFieldParse family. Caller at 0x002D1D16 constructs a
@@ -10,6 +9,8 @@ extern const int s_rva0033A8FCFieldTableB[];
 struct FieldParse
 {
 };
+
+extern const FieldParse s_rva0033A8FCFieldTableB[];
 
 class MultiIniFieldParse
 {

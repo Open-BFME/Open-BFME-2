@@ -19,15 +19,47 @@ struct FieldParse { const char *token; FieldParseProc parse; const void *userDat
 
 // Parser procs the tables below name; each is a rowed code owner.
 extern "C" {
+void __identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva000CF713Parse@@YAXPAVINI@@PAVRva000CF713Owner@@@Z")();
+void __identifier("?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseAngularVelocityReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseDurationReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseFXList@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseLink@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseOCL@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseScience@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseWayPoint@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const int g_emptyFieldParseTable[4];
@@ -212,16 +244,16 @@ int Rva00655114Get(void)
 // terminator, read from game.dat. Referenced by name from the parser TU.
 
 // Retail VA 0x00C6B988: Alpha1..Alpha8 plus terminator (144B).
-extern const int s_fxpsAlphaTable[36] = {
-    0x00C6B97C, 0x0095B29C, 0x00000000, 0x0000000C,
-    0x00C6B974, 0x0095B29C, 0x00000000, 0x0000001C,
-    0x00C6B96C, 0x0095B29C, 0x00000000, 0x0000002C,
-    0x00C6B964, 0x0095B29C, 0x00000000, 0x0000003C,
-    0x00C6B95C, 0x0095B29C, 0x00000000, 0x0000004C,
-    0x00C6B954, 0x0095B29C, 0x00000000, 0x0000005C,
-    0x00C6B94C, 0x0095B29C, 0x00000000, 0x0000006C,
-    0x00C6B944, 0x0095B29C, 0x00000000, 0x0000007C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fxpsAlphaTable[9] = {
+    { "Alpha1", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
+    { "Alpha2", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
+    { "Alpha3", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
+    { "Alpha4", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
+    { "Alpha5", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
+    { "Alpha6", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
+    { "Alpha7", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
+    { "Alpha8", (FieldParseProc)&__identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00C6C4A0: SizeRate..AngularDampingXY plus terminator (160B).
@@ -239,27 +271,27 @@ extern const int s_fxpsSizeAngleTable[40] = {
 };
 
 // Retail VA 0x00C6C3E0: Gravity..ParticlesAttachToBone plus terminator (96B).
-extern const int s_fxpsPhysicsTable[24] = {
-    0x00BE1824, 0x0042EFC0, 0x00000000, 0x00000018,
-    0x00BE1804, 0x00738A9D, 0x00000000, 0x0000001C,
-    0x00BE1814, 0x0042F507, 0x00000000, 0x0000000C,
-    0x00C6C3D8, 0x0042E850, 0x00000000, 0x00000028,
-    0x00C6C3C0, 0x0042E850, 0x00000000, 0x00000029,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fxpsPhysicsTable[6] = {
+    { "Gravity", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "VelocityDamping", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "DriftVelocity", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "Swirly", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
+    { "ParticlesAttachToBone", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x29 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00C6BA58: Color1..Color8 plus ColorScale plus terminator (160B).
-extern const int s_fxpsColorTable[40] = {
-    0x00C6BA50, 0x0095B913, 0x00000000, 0x0000000C,
-    0x00C6BA48, 0x0095B913, 0x00000000, 0x0000001C,
-    0x00C6BA40, 0x0095B913, 0x00000000, 0x0000002C,
-    0x00C6BA38, 0x0095B913, 0x00000000, 0x0000003C,
-    0x00C6BA30, 0x0095B913, 0x00000000, 0x0000004C,
-    0x00C6BA28, 0x0095B913, 0x00000000, 0x0000005C,
-    0x00C6BA20, 0x0095B913, 0x00000000, 0x0000006C,
-    0x00C6BA18, 0x0095B913, 0x00000000, 0x0000007C,
-    0x00BE17BC, 0x00738A9D, 0x00000000, 0x0000008C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fxpsColorTable[10] = {
+    { "Color1", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
+    { "Color2", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x1C },
+    { "Color3", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x2C },
+    { "Color4", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x3C },
+    { "Color5", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x4C },
+    { "Color6", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x5C },
+    { "Color7", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x6C },
+    { "Color8", (FieldParseProc)&__identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x7C },
+    { "ColorScale", (FieldParseProc)&__identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8C },
+    { 0, 0, 0, 0 },
 };
 
 // LK2 link batch: FieldParse tables named by the BuildFieldParse TUs that
@@ -330,24 +362,24 @@ extern const int s_modelDrawFieldTable[232] = {
 };
 
 // Retail VA 0x00bcb840: 16 entries + terminator (272B).
-extern const int s_laserDrawFieldTable[68] = {
-    0x00BCB834, 0x0042EF72, 0x00000000, 0x00000020,
-    0x00BCB824, 0x0042EFC0, 0x00000000, 0x00000010,
-    0x00BCB814, 0x0042EFC0, 0x00000000, 0x00000014,
-    0x00BCB808, 0x0042F3FE, 0x00000000, 0x00000008,
-    0x00BCB7FC, 0x0042F3FE, 0x00000000, 0x0000000C,
-    0x00BCB7E4, 0x00738B30, 0x00000000, 0x00000024,
-    0x00BCB7D4, 0x00738B30, 0x00000000, 0x00000028,
-    0x00BCA9B0, 0x0042E896, 0x00000000, 0x0000002C,
-    0x00BCB7C8, 0x0042EFC0, 0x00000000, 0x00000018,
-    0x00BCB7C0, 0x0042E850, 0x00000000, 0x0000001C,
-    0x00BCB7B4, 0x0042EF72, 0x00000000, 0x00000038,
-    0x00BCB7A8, 0x0042EFC0, 0x00000000, 0x0000003C,
-    0x00BCB794, 0x0042EFC0, 0x00000000, 0x00000040,
-    0x00BCB784, 0x0042EFC0, 0x00000000, 0x00000044,
-    0x00BCB778, 0x0042EFC0, 0x00000000, 0x00000048,
-    0x00BCB76C, 0x00738E52, 0x00000000, 0x0000004C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_laserDrawFieldTable[17] = {
+    { "NumBeams", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "InnerBeamWidth", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10 },
+    { "OuterBeamWidth", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14 },
+    { "InnerColor", (FieldParseProc)&__identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "OuterColor", (FieldParseProc)&__identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "MaxIntensityLifetime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24 },
+    { "FadeLifetime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
+    { "Texture", (FieldParseProc)&__identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x2C },
+    { "ScrollRate", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18 },
+    { "Tile", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "Segments", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x38 },
+    { "ArcHeight", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "SegmentOverlapRatio", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "TilingScalar", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "FanWidth", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "Envelope", (FieldParseProc)&__identifier("?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bcd918: 10 entries (no terminator) (160B).
@@ -372,19 +404,19 @@ extern const int s_animSoundFieldTable[12] = {
 };
 
 // Retail VA 0x00c5a7a8: 11 entries + terminator (192B).
-extern const int CrateCollideTable[48] = {
-    0x00C5A794, 0x006567EA, 0x00000000, 0x00000008,
-    0x00C5A784, 0x006567EA, 0x00000000, 0x00000024,
-    0x00C5A770, 0x0042E850, 0x00000000, 0x00000040,
-    0x00C5A760, 0x0042E850, 0x00000000, 0x00000041,
-    0x00C5A754, 0x0042E850, 0x00000000, 0x00000042,
-    0x00C5A744, 0x007396D3, 0x00000000, 0x00000044,
-    0x00C5A738, 0x00738A09, 0x00000000, 0x00000048,
-    0x00C5A724, 0x0042F11E, 0x00000000, 0x0000004C,
-    0x00C5A70C, 0x0042EFC0, 0x00000000, 0x00000050,
-    0x00C5A6F4, 0x0042EFC0, 0x00000000, 0x00000054,
-    0x00C5A6DC, 0x0042E850, 0x00000000, 0x00000058,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse CrateCollideTable[12] = {
+    { "RequiredKindOf", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x8 },
+    { "ForbiddenKindOf", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x24 },
+    { "ForbidOwnerPlayer", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "BuildingPickup", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x41 },
+    { "HumanOnly", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x42 },
+    { "PickupScience", (FieldParseProc)&__identifier("?parseScience@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "ExecuteFX", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "ExecuteAnimation", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { "ExecuteAnimationTime", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x50 },
+    { "ExecuteAnimationZRise", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x54 },
+    { "ExecuteAnimationFades", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x58 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c5a4a8: 16 entries + terminator (272B).
@@ -448,28 +480,28 @@ extern const int s_transportAiFieldTable[80] = {
 };
 
 // Retail VA 0x00bef4b0: 8 entries + terminator (144B).
-extern const int s_supplyTruckAiFieldTable[36] = {
-    0x00BEF4A0, 0x0042EF56, 0x00000000, 0x00000064,
-    0x00BEF488, 0x00738B30, 0x00000000, 0x00000068,
-    0x00BEF46C, 0x00738B30, 0x00000000, 0x0000006C,
-    0x00BEF450, 0x0042EFC0, 0x00000000, 0x00000070,
-    0x00BEF440, 0x0042E850, 0x00000000, 0x00000074,
-    0x00BEF428, 0x0042EFC0, 0x00000000, 0x00000078,
-    0x00BEF410, 0x00738B30, 0x00000000, 0x0000007C,
-    0x00BEF3FC, 0x00738B30, 0x00000000, 0x00000080,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_supplyTruckAiFieldTable[9] = {
+    { "MaxBoxes", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "SupplyCenterActionDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "SupplyWarehouseActionDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "SupplyWarehouseScanDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { "HarvestTrees", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x74 },
+    { "HarvestActivationRange", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x78 },
+    { "HarvestPreparationTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x7C },
+    { "HarvestActionTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x80 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00beecb0: 7 entries + terminator (128B).
-extern const int s_deployStyleFieldTable[32] = {
-    0x00BEECA0, 0x00738B30, 0x00000000, 0x00000064,
-    0x00BEEC94, 0x00738B30, 0x00000000, 0x00000068,
-    0x00BEEC78, 0x0042E850, 0x00000000, 0x0000006C,
-    0x00BEEC58, 0x0042E850, 0x00000000, 0x0000006D,
-    0x00BEEC38, 0x0042E850, 0x00000000, 0x0000006E,
-    0x00BEEC24, 0x0042E850, 0x00000000, 0x0000006F,
-    0x00BEEC08, 0x0042F11E, 0x00000000, 0x00000070,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_deployStyleFieldTable[8] = {
+    { "UnpackTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "PackTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "ResetTurretBeforePacking", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "TurretsFunctionOnlyWhenDeployed", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6D },
+    { "TurretsMustCenterBeforePacking", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6E },
+    { "MustDeployToAttack", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6F },
+    { "DeployedAttributeModifier", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00beed74: 2 entries + terminator (48B).
@@ -480,122 +512,122 @@ extern const int s_assaultTransportFieldTable[12] = {
 };
 
 // Retail VA 0x00beeb88: 7 entries + terminator (128B).
-extern const int s_animalAiFieldTable[32] = {
-    0x00BEEB7C, 0x0042EF56, 0x00000000, 0x00000064,
-    0x00BEEB6C, 0x0042EF56, 0x00000000, 0x00000068,
-    0x00BEEB58, 0x0042EF56, 0x00000000, 0x0000006C,
-    0x00BEEB44, 0x0042EF56, 0x00000000, 0x00000070,
-    0x00BEEB34, 0x0042EF56, 0x00000000, 0x00000074,
-    0x00BEEB28, 0x0042EF56, 0x00000000, 0x00000078,
-    0x00BEEB18, 0x0042E850, 0x00000000, 0x0000007C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_animalAiFieldTable[8] = {
+    { "FleeRange", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "FleeDistance", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "WanderPercentage", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "MaxWanderDistance", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { "MaxWanderRadius", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x74 },
+    { "UpdateTimer", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x78 },
+    { "AfraidOfCastles", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x7C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bef580: 4 entries + terminator (80B).
-extern const int s_wanderAiFieldTable[20] = {
-    0x00BEF570, 0x0042E850, 0x00000000, 0x00000064,
-    0x00BEF55C, 0x008B6481, 0x00000000, 0x00000068,
-    0x00BEF550, 0x0042E850, 0x00000000, 0x0000006C,
-    0x00BEF540, 0x0042EF72, 0x00000000, 0x00000070,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_wanderAiFieldTable[5] = {
+    { "WildBeast", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "ConditionForEntry", (FieldParseProc)&__identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "Selectable", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "WanderDistance", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c561d0: 14 entries + terminator (240B).
-extern const int s_respawnFieldTable[60] = {
-    0x00C561C0, 0x004B9468, 0x00000000, 0x0000000C,
-    0x00BF08D8, 0x00738A09, 0x00000000, 0x000000F0,
-    0x00C561AC, 0x00738B30, 0x00000000, 0x000000FC,
-    0x00C56198, 0x004B9468, 0x00000000, 0x000000A4,
-    0x00C56188, 0x00738A09, 0x00000000, 0x000000F8,
-    0x00C5616C, 0x00738B30, 0x00000000, 0x00000104,
-    0x00C56160, 0x004B9468, 0x00000000, 0x00000058,
-    0x00C56154, 0x00738A09, 0x00000000, 0x000000F4,
-    0x00C5613C, 0x00738B30, 0x00000000, 0x00000100,
-    0x00C56120, 0x00761CA5, 0x00000000, 0x00000008,
-    0x00C56110, 0x008AFC5F, 0x00000000, 0x0000010C,
-    0x00C56100, 0x008AFE6C, 0x00000000, 0x0000010C,
-    0x00BE636C, 0x0042F11E, 0x00000000, 0x00000118,
-    0x00C560EC, 0x0042F11E, 0x00000000, 0x0000011C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_respawnFieldTable[15] = {
+    { "DeathAnim", (FieldParseProc)&__identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xC },
+    { "DeathFX", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF0 },
+    { "DeathAnimationTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xFC },
+    { "InitialSpawnAnim", (FieldParseProc)&__identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xA4 },
+    { "InitialSpawnFX", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF8 },
+    { "InitialSpawnAnimationTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x104 },
+    { "RespawnAnim", (FieldParseProc)&__identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x58 },
+    { "RespawnFX", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF4 },
+    { "RespawnAnimationTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x100 },
+    { "AutoRespawnAtObjectFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x8 },
+    { "RespawnRules", (FieldParseProc)&__identifier("?iniParseDefaultRule@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x10C },
+    { "RespawnEntry", (FieldParseProc)&__identifier("?iniParseNewRuleForLevel@RespawnUpdate@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x10C },
+    { "ButtonImage", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x118 },
+    { "RespawnAsTemplate", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x11C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c42a38: 12 entries + terminator (208B).
-extern const int s_dynamicPortalFieldTable[52] = {
-    0x00C42A2C, 0x0042F11E, 0x00000000, 0x0000011C,
-    0x00C42A1C, 0x0042EF56, 0x00000000, 0x00000118,
-    0x00C42A10, 0x0086133B, 0x00000000, 0x00000120,
-    0x00C42A08, 0x008616B1, 0x00000000, 0x0000012C,
-    0x00BCB144, 0x0042F11E, 0x00000000, 0x00000138,
-    0x00C429FC, 0x0042E850, 0x00000000, 0x0000013C,
-    0x00C429F0, 0x0042EF72, 0x00000000, 0x00000140,
-    0x00C429E0, 0x0042F507, 0x00000000, 0x00000144,
-    0x00C429D0, 0x0042EFC0, 0x00000000, 0x00000150,
-    0x00C17D8C, 0x0042E850, 0x00000000, 0x0000013D,
-    0x00C429B8, 0x0042EFC0, 0x00000000, 0x00000154,
-    0x00BDCA04, 0x00761CA5, 0x00000000, 0x00000158,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_dynamicPortalFieldTable[13] = {
+    { "BonePrefix", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x11C },
+    { "NumberOfBones", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x118 },
+    { "WayPoint", (FieldParseProc)&__identifier("?parseWayPoint@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x120 },
+    { "Link", (FieldParseProc)&__identifier("?parseLink@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x12C },
+    { "WallBoundsMesh", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x138 },
+    { "GenerateNow", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13C },
+    { "AboveWall", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x140 },
+    { "TopAttackPos", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x144 },
+    { "TopAttackRadius", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x150 },
+    { "AllowEnemies", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13D },
+    { "ActivationDelaySeconds", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x154 },
+    { "ObjectFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x158 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c52790: 11 entries + terminator (192B).
-extern const int s_structureCollapseFieldTable[48] = {
-    0x00C52778, 0x00738B30, 0x00000000, 0x00000038,
-    0x00C52764, 0x00738B30, 0x00000000, 0x0000003C,
-    0x00C52754, 0x00738B30, 0x00000000, 0x00000040,
-    0x00C52744, 0x00738B30, 0x00000000, 0x00000044,
-    0x00C52734, 0x0042EFC0, 0x00000000, 0x0000004C,
-    0x00C52728, 0x0042EFC0, 0x00000000, 0x00000050,
-    0x00C52714, 0x0042EF56, 0x00000000, 0x00000048,
-    0x00C03DFC, 0x008A4B94, 0x00000000, 0x00000000,
-    0x00BDD9D8, 0x008A4B31, 0x00000000, 0x00000000,
-    0x00C526FC, 0x0042E850, 0x00000000, 0x000000F4,
-    0x00C526EC, 0x0042EFC0, 0x00000000, 0x000000F8,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_structureCollapseFieldTable[12] = {
+    { "MinCollapseDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x38 },
+    { "MaxCollapseDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x3C },
+    { "MinBurstDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x40 },
+    { "MaxBurstDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x44 },
+    { "CollapseDamping", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4C },
+    { "MaxShudder", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x50 },
+    { "BigBurstFrequency", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x48 },
+    { "OCL", (FieldParseProc)&__identifier("?parseOCL@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "FXList", (FieldParseProc)&__identifier("?parseFXList@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "DestroyObjectWhenDone", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF4 },
+    { "CollapseHeight", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF8 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c44648: 33 entries + terminator (544B).
-extern const int s_transportContainFieldTable[136] = {
-    0x00C44640, 0x0042EF56, 0x00000000, 0x00000098,
-    0x00C4462C, 0x0042E850, 0x00000000, 0x0000013E,
-    0x00C44610, 0x0042E850, 0x00000000, 0x0000013F,
-    0x00C445FC, 0x0042E850, 0x00000000, 0x00000140,
-    0x00C445E0, 0x0042E850, 0x00000000, 0x00000141,
-    0x00C445BC, 0x0042E850, 0x00000000, 0x00000142,
-    0x00C445B0, 0x0042F11E, 0x00000000, 0x000000A0,
-    0x00C445A0, 0x007389DD, 0x00000000, 0x0000009C,
-    0x00C44590, 0x00867DE6, 0x00000000, 0x00000000,
-    0x00C4457C, 0x0042EFC0, 0x00000000, 0x000000A8,
-    0x00BF1E24, 0x00738B30, 0x00000000, 0x000000AC,
-    0x00C44568, 0x006567EA, 0x00000000, 0x000000B0,
-    0x00C44554, 0x006567EA, 0x00000000, 0x000000CC,
-    0x00C4453C, 0x006567EA, 0x00000000, 0x000000E8,
-    0x00C44524, 0x006567EA, 0x00000000, 0x00000104,
-    0x00C4450C, 0x006567EA, 0x00000000, 0x00000120,
-    0x00C444F0, 0x0042E850, 0x00000000, 0x0000013C,
-    0x00C444DC, 0x0042E850, 0x00000000, 0x0000013D,
-    0x00C444D0, 0x00739569, 0x00000000, 0x00000144,
-    0x00C444B8, 0x0042E850, 0x00000000, 0x00000148,
-    0x00BEF55C, 0x008B6481, 0x00000000, 0x0000014C,
-    0x00C4449C, 0x0042E850, 0x00000000, 0x00000150,
-    0x00C44484, 0x00738B30, 0x00000000, 0x00000154,
-    0x00C44468, 0x0042F507, 0x00000000, 0x00000158,
-    0x00C44444, 0x00739569, 0x00000000, 0x00000164,
-    0x00C44438, 0x00761CA5, 0x00000000, 0x00000168,
-    0x00C44420, 0x0042E850, 0x00000000, 0x0000016C,
-    0x00C4440C, 0x0042E850, 0x00000000, 0x0000016D,
-    0x00C443FC, 0x0042EFC0, 0x00000000, 0x00000170,
-    0x00C443EC, 0x0042EFC0, 0x00000000, 0x00000174,
-    0x00C443E0, 0x0042E850, 0x00000000, 0x00000178,
-    0x00C443CC, 0x0042EFC0, 0x00000000, 0x0000017C,
-    0x00C443B4, 0x00868908, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_transportContainFieldTable[34] = {
+    { "Slots", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x98 },
+    { "ScatterNearbyOnExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13E },
+    { "OrientLikeContainerOnExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13F },
+    { "GoAggressiveOnExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x140 },
+    { "ResetMoodCheckTimeOnExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x141 },
+    { "DestroyRidersWhoAreNotFreeToExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x142 },
+    { "ExitBone", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xA0 },
+    { "ExitPitchRate", (FieldParseProc)&__identifier("?parseAngularVelocityReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x9C },
+    { "InitialPayload", (FieldParseProc)&__identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "HealthRegen%PerSec", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xA8 },
+    { "ExitDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xAC },
+    { "TypeOneForWeaponSet", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xB0 },
+    { "TypeTwoForWeaponSet", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xCC },
+    { "TypeOneForWeaponState", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xE8 },
+    { "TypeTwoForWeaponState", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x104 },
+    { "TypeThreeForWeaponState", (FieldParseProc)&__identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x120 },
+    { "ForceOrientationContainer", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13C },
+    { "CanGrabStructure", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13D },
+    { "GrabWeapon", (FieldParseProc)&__identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x144 },
+    { "FireGrabWeaponOnVictim", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x148 },
+    { "ConditionForEntry", (FieldParseProc)&__identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x14C },
+    { "ShouldThrowOutPassengers", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x150 },
+    { "ThrowOutPassengersDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x154 },
+    { "ThrowOutPassengersVelocity", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x158 },
+    { "ThrowOutPassengersLandingWarhead", (FieldParseProc)&__identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x164 },
+    { "FadeFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x168 },
+    { "FadePassengerOnEnter", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x16C },
+    { "FadePassengerOnExit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x16D },
+    { "EnterFadeTime", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x170 },
+    { "ExitFadeTime", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x174 },
+    { "FadeReverse", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x178 },
+    { "ReleaseSnappyness", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x17C },
+    { "UpgradeCreationTrigger", (FieldParseProc)&__identifier("?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c487f8: 3 entries + terminator (64B).
-extern const int s_slaughterHordeFieldTable[16] = {
-    0x00C487E8, 0x0042F1BA, 0x00000000, 0x000000D4,
-    0x00C487D8, 0x00761CA5, 0x00000000, 0x000000D8,
-    0x00C487B8, 0x007B1327, 0x00000000, 0x000000DC,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_slaughterHordeFieldTable[4] = {
+    { "CashBackPercent", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xD4 },
+    { "CanAlwaysEnter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xD8 },
+    { "StatusRequiredForCanAlwaysEnter", (FieldParseProc)&__identifier("?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xDC },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c45530: 39 entries + terminator (640B).
@@ -643,41 +675,41 @@ extern const int s_hordeContainFieldTable[160] = {
 };
 
 // Retail VA 0x00bef620: 12 entries + terminator (208B).
-extern const int s_workerAiFieldTable[52] = {
-    0x00BEF4A0, 0x0042EF56, 0x00000000, 0x00000064,
-    0x00BEF600, 0x0042F1BA, 0x00000000, 0x00000068,
-    0x00BEF5F4, 0x00738B0A, 0x00000000, 0x0000006C,
-    0x00BEF5E8, 0x0042EFC0, 0x00000000, 0x00000070,
-    0x00BEF488, 0x00738B30, 0x00000000, 0x00000074,
-    0x00BEF46C, 0x00738B30, 0x00000000, 0x00000078,
-    0x00BEF450, 0x0042EFC0, 0x00000000, 0x0000007C,
-    0x00BEF440, 0x0042E850, 0x00000000, 0x00000080,
-    0x00BEF5D0, 0x00739900, 0x00000000, 0x00000090,
-    0x00BEF428, 0x0042EFC0, 0x00000000, 0x00000084,
-    0x00BEF410, 0x00738B30, 0x00000000, 0x00000088,
-    0x00BEF3FC, 0x00738B30, 0x00000000, 0x0000008C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_workerAiFieldTable[13] = {
+    { "MaxBoxes", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "RepairHealthPercentPerSecond", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "BoredTime", (FieldParseProc)&__identifier("?parseDurationReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "BoredRange", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { "SupplyCenterActionDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x74 },
+    { "SupplyWarehouseActionDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x78 },
+    { "SupplyWarehouseScanDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x7C },
+    { "HarvestTrees", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x80 },
+    { "SuppliesDepletedVoice", (FieldParseProc)&__identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x90 },
+    { "HarvestActivationRange", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x84 },
+    { "HarvestPreparationTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x88 },
+    { "HarvestActionTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c46ec8: 7 entries + terminator (128B).
-extern const int s_siegeEngineFieldTable[32] = {
-    0x00C46EB8, 0x00761CA5, 0x00000000, 0x0000018C,
-    0x00C46EB0, 0x0042EF56, 0x00000000, 0x00000190,
-    0x00C46EA4, 0x0087B9AD, 0x00000000, 0x00000000,
-    0x00C46E90, 0x0042F1BA, 0x00000000, 0x0000019C,
-    0x00C46E7C, 0x0042E850, 0x00000000, 0x000001A0,
-    0x00C46E68, 0x00864081, 0x00000000, 0x000001A4,
-    0x00C46E54, 0x0042E850, 0x00000000, 0x000001B4,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_siegeEngineFieldTable[8] = {
+    { "CrewFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x18C },
+    { "CrewMax", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x190 },
+    { "InitialCrew", (FieldParseProc)&__identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "SpeedPercentPerCrew", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x19C },
+    { "CrewAllowedToFire", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A0 },
+    { "ObjectStatusOfCrew", (FieldParseProc)&__identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A4 },
+    { "TransferSelection", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1B4 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c48890: 4 entries + terminator (80B).
-extern const int s_citadelSlaughterFieldTable[20] = {
-    0x00C48878, 0x007B1327, 0x00000000, 0x000000EC,
-    0x00C48864, 0x0042F196, 0x00000000, 0x00000100,
-    0x00C48848, 0x00761CA5, 0x00000000, 0x000000FC,
-    0x00C48838, 0x00738A09, 0x00000000, 0x0000010C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_citadelSlaughterFieldTable[5] = {
+    { "StatusForRingEntry", (FieldParseProc)&__identifier("?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z"), 0, 0xEC },
+    { "UpgradeForRingEntry", (FieldParseProc)&__identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x100 },
+    { "ObjectToDestroyForRingEntry", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xFC },
+    { "FXForRingEntry", (FieldParseProc)&__identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c4e8b0: 4 entries + terminator (80B).
@@ -731,95 +763,95 @@ extern const int s_radiusDecalFieldTable[56] = {
 };
 
 // Retail VA 0x00c100c0: 56 entries + terminator (912B).
-extern const int s_rva0033A8FCFieldTableB[228] = {
-    0x00C100B0, 0x007393DF, 0x00000000, 0x00000000,
-    0x00C10090, 0x007393DF, 0x00000000, 0x00000008,
-    0x00C1007C, 0x007393DF, 0x00000000, 0x00000010,
-    0x00C10070, 0x007393DF, 0x00000000, 0x00000018,
-    0x00C10058, 0x007393DF, 0x00000000, 0x00000020,
-    0x00C10044, 0x007393DF, 0x00000000, 0x00000028,
-    0x00C10038, 0x007393DF, 0x00000000, 0x00000030,
-    0x00C10024, 0x007393DF, 0x00000000, 0x00000038,
-    0x00C10018, 0x007393DF, 0x00000000, 0x00000040,
-    0x00C10008, 0x007393DF, 0x00000000, 0x00000048,
-    0x00C0FFF4, 0x007393DF, 0x00000000, 0x00000050,
-    0x00C0FFE8, 0x007393DF, 0x00000000, 0x00000058,
-    0x00C0FFD8, 0x007393DF, 0x00000000, 0x00000060,
-    0x00C0FFCC, 0x007393DF, 0x00000000, 0x00000068,
-    0x00C0FFC0, 0x007393DF, 0x00000000, 0x00000070,
-    0x00C0FFAC, 0x007393DF, 0x00000000, 0x00000078,
-    0x00C0FF94, 0x007393DF, 0x00000000, 0x00000080,
-    0x00C0FF84, 0x007393DF, 0x00000000, 0x00000088,
-    0x00C0FF6C, 0x007393DF, 0x00000000, 0x00000090,
-    0x00C0FF58, 0x007393DF, 0x00000000, 0x00000098,
-    0x00C0FF40, 0x007393DF, 0x00000000, 0x000000A0,
-    0x00C0FF28, 0x007393DF, 0x00000000, 0x000000A8,
-    0x00C0FF10, 0x007393DF, 0x00000000, 0x000000B0,
-    0x00C0FEF4, 0x007393DF, 0x00000000, 0x000000B8,
-    0x00C0FED8, 0x007393DF, 0x00000000, 0x000000C0,
-    0x00C0FEB8, 0x007393DF, 0x00000000, 0x000000C8,
-    0x00C0FE98, 0x007393DF, 0x00000000, 0x000000D0,
-    0x00C0FE84, 0x007393DF, 0x00000000, 0x000000D8,
-    0x00C0FE60, 0x007393DF, 0x00000000, 0x000000E0,
-    0x00C0FE40, 0x007393DF, 0x00000000, 0x000000E8,
-    0x00C0FE20, 0x007393DF, 0x00000000, 0x000000F0,
-    0x00C0FE04, 0x007393DF, 0x00000000, 0x000000F8,
-    0x00C0FDE0, 0x007393DF, 0x00000000, 0x00000100,
-    0x00C0FDD0, 0x007393F7, 0x00000000, 0x00000108,
-    0x00C0FDB8, 0x007393F7, 0x00000000, 0x00000110,
-    0x00C0FDA8, 0x007393F7, 0x00000000, 0x00000118,
-    0x00C0FD90, 0x007393F7, 0x00000000, 0x00000120,
-    0x00C0FD80, 0x007393F7, 0x00000000, 0x00000128,
-    0x00C0FD6C, 0x007393F7, 0x00000000, 0x00000130,
-    0x00C0FD50, 0x007393F7, 0x00000000, 0x00000138,
-    0x00C0FD3C, 0x007393F7, 0x00000000, 0x00000140,
-    0x00C0FD28, 0x007393F7, 0x00000000, 0x00000148,
-    0x00C0FD18, 0x007393F7, 0x00000000, 0x00000150,
-    0x00C0FD08, 0x007393F7, 0x00000000, 0x00000158,
-    0x00C0FCF8, 0x007393F7, 0x00000000, 0x00000160,
-    0x00C0FCE8, 0x007393F7, 0x00000000, 0x00000168,
-    0x00C0FCD0, 0x007393F7, 0x00000000, 0x00000170,
-    0x00C0FCC4, 0x007393F7, 0x00000000, 0x00000178,
-    0x00C0FCB8, 0x007393F7, 0x00000000, 0x00000180,
-    0x00C0FCA0, 0x007393F7, 0x00000000, 0x00000188,
-    0x00C0FC8C, 0x007393F7, 0x00000000, 0x00000190,
-    0x00C0FC78, 0x007393F7, 0x00000000, 0x00000198,
-    0x00C0FC60, 0x007393F7, 0x00000000, 0x000001A0,
-    0x00C0FC54, 0x007393F7, 0x00000000, 0x000001A8,
-    0x00C0FC40, 0x007393F7, 0x00000000, 0x000001B0,
-    0x00C0FC30, 0x007393F7, 0x00000000, 0x000001B8,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_rva0033A8FCFieldTableB[57] = {
+    { "VoiceSelect", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "VoiceSelectUnderConstruction", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x8 },
+    { "VoiceSelectBattle", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x10 },
+    { "VoiceMove", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x18 },
+    { "VoiceMoveToHigherGround", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x20 },
+    { "VoiceMoveOverWalls", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x28 },
+    { "VoiceAttack", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x30 },
+    { "VoiceAttackCharge", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x38 },
+    { "VoiceFear", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x40 },
+    { "VoiceCreated", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x48 },
+    { "VoiceTaskComplete", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x50 },
+    { "VoiceDefect", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x58 },
+    { "VoiceAttackAir", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x60 },
+    { "VoiceGuard", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x68 },
+    { "VoiceAlert", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x70 },
+    { "VoiceFullyCreated", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x78 },
+    { "VoiceRetreatToCastle", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x80 },
+    { "VoiceMoveToCamp", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x88 },
+    { "VoiceAttackStructure", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x90 },
+    { "VoiceAttackMachine", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x98 },
+    { "VoiceMoveWhileAttacking", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xA0 },
+    { "VoiceCombineWithHorde", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xA8 },
+    { "VoiceEnterStateAttack", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xB0 },
+    { "VoiceEnterStateAttackCharge", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xB8 },
+    { "VoiceEnterStateAttackAir", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xC0 },
+    { "VoiceEnterStateAttackStructure", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xC8 },
+    { "VoiceEnterStateAttackMachine", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xD0 },
+    { "VoiceEnterStateMove", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xD8 },
+    { "VoiceEnterStateMoveToHigherGround", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xE0 },
+    { "VoiceEnterStateMoveOverWalls", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xE8 },
+    { "VoiceEnterStateRetreatToCastle", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xF0 },
+    { "VoiceEnterStateMoveToCamp", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0xF8 },
+    { "VoiceEnterStateMoveWhileAttacking", (FieldParseProc)&__identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x100 },
+    { "SoundMoveStart", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x108 },
+    { "SoundMoveStartDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x110 },
+    { "SoundMoveLoop", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x118 },
+    { "SoundMoveLoopDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x120 },
+    { "SoundAmbient", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x128 },
+    { "SoundAmbientDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x130 },
+    { "SoundAmbientReallyDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x138 },
+    { "SoundAmbientRubble", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x140 },
+    { "SoundAmbientBattle", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x148 },
+    { "SoundStealthOn", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x150 },
+    { "SoundStealthOff", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x158 },
+    { "SoundCreated", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x160 },
+    { "SoundOnDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x168 },
+    { "SoundOnReallyDamaged", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x170 },
+    { "SoundEnter", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x178 },
+    { "SoundExit", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x180 },
+    { "SoundPromotedVeteran", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x188 },
+    { "SoundPromotedElite", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x190 },
+    { "SoundPromotedHero", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x198 },
+    { "SoundFallingFromPlane", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A0 },
+    { "SoundImpact", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A8 },
+    { "SoundImpactCyclonic", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1B0 },
+    { "SoundCrushing", (FieldParseProc)&__identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1B8 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c4c0c0: 4 entries + terminator (80B).
-extern const int s_fireWeaponNuggetFieldTableA[20] = {
-    0x00C1B1E8, 0x0042F11E, 0x00000000, 0x00000000,
-    0x00C4C0B4, 0x00738B30, 0x00000000, 0x00000004,
-    0x00BF01D8, 0x0042E850, 0x00000000, 0x00000008,
-    0x00BCA628, 0x0042F507, 0x00000000, 0x0000000C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fireWeaponNuggetFieldTableA[5] = {
+    { "WeaponName", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+    { "FireDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+    { "OneShot", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "Offset", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c51380: 6 entries + terminator (112B).
-extern const int s_fireWeaponNuggetFieldTableB[28] = {
-    0x00C40DDC, 0x0042F11E, 0x00000000, 0x00000000,
-    0x00C51370, 0x00761CA5, 0x00000000, 0x00000004,
-    0x00C51360, 0x0042EFC0, 0x00000000, 0x00000008,
-    0x00C51350, 0x0042EFC0, 0x00000000, 0x0000000C,
-    0x00C51340, 0x0042E850, 0x00000000, 0x00000010,
-    0x00C51334, 0x0042E850, 0x00000000, 0x00000011,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_fireWeaponNuggetFieldTableB[7] = {
+    { "RequiredUpgrade", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+    { "ModifierFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x4 },
+    { "CostMultiplier", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "TimeMultiplier", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { "HeroPurchase", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10 },
+    { "HeroRevive", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x11 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bcd6b0: 6 entries + terminator (112B).
-extern const int s_floorDrawFieldTable[28] = {
-    0x00BCB090, 0x0042E850, 0x00000000, 0x0000001C,
-    0x00BCD6A4, 0x0042E850, 0x00000000, 0x0000001D,
-    0x00BCD698, 0x0042E850, 0x00000000, 0x0000001E,
-    0x00BCD67C, 0x0042EFC0, 0x00000000, 0x00000020,
-    0x00BCD66C, 0x004CF873, 0x00000000, 0x00000010,
-    0x00BCD654, 0x004CF713, 0x00000000, 0x00000000,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_floorDrawFieldTable[7] = {
+    { "StaticModelLODMode", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1C },
+    { "ForceToBack", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1D },
+    { "StartHidden", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1E },
+    { "FloorFadeRateOnObjectDeath", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x20 },
+    { "WeatherTexture", (FieldParseProc)&__identifier("?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x10 },
+    { "HideIfModelConditions", (FieldParseProc)&__identifier("?Rva000CF713Parse@@YAXPAVINI@@PAVRva000CF713Owner@@@Z"), 0, 0x0 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail string at VA 0x00CE7AA8 ("GeometryType"): referenced by

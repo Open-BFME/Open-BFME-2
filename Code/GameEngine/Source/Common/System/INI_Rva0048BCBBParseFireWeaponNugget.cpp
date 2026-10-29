@@ -13,10 +13,10 @@
 // /GX-), fills it through Rva0048B97A_InitObject and appends the pointer to
 // the int list at instance + 8 (rowed list<int>::push_back 0x0005548F).
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_fireWeaponNuggetFieldTableA[];
-extern const int s_fireWeaponNuggetFieldTableB[];
+extern const FieldParse s_fireWeaponNuggetFieldTableA[];
+extern const FieldParse s_fireWeaponNuggetFieldTableB[];
 class MultiIniFieldParse
 {
 	const void *m_fieldParse[16];

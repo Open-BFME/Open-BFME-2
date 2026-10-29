@@ -6,12 +6,12 @@
 // from game.dat), so the linked image relocates them instead of pushing
 // hard-coded addresses. Same mechanism as g_emptyFieldParseTable.
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 extern const int g_emptyFieldParseTable[4];
-extern const int s_fxpsAlphaTable[36];
+extern const FieldParse s_fxpsAlphaTable[];
 extern const int s_fxpsSizeAngleTable[40];
-extern const int s_fxpsPhysicsTable[24];
-extern const int s_fxpsColorTable[40];
+extern const FieldParse s_fxpsPhysicsTable[];
+extern const FieldParse s_fxpsColorTable[];
 
 class INI
 {

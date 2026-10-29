@@ -308,9 +308,9 @@ VecUint *__uninitialized_copy<const VecUint *, VecUint *>(const VecUint *__first
 
 class MultiIniFieldParse;
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_dynamicPortalFieldTable[];
+extern const FieldParse s_dynamicPortalFieldTable[];
 
 class MultiIniFieldParse
 {

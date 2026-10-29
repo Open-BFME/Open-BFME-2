@@ -23,7 +23,7 @@ public:
 	void add(const FieldParse *parse, unsigned int extraOffset);
 };
 
-extern const int CrateCollideTable[];
+extern const FieldParse CrateCollideTable[];
 extern const int AODCrushCollideTable[];
 extern const int s_moneyCrateFieldTable[];
 extern const FieldParse s_veterancyCrateFieldTable[];

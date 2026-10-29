@@ -151,9 +151,9 @@ namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
 
 class MultiIniFieldParse;
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_floorDrawFieldTable[];
+extern const FieldParse s_floorDrawFieldTable[];
 
 class MultiIniFieldParse
 {

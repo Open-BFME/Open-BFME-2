@@ -262,11 +262,11 @@ int Rva0051D772Get(void)
 
 // Moved back from ConstIntGettersAddr.cpp: their constants now name the globals the
 // ledger defines there (declaration-only views; no layout is asserted).
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 extern unsigned char *g_00DFEA50;
 extern unsigned char *g_00DFE794;
 extern const FieldParse g_00BE2C10[];
-extern const int s_rva0033A8FCFieldTableB[];
+extern const FieldParse s_rva0033A8FCFieldTableB[];
 class Rva003818B0List;
 extern Rva003818B0List g_00E02310;
 

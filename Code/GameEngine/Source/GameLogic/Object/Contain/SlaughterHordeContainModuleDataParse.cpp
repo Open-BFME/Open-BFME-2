@@ -11,9 +11,9 @@
 // under "SlaughterHordeContain". Row supersedes the parse pin.
 
 class MultiIniFieldParse;
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
-extern const int s_slaughterHordeFieldTable[];
+extern const FieldParse s_slaughterHordeFieldTable[];
 class MultiIniFieldParse
 {
 public:
