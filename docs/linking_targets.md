@@ -71,6 +71,14 @@ full consumer/census confirmation remains pending. No census gain or
 source-file reduction is claimed.
 [Evidence](../reverse/attempt_support/physics-trajectory-objectmodule-20261030-codex.md).
 
+Scalar-vector base identity follow-up (2026-10-29, base `95bb9e1d6b`, LINK-150):
+two complete emitted ICF bodies resolve the copy constructor's registered
+wrong/unknown binding in `StringScalarVectorCopyBFME2.cpp`. All seven rows
+verify and the owning tool retires one identity key after provider-object
+preparation. The unit retains LINKS against index `85f6b7f40c`; no unique
+coverage or census gain is claimed. Full consumer and census confirmation
+remain pending. [Evidence](../reverse/attempt_support/scalar-vector-base-identity-20261029-codex4.md).
+
 Holder placement-new header cleanup (2026-10-29, base `d17e3dcdeb82`):
 the construct/copy-provider pair preserves both rows, all COMDAT/external facts
 and its 50-byte LINKS preview after replacing the private allocator with
