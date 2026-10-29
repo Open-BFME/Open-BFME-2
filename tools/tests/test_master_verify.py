@@ -21,6 +21,10 @@ log = pathlib.Path(sys.argv[1])
 log.write_text(log.read_text() + "x") if log.exists() else log.write_text("x")
 if pathlib.Path("crash").exists():
     raise RuntimeError("the gate itself broke")
+if pathlib.Path("flaky").exists() and not log.with_name("flaky-done").exists():
+    log.with_name("flaky-done").write_text("1")       # fails once, as under load
+    print("\\nFULL GATE: FAIL \\u2014 1 red: dir32 consistency")
+    sys.exit(1)
 bad = pathlib.Path("bad")
 if bad.exists():
     print("  FAIL ?f@@YAXXZ (Code/Game/Thing.cpp)")
@@ -130,7 +134,8 @@ def test_a_red_tip_bisects_to_its_first_bad_commit_and_a_fix_retires_it(toy, tmp
     before = gate_calls(tmp_path)
     code, message = M.run_once(cfg)
     assert code == 1, message
-    assert gate_calls(tmp_path) - before <= 5     # a bisect over 12 commits, not a walk
+    # the tip, a bisect over 12 commits (not a walk), then the first bad and its parent again
+    assert gate_calls(tmp_path) - before <= 7
     (item,) = origin_queue(toy)
     assert item["bad_sha"] == bad and item["exact"] is True
     assert item["checks"] == ["dir32 consistency"]
@@ -287,3 +292,20 @@ def test_a_bisect_that_hits_a_gate_without_a_verdict_publishes_nothing_and_retri
     calls = gate_calls(tmp_path)
     assert M.run_once(cfg)[0] == 2 and gate_calls(tmp_path) > calls       # retried
     assert origin_queue(toy) == []
+
+
+def test_a_transient_failure_is_never_blamed(toy, tmp_path):
+    cfg = config(toy, tmp_path, [])
+    assert M.run_once(cfg)[0] == 0
+    commit(toy, "Code/a.cpp", "1")
+    commit(toy, "flaky", "1")                     # the bisect's first step fails once
+    commit(toy, "flaky", None)
+    bad = commit(toy, "bad", "dir32 consistency\n", "Break DIR32 for real")
+    commit(toy, "Code/b.cpp", "1")
+    push(toy)
+    code, message = M.run_once(cfg)
+    assert code == 2 and "did not reproduce" in message, message
+    assert origin_queue(toy) == []                # nothing published on one failure
+    assert M.run_once(cfg)[0] == 1
+    (item,) = origin_queue(toy)
+    assert (item["bad_sha"], item["exact"]) == (bad, True)

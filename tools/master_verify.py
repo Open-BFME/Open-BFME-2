@@ -30,8 +30,11 @@ sources did not change compiles nothing.
          where one of them goes red. Each such commit becomes a repair item in
          reverse/master_verify_queue.json: the bad SHA, its author and subject, the
          failing checks' output, the files it changed and the sources the output
-         names, and the suggested owner. Items whose checks are green at the tip are
-         retired. Nothing is reverted.
+         names, and the suggested owner. Before an item is queued the gate runs
+         again, fresh, at the first bad commit (red again) and its parent (green
+         again); a cached red is never evidence until it reproduced, and an
+         attribution that does not hold is retried next run. Items whose checks
+         are green at the tip are retired. Nothing is reverted.
   error  a gate that ended without a verdict (a crash, the environment) is recorded
          and retried on the next tick. It is never bisected and never queued; a
          search it interrupts publishes nothing and is retried too.
@@ -404,12 +407,13 @@ def excerpt(text):
     return "\n".join(out)
 
 
-def run_gate(cfg, sha, state, why, keep=False):
+def run_gate(cfg, sha, state, why, keep=False, fresh=False):
     """The gate's verdict at SHA: {verdict, checks, duration, time, excerpt, sources},
-    cached in state['verdicts']. With KEEP, a fresh green verdict also leaves `tmp`
-    (the gate's tool list and DIR32 index) for the receipt; the caller removes it."""
+    cached in state['verdicts']. A cached red counts only once it reproduced
+    (confirm); FRESH ignores the cache. With KEEP, a fresh green verdict also leaves
+    `tmp` (the gate's tool list and DIR32 index) for the receipt; the caller removes it."""
     cached = state.setdefault("verdicts", {}).get(sha)
-    if cached and cached["verdict"] in ("green", "red"):
+    if not fresh and cached and (cached["verdict"] == "green" or cached.get("reproduced")):
         say(f"{sha[:10]} ({why}): {cached['verdict']} (cached)")
         return dict(cached, cached=True)
     wait_until_free(cfg)
@@ -448,7 +452,7 @@ def run_gate(cfg, sha, state, why, keep=False):
     say(f"{sha[:10]} ({why}): {verdict}" + (f" ({', '.join(checks)})" if checks else "")
         + f" in {result['duration']} s")
     if verdict in ("green", "red"):
-        state["verdicts"][sha] = result
+        state["verdicts"][sha] = dict(result, reproduced=False) if verdict == "red" else result
     if verdict == "green" and keep:
         return dict(result, tmp=str(tmp))
     shutil.rmtree(tmp, ignore_errors=True)
@@ -505,6 +509,21 @@ def bisect(cfg, state, good, bad, labels):
         else:
             lo = mid
     return commits[hi], commits[lo] if lo >= 0 else good, True, None
+
+
+def confirm(cfg, state, first, parent, labels):
+    """Run the gate again, fresh, before an attribution is queued: FIRST must be red for
+    LABELS again and PARENT (when known) green for them. Otherwise Unsettled; the fresh
+    verdicts replace the cached ones, so the next run's search starts from them."""
+    again = run_gate(cfg, first, state, "confirm first bad", fresh=True)
+    if not bad_for(again, labels):
+        raise Unsettled(f"{first[:10]} did not reproduce its failure ({again['verdict']} now)")
+    state["verdicts"][first]["reproduced"] = True
+    if parent:
+        before = run_gate(cfg, parent, state, "confirm its parent", fresh=True)
+        if before["verdict"] == "error" or bad_for(before, labels):
+            raise Unsettled(f"{parent[:10]}, the parent of {first[:10]}, is {before['verdict']} now"
+                            + (f" ({', '.join(before['checks'])})" if before["checks"] else ""))
 
 
 def make_item(cfg, state, tip, bad, good, exact, labels, note=""):
@@ -717,6 +736,7 @@ def handle_red(cfg, state, tip, result):
             first, last_good, exact, error = bisect(cfg, state, good, hi, remaining)
             if error is not None:
                 raise Unsettled(f"a bisect step ended without a verdict ({', '.join(error['checks'])})")
+        confirm(cfg, state, first, last_good if exact else "", remaining)
         at_first = state["verdicts"].get(first, result)
         labels = [c for c in remaining if c in at_first.get("checks", ())] or list(remaining)
         item = make_item(cfg, state, tip, first, last_good, exact, labels, note)
