@@ -20034,8 +20034,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A037D0,4,.data,global,_s_rva007B1122,Code/GameEngine/Source/Common/Rva007ABC6FFrameRateInits.cpp,owned,,1,1
 0x00A037D4,4,.data,global,?TheSupplyWarehouseCripplingBehaviorPoolKey@?1??getModuleNameKey@SupplyWarehouseCripplingBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/SupplyWarehouseCripplingBehavior.cpp,owned,,1,2
 0x00A037D8,4,.data,global,?$S1@?1??getModuleNameKey@SupplyWarehouseCripplingBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SupplyWarehouseCripplingBehavior.cpp,owned,,1,4
-0x00A037DC,4,.data,global,?TheClearanceTestingSlowDeathBehaviorPoolKey@?1??getModuleNameKey@ClearanceTestingSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorPoolKey.cpp,owned,,1,2
-0x00A037E0,4,.data,global,?$S1@?1??getModuleNameKey@ClearanceTestingSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ClearanceTestingSlowDeathBehaviorPoolKey.cpp,owned,,1,4
+0x00A037DC,4,.data,global,?TheClearanceTestingSlowDeathBehaviorPoolKey@?1??getModuleNameKey@ClearanceTestingSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp,owned,,1,2
+0x00A037E0,4,.data,global,?$S1@?1??getModuleNameKey@ClearanceTestingSlowDeathBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/ClearanceTestingSlowDeathBehavior.cpp,owned,,1,4
 0x00A037E4,4,.data,global,?TheReplenishUnitsBehaviorPoolKey@?1??getModuleNameKey@ReplenishUnitsBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp,owned,,1,2
 0x00A037E8,4,.data,global,?$S1@?1??getModuleNameKey@ReplenishUnitsBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehavior.cpp,owned,,1,4
 0x00A037EC,4,.data,global,?key@?6??rva004842DD@ReplenishUnitsBehavior@@QAEXPAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ReplenishUnitsBehaviorUpdate.cpp,owned,,1,2
