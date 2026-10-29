@@ -144,7 +144,6 @@ Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightBelowPosition.cpp,,2,1,re
 Code/GameEngine/Source/Common/INI/INI.cpp,-O1 -arch:SSE,53,2,region default loses rows
 Code/GameEngine/Source/Common/INI/INIAudioEventInfoRangeParsers.cpp,-O1 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/INI/Rva0006AF00FunctionCurveParse_Rva005051da.cpp,-Os,1,1,region default loses rows
-Code/GameEngine/Source/Common/MultiplayerSettings.cpp,-G7 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/NameKeyGenerator.cpp,-O1,6,2,region default loses rows
 Code/GameEngine/Source/Common/NameKeyGeneratorNameToLowercaseKey.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Open2Records.cpp,,6,1,region default loses rows
@@ -285,9 +284,9 @@ Code/GameEngine/Source/Common/namekey_hash.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/Common/namekey_hash_lowercase.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/DrawableFields.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/GUI/HeaderTemplateManagerRva00201B05.cpp,-Os -G7,2,1,region default loses rows
-Code/GameEngine/Source/GameClient/InGameUI.cpp,-G7 -arch:SSE,7,3,region default loses rows
+Code/GameEngine/Source/GameClient/InGameUI.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp,-O1 -G7,2,1,region default loses rows
-Code/GameEngine/Source/GameClient/MapUtil.cpp,-G7 -arch:SSE,18,9,region default loses rows
+Code/GameEngine/Source/GameClient/MapUtil.cpp,-G7 -arch:SSE,19,8,region default loses rows
 Code/GameEngine/Source/GameClient/MouseRva001EEA6D.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameClient/Open2Twins006.cpp,,16,1,region default loses rows
 Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp,-O2,1,1,region default loses rows
@@ -295,12 +294,10 @@ Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp,,1,1,region default lo
 Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp,-O2,5,2,region default loses rows
 Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeHordeWaitStateUpdate.cpp,-O1 -G7,1,1,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckBehavior.cpp,-G7 -arch:SSE,4,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Behavior/FlightDeckInfoVectorInsertOverflow.cpp,,4,4,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehavior.cpp,-G7 -arch:SSE,3,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainParseBannerCarrierPosition.cpp,-O1,1,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Locomotor.cpp,-O1,5,1,region default loses rows
-Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,-G7 -arch:SSE,12,3,region default loses rows
+Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp,-G7 -arch:SSE,9,3,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/RailroadGuideAIUpdate.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/AngleFXInfoVectorInsertOverflow.cpp,,3,2,region default loses rows
 Code/GameEngine/Source/GameLogic/Object/Update/EMPUpdate.cpp,-O1,1,1,region default loses rows
@@ -453,17 +450,17 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Add_Prototype.cpp,-O2,3,1,regi
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap_getMaximumVisibleBox_Rva00376D29.cpp,-Os,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeObjEME_bfmeGetEME.cpp,-O2,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp,-O2,5,4,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp,-G7 -arch:SSE,9,3,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDraw.cpp,-G7 -arch:SSE,6,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp,-arch:SSE,5,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Find_Asset.cpp,-O2,5,3,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,-Os,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp,-O2,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBDC0.cpp,,4,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva009EBEC0.cpp,,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,-G7 -arch:SSE,5,2,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DScene.cpp,-G7 -arch:SSE,8,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,,1,1,region default loses rows
-Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp,-G7 -arch:SSE,6,2,region default loses rows
+Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMap.cpp,-G7 -arch:SSE,8,2,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapRva000B0DA8.cpp,-O1 -G7,1,1,region default loses rows
 Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp,-O2 -G6,5,1,region default loses rows
 Code/Libraries/Source/Apt/AptActionInterpreter.cpp,-O2,3,1,region default loses rows
