@@ -39,6 +39,7 @@ enum
 #define PATHFIND_CELL_SIZE_F 10.0f
 #define STATE_SLEEP(n) ((StateReturnType)(n))
 #define AIGUARD_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIGuard.cpp"
+#define NULL 0
 
 typedef bool Bool;
 
@@ -594,6 +595,8 @@ int GetGameLogicRandomValue(int low, int high, char *file, int line);
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -978,47 +981,26 @@ void AIGuardMachine::xfer( Xfer *xfer )
 
   // end xfer
 
-// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x005430E7 124B ?rva005430E7@@YA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp (not merged yet)
 
-// tu-skeleton: 0x00543163 451B ??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0054379B 315B ?onEnter@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x005438D6 284B ?update@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x005439F2 360B ?onEnter@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00543B5A 362B ?update@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardReturnStateOnEnter.cpp
 
@@ -1070,6 +1052,105 @@ StateReturnType AIGuardReturnState::onEnter( void )
 // AIGuardIdleState::onEnter is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00542D88).
 
 // AIGuardIdleState::update is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (0x00543E5D).
+
+// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp
+
+//
+// ?rva005430E7@@YA_NPAUState@@PAX@Z, retail 0x005430E7..0x00543163 (124
+// bytes): Zero Hour AIGuard.cpp's hasAttackedMeAndICanReturnFire, the
+// AIGuardMachine transition condition (to state 5005, the attack-aggressor
+// state). Its address is the test of the condition table the rowed
+// AIGuardMachine ctor 0x00543163 hands to defineState for states 5003 and
+// 5001; this spelling is the one AIGuardMachineCtor.cpp references.
+//
+// Target evidence: owner = state +0x18 machine +0x14 owner; body module at
+// owner +0x254 and its vslot 18 (+0x48) is getClearableLastAttacker; the
+// rowed GameLogic::findObjectByID 0x00049DC5 on TheGameLogic; the rowed
+// Object::getRelationship 0x0028D156 (ENEMIES = 0); the target's private
+// status byte +0x438 bit 0 (isEffectivelyDead); the rowed
+// Object::isAbleToAttack 0x00290B73; the rowed
+// Object::getAbleToAttackSpecificObject 0x0028D051 with ATTACK_NEW_TARGET 0
+// and CMD_FROM_AI 2; result 3 or 2 (POSSIBLE / POSSIBLE_AFTER_MOVING) is
+// true. BFME 2 differs from the donor: the attacker id is read once and the
+// clearLastAttacker call is gone.
+
+Bool rva005430E7(State *thisState, void * /*userData*/)
+{
+	Object *obj = thisState->getMachineOwner();
+	BodyModuleInterface *bmi = obj ? obj->getBodyModule() : NULL;
+
+	if (!(obj && bmi)) {
+		return false;
+	}
+
+	ObjectID attacker = bmi->getClearableLastAttacker();
+	if (attacker == INVALID_OBJECT_ID) {
+		return false;
+	}
+
+	Object *target = TheGameLogic->findObjectByID(attacker);
+	if (!target) {
+		return false;
+	}
+
+	if (obj->getRelationship(target) != ENEMIES) {
+		return false;
+	}
+
+	if (target->isEffectivelyDead()) {
+		return false;
+	}
+
+	if (!obj->isAbleToAttack()) {
+		return false;
+	}
+
+	CanAttackResult result = obj->getAbleToAttackSpecificObject(ATTACK_NEW_TARGET, target, CMD_FROM_AI);
+	if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
+		return true;
+	}
+	return false;
+}
+
+// tu-skeleton: 0x00543163 451B ??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0054379B 315B ?onEnter@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x005438D6 284B ?update@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x005439F2 360B ?onEnter@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00543B5A 362B ?update@AIGuardOuterState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
 // tu-skeleton: 0x00543DF1 108B ?update@AIGuardReturnState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
