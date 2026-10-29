@@ -56,13 +56,14 @@ if __name__ == "__main__":
 @pytest.fixture
 def data_repo(repo):  # noqa: F811
     """The hook fixture plus a data-only TU, a header-only data ledger, an empty
-    pin list and the real delta_sources.py, ledger_guard.py, name_dependents.py
+    pin list and the real delta_sources.py (with the ledger_cache.py it imports),
+    ledger_guard.py, name_dependents.py
     and data_rows.py."""
     write(repo, DATA_SOURCE, "int OurLanguage = 0;\n")
     write(repo, DATA_LEDGER, DATA_HEAD)
     write(repo, PINS, PIN_HEAD)
     write(repo, "tools/build.py", BUILD)
-    for tool in ("delta_sources", "ledger_guard", "name_dependents", "data_rows"):
+    for tool in ("delta_sources", "ledger_cache", "ledger_guard", "name_dependents", "data_rows"):
         shutil.copyfile(ROOT / "tools" / f"{tool}.py", repo / "tools" / f"{tool}.py")
     git(repo, "add", "-A")
     git(repo, "commit", "-qm", "data ledger")

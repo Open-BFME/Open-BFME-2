@@ -88,7 +88,8 @@ def bound_hooked(hooked):
 def push(root,base,tip,new_branch=False):
     remote='0'*40 if new_branch else base
     if new_branch:git(root,'update-ref','refs/remotes/origin/master',base)
-    return subprocess.run(['bash',str(HOOK)],cwd=root,input=f'refs/heads/master {tip} refs/heads/master {remote}\n',capture_output=True,text=True,timeout=60)
+    from test_hook_fail_closed import _bash  # Git-for-Windows Bash, not the WSL shim
+    return subprocess.run([_bash(),str(HOOK)],cwd=root,input=f'refs/heads/master {tip} refs/heads/master {remote}\n',capture_output=True,text=True,timeout=60)
 
 def calls(root):
     p=root/'build-calls.jsonl';return [json.loads(s) for s in p.read_text().splitlines()] if p.exists() else []

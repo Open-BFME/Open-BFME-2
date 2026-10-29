@@ -45,7 +45,8 @@ def hooked(repo):
 
 def push(repo, base, tip):
     import subprocess
-    return subprocess.run(['bash', str(CANDIDATE_HOOK)], cwd=repo,
+    from test_hook_fail_closed import _bash  # Git-for-Windows Bash, not the WSL shim
+    return subprocess.run([_bash(), str(CANDIDATE_HOOK)], cwd=repo,
         input=f'refs/heads/master {tip} refs/heads/master {base}\n',
         text=True, capture_output=True, timeout=60)
 
