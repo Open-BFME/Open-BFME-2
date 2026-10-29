@@ -203,6 +203,35 @@ def test_pre_push_refuses_when_the_edited_source_list_cannot_be_built(repo):
     assert not built(repo)
 
 
+# ---------------------------------------------------------------- pre-push: branch-namespace claims
+# Hosts whose proxy only takes branch pushes write claims to refs/heads/claims/
+# (bfme.claimNamespace). Their empty-tree markers are not code; before, the
+# ledger guard compared the working tree with the empty marker and refused
+# every claim. ledger_guard fails here, so only a skipped ref passes.
+EMPTY_TREE = "4b825dc642cb6eb9a060e54bf8d69288fbee4904"
+
+
+def test_pre_push_skips_an_empty_tree_claim_on_the_branch_namespace(repo):
+    write(repo, "tools/ledger_guard.py", "raise SystemExit(1)\n")
+    parent = git(repo, "commit-tree", EMPTY_TREE, "-m", '{"owner": "fixture"}')
+    marker = git(repo, "commit-tree", EMPTY_TREE, "-p", parent, "-m", '{"owner": "fixture"}')
+    refs = f"{marker} {marker} refs/heads/claims/0x00001000 {parent}\n"
+    result = run(repo, "pre-push", refs)
+    assert result.returncode == 0, result.stderr
+    assert not built(repo)
+
+
+def test_pre_push_still_gates_a_branch_claim_that_carries_files(repo):
+    write(repo, "tools/ledger_guard.py", "raise SystemExit(1)\n")
+    base = git(repo, "rev-parse", "HEAD")
+    write(repo, SOURCE, "struct Unit { void f(); };\nvoid Unit::f() { int x = 0; }\n")
+    git(repo, "commit", "-qam", "code under a claim name")
+    head = git(repo, "rev-parse", "HEAD")
+    result = run(repo, "pre-push", f"{head} {head} refs/heads/claims/0x00001000 {base}\n")
+    assert result.returncode == 1
+    assert f"PRE-PUSH FAILED: working-tree ledgers differ from {head}" in result.stderr
+
+
 # ---------------------------------------------------------------- name_dependents
 
 def test_pre_commit_refuses_when_name_dependents_crashes(repo):

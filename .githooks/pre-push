@@ -296,6 +296,14 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Shared work claims are empty-tree marker commits, not game-source commits;
     # so are leftover publish-window refs (refs/landing/*), which no gate reads.
     case "${_remote_ref:-}" in refs/claims/*|refs/landing/*) continue ;; esac
+    # Hosts whose git proxy only accepts branch pushes keep claims under
+    # refs/heads/claims/ (bfme.claimNamespace, tools/claims.py). A branch there
+    # skips the gate only while it carries the empty-tree marker; anything with
+    # files is judged like any other push.
+    case "${_remote_ref:-}" in
+        refs/heads/claims/*)
+            [ "$(git rev-parse -q --verify "$local_sha^{tree}" 2>/dev/null)" = 4b825dc642cb6eb9a060e54bf8d69288fbee4904 ] && continue ;;
+    esac
     [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
     # The build below reads the working-tree ledgers: they must be the pushed commit's.
     python3 tools/ledger_guard.py --commit "$local_sha" || fail "working-tree ledgers differ from $local_sha (see above)"
