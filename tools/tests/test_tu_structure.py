@@ -256,6 +256,28 @@ def test_a_local_class_two_zh_cpps_write_anchors_neither(tmp_path):
     assert (out[0x1020]["by"], out[0x1020]["tu"]) == ("Z", "Code/X/Ocl.cpp")
 
 
+def test_a_member_two_zh_game_files_define_names_neither(tmp_path):
+    """CollisionMath::Collide has one overload per colmath*.cpp, and BW_Render::Buffer::
+    Buffer reads as Buffer::Buffer beside WWLib's buff.cpp: a (class, member) that two
+    game .cpp files define names no file, where the first in walk order used to win. One
+    game definition beside a Tools/ copy still anchors the game file."""
+    root = tmp_path / "reference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code"
+    for d, text in (("Libraries/Math/colmathaabox.cpp", "bool CollisionMath::Collide(int a)\n{\n}\n"),
+                    ("Libraries/Math/colmathline.cpp", "bool CollisionMath::Collide(float b)\n{\n}\n"),
+                    ("Libraries/Math/widget.cpp", "void Widget::draw()\n{\n}\n"),
+                    ("Tools/Editor/widget.cpp", "void Widget::draw()\n{\n}\n")):
+        (root / d).parent.mkdir(parents=True, exist_ok=True)
+        (root / d).write_text(text)
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / "reverse/functions.csv").write_text(HEADER + "".join([
+        row("?Collide@CollisionMath@@SA_NH@Z", 0x1000, 16, "Code/W/CollideA.cpp"),
+        row("?draw@Widget@@QAEXXZ", 0x2000, 16, "Code/W/WidgetDraw.cpp"),
+    ]))
+    out = {int(r["rva"], 16): r for r in tu_map.build(tu_map.Layout(tmp_path))}
+    assert "Z=" not in out[0x1000]["evidence"]
+    assert "Z=Code/Libraries/Math/widget.cpp" in out[0x2000]["evidence"]
+
+
 WB_HEADER = "target_rva,current_name,current_kind,wb_name,wb_file,score,evidence\n"
 
 

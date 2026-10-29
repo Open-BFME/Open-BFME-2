@@ -339,6 +339,7 @@ def zh_index(layout, paths):
     .cpp that writes it as a site."""
     meth, sites, copies, tools = {}, collections.defaultdict(set), set(), set()
     local = collections.defaultdict(set)     # (class, member) written inside a class a .cpp defines
+    game = collections.defaultdict(set)      # (class, member) -> game .cpp files defining it out of line
     if not layout.zh.exists():
         return meth, {}, copies, tools
     for dp, dn, fn in sorted(os.walk(layout.zh)):
@@ -358,10 +359,17 @@ def zh_index(layout, paths):
             for c, m in zh_definitions(text):
                 meth.setdefault((c, m), rel)
                 sites[c].add(rel)
+                if not tool:
+                    game[(c, m)].add(rel)
             if not tool:
                 for c, m in class_inline_members(text):
                     local[(c, m)].add(rel)
             copies.update(m.group(1) for m in COPY_DEF.finditer(CPP_NOISE.sub(_blank, text)))
+    for key, rels in game.items():           # overloads one per file: no file is the definition
+        if len(rels) > 1:
+            del meth[key]
+        else:
+            meth[key] = next(iter(rels))     # a game file wins over a Tools/ copy
     for (c, m), rels in local.items():
         if len(rels) == 1 and (c, m) not in meth:
             meth[(c, m)] = next(iter(rels))
