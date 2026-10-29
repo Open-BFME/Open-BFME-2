@@ -8,6 +8,7 @@ import os
 import subprocess
 import sys
 import time
+import types
 from pathlib import Path
 
 import pytest
@@ -196,6 +197,24 @@ def test_a_retry_waits_when_the_race_was_lost_to_the_same_account(seat, capsys, 
     assert code == 0, out
     assert "attempt 1: lost the race" in out and "waiting" in out and "attempt 2: landed" in out
     assert time.time() - started >= 2
+
+
+def test_the_spacing_rereads_the_clock_after_sleeping(tmp_path, monkeypatch):
+    # another seat of the account lands while this one sleeps: wait out its push too
+    clock = tmp_path / "clock"
+    monkeypatch.setenv("BFME_PUSH_CLOCK", str(clock))
+    monkeypatch.setenv("BFME_PUSH_SPACING_S", "300")
+    clock.write_text("800\n")
+    now = [1000.0]
+
+    def sleep(seconds):
+        if now[0] == 1000.0:
+            clock.write_text("1050\n")
+        now[0] += seconds
+
+    monkeypatch.setattr(push, "time", types.SimpleNamespace(time=lambda: now[0], sleep=sleep))
+    push.wait_for_spacing(lambda line: None)
+    assert now[0] >= 1050 + 300
 
 
 def test_nothing_to_push(seat, capsys):

@@ -90,9 +90,13 @@ def last_push():
 
 
 def wait_for_spacing(say):
+    """Wait until the account's last push is the spacing old, re-reading the
+    clock after each sleep (another seat may push meanwhile)."""
     spacing = float(os.environ.get("BFME_PUSH_SPACING_S", "300"))
-    left = last_push() + spacing - time.time()
-    if left > 0:
+    while True:
+        left = last_push() + spacing - time.time()
+        if left <= 0:
+            return
         say(f"push: the account pushed {spacing - left:.0f} s ago; waiting {left:.0f} s (spacing {spacing:.0f} s)")
         time.sleep(left)
 
@@ -177,6 +181,7 @@ def land(tries=20, email=None, dry_run=False, say=print):
         if outgoing == 0:
             say(f"push: attempt {attempt}: nothing to push (origin/master already holds HEAD)")
             return 0
+        wait_for_spacing(say)            # a seat of this account may have landed during the rebase
         rebased = time.time()
         status, output = push_once(previous, dry_run)
         took = time.time() - started
