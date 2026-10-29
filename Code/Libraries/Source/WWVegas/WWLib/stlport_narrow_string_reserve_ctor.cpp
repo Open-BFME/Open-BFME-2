@@ -1,4 +1,5 @@
 // cl: /Od /Ob2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport46
 
 // STLport 4.5.3 narrow-string reserve-tag constructor, 0x00027150 / 129B.
 // The first argument is an empty tag; native callers 0x001F94D2/0x001F9569
