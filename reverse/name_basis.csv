@@ -4449,3 +4449,7 @@ local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::a,ArmyMemberDefinit
 local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::b,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::endPercentage,inferred,agree:nl-7add7aa6675c,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F2A8
 local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::t,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::interpolationFactor,inferred,agree:nl-3a6837ea4513,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F2A8
 function,?rva0041F28C@ArmyMemberDefinition@@QAEPAMH@Z,?getPercentageOfArmy@ArmyMemberDefinition@@QAEPAMH@Z,inferred,agree:nl-908ae979af16,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F28C
+member,CommandLineSwitchView::m_bfmeBD4,CommandLineSwitchView::m_shouldUpdateTGAToDDS,inferred,agree:nl-58ab46e7f4ab,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
+member,CommandLineSwitchView2::m_bfme9C8,CommandLineSwitchView2::m_showTeamDot,inferred,agree:nl-cd7e6dd83b80,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,
+function,?Rva003B9A0CParse@@YAHQAPADH@Z,?parseUpdateImages@@YAHQAPADH@Z,inferred,agree:nl-2143dc0904ba,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,0x003B9A0C
+function,?Rva003B984DParse@@YAHQAPADH@Z,?parseShowTeamDot@@YAHQAPADH@Z,inferred,agree:nl-ccaef973f0d9,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,0x003B984D

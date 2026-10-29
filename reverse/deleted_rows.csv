@@ -4040,3 +4040,5 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?freeDisplayString@W3DDisplayStringManager@@QAEXPAURva90381Node@@@Z,0x00090381,"Renamed to ?freeDisplayString@W3DDisplayStringManager@@UAEXPAVDisplayString@@@Z: retail vtable 0x007C7E20 slot 15 holds 0x00090381 (virtual, after newDisplayString 0x000905F0), ZH W3DDisplayStringManager::freeDisplayString(DisplayString *)"
 $L310,0x00790AA3,"Renamed to $L54973: tu_skeleton merge into EvacuateGarrisonSpecialPower.cpp renumbered the parent's cleanup label; the merged TU's EXACT parent EH data places $L54973 at 0x00790AA3"
 $L310,0x00790ABA,"Renamed to $L54988: tu_skeleton merge into EvacuateGarrisonSpecialPower.cpp renumbered the parent's cleanup label; the merged TU's EXACT parent EH data places $L54988 at 0x00790ABA"
+?Rva003B9A0CParse@@YAHQAPADH@Z,0x003B9A0C,"Renamed to ?parseUpdateImages@@YAHQAPADH@Z by tools/rename.py (inferred)"
+?Rva003B984DParse@@YAHQAPADH@Z,0x003B984D,"Renamed to ?parseShowTeamDot@@YAHQAPADH@Z by tools/rename.py (inferred)"

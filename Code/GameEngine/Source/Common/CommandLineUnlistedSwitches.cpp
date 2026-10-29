@@ -42,7 +42,7 @@ struct CommandLineSwitchView
     char pad0B18[0xb38 - 0xb18];
     int m_bfmeB38;
     char pad0B3C[0xbd4 - 0xb3c];
-    bool m_bfmeBD4;
+    bool m_shouldUpdateTGAToDDS;
     char pad0BD5[0xd46 - 0xbd5];
     bool m_bfmeD46;
     char pad0D47[0xd48 - 0xd47];
@@ -118,9 +118,9 @@ int parseDumpAssetUsage(char *args[],int num) {
 }
 
 // Native 3B9A0C..3B9A20: sets +BD4 true.
-int Rva003B9A0CParse(char *args[],int num) {
+int parseUpdateImages(char *args[],int num) {
     if(TheWritableGlobalData)
-        TheSwitches->m_bfmeBD4=true;
+        TheSwitches->m_shouldUpdateTGAToDDS=true;
     return 1;
 }
 
@@ -231,7 +231,7 @@ struct CommandLineSwitchView2
     char pad09C3[0x9c6 - 0x9c3];
     bool m_winCursors;
     char pad09C7[0x9c8 - 0x9c7];
-    bool m_bfme9C8;
+    bool m_showTeamDot;
     char pad09C9[0x9d0 - 0x9c9];
     bool m_bfme9D0;
     bool m_bfme9D1;
@@ -302,9 +302,9 @@ int parseWinCursors(char *args[],int num) {
 }
 
 // Native 3B984D: sets +9C8 true.
-int Rva003B984DParse(char *args[],int num) {
+int parseShowTeamDot(char *args[],int num) {
     if(TheWritableGlobalData)
-        TheSwitches2->m_bfme9C8=true;
+        TheSwitches2->m_showTeamDot=true;
     return 1;
 }
 
