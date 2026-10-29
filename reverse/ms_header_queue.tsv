@@ -7,7 +7,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	drop-in candida
 Code/GameEngine/Source/Common/BfmeIntVecG.h	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<stdlib.h>	no	no	hand		prove with ./build.sh: byte gate is the authority	free:same
 Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same
 Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpecialPowerPickers.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same
-Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayerDtor.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same
 Code/Libraries/Source/COM/ComSupp.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	6	0	0	<comdef.h>,<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	IID_ISupportErrorInfo:same
 Code/Libraries/Source/CRT/TypeInfoCopyConstructor.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	1	<excpt.h>,<typeinfo.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	type_info:same
 Code/Libraries/Source/WWVegas/WW3D2/DX8WebBrowserInitialize.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<comdef.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	_com_issue_errorex:same
@@ -956,3 +955,4 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut
 Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdlib.h>	no	yes	hand			free:abi
 Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/BannerUI.cpp	conflicting	abi	2	1	0	0	0	0	1	0	0	0	0	<stdlib.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	free:abi,atoi:same
 Code/GameEngine/Source/Common/BfmeTaintManager.cpp	conflicting	abi	4	2	0	0	0	0	2	0	0	0	0	<new>,<math.h>	no	no	hand			floor:abi,ceil:abi,operator delete [ ]:same,operator new [ ]:same
+Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldPlayer.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same
