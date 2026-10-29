@@ -69,22 +69,6 @@ public:
  virtual bool rva0047A699_2() = 0; virtual bool rva0047A699_3() = 0;
  virtual bool rva0047A699_4() = 0; virtual bool rva0047A699_5() = 0;
 };
-class BezierProjectileBehavior : public Rva004A76DEBase0, public Rva004A76DEBase1, public Rva004A76DEBase2, public Rva004A76DEBase3, public Rva004A76DEBase4
-{
-public:
-	BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData);
-	virtual ~BezierProjectileBehavior();
- virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
- virtual bool rva0045CD6E(Object *);
- virtual void rva0045B4C0(Object *, int, int);
-	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
-	void rva0045C026();
-
-protected:
-	unsigned char m_pad28[0x40 - 0x28]; // +0x28..+0x3F
-	int m_40; // +0x40 (rva004A7767 destroys the object when it is nonzero)
-	unsigned char m_pad44[0x88 - 0x44]; // +0x44..+0x87
-};
 //
 // ??0MissileUpdateModuleData@@QAE@XZ, retail 0x004A77B8, 149 bytes.
 // ModuleData ctor over table 0xC53470 (FuelLifetime through DetonateOnNoFuel
@@ -118,6 +102,8 @@ public:
 };
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
 class Object;
 
 extern GameLogic *TheGameLogic;
@@ -146,6 +132,43 @@ public:
 extern ParticleSystemManager *TheParticleSystemManager;
 
 class MissileUpdateModuleData;
+
+class MissileUpdateModuleData : public BezierProjectileBehaviorModuleData
+{
+public:
+	MissileUpdateModuleData();
+
+	const void *m_vtable; // +0 (EBO: base contributes no size)
+	unsigned char m_pad04[0xC0]; // +4..+0xC3
+	int m_fuelLifetime; // +0xC4
+	int m_ignitionDelay; // +0xC8
+	float m_unkCC; // +0xCC
+	float m_distanceToTargetBeforeDiving; // +0xD0
+	const FXList *m_ignitionFX; // +0xD4
+	unsigned char m_detonateOnNoFuel; // +0xD8
+	int m_unkDC; // +0xDC
+	Rva0024C7B3Member m_garrisonHitKillRequiredKindOf; // +0xE0
+	Rva0024C7B3Member m_unkFC; // +0xFC
+	int m_garrisonHitKillFX; // +0x118
+	AsciiString m_exhaust; // +0x11C
+};
+
+class BezierProjectileBehavior : public Rva004A76DEBase0, public Rva004A76DEBase1, public Rva004A76DEBase2, public Rva004A76DEBase3, public Rva004A76DEBase4
+{
+public:
+	BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~BezierProjectileBehavior();
+ virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
+ virtual bool rva0045CD6E(Object *);
+ virtual void rva0045B4C0(Object *, int, int);
+	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
+	void rva0045C026();
+
+protected:
+	unsigned char m_pad28[0x40 - 0x28]; // +0x28..+0x3F
+	int m_40; // +0x40 (rva004A7767 destroys the object when it is nonzero)
+	unsigned char m_pad44[0x88 - 0x44]; // +0x44..+0x87
+};
 
 class MissileUpdate : public BezierProjectileBehavior
 {
@@ -196,29 +219,11 @@ private:
 	bool m_CE; // +0xCE
 };
 
-class MissileUpdateModuleData : public BezierProjectileBehaviorModuleData
-{
-public:
-	MissileUpdateModuleData();
-
-	const void *m_vtable; // +0 (EBO: base contributes no size)
-	unsigned char m_pad04[0xC0]; // +4..+0xC3
-	int m_fuelLifetime; // +0xC4
-	int m_ignitionDelay; // +0xC8
-	float m_unkCC; // +0xCC
-	float m_distanceToTargetBeforeDiving; // +0xD0
-	const FXList *m_ignitionFX; // +0xD4
-	unsigned char m_detonateOnNoFuel; // +0xD8
-	int m_unkDC; // +0xDC
-	Rva0024C7B3Member m_garrisonHitKillRequiredKindOf; // +0xE0
-	Rva0024C7B3Member m_unkFC; // +0xFC
-	int m_garrisonHitKillFX; // +0x118
-	AsciiString m_exhaust; // +0x11C
-};
-
 // tu-skeleton: 0x004A74EF 27B ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A750A 8B ?clear@Rva004A750ADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
@@ -350,20 +355,6 @@ MissileUpdateModuleData::MissileUpdateModuleData()
 	m_exhaust.set("");
 }
 
-// tu-skeleton: 0x004A7551 47B ?projectileLaunchAtObjectOrPosition@MissileUpdate@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004A768A 7B ?get@Rva004A768AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7691 8B ?rva0045BF06@MissileUpdate@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7699 69B ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004A76DE 84B ??1MissileUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7732 53B ?projectileFireAtObjectOrPosition@MissileUpdate@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7767.cpp
 
 void MissileUpdate::rva004A7767()
@@ -386,14 +377,6 @@ void MissileUpdate::rva004A7797()
 		return;
 	Rva004A7530Set(2);
 }
-
-// tu-skeleton: 0x004A784D 28B ??_GMissileUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7fd4.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A789C 28B ??_GMissileUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A78B8 41B ?rva0045CD6E@MissileUpdate@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp
 
@@ -426,6 +409,68 @@ void MissileUpdate::rva004A78E1()
 	Rva004A7530Set(3);
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp
+
+// ??1MissileUpdate@@MAE@XZ @0x004A76DE 84B: restores five vtables then clear 0x4A7512 then pinned base 0x45BF6E; caller 0x4A789C deleting dtor; then 0x4A789C
+
+MissileUpdate::~MissileUpdate()
+{
+	Rva004A7512Clear();
+}
+
+void MissileUpdate::projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos)
+{
+	BezierProjectileBehavior::projectileFireAtObjectOrPosition(victim, victimPos);
+	Rva004A7530Set(1);
+	m_CC = false;
+	m_prevPos = m_object->m_pos;
+}
+
+void MissileUpdate::projectileLaunchAtObjectOrPosition(Object *victim, const Coord3D *pos, Object *launcher, int wslot, int barrel, const Rva0045B936Arg *arg, Rva002CBA7C *helper, const Matrix3D *matrix)
+{
+ if (victim) m_94 = victim->m_id;
+ BezierProjectileBehavior::projectileLaunchAtObjectOrPosition(victim,pos,launcher,wslot,barrel,arg,helper,matrix);
+}
+
+unsigned char MissileUpdate::rva004A768A() const { return m_CD; }
+
+int MissileUpdate::getLauncherID() const { return m_90; }
+
+bool MissileUpdate::rva0045CD6E(Object *victim) {
+ if (rva004A768A()) {
+  BezierProjectileBehavior::rva0045CD6E(victim);
+  m_object->setStatus((ObjectStatusTypes)4,true);
+ }
+ return true;
+}
+
+// The same callback occurs in both projectile interfaces. MSVC emits the
+// native this-4 adjustor 0x004A7691 for +0x24; the primary implementation
+// uses the +0x20 receiver and folds to the complete false/RET4 at 0x005CB9FF.
+bool MissileUpdate::rva0045BF06(Object *) { return false; }
+
+// Native +0x20 slot5 is the complete empty one-word callback
+// at 0x0047A69C; retain its otherwise unknown argument meaning.
+void MissileUpdate::rva0045B4E2(int) { }
+
+// Native +0x24 slots2..5 each point to the whole false/RET0 at 0x0047A699.
+// Their original names and semantic roles remain unknown.
+bool MissileUpdate::rva0047A699_2() { return false; }
+
+bool MissileUpdate::rva0047A699_3() { return false; }
+
+bool MissileUpdate::rva0047A699_4() { return false; }
+
+bool MissileUpdate::rva0047A699_5() { return false; }
+
+// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004A768A 7B ?get@Rva004A768AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7699 69B ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x004A796A 284B ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004A7B48 498B ?update@MissileUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp (not merged yet)
@@ -433,10 +478,6 @@ void MissileUpdate::rva004A78E1()
 // tu-skeleton: 0x0078DF45 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DF52 10B __ehhandler$?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DF5C 8B Unwind@00b8df5c -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DF64 10B __ehhandler$??1MissileUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DF6E 8B uw_0078df6e -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
