@@ -65,7 +65,6 @@ private:
 	char m_pad00[0x10];
 	Rva0013EDC0DwordField *m_target;
 };
-int Rva006C0830Owner::rva006C0830() const { return m_target->get(); }
 
 // 0x00262377: [ecx+4] -> the rowed false-returning const predicate folded at
 // 0x0047A699 (ledger spellings include WeaponTemplate::isContactWeapon and

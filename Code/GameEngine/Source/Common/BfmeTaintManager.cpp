@@ -224,7 +224,103 @@ struct Rva006C1650Interface
     virtual void dispatch(int first, int second);
 };
 
+//
+// Pointer-field forwarders: each body loads a pointer from a fixed field of
+// its own object and tail-jumps a rowed member of the pointee
+// (mov ecx, [ecx+<field>]; jmp). The targets are only declared here, so the
+// call is not inlined as it would be beside their definitions. Owners are
+// unknown; names are address-derived and no referencing site was found for
+// these in this pass.
+class Rva0030812E { public: void *getTextureName(int i); };
+
+class Rva002C9400ByteField { public: unsigned char get() const; };
+
+class Rva002C9407ByteField { public: unsigned char get() const; };
+
+class Rva005E3266 { public: void rva005E3266(); };
+
+class Rva0013EDC0DwordField { public: int get() const; };
+
+// 0x0007E0C6: [ecx+0x40] -> Rva0030812E::getTextureName(int)
+class Rva0007E0C6Owner
+{
+public:
+	void *rva0007E0C6(int i);
+private:
+	char m_pad00[0x40];
+	Rva0030812E *m_target;
+};
+
+// 0x0026237F: [ecx+4] -> Rva002C9400ByteField::get
+class Rva0026237FOwner
+{
+public:
+	unsigned char rva0026237F() const;
+private:
+	char m_pad00[0x4];
+	Rva002C9400ByteField *m_target;
+};
+
+// 0x0033F9C2: [ecx+4] -> Rva002C9407ByteField::get
+class Rva0033F9C2Owner
+{
+public:
+	unsigned char rva0033F9C2() const;
+private:
+	char m_pad00[0x4];
+	Rva002C9407ByteField *m_target;
+};
+
+// 0x005CC7DC: [ecx+8] -> Rva005E3266::rva005E3266
+class Rva005CC7DCOwner
+{
+public:
+	void rva005CC7DC();
+private:
+	char m_pad00[0x8];
+	Rva005E3266 *m_target;
+};
+
+// 0x006C0830: [ecx+0x10] -> Rva0013EDC0DwordField::get
+class Rva006C0830Owner
+{
+public:
+	int rva006C0830() const;
+private:
+	char m_pad00[0x10];
+	Rva0013EDC0DwordField *m_target;
+};
+
+// 0x00262377: [ecx+4] -> the rowed false-returning const predicate folded at
+// 0x0047A699 (ledger spellings include WeaponTemplate::isContactWeapon and
+// the Xfer mode predicates; which one the original called is not proven).
+class WeaponTemplate { public: bool isContactWeapon() const; };
+
+class Rva00262377Owner
+{
+public:
+	bool rva00262377() const;
+private:
+	char m_pad00[0x4];
+	WeaponTemplate *m_target;
+};
+
+// 0x002B2964: [ecx+0xB0] -> Rva0020E3D6::rva0020E3D6(void *), passing the
+// one stack argument through to the callee's ret 4.
+class Rva0020E3D6 { public: void rva0020E3D6(void *arg); };
+
+class Rva002B2964Owner
+{
+public:
+	void rva002B2964(void *arg);
+private:
+	char m_pad00[0xB0];
+	Rva0020E3D6 *m_target;
+};
+
 // tu-skeleton: 0x006C07F0 8B ?rva006C07F0@BfmeTaintManager@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeTaintManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva006C0800.cpp
 
@@ -233,20 +329,12 @@ void Rva006C0800::rva006C0800(PointGroupClass::PointModeEnum mode)
 	m_ptr->Set_Point_Mode(mode);
 }
 
-// tu-skeleton: 0x006C0810 8B ?rva006C0810@Rva006C0810@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/Common/Rva006C0810.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva006C0820.cpp
 
 void Rva006C0820::rva006C0820()
 {
 	m_ptr->rva006C0DA0();
 }
-
-// tu-skeleton: 0x006C0830 8B ?rva006C0830@Rva006C0830Owner@@QBEHXZ -- matched in Code/GameEngine/Source/Common/PointerFieldForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0840 8B ?rva006C0840@BfmeTaintManager@@QAEEHH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0850 8B ?rva006C0850@BfmeTaintManager@@QAEHPBUBfmePointFC@@PAH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/BfmeGridRasterCircle.cpp
 
@@ -628,22 +716,6 @@ void TaintManagerImpl::rva006C0F50(GridXferView*xfer){
  if(xfer->isLoading()) rva006C0DA0();
 }
 
-// tu-skeleton: 0x006C08F0 143B ??0BfmeTaintManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0980 8B ??_EBfmeTaintManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0990 6B ?name@Rva006C0990Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters5.cpp (not merged yet)
-
-// tu-skeleton: 0x006C09A0 115B ??1BfmeTaintManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0A20 46B ?bfmeDescribe@Gen_006C0A20@@QAEXPAVBfmeFlagTarget@@@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0A50 82B ?bfmeResetGrid@BfmeTaintManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0AB0 170B ?bfmeApplyCircleWorld@BfmeTaintManager@@QAEXPBUBfmePointFC@@MH_NH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
-
-// tu-skeleton: 0x006C0B60 30B ??_GBfmeTaintManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv730.cpp
 
 void *BfmeThingDMC::bfmeGoDMC(unsigned char flags)
@@ -664,11 +736,8 @@ void *BfmeThingDMC::bfmeGoDMC(unsigned char flags)
 // Retail's call sites in this unit's matched rows land on bodies rowed under
 // other spellings at the same addresses (same ABI). Bind the spellings used here.
 
-// tu-skeleton: 0x006C0D70 39B ??1TaintManagerImpl@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
 
-// tu-skeleton: 0x006C0DA0 76B ?rva006C0DA0@TaintManagerImpl@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva006C0DA0.cpp (not merged yet)
 
-// tu-skeleton: 0x006C1500 123B ?SetExtents@TaintManagerImpl@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva14AA50VirtualDispatch.cpp
 
@@ -676,6 +745,38 @@ void Rva006C1650(Rva006C1650Interface *object, int first, int second)
 {
     object->dispatch(first, second);
 }
+
+// tu-skeleton: 0x006C0810 8B ?rva006C0810@Rva006C0810@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/Common/Rva006C0810.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/PointerFieldForwarders.cpp
+
+int Rva006C0830Owner::rva006C0830() const { return m_target->get(); }
+
+// tu-skeleton: 0x006C0840 8B ?rva006C0840@BfmeTaintManager@@QAEEHH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0850 8B ?rva006C0850@BfmeTaintManager@@QAEHPBUBfmePointFC@@PAH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C08F0 143B ??0BfmeTaintManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0980 8B ??_EBfmeTaintManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0990 6B ?name@Rva006C0990Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters5.cpp (not merged yet)
+
+// tu-skeleton: 0x006C09A0 115B ??1BfmeTaintManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0A20 46B ?bfmeDescribe@Gen_006C0A20@@QAEXPAVBfmeFlagTarget@@@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0A50 82B ?bfmeResetGrid@BfmeTaintManager@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0AB0 170B ?bfmeApplyCircleWorld@BfmeTaintManager@@QAEXPBUBfmePointFC@@MH_NH@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0B60 30B ??_GBfmeTaintManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/Rva006C08F0Siblings.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0D70 39B ??1TaintManagerImpl@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
+
+// tu-skeleton: 0x006C0DA0 76B ?rva006C0DA0@TaintManagerImpl@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva006C0DA0.cpp (not merged yet)
+
+// tu-skeleton: 0x006C1500 123B ?SetExtents@TaintManagerImpl@@QAEXPBURegion3D@@M@Z -- matched in Code/GameEngine/Source/Common/Bfme5SeventySix.cpp (not merged yet)
 
 // tu-skeleton: 0x006C1670 5B ?rva006C1670@Rva000B3779SlotSelf@@QAEXXZ -- matched in Code/GameEngine/Source/Common/FieldVirtualForwarders.cpp (not merged yet)
 
