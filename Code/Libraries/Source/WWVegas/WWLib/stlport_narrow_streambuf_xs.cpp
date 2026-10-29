@@ -1,4 +1,5 @@
 // cl: /MD
+// stlport46
 
 // Open-BFME5: _STL::basic_streambuf<char> xsgetn @ 0x00840050 (166B)
 // and xsputn @ 0x00840150 (172B). FILE*-specialized streambuf.
