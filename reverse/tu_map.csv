@@ -28962,7 +28962,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x003956C3,37,code,Code/GameEngine/Source/Common/CastleBehavior.cpp,proposed,N,N=Code/GameEngine/Source/Common/CastleBehavior.cpp W=Code/GameEngine/Source/GameLogic/System/CastleSystem.cpp,Code/GameEngine/Source/Common/CastleBehavior_GetArmyIDFromClosestObject.cpp
 0x003956E8,32,code,,,-,,Code/GameEngine/Source/Common/Rva003956E8Update.cpp
 0x00395708,81,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorFind.cpp
-0x00395759,103,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorDtor.cpp
+0x00395759,103,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x003957C0,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,U,N=Code/GameEngine/Source/Common/CastleMemberBehavior.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp
 0x003957C6,148,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorCtor.cpp
 0x0039585A,156,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,C,W=Code/GameEngine/Source/GameLogic/System/CastleSystem.cpp C=0x003957C6..0x003958F6,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp
@@ -28982,9 +28982,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00395AD2,32,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,C,C=0x003959B5..0x00395AF2,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp
 0x00395AF2,17,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp
 0x00395B03,41,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataCtor.cpp
-0x00395B2C,58,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp
+0x00395B2C,58,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x00395B66,73,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorCtor.cpp
-0x00395BAF,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorDtor.cpp
+0x00395BAF,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x00395BCB,181,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorAudioFlags.cpp
 0x00395C80,107,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp
 0x00395CEB,45,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,proposed,K,K=Rva00395CEB,Code/GameEngine/Source/Common/Rva00395CEB.cpp
@@ -28998,7 +28998,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00395EB8,83,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDetachOwnedObject.cpp
 0x00395F0B,76,code,,,-,,Code/GameEngine/Source/Common/Rva00395F0B.cpp
 0x00395F57,176,code,,,-,,Code/GameEngine/Source/Common/Rva00395F57CanUnpack.cpp
-0x00396007,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp
+0x00396007,28,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x00396023,154,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396023Search.cpp
 0x003960BD,97,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva003960BDSearch.cpp
 0x0039611E,41,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,proposed,K,K=Rva00395CEB,Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp
@@ -75451,13 +75451,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00780D3E,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,approved,P,P=0x00395708@FuncInfo0x0092B93C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorFind.cpp
 0x00780D4B,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,approved,P,P=0x00395708@FuncInfo0x0092B93C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorFind.cpp
 0x00780D55,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395759@FuncInfo0x0092B960 p-group provisional,Code/gen_small/uw_gen_012.cpp
-0x00780D5D,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395759@FuncInfo0x0092B960 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorDtor.cpp
+0x00780D5D,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395759@FuncInfo0x0092B960 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x00780D67,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x0039585A@FuncInfo0x0092B984 p-group provisional,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp
 0x00780D6F,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x0039585A@FuncInfo0x0092B984 p-group provisional,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp
 0x00780D79,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x003959B5@FuncInfo0x0092B9A8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorPoolKey.cpp
 0x00780D86,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x003959B5@FuncInfo0x0092B9A8 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorPoolKey.cpp
-0x00780D90,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395B2C@FuncInfo0x0092B9CC p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp
-0x00780D98,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395B2C@FuncInfo0x0092B9CC p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorModuleDataDtor.cpp
+0x00780D90,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395B2C@FuncInfo0x0092B9CC p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
+0x00780D98,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp,approved,P,P=0x00395B2C@FuncInfo0x0092B9CC p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp
 0x00780DA2,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorAudioFlags.cpp
 0x00780DAD,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorAudioFlags.cpp
 0x00780DB7,13,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00395C80Check.cpp

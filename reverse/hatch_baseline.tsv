@@ -3007,7 +3007,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDto
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?f2@Rva0024A797_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?f30@CastleBehavior_30@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorDtor.cpp	?fe@Rva00455050_E1@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorDtor.cpp	?f2@CastleB2@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehavior.cpp	?f2@CastleB2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@ClickReactionBehaviorIface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@PB_Iface1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehaviorCtorThunk.cpp	?slot@PB_Iface2@@UAEXXZ	1
