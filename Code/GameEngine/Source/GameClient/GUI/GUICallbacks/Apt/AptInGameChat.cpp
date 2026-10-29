@@ -202,9 +202,12 @@ private:
 
 // TheGameLogic (0x00DFE78C): the game mode at +0x110 (3 is a replay) and a
 // pointer at +0x120 that blocks the chat while set.
-class GameLogic
+#include "../../../../Common/GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	unsigned char m_pad000[0x110];
 	int m_gameMode; // +0x110
 	unsigned char m_pad114[0x120 - 0x114];
@@ -486,13 +489,13 @@ AptInGameChat::AptInGameChat(void *context)
 // pushes the same "InGameChat.apt" and receiver labels.
 void AptInGameChat::OpenScreen(int chatType)
 {
-	if (TheGameLogic->m_gameMode == 3)
+	if (((GameLogicFieldView *)TheGameLogic)->m_gameMode == 3)
 		return;
 	if (TheInGameUI->isQuitMenuVisible())
 		return;
 	if ((*(int *)&TheDisconnectMenu) != 0)
 		return;
-	if (TheGameLogic != 0 && TheGameLogic->m_120 != 0)
+	if (TheGameLogic != 0 && ((GameLogicFieldView *)TheGameLogic)->m_120 != 0)
 		return;
 	if (chatType != 3)
 	{
