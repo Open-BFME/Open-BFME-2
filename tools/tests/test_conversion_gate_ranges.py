@@ -399,6 +399,16 @@ def test_the_staged_index_and_its_tree_are_refused_alike(repo, monkeypatch):
     assert gate.added_lift_lines("HEAD", tree) == gate.added_lift_lines("HEAD", ":")
 
 
+def test_a_lift_is_refused_whatever_the_worktree_attributes(repo):
+    # passing results are reused by tree: nothing outside the two trees may hide added lines
+    git, write, commit, base = repo
+    write(".gitattributes", "Code/*.cpp -diff\n")          # untracked: not in either tree
+    write("Code/Lift.cpp", "void lift() { __asm { __emit 0x90 } }\n")
+    git("add", "Code/Lift.cpp")
+    assert gate.added_lift_lines("HEAD", ":")
+    assert gate.added_lift_lines(base, commit())
+
+
 def test_a_refusal_is_never_kept(repo, monkeypatch):
     git, write, commit, base = repo
     wave(write)

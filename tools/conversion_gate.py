@@ -44,6 +44,11 @@ from progress import CPP_SUFFIXES, naked_cpp_rows, source_kind
 
 LIFT_RE = re.compile(r"\b__?emit\b")
 LEDGER = "reverse/functions.csv"
+# The diff the rules parse is a function of the two trees only: a working-tree
+# .gitattributes (-diff, a textconv driver) or a user's diff settings (noprefix,
+# color, renames) must not hide added lines, since passing results are reused by tree.
+DIFF_OPTS = ("--text", "--no-ext-diff", "--no-textconv", "--no-color",
+             "--src-prefix=a/", "--dst-prefix=b/")
 
 
 def run(*argv):
@@ -55,7 +60,7 @@ def run(*argv):
 
 
 def added_lift_lines(old, new):
-    diff_cmd = ["git", "diff", "--unified=0"]
+    diff_cmd = ["git", "diff", "--unified=0", "-M", *DIFF_OPTS]
     diff_cmd += ["--cached", old] if new == ":" else [old, new]
     # Authored code only. A ledger row may name a file in the vendored
     # reference/ tree, and those rows sit outside this scan on purpose: nobody
@@ -85,9 +90,9 @@ GEN_ASM_LINE_RE = re.compile(
 
 def diff_lines(old, new, *paths):
     if old is None:
-        return run("git", "diff-tree", "--root", "-p", "--unified=0", new,
+        return run("git", "diff-tree", "--root", "-p", "--unified=0", *DIFF_OPTS, new,
                    "--", *paths).splitlines()
-    cmd = ["git", "diff", "--unified=0"]
+    cmd = ["git", "diff", "--unified=0", "-M", *DIFF_OPTS]
     cmd += ["--cached", old] if new == ":" else [old, new]
     return run(*cmd, "--", *paths).splitlines()
 
