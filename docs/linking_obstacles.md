@@ -623,6 +623,20 @@ Rva0033DDA1Dtor.cpp, LivingWorldLogicDtorRva002B964F.cpp: 3,368 B); and
 Rva005E3AE1Dtor.cpp (22 B) only because its retail `??_GRva005E3AE1` provider is now the merged
 SBServer.cpp, which the census index lacks (its object holds retail digest 9b3295d907e3 and
 sorts first, 0x005E3AE1 < 0x005F4AA3). No other loss is open.
+`??_7ThingTemplate` header step (halilkkaya-cls2, 2026-10-29, `79031854ef`):
+`Code/GameEngine/Include/Common/ThingTemplate.h` now spells the native 0x640-byte layout
+with the one-slot vftable (base `Common/Overridable.h`: only a virtual destructor, no pool
+glue); five units adopt it, rows exact, `link_check` unchanged. Not registered yet in
+`reverse/canonical_classes.csv`. ThingTemplate.cpp still compiles the Zero Hour shim class
+(`reference/shims/bfme_moduleinfo_decl/Common/ThingTemplate.h`, two slots) and stays the
+two-slot provider. `reverse/tu_map.csv` approves the constructor 0x0033E1B8 (Z), the
+destructor 0x0033DDA1 (Z) and `??_G` 0x0033E90B (N) for ThingTemplate.cpp, so retail's TU
+held the real destructor. Remaining: ThingTemplate.cpp adopts Common/ThingTemplate.h (its
+ModuleInfo, ArmorTemplateSet/WeaponTemplateSet and SparseMatchFinder rows need those
+member types declared beside it, replacing the opaque members) and absorbs
+Rva0033DDA1Dtor.cpp and ThingTemplateConstructor.cpp; the retail destructor then
+instantiates the three rows in place of the Zero Hour copy and the unit emits the one-slot
+vftable.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
