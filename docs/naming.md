@@ -453,10 +453,12 @@ the `zh_sweep`/`bfme1_sweep` caches that already exist.
     python3 tools/name_lane.py dispute KEY... --reason TEXT
     python3 tools/name_lane.py status [--metric] [--only-labels L,L]
 
-Parameter and local renames within one file share a transaction and verification;
-each proposal still passes its normal agreement and scope checks. On failure the
-whole batch is restored, then names are retried individually. Use `apply --no-batch`
-to retain per-name verification, or repeat `--key KEY` to select exact agreements.
+Member renames for one owner source, and parameter/local renames within one file,
+share a transaction and verification; each proposal still passes its normal
+agreement and scope checks. The batch verifies the union of affected sources
+once. On failure the whole batch is restored, then names are retried individually.
+Use `apply --no-batch` to retain per-name verification, or repeat `--key KEY` to
+select exact agreements.
 
 `next` serves one matched, non-generated source with the placeholders that
 this file alone decides. That covers the functions it owns rows for, the classes only it defines and their

@@ -5145,6 +5145,91 @@ def run_scoped_batch(ctx, requests, *, claim=True, verify=build_verify, checks=l
             signal.signal(signal.SIGTERM, previous)
 
 
+def run_member_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks):
+    """Compose approved same-source member plans and verify their union once.
+
+    Each request still passes through plan_member against the previous plans'
+    in-memory result. The combined journal restores all edits if verification
+    or a ledger check fails.
+    """
+    from portable_lock import lock, unlock
+
+    if len(requests) < 2:
+        raise Refusal("a member batch needs at least two renames")
+    sources = {request.get("source") for request in requests}
+    if len(sources) != 1 or None in sources:
+        raise Refusal("member batches must be for one owner source")
+    source = next(iter(sources))
+    max_files = min(request.get("max_files", 25) for request in requests)
+
+    class View(Context):
+        def read(self, rel):
+            return combined.after[rel] if rel in combined.after else ctx.read(rel)
+
+    refuse_pending_journal(ctx)
+    combined = Plan("member-batch", f"{len(requests)} approved members", f"{len(requests)} names",
+                    "inferred", "approved member batch", source, None)
+    view = View(ctx.root, object_scan=ctx.object_scan, sweep_dirs=ctx.sweep_dirs)
+    plans = []
+    previous = None
+    if threading.current_thread() is threading.main_thread():
+        previous = signal.signal(signal.SIGTERM, _on_sigterm)
+    try:
+        with ctx.path(LOCK).open("a") as handle:
+            lock(handle, exclusive=True, wait_notice="rename: waiting for the ledger lock...")
+            try:
+                for request in requests:
+                    kwargs = dict(request)
+                    expected_source = kwargs.pop("source")
+                    plan = plan_rename("member", ctx=view, **kwargs)
+                    if expected_source not in plan.source_counts:
+                        raise Refusal(f"{plan.old} is not declared in its approved owner source {expected_source}")
+                    for rel, before in plan.before.items():
+                        combined.before.setdefault(rel, before)
+                    combined.after.update(plan.after)
+                    for rel, counts in plan.source_counts.items():
+                        target = combined.source_counts.setdefault(rel, {})
+                        for name, count in counts.items():
+                            target[name] = target.get(name, 0) + count
+                    combined.claims.extend(claim_keys(plan))
+                    combined.verify = sorted(set(combined.verify) | set(plan.verify))
+                    combined.mentions = sorted(set(combined.mentions) | set(plan.mentions))
+                    combined.warnings.extend(plan.warnings)
+                    plans.append(plan)
+                    view._cache.clear()
+
+                changed_sources = {rel for rel in combined.after
+                                   if rel.startswith(("Code/", "reference/shims/"))}
+                if len(changed_sources) > max_files:
+                    raise Refusal(f"member batch touches {len(changed_sources)} sources "
+                                  f"(over --max-files {max_files})")
+                if len(combined.verify) > max_files:
+                    raise Refusal(f"member batch verifies {len(combined.verify)} sources "
+                                  f"(over --max-files {max_files})")
+                combined.claims = claim_keys(combined)
+                for plan in plans:
+                    print(plan.report())
+                print(f"rename: batch of {len(plans)} member names; one verification.", flush=True)
+                claimed = take_claims(combined.claims, claim, ctx.root)
+                try:
+                    apply_rename(combined, ctx=ctx, verify=verify, checks=checks, claimed=claimed)
+                except BaseException:
+                    claimed.release(ctx.root)
+                    raise
+                if claimed.new:
+                    print("rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release "
+                          + " ".join(map(claim_label, claimed.new)))
+                print(f"rename: batch verified OK ({len(plans)} names, {len(combined.verify)} source(s)).")
+                return plans
+            finally:
+                ctx._cache.clear()
+                view._cache.clear()
+                unlock(handle)
+    finally:
+        if previous is not None:
+            signal.signal(signal.SIGTERM, previous)
+
+
 def run(kind, ctx, *, dry_run=False, claim=True, keep_claims=None, verify=build_verify, checks=ledger_checks,
         **kwargs):
     """Plan under the ledger lock, then (unless dry-run) claim, apply and

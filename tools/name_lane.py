@@ -64,9 +64,11 @@ puts landed names back through rename.py's own reversal entry point
 append-only as basis `restored`), records the reason, and refuses that
 spelling for the key from then on.
 
-Eligible parameter/local renames in the same file share one transaction,
-claim operation, build and set of ledger checks. A failed batch is restored
-and retried individually. `apply --no-batch` retains per-name verification.
+Eligible member renames in the same owner source and parameter/local renames
+in the same file share one transaction, claim operation, build and set of
+ledger checks. Each member still passes its own planner and agreement check.
+A failed batch is restored and retried individually. `apply --no-batch`
+retains per-name verification.
 
 `apply` lands every waiting key whose votes win, including agreements that
 only other contributors' voters reached. `apply --only-labels seat-a,seat-b`
@@ -1160,13 +1162,35 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             and lane.servable(rel) else set()
         ordered = sorted(rows, key=lambda r: LAND_ORDER[r["kind"]])
         scoped = [r for r in ordered if r["kind"] in ("param", "local") and r["key"] in live]
+        members = [r for r in ordered if r["kind"] == "member" and r["key"] in live]
         batched = set()
         batch_attempted = getattr(args, "no_batch", False)
+        member_batch_attempted = getattr(args, "no_batch", False)
         for row in ordered:
             key = row["key"]
             if key in batched:
                 continue
             _, kind, scope, ident = split_key(key)
+            if not member_batch_attempted and kind == "member" and len(members) > 1:
+                member_batch_attempted = True
+                requests = []
+                for candidate in members:
+                    _, _kind, candidate_scope, old = split_key(candidate["key"])
+                    requests.append(dict(source=rel, cls=candidate_scope, member=old, new=candidate["new"],
+                                         basis="inferred", evidence=f"agree:{candidate['id']}",
+                                         max_files=max_files))
+                try:
+                    rename.run_member_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks)
+                except (rename.Refusal, rename.VerifyFailed) as exc:
+                    print(f"name_lane: member batch refused ({exc}); retrying individually.", flush=True)
+                else:
+                    for candidate in members:
+                        lane.append(AGREED, AGREED_COLUMNS, [dict(
+                            candidate, status="landed", detail=approval_detail(tally, refused, candidate))])
+                        batched.add(candidate["key"])
+                    landed += len(members)
+                    if key in batched:
+                        continue
             if not batch_attempted and kind in ("param", "local") and len(scoped) > 1:
                 batch_attempted = True
                 requests = []
@@ -1346,7 +1370,8 @@ def main(argv=None, lane=None):
     a.add_argument("--retry-blocked", action="store_true", help="try blocked names again, e.g. after a fix")
     a.add_argument("--key", action="append", help="apply only this exact source|kind|scope|placeholder key (repeatable)")
     a.add_argument("--max-files", type=int, default=25, help="maximum affected sources; every selected source is still verified")
-    a.add_argument("--no-batch", action="store_true", help="verify each parameter/local rename separately")
+    a.add_argument("--no-batch", action="store_true",
+                   help="verify each member, parameter and local rename separately")
     a.add_argument("--lead", type=int, default=2)
     a.add_argument("--min-models", type=int, default=1)
     a.add_argument("--only-labels", metavar="L,L",
