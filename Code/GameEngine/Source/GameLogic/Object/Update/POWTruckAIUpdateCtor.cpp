@@ -7,7 +7,7 @@
 // retail 0x004CE006 (47B). Same opaque-base pattern as MissileLauncherBuildingUpdate:
 // unidentified 0x88-byte UpdateModule-derived intermediate base 0x0044EF5E
 // (pinned opaque as Rva0044EF5E); the derived body re-stores the inherited
-// +0x0C/+0x10/+0x20 pointer slots (address-of TU-local dummies,
+// +0x0C/+0x10/+0x20 pointer slots (address-of dummies,
 // DIR32-patched). No trailing members (factory size 0x88). Do NOT declare an
 // explicit vptr member on the base: the compiler's hidden vptr already sits
 // at +0 and a declared one shifts every slot by 4.
@@ -16,7 +16,10 @@ class ModuleData;
 
 static int s_dummy0C;
 static int s_dummy10;
-static int s_dummyFD98;
+
+// The data ledger assigns the +0x20 table symbol (0x0085FD98) to
+// ModuleUpdateDtors; share that definition rather than allocating a second datum.
+extern "C" int s_dummyFD98;
 
 // Opaque 0x88-byte UpdateModule-derived intermediate; ctor resolves to the
 // opaque pin at 0x0044EF5E. Protected slots mirror the retail stores.
