@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // STLport 4.5.3 vector<T>::_M_insert_overflow growth paths for BFME2 string
 // records, dedicated TU. The record layouts and the StringBase model are
