@@ -84,14 +84,14 @@ extern "C" POSTPROC_INSTANCE *__cdecl CreatePostProcInstance(void *config)
 // RVA 0x001B6930
 extern "C" void __cdecl UpdateFragQIndex(POSTPROC_INSTANCE *ppi)
 {
-	POSTPROC_VERSIONED *p = (POSTPROC_VERSIONED *)ppi;
+	POSTPROC_VERSIONED *postProcessor = (POSTPROC_VERSIONED *)ppi;
 	unsigned int i = 0;
-	int q = p->frameQIndex;
-	while (i < p->unitFragments)
+	int q = postProcessor->frameQIndex;
+	while (i < postProcessor->unitFragments)
 	{
-		unsigned char info = p->fragmentInfo[p->fragmentInfoSize * i];
-		if ((p->codedMask & info) != 0)
-			p->fragmentQIndex[i] = q;
+		unsigned char info = postProcessor->fragmentInfo[postProcessor->fragmentInfoSize * i];
+		if ((postProcessor->codedMask & info) != 0)
+			postProcessor->fragmentQIndex[i] = q;
 		++i;
 	}
 }
@@ -99,26 +99,26 @@ extern "C" void __cdecl UpdateFragQIndex(POSTPROC_INSTANCE *ppi)
 // RVA 0x001BFF20
 extern "C" void __cdecl SetupLoopFilter(POSTPROC_INSTANCE *ppi)
 {
-	POSTPROC_VERSIONED *p = (POSTPROC_VERSIONED *)ppi;
-	int limit = g_bfmeFilterLimit[p->frameQIndex];
-	if (p->version >= 2)
-		p->boundingValues = SetupBoundingValueArray_Generic((Rva009AF490Context *)p, limit);
+	POSTPROC_VERSIONED *loopFilterState = (POSTPROC_VERSIONED *)ppi;
+	int limit = g_bfmeFilterLimit[loopFilterState->frameQIndex];
+	if (loopFilterState->version >= 2)
+		loopFilterState->boundingValues = SetupBoundingValueArray_Generic((Rva009AF490Context *)loopFilterState, limit);
 	else
-		p->boundingValues = g_slotSetupBoundingValues((Rva009AF530Context *)p, limit);
+		loopFilterState->boundingValues = g_slotSetupBoundingValues((Rva009AF530Context *)loopFilterState, limit);
 }
 
 // RVA 0x001BD630
 extern "C" void __cdecl SetupDeblocker(POSTPROC_INSTANCE *ppi)
 {
-	POSTPROC_VERSIONED *p = (POSTPROC_VERSIONED *)ppi;
-	if (p->version >= 2)
+	POSTPROC_VERSIONED *deblockerState = (POSTPROC_VERSIONED *)ppi;
+	if (deblockerState->version >= 2)
 	{
-		int limit = g_bfmeDeblockLimit[p->frameQIndex];
-		p->deblockValues = SetupDeblockValueArray_Generic((Rva009ACBA0Context *)p, limit);
+		int limit = g_bfmeDeblockLimit[deblockerState->frameQIndex];
+		deblockerState->deblockValues = SetupDeblockValueArray_Generic((Rva009ACBA0Context *)deblockerState, limit);
 	}
 	else
 	{
-		int limit = g_bfmeDeblockLimit[p->frameQIndex];
-		p->deblockValues = (int *)g_slotSetupDeblockValues((Rva009ACC40State *)p, limit);
+		int limit = g_bfmeDeblockLimit[deblockerState->frameQIndex];
+		deblockerState->deblockValues = (int *)g_slotSetupDeblockValues((Rva009ACC40State *)deblockerState, limit);
 	}
 }

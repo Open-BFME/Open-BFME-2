@@ -68,7 +68,7 @@ namespace _STL {
  template<class T>struct _Nonconst_traits;
  template<class T,class Traits>struct _List_iterator {
   _List_iterator(ListNode*listNode):_M_node(listNode){}
-  _List_iterator(const _List_iterator&r):_M_node(r._M_node){}
+  _List_iterator(const _List_iterator&other):_M_node(other._M_node){}
   ListNode *_M_node;
  };
  template<class T,class A=allocator<T> >class list {

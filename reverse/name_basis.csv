@@ -4033,3 +4033,16 @@ carry,Rva0009C134Host::rva0009B510::cosPitch,Rva0009C134Host::buildCameraTransfo
 param,WordSlotPair::v,WordSlotPair::wordValue,inferred,agree:nl-3f9dab4f4934,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,
 param,FloatSlotPair::v,FloatSlotPair::floatValue,inferred,agree:nl-0c3ce1a98c8a,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,
 param,BoolSlotPair::v,BoolSlotPair::boolValue,inferred,agree:nl-e49d5b0f95aa,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,
+param,Rva005321D1::rva005321D1::a,Rva005321D1::rva005321D1::firstRoot,inferred,agree:nl-27869284eb21,Code/GameEngine/Source/Common/Rva005321D1Union.cpp,0x005321D1
+param,Rva005321D1::rva005321D1::b,Rva005321D1::rva005321D1::secondRoot,inferred,agree:nl-df1e25f3ee7e,Code/GameEngine/Source/Common/Rva005321D1Union.cpp,0x005321D1
+local,Rva005321D1::rva005321D1::t,Rva005321D1::rva005321D1::savedRoot,inferred,agree:nl-05428aa06d44,Code/GameEngine/Source/Common/Rva005321D1Union.cpp,0x005321D1
+local,Rva005321D1::rva005321D1::t2,Rva005321D1::rva005321D1::remappedIndex,inferred,agree:nl-6057c1d25562,Code/GameEngine/Source/Common/Rva005321D1Union.cpp,0x005321D1
+local,GetStr::t,GetStr::stringData,inferred,agree:nl-4886da11eb6d,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDCommandUIImpl.cpp,
+local,StrategicHUD::CommandUIImpl::DoFlashButton::t,StrategicHUD::CommandUIImpl::DoFlashButton::currentTime,inferred,agree:nl-27fe3e2aa88b,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDCommandUIImpl.cpp,0x005D2B2F
+local,StrategicHUD::CommandUIImpl::DoFlashButton::f,StrategicHUD::CommandUIImpl::DoFlashButton::roundedDurationMilliseconds,inferred,agree:nl-d3f86f4313cf,Code/GameEngine/Source/GameClient/GUI/InGame/Strategic/StrategicHUDCommandUIImpl.cpp,0x005D2B2F
+member,Rva000B7F04::m_44,Rva000B7F04::m_renderObject,inferred,agree:nl-d304d81aab03,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBoneTransformQuery.cpp,
+local,Rva000B7F04::rva000B7F04::t,Rva000B7F04::rva000B7F04::boneIndex,inferred,agree:nl-8414698c2bef,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBoneTransformQuery.cpp,0x000B7F04
+param,_List_iterator#2::r,_List_iterator#2::other,inferred,agree:nl-d4c10a4af320,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawEventUpdate.cpp,
+local,UpdateFragQIndex::p,UpdateFragQIndex::postProcessor,inferred,agree:nl-00aa66ec2dc4,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001B6930
+local,SetupLoopFilter::p,SetupLoopFilter::loopFilterState,inferred,agree:nl-2e1cc4712425,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001BFF20
+local,SetupDeblocker::p,SetupDeblocker::deblockerState,inferred,agree:nl-9f2064bb9dd3,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001BD630

@@ -44,8 +44,8 @@ public:
 
 static __forceinline const char *GetStr(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char **)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 inline __declspec(noinline) int __cdecl Rva00525338Fire(void *a1, void *a2, const char *a3, const char *a4, int *a5, void *a6)
@@ -292,14 +292,14 @@ void StrategicHUD::CommandUIImpl::DoFlashButton(int slot, float duration)
 {
 	ButtonSlot *btn = &m_slots[slot];
 	int old = btn->timeout;
-	unsigned long t = timeGetTime();
+	unsigned long currentTime = timeGetTime();
 	float s = duration * 1000.0f;
-	btn->startTime = t;
+	btn->startTime = currentTime;
 	s = s + 0.5f;
-	float f = floorf(s);
+	float roundedDurationMilliseconds = floorf(s);
 	int ni;
 	__asm {
-		fld [f]
+		fld [roundedDurationMilliseconds]
 		fistp [ni]
 	}
 	btn->timeout = ni;

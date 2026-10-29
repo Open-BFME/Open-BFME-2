@@ -74,14 +74,14 @@ public:
 
 private:
 	char m_pad00[0x44];
-	Rva000B7F04Src *m_44;
+	Rva000B7F04Src *m_renderObject;
 };
 
 // ?rva000B7F04@Rva000B7F04@@QAE_NPBVAsciiString@@PAVMatrix3D@@@Z
 bool Rva000B7F04::rva000B7F04(const AsciiString *in, Matrix3D *out)
 {
-    if (!m_44) return false;
-    int t=m_44->vslot050(in->str());
-    if (t == 0) { out->Make_Identity(); return false; }
-    else { *out=m_44->vslot051(t); return true; }
+    if (!m_renderObject) return false;
+    int boneIndex=m_renderObject->vslot050(in->str());
+    if (boneIndex == 0) { out->Make_Identity(); return false; }
+    else { *out=m_renderObject->vslot051(boneIndex); return true; }
 }
