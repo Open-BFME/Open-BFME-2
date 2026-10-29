@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /arch:SSE2 /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // BFME1 ba7ddda7 ControlBar_updateSpecialPowerShortcut.cpp guides behavior.
 // Native 0x0031B210..0x0031B4A8 establishes BFME2 layout, state cases,
 // disallowed flag calls, five-button array and SSE percentage conversion.
@@ -65,6 +66,7 @@ enum CommandAvailability
 	COMMAND_DONE = 8
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

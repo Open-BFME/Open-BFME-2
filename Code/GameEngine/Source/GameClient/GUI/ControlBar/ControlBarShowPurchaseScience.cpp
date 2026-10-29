@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ControlBar::showPurchaseScience, retail 0x0031AD5A (53 bytes):
 // ?showPurchaseScience@ControlBar@@QAEXXZ
 // Identity (target): WorldBuilder's debug ControlBar.cpp
@@ -43,6 +44,7 @@ extern ScriptEngine *TheScriptEngine;
 
 void finishShowPurchaseScience();
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

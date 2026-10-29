@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?postProcessCommands@ControlBar@@QAEXXZ @0x0031AC39 22B: walk the command
 // button list (+0x2C) calling the rowed image resolve 0x0035B77D on each
 // button via its +0x18 next. Identity: ControlBar::init calls it right after
@@ -17,6 +18,7 @@ private:
 	CommandButton *m_next;	// +0x18
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

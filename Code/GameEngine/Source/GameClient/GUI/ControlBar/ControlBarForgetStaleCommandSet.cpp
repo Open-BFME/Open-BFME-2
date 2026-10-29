@@ -43,6 +43,7 @@ struct StaleCommandSetView { char opaque00[0x0C]; int stale; };
 struct CommandSetNodeView { void *next; AsciiString key; StaleCommandSetView *value; };
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface { public: void forgetStaleCommandSet(const AsciiString &); };
 void ControlBar::forgetStaleCommandSet(const AsciiString &name)
 {

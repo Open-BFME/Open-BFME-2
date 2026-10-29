@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0031AE13@ControlBar@@QAEXXZ @ 0x0031AE13 128B: ControlBar button-large
 // image refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonLarge")) then
@@ -102,6 +103,7 @@ void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image
 void GadgetButtonSetHiliteImage_Rva002C04DB(GameWindow *win, const Image *image);
 void GadgetButtonSetHiliteImage123_Rva002C0505(GameWindow *win, const Image *image);
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

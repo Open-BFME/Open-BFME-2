@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 //
 // ?setLowControlBarConfig@ControlBar@@IAEXXZ retail 0x0031B134, 136 bytes.
 // Zero Hour ControlBar::setLowControlBarConfig over the BFME 2 offsets:
@@ -66,6 +67,7 @@ enum ControlBarStages
 	CONTROL_BAR_STAGE_HIDDEN
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

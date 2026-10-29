@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0031AD48@ControlBar@@QAEX_N@Z @ 0x0031AD48 18B: ControlBar window hide
 // via +0xA4 with tail-jmp to rowed winHide. Evidence: gap between 0x0031AD14
 // and 0x0031AE13 plus caller 0x00248278 plus rowed winHide 0x00313C64.
@@ -10,6 +11,7 @@ public:
 	int winHide(bool hide);
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

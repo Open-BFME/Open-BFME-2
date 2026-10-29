@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // Native 0x0031E8D5..0x0031E92D and WB 0x00C2DA30: allocate a 0x9C-byte
 // command set, construct from name and mode, put it in the +0x30 name map.
 // BFME1 ba7ddda7 CommandSetLifetime.cpp guides the creation algorithm.
@@ -26,6 +27,7 @@ private:
 class Rva000427195 { public: void **rva0031DB83(const AsciiString &); };
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface { public: CommandSet *rva0031E8D5(const AsciiString &,int); };
 CommandSet *ControlBar::rva0031E8D5(const AsciiString &name,int mode)
 {

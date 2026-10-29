@@ -92,16 +92,7 @@ inline UnsignedInt GameMakeColor(int r, int g, int b, int a) { return (a << 24) 
 
 class GameWindow;
 
-// Mapped type of m_0030: hash_map<int, T>() is rowed at 0x0031E92D and calls the
-// hashtable constructor rowed for Rva0031DBFCElement (0x0031DBFC).
-struct Rva0031DBFCElement
-{
-	Rva0031DBFCElement();
-	Rva0031DBFCElement(const Rva0031DBFCElement &);
-	Rva0031DBFCElement &operator=(const Rva0031DBFCElement &);
-	~Rva0031DBFCElement() {}
-	char m_data[8];
-};
+#include "ControlBarMemberTypes.h"  // the +0x30 map and the +0x2A4 holder
 
 // The hash-map provider owns these helpers; its element view has eight bytes.
 namespace _STL {
@@ -151,15 +142,6 @@ public:
 	virtual void v01();
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-private:
-	void *m_ptr; // +0x00
-};
 class ControlBar : public SubsystemInterface
 {
 public:

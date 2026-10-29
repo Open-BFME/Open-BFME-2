@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /Ireference/shims/subsystem_bfme2
+// stlport
 // ?setControlCommand@ControlBar@@QAEXABVAsciiString@@PAVGameWindow@@PBVCommandButton@@@Z
 // @0x0031BA47 57B: Zero Hour's ControlBar::setControlCommand by window name
 // (ControlBar.cpp): looks the button up under the parent through
@@ -36,6 +37,7 @@ extern GameWindowManager *TheWindowManager;
 
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

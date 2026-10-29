@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // Clean BFME1 ba7ddda7 ControlBarUpdateVirtual.cpp supplies the workflow.
 // Named WB 0x00C2B8A0 and full native 0x0031E25E..0x0031E4BA supply
 // the BFME2 offsets, 32-button loops, radar cleanup and actual call routes.
@@ -39,15 +40,7 @@ public:
 };
 class Rva0031FA8E { public: void rva0031FA8E(); };
 class Rva002D36D8 { public: int rva002D36D8(); };
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-private:
-	void *m_ptr; // +0x00
-};
+#include "ControlBarMemberTypes.h"
 class Rva000B3FD0Nop { public: void noop(); };
 class BfmeMemberRV;
 class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };

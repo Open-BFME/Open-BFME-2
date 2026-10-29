@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?setCommandBarBorder@ControlBar@@QAEXPAVGameWindow@@W4CommandButtonMappedBorderType@@@Z
 // @0x0031ABD9 96B: Zero Hour's ControlBar::setCommandBarBorder
 // (ControlBar.cpp). The border colors sit at +0x218 (build), +0x21C (action),
@@ -35,6 +36,7 @@ enum CommandButtonMappedBorderType
 	COMMAND_BUTTON_BORDER_BFME5
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ControlBar::hideSpecialPowerShortcut ported from BFME1 donor
 // reference/open-bfme-1/Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarFields.cpp
 // (// cl: /DNDEBUG /DWIN32 /MD /EHsc, stlport).
@@ -20,6 +21,7 @@ public:
 
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

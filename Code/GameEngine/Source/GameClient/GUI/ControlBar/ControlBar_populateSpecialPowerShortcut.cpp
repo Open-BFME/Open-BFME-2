@@ -141,6 +141,7 @@ public:
 	void rva0035B7D9(Rva0035B7D9 *source, bool notify);
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 	unsigned char m_pad0C[0x2C - 0x0C];

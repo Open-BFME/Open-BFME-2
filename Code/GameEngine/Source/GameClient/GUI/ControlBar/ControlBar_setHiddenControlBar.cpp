@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?setHiddenControlBar@ControlBar@@IAEXXZ @ 0x0031AE01 18B: ControlBar set +0x24 to 3
 // then +0x48 window winHide(true). Evidence: gap between 0x0031AD48 and
 // 0x0031AE13 sharing +0x24 layout plus caller 0x0031B99A plus rowed winHide.
@@ -10,6 +11,7 @@ public:
 	int winHide(bool hide);
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 protected:

@@ -36,15 +36,7 @@ public:
 	int winEnable(bool enable);
 };
 
-class Rva000AD6F4
-{
-public:
-	Rva000AD6F4() : m_ptr(0) {}
-	~Rva000AD6F4();
-	void clear();
-private:
-	void *m_ptr; // +0x00
-};
+#include "ControlBarMemberTypes.h"
 
 class RadarWindowOverrideSource
 {
@@ -113,14 +105,6 @@ public:
 // constructor 0x0031E92D); begin and erase above are folded bodies reached
 // through the Rva000427195 view.
 #include <hash_map>
-struct Rva0031DBFCElement
-{
-	Rva0031DBFCElement();
-	Rva0031DBFCElement(const Rva0031DBFCElement &);
-	Rva0031DBFCElement &operator=(const Rva0031DBFCElement &);
-	~Rva0031DBFCElement() {}
-	char m_data[8];
-};
 
 void Rva00328518(GameWindow *w, int x);
 

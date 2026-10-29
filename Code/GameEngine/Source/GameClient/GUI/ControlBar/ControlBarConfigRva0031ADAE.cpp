@@ -62,6 +62,7 @@ extern Display *TheDisplay;
 extern View *TheTacticalView;
 extern PlayerList *ThePlayerList;
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

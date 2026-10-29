@@ -1,10 +1,12 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0031AEAE@ControlBar@@QAEXPAH0@Z @ 0x0031AEAE 27B: ControlBar copy
 // +0x288/+0x28C to out params. Evidence: gap between 0x0031AE13 and
 // 0x0031AEC9 plus caller 0x0009FA82 plus ret 8 two-pointer shape.
 typedef bool Bool;
 #include "subsystem_interface.h"
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // Clean BFME1 ControlBar.cpp showSpecialPowerShortcut at ba7ddda7 supplies
 // the workflow. Native 0x0031DAF8..0x0031DB83 proves the complete 139B body,
 // timer +0x1A104, local player +0x10, five windows +0xA8, count +0xD0,
@@ -33,6 +34,7 @@ public:
     void *winGetUserData();
     int winHide(bool);
 };
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

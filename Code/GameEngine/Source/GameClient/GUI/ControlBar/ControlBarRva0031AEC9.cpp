@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0031AEC9@ControlBar@@QAEXXZ @ 0x0031AEC9 54B: ControlBar blink start at
 // +0x290/+0x294/+0x298 via winGetStatus bit3 then winEnable(false).
 // Evidence: neighbours 0x0031AE13 and 0x0031AEFF share +0x290/+0x294/+0x298
@@ -12,6 +13,7 @@ public:
 	int winEnable(bool enable);
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

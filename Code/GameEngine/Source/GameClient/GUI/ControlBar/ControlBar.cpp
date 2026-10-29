@@ -822,6 +822,7 @@ class PlayerList {public:char pad00[16];Player *local;};
 
 extern PlayerList *ThePlayerList;
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

@@ -195,6 +195,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 int Rva0043C99AGet();
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

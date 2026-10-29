@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /O1 /DNDEBUG /MD /EHsc /Ireference/shims/subsystem_bfme2
+// stlport
 // ?showRallyPoint@ControlBar@@QAEXPBUCoord3D@@@Z @0x0031B892 264B
 // Named WB 0x00C2F300 and native 0x0031B892..0x0031B99A establish
 // the identity, dispatch slots and accessed fields. Clean BFME1 ba7ddda7
@@ -97,6 +98,7 @@ struct DrawableWithStatus
 	unsigned int m_status;
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

@@ -53,6 +53,7 @@ class INI;
 class CommandSet;
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

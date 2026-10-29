@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // Clean donor: reference/open-bfme-1 @575ba2b04743f190f069805fbdc59936123c45da
 // game/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarInitSpecialPowershortcutBar.cpp.
 // Donor names the initialization workflow. WB C30790 keeps its literals and calls
@@ -156,6 +157,7 @@ private:
 	const PlayerTemplate *m_playerTemplate;        // target+0x34
 };
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:

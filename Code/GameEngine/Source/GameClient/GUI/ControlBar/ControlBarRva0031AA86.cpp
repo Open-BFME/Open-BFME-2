@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2
+// stlport
 // ?rva0031AA86@ControlBar@@QAEHXZ @ 0x0031AA86 152B: ControlBar ButtonGeneral
 // refresh via TheWindowManager->winGetWindowFromId(NULL,
 // TheNameKeyGenerator->nameToKey("ControlBar.wnd:ButtonGeneral")) then
@@ -120,6 +121,7 @@ extern PlayerList *ThePlayerList;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 
+#include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
 public:
