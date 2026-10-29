@@ -4046,6 +4046,15 @@ separate strict receipt limitation encountered there.
 
 ### LINK-017: stale link index lacks strict receipts for pending consolidation providers
 
+2026-10-29 nocase tree CRT-header cleanup, base `49d3bb379d5`, index
+`840db2d676`: the served file replaces its local _memicmp declaration with
+the CRT header and retires one Microsoft-header queue row. Its sole 27-byte
+row, code binding and all external object facts are unchanged; it has a
+strict reusable receipt. The outgoing audit is INCONCLUSIVE because affected
+consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry
+this scope into the next census; no linking gain is claimed.
+[Scoped verification](../reverse/attempt_support/nocase-tree-crt-header-20261029-bce2/README.md).
+
 **Status: Open. Updated: 2026-10-26; inspected revision: 377ffd1724.**
 
 - **StreakLine setter composition (2026-10-28, input `9e87a05faf`):**

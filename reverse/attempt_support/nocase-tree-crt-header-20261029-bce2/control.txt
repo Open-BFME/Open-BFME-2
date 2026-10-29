@@ -1,0 +1,2 @@
+Scoped audit clean; refreshed only the served file with refresh_queue.
+1/1 row and its binding unchanged; all external object facts identical.

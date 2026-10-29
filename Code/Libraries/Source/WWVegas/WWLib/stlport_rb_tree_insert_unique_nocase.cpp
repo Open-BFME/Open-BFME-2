@@ -33,10 +33,9 @@ namespace _STL { template <> void _STLP_alloc_proxy<_Rb_tree_node<AsciiString> *
 class AsciiString;
 namespace _STL { template <> void allocator<_Rb_tree_node<AsciiString> >::deallocate(_Rb_tree_node<AsciiString> *,unsigned int) const; }
 
-// The CRT import, not the static one: retail reaches _memicmp through the
-// import table, so the comparison ends in `call dword ptr [__imp__memicmp]`
-// rather than a direct call.
-extern "C" __declspec(dllimport) int __cdecl _memicmp( const void *buf1, const void *buf2, unsigned int count );
+// Use the CRT declaration. The out-of-line comparison provider owns the
+// actual import call; this unit declares that provider below.
+#include <string.h>
 
 // compareNoCase is a header inline owned by string_base.cpp: this unit only
 // declares it so its calls reach the kept select-any copy.
