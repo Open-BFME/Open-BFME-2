@@ -26,7 +26,7 @@ class GameFont;
 class FontLibrary
 {
 public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
+	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
 };
 extern FontLibrary *TheFontLibrary;
 
@@ -111,9 +111,10 @@ public:
 class PlayerList
 {
 public:
-	Player *getNthPlayer(Int index);
-	unsigned char m_pad00[0x14];
-	Int m_playerCount;				// +0x14
+	Player *getNthPlayer(int index);
+	char m_pad00[0x10];
+	Player *m_local; // +0x10
+	int m_playerCount; // +0x14 +0x14
 };
 extern PlayerList *ThePlayerList;
 

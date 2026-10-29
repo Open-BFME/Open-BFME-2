@@ -153,9 +153,9 @@ public:
 class Render2DClass
 {
 public:
-	Render2DClass();
 	void Set_Coordinate_Range(const RectClass &range);
-	unsigned char m_bytes[0x4C];
+	Render2DClass();
+	unsigned char m_bytes[0x4C]; // +0x00
 };
 
 enum StaticGameLODLevel { STATIC_GAME_LOD_UNKNOWN = -1 };
@@ -187,7 +187,7 @@ class GameFont;
 class FontLibrary
 {
 public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
+	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
 };
 extern FontLibrary *TheFontLibrary;
 

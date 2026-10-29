@@ -21,7 +21,7 @@ class GameFont;
 class FontLibrary
 {
 public:
-	GameFont *getFont(const AsciiString *name, Real pointSize, Bool bold);
+	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
 };
 extern FontLibrary *TheFontLibrary;
 

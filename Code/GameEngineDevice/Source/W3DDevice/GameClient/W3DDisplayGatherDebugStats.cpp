@@ -17,7 +17,11 @@ typedef unsigned short WChar;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_INVALID = 0 };
 class GameFont;
-class FontLibrary { public: GameFont *getFont(const AsciiString *name, float size, bool bold); };
+class FontLibrary
+{
+public:
+	GameFont *getFont(const AsciiString *name, float pointSize, bool bold);
+};
 struct MouseIO { int x, y; char m_pad8[0x18 - 8]; int leftState; char m_pad1c[0x24 - 0x1C]; int rightState; char m_pad28[0x30 - 0x28]; int middleState; };
 class Drawable;
 struct BodyView { virtual void v00(); virtual void v04(); virtual void v08(); virtual void v0C(); virtual float getHealth(); };
@@ -56,6 +60,7 @@ public:
 class InGameUI
 {
 public:
+	void rva002A4A68();
 	virtual void v000();
 	virtual void v004();
 	virtual void v008();
@@ -613,7 +618,14 @@ class TerrainLogic : public TerrainLogicVtbl { public: PathfindLayerEnum getHigh
 class Rva002A7461 { public: int rva002A7461(); int rva002A7548(int i); };
 class Rva002A7389 { public: int get(int i); };
 class Player { public: char m_pad[0x60]; Rva002A7461 m_commandPoints; };
-class PlayerList { public: char m_pad[0x10]; Player *m_local; };
+class PlayerList
+{
+public:
+	Player *getNthPlayer(int index);
+	char m_pad00[0x10];
+	Player *m_local; // +0x10
+	int m_playerCount; // +0x14 +0x14
+};
 class ScriptEngine { public: char m_pad[0x1A4C4]; int m_campaignAI; };
 class Rva002858E5 { public: bool rva002858E5(float *pos, int *a, int *b, int *c, int *d, int *e); };
 struct Slot64 { char m_pad[0x18]; unsigned int m_used; char m_pad1c[0x28 - 0x1C]; unsigned int m_peak; };

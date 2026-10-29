@@ -28,6 +28,7 @@ typedef float Real;
 typedef __int64 Int64;
 struct Coord3D;
 struct RGBColor;
+class GlobalData;
 class Image;
 class VideoBuffer;
 class Render2DClass;
@@ -424,6 +425,8 @@ class Render2DClass
 {
 public:
 	void Set_Coordinate_Range(const RectClass &range);
+	Render2DClass();
+	unsigned char m_bytes[0x4C]; // +0x00
 };
 
 Int64 Rva00043024Get();
@@ -666,7 +669,106 @@ class Rva00203B08 { public: bool rva0020424FF(); };
 
 class Rva00203ACEByteField { public: unsigned char get() const; };
 
-class InGameUI { public: void rva002A4A68(); };
+class Drawable;
+class InGameUI
+{
+public:
+	void rva002A4A68();
+	virtual void v000();
+	virtual void v004();
+	virtual void v008();
+	virtual void v00C();
+	virtual void v010();
+	virtual void v014();
+	virtual void v018();
+	virtual void v01C();
+	virtual void v020();
+	virtual void v024();
+	virtual void v028();
+	virtual void v02C();
+	virtual void v030();
+	virtual void v034();
+	virtual void v038();
+	virtual void v03C();
+	virtual void v040();
+	virtual void v044();
+	virtual void v048();
+	virtual void v04C();
+	virtual void v050();
+	virtual void v054();
+	virtual void v058();
+	virtual void v05C();
+	virtual void v060();
+	virtual void v064();
+	virtual void v068();
+	virtual void v06C();
+	virtual void v070();
+	virtual void v074();
+	virtual void v078();
+	virtual void v07C();
+	virtual void v080();
+	virtual void v084();
+	virtual void v088();
+	virtual void v08C();
+	virtual void v090();
+	virtual void v094();
+	virtual void v098();
+	virtual void v09C();
+	virtual void v0A0();
+	virtual void v0A4();
+	virtual void v0A8();
+	virtual void v0AC();
+	virtual void v0B0();
+	virtual void v0B4();
+	virtual void v0B8();
+	virtual void v0BC();
+	virtual void v0C0();
+	virtual void v0C4();
+	virtual void v0C8();
+	virtual void v0CC();
+	virtual void v0D0();
+	virtual void v0D4();
+	virtual void v0D8();
+	virtual void v0DC();
+	virtual void v0E0();
+	virtual void v0E4();
+	virtual void v0E8();
+	virtual void v0EC();
+	virtual void v0F0();
+	virtual void v0F4();
+	virtual void v0F8();
+	virtual void v0FC();
+	virtual void v100();
+	virtual void v104();
+	virtual void v108();
+	virtual void v10C();
+	virtual void v110();
+	virtual void v114();
+	virtual int getSelectCount();
+	virtual void v11C();
+	virtual void v120();
+	virtual void v124();
+	virtual void v128();
+	virtual Drawable *getFirstSelectedDrawable();
+	virtual void v130();
+	virtual void v134();
+	virtual void v138();
+	virtual void v13C();
+	virtual void v140();
+	virtual void v144();
+	virtual void v148();
+	virtual void v14C();
+	virtual void v150();
+	virtual void v154();
+	virtual void v158();
+	virtual void v15C();
+	virtual void v160();
+	virtual void v164();
+	virtual void v168();
+	virtual void v16C();
+	virtual void v170();
+	virtual int getMousedOverDrawableID();
+};
 
 extern ScriptEngine *TheScriptEngine;
 
