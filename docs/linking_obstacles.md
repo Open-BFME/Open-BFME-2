@@ -8540,6 +8540,28 @@ Update 2026-10-28 (generator pass):
   sizes/fields or undecided, tied or gapped slots (Object: size; Thing,
   Drawable: slot 0; AIUpdateInterface: 141 queued slots).
 
+Update 2026-10-29 (adoption pass):
+
+- ObjectModule.h (Module base, slot 9 onCapture, m_object +8; hand-written
+  from vftable 0x00C07E1C) adopted in 121 units (1c1d489768);
+  MemoryPoolObject generated and adopted in 29 (a59a357115). With both,
+  `tu_skeleton --merge FireWeaponCollide.cpp` accepted CollideModuleCtor.cpp
+  (3d222b2da9, one source file removed).
+- DrawableModule not adopted: retail slots 9 and 10 (vftable 0x00C07E54,
+  both `xor eax,eax; ret`) have no evidenced names, and its views spell
+  ZH's onCapture/onDisabledEdge there.
+- **Lane hazard: `run --apply` does not run the link guard.** A generated
+  CollideModuleInterface header (variant data+includes, 5/8 units
+  byte-match) declares `wouldLikeToCollideWith` out of line, from the one
+  view that spells it. FireWeaponCollide.cpp's old view declared an inline
+  slot instead, so with the header its vtable needs an undefined
+  `?wouldLikeToCollideWith@CollideModuleInterface@@UAE_NPBVObject@@@Z` and
+  the census-linked unit would stop linking (`tu_skeleton --dry-run`
+  link_guard). The commit was dropped before push. Until apply checks
+  link coverage (as `accept` does), check
+  `tu_skeleton --merge --dry-run` or `link_check` on adopted units before
+  pushing a generated polymorphic header.
+
 ## ConstIntGettersAddr.cpp FieldParse tables (2026-10-29, seat halilkkaya-fpt1)
 
 Done (commits 0b5feb85bd, 16e7cdaec7, 7ed40a3467): 29 raw-int FieldParse tables became typed
