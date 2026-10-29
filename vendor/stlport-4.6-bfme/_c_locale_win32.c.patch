@@ -26,7 +26,230 @@
      lmon->grouping=GroupingBuffer;
  
      GetLocaleInfoA(lmon->lcid, LOCALE_SCURRENCY, lmon->curr_symbol, 6);
-@@ -1441,23 +1440,6 @@
+@@ -515,6 +514,7 @@
+     return lmes;
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   const char* _Locale_common_default(char* buf)
+   {
+     char cp[MAX_CP_LEN+1];
+@@ -523,11 +523,14 @@
+     my_ltoa(CodePage, cp);
+     return __GetLocaleName(LOCALE_USER_DEFAULT, cp, buf);
+   }
+-
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
++
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   const char* _Locale_ctype_default(char* buf)
+   {
+     return  _Locale_common_default(buf);
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+   const char* _Locale_numeric_default(char * buf)
+   {
+@@ -554,6 +557,7 @@
+     return  _Locale_common_default(buf);
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   char* _Locale_ctype_name(const void* loc, char* buf)
+   {
+     char cp_buf[MAX_CP_LEN+1];
+@@ -561,6 +565,7 @@
+     my_ltoa(ltype->cp, cp_buf);
+     return __GetLocaleName(ltype->lcid, cp_buf, buf);
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+   char* _Locale_numeric_name(const void* loc, char* buf)
+   {
+@@ -609,6 +614,7 @@
+     free(lnum);
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   void _Locale_time_destroy(void* loc)
+   {
+     int i;
+@@ -629,6 +635,7 @@
+ 
+     free(ltime);
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+   void _Locale_collate_destroy(void* loc)
+   {
+@@ -702,6 +709,7 @@
+     return strcpy(buf, cname);
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   char* _Locale_compose_name(char* buf,
+ 			     const char* _ctype, const char* numeric,
+ 			     const char* time, const char* _collate,
+@@ -726,6 +734,7 @@
+ 
+     return buf;
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+   /* ctype */
+ 
+@@ -734,6 +743,7 @@
+     return (const _Locale_mask_t*)ltype->ctable;
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   int _Locale_toupper(struct _Locale_ctype* ltype, int c)
+   {
+     char buf[2], out_buf[2];;
+@@ -756,7 +766,9 @@
+ 	return out_buf[0];
+       }
+   }
+-
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
++
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   int _Locale_tolower(struct _Locale_ctype* ltype, int c)
+   {
+     char buf[2], out_buf[2];;
+@@ -779,6 +791,7 @@
+ 	return out_buf[0];
+       }
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+ # ifndef _STLP_NO_WCHAR_T
+   _Locale_mask_t _Locale_wchar_ctype(struct _Locale_ctype* ltype, wint_t c,
+@@ -801,6 +814,7 @@
+     return res;
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   wint_t _Locale_wchar_toupper(struct _Locale_ctype* ltype, wint_t c)
+   {
+     wint_t res;
+@@ -808,6 +822,7 @@
+     LCMapStringW(ltype->lcid, LCMAP_UPPERCASE, &c, 1, &res, 1);
+     return res;
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ # endif
+ 
+ # ifndef _STLP_NO_MBSTATE_T
+@@ -829,6 +844,7 @@
+     return (CPInfo.MaxCharSize == 1) ? 1 : 0;
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   wint_t _Locale_btowc(struct _Locale_ctype * ltype, int c)
+   {
+     wchar_t wc;
+@@ -838,7 +854,9 @@
+ 
+     return (wint_t)wc;
+   }
+-
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
++
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   int _Locale_wctob(struct _Locale_ctype * ltype, wint_t wc)
+   {
+     char c;
+@@ -848,6 +866,7 @@
+ 
+     return (int)c;
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+   static int __isleadbyte(int c, unsigned int *ctable)
+   {
+@@ -884,6 +903,7 @@
+       }
+   }
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   size_t _Locale_mbtowc(struct _Locale_ctype *ltype,
+ 			wchar_t *to,
+ 			const char *from, size_t n,
+@@ -915,7 +935,9 @@
+     	return n;
+       }
+   }
+-
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
++
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   size_t _Locale_wctomb(struct _Locale_ctype *ltype,
+ 			char *to, size_t n,
+ 			const wchar_t c,
+@@ -933,7 +955,9 @@
+ 
+     return (size_t)size;
+   }
+-
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
++
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   size_t _Locale_unshift(struct _Locale_ctype *ltype,
+ 			 mbstate_t *st,
+ 			 char *buf, size_t n, char **next)
+@@ -951,6 +975,7 @@
+ 	return 1;
+       }
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+ # endif /*  _STLP_NO_MBSTATE_T */
+ 
+@@ -963,6 +988,7 @@
+ # endif
+ 
+   /* Collate */
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   int _Locale_strcmp(struct _Locale_collate* lcol,
+ 		     const char* s1, size_t n1,
+ 		     const char* s2, size_t n2)
+@@ -984,9 +1010,11 @@
+       }
+     return (result == CSTR_EQUAL) ? 0 : (result == CSTR_LESS_THAN) ? -1 : 1;
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+ # ifndef _STLP_NO_WCHAR_T
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   int _Locale_strwcmp(struct _Locale_collate* lcol,
+ 		      const wchar_t* s1, size_t n1,
+ 		      const wchar_t* s2, size_t n2)
+@@ -995,6 +1023,7 @@
+     result=CompareStringW(lcol->lcid, 0, s1, n1, s2, n2);
+     return (result == CSTR_EQUAL) ? 0 : (result == CSTR_LESS_THAN) ? -1 : 1;
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+ # endif
+ 
+@@ -1019,12 +1048,14 @@
+ 
+ # ifndef _STLP_NO_WCHAR_T
+ 
++#ifndef _BFME_LOCALE_SPLIT_PROVIDERS
+   size_t _Locale_strwxfrm(struct _Locale_collate* lcol,
+                           wchar_t* dst, size_t dst_size,
+                           const wchar_t* src, size_t src_size)
+   {
+     return LCMapStringW(lcol->lcid, LCMAP_SORTKEY, src, src_size, dst, dst_size);
+   }
++#endif // _BFME_LOCALE_SPLIT_PROVIDERS
+ 
+ # endif
+ 
+@@ -1441,23 +1472,6 @@
  } /* extern C */
  _STLP_END_NAMESPACE
  #endif
@@ -50,3 +273,28 @@
  
  const char* __ConvertName(const char* lname, LOCALECONV* ConvTable, int TableSize)
  {
+@@ -1647,7 +1661,12 @@
+   return strcat(buf, cp);
+ }
+ 
++#ifdef _BFME_LOCALE_SPLIT_PROVIDERS
++// Restore the shared table used by the existing LocaleComposeName owner.
++extern "C" const char* __category_name[]=
++#else
+ static const char* __loc_categories[]=
++#endif
+ {
+   "LC_ALL", "LC_COLLATE", "LC_CTYPE", "LC_MONETARY", "LC_NUMERIC", "LC_TIME"
+     };
+@@ -1661,7 +1680,11 @@
+ 
+   if(loc[0]=='L' && loc[1]=='C' && loc[2]=='_')
+     {
++#ifdef _BFME_LOCALE_SPLIT_PROVIDERS
++      expr=strstr((char*)loc, __category_name[category]);
++#else
+       expr=strstr((char*)loc, __loc_categories[category]);
++#endif
+       if(expr==NULL) return NULL; // Category not found.
+       expr=strchr(expr, '=');
+       if(expr==NULL) return NULL;

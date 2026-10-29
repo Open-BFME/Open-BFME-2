@@ -48,3 +48,10 @@ ABI. No duplicate symbol pin or verifier symbol translation is added. The Code
 adapter retains the five inferred extraction wrapper names and uses retail's
 lstrcmpi import spelling. Only this explicit src/c_locale_win32 path is accepted
 as a source patch; other source paths are refused.
+
+The facets adapter defines `_BFME_LOCALE_SPLIT_PROVIDERS` to omit the 16
+public workers already defined by the matched split locale units. The overlay
+keeps their declarations/calls and retains every other provider. This opt-in
+also restores the existing external `__category_name` table, shared with
+LocaleComposeName.c, instead of emitting a separate private table. The vendor
+release is unchanged; see LINK-139 and the 2026-10-29 locale-provider evidence.

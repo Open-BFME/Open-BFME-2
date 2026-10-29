@@ -8,6 +8,15 @@ This adds zero unique matched bytes and claims no census gain. Full consumer
 closure, original member names and complete layout remain open.
 [Native proof and admission](../reverse/attempt_support/gamewindow-slot10-link-20261029/readme.md).
 
+Locale provider repair (2026-10-29, base d375abbc4f, LINK-139): the facets
+adapter omits the 16 workers already owned by split locale units and restores
+the existing shared category table. Ten units retain 53/53 matched rows and
+preview LINKS for 11,083 authored bytes against index 85f6b7f40c. Scheduled
+census confirmation and full consumer verification remain pending.
+[Exact scope and verification](../reverse/attempt_support/locale-split-providers-20261029-codexb.md). The outgoing audit is INCONCLUSIVE: the index predates the base and
+0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry the
+changed provider and affected consumers into the next scheduled census.
+
 Tree-erase queue follow-up (2026-10-29, `36091192a6`): the four previously
 repaired CRT-header helpers pass 4/4 rows and retain 188 authored preview
 bytes against `85f6b7f40c`. Scoped header-auditor refresh removes their four

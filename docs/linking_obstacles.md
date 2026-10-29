@@ -10217,6 +10217,17 @@ checking that the vendor bodies byte-match those rows; or (b) the 4.6 facets
 unit compiles only its own 20 rows' functions again. Pass test: the next
 census shows these units linked=yes with zero duplicates.
 
+LINK-139 repair follow-up (2026-10-29, base d375abbc4f): the facets adapter
+now opts out of exactly the 16 public definitions owned by the split locale
+units. It also restores the existing external category table required by
+LocaleComposeName.c. All 53 rows across ten units byte-verify, and all ten
+preview LINKS for 11,083 authored bytes against 85f6b7f40c. This clears the
+reported duplicate scope in the preview; scheduled census confirmation and
+full consumer verification remain pending. Other providers stay emitted; no
+TU move or new name is claimed. [Evidence and checks](../reverse/attempt_support/locale-split-providers-20261029-codexb.md). The outgoing audit is INCONCLUSIVE: the index predates the base and
+0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry the
+changed provider and affected consumers into the next scheduled census.
+
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
 Status: repaired, pending census confirmation. The 2026-10-29 17:26 census

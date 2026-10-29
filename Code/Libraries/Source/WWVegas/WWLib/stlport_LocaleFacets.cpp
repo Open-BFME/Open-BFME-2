@@ -28,6 +28,11 @@ public:
 #undef lstrcmpi
 extern "C" __declspec(dllimport) int __stdcall lstrcmpi(const char *, const char *);
 #define lstrcmpiA lstrcmpi
+// The matched split locale units own these 16 public workers. Keep their
+// declarations and calls, but do not emit competing definitions here.
+extern "C" const char *_Locale_common_default(char *);
+#define _BFME_LOCALE_SPLIT_PROVIDERS
 #include <src/c_locale_win32/c_locale_win32.c>
+#undef _BFME_LOCALE_SPLIT_PROVIDERS
 #undef lstrcmpiA
 #endif
