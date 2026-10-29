@@ -48329,7 +48329,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005964EC,92,code,,,-,,Code/GameEngine/Source/Common/Rva00596095Bits.cpp
 0x00596548,93,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStructureStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025BF8CHeroRemover.cpp
 0x005965A5,33,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,C,C=0x00596548..0x005965C6 provisional,Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp
-0x005965C6,83,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,C,C=0x00596548..0x00596619 provisional,Code/GameEngine/Source/Common/Rva005965A5Dtor.cpp
+0x005965C6,83,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,C,C=0x00596548..0x00596619 provisional,Code/GameEngine/Source/Common/AIStructureStats.cpp
 0x00596619,28,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,C,C=0x00596548..0x00596635 provisional,Code/GameEngine/Source/Common/Rva005965A5Ctor.cpp
 0x00596635,72,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStructureStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025C061Push.cpp
 0x0059667D,9,code,,,-,,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
@@ -87065,8 +87065,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D2C3,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x0079D2CD,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x00596225@FuncInfo0x00953100 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
 0x0079D2D5,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x00596225@FuncInfo0x00953100 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
-0x0079D2DF,8,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,P,P=0x005965C6@FuncInfo0x00953124 provisional,Code/GameEngine/Source/Common/Rva005965A5Dtor.cpp
-0x0079D2E7,10,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,P,P=0x005965C6@FuncInfo0x00953124 provisional,Code/GameEngine/Source/Common/Rva005965A5Dtor.cpp
+0x0079D2DF,8,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,P,P=0x005965C6@FuncInfo0x00953124 provisional,Code/GameEngine/Source/Common/AIStructureStats.cpp
+0x0079D2E7,10,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,P,P=0x005965C6@FuncInfo0x00953124 provisional,Code/GameEngine/Source/Common/AIStructureStats.cpp
 0x0079D2F1,8,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005966DD@FuncInfo0x00953148 provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x0079D2F9,10,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x005966DD@FuncInfo0x00953148 provisional,Code/GameEngine/Source/Common/FadeInTextRender.cpp
 0x0079D303,8,code,Code/GameEngine/Source/Common/FadeInTextRender.cpp,approved,P,P=0x0059675A@FuncInfo0x00953174 provisional,Code/GameEngine/Source/Common/Rva0059675ADtor.cpp
