@@ -39,6 +39,8 @@ another clone or host.
                                        [--dir32-index FILE]
                                                   # the full gate passed at SHA
   python3 tools/full_gate_receipt.py find SHA     # prints a usable C0, or nothing
+  python3 tools/full_gate_receipt.py scoped-dir32 --verified-from LIST --ref SHA
+                                                  # a scoped push's DIR32 check (build.scoped_dir32)
   python3 tools/full_gate_receipt.py cross-checks [--since C0 --verified-from LIST]
                                        [--index-out FILE]
                                                   # build.cross_source_checks (a script:
@@ -222,6 +224,21 @@ def find(sha, now=None):
     return None
 
 
+def newest_index():
+    """The most recently written DIR32 index of any receipt in this clone, or None."""
+    folder = receipts_dir()
+    found = sorted(folder.glob("*.dir32.gz"), key=lambda p: p.stat().st_mtime, reverse=True) \
+        if folder.is_dir() else []
+    return found[0] if found else None
+
+
+def read_list(path):
+    raw = Path(path).read_bytes()
+    if raw and not raw.endswith(b"\0"):
+        raise SystemExit("full_gate_receipt: unterminated source list")
+    return {item.decode("utf-8") for item in raw.split(b"\0") if item}
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -232,11 +249,26 @@ def main(argv=None):
     rec.add_argument("--dir32-index", help="the passed DIR32 check's index (build.verify_dir32_consistency)")
     rec.add_argument("--base", required=True, help="the remote base the gate ran against")
     sub.add_parser("find", help="print a recorded commit whose full gate carries to SHA").add_argument("sha")
+    scoped = sub.add_parser("scoped-dir32", help="DIR32 consistency of a scoped push's verified sources")
+    scoped.add_argument("--verified-from", required=True, help="NUL-separated sources this push byte-verified")
+    scoped.add_argument("--ref", required=True, help="the pushed commit (a source dirty against it is no witness)")
     cross = sub.add_parser("cross-checks", help="the full gate's cross-source checks over every row")
     cross.add_argument("--since", help="the carried receipt: reuse its DIR32 index where proven unchanged")
     cross.add_argument("--verified-from", help="NUL-separated sources this push byte-verified")
     cross.add_argument("--index-out", help="write the passing DIR32 check's index here")
     args = ap.parse_args(argv)
+    if args.cmd == "scoped-dir32":
+        verified = read_list(args.verified_from)
+        if not verified:
+            return 0
+        dirty = {p.lower() for p in git("diff", "--name-only", "-z", args.ref).stdout.split("\0") if p}
+        sys.path.insert(0, str(ROOT / "tools"))
+        import build
+        found = newest_index()
+        index = build.load_dir32_index(found) if found else None
+        if index is None:
+            print("scoped DIR32: no receipt index in this clone; judging the verified sources alone")
+        return build.scoped_dir32(verified, index=index, dirty=frozenset(dirty))
     if args.cmd == "cross-checks":
         if args.since and args.verified_from is None:
             raise SystemExit("full_gate_receipt: --since needs --verified-from")

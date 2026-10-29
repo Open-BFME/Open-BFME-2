@@ -129,6 +129,12 @@ def test_full_gate_failure_stops_before_eh_and_data(repo):
 # sources it was told were verified); temporary paths and empty options are not logged.
 RECORD_RECEIPT = """import json, os, sys
 args = sys.argv[1:]
+if args[:1] == ['scoped-dir32']:
+    with open(args[args.index('--verified-from') + 1], 'rb') as listing:
+        scope = sorted(p.decode() for p in listing.read().split(b'\\0') if p)
+    with open('scoped-calls.jsonl', 'a', encoding='utf-8') as out:
+        out.write(json.dumps(scope) + '\\n')
+    raise SystemExit(int(os.environ.get('FAIL_SCOPED') or 0))
 entry = args[:2]
 if args[:1] == ['cross-checks']:
     entry = ['cross-checks', args[args.index('--since') + 1]]
@@ -452,3 +458,23 @@ def test_unbounded_header_classifier_failure_stops_real_hook(repo):
     done = run_hook(fixture, [])
     assert done.returncode == 1 and 'proving full build scope' in done.stderr
     assert not calls(repo[0])
+
+
+@pytest.mark.parametrize('failure', ['', '1'], ids=['consistent', 'two-addresses'])
+def test_a_scoped_push_checks_dir32_over_its_sources(repo, failure):
+    # 86dd4a6165 landed through a scoped push: its rows stayed exact while two of
+    # them put one template static at two addresses, which only the full gate saw.
+    fixture = receipt_log(repo)
+    selected = fixture[1][:3]
+    done = run_hook(fixture, selected, FAIL_SCOPED=failure)
+    assert calls(fixture[0], 'scoped-calls.jsonl') == [sorted(selected)]
+    assert done.returncode == (1 if failure else 0), done.stderr
+    if failure:
+        assert 'DIR32 consistency over the outgoing sources failed' in done.stderr
+
+
+def test_a_full_gate_push_runs_no_scoped_dir32(repo):
+    fixture = receipt_log(repo)
+    done = run_hook(fixture)
+    assert done.returncode == 0, done.stderr
+    assert not calls(fixture[0], 'scoped-calls.jsonl')

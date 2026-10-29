@@ -4313,6 +4313,79 @@ def cross_source_checks(*, carried_index=None, verified=None, index_out=None):
     return failed
 
 
+SCOPED_DIR32_WITNESSES = 3
+
+
+def scoped_dir32(verified, index=None, dirty=frozenset(), witnesses=SCOPED_DIR32_WITNESSES):
+    """DIR32 consistency for a scoped push: an exit status.
+
+    A scoped push byte-verifies only its own sources, and the cross-row DIR32
+    check ran only in a full gate, so a unit whose rows stayed exact while two
+    of them resolved one template static to two addresses landed and turned
+    every later full gate red (86dd4a6165). This judges the `verified` sources'
+    rows, read from their current objects, together with up to `witnesses`
+    other rows per symbol they address, found through a passed check's `index`
+    (rows outside the scope whose source is not `dirty` and whose object is
+    current; their pairs are read again, never taken from the index). Every
+    symbol the subset shows at two addresses is one the full check refuses
+    too; symbols with no current witness are judged within the scope only."""
+    rows = load_function_rows()
+    mine = [row for row in rows if row["source"] in verified]
+    if not mine:
+        return 0
+    compiled = list(dict.fromkeys(ROOT / row["source"] for row in mine
+                                  if Path(row["source"]).suffix.lower() != LIB_SUFFIX))
+    stale = stale_sources(compiled, {s: obj_path(s) for s in compiled})
+    if stale:
+        print(f"scoped DIR32: {len(stale)} verified object(s) not current, e.g. {stale[0].relative_to(ROOT)}")
+        return 1
+    extract_lib_members([row for row in mine if Path(row["source"]).suffix.lower() == LIB_SUFFIX])
+    chosen = []
+    if index is not None:
+        import tempfile
+        with tempfile.TemporaryDirectory() as folder:
+            own = Path(folder) / "scope.gz"
+            try:
+                verify_dir32_consistency(mine, index_out=str(own))
+            except SystemExit as exc:
+                if exc.code:
+                    print("scoped DIR32: FAIL within the verified sources")
+                    return 1
+            identities = {identity for pairs in load_dir32_index(own)["rows"].values()
+                          for identity, _ in pairs if "::" not in identity}
+        by_key = {dir32_row_key(row): row for row in rows if row["source"] not in verified}
+        holders = {}
+        for key, pairs in index["rows"].items():
+            row = by_key.get(key)
+            if row is None or row["source"].lower() in dirty:
+                continue
+            for identity, _ in pairs:
+                if identity in identities:
+                    holders.setdefault(identity, []).append(row)
+        current = {}
+        for identity in sorted(holders):
+            taken = 0
+            for row in holders[identity]:
+                source = ROOT / row["source"]
+                if source.suffix.lower() == LIB_SUFFIX:
+                    continue
+                if source not in current:
+                    current[source] = not stale_sources([source], {source: obj_path(source)})
+                if current[source]:
+                    chosen.append(row)
+                    taken += 1
+                    if taken == witnesses:
+                        break
+    scope = mine + [row for row in {id(row): row for row in chosen}.values()]
+    print(f"scoped DIR32: {len(mine)} verified row(s) and {len(scope) - len(mine)} witness row(s)")
+    try:
+        verify_dir32_consistency(scope)
+    except SystemExit as exc:
+        if exc.code:
+            return 1
+    return 0
+
+
 def _carried_cross_checks(index, verified, index_out):
     """cross_source_checks over a carried index: an exit status, or None to run
     the full pass instead."""

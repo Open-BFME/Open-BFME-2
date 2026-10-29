@@ -591,3 +591,50 @@ def test_record_refuses_a_receipt_without_a_base(repo):
     with pytest.raises(SystemExit):
         R.record(c0)
 
+
+# --- scoped pushes: DIR32 over the verified sources and witnesses ---------------
+
+def test_a_scoped_push_refuses_a_conflict_within_its_sources(tmp_path, monkeypatch, capsys):
+    import build
+    rows, objects, visited, stale, bases = dir32_fixture(
+        tmp_path, monkeypatch, {"Code/a.cpp": 0x402000, "Code/b.cpp": 0x403000})
+    assert build.scoped_dir32({"Code/a.cpp", "Code/b.cpp"}) == 1      # no index needed
+    assert "NEW inconsistent symbol" in capsys.readouterr().out
+
+
+def test_a_scoped_push_refuses_a_conflict_with_a_witness(tmp_path, monkeypatch, capsys):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    bases["Code/a.cpp"] = 0x403000
+    assert build.scoped_dir32({"Code/a.cpp"}, index=build.load_dir32_index(index)) == 1
+    assert set(visited) == {"Code/a.cpp", "Code/b.cpp"}               # the witness was read again
+    assert "1 witness row(s)" in capsys.readouterr().out
+
+
+def test_a_consistent_scoped_push_passes(tmp_path, monkeypatch):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    assert build.scoped_dir32({"Code/a.cpp"}, index=build.load_dir32_index(index)) == 0
+
+
+@pytest.mark.parametrize("unusable", ["stale", "dirty"])
+def test_a_witness_that_is_not_current_is_not_read(tmp_path, monkeypatch, capsys, unusable):
+    import build
+    (rows, objects, visited, stale, bases), index = passed_index(tmp_path, monkeypatch)
+    bases["Code/a.cpp"] = 0x403000
+    dirty = frozenset()
+    if unusable == "stale":
+        stale.append("Code/b.cpp")
+    else:
+        dirty = frozenset({"code/b.cpp"})
+    # b's object no longer shows the pushed tree: it proves nothing either way
+    assert build.scoped_dir32({"Code/a.cpp"}, index=build.load_dir32_index(index), dirty=dirty) == 0
+    assert set(visited) == {"Code/a.cpp"}
+    assert "0 witness row(s)" in capsys.readouterr().out
+
+
+def test_a_scoped_push_with_a_stale_verified_object_fails(tmp_path, monkeypatch):
+    import build
+    rows, objects, visited, stale, bases = dir32_fixture(tmp_path, monkeypatch)
+    stale.append("Code/a.cpp")
+    assert build.scoped_dir32({"Code/a.cpp"}) == 1

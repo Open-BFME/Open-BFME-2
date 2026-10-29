@@ -576,6 +576,21 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
     fi
     stage "byte-verify (${#verify[@]} sources, full=$full_scope)"
+    # A scoped push's DIR32 consistency: its verified rows with a few current
+    # witness rows per symbol they address (build.scoped_dir32). The cross-row
+    # check otherwise ran only in a full gate, and 86dd4a6165 landed a unit
+    # whose rows stayed exact while two resolved one static to two addresses.
+    # A full or carried gate runs the whole check instead.
+    if [ "$full_scope" -eq 0 ] && [ -z "$carried" ] && [ "${#verify[@]}" -ne 0 ]; then
+        scoped_list=$(mktemp) || fail "temporary scoped DIR32 source list"
+        printf '%s\0' "${verify[@]}" > "$scoped_list" || { rm -f "$scoped_list"; fail "writing the scoped DIR32 list"; }
+        scoped_status=0
+        python3 tools/full_gate_receipt.py scoped-dir32 --verified-from "$scoped_list" --ref "$local_sha" \
+            || scoped_status=$?
+        rm -f "$scoped_list"
+        [ "$scoped_status" -eq 0 ] || fail "DIR32 consistency over the outgoing sources failed (see above)"
+        stage "scoped DIR32"
+    fi
     # A carried full gate keeps the full gate's tree-wide checks: the checks that
     # compare sources with each other run over every row, and an exception-data or
     # converged-data list that changed since the carried commit is audited over
