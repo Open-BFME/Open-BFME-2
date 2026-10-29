@@ -46,7 +46,7 @@ struct Rva002ACE2BEntry
 {
 	void *m_00;
 	_STL::vector<float> m_04;
-	int m_10;
+	int m_objectID;
 	bool m_14;
 };
 
@@ -65,21 +65,21 @@ int Player::getProductionCostChangeByObjectFilterID(void *objectFilterID)
 	float change = 0.0f;
 	_STL::list<int>::iterator end = m_list6f4.end();
 	for (_STL::list<int>::iterator it = m_list6f4.begin(); it._M_node != end._M_node; ++it) {
-		Rva002ACE2BEntry *e = (Rva002ACE2BEntry *)(*it);
-		Object *obj = TheGameLogic->findObjectByID((ObjectID)e->m_10);
+		Rva002ACE2BEntry *modifier = (Rva002ACE2BEntry *)(*it);
+		Object *obj = TheGameLogic->findObjectByID((ObjectID)modifier->m_objectID);
 		if (obj == 0)
 			continue;
 		if (obj->isKindOf((KindOfType)0x44))
 			continue;
-		if (*(void **)e->m_00 != objectFilterID)
+		if (*(void **)modifier->m_00 != objectFilterID)
 			continue;
-		if ((unsigned int)i < e->m_04.size())
-			change = e->m_04[i];
+		if ((unsigned int)i < modifier->m_04.size())
+			change = modifier->m_04[i];
 		++i;
 	}
 	float prod = change * 100.0f;
 	float diff = g_Va007C26F0 - prod;
-	double d = floor((double)diff);
-	float t = (float)d;
-	return fast_float2long_round(t);
+	double flooredChange = floor((double)diff);
+	float roundedChange = (float)flooredChange;
+	return fast_float2long_round(roundedChange);
 }

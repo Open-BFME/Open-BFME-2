@@ -40,8 +40,8 @@ void Rva00434337::rva00434337(int v)
 		else if (m_27C == 0xB)
 		{
 			UnicodeString filename = GadgetTextEntryGetText(m_win290);
-			void *p = TheGameState->rva002DBC97Get(6);
-			filename.concat((const unsigned short *)p);
+			void *extension = TheGameState->rva002DBC97Get(6);
+			filename.concat((const unsigned short *)extension);
 			TheGameLogic->rva0023D30F(1, 0, &filename);
 		}
 		break;

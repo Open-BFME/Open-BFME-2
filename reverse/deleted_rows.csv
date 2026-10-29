@@ -3983,3 +3983,8 @@ __ehhandler$?Rva00515C17@@YAXD@Z,0x007952E8,"Renamed to __ehhandler$?startEvilCa
 ?Rva003B7190RecordFieldParseTable@@3QBUFieldParse@@B,0x008619E0,"Renamed to ?FlashRegionsEventFieldParseTable@@3QBUFieldParse@@B by tools/rename.py (inferred)"
 ?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z,0x0047B9AD,"Renamed to ?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
 ?Rva002221A9ForEach@@YAXAAVRva002221A9Visitor@@@Z,0x002221A9,"Renamed to ?forEachInGameNotificationType@@YAXAAVRva002221A9Visitor@@@Z by tools/rename.py (inferred)"
+?Rva003E4679Check@@YA_NXZ,0x003E4679,"Renamed to ?evaluateMultiplayerAlliedVictory@@YA_NXZ by tools/rename.py (inferred)"
+?Rva003E4684Check@@YA_NXZ,0x003E4684,"Renamed to ?evaluateMultiplayerAlliedDefeat@@YA_NXZ by tools/rename.py (inferred)"
+?Rva003E468FCheck@@YAHXZ,0x003E468F,"Renamed to ?evaluateMultiplayerPlayerDefeat@@YAHXZ by tools/rename.py (inferred)"
+?Rva007F5DF0Callback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z,0x00662590,"Renamed to ?pendingActiveReplyCallback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z by tools/rename.py (inferred)"
+?rva0009B510@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z,0x0009B510,"Renamed to ?buildCameraTransform@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z by tools/rename.py (inferred)"

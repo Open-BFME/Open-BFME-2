@@ -247,7 +247,7 @@ class Locomotor
  bool rva001E7ECA(Object*,const Coord3D*);
  float rva001E6532(Object*,const Coord3D*,float);
  float getMaxSpeed(Object*)const;
- __forceinline float surfaceAt(float x,float y)
+ __forceinline float surfaceAt(float worldX,float worldY)
  {
   typedef float(Locomotor::*Member)(float,float);
   union Convert
@@ -258,12 +258,12 @@ class Locomotor
   }
   c;
   c.fn=Rva001E40D9Get;
-  return(this->*c.member)(x,y);
+  return(this->*c.member)(worldX,worldY);
   
  }
- void setTranslation(const Rva001E41D3Result&p)
+ void setTranslation(const Rva001E41D3Result&translation)
  {
-  ((LocoMatrix*)matrix)->set(p);
+  ((LocoMatrix*)matrix)->set(translation);
   
  }
  void*vptr;

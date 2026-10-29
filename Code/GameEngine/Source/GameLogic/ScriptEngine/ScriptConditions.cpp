@@ -1292,11 +1292,11 @@ bool ScriptConditions::evaluateGameModeActive(Parameter *parameter)
 
 // tu-skeleton: 0x003E4565 276B ?evaluateNamedBaseUnpackableForPlayer@ScriptConditions@@IAE_NPAVParameter@@0@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluateNamedBaseUnpackableForPlayer.cpp (not merged yet)
 
-// tu-skeleton: 0x003E4679 11B ?Rva003E4679Check@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+// tu-skeleton: 0x003E4679 11B ?evaluateMultiplayerAlliedVictory@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
 
-// tu-skeleton: 0x003E4684 11B ?Rva003E4684Check@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+// tu-skeleton: 0x003E4684 11B ?evaluateMultiplayerAlliedDefeat@@YA_NXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
 
-// tu-skeleton: 0x003E468F 37B ?Rva003E468FCheck@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
+// tu-skeleton: 0x003E468F 37B ?evaluateMultiplayerPlayerDefeat@@YAHXZ -- matched in Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp (not merged yet)
 
 // tu-skeleton: 0x003E46B4 203B ?evaluatePlayerHasComparisonPercentPower@ScriptConditions@@IAE_NPAVParameter@@00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptConditions_evaluatePlayerHasComparisonPercentPower.cpp (not merged yet)
 

@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
-// ?rva0009B510@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z retail 0x0009B510..0x0009B7EA
+// ?buildCameraTransform@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z retail 0x0009B510..0x0009B7EA
 // (730 bytes, ret 0xC): the camera transform builder the rowed refresh
 // 0x0009BAA4 calls on the factory product (pinned there under the
 // Rva0009C134Host view). Target facts from retail: an eye offset
@@ -38,13 +38,13 @@ public:
 
 float __cdecl Rva0009AAA8Get(float x);
 
-static inline float Rva0009B510Lerp(float a, float b, float t) { return (b - a) * t + a; }
+static inline float Rva0009B510Lerp(float startValue, float endValue, float fraction) { return (endValue - startValue) * fraction + startValue; }
 
 // Layout view of the established factory product (see Rva0009D55BProductCtor.cpp).
 class Rva0009C134Host
 {
 public:
-    void rva0009B510(Matrix3D &tm, float distance, float pitch);
+    void buildCameraTransform(Matrix3D &tm, float distance, float pitch);
 
     char m_pad00[0x1C];
     float m_1C;
@@ -62,11 +62,11 @@ public:
     float m_198;
 };
 
-void Rva0009C134Host::rva0009B510(Matrix3D &tm, float distance, float pitch)
+void Rva0009C134Host::buildCameraTransform(Matrix3D &tm, float distance, float pitch)
 {
-    float s = sin(pitch);
-    float c = cos(pitch);
-    Vector3 offset(0.0f, 0.0f - s * distance, c * distance);
+    float sinPitch = sin(pitch);
+    float cosPitch = cos(pitch);
+    Vector3 offset(0.0f, 0.0f - sinPitch * distance, cosPitch * distance);
     if (offset.Y == 0.0f)
         offset.Y = -0.5f;
     float ease = Rva0009AAA8Get(m_134);

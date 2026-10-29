@@ -127,8 +127,8 @@ void __cdecl Rva0051B09BEnable(void)
 	if ((*(Rva002BA8F1Logic **)&TheLivingWorldLogic) != 0 && ((BfmeSelectionState *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->isSelectionLocked()) {
 		Rva0051AF0BEnable(0);
 		GameMessage *msg = TheMessageStream->v18(0x6b8);
-		int v = ((Rva002B2B66 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B66();
-		msg->appendIntegerArgument(v);
+		int localPlayerID = ((Rva002B2B66 *)(*(Rva002BA8F1Logic **)&TheLivingWorldLogic))->rva002B2B66();
+		msg->appendIntegerArgument(localPlayerID);
 		return;
 	}
 	Rva0051AF0BEnable(0);
@@ -143,7 +143,7 @@ void __cdecl Rva0051B09BEnable(void)
 // Complete native37 boundary3E468F..3E46B4; same existing global provider.
 // Two bool vslots at 50 and 4C, short-circuited in that order; no arguments
 // or receiver are read. Original subsystem/method semantics remain unproved.
-int Rva003E468FCheck()
+int evaluateMultiplayerPlayerDefeat()
 {
  if (((UnknownE03138 *)TheVictoryConditions)->u20() && !((UnknownE03138 *)TheVictoryConditions)->u19())
   return 1;
@@ -155,12 +155,12 @@ int Rva003E468FCheck()
 // after the preceding RET8. They use this unit's existing singleton and
 // bool slots48/4C, already witnessed by the rowed callers above. The
 // original wrapper names and subsystem semantics remain unproved.
-bool Rva003E4679Check()
+bool evaluateMultiplayerAlliedVictory()
 {
 	return ((UnknownE03138 *)TheVictoryConditions)->u18();
 }
 
-bool Rva003E4684Check()
+bool evaluateMultiplayerAlliedDefeat()
 {
 	return ((UnknownE03138 *)TheVictoryConditions)->u19();
 }

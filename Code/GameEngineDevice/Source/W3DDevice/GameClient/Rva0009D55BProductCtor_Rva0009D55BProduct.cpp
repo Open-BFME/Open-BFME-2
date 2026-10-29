@@ -211,7 +211,7 @@ class CameraClass { public: CameraClass(); void Set_Clip_Planes(float znear, flo
 class Rva0009AA0F { public: Rva0009AA0F(int owner); char m_data[0x10C]; };
 class LightClass { public: enum LightType { POINT = 0, DIRECTIONAL = 1 }; LightClass(LightType type); char m_data[0x120]; };
 class Matrix3D;
-class Rva0009C134Host { public: void rva0009CD9B(); void rva0009AACF(int obj, float opacity); void rva0009B510(Matrix3D &tm, float distance, float pitch); };
+class Rva0009C134Host { public: void rva0009CD9B(); void rva0009AACF(int obj, float opacity); void buildCameraTransform(Matrix3D &tm, float distance, float pitch); };
 
 void Rva0009D55BProduct::rva0009D862()
 {
@@ -361,7 +361,7 @@ void Rva0009D55BProduct::rva0009BAA4()
 	{
 		((CameraClass *)m_C0)->Set_Clip_Planes(10.0f, distance * 1.5f + 2000.0f);
 		((CameraClass *)m_C0)->Set_View_Plane(0.87266463f, -1.0f);
-		((Rva0009C134Host *)this)->rva0009B510(tm, distance, pitch);
+		((Rva0009C134Host *)this)->buildCameraTransform(tm, distance, pitch);
 		((Rva0009BAA4CameraSlots *)m_C0)->Set_Transform(tm);
 		if (TheAudio)
 			((Rva0009BAA4AudioSlots *)TheAudio)->slot22();

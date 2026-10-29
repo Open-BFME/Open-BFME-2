@@ -4007,3 +4007,29 @@ local,ScriptActions::Rva003C5825Do::s,ScriptActions::Rva003C5825Do::commandSetNa
 local,W3DScriptedModelDraw::rva000BB4CE::e,W3DScriptedModelDraw::rva000BB4CE::stateEntry,inferred,agree:nl-8b926633b5a1-m6f0dfff0e35ef8c040beb4be,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawPermDescription.cpp,0x000BB4CE
 local,EAStringC::Replace::p,EAStringC::Replace::cursor,inferred,agree:nl-b2516bf8a12d-m4d85409a34ca36f601bcc6c2,Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,0x006D3A40
 local,EAStringC::startsWith::r,EAStringC::startsWith::prefixMatches,inferred,agree:nl-b7368a8b2a31-m6cc92ded631475d1acc81b98,Code/Libraries/Source/EA/Apt/AptString/EAStringCFind.cpp,0x006D3AD0
+member,Rva002ACE2BEntry::m_10,Rva002ACE2BEntry::m_objectID,inferred,agree:nl-330e73cb85b7,Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp,
+local,Player::getProductionCostChangeByObjectFilterID::e,Player::getProductionCostChangeByObjectFilterID::modifier,inferred,agree:nl-1f7de2957de8,Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp,0x002ACE2B
+local,Player::getProductionCostChangeByObjectFilterID::d,Player::getProductionCostChangeByObjectFilterID::flooredChange,inferred,agree:nl-37cfb1cb621b,Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp,0x002ACE2B
+local,Player::getProductionCostChangeByObjectFilterID::t,Player::getProductionCostChangeByObjectFilterID::roundedChange,inferred,agree:nl-7c94cf638c0d,Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp,0x002ACE2B
+param,rva0007BF5A::c,rva0007BF5A::destination,inferred,agree:nl-dec994b57ff9,Code/GameEngine/Source/Common/Rva0007BA09Bodies.cpp,0x0007BF5A
+local,Rva0051B09BEnable::v,Rva0051B09BEnable::localPlayerID,inferred,agree:nl-048e4afc2f3a,Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp,0x0051B09B
+function,?Rva003E4679Check@@YA_NXZ,?evaluateMultiplayerAlliedVictory@@YA_NXZ,inferred,agree:nl-773655e88749,Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp,0x003E4679
+function,?Rva003E4684Check@@YA_NXZ,?evaluateMultiplayerAlliedDefeat@@YA_NXZ,inferred,agree:nl-8e918aa52de5,Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp,0x003E4684
+function,?Rva003E468FCheck@@YAHXZ,?evaluateMultiplayerPlayerDefeat@@YAHXZ,inferred,agree:nl-84762455dc4c,Code/GameEngine/Source/Common/Rva0051AF0BEnable.cpp,0x003E468F
+local,TacticalAI::updateInterestZones::p,TacticalAI::updateInterestZones::prototypeIt,inferred,agree:nl-e311db9ddcd8,Code/GameEngine/Source/Common/TacticalAI_updateInterestZones.cpp,0x002C6607
+local,Rva00434337::rva00434337::p,Rva00434337::rva00434337::extension,inferred,agree:nl-13911ef4ee9e,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadCallbackRva00434337.cpp,0x00434337
+param,surfaceAt::x,surfaceAt::worldX,inferred,agree:nl-ef8036d16905,Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp,
+param,surfaceAt::y,surfaceAt::worldY,inferred,agree:nl-a03a19d91771,Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp,
+param,setTranslation::p,setTranslation::translation,inferred,agree:nl-cdcad8a69ec8,Code/GameEngine/Source/GameLogic/Object/LocomotorRva001E7ECA.cpp,
+function,?Rva007F5DF0Callback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z,?pendingActiveReplyCallback@@YAXPAVRva007E8810Message@@PAVRva007F5D10GameBrowser@@@Z,inferred,agree:nl-7d2a1f1663b3,Code/GameEngine/Source/GameNetwork/Rva007F5D10GameBrowser.cpp,0x00662590
+param,Rva0009B510Lerp::a,Rva0009B510Lerp::startValue,inferred,agree:nl-a5733c03b544,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,
+param,Rva0009B510Lerp::b,Rva0009B510Lerp::endValue,inferred,agree:nl-3daf69b05099,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,
+param,Rva0009B510Lerp::t,Rva0009B510Lerp::fraction,inferred,agree:nl-2f5e520dc96e,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,
+local,Rva0009C134Host::rva0009B510::s,Rva0009C134Host::rva0009B510::sinPitch,inferred,agree:nl-84e61267dfb8,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,0x0009B510
+local,Rva0009C134Host::rva0009B510::c,Rva0009C134Host::rva0009B510::cosPitch,inferred,agree:nl-76314102755c,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,0x0009B510
+function,?rva0009B510@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z,?buildCameraTransform@Rva0009C134Host@@QAEXAAVMatrix3D@@MM@Z,inferred,agree:nl-ff5e97b50f88,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,0x0009B510
+carry,Rva0009C134Host::rva0009B510::sinPitch,Rva0009C134Host::buildCameraTransform::sinPitch,inferred,scope renamed by Rename rva0009B510 to buildCameraTransform (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,0x0009B510
+carry,Rva0009C134Host::rva0009B510::cosPitch,Rva0009C134Host::buildCameraTransform::cosPitch,inferred,scope renamed by Rename rva0009B510 to buildCameraTransform (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009B510CameraTransform.cpp,0x0009B510
+param,WordSlotPair::v,WordSlotPair::wordValue,inferred,agree:nl-3f9dab4f4934,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,
+param,FloatSlotPair::v,FloatSlotPair::floatValue,inferred,agree:nl-0c3ce1a98c8a,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,
+param,BoolSlotPair::v,BoolSlotPair::boolValue,inferred,agree:nl-e49d5b0f95aa,Code/Libraries/Source/WWVegas/WWLib/AsciiStringTableSubscripts.cpp,

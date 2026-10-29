@@ -181,7 +181,7 @@ void Rva007F5D10GameBrowser::handlePendingActiveReply( Rva007E8810Message *messa
 }
 
 // Retail 0x007F5DF0: callback target at 0x007F5EE1; ret then int3.
-void Rva007F5DF0Callback(Rva007E8810Message *message, Rva007F5D10GameBrowser *browser)
+void pendingActiveReplyCallback(Rva007E8810Message *message, Rva007F5D10GameBrowser *browser)
 {
 	browser->handlePendingActiveReply(message);
 }
@@ -196,5 +196,5 @@ void Rva007F5D10GameBrowser::rva007F5E00(int id, const char *text) throw()
  player->setHpState(3);
  BfmeC994 message(m_messageBuffer, 0x400);
  m_sender->slot44(&message, id, 0, 0);
- m_notifier->slot08(&message, Rva007F5DF0Callback, this, m_transaction);
+ m_notifier->slot08(&message, pendingActiveReplyCallback, this, m_transaction);
 }

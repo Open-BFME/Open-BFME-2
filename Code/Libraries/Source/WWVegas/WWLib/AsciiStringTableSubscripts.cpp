@@ -37,17 +37,17 @@ public:
 struct WordSlotPair {
     AsciiString name;
     unsigned int value;
-    WordSlotPair(const AsciiString &asciiString, unsigned int v) : name(asciiString), value(v) {}
+    WordSlotPair(const AsciiString &asciiString, unsigned int wordValue) : name(asciiString), value(wordValue) {}
 };
 struct FloatSlotPair {
     AsciiString name;
     float value;
-    FloatSlotPair(const AsciiString &asciiString, float v) : name(asciiString), value(v) {}
+    FloatSlotPair(const AsciiString &asciiString, float floatValue) : name(asciiString), value(floatValue) {}
 };
 struct BoolSlotPair {
     AsciiString name;
     bool value;
-    BoolSlotPair(const AsciiString &asciiString, bool v) : name(asciiString), value(v) {}
+    BoolSlotPair(const AsciiString &asciiString, bool boolValue) : name(asciiString), value(boolValue) {}
 };
 class Rva000427195 {
 public:

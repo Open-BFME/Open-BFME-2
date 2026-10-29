@@ -128,7 +128,7 @@ extern int g_Va00E04450;
 bool Rva0056815AAny(void);
 
 bool __stdcall Rva003E41CBGet(Parameter *);
-int __cdecl Rva003E468FCheck(void);
+int __cdecl evaluateMultiplayerPlayerDefeat(void);
 bool __stdcall Rva003E4B83Get(Parameter *);
 int __cdecl Rva003E4C77Get(void);
 bool __stdcall Rva003E4E6AGet(Parameter *);
@@ -467,7 +467,7 @@ bool ScriptConditions::evaluateConditionHelper(Condition *condition)
 	case 45:
 		return ((UnknownE03138 *)TheVictoryConditions)->isLocalAlliedDefeat();
 	case 46:
-		return ((bool (__cdecl *)(void))Rva003E468FCheck)();
+		return ((bool (__cdecl *)(void))evaluateMultiplayerPlayerDefeat)();
 	case 36:
 		return Rva003E41CBGet(condition->getParameter(0));
 	case 48:
