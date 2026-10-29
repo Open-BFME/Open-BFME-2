@@ -5,7 +5,7 @@
 // installs at +0x10 (UpdateModuleInterface), compiled with that subobject this.
 // First frame: call primary slot 17 and raise the +0x88 flag (the one the matched
 // slot-13 override 0x004C6D0F clears). Afterwards: when the Object +0x258
-// interface answers slot 110 or slot 116, end the swoop through primary slot 13
+// interface answers slot 110 or slot 116, end the swoop through primary slot 13 (onExit)
 // (false, false) and sleep forever; otherwise compare the height above ground
 // (TheTerrainLogic slot 6, getGroundHeight(x, y, NULL), stored to a float local
 // before the SSE subtraction as retail does) with the +0x14 field of a copy of
@@ -48,7 +48,7 @@ template <> class Rva004C6E49Slots<0>
 {
 };
 // The Object +0x258 interface (AI): slots 110 and 116 are bool queries.
-class Rva004C6E49AI110 : public Rva004C6E49Slots<110>
+class AIUpdateInterface : public Rva004C6E49Slots<110>
 {
 public:
 	virtual bool rva004C6E49Slot110() = 0;
@@ -90,7 +90,7 @@ public:
 	unsigned char m_pad104[0x10C - 0x104];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x258 - 0x158];
-	Rva004C6E49AI110 *m_ai; // +0x258
+	AIUpdateInterface *m_ai; // +0x258
 };
 enum UpdateSleepTime
 {
@@ -135,11 +135,11 @@ public:
 	virtual void slot04(); virtual void slot05(); virtual void slot06();
 	virtual void slot07(); virtual void slot08(); virtual void slot09();
 	virtual void slot10(); virtual void slot11(); virtual void slot12();
-	virtual void slot13(bool a, bool b); // FellBeastSwoopPower 0x004C6D0F
+	virtual void onExit(bool a, bool b); // FellBeastSwoopPower 0x004C6D0F
 	virtual void slot14();
 	virtual void slot15();
 	virtual void slot16();
-	virtual void slot17();
+	virtual void triggerAbilityEffect();
 private:
 	unsigned char m_pad24[0x88 - 0x24];
 };
@@ -154,16 +154,16 @@ UpdateSleepTime FellBeastSwoopPower::update()
 {
 	if (!m_88)
 	{
-		slot17();
+		triggerAbilityEffect();
 		m_88 = true;
 	}
 	else
 	{
 		Object *object = m_object;
-		Rva004C6E49AI110 *ai = object->m_ai;
+		AIUpdateInterface *ai = object->m_ai;
 		if (ai && (ai->rva004C6E49Slot110() || ai->rva004C6E49Slot116()))
 		{
-			slot13(false, false);
+			onExit(false, false);
 			return UPDATE_SLEEP_FOREVER;
 		}
 		float ground = TheTerrainLogic->getGroundHeight(object->m_x, object->m_y, 0);

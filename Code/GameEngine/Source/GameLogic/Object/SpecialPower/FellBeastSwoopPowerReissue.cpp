@@ -26,6 +26,24 @@
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 class Object;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+
+#include "../../../../Include/Common/BfmeXfer.h"
 
 enum AICommandType
 {
@@ -65,40 +83,200 @@ public:
 	void aiAttackLevelPosition(const Coord3D *pos, CommandSourceType cmdSource);
 };
 
-class AIUpdateInterface
+template <int N> class Rva004C6E49Slots : public Rva004C6E49Slots<N - 1>
 {
 public:
+	virtual void gap(char (*)[N]) = 0;
+};
+template <> class Rva004C6E49Slots<0>
+{
+};
+
+// The Object +0x258 AI interface: slots 110 and 116 are the bool queries
+// update reads; the command interface sits at +0x20.
+class AIUpdateInterface : public Rva004C6E49Slots<110>
+{
+public:
+	virtual bool rva004C6E49Slot110() = 0;
+	virtual void gap111() = 0;
+	virtual void gap112() = 0;
+	virtual void gap113() = 0;
+	virtual void gap114() = 0;
+	virtual void gap115() = 0;
+	virtual bool rva004C6E49Slot116() = 0;
 	AICommandInterface *getCommandInterface() { return &m_commandInterface; }
 private:
-	unsigned char m_pad00[0x20];
+	unsigned char m_pad04[0x20 - 0x04];
 	AICommandInterface m_commandInterface;	// +0x20
 };
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
+class GeometryInfo
+{
+public:
+	GeometryInfo(const GeometryInfo &other);
+	virtual ~GeometryInfo();
+	float m_04;
+	float m_08;
+	float m_0C;
+	float m_10;
+	float m_14; // +0x14
+	unsigned char m_pad18[0x5C - 0x18];
+};
+
+class TerrainLogic
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual float getGroundHeight(float x, float y, Coord3D *normal) const;
+};
+extern TerrainLogic *TheTerrainLogic;
+
+// Model-condition bits: the word array of the Object starts at +0x10C; a bit
+// index is word*32 + bit. The accessors return the masked word.
+class Rva0010CConditionBits
+{
+public:
+	unsigned int test(int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+	void clear(int bit)
+	{
+		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
+	}
+private:
+	unsigned int m_words[19];
+};
+
 class Object
 {
 public:
 	static __forceinline AIUpdateInterface *getAI(const Object *object) { return object->m_ai; }
-private:
-	unsigned char m_pad000[0x258];
+	void rva0028AE6D();
+	unsigned char m_pad000[0x38];
+	float m_x; // +0x38
+	float m_y; // +0x3C
+	float m_z; // +0x40
+	unsigned char m_pad044[0xA8 - 0x44];
+	GeometryInfo m_geometryInfo; // +0xA8
+	unsigned char m_pad104[0x10C - 0x104];
+	Rva0010CConditionBits m_conditionBits; // +0x10C
+	unsigned char m_pad158[0x258 - 0x158];
 	AIUpdateInterface *m_ai;	// +0x258
 };
 
 extern GameLogic *TheGameLogic;
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class Thing;
 class ModuleData;
-class FellBeastSwoopPower
+
+class BehaviorModule
+{
+public:
+	virtual ~BehaviorModule();
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorModuleInterfaceAnchor();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
+{
+protected:
+	unsigned int m_14;
+	int m_18;
+	int m_1C;
+};
+
+class SpecialPowerUpdateInterface
+{
+public:
+	virtual void specialPowerUpdateAnchor();
+};
+
+// Primary vftable 0x00C5DF80 (the FellBeastSwoopPower ctor 0x004C6C1E installs
+// it): slot 3 xfer, slot 4 getModuleNameKey, slot 13 onExit (SpecialAbilityUpdate
+// base 0x004502CE), slot 17 triggerAbilityEffect; the other slot names are not
+// established.
+class SpecialAbilityUpdate : public UpdateModule, public SpecialPowerUpdateInterface
+{
+public:
+	virtual void slot01();
+	virtual void slot02();
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void slot05(); virtual void slot06(); virtual void slot07();
+	virtual void slot08(); virtual void slot09(); virtual void slot10();
+	virtual void slot11(); virtual void slot12();
+protected:
+	virtual void onExit(bool a, bool b);
+public:
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void triggerAbilityEffect();
+protected:
+	unsigned char m_pad24[0x40 - 0x24];
+	ObjectID m_targetID;		// +0x40
+	Coord3D m_targetPos;		// +0x44
+	unsigned char m_pad50[0x88 - 0x50];
+};
+
+class FellBeastSwoopPower : public SpecialAbilityUpdate
 {
 public:
 	virtual ~FellBeastSwoopPower();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void triggerAbilityEffect();
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void onExit(bool a, bool b);
 private:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x40 - 0x0C];
-	ObjectID m_targetID;		// +0x40
-	Coord3D m_targetPos;		// +0x44
+	bool m_88; // +0x88
 };
 
 void AICommandInterface::rva004C6D35(Object *obj, CommandSourceType cmdSource)
