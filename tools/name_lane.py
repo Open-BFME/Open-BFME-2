@@ -622,20 +622,33 @@ def answer_key(kind, scope, ident):
 
 # ---------------------------------------------------------------- next
 
-def queue(lane, worker, model, only=None):
-    """Files to serve, best first: one another model voted on (this vote can
-    land names), then one another worker voted on, then the rest, shuffled.
-    A file this worker already voted on is never served to it again, under
-    any session label."""
+def second_reviews(worker, state, tally, refused):
+    """Shared keys with one voter that this worker can independently review."""
+    out = collections.defaultdict(set)
+    for key, proposals in tally.items():
+        parts = key.split("|")
+        if len(parts) != 4 or parts[1] in ("param", "local"):
+            continue
+        voters = {w for v in proposals.values() for w in v}
+        if len(voters) == 1 and worker not in voters and needs_review(key, state, tally, refused):
+            out[parts[0]].add(key)
+    return out
+
+
+def queue(lane, worker, model, only=None, *, reviews=None):
+    """Prioritize shared keys needing an independent second worker, then the
+    former other-model/other-worker queue. A worker may revisit a file for an
+    unvoted shared key; cmd_next never serves a key that worker already voted."""
     voted_sessions, voted_models = collections.defaultdict(set), collections.defaultdict(set)
     for v in lane.votes():
         rel = v["key"].split("|")[0]
         voted_sessions[rel].add(v.get("worker") or "")
         voted_models[rel].add(v["model"])
     files = [only] if only else [f for f in lane.ledger() if f.endswith((".cpp", ".c"))]
-    files = [f for f in files if worker not in voted_sessions[f]]
+    reviews = reviews or {}
+    files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f)]
     random.shuffle(files)
-    files.sort(key=lambda f: (not (voted_models[f] - {model}), not voted_sessions[f]))
+    files.sort(key=lambda f: (not reviews.get(f), not (voted_models[f] - {model}), not voted_sessions[f]))
     return files, voted_sessions
 
 
@@ -694,7 +707,7 @@ def callers(lane, rel, word, limit=6):
     return lines
 
 
-def brief_text(lane, rel, text, items, session, model):
+def brief_text(lane, rel, text, items, session, model, *, review=False):
     rows = lane.ledger().get(rel, [])
     lines = text.splitlines()
 
@@ -725,6 +738,7 @@ def brief_text(lane, rel, text, items, session, model):
         evidence.append(f"  hint 0x{rename._rva(e['rva']):08X} {e.get('current')} ~ {e.get('candidate')} "
                         f"({e.get('evidence_kind')}, {e.get('strength')}): {(e.get('detail') or '')[:140]}")
     return f"""NAME THE PLACEHOLDERS IN {rel}  (session {session}, model {model})
+{"INDEPENDENT SECOND REVIEW: only the shared identifiers awaiting another worker are served; previous proposals remain hidden." if review else ""}
 
 This is decompiled BFME 2 (SAGE engine) C++. A converter invented the names
 below from addresses, offsets or decompiler slots. Give each the name its
@@ -766,7 +780,8 @@ def cmd_next(lane, args):
     worker = lane.worker()
     state = lane.state()
     tally, refused = lane.tally(), lane.disputed()
-    files, voted = queue(lane, worker, model, args.file)
+    reviews = second_reviews(worker, state, tally, refused)
+    files, voted = queue(lane, worker, model, args.file, reviews=reviews)
     served, metadata = [], []
     record = lane.path(f"{LANE_DIR}/sessions/{session}.json")
     current = json.loads(record.read_text()) if record.exists() else {"model": model, "worker": worker, "files": {}}
@@ -792,8 +807,9 @@ def cmd_next(lane, args):
         if not preferred and sticky.exists():
             preferred = subsystem_prefix(json.loads(sticky.read_text())["subsystem"])
         if preferred:
-            files.sort(key=lambda f: lane.subsystem(f)[0] != preferred)
+            files.sort(key=lambda f: (not reviews.get(f), lane.subsystem(f)[0] != preferred))
     selected = None
+    selected_review = None
     for rel in files:
         group, basis = lane.subsystem(rel) if not mixed else (None, "mixed")
         if prefix and not (under(group, prefix) or under(rel, prefix)):
@@ -808,17 +824,26 @@ def cmd_next(lane, args):
         if text is None or len(text) > MAX_CHARS:
             continue
         items = [i for i in lane.owned(rel, text)
-                 if needs_review(key_of(rel, *i[:3]), state, tally, refused)]
+                 if needs_review(key_of(rel, *i[:3]), state, tally, refused)
+                 and worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}]
+        targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
+        explicit_review = getattr(args, "review_only", False)
+        review = bool(targeted) and (not args.file or explicit_review)
+        if explicit_review or selected_review is True or review:
+            items = targeted
+            review = bool(items)
         if len(items) < (1 if voted[rel] or args.file else 3):      # an asked-for file needs one key
             continue
+        if selected_review is None:
+            selected_review = review
         if not mixed and selected is None:
             selected = group
         if args.list_only:
             metadata.append({"file": rel, "chars": len(text), "subsystem": group, "group_basis": basis,
-                             "kinds": dict(collections.Counter(i[0] for i in items))})
+                             "second_review": review, "kinds": dict(collections.Counter(i[0] for i in items))})
         else:
             current["files"][rel] = {"sha": hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest(),
-                                     "items": [list(i) for i in items]}
+                                     "items": [list(i) for i in items], "second_review": review}
             served.append((rel, text, items))
         if len(served) + len(metadata) >= args.count:
             break
@@ -839,7 +864,9 @@ def cmd_next(lane, args):
     out = briefs / f"{session}.txt"
     context = subsystem_brief(lane, served, selected) if not mixed else ""
     out.write_text(context + "\n\n" + "\n\n".join(
-                       brief_text(lane, rel, text, items, session, model) for rel, text, items in served),
+                       brief_text(lane, rel, text, items, session, model,
+                                  review=current["files"][rel].get("second_review", False))
+                       for rel, text, items in served),
                    encoding="utf-8", errors="surrogateescape")
     print(f"name_lane: brief for {len(served)} file(s) ({sum(len(i) for _, _, i in served)} keys): {out}")
     if len(served) > 1:
@@ -1134,6 +1161,7 @@ def main(argv=None, lane=None):
     n.add_argument("--subsystem", metavar="CODE_PREFIX",
                    help="restrict to this source/approved-TU directory; one subsystem per batch")
     n.add_argument("--mixed", action="store_true", help="retain the shuffled multi-subsystem queue")
+    n.add_argument("--review-only", action="store_true", help="serve only shared names needing a different second voter")
     n.add_argument("--list-only", action="store_true",
                    help="print the queue's file/size/kind metadata as JSON; no session, no brief")
     s = sub.add_parser("submit", help="record a session's answers as hashed votes")

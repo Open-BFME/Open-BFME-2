@@ -579,6 +579,54 @@ def test_a_new_claim_after_serving_still_blocks_apply(tree, tmp_path, monkeypatc
 
 # ---------------------------------------------------------------- submit
 
+def test_second_reviewer_can_revisit_file_for_a_different_key(tree, tmp_path):
+    vote(tree, tmp_path, "first", {"rva00401000": "sumBox"}, worker="first-worker")
+    vote(tree, tmp_path, "earlier", {"rva00401000:param_1": "box"}, worker="second-worker")
+    be("second-worker")
+    record = subsystem_next(tree, "second-review", count=1)
+    assert set(record["files"]) == {SOURCE}
+    assert record["files"][SOURCE]["items"] == [["function", "0x00401000", "rva00401000", 0x00401000]]
+    assert record["files"][SOURCE]["second_review"]
+    brief = (tree / "build/name_lane/briefs/second-review.txt").read_text()
+    assert "INDEPENDENT SECOND REVIEW" in brief and "sumBox" not in brief
+    answer = tmp_path / "review.json"
+    answer.write_text(json.dumps({"rva00401000": "sumBox"}))
+    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="second-review", model="seat-a", answer=str(answer)))
+    assert len(lane_of(tree).state()[FN_KEY]["agents"].split(";")) == 2
+    assert apply(tree, key=[FN_KEY]) == 0
+    assert lane_of(tree).state()[FN_KEY]["status"] == "landed"
+
+
+def test_review_only_does_not_fill_with_fresh_names_or_repeat_own_vote(tree, tmp_path, capsys):
+    subsystem_next(tree, "empty-review", count=10, review_only=True, list_only=True)
+    assert json.loads(capsys.readouterr().out) == []
+    vote(tree, tmp_path, "first", {"rva00401000": "sumBox"}, worker="same-worker")
+    capsys.readouterr()
+    be("same-worker")
+    subsystem_next(tree, "self-review", count=10, review_only=True, list_only=True)
+    assert json.loads(capsys.readouterr().out) == []
+
+
+def test_second_review_overrides_affinity_for_fresh_work(tree, tmp_path):
+    fresh = add_subsystem_source(tree, "Fresh", 4)
+    be("reviewer")
+    subsystem_next(tree, "fresh-session", file=fresh)
+    vote(tree, tmp_path, "pending", {"rva00401000": "sumBox"}, worker="other-worker")
+    be("reviewer")
+    record = subsystem_next(tree, "finish-pending", count=1)
+    assert set(record["files"]) == {SOURCE}
+    assert record["files"][SOURCE]["second_review"]
+
+
+def test_busy_second_review_is_not_served(tree, tmp_path, monkeypatch, capsys):
+    import claims
+    vote(tree, tmp_path, "pending", {"rva00401000": "sumBox"}, worker="other-worker")
+    capsys.readouterr()
+    be("reviewer")
+    monkeypatch.setattr(claims, "busy_keys", lambda root: {claims.file_key(SOURCE)})
+    subsystem_next(tree, "busy-review", count=10, review_only=True, list_only=True)
+    assert json.loads(capsys.readouterr().out) == []
+
 def test_two_sessions_agree(tree, tmp_path):
     assert vote(tree, tmp_path, "s1", {"Rva00401000Box::m_x2C": "m_boxWidth", "rva00401000": "sumBox"}) == 0
     votes = (tree / name_lane.VOTES).read_text()

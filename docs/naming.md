@@ -103,6 +103,16 @@ shared and refused.
 
 ### Naming within a subsystem
 
+The default picker first targets shared names with exactly one independent
+voter. It serves only those pending shared keys in a second-review batch,
+without exposing the first worker's spelling. `next --review-only` restricts
+the pass to this queue and never fills it with fresh naming tasks. Previously
+visiting the same file for another identifier does not prevent a worker from
+reviewing a different key; each worker still votes only once per key.
+Pending second reviews take precedence over affinity for fresh work in another
+subsystem. Explicit `--file` remains a general file request unless combined
+with `--review-only`. Claimed/stale/ineligible keys are still excluded.
+
 `name_lane.py next --count N` serves up to N files from one subsystem, rather
 than filling the batch with unrelated files. A worker stays in that subsystem
 on subsequent calls until it has no eligible unvoted files there. Within the
