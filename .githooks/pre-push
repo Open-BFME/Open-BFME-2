@@ -158,6 +158,24 @@ collect_verify() {
     done
 }
 
+# full_gate_pool: the process pool for a full-gate run. An explicit BUILD_POOL
+# wins; otherwise a third of the machine's cores, at least 4 and at most 8 (a
+# 24-core seat ran its full gate in 54 minutes at a pool of 2). Scoped builds
+# keep their own default.
+full_gate_pool() {
+    if [ -n "${BUILD_POOL:-}" ]; then
+        printf '%s' "$BUILD_POOL"
+        return
+    fi
+    local cores
+    cores=$(nproc 2>/dev/null || getconf _NPROCESSORS_ONLN 2>/dev/null || echo 12)
+    case "$cores" in ''|*[!0-9]*) cores=12 ;; esac
+    cores=$((cores / 3))
+    [ "$cores" -ge 4 ] || cores=4
+    [ "$cores" -le 8 ] || cores=8
+    printf '%s' "$cores"
+}
+
 run_build() {
     case "$(uname -s)" in
         MINGW*|MSYS*|CYGWIN*) py -3 tools/build.py "$@" ;;
@@ -506,7 +524,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         # reads again only the objects it verifies (tools/full_gate_receipt.py).
         dir32_index="$gate_loads/dir32-index.gz"
         export BFME_DIR32_INDEX="$dir32_index"
-        BUILD_POOL="${BUILD_POOL:-4}" run_build \
+        BUILD_POOL="$(full_gate_pool)" run_build \
             || fail "full byte-verify of outgoing sources (see above)"
         unset BFME_DIR32_INDEX
         build_chunks "byte-verify of additional outgoing sources (see above)" "${extra[@]}"
@@ -531,7 +549,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             printf '%s\0' "${verify[@]}" > "$carried_dir/verified" || fail "writing the verified source list"
         fi
         dir32_index="$carried_dir/dir32-index.gz"
-        BUILD_POOL="${BUILD_POOL:-4}" python3 tools/full_gate_receipt.py cross-checks --since "$carried" \
+        BUILD_POOL="$(full_gate_pool)" python3 tools/full_gate_receipt.py cross-checks --since "$carried" \
             --verified-from "$carried_dir/verified" --index-out "$dir32_index" \
             || fail "cross-source checks over every row (carried full gate; see above)"
         if ! git diff --quiet "$carried" "$local_sha" -- reverse/eh_baseline.csv; then
