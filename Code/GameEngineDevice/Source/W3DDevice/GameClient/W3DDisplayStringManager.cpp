@@ -148,10 +148,14 @@ protected:
 	UnsignedInt m_lastResourceFrame;										///< 0x1F4
 };
 
-class DisplayStringManager
+// DisplayStringManager: its ctor 0x00262002 and dtor 0x0026201C are still
+// ledgered as Rva0026201C (unLink 0x00262045 as Rva00262045), link 0x00262027
+// as DisplayStringManager::link; this unit views the class through both names.
+class Rva0026201C
 {
 public:
-	virtual ~DisplayStringManager( void );
+	Rva0026201C();
+	virtual ~Rva0026201C();
 	virtual void init( void );
 	virtual void postProcessLoad( void );
 	virtual void reset( void );
@@ -161,25 +165,40 @@ public:
 	virtual void vslot11(); virtual void vslot12(); virtual void vslot13();
 	virtual DisplayString *newDisplayString( void ) = 0;
 protected:
-	void link( DisplayString *string );
-public:
-protected:
 	char m_opaque04[ 8 ];
 	DisplayString *m_stringList;												///< 0x0C
 	DisplayString *m_currentCheckpoint;									///< 0x10
 };
 
-class W3DDisplayStringManager : public DisplayStringManager
+class DisplayStringManager
+{
+	friend class W3DDisplayStringManager;
+protected:
+	void link( DisplayString *string );
+};
+
+class W3DDisplayStringManager : public Rva0026201C
 {
 public:
+	W3DDisplayStringManager( void );
+	virtual ~W3DDisplayStringManager( void );
 	virtual void postProcessLoad( void );
 	virtual void update( void );
 	virtual void reset( void );
 	virtual DisplayString *newDisplayString( void );
+	void freeDisplayString( struct Rva90381Node *string );
 	virtual DisplayString *getGroupNumeralString( Int numeral );
 protected:
 	DisplayString *m_groupNumeralStrings[ MAX_GROUPS ];		///< 0x14
 	DisplayString *m_formationLetterDisplayString;				///< 0x3C
+};
+
+struct Rva90381Node
+{
+	virtual void *rva(int x);
+	char m_pad04[8];
+	Rva90381Node *m_next;
+	Rva90381Node *m_prev;
 };
 
 //-------------------------------------------------------------------------------------------------
@@ -314,7 +333,7 @@ DisplayString *W3DDisplayStringManager::newDisplayString( void )
 	}
 
 	// link string to list
-	link( newString );
+	((DisplayStringManager *)this)->link( newString );
 
 	// return our new string
 	return newString;
