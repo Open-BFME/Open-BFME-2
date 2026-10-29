@@ -149,6 +149,11 @@ public:
 	virtual void doSpecialPowerAtLocation(const Coord3D *loc, unsigned int options);	// 0x004949D8
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class InvisibilitySpecialPower : public SpecialPowerModule
 {
 public:
@@ -158,6 +163,7 @@ public:
 	{
 		return (const InvisibilitySpecialPowerModuleData *)m_moduleData;
 	}
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 void InvisibilitySpecialPower::doSpecialPowerAtObject(Object *obj, unsigned int options)
