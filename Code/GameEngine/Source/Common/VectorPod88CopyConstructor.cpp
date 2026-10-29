@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Nested-vector copy and append use the existing retail helper providers.
 #include <stl/_algobase.h>
 namespace _STL {
