@@ -86,11 +86,14 @@ struct BfmeWorldRV
 {
 public:
 	void rva0031AA34(int unused);
+	void rva0031AA4B(int unused);
 
 private:
 	char m_pad00[0x28];
 	unsigned char m_0028;
 };
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/BfmeWorldRV.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/BfmeWorldRva0031AA34.cpp
 
@@ -101,4 +104,13 @@ void BfmeWorldRV::rva0031AA34(int unused)
 	TheInGameUI->slot47(0);
 }
 
-// tu-skeleton: 0x0031AA4B 59B ?rva0031AA4B@BfmeWorldRV@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/BfmeWorldRva0031AA4B.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/BfmeWorldRva0031AA4B.cpp
+
+void BfmeWorldRV::rva0031AA4B(int unused)
+{
+	(void)unused;
+	m_0028 = 1;
+	if (TheInGameUI->slot70() == 0)
+		TheInGameUI->slot47(0);
+	TheInGameUI->slot55(0, 0);
+}
