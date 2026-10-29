@@ -11,6 +11,7 @@ public:
 };
 #include <new.h>
 #include "../../../../../reference/shims/wwmath/Vector2.h"
+#include <stdlib.h>
 
 struct Render2DCharElement
 {
@@ -131,6 +132,8 @@ private:
 	unsigned char tail[3];
 };
 
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Render2DClassConstructor.cpp
 
 template<class T>
@@ -150,4 +153,33 @@ void bfmeAnchorRender2DRawArray(void *where)
 	new (where) Render2DRawArray;
 }
 
-// tu-skeleton: 0x00118D80 90B ?Add@Render2DRawArray@@QAEPAURender2DCharElement@@H@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArrayAdd.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArrayAdd.cpp
+
+// Provenance: Open-BFME-1 game/Libraries/Source/WWVegas/WW3D2/Render2DRawArrayAdd.cpp at 6583b3c1ff; include paths repointed at the
+// reference checkout and built the BFME2 way (/arch:SSE /G7), where its body places
+// exactly once in game.dat by masked byte search.
+// Address-derived BFME raw-array growth helper at retail 0x00933990.
+//
+// This is the 16-byte simple dynamic array used by the BFME renderer.  The
+// element type is deliberately kept local: the surrounding Render2D classes
+// have a different BFME layout from the vendored Zero Hour declaration.
+
+Render2DCharElement *Render2DRawArray::Add(int count)
+{
+	if (count == 0 || (unsigned)count >= 0x80000000u)
+		goto failure;
+
+	Count += count;
+	if ((unsigned)Count <= (unsigned)Size)
+		return Data + (Count - count);
+
+	Size = Count + GrowthStep;
+	Data = (Render2DCharElement *)realloc(
+		Data, (unsigned)Size * sizeof(Render2DCharElement));
+	if (Data == 0)
+		goto failure;
+	return Data + (Count - count);
+
+failure:
+	return 0;
+}

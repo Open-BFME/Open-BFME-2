@@ -8468,7 +8468,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00118CC0,121,code,Code/GameEngine/Source/Common/Render2DRawArray.cpp,proposed,N,N=Code/GameEngine/Source/Common/Render2DRawArray.cpp,Code/GameEngine/Source/Common/Rva00118CC0Finish.cpp
 0x00118D40,31,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp
 0x00118D60,20,code,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp
-0x00118D80,90,code,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArrayAdd.cpp
+0x00118D80,90,code,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/Render2DRawArray.cpp
 0x00118DE0,22,code,,,-,,Code/GameEngine/Source/Common/Small03bLeafTrio.cpp
 0x00118E00,27,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp
 0x00118E20,42,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Render2DClassReset.cpp
