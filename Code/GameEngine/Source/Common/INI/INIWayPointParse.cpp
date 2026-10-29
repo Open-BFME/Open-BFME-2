@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /GX /DNDEBUG /MD
+// stlport
 //
 // DynamicPortalBehaviourData::parseWayPoint, retail 0x0046133B (176B): the
 // WayPoint FieldParse proc (row 0x00C42A58, store +0x120). Reads "Index" (an
@@ -8,6 +9,7 @@
 // names it (DynamicPortalBehaviour.cpp line 90, the same Index/Type tokens
 // and Walk/Climb/PreClimb strings).
 
+#include <vector>
 #include "ascii_string.h"
 
 class INI
@@ -36,9 +38,6 @@ struct BfmeE8
 
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<Rva0046133BWayPoint, allocator<Rva0046133BWayPoint> >
 {
