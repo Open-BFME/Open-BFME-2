@@ -36,10 +36,17 @@ public:
  __forceinline unsigned int kindMask(int kind) const { return getTemplate()->kindOf[kind/32] & (1U << (kind%32)); }
  const Coord3D *getPosition() const { return (const Coord3D *)((const char *)this+0x38); }
 };
-struct FindPositionOptions {
- unsigned int flags;
- Real minRadius,maxRadius,startAngle,maxZDelta;
- const Object *ignoreObject,*sourceToPathToDest,*relationshipObject;
+struct FindPositionOptions
+{
+public:
+	unsigned int flags; // +0x00
+	Real minRadius; // +0x04
+	Real maxRadius; // +0x08
+	Real startAngle; // +0x0C
+	Real maxZDelta; // +0x10
+	const Object *ignoreObject; // +0x14
+	const Object *sourceToPathToDest; // +0x18
+	const Object *relationshipObject; // +0x1C
 };
 class GeometryInfo {
 public:
@@ -47,12 +54,15 @@ public:
  virtual ~GeometryInfo();
  char unknown[0x58];
 };
-class Rva000421C8 {
+class Rva000421C8
+{
 public:
- virtual ~Rva000421C8() {}
- virtual Bool allow(Object *)=0;
- virtual int getPlayerMask();
- Rva000421C8 *m_next;
+	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
+	virtual ~Rva000421C8() {}
+	virtual bool allow(Object *obj) = 0;
+	virtual int getPlayerMask();
+	Rva000421C8 *m_next; // +0x04
 };
 class Rva00261603Filter: public Rva000421C8 {
 public:

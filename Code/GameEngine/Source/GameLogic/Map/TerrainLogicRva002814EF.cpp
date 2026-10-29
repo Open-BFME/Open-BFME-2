@@ -41,9 +41,10 @@ typedef bool Bool;
 
 struct Rva0007E394Element
 {
-	unsigned opaque;
-	bool operator<(const Rva0007E394Element &) const;
-	bool operator==(const Rva0007E394Element &) const;
+public:
+	bool operator<(const Rva0007E394Element&)const;
+	bool operator==(const Rva0007E394Element&)const;
+	unsigned opaque; // +0x00
 };
 
 class Rva0027C208

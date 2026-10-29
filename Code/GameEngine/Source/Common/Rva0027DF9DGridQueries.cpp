@@ -79,10 +79,14 @@ void Rva0027D244::rva0027D1EF(Rva0027D244 *a, Rva0027D244 *b)
 }
 
 
+class PolygonTrigger;
 class Rva0027D30D
 {
 public:
-	void rva0027D30D(Coord3D *p, int dummy);
+	void rva0027D30D(Coord3D *pos, int dummy);
+private:
+	int m_count; // +0x00
+	PolygonTrigger *m_trigger; // +0x04
 };
 
 struct Rva0027D347Arg;
@@ -92,12 +96,16 @@ class Rva0027D347
 {
 public:
 	void rva0027D347(Rva0027D347Arg *a, int dummy);
+private:
+	int m_00; // +0x00
 };
 
 class Rva0027D35F
 {
 public:
 	void rva0027D35F(Rva0027D35FArg *a, int dummy);
+private:
+	unsigned char m_00; // +0x00
 };
 
 __forceinline long fast_float2long_round(float f)
@@ -571,11 +579,11 @@ class Rva000421C8
 {
 public:
 	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
 	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *obj) = 0;
 	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);	// 0x00625790
-	Rva000421C8 *m_next;
+	Rva000421C8 *m_next; // +0x04
 };
 
 class Rva0026119DFilter : public Rva000421C8
@@ -603,8 +611,9 @@ public:
 
 struct Rva00045411BitSet
 {
-	Rva00045411BitSet(int unused, int bit) throw();	// 0x00045411
-	unsigned int m_bits[7];
+public:
+	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
+	unsigned int m_bits[7]; // +0x00
 };
 template<int N> class BitFlags;
 extern BitFlags<116> KINDOFMASK_NONE;
@@ -618,20 +627,22 @@ extern PartitionManager *ThePartitionManager;
 class Rva0027D098
 {
 public:
-	void rva0027D098();	// 0x0027D098
-	float m_00;
-	float m_04;
-	float m_08;
-	int m_0C;
-	int m_10;
-	const ThingTemplate *m_14;
-	unsigned char m_18;
-	float m_1C;
-	float m_20;
-	float m_24;
-	int m_28;
-	unsigned char m_2C;
-	unsigned char m_2D;
+	void rva0027D098();
+	float m_00; // +0x00
+	float m_04; // +0x04
+	float m_08; // +0x08
+	int m_0C; // +0x0C
+	int m_10; // +0x10
+	const ThingTemplate *m_14; // +0x14
+	unsigned char m_18; // +0x18
+	char m_pad19[0x3];
+	float m_1C; // +0x1C
+	float m_20; // +0x20
+	float m_24; // +0x24
+	int m_28; // +0x28
+	unsigned char m_2C; // +0x2C
+	unsigned char m_2D; // +0x2D
+	char m_pad2E[0x2];
 };
 
 void Rva0027D098::rva0027D098()
@@ -667,7 +678,8 @@ struct Rva001A62D0TerrainQueryResult
 
 struct CreateMask
 {
-	unsigned int words[4];
+public:
+	unsigned int words[4]; // +0x00
 };
 
 class Object
@@ -679,8 +691,9 @@ public:
 class Player
 {
 public:
-	char m_pad000[0x2EC];
-	Team *m_2EC;		// +0x2EC
+	bool rva002AA245() const; // 0x002AA245
+	char m_pad00[0x2EC];
+	Team *m_2EC; // +0x2EC +0x2EC
 };
 
 class PlayerList

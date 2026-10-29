@@ -39,16 +39,18 @@ static inline Bool bfme_in_region_nz_findpos( const Region3D &region, const Coor
 		(region.lo.y < query->y) && (query->y < region.hi.y);
 }
 
+class Object;
 struct FindPositionOptions
 {
-	UnsignedInt flags;
-	Real minRadius;
-	Real maxRadius;
-	Real startAngle;
-	Real maxZDelta;
-	void *ignoreObject;
-	const void *sourceToPathToDest;
-	void *relationshipObject;
+public:
+	unsigned int flags; // +0x00
+	Real minRadius; // +0x04
+	Real maxRadius; // +0x08
+	Real startAngle; // +0x0C
+	Real maxZDelta; // +0x10
+	const Object *ignoreObject; // +0x14
+	const Object *sourceToPathToDest; // +0x18
+	const Object *relationshipObject; // +0x1C
 };
 
 class TerrainLogic

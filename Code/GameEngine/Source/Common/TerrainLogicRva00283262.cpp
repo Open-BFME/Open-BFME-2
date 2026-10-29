@@ -29,11 +29,11 @@ class Rva000421C8
 {
 public:
 	Rva000421C8() : m_next(0) {}
+	Rva000421C8 *link(Rva000421C8 *next); // 0x00625790
 	virtual ~Rva000421C8() {}
 	virtual bool allow(Object *obj) = 0;
 	virtual int getPlayerMask();
-	Rva000421C8 *link(Rva000421C8 *next);
-	Rva000421C8 *m_next;
+	Rva000421C8 *m_next; // +0x04
 };
 
 struct BfmeWideResult
@@ -63,8 +63,9 @@ extern BitFlags<116> KINDOFMASK_NONE;
 
 struct Rva00045411BitSet
 {
-	Rva00045411BitSet(int unused, int bit) throw();
-	unsigned m_bits[7];
+public:
+	Rva00045411BitSet(int unused, int bit) throw(); // 0x00045411
+	unsigned int m_bits[7]; // +0x00
 };
 
 class Rva0004584D : public Rva000421C8

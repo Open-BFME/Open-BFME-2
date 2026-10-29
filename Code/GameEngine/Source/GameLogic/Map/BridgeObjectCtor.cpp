@@ -135,7 +135,8 @@ class Team;
 
 struct CreateMask
 {
-	unsigned int m_bits[4];
+public:
+	unsigned int words[4]; // +0x00
 };
 
 class BodyModuleInterface

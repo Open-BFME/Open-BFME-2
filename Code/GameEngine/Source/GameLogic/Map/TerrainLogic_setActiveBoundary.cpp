@@ -34,7 +34,7 @@ class TerrainLogic;
 // (+0x20). Battle for Middle-earth 2 carries the boundary vector at +0x30
 // (begin +0x30, end +0x34, 8-byte ICoord2D elements) with the active index at
 // +0x3C, all measured from the retail body.
-class __declspec(novtable) TerrainLogic
+class TerrainLogic
 {
 public:
 	virtual void slot00() = 0;

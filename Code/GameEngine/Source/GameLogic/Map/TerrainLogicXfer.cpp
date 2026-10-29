@@ -197,7 +197,8 @@ extern ThingFactory *TheThingFactory;
 class FireLogicSystem
 {
 public:
-	void rva00286373(Int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
+	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
+	void rva0028641F(unsigned int key, const Coord3D *pos);
 };
 class Rva002872BA;
 extern Rva002872BA *TheTriggerManager;
@@ -221,10 +222,15 @@ private:
 };
 
 // The rowed id lookup on the same registry, named for its address.
+struct WaterHandleEntry;
 class Rva0027F4F8
 {
 public:
-	void *getWaterHandleByID(Int id);
+	void *getWaterHandleByID(int key);
+	char m_pad00[0x14];
+private:
+	WaterHandleEntry *m_begin; // +0x14
+	WaterHandleEntry *m_end; // +0x18
 };
 
 class Rva0027C230
@@ -272,16 +278,23 @@ class Rva0027F4CB
 public:
 	void rva00280AB6();
 private:
-	void *m_00;
-	int m_04;
-	int m_08;
+	void *m_00Head; // +0x00
+	int m_04Flag; // +0x04
+	int m_08; // +0x08
 };
 
 // The rowed post-load rebuild, named for its address.
+class Rva002827F3;
 class Rva0028360CHost
 {
 public:
 	void rva0028360C();
+	char m_pad00[0x578];
+private:
+	void **m_begin; // +0x578
+	void **m_end; // +0x57C
+	void **m_capacity; // +0x580
+	Rva002827F3 *m_worker; // +0x584
 };
 
 // GameClient::allocDrawableID, named for its address.
@@ -360,10 +373,14 @@ private:
 	char m_data[0x30];
 };
 
+struct Rva004DFCB0Element;
 class Rva002834E6Owner
 {
 public:
-	void addObject(void *p);
+	void addObject(void *key);
+	char m_pad00[0x4];
+private:
+	_STL::vector<Rva004DFCB0Element> m_values; // +0x04
 };
 
 extern GameLogic *TheGameLogic;

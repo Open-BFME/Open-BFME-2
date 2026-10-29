@@ -157,8 +157,9 @@ class Rva0027F4CB
 public:
 	void rva00280AB6();
 private:
-	void *m_00Head;
-	int m_04Flag;
+	void *m_00Head; // +0x00
+	int m_04Flag; // +0x04
+	int m_08; // +0x08
 };
 
 class Rva0024C7B3Member
@@ -472,7 +473,7 @@ class Rva0027D347
 public:
 	void rva0027D347(Rva0027D347Arg *a, int dummy);
 private:
-	int m_00;
+	int m_00; // +0x00
 };
 
 struct Rva004DFCB0Element
@@ -498,10 +499,9 @@ class Rva002834E6Owner
 {
 public:
 	void addObject(void *key);
-
+	char m_pad00[0x4];
 private:
-	char m_pad00[4];
-	_STL::vector<Rva004DFCB0Element> m_values;
+	_STL::vector<Rva004DFCB0Element> m_values; // +0x04
 };
 
 class Rva002827F3
@@ -514,13 +514,12 @@ class Rva0028360CHost
 {
 public:
 	void rva0028360C();
-
-private:
 	char m_pad00[0x578];
-	void **m_begin;
-	void **m_end;
-	void **m_capacity;
-	Rva002827F3 *m_worker;
+private:
+	void **m_begin; // +0x578
+	void **m_end; // +0x57C
+	void **m_capacity; // +0x580
+	Rva002827F3 *m_worker; // +0x584
 };
 
 // bfme link decl-only begin
@@ -560,8 +559,8 @@ class Rva0027D30D
 public:
 	void rva0027D30D(Coord3D *pos, int dummy);
 private:
-	int m_count;
-	PolygonTrigger *m_trigger;
+	int m_count; // +0x00
+	PolygonTrigger *m_trigger; // +0x04
 };
 
 class Rva009FF080Manager0027D35F
@@ -613,15 +612,31 @@ class Rva0027D35F
 public:
 	void rva0027D35F(Rva0027D35FArg *a, int dummy);
 private:
-	unsigned char m_00;
+	unsigned char m_00; // +0x00
 };
 
 extern GameLogic *TheGameLogic;
 
+class ThingTemplate;
 class Rva0027D098
 {
 public:
 	void rva0027D098();
+	float m_00; // +0x00
+	float m_04; // +0x04
+	float m_08; // +0x08
+	int m_0C; // +0x0C
+	int m_10; // +0x10
+	const ThingTemplate *m_14; // +0x14
+	unsigned char m_18; // +0x18
+	char m_pad19[0x3];
+	float m_1C; // +0x1C
+	float m_20; // +0x20
+	float m_24; // +0x24
+	int m_28; // +0x28
+	unsigned char m_2C; // +0x2C
+	unsigned char m_2D; // +0x2D
+	char m_pad2E[0x2];
 };
 
 struct Rva0027D378Target
@@ -649,47 +664,62 @@ struct WaterHandleEntry {
 	void *value;
 };
 
-class Rva0027F4F8 {
-public: void *getWaterHandleByID(int key);
-private: char m_pad00[20];
-         WaterHandleEntry *m_begin;
-         WaterHandleEntry *m_end;
+class Rva0027F4F8
+{
+public:
+	void *getWaterHandleByID(int key);
+	char m_pad00[0x14];
+private:
+	WaterHandleEntry *m_begin; // +0x14
+	WaterHandleEntry *m_end; // +0x18
 };
 
 class Rva0027F5A6
 {
 public:
 	AsciiString rva0027F5A6();
+	char m_pad00[0x50];
 private:
-	char m_pad00[80];
-	AsciiString m_str;
+	AsciiString m_str; // +0x50
 };
 
 class Rva0027F5C1
 {
 public:
 	AsciiString rva0027F5C1();
+	char m_pad00[0x54];
 private:
-	char m_pad00[84];
-	AsciiString m_str;
+	AsciiString m_str; // +0x54
 };
 
 class Rva0027F5DC
 {
 public:
 	AsciiString rva0027F5DC();
+	char m_pad00[0x58];
 private:
-	char m_pad00[88];
-	AsciiString m_str;
+	AsciiString m_str; // +0x58
 };
 
-struct Rva0007E394Element {unsigned opaque;bool operator<(const Rva0007E394Element&)const;bool operator==(const Rva0007E394Element&)const;};
+struct Rva0007E394Element
+{
+public:
+	bool operator<(const Rva0007E394Element&)const;
+	bool operator==(const Rva0007E394Element&)const;
+	unsigned opaque; // +0x00
+};
 
 struct Rva0028170EIterator {void *set;int index;Rva0028170EIterator(void *p,int i):set(p),index(i){} };
 
 bool Rva0030D111Contains(class Rva0030D111Shape*,const Coord2D*);
 
-class Rva0030D111Shape {public:virtual int count();virtual void point();virtual int height();};
+class Rva0030D111Shape
+{
+public:
+	virtual int count();
+	virtual void point();
+	virtual int height();
+};
 
 struct Rva0028170EArea {
  char pad00[0x18];int *baseOffsets;
@@ -759,9 +789,10 @@ public:
 
 struct Rva00281BF7
 {
-	char m_pad[0x60];
-	ObjectID m_id;
+public:
 	int rva00281BF7();
+	char m_pad00[0x60];
+	ObjectID m_id; // +0x60
 };
 
 // ---- from Code/GameEngine/Source/GameClient/Rva00282500Dtor.cpp

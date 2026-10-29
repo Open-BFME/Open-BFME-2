@@ -51,10 +51,26 @@ struct Rva0028449FFrameView
 	unsigned int frame;
 };
 
+class ThingTemplate;
 class Rva0027D098
 {
 public:
 	void rva0027D098();
+	float m_00; // +0x00
+	float m_04; // +0x04
+	float m_08; // +0x08
+	int m_0C; // +0x0C
+	int m_10; // +0x10
+	const ThingTemplate *m_14; // +0x14
+	unsigned char m_18; // +0x18
+	char m_pad19[0x3];
+	float m_1C; // +0x1C
+	float m_20; // +0x20
+	float m_24; // +0x24
+	int m_28; // +0x28
+	unsigned char m_2C; // +0x2C
+	unsigned char m_2D; // +0x2D
+	char m_pad2E[0x2];
 };
 
 struct Rva0028449FRecordView
@@ -75,6 +91,7 @@ struct Coord3D;
 class FireLogicSystem
 {
 public:
+	void rva00286373(int drawableID, const Coord3D *pos, const ThingTemplate *tmpl);
 	void rva0028641F(unsigned int key, const Coord3D *pos);
 };
 

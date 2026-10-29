@@ -37,7 +37,12 @@ extern Debug *theDebug;
 bool bfmeRva000387C0();
 void _bfme_debugRecordCallsite(int);
 #define REPORT(message) if (bfmeRva000387C0()) { _bfme_debugRecordCallsite(1); theDebug->slot60(); (theDebug->slot6c(0,0,0) << *(const StringBase<char> *)&name).slot38(message).slot4c(2); }
-class W3DTerrainLogic { public: void Rva0027DA58(); };
+class W3DTerrainLogic
+{
+public:
+	void Rva0027DA58();
+	void Rva0027D960(void *water, float *region);
+};
 #pragma pack(push,1)
 struct AmbientTgaHeader
 {

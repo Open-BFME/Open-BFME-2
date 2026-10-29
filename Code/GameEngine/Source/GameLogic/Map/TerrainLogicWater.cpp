@@ -63,15 +63,15 @@ public:
 class Rva00263895Member
 {
 public:
-	Rva00263895Member();
-	char m_pad00[0x08];
-	ObjectID m_sourceID; // +0x08
-	char m_pad0C[0x10 - 0x0C];
-	Int m_damageType; // +0x10
-	char m_pad14[0x1C - 0x14];
-	Int m_deathType; // +0x1C
-	Real m_amount; // +0x20
-	char m_pad24[0x7C - 0x24];
+	Rva00263895Member(); // 0x00263895
+	char m_pad00[0x8];
+	ObjectID m_sourceID; // +0x08 +0x08
+	char m_pad0C[0x4];
+	Int m_damageType; // +0x10 +0x10
+	char m_pad14[0x8];
+	Int m_deathType; // +0x1C +0x1C
+	Real m_amount; // +0x20 +0x20
+	char m_pad24[0x58];
 };
 
 class Object
@@ -107,7 +107,8 @@ extern PartitionManager *ThePartitionManager;
 class W3DTerrainLogic
 {
 public:
-	void Rva0027D960(void *water, Real *region);
+	void Rva0027DA58();
+	void Rva0027D960(void *water, float *region);
 };
 
 // N unnamed vftable slots appended to Base.

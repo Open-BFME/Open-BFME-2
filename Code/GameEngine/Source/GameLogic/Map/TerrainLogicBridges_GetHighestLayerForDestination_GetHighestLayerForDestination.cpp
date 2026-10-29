@@ -117,7 +117,15 @@ public:
 class Rva00263895Member
 {
 public:
-	Rva00263895Member();	// 0x00263895
+	Rva00263895Member(); // 0x00263895
+	char m_pad00[0x8];
+	ObjectID m_sourceID; // +0x08 +0x08
+	char m_pad0C[0x4];
+	Int m_damageType; // +0x10 +0x10
+	char m_pad14[0x8];
+	Int m_deathType; // +0x1C +0x1C
+	Real m_amount; // +0x20 +0x20
+	char m_pad24[0x58];
 };
 class DamageInfo
 {
@@ -230,10 +238,12 @@ private:
 // 0x00281BF7: the bridge object's drawable (Zero Hour's tail of
 // Bridge::pickBridge, split out); the row keeps its address-derived name and
 // int return.
-class Rva00281BF7
+struct Rva00281BF7
 {
 public:
-	Int rva00281BF7();
+	int rva00281BF7();
+	char m_pad00[0x60];
+	ObjectID m_id; // +0x60
 };
 
 // 0x002ED236 takes the position by value as a 12-byte type with a
@@ -502,9 +512,10 @@ inline void Coord3D::normalize()
 // "W3DTerrainLogic"). Zero Hour's W3DTerrainLogic::loadPostProcess only
 // extends the base, so it is a tail jump to TerrainLogic::loadPostProcess
 // above (slot 1 of TerrainLogic's vtable 0x007FB2C8).
-class W3DTerrainLogic : public TerrainLogic
+class W3DTerrainLogic
 {
-protected:
-	virtual void loadPostProcess(void);
+public:
+	void Rva0027DA58();
+	void Rva0027D960(void *water, float *region);
 };
 

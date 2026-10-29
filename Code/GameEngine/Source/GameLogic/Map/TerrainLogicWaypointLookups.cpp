@@ -63,16 +63,25 @@ class Rva0027F5A6
 {
 public:
 	AsciiString rva0027F5A6();
+	char m_pad00[0x50];
+private:
+	AsciiString m_str; // +0x50
 };
 class Rva0027F5C1
 {
 public:
 	AsciiString rva0027F5C1();
+	char m_pad00[0x54];
+private:
+	AsciiString m_str; // +0x54
 };
 class Rva0027F5DC
 {
 public:
 	AsciiString rva0027F5DC();
+	char m_pad00[0x58];
+private:
+	AsciiString m_str; // +0x58
 };
 
 class Waypoint

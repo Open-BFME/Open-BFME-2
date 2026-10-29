@@ -67,10 +67,13 @@ public:
 	Rva003A2BD4Owner *m_owner258;		// +0x258
 };
 
+class Team;
 class Player
 {
 public:
-	bool rva002AA245() const;		// 0x002AA245
+	bool rva002AA245() const; // 0x002AA245
+	char m_pad00[0x2EC];
+	Team *m_2EC; // +0x2EC +0x2EC
 };
 
 struct Rva002A8AB1Record;
