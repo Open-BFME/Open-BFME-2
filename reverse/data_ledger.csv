@@ -20566,8 +20566,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A04128,4,.data,global,?$S1@?1??getModuleNameKey@HighlanderBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyPoolKey.cpp,owned,,1,4
 0x00A0412C,4,.data,global,?TheImmortalBodyPoolKey@?1??getModuleNameKey@ImmortalBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp,owned,,1,2
 0x00A04130,4,.data,global,?$S1@?1??getModuleNameKey@ImmortalBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp,owned,,1,4
-0x00A04134,4,.data,global,?TheStructureBodyPoolKey@?1??getModuleNameKey@StructureBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/StructureBodyPoolKey.cpp,owned,,1,2
-0x00A04138,4,.data,global,?$S1@?1??getModuleNameKey@StructureBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/StructureBodyPoolKey.cpp,owned,,1,4
+0x00A04134,4,.data,global,?TheStructureBodyPoolKey@?1??getModuleNameKey@StructureBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,owned,,1,2
+0x00A04138,4,.data,global,?$S1@?1??getModuleNameKey@StructureBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,owned,,1,4
 0x00A0413C,4,.data,global,?TheSymbioticStructuresBodyPoolKey@?1??getModuleNameKey@SymbioticStructuresBody@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyPoolKey.cpp,owned,,1,2
 0x00A04140,4,.data,global,?$S1@?1??getModuleNameKey@SymbioticStructuresBody@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyPoolKey.cpp,owned,,1,4
 0x00A04144,4,.data,global,_s_rva007B27B8,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

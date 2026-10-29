@@ -39939,7 +39939,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004C0982,6,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,C,C=0x004C0951..0x004C0988,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x004C0988,25,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,C,C=0x004C0951..0x004C09A1,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp
 0x004C09A1,20,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,C,C=0x004C0951..0x004C09B5,Code/GameEngine/Source/Common/GapBodiesGE24.cpp
-0x004C09B5,69,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp N=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,Code/GameEngine/Source/GameLogic/Object/Body/StructureBodyPoolKey.cpp
+0x004C09B5,69,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp N=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp
 0x004C09FA,28,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,C,C=0x004C09B5..0x004C0A16,Code/GameEngine/Source/Common/Rva004BF951Derived_Unresolved.cpp
 0x004C0A16,54,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp S=Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp N=Code/GameEngine/Source/Common/StructureBody.cpp,Code/GameEngine/Source/Common/Rva004BF951Derived.cpp
 0x004C0A4C,25,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,proposed,K,K=Rva004C0A4C noncontiguous,Code/GameEngine/Source/Common/Rva004BF951Derived.cpp
@@ -81525,8 +81525,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078FB2F,10,code,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBody.cpp,approved,P,P=0x004C07CA@FuncInfo0x00940E00,Code/GameEngine/Source/GameLogic/Object/Body/HighlanderBodyPoolKey.cpp
 0x0078FB39,13,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,approved,P,P=0x004C08B7@FuncInfo0x00940E24 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp
 0x0078FB46,10,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,approved,P,P=0x004C08B7@FuncInfo0x00940E24 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBodyPoolKey.cpp
-0x0078FB50,13,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,P,P=0x004C09B5@FuncInfo0x00940E48,Code/GameEngine/Source/GameLogic/Object/Body/StructureBodyPoolKey.cpp
-0x0078FB5D,10,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,P,P=0x004C09B5@FuncInfo0x00940E48,Code/GameEngine/Source/GameLogic/Object/Body/StructureBodyPoolKey.cpp
+0x0078FB50,13,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,P,P=0x004C09B5@FuncInfo0x00940E48,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp
+0x0078FB5D,10,code,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp,approved,P,P=0x004C09B5@FuncInfo0x00940E48,Code/GameEngine/Source/GameLogic/Object/Body/StructureBody.cpp
 0x0078FB67,13,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,approved,P,P=0x004C0AAC@FuncInfo0x00940E6C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyPoolKey.cpp
 0x0078FB74,10,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,approved,P,P=0x004C0AAC@FuncInfo0x00940E6C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodyPoolKey.cpp
 0x0078FB7E,25,code,Code/GameEngine/Source/GameLogic/Object/Body/ImmortalBody.cpp,approved,P,P=0x004C0ECE@FuncInfo0x00940EA0 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Body/SymbioticStructuresBodySlots.cpp
