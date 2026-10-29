@@ -17519,14 +17519,14 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?Rva00117A60SetFlag@@YAXXZ,,0x00117A60,8,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp,matched,byte flag setter; phase-proven no-branch-to-addr
 ?Rva00117A70SetFlag@@YAXE@Z,,0x00117A70,10,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp,matched,byte flag setter with arg; phase-proven no-branch-to-addr
 ?Rva00117A80GetFlag@@YAEXZ,,0x00117A80,6,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp,matched,byte flag getter; phase-proven no-branch-to-addr
-?get@Rva004A6E29PtrChaseField@@QBEHXZ,,0x004A6E29,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back ptr chase getter; negative outer plus cluster member
-?get@Rva004A6FF9PtrChaseField@@QBEHXZ,,0x004A6FF9,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back ptr chase getter; negative outer plus triple-cluster member
+?get@Rva004A6E29PtrChaseField@@QBEHXZ,,0x004A6E29,10,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp,matched,disp32-back ptr chase getter; negative outer plus cluster member
+?get@Rva004A6FF9PtrChaseField@@QBEHXZ,,0x004A6FF9,10,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp,matched,disp32-back ptr chase getter; negative outer plus triple-cluster member
 ?get@Rva004A9B85PtrChaseField@@QBEHXZ,,0x004A9B85,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back ptr chase getter; negative outer plus cluster member
 ?rva0047EC5F@AnimalAIUpdate@@UBEEXZ,,0x0047EC5F,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,slot 0 of AnimalAIUpdate +0x3E4 interface vftable 0x00C47B84; reads module-data byte +0x7C
-?get@Rva004A6FE5ByteChaseField@@QBEEXZ,,0x004A6FE5,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back byte chase getter; negative outer plus triple-cluster member
+?get@Rva004A6FE5ByteChaseField@@QBEEXZ,,0x004A6FE5,10,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp,matched,disp32-back byte chase getter; negative outer plus triple-cluster member
 ?get@Rva00488C34FloatChaseField@@QBEMXZ,,0x00488C34,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back float chase getter; negative outer plus adjacent pair
 ?get@Rva00488C3EFloatChaseField@@QBEMXZ,,0x00488C3E,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back float chase getter; negative outer plus adjacent pair
-?get@Rva004A6FEFFloatChaseField@@QBEMXZ,,0x004A6FEF,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back float chase getter; negative outer plus triple-cluster member
+?get@Rva004A6FEFFloatChaseField@@QBEMXZ,,0x004A6FEF,10,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp,matched,disp32-back float chase getter; negative outer plus triple-cluster member
 ?get@Rva004A964CFloatChaseField@@QBEMXZ,,0x004A964C,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back float chase getter; negative outer plus adjacent pair
 ?get@Rva004A9656FloatChaseField@@QBEMXZ,,0x004A9656,10,Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp,matched,disp32-back float chase getter; negative outer plus adjacent pair
 ?hasBfmeThingTXA@@YAHXZ,,0x00117AC0,12,Code/GameEngine/Source/Common/hasBfmeThingTXA.cpp,matched,TXA slot presence test; slot meaning proven by creator; xor-first needs O1 split TU
