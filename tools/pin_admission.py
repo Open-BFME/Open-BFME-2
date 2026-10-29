@@ -785,7 +785,7 @@ def row_key(row):
                                       "source", "status", "notes"))
 
 
-def judge(old_pins, new_pins, old_rows, new_rows):
+def judge(old_pins, new_pins, old_rows, new_rows, *, static_only=False):
     problems = []
     before = {pin_key(p) for p in old_pins}
     after = {pin_key(p) for p in new_pins}
@@ -814,7 +814,8 @@ def judge(old_pins, new_pins, old_rows, new_rows):
     if added:
         retained_pins = [p for p in new_pins if pin_key(p) in before]
         names_at = names_by_address(new_rows, retained_pins)
-        prove = fold_prover(new_rows, new_pins)
+        # Static preflight defers proof-dependent decisions to the full gate.
+        prove = (lambda pin, rva: []) if static_only else fold_prover(new_rows, new_pins)
     for pin in added:
         for why in pin_problems(pin, names_at, prove):
             problems.append(f"{PINS}: {pin['name']},{pin['address']}: {why}")
@@ -823,8 +824,9 @@ def judge(old_pins, new_pins, old_rows, new_rows):
         except (KeyError, TypeError, ValueError):
             pass
     old_keys = {row_key(r) for r in old_rows}
-    problems += fold_pin_conflicts(new_pins, new_rows, added,
-                                   [r for r in new_rows if row_key(r) not in old_keys])
+    if not static_only:
+        problems += fold_pin_conflicts(new_pins, new_rows, added,
+                                       [r for r in new_rows if row_key(r) not in old_keys])
     for row in new_rows:
         if row_key(row) in old_keys or not build.is_alias_row(row):
             continue

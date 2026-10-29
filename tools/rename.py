@@ -1784,7 +1784,13 @@ def object_referencers(ctx, symbol):
     if not ctx.object_scan:
         return set()
     import name_dependents
-    return name_dependents.dependents({symbol}, name_dependents._row_objects(ctx.rows()), ctx.root)
+    symbols = {symbol} if isinstance(symbol, str) else set(symbol)
+    lookup = getattr(ctx, "_consumer_lookup", None)
+    found = (lookup(symbols) if lookup is not None else
+             name_dependents.dependents(symbols, name_dependents._row_objects(ctx.rows()), ctx.root))
+    if hasattr(ctx, "_object_queries"):
+        ctx._object_queries.append((symbols, found))
+    return found
 
 
 def alias_pins(ctx, old_name, rva):
@@ -3315,7 +3321,7 @@ def plan_class(ctx, name, new, basis, evidence, *, max_files=25):
     by_object = set()
     if ctx.object_scan and scoped:
         import name_dependents
-        by_object = name_dependents.dependents(set(scoped), name_dependents._row_objects(ctx.rows()), ctx.root)
+        by_object = object_referencers(ctx, set(scoped))
     touched = set(texts) | by_object
     refuse_vendored(ctx, touched | set(declarers), f"renaming the type {old}")
     generated = sorted(p for p in touched if is_generated(p))
@@ -4971,8 +4977,10 @@ def apply_rename(plan, *, ctx=None, verify=build_verify, checks=ledger_checks, c
             raise VerifyFailed(f"verification failed for {plan.old} -> {plan.new}; every file restored")
         problems = checks(ctx, plan) if checks else []
         if problems:
-            raise VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
-                               f"[{refusing(problems)}] ({problems[0][:300]}); every file restored")
+            error = VerifyFailed(f"the commit hooks would refuse {plan.old} -> {plan.new} "
+                                 f"[{refusing(problems)}] ({problems[0][:300]}); every file restored")
+            error.problems = problems  # preserve diagnostics for targeted retries
+            raise error
     except BaseException:
         unmove(ctx, plan, moved)
         restore(ctx, plan.before)
@@ -5226,6 +5234,384 @@ def run_member_batch(ctx, requests, *, claim=True, verify=build_verify, checks=l
                 view._cache.clear()
                 unlock(handle)
     finally:
+        if previous is not None:
+            signal.signal(signal.SIGTERM, previous)
+
+
+def pin_preflight(ctx, plan):
+    """Cheap subset of pin admission; proof/native checks remain final gates."""
+    if SYMBOLS not in plan.after and FUNCTIONS not in plan.after:
+        return []
+    import pin_admission
+    def rows(rel, after=False):
+        raw = (plan.after.get(rel, ctx.read(rel)) if after else ctx.read(rel))
+        return pin_admission.csv_rows(raw.decode("utf-8")) if raw else []
+    # Tiny test/foreign repositories need not contain the retail image.
+    if not (ctx.root / "tools/pin_admission.py").exists():
+        return []
+    return pin_admission.judge(rows(SYMBOLS), rows(SYMBOLS, True),
+                               rows(FUNCTIONS), rows(FUNCTIONS, True), static_only=True)
+
+
+def diagnostic_suspects(plans, messages):
+    """Exact pin names from gate diagnostics, used only to partition retries."""
+    pins = set(re.findall(r"reverse/symbols\.csv:\s*([^,\s]+),0x[0-9A-Fa-f]+:",
+                          "\n".join(messages)))
+    return [index for index, plan in plans if any(
+        name in pins for pin in plan.renamed_pins for name in pin[:2])]
+
+
+def _argument_chunks(values, budget=12000):
+    """Leave room for Git options and quoting under Windows' command limit."""
+    chunk, size = [], 0
+    for value in values:
+        cost = len(value) + 4
+        if chunk and size + cost > budget:
+            yield chunk
+            chunk, size = [], 0
+        chunk.append(value)
+        size += cost
+    if chunk:
+        yield chunk
+
+
+def _planning_names(ctx, requests):
+    """Potential function/global queries; ownership and permission stay in planners."""
+    kinds = {kind for kind, _ in requests}
+    by_rva = collections.defaultdict(list)
+    if "function" in kinds:
+        for row in ctx.rows():
+            by_rva[_rva(row.get("target_rva"))].append(row)
+    data = ctx.dicts(DATA_ROWS) if "global" in kinds else []
+    symbols, terms = set(), set()
+    for kind, kwargs in requests:
+        if kind == "function":
+            rva = kwargs.get("rva")
+            old = kwargs.get("old")
+            owners = [row["name"] for row in by_rva.get(rva, ())
+                      if not row["name"].startswith(("__ehhandler$", "__unwindfunclet$", "$L"))
+                      and "parent=" not in row.get("notes", "")
+                      and (not old or row["name"] == old)]
+            for name in list(owners):
+                owners.extend(alias_pins(ctx, name, rva))
+        elif kind == "global":
+            old = kwargs.get("name")
+            owners = [row["name"] for row in data
+                      if row.get("name") == old or _identifier(row.get("name", "")) == old]
+        else:
+            continue
+        symbols.update(owners)
+        for name in [*owners, kwargs.get("new")]:
+            if not isinstance(name, str) or not name:
+                continue
+            terms.add(name)
+            word = _identifier(name)
+            if word:
+                terms.add(word)
+    # Invalid or non-ASCII requests use the ordinary planner/search path.
+    terms = {term for term in terms if term.isascii() and len(term) <= 1024
+             and not any(c in term for c in "\r\n\0")}
+    return terms, symbols
+
+
+class _PlanningSearches:
+    """Narrow exact Git queries using one shared candidate scan per root group.
+
+    The candidate scan is a superset: Git still decides each query's word,
+    binary and tracked-file semantics. This snapshot belongs to one ledger-lock
+    interval only; restored retries construct a new one and see new callers.
+    """
+    def __init__(self, ctx, terms):
+        self.ctx = ctx
+        self.terms = sorted(terms)
+        self.groups = {}
+        self.results = {}
+
+    def grep_files(self, needle, *, word=False, roots=SEARCH_ROOTS):
+        if needle not in self.terms:
+            return self.ctx.grep_files(needle, word=word, roots=roots)
+        roots = tuple(roots)
+        group = (word, roots)
+        if group not in self.groups:
+            candidates = {term: set() for term in self.terms}
+            scanned = set()
+            encoded = [(term, term.encode("ascii")) for term in self.terms]
+            for chunk in _argument_chunks(self.terms):
+                args = ["grep", "-l", "-z", "-F", "-I"] + (["-w"] if word else [])
+                for term in chunk:
+                    args.extend(("-e", term))
+                output = self.ctx.git(*args, "--", *roots)
+                for rel in filter(None, output.split("\0")):
+                    if rel in scanned:
+                        continue
+                    data = self.ctx.read(rel)
+                    if data is None:
+                        raise Refusal(f"{rel} disappeared during the batch search")
+                    scanned.add(rel)
+                    for term, raw in encoded:
+                        if raw in data:
+                            candidates[term].add(rel)
+            self.groups[group] = candidates
+        key = (needle, word, roots)
+        if key not in self.results:
+            found = set()
+            paths = [":(literal)" + path for path in sorted(self.groups[group][needle])]
+            for chunk in _argument_chunks(paths):
+                args = ["grep", "-l", "-z", "-F", "-I"] + (["-w"] if word else [])
+                found.update(filter(None, self.ctx.git(*args, "-e", needle, "--", *chunk).split("\0")))
+            self.results[key] = sorted(found)
+        return list(self.results[key])
+
+
+class _PlanningConsumers:
+    """Read current objects and stale-source text once for all prepared symbols."""
+    def __init__(self, ctx, symbols):
+        self.ctx = ctx
+        self.symbols = symbols
+        self.by_name = None
+        self.objects = None
+
+    def __call__(self, symbols):
+        import name_dependents
+        if self.objects is None:
+            self.objects = name_dependents._row_objects(self.ctx.rows())
+        if symbols <= self.symbols:
+            if self.by_name is None:
+                self.by_name = name_dependents.dependents_by_name(self.symbols, self.objects, self.ctx.root)
+            return set().union(*(self.by_name[name] for name in symbols))
+        # Scope changes can introduce a symbol outside the initial request set.
+        return name_dependents.dependents(symbols, self.objects, self.ctx.root)
+
+
+class RunBatchSession:
+    """Prepared plans and fenced claims shared by restored retries.
+
+    A cached plan is reused only while its recorded reads, tracked searches and
+    object-query generation remain valid. Full verification still runs per group.
+    """
+    def __init__(self, ctx):
+        self.ctx = ctx
+        self.prepared = {}
+        self.held = set()
+        self.claimed = Claimed()
+        self.kept = set()
+        self.object_generation = 0
+        self.object_stamp = None
+
+    def refresh_object_stamp(self):
+        """Detect builds in this or another worker before trusting object queries."""
+        if not self.ctx.object_scan:
+            return
+        import build
+        import name_dependents
+        objects = name_dependents._row_objects(self.ctx.rows())
+        paths = {path for group in objects.values() for path in group}
+        stamp = []
+        for source in sorted(objects):
+            path = self.ctx.path(source)
+            try:
+                stat = path.stat()
+                item = (stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+            except OSError:
+                item = None
+            stamp.append((source, item))
+        for output in sorted(paths, key=str):
+            for path in (output, build._deps_sidecar(output)):
+                try:
+                    stat = path.stat()
+                    item = (stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
+                except OSError:
+                    item = None
+                stamp.append((str(path), item))
+        stamp = tuple(stamp)
+        if self.object_stamp is not None and stamp != self.object_stamp:
+            self.object_generation += 1
+        self.object_stamp = stamp
+
+    def acquire(self, keys, enabled):
+        missing = [key for key in keys if key not in self.held]
+        got = take_claims(missing, enabled, self.ctx.root)
+        self.held.update(missing)
+        self.claimed.new.extend(got.new)
+        self.claimed.tokens.update(got.tokens)
+        self.claimed.unconfirmed.extend(got.unconfirmed)
+        # Recovery of this transaction may release its new claims, but must
+        # preserve those supporting an earlier verified group.
+        current = [key for key in self.claimed.new if key in keys and key not in self.kept]
+        return Claimed(current, {k: v for k, v in self.claimed.tokens.items() if k in current})
+
+    def close(self):
+        unused = [key for key in self.claimed.new if key not in self.kept]
+        Claimed(unused, {k: v for k, v in self.claimed.tokens.items() if k in unused}).release(self.ctx.root)
+        self.claimed.new = [key for key in self.claimed.new if key in self.kept]
+
+
+@dataclass
+class RunBatchResult:
+    plans: list = field(default_factory=list)    # (request index, ordinary Plan)
+    refused: dict = field(default_factory=dict)  # request index -> planning refusal
+    failure: Exception = None                  # the combined transaction was restored
+    suspects: list = field(default_factory=list)  # exact diagnostic request indices
+
+
+def run_batch(ctx, requests, *, claim=True, verify=build_verify, checks=ledger_checks, session=None):
+    """Plan each name normally, then claim/apply/verify the complete union.
+
+    Planning refusals affect only their request. A failed combined transaction
+    is restored by apply_rename and returned to the caller for smaller retries.
+    Unexpected errors and interrupts propagate after recovery and claim release.
+    Source moves are excluded: this API batches identifier changes only.
+    """
+    from portable_lock import lock, unlock
+
+    refuse_pending_journal(ctx)
+    requests = list(requests)
+    result = RunBatchResult()
+    own_session = session is None
+    session = session or RunBatchSession(ctx)
+    reads = {}
+    searches = {}
+    git_searches = {}
+    combined = Plan("run-batch", "approved names", "readable names", "inferred", "", None, None)
+
+    class View(Context):
+        def read(self, rel):
+            data = combined.after[rel] if rel in combined.after else ctx.read(rel)
+            reads[rel] = data
+            return data
+
+        def git(self, *args):
+            output = ctx.git(*args)
+            if args and args[0] == "grep":
+                git_searches[tuple(args)] = output
+            return output
+
+        def grep_files(self, needle, *, word=False, roots=SEARCH_ROOTS):
+            # git grep reads the real worktree. Reflect earlier in-memory plans
+            # too, including newly introduced words and removed spellings.
+            found = set(batch_searches.grep_files(needle, word=word, roots=roots))
+            for rel, data in combined.after.items():
+                if not any(rel == base.rstrip("/") or rel.startswith(base.rstrip("/") + "/")
+                           for base in roots):
+                    continue
+                text = data.decode("utf-8", errors="surrogateescape") if data is not None else ""
+                matches = word_re(needle).search(text) if word else needle in text
+                if matches:
+                    found.add(rel)
+                else:
+                    found.discard(rel)
+            result = sorted(found)
+            searches[(needle, word, tuple(roots))] = result
+            return result
+
+    view = View(ctx.root, object_scan=ctx.object_scan, sweep_dirs=ctx.sweep_dirs)
+    previous = None
+    if threading.current_thread() is threading.main_thread():
+        previous = signal.signal(signal.SIGTERM, _on_sigterm)
+    try:
+        with ctx.path(LOCK).open("a") as handle:
+            lock(handle, exclusive=True, wait_notice="rename: waiting for the ledger lock...")
+            try:
+                session.refresh_object_stamp()
+                terms, symbols = _planning_names(ctx, requests)
+                batch_searches = _PlanningSearches(ctx, terms)
+                view._consumer_lookup = _PlanningConsumers(ctx, symbols)
+                for index, (kind, kwargs) in enumerate(requests):
+                    try:
+                        if kind not in PLANNERS or kind == "file":
+                            raise Refusal("run batches support identifier renames, not source moves")
+                        key = (kind, repr(sorted(kwargs.items())))
+                        cached = session.prepared.get(key)
+                        reads.clear()
+                        searches.clear()
+                        git_searches.clear()
+                        valid = bool(kwargs.get("basis") == "inferred" and cached)
+                        if valid:
+                            plan, expected_reads, expected_searches, expected_git, object_queries, generation = cached
+                            valid = all(view.read(rel) == data for rel, data in expected_reads.items())
+                            if valid:
+                                valid = all(view.grep_files(needle, word=word, roots=roots) == result
+                                            for (needle, word, roots), result in expected_searches.items())
+                            if valid:
+                                valid = all(view.git(*command) == result
+                                            for command, result in expected_git.items())
+                            if valid and generation != session.object_generation:
+                                valid = all(object_referencers(view, symbols) == found
+                                            for symbols, found in object_queries)
+                        if valid:
+                            plan = cached[0]
+                        else:
+                            reads.clear()
+                            searches.clear()
+                            git_searches.clear()
+                            view._cache.clear()
+                            view._object_queries = []
+                            plan = plan_rename(kind, ctx=view, **kwargs)
+                            session.prepared[key] = (plan, dict(reads), dict(searches), dict(git_searches),
+                                                     list(view._object_queries), session.object_generation)
+                            del view._object_queries
+                        if plan.moves:
+                            raise Refusal("a run batch may not move source files")
+                        # Reject a pin conflict before it contaminates the union
+                        # and forces clean proposals through a restored retry.
+                        if SYMBOLS in plan.after:
+                            problems = pin_preflight(view, plan)
+                            if problems:
+                                raise Refusal("pin_admission: " + "; ".join(problems))
+                    except Refusal as exc:
+                        result.refused[index] = str(exc)
+                        view._cache.clear()
+                        continue
+                    for rel, before in plan.before.items():
+                        combined.before.setdefault(rel, before)
+                    combined.after.update(plan.after)
+                    combined.verify = sorted(set(combined.verify) | set(plan.verify))
+                    combined.claims.extend(claim_keys(plan))
+                    for attr in ("renamed_rows", "renamed_pins", "notes_rows", "warnings", "mentions",
+                                 "renamed_data", "owner_rows", "carried", "spellings"):
+                        getattr(combined, attr).extend(getattr(plan, attr))
+                    for rel, counts in plan.source_counts.items():
+                        target = combined.source_counts.setdefault(rel, {})
+                        for label, count in counts.items():
+                            target[label] = target.get(label, 0) + count
+                    result.plans.append((index, plan))
+                    view._cache.clear()
+                if not result.plans:
+                    return result
+                combined.claims = claim_keys(combined)
+                for _, plan in result.plans:
+                    print(plan.report())
+                print(f"rename: run batch of {len(result.plans)} names; "
+                      f"one verification of {len(combined.verify)} source(s).", flush=True)
+                claimed = None
+                try:
+                    problems = pin_preflight(ctx, combined)
+                    if problems:
+                        message = "pin_admission: " + "; ".join(problems)
+                        result.suspects = diagnostic_suspects(result.plans, problems)
+                        raise VerifyFailed(message)
+                    claimed = session.acquire(combined.claims, claim)
+                    apply_rename(combined, ctx=ctx, verify=verify, checks=checks, claimed=claimed)
+                except (Refusal, VerifyFailed) as exc:
+                    if not result.suspects:
+                        result.suspects = diagnostic_suspects(result.plans, getattr(exc, "problems", [str(exc)]))
+                    result.failure = exc
+                    return result
+                except BaseException:
+                    raise
+                session.kept.update(combined.claims)
+                if claimed.new:
+                    print("rename: claims kept until the rename is pushed; then run: python3 tools/claims.py release "
+                          + " ".join(map(claim_label, claimed.new)))
+                print(f"rename: run batch verified OK ({len(result.plans)} names, "
+                      f"{len(combined.verify)} source(s)).")
+                return result
+            finally:
+                ctx._cache.clear()
+                unlock(handle)
+    finally:
+        if own_session:
+            session.close()
         if previous is not None:
             signal.signal(signal.SIGTERM, previous)
 

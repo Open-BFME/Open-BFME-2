@@ -64,11 +64,11 @@ puts landed names back through rename.py's own reversal entry point
 append-only as basis `restored`), records the reason, and refuses that
 spelling for the key from then on.
 
-Eligible member renames in the same owner source and parameter/local renames
-in the same file share one transaction, claim operation, build and set of
-ledger checks. Each member still passes its own planner and agreement check.
-A failed batch is restored and retried individually. `apply --no-batch`
-retains per-name verification.
+Eligible names share one run-wide transaction, claim operation, build and set
+of ledger checks. Every name still passes its ordinary planner and agreement
+check. A failed transaction is restored and split into smaller groups until
+the failing names are isolated. `apply --per-file` retains file grouping;
+`apply --no-batch` retains per-name verification.
 
 `apply` lands every waiting key whose votes win, including agreements that
 only other contributors' voters reached. `apply --only-labels seat-a,seat-b`
@@ -1120,6 +1120,123 @@ def rename_kwargs(kind, scope, old, new, rva, rel):
     raise rename.Refusal(f"unknown lane kind {kind}")
 
 
+def warm_donor_parameters(lane, files):
+    """Batch donor lookups that owned() would otherwise issue once per file."""
+    functions = set()
+    items = files.items() if hasattr(files, "items") else ((rel, lane.text(rel)) for rel in files)
+    for rel, text in items:
+        if text is None:
+            continue
+        code = name_metric.strip(text)
+        for scope, _start, _end, params in name_metric.functions_in(code):
+            if any(name_metric.weak("param", name) and not name_metric.placeholder(name)
+                   for name in rename.parameters(params)):
+                functions.add(base(scope))
+    return lane.donor_params(functions) if functions else {}
+
+
+def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
+    """Apply selected live keys together; isolate a restored failure by splitting.
+
+    Every retry is planned against the surviving verified tree, and verifies
+    all sources and consumers its changes affect. A restored failed group never
+    removes earlier successful groups or leaves their references half-renamed.
+    """
+    counts = collections.Counter()
+    outcomes = []
+    session = rename.RunBatchSession(lane.ctx)
+
+    def record(row, status, detail):
+        outcome = dict(row, status=status, detail=" ".join(str(detail).split())[:300])
+        if status == "stale":
+            outcome["agents"] = ""
+        outcomes.append(outcome)
+        counts[status] += 1
+        if status == "blocked":
+            print(f"{row['key']}: blocked: {outcome['detail']}", flush=True)
+
+    ready = []
+    texts = {rel: lane.text(rel) for rel in todo}
+    eligible = {rel for rel, text in texts.items()
+                if text is not None and lane.servable(rel)}
+    warm_donor_parameters(lane, {rel: texts[rel] for rel in eligible})
+    for rel, rows in sorted(todo.items()):
+        text = texts[rel]
+        live = {key_of(rel, k, s, i) for k, s, i, _ in
+                lane.owned(rel, text, kinds={r["kind"] for r in rows})} if rel in eligible else set()
+        for row in rows:
+            if row["key"] in live:
+                ready.append(row)
+            else:
+                record(row, "stale", "the file changed or the placeholder is gone")
+    # Scoped/member approvals must be consumed before enclosing functions or
+    # classes change their qualified names, even across different owner files.
+    ready.sort(key=lambda row: (LAND_ORDER[row["kind"]], row["key"]))
+
+    def apply_group(rows):
+        if not rows:
+            return
+        requests = []
+        for row in rows:
+            rel, kind, scope, old = split_key(row["key"])
+            requests.append((kind, dict(basis="inferred", evidence=f"agree:{row['id']}",
+                max_files=max_files, **rename_kwargs(kind, scope, old, row["new"], row["rva"], rel))))
+        result = rename.run_batch(lane.ctx, requests, claim=args.claim, verify=verify, checks=checks, session=session)
+        planned = [rows[index] for index, _plan in result.plans]
+        rejected = [rows[index] for index in result.refused]
+        if result.failure is None:
+            for row in planned:
+                record(row, "landed", approval_detail(tally, refused, row))
+            for index, reason in result.refused.items():
+                record(rows[index], "blocked", reason)
+            return
+        if len(planned) > 1:
+            suspects = {id(rows[index]) for index in result.suspects}
+            if suspects and len(suspects) < len(planned):
+                # Keep source-sharing dependencies together when removing a plan.
+                affected = set()
+                for index, plan in result.plans:
+                    if id(rows[index]) in suspects:
+                        affected.update(plan.verify)
+                changed = True
+                while changed:
+                    changed = False
+                    for index, plan in result.plans:
+                        if affected.intersection(plan.verify) and id(rows[index]) not in suspects:
+                            suspects.add(id(rows[index]))
+                            affected.update(plan.verify)
+                            changed = True
+                clean = [row for row in planned if id(row) not in suspects]
+                suspect = [row for row in planned if id(row) in suspects]
+                if clean:
+                    print("name_lane: diagnostic identified a dependency group; retrying unaffected names first.", flush=True)
+                    apply_group(clean)
+                    apply_group(suspect)
+                    apply_group(rejected)
+                    return
+            middle = len(planned) // 2
+            print(f"name_lane: run batch restored ({result.failure}); isolating "
+                  f"{middle} + {len(planned) - middle} names.", flush=True)
+            apply_group(planned[:middle])
+            apply_group(planned[middle:])
+        else:
+            for row in planned:
+                record(row, "blocked", result.failure)
+        # A planning collision may disappear when another name's failed edit is
+        # removed. Replan refusals against the final surviving source state.
+        apply_group(rejected)
+
+    try:
+        apply_group(ready)
+    finally:
+        try:
+            session.close()
+        finally:
+            if outcomes:
+                lane.append(AGREED, AGREED_COLUMNS, outcomes)
+    return counts["landed"], counts["blocked"], counts["stale"]
+
+
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
     limit = getattr(args, "limit", None)
     if limit is not None and limit < 1:
@@ -1155,7 +1272,13 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
         print("name_lane: nothing agreed is waiting to land.")
         return 0
     print(f"name_lane: selected {sum(map(len, todo.values()))} key(s) across {len(todo)} file(s).", flush=True)
-    for rel, rows in sorted(todo.items()):
+    if not getattr(args, "no_batch", False) and not getattr(args, "per_file", False):
+        landed, blocked, stale = _apply_run(lane, todo, args, tally, refused,
+                                           verify=verify, checks=checks, max_files=max_files)
+        file_groups = []
+    else:
+        file_groups = sorted(todo.items())
+    for rel, rows in file_groups:
         text = lane.text(rel)
         live = {key_of(rel, k, s, i) for k, s, i, _ in
                 lane.owned(rel, text, kinds={r["kind"] for r in rows})} if text is not None \
@@ -1371,7 +1494,9 @@ def main(argv=None, lane=None):
     a.add_argument("--key", action="append", help="apply only this exact source|kind|scope|placeholder key (repeatable)")
     a.add_argument("--max-files", type=int, default=25, help="maximum affected sources; every selected source is still verified")
     a.add_argument("--no-batch", action="store_true",
-                   help="verify each member, parameter and local rename separately")
+                   help="verify each rename separately")
+    a.add_argument("--per-file", action="store_true",
+                   help="batch within each source instead of across the whole run")
     a.add_argument("--lead", type=int, default=2)
     a.add_argument("--min-models", type=int, default=1)
     a.add_argument("--only-labels", metavar="L,L",

@@ -249,15 +249,40 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
     `unsettled` names sources whose working copy is not the state being
     checked; `committed(source)` returns that state's bytes for one (None when
     the state has no such file). Both default to "the working copy is it"."""
+    return _dependent_sources(lost, source_objects, root, unsettled=unsettled,
+                              committed=committed, workers=workers, retain_names=False)
+
+
+def dependents_by_name(lost, source_objects, root=ROOT, *, unsettled=frozenset(), committed=None,
+                       workers=8):
+    """The same consumer check, retaining each name's sources in one shared scan.
+
+    Source currency, sidecars and objects are read once per source for the whole
+    group. A current object's exact external symbols remain authoritative; stale
+    or missing objects widen only the corresponding name's text consumers.
+    """
+    return _dependent_sources(lost, source_objects, root, unsettled=unsettled,
+                              committed=committed, workers=workers, retain_names=True)
+
+
+def _dependent_sources(lost, source_objects, root, *, unsettled, committed, workers, retain_names):
     if not lost:
-        return set()
+        return {} if retain_names else set()
     import build
-    needles = [(name, name.encode("latin-1")) for name in lost]
-    words = {bare_identifier(name) for name in lost}
+    names = set(lost)
+    needles = [(name, name.encode("latin-1")) for name in names]
+    words = {}
+    unknown = set()
+    for name in names:
+        word = bare_identifier(name)
+        if word is None:
+            unknown.add(name)
+        else:
+            words.setdefault(word, set()).add(name)
     # A name with no identifier to look for (an operator template, say) can
     # be called from any text: then every source without a usable object is listed.
-    word_re = (None if None in words
-               else re.compile(r"\b(?:%s)\b" % "|".join(map(re.escape, sorted(words)))))
+    word_re = (re.compile(r"\b(?:%s)\b" % "|".join(map(re.escape, sorted(words))))
+               if words else None)
     def references_lost_name(item):
         source, objects = item
         settled = source not in unsettled
@@ -268,8 +293,11 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
             present = [p for p in present if compiled_from(p, digest)]
         if not present:
             # No object to trust: widen on doubt rather than skip.
+            found = set(unknown)
+            if found and not retain_names:
+                return found
             if word_re is None:
-                return True
+                return found
             if settled or committed is None:
                 try:
                     data = (root / source).read_bytes()
@@ -278,26 +306,42 @@ def dependents(lost, source_objects, root=ROOT, *, unsettled=frozenset(), commit
             else:
                 data = committed(source)
             if data is None:
-                return False  # build/check_csv report a missing source on their own
-            return bool(word_re.search(data.decode("utf-8", errors="replace")))
+                return found  # build/check_csv report a missing source on their own
+            text = data.decode("utf-8", errors="replace")
+            if not retain_names:
+                hit = word_re.search(text)
+                return words[hit.group(0)] if hit else set()
+            for word in set(word_re.findall(text)):
+                found.update(words[word])
+            return found
+        found = set()
         for path in present:
             data = path.read_bytes()
-            hits = [name for name, needle in needles if needle in data]
-            if hits and set(hits) & coff_symbol_names(data, include_local=False):
-                return True
-        return False
+            hits = {name for name, needle in needles if needle in data}
+            if hits:
+                found.update(hits & coff_symbol_names(data, include_local=False))
+                if found and not retain_names:
+                    return found
+        return found
 
     # Each source keeps the same currency and exact COFF-name checks. Overlap
     # only their file reads: opening tens of thousands of files serially is
     # expensive on Windows. map propagates read failures rather than dropping
     # a source, and the context waits for every submitted read before returning.
     items = list(source_objects.items())
+    def collect(results):
+        if not retain_names:
+            return {source for (source, _), found in zip(items, results) if found}
+        by_name = {name: set() for name in names}
+        for (source, _), found in zip(items, results):
+            for name in found:
+                by_name[name].add(source)
+        return by_name
+
     if workers == 1 or len(items) < 2:
-        results = map(references_lost_name, items)
-        return {source for (source, _), hit in zip(items, results) if hit}
+        return collect(map(references_lost_name, items))
     with ThreadPoolExecutor(max_workers=workers) as executor:
-        results = executor.map(references_lost_name, items)
-        return {source for (source, _), hit in zip(items, results) if hit}
+        return collect(executor.map(references_lost_name, items))
 
 
 def ledger_dicts(spec, root=ROOT):

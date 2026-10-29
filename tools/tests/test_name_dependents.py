@@ -165,7 +165,8 @@ def test_parallel_scan_agrees_with_serial_for_mixed_evidence(tmp_path):
 
 
 @pytest.mark.parametrize("workers", [1, 8])
-def test_scan_propagates_object_read_failure(tmp_path, monkeypatch, workers):
+@pytest.mark.parametrize("scanner", [nd.dependents, nd.dependents_by_name])
+def test_scan_propagates_object_read_failure(tmp_path, monkeypatch, workers, scanner):
     bad = compiled(tmp_path, "Code/bad.cpp", [OLD], "void f();\n")
     other = compiled(tmp_path, "Code/other.cpp", [NEW], "void g();\n")
     read_bytes = Path.read_bytes
@@ -177,8 +178,50 @@ def test_scan_propagates_object_read_failure(tmp_path, monkeypatch, workers):
 
     monkeypatch.setattr(Path, "read_bytes", unreadable)
     with pytest.raises(OSError, match="object became unreadable"):
-        nd.dependents({OLD: {0x1000}}, {"Code/bad.cpp": [bad], "Code/other.cpp": [other]},
-                      tmp_path, workers=workers)
+        scanner({OLD: {0x1000}}, {"Code/bad.cpp": [bad], "Code/other.cpp": [other]},
+                tmp_path, workers=workers)
+
+
+@pytest.mark.parametrize("workers", [1, 8])
+def test_batched_names_keep_exact_consumers_and_read_objects_once(tmp_path, monkeypatch, workers):
+    other = "?finishCall@@YAXXZ"
+    unknown = "not-a-supported-symbol"
+    current = compiled(tmp_path, "Code/current.cpp", [OLD, other], "void f();\n")
+    private = compiled(tmp_path, "Code/private.cpp", [OLD, other], "void g();\n",
+                       storage_classes=[3, 2])
+    stale = compiled(tmp_path, "Code/stale.cpp", [other], "void f() { x->baseConstruct(); }\n",
+                     built_from="void f();\n")
+    unsettled = compiled(tmp_path, "Code/unsettled.cpp", [OLD], "void g();\n")
+    (tmp_path / "Code/missing.cpp").write_text("void finishCall();\n")
+    objects = {"Code/current.cpp": [current], "Code/private.cpp": [private],
+               "Code/stale.cpp": [stale], "Code/unsettled.cpp": [unsettled],
+               "Code/missing.cpp": [], "Code/absent.cpp": []}
+    reads, parses = [], []
+    original_read, original_coff = Path.read_bytes, nd.coff_symbol_names
+
+    def read(path):
+        if path in (current, private, stale, unsettled):
+            reads.append(path)
+        return original_read(path)
+
+    def coff_names(data, **kwargs):
+        parses.append(data)
+        return original_coff(data, **kwargs)
+
+    monkeypatch.setattr(Path, "read_bytes", read)
+    monkeypatch.setattr(nd, "coff_symbol_names", coff_names)
+    kwargs = dict(unsettled={"Code/unsettled.cpp"},
+                  committed=lambda _: b"void finishCall();\n", workers=workers)
+    found = nd.dependents_by_name({OLD, other, unknown}, objects, tmp_path, **kwargs)
+    assert found == {
+        OLD: {"Code/current.cpp", "Code/stale.cpp"},
+        other: {"Code/current.cpp", "Code/private.cpp", "Code/missing.cpp", "Code/unsettled.cpp"},
+        unknown: {"Code/stale.cpp", "Code/missing.cpp", "Code/unsettled.cpp", "Code/absent.cpp"},
+    }
+    assert sorted(reads) == sorted([current, private])
+    assert len(parses) == 2
+    for name in found:
+        assert nd.dependents({name}, objects, tmp_path, **kwargs) == found[name]
 
 
 def test_rename_breaking_a_dependent_lists_it_and_updated_dependent_does_not(tmp_path):

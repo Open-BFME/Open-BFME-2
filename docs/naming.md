@@ -160,7 +160,7 @@ granting a name basis. See [the consolidation workflow](consolidation.md).
 Before pushing accumulated file renames or merges, audit affected tooling once
 across the entire outgoing batch using that workflow's path-consumer checklist.
 
-Every rename goes through one tool, one rename per invocation. Always plan with `--dry-run` first:
+Every rename goes through this tool's planner. For a single CLI rename, plan with `--dry-run` first:
 
     python3 tools/rename.py function --rva 0x0052F63F --new ClassifyWall \
         --basis canonical:wb --evidence '<what the WB body asserts>' --dry-run
@@ -453,12 +453,44 @@ the `zh_sweep`/`bfme1_sweep` caches that already exist.
     python3 tools/name_lane.py dispute KEY... --reason TEXT
     python3 tools/name_lane.py status [--metric] [--only-labels L,L]
 
-Member renames for one owner source, and parameter/local renames within one file,
-share a transaction and verification; each proposal still passes its normal
-agreement and scope checks. The batch verifies the union of affected sources
-once. On failure the whole batch is restored, then names are retried individually.
-Use `apply --no-batch` to retain per-name verification, or repeat `--key KEY` to
-select exact agreements.
+`apply` plans all selected live names in memory, running each proposal's normal
+agreement, protection, scope and per-name `--max-files` checks. Planning refusals
+stay blocked. Accepted plans share one claim operation, recovery journal, native
+verification of every affected source, and set of ledger and consumer checks.
+The union may contain more sources than one name's `--max-files` bound; every
+selected source is still verified.
+
+If a combined build or ledger check fails, the whole transaction is restored.
+Static pin admission runs before claims and the native build; proof-dependent
+pin decisions remain in the full final gate. Exact pin diagnostics select a
+suspect group, expanded to include plans sharing affected sources. Ambiguous
+failures fall back to splitting. A retry session keeps fenced claims until the
+run ends, releases only unused newly acquired claims, and retains claims needed
+by verified changes. Prepared inferred plans are reused only when their recorded
+reads and tracked searches still match. A lightweight object and dependency-file
+stamp, including source-file stamps, catches builds and source edits by other workers; object consumer results are rechecked
+when that stamp changes. Outcome rows are
+flushed when the run exits, including on interruption, so they do not invalidate
+otherwise reusable plans. Donor parameter lookups are batched across the selected
+files before ownership checks. Each retry verifies
+its full source and consumer scope; shared sources are restored exactly and
+reverified when edited again. A failed group never removes an earlier successful
+group. An interruption follows the ordinary journal recovery path.
+
+Function/global planning shares text and object searches across the selected
+names. Candidate text files are found together per search-root group; each
+individual query still goes through Git on those candidates to retain exact
+word, binary-file and pathspec behavior. Current-object symbol checks and stale
+source-text checks are scanned once for all prepared symbols, retaining a separate
+consumer set for each name. Both search snapshots are rebuilt for every retry
+under the ledger lock; newly introduced scope spellings use the normal searches.
+Static pin conflicts are also checked on each prepared pin edit so an invalid
+proposal can remain blocked while the valid proposals proceed together. The
+combined pin check and full verification still run on the accepted union.
+
+Use `apply --per-file` for the previous grouping of same-file members and scoped
+names, or `apply --no-batch` for individual verification. Repeat `--key KEY` to
+select exact agreements; `--limit` still bounds selected names for the entire run.
 
 `next` serves one matched, non-generated source with the placeholders that
 this file alone decides. That covers the functions it owns rows for, the classes only it defines and their

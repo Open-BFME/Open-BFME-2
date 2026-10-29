@@ -124,7 +124,8 @@ def no_checks(ctx, plan):
 
 def apply(root, **kw):
     args = SimpleNamespace(retry_blocked=kw.get("retry_blocked", False), lead=2, min_models=1, claim=False,
-                           only_labels=kw.get("only_labels"), key=kw.get("key"), no_batch=kw.get("no_batch", False))
+                           only_labels=kw.get("only_labels"), key=kw.get("key"), no_batch=kw.get("no_batch", False),
+                           per_file=kw.get("per_file", True))
     return name_lane.cmd_apply(lane_of(root), args, verify=kw.get("verify", ok_verify),
                                checks=kw.get("checks", no_checks))
 
@@ -302,6 +303,23 @@ def test_local_selection_keeps_parameter_shadowing_deduplication(tree):
     selected = lane_of(tree).owned(SOURCE, kinds={"local"})
     assert selected == expected
     assert not any(ident == "a2" for _, _, ident, _ in selected)
+
+
+def test_run_batch_warms_donor_parameter_search_once_across_files():
+    class DonorLane:
+        texts = {
+            "Code/A.cpp": "int Rva00401000(int a) { return a; }\n",
+            "Code/B.cpp": "int Rva00402000(int b) { return b; }\n",
+        }
+        calls = []
+        def text(self, rel):
+            return self.texts[rel]
+        def donor_params(self, functions):
+            self.calls.append(set(functions))
+            return {name: set() for name in functions}
+    lane = DonorLane()
+    name_lane.warm_donor_parameters(lane, lane.texts)
+    assert lane.calls == [{"Rva00401000", "Rva00402000"}]
 
 
 def test_owned_keeps_donor_spelled_weak_params(tree):
@@ -1374,6 +1392,14 @@ def test_scoped_batch_claims_union_once_and_releases_on_failure(tree, tmp_path, 
 
 
 # ---------------------------------------------------------------- real tree
+
+def test_run_wide_mode_combines_scoped_and_function_approvals(tree, tmp_path):
+    agree_on(tree, tmp_path, dict(BATCH_ANSWERS, rva00401000="sumBox"))
+    builds = []
+    apply(tree, per_file=False, verify=lambda ctx, sources: builds.append(sources) or True)
+    assert builds == [[SOURCE]]
+    assert "int sumBox(Rva00401000Box *box, int increment)" in (tree / SOURCE).read_text()
+    assert {r["status"] for r in lane_of(tree).state().values()} == {"landed"}
 
 @pytest.mark.usefixtures("claim_coordination")
 def test_real_tree_list_only(capsys):
