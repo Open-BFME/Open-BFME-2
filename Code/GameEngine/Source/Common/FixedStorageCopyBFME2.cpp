@@ -19,6 +19,16 @@ public:
 };
 BfmeFixedStorage002CF0F0::BfmeFixedStorage002CF0F0(const BfmeFixedStorage002CF0F0 &other) { memcpy(this, &other, sizeof(*this)); }
 
+// StlSweepW4Rva0033A7DC.cpp's pair<const Rva0033A7DCElement, int> constructor
+// (0x0033A7DC) calls 0x002CF0F0 as its key's copy constructor: the key is a
+// 4-byte memcpy copy too, and retail's ICF folded the two identical bodies.
+// This view supplies that consumer's out-of-line copy under its own spelling.
+struct Rva0033A7DCElement {
+    char m_bytes[4];
+    __declspec(nothrow) Rva0033A7DCElement(const Rva0033A7DCElement &);
+};
+Rva0033A7DCElement::Rva0033A7DCElement(const Rva0033A7DCElement &other) { memcpy(this, &other, sizeof(*this)); }
+
 // BF1 9cb donors unchanged through current f989 Rva007F90B0.cpp and the one-byte ByteAC copy in
 // Gen_t_00776240CopyConstructor.cpp expose these primitive copy leads.
 // Target222695..2226A2 and56DE10..56DE1F are independently full RET4
