@@ -11133,3 +11133,6 @@ nl-12d1378c885f,param,x,key,,w-d29055ee9848@drz-k1,Code/Libraries/Source/WWVegas
 nl-85ed04b248a7,param,x,key,,w-d29055ee9848@drz-k1,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva003899C4::rva003899C4|x,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
 nl-0d75c9ffafa2,param,x,key,,w-d29055ee9848@drz-k1,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva0047003C::rva0047003C|x,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
 nl-c3fa153f87ed,param,x,key,,w-d29055ee9848@drz-k1,Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva004E7E19::rva004E7E19|x,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-849939a742ac,param,r,red,,w-077d7aeb666b@drz-k3,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|r,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-517669c6f554,param,g,green,,w-077d7aeb666b@drz-k3,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|g,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-f79fdfb9b4e7,param,b,blue,,w-077d7aeb666b@drz-k3,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3

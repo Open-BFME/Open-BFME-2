@@ -17409,3 +17409,8 @@ Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva001E7E7
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva003899C4::rva003899C4|x,85ed04b248a79dea96feea63,drz-k1,drz-k1-46,w-d29055ee9848,2026-10-29
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva0047003C::rva0047003C|x,0d75c9ffafa22acdb5a29d31,drz-k1,drz-k1-46,w-d29055ee9848,2026-10-29
 Code/Libraries/Source/WWVegas/WWLib/RvaTreeEraseRangeFamily.cpp|param|Rva004E7E19::rva004E7E19|x,c3fa153f87edc5b1f235c9f9,drz-k1,drz-k1-46,w-d29055ee9848,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|r,849939a742acf0b469ba7606,drz-k3,drz-k3-4,w-077d7aeb666b,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|g,517669c6f55469d0c3038468,drz-k3,drz-k3-4,w-077d7aeb666b,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayLightingScale.cpp|param|setDiffuse#2|b,f79fdfb9b4e73663a50e3d92,drz-k3,drz-k3-4,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva005CF9C9.cpp|member|Rva005CF9C9Inner|m_30,8b8dc8fd326b3a3a3e56d80d,drz-k3,drz-k3-5,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva005D0C87Ctor.cpp|member|Rva005D0C87Source|m_listeners08,3631a0b6891cade9be9e2073,drz-k3,drz-k3-16,w-077d7aeb666b,2026-10-29
