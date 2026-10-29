@@ -331,3 +331,45 @@ def test_a_lazy_prefetched_pick_equals_building_every_queue_first(tmp_path, monk
     eager_name, eager_candidate, eager_tried, _ = pick(eager=True)
     assert (lazy_name, lazy_candidate, lazy_tried) == (eager_name, eager_candidate, eager_tried)
     assert built == order[:len(built)]                                     # built in the draw's order only
+
+
+# ---- the rebuilt TU map and LinkGuard's link rank, shared by their inputs
+
+def test_a_stale_map_rebuild_is_read_back_by_its_input_fingerprint(tmp_path, monkeypatch):
+    import types
+    import tu_map
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    layout = types.SimpleNamespace(root=tmp_path, fingerprint=tmp_path / "tu_map.fingerprint",
+                                   out=tmp_path / "tu_map.csv", reverse="reverse")
+    inputs = ["aaa  reverse/functions.csv\n# a note\n"]
+    monkeypatch.setattr(tu_map, "fingerprint", lambda layout, kind=None: inputs[0])
+    build = counting(lambda: [{"rva": 0x1000, "tu": "Code/A.cpp", "size": 4}])
+    monkeypatch.setattr(tu_map, "build", lambda layout: build())
+    rows, stale = tu_map.current_rows(layout)
+    assert rows == [{"rva": "4096", "tu": "Code/A.cpp", "size": "4"}] and stale
+    assert tu_map.current_rows(layout)[0] == rows and len(build.calls) == 1   # same inputs: read back
+    inputs[0] = "bbb  reverse/functions.csv\n"
+    tu_map.current_rows(layout)
+    assert len(build.calls) == 2                                          # an input changed: rebuilt
+    layout.fingerprint.write_text(inputs[0])                              # fresh: the committed map
+    layout.out.write_text("rva,tu\n0x2000,Code/B.cpp\n")
+    assert tu_map.current_rows(layout) == ([{"rva": "0x2000", "tu": "Code/B.cpp"}], [])
+    assert len(build.calls) == 2
+
+
+def test_link_rank_is_shared_per_ledger_content(tmp_path, monkeypatch):
+    import data_rows
+    import link_check
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    data = tmp_path / "data_rows.csv"
+    data.write_text("name\n")
+    monkeypatch.setattr(data_rows, "DATA_ROWS", data)
+    rank = counting(lambda: {"a.obj": 0, "b.obj": 1})
+    monkeypatch.setattr(link_check, "link_rank", lambda rows: rank())
+    assert tu_skeleton.link_rank([]) == {"a.obj": 0, "b.obj": 1}
+    assert tu_skeleton.link_rank([]) == {"a.obj": 0, "b.obj": 1} and len(rank.calls) == 1
+    data.write_text("name\nx\n")
+    tu_skeleton.link_rank([])
+    assert len(rank.calls) == 2
+
+

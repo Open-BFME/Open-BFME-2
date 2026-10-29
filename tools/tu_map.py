@@ -1494,6 +1494,30 @@ def _parse_fingerprint(text):
                                                  if not line.startswith("#")) if name}
 
 
+def current_rows(layout):
+    """(rows with every value a string, stale): tu_map.csv when it was written from the
+    current inputs (stale is []), else build() from them (stale: check_fresh's list). A
+    rebuild is kept in the shared picker cache (tools/picker_cache.py) under the inputs'
+    fingerprint -- the inputs and tool digests check_fresh compares -- so every worktree of
+    the clone with the same inputs (a picker, a merge worker mid-merge) reads it back."""
+    have = layout.fingerprint.read_text(encoding="utf-8") if layout.fingerprint.exists() else ""
+    old = _parse_fingerprint(have) if have.strip() else {}
+    new = _parse_fingerprint(fingerprint(layout, old.get(ZH_KEY, "").partition(":")[0] or None))
+    stale = ([name for name in new if old.get(name) != new[name]] if old
+             else [layout.fingerprint.relative_to(layout.root).as_posix()])
+    if not stale:
+        return [{k: str(v) for k, v in r.items()} for r in read_csv(layout.out)], stale
+
+    def rebuild():
+        return [{k: str(v) for k, v in r.items()} for r in build(layout)]
+    try:
+        import picker_cache
+    except ImportError:
+        return rebuild(), stale
+    key = [layout.reverse, sorted(new.items())]
+    return picker_cache.keyed("tu_map-build", key, rebuild), stale
+
+
 def check_fresh(layout):
     """[] when tu_map.csv was written from the current inputs, else the inputs that changed
     (or the missing fingerprint's own name). The ZH tree is identified the way it was

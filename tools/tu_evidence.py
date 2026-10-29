@@ -637,9 +637,7 @@ def check(layout, out, path, st=None):
 
 def map_rows(layout):
     """tu_map rows from current inputs: the committed map when fresh, else rebuilt in memory."""
-    if not tu_map.check_fresh(layout):
-        return [{k: str(v) for k, v in r.items()} for r in tu_map.read_csv(layout.out)]
-    return [{k: str(v) for k, v in r.items()} for r in tu_map.build(layout)]
+    return tu_map.current_rows(layout)[0]
 
 
 def unevidenced(out):

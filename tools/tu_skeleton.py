@@ -361,14 +361,8 @@ def ledger_rows():
 def map_rows():
     """tu_map rows from the current inputs: the committed map when it is fresh,
     else a rebuild in memory (tu_map.build is a pure function of the inputs)."""
-    if "map" not in _CACHE:
-        def compute():
-            stale = tu_map.check_fresh(LAYOUT)
-            rows = tu_map.build(LAYOUT) if stale else tu_map.read_csv(LAYOUT.out)
-            return {"rows": [{k: str(v) for k, v in r.items()} for r in rows], "stale": stale}
-        import picker_cache                # one rebuild per tree state, shared by every worktree
-        got = picker_cache.memo("tu-map-rows", compute, root=LAYOUT.root)
-        _CACHE["map"], _CACHE["stale"] = got["rows"], got["stale"]
+    if "map" not in _CACHE:             # a rebuild comes from the shared picker cache by its inputs
+        _CACHE["map"], _CACHE["stale"] = tu_map.current_rows(LAYOUT)
     return _CACHE["map"]
 
 
@@ -782,6 +776,25 @@ def portable_comdat_contexts(data):
         return {}  # no proof from an unreadable object
 
 
+def link_rank(rows):
+    """link_check.link_rank(rows) for ROWS = link_census.ledger(), kept in the shared picker
+    cache (tools/picker_cache.py) per content of the ledgers it reads (functions.csv,
+    data_rows.csv) and of the code computing it; every merge worker on the same ledger
+    reads it back instead of resolving every row's object path (15-19 s). Object names
+    follow the ledger's spelling of tracked sources, as a checkout writes them."""
+    import link_check as LC
+    import link_census as LCe
+    import data_rows
+    import picker_cache
+    here = Path(__file__).resolve()
+    inputs = [LCe.ROOT / "reverse/functions.csv", Path(data_rows.DATA_ROWS)]
+    code = [here.with_name(n) for n in ("link_check.py", "link_census.py", "build.py", "data_rows.py")]
+    key = [picker_cache.file_digest(p) for p in inputs + code]
+    if None in key[len(inputs):] or LCe.ROOT != ROOT:
+        return LC.link_rank(rows)
+    return picker_cache.keyed("tu_skeleton-link-rank", key, lambda: LC.link_rank(rows))
+
+
 class LinkGuard:
     """No merge leaves a unit that links not linking (LINK-042: GameFont.cpp,
     statistics.cpp, CrateSystem.cpp, MultiplayerSettings.cpp and htree.cpp each
@@ -952,7 +965,7 @@ class LinkGuard:
             return str(exc)
         if self.truth is None:
             rows = LCe.ledger()
-            self.truth, self.rank = LCe.RetailTruth(rows), LC.link_rank(rows)
+            self.truth, self.rank = LCe.RetailTruth(rows), link_rank(rows)
         outside = [f for f in self.linked(files) if self.position(f) is None]
         if outside:
             return "census-linked unit(s) missing from the census index: " + ", ".join(outside[:5])
