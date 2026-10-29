@@ -52,7 +52,29 @@ typedef UnsignedInt TeamID;
 
 enum Relationship
 {
-	ENEMIES = 0
+	ENEMIES = 0,
+	NEUTRAL = 1,
+	ALLIES = 2
+};
+
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0
+};
+
+enum CommandSourceType
+{
+	CMD_FROM_PLAYER = 0,
+	CMD_FROM_SCRIPT = 1,
+	CMD_FROM_AI = 2
+};
+
+enum CanAttackResult
+{
+	ATTACKRESULT_NOT_POSSIBLE = 0,
+	ATTACKRESULT_INVALID_SHOT = 1,
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING = 2,
+	ATTACKRESULT_POSSIBLE = 3
 };
 
 enum ObjectStatusTypes
@@ -167,11 +189,14 @@ public:
 
 class Module;
 
+class BodyModuleInterface;
+
 class Object
 {
 public:
 	Bool isAbleToAttack() const;
 	Relationship getRelationship(const Object *that) const;
+	CanAttackResult getAbleToAttackSpecificObject(AbleToAttackType t, const Object *target, CommandSourceType cmdSource) const;
 	Int rva0028F4EF();
 	Player *getControllingPlayer() const;
 	Bool testStatus(ObjectStatusTypes status) const;
@@ -186,6 +211,8 @@ public:
 	const Coord3D *getPosition() const { return &m_position; }
 	AIUpdateInterface *getAI() const { return m_ai; }
 	Team *getTeam() const { return m_team; }
+	BodyModuleInterface *getBodyModule() const { return m_body; }
+	Bool isEffectivelyDead() const { return (m_privateStatus & 1) != 0; }
 
 private:
 	char m_pad000[4];
@@ -194,10 +221,13 @@ private:
 	Coord3D m_position;
 	char m_pad044[0x74 - 0x44];
 	ObjectID m_id;
-	char m_pad078[0x258 - 0x78];
+	char m_pad078[0x254 - 0x78];
+	BodyModuleInterface *m_body; // +0x254
 	AIUpdateInterface *m_ai;
 	char m_pad25C[0x304 - 0x25C];
 	Team *m_team;
+	char m_pad308[0x438 - 0x308];
+	unsigned char m_privateStatus; // +0x438
 };
 
 class StancesBehavior
@@ -351,8 +381,9 @@ public:
 	float z;
 };
 
-// The state base: only its virtual table matters to these bodies.
-class State
+// The state base: only its virtual table matters to these bodies. The
+// ledger spells it struct (U), as the transition conditions' rows do.
+struct State
 {
 public:
 	virtual ~State();
@@ -365,8 +396,8 @@ public:
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
 	StateMachine *getMachine() const { return m_machine; }
-protected:
 	Object *getMachineOwner() const { return m_machine->getOwner(); }
+protected:
 	unsigned char m_pad04[0x18 - 0x04];
 	StateMachine *m_machine; // +0x18
 };
@@ -451,7 +482,10 @@ struct DamageInfo
 class BodyModuleInterface : public VSlots<15>
 {
 public:
-	virtual const DamageInfo *getLastDamageInfo() const = 0;
+	virtual const DamageInfo *getLastDamageInfo() const = 0; // slot 15
+	virtual void v16() = 0;
+	virtual void v17() = 0;
+	virtual ObjectID getClearableLastAttacker() const = 0; // slot 18 (+0x48)
 };
 
 enum WeaponSlotType

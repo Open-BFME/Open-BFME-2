@@ -1,5 +1,4 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
-// platformsdk
 //
 // ?rva005430E7@@YA_NPAUState@@PAX@Z, retail 0x005430E7..0x00543163 (124
 // bytes): Zero Hour AIGuard.cpp's hasAttackedMeAndICanReturnFire, the
@@ -18,8 +17,8 @@
 // and CMD_FROM_AI 2; result 3 or 2 (POSSIBLE / POSSIBLE_AFTER_MOVING) is
 // true. BFME 2 differs from the donor: the attacker id is read once and the
 // clearLastAttacker call is gone.
-#include <windows.h>
 #include "../../Common/GameLogicObjectLookupView.h"
+#define NULL 0
 typedef bool Bool;
 enum Relationship
 {
