@@ -1,4 +1,5 @@
 // cl: /MD /GX-
+// stlport
 // ?rva002B9A85@Rva002B9A85@@QAEXABURva002B9062Element@@@Z, retail 0x002B9A85, 11 bytes.
 // Tail-jump forwarder: adds 0x154 then jumps to rowed vector push_back
 // 0x002B9062 for 4-byte element Rva002B9062Element. Evidence: unlock packet;
@@ -8,11 +9,10 @@ struct Rva002B9062Element
 	int m_x;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<Rva002B9062Element, allocator<Rva002B9062Element> >
 {

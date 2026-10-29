@@ -1,20 +1,17 @@
 // cl: /MD
+// stlport
 // ?rva004213DB@Rva004210B0@@QAEXPBVModuleData@@@Z @0x004213DB 33B
 // Add-if-absent over vector<ModuleData*> at +8: contains check via rowed
 // 0x004210B0 then push_back via rowed 0x004DFCB0. Same this and same arg
 // prove the Rva004210B0 owner. Evidence: unlock lane; callees rowed;
 // caller at 0x00421568; unblocks 0x00421520.
 class ModuleData;
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed pointer-vector worker.
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 class Rva004210B0
 {
