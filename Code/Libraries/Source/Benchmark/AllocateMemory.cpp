@@ -1,8 +1,8 @@
-// cl: /GR- /EHsc-
+// cl: /GR- /EHsc- /MD
+
+#include <stdlib.h>
 
 typedef unsigned long ulong;
-
-extern "C" __declspec(dllimport) void *__cdecl malloc(unsigned int);
 
 extern ulong mem_array[2][20];
 extern int mem_array_ents;
