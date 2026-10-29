@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 narrow time_get::do_get_weekday and do_get_monthname, the
 // char twins of the wide pair at 0x0000F510 and 0x0000F5C0. Both
