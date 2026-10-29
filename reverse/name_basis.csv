@@ -4218,3 +4218,12 @@ local,Rva0014D9F3This::rva0014D9F3::tmp,Rva0014D9F3This::rva0014D9F3::texelSize,
 function,?rva005E69D0@Rva005E69D0@@QAEHXZ,?getTotalCost@Rva005E69D0@@QAEHXZ,inferred,agree:nl-02374ac31d8f,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp,0x005E69D0
 local,Rva003BE5C9::rva003BE5C9::p,Rva003BE5C9::rva003BE5C9::playerTemplate,inferred,agree:nl-92ccad0736c5,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE5C9.cpp,0x003BE5C9
 local,Rva003BE5C9::rva003BE5C9::c1,Rva003BE5C9::rva003BE5C9::isEvil,inferred,agree:nl-d573fff190eb,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE5C9.cpp,0x003BE5C9
+member,BfmeS1154::m_bfme00,BfmeS1154::m_start,inferred,agree:nl-ef3ffd64ef16,Code/GameEngine/Source/Common/BfmeConv1154.cpp,
+member,BfmeS1154::m_bfme04,BfmeS1154::m_finish,inferred,agree:nl-30c8c30def33,Code/GameEngine/Source/Common/BfmeConv1154.cpp,
+function,?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z,inferred,agree:nl-6b16cce54a73,Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp,0x000AFD85
+param,Rva0018C262::rva0018C33F::a,Rva0018C262::rva0018C33F::insertionPosition,inferred,agree:nl-55be3cf761ee,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C33F
+param,Rva0018C262::rva0018C33F::b,Rva0018C262::rva0018C33F::insertionParent,inferred,agree:nl-9e2bba41faf8,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C33F
+param,Rva0018C262::rva0018C33F::v,Rva0018C262::rva0018C33F::nodeValue,inferred,agree:nl-4a3e50d89a10,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C33F
+param,Rva0018C262::rva0018C33F::c,Rva0018C262::rva0018C33F::forceRight,inferred,agree:nl-b7235a24eebe,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C33F
+local,Rva0018C4A9::insert_unique::x,Rva0018C4A9::insert_unique::currentNode,inferred,agree:nl-4239b23aa326,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C4A9
+local,Rva0018C4A9::insert_unique::y,Rva0018C4A9::insert_unique::parentNode,inferred,agree:nl-ffb49610d2bf,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C4A9

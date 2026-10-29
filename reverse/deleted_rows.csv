@@ -4005,3 +4005,5 @@ __ehhandler$??1Rva00529318Slot@@QAE@XZ,0x00796CDE,"Renamed to __ehhandler$??1Pal
 ?Rva0001D1C0Get@@YAHXZ,0x0001D1C0,"Renamed to ?getPageSize@@YAHXZ by tools/rename.py (inferred)"
 ?Rva0002BACFGet@@YAHXZ,0x0002BACF,"Renamed to ?getBlockParseList@@YAHXZ by tools/rename.py (inferred)"
 ?rva005E69D0@Rva005E69D0@@QAEHXZ,0x005E69D0,"Renamed to ?getTotalCost@Rva005E69D0@@QAEHXZ by tools/rename.py (inferred)"
+?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x000AFD85,"Renamed to ?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z by tools/rename.py (inferred)"
+__ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Renamed to __ehhandler$?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z by tools/rename.py (inferred)"

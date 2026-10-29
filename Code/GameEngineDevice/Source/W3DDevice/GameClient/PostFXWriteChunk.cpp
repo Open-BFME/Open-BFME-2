@@ -20,7 +20,7 @@ Rva001021F7*Rva00102215Get();
 class Rva005C4AD1LeaField{public:void*get()const;};
 struct Rva00111B25Record{AsciiString key;int word04;float value;char tail0C[12];AsciiString text;};
 class Rva00111B5A{public:Rva00111B25Record*rva00111B5A(const char*);};
-void __cdecl Rva000AFD85WriteChunk(DataChunkOutput*out){
+void __cdecl writePostEffectsChunk(DataChunkOutput*out){
  out->openDataChunk("PostEffectsChunk",1);
  Rva001021F7*state=Rva00102215Get();
  bool active=state->active!=0;

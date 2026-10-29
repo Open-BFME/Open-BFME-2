@@ -29,7 +29,7 @@ public:
 	void _M_erase(Rva0018C262Node *node);
 	void clear();
 	Rva0018C262Node *rva0018C28F(const unsigned short *key);
-	Rva0018C262Node *&rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c);
+	Rva0018C262Node *&rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *insertionPosition, Rva0018C262Node *insertionParent, const unsigned short *nodeValue, Rva0018C262Node *forceRight);
 	int m_size;
 };
 namespace _STL {
@@ -73,29 +73,29 @@ Rva0018C262Node *Rva0018C262::rva0018C28F(const unsigned short *key)
 		*dst = *key;
 	return (Rva0018C262Node *)mem;
 }
-Rva0018C262Node *&Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *a, Rva0018C262Node *b, const unsigned short *v, Rva0018C262Node *c)
+Rva0018C262Node *&Rva0018C262::rva0018C33F(Rva0018C262Node *&out, Rva0018C262Node *insertionPosition, Rva0018C262Node *insertionParent, const unsigned short *nodeValue, Rva0018C262Node *forceRight)
 {
 	Rva0018C262Node *node;
-	if (b != (Rva0018C262Node *)m_head && (c != 0 || (a == 0 && (short)*v >= (short)b->m_10))) {
-		node = rva0018C28F(v);
-		b->m_0C = node;
+	if (insertionParent != (Rva0018C262Node *)m_head && (forceRight != 0 || (insertionPosition == 0 && (short)*nodeValue >= (short)insertionParent->m_10))) {
+		node = rva0018C28F(nodeValue);
+		insertionParent->m_0C = node;
 		Rva0018C262Head *root = m_head;
-		if (b == (Rva0018C262Node *)root->m_0C)
+		if (insertionParent == (Rva0018C262Node *)root->m_0C)
 			root->m_0C = (Rva0018C262Head *)node;
 	} else {
-		node = rva0018C28F(v);
-		b->m_08 = node;
+		node = rva0018C28F(nodeValue);
+		insertionParent->m_08 = node;
 		Rva0018C262Head *root = m_head;
-		if (b == (Rva0018C262Node *)root) {
+		if (insertionParent == (Rva0018C262Node *)root) {
 			root->m_04 = node;
 			m_head->m_0C = (Rva0018C262Head *)node;
-		} else if (b == (Rva0018C262Node *)root->m_08) {
+		} else if (insertionParent == (Rva0018C262Node *)root->m_08) {
 			root->m_08 = (Rva0018C262Head *)node;
 		}
 	}
 	node->m_08 = 0;
 	node->m_0C = 0;
-	node->m_04 = (int)b;
+	node->m_04 = (int)insertionParent;
 	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node, (_STL::_Rb_tree_node_base *&)m_head->m_04);
 	++m_size;
 	out = node;
@@ -135,25 +135,25 @@ public:
 Rva0018C4A9Result Rva0018C4A9::insert_unique(short *key)
 {
 	Rva0018C262Head *header = m_head;
-	Rva0018C262Node *x = header->m_04;
-	Rva0018C262Node *y = (Rva0018C262Node *)header;
+	Rva0018C262Node *currentNode = header->m_04;
+	Rva0018C262Node *parentNode = (Rva0018C262Node *)header;
 	bool comp = true;
-	while (x != 0) {
-		y = x;
-		comp = *key < (short)x->m_10;
-		x = comp ? x->m_08 : x->m_0C;
+	while (currentNode != 0) {
+		parentNode = currentNode;
+		comp = *key < (short)currentNode->m_10;
+		currentNode = comp ? currentNode->m_08 : currentNode->m_0C;
 	}
-	Rva0018C262Node *j = y;
+	Rva0018C262Node *j = parentNode;
 	if (comp) {
 		if (j == (Rva0018C262Node *)header->m_08) {
 			Rva0018C262Node *node;
-			return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, y, y, (const unsigned short *)key, 0), true);
+			return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, parentNode, parentNode, (const unsigned short *)key, 0), true);
 		}
-		j = (Rva0018C262Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)y);
+		j = (Rva0018C262Node *)_STL::_Rb_global<bool>::_M_decrement((_STL::_Rb_tree_node_base *)parentNode);
 	}
 	if ((short)j->m_10 < *key) {
 		Rva0018C262Node *node;
-		return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, x, y, (const unsigned short *)key, 0), true);
+		return Rva0018C4A9Result(((Rva0018C262 *)this)->rva0018C33F(node, currentNode, parentNode, (const unsigned short *)key, 0), true);
 	}
 	return Rva0018C4A9Result(j, false);
 }

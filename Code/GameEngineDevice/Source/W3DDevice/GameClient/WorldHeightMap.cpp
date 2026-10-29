@@ -682,7 +682,7 @@ void Rva000ADDCEWorldHeightMapView::blendTile(TBlendTileInfo *blend,Int width,In
 
 // tu-skeleton: 0x000AFD48 42B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x000AFD85 282B ?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp (not merged yet)
+// tu-skeleton: 0x000AFD85 282B ?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp (not merged yet)
 
 // tu-skeleton: 0x000AFE9F 179B ?_M_fill_insert@?$vector@EV?$allocator@E@_STL@@@_STL@@QAEXPAEIABE@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlContainerRva000AFE9F.cpp (not merged yet)
 
@@ -814,7 +814,7 @@ void Rva000ADDCEWorldHeightMapView::blendTile(TBlendTileInfo *blend,Int width,In
 
 // tu-skeleton: 0x007611B7 25B $L1271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp (not merged yet)
 
-// tu-skeleton: 0x007611D0 10B __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp (not merged yet)
+// tu-skeleton: 0x007611D0 10B __ehhandler$?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/PostFXWriteChunk.cpp (not merged yet)
 
 // tu-skeleton: 0x007611DA 8B $L4245 -- matched in Code/GameEngine/Source/GameClient/EvaMessageVectorDtor.cpp (not merged yet)
 

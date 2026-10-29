@@ -8,8 +8,8 @@ class BfmeS1154
 public:
 	void bfmeReplace1154(unsigned int pos, unsigned int n, const char *s, unsigned int len);
 	void bfmeThrow1154(void);
-	char *m_bfme00;
-	char *m_bfme04;
+	char *m_start;
+	char *m_finish;
 };
 
 void BfmeS1154::bfmeReplace1154(unsigned int pos, unsigned int n, const char *s, unsigned int len)
@@ -21,12 +21,12 @@ void BfmeS1154::bfmeReplace1154(unsigned int pos, unsigned int n, const char *s,
 	unsigned int n5;
 	int n6;
 
-	if (pos > (unsigned int)(m_bfme04 - m_bfme00))
+	if (pos > (unsigned int)(m_finish - m_start))
 		bfmeThrow1154();
 
-	n5 = (unsigned int)(m_bfme04 - m_bfme00) - pos;
+	n5 = (unsigned int)(m_finish - m_start) - pos;
 	n1 = (n5 < n) ? &n5 : &n;
-	bfmeCopy1154(m_bfme00 + pos, m_bfme00 + pos + *n1, s, s + len);
+	bfmeCopy1154(m_start + pos, m_start + pos + *n1, s, s + len);
 }
 
 // STLport 4.5.3 _string.h at BFME1 968ca36c3265 supplies the constructor.
