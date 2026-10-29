@@ -42,16 +42,13 @@ typedef int Int;
 #include <new>
 #include <string.h>
 #include <stdio.h>
-
 class Xfer;
-
 enum INILoadType
 {
 	INI_LOAD_INVALID = 0,
 	INI_LOAD_OVERWRITE = 1,
 	INI_LOAD_CREATE_OVERRIDES = 2
 };
-
 class INI
 {
 public:
@@ -65,22 +62,18 @@ public:
 private:
 	char m_unported[0x87C];
 };
-
 // Zero Hour's file-static imageStatusNames table ("ROTATED_90_CLOCKWISE",
 // "RAW_TEXTURE", NULL) lives at retail 0x00DBCEDC; only its address is used.
 const char *imageStatusNames[] = { "ROTATED_90_CLOCKWISE", "RAW_TEXTURE", 0 };
-
 enum
 {
 	IMAGE_STATUS_ROTATED_90_CLOCKWISE = 0x00000001
 };
-
 class TextureBaseClass
 {
 public:
 	void Release_Ref();
 };
-
 // The 4-byte texture holder Image::bfmeSetTexture allocates at +0x2C; its
 // first word is the TextureBaseClass ~Image releases.
 class BfmeMapPictureTexture
@@ -91,7 +84,6 @@ public:
 
 	TextureBaseClass *m_texture;
 };
-
 class Image
 {
 public:
@@ -119,16 +111,13 @@ private:
 	BfmeMapPictureTexture *m_texture; // +0x2C
 	unsigned int m_status; // +0x30
 };
-
 // Header inlines that the units including the header emit as select-any
 // copies, which plain definitions here collided with. Taking each one's
 // address keeps this unit's copy for its row; these pointers are not retail
 // data.
 void (Image::*_bfmeInlineAnchor_Image_0)(ICoord2D *size) = &Image::setImageSize;
-
-// Use STLport's declarations so the approved tree-operation donors can compose.
-// The constructor remains out of line, preserving the existing folded call.
 #include <map>
+
 namespace _STL
 {
 template <> map<int, void *, less<int>, allocator<pair<const int, void *> > >::map();
@@ -155,6 +144,25 @@ private:
 };
 
 class INI;
+
+class Image;
+
+typedef _STL::pair<const unsigned, Image *> ImagePair;
+
+typedef _STL::_Rb_tree<unsigned, ImagePair, _STL::_Select1st<ImagePair>, _STL::less<unsigned>, _STL::allocator<ImagePair> > ImageTree;
+
+class Rva002D927EImageTree
+{
+public:
+    void rva002D927ECleanup();
+private:
+    ImageTree value;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
+
+// Use STLport's declarations so the approved tree-operation donors can compose.
+// The constructor remains out of line, preserving the existing folded call.
 
 // ---- from Code/GameEngine/Source/GameClient/System/Image.cpp
 
@@ -368,8 +376,6 @@ Image::~Image()
 	}
 }
 
-// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/System/ImageCollectionLoad.cpp
 
 // ?load@ImageCollection@@QAEXH@Z @ 0x002D908D 249B
@@ -387,11 +393,23 @@ void ImageCollection::load(int textureSize)
 	ini.loadDirectory("Data\\INI\\MappedImages\\TransitionImages", true, INI_LOAD_OVERWRITE, (Xfer *)0, 0);
 }
 
+// tu-skeleton: 0x002D8FB7 45B ?_M_erase@?$_Rb_tree@URva002D8FB7Element@@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@U?$less@URva002D8FB7Element@@@3@V?$allocator@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBURva002D8FB7Element@@H@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D8FB7.cpp (not merged yet)
+
 // tu-skeleton: 0x002D9186 41B ?clear@?$_Rb_tree@URva002D9186Element@@U?$pair@$$CBURva002D9186Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@U?$less@URva002D9186Element@@@3@V?$allocator@U?$pair@$$CBURva002D9186Element@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva002D9186.cpp (not merged yet)
 
 // tu-skeleton: 0x002D922A 56B (unledgered) -- unmatched, no code, never credited
 
-// tu-skeleton: 0x002D927E 5B ?rva002D927ECleanup@Rva002D927EImageTree@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/System/Rva002D927EImageMapCleanup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/System/Rva002D927EImageMapCleanup.cpp
+
+// Clean BFME1 Image.cpp (f98983a7) supplies map teardown semantics.
+// Retail 2D927E jumps to the rowed Image tree destructor at 2D922A;
+// ImageCollection's EH action 777ADB reaches it on the map at this+0xC;
+// the original wrapper name and template spelling remain unknown.
+
+void Rva002D927EImageTree::rva002D927ECleanup()
+{
+    value.~ImageTree();
+}
 
 // tu-skeleton: 0x002D9283 115B ??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
@@ -407,7 +425,7 @@ void ImageCollection::load(int textureSize)
 
 // tu-skeleton: 0x00777AD3 8B $L6057 -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00777ADB 11B uw_00777adb -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+// tu-skeleton: 0x00777ADB 11B $L6058 -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00777AE6 10B __ehhandler$??1ImageCollection@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/System/ImageCollectionDtor.cpp (not merged yet)
 
