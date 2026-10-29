@@ -316,6 +316,7 @@ Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJQ.cpp,,1,1,region default lo
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJR.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeHostBT_bfmeReportBT.cpp,-O2,1,1,region default loses rows
+Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeOneHundredFiftyEight.cpp,,3,3,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,,5,2,region default loses rows
@@ -422,7 +423,6 @@ Code/GameEngine/Source/GameNetwork/V2FeslBrowserRecords.cpp,,3,2,region default 
 Code/GameEngine/Source/GameNetwork/V2FeslFeedbackRequest.cpp,,3,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp,,10,9,region default loses rows
 Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp,,11,2,region default loses rows
-Code/GameEngine/Source/GameNetwork/Y2FeslAddressParse.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslArenaAppend.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslArenaClaim.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,,13,4,region default loses rows
