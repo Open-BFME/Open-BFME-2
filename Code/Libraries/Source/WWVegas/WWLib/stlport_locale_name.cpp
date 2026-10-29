@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 locale::name, 34 bytes: the impl carries the name string at
 // offset 0x0C, right behind the vptr, the facet table and the facet count

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // 0x0001A090 (33B): STLport 4.5.3 _Messages::do_get, wide overload.
 // Retail's RTTI-named vftable 0x007BC8D4 (.?AV_Messages@_STL@@) holds
 // do_open, do_get(wstring), do_get(string), do_close, ~_Messages: overloads

@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 narrow istreambuf_iterator cache fill. sgetc stays the
 // external streambuf member the retail body calls.

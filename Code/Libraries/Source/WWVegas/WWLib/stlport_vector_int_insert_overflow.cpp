@@ -1,5 +1,5 @@
 // cl: /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc_alloconly
-// stlport
+// stlport46
 
 // STLport vector<SubtitleEntry*>::_M_insert_overflow at 0x006887F0 (callers 0x00688940
 // and SubtitleManager::addSubtitle 0x00688AA0; vector<int> folds into 0x002DFCF6). Sibling TU uses the stock node allocator; retail
