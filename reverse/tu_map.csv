@@ -55295,13 +55295,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00661EB0,17,code,,,-,,Code/GameEngine/Source/Common/Rva007F5700ValueAndStateSetter.cpp
 0x00661ED0,110,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5720GameBrowserLogin.cpp
 0x00661F40,15,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F7030Request.cpp
-0x00661F50,22,code,,,-,,Code/GameEngine/Source/Common/Rva007F57C0ThresholdPredicate.cpp
-0x00661F70,22,code,,,-,,Code/GameEngine/Source/Common/Rva007F57C0ThresholdPredicate.cpp
-0x00661F90,22,code,,,-,,Code/GameEngine/Source/Common/Bfme5TinySix3.cpp
-0x00661FB0,22,code,,,-,,Code/GameEngine/Source/Common/Bfme5TinySix3.cpp
+0x00661F50,22,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x00661F70,22,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x00661F90,22,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x00661FB0,22,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 0x00661FD0,4,code,,,-,,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp
 0x00661FE0,181,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5840QueueReply.cpp
-0x006620A0,19,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5900QueueCallback.cpp
+0x006620A0,19,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 0x006620C0,322,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5920HostedGameReply.cpp
 0x00662210,15,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F61E0HostedGameRequest.cpp
 0x00662220,58,code,,,-,,Code/GameEngine/Source/Common/SmallGaps/Rva007F5A70VideoBufferValue.cpp
@@ -55309,11 +55309,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006622A0,58,code,Code/GameEngine/Source/Common/BfmeC992.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeC992.cpp,Code/GameEngine/Source/Common/BfmeConv992.cpp
 0x006622E0,54,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslBrowserEvents.cpp
 0x00662320,168,code,Code/GameEngine/Source/GameNetwork/GameBrowser.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/GameBrowser.cpp,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJP.cpp
-0x006623D0,213,code,Code/GameEngine/Source/GameNetwork/BfmeThingVJS.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingVJS.cpp,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJS.cpp
-0x006624B0,223,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5D10GameBrowser.cpp
-0x00662590,15,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5D10GameBrowser.cpp
-0x006625A0,256,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5D10GameBrowser.cpp
-0x006626A0,163,code,Code/GameEngine/Source/Common/BfmeThingVJO.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJO.cpp,Code/GameEngine/Source/Common/BfmeConv1392.cpp
+0x006623D0,213,code,Code/GameEngine/Source/GameNetwork/BfmeThingVJS.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingVJS.cpp,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x006624B0,223,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x00662590,15,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x006625A0,256,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
+0x006626A0,163,code,Code/GameEngine/Source/Common/BfmeThingVJO.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJO.cpp,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 0x00662750,36,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F5FB0VirtualForward.cpp
 0x00662780,104,code,Code/GameEngine/Source/Common/BfmeThingVJN.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJN.cpp,Code/GameEngine/Source/Common/BfmeConv1391.cpp
 0x006627F0,206,code,Code/GameEngine/Source/GameNetwork/BfmeThingVJR.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingVJR.cpp,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJR.cpp
@@ -55324,7 +55324,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00662A80,215,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F62F0ConnectRequest.cpp
 0x00662B60,25,code,,,-,,Code/GameEngine/Source/Common/Rva007F63D0Set.cpp
 0x00662B80,289,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,proposed,K,K=Rva007F7980Browser,Code/GameEngine/Source/GameNetwork/Rva007F7980BrowserRva007F63F0.cpp
-0x00662CB0,106,code,Code/GameEngine/Source/Common/BfmeHostESI.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeHostESI.cpp,Code/GameEngine/Source/Common/BfmeConv1972.cpp
+0x00662CB0,106,code,Code/GameEngine/Source/Common/BfmeHostESI.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeHostESI.cpp,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 0x00662D20,80,code,Code/GameEngine/Source/Common/BfmeThingVJK.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJK.cpp,Code/GameEngine/Source/Common/BfmeConv1388.cpp
 0x00662D70,195,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva007F65E0GameReply.cpp
 0x00662E40,124,code,,,-,,Code/GameEngine/Source/GameNetwork/V2FeslBrowserLobbyCounts.cpp
@@ -55370,7 +55370,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00663850,25,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,C,C=0x006634E0..0x00663870 provisional,Code/GameEngine/Source/Common/Rva007F7160Get.cpp
 0x00663870,36,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,C,C=0x006634E0..0x006638A0 provisional,Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp
 0x006638A0,286,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingDGD.cpp provisional,Code/GameEngine/Source/Common/Bfme5SixtyOne.cpp
-0x006639C0,123,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp provisional,Code/GameEngine/Source/GameNetwork/Rva007F72D0GameBrowserEntryReply.cpp
+0x006639C0,123,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp provisional,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp
 0x00663A40,15,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,C,C=0x006639C0..0x00663A50 provisional,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp
 0x00663A50,92,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp provisional,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp
 0x00663AB0,640,code,Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/BfmeThingVJU.cpp provisional,Code/GameEngine/Source/GameNetwork/BfmeGameBrowserVJU.cpp
