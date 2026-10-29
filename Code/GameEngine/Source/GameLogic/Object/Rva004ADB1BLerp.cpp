@@ -72,7 +72,7 @@ bool Rva004ADB1B::handlePackingProcessing()
 		other = m_src->m_c8;
 	} else {
 		float targetOpacity = m_src->m_c8;
-		denom = m_src->m_84;
+		denom = m_src->m_packTime;
 		base = targetOpacity;
 		other = g_00BBB8D8;
 	}
@@ -100,7 +100,7 @@ bool Rva004B0164::handlePackingProcessing()
 		other = m_src->m_cc;
 	} else {
 		float disguiseOpacity = m_src->m_cc;
-		denom = m_src->m_84;
+		denom = m_src->m_packTime;
 		base = disguiseOpacity;
 		other = g_00BBB8D8;
 	}
