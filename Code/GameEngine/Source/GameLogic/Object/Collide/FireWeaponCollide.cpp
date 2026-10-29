@@ -120,15 +120,7 @@ enum NameKeyType
 // loadPostProcess (0x00497805), the name getter (0x004BB6FC), xfer
 // (0x004BB85C) and getModuleNameKey (0x004BB755) in slots 0-4; slots 1-2 are
 // declared on BehaviorModule as its ledger rows spell them.
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 // Slot 0 of both interface vftables is retail's shared `return 0` fold
 // (33 C0 C3 at 0x000D43D0); the views define it inline with that body, so

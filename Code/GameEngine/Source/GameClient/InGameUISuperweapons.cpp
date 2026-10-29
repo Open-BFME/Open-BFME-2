@@ -258,13 +258,7 @@ public:
 	virtual SpecialPowerModuleInterface *getSpecialPower() const = 0;	// +0x20
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-private:
-	char m_opaque004[0xC - 0x4];
-};
+#include "../../Include/Common/ObjectModule.h"
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {

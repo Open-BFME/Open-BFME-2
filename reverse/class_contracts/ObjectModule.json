@@ -1,0 +1,323 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ObjectModule",
+ "evidence": {
+  "census": 163,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x807e1c": {
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 2,
+   "4": 1,
+   "8": 1,
+   "12": 156,
+   "16": 1,
+   "20": 1
+  },
+  "views": 162,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_ObjectModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 160,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {},
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 155,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {},
+   "size": 4,
+   "type": "Object*",
+   "views": 145,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior_update.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/OpaqueScalarDeletingDtors.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "crc(Xfer*)": 1,
+    "slot04()": 1,
+    "v1()": 1,
+    "vslot1()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot2",
+   "candidates": {
+    "slot02()": 1,
+    "slot08()": 1,
+    "v2()": 1,
+    "vslot2()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "slot0C()": 1,
+    "v3()": 1,
+    "vslot3()": 1,
+    "xfer(Xfer*)": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot4",
+   "candidates": {
+    "s04()": 1,
+    "slot10()": 1,
+    "v4()": 1,
+    "vslot4()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "s05()": 1,
+    "slot14()": 1,
+    "v5()": 1,
+    "vslot5()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "s06()": 1,
+    "slot18()": 1,
+    "v6()": 1,
+    "vslot6()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "s07()": 1,
+    "slot1C()": 1,
+    "v7()": 1,
+    "vslot7()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot8",
+   "candidates": {
+    "s08()": 1,
+    "slot20()": 1,
+    "v8()": 1,
+    "vslot8()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot9",
+   "candidates": {
+    "onCapture(Player*,Player*)": 1,
+    "s09()": 1,
+    "slot24()": 1,
+    "v9()": 1,
+    "vslot9()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot10",
+   "candidates": {
+    "onCapture(Object*,Object*)": 1,
+    "onDisabledEdge(int)": 1,
+    "s10()": 1,
+    "slot28()": 1,
+    "v10()": 1,
+    "vslot10()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot11",
+   "candidates": {
+    "s11()": 1,
+    "slot2C()": 1,
+    "v11()": 1,
+    "vslot11()": 1
+   },
+   "class": "ObjectModule"
+  },
+  {
+   "attribute": "slot12",
+   "candidates": {
+    "getUpdatePhase()": 1,
+    "s12()": 1,
+    "vslot12()": 1
+   },
+   "class": "ObjectModule"
+  }
+ ],
+ "size": 12,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "13": {
+   "decided_by": "bytes",
+   "member": "s13()"
+  },
+  "14": {
+   "decided_by": "bytes",
+   "member": "s14()"
+  },
+  "15": {
+   "decided_by": "bytes",
+   "member": "s15()"
+  },
+  "16": {
+   "decided_by": "bytes",
+   "member": "s16()"
+  },
+  "17": {
+   "decided_by": "bytes",
+   "member": "s17()"
+  },
+  "18": {
+   "decided_by": "bytes",
+   "member": "s18()"
+  },
+  "19": {
+   "decided_by": "bytes",
+   "member": "s19()"
+  },
+  "20": {
+   "decided_by": "bytes",
+   "member": "s20()"
+  },
+  "21": {
+   "decided_by": "bytes",
+   "member": "s21()"
+  },
+  "22": {
+   "decided_by": "bytes",
+   "member": "s22()"
+  },
+  "23": {
+   "decided_by": "bytes",
+   "member": "s23()"
+  },
+  "24": {
+   "decided_by": "bytes",
+   "member": "s24()"
+  },
+  "25": {
+   "decided_by": "bytes",
+   "member": "s25()"
+  },
+  "26": {
+   "decided_by": "bytes",
+   "member": "s26()"
+  },
+  "27": {
+   "decided_by": "bytes",
+   "member": "s27()"
+  },
+  "28": {
+   "decided_by": "bytes",
+   "member": "s28()"
+  },
+  "29": {
+   "decided_by": "bytes",
+   "member": "s29()"
+  },
+  "30": {
+   "decided_by": "bytes",
+   "member": "s30()"
+  },
+  "31": {
+   "decided_by": "bytes",
+   "member": "s31()"
+  },
+  "32": {
+   "decided_by": "bytes",
+   "member": "s32()"
+  },
+  "33": {
+   "decided_by": "bytes",
+   "member": "s33()"
+  },
+  "34": {
+   "decided_by": "bytes",
+   "member": "s34()"
+  },
+  "35": {
+   "decided_by": "bytes",
+   "member": "setSlot8C(bool)"
+  },
+  "36": {
+   "decided_by": "bytes",
+   "member": "clearSlot90()"
+  }
+ }
+}

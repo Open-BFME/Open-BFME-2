@@ -19,15 +19,7 @@ class ModuleData;
 
 class Object;
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

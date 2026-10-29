@@ -16,17 +16,7 @@ typedef bool Bool;
 extern GameLogic *TheGameLogic;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-	ObjectModule( Thing *thing, const ModuleData *moduleData );
-	Object *getObject() const { return m_object; }
-
-private:
-	unsigned char m_data[4];
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 class BehaviorModuleInterface

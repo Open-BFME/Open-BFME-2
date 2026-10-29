@@ -22,14 +22,7 @@ struct DamageInfo;
 // tables: 0x00C59FDC, the folded BehaviorModuleInterface table 0x00C597F8 and
 // the DamageModuleInterface table 0x00C59FD0, whose slot 0 is the rowed
 // CallHelpOnDamage::onDamage 0x004BB547.
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-private:
-	const ModuleData *m_moduleData;	// +0x04
-	void *m_object;	// +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

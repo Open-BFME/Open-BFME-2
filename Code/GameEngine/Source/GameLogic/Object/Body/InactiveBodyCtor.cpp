@@ -18,15 +18,7 @@ public:
 	void setEffectivelyDead(bool dead);
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorIface
 {

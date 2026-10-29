@@ -14,16 +14,7 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *, const ModuleData *);
-
-	virtual void objectModuleAnchor();		///< vptr at 0x00
-
-	void *m_04;
-	void *m_08;								///< ends at 0x0c
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorInterface
 {

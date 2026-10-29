@@ -477,16 +477,7 @@ public:
 	Bool m_keepShadows; // +0x18D
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	Object *getObject() const { return m_object; }
-
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 class SlowDeathBehaviorInterface;
 class BehaviorModuleInterface
 {

@@ -22,13 +22,7 @@ class ModuleData;
 class Object;
 class DamageInfo;
 #include "../../Include/Common/BfmeXfer.h"
-class ObjectModule
-{
-public:
-	virtual void objectAnchor();
-	const ModuleData *m_moduleData;
-	void *m_object;
-};
+#include "../../Include/Common/ObjectModule.h"
 class BehaviorIface
 {
 public:

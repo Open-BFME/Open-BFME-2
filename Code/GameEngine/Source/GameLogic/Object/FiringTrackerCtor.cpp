@@ -37,14 +37,7 @@ public:
 
 #include "../../../Include/Common/Module.h"
 
-class ObjectModule : public Module
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *data);
-
-protected:
-	Object *m_object;
-};
+#include "../../../Include/Common/ObjectModule.h"
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {

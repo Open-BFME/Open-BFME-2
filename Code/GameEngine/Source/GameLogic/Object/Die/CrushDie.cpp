@@ -6,15 +6,7 @@ class Thing;
 class ModuleData;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-	ObjectModule( Thing *thing, const ModuleData *moduleData );
-
-private:
-	unsigned char m_data[8];
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 // Real 34-pure interface (all =0, vtable all __purecall) to match kept copy from AIUpdate.cpp;

@@ -85,19 +85,7 @@ class Xfer;
 // tables: +0x0C is the shared folded BehaviorModuleInterface table 0x00C4A650
 // and +0x10 is this class's DieModuleInterface table 0x00C4AE50, whose one
 // slot is the rowed RebuildHoleExposeDie::onDie 0x004867FE.
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-
-protected:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-
-private:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

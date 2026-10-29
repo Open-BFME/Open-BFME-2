@@ -34,17 +34,7 @@ public:
 
 #include "../../../../Include/Common/Module.h"
 
-class ObjectModule : public Module
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
-	virtual void onCapture(Player *oldOwner, Player *newOwner) {}
-	virtual void onDisabledEdge(Bool nowDisabled) {}
-
-private:
-	Object *m_object; // +4
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class INIException
 {

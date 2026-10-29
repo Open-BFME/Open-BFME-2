@@ -138,15 +138,7 @@ public:
 	virtual Bool isSelfTasking() const;
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-private:
-	void *m_moduleData;
-	void *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

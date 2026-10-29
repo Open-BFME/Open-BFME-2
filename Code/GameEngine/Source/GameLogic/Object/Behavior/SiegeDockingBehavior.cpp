@@ -49,14 +49,7 @@ public:
 };
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule : public Gen_dtor_00113d40
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *data);
-
-protected:
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface

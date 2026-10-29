@@ -41,17 +41,7 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *, const ModuleData *);
-	virtual ~ObjectModule();
-protected:
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 enum UpdateSleepTime
 {

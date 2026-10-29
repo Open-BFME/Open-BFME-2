@@ -59,15 +59,7 @@ public:
 	virtual void updateModuleInterface() = 0;
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-private:
-	const void *m_moduleData;
-	void *m_object;
-};
+#include "../../../Include/Common/ObjectModule.h"
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {

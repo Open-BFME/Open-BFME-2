@@ -129,16 +129,7 @@ public:
 
 extern InGameUI *TheInGameUI;
 
-class ObjectModule
-{
-protected:
-	virtual ~ObjectModule();
-	const ModuleData *getModuleData() const { return m_moduleData; }
-	Object *getObject() const { return m_object; }
-private:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

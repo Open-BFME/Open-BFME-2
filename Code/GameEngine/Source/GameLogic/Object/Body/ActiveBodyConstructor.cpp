@@ -16,13 +16,7 @@ typedef unsigned int UnsignedInt;
 class Thing;
 class ModuleData;
 
-class ObjectModule
-{
-public:
-	virtual void objectAnchor() = 0;
-	const ModuleData *m_moduleData;
-	void *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorIface
 {

@@ -36,17 +36,7 @@ class Object;
 
 #include "../../../../../GameEngine/Include/Common/BfmeXfer.h"
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
-	void xfer(Xfer *xfer);
-
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../../GameEngine/Include/Common/ObjectModule.h"
 
 class DrawModule : public ObjectModule
 {

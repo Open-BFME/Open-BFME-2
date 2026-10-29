@@ -28,7 +28,7 @@ class Object {char pad[0x38];public:Coord3D pos;Player *getControllingPlayer()co
 class ObjectCreationList {public:void create(void*,void*,void*,void*,int);};
 int __cdecl Rva004C30BC(ObjectCreationList*,void*,void*);
 #include "../../../../Include/Common/Module.h"
-class ObjectModule:public Module {protected:Object *m_object;};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface {public:virtual void behaviorSlot0();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};
 class SpecialPowerModuleInterface {public:

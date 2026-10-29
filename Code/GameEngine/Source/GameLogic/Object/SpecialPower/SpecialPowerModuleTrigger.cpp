@@ -316,14 +316,7 @@ public:
 
 class SpecialPowerModuleInterface;
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

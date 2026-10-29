@@ -56,15 +56,7 @@ public:
 	virtual void onSlaverDamage(const DamageInfo *info);
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-private:
-	void *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

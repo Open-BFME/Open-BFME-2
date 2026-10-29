@@ -128,14 +128,7 @@ class Thing;
 
 class ModuleInterface { public: virtual void moduleInterfaceAnchor(); };
 
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-protected:
-	const ModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-};
+#include "../../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

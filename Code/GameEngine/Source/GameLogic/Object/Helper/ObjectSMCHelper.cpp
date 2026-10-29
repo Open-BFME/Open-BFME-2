@@ -135,18 +135,7 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-protected:
-	Object *getObject() const { return m_object; }
-
-private:
-	const void *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {

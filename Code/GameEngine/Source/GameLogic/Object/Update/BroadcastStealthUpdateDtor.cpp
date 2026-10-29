@@ -14,13 +14,7 @@
 // ctor 0x004A342E and UpdateModule::~UpdateModule 0x0024A797 show, so this
 // unit's vftable names agree with the ctor's: the +0x10 UpdateModuleInterface
 // one (0x00C52358) is ??_7BroadcastStealthUpdate@@6BUpdateModule@@@.
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-private:
-	char m_pad04[8];
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

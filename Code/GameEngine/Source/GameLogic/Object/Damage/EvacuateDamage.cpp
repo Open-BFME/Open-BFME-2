@@ -49,15 +49,7 @@ class Thing;
 
 class ModuleData;
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-private:
-	const ModuleData *m_moduleData;
-	void *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class PB_Iface1 { public: virtual void slot(); };
 

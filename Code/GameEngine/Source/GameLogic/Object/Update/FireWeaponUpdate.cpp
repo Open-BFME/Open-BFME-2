@@ -277,15 +277,7 @@ enum NameKeyType
 // table 0x00C4C18C is the rowed update 0x0048BEE8 then UpdateModule's rowed
 // getDisabledTypesToProcess 0x00253376 and 0x0044DF8D. The compiler installs
 // all three after the pinned UpdateModule ctor.
-class ObjectModule
-{
-public:
-	virtual void objectModuleAnchor();
-	Object *getObject() const { return m_object; }
-protected:
-	const ModuleData *m_moduleData;		// +4
-	Object *m_object;					// +8
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

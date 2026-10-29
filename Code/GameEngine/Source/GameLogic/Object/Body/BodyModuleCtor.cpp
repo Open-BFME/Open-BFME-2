@@ -11,13 +11,7 @@
 class Thing;
 class ModuleData;
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-	const ModuleData *m_moduleData;
-	void *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorIface
 {

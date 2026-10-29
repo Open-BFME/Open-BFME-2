@@ -47,15 +47,7 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *, const ModuleData *);
-	virtual ~ObjectModule();
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 

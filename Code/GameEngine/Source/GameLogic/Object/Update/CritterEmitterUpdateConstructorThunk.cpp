@@ -6,18 +6,7 @@ class Object;
 class Coord3D;
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class ObjectModule
-{
-public:
-    ObjectModule(Thing *, const ModuleData *);
-    virtual ~ObjectModule();
-
-protected:
-    unsigned int m_04;
-
-private:
-    unsigned char m_pad[4];
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class CritterEmitterUpdateIface1
 {

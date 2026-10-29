@@ -20,11 +20,7 @@ public:
 	const ModuleData *m_moduleData;
 };
 
-class ObjectModule : public ObjectModuleBase
-{
-public:
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {

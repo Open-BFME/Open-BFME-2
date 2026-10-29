@@ -31,15 +31,7 @@ class BfmeFixedStorage0004543D {public:unsigned words[7];};
 class Rva000421C8 {public:Rva000421C8():next(0){}virtual ~Rva000421C8(){}virtual bool allow(Object*)=0;virtual int getPlayerMask(){return -1;}Rva000421C8*next;};
 class Rva003959FA:public Rva000421C8 {public:Rva003959FA(const BfmeFixedStorage0004543D&);virtual ~Rva003959FA(){}virtual bool allow(Object*);BfmeFixedStorage0004543D mask;};
 extern PartitionManager*ThePartitionManager;
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-
-protected:
-	const TransitionDamageFXModuleDataView *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleinterface
 {

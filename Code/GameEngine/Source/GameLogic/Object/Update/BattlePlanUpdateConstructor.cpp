@@ -47,14 +47,7 @@ enum TransitionStatus
 	TRANSITIONSTATUS_IDLE
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
