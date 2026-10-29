@@ -11002,3 +11002,16 @@ nl-d726af7238f5,local,e,fontDesc,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/C
 nl-c8ddb59f342f,local,e,fontDesc,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva0029F8B8.cpp|local|Rva0029D844::rva0029D948|e,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-96f3aa579108,local,s,sourceWords,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva000E459F.cpp|local|Rva000E459F::rva000E459F|s,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
 nl-ab3eab0ce5e7,local,d,destWords,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva000E459F.cpp|local|Rva000E459F::rva000E459F|d,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-0e7f7888495c,param,p,node,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|param|Rva00223591::rva00223591|p,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-81d5038804cd,param,arg,entry,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|param|Rva00223591::rva00223854|arg,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-cddca085916d,local,b,bucket,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|local|Rva00223591::rva00223854|b,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-4c118dd07693,local,n,node,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|local|Rva00223591::rva00223854|n,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-4313c36e3a1e,param,n,node,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|param|Rva0041534BIter|n,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-d2df7c3fe026,param,t,table,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp|param|Rva0041534BIter|t,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-7e9724c32d99,param,v,other,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp|param|Rva00538E43Coord#2|v,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-15258808440f,local,d,delta,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldArmyIcon.cpp|local|LivingWorldArmyIcon::continueMoving|d,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-71f0b3f192fb,local,p,range,,w-526a51702f64@drz-k5,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp|local|SpawnArmy::rva004E23E2|p,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-182de14c0133,local,p,resource,,w-526a51702f64@drz-k5,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000D3A17Dtor.cpp|local|Rva000D3A17::~Rva000D3A17|p,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-eaa66903f8bf,param,a,file,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/GapBodiesS3H.cpp|param|Rva002E41EC::rva002E41EC|a,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-d1eb853d91a0,local,t,trigger,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/GapBodiesS3H.cpp|local|Rva002E41EC::rva002E41EC|t,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-ff62a823ea31,local,s,filename,,w-526a51702f64@drz-k5,Code/GameEngine/Source/GameClient/Rva006042B6.cpp|local|Win32BIGFileSystem::rva006042B6|s,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
