@@ -119,13 +119,12 @@ public:
 	ExperienceTracker *m_264;		// +0x264
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
-
 // Native distribution reads the byte at GameLogic +0x9F.
 struct Rva00480093GameLogicView { char m_pad[0x9F]; bool m_9F; };
-
 extern GameLogic *TheGameLogic;
-
 #include "Common/Snapshot.h"
+#include <new>
+
 class Rva003623E5Filter
 {
 public:
@@ -134,11 +133,13 @@ public:
 private:
 	unsigned char m_data[4];
 };
+
 class ShareExperienceBehaviorModuleDataBase
 {
 public:
 	virtual ~ShareExperienceBehaviorModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
 };
+
 // The existing constructor/destructor owners supply this polymorphic layout.
 // The filter's storage is still passed through the existing call view below.
 class ShareExperienceBehaviorModuleData : public ShareExperienceBehaviorModuleDataBase
@@ -268,6 +269,8 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorPoolKey.cpp
 
 // ?getModuleNameKey@ShareExperienceBehavior@@UBE?AW4NameKeyType@@XZ
@@ -277,14 +280,6 @@ NameKeyType ShareExperienceBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("ShareExperienceBehavior");
 	return TheShareExperienceBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x0047FE90 76B ??0ShareExperienceBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FEDC 17B ?buildFieldParse@ShareExperienceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FEED 98B ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehavior.cpp
 
@@ -358,9 +353,41 @@ void ShareExperienceBehavior::rva00480093(float amount)
 	}
 }
 
-// tu-skeleton: 0x0047FFB2 28B ??_GShareExperienceBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp (not merged yet)
+// tu-skeleton: 0x0047FE90 76B ??0ShareExperienceBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0047FFCE 48B ??1ShareExperienceBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp (not merged yet)
+// tu-skeleton: 0x0047FEDC 17B ?buildFieldParse@ShareExperienceBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0047FEED 98B ??0ShareExperienceBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x0047FF4F 28B ??_GRva0047FE25@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorModuleDataDtor.cpp
+
+// ??1ShareExperienceBehaviorModuleData@@UAE@XZ @ 0x0047FFCE 48B
+// Implicit virtual dtor restoring Snapshot base vtable 0x00BBB554 with no
+// base call. Member filter at +0x14 via pinned ??1Rva003623E5Filter at
+// 0x00360D26. Layout from ctor TU 0x0047FE90 (pad +4 floats +8+C+10 filter
+// +14 size 0x18). Vtable 0x008486B0 slot 0 is ??_G 0x0047FFB2.
+// DynamicPortalBehaviourModuleDataDtor precedent.
+
+// Same verified76B constructor as the home; select-any emission avoids the
+// former strong dummy constructor that conflicted with its actual definition.
+inline ShareExperienceBehaviorModuleData::ShareExperienceBehaviorModuleData()
+	: m_radius(0.0f), m_dropOff(0.0f), m_percentage(1.0f)
+{
+}
+
+void deleteShareExperienceBehaviorModuleData(ShareExperienceBehaviorModuleData *shareExperienceBehaviorModuleData)
+{
+	delete shareExperienceBehaviorModuleData;
+}
+
+// Force the real inline constructor and its implicit virtual destructor family.
+// ?constructShareExperienceBehaviorModuleData absent-from-retail
+void constructShareExperienceBehaviorModuleData(void *storage)
+{
+    ::new (storage) ShareExperienceBehaviorModuleData;
+}
 
 // tu-skeleton: 0x0078B913 8B Unwind@00b8b913 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp (not merged yet)
 
