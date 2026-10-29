@@ -2913,6 +2913,20 @@ separates this blocked family from the independent header cleanup.
   Only hatch reduction is claimed; broader storage closure and census
   confirmation remain open.
 
+  Update 2026-10-29 (ea153f2145): five scalar state values now have one external
+  owner in sortingrenderer.cpp; all 20 initializer bytes and compiler sizes
+  verify. Both changed units retain 37 rows; the restored list reader brings
+  the checked scope to 52/52. Four static-storage findings disappear; the two
+  list identities per renderer remain, and no baseline key is removed. A full
+  list-sharing trial failed five rows and was restored. Reconcile its private
+  alias/visibility contract or approved TU composition before retrying retirement.
+  [Verified scalar storage and rejected list patch](../reverse/attempt_support/sorting-renderer-shared-state-20261029-round2.md).
+  Census and image-ownership confirmation remain pending.
+  The outgoing gate passes 75 rows, but its batch-link audit remains
+  INCONCLUSIVE: Eva.cpp and WWLib/thread.cpp lack reusable receipts, and
+  strict bounded preparation refuses their untraceable include roots.
+  Carry both additional consumers into the next normal census too.
+
 - **DetachableRiderBody local-static index repair (2026-10-27, `408c38abc0`):**
   [The current-owner check](../reverse/attempt_support/detachable-rider-poolkey-data-retirement-20261027-codexb4.md)
   refreshes two generated data-index rows left stale by the existing method

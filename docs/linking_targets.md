@@ -752,3 +752,13 @@ retains 140 function rows, and the complete array and field table match retail.
 The full gate verifies 98,943 function rows and 2,230 data rows; every check
 is green. Census confirmation remains pending (LINK-136).
 [Evidence](../reverse/attempt_support/gamespy-color-table-20261029.md).
+
+Sorting-renderer follow-up (2026-10-29, ea153f2145): five scalar globals now
+have one verified owner in sortingrenderer.cpp (20 data bytes); both changed
+units retain 37 function rows and the restored list reader brings the checked
+scope to 52. Whole-source debt retirement still needs the two list identities
+and their visibility/alias contract. Census confirmation remains pending.
+[Repair and rejected list trial](../reverse/attempt_support/sorting-renderer-shared-state-20261029-round2.md).
+The first outgoing gate passes 75 rows, but its batch-link audit remains
+unverified: Eva.cpp and WWLib/thread.cpp cannot obtain strict reusable
+receipts for their current include roots. Carry both into the next census.

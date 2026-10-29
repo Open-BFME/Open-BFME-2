@@ -77,8 +77,11 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #endif
 
 bool SortingRendererClass::_EnableTriangleDraw=true;
-static unsigned DEFAULT_SORTING_POLY_COUNT = 16384;	// (count * 3) must be less than 65536
-static unsigned DEFAULT_SORTING_VERTEX_COUNT = 32768;	// count must be less than 65536
+// One external owner for the state shared with SortingRendererBFME1.cpp.
+extern "C" {
+unsigned DEFAULT_SORTING_POLY_COUNT = 16384;
+unsigned DEFAULT_SORTING_VERTEX_COUNT = 32768;
+}
 
 // ?SetMinVertexBufferSize@SortingRendererClass@@SAXI@Z
 void SortingRendererClass::SetMinVertexBufferSize( unsigned val )
@@ -153,7 +156,7 @@ public:
 
 static DLListClass<SortingNodeStruct> sorted_list;
 static DLListClass<SortingNodeStruct> clean_list;
-static unsigned total_sorting_vertices;
+extern "C" { unsigned total_sorting_vertices; }
 
 static SortingNodeStruct* Get_Sorting_Struct()
 {
@@ -173,8 +176,10 @@ static SortingNodeStruct* Get_Sorting_Struct()
 //
 // ----------------------------------------------------------------------------
 
-static TempIndexStruct* temp_index_array;
-static unsigned temp_index_array_count;
+extern "C" {
+TempIndexStruct* temp_index_array;
+unsigned temp_index_array_count;
+}
 
 static TempIndexStruct* Get_Temp_Index_Array(unsigned count)
 {

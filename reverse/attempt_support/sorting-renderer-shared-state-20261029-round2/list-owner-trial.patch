@@ -1,0 +1,27 @@
+--- a/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp
+@@ -157,3 +157,5 @@
+-static DLListClass<SortingNodeStruct> sorted_list;
+-static DLListClass<SortingNodeStruct> clean_list;
+-extern "C" { unsigned total_sorting_vertices; }
++extern "C" {
++DLListClass<SortingNodeStruct> sorted_list;
++DLListClass<SortingNodeStruct> clean_list;
++unsigned total_sorting_vertices;
++}
+--- a/Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/SortingRendererBFME1.cpp
+@@ -380,2 +380,2 @@
+-static DLListClass<SortingNodeStruct> sorted_list;
+-static DLListClass<SortingNodeStruct> clean_list;
++extern "C" DLListClass<SortingNodeStruct> sorted_list;
++extern "C" DLListClass<SortingNodeStruct> clean_list;
+--- a/Code/Libraries/Source/WWVegas/WW3D2/SortingNodeStructDtor.cpp
++++ b/Code/Libraries/Source/WWVegas/WW3D2/SortingNodeStructDtor.cpp
+@@ -197,0 +198,2 @@
++	// Retail list storage has the vptr at +0 and its head at +4.
++	virtual ~DLListClass();
+@@ -207 +209,2 @@
+-static DLListClass<SortingNodeStruct> clean_list;
++// Full list owner is sortingrenderer.cpp at RVA 0x009B620C.
++extern "C" DLListClass<SortingNodeStruct> clean_list;

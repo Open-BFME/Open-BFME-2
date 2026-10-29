@@ -253,8 +253,10 @@ struct BfmeSortingRenderStateStruct
 
 // Owned by sortingrenderer.cpp (data ledger 0x009B61F4); declared by the
 // in-class static above and defined there, so no TU-local definition here.
-static unsigned DEFAULT_SORTING_POLY_COUNT = 16384;	// (count * 3) must be less than 65536
-static unsigned DEFAULT_SORTING_VERTEX_COUNT = 32768;	// count must be less than 65536
+// Shared state is defined once in sortingrenderer.cpp. C linkage preserves
+// the existing compiler spellings while removing the TU-local copies.
+extern "C" unsigned DEFAULT_SORTING_POLY_COUNT;
+extern "C" unsigned DEFAULT_SORTING_VERTEX_COUNT;
 
 // SortingRendererClass::SetMinVertexBufferSize: defined in sortingrenderer.cpp (its row's unit).
 
@@ -377,7 +379,7 @@ public:
 
 static DLListClass<SortingNodeStruct> sorted_list;
 static DLListClass<SortingNodeStruct> clean_list;
-static unsigned total_sorting_vertices;
+extern "C" unsigned total_sorting_vertices;
 
 static SortingNodeStruct* Get_Sorting_Struct()
 {
@@ -397,8 +399,8 @@ static SortingNodeStruct* Get_Sorting_Struct()
 //
 // ----------------------------------------------------------------------------
 
-static TempIndexStruct* temp_index_array;
-static unsigned temp_index_array_count;
+extern "C" TempIndexStruct* temp_index_array;
+extern "C" unsigned temp_index_array_count;
 
 static TempIndexStruct* Get_Temp_Index_Array(unsigned count)
 {
