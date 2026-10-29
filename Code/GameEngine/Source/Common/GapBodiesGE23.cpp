@@ -34,21 +34,21 @@ struct GapCore
 #define GAP_CHUNK_SIZE(p) ((p)->m_size & 0x7FFFFFF8)
 
 // --- 0x000309D0 (12B): is x eight-byte aligned (the low three bits clear).
-int rva000309D0(unsigned int x)
+int rva000309D0(unsigned int alignmentValue)
 {
-	return (x & 7) == 0;
+	return (alignmentValue & 7) == 0;
 }
 
 // --- 0x000309E0 (17B): is x a multiple of the power-of-two a.
-bool IsAligned(unsigned int x, unsigned int a)
+bool IsAligned(unsigned int alignmentCandidate, unsigned int alignment)
 {
-	return (x & (a - 1)) == 0;
+	return (alignmentCandidate & (alignment - 1)) == 0;
 }
 
 // --- 0x00030A00 (18B): round x up to the power-of-two a.
-unsigned int AlignUp(unsigned int x, unsigned int a)
+unsigned int AlignUp(unsigned int unalignedValue, unsigned int requiredAlignment)
 {
-	return (x + a - 1) & ~(a - 1);
+	return (unalignedValue + requiredAlignment - 1) & ~(requiredAlignment - 1);
 }
 
 // --- 0x00030B00 (21B): in-use bit of a chunk, kept in the next chunk's size.
@@ -111,10 +111,10 @@ void UnlinkChunk(GapChunk *chunk)
 }
 
 // --- 0x000310F0 (36B): two fencepost chunks (8 then 9) after n bytes.
-void rva000310F0(GapChunk *chunk, unsigned int n)
+void rva000310F0(GapChunk *chunk, unsigned int chunkSize)
 {
-	GapChunk *post = GAP_CHUNK_AT(chunk, n);
-	post->m_prevSize = n;
+	GapChunk *post = GAP_CHUNK_AT(chunk, chunkSize);
+	post->m_prevSize = chunkSize;
 	post->m_size = 8;
 	post = GAP_CHUNK_AT(post, 8);
 	post->m_prevSize = 8;
@@ -161,17 +161,17 @@ public:
 	unsigned int rva00030C80(int bin);
 	void rva00030CC0(bool on);
 	bool rva00030CE0() const;
-	void rva00030E90(int a, int b);
-	void rva00030EB0(int a, int b);
-	void rva00030ED0(unsigned char a, unsigned char b);
+	void rva00030E90(int mallocFailureFunction, int mallocFailureContext);
+	void rva00030EB0(int traceFunction, int traceContext);
+	void rva00030ED0(unsigned char fieldDelimiter, unsigned char recordDelimiter);
 	void rva00031060(GapChunk *chunk, unsigned int size);
 	void rva000311B0(const GapBlockInfo *info, GapBlockReport *report);
 	void rva00031400(int value);
-	bool rva000315C0(const char *p) const;
+	bool rva000315C0(const char *checkedAddress) const;
 	void rva00031610(int a, unsigned int b);
 	void rva00031640(GapCore *core, GapCore *before);
 	void *rva00031710(unsigned int size, unsigned int *outSize);
-	int rva00031750(void *p, unsigned int size);
+	int rva00031750(void *coreAddress, unsigned int size);
 	GapChunk *rva00030BF0(int bin);
 	bool rva00031080(void *a, void *b, void *c);
 	GapChunk *rva00030F60();
@@ -234,22 +234,22 @@ bool Rva00030C50Heap::rva00030CE0() const
 }
 
 // --- 0x00030E90 / 0x00030EB0 / 0x00030ED0 (23B each): pair setters.
-void Rva00030C50Heap::rva00030E90(int a, int b)
+void Rva00030C50Heap::rva00030E90(int mallocFailureFunction, int mallocFailureContext)
 {
-	m_4AC = a;
-	m_4B0 = b;
+	m_4AC = mallocFailureFunction;
+	m_4B0 = mallocFailureContext;
 }
 
-void Rva00030C50Heap::rva00030EB0(int a, int b)
+void Rva00030C50Heap::rva00030EB0(int traceFunction, int traceContext)
 {
-	m_4C0 = a;
-	m_4C4 = b;
+	m_4C0 = traceFunction;
+	m_4C4 = traceContext;
 }
 
-void Rva00030C50Heap::rva00030ED0(unsigned char a, unsigned char b)
+void Rva00030C50Heap::rva00030ED0(unsigned char fieldDelimiter, unsigned char recordDelimiter)
 {
-	m_474 = a;
-	m_475 = b;
+	m_474 = fieldDelimiter;
+	m_475 = recordDelimiter;
 }
 
 // --- 0x00031060 (28B): a free chunk of size n linked to itself, with the
@@ -281,11 +281,11 @@ void Rva00030C50Heap::rva00031400(int value)
 
 // --- 0x000315C0 (69B): find the core holding p; true when p lies past the
 // +0x468 mark.
-bool Rva00030C50Heap::rva000315C0(const char *p) const
+bool Rva00030C50Heap::rva000315C0(const char *checkedAddress) const
 {
 	for (const GapCore *core = m_cores.m_next; core != &m_cores; core = core->m_next)
-		if (p >= core->m_base && p < core->m_base + core->m_size)
-			return m_468 < p;
+		if (checkedAddress >= core->m_base && checkedAddress < core->m_base + core->m_size)
+			return m_468 < checkedAddress;
 	return false;
 }
 
@@ -315,16 +315,16 @@ void *Rva00030C50Heap::rva00031710(unsigned int size, unsigned int *outSize)
 	unsigned long type = 0x3000;
 	if (m_topDown)
 		type = 0x103000;
-	void *p = VirtualAlloc(0, size, type, 4);
-	if (p && outSize)
+	void *coreMemory = VirtualAlloc(0, size, type, 4);
+	if (coreMemory && outSize)
 		*outSize = size;
-	return p;
+	return coreMemory;
 }
 
 // --- 0x00031750 (21B): release a core.
-int Rva00030C50Heap::rva00031750(void *p, unsigned int size)
+int Rva00030C50Heap::rva00031750(void *coreAddress, unsigned int size)
 {
-	return VirtualFree(p, 0, 0x8000);
+	return VirtualFree(coreAddress, 0, 0x8000);
 }
 
 // --- 0x00030A30 (22B): a request's chunk size: the request plus eleven
@@ -405,7 +405,7 @@ int rva00030C00(unsigned int size)
 }
 
 // --- 0x00030C10 (8B): small-bin index of a chunk size.
-unsigned int rva00030C10(unsigned int size)
+unsigned int getSmallBinIndexFromChunkSize(unsigned int size)
 {
 	return size >> 3;
 }

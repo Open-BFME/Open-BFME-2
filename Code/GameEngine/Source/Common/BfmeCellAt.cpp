@@ -9,7 +9,7 @@ class Gen_008F7CD0
 {
 public:
 	BfmeCellFD *bfmeAt(int x, int y) const;
-	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y);
+	void rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow);
 
 private:
 	char m_bfmeHead[0x24];
@@ -28,9 +28,9 @@ BfmeCellFD *Gen_008F7CD0::bfmeAt(int x, int y) const
 }
 
 // ?rva0073A2A0@Gen_008F7CD0@@QAEXPAPAVBfmeCellFD@@0HHH@Z @0x0073A2A0 135B: row-range sibling of bfmeAt; same width+0x24 height+0x28 cells+0x2C and 0xA8 stride; callers 0x73A650 0x73AAE0 0x73BAA0 0x73BB40 0x73BBE0 pass grid as this; donor BfmeGridRasterCircle.cpp bfmeGetCellRange plus x2<x1 clamp and *last reload.
-void Gen_008F7CD0::rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, int x2, int y)
+void Gen_008F7CD0::rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstColumn, int lastColumn, int scanRow)
 {
-	if (x2 < 0 || x1 >= m_bfmeWidth || y < 0 || y >= m_bfmeHeight)
+	if (lastColumn < 0 || firstColumn >= m_bfmeWidth || scanRow < 0 || scanRow >= m_bfmeHeight)
 	{
 		*last = 0;
 		*first = 0;
@@ -38,14 +38,14 @@ void Gen_008F7CD0::rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int x1, in
 	}
 
 	unsigned char *base = reinterpret_cast<unsigned char *>(m_bfmeCells);
-	unsigned char *row = base + (y * m_bfmeWidth) * 0xA8;
+	unsigned char *row = base + (scanRow * m_bfmeWidth) * 0xA8;
 	*last = reinterpret_cast<BfmeCellFD *>(row);
 	*first = reinterpret_cast<BfmeCellFD *>(row);
-	if (x2 < x1)
-		x2 = x1;
-	if (x1 > 0)
-		*first = reinterpret_cast<BfmeCellFD *>(row + x1 * 0xA8);
-	*last = reinterpret_cast<BfmeCellFD *>(reinterpret_cast<unsigned char *>(*last) + (x2 < m_bfmeWidth ? x2 + 1 : m_bfmeWidth) * 0xA8);
+	if (lastColumn < firstColumn)
+		lastColumn = firstColumn;
+	if (firstColumn > 0)
+		*first = reinterpret_cast<BfmeCellFD *>(row + firstColumn * 0xA8);
+	*last = reinterpret_cast<BfmeCellFD *>(reinterpret_cast<unsigned char *>(*last) + (lastColumn < m_bfmeWidth ? lastColumn + 1 : m_bfmeWidth) * 0xA8);
 }
 
 // The related native grid callback uses origins4/8 and cell size1C.
@@ -75,8 +75,8 @@ struct Rva0073BEA0Point
 
 struct Rva0073BEA0Grid2 : Rva0073BEA0Grid
 {
-	int centreA(int c) const { return (int)((float)c * m_cellSize + m_8 + m_cellSize * 0.5); }
-	int centreB(int c) const { return (int)((float)c * m_cellSize + m_4 + m_cellSize * 0.5); }
+	int centreA(int cellRow) const { return (int)((float)cellRow * m_cellSize + m_8 + m_cellSize * 0.5); }
+	int centreB(int cellColumn) const { return (int)((float)cellColumn * m_cellSize + m_4 + m_cellSize * 0.5); }
 };
 
 class Rva0073BEA0Sink
@@ -88,21 +88,21 @@ public:
 class Rva0073BEA0
 {
 public:
-	virtual void rva0073BEA0(int a, int b);
+	virtual void rva0073BEA0(int gridColumn, int gridRow);
 private:
 	Rva0073BEA0Grid2 *m_grid;
 	char m_pad8[4];
 	Rva0073BEA0Sink *m_sink;
 };
 
-void Rva0073BEA0::rva0073BEA0(int a, int b)
+void Rva0073BEA0::rva0073BEA0(int gridColumn, int gridRow)
 {
-	int x = m_grid->centreA(b);
-	int y = m_grid->centreB(a);
-	Rva0073BEA0Point p;
-	p.x = (float)y;
-	p.y = (float)x;
-	m_sink->slot0(&p);
+	int x = m_grid->centreA(gridRow);
+	int y = m_grid->centreB(gridColumn);
+	Rva0073BEA0Point worldPosition;
+	worldPosition.x = (float)y;
+	worldPosition.y = (float)x;
+	m_sink->slot0(&worldPosition);
 }
 
 // Native 0x73BE00 has one unwind state: cleanup 0x7AB130 calls the
@@ -117,7 +117,7 @@ struct Rva0073BE00Point
 {
 	float x;
 	float y;
-	Rva0073BE00Point(float a, float b) : x(a), y(b) {}
+	Rva0073BE00Point(float pointX, float pointY) : x(pointX), y(pointY) {}
 	~Rva0073BE00Point();
 };
 
@@ -130,17 +130,17 @@ Rva0073BE00Point::~Rva0073BE00Point()
 class Rva0073BE00
 {
 public:
-	virtual void rva0073BE00(int a, int b);
+	virtual void rva0073BE00(int columnIndex, int rowIndex);
 private:
 	Rva0073BEA0Grid2 *m_grid;
 	void *m_unknown8;
 	Rva0073BEA0Sink *m_sink;
 };
 
-void Rva0073BE00::rva0073BE00(int a, int b)
+void Rva0073BE00::rva0073BE00(int columnIndex, int rowIndex)
 {
-	int x = m_grid->centreA(b);
-	int y = m_grid->centreB(a);
-	Rva0073BE00Point p((float)y, (float)x);
+	int centerY = m_grid->centreA(rowIndex);
+	int centerX = m_grid->centreB(columnIndex);
+	Rva0073BE00Point p((float)centerX, (float)centerY);
 	m_sink->slot0(reinterpret_cast<const Rva0073BEA0Point *>(&p));
 }

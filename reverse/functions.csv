@@ -71483,7 +71483,7 @@ Unwind@00ba9e2b,,0x007A9E2B,15,Code/Libraries/Source/Apt/AptDateLookup.cpp,match
 ?GetNextChunk@@YAPAUGapChunk@@PAU1@@Z,,0x00030AD0,15,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
 ?rva00030BF0@Rva00030C50Heap@@QAEPAUGapChunk@@H@Z,,0x00030BF0,11,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
 ?rva00030C00@@YAHI@Z,,0x00030C00,13,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
-?rva00030C10@@YAII@Z,,0x00030C10,8,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
+?getSmallBinIndexFromChunkSize@@YAII@Z,,0x00030C10,8,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
 ?rva00030C20@@YAPAUGapChunk@@PAUGapCore@@@Z,,0x00030C20,12,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
 ?rva00030C30@@YAHH@Z,,0x00030C30,8,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
 ?rva00031080@Rva00030C50Heap@@QAE_NPAX00@Z,,0x00031080,5,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,matched,gap leaf beside the GeneralAllocator rows; shape from retail bytes; address-derived name
