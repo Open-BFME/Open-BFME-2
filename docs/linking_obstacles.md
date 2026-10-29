@@ -9676,6 +9676,62 @@ Update 2026-10-29 (Thing, Object, ObjectShroudClient decisions):
   ObjectShroudValueRangeAndMask) to the 6-slot table and the 4-byte size
   before generating it.
 
+Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7413):
+
+- **BehaviorModuleInterface (target facts).** ??0BehaviorModule (0x00253330)
+  stores the interface's own table 0x00BEE900 and then BehaviorModule's
+  0x00BEE9C0 at +0x0C, and the primary 0x00BEEA7C at +0. BehaviorModule's
+  sizeof is 0x10. 0x00BEE900 is exactly 47 `__purecall` slots: the primary
+  table starts right after entry 46 of 0x00BEE9C0, so the interface has no
+  virtual destructor. In 0x00BEE9C0 slots 0-42 are 0x000D43D0 (`xor
+  eax,eax; ret`, a NULL getter), 43/45/46 are `ret 4` and 44 is `ret`.
+- **Family getter map (target).** Over every matched
+  `??0X@@QAE@PAVThing@@PBVModuleData@@@Z`, the +0x0C table each
+  constructor stores differs from 0x00BEE9C0 at one slot per family: body
+  modules 0, collides 1, contains 2, creates 3, damages 4, dies 7
+  (DieModule's 0x002533D3 returns its +0x10 interface), special powers 8,
+  updates 9, upgrades 10, AI updates 19. Client behaviours and draws, which
+  are not BehaviorModules, also differ at many slots; their +0x0C is
+  another interface (noise in this scan).
+- **The ZH off-by-one.** ZH's BehaviorModuleInterface puts getDestroy at
+  5 and getDie at 6. BFME 2's dies override slot 7, so one slot was added
+  at 5 or 6, and ZH names from slot 5 on are shifted. The views that spell
+  ZH names (getDie at 6, getSpecialPower at 7, getUpdate at 8 ...) are wrong
+  from there on. BehaviorModule.h names only the family-pinned slots; the
+  others stay placeholders (`slotNN`; BehaviorModule's own primary slots
+  10-11 are `vslot10/11`).
+- **DieModule (target).** ??0DieModule (0x0045CEBD) puts DieModuleInterface
+  at +0x10. Its own table 0x00C1C780 has one pure slot (onDie), so sizeof
+  is 0x14. DieModule's +0x0C table 0x00C4A650 overrides only slot 7.
+  ~DieModule (0x0045CE54) restores BehaviorModule's tables inline (its
+  destructor is empty and inline). The rowed ?isDieApplicable@DieModule@@IBE
+  is protected.
+- **Lane fix (69b428859e2).** Adoption strips the private views of every
+  class the header defines or includes; before, units kept copies of
+  DieModule's bases and failed C2011.
+- **Adopted 14, queued 12:**
+  - TailJumpWrappers5B.cpp and RebuildHoleExposeDie.cpp byte-match but
+    would stop linking (link_check: 314 -> 0 and 187 -> 0 bytes), so they
+    were dropped.
+  - Six units hang accessors or fields on their private BehaviorModule
+    stub: InstantDeathBehaviorOnDie (`object`), DamageFilteredCreateObjectDieCtor
+    (`m_p14`), KeepObjectDie (`m_08`), FXListDieOnDie (getFXListDieModuleData),
+    UpgradeDieOnDie (`->m_upgradeName`), CreateCrateDie (`objectModuleAnchor`).
+    Each moves the accessor onto its leaf view, as CrushDieOnDie did.
+  - CreateObjectDie_onDie calls the protected isDieApplicable through a cast
+    pointer (C2248). Rewrite it as a member call, as RefundDieOnDie did.
+  - RebuildHoleExposeDieFind needs getKey on DieModule (C2039).
+  - DamageFilteredCreateObjectDieDtor and DieModuleDerived have mismatched
+    destructor bytes (the destructor's inline/out-of-line shape).
+- **TU merges.** RefundDie merged (7f9ddce7413, RefundDieOnDie.cpp removed).
+  CrushDie dry-runs clean, but CrushDieOnDie carries a private `Thing` view
+  (getUnitDirectionVector2D), and class_gate refuses it in the merged TU.
+  It needs thing.h, which needs a canonical Matrix3D. HeroDie's donors adopt,
+  but the link guard reports the seed HeroDie.cpp missing from the census
+  index; wait for the next census. CallHelpOnDamage, GrantUpgradeCreate and
+  CreateObjectDie wait on DamageModule, CreateModule and CreateObjectDie's
+  queued unit.
+
 ## ConstIntGettersAddr.cpp FieldParse tables (2026-10-29, seat halilkkaya-fpt1)
 
 Done (commits 0b5feb85bd, 16e7cdaec7, 7ed40a3467): 29 raw-int FieldParse tables became typed
