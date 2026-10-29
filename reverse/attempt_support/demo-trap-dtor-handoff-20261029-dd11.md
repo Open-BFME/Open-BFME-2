@@ -3,6 +3,11 @@
 Seat dd-11, 2026-10-29. Served unit
 `Code/GameEngine/Source/Common/Rva0024A797Derived.cpp` (0x00253DFD, 1,590 B):
 link_check reported `duplicate ??1DemoTrapUpdate@@UAE@XZ`. Base a33c933a9d.
+**Superseded:** `docs/linking_obstacles.md` LINK-149 already covers this exact
+class of duplicate (ObjectModule.h's virtual destructor), including
+DemoTrapUpdate.cpp, and its repair is in flight with the file's holder
+(yasinschroeder-claudeb2). This note is corroborating evidence only; the
+declarations below are the same repair LINK-149 describes.
 Not landed: `Code/GameEngine/Source/GameLogic/Object/Update/DemoTrapUpdate.cpp`
 was held by `yasinschroeder-claudeb2` (3 h left) when this seat tried to claim it,
 so the patch below is handed off instead of committed.
