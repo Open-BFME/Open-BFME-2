@@ -11,18 +11,18 @@ public:
 
 private:
 	char m_pad0C[0x218 - 0x0C];
-	int m_0218;
-	int m_021C;
-	int m_0220;
-	int m_0224;
-	int m_0228;
+	int m_commandButtonBorderBuildColor;
+	int m_commandButtonBorderActionColor;
+	int m_commandButtonBorderUpgradeColor;
+	int m_commandButtonBorderSystemColor;
+	int m_commandButtonBorderBfme5Color;
 };
 
 void ControlBar::rva0031AD14(int a, int b, int c, int d, int e)
 {
-	m_0218 = a;
-	m_021C = b;
-	m_0220 = c;
-	m_0224 = d;
-	m_0228 = e;
+	m_commandButtonBorderBuildColor = a;
+	m_commandButtonBorderActionColor = b;
+	m_commandButtonBorderUpgradeColor = c;
+	m_commandButtonBorderSystemColor = d;
+	m_commandButtonBorderBfme5Color = e;
 }

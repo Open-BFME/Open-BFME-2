@@ -19,11 +19,11 @@ private:
 	char m_pad0C[0x24 - 0x0C];
 	int m_0024;
 	char m_pad28[0x48 - 0x28];
-	GameWindow *m_p0048;
+	GameWindow *m_contextParent[9]; // [0] is the master window
 };
 
 void ControlBar::setHiddenControlBar()
 {
 	m_0024 = 3;
-	m_p0048->winHide(true);
+	m_contextParent[0]->winHide(true);
 }

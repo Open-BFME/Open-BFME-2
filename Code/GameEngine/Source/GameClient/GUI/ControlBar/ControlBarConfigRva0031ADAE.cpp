@@ -13,6 +13,7 @@ typedef bool Bool;
 #include "subsystem_interface.h"
 
 #include "ControlBarSchemeManagerView.h"
+#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
 class GameWindow
 {
@@ -67,21 +68,21 @@ public:
     void rva0031ADAE();
 private:
     char m_pad0C[0x1C - 0x0C];
-    int defaultX, defaultY;
-    int stage;
+    ICoord2D m_defaultControlBarPosition;
+    int m_currentControlBarStage;
     char unknown28[0x44 - 0x28];
-    ControlBarSchemeManager *schemeManager;
-    GameWindow *masterWindow;
+    ControlBarSchemeManager *m_controlBarSchemeManager;
+    GameWindow *m_contextParent[9]; // [0] is the master window
 };
 
 void ControlBar::rva0031ADAE()
 {
-    if (stage == 1)
+    if (m_currentControlBarStage == 1)
         return;
-    stage = 1;
-    masterWindow->winSetPosition(defaultX, defaultY);
+    m_currentControlBarStage = 1;
+    m_contextParent[0]->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
     TheTacticalView->setHeight(TheDisplay->getHeight());
-    schemeManager->setControlBarSchemeByPlayerTemplate(
+    m_controlBarSchemeManager->setControlBarSchemeByPlayerTemplate(
         reinterpret_cast<Rva0031ADAEPlayerView *>(ThePlayerList->localPlayer)
             ->playerTemplate, true);
 }

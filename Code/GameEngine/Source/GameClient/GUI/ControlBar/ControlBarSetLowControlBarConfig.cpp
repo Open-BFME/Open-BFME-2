@@ -80,7 +80,7 @@ private:
 	ICoord2D m_defaultControlBarPosition;       // +0x1C
 	ControlBarStages m_currentControlBarStage;  // +0x24
 	unsigned char m_pad28[0x48 - 0x28];
-	GameWindow *m_contextParentMaster;          // +0x48 (m_contextParent[CP_MASTER])
+	GameWindow *m_contextParent[9];             // +0x48; [0] is the master window
 };
 
 void ControlBar::setLowControlBarConfig(void)
@@ -91,8 +91,8 @@ void ControlBar::setLowControlBarConfig(void)
 	Int band = (Int)(.1 * TheDisplay->getHeight());
 	pos.y = TheDisplay->getHeight() - band;
 	TheTacticalView->setHeight((Int)(TheDisplay->getHeight()));
-	m_contextParentMaster->winSetPosition(pos.x, pos.y);
-	m_contextParentMaster->winHide(false);
+	m_contextParent[0]->winSetPosition(pos.x, pos.y);
+	m_contextParent[0]->winHide(false);
 	rva0031AE13();
 }
 
@@ -103,7 +103,7 @@ void ControlBar::setDefaultControlBarConfig(void)
 {
  m_currentControlBarStage = CONTROL_BAR_STAGE_DEFAULT;
  TheTacticalView->setHeight((Int)(.8f * TheDisplay->getHeight()));
- m_contextParentMaster->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
- m_contextParentMaster->winHide(false);
+ m_contextParent[0]->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
+ m_contextParent[0]->winHide(false);
  rva0031AE13();
 }

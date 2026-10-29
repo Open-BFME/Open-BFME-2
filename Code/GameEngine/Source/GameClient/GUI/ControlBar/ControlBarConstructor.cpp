@@ -210,7 +210,11 @@ private:
 	void *m_0210;
 	bool m_0214;
 	char m_pad215[3];
-	int m_0218[5];
+	int m_commandButtonBorderBuildColor;
+	int m_commandButtonBorderActionColor;
+	int m_commandButtonBorderUpgradeColor;
+	int m_commandButtonBorderSystemColor;
+	int m_commandButtonBorderBfme5Color;
 	UnsignedInt m_022C;
 	_STL::vector<PlayerAITypeEntry> m_0230;
 	_STL::vector<PlayerAITypeEntry> m_023C;

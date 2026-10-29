@@ -4,6 +4,7 @@
 // 0x0031AEC9 plus caller 0x0009FA82 plus ret 8 two-pointer shape.
 typedef bool Bool;
 #include "subsystem_interface.h"
+#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 class ControlBar : public SubsystemInterface
 {
 public:
@@ -11,12 +12,11 @@ public:
 
 private:
 	char m_pad0C[0x288 - 0x0C];
-	int m_0288;
-	int m_028C;
+	ICoord2D m_controlBarBackgroundMarkerPos;
 };
 
 void ControlBar::rva0031AEAE(int *a, int *b)
 {
-	*a = m_0288;
-	*b = m_028C;
+	*a = m_controlBarBackgroundMarkerPos.x;
+	*b = m_controlBarBackgroundMarkerPos.y;
 }

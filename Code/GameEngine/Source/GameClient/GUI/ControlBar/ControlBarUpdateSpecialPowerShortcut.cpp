@@ -79,8 +79,8 @@ private:
     char m_pad0C[0x14 - 0x0C];
     ShortcutAnimateManagerView *animateManager;
     char unknown18[0x30];
-    GameWindow *contextParent[1];
-    char unknown4C[0x5C];
+    GameWindow *contextParent[9]; // [0] is the master window
+    char unknown6C[0x3C];
     GameWindow *shortcutButtons[5];
     GameWindow *shortcutButtonParents[5];
     int shortcutButtonCount;

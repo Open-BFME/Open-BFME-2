@@ -146,8 +146,8 @@ class ControlBar : public SubsystemInterface
 	unsigned char m_pad0C[0x2C - 0x0C];
 	CommandButton *m_commandButtons;
 	unsigned char m_unreconstructed_2C[0x18];
-	GameWindow *m_contextParent;
-	unsigned char m_unreconstructed_38[0x5C];
+	GameWindow *m_contextParent[9]; // [0] is the master window
+	unsigned char m_unreconstructed_6C[0x3C];
 	GameWindow *m_specialPowerShortcutButtons[5];
 	GameWindow *m_specialPowerShortcutButtonParents[5];
 	Int m_currentlyUsedSpecialPowersButtons;
@@ -266,7 +266,7 @@ void ControlBar::populateSpecialPowerShortcut(Player *player)
 		++currentButton;
 	}
 
-	if (m_contextParent && !m_contextParent->winIsHidden()
+	if (m_contextParent[0] && !m_contextParent[0]->winIsHidden()
 			&& m_specialPowerShortcutParent->winIsHidden())
 	{
 		showSpecialPowerShortcut();
