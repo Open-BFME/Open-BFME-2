@@ -10,10 +10,6 @@ Code/GameEngine/Source/Common/Rva00515921Permuted.cpp	wrong-name	?$S1@?1??goodCa
 Code/GameEngine/Source/Common/Rva00515921Permuted.cpp	wrong-name	?campaign@?1??goodCampaignRva00515921@@YAHM_N@Z@4VAsciiString@@A	0x00A048FC
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	wrong-name	?g_00E063D4@@3VAsciiString@@A	0x00A063D4
 Code/GameEngine/Source/Common/Rva00627AA0Call.cpp	wrong-name	?g_rva00627AA0@@3PAURva00627AA0Obj@@A	0x00A05FBC
-Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	duplicate-def	?g_Va00E02C48@@3IA	0x00A02C48
-Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	duplicate-def	?g_Va00E02C4C@@3IA	0x00A02C4C
-Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	wrong-name	?g_Va00E02C48@@3IA	0x00A02C48
-Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp	wrong-name	?g_Va00E02C4C@@3IA	0x00A02C4C
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	duplicate-def	?g_rva00E08D3CString@@3VStringClass@@A	0x00A08D3C
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	wrong-name	?g_rva00E08D3CString@@3VStringClass@@A	0x00A08D3C
 Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp	wrong-name	?g_rva0134FB38@@3URva0134FB38Storage@@A	0x00A09E50
