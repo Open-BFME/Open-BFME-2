@@ -1,14 +1,6 @@
-// Empty multiple-inheritance destructors at retail 0x00466B45 and 0x004C54BE.
+// Empty multiple-inheritance destructor at retail 0x00466B45.
 // Direct bases reproduce the ascending vptr stores and terminal teardown.
 // Class names are address-derived; original identities remain unresolved.
-
-class Rva00019565FlatBase
-{
-public:
-	virtual ~Rva00019565FlatBase();
-
-	unsigned int m_pad[ 2 ];
-};
 
 class Rva00039D6AFlatBase
 {
@@ -36,28 +28,12 @@ Rva00220240FlatDtor::~Rva00220240FlatDtor()
 {
 }
 
-class Rva0025A390FlatDtorM0 { public: virtual void anchor(); };
-class Rva0025A390FlatDtorM1 { public: virtual void anchor() = 0; unsigned int m_pad[ 3 ]; };
-class Rva0025A390FlatDtorM2 { public: virtual void anchor() = 0; };
-class Rva0025A390FlatDtorM3 { public: virtual void anchor() = 0; unsigned int m_pad[ 4 ]; };
-class Rva0025A390FlatDtorM4 { public: virtual void anchor() = 0; };
-class Rva0025A390FlatDtor : public Rva00019565FlatBase, public Rva0025A390FlatDtorM0, public Rva0025A390FlatDtorM1, public Rva0025A390FlatDtorM2, public Rva0025A390FlatDtorM3, public Rva0025A390FlatDtorM4
-{
-public:
-	virtual ~Rva0025A390FlatDtor();
-};
-
-Rva0025A390FlatDtor::~Rva0025A390FlatDtor()
-{
-}
-
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
 #pragma comment(linker, "/alternatename:?anchor@Rva00220240FlatDtorM7@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?anchor@Rva00220240FlatDtorM6@@UAEXXZ=?IsCRC@Xfer@@UBE_NXZ")
 #pragma comment(linker, "/alternatename:?anchor@Rva00220240FlatDtorM0@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
-#pragma comment(linker, "/alternatename:?anchor@Rva0025A390FlatDtorM0@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
