@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva004D6C29@Rva004D6C29@@QAEXXZ @0x004D6C29 (31B):
 // Two-vector clear: erase of ScienceType vector at +0x04 via rowed erase
 // @0x00532803 then erase of void* vector at +0x10 via rowed erase @0x0031BD55.
@@ -12,22 +13,13 @@ enum ScienceType
 	SCIENCE_INVALID = 0
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	T *erase(T *first, T *last);
-	void push_back(const T &value);
-
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
+// Bind both range erases to their rowed workers.
+template <> ScienceType *vector<ScienceType, allocator<ScienceType> >::erase(ScienceType *first, ScienceType *last);
+template <> void **vector<void *, allocator<void *> >::erase(void **first, void **last);
 }
 
 class Rva004D6C29
@@ -44,7 +36,7 @@ private:
 void Rva004D6C29::rva004D6C29()
 {
 	_STL::vector<ScienceType> *vec04 = &m_vec04;
-	vec04->erase(vec04->m_start, vec04->m_finish);
+	vec04->erase(vec04->begin(), vec04->end());
 	_STL::vector<void *> *vec10 = &m_vec10;
-	vec10->erase(vec10->m_start, vec10->m_finish);
+	vec10->erase(vec10->begin(), vec10->end());
 }

@@ -1,20 +1,17 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// stlport
 // ?rva002E00F9@Rva002E00F9@@QAEXPAX0@Z @0x002E00F9 52B iterate ptr range virtual then push_back
 // Evidence: callee rowed 0x004DFCB0 vector ModuleData push_back; virtual slot 1 returning ModuleData star; caller 0x004E1230; neighbours STL vector units share /O1
 class ModuleData
 {
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed pointer-vector worker.
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
 class Rva002E00F9Elem

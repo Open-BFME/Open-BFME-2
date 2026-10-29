@@ -1,4 +1,5 @@
-// cl: /MD /Ireference/shims/bfme2_ascii
+// cl: /MD /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 // ??4Rva004213A2@@QAEAAV0@ABV0@@Z @0x004213A2 57B
 // Copy-assign with empty base plus AsciiString at +0x10 UnicodeString at +0x14
 // vector<uint> at +0x18. Evidence: unlock lane; callees rowed 0x001FD28E
@@ -15,16 +16,13 @@ public:
 };
 }
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	vector &operator=(const vector &other);
-};
+// Bind the assignment to the kept vector copy-assignment worker.
+template <> vector<unsigned int, allocator<unsigned int> > &
+vector<unsigned int, allocator<unsigned int> >::operator=(const vector<unsigned int, allocator<unsigned int> > &other);
 }
 
 class Rva004213A2 : public FXParticleSystem::StreakDrawModuleTemplate
