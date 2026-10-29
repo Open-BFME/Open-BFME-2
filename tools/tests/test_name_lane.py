@@ -1476,3 +1476,97 @@ def test_configurable_fanout_verifies_all_consumers_and_rolls_back(tree, tmp_pat
 def test_apply_max_files_must_be_positive(tree):
     with pytest.raises(SystemExit):
         name_lane.main(["apply", "--max-files", "0"], lane=lane_of(tree))
+
+
+READY_ANSWERS = {"rva00401000:param_1": "box", "rva00401000:a2": "increment", "rva00401000:iVar3": "sum"}
+
+
+def submit_ready(tree, tmp_path, *, limit=2, verify=ok_verify):
+    serve(tree, "ready", worker="ready-worker")
+    answer = tmp_path / "ready-answer.json"
+    answer.write_text(json.dumps(READY_ANSWERS))
+    args = SimpleNamespace(session="ready", model="claude-opus-5-5", answer=str(answer), apply_ready=limit)
+    return name_lane.cmd_submit(lane_of(tree), args, verify=verify, checks=no_checks)
+
+
+def test_submit_apply_ready_is_bounded_and_leaves_unrelated_backlog(tree, tmp_path, monkeypatch):
+    agree_on(tree, tmp_path, MEMBER_ANSWER)
+    builds, claims = [], []
+    original = rename.take_claims
+    def claim(keys, enabled, root):
+        claims.append(enabled)
+        return original(keys, enabled, root)
+    monkeypatch.setattr(rename, "take_claims", claim)
+    submit_ready(tree, tmp_path, verify=lambda ctx, sources: builds.append(sources) or True)
+    state = lane_of(tree).state()
+    assert state[MEMBER_KEY]["status"] == "agreed"
+    scoped = [row for row in state.values() if row["kind"] in ("param", "local")]
+    assert sum(row["status"] == "landed" for row in scoped) == 2
+    assert sum(row["status"] == "agreed" for row in scoped) == 1
+    assert builds == [[SOURCE]]
+    assert claims and all(claims)
+
+
+def test_submit_apply_ready_restores_failed_names_and_keeps_votes(tree, tmp_path):
+    before = (tree / SOURCE).read_bytes()
+    submit_ready(tree, tmp_path, verify=lambda ctx, sources: False)
+    assert (tree / SOURCE).read_bytes() == before
+    state = lane_of(tree).state()
+    assert sum(row["status"] == "blocked" for row in state.values()) == 2
+    assert sum(row["status"] == "agreed" for row in state.values()) == 1
+    assert len(rows(tree, name_lane.VOTES)) == 3
+
+
+def test_submit_without_new_approval_does_not_apply_backlog(tree, tmp_path, monkeypatch):
+    agree_on(tree, tmp_path, MEMBER_ANSWER)
+    serve(tree, "no-new", worker="no-new-worker")
+    answer = tmp_path / "no-new.json"
+    answer.write_text(json.dumps(FN_ANSWER))
+    monkeypatch.setattr(name_lane, "cmd_apply", lambda *a, **kw: pytest.fail("unrelated backlog must not apply"))
+    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="no-new", model="claude-opus-5-5",
+                                                       answer=str(answer), apply_ready=5))
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "agreed"
+
+
+def test_invalid_submit_apply_limit_preserves_session_and_votes(tree, tmp_path):
+    with pytest.raises(SystemExit):
+        submit_ready(tree, tmp_path, limit=0)
+    assert not rows(tree, name_lane.VOTES)
+    assert (tree / "build/name_lane/sessions/ready.json").is_file()
+
+
+def test_apply_limit_composes_with_key_filter_and_drains_on_next_run(tree, tmp_path):
+    agree_on(tree, tmp_path, {**MEMBER_ANSWER, **FN_ANSWER})
+    args = SimpleNamespace(key=[FN_KEY], retry_blocked=False, lead=2, min_models=1,
+                           claim=False, only_labels=None, limit=1)
+    name_lane.cmd_apply(lane_of(tree), args, verify=ok_verify, checks=no_checks)
+    state = lane_of(tree).state()
+    assert state[FN_KEY]["status"] == "landed" and state[MEMBER_KEY]["status"] == "agreed"
+    args.key = None
+    name_lane.cmd_apply(lane_of(tree), args, verify=ok_verify, checks=no_checks)
+    assert lane_of(tree).state()[MEMBER_KEY]["status"] == "landed"
+
+
+def test_apply_limit_must_be_positive(tree):
+    with pytest.raises(SystemExit):
+        name_lane.main(["apply", "--limit", "0"], lane=lane_of(tree))
+
+
+def test_ready_cli_options_are_forwarded(tree, monkeypatch):
+    seen = {}
+    monkeypatch.setattr(name_lane, "cmd_submit", lambda lane, args, **kw: seen.update(submit=args) or 0)
+    monkeypatch.setattr(name_lane, "cmd_apply", lambda lane, args, **kw: seen.update(apply=args) or 0)
+    name_lane.main(["submit", "answer.json", "--session", "s", "--model", "m",
+                    "--apply-ready", "3", "--max-files", "60"], lane=lane_of(tree))
+    assert seen["submit"].apply_ready == 3 and seen["submit"].max_files == 60
+    name_lane.main(["apply", "--limit", "7", "--max-files", "60"], lane=lane_of(tree))
+    assert seen["apply"].limit == 7 and seen["apply"].max_files == 60
+
+
+
+def test_submit_apply_ready_includes_local_proof_in_one_verified_batch(tree, tmp_path):
+    builds = []
+    submit_ready(tree, tmp_path, limit=3, verify=lambda ctx, sources: builds.append(sources) or True)
+    assert builds == [[SOURCE]]
+    assert {row["status"] for row in lane_of(tree).state().values()} == {"landed"}
+    assert len(rows(tree, rename.NAME_BINDINGS)) == 1

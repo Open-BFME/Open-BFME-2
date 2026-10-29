@@ -699,3 +699,18 @@ the outer source context and included headers. Reversal may reuse the proof
 only while that context is unchanged; otherwise ordinary conservative checks
 apply. Header edits or edits outside the selected function can therefore
 require a fresh review. Legacy landings do not gain this exception.
+
+### Apply approved names regularly
+
+An integrator can run `python3 tools/name_lane.py apply --limit 20` after each
+integration batch. It attempts at most 20 eligible approvals; the rest keep
+waiting, and blocked entries need an explicit `--retry-blocked` to be retried.
+Existing key/worker filters and the source fan-out bound still compose.
+
+For a worker authorized to edit source as well as propose names,
+`submit ANSWER.json --session S --model M --apply-ready 5` records votes, then
+claims and verifies at most five approvals created by that submission. It never
+selects unrelated backlog or starts an apply when nothing newly agreed. Default
+submission still records proposals only. `--max-files` controls the verification
+bound for this optional apply. Failed verification restores source and records
+blocked outcomes while retaining the votes. Neither command commits or pushes.

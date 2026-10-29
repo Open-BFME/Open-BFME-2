@@ -610,8 +610,8 @@ class Lane:
             return "members are m_camelCase"
         if kind in ("param", "local") and not new[0].islower():
             return "params and locals are camelCase"
-        if kind == "class" and self.ctx.grep_files(new, word=True):
-            return f"{new} already exists; reconcile declarations before a class rename"
+        if kind == "class" and self.type_definers(new) and not self.header_type(new):
+            return f"{new} is another file's stand-in, not a class any header declares"
         if kind in NAMED and new in file_words:
             return "collides with a name already in the file"
         return None
@@ -945,7 +945,10 @@ def cmd_next(lane, args):
 
 # ---------------------------------------------------------------- submit
 
-def cmd_submit(lane, args, *, lead=2, min_models=1):
+def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, checks=rename.ledger_checks):
+    apply_ready = getattr(args, "apply_ready", None)
+    if apply_ready is not None and (apply_ready < 1 or getattr(args, "max_files", 25) < 1):
+        fail("--apply-ready and --max-files must be positive")
     session, model = session_id(args.session), model_id(args.model)
     record = lane.path(f"{LANE_DIR}/sessions/{session}.json")
     if not record.exists():
@@ -1000,6 +1003,8 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
             annotate = (already and meaning and worker in tally[key].get(h, {})
                         and not tally.meanings[key].get((h, worker)))
             why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(kind, ident, answer, file_words)
+            if not why and kind == "class" and lane.ctx.grep_files(answer, word=True):
+                why = f"{answer} already exists; reconcile declarations before a class rename"
             if not why and kind in NAMED and canon(answer) in taken:
                 why = "the same name as another placeholder in this file"
             if not why and canon(answer) in refused.get(key, ()):
@@ -1048,9 +1053,14 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
     for a in agreed:
         print(f"  AGREED: {a['key']} -> {a['new']} ({a['agents']})")
     print(f"name_lane: {len(votes)} vote(s) recorded as hashes, {len(rejected)} rejected, {len(agreed)} newly agreed"
-          + ("; run `python3 tools/name_lane.py apply` to land them" if agreed else ""))
+          + ("; run `python3 tools/name_lane.py apply` to land them" if agreed and apply_ready is None else ""))
     if meanings:
         print(f"name_lane: stage {VOTES}, {MEANINGS} and {AGREED} together for structured meanings")
+    if apply_ready is not None and agreed:
+        return cmd_apply(lane, argparse.Namespace(
+            key=[row["key"] for row in agreed], retry_blocked=False, only_labels=None,
+            lead=lead, min_models=min_models, claim=True, limit=apply_ready,
+            max_files=getattr(args, "max_files", 25)), verify=verify, checks=checks)
     return 0
 
 
@@ -1090,6 +1100,9 @@ def rename_kwargs(kind, scope, old, new, rva, rel):
 
 
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
+    limit = getattr(args, "limit", None)
+    if limit is not None and limit < 1:
+        fail("--limit must be positive")
     max_files = getattr(args, "max_files", 25)
     if max_files < 1:
         fail("--max-files must be positive")
@@ -1097,7 +1110,7 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     only = label_list(args.only_labels) if getattr(args, "only_labels", None) else None
     selected_keys = set(getattr(args, "key", None) or ())
     todo = collections.defaultdict(list)
-    landed = blocked = stale = outside = 0
+    landed = blocked = stale = outside = selected = deferred = 0
     pending = False
     for key, row in state.items():
         if selected_keys and key not in selected_keys:
@@ -1111,6 +1124,10 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
                 print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
+            if limit is not None and selected >= limit:
+                deferred += 1
+                continue
+            selected += 1
             agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
             todo[split_key(key)[0]].append(dict(row, agents=agents))
     if not pending:
@@ -1169,6 +1186,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             lane.append(AGREED, AGREED_COLUMNS, [outcome])
     print(f"name_lane: landed {landed}, blocked {blocked}, stale {stale}. Stage the files rename.py listed "
           f"and {AGREED} (plus {MEANINGS} when structured votes added it); the lander commits.")
+    if deferred:
+        print(f"name_lane: {deferred} ready key(s) left waiting by --limit {limit}; run apply again to continue.")
     if only:
         print(f"name_lane: --only-labels {','.join(sorted(only))}: {outside} key(s) with a voter outside those "
               "labels left untouched.")
@@ -1296,10 +1315,13 @@ def main(argv=None, lane=None):
     s.add_argument("answer")
     s.add_argument("--session", required=True)
     s.add_argument("--model", required=True)
+    s.add_argument("--apply-ready", type=int, metavar="N", help="verify and apply at most N newly approved keys after recording votes")
+    s.add_argument("--max-files", type=int, default=25, help="affected-source bound when --apply-ready is used")
     for p in (s,):
         p.add_argument("--lead", type=int, default=2, help="votes the name must lead every rival by")
         p.add_argument("--min-models", type=int, default=1, help="distinct models among the agreeing workers")
     a = sub.add_parser("apply", help="land agreed names through tools/rename.py")
+    a.add_argument("--limit", type=int, metavar="N", help="attempt at most N eligible approvals, leaving the rest waiting")
     a.add_argument("--retry-blocked", action="store_true", help="try blocked names again, e.g. after a fix")
     a.add_argument("--key", action="append", help="apply only this exact source|kind|scope|placeholder key (repeatable)")
     a.add_argument("--max-files", type=int, default=25, help="maximum affected sources; every selected source is still verified")
