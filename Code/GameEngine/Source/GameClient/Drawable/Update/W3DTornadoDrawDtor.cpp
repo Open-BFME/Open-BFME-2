@@ -7,8 +7,8 @@
 // Body: installs vtable 0x00BCE218, runs the rowed decal-list drain
 // rva000D1743 (0x000D1743), destroys the +0x0C list (0x004EC395), then the
 // inlined intermediate dtor stores its vptr 0x00BC9690 and calls the
-// fold-point base dtor 0x0049B47C. Layout from the matched ctor TU
-// AnimatedParticleSysBoneClientUpdateCtor.cpp; the intermediate (ctor pin
+// fold-point base dtor 0x0049B47C. Layout from the matched ctor in
+// W3DTornadoDraw.cpp; the intermediate (ctor pin
 // 0x000B19A1) is still opaque.
 #include <list>
 
