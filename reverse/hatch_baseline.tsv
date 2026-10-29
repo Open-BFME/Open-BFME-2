@@ -5161,7 +5161,7 @@ pin	reverse/symbols.csv	0x000B2CE5	3
 pin	reverse/symbols.csv	0x000B3F43	2
 pin	reverse/symbols.csv	0x000B3F84	1
 pin	reverse/symbols.csv	0x000B3FD0	29
-pin	reverse/symbols.csv	0x000B4039	7	allow=8f22dd375e68ff6116f2a1fecbd9e206682bed76
+pin	reverse/symbols.csv	0x000B4039	7
 pin	reverse/symbols.csv	0x000B407F	1
 pin	reverse/symbols.csv	0x000B40EA	6
 pin	reverse/symbols.csv	0x000B4106	5
@@ -6166,7 +6166,7 @@ pin	reverse/symbols.csv	0x002218D0	2
 pin	reverse/symbols.csv	0x00221B8D	17
 pin	reverse/symbols.csv	0x00221FF5	1
 pin	reverse/symbols.csv	0x0022239C	2
-pin	reverse/symbols.csv	0x002226BE	25	allow=8f22dd375e68ff6116f2a1fecbd9e206682bed76
+pin	reverse/symbols.csv	0x002226BE	25
 pin	reverse/symbols.csv	0x0022274A	1
 pin	reverse/symbols.csv	0x00222A8B	5
 pin	reverse/symbols.csv	0x00222B19	1
@@ -10849,6 +10849,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cp
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/System/PlayerAITypeSet.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	"",on	1
@@ -11798,9 +11801,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp	"s
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00056BFE.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00056BFE.cpp	"y",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0021582C.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0021582C.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0021582C.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0023AD91.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0023AD91.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlVectorRva0023AD91.cpp	"t",on	1
