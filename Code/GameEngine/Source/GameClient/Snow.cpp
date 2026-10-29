@@ -9,17 +9,7 @@
 #include <new>
 #include <stdlib.h>
 
-class SubsystemInterface {
-public:
-    SubsystemInterface();
-    virtual ~SubsystemInterface();
-    virtual void init() = 0;
-    // Target vtables place loadIniFilesFromLegend at slot 2 (0x001B5384).
-    // The existing SubsystemInterface provider implements this bool method.
-    virtual bool loadIniFilesFromLegend();
-private:
-    unsigned int m_targetBaseWords[2]; // Offset evidence: SnowManager begins at +0x0C.
-};
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 // Two adjacent floats that retail copies with one override lookup.
 struct SnowFloatPair {
@@ -31,7 +21,11 @@ class SnowManager : public SubsystemInterface {
 public:
     SnowManager();
     virtual ~SnowManager();
+    // Slot 1 of retail's base table; slot 2 is the base's
+    // loadIniFilesFromLegend (0x001B5384), which the canonical header leaves
+    // undeclared.
     virtual void init();
+    virtual bool targetSlot2();
     virtual void targetSlot3();
     virtual void targetSlot4();
     virtual void targetSlot5();
