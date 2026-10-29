@@ -710,7 +710,8 @@ class Verifier:
         text = self.effective(text, rows)
         key = hashlib.sha1(text.encode()).hexdigest()[:16]
         if key not in self.cache:
-            src = self.tu.parent / f".{self.tu.stem}.{key}.tu_skeleton.cpp"
+            # keep the TU's suffix: cl compiles a .c TU as C, and as C++ every row misses
+            src = self.tu.parent / f".{self.tu.stem}.{key}.tu_skeleton{self.tu.suffix}"
             obj = self.tmp / f"{key}.obj"
             src.write_text(text, encoding="utf-8", newline="")
             try:

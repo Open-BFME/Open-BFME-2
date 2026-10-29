@@ -411,6 +411,17 @@ class VerifierCacheTests(unittest.TestCase):
             self.assertEqual((v.all_errors, v.errors), ([], []))
             self.assertEqual(len(compiled), 2)
 
+    def test_candidate_keeps_the_tu_suffix(self):
+        # a C TU compiled through a .cpp scratch file gets C++ linkage and misses every row
+        with tempfile.TemporaryDirectory() as tmp:
+            v, _ = self.verifier(Path(tmp))
+            v.tu = Path(tmp) / "lapi.c"
+            seen = []
+            compile_source = v.B.try_compile_source
+            v.B.try_compile_source = lambda src, obj: (seen.append(src.suffix), compile_source(src, obj))[1]
+            self.assertEqual(v.matched("exact", self.ROWS), {"0x1000"})
+            self.assertEqual(seen, [".c"])
+
 
 class RepointTests(unittest.TestCase):
     def test_fold_proof_moves_only_exact_source_tokens_in_notes(self):
