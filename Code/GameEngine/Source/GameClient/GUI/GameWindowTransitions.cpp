@@ -433,6 +433,34 @@ public:
 
 class TransitionGroup;
 
+class BuildListInfo
+{
+public:
+	void setTemplateName(AsciiString name); // folded AsciiString setter
+};
+
+// BFME 2 guards the handler's group pointers with a critical section at
+// +0x38, held for the whole call (EH state 1 while it is held).
+class BfmeTransitionsLock
+{
+public:
+	BfmeTransitionsLock(void *cs) : m_cs((CRITICAL_SECTION *)cs) { EnterCriticalSection((CRITICAL_SECTION *)cs); }
+	~BfmeTransitionsLock() { LeaveCriticalSection(m_cs); }
+private:
+	CRITICAL_SECTION *m_cs;
+};
+
+// Retail's field table at RVA 0x007DBBCC (.rdata): "Window" -> parseWindow and "FireOnce" -> parseBool at
+// +0x10 (TransitionGroup::m_fireOnce), then the zero sentinel; transcribed from retail's own bytes.
+const FieldParse GameWindowTransitionsHandler::m_gameWindowTransitionsFieldParseTable[] =
+{
+	{ "Window", GameWindowTransitionsHandler::parseWindow, 0, 0 },
+	{ "FireOnce", INI::parseBool, 0, 0x10 },
+	{ 0, 0, 0, 0 }
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitions.cpp
@@ -808,12 +836,6 @@ Rva001DC0EC::~Rva001DC0EC()
 	}
 }
 
-// tu-skeleton: 0x001DC01C 98B ?findGroup@GameWindowTransitionsHandler@@AAEPAVTransitionGroup@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
-
-// tu-skeleton: 0x001DC164 59B ?rva001DC164@Rva001DBDA4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00489360GuardedAdd.cpp (not merged yet)
-
-// tu-skeleton: 0x001DC1E1 28B ??_GRva001DC0EC@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsGroupTotalFrames_Rva001dc1fd.cpp
 
 // The inline forwarders over StringBase are what put retail's EH saved-esp
@@ -830,17 +852,200 @@ int GameWindowTransitionsHandler::bfmeGetGroupTotalFrames( AsciiString groupName
 	return totalFrames;
 }
 
-// tu-skeleton: 0x001DC252 243B ?setGroup@GameWindowTransitionsHandler@@QAEXVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp
 
-// tu-skeleton: 0x001DC345 231B ?reverse@GameWindowTransitionsHandler@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
+// platformsdk
+//
+// GameWindowTransitionsHandler::findGroup (0x001DC01C, 98B), getNewGroup
+// (0x001DC4D2, 170B), setGroup (0x001DC252, 243B) and reverse (0x001DC345,
+// 231B), ported from Zero Hour's GameClient/GUI/GameWindowTransitions.cpp;
+// reverse/symbols.csv pins findGroup, getNewGroup and setGroup at these
+// addresses. The total-frames query between them (0x001DC1FD) is
+// bfmeGetGroupTotalFrames, rowed in GameWindowTransitions.cpp.
+// Target evidence: by-value AsciiString params with EH_prolog and the
+// releaseBuffer row 0x00036410; isEmpty early-outs (null plus length
+// check); the STLport group list at +0x20; compareNoCase (row 0x00006A00)
+// against the group's name at +0xC; getNewGroup news 0x14 bytes, builds
+// them with the rowed ctor 0x001DC0C7, names them through the folded
+// AsciiString setter rowed as BuildListInfo::setTemplateName (0x001DBC2D)
+// and appends through the folded list<int>::push_back.
+// ZH's iterator loop gives retail's register assignment; compareNoCase is
+// declared non-throwing (it allocates nothing), as retail's missing EH
+// state store in findGroup shows; ~StringBase stays out of line (retail
+// folds it onto releaseBuffer), so this unit emits no copy of it.
+// BFME 2 additions in setGroup and reverse (target evidence): the whole call
+// holds the critical section at +0x38 (EnterCriticalSection and
+// LeaveCriticalSection imports, EH state 1); +0x54 and +0x58 are cleared and
+// +0x5C and +0x60 take TheDisplay's vslots 0x40 and 0x44; a group that is
+// dropped gets the rowed rva001DBE17 after (or instead of) its skip; reverse
+// returns early on an unknown group and only clears the pending group when
+// one was set. /EHsc: retail stores no EH state around the C imports.
+// INI::parseWindowTransitions (0x001DC66F, 112B) is the "WindowTransition"
+// block parser (retail table entry at 0x009B8CF0); the handler singleton is
+// read from 0x00DFDC14 and the field table is the static at 0x00BDBBCC.
 
-// tu-skeleton: 0x001DC42C 166B ?remove@GameWindowTransitionsHandler@@QAEXVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
 
-// tu-skeleton: 0x001DC4D2 170B ?getNewGroup@GameWindowTransitionsHandler@@QAEPAVTransitionGroup@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
+TransitionGroup *GameWindowTransitionsHandler::getNewGroup( AsciiString name )
+{
+	if(name.isEmpty())
+		return NULL;
+
+	// test to see if we're trying to add an already exisitng group.
+	if(findGroup(name))
+	{
+		return NULL;
+	}
+	TransitionGroup *transitionGroup = (TransitionGroup *)new Rva001DC0EC;
+	((BuildListInfo *)transitionGroup)->setTemplateName(name);
+	((_STL::list<int> *)&m_transitionGroupList)->push_back(*(int *)&transitionGroup);
+	return transitionGroup;
+}
+
+TransitionGroup *GameWindowTransitionsHandler::findGroup( AsciiString groupName )
+{
+	if(groupName.isEmpty())
+		return NULL;
+
+	TransitionGroupList::iterator it = m_transitionGroupList.begin();
+	while (it != m_transitionGroupList.end())
+	{
+		TransitionGroup *transitionGroup = *it;
+		if(groupName.compareNoCase(transitionGroup->m_name) == 0)
+			return transitionGroup;
+		it++;
+	}
+	return NULL;
+}
+
+void GameWindowTransitionsHandler::setGroup(AsciiString groupName, Bool immidiate )
+{
+	BfmeTransitionsLock lock(&m_lock);
+	m_54 = 0;
+	m_58 = 0;
+	m_5C = TheDisplay->unk40();
+	m_60 = TheDisplay->unk44();
+	if(groupName.isEmpty() && immidiate)
+	{
+		if(m_currentGroup)
+		{
+			m_currentGroup->bfmeAfterSkip();
+			m_currentGroup = NULL;
+		}
+	}
+	if(immidiate && m_currentGroup)
+	{
+		m_currentGroup->skip();
+		m_currentGroup = findGroup(groupName);
+		if(m_currentGroup)
+			m_currentGroup->init();
+		return;
+	}
+
+	if(m_currentGroup)
+	{
+		if(!m_currentGroup->isFireOnce() && !m_currentGroup->isReversed())
+			m_currentGroup->reverse();
+		m_pendingGroup = findGroup(groupName);
+		if(m_pendingGroup)
+			m_pendingGroup->init();
+		return;
+	}
+
+	m_currentGroup = findGroup(groupName);
+	if(m_currentGroup)
+		m_currentGroup->init();
+}
+
+// GameWindowTransitionsHandler::remove (0x001DC42C, 166B): drops a group under
+// the critical section; the nested equal-arm on the lookup keeps retail's
+// EH-slot placement for the by-value name.
+void GameWindowTransitionsHandler::remove( AsciiString groupName,  Bool skipPending )
+{
+	BfmeTransitionsLock lock(&m_lock);
+	TransitionGroup *transitionGroup = (skipPending ? (findGroup(groupName)) : ((&m_lock ? (findGroup(groupName)) : (findGroup(groupName)))));
+	if(!transitionGroup)
+		return; // BFME 2 (target evidence): an unknown group changes nothing
+	if(m_pendingGroup == transitionGroup)
+	{
+		if(skipPending)
+			m_pendingGroup->skip();
+		m_pendingGroup->bfmeAfterSkip();
+
+		m_pendingGroup = NULL;
+	}
+	if(m_currentGroup == transitionGroup)
+	{
+		m_currentGroup->skip();
+		m_currentGroup->bfmeAfterSkip();
+		m_currentGroup = NULL;
+		if(m_pendingGroup)
+			m_currentGroup = m_pendingGroup;
+	}
+}
+
+void GameWindowTransitionsHandler::reverse( AsciiString groupName )
+{
+	BfmeTransitionsLock lock(&m_lock);
+	m_54 = 0;
+	m_58 = 0;
+	m_5C = TheDisplay->unk40();
+	m_60 = TheDisplay->unk44();
+	TransitionGroup *transitionGroup = findGroup(groupName);
+	if(!transitionGroup)
+		return;
+	if( m_currentGroup == transitionGroup )
+	{
+		m_currentGroup->reverse();
+		return;
+	}
+	if( m_pendingGroup == transitionGroup)
+	{
+		m_pendingGroup->bfmeAfterSkip();
+		m_pendingGroup = NULL;
+		return;
+	}
+	if(m_currentGroup)
+	{
+		m_currentGroup->skip();
+		m_currentGroup->bfmeAfterSkip();
+	}
+	if(m_pendingGroup)
+	{
+		m_pendingGroup->skip();
+		m_pendingGroup->bfmeAfterSkip();
+		m_pendingGroup = NULL;
+	}
+
+	m_currentGroup = transitionGroup;
+	m_currentGroup->init();
+	m_currentGroup->skip();
+	m_currentGroup->reverse();
+}
+
+void INI::parseWindowTransitions( INI* ini )
+{
+	AsciiString name;
+	TransitionGroup *transitionGroup;
+
+	// read the name
+	const char* c = ini->getNextToken();
+	name.set( c );
+
+	if( !TheTransitionHandler )
+		return;
+	transitionGroup = TheTransitionHandler->getNewGroup( name );
+
+	ini->initFromINI(transitionGroup, TheTransitionHandler->getFieldParse() );
+}
+
+// tu-skeleton: 0x001DC164 59B ?rva001DC164@Rva001DBDA4@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00489360GuardedAdd.cpp (not merged yet)
+
+// tu-skeleton: 0x001DC1E1 28B ??_GRva001DC0EC@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
 
 // tu-skeleton: 0x001DC636 57B ??1?$hashtable@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
-
-// tu-skeleton: 0x001DC66F 112B ?parseWindowTransitions@INI@@SAXPAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
 
 // tu-skeleton: 0x001DC6DF 5B ??1?$hash_map@W4NameKeyType@@P6APAVTransition@@XZU?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
 
@@ -851,13 +1056,3 @@ int GameWindowTransitionsHandler::bfmeGetGroupTotalFrames( AsciiString groupName
 // tu-skeleton: 0x001DCBA4 31B ??0?$hash_map@W4NameKeyType@@P6APAVTransition@@XZU?$hash@W4NameKeyType@@@rts@@U?$equal_to@W4NameKeyType@@@4@V?$allocator@U?$pair@$$CBW4NameKeyType@@P6APAVTransition@@XZ@_STL@@@_STL@@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
 
 // tu-skeleton: 0x001DCBC3 124B ??0GameWindowTransitionsHandler@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandler.cpp (not merged yet)
-
-// tu-skeleton: 0x007698EB 8B Unwind@00b698eb -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
-
-// tu-skeleton: 0x007698F3 10B $L5293 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
-
-// tu-skeleton: 0x007698FD 10B __ehhandler$?getNewGroup@GameWindowTransitionsHandler@@QAEPAVTransitionGroup@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
-
-// tu-skeleton: 0x0076991C 8B Unwind@00b6991c -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
-
-// tu-skeleton: 0x00769924 10B __ehhandler$?parseWindowTransitions@INI@@SAXPAV1@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsHandlerGroups.cpp (not merged yet)
