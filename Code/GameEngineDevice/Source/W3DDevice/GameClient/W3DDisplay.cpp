@@ -32,6 +32,7 @@ class Image;
 class VideoBuffer;
 class Render2DClass;
 class Rva006E8800DisplayString;
+class W3DDisplaySubView;
 // Retail's lock calls are the BFME_DX8_Thread_Lock / BFME_DX8_Thread_Assert
 // providers at 0x0011F520 / 0x00120F50.
 void __cdecl BFME_DX8_Thread_Lock(void);
@@ -61,6 +62,7 @@ public:
 class WW3D
 {
 public:
+	static bool Prepare_Render_New_Frame();
 	static bool Set_Device_Resolution(int width, int height, int bits, int windowed, bool resize_window);
 	static bool Begin_Render(bool clear, bool clearz, const Vector3 &color, float destAlpha);
 	static bool End_Render(bool flipFrame);
@@ -153,7 +155,9 @@ public:
 	virtual void slot27(); virtual void slot28(); virtual void slot29(); virtual void slot30();
 	virtual void slot31(); virtual void slot32(); virtual void slot33();
 	virtual StringBase<char> rva000481AA(const StringBase<char> &name);	// slot 34
-	virtual void slot35(); virtual void slot36(); virtual void slot37();
+	virtual void slot35();
+	virtual unsigned char *getView();	// slot 36
+	virtual void slot37();
 	virtual void drawViews();	// slot 38
 	virtual void slot39();
 	virtual void updateViews();	// slot 40
@@ -180,8 +184,23 @@ public:
 	virtual void slot94(); virtual void slot95(); virtual void slot96(); virtual void slot97();
 	virtual void slot98(); virtual void slot99(); virtual void slot100();
 
+	void DrawStaticImage(int, int);
+
 protected:
-	unsigned char m_pad004[0x144 - 0x04];
+	unsigned char m_pad004[0x20 - 0x04];
+	Vector3 m_20;				// +0x20, Begin_Render clear colour
+	unsigned char m_pad2c[0x30 - 0x2c];
+	void *m_30;				// +0x30, debug display
+	unsigned char m_pad34[0x38 - 0x34];
+	W3DDisplaySubView *m_38;		// +0x38
+	unsigned char m_pad3c[0xd4 - 0x3c];
+	float m_d4;				// +0xd4
+	unsigned char m_padD8[0xfc - 0xd8];
+	float m_fc, m_100, m_104, m_108;	// +0xfc
+	unsigned char m_pad10c[0x140 - 0x10c];
+	unsigned char m_140;			// +0x140
+	unsigned char m_141;			// +0x141
+	unsigned char m_pad142[0x144 - 0x142];
 };
 class W3DDisplay : public Display
 {
@@ -194,11 +213,14 @@ public:
 
 	void rva000438CB();
 	void rva00043FB9();
+	bool rva0004A462(unsigned int now);
+	void rva0025D205();
 
 	static RTS3DScene *m_3DScene;
 
 protected:
 	void calculateTerrainLOD(void);
+	void drawCurrentDebugDisplay();
 
 private:
 	void rva00045213(char *image, unsigned int rowBytes);
