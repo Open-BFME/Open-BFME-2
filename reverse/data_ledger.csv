@@ -19892,8 +19892,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A034A0,4,.data,global,_s_rva007B0A8E,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A034A4,4,.data,global,_s_rva007B0AA0,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A034A8,4,.data,global,_s_rva007B0AB2,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
-0x00A034AC,4,.data,global,?TheDualWeaponBehaviorPoolKey@?1??getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp,owned,,1,2
-0x00A034B0,4,.data,global,?$S1@?1??getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp,owned,,1,4
+0x00A034AC,4,.data,global,?TheDualWeaponBehaviorPoolKey@?1??getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,owned,,1,2
+0x00A034B0,4,.data,global,?$S1@?1??getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp,owned,,1,4
 0x00A034B4,4,.data,global,?TheAimWeaponBehaviorPoolKey@?1??getModuleNameKey@AimWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,owned,,1,2
 0x00A034B8,4,.data,global,?$S1@?1??getModuleNameKey@AimWeaponBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AimWeaponBehavior.cpp,owned,,1,4
 0x00A034BC,4,.data,global,_s_rva007B0B12,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

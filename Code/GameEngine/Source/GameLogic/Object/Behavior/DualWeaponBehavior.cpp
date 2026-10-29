@@ -72,7 +72,6 @@ private:
 	int m_bfmeReserved;
 };
 enum NameKeyType;
-
 class DualWeaponBehavior : public UpdateModule
 {
 public:
@@ -270,6 +269,44 @@ class AI
 ;
 extern AI *TheAI;
 #include "../../../Common/GameLogicObjectLookupView.h"
+//
+// ?xfer@Rva0045ADC1@@MAEXPAVXfer@@@Z, retail 0x0045AEC9, 75 bytes. Virtual
+// slot 3 (offset 0x0C) of vtable 0x008417A4 (class of rowed dtor
+// ??1Rva0045ADC1@@UAE@XZ in Rva0024A797Derived.cpp): Version(1,2) via Xfer
+// slot 0x28 then base UpdateModule xfer via rowed 0x0044DF9F then bool at
+// +0x20 via Xfer slot 0x90 then version-gated uint at +0x24 via Xfer slot
+// 0x78 (>=2). Layout is UpdateModule base 0x20 giving +0x20 start. Identity
+// is slot 3 plus the UpdateModule base call; class name stays honest Rva
+// address name.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+#include "../../../../Include/Common/ObjectModule.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -305,6 +342,43 @@ public:
 	bool m_useHordeRangeWeapon; // +0x14
 	bool m_useRealVictimRange; // +0x15
 };
+
+// ?getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ @0x45ade0
+// (69B): cached pool-name key for DualWeaponBehavior. The class
+// identity comes from the pool-name string the body pushes
+// ("DualWeaponBehavior"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+class Rva0045ADC1 : public UpdateModule
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	bool m_20;
+	unsigned int m_24;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorCtor.cpp
 
@@ -400,10 +474,6 @@ UpdateSleepTime DualWeaponBehavior::update()
 	return (UpdateSleepTime)BfmeLogicFramesPerSecond;
 }
 
-// tu-skeleton: 0x0045ADDA 6B ?name@DualWeaponBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
-
-// tu-skeleton: 0x0045ADE0 69B ?getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorModuleDataCtor.cpp
 
 // ??0DualWeaponBehaviorModuleData@@QAE@XZ @0x45AE25
@@ -417,10 +487,29 @@ DualWeaponBehaviorModuleData::DualWeaponBehaviorModuleData()
 	m_useRealVictimRange = false;
 }
 
+// tu-skeleton: 0x0045ADDA 6B ?name@DualWeaponBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType DualWeaponBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheDualWeaponBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("DualWeaponBehavior");
+	return TheDualWeaponBehaviorPoolKey;
+}
+
 // tu-skeleton: 0x0045AE44 17B ?buildFieldParse@DualWeaponBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x0045AEC9 75B ?xfer@Rva0045ADC1@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva0045ADC1Xfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0045ADC1Xfer.cpp
 
-// tu-skeleton: 0x0078A411 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078A41E 10B __ehhandler$?getModuleNameKey@DualWeaponBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/DualWeaponBehaviorPoolKey.cpp (not merged yet)
+void Rva0045ADC1::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 2);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+	*xfer == m_20;
+	if (version.m_minimum >= 2) {
+		*xfer == m_24;
+	}
+}
