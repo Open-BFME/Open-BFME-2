@@ -18643,7 +18643,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE1BC,12,.data,global,?s_ruleCount@LivingWorldRegionBonusRule@@0HA,,unowned,,0,2
 0x009FE1C8,4,.data,global,?TheLivingWorldManager@@3PAVLivingWorldManager@@A,Code/GameEngine/Source/GameLogic/Object/Rva003FD7CEParse.cpp,owned,,1,124
 0x009FE1CC,8,.data,global,_s_rva007AD929,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FE1D4,4,.data,global,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A,Code/GameEngine/Source/GameLogic/System/AttributeModifierStore.cpp,provisional,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A;?TheAttributeModifierStore@@3PAVRva0022B46BSubsystem@@A,1,18
+0x009FE1D4,4,.data,global,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,provisional,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A;?TheAttributeModifierStore@@3PAVRva0022B46BSubsystem@@A,1,18
 0x009FE1D8,4,.data,global,?g_Va00DFE1D8@@3_NA,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp,owned,,1,4
 0x009FE1DC,8,.data,global,_s_rva007AD97D,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x009FE1E4,4,.data,global,?g_00DFE1E4@@3PAVRva0027070CGlobal@@A,Code/GameEngine/Source/GameClient/Rva0027070C.cpp,owned,,1,21

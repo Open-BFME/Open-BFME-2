@@ -3638,7 +3638,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.c
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp	??1Rva0030E7D0@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCtorBfme.cpp	??1W3DView@@UAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParse.cpp	??1Rva000AF146@@QAE@XZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/Rva0061EEE0Destructor.cpp	?anchor@SubsystemInterface@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?handleNode@Rva006BDB00@@QAEXPAVRva006BDB00Node@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?slot00@W3DGhostObject@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp	?slot04@W3DGhostObject@@UAEXXZ	1
@@ -10563,6 +10562,8 @@ pin	reverse/symbols.csv	0x00A1822C	1
 pin	reverse/symbols.csv	0x00A18230	1
 pin	reverse/symbols.csv	0x00A18234	1
 pin	reverse/symbols.csv	0x00A18238	1
+pragma_optimize	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	"ty",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Bfme/Rva0080EE80Query.cpp	"",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Bfme/Rva0080EE80Query.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Bfme5SmallTests.cpp	"",on	9
@@ -10854,8 +10855,6 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cp
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/System/ArmyPlacer.cpp	"y",off	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/System/AttributeModifierStore.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/System/AttributeModifierStore.cpp	"ty",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	"",on	1
@@ -12195,6 +12194,7 @@ present_unmatched	Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp	up
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	Rva00524306::Rva00524306	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter.cpp	text)	1
 present_unmatched	Code/GameEngine/Source/Common/AptUpgradeIconSetter_ArmyUnitIconMovieClip.cpp	text)	1
+present_unmatched	Code/GameEngine/Source/Common/AttributeModifierStore.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp	Rva002D9D7CRef::~Rva002D9D7CRef	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00564B1AAssign.cpp	Rva00564B1A::rva00564B1A	1
 present_unmatched	Code/GameEngine/Source/Common/Bfme/Rva00739C70Cleanup.cpp	Owner00739C90::cleanup	1
@@ -12260,7 +12260,6 @@ present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerAction
 present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerActionState::slot15	1
 present_unmatched	Code/GameEngine/Source/Common/DozerActionState.cpp	DozerActionState::slot16	1
 present_unmatched	Code/GameEngine/Source/Common/DrawableVectorResize.cpp	size@?$vector@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QBEIXZ	1
-present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva00214ADC.cpp	famgenDelete00214ADC@@YAXPAVRva00214ADC@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva003AE358.cpp	@0x003AE33C	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva005E0DC0.cpp	famgenDelete005E0DC0@@YAXPAVRva005E0DC0@@@Z	1
 present_unmatched	Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-1DD38E.cpp	famgenDelete001DD38E@@YAXPAVBfmeRecord001DD3BC@@@Z	1
