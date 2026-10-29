@@ -242,7 +242,7 @@ struct Rva00420F0EPod
 struct Rva00420F0EArg2
 {
 	char m_pad[0x74];
-	int m_val74;
+	int m_id;
 };
 
 class Rva00420F0EHost
@@ -358,7 +358,7 @@ void Rva00420F0EHost::append(int a, int b, int c)
 	if (m_14 != 0)
 		return;
 	Rva00420F0EPod tmp;
-	tmp.m_a = ((Rva00420F0EArg2 *)b)->m_val74;
+	tmp.m_a = ((Rva00420F0EArg2 *)b)->m_id;
 	tmp.m_b = a;
 	tmp.m_c = (unsigned char)c;
 	m_list10.push_back((const BfmePod12 &)tmp);

@@ -34,7 +34,7 @@ struct LODPresetBFME2 {
  LODBool fpsLimit;
  char gap3E[0x2];
  int healthStyle;
- int opaque44;
+ int m_minParticlePriority;
  int opaque48;
 };
 struct LODGlobalDataView {
@@ -292,7 +292,7 @@ void Rva00DFE144Globals::rva002022E9(int level)
  GD->field5E=info.sample>=2;GD->m_showSoftWaterEdge=info.softWater;
  GD->m_maxTankTrackEdges=info.trackEdges;GD->m_maxTankTrackOpaqueEdges=info.opaqueEdges;GD->m_maxTankTrackFadeDelay=info.fadeDelay;
  GD->field24=info.particles<=0;GD->m_showProps=info.treeSway;
- control44=info.opaque44;control48=info.opaque48;
+ control44=info.m_minParticlePriority;control48=info.opaque48;
  if(TheTerrainRenderObject){LODRenderLock lock;((LODTerrainSlots*)TheTerrainRenderObject)->slot129();((LODTerrainSlots*)TheTerrainRenderObject)->slot130();}
  if(TheTerrainVisual)((LODPostSlots*)TheTerrainVisual)->slot9();
  GD->m_shellMapOn=controlProcessor>1&&!GD->m_shellMapOffByCommandArgument;

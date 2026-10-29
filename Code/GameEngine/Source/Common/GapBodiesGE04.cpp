@@ -48,7 +48,7 @@ bool Rva004FD6F9::rva004FD87A(int regionID)
 struct Rva00232654Record
 {
 	char m_00;
-	unsigned char m_01;
+	unsigned char m_status;
 	unsigned short m_02;
 	int m_04;
 };
@@ -71,7 +71,7 @@ int Rva00232654::getKeySequenceData(unsigned char index) const
 
 void Rva00232654::rva00232660(unsigned char index, unsigned char flag)
 {
-	m_records[index].m_01 = flag;
+	m_records[index].m_status = flag;
 }
 
 void Rva00232654::setKeyStateData(unsigned char index, unsigned char value)

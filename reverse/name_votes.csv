@@ -14438,3 +14438,17 @@ Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|param|Rva00669410::rva006694
 Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|global||g_rva00665450Key,0dc22e22dd0e0919f7454ec7,gpt-6.1-sol,w2-10290322-4,w-dce04682aaeb,2026-10-29
 Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|global||g_rva00665560Key,97bdeec42a606b060c195b42,gpt-6.1-sol,w2-10290322-4,w-dce04682aaeb,2026-10-29
 Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp|global||g_rva00669410Table,c1093e87e75a3d01047ccd2d,gpt-6.1-sol,w2-10290322-4,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/GameLODApplyPreset.cpp|member|LODPresetBFME2|opaque44,423e3b21f497d526a0832173,gpt-6.1-sol,w6-10290332-1,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GameLODApplyPreset.cpp|member|LODGlobalDataView|field49,55980c256a6d4bc28468ef92,gpt-6.1-sol,w6-10290332-1,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GameLODApplyPreset.cpp|member|LODGlobalDataView|field4A,bdd9907c87e112495ac930f9,gpt-6.1-sol,w6-10290332-1,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GameLODApplyPreset.cpp|member|LODGlobalDataView|field9BE,624ec65bcdd0aadd9d0c2071,gpt-6.1-sol,w6-10290332-1,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp|class||Rva00420F0EPod,1d2834f628433da83a5299ed,gpt-6.1-sol,w6-10290332-2,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp|member|Rva00420F0EArg2|m_val74,c6fa33bfbe07657385c53145,gpt-6.1-sol,w6-10290332-2,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp|param|bfmeAnchorRva00420E67Dtor|p,2217f534db0b13f4230a8382,gpt-6.1-sol,w6-10290332-2,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp|local|Rva00420F0EHost::append|tmp,d4e91f96e5da0e21aec72a15,gpt-6.1-sol,w6-10290332-2,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|member|Rva00232654Record|m_01,e6ab022b362765b3ce8b3568,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|member|Rva0048893CObject|m_258,037a30b3a2396de457fe7d88,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x004FD87A|rva004FD87A,7ceb71c369f2ff1db2df6bfa,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x002AC290|rva002AC290,bbfdd778353c251c1d621dd7,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x003B956E|Rva003B956E,eeb2ff5cf4a3f92c831b37c8,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesGE04.cpp|function|0x0025C7F9|rva0025C7F9,c725865c6dbb80c1324c4e1f,gpt-6.1-sol,w6-10290332-3,w-06f458dbecf5,2026-10-29

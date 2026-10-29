@@ -4232,3 +4232,6 @@ member,Rva004885B8Owner::m_438,Rva004885B8Owner::m_privateStatus,inferred,agree:
 param,Rva00669410::rva00669410::arg,Rva00669410::rva00669410::message,inferred,agree:nl-9fdd059ca0b7,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00669410
 function,?rva00665450@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,?getErrorCode@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,inferred,agree:nl-8fef5c40fd4d,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00665450
 function,?rva00665560@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,?getDecodedSize@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,inferred,agree:nl-3db096970977,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00665560
+member,LODPresetBFME2::opaque44,LODPresetBFME2::m_minParticlePriority,inferred,agree:nl-b61242574792,Code/GameEngine/Source/Common/GameLODApplyPreset.cpp,
+member,Rva00232654Record::m_01,Rva00232654Record::m_status,inferred,agree:nl-62d397bfdfeb,Code/GameEngine/Source/Common/GapBodiesGE04.cpp,
+member,Rva00420F0EArg2::m_val74,Rva00420F0EArg2::m_id,inferred,agree:nl-9b6dfc01ed61,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,
