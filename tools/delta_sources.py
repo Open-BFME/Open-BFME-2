@@ -21,6 +21,9 @@ import subprocess
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ledger_cache  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = "reverse/functions.csv"
 DATA_LEDGER = "reverse/data_rows.csv"  # tools/data_rows.py
@@ -86,7 +89,16 @@ def rows_at(spec, ledger=LEDGER, header=HEADER):
         mode, kind, oid = metadata.split()
         if path != ledger.encode() or kind != b"blob" or mode not in (b"100644", b"100755"):
             raise LedgerReadError(f"{label} is not a regular tree blob")
-    raw = git_bytes("cat-file", "blob", oid.decode("ascii"))
+    oid = oid.decode("ascii")
+    # A pure function of the blob and this file: memoised by blob id
+    # (tools/ledger_cache.py), so master's ledger is parsed once per clone.
+    return ledger_cache.memo(f"delta_sources.{label}", oid, lambda: parse_rows(oid, label, header),
+                             ledger_cache.code_hash(__file__))
+
+
+def parse_rows(oid, label, header):
+    """The validated row set of ledger blob `oid` (rows_at's reading)."""
+    raw = git_bytes("cat-file", "blob", oid)
     try:
         text = raw.decode("utf-8")
         # Keep the same CSV dialect as check_csv and the byte gate. Historical

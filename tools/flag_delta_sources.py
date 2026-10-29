@@ -13,6 +13,9 @@ import sys
 from collections import defaultdict
 from pathlib import Path, PurePosixPath
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import ledger_cache  # noqa: E402
+
 ROOT = Path(__file__).resolve().parents[1]
 LEDGER = 'reverse/functions.csv'
 REGIONS = 'reverse/retail_inventory/flag_regions.csv'
@@ -40,6 +43,52 @@ def blob(rev, path, required=False):
     if not entry.startswith((b'100644 blob ', b'100755 blob ')) or b'\n' in entry:
         raise SnapshotError(f'{rev}: {path} is not one regular file')
     return git('show', f'{rev}:{path}')
+
+class Snapshot:
+    """The regular-file blobs of `paths` at `rev`: one `git ls-tree` for their
+    entries (blob() refused a missing required path or a non-regular entry the
+    same way) and one `git cat-file --batch` when contents are asked for."""
+
+    def __init__(self, rev, paths):
+        self.rev, self.ids, self._data = rev, {}, {}
+        out = git('ls-tree', '-z', rev, '--', *paths)
+        seen = {}
+        for entry in out.split(b'\0'):
+            if not entry:
+                continue
+            meta, path = entry.split(b'\t', 1)
+            seen.setdefault(path.decode('utf-8'), []).append(meta)
+        for path, metas in seen.items():
+            if len(metas) != 1 or not metas[0].startswith((b'100644 blob ', b'100755 blob ')):
+                raise SnapshotError(f'{rev}: {path} is not one regular file')
+            self.ids[path] = metas[0].split()[2].decode('ascii')
+
+    def oid(self, path, required=False):
+        if path not in self.ids and required:
+            raise SnapshotError(f'{self.rev}: missing {path}')
+        return self.ids.get(path)
+
+    def data(self, path, required=False):
+        oid = self.oid(path, required)
+        if oid is None:
+            return None
+        if oid not in self._data:
+            got = subprocess.run(['git', '-C', str(ROOT), 'cat-file', 'blob', oid], capture_output=True)
+            if got.returncode:
+                raise SnapshotError('Git failed: ' + got.stderr.decode('utf-8', errors='replace').strip())
+            self._data[oid] = got.stdout
+        return self._data[oid]
+
+
+def memoised(kind, snapshot, path, parse, required=False):
+    """parse(blob, label) for `path` at the snapshot, memoised by blob id
+    (tools/ledger_cache.py): the result depends on the blob and this file only."""
+    oid = snapshot.oid(path, required)
+    if oid is None:
+        return parse(None, snapshot.rev)
+    return ledger_cache.memo(kind, oid, lambda: parse(snapshot.data(path, required), snapshot.rev),
+                             ledger_cache.code_hash(__file__))
+
 
 def rows(data, required, label):
     if data is None:
@@ -151,18 +200,25 @@ def overrides(data, label):
         result[r['source']] = tuple(sorted(r.items()))
     return result
 
+DRIVER = ('tools/build.py', 'build.sh', 'build.cmd')
+RESOLVER = 'tools/flag_defaults.py'
+
+
 def select(base, tip):
     for rev in (base, tip):
         git('rev-parse', '--verify', '--end-of-options', rev + '^{commit}')
-    old_matched, old_votes = ledger(blob(base, LEDGER, True), base)
-    tip_matched, tip_votes = ledger(blob(tip, LEDGER, True), tip)
-    # Missing historical data_rows.csv is legitimate; blob() fails on Git errors.
-    tip_matched |= data_sources(blob(tip, DATA_ROWS), tip)
-    data_sources(blob(base, DATA_ROWS), base)  # refuse malformed old inputs too
-    old_regions, new_regions = [regions(blob(rev, REGIONS), rev) for rev in (base, tip)]
-    old_overrides, new_overrides = [overrides(blob(rev, OVERRIDES), rev) for rev in (base, tip)]
-    changed_driver = any(blob(base, p) != blob(tip, p) for p in ('tools/build.py', 'build.sh', 'build.cmd'))
-    changed_resolver = blob(base, 'tools/flag_defaults.py') != blob(tip, 'tools/flag_defaults.py')
+    paths = (LEDGER, DATA_ROWS, REGIONS, OVERRIDES, RESOLVER) + DRIVER
+    old, new = Snapshot(base, paths), Snapshot(tip, paths)
+    old_matched, old_votes = memoised('flag_delta.ledger', old, LEDGER, ledger, True)
+    tip_matched, tip_votes = memoised('flag_delta.ledger', new, LEDGER, ledger, True)
+    # Missing historical data_rows.csv is legitimate; Git errors still fail.
+    tip_matched = tip_matched | memoised('flag_delta.data', new, DATA_ROWS, data_sources)
+    memoised('flag_delta.data', old, DATA_ROWS, data_sources)  # refuse malformed old inputs too
+    old_regions, new_regions = [regions(snap.data(REGIONS), snap.rev) for snap in (old, new)]
+    old_overrides, new_overrides = [overrides(snap.data(OVERRIDES), snap.rev) for snap in (old, new)]
+    # Equal blob ids are equal contents: no read needed to compare them.
+    changed_driver = any(old.oid(p) != new.oid(p) for p in DRIVER)
+    changed_resolver = old.oid(RESOLVER) != new.oid(RESOLVER)
     if changed_driver:
         return sorted(tip_matched)
     selected = {s for s in tip_matched if managed(s)} if changed_resolver or old_regions != new_regions else set()

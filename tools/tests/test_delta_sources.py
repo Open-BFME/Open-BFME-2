@@ -26,6 +26,7 @@ class DeltaTest(unittest.TestCase):
         self.git('config', 'user.name', 'test')
         (self.root / 'tools').mkdir()
         shutil.copyfile(SCRIPT, self.root / 'tools/delta_sources.py')
+        shutil.copyfile(SCRIPT.with_name('ledger_cache.py'), self.root / 'tools/ledger_cache.py')
         (self.root / 'sentinel').write_text('test')
         self.git('add', 'sentinel')
         self.git('commit', '-qm', 'empty historical ledger')
