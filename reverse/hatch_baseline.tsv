@@ -12413,8 +12413,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0006811
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00068441::rva00068441	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva00078AE3::rva00078AE3	2
 present_unmatched	Code/GameEngine/Source/Common/Rva00068119Bodies.cpp	Rva0007B851Math::Sqrt	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	Rva00069AF5Math::Sqrt	1
-present_unmatched	Code/GameEngine/Source/Common/Rva00069AF5Falloff.cpp	rva000670B8@Rva00069AF5Host@@QAEMMM@Z	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0006ED36Call.cpp	RTS2DScene::doRender	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0006ED36Call.cpp	RTS3DScene::doRender	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00078B83Dtor.cpp	rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z	1
@@ -14193,6 +14191,8 @@ present_unmatched	Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp	
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	?	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	getSurfaceLevel@W3DRadarResetTexture@@QAE?AVW3DRadarResetSurface@@XZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp	renderObjectList@W3DRadar@@IAEXPBVRadarObject@@PAVTextureClass@@_N@Z	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp	Rva00069AF5Math::Sqrt	1
+present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/BaseHeightMap.cpp	rva000670B8@Rva00069AF5Host@@QAEMMM@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	loadPostProcess@W3DDebrisDraw@@MAEXXZ	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setFullyObscuredByShroud@W3DDebrisDraw@@UAEX_N@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawLegacy.cpp	setShadowsEnabled@W3DDebrisDraw@@UAEX_N@Z	1
