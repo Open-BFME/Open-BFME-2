@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="880" height="644" viewBox="0 0 880 644" role="img" aria-labelledby="title desc">
   <title id="title">BFME 2 · Road to a finished decomp: 100.00% byte match, 100.00% game code in C++*, 95.24% linking (4,778 problems recorded)</title>
-  <desc id="desc">Finished means: the whole game is built from readable source, builds the normal way, and plays. Is the source clean? readable names 68.98%, shortcuts removed 32.41%, original file layout 11.16%, shared class definitions 3.79%. Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README.</desc>
+  <desc id="desc">Finished means: the whole game is built from readable source, builds the normal way, and plays. Is the source clean? readable names 69.01%, shortcuts removed 32.41%, original file layout 11.41%, shared class definitions 3.91%. Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README.</desc>
   <style>
     .card { fill: #0d1117; stroke: #30363d; } .track { fill: #21262d; } .box { fill: #161b22; stroke: #30363d; }
     .strong { fill: #f0f6fc; } .muted { fill: #8b949e; } .up { fill: #3fb950; } .down { fill: #f85149; }
@@ -37,22 +37,22 @@
     <rect class="box" x="28" y="396" width="824" height="34" rx="8"/>
     <text x="44" y="418" class="muted" font-size="14" font-weight="600">Next milestone:<tspan class="strong"> first normal build, then the first playtest</tspan></text>
     <text x="28" y="470" class="muted" font-size="12" font-weight="600" letter-spacing="1.2">IS THE SOURCE CLEAN?</text>
-    <text x="28" y="500" class="strong" font-size="14" font-weight="600">Readable names<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.23</tspan></text>
+    <text x="28" y="500" class="strong" font-size="14" font-weight="600">Readable names<tspan class="up" dx="10" font-size="12" font-weight="600">▲ 0.26</tspan></text>
     <rect class="track" x="215" y="490" width="553" height="10" rx="5"/>
-    <rect x="215" y="490" width="381.43" height="10" rx="5" fill="#a371f7"/>
-    <text x="852" y="500" class="strong" font-size="15" font-weight="700" text-anchor="end">68.98%</text>
+    <rect x="215" y="490" width="381.65" height="10" rx="5" fill="#a371f7"/>
+    <text x="852" y="500" class="strong" font-size="15" font-weight="700" text-anchor="end">69.01%</text>
     <text x="28" y="530" class="strong" font-size="14" font-weight="600">Shortcuts removed</text>
     <rect class="track" x="215" y="520" width="553" height="10" rx="5"/>
-    <rect x="215" y="520" width="179.21" height="10" rx="5" fill="#e05c7a"/>
+    <rect x="215" y="520" width="179.24" height="10" rx="5" fill="#e05c7a"/>
     <text x="852" y="530" class="strong" font-size="15" font-weight="700" text-anchor="end">32.41%</text>
     <text x="28" y="560" class="strong" font-size="14" font-weight="600">Original file layout</text>
     <rect class="track" x="215" y="550" width="553" height="10" rx="5"/>
-    <rect x="215" y="550" width="61.73" height="10" rx="5" fill="#f0883e"/>
-    <text x="852" y="560" class="strong" font-size="15" font-weight="700" text-anchor="end">11.16%</text>
+    <rect x="215" y="550" width="63.11" height="10" rx="5" fill="#f0883e"/>
+    <text x="852" y="560" class="strong" font-size="15" font-weight="700" text-anchor="end">11.41%</text>
     <text x="28" y="590" class="strong" font-size="14" font-weight="600">Shared class definitions</text>
     <rect class="track" x="215" y="580" width="553" height="10" rx="5"/>
-    <rect x="215" y="580" width="20.97" height="10" rx="5" fill="#e05c7a"/>
-    <text x="852" y="590" class="strong" font-size="15" font-weight="700" text-anchor="end">3.79%</text>
+    <rect x="215" y="580" width="21.65" height="10" rx="5" fill="#e05c7a"/>
+    <text x="852" y="590" class="strong" font-size="15" font-weight="700" text-anchor="end">3.91%</text>
     <text x="28" y="624" class="muted" font-size="12">Shortcuts, file layout and shared classes count from the start of Phase 2 (Oct 25). How each figure is measured: README</text>
   </g>
 </svg>
