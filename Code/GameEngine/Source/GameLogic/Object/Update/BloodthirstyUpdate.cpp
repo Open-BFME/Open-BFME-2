@@ -89,6 +89,19 @@ class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
 #include "../../../../Include/Common/BfmeXfer.h"
+#define VSLOTS10(P) \
+	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
+	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
+	virtual void P##6(); virtual void P##7(); virtual void P##8(); \
+	virtual void P##9()
+#define VSLOTS10(P) \
+	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
+	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
+	virtual void P##6(); virtual void P##7(); virtual void P##8(); \
+	virtual void P##9()
+class Thing;
+class ModuleData;
+#include "../../../../Include/Common/ObjectModule.h"
 
 class Xfer::Version
 {
@@ -101,16 +114,6 @@ public:
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
-#define VSLOTS10(P) \
-	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
-	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
-	virtual void P##6(); virtual void P##7(); virtual void P##8(); \
-	virtual void P##9()
-#define VSLOTS10(P) \
-	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
-	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
-	virtual void P##6(); virtual void P##7(); virtual void P##8(); \
-	virtual void P##9()
 
 enum ObjectStatusTypes
 {
@@ -350,11 +353,48 @@ protected:
 	virtual void xfer(Xfer *xfer);
 };
 
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+class BloodthirstyTrailing { public: virtual void trailingSlot(); };
+
+struct B00 { virtual void f00(); const BloodthirstyUpdateModuleData *m_moduleData; Object *m_object; };
+
+struct B0C { virtual void f0C(); };
+
+struct B10 { virtual void f10(); unsigned char m_pad[12]; };
+
+class Iface20
+{
+public:
+	virtual void s00();
+	virtual void s01();
+	virtual void s02();
+	virtual void s03();
+	virtual void s04();
+	virtual void s05();
+	virtual void s06();
+	virtual void s07();
+	virtual void s08();
+	virtual Rva002390CB rva0044E2F7() const = 0;
+};
+
 // tu-skeleton: 0x0044DFE0 32B ??1BloodthirstyUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0044E000 6B ?name@Rva0044E000Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x0044E006 78B ?xfer@BloodthirstyUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateXfer.cpp
+
+void BloodthirstyUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	UpdateModule::xfer(xfer);
+	XferObjectID(xfer, &m_bestTargetID);
+	XferObjectID(xfer, &m_28);
+	*xfer == m_kills;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdatePoolKey.cpp
 
@@ -365,12 +405,6 @@ NameKeyType BloodthirstyUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("BloodthirstyUpdate");
 	return TheBloodthirstyUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0044E099 17B ?buildFieldParse@BloodthirstyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0044E0AA 105B ??0BloodthirstyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0044E113 28B ??_GBloodthirstyUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdate.cpp
 
@@ -534,9 +568,20 @@ void BloodthirstyUpdate::addSacrifice(Object *victim)
 		cancelSacrifice();
 }
 
+// tu-skeleton: 0x0044E099 17B ?buildFieldParse@BloodthirstyUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0044E0AA 105B ??0BloodthirstyUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0044E113 28B ??_GBloodthirstyUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0044E2AC 75B ??0BloodthirstyUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0044E2F7 30B ?rva0044E2F7@BloodthirstyUpdate@@UBE?AVRva002390CB@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateRva0044E2F7.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateRva0044E2F7.cpp
+
+Rva002390CB BloodthirstyUpdate::rva0044E2F7() const
+{
+	return m_moduleData->m_initiateVoice;
+}
 
 // tu-skeleton: 0x0044E331 67B ??1BloodthirstyUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateModuleDataDtor.cpp (not merged yet)
 
