@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// stlport46
 
 // Open-BFME5: the default STLport 4.5.3 wide time_get constructor at retail
 // 0x00408E60, 108 bytes. This is the wide specialization of the constructor
