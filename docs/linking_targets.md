@@ -1,5 +1,13 @@
 # Linking target checklist
 
+Strategic player status header cleanup (2026-10-29, base `8f350110e4`):
+StrategicPlayerStatusCallbacks.cpp replaces two local CRT declarations with
+stdio.h and retains 7/7 rows, both imports and the 684-byte LINKS preview.
+Two Microsoft-header queue findings retire. Strict preparation passes, but
+the older-index batch audit lacks a current CreateAHeroManager consumer
+receipt; full consumer/census confirmation remains pending.
+[Evidence](../reverse/attempt_support/strategic-player-stdio-20261029-codex.md).
+
 Header-cleanup selection correction (2026-10-29, control `54f489336`):
 GateOpenAndCloseBehaviorPushOut.cpp and Rva00587F69Dtor.cpp are conflicting
 header candidates because their local exception contracts differ from the

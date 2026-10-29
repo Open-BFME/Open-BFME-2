@@ -6,8 +6,7 @@
 // 0x00523900; that binding is their only reference. The class is named for
 // the strings' prefix.
 
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
-extern "C" __declspec(dllimport) int __cdecl _snprintf(char *buffer, unsigned int count, const char *format, ...);
+#include <stdio.h>
 
 #include "ascii_string.h"
 

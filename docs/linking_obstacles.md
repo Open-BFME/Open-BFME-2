@@ -1,5 +1,17 @@
 # Linking obstacle register
 
+### Strategic player status CRT header cleanup (2026-10-29)
+
+Scoped cleanup verified at base `8f350110e4`: replacing the two local CRT
+declarations with stdio.h preserves 7/7 rows, four literals and two named
+imports. The header auditor reports clean and retires two queue findings;
+strict preparation passes. Ordinary preview retains LINKS for 684 authored
+bytes against index `840db2d676`. The outgoing audit remains INCONCLUSIVE:
+the index predates the base and Common/0CreateAHeroManager21FE49.cpp lacks
+a current consumer receipt. Carry that consumer and the changed provider
+into the next scheduled census. No census gain or full consumer closure is
+claimed. [Evidence](../reverse/attempt_support/strategic-player-stdio-20261029-codex.md).
+
 Header-task classification follow-up (2026-10-29, control `54f489336`):
 the auditor discarded throw specifications and offered unsafe drop-in header
 changes. Preserving and comparing those contracts reclassifies the gate scan
