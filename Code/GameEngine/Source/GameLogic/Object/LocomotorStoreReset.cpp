@@ -41,22 +41,15 @@ public:
 	Overridable *deleteOverrides();
 };
 
-class SubsystemInterface
-{
-public:
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-	virtual void reset() = 0;
-};
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class LocomotorStore : public SubsystemInterface
 {
 public:
-	void init();
-	void reset();
+	virtual void init();
+	virtual void reset();
 
 private:
-	char m_pad04[0xC - 4];
 	_STL::map<int, void *> m_locomotorTemplates;
 };
 
