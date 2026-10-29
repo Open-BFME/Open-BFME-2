@@ -1,5 +1,5 @@
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 _num_put.c integer padding algorithm and _algobase.h
 // copy/fill loops, reconstructed for BFME2. Retail RVA 0x95E0 is 569 bytes.
