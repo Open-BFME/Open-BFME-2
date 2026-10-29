@@ -303,7 +303,6 @@ struct Rva002A8B59Data
 
 extern float g_secondsPerLogicFrame;
 
-extern const float g_00BC26EC;
 
 // tu-skeleton: 0x002C67DC 105B ?isAPartialBrain@SkirmishAI@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp (not merged yet)
 
