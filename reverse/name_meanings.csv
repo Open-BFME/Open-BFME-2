@@ -138,3 +138,13 @@ Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp|local|LivingWorldBuildPlot::Be
 Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp|local|Rva003909FAObj::consume|d,8b60df7a061b252973f0756a,drz-k2,drz-k2-7,w-ded32b2e2c5e,2026-10-29,d6505520157c2aa131969261
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp|param|Rva002A1316Iterator|p,bfa8ebd207d9c683436695ee,drz-k2,drz-k2-12,w-ded32b2e2c5e,2026-10-29,73f0d92796c0f9a168ff26d9
 Code/GameEngine/Source/Common/Rva00572DE8Slot1.cpp|local|Rva00572DE8::rva00572E0F|t,6b9c8c7fdc8faea9ab9f744f,drz-k2,drz-k2-13,w-ded32b2e2c5e,2026-10-29,5fe4c1bbc0f0e1e0b93170d4
+Code/GameEngine/Source/Common/Rva00318F42.cpp|local|Rva00318F42::rva00318F42|v,87926b5a9b7168345ff3dc10,drz-k11,drz-k11-1,w-09889333d128,2026-10-29,7b9d1f063177cd7d2af40338
+Code/GameEngine/Source/Common/Rva00318F42.cpp|local|Rva00318F42::rva0031986B|v,673194433b4b82c5dd8b4c04,drz-k11,drz-k11-1,w-09889333d128,2026-10-29,6b30142cbcd48e0cdea44bb3
+Code/GameEngine/Source/Common/Rva00318F42.cpp|local|Rva003190BBOwner::rva003190BB|v,cd4577921af076f135fd0570,drz-k11,drz-k11-1,w-09889333d128,2026-10-29,8247e5ee2c0c74b600f2e0ac
+Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp|param|DisconnectManager::processDisconnectKeepAlive|a1,8536d0085a0fec37ff42a4b4,drz-k11,drz-k11-3,w-09889333d128,2026-10-29,9c37f6c1cf149b34ea8b539f
+Code/GameEngine/Source/GameLogic/SkirmishAI/AIEconomyBuilder/AIFarm.cpp|param|Rva00596F18::rva00596FF5|v,dc40bafd751ed1b5c2405c3d,drz-k11,drz-k11-5,w-09889333d128,2026-10-29,1d0f53aa04dcd5a9c4a3799d
+Code/GameEngine/Source/Common/Rva004FC4D1Dtor.cpp|local|LivingWorldBuildPlot::BeginTurn|p,a3b9fa31f61e7cf4b0b522e8,drz-k11,drz-k11-6,w-09889333d128,2026-10-29,faba7c7843a8caed94a3267c
+Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva00390E36.cpp|local|Rva003909FAObj::consume|d,8b60df7a061b252973f0756a,drz-k11,drz-k11-7,w-09889333d128,2026-10-29,8be055320ee6f2c9f9d17b48
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E0AE2ObjectRegistration.cpp|local|Rva000E07F4Host::rva000E0584|p,e0cbeb95ba6f9f28c6b28da0,drz-k11,drz-k11-9,w-09889333d128,2026-10-29,7800e28f7ed699b07f67e759
+Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp|param|Rva002A1316Iterator|p,24398e31bc8977b61bd3c69c,drz-k11,drz-k11-10,w-09889333d128,2026-10-29,73f0d92796c0f9a168ff26d9
+Code/GameEngine/Source/Common/Rva00572DE8Slot1.cpp|local|Rva00572DE8::rva00572E0F|t,6b9c8c7fdc8faea9ab9f744f,drz-k11,drz-k11-11,w-09889333d128,2026-10-29,976e12bebd00ee98556840d6
