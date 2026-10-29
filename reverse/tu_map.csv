@@ -58287,7 +58287,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006CE7A0,44,code,,,-,,Code/Libraries/Source/Apt/Apt.cpp
 0x006CE7D0,9,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_filebuf.cpp
 0x006CE7E0,5,code,Code/Libraries/Source/Apt/Apt.cpp,proposed,K,K=Rva006CEA60,Code/Libraries/Source/Apt/AptShutdownRva006CFAB0.cpp
-0x006CE7F0,97,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,proposed,N,N=Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp noncontiguous,Code/GameEngine/Source/Common/Thing/ModuleTagStringDtor.cpp
+0x006CE7F0,97,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,proposed,N,N=Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp noncontiguous,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp
 0x006CE860,41,code,,,-,,Code/GameEngine/Source/Common/Thing/Rva006CE860Pop.cpp
 0x006CE890,458,code,Code/Libraries/Source/Apt/Apt.cpp,proposed,K,K=Rva006CE660Vec,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
 0x006CEA60,35,code,Code/Libraries/Source/Apt/Apt.cpp,proposed,C,C=0x006CE890..0x006CEA90,Code/GameEngine/Source/Common/Rva006CBF40Siblings.cpp
@@ -91531,8 +91531,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A8236,10,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE570@FuncInfo0x00961CB0 p-group,Code/GameEngine/Source/Common/Rva00893E70ContainerDestructor.cpp
 0x007A8240,8,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE660@FuncInfo0x00961CD4 p-group,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
 0x007A8248,10,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE660@FuncInfo0x00961CD4 p-group,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
-0x007A8260,22,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,approved,P,P=0x006CE7F0@FuncInfo0x00961CF8 p-group provisional,Code/GameEngine/Source/Common/Thing/ModuleTagStringDtor.cpp
-0x007A8276,10,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,approved,P,P=0x006CE7F0@FuncInfo0x00961CF8 p-group provisional,Code/GameEngine/Source/Common/Thing/ModuleTagStringDtor.cpp
+0x007A8260,22,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,approved,P,P=0x006CE7F0@FuncInfo0x00961CF8 p-group provisional,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp
+0x007A8276,10,code,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp,approved,P,P=0x006CE7F0@FuncInfo0x00961CF8 p-group provisional,Code/GameEngine/Source/Common/Thing/ModuleTagString.cpp
 0x007A8280,8,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE890@FuncInfo0x00961D24 p-group,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
 0x007A8288,8,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE890@FuncInfo0x00961D24 p-group,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
 0x007A8290,10,code,Code/Libraries/Source/Apt/Apt.cpp,approved,P,P=0x006CE890@FuncInfo0x00961D24 p-group,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
