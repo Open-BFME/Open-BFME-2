@@ -59,6 +59,19 @@ This adds zero unique matched bytes and claims no census gain. Full consumer
 closure, original member names and complete layout remain open.
 [Native proof and admission](../reverse/attempt_support/gamewindow-slot10-link-20261029/readme.md).
 
+### XML lexer CRT header cleanup (2026-10-29)
+
+At base `93d6aea258`, BfmeLexEAN.cpp drops its redundant local strncpy
+import declaration and uses its existing string.h include. All eight function
+rows, one data row and three imports remain exact; strict preparation passes.
+The header auditor reports clean and its scoped refresh removes one queue
+finding. Preview retains LINKS for 648 authored bytes against `85f6b7f40c`.
+The outgoing audit is INCONCLUSIVE: the index predates the base and affected
+consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry
+that consumer and this provider into the next scheduled census; no census
+gain or full consumer closure is claimed.
+[Evidence](../reverse/attempt_support/lexean-ms-header-20261029-codexb.md).
+
 Locale provider repair (2026-10-29, base d375abbc4f, LINK-139): the facets
 adapter omits the 16 workers already owned by split locale units and restores
 the existing shared category table. Ten units retain 53/53 matched rows and

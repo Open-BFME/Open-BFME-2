@@ -8,9 +8,6 @@
 // Target Ghidra542459 and rowed scanner542791 establish the same lexer;
 // source-line pointer+8 and state clears+0/+4/+8/+C are retail facts.
 // The dead local line copy is preserved because the target emits it.
-extern "C" __declspec(dllimport) char *__cdecl strncpy(
-	char *destination, const char *source, unsigned int count);
-
 struct EntityEntry {
 	const char *name;
 	unsigned char value;
