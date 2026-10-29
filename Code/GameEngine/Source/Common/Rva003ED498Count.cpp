@@ -30,13 +30,13 @@ struct TreeNode
 	unsigned m_14;
 	int m_18;
 };
-void __cdecl Rva003ED498Count(void const *arg)
+void __cdecl Rva003ED498Count(void const *keyMap)
 {
 	_STL::_Rb_tree_node_base *header = reinterpret_cast<_STL::_Rb_tree_node_base *>(g_lgaKeyRecords[0]);
 	_STL::_Rb_tree_node_base *n = header->_M_left;
 	if (n == header)
 		return;
-	BitRange const *bitRange = (BitRange const *)arg;
+	BitRange const *bitRange = (BitRange const *)keyMap;
 	do
 	{
 		TreeNode *tn = (TreeNode *)n;

@@ -14594,3 +14594,12 @@ Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInf
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp|member|Rva0055F76C|m_20,bcf7e8cae49bd2b7b6e536e3,gpt-6.1-sol,w5-10290447-2,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp|member|Rva0055F76C|m_24,eed47051d1b0bd3c9e0aebc9,gpt-6.1-sol,w5-10290447-2,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp|member|Rva0055F76C|m_28,91815b4c448c8aee14daa2f5,gpt-6.1-sol,w5-10290447-2,w-f0819d403c17,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp|member|Rva000B7029|m_14,829dbc59d80cd32b8408a2fe,gpt-6.1-sol,w3-10290451-1,w-46dfa4623b23,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp|member|Rva000B7029|m_2D9,a4b8532484f587870aa11d77,gpt-6.1-sol,w3-10290451-1,w-46dfa4623b23,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp|member|Rva000B7029|m_2DC,0ae0f1fabaef57a6a43795dd,gpt-6.1-sol,w3-10290451-1,w-46dfa4623b23,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp|function|0x000B7029|rva000B7029,27262d9f3c8fc7e95d451b21,gpt-6.1-sol,w3-10290451-1,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/Common/Rva003ED498Count.cpp|function|0x003ED411|rva003ED411,515effa691a9b311e38dbc28,gpt-6.1-sol,w3-10290451-2,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/Common/Rva003ED498Count.cpp|param|Rva003ED498Count|arg,762c1ea187609a02460412c5,gpt-6.1-sol,w3-10290451-2,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/Common/Rva003ED498Count.cpp|local|Rva003ED498Count|n,18cd85c5ccced6cefe1fd7b4,gpt-6.1-sol,w3-10290451-2,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/DamageNugget_generateDamageInfo.cpp|param|scaleBy|arg,d20e384735b9a4adfcabcc07,gpt-6.1-sol,w3-10290451-3,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/DamageNugget_generateDamageInfo.cpp|param|scaleBy|arg2,acf252632b55df761af55688,gpt-6.1-sol,w3-10290451-3,w-46dfa4623b23,2026-10-29

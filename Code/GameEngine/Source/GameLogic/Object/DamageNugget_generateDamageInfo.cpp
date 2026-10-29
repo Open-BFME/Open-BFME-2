@@ -77,8 +77,8 @@ public:
  bool rva0028C149(int attribute, float *value, int arg);
  bool rva0028C15E(int attribute, float *value, int arg, int arg2);
  typedef bool (Object::*BoolLastScale)(int, float *, int, bool);
- __forceinline bool scaleBy(int attribute, float *value, int arg, bool arg2)
- { return (this->*reinterpret_cast<BoolLastScale>(&Object::rva0028C15E))(attribute, value, arg, arg2); }
+ __forceinline bool scaleBy(int attribute, float *value, int nameFilter, bool useInnateAttributes)
+ { return (this->*reinterpret_cast<BoolLastScale>(&Object::rva0028C15E))(attribute, value, nameFilter, useInnateAttributes); }
  float rva002615E3(const Coord3D *position) const;
  bool rva0028F44C(const Object *other) const;
  unsigned char pad00[4];

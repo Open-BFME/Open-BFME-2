@@ -4313,3 +4313,9 @@ member,Rva003186A5Owner::m_handle14,Rva003186A5Owner::m_audioHandle,inferred,agr
 member,Rva0055F76C::m_20,Rva0055F76C::m_angleXY,inferred,agree:nl-91885d9fd27d,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,
 member,Rva0055F76C::m_24,Rva0055F76C::m_angularRateXY,inferred,agree:nl-7d1934883bb2,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,
 member,Rva0055F76C::m_28,Rva0055F76C::m_angularDampingXY,inferred,agree:nl-3f612f78084a,Code/GameEngine/Source/GameClient/System/FXParticleSystem/DefaultUpdateModuleInfoXfer.cpp,
+param,Rva003ED498Count::arg,Rva003ED498Count::keyMap,inferred,agree:nl-180aa09477d6,Code/GameEngine/Source/Common/Rva003ED498Count.cpp,0x003ED498
+param,scaleBy::arg,scaleBy::nameFilter,inferred,agree:nl-2cde014e2da7,Code/GameEngine/Source/GameLogic/Object/DamageNugget_generateDamageInfo.cpp,
+param,scaleBy::arg2,scaleBy::useInnateAttributes,inferred,agree:nl-5bbe5dbd97f4,Code/GameEngine/Source/GameLogic/Object/DamageNugget_generateDamageInfo.cpp,
+member,Rva000B7029::m_14,Rva000B7029::m_curState,inferred,agree:nl-c571c3563ebd,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp,
+member,Rva000B7029::m_2DC,Rva000B7029::m_portraitImage,inferred,agree:nl-e6c6fb00bd81,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp,
+function,?rva000B7029@Rva000B7029@@UAEPBVImage@@XZ,?GetPortraitImage@Rva000B7029@@UAEPBVImage@@XZ,inferred,agree:nl-57c3f2f092ba,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7029.cpp,0x000B7029

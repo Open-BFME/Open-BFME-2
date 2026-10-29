@@ -80,27 +80,27 @@ public:
 	virtual void v48();
 	virtual void v49();
 	virtual void v50();
-	virtual const Image *rva000B7029();
+	virtual const Image *GetPortraitImage();
 private:
 	char m_pad04[0x14 - 4];
-	DrawSub *m_14;
+	DrawSub *m_curState;
 	char m_pad18[0x2D9 - 0x18];
 	bool m_2D9;
 	char m_pad2DA[0x2DC - 0x2DA];
-	const Image *m_2DC;
+	const Image *m_portraitImage;
 };
 
-const Image *Rva000B7029::rva000B7029()
+const Image *Rva000B7029::GetPortraitImage()
 {
 	if (m_2D9) {
 		m_2D9 = false;
-		DrawSub *sub = m_14;
+		DrawSub *sub = m_curState;
 		if (sub != 0) {
 			if (!sub->m_str60.isEmpty())
-				m_2DC = TheMappedImageCollection->findImageByName(sub->m_str60);
+				m_portraitImage = TheMappedImageCollection->findImageByName(sub->m_str60);
 			else
-				m_2DC = 0;
+				m_portraitImage = 0;
 		}
 	}
-	return m_2DC;
+	return m_portraitImage;
 }

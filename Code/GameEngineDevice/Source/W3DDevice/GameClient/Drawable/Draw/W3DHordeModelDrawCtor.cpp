@@ -64,7 +64,7 @@ void __identifier("?get@Rva000CA841MovLeaNegSbbField@@QBEHXZ")();
 void __identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")();
 void __identifier("?get@Rva00225A98DwordField@@QBEHXZ")();
 void __identifier("?rva000B61AB@W3DScriptedModelDraw@@UAEMXZ")();
-void __identifier("?rva000B7029@Rva000B7029@@UAEPBVImage@@XZ")();
+void __identifier("?GetPortraitImage@Rva000B7029@@UAEPBVImage@@XZ")();
 void __identifier("?getButtonImage@W3DScriptedModelDraw@@UAEPBVImage@@XZ")();
 void __identifier("?rva000B5FB3@Rva000B5FB3Forwarder@@QAEXH@Z")();
 void __identifier("?SetRampMeshOverload@W3DScriptedModelDraw@@UAEXPBDH@Z")();
@@ -133,7 +133,7 @@ extern const void *const g_00BC68F0[68] = {
 	(const void *)&__identifier("?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z"), // slot 48 0x000D43D0
 	(const void *)&__identifier("?get@Rva00225A98DwordField@@QBEHXZ"), // slot 49 0x00225A98
 	(const void *)&__identifier("?rva000B61AB@W3DScriptedModelDraw@@UAEMXZ"), // slot 50 0x000B61AB
-	(const void *)&__identifier("?rva000B7029@Rva000B7029@@UAEPBVImage@@XZ"), // slot 51 0x000B7029
+	(const void *)&__identifier("?GetPortraitImage@Rva000B7029@@UAEPBVImage@@XZ"), // slot 51 0x000B7029
 	(const void *)&__identifier("?getButtonImage@W3DScriptedModelDraw@@UAEPBVImage@@XZ"), // slot 52 0x000B9C8C
 	(const void *)&__identifier("?rva000B5FB3@Rva000B5FB3Forwarder@@QAEXH@Z"), // slot 53 0x000B5FB3
 	(const void *)&__identifier("?SetRampMeshOverload@W3DScriptedModelDraw@@UAEXPBDH@Z"), // slot 54 0x000B5FBE
