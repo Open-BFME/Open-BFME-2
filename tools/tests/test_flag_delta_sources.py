@@ -70,11 +70,13 @@ HOOK = Path(os.environ.get('BFME_FLAG_REVIEW_HOOK', str(ROOT / '.githooks/pre-pu
 @pytest.fixture
 def hooked(hook_repo):
     write(hook_repo,'tools/flag_delta_sources.py',CANDIDATE.read_text())
-    git(hook_repo,'add','tools/flag_delta_sources.py');git(hook_repo,'commit','-qm','Seed selector')
+    write(hook_repo,'tools/ledger_cache.py',CANDIDATE.with_name('ledger_cache.py').read_text())
+    git(hook_repo,'add','tools/flag_delta_sources.py','tools/ledger_cache.py');git(hook_repo,'commit','-qm','Seed selector')
     return hook_repo
 
 def push(root,base,tip):
-    return subprocess.run(['bash',str(HOOK)],cwd=root,input=f'refs/heads/master {tip} refs/heads/master {base}\n',text=True,capture_output=True,timeout=60)
+    from test_hook_fail_closed import _bash
+    return subprocess.run([_bash(),str(HOOK)],cwd=root,input=f'refs/heads/master {tip} refs/heads/master {base}\n',text=True,capture_output=True,timeout=60)
 
 def test_real_hook_verifies_untouched_source_for_global_flag_change(hooked):
     base=git(hooked,'rev-parse','HEAD');write(hooked,'tools/flag_defaults.py','raise SystemExit(0) # change\n')
