@@ -10385,7 +10385,8 @@ changed provider and affected consumers into the next scheduled census.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
-Status: repaired, pending census confirmation. The 2026-10-29 17:26 census
+Status: partially repaired, pending census confirmation; the provider-retirement
+follow-up below remains open. The 2026-10-29 17:26 census
 (85f6b7f40c) drops ten units from linked to not linked, each with exactly one
 unresolved name, `?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z`:
 NarrowStringRecordCopyBFME2.cpp, PeerThread.cpp,
@@ -10417,6 +10418,24 @@ Preview: the ten consumers, both earlier providers and this unit LINK (12/12,
 5,457 -> 29,668 B); all 48 other declaring units still link except
 stlport_list_string_erase_00424363.cpp, whose list-helper COMDATs are unrelated
 (LINK-143). Pending census confirmation.
+
+2026-10-29 follow-up (codexb4, inspected `addc18930a`): 5cea349adb migrated
+the overflow/setbuf provider to 4.6 after the repair above. Its current object
+no longer supplies the proxy helper. Preview of the narrow ostringstream
+destructor with all three former providers replaced by current objects still
+finds that one unresolved name. The consumer now also uses 4.6, removing its
+obsolete proxy specialization; all six rows remain exact. The parent's exact
+EH graph binds the renumbered cleanup to 0x0076B44E, with gen-funclet metadata
+added through add_match. Strict current preparation passes; joint preview
+is 4/4 LINKS (6,442 authored bytes, including 418 in the selected consumer).
+This clears only that consumer's dependency, pending census confirmation.
+The staged-tree batch audit is INCONCLUSIVE: index 85f6b7f40c predates base
+86058c40c8 and 34 affected sources lack current receipts, first
+Common/Rva003A5DA0Write.cpp. Carry that cohort into the next scheduled census;
+broader consumer closure remains unverified.
+The other historical consumers require current-object revalidation and
+migration or a proven provider repair; the old helper has not been restored.
+[Checks and evidence](../reverse/attempt_support/ostringstream-stlport46-link-20261029-codexb4.md).
 
 ### LINK-141: removing the 0x48BA39 alias left four placeholder string destructors unresolved (2026-10-29, seat yasinschroeder-claudeb2)
 
