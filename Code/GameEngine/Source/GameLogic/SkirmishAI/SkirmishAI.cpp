@@ -198,6 +198,7 @@ class Rva004E93A8 { public: int rva004E93A8(); };
 class Rva004E9600;
 
 struct Rva002A8B59Data;
+
 class Rva002A8F24 {
 public:
  Rva004E9600 *rva002A8B24(void *key);
@@ -293,7 +294,20 @@ private:
 	unsigned char m_flag168;
 };
 
+struct Rva002A8B59Data
+{
+	char m_pad[0xA4];
+	float m_a4;
+	float m_a8;
+};
+
+extern float g_secondsPerLogicFrame;
+
+extern const float g_00BC26EC;
+
 // tu-skeleton: 0x002C67DC 105B ?isAPartialBrain@SkirmishAI@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva002C6845Method.cpp
 
@@ -519,28 +533,6 @@ void SkirmishAI::DoXfer(Xfer *xfer)
 	}
 }
 
-// tu-skeleton: 0x002C68CE 109B ?resetMaster@SkirmishAI@@QAEHXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp (not merged yet)
-
-// tu-skeleton: 0x002C693B 258B ?updatePhase@SkirmishAI@@QAEXXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_updatePhase.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6AC3 8B ?rva002C6AC3@Rva002C6AC3Owner@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6ACB 47B ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6C93 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6EA4 31B ?rva002C6EA4@Rva002C6EA4@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp (not merged yet)
-
-// tu-skeleton: 0x002C6EC3 29B ?insert@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI_SkirmishAI.cpp
 
 // Split from SkirmishAI.cpp: these definitions reference a callee with no matched body yet,
@@ -566,6 +558,74 @@ SkirmishAI::SkirmishAI(Player *player, void *master, bool first)
 {
  m_tacticalAI = reinterpret_cast<TacticalAI *>(new Rva002C60E4(player, first));
 }
+
+// tu-skeleton: 0x002C68CE 109B ?resetMaster@SkirmishAI@@QAEHXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/SkirmishAI_updatePhase.cpp
+
+//
+// ?updatePhase@SkirmishAI@@QAEXXZ @0x002C693B 258B
+// Evidence: unlock lane sibling 002C68CE prev Rva002C68CE next stlport caller
+// 0x002C6BFF callee rva002A8B59 pin plus TheGameLogic plus ThePlayerList area
+// TheSkirmishAIManager globals g_Va00BBB8D8 g_secondsPerLogicFrame BfmeZeroRange
+// g_00BC26EC floats 0xa4/0xa8 plus 0x170 offsets 0x15c/0x16c/0x174/0x40.
+// Identity: honest-address thiscall method no args returning void with frame.
+
+void SkirmishAI::updatePhase()
+{
+	Rva002A8B59Data *data = TheSkirmishAIManager->rva002A8B59(m_player);
+	unsigned int delta = TheGameLogic->getFrame() - m_frame174;
+	switch (m_difficulty16C) {
+	case 0: {
+		float t = (float)delta * g_secondsPerLogicFrame;
+		if (t >= data->m_a4) {
+			m_time170 = 0.0f;
+			m_difficulty16C = 1;
+			return;
+		}
+		if (!(data->m_a4 > 0.0f))
+			return;
+		m_time170 = t / data->m_a4;
+		break;
+	}
+	case 1: {
+		float t = (float)delta * g_secondsPerLogicFrame;
+		float sum = data->m_a8 + data->m_a4;
+		if (t >= sum) {
+			m_time170 = 0.0f;
+			m_difficulty16C = 2;
+			return;
+		}
+		if (!(sum > 0.0f))
+			return;
+		m_time170 = t / sum;
+		break;
+	}
+	case 2:
+		m_time170 = 1.0f;
+		break;
+	default:
+		return;
+	}
+}
+
+// tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6A4E 17B ?rva002C6A4E@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6AC3 8B ?rva002C6AC3@Rva002C6AC3Owner@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/EmbeddedMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6ACB 47B ?rva002C6ACB@Rva002A8AB1Record@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/Rva002A8AB1RecordGet.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6C8E 5B ?clear@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6C93 443B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6E4E 86B ??1Rva002C6E4E@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva002C6E4EDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6EA4 31B ?rva002C6EA4@Rva002C6EA4@@QAE_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva002C6EA4Method.cpp (not merged yet)
+
+// tu-skeleton: 0x002C6EC3 29B ?insert@?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@2@@2@U32@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002c6c93.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6F8C 124B ??A?$map@VAsciiString@@UTreeHintPayload001F8ACB@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload001F8ACB@@@_STL@@@4@@_STL@@QAEAAUTreeHintPayload001F8ACB@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapSubscriptFamily.cpp (not merged yet)
 

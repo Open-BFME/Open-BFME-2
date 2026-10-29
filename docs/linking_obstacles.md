@@ -11000,3 +11000,14 @@ Open: the rest of the TU still compiles differently from the census. Restoring
 the override would return it to its census-time code, but that is a flag change
 (full gate). SlowDeathBehavior.cpp and MultiplayerSettings.cpp lost the same
 override in that commit; neither links yet.
+
+### SkirmishAI phase donor composition (2026-10-29)
+
+The supported merger absorbs `SkirmishAI_updatePhase.cpp` into its approved
+`SkirmishAI.cpp` destination after matching the phase field spellings and
+lookup declaration. The destination preserves 20/20 rows and two EXACT EH
+graphs; the merge link guard accepts both census-linked inputs. Ordinary
+preview retains their combined 1,465 authored bytes against index
+`85f6b7f40c`. External consumer selection and the next census remain pending;
+no linked-byte gain is claimed. Five other whole donors need class or STL view
+reconciliation. [Checks and path audit](../reverse/attempt_support/skirmishai-consolidation-20261029-codexb5/README.md).
