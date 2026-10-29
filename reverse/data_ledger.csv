@@ -20157,8 +20157,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A039C0,4,.data,global,?$S1@?1??getModuleNameKey@MonitorConditionUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp,owned,,1,4
 0x00A039C4,4,.data,global,?TheAttachUpdatePoolKey@?1??getModuleNameKey@AttachUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp,owned,,1,2
 0x00A039C8,4,.data,global,?$S1@?1??getModuleNameKey@AttachUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AttachUpdate.cpp,owned,,1,4
-0x00A039CC,4,.data,global,?ThePickupStuffUpdatePoolKey@?1??getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdatePoolKey.cpp,owned,,1,2
-0x00A039D0,4,.data,global,?$S1@?1??getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdatePoolKey.cpp,owned,,1,4
+0x00A039CC,4,.data,global,?ThePickupStuffUpdatePoolKey@?1??getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/PickupStuffUpdate.cpp,owned,,1,2
+0x00A039D0,4,.data,global,?$S1@?1??getModuleNameKey@PickupStuffUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/PickupStuffUpdate.cpp,owned,,1,4
 0x00A039D4,4,.data,global,?TheHeroModeSpecialAbilityUpdatePoolKey@?1??getModuleNameKey@HeroModeSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,owned,,1,2
 0x00A039D8,4,.data,global,?$S1@?1??getModuleNameKey@HeroModeSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HeroModeSpecialAbilityUpdate.cpp,owned,,1,4
 0x00A039DC,4,.data,global,?TheWeaponSetSpecialAbilityUpdatePoolKey@?1??getModuleNameKey@WeaponSetSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/WeaponSetSpecialAbilityUpdatePoolKey.cpp,owned,,1,2
