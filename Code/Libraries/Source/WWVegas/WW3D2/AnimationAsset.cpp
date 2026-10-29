@@ -148,6 +148,12 @@ public:
 	int m_arg20; // +0x20
 };
 
+bool Render_Obj_Exists(const char *name);
+
+void Add_Prototype(void *prototype);
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/animasset.cpp
@@ -239,3 +245,20 @@ Rva0014CE67_Prototype::Rva0014CE67_Prototype(const char *name, int offset, int s
 // tu-skeleton: 0x007668D2 8B uw_007668d2 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
 
 // tu-skeleton: 0x007668DA 10B __ehhandler$??0HAnimPrototypeOwner@@QAE@ABVHierarchyPrototypeRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HAnimPrototypeOwnerCtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Register_Aggregate_Prototype.cpp
+
+void Register_Aggregate_Prototype(const char *name, int first, int second)
+{
+	if (name && !Render_Obj_Exists(name)) {
+		Add_Prototype(new Rva0014CE67_Prototype(name, first, second));
+	}
+}
+
+// tu-skeleton: 0x0076693D 8B $L477 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp (not merged yet)
+
+// tu-skeleton: 0x00766945 10B $L479 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp (not merged yet)
+
+// tu-skeleton: 0x0076694F 10B $L478 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp (not merged yet)
+
+// tu-skeleton: 0x00766959 10B __ehhandler$?Rva0014D078_LoadAnim@Rva0014CD63_Prototype@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp (not merged yet)

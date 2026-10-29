@@ -9708,7 +9708,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0014CED0,49,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WW3D2/HAnimPrototypeOwner.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/HAnimPrototypeOwnerCtor.cpp
 0x0014CF01,94,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/animasset.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 0x0014CF5F,189,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/animasset.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
-0x0014D01C,92,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,proposed,C,C=0x0014CF5F..0x0014D078,Code/Libraries/Source/WWVegas/WW3D2/Register_Aggregate_Prototype.cpp
+0x0014D01C,92,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,proposed,C,C=0x0014CF5F..0x0014D078,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 0x0014D078,310,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,proposed,K,K=Rva0014CD63_Prototype,Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp
 0x0014D1AE,9,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
 0x0014D1B7,24,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE45.cpp
@@ -65266,8 +65266,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076690F,8,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014CF5F@FuncInfo0x0090AF30 provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 0x00766917,8,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014CF5F@FuncInfo0x0090AF30 provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 0x0076691F,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014CF5F@FuncInfo0x0090AF30 provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
-0x00766929,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D01C@FuncInfo0x0090AF54 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Register_Aggregate_Prototype.cpp
-0x00766933,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D01C@FuncInfo0x0090AF54 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Register_Aggregate_Prototype.cpp
+0x00766929,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D01C@FuncInfo0x0090AF54 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
+0x00766933,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D01C@FuncInfo0x0090AF54 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp
 0x0076693D,8,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D078@FuncInfo0x0090AF88 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp
 0x00766945,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D078@FuncInfo0x0090AF88 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp
 0x0076694F,10,code,Code/Libraries/Source/WWVegas/WW3D2/AnimationAsset.cpp,approved,P,P=0x0014D078@FuncInfo0x0090AF88 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva0014D078LoadAnim.cpp
