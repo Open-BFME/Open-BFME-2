@@ -1,0 +1,10 @@
+[Unit]
+Description=Run the BFME 2 census runner every ~20 min after the previous cycle ends
+
+[Timer]
+OnBootSec=10min
+OnUnitInactiveSec=20min
+Persistent=false
+
+[Install]
+WantedBy=timers.target

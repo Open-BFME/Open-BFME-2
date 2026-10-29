@@ -1,0 +1,14 @@
+[Unit]
+Description=BFME 2 link index follower and census runner (one cycle)
+After=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=%h/bfme2-runner/runner.sh
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+MemoryHigh=24G
+MemoryMax=40G
+TimeoutStartSec=6h
+KillMode=control-group
