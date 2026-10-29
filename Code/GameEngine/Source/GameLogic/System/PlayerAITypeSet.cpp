@@ -195,7 +195,7 @@ Rva0021572A::Rva0021572A(INI *ini)
 
 // tu-skeleton: 0x00215A8D 100B ?bfmeResizeERE@BfmeVecERE@@QAEXIUBfmeItemERE@@@Z -- matched in Code/GameEngine/Source/Common/BfmeConv1950.cpp (not merged yet)
 
-// tu-skeleton: 0x00215AF1 35B ?rva00215AF1@Rva00215AF1@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp (not merged yet)
+// tu-skeleton: 0x00215AF1 35B ?resize@Rva00215AF1@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp (not merged yet)
 
 // tu-skeleton: 0x00215B14 292B ?rva00215B14@PlayerAITypeSet@@QAEXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp (not merged yet)
 

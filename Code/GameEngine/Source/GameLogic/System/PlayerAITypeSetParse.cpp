@@ -28,8 +28,8 @@ template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
 class Rva0015334F { public: __declspec(nothrow) Rva0015334F(); public: __declspec(noinline) ~Rva0015334F(); private: AsciiString name; _STL::vector<AsciiString> libraries; };
 struct BfmeItemERE : Rva0015334F { __declspec(nothrow) __forceinline BfmeItemERE():Rva0015334F(){} BfmeItemERE(const BfmeItemERE&); ~BfmeItemERE(); };
 class BfmeVecERE {public:void bfmeResizeERE(unsigned count,BfmeItemERE item);};
-class Rva00215AF1 { public: void rva00215AF1(unsigned count); };
-void Rva00215AF1::rva00215AF1(unsigned count) { ((BfmeVecERE*)this)->bfmeResizeERE(count,BfmeItemERE()); }
+class Rva00215AF1 { public: void resize(unsigned count); };
+void Rva00215AF1::resize(unsigned count) { ((BfmeVecERE*)this)->bfmeResizeERE(count,BfmeItemERE()); }
 
 class INI;
 struct BfmeVectorRecord0002154F3 : Rva0015334F { __declspec(nothrow) __forceinline BfmeVectorRecord0002154F3():Rva0015334F(){} BfmeVectorRecord0002154F3(const BfmeVectorRecord0002154F3&); ~BfmeVectorRecord0002154F3(); };
@@ -45,7 +45,7 @@ void PlayerAITypeSet::rva00215B14(INI *ini) {
   if(records.size()>=records.capacity()) {
    _STL::vector<BfmeVectorRecord0002154F3> tmp;
    tmp.reserve(records.size()+records.size()/2+8);
-   reinterpret_cast<Rva00215AF1&>(tmp).rva00215AF1(records.size());
+   reinterpret_cast<Rva00215AF1&>(tmp).resize(records.size());
    BfmeVectorRecord0002154F3 *p=records.begin(),*end=records.end(),*dst=tmp.begin();
    for(;p!=end;++p,++dst)
     reinterpret_cast<Rva0021545C*>(dst)->rva0021545C(reinterpret_cast<Rva0021545C*>(p));

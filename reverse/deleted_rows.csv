@@ -4042,3 +4042,4 @@ $L310,0x00790AA3,"Renamed to $L54973: tu_skeleton merge into EvacuateGarrisonSpe
 $L310,0x00790ABA,"Renamed to $L54988: tu_skeleton merge into EvacuateGarrisonSpecialPower.cpp renumbered the parent's cleanup label; the merged TU's EXACT parent EH data places $L54988 at 0x00790ABA"
 ?Rva003B9A0CParse@@YAHQAPADH@Z,0x003B9A0C,"Renamed to ?parseUpdateImages@@YAHQAPADH@Z by tools/rename.py (inferred)"
 ?Rva003B984DParse@@YAHQAPADH@Z,0x003B984D,"Renamed to ?parseShowTeamDot@@YAHQAPADH@Z by tools/rename.py (inferred)"
+?rva00215AF1@Rva00215AF1@@QAEXI@Z,0x00215AF1,"Renamed to ?resize@Rva00215AF1@@QAEXI@Z by tools/rename.py (inferred)"

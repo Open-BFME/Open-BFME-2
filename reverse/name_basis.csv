@@ -4455,3 +4455,4 @@ function,?Rva003B9A0CParse@@YAHQAPADH@Z,?parseUpdateImages@@YAHQAPADH@Z,inferred
 function,?Rva003B984DParse@@YAHQAPADH@Z,?parseShowTeamDot@@YAHQAPADH@Z,inferred,agree:nl-ccaef973f0d9,Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp,0x003B984D
 member,Rva000B197C::m_0C,Rva000B197C::m_heightMap,inferred,agree:nl-f1747527d50a,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp,
 local,Rva002BFAD6::rva002BFAD6::n,Rva002BFAD6::rva002BFAD6::newNode,inferred,agree:nl-91fd6b1db4e0,Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp,0x002BFAD6
+function,?rva00215AF1@Rva00215AF1@@QAEXI@Z,?resize@Rva00215AF1@@QAEXI@Z,inferred,agree:nl-54cf163c1110,Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp,0x00215AF1
