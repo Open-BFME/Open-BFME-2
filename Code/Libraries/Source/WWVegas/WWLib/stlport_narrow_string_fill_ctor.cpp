@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Od /Ob2
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::basic_string(size_type, char, const
 // allocator &) - the fill constructor. 177-byte body at 0x000271E0

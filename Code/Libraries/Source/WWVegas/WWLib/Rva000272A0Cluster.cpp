@@ -1,5 +1,5 @@
 // cl: /Od /Ob1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /DNDEBUG /D_STLP_NO_EXCEPTIONS /DWIN32 /D_WINDOWS
-// stlport
+// stlport46
 //
 // STLport 4.5.3 vector<void *> copy constructor at 0x000272A0 (200 bytes).
 //

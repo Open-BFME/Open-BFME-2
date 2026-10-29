@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 #include <locale>
 // STLport defines locale::facet::~facet out of line in locale_impl.cpp, where
@@ -40,8 +40,8 @@ namespace _STL { template <> char * basic_string<char, char_traits<char>, alloca
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
+template <> char *allocator<char>::allocate(size_t, const void *);
 }
 namespace _STL {
 typedef istreambuf_iterator<char, char_traits<char> > MoneyGetCharIterator;

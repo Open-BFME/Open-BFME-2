@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // ??1strstream@_STL@@UAE@XZ, retail 0x00602EB0 (129 B).
 // Last of the three consecutive derived strstream dtors in <strstream>

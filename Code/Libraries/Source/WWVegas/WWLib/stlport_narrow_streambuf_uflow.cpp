@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // The four basic_streambuf<char> base defaults nothing had reached: xsgetn,
 // uflow, xsputn and _M_xsputnc, slots 6, 8, 10 and 11 of the vftable at

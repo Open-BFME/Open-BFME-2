@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_filebuf<wchar_t>::_M_allocate_buffers, the wide twin of
 // 0x00013F10 - same body, one byte shorter, because the internal buffer

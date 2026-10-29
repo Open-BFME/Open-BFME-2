@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // collate's virtuals, identified by vftable slot: the ledger already holds
 // slot 0 of both 0x007BBB50 and 0x007BBB64, so slots 1..3 are do_compare,

@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_filebuf<char>::_M_allocate_buffers(char *, streamsize).
 // The member offsets come straight out of the retail body: _M_int_buf_dynamic

@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // BFME 1 repair 6933b8cbbb at donor revision f98983a7d3.
 // BFME 2 narrow ifstream default constructor 0x0001F590 (191 bytes).
 #define _STLP_LINK_TIME_INSTANTIATION 1

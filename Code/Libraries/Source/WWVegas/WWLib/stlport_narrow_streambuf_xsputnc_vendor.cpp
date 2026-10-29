@@ -1,5 +1,5 @@
 // cl: /MD
-// stlport
+// stlport46
 
 #include <stl/_streambuf.h>
 

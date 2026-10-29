@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 integer writer, the SIGNED __int64 instantiation - the twin of
 // the unsigned one at 0x0000CF60, and the same unit shape for the same reason:

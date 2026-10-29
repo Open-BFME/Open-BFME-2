@@ -1,6 +1,6 @@
 // cl: /MD /D_STLP_USE_STATIC_LIB
 // platformsdk
-// stlport
+// stlport46
 
 #include <windows.h>
 
