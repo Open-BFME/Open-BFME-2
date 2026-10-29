@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 wide time_get::do_get_weekday and do_get_monthname. Both
 // retail bodies inline their __get_short_or_long_* helper and the iterator
