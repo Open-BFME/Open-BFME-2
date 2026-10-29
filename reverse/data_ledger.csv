@@ -1797,7 +1797,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x007CA8F8,184,.rdata,string,??_C@_06KHOKADBJ@Shadow?$AA@,,literal,,0,1
 0x007CA9B0,32,.rdata,string,??_C@_07GKACAEDJ@Texture?$AA@,,literal,,0,4
 0x007CA9D0,336,.rdata,string,??_C@_08HEGKIDKO@Skeleton?$AA@,,literal,,0,1
-0x007CAB20,712,.rdata,global,?TheScriptedModelConditionStateFieldParse@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawParseConditionState.cpp,owned,,1,1
+0x007CAB20,712,.rdata,global,?TheScriptedModelConditionStateFieldParse@@3QBUFieldParse@@B,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,owned,,1,1
 0x007CADE8,164,.rdata,vtable,??_7W3DModelDrawModuleData@@6B@,,literal,,0,1
 0x007CAE8C,1112,.rdata,float,__real@3ecccccd,,literal,,0,10
 0x007CB2E4,1644,.rdata,string,??_C@_0BE@MIEMFDLD@ModelConditionState?$AA@,,literal,,0,1
@@ -18093,8 +18093,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009EAF14,4,.data,global,?g_Va00DEAF14@@3HA,,unowned,,0,2
 0x009EAF18,4,.data,global,?g_Va00DEAF18@@3IA,,unowned,?g_Va00DEAF18@@3IA;?s_modelToken@?1??rva000BE027@Rva000BE027Anim@@QAEPAVHTreeClass@@ABVAsciiString@@0_NH@Z@4V4@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BE027FindAnim.cpp,1,2
 0x009EAF1C,4,.data,global,?$S1@?1??rva000BE027@Rva000BE027Anim@@QAEPAVHTreeClass@@ABVAsciiString@@0_NH@Z@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BE027FindAnim.cpp,owned,,1,4
-0x009EAF20,4,.data,global,?g_Va00DEAF20@@3IA,,unowned,?g_Va00DEAF20@@3IA;?s_modelToken@?1??Rva000BF7E8FindAnimTree@@YAPAVHTreeClass@@ABVAsciiString@@00_NH@Z@4V3@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BF7E8FindAnimTree.cpp,1,2
-0x009EAF24,4,.data,global,?$S1@?1??Rva000BF7E8FindAnimTree@@YAPAVHTreeClass@@ABVAsciiString@@00_NH@Z@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Rva000BF7E8FindAnimTree.cpp,owned,,1,4
+0x009EAF20,4,.data,global,?g_Va00DEAF20@@3IA,,unowned,?g_Va00DEAF20@@3IA;?s_modelToken@?1??Rva000BF7E8FindAnimTree@@YAPAVHTreeClass@@ABVAsciiString@@00_NH@Z@4V3@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,1,2
+0x009EAF24,4,.data,global,?$S1@?1??Rva000BF7E8FindAnimTree@@YAPAVHTreeClass@@ABVAsciiString@@00_NH@Z@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,owned,,1,4
 0x009EAF28,4,.data,global,?TheW3DScriptedModelDrawPoolKey@?1??getModuleNameKey@W3DScriptedModelDraw@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDrawPoolKey.cpp,owned,,1,2
 0x009EAF2C,4,.data,global,?$S1@?1??getModuleNameKey@W3DScriptedModelDraw@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDrawPoolKey.cpp,owned,,1,4
 0x009EAF30,12,.data,global,?g_Va00DEAF30@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_Va00DEAF30@@3IA;?s_reportedMissing@?BJ@??rva000C2E3A@W3DScriptedModelDraw@@QAE?AVAsciiString@@ABV3@@Z@4V?$set@VAsciiString@@U?$less@VAsciiString@@@_STL@@V?$allocator@VAsciiString@@@3@@_STL@@A@Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawAnimationFrameCount.cpp,2,3
