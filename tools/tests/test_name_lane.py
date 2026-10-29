@@ -1419,3 +1419,26 @@ def test_changed_pin_after_serving_rejected_at_submission(tree, tmp_path, capsys
     name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="a", model="claude-opus-5-5", answer=str(answer)))
     assert not rows(tree, name_lane.VOTES)
     assert "already names" in capsys.readouterr().out
+
+
+def test_class_collision_handoff_is_read_only_and_requires_identity(tree, tmp_path, capsys):
+    agree_on(tree, tmp_path, {"Rva00401000Box": "BoxView"})
+    header = "Code/Game/BoxView.h"
+    (tree / header).write_text("struct BoxView { int m_x2C; int m_count; };\n")
+    _git(tree, "add", header)
+    (tree / rename.CANONICAL_CLASSES).write_text("class,header,notes\nBoxView," + header + ",test\n")
+    apply(tree)
+    before = {p: (tree / p).read_bytes() for p in (SOURCE, header, name_lane.AGREED, name_lane.VOTES)}
+    capsys.readouterr()
+    name_lane.main(["reconcile"], lane=lane_of(tree))
+    packets = json.loads(capsys.readouterr().out)
+    assert len(packets) == 1
+    packet = packets[0]
+    assert packet["registered_header"] == header
+    assert packet["status"] == "identity-review-required"
+    assert "Rva00401000Box" in packet["private_view"]["declarations"][0]
+    assert "BoxView" in packet["existing_views"][0]["declarations"][0]
+    assert before == {p: (tree / p).read_bytes() for p in before}
+    assert lane_of(tree).state()[SOURCE + "|class||Rva00401000Box"]["status"] == "blocked"
+    name_lane.main(["reconcile", "--key", "unknown"], lane=lane_of(tree))
+    assert json.loads(capsys.readouterr().out) == []

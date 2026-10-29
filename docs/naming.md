@@ -662,3 +662,14 @@ recording a vote, including pins added since serving and reference spellings.
 Class proposals whose new token already occurs in source are refused before
 voting: reconcile declarations instead of accumulating an unapplicable agreement.
 These checks do not replace the planner or byte/link verification at apply.
+
+### Existing-type reconciliation packets
+
+`python3 tools/name_lane.py reconcile [--key SOURCE|class||OLD]` prints JSON
+packets for pending class names that collide with existing declarations. Quote
+the key in a shell. Each packet includes the private declaration, existing
+views, content hashes, registered header, available contract and next checks.
+The command changes no source, votes or status and does not certify identity.
+A reviewer must prove identity from uses and target evidence, reconcile layout
+and ABI, then verify the source and affected consumers in a separate commit.
+Equal fields alone do not justify replacing a private view with a shared type.

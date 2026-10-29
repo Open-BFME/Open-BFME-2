@@ -1202,6 +1202,51 @@ def cmd_dispute(lane, args, *, verify=rename.build_verify, checks=rename.ledger_
     return 1 if failed else 0
 
 
+# ---------------------------------------------------------- reconciliation handoff
+
+def cmd_reconcile(lane, args):
+    """Describe blocked class identity work; never infer identity or edit source."""
+    selected = set(getattr(args, "key", None) or ())
+    registry = {r.get("class"): r.get("header", "")
+                for r in lane.ctx.dicts(rename.CANONICAL_CLASSES)}
+    packets = []
+    for key, row in sorted(lane.state().items()):
+        if selected and key not in selected:
+            continue
+        if row["kind"] != "class" or row["status"] not in ("blocked", "agreed"):
+            continue
+        rel, _kind, _scope, old = split_key(key)
+        new = row["new"]
+        views = lane.type_definers(new)
+        header = registry.get(new, "")
+        if not views and not header:
+            continue
+        def snapshot(path, word):
+            text = lane.text(path) or ""
+            code = name_metric.strip(text)
+            declarations = []
+            for match in name_metric.DECL.finditer(code):
+                if match.group(1) == word:
+                    end = name_metric.close(code, match.end() - 1)
+                    declarations.append(text[match.start():end + 1])
+            return dict(path=path, sha256=hashlib.sha256(text.encode(
+                "utf-8", "surrogateescape")).hexdigest(), declarations=declarations)
+        contract = f"{rename.CLASS_CONTRACTS}/{new}.json"
+        packets.append(dict(key=key, proposed_type=new, status="identity-review-required",
+                            blocker=row.get("detail", ""), registered_header=header,
+                            contract=contract if lane.path(contract).is_file() else "",
+                            private_view=snapshot(rel, old),
+                            existing_views=[snapshot(path, new) for path in sorted(set(views + ([header] if header else [])))],
+                            next_steps=[
+                                "Prove type identity from uses and target evidence; equal fields or a vote do not prove identity.",
+                                "Compare layout, bases, ABI, constructors and methods against the registered contract.",
+                                f"Inspect competing views: python3 tools/class_views.py --class {new}",
+                                "Claim the source and reconcile declarations in a separate source commit.",
+                                "Run byte verification and affected-consumer link checks; record inferred naming separately."] ))
+    print(json.dumps(packets, indent=2))
+    return 0
+
+
 # ---------------------------------------------------------------- status
 
 def cmd_status(lane, args):
@@ -1269,6 +1314,8 @@ def main(argv=None, lane=None):
     st.add_argument("--only-labels", metavar="L,L", help="count the waiting keys apply --only-labels would select")
     st.add_argument("--lead", type=int, default=2, help="with --only-labels: the lead apply would use")
     st.add_argument("--min-models", type=int, default=1, help="with --only-labels: the min-models apply would use")
+    reconcile = sub.add_parser("reconcile", help="report existing-type collisions for evidence-backed reconciliation; edits nothing")
+    reconcile.add_argument("--key", action="append", help="select an exact pending class key (repeatable)")
     placement = sub.add_parser("consolidate", help="build original-file evidence and consolidation packets; applies nothing")
     import source_layout
     source_layout.configure_parser(placement)
@@ -1285,6 +1332,8 @@ def main(argv=None, lane=None):
         return cmd_submit(lane, args, lead=args.lead, min_models=args.min_models)
     if args.cmd == "apply":
         return cmd_apply(lane, args)
+    if args.cmd == "reconcile":
+        return cmd_reconcile(lane, args)
     if args.cmd == "dispute":
         return cmd_dispute(lane, args)
     return cmd_status(lane, args)
