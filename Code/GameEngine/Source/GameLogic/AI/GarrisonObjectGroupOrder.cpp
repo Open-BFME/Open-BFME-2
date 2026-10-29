@@ -117,7 +117,7 @@ private:
 
 //
 // GarrisonObjectGroupOrder slots 8 and 11 (vtable 0x00C6A3C4), the garrison
-// twins of AttackObjectGroupOrder's slots 8 and 11 (AttackObjectGroupOrderSlots.cpp):
+// twins of AttackObjectGroupOrder's slots 8 and 11 (AttackObjectGroupOrder.cpp):
 // the order keeps the target's ObjectID at +0x18 and a Coord3D at +0x1C.
 // Slot 8 (retail 0x00546D7C, 41 bytes) refreshes that position from the
 // target found through TheGameLogic (rowed findObjectByID 0x00049DC5) and
