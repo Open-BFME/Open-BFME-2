@@ -15,34 +15,6 @@ class Object;
 
 class Xfer;
 
-class StateMachine : public Snapshot
-{
-public:
-	StateMachine(Object *owner, unsigned int name, bool flag);
-	virtual ~StateMachine();
-
-protected:
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess(void) = 0;
-
-public:
-	void *m_currentState; // +0x04
-	_STL::map<int, void *> m_stateMap; // +0x08
-	Object *volatile m_owner; // +0x14
-	char m_pad18[4]; // +0x18 retail hole (sleepTill, uninitialized)
-	volatile int m_defaultStateID; // +0x1C
-	volatile int m_goalObjectID; // +0x20
-	volatile float m_goalX; // +0x24
-	volatile float m_goalY; // +0x28
-	volatile float m_goalZ; // +0x2C
-	volatile float m_goalRange; // +0x30
-	volatile int m_unk34; // +0x34
-	volatile bool m_locked; // +0x38
-	volatile bool m_inited; // +0x39
-	volatile bool m_extra; // +0x3A
-};
-
 // ?rva004D7127@State@@QAEXPBUStateConditionInfo@@@Z at retail 0x004D7127 (33B).
 // State transitions array setter called by StateMachine::defineState 0x004D7B0F.
 // Evidence: caller 0x004D7B0F stores id/success/failure then calls here with conditions;
@@ -137,6 +109,88 @@ template Rva004D755FTree::~_Rb_tree();
 // tree destructor004D755F. Original wrapper owner and name remain unknown.
 struct Rva004D7597TreeCleanupForward { void cleanup(); };
 
+// ?isGoalObjectDestroyed@StateMachine@@QBE_NXZ at retail 0x004D7ADD (30B).
+//
+// Target facts: `cmp [ecx+0x20],0 / jne / xor al,al / ret`, then a call to
+// 0x004D7726, null -> `mov al,1`, else `mov al,[eax+0x438] / and al,1`.
+// +0x20 is StateMachine's m_goalObjectID: the matched
+// StateMachine::internalSetGoalObject 0x004D7435 (StateMachineGoal.cpp) writes
+// the goal object's id there, and 0x004D7726 (rowed as
+// TurretStateMachine::getGoalObject, pinned as StateMachine::getGoalObject)
+// looks that id up through TheGameLogic. Object +0x438 bit 0 is the
+// effectively-dead status bit. The body sits in StateMachine.cpp's run
+// 0x004D7127..0x004D7B0F, just before StateMachine::defineState 0x004D7B0F.
+// Donor facts: Zero Hour and BFME 1 StateMachine.cpp define
+// `Bool StateMachine::isGoalObjectDestroyed() const` as
+// `if (m_goalObjectID == 0) return false; return getGoalObject() == NULL;`.
+// BFME 2 also reports an effectively dead goal as destroyed.
+// The const getGoalObject overload is the same body as the non-const one
+// (identical-code folded at 0x004D7726), so the call goes through the
+// non-const spelling the ledger resolves, as AIGuardStates.cpp does.
+
+typedef bool Bool;
+
+typedef unsigned int ObjectID;
+
+class Object
+{
+public:
+	Bool isEffectivelyDead() const { return m_effectivelyDead; }
+
+private:
+	unsigned char m_pad000[0x438];
+	unsigned char m_effectivelyDead : 1; // +0x438 bit 0 of the private status byte
+	unsigned char m_otherStatus : 7;
+};
+
+class StateMachine : public Snapshot
+{
+public:
+	StateMachine(Object *owner, unsigned int name, bool flag);
+public:
+	virtual ~StateMachine();
+protected:
+	virtual void crc(Xfer *xfer) = 0;
+protected:
+	virtual void xfer(Xfer *xfer);
+protected:
+	virtual void loadPostProcess(void) = 0;
+public:
+	void *m_currentState;
+public:
+	_STL::map<int, void *> m_stateMap;
+public:
+	Object *volatile m_owner;
+public:
+	char m_pad18[4];
+public:
+	volatile int m_defaultStateID;
+public:
+	volatile int m_goalObjectID;
+public:
+	volatile float m_goalX;
+public:
+	volatile float m_goalY;
+public:
+	volatile float m_goalZ;
+public:
+	volatile float m_goalRange;
+public:
+	volatile int m_unk34;
+public:
+	volatile bool m_locked;
+public:
+	volatile bool m_inited;
+public:
+	volatile bool m_extra;
+public:
+	Object *getGoalObject();
+public:
+	Bool isGoalObjectDestroyed() const;
+};
+
+// ---- from Code/GameEngine/Source/Common/StateMachine.cpp
+
 // ---- from Code/GameEngine/Source/Common/StateRva004D7127.cpp
 
 void State::rva004D7127(const StateConditionInfo *conditions)
@@ -155,18 +209,6 @@ void State::rva004D7127(const StateConditionInfo *conditions)
 	m_transitionsCount = n;
 }
 
-// tu-skeleton: 0x004D7148 226B ?friend_checkForTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineTransitions.cpp (not merged yet)
-
-// tu-skeleton: 0x004D722A 115B ?friend_checkForSleepTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineSleepTransitions.cpp (not merged yet)
-
-// tu-skeleton: 0x004D729D 40B ?rva004D729D@Rva004D729D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
-
-// tu-skeleton: 0x004D72C5 68B ?clear@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7309 24B ?isInBusyState@StateMachine@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7321 98B ?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv932Query932C.cpp
 
 unsigned char BfmeSub932C::bfmeQuery932C()
@@ -176,53 +218,18 @@ unsigned char BfmeSub932C::bfmeQuery932C()
 	return m_bfmeFallback;
 }
 
-// tu-skeleton: 0x004D7395 15B ?rva004D7395@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73A4 9B ?halt@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73AD 23B ?rva004D73AD@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73C4 32B ?internalSetGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73E4 6B ?Rva004D73E4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73EA 6B ?name@Rva004D73EANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73F0 6B ?name@Rva004D73F0Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73F6 6B ?name@Rva004D73F6Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004D73FC 43B ??0State@@QAE@PAVStateMachine@@I@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7427 14B ?rva004D7427@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7435 39B ?internalSetGoalObject@StateMachine@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D745C 26B ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7476 27B ??0Rva004D7476@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7491 27B ??0Rva004D7491@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D74AC 27B ??0Rva004D74AC@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D74C7 27B ??0Rva004D74C7@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004D74E2.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
-// tu-skeleton: 0x004D750F 14B ?setGoalObject@StateMachine@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachine_setGoalObject.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004D751D.cpp
 
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
-// tu-skeleton: 0x004D7546 20B ??$find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
 
-// tu-skeleton: 0x004D755A 5B ?clear@?$map@URva004D751DElement@@HU?$less@URva004D751DElement@@@_STL@@V?$allocator@U?$pair@$$CBURva004D751DElement@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D755F.cpp
 
@@ -232,22 +239,6 @@ unsigned char BfmeSub932C::bfmeQuery932C()
 void Rva004D7597TreeCleanupForward::cleanup() {
     reinterpret_cast<Rva004D755FTree *>(this)->~Rva004D755FTree();
 }
-
-// tu-skeleton: 0x004D759C 139B ??1StateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/StateMachineDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7627 37B ?rva004D7627@StateMachine@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D764C 31B ?internalGetState@StateMachine@@QAEPAUState@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D766B 135B ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D76F2 29B ?hasState@StateMachine@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D770F 23B ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
-
-// tu-skeleton: 0x004D7744 535B ?xfer@StateMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/StateMachineXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004D795B 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_uint_image_insert.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/StateMachine.cpp
 
@@ -294,13 +285,89 @@ StateMachine::StateMachine(Object *owner, unsigned int name, bool flag)
 	m_goalRange = FLT_MAX;
 }
 
+// tu-skeleton: 0x004D7148 226B ?friend_checkForTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineTransitions.cpp (not merged yet)
+
+// tu-skeleton: 0x004D722A 115B ?friend_checkForSleepTransitions@State@@QAE?AW4StateReturnType@@W42@@Z -- matched in Code/GameEngine/Source/Common/StateMachineSleepTransitions.cpp (not merged yet)
+
+// tu-skeleton: 0x004D729D 40B ?rva004D729D@Rva004D729D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
+
+// tu-skeleton: 0x004D72C5 68B ?clear@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7309 24B ?isInBusyState@StateMachine@@UBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7321 98B ?updateStateMachine@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7395 15B ?rva004D7395@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73A4 9B ?halt@StateMachine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73AD 23B ?rva004D73AD@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73C4 32B ?internalSetGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73E4 6B ?Rva004D73E4Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73EA 6B ?name@Rva004D73EANamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73F0 6B ?name@Rva004D73F0Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73F6 6B ?name@Rva004D73F6Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004D73FC 43B ??0State@@QAE@PAVStateMachine@@I@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7427 14B ?rva004D7427@StateMachine@@QAEXPBX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7435 39B ?internalSetGoalObject@StateMachine@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D745C 26B ?setGoalPosition@StateMachine@@QAEXPBUCoord3D@@M@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7476 27B ??0Rva004D7476@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7491 27B ??0Rva004D7491@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D74AC 27B ??0Rva004D74AC@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D74C7 27B ??0Rva004D74C7@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D750F 14B ?setGoalObject@StateMachine@@UAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachine_setGoalObject.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7546 20B ??$find@H@?$_Rb_tree@HU?$pair@$$CBHPAX@_STL@@U?$_Select1st@U?$pair@$$CBHPAX@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@1@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x004D755A 5B ?clear@?$map@URva004D751DElement@@HU?$less@URva004D751DElement@@@_STL@@V?$allocator@U?$pair@$$CBURva004D751DElement@@H@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x004D759C 139B ??1StateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/StateMachineDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7627 37B ?rva004D7627@StateMachine@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D764C 31B ?internalGetState@StateMachine@@QAEPAUState@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D766B 135B ?internalSetState@StateMachine@@QAE?AW4StateReturnType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D76F2 29B ?hasState@StateMachine@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D770F 23B ?initDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
+
+// tu-skeleton: 0x004D7744 535B ?xfer@StateMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/StateMachineXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x004D795B 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAVImage@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAVImage@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_uint_image_insert.cpp (not merged yet)
+
 // tu-skeleton: 0x004D7A59 28B ??_GStateMachine@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/StateMachineDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7A75 88B ?resetToDefaultState@StateMachine@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
 // tu-skeleton: 0x004D7ACD 16B ?setState@StateMachine@@UAE?AW4StateReturnType@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/StateMachineGoal.cpp (not merged yet)
 
-// tu-skeleton: 0x004D7ADD 30B ?isGoalObjectDestroyed@StateMachine@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/TurretStateMachineRva004D7ADD.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/StateMachine_isGoalObjectDestroyed.cpp
+
+Bool StateMachine::isGoalObjectDestroyed() const
+{
+	if (m_goalObjectID == 0)
+		return false; // never had a goal object
+	const Object *goal = const_cast<StateMachine *>(this)->getGoalObject();
+	if (goal == 0)
+		return true;
+	return goal->isEffectivelyDead();
+}
 
 // tu-skeleton: 0x004D7AFB 20B ?insert@?$map@IPAVImage@@U?$less@I@_STL@@V?$allocator@U?$pair@$$CBIPAVImage@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIPAVImage@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAVImage@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIPAVImage@@@2@@Z -- matched in Code/GameEngine/Source/Common/Rva00295927.cpp (not merged yet)
 
