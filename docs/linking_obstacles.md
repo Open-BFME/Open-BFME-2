@@ -147,6 +147,40 @@ preview preserves LINKS for 778 authored bytes against index `85f6b7f40c`
 (2026-10-29 15:08). This clears the local declaration cleanup only. Full affected
 consumer verification and census confirmation remain pending; carry the provider
 and affected consumers into the next scheduled census. No census gain is claimed.
+### Region3D header adoption needs a class-keyed Coord3D and a POD Region3D view (2026-10-29)
+
+At base `ab249dd2c4` the `class:Region3D` header item stays blocked after
+re-testing both queued units against the canonical
+`Code/Libraries/Include/Lib/Region3D.h`.
+
+Retail's `Coord3D` is class-keyed: the export table carries
+`??0Coord3D@@QAE@ABV0@@Z` (0x004216D3), `??4Coord3D@@QAEAAV0@ABV0@@Z`
+(0x0000353A) and `??8Coord3D@@QBE_NABV0@@Z` (0x00003702), and region.cpp's
+own rows spell `ABVCoord3D`/`PBVCoord3D` (`?expandBy@Region3D@@QAEXABVCoord3D@@@Z`
+0x00006495, `?isInRegionNoZ@Region3D@@QBE_NPBVCoord3D@@@Z` 0x00004E0F,
+`?isInRegionWithZ@Region3D@@QBE_NPBVCoord3D@@@Z` 0x00004E46,
+`??6@YAAAVDebug@@AAV0@ABVCoord3D@@@Z` 0x000050BA). The canonical `Coord3D.h`
+still spells `struct` (its contract key is decided by "bytes", which cannot
+see a class key), so every unit that includes it emits `ABUCoord3D` names.
+region.cpp also needs `Coord3D::scale` as a header inline (its 0x000036D1 row
+is that inline, forced out by `_bfmeRegion3DInlineAnchor`), which only
+`Coord3DCtorView.h`'s `COORD3D_VIEW_INLINE` variant provides, and that
+companion header is struct-keyed too. Flipping the key is a coordinated
+rename, not a per-class adoption: 696 ledger rows in files that include
+`Lib/Coord3D.h` carry U-keyed `Coord3D` names and stop building until they
+are renamed with the header.
+
+The second queued unit, `W3DViewGetAxisAlignedViewRegion.cpp`, does compose
+with `Region3D.h` (the two units' views dedupe and the file compiles), but the
+canonical header's user-provided default constructor, copy constructor and
+destructor make its `Region3D mapExtent` EH-registered: the object built now
+calls `??0Region3D@@QAE@XZ` and sets `c6 45 fc 01` where retail's local is a
+POD, so `?getAxisAlignedViewRegion@W3DView@@AAEXAAURegion3D@@@Z` fails byte
+comparison. region.cpp's rows need exactly those ctor/copy/dtor members
+(0x00003F3A and the copy row), so the two queue rows need incompatible
+shapes: a Region3D companion view, as `Coord3DCtorView.h` is for Coord3D, is
+the missing piece. Both trial edits were reverted; no path moved and no
+census gain is claimed.
 
 ### AIUpgrade consolidation needs a compatible vtable (2026-10-29)
 
