@@ -139,6 +139,20 @@ class AptPrototype;
 // Native E180F0 is zero-filled; this unit owns the storage.
 AptPrototype *gpObjectPrototype;
 
+class Rva006FBC90Owner:public AptValueWithHash {
+ AptValue *parent;
+public:
+ Rva006FBC90Owner(AptValue *);
+ Rva006FBC90Owner(AptValue *,int);
+ virtual ~Rva006FBC90Owner();
+ static void operator delete(void *p,unsigned int size){g_pChainBlockAllocatorF4->freeBlock(p,size);}
+ bool rva006FBBA0(const EAStringC *,AptValue *);
+};
+
+class Rva0070B380 {public:void *lookup(const EAStringC &);};
+
+// ---- from Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp
+
 // ---- from Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp
 
 // ---- from Code/Libraries/Source/Apt/AptObject/AptScriptFunctionStatic.cpp
@@ -237,14 +251,6 @@ void Rva00709B80::DestroyGCPointers()
 	((AptObject *)this)->AptObject::DestroyGCPointers();
 }
 
-// tu-skeleton: 0x00709870 397B ??0AptScriptFunctionBase@@IAE@W4AptVirtualFunctionTable_Indices@@PAV0@PAVAptCIH@@_N@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp (not merged yet)
-
-// tu-skeleton: 0x00709A00 15B ?rva00709A00@Rva8D0D80Result@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp (not merged yet)
-
-// tu-skeleton: 0x00709A10 361B ??0AptScriptFunctionBase@@IAE@W4AptVirtualFunctionTable_Indices@@PAV0@PAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp (not merged yet)
-
-// tu-skeleton: 0x00709B80 11B ??1Rva00709B80@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva006D6470Derived.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/Apt/AptObject/AptScriptFunctionConstructors.cpp
 
 // Native constructor tags43/44 and field+30 agree with original PDB classes.
@@ -316,17 +322,11 @@ void AptScriptFunction1::SetArgument(AptValue *pValue, int nIndex)
 // destructor 0x00709B80 stores the base table 0x00CEE8C8 and tails into AptObject's; every
 // derived deleting destructor (0x0070A530, 0x0070A590) calls it directly.
 
-// tu-skeleton: 0x00709BC0 6B ?rva00709BC0@Rva00709BC0@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp (not merged yet)
 
-// tu-skeleton: 0x00709BD0 7B ?get@Rva00709BD0AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00709BF0 21B ?rva00709BF0@Rva00709BF0@@QAEXPAURva00709BF0Pair@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp (not merged yet)
 
-// tu-skeleton: 0x00709D00 7B ?get@Rva00709D00PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00709D10 7B ?get@Rva00709D10AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00709D20 7B ?get@Rva00709D20PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies.cpp
 
@@ -403,6 +403,26 @@ void AptScriptFunction2::SetupBeforeExecution(_AptScriptFunctionState *pState, A
 
 // Existing providers own the predicate and the zero-initialized global storage.
 
+// tu-skeleton: 0x00709870 397B ??0AptScriptFunctionBase@@IAE@W4AptVirtualFunctionTable_Indices@@PAV0@PAVAptCIH@@_N@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp (not merged yet)
+
+// tu-skeleton: 0x00709A00 15B ?rva00709A00@Rva8D0D80Result@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp (not merged yet)
+
+// tu-skeleton: 0x00709A10 361B ??0AptScriptFunctionBase@@IAE@W4AptVirtualFunctionTable_Indices@@PAV0@PAVAptCIH@@@Z -- matched in Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp (not merged yet)
+
+// tu-skeleton: 0x00709B80 11B ??1Rva00709B80@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva006D6470Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x00709BC0 6B ?rva00709BC0@Rva00709BC0@@QBEHXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAK.cpp (not merged yet)
+
+// tu-skeleton: 0x00709BD0 7B ?get@Rva00709BD0AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00709BF0 21B ?rva00709BF0@Rva00709BF0@@QAEXPAURva00709BF0Pair@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp (not merged yet)
+
+// tu-skeleton: 0x00709D00 7B ?get@Rva00709D00PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00709D10 7B ?get@Rva00709D10AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00709D20 7B ?get@Rva00709D20PtrChaseField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp (not merged yet)
+
 // tu-skeleton: 0x00709D80 113B ?rva00709D80@Rva00709B80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00709C10Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x00709E50 24B ?rva00709E50@Rva00709E50@@QAEXPAPAXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp (not merged yet)
@@ -414,6 +434,46 @@ void AptScriptFunction2::SetupBeforeExecution(_AptScriptFunctionState *pState, A
 // tu-skeleton: 0x0070A330 37B ?rva0070A330@Rva0070A330@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp (not merged yet)
 
 // tu-skeleton: 0x0070A360 39B ?rva0070A360@Rva0070A330@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/Apt/AptObject/AptFrameStackConstructors.cpp
+
+// WB175D190/175D330 identify FrameStack constructors. PC32B class uses
+// inherited AptValueWithHash28B and parent+1C, type20, own vtableCED880.
+// Existing destructor/GC owner spelling retained; WB parent+20 is a donor
+// layout fact, whereas PC parent+1C and the AddRef sequence are target facts.
+
+// ?AptValueGC::AptValueGC present-unmatched
+inline AptValueGC::AptValueGC(AptVirtualFunctionTable_Indices t):AptValue(t){}
+
+// ?AptValueWithHash::AptValueWithHash present-unmatched
+inline AptValueWithHash::AptValueWithHash(AptVirtualFunctionTable_Indices t,int n):AptValueGC(t),mNativeHash(n){}
+
+Rva006FBC90Owner::Rva006FBC90Owner(AptValue *aptValue):AptValueWithHash((AptVirtualFunctionTable_Indices)20,4),parent(aptValue){if(aptValue)aptValue->AddRef();}
+
+Rva006FBC90Owner::Rva006FBC90Owner(AptValue *aptValue,int n):AptValueWithHash((AptVirtualFunctionTable_Indices)20,n),parent(aptValue){if(aptValue)aptValue->AddRef();}
+
+bool Rva006FBC90Owner::rva006FBBA0(const EAStringC *key,AptValue *value) {
+ Rva006FBC90Owner *scope=this;
+ while(scope) {
+  if(((Rva0070B380 *)&scope->mNativeHash)->lookup(*key)) {
+   scope->mNativeHash.Set(key,value);return true;
+  }
+  scope=(Rva006FBC90Owner *)scope->parent;
+ }
+ return false;
+}
+
+// tu-skeleton: 0x007AA200 8B $L5657 -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x007AA208 8B $L5658 -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x007AA210 10B __ehhandler$??0Rva006FBDB0@@QAE@VEAStringC@@HH@Z -- matched in Code/Libraries/Source/Apt/AptActionInterpreterConstantHandlers.cpp (not merged yet)
+
+// tu-skeleton: 0x007AA220 15B uw_007aa220 -- matched in Code/GameEngine/Source/Common/Rva006FBED0Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x007AA22F 15B uw_007aa22f -- matched in Code/GameEngine/Source/Common/Rva006FBED0Cluster.cpp (not merged yet)
+
+// tu-skeleton: 0x007AA23E 10B __ehhandler$?rva006FBED0@Rva8D0D80Result@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva006FBED0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x007AA880 8B Unwind@00baa880 -- matched in Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp (not merged yet)
 

@@ -14544,8 +14544,6 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors.cpp
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	AptObject::AptObject	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp	AptValueWithHash::AptValueWithHash	1
-present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFrameStackConstructors.cpp	AptValueGC::AptValueGC	1
-present_unmatched	Code/Libraries/Source/Apt/AptObject/AptFrameStackConstructors.cpp	AptValueWithHash::AptValueWithHash	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp	AptObject::AptObject	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup.cpp	AptValueWithHash::AptValueWithHash	1
@@ -14555,6 +14553,8 @@ present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberL
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp	AptObject::AptObject	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp	AptValueGC::AptValueGC	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp	AptValueWithHash::AptValueWithHash	1
+present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueGC::AptValueGC	1
+present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunction.cpp	AptValueWithHash::AptValueWithHash	1
 present_unmatched	Code/Libraries/Source/Apt/AptObject/AptScriptFunctionBodies_AptScriptFunctionBase.cpp	AptObject::AptObject	1
 present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva006DA4D0::Rva006DA4D0	1
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
