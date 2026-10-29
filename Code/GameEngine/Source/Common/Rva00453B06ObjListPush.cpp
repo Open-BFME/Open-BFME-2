@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 #include <list>
 
 // __node_alloc<1,0>::allocate (STLport node path) otherwise emits a per-TU

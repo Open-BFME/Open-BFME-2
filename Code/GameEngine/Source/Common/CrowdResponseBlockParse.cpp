@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /arch:SSE /G7
-// stlport
+// stlport46
 // CrowdResponse INI block parse (retail 0x00415D33, 314 bytes): the parse
 // function of theCrowdResponseBlockParse (VA 0x00DC20E0 "CrowdResponse").
 // Target evidence: the three INIException texts at 0x0083A3A0, 0x0083A35C and

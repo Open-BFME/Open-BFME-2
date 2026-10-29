@@ -1,5 +1,5 @@
 // cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// stlport
+// stlport46
 // Open-BFME5: STLport deque<POD>::_M_push_back_aux_v, byte-twin of the
 // int specialization at 0x006472C0 (Rva006472C0DequeIntPushBackAux.cpp) --
 // same 101 bytes once relocations are masked; only the per-caller ILT reloc

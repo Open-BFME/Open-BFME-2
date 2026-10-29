@@ -1,5 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
-// stlport
+// stlport46
 // ??1Rva004F69C3@@QAE@XZ, retail 0x004F69C3, 19 bytes.
 // Holder dtor releasing TargetRef at +0xAC of pointee at +4 via rowed
 // fastcall 0x0007DEEF. Same shape as Rva002B2F97 holder with int pad at +0.

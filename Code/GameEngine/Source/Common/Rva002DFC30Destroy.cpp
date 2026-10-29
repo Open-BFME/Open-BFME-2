@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /GX /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /D_CRTIMP=
-// stlport
+// stlport46
 // ??$_Destroy@PAVRva002DFC30@@@_STL@@YAXPAVRva002DFC30@@0@Z @0x00331FF1 25B
 // Range destroy over 12-byte Rva002DFC30 elements via ICF twin dtor at 0x29D7C2.
 // Element layout int plus AsciiString at +4 plus byte at +8 matches rowed copy

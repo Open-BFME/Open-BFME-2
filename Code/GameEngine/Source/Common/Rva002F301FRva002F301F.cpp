@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // STLport 4.5.3 priority_queue<_Rva002EBB53Wrap *, vector<...>,
 // Rva002EBB53Compare>::pop, retail 0x002F301F, 26 bytes: pop_heap(c.begin(),
 // c.end(), comp) through pop_heap 0x002F1F02, then c.pop_back() as finish -=

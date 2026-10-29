@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 
 // ??$copy_backward@PAU?$pair@W4ObjectID@@I@_STL@@PAU12@@_STL@@YAPAU?$pair@W4ObjectID@@I@0@PAU10@00@Z RVA 0x004C72FE size 27
 // Evidence: pinned name; callee __copy_backward_ptrs 8-byte POD folded at 0x0030B378; caller __linear_insert pair at 0x005672AA; explicit instantiation exact mod reloc.
