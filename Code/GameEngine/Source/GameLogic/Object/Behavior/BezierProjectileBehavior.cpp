@@ -135,34 +135,6 @@ public:
 	int m_bfmeData[3];
 };
 
-class BezierProjectileBehavior
-{
-public:
-	void rva0045C026();
-	int bfmeCost(void) const;
-private:
-	unsigned int bfmeSize(void) const
-	{
-		return m_bfmeFinish - m_bfmeStart;
-	}
-
-	void *m_vtable;
-	const BezierProjectileBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;		// +0x08
-	char m_pad0C[0x28 - 0x0C];
-	ObjectID m_launcherID;		// +0x28
-	Coord3D m_launchPos;		// +0x2C
-	ObjectID m_victimID;		// +0x38
-	char m_pad3C[0x40 - 0x3C];
-	const WeaponTemplate *m_detonationWeaponTmpl;	// +0x40
-	BfmeTripleDL *m_bfmeStart;	// +0x44
-	BfmeTripleDL *m_bfmeFinish;	// +0x48
-	char m_pad4C[0x74 - 0x4C];
-	int m_extraBonusFlags;		// +0x74
-	char m_pad78[0x80 - 0x78];
-	bool m_hasDetonated;		// +0x80
-};
-
 // Six more: a complement that hands itself back, a clamped difference, a size
 // test, a band search, a flag test, and a counter that reports when it fills a
 // mask.
@@ -217,6 +189,34 @@ private:
 	BfmeNodeDI *m_bfmeList;					// +0x7C
 };
 
+class BezierProjectileBehavior
+{
+public:
+	void rva0045C026();
+	int bfmeCost(void) const;
+private:
+	unsigned int bfmeSize(void) const
+	{
+		return m_bfmeFinish - m_bfmeStart;
+	}
+
+	void *m_vtable;
+	const BezierProjectileBehaviorModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+	char m_pad0C[0x28 - 0x0C];
+	ObjectID m_launcherID;		// +0x28
+	Coord3D m_launchPos;		// +0x2C
+	ObjectID m_victimID;		// +0x38
+	char m_pad3C[0x40 - 0x3C];
+	const WeaponTemplate *m_detonationWeaponTmpl;	// +0x40
+	BfmeTripleDL *m_bfmeStart;	// +0x44
+	BfmeTripleDL *m_bfmeFinish;	// +0x48
+	char m_pad4C[0x74 - 0x4C];
+	int m_extraBonusFlags;		// +0x74
+	char m_pad78[0x80 - 0x78];
+	bool m_hasDetonated;		// +0x80
+};
+
 // tu-skeleton: 0x0045B4E2 15B ?rva0045B4E2@BezierProjectileBehavior@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0045B4F1 242B ??0BezierProjectileBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
@@ -225,6 +225,8 @@ private:
 
 // tu-skeleton: 0x0045B5F4 813B ?calcFlightPath@BezierProjectileBehavior@@AAE_N_N@Z -- matched in Code/GameEngine/Source/Common/Rva0055A246Ctor.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehavior.cpp
+
 // ---- from Code/GameEngine/Source/Common/Bfme5ThirtySeven.cpp
 
 // ?bfmeHasAny@Gen_001EFA70@@QBE_NXZ
@@ -232,12 +234,6 @@ bool Gen_001EFA70::bfmeHasAny(void) const
 {
 	return bfmeSize() > 0;
 }
-
-// tu-skeleton: 0x0045B936 197B ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0045B9FB 336B ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BB4B 29B ?bfmeCost@BezierProjectileBehavior@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Bfme5FortyThree.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme5Forty.cpp
 
@@ -256,18 +252,6 @@ bool Gen_001EFD20::bfmeIsNew(const BfmeThingDI *thing) const
 
 	return true;
 }
-
-// tu-skeleton: 0x0045BB8A 892B ?projectileFireAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorFire.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BF06 104B ?rva0045BF06@BezierProjectileBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BF6E 101B ??1BezierProjectileBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0045BFD9 69B ?getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0045C01E 8B ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDetonate.cpp
 
@@ -317,6 +301,32 @@ void BezierProjectileBehavior::rva0045C026()
 	m_hasDetonated = true;
 	obj->setStatus(OBJECT_STATUS_RVA0045C026_4, true);
 }
+
+// tu-skeleton: 0x0045B936 197B ?projectileLaunchAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0045B9FB 336B ?rva0045B9FB@BezierProjectileBehavior@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Bfme5FortyThree.cpp
+
+// Two constants either way, so the answer comes out as a borrow masked with
+// their difference.
+// ?bfmeCost@BezierProjectileBehavior@@QBEHXZ
+int BezierProjectileBehavior::bfmeCost(void) const
+{
+	return bfmeSize() > 0 ? 1 : 0x3FFFFFFF;
+}
+
+// tu-skeleton: 0x0045BB8A 892B ?projectileFireAtObjectOrPosition@BezierProjectileBehavior@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorFire.cpp (not merged yet)
+
+// tu-skeleton: 0x0045BF06 104B ?rva0045BF06@BezierProjectileBehavior@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0045BF6E 101B ??1BezierProjectileBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0045BFD3 6B ?name@BezierProjectileBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0045BFD9 69B ?getModuleNameKey@BezierProjectileBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0045C01E 8B ?rva0045BF06@BezierProjectileBehavior@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0045C226 1516B ?update@BezierProjectileBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BezierProjectileBehaviorUpdate.cpp (not merged yet)
 
