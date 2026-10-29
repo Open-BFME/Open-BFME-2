@@ -24,6 +24,7 @@ class WindowLayout;
 class Rva0023E928;
 class UnicodeString;
 class TerrainResourceManager;
+class LoadScreen;
 class UpdateModule;
 class GameInfo;
 class ThingTemplate;
@@ -66,6 +67,12 @@ public:
 // updateObjectsChangedTriggerAreas stores m_frameObjectsChangedTriggerAreas.
 // The script setters 0x003BB700 and 0x003BCA7B store their bool argument in
 // the scoring byte (+0x98) and the icon-UI byte (+0x9A).
+// PlaceEventTranslator::translateGameMessage (0x0043218A) swaps its
+// pendingBuild/builderObj spill homes with the TU's declaration count, and
+// not monotonically: before the +0x11C..+0x150 members joined, adding 1-8 or
+// 13-15 declarations broke it and 9-12 or 16-19 kept it. Check it after
+// adding members here; dead `extern int` lines in a scratch copy find the
+// exact windows.
 struct PlayerLeaveStatus;
 class GameLogic
 {
@@ -102,9 +109,25 @@ public:
 	int m_114; // +0x114; precise mode meaning remains unresolved
 
 private:
-	char pad118[0x125 - 0x118];
+	char pad118[0x11C - 0x118];
+
+public:
+	// The script setter 0x003BD2A6 stores its flag here, calling
+	// rva0023D68E first when the value changes.
+	unsigned char m_field11C; // +0x11C
+
+private:
+	char pad11D[0x120 - 0x11D];
+	// processProgress (0x0023D740) forwards to this screen's slot 0x10.
+	LoadScreen *m_loadScreen; // +0x120
+	char pad124[0x125 - 0x124];
 	bool m_flag125;
-	char pad126[0x170 - 0x126];
+	char pad126[0x128 - 0x126];
+	// processProgressComplete (0x0023D76E) sets a player's byte here and
+	// lastHeardFrom (0x0023CF1C) stamps its timeGetTime timeout; 8 slots.
+	unsigned char m_heardFlags[8]; // +0x128
+	unsigned long m_progressCompleteTimeout[8]; // +0x130
+	char pad150[0x170 - 0x150];
 	// Native handleBuildPlacements (0x002A21E1) enumerates resource claimants
 	// through this manager; WorldBuilder's corresponding field is at +0x174.
 	TerrainResourceManager *m_resourceManager;
@@ -123,6 +146,7 @@ public:
 	void rva0023F8DA(); // Verified native 0x0023F8DA game-over details
 	void rva0023DA49(); // Verified native 0x0023DA49 battle-complete wrapper
 	void rva0023DA4E(); // Verified native 0x0023DA4E battle-complete gate
+	void rva0023D68E(bool value); // 0x0023D68E, +0xAC object walk before the +0x11C store
 	void selectObject(Object *, bool, unsigned int, bool); // Verified native 0x0023C924
 	void ProcessCRC(unsigned int, int, unsigned int, GameMessage *, bool, BfmeThingEC *); // Verified native 0x00241529
 	void rva0023D080(int); // Verified native 0x0023D080, forwards to the void ArmySummarySystem::CallArmyToEngageInBattleByID
@@ -181,6 +205,7 @@ public:
 	void rva0023D17D();	// 0x0023D17D
 	void rva0023D201(int slotIndex, int status);	// 0x0023D201
 	void processProgress(int playerId, int percentage);	// 0x0023D740
+	void lastHeardFrom(int playerId);	// 0x0023CF1C
 	void rva0023FABE(Object *obj);	// 0x0023FABE
 	void friend_awakenUpdateModule(Object *obj, UpdateModule *updateModule, unsigned int when);	// 0x0024297F
 	bool rva00245EDF(void *arg1, int *out);	// 0x00245EDF

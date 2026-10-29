@@ -7,14 +7,7 @@
 
 #include <windows.h>
 
-class GameLogic
-{
-	char pad[0x130];
-	unsigned long m_progressCompleteTimeout[8];
-
-public:
-	void lastHeardFrom(int playerId);
-};
+#include "../../Common/GameLogicObjectLookupView.h"
 
 void GameLogic::lastHeardFrom(int playerId)
 {

@@ -13,18 +13,7 @@ public:
 	virtual void processProgress(int playerId, int percentage) = 0;
 };
 
-class GameLogic
-{
-	char pad[0x120];
-	LoadScreen *m_loadScreen;
-	char pad124[4];
-	unsigned char m_heardFlags[8];
-
-public:
-	void lastHeardFrom(int playerId);
-	void processProgress(int playerId, int percentage);
-	void processProgressComplete(int playerId);
-};
+#include "../../Common/GameLogicObjectLookupView.h"
 
 void GameLogic::processProgress(int playerId, int percentage)
 {

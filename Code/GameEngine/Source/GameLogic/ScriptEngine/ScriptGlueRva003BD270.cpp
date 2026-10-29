@@ -33,13 +33,7 @@ void ScriptActions::doHeroSelectButtonFlash(int a, int b)
 	((Rva002D36AEHost *)theRadarWindowOverrideSource)->rva002D36AE(a, BfmeClientFramesPerSecond * b);
 }
 
-class GameLogic
-{
-public:
-	void rva0023D68E(bool value);
-	char m_pad[0x11C];
-	unsigned char m_field11C;
-};
+#include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
 
