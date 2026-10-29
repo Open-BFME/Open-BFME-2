@@ -85,6 +85,7 @@ public:
  virtual const char *GetSnapshotName();
  virtual void DoXfer(Xfer *xfer);
  void createIcon();
+ void rva004E060C(unsigned char v);
  void rva004E0809();
 
 	
