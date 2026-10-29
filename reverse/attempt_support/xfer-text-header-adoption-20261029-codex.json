@@ -1,0 +1,27 @@
+{
+  "base": "eb384b72a19073f986ee9ae431ebb3766d45562c",
+  "preview_index": "85f6b7f40c",
+  "preview_date": "2026-10-29 15:08",
+  "object_comparison": {
+    "BfmeRva00C7B388Xfer": {
+      "comdats_before": 88,
+      "comdats_after": 88,
+      "changed": {},
+      "removed": [],
+      "added": [],
+      "definitions_equal": true,
+      "undefined_equal": true,
+      "weak_equal": true
+    },
+    "Xfer": {
+      "comdats_before": 63,
+      "comdats_after": 63,
+      "changed": {},
+      "removed": [],
+      "added": [],
+      "definitions_equal": true,
+      "undefined_equal": true,
+      "weak_equal": true
+    }
+  }
+}

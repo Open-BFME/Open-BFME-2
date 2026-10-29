@@ -33,7 +33,13 @@ class Xfer
 public:
 	class Version;
 
+	// XferSaveAsText inlines base construction without emitting another
+	// external constructor; System/Xfer.cpp owns the out-of-line body.
+#ifdef BFME_XFER_INLINE_CTOR
+	__declspec(dllimport) __forceinline Xfer() {}
+#else
 	Xfer();
+#endif
 	// Retail's scalar deleting destructor (Xfer.cpp) calls ~Xfer instead of
 	// inlining its vtable restore; only the defining TU sees the body.
 	// XferVectorDeletingDtor.cpp defines BFME_XFER_INLINE_DTOR: retail's

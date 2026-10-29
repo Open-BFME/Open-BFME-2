@@ -1,5 +1,16 @@
 # Linking target checklist
 
+XferSaveAsText header follow-up (2026-10-29, base `eb384b72a1`): the shared
+Xfer header's opt-in imported-inline constructor preserves the existing
+emission contract and lets the text saver retire one header-queue row.
+Paired source/owner checks retain all 79 rows, all 151 COMDAT fingerprints
+and the 4,462-byte LINKS preview against index `85f6b7f40c`. The remaining
+five Xfer header entries and full consumer/census confirmation remain open.
+[Evidence and boundaries](../reverse/attempt_support/xfer-text-header-adoption-20261029-codex.md). The dependent byte gate passes; the outgoing audit
+is inconclusive on the older index and 640 missing census receipts (first
+AIGuardState_xfer.cpp). Carry the full 642-source header scope into the next
+scheduled census.
+
 Strategic player status header cleanup (2026-10-29, base `8f350110e4`):
 StrategicPlayerStatusCallbacks.cpp replaces two local CRT declarations with
 stdio.h and retains 7/7 rows, both imports and the 684-byte LINKS preview.

@@ -14,8 +14,8 @@
 // The method names are the base Xfer's, mapped slot by slot (the operator==
 // run is laid out in reverse declaration order, as Xfer.cpp explains).
 //
-// The base class and the value types below are Xfer.cpp's model verbatim, so
-// the vtable lines up with the shipped one.
+// The base uses the shared Xfer interface; the value types below retain
+// Xfer.cpp's layouts so the transfers line up with the shipped ones.
 
 #include <stdarg.h>
 
@@ -96,69 +96,17 @@ class PooledString
 public:
     const char *peek() const { return reinterpret_cast<const char *>(m_data + 1); }
 };
-struct XferUnknown11;
-
 // upstream layout: Code/GameEngine/Source/Common/System/Xfer.cpp (retail vtable 0x00BBB910)
 // cl builds the by-product ??_GXfer with the inline state in force where the
 // class definition ends; inline_depth(0) there makes it call ~Xfer, as the
 // ledger's ??_GXfer (0x0060C8B1) does, while bodies below still inline it.
 #pragma inline_depth(0)
-class Xfer
-{
-public:
-    class Version;
-
-    __declspec(dllimport) __forceinline Xfer() {}
-    virtual ~Xfer() {}
-
-    void Version1();
-
-    // Slot 2 is IsStoring: XferSave (0x0087B010) and XferSaveAsText
-    // (0x0087B388) both put a return-true body there.
-    virtual bool IsLoading() const;
-    virtual bool IsStoring() const;
-    virtual bool IsCRC() const;
-    virtual bool IsLightCRC() const;
-
-    virtual void v5() = 0;
-    virtual void EndBlock() = 0;
-    virtual void v7() = 0;
-
-    virtual void SkipBadBlock(Snapshot &snapshot, unsigned int size);
-    virtual Xfer &XferRawBytes(void *data, unsigned int size);
-    virtual Xfer &operator==(bool &value);
-    virtual Xfer &operator==(char &value);
-    virtual Xfer &operator==(unsigned char &value);
-    virtual Xfer &operator==(short &value);
-    virtual Xfer &operator==(unsigned short &value);
-    virtual Xfer &operator==(int &value);
-    virtual Xfer &operator==(unsigned int &value);
-    virtual Xfer &operator==(__int64 &value);
-    virtual Xfer &operator==(float &value);
-    virtual Xfer &operator==(AsciiString &value);
-    virtual Xfer &operator==(UnicodeString &value);
-    virtual Xfer &operator==(PooledString &value);
-    virtual Xfer &operator==(Coord3DBase &value);
-    virtual Xfer &operator==(ICoord3D &value);
-    virtual Xfer &operator==(Region3D &value);
-    virtual Xfer &operator==(IRegion3D &value);
-    virtual Xfer &operator==(Coord2D &value);
-    virtual Xfer &operator==(ICoord2D &value);
-    virtual Xfer &operator==(Region2D &value);
-    virtual Xfer &operator==(IRegion2D &value);
-    virtual Xfer &operator==(RealRange &value);
-    virtual Xfer &operator==(RGBColor &value);
-    virtual Xfer &operator==(RGBAColorReal &value);
-    virtual Xfer &operator==(RGBAColorInt &value);
-    virtual Xfer &operator==(Snapshot &value);
-    virtual Xfer &operator==(XferUnknown11 &value) = 0;
-    virtual Xfer &operator==(Version &value);
-
-    virtual Xfer &XferEnum(const char *name, void *data, unsigned int size);
-
-protected:
-    virtual void XferData(unsigned int type, void *data, unsigned int size) = 0;
-};
+#define BFME_XFER_INLINE_CTOR
+#define BFME_XFER_INLINE_DTOR
+#include "../../../Include/Common/BfmeXfer.h"
+#undef BFME_XFER_INLINE_DTOR
+#undef BFME_XFER_INLINE_CTOR
+inline Xfer::~Xfer() {}
 #pragma inline_depth()
 
 class Xfer::Version
