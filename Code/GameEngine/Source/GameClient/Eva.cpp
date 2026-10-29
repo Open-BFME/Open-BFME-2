@@ -7,6 +7,7 @@
 // -1 is the immutable float at .rdata RVA 0x007BB9AC (data_ledger.csv), so use
 // the verified compiler literal rather than an address-named global.
 #include <xmmintrin.h>
+#include <stdlib.h>
 struct ClrCoord
 
 {
@@ -722,7 +723,6 @@ void Rva001DEE92Member::rva001DEE92(int count) {
 // and unread field meanings remain neutral/carried from the existing view.
 // EHs preserves the retail state ending before free; all pre-existing Eva
 // bodies remain byte-exact under this matched-sibling setting.
-extern "C" void __cdecl free(void *block) throw(...);
 class Rva000427195 {public:void rva003A2A41();};
 struct Rva001DDBF3Buckets
 {
