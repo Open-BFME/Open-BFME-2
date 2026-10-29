@@ -730,3 +730,41 @@ selects unrelated backlog or starts an apply when nothing newly agreed. Default
 submission still records proposals only. `--max-files` controls the verification
 bound for this optional apply. Failed verification restores source and records
 blocked outcomes while retaining the votes. Neither command commits or pushes.
+
+### Automatically dispatch independent second reviews
+
+Enable a stable reviewer seat once per local fleet:
+
+```sh
+python3 tools/name_lane.py review configure --worker bfme-independent-name-reviewer
+```
+
+Configuration uses the installed Codex CLI's actual model by default; pass
+`--model` to select another available model. This enables real model execution
+and uses that account's credits. Each subsequent submission with new votes
+starts a background review pass. The submitting worker can continue immediately.
+A shared lock permits one AI reviewer at a time, with at most ten keys, six
+files, 150,000 packet characters and a 300-second model timeout per pass.
+Busy passes exit; remaining work waits for the next submission or explicit pass.
+Completed skips/rejections are remembered per worker and source hash, so an
+unchanged target is not repeatedly sent to the model.
+Git worktrees share configuration and the lock through their common repository.
+Independent clones should set `BFME_NAME_REVIEW_CONFIG` to the same fleet-local
+configuration path to share the slot. Keep the reviewer identity stable across
+batches; changing it to manufacture additional votes defeats independent review.
+
+The child is a fresh, ephemeral, read-only Codex process outside the repository.
+It receives only source and target keys, with no original proposals or vote
+hashes. It must use the packet only; tool-using, malformed, incomplete, failed
+or timed-out answers contribute no votes. Source hashes and current protections
+are rechecked through normal submission after it finishes. Different answers
+remain disagreements. The reviewer records proposals and approvals only.
+
+The integrator can run `python3 tools/name_lane.py apply --limit 20` for ready
+approvals, or run a foreground `review --apply-ready 10` pass to verify and apply
+new approvals under the integrator's own identity. All usual claims, quorum,
+byte checks, consumer checks and failure rollback remain in force. Larger source
+fan-out still requires an explicit reviewed `--max-files` override on apply.
+No reviewer commits or pushes. Inspect `review status` and the local
+`build/name_lane/reviewer-last.json` / `review-dispatch.log`; `review disable`
+stops automatic launches. Installation without configuration stays proposal-only.

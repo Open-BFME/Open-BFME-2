@@ -826,6 +826,10 @@ structured form or skip if you cannot justify its meaning.
 
 @claims.pick_snapshot()
 def cmd_next(lane, args):
+    selected_keys = set(getattr(args, "key", None) or ())
+    max_keys = getattr(args, "max_keys", None)
+    if max_keys is not None and max_keys < 1:
+        fail("--max-keys must be positive")
     session, model = session_id(args.session), model_id(args.model)
     worker = lane.worker()
     state = lane.state()
@@ -854,7 +858,7 @@ def cmd_next(lane, args):
     skipped = len(files) - len(available)
     if skipped:
         print(f"name_lane: skipped {skipped} source file(s) held by other workers", file=sys.stderr)
-    files = available
+    files = [rel for rel in available if not selected_keys or any(k.startswith(rel + "|") for k in selected_keys)]
     sticky = lane.path(f"{LANE_DIR}/subsystems/{worker}.json")
     preferred = current.get("subsystem")
     if not mixed and not prefix and not args.file:
@@ -866,7 +870,12 @@ def cmd_next(lane, args):
     selected = None
     selected_review = None
     selected_meaning = None
+    def key_count():
+        return (sum(len(entry["items"]) for entry in current["files"].values())
+                + sum(sum(entry["kinds"].values()) for entry in metadata))
     for rel in files:
+        if max_keys is not None and key_count() >= max_keys:
+            break
         group, basis = lane.subsystem(rel) if not mixed else (None, "mixed")
         if prefix and not (under(group, prefix) or under(rel, prefix)):
             if args.file:
@@ -880,7 +889,7 @@ def cmd_next(lane, args):
         if text is None or len(text) > MAX_CHARS:
             continue
         items = [i for i in lane.owned(rel, text)
-                 if needs_review(key_of(rel, *i[:3]), state, tally, refused)
+                 if (not selected_keys or key_of(rel, *i[:3]) in selected_keys) and needs_review(key_of(rel, *i[:3]), state, tally, refused)
                  and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
                       or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
         targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
@@ -897,7 +906,10 @@ def cmd_next(lane, args):
             review = bool(items)
         else:
             items = [i for i in items if key_of(rel, *i[:3]) not in clarifications.get(rel, ())]
-        if len(items) < (1 if voted[rel] or args.file else 3):      # an asked-for file needs one key
+        if max_keys is not None:
+            remaining = max_keys - key_count()
+            items = items[:max(0, remaining)]
+        if len(items) < (1 if voted[rel] or args.file or explicit_review else 3):      # an asked-for file needs one key
             continue
         if selected_review is None:
             selected_review = review
@@ -1056,12 +1068,19 @@ def cmd_submit(lane, args, *, lead=2, min_models=1, verify=rename.build_verify, 
           + ("; run `python3 tools/name_lane.py apply` to land them" if agreed and apply_ready is None else ""))
     if meanings:
         print(f"name_lane: stage {VOTES}, {MEANINGS} and {AGREED} together for structured meanings")
+    result = 0
     if apply_ready is not None and agreed:
-        return cmd_apply(lane, argparse.Namespace(
+        result = cmd_apply(lane, argparse.Namespace(
             key=[row["key"] for row in agreed], retry_blocked=False, only_labels=None,
             lead=lead, min_models=min_models, claim=True, limit=apply_ready,
             max_files=getattr(args, "max_files", 25)), verify=verify, checks=checks)
-    return 0
+    if votes and not getattr(args, "no_auto_review", False):
+        import name_review
+        try:
+            name_review.maybe_launch(lane)
+        except (name_review.ReviewError, OSError, ValueError) as exc:
+            print(f"name_lane: votes recorded; reviewer dispatch failed: {exc}", file=sys.stderr)
+    return result
 
 
 def lane_spelling(lane, name, kind):
@@ -1307,6 +1326,8 @@ def main(argv=None, lane=None):
     n.add_argument("--subsystem", metavar="CODE_PREFIX",
                    help="restrict to this source/approved-TU directory; one subsystem per batch")
     n.add_argument("--mixed", action="store_true", help="retain the shuffled multi-subsystem queue")
+    n.add_argument("--key", action="append", help="serve only this exact source|kind|scope|placeholder key")
+    n.add_argument("--max-keys", type=int, help="maximum keys in the entire served batch")
     n.add_argument("--review-only", action="store_true", help="serve only shared names needing a different second voter")
     n.add_argument("--meaning-review-only", action="store_true", help="clarify your own unannotated scoped votes in disputes")
     n.add_argument("--list-only", action="store_true",
@@ -1342,6 +1363,9 @@ def main(argv=None, lane=None):
     st.add_argument("--min-models", type=int, default=1, help="with --only-labels: the min-models apply would use")
     reconcile = sub.add_parser("reconcile", help="report existing-type collisions for evidence-backed reconciliation; edits nothing")
     reconcile.add_argument("--key", action="append", help="select an exact pending class key (repeatable)")
+    import name_review
+    review = sub.add_parser("review", help="configure or run bounded automatic blind second reviews")
+    name_review.configure_parser(review)
     placement = sub.add_parser("consolidate", help="build original-file evidence and consolidation packets; applies nothing")
     import source_layout
     source_layout.configure_parser(placement)
@@ -1352,6 +1376,12 @@ def main(argv=None, lane=None):
         except (ValueError, OSError) as exc:
             ap.exit(2, f"source-layout: {exc}\n")
     lane = lane or Lane()
+    if args.cmd == "review":
+        try:
+            return name_review.run(lane, args)
+        except (name_review.ReviewError, OSError, ValueError) as exc:
+            print(f"name_lane: reviewer failed: {exc}", file=sys.stderr)
+            return 2
     if args.cmd == "next":
         return cmd_next(lane, args)
     if args.cmd == "submit":
