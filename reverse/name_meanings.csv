@@ -148,3 +148,14 @@ Code/GameEngine/Source/GameLogic/Object/Behavior/PhysicsBehaviorRva00390601_Rva0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E0AE2ObjectRegistration.cpp|local|Rva000E07F4Host::rva000E0584|p,e0cbeb95ba6f9f28c6b28da0,drz-k11,drz-k11-9,w-09889333d128,2026-10-29,7800e28f7ed699b07f67e759
 Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdate.cpp|param|Rva002A1316Iterator|p,24398e31bc8977b61bd3c69c,drz-k11,drz-k11-10,w-09889333d128,2026-10-29,73f0d92796c0f9a168ff26d9
 Code/GameEngine/Source/Common/Rva00572DE8Slot1.cpp|local|Rva00572DE8::rva00572E0F|t,6b9c8c7fdc8faea9ab9f744f,drz-k11,drz-k11-11,w-09889333d128,2026-10-29,976e12bebd00ee98556840d6
+Code/GameEngine/Source/Common/Rva005E6A23Rva005E6A23Farm.cpp|param|TreeHintRef00217D4C|p,39a281b8c9b9790ad7d511ce,drz-k2,drz-k2-1,w-ded32b2e2c5e,2026-10-29,b49afdfe2865f40bcc2b51e4
+Code/GameEngine/Source/Common/Rva005E6A23Rva005E6A23Farm.cpp|param|HeroDetailsPair#3|c,0c19fb82ed3477a9ca520530,drz-k2,drz-k2-1,w-ded32b2e2c5e,2026-10-29,cda09cd70d1628b0dccd1a57
+Code/GameEngine/Source/Common/Rva005E6A23Rva005E6A23Farm.cpp|param|HeroDetailsPair#3|e,8a070c12575306f58a423485,drz-k2,drz-k2-1,w-ded32b2e2c5e,2026-10-29,a45d9a51fa2910df8c2df4eb
+Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderFootprintAttackRangeQuery.cpp|local|Pathfinder::rva002EC479|l,8ce55a82695b0f04a3565c5e,drz-k2,drz-k2-4,w-ded32b2e2c5e,2026-10-29,f4b3b44f0316af4f99f97625
+Code/GameEngine/Source/Common/System/Rva0007517FVslot24.cpp|param|Rva0007517F::rva00074A52|x,9cbb149fb118a0e83cc0ca01,drz-k2,drz-k2-9,w-ded32b2e2c5e,2026-10-29,ba30ba6c3943f48423b9af86
+Code/GameEngine/Source/Common/System/Rva0007517FVslot24.cpp|param|Rva0007517F::rva00074A52|y,507e493b0481a0a8d9ded864,drz-k2,drz-k2-9,w-ded32b2e2c5e,2026-10-29,c4b67e5f99f985cfc34709bd
+Code/GameEngine/Source/GameLogic/AI/AIEconomyBuilderUpdate.cpp|param|setPlayer|p,335020280cb98ee60832d897,drz-k2,drz-k2-10,w-ded32b2e2c5e,2026-10-29,f5f9183ed658d87cd2261e37
+Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp|param|zeroCoord3D|c,d761164baceafb1411c4335d,drz-k2,drz-k2-15,w-ded32b2e2c5e,2026-10-29,8db608f7210ccdb961789d8e
+Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|BfmeThingVKE|o,91568bbaa8d1a69764d6aefb,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,7e5b0fc550dd16348a348ea7
+Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|Rva000B9887Init|a,2df0d3e0f38f3fa94aef5209,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,532ff003004bfeef359a1b95
+Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|Rva000B9887Init|b,32f733ba80c690a362017829,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,aa5b6133920b80c0815dd73b
