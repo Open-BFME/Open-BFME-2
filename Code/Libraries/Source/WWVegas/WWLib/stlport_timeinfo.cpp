@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 src/time_facets.cpp and stl/_algobase.h.
 // Initialize the complete 540-byte _Time_Info using the original classic
