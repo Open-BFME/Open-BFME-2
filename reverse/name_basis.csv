@@ -4378,3 +4378,7 @@ local,rva00094E2C::d,rva00094E2C::absoluteDelta,inferred,agree:nl-74e9e79d95a4,C
 param,Rva00094DB3Vector::x,Rva00094DB3Vector::initialX,inferred,agree:nl-009ea9d44614,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,
 param,Rva00094DB3Vector::y,Rva00094DB3Vector::initialY,inferred,agree:nl-07da6fcd4fea,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,
 param,Rva00094DB3Vector::z,Rva00094DB3Vector::initialZ,inferred,agree:nl-b5b611d96309,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,
+member,Rva00343EFATemplateView::m_5FD,Rva00343EFATemplateView::m_useCrushAttack,inferred,agree:nl-8727d3bd7315,Code/GameEngine/Source/Common/GapBodiesS3G.cpp,
+param,Rva000858EE::a,Rva000858EE::start,inferred,agree:nl-7d6d52b63a81,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000858EE
+param,Rva000858EE::b,Rva000858EE::end,inferred,agree:nl-8afadcc18993,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000858EE
+function,?rva0004C6C6@Rva0004C6C6@@QAEXM@Z,?setFrameRate@Rva0004C6C6@@QAEXM@Z,inferred,agree:nl-6c0dac4c240d,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x0004C6C6

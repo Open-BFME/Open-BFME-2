@@ -195,10 +195,10 @@ Rva00SlotFloat3Copy Rva00095343::rva00095343()
 class Rva0004C6C6
 {
 public:
-	void rva0004C6C6(float value);
+	void setFrameRate(float value);
 };
 
-void Rva0004C6C6::rva0004C6C6(float value)
+void Rva0004C6C6::setFrameRate(float value)
 {
 	TheW3DFrameLengthInMsec = (int)value;
 }
@@ -431,12 +431,12 @@ float Rva00101CA0::rva00101CA0()
 // Native 858EE..85947: two three-float values and return storage (RET 28).
 // Component accesses and the 0.0625 literal at VA BC747C establish the lerp;
 // the original method name and owner are unknown.
-Rva00SlotFloat3Copy __stdcall Rva000858EE(Rva00SlotFloat3Copy a,
-                                        Rva00SlotFloat3Copy b)
+Rva00SlotFloat3Copy __stdcall Rva000858EE(Rva00SlotFloat3Copy start,
+                                        Rva00SlotFloat3Copy end)
 {
 	Rva00SlotFloat3Copy result;
-	result.x = a.x + (b.x - a.x) * 0.0625f;
-	result.y = a.y + (b.y - a.y) * 0.0625f;
-	result.z = a.z + (b.z - a.z) * 0.0625f;
+	result.x = start.x + (end.x - start.x) * 0.0625f;
+	result.y = start.y + (end.y - start.y) * 0.0625f;
+	result.z = start.z + (end.z - start.z) * 0.0625f;
 	return result;
 }

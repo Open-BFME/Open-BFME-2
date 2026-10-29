@@ -30,7 +30,7 @@ struct Rva00343EFATemplateView
 	char m_pad000[0x113];
 	unsigned char m_113;									// +0x113
 	char m_pad114[0x5FD - 0x114];
-	bool m_5FD;												// +0x5FD
+	bool m_useCrushAttack;												// +0x5FD
 };
 
 struct Rva00343EFAPlayerView
@@ -84,7 +84,7 @@ bool wantToSquishTarget(Rva00343EFAState *state)
 	Object *owner = state->m_machine->getOwner();
 	Object *goal = state->m_machine->getGoalObject();
 	if (owner && goal &&
-			owner->m_template->m_5FD &&
+			owner->m_template->m_useCrushAttack &&
 			goal->m_274 == 0 &&
 			owner->m_ai &&
 			owner->m_ai->getWhichTurretForCurWeapon() != TURRET_INVALID &&
