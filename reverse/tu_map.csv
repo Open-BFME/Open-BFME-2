@@ -47762,7 +47762,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00583092,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
 0x005830AE,115,code,,,-,,Code/GameEngine/Source/Common/Rva005830AE.cpp
 0x00583121,225,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,N,N=Code/GameEngine/Source/Common/AptFileTransferPopup.cpp provisional,Code/GameEngine/Source/Common/AptHeroPowerText.cpp
-0x00583202,206,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,N,N=Code/GameEngine/Source/Common/AptFileTransferPopup.cpp provisional,Code/GameEngine/Source/Common/Rva00583202Timeout.cpp
+0x00583202,206,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,N,N=Code/GameEngine/Source/Common/AptFileTransferPopup.cpp provisional,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp
 0x005832D0,137,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,N,N=Code/GameEngine/Source/Common/AptFileTransferPopup.cpp provisional,Code/GameEngine/Source/Common/Rva005832D0MapName.cpp
 0x00583359,860,code,,,-,W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptFileTransferPopup.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptFileTransferPopupCtor.cpp
 0x005836B5,84,code,,,-,,Code/GameEngine/Source/Common/Rva00583015Destroy.cpp
@@ -86834,9 +86834,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079C9E7,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583121@FuncInfo0x00952478 provisional,Code/GameEngine/Source/Common/AptHeroPowerText.cpp
 0x0079C9EF,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583121@FuncInfo0x00952478 provisional,Code/GameEngine/Source/Common/AptHeroPowerText.cpp
 0x0079C9F7,10,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583121@FuncInfo0x00952478 provisional,Code/GameEngine/Source/Common/AptHeroPowerText.cpp
-0x0079CA01,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/Rva00583202Timeout.cpp
-0x0079CA09,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/Rva00583202Timeout.cpp
-0x0079CA11,10,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/Rva00583202Timeout.cpp
+0x0079CA01,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp
+0x0079CA09,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp
+0x0079CA11,10,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x00583202@FuncInfo0x009524A4 provisional,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp
 0x0079CA1B,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x005832D0@FuncInfo0x009524D0 provisional,Code/GameEngine/Source/Common/Rva005832D0MapName.cpp
 0x0079CA23,8,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x005832D0@FuncInfo0x009524D0 provisional,Code/GameEngine/Source/Common/Rva005832D0MapName.cpp
 0x0079CA2B,10,code,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,approved,P,P=0x005832D0@FuncInfo0x009524D0 provisional,Code/GameEngine/Source/Common/Rva005832D0MapName.cpp
