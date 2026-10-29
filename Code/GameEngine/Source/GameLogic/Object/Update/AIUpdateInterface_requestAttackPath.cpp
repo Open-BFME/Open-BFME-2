@@ -21,9 +21,14 @@ typedef bool Bool;
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
+// Retail calls the game's direct fprintf wrapper rather than the CRT import.
+#define _CRTIMP
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+
 extern unsigned char g_00E03745;
-extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
+extern "C" FILE *theLogicRandomLogFile;
 
 extern int BfmeLogicFramesPerSecond;
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
@@ -230,7 +235,7 @@ void AIUpdateInterface::requestAttackPath(ObjectID victimID, const Coord3D *vict
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = theLogicRandomLogFile;
 		if (log != 0)
 			fprintf(log, "CritterDesync: requestAttackPath1-- m_requestedDestination changing from %g,%g,%g to %g,%g,%g",
 				m_requestedDestination.x, m_requestedDestination.y, m_requestedDestination.z,
