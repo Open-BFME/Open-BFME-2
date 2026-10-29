@@ -1,0 +1,119 @@
+--- a/Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp
+@@ -99 +99,115 @@
+-template TreeIntPtrLower::iterator TreeIntPtrLower::insert_unique(TreeIntPtrLower::iterator, const TreeIntPtrLower::value_type &);
++
++// The native insert target has the existing State-pointer tree spelling.
++extern "C" void __identifier("?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAUState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAUState@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAUState@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAUState@@@2@0@Z")();
++typedef TreeIntPtrLower::iterator (__thiscall *NativeStateInsert)(void *,
++    _STL::_Rb_tree_node_base *, _STL::_Rb_tree_node_base *,
++    const PairIntPtrLower &, _STL::_Rb_tree_node_base *);
++
++namespace _STL {
++// ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAX@_STL@@@2@@2@U32@ABU?$pair@$$CBIPAX@2@@Z
++template <> inline TreeIntPtrLower::iterator
++TreeIntPtrLower::insert_unique(TreeIntPtrLower::iterator __position, const PairIntPtrLower &__v)
++{
++  typedef _STL::_Select1st<PairIntPtrLower> _KeyOfValue;
++  NativeStateInsert nativeInsert = (NativeStateInsert)&__identifier("?_M_insert@?$_Rb_tree@IU?$pair@$$CBIPAUState@@@_STL@@U?$_Select1st@U?$pair@$$CBIPAUState@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAUState@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIPAUState@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIPAUState@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIPAUState@@@2@0@Z");
++  if (__position._M_node == this->_M_header._M_data->_M_left) { // begin()
++
++    // if the container is empty, fall back on insert_unique.
++    if (size() <= 0)
++      return insert_unique(__v).first;
++
++    if ( _M_key_compare(_KeyOfValue()(__v), _S_key(__position._M_node)))
++      return nativeInsert(this, __position._M_node, __position._M_node, __v, 0);
++    // first argument just needs to be non-null
++    else
++      {
++	bool __comp_pos_v = _M_key_compare( _S_key(__position._M_node), _KeyOfValue()(__v) );
++
++	if (__comp_pos_v == false)  // compare > and compare < both false so compare equal
++	  return __position;
++	//Below __comp_pos_v == true
++
++	// Standard-conformance - does the insertion point fall immediately AFTER
++	// the hint?
++	iterator __after = __position;
++	++__after;
++
++	// Check for only one member -- in that case, __position points to itself,
++	// and attempting to increment will cause an infinite loop.
++	if (__after._M_node == this->_M_header._M_data)
++	  // Check guarantees exactly one member, so comparison was already
++	  // performed and we know the result; skip repeating it in _M_insert
++	  // by specifying a non-zero fourth argument.
++	  return nativeInsert(this, 0, __position._M_node, __v, __position._M_node);
++
++
++	// All other cases:
++
++	// Optimization to catch insert-equivalent -- save comparison results,
++	// and we get this for free.
++	if(_M_key_compare( _KeyOfValue()(__v), _S_key(__after._M_node) )) {
++	  if (_S_right(__position._M_node) == 0)
++	    return nativeInsert(this, 0, __position._M_node, __v, __position._M_node);
++	  else
++	    return nativeInsert(this, __after._M_node, __after._M_node, __v, 0);
++	} else {
++	    return insert_unique(__v).first;
++	}
++      }
++
++  } else if (__position._M_node == this->_M_header._M_data) { // end()
++    if (_M_key_compare(_S_key(_M_rightmost()), _KeyOfValue()(__v)))
++      // pass along to _M_insert that it can skip comparing
++      // v, Key ; since compare Key, v was true, compare v, Key must be false.
++      return _M_insert(0, _M_rightmost(), __v, __position._M_node); // Last argument only needs to be non-null
++    else
++      return insert_unique(__v).first;
++  } else {
++    iterator __before = __position;
++    --__before;
++
++    bool __comp_v_pos = _M_key_compare(_KeyOfValue()(__v), _S_key(__position._M_node));
++
++    if (__comp_v_pos
++      && _M_key_compare( _S_key(__before._M_node), _KeyOfValue()(__v) )) {
++
++      if (_S_right(__before._M_node) == 0)
++        return nativeInsert(this, 0, __before._M_node, __v, __before._M_node); // Last argument only needs to be non-null
++      else
++        return nativeInsert(this, __position._M_node, __position._M_node, __v, 0);
++    // first argument just needs to be non-null
++    } else
++      {
++	// Does the insertion point fall immediately AFTER the hint?
++	iterator __after = __position;
++	++__after;
++
++	// Optimization to catch equivalent cases and avoid unnecessary comparisons
++	bool __comp_pos_v = !__comp_v_pos;  // Stored this result earlier
++	// If the earlier comparison was true, this comparison doesn't need to be
++	// performed because it must be false.  However, if the earlier comparison
++	// was false, we need to perform this one because in the equal case, both will
++	// be false.
++	if (!__comp_v_pos) __comp_pos_v = _M_key_compare(_S_key(__position._M_node), _KeyOfValue()(__v));
++
++	if ( (!__comp_v_pos) // comp_v_pos true implies comp_v_pos false
++	     && __comp_pos_v
++	     && (__after._M_node == this->_M_header._M_data ||
++	        _M_key_compare( _KeyOfValue()(__v), _S_key(__after._M_node) ))) {
++
++	  if (_S_right(__position._M_node) == 0)
++	    return nativeInsert(this, 0, __position._M_node, __v, __position._M_node);
++	  else
++	    return nativeInsert(this, __after._M_node, __after._M_node, __v, 0);
++	} else {
++	  // Test for equivalent case
++	  if (__comp_v_pos == __comp_pos_v)
++	    return __position;
++	  else
++	    return insert_unique(__v).first;
++	}
++      }
++  }
++}
++}
++

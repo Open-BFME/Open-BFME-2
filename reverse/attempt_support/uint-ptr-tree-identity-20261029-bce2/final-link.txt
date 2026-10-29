@@ -1,0 +1,5 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp: LINKS  LINKED 747 -> 747 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 747)
+Code/Libraries/Source/WWVegas/WWLib/stlport_modulefactory_map_copy.cpp: LINKS  LINKED 1,029 -> 1,029 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 1,029)
+link_check: 2 of 2 link cleanly; LINKED 1,776 -> 1,776 bytes (5.6s)

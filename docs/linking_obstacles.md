@@ -8,9 +8,14 @@ its EH graph and the other 46 of 48 scoped bindings remain exact/unchanged;
 the source retains its 747-byte LINKS preview against index 85f6b7f40c.
 Debt retirement remains blocked on 231 missing ledger objects, three stale
 providers and an unchanged base-constructor binding outside this source's
-register. The second registered insert-helper binding still needs investigation.
-No census gain or register retirement is claimed. Check affected consumers
-and carry the removed legacy clone copy into the next scheduled census.
+register. The second insert-helper trial is restored: the native State-tree
+method is private, and VS2003 rejects the explicit __thiscall function-pointer
+adapter (C4234). Its provider cohort also retains its existing selected-copy
+blockers. Strict preparation verifies 19 caller/clone-provider rows; their
+previews retain 747 and 1,029 bytes. The outgoing audit is INCONCLUSIVE on the
+older index and missing receipt for Common/0CreateAHeroManager21FE49.cpp.
+No census gain or register retirement is claimed. Carry that consumer and
+the removed legacy clone copy into the next scheduled census.
 [Proof and boundaries](../reverse/attempt_support/uint-ptr-tree-identity-20261029-bce2/README.md).
 
 ### AIUpgrade consolidation needs a compatible vtable (2026-10-29)
