@@ -7,16 +7,6 @@
 #include "ascii_string.h"
 #define TRUE true
 #define FALSE false
-#define TRUE true
-#define FALSE false
-#define TRUE true
-#define FALSE false
-#define TRUE true
-#define FALSE false
-#define TRUE true
-#define FALSE false
-#define TRUE true
-#define FALSE false
 
 typedef bool Bool;
 
@@ -217,10 +207,6 @@ extern GameClient *TheGameClient;
 // tu-skeleton: 0x00105F6E 38B ?setWordWrap@W3DDisplayString@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
 
 // tu-skeleton: 0x00105F94 50B ?setUseHotkey@W3DDisplayString@@UAEX_NH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
-
-// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
-
-// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 
