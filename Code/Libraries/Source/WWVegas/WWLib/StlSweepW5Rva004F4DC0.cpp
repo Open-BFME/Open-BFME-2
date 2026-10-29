@@ -1,15 +1,30 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// STLport 4.5.3 pointer-range __copy over ProductionPrerequisite::PrereqUnitRec.
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
+//
+// 0x004F4DC0 (50B) walks 12-byte records and calls the record's implicit
+// operator= (0x002CEFAA: copies unit and flags, then StringBase<char>::set on
+// the name at +8) for each one. Its callers are vector<PrereqUnitRec>::erase
+// (0x004F50E2, through the __copy_ptrs forwarder 0x002CF594) and the record
+// vector's operator=. The record is Zero Hour's
+// ProductionPrerequisite::PrereqUnitRec {unit, flags, name}; this unit emits
+// the copy loop and the record's operator=.
 #include <vector>
+#include "ascii_string.h"
 
-struct Rva004F4DC0Element {Rva004F4DC0Element();Rva004F4DC0Element(const Rva004F4DC0Element&);Rva004F4DC0Element&operator=(const Rva004F4DC0Element&);~Rva004F4DC0Element(){}char bytes[12]; bool operator==(const Rva004F4DC0Element&)const;};
+class ThingTemplate;
 
-// Instantiate the recovered operation and its required template dependencies.
-template Rva004F4DC0Element * _STL::__copy<Rva004F4DC0Element *, Rva004F4DC0Element *, int>(Rva004F4DC0Element *, Rva004F4DC0Element *, Rva004F4DC0Element *, _STL::random_access_iterator_tag const &, int *);
+class ProductionPrerequisite
+{
+public:
+	struct PrereqUnitRec
+	{
+		const ThingTemplate *unit;
+		int flags;
+		AsciiString name;
+	};
+};
 
-// The retail call in this body reads 0x002CEFAA, an address the ledger already
-// carries as ??0?$pair@$$CBU?$pair@HH@_STL@@URva002CEFAAElement@@@_STL@@QAE@ABU01@@Z. Bind the donor spelling to that rowed owner so one
-// address keeps one definition and the unit links.
-#pragma comment(linker, "/alternatename:??4Rva004F4DC0Element@@QAEAAU0@ABU0@@Z=??0?$pair@$$CBU?$pair@HH@_STL@@URva002CEFAAElement@@@_STL@@QAE@ABU01@@Z")
+template ProductionPrerequisite::PrereqUnitRec *_STL::__copy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, int>(
+	ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *,
+	const _STL::random_access_iterator_tag &, int *);

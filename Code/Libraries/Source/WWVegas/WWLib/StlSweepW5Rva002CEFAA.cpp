@@ -1,22 +1,30 @@
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
-// cl: /O1 /EHsc /MD /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// ProductionPrerequisite::PrereqUnitRec's implicit operator=.
+// cl: /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
 // stlport
-#define _STLP_BFME_RB_MINMAX_IMPORT  // inline _Rb_tree_node_base::_S_minimum/_S_maximum without a COMDAT copy (vendor/stlport/stl/_tree.h)
-#include <map>
-#include <string>
-#include <utility>
+//
+// 0x002CEFAA (35B) copies the record's unit and flags words, then assigns the
+// AsciiString at +8 through StringBase<char>::set (0x000366F0). Its only caller
+// is the record copy loop __copy<PrereqUnitRec *> (0x004F4DC0), so the record
+// is Zero Hour's ProductionPrerequisite::PrereqUnitRec {unit, flags, name}.
+// The compiler emits the implicit operator= where a copy loop uses it; this
+// unit instantiates that loop (rowed in StlSweepW5Rva004F4DC0.cpp, the same
+// select-any body) to emit it.
+#include <vector>
+#include "ascii_string.h"
 
-// _Rb_tree_iterator comparisons otherwise instantiate the base-class
-// operator!= COMDAT (one byte shape per TU flags); exact-match free
-// overloads take those calls instead so this TU emits no external copy.
-namespace _STL {
-template <class _RbVal, class _RbLeft, class _RbRight>
-static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
-                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
-{ return a._M_node != b._M_node; }
-}
+class ThingTemplate;
 
-struct Rva002CEFAAElement { char bytes[1]; Rva002CEFAAElement();Rva002CEFAAElement(const Rva002CEFAAElement&);~Rva002CEFAAElement();Rva002CEFAAElement& operator=(const Rva002CEFAAElement&); };
-template _STL::pair<const _STL::pair<int, int>, Rva002CEFAAElement>::pair(
-    const _STL::pair<const _STL::pair<int, int>, Rva002CEFAAElement> &);
+class ProductionPrerequisite
+{
+public:
+	struct PrereqUnitRec
+	{
+		const ThingTemplate *unit;
+		int flags;
+		AsciiString name;
+	};
+};
+
+template ProductionPrerequisite::PrereqUnitRec *_STL::__copy<ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, int>(
+	ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *, ProductionPrerequisite::PrereqUnitRec *,
+	const _STL::random_access_iterator_tag &, int *);

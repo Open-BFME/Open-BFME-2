@@ -6864,6 +6864,18 @@ Remaining / next check: each pair still calls an undefined placeholder element c
 Clearance: only the unused-emission subset is cleared in ordinary-preview scope; the three units remain blocked. Census confirmation pending.
 Census confirmation: not claimed.
 
+**`StlSweepW5Rva002CEFAA.cpp` cleared (2026-10-29, index `85f6b7f40c`):** 0x002CEFAA was never a pair
+constructor. Its body copies two words, calls `StringBase<char>::set` on +8 and returns `this`. Its sole
+caller is the 12-byte record copy loop 0x004F4DC0, which `vector<PrereqUnitRec>::erase` 0x004F50E2 reaches
+through 0x002CF594. So it is `ProductionPrerequisite::PrereqUnitRec`'s implicit `operator=`. The row and
+its two callers' placeholder rows (`__copy`/`__copy_ptrs<Rva004F4DC0Element *>`) now carry the real
+`PrereqUnitRec` names that symbols.csv had already pinned at 0x004F4DC0/0x002CF594. The
+`/alternatename` in `StlSweepW5Rva004F4DC0.cpp` and four pins (including the bogus
+`??0Rva002CEFAAElement` at 0x000366F0) are gone. All three rows are exact; link_check reports 3/3 LINKS
+(0 -> 35 B for this unit). Census confirmation pending. The two sibling units
+(0x0041573F, 0x0053FFCE callees) are untested. The 0x0053FFCE callee is an `operator=`, so they may be
+the same misidentification.
+
 #### Additional constructor-only sweep cleanup, 2026-10-26
 
 Status: Open; unused-emission subset cleared in ordinary-preview scope; census confirmation pending. Inspected revision: `58598f540fd3c84610304b3659ed382a4c05acca`; index `d1f046749a`, rules `retail-truth-4`.
