@@ -221,9 +221,11 @@ collect_verify() {
 # gate holds no window: master may move during it, and its retry carries.
 # The hook releases it when it fails; on success it keeps it, because git sends
 # the pack after this hook ends (a window released here let a waiter win the
-# race anyway). It fails open and never blocks past the TTL.
+# race anyway), and hands it to a watcher that releases it once git exits with
+# the commit on origin/master. It fails open and never blocks past the TTL.
 # BFME_LANDING_LEASE=off skips it.
 LANDING_TOKEN=""
+LANDING_SHA=""
 LANDING_TOKEN_FILE=""
 LANDING_HEARTBEAT=""
 landing_ok=0
@@ -245,6 +247,30 @@ release_landing_on_failure() {
         python3 tools/push_lease.py release "$LANDING_TOKEN" >/dev/null 2>&1 || true
         LANDING_TOKEN=""
     fi
+    # A passing push: git (this hook's parent) sends the pack after the hook
+    # ends. Once it exits, release the window if origin/master holds the
+    # commit; a rejected push keeps it for the retry. The watcher gives up
+    # waiting after BFME_LANDING_WATCH_SECONDS (default an hour) and checks then.
+    if [ -n "$LANDING_TOKEN" ] && [ "$landing_ok" -eq 1 ]; then
+        landing_push_pid=${BFME_LANDING_PUSH_PID:-$PPID}
+        (
+            limit=${BFME_LANDING_WATCH_SECONDS:-3600}
+            waited=0
+            while kill -0 "$landing_push_pid" 2>/dev/null && [ "$waited" -lt "$limit" ]; do
+                sleep 1
+                waited=$((waited + 1))
+            done
+            # Git for Windows' $PPID is not git's pid, so the wait above can end at
+            # once, before the pack lands: keep checking for two minutes.
+            tries=0
+            until python3 tools/push_lease.py release-landed "$LANDING_SHA" "$LANDING_TOKEN" \
+                    || [ "$tries" -ge 12 ]; do
+                sleep 10
+                tries=$((tries + 1))
+            done
+        ) < /dev/null > /dev/null 2>&1 &
+        disown 2>/dev/null || true
+    fi
     [ -z "$LANDING_TOKEN_FILE" ] || rm -f "$LANDING_TOKEN_FILE" "$LANDING_TOKEN_FILE.new" "$LANDING_TOKEN_FILE.stop"
 }
 trap release_landing_on_failure EXIT
@@ -258,6 +284,7 @@ landing_enabled() {
 take_landing_window() {
     landing_enabled || return 0
     LANDING_TOKEN="$(python3 tools/push_lease.py acquire "$1")" || LANDING_TOKEN=""
+    LANDING_SHA=$1
     if [ -n "$LANDING_TOKEN" ]; then
         echo "pre-push: holding the landing window (tools/push_lease.py) for $1"
         LANDING_TOKEN_FILE=$(mktemp) || return 0

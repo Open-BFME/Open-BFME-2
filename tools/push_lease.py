@@ -18,9 +18,14 @@ Its note names the commit being landed.
 
   * .githooks/pre-push ACQUIRES it before a carried push to master (one
     whose full gate already passed in this clone), waiting while another owner
-    holds it; a retry by the holder renews it. The hook RELEASES it when it fails. On success it keeps it: the hook
-    ends before git sends the pack, and a window released then let a waiter
-    win the race anyway (the 2026-10-12 window).
+    holds it; a retry by the holder renews it. The hook RELEASES it when it fails. On success it keeps it through
+    git's push (the hook ends before git sends the pack, and a window released
+    then let a waiter win the race anyway: the 2026-10-12 window) and hands it
+    to a watcher that releases it once git has exited and origin/master holds
+    the commit (`release-landed`); a rejected push keeps it for the retry.
+  * A window whose commit is already on origin/master holds nothing: acquire
+    expires it by compare-and-swap and takes it, so a holder that never
+    released it (killed before its watcher ran) costs no waiter its TTL.
   * Every other push to master WAITS at the end of its hook while another
     owner holds a live window whose commit is not yet on origin/master; once
     that commit lands, the window counts as free.
@@ -39,6 +44,7 @@ Its note names the commit being landed.
   python3 tools/push_lease.py renew SHA       # the holder's heartbeat; prints the new token
   python3 tools/push_lease.py wait
   python3 tools/push_lease.py release TOKEN
+  python3 tools/push_lease.py release-landed SHA TOKEN   # after git's push of SHA exits
 """
 import argparse
 import os
@@ -84,10 +90,35 @@ def landed(sha, root=None):
     if not sha:
         return False
     cwd = root or claims.ROOT
-    if subprocess.run(["git", "fetch", "-q", "origin", "master"], cwd=cwd, capture_output=True).returncode:
+    # Negotiate from origin/master alone: with the claims mirror's ~1,900
+    # refs/worktree/claims-seen/* refs as tips this fetch asked for ~3.4 GB.
+    tip = ["--negotiation-tip=refs/remotes/origin/master"] if subprocess.run(
+        ["git", "rev-parse", "-q", "--verify", "refs/remotes/origin/master"], cwd=cwd,
+        capture_output=True).returncode == 0 else []
+    if subprocess.run(["git", "fetch", "-q", *tip, "origin", "master"], cwd=cwd,
+                      capture_output=True).returncode:
         return False
     return subprocess.run(["git", "merge-base", "--is-ancestor", sha, "FETCH_HEAD"], cwd=cwd,
                           capture_output=True).returncode == 0
+
+
+def _expire_landed(root=None):
+    """Expire the live window if origin/master already holds its commit (its
+    holder's push went out), by compare-and-swap on the ref as last fetched.
+    True when it was expired here."""
+    entry = claims._read_local(root).get(KEY)
+    if not entry or entry[1].get("expires", 0) <= time.time():
+        return False
+    match = NOTE_SHA.search(entry[1].get("note", "") or "")
+    if not match or not landed(match.group(1), root):
+        return False
+    expired = claims._record(claims.owner(root), -1, "released", root)
+    ref = claims.ref_of(KEY)
+    if claims._git("push", "-q", f"--force-with-lease={ref}:{entry[0]}", claims.REMOTE,
+                   f"+{expired}:{ref}", cwd=root).returncode:
+        return False
+    claims._mirror(KEY, expired, root)
+    return True
 
 
 def _until(expires):
@@ -101,6 +132,7 @@ def acquire(sha, minutes=MINUTES, wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, 
     ahead without it)."""
     cap = time.time() + wait_minutes * 60
     shown = None
+    taken_over = set()   # landed commits whose window this wait already expired
     while True:
         try:
             got = claims.claim([SCOPE], ttl_hours=minutes / 60, note=NOTE.format(sha=sha), root=root)
@@ -109,15 +141,20 @@ def acquire(sha, minutes=MINUTES, wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, 
             return None
         if got.claimed:
             return got.tokens[KEY]
+        try:
+            held = holder(root)
+        except claims.ClaimsUnavailable:
+            held = None
+        # a holder whose commit already landed holds nothing: take its window now
+        if held and held[2] and held[2] not in taken_over and _expire_landed(root):
+            say(f"push_lease: {held[0]}'s window is for {held[2][:10]}, already on master; taking it")
+            taken_over.add(held[2])
+            continue
         now = time.time()
         if now >= cap:
             say(f"push_lease: the landing window is still held after {wait_minutes:g} min; "
                 "landing without it")
             return None
-        try:
-            held = holder(root)
-        except claims.ClaimsUnavailable:
-            held = None
         if held and held[1] != shown:
             say(f"push_lease: {held[0]} holds the landing window until {_until(held[1])}; waiting")
             shown = held[1]
@@ -174,6 +211,13 @@ def release(token, root=None):
         return False
 
 
+def release_landed(sha, token, root=None):
+    """After git's push of `sha` exited: release our window (`token`) if
+    origin/master holds `sha`. A rejected push keeps it for the holder's retry,
+    which renews it; a holder that never retries frees it at its TTL."""
+    return landed(sha, root) and release(token, root)
+
+
 def main(argv=None):
     ap = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     sub = ap.add_subparsers(dest="cmd", required=True)
@@ -185,6 +229,9 @@ def main(argv=None):
     sub.add_parser("wait", help="wait while another owner holds the window")
     rel = sub.add_parser("release", help="release the window you hold")
     rel.add_argument("token")
+    rl = sub.add_parser("release-landed", help="release the window you hold once SHA is on origin/master")
+    rl.add_argument("sha")
+    rl.add_argument("token")
     args = ap.parse_args(argv)
     if args.cmd == "status":
         try:
@@ -208,6 +255,8 @@ def main(argv=None):
     if args.cmd == "wait":
         wait()
         return 0
+    if args.cmd == "release-landed":
+        return 0 if release_landed(args.sha, args.token) else 1
     release(args.token)
     return 0
 

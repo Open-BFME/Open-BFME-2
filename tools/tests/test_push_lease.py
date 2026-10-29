@@ -32,7 +32,7 @@ def hosts(tmp_path, monkeypatch):
     origin = tmp_path / "origin.git"
     _git(tmp_path, "init", "-q", "--bare", str(origin))
     clones = {}
-    for name in ("a", "b"):
+    for name in ("a", "b", "c"):
         clone = tmp_path / name
         _git(tmp_path, "init", "-q", str(clone))
         _git(clone, "remote", "add", "origin", str(origin))
@@ -135,6 +135,74 @@ def test_a_landed_window_counts_as_free(hosts):
     assert push_lease.wait(wait_minutes=0, say=quiet) is True
 
 
+def _landed_window(hosts):
+    """a holds the window for a commit it then pushed to master."""
+    clone = hosts("a")
+    (clone / "f").write_text("x")
+    _git(clone, "add", "f")
+    _git(clone, "commit", "-qm", "landed")
+    pushed = _git(clone, "rev-parse", "HEAD").strip()
+    token = push_lease.acquire(pushed, say=quiet)
+    assert token
+    return clone, pushed, token
+
+
+def test_a_landed_holder_s_window_is_taken_over_at_once(hosts):
+    # the holder's push landed but its window was never released (killed before
+    # its watcher ran, or a hook from before the watcher): the next full-gate
+    # push takes it at once instead of waiting out the TTL
+    clone, pushed, _ = _landed_window(hosts)
+    hosts("b")
+    assert push_lease.acquire("b" * 40, wait_minutes=0, say=quiet) is None   # not on master yet
+    hosts("a")
+    _git(clone, "push", "-q", "origin", "HEAD:refs/heads/master")
+    hosts("b")
+    told = []
+    assert push_lease.acquire("b" * 40, wait_minutes=0, say=told.append)
+    assert push_lease.holder()[0] == "b" and push_lease.holder()[2] == "b" * 40
+    assert any("already on master; taking it" in line for line in told)
+
+
+def test_each_landed_holder_is_taken_over_not_just_the_first(hosts):
+    # b expires a's landed window but c wins the claim race; once c's commit also
+    # lands, b takes c's window too instead of waiting out c's TTL
+    clone, pushed, _ = _landed_window(hosts)
+    _git(clone, "push", "-q", "origin", "HEAD:refs/heads/master")
+    real_claim, calls = push_lease.claims.claim, []
+
+    def racing_claim(*args, **kwargs):
+        calls.append(1)
+        if len(calls) == 2:                      # right after b expired a's window
+            hosts("c")                           # c claims the freed window, then lands
+            (clone / "g").write_text("y")
+            _git(clone, "add", "g")
+            _git(clone, "commit", "-qm", "c lands")
+            c_sha = _git(clone, "rev-parse", "HEAD").strip()
+            assert push_lease.acquire(c_sha, say=quiet)
+            _git(clone, "push", "-q", "origin", "HEAD:refs/heads/master")
+            hosts("b")
+        return real_claim(*args, **kwargs)
+
+    hosts("b")
+    push_lease.claims.claim = racing_claim
+    try:
+        told = []
+        assert push_lease.acquire("b" * 40, wait_minutes=0.2, say=told.append)
+    finally:
+        push_lease.claims.claim = real_claim
+    assert push_lease.holder()[0] == "b"
+    assert sum("already on master; taking it" in line for line in told) == 2
+
+
+def test_release_landed_frees_the_window_only_once_the_commit_is_on_master(hosts):
+    clone, pushed, token = _landed_window(hosts)
+    assert push_lease.release_landed(pushed, token) is False      # a rejected push keeps it
+    assert push_lease.holder()[0] == "a"
+    _git(clone, "push", "-q", "origin", "HEAD:refs/heads/master")
+    assert push_lease.release_landed(pushed, token) is True
+    assert push_lease.holder() is None
+
+
 def test_only_the_holder_releases_and_a_stale_token_cannot(hosts):
     hosts("a")
     old = push_lease.acquire(SHA, minutes=-1, say=quiet)
@@ -220,8 +288,11 @@ def landing_hook(tmp_path, outcome, env=None):
     script = tmp_path / "hook.sh"
     script.write_text(f"_remote_ref=refs/heads/master\n{helpers}\ntake_landing_window {SHA}\n{body}",
                       newline="\n")
+    # a passing hook's landing watcher waits for git (the hook's parent, here the
+    # test itself) at most this long
+    env = dict({"BFME_LANDING_WATCH_SECONDS": "6"}, **(env or {}))
     done = subprocess.run([_bash(), "--noprofile", "--norc", script.as_posix()], cwd=tmp_path,
-                          capture_output=True, text=True, env=dict(os.environ, **(env or {})))
+                          capture_output=True, text=True, env=dict(os.environ, **env))
     return done, (tmp_path / "calls").read_text().split("\n")[:-1]
 
 
@@ -236,6 +307,22 @@ def test_the_hook_keeps_the_window_through_a_passing_push(tmp_path):
     assert done.returncode == 0, done.stderr
     assert calls == [f"acquire {SHA}"]
     assert "holding the landing window" in done.stdout
+
+
+def test_a_passing_hook_releases_the_window_once_git_s_push_exits(tmp_path):
+    # git sends the pack after the hook ends: a watcher waits for git (here a
+    # short sleep standing in for it) and then asks push_lease to release the
+    # window if the commit landed, so no waiter sits out the TTL
+    import time
+    done, calls = landing_hook(tmp_path, "sleep 2 &\nBFME_LANDING_PUSH_PID=$!\nlanding_ok=1\n")
+    assert done.returncode == 0, done.stderr
+    assert calls == [f"acquire {SHA}"]                     # kept while git pushes
+    for _ in range(40):
+        time.sleep(0.25)
+        calls = (tmp_path / "calls").read_text().split("\n")[:-1]
+        if len(calls) > 1:
+            break
+    assert calls == [f"acquire {SHA}", f"release-landed {SHA} TOKEN"]
 
 
 def test_the_holder_renews_the_window_through_a_long_gate(tmp_path):
@@ -254,7 +341,11 @@ def test_the_heartbeat_stops_when_the_hook_exits(tmp_path):
     done, calls = landing_hook(tmp_path, "sleep 2\nlanding_ok=1\n", {"BFME_LANDING_HEARTBEAT_SECONDS": "1"})
     assert done.returncode == 0, done.stderr
     time.sleep(3)
-    assert (tmp_path / "calls").read_text().split("\n")[:-1] == calls
+    # no renewal after the hook ends (the passing hook's landing watcher may
+    # already have checked, where $PPID is not git's pid)
+    later = [c for c in (tmp_path / "calls").read_text().split("\n")[:-1]
+             if not c.startswith("release-landed")]
+    assert later == calls
     assert not any(c.startswith("release") for c in calls)
 
 
