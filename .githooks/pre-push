@@ -171,9 +171,16 @@ LANDING_TOKEN_FILE=""
 LANDING_HEARTBEAT=""
 landing_ok=0
 # On exit: stop the heartbeat, then release the window unless the hook passed.
-# A renewal replaces the token, so the latest one is read from the token file.
+# A renewal replaces the token, so the latest one is read from the token file;
+# the loop is asked to stop (it finishes and saves a renewal in flight first)
+# rather than killed, which would leave its renewal rotating the token unseen.
 release_landing_on_failure() {
     if [ -n "$LANDING_HEARTBEAT" ]; then
+        : > "$LANDING_TOKEN_FILE.stop"
+        for _ in $(seq 1 60); do
+            kill -0 "$LANDING_HEARTBEAT" 2>/dev/null || break
+            sleep 1
+        done
         kill "$LANDING_HEARTBEAT" 2>/dev/null || true
         wait "$LANDING_HEARTBEAT" 2>/dev/null || true
         LANDING_HEARTBEAT=""
@@ -185,7 +192,7 @@ release_landing_on_failure() {
         python3 tools/push_lease.py release "$LANDING_TOKEN" >/dev/null 2>&1 || true
         LANDING_TOKEN=""
     fi
-    [ -z "$LANDING_TOKEN_FILE" ] || rm -f "$LANDING_TOKEN_FILE" "$LANDING_TOKEN_FILE.new"
+    [ -z "$LANDING_TOKEN_FILE" ] || rm -f "$LANDING_TOKEN_FILE" "$LANDING_TOKEN_FILE.new" "$LANDING_TOKEN_FILE.stop"
 }
 trap release_landing_on_failure EXIT
 landing_enabled() {
@@ -202,8 +209,19 @@ take_landing_window() {
         echo "pre-push: holding the landing window (tools/push_lease.py) for $1"
         LANDING_TOKEN_FILE=$(mktemp) || return 0
         printf '%s' "$LANDING_TOKEN" > "$LANDING_TOKEN_FILE"
+        # The heartbeat renews only while this hook runs: a killed hook runs no
+        # EXIT trap, so the loop checks the hook's PID each second and stops
+        # when it is gone (the window then expires at its TTL).
+        landing_hook_pid=$$
         (
-            while sleep "${BFME_LANDING_HEARTBEAT_SECONDS:-600}"; do
+            interval=${BFME_LANDING_HEARTBEAT_SECONDS:-600}
+            waited=0
+            while [ ! -e "$LANDING_TOKEN_FILE.stop" ] && kill -0 "$landing_hook_pid" 2>/dev/null; do
+                sleep 1
+                waited=$((waited + 1))
+                [ "$waited" -ge "$interval" ] || continue
+                waited=0
+                { [ ! -e "$LANDING_TOKEN_FILE.stop" ] && kill -0 "$landing_hook_pid" 2>/dev/null; } || break
                 renewed="$(python3 tools/push_lease.py renew "$1" 2>/dev/null)" || renewed=""
                 if [ -n "$renewed" ]; then
                     printf '%s' "$renewed" > "$LANDING_TOKEN_FILE.new" \

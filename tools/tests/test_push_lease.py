@@ -197,11 +197,12 @@ def _bash():
     pytest.skip("Bash is required to exercise the hook")
 
 
-STUB = """import sys
+STUB = """import os, sys, time
 open('calls', 'a').write(' '.join(sys.argv[1:]) + '\\n')
 if sys.argv[1] == 'acquire':
     print('TOKEN')
 if sys.argv[1] == 'renew':
+    time.sleep(float(os.environ.get('STUB_RENEW_SECONDS', '0')))
     print('TOKEN%d' % sum(1 for line in open('calls') if line.startswith('renew')))
 """
 
@@ -255,6 +256,45 @@ def test_the_heartbeat_stops_when_the_hook_exits(tmp_path):
     time.sleep(3)
     assert (tmp_path / "calls").read_text().split("\n")[:-1] == calls
     assert not any(c.startswith("release") for c in calls)
+
+
+def test_a_killed_hook_leaves_no_heartbeat_renewing(tmp_path):
+    """SIGKILL runs no EXIT trap: the heartbeat must notice the hook is gone and stop,
+    so a crashed holder's window still expires at its TTL."""
+    import time
+    text = HOOK.read_text(encoding="utf-8")
+    helpers = text[text.index('LANDING_TOKEN=""'):text.index("# full_gate_pool:")]
+    stub = tmp_path / "tools" / "push_lease.py"
+    stub.parent.mkdir()
+    stub.write_text(STUB, newline="\n")
+    script = tmp_path / "hook.sh"
+    script.write_text(f"_remote_ref=refs/heads/master\n{helpers}\ntake_landing_window {SHA}\nsleep 30\n",
+                      newline="\n")
+    shell = _bash()
+    real = Path(shell).parent.parent / "usr" / "bin" / "bash.exe"   # Git's bin\bash.exe only launches this one
+    if Path(shell).parent.name.lower() == "bin" and real.is_file():
+        shell = str(real)
+    hook = subprocess.Popen([shell, "--noprofile", "--norc", script.as_posix()], cwd=tmp_path,
+                            stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL,
+                            env=dict(os.environ, BFME_LANDING_HEARTBEAT_SECONDS="1"))
+    time.sleep(3.5)
+    hook.kill()                                           # no EXIT trap runs
+    hook.wait()
+    time.sleep(3)                                         # the loop notices within a second or two
+    settled = (tmp_path / "calls").read_text()
+    time.sleep(3)
+    assert (tmp_path / "calls").read_text() == settled    # no renewal after it settled
+    assert settled.startswith(f"acquire {SHA}")
+
+
+def test_a_failure_releases_the_token_a_renewal_in_flight_returns(tmp_path):
+    # the hook fails while a slow renewal is running: cleanup waits for it and
+    # releases the token it produced, not the one it replaced
+    done, calls = landing_hook(tmp_path, "sleep 1.5\nexit 1\n",
+                               {"BFME_LANDING_HEARTBEAT_SECONDS": "1", "STUB_RENEW_SECONDS": "2"})
+    assert done.returncode == 1
+    renewals = [c for c in calls if c.startswith("renew")]
+    assert renewals and calls[-1] == f"release TOKEN{len(renewals)}"
 
 
 class Clock:
