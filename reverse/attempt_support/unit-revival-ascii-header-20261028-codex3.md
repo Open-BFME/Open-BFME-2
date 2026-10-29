@@ -67,3 +67,27 @@ FAIL text records the earlier private-view failure; the current prerequisite
 is a usable preview in the publisher checkout. Header debt remains open and
 may leave only through the owning adoption tool when publication can verify
 the verdict. No census, ownership or debt gain is claimed for this adoption.
+
+## 2026-10-29 retirement retry
+
+Base: `46a3ff46d4`. The source already contains the verified canonical
+adoption; this retry changes no source, shared header, pin or ledger row.
+The restored queue diagnostic is historical, so a new source trial is not
+needed. With the current published index fetched through
+`link_check.py --fetch-index`, the owning acceptance tool now succeeds:
+
+- `find_declared_unmatched.py Code/GameEngine/Source/Common/UnitRevivalEntry.cpp`:
+  all defined functions are matched.
+- `header_adopt_lane.py accept --class AsciiString Code/GameEngine/Source/Common/UnitRevivalEntry.cpp`:
+  PASS; retired exactly one row from `reverse/header_queue.tsv`.
+- `./build.sh Code/GameEngine/Source/Common/UnitRevivalEntry.cpp`:
+  one of one functions matches, including the float literal; the existing
+  dependencies and object are current.
+- `link_check.py Code/GameEngine/Source/Common/UnitRevivalEntry.cpp`:
+  explicit per-unit `LINKS`, `LINKED 134 -> 134 bytes`, using census index
+  `85f6b7f40c` (2026-10-29 15:08).
+
+The fleet publisher must repeat retirement validation in its own checkout;
+the prior publisher failure remains recorded above. This is one header-debt
+retirement, with no claimed census or image-ownership gain. The earlier
+wider consumer-audit prerequisite is not cleared by the scoped preview.

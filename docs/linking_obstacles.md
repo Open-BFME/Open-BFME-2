@@ -8184,6 +8184,21 @@ provider changes occur; the wider pending consumer scope above remains
 unverified and no linking or ownership gain is claimed.
 [Current checks and reference boundary](../reverse/attempt_support/unit-revival-header-retirement-20261029-codexb4.md).
 
+The independent retry below verified the same queue entry. The upstream
+follow-up above already retires it; this is not a second retirement.
+
+**2026-10-29 UnitRevivalEntry retirement retry:** at `46a3ff46d4`, the
+unchanged canonical source passes the frozen-file check and normal byte
+verification (one 135-byte row and its float literal). With the fetched
+`85f6b7f40c` index (2026-10-29 15:08), the ordinary preview now supplies an
+explicit per-unit LINKS verdict, retaining 134 authored bytes.
+`header_adopt_lane.py accept --class AsciiString` passes and removes this
+one queue entry. This retries the deferred debt retirement through its
+owning tool; source, headers and ledger are unchanged. The fleet publisher
+must revalidate the retirement in its checkout. The wider consumer audit
+and scheduled-census confirmation above remain pending; no linking gain is
+claimed. [Retry evidence](../reverse/attempt_support/unit-revival-ascii-header-20261028-codex3.md).
+
 ### LINK-104: placeholder deleting destructors still emit nonretail complete destructors
 
 ### LINK-109: placeholder deleting destructors still emit nonretail complete destructors
