@@ -170,6 +170,27 @@ dry-run again (expect the guard to pass), run the real merge (2 rows),
 verify the TU 14/14, and push; claims 0x003769C2/0x00376B1E stay with the
 merge scope until then.
 
+### AIGuard.cpp: the machine constructor donor's one-slot vtable (2026-10-29)
+
+Status: blocked; three of four donors merged (xfer 0x00542FC5, ReturnState
+onEnter 0x00543CC4, the hasAttackedMe condition 0x005430E7; `AIGuard.cpp`
+11/11, link_check LINKS 2,050 B). `AIGuardMachineCtor.cpp` (0x00543163) stays
+apart. Reconciled in probe (not committed) against the shared
+`reference/shims/bfme2_statemachine/StateMachineView.h`, the seed's xfer field
+names and the seed's state class sizes (Outer state 0x44), both units
+byte-match and `tu_skeleton --merge --dry-run` composes and verifies the
+bytes, but LinkGuard refuses: `comdat ??_7AIGuardMachine@@6B@ (first)`.
+`Rva004D759CDerived.cpp` (the rowed ~AIGuardMachine 0x00542C19) and the
+constructor unit both emit the vtable from a destructor-only view (one slot),
+and the census keeps the first copy. The TU cannot use that view: the rowed
+`?xfer@AIGuardMachine@@MAEXPAVXfer@@@Z` and its qualified
+`StateMachine::xfer` call are protected virtuals, so the merged vtable has at
+least four slots. Prerequisite: one full 16-slot `AIGuardMachine` table
+(retail 0x00869680) in every emitter, with rowed providers for slot 1
+(0x000B3FD0), slot 2 (`?name@AIGuardMachine@@QBEPBDXZ` 0x00542C24 is rowed
+non-virtual) and slots 9-10 (0x000D43D0), or the destructor moving into the
+TU with the constructor. No linking gain claimed for this donor.
+
 ### WoundArrowUpdate math header cleanup (2026-10-28)
 
 Status: scoped cleanup verified; full consumer/census confirmation pending.
