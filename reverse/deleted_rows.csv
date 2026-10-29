@@ -4013,3 +4013,5 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?Rva0031A9ECGet@@YAHXZ,0x0031A9EC,"Renamed to ?getCommandSetFieldParseTable@@YAHXZ by tools/rename.py (inferred)"
 ?g_00C00930@@3PAHA,0x00800930,"Renamed to ?FiringOrReloading@@3PAHA by tools/rename.py (inferred)"
 ?g_00C00948@@3PAHA,0x00800948,"Renamed to ?FiringOrPreAttack@@3PAHA by tools/rename.py (inferred)"
+?bfmePlatform@Gen_007ea670@@QAEPADXZ,0x00657610,"Renamed to ?getPlatform@Gen_007ea670@@QAEPADXZ by tools/rename.py (inferred)"
+?rva0007490F@Rva0007517F@@UAEXPADHHHHH@Z,0x0007490F,"Renamed to ?drawBox@Rva0007517F@@UAEXPADHHHHH@Z by tools/rename.py (inferred)"

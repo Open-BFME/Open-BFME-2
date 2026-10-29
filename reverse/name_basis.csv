@@ -4254,3 +4254,24 @@ local,Rva002C76B2Build::y,Rva002C76B2Build::firingOrReloadingFlag,inferred,agree
 global,?g_00C00930@@3PAHA,?FiringOrReloading@@3PAHA,inferred,agree:nl-cadfb39cd5f3,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,0x00800930
 global,?g_00C00948@@3PAHA,?FiringOrPreAttack@@3PAHA,inferred,agree:nl-dd90d53d34df,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,0x00800948
 member,PerTurnStats::m_field04,PerTurnStats::m_numRegions,inferred,agree:nl-f7cdec1d34ab,Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp,
+local,Rva00661C70ByteView::rva00661C70::p,Rva00661C70ByteView::rva00661C70::bufferStart,inferred,agree:nl-e6448d29c823,Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,0x00661C70
+function,?bfmePlatform@Gen_007ea670@@QAEPADXZ,?getPlatform@Gen_007ea670@@QAEPADXZ,inferred,agree:nl-6ed0aea3e523,Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,0x00657610
+local,Rva0007517F::rva0007490F::q,Rva0007517F::rva0007490F::currentCornerIndexPtr,inferred,agree:nl-32e78f844cf1,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+local,Rva0007517F::rva0007490F::p,Rva0007517F::rva0007490F::currentCorner,inferred,agree:nl-8bc7f51e41e3,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+local,Rva0007517F::rva0007490F::n,Rva0007517F::rva0007490F::remainingCorners,inferred,agree:nl-b957ec6c466d,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+local,Rva0007517F::rva0007490F::r,Rva0007517F::rva0007490F::nextCornerIndex,inferred,agree:nl-afb9f57a5799,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+local,Rva0007517F::rva0007490F::a,Rva0007517F::rva0007490F::nextCornerIndexPtr,inferred,agree:nl-8a05a36f8c99,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+function,?rva0007490F@Rva0007517F@@UAEXPADHHHHH@Z,?drawBox@Rva0007517F@@UAEXPADHHHHH@Z,inferred,agree:nl-bc1fe0feb6a9,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+carry,Rva0007517F::rva0007490F::currentCornerIndexPtr,Rva0007517F::drawBox::currentCornerIndexPtr,inferred,scope renamed by Rename rva0007490F to drawBox (inferred),Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+carry,Rva0007517F::rva0007490F::currentCorner,Rva0007517F::drawBox::currentCorner,inferred,scope renamed by Rename rva0007490F to drawBox (inferred),Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+carry,Rva0007517F::rva0007490F::remainingCorners,Rva0007517F::drawBox::remainingCorners,inferred,scope renamed by Rename rva0007490F to drawBox (inferred),Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+carry,Rva0007517F::rva0007490F::nextCornerIndex,Rva0007517F::drawBox::nextCornerIndex,inferred,scope renamed by Rename rva0007490F to drawBox (inferred),Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+carry,Rva0007517F::rva0007490F::nextCornerIndexPtr,Rva0007517F::drawBox::nextCornerIndexPtr,inferred,scope renamed by Rename rva0007490F to drawBox (inferred),Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,0x0007490F
+param,rva00557902::a2,rva00557902::ladderCountResult,inferred,agree:nl-365f409a0882,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,0x00557902
+param,rva00557927::a2,rva00557927::ladderRankResult,inferred,agree:nl-1e363fd580ba,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,0x00557927
+param,rva0055794C::a2,rva0055794C::ladderStatsResult,inferred,agree:nl-6ec312fe148a,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,0x0055794C
+param,rva00557971::a2,rva00557971::clanWarsResult,inferred,agree:nl-e98aab45a197,Code/GameEngine/Source/GameNetwork/GameSpy/Rva005579CallbackAdapters.cpp,0x00557971
+local,Rva00800E50Owner::onDispatch::t04,Rva00800E50Owner::onDispatch::headerFlags,inferred,agree:nl-08de5b9d52f3,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
+local,Rva00800E50Owner::onDispatch::t18,Rva00800E50Owner::onDispatch::addressType,inferred,agree:nl-a4ebecfddd97,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
+local,Rva00800E50Owner::onDispatch::t1c,Rva00800E50Owner::onDispatch::ipAddress,inferred,agree:nl-d21b4c5c1809,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230
+local,Rva00800E50Owner::onDispatch::t20,Rva00800E50Owner::onDispatch::port,inferred,agree:nl-912c832eea22,Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerDispatch.cpp,0x0066D230

@@ -19,14 +19,14 @@ int __stdcall Gen_007f8ee0(Gen_007f8dc0Bits *bits)
 class Gen_007ea670
 {
 public:
-	char *bfmePlatform(void);
+	char *getPlatform(void);
 
 	char m_bfmeHead[0xE1];
 	char m_bfmeBuffer[1];						// +0xE1
 };
 
-// ?bfmePlatform@Gen_007ea670@@QAEPADXZ
-char *Gen_007ea670::bfmePlatform(void)
+// ?getPlatform@Gen_007ea670@@QAEPADXZ
+char *Gen_007ea670::getPlatform(void)
 {
 	char *text = m_bfmeBuffer;
 
@@ -71,6 +71,6 @@ private:
 // ?rva00661C70@Rva00661C70ByteView@@QAEPAEXZ
 unsigned char *Rva00661C70ByteView::rva00661C70()
 {
-	unsigned char *p = &first;
-	return *p ? p : 0;
+	unsigned char *bufferStart = &first;
+	return *bufferStart ? bufferStart : 0;
 }

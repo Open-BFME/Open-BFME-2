@@ -9772,7 +9772,7 @@ _luaK_jump,,0x00752690,166,Code/Libraries/Source/Lua/lcode.c,matched,vendored=lu
 ?bfmeGoEBNb@@YADPAVBfmeObjEBN@@@Z,,0x00327DF6,24,Code/GameEngine/Source/Common/BfmeConv803.cpp,matched,BFME1 byte-identical donor; b1 0x004BBFA0
 ?bfmeSeed@@YAXH@Z,,0x0070F6E0,47,Code/GameEngine/Source/Common/Bfme5SeventyFour.cpp,matched,BFME1 byte-identical donor; b1 0x008D3AB0
 ?bfmeGoRF@BfmeThingRF@@QAEPAXPAX0@Z,,0x00655990,45,Code/GameEngine/Source/Common/BfmeConv908.cpp,matched,BFME1 byte-identical donor; b1 0x007E8900
-?bfmePlatform@Gen_007ea670@@QAEPADXZ,,0x00657610,17,Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,matched,BFME1 byte-identical donor; b1 0x007EA670
+?getPlatform@Gen_007ea670@@QAEPADXZ,,0x00657610,17,Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,matched,BFME1 byte-identical donor; b1 0x007EA670
 ?bfmeIsFive@Gen_007F57E0@@QBEHXZ,,0x00661FB0,22,Code/GameEngine/Source/Common/Bfme5TinySix3.cpp,matched,BFME1 byte-identical donor; b1 0x007F5800
 ?Gen_007f8ee0@@YGHPAUGen_007f8dc0Bits@@@Z,,0x00665550,16,Code/GameEngine/Source/Common/S3SmallAccessorFamilies.cpp,matched,BFME1 byte-identical donor; b1 0x007F8EE0
 ?bfmeIsThree@Gen_007F57E0@@QBEHXZ,,0x00661F90,22,Code/GameEngine/Source/Common/Bfme5TinySix3.cpp,matched,BFME1 byte-identical donor; b1 0x007F57E0
@@ -31725,7 +31725,7 @@ _rva0062AF4AD3DXVec4Transform@12,,0x0062AF4A,6,Code/GameEngine/Source/Common/Rva
 ??_GRva0041E875@@QAEPAXI@Z,,0x0041E8F6,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0041E875.cpp,matched,deleting dtor calls 0x0041E875 plus delete 0x0002FD60
 ?rva003B48E4@Rva003B48E4@@QAEXPAX@Z,,0x003B48E4,158,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B48E4.cpp,matched,recursive script check clear via rowed callees ret4 void-star arg self plus bool checks
 ?rva00074A52@Rva0007517F@@UAEXHHPBD@Z,,0x00074A52,173,Code/GameEngine/Source/Common/System/Rva0007517FVslot24.cpp,matched,vslot 24 offset 0x60 vtable 0x007C6620 class Rva0007517F via translate and iface calls
-?rva0007490F@Rva0007517F@@UAEXPADHHHHH@Z,,0x0007490F,178,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,matched,vslot 20 offset 0x50 vtable 0x007C6620 class Rva0007517F via triple _D11 loop
+?drawBox@Rva0007517F@@UAEXPADHHHHH@Z,,0x0007490F,178,Code/GameEngine/Source/Common/System/Rva0007490FVslot20.cpp,matched,vslot 20 offset 0x50 vtable 0x007C6620 class Rva0007517F via triple _D11 loop
 ?Rva0047FDFEGet@@YAHPAX@Z,,0x0047FDFE,39,Code/GameEngine/Source/Common/Rva0047FDFEGet.cpp,matched,leaf iterate ptr array at +0x244 virtual slot 0xA4 first nonzero
 ??1Rva0056616B@@UAE@XZ,,0x0056616B,243,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp,matched,vtable 0x008689D0 callers 0x0052D6A2 0x00566D83 rowed member dtors
 ??_GRva0056616B@@UAEPAXI@Z,,0x0052D6A2,28,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp,matched,deleting dtor calls rowed 0x0056616B and delete 0x0002FD60

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /MD /DNDEBUG /DWIN32 /D_WINDOWS
-// ?rva0007490F@Rva0007517F@@UAEXPADHHHHH@Z, retail 0x0007490F, 178 bytes.
+// ?drawBox@Rva0007517F@@UAEXPADHHHHH@Z, retail 0x0007490F, 178 bytes.
 // Virtual slot 20 offset 0x50 of vtable 0x007C6620 in class Rva0007517F.
 // Evidence: vslot lane, donor TU Rva0007517FCtor.cpp, triple _D11 slot 0x2C
 // calls per iteration with 12-byte stride plus g_00BC6610 index table.
@@ -53,7 +53,7 @@ public:
 	virtual void _D17(float const *p, float f1, float f2, int a, int b, int c);
 	virtual void _S18(float const *m, float f, int a, int b, int c);
 	virtual void _D19(float const *p, float f, int a, int b, int c);
-	virtual void rva0007490F(char *base, int b, int c, int d, int e, int f);
+	virtual void drawBox(char *base, int b, int c, int d, int e, int f);
 
 private:
 	int m_14;
@@ -64,21 +64,21 @@ private:
 	void *m_28;
 };
 
-void Rva0007517F::rva0007490F(char *base, int b, int c, int d, int e, int f)
+void Rva0007517F::drawBox(char *base, int b, int c, int d, int e, int f)
 {
 	int i = 1;
-	int *q = g_00BC6610;
-	char *p = base;
-	int n = 4;
+	int *currentCornerIndexPtr = g_00BC6610;
+	char *currentCorner = base;
+	int remainingCorners = 4;
 	do {
-		_D11(p, p + 48, b, e, f);
-		int r = i % 4;
-		int *a = g_00BC6610 + r;
-		_D11(base + (*q) * 12, base + (*a) * 12, c, e, f);
-		_D11(base + (*q + 4) * 12, base + (*a + 4) * 12, d, e, f);
-		p += 12;
+		_D11(currentCorner, currentCorner + 48, b, e, f);
+		int nextCornerIndex = i % 4;
+		int *nextCornerIndexPtr = g_00BC6610 + nextCornerIndex;
+		_D11(base + (*currentCornerIndexPtr) * 12, base + (*nextCornerIndexPtr) * 12, c, e, f);
+		_D11(base + (*currentCornerIndexPtr + 4) * 12, base + (*nextCornerIndexPtr + 4) * 12, d, e, f);
+		currentCorner += 12;
 		++i;
-		++q;
-		--n;
-	} while (n != 0);
+		++currentCornerIndexPtr;
+		--remainingCorners;
+	} while (remainingCorners != 0);
 }

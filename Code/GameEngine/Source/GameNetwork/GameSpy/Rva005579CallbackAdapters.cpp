@@ -32,39 +32,39 @@ public:
 // ?rva00557902@@YAHHHHHHPAX@Z @0x00557902 37B. The sixth stack argument is
 // passed as this to address-derived callee 0x005571FC; both identities remain
 // unresolved.
-int __cdecl rva00557902(int request, int a2, int buffer, int a4, int a5, void *context)
+int __cdecl rva00557902(int request, int ladderCountResult, int buffer, int a4, int a5, void *context)
 {
 	if (!context)
 		return 1;
-	return ((Rva005571FC *)context)->rva005571FC(request, a2, buffer, a4, a5);
+	return ((Rva005571FC *)context)->rva005571FC(request, ladderCountResult, buffer, a4, a5);
 }
 
 // ?rva00557927@@YAHHHHHHPAX@Z @0x00557927 37B. The sixth stack argument is
 // passed as this to address-derived callee 0x005570AB; both identities remain
 // unresolved.
-int __cdecl rva00557927(int request, int a2, int buffer, int a4, int a5, void *context)
+int __cdecl rva00557927(int request, int ladderRankResult, int buffer, int a4, int a5, void *context)
 {
 	if (!context)
 		return 1;
-	return ((Rva005570AB *)context)->rva005570AB(request, a2, buffer, a4, a5);
+	return ((Rva005570AB *)context)->rva005570AB(request, ladderRankResult, buffer, a4, a5);
 }
 
 // ?rva0055794C@@YAHHHHHHPAX@Z @0x0055794C 37B. The sixth stack argument is
 // passed as this to address-derived callee 0x005573FA; both identities remain
 // unresolved.
-int __cdecl rva0055794C(int request, int a2, int buffer, int a4, int a5, void *context)
+int __cdecl rva0055794C(int request, int ladderStatsResult, int buffer, int a4, int a5, void *context)
 {
 	if (!context)
 		return 1;
-	return ((Rva005573FA *)context)->rva005573FA(request, a2, buffer, a4, a5);
+	return ((Rva005573FA *)context)->rva005573FA(request, ladderStatsResult, buffer, a4, a5);
 }
 
 // ?rva00557971@@YAHHHHHHPAX@Z @0x00557971 37B. The sixth stack argument is
 // passed as this to address-derived callee 0x00557304; both identities remain
 // unresolved.
-int __cdecl rva00557971(int request, int a2, int buffer, int a4, int a5, void *context)
+int __cdecl rva00557971(int request, int clanWarsResult, int buffer, int a4, int a5, void *context)
 {
 	if (!context)
 		return 1;
-	return ((Rva00557304 *)context)->rva00557304(request, a2, buffer, a4, a5);
+	return ((Rva00557304 *)context)->rva00557304(request, clanWarsResult, buffer, a4, a5);
 }

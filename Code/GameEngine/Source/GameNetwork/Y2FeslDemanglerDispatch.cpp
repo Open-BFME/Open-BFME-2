@@ -77,26 +77,26 @@ void Rva00800E50Owner::onDispatch( Rva00800E50Header *hdr )
 		// Counter-swap load temps so MSVC emits retail [esi+0xc] then [esi+8].
 		int first;
 		int second;
-		int t04;
-		int t18;
+		int headerFlags;
+		int addressType;
 		unsigned type;
-		int t1c;
-		int t20;
+		int ipAddress;
+		int port;
 
 		first = hdr->m_0C;
 		second = hdr->m_08;
-		t04 = hdr->m_04;
+		headerFlags = hdr->m_04;
 		msg.m_10 = second;
-		t18 = hdr->m_18;
+		addressType = hdr->m_18;
 		msg.m_14 = first;
 		type = hdr->m_00;
-		msg.m_20 = t04;
-		t1c = hdr->m_1C;
-		msg.m_04 = t18;
-		t20 = hdr->m_20;
+		msg.m_20 = headerFlags;
+		ipAddress = hdr->m_1C;
+		msg.m_04 = addressType;
+		port = hdr->m_20;
 		msg.m_1C = type;
-		msg.m_08 = t1c;
-		msg.m_0C = t20;
+		msg.m_08 = ipAddress;
+		msg.m_0C = port;
 
 		if( type != 'ECHO' )
 		{

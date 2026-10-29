@@ -33,7 +33,7 @@ public:
 class Gen_007ea670
 {
 public:
-	char *bfmePlatform();
+	char *getPlatform();
 };
 
 // Retail 0x00657650 is a disp32 lea getter (lea eax,[ecx+0x80]) on this opaque
@@ -118,7 +118,7 @@ void Rva007F4440Runner::run( int mode, int, int )
 		( (Rva007EA6A0FieldAddress *)owner )->get(),
 		( char * )( (Rva007EA6B0Accessor *)owner )->getAt80(),
 		g_Rva012C3A18,
-		( (Gen_007ea670 *)owner )->bfmePlatform(),
+		( (Gen_007ea670 *)owner )->getPlatform(),
 		clientType );
 	// BFME2 retail passes 0x00A60FD0 here (BFME1 0x00BF4520 drifted).
 	primary->getService()->send( &message, (void *)Rva00660FD0Handler, primary, 10000 );
