@@ -8742,7 +8742,6 @@ _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp
 ?setFlag@BfmeObjF9@@QAEXABVBfmeStrF9@@D@Z,,0x006BF3C0,143,Code/GameEngine/Source/Common/Rva0087F9C0Flag.cpp,matched,BFME1 byte-identical donor; b1 0x0087F9C0
 ?bfmeTestSKA@BfmeSubSKA@@QAEDH@Z,,0x00675590,84,Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp,matched,BFME1 byte-identical donor; b1 0x00809690
 ??0Rva007F0CB0BlobRecord@@QAE@PAVRva007E8810Message@@@Z,,0x0065D8D0,470,Code/GameEngine/Source/GameNetwork/V2FeslBlobRecordPopulate.cpp,matched,BFME1 byte-identical donor; b1 0x007F0D40; 17 DIR32 string literal(s) agree
-?copyfmt@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEAAV12@ABV12@@Z,,0x0001C4D0,107,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_copyfmt.cpp,matched,BFME1 byte-identical donor b1 0x0083F5A0
 ?rva00809400@BfmeThingUNC@@QAEXPAVBfmeC994@@HPAVRva00802680Owner@@@Z,,0x00675300,244,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,matched,BFME1 byte-identical donor; b1 0x00809400; 6 DIR32 string literal(s) agree
 ?rva00809330@BfmeThingUNC@@QAEXPAVBfmeC994@@H@Z,,0x00675230,198,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,matched,BFME1 byte-identical donor; b1 0x00809330; 4 DIR32 string literal(s) agree
 ?bfmeAppendVKG@BfmeBufVKG@@QAEPAV1@PBDI@Z,,0x006D52A0,93,Code/Libraries/Source/EA/Apt/AptString/EAStringAppendBounded.cpp,matched,BFME1 byte-identical donor b1 0x0089EC70
@@ -98942,3 +98941,4 @@ uw_007930c9,,0x007930C9,8,Code/GameEngine/Source/Common/Rva004F6352Swap.cpp,matc
 ?vslot6@GameWindow@@UBE_NXZ,,0x00313913,16,Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp,matched,Native GameWindow C0BBCC slot6 input+1E0 compares LeftHUDInput; existing slot placeholder retained; t=5 model=GPT-6 lane=R budget=30m
 ?vslot8@GameWindow@@UBE_NXZ,,0x0031393A,16,Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp,matched,Native GameWindow C0BBCC slot8 input+1E0 compares GadgetPushButtonInput; existing slot placeholder retained; t=5 model=GPT-6 lane=R budget=30m
 ?vslot9@GameWindow@@UBE_NXZ,,0x0008FF78,12,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,Native GameWindow C0BBCC slot9 tests tooltip+1EC nonnull; existing slot placeholder retained; t=5 model=GPT-6 lane=R budget=30m
+?copyfmt@?$basic_ios@DV?$char_traits@D@_STL@@@_STL@@QAEAAV12@ABV12@@Z,,0x0001C4D0,107,Code/Libraries/Source/WWVegas/WWLib/stlport_basic_ios_copyfmt.cpp,matched,BFME1 byte-identical donor b1 0x0083F5A0; migrated=stlport-4.6
