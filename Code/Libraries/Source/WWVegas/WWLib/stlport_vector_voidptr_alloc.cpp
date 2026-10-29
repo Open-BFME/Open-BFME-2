@@ -1,9 +1,9 @@
 // cl: /Od /Ob1 /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
-// STLport 4.5.3 vector<void *>, the allocating half. The non-allocating
-// bodies live in stlport_vector_voidptr.cpp; these three could not go there
-// because the vendored allocator is not the one this game links against.
+// STLport vector<void *>, the allocating half, built with the 4.6 headers.
+// The non-allocating bodies live in stlport_vector_voidptr.cpp; this unit
+// uses the game allocator shim rather than the stock allocator.
 //
 // Retail never reaches __sgi_alloc. _M_allocate_and_copy allocates with
 //
@@ -57,7 +57,7 @@ namespace _STL { template <> vector<void *, allocator<void *> >::vector(allocato
 namespace _STL { template <> __declspec(dllimport) __forceinline void vector<void *, allocator<void *> >::_M_set(void **s, void **f, void **e) { this->_M_start = s; this->_M_finish = f; this->_M_end_of_storage._M_data = e; } }
 namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **); }
 namespace _STL { template <> void *const &vector<void *, allocator<void *> >::operator[](unsigned int) const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int, void *const &); }
+namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int, void *); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int); }
 namespace _STL { template <> void *const &vector<void *, allocator<void *> >::at(unsigned int) const; }
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }

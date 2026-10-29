@@ -5195,6 +5195,9 @@ Remaining / next check (each needs a decision, a row or a shared change; none is
   `_erase_count`, `_substr`): cleared upstream by 1e45b8be0f, which supplies the body from
   `stlport_vector_voidptr_alloc.cpp`. All four units LINK when `link_check.py` is run together with that
   provider (LINKED 0 -> 904 B). Run alone, a stale provider object still reports them as unresolved.
+  The provider's 4.6 migration preserves 31/31 rows and its 3,902-byte preview; with the current
+  provider, all four consumers retain their combined 904-byte preview against index `85f6b7f40c`.
+  Carry the provider and consumers into the next census; no new census gain is claimed.
 - `_Destroy<Rva002BBB96Element*>` and `_Destroy<Rva004758F4Element*>` (U in
   `StlportVectorDtorDeferred.cpp` and `StlportVectorClearRva00475F2A.cpp`): pins only (0x002BB6A5,
   0x00470398); the owners are `__destroy_aux` rows with a two-argument push. This needs a `_Destroy`
