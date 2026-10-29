@@ -442,9 +442,9 @@ struct State
 public:
 	State(StateMachine *machine, unsigned int hash);
 	virtual ~State();
+	virtual void slot01();
+	virtual void slot02();
 protected:
-	virtual void v01();
-	virtual void v02();
 	virtual void xfer( Xfer *xfer );
 public:
 	virtual StateReturnType onEnter();
@@ -612,6 +612,8 @@ public:
 	virtual StateReturnType onEnter();
 	virtual void onExit(StateExitType status);
 	virtual StateReturnType update();
+protected:
+	virtual void xfer( Xfer *xfer );
 private:
 	AIGuardMachine *getGuardMachine() { return (AIGuardMachine *)getMachine(); }
 	unsigned char m_pad1C[0x20 - 0x1C];
@@ -707,6 +709,17 @@ void AIGuardOuterState::xfer( Xfer *xfer )
 }
 
   // end xfer
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer Method: slot 3 of vtable 0x00C69890, folded with AIGuardOuterState::xfer */
+// ------------------------------------------------------------------------------------------------
+void AIGuardAttackAggressorState::xfer( Xfer *xfer )
+{
+	xfer->Version1();
+
+	if( xfer->IsCRC() && m_attackState )
+		*xfer == *(Snapshot *)m_attackState;
+}
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer Method */
