@@ -341,7 +341,7 @@ NameKeyType CaveContain::getModuleNameKey() const
 
 // tu-skeleton: 0x0046644A 13B ?get@Rva0046644ALeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00466457 16B ?rva00466457@Rva00466457@@UAEPAVRva00466457Base3@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
+// tu-skeleton: 0x00466457 16B ?getCaveInterface@Rva00466457@@UAEPAVRva00466457Base3@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3B.cpp (not merged yet)
 
 // tu-skeleton: 0x00466467 7B ?get@Rva00466467ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 

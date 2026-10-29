@@ -165,7 +165,7 @@ AIUpgradeHeuristicFactoryUnlock::AIUpgradeHeuristicFactoryUnlock(void *held)
 }
 
 class Rva0041F449 { public: StringBase<char>*rva0041F449(const StringBase<char>&); };
-class ArmyMemberDefinition {public:float*rva0041F28C(int);};
+class ArmyMemberDefinition {public:float*getPercentageOfArmy(int);};
 struct Rva002A8AB1Record {char pad[0x160]; Rva0041F449*members;char pad164[8];int mode;};
 class Rva002A8F24 {public:Rva002A8AB1Record*rva002A8AB1(void*);};
 // Native DFEEF8 is the existing single datum owned by Rva005EEA20Find.cpp.
@@ -176,7 +176,7 @@ int AIUpgradeHeuristicFactoryUnlock::rva005DA67F(int unused) {
  for(std::vector<PlayerAITypeEntry>::iterator it=m_modules.begin();it!=m_modules.end();++it){
   StringBase<char>*key=(StringBase<char>*)((char*)*it+0x64);
   ArmyMemberDefinition*entry=(ArmyMemberDefinition*)owner->members->rva0041F449(*key);
-  if(entry && *entry->rva0041F28C(owner->mode)>0.0f) return 1;
+  if(entry && *entry->getPercentageOfArmy(owner->mode)>0.0f) return 1;
  }
  return 0;
 }

@@ -4033,3 +4033,6 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?rva0004C6C6@Rva0004C6C6@@QAEXM@Z,0x0004C6C6,"Renamed to ?setFrameRate@Rva0004C6C6@@QAEXM@Z by tools/rename.py (inferred)"
 ?g_00DCAE84@@3PAPBDA,0x009CAE84,"Renamed to ?TheWeatherNames@@3PAPBDA by tools/rename.py (inferred)"
 ?rva0028AF86@Object@@QBEHXZ,0x0028AF86,"Renamed to ?getLastVictimID@Object@@QBEHXZ by tools/rename.py (inferred)"
+?rva00466457@Rva00466457@@UAEPAVRva00466457Base3@@XZ,0x00466457,"Renamed to ?getCaveInterface@Rva00466457@@UAEPAVRva00466457Base3@@XZ by tools/rename.py (inferred)"
+?rva0006DD63@Rva0006DD63@@QAEHXZ,0x0006DD63,"Renamed to ?Class_ID@Rva0006DD63@@QAEHXZ by tools/rename.py (inferred)"
+?rva0041F28C@ArmyMemberDefinition@@QAEPAMH@Z,0x0041F28C,"Renamed to ?getPercentageOfArmy@ArmyMemberDefinition@@QAEPAMH@Z by tools/rename.py (inferred)"

@@ -34,17 +34,17 @@ struct Rva001E0301Name
 class Rva001E0301
 {
 public:
-	virtual void rva001E0301(int a, int b);
+	virtual void rva001E0301(int assetList, int b);
 private:
 	char m_pad04[0x148 - 4];
 	Rva001E0301Name m_templateName;							// +0x148
 };
 
-void Rva001E0301::rva001E0301(int a, int b)
+void Rva001E0301::rva001E0301(int assetList, int b)
 {
 	const ThingTemplate *thingTemplate = TheThingFactory->findTemplate(*(const AsciiString *)&m_templateName);
 	if (thingTemplate)
-		((ThingTemplate *)thingTemplate)->GetAssetList(a, b);
+		((ThingTemplate *)thingTemplate)->GetAssetList(assetList, b);
 }
 
 // --- 0x00210F27 (22B): run the +0x25C effects manager's rowed 0x003EF008 and
@@ -255,17 +255,17 @@ public:
 class Rva00466457Iface
 {
 public:
-	virtual Rva00466457Base3 *rva00466457();
+	virtual Rva00466457Base3 *getCaveInterface();
 	char m_pad04[0xFC - 0x0C - 4];
 };
 
 class Rva00466457 : public Rva00466457Base0, public Rva00466457Iface, public Rva00466457Base3
 {
 public:
-	virtual Rva00466457Base3 *rva00466457();
+	virtual Rva00466457Base3 *getCaveInterface();
 };
 
-Rva00466457Base3 *Rva00466457::rva00466457()
+Rva00466457Base3 *Rva00466457::getCaveInterface()
 {
 	return this;
 }

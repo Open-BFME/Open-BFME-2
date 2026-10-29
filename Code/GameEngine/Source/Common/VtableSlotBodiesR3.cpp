@@ -90,14 +90,14 @@ bool Rva000F6335::rva000F6335(int, int, int, int)
 class Rva00049F35
 {
 public:
-	bool rva00049F35(bool *a, bool *b, bool *c, int d, int e);
+	bool rva00049F35(bool *videoPassed, bool *cpuPassed, bool *memPassed, int d, int e);
 };
 
-bool Rva00049F35::rva00049F35(bool *a, bool *b, bool *c, int, int)
+bool Rva00049F35::rva00049F35(bool *videoPassed, bool *cpuPassed, bool *memPassed, int, int)
 {
-	*c = true;
-	*b = true;
-	*a = true;
+	*memPassed = true;
+	*cpuPassed = true;
+	*videoPassed = true;
 	return true;
 }
 
@@ -105,10 +105,10 @@ bool Rva00049F35::rva00049F35(bool *a, bool *b, bool *c, int, int)
 class Rva0006DD63
 {
 public:
-	int rva0006DD63();
+	int Class_ID();
 };
 
-int Rva0006DD63::rva0006DD63()
+int Rva0006DD63::Class_ID()
 {
 	return 14;
 }

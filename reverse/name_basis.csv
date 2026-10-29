@@ -4439,3 +4439,13 @@ member,Rva002D9893::m_5C,Rva002D9893::m_volumeShift,inferred,agree:nl-5c3f2be550
 member,Rva002D9893::m_64,Rva002D9893::m_delay,inferred,agree:nl-c48df83eb754,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,
 member,Rva002D9893::m_68,Rva002D9893::m_playingAudioIndex,inferred,agree:nl-80656bfbcfed,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,
 member,Rva002D9893::m_74,Rva002D9893::m_portionToPlayNext,inferred,agree:nl-d6c35eb3cb60,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,
+param,Rva001E0301::rva001E0301::a,Rva001E0301::rva001E0301::assetList,inferred,agree:nl-e08ea53d448a,Code/GameEngine/Source/Common/GapBodiesS3B.cpp,0x001E0301
+function,?rva00466457@Rva00466457@@UAEPAVRva00466457Base3@@XZ,?getCaveInterface@Rva00466457@@UAEPAVRva00466457Base3@@XZ,inferred,agree:nl-bf0248ed0961,Code/GameEngine/Source/Common/GapBodiesS3B.cpp,0x00466457
+param,Rva00049F35::rva00049F35::a,Rva00049F35::rva00049F35::videoPassed,inferred,agree:nl-9d9205364cf7,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,0x00049F35
+param,Rva00049F35::rva00049F35::b,Rva00049F35::rva00049F35::cpuPassed,inferred,agree:nl-f43993fc2617,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,0x00049F35
+param,Rva00049F35::rva00049F35::c,Rva00049F35::rva00049F35::memPassed,inferred,agree:nl-887fd2affb0c,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,0x00049F35
+function,?rva0006DD63@Rva0006DD63@@QAEHXZ,?Class_ID@Rva0006DD63@@QAEHXZ,inferred,agree:nl-28b1b141caa1,Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp,0x0006DD63
+local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::a,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::startPercentage,inferred,agree:nl-6e42dabb8790,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F2A8
+local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::b,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::endPercentage,inferred,agree:nl-7add7aa6675c,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F2A8
+local,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::t,ArmyMemberDefinition::getInterpolatedPercentageOfArmy::interpolationFactor,inferred,agree:nl-3a6837ea4513,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F2A8
+function,?rva0041F28C@ArmyMemberDefinition@@QAEPAMH@Z,?getPercentageOfArmy@ArmyMemberDefinition@@QAEPAMH@Z,inferred,agree:nl-908ae979af16,Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp,0x0041F28C

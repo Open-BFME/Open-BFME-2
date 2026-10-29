@@ -24,7 +24,7 @@ typedef int Int;
 class ArmyMemberDefinition
 {
 public:
-    float *rva0041F28C(int i);
+    float *getPercentageOfArmy(int i);
     float getInterpolatedPercentageOfArmy(void *key);
 private:
     AsciiString m_name;
@@ -43,7 +43,7 @@ ArmyMemberDefinition **vector<ArmyMemberDefinition *>::end()
 { return this->_M_finish; }
 }
 
-float *ArmyMemberDefinition::rva0041F28C(int i)
+float *ArmyMemberDefinition::getPercentageOfArmy(int i)
 {
     switch (i)
     {
@@ -74,23 +74,23 @@ extern Rva002A8F24 *TheSkirmishAIManager;
 float ArmyMemberDefinition::getInterpolatedPercentageOfArmy(void *key)
 {
     Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(key);
-    float a;
-    float b;
+    float startPercentage;
+    float endPercentage;
     switch (rec->m_16C)
     {
     case 0:
-        b = m_04;
-        a = m_08;
+        endPercentage = m_04;
+        startPercentage = m_08;
         break;
     case 1:
-        b = m_08;
-        a = m_0C;
+        endPercentage = m_08;
+        startPercentage = m_0C;
         break;
     default:
         return m_0C;
     }
-    float t = rec->m_170;
-    return (1.0f - t) * a + t * b;
+    float interpolationFactor = rec->m_170;
+    return (1.0f - interpolationFactor) * startPercentage + interpolationFactor * endPercentage;
 }
 
 class ArmyDefinition
@@ -109,26 +109,26 @@ void ArmyDefinition::rva0041F369()
     std::vector<ArmyMemberDefinition *>::iterator it;
     for (it = m_members.begin(); it != m_members.end(); ++it)
     {
-        totals[0] += *(*it)->rva0041F28C(0);
-        totals[1] += *(*it)->rva0041F28C(1);
-        totals[2] += *(*it)->rva0041F28C(2);
+        totals[0] += *(*it)->getPercentageOfArmy(0);
+        totals[1] += *(*it)->getPercentageOfArmy(1);
+        totals[2] += *(*it)->getPercentageOfArmy(2);
     }
     if (totals[0] > 0.0f)
     {
         Real scale = 100.0f / totals[0];
         for (it = m_members.begin(); it != m_members.end(); ++it)
-            *(*it)->rva0041F28C(0) *= scale;
+            *(*it)->getPercentageOfArmy(0) *= scale;
     }
     if (totals[1] > 0.0f)
     {
         Real scale = 100.0f / totals[1];
         for (it = m_members.begin(); it != m_members.end(); ++it)
-            *(*it)->rva0041F28C(1) *= scale;
+            *(*it)->getPercentageOfArmy(1) *= scale;
     }
     if (totals[2] > 0.0f)
     {
         Real scale = 100.0f / totals[2];
         for (it = m_members.begin(); it != m_members.end(); ++it)
-            *(*it)->rva0041F28C(2) *= scale;
+            *(*it)->getPercentageOfArmy(2) *= scale;
     }
 }
