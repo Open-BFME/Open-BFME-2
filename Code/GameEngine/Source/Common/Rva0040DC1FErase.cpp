@@ -1,4 +1,5 @@
 // cl: /O1
+// stlport46
 // ?erase@?$vector@URva004F69C3@@V?$allocator@URva004F69C3@@@_STL@@@_STL@@QAEPAURva004F69C3@@PAU3@@Z, retail 0x0040DC1F, 55 bytes.
 // Vector<Rva004F69C3> single erase via copy_ptrs twin at 0x0040D8FB and rowed
 // dtor 0x004F69C3. Same 55B shape as ModuleInfo Nugget erase 0x0033C3BC.
