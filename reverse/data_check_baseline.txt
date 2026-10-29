@@ -15,16 +15,6 @@ Code/GameEngine/Source/Common/Rva00E08D3CString.cpp	wrong-name	?g_rva00E08D3CStr
 Code/GameEngine/Source/Common/StaticInit/Rva00C6E31EInitializers.cpp	wrong-name	?g_rva0134FB38@@3URva0134FB38Storage@@A	0x00A09E50
 Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp	wrong-name	?$S1@?3??setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z@4IA	0x00A01D34
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S1@?1??OnBttnSpellStore@AptPalantir@@QAEXPBD@Z@4IA	0x009FF038
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S2@?4??rva002D4DD0@AptPalantir@@QAEXPBD@Z@4IA	0x009FF04C
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?$S5@?4??rva002D4E71@AptPalantir@@QAEXPBD@Z@4IA	0x009FF058
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	0x009FE4CC
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?TheRva00DFE144@@3PAURva00DFE144Globals@@A	0x009FE144
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?evil@?4??rva002D4DD0@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A	0x009FF048
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?g_00E02D6C@@3PAVRva003B8BAA@@A	0x00A02D6C
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?good@?6??rva002D4DD0@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A	0x009FF044
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?objectives@?4??rva002D4E71@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A	0x009FF054
-Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp	wrong-name	?status@?6??rva002D4E71@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A	0x009FF050
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?$S1@?4??bfmeApplyYU@@YGXH@Z@4IA	0x009FF064
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeObjectivesYU@?4??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF060
 Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp	wrong-name	?s_bfmeOtherYU@?6??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A	0x009FF05C
