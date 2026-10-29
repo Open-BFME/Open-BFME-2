@@ -18,17 +18,11 @@ private:
 // Swap holder via rowed vector swap 0x00567ECD plus rowed Region swap 0x0030B31A plus float and byte swaps.
 // Evidence: chain from 0x0030B31A; caller 0x0030C164; prev fill_n float4 next erase pod16 both vector /O1.
 struct BfmeE12 { float x, y, z; };
-namespace _STL
-{
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-	void swap(vector &);
-};
+#include <vector>
+
+// Keep the existing rowed swap provider when using the real STLport view.
+namespace _STL {
+template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector &);
 }
 
 class QuadStrip2D
