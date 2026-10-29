@@ -76,7 +76,7 @@ void __identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseWayPoint@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
-void __identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
 
 extern const char *TheLocomotorSetNames[];
@@ -714,7 +714,7 @@ extern const FieldParse s_workerAiFieldTable[13] = {
 extern const FieldParse s_siegeEngineFieldTable[8] = {
     { "CrewFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x18C },
     { "CrewMax", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x190 },
-    { "InitialCrew", (FieldParseProc)&__identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "InitialCrew", (FieldParseProc)&__identifier("?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
     { "SpeedPercentPerCrew", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x19C },
     { "CrewAllowedToFire", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A0 },
     { "ObjectStatusOfCrew", (FieldParseProc)&__identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A4 },
@@ -744,7 +744,7 @@ extern const FieldParse s_weaponModeFieldTable[5] = {
 extern const FieldParse s_hordeSiegeEngineFieldTable[6] = {
     { "CrewFilter", (FieldParseProc)&__identifier("?iniParseObjectFilter@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x18C },
     { "CrewMax", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x190 },
-    { "InitialCrew", (FieldParseProc)&__identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
+    { "InitialCrew", (FieldParseProc)&__identifier("?parseInitialCrew@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x0 },
     { "SpeedPercentPerCrew", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x19C },
     { "CrewAllowedToFire", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A0 },
     { "ObjectStatusOfCrew", (FieldParseProc)&__identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A4 },
