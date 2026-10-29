@@ -2101,9 +2101,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00170BFFInsertFinish.cpp	?rva0017
 alternatename	Code/GameEngine/Source/Common/Rva00170D0FTextureEntryErase.cpp	?rva00170AA9@Rva00170D0FTree@@QAEXURva00170D0FIterator@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00170D0FTextureEntryErase.cpp	?rva00357180@Rva00170D0FTree@@QBEPAURva00170D0FNode@@ABI@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00170EFEHintInsert.cpp	?rva00170BFF@Rva00170BFF@@QAE?AURva00170EFEIter@@PAURva00170EFENode@@0ABVRva00170999@@0@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0017480CVectorRva0017480C.cpp	??1Rva0017480CRecord@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva0017480CVectorRva0017480C.cpp	?erase@Rva0017480CVector@@AAEPAURva0017480CRecord@@PAU2@0@Z	1
-alternatename	Code/GameEngine/Source/Common/Rva0017480CVectorRva0017480C.cpp	?fill@Rva0017480CVector@@AAEXPAURva0017480CRecord@@IABU2@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00174A8AAdapter.cpp	?rva0017480C@Rva0017480C@@QAEXHUBfmeAssignRecord32@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva001DBBAD.cpp	?regainFocus@@YAXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva001DD0A0Copy.cpp	??0BfmePod52@@QAE@ABU0@@Z	1
@@ -3949,6 +3946,9 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicVectorBfmeHandleCtor.cp
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?Rva00153A5ERangeCallee@@YAPAURva00153A5EOutput@@PAURva00153A5EInput@@0PAU1@ABURva00153A5EIteratorTag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva001538A8@Rva001538A8@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	??1Rva0017480CRecord@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	?erase@Rva0017480CVector@@AAEPAURva0017480CRecord@@PAU2@0@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	?fill@Rva0017480CVector@@AAEXPAURva0017480CRecord@@IABU2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassGetCharData.cpp	?Get_Char_Data@FontCharsClass@@AAEPBUFontCharsClassCharDataStruct@@G@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp	?bfmeReleaseATXA@@YGXPAX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FramGrab.cpp	?bfmeReleaseBTXA@@YGXPAX@Z	1
