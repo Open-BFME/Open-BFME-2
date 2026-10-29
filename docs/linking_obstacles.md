@@ -8462,3 +8462,25 @@ Update 2026-10-28 (generator pass):
   SpecialPowerUpdateInterface, Rva0044EF5E, B0); 24 refuse on queued
   sizes/fields or undecided, tied or gapped slots (Object: size; Thing,
   Drawable: slot 0; AIUpdateInterface: 141 queued slots).
+
+## ConstIntGettersAddr.cpp FieldParse tables (2026-10-29, seat halilkkaya-fpt1)
+
+Done (commits 0b5feb85bd, 16e7cdaec7, 7ed40a3467): 29 raw-int FieldParse tables became typed
+`FieldParse` tables (field-name literal from `reverse/fieldparse_tables.tsv`, matched parser
+named with `(FieldParseProc)&__identifier(..)`), with 28 byte-verified data rows. link_debt
+addresses 1042 -> 349; link_check of the 18 previewable consumers unchanged.
+Reusable rules: the decorated name of an array global carries its element type (`?X@@3QBHB`
+vs `?X@@3QBUFieldParse@@B`), so every consumer's `extern const int X[]` must become
+`extern const FieldParse X[]` with a complete `struct FieldParse` in the same commit;
+link_check shows the old spelling as unresolved.
+
+Remaining in the file (349 literals), not converted because a referenced symbol has no
+defining object (do not invent one):
+- userData name lists with no data row: 0xDB960C and 0xDBC284 (s_modelDrawFieldTable),
+  0xC1B6D8 (s_fxpsSizeAngleTable), 0xDCD4D0/0xDCD550 (AODCrushCollideTable),
+  0xDBB4C4/0xDBB4F0 (s_transportAiFieldTable, s_hordeContainFieldTable), 0xDBE6F0
+  (s_radiusDecalFieldTable). Each needs a data row plus defining object first.
+- Tables with no rows in fieldparse_tables.tsv (field names unknown without reading the
+  image): s_animSoundFieldTable, s_moneyCrateFieldTable, s_assaultTransportFieldTable,
+  s_hordeModelDrawFieldTable, s_crowdResponseFieldTable.
+- The 14 getters returning image addresses (three Drawable statics have no definition).
