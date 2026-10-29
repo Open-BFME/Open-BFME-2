@@ -25,6 +25,9 @@
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents).
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/PartitionRangeQueryCallView.h"
+
 class ModuleData;
 class Object;
 class Player;
@@ -77,21 +80,7 @@ public:
 };
 
 
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
-struct BfmeWideResult
-{
-	Object *next() throw();	// 0x00045623
-	~BfmeWideResult();	// 0x0004AA28
-	void *m_value;
-};
-
-class PartitionManager
-{
-public:
-	BfmeWideResult iterateObjectsInRange(const Coord3D *pos, float radius, int distCalc,
-		Rva000421C8 *filters, int order);	// 0x00625610
-};
 extern PartitionManager *ThePartitionManager;
 
 class Rva0010CBits
@@ -145,27 +134,59 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 	}
 }
 
-struct ModelConditionSpecialAbilityUpdateModuleData
+enum NameKeyType
 {
-	unsigned char m_pad00[0xC8];
-	int m_whichSpecialPower;
-	bool m_CC;
-	bool m_CD;
-	float m_emotionPulseRadius;	// +0xD0 the radius
-	char m_D4[4];	// +0xD4 what the 0x002614EC filter compares
+	NK_UNKNOWN = 0
 };
 
-class ModelConditionSpecialAbilityUpdate;
+class SpecialAbilityUpdateModuleData
+{
+public:
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+
+private:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+class BfmeFixedStorage0004543D
+{
+	char m_bytes[28];
+public:
+	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
+};
+
+class Rva003623E5Filter
+{
+public:
+	Rva003623E5Filter();
+	void applyFilter(BfmeFixedStorage0004543D arg);
+	~Rva003623E5Filter();
+
+private:
+	int m_handle;
+};
+
+class ModelConditionSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	ModelConditionSpecialAbilityUpdateModuleData();
+	virtual ~ModelConditionSpecialAbilityUpdateModuleData();
+
+	int m_whichSpecialPower; // +0xC8 WhichSpecialPower
+	bool m_generateTerror; // +0xCC GenerateTerror
+	bool m_generateUncontrollableFear; // +0xCD GenerateUncontrollableFear
+	float m_emotionPulseRadius; // +0xD0 EmotionPulseRadius
+	Rva003623E5Filter m_objectFilter; // +0xD4 ObjectFilter
+};
 
 class SpecialAbilityUpdate
 {
-	friend class ModelConditionSpecialAbilityUpdate;
 public:
 	virtual void triggerAbilityEffect();
 	virtual void startUnpacking();
-private:
-	void onExit(bool a, bool b);
 protected:
+	virtual void onExit(bool a, bool b);
 	Object *getObject() const { return m_object; }
 	const ModuleData *m_moduleData; // +0x04
 	Object *m_object; // +0x08
@@ -176,6 +197,7 @@ protected:
 class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void triggerAbilityEffect();
 	virtual void startUnpacking();
 protected:
@@ -215,15 +237,15 @@ void ModelConditionSpecialAbilityUpdate::triggerAbilityEffect()
 	SpecialAbilityUpdate::triggerAbilityEffect();
 	const ModelConditionSpecialAbilityUpdateModuleData *data =
 		(const ModelConditionSpecialAbilityUpdateModuleData *)m_moduleData;
-	if (data && (data->m_CC || data->m_CD)) {
+	if (data && (data->m_generateTerror || data->m_generateUncontrollableFear)) {
 	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(getObject()->getPosition(), data->m_emotionPulseRadius, 0,
 		Rva00261409Filter(m_object->getControllingPlayer(), true, 4).link(Rva002611BFFilter(m_object)
-			.link(&Rva002614ECFilter(data->m_D4, m_object->getControllingPlayer(), true))), 0);
+			.link(&Rva002614ECFilter(&data->m_objectFilter, m_object->getControllingPlayer(), true))), 0);
 	Object *other;
 	while ((other = hits.next()) != 0) {
-		if (data->m_CC)
+		if (data->m_generateTerror)
 			other->applyFrom(6, m_object);
-		if (data->m_CD)
+		if (data->m_generateUncontrollableFear)
 			other->applyFrom(5, m_object);
 	}
 }

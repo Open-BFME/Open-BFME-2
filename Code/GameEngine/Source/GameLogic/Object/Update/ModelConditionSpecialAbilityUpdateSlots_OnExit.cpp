@@ -27,6 +27,8 @@
 // The filters are BFME2's partition filter chain (the view
 // AIStructureCreepTactic.cpp documents).
 
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
 class ModuleData;
 class Object;
 class Player;
@@ -79,7 +81,6 @@ public:
 };
 
 
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 
 class Rva0010CBits
@@ -133,17 +134,51 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 	}
 }
 
-struct ModelConditionSpecialAbilityUpdateModuleData
+enum NameKeyType
 {
-	unsigned char m_pad00[0xC8];
-	int m_whichSpecialPower;
-	bool m_CC;
-	bool m_CD;
-	float m_emotionPulseRadius;	// +0xD0 the radius
-	char m_D4[4];	// +0xD4 what the 0x002614EC filter compares
+	NK_UNKNOWN = 0
 };
 
-class ModelConditionSpecialAbilityUpdate;
+class SpecialAbilityUpdateModuleData
+{
+public:
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+
+private:
+	unsigned char m_pad[0xC8 - 4];
+};
+
+class BfmeFixedStorage0004543D
+{
+	char m_bytes[28];
+public:
+	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
+};
+
+class Rva003623E5Filter
+{
+public:
+	Rva003623E5Filter();
+	void applyFilter(BfmeFixedStorage0004543D arg);
+	~Rva003623E5Filter();
+
+private:
+	int m_handle;
+};
+
+class ModelConditionSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
+{
+public:
+	ModelConditionSpecialAbilityUpdateModuleData();
+	virtual ~ModelConditionSpecialAbilityUpdateModuleData();
+
+	int m_whichSpecialPower; // +0xC8 WhichSpecialPower
+	bool m_generateTerror; // +0xCC GenerateTerror
+	bool m_generateUncontrollableFear; // +0xCD GenerateUncontrollableFear
+	float m_emotionPulseRadius; // +0xD0 EmotionPulseRadius
+	Rva003623E5Filter m_objectFilter; // +0xD4 ObjectFilter
+};
 
 class SpecialAbilityUpdate
 {
@@ -162,6 +197,7 @@ protected:
 class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void triggerAbilityEffect();
 	virtual void startUnpacking();
 protected:

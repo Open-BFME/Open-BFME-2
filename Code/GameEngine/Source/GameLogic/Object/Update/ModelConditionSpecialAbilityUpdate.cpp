@@ -25,12 +25,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ModelConditionSpecialAbilityUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
-
 //
 // ??0ModelConditionSpecialAbilityUpdateModuleData@@QAE@XZ, retail 0x00490DDB,
 // 132 bytes. ModelCondition data ctor over the pinned SpecialAbilityUpdateModuleData base
@@ -46,6 +40,12 @@ public:
 // ctor pin. Recipe: DominateEnemy precedent verbatim (virtual base with
 // declared-only dtor plus virtual derived, init-list base, body stores
 // plus by-value applyFilter through a file-local defaults global).
+
+template <int N> class BitFlags;
+
+extern BitFlags<116> KINDOFMASK_NONE;
+
+const float c_emotionPulseRadiusDefault = 50.0f;
 
 class SpecialAbilityUpdateModuleData
 {
@@ -64,10 +64,6 @@ public:
 	__declspec(nothrow) BfmeFixedStorage0004543D(const BfmeFixedStorage0004543D &);
 };
 
-template <int N> class BitFlags;
-
-extern BitFlags<116> KINDOFMASK_NONE;
-
 class Rva003623E5Filter
 {
 public:
@@ -79,20 +75,44 @@ private:
 	int m_handle;
 };
 
-const float c_emotionPulseRadiusDefault = 50.0f;
-
 class ModelConditionSpecialAbilityUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
 public:
 	ModelConditionSpecialAbilityUpdateModuleData();
 	virtual ~ModelConditionSpecialAbilityUpdateModuleData();
 
-private:
 	int m_whichSpecialPower; // +0xC8 WhichSpecialPower
 	bool m_generateTerror; // +0xCC GenerateTerror
 	bool m_generateUncontrollableFear; // +0xCD GenerateUncontrollableFear
 	float m_emotionPulseRadius; // +0xD0 EmotionPulseRadius
 	Rva003623E5Filter m_objectFilter; // +0xD4 ObjectFilter
+};
+
+class ModuleData;
+class Object;
+
+class SpecialAbilityUpdate
+{
+public:
+	virtual void triggerAbilityEffect();
+	virtual void startUnpacking();
+protected:
+	virtual void onExit(bool a, bool b);
+	Object *getObject() const { return m_object; }
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+	unsigned char m_pad0C[0x24 - 0x0C];
+	int m_24; // +0x24
+};
+
+class ModelConditionSpecialAbilityUpdate : public SpecialAbilityUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void triggerAbilityEffect();
+	virtual void startUnpacking();
+protected:
+	virtual void onExit(bool a, bool b);
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdatePoolKey.cpp
