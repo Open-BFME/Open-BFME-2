@@ -98,11 +98,13 @@ public: void update();
 class Gen_uwm_004ea016
 {
 public:
+	Gen_uwm_004ea016() : m_04(4), m_08(1) {}
 	// Retail vtable 0x00862888 holds __purecall here.
 	virtual void slot00() = 0;
 	~Gen_uwm_004ea016() {}
 private:
-	char m_pad[8];
+	int m_04;
+	int m_08;
 };
 
 // The base is Rva00506B1B (ctor 0x00506B1B, vtable 0x00863F9C); its
@@ -110,6 +112,7 @@ private:
 class Rva00506B1B
 {
 public:
+	Rva00506B1B();
 	virtual ~Rva00506B1B();
 };
 
@@ -133,11 +136,13 @@ public:
 class Rva005990DF : public Gen_uwm_004ea016, public Rva00506B1B
 {
 public:
+	Rva005990DF(int owner);
 	virtual ~Rva005990DF();
 private:
 	char m_pad10[0x14 - 0x10];
 	_STL::vector<ObjectID> m_vec14;
 	_STL::vector<ObjectID> m_vec20;
+	int m_2C;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUnitUpgrader/AIUnitUpgrader.cpp
