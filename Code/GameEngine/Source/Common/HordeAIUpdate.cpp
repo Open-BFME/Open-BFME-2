@@ -90,11 +90,11 @@ void HordeAIUpdate::bfmePrivateCommand42(Object *obj, CommandSourceType source)
 
 // tu-skeleton: 0x0049A864 28B ??_GHordeAIUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0026E836Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x0049A880 33B ?isClearToApproach@HordeAIUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0049A64BRva0049A8FA.cpp (not merged yet)
+// tu-skeleton: 0x0049A880 33B ?isClearToApproach@HordeAIUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0049A8A1 89B ?reserveApproachPosition@HordeAIUpdate@@UAE_NHPAUCoord3D@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0049A64BRva0049A8FA.cpp (not merged yet)
+// tu-skeleton: 0x0049A8A1 89B ?reserveApproachPosition@HordeAIUpdate@@UAE_NHPAUCoord3D@@PAH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x0049A8FA 65B ?getEnterPosition@HordeAIUpdate@@UAEXHPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/Rva0049A64BRva0049A8FA.cpp (not merged yet)
+// tu-skeleton: 0x0049A8FA 65B ?getEnterPosition@HordeAIUpdate@@UAEXHPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0049A93B 56B ?privateMoveToPosition@HordeAIUpdate@@MAEXPBUCoord3D@@MW4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/HordeAIUpdatePrivateCommands.cpp (not merged yet)
 

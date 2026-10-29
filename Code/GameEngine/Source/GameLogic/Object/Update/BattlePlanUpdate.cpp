@@ -574,7 +574,7 @@ NameKeyType BattlePlanUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x0049797F 204B ?onObjectCreated@BattlePlanUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate_onObjectCreated.cpp (not merged yet)
 
-// tu-skeleton: 0x00497A4B 157B ?createVisionObject@BattlePlanUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva00497A4B.cpp (not merged yet)
+// tu-skeleton: 0x00497A4B 157B ?createVisionObject@BattlePlanUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdate_createVisionObject.cpp (not merged yet)
 
 // tu-skeleton: 0x00497AE8 722B ?rva00497AE8@BattlePlanUpdate@@QAEXW4BattlePlanStatus@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateSetBattlePlan.cpp (not merged yet)
 

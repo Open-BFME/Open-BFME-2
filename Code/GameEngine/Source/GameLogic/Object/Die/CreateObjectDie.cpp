@@ -200,7 +200,7 @@ CreateObjectDie::~CreateObjectDie( void )
 //-------------------------------------------------------------------------------------------------
 /** The die callback. */
 //-------------------------------------------------------------------------------------------------
-// ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z: defined in Rva00485C86Finish.cpp (its row's unit).
+// ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z: defined in CreateObjectDie_onDie.cpp (its row's unit).
 
 // ------------------------------------------------------------------------------------------------
 /** CRC */
@@ -282,7 +282,7 @@ void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse
 
 // tu-skeleton: 0x00485C19 109B ?rva00485C19@StatusBitsEldestFrame@@QAE_NPAVObject@@PBURva00485C19Data@@PBW4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCheck.cpp (not merged yet)
 
-// tu-skeleton: 0x00485C86 139B ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/Rva00485C86Finish.cpp (not merged yet)
+// tu-skeleton: 0x00485C86 139B ?onDie@CreateObjectDie@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie_onDie.cpp (not merged yet)
 
 // tu-skeleton: 0x00485D11 119B ?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofOnDie.cpp (not merged yet)
 

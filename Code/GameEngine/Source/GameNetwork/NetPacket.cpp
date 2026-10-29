@@ -5808,7 +5808,7 @@ class Rva004D64F5 *__cdecl Rva00592496Read(int base, unsigned int *cursor)
 
 // tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
 
-// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058C80FWrite.cpp (not merged yet)
+// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva0058C96CWrite.cpp
 

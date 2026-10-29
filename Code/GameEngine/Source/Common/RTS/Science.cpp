@@ -233,7 +233,7 @@ SciVec *__cdecl Rva00339A8DCopy(SciVec *first, SciVec *last, SciVec *dest, void 
 
 // tu-skeleton: 0x001FF3AD 47B ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF3DC 86B ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/Rva001FF3DCFinish.cpp (not merged yet)
+// tu-skeleton: 0x001FF3DC 86B ?getSciencePurchaseCost@ScienceStore@@QBEHW4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStore_getSciencePurchaseCost.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
 

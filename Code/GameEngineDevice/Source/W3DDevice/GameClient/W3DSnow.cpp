@@ -215,7 +215,7 @@ void W3DSnowManager::rva00093457()
 
 // tu-skeleton: 0x00093507 957B ?renderSubBox@W3DSnowManager@@QAEXAAVRenderInfoClass@@HHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRenderSubBox.cpp (not merged yet)
 
-// tu-skeleton: 0x00093ACB 116B ?updateIniSettings@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00093ACBFinish.cpp (not merged yet)
+// tu-skeleton: 0x00093ACB 116B ?updateIniSettings@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/W3DSnowManager.cpp (not merged yet)
 
 // tu-skeleton: 0x00093B3F 28B ?reset@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManager_reset.cpp (not merged yet)
 
@@ -227,4 +227,4 @@ void W3DSnowManager::rva00093457()
 
 // tu-skeleton: 0x0009470F 714B ?render@W3DSnowManager@@QAEXAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DSnowManagerRender.cpp (not merged yet)
 
-// tu-skeleton: 0x000949D9 187B ?update@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/Rva00093ACBFinish.cpp (not merged yet)
+// tu-skeleton: 0x000949D9 187B ?update@W3DSnowManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/W3DSnowManager.cpp (not merged yet)

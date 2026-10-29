@@ -346,7 +346,7 @@ public:
 
 // tu-skeleton: 0x000FE1AC 91B ?rva000FE1AC@WaterTracksRenderSystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000FE1ACUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x000FE207 137B ?findTrack@WaterTracksRenderSystem@@QAEPAUFeNode@@PBM0H@Z -- matched in Code/GameEngine/Source/Common/Rva000FE207Find.cpp (not merged yet)
+// tu-skeleton: 0x000FE207 137B ?findTrack@WaterTracksRenderSystem@@QAEPAUFeNode@@PBM0H@Z -- matched in Code/GameEngine/Source/Common/WaterTracksRenderSystem_findTrack.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp
 
@@ -423,7 +423,7 @@ void WaterTracksObj::init(float width,float length,Vector2 &start,Vector2 &end,c
  texture=TextureAsset::Get(textureName,0,0);
 }
 
-// Retail 0x000FE207, rowed in Rva000FE207Find.cpp; this select-any copy shows loadTracks
+// Retail 0x000FE207, rowed in WaterTracksRenderSystem_findTrack.cpp; this select-any copy shows loadTracks
 // that the search keeps no endpoint address.
 inline FeNode *WaterTracksRenderSystem::findTrack(const float *a, const float *b, int c)
 {

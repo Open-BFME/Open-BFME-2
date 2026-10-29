@@ -927,7 +927,7 @@ void *Rva00288BF9Record::destroy(unsigned flags)
 
 // tu-skeleton: 0x00288FE5 9B ??$_Destroy@U?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@_STL@@@_STL@@YAXPAU?$pair@$$CBHV?$list@UBfmePod264@@V?$allocator@UBfmePod264@@@_STL@@@_STL@@@0@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
 
-// tu-skeleton: 0x0028900A 199B ?SplitUpgrades@@YAHPAXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva0028900AParse.cpp (not merged yet)
+// tu-skeleton: 0x0028900A 199B ?SplitUpgrades@@YAHPAXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/SplitUpgrades.cpp (not merged yet)
 
 // tu-skeleton: 0x00289139 14B ?sort@?$list@UcrateCreationEntry@@V?$allocator@UcrateCreationEntry@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/CrateCreationEntryListInsert.cpp (not merged yet)
 

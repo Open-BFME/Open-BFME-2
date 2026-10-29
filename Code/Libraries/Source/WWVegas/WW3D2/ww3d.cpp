@@ -1758,7 +1758,7 @@ void WW3D::Stop_Movie_Capture()
 
 // tu-skeleton: 0x00117A80 6B ?Rva00117A80GetFlag@@YAEXZ -- matched in Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp (not merged yet)
 
-// tu-skeleton: 0x00117AC0 12B ?hasBfmeThingTXA@@YAHXZ -- matched in Code/GameEngine/Source/Common/BfmeThingTXAHasObject.cpp (not merged yet)
+// tu-skeleton: 0x00117AC0 12B ?hasBfmeThingTXA@@YAHXZ -- matched in Code/GameEngine/Source/Common/hasBfmeThingTXA.cpp (not merged yet)
 
 // tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
 

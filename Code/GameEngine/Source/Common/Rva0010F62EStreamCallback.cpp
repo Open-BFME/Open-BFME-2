@@ -3,7 +3,7 @@
 #include "../../Include/Common/Rva00041004Lock.h"
 // Retail 0x0010F62E (192 bytes): the only slot of the one-slot vftable at
 // 0x00BCFAA0, next to the guarded Miles stream operations of
-// Rva0010F5A8Finish.cpp (same guard derivation and rowed lock pair
+// SetStreamPositionCommand_execute.cpp (same guard derivation and rowed lock pair
 // 0x0010F24F / 0x0010F26E). With a stream: when the +0x0C user value is set
 // and the +0x10 counter (read through InterlockedExchangeAdd(p, 0)) is
 // non-zero, under the Miles mutex store the inner +0x20 value and the +0x0C

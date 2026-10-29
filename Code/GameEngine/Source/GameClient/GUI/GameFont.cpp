@@ -1172,7 +1172,7 @@ void __cdecl bfmeEachQR(BfmeElemQR *first, BfmeElemQR *last, int unused, void *e
 
 // tu-skeleton: 0x00217E77 151B ?insert_unique@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
 
-// tu-skeleton: 0x00217F0E 111B ?__linear_insert@@YAXPAUQ3SortElem16@@0U1@UQ3SortCompare@@@Z -- matched in Code/GameEngine/Source/Common/Q3LinearInsert00217F0E.cpp (not merged yet)
+// tu-skeleton: 0x00217F0E 111B ?__linear_insert@@YAXPAUQ3SortElem16@@0U1@UQ3SortCompare@@@Z -- matched in Code/GameEngine/Source/Common/__linear_insert.cpp (not merged yet)
 
 // tu-skeleton: 0x00217FAD 5B ?rva00217FAD@Rva00217FAD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 

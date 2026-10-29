@@ -331,7 +331,7 @@ except by the pathfinder during pathfind queue processing.  jba */
 pathfinder (air units just move point to point) it generates the path immediately.  Otherwise the path
 will be processed when we get to the front of the pathfind queue. jba */
 //-------------------------------------------------------------------------------------------------
-// AIUpdateInterface::requestPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestPath_Rva0026893F.cpp (0x0026893F).
+// AIUpdateInterface::requestPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface.cpp (0x0026893F).
 
 //-------------------------------------------------------------------------------------------------
 // AIUpdateInterface::requestAttackPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestAttackPath.cpp (0x00263A39).
@@ -996,7 +996,7 @@ Bool AIUpdateInterface::processCollision(PhysicsBehavior *physics, Object *other
 /**
  * See if we can do a quick path without pathfinding.
  */
-// AIUpdateInterface::canComputeQuickPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestPath_Rva0026893F.cpp (0x00262A64).
+// AIUpdateInterface::canComputeQuickPath is defined with its retail-matched body in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface.cpp (0x00262A64).
 
 //-------------------------------------------------------------------------------------------------
 /**

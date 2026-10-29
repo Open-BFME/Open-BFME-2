@@ -813,7 +813,7 @@ bool Rva004E0705::rva004E0A58()
 	return ok;
 }
 
-// tu-skeleton: 0x004E0A96 69B ?createGhostObject@LivingWorldBuilding@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004E0A96Flush.cpp (not merged yet)
+// tu-skeleton: 0x004E0A96 69B ?createGhostObject@LivingWorldBuilding@@QAEXXZ -- matched in Code/GameEngine/Source/Common/LivingWorldBuilding_createGhostObject.cpp (not merged yet)
 
 // tu-skeleton: 0x004E0B2F 49B ?rva004E0B2F@Rva004E0B2F@@QAEPAURva004E0B2FEntry@@ABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE05.cpp (not merged yet)
 

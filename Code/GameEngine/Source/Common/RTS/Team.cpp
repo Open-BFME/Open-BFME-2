@@ -3730,7 +3730,7 @@ void TeamFactory::xfer(Xfer *xfer)
 
 // tu-skeleton: 0x003A393A 31B ??0Rva003A393A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/ArmorHashMapCtor003A393A.cpp (not merged yet)
 
-// tu-skeleton: 0x003A3959 50B ??0TeamRelationMap@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/Rva003A3959Ctor.cpp (not merged yet)
+// tu-skeleton: 0x003A3959 50B ??0TeamRelationMap@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamRelationMap.cpp (not merged yet)
 
 // tu-skeleton: 0x003A39A7 471B ??0Team@@QAE@PAVTeamPrototype@@H@Z -- matched in Code/GameEngine/Source/Common/RTS/TeamCtor.cpp (not merged yet)
 
@@ -4077,7 +4077,7 @@ void TeamFactory::initFromSides(SidesList *sides)
 
 // tu-skeleton: 0x007819FA 8B uw_007819fa -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
-// tu-skeleton: 0x00781A02 10B __ehhandler$??0TeamRelationMap@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/Rva003A3959Ctor.cpp (not merged yet)
+// tu-skeleton: 0x00781A02 10B __ehhandler$??0TeamRelationMap@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TeamRelationMap.cpp (not merged yet)
 
 // tu-skeleton: 0x00781A0C 8B Unwind@00b81a0c -- matched in Code/GameEngine/Source/Common/RTS/TeamCtor.cpp (not merged yet)
 
