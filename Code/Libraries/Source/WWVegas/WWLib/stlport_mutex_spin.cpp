@@ -1,6 +1,6 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
 // platformsdk
-// stlport
+// stlport46
 //
 // STLport 4.5.3 _STLP_mutex_spin<0>::_M_do_lock, the spin lock behind
 // _STLP_mutex. The upstream body from vendor/stlport/stl/_threads.c: swap the
