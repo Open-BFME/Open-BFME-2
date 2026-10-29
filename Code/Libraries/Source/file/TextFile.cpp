@@ -30,6 +30,12 @@
 #define _strcmpi bfmeStatic_strcmpi_unused
 #define strcmp bfmeStatic_strcmp_unused
 #define strncpy bfmeStatic_strncpy_unused
+// This TU disables CRT imports for STLport, but retail imports isspace.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+#include <ctype.h>
+#pragma pop_macro("_CRTIMP")
 #include <vector>
 #include "ascii_string.h"
 // Import-inline: retail inlines max<unsigned> into this unit's vector growth;
@@ -127,7 +133,6 @@ __forceinline void appendCString(CStringVector &stringVector, const char *const 
 // clear, followed by isspace classification and its five explicit entries.
 // This recovers the existing address-derived initializer, not a donor name.
 extern "C" void *__cdecl memset(void *,int,unsigned);
-extern "C" __declspec(dllimport) int __cdecl isspace(int);
 int TextFileCharacterClasses[256];
 bool TextFileCharacterClassesInitialized;
 void Rva006016C9Init() {
