@@ -60,16 +60,26 @@ public:
 // giving EH state 0 exactly as retail. Shape follows the landed
 // DynamicShroudClearingRangeUpdateDtor (compiler MI vptr group ahead of
 // EH state plus implicit member plus base). Layout from the rowed ctor
-// 0x004A8E7B (UpdateModule base 0x20 plus m_f20 +0x20 plus events +0x24
-// size 0x4C plus m_f70 +0x70 plus flags +0x74/+0x75) joined to the BFME1
+// 0x004A8E7B (UpdateModule base 0x20 plus m_event +0x20 plus events +0x24
+// size 0x4C plus m_range +0x70 plus flags +0x74/+0x75) joined to the BFME1
 // DelayedLuaEventUpdateDestructors donor. Caller is the slot-0 ??_G at
 // 0x004A8EEF (vtable 0x00853A5C).
 
 class Thing;
-
 class ModuleData;
-
 class Object;
+class Xfer;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
 
 class UpdateModuleBase
 {
@@ -78,8 +88,8 @@ public:
 	virtual ~UpdateModuleBase();
 
 protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
 };
 
 class UpdateModuleInterface1
@@ -91,13 +101,7 @@ public:
 class UpdateModuleInterface2
 {
 public:
-	virtual void slot2() = 0;
-};
-
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public UpdateModuleBase,
@@ -106,48 +110,49 @@ class UpdateModule : public UpdateModuleBase,
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
-public:
 	virtual ~UpdateModule();
-protected:
-	unsigned int m_nextCallFrameAndPhase;
-protected:
-	int m_indexInLogic;
-protected:
-	int m_reserved1C;
+	void xfer(Xfer *xfer);
+
 protected:
 	void setWakeFrame(Object *object, UpdateSleepTime frame);
+
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_reserved1C;
 };
 
 class DelayedLuaEventList
 {
 public:
+	DelayedLuaEventList();
 	virtual ~DelayedLuaEventList();
+	virtual void crc(Xfer *xfer);
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
+	DelayedLuaEventList &rva004A8DDE(const DelayedLuaEventList &other);
+
 private:
 	char m_pad[0x48];
-public:
-	DelayedLuaEventList();
-public:
-	DelayedLuaEventList &rva004A8DDE(const DelayedLuaEventList &other);
 };
 
 class DelayedLuaEventUpdate : public UpdateModule
 {
 public:
 	DelayedLuaEventUpdate(Thing *thing, const ModuleData *moduleData);
-public:
 	virtual ~DelayedLuaEventUpdate();
-private:
-	unsigned int m_f20;
-private:
-	DelayedLuaEventList m_events;
-private:
-	float m_f70;
-private:
-	bool m_f74;
-private:
-	bool m_f75;
-public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	void rva004A8F0B(unsigned int f20, const DelayedLuaEventList &events, UpdateSleepTime sleep, float f70, bool f74, bool f75);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	int m_event;			// +0x20
+	DelayedLuaEventList m_events;	// +0x24
+	float m_range;			// +0x70
+	bool m_f74;			// +0x74
+	bool m_f75;			// +0x75
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdateModuleDataCtor.cpp
@@ -188,8 +193,8 @@ DelayedLuaEventUpdate::DelayedLuaEventUpdate(Thing *thing, const ModuleData *mod
 	: UpdateModule(thing, moduleData), m_events()
 {
 	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
-	m_f20 = 0;
-	m_f70 = 0.0f;
+	m_event = 0;
+	m_range = 0.0f;
 	m_f74 = false;
 	m_f75 = false;
 }
@@ -198,11 +203,11 @@ DelayedLuaEventUpdate::DelayedLuaEventUpdate(Thing *thing, const ModuleData *mod
 
 void DelayedLuaEventUpdate::rva004A8F0B(unsigned int f20, const DelayedLuaEventList &events, UpdateSleepTime sleep, float f70, bool f74, bool f75)
 {
-	m_f20 = f20;
+	m_event = f20;
 	m_events.rva004A8DDE(events);
 	m_f74 = f74;
 	m_f75 = f75;
-	m_f70 = f70;
+	m_range = f70;
 	UpdateSleepTime frame = (unsigned int)sleep > 0U ? sleep : UPDATE_SLEEP_NONE;
 	setWakeFrame(m_object, frame);
 }

@@ -7,8 +7,8 @@
 // 0x10, Version(1,1) via Xfer slot 0x28, float at +0x70 via slot 0x70, bools
 // at +0x74/+0x75 via slot 0x90, uint at +0x20 via XferRawBytes slot 0x24,
 // then member DelayedLuaEventList at +0x24 via its slot-3 xfer (rowed
-// 0x003316D2). Layout is the rowed class (UpdateModule base 0x20 plus m_f20
-// +0x20 plus events +0x24 size 0x4C plus m_f70 +0x70 plus flags +0x74/+0x75)
+// 0x003316D2). Layout is the rowed class (UpdateModule base 0x20 plus m_event
+// +0x20 plus events +0x24 size 0x4C plus m_range +0x70 plus flags +0x74/+0x75)
 // from DelayedLuaEventUpdateCtor/Dtor. Recipe is the InvisibilityUpdateXfer
 // slot-3 pattern with DelayedLuaEventListXfer Version(1,1) and float/bool
 // slots.
@@ -46,41 +46,71 @@ public:
 	unsigned char m_minimum;
 };
 
-class ObjectModule
-{
-public:
-	ObjectModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~ObjectModule();
+class Thing;
+class ModuleData;
+class Object;
+class Xfer;
 
-protected:
-	const ModuleData *m_moduleData;
-	Object *m_object;
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
 };
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
 
-class UpdateModule : public ObjectModule,
-	public BehaviorModuleInterface, public UpdateModuleInterface
+class UpdateModuleBase
+{
+public:
+	UpdateModuleBase(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModuleBase();
+
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+};
+
+class UpdateModuleInterface1
+{
+public:
+	virtual void slot1() = 0;
+};
+
+class UpdateModuleInterface2
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public UpdateModuleBase,
+		     public UpdateModuleInterface1,
+		     public UpdateModuleInterface2
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
 
-private:
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
-	int m_updateState;
+	int m_reserved1C;
 };
 
 class DelayedLuaEventList
 {
 public:
+	DelayedLuaEventList();
 	virtual ~DelayedLuaEventList();
 	virtual void crc(Xfer *xfer);
 	virtual void loadPostProcess();
 	virtual void xfer(Xfer *xfer);
+	DelayedLuaEventList &rva004A8DDE(const DelayedLuaEventList &other);
 
 private:
 	char m_pad[0x48];
@@ -90,16 +120,20 @@ class DelayedLuaEventUpdate : public UpdateModule
 {
 public:
 	DelayedLuaEventUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DelayedLuaEventUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	void rva004A8F0B(unsigned int f20, const DelayedLuaEventList &events, UpdateSleepTime sleep, float f70, bool f74, bool f75);
 
 protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned int m_f20;
-	DelayedLuaEventList m_events;
-	float m_f70;
-	bool m_f74;
-	bool m_f75;
+	int m_event;			// +0x20
+	DelayedLuaEventList m_events;	// +0x24
+	float m_range;			// +0x70
+	bool m_f74;			// +0x74
+	bool m_f75;			// +0x75
 };
 
 void DelayedLuaEventUpdate::xfer(Xfer *xfer)
@@ -109,9 +143,9 @@ void DelayedLuaEventUpdate::xfer(Xfer *xfer)
 		return;
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	*xfer == m_f70;
+	*xfer == m_range;
 	*xfer == m_f74;
 	*xfer == m_f75;
-	xfer->XferRawBytes(&m_f20, 4);
+	xfer->XferRawBytes(&m_event, 4);
 	m_events.xfer(xfer);
 }

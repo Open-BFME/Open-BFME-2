@@ -2,6 +2,9 @@
 // ?update@DelayedLuaEventUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x004A8F52 240B
 // Slot 0 of the +0x10 interface vftable 0x00C53A50 (ctor 0x004A8E7B stores it): relationship flags 2 and 6 when +0x74 plus bit0 when +0x75 via iterateObjectsInRange then Lua event 0x003360D2 then destroyObject; /G7 for or al 1.
 // Evidence: vftable slot plus rowed callees plus ThePartitionManager plus TheGameLogic; finish from stash 0x004a8f52 (0.97) via G7.
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+
 class Object;
 class Player;
 
@@ -47,8 +50,6 @@ public:
 	const Object *m_obj;
 };
 
-#include "../../../../../Libraries/Include/Lib/Coord3D.h"
-
 class Thing;
 class ModuleData;
 
@@ -74,18 +75,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-#include "../../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
-
-class DelayedLuaEventList
-{
-public:
-	DelayedLuaEventList();
-	~DelayedLuaEventList();
-
-private:
-	unsigned char m_data[0x4C];
-};
 
 struct BfmeDelayedLuaEventList;
 class BfmeObjectEventDispatch
@@ -96,6 +86,16 @@ public:
 class LuaScriptEngine;
 extern LuaScriptEngine *TheLuaScriptEngine;
 
+class Thing;
+class ModuleData;
+class Object;
+class Xfer;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
@@ -105,10 +105,11 @@ enum UpdateSleepTime
 class UpdateModuleBase
 {
 public:
+	UpdateModuleBase(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModuleBase();
 
 protected:
-	const ModuleData *m_moduleData;
+	const ModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
 };
 
@@ -128,16 +129,44 @@ class UpdateModule : public UpdateModuleBase,
 		     public UpdateModuleInterface1,
 		     public UpdateModuleInterface2
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
 protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_reserved1C;
 };
 
+class DelayedLuaEventList
+{
+public:
+	DelayedLuaEventList();
+	virtual ~DelayedLuaEventList();
+	virtual void crc(Xfer *xfer);
+	virtual void loadPostProcess();
+	virtual void xfer(Xfer *xfer);
+	DelayedLuaEventList &rva004A8DDE(const DelayedLuaEventList &other);
+
+private:
+	char m_pad[0x48];
+};
+
 class DelayedLuaEventUpdate : public UpdateModule
 {
 public:
+	DelayedLuaEventUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DelayedLuaEventUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+	void rva004A8F0B(unsigned int f20, const DelayedLuaEventList &events, UpdateSleepTime sleep, float f70, bool f74, bool f75);
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	int m_event;			// +0x20
