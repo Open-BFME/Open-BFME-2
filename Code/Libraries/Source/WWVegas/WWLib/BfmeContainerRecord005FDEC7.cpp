@@ -89,6 +89,8 @@ private:
 
 // tu-skeleton: 0x005F9217 8B ??1BfmeContainerRecord005FDEC7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_wide_record_5fdec7.cpp (not merged yet)
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/BfmeContainerRecord005FDEC7.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva005F921FButton.cpp
 
 void StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled(bool flag)
@@ -101,10 +103,6 @@ void StrategicHUD::BattlePromptMovieClip::Impl::SetAutoResolveButtonEnabled(bool
 	m_flag60 = flag;
 }
 
-// tu-skeleton: 0x005F927A 91B ?SetRealTimeButtonEnabled@Impl@BattlePromptMovieClip@StrategicHUD@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva005F927AButton.cpp (not merged yet)
-
-// tu-skeleton: 0x005F92D5 91B ?SetRetreatButtonEnabled@Impl@BattlePromptMovieClip@StrategicHUD@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/Rva005F92D5Button.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005F9330FadeOut.cpp
 
 void Rva005F9330::rva005F9330()
@@ -113,8 +111,6 @@ void Rva005F9330::rva005F9330()
     Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "FadeOut");
     m_state18 = 2;
 }
-
-// tu-skeleton: 0x005F9364 103B ?SetRegionNameString@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005F9364Region.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005F93CBForward.cpp
 
@@ -136,6 +132,32 @@ void Rva005F93DB::rva005F93DB(bool flag)
 {
 	m_member04->SetRetreatButtonEnabled(flag);
 }
+
+// ---- from Code/GameEngine/Source/Common/Rva005F927AButton.cpp
+
+void StrategicHUD::BattlePromptMovieClip::Impl::SetRealTimeButtonEnabled(bool flag)
+{
+	if (m_flag61 == flag)
+		return;
+	const char *state = flag ? "_up" : "_disabled";
+	const char *team = m_team08 ? (const char *)m_team08 + 8 : "";
+	Rva005F8EDAAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetButtonState", "RealTime", (void **)&state);
+	m_flag61 = flag;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva005F92D5Button.cpp
+
+void StrategicHUD::BattlePromptMovieClip::Impl::SetRetreatButtonEnabled(bool flag)
+{
+	if (m_flag62 == flag)
+		return;
+	const char *state = flag ? "_up" : "_disabled";
+	const char *team = m_team08 ? (const char *)m_team08 + 8 : "";
+	Rva005F8EDAAptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level04, team, "SetButtonState", "Retreat", (void **)&state);
+	m_flag62 = flag;
+}
+
+// tu-skeleton: 0x005F9364 103B ?SetRegionNameString@Impl@BattlePromptMovieClip@StrategicHUD@@QAEXABVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/Rva005F9364Region.cpp (not merged yet)
 
 // tu-skeleton: 0x005F93E3 35B ??0BfmeStringRecord005F93E3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordInlineCopyBFME2.cpp (not merged yet)
 
