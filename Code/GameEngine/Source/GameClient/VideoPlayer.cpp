@@ -9,7 +9,10 @@
 #define g_bfmeEndJD ((BfmeRecJD *)g_videoTable.end)
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #pragma comment(linker, "/alternatename:_g_bfmeHeadEQB=?g_Va00E0ABB0@@3HA")
-#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
+// The approved Rva006892F0 donor needs this existing 14-slot base view;
+// the data-oriented canonical header would truncate its emitted vtable.
+typedef bool Bool;
+#include "subsystem_interface.h"
 #pragma comment(linker, "/alternatename:?g_Va00CE4918@@3DA=??_7VideoPlayer@@6B@")
 
 //

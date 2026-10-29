@@ -1,0 +1,27 @@
+tu: Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+seed: Code/GameEngine/Source/GameClient/VideoPlayer.cpp  (10 files)
+  VideoPlayer: conflict (6 files)
+      CONFLICT: base clause differs: Code/GameEngine/Source/GameClient/VideoPlayer.cpp: `-`; Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp: `public VideoPlayerBase`; Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp: `-`; Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp: `-`; Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp: `-`; Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp: `-`
+  Rva001D28F0Element: conflict (3 files)
+      CONFLICT: the ledger spells Rva001D28F0Element both `class` and `struct`
+  VideoNameHeaderView: already shared (2 files)
+  VideoNameStorageView: already shared (2 files)
+donors accepted by tu_skeleton --merge --dry-run: 0 -> 0
+  rejected before Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp: compile: reference\shims\subsystem_bfme2\subsystem_interface.h(27) : error C2011: 'SubsystemInterface' : 'class' type redefinition
+  rejected before Code/GameEngine/Source/Common/Rva000C3380Copy.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.5e945f2994fc409d.tu_skeleton.cpp(207) : error C2953: 'StringBase' : template class has already been defined | Code\GameEngine\Source\GameClient\
+  rejected before Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp: its flag override '' is not the carried '-O2'
+  rejected before Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp: bytes
+  rejected before Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.80f773a81b0e1577.tu_skeleton.cpp(464) : error C2039: 'getVideo' : is not a member of 'VideoPlayer' | Code\GameEngine\Source\GameClient\.VideoPla
+  rejected before Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.40025a7b7ff2f32f.tu_skeleton.cpp(413) : error C2039: 'rva00689580' : is not a member of 'VideoPlayer' | Code\GameEngine\Source\GameClient\.Video
+  rejected before Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp: its flag override '' is not the carried '-O2'
+  rejected before Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.57edd709f4c2a7b2.tu_skeleton.cpp(388) : error C2440: 'initializing' : cannot convert from 'void *' to 'Rva00688980 *'
+  rejected before Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp: compile: 
+  still rejected Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp: compile: reference\shims\subsystem_bfme2\subsystem_interface.h(27) : error C2011: 'SubsystemInterface' : 'class' type redefinition
+  still rejected Code/GameEngine/Source/Common/Rva000C3380Copy.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.5e945f2994fc409d.tu_skeleton.cpp(207) : error C2953: 'StringBase' : template class has already been defined | Code\GameEngine\Source\GameClient\
+  still rejected Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp: its flag override '' is not the carried '-O2'
+  still rejected Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp: bytes
+  still rejected Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.80f773a81b0e1577.tu_skeleton.cpp(464) : error C2039: 'getVideo' : is not a member of 'VideoPlayer' | Code\GameEngine\Source\GameClient\.VideoPla
+  still rejected Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.40025a7b7ff2f32f.tu_skeleton.cpp(413) : error C2039: 'rva00689580' : is not a member of 'VideoPlayer' | Code\GameEngine\Source\GameClient\.Video
+  still rejected Code/GameEngine/Source/GameClient/VideoPlayerRemoveVideo.cpp: its flag override '' is not the carried '-O2'
+  still rejected Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp: compile: Code\GameEngine\Source\GameClient\.VideoPlayer.57edd709f4c2a7b2.tu_skeleton.cpp(388) : error C2440: 'initializing' : cannot convert from 'void *' to 'Rva00688980 *'
+  still rejected Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp: compile: 

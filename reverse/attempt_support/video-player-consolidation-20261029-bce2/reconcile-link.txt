@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/GameClient/VideoPlayer.cpp: LINKS  LINKED 1,072 -> 1,072 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 1,072)
+Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp: LINKS  LINKED 41 -> 41 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 41)
+link_check: 2 of 2 link cleanly; LINKED 1,113 -> 1,113 bytes (4.4s)
