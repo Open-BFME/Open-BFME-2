@@ -7,21 +7,21 @@
 // boundary verified (push ebp at 0x94D44, fld + leave + ret 0xC at end).
 struct RvaVec4B { float x; float y; float z; float w; };
 struct RvaVec3B { float x; float y; float z; };
-struct RvaDE4880Owner { unsigned char m_pad[0x84]; RvaVec4B m_84; unsigned char m_pad94[0xD4 - 0x94]; RvaVec3B m_D4; float m_E0; };
+struct RvaDE4880Owner { unsigned char m_pad[0x84]; RvaVec4B m_plane; unsigned char m_pad94[0xD4 - 0x94]; RvaVec3B m_D4; float m_E0; };
 // The pointer global at 0x009E4880 is the data ledger's ?g_get_00710fb0@@3HA
 // (defined in Gen006E2310Ctor.cpp); read it through this unit's owner view.
 extern int g_get_00710fb0;
 #define g_00DE4880 (*reinterpret_cast<RvaDE4880Owner **>(&g_get_00710fb0))
-float __stdcall rva00094D44(float a, float b, float c)
+float __stdcall rva00094D44(float pointX, float pointY, float pointZ)
 {
-	RvaDE4880Owner *g = g_00DE4880;
+	RvaDE4880Owner *materialPass = g_00DE4880;
 	float r = 999999.0f;
-	if (g) {
-		RvaVec4B v = g->m_84;
-		r = v.z * c;
-		r += v.y * b;
-		r += v.x * a;
-		r += v.w;
+	if (materialPass) {
+		RvaVec4B plane = materialPass->m_plane;
+		r = plane.z * pointZ;
+		r += plane.y * pointY;
+		r += plane.x * pointX;
+		r += plane.w;
 	}
 	return r;
 }
@@ -51,20 +51,20 @@ float Rva00094DE5Vector::length(const Rva00094DE5Vector *vector)
 // 0x00094D44 and the same 999999.0f default: with the 0x00DE4880 state set,
 // the +0xE0 radius less the distance from (a, b, c) to its +0xD4 centre,
 // built from three fabs differences summed z first. Address-derived name.
-float __stdcall rva00094E2C(float a, float b, float c)
+float __stdcall rva00094E2C(float positionX, float positionY, float positionZ)
 {
-	RvaDE4880Owner *g = g_00DE4880;
-	float r = 999999.0f;
-	if (g) {
-		RvaVec3B center = g->m_D4;
-		r = g->m_E0;
-		RvaVec3B d;
-		d.x = (float)fabs(center.x - a);
-		d.y = (float)fabs(center.y - b);
-		d.z = (float)fabs(center.z - c);
-		r -= (float)sqrt(d.z * d.z + d.y * d.y + d.x * d.x);
+	RvaDE4880Owner *cloudMaterial = g_00DE4880;
+	float sphereDistance = 999999.0f;
+	if (cloudMaterial) {
+		RvaVec3B center = cloudMaterial->m_D4;
+		sphereDistance = cloudMaterial->m_E0;
+		RvaVec3B absoluteDelta;
+		absoluteDelta.x = (float)fabs(center.x - positionX);
+		absoluteDelta.y = (float)fabs(center.y - positionY);
+		absoluteDelta.z = (float)fabs(center.z - positionZ);
+		sphereDistance -= (float)sqrt(absoluteDelta.z * absoluteDelta.z + absoluteDelta.y * absoluteDelta.y + absoluteDelta.x * absoluteDelta.x);
 	}
-	return r;
+	return sphereDistance;
 }
 
 // Native 94DB3..94DD3 (32B RET4): returns the +0x6C/+0x70/+0x74 float
@@ -72,7 +72,7 @@ float __stdcall rva00094E2C(float a, float b, float c)
 // Matrix3D::Get_Y_Vector). No caller or table reaches it; owner unknown.
 struct Rva00094DB3Vector
 {
-	Rva00094DB3Vector(float x, float y, float z) { X = x; Y = y; Z = z; }
+	Rva00094DB3Vector(float initialX, float initialY, float initialZ) { X = initialX; Y = initialY; Z = initialZ; }
 	float X, Y, Z;
 };
 

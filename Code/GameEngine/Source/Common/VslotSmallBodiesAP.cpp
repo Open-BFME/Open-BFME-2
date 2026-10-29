@@ -109,7 +109,7 @@ void Rva00527B9A::rva00527B9A(Int firstValue, Int secondValue, Int thirdValue)
 class Rva005394F0
 {
 public:
-	void rva005394F0(Int firstValue, Int secondValue);
+	void drawLines(Int firstValue, Int secondValue);
 };
 class Rva00539611
 {
@@ -121,7 +121,7 @@ private:
 };
 void Rva00539611::rva00539611(Int firstValue, Int secondValue)
 {
-	m_08->rva005394F0(firstValue, secondValue);
+	m_08->drawLines(firstValue, secondValue);
 }
 
 namespace InGameSimpleHelp

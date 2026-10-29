@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD
-// ?rva005394F0@Rva005394F0@@QAEXHH@Z retail 0x005394F0..0x00539611
+// ?drawLines@Rva005394F0@@QAEXHH@Z retail 0x005394F0..0x00539611
 // (289 bytes ret 8). Reached only through the forwarder 0x00539611 (the
 // +0x08 object of its host) which passes its two dwords on unchanged.
 // Draws up to two text lines stacked downwards: each line is a Unicode
@@ -62,7 +62,7 @@ public:
 class Rva005394F0
 {
 public:
-	void rva005394F0(Int a0, Int a1);
+	void drawLines(Int a0, Int a1);
 
 private:
 	void *m_00;
@@ -72,7 +72,7 @@ private:
 	Rva005394F0Text *m_text2; // +0x10
 };
 
-void Rva005394F0::rva005394F0(Int a0, Int a1)
+void Rva005394F0::drawLines(Int a0, Int a1)
 {
 	const Coord2D *pos = reinterpret_cast<const Coord2D *>(a0);
 	const Coord2D *size = reinterpret_cast<const Coord2D *>(a1);
