@@ -7157,6 +7157,12 @@ Generated `0x0077685B`/`0x00776863` stay in place: establish the former's
 outer-base destructor identity, then consolidate the parent into its approved
 LivingWorldLogic TU before repointing. Full evidence and remaining scope:
 [`nested-vector-link-20261029.md`](../reverse/attempt_support/nested-vector-link-20261029.md).
+Commit `2ff563ca55` passed the expanded dependent hook: 1,774/1,774 rows
+across 70 sources and 231 EXACT EH graphs. The same hook reports nine shadow
+identity findings in LivingWorldLogic (six bindings, three divergent
+definitions), itemized in the evidence above. Their origin and repair remain
+open; compare original providers and funclet placements before classifying
+them as regressions. The runner publisher has queued the repair.
 
 **2026-10-28 picker recheck (base `47c952289b`):** `uw_gen_008.cpp`
 still fails the ordinary preview against index `14dc3d2467`, on

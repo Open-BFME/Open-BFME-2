@@ -64,3 +64,22 @@ census-grade receipts. This comparison is unverified; the ordinary byte and
 link checks above do not replace it. Carry the repair and affected consumers
 into the next maintainer census and repeat the strict comparison with current
 receipts.
+
+## Commit-hook receipt
+
+Repair commit: `2ff563ca55`. Removing the incorrect pin expanded the hook's
+dependent check to 70 sources: 1,774/1,774 rows byte-match, 231 EH graphs are
+EXACT, and converged data checks pass. `/opt/runner/publish` queued the commit
+for its shared publishing batch; this receipt does not claim upstream landing.
+
+The hook also reported nine shadow code-identity findings in LivingWorldLogic:
+six bindings and three divergent definitions. Bindings are the
+`Rva002BBB96Element` vector destructor at `0x002BBD4D` in `$L26855`, the integer
+tree destructor at `0x000730DE` in `rva002B77B2`, `rva002B77F7` and
+`rva002B9DC7`, the player-vector allocation base at `0x00211E58`, and the
+`Rva002444BEAllocator<int>` vector push at `0x004DFCB0` in `rva002B9DC7`.
+Divergent definitions are the integer-pair constructor and the integer
+map/tree `end()` implementations. These findings are unresolved and their
+origin was not established in this pass. Compare the original providers and
+physical funclet placement before assigning a regression; no baseline entries
+were added and no repair of these findings is claimed.
