@@ -649,6 +649,18 @@ shapes: a Region3D companion view, as `Coord3DCtorView.h` is for Coord3D, is
 the missing piece. Both trial edits were reverted; no path moved and no
 census gain is claimed.
 
+### Image STL declaration composition prerequisite (2026-10-29)
+
+At base `36cc3221c3f7`, the supported merge dry run accepts no Image.cpp
+donors because its private STL templates collide with the real headers.
+Replacing those templates with STLport and retaining out-of-line constructor
+and destructor declarations preserves all 18 rows, the data row and the
+978-byte LINKS preview against index `85f6b7f40c`. The private Image geometry
+views, signed/unsigned map identities and mixed tree-destructor provider remain
+prerequisites for complete composition. Check the supported merge guard and
+affected consumers before moving donors; census confirmation is pending.
+[Controls and verification](../reverse/attempt_support/image-consolidation-20261029-codex4.md).
+
 ### AIUpgrade consolidation needs a compatible vtable (2026-10-29)
 
 At base `4690ab9c11`, the supported merge dry run rejects all three
