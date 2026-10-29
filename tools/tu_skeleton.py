@@ -81,6 +81,9 @@ Usage:
   python3 tools/tu_skeleton.py --list PREFIX       approved TUs under PREFIX
   python3 tools/tu_skeleton.py --plan TU           the skeleton, row by row
   python3 tools/tu_skeleton.py --merge TU [--dry-run] [--no-claim]
+  python3 tools/tu_skeleton.py --merge-all [--dry-run [--static]] [--jobs N] [--budget-min M] [--under P]
+      every queued TU, each verified merge its own commit, the rest a ranked
+      decision queue (tools/merge_all.py); --release after pushing
   python3 tools/tu_skeleton.py --split FILE                  which TUs a mixed file's rows belong to
   python3 tools/tu_skeleton.py --split FILE --for TU [--dry-run] [--no-claim]
       carve the rows approved for TU out of a mixed FILE into the TU path (the
@@ -2984,13 +2987,19 @@ def main(argv=None):
     g.add_argument("--plan", metavar="TU")
     g.add_argument("--merge", metavar="TU")
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
+    g.add_argument("--merge-all", action="store_true",
+                   help="merge every queued TU (tools/merge_all.py): parallel worktrees, a decision queue")
     ap.add_argument("--for", dest="for_tu", metavar="TU", help="with --split: the destination TU (omit to list)")
     ap.add_argument("--dry-run", action="store_true")
     ap.add_argument("--no-claim", action="store_true", help="merge without claiming (fixtures, private trees)")
     ap.add_argument("--under", default="")
     ap.add_argument("--limit", type=int)
     ap.add_argument("--json")
+    import merge_all
+    merge_all.add_run_args(ap)
     a = ap.parse_args(argv)
+    if a.merge_all:
+        return merge_all.run_main(a)
     if a.queue:
         q = queue(a.under, a.limit)
         if a.json:

@@ -37,7 +37,9 @@ Sections, in priority order:
      test is the owning tool's verdict):
        stubs        symbols the last link cycle had to stub (its stubs.json, checked
                     against its receipt; skipped where no such output exists)
-       consolidate  approved TUs a merge can shrink (tools/tu_skeleton.py --queue)
+       consolidate  approved TUs a merge can shrink (tools/tu_skeleton.py --queue), and
+                    the bulk merge's split, compile-error and link-regression decisions
+                    (tools/merge_all.py), each weighted by the files it frees
        tu-approval  TUs whose rows tu_map only proposes: evidence (real names,
                     resolved interleaving) approves them (docs/consolidation.md)
        tu-evidence  unmapped address runs holding sources no tu_map row places, with

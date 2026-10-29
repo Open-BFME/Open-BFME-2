@@ -2146,7 +2146,65 @@ def consolidation_items():
         })
     stale = " (tu_map.csv stale: queue from a map rebuilt in memory, never written)" if tu_skeleton._CACHE.get(
         "stale") else ""
-    return items, f"{len(items)} approved TU(s) a merge can shrink, from tools/tu_skeleton.py --queue{stale}"
+    decisions, decision_note = merge_decision_items()
+    return items + decisions, (f"{len(items)} approved TU(s) a merge can shrink, from tools/tu_skeleton.py "
+                               f"--queue{stale}; {decision_note}")
+
+
+# What a seat does with each served decision of the bulk merge (tools/merge_all.py).
+MERGE_DECISIONS = {
+    "split": ("carve the rows approved for {tu} out of the mixed file {file}",
+              "python3 tools/tu_skeleton.py --split {file} --for {tu} --dry-run, then without --dry-run",
+              "the split commit: {file}'s rows approved for {tu} now live in {tu}, both sides byte-match"),
+    "compile-error": ("{file} fails to compile in {tu}: {diagnostic}",
+                      "python3 tools/tu_skeleton.py --merge {tu} --dry-run (the reject's full diagnostic); fix the "
+                      "spelling in its own verified commit (python3 tools/tu_views.py {tu} --dry-run when a class "
+                      "view differs)",
+                      "python3 tools/tu_skeleton.py --merge {tu} --dry-run accepts {file}"),
+    "link-regression": ("merging {file} into {tu} would stop a linking unit linking ({symbols})",
+                        "python3 tools/link_check.py {file} and python3 tools/link_check.py {tu}; read "
+                        "docs/linking_obstacles.md first",
+                        "python3 tools/tu_skeleton.py --merge {tu} --dry-run accepts {file} with LinkGuard "
+                        "passing"),
+}
+
+
+def merge_decision_items(path=None):
+    """(items, note): the bulk merge's decisions a seat must make (tools/merge_all.py writes them
+    to the shared picker cache): split, compile-error and link-regression items whose file still
+    exists, one consolidate item each, weighted by the files merging it would remove. Claims the
+    TU and the file."""
+    tools_on_path()
+    import merge_all
+    path = Path(path) if path else merge_all.shared_decisions_path()
+    try:
+        doc = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, ValueError):
+        return [], "no bulk-merge decision queue yet (python3 tools/tu_skeleton.py --merge-all --dry-run)"
+    out, seen = [], set()
+    for d in doc.get("items", ()):
+        kind, tu, f = d.get("kind"), d.get("tu", ""), d.get("file", "")
+        if kind not in MERGE_DECISIONS or (kind, tu, f) in seen or not (ROOT / f).exists():
+            continue
+        seen.add((kind, tu, f))
+        what, start, done = (t.format(tu=tu, file=f, diagnostic=d.get("diagnostic", "")[:160],
+                                      symbols=", ".join(d.get("symbols", [])[:4]) or "see the evidence")
+                             for t in MERGE_DECISIONS[kind])
+        if d.get("start") and kind == "split":
+            start = d["start"] + ", then without --dry-run"
+        out.append({
+            "tier": "consolidate", "check": f"merge-{kind}", "function": f, "source": f, "target_rva": "",
+            "size": 0, "count": int(d.get("frees") or 0), "tu": tu,
+            "credit_note": f"frees {d.get('frees', 0)} file(s) ({d.get('rows', 0)} rows) once the merge takes it",
+            "why": f"{what}; {d.get('reason', '')}"[:600],
+            "evidence": {k: d[k] for k in ("diagnostic", "symbols", "split", "evidence") if d.get(k)},
+            "start": start,
+            "claim": [f"file:{x}" for x in sorted({tu, f})],
+            "pass_test": done,
+        })
+    out.sort(key=lambda i: (-i["count"], i["check"], i["source"]))
+    return out, (f"{len(out)} bulk-merge decision(s) (split, compile-error, link-regression) measured at "
+                 f"{str(doc.get('measured_at', '?'))[:10]}")
 
 
 TU_BLOCKS = {

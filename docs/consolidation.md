@@ -285,6 +285,31 @@ first reason), a file every row of which is this TU's (use `--merge`), a carve
 after which no row would remain, a TU path holding rows the map places elsewhere
 (split that first), and anything another worker holds a claim on.
 
+## Bulk merges (`--merge-all`)
+
+`python3 tools/tu_skeleton.py --merge-all` (tools/merge_all.py) runs the same
+`--merge` over the whole queue, most donors first. It skips any TU whose scope
+another seat claims. TUs with disjoint files run side by side (`--jobs N`), each
+in its own worker worktree beside the checkout (`<checkout>-ma<N>`, made by
+`worktree_setup.py`) and committed there through the hooks. The commits are
+cherry-picked onto the invoking checkout's branch in queue order, and the ledger
+is checked after each pick (no matched row lost, every absorbed row names the
+TU). A conflict is retried next pass, never resolved by hand. Runs resume from
+`build/merge_all/state.json`; `--budget-min` stops starting new waves. Run it
+from a clean checkout whose tools are committed, with the push identity in the
+environment. After pushing the branch, `--merge-all --release` returns the
+merged TUs' scope claims; run the consolidation checks below over the batch as
+for any merge.
+
+What it cannot merge goes to a ranked decision queue
+(`build/merge_all/decisions.json`, shared through the picker cache), ranked by
+the files merging it would remove: blocked by classes (served by the header
+tier), split, compile error, link regression, row loss, claimed, refused and
+hook refusals, each with its evidence. `next_work.py --tier consolidate`
+serves the split, compile-error and link-regression items as decisions. `--dry-run`
+compiles but writes nothing, and prints how many TUs and files would merge now
+along with the blocker histogram; `--dry-run --static` reads the queue alone.
+
 ## What the lane does not do yet
 
 - **Mixed files** (a file holding rows of two TUs) are never split inside a
