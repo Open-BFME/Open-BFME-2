@@ -91,3 +91,28 @@ const char *, ...)` exist because the bodies call the **in-image** CRT rows
 stream. Replacing them with `<stdlib.h>`/`<stdio.h>` makes both declarations
 dllimport (indirect calls) and needs a `FILE *` cast at ~15 call sites; check the
 callee bytes before taking the row.
+
+## 7. Three more split candidates, all refused by the tool itself
+
+Picked from `build/fleet/merge_map/` as files that are mixed in exactly two TUs
+with at most two rows each; claimed, dry-run with `--no-claim`, nothing written.
+
+- `ToggleSpecialAbilityUpdateSlot17.cpp` -> `ToggleHiddenSpecialAbilityUpdate.cpp`:
+  the carve itself is fine (`carved: ['0x004AE22D']`, `alone: 1/1`), but the
+  merged candidate fails to compile at line 227 with a `compile:` rejection
+  (the diagnostic was truncated by my log capture; re-run
+  `--split ... --dry-run` without the `cut` to read it). Same shape as the
+  anonymous-enum family: a donor declaration the seed's headers already carry.
+- `CrateCreationEntryListInsert.cpp` -> `CrateSystem.cpp`: `no row could be
+  carved` — both rows (`0x0035CB8D`, `0x0035CBFE`) are `no definition spells its
+  name`, i.e. emitted by a macro/loop the carve cannot attribute. Not splittable
+  by this tool until those rows are spelled explicitly.
+- `VslotSmallBodiesAF.cpp` -> `AptOnline.cpp`: `a namespace/extern "C" block
+  defines something: carve not supported` (the row `0x005174E4` carves, the
+  guard refuses). Remedy: move the defining block out of the anonymous
+  namespace/extern "C" scope in its own verified change, then split.
+
+Net for the split lane: the dominant refusals in one worker's sample are the
+anonymous-enum redefinition at the merge verifier (items 2 and 4) and
+tool-level carve limits (item 7). Both are shared fixes, not per-file work.
+
