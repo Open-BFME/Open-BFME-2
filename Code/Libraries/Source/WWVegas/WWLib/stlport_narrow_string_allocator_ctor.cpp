@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Od /Ob2
+// stlport46
 
 // STLport basic_string<char> allocator constructor at retail
 // 0x000270D0, 124 bytes.
