@@ -177,6 +177,7 @@ private:
 extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
 #include "../../../../Common/GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+
 // ?Rva004E44FBSet@@YGXHHABVUnicodeString@@@Z @0x004E44FB 88B
 // Free __stdcall setter formatting "PlayerTable:%d:%d" via rowed AsciiString::format
 // 0x00038150 then pinned BfmeAptWindowManager::bfmeSetText 0x00225301 with false.
@@ -464,9 +465,34 @@ public:
 
 class Rva00222A8BTarget;
 
+struct Rva004266A1Rec
+{
+	AsciiString text;
+	unsigned char flag0;
+	unsigned char flag1;
+	unsigned char flag2;
+};
+
+struct Rva004266A1
+{
+	char pad[4];
+	_STL::vector<Rva004266A1Rec> vec;
+	unsigned char rva0042680D(int index);
+};
+
+struct Rva0039B95FHolder
+{
+	char pad[0x10];
+	Rva004266A1 *m_list;
+};
+
+extern Rva0039B95FHolder *TheMissionObjectiveTracker;
+
 // tu-skeleton: 0x004E40C7 178B ?InitGadgets@AptPlayerStatus@@QAEXPBDPAXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x004E4179 50B ?Rva004E4179Get@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatus.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusScreen.cpp
 
@@ -703,20 +729,6 @@ void Rva004E41AB()
 	TheInGameUI->slot94(true);
 }
 
-// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
-
-// tu-skeleton: 0x004E43F2 84B ?GetNthVisibleObjectiveIndex@@YAHH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptObjectivesMenu.cpp (not merged yet)
-
-// tu-skeleton: 0x004E4446 131B ?Objective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x004E44C9 50B ?Rva004E44C9Check@@YGHHEE@Z -- matched in Code/GameEngine/Source/Common/Rva004E44C9Check.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva004E44FBPlayerTable.cpp
 
 void __stdcall Rva004E44FBSet(int a, int b, const UnicodeString &text)
@@ -725,6 +737,67 @@ void __stdcall Rva004E44FBSet(int a, int b, const UnicodeString &text)
     key.format("PlayerTable:%d:%d", a, b);
     g_bfmeAptWindowManager->bfmeSetText(key, text, false);
 }
+
+// tu-skeleton: 0x004E4312 5B ?Rva004E4312GetRoute@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4317 10B ?rva004E4317@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E4321 9B ?Rva004E4321Get@@YAEXZ -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// tu-skeleton: 0x004E432A 34B ?Rva004E432ASet@@YAXE@Z -- matched in Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptObjectivesMenu.cpp
+
+// GetNthVisibleObjectiveIndex: native 0x004E43F2..0x004E4446, 84 bytes, cdecl.
+// WB 0x013266A0 names the helper and AptObjectivesMenu.cpp:415; its two
+// nested searches preserve retail's top-tested scan and saved current index.
+// The inner loop finds one visible objective; the outer loop skips visible
+// objectives until the requested row is reached. Exhaustion returns -1.
+// Existing Objective%d callers pin the address-derived ABI name below.
+// Target bytes and the existing getter prove the +4 vector of 8-byte records,
+// holder +0x10 list, and call to the rowed visibility getter at 0x0042680D.
+
+// WorldBuilder GetNthVisibleObjectiveIndex, WB VA 0x013266A0 (callgraph lead, score 2.0).
+int __cdecl GetNthVisibleObjectiveIndex(int skip)
+{
+	Rva0039B95FHolder *tracker = TheMissionObjectiveTracker;
+	if (!tracker)
+		return -1;
+	else
+	{
+		Rva004266A1 *list = tracker->m_list;
+		if (!list)
+			return -1;
+		else
+		{
+			int result = -1;
+			int count = (int)list->vec.size();
+			int i = 0;
+			while (true)
+			{
+				while (true)
+				{
+					if (i >= count)
+						return -1;
+					int cur = i++;
+					if (list->rva0042680D(cur))
+					{
+						result = cur;
+						break;
+					}
+				}
+				if (skip <= 0)
+					break;
+				--skip;
+			}
+			return result;
+		}
+	}
+}
+
+// tu-skeleton: 0x004E4446 131B ?Objective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x004E44C9 50B ?Rva004E44C9Check@@YGHHEE@Z -- matched in Code/GameEngine/Source/Common/Rva004E44C9Check.cpp (not merged yet)
 
 // tu-skeleton: 0x004E4553 167B ?ExternsObjective@AptPlayerStatus@@QAEXHPAD_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusObjectiveText.cpp (not merged yet)
 
