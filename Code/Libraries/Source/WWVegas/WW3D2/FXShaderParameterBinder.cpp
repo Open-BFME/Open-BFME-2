@@ -13,7 +13,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #pragma comment(linker, "/alternatename:?Rva00153A5ERangeCallee@@YAPAURva00153A5EOutput@@PAURva00153A5EInput@@0PAU1@ABURva00153A5EIteratorTag@@PAH@Z=?Rva001539ECCopyBackward@@YAPAURva00153729@@PAU1@00@Z")
 #pragma comment(linker, "/alternatename:?rva001538A8@Rva001538A8@@QAEPAXXZ=??0Rva00153729@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z=?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z")
-
 struct TargetRef00217D4C { virtual void *destroy(unsigned int flags); int references; };
 
 struct Rva005F8F96
@@ -73,8 +72,6 @@ public:
 // Holder at +0x10 releases 4 from pointee at +8 if non-null via named local single load.
 // Evidence: mov eax [ecx+0x10] test je add [eax+8] -4 ret; callers at 0x1501BE 0x150F0D 0x15109A 0x1536DE 0x153B63.
 struct Rva001531E6Target { char m_pad[8]; int m_08; };
-
-class FXShaderParameterBinder { public: void PopDynamicSetStack(); char m_pad[0x10]; Rva001531E6Target *m_ParsingData; };
 
 //
 // ?invoke@Rva001531F2Ref@@QAEHHH@Z, retail 0x001531F2 (49 bytes). Null-guard
@@ -217,11 +214,61 @@ public:
 	void rva00153EE5(int n);
 };
 
+template Rva00153252 *_STL::__copy<Rva00153252 *, Rva00153252 *, int>(Rva00153252 *, Rva00153252 *, Rva00153252 *, const _STL::random_access_iterator_tag &, int *);
+
+class FXShaderParameterBinder {
+public:
+	void PopDynamicSetStack();
+public:
+	char m_pad[0x10];
+public:
+	Rva001531E6Target *m_ParsingData;
+public:
+	void PushDynamicSetStack(const char *name);
+};
+
+struct EsiObj
+{
+	virtual int __stdcall s00();
+	virtual int __stdcall s04();
+	virtual int __stdcall s08();
+	virtual int __stdcall s0C();
+	virtual int __stdcall s10(const void *a, void *b);
+	virtual int __stdcall s14();
+	virtual int __stdcall s18();
+	virtual int __stdcall s1C();
+	virtual void *__stdcall s20(const void *a, int b);
+};
+
+struct QueryResult
+{
+	int m00;
+	int m04;
+	int m08;
+	int m0C;
+	int m10;
+	int m14;
+	int m18;
+	int m1C;
+	int m20;
+	int m24;
+	int m28;
+};
+
+class FXShaderParameterSourceNamespace_Struct
+{
+public:
+	virtual ~FXShaderParameterSourceNamespace_Struct();
+	virtual void ResolveBindings(const char *arg1, const char *arg2, FXShaderParameterBinder *arg3);
+};
+
 // tu-skeleton: 0x0015306D 124B ?ResolveBindings@FXShaderParameterBinder@@QAEXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp (not merged yet)
 
 // tu-skeleton: 0x001530E9 224B ?Rva001530E9Parse@@YAXPBDRAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001530E9PropertyPath.cpp (not merged yet)
 
 // tu-skeleton: 0x001531C9 29B ??$__copy_ptrs@PAUBfmePod68@@PAU1@@_STL@@YAPAUBfmePod68@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPopDynamicSetStack.cpp
 
@@ -243,8 +290,6 @@ int Rva001531F2Ref::invoke(int a, int b)
 	return op->invoke(a, b);
 }
 
-// tu-skeleton: 0x00153223 47B ?erase@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEPAUBfmePod68@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153252Assign.cpp
 
 Rva00153252 &Rva00153252::operator=(const Rva00153252 &other)
@@ -253,12 +298,6 @@ Rva00153252 &Rva00153252::operator=(const Rva00153252 &other)
 	m_04 = other.m_04;
 	return *this;
 }
-
-// tu-skeleton: 0x0015326D 116B ?apply@Rva0015326DTarget@@QAEXIPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001514B2ForwardAndApply.cpp (not merged yet)
-
-// tu-skeleton: 0x001532E1 63B ?Rva001532E1Erase@@YAXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
-
-// tu-skeleton: 0x00153320 47B ??$__copy@PAURva00153252@@PAU1@H@_STL@@YAPAURva00153252@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153252Copy.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0015334FCtor.cpp
 
@@ -269,8 +308,6 @@ Rva00153252 &Rva00153252::operator=(const Rva00153252 &other)
 Rva0015334F::Rva0015334F() : m_00(0)
 {
 }
-
-// tu-skeleton: 0x00153368 189B ?_M_insert_overflow@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@IAEXPAUBfmePod68@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153425Copy.cpp
 
@@ -308,21 +345,13 @@ Rva00468520 *__cdecl Rva0015344BFillN(Rva00468520 *result, unsigned int count, c
 // shape as rowed Rva0027EA49 _Destroy at 0x00281AD4. Emitted via explicit _Destroy
 // instantiation over the rowed dtor; callers are at 0x00153704 0x00153744 0x00153843.
 
-// tu-skeleton: 0x00153489 45B ??$_M_allocate_and_copy@PAVRva00468520@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAVRva00468520@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp (not merged yet)
 
-// tu-skeleton: 0x001534B6 29B ?Rva001534B6Copy@@YAPAURva00153252@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153252Copy.cpp (not merged yet)
 
-// tu-skeleton: 0x001534D3 55B ?push_back@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEXABUBfmePod68@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x0015350A 68B ??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x0015354E 23B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXW4ScienceType@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStack.cpp (not merged yet)
 
-// tu-skeleton: 0x00153565 154B ?Rva00153565Register@@YAXPBDPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153565Register.cpp (not merged yet)
 
-// tu-skeleton: 0x001535FF 101B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStackName.cpp (not merged yet)
 
-// tu-skeleton: 0x00153664 134B ?ResolveBindings@FXShaderParameterSourceNamespace_Struct@@UAEXPBD0PAVFXShaderParameterBinder@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceStruct.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva005F8F96_dtor.cpp
 
@@ -335,25 +364,14 @@ Rva00468520 *__cdecl Rva0015344BFillN(Rva00468520 *result, unsigned int count, c
 // The emitted unsigned max copy must match retail RVA 0x00013740.
 // Define it for speed, then restore this unit's flags for its vector bodies.
 
-// tu-skeleton: 0x00153729 19B ??1Rva00153729@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0015375A 44B ??0Rva00153729@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00153786 45B ??$_Construct@URva00153729@@U1@@_STL@@YAXPAURva00153729@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x001537B3 37B ??$__uninitialized_fill_n@PAURva00153729@@IU1@@_STL@@YAPAURva00153729@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x001537D8 180B ??4?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/URva005F8F96Rva001537D8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-60d4.cpp
 
 void Rva00153729_Delete(Rva00153729 *p) { delete p; }
-
-// tu-skeleton: 0x001538A8 33B ??0Rva00153729@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x001538C9 178B ?_M_insert_overflow@?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@IAEXPAURva00153A27Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0015397B 38B ??$__uninitialized_copy@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00153729_clear.cpp
 
@@ -363,9 +381,7 @@ void Rva00153729_Delete(Rva00153729 *p) { delete p; }
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 
-// tu-skeleton: 0x001539BC 48B ?rva001539BC@Rva00153729@@QAEAAU1@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001539BCAssign.cpp (not merged yet)
 
-// tu-skeleton: 0x001539EC 50B ?Rva001539ECCopyBackward@@YAPAURva00153729@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001539ECCopyBackward.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153D16Dtor.cpp
 
@@ -383,8 +399,6 @@ Rva00153D16::~Rva00153D16()
 	}
 }
 
-// tu-skeleton: 0x00153A27 55B ?push_back@?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAEXABURva00153A27Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153A5ERangeForward.cpp
 
 Rva00153A5EOutput* __cdecl Rva00153A5ERangeForward(Rva00153A5EInput*first,Rva00153A5EInput*last,Rva00153A5EOutput*result,const Rva00153A5EIteratorTag&)
@@ -393,31 +407,17 @@ Rva00153A5EOutput* __cdecl Rva00153A5ERangeForward(Rva00153A5EInput*first,Rva001
     return Rva00153A5ERangeCallee(first,last,result,category,0);
 }
 
-// tu-skeleton: 0x00153A7B 29B ?Rva00153A7BFill@@YAXPAURva00153729@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153A7BFill.cpp (not merged yet)
-
-// tu-skeleton: 0x00153A98 50B ??$__copy@PAURva00153729@@PAU1@H@_STL@@YAPAURva00153729@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153A98Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00153ACA 207B ?AddBinding@FXShaderParameterBinder@@QAEXUTreeHintRef00217D4C@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderAddBinding.cpp (not merged yet)
-
-// tu-skeleton: 0x00153B99 29B ??$__copy_ptrs@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00153729_destroy.cpp
 
 // ??$_Destroy@PAURva00153729@@@_STL@@YAXPAURva00153729@@0@Z, retail 0x00153BB6, 25 bytes.
 // Range destroy for 0x4C holder (int at +0 plus array[6] of vector<Rva005F8F96> at +4) stride 0x4C calling rowed dtor 0x153729.
 // Evidence: push esi mov esi [esp+8] loop call 0x153729 add esi 0x4C cmp jne; same 25B shape as rowed Rva005F8F96 _Destroy at 0x153470; callers at 0x153BD7 0x153C07 0x153C4B.
 
-// tu-skeleton: 0x00153BED 63B ??1?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00153729_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00153C2C 51B ?erase@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEPAURva00153729@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
-// tu-skeleton: 0x00153C5F 183B ?_M_insert_overflow@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@IAEXPAURva00153729@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x00153D5E 268B ?_M_fill_insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
 
-// tu-skeleton: 0x00153E6A 5B ?insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
 
-// tu-skeleton: 0x00153E6F 118B ?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00153EE5Adapter.cpp
 
@@ -433,6 +433,106 @@ void Rva00153EE5::rva00153EE5(int n)
 //   0x001538A8 reads ??0Rva00153729@@QAE@XZ
 
 //   0x00153E6F reads ?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z
+
+// tu-skeleton: 0x00153223 47B ?erase@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEPAUBfmePod68@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x0015326D 116B ?apply@Rva0015326DTarget@@QAEXIPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva001514B2ForwardAndApply.cpp (not merged yet)
+
+// tu-skeleton: 0x001532E1 63B ?Rva001532E1Erase@@YAXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00153252Copy.cpp
+
+Rva00153252 *Rva001534B6Copy(Rva00153252 *first, Rva00153252 *last, Rva00153252 *result)
+{
+	const _STL::random_access_iterator_tag tag;
+	return _STL::__copy(first, last, result, tag, (int *)0);
+}
+
+// tu-skeleton: 0x00153368 189B ?_M_insert_overflow@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@IAEXPAUBfmePod68@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00153489 45B ??$_M_allocate_and_copy@PAVRva00468520@@@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@IAEPAUBfmeE8@@IPAVRva00468520@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmee8_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x001534D3 55B ?push_back@?$vector@UBfmePod68@@V?$allocator@UBfmePod68@@@_STL@@@_STL@@QAEXABUBfmePod68@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0015350A 68B ??0?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPodCopyCtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0015354E 23B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXW4ScienceType@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStack.cpp (not merged yet)
+
+// tu-skeleton: 0x00153565 154B ?Rva00153565Register@@YAXPBDPAX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153565Register.cpp (not merged yet)
+
+// tu-skeleton: 0x001535FF 101B ?PushDynamicSetStack@FXShaderParameterBinder@@QAEXPBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderPushDynamicSetStackName.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceStruct.cpp
+
+void FXShaderParameterSourceNamespace_Struct::ResolveBindings(const char *arg1, const char *arg2, FXShaderParameterBinder *fXShaderParameterBinder)
+{
+	if (arg1 != 0)
+		return;
+	EsiObj *esi = *(EsiObj **)fXShaderParameterBinder;
+	QueryResult qr;
+	int r = esi->s10(arg2, &qr);
+	if (r < 0)
+		return;
+	if (qr.m08 != 5)
+		return;
+	fXShaderParameterBinder->PushDynamicSetStack(arg2);
+	int count = qr.m20;
+	if (count <= 0)
+		goto done;
+	for (int i = 0; i < count; i++) {
+		void *found = esi->s20(arg2, i);
+		if (found == 0)
+			continue;
+		int r2 = esi->s10(found, &qr);
+		if (r2 < 0)
+			continue;
+		ResolveBindings((const char *)qr.m00, (const char *)found, fXShaderParameterBinder);
+	}
+done:
+	fXShaderParameterBinder->PopDynamicSetStack();
+}
+
+// tu-skeleton: 0x00153729 19B ??1Rva00153729@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0015375A 44B ??0Rva00153729@@QAE@ABU0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00153786 45B ??$_Construct@URva00153729@@U1@@_STL@@YAXPAURva00153729@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x001537B3 37B ??$__uninitialized_fill_n@PAURva00153729@@IU1@@_STL@@YAPAURva00153729@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001537D8 180B ??4?$vector@URva005F8F96@@V?$allocator@URva005F8F96@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/URva005F8F96Rva001537D8.cpp (not merged yet)
+
+// tu-skeleton: 0x001538A8 33B ??0Rva00153729@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153729Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001538C9 178B ?_M_insert_overflow@?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@IAEXPAURva00153A27Element@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0015397B 38B ??$__uninitialized_copy@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x001539BC 48B ?rva001539BC@Rva00153729@@QAEAAU1@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001539BCAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x001539EC 50B ?Rva001539ECCopyBackward@@YAPAURva00153729@@PAU1@00@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001539ECCopyBackward.cpp (not merged yet)
+
+// tu-skeleton: 0x00153A27 55B ?push_back@?$vector@URva00153A27Element@@V?$allocator@URva00153A27Element@@@_STL@@@_STL@@QAEXABURva00153A27Element@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00153A7B 29B ?Rva00153A7BFill@@YAXPAURva00153729@@0ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153A7BFill.cpp (not merged yet)
+
+// tu-skeleton: 0x00153A98 50B ??$__copy@PAURva00153729@@PAU1@H@_STL@@YAPAURva00153729@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153A98Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00153ACA 207B ?AddBinding@FXShaderParameterBinder@@QAEXUTreeHintRef00217D4C@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderAddBinding.cpp (not merged yet)
+
+// tu-skeleton: 0x00153B99 29B ??$__copy_ptrs@PAURva00153729@@PAU1@@_STL@@YAPAURva00153729@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00153BED 63B ??1?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00153729_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00153C2C 51B ?erase@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEPAURva00153729@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00153C5F 183B ?_M_insert_overflow@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@IAEXPAURva00153729@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00153D5E 268B ?_M_fill_insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
+
+// tu-skeleton: 0x00153E6A 5B ?insert@?$vector@URva00153729@@V?$allocator@URva00153729@@@_STL@@@_STL@@QAEXPAURva00153729@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
+
+// tu-skeleton: 0x00153E6F 118B ?resize@Rva00153E6FVector@@QAEXIURva00153729@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00153E6FArrayVectorResize.cpp (not merged yet)
 
 // tu-skeleton: 0x00153F08 336B ?Init@FXShaderParameterBinder@@QAEXPAUID3DXEffect@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinderInit.cpp (not merged yet)
 
