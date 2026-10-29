@@ -379,16 +379,15 @@ current selection evidence. No linked-byte gain is claimed.
 
 ### Transport remaining consumer header adoption (2026-10-28)
 
-Status: header debt retired; census confirmation pending. The canonical
-Transport header now declares the existing AsciiString init overload and
-grants ConnectionManager access to the receive ring. The relay consumer casts
-the ring element to its existing packet-constructor view; this does not claim
-the original message type's identity. Both consumers use the canonical header,
-and the header adoption lane accepted and retired their two queue entries.
-Their nine function rows match and both EH graphs are EXACT. Against census
-index `d92e7e6635`, the pair retains LINKS for 817 authored bytes. This is a
-preview, not a census gain. Carry the changed header and consumers into the
-next census; the separate Transport composition obstacles remain open.
+Status: header adoption retained; queue retirement pending. Upstream now exposes
+TransportMessage and the receive ring directly; the relay uses that canonical
+view. The two header queue entries are retained because the fleet push hook
+could not obtain usable per-unit link verdicts. A refreshed local census index
+`840db2d676` reports LINKS for both consumers; the earlier byte verification
+matched 490 rows across the 37 sources affected by the header, with 81 EXACT
+EH rows. Re-run the header adoption lane when the publisher has a usable index,
+and carry the consumers into the next census. The separate Transport
+composition obstacles remain open.
 
 ### ProneUpdate constructor composition (2026-10-28)
 
