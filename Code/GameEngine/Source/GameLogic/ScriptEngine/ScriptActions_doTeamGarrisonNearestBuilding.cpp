@@ -250,11 +250,7 @@ private:
 
 extern PartitionManager *ThePartitionManager;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);	// 0x003584E9
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 #define REALLY_FAR (100000 * 10.0f)

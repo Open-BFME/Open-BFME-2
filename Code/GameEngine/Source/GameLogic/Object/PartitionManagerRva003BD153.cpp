@@ -7,11 +7,7 @@
 // Evidence: callees rowed; caller 0x003CE7FB; prev 0x003BCFC9 next 0x003BD28D same /O1; sibling Rva003BB39E pattern.
 class AsciiString;
 class Player;
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {

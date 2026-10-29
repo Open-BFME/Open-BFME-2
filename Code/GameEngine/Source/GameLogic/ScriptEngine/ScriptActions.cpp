@@ -254,30 +254,7 @@ private:
 	AsciiString m_string;
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-	void rva00208968(const AsciiString &name, class Object *obj);
-	void AppendDebugMessage(const AsciiString &msg, bool b);
-	void addObjectToCache(class Object *obj, const AsciiString &name);
-	class Object *getUnitNamed(const AsciiString &unitName);
-	class Object *getUnitNamed(Parameter *unit);
-	Player *getCurrentPlayer();
-	Player *getSkirmishEnemyPlayer();
-	class Script *rva00357130(const AsciiString &scriptName, AsciiString *objectName);
-	void appendSequentialScript(const class SequentialScript *seqScript);
-	void rva00208A09(const AsciiString &reference, AsciiString name);
-	void rva00208BCD(const AsciiString &reference, AsciiString name);
-	void rva00208B2C(const AsciiString &reference, class Team *team);
-	class ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-	class Team *getTeamNamed(AsciiString name, bool b);
-	bool didUnitExist(const AsciiString &name);
-	void rva00357960(const AsciiString &name, class Object *obj);
-protected:
-	friend class ScriptActions;
-	struct ScriptCounter *bfmeCounter(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 enum ObjectID { INVALID_OBJECT_ID = 0 };

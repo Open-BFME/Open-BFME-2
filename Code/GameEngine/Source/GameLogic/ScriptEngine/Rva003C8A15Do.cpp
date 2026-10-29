@@ -16,12 +16,7 @@ class Waypoint;
 class PolygonTrigger;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class TerrainLogicByValue
 {

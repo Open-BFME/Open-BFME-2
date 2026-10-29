@@ -97,11 +97,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool flag);	// 0x003584E9
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class PartitionManager

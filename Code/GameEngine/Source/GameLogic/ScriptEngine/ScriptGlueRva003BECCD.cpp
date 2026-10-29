@@ -17,11 +17,7 @@ public:
 	void rva003A38E9(const AsciiString &a, unsigned char b);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003BECCDSet(const AsciiString &team, const AsciiString &asciiString, bool b)

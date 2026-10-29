@@ -27,11 +27,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-    int rva00357B82(Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

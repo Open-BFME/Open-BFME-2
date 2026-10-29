@@ -66,11 +66,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);	// 0x003584E9
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class CommandButton;

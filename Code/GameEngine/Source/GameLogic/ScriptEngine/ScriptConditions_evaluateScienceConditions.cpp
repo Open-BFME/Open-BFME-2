@@ -44,12 +44,7 @@ public:
     Player *getEachPlayerFromMask(PlayerMaskType &maskToAdjust);
 };
 extern PlayerList *ThePlayerList;
-class ScriptEngine
-{
-public:
-    int rva00357B82(Parameter *playerParm);
-    bool rva00357B3D(int playerIndex, ObjectID science, bool clearIt);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

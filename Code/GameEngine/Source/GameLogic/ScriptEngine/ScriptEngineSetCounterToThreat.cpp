@@ -109,15 +109,7 @@ public:
 	Object *lookupUnitByValue(AsciiString name);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool unused);
-
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	void setCounterToThreat(ScriptAction *pAction, bool useTeam);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptEngine::setCounterToThreat(ScriptAction *pAction, bool useTeam)

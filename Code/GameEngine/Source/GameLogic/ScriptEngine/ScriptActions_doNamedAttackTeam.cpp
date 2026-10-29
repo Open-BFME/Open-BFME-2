@@ -33,12 +33,7 @@ public:
     AICommandInterface m_commandInterface;
 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-    Team *getTeamNamed(AsciiString, bool = false);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Object

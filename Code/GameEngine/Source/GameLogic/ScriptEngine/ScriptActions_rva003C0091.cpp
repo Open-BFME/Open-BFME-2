@@ -15,11 +15,7 @@ class PolygonTrigger
 {
 };
 
-class ScriptEngine
-{
-public:
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class BfmeAudio

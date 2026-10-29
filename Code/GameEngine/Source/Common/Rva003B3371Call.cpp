@@ -15,11 +15,7 @@ template <typename T> struct BfmeStringData
 #include "ascii_string.h"
 
 
-class ScriptEngine
-{
-public:
-	void rva00357DD2(const AsciiString &s);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 // Scripts.cpp owns the native29-entry shell table at VA DC1050.
 // The adjacent six pointers are ShakeIntensities and are not shell hooks.

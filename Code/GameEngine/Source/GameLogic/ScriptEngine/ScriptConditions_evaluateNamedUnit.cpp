@@ -52,12 +52,7 @@ public:
     NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *);
-    bool didUnitExist(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Rva0022AD10Subsystem
 {

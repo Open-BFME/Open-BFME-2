@@ -16,11 +16,7 @@ public:
 	void rva0039DB31(const void *arg);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class UpgradeTemplate;

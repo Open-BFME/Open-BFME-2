@@ -18,11 +18,7 @@ class Parameter;
 class Object;
 class SpecialPowerTemplate;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

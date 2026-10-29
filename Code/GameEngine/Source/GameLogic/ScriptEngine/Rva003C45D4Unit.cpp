@@ -13,11 +13,7 @@ class Parameter;
 class Object;
 class Overridable;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 enum NameKeyType

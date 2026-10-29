@@ -32,12 +32,7 @@ enum CommandSourceType
     CMD_FROM_SCRIPT = 1
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, bool);
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AIGroup

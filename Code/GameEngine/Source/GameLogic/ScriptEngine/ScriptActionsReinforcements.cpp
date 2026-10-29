@@ -283,11 +283,7 @@ public:
 	Object *lookupUnitByValue(AsciiString name);
 };
 
-class ScriptEngine
-{
-public:
-	TeamPrototype *rva003570D1(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 struct Rva00372571Params

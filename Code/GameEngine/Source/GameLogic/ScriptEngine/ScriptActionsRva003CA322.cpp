@@ -30,12 +30,7 @@ public:
 	int rva003A178D(ObjectTypes *types, int count, Team *otherTeam);
 };
 
-class ScriptEngine
-{
-public:
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-	Team *getTeamNamed(AsciiString name, bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

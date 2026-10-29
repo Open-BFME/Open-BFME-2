@@ -20,11 +20,7 @@ public:
     const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
 };
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 class TerrainLogicByValue
 {
 public:

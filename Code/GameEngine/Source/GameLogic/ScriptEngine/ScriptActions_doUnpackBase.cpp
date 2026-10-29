@@ -42,13 +42,7 @@ protected:
 	friend class ScriptActions;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-	Player *getCurrentPlayer();
-	void rva00208968(const AsciiString &name, Object *obj);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva00395F57

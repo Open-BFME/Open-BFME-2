@@ -32,12 +32,7 @@ extern PlayerList *ThePlayerList;
 
 class Object;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-	int rva00357B82(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class ThingTemplate;

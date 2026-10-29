@@ -7,12 +7,7 @@
 class Parameter;
 class Object;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-	void rva0020517D(Object *obj);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

@@ -49,11 +49,7 @@ public:
     Object *lookupUnitByValue(AsciiString);
 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 Object *ScriptEngine::getUnitNamed(Parameter *unitName)
 {

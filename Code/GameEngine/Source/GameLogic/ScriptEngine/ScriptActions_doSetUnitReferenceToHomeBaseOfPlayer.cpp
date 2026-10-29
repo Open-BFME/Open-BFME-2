@@ -23,13 +23,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-	void rva00208968(const AsciiString &name, Object *obj);
-	void addObjectToCache(Object *obj, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 int Rva002AA497Compare(const Object *a, const Object *b);

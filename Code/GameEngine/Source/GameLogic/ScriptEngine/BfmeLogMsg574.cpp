@@ -5,11 +5,7 @@
 // TheScriptEngine (0xDFE16C).
 #include "ascii_string.h"
 
-class ScriptEngine
-{
-public:
-    void AppendDebugMessage(const AsciiString &message, bool forcePause);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class GlobalData;
 extern GlobalData *TheWritableGlobalData;

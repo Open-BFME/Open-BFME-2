@@ -33,14 +33,7 @@ public:
 	unsigned m_words[7];
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	friend void ScriptActions::Rva003C2EC9Do(const void *, const void *, const void *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class PlayerList
 {

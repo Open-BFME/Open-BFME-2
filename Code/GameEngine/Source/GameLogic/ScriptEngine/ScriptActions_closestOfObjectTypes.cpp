@@ -178,16 +178,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
-	ObjectTypes *getObjectTypes(const AsciiString &name);			// 0x00357651
-	int rva00357B82(Parameter *playerParm);					// 0x00357B82
-	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
-	void rva00208968(const AsciiString &name, Object *obj);			// 0x00208968
-	void addObjectToCache(Object *obj, const AsciiString &name);			// 0x0020A5FF
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AsciiString;

@@ -7,11 +7,7 @@
 #include "ascii_string.h"
 #include "../../Common/RTS/PlayerUpgradeStatus.h"
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matched);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class Player;
 class PlayerList

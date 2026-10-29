@@ -62,11 +62,7 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-class ScriptEngine
-{
-public:
-	void rva00357960(const AsciiString &name, Object *obj);	// 0x00357960
-};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

@@ -59,12 +59,7 @@ struct ScriptCounter
 	bool m_isMillisecondTimer;
 };
 
-class ScriptEngine
-{
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	void setTimer(ScriptAction *action, bool millisecondTimer, bool random);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::setTimer(ScriptAction *action, bool millisecondTimer, bool random)
 {

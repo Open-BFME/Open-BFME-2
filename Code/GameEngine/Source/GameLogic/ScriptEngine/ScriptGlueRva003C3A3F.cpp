@@ -28,11 +28,7 @@ public:
 };
 typedef void (FireLogicSystem::*FireLogicSystemWordShape)(void *, int, int);
 
-class ScriptEngine
-{
-public:
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003C3A3FSet(const AsciiString &name, int v)

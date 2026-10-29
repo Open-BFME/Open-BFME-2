@@ -552,7 +552,7 @@ class Player { char pad[0x3bc]; W3DBridge buildControl; public: W3DBridge* getBu
 class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
 class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
 extern TerrainLogic* TheTerrainLogic;
-class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
+#include "../../../Include/GameLogic/ScriptEngine.h"
 static __forceinline void castleUnpackedConditions(Object* owner) {
  CastleConditionView* view=(CastleConditionView*)owner;
  if(view->conditions.test(94)!=0 || view->conditions.test(96)==0) {

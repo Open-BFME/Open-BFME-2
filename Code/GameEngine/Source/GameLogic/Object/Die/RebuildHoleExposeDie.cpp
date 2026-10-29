@@ -304,11 +304,7 @@ private:
 	Team *m_team;	// +0x304
 };
 
-class ScriptEngine
-{
-public:
-	void rva00357960(const AsciiString &name, Object *obj);	// 0x00357960, transferObjectName
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

@@ -8,12 +8,7 @@ class Object;
 class SpecialPowerTemplate;
 struct Coord3D;
 
-class ScriptEngine
-{
-public:
-	Player *getSkirmishEnemyPlayer();
-	int rva00357475(const AsciiString &name, bool *flag);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

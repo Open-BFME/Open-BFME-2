@@ -10,11 +10,7 @@ class Parameter;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class AICommandInterface

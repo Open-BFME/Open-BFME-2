@@ -35,12 +35,7 @@ public:
 };
 class Parameter;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, bool);
-	Object *getUnitNamed(Parameter *unitParam);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 // A script parameter: its string at +0x10, as in Zero Hour's Parameter.

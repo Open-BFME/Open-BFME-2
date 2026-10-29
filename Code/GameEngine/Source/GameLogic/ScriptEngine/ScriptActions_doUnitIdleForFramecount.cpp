@@ -33,12 +33,7 @@ public:
 	}
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);
-	void setSequentialTimer(Object *obj, int frames);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

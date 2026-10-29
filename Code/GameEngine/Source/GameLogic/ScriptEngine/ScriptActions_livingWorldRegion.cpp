@@ -313,22 +313,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &, bool);
-	void doObjectTypeListMaintenance(const AsciiString &, const AsciiString &, bool);
-	void rva0035818E(const AsciiString &, struct Coord3D *);
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-	bool didUnitExist(const AsciiString &name);
-	void rva00357960(const AsciiString &name, Object *obj); // ZH transferObjectName
-	void addObjectToCache(Object *obj, const AsciiString &name);
-	// Rowed in ScriptEngineRva0020881A.cpp with void * results.
-	void *rva00208DB8(AsciiString name);
-	void *rva00208E99(AsciiString name);
-	void *rva00208CF0(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 struct Rva002B488EResult;
 class Rva00318C32Ret;

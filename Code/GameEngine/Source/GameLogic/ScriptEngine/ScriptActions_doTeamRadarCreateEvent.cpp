@@ -19,11 +19,7 @@ public:
 	void rva0039E5B9(Coord3D *pos);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 // Rowed 0x002D88A4: Radar::createEvent (Radar_createEvent.cpp).

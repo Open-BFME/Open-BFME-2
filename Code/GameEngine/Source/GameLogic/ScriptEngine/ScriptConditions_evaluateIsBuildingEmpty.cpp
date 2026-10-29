@@ -99,11 +99,7 @@ public:
     unsigned char m_pad000[0x250];
     ContainModuleInterface *m_contain;
 };
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

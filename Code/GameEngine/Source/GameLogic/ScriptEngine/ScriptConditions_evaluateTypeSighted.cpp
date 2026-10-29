@@ -145,12 +145,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);	// 0x003588E7
-	int rva00357B82(Parameter *playerParm);		// 0x00357B82
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

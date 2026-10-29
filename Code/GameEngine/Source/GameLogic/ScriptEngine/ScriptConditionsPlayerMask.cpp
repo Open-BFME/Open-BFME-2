@@ -169,40 +169,7 @@ public:
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
-class ScriptEngine
-{
-public:
-	virtual void slot00() = 0;
-	virtual void slot01() = 0;
-	virtual void slot02() = 0;
-	virtual void slot03() = 0;
-	virtual void slot04() = 0;
-	virtual void slot05() = 0;
-	virtual void slot06() = 0;
-	virtual void slot07() = 0;
-	virtual void slot08() = 0;
-	virtual void slot09() = 0;
-	virtual void slot10() = 0;
-	virtual void slot11() = 0;
-	virtual void slot12() = 0;
-	virtual void slot13() = 0;
-	virtual void slot14() = 0;
-	virtual void slot15() = 0;
-	virtual void slot16() = 0;
-	virtual void slot17() = 0;
-	virtual void slot18() = 0;
-	virtual void slot19() = 0;
-	virtual void slot20() = 0;
-	virtual void slot21() = 0;
-	virtual void slot22() = 0;
-	virtual void slot23() = 0;
-	virtual void slot24() = 0;
-	virtual void slot25() = 0;
-	virtual Object *getUnitNamed(const AsciiString &name) = 0;	// slot 26, vtable+0x68
-
-	PlayerMaskType unidentified_0034DB40(Parameter *playerParm);	///< body at 0x0034DB40
-	PlayerMaskType unidentified_0034DB40(const AsciiString &name);	///< ILT thunk at 0x000230B5
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;

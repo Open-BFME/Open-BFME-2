@@ -32,11 +32,7 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003BCDD7Do(Parameter *param)

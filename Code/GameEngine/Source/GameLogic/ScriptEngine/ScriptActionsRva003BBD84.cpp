@@ -13,11 +13,7 @@
 // address-derived.
 #include "ascii_string.h"
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 // 0x002AF037 is the rowed Player::ungarrisonAllUnits (PlayerTeamCommands.cpp).

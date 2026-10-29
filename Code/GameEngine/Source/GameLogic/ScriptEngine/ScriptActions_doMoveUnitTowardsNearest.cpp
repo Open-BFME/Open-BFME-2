@@ -106,12 +106,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);				// 0x003588E7
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);	// 0x0035768D
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class PartitionManager

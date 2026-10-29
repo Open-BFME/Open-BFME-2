@@ -15,11 +15,7 @@ public:
 	int m_key34;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class ScriptActions

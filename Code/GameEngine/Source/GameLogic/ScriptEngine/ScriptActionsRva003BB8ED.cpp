@@ -29,11 +29,7 @@ public:
 	virtual TerrainLogicResult *slot88(const AsciiString &name);
 };
 extern TerrainLogic *TheTerrainLogic;
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matched);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PartitionManager;
 extern PartitionManager *TheShroudManager;

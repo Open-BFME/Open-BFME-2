@@ -223,11 +223,7 @@ void ScriptActions::Rva003BB654()
 // Evidence: push [esp+4] mov ecx,[0xDFE16C] call ?getUnitNamed@ScriptEngine@@QAEPAVObject@@PAVParameter@@@Z test eax je then TheInGameUI vslot 0x9C with Object*.
 class Object;
 class Parameter;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class Rva003BBFB1Holder
 {

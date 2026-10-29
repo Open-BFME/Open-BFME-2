@@ -34,11 +34,7 @@ class Team
 public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 // A script parameter: its string at +0x10, as in Zero Hour's Parameter.

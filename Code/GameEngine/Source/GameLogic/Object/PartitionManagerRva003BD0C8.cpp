@@ -12,11 +12,7 @@ public:
 	char m_pad00[0x735];
 	unsigned char m_flag735; // +0x735
 };
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {

@@ -17,11 +17,7 @@ public:
 	char m_pad[0x264];
 	ExperienceTracker *m_264;
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 void ScriptActions::Rva003BC903Do(Parameter *param, int val)
 {

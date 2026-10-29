@@ -27,12 +27,7 @@ class Module;
 class CommandButton;
 class CommandSet;
 class ThingTemplate;
-class ScriptEngine
-{
- public:
- Object *getUnitNamed(Parameter *);
- int rva00357B82(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 class PlayerList
 {
  public:

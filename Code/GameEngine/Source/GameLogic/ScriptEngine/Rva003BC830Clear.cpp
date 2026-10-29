@@ -21,11 +21,7 @@ class Rva002A9F0FDwordClearer
 public:
 	void clear();
 };
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {

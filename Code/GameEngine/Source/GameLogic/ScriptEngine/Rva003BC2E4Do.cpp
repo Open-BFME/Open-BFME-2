@@ -9,11 +9,7 @@ class Parameter
 class Object
 {
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 namespace Rva002EFB20
 {

@@ -49,14 +49,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	Player *getCurrentPlayer();
-	Player *getSkirmishEnemyPlayer();
-	void AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause);
-	int rva00357475(const AsciiString &name, Bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 int ScriptEngine::rva00357475(const AsciiString &name, Bool *matchedSpecialName)

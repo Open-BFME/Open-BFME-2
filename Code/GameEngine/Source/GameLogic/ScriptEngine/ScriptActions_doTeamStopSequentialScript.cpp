@@ -12,12 +12,7 @@
 typedef bool Bool;
 
 class Team;
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-	void rva002064CB(Team *t);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::doTeamStopSequentialScript(const AsciiString &team)

@@ -163,11 +163,7 @@ private:
 	unsigned char m_pad[0x40];
 };
 
-class ScriptEngine
-{
-public:
-	const AttackPriorityInfo *getAttackInfo(const AsciiString &name);
-};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class LuaScriptEngine

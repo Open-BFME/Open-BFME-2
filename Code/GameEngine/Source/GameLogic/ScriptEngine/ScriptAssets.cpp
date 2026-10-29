@@ -36,11 +36,7 @@ private:
     char beforeTemplate[0x12C];
     Rva003B3836TemplateInfo m_template;
 };
-class ScriptEngine
-{
-public:
-    TeamPrototype *rva003570D1(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Parameter
 {

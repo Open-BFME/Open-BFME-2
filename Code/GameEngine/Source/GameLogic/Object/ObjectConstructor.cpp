@@ -198,7 +198,7 @@ struct AsciiNotEmpty
 	static bool test(const AsciiString &asciiString) { return !((const StringBase<char> *)&asciiString)->isEmpty(); }
 };
 class AttackPriorityInfo { public: unsigned char m_pad[4]; AsciiString m_name; };
-class ScriptEngine { public: const AttackPriorityInfo *getAttackInfo(const AsciiString &name); };
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 struct ObjectTeamView

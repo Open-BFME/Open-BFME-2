@@ -47,11 +47,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 inline const float &FloatMinRef(const float &a, const float &b) { return a < b ? a : b; }

@@ -11,12 +11,7 @@
 
 class PolygonTrigger;
 
-class ScriptEngine
-{
-public:
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-	void rva00209811(const AsciiString &name, unsigned char x);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Pathfinder

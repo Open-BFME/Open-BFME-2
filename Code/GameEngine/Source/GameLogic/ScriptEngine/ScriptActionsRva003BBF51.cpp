@@ -6,11 +6,7 @@
 // Evidence: getUnitNamed then [eax+0x258] [eax+0x1F0] null checks then movss xmm0,[esp+8] comiss with g_Va007C26F0 jb skip movss [eax+0x3C],xmm0 ret 8.
 class Object;
 class Parameter;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 extern float g_Va007C26F0;
 void ScriptActions::doNamedSetStoppingDistance(Parameter *parameter, float f)

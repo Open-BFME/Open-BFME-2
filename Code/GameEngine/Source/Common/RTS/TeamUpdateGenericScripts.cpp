@@ -83,13 +83,7 @@ public:
 	SequentialScript *m_nextScriptInSequence; // +0x28
 };
 
-class ScriptEngine
-{
-public:
-	bool rva0020A1D0(const AsciiString &scope, Script *script, Team *team, Player *player);
-	void appendSequentialScript(const SequentialScript *scriptToSequence);
-	void AppendDebugMessage(const AsciiString &strToAdd, bool forcePause);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

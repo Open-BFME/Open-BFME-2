@@ -29,12 +29,7 @@ public:
 // "ShellMainMenuExitPushed").
 extern const char *g_009C108C;
 
-class ScriptEngine
-{
-public:
-	// Rowed 0x00357DD2 (fires a named script event).
-	void rva00357DD2(const AsciiString &name);
-};
+#include "../../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

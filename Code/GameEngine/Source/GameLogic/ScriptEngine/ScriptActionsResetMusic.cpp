@@ -13,11 +13,7 @@ public:
     virtual void pauseAudio(int first, int second, int third);
 };
 
-class ScriptEngine
-{
-public:
-	void *rva0020881A(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class AudioManager;
 extern AudioManager *TheAudio;

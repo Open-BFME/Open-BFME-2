@@ -67,13 +67,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);
-	Team *getTeamNamed(AsciiString name, bool exact);
-	void setSequentialTimer(Object *obj, int frames);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class TerrainLogicByValue

@@ -25,12 +25,7 @@ public:
 	int getIndicatorColor() const;
 };
 class Team;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-	Team *getTeamNamed(AsciiString name, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 extern int BfmeLogicFramesPerSecond;
 extern int g_00E02D9C;

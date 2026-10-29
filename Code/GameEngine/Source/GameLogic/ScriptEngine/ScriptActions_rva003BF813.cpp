@@ -25,12 +25,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 class Team;
 class AIGroup;
 
-class ScriptEngine
-{
-public:
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString);
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class TerrainLogic
 {

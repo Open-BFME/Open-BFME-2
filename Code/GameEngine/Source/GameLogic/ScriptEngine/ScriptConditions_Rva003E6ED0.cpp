@@ -134,13 +134,7 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);	// 0x003584E9
-	Object *getUnitNamed(const AsciiString &name);		// 0x003588E7
-	int rva00357475(const AsciiString &name, bool *found);	// 0x00357475
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

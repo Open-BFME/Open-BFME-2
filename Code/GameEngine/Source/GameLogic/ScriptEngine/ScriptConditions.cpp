@@ -920,19 +920,7 @@ public:
 	int bfme_int_hos() const { return m_int; }
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *pUnitParm);
-public:
-	Int rva00357B82(Parameter *pPlayerParm);
-public:
-	Team *getTeamNamed(AsciiString teamName, Bool flag);
-public:
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString);
-public:
-	void *rva00208DB8(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Rva00286772Manager
 {

@@ -20,12 +20,7 @@ public:
 	void recruitSpecificTeam(void *a1, float a2, void *a3);
 };
 
-class ScriptEngine
-{
-public:
-	TeamPrototype *rva003570D1(AsciiString name);
-	Team *getTeamNamed(AsciiString name, bool create);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Team
 {

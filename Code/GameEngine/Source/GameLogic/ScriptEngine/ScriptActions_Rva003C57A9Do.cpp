@@ -52,11 +52,7 @@ public:
 	void doCommandButtonAtPosition(const CommandButton *button, const Coord3D *pos, int source, int extra);
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Waypoint

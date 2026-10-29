@@ -127,12 +127,7 @@ static __forceinline Bool isStringEmpty(const AsciiString &v)
 	return d == 0 || d->len == 0;
 }
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &msg, Bool force);
-	void checkConditionsForTeamNames(Script *pScript, const AsciiString &scriptName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::checkConditionsForTeamNames(Script *pScript, const AsciiString &scriptName)
 {

@@ -22,12 +22,7 @@ class PolygonTrigger;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AICommandInterface

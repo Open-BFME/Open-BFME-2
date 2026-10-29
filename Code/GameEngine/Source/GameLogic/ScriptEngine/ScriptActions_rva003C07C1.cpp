@@ -17,11 +17,7 @@ class ControlBar;
 class CommandButton;
 enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Rva00358752Opaque
 {

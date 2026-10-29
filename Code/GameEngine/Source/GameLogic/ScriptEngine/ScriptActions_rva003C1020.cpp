@@ -17,11 +17,7 @@ class Team;
 class Parameter;
 struct BfmeWorldRV;
 
-class ScriptEngine {
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class AI {
 public:

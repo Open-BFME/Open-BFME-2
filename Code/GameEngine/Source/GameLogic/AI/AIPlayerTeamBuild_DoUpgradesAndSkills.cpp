@@ -988,12 +988,7 @@ private:
 	void *m_action;				// +0x34
 };
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
-	void addObjectToCache(Object *obj, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class BfmeRoomZC;

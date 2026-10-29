@@ -80,11 +80,7 @@ private:
 	friend class Team;
 };
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &msg, bool clear);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Object;

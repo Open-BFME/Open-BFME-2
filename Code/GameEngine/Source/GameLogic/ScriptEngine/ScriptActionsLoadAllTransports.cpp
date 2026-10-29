@@ -177,11 +177,7 @@ private:
 };
 
 inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const { return DLINK_ITERATOR<Object>(m_head, &Object::dlink_next_TeamMemberList); }
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 

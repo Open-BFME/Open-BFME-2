@@ -770,14 +770,7 @@ private:
 	void *m_action;				// +0x34
 };
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &message, Bool forcePause);
-	void addObjectToCache(Object *obj, const AsciiString &name);
-	Script *rva003573C4(const AsciiString &owner, const AsciiString &name, AsciiString *outName);
-	void rva0020D451(AsciiString &scope, void *action, Script *script, const AsciiString &scriptName, int flags);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 enum { MAX_STRUCTURES_TO_REPAIR = 2 };

@@ -16,11 +16,7 @@ public:
 	void rva002A9DCF(void *a1);
 };
 
-class ScriptEngine
-{
-public:
-	TeamPrototype *rva003570D1(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class TeamPrototype
 {

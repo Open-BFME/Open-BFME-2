@@ -98,13 +98,7 @@ public:
 	void rva0039E5B9(Coord3D *center);	// 0x0039E5B9
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
-	Object *getUnitNamed(Parameter *parameter);				// 0x003588E7
-	int rva00357475(const AsciiString &name, bool *found);			// 0x00357475
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class PlayerList

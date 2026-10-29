@@ -79,12 +79,7 @@ public:
 	void getTeamAsAIGroup(AIGroup *group);			// 0x003A0F62
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, Bool exact);			// 0x003584E9
-	void setSequentialTimer(Team *team, int frames);			// 0x00204002
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

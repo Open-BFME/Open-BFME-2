@@ -137,14 +137,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);		// 0x003584E9
-	ObjectTypes *getObjectTypes(const AsciiString &name);		// 0x00357651
-	int rva00357475(const AsciiString &name, bool *found);		// 0x00357475
-	void AppendDebugMessage(const AsciiString &strToAdd, bool mustAdd);	// 0x00205263
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

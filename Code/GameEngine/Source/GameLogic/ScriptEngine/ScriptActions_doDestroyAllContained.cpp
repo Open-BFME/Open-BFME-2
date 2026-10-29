@@ -38,11 +38,7 @@ public:
 	Iface00250 *m_250; // +0x250
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

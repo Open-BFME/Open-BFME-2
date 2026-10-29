@@ -328,17 +328,7 @@ public:
 	AsciiString resolveName(const AsciiString &s);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool);
-	Object *getUnitNamed(const AsciiString &name);
-	Object *getUnitNamed(Parameter *parameter);
-	void AppendDebugMessage(const AsciiString &msg, bool flag);
-	bool didUnitExist(const AsciiString &name);
-	void rva00357960(const AsciiString &name, Object *obj); // ZH transferObjectName
-	void addObjectToCache(Object *obj, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 struct CreateMask

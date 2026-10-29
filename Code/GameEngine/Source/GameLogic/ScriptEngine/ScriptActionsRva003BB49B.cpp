@@ -15,11 +15,7 @@ public:
 	void rva00291A8C(float a, float b, float c, const AsciiString &d);
 };
 class Parameter;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;

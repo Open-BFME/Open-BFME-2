@@ -21,12 +21,7 @@ class Object;
 class Team;
 class AIGroup;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class AI
 {

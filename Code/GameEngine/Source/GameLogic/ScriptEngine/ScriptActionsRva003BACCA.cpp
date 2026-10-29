@@ -195,11 +195,7 @@ public:
 class Parameter;
 class Object;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 // Existing descriptive owner of the rowed 0x0025F385 lookup. Its original

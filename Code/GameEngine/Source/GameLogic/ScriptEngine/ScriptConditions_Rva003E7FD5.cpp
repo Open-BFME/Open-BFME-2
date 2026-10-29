@@ -12,11 +12,7 @@ public:
 };
 class PolygonTrigger;
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
-class ScriptEngine
-{
-public:
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class TacticalView
 {

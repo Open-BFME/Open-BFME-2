@@ -152,14 +152,7 @@ public:
 };
 extern ThingFactory *TheThingFactory;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *pUnitParm);
-	Player *getCurrentPlayer();
-	void rva00208968(const AsciiString &name, Object *obj);
-	void addObjectToCache(Object *obj, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

@@ -53,11 +53,7 @@ public:
 	void setStatus(ObjectStatusTypes status, bool value);
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

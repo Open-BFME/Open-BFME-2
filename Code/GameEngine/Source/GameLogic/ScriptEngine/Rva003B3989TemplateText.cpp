@@ -8,11 +8,7 @@
 #include "ascii_string.h"
 class ConditionTemplate;
 class ActionTemplate;
-class ScriptEngine {
-public:
-    const ConditionTemplate *getConditionTemplate(int);
-    const ActionTemplate *getActionTemplate(int);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 struct Rva003B3989TemplatePrefix {
     unsigned int unknown00;

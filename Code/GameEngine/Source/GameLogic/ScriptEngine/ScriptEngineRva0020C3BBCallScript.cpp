@@ -114,17 +114,7 @@ public:
 
 AsciiString Rva0032B389Join(const AsciiString &left, const AsciiString &right);
 
-class ScriptEngine
-{
-public:
-	void walkNamed(Rva00355950Arr *array, Rva003412E0Node *node, bool filter);
-	void rva0020A586(void *object, void *slot);
-	void AppendDebugMessage(const AsciiString &message, bool forcePause);
-	void callSubroutine(ScriptAction *action);
-	void rva0020C140(const AsciiString &scopeName, const AsciiString &scriptName, Team *pThisTeam);
-	bool evaluateConditions(Script *pScript, Team *thisTeam, Player *player);
-	bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // ?rva0020A1D0@ScriptEngine@@QAE_NABVAsciiString@@PAVScript@@PAVTeam@@PAVPlayer@@@Z
 // @0x0020A1D0 87B: evaluateConditions (0x00209748) run under the current-scope

@@ -52,17 +52,7 @@ private:
 	_STL::vector<AsciiString> m_objectTypes;
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-	int rva00357B82(class Parameter *param);
-	class Team *getTeamNamed(AsciiString name, bool);
-	bool didUnitExist(const AsciiString &name);
-	void rva00357960(const AsciiString &name, class Object *obj);
-	void addObjectToCache(class Object *obj, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class UnitRevivalTracker;

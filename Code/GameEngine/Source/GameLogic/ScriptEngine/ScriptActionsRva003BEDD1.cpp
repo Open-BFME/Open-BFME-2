@@ -29,12 +29,7 @@ public:
 	unsigned int m_head;
 	StringBase<char> m_name;
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, bool = false);
-	const AttackPriorityInfo *getAttackInfo(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class Team
 {

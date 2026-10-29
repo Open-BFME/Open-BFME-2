@@ -148,11 +148,7 @@ public:
 	virtual void *deleteInstance(int flags);
 };
 
-class ScriptEngine
-{
-public:
-	void rva002051B7(Object *obj);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Player;

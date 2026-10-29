@@ -122,10 +122,7 @@ class Rva003573C4Owner
 public:
 	void *rva003573C4( const AsciiString &scope, const BfmeRoomZC &name, void *arg );	// rowed 0x003573C4
 };
-class ScriptEngine
-{
-public:
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class SequentialScript

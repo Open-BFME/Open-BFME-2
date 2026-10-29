@@ -19,11 +19,7 @@ class Team
 public:
 	int rva0039DD12(TeamPredicate pred, void *userData) const;
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 struct Rva003C388EObject

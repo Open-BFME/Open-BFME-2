@@ -22,11 +22,7 @@ class Team
 public:
 	Object *rva0039E8EB();
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool b);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Waypoint
 {

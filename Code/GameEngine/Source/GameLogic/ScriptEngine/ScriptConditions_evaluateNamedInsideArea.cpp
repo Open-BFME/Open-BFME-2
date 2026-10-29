@@ -49,12 +49,7 @@ public:
     Bool pointInTrigger(const ICoord3D &position);
 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *parameter);
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

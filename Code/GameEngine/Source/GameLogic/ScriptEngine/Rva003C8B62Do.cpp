@@ -71,11 +71,7 @@ public:
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003C8B62Do(const AsciiString &teamName)

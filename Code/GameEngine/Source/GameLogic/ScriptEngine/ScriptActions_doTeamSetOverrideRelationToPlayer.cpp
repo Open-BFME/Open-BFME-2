@@ -11,11 +11,7 @@ class Object;
 class Team;
 class Player;
 #include "ascii_string.h"
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 enum NameKeyType
 {

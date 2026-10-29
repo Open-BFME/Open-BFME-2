@@ -23,11 +23,7 @@ public:
     AsciiString m_state;
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString team, Bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

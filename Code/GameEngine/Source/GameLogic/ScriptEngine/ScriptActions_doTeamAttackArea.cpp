@@ -26,12 +26,7 @@ public:
     void groupAttackArea(PolygonTrigger *, CommandSourceType);
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, bool = false);
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AI

@@ -23,12 +23,7 @@ public:
     Player *getEachPlayerFromMask(PlayerMaskType &maskToAdjust);
 };
 extern PlayerList *ThePlayerList;
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *);
-    int rva00357B82(Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

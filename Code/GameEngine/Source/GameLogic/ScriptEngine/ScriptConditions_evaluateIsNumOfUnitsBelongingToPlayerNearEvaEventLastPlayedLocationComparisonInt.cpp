@@ -90,11 +90,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *playerParm);	// 0x00357B82
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

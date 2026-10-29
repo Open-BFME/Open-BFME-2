@@ -7,10 +7,7 @@
 StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
 
 class ObjectTypes;
-class ScriptEngine {
-public:
-	ObjectTypes *getObjectTypes(const AsciiString &objectTypeList);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ObjectTypes {

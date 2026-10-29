@@ -20,12 +20,7 @@ public:
 	int rva003A1626(const class ThingTemplate *a, class Rva00376A62 *b, int v, Team *other);
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-	ObjectTypes *getObjectTypes(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ThingFactory

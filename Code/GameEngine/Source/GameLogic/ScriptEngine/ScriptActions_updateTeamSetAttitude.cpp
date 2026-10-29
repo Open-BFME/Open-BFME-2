@@ -28,11 +28,7 @@ enum AttitudeType { ATTITUDE_UNSPECIFIED = 0 };
 
 #include "ascii_string.h"
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, Bool = false);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AIGroup

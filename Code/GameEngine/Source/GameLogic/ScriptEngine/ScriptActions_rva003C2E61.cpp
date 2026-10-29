@@ -15,14 +15,7 @@ class Player;
 class Rva0039C0F4;
 struct ScriptCounter;
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	friend void ScriptActions::Rva003C2E61Do(const void *, const void *, const void *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class PlayerList
 {

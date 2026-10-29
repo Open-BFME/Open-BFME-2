@@ -31,12 +31,7 @@ public:
 	Player *getEachPlayerFromMask(int &mask);
 };
 extern PlayerList *ThePlayerList;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *parm);
-	int rva00357B82(Parameter *parm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

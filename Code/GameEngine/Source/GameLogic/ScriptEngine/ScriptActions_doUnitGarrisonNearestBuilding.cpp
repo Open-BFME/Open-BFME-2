@@ -220,11 +220,7 @@ public:
 };
 extern PartitionManager *ThePartitionManager;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);	// 0x003588E7
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 #define REALLY_FAR (100000 * 10.0f)

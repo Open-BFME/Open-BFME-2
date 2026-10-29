@@ -17,12 +17,7 @@ public:
 	void getBounds(FloatRect0073CE30 *rect);
 };
 
-class ScriptEngine
-{
-public:
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva00739AF0

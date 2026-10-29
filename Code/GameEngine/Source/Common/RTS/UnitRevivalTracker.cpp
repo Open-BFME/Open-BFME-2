@@ -159,7 +159,7 @@ struct RevivalTemplateView
 	AsciiString name;
 };
 class Rva001EAFC1 { public: Rva001EAFC1 &operator=(const Rva001EAFC1&); };
-class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class CreateAHeroData;
 class CreateAHeroHero;

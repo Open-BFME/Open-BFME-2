@@ -12,11 +12,7 @@ public:
 	void kill(DamageType a, DeathType b);
 };
 class Parameter;
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 void ScriptActions::doNamedKill(Parameter *parameter)
 {

@@ -23,11 +23,7 @@ class Team;
 class AIGroup;
 class ControlBar;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class TerrainLogic
 {

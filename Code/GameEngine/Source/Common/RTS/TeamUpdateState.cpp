@@ -259,11 +259,7 @@ extern GameLogic *TheGameLogic;
 
 class Team;
 
-class ScriptEngine
-{
-public:
-	void rva0020C140(const AsciiString &scope, const AsciiString &script, Team *team);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 struct Rva00336283Element;

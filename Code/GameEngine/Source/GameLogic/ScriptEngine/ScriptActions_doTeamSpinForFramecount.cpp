@@ -13,12 +13,7 @@ class Team
 {
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, Bool);
-    void setSequentialTimer(Team *team, int frames);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

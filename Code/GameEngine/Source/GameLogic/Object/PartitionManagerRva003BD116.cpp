@@ -13,11 +13,7 @@ public:
 	// LINK: 0x0029660C is rowed as Object::teleportTo (ObjectRva0029660C.cpp).
 	void teleportTo(const Coord3D *pos, bool flag);
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class TerrainLogic
 {

@@ -14,11 +14,7 @@ class Object;
 class Waypoint;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class TerrainLogicByValue
 {

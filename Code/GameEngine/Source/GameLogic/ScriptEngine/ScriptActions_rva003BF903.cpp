@@ -13,11 +13,7 @@ enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_SCRIPT = 1 };
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 class Team;
 class AIGroup;
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 class AI
 {
 public:

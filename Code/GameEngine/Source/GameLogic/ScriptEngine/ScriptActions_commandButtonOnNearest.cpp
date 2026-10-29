@@ -160,11 +160,7 @@ public:
 };
 extern ControlBar *TheControlBar;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(const AsciiString &name);	// 0x003588E7
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class PartitionManager

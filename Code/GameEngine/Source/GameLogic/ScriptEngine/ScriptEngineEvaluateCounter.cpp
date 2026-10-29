@@ -71,14 +71,7 @@ struct ScriptCounter
 	bool m_isMillisecondTimer;
 };
 
-class ScriptEngine
-{
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	bool evaluateCounter(Condition *condition);
-	void addCounter(ScriptAction *action);
-	void subCounter(ScriptAction *action);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 bool ScriptEngine::evaluateCounter(Condition *condition)
 {

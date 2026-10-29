@@ -175,11 +175,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	Int rva00357B82(Parameter *pPlayerParm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 #include "../../Common/GameLogicObjectLookupView.h"

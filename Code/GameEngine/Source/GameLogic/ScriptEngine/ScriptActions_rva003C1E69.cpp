@@ -8,10 +8,7 @@
 class Team;
 class Rva003C1E69;
 
-class ScriptEngine {
-public:
-	Team *getTeamNamed(AsciiString name, bool flag);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

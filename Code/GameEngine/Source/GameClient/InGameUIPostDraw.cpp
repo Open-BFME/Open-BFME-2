@@ -131,11 +131,7 @@ struct ScriptCounter
 	Int value;
 };
 
-class ScriptEngine
-{
-public:
-	void *rva002086C5(AsciiString counterName);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class GlobalLanguage

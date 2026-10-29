@@ -38,12 +38,7 @@ public:
 	ObjectInner003E92DF *m_body;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-	void AppendDebugMessage(const AsciiString &, bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 bool g_00E02E34;	// retail RVA 0x00A02E34 (.data, 4 bytes), defined here: nothing else owns it
 

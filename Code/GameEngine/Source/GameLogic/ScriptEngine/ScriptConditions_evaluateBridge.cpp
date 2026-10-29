@@ -26,11 +26,7 @@ public:
     bool m_bridgeDamageStatesChanged;
 };
 extern TerrainLogic *TheTerrainLogic;
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

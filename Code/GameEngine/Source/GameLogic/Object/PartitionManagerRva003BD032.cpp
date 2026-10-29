@@ -17,11 +17,7 @@ public:
 	void setWeaponSetFlag(WeaponSetType wst);
 	void clearWeaponSetFlag(WeaponSetType wst);
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003BD032Set(Parameter *parameter, void *p2)

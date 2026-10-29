@@ -41,11 +41,7 @@ extern GameLogic *TheGameLogic;
 #define TheScriptDebugWindowDLL st_DebugDLL
 #define ScriptDebugMessagesDisabled BFME2ScriptDebugLiteMode
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::AppendDebugMessage(const AsciiString &strToAdd, Bool forcePause)
 {

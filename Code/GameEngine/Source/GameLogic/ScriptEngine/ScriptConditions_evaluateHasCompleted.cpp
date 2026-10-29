@@ -17,13 +17,7 @@ public:
     unsigned char m_beforeInt[8]; int m_int; float m_real; AsciiString m_string;
     unsigned char m_afterString[8];
 };
-class ScriptEngine
-{
-public:
-    bool rva00357A36(const AsciiString &completedVideo, bool removeFromList);
-    bool rva00357F5E(const AsciiString &completedSpeech, bool removeFromList);
-    bool rva00358076(const AsciiString &completedAudio, bool removeFromList);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

@@ -30,14 +30,7 @@ private:
 	char m_storage[0x48];
 };
 
-class ScriptEngine
-{
-public:
-	void rva0020CE13();
-
-protected:
-	void executeActions(ScriptAction *pActionHead, void *a, void *b);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva0020CE13()
 {

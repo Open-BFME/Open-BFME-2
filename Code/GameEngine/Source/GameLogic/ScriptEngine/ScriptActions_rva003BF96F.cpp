@@ -41,11 +41,7 @@ public:
 	Object *lookupUnitByValue(AsciiString name);
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matched);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;

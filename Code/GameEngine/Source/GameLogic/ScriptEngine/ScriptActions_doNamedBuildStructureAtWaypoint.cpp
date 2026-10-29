@@ -15,11 +15,7 @@ public:
 	const Coord3D *location() const { return (const Coord3D *)((const char *)this + 0x0c); }
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class TerrainLogic

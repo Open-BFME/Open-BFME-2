@@ -19,11 +19,7 @@ enum CommandSourceType
 class Team;
 class AIGroup;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class AI
 {

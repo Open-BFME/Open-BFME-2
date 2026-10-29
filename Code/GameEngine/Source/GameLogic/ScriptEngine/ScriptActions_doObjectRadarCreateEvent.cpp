@@ -13,11 +13,7 @@ public:
 	char m_pad[0x38];
 	Coord3D m_pos;
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class Radar;
 extern Radar *TheRadar;

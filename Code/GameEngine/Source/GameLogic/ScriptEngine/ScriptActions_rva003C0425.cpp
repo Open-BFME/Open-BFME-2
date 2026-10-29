@@ -87,11 +87,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	AsciiString rva00205CE7(AsciiString s);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003C0425Do(const AsciiString &eventName, bool allowOverlap, bool leech,

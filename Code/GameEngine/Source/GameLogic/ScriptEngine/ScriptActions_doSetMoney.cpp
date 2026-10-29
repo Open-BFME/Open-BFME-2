@@ -5,11 +5,7 @@
 // Evidence: ScriptEngine::rva00357475 mask-from-name then PlayerList::getEachPlayerFromMask loop with Money withdraw-all then deposit arg at Player+0x90.
 #include "ascii_string.h"
 
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *x);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Player;
 class PlayerList

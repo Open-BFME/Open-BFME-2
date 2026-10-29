@@ -563,7 +563,7 @@ class Rva00395A60 { public: __declspec(noinline) float rva00395A60(); };
 float Rva00395A60::rva00395A60() { float value=0.0f; void* data=field<void*>(this,4); if(data) value=field<float>(data,0x2c);return value; }
 class TerrainLogic { public: void rva00283262(const Coord3D*,float); };
 extern TerrainLogic* TheTerrainLogic;
-class ScriptEngine { public: void rva00357960(const AsciiString&,Object*); };
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern "C" FILE *theLogicRandomLogFile;
 static __forceinline void castleUnpackedConditions(Object* owner) {
  CastleConditionView* view=(CastleConditionView*)owner;

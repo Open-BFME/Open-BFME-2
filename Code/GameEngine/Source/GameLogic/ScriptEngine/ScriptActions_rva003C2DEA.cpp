@@ -53,14 +53,7 @@ struct ScriptCounter
 	int m_value;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	friend void ScriptActions::Rva003C2DEADo(Parameter *a, Parameter *b);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

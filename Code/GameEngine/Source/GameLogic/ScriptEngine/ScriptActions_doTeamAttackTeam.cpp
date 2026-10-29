@@ -23,11 +23,7 @@ public:
     void groupAttackTeam(const Team *, int, CommandSourceType);
 };
 
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, bool = false);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AI

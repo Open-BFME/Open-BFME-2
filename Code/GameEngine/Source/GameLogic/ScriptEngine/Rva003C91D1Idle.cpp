@@ -34,11 +34,7 @@ public:
 	void releaseWeaponLock(WeaponLockType lockType);
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003C91D1Idle(Parameter *param)

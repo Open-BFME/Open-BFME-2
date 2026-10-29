@@ -131,12 +131,7 @@ Parameter::ParameterType Template::getParameterType(Int index) const
 }
 class ActionTemplate : public Template {};
 class ConditionTemplate : public Template {};
-class ScriptEngine
-{
-public:
-	const ActionTemplate *getActionTemplate(Int type) throw();
-	const ConditionTemplate *getConditionTemplate(Int type) throw();
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

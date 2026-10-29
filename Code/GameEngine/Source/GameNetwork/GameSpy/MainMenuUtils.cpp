@@ -55,7 +55,7 @@ void MessageBoxOkCancel(UnicodeString,UnicodeString,void (*)(),void (*)());
 void MessageBoxYesNo(UnicodeString,UnicodeString,void (*)(),void (*)());
 void b_00042a50();void Rva00516E92Enable();bool hasWriteAccess();
 void patchBeforeOnlineCallback();void noPatchBeforeOnlineCallback();
-class ScriptEngine {public:void rva00357DD2(const AsciiString &);};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 extern char *TheShellHookNames[];
 void SetUpGameSpy(const char *,const char *);

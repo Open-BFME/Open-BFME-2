@@ -168,12 +168,7 @@ private:
 	Object *m_head;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);			// 0x003584E9
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);	// 0x0035768D
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 extern PartitionManager *ThePartitionManager;

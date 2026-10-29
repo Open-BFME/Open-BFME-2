@@ -19,11 +19,7 @@ public:
 };
 typedef void (Team::*TeamDeleteIntShape)(int);
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::doTeamDelete(const AsciiString &team, int v)

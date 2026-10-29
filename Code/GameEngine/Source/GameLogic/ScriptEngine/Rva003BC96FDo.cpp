@@ -22,11 +22,7 @@ public:
 	ObjectInner003BC96F *m_264;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003BC96FDo(Parameter *param, int val)

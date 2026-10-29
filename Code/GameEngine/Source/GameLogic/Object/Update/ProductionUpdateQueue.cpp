@@ -725,12 +725,7 @@ class ExperienceTracker { public: void rva0039B315(float,bool,bool,bool,bool); }
 struct ProductionExperienceView { char pad[0x24]; int level; int next; };
 class Rva003BD306Target { public: void rva0039B2C7(int,bool); };
 class Rva004DC8E7AsciiField { public: AsciiString get() const; };
-class ScriptEngine { public:
- void rva00357F11(int,const AsciiString &,int);
- bool didUnitExist(const AsciiString &);
- void addObjectToCache(Object *,const AsciiString &);
- void rva00357960(const AsciiString &,Object *);
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Rva00358752Opaque { public: Object *lookupUnitByValue(AsciiString); };
 class Thing { public: Drawable *getDrawable() const; void setPosition(const Coord3D *); void setOrientation(float); };

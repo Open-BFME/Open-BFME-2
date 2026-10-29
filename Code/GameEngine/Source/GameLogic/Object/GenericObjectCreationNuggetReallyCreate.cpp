@@ -285,11 +285,7 @@ public:
 	Int m_debrisSkipMask;			// +0x1798
 };
 
-class ScriptEngine
-{
-public:
-	void rva00357960(const AsciiString &name, Object *obj);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Pathfinder
 {

@@ -40,12 +40,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, Bool exact);				// 0x003584E9
-	ObjectTypes *getObjectTypes(const AsciiString &name);				// 0x00357651
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

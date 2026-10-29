@@ -7,7 +7,7 @@
 // Original getter name unknown. No full ScriptAction/Parameter layout inferred.
 #include "ascii_string.h"
 class AIGroup; class Team {public:void getTeamAsAIGroup(AIGroup *);}; class Object; class Parameter;
-class ScriptEngine {public: Team *getTeamNamed(AsciiString,bool); Object *getUnitNamed(Parameter *);};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 struct Rva003B3AE2ParameterPrefix {unsigned int unknown[4]; AsciiString text;};
 struct Rva003B3AE2ActionPrefix {

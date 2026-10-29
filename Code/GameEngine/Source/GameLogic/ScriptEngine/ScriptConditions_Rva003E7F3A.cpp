@@ -14,11 +14,7 @@ public:
 };
 
 class Object;
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *parameter);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class Object

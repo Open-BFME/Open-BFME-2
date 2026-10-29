@@ -47,11 +47,7 @@ class Team
 public:
     DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
-class ScriptEngine
-{
-public:
-    Team *getTeamNamed(AsciiString, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 class ScriptActions
 {
 protected:

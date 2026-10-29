@@ -18,10 +18,7 @@ public:
     AsciiString text;
 };
 class Team {public: float rva003A3736(float value);};
-class ScriptEngine {
-public:
-    Team *getTeamNamed(AsciiString name,bool create);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions {
 protected:

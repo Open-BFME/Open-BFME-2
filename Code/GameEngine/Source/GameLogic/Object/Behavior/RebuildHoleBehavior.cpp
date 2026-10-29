@@ -337,7 +337,8 @@ virtual void slot08(); virtual void slot09(); virtual void slot10(); virtual voi
 virtual void slot12();
 virtual void slot13();
 virtual Object *build(Object*,const ThingTemplate*,const Coord3D*,float,Player*);};
-class ScriptEngine {public:void rva00357960(const AsciiString&,Object*);}; extern ScriptEngine *TheScriptEngine;
+#include "../../../../Include/GameLogic/ScriptEngine.h"
+extern ScriptEngine *TheScriptEngine;
 extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond;
 

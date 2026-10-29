@@ -55,9 +55,7 @@ private: unsigned char m_pad[0x38]; Object *m_head;
 inline __declspec(noinline) DLINK_ITERATOR<Object> Team::iterate_TeamMemberList() const {
  return DLINK_ITERATOR<Object>(m_head,&Object::dlink_next_TeamMemberList);
 }
-class ScriptEngine {
-public: Team *getTeamNamed(AsciiString,bool); int rva00357475(const AsciiString &,bool *);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class PlayerList { public: Player *getEachPlayerFromMask(int &); };
 extern PlayerList *ThePlayerList;

@@ -33,12 +33,7 @@ private:
     void *m_vtbl;
     ThingTemplate *m_template; // +0x04
 };
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *parameter);
-    PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptConditions
 {

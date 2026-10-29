@@ -23,11 +23,7 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Waypoint
 {

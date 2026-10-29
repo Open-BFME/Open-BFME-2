@@ -36,12 +36,7 @@ public:
 	char m_pad00[0x30];
 	TeamPrototype *m_proto30;
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-	void AppendDebugMessage(const AsciiString &, Bool);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::Rva003BFCBFDo(const AsciiString &teamName, int delta)

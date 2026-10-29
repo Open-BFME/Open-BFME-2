@@ -22,12 +22,7 @@ class Team
 public:
 	Object *rva0039E8EB();
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool b);
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class Pathfinder
 {

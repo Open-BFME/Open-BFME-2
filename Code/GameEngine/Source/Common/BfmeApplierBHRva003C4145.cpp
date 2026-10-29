@@ -6,11 +6,7 @@
 class Team;
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool b);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

@@ -16,12 +16,7 @@ public:
 	virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
 	virtual void slot20(); virtual void slot21(Team *team);
 };
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *);
-	Team *getTeamNamed(AsciiString, bool = false);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class Object
 {

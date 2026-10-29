@@ -84,11 +84,7 @@ public:
     Player *getEachPlayerFromMask(int &mask);
 };
 extern PlayerList *ThePlayerList;
-class ScriptEngine
-{
-public:
-    int rva00357475(const AsciiString &name, bool *special);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 class ScriptActions
 {

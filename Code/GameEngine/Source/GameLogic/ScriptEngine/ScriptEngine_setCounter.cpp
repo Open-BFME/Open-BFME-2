@@ -64,14 +64,7 @@ struct ScriptCounter
 	bool m_isMillisecondTimer;
 };
 
-class ScriptEngine
-{
-public:
-	void *rva002086C5(AsciiString name);
-protected:
-	ScriptCounter *bfmeCounter(AsciiString name);
-	void setCounter(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::setCounter(ScriptAction *action, int randomKind, bool copyFrom, bool isFloat)
 {

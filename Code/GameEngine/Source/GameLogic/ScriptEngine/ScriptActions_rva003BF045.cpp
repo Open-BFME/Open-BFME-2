@@ -42,13 +42,7 @@ public:
 	void getTeamAsAIGroup(AIGroup *group);
 	DLINK_ITERATOR<Object> iterate_TeamMemberList() const;
 };
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString, Bool);
-	Player *getSkirmishEnemyPlayer();
-	Player *getCurrentPlayer();
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 class AI
 {
 public:

@@ -17,11 +17,7 @@ public:
 	bool damageTeamMembers(float amount);	// rowed bool return (TeamApplyDamage.cpp); result unused here
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 void ScriptActions::doDamageTeamMembers(const AsciiString &team, float f)

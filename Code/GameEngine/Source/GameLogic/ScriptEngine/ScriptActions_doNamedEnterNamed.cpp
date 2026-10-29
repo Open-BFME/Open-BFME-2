@@ -19,11 +19,7 @@
 
 class Object;
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva00358752Opaque

@@ -46,13 +46,7 @@ public:
 
 class Parameter;
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString team, Bool exact);
-	int rva00357B82(Parameter *playerParm);	// 0x00357B82: the parameter's player mask
-	Object *getUnitNamed(Parameter *name);	// 0x003588E7
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 

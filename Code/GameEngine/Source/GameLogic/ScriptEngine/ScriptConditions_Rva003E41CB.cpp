@@ -15,11 +15,7 @@ public:
     AsciiString m_string;
 };
 
-class ScriptEngine
-{
-public:
-    bool rva00357A97(const AsciiString &s, bool b);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 bool __stdcall Rva003E41CBGet(Parameter *parameter)

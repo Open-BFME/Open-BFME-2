@@ -76,15 +76,7 @@ private:
     Int m_defaultPriority;
 };
 
-class ScriptEngine
-{
-public:
-    AttackPriorityInfo *findAttackInfo(const AsciiString &name, Bool addIfNotFound);
-    void AppendDebugMessage(const AsciiString &message, Bool forcePause);
-    void setPriorityDefault(ScriptAction *action);
-protected:
-    void setPriorityKind(ScriptAction *action);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::setPriorityDefault(ScriptAction *action)
 {

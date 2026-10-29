@@ -11,12 +11,7 @@
 
 struct Coord3D;
 
-class ScriptEngine
-{
-public:
-	void rva0035818E(const AsciiString &name, Coord3D *pos);					// 0x0035818E
-	void doObjectTypeListMaintenance(const AsciiString &listName, const AsciiString &objectType, bool addObject);	// 0x00358286
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

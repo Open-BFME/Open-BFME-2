@@ -90,11 +90,7 @@ public:
 };
 extern AudioManager *TheAudio;
 
-class ScriptEngine
-{
-public:
-	void rva00357E7B(int playerIndex, const AsciiString &name, int id);
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Overridable

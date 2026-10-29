@@ -25,11 +25,7 @@ public:
 
 extern TeamFactory *TheTeamFactory;
 
-class ScriptEngine
-{
-public:
-	TeamPrototype *rva003570D1(AsciiString name);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 TeamPrototype *ScriptEngine::rva003570D1(AsciiString name)
 {

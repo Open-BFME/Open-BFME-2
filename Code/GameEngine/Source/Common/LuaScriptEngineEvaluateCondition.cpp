@@ -86,11 +86,7 @@ public:
 	AsciiString m_internalName;
 };
 
-class ScriptEngine
-{
-public:
- const ConditionTemplate *getConditionTemplate(int type);
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 
 class ScriptConditionsInterface
 {

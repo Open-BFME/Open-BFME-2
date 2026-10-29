@@ -516,11 +516,7 @@ private:
 	unsigned int m_frameToEvaluate; // +0x3C
 };
 
-class ScriptEngine
-{
-public:
-	Bool rva0020A1D0(const AsciiString &scope, Script *pScript, Team *thisTeam, Player *player);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

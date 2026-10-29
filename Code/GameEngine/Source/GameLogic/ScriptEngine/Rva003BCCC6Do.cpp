@@ -35,11 +35,7 @@ public:
 	SpecialPowerModuleInterface *findSpecialPowerModuleInterface(SpecialPowerType type) const;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

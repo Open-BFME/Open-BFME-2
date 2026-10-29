@@ -147,11 +147,7 @@ public:
 	const AttackPriorityInfo *m_attackInfo;	// +0x70
 };
 
-class ScriptEngine
-{
-public:
-	const AttackPriorityInfo *getAttackInfo(const AsciiString &name);	// 0x00205DDD
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 // The skirmish-AI object registry behind 0x00DFEEF8 (UnRegister 0x002A8F56, Register 0x002A9365).

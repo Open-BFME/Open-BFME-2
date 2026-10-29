@@ -12,11 +12,7 @@ public:
 	AsciiString resolveName(const AsciiString &s);
 };
 
-class ScriptEngine
-{
-public:
-	AsciiString rva00205CE7(AsciiString s);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 AsciiString ScriptEngine::rva00205CE7(AsciiString s)
 {

@@ -69,13 +69,7 @@ public:
 	AsciiString m_string;
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, Bool exact);			// 0x003584E9
-	Object *getUnitNamed(Parameter *unitParm);				// 0x003588E7
-	void AppendDebugMessage(const AsciiString &message, Bool mustAdd);	// 0x00205263
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

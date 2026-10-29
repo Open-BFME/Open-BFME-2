@@ -8,11 +8,7 @@ public:
 	int m_int;
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

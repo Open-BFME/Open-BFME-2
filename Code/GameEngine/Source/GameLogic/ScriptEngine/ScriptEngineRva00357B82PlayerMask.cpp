@@ -45,13 +45,7 @@ private:
 	int m_cachedPlayerMask; // +0x20
 };
 
-class ScriptEngine
-{
-public:
-	Player *getCurrentPlayer();
-	int rva00357475(const AsciiString &name, Bool *matchedSpecialName);
-	int rva00357B82(Parameter *parameter);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;

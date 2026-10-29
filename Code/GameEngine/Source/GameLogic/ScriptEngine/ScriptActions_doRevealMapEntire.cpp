@@ -13,11 +13,7 @@ public:
 	char m_pad58[0x04];
 	int m_field5C; // +0x5c
 };
-class ScriptEngine
-{
-public:
-	int rva00357475(const AsciiString &name, bool *matchedSpecialName);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 class PlayerList
 {

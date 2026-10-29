@@ -60,11 +60,7 @@ public:
 	unsigned char m_justCreated;	// +0x5E
 };
 
-class ScriptEngine
-{
-public:
-	Team *getTeamNamed(AsciiString name, bool exact);	// 0x003584E9
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 int __cdecl rva003BA83F(void *obj, int value);

@@ -68,30 +68,7 @@ public:
 
 extern ScriptActions *TheScriptActions;
 
-class ScriptEngine
-{
-public:
-	void callSubroutine(ScriptAction *pAction);
-	void setPriorityDefault(ScriptAction *pAction);
-
-protected:
-	void setSway(ScriptAction *pAction);
-	void setCounter(ScriptAction *pAction, int mode, bool a, bool b);
-	void setCounterToThreat(ScriptAction *pAction, bool b);
-	void addCounter(ScriptAction *pAction);
-	void subCounter(ScriptAction *pAction);
-	void setFade(ScriptAction *pAction);
-	void setFlag(ScriptAction *pAction, bool value);
-	void pauseTimer(ScriptAction *pAction);
-	void restartTimer(ScriptAction *pAction);
-	void setTimer(ScriptAction *pAction, bool milisecondTimer, bool random);
-	void adjustTimer(ScriptAction *pAction, bool milisecondTimer, bool add);
-	void enableScript(ScriptAction *pAction);
-	void disableScript(ScriptAction *pAction);
-	void executeActions(ScriptAction *pActionHead, void *a, void *b);
-	void setPriorityThing(ScriptAction *pAction);
-	void setPriorityKind(ScriptAction *pAction);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::executeActions(ScriptAction *pActionHead, void *a, void *b)
 {

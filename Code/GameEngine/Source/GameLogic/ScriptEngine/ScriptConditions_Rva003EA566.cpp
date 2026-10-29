@@ -157,12 +157,7 @@ public:
 	AsciiString m_string;	// +0x10
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *playerParm);		// 0x00357B82
-	PolygonTrigger *getQualifiedTriggerAreaByName(AsciiString name);	// 0x0035768D
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

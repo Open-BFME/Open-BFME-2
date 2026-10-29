@@ -35,11 +35,7 @@ public:
 	char m_tail10[0x7C - 0x6C];
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Object
 {

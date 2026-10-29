@@ -49,11 +49,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class ScriptEngine
-{
-public:
-	void AppendDebugMessage(const AsciiString &strMsg, Bool mustPause);	// 0x00205263
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva0036CA00Str;

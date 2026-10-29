@@ -560,12 +560,7 @@ private:
 // TheAI at VA 0x00DFF0F8; the retail image's zero-filled slot starts null.
 extern class AI *TheAI;
 
-class ScriptEngine
-{
-public:
-	Player *getSkirmishEnemyPlayer();	// 0x00356F6E
-	void AppendDebugMessage(const AsciiString &msg, Bool shouldPause);	// 0x00205263
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Player;
