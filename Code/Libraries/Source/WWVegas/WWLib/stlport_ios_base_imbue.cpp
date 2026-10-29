@@ -1,4 +1,5 @@
 // cl: /Ob0 /EHsc /MD
+// stlport46
 
 // Open-BFME5: _STL::ios_base::imbue, retail 0x0083EC50, 163 bytes.
 // STLport 4.5.3 copies the prior locale, assigns the new one, walks the
