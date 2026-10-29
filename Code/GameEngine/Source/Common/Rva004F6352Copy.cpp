@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport46
 // ??$__copy@PAURva004F6352@@PAU1@H@_STL@@YAPAURva004F6352@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z, retail 0x004F6C32, 50 bytes.
 // STL __copy for 12-byte Rva004F6352 via rowed operator= 0x004F6352.
 // Evidence: stride 0xC idiv loop; callee rowed 0x004F6352; caller 0x004F7151 in 0x004F713E; same recipe as rowed
