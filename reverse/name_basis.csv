@@ -4115,3 +4115,16 @@ local,Rva00369FDFGuardMachine::lookForInnerTarget::f3,Rva00369FDFGuardMachine::l
 local,Rva00369FDFGuardMachine::lookForInnerTarget::f4,Rva00369FDFGuardMachine::lookForInnerTarget::aliveFilter,inferred,agree:nl-4afa7f60eb71,Code/GameEngine/Source/GameLogic/AI/AIGuardInnerTargetRva00369FDF.cpp,0x00369FDF
 param,q4Notify002CC971::m,q4Notify002CC971::nugget,inferred,agree:nl-6e3252f1df4c,Code/GameEngine/Source/GameLogic/Object/Made002CC971Parse.cpp,0x0050AAEA
 local,q4Notify002CC971::tmp,q4Notify002CC971::multiFieldParse,inferred,agree:nl-d62f91e2a255,Code/GameEngine/Source/GameLogic/Object/Made002CC971Parse.cpp,0x0050AAEA
+member,Rva002D4688::m_00,Rva002D4688::m_left,inferred,agree:nl-d1ff25115d7b,Code/GameEngine/Source/Common/Rva002D4688.cpp,
+member,Rva002D4688::m_10,Rva002D4688::m_right,inferred,agree:nl-2d22b30b22fb,Code/GameEngine/Source/Common/Rva002D4688.cpp,
+local,GetStr::t,GetStr::stringData,inferred,agree:nl-efe941392b5e,Code/GameEngine/Source/Common/Rva005FFF62Family.cpp,
+local,DetachableRiderUpdate::killRider::r,DetachableRiderUpdate::killRider::randomIndex,inferred,agree:nl-c73ac15b4905,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DetachableRiderUpdate_killRider.cpp,0x004AE988
+local,DetachableRiderUpdate::killRider::e,DetachableRiderUpdate::killRider::deathEntry,inferred,agree:nl-bac75a89c0fb,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DetachableRiderUpdate_killRider.cpp,0x004AE988
+local,GetStr0049B8A0::t,GetStr0049B8A0::stringData,inferred,agree:nl-763c03933091,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp,
+local,Rva0049B8A0::parse::s,Rva0049B8A0::parse::partText,inferred,agree:nl-b2b78aa5425c,Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp,0x0049B8A0
+local,Rva000B7074::rva000B7074::f1,Rva000B7074::rva000B7074::dist,inferred,agree:nl-9f16bf9532f9,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7074.cpp,0x000B7074
+local,Rva000B7074::rva000B7074::c,Rva000B7074::rva000B7074::drawable,inferred,agree:nl-5f35b4ebe1cb,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7074.cpp,0x000B7074
+local,Rva000B7074::rva000B7074::f2,Rva000B7074::rva000B7074::speed,inferred,agree:nl-8a113ede67e4,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7074.cpp,0x000B7074
+local,Rva000B7074::rva000B7074::t,Rva000B7074::rva000B7074::desiredDurationInMsec,inferred,agree:nl-3c858f2e49c9,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000B7074.cpp,0x000B7074
+local,mul::tmp1,mul::firstRowComponent,inferred,agree:nl-f6d8c21e7235,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawGetCurrentBonePositions.cpp,
+local,W3DModelDraw::getCurrentBonePositions::tmpMtx,W3DModelDraw::getCurrentBonePositions::scratchTransforms,inferred,agree:nl-e0913b4af4a5,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawGetCurrentBonePositions.cpp,0x000B52CD

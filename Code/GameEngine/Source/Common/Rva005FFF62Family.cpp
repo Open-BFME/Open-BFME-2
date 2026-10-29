@@ -15,8 +15,8 @@ AsciiString Rva00222834Get(int val);
 
 static __forceinline const char *GetStr(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char **)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 // Primary owner: Rva00577AE9AptCall.cpp; this COMDAT copy is independently

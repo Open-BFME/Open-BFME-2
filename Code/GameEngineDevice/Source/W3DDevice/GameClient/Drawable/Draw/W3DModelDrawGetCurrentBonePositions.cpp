@@ -66,39 +66,39 @@ public:
 	// does "this = A * B"
 	__forceinline void mul(const Matrix3D &matrix3D, const Matrix3D &B)
 	{
-		Real tmp1, tmp2, tmp3;
+		Real firstRowComponent, tmp2, tmp3;
 
-		tmp1 = B.Row[0].X;
+		firstRowComponent = B.Row[0].X;
 		tmp2 = B.Row[1].X;
 		tmp3 = B.Row[2].X;
 
-		this->Row[0].X = submul(matrix3D.Row[0], tmp1, tmp2, tmp3);
-		this->Row[1].X = submul(matrix3D.Row[1], tmp1, tmp2, tmp3);
-		this->Row[2].X = submul(matrix3D.Row[2], tmp1, tmp2, tmp3);
+		this->Row[0].X = submul(matrix3D.Row[0], firstRowComponent, tmp2, tmp3);
+		this->Row[1].X = submul(matrix3D.Row[1], firstRowComponent, tmp2, tmp3);
+		this->Row[2].X = submul(matrix3D.Row[2], firstRowComponent, tmp2, tmp3);
 
-		tmp1 = B.Row[0].Y;
+		firstRowComponent = B.Row[0].Y;
 		tmp2 = B.Row[1].Y;
 		tmp3 = B.Row[2].Y;
 
-		this->Row[0].Y = submul(matrix3D.Row[0], tmp1, tmp2, tmp3);
-		this->Row[1].Y = submul(matrix3D.Row[1], tmp1, tmp2, tmp3);
-		this->Row[2].Y = submul(matrix3D.Row[2], tmp1, tmp2, tmp3);
+		this->Row[0].Y = submul(matrix3D.Row[0], firstRowComponent, tmp2, tmp3);
+		this->Row[1].Y = submul(matrix3D.Row[1], firstRowComponent, tmp2, tmp3);
+		this->Row[2].Y = submul(matrix3D.Row[2], firstRowComponent, tmp2, tmp3);
 
-		tmp1 = B.Row[0].Z;
+		firstRowComponent = B.Row[0].Z;
 		tmp2 = B.Row[1].Z;
 		tmp3 = B.Row[2].Z;
 
-		this->Row[0].Z = submul(matrix3D.Row[0], tmp1, tmp2, tmp3);
-		this->Row[1].Z = submul(matrix3D.Row[1], tmp1, tmp2, tmp3);
-		this->Row[2].Z = submul(matrix3D.Row[2], tmp1, tmp2, tmp3);
+		this->Row[0].Z = submul(matrix3D.Row[0], firstRowComponent, tmp2, tmp3);
+		this->Row[1].Z = submul(matrix3D.Row[1], firstRowComponent, tmp2, tmp3);
+		this->Row[2].Z = submul(matrix3D.Row[2], firstRowComponent, tmp2, tmp3);
 
-		tmp1 = B.Row[0].W;
+		firstRowComponent = B.Row[0].W;
 		tmp2 = B.Row[1].W;
 		tmp3 = B.Row[2].W;
 
-		this->Row[0].W = submul(matrix3D.Row[0], tmp1, tmp2, tmp3) + matrix3D.Row[0].W;
-		this->Row[1].W = submul(matrix3D.Row[1], tmp1, tmp2, tmp3) + matrix3D.Row[1].W;
-		this->Row[2].W = submul(matrix3D.Row[2], tmp1, tmp2, tmp3) + matrix3D.Row[2].W;
+		this->Row[0].W = submul(matrix3D.Row[0], firstRowComponent, tmp2, tmp3) + matrix3D.Row[0].W;
+		this->Row[1].W = submul(matrix3D.Row[1], firstRowComponent, tmp2, tmp3) + matrix3D.Row[1].W;
+		this->Row[2].W = submul(matrix3D.Row[2], firstRowComponent, tmp2, tmp3) + matrix3D.Row[2].W;
 	}
 
 	// does "this = that * this"
@@ -308,13 +308,13 @@ private:
 Int W3DModelDraw::getCurrentBonePositions(const char *boneNamePrefix, Int startIndex, Coord3D *positions, Matrix3D *transforms, Int maxBones) const
 {
 	const int MAX_BONE_GET = 64;
-	static Matrix3D tmpMtx[MAX_BONE_GET];
+	static Matrix3D scratchTransforms[MAX_BONE_GET];
 
 	if (maxBones > MAX_BONE_GET)
 		maxBones = MAX_BONE_GET;
 
 	if (transforms == 0)
-		transforms = tmpMtx;
+		transforms = scratchTransforms;
 
 	if (!m_renderObject)
 		return 0;

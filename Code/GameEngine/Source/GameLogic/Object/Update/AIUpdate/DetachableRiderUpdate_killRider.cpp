@@ -72,11 +72,11 @@ void DetachableRiderUpdate::killRider()
 	Object *obj = m_08;
 	if (count < 1)
 		return;
-	int r = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\DetachableRiderUpdate.cpp", 0x114);
-	unsigned char b = (r != 0);
+	int randomIndex = GetGameLogicRandomValue(0, count - 1, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\DetachableRiderUpdate.cpp", 0x114);
+	unsigned char b = (randomIndex != 0);
 	m_21 = b;
-	Elem54 *e = (Elem54 *)((char *)arrayHolder->m_base + (unsigned int)b * 0x54);
-	((Rva001E431E *)obj)->rva001E431E((const int *)e);
+	Elem54 *deathEntry = (Elem54 *)((char *)arrayHolder->m_base + (unsigned int)b * 0x54);
+	((Rva001E431E *)obj)->rva001E431E((const int *)deathEntry);
 	obj->setDisabled(Disabled_04);
 	m_20 = 1;
 	UpdateSleepTime st = *(UpdateSleepTime *)((char *)arrayHolder->m_base + (unsigned int)m_21 * 0x54 + 0x4c);

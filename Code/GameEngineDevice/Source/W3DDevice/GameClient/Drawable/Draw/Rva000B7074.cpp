@@ -38,25 +38,25 @@ public:
 void Rva000B7074::rva000B7074()
 {
 	m_9c = 1.0f;
-	float f1 = ((Rva000B4E23 *)this)->rva000B4E23();
-	if (f1 > 0.0f)
+	float dist = ((Rva000B4E23 *)this)->rva000B4E23();
+	if (dist > 0.0f)
 	{
-		Cont000B7074 *c = m_cont;
-		Object *object = c->m_obj;
+		Cont000B7074 *drawable = m_cont;
+		Object *object = drawable->m_obj;
 		if (object != 0)
 		{
-			float f2 = object->rva0028AC7D();
-			if (f2 == 0.0f)
+			float speed = object->rva0028AC7D();
+			if (speed == 0.0f)
 			{
 				Object *p = object->rva002931F5(false);
 				if (p != 0)
-					f2 = p->rva0028AC7D();
+					speed = p->rva0028AC7D();
 			}
-			if (f2 > 0.01f)
+			if (speed > 0.01f)
 			{
-				float t = f1 / f2;
-				t *= g_00DBA4F0;
-				((Rva000B2F38 *)this)->rva000B2F38(t);
+				float desiredDurationInMsec = dist / speed;
+				desiredDurationInMsec *= g_00DBA4F0;
+				((Rva000B2F38 *)this)->rva000B2F38(desiredDurationInMsec);
 			}
 		}
 	}

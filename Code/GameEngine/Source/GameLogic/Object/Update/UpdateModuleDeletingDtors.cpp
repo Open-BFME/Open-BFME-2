@@ -26,8 +26,8 @@ public:
 
 __forceinline const char *GetStr0049B8A0(const AsciiString &asciiString)
 {
-	char *t = *(char * *)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char * *)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 class Rva0049B750
@@ -58,9 +58,9 @@ void Rva0049B8A0::parse(INI *ini, void *extra)
 			AsciiString tmp(token);
 			AsciiString part;
 			while (tmp.nextToken(&part, 0)) {
-				const char *s = GetStr0049B8A0(part);
-				((Rva0049B6AE *)this)->append(s, (StringBase<char> *)accum);
-				if (!rva0049B750(s, &foundNormal, &foundAddOrSub))
+				const char *partText = GetStr0049B8A0(part);
+				((Rva0049B6AE *)this)->append(partText, (StringBase<char> *)accum);
+				if (!rva0049B750(partText, &foundNormal, &foundAddOrSub))
 					break;
 			}
 			wasQuoted = false;

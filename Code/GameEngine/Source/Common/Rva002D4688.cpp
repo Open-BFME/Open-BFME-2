@@ -31,14 +31,14 @@ public:
 	operator AsciiString();
 
 private:
-	WinMainTitlePair m_00;
-	Rva000B3F84Pair m_10;
+	WinMainTitlePair m_left;
+	Rva000B3F84Pair m_right;
 };
 
 int Rva002D4688::copyToBuffer(char *buffer)
 {
-	int first = m_00.write(buffer);
-	int second = m_10.write(buffer + first);
+	int first = m_left.write(buffer);
+	int second = m_right.write(buffer + first);
 	return first + second;
 }
 
@@ -48,7 +48,7 @@ int Rva002D4688::copyToBuffer(char *buffer)
 Rva002D4688::operator AsciiString()
 {
 	AsciiString result;
-	char *buffer = ((StringBase<char> *)&result)->getBufferForRead(m_00.length() + m_10.length());
+	char *buffer = ((StringBase<char> *)&result)->getBufferForRead(m_left.length() + m_right.length());
 	copyToBuffer(buffer);
 	return result;
 }
