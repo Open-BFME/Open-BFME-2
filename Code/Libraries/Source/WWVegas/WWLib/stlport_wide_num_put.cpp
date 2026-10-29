@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 
 #include <stl/_alloc.h>
 // The 18-byte malloc release is owned by STLMallocAlloc0Deallocate.cpp; this
@@ -31,7 +31,7 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 namespace _STL { template <> basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::basic_string(basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> > const &); }
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
-namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *); }
 namespace _STL { template <> ostreambuf_iterator<unsigned short, char_traits<unsigned short> > num_put<unsigned short, ostreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_put(ostreambuf_iterator<unsigned short, char_traits<unsigned short> >, ios_base &, unsigned short, void const *) const; }
 namespace _STL { template <> ostreambuf_iterator<unsigned short, char_traits<unsigned short> > num_put<unsigned short, ostreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_put(ostreambuf_iterator<unsigned short, char_traits<unsigned short> >, ios_base &, unsigned short, bool) const; }
 namespace _STL { template <> void basic_string<char, char_traits<char>, allocator<char> >::reserve(unsigned int); }

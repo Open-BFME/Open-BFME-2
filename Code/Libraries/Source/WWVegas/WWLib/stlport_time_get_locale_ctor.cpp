@@ -1,5 +1,5 @@
 // cl: /ICode/Libraries/Source/WWVegas/WWLib/TimeInfoLink /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Instantiate the protected locale-time overload directly from STLport 4.5.3
 // stl/_time_facets.h. Vtables BBBBC0 (narrow) and BBBBEC (wide) are independently
 // established by the matched default constructors and destructors;
@@ -23,12 +23,12 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
 }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void*);
 }
 // Suppress this TU's int __get_decimal_integer copies: do_get_year calls them
 // out of line, and retail folds them into the long readers at 0x00009CD0 and

@@ -1,5 +1,5 @@
 // cl: /ICode/Libraries/Source/WWVegas/WWLib/TimeInfoLink /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 #include <string>
 // Use the rowed 14-byte string destructor at RVA 0x00142D70.
@@ -37,12 +37,12 @@ template <> __declspec(dllimport) __forceinline ostreambuf_iterator<char, char_t
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
 }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void*);
 }
 namespace _STL { template <> ostreambuf_iterator<char, char_traits<char> > time_put<char, ostreambuf_iterator<char, char_traits<char> > >::do_put(ostreambuf_iterator<char, char_traits<char> >, ios_base &, char, const tm *, char, char) const; }
 template class _STL::time_put<char, _STL::ostreambuf_iterator<char, _STL::char_traits<char> > >;

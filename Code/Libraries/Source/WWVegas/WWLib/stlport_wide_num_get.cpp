@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // ~basic_string<unsigned short> binds to the rowed retail 63B copy (0x0000B3C0): this
 // unit's own copy is not retail's and comes before it in link order.
@@ -59,16 +59,16 @@ namespace _STL { template <> bool __get_integer<istreambuf_iterator<unsigned sho
 namespace _STL { template <> void _String_base<unsigned short, allocator<unsigned short> >::_M_deallocate_block(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t) const; }
+namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t); }
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
 }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void*);
 }
 // The uint reader shares the separately compiled scanner and wrapper.
 namespace _STL {
