@@ -1,3 +1,4 @@
+// cl: /arch:SSE /G7
 // Open-BFME5 conversions.
 
 class BfmePartVID

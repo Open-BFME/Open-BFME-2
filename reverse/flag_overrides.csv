@@ -30,7 +30,7 @@ Code/GameEngine/Source/Common/BfmeConv1338.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1341.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1343.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1351.cpp,,3,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1372.cpp,,1,1,region default loses rows
+Code/GameEngine/Source/Common/BfmeConv1372.cpp,-arch:SSE -G7,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1384.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1395.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1404.cpp,,2,1,region default loses rows
