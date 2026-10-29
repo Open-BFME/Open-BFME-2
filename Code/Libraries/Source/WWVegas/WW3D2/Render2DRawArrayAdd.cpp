@@ -18,6 +18,8 @@ struct Render2DCharElement
 class Render2DRawArray
 {
 public:
+	Render2DRawArray() : Data(0), Size(0), Count(0), GrowthStep(16) {}
+	~Render2DRawArray();
 	Render2DCharElement *Add(int count);
 
 	Render2DCharElement *Data;

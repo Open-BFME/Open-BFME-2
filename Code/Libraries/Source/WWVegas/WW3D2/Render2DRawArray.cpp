@@ -12,13 +12,19 @@ public:
 #include <new.h>
 #include "../../../../../reference/shims/wwmath/Vector2.h"
 
+struct Render2DCharElement
+{
+	unsigned char bytes[2];
+};
+
 class Render2DRawArray
 {
 public:
 	Render2DRawArray() : Data(0), Size(0), Count(0), GrowthStep(16) {}
 	~Render2DRawArray();
+	Render2DCharElement *Add(int count);
 
-	void *Data;
+	Render2DCharElement *Data;
 	int Size;
 	int Count;
 	int GrowthStep;
