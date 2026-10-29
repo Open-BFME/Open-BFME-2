@@ -660,10 +660,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00D
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE6DC	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFE940	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF030	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF044	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF048	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF050	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF054	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0A0	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0A4	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00DFF0C4	2
@@ -712,10 +708,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFE6DC	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFE940	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF030	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF044	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF048	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF050	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF054	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF0A0	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF0A4	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00DFF0C4	1

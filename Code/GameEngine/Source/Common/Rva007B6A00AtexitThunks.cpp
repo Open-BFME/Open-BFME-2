@@ -168,10 +168,6 @@ unsigned g_Va00DFE940;	// retail RVA 0x009FE940 (.bss), defined here
 struct BfmeUiResourceEntryState;
 extern BfmeUiResourceEntryState BfmeUiResourceEntryCollectorState;
 extern unsigned g_Va00DFF030;
-unsigned g_Va00DFF044;	// retail RVA 0x009FF044 (.bss), defined here
-unsigned g_Va00DFF048;	// retail RVA 0x009FF048 (.bss), defined here
-unsigned g_Va00DFF050;	// retail RVA 0x009FF050 (.bss), defined here
-unsigned g_Va00DFF054;	// retail RVA 0x009FF054 (.bss), defined here
 unsigned g_Va00DFF0A0;	// retail RVA 0x009FF0A0 (.bss), defined here
 unsigned g_Va00DFF0A4;	// retail RVA 0x009FF0A4 (.bss), defined here
 extern unsigned g_Va00DFF0C4;
@@ -278,34 +274,6 @@ void __cdecl rva007B789C()
 void __cdecl rva007B7979()
 {
 	AsciiString *receiver = (AsciiString *)&g_Va00DFF030;
-	receiver->~AsciiString();
-}
-
-// ?rva007B798D@@YAXXZ @ 0x007B798D (10B): ecx=&g_Va00DFF044, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B798D()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00DFF044;
-	receiver->~AsciiString();
-}
-
-// ?rva007B7997@@YAXXZ @ 0x007B7997 (10B): ecx=&g_Va00DFF048, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B7997()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00DFF048;
-	receiver->~AsciiString();
-}
-
-// ?rva007B79A1@@YAXXZ @ 0x007B79A1 (10B): ecx=&g_Va00DFF050, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B79A1()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00DFF050;
-	receiver->~AsciiString();
-}
-
-// ?rva007B79AB@@YAXXZ @ 0x007B79AB (10B): ecx=&g_Va00DFF054, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B79AB()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00DFF054;
 	receiver->~AsciiString();
 }
 

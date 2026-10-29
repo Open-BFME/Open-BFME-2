@@ -442,6 +442,11 @@ void AptPalantir::OnBttnSpellStore(const char *unused)
 // Palantir::Impl::HandleOverSpellStoreButton; the branch on +0x7E bit 2,
 // both experience-button strings and command dispatch agree with retail.
 // Keep the target-bound AptPalantir class view. The evil side has +0x7E bit 2 set.
+// Both buttons' static strings are released at exit by cleanups (_$E3/_$E4,
+// 0x007B7997/0x007B798D) that tail-jump to the out-of-line ~AsciiString
+// (0x0048BA39) while the bodies expand the constructor: cl compiles a
+// function's static cleanups with the inline depth in force at its closing
+// brace, so that brace sits under inline_depth(0).
 void AptPalantir::HandleOverSpellStoreButton(const char *unused)
 {
 	const AsciiString *name;
@@ -458,7 +463,9 @@ void AptPalantir::HandleOverSpellStoreButton(const char *unused)
 	const CommandButton *button = TheControlBar->findCommandButton(*name);
 	if (button)
 		TheControlBar->rva004C1B60(0, (void *)button);
+#pragma inline_depth(0)
 }
+#pragma inline_depth()
 
 // Retail 0x002D4E71, 188 bytes: bound under the clip path
 // "PalantirButtons/Buttons/Objectives/ButtonClip/". WB F45CF0 names
@@ -466,6 +473,8 @@ void AptPalantir::HandleOverSpellStoreButton(const char *unused)
 // both strings and dispatch agree with retail. Keep the target-bound
 // AptPalantir class view. Runs the objectives command when TheGameLogic's
 // 0x00200084 holds or the game mode is 6, else the player status one.
+// Its static strings' cleanups (_$E6/_$E7, 0x007B79AB/0x007B79A1) are
+// emitted out of line as above.
 void AptPalantir::HandleOverObjectivesButton(const char *unused)
 {
 	const AsciiString *name;
@@ -483,7 +492,9 @@ void AptPalantir::HandleOverObjectivesButton(const char *unused)
 	const CommandButton *button = TheControlBar->findCommandButton(*name);
 	if (button)
 		TheControlBar->rva004C1B60(0, (void *)button);
+#pragma inline_depth(0)
 }
+#pragma inline_depth()
 
 // Retail 0x002D3EDF, 11 bytes: "AptPalantir::OnBttnMovie".
 void AptPalantir::OnBttnMovie(const char *unused)
