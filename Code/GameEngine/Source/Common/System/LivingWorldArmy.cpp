@@ -574,6 +574,10 @@ private:
     Rva0040CB3AIndexedField* m_78;
 };
 
+Rva00318B5C *Rva00318DECCopy(const Rva00318B5C *first, const Rva00318B5C *last, Rva00318B5C *result, void *unused, int unused2);
+
+// ---- from Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/Rva00318EC0Refresh.cpp
 
 // ?rva00318EC0@LivingWorldArmy@@QAEXXZ, retail 0x00318EC0, 130 bytes.
@@ -598,8 +602,6 @@ void LivingWorldArmy::rva00318EC0()
 		m_colors78->m_color28 = player->m_color190.getAsInt() | 0xFF000000;
 	}
 }
-
-// tu-skeleton: 0x00318F42 34B ?rva00318F42@Rva00318F42@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00318F64.cpp
 
@@ -662,10 +664,6 @@ int Rva00318FBE::rva00318FBE()
 	return m_78->bfmeVal1038();
 }
 
-// tu-skeleton: 0x00318FC6 98B ?rva00318FC6@Rva00318FC6@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
-
-// tu-skeleton: 0x00319028 125B ?rva00319028@Rva00319028@@QAE?AUArmySummaryEntryRef@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva003190A5Query.cpp
 
 bool Rva003190A5::query() const
@@ -679,8 +677,6 @@ bool Rva003190A5::rva003F3FD9() const
 {
 return !query();
 }
-
-// tu-skeleton: 0x003190BB 44B ?rva003190BB@Rva003190BBOwner@@QAEXPAH@Z -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003193EC.cpp
 
@@ -736,22 +732,6 @@ void Rva003193EC::rva003192B1()
 	rva003190E7(false);
 }
 
-// tu-skeleton: 0x0031911F 15B ?rva0031911F@LivingWorldArmy@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x0031912E 43B ?rva0031912E@Rva0031912E@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0031912EPredicate.cpp (not merged yet)
-
-// tu-skeleton: 0x00319159 33B ?rva00319159@Rva00319159@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/Rva00319159Get.cpp (not merged yet)
-
-// tu-skeleton: 0x0031917A 55B ?clearFlags@Rva00319924@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00319924Count.cpp (not merged yet)
-
-// tu-skeleton: 0x003191DA 8B ?rva003191DA@Rva003191DAOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/ArmySummaryGetEntry.cpp (not merged yet)
-
-// tu-skeleton: 0x003191E2 207B ?rva003191E2@LivingWorldArmy@@UAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x003192B9 75B ?GetMaxCommandPoints@@YAHPAX@Z -- matched in Code/GameEngine/Source/Common/GetMaxCommandPoints.cpp (not merged yet)
-
-// tu-skeleton: 0x00319304 45B ??$_M_allocate_and_copy@PAUBfmeVectorRecord00319C84@@@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord00319C84@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_allocate_copy.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00319331Destroy.cpp
 
 void __cdecl Rva00319331Destroy(Rva00319331Item *first, Rva00319331Item *last)
@@ -759,8 +739,6 @@ void __cdecl Rva00319331Destroy(Rva00319331Item *first, Rva00319331Item *last)
 	for (; first != last; ++first)
 		first->rva00319331Virt(0);
 }
-
-// tu-skeleton: 0x0031934B 134B ?createVisualObjects@LivingWorldArmy@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003193D1.cpp
 
@@ -770,10 +748,6 @@ void Rva003193D1::rva003193D1()
 	if (m_88)
 		m_88->rva003FDE8C(0);
 }
-
-// tu-skeleton: 0x0031942B 236B ?UseArmySummary@LivingWorldArmy@@QAEXPAVSpawnArmy@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319517 178B ?KillSummaryEntry@LivingWorldArmy@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00319610.cpp
 
@@ -791,10 +765,6 @@ void Rva00319610::rva00319610()
 	}
 	((Rva003F2739 *)p)->rva003F2739(m_20);
 }
-
-// tu-skeleton: 0x0031964D 61B ?GetHeroDisplayName@Rva00319159@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva00319159Get.cpp (not merged yet)
-
-// tu-skeleton: 0x0031968A 29B ?Rva0031968ACopy@@YAPAVRva00318B5C@@PBV1@0PAV1@@Z -- matched in Code/GameEngine/Source/Common/Rva0031968ACopy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva003196A7ListenerWalks.cpp
 
@@ -853,8 +823,6 @@ void Rva00319B0AOwner::rva00319B31()
 	m_list.forEach(&Rva003197EEListener::notify0C, this);
 }
 
-// tu-skeleton: 0x00319784 24B ??$_Destroy@PAUElem003AF9E0@@@_STL@@YAXPAUElem003AF9E0@@0@Z -- matched in Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0031979CForward.cpp
 
 void Rva0031979COwner::rva0031979C(int value)
@@ -899,42 +867,6 @@ void Rva00319AA0::rva003197B7()
 	((Rva003195C9Owner *)this)->rva003195C9();
 }
 
-// tu-skeleton: 0x00319831 58B ?rva00319831@Rva003195C9Owner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x0031986B 77B ?rva0031986B@Rva00318F42@@QAEXPBURva00538CEFPair@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
-
-// tu-skeleton: 0x00319904 32B ?rva00319904@Rva003193EC@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Rva00319904.cpp (not merged yet)
-
-// tu-skeleton: 0x00319924 73B ?count@Rva00319924@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00319924Count.cpp (not merged yet)
-
-// tu-skeleton: 0x0031996D 101B ?rva0031996D@AttackOrdersMember@@QAE?AUArmySummaryEntryRef@@ABUHeroEntryKey@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
-
-// tu-skeleton: 0x003199D2 64B ?TakeUnitFromArmy_Internal@LivingWorldArmy@@QAEXPAU1@ABVRva004F6093Holder@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319A12 64B ?rva00319A12@Rva00319A12Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00319A12Loop.cpp (not merged yet)
-
-// tu-skeleton: 0x00319A52 78B ?rva00319A52@Rva00318BC6Owner@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
-
-// tu-skeleton: 0x00319B58 63B ??1?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319b58_dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00319B97 51B ?erase@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@QAEPAUElem003AF9E0@@PAU3@0@Z -- matched in Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x00319BCA 186B ??4?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319bca_assign.cpp (not merged yet)
-
-// tu-skeleton: 0x00319C84 105B ?reserve@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_reserve.cpp (not merged yet)
-
-// tu-skeleton: 0x00319D01 373B ??1LivingWorldArmy@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319E76 6B ?GetSnapshotName@LivingWorldArmy@@UBEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319E7C 39B ?rva00319E7C@Rva003195C9Owner@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319E7CDirty.cpp (not merged yet)
-
-// tu-skeleton: 0x00319EA3 86B ?rva00319EA3@LivingWorldArmy@@QAEXPAU1@PAVArmySummaryEntry@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319EF9 86B ?rva00319EF9@LivingWorldArmy@@QAEXPAU1@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
-
-// tu-skeleton: 0x00319F4F 11B ?clear@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00319F5AInsert.cpp
 
 void Rva00319F5A::rva00319F5A(Rva00318B5C *pos, const Rva00318B5C &x, int dummy, unsigned n, bool flag)
@@ -976,6 +908,84 @@ void Rva00319F5A::rva0031A129(const Rva00318B5C &x)
 		rva00319F5A(m_end, x, (int)&tag, 1, true);
 	}
 }
+
+// tu-skeleton: 0x00318F42 34B ?rva00318F42@Rva00318F42@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
+
+// tu-skeleton: 0x00318FC6 98B ?rva00318FC6@Rva00318FC6@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
+
+// tu-skeleton: 0x00319028 125B ?rva00319028@Rva00319028@@QAE?AUArmySummaryEntryRef@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
+
+// tu-skeleton: 0x003190BB 44B ?rva003190BB@Rva003190BBOwner@@QAEXPAH@Z -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
+
+// tu-skeleton: 0x0031911F 15B ?rva0031911F@LivingWorldArmy@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x0031912E 43B ?rva0031912E@Rva0031912E@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0031912EPredicate.cpp (not merged yet)
+
+// tu-skeleton: 0x00319159 33B ?rva00319159@Rva00319159@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/Rva00319159Get.cpp (not merged yet)
+
+// tu-skeleton: 0x0031917A 55B ?clearFlags@Rva00319924@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00319924Count.cpp (not merged yet)
+
+// tu-skeleton: 0x003191DA 8B ?rva003191DA@Rva003191DAOwner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/ArmySummaryGetEntry.cpp (not merged yet)
+
+// tu-skeleton: 0x003191E2 207B ?rva003191E2@LivingWorldArmy@@UAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x003192B9 75B ?GetMaxCommandPoints@@YAHPAX@Z -- matched in Code/GameEngine/Source/Common/GetMaxCommandPoints.cpp (not merged yet)
+
+// tu-skeleton: 0x00319304 45B ??$_M_allocate_and_copy@PAUBfmeVectorRecord00319C84@@@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@IAEPAUBfmeVectorRecord00319C84@@IPAU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0031934B 134B ?createVisualObjects@LivingWorldArmy@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/LivingWorldArmy_createVisualObjects.cpp (not merged yet)
+
+// tu-skeleton: 0x0031942B 236B ?UseArmySummary@LivingWorldArmy@@QAEXPAVSpawnArmy@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319517 178B ?KillSummaryEntry@LivingWorldArmy@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x0031964D 61B ?GetHeroDisplayName@Rva00319159@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva00319159Get.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0031968ACopy.cpp
+
+Rva00318B5C *Rva0031968ACopy(const Rva00318B5C *first, const Rva00318B5C *last, Rva00318B5C *result)
+{
+	char tag;
+	return Rva00318DECCopy(first, last, result, &tag, 0);
+}
+
+// tu-skeleton: 0x00319784 24B ??$_Destroy@PAUElem003AF9E0@@@_STL@@YAXPAUElem003AF9E0@@0@Z -- matched in Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x00319831 58B ?rva00319831@Rva003195C9Owner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0031986B 77B ?rva0031986B@Rva00318F42@@QAEXPBURva00538CEFPair@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
+
+// tu-skeleton: 0x00319904 32B ?rva00319904@Rva003193EC@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Rva00319904.cpp (not merged yet)
+
+// tu-skeleton: 0x00319924 73B ?count@Rva00319924@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00319924Count.cpp (not merged yet)
+
+// tu-skeleton: 0x0031996D 101B ?rva0031996D@AttackOrdersMember@@QAE?AUArmySummaryEntryRef@@ABUHeroEntryKey@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
+
+// tu-skeleton: 0x003199D2 64B ?TakeUnitFromArmy_Internal@LivingWorldArmy@@QAEXPAU1@ABVRva004F6093Holder@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319A12 64B ?rva00319A12@Rva00319A12Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00319A12Loop.cpp (not merged yet)
+
+// tu-skeleton: 0x00319A52 78B ?rva00319A52@Rva00318BC6Owner@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE14.cpp (not merged yet)
+
+// tu-skeleton: 0x00319B58 63B ??1?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319b58_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00319B97 51B ?erase@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@QAEPAUElem003AF9E0@@PAU3@0@Z -- matched in Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x00319BCA 186B ??4?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319bca_assign.cpp (not merged yet)
+
+// tu-skeleton: 0x00319C84 105B ?reserve@?$vector@UBfmeVectorRecord00319C84@@V?$allocator@UBfmeVectorRecord00319C84@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_record_319c84_reserve.cpp (not merged yet)
+
+// tu-skeleton: 0x00319D01 373B ??1LivingWorldArmy@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319E76 6B ?GetSnapshotName@LivingWorldArmy@@UBEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319E7C 39B ?rva00319E7C@Rva003195C9Owner@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319E7CDirty.cpp (not merged yet)
+
+// tu-skeleton: 0x00319EA3 86B ?rva00319EA3@LivingWorldArmy@@QAEXPAU1@PAVArmySummaryEntry@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319EF9 86B ?rva00319EF9@LivingWorldArmy@@QAEXPAU1@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
+
+// tu-skeleton: 0x00319F4F 11B ?clear@?$vector@UElem003AF9E0@@V?$allocator@UElem003AF9E0@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
 
 // tu-skeleton: 0x0031A00E 28B ??_GLivingWorldArmy@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
 
