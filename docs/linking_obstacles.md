@@ -11011,3 +11011,8 @@ preview retains their combined 1,465 authored bytes against index
 `85f6b7f40c`. External consumer selection and the next census remain pending;
 no linked-byte gain is claimed. Five other whole donors need class or STL view
 reconciliation. [Checks and path audit](../reverse/attempt_support/skirmishai-consolidation-20261029-codexb5/README.md).
+
+Outgoing batch audit: **INCONCLUSIVE** against index `85f6b7f40c`, which predates
+the outgoing base; three source objects lack current receipts, first
+`GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp`.
+Carry those consumers and the moved provider into the next scheduled census.

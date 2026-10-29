@@ -58,3 +58,11 @@ snapshot, the merge provenance comment and this handoff. No active tooling,
 include, workflow or build consumer names it. The pre-push batch audit must
 still judge affected consumers against current receipts; an older index or a
 missing receipt is not a clearance.
+
+The outgoing batch audit after the move is INCONCLUSIVE: index `85f6b7f40c`
+predates the outgoing base, and three source objects lack current receipts,
+first `GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchProcessGameSpyResponses.cpp`.
+Carry the moved provider and those affected consumers into the next scheduled
+census; the local preview does not resolve this boundary. The merge hook also
+reported the donor's unused address-named float declaration in shadow mode;
+a follow-up removes that declaration and preserves 20/20 rows.
