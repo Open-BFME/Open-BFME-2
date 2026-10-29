@@ -2974,7 +2974,6 @@ name,address,notes
 ??1RealTimeStatsPreferences@@UAE@XZ,0x00535776,ICF twin of rowed Rva00535776 dtor via RealTime construction at 0x0043C612
 ??1RefPtr@@QAE@XZ,0x0007B724,TU-private view (Rva0015b110Cluster.cpp) of the refcounted pointer whose release-at-zero destructor is rowed as ??1Rva00087A93; the unwind funclet 0x0076724B destroys the returned temporary by jumping here; original class name unknown
 ??1Rva00001F18@@UAE@XZ,0x00001F18,"destructor the vector deleting destructor 0x00001EAE calls and hands to the eh vector destructor iterator (DIR32 at 0x00001EBD); opaque address name"
-??1Rva00019565FlatBase@@UAE@XZ,0x00589079,callee of 1Rva0025A390FlatDtor (0x004C54BE) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Rva0002B8C8TailBase@@UAE@XZ,0x0049B47C,callee of 1W3DStreakDraw (0x000CFFD3) at the site its BFME1 donor calls it; may be an ICF alias
 ??1Rva00030DD0Guard@@QAE@XZ,0x000317C0,TU-private view (Rva006C3840Cluster.cpp) of the same counted critical-section guard; the unwind funclet 0x007A7D50 destroys the guard by jumping here; original class name unknown; fold-proof=Code/GameEngine/Source/Common/System/Rva000317C0Cluster.cpp
 ??1Rva00034C90Lock@@QAE@XZ,0x000317C0,TU-private view (Rva00034C90Finish.cpp) of the counted critical-section guard whose release - drop the use count at +0x18 then LeaveCriticalSection - is rowed as ?rva000317c0@Rva000317C0; the unwind funclet 0x0075CC40 destroys the guard by jumping here; original class name unknown

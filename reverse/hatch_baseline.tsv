@@ -2413,7 +2413,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00576FD3Permuted.cpp	?observerSlo
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??0Rva005796FC@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00579731Dtor.cpp	??1Rva005796FC@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0057BCD7Ctor.cpp	?base0@Rva0057BCD7Base0@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	??1Rva00019565FlatBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f2@Rva00481F82_S2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f2@Rva00482E96_S2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00589079Derived.cpp	?f3@Rva00481F82_S3@@UAEXXZ	1
@@ -9184,7 +9183,7 @@ pin	reverse/symbols.csv	0x00587599	1
 pin	reverse/symbols.csv	0x005875BF	1
 pin	reverse/symbols.csv	0x005875DC	1
 pin	reverse/symbols.csv	0x00587DCD	1
-pin	reverse/symbols.csv	0x00589079	2
+pin	reverse/symbols.csv	0x00589079	1
 pin	reverse/symbols.csv	0x0058925D	1
 pin	reverse/symbols.csv	0x00589DDD	2
 pin	reverse/symbols.csv	0x00589F09	1
