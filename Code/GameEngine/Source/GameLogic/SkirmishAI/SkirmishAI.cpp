@@ -197,9 +197,11 @@ class Rva004E93A8 { public: int rva004E93A8(); };
 
 class Rva004E9600;
 
+struct Rva002A8B59Data;
 class Rva002A8F24 {
 public:
  Rva004E9600 *rva002A8B24(void *key);
+ Rva002A8B59Data *rva002A8B59(void *p);
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
