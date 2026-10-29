@@ -22569,8 +22569,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D34FE,46,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D352C,Code/GameEngine/Source/Common/Rva002D34FEChain.cpp
 0x002D352C,42,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir.cpp C=0x002D337F..0x002D3556,Code/GameEngine/Source/Common/System/Rva002D352CMaxStore.cpp
 0x002D3556,29,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D3573,Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp
-0x002D3573,76,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D35BF,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
-0x002D35BF,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D35C7,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
+0x002D3573,76,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D35BF,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x002D35BF,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D35C7,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x002D35C7,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x002D337F..0x002D35CF,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x002D35CF,7,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,Code/GameEngine/Source/Common/System/RadarWindowOverride.cpp
 0x002D35D6,16,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,Code/GameEngine/Source/Common/System/RadarWindowOverride.cpp
@@ -22630,7 +22630,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D402A,14,code,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x002D4038,146,code,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x002D40CA,14,code,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
-0x002D40D8,28,code,,,-,,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
+0x002D40D8,28,code,,,-,,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x002D40F4,332,code,,,-,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir.cpp,Code/GameEngine/Source/Common/System/Rva002D40F4.cpp
 0x002D4240,257,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir.cpp,Code/GameEngine/Source/Common/System/RadarWindowOverride.cpp
 0x002D4341,95,code,Code/GameEngine/Source/Common/System/BfmeSinkBLD.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/BfmeSinkBLD.cpp W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Palantir.cpp,Code/GameEngine/Source/Common/System/RadarWindowOverride.cpp
@@ -44134,13 +44134,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00527D8F,78,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,K,K=Rva00527FA7,Code/GameEngine/Source/Common/GapBodiesGE28.cpp
 0x00527DDD,40,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,K,K=Rva00527FA7,Code/GameEngine/Source/Common/GapBodiesGE28.cpp
 0x00527E05,78,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,K,K=Rva00527FA7,Code/GameEngine/Source/Common/GapBodiesGE28.cpp
-0x00527E53,88,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527E05..0x00527EAB,Code/GameEngine/Source/Common/Rva00527E53Dtor.cpp
+0x00527E53,88,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527E05..0x00527EAB,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x00527EAB,186,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,W=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGamePlanningModeInterface.cpp C=0x00527E05..0x00527F65,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGamePlanningModeInterface.cpp
 0x00527F65,7,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527E05..0x00527F6C,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGamePlanningModeInterface.cpp
 0x00527F6C,28,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527E05..0x00527F88,Code/GameEngine/Source/Common/FamilyDeletingDtors9.cpp
 0x00527F88,26,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527E05..0x00527FA2,Code/GameEngine/Source/Common/OwnedPointerResets.cpp
 0x00527FA2,5,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,K,K=Rva00527FA2,Code/GameEngine/Source/Common/OwnedPointerResets.cpp
-0x00527FA7,585,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527FA2..0x005281F0,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
+0x00527FA7,585,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,C,C=0x00527FA2..0x005281F0,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x005281F0,66,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,proposed,K,K=Rva00527FA2,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x00528232,14,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE28.cpp
 0x00528240,16,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/AptInGameSideCommandBar.cpp
@@ -71612,9 +71612,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007773CE,10,code,,,-,,Code/GameEngine/Source/Common/Rva005248D0Ctor.cpp
 0x007773D8,13,code,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,approved,P,P=0x002D3002@FuncInfo0x0091F010 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x007773E5,10,code,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantir.cpp,approved,P,P=0x002D3002@FuncInfo0x0091F010 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
-0x007773EF,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
-0x007773F7,20,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
-0x0077740B,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/Rva002D3573Dtor.cpp
+0x007773EF,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x007773F7,20,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x0077740B,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x002D3573@FuncInfo0x0091F03C p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x00777415,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp
 0x00777420,11,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp
 0x0077742B,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Palantir/PalantirResourceBar.cpp
@@ -84406,18 +84406,18 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00796A82,8,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva00527CCEDtor.cpp
 0x00796A8A,8,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva00527CCEDtor.cpp
 0x00796A92,10,code,,,-,,Code/GameEngine/Source/Common/Bfme/Rva00527CCEDtor.cpp
-0x00796A9C,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/Rva00527E53Dtor.cpp
-0x00796AA7,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/Rva00527E53Dtor.cpp
-0x00796AB2,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/Rva00527E53Dtor.cpp
-0x00796ABC,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AC7,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AD2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796ADA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AE2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AEA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AF2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796AFA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
-0x00796B02,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/Rva00527FA7Constructor.cpp
+0x00796A9C,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AA7,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AB2,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527E53@FuncInfo0x0094A644 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796ABC,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AC7,11,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AD2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796ADA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AE2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AEA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AF2,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796AFA,8,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
+0x00796B02,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x00527FA7@FuncInfo0x0094A6A0 p-group provisional,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp
 0x00796B0C,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x005281F0@FuncInfo0x0094A6C4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x00796B16,10,code,Code/GameEngine/Source/Common/System/RadarWindowOverrideSource.cpp,approved,P,P=0x005281F0@FuncInfo0x0094A6C4 p-group provisional,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp
 0x00796B20,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/AptInGameSideCommandBar.cpp
