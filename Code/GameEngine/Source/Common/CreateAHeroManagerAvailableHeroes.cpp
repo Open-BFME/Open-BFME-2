@@ -1,5 +1,5 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // CreateAHero.cpp -- CreateAHeroManager forwarding accessors recovered from
 // WorldBuilder leads (reverse/wb_name_leads.csv): WB's debug build names each
 // function and its nesting (CreateAHeroManager::CreateAHeroClass, ::
@@ -36,7 +36,7 @@ namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
-template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t);
 }
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
