@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // Share the retail locale-copy operation with stlport_locale.cpp before
 // ios_base::getloc is defined, so its return-value copy inlines here too.
@@ -33,11 +33,11 @@ namespace _STL { template <> locale basic_ios<unsigned short, char_traits<unsign
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
 }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void*);
 }
 template class _STL::basic_istream<wchar_t, _STL::char_traits<wchar_t> >;

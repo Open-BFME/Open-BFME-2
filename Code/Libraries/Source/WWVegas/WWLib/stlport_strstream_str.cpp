@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 src/strstream.cpp: freeze, str and pcount of strstreambuf
 // and of the three strstream classes, which all reach their _M_buf. Retail

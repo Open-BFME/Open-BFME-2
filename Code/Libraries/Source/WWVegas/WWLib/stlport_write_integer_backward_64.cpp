@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 integer writer, the unsigned __int64 instantiation. Its own
 // unit because of one line: the 32-bit instantiations widen through a mask

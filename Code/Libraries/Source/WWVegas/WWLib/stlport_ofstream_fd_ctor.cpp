@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // BFME 1 repair 4d8b11e1bf at donor f98983a7d3.
 // BFME 2 descriptor constructor 0x0001EDE0 retains its verified 255-byte body.
 #define _STLP_LINK_TIME_INSTANTIATION 1
