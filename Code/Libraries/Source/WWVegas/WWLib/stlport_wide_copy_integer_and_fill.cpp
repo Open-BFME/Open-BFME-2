@@ -1,5 +1,5 @@
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.6 wide integer padding helper. The iterator's copying
 // primitive and character assignment remain in the retail STLport library;
