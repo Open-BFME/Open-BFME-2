@@ -1,5 +1,6 @@
 // ?reset@ShroudManager@@QAEXXZ
 // cl: /O2 /DNDEBUG /MD /EHsc
+// stlport46
 //
 // ShroudManagerImpl::reset (221B @0x008FBB50): zero a Region3D,
 // setRegion(&empty, 0.0f), delete[] elements, elements = new Element[1].

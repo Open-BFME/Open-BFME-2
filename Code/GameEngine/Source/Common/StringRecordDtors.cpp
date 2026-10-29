@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /MD /EHsc /DNDEBUG
+// stlport46
 //
 // Non-virtual record destructors built from string members (0x00036410 is
 // the folded AsciiString/StringBase<char> teardown, 0x00036E70 the wide one,

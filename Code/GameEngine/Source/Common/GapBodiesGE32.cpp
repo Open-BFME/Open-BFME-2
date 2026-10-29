@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG /EHsc /Ireference/shims/bfme2_ascii
+// stlport46
 // Small GameEngine bodies from .text gaps no Ghidra function covers
 // (thirty-second batch; see GapBodiesGE01.cpp). Retail bytes establish every
 // shape; owning classes are not recovered, so each keeps an address-derived

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /Ob2 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // BFME2 record copies with verified StringBase member operations.
 // Layouts are read from the complete retail constructors and their STLport
 // placement-copy callers. Application names and scalar meanings are unknown.
@@ -27,7 +27,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@UBfmeAsciiScalarValue8@@@_STL@@QBEXPAUBfmeAsciiScalarValue8@@I@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct BfmeAsciiScalarValue8;
-namespace _STL { template <> void allocator<BfmeAsciiScalarValue8>::deallocate(BfmeAsciiScalarValue8 *,unsigned int) const; }
+namespace _STL { template <> void allocator<BfmeAsciiScalarValue8>::deallocate(BfmeAsciiScalarValue8 *,unsigned int); }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {

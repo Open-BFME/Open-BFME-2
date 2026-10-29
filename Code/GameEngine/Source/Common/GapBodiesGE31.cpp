@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// stlport46
 // platformsdk
 // Small bodies from .text gaps no Ghidra function covers (thirty-first
 // batch; see GapBodiesGE01.cpp). Each begins after its neighbour's padding or

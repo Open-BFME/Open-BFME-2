@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /DNDEBUG
+// stlport46
 // Small bodies from .text gaps no Ghidra function covers (twenty-ninth
 // batch; see GapBodiesGE01.cpp). Each begins after its neighbour's padding or
 // ret and ends in its own ret or tail jump. Retail bytes establish every

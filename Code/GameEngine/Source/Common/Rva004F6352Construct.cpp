@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport46
 //
 // _STL::_Construct<Rva004F6352, Rva004F6352>, retail 0x004F6A76,
 // 18 bytes. Dedicated TU so Rva004F6352Assign.cpp cannot see this body.

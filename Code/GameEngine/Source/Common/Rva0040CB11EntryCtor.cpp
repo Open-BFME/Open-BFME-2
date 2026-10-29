@@ -1,4 +1,5 @@
 // cl: /O1
+// stlport46
 // The two-argument ctor at 0x0040CB11 is rowed in Rva0040ECCF.cpp,
 // whose caller already emits the byte-exact inline definition.
 // Entry ctor for sorted vector: int key at +0, Holder value at +4 via copy ctor.

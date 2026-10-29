@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /GX- /MD /DNDEBUG /Ireference/shims/bfme2_ascii
+// stlport46
 // Small GameEngine bodies from .text gaps no ledger row covered (each begins
 // after its neighbour's padding or return and ends in its own ret). Retail
 // bytes establish every shape below; the owning classes are not recovered, so
