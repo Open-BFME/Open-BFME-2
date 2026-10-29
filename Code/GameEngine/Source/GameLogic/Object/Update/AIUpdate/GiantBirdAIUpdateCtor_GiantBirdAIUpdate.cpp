@@ -93,10 +93,12 @@ enum CommandSourceType
 	CMD_FROM_AI = 2
 };
 
+struct AICommandParms;
+
 class AICommandInterface
 {
 public:
-	virtual void aiDoCommand();
+	virtual void aiDoCommand(const AICommandParms *parms) = 0;
 	void aiIdle(CommandSourceType cmdSource);
 };
 
@@ -112,6 +114,7 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface, public
 {
 public:
 	AIUpdateInterface(Thing *thing, const ModuleData *moduleData);
+	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
 	virtual ~AIUpdateInterface();
 private:
