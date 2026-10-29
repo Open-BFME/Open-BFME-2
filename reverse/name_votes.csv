@@ -17043,3 +17043,16 @@ Code/Libraries/Source/WWVegas/WWLib/Rva005657FEFind.cpp|function|0x005657FE|rva0
 Code/Libraries/Source/WWVegas/WWLib/Rva005657FEFind.cpp|local|Rva005657FEOwner::rva005657FE|e,d1a99be67ebd2e80391391d0,drz-k3,drz-k3-23,w-077d7aeb666b,2026-10-29
 Code/GameEngine/Source/Common/Rva00566695Assign.cpp|function|0x00566A9A|Rva00566A9ACopyRange,79837c688d0d5be81fc138f7,drz-k3,drz-k3-24,w-077d7aeb666b,2026-10-29
 Code/GameEngine/Source/Common/Rva00566695Assign.cpp|local|Rva0056693DCopy|n,1ebcdd6a59986b5ce12ec8bb,drz-k3,drz-k3-24,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva0041CE27Check.cpp|param|ActionManager::Rva0041CE27Check|b,4056da4b995b0260bc88a751,drz-k4,drz-k4-2,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Containers/SplineFilterAppend00312EDA.cpp|function|0x00312EDA|rva00312EDA,27c75edb710500206f1dc55c,drz-k4,drz-k4-4,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Containers/SplineFilterAppend00312EDA.cpp|local|Rva008B77D::rva00312EDA|temp,a6352128d54399bd338400f9,drz-k4,drz-k4-4,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Rva005D18E2Child.cpp|param|Rva005D19F8Child::Rva005D19F8Child|o,032a01a12c4377f2f119e132,drz-k4,drz-k4-5,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Rva005D18E2Child.cpp|param|Rva005D19F8Child::Rva005D19F8Child|r,73b0522db7ef0912d3f8e89a,drz-k4,drz-k4-5,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Rva005D18E2Child.cpp|param|Rva005D19F8Child::Rva005D19F8Child|a,2cd26136882d3a14167aecf1,drz-k4,drz-k4-5,w-855a0f400af4,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp|class||Rva000EA327Record,32d2f1c8e530b6c8415e38e2,drz-k4,drz-k4-10,w-855a0f400af4,2026-10-29
+Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp|function|0x000EA327|rva000EA327,62f4152ca37ec95319f8992c,drz-k4,drz-k4-10,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/Common/Rva005E5CF9Factory_Rva005CE2D3_Rva005CE2D3.cpp|function|0x005CE2D3|rva005CE2D3,52ceb83dd8b6bfb34c3c7768,drz-k4,drz-k4-14,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|member|Rva00505289Data|m_60,cee9ccee4b55bf6be2282f53,drz-k4,drz-k4-20,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|member|Rva00505289Data|m_6C,93a3a333fda1fe81f2ca9e3d,drz-k4,drz-k4-20,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|member|Rva00505289Data|m_70,ef71376096fe2a97bc3cb161,drz-k4,drz-k4-20,w-855a0f400af4,2026-10-29
+Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/AITargetChooser/AITargetChooser.cpp|function|0x00505408|rva00505408,e2aa4276a0c50e0e70ccf96b,drz-k4,drz-k4-20,w-855a0f400af4,2026-10-29
