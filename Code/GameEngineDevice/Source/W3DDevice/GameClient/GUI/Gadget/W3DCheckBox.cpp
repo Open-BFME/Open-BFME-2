@@ -71,8 +71,11 @@
 #include "GameClient/GadgetCheckBox.h"
 #include "GameClient/GameWindowGlobal.h"
 #include "GameClient/GameWindowManager.h"
-#include "W3DDevice/GameClient/W3DGadget.h"
+#include "GameClient/Gadget.h"
+#include "GameClient/GameWindow.h"
 #include "W3DDevice/GameClient/W3DDisplay.h"
+// W3DGadget's border width; these callbacks need no W3DGameWindow renderer.
+#define WIN_DRAW_LINE_WIDTH (1.0f)
 
 // DEFINES ////////////////////////////////////////////////////////////////////
 

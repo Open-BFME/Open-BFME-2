@@ -977,6 +977,20 @@ Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt.
 Carry the removed-helper scope into the next normal census; full external
 consumer selection remains unverified.
 
+#### Other W3D gadget consumers (2026-10-29)
+
+At `5fc9728c94`, index `d92e7e6635` (census 2026-10-28 15:58), W3DListBox,
+W3DRadioButton, W3DCheckBox, W3DProgressBar and W3DVerticalSlider failed only
+on the selected non-retail `??_EPendingSurfaceStruct@Render2DSentenceClass@@QAEPAXI@Z`,
+pulled in the same way through the unused W3DGadget include. The slider recipe
+(GameClient/Gadget.h + GameClient/GameWindow.h, local WIN_DRAW_LINE_WIDTH)
+keeps every row exact (5/5, 3/3, 3/3, 3/3, 16/16). Preview with the five units
+and W3DComboBox.cpp: the five change from blocked to LINKS (6,988 authored B).
+W3DComboBox.cpp, which owns the retail `??_E` row (0x00002B6A), still does not
+link: an earlier unit outside this set still emits the selected non-retail copy.
+Remaining / next check: find that earlier definer in the census order and drop
+its copy the same way. Census confirmation: awaiting the next census.
+
 #### Pathfinder footprint consumer subset (2026-10-28)
 
 At `72a0f2d577`, index `41c28839bf`, PathfinderClassifyObjectFootprint.cpp
