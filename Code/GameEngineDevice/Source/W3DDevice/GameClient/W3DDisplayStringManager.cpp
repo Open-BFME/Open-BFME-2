@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /MD /EHsc
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -32,6 +32,7 @@
 #include "unicode_string.h"
 
 typedef bool Bool;
+#include "subsystem_interface.h"
 typedef int Int;
 typedef unsigned int UnsignedInt;
 #define TRUE true
@@ -151,21 +152,22 @@ protected:
 // DisplayStringManager: its ctor 0x00262002 and dtor 0x0026201C are still
 // ledgered as Rva0026201C (unLink 0x00262045 as Rva00262045), link 0x00262027
 // as DisplayStringManager::link; this unit views the class through both names.
-class Rva0026201C
+// Retail W3DDisplayStringManager vtable 0x007C7E20 (18 slots): the fourteen
+// SubsystemInterface slots (init 0x000B3FD0 empty, postProcessLoad 3, reset 9,
+// update 10 overridden), then newDisplayString 0x000905F0, freeDisplayString
+// 0x00090381, getGroupNumeralString 0x00090417 and the formation letter getter
+// (folded into 0x005C4AF1, a +0x3C dword read).
+class Rva0026201C : public SubsystemInterface
 {
 public:
 	Rva0026201C();
 	virtual ~Rva0026201C();
-	virtual void init( void );
-	virtual void postProcessLoad( void );
-	virtual void reset( void );
-	virtual void update( void );
-	virtual void vslot05(); virtual void vslot06(); virtual void vslot07();
-	virtual void vslot08(); virtual void vslot09(); virtual void vslot10();
-	virtual void vslot11(); virtual void vslot12(); virtual void vslot13();
+	virtual void init( void ) {}
 	virtual DisplayString *newDisplayString( void ) = 0;
+	virtual void freeDisplayString( DisplayString *string ) = 0;
+	virtual DisplayString *getGroupNumeralString( Int numeral ) = 0;
+	virtual DisplayString *getFormationLetterString( void ) = 0;
 protected:
-	char m_opaque04[ 8 ];
 	DisplayString *m_stringList;												///< 0x0C
 	DisplayString *m_currentCheckpoint;									///< 0x10
 };
@@ -186,8 +188,9 @@ public:
 	virtual void update( void );
 	virtual void reset( void );
 	virtual DisplayString *newDisplayString( void );
-	void freeDisplayString( struct Rva90381Node *string );
+	virtual void freeDisplayString( DisplayString *string );
 	virtual DisplayString *getGroupNumeralString( Int numeral );
+	virtual DisplayString *getFormationLetterString( void ) { return m_formationLetterDisplayString; }
 protected:
 	DisplayString *m_groupNumeralStrings[ MAX_GROUPS ];		///< 0x14
 	DisplayString *m_formationLetterDisplayString;				///< 0x3C

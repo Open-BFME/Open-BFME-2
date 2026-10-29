@@ -29523,7 +29523,7 @@ _Scale_3_5_2D,,0x001BA1F0,300,Code/Libraries/Source/VP6/Scale35TwoD.cpp,matched,
 ?Rva00090714Free@@YAXPAPAX@Z,,0x00090714,23,Code/GameEngine/Source/Common/Rva0009072BAlloc.cpp,matched,gap delete array plus zero ptr
 ?rva0058729D@Rva0058729D@@QAE_NABUICoord2DBase@@@Z,,0x0058729D,50,Code/Libraries/Source/WWVegas/WWLib/Rva0058729DContains.cpp,matched,linear search count +0x10 array +0x14 via rowed ICoord2D eq 0x00004CAD; caller 0x00588553
 ?Rva004E2CF7Equal@@YAHPBURva004E2CF7Data@@0@Z,,0x004E2CF7,348,Code/GameEngine/Source/Common/Rva004E2CF7Equal.cpp,matched,chain via 0x002ADD75 multi-string float range equal int 1/0
-?freeDisplayString@W3DDisplayStringManager@@QAEXPAURva90381Node@@@Z,,0x00090381,47,Code/GameEngine/Source/Common/Rva00090360Ctor.cpp,matched,vslot15 unlink plus head clear plus slot0 delete
+?freeDisplayString@W3DDisplayStringManager@@UAEXPAVDisplayString@@@Z,,0x00090381,47,Code/GameEngine/Source/Common/Rva00090360Ctor.cpp,matched,vslot15 unlink plus head clear plus slot0 delete
 ?rva005F20C5@Rva005F20C5@@QAEXPAURva005F20C5Node@@@Z,,0x005F20C5,45,Code/GameEngine/Source/Common/Rva005F20C5.cpp,matched,unlock recursive clear via rowed free plus self call
 ?StackWalk@DebugStackwalk@@SAHAAVSignature@1@PAU_CONTEXT@@_N@Z,,0x0003C110,1078,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,BFME1 byte-identical donor; b1 0x0088CE00; replaces the ZH two-argument body in the existing BFME2 copy
 ??6@YAAAVDebug@@AAV0@ABVSignature@DebugStackwalk@@@Z,,0x0003BF60,369,Code/Libraries/Source/WWVegas/WWDebug/debug_stack.cpp,matched,ZH body rewritten to BFME2 form (twelve-argument GetSymbol; virtual Debug stream operators via the debugvtable shim); Ghidra extent 369B; CrashDone/AssertDone call it
