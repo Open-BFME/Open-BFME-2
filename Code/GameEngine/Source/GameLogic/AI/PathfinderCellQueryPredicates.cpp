@@ -14,10 +14,10 @@ public:
 	bool IsCliffCell(int pos, int layer);
 	int isBlockedGateObstacleCell(int pos, int layer);
 	int IsNonPinchedCliffCell(int pos, int layer);
-	bool IsPointOnWall(int pos, bool b);
+	bool IsPointOnWall(int pos, bool requireClearCell);
 	bool IsImpassableCell(int pos, int layer);
-	bool IsBuildRestrictedCell(const Coord3D *pos, bool b, bool c, int layer);
-	void GetCellType(int pos, void *a2, void *a3, void *cellType, int layer);
+	bool IsBuildRestrictedCell(const Coord3D *pos, bool allowWater, bool allowImpassable, int layer);
+	void GetCellType(int pos, void *cellExists, void *a3, void *cellType, int layer);
 private:
 	char m_pad000[0x10];
 	int m_unk0010; // +0x10 null-guard read by GetGroundLayer
@@ -43,7 +43,7 @@ int Pathfinder::GetGroundLayer(const Coord3D *pos)
 // ?IsBuildRestrictedCell@Pathfinder@@QAE_NPBUCoord3D@@_N1H@Z @0x002E996E 79B: 4-arg combined
 // query: null->true; flag=(tag==2); unless b, flag|=tag in {1,7}; unless c,
 // flag|=tag==5.
-bool Pathfinder::IsBuildRestrictedCell(const Coord3D *pos, bool b, bool c, int layer)
+bool Pathfinder::IsBuildRestrictedCell(const Coord3D *pos, bool allowWater, bool allowImpassable, int layer)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(layer, pos);
 	bool out;
@@ -54,12 +54,12 @@ bool Pathfinder::IsBuildRestrictedCell(const Coord3D *pos, bool b, bool c, int l
 		unsigned val = rec->m_flags;
 		val &= 0x0F;
 		bool flag = val == 2;
-		if (!b)
+		if (!allowWater)
 		{
 			if (flag || val == 1 || val == 7)
 				flag = true;
 		}
-		if (!c)
+		if (!allowImpassable)
 		{
 			if (flag || val == 5)
 				flag = true;
@@ -70,16 +70,16 @@ bool Pathfinder::IsBuildRestrictedCell(const Coord3D *pos, bool b, bool c, int l
 }
 // ?GetCellType@Pathfinder@@QAEXHPAXPAXPAXH@Z @0x002E99BD 60B: ebp-frame
 // split-out: *a2=nonnull, *a4=tag, *a3=bit18.
-void Pathfinder::GetCellType(int pos, void *a2, void *a3, void *cellType, int layer)
+void Pathfinder::GetCellType(int pos, void *cellExists, void *a3, void *cellType, int layer)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(layer, (const Coord3D *)pos);
 	if (rec == 0)
 	{
-		*(unsigned char *)a2 = 0;
+		*(unsigned char *)cellExists = 0;
 	}
 	else
 	{
-		*(unsigned char *)a2 = 1;
+		*(unsigned char *)cellExists = 1;
 		unsigned int val = rec->m_flags;
 		*(unsigned int *)cellType = val & 0x0F;
 		unsigned int val2 = rec->m_flags;
@@ -151,14 +151,14 @@ bool Pathfinder::IsImpassableCell(int pos, int layer)
 // (b==0 or low==0). Forwards (a 1) to rowed 0x001E3647 with ecx passthrough.
 // Evidence: ret 8 two args; test eax null; (flags>>4)&0x3F>0x10 via cl;
 // byte test of second arg; test al 0xf. Callers at 0x002CBF72 0x00345748.
-bool Pathfinder::IsPointOnWall(int pos, bool b)
+bool Pathfinder::IsPointOnWall(int pos, bool requireClearCell)
 {
 	Rva001E3647Result *rec = (Rva001E3647Result *)rva001E3647Pos(1, (const Coord3D *)pos);
 	if (rec == 0)
 		return false;
 	unsigned int flags = rec->m_flags;
 	signed char mid = (signed char)((flags >> 4) & 0x3F);
-	if ((int)mid > 0x10 && (b == 0 || (flags & 0x0F) == 0))
+	if ((int)mid > 0x10 && (requireClearCell == 0 || (flags & 0x0F) == 0))
 		return true;
 	return false;
 }
@@ -204,7 +204,7 @@ static int Rva002E9ACCCount(const Object *obj)
 class Rva002E9ACC
 {
 public:
-	Rva002E9ACC(void *a1, Object *obj, Rva002E8BCFSrc const *src,
+	Rva002E9ACC(void *pathfinder, Object *obj, Rva002E8BCFSrc const *src,
 		unsigned char a4, unsigned char a5);
 	void *m_00;
 	Object *m_04;
@@ -216,9 +216,9 @@ public:
 	unsigned char m_1F;
 	unsigned char m_20;
 };
-Rva002E9ACC::Rva002E9ACC(void *a1, Object *obj,
+Rva002E9ACC::Rva002E9ACC(void *pathfinder, Object *obj,
 	Rva002E8BCFSrc const *src, unsigned char a4, unsigned char a5)
-	: m_00(a1), m_04(obj), m_08(src),
+	: m_00(pathfinder), m_04(obj), m_08(src),
 	m_0C(src, Rva002E9ACCFlag(obj) == 0, Rva002E9ACCCount(obj) - 1, obj->rva0028AFBB())
 {
 	m_1D = a4;

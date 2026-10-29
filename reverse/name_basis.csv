@@ -4189,3 +4189,11 @@ param,FillPointNormals::z,FillPointNormals::normalZ,inferred,agree:nl-851100c542
 local,FillPointUVs::f,FillPointUVs::uCoordinate,inferred,agree:nl-32c09cda5164,Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp,
 param,Rva00579E47::arg,Rva00579E47::callbackPointer,inferred,agree:nl-9620b9fa4685-m91365a05bca596aa080e1be6,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp,
 function,?Rva0018BD7BGet@@YAMXZ,?getFogRangeStart@@YAMXZ,inferred,agree:nl-c2d3f3d70eab,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp,0x0018BD7B
+param,Pathfinder::IsBuildRestrictedCell::b,Pathfinder::IsBuildRestrictedCell::allowWater,inferred,agree:nl-f15d7b879d58,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,0x002E996E
+param,Pathfinder::IsBuildRestrictedCell::c,Pathfinder::IsBuildRestrictedCell::allowImpassable,inferred,agree:nl-cbb212169167,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,0x002E996E
+param,Pathfinder::GetCellType::a2,Pathfinder::GetCellType::cellExists,inferred,agree:nl-52edde7eafa8,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,0x002E99BD
+param,Pathfinder::IsPointOnWall::b,Pathfinder::IsPointOnWall::requireClearCell,inferred,agree:nl-429ec0e2dd4f,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,0x002E940F
+param,Rva002E9ACC::Rva002E9ACC::a1,Rva002E9ACC::Rva002E9ACC::pathfinder,inferred,agree:nl-57a5d8251772,Code/GameEngine/Source/GameLogic/AI/PathfinderCellQueryPredicates.cpp,0x002E9ACC
+local,q4Notify002CCAA1::tmp,q4Notify002CCAA1::multiFieldParse,inferred,agree:nl-fb54f3ff0d7b,Code/GameEngine/Source/GameLogic/Object/Made002CCAA1Parse.cpp,0x0050B23B
+local,Rva0010461F::rva00104359::c,Rva0010461F::rva00104359::cosBisector,inferred,agree:nl-a2dde2cf65a2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp,0x00104359
+local,Rva0010461F::rva00104359::s,Rva0010461F::rva00104359::sinBisector,inferred,agree:nl-061d8b47a3ba,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp,0x00104359

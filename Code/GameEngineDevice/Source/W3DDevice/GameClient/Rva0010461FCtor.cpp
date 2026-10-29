@@ -204,9 +204,9 @@ void Rva0010461F::rva00104359()
 			if (fabs(half) > 0.00001f)
 			{
 				float dist = size * 0.5f / sinf(half);
-				float c = cosf(bisector);
-				float s = sinf(bisector);
-				MathCoord2D offset(c * dist, s * dist);
+				float cosBisector = cosf(bisector);
+				float sinBisector = sinf(bisector);
+				MathCoord2D offset(cosBisector * dist, sinBisector * dist);
 				*(MathCoord2D *)&m_48[k] += offset;
 				*(MathCoord2D *)&m_68[k] -= offset;
 			}
