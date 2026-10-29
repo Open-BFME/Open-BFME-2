@@ -43213,10 +43213,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0050A9F2,165,code,Code/GameEngine/Source/GameLogic/Object/Made002CC907.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC907.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC907Ctor.cpp
 0x0050AA97,83,code,Code/GameEngine/Source/GameLogic/Object/Made002CC907.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC907.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC907Ctor.cpp
 0x0050AAEA,77,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Made002CC971Parse.cpp
-0x0050AB37,192,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
+0x0050AB37,192,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
 0x0050ABF7,18,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
-0x0050AC09,215,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x0050ACE0,183,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
+0x0050AC09,215,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x0050ACE0,183,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
 0x0050AD97,34,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Die/Rva0050AD97BuildFieldParse.cpp
 0x0050ADB9,53,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Made002CC9D4Parse.cpp
 0x0050ADEE,189,code,,,-,,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/Rva0050AEE4KillContained.cpp
@@ -83361,12 +83361,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00794394,10,code,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/Made002CC8A4.cpp,proposed,P,P=0x0050A4A2@FuncInfo0x009473A0,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/MetaImpactNugget.cpp
 0x0079439E,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva0050A7ADDtor.cpp
 0x007943A6,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Rva0050A7ADDtor.cpp
-0x007943B0,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AB37@FuncInfo0x009473E8 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x007943BD,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AB37@FuncInfo0x009473E8 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x007943C7,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AC09@FuncInfo0x0094740C provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x007943D4,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AC09@FuncInfo0x0094740C provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x007943DE,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050ACE0@FuncInfo0x00947430 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
-0x007943EB,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050ACE0@FuncInfo0x00947430 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971SlaveAttack.cpp
+0x007943B0,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AB37@FuncInfo0x009473E8 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x007943BD,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AB37@FuncInfo0x009473E8 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x007943C7,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AC09@FuncInfo0x0094740C provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x007943D4,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050AC09@FuncInfo0x0094740C provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x007943DE,13,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050ACE0@FuncInfo0x00947430 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
+0x007943EB,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp,approved,P,P=0x0050ACE0@FuncInfo0x00947430 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CC971.cpp
 0x007943F5,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/Rva0050AEE4KillContained.cpp
 0x007943FD,13,code,,,-,,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/Rva0050AEE4KillContained.cpp
 0x0079440A,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/Rva0050AEE4KillContained.cpp
