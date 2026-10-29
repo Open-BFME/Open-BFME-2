@@ -159,3 +159,8 @@ Code/GameEngine/Source/GameLogic/AI/AttackHordeStateMachine.cpp|param|zeroCoord3
 Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|BfmeThingVKE|o,91568bbaa8d1a69764d6aefb,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,7e5b0fc550dd16348a348ea7
 Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|Rva000B9887Init|a,2df0d3e0f38f3fa94aef5209,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,532ff003004bfeef359a1b95
 Code/GameEngine/Source/Common/Rva000B9887Permuted.cpp|param|Rva000B9887Init|b,32f733ba80c690a362017829,drz-k2,drz-k2-19,w-ded32b2e2c5e,2026-10-29,aa5b6133920b80c0815dd73b
+Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp|local|ArmySummarySystem::rva0040F87E|r,fc942f64ef3e363c0a847caa,drz-k1,drz-k1-1,w-d29055ee9848,2026-10-29,8a89c578f304db16edc73a30
+Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp|local|ArmySummarySystem::rva0040F87E|a,4e5e1d593956d732f53a0af5,drz-k1,drz-k1-1,w-d29055ee9848,2026-10-29,0541774ac3a6cf2085f799ff
+Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp|local|ArmySummarySystem::rva0040F87E|u,c78234a52d376151639595f8,drz-k1,drz-k1-1,w-d29055ee9848,2026-10-29,1d421f42e692f9e3c1935732
+Code/GameEngine/Source/Common/AptTranslator.cpp|param|Rva004328D8Emit|p,e5bb3a9aa3500a50c5fbea0e,drz-k1,drz-k1-4,w-d29055ee9848,2026-10-29,959cbddf10b26e9a9cf690e8
+Code/GameEngine/Source/Common/Rva0042C5C3Dtor.cpp|param|Rva0042C5C3::rva0042C0DB|p,c58087ab17d46f45448aeca9,drz-k1,drz-k1-12b,w-d29055ee9848,2026-10-29,4a37c0b59dd770965f9aa1e1
