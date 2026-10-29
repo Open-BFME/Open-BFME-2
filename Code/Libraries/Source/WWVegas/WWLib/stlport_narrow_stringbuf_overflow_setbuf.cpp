@@ -66,9 +66,7 @@ namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,cha
 namespace _STL {
 template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
 }
-// Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
-}
+// proxy<char> allocate has no retail body (its retail callers inline it), and
+// the STLport 4.6 units no longer emit this 4.5.3 copy: this unit provides it
+// for the 4.5.3 consumers that declare it without a body.
 template class _STL::basic_stringbuf<char, _STL::char_traits<char>, _STL::allocator<char> >;

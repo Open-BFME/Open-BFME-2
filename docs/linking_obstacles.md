@@ -9732,3 +9732,28 @@ range (L route), then `tu_skeleton.py --merge` the hand units into it, after
 checking that the vendor bodies byte-match those rows; or (b) the 4.6 facets
 unit compiles only its own 20 rows' functions again. Pass test: the next
 census shows these units linked=yes with zero duplicates.
+
+### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
+
+Status: repaired, pending census confirmation. The 2026-10-29 17:26 census
+(85f6b7f40c) drops ten units from linked to not linked, each with exactly one
+unresolved name, `?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z`:
+NarrowStringRecordCopyBFME2.cpp, PeerThread.cpp,
+PeerThreadStats_PackStatKey.cpp, registry.cpp, urlBuilder.cpp,
+Rva001F9524Concat.cpp, stlport_narrow_ios_imbue.cpp,
+stlport_narrow_ostringstream_dtor.cpp, stlport_narrow_stringbuf_overflow_setbuf.cpp
+and stlport_wide_ios_imbue.cpp. Their unrowed 4.5.3 COMDATs (for example the
+/Od `append<const char*>` copy) call the proxy allocate, which each of them
+declares as a body-less specialization. Index 840db2d676 shows the only
+copies came from stlport_float_format.cpp and stlport_narrow_money_put_string.cpp
+(digest fbdef5e80d3e, no retail address). Once those units were on 4.6 they
+called `allocator<char>::allocate` directly and stopped emitting it. Retail has
+no body for this name, because its rowed callers (for example `append` at
+0x1B3E0) inline it. Repair: stlport_narrow_stringbuf_overflow_setbuf.cpp no
+longer declares that specialization, so it emits the one copy (7/7 rows still
+exact). There is a single provider, so no copy with a different digest can
+lose a COMDAT selection. Preview with the current 4.6 objects of both former
+providers: all ten units plus both former providers LINK (12/12, 29,668 B).
+Caution for later migrations: about twenty 4.5.3 units still declare this
+specialization. If this provider moves to 4.6, it must keep a copy, or its
+consumers must stop declaring it.
