@@ -18,7 +18,11 @@ public:
 public:
 	unsigned char rva0042680D(int index);
 public:
+	void rva0042682B(int index, unsigned char value);
+public:
 	unsigned char rva004268F6(int index);
+public:
+	void rva00426914(int index, unsigned char value);
 public:
 	unsigned char rva004269F7(int index);
 };

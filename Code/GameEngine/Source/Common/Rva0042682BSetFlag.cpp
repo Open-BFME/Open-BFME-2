@@ -12,22 +12,27 @@
 #include "Common/BfmeAudioEventPrefix136.h"
 
 
-struct Rva004266A1Rec
-{
-	AsciiString text;
-	unsigned char flag0;
-	unsigned char flag1;
-	unsigned char flag2;
-};
+struct Rva004266A1Rec { AsciiString text; unsigned char flag0; unsigned char flag1; unsigned char flag2; };
 
-class Rva004266A1
-{
+struct Rva004266A1 {
+public:
+	char pad[4];
+public:
+	_STL::vector<Rva004266A1Rec> vec;
 public:
 	bool rva004266A1(int index);
+public:
+	void *rva004267E9(int index);
+public:
+	unsigned char rva0042680D(int index);
+public:
 	void rva0042682B(int index, unsigned char value);
-private:
-	char m_00[4];
-	_STL::vector<Rva004266A1Rec> m_04;
+public:
+	unsigned char rva004268F6(int index);
+public:
+	void rva00426914(int index, unsigned char value);
+public:
+	unsigned char rva004269F7(int index);
 };
 
 // ?rva004266A1@Rva004266A1@@QAE_NH@Z present-unmatched
@@ -40,7 +45,8 @@ public:
 struct Bfield
 {
 	char m_pad[0x1a8];
-	OpaqueRefElement4 m_ref;
+	OpaqueRefElement4 m_ref1a8;
+	OpaqueRefElement4 m_ref1ac;
 };
 
 class Afield
@@ -99,14 +105,14 @@ void Rva004266A1::rva0042682B(int index, unsigned char value)
 {
 	if (!rva004266A1(index))
 		return;
-	unsigned char old = m_04[index].flag1;
-	m_04[index].flag1 = value;
+	unsigned char old = vec[index].flag1;
+	vec[index].flag1 = value;
 	if (TheAudio && !old && value)
 	{
 		if (ThePlayerList->getLocalPlayer() && ThePlayerList->getLocalPlayer()->m_34
-			&& ThePlayerList->getLocalPlayer()->m_34->m_ref.referent != 0)
+			&& ThePlayerList->getLocalPlayer()->m_34->m_ref1a8.referent != 0)
 		{
-			BfmeAudioEventPrefix136 ev(ThePlayerList->getLocalPlayer()->m_34->m_ref, 2);
+			BfmeAudioEventPrefix136 ev(ThePlayerList->getLocalPlayer()->m_34->m_ref1a8, 2);
 			((Rva0033F15DDwordSlot *)&ev)->set(ThePlayerList->getLocalPlayer()->m_54);
 			TheAudio->audioEvent(&ev);
 		}
