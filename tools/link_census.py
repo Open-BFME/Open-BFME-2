@@ -84,13 +84,13 @@ sys.path.insert(0, str(ROOT / "tools"))
 import build  # noqa: E402
 
 
-_PROFILE = False  # main() turns the stage profile on; a tool importing this module stays quiet
+_PROFILE = None  # main() sets its pid: the stage profile; a tool importing this module stays quiet
 
 
 def _stage_line(name, seconds):
     """`link_census: <stage> <seconds>s` on stderr: the census's stage profile
     (the runner's log keeps it; nothing parses it)."""
-    if not _PROFILE:
+    if _PROFILE != os.getpid():  # off, or a forked pool worker of the profiling process
         return
     print(f"link_census: {name} {seconds:.1f}s", file=sys.stderr, flush=True)
 
@@ -1353,7 +1353,7 @@ def memo_map(kind, objs, parallel=True):
             found = list(pool.map(fn, objs, chunksize=64))
     else:
         found = [fn(obj) for obj in objs]
-    if _PROFILE:
+    if _PROFILE == os.getpid():
         print(f"link_census: memo {kind}: {sum(hit for _, hit in found):,} of {len(found):,} objects reused",
               file=sys.stderr, flush=True)
     return [value for value, _ in found]
@@ -2093,7 +2093,7 @@ def main(argv=None):
         use_dry_outputs(DRY_OUT)
     elif args.replay:
         ap.error("--replay goes with --dry only")
-    _PROFILE = True
+    _PROFILE = os.getpid()
     run_started = time.monotonic()
     path = OUT / "census.json"
     if args.report:
@@ -2866,7 +2866,6 @@ def object_current(source, obj, *, inventory_cache=None, allow_fresh=True):
     return receipts is not None and receipts.current(source, obj)
 
 
-@_timed('currency proof (stale_objects)')
 def _receipt_chunk(pairs):
     """([object without a census-grade receipt], include inventory snapshot)
     for one share of stale_objects' [(object, source)]."""
@@ -2876,6 +2875,7 @@ def _receipt_chunk(pairs):
     return stale, inventory_cache
 
 
+@_timed('currency proof (stale_objects)')
 def stale_objects(present, sources):
     """The objects in `present` that are not current for their source
     (object_current); objects with no source (library members) are taken
