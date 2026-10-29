@@ -1,4 +1,4 @@
-// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /Ivendor /Ireference/shims/bfmealloc
+// cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /MD /DNDEBUG /D_STLP_USE_STATIC_LIB /Ivendor /Ireference/shims/bfmealloc /Ireference/shims/moduledata
 // stlport
 // Clean reference: BFME1 game/GameEngine/Source/GameLogic/Object/
 // ObjectTypesRemoveObjectType.cpp at 1281192f682ce6f29b8f06b7daea4b5e8fdfbb24,
@@ -14,16 +14,24 @@
 //
 // Native erase observes 4-byte elements and finish at vector+4, shifts the
 // suffix through the existing 0x000B6614/29 copy wrapper, decrements finish,
-// then reaches the existing 0x0048BA39/5 narrow-string cleanup entry.
-// The copy wrapper routes to 0x000B4431/47, whose loop calls StringBase<char>
+// then reaches the existing 0x0048BA39/5 narrow-string cleanup entry: the
+// rowed AsciiString destructor, which this body calls directly. The copy
+// wrapper routes to 0x000B4431/47, whose loop calls StringBase<char>
 // assignment; cleanup tail-jumps to releaseBuffer 0x00036410/133. Canonical
 // AsciiString/StringBase supply the proven width and character-buffer ABI.
-// The cleanup address view binds to the real rowed destructor using a linker
-// alias; it introduces no literal address and no synthetic runtime provider.
 // Inline end() preserves the donor header's access/codegen pattern. An
 // uninitialized empty copy tag carries no value, as the native caller does.
 
 #include "ascii_string.h"
+#include "Common/Snapshot.h"
+class Xfer;
+class ThingTemplate;
+class Player
+{
+public:
+	bool canBuild( const ThingTemplate *thingTemplate ) const;
+};
+StringBase<char> *Rva000BD22FFind(StringBase<char> *first, StringBase<char> *last, const StringBase<char> &val);
 #include <stlport/stl/_algobase.h>
 #include <vector>
 
@@ -55,24 +63,31 @@ AsciiString *Rva003769C2StringVector::erase(AsciiString *position) {
 
 #pragma comment(linker, "/alternatename:?erase@?$vector@UGen_t_001db910_p4cd@@V?$allocator@UGen_t_001db910_p4cd@@@_STL@@@_STL@@QAEPAUGen_t_001db910_p4cd@@PAU3@@Z=?erase@Rva003769C2StringVector@@QAEPAVAsciiString@@PAV2@@Z")
 
-// Native ObjectTypes storage prefix from the established constructor family:
-// vptr/list-name occupy the first8 bytes, and the observed vector starts+8.
-// This address view introduces no additional private ObjectTypes definition.
-class ObjectTypes {
- unsigned char prefix[8];
- Rva003769C2StringVector values;
+class __declspec(novtable) ObjectTypes : public Snapshot
+{
+protected:
+	virtual void xfer(Xfer *xfer);
 public:
- bool isInSet(const AsciiString &name) const;
- void remove(const AsciiString &name);
+	virtual ~ObjectTypes();
+	bool canBuildAny( Player *player );
+private:
+	AsciiString m_listName;
+	_STL::vector<AsciiString> m_objectTypes;
+public:
+	bool isInSet(const AsciiString &name) const;
+	void addObjectType(const AsciiString &objectType);
+	void remove(const AsciiString &name);
 };
-StringBase<char> *Rva000BD22FFind(StringBase<char> *,StringBase<char> *,const StringBase<char> &);
+
 // ?remove@ObjectTypes@@QAEXABVAsciiString@@@Z
+// Retail walks the vector's begin/end pointers (this+0x08/+0x0C) through the
+// facade view at +8, whose member is the rowed erase.
 void ObjectTypes::remove(const AsciiString &name) {
- const StringBase<char> &needle=*reinterpret_cast<const StringBase<char> *>(&name);
- if(isInSet(name)) {
-  AsciiString *position=reinterpret_cast<AsciiString *>(Rva000BD22FFind(
-   reinterpret_cast<StringBase<char> *>(values.begin()),
-   reinterpret_cast<StringBase<char> *>(values.end()),needle));
-  values.erase(position);
- }
+	const StringBase<char> &needle=*(const StringBase<char> *)&name;
+	if(isInSet(name)) {
+		AsciiString *position=(AsciiString *)Rva000BD22FFind(
+			(StringBase<char> *)((Rva003769C2StringVector *)((char *)this + 8))->begin(),
+			(StringBase<char> *)((Rva003769C2StringVector *)((char *)this + 8))->end(),needle);
+		((Rva003769C2StringVector *)((char *)this + 8))->erase(position);
+	}
 }
