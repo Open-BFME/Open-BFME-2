@@ -78,7 +78,9 @@ public:
 private:
 	UnicodeString m_displayNameLabel;
 private:
-	char m_pad04[0x20 - 0x04];
+	UnicodeString m_descriptionLabel;
+private:
+	char m_pad08[0x20 - 0x08];
 private:
 	int m_playerCount;
 private:
@@ -89,6 +91,8 @@ private:
 	char m_pad54[0xF8 - 0x54];
 private:
 	UnicodeString m_cachedBaseDisplayName;
+private:
+	UnicodeString m_cachedDescription;
 public:
 	UnicodeString bfme_getDisplayName(bool includePlayerCount);
 public:
