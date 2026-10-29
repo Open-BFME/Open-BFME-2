@@ -28,9 +28,23 @@ typedef bool Bool;
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
 #include <new>
+// ?rva0031D5F8@Rva0031D5F8@@QAEPAXPBVAsciiString@@@Z, retail 0x0031D5F8 (38B).
+// Lookup AsciiString key in the Rva00056F61 bucket table at this+0x30 via
+// rowed ?rva0041534B@Rva00056F61@@QAE?AURva0041534BIter@@PBVAsciiString@@@Z,
+// returning payload at node+8 or NULL when the iterator node is NULL.
+// Callers at 0x00219317 0x0031D623 0x0031D914 0x0031DFC7 prove the
+// thiscall shape with one AsciiString arg and pointer return used as this.
+// ?GetPurchaseScienceCommandSet@Rva0031D5F8@@QAEPAXPBX@Z, retail 0x0031DF89 (72B).
+// Guarded lookup on the same table: arg+0x34 base must be non-null, variant
+// AsciiString at base+0x138 or base+0x13c via TheBfmeGlob 0x00DFE78C gate,
+// empty check via rowed StringBase isEmpty, then same-table rva0031D5F8.
+extern class GameLogic *TheGameLogic;
+#define TheBfmeGlob (*(BfmeGlob939D **)&TheGameLogic)
+
 // ?rva0031B4D6@Rva0031B53D@@QAEEPAVINI@@H@Z @0x0031B4D6 103B: load three CommandButton CommandSet INIs via INI* plus type and OR results. Evidence: caller 0x0031B57D plus literals Data\INI\Default\CommandButton.ini Data\INI\CommandButton.ini Data\INI\CommandSet.ini plus ControlBarScheme donor init pattern. loadFile pin void type wrong: retail uses al for ORs so declare uchar.
 // The caller 0x0031B53D sets ECX to its own this before calling 0x0031B4D6, so the loader is a thiscall member of the same object; its body never reads this.
 class Xfer;
+
 enum INILoadType { INI_LOAD_OVERWRITE = 1 };
 
 // Retail 0x0040FD8F, 19 bytes:
@@ -358,12 +372,6 @@ enum ScienceType { SCIENCE_INVALID = -1 };
 
 class Rva0043D3A8;
 
-class Player
-{
-public:
-    bool hasScience(ScienceType) const;
-};
-
 // Native science range is +A4/+A8/+AC. Only this consumed prefix is
 // represented; neither the full CommandButton extent nor container spelling
 // is inferred from the BFME1 +84 range. Value access follows the donor.
@@ -380,18 +388,6 @@ public:
     char opaque00[0xA4];
     PurchaseScienceRange science;
     const PurchaseScienceRange &getScienceVec() const { return science; }
-};
-
-class CommandSet
-{
-public:
-    const CommandButton *getCommandButton(int) const;
-};
-
-class Rva0031D5F8
-{
-public:
-    void *GetPurchaseScienceCommandSet(const void *);
 };
 
 class ScienceStore
@@ -637,105 +633,6 @@ int Rva0043C99AGet();
 
 void Rva0043C96FEnable();
 
-class ControlBar : public SubsystemInterface
-{
-public:
-	virtual void init(void);
-public:
-	void initObserverControls(void);
-public:
-	void postProcessCommands(void);
-public:
-	const CommandButton *findCommandButton(const AsciiString &name);
-public:
-	void setControlCommand(GameWindow *button, const CommandButton *commandButton);
-public:
-	void switchToContext(Int context, void *draw);
-private:
-	static const Image *m_rankVeteranIcon;
-private:
-	static const Image *m_rankEliteIcon;
-private:
-	static const Image *m_rankHeroicIcon;
-private:
-	WindowVideoManager *m_videoManager;
-private:
-	AnimateWindowManager *m_animateWindowManager;
-private:
-	AnimateWindowManager *m_animateWindowManagerForGenShortcuts;
-private:
-	AnimateWindowManager *m_generalsScreenAnimate;
-private:
-	ICoord2D m_defaultControlBarPosition;
-private:
-	char m_pad24[0x44 - 0x24];
-private:
-	ControlBarSchemeManager *m_controlBarSchemeManager;
-private:
-	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS];
-private:
-	GameWindow *m_commandWindowParent;
-private:
-	char m_pad6C[0x84 - 0x6C];
-private:
-	GameWindow *m_rightHUDWindow;
-private:
-	GameWindow *m_rightHUDCameoWindow;
-private:
-	GameWindow *m_rightHUDUpgradeCameos[MAX_RIGHT_HUD_UPGRADE_CAMEOS];
-private:
-	GameWindow *m_rightHUDUnitSelectParent;
-private:
-	GameWindow *m_communicatorButton;
-private:
-	char m_padA8[0xDC - 0xA8];
-private:
-	GameWindow *m_commandWindows[MAX_COMMANDS_PER_SET];
-private:
-	char m_pad15C[0x1DC - 0x15C];
-private:
-	Bool m_sideSelectAnimateDown;
-private:
-	char m_pad1DD[0x248 - 0x1DD];
-private:
-	const Image *m_genStarOn;
-private:
-	const Image *m_genStarOff;
-private:
-	char m_pad250[0x278 - 0x250];
-private:
-	Bool m_genStarFlash;
-private:
-	Int m_lastFlashedAtPointValue;
-private:
-	ICoord2D m_controlBarForegroundMarkerPos;
-private:
-	ICoord2D m_controlBarBackgroundMarkerPos;
-private:
-	char m_pad290[0x298 - 0x290];
-private:
-	GameWindow *m_radarAttackGlowWindow;
-private:
-	Int m_rva0031C83D29C;
-private:
-	void *m_commandWindowUserData;
-public:
-	void GetPurchaseScienceStatus(Player *, int, const CommandButton **,
-        bool *, bool *, bool *);
-public:
-	bool rva0031E068(Player *, int);
-public:
-	void setControlBarScheme(const AsciiString &schemeName);
-public:
-	void switchControlBarStage(ControlBarStages stage);
-public:
-	void hidePurchaseScience();
-public:
-	void rva0031AD94();
-public:
-	void showPurchaseScience();
-};
-
 class GameWindow
 {
 public:
@@ -862,7 +759,175 @@ private:
   unsigned char m_flag;
 };
 
+class BfmeGlob939D
+{
+public:
+	char bfmeCall939D();
+};
+
+class Rva0035B456Owner {public:void rva0035B3E7();};
+
+class CommandSet
+{
+public:
+    const CommandButton *getCommandButton(int) const;
+};
+
+class Rva0031D5F8
+{
+public:
+	void *rva0031D5F8(const AsciiString *key);
+	void *GetPurchaseScienceCommandSet(const void *player);
+	char m_pad[0x30];
+	Rva00056F61 m_table;
+};
+
+class Image {public:void rva002D937E();};
+
+class ThingTemplate {
+public:
+ const Image *getButtonImage();const Image *rva0033BA46();
+ char pad00[0x6C];AsciiString side;AsciiString commandSet;
+ char pad74[0x108-0x74];unsigned kindOf;
+ char pad10C[0x484-0x10C];ThingTemplate *next;
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
+	char m_pad00[0xC];
+	ThingTemplate *first; // +0x0C
+};
+
+extern ThingFactory *TheThingFactory;
+
+class PlayerTemplate {public:char pad00[0x138];AsciiString commandSet;};
+
+class Player {
+public:
+	char pad00[0x34];
+public:
+	PlayerTemplate *base;
+public:
+	char pad38[0x58-0x38];
+public:
+	AsciiString side;
+public:
+	bool hasScience(ScienceType) const;
+};
+
+class PlayerList {public:char pad00[16];Player *local;};
+
+extern PlayerList *ThePlayerList;
+
+class ControlBar : public SubsystemInterface
+{
+public:
+	virtual void init(void);
+public:
+	void initObserverControls(void);
+public:
+	void postProcessCommands(void);
+public:
+	const CommandButton *findCommandButton(const AsciiString &name);
+public:
+	void setControlCommand(GameWindow *button, const CommandButton *commandButton);
+public:
+	void switchToContext(Int context, void *draw);
+private:
+	static const Image *m_rankVeteranIcon;
+private:
+	static const Image *m_rankEliteIcon;
+private:
+	static const Image *m_rankHeroicIcon;
+private:
+	WindowVideoManager *m_videoManager;
+private:
+	AnimateWindowManager *m_animateWindowManager;
+private:
+	AnimateWindowManager *m_animateWindowManagerForGenShortcuts;
+private:
+	AnimateWindowManager *m_generalsScreenAnimate;
+private:
+	ICoord2D m_defaultControlBarPosition;
+private:
+	char m_pad24[0x44 - 0x24];
+private:
+	ControlBarSchemeManager *m_controlBarSchemeManager;
+private:
+	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS];
+private:
+	GameWindow *m_commandWindowParent;
+private:
+	char m_pad6C[0x84 - 0x6C];
+private:
+	GameWindow *m_rightHUDWindow;
+private:
+	GameWindow *m_rightHUDCameoWindow;
+private:
+	GameWindow *m_rightHUDUpgradeCameos[MAX_RIGHT_HUD_UPGRADE_CAMEOS];
+private:
+	GameWindow *m_rightHUDUnitSelectParent;
+private:
+	GameWindow *m_communicatorButton;
+private:
+	char m_padA8[0xDC - 0xA8];
+private:
+	GameWindow *m_commandWindows[MAX_COMMANDS_PER_SET];
+private:
+	char m_pad15C[0x1DC - 0x15C];
+private:
+	Bool m_sideSelectAnimateDown;
+private:
+	char m_pad1DD[0x248 - 0x1DD];
+private:
+	const Image *m_genStarOn;
+private:
+	const Image *m_genStarOff;
+private:
+	char m_pad250[0x278 - 0x250];
+private:
+	Bool m_genStarFlash;
+private:
+	Int m_lastFlashedAtPointValue;
+private:
+	ICoord2D m_controlBarForegroundMarkerPos;
+private:
+	ICoord2D m_controlBarBackgroundMarkerPos;
+private:
+	char m_pad290[0x298 - 0x290];
+private:
+	GameWindow *m_radarAttackGlowWindow;
+private:
+	Int m_rva0031C83D29C;
+private:
+	void *m_commandWindowUserData;
+public:
+	void GetPurchaseScienceStatus(Player *, int, const CommandButton **,
+        bool *, bool *, bool *);
+public:
+	bool rva0031E068(Player *, int);
+public:
+	void setControlBarScheme(const AsciiString &schemeName);
+public:
+	void switchControlBarStage(ControlBarStages stage);
+public:
+	void hidePurchaseScience();
+public:
+	void rva0031AD94();
+public:
+	void showPurchaseScience();
+public:
+	void rva0031D61E(const AsciiString *);
+public:
+	void rva0031D64F();
+};
+
 // tu-skeleton: 0x0031AA86 152B ?rva0031AA86@ControlBar@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031AA86.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar.cpp
 
@@ -1456,6 +1521,26 @@ unsigned int Rva0077AD65ClearFlag(void)
 	return flag = flags & 0xFFFFFFFEu;
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
+
+unsigned char Rva0031B53D::rva0031B4D6(INI *ini, int type)
+{
+  unsigned char b0 = ini->loadFile(AsciiString("Data\\INI\\Default\\CommandButton.ini"), (INILoadType)type, 0);
+  b0 |= ini->loadFile(AsciiString("Data\\INI\\CommandButton.ini"), (INILoadType)type, 0);
+  b0 |= ini->loadFile(AsciiString("Data\\INI\\CommandSet.ini"), (INILoadType)type, 0);
+  return b0;
+}
+
+// ?rva0031B53D@Rva0031B53D@@QAEEXZ @0x0031B53D 102B: build a stack INI (ctor 0x0002CDB0, dtor 0x0002CE5B, EH frame) and load the command INIs with type 5 when the byte at +4 is set, else 1.
+unsigned char Rva0031B53D::rva0031B53D()
+{
+  INI ini;
+  unsigned char flag = m_flag;
+  int type = flag ? 5 : 1;
+  unsigned char r = rva0031B4D6(&ini, type);
+  return r;
+}
+
 // tu-skeleton: 0x0031AB77 8B ?rva0031AB77SetFlag@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReloadNotice.cpp (not merged yet)
 
 // tu-skeleton: 0x0031AB7F 80B ??4Rva0031AB7F@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031AB7FCopy.cpp (not merged yet)
@@ -1510,26 +1595,6 @@ unsigned int Rva0077AD65ClearFlag(void)
 
 // tu-skeleton: 0x0031B4BA 28B ??_GRva002390CB@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva0031B4D6Load.cpp
-
-unsigned char Rva0031B53D::rva0031B4D6(INI *ini, int type)
-{
-  unsigned char b0 = ini->loadFile(AsciiString("Data\\INI\\Default\\CommandButton.ini"), (INILoadType)type, 0);
-  b0 |= ini->loadFile(AsciiString("Data\\INI\\CommandButton.ini"), (INILoadType)type, 0);
-  b0 |= ini->loadFile(AsciiString("Data\\INI\\CommandSet.ini"), (INILoadType)type, 0);
-  return b0;
-}
-
-// ?rva0031B53D@Rva0031B53D@@QAEEXZ @0x0031B53D 102B: build a stack INI (ctor 0x0002CDB0, dtor 0x0002CE5B, EH frame) and load the command INIs with type 5 when the byte at +4 is set, else 1.
-unsigned char Rva0031B53D::rva0031B53D()
-{
-  INI ini;
-  unsigned char flag = m_flag;
-  int type = flag ? 5 : 1;
-  unsigned char r = rva0031B4D6(&ini, type);
-  return r;
-}
-
 // tu-skeleton: 0x0031B5A3 106B ?rva0031B5A3@ControlBar@@QAEXPBVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031B5A3.cpp (not merged yet)
 
 // tu-skeleton: 0x0031B641 593B ?setControlCommand@ControlBar@@QAEXPAVGameWindow@@PBVCommandButton@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarSetCommandWindow.cpp (not merged yet)
@@ -1576,11 +1641,85 @@ unsigned char Rva0031B53D::rva0031B53D()
 
 // tu-skeleton: 0x0031D230 968B ?rva0031D230@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp (not merged yet)
 
-// tu-skeleton: 0x0031D5F8 38B ?rva0031D5F8@Rva0031D5F8@@QAEPAXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva0031D5F8Lookup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva0031D5F8Lookup.cpp
 
-// tu-skeleton: 0x0031D61E 49B ?rva0031D61E@ControlBar@@QAEXPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
+void *Rva0031D5F8::rva0031D5F8(const AsciiString *key)
+{
+	Rva0041534BIter iter = m_table.rva0041534B(key);
+	if (iter.m_node)
+		return *(void **)((char *)iter.m_node + 8);
+	return 0;
+}
 
-// tu-skeleton: 0x0031D64F 526B ?rva0031D64F@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
+void *Rva0031D5F8::GetPurchaseScienceCommandSet(const void *player)
+{
+	char *base = *(char **)((const char *)player + 0x34);
+	if (base == 0)
+		return 0;
+	AsciiString *name;
+	if (TheBfmeGlob->bfmeCall939D())
+		name = (AsciiString *)(base + 0x13c);
+	else
+		name = (AsciiString *)(base + 0x138);
+	if (name->isEmpty())
+		return 0;
+	return rva0031D5F8(name);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp
+
+// Native0031D64F..0031D85D (526B; RET0); WB00C2EDC0 has the same
+// full call graph and fields but no recovered original method name. The
+// existing ControlBar pin and GameLogic caller establish the receiver.
+// Clean BF1 f989 ControlBar.cpp CommandSet traversal and postProcessCommands
+// guide the cache workflow; they do not establish these target-specific
+// filter offsets or the five radial image lookups. Native supplies the
+// +108 bit1 and +6C side test, template next+484 and command set+70, local
+// player side+58 and PlayerTemplate command set+138. Adjacent known methods
+// and WB independently agree with these members and repeated resolver calls.
+//
+// Native0031D61E..0031D64F (49B; RET4) preloads the non-null buttons returned
+// by the rowed 32-slot CommandSet accessor. Existing table lookup31D5F8 and
+// cache helper35B3E7 are used under their established names; the latter's
+// original member name remains unknown. Both complete bodies match on the
+// first trial; the receiver and method names retain the existing uncertainty.
+
+void ControlBar::rva0031D61E(const AsciiString *name) {
+ CommandSet *set=(CommandSet*)((Rva0031D5F8*)this)->rva0031D5F8(name);
+ if(set) {
+  for(int i=0;i<32;++i) {
+   const CommandButton *button=set->getCommandButton(i);
+   if(button)((Rva0035B456Owner*)button)->rva0035B3E7();
+  }
+ }
+}
+
+void ControlBar::rva0031D64F() {
+ if(!ThePlayerList||!TheThingFactory)return;
+ Player *player=ThePlayerList->local;
+ if(!player)return;
+ AsciiString side=player->side;
+ for(ThingTemplate *thingTemplate=TheThingFactory->first;thingTemplate;thingTemplate=thingTemplate->next) {
+  if((thingTemplate->kindOf&2)&&thingTemplate->side.compare(side)==0) {
+   rva0031D61E(&thingTemplate->commandSet);
+   if(thingTemplate->getButtonImage()) const_cast<Image*>(thingTemplate->getButtonImage())->rva002D937E();
+   if(thingTemplate->rva0033BA46()) const_cast<Image*>(thingTemplate->rva0033BA46())->rva002D937E();
+  }
+ }
+ PlayerTemplate *base=player->base;
+ if(base)rva0031D61E(&base->commandSet);
+ if(!TheMappedImageCollection)return;
+ const Image *push=TheMappedImageCollection->findImageByName(AsciiString("RadialPush"));
+ const Image *over=TheMappedImageCollection->findImageByName(AsciiString("RadialOver"));
+ const Image *border=TheMappedImageCollection->findImageByName(AsciiString("RadialBorder"));
+ const Image *clock1=TheMappedImageCollection->findImageByName(AsciiString("RadialClockOverlay1"));
+ const Image *clock2=TheMappedImageCollection->findImageByName(AsciiString("RadialClockOverlay2"));
+ if(push)const_cast<Image*>(push)->rva002D937E();
+ if(over)const_cast<Image*>(over)->rva002D937E();
+ if(border)const_cast<Image*>(border)->rva002D937E();
+ if(clock1)const_cast<Image*>(clock1)->rva002D937E();
+ if(clock2)const_cast<Image*>(clock2)->rva002D937E();
+}
 
 // tu-skeleton: 0x0031D85D 667B ?populateSpecialPowerShortcut@ControlBar@@IAEXPAVPlayer@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
 
@@ -1591,8 +1730,6 @@ unsigned char Rva0031B53D::rva0031B53D()
 // tu-skeleton: 0x0031DC3C 180B ??4?$vector@UBfmeAsciiScalarValue8@@V?$allocator@UBfmeAsciiScalarValue8@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_scalar8_assign.cpp (not merged yet)
 
 // tu-skeleton: 0x0031DCF0 665B ??1Rva0031DCF0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0031DF89 72B ?GetPurchaseScienceCommandSet@Rva0031D5F8@@QAEPAXPBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva0031D5F8Lookup.cpp (not merged yet)
 
 // tu-skeleton: 0x0031E09E 448B ?reset@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReset.cpp (not merged yet)
 
@@ -1643,20 +1780,6 @@ unsigned char Rva0031B53D::rva0031B53D()
 // tu-skeleton: 0x0077AC62 10B __ehhandler$?setControlBarSchemeByPlayerTemplate@ControlBar@@QAEXPBVPlayerTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_setControlBarSchemeByPlayerTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x0077AD72 10B __ehhandler$?rva0031D230@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarRva0031D230.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AD7C 8B Unwind@00b7ad7c -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AD84 8B Unwind@00b7ad84 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AD8C 8B Unwind@00b7ad8c -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AD94 8B Unwind@00b7ad94 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077AD9C 8B Unwind@00b7ad9c -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077ADA4 8B Unwind@00b7ada4 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
-
-// tu-skeleton: 0x0077ADAC 10B __ehhandler$?rva0031D64F@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarPreloadButtonImages.cpp (not merged yet)
 
 // tu-skeleton: 0x0077ADB6 8B $L5355 -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBar_populateSpecialPowerShortcut.cpp (not merged yet)
 
