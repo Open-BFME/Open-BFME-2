@@ -4197,3 +4197,10 @@ param,Rva002E9ACC::Rva002E9ACC::a1,Rva002E9ACC::Rva002E9ACC::pathfinder,inferred
 local,q4Notify002CCAA1::tmp,q4Notify002CCAA1::multiFieldParse,inferred,agree:nl-fb54f3ff0d7b,Code/GameEngine/Source/GameLogic/Object/Made002CCAA1Parse.cpp,0x0050B23B
 local,Rva0010461F::rva00104359::c,Rva0010461F::rva00104359::cosBisector,inferred,agree:nl-a2dde2cf65a2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp,0x00104359
 local,Rva0010461F::rva00104359::s,Rva0010461F::rva00104359::sinBisector,inferred,agree:nl-061d8b47a3ba,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp,0x00104359
+param,ArmySummaryEntry::MarkForUpgrades::a,ArmySummaryEntry::MarkForUpgrades::armory,inferred,agree:nl-8b25e1717868-m0fbe5cd3786b87dfc1cfd44e,Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp,0x0040C430
+global,?g_00C18D18@@3QBUFieldParse@@B,?carryoverUnitFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-f336611a9785,Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp,0x00818D18
+global,?g_00C39474@@3QBUFieldParse@@B,?armySummaryEntryFieldParse@@3QBUFieldParse@@B,inferred,agree:nl-359f9c52353f,Code/GameEngine/Source/Common/Rva0040C351Ctor.cpp,0x00839474
+local,Drawable::colorFlash::tmp,Drawable::colorFlash::whiteColor,inferred,agree:nl-c74caaddfd6f-m8b2db47b9ae04f626374270e,Code/GameEngine/Source/GameClient/Drawable_rva0027541E.cpp,0x0027541E
+local,Rva000E3B41::rva000E3CE1::c,Rva000E3B41::rva000E3CE1::cameraIndex,inferred,agree:nl-4a41c1b2c0de-m49b8ad233df7a623f1ccaa7c,Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp,0x000E3CE1
+param,Rva00082C98Host::rva00082C98::n,Rva00082C98Host::rva00082C98::newSize,inferred,agree:nl-b3a86db1a5b7-m8565d7036d6ce94e1a493211,Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp,
+local,Rva00082C98Host::rva00082C98::e,Rva00082C98Host::rva00082C98::newEnd,inferred,agree:nl-787ac290caca-m5be745e8f785208c8734aa21,Code/GameEngineDevice/Source/W3DDevice/GameClient/FlatHeightMapUpdateCenter.cpp,

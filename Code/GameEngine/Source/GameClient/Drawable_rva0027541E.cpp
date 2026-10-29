@@ -65,11 +65,11 @@ void Drawable::colorFlash(const RGBColor *peak, unsigned int decayFrames, unsign
 		((TintEnvelope *)m_68)->play(peak, attackFrames, decayFrames, sustainAtPeak);
 	} else {
 		float white = 1.0f;
-		RGBColor tmp;
-		tmp.red = white;
-		tmp.green = white;
-		tmp.blue = white;
-		((TintEnvelope *)m_68)->play(&tmp, 1, 4, 1);
+		RGBColor whiteColor;
+		whiteColor.red = white;
+		whiteColor.green = white;
+		whiteColor.blue = white;
+		((TintEnvelope *)m_68)->play(&whiteColor, 1, 4, 1);
 	}
 	m_114 &= ~4;
 }

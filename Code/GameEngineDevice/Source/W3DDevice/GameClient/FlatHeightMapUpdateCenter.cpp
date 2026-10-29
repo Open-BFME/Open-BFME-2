@@ -71,7 +71,7 @@ public:
 class Rva00082C98Host : public _STL::vector<Vector3>
 {
 public:
-	void rva00082C98(unsigned int n, Vector3 value);
+	void rva00082C98(unsigned int newSize, Vector3 value);
 };
 
 
@@ -212,20 +212,20 @@ void Rva000E3B41::rva000E3CE1(const Rva000E3A8D &cameras, Int arg)
 	}
 	else
 	{
-		for (unsigned int c = 0; c < cameras.size() && !m_camerasMoved; c++)
+		for (unsigned int cameraIndex = 0; cameraIndex < cameras.size() && !m_camerasMoved; cameraIndex++)
 		{
-			Vector3 oldPos = m_cameraPositions[c];
-			RenderObjClass *camera = cameras[c];
+			Vector3 oldPos = m_cameraPositions[cameraIndex];
+			RenderObjClass *camera = cameras[cameraIndex];
 			if ((oldPos - camera->Get_Position()).Length2() > 400.0f)
 				m_camerasMoved = true;
 		}
 	}
 
 	m_cameraPositions.rva00082C98(cameras.size(), Vector3());
-	for (unsigned int c = 0; c < cameras.size(); c++)
+	for (unsigned int cameraIndex = 0; cameraIndex < cameras.size(); cameraIndex++)
 	{
-		RenderObjClass *camera = cameras[c];
-		m_cameraPositions[c] = camera->Get_Position();
+		RenderObjClass *camera = cameras[cameraIndex];
+		m_cameraPositions[cameraIndex] = camera->Get_Position();
 	}
 
 	((BaseHeightMapRenderObjClass *)this)->rva00069CE6(cameras, arg);
@@ -462,16 +462,16 @@ struct VecBase
 	void *m_cap;
 };
 
-void Rva00082C98Host::rva00082C98(unsigned int n, Vector3 value)
+void Rva00082C98Host::rva00082C98(unsigned int newSize, Vector3 value)
 {
 	unsigned int count = (unsigned int)(((char *)((VecBase *)this)->m_end - (char *)((VecBase *)this)->m_begin) / 12);
-	if (n < count)
+	if (newSize < count)
 	{
-		char *e = (char *)((VecBase *)this)->m_begin + n * 12;
-		((_STL::vector<Coord3D, _STL::allocator<Coord3D> > *)this)->erase((Coord3D *)e, (Coord3D *)((VecBase *)this)->m_end);
+		char *newEnd = (char *)((VecBase *)this)->m_begin + newSize * 12;
+		((_STL::vector<Coord3D, _STL::allocator<Coord3D> > *)this)->erase((Coord3D *)newEnd, (Coord3D *)((VecBase *)this)->m_end);
 	}
 	else
 	{
-		((Rva00082719Vector *)this)->fillInsert((Coord3D *)((VecBase *)this)->m_end, n - (unsigned int)(((char *)((VecBase *)this)->m_end - (char *)((VecBase *)this)->m_begin) / 12), *(const Coord3D *)&value);
+		((Rva00082719Vector *)this)->fillInsert((Coord3D *)((VecBase *)this)->m_end, newSize - (unsigned int)(((char *)((VecBase *)this)->m_end - (char *)((VecBase *)this)->m_begin) / 12), *(const Coord3D *)&value);
 	}
 }

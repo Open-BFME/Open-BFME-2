@@ -641,7 +641,7 @@ extern const FieldParse SkirmishAIDataFields[];
 extern "C" const FieldParse __identifier("?s_anim2DFieldParseTable@Anim2DTemplate@@1QBUFieldParse@@B")[];
 extern const FieldParse g_00C1045C[];
 extern "C" const FieldParse __identifier("?m_specialPowerFieldParse@SpecialPowerTemplate@@0QBUFieldParse@@B")[];
-extern const FieldParse g_00C18D18[];
+extern const FieldParse carryoverUnitFieldParse[];
 extern const FieldParse g_00C3B050[];
 extern const FieldParse TheArmyDefinitionFields[];
 
@@ -714,7 +714,7 @@ int Rva003B0FA0Get(void)
 // address-derived name.
 int Rva0040C344Get(void)
 {
-	return reinterpret_cast<int>(g_00C18D18);
+	return reinterpret_cast<int>(carryoverUnitFieldParse);
 }
 
 // ?Rva0041F310Get@@YAHXZ @ 0x0041f310 (6B): returns 0x00c3b050.

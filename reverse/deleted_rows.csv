@@ -3996,3 +3996,5 @@ __ehhandler$?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0079CC92,"Renamed to __ehh
 ?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0038901D,"Renamed to ?toString@Rva0038901D@@QAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
 __ehhandler$?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0078002C,"Renamed to __ehhandler$?toString@Rva0038901D@@QAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
 ?Rva0018BD7BGet@@YAMXZ,0x0018BD7B,"Renamed to ?getFogRangeStart@@YAMXZ by tools/rename.py (inferred)"
+?g_00C18D18@@3QBUFieldParse@@B,0x00818D18,"Renamed to ?carryoverUnitFieldParse@@3QBUFieldParse@@B by tools/rename.py (inferred)"
+?g_00C39474@@3QBUFieldParse@@B,0x00839474,"Renamed to ?armySummaryEntryFieldParse@@3QBUFieldParse@@B by tools/rename.py (inferred)"

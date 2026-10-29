@@ -38,7 +38,7 @@ public:
 	ArmySummaryEntry();
 	ArmySummaryEntry(const ArmySummaryEntry &o);
 	void Parse(class INI *ini);
-	void MarkForUpgrades(const class Rva004E0632 *a);
+	void MarkForUpgrades(const class Rva004E0632 *armory);
 	void CancelUpgrades();
 	void ApplyWorldMapUpgrades();
 	Object *rva0040C495(class Player *player, int handle);
@@ -57,7 +57,7 @@ extern "C" {
 void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
 }
 // The retail table at 0x00839474: 1 entries and the null terminator; every parser is a rowed code owner.
-extern const FieldParse g_00C39474[2] = {
+extern const FieldParse armySummaryEntryFieldParse[2] = {
 	{ "Default", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC5 },
 	{ 0, 0, 0, 0 }
 };
@@ -66,7 +66,7 @@ void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z")();
 }
 // The retail table at 0x00818D18: 2 entries and the null terminator; every parser is a rowed code owner.
-extern const FieldParse g_00C18D18[3] = {
+extern const FieldParse carryoverUnitFieldParse[3] = {
 	{ "ThingTemplate", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
 	{ "Quantity", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x90 },
 	{ 0, 0, 0, 0 }
@@ -108,17 +108,17 @@ struct Rva0040C430Ret
 void ArmySummaryEntry::Parse(INI *ini)
 {
 	MultiIniFieldParse parse;
-	parse.add(g_00C39474, 0);
-	parse.add(g_00C18D18, 0);
+	parse.add(armySummaryEntryFieldParse, 0);
+	parse.add(carryoverUnitFieldParse, 0);
 	ini->initFromINIMulti(this, parse);
 }
 
-void ArmySummaryEntry::MarkForUpgrades(const Rva004E0632 *a)
+void ArmySummaryEntry::MarkForUpgrades(const Rva004E0632 *armory)
 {
 	if (m_bc != 0)
 		return;
-	m_bc = *(const int *)((const char *)a + 0x18);
-	int raw = a->rva004E0632();
+	m_bc = *(const int *)((const char *)armory + 0x18);
+	int raw = armory->rva004E0632();
 	if (raw == 0)
 		return;
 	((Rva0040C430Ret *)raw)->slotC(this);
