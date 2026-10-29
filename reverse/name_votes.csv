@@ -17029,3 +17029,17 @@ Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp|global||g_bfmeFes
 Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp|global||g_bfmeFeslFieldSeparator,b8e02ace7fdf17eab453d31c,drz-k2,drz-k2-20,w-ded32b2e2c5e,2026-10-29
 Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp|global||g_Rva011293A0HexFirst,24d3a4c52ff7db5c741a4002,drz-k2,drz-k2-20,w-ded32b2e2c5e,2026-10-29
 Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp|global||g_Rva011294A8HexSecond,49bea748048f268f781ce98b,drz-k2,drz-k2-20,w-ded32b2e2c5e,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/ObjectCreationListStore.cpp|local|ObjectCreationListStore::~ObjectCreationListStore|n,be0f400063d2dbb8361d46e0,drz-k3,drz-k3-3,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp|global||g_00DB3F7C,e48c9a647dc108795bbe61cf,drz-k3,drz-k3-8,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideUpdate.cpp|param|rawField|p,de528b67a46f51933372474f,drz-k3,drz-k3-11,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/BfmeConv1038O1.cpp|local|ArmySummarySystem::rva0040D008|r,df3f41747a469b58a384fb4e,drz-k3,drz-k3-13,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/BfmeConv1038O1.cpp|local|ArmySummarySystem::rva0040D025|y,d615d8be35357bb59ba5d6c1,drz-k3,drz-k3-13,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva00525ABFXfer.cpp|local|Rva00525ABF::rva00525ABF|n10,a62f15ab1ba435d29d18c94a,drz-k3,drz-k3-16,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|param|Rva003B0D7C::withdraw|arg2,a62b145b4a42ebb54bbe476d,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|local|Rva003B0D7C::withdraw|g,895532694b5266f4b90e5670,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|param|Rva003B0D7C::rva003B0D7C|arg2,2db9bcb608551a16db4d3b25,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|local|Rva003B0D7C::rva003B0D7C|g,1e4f64f1ed537fb36a54a787,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29
+Code/Libraries/Source/WWVegas/WWLib/Rva005657FEFind.cpp|function|0x005657FE|rva005657FE,4d82ee22784818ea03194f29,drz-k3,drz-k3-23,w-077d7aeb666b,2026-10-29
+Code/Libraries/Source/WWVegas/WWLib/Rva005657FEFind.cpp|local|Rva005657FEOwner::rva005657FE|e,d1a99be67ebd2e80391391d0,drz-k3,drz-k3-23,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva00566695Assign.cpp|function|0x00566A9A|Rva00566A9ACopyRange,79837c688d0d5be81fc138f7,drz-k3,drz-k3-24,w-077d7aeb666b,2026-10-29
+Code/GameEngine/Source/Common/Rva00566695Assign.cpp|local|Rva0056693DCopy|n,1ebcdd6a59986b5ce12ec8bb,drz-k3,drz-k3-24,w-077d7aeb666b,2026-10-29

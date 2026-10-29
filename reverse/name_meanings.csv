@@ -164,3 +164,8 @@ Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp|local|ArmySumm
 Code/GameEngine/Source/GameLogic/System/ArmySummarySystemLoad.cpp|local|ArmySummarySystem::rva0040F87E|u,c78234a52d376151639595f8,drz-k1,drz-k1-1,w-d29055ee9848,2026-10-29,1d421f42e692f9e3c1935732
 Code/GameEngine/Source/Common/AptTranslator.cpp|param|Rva004328D8Emit|p,e5bb3a9aa3500a50c5fbea0e,drz-k1,drz-k1-4,w-d29055ee9848,2026-10-29,959cbddf10b26e9a9cf690e8
 Code/GameEngine/Source/Common/Rva0042C5C3Dtor.cpp|param|Rva0042C5C3::rva0042C0DB|p,c58087ab17d46f45448aeca9,drz-k1,drz-k1-12b,w-d29055ee9848,2026-10-29,4a37c0b59dd770965f9aa1e1
+Code/GameEngine/Source/GameLogic/Object/Collide/AODCrushCollideUpdate.cpp|param|rawField|p,de528b67a46f51933372474f,drz-k3,drz-k3-11,w-077d7aeb666b,2026-10-29,338ca2263c15bf368d2bc5d6
+Code/GameEngine/Source/Common/Rva00525ABFXfer.cpp|local|Rva00525ABF::rva00525ABF|n10,a62f15ab1ba435d29d18c94a,drz-k3,drz-k3-16,w-077d7aeb666b,2026-10-29,85f4d64710015618685b91be
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|param|Rva003B0D7C::withdraw|arg2,a62b145b4a42ebb54bbe476d,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29,d8e1c070c6d1e3b97f04f743
+Code/GameEngine/Source/Common/RTS/MoneyRva003B0D7C.cpp|param|Rva003B0D7C::rva003B0D7C|arg2,2db9bcb608551a16db4d3b25,drz-k3,drz-k3-21,w-077d7aeb666b,2026-10-29,712dc6c122d2f4fa50206fcd
+Code/GameEngine/Source/Common/Rva00566695Assign.cpp|local|Rva0056693DCopy|n,1ebcdd6a59986b5ce12ec8bb,drz-k3,drz-k3-24,w-077d7aeb666b,2026-10-29,1acd85a7a058a0ac8e29b4ca
