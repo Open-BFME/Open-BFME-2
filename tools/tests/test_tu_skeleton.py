@@ -1523,6 +1523,33 @@ class ClaimTests(unittest.TestCase):
         self.assertEqual(held, ["file:Code/A.cpp"])
         self.assertEqual(len(calls), 1)
 
+    def test_a_refused_claim_push_is_not_reported_as_another_workers_hold(self):
+        don = {"Code/A.cpp": [{"target_rva": "0x00001010"}]}
+        keys = T.claim_keys("Code/T.cpp", don)
+        everything = [T.claims.key_of(k) for k in keys]
+        original = T.claims.claim
+        T.claims.claim = lambda keys, note="", root=None: SimpleNamespace(
+            refused=everything, unconfirmed=everything, claimed=[])
+        try:
+            held = T.claim_scope("Code/T.cpp", don)
+        finally:
+            T.claims.claim = original
+        self.assertEqual(list(held), keys)
+        message = T.held_message(held)
+        self.assertTrue(message.startswith("claim push failed"), message)
+        self.assertNotIn("another worker", message.split("(")[0])
+        # a key a peer really holds still reads as held, even beside unconfirmed ones
+        T.claims.claim = lambda keys, note="", root=None: SimpleNamespace(
+            refused=everything, unconfirmed=everything[1:], claimed=[])
+        try:
+            held = T.claim_scope("Code/T.cpp", don)
+        finally:
+            T.claims.claim = original
+        self.assertEqual(T.held_message(held), "held by another worker: file:Code/T.cpp")
+        unavailable = T.Held(["(claims unavailable: x)"])
+        unavailable.unavailable = "x"
+        self.assertTrue(T.held_message(unavailable).startswith("claims unavailable"))
+
     def test_a_partly_won_scope_is_released_when_another_worker_holds_the_rest(self):
         T._CACHE.clear()
         T._CACHE["ledger"] = [{"name": "?a@@YAXXZ", "export_rva": "", "target_rva": "0x00001000", "target_size": "8",

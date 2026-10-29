@@ -1470,7 +1470,7 @@ def merge(tu, dry_run=False, log=print, claim=True):
         held = claim_scope(tu, don)
         if held:
             claims.release(claim_keys(tu, don))     # the part of the scope we did win goes back
-            report["blocked"] = "held by another worker: " + ", ".join(held[:5])
+            report["blocked"] = held_message(held)
             return report
         report = _merge(tu, sk, don, report, dry_run)
         if "blocked" in report:   # nothing was written: give the scope back
@@ -2416,7 +2416,7 @@ def split(path, tu, dry_run=False, claim=True):
         held = claim_scope(tu, {path: carved})
         if held:
             claims.release(claim_keys(tu, {path: carved}))
-            report["blocked"] = "held by another worker: " + ", ".join(held[:5])
+            report["blocked"] = held_message(held)
             return report
         report = _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
         if "blocked" in report:
@@ -2791,17 +2791,44 @@ def claim_keys(tu, don):
     return keys + sorted({r["target_rva"] for rows in don.values() for r in rows})
 
 
+class Held(list):
+    """claim_scope's refused keys. `unconfirmed` names those whose claim push failed while no
+    other worker held them (origin refused the push, e.g. no write access, or never confirmed
+    it); `unavailable` is set when origin could not be read at all."""
+    unconfirmed = ()
+    unavailable = ""
+
+
 def claim_scope(tu, don, root=ROOT):
-    """Claim the TU, its donors and their rows; [] or the keys another worker holds."""
+    """Claim the TU, its donors and their rows; [] or the keys we did not get (a Held list)."""
     keys = claim_keys(tu, don)
     try:
         res = claims.claim(keys, note=f"tu_skeleton {tu}", root=root)
     except claims.ClaimsUnavailable as e:
-        return [f"(claims unavailable: {e})"]
+        held = Held([f"(claims unavailable: {e})"])
+        held.unavailable = str(e)
+        return held
     if res.refused:
         names = {claims.key_of(k): k for k in keys}
-        return [str(names.get(k, k)) for k in res.refused]
+        held = Held(str(names.get(k, k)) for k in res.refused)
+        held.unconfirmed = [str(names.get(k, k)) for k in getattr(res, "unconfirmed", ())]
+        return held
     return []
+
+
+def held_message(held):
+    """The `blocked` text for a scope claim_scope did not get. Only keys a peer holds are
+    "held by another worker"; a claim push origin refused or never confirmed, with nobody
+    holding the keys, is reported as such (a token without write access read as a peer's
+    claim, 2026-10-29)."""
+    if getattr(held, "unavailable", ""):
+        return "claims unavailable (origin could not be read): " + held.unavailable
+    unconfirmed = set(getattr(held, "unconfirmed", ()))
+    others = [k for k in held if k not in unconfirmed]
+    if others:
+        return "held by another worker: " + ", ".join(others[:5])
+    return ("claim push failed (origin refused or did not confirm it; no other worker holds these "
+            "keys; check push access to origin): " + ", ".join(list(held)[:5]))
 
 
 def repoint_sources_cfg(raw, gone, tu):
