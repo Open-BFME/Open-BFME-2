@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
 // ScriptEngine client-debug-frame updater at retail 0x00204806 (55B).
 // BFME1 ScriptEngineDebugFrame.cpp _bfme_updateClientDebugFrame port: the
 // middle (debug-window inputs + SetFrameNumber proc call) is factored into
@@ -12,13 +13,11 @@
 //   returns leaving the latch alone (BFME1 inner return).
 // Human-readable names; TU-local ScriptEngine view (flag offset only).
 
-typedef int HMODULE;
+#include <windows.h>
 extern int st_DebugDLL;
 
 // g_00DFE15C: VA 0x00dfe15c (.data); retail initial bytes 00 00 00 00.
 unsigned char g_00DFE15C;
-
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *name);
 
 void rva00204094();
 
@@ -41,7 +40,7 @@ void ScriptEngine::_bfme_updateClientDebugFrame()
 
 	rva00204094();
 
-	HMODULE module = TheScriptDebugWindowDLL;
+	HMODULE module = reinterpret_cast<HMODULE>(TheScriptDebugWindowDLL);
 	if (module)
 	{
 		typedef unsigned char (__stdcall *CanAppContinueProc)();

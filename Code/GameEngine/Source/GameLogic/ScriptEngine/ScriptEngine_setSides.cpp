@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii
+// platformsdk
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Sides-list setter gate at retail 0x00203C21 (89B).
 // Decoded from retail bytes (all verified, no E8 calls):
@@ -18,10 +19,8 @@ extern class View *TheTacticalView;
 extern class TerrainLogic *TheTerrainLogic;
 extern class ThingFactory *TheThingFactory;
 
-typedef int HMODULE;
+#include <windows.h>
 extern int st_DebugDLL;
-
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *name);
 
 #define TheAppModule st_DebugDLL
 #define Rva00DFE78C (*(void **)&TheGameLogic)
@@ -36,7 +35,7 @@ extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, 
 
 void rva00203C21()
 {
-	HMODULE app = TheAppModule;
+	HMODULE app = reinterpret_cast<HMODULE>(TheAppModule);
 	if (!app)
 		return;
 

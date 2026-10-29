@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
 // ScriptEngine app-continuation gate at retail 0x00203B47 (106B).
 // Decoded from retail bytes (all verified):
 // - TheGameLogic->isGamePaused() row gate (matched 7B leaf at 0x23CD97).
@@ -10,14 +11,12 @@
 
 extern class GlobalData *TheWritableGlobalData;
 
-typedef int HMODULE;
+#include <windows.h>
 
 // g_00DFE158: VA 0x00dfe158 (.data/bss); retail zero-filled.
 extern int st_DebugDLL;
 // g_00DFE168: VA 0x00dfe168 (.data/bss); retail zero-filled.
 unsigned char g_00DFE168;
-
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *name);
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -43,8 +42,8 @@ bool Rva00203B47Host::rva00203B47()
 	if (!TheAppModule)
 		return false;
 
-	GetProcAddress(TheAppModule, "CanAppContinue");
-	void *runFast = GetProcAddress(TheAppModule, "RunAppFast");
+	GetProcAddress(reinterpret_cast<HMODULE>(TheAppModule), "CanAppContinue");
+	FARPROC runFast = GetProcAddress(reinterpret_cast<HMODULE>(TheAppModule), "RunAppFast");
 
 	typedef bool (__stdcall *AppProc)();
 	if (!runFast || !((AppProc)runFast)())
@@ -59,17 +58,17 @@ latchFail:
 	return false;
 }
 
-extern HMODULE st_DebugDLL;
+extern int st_DebugDLL;
 // ?st_DebugDLL@@3HA (data_ledger RVA 0x9FE158, null .data, unowned): debug
 // DLL handle, LoadLibrary'd on demand; defined here, nothing else defines it.
-HMODULE st_DebugDLL = 0;
+int st_DebugDLL = 0;
 
 void Rva00203BB1ForceAppContinue()
 {
 	if (!st_DebugDLL)
 		return;
 
-	void *proc = GetProcAddress(st_DebugDLL, "ForceAppContinue");
+	FARPROC proc = GetProcAddress(reinterpret_cast<HMODULE>(st_DebugDLL), "ForceAppContinue");
 	if (proc)
 		((void (__cdecl *)())proc)();
 }

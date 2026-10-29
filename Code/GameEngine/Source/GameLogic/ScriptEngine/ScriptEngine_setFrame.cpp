@@ -1,4 +1,5 @@
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
+// platformsdk
 // ScriptEngine frame setter at retail 0x00204094 (83B).
 // Decoded from retail bytes (all verified):
 // - Calls rva00203C21 row (SetTheSidesList gate, 89B) then GetProcAddress
@@ -13,10 +14,9 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 extern class GameClient *TheGameClient;
 
-typedef int HMODULE;
-extern int st_DebugDLL;
+#include <windows.h>
 
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *name);
+extern int st_DebugDLL;
 
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -54,7 +54,7 @@ void rva00204094()
 		return;
 	rva00203C21();
 	typedef void (__cdecl *SetFrameProc)(int value);
-	SetFrameProc proc = (SetFrameProc)GetProcAddress(TheAppModule, "SetFrameNumber");
+	SetFrameProc proc = (SetFrameProc)GetProcAddress(reinterpret_cast<HMODULE>(TheAppModule), "SetFrameNumber");
 	if (!proc)
 		return;
 	int value;
@@ -75,7 +75,7 @@ void Rva002040E7GetFrameNumber()
 		return;
 	rva00203C21();
 	typedef void (__cdecl *SetFrameProc)(int value);
-	SetFrameProc proc = (SetFrameProc)GetProcAddress(TheAppModule, "SetFrameNumber");
+	SetFrameProc proc = (SetFrameProc)GetProcAddress(reinterpret_cast<HMODULE>(TheAppModule), "SetFrameNumber");
 	if (!proc)
 		return;
 	GameLogic *logic = TheGameLogic;

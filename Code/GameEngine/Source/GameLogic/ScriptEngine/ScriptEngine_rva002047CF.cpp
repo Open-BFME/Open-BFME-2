@@ -1,10 +1,10 @@
 // cl: /O1 /arch:SSE /G7
+// platformsdk
 // ?rva002047CF@ScriptEngine@@QAEXXZ at 0x002047CF (55B). Identity: ScriptEngine field offset matches the adjacent named client updater; shared frame getter and debug DLL state.
 
-typedef int HMODULE;
-extern HMODULE st_DebugDLL;
+#include <windows.h>
+extern int st_DebugDLL;
 extern unsigned char g_00DFE15D;
-extern "C" __declspec(dllimport) void *__stdcall GetProcAddress(HMODULE module, const char *name);
 void Rva002040E7GetFrameNumber();
 
 class ScriptEngine
@@ -24,7 +24,7 @@ void ScriptEngine::rva002047CF()
 	if (st_DebugDLL)
 	{
 		typedef unsigned char (__stdcall *CanAppContinueProc)();
-		CanAppContinueProc proc = (CanAppContinueProc)GetProcAddress(st_DebugDLL, "CanAppContinue");
+		CanAppContinueProc proc = (CanAppContinueProc)GetProcAddress(reinterpret_cast<HMODULE>(st_DebugDLL), "CanAppContinue");
 		if (proc)
 			g_00DFE15D = proc();
 		return;

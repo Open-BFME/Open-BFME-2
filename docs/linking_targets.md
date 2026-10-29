@@ -1,5 +1,12 @@
 # Linking target checklist
 
+ScriptEngine debug callback SDK cleanup (2026-10-29, base `5eb27ead8e`):
+five sources retain 8/8 exact rows, identical COMDATs/relocations and 551 preview
+LINKS bytes while retiring five Microsoft-header queue rows (ten declarations).
+Strict provider checks pass; the older-index batch audit remains inconclusive
+on the missing CreateAHeroManager consumer receipt. Consumer/census confirmation
+remains pending. [Evidence](../reverse/attempt_support/script-debug-sdk-20261029.md).
+
 GameWindow slot10 follow-up (2026-10-29, base `e584f589295`): both native-width
 table emitters replace their false purecall with the existing constant body's
 verified GameWindow ICF member. All 73 rows and exact 44-byte table relocation
