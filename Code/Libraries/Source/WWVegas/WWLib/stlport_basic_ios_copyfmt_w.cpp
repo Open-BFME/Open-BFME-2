@@ -1,4 +1,5 @@
 // cl: /Ob0 /MD
+// stlport46
 
 // Open-BFME5: _STL::basic_ios<unsigned short>::copyfmt, retail 0x0083F610, 117 bytes (unsigned short fill).
 // STLport 4.5.3 walks the callback array backwards with erase_event, copies
