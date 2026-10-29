@@ -1,5 +1,5 @@
 // cl: /O1 /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // BFME2 record copy at0x63BE4: seven words, an AsciiString, two tail bytes.
 // The original application class and field meanings are unknown.
 // The36-byte layout and memberwise copy are read directly from the complete
