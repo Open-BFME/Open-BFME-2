@@ -2993,6 +2993,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?f4
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?wt0@Tail3e4@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?wt1@Tail3e8@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Module/WorkerAIUpdateDtor.cpp	?wt2@Tail3ec@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp	??1Rva00355B61@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/AiOrdersManager.cpp	?dup_00355257@@YAXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	??1Rva0060CC99Member@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Armor.cpp	?find@FXListMap@@QBEPAUFXListMapNode@@ABW4NameKeyType@@@Z	1
@@ -3215,7 +3216,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?Rva000308
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva001E86D0.cpp	?rvaClear@Rva001E7087@@AAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	?g_00DFE490@@3VRva00575674@@A	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva0028D8EB.cpp	?hasSpecialPower@Object@@QBE_NW4SpecialPowerType@@@Z	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00355B61Ctor.cpp	??1Rva00355B61@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00355BDADtor.cpp	??1ArmorTemplateMap@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva00361594Assign.cpp	?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Rva003623E5MemberCtor.cpp	??0Rva003623E5Filter@@QAE@XZ	1
