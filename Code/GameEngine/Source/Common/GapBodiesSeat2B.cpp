@@ -44,13 +44,13 @@ Rva000B3F5BRecord *Rva000B3F5B::getRecord(int index)
 class Rva00135F0C
 {
 public:
-	int *rva00135F0C(int index);
+	int *GetItem(int index);
 private:
 	int m_00;
 	int *m_items;
 };
 
-int *Rva00135F0C::rva00135F0C(int index)
+int *Rva00135F0C::GetItem(int index)
 {
 	return &m_items[index];
 }

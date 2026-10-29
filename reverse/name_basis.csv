@@ -4349,3 +4349,4 @@ param,Rva00030C50Heap::rva000315C0::p,Rva00030C50Heap::rva000315C0::checkedAddre
 local,Rva00030C50Heap::rva00031710::p,Rva00030C50Heap::rva00031710::coreMemory,inferred,agree:nl-ab7eb9fcd1ca,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,0x00031710
 param,Rva00030C50Heap::rva00031750::p,Rva00030C50Heap::rva00031750::coreAddress,inferred,agree:nl-5c685af0c3d0,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,0x00031750
 function,?rva00030C10@@YAII@Z,?getSmallBinIndexFromChunkSize@@YAII@Z,inferred,agree:nl-c747e70b8bf6,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,0x00030C10
+function,?rva00135F0C@Rva00135F0C@@QAEPAHH@Z,?GetItem@Rva00135F0C@@QAEPAHH@Z,inferred,agree:nl-0e0cdc2e824c,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,0x00135F0C

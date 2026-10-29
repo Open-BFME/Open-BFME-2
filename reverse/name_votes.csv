@@ -14682,3 +14682,7 @@ Code/GameEngine/Source/Common/BfmeCellAt.cpp|param|Rva0073BE00::rva0073BE00|a,b8
 Code/GameEngine/Source/Common/BfmeCellAt.cpp|param|Rva0073BE00::rva0073BE00|b,53b2dd460951df2256d23286,gpt-6.1-sol,w1-10290433-2,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/Common/BfmeCellAt.cpp|local|Rva0073BE00::rva0073BE00|x,5c1b620741a7df2b53371062,gpt-6.1-sol,w1-10290433-2,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/Common/BfmeCellAt.cpp|local|Rva0073BE00::rva0073BE00|y,da75fd81ca6692f08dd87f14,gpt-6.1-sol,w1-10290433-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|member|Rva0010E4C6|m_94,e39310ab308866379d9e0d68,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|member|Rva001338A0|m_08,905a356a360cc8155aa679bd,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|function|0x00135F0C|rva00135F0C,d5e9f244fc9cd1693daf675e,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|function|0x0010E4C6|rva0010E4C6,6c542404f7bae12c44d644c2,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29

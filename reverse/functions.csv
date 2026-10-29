@@ -71903,7 +71903,7 @@ __Locale_ctype_default,,0x00021980,5,Code/Libraries/Source/WWVegas/WWLib/stlport
 ?clear@Rva000C24EAVector@@QAEXXZ,,0x000C6901,11,Code/Libraries/Source/WWVegas/WWLib/Rva000C24EAVectorErase.cpp,matched,vector clear: eraseRange 0x000C4DBC over start/finish; no direct caller
 ?getElement@Rva000AD711@@QAEPAGH@Z,,0x000AD711,12,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,address of 16-bit element index of the array at +0; no direct caller
 ?getRecord@Rva000B3F5B@@QAEPAURva000B3F5BRecord@@H@Z,,0x000B3F5B,12,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,address of 64-byte record index of the array at +0; no direct caller
-?rva00135F0C@Rva00135F0C@@QAEPAHH@Z,,0x00135F0C,13,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,address of dword index of the array at +4; no direct caller
+?GetItem@Rva00135F0C@@QAEPAHH@Z,,0x00135F0C,13,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,address of dword index of the array at +4; no direct caller
 ?size@Rva000CF0FF@@QBEHXZ,,0x000CF0FF,12,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,element count of the 0x4C-byte record range at +0/+4; no direct caller
 ?Rva000B2B7CScale@@YAMM@Z,,0x000B2B7C,11,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,matched,argument times 0.001f (VA 0x00BC28F8); no direct caller
 ?get@Rva000B2380CmpBoolField@@QBE_NXZ,,0x000B2380,11,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp,matched,byte flag +0x43C ternary bool getter; no direct caller
