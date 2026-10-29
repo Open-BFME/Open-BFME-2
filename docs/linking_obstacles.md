@@ -8391,3 +8391,33 @@ Update 2026-10-28 (module-contract pass):
   (2) BehaviorModuleInterface, UpgradeMux and ModuleInterface from their
   retail tables (UpgradeModule installs 0x00C42720 (18 slots) and 0x00C42768).
   (3) The per-TU leaf and Object views named above.
+
+Update 2026-10-28 (generator pass):
+
+- class_contract review fixes landed (f1aea79ad0): disagreeing base extents
+  or slot counts and leaves the bases do not declare are queued before any
+  member is dropped, and the retail vftable bound judges the inherited slots.
+- The generator now declares decided vslots (ad330fd48a); an undecided slot,
+  a tie or a gap refuses. Six Module views were retargeted to the retail
+  slots (a6d5334f7d). Generation still refuses Module: the view majority
+  sizeof is 4 and GameLogic.cpp (claimed by another seat) spells ZH order,
+  so slot 9 repeats loadPostProcess. A hand-written
+  `Code/GameEngine/Include/Common/Module.h` (Snapshot base, slots 4-8,
+  m_moduleData +4) is adopted in 39/81 units (b5a7b8290a); 42 queued.
+- GateOpenAndCloseBehaviorOnObjectCreated's body (0x0049936A) sits in slot 1
+  of 0x00C50144 (loadPostProcess's slot) and calls
+  `BehaviorModule::loadPostProcess()` first: its ledger name
+  `onObjectCreated` is probably wrong (vtable-slot hint only; for the naming
+  lane). Its view was left alone.
+- ObjectModule and DrawableModule still refuse: their views do not spell
+  the Module base, so slots 1-8 (ObjectModule also 9-12) are undecided, and
+  DrawableModule's views put ZH's onCapture/onDisabledEdge at slots 9-10,
+  where retail DrawableModule returns 0. Their views need the same
+  retargeting first.
+- Reach (40-view seeded samples, top 36 establish-header classes of
+  `order --merges`): 12 now generate (ObjectShroudClient, ScriptEngine,
+  BehaviorModuleBase, BehaviorModuleOther, UpdateModuleInterface,
+  CollideModuleInterface, MemoryPoolObject, Team, Overridable,
+  SpecialPowerUpdateInterface, Rva0044EF5E, B0); 24 refuse on queued
+  sizes/fields or undecided, tied or gapped slots (Object: size; Thing,
+  Drawable: slot 0; AIUpdateInterface: 141 queued slots).
