@@ -64,6 +64,8 @@ public:
 	void rva00537E90(float v);
 };
 
+// ---- from Code/GameEngine/Source/Common/WaterArea.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva00537E7CSetter.cpp
 
 void WaterArea::rva00537E7C(bool v)
@@ -73,8 +75,6 @@ void WaterArea::rva00537E7C(bool v)
 		v4();
 	}
 }
-
-// tu-skeleton: 0x00537E90 29B ?rva00537E90@WaterArea@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva00537E90Setter.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00537EADWrite.cpp
 
@@ -89,14 +89,6 @@ void Rva00537EAD::rva00537EAD(DataChunkOutput *output)
 	output->writeByte(m_byte2C);
 }
 
-// tu-skeleton: 0x00537EE9 109B ?apply@Rva00537F56List@@QAEXABURva00537EE9Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00537F56 30B ?forEach@Rva00537F56List@@QAEXP8Rva0053805DListener@@AEXPAVRva0053805DBase@@@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
-
-// tu-skeleton: 0x00537F74 44B ?rva00537F74@WaterArea@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00537F74Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x00537FA0 44B ?rva00537FA0@WaterArea@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00537FA0Setter.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/WaterArea_parse.cpp
 
 // ?parse@WaterArea@@QAEXAAVDataChunkInput@@PAX@Z @0x00537FCC 145B DataChunkInput field loader via rowed setters.
@@ -108,6 +100,50 @@ void WaterArea::parse(DataChunkInput &input, void *)
 	rva00537FA0(input.readAsciiString());
 	rva00537E90(input.readReal());
 	rva00537E7C(input.readByte() != 0);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00537E90Setter.cpp
+
+void WaterArea::rva00537E90(float v)
+{
+	if (v != m_f28) {
+		m_f28 = v;
+		v5();
+	}
+}
+
+// tu-skeleton: 0x00537EE9 109B ?apply@Rva00537F56List@@QAEXABURva00537EE9Call@@@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// tu-skeleton: 0x00537F56 30B ?forEach@Rva00537F56List@@QAEXP8Rva0053805DListener@@AEXPAVRva0053805DBase@@@Z0@Z -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00537F74Setter.cpp
+
+// ?rva00537F74@WaterArea@@QAEXABVAsciiString@@@Z @0x00537F74 44B setter: if arg.compare(m_s20)!=0 then m_s20.set(arg) plus virtual [eax+8].
+// Evidence: packet disassembly; callees rowed compare 0x000069D6 set 0x000366F0; caller 0x00537FCC passes AsciiString temp; prev row 0x00537EAD same +0x20 string.
+
+void WaterArea::rva00537F74(const AsciiString &asciiString)
+{
+	const StringBase<char> &vs = reinterpret_cast<const StringBase<char> &>(asciiString);
+	StringBase<char> &ms = reinterpret_cast<StringBase<char> &>(m_s20);
+	if (vs.compare(ms) != 0) {
+		ms.set(vs);
+		v2();
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00537FA0Setter.cpp
+
+// ?rva00537FA0@WaterArea@@QAEXABVAsciiString@@@Z @0x00537FA0 44B setter: if arg.compare(m_s24)!=0 then m_s24.set(arg) plus virtual [eax+0xc].
+// Evidence: packet disassembly; callees rowed compare 0x000069D6 set 0x000366F0; prev row 0x00537F74 same shape at +0x20 with [eax+8].
+
+void WaterArea::rva00537FA0(const AsciiString &asciiString)
+{
+	const StringBase<char> &vs = reinterpret_cast<const StringBase<char> &>(asciiString);
+	StringBase<char> &ms = reinterpret_cast<StringBase<char> &>(m_s24);
+	if (vs.compare(ms) != 0) {
+		ms.set(vs);
+		v3();
+	}
 }
 
 // tu-skeleton: 0x00797806 8B uw_00797806 -- matched in Code/GameEngine/Source/Common/Rva00308AA4Notifiers.cpp (not merged yet)
