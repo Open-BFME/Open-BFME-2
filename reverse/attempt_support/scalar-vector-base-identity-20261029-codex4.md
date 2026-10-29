@@ -62,3 +62,15 @@ commits. `link_batch_audit.py` remains INCONCLUSIVE because its index is at
 `85f6b7f40c`, behind the outgoing base, and the affected consumer
 `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
 receipt. This is pending consumer verification, not a clean batch result.
+
+## Remaining definition obstacle observed by the commit hook
+
+The successful pre-commit hook reports one separate shadow finding:
+`definition: divergent | ??1?$_Vector_base@UBfmeAsciiScalarValue8@@V?$allocator@UBfmeAsciiScalarValue8@@@_STL@@@_STL@@QAE@XZ`.
+A narrow `dup_defs.analyse` inspection confirms two 24-byte COMDAT variants,
+in `StringContainerRecordCopyBFME2.cpp` and this scalar-vector source. Its
+current kept copy is the container-record object; the tool reports no owner
+and `kept_verdict=none`. Both C++ sources are unchanged by this repair. The
+zero-wrong-binding result above does not clear this definition finding.
+Reconcile these destructor providers in a separately claimed source repair,
+then repeat the identity gate and consumer audit before census confirmation.

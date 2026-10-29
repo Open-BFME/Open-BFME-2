@@ -476,6 +476,11 @@ claimed. The eight outgoing providers have current strict receipts (42/42
 function rows, four data rows), but the batch audit remains INCONCLUSIVE on
 the older index and missing current CreateAHeroManager consumer receipt.
 Carry this provider and its consumers into the next scheduled census.
+The successful commit hook also exposes a separate shadow divergent
+`_Vector_base<BfmeAsciiScalarValue8>` destructor: two 24-byte COMDAT variants
+in this source and `StringContainerRecordCopyBFME2.cpp`, with no certified
+retail owner. These unchanged providers need a separate reconciliation;
+zero wrong call bindings does not clear this definition finding.
 [Evidence and initial refused admission](../reverse/attempt_support/scalar-vector-base-identity-20261029-codex4.md).
 
 ### Holder placement-new header cleanup (2026-10-29)
