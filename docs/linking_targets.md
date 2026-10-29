@@ -8,6 +8,14 @@ This adds zero unique matched bytes and claims no census gain. Full consumer
 closure, original member names and complete layout remain open.
 [Native proof and admission](../reverse/attempt_support/gamewindow-slot10-link-20261029/readme.md).
 
+Tree-erase queue follow-up (2026-10-29, `36091192a6`): the four previously
+repaired CRT-header helpers pass 4/4 rows and retain 188 authored preview
+bytes against `85f6b7f40c`. Scoped header-auditor refresh removes their four
+obsolete queue entries. The same selection pass reproduces
+Rva00566695Assign.cpp's existing two COMDAT/one selected-copy failures;
+LINK-064's family identity prerequisite remains. No census gain is claimed.
+[Checks and selection handoff](../reverse/attempt_support/tree-erase-crt-header-20261027.md#scoped-queue-retirement-2026-10-29).
+
 XferSaveAsText header follow-up (2026-10-29, base `eb384b72a1`): the shared
 Xfer header's opt-in imported-inline constructor preserves the existing
 emission contract and removes the text saver's private base definition.

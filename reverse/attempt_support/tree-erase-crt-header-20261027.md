@@ -32,6 +32,31 @@ The joint ordinary link preview reports 4/4 LINKS, 188 -> 188 authored bytes,
 against index `73061d9452` (2026-10-27 14:34). No census gain is claimed.
 The committed Microsoft-header queue is an older scan; it was not regenerated.
 
+## Scoped queue retirement (2026-10-29)
+
+Inspected revision: `36091192a6`. The default Microsoft-header picker still
+served Rva002CF32FErase.cpp's obsolete local-free finding after the source
+repair landed as `ae0a668f96`. The other three helpers retained identical
+stale queue entries. All four source claims were acquired for this check.
+
+Current `./build.sh` verification passes 4/4 rows (188 bytes), and the
+frozen-file check passes. `ms_header_audit.py show` classifies all four
+sources as clean. The auditor's `scan_files` and scoped `refresh_queue` API
+remove exactly these four entries from `reverse/ms_header_queue.tsv`,
+preserving every unrelated record. No source, ledger, pin or baseline changes.
+
+Ordinary preview against index `85f6b7f40c` (2026-10-29 15:08) retains
+4/4 LINKS and 188 -> 188 authored bytes. This retirement records the
+earlier source repair in the queue; it adds no new census-linked bytes.
+
+Before selecting this cleanup, two default linking candidates were reviewed
+and released without source trials. stlport_LocaleWctomb.c still falls under
+LINK-139's documented duplicate-provider prerequisite; no new preview was
+run for it. Rva00566695Assign.cpp's current ordinary preview reproduces
+LINK-064's two pair COMDAT failures and one wrong selected pair constructor
+(0 -> 0 of 179 authored bytes against the same index). Its two-tree element
+identity must still be reconciled across the provider/caller family.
+
 ## Initial linking lead released
 
 The default picker first selected EvacuateDamageCtorModuleFactoryBody.cpp.
