@@ -724,8 +724,8 @@ def retire_settled(cfg, state, tip, red_checks):
 
 
 def handle_red(cfg, state, tip, result):
-    """Bisect the checks red at TIP that no open item covers; queue an item per first
-    bad commit. Returns the item ids queued."""
+    """Bisect the checks red at TIP that no open item covers; once every search has
+    settled, queue an item per first bad commit. Returns the item ids queued."""
     covered = set()
     for item in open_items(cfg, state):
         if is_ancestor(cfg, item["bad_sha"], tip):
@@ -760,12 +760,14 @@ def handle_red(cfg, state, tip, result):
         at_first = state["verdicts"].get(first, result)
         labels = [c for c in remaining if c in at_first.get("checks", ())] or list(remaining)
         item = make_item(cfg, state, tip, first, last_good, exact, labels, note)
-        state.setdefault("pending", {}).setdefault("add", []).append(item)
-        queued.append(item["id"])
-        say(f"queued {item['id']}: {', '.join(labels)} red since {first[:10]} ({item['author']}: "
+        queued.append(item)
+        say(f"found {item['id']}: {', '.join(labels)} red since {first[:10]} ({item['author']}: "
             f"{item['subject'][:60]})" + ("" if exact else " [inexact]"))
         remaining = [c for c in remaining if c not in labels]
-    return queued
+    # Only once every search for this tip has settled: an Unsettled one above leaves
+    # nothing pending, and the next run searches for all of them again.
+    state.setdefault("pending", {}).setdefault("add", []).extend(queued)
+    return [item["id"] for item in queued]
 
 
 def run_once(cfg):

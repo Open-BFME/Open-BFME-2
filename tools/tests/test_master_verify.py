@@ -15,21 +15,22 @@ TOOLS = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(TOOLS))
 import master_verify as M  # noqa: E402
 
-# The fake gate: red with the full gate's own summary line while a file `bad` exists.
+# The fake gate: red with the full gate's own summary line, one check per `bad*` file
+# (its text names the check), while such a file exists.
 GATE = """import pathlib, sys
 log = pathlib.Path(sys.argv[1])
 log.write_text(log.read_text() + "x") if log.exists() else log.write_text("x")
-if pathlib.Path("crash").exists():
+if pathlib.Path("crash").exists() and not log.with_name("crash-off").exists():
     raise RuntimeError("the gate itself broke")
 if pathlib.Path("flaky").exists() and not log.with_name("flaky-done").exists():
     log.with_name("flaky-done").write_text("1")       # fails once, as under load
     print("\\nFULL GATE: FAIL \\u2014 1 red: dir32 consistency")
     sys.exit(1)
-bad = pathlib.Path("bad")
-if bad.exists():
+red = [p.read_text().strip() for p in sorted(pathlib.Path(".").glob("bad*"))]
+if red:
     print("  FAIL ?f@@YAXXZ (Code/Game/Thing.cpp)")
     print("    dir32: two addresses")
-    print("\\nFULL GATE: FAIL \\u2014 1 red: " + bad.read_text().strip())
+    print("\\nFULL GATE: FAIL \\u2014 %d red: %s" % (len(red), ", ".join(red)))
     sys.exit(1)
 print("\\nFULL GATE: OK \\u2014 every check green")
 """
@@ -331,3 +332,27 @@ def test_a_gate_holding_the_machine_lock_defers_the_run(toy, tmp_path):
         held.stdin.close()
         held.wait(timeout=30)
     assert "green" in M.run_once(cfg)[1]
+
+
+def test_no_item_is_published_until_every_search_for_the_tip_settles(toy, tmp_path):
+    """Two checks red at the tip, the second one's search without a verdict: the first
+    search's item waits for it, and a later complete run publishes both."""
+    cfg = config(toy, tmp_path, [])
+    assert M.run_once(cfg)[0] == 0
+    first = commit(toy, "bad", "dir32 consistency\n", "Break DIR32")
+    for n in range(4):
+        commit(toy, f"Code/a{n}.cpp", str(n))
+    commit(toy, "crash", "1")                     # only the second search steps here
+    commit(toy, "crash", None)
+    second = commit(toy, "bad2", "functions\n", "Break a row")
+    commit(toy, "Code/z.cpp", "1")
+    push(toy)
+    for _ in range(2):
+        code, message = M.run_once(cfg)
+        assert code == 2 and "no verdict" in message, message
+        assert origin_queue(toy) == []
+        assert not (json.loads((cfg.base / "state.json").read_text()).get("pending") or {}).get("add")
+    (tmp_path / "crash-off").write_text("1")
+    assert M.run_once(cfg)[0] == 1
+    found = {i["bad_sha"]: i["checks"] for i in origin_queue(toy)}
+    assert found == {first: ["dir32 consistency"], second: ["functions"]}
