@@ -1,4 +1,5 @@
 // cl: /Od /DNDEBUG /MD /EHsc
+// stlport46
 //
 // Dedicated TU for STLport _Rb_global<bool>::_Rebalance. Rotations already
 // live in stlport_rb_tree_rebalance_erase.cpp; do not edit that unit.
