@@ -200,11 +200,11 @@ void Gen_dtor_00972460::Rva00180782()
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters2Addr.cpp
 
 // Unresolved literal-value getter retained separately.
-// 0x00424F58 lies inside the rowed basic_string::copy body, not at a
-// provider entry; its meaning is unasserted. Keep its verified value.
+// The value is the class-id tag 'BOX' (0x00424F58) that rva00180815 compares
+// against above; the raw constant alone does not prove a provider entry.
 int Rva00180778Get(void)
 {
-	return 0x00424F58;
+	return ('B' << 16) | ('O' << 8) | 'X';
 }
 
 // tu-skeleton: 0x0018077E 4B ?rva0018077E@Rva0018077E@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
