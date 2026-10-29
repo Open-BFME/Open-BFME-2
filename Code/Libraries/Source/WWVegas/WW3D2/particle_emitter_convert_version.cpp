@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfmeparticleload /EHsc /Ireference/shims/bfmeparticlehandle /Ireference/shims /Ireference/shims/bfmerendobj /DNDEBUG /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/shims/sweep /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/sweep
+// cl: /Ireference/shims/bfmeparticleload /EHsc /Ireference/shims/bfmeparticlehandle /Ireference/shims /Ireference/shims/bfmerendobj /DNDEBUG /D_X86_ /MD /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression
+// platformsdk
 // The compiler-generated vector constructor iterator (??_H) takes the
 // optimization state of the first function that needs it. Retail links one
 // copy, the /O1 body at 0x00001423; this unemitted anchor makes this unit's
@@ -28,14 +29,14 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 **	along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Select the BFME2 legacy kernel32 import declarations before reference headers.
-#include <sweep/winbase_shim.h>
+// SDK components keep the Platform SDK persist.h from shadowing WWSaveLoad.
+// /D_X86_ supplies the target setup normally provided by windows.h.
+#include <stdarg.h>
+#include <windef.h>
+#include <winbase.h>
 
 #include "../../../../../reference/shims/bfme_tri_math/vector3.h"
 #include "rendobj.h"	// the bfmerendobj shim has to win the include guard
-#include "winbase_shim.h"
-#define MAX_PATH 260
-#define LPCTSTR const char *
 // Particle system loader, adapted from the Generals Zero Hour reference.
 /***********************************************************************************************
  ***              C O N F I D E N T I A L  ---  W E S T W O O D  S T U D I O S               ***
@@ -58,7 +59,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "part_emt.h"
 #include "w3derr.h"
 #include "chunkio.h"
-#include "win.h"		// for lstrcpy, can this be improved?
 #include "assetmgr.h"
 #include "texture.h"
 
