@@ -29,9 +29,100 @@
 // terminated) and for each one whose BehaviorModuleInterface slot 18 answers
 // an interface, calls that interface's slot 5 with the owner.
 
-class Object;
-class ModuleData;
+// Shared DeflectSpecialPower unit view: one declaration of each class for
+// every body retail built into this unit. The ctor 0x004C545D installs
+// vtables at +0x00, +0x0C, +0x10, +0x20, +0x24 and +0x38: ObjectModule and
+// BehaviorModuleInterface (canonical BehaviorModule), UpdateModuleInterface,
+// the base's two extra interfaces and the collide interface.
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 class Coord3D;
+class Xfer;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase; // +0x14
+	int m_indexInLogic; // +0x18
+	int m_updateState; // +0x1C
+};
+
+class Rva00589079_E1
+{
+public:
+	virtual void fe() = 0;
+};
+
+class Rva00589079_E2
+{
+public:
+	virtual void fe() = 0;
+};
+
+class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
+{
+public:
+	virtual ~Rva00589079(); // 0x00589079
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_28;
+	int m_2C;
+	unsigned int m_30;
+	float m_34;
+};
+
+// DeflectSpecialPower's direct base: its ctor calls 0x0058959A
+// (WeaponModeSpecialPowerUpdateBase's rowed ctor) and its xfer calls
+// 0x00589215 (rowed as Rva00589079::xfer). Both placeholder names stay on
+// their rows; this view chains them so each call keeps its symbol.
+class WeaponModeSpecialPowerUpdateBase : public Rva00589079
+{
+public:
+	WeaponModeSpecialPowerUpdateBase(Thing *thing, const ModuleData *moduleData);
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase, public CollideModuleInterface
+{
+public:
+	DeflectSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	bool m_active; // +0x3C
+	bool m_pending; // +0x3D
+};
 
 template <int N> class Rva004C55B2Slots : public Rva004C55B2Slots<N - 1>
 {
@@ -46,25 +137,6 @@ class Rva004C55B2Target : public Rva004C55B2Slots<5>
 {
 public:
 	virtual void rva004C55B2Slot5(Object *source) = 0;
-};
-
-class BehaviorModuleInterface : public Rva004C55B2Slots<18>
-{
-public:
-	virtual Rva004C55B2Target *rva004C55B2Slot18() = 0;
-};
-
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
-
-class BehaviorModuleView : public BehaviorModule, public BehaviorModuleInterface
-{
 };
 
 class ThingTemplateView
@@ -104,52 +176,7 @@ public:
 	unsigned char m_pad008[0x10C - 0x08];
 	Rva0010CBits m_conditionBits; // +0x10C
 	unsigned char m_pad158[0x244 - 0x158];
-	BehaviorModuleView **m_behaviors; // +0x244
-};
-
-enum UpdateSleepTime
-{
-	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
-};
-
-class UpdateModuleInterface
-{
-public:
-	virtual UpdateSleepTime update() = 0;
-};
-
-class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
-{
-protected:
-	unsigned int m_nextCallFrameAndPhase; // +0x14
-	int m_indexInLogic; // +0x18
-	int m_updateState; // +0x1C
-};
-
-class Rva004C55B2Iface20 { public: virtual void slot0(); };
-class Rva004C55B2Iface24 { public: virtual void slot0(); };
-
-class Rva00589079 : public UpdateModule, public Rva004C55B2Iface20, public Rva004C55B2Iface24
-{
-protected:
-	unsigned char m_pad28[0x38 - 0x28];
-};
-
-class CollideModuleInterface
-{
-public:
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
-};
-
-class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
-{
-public:
-	virtual UpdateSleepTime update();
-	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
-private:
-	bool m_active; // +0x3C
-	bool m_pending; // +0x3D
+	BehaviorModule **m_behaviors; // +0x244
 };
 
 static const int DEFLECT_CONDITION_BIT = 4 * 32 + 30;
@@ -193,9 +220,9 @@ void DeflectSpecialPower::onCollide(Object *other, const Coord3D *, const Coord3
 {
 	if (!m_active || !other || !(other->m_template->m_114 & 0x40))
 		return;
-	for (BehaviorModuleView **behaviorModuleView = other->m_behaviors; *behaviorModuleView; ++behaviorModuleView)
+	for (BehaviorModule **behaviorModule = other->m_behaviors; *behaviorModule; ++behaviorModule)
 	{
-		Rva004C55B2Target *target = (*behaviorModuleView)->rva004C55B2Slot18();
+		Rva004C55B2Target *target = static_cast<Rva004C55B2Target *>((*behaviorModule)->slot18());
 		if (target)
 			target->rva004C55B2Slot5(m_object);
 	}

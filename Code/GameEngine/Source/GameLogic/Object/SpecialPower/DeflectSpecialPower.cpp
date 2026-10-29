@@ -11,6 +11,101 @@
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
+// Shared DeflectSpecialPower unit view: one declaration of each class for
+// every body retail built into this unit. The ctor 0x004C545D installs
+// vtables at +0x00, +0x0C, +0x10, +0x20, +0x24 and +0x38: ObjectModule and
+// BehaviorModuleInterface (canonical BehaviorModule), UpdateModuleInterface,
+// the base's two extra interfaces and the collide interface.
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class Coord3D;
+class Xfer;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase; // +0x14
+	int m_indexInLogic; // +0x18
+	int m_updateState; // +0x1C
+};
+
+class Rva00589079_E1
+{
+public:
+	virtual void fe() = 0;
+};
+
+class Rva00589079_E2
+{
+public:
+	virtual void fe() = 0;
+};
+
+class Rva00589079 : public UpdateModule, public Rva00589079_E1, public Rva00589079_E2
+{
+public:
+	virtual ~Rva00589079(); // 0x00589079
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_28;
+	int m_2C;
+	unsigned int m_30;
+	float m_34;
+};
+
+// DeflectSpecialPower's direct base: its ctor calls 0x0058959A
+// (WeaponModeSpecialPowerUpdateBase's rowed ctor) and its xfer calls
+// 0x00589215 (rowed as Rva00589079::xfer). Both placeholder names stay on
+// their rows; this view chains them so each call keeps its symbol.
+class WeaponModeSpecialPowerUpdateBase : public Rva00589079
+{
+public:
+	WeaponModeSpecialPowerUpdateBase(Thing *thing, const ModuleData *moduleData);
+};
+
+class CollideModuleInterface
+{
+public:
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
+};
+
+class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase, public CollideModuleInterface
+{
+public:
+	DeflectSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	bool m_active; // +0x3C
+	bool m_pending; // +0x3D
+};
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
@@ -24,11 +119,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class DeflectSpecialPower
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
 
 //
 // DeflectSpecialPowerModuleData parse-unit.
