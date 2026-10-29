@@ -49,7 +49,10 @@ int Rva002E7ED6Info::cellCallback(PathfindCell *previousCell, PathfindCell *curr
 class Rva002E6DC4
 {
 public:
- bool rva002E6DC4(void *query, void *cell);
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
 };
 
 #include "Rva002E7D6DInfo.h"

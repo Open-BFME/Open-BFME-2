@@ -18,7 +18,14 @@ struct TCheckMovementInfo {
  ICoord2D cell; PathfindLayerEnum layer;
  char rest[0x30-0xc]; bool pinched; char pad31[3]; int blocked;
 };
-class Rva002E6DC4 { public: bool rva002E6DC4(void *,void *); };
+class Rva002E6DC4
+{
+public:
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
+};
 bool Rva001E3679(int);
 class Pathfinder { public: bool checkForMovement(Object *,TCheckMovementInfo &); bool rva002EA658(Object *,TCheckMovementInfo &,const ICoord2D *); };
 struct Rva002ED15AInfo {

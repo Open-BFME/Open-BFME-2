@@ -37,7 +37,22 @@ public:
     __forceinline Bool hasReservations() const { return info ? info->reservations!=0 : false; }
 };
 class Pathfinder;
-class PathfindLayer { public: __declspec(noinline) void rva000B3FD0(); private: char storage[0x40]; };
+struct IRegion2D;
+class Xfer;
+class PathfindLayer
+{
+public:
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
+	void rva003666FD(Xfer *xfer);
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
+private:
+	char storage[0x40]; // +0x00
+};
 struct AIData {char pad00[0xA0];float m_a0;};
 class AI {public:const AIData *getAiData() const {return m_aiData;}private:char pad00[0x10]; public: Pathfinder *pathfinder; private: char gap14[4]; const AIData *m_aiData;};
 extern AI *TheAI;
@@ -127,10 +142,27 @@ template<> class PathfinderNativeSlots<0> {};
 class TerrainLogic { public: virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C(); virtual void slot10(); virtual void slot14(); virtual float getGroundHeight(float,float,Coord3D *); };
 extern TerrainLogic *TheTerrainLogic;
 class PathfinderTerrainWaypoints : public PathfinderNativeSlots<33> { public: virtual PathfinderDebugWaypoint *slot84(); };
-class Rva0052DB4D { public: Bool rva0052DB4D(Int); };
+class Rva0052DB4D
+{
+public:
+	Bool rva0052DB4D(Int);
+};
 class Rva002E6ECA { public: int get() const; };
 float Rva002E7BB8Get();
-class GlobalData { public: char prefix[0x9b8]; int debugAI; };
+class GlobalData
+{
+public:
+	char prefix[0x9b8]; // +0x00
+	int m_flag9B8; // +0x9B8
+	char m_pad9BC[0x804];
+	unsigned int limitMs; // +0x11C0
+	char m_pad11C4[0x24];
+	int cellsPerFrame; // +0x11E8
+	char m_pad11EC[0xC];
+	int m_maxCellsAdjustTargetDestination; // +0x11F8
+	char m_pad11FC[0x20];
+	unsigned callbackLimit; // +0x121C
+};
 extern GlobalData *TheWritableGlobalData;
 extern int BfmeLogicFramesPerSecond;
 // Pathfinder debug-icon pass, retail 0x002EFB3A..0x002F00C9 (1423 bytes of
@@ -147,12 +179,12 @@ void Pathfinder::rva002EFB3A()
     Int x,y;
     const PathfindCell *cell;
     Int duration=BfmeLogicFramesPerSecond*3;
-    Int mode=TheWritableGlobalData->debugAI;
+    Int mode=TheWritableGlobalData->m_flag9B8;
     if (mode==3 || mode==2 || mode==7 || mode==5) {
         PathfinderDebugColor color;
         color.blue=0; color.green=0; color.red=0;
         Rva000B3FD0PathDebug(0,0,0,color);
-        if (TheWritableGlobalData->debugAI==7) {
+        if (TheWritableGlobalData->m_flag9B8==7) {
             for (PathfinderDebugWaypoint *point=((PathfinderTerrainWaypoints *)TheTerrainLogic)->slot84();point;point=point->next) {
                 color.blue=0; color.green=0; color.red=0;
                 if ((unsigned char)((const Rva002E6ECA *)point)->get()) color.green=1;
@@ -162,7 +194,7 @@ void Pathfinder::rva002EFB3A()
             }
         } else {
             Coord3D topLeftCorner;
-            Bool showCells=TheWritableGlobalData->debugAI==3 || TheWritableGlobalData->debugAI==5;
+            Bool showCells=TheWritableGlobalData->m_flag9B8==3 || TheWritableGlobalData->m_flag9B8==5;
             for (Int layer=0;layer<16;++layer) m_layers[layer].rva000B3FD0();
             for (x=0;x<m_width;++x) {
                 for (y=0;y<m_height;++y) {

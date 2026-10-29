@@ -14,14 +14,33 @@ class PathfindCell {public:
  __forceinline char layer()const {return (char)((flags>>4)&0x3F);}
  __forceinline char type()const {return (flags&0xF);}
 };
-class Rva002E6DC4 {public:Bool rva002E6DC4(void *,void *);};
+class Rva002E6DC4
+{
+public:
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
+};
 void *rva002EBC59(void *,void *,int,int,int);
 class Pathfinder {public:Bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,int);};
 struct LayerProbeObjectView {char pad00[0x38];Coord3D position;};
-struct Rva002F4D8BInfo {
- Pathfinder *pathfinder;Object *object;void *word08;Coord3D position;int word18;
- Bool flag1C,flag1D,flag1E,flag1F,flag20;
- int cellCallback(PathfindCell *,PathfindCell *,int,int);
+struct Rva002F4D8BInfo
+{
+public:
+	int cellCallback(void *previousCell, void *currentCell, int cellX, int cellY);
+	int cellCallback(PathfindCell *,PathfindCell *,int,int);
+	Pathfinder *pathfinder; // +0x00
+	Object *object; // +0x04
+	void *word08; // +0x08
+	Coord3D position; // +0x0C
+	int word18; // +0x18
+	Bool flag1C; // +0x1C
+	Bool flag1D; // +0x1D
+	Bool flag1E; // +0x1E
+	Bool flag1F; // +0x1F
+	Bool flag20; // +0x20
+	char m_pad21[0x3];
 };
 int Rva002F4D8BInfo::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
 {

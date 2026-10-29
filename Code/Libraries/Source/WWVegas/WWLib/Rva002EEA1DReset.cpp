@@ -19,11 +19,13 @@ typedef _STL::allocator<_Rva002F0BB5Pair> _Rva002F0BB5Alloc;
 typedef _STL::_Rb_tree<int, _Rva002F0BB5Pair, _STL::_Select1st<_Rva002F0BB5Pair>, _STL::less<int>, _Rva002F0BB5Alloc > _Rva002F0BB5Tree;
 typedef _STL::_Rb_tree_base<_Rva002F0BB5Pair, _Rva002F0BB5Alloc > _Rva002F0BB5Base;
 
-struct _Rva002EB46ENode {
-    void *_m_link;
-    _Rva002EB46ENode *_m_list;
-    _Rva002EB46ENode *_m_next;
-    _Rva002EB46ENode *_m_child;
+struct _Rva002EB46ENode
+{
+public:
+	void *_m_link; // +0x00
+	int _m_unk4; // +0x04
+	_Rva002EB46ENode *_m_next; // +0x08
+	_Rva002EB46ENode *_m_child; // +0x0C
 };
 // Native DBD4D0 is the shared pool's free-node field at +8.
 #include "../../../../GameEngine/Include/Common/Rva002E8548Pool.h"

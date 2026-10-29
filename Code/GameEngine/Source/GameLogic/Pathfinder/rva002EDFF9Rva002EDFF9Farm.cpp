@@ -7,8 +7,9 @@
 
 struct Rva002EBC7FPair
 {
-int x;
-int y;
+public:
+	int x; // +0x00
+	int y; // +0x04
 };
 
 enum PathfindLayerEnum

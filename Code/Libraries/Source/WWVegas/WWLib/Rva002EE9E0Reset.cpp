@@ -17,11 +17,13 @@ typedef _STL::allocator<_Rva002F0B8APair> _Rva002F0B8AAlloc;
 typedef _STL::_Rb_tree<int, _Rva002F0B8APair, _STL::_Select1st<_Rva002F0B8APair>, _STL::less<int>, _Rva002F0B8AAlloc > _Rva002F0B8ATree;
 typedef _STL::_Rb_tree_base<_Rva002F0B8APair, _Rva002F0B8AAlloc > _Rva002F0B8ABase;
 
-struct _Rva002EB416Node {
-    void *_m_link;
-    _Rva002EB416Node *_m_list;
-    _Rva002EB416Node *_m_next;
-    _Rva002EB416Node *_m_child;
+struct _Rva002EB416Node
+{
+public:
+	void *_m_link; // +0x00
+	int _m_unk4; // +0x04
+	_Rva002EB416Node *_m_next; // +0x08
+	_Rva002EB416Node *_m_child; // +0x0C
 };
 // g_Va00DBD4B8: VA 0x00dbd4b8 (.data); retail initial bytes 00 00 00 00.
 _Rva002EB416Node *g_Va00DBD4B8;

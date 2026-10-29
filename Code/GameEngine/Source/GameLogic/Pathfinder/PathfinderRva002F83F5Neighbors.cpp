@@ -35,15 +35,27 @@ char m_pad00[0x5c];
 Int m_playerType;		// +0x5C (1: computer)
 };
 class AIUpdateInterface;
-struct PathfinderTemplateView {
-char pad[0x64];
-char *nameBuffer;
-char pad68[0x108-0x68];
-unsigned char kinds[24];
-char pad120[0x56c-0x120];Int priority;char pad570[0x634-0x570];Bool flag;
-__forceinline unsigned testKindWord(unsigned bit)const{return ((const unsigned*)kinds)[bit>>5]&(1U<<(bit&31));}
-__forceinline bool hasKind(int bit) const { return (kinds[bit/8] & (1<<(bit%8)))!=0; }
-__forceinline const char *name() const { return nameBuffer ? nameBuffer+8 : ""; }
+struct PathfinderTemplateView
+{
+public:
+	__forceinline bool hasKind(int bit) const
+	{
+	 return (kinds[bit/8] & (1<<(bit%8)))!=0;
+	}
+	__forceinline const char *name() const
+	{
+	 return nameBuffer ? nameBuffer+8 : "";
+	}
+	__forceinline unsigned testKindWord(unsigned bit)const{return ((const unsigned*)kinds)[bit>>5]&(1U<<(bit&31));}
+	char m_pad00[0x64];
+	char *nameBuffer; // +0x64
+	char m_pad68[0xA0];
+	unsigned char kinds[24]; // +0x108
+	char m_pad120[0x44C];
+	Int priority; // +0x56C
+	char m_pad570[0xC4];
+	Bool flag; // +0x634
+	char m_pad635[0x3];
 };
 enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
 class Object
@@ -96,18 +108,51 @@ int __cdecl Rva002E8C4DCall(int,unsigned char,Rva002E8C23Pair *,int);
 bool Rva002EBBFBIsOdd(void *);
 struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
-class GlobalData { public: char pad[0x11F0];Int searchRadius; };
+class GlobalData
+{
+public:
+	char prefix[0x9b8]; // +0x00
+	int m_flag9B8; // +0x9B8
+	char m_pad9BC[0x804];
+	unsigned int limitMs; // +0x11C0
+	char m_pad11C4[0x24];
+	int cellsPerFrame; // +0x11E8
+	char m_pad11EC[0xC];
+	int m_maxCellsAdjustTargetDestination; // +0x11F8
+	char m_pad11FC[0x20];
+	unsigned callbackLimit; // +0x121C
+};
 extern GlobalData *TheWritableGlobalData;
 #include <math.h>
 struct PathfinderCostCellInfo { Int x,y; };
-struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent,state;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];Int obstacleID;unsigned int flags; };
+class Waypoint;
+struct PathfinderGroundInfo
+{
+public:
+	PathfinderCostCellInfo position; // +0x00
+	Int parent; // +0x08
+	Waypoint *parentWaypoint; // +0x0C
+	unsigned short totalCost; // +0x10
+	unsigned short costSoFar; // +0x12
+	char m_pad14[0x14];
+	Int obstacleID; // +0x28
+	unsigned int flags; // +0x2C
+};
 struct In002E6BA1 { Int x,y; };
 class MixFileInfoBuffer;
 extern Int TheMixFileInfoPool;
 void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,Int,In002E6BA1 *);
-class Rva002E6AF3 { public: Int get() const; };
-class Rva002E6B06 { public: Int rva002E6B06(); };
+class Rva002E6AF3
+{
+public:
+	int get() const;
+};
+class Rva002E6B06
+{
+public:
+	int rva002E6B06();
+};
 class Rva002E6C79;
 struct Rva002E8BCFSrc;
 class Rva002E8BCF { public: Rva002E8BCF(){} Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };
@@ -115,9 +160,9 @@ class Rva002E6DC4
 {
 public:
 	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
 private:
-	char m_pad[0x48];
-	void *m_48;
+	void *m_48; // +0x48
 };
 
 void ji_00629952();
@@ -136,7 +181,7 @@ enum { LAYER_GROUND = 1 };
 Bool StartPathfind(Int);void ReleaseInfo();void SetParentCell(Int *);void PutOnClosedList(MixFileInfoBuffer **);Int CalcCostSoFar(const Rva002E6C79 *);
 __forceinline void allocateInfo(In002E6BA1 *pos) {
 if(!m_pathInfo) { if(!TheMixFileInfoPool)Rva0052DBCDInit();m_pathInfo=(PathfinderGroundInfo *)Rva002E8B7AInit((MixFileInfoBuffer **)&TheMixFileInfoPool,(Int)this,pos); }
-else m_pathInfo->state=0;
+else m_pathInfo->parentWaypoint=0;
 }
 void rva0052DAE9(Bool open);
 Int getXIndex() const { return m_pathInfo->position.x; }
@@ -160,12 +205,14 @@ LocomotorSurfaceTypeMask m_surfaces;	// +0x14
 class Locomotor
 {
 public:
-LocomotorSurfaceTypeMask getLegalSurfaces() const { return m_template->m_surfaces; }
-float getMaxSpeed(Object *obj) const;
-
+	LocomotorSurfaceTypeMask getLegalSurfaces() const
+	{
+	 return m_template->m_surfaces;
+	}
+	float getMaxSpeed(Object *obj) const;
 private:
-void *m_vtbl;
-const LocomotorTemplate *m_template;	// +0x04
+	void *m_vtbl; // +0x00
+	const LocomotorTemplate *m_template; // +0x04
 };
 
 extern unsigned int g_00DBD33C[16];
@@ -314,7 +361,7 @@ void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
 class Rva002CB35CObj
 {
 public:
-Bool rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6);
+	bool rva002CB35C(int p1, void *p2, void *p3, void *p4, float p5, int p6);
 };
 
 class Rva002C9400ByteField
@@ -381,17 +428,28 @@ char m_pad[0x14];
 class Rva0036666B
 {
 public:
-bool rva0036666B();
+	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
 };
 
+struct IRegion2D;
+class Xfer;
 class PathfindLayer
 {
 public:
-PathfindCell *getCell(Int,Int);
-bool setDestroyed(bool destroyed);
-__declspec(noinline) void rva000B3FD0();
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
+	void rva003666FD(Xfer *xfer);
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
 private:
-char m_pad[0x40];
+	char storage[0x40]; // +0x00
 };
 
 class PathfindZoneManager
@@ -402,7 +460,12 @@ void rva005314C6(Int x, Int y, unsigned char flag);
 unsigned char IsPassable(Int,Int);
 };
 
-struct Rva002EBC7FPair { int x,y; };
+struct Rva002EBC7FPair
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 struct PathfinderCellPoint;
 // Rowed 0x002E79A8 returns its cell point through the hidden first argument; this caller
 // forwards that buffer, so it calls the rowed symbol through the five-slot cdecl view.
@@ -456,15 +519,52 @@ bool enabled,opaque21;
 __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
 class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
-struct ICoord2DBase { int x,y; };
-class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
-class Rva002E7C99 {
+struct ICoord2DBase
+{
 public:
-void *rva002E7C99(int,int,int,unsigned char,int,unsigned char,int);
-char fields[28];
+	int x; // +0x00
+	int y; // +0x04
 };
-class Rva0006E009DwordField { public: int get() const; };
-class Rva0052DB4D { public: bool rva0052DB4D(int); };
+class Rva002E9D09
+{
+public:
+	int rva002E9D09(Object *a1, int a2, int a3);
+private:
+	Rva002E6DC4 *m_check0; // +0x00
+	Object *m_holder4; // +0x04
+	int *m_counter8; // +0x08
+	bool m_cC; // +0x0C
+	char m_pad0D[0x3];
+	int m_10; // +0x10
+	bool m_14; // +0x14
+	char m_pad15[0x3];
+	Rva002E8BCFSrc *m_18; // +0x18
+};
+class Rva002E7C99
+{
+public:
+	void *rva002E7C99(int a, int b, int c, unsigned char d, int e, unsigned char f, int g);
+private:
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	unsigned char m_0C; // +0x0C
+	unsigned char m_0D[3]; // +0x0D
+	int m_10; // +0x10
+	unsigned char m_14; // +0x14
+	unsigned char m_15[3]; // +0x15
+	int m_18; // +0x18
+};
+class Rva0006E009DwordField
+{
+public:
+	int get()const;
+};
+class Rva0052DB4D
+{
+public:
+	Bool rva0052DB4D(Int);
+};
 union PathfinderCheckCoordinates {
 Coord3D point;
 struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
@@ -480,29 +580,28 @@ class Rva002E6FDF
 {
 public:
 	Rva002E6FDF *rva002E6FDF();
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	unsigned char m_10;
-	unsigned char m_11;
-	char m_pad12[2];
-	int m_14;
-	int m_18;
-	int m_1C;
-	unsigned char m_20;
-	unsigned char m_21;
-	char m_pad22[2];
-	int m_24;
-	unsigned char m_28;
-	char m_pad29[3];
-	int m_2C;
-	unsigned char m_30;
-	unsigned char m_31;
-	unsigned char m_32;
-	char m_pad33[1];
-	int m_34;
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
+	unsigned char m_10; // +0x10
+	unsigned char m_11; // +0x11
+	char m_pad12[0x2];
+	int m_14; // +0x14
+	int m_18; // +0x18
+	int m_1C; // +0x1C
+	unsigned char m_20; // +0x20
+	unsigned char m_21; // +0x21
+	char m_pad22[0x2];
+	int m_24; // +0x24
+	unsigned char m_28; // +0x28
+	char m_pad29[0x3];
+	int m_2C; // +0x2C
+	unsigned char m_30; // +0x30
+	unsigned char m_31; // +0x31
+	unsigned char m_32; // +0x32
+	char m_pad33[0x1];
+	int m_34; // +0x34
 };
 class Rva002EAB6F {public:Rva002EAB6F(Int,const Rva002E8BCFSrc *,unsigned char,Int,Object *,unsigned char,Int,Int);int m0;Rva002E8BCF m4;unsigned char m14,m15;int m18;Object*m1C;int m20,m24;char pad28[8];int m30;};
 struct Rva002F5925Info;
@@ -514,7 +613,21 @@ class Rva002F6F90Context { public: Bool rva002F6F90(unsigned int,Int); };
 class Rva002F70E5Context { public: Bool rva002F70E5(unsigned int,Int); };
 class Rva002E7440 { public: Bool rva002E7440(Int,Int); };
 class Rva002E7414 { public: Int rva002E7414(Int,Int); };
-class Rva002F336AOwner { public: Bool rva002F336A(Int,Int); };
+class Rva002F336AOwner
+{
+public:
+	bool rva002F336A(int,int);
+private:
+	Pathfinder *pf; // +0x00
+	void *object; // +0x04
+	unsigned char mode; // +0x08
+	char m_pad09[0x3];
+	void *radius; // +0x0C
+	Coord3D *out; // +0x10
+	void *target; // +0x14
+	void *targetPosition; // +0x18
+	Rva002CB35CObj *weapon; // +0x1C
+};
 class Pathfinder
 {
 friend struct Rva002F5925Info;
@@ -954,10 +1067,20 @@ private:
 class MixFileInfoBuffer
 {
 private:
-	void bfmeUnlink();
 	friend class Rva002E6BA1;
 public:
 	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
+private:
+	void bfmeUnlink();
+public:
+	int x; // +0x00
+	int y; // +0x04
+	char m_pad08[0x4];
+	Int m_0C; // +0x0C
+	unsigned short m_totalCost; // +0x10
+	unsigned short m_costSoFar; // +0x12
+	char m_pad14[0x18];
+	unsigned int m_flags; // +0x2C
 };
 
 // Rehomed 0x002E8B7A (33 B), original Rva002E8B7AInit.cpp: takes the pool
@@ -985,7 +1108,22 @@ __declspec(noinline) inline MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer
 }
 
 struct Rva002E8BCFSrc{char pad[0x10];int m10;char m14;bool m15;};
-struct Rva002F5925Info {Pathfinder *pathfinder;char data4[16];bool center,human;char pad16[2];int radius;Object*object;PathfindCell*goal;int ignoreID;ICoord2D previous;int range;int cellCallback(PathfindCell*,PathfindCell*,int,int);};
+struct Rva002F5925Info
+{
+public:
+	int cellCallback(PathfindCell*,PathfindCell*,int,int);
+	Pathfinder *pathfinder; // +0x00
+	char data4[16]; // +0x04
+	bool center; // +0x14
+	bool human; // +0x15
+	char m_pad16[0x2];
+	int radius; // +0x18
+	Object *object; // +0x1C
+	PathfindCell *goal; // +0x20
+	int ignoreID; // +0x24
+	ICoord2D previous; // +0x28
+	int range; // +0x30
+};
 extern unsigned PathfinderSearchCellsVisited;
 __declspec(noinline) inline Int Pathfinder::iterateCellsAlongLine( const ICoord2D *startCell, 
 	const ICoord2D *destinationCell, PathfindLayerEnum layer, 

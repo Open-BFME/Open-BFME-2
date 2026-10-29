@@ -76,6 +76,9 @@ class Rva002E6DC4
 {
 public:
 	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
 };
 // 0x002E6C23 is the row ?IsObstaclePresent@PathfindCell@@QBE_NW4ObjectID@@@Z
 // (Rva002E6C23Obstacle.cpp, WB lead PathfindCell::IsObstaclePresent).
@@ -104,15 +107,17 @@ static inline bool IS_IMPASSABLE(PathfindCell::CellType type)
 class Rva002E9D09
 {
 public:
-		int rva002E9D09(Object *a1, int a2, int a3);
+	int rva002E9D09(Object *a1, int a2, int a3);
 private:
-	Rva002E6DC4 *m_check0;
-	Object *m_holder4;
-	int *m_counter8;
-	bool m_cC;
-	int m_10;
-	bool m_14;
-	Rva002E8BCFSrc *m_18;
+	Rva002E6DC4 *m_check0; // +0x00
+	Object *m_holder4; // +0x04
+	int *m_counter8; // +0x08
+	bool m_cC; // +0x0C
+	char m_pad0D[0x3];
+	int m_10; // +0x10
+	bool m_14; // +0x14
+	char m_pad15[0x3];
+	Rva002E8BCFSrc *m_18; // +0x18
 };
 // ?rva002E9D09@Rva002E9D09@@QAE_NPAVObject@@HH@Z @0x002E9D09 414B.
 int Rva002E9D09::rva002E9D09(Object *object, int a2, int a3)

@@ -37,10 +37,17 @@ public:
     const Weapon *getCurrentWeapon(WeaponSlotType *) const;
     int rva0028B511() const;
 };
-class Weapon {
+class Rva002C9400ByteField;
+class Weapon
+{
 public:
-    bool isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D &, const Coord3D &) const;
-    int isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D *, const Object *);
+	bool isWithinAttackRange(Object *source, const Coord3D *pos, Object *victim, const Coord3D *victimPos, float bonus, bool checkMinimum);
+	float getAttackRange(const Object *) const;
+	bool isWithinAttackRange(const Object *,const Object *,float,int) const;
+	bool isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D &, const Coord3D &) const;
+	int isClearGoalFiringLineOfSightTerrain(const Object *, const Coord3D *, const Object *);
+	void *m_00; // +0x00
+	Rva002C9400ByteField *m_definition; // +0x04
 };
 struct AttackAiData { char pad[0x67]; unsigned char useLOS; };
 class AI;
@@ -51,12 +58,18 @@ public:
     PathfindLayerEnum getLayerForDestination(Object *, const Coord3D *);
 };
 extern TerrainLogic *TheTerrainLogic;
-class Rva002E73D4 {
+class Rva002E73D4
+{
 public:
-    Rva002E73D4(int, int, int);
-    int object, other, cell, skip;
-    bool hitLayer;
-    int count, run;
+	Rva002E73D4(int a, int b, int c);
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
+	bool m_10; // +0x10
+	char m_pad11[0x3];
+	int m_14; // +0x14
+	int m_18; // +0x18
 };
 struct Rva002F18D4Info;
 int isGroundOrBridgeLayer(int);
@@ -110,7 +123,7 @@ bool Pathfinder::isAttackViewBlockedByObstacle(const Object *attacker, const Coo
         }
         Rva002E73D4 info((int)attacker, (int)victim, (int)rva001E3647Pos(layer, &victimPos));
         if (!(unsigned char)isGroundOrBridgeLayer(attacker->rva0028B511())) {
-            info.skip = 3;
+            info.m_0C = 3;
             if (layer == LAYER_GROUND)
                 layer = (PathfindLayerEnum)attacker->rva0028B511();
         }

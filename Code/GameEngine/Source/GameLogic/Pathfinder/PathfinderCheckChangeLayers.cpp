@@ -48,13 +48,27 @@ public:
 };
 // Relationship order is established by the rowed Object::getRelationship.
 class AIUpdateInterface;
-struct PathfinderTemplateView {
-    char pad[0x64];
-    char *nameBuffer;
-    char pad68[0x108-0x68];
-    unsigned char kinds[24];
-    __forceinline bool hasKind(int bit) const { return (kinds[bit/8] & (1<<(bit%8)))!=0; }
-    __forceinline const char *name() const { return nameBuffer ? nameBuffer+8 : ""; }
+struct PathfinderTemplateView
+{
+public:
+	__forceinline bool hasKind(int bit) const
+	{
+	 return (kinds[bit/8] & (1<<(bit%8)))!=0;
+	}
+	__forceinline const char *name() const
+	{
+	 return nameBuffer ? nameBuffer+8 : "";
+	}
+	__forceinline unsigned testKindWord(unsigned bit)const{return ((const unsigned*)kinds)[bit>>5]&(1U<<(bit&31));}
+	char m_pad00[0x64];
+	char *nameBuffer; // +0x64
+	char m_pad68[0xA0];
+	unsigned char kinds[24]; // +0x108
+	char m_pad120[0x44C];
+	Int priority; // +0x56C
+	char m_pad570[0xC4];
+	Bool flag; // +0x634
+	char m_pad635[0x3];
 };
 enum Relationship { ENEMIES=0, NEUTRAL=1, ALLIES=2 };
 class Object
@@ -143,11 +157,14 @@ struct LocomotorTemplate
 class Locomotor
 {
 public:
-	LocomotorSurfaceTypeMask getLegalSurfaces() const { return m_template->m_surfaces; }
-
+	LocomotorSurfaceTypeMask getLegalSurfaces() const
+	{
+	 return m_template->m_surfaces;
+	}
+	float getMaxSpeed(Object *obj) const;
 private:
-	void *m_vtbl;
-	const LocomotorTemplate *m_template;	// +0x04
+	void *m_vtbl; // +0x00
+	const LocomotorTemplate *m_template; // +0x04
 };
 
 // The surfaces each cell type allows, indexed by type (VA 0x00DBD33C,
@@ -308,7 +325,7 @@ void *rva002EBC59(void *out, void *obj, Int a2, Int a3, Int a4);
 class Rva002CB35CObj
 {
 public:
-	Bool rva002CB35C(Int a1, void *pos, void *a3, void *a4, float range, Int a6);
+	bool rva002CB35C(int p1, void *p2, void *p3, void *p4, float p5, int p6);
 };
 
 // CanApproachToTarget's helpers. The rowed 0x002C9B80 range query returns a
@@ -386,15 +403,27 @@ class Rva0036666B
 {
 public:
 	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
 };
 
+struct IRegion2D;
+class Xfer;
 class PathfindLayer
 {
 public:
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
 	bool setDestroyed(bool destroyed);
-    __declspec(noinline) void rva000B3FD0();
+	void rva003666FD(Xfer *xfer);
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
 private:
-	char m_pad[0x40];
+	char storage[0x40]; // +0x00
 };
 
 class PathfindZoneManager
@@ -405,7 +434,12 @@ public:
 };
 
 
-struct Rva002EBC7FPair { int x,y; };
+struct Rva002EBC7FPair
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 void *rva002EBC7F(void *,void *,Rva002EBC7FPair *,int);
 #include <math.h>
 class AIUpdateInterface {
@@ -455,15 +489,53 @@ struct GeometryShape {
     __forceinline GeometryShape() : type(0),height(1),major(1),minor(1),offsetX(0),offsetY(0),offsetZ(0),enabled(true),opaque21(true) {}
 };
 class GeometryInfo { public: void rva006BD9C0(GeometryShape &) const; };
-struct ICoord2DBase { int x,y; };
-class Rva002E9D09 { public: int rva002E9D09(Object *,int,int); };
-class Rva002E7C99 {
+struct ICoord2DBase
+{
 public:
-    void *rva002E7C99(int,int,int,unsigned char,int,unsigned char,int);
-    char fields[28];
+	int x; // +0x00
+	int y; // +0x04
 };
-class Rva0006E009DwordField { public: int get() const; };
-class Rva0052DB4D { public: bool rva0052DB4D(int); };
+class Rva002E6DC4;
+class Rva002E9D09
+{
+public:
+	int rva002E9D09(Object *a1, int a2, int a3);
+private:
+	Rva002E6DC4 *m_check0; // +0x00
+	Object *m_holder4; // +0x04
+	int *m_counter8; // +0x08
+	bool m_cC; // +0x0C
+	char m_pad0D[0x3];
+	int m_10; // +0x10
+	bool m_14; // +0x14
+	char m_pad15[0x3];
+	Rva002E8BCFSrc *m_18; // +0x18
+};
+class Rva002E7C99
+{
+public:
+	void *rva002E7C99(int a, int b, int c, unsigned char d, int e, unsigned char f, int g);
+private:
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	unsigned char m_0C; // +0x0C
+	unsigned char m_0D[3]; // +0x0D
+	int m_10; // +0x10
+	unsigned char m_14; // +0x14
+	unsigned char m_15[3]; // +0x15
+	int m_18; // +0x18
+};
+class Rva0006E009DwordField
+{
+public:
+	int get()const;
+};
+class Rva0052DB4D
+{
+public:
+	Bool rva0052DB4D(Int);
+};
 void rva002E79A8(int,unsigned char,int,int,int);
 // Native 0x002F01B6 addresses this 12-byte floating scratch first. Later
 // 0x002F0369 stores integer position at scratch+4 and diameter at scratch+12.
@@ -485,18 +557,32 @@ void Rva0052DBCDInit();
 MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **,int,In002E6BA1 *);
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 int isGroundOrBridgeLayer(int);
-class Rva002E6AF3 { public: int get() const; };
-class Rva002E6B06 { public: int rva002E6B06(); };
-class Rva003F69C0Object { public: void set(int *,int); };
-class Waypoint {
+class Rva002E6AF3
+{
 public:
-    bool isValidUnitType(Object *);
-    Waypoint *getLink(int) const;
-    int word0,id;
-    int name;
-    Coord3D location;
-    unsigned char gap18[0x4c-0x18];
-    int linkCount;
+	int get() const;
+};
+class Rva002E6B06
+{
+public:
+	int rva002E6B06();
+};
+class Rva003F69C0Object { public: void set(int *,int); };
+class Waypoint
+{
+public:
+	bool isValidUnitType(Object *);
+	Waypoint *getLink(int) const;
+	Int word0; // +0x00
+	Int id; // +0x04
+	void *name; // +0x08
+	Coord3D m_location; // +0x0C
+	char m_pad18[0x4];
+	Waypoint *m_next; // +0x1C
+	char m_pad20[0x24];
+	Waypoint *chainNext; // +0x44
+	Int word48; // +0x48
+	Int linkCount; // +0x4C
 };
 struct PathChangeInfoView {
     int x,y;
@@ -612,10 +698,10 @@ void Pathfinder::CheckChangeLayers(PathfindCell *parent,Object *object)
         for (int i=0;i<waypoint->linkCount;++i) {
             Waypoint *linked=waypoint->getLink(i);
             if (linked) {
-                PathfindCell *cell=static_cast<PathfindCell *>(rva001E3647Pos(1,&linked->location));
+                PathfindCell *cell=static_cast<PathfindCell *>(rva001E3647Pos(1,&linked->m_location));
                 if (cell && !static_cast<unsigned char>(reinterpret_cast<const Rva002E6AF3 *>(cell)->get()) &&
                     !static_cast<unsigned char>(reinterpret_cast<Rva002E6B06 *>(cell)->rva002E6B06())) {
-                    ICoord2D *coordinate=Rva002E7875WorldToCell(reinterpret_cast<ICoord2D *>(&coord),true,&linked->location);
+                    ICoord2D *coordinate=Rva002E7875WorldToCell(reinterpret_cast<ICoord2D *>(&coord),true,&linked->m_location);
                     PathChangeCellView *to=reinterpret_cast<PathChangeCellView *>(cell);
                     if (!to->info) {
                         if (TheMixFileInfoPool==reinterpret_cast<int>(to->info)) Rva0052DBCDInit();

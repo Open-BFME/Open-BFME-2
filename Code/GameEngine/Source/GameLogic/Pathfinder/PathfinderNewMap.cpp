@@ -72,18 +72,30 @@ private:
 };
 typedef PathfindCell *PathfindCellP;
 
+class Xfer;
 class PathfindLayer
 {
 public:
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
 	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
+	void rva003666FD(Xfer *xfer);
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
 private:
-	char m_pad[0x40];
+	char storage[0x40]; // +0x00
 };
 
 class Rva0036666B
 {
 public:
 	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
 };
 
 struct Rva005312BERect;
@@ -99,13 +111,22 @@ private:
 };
 
 // The terrain's waypoint list: position at +0x0C, next at +0x1C.
+class Object;
 class Waypoint
 {
 public:
-	char m_pad00[0x0C];
-	Coord3D m_location;
-	char m_pad18[0x1C - 0x18];
-	Waypoint *m_next;
+	bool isValidUnitType(Object *);
+	Waypoint *getLink(int) const;
+	Int word0; // +0x00
+	Int id; // +0x04
+	void *name; // +0x08
+	Coord3D m_location; // +0x0C
+	char m_pad18[0x4];
+	Waypoint *m_next; // +0x1C
+	char m_pad20[0x24];
+	Waypoint *chainNext; // +0x44
+	Int word48; // +0x48
+	Int linkCount; // +0x4C
 };
 
 struct Rva002E6ECA
@@ -116,7 +137,9 @@ struct Rva002E6ECA
 class Rva0052DA63
 {
 public:
-	void SetPortal(void *waypoint);
+	void SetPortal(void *arg);
+	char _00[4]; // +0x00
+	void *m_04; // +0x04
 };
 
 class TerrainLogic

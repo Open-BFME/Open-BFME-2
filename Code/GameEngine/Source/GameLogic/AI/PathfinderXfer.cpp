@@ -78,9 +78,16 @@ public:
 class PathfindLayer
 {
 public:
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
 	void rva003666FD(Xfer *xfer);
-
-	char m_pad[0x40];
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
+private:
+	char storage[0x40]; // +0x00
 };
 
 class PathfindZoneManager
@@ -92,9 +99,18 @@ public:
 class PathfindRequestRing
 {
 public:
+	enum { RING_SIZE = 512 };
+	bool hasRoom() const;
+	void push(const ObjectID &id);
+	bool contains(const ObjectID &id) const;
+private:
+	static int next(int slot) { return slot != RING_SIZE - 1 ? slot + 1 : 0; }
+public:
 	void rva002EAC9F(Xfer *xfer);
-
-	char m_pad[0x808];
+private:
+	ObjectID m_requests[RING_SIZE]; // +0x00
+	int m_head; // +0x800
+	int m_tail; // +0x804
 };
 
 class Pathfinder

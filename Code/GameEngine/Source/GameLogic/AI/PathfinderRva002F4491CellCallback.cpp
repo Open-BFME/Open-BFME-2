@@ -29,15 +29,24 @@ struct In002E6BA1
 	Int m_04;
 };
 
+class Rva002E6BA1;
 class MixFileInfoBuffer
 {
+private:
+	friend class Rva002E6BA1;
 public:
-	char m_pad00[0x0C];
-	Int m_0C;
-	unsigned short m_totalCost;
-	unsigned short m_costSoFar;
-	char m_pad14[0x2C - 0x14];
-	unsigned int m_flags;
+	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
+private:
+	void bfmeUnlink();
+public:
+	int x; // +0x00
+	int y; // +0x04
+	char m_pad08[0x4];
+	Int m_0C; // +0x0C
+	unsigned short m_totalCost; // +0x10
+	unsigned short m_costSoFar; // +0x12
+	char m_pad14[0x18];
+	unsigned int m_flags; // +0x2C
 };
 
 extern int TheMixFileInfoPool;

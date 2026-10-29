@@ -10,6 +10,9 @@ class Rva002EB448
 {
 public:
 	void *rva002EB448();
+	char m_pad00[0x8];
+private:
+	void *m_head8; // +0x08
 };
 
 #include "../../Include/Common/Rva002E8548Pool.h"

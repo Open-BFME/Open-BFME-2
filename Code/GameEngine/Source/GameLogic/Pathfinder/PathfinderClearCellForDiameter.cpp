@@ -15,7 +15,11 @@ class Object {public: signed char rva0028CE7B() const;};
 struct DiameterOccupant {DiameterOccupant *next; int unused; Object*object;};
 struct DiameterCellInfo {char unused[0x20]; DiameterOccupant *occupants;
  int unused24; int unused28; unsigned int flags;};
-class Rva0052DB11 {public: bool rva0052DB11(int);};
+class Rva0052DB11
+{
+public:
+	bool rva0052DB11(int);
+};
 class PathfindCell {public: DiameterCellInfo *info; char m_pad[8];
  unsigned int m_flags;
  unsigned char obstacleFence()const{return info?(info->flags>>1)&1:0;}

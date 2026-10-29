@@ -16,7 +16,14 @@ public:
 };
 struct Rva002E8BCFSrc;
 class Rva002E8BCF { public: Rva002E8BCF(const Rva002E8BCFSrc *,Bool,Int,Bool); Int surfaces;Bool field4,field5;Int maxLayer;Bool fieldC; };
-class Rva002E6DC4 { public: bool rva002E6DC4(void *,void *); };
+class Rva002E6DC4
+{
+public:
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
+};
 class PathfindCell { public: char pad0[0xc]; unsigned int m_info; };
 class TerrainLogic { public: PathfindLayerEnum getLayerForDestination(Object *,const Coord3D *); };
 extern TerrainLogic *TheTerrainLogic;

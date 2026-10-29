@@ -19,7 +19,15 @@ class Object {public:bool rva0028AFBB()const;void *vtable;RectTemplateView *temp
 class Rva0028B984ByteField {public:unsigned char get()const;};
 bool Rva002EBBFBIsOdd(void *);
 struct Rva002ED236Pos {float x,y,z;Rva002ED236Pos(const Coord3D &p){x=p.x;y=p.y;z=p.z;}~Rva002ED236Pos(){}};
-class Rva0036666B {public:char pad00[0x34];int word34,word38;bool rva0036666B();};
+class Rva0036666B
+{
+public:
+	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
+};
 struct BridgeLayerEntry {Rva0036666B check;int height;};
 struct BridgeLayerCell {char pad00[0xC];unsigned int flags;};
 class Pathfinder {
@@ -36,7 +44,7 @@ PathfindLayerEnum Pathfinder::rva002ED236(Object *obj,Rva002ED236Pos pos)
   if(((Rva0028B984ByteField *)obj)->get())return GROUND_LAYER;
   if(!Rva002EBBFBIsOdd(obj)) {pos.x+=5.0f;pos.y+=5.0f;}
  }
- int layer=2;int *enabled=&entries[0].check.word38;
+ int layer=2;int *enabled=&entries[0].check.m_b38;
  for(;;) {
   Rva0036666B *check=(Rva0036666B *)(enabled-14);
   if(check->rva0036666B() && *enabled) {
@@ -79,7 +87,11 @@ class PathfindCell {public:RectCellInfo *info;char pad04[8];unsigned int flags;
  __forceinline bool hasActual()const {RectCellInfo *i=info;return i?i->actual!=0:false;}
  __forceinline bool hasReserved()const {RectCellInfo *i=info;return i?i->reserved!=0:false;}
 };
-class Rva0052DB11 {public:bool rva0052DB11(int);};
+class Rva0052DB11
+{
+public:
+	bool rva0052DB11(int);
+};
 int __cdecl Rva002E9B31Get(void *p);
 struct IRegion2DV {ICoord2D lo,hi;};
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
@@ -92,7 +104,11 @@ __declspec(noinline) inline void Rva002E7964::rva002E7964(ICoord2D *out,unsigned
  if(tmp.x<extent.lo.x || tmp.y<extent.lo.y || tmp.x>extent.hi.x || tmp.y>extent.hi.y)tmp.x=-1;
  *(out?out:out)=tmp;
 }
-class Rva002EBC34 {public:ICoord2D *rva002EBC34(ICoord2D *,void *,const Coord3D *);};
+class Rva002EBC34
+{
+public:
+	ICoord2D *rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3);
+};
 // Select-any copy of Rva002EBC34.cpp's row 0x002EBC34 (same body).
 __declspec(noinline) inline ICoord2D *Rva002EBC34::rva002EBC34(ICoord2D *a1, void *a2, const Coord3D *a3)
 {

@@ -14,7 +14,12 @@
 #include <math.h>
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 // class-gate: allow ICoord2D TU-local view: the canonical header lacks the ICoord2DBase base and operator!=, and retail calls the rowed out-of-line ICoord2D::operator!= at 0x00004CC9.
-struct ICoord2DBase {int x,y;};
+struct ICoord2DBase
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 struct ICoord2D:public ICoord2DBase {bool operator!=(const ICoord2DBase&)const;};
 enum PathfindLayerEnum { LAYER_INVALID=0 };
 class PathfindCell {public: void*info;char unknown04[8];unsigned flags; };
@@ -25,7 +30,14 @@ public:PathfindCell *getCell(PathfindLayerEnum,int,int);
 private:friend class Rva002E7388Owner;
  int rva002E8145(const ICoord2D*,const ICoord2D*,PathfindLayerEnum,Rva002E8145Info*);
 };
-class Rva002E6DC4 {public:bool rva002E6DC4(void*,void*);};
+class Rva002E6DC4
+{
+public:
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
+};
 int Rva002E6E8AGet(int);
 bool Rva001E3679(int);
 int isGroundOrBridgeLayer(int);

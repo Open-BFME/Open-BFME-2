@@ -59,12 +59,19 @@ public:
 class Rva002E6DC4
 {
 public:
-	Bool rva002E6DC4(void *a, void *b);
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
 };
 
 enum ObjectID;
 
-class Rva0006E009DwordField {public:int get()const;};
+class Rva0006E009DwordField
+{
+public:
+	int get()const;
+};
 class AIUpdateInterface
 {
 public:

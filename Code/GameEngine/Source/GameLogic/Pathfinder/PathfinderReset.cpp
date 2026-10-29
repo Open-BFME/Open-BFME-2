@@ -12,10 +12,22 @@ public:
 	~Path();
 };
 
+struct IRegion2D;
+class Xfer;
+class PathfindCell;
 class PathfindLayer
 {
 public:
+	void ClassifyWallCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
+	void rva003666FD(Xfer *xfer);
 	void rva00366DEC();
+	PathfindCell *getCell(int,int);
+private:
+	char storage[0x40]; // +0x00
 };
 
 class PathfindZoneManager
@@ -24,10 +36,14 @@ public:
 	void rva005335D3();
 };
 
+struct _Rva002EADB4Node;
 class Rva002EE9B7
 {
 public:
 	void rva002EE9B7();
+private:
+	_Rva002EADB4Node *m_head; // +0x00
+	int m_flag; // +0x04
 };
 
 #include <new>

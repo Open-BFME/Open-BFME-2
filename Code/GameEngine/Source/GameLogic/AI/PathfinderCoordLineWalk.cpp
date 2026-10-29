@@ -45,14 +45,39 @@ struct Rva002F1BD5Info
 	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
 };
 
+class PathfindCell;
 struct Rva002F18D4Info
 {
-	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
+public:
+	int cellCallback(void *previousCell, void *currentCell, int cellX, int cellY);
+	int cellCallback(PathfindCell*,PathfindCell*,int,int);
+	Object *m_obj; // +0x00
+	Object *m_other; // +0x04
+	PathfindCell *m_cell; // +0x08
+	int m_skip; // +0x0C
+	bool m_hitLayer; // +0x10
+	char m_pad11[0x3];
+	int m_layerCount; // +0x14
+	int m_runLength; // +0x18
 };
 
+struct Coord3D;
 struct Rva002F4D8BInfo
 {
-	Int cellCallback(void *previousCell, void *currentCell, Int cellX, Int cellY);
+public:
+	int cellCallback(void *previousCell, void *currentCell, int cellX, int cellY);
+	int cellCallback(PathfindCell *,PathfindCell *,int,int);
+	Pathfinder *pathfinder; // +0x00
+	Object *object; // +0x04
+	void *word08; // +0x08
+	Coord3D position; // +0x0C
+	int word18; // +0x18
+	Bool flag1C; // +0x1C
+	Bool flag1D; // +0x1D
+	Bool flag1E; // +0x1E
+	Bool flag1F; // +0x1F
+	Bool flag20; // +0x20
+	char m_pad21[0x3];
 };
 
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);

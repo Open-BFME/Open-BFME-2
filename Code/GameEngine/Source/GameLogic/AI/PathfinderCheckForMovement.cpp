@@ -137,7 +137,10 @@ int Rva002E6E8AGet(int layer);
 class Rva002E6DC4
 {
 public:
-	Bool rva002E6DC4(void *data, void *cell);
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
 };
 
 class Pathfinder

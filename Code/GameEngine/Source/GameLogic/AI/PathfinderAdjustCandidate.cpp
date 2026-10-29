@@ -3,7 +3,13 @@
 // replaces the locomotor query with Object path tests and rejects excessive
 // height deltas. Existing Rva002F70E5QueryCallback.cpp supplies this ABI.
 #include <math.h>
-struct Rva002F70E5Coord { float x,y,z; };
+struct Rva002F70E5Coord
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 enum PathfindLayerEnum { LAYER_GROUND=0 };
 struct ThingTemplate { char pad[0x109]; unsigned char kind109; };
@@ -16,10 +22,15 @@ public:
  bool rva002E9EA7(Object *,int,int,PathfindLayerEnum,int,unsigned char,int *);
  bool QuickDoesPathExist(Object *,const Coord3D *,const Coord3D *,int);
 };
-class Rva002F57E6Query {
+class Rva002F57E6Query
+{
 public:
- bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
- char pad[0x24]; int minX,minY,maxX,maxY;
+	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
+	char m_pad00[0x24];
+	int minX; // +0x24
+	int minY; // +0x28
+	int maxX; // +0x2C
+	int maxY; // +0x30
 };
 bool Rva002F57E6Query::rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word) {
  Pathfinder *pathfinder=(Pathfinder *)this; Object *object=(Object *)a;

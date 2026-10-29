@@ -43,14 +43,27 @@ public:
  bool IsObstaclePresent(ObjectID)const;
  PathfindCellInfo*info;int unused1,unused2;union{unsigned int packed;struct{unsigned int type:4;unsigned int rest:28;}bits;};
 };
-class Rva002E6C4D {public:int rva002E6C4D();};
+class Rva002E6C4D
+{
+public:
+	int rva002E6C4D();
+	void *m_ptr; // +0x00
+};
 int Rva002E6E8AGet(int);
 void*Rva002E6E9FGet(void*);
-class Rva002F18D4Info {
+struct Rva002F18D4Info
+{
 public:
- int cellCallback(PathfindCell*,PathfindCell*,int,int);
- Object*m_obj,*m_other;PathfindCell*m_cell;int m_skip;bool m_hitLayer;
- int m_layerCount,m_runLength;
+	int cellCallback(void *previousCell, void *currentCell, int cellX, int cellY);
+	int cellCallback(PathfindCell*,PathfindCell*,int,int);
+	Object *m_obj; // +0x00
+	Object *m_other; // +0x04
+	PathfindCell *m_cell; // +0x08
+	int m_skip; // +0x0C
+	bool m_hitLayer; // +0x10
+	char m_pad11[0x3];
+	int m_layerCount; // +0x14
+	int m_runLength; // +0x18
 };
 int Rva002F18D4Info::cellCallback(PathfindCell*previous,PathfindCell*current,int x,int y){
  if((unsigned char)Rva002E6E8AGet(current->getLayer())){*(volatile int*)&m_layerCount = m_layerCount+1;m_runLength *= 0;*(volatile bool*)&m_hitLayer = true;}else m_runLength++;

@@ -23,7 +23,7 @@ struct Rva002F3F7DInfo
 class Rva0006E009DwordField
 {
 public:
-	int get() const;
+	int get()const;
 };
 
 class Object

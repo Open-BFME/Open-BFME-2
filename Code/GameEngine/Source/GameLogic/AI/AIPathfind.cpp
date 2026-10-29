@@ -173,11 +173,13 @@ typedef int Int;
 // ?rva002EB46E@Rva002EB46E@@QAEXPAU_Rva002EB46ENode@@@Z, retail 0x002EB46E, 50 bytes.
 // Recursive free-list release: depth-first via +0xC, chain via +0x8, push onto head at 0x00DBD4D0.
 // Evidence: twin of 0x002EB416 differing only by pool head; self-call with [esi+0xC]; ret 4 one-arg thiscall; unblocks 0x002EEA1D.
-struct _Rva002EB46ENode {
-    void *_m_link;
-    int _m_unk4;
-    _Rva002EB46ENode *_m_next;
-    _Rva002EB46ENode *_m_child;
+struct _Rva002EB46ENode
+{
+public:
+	void *_m_link; // +0x00
+	int _m_unk4; // +0x04
+	_Rva002EB46ENode *_m_next; // +0x08
+	_Rva002EB46ENode *_m_child; // +0x0C
 };
 #include <algorithm>
 #include <stl/_algobase.h>
@@ -230,7 +232,7 @@ class Rva002E6C4D
 {
 public:
 	int rva002E6C4D();
-	void *m_ptr;
+	void *m_ptr; // +0x00
 };
 
 struct Rva002E6C4DInner
@@ -298,14 +300,27 @@ class Rva0036666B
 {
 public:
 	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
 };
 
 // 0x00366B77 is rowed as PathfindLayer::ClassifyWallCells.
+class Xfer;
 class PathfindLayer
 {
 public:
 	void ClassifyWallCells();
- void ClassifyBridgeCells();
+	void ClassifyBridgeCells();
+	void allocateCells(const IRegion2D *extent);
+	__declspec(noinline) void rva000B3FD0();
+	bool setDestroyed(bool destroyed);
+	void rva003666FD(Xfer *xfer);
+	void rva00366DEC();
+	PathfindCell *getCell(int,int);
+private:
+	char storage[0x40]; // +0x00
 };
 
 class Rva00366E2E
@@ -433,14 +448,14 @@ class Rva002E73D4
 {
 public:
 	Rva002E73D4(int a, int b, int c);
-private:
-	int m_00;
-	int m_04;
-	int m_08;
-	int m_0C;
-	bool m_10;
-	int m_14;
-	int m_18;
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
+	bool m_10; // +0x10
+	char m_pad11[0x3];
+	int m_14; // +0x14
+	int m_18; // +0x18
 };
 
 // ?rva002E7482@Rva002E7482@@QAEMH@Z @0x002E7482 42B
@@ -538,15 +553,15 @@ class Rva002E7C99
 public:
 	void *rva002E7C99(int a, int b, int c, unsigned char d, int e, unsigned char f, int g);
 private:
-	int m_00;
-	int m_04;
-	int m_08;
-	unsigned char m_0C;
-	unsigned char m_0D[3];
-	int m_10;
-	unsigned char m_14;
-	unsigned char m_15[3];
-	int m_18;
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	unsigned char m_0C; // +0x0C
+	unsigned char m_0D[3]; // +0x0D
+	int m_10; // +0x10
+	unsigned char m_14; // +0x14
+	unsigned char m_15[3]; // +0x15
+	int m_18; // +0x18
 };
 
 // ??0Rva002E7DF5@@QAE@HABU_Rva002E7DF5Cell@@@Z @0x002E7DF5 49B
@@ -731,8 +746,24 @@ void Rva0052DBCDInit(void);
 // there; this unit reads it as the buffer-list head pointer).
 extern int TheMixFileInfoPool;
 
+class Rva002E6BA1;
 class MixFileInfoBuffer
 {
+private:
+	friend class Rva002E6BA1;
+public:
+	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
+private:
+	void bfmeUnlink();
+public:
+	int x; // +0x00
+	int y; // +0x04
+	char m_pad08[0x4];
+	Int m_0C; // +0x0C
+	unsigned short m_totalCost; // +0x10
+	unsigned short m_costSoFar; // +0x12
+	char m_pad14[0x18];
+	unsigned int m_flags; // +0x2C
 };
 
 class Rva002E8B9B
@@ -760,8 +791,8 @@ class Rva0052DA63
 {
 public:
 	void SetPortal(void *arg);
-	char _00[4];
-	void *m_04;
+	char _00[4]; // +0x00
+	void *m_04; // +0x04
 };
 
 class PathfindZoneManager {
@@ -821,11 +852,13 @@ struct Rva002E7ED6Info
 // ?rva002EB416@Rva002EB416@@QAEXPAU_Rva002EB416Node@@@Z, retail 0x002EB416, 50 bytes.
 // Recursive free-list release: depth-first via +0xC, chain via +0x8, push onto head at 0x00DBD4B8.
 // Evidence: self-call with [esi+0xC]; caller 0x002EE9E0 passes [eax+4]; ret 4 one-arg thiscall; unblocks 0x002EE9E0.
-struct _Rva002EB416Node {
-    void *_m_link;
-    int _m_unk4;
-    _Rva002EB416Node *_m_next;
-    _Rva002EB416Node *_m_child;
+struct _Rva002EB416Node
+{
+public:
+	void *_m_link; // +0x00
+	int _m_unk4; // +0x04
+	_Rva002EB416Node *_m_next; // +0x08
+	_Rva002EB416Node *_m_child; // +0x0C
 };
 
 extern _Rva002EB416Node *g_Va00DBD4B8;
@@ -838,9 +871,9 @@ class Rva002EB448
 {
 public:
 	void *rva002EB448();
+	char m_pad00[0x8];
 private:
-	char m_pad0[8];
-	void *m_head8;
+	void *m_head8; // +0x08
 };
 
 struct Rva002EB448Node
@@ -935,8 +968,9 @@ typedef void (__cdecl *Rva002E79A8View)(int, unsigned char, int, int, int);
 // with a struct pair unpacked, returning the first arg. Identity unproven.
 struct Rva002EBC7FPair
 {
-	int x;
-	int y;
+public:
+	int x; // +0x00
+	int y; // +0x04
 };
 
 class TerrainLogic
@@ -975,8 +1009,8 @@ class Rva002EE9B7
 public:
 	void rva002EE9B7();
 private:
-	_Rva002EADB4Node *m_head;
-	int m_flag;
+	_Rva002EADB4Node *m_head; // +0x00
+	int m_flag; // +0x04
 };
 
 namespace _STL
@@ -1082,13 +1116,13 @@ struct Rva002F1DDCOut
 
 class Rva002F1DDCTree
 {
-	Rva002F1DDCNode *m_header;
-	unsigned int m_count;
 public:
-	Rva002F1DDCIter rva002F0DD6(Rva002F1DDCNode *x,
-		Rva002F1DDCNode *y, const Rva002F1DDCValue &value,
-		Rva002F1DDCNode *w);
+	Rva002F1DDCIter rva002F0DD6(Rva002F1DDCNode *x, Rva002F1DDCNode *y, const Rva002F1DDCValue &value, Rva002F1DDCNode *w);
 	Rva002F1DDCOut rva002F0E5E(const Rva002F1DDCValue &value);
+	Rva002F1DDCIter rva002F1DDC(Rva002F1DDCIter position, const Rva002F1DDCValue &value);
+private:
+	Rva002F1DDCNode *m_header; // +0x00
+	unsigned int m_count; // +0x04
 };
 
 extern template void _STL::__pop_heap(_Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap **, _Rva002EBB53Wrap *, Rva002EBB53Compare, int *);
@@ -1213,16 +1247,20 @@ public:
 	bool CheckForTarget(void *,void *,void *,Rva002CB35CObj *,void *,void *,void *,void *,Coord3D *);
 };
 
-class Rva002F336AOwner {
-public: bool rva002F336A(int,int);
+class Rva002F336AOwner
+{
+public:
+	bool rva002F336A(int,int);
 private:
- Pathfinder *pf;
- void *object;
- unsigned char mode;unsigned char pad[3];
- void *radius;
- Coord3D *out;
- void *target,*targetPosition;
- Rva002CB35CObj *weapon;
+	Pathfinder *pf; // +0x00
+	void *object; // +0x04
+	unsigned char mode; // +0x08
+	char m_pad09[0x3];
+	void *radius; // +0x0C
+	Coord3D *out; // +0x10
+	void *target; // +0x14
+	void *targetPosition; // +0x18
+	Rva002CB35CObj *weapon; // +0x1C
 };
 
 struct Rva002F3759Compare { bool operator()(unsigned int a,unsigned int b)const{return a<b;} };

@@ -21,21 +21,22 @@ enum ObjectID
 	INVALID_ID = 0
 };
 
+class Xfer;
 class PathfindRequestRing
 {
 public:
 	enum { RING_SIZE = 512 };
-
-	Bool hasRoom() const;
+	bool hasRoom() const;
 	void push(const ObjectID &id);
-	Bool contains(const ObjectID &id) const;
-
+	bool contains(const ObjectID &id) const;
 private:
-	static Int next(Int slot) { return slot != RING_SIZE - 1 ? slot + 1 : 0; }
-
-	ObjectID m_requests[RING_SIZE];
-	Int m_head;
-	Int m_tail;
+	static int next(int slot) { return slot != RING_SIZE - 1 ? slot + 1 : 0; }
+public:
+	void rva002EAC9F(Xfer *xfer);
+private:
+	ObjectID m_requests[RING_SIZE]; // +0x00
+	int m_head; // +0x800
+	int m_tail; // +0x804
 };
 
 class Pathfinder

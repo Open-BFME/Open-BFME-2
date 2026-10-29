@@ -13,10 +13,9 @@ class Rva0036666B
 public:
 	bool rva0036666B();
 	bool rva0036736E(bool flag);
-private:
 	char m_pad00[0x34];
-	int m_a34;
-	int m_b38;
+	int m_a34; // +0x34
+	int m_b38; // +0x38
 };
 
 struct Rva002E7205Slot

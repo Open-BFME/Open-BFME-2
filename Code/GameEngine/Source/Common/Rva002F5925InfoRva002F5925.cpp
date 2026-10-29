@@ -18,15 +18,24 @@ struct In002E6BA1
 	Int m_04;
 };
 
+class Rva002E6BA1;
 class MixFileInfoBuffer
 {
+private:
+	friend class Rva002E6BA1;
 public:
-	int x,y;char m_pad08[4];
-	Int m_0C;
-	unsigned short m_totalCost;
-	unsigned short m_costSoFar;
-	char m_pad14[0x2C - 0x14];
-	unsigned int m_flags;
+	friend MixFileInfoBuffer *Rva002E8B7AInit(MixFileInfoBuffer **pp, Int a, In002E6BA1 *in);
+private:
+	void bfmeUnlink();
+public:
+	int x; // +0x00
+	int y; // +0x04
+	char m_pad08[0x4];
+	Int m_0C; // +0x0C
+	unsigned short m_totalCost; // +0x10
+	unsigned short m_costSoFar; // +0x12
+	char m_pad14[0x18];
+	unsigned int m_flags; // +0x2C
 };
 
 extern int TheMixFileInfoPool;
@@ -123,8 +132,47 @@ enum PathfindLayerEnum {OBSERVED_LAYER_1=1};
 struct CallbackTemplate {char pad[0x108];unsigned kind[8];unsigned kindOf(unsigned n)const{return kind[n>>5]&(1U<<(n&31));}};
 class Object {public:void *vptr;CallbackTemplate *definition;char pad8[0x250-8];void *observed250;};
 struct TCheckMovementInfo {ICoord2D cell;PathfindLayerEnum layer;int radius;bool centerInCell,field11;char pad12[2];unsigned options;int ignoreID;char pad1C[16];int field2C;bool field30,field31,field32;char pad33;int blockers;};
-class Rva002E6FDF {public:Rva002E6FDF *rva002E6FDF();};
-class GlobalData {public:char pad[0x121C];unsigned callbackLimit;};
+class Rva002E6FDF
+{
+public:
+	Rva002E6FDF *rva002E6FDF();
+	int m_00; // +0x00
+	int m_04; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
+	unsigned char m_10; // +0x10
+	unsigned char m_11; // +0x11
+	char m_pad12[0x2];
+	int m_14; // +0x14
+	int m_18; // +0x18
+	int m_1C; // +0x1C
+	unsigned char m_20; // +0x20
+	unsigned char m_21; // +0x21
+	char m_pad22[0x2];
+	int m_24; // +0x24
+	unsigned char m_28; // +0x28
+	char m_pad29[0x3];
+	int m_2C; // +0x2C
+	unsigned char m_30; // +0x30
+	unsigned char m_31; // +0x31
+	unsigned char m_32; // +0x32
+	char m_pad33[0x1];
+	int m_34; // +0x34
+};
+class GlobalData
+{
+public:
+	char prefix[0x9b8]; // +0x00
+	int m_flag9B8; // +0x9B8
+	char m_pad9BC[0x804];
+	unsigned int limitMs; // +0x11C0
+	char m_pad11C4[0x24];
+	int cellsPerFrame; // +0x11E8
+	char m_pad11EC[0xC];
+	int m_maxCellsAdjustTargetDestination; // +0x11F8
+	char m_pad11FC[0x20];
+	unsigned callbackLimit; // +0x121C
+};
 extern GlobalData *TheWritableGlobalData;
 // Original spelling is unknown. Native9FF0CC is the four-byte BSS counter
 // cleared by the search entry points and incremented against the limit at121C.
@@ -132,8 +180,20 @@ extern GlobalData *TheWritableGlobalData;
 unsigned int PathfinderSearchCellsVisited;
 int isGroundOrBridgeLayer(int);
 class PathfindZoneManager {public:unsigned char IsPassable(int,int);};
-class Rva002E6DC4 {public:bool rva002E6DC4(void*,void*);};
-struct Rva002EBC7FPair {int x,y;};
+class Rva002E6DC4
+{
+public:
+	bool rva002E6DC4(void *a_raw, void *b_raw);
+	char m_pad00[0x48];
+private:
+	void *m_48; // +0x48
+};
+struct Rva002EBC7FPair
+{
+public:
+	int x; // +0x00
+	int y; // +0x04
+};
 class Pathfinder {
 public:
  bool rva002EA658(Object*,TCheckMovementInfo&,const ICoord2D*);
@@ -143,9 +203,21 @@ public:
  char pad0[0x24];int loX,loY,hiX,hiY;char pad34[4];bool tunneling;
  char pad39[0x460-0x39];PathfindZoneManager zones;
 };
-struct Rva002F5925Info {
- Pathfinder *pathfinder;char data4[16];bool center,human;char pad16[2];int radius;Object *object;PathfindCell *goal;int ignoreID;ICoord2D previous;int range;
- int cellCallback(PathfindCell*,PathfindCell*,int,int);
+struct Rva002F5925Info
+{
+public:
+	int cellCallback(PathfindCell*,PathfindCell*,int,int);
+	Pathfinder *pathfinder; // +0x00
+	char data4[16]; // +0x04
+	bool center; // +0x14
+	bool human; // +0x15
+	char m_pad16[0x2];
+	int radius; // +0x18
+	Object *object; // +0x1C
+	PathfindCell *goal; // +0x20
+	int ignoreID; // +0x24
+	ICoord2D previous; // +0x28
+	int range; // +0x30
 };
 int Rva002F5925Info::cellCallback(PathfindCell *from,PathfindCell *to,int x,int y)
 {

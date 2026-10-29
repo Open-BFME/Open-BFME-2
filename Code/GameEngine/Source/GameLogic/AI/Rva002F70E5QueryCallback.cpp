@@ -5,14 +5,22 @@
 // true; otherwise a lower signed word, or an unset minimum, saves both
 // original inputs and the new minimum. Original identities and the roles
 // of these fields are unknown; declarations below are measured ABI views.
-struct Rva002F70E5Coord { float x, y, z; };
+struct Rva002F70E5Coord
+{
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
+};
 class Rva002F57E6Query
 {
 public:
-    bool rva002F57E6(unsigned int a, unsigned int b, unsigned char mode,
-        unsigned int first, int second, unsigned int c, unsigned int d,
-        unsigned char option, Rva002F70E5Coord *position, float value,
-        int *word);
+	bool rva002F57E6(unsigned int a,unsigned int locomotorSet,unsigned char mode,unsigned int x,int y,unsigned int layer,unsigned int radius,unsigned char center,Rva002F70E5Coord *destination,float originalZ,int *word);
+	char m_pad00[0x24];
+	int minX; // +0x24
+	int minY; // +0x28
+	int maxX; // +0x2C
+	int maxY; // +0x30
 };
 class Rva002F70E5Context
 {

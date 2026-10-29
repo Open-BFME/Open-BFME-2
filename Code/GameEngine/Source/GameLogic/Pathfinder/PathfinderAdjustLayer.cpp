@@ -9,7 +9,15 @@ enum PathfindLayerEnum {UNKNOWN_LAYER=0,GROUND_LAYER=1};
 struct ObjWithPos;
 class Object {public:int rva0028B511()const;void setLayer(PathfindLayerEnum);char pad00[0x38];Coord3D position;};
 class PathfindCell {public:char pad00[0xC];unsigned flags;int layer()const{return(flags>>4)&0x3F;}int type()const{return flags&0xF;}};
-class Rva0036666B {public:bool rva0036666B();};
+class Rva0036666B
+{
+public:
+	bool rva0036666B();
+	bool rva0036736E(bool flag);
+	char m_pad00[0x34];
+	int m_a34; // +0x34
+	int m_b38; // +0x38
+};
 class TerrainLogic {
 public:
  virtual void slot0();virtual void slot4();virtual void slot8();virtual void slotC();
