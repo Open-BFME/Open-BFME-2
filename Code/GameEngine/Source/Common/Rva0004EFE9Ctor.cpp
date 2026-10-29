@@ -1,4 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// stlport46
 //
 // ??0Rva004EFE9@@QAE@PAURva0004F7F4Owner@@U?$_List_iterator@PAVSnapshot@@U?$_Nonconst_traits@PAVSnapshot@@@_STL@@@_STL@@PBD@Z
 // retail 0x0004EF5D..0x0004EFE9 (140 bytes, EH, RET 0xC): the constructor of
