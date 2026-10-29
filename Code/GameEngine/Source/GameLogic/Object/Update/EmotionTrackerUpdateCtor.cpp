@@ -89,14 +89,7 @@ public:
 	_STL::vector<EmotionTrackerUpdateEntry *> m_entries; // +0x34
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Thing *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -188,7 +181,7 @@ EmotionTrackerUpdate::EmotionTrackerUpdate(Thing *thing, const ModuleData *modul
 	}
 
 	if (data->m_distributionCount > 0)
-		m_distributionIndex = m_object->m_id % data->m_distributionCount + 1;
+		m_distributionIndex = ((const Thing *)m_object)->m_id % data->m_distributionCount + 1;
 	else
 		m_distributionIndex = 1;
 
