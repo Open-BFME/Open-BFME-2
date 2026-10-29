@@ -32,6 +32,12 @@ Verifier-Change explains verifier edits; it never excuses retiring a debt key.
           pass: determinism with the row alone); static relayout findings, `inline-data`
           and `truncated-table` (`tools/boot_relayout.py findings`: build/boot/
           static_queue.json or REPAIR_STATIC; pass: the row is no longer flagged).
+          First of all: regressions of master itself, one item per first bad commit
+          the post-push backstop's bisect found (tools/master_verify.py; the tracked
+          reverse/master_verify_queue.json, which only that tool writes). A red master
+          fails every full gate after it, so these come before every other repair and
+          next_work draws them first. PASS TEST: a later full gate of master_verify at
+          a tip that contains the fix passes the item's checks, and the tool retires it.
   link    BFME2: rows the last link cycle did not place at their retail RVA, or
           placed but not self-strict, with the reason (build/link_cycle/
           link_status.csv, or REPAIR_LINK_STATUS). PASS TEST: the next cycle reports
@@ -352,10 +358,44 @@ def tier_c_items(seen=()):
     return items
 
 
+MASTER_QUEUE = f"{REV}/master_verify_queue.json"
+
+
+def master_items():
+    """Regressions of master itself (tools/master_verify.py, the post-push backstop): one
+    item per first bad commit, read from the tracked queue only that tool writes. The
+    item claims the sources the failing output names, else the Code/ files the bad
+    commit changed, else the queue itself."""
+    text = _read(MASTER_QUEUE)
+    items = []
+    for r in (json.loads(text).get("items", []) if text.strip() else []):
+        bad = r["bad_sha"]
+        scope = ([s for s in r.get("named_sources") or () if s.startswith(SOURCE_PREFIX)]
+                 or [s for s in r.get("files") or () if s.startswith(SOURCE_PREFIX)])[:8]
+        first = next((l.strip() for l in (r.get("output") or "").splitlines() if l.strip()), "")
+        items.append({
+            "tier": "repair", "check": "master-red", "urgent": True, "target_rva": "",
+            "function": f"master red since {bad[:10]}: {r.get('subject', '')}"[:120],
+            "source": scope[0] if scope else f"(the files of {bad[:10]}: git show --stat {bad[:10]})",
+            "size": 0, "credit": 0,
+            "why": (f"{', '.join(r.get('checks') or ())} red on master since {bad[:10]}; suggested owner: "
+                    f"{r.get('suggested_owner') or r.get('author', '?')}" + (f"; {first}" if first else "")),
+            "baseline": "", "baseline_line": "", "queue": MASTER_QUEUE,
+            "claim": [f"file:{s}" for s in scope] or [f"file:{MASTER_QUEUE}"],
+            "bad_sha": bad, "files": r.get("files", []), "output": r.get("output", ""),
+            "suggested_owner": r.get("suggested_owner", ""),
+            "pass_test": ("fix it and push; the next master_verify full gate at a tip containing the fix "
+                          "retires it (python3 tools/master_verify.py --status). Reproduce: ./build.sh "
+                          "with no arguments. Never edit the queue by hand"),
+        })
+    return items
+
+
 def all_repair_items():
-    """Gate debt, then match_tiers tier C, diffexec divergences, boot/game-smoke
-    failures and static relayout findings not already listed (a row once, first wins)."""
-    items = repair_items()
+    """Regressions of master itself (master_items), then gate debt, match_tiers tier C,
+    diffexec divergences, boot/game-smoke failures and static relayout findings not
+    already listed (a row once, first wins)."""
+    items = master_items() + repair_items()
     seen = {(i["target_rva"].upper(), i["function"]) for i in items}
     extra = []
     for i in diffexec_items() + boot_items():
@@ -2703,7 +2743,13 @@ def main(argv=None):
     elif args.cmd in DEBT_QUEUES:
         items, note = DEBT_QUEUES[args.cmd][1]()
     else:
-        items, note = (all_repair_items(), f"{len(parse_debt())} baseline line(s), plus tier C / diffexec / boot, game and static queues") if args.cmd == "repair" else link_items()
+        if args.cmd == "repair":
+            master = len(master_items())
+            items, note = all_repair_items(), (
+                (f"{master} master regression(s) (tools/master_verify.py), " if master else "")
+                + f"{len(parse_debt())} baseline line(s), plus tier C / diffexec / boot, game and static queues")
+        else:
+            items, note = link_items()
         if args.cmd == "link" and not BFME1 and link_source()[0] is None:
             print(f"repair_queue: {note}", file=sys.stderr)     # an empty queue would read as "nothing to fix"
             return 1

@@ -1735,11 +1735,17 @@ def draw_debt(name, draw, pool, args, tried, suppressed):
     """One draw (claimed, with --claim) from DRAW, a part of queue NAME's POOL; None
     when every candidate in it was claimed by a peer."""
     label = TIER_LABELS[name]
-    candidate, acquired = claim_choice(draw, label) if args.claim else (weighted_choice(draw), [])
-    if candidate is None:
-        return None
-    return {"name": name, "label": label, "pool": pool, "candidate": candidate, "acquired": acquired,
-            "tried": list(tried), "suppressed": suppressed}
+    # A red master (repair_queue.master_items: `urgent`) fails every full gate after it:
+    # its items are drawn first, the rest once a peer holds every one of them.
+    urgent = [c for c in draw if c.get("urgent")]
+    for part in ([urgent, [c for c in draw if not c.get("urgent")]] if urgent else [draw]):
+        if not part:
+            continue
+        candidate, acquired = claim_choice(part, label) if args.claim else (weighted_choice(part), [])
+        if candidate is not None:
+            return {"name": name, "label": label, "pool": pool, "candidate": candidate, "acquired": acquired,
+                    "tried": list(tried), "suppressed": suppressed}
+    return None
 
 
 def scope_release_note(candidate, acquired):
