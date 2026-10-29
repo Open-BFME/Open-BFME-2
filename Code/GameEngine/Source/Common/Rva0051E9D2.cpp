@@ -7,21 +7,28 @@
 // against 12-byte records and selects signed 16-bit coordinates. The adjacent
 // rowed copy helper at 0x0051E939 establishes the record's 0x04/0x06/0x08 fields.
 // The scale offsets are structural inferences from retail loads, not named fields.
-struct Rva0051E437
+class Rva0051E437
 {
+public:
+	Rva0051E437 &rva0051E437(const Rva0051E437 &src);
 	int m00;
 	short m04;
 	short m06;
 	short m08;
 };
 
+template <class T>
+struct Rva0051E716Range
+{
+	int size() const { return m_end - m_begin; }
+	T *m_begin;
+	T *m_end;
+};
+
 struct Rva0051E9D2Array
 {
 	char pad[0x20];
-	char *begin;
-	char *end;
-	char *beginPtr() const { return begin; }
-	char *endPtr() const { return end; }
+	Rva0051E716Range<Rva0051E437> m_range;
 };
 
 class GlobalData
@@ -73,11 +80,11 @@ float Rva0051E73E::value(int index)
 	if (index >= 0)
 	{
 		Rva0051E9D2Array *array = reinterpret_cast<Rva0051E9D2Array *>(m_array);
-		char *beginRef = array->begin;
-		int count = (array->end - array->begin) / 12;
+		Rva0051E437 *beginRef = array->m_range.m_begin;
+		int count = array->m_range.m_end - array->m_range.m_begin;
 		if ((unsigned)index < (unsigned)count)
 		{
-			Rva0051E437 *record = (Rva0051E437 *)(array->begin + index * 12);
+			Rva0051E437 *record = &array->m_range.m_begin[index];
 			int selector = m_selector;
 			switch (selector)
 			{

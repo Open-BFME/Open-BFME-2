@@ -4,11 +4,10 @@ class Rva0051E437
 {
 public:
 	Rva0051E437 &rva0051E437(const Rva0051E437 &src);
-private:
 	int m00;
-	unsigned short m04;
-	unsigned short m06;
-	unsigned short m08;
+	short m04;
+	short m06;
+	short m08;
 };
 Rva0051E437 *Rva0051E939Copy(Rva0051E437 *first, Rva0051E437 *last, Rva0051E437 *result)
 {

@@ -1,4 +1,4 @@
-// cl: /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /O1 /GF- /G7 /arch:SSE /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB
+// cl: /ICode/GameEngine/Include /ICode/GameEngine/Source/Common /Ireference/shims/bfme2_ascii /O1 /GF- /G7 /arch:SSE /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB
 // stlport
 //
 // BFME2's time line (post-game graph) screen Apt callbacks
@@ -8,14 +8,16 @@
 // The per-player variables ("TimeLine:PlayerColor:%d" ...) are bound in a
 // loop of the same registration (0x0051FEF5-0x0051FFC1).
 
-extern "C" __declspec(dllimport) int __cdecl atoi(const char *text);
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buffer, const char *format, ...);
-
-// Retail calls _mbscpy through the import thunk at 0x00629176.
-#define _CRTIMP
-#include <mbstring.h>
+// The callbacks call atoi and sprintf through their imports, as <stdlib.h>
+// and <stdio.h> declare them with _CRTIMP; /D_CRTIMP= keeps the CRT headers
+// included after these direct (_mbscpy goes through its thunk).
 #undef _CRTIMP
 #define _CRTIMP __declspec(dllimport)
+#include <stdlib.h>
+#include <stdio.h>
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
 #include <vector>
 
 #include "ascii_string.h"

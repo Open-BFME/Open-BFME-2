@@ -17,11 +17,18 @@ struct Rva0051E96BRecord
 	char mPad10[0x14 - 0x10];
 };
 
+template <class T>
+struct Rva0051E716Range
+{
+	int size() const { return m_end - m_begin; }
+	T *m_begin;
+	T *m_end;
+};
+
 struct Rva0051E96BArray
 {
 	char pad[0x14];
-	char *begin;
-	char *end;
+	Rva0051E716Range<Rva0051E96BRecord> m_range;
 };
 
 // Consuming two-slot interface; original class and inheritance names remain unknown.
@@ -57,11 +64,11 @@ float Rva0051E716::value(int index)
 	if (index >= 0)
 	{
 		Rva0051E96BArray *array = reinterpret_cast<Rva0051E96BArray *>(m_array);
-		char *beginRef = array->begin;
-		int count = (array->end - array->begin) / 20;
+		Rva0051E96BRecord *beginRef = array->m_range.m_begin;
+		int count = array->m_range.m_end - array->m_range.m_begin;
 		if ((unsigned)index <= (unsigned)count)
 		{
-			Rva0051E96BRecord *record = (Rva0051E96BRecord *)(array->begin + index * 20);
+			Rva0051E96BRecord *record = &array->m_range.m_begin[index];
 			int selector = m_selector;
 			switch (selector)
 			{
