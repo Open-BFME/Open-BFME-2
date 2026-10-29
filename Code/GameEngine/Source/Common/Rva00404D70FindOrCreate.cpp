@@ -6,19 +6,10 @@
 // at4055BB; this TU needs only its declaration and the native three-pointer
 // indexed/back accessors. Importing vector's unused growth machinery emitted
 // allocator/cleanup copies that diverged from the existing kept providers.
-// This bounded template view preserves element24B and vector12B without
-// defining those out-of-line workers again.
+// The real STLport header provides the three-pointer vector; push_back stays a
+// declaration bound to the kept provider.
+#include <vector>
 #include "ascii_string.h"
-namespace _STL {
- template<class T>class allocator {};
- template<class T,class A=allocator<T> >class vector {
- public:
-  void push_back(const T &);
-  T &operator[](unsigned int n){return m_start[n];}
-  T &back(){return m_finish[-1];}
- private:T *m_start;T *m_finish;T *m_end;
- };
-}
 struct BfmeStringRecord00404BF3
 {
 	AsciiString text;
@@ -29,6 +20,10 @@ struct BfmeStringRecord00404BF3
 	float f4;
 	BfmeStringRecord00404BF3(const AsciiString &s);
 };
+
+namespace _STL {
+template <> void vector<BfmeStringRecord00404BF3>::push_back(const BfmeStringRecord00404BF3 &);
+}
 
 class Rva00404D70
 {
