@@ -18,7 +18,7 @@
 // issue the data and target x loads ahead of the fstp of the length, as
 // retail does. Without them, "float length = sqrt(...)" stores the length
 // first (traced in c2 3077 with SchSelectInstrs picks, 2026-10-20).
-extern "C" double __cdecl sqrt(double);
+#include <math.h>
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 
@@ -167,7 +167,7 @@ UpdateSleepTime WoundArrowUpdate::update()
 				dir.x = target->m_pos.x - owner->m_pos.x;
 				dir.y = target->m_pos.y - owner->m_pos.y;
 				const WoundArrowUpdateModuleData *data = m_moduleData;
-				float length = ((float)sqrt(dir.y * dir.y + dir.x * dir.x));
+				float length = ((float)sqrt((double)(dir.y * dir.y + dir.x * dir.x)));
 				float nx = dir.x / length;
 				float ny = dir.y / length;
 				float ox = nx * data->m_distance, oy = ny * data->m_distance;
