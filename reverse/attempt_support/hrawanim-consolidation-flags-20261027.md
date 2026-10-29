@@ -68,3 +68,12 @@ This is 4/5 clean in ordinary-preview scope, not census progress. No new
 LINKED or image-ownership receipt is claimed. No source paths moved, so
 there are no changed path consumers to audit. No nightly or smoke run was
 started.
+
+## Resolution (2026-10-29)
+
+Merged at `04440f742e` after three prerequisites: BfmeConv1372's real flags
+(`beb9e1e2f2`), the loaders reading the shim headers (`e10fa34caa`) and the
+tu_skeleton compose fix that keeps the seed's trailing `optimize("gsy", on)`
+after every donor (`52e2b25552`). All four donors accepted, 35/35 rows
+byte-verified, EH EXACT 5/5, link_check LINKS. See LINK-023 in
+`docs/linking_obstacles.md`.

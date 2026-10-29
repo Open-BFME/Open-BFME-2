@@ -5855,6 +5855,19 @@ Next: resolve donor flag compatibility, retry the supported merge, then
 reconcile the shared views. Census confirmation remains pending. Evidence:
 `reverse/attempt_support/hrawanim-consolidation-flags-20261027.md`.
 
+**Consolidation cleared (2026-10-29, merged at `04440f742e`):** the supported
+merge absorbed all four donors into `hrawanim.cpp` (35 rows, no rejects, link
+guard passed). Three prerequisites: `BfmeConv1372.cpp` records its real
+`-arch:SSE -G7` flags (`beb9e1e2f2`, carried to the TU); both loaders include
+the `bfmehrawanim` shim headers in place of private copies, with
+`HRawAnimClass` a friend of `MotionChannelClass` (`e10fa34caa`); and
+`tu_skeleton.py` composes the seed's trailing `optimize("gsy", on)` after every
+donor body (`52e2b25552`), which had compiled each donor size-optimised and
+refused it on bytes. Verified: `./build.sh hrawanim.cpp` 35/35, `eh_verify`
+EXACT 5/5, `link_check --staged` LINKS with 6,766 own bytes, full gate green.
+Census confirmation pending. The shared-view reconciliation above (one
+`HAnimClass` layout across hcanim/hrawanim/htree) remains open.
+
 ### LINK-024: `LivingWorldBuildingCtor.cpp` needs placeholder `Rva004E0D67` named `LivingWorldBuilding`
 Status: Open. Updated: 2026-10-26; inspected revision: 896af21680.
 Evidence / affected units: `Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildingCtor.cpp`
