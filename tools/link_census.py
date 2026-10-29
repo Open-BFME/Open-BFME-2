@@ -465,10 +465,14 @@ def _arg(path):
     return Path(path).resolve().relative_to(ROOT.resolve()).as_posix()
 
 
+def _rsp_text(objs):
+    return "\n".join(f'"{_arg(o)}"' for o in objs) + "\n"
+
+
 def link(objs, aliases=None, tag="census", extra=(), options=()):
     OUT.mkdir(parents=True, exist_ok=True)
     rsp = OUT / f"{tag}.rsp"  # per tag: the census and selection links may run at once
-    rsp.write_text("\n".join(f'"{_arg(o)}"' for o in objs) + "\n", encoding="utf-8")
+    rsp.write_text(_rsp_text(objs), encoding="utf-8")
     extra = [_arg(path) for path in extra] + list(options)
     if aliases:
         extra.append(_arg(alias_object(aliases, OUT / "aliases.obj")))
@@ -1942,6 +1946,10 @@ def main(argv=None):
                          "(selected.csv, aliased.csv); on the census's own commit, records nothing")
     ap.add_argument("--status", action="store_true",
                     help="redo link_status.csv and the last history row's LINKED from the last link log, on the census's own commit")
+    ap.add_argument("--replay", action="store_true",
+                    help="with --dry: reuse the last dry census's own plain-link log and /MAP (refused unless its "
+                         "objects, their order and the stub names are this run's) instead of running link.exe; every "
+                         "other step runs. Only compares the judgment's runs (caches cold and warm); never a census")
     ap.add_argument("--dry", action="store_true",
                     help="with --history: run the whole census (compile, both links, every check, the judgment) but "
                          "write every output, link_status.csv, the history and the link index included, under "
@@ -1953,6 +1961,8 @@ def main(argv=None):
         if not args.history or args.report or args.selected or args.status or args.measure or args.scaffold:
             ap.error("--dry goes with --history (and --build) only")
         use_dry_outputs(DRY_OUT)
+    elif args.replay:
+        ap.error("--replay goes with --dry only")
     _PROFILE = True
     run_started = time.monotonic()
     path = OUT / "census.json"
@@ -2011,13 +2021,16 @@ def main(argv=None):
     # barely move between censuses, so start it now on the last census's
     # names, in parallel; selection_link() uses this result only when the
     # names turn out identical, and relinks otherwise. Same map either way.
-    predicted = _unresolved_names(OUT / "census.log")
-    if predicted:
-        _start_preselection(present, predicted)
-    fresh_outputs(OUT / "census.exe")
-    log, seconds, code = link(present)
-    _stage_line("link (plain)", seconds)
-    unexplained_exit(code, log, OUT / "census.exe")
+    if args.replay:
+        log, seconds = replayed_link(present)
+    else:
+        predicted = _unresolved_names(OUT / "census.log")
+        if predicted:
+            _start_preselection(present, predicted)
+        fresh_outputs(OUT / "census.exe")
+        log, seconds, code = link(present)
+        _stage_line("link (plain)", seconds)
+        unexplained_exit(code, log, OUT / "census.exe")
     if census_state(present) != state or stale_objects(present, sources):
         raise SystemExit("link_census: compiler inputs, tools or objects changed during link; nothing recorded"
                          f" ({moved(state, census_state(present))})")
@@ -2085,6 +2098,44 @@ def use_dry_outputs(directory):
     UNREFERENCED_COPIES, SELECTED, DUPLICATES, ALIASED, SELECTION = (
         directory / path.name for path in (UNREFERENCED_COPIES, SELECTED, DUPLICATES, ALIASED, SELECTION))
     link_check.INDEX = directory / link_check.INDEX.name
+
+
+_REPLAY = {}
+
+
+def replayed_link(present):
+    """--dry --replay: (log, seconds) of the dry census's plain link of these
+    very objects (census.json's objects_digest, census.rsp's list and order),
+    which a link of them would write again; selection_link then reuses its
+    /MAP the same way. Not a census: only DRY_OUT is ever replayed."""
+    if OUT != DRY_OUT:
+        raise SystemExit("link_census: --replay only reads a --dry census's outputs")
+    try:
+        previous = json.loads((OUT / "census.json").read_text(encoding="utf-8"))
+        log = (OUT / "census.log").read_text(encoding="utf-8")
+        rsp = (OUT / "census.rsp").read_text(encoding="utf-8")
+    except (OSError, ValueError) as exc:
+        raise SystemExit(f"link_census: nothing to replay ({exc}); run --dry first")
+    if previous.get("objects_digest") != objects_digest(present) or rsp != _rsp_text(present):
+        raise SystemExit("link_census: the last dry census linked other objects; run --dry first")
+    _REPLAY["census"] = True
+    print("link_census: REPLAY of the last dry census's links (not a census)", file=sys.stderr, flush=True)
+    return log, previous.get("seconds", 0)
+
+
+def _replayed_map(present, missing_names):
+    stubs = stub_object(missing_names, OUT / "replay_stubs.obj")
+    try:
+        same = (stubs.read_bytes() == (OUT / "selected_stubs.obj").read_bytes()
+                and (OUT / "selected.rsp").read_text(encoding="utf-8") == _rsp_text(present))
+        text = (OUT / "selected.map").read_text(encoding="latin-1")
+    except OSError as exc:
+        raise SystemExit(f"link_census: no /MAP to replay ({exc}); run --dry first")
+    finally:
+        stubs.unlink(missing_ok=True)
+    if not same or not text:
+        raise SystemExit("link_census: the last dry census's /MAP link had other inputs; run --dry first")
+    return text
 
 
 def measure(census, rows, present, log, state, sources):
@@ -2188,6 +2239,8 @@ def selection_link(present, log):
     finishes and the map says which definition it kept for every name.
     /OPT:NOREF keeps every selected COMDAT in the map."""
     missing_names = _unresolved_names(log)
+    if _REPLAY:
+        return _replayed_map(present, missing_names)
     if _PRESELECTION:
         _PRESELECTION["thread"].join()
         if (_PRESELECTION["names"] == missing_names and _PRESELECTION["objects"] == list(present)

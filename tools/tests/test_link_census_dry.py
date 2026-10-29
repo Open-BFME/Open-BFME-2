@@ -1,4 +1,5 @@
 """link_census --dry: a whole census that records nothing."""
+import json
 import sys
 from pathlib import Path
 
@@ -47,3 +48,49 @@ def test_dry_needs_history(real_outputs):
         link_census.main(["--dry"])
     with pytest.raises(SystemExit):
         link_census.main(["--dry", "--history", "--status"])
+
+
+@pytest.fixture
+def dry_census(tmp_path, monkeypatch):
+    """A finished dry census of two objects: census.json, the plain log and the /MAP link's inputs."""
+    monkeypatch.setattr(link_census, "ROOT", tmp_path)
+    dry = tmp_path / "build" / "link_census_dry"
+    dry.mkdir(parents=True)
+    monkeypatch.setattr(link_census, "DRY_OUT", dry)
+    monkeypatch.setattr(link_census, "OUT", dry)
+    monkeypatch.setattr(link_census, "_REPLAY", {})
+    present = []
+    for name in ("a.obj", "b.obj"):
+        (tmp_path / name).write_bytes(name.encode())
+        present.append(tmp_path / name)
+    log = "a.obj : error LNK2019: unresolved external symbol _f referenced in function _g\n"
+    (dry / "census.json").write_text(json.dumps({"objects_digest": link_census.objects_digest(present),
+                                                 "seconds": 12.5}), encoding="utf-8")
+    (dry / "census.log").write_text(log, encoding="utf-8")
+    (dry / "census.rsp").write_text(link_census._rsp_text(present), encoding="utf-8")
+    (dry / "selected.rsp").write_text(link_census._rsp_text(present), encoding="utf-8")
+    link_census.stub_object({"_f"}, dry / "selected_stubs.obj")
+    (dry / "selected.map").write_text(" 0001:00000000       _f    00401000 f   a.obj\n", encoding="latin-1")
+    return tmp_path, dry, present, log
+
+
+def test_replay_reuses_the_dry_census_links_of_the_same_objects(dry_census):
+    _, dry, present, log = dry_census
+    assert link_census.replayed_link(present) == (log, 12.5)
+    assert link_census.selection_link(present, log) == (dry / "selected.map").read_text(encoding="latin-1")
+    assert not (dry / "replay_stubs.obj").exists()
+
+
+def test_replay_refuses_other_objects_order_or_names(dry_census, monkeypatch):
+    tmp_path, dry, present, log = dry_census
+    with pytest.raises(SystemExit):
+        link_census.replayed_link(present[::-1])  # another link order
+    (tmp_path / "b.obj").write_bytes(b"recompiled")
+    with pytest.raises(SystemExit):
+        link_census.replayed_link(present)  # other bytes
+    monkeypatch.setattr(link_census, "_REPLAY", {"census": True})
+    with pytest.raises(SystemExit):
+        link_census.selection_link(present, log + "b.obj : error LNK2001: unresolved external symbol _h\n")
+    monkeypatch.setattr(link_census, "OUT", tmp_path / "build" / "link_census")
+    with pytest.raises(SystemExit):
+        link_census.replayed_link(present)  # never a real census's outputs
