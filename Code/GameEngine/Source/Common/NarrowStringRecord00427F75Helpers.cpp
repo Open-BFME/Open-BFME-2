@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport46
 //
 // _STL::__uninitialized_copy PBUBfmeNarrowRecord00427F75 PAU, retail 0x00428123 38B,
 // and _STL::__uninitialized_fill_n PAUBfmeNarrowRecord00427F75, retail 0x00428149 37B.
