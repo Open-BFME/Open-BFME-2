@@ -1,5 +1,16 @@
 # Linking obstacle register
 
+### LivingWorldEyeTower vector composition (2026-10-29)
+
+Replacing the seed's private vector declaration with STLport preserves 7/7
+function rows and its data row. The seed retains LINKS for 1,404 bytes against
+index `85f6b7f40c`. The supported merge dry run now accepts the constructor
+donor, which previously failed on duplicate allocator declarations. The xfer
+donor still fails to compose: its BfmeE8 declaration and the seed's vector
+specialization need reconciliation. Five mixed files also remain. Check the
+merged provider and consumers in the outgoing audit and next census; no census
+gain is claimed.
+
 ### RenderObjIntersectSphere math header cleanup (2026-10-29)
 
 The local sqrtf wrapper is replaced by the Microsoft math header in
