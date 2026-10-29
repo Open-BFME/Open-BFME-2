@@ -1,5 +1,12 @@
 # Linking target checklist
 
+Fill helper STLport 4.6 migration (2026-10-29, base `6a36399b76`):
+Rva00577CA0Fill.cpp adopts the library's real tag declaration and leaves the
+migration queue. Its 37-byte row, object facts and LINKS preview are preserved.
+Consumer/census confirmation remains pending after an inconclusive batch audit
+(older index and missing CreateAHeroManager consumer receipt).
+[Evidence](../reverse/attempt_support/fill-stlport46-20261029-codex.md).
+
 ScriptEngine debug callback SDK cleanup (2026-10-29, base `5eb27ead8e`):
 five sources retain 8/8 exact rows, identical COMDATs/relocations and 551 preview
 LINKS bytes while retiring five Microsoft-header queue rows (ten declarations).

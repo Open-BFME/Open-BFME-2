@@ -22572,7 +22572,6 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?getMultiLogicalBonePosition@Object@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@_NH@Z,,0x0028BF81,120,Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp,matched,BFME1 Object.cpp getMultiLogicalBonePosition 6-arg with BFME2 extra param
 ?rva00625840@Rva00625840@@QAEXXZ,,0x00625840,40,Code/GameEngine/Source/Common/Rva00625840Init.cpp,matched,twin of Rva009A2350 init with head at +0x120 and Object+0x4c8 callers
 ??1MetaMapRec@@QAE@XZ,,0x001DB48E,54,Code/GameEngine/Source/GameClient/MessageStream/MetaEvent.cpp,matched,ZH MetaEvent.h layout plus BFME1 destructor thunk plus dual wide releaseBuffer
-?Rva00577CA0Fill@@YAPAPAXPAPAXIABQAXABU__false_type@_STL@@@Z,,0x00577CA0,37,Code/GameEngine/Source/Common/Rva00577CA0Fill.cpp,matched,fill via rowed copy plus overflow caller 0x0057833B
 ??_GMetaMapRec@@QAEPAXI@Z,,0x001DB51B,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-x7k-f694.cpp,matched,deleting dtor via rowed MetaMapRec dtor plus plain delete
 ?Rva0060173ACopy@@YAXPAVCoord3D@@ABUCoord3DBase@@@Z,,0x0060173A,18,Code/GameEngine/Source/Common/Coord3DCopy.cpp,matched,null-checked Coord3D assign via rowed 0x4216D3 with 0x0C stride callers
 ?rva0028BA85@Object@@QBEXXZ,,0x0028BA85,41,Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BA85.cpp,matched,Object module broadcast via 0x244 array slot 0xB8 with 0x45C int
@@ -99006,3 +99005,4 @@ _$E244,,0x007B3EBF,11,Code/GameEngine/Source/GameClient/FXParticleSystemModules.
 ?Rva0007BF77Copy@@YAPAURegion2D@@PAU1@00ABU__false_type@_STL@@H@Z,,0x0007BF77,47,Code/GameEngine/Source/Common/Rva0007BF77Copy.cpp,matched,rowed Region2D copy 0x4254E stride 0x10 caller 0x7BF5A wrapper; migrated=stlport-4.6
 ?Rva0007E2FACopy@@YAPAPAXPAPAX00ABU__false_type@_STL@@@Z,,0x0007E2FA,38,Code/GameEngine/Source/Common/Rva0007E2FACopy.cpp,matched,chain copy walk via rowed Rva00087A5CCopy; migrated=stlport-4.6
 ?Rva00318D75Copy@@YAPAVRva00318B5C@@PAV1@00ABU__false_type@_STL@@@Z,,0x00318D75,38,Code/GameEngine/Source/Common/Rva00318D75Copy.cpp,matched,copy range Rva00318B5C via rowed Copy 0x00318D63; tag unused; 4 callers push 4; migrated=stlport-4.6
+?Rva00577CA0Fill@@YAPAPAXPAPAXIABQAXABU__false_type@_STL@@@Z,,0x00577CA0,37,Code/GameEngine/Source/Common/Rva00577CA0Fill.cpp,matched,fill via rowed copy plus overflow caller 0x0057833B; migrated=stlport-4.6
