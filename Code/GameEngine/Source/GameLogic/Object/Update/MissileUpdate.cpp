@@ -350,7 +350,7 @@ MissileUpdateModuleData::MissileUpdateModuleData()
 	m_exhaust.set("");
 }
 
-// tu-skeleton: 0x004A7551 47B ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_rva004A7551.cpp (not merged yet)
+// tu-skeleton: 0x004A7551 47B ?projectileLaunchAtObjectOrPosition@MissileUpdate@@UAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
@@ -393,7 +393,7 @@ void MissileUpdate::rva004A7797()
 
 // tu-skeleton: 0x004A789C 28B ??_GMissileUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A78B8 41B ?rva004A78B8@Rva004A78B8@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva004A78B8Gate.cpp (not merged yet)
+// tu-skeleton: 0x004A78B8 41B ?rva0045CD6E@MissileUpdate@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp
 

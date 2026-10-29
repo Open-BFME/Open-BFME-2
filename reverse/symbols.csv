@@ -6303,7 +6303,6 @@ name,address,notes
 ?rva00450AE9CallView@GiveUpgradeUpdate@@QAEXXZ,0x00450AE9,"auto-pin (permute --pins): REL32 call target read from retail in 0x0049c8e9, whose banked body is byte-exact once this call resolves"
 ?rva00450D9A@SpecialAbilityUpdate@@UAEXXZ,0x00450D9A,slot 15 of the SpecialAbilityUpdate vtable 0x00C3FBA8 (matched ??_GSpecialAbilityUpdate/xfer/pool key in slots 0/3/4); called directly as the base implementation by the GloriousChargeUpdate slot-15 override 0x004AD554; address from that REL32; slot name not established
 ?rva00451B92@SpecialAbilityUpdate@@UAEXXZ,0x00451B92,"SpecialAbilityUpdate primary slot-19 base (EH, plain ret): the slot-19 entry of 26 special-ability vtables, SpecialAbilityUpdate's own 0x00C3FBA8 among them; EvacuateGarrisonSpecialPower slot 19 0x004CDCB4 calls it first"
-?rva0045CD6E@Rva004A78B8@@QAE_NH@Z,0x0045CD6E,callee of ?rva004A78B8@Rva004A78B8@@QAE_NH@Z
 ?rva0046247D@Rva0046247D@@QAEPAXAAURva0046247DPair@@@Z,0x0046247D,callee of ?redeployOccupants@OpenContain@@MAEXXZ
 ?rva00464984@Rva004650A0@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHVAsciiString@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHVAsciiString@@@_STL@@@2@@_STL@@U23@ABU?$pair@$$CBHVAsciiString@@@3@@Z,0x00464984,callee of ?rva004650A0@Rva004650A0@@QAEAAVAsciiString@@ABH@Z
 ?rva00467F3B@Rva00467F3B@@QAEXXZ,0x00467F3B,address-derived callee of matched slot 0x0047E330; retail jmp rel32 targets 0x00467F3B; Ghidra FUN bounds 145 bytes; thiscall no args ret; callee body remains unclaimed; no named identity inferred
