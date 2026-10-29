@@ -23,12 +23,12 @@ void *g_00DBC46C[6] = {
 };
 // g_00C00948: matched references place it at VA 0xc00948; retail contents, sized to the
 // 0x18-byte gap before the next known global there.
-int g_00C00948[6] = {
+int FiringOrPreAttack[6] = {
 	42, 48, 54, 540, 541, -1,
 };
 // g_00C00930: matched references place it at VA 0xc00930; retail contents, sized to the
 // 0x18-byte gap before the next known global there.
-int g_00C00930[6] = {
+int FiringOrReloading[6] = {
 	43, 49, 55, 542, 543, -1,
 };
 class WeaponTemplateSetHead
@@ -51,12 +51,12 @@ WeaponTemplateSetHead *__cdecl Rva002C76B2Build(WeaponTemplateSetHead *out, int 
 	int w = ((int *)g_00C00960)[a];
 	if (w != -1 && b != 0)
 		bits[(unsigned)w >> 5] |= bit << ((unsigned)w & 31);
-	int x = ((int *)g_00C00948)[a];
-	if (x != -1 && (b == 1 || b == 4 || b == 5))
-		bits[(unsigned)x >> 5] |= bit << ((unsigned)x & 31);
-	int y = ((int *)g_00C00930)[a];
-	if (y != -1 && (b == 1 || b == 3))
-		bits[(unsigned)y >> 5] |= bit << ((unsigned)y & 31);
+	int firingOrPreAttackFlag = ((int *)FiringOrPreAttack)[a];
+	if (firingOrPreAttackFlag != -1 && (b == 1 || b == 4 || b == 5))
+		bits[(unsigned)firingOrPreAttackFlag >> 5] |= bit << ((unsigned)firingOrPreAttackFlag & 31);
+	int firingOrReloadingFlag = ((int *)FiringOrReloading)[a];
+	if (firingOrReloadingFlag != -1 && (b == 1 || b == 3))
+		bits[(unsigned)firingOrReloadingFlag >> 5] |= bit << ((unsigned)firingOrReloadingFlag & 31);
 	new (out) WeaponTemplateSetHead(weaponTemplateSetHead);
 	return out;
 }

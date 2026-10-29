@@ -36,18 +36,18 @@ extern Rva002E36D5Node *g_00DFF0B8;
 extern const char *g_rva0033A3F4Table[];
 
 
-// ?Rva00309E2AGet@@YAHXZ @ 0x00309e2a (6B): returns 0x00c084c0.
+// ?getFireEffectFieldParseTable@@YAHXZ @ 0x00309e2a (6B): returns 0x00c084c0.
 // Third of a mov-ret triple with rowed 0x00309e1e/0x00309e24.
 // Opaque address-derived name.
-int Rva00309E2AGet(void)
+int getFireEffectFieldParseTable(void)
 {
 	return (int)FireEffect::m_fieldParseTable;
 }
 
-// ?Rva0031A9ECGet@@YAHXZ @ 0x0031a9ec (6B): returns 0x00c38dd0.
+// ?getCommandSetFieldParseTable@@YAHXZ @ 0x0031a9ec (6B): returns 0x00c38dd0.
 // Follows a ret (xor/cmp/sete/ret). Next opens a new function.
 // Opaque address-derived name.
-int Rva0031A9ECGet(void)
+int getCommandSetFieldParseTable(void)
 {
 	return (int)CommandSet::m_commandSetFieldParseTable;
 }

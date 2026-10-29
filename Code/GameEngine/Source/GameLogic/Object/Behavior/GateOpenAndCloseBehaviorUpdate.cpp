@@ -223,10 +223,10 @@ extern int g_00DCB4CC;
 // ?rva00498716@Rva00498716@@QAEHXZ @0x00498716 15B
 int Rva00498716::rva00498716()
 {
-	int v = m_timeBeforePlayingClosedSound;
-	if (v == g_00DCB4CC)
-		v = m_0C;
-	return v;
+	int soundDelay = m_timeBeforePlayingClosedSound;
+	if (soundDelay == g_00DCB4CC)
+		soundDelay = m_0C;
+	return soundDelay;
 }
 
 class GatePrimary
@@ -274,14 +274,14 @@ private:
 	void rva0049924B(bool flag);
 	void rva004989F5();
 
-	__forceinline void rva004992D5Inline(bool a, bool b)
+	__forceinline void rva004992D5Inline(bool force, bool pushOutUnits)
 	{
 		if (m_2C == 2)
 		{
-			if (!a)
+			if (!force)
 				return;
 		}
-		if (b)
+		if (pushOutUnits)
 			rva00498FAA();
 		Pathfinder *shim = TheAI->m_pathfinder;
 		Object *obj = m_object;
@@ -289,10 +289,10 @@ private:
 		m_2C = 2;
 		obj->setArmorSetFlag((ArmorSetType)9);
 		const GateOpenAndCloseBehaviorModuleData *data = getGateModuleData();
-		for (BfmeStrF9 *p = data->m_vec2C.m_begin; p != data->m_vec2C.m_end; ++p)
-			(&obj->m_objA8)->setFlag(*p, 1);
-		for (BfmeStrF9 *p = data->m_vec38.m_begin; p != data->m_vec38.m_end; ++p)
-			(&obj->m_objA8)->setFlag(*p, 0);
+		for (BfmeStrF9 *geometryName = data->m_vec2C.m_begin; geometryName != data->m_vec2C.m_end; ++geometryName)
+			(&obj->m_objA8)->setFlag(*geometryName, 1);
+		for (BfmeStrF9 *geometryName = data->m_vec38.m_begin; geometryName != data->m_vec38.m_end; ++geometryName)
+			(&obj->m_objA8)->setFlag(*geometryName, 0);
 		obj->rva0028AB75(true);
 		TheAI->m_pathfinder->AddObjectToPathfindMap(obj);
 	}

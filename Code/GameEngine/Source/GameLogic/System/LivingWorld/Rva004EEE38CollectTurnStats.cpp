@@ -131,14 +131,14 @@ public:
 	class PerTurnStats : public Snapshot
 	{
 	public:
-		PerTurnStats() : m_field04(0), m_field06(0), m_field08(0) {}
+		PerTurnStats() : m_numRegions(0), m_field06(0), m_field08(0) {}
 		virtual ~PerTurnStats() {}
 		// ?PerTurnStats::loadPostProcess present-unmatched
 		virtual void loadPostProcess() {}
 		virtual const char *GetSnapshotName() const;
 		virtual void xfer(Xfer *xfer);
 
-		Short m_field04;
+		Short m_numRegions;
 		Short m_field06;
 		Short m_field08;
 	};
@@ -206,7 +206,7 @@ void LivingWorldScoreKeeper::collectEndOfTurnStats(int turn)
 			Rva003F287F *region = *it;
 			if (region != 0 && region->m_ownerID == m_ownerID)
 			{
-				++stats.m_field04;
+				++stats.m_numRegions;
 				_STL::vector<const ModuleData *> armies;
 				region->rva003F287F(armies);
 				stats.m_field08 += armies.size();
