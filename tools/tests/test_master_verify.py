@@ -356,3 +356,15 @@ def test_no_item_is_published_until_every_search_for_the_tip_settles(toy, tmp_pa
     assert M.run_once(cfg)[0] == 1
     found = {i["bad_sha"]: i["checks"] for i in origin_queue(toy)}
     assert found == {first: ["dir32 consistency"], second: ["functions"]}
+
+
+def test_a_green_gate_records_its_receipt_with_its_base(tmp_path, monkeypatch):
+    """full_gate_receipt.py record requires --base (catch-up carries only from a known base)."""
+    seen = []
+    monkeypatch.setattr(M.subprocess, "run", lambda argv, **kw: seen.append(argv) or
+                        M.subprocess.CompletedProcess(argv, 0, "", ""))
+    (tmp_path / "loads").mkdir()
+    ok, _ = M.record_receipt(type("Cfg", (), {"worktree": tmp_path})(), "abc123", tmp_path)
+    argv = seen[0]
+    assert ok and argv[argv.index("--base") + 1] == "abc123"
+

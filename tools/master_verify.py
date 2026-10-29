@@ -359,7 +359,9 @@ def full_gate(cfg, sha, tmp):
 
 
 def record_receipt(cfg, sha, tmp):
-    argv = [sys.executable, "tools/full_gate_receipt.py", "record", sha, "--loads", str(tmp / "loads")]
+    # the gate verified the tip itself, so the tip is the base a seat's catch-up descends from
+    argv = [sys.executable, "tools/full_gate_receipt.py", "record", sha, "--base", sha,
+            "--loads", str(tmp / "loads")]
     if (tmp / "dir32-index.gz").is_file():
         argv += ["--dir32-index", str(tmp / "dir32-index.gz")]
     done = subprocess.run(argv, cwd=cfg.worktree, capture_output=True, text=True,
