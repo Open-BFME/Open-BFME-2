@@ -1,5 +1,5 @@
 // cl: /O2 /EHsc /MD
-// stlport
+// stlport46
 
 // Open-BFME5: _STL::basic_filebuf<char>::overflow @ 0x00843270 (297B)
 // STLport 4.5.3 basic_filebuf<char>::overflow (stl/_fstream.c).

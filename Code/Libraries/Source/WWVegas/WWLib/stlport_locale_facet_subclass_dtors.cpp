@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 declares every standard facet's destructor in the header and
 // leaves the body to the library, so this is the translation unit that has to

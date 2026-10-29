@@ -1,5 +1,5 @@
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 #include <stddef.h>
 

@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.6.2 numeric grouping, matching the semantic donor embedded in
 // stlport_float_format.cpp (archive SHA256

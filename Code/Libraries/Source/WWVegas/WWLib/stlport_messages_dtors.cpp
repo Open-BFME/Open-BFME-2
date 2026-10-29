@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Reconstructed STLport 4.5.3 facet destruction from the vendor layouts and
 // retail code. Destructor identities independently follow PE vtable RTTI
 // (.?AV?$messages@D@_STL@@ at 0x007BC8C0, .?AV?$messages@G@_STL@@ at
