@@ -43985,7 +43985,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00524265,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00524265Dtor.cpp
 0x00524294,67,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE11.cpp
 0x005242D7,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva005242D7Chain.cpp
-0x00524306,67,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,proposed,K,K=Rva00524306,Code/Libraries/Source/WWVegas/WWLib/Rva00524306.cpp
+0x00524306,67,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,proposed,K,K=Rva00524306,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
 0x00524349,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00524349Dtor.cpp
 0x00524378,67,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE11.cpp
 0x005243BB,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp
@@ -43998,8 +43998,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005245F3,104,code,Code/GameEngine/Source/GameClient/GUI/AptExternHandlerAdder.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/AptExternHandlerAdder.cpp,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
 0x0052465B,101,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
 0x005246C0,101,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/AptCustomRenderAdder.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
-0x00524725,66,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,C,C=0x005246C0..0x00524767 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00524306.cpp
-0x00524767,66,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,C,C=0x005246C0..0x005247A9 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00524306.cpp
+0x00524725,66,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,C,C=0x005246C0..0x00524767 provisional,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
+0x00524767,66,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,C,C=0x005246C0..0x005247A9 provisional,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp
 0x005247A9,101,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GUI/AptTimerAdder.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
 0x0052480E,55,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,C,C=0x005247A9..0x00524845 provisional,Code/Libraries/Source/WWVegas/WWLib/TreeKey00242F5EPushBack.cpp
 0x00524845,139,code,Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/AptOverButtonHandlerAdder.cpp W=Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp provisional,Code/GameEngine/Source/GameClient/GUI/AptCallbackAdders.cpp
