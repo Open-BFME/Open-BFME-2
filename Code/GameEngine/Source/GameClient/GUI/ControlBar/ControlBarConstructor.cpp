@@ -1,11 +1,13 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /Ireference/shims/subsystem_bfme2
 // stlport
 // Target 0x0031E94C..0x0031EB7A, RET, 558 bytes.
 // Ownership guide: BFME1 575ba2b047 ControlBarConstructor.cpp uses WeakPointer
 // and OwnedPointer for its corresponding tail fields. Target stores establish
-// +2A0/+2A4; the added owned-slot cleanup is checked independently by the
-// native EH map and funclet gate. Its pointee application type is unknown;
-// int retains the observed scalar-delete-only cleanup ABI.
+// +2A0/+2A4. +2A0 is a plain pointer cleared in member order: ControlBar::init hands it to
+// winSetUserData, and a weak holder adds no cleanup. The +2A4 owned-slot
+// cleanup is checked independently by the native EH map and funclet gate. Its
+// pointee application type is unknown; int retains the observed
+// scalar-delete-only cleanup ABI.
 // ??0ControlBar@@QAE@XZ @ 0x0031E94C 558B: ControlBar constructor.
 // Evidence: pinned name; callers ?init@InGameUI@@UAEXXZ 0x0029E5D0 and
 // ?recreateControlBar@InGameUI@@UAEXXZ 0x0029F890; vtable data 0x0080CC88;
@@ -116,14 +118,17 @@ struct PlayerAITypeEntry
 	char m_unknown[12];
 };
 
-#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+typedef bool Bool;
+#include "subsystem_interface.h"
 
-class SubsystemInterfaceList
-{
-public:
-	void rva001B5018(class SubsystemInterface *sys);
-};
-extern SubsystemInterfaceList *TheSubsystemList;
+class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
+
+class AnimateWindowManager : public SubsystemInterface { public: AnimateWindowManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x38 - 0x0C]; };
+
+#include "../../../../../Libraries/Include/Lib/ICoord2D.h"
+
+class ControlBarSchemeManager;
+class Image;
 
 class Rva0053B914
 {
@@ -147,42 +152,47 @@ public:
 };
 
 template<class T>class OwnedPointer{public:OwnedPointer():p(0){}~OwnedPointer(){delete p;}T*p;};
-template<class T>class WeakPointer{public:WeakPointer():p(0){}WeakPointer&operator=(T*x){p=x;return *this;}T*p;};
 class ControlBar : public SubsystemInterface
 {
 public:
 	ControlBar();
+	virtual void init(void);
+	virtual void update(void);
 	void rva0031AD14(int a, int b, int c, int d, int e);
 
 private:
-	void *m_000C[4];
-	int m_001C;
-	int m_0020;
+	WindowVideoManager *m_videoManager;
+	AnimateWindowManager *m_animateWindowManager;
+	AnimateWindowManager *m_animateWindowManagerForGenShortcuts;
+	AnimateWindowManager *m_generalsScreenAnimate;
+	ICoord2D m_defaultControlBarPosition;
 	int m_0024;
 	bool m_0028;
 	char m_pad29[3];
 	void *m_002C;
 	_STL::hash_map<int, Rva0031DBFCElement> m_0030;
-	GameWindow *m_contextParent[10];
+	ControlBarSchemeManager *m_controlBarSchemeManager;
+	// Nine slots: the constructor clears +0x48..+0x6C with one rep stosd.
+	GameWindow *m_contextParent[9];
 	void *m_006C;
 	int m_0070;
 	int m_0074;
 	float m_0078;
 	int m_007C;
 	int m_0080;
-	void *m_0084;
-	void *m_0088;
+	GameWindow *m_rightHUDWindow;
+	GameWindow *m_rightHUDCameoWindow;
 	char m_pad8C[0xA0 - 0x8C];
-	void *m_00A0;
-	void *m_00A4;
+	GameWindow *m_rightHUDUnitSelectParent;
+	GameWindow *m_communicatorButton;
 	GameWindow *m_00A8[5];
 	GameWindow *m_00BC[5];
 	char m_padD0[4];
 	void *m_00D4;
 	void *m_00D8;
-	GameWindow *m_00DC[32];
+	GameWindow *m_commandWindows[32];
 	void *m_015C[32];
-	bool m_01DC;
+	bool m_sideSelectAnimateDown;
 	char m_pad1DD[3];
 	int m_01E0;
 	int m_01E4;
@@ -204,8 +214,8 @@ private:
 	UnsignedInt m_022C;
 	_STL::vector<PlayerAITypeEntry> m_0230;
 	_STL::vector<PlayerAITypeEntry> m_023C;
-	void *m_0248;
-	void *m_024C;
+	const Image *m_genStarOn;
+	const Image *m_genStarOff;
 	void *m_0250;
 	void *m_0254;
 	void *m_0258;
@@ -216,22 +226,22 @@ private:
 	void *m_026C;
 	void *m_0270;
 	void *m_0274;
-	bool m_0278;
+	bool m_genStarFlash;
 	char m_pad279[0x290 - 0x279];
 	bool m_0290;
 	char m_pad291[3];
 	int m_0294;
-	void *m_0298;
-	int m_029C;
-	WeakPointer<Rva0053ED1A> m_02A0;
+	GameWindow *m_radarAttackGlowWindow;
+	int m_rva0031C83D29C;
+	void *m_commandWindowUserData;
 	OwnedPointer<int> m_02A4;
 	_STL::vector<PlayerAITypeEntry> m_02A8;
 };
 
-ControlBar::ControlBar() : m_0214(false)
+ControlBar::ControlBar() : m_0214(false), m_commandWindowUserData(0)
 {
 	m_002C = 0;
-	m_contextParent[0] = 0;
+	m_controlBarSchemeManager = 0;
 	m_020C = false;
 	m_0210 = 0;
 	m_01F4 = 0;
@@ -250,16 +260,16 @@ ControlBar::ControlBar() : m_0214(false)
 	m_0208 = clock;
 	m_022C = clock;
 	m_0070 = 0;
-	m_0020 = 0;
-	m_001C = 0;
-	m_0278 = false;
-	m_024C = 0;
-	m_0248 = 0;
+	m_defaultControlBarPosition.y = 0;
+	m_defaultControlBarPosition.x = 0;
+	m_genStarFlash = false;
+	m_genStarOff = 0;
+	m_genStarOn = 0;
 	m_0028 = false;
-	for (int i = 1; i < 10; ++i)
+	for (int i = 0; i < 9; ++i)
 		m_contextParent[i] = 0;
 	for (int i = 0; i < 32; ++i)
-		m_00DC[i] = 0;
+		m_commandWindows[i] = 0;
 	for (int i = 0; i < 5; ++i)
 	{
 		m_00A8[i] = 0;
@@ -267,10 +277,10 @@ ControlBar::ControlBar() : m_0214(false)
 	}
 	m_00D8 = 0;
 	m_00D4 = 0;
-	m_0084 = 0;
-	m_0088 = 0;
-	m_00A0 = 0;
-	m_00A4 = 0;
+	m_rightHUDWindow = 0;
+	m_rightHUDCameoWindow = 0;
+	m_rightHUDUnitSelectParent = 0;
+	m_communicatorButton = 0;
 	m_006C = 0;
 	m_0070 = 0;
 	m_0074 = 0;
@@ -279,10 +289,10 @@ ControlBar::ControlBar() : m_0214(false)
 	((Rva0053B914 *)this)->rva0053B914();
 	int white = (int)GameMakeColor(255, 255, 255, 0);
 	m_0080 = 0;
-	m_000C[0] = 0;
-	m_000C[1] = 0;
-	m_000C[3] = 0;
-	m_000C[2] = 0;
+	m_videoManager = 0;
+	m_animateWindowManager = 0;
+	m_generalsScreenAnimate = 0;
+	m_animateWindowManagerForGenShortcuts = 0;
 	m_0250 = 0;
 	m_0254 = 0;
 	m_0258 = 0;
@@ -292,15 +302,15 @@ ControlBar::ControlBar() : m_0214(false)
 	m_0270 = 0;
 	m_0274 = 0;
 	m_026C = 0;
-	m_01DC = false;
+	m_sideSelectAnimateDown = false;
 	rva0031AD14(white, white, white, white, white);
 	m_0290 = false;
 	m_0294 = 0;
-	m_0298 = 0;
-	m_029C = 0;
+	m_radarAttackGlowWindow = 0;
+	m_rva0031C83D29C = 0;
 	Rva0053ED1A *overlay = new Rva0053ED1A;
-	m_02A0 = overlay;
+	m_commandWindowUserData = overlay;
 	((Rva0053ED1A_InitView *)overlay)->v01();
 	if (TheSubsystemList != 0)
-		TheSubsystemList->rva001B5018((class SubsystemInterface *)this);
+		TheSubsystemList->rva001B5018(this);
 }

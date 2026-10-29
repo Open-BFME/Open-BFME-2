@@ -857,9 +857,11 @@ private:
 private:
 	ControlBarSchemeManager *m_controlBarSchemeManager;
 private:
-	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS];
-private:
-	GameWindow *m_commandWindowParent;
+	// Nine slots: the constructor (0x0031E94C) clears +0x48..+0x6C with one
+	// rep stosd. The last holds the command-button parent init creates; its
+	// ContextParent name is unrecovered (Zero Hour's enum also has nine, with
+	// CP_PURCHASE_SCIENCE at index 1).
+	GameWindow *m_contextParent[NUM_CONTEXT_PARENTS + 1];
 private:
 	char m_pad6C[0x84 - 0x6C];
 private:
@@ -1200,7 +1202,7 @@ void ControlBar::init(void)
 		setRva0031C83DViewSystem(commandView, Rva0053EC21);
 		clearRva0031C83DView2C(commandView);
 		GameWindow *commandParent = TheWindowManager->createFromView(&commandView);
-		m_commandWindowParent = commandParent;
+		m_contextParent[NUM_CONTEXT_PARENTS] = commandParent;
 		commandParent->winSetUserData(m_commandWindowUserData);
 		commandParent->winSetStatus(WIN_STATUS_RVA0031C83D_200);
 		commandParent->winClearStatus(WIN_STATUS_RVA0031C83D_10000);
