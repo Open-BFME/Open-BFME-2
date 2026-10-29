@@ -23875,11 +23875,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00300912,134,code,,,-,,Code/GameEngine/Source/GameClient/GUI/MapMetaData_MPPositionWriters.cpp
 0x00300998,53,code,,,-,,Code/GameEngine/Source/GameClient/GUI/MapMetaData_MPPositionWriters.cpp
 0x003009CD,285,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
-0x00300AEA,404,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x00300C7E,144,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDisplayName.cpp
-0x00300D0E,108,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x00300D7A,200,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00300E42,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x00300E42,114,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00300EB4,Code/GameEngine/Source/GameNetwork/GameInfoRva00300E42.cpp
+0x00300AEA,404,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00300C7E,144,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00300D0E,108,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00300D7A,200,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00300E42,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00300E42,114,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00300EB4,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
 0x00300EB4,967,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,W=Code/GameEngine/Source/GameClient/MapUtil.cpp C=0x00300D0E..0x00301149,Code/GameEngine/Source/GameClient/MapPreviewImage.cpp
 0x00301149,10,code-unledgered,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x0030127B,
 0x0030127B,26,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00301295,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
@@ -23891,7 +23891,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0030141B,65,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x0030145C,Code/Libraries/Source/WWVegas/WWLib/Rva004525B0TreeEqual.cpp
 0x0030145C,122,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x003014D6,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp
 0x003014D6,94,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,C,C=0x00300D0E..0x00301534,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp
-0x00301534,155,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
+0x00301534,155,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
 0x003015CF,24,code,,,-,,Code/GameEngine/Source/Common/Rva003015CFPartition.cpp
 0x003015E7,58,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/TechAndSupplyImages.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/TechAndSupplyImages.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp
 0x00301621,53,code,Code/GameEngine/Source/GameClient/MapUtil.cpp,approved,E,"E=0x0077945F..0x0077976A@0x003006E1,0x00303409",Code/GameEngine/Source/Common/Rva00301621Dtor.cpp
@@ -72403,25 +72403,25 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00779471,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x003009CD@FuncInfo0x00921958 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
 0x00779479,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x003009CD@FuncInfo0x00921958 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
 0x00779481,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x003009CD@FuncInfo0x00921958 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescription.cpp
-0x0077948B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x00779493,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x0077949B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x007794A3,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x007794AD,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDisplayName.cpp
-0x007794B5,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDisplayName.cpp
-0x007794BD,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDisplayName.cpp
-0x007794D6,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDisplayName.cpp
-0x007794E0,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x007794E8,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x00779501,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getBaseDisplayName.cpp
-0x0077950B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x00779513,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x0077951B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x00779523,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x0077953C,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/Common/Rva00300D7AFinish.cpp
-0x00779546,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameNetwork/GameInfoRva00300E42.cpp
-0x0077954E,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameNetwork/GameInfoRva00300E42.cpp
-0x00779556,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameNetwork/GameInfoRva00300E42.cpp
+0x0077948B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779493,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x0077949B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794A3,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300AEA@FuncInfo0x0092198C p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794AD,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794B5,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794BD,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794D6,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300C7E@FuncInfo0x009219C0 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794E0,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007794E8,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779501,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D0E@FuncInfo0x009219EC p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x0077950B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779513,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x0077951B,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779523,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x0077953C,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300D7A@FuncInfo0x00921A28 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779546,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x0077954E,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779556,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300E42@FuncInfo0x00921A54 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
 0x00779560,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300EB4@FuncInfo0x00921AFC p-group provisional,Code/GameEngine/Source/GameClient/MapPreviewImage.cpp
 0x00779568,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300EB4@FuncInfo0x00921AFC p-group provisional,Code/GameEngine/Source/GameClient/MapPreviewImage.cpp
 0x00779570,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00300EB4@FuncInfo0x00921AFC p-group provisional,Code/GameEngine/Source/GameClient/MapPreviewImage.cpp
@@ -72438,10 +72438,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007795CC,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x0030145C@FuncInfo0x00921B20 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp
 0x007795D6,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x003014D6@FuncInfo0x00921B44 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp
 0x007795DE,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x003014D6@FuncInfo0x00921B44 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_mapmetadata.cpp
-0x007795E8,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
-0x007795F0,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
-0x007795F8,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
-0x00779611,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData_getDescriptionFirstLine.cpp
+0x007795E8,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007795F0,8,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x007795F8,25,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
+0x00779611,10,code,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp,approved,P,P=0x00301534@FuncInfo0x00921B78 p-group provisional,Code/GameEngine/Source/GameClient/GUI/MapMetaData.cpp
 0x0077961B,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/TechAndSupplyImages.cpp,approved,P,P=0x003015E7@FuncInfo0x00921B9C p-group provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp
 0x00779623,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/TechAndSupplyImages.cpp,approved,P,P=0x003015E7@FuncInfo0x00921B9C p-group provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp
 0x0077962D,8,code,Code/GameEngine/Source/GameClient/MapUtil.cpp,approved,P,P=0x00301621@FuncInfo0x00921BC0,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00301621.cpp
