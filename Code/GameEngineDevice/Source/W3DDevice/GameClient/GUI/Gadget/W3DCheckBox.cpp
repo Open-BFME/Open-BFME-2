@@ -116,8 +116,10 @@ struct CtorCoord : ICoord2D
 	CtorCoord() {}
 };
 
-// drawCheckBoxText ====================================================/** Draw the text for a checkbox */
-//======================================================================static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
+// drawCheckBoxText ===========================================================
+/** Draw the text for a checkbox */
+//=============================================================================
+static void drawCheckBoxText( GameWindow *window, WinInstanceData *instData )
 {
 	CtorCoord origin, size, textPos;
 	Int width, height;
@@ -172,8 +174,10 @@ struct CtorCoord : ICoord2D
 // PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////
 
-// W3DGadgetCheckBoxDraw ===============================================/** Draw colored check box using standard graphics */
-//======================================================================void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
+// W3DGadgetCheckBoxDraw ======================================================
+/** Draw colored check box using standard graphics */
+//=============================================================================
+void W3DGadgetCheckBoxDraw( GameWindow *window, WinInstanceData *instData )
 {
 	Int checkOffsetFromLeft;
 	Color backColor,
@@ -295,8 +299,10 @@ struct CtorCoord : ICoord2D
 
 }  // end W3DGadgetCheckBoxDraw
 
-// W3DGadgetCheckBoxImageDraw ==========================================/** Draw check box with user supplied images */
-//======================================================================void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
+// W3DGadgetCheckBoxImageDraw =================================================
+/** Draw check box with user supplied images */
+//=============================================================================
+void W3DGadgetCheckBoxImageDraw( GameWindow *window, WinInstanceData *instData )
 {
 	Int checkOffsetFromLeft;
 	const Image  *boxImage = NULL;//*backgroundImage = NULL,

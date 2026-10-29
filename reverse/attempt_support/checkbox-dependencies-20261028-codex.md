@@ -45,3 +45,21 @@ next scheduled census. Full external consumer selection and runtime closure
 remain unverified. No census or image-ownership gain is claimed.
 
 Scratch objects and audit: build/checkbox-link-20261028/.
+
+## Preparation recovery, 2026-10-29
+
+Upstream `41f25b959e` already removed W3DGadget.h, supplied GameWindow.h
+and the local border-width macro, and retained Gadget.h. Recovery preserves
+that upstream include set and macro. The remaining source change relative to
+`da153538311` is only the explicit DisplayString shim search root and include.
+The object-removal results above describe the original experiment, not an
+additional reduction relative to this upstream revision.
+
+The initial rebase resolution accidentally joined comment separators to the
+three function declarations. The follow-up restores those boundaries from
+upstream without changing the callbacks. The normal build verifies all three
+checkbox rows and all 59 rows across the three recovered sources; the checkbox
+frozen-file check passes. Both sides of the documentation conflicts are kept.
+The original three commits remain preserved at
+`refs/runner/preparation/1793229231299436533`; no stash was named by the
+preparation record and no untracked files needed restoration.
