@@ -530,3 +530,15 @@ def test_the_ledger_object_name_is_obj_paths():
                 {"source": "Code/a.b/Unit.Name.cpp", "notes": ""},
                 {"source": "vendor/msvc71crt/msvcrt.lib", "notes": r"member=obj\i386\stack.obj"}):
         assert build._ledger_object_name(row) == build.row_object(row).name
+
+
+def test_a_gzip_file_beside_the_tool_logs_is_not_a_log(repo, tmp_path):
+    # a136856afb: the hook wrote the DIR32 index into the BFME_GATE_LOADS folder and
+    # record died reading it as UTF-8, so the passed full gate left no receipt
+    import gzip
+    c0 = commit(repo, "Code/a.cpp", "1")
+    loads = _loads(tmp_path, "tools/build.py", "tools/ledger_io.py")
+    with gzip.open(loads / "dir32-index.gz", "wt") as handle:
+        handle.write("{}")
+    R.record(c0, loads=loads)
+    assert R.receipt_loads(c0) == {"tools/build.py", "tools/ledger_io.py"}

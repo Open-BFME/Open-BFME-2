@@ -75,12 +75,15 @@ def full_sha(rev):
 
 def gate_loads(folder):
     """The tools/ files (and listed directories, ending in /) build.py logged under
-    BFME_GATE_LOADS=folder, or None when the log is missing or lacks build.py."""
+    BFME_GATE_LOADS=folder (one file per process, named by its id), or None when
+    the log is missing or lacks build.py."""
     folder = Path(folder) if folder else None
     if folder is None or not folder.is_dir():
         return None
     entries = set()
     for log in folder.iterdir():
+        if not log.is_file() or not log.name.isdigit():
+            continue     # build.py names each log after its process id; nothing else is one
         entries |= {line.strip().lower() for line in log.read_text(encoding="utf-8").splitlines() if line.strip()}
     return entries if "tools/build.py" in entries else None
 

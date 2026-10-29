@@ -561,7 +561,11 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         export BFME_GATE_LOADS="$gate_loads"
         # The DIR32 check's per-row index, kept with the receipt: a carried retry
         # reads again only the objects it verifies (tools/full_gate_receipt.py).
-        dir32_index="$gate_loads/dir32-index.gz"
+        # Its own directory: everything in $gate_loads is read as build.py's
+        # tool logs (a136856afb's receipt failed on the gzip index there).
+        carried_dir=$(mktemp -d) || fail "temporary directory for the DIR32 index"
+        carried_dir="$(cygpath -m "$carried_dir" 2>/dev/null || printf '%s' "$carried_dir")"
+        dir32_index="$carried_dir/dir32-index.gz"
         export BFME_DIR32_INDEX="$dir32_index"
         BUILD_POOL="$(full_gate_pool)" run_build \
             || fail "full byte-verify of outgoing sources (see above)"

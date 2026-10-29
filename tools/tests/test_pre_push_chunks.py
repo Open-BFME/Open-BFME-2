@@ -169,6 +169,25 @@ def test_full_scope_still_records_a_receipt(repo):
     assert calls(repo[0], 'receipt-calls.jsonl') == [['find', fixture[3]], ['record', fixture[3]]]
 
 
+def test_the_full_gate_keeps_its_dir32_index_out_of_the_tool_logs(repo):
+    # a136856afb's receipt failed: the index sat in BFME_GATE_LOADS, whose every
+    # file full_gate_receipt.py reads as one of build.py's UTF-8 tool logs
+    fixture = receipt_log(repo)
+    hooks.write(repo[0], 'tools/build.py', RECORD_FULL + """
+if not sys.argv[1:]:
+    with open('gate-env.json', 'w', encoding='utf-8') as out:
+        json.dump({k: os.environ.get(k) for k in ('BFME_GATE_LOADS', 'BFME_DIR32_INDEX')}, out)
+""")
+    hooks.git(repo[0], 'commit', '-qam', 'record the gate environment')
+    done = run_hook((repo[0], repo[1], repo[2], hooks.git(repo[0], 'rev-parse', 'HEAD')))
+    assert done.returncode == 0, done.stderr
+    env = json.loads((repo[0] / 'gate-env.json').read_text(encoding='utf-8'))
+    assert env['BFME_GATE_LOADS'] and env['BFME_DIR32_INDEX']
+    loads = os.path.normcase(os.path.abspath(env['BFME_GATE_LOADS']))
+    index = os.path.normcase(os.path.abspath(env['BFME_DIR32_INDEX']))
+    assert os.path.commonpath([loads, index]) != loads
+
+
 def test_small_scope_neither_asks_for_nor_records_a_receipt(repo):
     fixture = receipt_log(repo)
     done = run_hook(fixture, [repo[1][0]])
