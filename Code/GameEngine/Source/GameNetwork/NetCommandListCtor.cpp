@@ -5,25 +5,12 @@
 // RVA 0x00870A08 (DIR32 auto-patch; slot 0 is the now-matched ??_G row, so no
 // dtor definition is needed here), zeroes the three list words, returns this.
 //
-// Dedicated TU (callee-visibility: defining it in the init TU would inline it
-// into the matched FrameData::init; defining it in the Deleter TU would see
-// the defined dtor there instead of the row). Explicit vtable so this TU
-// emits no vtable/??_G copy; the Deleter TU owns those.
-extern "C" const void *const __identifier("??_7NetCommandList@@6B@")[];  // vftable 0x00C70A08
-class NetCommandList
-{
-public:
-	NetCommandList();
-	int length();
-private:
-	const void *m_vtable; // +0, retail 0x00C70A08 (explicit so no vtable emitted)
-	void *m_first;
-	void *m_last;
-	void *m_lastMessageInserted;
-};
+// Shares NetCommandListView.h with the list operations so tu_skeleton can
+// merge it into NetCommandList.cpp; the vtable store is the class's own.
+#include "NetCommandListView.h"
+
 // ??0NetCommandList@@QAE@XZ
 NetCommandList::NetCommandList()
-	: m_vtable(__identifier("??_7NetCommandList@@6B@"))
 {
 	m_first = 0;
 	m_last = 0;
@@ -34,16 +21,14 @@ NetCommandList::NetCommandList()
 // supplies length's source expression and spelling. Complete target
 // 58B0CA..58B0D7 follows removeMessage's RET4 and precedes findMessage.
 // Existing rowed list operations independently establish head+4 and next+4;
-// the function counts nodes without touching message payloads. The local
-// link view represents only those accessed words, not a complete node type.
-int NetCommandList::length()
+// the function counts nodes without touching message payloads.
+Int NetCommandList::length()
 {
-	struct Link { void *command; Link *next; };
-	int count = 0;
-	Link *node = (Link *)m_first;
+	Int count = 0;
+	NetCommandRef *node = m_first;
 	while (node != 0) {
 		++count;
-		node = node->next;
+		node = node->getNext();
 	}
 	return count;
 }
