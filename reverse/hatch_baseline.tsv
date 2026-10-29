@@ -12241,6 +12241,9 @@ present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	R
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva00311F46Find.cpp	Rva00311F46Delta::length	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	Rva00311FE2Words::Rva00311FE2Words	1
 present_unmatched	Code/GameEngine/Source/Common/Containers/Rva003A35A0Element.cpp	emitRva00311FE2Copy	1
+present_unmatched	Code/GameEngine/Source/Common/CreateAHeroManager.cpp	loadIniFilesFromLegend@CreateAHeroManager	1
+present_unmatched	Code/GameEngine/Source/Common/CreateAHeroManager.cpp	reset@CreateAHeroManager	1
+present_unmatched	Code/GameEngine/Source/Common/CreateAHeroManager.cpp	update@CreateAHeroManager	1
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntIterator::_Rb_tree_iterator	1
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	_STL::EraseIntTree::upper_bound	1
 present_unmatched	Code/GameEngine/Source/Common/DOTManager.cpp	begin@Rva0043B2E2@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHPAX@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHPAX@_STL@@@2@@_STL@@XZ	1
@@ -12455,9 +12458,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00170999.cpp	Rva001709F8Delet
 present_unmatched	Code/GameEngine/Source/Common/Rva001F4C67Finish.cpp	Base001F4C67::~Base001F4C67	1
 present_unmatched	Code/GameEngine/Source/Common/Rva001F8BE8DtorChain.cpp	1Rva001F8BE8Hold@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva001FDB55Ctor.cpp	0BFME2NativeNetwork@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp	loadIniFilesFromLegend@CreateAHeroManager	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp	reset@CreateAHeroManager	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp	update@CreateAHeroManager	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00261790Ctor.cpp	dummy@Rva00261790@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva002A1316.cpp	Rva002A1316Iterator::Rva002A1316Iterator	2
 present_unmatched	Code/GameEngine/Source/Common/Rva002A1316.cpp	Rva002A1B6FNativeList::end	1

@@ -15456,7 +15456,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0021B474,354,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp W=Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp
 0x0021B5D6,154,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp
 0x0021B670,29,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp
-0x0021B68D,198,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021B670..0x0021B753,Code/GameEngine/Source/Common/System/Rva0021B68DCmp.cpp
+0x0021B68D,198,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021B670..0x0021B753,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x0021B753,34,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021B670..0x0021B775,Code/GameEngine/Source/Common/Rva0021915BAssign.cpp
 0x0021B775,56,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021B670..0x0021B7AD,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp
 0x0021B7AD,9,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021B670..0x0021B7B6,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfme0021A940_erase.cpp
@@ -15500,8 +15500,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0021BF42,50,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp
 0x0021BF74,50,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp
 0x0021BFA6,50,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp
-0x0021BFD8,343,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C12F,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0021C12F,236,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C21B,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
+0x0021BFD8,343,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C12F,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0021C12F,236,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C21B,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x0021C21B,177,code-unledgered,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C2CC,
 0x0021C2CC,115,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C33F,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_create_node.cpp
 0x0021C33F,115,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021BFA6..0x0021C3B2,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0021C33F.cpp
@@ -15657,11 +15657,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0021FDEC,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x0021FE2B,30,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
 0x0021FE49,421,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp W=Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
-0x0021FFEE,279,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
+0x0021FFEE,279,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x00220105,180,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x0021FFEE..0x002201B9,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowFamily.cpp
-0x002201B9,28,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
+0x002201B9,28,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x002201D5,55,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,C,C=0x002201B9..0x0022020C,Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp
-0x0022020C,179,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
+0x0022020C,179,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroManager.cpp,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x002202BF,396,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp
 0x0022044C,684,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp W=Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp
 0x002206F9,82,code,,,-,,Code/GameEngine/Source/Common/Rva002206F9.cpp
@@ -68144,8 +68144,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076E742,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B2A2@FuncInfo0x009145D8 p-group provisional,Code/GameEngine/Source/Common/Rva00219B9EAccessor.cpp
 0x0076E74C,8,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,approved,P,P=0x0021B474@FuncInfo0x009145FC p-group provisional,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp
 0x0076E754,10,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,approved,P,P=0x0021B474@FuncInfo0x009145FC p-group provisional,Code/GameEngine/Source/GameLogic/Object/CreateAHero.cpp
-0x0076E75E,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B68D@FuncInfo0x00914620 p-group provisional,Code/GameEngine/Source/Common/System/Rva0021B68DCmp.cpp
-0x0076E766,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B68D@FuncInfo0x00914620 p-group provisional,Code/GameEngine/Source/Common/System/Rva0021B68DCmp.cpp
+0x0076E75E,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B68D@FuncInfo0x00914620 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E766,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B68D@FuncInfo0x00914620 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x0076E770,8,code,,,-,,Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp
 0x0076E778,10,code,,,-,,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp
 0x0076E782,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021B7B6@FuncInfo0x00914670 p-group provisional,Code/GameEngine/Source/Common/System/SaveGame/CreateAHeroDataDtor.cpp
@@ -68155,16 +68155,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076E7A4,10,code,,,-,,Code/GameEngine/Source/Common/System/Rva0021BAA3Insert.cpp
 0x0076E7AE,8,code,,,-,,Code/GameEngine/Source/Common/System/Rva0021BB61PushHeap.cpp
 0x0076E7B6,10,code,,,-,,Code/GameEngine/Source/Common/System/Rva0021BB61PushHeap.cpp
-0x0076E7C0,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7C8,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7D0,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7D8,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7E0,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7EA,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7F2,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E7FA,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E802,25,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
-0x0076E81B,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/Rva0021BFD8.cpp
+0x0076E7C0,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7C8,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7D0,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7D8,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7E0,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021BFD8@FuncInfo0x009146F4 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7EA,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7F2,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E7FA,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E802,25,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076E81B,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C12F@FuncInfo0x00914730 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x0076E825,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C3F7@FuncInfo0x0091475C p-group provisional,Code/GameEngine/Source/Common/System/WideConcatPair.cpp
 0x0076E82D,25,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C3F7@FuncInfo0x0091475C p-group provisional,Code/GameEngine/Source/Common/System/WideConcatPair.cpp
 0x0076E846,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021C3F7@FuncInfo0x0091475C p-group provisional,Code/GameEngine/Source/Common/System/WideConcatPair.cpp
@@ -68275,22 +68275,22 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0076EC56,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FE49@FuncInfo0x00914CB4 p-group provisional,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
 0x0076EC64,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FE49@FuncInfo0x00914CB4 p-group provisional,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
 0x0076EC72,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FE49@FuncInfo0x00914CB4 p-group provisional,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
-0x0076EC7C,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076EC84,11,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076EC8F,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076EC9D,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECAB,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECB9,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECC7,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECD5,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECE3,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECF1,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ECFF,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ED0D,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ED1B,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ED29,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ED37,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
-0x0076ED45,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/Rva0021FFEEDtor.cpp
+0x0076EC7C,8,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076EC84,11,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076EC8F,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076EC9D,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECAB,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECB9,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECC7,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECD5,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECE3,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECF1,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ECFF,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ED0D,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ED1B,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ED29,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ED37,14,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
+0x0076ED45,10,code,Code/GameEngine/Source/Common/CreateAHeroManager.cpp,approved,P,P=0x0021FFEE@FuncInfo0x00914D48 p-group provisional,Code/GameEngine/Source/Common/CreateAHeroManager.cpp
 0x0076ED4F,8,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,approved,P,P=0x002202BF@FuncInfo0x00914DBC p-group provisional,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp
 0x0076ED57,8,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,approved,P,P=0x002202BF@FuncInfo0x00914DBC p-group provisional,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp
 0x0076ED5F,8,code,Code/GameEngine/Source/GameLogic/Object/CreateAHeroManager.cpp,approved,P,P=0x002202BF@FuncInfo0x00914DBC p-group provisional,Code/GameEngine/Source/GameLogic/Object/CreateAHero_FindBlingByUpgradeName.cpp
