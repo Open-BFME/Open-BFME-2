@@ -988,6 +988,11 @@ keeps every row exact (5/5, 3/3, 3/3, 3/3, 16/16). Preview with the five units
 and W3DComboBox.cpp: the five change from blocked to LINKS (6,988 authored B).
 W3DComboBox.cpp, which owns the retail `??_E` row (0x00002B6A), still does not
 link: an earlier unit outside this set still emits the selected non-retail copy.
+W3DPushButtonImageDispatch_Thunk.cpp, the last W3DGadget includer besides
+W3DComboBox, took the same change (1/1 exact; preview blocked -> LINKS, 125 B);
+W3DComboBox still selects a non-retail copy with it, so the remaining definer is
+not a gadget unit (Render2DSentence / W3DGameFontRender2DSentence.h users are the
+next suspects).
 Remaining / next check: find that earlier definer in the census order and drop
 its copy the same way. Census confirmation: awaiting the next census.
 
