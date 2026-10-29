@@ -13,7 +13,7 @@
 // unsigned words model the target's integer copies, not a semantic claim.
 // The donor-qualified element spelling preserves existing caller symbols.
 // Native scalar zero stores use SSE1.
-// stlport
+// stlport46
 // Include only the existing BFME allocator override. Its directory root
 // also contains force-inline algorithm overrides, which change insert214.
 #define _STLP_NO_EXCEPTIONS 1

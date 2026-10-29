@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
-// stlport
+// stlport46
 
 // Retail calls the float sin overload out of line (row 0x0002FBB0); <math.h>
 // would emit a non-retail inline copy of it here.

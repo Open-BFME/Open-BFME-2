@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 #include <set>
 //
 // ??0Rva000D3A17@@QAE@XZ @0x000D3A8A 157B
