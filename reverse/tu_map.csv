@@ -48308,10 +48308,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005960E0,31,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AIStatBase.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIShipStats.cpp provisional,Code/GameEngine/Source/Common/Rva00596095Bits.cpp
 0x005960FF,76,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x005960E0..0x0059614B provisional,Code/GameEngine/Source/Common/Rva00596095Bits.cpp
 0x0059614B,139,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIUnitStats.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIUnitStats.cpp provisional,Code/GameEngine/Source/Common/AIUnitStats.cpp
-0x005961D6,79,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x00596225 provisional,Code/GameEngine/Source/Common/Rva005961D6Ctor.cpp
+0x005961D6,79,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x00596225 provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x00596225,68,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x00596269 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
-0x00596269,98,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIUnitStats.cpp C=0x0059614B..0x005962CB provisional,Code/GameEngine/Source/Common/Rva005961D6Ctor.cpp
-0x005962CB,28,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962E7 provisional,Code/GameEngine/Source/Common/Rva005961D6Ctor.cpp
+0x00596269,98,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIStatCollector/AIUnitStats.cpp C=0x0059614B..0x005962CB provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
+0x005962CB,28,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962E7 provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x005962E7,16,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,C,C=0x0059614B..0x005962F7 provisional,Code/GameEngine/Source/Common/Rva0010BA61Wrappers.cpp
 0x005962F7,111,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIUnitStats.cpp provisional,Code/GameEngine/Source/Common/AIUnitStats.cpp
 0x00596366,35,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,U,N=Code/GameEngine/Source/Common/AIEconomyStats.cpp provisional,Code/GameEngine/Source/Common/Rva0025BFE3Derived.cpp
@@ -87061,8 +87061,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D290,25,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
 0x0079D2A9,8,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
 0x0079D2B1,10,code,Code/GameEngine/Source/GameNetwork/FirewallHelper.cpp,approved,P,P=0x00595F80@FuncInfo0x009530B8,Code/GameEngine/Source/Common/Rva00595F80Firewall.cpp
-0x0079D2BB,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/Rva005961D6Ctor.cpp
-0x0079D2C3,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/Rva005961D6Ctor.cpp
+0x0079D2BB,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
+0x0079D2C3,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x005961D6@FuncInfo0x009530DC provisional,Code/GameEngine/Source/Common/AIStatBase.cpp
 0x0079D2CD,8,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x00596225@FuncInfo0x00953100 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
 0x0079D2D5,10,code,Code/GameEngine/Source/Common/AIStatBase.cpp,approved,P,P=0x00596225@FuncInfo0x00953100 provisional,Code/GameEngine/Source/Common/Rva005961D6Dtor.cpp
 0x0079D2DF,8,code,Code/GameEngine/Source/Common/AIStructureStats.cpp,approved,P,P=0x005965C6@FuncInfo0x00953124 provisional,Code/GameEngine/Source/Common/Rva005965A5Dtor.cpp
