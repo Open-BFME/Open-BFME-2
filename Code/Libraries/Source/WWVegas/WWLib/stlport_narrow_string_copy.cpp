@@ -1,4 +1,5 @@
 // cl: /Od /Oi /Ob2 /DNDEBUG /MD /EHsc-
+// stlport46
 
 /*
  * Copyright (c) 1997-1999

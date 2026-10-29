@@ -8673,7 +8673,6 @@ _vp6_showinfo,,0x001BB6C0,156,Code/Libraries/Source/VP6/ShowInfo.cpp,matched,Cle
 _VP6_StartDecoder,,0x001B5840,176,Code/Libraries/Source/VP6/StartDecoder.cpp,matched,Clean-room spec 001b5840; VP6_StartDecoder: creates and configures the decoder instance returning 1 on success or 0 after deleting it on failure; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b5840.md and retail only
 ?bfmeFwdVML@BfmeStrVML@@QAEXHHHHH@Z,,0x0002B420,52,Code/GameEngine/Source/Common/BfmeConv1433.cpp,matched,BFME1 byte-identical donor; b1 0x008318B0
 ?bfmeWrapInsertV51@@YGXPAD00@Z,,0x0002BA10,81,Code/GameEngine/Source/Common/BfmeConv1495.cpp,matched,BFME1 byte-identical donor; b1 0x00831EA0
-?copy@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPADII@Z,,0x00024F20,152,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_copy.cpp,matched,BFME1 byte-identical donor; b1 0x0082C490
 ?bfmeInsertV23@BfmeStrV23@@QAEPAV1@IPAV1@@Z,,0x0002A970,185,Code/GameEngine/Source/Common/BfmeS1155.cpp,matched,BFME1 byte-identical donor; b1 0x00830FC0
 _VP6_StopDecoder,,0x001B62E0,67,Code/Libraries/Source/VP6/StopDecoder.cpp,matched,Clean-room spec 001b62e0; VP6_StopDecoder: cdecl releasing the quantizer then post-processor then fragment info then frame buffers then the instance; always returns 1; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001b62e0.md and retail only
 ?bfmeFwdVMN@BfmeStrVMN@@QAEXHHHH@Z,,0x0002B4A0,57,Code/GameEngine/Source/Common/BfmeConv1434.cpp,matched,BFME1 byte-identical donor; b1 0x00831930
@@ -98942,3 +98941,4 @@ __ehhandler$?imbue@ios_base@_STL@@QAE?AVlocale@2@ABV32@@Z,,0x0075C3F1,10,Code/Li
 ?Rva0052C3BFDestroyRange@@YAXPAURva0052BF67Elem@@0@Z,,0x0052C3BF,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF67 callers 3; migrated=stlport-4.6
 ?rva0052CAAB@Rva0052CAABVec@@QAEXXZ,,0x0052CAAB,30,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain scrap storage via 0052C24E plus free caller 1; migrated=stlport-4.6
 ?Rva0022C8E3DestroyRange@@YAXPAURva0052BF9BElem@@0@Z,,0x0022C8E3,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy range via 0052BF9B callers 10; migrated=stlport-4.6
+?copy@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPADII@Z,,0x00024F20,152,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_copy.cpp,matched,BFME1 byte-identical donor; b1 0x0082C490; migrated=stlport-4.6
