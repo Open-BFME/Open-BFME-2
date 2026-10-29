@@ -145,6 +145,13 @@ unsigned Rva00990030Lookup(Rva00990030Range *r, int i);
 #include <new.h>
 #include <algorithm>
 #pragma comment(linker, "/alternatename:??4Rva003371B1@@QAEAAV0@ABV0@@Z=??0Rva002E9E70@@QAE@ABV0@@Z")
+struct Rva00990210Range;
+unsigned Rva00990210Lookup(Rva00990210Range *range, int index);
+extern "C" int lua_gettop( lua_State *state );
+extern "C" int lua_type( lua_State *state, int index );
+extern "C" double lua_tonumber( lua_State *state, int index );
+unsigned Rva00990030Lookup( Rva00990030Range *range, int index );
+#pragma comment(linker, "/alternatename:?Rva002EBEF0Intro@@YAXPAUS4SortElem20@@00HUS4Cmp002EB8E0@@@Z=??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z")
 
 template <class T> struct Rva00337AA8Buf
 {
@@ -483,11 +490,39 @@ template <> void __unguarded_insertion_sort_aux<S4SortElem20 *, S4SortElem20, S4
 template void __final_insertion_sort<S4SortElem20 *, S4Cmp002EB8E0>(S4SortElem20 *, S4SortElem20 *, S4Cmp002EB8E0);
 }
 
+class BfmeStrF9 { public: void *m_data; };
+
+class BfmeObjF9 { public: void setFlag(const BfmeStrF9 &name, char flag); };
+
+namespace _STL
+{
+
+template <class RandomAccessIterator, class Tp, class Compare, class Distance>
+void __pop_heap(RandomAccessIterator first, RandomAccessIterator last,
+    RandomAccessIterator result, Tp value, Compare comp, Distance *distance);
+
+}
+
+void Rva00337819Insert(Rva002E9E70 *first, Rva002E9E70 *last, Rva003371B1 value, int unused);
+
+void Rva002EBEF0Intro(S4SortElem20 *first,
+	S4SortElem20 *last, S4SortElem20 *, int depth,
+	S4Cmp002EB8E0 comp);
+
+namespace _STL
+{
+template <class RandomAccessIter, class Compare>
+void __final_insertion_sort(RandomAccessIter first,
+	RandomAccessIter last, Compare comp);
+}
+
 // tu-skeleton: 0x00332B7A 256B ?InitializeInternalEvents@LuaScriptEngine@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332C7A 117B ?ProcessInternalEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEventFlags.cpp (not merged yet)
 
 // tu-skeleton: 0x00332CEF 12B ??0Rva00332CEFHolder@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaMemberCtorHolders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/GetFrame.cpp
 
@@ -498,8 +533,6 @@ int GetFrame( lua_State *state )
 	lua_pushnumber( state, (double)frame );
 	return 1;
 }
-
-// tu-skeleton: 0x00332D29 76B ?CurDrawableGetCurrentTargetHeight@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/CurDrawableGetCurrentTargetHeight.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine.cpp
 
@@ -756,12 +789,6 @@ void LuaScriptEngine::reset()
  ((Rva00335C88*)d)->rva00335C88(d->start,d->finish);
 }
 
-// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
-
-// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x003340C1 57B ?ExecuteChunk@LuaScriptEngine@@QAEXPADHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003340FAExecuteChunk.cpp
 
 //
@@ -785,16 +812,6 @@ void Rva003340FA::executeChunk(char *buff, int size, const AsciiString &chunk)
 	lua_settop(m_lua, 0);
 }
 
-// tu-skeleton: 0x00334133 223B ?rva00334133@LuaScriptEngine@@QAE?AVAsciiString@@PBDKPAURva00334133Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
-
-// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00334212 349B ?EvaluateCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp (not merged yet)
-
-// tu-skeleton: 0x0033436F 407B ?ExecuteAction@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp (not merged yet)
-
-// tu-skeleton: 0x00334506 129B ?rva00334506@Rva003339CE@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003339CEParse.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv824.cpp
 
 void __cdecl bfmeHandleDeactivation574(void *obj, void *param)
@@ -806,36 +823,6 @@ void __cdecl bfmeHandleDeactivation574(void *obj, void *param)
 		Rva00333CD1Console(obj, (LuaAr *)param);
 	}
 }
-
-// tu-skeleton: 0x003345BE 118B ?LoadScripts@LuaScriptEngine@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00334634 556B ?DispatchEvent@LuaScriptEngine@@QAEXPAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineDispatchEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00334860 472B ?DispatchSpyEvent@LuaScriptEngine@@QAEXHPAX00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineDispatchSpyEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00334A3D 182B ?Rva00334A3D@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp (not merged yet)
-
-// tu-skeleton: 0x00334AF3 263B ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectPermanently.cpp (not merged yet)
-
-// tu-skeleton: 0x00334BFA 165B ?ObjectSetGeometryActive@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetGeometryActive.cpp (not merged yet)
-
-// tu-skeleton: 0x00334C9F 119B ?ObjectChangeAllegianceFromNonPlayablePlayer@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334D16 72B ?Rva00334D16@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectForbidPlayerCommandsRva00334D16.cpp (not merged yet)
-
-// tu-skeleton: 0x00334DDF 114B ?ObjectDescription@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp (not merged yet)
-
-// tu-skeleton: 0x00334E51 115B ?Rva00334E51@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectTeamNameRva00334E51.cpp (not merged yet)
-
-// tu-skeleton: 0x00334EC4 106B ?Rva00334EC4@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334F2E 125B ?ObjectCapturingObjectPlayerSide@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x00334FAB 98B ?Rva00334FAB@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
-
-// tu-skeleton: 0x0033500D 130B ?ObjectTestModelCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E6280ModelCondition_Rva0033514A.cpp
 
@@ -1005,12 +992,6 @@ int ObjectDoSpecialPower(lua_State *state)
 	return 1;
 }
 
-// tu-skeleton: 0x003353A9 115B ?ObjectSetDelayedDeath@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
-
-// tu-skeleton: 0x0033541C 186B ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectCreateAndFireTempWeapon.cpp (not merged yet)
-
-// tu-skeleton: 0x003354D6 220B ?ObjectModifyUpgrade@LuaScriptEngine@@SAHPAUlua_State@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHasUpgrade.cpp
 
 // ?ObjectHasUpgrade@@YAHPAUlua_State@@@Z, retail 0x003355B2 224B.
@@ -1052,28 +1033,6 @@ int ObjectHasUpgrade(lua_State *L)
 	}
 	return 0;
 }
-
-// tu-skeleton: 0x00335692 14B ?ObjectGrantUpgrade@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
-
-// tu-skeleton: 0x003356A0 14B ?ObjectRemoveUpgrade@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
-
-// tu-skeleton: 0x003356AE 306B ?ObjectPlaySound@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaPlaySounds.cpp (not merged yet)
-
-// tu-skeleton: 0x003357E0 113B ?ObjectSetChanting@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetChanting.cpp (not merged yet)
-
-// tu-skeleton: 0x00335851 136B ?ObjectSetFearFactor@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetFearFactor.cpp (not merged yet)
-
-// tu-skeleton: 0x003358D9 113B ?ObjectSetEnragedState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
-
-// tu-skeleton: 0x0033594A 279B ?ObjectDispatchEvent@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp (not merged yet)
-
-// tu-skeleton: 0x00335A61 295B ?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
-
-// tu-skeleton: 0x00335B88 218B ?ObjectSpy@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSpy.cpp (not merged yet)
-
-// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
-
-// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00335CAELowerBound.cpp
 
@@ -1132,24 +1091,6 @@ const AsciiString *Rva00335CFMedian(const AsciiString *asciiString, const AsciiS
 	}
 }
 
-// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
-
-// tu-skeleton: 0x00336BE4 121B ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessScriptedEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00336C5D 595B ?rva002E9680ParseModelConditionEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00336EB0 482B ?rva002E9AA0ParseObjectStatusEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
-
-// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x00337092 153B ?ObjectEnterFearState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
-
-// tu-skeleton: 0x0033712B 134B ?ObjectEnterRampageState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva003371B1Copy.cpp
 
 // ??0Rva003371B1@@QAE@ABV0@@Z @ 0x003371B1 (67B): copy ctor over 20-byte record
@@ -1168,15 +1109,10 @@ Rva003371B1::Rva003371B1(const Rva003371B1 &other)
 // The exact 45-byte parent and native EH graph bind this action to the
 // existing no-op placement delete; the original record identity stays unknown.
 
-// tu-skeleton: 0x003371F4 195B ?ProcessEventsElement@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessEventsElement.cpp (not merged yet)
 
-// tu-skeleton: 0x003372B7 53B ??1Rva003371B1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003371B1Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
 
-// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
 
-// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0033738BCopy.cpp
 
@@ -1242,10 +1178,6 @@ Rva002E9E70 *Rva003377A1Copy(Rva002E9E70 *first, Rva002E9E70 *last, Rva002E9E70 
 
 void famgenDelete(Rva003371B1 *p) { delete p; }
 
-// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
-
-// tu-skeleton: 0x00337424 85B ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337424Insert.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_partial_sort_rva00337c55.cpp
 
 //
@@ -1260,19 +1192,12 @@ void famgenDelete(Rva003371B1 *p) { delete p; }
 // Retail 0x003372EC is rowed as ??0Rva002E9E70 (copy ctor) but serves as the
 // assignment this sort family calls; alias our assignment name to that row.
 
-// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
 
-// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
 
-// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
 
-// tu-skeleton: 0x003376BA 23B ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp (not merged yet)
 
-// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
-// tu-skeleton: 0x003377BC 45B ?gen002EADF0@@YAXPAX0H0@Z -- matched in Code/GameEngine/Source/Common/Gen002EADF0Forward.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00337802Forward.cpp
 
@@ -1280,8 +1205,6 @@ void __cdecl Rva00337802Forward(void *a, void *b, void *c)
 {
 	gen002EADF0(a, b, 0, c);
 }
-
-// tu-skeleton: 0x00337819 118B ?Rva00337819Insert@@YAXPAVRva002E9E70@@0VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337819Insert.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0033788FSortHeap.cpp
 
@@ -1298,13 +1221,206 @@ void __cdecl Rva0033788FSortHeap(void *first, void *last, void *comp)
 	} while (count > 1);
 }
 
+// ---- from Code/GameEngine/Source/Common/S4StlSortHelpers.cpp
+
+// Final insertion-sort dispatcher for a string-keyed 20-byte record.
+
+// tu-skeleton: 0x00332D29 76B ?CurDrawableGetCurrentTargetHeight@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/CurDrawableGetCurrentTargetHeight.cpp (not merged yet)
+
+// tu-skeleton: 0x00334003 165B ?PushObjectTable@LuaScriptEngine@@QAEXPAUlua_State@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRegisterObject.cpp (not merged yet)
+
+// tu-skeleton: 0x003340A8 25B ??RS4Cmp002EB8E0@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x003340C1 57B ?ExecuteChunk@LuaScriptEngine@@QAEXPADHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00334133 223B ?rva00334133@LuaScriptEngine@@QAE?AVAsciiString@@PBDKPAURva00334133Context@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRunBuffer.cpp (not merged yet)
+
+// tu-skeleton: 0x003341CD 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00334212 349B ?EvaluateCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineEvaluateCondition.cpp (not merged yet)
+
+// tu-skeleton: 0x0033436F 407B ?ExecuteAction@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/Common/LuaScriptEngineExecuteAction.cpp (not merged yet)
+
+// tu-skeleton: 0x00334506 129B ?rva00334506@Rva003339CE@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva003339CEParse.cpp (not merged yet)
+
+// tu-skeleton: 0x003345BE 118B ?LoadScripts@LuaScriptEngine@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineExecuteChunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00334634 556B ?DispatchEvent@LuaScriptEngine@@QAEXPAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineDispatchEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x00334860 472B ?DispatchSpyEvent@LuaScriptEngine@@QAEXHPAX00@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineDispatchSpyEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x00334A38 5B ?rva00334A38@Rva00334A38@@QBE_NABUS4SortElem20@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00334A3D 182B ?Rva00334A3D@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectRva00334A3D.cpp (not merged yet)
+
+// tu-skeleton: 0x00334AF3 263B ?ObjectHideSubObjectPermanently@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectHideSubObjectPermanently.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetGeometryActive.cpp
+
+// ?ObjectSetGeometryActive@@YAHPAUlua_State@@@Z @0x00334BFA 165B: Lua binding setting geometry-active flag via BfmeObjF9::setFlag at Object+0xA8 from name index2 and bool index3. Evidence: pinned name plus rowed gettop Lookup type find tostring StringBase Lookup setFlag release plus TheGameLogic plus siblings 0x00334A3D 0x00334D16 same flags.
+
+int ObjectSetGeometryActive(lua_State *state)
+{
+    unsigned id;
+    Object *object;
+    if (lua_gettop(state) != 3
+        || ((id = Rva00990030Lookup((Rva00990030Range *)state, 1)) == 0
+            && lua_type(state, 1) != 1)
+        || (object = TheGameLogic->findObjectByID((ObjectID)id)) == 0)
+        return 0;
+    {
+        AsciiString name(lua_tostring(state, 2));
+        char flag = (Rva00990210Lookup((Rva00990210Range *)state, 3) != 0);
+        ((BfmeObjF9 *)((char *)object + 0xA8))->setFlag((const BfmeStrF9 &)name, flag);
+    }
+    return 0;
+}
+
+// tu-skeleton: 0x00334C9F 119B ?ObjectChangeAllegianceFromNonPlayablePlayer@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
+
+// tu-skeleton: 0x00334D16 72B ?Rva00334D16@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectForbidPlayerCommandsRva00334D16.cpp (not merged yet)
+
+// tu-skeleton: 0x00334DDF 114B ?ObjectDescription@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp (not merged yet)
+
+// tu-skeleton: 0x00334E51 115B ?Rva00334E51@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectTeamNameRva00334E51.cpp (not merged yet)
+
+// tu-skeleton: 0x00334EC4 106B ?ObjectPlayerSide@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
+
+// tu-skeleton: 0x00334F2E 125B ?ObjectCapturingObjectPlayerSide@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
+
+// tu-skeleton: 0x00334FAB 98B ?ObjectTemplateName@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectPlayerSideRva00334EC4.cpp (not merged yet)
+
+// tu-skeleton: 0x0033500D 130B ?ObjectTestModelCondition@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
+
+// tu-skeleton: 0x003353A9 115B ?ObjectSetDelayedDeath@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
+
+// tu-skeleton: 0x0033541C 186B ?ObjectCreateAndFireTempWeapon@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectCreateAndFireTempWeapon.cpp (not merged yet)
+
+// tu-skeleton: 0x003354D6 220B ?ObjectModifyUpgrade@LuaScriptEngine@@SAHPAUlua_State@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
+
+// tu-skeleton: 0x00335692 14B ?ObjectGrantUpgrade@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
+
+// tu-skeleton: 0x003356A0 14B ?ObjectRemoveUpgrade@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectRva003354D6.cpp (not merged yet)
+
+// tu-skeleton: 0x003356AE 306B ?ObjectPlaySound@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaPlaySounds.cpp (not merged yet)
+
+// tu-skeleton: 0x003357E0 113B ?ObjectSetChanting@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetChanting.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSetFearFactor.cpp
+
+// ?ObjectSetFearFactor@@YAHPAUlua_State@@@Z
+// Retail 0x00335851 136B. Identity proven by registration at 0x0033862A
+// (push 0x735851 + lua_pushcclosure 0x747640 + literal 0xC0E5D4
+// 'ObjectSetFearFactor' + lua_setglobal 0x747920).
+int ObjectSetFearFactor( lua_State *state )
+{
+	if( lua_gettop( state ) < 2 )
+		return 0;
+	unsigned id = Rva00990030Lookup( (Rva00990030Range *)state, 1 );
+	if( !id && lua_type( state, 1 ) != 1 )
+		return 0;
+	Object *object = TheGameLogic->findObjectByID( (ObjectID)id );
+	if( !object )
+		return 0;
+	int value = (int)lua_tonumber( state, 2 );
+	float *factor = (float *)( (char *)object + 0x1ac );
+	int cur = (int)*factor;
+	const int &picked = value > cur ? value : cur;
+	*factor = (float)picked;
+	return 1;
+}
+
+// tu-skeleton: 0x003358D9 113B ?ObjectSetEnragedState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaObjectModelConditionEnragedDelayedDeath.cpp (not merged yet)
+
+// tu-skeleton: 0x0033594A 279B ?ObjectDispatchEvent@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptBindingsLuaAO1.cpp (not merged yet)
+
+// tu-skeleton: 0x00335A61 295B ?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
+
+// tu-skeleton: 0x00335B88 218B ?ObjectSpy@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectSpy.cpp (not merged yet)
+
+// tu-skeleton: 0x00335C62 38B ?erase@?$vector@UBfmeOpaqueRecord156@@V?$allocator@UBfmeOpaqueRecord156@@@_STL@@@_STL@@QAEPAUBfmeOpaqueRecord156@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorErase38Family.cpp (not merged yet)
+
+// tu-skeleton: 0x00335C88 38B ?rva00335C88@Rva00335C88@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00335C88Rva00335C88.cpp (not merged yet)
+
+// tu-skeleton: 0x00335D5B 646B ?init@LuaScriptEngine@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/openLuaLibraries.cpp (not merged yet)
+
+// tu-skeleton: 0x00336BE4 121B ?ProcessScriptedEvent@LuaScriptEngine@@QAEXPAVXmlNameSlotList@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessScriptedEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x00336C5D 595B ?rva002E9680ParseModelConditionEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x00336E1E 84B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00336E72 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00336EB0 482B ?rva002E9AA0ParseObjectStatusEvent@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseObjectStatusEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x00337055 6B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x00337092 153B ?ObjectEnterFearState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
+
+// tu-skeleton: 0x0033712B 134B ?ObjectEnterRampageState@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectEnterFearRampageState.cpp (not merged yet)
+
+// tu-skeleton: 0x003371F4 195B ?ProcessEventsElement@LuaScriptEngine@@QAEXPAVBfmeLexEAN@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_ProcessEventsElement.cpp (not merged yet)
+
+// tu-skeleton: 0x003372B7 53B ??1Rva003371B1@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003371B1Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003372EC 39B ??0Rva002E9E70@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva002E9E70Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337340 38B ??$__uninitialized_copy@PAVRva003371B1@@PAV1@@_STL@@YAPAVRva003371B1@@PAV1@00ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1UninitCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x00337366 37B ??$__uninitialized_fill_n@PAVRva003371B1@@IV1@@_STL@@YAPAVRva003371B1@@PAV1@IABV1@ABU__false_type@0@@Z -- matched in Code/GameEngine/Source/Common/Rva003371B1FillN.cpp (not merged yet)
+
+// tu-skeleton: 0x003373D9 75B ??$swap@US4SortElem20@@@_STL@@YAXAAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337424 85B ?Rva00337424Insert@@YAXPAVRva002E9E70@@VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337424Insert.cpp (not merged yet)
+
+// tu-skeleton: 0x00337550 5B ??$iter_swap@PAUS4SortElem20@@PAU1@@_STL@@YAXPAUS4SortElem20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337555 46B ??$__unguarded_insertion_sort_aux@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@00US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x00337583 9B ??$_Destroy@VRva003371B1@@@_STL@@YAXPAVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00337655 101B ??$__unguarded_partition@PAUS4SortElem20@@U1@US4Cmp002EB8E0@@@_STL@@YAPAUS4SortElem20@@PAU1@0U1@US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_partition_s4sortelem20.cpp (not merged yet)
+
+// tu-skeleton: 0x003376BA 23B ??$__unguarded_insertion_sort@PAUS4SortElem20@@US4Cmp002EB8E0@@@_STL@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20b.cpp (not merged yet)
+
+// tu-skeleton: 0x003376D1 25B ??$_Destroy@PAVRva003371B1@@@_STL@@YAXPAVRva003371B1@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Gen002EADF0Forward.cpp
+
+// Retail 0x003377BC forwards a record to the rowed partial-sort heap helper.
+// The record's copy and destruction use the same owners as that helper.
+
+// AsciiString and its StringBase<char> base come from the canonical header
+// (reverse/canonical_classes.csv): the donor's private copies are the views the
+// class gate refuses. Only the 20-byte sort element stays local.
+
+// Forward the record preceding last, preserving the caller's comparator slot.
+void gen002EADF0(void *a, void *b, int, void *c)
+{
+    _STL::__pop_heap<Rva003371B1 *, Rva003371B1, Rva00337C55Less, int>(
+        (Rva003371B1 *)a, (Rva003371B1 *)b - 1,
+        (Rva003371B1 *)b - 1, *((Rva003371B1 *)b - 1),
+        *(Rva00337C55Less *)&c, (int *)0);
+}
+
+// tu-skeleton: 0x00337819 118B ?Rva00337819Insert@@YAXPAVRva002E9E70@@0VRva003371B1@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00337819Insert.cpp (not merged yet)
+
 // tu-skeleton: 0x003378D0 63B ??1Rva003378D0@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva003378D0DestroyFree.cpp (not merged yet)
 
 // tu-skeleton: 0x0033790F 51B ?erase@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEPAVRva003371B1@@PAV3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
 
 // tu-skeleton: 0x00337942 30B ?_M_clear@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
-// tu-skeleton: 0x00337960 57B ?Rva00337960Sort@@YAXPAVRva003371B1@@0H@Z -- matched in Code/GameEngine/Source/Common/Rva00337960Sort.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00337960Sort.cpp
+
+void Rva00337960Sort(Rva003371B1 *first, Rva003371B1 *last, int unused)
+{
+	if (first == last)
+		return;
+	for (Rva003371B1 *cur = first + 1; cur != last; ++cur)
+		Rva00337819Insert((Rva002E9E70 *)first, (Rva002E9E70 *)cur, *cur, unused);
+}
 
 // tu-skeleton: 0x003379FD 165B ??0LuaScriptEngine@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineCtor.cpp (not merged yet)
 
@@ -1314,17 +1430,32 @@ void __cdecl Rva0033788FSortHeap(void *first, void *last, void *comp)
 
 // tu-skeleton: 0x00337B57 183B ?_M_insert_overflow@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@IAEXPAVRva003371B1@@ABV3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/S4StlSortHelpers.cpp
-
-// Final insertion-sort dispatcher for a string-keyed 20-byte record.
-
 // tu-skeleton: 0x00337C70 28B ??_GLuaScriptEngine@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_Unresolved.cpp (not merged yet)
 
 // tu-skeleton: 0x00337CEA 55B ?push_back@?$vector@VRva003371B1@@V?$allocator@VRva003371B1@@@_STL@@@_STL@@QAEXABVRva003371B1@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackSiblings.cpp (not merged yet)
 
 // tu-skeleton: 0x00337D21 136B ??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00337D21.cpp (not merged yet)
 
-// tu-skeleton: 0x00337DA9 70B ?Rva002EBEF0@@YAXPAUS4SortElem20@@0US4Cmp002EB8E0@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_s4sortelem20.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_sort_s4sortelem20.cpp
+
+void Rva002EBEF0(S4SortElem20 *first,
+	S4SortElem20 *last, S4Cmp002EB8E0 comp)
+{
+	if (first != last)
+	{
+		int n = last - first;
+		int k;
+		for (k = 0; n != 1; n >>= 1)
+			++k;
+		Rva002EBEF0Intro(first, last, (S4SortElem20 *)0,
+			k * 2, comp);
+		_STL::__final_insertion_sort(first, last, comp);
+	}
+}
+
+// The retail call in this body reads 0x00337D21, an address the ledger already
+// carries as ??$__introsort_loop@PAURva00337D21Record@@U1@HU?$less@URva00337D21Record@@@_STL@@@_STL@@YAXPAURva00337D21Record@@00HU?$less@URva00337D21Record@@@0@@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
 
 // tu-skeleton: 0x00337DEF 187B ?rva00337DEF@LuaScriptEngine@@QAEPAURva00336283Element@@ABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineRva00337DEF.cpp (not merged yet)
 
@@ -1393,6 +1524,38 @@ void __cdecl Rva0033788FSortHeap(void *first, void *last, void *comp)
 // tu-skeleton: 0x0077C19D 8B Unwind@00b7c19d -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C1A5 10B __ehhandler$?HordeBroadcastEventToMembers@LuaScriptEngine@@SAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineHordeBroadcastEventToMembers.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1C1 8B Unwind@00b7c1c1 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectCountNearbyEnemies.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1C9 8B Unwind@00b7c1c9 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectCountNearbyEnemies.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1D1 8B Unwind@00b7c1d1 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectCountNearbyEnemies.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1D9 10B __ehhandler$?ObjectCountNearbyEnemies@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectCountNearbyEnemies.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1E3 11B Unwind@00b7c1e3 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1EE 8B Unwind@00b7c1ee -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1F6 8B Unwind@00b7c1f6 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C1FE 8B Unwind@00b7c1fe -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C206 8B uw_0077c206 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C20E 10B __ehhandler$?ObjectBroadcastEventToEnemies@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C218 11B Unwind@00b7c218 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C223 8B Unwind@00b7c223 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C22B 8B Unwind@00b7c22b -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C233 8B Unwind@00b7c233 -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C23B 8B uw_0077c23b -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
+
+// tu-skeleton: 0x0077C243 10B __ehhandler$?ObjectBroadcastEventToCivilians@@YAHPAUlua_State@@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ObjectBroadcastEvent.cpp (not merged yet)
 
 // tu-skeleton: 0x0077C28C 8B Unwind@00b7c28c -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngineParseModelConditionEvent.cpp (not merged yet)
 
