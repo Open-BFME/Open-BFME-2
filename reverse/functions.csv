@@ -23751,12 +23751,8 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002CF84DCreate@@YGPAXPBURva002CF120@@@Z,,0x002CF84D,34,Code/Libraries/Source/WWVegas/WWLib/Rva002CF84DCreate.cpp,matched,stdcall node create via copy 0x2CF35C callers 0x2CFA39 0x33BFD9 0x33BFF4
 ?Rva002E5C15LowerBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C15Comp@@H@Z,,0x002E5C15,76,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E56B3 Less binary lower_bound 8B array
 ?Rva00440B64Insert@@YAXPAPAXPAXVRva0043FE9A@@@Z,,0x00440B64,47,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp,matched,unguarded insert with Rva0043FE9A comp callers 0x00441968 0x00441986
-?Rva0052BF33DestroyTagged@@YAXPAURva0052BF33Elem@@0ABU__false_type@_STL@@@Z,,0x0052BF33,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 8 caller 1
 ?rva005F0152@Rva005F0152@@QAEPBVImage@@H@Z,,0x005F0152,51,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,unlock image cache via 2 callers plus prev donor
 ??1Rva00308C13@@QAE@XZ,,0x00308C13,30,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,vector-like dtor via rowed Destroy plus free caller 0x282906
-?Rva0052BF4DDestroyTagged@@YAXPAURva0052BF4DElem@@0ABU__false_type@_STL@@@Z,,0x0052BF4D,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x28 caller 1
-?Rva0052BF67DestroyTagged@@YAXPAURva0052BF67Elem@@0ABU__false_type@_STL@@@Z,,0x0052BF67,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x20 caller 1
-?Rva0052BF9BDestroyTagged@@YAXPAURva0052BF9BElem@@0ABU__false_type@_STL@@@Z,,0x0052BF9B,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x14 caller 1
 ?Rva00440B1BPartition@@YAPAPAXPAPAX0PAXVRva0043FE9A@@@Z,,0x00440B1B,73,Code/GameEngine/Source/GameClient/GUI/Rva00440B1BPartition.cpp,matched,unguarded partition with Rva0043FE9A comp caller 0x004434B5
 ?Rva00440B93Adjust@@YAXPAPAXHHPAXVRva0043FE9A@@@Z,,0x00440B93,76,Code/GameEngine/Source/GameClient/GUI/Rva00440B93Adjust.cpp,matched,push-heap adjust with Rva0043FE9A comp caller 0x004419ED
 ?Rva002E56E2Greater@@YG_NPBDPBUStringLookUp@@@Z,,0x002E56E2,47,Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp,matched,unlock upper-bound twin of Less reversed args
@@ -23766,7 +23762,6 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002E5C61UpperBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C61Comp@@H@Z,,0x002E5C61,76,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E56E2 Greater binary upper_bound 8B array
 ?Rva005F020BGet@@YAPBVImage@@PAURva005F020BIn@@@Z,,0x005F020B,21,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,chain from 0x005F0152 via mid plus index
 ?Rva005F0220Get@@YAPBVImage@@PAURva005F0220In@@@Z,,0x005F0220,22,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,chain from 0x005F020B via null check plus forward
-?Rva0052BFB5DestroyTagged@@YAXPAURva0052BFB5Elem@@0ABU__false_type@_STL@@@Z,,0x0052BFB5,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x0C caller 1
 ?Rva00308663Fill@@YAPAVRva004733E0@@PAV1@IPBV1@@Z,,0x00308663,37,Code/GameEngine/Source/GameLogic/Map/StandingWaterArea.cpp,matched,fill n slots via rowed Set caller 0x2828DB
 ?Rva00440AB0Median@@YAPAPAXPAPAX00VRva0043FE9A@@@Z,,0x00440AB0,107,Code/GameEngine/Source/GameClient/GUI/Rva00440AB0Median.cpp,matched,median of three with Rva0043FE9A comp caller 0x004434A6
 ?Rva0044192FGuarded@@YAXPAPAX0PAXVRva0043FE9A@@@Z,,0x0044192F,69,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp,matched,guarded insert with Rva0043FE9A comp caller 0x00441D90
@@ -23781,7 +23776,6 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??F?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@QAE?AU01@H@Z,,0x004222D1,40,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_postdec.cpp,matched,postfix dec via rowed _M_decrement 0x00421B47 same TU flags
 ?Rva00441DA4Sort@@YAXPAPAX0VRva0043FE9A@@@Z,,0x00441DA4,27,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp,matched,wrapper zero to reinsert sweep caller 0x00442856
 ?Rva00441D74Sort@@YAXPAPAX0VRva0043FE9A@@@Z,,0x00441D74,48,Code/GameEngine/Source/GameClient/GUI/Rva00440B64Insert.cpp,matched,insertion sort via guarded insert callers 0x00442847 0x0044286B
-?Rva0052BCE7DestroyTagged@@YAXPAURva0052BCE7Elem@@0ABU__false_type@_STL@@@Z,,0x0052BCE7,29,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0xB8 caller 1
 ?rva005F0185@Rva005F0185@@QAEPBVImage@@H@Z,,0x005F0185,51,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,unlock image cache twin via same volatile recipe
 ?Rva005F01C7Get@@YAPBVImage@@H@Z,,0x005F01C7,15,Code/GameEngine/Source/Common/Rva005F0152ImageGet.cpp,matched,chain from 0x005F0185 via same global
 ??1Rva006F8460@@UAE@XZ,,0x006F8460,37,Code/GameEngine/Source/Common/Rva006F8460Dtor.cpp,matched,dtor vtable 0x008EC9CC member 0x70A840 pool free 0x14
@@ -23793,7 +23787,6 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??0Rva002CF13B@@QAE@ABU0@@Z,,0x002CF13B,27,Code/Libraries/Source/WWVegas/WWLib/Rva002CF13BCopy.cpp,matched,8-byte copy ctor via rowed 0x002CF0F0; 27B exact; caller 0x002CF37A
 ?Rva00441999Heap@@YAXPAPAXHHPAXVRva0043FE9A@@@Z,,0x00441999,97,Code/GameEngine/Source/GameClient/GUI/Rva00441999Heap.cpp,matched,adjust heap with Rva0043FE9A comp callers 0x00441DE1 0x00441E1A
 ?Rva00441DBFPop@@YAXPAPAX00PAXVRva0043FE9A@@@Z,,0x00441DBF,44,Code/GameEngine/Source/GameClient/GUI/Rva00441DBFPop.cpp,matched,pop heap with Rva0043FE9A comp callers 0x00441E44 0x00443018
-?Rva005A6EDADestroyRange@@YAXPAURva0052BF33Elem@@0@Z,,0x005A6EDA,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF33 callers 7
 ??_GRva006F8460@@UAEPAXI@Z,,0x006F8490,35,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva006F8460.cpp,matched,pooled deleting dtor calls rowed dtor 0x006F8460
 ?rva0059B3E9@Rva0059B3E9@@QAEHPAD@Z,,0x0059B3E9,55,Code/GameEngine/Source/Common/Rva0059B3E9Write.cpp,matched,three-part write via rowed Pair and AsciiStringRef returns total
 ?rva00503E17@Rva00503E17@@QAEMXZ,,0x00503E17,56,Code/GameEngine/Source/Common/calc.cpp,matched,chain Bezier Evaluate with SSE t caller 0x005043DF
@@ -23814,17 +23807,12 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??0Rva004D6134@@QAE@XZ,,0x004D6134,29,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp,matched,NetCommandMsg family vptr-first two-And plus type 14 sibling
 ??0Rva004D65DC@@QAE@XZ,,0x004D65DC,29,Code/GameEngine/Source/GameNetwork/NetCommandMsgCtor.cpp,matched,NetCommandMsg family vptr-first two-And plus type 6 sibling
 ??0?$vector@VRva004E1A04@@V?$allocator@VRva004E1A04@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0052CE20,93,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp,matched,chain vector E16 copy via base plus uninit copy caller 1
-?Rva0052C37ADestroyRange@@YAXPAURva0052BFB5Elem@@0@Z,,0x0052C37A,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BFB5 callers 6
 ?rva002CFCEE@Rva002CFCEE@@QAEPAURva002CFA4ENode@@PAU2@0@Z,,0x002CFCEE,115,Code/Libraries/Source/WWVegas/WWLib/Rva002CFCEECopy.cpp,matched,tree copy via thiscall twin of 0x002CFA4E; 115B exact; self callers and 0x002D01E0
 ?findByTemplateID@Rva002CF1FB@@QAEPAURva002CF1FBNode@@G@Z,,0x002CF1FB,32,Code/GameEngine/Source/Common/Rva002CF1FBFind.cpp,matched,list search head plusC via 0x484 key 0x5D8; 32B exact; callers 0x377613 0x77BE15; wb-lead 1/callgraph: WB A95800 ThingFactory::findByTemplateID (ThingFactory.cpp:436 not-found debug; same +0xC head +0x484 next +0x5D8 id scan)
-?Rva0052C24EDestroyRange@@YAXPAURva0052BCE7Elem@@0@Z,,0x0052C24E,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BCE7 callers 2
-?Rva0052C266DestroyRange@@YAXPAURva0052BF4DElem@@0@Z,,0x0052C266,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF4D callers 2
 ?Rva002CF9DCCreate@@YGPAXPBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z,,0x002CF9DC,37,Code/Libraries/Source/WWVegas/WWLib/Rva002CF9DCCreate.cpp,matched,12-byte NoCase pair node via dup 0x002CF954; 37B exact; caller 0x002CFB77
 ?Rva003BB62C@ScriptActions@@QAEXH@Z,,0x003BB62C,21,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,matched,null-guarded forwarder to vslot 0x164 via global 0xDFE6E8 caller 0x003CE41F forwards stdcall int; member ABI repaired: retail dispatcher3CA4BE passes ScriptActions this in ECX; original verb remains unknown
 ?rva004D6187@Rva004D60CA@@QAEXVUnicodeString@@@Z,,0x004D6187,52,Code/GameEngine/Source/Common/Rva004D6187Set.cpp,matched,Rva004D60CA wide string setter via caller 0x004D187B
 ?rva004D65F9@Rva004D64F5@@QAEXVAsciiString@@@Z,,0x004D65F9,52,Code/GameEngine/Source/Common/Rva004D65F9Set.cpp,matched,Rva004D64F5 AsciiString setter via caller 0x00592496
-?Rva0052C3BFDestroyRange@@YAXPAURva0052BF67Elem@@0@Z,,0x0052C3BF,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF67 callers 3
-?rva0052CAAB@Rva0052CAABVec@@QAEXXZ,,0x0052CAAB,30,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain scrap storage via 0052C24E plus free caller 1
 ?rva005F06EF@Rva005F06EF@@QAEXXZ,,0x005F06EF,57,Code/GameEngine/Source/Common/Rva005F0647Deleting.cpp,matched,unlock lane tooltip via TheGameText fetch and Mouse tooltip
 ?rva005F09BC@Rva005F09BC@@QAEXXZ,,0x005F09BC,27,Code/GameEngine/Source/Common/Rva005F0647Deleting.cpp,matched,chain lane array loop over Rva005F06EF
 ??4Rva002CF5D4@@QAEAAU0@ABU0@@Z,,0x002CF5D4,43,Code/GameEngine/Source/GameLogic/Object/Rva002CF5D4Assign.cpp,matched,56-element assign via 0x002C99FB; 43B exact; caller 0x002D128C
@@ -23843,7 +23831,6 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva002E60A7UpperBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C61Comp@@@Z,,0x002E60A7,27,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain UpperBound wrapper d2 0
 ?Rva00441DEBHeap@@YAXPAPAX0VRva0043FE9A@@@Z,,0x00441DEB,64,Code/GameEngine/Source/GameClient/GUI/Rva00441DEBHeap.cpp,matched,make heap via rowed adjust and caller 0x00442889
 ??0Rva004395EC@@QAE@PAPAXABURva004393D6@@@Z,,0x004395EC,29,Code/Libraries/Source/WWVegas/WWLib/Rva004393D6Copy.cpp,matched,chain copy 0x004393D6 with ptr
-?Rva0022C8E3DestroyRange@@YAXPAURva0052BF9BElem@@0@Z,,0x0022C8E3,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy range via 0052BF9B callers 10
 ??_GRva006F84C0@@UAEPAXI@Z,,0x006F84C0,35,Code/GameEngine/Source/Common/Rva006F84C0DeletingDtor.cpp,matched,pooled deleting dtor calls rowed dtor 0x006F8460 size 0x1C
 ?rva004D662D@Rva004D65DC@@QAEXVAsciiString@@@Z,,0x004D662D,52,Code/GameEngine/Source/Common/Rva004D662DSet.cpp,matched,Rva004D65DC AsciiString plus20 setter via caller 0x00592520
 ??_GGameTextTable@@QAEPAXI@Z,,0x002E6415,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse07-2E6158.cpp,matched,chain from 0x002E6158 scalar deleting
@@ -98942,3 +98929,16 @@ __ehhandler$?rva0060147B@Rva0060126D@@QAEAAV?$_Rb_tree@URva00600A40Element@@U1@U
 uw_0075c3d0,,0x0075C3D0,8,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_imbue.cpp,matched,gen-funclet;object-symbol=$L342;parent=?imbue@ios_base@_STL@@QAE?AVlocale@2@ABV32@@Z;unwind state 1 of FuncInfo 0x008FDCFC read from the parent prolog handler stub; emitted by the parent C++ in this TU; migrated=stlport-4.6
 uw_0075c3d8,,0x0075C3D8,25,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_imbue.cpp,matched,gen-funclet;object-symbol=$L343;parent=?imbue@ios_base@_STL@@QAE?AVlocale@2@ABV32@@Z;unwind state 0 of FuncInfo 0x008FDCFC read from the parent prolog handler stub; emitted by the parent C++ in this TU; migrated=stlport-4.6
 __ehhandler$?imbue@ios_base@_STL@@QAE?AVlocale@2@ABV32@@Z,,0x0075C3F1,10,Code/Libraries/Source/WWVegas/WWLib/stlport_ios_base_imbue.cpp,matched,Compiler-emitted C++ EH handler of the rowed parent 0x0001BD20; its EH prologue loads this handler address; complete 10B mov FuncInfo plus jump to __CxxFrameHandler; migrated=stlport-4.6
+?Rva0052BF33DestroyTagged@@YAXPAURva0052BF33Elem@@0ABU__false_type@_STL@@@Z,,0x0052BF33,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 8 caller 1; migrated=stlport-4.6
+?Rva0052BF4DDestroyTagged@@YAXPAURva0052BF4DElem@@0ABU__false_type@_STL@@@Z,,0x0052BF4D,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x28 caller 1; migrated=stlport-4.6
+?Rva0052BF67DestroyTagged@@YAXPAURva0052BF67Elem@@0ABU__false_type@_STL@@@Z,,0x0052BF67,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x20 caller 1; migrated=stlport-4.6
+?Rva0052BF9BDestroyTagged@@YAXPAURva0052BF9BElem@@0ABU__false_type@_STL@@@Z,,0x0052BF9B,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x14 caller 1; migrated=stlport-4.6
+?Rva0052BFB5DestroyTagged@@YAXPAURva0052BFB5Elem@@0ABU__false_type@_STL@@@Z,,0x0052BFB5,26,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0x0C caller 1; migrated=stlport-4.6
+?Rva0052BCE7DestroyTagged@@YAXPAURva0052BCE7Elem@@0ABU__false_type@_STL@@@Z,,0x0052BCE7,29,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy tagged stride 0xB8 caller 1; migrated=stlport-4.6
+?Rva005A6EDADestroyRange@@YAXPAURva0052BF33Elem@@0@Z,,0x005A6EDA,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF33 callers 7; migrated=stlport-4.6
+?Rva0052C37ADestroyRange@@YAXPAURva0052BFB5Elem@@0@Z,,0x0052C37A,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BFB5 callers 6; migrated=stlport-4.6
+?Rva0052C24EDestroyRange@@YAXPAURva0052BCE7Elem@@0@Z,,0x0052C24E,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BCE7 callers 2; migrated=stlport-4.6
+?Rva0052C266DestroyRange@@YAXPAURva0052BF4DElem@@0@Z,,0x0052C266,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF4D callers 2; migrated=stlport-4.6
+?Rva0052C3BFDestroyRange@@YAXPAURva0052BF67Elem@@0@Z,,0x0052C3BF,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain destroy range via 0052BF67 callers 3; migrated=stlport-4.6
+?rva0052CAAB@Rva0052CAABVec@@QAEXXZ,,0x0052CAAB,30,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,chain scrap storage via 0052C24E plus free caller 1; migrated=stlport-4.6
+?Rva0022C8E3DestroyRange@@YAXPAURva0052BF9BElem@@0@Z,,0x0022C8E3,24,Code/GameEngine/Source/Common/System/Rva0052BF33DestroyTagged.cpp,matched,unlock destroy range via 0052BF9B callers 10; migrated=stlport-4.6
