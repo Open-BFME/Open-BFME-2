@@ -24,10 +24,24 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class WoundArrowUpdate
+class Xfer;
+class SpecialAbilityUpdate
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
+class WoundArrowUpdate : public SpecialAbilityUpdate
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	char m_pad[0x84];
+	bool m_88;
 };
 
 //
