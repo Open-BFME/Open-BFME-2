@@ -100,7 +100,7 @@ public:
 	__forceinline Rva005E8AAF(const Rva005E8AAF &other) : m_08(other.m_08) {}
 	virtual ~Rva005E8AAF();
 	virtual Rva005F888CRef clone() const;
- virtual Rva005F8CB0Ref rva005E89DD(void*);
+ virtual Rva005F8CB0Ref CreateButton(void*);
 
 private:
 	Rva005E8908 m_08;				// +0x08
@@ -133,7 +133,7 @@ void rva005E8ADF(Rva005F86FE *list, const Rva005E8908 &value)
 
 // VtableC77F5C slot2 =005E89DD. Creates the rowed button from this
 // record at+8 and the frame argument; hidden 4B handle increments count+4.
-Rva005F8CB0Ref Rva005E8AAF::rva005E89DD(void *frame)
+Rva005F8CB0Ref Rva005E8AAF::CreateButton(void *frame)
 {
 	return Rva005F8CB0Ref(new Rva005F8CB0(frame, m_08));
 }

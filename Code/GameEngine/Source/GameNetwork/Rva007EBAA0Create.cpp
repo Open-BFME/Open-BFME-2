@@ -6,7 +6,7 @@ void *Gen007F0130(unsigned int size);
 
 extern void *g_bfmeVftTDA[];
 // The +4 slot is the rowed Rva006587B0Print (BfmeConv1321.cpp, 0x006587B0).
-void Rva006587B0Print(void *p, const char *text);
+void printText(void *p, const char *text);
 extern int g_FeslDiagReporter;
 
 void Rva007EBAA0(void)
@@ -20,7 +20,7 @@ void Rva007EBAA0(void)
 		*((int *)p + 3) = 0;
 		*((int *)p + 4) = 0;
 		*(int *)p = (int)g_bfmeVftTDA;
-		*((int *)p + 1) = (int)&Rva006587B0Print;
+		*((int *)p + 1) = (int)&printText;
 		g_FeslDiagReporter = (int)p;
 	}
 	else

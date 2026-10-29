@@ -17,8 +17,8 @@ class Rva007E8810Message
 public:
 	Int getInt(const char *key, Int defaultValue);
 };
-const char *g_rva00665450Key = "errorCode";
-const char *g_rva00665560Key = "decodedSize";
+const char *g_errorCodeKey = "errorCode";
+const char *g_decodedSizeKey = "decodedSize";
 // Native DD8310 already belongs to BfmeConv482.cpp.
 extern void *g_bfmeWhatBKG;
 class Rva00665450
@@ -30,11 +30,11 @@ public:
 };
 Int Rva00665450::getErrorCode(Rva007E8810Message *msg)
 {
-	return msg->getInt(g_rva00665450Key, 0);
+	return msg->getInt(g_errorCodeKey, 0);
 }
 Int Rva00665450::getDecodedSize(Rva007E8810Message *msg)
 {
-	return msg->getInt(g_rva00665560Key, 0);
+	return msg->getInt(g_decodedSizeKey, 0);
 }
 Int Rva00665450::rva00668090(Rva007E8810Message *msg)
 {

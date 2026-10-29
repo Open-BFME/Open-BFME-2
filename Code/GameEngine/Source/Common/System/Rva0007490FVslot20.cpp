@@ -8,8 +8,8 @@
 // 16-byte bound, and exactly the four entries the loop below reads (it indexes
 // at g_00BC6610[i] and g_00BC6610[i % 4] with a 12-byte element stride). The
 // words that follow it in .rdata belong to retail's next object.
-// Symbol ?g_00BC6610@@3PAHA, transcribed below.
-extern int g_00BC6610[] = { 0, 1, 3, 2 };
+// Symbol ?g_boxCornerOrder@@3PAHA, transcribed below.
+extern int g_boxCornerOrder[] = { 0, 1, 3, 2 };
 
 class EmptyBase2
 {
@@ -67,13 +67,13 @@ private:
 void Rva0007517F::drawBox(char *base, int b, int c, int d, int e, int f)
 {
 	int i = 1;
-	int *currentCornerIndexPtr = g_00BC6610;
+	int *currentCornerIndexPtr = g_boxCornerOrder;
 	char *currentCorner = base;
 	int remainingCorners = 4;
 	do {
 		_D11(currentCorner, currentCorner + 48, b, e, f);
 		int nextCornerIndex = i % 4;
-		int *nextCornerIndexPtr = g_00BC6610 + nextCornerIndex;
+		int *nextCornerIndexPtr = g_boxCornerOrder + nextCornerIndex;
 		_D11(base + (*currentCornerIndexPtr) * 12, base + (*nextCornerIndexPtr) * 12, c, e, f);
 		_D11(base + (*currentCornerIndexPtr + 4) * 12, base + (*nextCornerIndexPtr + 4) * 12, d, e, f);
 		currentCorner += 12;

@@ -98,7 +98,7 @@ class Object
 public:
 	void rva0028ACCA(int worldPosition);
 	void rva0028ACDC(int goalPosition);
-	void rva0028ACEE(int destinationPosition, int arg2);
+	void rva0028ACEE(int destinationPosition, int m_goalLayer);
 	void rva0028AD00(int arg, float value, int arg2);
 	void rva0028AD22();
 	void rva0028AD32();
@@ -168,10 +168,10 @@ void Object::rva0028ACDC(int goalPosition)
 		m_sub->rva004DE4E2(goalPosition);
 }
 
-void Object::rva0028ACEE(int destinationPosition, int arg2)
+void Object::rva0028ACEE(int destinationPosition, int m_goalLayer)
 {
 	if (m_sub)
-		m_sub->rva004DE511(destinationPosition, arg2);
+		m_sub->rva004DE511(destinationPosition, m_goalLayer);
 }
 
 void Object::rva0028AD00(int arg, float value, int arg2)

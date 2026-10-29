@@ -31,7 +31,7 @@ public:
 // import thunk 0x00629B14, i.e. printf("%s", text) for a (context, text)
 // callback. Its only reference is the +4 store of the constructor below.
 // Address-derived name: the owning library and callback type are unproven.
-void Rva006587B0Print(void *context, const char *text)
+void printText(void *context, const char *text)
 {
 	printf("%s", text);
 }
@@ -48,7 +48,7 @@ void Rva006587B0Print(void *context, const char *text)
 BfmeThingTQD::BfmeThingTQD()
 {
 	m_vtable = g_bfmeVftTDA;
-	m_printCallback = reinterpret_cast<void *>(&Rva006587B0Print);
+	m_printCallback = reinterpret_cast<void *>(&printText);
 	m_bfmeField8 = 0;
 	m_bfmeItem = 0;
 	m_bfmeField10 = 0;

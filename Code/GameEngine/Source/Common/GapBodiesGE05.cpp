@@ -196,7 +196,7 @@ void Rva00540D59(Rva00540D36Record **it, int count)
 
 // --- 0x0059CEB3 (17B): natural log of a float; 0x0059CEC4 / 0x0059CED4
 // (16B each): pointer-vector counts at +0x48 / +0x24 of the argument.
-double Rva0059CEB3(float value)
+double naturalLog(float value)
 {
 	return log(value);
 }

@@ -48,8 +48,8 @@ extern const FieldParse WeaponOCLFieldTable[] =
 
 void q4Notify002CC7DE(void *ini, Made002CC7DE *m, int c, int d)
 {
-    MultiIniFieldParse tmp;
-    tmp.add((const FieldParse *)Rva00507552Get(), 0);
-    tmp.add(WeaponOCLFieldTable, 0);
-    ((INI *)ini)->initFromINIMulti(m, tmp);
+    MultiIniFieldParse m_fieldParse;
+    m_fieldParse.add((const FieldParse *)Rva00507552Get(), 0);
+    m_fieldParse.add(WeaponOCLFieldTable, 0);
+    ((INI *)ini)->initFromINIMulti(m, m_fieldParse);
 }

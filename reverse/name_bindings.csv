@@ -30,3 +30,4 @@ agree:nl-9314885c4bad,rotate#2::tmp_y,rotate#2::oldY,Code/GameEngine/Source/Game
 agree:nl-7e4d2b9c52a7,MeshModelClass::get_deformed_vertices::w0,MeshModelClass::get_deformed_vertices::firstWeight,Code/Libraries/Source/WWVegas/WW3D2/Rva0016BF40DeformedVertices.cpp,4866455dff352c4c2b1271e28a1166228961ea8b6b892c9425eae94261270995
 agree:nl-6c1c6022dc31,MeshModelClass::get_deformed_vertices::w1,MeshModelClass::get_deformed_vertices::secondWeight,Code/Libraries/Source/WWVegas/WW3D2/Rva0016BF40DeformedVertices.cpp,4866455dff352c4c2b1271e28a1166228961ea8b6b892c9425eae94261270995
 agree:nl-8e1b1522243f,rva00094D44::r,rva00094D44::m_planeDistance,Code/GameEngine/Source/GameClient/Rva00094D44Func.cpp,ea7d7eae6ae534dcaca58439bf03f5b80560d216db4347251fa206cdb3482bbc
+agree:nl-63f921592c05,Rva002C76B2Build::v,Rva002C76B2Build::m_conditionFlag,Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp,e5173b505f57d32e8cd02a4f589d0348731642a2d346b223948358cadb1f3867

@@ -42,10 +42,10 @@ public:
 
 void q4Notify002CC64B(void *ini, Made002CC64B *m, int c, int d)
 {
-    MultiIniFieldParse tmp;
-    tmp.add((const FieldParse *)Rva00507552Get(), 0);
-    tmp.add(AttributeModifierFieldTable, 0);
-    ((INI *)ini)->initFromINIMulti(m, tmp);
+    MultiIniFieldParse m_fieldParse;
+    m_fieldParse.add((const FieldParse *)Rva00507552Get(), 0);
+    m_fieldParse.add(AttributeModifierFieldTable, 0);
+    ((INI *)ini)->initFromINIMulti(m, m_fieldParse);
 }
 
 // Retail C64300..C64370 owns six fields and the full null row. The parser

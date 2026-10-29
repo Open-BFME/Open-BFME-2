@@ -15,7 +15,7 @@ void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 void __identifier("?rva003ABEFD@Rva003ABEFD@@QAEMXZ")();
 void __identifier("?getPosition@CylinderEmissionVolumeModule@FXParticleSystem@@UAE?AUCoord3D@2@MMMM@Z")();
 }
-extern const void *const g_00C1CBE4[8] = {
+extern const void *const g_cylinderEmissionVolumeModuleVTable[8] = {
 	(const void *)&__identifier("??_GRva003AD2AE@@UAEPAXI@Z"), // slot 0 0x003AD42F
 	(const void *)&__identifier("?rva0055D616@Rva003AF7FE@@UAEXXZ"), // slot 1 0x0055D616
 	(const void *)&__identifier("_purecall"), // slot 2 0x0003B810
@@ -41,7 +41,7 @@ public:
 Rva003ACD0F::Rva003ACD0F(void *a, void *moduleTemplate)
 	: Rva003AC0DA(a, moduleTemplate)
 {
-	*(void **)this = (void *)g_00C1CBE4;
+	*(void **)this = (void *)g_cylinderEmissionVolumeModuleVTable;
 	*(void **)((char *)this + 0x14) = (void *)&s_slot3E4first;
 	*(void **)((char *)this + 0x18) = (void *)__identifier("??_7Rva003AF7D1@@6BIntermediate3AFC6FC@@@");
 	*(void **)((char *)this + 0x1C) = (void *)__identifier("??_7Rva003AF7D1@@6BLineEmissionVolumeInfo@FXParticleSystem@@@");

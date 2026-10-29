@@ -45,7 +45,7 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *use
 // null terminator read from retail, parsers resolved to their ledger
 // names, userData null, nugget offsets 0x128-0x160. The table name is
 // descriptive; the original spelling is unknown.
-extern const FieldParse FieldTable002CC8A4[] =
+extern const FieldParse shockWaveFieldParse[] =
 {
     { "ShockWaveAmount",           &INI::parseVelocityReal,         0, 0x128 },
     { "ShockWaveRadius",           &INI::parseReal,                 0, 0x12C },
@@ -71,6 +71,6 @@ void q4Notify002CC8A4(void *ini, Made002CC8A4 *instance, int store, int d)
 {
     MultiIniFieldParse multiParse;
     multiParse.add((const FieldParse *)Rva00507552Get(), 0);
-    multiParse.add(FieldTable002CC8A4, 0);
+    multiParse.add(shockWaveFieldParse, 0);
     ((INI *)ini)->initFromINIMulti(instance, multiParse);
 }

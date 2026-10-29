@@ -329,7 +329,7 @@ extern const FieldParse BrutalDifficultyCheatsFieldParse[];
 extern const FieldParse DifficultyTuningFieldParse[];
 extern const FieldParse BfmeBonusForLevelFieldTable[];
 extern const FieldParse Rva00418AC6FieldParseTable[];
-extern const FieldParse FieldTable002CC8A4[];
+extern const FieldParse shockWaveFieldParse[];
 extern const FieldParse g_00C3BC20[];
 class Rva00534E13
 {
@@ -408,7 +408,7 @@ int Rva004186DAGet(void)
 // address-derived name.
 int Rva00509DA5Get(void)
 {
-	return (int)FieldTable002CC8A4;
+	return (int)shockWaveFieldParse;
 }
 
 // ?Rva00420965Get@@YAHXZ @ 0x00420965 (6B): returns 0x00c3bc20.

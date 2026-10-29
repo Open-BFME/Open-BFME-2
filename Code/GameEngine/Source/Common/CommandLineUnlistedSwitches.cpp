@@ -62,7 +62,7 @@ struct CommandLineSwitchView
 #define TheSwitches ((CommandLineSwitchView *)TheWritableGlobalData)
 
 // Native 3B9505..3B9516: sets +2D true.
-int Rva003B9505Parse(char *args[],int num) {
+int parseSkipMapUnroll(char *args[],int num) {
     if(TheWritableGlobalData)
         TheSwitches->m_skipMapUnroll=true;
     return 1;
@@ -132,7 +132,7 @@ int Rva003B9A29Parse(char *args[],int num) {
 }
 
 // Native 3B9AA5..3B9AB9: sets +9BF false.
-int Rva003B9AA5Parse(char *args[],int num) {
+int parseNoTooltips(char *args[],int num) {
     if(TheWritableGlobalData)
         TheSwitches->m_showTooltips=false;
     return 1;
@@ -188,7 +188,7 @@ int Rva003B9A62Parse(char *args[],int num) {
 // Native 3B9F83..3B9F8C: runs the rowed mod-cinematics setup
 // Rva003B9E0FInit 0x003B9E0F (CommandLineRva003B9E0F.cpp) and consumes one.
 void Rva003B9E0FInit();
-int Rva003B9F83Parse(char *args[],int num) {
+int parseModCinematics(char *args[],int num) {
     Rva003B9E0FInit();
     return 1;
 }

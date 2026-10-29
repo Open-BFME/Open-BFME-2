@@ -56,10 +56,10 @@ int getImageFieldParseTable(void)
 	return (int)m_imageFieldParseTable;
 }
 
-// ?Rva002009FBGet@@YAHXZ @ 0x002009fb (6B): returns 0x00c1ee54.
+// ?getWaterTextureFieldParseTable@@YAHXZ @ 0x002009fb (6B): returns 0x00c1ee54.
 // Follows a ret (prev C3), no .rdata vtable slot, no direct callers,
 // no branch sources. Opaque address-derived name.
-int Rva002009FBGet(void)
+int getWaterTextureFieldParseTable(void)
 {
 	return (int)g_waterTextureFieldParseTable;
 }

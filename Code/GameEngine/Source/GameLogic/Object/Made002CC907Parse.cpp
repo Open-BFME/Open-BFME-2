@@ -56,8 +56,8 @@ extern const FieldParse GrabFieldTable[] =
 
 void q4Notify002CC907(void *ini, Made002CC907 *m, int store, int d)
 {
-	MultiIniFieldParse tmp;
-	tmp.add((FieldParse *)Rva00507552Get(), 0);
-	tmp.add(GrabFieldTable, 0);
-	((INI *)ini)->initFromINIMulti(m, tmp);
+	MultiIniFieldParse m_fieldParse;
+	m_fieldParse.add((FieldParse *)Rva00507552Get(), 0);
+	m_fieldParse.add(GrabFieldTable, 0);
+	((INI *)ini)->initFromINIMulti(m, m_fieldParse);
 }

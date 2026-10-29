@@ -117,7 +117,7 @@ int Rva003B9A9C(char *args[], int)
 	return 1;
 }
 
-int Rva003B9D6F(char *args[], int)
+int parseNatTransportContext(char *args[], int)
 {
 	g_natTransportContextEnabled = true;
 	return 1;

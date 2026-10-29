@@ -45,9 +45,9 @@ WeaponTemplateSetHead *__cdecl Rva002C76B2Build(WeaponTemplateSetHead *out, int 
 	memset(&weaponTemplateSetHead, 0, 0x4C);
 	unsigned *bits = (unsigned *)&weaponTemplateSetHead;
 	unsigned bit = 1;
-	int v = ((int **)g_00DBC46C)[b][a];
-	if (v != -1)
-		bits[(unsigned)v >> 5] |= bit << ((unsigned)v & 31);
+	int m_conditionFlag = ((int **)g_00DBC46C)[b][a];
+	if (m_conditionFlag != -1)
+		bits[(unsigned)m_conditionFlag >> 5] |= bit << ((unsigned)m_conditionFlag & 31);
 	int w = ((int *)g_00C00960)[a];
 	if (w != -1 && b != 0)
 		bits[(unsigned)w >> 5] |= bit << ((unsigned)w & 31);
