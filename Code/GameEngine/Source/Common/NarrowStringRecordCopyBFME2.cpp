@@ -22,6 +22,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 namespace _STL {
 template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string(const basic_string<char, char_traits<char>, allocator<char> > &);
 template <> basic_string<char, char_traits<char>, allocator<char> > &basic_string<char, char_traits<char>, allocator<char> >::assign(const basic_string<char, char_traits<char>, allocator<char> > &);
+// The record default constructor calls retail's out-of-line basic_string<char>
+// default constructor at 0x00007850 (two calls), so declare it instead of
+// emitting this TU's copy and its allocator reference.
+template <> basic_string<char, char_traits<char>, allocator<char> >::basic_string();
 }
 
 // __malloc_alloc<0> allocate/deallocate otherwise instantiate per-TU

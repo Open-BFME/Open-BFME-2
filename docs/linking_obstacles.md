@@ -12265,6 +12265,15 @@ sources, first Common/NarrowStringRecord00427F75Helpers.cpp. Carry this unit
 and that cohort into the next scheduled census; their broader closure is
 unverified.
 [Repair evidence and remaining scope](../reverse/attempt_support/narrow-record-stlport46-20261030.md).
+Repair (2026-10-29, seat dd-15), NarrowStringRecordCopyBFME2.cpp: that unit's
+one unresolved reference did not need the proxy copy at all. Its only reference
+came from a local `basic_string<char>` default-constructor COMDAT; retail emits
+no such copy in this TU, because its rowed record default constructor
+(0x0041A1CF) calls retail's out-of-line default constructor at 0x00007850 twice.
+The unit now declares that constructor body-less beside its copy constructor and
+`assign`, so it links against the rowed 0x7850 body instead of emitting a copy
+and an allocator reference. Build 34/34 rows exact; link_check 0 -> 850 B.
+Pending census confirmation.
 
 ### LINK-141: removing the 0x48BA39 alias left four placeholder string destructors unresolved (2026-10-29, seat yasinschroeder-claudeb2)
 
