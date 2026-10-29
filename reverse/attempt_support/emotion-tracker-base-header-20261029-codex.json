@@ -1,0 +1,73 @@
+{
+  "added": {
+    "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z": {
+      "after": {
+        "digest": "a4f5248d9b7d",
+        "size": 3
+      },
+      "destructor": {
+        "digest": "a4f5248d9b7d",
+        "size": 3
+      }
+    },
+    "?onDelete@Module@@UAEXXZ": {
+      "after": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      },
+      "destructor": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      }
+    },
+    "?onDrawableBoundToObject@Module@@UAEXXZ": {
+      "after": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      },
+      "destructor": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      }
+    },
+    "?onObjectCreated@Module@@UAEXXZ": {
+      "after": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      },
+      "destructor": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      }
+    },
+    "?preloadAssets@Module@@UAEXXZ": {
+      "after": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      },
+      "destructor": {
+        "digest": "8bf7b464aaa2",
+        "size": 1
+      }
+    }
+  },
+  "changed": {
+    "??_7EmotionTrackerUpdate@@6BObjectModule@@@": {
+      "after": {
+        "digest": "9a83cc86e27a",
+        "size": 40
+      },
+      "before": {
+        "digest": "a4027b0b0123",
+        "size": 4
+      },
+      "destructor": {
+        "digest": "9a83cc86e27a",
+        "size": 40
+      }
+    }
+  },
+  "removed": [],
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+  "unchanged_comdat_count": 37
+}

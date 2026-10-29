@@ -25,6 +25,15 @@ Rva00566695Assign.cpp's existing two COMDAT/one selected-copy failures;
 LINK-064's family identity prerequisite remains. No census gain is claimed.
 [Checks and selection handoff](../reverse/attempt_support/tree-erase-crt-header-20261027.md#scoped-queue-retirement-2026-10-29).
 
+EmotionTrackerUpdate constructor base-header repair (2026-10-29, `f143cd5169`):
+ObjectModule.h replaces the one-slot private base, preserving 11/11 paired rows
+and exact constructor EH. The primary table now agrees with the destructor;
+paired preview LINKS rises 159 -> 589 authored bytes against `85f6b7f40c`.
+One ObjectModule header queue row retires. Thing/derived-interface prerequisites
+and consumer-wide confirmation remain; the outgoing audit is inconclusive on
+the older index and missing CreateAHeroManager consumer receipt. No census gain
+is claimed. [Evidence](../reverse/attempt_support/emotion-tracker-base-header-20261029-codex.md).
+
 XferSaveAsText header follow-up (2026-10-29, base `eb384b72a1`): the shared
 Xfer header's opt-in imported-inline constructor preserves the existing
 emission contract and removes the text saver's private base definition.

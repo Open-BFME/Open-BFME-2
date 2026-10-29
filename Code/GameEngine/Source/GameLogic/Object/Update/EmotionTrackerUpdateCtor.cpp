@@ -180,6 +180,8 @@ EmotionTrackerUpdate::EmotionTrackerUpdate(Thing *thing, const ModuleData *modul
 		m_endFrame[i] = 0;
 	}
 
+	// ObjectModule stores Object*. Keep the existing local +0x74 ID view
+	// until the separate Thing/Object header reconciliation is complete.
 	if (data->m_distributionCount > 0)
 		m_distributionIndex = ((const Thing *)m_object)->m_id % data->m_distributionCount + 1;
 	else

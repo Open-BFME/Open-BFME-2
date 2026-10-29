@@ -122,6 +122,22 @@ pair-identity failures in Rva00566695Assign.cpp and leaves LINK-139's locale
 duplicate prerequisite unchanged. No source trial was repeated for either.
 [Current checks and scope](../reverse/attempt_support/tree-erase-crt-header-20261027.md#scoped-queue-retirement-2026-10-29).
 
+### EmotionTrackerUpdate constructor canonical base (2026-10-29)
+
+Status: scoped repair verified; consumer-wide and census confirmation pending.
+Base `f143cd5169`, index `85f6b7f40c` (2026-10-29 15:08). The constructor's
+private one-slot ObjectModule emitted a four-byte primary vtable conflicting
+with the destructor's canonical forty-byte copy. Adopting ObjectModule.h and
+casting the canonical Object* through the existing local ID view preserves
+11/11 constructor/destructor rows and the exact constructor EH graph. Both
+units preview LINKS (constructor 0 -> 430 authored bytes, destructor 159 -> 159).
+The owning header tool retires one ObjectModule queue row; the separate Thing
+view and complete derived virtual-interface reconciliation remain open.
+The outgoing audit is INCONCLUSIVE on the older index and a missing current
+receipt for Common/0CreateAHeroManager21FE49.cpp. Carry that consumer and this
+provider scope into the next scheduled census; no census gain is claimed.
+[Evidence](../reverse/attempt_support/emotion-tracker-base-header-20261029-codex.md).
+
 ### Strategic player status CRT header cleanup (2026-10-29)
 
 Scoped cleanup verified at base `8f350110e4`: replacing the two local CRT
