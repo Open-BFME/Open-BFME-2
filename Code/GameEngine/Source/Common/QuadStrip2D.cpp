@@ -72,11 +72,45 @@ struct Rva005386B7
 	unsigned char m_20;
 };
 
+struct PlayerAITypeEntry
+{
+	char m_data[16];
+};
+
+class Rva005388AB
+{
+public:
+	Rva005388AB();
+private:
+	_STL::vector<PlayerAITypeEntry> m_vec;
+	char m_pad0C[0x20 - 0x0C];
+	unsigned char m_20;
+};
+
+// bfme link decl-only begin
+namespace _STL { template <> void _Destroy<PlayerAITypeEntry *>(PlayerAITypeEntry *,PlayerAITypeEntry *); }
+
+namespace _STL { template <> void _Destroy<PlayerAITypeEntry>(PlayerAITypeEntry *); }
+
+namespace _STL { template <> void __destroy<PlayerAITypeEntry *,PlayerAITypeEntry>(PlayerAITypeEntry *,PlayerAITypeEntry *,PlayerAITypeEntry *); }
+
+namespace _STL { template <> void __destroy_aux<PlayerAITypeEntry *>(PlayerAITypeEntry *,PlayerAITypeEntry *,_STL::__false_type const &); }
+
+namespace _STL { template <> _Vector_base<PlayerAITypeEntry,_STL::allocator<PlayerAITypeEntry> >::~_Vector_base(); }
+
+namespace _STL { template <> vector<PlayerAITypeEntry,_STL::allocator<PlayerAITypeEntry> >::~vector(); }
+
+namespace _STL { template <> void _STLP_alloc_proxy<PlayerAITypeEntry *,PlayerAITypeEntry,_STL::allocator<PlayerAITypeEntry> >::deallocate(PlayerAITypeEntry *,unsigned int); }
+
+namespace _STL { template <> void allocator<PlayerAITypeEntry>::deallocate(PlayerAITypeEntry *,unsigned int) const; }
+
 // tu-skeleton: 0x005382F4 143B ?rva005382F4@QuadStrip2D@@QAEXABUBfmeE8@@@Z -- matched in Code/GameEngine/Source/Common/Rva005388C2Assign.cpp (not merged yet)
 
 // tu-skeleton: 0x00538383 153B ?rva00538383@QuadStrip2D@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/Rva005388C2Assign.cpp (not merged yet)
 
 // tu-skeleton: 0x0053841C 239B ?rva0053841C@QuadStrip2D@@QAEXABVMatrix3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva0053841CTransform.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/QuadStrip2D.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0053850BSave.cpp
 
@@ -93,18 +127,6 @@ void Rva0053850B::rva0053850B(DataChunkOutput *out)
 		out->writeReal(p->w);
 	}
 }
-
-// tu-skeleton: 0x0053856F 132B ?rva0053856F@Rva0053863ESub@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x005385F3 38B ??$__uninitialized_copy@PAUBfmeFloat4Record00469C61@@PAU1@@_STL@@YAPAUBfmeFloat4Record00469C61@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
-
-// tu-skeleton: 0x00538619 37B ??$__uninitialized_fill_n@PAUBfmeFloat4Record00469C61@@IU1@@_STL@@YAPAUBfmeFloat4Record00469C61@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
-
-// tu-skeleton: 0x0053863E 35B ?run@Rva0053863ESub@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00538661 19B ?rva00538661@Rva0053863ESub@@QAEMXZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00538674 67B ?run@Rva00538674Sub@@QAE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva005386B7Swap.cpp
 
@@ -128,18 +150,6 @@ void Rva005386B7::rva005386B7(Rva005386B7 *other)
 	}
 }
 
-// tu-skeleton: 0x005386F5 68B ??0Rva005386F5@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva005386F5Copy.cpp (not merged yet)
-
-// tu-skeleton: 0x00538739 47B ?erase@?$vector@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAEPAUBfmePod16@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x00538768 26B ?removeStrip@QuadStrip2D@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva005388C2Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x00538782 183B ??4?$vector@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_malloc_deferred_copies.cpp (not merged yet)
-
-// tu-skeleton: 0x00538839 114B ?reserve@?$vector@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
-
-// tu-skeleton: 0x005388AB 23B ??0Rva005388AB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005388ABCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/QuadStrip2D.cpp
 
 QuadStrip2D::QuadStrip2D(const QuadStrip2D &other)
@@ -150,6 +160,39 @@ QuadStrip2D::QuadStrip2D(const QuadStrip2D &other)
 		m_region = other.m_region;
 		m_1c = other.m_1c;
 	}
+}
+
+// tu-skeleton: 0x0053856F 132B ?rva0053856F@Rva0053863ESub@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x005385F3 38B ??$__uninitialized_copy@PAUBfmeFloat4Record00469C61@@PAU1@@_STL@@YAPAUBfmeFloat4Record00469C61@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
+
+// tu-skeleton: 0x00538619 37B ??$__uninitialized_fill_n@PAUBfmeFloat4Record00469C61@@IU1@@_STL@@YAPAUBfmeFloat4Record00469C61@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
+
+// tu-skeleton: 0x0053863E 35B ?run@Rva0053863ESub@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00538661 19B ?rva00538661@Rva0053863ESub@@QAEMXZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00538674 67B ?run@Rva00538674Sub@@QAE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/RvaAdjustCallEchoFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x005386F5 68B ??0Rva005386F5@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/Rva005386F5Copy.cpp (not merged yet)
+
+// tu-skeleton: 0x00538739 47B ?erase@?$vector@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAEPAUBfmePod16@@PAU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_malloc_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x00538768 26B ?removeStrip@QuadStrip2D@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva005388C2Assign.cpp (not merged yet)
+
+// tu-skeleton: 0x00538782 183B ??4?$vector@UBfmePod16@@V?$allocator@UBfmePod16@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_malloc_deferred_copies.cpp (not merged yet)
+
+// tu-skeleton: 0x00538839 114B ?reserve@?$vector@UBfmeFloat4Record00469C61@@V?$allocator@UBfmeFloat4Record00469C61@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_float4_469c61.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005388ABCtor.cpp
+
+// ??0Rva005388AB@@QAE@XZ @0x005388AB 23B
+// Evidence: leaf lane, callees all rowed (Vector_base 0x00211E58 row PlayerAITypeSetCtor), callers 0x0030C5AB 0x0030C808 unclaimed, prev 0x00538839 reserve next 0x005388C2 QuadStrip copy, byte flag at +0x20 set 1 with vector base at +0.
+
+// bfme link decl-only end
+Rva005388AB::Rva005388AB() : m_vec()
+{
+	m_20 = 1;
 }
 
 // tu-skeleton: 0x005388F7 53B ?rva005388F7@QuadStrip2D@@QAEAAV1@ABV1@@Z -- matched in Code/GameEngine/Source/Common/Rva005388C2Assign.cpp (not merged yet)
