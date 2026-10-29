@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // STLport 4.5.3 narrow basic_stringbuf members that retail compiled with /O1
 // (EBP frames, uninlined push_back): overflow (0x1F95C4) and setbuf

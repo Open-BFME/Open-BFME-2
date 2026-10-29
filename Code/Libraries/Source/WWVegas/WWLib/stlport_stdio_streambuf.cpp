@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // STLport's stdio_streambuf extension. The image names all three classes in
 // its own RTTI, in the SGI namespace the vendored header opens:
