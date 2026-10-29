@@ -33,9 +33,9 @@ struct Owner00346FD0
 	char m_pad00[4];
 	SubP00346FD0 *m_template;
 	char m_pad08[0x38 - 0x08];
-	float m_x38;
-	float m_y3c;
-	float m_z40;
+	float m_positionX;
+	float m_positionY;
+	float m_positionZ;
 	char m_pad44[0x74 - 0x44];
 	int m_id74;
 	char m_pad78[0x240 - 0x78];
@@ -107,7 +107,7 @@ StateReturnType Rva0033FE65::onEnter()
 			name = name + 8;
 		else
 			name = "";
-		fprintf(logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_x38, obj->m_y3c, obj->m_z40);
+		fprintf(logFile, "AIIdleState::onEnter() called for object %s(%d) at location %g,%g,%g.", name, id, obj->m_positionX, obj->m_positionY, obj->m_positionZ);
 	}
 	m_20 = (unsigned short)GetGameLogicRandomValue(0, g_00E01E04, "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\AIStates.cpp", 0x94A);
 	return STATE_CONTINUE;

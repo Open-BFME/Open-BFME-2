@@ -19,7 +19,7 @@ class BfmeThingTQD
 public:
 	BfmeThingTQD();
 	void *bfmeDelTQD(unsigned char flags);
-	void *m_bfmeVft;
+	void *m_vtable;
 	void *m_printCallback;
 	unsigned int m_bfmeField8;
 	void *m_bfmeItem;
@@ -47,7 +47,7 @@ void Rva006587B0Print(void *context, const char *text)
 // Retail 0x006587C0 (27 bytes); target extent is bracketed by int3 padding.
 BfmeThingTQD::BfmeThingTQD()
 {
-	m_bfmeVft = g_bfmeVftTDA;
+	m_vtable = g_bfmeVftTDA;
 	m_printCallback = reinterpret_cast<void *>(&Rva006587B0Print);
 	m_bfmeField8 = 0;
 	m_bfmeItem = 0;
@@ -57,7 +57,7 @@ BfmeThingTQD::BfmeThingTQD()
 // ?bfmeDelTQD@BfmeThingTQD@@QAEPAXE@Z
 void *BfmeThingTQD::bfmeDelTQD(unsigned char flags)
 {
-	m_bfmeVft = g_bfmeVftTDA;
+	m_vtable = g_bfmeVftTDA;
 	((BfmeSinkTQD *)Gen007EFFC0())->bfmeDropTQD(m_bfmeItem, 0);
 	if (flags & 1)
 		bfmeFreeTQD(this, 0x14);

@@ -24,7 +24,7 @@ public:
 private:
 	char m_pad0[12];
 	void *m_level0C;
-	Rva0057A7CEName *m_name10;
+	Rva0057A7CEName *m_prefix;
 	char m_pad14[16];
 	bool m_flag24;
 };
@@ -34,8 +34,8 @@ void Rva0057A7CE::fadeOut()
 	if (m_flag24 == 0)
 		return;
 	const char *prefix;
-	if (m_name10)
-		prefix = m_name10->m_name;
+	if (m_prefix)
+		prefix = m_prefix->m_name;
 	else
 		prefix = "";
 	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "FadeOut");
@@ -47,8 +47,8 @@ void Rva0057A7CE::fadeIn()
 	if (m_flag24 != 0)
 		return;
 	const char *prefix;
-	if (m_name10)
-		prefix = m_name10->m_name;
+	if (m_prefix)
+		prefix = m_prefix->m_name;
 	else
 		prefix = "";
 	Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), m_level0C, prefix, "FadeIn");

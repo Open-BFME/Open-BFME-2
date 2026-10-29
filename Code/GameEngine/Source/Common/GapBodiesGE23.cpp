@@ -186,8 +186,8 @@ private:
 	GapCore m_cores;										// +0x448
 	char *m_468;
 	char m_pad46C[0x474 - 0x46C];
-	unsigned char m_474;
-	unsigned char m_475;
+	unsigned char m_fieldDelimiter;
+	unsigned char m_recordDelimiter;
 	char m_pad476[0x478 - 0x476];
 	int m_478;
 	unsigned int m_47C;
@@ -195,13 +195,13 @@ private:
 	char m_pad484[0x498 - 0x484];
 	bool m_topDown;											// +0x498
 	char m_pad499[0x4AC - 0x499];
-	int m_4AC;
-	int m_4B0;
+	int m_mallocFailureFunction;
+	int m_mallocFailureContext;
 	char m_pad4B4[0x4B8 - 0x4B4];
 	void (__cdecl *m_callback)(int value, int context);	// +0x4B8
 	int m_callbackContext;									// +0x4BC
-	int m_4C0;
-	int m_4C4;
+	int m_traceFunction;
+	int m_traceContext;
 };
 
 // --- 0x00030C50 (33B): set a bin bitmap bit.
@@ -236,20 +236,20 @@ bool Rva00030C50Heap::rva00030CE0() const
 // --- 0x00030E90 / 0x00030EB0 / 0x00030ED0 (23B each): pair setters.
 void Rva00030C50Heap::rva00030E90(int mallocFailureFunction, int mallocFailureContext)
 {
-	m_4AC = mallocFailureFunction;
-	m_4B0 = mallocFailureContext;
+	m_mallocFailureFunction = mallocFailureFunction;
+	m_mallocFailureContext = mallocFailureContext;
 }
 
 void Rva00030C50Heap::rva00030EB0(int traceFunction, int traceContext)
 {
-	m_4C0 = traceFunction;
-	m_4C4 = traceContext;
+	m_traceFunction = traceFunction;
+	m_traceContext = traceContext;
 }
 
 void Rva00030C50Heap::rva00030ED0(unsigned char fieldDelimiter, unsigned char recordDelimiter)
 {
-	m_474 = fieldDelimiter;
-	m_475 = recordDelimiter;
+	m_fieldDelimiter = fieldDelimiter;
+	m_recordDelimiter = recordDelimiter;
 }
 
 // --- 0x00031060 (28B): a free chunk of size n linked to itself, with the

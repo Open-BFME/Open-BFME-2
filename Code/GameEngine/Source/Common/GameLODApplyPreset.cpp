@@ -63,7 +63,7 @@ struct LODGlobalDataView {
  char gap9A6[0x1];
  LODBool m_useSimpleMergeDecals;
  char gap9A8[0x16];
- LODBool field9BE;
+ LODBool m_showAllHealthBars;
  char gap9BF[0x109];
  int m_maxParticleCount;
  char gapACC[0x24];
@@ -272,8 +272,8 @@ void Rva00DFE144Globals::rva002022E9(int level)
  const LODPresetBFME2 &info=presets[level];
  controlParticles=info.particles;controlProcessor=info.processor;controlSamples=info.sample;controlStreams=info.stream;
  GD->m_showSelectedUnitMarker=info.healthStyle>0;GD->m_useSimpleMergeDecals=info.healthStyle<2;
- if(!GD->m_showSelectedUnitMarker)GD->field9BE=1;
- else {OptionPreferences preferences;GD->field9BE=preferences.getAllHealthBars();}
+ if(!GD->m_showSelectedUnitMarker)GD->m_showAllHealthBars=1;
+ else {OptionPreferences preferences;GD->m_showAllHealthBars=preferences.getAllHealthBars();}
  GD->field25=info.fpsLimit;GD->m_maxParticleCount=info.maxParticles;controlMinimum=info.minimumFps;
  GD->m_useShadowVolumes=info.shadowVolumes;GD->m_useShadowDecals=info.shadowDecals;GD->m_useShadowMapping=info.shadowsOff;
  if(GD->m_useShadowMapping){GD->m_useShadowVolumes=0;GD->m_useShadowDecals=0;}

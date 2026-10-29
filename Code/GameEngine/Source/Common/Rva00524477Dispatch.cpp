@@ -57,7 +57,7 @@ struct Holder00524477
 {
 	char m_pad[0xC];
 	C00524477 m_C;
-	int m_10;
+	int m_end;
 	void Rva00524477(int level, int a2);
 };
 
@@ -68,11 +68,11 @@ void Holder00524477::Rva00524477(int level, int a2)
 	char buf[8];
 	Out00524477 *out = (Out00524477 *)buf;
 	int searchKey = Rva0023FC23(out, &level, a2);
-	int rangeEnd = m_10;
+	int rangeEnd = m_end;
 	int rangeBegin = m_C.m_0;
 	int rr = Rva005243FA(rangeBegin, rangeEnd, searchKey);
 	((AsciiString *)(buf + 4))->~AsciiString();
-	if (rr == m_10)
+	if (rr == m_end)
 		return;
 	(*(AptPlayer **)&g_bfmeAptWindowManager)->RemoveOverButtonHandler(level, *(const AsciiString *)a2);
 	((CameraMarkerVector *)&m_C)->erase((CameraMarker *)rr);

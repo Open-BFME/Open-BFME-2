@@ -62,7 +62,7 @@ extern LivingWorldManager *TheLivingWorldManager;
 struct Rva0009ADA0Manager
 {
 	char m_pad000[0xE4];
-	float m_heightE4; // +0xE4
+	float m_terrainHeight; // +0xE4
 	char m_pad0E8[0x1D0 - 0xE8];
 	float m_step1D0;  // +0x1D0
 };
@@ -215,7 +215,7 @@ void Rva0009D55BProduct::screenToTerrain(const int *screen, Vector3 *world)
 	end.Y = dir.Y + start.Y;
 	end.Z = dir.Z + start.Z;
 
-	float terrainHeight = reinterpret_cast<Rva0009ADA0Manager *>(TheLivingWorldManager)->m_heightE4;
+	float terrainHeight = reinterpret_cast<Rva0009ADA0Manager *>(TheLivingWorldManager)->m_terrainHeight;
 	world->X = Vector3::Find_X_At_Z(terrainHeight, m_cameraC0->Get_Position(), end);
 	world->Y = Vector3::Find_Y_At_Z(terrainHeight, m_cameraC0->Get_Position(), end);
 	world->Z = 0.0f;

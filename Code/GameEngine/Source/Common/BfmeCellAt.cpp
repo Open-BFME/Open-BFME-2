@@ -61,8 +61,8 @@ void Gen_008F7CD0::rva0073A2A0(BfmeCellFD **first, BfmeCellFD **last, int firstC
 struct Rva0073BEA0Grid
 {
 	char m_pad0[4];
-	float m_4;
-	float m_8;
+	float m_originX;
+	float m_originY;
 	char m_padC[0x1C - 0xC];
 	float m_cellSize;
 };
@@ -75,8 +75,8 @@ struct Rva0073BEA0Point
 
 struct Rva0073BEA0Grid2 : Rva0073BEA0Grid
 {
-	int centreA(int cellRow) const { return (int)((float)cellRow * m_cellSize + m_8 + m_cellSize * 0.5); }
-	int centreB(int cellColumn) const { return (int)((float)cellColumn * m_cellSize + m_4 + m_cellSize * 0.5); }
+	int centreA(int cellRow) const { return (int)((float)cellRow * m_cellSize + m_originY + m_cellSize * 0.5); }
+	int centreB(int cellColumn) const { return (int)((float)cellColumn * m_cellSize + m_originX + m_cellSize * 0.5); }
 };
 
 class Rva0073BEA0Sink

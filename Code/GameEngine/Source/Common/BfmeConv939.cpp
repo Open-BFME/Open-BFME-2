@@ -158,12 +158,12 @@ class BfmeThing939G
 public:
 	void bfmeGo939G(void *a);
 	char m_bfmePad[8];
-	BfmeSub939G m_bfmeSub;
+	BfmeSub939G m_callback;
 };
 
 void BfmeThing939G::bfmeGo939G(void *a)
 {
-	BfmeSub939G *callback = &m_bfmeSub;
+	BfmeSub939G *callback = &m_callback;
 	if (!a && callback->m_bfmeP)
 		reinterpret_cast<BfmeA1042N *>(callback)->bfmeGo1042D();
 }

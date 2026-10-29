@@ -22,7 +22,7 @@ class BfmeThingVE
 {
 public:
 	void *bfmeKillVE(int flags);
-	void *m_bfmeVft;
+	void *m_vtable;
 	BfmeSubVE *m_input;
 	void *m_parser;
 };
@@ -31,7 +31,7 @@ void *BfmeThingVE::bfmeKillVE(int flags)
 {
 	void *what = m_parser;
 	BfmeSubVE *sub = m_input;
-	m_bfmeVft = __identifier("??_7BfmeParserBindingBaseVE@@6B@");
+	m_vtable = __identifier("??_7BfmeParserBindingBaseVE@@6B@");
 	sub->bfmeDropVE(what);
 	if ((flags & 1) != 0)
 		::operator delete(this);

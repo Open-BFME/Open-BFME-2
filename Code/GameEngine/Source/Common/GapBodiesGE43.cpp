@@ -165,7 +165,7 @@ public:
 	GapRefItem *rva0015A960(int i, int stage) const;
 private:
 	char m_pad00[0xA8];
-	GapRefItem *m_A8[4];
+	GapRefItem *m_materials[4];
 	GapRefItem *m_B8[12];
 	GapRefList *m_E8[8];
 	GapRefList *m_108[8];
@@ -181,11 +181,11 @@ GapRefItem *Rva0015A840::getMaterial(int i, int stage)
 			item->m_refs += 1;
 		return list->m_items[i];
 	}
-	GapRefItem *single = m_A8[stage];
+	GapRefItem *single = m_materials[stage];
 	if (single)
 	{
 		single->m_refs += 1;
-		return m_A8[stage];
+		return m_materials[stage];
 	}
 	return 0;
 }

@@ -29,7 +29,7 @@ public:
 };
 class Rva0014D9F3Outer {
 public:
-  Rva0014D9F3Inner *m_body00;
+  Rva0014D9F3Inner *m_vtable;
 };
 class Rva0014D9F3This {
 public:
@@ -62,6 +62,6 @@ zero:
   buf.f[3] = 0.0f;
 done:
   texelSize = buf;
-  Rva0014D9F3Inner *inner = effect->m_body00;
+  Rva0014D9F3Inner *inner = effect->m_vtable;
   inner->m_fn88(effect, parameter, &texelSize);
 }

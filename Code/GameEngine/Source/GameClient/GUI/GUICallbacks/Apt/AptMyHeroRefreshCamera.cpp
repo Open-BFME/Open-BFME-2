@@ -53,7 +53,7 @@ class Rva005B01D3 {
 	float rva005B05E8(float);
 };
 struct MyHeroCameraPreset {
-	float field00,field04,field08,field0C,field10;
+	float field00,m_zoom,m_floor,field0C,field10;
 };
 struct MyHeroCameraView2 {
 	char pad00[0x18];
@@ -170,8 +170,8 @@ void AptMyHero::rva005B1019(){
 	Rva005B01D3 *lerp=(Rva005B01D3 *)view;
 	float offsetY=useLerp?lerp->rva005B05E8(interpolationFactor):preset->field10;
 	float pitch=useLerp?lerp->rva005B0569(interpolationFactor):preset->field00;
-	float zoom=useLerp?lerp->rva005B0588(interpolationFactor):preset->field04;
-	float floor=useLerp?lerp->rva005B05A8(interpolationFactor):preset->field08;
+	float zoom=useLerp?lerp->rva005B0588(interpolationFactor):preset->m_zoom;
+	float floor=useLerp?lerp->rva005B05A8(interpolationFactor):preset->m_floor;
 	float m_offsetX=useLerp?lerp->rva005B05C8(interpolationFactor):preset->field0C;
 	float fovZoom=0.83f;
 	float roll=0;
