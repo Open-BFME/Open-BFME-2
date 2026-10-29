@@ -10899,8 +10899,6 @@ pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"",on	2
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DRopeDraw.cpp	"s",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	"",on	1
-pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	"s",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	"",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Render_Obj_Exists_Impl.cpp	"t",on	1
 pragma_optimize	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp	"",on	1

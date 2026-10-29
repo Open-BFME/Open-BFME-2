@@ -1,0 +1,20 @@
+{
+  "source": "Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp",
+  "before_sha256": "cfd62d5384eaea691401b34e4c90c1aaff3a9cbad7da04053a5baec350e9eb31",
+  "after_sha256": "8f0edc4935265de4031ddd4f28520db2d1c4923a66abb31d789a154346df29f2",
+  "object_facts_equal": true,
+  "base": "722e87427f3411f9210c79778d7ca4a99582a8cd",
+  "date": "2026-10-29",
+  "counts": {
+    "comdats": 230,
+    "definitions": 27,
+    "undefined": 146,
+    "weak": 1,
+    "common": 0
+  },
+  "facts_sha256": {
+    "before": "06907d503f8cd806306ac2ac172427bea3010a04631016aa5980fe3bf9a9226a",
+    "after": "06907d503f8cd806306ac2ac172427bea3010a04631016aa5980fe3bf9a9226a"
+  },
+  "comparison": "link_census.object_facts with a constant not-assessed truth verdict; COMDAT names/digests/sizes and definition, undefined, weak and COMMON sets compared exactly"
+}
