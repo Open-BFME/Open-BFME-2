@@ -143,6 +143,16 @@ def tree_state(root=ROOT):
     for path in submodules(root):
         sub = _git("-C", path, "rev-parse", "HEAD", root=root)
         parts.append(f"sub {path} {sub.decode().strip() if sub else 'absent'}")
+        if sub is None:
+            continue
+        # its files are not validated as reads, so its edits and untracked files key the state
+        dirt = _git("-C", path, "status", "--porcelain=v1", "-z", "--untracked-files=all", root=root)
+        if dirt is None:
+            _TREE[root] = None
+            return None
+        for code, rel in sorted(_porcelain(dirt.decode("utf-8", "surrogateescape"))):
+            full = Path(root) / path / rel
+            parts.append(f"sub {path} {code} {rel} {'dir' if full.is_dir() else file_digest(full)}")
     entries = sorted(_porcelain(status.decode("utf-8", "surrogateescape")))
     _DIRTY[root] = {path for _, path in entries}
     for code, path in entries:
@@ -179,6 +189,9 @@ def _classify(path, root):
     memo_dir = os.path.normcase(os.path.abspath(cache_dir(str(root)) / "memo")) + os.sep
     if full.startswith(memo_dir):            # a nested memo's entry: its own reads are propagated
         return None
+    shared = os.path.normcase(os.path.abspath(cache_dir(str(root)))) + os.sep
+    if full.startswith(shared):              # a shared report (merge_all's decisions), even under .git/
+        return ("abs", full)
     base = os.path.normcase(os.path.abspath(root))
     if full == base or full.startswith(base + os.sep):
         rel = full[len(base) + 1:].replace(os.sep, "/") if full != base else ""

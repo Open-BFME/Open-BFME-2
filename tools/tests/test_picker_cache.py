@@ -122,6 +122,36 @@ def test_another_worktree_of_the_clone_shares_the_entry(repo, tmp_path):
     assert memo(other, again) == ["edited\n"] and len(again.calls) == 1
 
 
+def test_an_edited_submodule_file_misses(repo, tmp_path):
+    donor = tmp_path / "donor"
+    donor.mkdir()
+    git(donor, "init", "-q", "-b", "master")
+    git(donor, "config", "user.email", "t@example.com")
+    git(donor, "config", "user.name", "t")
+    (donor / "donor.cpp").write_text("one\n")
+    git(donor, "add", ".")
+    git(donor, "commit", "-q", "-m", "donor")
+    git(repo, "-c", "protocol.file.allow=always", "submodule", "add", "-q", str(donor), "reference/sub")
+    git(repo, "commit", "-q", "-m", "submodule")
+    compute = counting(lambda: (repo / "reference" / "sub" / "donor.cpp").read_text())
+    assert memo(repo, compute) == "one\n"
+    (repo / "reference" / "sub" / "donor.cpp").write_text("two\n")      # edited, not committed
+    assert memo(repo, compute) == "two\n" and len(compute.calls) == 2
+
+
+def test_a_shared_report_under_the_git_directory_misses_when_it_changes(repo, monkeypatch):
+    # the primary checkout's cache lives in .git/: merge_all's decisions there are an input
+    cache = repo / ".git" / "bfme-picker-cache"
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(cache))
+    report = cache / "merge_all" / "decisions.json"
+    report.parent.mkdir(parents=True)
+    report.write_text("[]")
+    compute = counting(lambda: report.read_text())
+    assert memo(repo, compute) == "[]"
+    report.write_text('[{"tu": "x"}]')
+    assert memo(repo, compute) == '[{"tu": "x"}]' and len(compute.calls) == 2
+
+
 def test_an_exception_stores_nothing(repo):
     def red():
         raise SystemExit(2)
