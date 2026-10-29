@@ -682,6 +682,22 @@ affected source remains in the verification set; claims, ledger checks, byte
 checks, failure rollback and publication link audit still apply. The limit
 must be positive. Increase it only when prepared to verify that whole fan-out.
 
+Agents applying names: when the source-count limit is the only blocker, inspect
+the affected sources and header consumers, choose a bound large enough for that
+rename, and retry the specific approval. A large TU assignment is context, not
+the affected-source count. Keep the bound finite and all verification enabled;
+raising it authorizes more verification work, never fewer checks. For example,
+a reviewed rename affecting hundreds of sources can be retried with:
+
+```sh
+python3 tools/name_lane.py apply --retry-blocked --key "SOURCE|KIND|SCOPE|OLD" --max-files 400
+```
+
+Replace the key and bound with the actual approval and reviewed fan-out. If the
+larger run discovers more consumers, inspect that expanded scope before raising
+the bound again. Other blockers still require their own repair. This is an
+explicit agent decision; the tool does not automatically raise limits or retry.
+
 ### Locals that shadow an outer name
 
 The naming lane asks the engine to prove a unique ordinary scalar binding
