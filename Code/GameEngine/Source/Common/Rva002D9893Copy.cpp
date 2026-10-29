@@ -45,7 +45,7 @@ private:
 	int m_28;
 	int m_2C;
 	int m_30;
-	int m_34;
+	int m_ownerID;
 	int m_ownerType;
 	Twelve m_positionOfAudio;
 	unsigned char m_48;
@@ -60,15 +60,15 @@ private:
 	unsigned char m_51;
 	unsigned char m_52;
 	unsigned char m_53;
-	int m_54;
+	int m_pitchShift;
 	int m_58;
-	int m_5C;
+	int m_volumeShift;
 	int m_60;
-	int m_64;
-	int m_68;
+	int m_delay;
+	int m_playingAudioIndex;
 	int m_6C;
 	int m_70;
-	int m_74;
+	int m_portionToPlayNext;
 	int m_78;
 	int m_7C;
 	int m_80;
@@ -89,16 +89,16 @@ void Rva002D9893::rva002D9893(const Rva002D9893 &other)
 	m_ownerType = other.m_ownerType;
 	m_30 = other.m_30;
 	m_49 = other.m_49;
-	m_54 = other.m_54;
+	m_pitchShift = other.m_pitchShift;
 	m_58 = other.m_58;
-	m_5C = other.m_5C;
+	m_volumeShift = other.m_volumeShift;
 	m_60 = other.m_60;
-	m_68 = other.m_68;
+	m_playingAudioIndex = other.m_playingAudioIndex;
 	m_6C = other.m_6C;
-	m_64 = other.m_64;
+	m_delay = other.m_delay;
 	m_1C.set(other.m_1C);
 	m_20.set(other.m_20);
-	m_74 = other.m_74;
+	m_portionToPlayNext = other.m_portionToPlayNext;
 	m_4A = other.m_4A;
 	m_4B = other.m_4B;
 	m_4C = other.m_4C;
@@ -117,7 +117,7 @@ void Rva002D9893::rva002D9893(const Rva002D9893 &other)
 	m_48 = other.m_48;
 	m_53 = other.m_53;
 	if (m_ownerType == 1 || m_ownerType == 2 || m_ownerType == 3 || m_ownerType == 4 || m_ownerType == 5)
-		m_34 = other.m_34;
+		m_ownerID = other.m_ownerID;
 }
 
 Rva002D9893 &Rva002D9893::operator=(const Rva002D9893 &other)
