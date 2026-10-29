@@ -150,7 +150,6 @@ Code/GameEngine/Source/Common/Open2Records.cpp,,6,1,region default loses rows
 Code/GameEngine/Source/Common/ParseAlphaNumericBitMask_Thunk.cpp,-Od,1,1,region default does not compile
 Code/GameEngine/Source/Common/PartitionSolver.cpp,-G7 -arch:SSE,3,2,region default loses rows
 Code/GameEngine/Source/Common/R1SmallFieldInitialisers.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/RTS/BfmeThingCGDRva0075A1A0.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva00739AF0Siblings.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva00739CA0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/RTS/Rva0073CE30.cpp,,1,1,region default loses rows
@@ -721,6 +720,7 @@ Code/Libraries/Source/assetmanager/Rva0061FFD0Cluster.cpp,,1,1,region default lo
 Code/Libraries/Source/assetmanager/Rva00622290CollectKeys.cpp,-O2 -G6 -arch:SSE,1,1,region default loses rows
 Code/Libraries/Source/assetmanager/assetmanager_impl.cpp,,17,6,region default loses rows
 Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region default loses rows
+Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/collisionmanager/collisionmanager_data.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/partitionmanager/PartitionManagerGetObjectsInRange.cpp,-O2 -G6,1,1,region default loses rows

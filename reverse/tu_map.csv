@@ -60947,48 +60947,48 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007586F0,460,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,N,N=Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp provisional,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp
 0x007588C0,30,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x007588E0 provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors5.cpp
 0x007588E0,28,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758900 provisional,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
-0x00758900,29,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758920 provisional,Code/GameEngine/Source/Common/Bfme/Rva009A2960MarkState.cpp
-0x00758920,29,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758940 provisional,Code/GameEngine/Source/Common/Bfme/Rva009A2960MarkState.cpp
-0x00758940,121,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x007589C0 provisional,Code/GameEngine/Source/Common/Rva009A29A0WindowManagerSet.cpp
-0x007589C0,44,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x007589F0 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2A20TableCtor.cpp
-0x007589F0,59,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758A30 provisional,Code/GameEngine/Source/Common/Rva007589F0Collect.cpp
-0x00758A30,19,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758A50 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2A20TableCtor.cpp
-0x00758A50,68,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758AA0 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2AB0HashIterNext.cpp
-0x00758AA0,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeListZT.cpp provisional,Code/GameEngine/Source/Common/BfmeOneHundredSixtyOne.cpp
-0x00758AF0,44,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B20 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2B50TableCtor.cpp
-0x00758B20,59,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B60 provisional,Code/GameEngine/Source/Common/Rva00758B20Collect.cpp
-0x00758B60,19,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B80 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2B50TableCtor.cpp
-0x00758B80,68,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758BD0 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2BE0HashIterNext.cpp
-0x00758BD0,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C20 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A2C30ReleaseNode.cpp
-0x00758C20,38,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C50 provisional,Code/GameEngine/Source/Common/Rva00758C20DeleteWalk.cpp
+0x00758900,29,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758920 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758920,29,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758940 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758940,121,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x007589C0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007589C0,44,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x007589F0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007589F0,59,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758A30 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758A30,19,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758A50 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758A50,68,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007586F0..0x00758AA0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758AA0,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeListZT.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758AF0,44,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B20 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758B20,59,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B60 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758B60,19,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758B80 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758B80,68,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758BD0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758BD0,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C20 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758C20,38,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C50 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00758C50,19,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C70 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp
 0x00758C70,22,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758C90 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rope_char.cpp
 0x00758C90,9,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CA0 provisional,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
 0x00758CA0,13,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CB0 provisional,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
 0x00758CB0,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CC0 provisional,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
-0x00758CC0,30,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CE0 provisional,Code/GameEngine/Source/Common/Rva00758CC0Equals.cpp
-0x00758CE0,12,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CF0 provisional,Code/GameEngine/Source/Common/Rva00758CC0Equals.cpp
-0x00758CF0,27,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualBase.cpp provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualBase_xfer.cpp
-0x00758D10,193,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp provisional,Code/GameEngine/Source/Common/Rva00758D10Finish.cpp
+0x00758CC0,30,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CE0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758CE0,12,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758AA0..0x00758CF0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758CF0,27,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualBase.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758D10,193,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00758DE0,333,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,N,N=Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp provisional,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp
 0x00758F30,75,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00758F80 provisional,Code/GameEngine/Source/Common/BfmeConv1447.cpp
-0x00758F80,61,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00758FC0 provisional,Code/GameEngine/Source/Common/SmallGaps/Rva009A3250HashFind.cpp
-0x00758FC0,106,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00759030 provisional,Code/GameEngine/Source/Common/Rva009A3290HashInsert.cpp
-0x00759030,127,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x007590B0 provisional,Code/GameEngine/Source/Common/System/Rva009A3300HashTableRemove.cpp
-0x007590B0,51,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x007590F0 provisional,Code/GameEngine/Source/Common/System/Rva007590B0TreeFree.cpp
-0x007590F0,56,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00759130 provisional,Code/Libraries/Source/WWVegas/WW3D2/HashMapPeekValue.cpp
-0x00759130,236,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp provisional,Code/GameEngine/Source/Common/CollisionManagerImpl__RemoveOverlap.cpp
+0x00758F80,61,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00758FC0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00758FC0,106,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00759030 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00759030,127,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x007590B0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007590B0,51,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x007590F0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007590F0,56,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00758DE0..0x00759130 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x00759130,236,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00759220,190,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/GameEngine/Source/Common/CollisionManagerImpl.cpp
 0x007592E0,117,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp provisional,Code/GameEngine/Source/Common/CollisionManagerImpl.cpp
-0x00759360,106,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x007593D0 provisional,Code/GameEngine/Source/Common/System/Rva009A3770HashChainInsert.cpp
+0x00759360,106,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x007593D0 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x007593D0,14,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x007593E0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int.cpp
 0x007593E0,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x00759410 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string.cpp
 0x007593F0,25,code,,displaced,-,N=Code/GameEngine/Source/GameClient/WorldAnimationData.cpp,Code/GameEngine/Source/GameClient/InGameUI.cpp
-0x00759410,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x00759460 provisional,Code/Libraries/Source/WWVegas/WW3D2/HashMapPeekValue.cpp
+0x00759410,71,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x00759460 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00759460,35,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x007592E0..0x00759490 provisional,Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp
-0x00759490,363,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/GameEngine/Source/GameNetwork/rva00759490Rva00759490Farm.cpp
+0x00759490,363,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00759600,1244,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,N,N=Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp
-0x00759AE0,51,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759B20 provisional,Code/GameEngine/Source/Common/System/Rva007590B0TreeFree.cpp
+0x00759AE0,51,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759B20 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x00759B20,22,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759B40 provisional,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate.cpp
 0x00759B40,122,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759BC0 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp
 0x00759BC0,180,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759C80 provisional,Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp
@@ -60997,12 +60997,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00759D30,75,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759D80 provisional,Code/GameEngine/Source/Common/BfmeConv1350.cpp
 0x00759D80,44,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x00759DB0 provisional,Code/GameEngine/Source/Common/System/FileSystem.cpp
 0x00759DB0,592,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x00759600..0x0075A000 provisional,Code/GameEngine/Source/Common/RTS/ScoreKeeper_insert_unique.cpp
-0x0075A000,117,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/RetailCollisionManagerData.cpp provisional,Code/GameEngine/Source/Common/RTS/RetailCollisionManagerData.cpp
-0x0075A080,127,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x0075A000..0x0075A100 provisional,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp
+0x0075A000,117,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/RetailCollisionManagerData.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x0075A080,127,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x0075A000..0x0075A100 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x0075A100,31,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x0075A000..0x0075A120 provisional,Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp
 0x0075A120,115,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,C,C=0x0075A000..0x0075A1A0 provisional,Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp
-0x0075A1A0,750,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/CollisionManagerImpl.cpp provisional,Code/GameEngine/Source/Common/RTS/BfmeThingCGDRva0075A1A0.cpp
-0x0075A490,41,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/GameEngine/Source/Common/CollisionManagerImpl_Update.cpp
+0x0075A1A0,750,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/CollisionManagerImpl.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x0075A490,41,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,U,N=Code/GameEngine/Source/Common/CollisionManagerImpl.cpp W=Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x0075A4B9,35,code,Code/GameEngine/Source/Common/Video.cpp,proposed,N,N=Code/GameEngine/Source/Common/Video.cpp,Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp
 0x0075A4DC,179,code,Code/GameEngine/Source/Common/INI/INIVideo.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INIVideo.cpp N=Code/GameEngine/Source/Common/INI.cpp,Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp
 0x0075A590,6,code,,,-,,Code/Libraries/Source/CRT/Msvcr71ImportThunks.cpp
@@ -92605,15 +92605,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007AB710,8,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB718,39,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
 0x007AB73F,10,code,Code/GameEngine/Source/GameClient/Open2Store9A2680.cpp,approved,P,P=0x00758310@FuncInfo0x00965098 provisional,Code/GameEngine/Source/GameClient/Open2Twins006.cpp
-0x007AB750,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00758940@FuncInfo0x009650BC provisional,Code/GameEngine/Source/Common/Rva009A29A0WindowManagerSet.cpp
-0x007AB75B,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00758940@FuncInfo0x009650BC provisional,Code/GameEngine/Source/Common/Rva009A29A0WindowManagerSet.cpp
+0x007AB750,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00758940@FuncInfo0x009650BC provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007AB75B,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00758940@FuncInfo0x009650BC provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x007AB770,8,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00759B40@FuncInfo0x009650E0 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp
 0x007AB778,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x00759B40@FuncInfo0x009650E0 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00759B40.cpp
-0x007AB790,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp
-0x007AB79B,14,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp
-0x007AB7A9,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/GameEngine/Source/Common/System/Rva009A4620Destructor.cpp
-0x007AB7C0,8,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A1A0@FuncInfo0x00965130 provisional,Code/GameEngine/Source/Common/RTS/BfmeThingCGDRva0075A1A0.cpp
-0x007AB7C8,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A1A0@FuncInfo0x00965130 provisional,Code/GameEngine/Source/Common/RTS/BfmeThingCGDRva0075A1A0.cpp
+0x007AB790,11,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007AB79B,14,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007AB7A9,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A080@FuncInfo0x0096510C provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007AB7C0,8,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A1A0@FuncInfo0x00965130 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
+0x007AB7C8,10,code,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,approved,P,P=0x0075A1A0@FuncInfo0x00965130 provisional,Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp
 0x007AB7D2,8,code,Code/GameEngine/Source/Common/INI/INIVideo.cpp,approved,P,P=0x0075A4DC@FuncInfo0x00965154,Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp
 0x007AB7DA,10,code,Code/GameEngine/Source/Common/INI/INIVideo.cpp,approved,P,P=0x0075A4DC@FuncInfo0x00965154,Code/GameEngine/Source/Common/Rva0075A4DCCluster.cpp
 0x007AB7F0,16,code,,,-,,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp

@@ -1820,7 +1820,6 @@ alternatename	Code/GameEngine/Source/Common/CarryoverUnit.cpp	?xfer@CarryoverUni
 alternatename	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	?g_Va00E04450@@3HA	1
 alternatename	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	?g_Va00E046B4@@3HA	1
 alternatename	Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	?g_Va00E04904@@3HA	1
-alternatename	Code/GameEngine/Source/Common/CollisionManagerImpl_Update.cpp	?bfmeGlobalCGD@@YAXXZ	1
 alternatename	Code/GameEngine/Source/Common/ConstIntGetters.cpp	?opaqueCall@Rva00507552@@SAPAXXZ	1
 alternatename	Code/GameEngine/Source/Common/ConstIntGetters.cpp	?opaqueCall@Rva005088C8@@SAPAXXZ	1
 alternatename	Code/GameEngine/Source/Common/ConstIntGettersAddr.cpp	?opaqueCall@Rva00507552@@SAPAXXZ	1
@@ -3625,7 +3624,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.c
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	??0Rva000E9C1DType@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	??1Rva000E9C1DType@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp	?tailB@Rva00066A9ASub@@QAEXXZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualBase_xfer.cpp	?bfmeAccept@BfmeSinkA@@QAEXPAVBfmeFlagTarget@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp	?rva0004F82B@Rva0004F82B@@QAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualInit.cpp	?rva0009A2CD@W3DShadowManager@@QAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainVisualXfer.cpp	?xfer@TerrainVisual@@MAEXPAVXfer@@@Z	1
@@ -4441,6 +4439,8 @@ alternatename	Code/Libraries/Source/WWVegas/WWMath/coord2d.cpp	_bfmeDtorCbDSE	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/matrix3.cpp	??4Matrix3@@QAEAAV0@ABVMatrix3D@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWMath/vehiclecurve.cpp	??0GadgetCreateView@@QAE@XZ	1
 alternatename	Code/Libraries/Source/assetmanager/assetmanager_impl.cpp	?bfmeAskEME@BfmeObjEME@@QAE_NPAX@Z	1
+alternatename	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	?bfmeAccept@BfmeSinkA@@QAEXPAVBfmeFlagTarget@@@Z	1
+alternatename	Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp	?bfmeGlobalCGD@@YAXXZ	1
 alternatename	Code/Libraries/Source/debug/BfmeDebugFlag9F57.cpp	?_bfme_debugReportingEnabled@@YA_NXZ	1
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSTA@@YAXPAXHHH@Z	1
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSWA@@YAXPAXHH0@Z	1
@@ -12278,7 +12278,6 @@ present_unmatched	Code/GameEngine/Source/Common/INI/WaterTransparencySettingCtor
 present_unmatched	Code/GameEngine/Source/Common/LivingWorldCampaign_xfer.cpp	LivingWorldCampaign::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp	Rva00574910::rva00574910	1
 present_unmatched	Code/GameEngine/Source/Common/MemberBaseDtorsB01.cpp	Rva005772BF::rva005771F4	1
-present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	0GameMessage@@	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	containsMessageOfType@GameMessageList@@	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	init@CommandList@@	1
 present_unmatched	Code/GameEngine/Source/Common/MessageStream.cpp	init@MessageStream@@	1
@@ -13277,7 +13276,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	loadPostProcess@CreateObjectDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp	xfer@CreateObjectDie@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	crc@DieModule@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	getFieldParse@DieMuxData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	loadPostProcess@DieModule@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/DieModule.cpp	xfer@DieModule@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieModuleDataCtor.cpp	1KeepObjectDieModuleData@@UAE@XZ	1
