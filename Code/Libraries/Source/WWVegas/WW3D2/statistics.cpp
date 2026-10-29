@@ -661,7 +661,20 @@ bool VectorClass<T>::Resize(int newsize, T const *array)
 
 // tu-skeleton: 0x00129880 45B ?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHABUTextureStatisticsStruct@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp (not merged yet)
 
-// tu-skeleton: 0x001298B0 33B ?ID@?$VectorClass@VVector3@@@@UAEHPBVVector3@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp (not merged yet)
+// VectorClass<TextureStatisticsStruct>::ID(T const *), retail 0x001298B0 (33
+// bytes): slot 5 of both texture-statistics vftables (0x00BD1274 and
+// 0x00BD14EC, whose dynamic-vector forwarder folds onto it), WWLib's pointer
+// identification divided by the 12-byte element (mul 0xAAAAAAAB, shr 3).
+template<class T>
+int VectorClass<T>::ID(T const *ptr)
+{
+	if (!IsValid)
+		return 0;
+	return ((unsigned long)ptr - (unsigned long)&(*this)[0]) / sizeof(T);
+}
+
+template int VectorClass<TextureStatisticsStruct>::ID(
+	TextureStatisticsStruct const *);
 
 // tu-skeleton: 0x001298E0 102B ?Find_Record_Texture@@YA_NABV?$RefCountPtr@VTextureClass@@@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/DebugStatisticsRecordTexture.cpp (not merged yet)
 

@@ -119,7 +119,7 @@ public:
 	virtual ~DynamicVectorClass();
 	virtual bool Resize(int size, T const *array = 0);
 	virtual void Clear();
-	virtual int ID(T const *ptr);
+	virtual int ID(T const *ptr) { return VectorClass<T>::ID(ptr); }
 	virtual int ID(T const &object);
 	bool Add(T const &object);
 
@@ -193,6 +193,17 @@ template<class T>
 VectorClass<T>::~VectorClass()
 {
 	VectorClass<T>::Clear();
+}
+
+// VectorClass<TextureStatisticsStruct>::ID(T const *) is rowed in
+// statistics.cpp (0x001298B0); defined here too so the DynamicVectorClass
+// forwarder inlines it, as retail's folded slot 5 of 0x00BD14EC shows.
+template<class T>
+int VectorClass<T>::ID(T const *ptr)
+{
+	if (!IsValid)
+		return 0;
+	return ((unsigned long)ptr - (unsigned long)&(*this)[0]) / sizeof(T);
 }
 
 template<class T>
@@ -320,8 +331,3 @@ template VectorClass<TextureStatisticsStruct>::~VectorClass();
 // Record_Texture_Begin: defined in TextureStatisticsVector.cpp (its row's unit).
 void Record_Texture_Begin();
 
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z=?ID@?$VectorClass@VVector3@@@@UAEHPBVVector3@@@Z")
-#pragma comment(linker, "/alternatename:?ID@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z=?ID@?$VectorClass@VVector3@@@@UAEHPBVVector3@@@Z")

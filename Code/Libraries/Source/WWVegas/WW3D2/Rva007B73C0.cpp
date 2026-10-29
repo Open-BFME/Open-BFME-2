@@ -17,6 +17,7 @@ void __cdecl operator delete[](void *) throw();
 template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 extern template bool VectorClass<Vector3>::operator == (VectorClass<Vector3> const &) const;
 extern template int VectorClass<Vector3>::ID(Vector3 const &);
+template <> int VectorClass<Vector3>::ID(Vector3 const *);
 // bfme link decl-only end
 class PointGroupClass {friend void Rva007B73C0(); static VectorClass<Vector3> transformed_loc;};
 // Native global9F709C is PointGroupClass::transformed_loc, read and resized by17E920.

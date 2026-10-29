@@ -406,11 +406,12 @@ template <> bool VectorClass<Vector3>::Resize(int, Vector3 const *);
 // Rva00912CF0, which retail expands it in.
 template <> VectorClass<Vector3>::~VectorClass();
 // bfme link decl-only end
-// With no vtable emitted here, instantiate the rowed ID(T const *) directly,
-// and the two virtuals the other VectorClass<Vector3> units declare only.
-template int VectorClass<Vector3>::ID(Vector3 const *);
-template int VectorClass<Vector3>::ID(Vector3 const &);
-template bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
+// The table's operator== and both IDs are retail's /O1 bodies 0x000F1C16,
+// 0x000F0DC5 and 0x000F0E20, emitted with the vtable by
+// vector_class_vector3_ctor.cpp.
+template <> int VectorClass<Vector3>::ID(Vector3 const *);
+template <> int VectorClass<Vector3>::ID(Vector3 const &);
+template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 
 // Retail Vector2/Vector4 resize bodies belong to Vector2Resize.cpp.
 // Declare their specializations so this consumer references those owners.

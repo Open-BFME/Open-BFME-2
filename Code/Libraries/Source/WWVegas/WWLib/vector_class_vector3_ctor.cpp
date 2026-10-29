@@ -33,11 +33,8 @@
 #include "vector3.h"
 #include "vector.h"
 
-template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 template <> void VectorClass<Vector3>::Clear();
-template <> int VectorClass<Vector3>::ID(Vector3 const &);
-// Retail's ID(T const *), 0x001298B0, is pointgr.cpp's /G7 body; this unit's
-// copy would be the first in link order and is not retail's.
-template <> int VectorClass<Vector3>::ID(Vector3 const *);
+// operator==, ID(T const &) and ID(T const *) compile here to retail's table
+// slots 0x000F1C16, 0x000F0DC5 and 0x000F0E20 (vtable 0x00BCEFAC).
 
 template VectorClass<Vector3>::VectorClass(int, Vector3 const *);

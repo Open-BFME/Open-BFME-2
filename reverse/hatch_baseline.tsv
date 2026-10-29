@@ -3996,10 +3996,6 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureBaseReleaseRefThunk.cpp
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4?$RefCountPtr@VHierarchyPrototype@@@@QAEABV0@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4BfmeMapPictureTexture@@QAEAAV0@ABV0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	??4CursorTextureSlot@@QAEXABVBFME2ParticleTextureHandle@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	?ID@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp	?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp	?ID@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorID.cpp	?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorWide.cpp	?ID@?$DynamicVectorClassWide@UTextureStatisticsStructWide@@@@UAEHABUTextureStatisticsStructWide@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorWide.cpp	?ID@?$DynamicVectorClassWide@UTextureStatisticsStructWide@@@@UAEHPBUTextureStatisticsStructWide@@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVectorWideExtras.cpp	?ID@?$DynamicVectorClassWide@UTextureStatisticsStructWide@@@@UAEHABUTextureStatisticsStructWide@@@Z	1

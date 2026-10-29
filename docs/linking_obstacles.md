@@ -4033,7 +4033,7 @@ confirmation remain pending.
 
 ### LINK-015: naming `VectorClass<Vector3>`'s deleting destructor proved the consumers' inlined copies wrong
 
-**Status: Census-confirmed for the four repaired units; the two teardown units have a verified repair blocked on a claim and a row move. Updated: 2026-10-27; inspected revision: d16a31e4dc.**
+**Status: Census-confirmed for the four repaired units; the two teardown units' repair landed 2026-10-29, awaiting census. Updated: 2026-10-29; inspected revision: 8e3c23e9b9.**
 
 - **Evidence / scope:** 4e0bfa8260 named retail 0x000F1CF7 as
   `??_G?$VectorClass@VVector3@@@@UAEPAXI@Z` (34 B: vptr store, call to the kept
@@ -4110,6 +4110,21 @@ Not landed: pointgr.cpp is file-locked by another seat's RVA claims, and moving
 a matched row to a new name and source has no admitted tool path for this seat.
 Next check: once pointgr.cpp is free, apply the patch with the row move and
 rerun the 19-unit preview listed in the handoff.
+
+**Vtable-identity repair landed (2026-10-29, seat claudeb2, base `8e3c23e9b9`, census index `d92e7e6635`):**
+the handoff patch applied with one change: the 0x001298B0 row (renamed by hand to
+`?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z`,
+tombstoned in `reverse/deleted_rows.csv`, since `rename.py function` cannot change
+template arguments) moved into its approved TU `statistics.cpp`, which now defines
+and instantiates it; `TextureStatisticsVectorID.cpp` keeps the definition only so
+the DynamicVectorClass forwarder inlines it. `TextureStatisticsVector.cpp` also
+dropped its two `/alternatename` lines onto the Vector3 name (alternatename -4 in
+all). `./build.sh` on the nine touched sources: 137/137. `link_check.py` over 20
+units (the handoff's 19 plus `statistics.cpp`): 18 link, `collect.cpp` and
+`tcbspline.cpp` keep only their earlier unrelated blockers; `Rva007B73C0.cpp`
+0 -> 59 B, `Rva007B7280Siblings.cpp` 0 -> 353 B, `statistics.cpp` 986 -> 1,019 B,
+`pointgr.cpp` 10,565 -> 10,532 B (the row moved); total 30,747 -> 31,179 B.
+Census confirmation pending.
 
 ### LINK-016: folded bodies whose consumers declare them decl-only, with no provider
 

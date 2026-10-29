@@ -158,6 +158,7 @@ private:
 // synthesizing this unit's /G7 scalar deleting destructor copy, first in link
 // order; retail's is 0x000F1CF7 (vector_class_vector3_ctor.cpp).
 template <> VectorClass<Vector3>::~VectorClass();
+template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 #include "snappts.h"
 #include "assetmgr.h"
 #include "ww3d.h"

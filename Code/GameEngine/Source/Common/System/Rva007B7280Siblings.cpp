@@ -15,6 +15,7 @@
 // These existing virtuals belong to their already linked providers.
 template <> bool VectorClass<Vector3>::operator==(VectorClass<Vector3> const &) const;
 template <> int VectorClass<Vector3>::ID(Vector3 const &);
+template <> int VectorClass<Vector3>::ID(Vector3 const *);
 
 void rva007B7280();
 void rva007B72C0();

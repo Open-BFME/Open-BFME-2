@@ -271,9 +271,3 @@ void Record_Texture_Begin()
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 #pragma comment(linker, "/alternatename:??4BfmeMapPictureTexture@@QAEAAV0@ABV0@@Z=??4?$RefCountPtr@VTextureClass@@@@QAEABV0@ABV0@@Z")
 #pragma comment(linker, "/alternatename:??4?$RefCountPtr@VHierarchyPrototype@@@@QAEABV0@ABV0@@Z=??4?$RefCountPtr@VTextureClass@@@@QAEABV0@ABV0@@Z")
-
-// Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
-// each one has the same function in that slot (vftable addresses from matched vptr
-// stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?ID@?$VectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z=?ID@?$VectorClass@VVector3@@@@UAEHPBVVector3@@@Z")
-#pragma comment(linker, "/alternatename:?ID@?$DynamicVectorClass@UTextureStatisticsStruct@@@@UAEHPBUTextureStatisticsStruct@@@Z=?ID@?$VectorClass@VVector3@@@@UAEHPBVVector3@@@Z")
