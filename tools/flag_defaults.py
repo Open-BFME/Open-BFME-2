@@ -39,6 +39,7 @@ import argparse
 import bisect
 import contextlib
 import csv
+import hashlib
 import json
 import os
 import re
@@ -48,6 +49,7 @@ import time
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(Path(__file__).resolve().parent))
 REGIONS = ROOT / "reverse" / "retail_inventory" / "flag_regions.csv"
 OVERRIDES = ROOT / "reverse" / "flag_overrides.csv"
 FUNCTIONS = ROOT / "reverse" / "functions.csv"
@@ -194,10 +196,26 @@ def _load_source_regions():
             for source, per_set in weights.items()}
 
 
+def _content_id(path):
+    """The git blob id of `path`'s bytes (what `git hash-object` prints)."""
+    data = path.read_bytes()
+    return hashlib.sha1(b"blob %d\0" % len(data) + data).hexdigest()
+
+
+def _memoised_source_regions():
+    """_load_source_regions(), memoised by the content of the two files it reads
+    and this file's code (tools/ledger_cache.py): re-parsing functions.csv cost
+    every build.py process 1.4 s before its first compile check."""
+    import ledger_cache
+    key = f"{_content_id(FUNCTIONS)}:{_content_id(REGIONS)}"
+    return ledger_cache.memo("flag_defaults.sources", key, _load_source_regions,
+                             ledger_cache.code_hash(__file__))
+
+
 def source_region(rel):
     if not REGIONS.exists():
         return None
-    return _cached("sources", _load_source_regions).get(rel)
+    return _cached("sources", _memoised_source_regions).get(rel)
 
 
 def _load_overrides():

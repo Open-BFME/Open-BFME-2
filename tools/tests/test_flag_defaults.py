@@ -42,6 +42,8 @@ def tree(tmp_path, monkeypatch):
     monkeypatch.setattr(fd, "OVERRIDES", tmp_path / "reverse" / "flag_overrides.csv")
     monkeypatch.setattr(fd, "_cache", {})
     monkeypatch.delenv("FLAG_DEFAULTS", raising=False)
+    import ledger_cache
+    monkeypatch.setattr(ledger_cache, "folder", lambda: tmp_path / "ledger-cache")
     return tmp_path
 
 
@@ -106,3 +108,14 @@ def test_check_flags_a_hand_edited_override(tree, capsys):
     source.write_text("// cl: /O1 /DNDEBUG\nint x;\n")
     assert fd.cmd_check(None) == 1
     assert "propose" in capsys.readouterr().out
+
+
+def test_source_regions_are_memoised_by_content_and_follow_a_change(tree, monkeypatch):
+    direct = fd._load_source_regions()
+    assert fd._memoised_source_regions() == direct
+    assert list((tree / "ledger-cache").glob("flag_defaults.sources-*.pickle"))
+    calls = []
+    monkeypatch.setattr(fd, "_load_source_regions", lambda: calls.append(1) or {"x": 1})
+    assert fd._memoised_source_regions() == direct and calls == []      # same content: reused
+    (tree / "reverse" / "functions.csv").write_text(FUNCTIONS + "?g@@YAXXZ,,0x00001010,4,Code/Engine/G.cpp,matched,\n")
+    assert fd._memoised_source_regions() == {"x": 1} and calls == [1]   # changed ledger: recomputed
