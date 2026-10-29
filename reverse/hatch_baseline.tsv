@@ -2329,7 +2329,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C86
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C87F4_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp	?f2@Rva004C8A16_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp	??1CollideModule@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp	?rva00451B92@SpecialAbilityUpdate@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8C3E_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8DB1_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva004B8CDEDerived.cpp	?f2@Rva004B8EA8_B2@@UAEXXZ	1
@@ -3330,6 +3329,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUp
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StanceTemplateUpdateModuleDataFriendNew.cpp	??0StancesBehaviorModuleData@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateXfer.cpp	?g_rva008ffd18ThrowInfo@@3HA	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TeleportSpecialAbilityUpdateFriendNew.cpp	??0TeleportSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp	?rva00451B92@SpecialAbilityUpdate@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdateCtor.cpp	_vtbl_00C40818	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_friendGetTurretTarget.cpp	?getGoalObject@StateMachine@@QAEPAVObject@@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/UpdateModule.cpp	?xfer@UpdateModule@@MAEXPAVXfer@@@Z	1

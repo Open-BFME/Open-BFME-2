@@ -61,7 +61,7 @@ class ModuleData;
 class FXList;
 
 // Slot filler: one distinct pure virtual per vtable index, so a view class
-// can name a single high slot (the idiom ToggleMountedSpecialAbilityEffect.cpp
+// can name a single high slot (the idiom ToggleMountedSpecialAbilityUpdate.cpp
 // uses).
 template<int N> class Slots : public Slots<N - 1>
 {

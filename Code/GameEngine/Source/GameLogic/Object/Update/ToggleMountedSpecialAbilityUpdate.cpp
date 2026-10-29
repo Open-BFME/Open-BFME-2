@@ -5,6 +5,7 @@
 #include "ascii_string.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#pragma comment(linker, "/alternatename:?rva00451B92@SpecialAbilityUpdate@@UAEXXZ=??_GSpecialAbilityUpdate@@UAEPAXI@Z")
 
 // Shared ToggleMountedSpecialAbilityUpdate unit view: one declaration of each
 // class for every body retail built into this unit.
@@ -35,10 +36,15 @@ enum NameKeyType
 };
 
 class Module;
+
 class Player;
+
 class SpecialPowerTemplate;
+
 class SpecialPowerModuleInterface;
+
 class Waypoint;
+
 struct Rva0028AC4EEntry;
 
 class NameKeyGenerator
@@ -385,6 +391,98 @@ private:
 	void *m_08;
 };
 
+extern GameLogic *TheGameLogic;
+
+class Pathfinder
+{
+public:
+	void RemoveObjectFromPathfindMap(Object *obj);
+};
+
+class AI
+{
+public:
+	char m_pad[0x10];
+	Pathfinder *m_shim;
+};
+
+extern AI *TheAI;
+
+class Rva004ADC88
+{
+public:
+	void rva004AD9E0();
+	void finishAbility();
+
+private:
+	char m_pad[4];
+	void *m_other;
+	Object *m_obj;
+	char m_padC[0x8C - 0x0C];
+	unsigned char m_flag;
+};
+
+class Locomotor
+{
+public:
+	float getMaxSpeed(Object *obj) const;
+};
+
+class Rva004ADC38
+{
+public:
+	void rva004ADC38(int a, int b, int c, int d, int e);
+};
+
+class Rva00493BD4 { public: void rva00493BD4(Rva00493BD4 *); };
+
+class SpecialPowerModuleInterface {
+public:
+    virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
+    virtual void slot4(); virtual void slot5(); virtual void slot6(); virtual void slot7();
+    virtual void slot8(); virtual void slot9(); virtual void slot10(); virtual void slot11();
+    virtual void slot12(); virtual void slot13(); virtual void slot14(); virtual void slot15();
+    virtual void slot16(); virtual void slot17(); virtual void slot18(); virtual void slot19();
+    virtual void slot20(); virtual void slot21(); virtual void slot22();
+    virtual Rva00493BD4 *slot23();
+};
+
+class SpecialPowerStore { public: const SpecialPowerTemplate *findSpecialPowerTemplate(AsciiString); };
+
+extern SpecialPowerStore *TheSpecialPowerStore;
+
+class ThingTemplate;
+
+class ScoreKeeper {public:void addObjectBuilt(Object*,int);};
+
+class Player {public:char pad[0x3BC];ScoreKeeper score;};
+
+class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString&);};
+
+ extern ThingFactory *TheThingFactory;
+
+class BuildAssistant : public MountedSlots<14> {public:virtual Object* buildObjectNow(Object*,const ThingTemplate*,const Coord3D*,float,Player*)=0;};
+
+extern BuildAssistant *TheBuildAssistant;
+
+class InGameUI : public MountedSlots<66> {public:virtual void slot66(Drawable*)=0;virtual void slot67(Drawable*)=0;};
+
+extern InGameUI *TheInGameUI;
+
+class GameMessage {public:void appendBooleanArgument(bool);void appendObjectIDArgument(ObjectID);};
+
+class MessageStream : public MountedSlots<18> {public:virtual GameMessage *appendMessage(int)=0;};
+
+extern MessageStream *TheMessageStream;
+
+class ControlBar { public: char pad[0x28]; bool dirty; };
+
+extern ControlBar *TheControlBar;
+
+class SpecialDisguiseUpdate { public: void rva004B05F5(bool); };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdatePoolKey.cpp
 
 // ?getModuleNameKey@ToggleMountedSpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ
@@ -394,14 +492,6 @@ NameKeyType ToggleMountedSpecialAbilityUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("ToggleMountedSpecialAbilityUpdate");
 	return TheToggleMountedSpecialAbilityUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004ADAB5 74B ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADAFF 28B ??_GRva004AD9B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADB1B 188B ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADBD7 27B ?rva004ADBD7@Rva004ADBD7@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva004AD9B0Slot13.cpp
 
@@ -417,20 +507,6 @@ void Rva004AD9B0::Rva004ADBF2(bool a, bool b)
 	((Object *)m_08)->setStatus((ObjectStatusTypes)0x4a, false);
 	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::onExit(a, b);
 }
-
-// tu-skeleton: 0x004ADC38 80B ?rva004ADC38@Rva004ADC38@@QAEXHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADC88 96B ?finishAbility@Rva004ADC88@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADCE8 165B ?rva004ADCE8@ToggleMountedSpecialAbilityUpdate@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialPowerTimers.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADD8D 382B ?createMountedTemplate@ToggleMountedSpecialAbilityUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x004ADF0B 417B ?triggerAbilityEffect@ToggleMountedSpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityEffect.cpp (not merged yet)
-
-// tu-skeleton: 0x004AE0AC 67B ??0ToggleMountedSpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AE0EF 28B ??_GToggleMountedSpecialAbilityUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataDeleter.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataDtor.cpp
 
@@ -455,6 +531,182 @@ ToggleMountedSpecialAbilityUpdateModuleData::~ToggleMountedSpecialAbilityUpdateM
 {
 }
 
-// tu-skeleton: 0x0078E557 13B $L2798 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityEffect.cpp (not merged yet)
+// tu-skeleton: 0x004ADAB5 74B ??0ToggleMountedSpecialAbilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0078E564 10B __ehhandler$?triggerAbilityEffect@ToggleMountedSpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityEffect.cpp (not merged yet)
+// tu-skeleton: 0x004ADAFF 28B ??_GRva004AD9B0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x004ADB1B 188B ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp (not merged yet)
+
+// tu-skeleton: 0x004ADBD7 27B ?rva004ADBD7@Rva004ADBD7@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesU.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004ADC38Forward.cpp
+
+//
+// ?rva004ADC38@Rva004ADC38@@QAEXHHHHH@Z @0x004ADC38 80B ret 0x14.
+// The owner lives at this-0x18. When it has no entry from 0x0028AC4E, or
+// that entry's 0x001E46E1 float is not greater than zero, forward the five
+// arguments to 0x004500A3 and set status 0x4A.
+
+void Rva004ADC38::rva004ADC38(int a, int b, int c, int d, int e)
+{
+	Object *owner = *(Object **)((char *)this - 0x18);
+	const Rva0028AC4EEntry *entry = owner->rva0028AC4E();
+	if (entry == 0 || ((Locomotor *)entry)->getMaxSpeed(owner) != 0.0f)
+	{
+		((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::initiateIntentToDoSpecialPower((const SpecialPowerTemplate *)a, (const Object *)b, (const Coord3D *)c, d, (const Waypoint *)e);
+		owner->setStatus((ObjectStatusTypes)0x4A, true);
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva004ADC88Hide.cpp
+
+//
+// ?rva004AD9E0@Rva004ADC88@@QAEXXZ @0x004AD9E0 77B.
+// ?finishAbility@Rva004ADC88@@QAEXXZ @0x004ADC88 96B.
+// 0x004AD9E0 drops the object at +8: 0x0028BAC0, leaveGroup, hide its
+// drawable, notify TheAI's +0x10 shim, then GameLogic::destroyObject.
+// 0x004ADC88 runs the virtual at 0x00451B92, writes 1.0f at the drawable's
+// +0xB0, clears status 0x4A, and tail-calls 0x004AD9E0 when the byte at
+// +0x8C is set and the string at [this+4]+0xD0 is not empty.
+
+void Rva004ADC88::rva004AD9E0()
+{
+	Object *obj = m_obj;
+	obj->rva0028BAC0();
+	obj->leaveGroup();
+	if (obj->getDrawable() != 0)
+		obj->getDrawable()->setDrawableHidden(true);
+	if (TheAI != 0)
+		TheAI->m_shim->RemoveObjectFromPathfindMap(obj);
+	TheGameLogic->destroyObject(obj);
+}
+
+void Rva004ADC88::finishAbility()
+{
+	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::rva00451B92();
+	void *other = m_other;
+	if ((*(Object *volatile *)&m_obj)->getDrawable() != 0)
+		(*(Object *volatile *)&m_obj)->getDrawable()->m_scale = 1.0f;
+	(*(Object *volatile *)&m_obj)->setStatus((ObjectStatusTypes)0x4A, false);
+	if (m_flag != 0 && ((StringBase<char> *)((char *)other + 0xD0))->isEmpty() == 0)
+		rva004AD9E0();
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialPowerTimers.cpp
+
+// Complete native004ADCE8..004ADD8D RET4; WB1229290 same four callees.
+// Mounted module-data field table proves SynchronizeTimerOnSpecialPower +D4.
+
+void ToggleMountedSpecialAbilityUpdate::rva004ADCE8(const Object *replacement)
+{
+    const MountedDataView *moduleData=data;
+    if (moduleData->names.empty()) return;
+    Object *original=owner;
+    for (AsciiString *name=moduleData->names.begin;name!=moduleData->names.end;++name) {
+        const SpecialPowerTemplate *power=TheSpecialPowerStore->findSpecialPowerTemplate(*name);
+        if (!power) continue;
+        SpecialPowerModuleInterface *source=original->getSpecialPowerModule(power);
+        SpecialPowerModuleInterface *destination=replacement->getSpecialPowerModule(power);
+        if (source && destination && source->slot23() && destination->slot23())
+            destination->slot23()->rva00493BD4(source->slot23());
+    }
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityCreate.cpp
+
+// Native004ADD8D..004ADF0B RET0; WB1228F20 names createMountedTemplate.
+// ModuleFactory24F68A and ctor4ADAB5 establish owning class and module prefix.
+// No clean ZH/BF1 donor exists for the mounted extension: native defines each
+// field and call contract; matched sibling toggles guide the update pattern.
+// Native player score record3BC uses the existing neutral39CBCE binding;
+// Object angle44/id74/name88/experience264/record468 and body254 are explicit.
+// BuildAssistant slot14 is independently recovered buildObjectNow3952D8.
+// Selection slots66/67 retain neutral names. Drawable selected43C is tested
+// for nonzero; retaining replacementBody across source virtual slot4 keeps
+// native destination receiver at ebp-8. No new pins or shared headers.
+
+void ToggleMountedSpecialAbilityUpdate::createMountedTemplate(){
+ const ThingTemplate *what=TheThingFactory->findTemplate(*(const AsciiString *)&data->mountedTemplate);
+ if(!what)return;
+ Object *original=owner;
+ bool selected=original->getDrawable()->selected!=0;
+ float angle=original->angle;
+ Player *player=original->getControllingPlayer();
+ Object *replacement=TheBuildAssistant->buildObjectNow(original,what,&original->position,angle,player);
+ if(!replacement)return;
+ player->score.addObjectBuilt(original,-1);
+ replacement->name.set(original->name);
+ replacement->record=original->record;
+ replacement->experience->enabled=false;
+ replacement->experience->rva0039B3D1(original->experience->experience,true);
+ replacement->experience->enabled=true;
+ MountedBodyView *replacementBody=replacement->body;
+ replacementBody->slot42(original->body->slot4());
+ replacement->getDrawable()->fadeIn(10);
+ if(selected){
+ TheInGameUI->slot67(original->getDrawable());
+ GameMessage *message=TheMessageStream->appendMessage(1001);
+ message->appendBooleanArgument(true);
+ message->appendObjectIDArgument(replacement->id);
+ TheInGameUI->slot66(replacement->getDrawable());
+ }
+ rva004ADCE8(replacement);
+ flag8C=true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityEffect.cpp
+
+// Native 004ADF0B..004AE0AC (417B), slot17 of the mounted update.
+// Identity: ModuleFactory24F68A registers ToggleMountedSpecialAbilityUpdate;
+// ctor4ADAB5 installs the vtables and clears byte8C. WB12285C0 has the same
+// base-trigger, template, kind, weapons, disguise and selected-drawable flow.
+// Existing ToggleHidden/ToggleDeploy slot17 C++ supplies the base/owner view;
+// the mounted extension and all offsets are established from retail, rather
+// than inferred from the sibling source. No clean BF1/ZH mounted donor exists.
+// Data CD is CancelDisguiseWhenDismounting; D0 is the one-word template name.
+// Object model-condition words start10C; template-kind and condition214 are
+// independently tested. Container slots42/69 and AI slot142 retain unknown
+// names. Slot110 is the previously recovered isIdle interface. Cache the
+// initial container only for the null/count tests; reload it for slot42,
+// since the count virtual can replace it. This reproduces MOV ECX/TEST ECX.
+// The function-local const name key reproduces the native EH state pair.
+
+void ToggleMountedSpecialAbilityUpdate::triggerAbilityEffect()
+{
+ SpecialAbilityUpdate::triggerAbilityEffect();
+ Object *obj=owner;
+ MountedAIView *ai=obj->ai;
+ flag8C=false;
+ if(!ai->isIdle()) return;
+ const MountedDataView *mountedDataView=data;
+ if(state!=1) return;
+ if(!mountedDataView->mountedTemplate.isEmpty()) createMountedTemplate();
+ else if(obj->isKindOf((KindOfType)214)) {
+  MountedContainView *contain=obj->contain;
+  if(contain && contain->slot69(0)>0) obj->contain->slot42(0);
+  obj->clearCondition214();
+  obj->ai->slot142(0);
+  obj->clearWeaponSetFlag((WeaponSetType)21);
+  obj->clearArmorSetFlag((ArmorSetType)6);
+  if(mountedDataView->cancelDisguise && obj->isKindOf((KindOfType)300)) {
+   static const NameKeyType key=TheNameKeyGenerator->nameToKey("SpecialDisguiseUpdate");
+   SpecialDisguiseUpdate *disguise=(SpecialDisguiseUpdate*)obj->findModule(key);
+   if(disguise) disguise->rva004B05F5(true);
+  }
+ } else {
+  obj->setCondition214();
+  obj->ai->slot142(7);
+  obj->setWeaponSetFlag((WeaponSetType)21);
+  obj->setArmorSetFlag((ArmorSetType)6);
+ }
+ Drawable *drawable=obj->getDrawable();
+ if(drawable && drawable->selected) TheControlBar->dirty=true;
+}
+
+// tu-skeleton: 0x004AE0AC 67B ??0ToggleMountedSpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AE0EF 28B ??_GToggleMountedSpecialAbilityUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdateModuleDataDeleter.cpp (not merged yet)
