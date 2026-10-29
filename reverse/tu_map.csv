@@ -33319,7 +33319,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0040E269,202,code,,,-,,Code/GameEngine/Source/Common/System/Rva0040E269Xfer.cpp
 0x0040E333,129,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva0040cb11entry.cpp
 0x0040E3B4,58,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva0040cb11entry.cpp
-0x0040E3EE,165,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,proposed,U,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ArmySummary.cpp,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0040E3EEFinish.cpp
+0x0040E3EE,165,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,proposed,U,N=Code/GameEngine/Source/GameLogic/Object/Behavior/ArmySummary.cpp,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp
 0x0040E493,6,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp
 0x0040E499,155,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp
 0x0040E534,85,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,proposed,U,N=Code/GameEngine/Source/Common/ArmySummary.cpp W=Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,Code/GameEngine/Source/Common/ArmySummary_LoadArmyEntry.cpp
@@ -77360,10 +77360,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007857E0,10,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x007857EA,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva0040cb11entry.cpp
 0x007857F2,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_rva0040cb11entry.cpp
-0x007857FC,8,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0040E3EEFinish.cpp
-0x00785804,11,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0040E3EEFinish.cpp
-0x0078580F,11,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0040E3EEFinish.cpp
-0x0078581A,10,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0040E3EEFinish.cpp
+0x007857FC,8,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp
+0x00785804,11,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp
+0x0078580F,11,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp
+0x0078581A,10,code,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp,approved,P,P=0x0040E3EE@FuncInfo0x00932230 p-group provisional,Code/GameEngine/Source/Common/ArmySummaryEntry.cpp
 0x00785824,8,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040E499@FuncInfo0x00932284 p-group provisional,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp
 0x0078582C,20,code-unledgered,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040E499@FuncInfo0x00932284 p-group provisional,
 0x00785840,11,code,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp,approved,P,P=0x0040E499@FuncInfo0x00932284 p-group provisional,Code/GameEngine/Source/GameLogic/System/ArmySummary.cpp
