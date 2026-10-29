@@ -35,45 +35,45 @@ public:
 
 private:
 	char m_pad[0x15C];
-	void *m_15C;
+	void *m_player;
 	char m_pad160[0x0C];
-	int m_16C;
-	float m_170;
-	int m_174;
+	int m_difficulty16C;
+	float m_time170;
+	unsigned int m_frame174;
 };
 
 void SkirmishAI::updatePhase()
 {
-	Rva002A8B59Data *data = TheSkirmishAIManager->rva002A8B59(m_15C);
-	unsigned int delta = TheGameLogic->getFrame() - (unsigned int)m_174;
-	switch (m_16C) {
+	Rva002A8B59Data *data = TheSkirmishAIManager->rva002A8B59(m_player);
+	unsigned int delta = TheGameLogic->getFrame() - m_frame174;
+	switch (m_difficulty16C) {
 	case 0: {
 		float t = (float)delta * g_secondsPerLogicFrame;
 		if (t >= data->m_a4) {
-			m_170 = 0.0f;
-			m_16C = 1;
+			m_time170 = 0.0f;
+			m_difficulty16C = 1;
 			return;
 		}
 		if (!(data->m_a4 > 0.0f))
 			return;
-		m_170 = t / data->m_a4;
+		m_time170 = t / data->m_a4;
 		break;
 	}
 	case 1: {
 		float t = (float)delta * g_secondsPerLogicFrame;
 		float sum = data->m_a8 + data->m_a4;
 		if (t >= sum) {
-			m_170 = 0.0f;
-			m_16C = 2;
+			m_time170 = 0.0f;
+			m_difficulty16C = 2;
 			return;
 		}
 		if (!(sum > 0.0f))
 			return;
-		m_170 = t / sum;
+		m_time170 = t / sum;
 		break;
 	}
 	case 2:
-		m_170 = 1.0f;
+		m_time170 = 1.0f;
 		break;
 	default:
 		return;
