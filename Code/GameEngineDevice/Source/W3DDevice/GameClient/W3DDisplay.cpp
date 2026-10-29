@@ -275,6 +275,12 @@ struct PlayerLeaveStatus
 #include <windows.h>
 #include <string.h>
 #include <new>
+#include "../../../../GameEngine/Source/Common/GameLogicObjectLookupView.h"
+#define SYS(p) ((Rva0004A462SystemView *)(p))
+#define TWGD ((unsigned char *)TheWritableGlobalData)
+#define TERRAIN ((unsigned char *)TheTerrainRenderObject)
+#define LIVINGWORLD ((unsigned char *)TheLivingWorld)
+#define WINDOWMODE (*(int *)((char *)TheWindowManager + 0x3c))
 
 // The slots used here are independently named by the BFME Network vtable at
 // 0x0111A968: isPacketRouter (+0x8c), getFramesBehindPacketRouter (+0xcc),
@@ -601,6 +607,215 @@ struct BfmeR1025
 
 char bfmeGo1025F(BfmeR1025 *p);
 
+class CameraClass;
+
+class ScriptEngine;
+
+class ParticleSystemManager;
+
+class BaseHeightMapRenderObjClass;
+
+class InGameUI;
+
+class LivingWorld;
+
+class LivingWorldLogic;
+
+class GameWindowManager;
+
+class BfmeAptWindowManager;
+
+class Mouse;
+
+class GameWindowTransitionsHandler;
+
+class BFME2ScopedRenderEvent
+{
+	char Label[256];
+	char Group[64];
+public:
+	BFME2ScopedRenderEvent(const char *, const char *, unsigned int);
+	~BFME2ScopedRenderEvent();
+};
+
+void Rva00755C80();
+
+class Rva00068D43 { public: void rva00068D43(); };
+
+class W3DShroud { public: void rva00073628(void *); };
+
+class W3DTaint { public: void render(CameraClass *); };
+
+class W3DShadowMapManager { public: void UpdateShadowMap(RTS3DScene *); };
+
+class WaterRenderObjClass { public: bool IsReflectionVisible(void *); };
+
+class Rva0007F92AHost { public: void rva0007F92A(int, int); };
+
+class Rva0007DA23ResourceManager { public: void rva0007C18E(); void rva0007B6F3(); };
+
+class Rva000B3FD0 { public: void rva000B3FD0(); };
+
+class Rva0081D520Owner { public: void broadcast(int, float, float, float, float); };
+
+class BfmeSelectionState { public: bool isSelectionLocked() const; };
+
+void bfmeGoKA();
+
+class Rva00203B08 { public: bool rva0020424FF(); };
+
+class Rva00203ACEByteField { public: unsigned char get() const; };
+
+class InGameUI { public: void rva002A4A68(); };
+
+extern ScriptEngine *TheScriptEngine;
+
+extern ParticleSystemManager *TheParticleSystemManager;
+
+extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
+
+extern void *W3DGCData00DE2000;
+
+extern LivingWorld *TheLivingWorld;
+
+extern GameWindowManager *TheWindowManager;
+
+extern InGameUI *TheInGameUI;
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+extern Mouse *TheMouse;
+
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+extern GameWindowTransitionsHandler *TheTransitionHandler;
+
+// The sub-view at W3DDisplay +0x38.
+class W3DDisplaySubView
+{
+public:
+	virtual void v000();
+	virtual void v004();
+	virtual void v008();
+	virtual void v00c();
+	virtual void v010();
+	virtual void v014();
+	virtual void v018();
+	virtual void v01c();
+	virtual int s20();
+	virtual void v024();
+	virtual void v028();
+	virtual void v02c();
+	virtual void v030();
+	virtual void v034();
+	virtual void v038();
+	virtual Image *s3c();
+};
+
+// The common slots the manager globals are called through.
+class Rva0004A462SystemView
+{
+public:
+	virtual void v000();
+	virtual void v004();
+	virtual void v008();
+	virtual void v00c();
+	virtual void v010();
+	virtual void v014();
+	virtual void v018();
+	virtual void v01c();
+	virtual void s20();
+	virtual void v024();
+	virtual void s28();
+	virtual void v02c();
+	virtual void s30();
+	virtual void v034();
+	virtual void v038();
+	virtual void v03c();
+	virtual void v040();
+	virtual void v044();
+	virtual void v048();
+	virtual void v04c();
+	virtual void v050();
+	virtual void v054();
+	virtual void v058();
+	virtual void v05c();
+	virtual void v060();
+	virtual void v064();
+	virtual void v068();
+	virtual void v06c();
+	virtual void v070();
+	virtual void v074();
+	virtual void v078();
+	virtual void v07c();
+	virtual void v080();
+	virtual void v084();
+	virtual void v088();
+	virtual void v08c();
+	virtual void v090();
+	virtual void v094();
+	virtual void v098();
+	virtual void v09c();
+	virtual void v0a0();
+	virtual void v0a4();
+	virtual void v0a8();
+	virtual void v0ac();
+	virtual void v0b0();
+	virtual void v0b4();
+	virtual void v0b8();
+	virtual void v0bc();
+	virtual void v0c0();
+	virtual void v0c4();
+	virtual void v0c8();
+	virtual void v0cc();
+	virtual void v0d0();
+	virtual void v0d4();
+	virtual void v0d8();
+	virtual void v0dc();
+	virtual void v0e0();
+	virtual void v0e4();
+	virtual void v0e8();
+	virtual void v0ec();
+	virtual void v0f0();
+	virtual void v0f4();
+	virtual void v0f8();
+	virtual void v0fc();
+	virtual void v100();
+	virtual void v104();
+	virtual void v108();
+	virtual void v10c();
+	virtual void v110();
+	virtual void v114();
+	virtual void v118();
+	virtual void v11c();
+	virtual void v120();
+	virtual void v124();
+	virtual void v128();
+	virtual void v12c();
+	virtual void v130();
+	virtual void v134();
+	virtual void v138();
+	virtual void v13c();
+	virtual void v140();
+	virtual void v144();
+	virtual void v148();
+	virtual void v14c();
+	virtual void v150();
+	virtual void v154();
+	virtual void s158();
+	virtual void v15c();
+	virtual void v160();
+	virtual void v164();
+	virtual void v168();
+	virtual void v16c();
+	virtual void v170();
+	virtual void v174();
+	virtual void v178();
+	virtual bool s17c();
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplay.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplaySetDisplayMode.cpp
 
 Bool W3DDisplay::setDisplayMode(UnsignedInt xres, UnsignedInt yres, UnsignedInt bitdepth, Bool windowed)
@@ -863,54 +1078,6 @@ void W3DDisplay::rva00045213(char *image, unsigned int rowBytes)
 	front->Release();
 }
 
-// tu-skeleton: 0x0075CFEB 8B $L450 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp (not merged yet)
-
-// tu-skeleton: 0x0075CFF3 10B __ehhandler$?rva00046734@W3DDisplay@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp (not merged yet)
-
-// tu-skeleton: 0x0075CFFD 10B $L1771 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D007 10B $L1772 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D011 10B $L1773 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D01B 10B $L1774 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D025 10B $L1775 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D02F 10B $L1776 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D039 10B $L1777 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D043 8B $L1778 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D04B 10B $L1779 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D055 8B Unwind@00b5d055 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D05D 8B $L1782 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D065 10B $L1783 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D06F 8B Unwind@00b5d06f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D077 10B __ehhandler$?init@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0C6 8B Unwind@00b5d0c6 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0CE 10B __ehhandler$?Rva000471AD@W3DDisplay@@UAEXPBVImage@@MMMMMK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0D8 8B $L3335 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0E0 10B __ehhandler$?Rva0004776F@W3DDisplay@@UAEXPBVImage@@MMMMKH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0EA 8B $L1797 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0F2 8B Unwind@00b5d0f2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D0FA 8B Unwind@00b5d0fa -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D102 10B __ehhandler$?rva00047D04@W3DDisplay@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000481AA.cpp
 
 // ?rva000481AA@W3DDisplay@@UAE?AV?$StringBase@D@@ABV2@@Z, retail 0x000481AA (194 bytes, EH,
@@ -944,108 +1111,6 @@ StringBase<char> W3DDisplay::rva000481AA(const StringBase<char> &name)
 		return full;
 	return name;
 }
-
-// tu-skeleton: 0x0075D165 8B $L2946 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D16D 8B $L2947 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D175 8B $L2948 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D17D 8B $L2949 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D185 8B $L2950 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D18D 8B $L2952 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D195 8B $L2969 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D19D 10B __ehhandler$?gatherDebugStats@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1A7 8B Unwind@00b5d1a7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1AF 8B Unwind@00b5d1af -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1B7 8B Unwind@00b5d1b7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1BF 8B Unwind@00b5d1bf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1C7 8B Unwind@00b5d1c7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1CF 8B Unwind@00b5d1cf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1D7 8B Unwind@00b5d1d7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1DF 8B Unwind@00b5d1df -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D1E7 10B __ehhandler$?gatherNetworkStats@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D21B 8B uw_0075d21b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D223 14B $L524 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D231 10B uw_0075d231 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D23B 10B __ehhandler$??0W3DDisplay@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D257 8B uw_0075d257 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D25F 14B $L608 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D26D 10B __ehhandler$??1W3DDisplay@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D277 11B Unwind@00b5d277 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D282 11B Unwind@00b5d282 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D28D 11B Unwind@00b5d28d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D298 11B Unwind@00b5d298 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2A3 11B Unwind@00b5d2a3 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2AE 10B __ehhandler$?rva0004A462@W3DDisplay@@QAE_NI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2B8 8B Unwind@00b5d2b8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2C0 8B Unwind@00b5d2c0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2C8 8B Unwind@00b5d2c8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2D0 8B Unwind@00b5d2d0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2D8 8B Unwind@00b5d2d8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2E0 8B Unwind@00b5d2e0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2E8 8B Unwind@00b5d2e8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2F0 8B Unwind@00b5d2f0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D2F8 8B Unwind@00b5d2f8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D300 11B Unwind@00b5d300 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D30B 10B __ehhandler$?gatherSkirmishAIStats@W3DDisplay@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D327 8B Unwind@00b5d327 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D32F 8B Unwind@00b5d32f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D337 11B Unwind@00b5d337 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D342 8B Unwind@00b5d342 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D34A 8B $L2551 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D352 8B Unwind@00b5d352 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D35A 8B Unwind@00b5d35a -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D362 10B __ehhandler$?gatherAnimationDebuggingInfo@W3DDisplay@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D36C 8B Unwind@00b5d36c -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x0075D374 10B __ehhandler$?draw@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp (not merged yet)
 
 void W3DDisplay::rva000438CB()
 {
@@ -1225,3 +1290,301 @@ void Rva00044018::rva00044018(unsigned int now)
 		m_fadingIn = 0;
 	}
 }
+
+// tu-skeleton: 0x0075CFEB 8B $L450 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp (not merged yet)
+
+// tu-skeleton: 0x0075CFF3 10B __ehhandler$?rva00046734@W3DDisplay@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva000456C9.cpp (not merged yet)
+
+// tu-skeleton: 0x0075CFFD 10B $L1771 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D007 10B $L1772 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D011 10B $L1773 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D01B 10B $L1774 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D025 10B $L1775 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D02F 10B $L1776 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D039 10B $L1777 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D043 8B $L1778 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D04B 10B $L1779 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D055 8B Unwind@00b5d055 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D05D 8B $L1782 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D065 10B $L1783 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D06F 8B Unwind@00b5d06f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D077 10B __ehhandler$?init@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0C6 8B Unwind@00b5d0c6 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0CE 10B __ehhandler$?Rva000471AD@W3DDisplay@@UAEXPBVImage@@MMMMMK@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0D8 8B $L3335 -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0E0 10B __ehhandler$?Rva0004776F@W3DDisplay@@UAEXPBVImage@@MMMMKH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Render2DClassAddTri.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0EA 8B $L1797 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0F2 8B Unwind@00b5d0f2 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D0FA 8B Unwind@00b5d0fa -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D102 10B __ehhandler$?rva00047D04@W3DDisplay@@QAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva00047D04.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D165 8B $L2946 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D16D 8B $L2947 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D175 8B $L2948 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D17D 8B $L2949 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D185 8B $L2950 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D18D 8B $L2952 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D195 8B $L2969 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D19D 10B __ehhandler$?gatherDebugStats@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherDebugStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1A7 8B Unwind@00b5d1a7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1AF 8B Unwind@00b5d1af -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1B7 8B Unwind@00b5d1b7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1BF 8B Unwind@00b5d1bf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1C7 8B Unwind@00b5d1c7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1CF 8B Unwind@00b5d1cf -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1D7 8B Unwind@00b5d1d7 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1DF 8B Unwind@00b5d1df -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D1E7 10B __ehhandler$?gatherNetworkStats@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D21B 8B uw_0075d21b -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D223 14B $L524 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D231 10B uw_0075d231 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D23B 10B __ehhandler$??0W3DDisplay@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D257 8B uw_0075d257 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D25F 14B $L608 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D26D 10B __ehhandler$??1W3DDisplay@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva0004A462.cpp
+
+// ?rva0004A462@W3DDisplay@@QAE_NI@Z @0x0004A462 1425B: one W3DDisplay frame render pass,
+// called by the unrowed 0x0004BEF2. Returns false while the script engine or game logic
+// freezes time.
+// Target evidence (retail bytes): the DX8 thread lock/assert pair brackets the whole body
+// with EH state 0; Prepare_Render_New_Frame gates the pre-render (particle, terrain shroud
+// and taint, shadow-map and water-reflection updates); Begin_Render receives the clear
+// colour at +0x20 and the terrain's float at +0x37E8; the loading-screen branch (global
+// byte +0xAF5) draws only the UI windows. The function-local couldRender byte and the
+// 0x140-byte BFME2ScopedRenderEvent labels "UpdateShadowMap", "UpdateWaterReflection",
+// "RenderViews", "RenderUI" are retail's. Every callee except InGameUI 0x002A4A68 is rowed.
+// Donor: Zero Hour W3DDisplay::draw (static couldRender, Begin_Render, loadScreenRender,
+// the freezeTime test of isTimeFrozenScript/isTimeFrozenDebug/isGamePaused) supplies the
+// structure; BFME 2's split into this helper, its slot numbers and the field offsets are
+// read from retail only. Slot and field names are opaque where neither source names them.
+
+bool W3DDisplay::rva0004A462(unsigned int now)
+{
+    BFMEDX8DeviceLock lock;
+    static bool couldRender = true;
+    if (WW3D::Prepare_Render_New_Frame())
+    {
+        if (!TheGameLogic->getFlag125())
+        {
+            updateViews();
+            Rva00755C80();
+        }
+        SYS(TheParticleSystemManager)->s28();
+        if (TheTerrainRenderObject != 0)
+        {
+            ((Rva00068D43 *)TheTerrainRenderObject)->rva00068D43();
+            if (TheTerrainRenderObject != 0 && *(void **)(TERRAIN + 0x37c0) != 0)
+            {
+                unsigned char *view = getView();
+                if (*(void **)(TERRAIN + 0x3878) != 0)
+                    ((W3DShroud *)*(void **)(TERRAIN + 0x3878))->rva00073628(*(void **)(view + 0x104));
+                if (*(void **)(TERRAIN + 0x387c) != 0)
+                    ((W3DTaint *)*(void **)(TERRAIN + 0x387c))->render((CameraClass *)*(void **)(view + 0x104));
+            }
+        }
+        if (TheGameLogic == 0 || !TheGameLogic->m_6d)
+        {
+            if (Rva00DE1FF8Manager != 0 && TWGD[0x62] != 0)
+            {
+                BFME2ScopedRenderEvent event("UpdateShadowMap", "Frame", 0);
+                ((W3DShadowMapManager *)Rva00DE1FF8Manager)->UpdateShadowMap(m_3DScene);
+            }
+            unsigned char *view = getView();
+            if (W3DGCData00DE2000 != 0 && view != 0 &&
+                ((WaterRenderObjClass *)W3DGCData00DE2000)->IsReflectionVisible(*(void **)(view + 0x104)))
+            {
+                BFME2ScopedRenderEvent event("UpdateWaterReflection", "Frame", 0);
+                ((Rva0007F92AHost *)W3DGCData00DE2000)->rva0007F92A((int)m_3DScene, (int)*(void **)(view + 0x104));
+            }
+        }
+        if (TWGD[0xd36] == 0 && TWGD[0xb6f] == 0 &&
+            WW3D::Begin_Render(true, true, m_20, *(float *)(TERRAIN + 0x37e8)))
+        {
+            if (TWGD[0xaf5] == 1)
+            {
+                WINDOWMODE = 1;
+                SYS(TheInGameUI)->s30();
+                SYS(g_bfmeAptWindowManager)->s30();
+                WINDOWMODE = -1;
+                if (TheMouse != 0)
+                    SYS(TheMouse)->s30();
+                WW3D::End_Render(true);
+                return true;
+            }
+            *(int *)((char *)m_3DScene + 0x7ec) = 0;
+            couldRender = 1;
+            bool cameraValid = m_d4 > 0.0f;
+            if (TheLivingWorld != 0 && LIVINGWORLD[0x18] != 0 && LIVINGWORLD[0x19] == 0)
+            {
+                SYS(TheLivingWorld)->s20();
+                if (*(int *)(LIVINGWORLD + 0x14) != 2)
+                {
+                    WINDOWMODE = 1;
+                    SYS(TheInGameUI)->s30();
+                    if (!cameraValid)
+                        SYS(TheInGameUI)->s158();
+                    SYS(g_bfmeAptWindowManager)->s30();
+                    WINDOWMODE = 0;
+                    SYS(TheInGameUI)->s30();
+                    WINDOWMODE = -1;
+                }
+            }
+            else
+            {
+                {
+                    BFME2ScopedRenderEvent event("RenderViews", "Frame", 0);
+                    if (Rva00DE1FF8Manager != 0 && TWGD[0x62] != 0)
+                        Rva00DE1FF8Manager->rva0007C18E();
+                    drawViews();
+                    if (Rva00DE1FF8Manager != 0 && TWGD[0x62] != 0)
+                        Rva00DE1FF8Manager->rva0007B6F3();
+                }
+                DrawStaticImage(0, 2);
+                DrawStaticImage(1, 2);
+                DrawStaticImage(2, 2);
+                if (m_38 == 0)
+                    rva0025D205();
+                {
+                    BFME2ScopedRenderEvent event("RenderUI", "Frame", 0);
+                    WINDOWMODE = 1;
+                    SYS(TheInGameUI)->s30();
+                    if (!cameraValid)
+                        SYS(TheInGameUI)->s158();
+                    SYS(g_bfmeAptWindowManager)->s30();
+                    WINDOWMODE = 0;
+                    SYS(TheInGameUI)->s30();
+                    WINDOWMODE = -1;
+                }
+            }
+            TheInGameUI->rva002A4A68();
+            if (TheMouse != 0)
+                SYS(TheMouse)->s30();
+            if (m_38 != 0)
+            {
+                DrawStaticImage(0, 1);
+                DrawStaticImage(1, 1);
+                drawImage(m_38->s3c(), m_fc, m_100, m_104, m_108, -1);
+                DrawStaticImage(2, 1);
+                rva0025D205();
+                ((Rva000B3FD0 *)this)->rva000B3FD0();
+                Rva0081D520Owner *node = *(Rva0081D520Owner **)(*(unsigned char **)((unsigned char *)m_38 + 8) + 0x18);
+                if (node != 0)
+                {
+                    node->broadcast(m_38->s20(), 0.0f, 0.0f, (float)getWidth(), (float)getHeight());
+                }
+            }
+            ((Rva00044018 *)this)->rva00044018(now);
+            if (cameraValid)
+                SYS(TheInGameUI)->s158();
+            if (!SYS(TheInGameUI)->s17c() &&
+                (((BfmeSelectionState *)TheLivingWorldLogic)->isSelectionLocked() || TheGameLogic->rva0042219()) &&
+                m_140 != 0)
+            {
+                slot100();
+                bfmeGoKA();
+            }
+            if (m_141 == 0)
+                SYS(TheTransitionHandler)->s30();
+            if (m_30 != 0)
+                drawCurrentDebugDisplay();
+            WW3D::End_Render(true);
+        }
+        else
+        {
+            if (couldRender != 0)
+                couldRender = 0;
+        }
+    }
+    if (((Rva00203B08 *)TheScriptEngine)->rva0020424FF() || ((Rva00203ACEByteField *)TheScriptEngine)->get() ||
+        TheGameLogic->isGamePaused())
+        return false;
+    return true;
+}
+
+// tu-skeleton: 0x0075D2B8 8B Unwind@00b5d2b8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2C0 8B Unwind@00b5d2c0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2C8 8B Unwind@00b5d2c8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2D0 8B Unwind@00b5d2d0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2D8 8B Unwind@00b5d2d8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2E0 8B Unwind@00b5d2e0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2E8 8B Unwind@00b5d2e8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2F0 8B Unwind@00b5d2f0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D2F8 8B Unwind@00b5d2f8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D300 11B Unwind@00b5d300 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D30B 10B __ehhandler$?gatherSkirmishAIStats@W3DDisplay@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherSkirmishAIStats.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D327 8B Unwind@00b5d327 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D32F 8B Unwind@00b5d32f -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D337 11B Unwind@00b5d337 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D342 8B Unwind@00b5d342 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D34A 8B $L2551 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D352 8B Unwind@00b5d352 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D35A 8B Unwind@00b5d35a -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D362 10B __ehhandler$?gatherAnimationDebuggingInfo@W3DDisplay@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D36C 8B Unwind@00b5d36c -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp (not merged yet)
+
+// tu-skeleton: 0x0075D374 10B __ehhandler$?draw@W3DDisplay@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.cpp (not merged yet)
