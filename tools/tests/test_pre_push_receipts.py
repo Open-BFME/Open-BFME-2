@@ -109,3 +109,14 @@ def test_a_large_scope_uses_no_push_receipts(receipted):
     assert done.returncode == 0, done.stderr
     assert calls(path) == [[]]                                  # the full gate, as before
     assert not (path / 'receipts-calls.jsonl').exists()
+
+
+def test_a_scope_the_commit_receipts_prove_asks_for_no_previous_push(receipted):
+    path, sources = receipted[0], receipted[1]
+    selected = sources[:3]
+    done = run_hook(receipted, selected, RECEIPT_COVER=','.join(selected), RECEIPT_PREV=receipted[2],
+                    RECEIPT_UNITS=','.join(selected))
+    assert done.returncode == 0, done.stderr
+    assert built(path) == []
+    asked = [json.loads(line)[0] for line in (path / 'receipts-calls.jsonl').read_text().splitlines()]
+    assert 'previous' not in asked and 'units' not in asked

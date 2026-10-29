@@ -465,8 +465,16 @@ receipt_proof() {
     proven_out=$(mktemp) && units_out=$(mktemp) && stale_out=$(mktemp) || fail "temporary receipt lists"
     python3 tools/push_receipts.py cover --base "$base" --tip "$local_sha" > "$proven_out" || : > "$proven_out"
     while IFS= read -r -d '' path; do proven["$path"]=1; done < "$proven_out"
-    prev="$(python3 tools/push_receipts.py previous --tip "$local_sha" \
-        ${BFME_PUSH_PREVIOUS:+--hint "$BFME_PUSH_PREVIOUS"})" || prev=""
+    # A previous push is consulted only for what the commit receipts leave
+    # unproven: carrying from it costs a second scope computation.
+    prev=""
+    for path in "${verify[@]}"; do
+        if [ -z "${proven[$path]:-}" ]; then
+            prev="$(python3 tools/push_receipts.py previous --tip "$local_sha" \
+                ${BFME_PUSH_PREVIOUS:+--hint "$BFME_PUSH_PREVIOUS"})" || prev=""
+            break
+        fi
+    done
     if [ -n "$prev" ] && python3 tools/push_receipts.py units --push "$prev" --tip "$local_sha" > "$units_out"; then
         local -A moved=()
         saved_header_all=$header_all
