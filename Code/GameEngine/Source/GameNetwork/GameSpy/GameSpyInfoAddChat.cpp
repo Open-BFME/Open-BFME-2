@@ -20,8 +20,8 @@
 // - TheLanguageFilter->filterLine;
 // - "%ls %ls" / "[%ls] %ls" through the rowed UnicodeString::format.
 // The by-value PlayerInfo is destroyed through the pinned ??1PlayerInfo.
-// The colour table at VA 0x00DB9198 is ZH's GameSpyColor array (the ledger
-// currently lists it as the 8-byte g_00DB9198).
+// The colour table at VA 0x00DB9198 is BFME 2's 29-entry GameSpyColor array,
+// owned and byte-verified as 116 bytes in Chat.cpp.
 #include <map>
 #include "ascii_string.h"
 #include "unicode_string.h"

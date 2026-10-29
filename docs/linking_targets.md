@@ -743,3 +743,12 @@ remain exact; all 54 retained COMDAT fingerprints are unchanged. Ordinary
 preview changes from blocked to LINKS for 2,675 authored bytes. The global
 selected-copy obstacle and census confirmation remain pending (LINK-132).
 [Evidence](../reverse/attempt_support/horizontal-slider-link-20261028-codex.md).
+
+Additional current target (2026-10-29, upstream d701d875b):
+the GameSpyColor array at VA 0x00DB9198 is recovered as 29 entries / 116 bytes
+in Chat.cpp. The two first/third-element scalar providers are removed;
+PopulateLobbyComboBox reads the existing array instead. Scoped verification
+retains 140 function rows, and the complete array and field table match retail.
+The full gate verifies 98,943 function rows and 2,230 data rows; every check
+is green. Census confirmation remains pending (LINK-136).
+[Evidence](../reverse/attempt_support/gamespy-color-table-20261029.md).

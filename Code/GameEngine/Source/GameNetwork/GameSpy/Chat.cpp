@@ -76,8 +76,10 @@ static const FieldParse GameSpyColorFieldParse[] =
 	{ "PlayerNormal",				INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_PLAYER_NORMAL) },
 	{ "PlayerOwner",				INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_PLAYER_OWNER) },
 	{ "PlayerBuddy",				INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_PLAYER_BUDDY) },
+	{ "OfflinePlayerBuddy",		INI::parseColorInt,	NULL,	OFFSET(9) },
 	{ "PlayerSelf",					INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_PLAYER_SELF) },
 	{ "PlayerIgnored",			INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_PLAYER_IGNORED) },
+	{ "OfflinePlayerIgnored",	INI::parseColorInt,	NULL,	OFFSET(12) },
 	{ "ChatNormal",					INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_CHAT_NORMAL) },
 	{ "ChatEmote",					INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_CHAT_EMOTE) },
 	{ "ChatOwner",					INI::parseColorInt,	NULL,	OFFSET(GSCOLOR_CHAT_OWNER) },
@@ -111,6 +113,8 @@ void INI::parseOnlineChatColorDefinition( INI* ini )
 }
 
 
+// Retail's 29-entry OnlineChatColors table, VA 0x00DB9198. These defaults
+// include the two offline-player slots and match the on-disk values.
 Color GameSpyColor[GSCOLOR_MAX] =
 {
 	GameMakeColor(255,255,255,255),	// GSCOLOR_DEFAULT
@@ -119,27 +123,29 @@ Color GameSpyColor[GSCOLOR_MAX] =
 	GameMakeColor(128,128,0,255),		// GSCOLOR_GAME
 	GameMakeColor(128,128,128,255),	// GSCOLOR_GAME_FULL
 	GameMakeColor(128,128,128,255),	// GSCOLOR_GAME_CRCMISMATCH
-	GameMakeColor(255,255,255,255),	// GSCOLOR_PLAYER_NORMAL
+	GameMakeColor(255,  0,  0,255),	// GSCOLOR_PLAYER_NORMAL
 	GameMakeColor(255,  0,255,255),	// GSCOLOR_PLAYER_OWNER
 	GameMakeColor(255,  0,128,255),	// GSCOLOR_PLAYER_BUDDY
+	GameMakeColor(255,  0,128,128),	// OfflinePlayerBuddy, index 9
 	GameMakeColor(255,  0,  0,255),	// GSCOLOR_PLAYER_SELF
-	GameMakeColor(128,128,128,255),	// GSCOLOR_PLAYER_IGNORED
-	GameMakeColor(255,255,255,255),		// GSCOLOR_CHAT_NORMAL
-	GameMakeColor(255,128,0,255),		// GSCOLOR_CHAT_EMOTE,
-	GameMakeColor(255,255,0,255),		// GSCOLOR_CHAT_OWNER,
-	GameMakeColor(128,255,0,255),		// GSCOLOR_CHAT_OWNER_EMOTE,
-	GameMakeColor(0,0,255,255),			// GSCOLOR_CHAT_PRIVATE,
-	GameMakeColor(0,255,255,255),		// GSCOLOR_CHAT_PRIVATE_EMOTE,
-	GameMakeColor(255,0,255,255),		// GSCOLOR_CHAT_PRIVATE_OWNER,
-	GameMakeColor(255,128,255,255),	// GSCOLOR_CHAT_PRIVATE_OWNER_EMOTE,
-	GameMakeColor(255,  0,255,255),	// GSCOLOR_CHAT_BUDDY,
-	GameMakeColor(255,  0,128,255),	// GSCOLOR_CHAT_SELF,
-	GameMakeColor(  0,255,  0,255),	// GSCOLOR_ACCEPT_TRUE,
-	GameMakeColor(255,  0,  0,255),	// GSCOLOR_ACCEPT_FALSE,
-	GameMakeColor(255,255,  0,255),	// GSCOLOR_MAP_SELECTED,
+	GameMakeColor(128,128,128,128),	// GSCOLOR_PLAYER_IGNORED
+	GameMakeColor(255,  0,  0,255),	// OfflinePlayerIgnored, index 12
+	GameMakeColor(255,128,  0,255),	// GSCOLOR_CHAT_NORMAL
+	GameMakeColor(255,255,  0,255),	// GSCOLOR_CHAT_EMOTE
+	GameMakeColor(128,255,  0,255),	// GSCOLOR_CHAT_OWNER
+	GameMakeColor(  0,  0,255,255),	// GSCOLOR_CHAT_OWNER_EMOTE
+	GameMakeColor(  0,255,255,255),	// GSCOLOR_CHAT_PRIVATE
+	GameMakeColor(255,  0,255,255),	// GSCOLOR_CHAT_PRIVATE_EMOTE
+	GameMakeColor(255,128,255,255),	// GSCOLOR_CHAT_PRIVATE_OWNER
+	GameMakeColor(255,  0,255,255),	// GSCOLOR_CHAT_PRIVATE_OWNER_EMOTE
+	GameMakeColor(255,  0,128,255),	// GSCOLOR_CHAT_BUDDY
+	GameMakeColor(  0,255,  0,255),	// GSCOLOR_CHAT_SELF
+	GameMakeColor(255,  0,  0,255),	// GSCOLOR_ACCEPT_TRUE
+	GameMakeColor(255,255,  0,255),	// GSCOLOR_ACCEPT_FALSE
+	GameMakeColor(255,255,255,255),	// GSCOLOR_MAP_SELECTED
 	GameMakeColor(255,255,255,255),	// GSCOLOR_MAP_UNSELECTED,
-	GameMakeColor(255,255,255,255),	// GSCOLOR_MOTD,
-	GameMakeColor(255,255,  0,255),	// GSCOLOR_MOTD_HEADING,
+	GameMakeColor(255,255,  0,255),	// GSCOLOR_MOTD
+	GameMakeColor(  0,  0,  0,  0),	// GSCOLOR_MOTD_HEADING
 };
 
 // GameSpyInfo::sendChat is not defined here either. The Zero Hour body built a

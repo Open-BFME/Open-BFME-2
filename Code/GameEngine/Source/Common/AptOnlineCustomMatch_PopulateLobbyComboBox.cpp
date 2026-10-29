@@ -3,7 +3,7 @@
 // ?PopulateLobbyComboBox@AptOnlineCustomMatch@@QAEXXZ @ 0x0059FD3A (241B).
 // Combo-box population from GameSpy map: reset, iterate RB tree from slot 3,
 // skip entries matching slot 8 or with m_f != 1, add Unicode text with color
-// g_00DB91A0, set item data to m_a, select entry matching slot 12.
+// GameSpyColor[2], set item data to m_a, select entry matching slot 12.
 // Evidence: callees GadgetComboBoxReset/AddEntry/SetItemData/SetSelectedPos,
 // AsciiUnicodePair copy 0x382444, BfmeMappedValueEBD dtor 0x38240F,
 // StringBase wide copy 0x37050, RB increment 0x24250, TheGameSpyInfo slot 0xC.
@@ -102,7 +102,7 @@ public:
 // g_00E05FB4 is only an alias of the owned global TheGameSpyConfig (ledger names column); this unit reads the owner through its own view type.
 extern class GameSpyConfigInterface *TheGameSpyConfig;
 #define g_00E05FB4 (*(G00E05FB4Provider * *)&TheGameSpyConfig)
-int g_00DB91A0 = -1;	// retail RVA 0x009B91A0 (.data), defined here
+extern int GameSpyColor[];	// retail VA 0x00DB9198, room colour at +8
 
 class AptOnlineCustomMatch
 {
@@ -133,13 +133,13 @@ void AptOnlineCustomMatch::PopulateLobbyComboBox()
 					int pos;
 					if (tmp.m_a == cur)
 					{
-						pos = GadgetComboBoxAddEntry(combo, tmp.m_unicode, g_00DB91A0);
+					pos = GadgetComboBoxAddEntry(combo, tmp.m_unicode, GameSpyColor[2]);
 						GadgetComboBoxSetItemData(combo, pos, (void *)tmp.m_a);
 						selected = pos;
 					}
 					else
 					{
-						pos = GadgetComboBoxAddEntry(combo, tmp.m_unicode, g_00DB91A0);
+					pos = GadgetComboBoxAddEntry(combo, tmp.m_unicode, GameSpyColor[2]);
 						GadgetComboBoxSetItemData(combo, pos, (void *)tmp.m_a);
 					}
 				}
