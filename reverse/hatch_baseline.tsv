@@ -3054,7 +3054,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBe
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorIface2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/ShareExperienceBehaviorCtorThunk.cpp	?slot@ShareExperienceBehaviorInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SiegeDockingBehaviorDtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorDtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SlowDeathBehaviorCtor.cpp	??0ClearanceTestingSlowDeathBehaviorBase@@QAE@PAVThing@@PBVModuleData@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorCtor.cpp	?unused@BehaviorModuleOther@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnUnitBehaviorModuleDataCtor.cpp	_vtbl_00BF36C0	1
