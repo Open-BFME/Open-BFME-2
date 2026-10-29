@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 //
 // Owner method 0x004FAE34 (118B): sweep a 0x58-stride element array held
 // through *(this-4), pushing each element's +0x4C field into the caller's
