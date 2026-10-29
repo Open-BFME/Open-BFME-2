@@ -5407,10 +5407,11 @@ Census confirmation: not claimed.
   reports `Rva0024A797Derived.cpp` blocked by duplicate
   `??1DemoTrapUpdate@@UAE@XZ`, with 0 of its 1,590 own bytes linking. The
   rowed destructor is 0x00495916 in that unit. `DemoTrapUpdate.cpp` has an
-  implicit destructor and is a possible competing emitter, but its claim was
-  held by another worker; the competing provider has not been verified. Identify
-  both providers and reconcile their declarations, then recheck the affected
-  units and census before claiming a repair.
+  implicit destructor. The index identifies its object as a competing COMDAT
+  provider, marked `wrong` against retail; the Derived object has the strong
+  definition. The `DemoTrapUpdate.cpp` claim is held by another worker.
+  Reconcile the providers when that claim is available, then recheck the
+  affected units and census before claiming a repair.
 
 ### LINK-030: ZH-header units emit a wrong `BitFlags<116>::clear` ahead of the rowed copy
 
