@@ -25,9 +25,10 @@
 // name getter returns "AIGuardMachine".
 //
 // BFME 2 order: the light-CRC gate, then the StateMachine base (0x004D7744)
-// unconditionally, then Version(1, 3) and ZH's fields. BFME 2 adds a frame
-// (+0x40), a second Coord3D (+0x54) and a flag (+0x60). Version 2 adds a raw
-// dword (+0x6C) and an UnsignedInt (+0x70). The trigger area round trip uses
+// unconditionally, then Version(1, 3) and ZH's fields. BFME 2 adds the
+// guarded team (+0x40), the area center (+0x54) and its valid flag (+0x60),
+// named as AIGuard.cpp's lookForInnerTarget uses them. Version 2 adds a raw
+// dword (+0x6C) and the next area-scan frame (+0x70). The trigger area round trip uses
 // the area's name at +0x40 and TerrainLogic slot 39 (+0x9C, the area lookup
 // by name). Version 3 adds a Real (+0x64).
 
@@ -75,8 +76,8 @@ public:
 	float z;
 };
 
-typedef bool Bool;
 typedef float Real;
+typedef UnsignedInt TeamID;
 
 enum ObjectID
 {
@@ -128,15 +129,15 @@ protected:
 	virtual void xfer( Xfer *xfer );
 private:
 	ObjectID m_targetToGuard;																									///< 0x3C
-	UnsignedInt m_bfmeFrame40;																								///< 0x40
-	PolygonTrigger *m_areaToGuard;																						///< 0x44
+	TeamID m_teamToGuard;																											///< 0x40
+	const PolygonTrigger *m_areaToGuard;																			///< 0x44
 	Coord3DBase m_positionToGuard;																						///< 0x48
-	Coord3DBase m_bfmePosition54;																							///< 0x54
-	Bool m_bfmeFlag60;																												///< 0x60
+	Coord3DBase m_bfmeAreaCenter;																							///< 0x54
+	Bool m_bfmeAreaCenterValid;																								///< 0x60
 	Real m_bfmeReal64;																												///< 0x64
-	ObjectID m_nemesisToAttack;																								///< 0x68
+	ObjectID m_nemesisID;																											///< 0x68
 	UnsignedInt m_bfmeRaw6C;																									///< 0x6C
-	UnsignedInt m_bfmeUnsigned70;																							///< 0x70
+	UnsignedInt m_nextAreaScanFrame;																					///< 0x70
 };
 
 // ------------------------------------------------------------------------------------------------
@@ -158,16 +159,16 @@ void AIGuardMachine::xfer( Xfer *xfer )
 	*xfer == version;
 
 	XferObjectID( xfer, &m_targetToGuard );
-	*xfer == m_bfmeFrame40;
-	XferObjectID( xfer, &m_nemesisToAttack );
-	*xfer == m_positionToGuard;
-	*xfer == m_bfmePosition54;
-	*xfer == m_bfmeFlag60;
+	*xfer == m_teamToGuard;
+	XferObjectID( xfer, &m_nemesisID );
+	*xfer == (Coord3DBase &)m_positionToGuard;
+	*xfer == (Coord3DBase &)m_bfmeAreaCenter;
+	*xfer == m_bfmeAreaCenterValid;
 
 	if( version.m_minimum >= 2 )
 	{
 		xfer->XferRawBytes( &m_bfmeRaw6C, 4 );
-		*xfer == m_bfmeUnsigned70;
+		*xfer == m_nextAreaScanFrame;
 	}
 
 	AsciiString triggerName;
