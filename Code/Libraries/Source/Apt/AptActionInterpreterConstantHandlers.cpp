@@ -17,14 +17,19 @@ class AptCIH;
 // container-based implementation pops individually. Preserve PC sequencing.
 // PushThis/PushGlobal push pooled NAME strings, not the context objects.
 // Slots75(NULL) and76(Undefined) share705320; row it only once as Undefined.
+// Retail calls these CRT names directly, not through the CRT import: read
+// <string.h> and <math.h> without dllimport so strncmp keeps the 5-byte
+// call to the import thunk retail makes (dllimport would emit ff 15, 6B).
+#define _CRTIMP
+#include <string.h>
+#include <math.h>
+#undef _CRTIMP
+
 // Preserve fmodf's float argument rounding before the MSVC _CIfmod intrinsic.
 // Native Modulo spills its second conversion to a float slot before the call.
-extern "C" double __cdecl fmod(double,double);
 #pragma intrinsic(fmod)
 // Native equality threshold is double0.001 at VA BC6E68, not the later float macro.
-extern "C" int __cdecl strcmp(const char *,const char *);
 #pragma intrinsic(strcmp)
-extern "C" double __cdecl fabs(double);
 #pragma intrinsic(fabs)
 static __forceinline float bfme_fmodf(float x,float y) { return (float)fmod(x,y); }
 class EAStringC;
@@ -1955,9 +1960,7 @@ void AptActionInterpreter::_FunctionAptActionImplementsOp(AptActionInterpreter *
 
 // PC prefix slotDDC920 points to FSCommand:; callback E17758 is zero-initialized.
 // Original Apt.h callback declaration and native caller establish void cdecl ABI.
-extern "C" unsigned int __cdecl strlen(const char *);
 #pragma intrinsic(strlen)
-extern "C" int __cdecl strncmp(const char *,const char *,unsigned int);
 const char *g_bfmeAptFSCommandAtDDC920="FSCommand:";
 void (__cdecl *g_bfmeAptCommandAtE17758)(const char *,const char *)=0;
 int AptActionInterpreter::doFSCommand(const char *szCommand,const char *szParams)
@@ -2059,7 +2062,6 @@ void AptActionInterpreter::_FunctionAptActionRemoveSprite(AptActionInterpreter *
     interpreter->stack.Pop();
 }
 
-extern "C" char *__cdecl strcpy(char *,const char *);
 #pragma intrinsic(strcpy)
 __declspec(noinline) unsigned char rva006FD100(int current,int with,EAStringC *var,int *out,char *name)
 {
