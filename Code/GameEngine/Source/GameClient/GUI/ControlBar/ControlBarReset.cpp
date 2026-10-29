@@ -1,11 +1,14 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Ireference/shims/subsystem_bfme2
+typedef bool Bool;
+#include "subsystem_interface.h"
 #include "ascii_string.h"
 
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 
 
-// ?reset@ControlBar@@QAEXXZ @0x0031E09E 448B: ControlBar reset.
+// ?reset@ControlBar@@UAEXXZ @0x0031E09E 448B: ControlBar reset, the
+// SubsystemInterface::reset override (retail vtable 0x00C0CC88 slot 9).
 // Target boundary: Ghidra FUN_0071e09e ends at 0x0031E25E (ret at E25D).
 // Donor algorithm: Zero Hour ControlBar::reset as vendored by BFME1
 // 6583b3c1ff21db4a561285717028fdafc780b7db in
@@ -173,14 +176,13 @@ public:
 	virtual void resetV();
 };
 
-class ControlBar
+class ControlBar : public SubsystemInterface
 {
 public:
 	void hideSpecialPowerShortcut();
 	void switchToContext(int a, void *b);
-	void reset();
+	virtual void reset();
 
-	unsigned char m_head00[0x0C];			///< +0x00..+0x0B opaque head (reset never touches it)
 	HasResetV *m_resetMembers[4];			///< +0x0C..+0x18 virtual-reset members
 	unsigned char m_pad1C[0x2C - 0x1C];
 	BfmeResetNode *m_commandSets;			///< +0x2C

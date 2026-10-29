@@ -1731,7 +1731,7 @@ void ControlBar::rva0031D64F() {
 
 // tu-skeleton: 0x0031DCF0 665B ??1Rva0031DCF0@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/Rva0031DCF0ControlBarDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0031E09E 448B ?reset@ControlBar@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReset.cpp (not merged yet)
+// tu-skeleton: 0x0031E09E 448B ?reset@ControlBar@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarReset.cpp (not merged yet)
 
 // tu-skeleton: 0x0031E25E 604B ?update@ControlBar@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateVirtual.cpp (not merged yet)
 
