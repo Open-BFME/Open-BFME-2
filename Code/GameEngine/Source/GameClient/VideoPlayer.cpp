@@ -194,6 +194,14 @@ private:
 	int m_14;
 };
 
+class Rva006892F0 : public SubsystemInterface
+{
+public:
+	virtual ~Rva006892F0();
+};
+
+// ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/VideoPlayerRva00689180.cpp
@@ -281,10 +289,6 @@ BfmeElemVIA *__cdecl bfmeCopyVIA(BfmeElemVIA *first, BfmeElemVIA *last, BfmeElem
 	return dest;
 }
 
-// tu-skeleton: 0x006891A0 6B ?Rva006891A0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006891E0 72B ?bfmeDropUC@BfmeSubUC@@QAEXPAVBfmeThingUC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv1668.cpp
 
 BfmeNodeEQB * __stdcall bfmeLinkEQB(BfmeNodeEQB *node)
@@ -305,13 +309,9 @@ BfmeNodeEQB * __stdcall bfmeLinkEQB(BfmeNodeEQB *node)
 // The native copy loop and destructor establish the three string members
 // followed by the scalar fields and owned pointer.
 
-// tu-skeleton: 0x006892B0 18B ?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert_aux.cpp (not merged yet)
 
-// tu-skeleton: 0x006892D0 18B ??0Rva006892D0Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
 
-// tu-skeleton: 0x006892F0 11B ??1Rva006892F0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp (not merged yet)
 
-// tu-skeleton: 0x00689300 30B ??_GRva006892F0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00689320Cluster.cpp
 
@@ -331,6 +331,20 @@ Rva00689320::Rva00689320(int first, int second, int third)
 
 // The global(s) below are defined elsewhere under another name at the same
 // address (the census owner of that DIR32 target); bind this unit's spelling.
+
+// tu-skeleton: 0x006891A0 6B ?Rva006891A0Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006891E0 72B ?bfmeDropUC@BfmeSubUC@@QAEXPAVBfmeThingUC@@@Z -- matched in Code/GameEngine/Source/Common/BfmeThreeHundredFiftyFour.cpp (not merged yet)
+
+// tu-skeleton: 0x006892B0 18B ?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert_aux.cpp (not merged yet)
+
+// tu-skeleton: 0x006892D0 18B ??0Rva006892D0Derived@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp
+
+Rva006892F0::~Rva006892F0()
+{
+}
 
 // tu-skeleton: 0x00689350 35B ??1VideoPlayer@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp (not merged yet)
 
@@ -365,3 +379,43 @@ Rva00689320::Rva00689320(int first, int second, int third)
 // tu-skeleton: 0x00689DB0 103B ??1?$vector@URva001D28F0Element@@V?$allocator@URva001D28F0Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp (not merged yet)
 
 // tu-skeleton: 0x00689FD0 270B ?addVideo@VideoPlayer@@UAEXPAUVideo@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerAddVideo.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AA0 8B uw_007a7aa0 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AA8 11B uw_007a7aa8 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AB3 11B uw_007a7ab3 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7ABE 10B __ehhandler$??1Rva001D28F0Element@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva001D28F0ElementDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AD0 8B Unwind@00ba7ad0 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AD8 10B __ehhandler$?rva00689580@VideoPlayer@@QAEXAAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AF0 8B uw_007a7af0 -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7AF8 11B uw_007a7af8 -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B03 10B __ehhandler$??0Rva001D28F0Element@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Open2Records.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B30 11B Unwind@00ba7b30 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B3B 11B Unwind@00ba7b3b -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B46 14B Unwind@00ba7b46 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B54 11B Unwind@00ba7b54 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B5F 10B __ehhandler$?init@VideoPlayer@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/VideoPlayerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B70 8B uw_007a7b70 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B78 8B uw_007a7b78 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B80 8B uw_007a7b80 -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7B88 10B __ehhandler$?getVideo@VideoPlayer@@UAEPBUVideo@@VAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/VideoPlayerGetVideo.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7BA0 8B uw_007a7ba0 -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x007A7BA8 10B __ehhandler$??1?$vector@URva001D28F0Element@@V?$allocator@URva001D28F0Element@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva00689DB0Finish.cpp (not merged yet)

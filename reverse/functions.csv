@@ -6242,7 +6242,7 @@ _Rva008118C0,,0x0067D7C0,5,Code/Libraries/Source/DirtySock/Y5SmallHelpers.c,matc
 ??1ActionManager@@UAE@XZ,,0x0041B8C7,11,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp,matched,opaque derived dtor tail-jmp GameEngineDeletingBase
 ??1Rva0041FE0E@@UAE@XZ,,0x0041FE0E,11,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp,matched,opaque derived dtor tail-jmp GameEngineDeletingBase
 ??1Rva0044954D@@UAE@XZ,,0x0044954D,11,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp,matched,opaque derived dtor tail-jmp GameEngineDeletingBase
-??1Rva006892F0@@UAE@XZ,,0x006892F0,11,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp,matched,opaque derived dtor tail-jmp GameEngineDeletingBase
+??1Rva006892F0@@UAE@XZ,,0x006892F0,11,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,matched,opaque derived dtor tail-jmp GameEngineDeletingBase
 ??1?$VectorClass@H@@UAE@XZ,,0x000023E3,11,Code/Libraries/Source/WWVegas/WWLib/vector_class_resize.cpp,matched,explicit int instantiation already emits vptr plus devirtualized Clear tail-jmp
 ??1Rva0045CE6D@@UAE@XZ,,0x0045CE6D,25,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,matched,opaque MI dtor three vptrs tail-jmp DieModule protected virtual base
 ??1Rva004851FE@@UAE@XZ,,0x004851FE,25,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp,matched,opaque MI dtor three vptrs tail-jmp DieModule
@@ -10193,7 +10193,7 @@ _math_rad,,0x00748740,38,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=l
 ??_GRva005D9C6C@@UAEPAXI@Z,,0x005D9CA7,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005D9CD5@@UAEPAXI@Z,,0x005D9D2C,28,Code/GameEngine/Source/Common/Rva005EE30CDerived.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ??_GRva005F86FE@@UAEPAXI@Z,,0x005F851A,28,Code/GameEngine/Source/Common/Rva000AD6F4Members.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
-??_GRva006892F0@@UAEPAXI@Z,,0x00689300,30,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
+??_GRva006892F0@@UAEPAXI@Z,,0x00689300,30,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,matched,scalar deleting-dtor thunk emitted via TU vtable; byte-exact
 ?get@Rva005ED28AAddDwordField@@QBEHXZ,,0x005ED28A,7,Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp,matched,disp8 add dword getter; opaque holder
 _math_frexp,,0x00748770,68,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.frexp via check_number + pushnumber x2; callees pinned
 _math_random,,0x00748900,298,Code/Libraries/Source/Lua/lmathlib.c,matched,vendored=lua-4.0.1; Lua math.random via rand + gettop switch + check_int + pushnumber; callees pinned

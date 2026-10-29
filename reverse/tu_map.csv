@@ -56524,8 +56524,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00689290,30,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x006892B0,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x006892B0,18,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x006892D0,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_insert_aux.cpp
 0x006892D0,18,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x006892F0,Code/Libraries/Source/WWVegas/WWLib/Rva00180E40Siblings.cpp
-0x006892F0,11,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x00689300,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp
-0x00689300,30,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x00689320,Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived2.cpp
+0x006892F0,11,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x00689300,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
+0x00689300,30,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x00689320,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689320,41,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x006891E0..0x00689350,Code/GameEngine/Source/GameClient/VideoPlayer.cpp
 0x00689350,35,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/VideoPlayer.cpp S=Code/GameEngine/Source/GameClient/VideoPlayer.cpp N=Code/GameEngine/Source/GameClient/VideoPlayer.cpp,Code/GameEngine/Source/GameClient/VideoPlayerDestructorThunk.cpp
 0x00689380,69,code,Code/GameEngine/Source/GameClient/VideoPlayer.cpp,approved,C,C=0x00689350..0x006893D0,Code/GameEngine/Source/Common/Rva000C3380Copy.cpp

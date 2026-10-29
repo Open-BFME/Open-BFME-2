@@ -1,0 +1,7 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Funclet pins: 1 row(s) verified past a renumbered $L label
+    $L5221 (Code/GameEngine/Source/GameClient/VideoPlayer.cpp): $L5221 was renumbered; verified parent EH data places $L6529 at 0x007A7B10
+Functions: OK 24/24 matched across 1 source file(s)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (0 compiler literals verified)
+Import-ref verify: OK (0 named imports verified)

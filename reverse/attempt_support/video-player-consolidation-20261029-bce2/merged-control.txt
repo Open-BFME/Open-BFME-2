@@ -1,0 +1,3 @@
+24 rows; 32 normalized code bindings unchanged.
+All external COMDAT digests/verdicts, definitions, undefineds and weak aliases preserved as sets across the two inputs.
+Rva006892F0 vtable remains 56 bytes with the identical digest: dbe79eae78c1
