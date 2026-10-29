@@ -1,4 +1,4 @@
-// cl: /O1 /MD /EHs
+// cl: /O1 /MD /EHs /Ireference/shims/bfme2_ascii
 //
 // Scalar deleting-destructor wrappers with audited owner attributions.
 // Target facts: 28-byte flag-test wrappers, their call destinations, and the
@@ -22,21 +22,11 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-template <typename T>
-class StringBase
-{
-public:
-// ??1?$StringBase@D@@QAE@XZ present-unmatched
-	~StringBase() { releaseBuffer(); }
-
-private:
-	void releaseBuffer();
-	T *m_data;
-};
-
-// Existing public narrow teardown spelling resolves to the verified
+// The canonical frozen StringBase replaces the private copy; the switch
+// declares the narrow destructor, whose teardown resolves to the verified
 // 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 
 struct FreePtr
