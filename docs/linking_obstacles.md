@@ -8129,6 +8129,16 @@ Census confirmation: pending for the units not yet linked at 73061d9452 (Rva0041
 
 ### LINK-113: BoneFXDamage imports the Zero Hour DamageModule Snapshot contract
 
+2026-10-29 recheck at `bd9c9a4d73`, current index `85f6b7f40c`
+(2026-10-29 15:08): ordinary preview still reports the three unresolved
+DamageModule snapshot methods and the constructor-copy conflict (U3/L1).
+The canonical Module/BehaviorModule headers now exist, but this source still
+imports the ZH DamageModule declarations; the constructor provider still uses
+placeholder tables. Reconcile that DamageModule contract and the existing
+xfer/destructor owners together. No source trial was repeated, and no
+clearance or census gain is claimed. The unchanged prerequisites are recorded
+in the attempt log so the picker can defer this target.
+
 2026-10-28 recheck at `6d7a215d6b`, refreshed index `d92e7e6635`: the
 claimed BoneFXDamage consumer still reports the same three unresolved
 DamageModule snapshot methods and one constructor-copy conflict (U3/L1).
