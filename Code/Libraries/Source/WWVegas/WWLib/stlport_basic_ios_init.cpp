@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Dedicated TU for basic_ios<char>::init. The retail body uses the generic
 // ctype<char>::widen virtual rather than STLport's char widening
@@ -60,7 +60,7 @@ template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(ch
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t, const void*);
 }
 // Rowed basic_ios<char> members, instantiated precisely instead of whole
 // classes; the broad istream instantiations are what drag the scan_not and

@@ -1,5 +1,5 @@
 // cl: /O2 /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // The nine standard exception classes, whose vftables sit consecutively at
 // 0x007BDA44..0x007BDA98 with nothing claimed but the what() they all share.
@@ -20,7 +20,7 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t, const void*);
 }
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).

@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // Retail's basic_ios<char>::widen is the generic ctype widen (0x000135E0, owned by
 // stlport_basic_ios_init.cpp); without this the char specialization emits a non-retail copy.

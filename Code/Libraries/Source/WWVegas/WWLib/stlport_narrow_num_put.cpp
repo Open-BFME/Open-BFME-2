@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 
 // Keep unused inline storage allocation local to this numeric facet.
 #define _M_allocate_block _M_allocate_block_NumPut_RV
@@ -61,10 +61,10 @@ namespace _STL { template <> ostreambuf_iterator<char, char_traits<char> > __put
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?allocate@?$allocator@D@_STL@@QBEPADIPBX@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * allocator<char>::allocate(unsigned int,void const *) const; }
+namespace _STL { template <> char * allocator<char>::allocate(unsigned int,void const *); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int); }
+namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int, const void*); }
 // __copy_integer_and_fill<char> is owned by stlport_narrow_copy_integer_and_fill.cpp.
 // This unit's copy is not retail's and inlined sputc into an out-of-line
 // ostreambuf_iterator<char>::operator= that came first in link order, ahead of

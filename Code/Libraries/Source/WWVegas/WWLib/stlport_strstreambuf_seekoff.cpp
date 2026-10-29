@@ -1,5 +1,5 @@
 // cl: /GR- /GX- /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // ?seekoff@strstreambuf@_STL@@MAE?AV?$fpos@H@2@JHH@Z, retail 0x00602C30 (440 B).
 // strstreambuf virtual slot 2 (offset 0x8) of vtable 0x0087A878 (class of
