@@ -1,0 +1,86 @@
+pre-push: ledger_guard 0.28s
+pre-push: check_case_collisions 0.08s
+check_csv: OK (functions.csv 98943 rows, symbols.csv 9415 rows, data_rows.csv 2230 rows)
+pre-push: check_csv 2.51s
+pre-push: empty_commits 0.03s
+pre-push: conversion_gate 1.83s
+Pin consistency: OK (5 multi-pinned symbols of 9410; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs 4fef71c091643814b0c5e4e6eff7ad2695d3717c, 0 added)
+pre-push: pin_consistency 1.00s
+pre-push: protected_paths 0.08s
+pre-push: debt registers 0.00s
+pin admission: OK
+pre-push: pin_admission 1.87s
+reverse/gate_baseline.txt: OK (no line added)
+pre-push: gate_baseline 0.03s
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+pre-push: eh shrink-only 0.09s
+pre-push: working tree binding 0.22s
+pre-push: scope: delta_sources 1.14s
+name_dependents: 5 call target(s) and 5 data-row target(s) lost (?bfmeGoEHCb@BfmeThingEHCb@@QAEHPAX00@Z, ?get@Rva0008FF78CmpBoolField@@QBE_NXZ, ?get@Rva00313913CmpBoolField@@QBE_NXZ, ...); 226 referencing unit(s) of 20920 scanned in 8.9s
+pre-push: scope: name_dependents 10.70s
+pre-push: scope: edited sources 0.42s
+pre-push: scope: flag_delta_sources 2.87s
+header_dependents: 1 changed header(s), 16 included file(s) and 0 vendored file(s) reach 64 ledger source(s)
+pre-push: scope: header_dependents 1.55s
+pre-push: receipt lookup 0.00s
+pre-push: source binding 0.07s
+Source claims: OK (175 sources, scoped byte-verified)
+Data rows: OK (48 row(s) byte-verified)
+Compile: 134 of 175 TU(s) (deps-cache: 41 current)
+Object store: 25 of 134 stale TU(s) restored
+Funclet pins: 943 row(s) verified past a renumbered $L label
+    $L7266 (Code/GameEngine/Source/GameClient/System/FXParticleSystem/QuadDrawModuleDoParticles.cpp): $L7266 was renumbered; verified parent EH data places $L7265 at 0x00799B5B
+    uw_0076b1ec (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7389 was renumbered; verified parent EH data places $L7562 at 0x0076B1EC
+    uw_0076b1f4 (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7390 was renumbered; verified parent EH data places $L7563 at 0x0076B1F4
+    uw_0076b1fc (Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetDoStuffToObj.cpp): $L7459 was renumbered; verified parent EH data places $L7632 at 0x0076B1FC
+    uw_007739ac (Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp): $L1343 was renumbered; verified parent EH data places $L8046 at 0x007739AC
+STLport folds: 7 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 3463/3463 matched across 175 source file(s)
+String-ref verify: OK (863 literals + 98 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (581 compiler literals verified)
+Import-ref verify: OK (130 named imports verified)
+Source claims: OK (116 sources, scoped byte-verified)
+Data rows: OK (74 row(s) byte-verified)
+Compile: 54 of 117 TU(s) (deps-cache: 63 current)
+Object store: 9 of 54 stale TU(s) restored
+Funclet pins: 500 row(s) verified past a renumbered $L label
+    $L59902 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp): $L59902 was renumbered; verified parent EH data places $L57957 at 0x0077961B
+    $L3982 (Code/GameEngine/Source/GameNetwork/LANAPIhandlers.cpp): $L3982 was renumbered; verified parent EH data places $L58247 at 0x0079C996
+    $L7206 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp): $L7206 was renumbered; verified parent EH data places $L7396 at 0x00760678
+    $L7207 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp): $L7207 was renumbered; verified parent EH data places $L7397 at 0x00760682
+    $L7208 (Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009D55BProductCtor_Rva0009D55BProduct.cpp): $L7208 was renumbered; verified parent EH data places $L7398 at 0x0076068C
+STLport folds: 6 complete emitted constructor(s) verified against retail owners and resolved callees
+Functions: OK 2122/2122 matched across 117 source file(s)
+String-ref verify: OK (945 literals + 72 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (320 compiler literals verified)
+Import-ref verify: OK (235 named imports verified)
+pre-push: byte-verify (292 sources, full=0) 1610.04s
+scoped DIR32: no receipt index in this clone; judging the verified sources alone
+scoped DIR32: 5585 verified row(s) and 0 witness row(s)
+DIR32 consistency: OK (1337 symbols; 0 whitelisted, 2 PE-verified duplicate import(s), 0 new)
+pre-push: scoped DIR32 9.05s
+pre-push: carried cross-checks 0.00s
+EH verify: 730 row(s) with EH data (EXACT 730); 0 not exact, 0 in baseline; 0 row(s) without an object; 1.4s
+data_check (converged, enforced): 292 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+pre-push: eh + data audits 14.03s
+link batch audit: INCONCLUSIVE baseline: index at 840db2d676, outgoing base 4fef71c091643814b0c5e4e6eff7ad2695d3717c; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 257 source object(s) lack current receipts; first: Code/GameEngine/Source/Common/AIBuildable.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+pre-push: link_batch_audit 6.81s
+replay_check (shadow, never refuses): no repeated work found in 4 outgoing commit(s), but not all of it was checked (0.33s)
+  not checked: 3 of 3 ledger-touching commit(s) were checked only through the push's net ledger diff, not one by one, which hides a row added and removed again within the push
+pre-push: replay_check 0.36s
+pre-push: receipt record 0.00s
+push_lease: yasinschroeder-publisher is landing a full-gate push (bb50e95a87); waiting until it lands or 12:46:02
+pre-push: landing window wait 195.84s
+PRE-PUSH OK (292 outgoing source(s) byte-verified)
+pre-push: publisher_hook 0.03s
+To github.com:Open-BFME/Open-BFME-2.git
+ ! [rejected]              HEAD -> master (fetch first)
+error: failed to push some refs to 'github.com:Open-BFME/Open-BFME-2.git'
+hint: Updates were rejected because the remote contains work that you do not
+hint: have locally. This is usually caused by another repository pushing to
+hint: the same ref. If you want to integrate the remote changes, use
+hint: 'git pull' before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.

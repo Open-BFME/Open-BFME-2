@@ -1,0 +1,62 @@
+pre-push: ledger_guard 0.27s
+pre-push: check_case_collisions 0.08s
+check_csv: OK (functions.csv 98943 rows, symbols.csv 9415 rows, data_rows.csv 2230 rows)
+pre-push: check_csv 2.41s
+pre-push: empty_commits 0.02s
+pre-push: conversion_gate 1.73s
+Pin consistency: OK (5 multi-pinned symbols of 9410; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs da153538311bed9e96be7b84bdb41ffa61b8a69b, 0 added)
+pre-push: pin_consistency 0.97s
+pre-push: protected_paths 0.08s
+pre-push: debt registers 0.00s
+pin admission: OK
+pre-push: pin_admission 1.79s
+reverse/gate_baseline.txt: OK (no line added)
+pre-push: gate_baseline 0.02s
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+pre-push: eh shrink-only 0.09s
+pre-push: working tree binding 0.21s
+pre-push: scope: delta_sources 1.04s
+name_dependents: 5 call target(s) and 5 data-row target(s) lost (?bfmeGoEHCb@BfmeThingEHCb@@QAEHPAX00@Z, ?get@Rva0008FF78CmpBoolField@@QBE_NXZ, ?get@Rva00313913CmpBoolField@@QBE_NXZ, ...); 0 referencing unit(s) of 20920 scanned in 8.0s
+pre-push: scope: name_dependents 9.70s
+pre-push: scope: edited sources 0.42s
+pre-push: scope: flag_delta_sources 2.81s
+header_dependents: 1 changed header(s), 16 included file(s) and 0 vendored file(s) reach 64 ledger source(s)
+pre-push: scope: header_dependents 1.44s
+pre-push: receipt lookup 0.00s
+pre-push: source binding 0.02s
+Source claims: OK (79 sources, scoped byte-verified)
+Data rows: OK (44 row(s) byte-verified)
+Compile: 0 of 79 TU(s) (deps-cache: 79 current)
+Funclet pins: 102 row(s) verified past a renumbered $L label
+    $L59902 (Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp): $L59902 was renumbered; verified parent EH data places $L57957 at 0x0077961B
+    uw_0077af8b (Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarScheme_ControlBarScheme_Ctor.cpp): $L51404 was renumbered; verified parent EH data places $L51436 at 0x0077AF8B
+    $L37729 (Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp): $L37729 was renumbered; verified parent EH data places $L37726 at 0x00797A4C
+    $L37730 (Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp): $L37730 was renumbered; verified parent EH data places $L37727 at 0x00797A56
+    $L37731 (Code/GameEngine/Source/GameClient/GUI/AnimateWindowManager.cpp): $L37731 was renumbered; verified parent EH data places $L37728 at 0x00797A60
+Functions: OK 741/741 matched across 79 source file(s)
+String-ref verify: OK (345 literals + 9 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (78 compiler literals verified)
+Import-ref verify: OK (54 named imports verified)
+pre-push: byte-verify (79 sources, full=0) 515.79s
+scoped DIR32: no receipt index in this clone; judging the verified sources alone
+scoped DIR32: 741 verified row(s) and 0 witness row(s)
+DIR32 consistency: OK (251 symbols; 0 whitelisted, 0 PE-verified duplicate import(s), 0 new)
+pre-push: scoped DIR32 4.21s
+pre-push: carried cross-checks 0.00s
+EH verify: 61 row(s) with EH data (EXACT 61); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.5s
+data_check (converged, enforced): 79 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+pre-push: eh + data audits 6.01s
+link batch audit: INCONCLUSIVE baseline: index at 840db2d676, outgoing base da153538311bed9e96be7b84bdb41ffa61b8a69b; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 67 source object(s) lack current receipts; first: Code/GameEngine/Source/Common/GameEngine_GameEngine_createFileSystem.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+pre-push: link_batch_audit 4.96s
+replay_check (shadow, never refuses): no repeated work found in 4 outgoing commit(s), but not all of it was checked (0.33s)
+  not checked: 3 of 3 ledger-touching commit(s) were checked only through the push's net ledger diff, not one by one, which hides a row added and removed again within the push
+pre-push: replay_check 0.36s
+pre-push: receipt record 0.00s
+pre-push: landing window wait 1.75s
+PRE-PUSH OK (79 outgoing source(s) byte-verified)
+pre-push: publisher_hook 0.03s
+To github.com:Open-BFME/Open-BFME-2.git
+   da153538311..85f6b7f40cd  HEAD -> master

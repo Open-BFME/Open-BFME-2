@@ -1,0 +1,20 @@
+[
+  [
+    "?bfmeGoEHCa@BfmeThingEHCa@@QAEHPAX00@Z",
+    "",
+    "0x000A0CFF",
+    "35",
+    "Code/GameEngine/Source/Common/BfmeConv812_bfmeGoEHC.cpp",
+    "matched",
+    "BFME1 donor game/GameEngine/Source/Common/BfmeConv812.cpp recompiled /Os; unique masked placement on unclaimed .text"
+  ],
+  [
+    "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+    "",
+    "0x000A0CFF",
+    "35",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp",
+    "matched",
+    "window vtable slot 1 in 4 tables: calls the +0x1E0 input callback (name inferred)"
+  ]
+]

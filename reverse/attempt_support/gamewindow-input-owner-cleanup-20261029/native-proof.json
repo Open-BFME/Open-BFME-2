@@ -1,0 +1,12 @@
+{
+  "native_body_rva": "0x000A0CFF",
+  "size": 35,
+  "native_bytes": "8b81e001000085c07414ff74240cff74240cff74240c51ffd083c410eb0233c0c20c00",
+  "retired": "?bfmeGoEHCa@BfmeThingEHCa@@QAEHPAX00@Z",
+  "surviving": "?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z",
+  "table_slot1": {
+    "0x80bbcc": "0x4a0cff",
+    "0x7c8d04": "0x4a0cff",
+    "0x7c8d30": "0x4a0cff"
+  }
+}

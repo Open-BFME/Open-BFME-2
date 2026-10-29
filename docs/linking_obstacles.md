@@ -2789,6 +2789,19 @@ Whole-unit clearance and census confirmation remain pending.
   **Remaining:** slot10 still needs the heavily shared0050B5C6 constant
   provider; slot7 is genuinely pure. Original method names, complete object
   layout and consumer-metadata-backed whole-batch closure remain open.
+- **GameWindow input duplicate retired / publication audited (2026-10-29):**
+  [the input-owner and publication handoff](../reverse/attempt_support/gamewindow-input-owner-cleanup-20261029/readme.md)
+  removes the old BfmeThingEHCa duplicate of A0CFF and binds both gadget
+  tables to the surviving GameWindow::input. All157 rows,2 data tables
+  and6/6 previews pass; the unique35B range is retained, with no new credit.
+  The preceding font/system/predicate batch landed through85f6b7f40c after
+  normal gates:5585 rows across292 sources in the broader check; final
+  push741 rows,44 data rows,61 EXACT EH graphs,251 DIR32 symbols.
+  The current index840db2d676 now has consumer metadata, but the batch's
+  link-loss/selection audit remains UNVERIFIED on67 missing current object
+  receipts. Carry the exact header/consumer scope to the next census.
+  Slot10 remains open: one of its47 consumer files, TextureAssetGet.cpp,
+  was held by another seat; no overlapping repair was attempted.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its

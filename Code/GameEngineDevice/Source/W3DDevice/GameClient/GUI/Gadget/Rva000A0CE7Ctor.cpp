@@ -5,7 +5,7 @@
 // word is not a code address or starts another ledger datum).
 extern "C" {
 void __identifier("??_GRva0008FF3E@@UAEPAXI@Z")();
-void __identifier("?bfmeGoEHCa@BfmeThingEHCa@@QAEHPAX00@Z")();
+void __identifier("?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z")();
 void __identifier("?system@Rva000A12E6Window@@UAE?AW4WindowMsgHandledType@@III@Z")();
 void __identifier("?draw@Rva000A12E6Window@@UAEHPAVWinInstanceData@@@Z")();
 void __identifier("?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z")();
@@ -18,7 +18,7 @@ void __identifier("?IsCRC@Xfer@@UBE_NXZ")();
 }
 extern const void *const g_00BC8D04[11] = {
 	(const void *)&__identifier("??_GRva0008FF3E@@UAEPAXI@Z"), // slot 0 0x0008FFC4
-	(const void *)&__identifier("?bfmeGoEHCa@BfmeThingEHCa@@QAEHPAX00@Z"), // slot 1 0x000A0CFF
+	(const void *)&__identifier("?input@GameWindow@@UAE?AW4WindowMsgHandledType@@III@Z"), // slot 1 0x000A0CFF
 	(const void *)&__identifier("?system@Rva000A12E6Window@@UAE?AW4WindowMsgHandledType@@III@Z"), // slot 2 0x000A0D22
 	(const void *)&__identifier("?draw@Rva000A12E6Window@@UAEHPAVWinInstanceData@@@Z"), // slot 3 0x000A12E6
 	(const void *)&__identifier("?bfmeDispatch@Gen_004655b0@@QAEHPAX0@Z"), // slot 4 0x0008FF56

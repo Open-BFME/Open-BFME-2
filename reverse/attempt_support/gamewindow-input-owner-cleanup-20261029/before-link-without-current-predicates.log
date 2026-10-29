@@ -1,0 +1,15 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/GameEngine/Source/Common/BfmeConv812_bfmeGoEHC.cpp: LINKS  LINKED 70 -> 70 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 70)
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0CE7Ctor.cpp: does not link  LINKED 24 -> 0 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 24)
+  unresolved  ?vslot6@GameWindow@@UBE_NXZ
+  unresolved  ?vslot8@GameWindow@@UBE_NXZ
+  unresolved  ?vslot9@GameWindow@@UBE_NXZ
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/Rva000A0D3ACtor.cpp: does not link  LINKED 24 -> 0 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 24)
+  unresolved  ?vslot6@GameWindow@@UBE_NXZ
+  unresolved  ?vslot8@GameWindow@@UBE_NXZ
+  unresolved  ?vslot9@GameWindow@@UBE_NXZ
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/Gadget/W3DGadgetWindowDrawSlots.cpp: LINKS  LINKED 1,067 -> 1,067 bytes (census 2026-10-28 20:44 at 840db2d676; file's own bytes 1,067)
+link_check: 2 of 4 link cleanly; LINKED 1,185 -> 1,137 bytes (4.3s)

@@ -1,25 +1,6 @@
 // cl: -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// Trimmed to the two T1 bodies the sweep places; the donor's other
-// definitions are omitted.
-
-// Both are the same guarded indirect call; only the member offset where the function
-// pointer sits differs (0x1E0 vs 0x1E4), so retail's two bodies differ only
-// in that displacement.
-
-struct BfmeThingEHCa
-{
-	int bfmeGoEHCa(void *a, void *b, void *c);
-	unsigned char m_bfmeHead[0x1e0];
-	int (__cdecl *m_bfmeFn)(void *self, void *a, void *b, void *c);
-};
-
-int BfmeThingEHCa::bfmeGoEHCa(void *a, void *b, void *c)
-{
-	int (__cdecl *fn)(void *, void *, void *, void *) = m_bfmeFn;
-	if (fn)
-		return fn(this, a, b, c);
-	return 0;
-}
+// GameWindow system callback body. The input callback at A0CFF is owned
+// once, by W3DGadgetWindowDrawSlots.cpp; both gadget consumers bind it.
 
 // Native GameWindow table C0BBCC slot 2 selects this complete35B body.
 // The placeholder method name is retained; this recovers its class/ABI,
