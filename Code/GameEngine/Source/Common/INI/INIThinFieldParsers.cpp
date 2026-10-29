@@ -49,8 +49,3 @@ void Rva002567EAParse(INI *ini, void *, void *store, const void *)
 {
 	((Rva00256499 *)store)->rva00256499(ini, 0);
 }
-
-void Rva002C8C06Parse(INI *ini, void *, void *store, const void *)
-{
-	((Rva002C8754 *)store)->rva002C8754(ini, 0);
-}

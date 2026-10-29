@@ -1,5 +1,193 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
 // stlport
+// TU Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
+#define stricmp _strcmpi
+struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
+#pragma optimize("gsy", on)
+static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
+#pragma optimize("", on)
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include <list>
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#define DEFINE_WEAPONSLOTTYPE_NAMES
+#define DEFINE_COMMANDSOURCEMASK_NAMES
+#include "GameLogic/WeaponSet.h"
+#include "Common/INI.h"
+#include "Common/Player.h"
+#include "Common/PlayerList.h"
+#include "Common/ThingFactory.h"
+#include "Common/ThingTemplate.h"
+#include "Common/BitFlagsIO.h"
+#include "GameLogic/AI.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/Module/AIUpdate.h"
+#include "GameLogic/Module/ContainModule.h"
+#include "GameLogic/Module/StealthUpdate.h"
+#include "GameLogic/Module/SpawnBehavior.h"
+#include "GameLogic/Weapon.h"
+#ifdef _INTERNAL
+// for occasional debugging...
+//#pragma optimize("", off)
+//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
+#endif
+
+// bfme link decl-only begin
+namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
+
+// bfme link decl-only end
+// Suppress this TU's non-retail copy of ?_Unchecked_set@?$bitset@$0HF@@_STL@@QAEAAV12@IH@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> bitset<117> & bitset<117>::_Unchecked_set(unsigned int,int); }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+const char* WeaponSetFlags::s_bitNameList[] = 
+{
+	"VETERAN",
+	"ELITE",
+	"HERO",
+	"PLAYER_UPGRADE",
+	"CRATEUPGRADE_ONE",
+	"CRATEUPGRADE_TWO",
+	"VEHICLE_HIJACK",
+	"CARBOMB",
+	"MINE_CLEARING_DETAIL",
+	"WEAPON_RIDER1", //Kris: Added these for different combat-bike riders.
+	"WEAPON_RIDER2",
+	"WEAPON_RIDER3",
+	"WEAPON_RIDER4",
+	"WEAPON_RIDER5",
+	"WEAPON_RIDER6",
+	"WEAPON_RIDER7",
+	"WEAPON_RIDER8",
+
+	NULL
+};
+
+class Eva
+{
+public:
+	int iniScanEvaEventID(const char *name);
+};
+
+extern Eva *TheEva;
+
+class Rva00256499
+{
+public:
+	void rva00256499(INI *ini, void *extra);
+};
+
+class Rva002C8754
+{
+public:
+	void rva002C8754(INI *ini, void *extra);
+};
+
+// tu-skeleton: 0x002C726C 51B ?parseWeapon@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C729F 54B ?parseAutoChoose@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C72D5 60B ??0WeaponSet@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7311 81B ??1WeaponSet@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7362 60B ?isAnyWithinTargetPitch@WeaponSet@@ABE_NPBVObject@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp (not merged yet)
+
+// tu-skeleton: 0x002C739E 48B ?reloadAllAmmo@WeaponSet@@QAEXPBVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp (not merged yet)
+
+// tu-skeleton: 0x002C73CE 41B ?isOutOfAmmo@WeaponSet@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetIsOutOfAmmo.cpp (not merged yet)
+
+// tu-skeleton: 0x002C73F7 37B ?findAmmoPipShowingWeapon@WeaponSet@@QBEPBVWeapon@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp (not merged yet)
+
+// tu-skeleton: 0x002C741C 43B ?findWaypointFollowingCapableWeapon@WeaponSet@@QAEPAVWeapon@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRvaSlotSearch.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7447 19B ?rva002C7447@Rva002C71CA@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C745A 15B ?rva002C745A@Rva002C71CA@@QAEXH_N@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7474 30B ?rva002C7474@Rva002C7474@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva002C7474Loop.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7492 25B ?rva002C7492@Rva002C7492@@QAEXPBV1@@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74AB 7B ?get@Rva002C74ABByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp32ByteGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74B2 7B ?get@Rva002C74B2ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74B9 7B ?get@Rva002C74B9ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74C0 11B ?rva002C74C0@Rva002C74C0@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74CB 14B ?rva002C74CB@Rva002C71CA@@QAEPAURva002C74CBRecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74D9 17B ?get@Rva00751B90@@QAEPAXH@Z -- matched in Code/GameEngine/Source/Common/Rva00751B90Get.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74EA 17B ?rva002C74EA@Rva002C71CA@@QAEPAURva002C74EARecord@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C74FB 6B ?Rva002C74FBGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7501 20B ?any@?$BitFlags@$0NK@@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/System/BitFlags218Any.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7515 9B ?Rva002C7515Any@@YA_NPBV?$BitFlags@$0NK@@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002C751E 17B ?Rva002C751E@@YAXPAURva002C74CBRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C752F 134B ?clear@Rva002C752F@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C752F.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75B5 28B ??_GWeaponSet@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDeleter.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75D1 41B ?rva002C75D1@WeaponSet@@QBE_NHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetRva002C75D1.cpp (not merged yet)
+
+// tu-skeleton: 0x002C75FA 17B ?rva002C75FA@Rva002C71CA@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002C760B 167B ?rva002C760B@Rva002C7492@@QAEPAV1@HHHHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva002C7492Or.cpp (not merged yet)
+
+// tu-skeleton: 0x002C76B2 204B ?Rva002C76B2Build@@YAPAVWeaponTemplateSetHead@@PAV1@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva002C76B2Build.cpp (not merged yet)
+
+// tu-skeleton: 0x002C777E 257B ?rva002C777E@@YAPAVWeaponTemplateSetHead@@PAV1@H@Z -- matched in Code/GameEngine/Source/Common/Rva002C777EBuild.cpp (not merged yet)
+
+// tu-skeleton: 0x002C787F 136B ?getVictimAntiMask@@YAHPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7907 1020B ?getAbleToUseWeaponAgainstTarget@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1PBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C7D03 1477B ?chooseBestWeaponForTarget@WeaponSet@@QAE_NPBVObject@@0W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C82C8 308B ?rva002C82C8@Rva002C82C8@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/Rva003339CEBodyState.cpp (not merged yet)
+
+// tu-skeleton: 0x002C83FC 856B ?getAbleToAttackSpecificObject@WeaponSet@@QBE?AW4CanAttackResult@@W4AbleToAttackType@@PBVObject@@1W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8754 234B ?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
+
+// tu-skeleton: 0x002C883E 52B ?rva002C883E@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8872 572B ?xfer@WeaponSet@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8AAE 237B ?setWeaponLock@WeaponSet@@QAE_NW4WeaponSlotType@@W4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8B9B 107B ?releaseWeaponLock@WeaponSet@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/INI/INIThinFieldParsers.cpp
+
+void Rva002C8C06Parse(INI *ini, void *, void *store, const void *)
+{
+	((Rva002C8754 *)store)->rva002C8754(ini, 0);
+}
+
+// tu-skeleton: 0x002C8C16 49B ?parsePreferredAgainst@WeaponTemplateSet@@CAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// tu-skeleton: 0x002C8C47 52B ?rva002C8C47@WeaponTemplateSet@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponTemplateSetParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponSet.cpp
+
 // Ported verbatim from the Generals Zero Hour reference
 // (GameEngine/Source/GameLogic/Object/WeaponSet.cpp); this unit had no counterpart under Code/.
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -11,11 +199,7 @@
 // an array will not match, try it without this block.
 // Retail imports only _strcmpi (stub 0x00629A2A calls msvcr71's); BFME2's
 // stricmp spelling resolves there, not to the _stricmp alias.
-#define stricmp _strcmpi
-struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
-#pragma optimize("gsy", on)
-static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
-#pragma optimize("", on)
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -47,77 +231,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-#include <list>
-
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
-
-#define DEFINE_WEAPONSLOTTYPE_NAMES
-#define DEFINE_COMMANDSOURCEMASK_NAMES
-
-#include "GameLogic/WeaponSet.h"
-
-#include "Common/INI.h"
-#include "Common/Player.h"
-#include "Common/PlayerList.h"
-#include "Common/ThingFactory.h"
-#include "Common/ThingTemplate.h"
-#include "Common/BitFlagsIO.h"
-
-#include "GameLogic/AI.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/Module/AIUpdate.h"
-#include "GameLogic/Module/ContainModule.h"
-#include "GameLogic/Module/StealthUpdate.h"
-#include "GameLogic/Module/SpawnBehavior.h"
-
-#include "GameLogic/Weapon.h"
-// bfme link decl-only begin
-namespace _STL { template <> unsigned long _Base_bitset<4>::_S_maskbit(unsigned int); }
-// bfme link decl-only end
-// Suppress this TU's non-retail copy of ?_Unchecked_set@?$bitset@$0HF@@_STL@@QAEAAV12@IH@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> bitset<117> & bitset<117>::_Unchecked_set(unsigned int,int); }
-
-
-#ifdef _INTERNAL
-// for occasional debugging...
-//#pragma optimize("", off)
-//#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
-#endif
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// PUBLIC DATA ////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-const char* WeaponSetFlags::s_bitNameList[] = 
-{
-	"VETERAN",
-	"ELITE",
-	"HERO",
-	"PLAYER_UPGRADE",
-	"CRATEUPGRADE_ONE",
-	"CRATEUPGRADE_TWO",
-	"VEHICLE_HIJACK",
-	"CARBOMB",
-	"MINE_CLEARING_DETAIL",
-	"WEAPON_RIDER1", //Kris: Added these for different combat-bike riders.
-	"WEAPON_RIDER2",
-	"WEAPON_RIDER3",
-	"WEAPON_RIDER4",
-	"WEAPON_RIDER5",
-	"WEAPON_RIDER6",
-	"WEAPON_RIDER7",
-	"WEAPON_RIDER8",
-
-	NULL
-};
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 // PRIVATE DATA ///////////////////////////////////////////////////////////////////////////////////
@@ -210,7 +323,9 @@ WeaponSet::~WeaponSet()
 void WeaponSet::crc( Xfer *xfer )
 {
 
-}  // end crc
+}
+
+  // end crc
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -226,7 +341,9 @@ void WeaponSet::crc( Xfer *xfer )
 void WeaponSet::loadPostProcess( void )
 {
 
-}  // end loadPostProcess
+}
+
+  // end loadPostProcess
 
 //-------------------------------------------------------------------------------------------------
 // WeaponSet::updateWeaponSet is defined in WeaponSetSetWeaponLock.cpp
@@ -746,4 +863,21 @@ Bool WeaponSet::isSharedReloadTime() const
 		return m_curWeaponTemplateSet->isSharedReloadTime();
 	return false;
 }
- 
+
+// tu-skeleton: 0x002C8C97 418B ?updateWeaponSet@WeaponSet@@QAEXPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F70 8B $L382 -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F78 10B __ehhandler$??1WeaponSet@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F82 8B Unwind@00b76f82 -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F8A 8B Unwind@00b76f8a -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F92 10B __ehhandler$?rva002C8754@Rva002C8754@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/Common/Rva002C8754.cpp (not merged yet)
+
+// tu-skeleton: 0x00776F9C 8B Unwind@00b76f9c -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00776FA4 8B Unwind@00b76fa4 -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00776FAC 10B __ehhandler$?xfer@WeaponSet@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
