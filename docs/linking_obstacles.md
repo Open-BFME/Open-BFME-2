@@ -6831,6 +6831,15 @@ Clearance: only the shared record binding is cleared in ordinary-preview scope; 
 
 Status: Blocked on class and table reconciliation. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
 
+**2026-10-29 constructor preview (`9df8832b7d`):** The current object
+retains 0 of 130 authored bytes against index `840db2d676`, with ten
+unresolved references. These include the real ArmyHeroIcon destructor, the
+anonymous details portion's destructor and four slots, and four base slots.
+The frozen-file check passes for all six matched rows. No source trial was
+retained; the existing eight-slot and lifetime-owner reconciliation remains
+the next prerequisite. [Current evidence](../reverse/attempt_support/army-hero-constructor-link-20261029.md).
+No census clearance or linking gain is claimed.
+
 **2026-10-28 current lifetime-unit check (`2b9f5c4d64`):**
 [The bounded prerequisite check](../reverse/attempt_support/icon-diamond-link-20261028-codex.md)
 confirms all nine unresolved virtual-slot names in `Rva005F422CDtor.cpp`
