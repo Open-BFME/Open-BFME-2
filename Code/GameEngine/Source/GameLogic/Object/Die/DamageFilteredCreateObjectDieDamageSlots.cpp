@@ -46,19 +46,7 @@ protected:
 	const ModuleData *m_moduleData;	// +0x04
 	void *m_object;			// +0x08
 };
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
-class DieModuleInterface
-{
-public:
-	virtual void d00() = 0;
-};
-class DieModule : public ModuleBase, public BehaviorModuleInterface, public DieModuleInterface
-{
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 class Rva00C4AA84Iface
 {
 public:

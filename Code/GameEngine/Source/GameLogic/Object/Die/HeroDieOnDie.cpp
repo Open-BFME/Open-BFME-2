@@ -61,21 +61,9 @@ protected:
 	Object *m_object;		// +0x08
 };
 
-class BehaviorModuleInterface
-{
-public:
-	virtual void b00() = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
 
-class DieModule : public ModuleBase, public BehaviorModuleInterface, public DieModuleInterface
-{
-};
 
 class HeroDie : public DieModule
 {

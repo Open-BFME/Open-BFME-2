@@ -193,35 +193,17 @@ struct CrushDieModuleData
 	Int m_crushSoundPercent[ CRUSH_COUNT ];
 };
 
-class BehaviorModule
-{
-public:
-	virtual ~BehaviorModule();
-protected:
-	Object *getObject() const { return m_object; }
-	const CrushDieModuleData *getCrushDieModuleData() const { return m_moduleData; }
-private:
-	const CrushDieModuleData *m_moduleData;
-	Object *m_object;
-	unsigned char m_pad0C[0x10 - 0x0C];
-};
-
-class DieModuleInterface
-{
-public:
-	virtual void onDie( const DamageInfo *damageInfo ) = 0;
-};
-
-class DieModule : public BehaviorModule, public DieModuleInterface
-{
-protected:
-	Bool isDieApplicable( const DamageInfo *damageInfo ) const;
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class CrushDie : public DieModule
 {
 public:
+	CrushDie( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie( const DamageInfo *damageInfo );
+
+protected:
+	const CrushDieModuleData *getCrushDieModuleData() const { return (const CrushDieModuleData *)getModuleData(); }
 };
 
 //-------------------------------------------------------------------------------------------------

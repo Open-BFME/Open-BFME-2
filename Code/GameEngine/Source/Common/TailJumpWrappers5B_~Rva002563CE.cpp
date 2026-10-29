@@ -230,11 +230,7 @@ public:
 };
 
 
-class DieModule
-{
-protected:
-	virtual ~DieModule();
-};
+#include "../../Include/GameLogic/Module/DieModule.h"
 
 class __declspec(novtable) RebuildHoleExposeDie : public DieModule
 {

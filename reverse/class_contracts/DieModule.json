@@ -1,0 +1,160 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "DieModule",
+ "evidence": {
+  "census": 26,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x4": {
+    "4": 1
+   },
+   "0x8": {
+    "4": 1
+   }
+  },
+  "retail_member_rows": 1,
+  "retail_vtables": {
+   "0x841e78": {
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 1,
+  "view_sizes": {
+   "1": 3,
+   "4": 2,
+   "8": 1,
+   "12": 2,
+   "20": 16,
+   "32": 1
+  },
+  "views": 25,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_DieModule.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 22,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_moduleData",
+   "name_by": "majority",
+   "offset": 4,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "ModuleData*",
+   "views": 18,
+   "witness": null
+  },
+  {
+   "decided_by": "bytes",
+   "kind": "P",
+   "name": "m_object",
+   "name_by": "majority",
+   "offset": 8,
+   "retail_widths": {
+    "4": 1
+   },
+   "size": 4,
+   "type": "Object*",
+   "views": 16,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 12,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 14,
+   "witness": null
+  },
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 16,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 17,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [
+  {
+   "offset": 20,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 28,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Die/DamageFilteredCreateObjectDieCtor.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [],
+ "size": 20,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "f1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "f2()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "f3()"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "getKey()"
+  }
+ }
+}

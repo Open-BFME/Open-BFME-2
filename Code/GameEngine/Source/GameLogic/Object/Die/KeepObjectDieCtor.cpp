@@ -103,32 +103,13 @@ public:
 #include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
 class DamageInfo;
 
-class DieModuleInterface
-{
-public:
-	virtual void onDie(const DamageInfo *damageInfo) = 0;
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModule : public ObjectModule,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-public:
-	DieModule(Thing *thing, const ModuleData *moduleData);
-protected:
-	virtual ~DieModule();
-public:
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/KeepObjectDie.h
 class KeepObjectDie : public DieModule

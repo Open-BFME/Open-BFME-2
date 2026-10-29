@@ -33,7 +33,7 @@ class Object {public:
  char pad00[0x38];Coord3D pos;char pad44[0x324-0x44];volatile float constructionCost;
 };
 struct RefundDieModuleData {char pad00[0x38];const UpgradeTemplate *upgradeRequired;volatile float refundPercent;ObjectFilter buildingRequired;};
-class DieModule{friend class RefundDie;protected:bool isDieApplicable(const DamageInfo*)const;};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 class Rva00484FE2Text {public:
 virtual void slot0();
 virtual void slot1();
@@ -163,14 +163,22 @@ virtual void slot103();
 virtual void addFloatingText(const UnicodeString&,const Coord3D*,unsigned);
 };
 class InGameUI;extern InGameUI*TheInGameUI;
-class RefundDie{public:virtual void onDie(const DamageInfo*);};
+class RefundDie : public DieModule
+{
+public:
+	RefundDie( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie( const DamageInfo *damageInfo );
+
+protected:
+	const RefundDieModuleData *getRefundDieModuleData() const { return (const RefundDieModuleData *)getModuleData(); }
+};
 void RefundDie::onDie(const DamageInfo *damage)
 {
- char *secondary=(char*)this;
- if(!((const DieModule*)(secondary-0x10))->isDieApplicable(damage))return;
- Object *obj=*(Object**)(secondary-8);
+ if(!isDieApplicable(damage))return;
+ Object *obj=getObject();
  if(!obj||obj->testStatus(status2)||obj->testStatus(status19))return;
- const RefundDieModuleData *data=*(const RefundDieModuleData**)(secondary-0xC);
+ const RefundDieModuleData *data=getRefundDieModuleData();
  if(!data)return;
  Player *player=obj->getControllingPlayer();
  if(!player)return;

@@ -75,60 +75,11 @@ class SpawnBehaviorInterface;
 
 class CountermeasuresBehaviorInterface;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody() = 0;
-	virtual CollideModuleInterface *getCollide() = 0;
-	virtual ContainModuleInterface *getContain() = 0;
-	virtual CreateModuleInterface *getCreate() = 0;
-	virtual DamageModuleInterface *getDamage() = 0;
-	virtual DestroyModuleInterface *getDestroy() = 0;
-	virtual DieModuleInterface *getDie() = 0;
-	virtual SpecialPowerModuleInterface *getSpecialPower() = 0;
-	virtual UpdateModuleInterface *getUpdate() = 0;
-	virtual UpgradeModuleInterface *getUpgrade() = 0;
-	virtual ParkingPlaceBehaviorInterface *getParkingPlaceBehaviorInterface() = 0;
-	virtual RebuildHoleBehaviorInterface *getRebuildHoleBehaviorInterface() = 0;
-	virtual BridgeBehaviorInterface *getBridgeBehaviorInterface() = 0;
-	virtual BridgeTowerBehaviorInterface *getBridgeTowerBehaviorInterface() = 0;
-	virtual BridgeScaffoldBehaviorInterface *getBridgeScaffoldBehaviorInterface() = 0;
-	virtual OverchargeBehaviorInterface *getOverchargeBehaviorInterface() = 0;
-	virtual TransportPassengerInterface *getTransportPassengerInterface() = 0;
-	virtual CaveInterface *getCaveInterface() = 0;
-	virtual LandMineInterface *getLandMineInterface() = 0;
-	virtual DieModuleInterface *getEjectPilotDieInterface() = 0;
-	virtual ProjectileUpdateInterface *getProjectileUpdateInterface() = 0;
-	virtual AIUpdateInterface *getAIUpdateInterface() = 0;
-	virtual ExitInterface *getUpdateExitInterface() = 0;
-	virtual DockUpdateInterface *getDockUpdateInterface() = 0;
-	virtual RailedTransportDockUpdateInterface *getRailedTransportDockUpdateInterface() = 0;
-	virtual SlowDeathBehaviorInterface *getSlowDeathBehaviorInterface() = 0;
-	virtual SpecialPowerUpdateInterface *getSpecialPowerUpdateInterface() = 0;
-	virtual SlavedUpdateInterface *getSlavedUpdateInterface() = 0;
-	virtual ProductionUpdateInterface *getProductionUpdateInterface() = 0;
-	virtual HordeUpdateInterface *getHordeUpdateInterface() = 0;
-	virtual PowerPlantUpdateInterface *getPowerPlantUpdateInterface() = 0;
-	virtual SpawnBehaviorInterface *getSpawnBehaviorInterface() = 0;
-	virtual CountermeasuresBehaviorInterface *getCountermeasuresBehaviorInterface() = 0;
-	virtual const CountermeasuresBehaviorInterface *getCountermeasuresBehaviorInterface() const = 0;
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModuleInterface
-{
-public:
-	virtual void dieModuleInterfaceAnchor() = 0;
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModule : public ObjectModule,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-public:
-	DieModule( Thing *thing, const ModuleData *moduleData );
-};
 
 // ?getModuleNameKey@UpgradeDie@@UBE?AW4NameKeyType@@XZ @0x486b75
 // (69B): cached pool-name key for UpgradeDie. The class

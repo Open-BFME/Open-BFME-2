@@ -8,27 +8,11 @@ class ModuleData;
 #include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModuleInterface
-{
-public:
-	virtual void dieModuleInterfaceAnchor() = 0;
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModule : public ObjectModule,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-public:
-	DieModule( Thing *thing, const ModuleData *moduleData );
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/FXListDie.h
 class FXListDie : public DieModule

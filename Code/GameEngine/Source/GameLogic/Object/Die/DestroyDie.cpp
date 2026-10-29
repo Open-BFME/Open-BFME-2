@@ -19,29 +19,11 @@ extern GameLogic *TheGameLogic;
 #include "../../../../Include/Common/ObjectModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/BehaviorModule.h
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModuleInterface
-{
-public:
-	virtual void onDie( const DamageInfo *damageInfo ) = 0;
-};
 
 // upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/Module/DieModule.h
-class DieModule : public ObjectModule,
-	public BehaviorModuleInterface,
-	public DieModuleInterface
-{
-public:
-	DieModule( Thing *thing, const ModuleData *moduleData );
-protected:
-	Bool isDieApplicable( const DamageInfo *damageInfo ) const;
-};
 
 // ?getModuleNameKey@DestroyDie@@UBE?AW4NameKeyType@@XZ @0x4864C9
 // (69B): cached pool-name key for DestroyDie. The class

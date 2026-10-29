@@ -20,11 +20,7 @@ extern "C" const void *const __identifier("??_7Rva004C227A@@6BDieModule@@@")[]; 
 class Thing;
 class ModuleData;
 
-class DieModule
-{
-public:
-	DieModule(Thing *thing, const ModuleData *moduleData);
-};
+#include "../../../../Include/GameLogic/Module/DieModule.h"
 
 class HeroDie : public DieModule
 {
