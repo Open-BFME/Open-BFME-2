@@ -79,12 +79,16 @@ public:
 	const ModuleData *getNthData(Int i) const;
 };
 
-class ThingTemplate {
+class AsciiString;
+class ThingTemplate
+{
 public:
-	const ModuleInfo &getModuleInfo2F0(void) const { return m_moduleInfo2F0; }
-private:
-	unsigned char m_pad000[0x2f0];
-	ModuleInfo m_moduleInfo2F0;
+	const ModuleInfo &getModuleInfo2F0(void) const { return m_drawModuleInfo; }
+	char m_pad00[0x64];
+	AsciiString m_name; // +0x64
+	char m_pad68[0x288];
+	ModuleInfo m_drawModuleInfo; // +0x2F0
+	char m_pad2F1[0x3];
 };
 
 // TheThingFactory->findTemplate, rowed under its address name.
@@ -96,8 +100,17 @@ class ThingFactory;
 extern ThingFactory *TheThingFactory;
 
 class MeshClass;
-class RenderObjClass {
+class Matrix3D;
+class AABoxClass;
+class RenderObjClass
+{
 public:
+	void Release_Ref(void)
+	{
+		--m_refCount;
+		if (m_refCount == 0)
+			Delete_This();
+	}
 	virtual void Delete_This(void) = 0;
 	virtual void renderObjSlot04(void) = 0;
 	virtual void renderObjSlot08(void) = 0;
@@ -105,17 +118,78 @@ public:
 	virtual void renderObjSlot10(void) = 0;
 	// Retail slot +0x14 returns the mesh view; its original name is unknown.
 	virtual MeshClass *renderObjSlot14(void) const = 0;
-
-	void Release_Ref(void)
-	{
-		--m_refCount;
-		if (m_refCount == 0)
-			Delete_This();
-	}
-
-	Int m_refCount;
+	virtual void renderObjSlot18(void) = 0;
+	virtual void renderObjSlot1C(void) = 0;
+	virtual void renderObjSlot20(void) = 0;
+	virtual void renderObjSlot24(void) = 0;
+	virtual void renderObjSlot28(void) = 0;
+	virtual void renderObjSlot2C(void) = 0;
+	virtual void renderObjSlot30(void) = 0;
+	virtual void renderObjSlot34(void) = 0;
+	virtual void renderObjSlot38(void) = 0;
+	virtual void renderObjSlot3C(void) = 0;
+	virtual void renderObjSlot40(void) = 0;
+	virtual void renderObjSlot44(void) = 0;
+	virtual void renderObjSlot48(void) = 0;
+	virtual void renderObjSlot4C(void) = 0;
+	virtual void Validate_Transform(void) const = 0;
+	virtual void renderObjSlot54(void) = 0;
+	virtual void renderObjSlot58(void) = 0;
+	virtual void renderObjSlot5C(void) = 0;
+	virtual void renderObjSlot60(void) = 0;
+	virtual void renderObjSlot64(void) = 0;
+	virtual void renderObjSlot68(void) = 0;
+	virtual void renderObjSlot6C(void) = 0;
+	virtual void renderObjSlot70(void) = 0;
+	virtual void renderObjSlot74(void) = 0;
+	virtual RenderObjClass *Get_Sub_Object(Int index) const = 0;
+	virtual void renderObjSlot78(void) = 0;
+	virtual void renderObjSlot7C(void) = 0;
+	virtual void renderObjSlot80(void) = 0;
+	virtual void renderObjSlot84(void) = 0;
+	virtual void renderObjSlot88(void) = 0;
+	virtual void renderObjSlot8C(void) = 0;
+	virtual void renderObjSlot90(void) = 0;
+	virtual void renderObjSlot94(void) = 0;
+	virtual void renderObjSlot98(void) = 0;
+	virtual void renderObjSlot9C(void) = 0;
+	virtual void renderObjSlotA0(void) = 0;
+	virtual void renderObjSlotA4(void) = 0;
+	virtual void renderObjSlotA8(void) = 0;
+	virtual void renderObjSlotAC(void) = 0;
+	virtual void renderObjSlotB0(void) = 0;
+	virtual void renderObjSlotB4(void) = 0;
+	virtual void renderObjSlotB8(void) = 0;
+	virtual void renderObjSlotBC(void) = 0;
+	virtual void renderObjSlotC0(void) = 0;
+	virtual void renderObjSlotC4(void) = 0;
+	virtual Matrix3D Get_Bone_Transform(Int index) = 0;
+	virtual void renderObjSlotCC(void) = 0;
+	virtual void renderObjSlotD0(void) = 0;
+	virtual void renderObjSlotD4(void) = 0;
+	virtual void renderObjSlotD8(void) = 0;
+	virtual void renderObjSlotDC(void) = 0;
+	virtual void renderObjSlotE0(void) = 0;
+	virtual void renderObjSlotE4(void) = 0;
+	virtual void renderObjSlotE8(void) = 0;
+	virtual void renderObjSlotEC(void) = 0;
+	virtual void renderObjSlotF0(void) = 0;
+	virtual void renderObjSlotF4(void) = 0;
+	virtual void renderObjSlotF8(void) = 0;
+	virtual void renderObjSlotFC(void) = 0;
+	virtual void renderObjSlot100(void) = 0;
+	virtual void renderObjSlot104(void) = 0;
+	virtual void renderObjSlot108(void) = 0;
+	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const = 0;
+	Int m_refCount; // +0x04
 };
-class MeshClass : public RenderObjClass {
+struct Rva00735E10Model;
+class MeshClass : public RenderObjClass
+{
+public:
+	Rva00735E10Model *Peek_Model(void) const { return m_model; }
+	unsigned char m_meshGap[0xC4 - 8]; // +0x08
+	Rva00735E10Model *m_model; // +0xC4
 };
 extern RenderObjClass *Create_Render_Obj(const char *name);
 

@@ -55,6 +55,12 @@ struct Rva00735E10Model
 class RenderObjClass
 {
 public:
+	void Release_Ref(void)
+	{
+		--m_refCount;
+		if (m_refCount == 0)
+			Delete_This();
+	}
 	virtual void Delete_This(void) = 0;
 	virtual void renderObjSlot04(void) = 0;
 	virtual void renderObjSlot08(void) = 0;
@@ -125,24 +131,15 @@ public:
 	virtual void renderObjSlot104(void) = 0;
 	virtual void renderObjSlot108(void) = 0;
 	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const = 0;
-
-	void Release_Ref(void)
-	{
-		--m_refCount;
-		if (m_refCount == 0)
-			Delete_This();
-	}
-
-	Int m_refCount;
+	Int m_refCount; // +0x04
 };
 
 class MeshClass : public RenderObjClass
 {
 public:
 	Rva00735E10Model *Peek_Model(void) const { return m_model; }
-
-	unsigned char m_meshGap[0xC4 - 8];
-	Rva00735E10Model *m_model;
+	unsigned char m_meshGap[0xC4 - 8]; // +0x08
+	Rva00735E10Model *m_model; // +0xC4
 };
 
 extern RenderObjClass *Create_Render_Obj(const char *name);

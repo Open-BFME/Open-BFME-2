@@ -526,12 +526,22 @@ private:
 	Rva000EBFD1Model *m_model;
 };
 
+class FXList;
 struct W3DTreeDrawModuleData
 {
-	unsigned char m_pad00[0x54];
-	bool m_noSway;
-	unsigned char m_pad55[3];
-	int m_fadeRate;
+public:
+	char m_pad00[0x24];
+	FXList *m_bounceFX; // +0x24 +0x24
+	char m_pad28[0xC];
+	float m_bounceVelocityPercent; // +0x34 +0x34
+	float m_minimumToppleSpeed; // +0x38 +0x38
+	unsigned char m_killWhenToppled; // +0x3C +0x3C
+	char m_pad3D[0x3];
+	unsigned int m_sinkFrames; // +0x40 +0x40
+	char m_pad44[0x10];
+	bool m_noSway; // +0x54
+	char m_pad55[0x3];
+	int m_fadeRate; // +0x58
 };
 
 template <class T> struct PtrVector
@@ -600,10 +610,12 @@ public:
 class ThingTemplate
 {
 public:
-	unsigned char m_pad00[0x64];
-	AsciiString m_name;
-	unsigned char m_pad68[0x2F0 - 0x68];
-	ModuleInfo m_drawModuleInfo;
+	const ModuleInfo &getModuleInfo2F0(void) const { return m_drawModuleInfo; }
+	char m_pad00[0x64];
+	AsciiString m_name; // +0x64
+	char m_pad68[0x288];
+	ModuleInfo m_drawModuleInfo; // +0x2F0
+	char m_pad2F1[0x3];
 };
 
 class ThingFactory
@@ -665,8 +677,7 @@ typedef bool Bool;
 class FXList
 {
 public:
-    static void doFXPos(const FXList *list, const Coord3D *position, const Matrix3D *transform,
-        Real speed, const Coord3D *direction);
+	static void doFXPos(const FXList *list, const Coord3D *position, const Matrix3D *transform, float speed, const Coord3D *direction);
 };
 
 class TerrainLogic;

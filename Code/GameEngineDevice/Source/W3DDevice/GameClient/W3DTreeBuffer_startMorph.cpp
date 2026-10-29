@@ -16,8 +16,7 @@ typedef float Real;
 class FXList
 {
 public:
-	static void doFXPos(const FXList *list, const Coord3D *position, const Matrix3D *matrix, Real speed,
-		const Coord3D *direction);
+	static void doFXPos(const FXList *list, const Coord3D *position, const Matrix3D *transform, float speed, const Coord3D *direction);
 };
 
 class Rva0027F2D6
