@@ -71,6 +71,36 @@ list<Drawable *>::_M_create_node(Drawable *const &value)
 // 0x0023DA79) that hands the mask to 0x00293D3B instead of 0x0028CDEB.
 class Player;
 #include "../../../Common/GameLogicObjectLookupView.h"
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
 #define VSLOTS10(P) \
 	virtual void P##0(); virtual void P##1(); virtual void P##2(); \
 	virtual void P##3(); virtual void P##4(); virtual void P##5(); \
@@ -189,21 +219,62 @@ struct Rva2225E0Filter
 	bool accepts(Object *value, Player *player);
 };
 
+class Rva002390CB
+{
+public:
+	Rva002390CB(const Rva002390CB &other);
+	~Rva002390CB();
+private:
+	void *m_data;
+};
+
 struct BloodthirstyUpdateModuleData
 {
 	unsigned char m_pad00[0x08];
 	Rva2225E0Filter m_filter; // +0x08
 	unsigned char m_pad09[0x0C - 0x09];
 	float m_experienceModifier; // +0x0C
+	Rva002390CB m_initiateVoice; // +0x10
 };
 
-struct B00 { virtual void f00(); BloodthirstyUpdateModuleData *m_moduleData; Object *m_object; };
+// The module base chain the matched dtor 0x0044DFE0 restores: vftables at
+// +0x00/+0x0C/+0x10 and the BloodthirstyUpdateIface one at +0x20.
+class BehaviorModuleBase
+{
+public:
+	virtual void behaviorModuleBaseAnchor();
+	BloodthirstyUpdateModuleData *m_moduleData;
+	Object *m_object;
+};
 
-struct B0C { virtual void f0C(); };
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
 
-struct B10 { virtual UpdateSleepTime update() = 0; unsigned char m_pad[12]; };
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+};
 
-class Iface20
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class BloodthirstyUpdateIface
 {
 public:
 	virtual void sacrificeHorde(Object *victim, CommandSourceType source) = 0;
@@ -215,6 +286,7 @@ public:
 	virtual void s06();
 	virtual void s07();
 	virtual void addSacrifice(Object *victim) = 0;
+	virtual Rva002390CB rva0044E2F7() const = 0;
 };
 
 enum NameKeyType
@@ -257,9 +329,10 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class BloodthirstyUpdate : public B00, public B0C, public B10, public Iface20
+class BloodthirstyUpdate : public UpdateModule, public BloodthirstyUpdateIface
 {
 public:
+	virtual Rva002390CB rva0044E2F7() const;
 	virtual void sacrificeHorde(Object *victim, CommandSourceType source);
 	virtual bool rva0044E12F(Object *obj);
 	virtual bool isValidSacrifice(Object *obj);
@@ -269,9 +342,12 @@ public:
 private:
 	ObjectID m_bestTargetID; // +0x24
 	ObjectID m_28; // +0x28
-	int m_kills; // +0x2C
+	unsigned int m_kills; // +0x2C
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual ~BloodthirstyUpdate();
+	virtual void xfer(Xfer *xfer);
 };
 
 // tu-skeleton: 0x0044DFE0 32B ??1BloodthirstyUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BloodthirstyUpdateDtor.cpp (not merged yet)

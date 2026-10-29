@@ -9,8 +9,8 @@
 // 0x003060B2 plus uint at +0x2C via Xfer slot 0x78. Layout is the rowed
 // 0x30-byte class (UpdateModule base 0x20 plus trailing vptr at +0x20 giving
 // +0x24 start plus two IDs plus frame); member names follow the BFME1
-// BloodthirstyUpdate donor (m_bestTargetID at +0x24, m_nextScanFrames at
-// +0x2C) with a neutral m_28 for the second ID where the donor uint name
+// BloodthirstyUpdate donor (m_bestTargetID at +0x24; the seed TU names
+// the +0x2C sacrifice counter m_kills) with a neutral m_28 for the second ID where the donor uint name
 // does not fit the retail ObjectID transfer. Recipe is the
 // EvaAnnounceClientCreateXfer Version-first slot-3 pattern.
 
@@ -86,7 +86,7 @@ protected:
 private:
 	ObjectID m_bestTargetID;
 	ObjectID m_28;
-	unsigned int m_nextScanFrames;
+	unsigned int m_kills;
 };
 
 void BloodthirstyUpdate::xfer(Xfer *xfer)
@@ -96,5 +96,5 @@ void BloodthirstyUpdate::xfer(Xfer *xfer)
 	UpdateModule::xfer(xfer);
 	XferObjectID(xfer, &m_bestTargetID);
 	XferObjectID(xfer, &m_28);
-	*xfer == m_nextScanFrames;
+	*xfer == m_kills;
 }
