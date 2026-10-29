@@ -49,3 +49,13 @@ referenced-name set; on the census order this reproduces the census's multi-copy
 exactly) finds 9 census-linked units, 18,739 B, whose own copy newly loses: a name
 without a retail address whose new first copy differs from theirs, or an unproven
 copy that is now first and differs from the proven one. `rt5_losers.txt` lists them.
+
+## Current-ledger preview (`rt5_lc.py`, halilkkaya-lk7, 2026-10-29)
+
+`rt5_lc.py` runs `tools/link_check.py` on the census index permuted into retail-truth-5
+order over the current ledger, so the checked units' current objects are judged in the
+next census's order. At `6d854aae1c` plus the FX and deque repairs: of the 315 existing
+census-unlinked units, 133 link (289,358 B) and 182 (48,307 B) do not, mostly on
+unresolved names and private class views; FXParticleSystemModules.cpp, both deque<BfmeE12>
+units and AIPlayerTeamBuild.cpp (with Player.cpp's current object) link; the class-view
+cases `??_7ThingTemplate` and the `LivingWorldLogic` vtables remain.

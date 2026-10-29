@@ -317,7 +317,19 @@ only because the providers were renamed after the census: W3DProjectedShadowDeca
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy
-suppression. MapUtil.cpp, AIUpdate.cpp, ThingFactory.cpp, Player.cpp and SquadCtor.cpp
+suppression.
+`??_7ThingTemplate` trial (halilkkaya-lk7, 2026-10-29; re_attempts.log 0x0033DDA1): retail's
+vtable at RVA 0x00810C4C has one slot (0x0073E90B, the deleting destructor 0x0033E90B; the
+string "PlayerUpgrade" follows), so the one-slot view of ThingTemplateConstructor.cpp and
+Rva0033DDA1Dtor.cpp is retail's and ThingTemplate.cpp's two-slot copy (protected `??_E` and
+private `getObjectMemoryPool` from Common/ThingTemplate.h's memory-pool glue) is not.
+ThingTemplate.cpp emits that vtable only through its Zero Hour `~ThingTemplate` copy
+(present-unmatched, empty body). Deleting the copy drops the vtable, but also three of the
+unit's rows that only the destructor instantiates (0x002CF51B `~Nugget`, 0x0033CA81
+`~vector<ProductionPrerequisite>`, the WeaponTemplateSet map `_Rb_tree` destructor):
+20/23, reverted. Next: move the 0x0033DDA1 destructor row into ThingTemplate.cpp (its
+addresses sit among that unit's rows) with the class's destructor public and no virtual
+`getObjectMemoryPool`, or keep those three rows alive without the Zero Hour copy. MapUtil.cpp, AIUpdate.cpp, ThingFactory.cpp, Player.cpp and SquadCtor.cpp
 also gain rt5 losers but are blocked by other causes anyway.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
