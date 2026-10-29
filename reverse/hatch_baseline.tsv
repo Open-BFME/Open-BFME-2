@@ -3607,10 +3607,10 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BFME2FallbackTex
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/BfmeResourceEnumerator.cpp	??0Q1ReceiverTreeStorage@@QAE@ABV?$set@UGen_t_009ee8e0_k4@@U?$less@UGen_t_009ee8e0_k4@@@_STL@@V?$allocator@UGen_t_009ee8e0_k4@@@3@@_STL@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/BFMERopeDrawableGetPosition.cpp	_D3DXVec3CatmullRom@24	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawParticleCleanup.cpp	?findParticleSystemByID@ParticleSystemManager@@AAE?AUBfmeW3DParticleHandle@@W4ParticleSystemID@@@Z	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawConstructor.cpp	?a@W3DTankDraw@@UAEXXZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawConstructor.cpp	?b@W3DTankDraw@@UAEXXZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDestructor.cpp	??1Rva000C79C9@@UAE@XZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDrawDestructor.cpp	?f2@W3DTankDraw_B2@@UAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	??1Rva000C79C9@@UAE@XZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	?a@W3DTankDraw@@UAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	?b@W3DTankDraw@@UAEXXZ	1
+alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankDraw.cpp	?f2@W3DTankDraw_B2@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTankTruckDraw.cpp	??0TreadObjectInfo@W3DTankDraw@@QAE@XZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDtor.cpp	?slot8C@DrawInterface8C@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DTruckDrawDtor.cpp	?slotC@DrawInterfaceC@@UAEXXZ	1
