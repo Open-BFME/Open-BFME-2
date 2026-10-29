@@ -1,9 +1,9 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /DNDEBUG /D_STLP_NO_EXCEPTIONS /DWIN32 /D_WINDOWS
-// stlport
+// stlport46
 
 #include <rope>
 // bfme link decl-only begin
-namespace _STL { template <> void allocator<char>::deallocate(char *, unsigned int) const; }
+namespace _STL { template <> void allocator<char>::deallocate(char *, unsigned int); }
 namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, size_t); }
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
 namespace _STL { template <> char *fill_n<unsigned int>(char *, unsigned int, const char &); }

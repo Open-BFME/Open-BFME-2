@@ -1,5 +1,5 @@
 // cl: /Od /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // The same nine destructors as stlport_stdexcept_dtors.cpp, at /Od, because
 // retail holds the two halves at different optimisation settings. Each ??1

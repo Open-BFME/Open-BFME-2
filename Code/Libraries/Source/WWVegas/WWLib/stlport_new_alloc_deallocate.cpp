@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // _STL::__new_alloc::deallocate, retail 0x000237B0 (12 bytes): the static
 // release every STLport allocator ends in. Every container unit emits this

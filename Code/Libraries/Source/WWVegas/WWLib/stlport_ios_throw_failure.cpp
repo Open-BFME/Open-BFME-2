@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 ios_base::_M_throw_failure. The retail library is built
 // without exceptions, so the failure is reported rather than thrown: one fputs

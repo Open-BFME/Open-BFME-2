@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /Ob0
-// stlport
+// stlport46
 //
 // The same instantiation as stlport_wide_filebuf.cpp built without inline
 // expansion. Retail's underflow is a four-instruction forwarder - push this,

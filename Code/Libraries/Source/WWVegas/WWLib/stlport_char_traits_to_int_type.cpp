@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // STLport 4.5.3: retain the narrow traits conversion from char_traits.h.
 // Target 0x00017B70 is the complete CC-delimited 8-byte body between the
 // narrow basic_ios helpers. The unsigned conversion distinguishes it from

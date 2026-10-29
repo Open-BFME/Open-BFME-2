@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 // ?Rva0055C0E1Write@@YAAAV?$basic_ostream@DV?$char_traits@D@_STL@@@_STL@@AAV12@ABURGBColor@@@Z at 0x0055C0E1 size 170
 // Evidence: unlock lane; writes "R:"/"G:"/"B:" with int-scaled color components via
 // _M_put_nowiden/_M_put_num/_M_put_char; caller 0x0055C263 writeINI; RGBColor layout red/green/blue floats.

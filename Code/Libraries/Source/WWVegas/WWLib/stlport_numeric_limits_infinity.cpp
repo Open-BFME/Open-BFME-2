@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Standalone COMDAT copies of STLport's inline numeric_limits<double> and
 // numeric_limits<long double>::infinity(), retail 0x0001A620 and 0x0001A630

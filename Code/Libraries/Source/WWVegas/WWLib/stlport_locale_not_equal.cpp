@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 locale::operator!=, 18 bytes: it forwards to the equality at
 // 0x0000BB10 and inverts the answer with the compiler's usual neg/sbb/inc.
