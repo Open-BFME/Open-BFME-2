@@ -14,7 +14,39 @@
 #include "../../../Common/GameLogicObjectLookupView.h"
 class Drawable;
 class Object;
-class GameWindow { public: int winHide(bool); unsigned int winClearStatus(unsigned int); };
+class GadgetCreateView;
+class Image;
+class GameWindow;
+class WinInstanceData;
+typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
+class GameWindow
+{
+public:
+	int winGetPosition(int *x, int *y);
+	int winGetScreenPosition(int *x, int *y);
+	void snapshotCreateView(GadgetCreateView *view, bool keepInstance);
+	unsigned int winGetStatus();
+	void winSetUserData(void *userData);
+	unsigned int winSetStatus(unsigned int status);
+	unsigned int winClearStatus(unsigned int status);
+	int winSetSize(int width, int height);
+	int winSetPosition(int x, int y);
+	int winSetTooltipFunc(GameWinTooltipFunc tooltip);
+	int winEnable(bool enable);
+	int winHide(bool hide);
+	int winSetEnabledImage(int index, const Image *image);
+	void *winGetUserData();
+	bool winIsHidden();
+	virtual void unknown00();
+	virtual void unknown01();
+	virtual void unknown02();
+	virtual void unknown03();
+	virtual void unknown04();
+	virtual void unknown05();
+	virtual void unknown06();
+	virtual void unknown07();
+	virtual bool isPushButton() const;
+};
 class GameWindowManager;
 class InGameUI;
 class Rva00E01E28Owner;
@@ -239,7 +271,6 @@ enum CommandAvailability
 };
 class CommandButton;
 class AsciiString;
-class Image;
 class Player;
 class CommandSet;
 class INI;

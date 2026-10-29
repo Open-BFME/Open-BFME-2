@@ -687,31 +687,30 @@ void GadgetButtonSetBorder(GameWindow *g, unsigned int color, Bool drawBorder = 
 class GameWindow
 {
 public:
-	Int winGetPosition(Int *x, Int *y);
-public:
-	Int winGetScreenPosition(Int *x, Int *y);
-public:
+	int winGetPosition(int *x, int *y);
+	int winGetScreenPosition(int *x, int *y);
 	void snapshotCreateView(GadgetCreateView *view, bool keepInstance);
-public:
-	UnsignedInt winGetStatus();
-public:
+	unsigned int winGetStatus();
 	void winSetUserData(void *userData);
-public:
-	UnsignedInt winSetStatus(UnsignedInt status);
-public:
-	UnsignedInt winClearStatus(UnsignedInt status);
-public:
-	Int winSetSize(Int width, Int height);
-public:
-	Int winSetPosition(Int x, Int y);
-public:
-	Int winSetTooltipFunc(GameWinTooltipFunc tooltip);
-public:
+	unsigned int winSetStatus(unsigned int status);
+	unsigned int winClearStatus(unsigned int status);
+	int winSetSize(int width, int height);
+	int winSetPosition(int x, int y);
+	int winSetTooltipFunc(GameWinTooltipFunc tooltip);
 	int winEnable(bool enable);
-public:
-	int winHide(Bool hide);
-public:
+	int winHide(bool hide);
 	int winSetEnabledImage(int index, const Image *image);
+	void *winGetUserData();
+	bool winIsHidden();
+	virtual void unknown00();
+	virtual void unknown01();
+	virtual void unknown02();
+	virtual void unknown03();
+	virtual void unknown04();
+	virtual void unknown05();
+	virtual void unknown06();
+	virtual void unknown07();
+	virtual bool isPushButton() const;
 };
 
 enum CommandButtonMappedBorderType

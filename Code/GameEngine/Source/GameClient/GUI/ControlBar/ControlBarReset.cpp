@@ -30,10 +30,38 @@ extern "C" void _ReadWriteBarrier(void);
 // rva003A37DC (map pair erase) and the transition remove at 0x001DC42C
 // are honest address-derived pins.
 
+class GadgetCreateView;
+class Image;
+class GameWindow;
+class WinInstanceData;
+typedef void (*GameWinTooltipFunc)(GameWindow *, WinInstanceData *, unsigned int);
 class GameWindow
 {
 public:
+	int winGetPosition(int *x, int *y);
+	int winGetScreenPosition(int *x, int *y);
+	void snapshotCreateView(GadgetCreateView *view, bool keepInstance);
+	unsigned int winGetStatus();
+	void winSetUserData(void *userData);
+	unsigned int winSetStatus(unsigned int status);
+	unsigned int winClearStatus(unsigned int status);
+	int winSetSize(int width, int height);
+	int winSetPosition(int x, int y);
+	int winSetTooltipFunc(GameWinTooltipFunc tooltip);
 	int winEnable(bool enable);
+	int winHide(bool hide);
+	int winSetEnabledImage(int index, const Image *image);
+	void *winGetUserData();
+	bool winIsHidden();
+	virtual void unknown00();
+	virtual void unknown01();
+	virtual void unknown02();
+	virtual void unknown03();
+	virtual void unknown04();
+	virtual void unknown05();
+	virtual void unknown06();
+	virtual void unknown07();
+	virtual bool isPushButton() const;
 };
 
 #include "ControlBarMemberTypes.h"
@@ -186,7 +214,6 @@ enum CommandAvailability
 	COMMAND_DONE = 8
 };
 class CommandButton;
-class Image;
 class Player;
 class CommandSet;
 class INI;
