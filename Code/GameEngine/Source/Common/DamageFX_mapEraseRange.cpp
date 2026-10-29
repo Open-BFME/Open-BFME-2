@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Retail 0x00056B0A range erase and its typed STLport table provider.
 #define _STLP_NO_EXCEPTIONS 1
 #include <hash_map>

@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1
-// stlport
+// stlport46
 //
 // ?erase@?$vector@UBfmeStringRecord00204A30@@V?$allocator@UBfmeStringRecord00204A30@@@_STL@@@_STL@@QAEPAUBfmeStringRecord00204A30@@PAU3@0@Z @0x00207F40 51B
 // Evidence: leaf lane range erase over 20-byte BfmeStringRecord00204A30 via rowed __copy_ptrs 0x00204A13 plus rowed _Destroy 0x00206CBA; shape-identical to rowed FXBoneInfo range erase 0x00207F0D 51B; callers 0x0020989A 0x00209CEB; tag at ebp+0xb via __false_type prvalue; ret 8.

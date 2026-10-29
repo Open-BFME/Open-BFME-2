@@ -1,5 +1,5 @@
 // cl: /O1 /Ob2 /EHs /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 // Twin lead: stlport_rb_tree_hint_asciistring_pair.cpp, subscript 2031FB.
 // Target 4491CB..449258 builds two wide strings through 4480BE and releases
 // them through 448089. The returned mapped string is at node+14. Original

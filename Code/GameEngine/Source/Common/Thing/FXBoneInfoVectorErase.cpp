@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1
-// stlport
+// stlport46
 //
 // vector<FXBoneInfo>::erase(first, last), retail 0x00207F0D, 51 bytes,
 // plus the __copy_ptrs wrapper it calls, retail 0x00255CFA, 29 bytes.

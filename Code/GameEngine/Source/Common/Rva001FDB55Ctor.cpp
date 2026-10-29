@@ -1,5 +1,5 @@
 // cl: /DBFME_ASCII_DTOR_DECL /Ireference/shims/bfme2_ascii /O1 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ??0Rva001FDB55@@QAE@XZ @0x001FDB55 76B.
 // PlayerTemplateStore (pinned ??0PlayerTemplateStore at this address; WorldBuilder
 // names its slot 5 PlayerTemplateStore::attemptRefresh). Default ctor: base BFME2NativeNetwork via its inline ctor (which calls the

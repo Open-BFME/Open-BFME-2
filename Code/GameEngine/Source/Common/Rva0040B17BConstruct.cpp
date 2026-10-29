@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Retail 0x0040B17B (45B): STLport _Construct<Rva0040AF66,Rva0040AF66>.
 // Native vector overflow/push-back calls target this copy-construction body.
 // Element stride 0x68 is proven by those callers; source identity follows
