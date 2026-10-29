@@ -47894,13 +47894,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00586D8E,49,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
 0x00586DBF,29,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586D8E..0x00586DDC,Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp
 0x00586DDC,29,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586D8E..0x00586DF9,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00586DDC.cpp
-0x00586DF9,60,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,Code/Libraries/Source/WWVegas/WWLib/Rva00586DF9Clone.cpp
+0x00586DF9,60,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
 0x00586E35,28,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,Code/Libraries/Source/WWVegas/WWLib/FamilyDeletingDtors_Rva00586D8E.cpp
 0x00586E51,53,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,Code/Libraries/Source/WWVegas/WWLib/Rva00586D8EDtor.cpp
 0x00586E86,51,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x00586EB9,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
 0x00586EB9,258,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x00586FBB,Code/Libraries/Source/WWVegas/WWLib/Rva00586EB9FillInsert.cpp
 0x00586FBB,5,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x00586FC0,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
-0x00586FC0,108,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x0058702C,Code/Libraries/Source/WWVegas/WWLib/Rva00586FC0Resize.cpp
+0x00586FC0,108,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x0058702C,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
 0x0058702C,35,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x0058704F,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp
 0x0058704F,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x00587057,Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp
 0x00587057,30,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,proposed,C,C=0x00586E51..0x00587075,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp
@@ -86868,14 +86868,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079CB11,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,approved,P,P=0x005859C6@FuncInfo0x0095262C p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva585B16.cpp
 0x0079CB1B,8,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0079CB23,10,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
-0x0079CB2D,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586DF9@FuncInfo0x00952674 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586DF9Clone.cpp
-0x0079CB37,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586DF9@FuncInfo0x00952674 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586DF9Clone.cpp
+0x0079CB2D,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586DF9@FuncInfo0x00952674 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
+0x0079CB37,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586DF9@FuncInfo0x00952674 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
 0x0079CB41,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586E51@FuncInfo0x00952698 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586D8EDtor.cpp
 0x0079CB49,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586E51@FuncInfo0x00952698 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586D8EDtor.cpp
 0x0079CB53,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586EB9@FuncInfo0x009526BC p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586EB9FillInsert.cpp
 0x0079CB5B,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586EB9@FuncInfo0x009526BC p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586EB9FillInsert.cpp
-0x0079CB65,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586FC0@FuncInfo0x009526E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586FC0Resize.cpp
-0x0079CB6D,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586FC0@FuncInfo0x009526E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00586FC0Resize.cpp
+0x0079CB65,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586FC0@FuncInfo0x009526E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
+0x0079CB6D,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586FC0@FuncInfo0x009526E0 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
 0x0079CB77,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00587075@FuncInfo0x00952714 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00587075HordeTransfer.cpp
 0x0079CB7F,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00587075@FuncInfo0x00952714 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00587075HordeTransfer.cpp
 0x0079CB87,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00587075@FuncInfo0x00952714 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/Rva00587075HordeTransfer.cpp
