@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /GX-
+// cl: /DNDEBUG /MD /GX- /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ??0Rva003F1FB6@@QAE@XZ, retail 0x003F1FB6 26B
 // Default ctor: vector<BfmeE16> base at +0 via rowed _Vector_base
@@ -9,21 +10,12 @@
 // Honest address class.
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-public:
-	allocator() {}
-};
-
-template <class T, class A = allocator<T> > struct _Vector_base
-{
-	_Vector_base(const A &alloc);
-	void *_M_start;
-	void *_M_finish;
-	void *_M_end_of_storage;
-};
+// Bind the base construction to the rowed 0x00211E58 worker.
+template <> _Vector_base<BfmeE16, allocator<BfmeE16> >::_Vector_base(const allocator<BfmeE16> &alloc);
 }
 
 class Rva003F1FB6

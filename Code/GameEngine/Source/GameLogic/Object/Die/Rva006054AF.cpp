@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?rva006054AF@Rva006054AF@@QAEPAXPBD@Z, retail 0x006054AF (56B).
 // Unlock: missing callee of 3 free functions; deque push_back helper that
 // strdups via rowed new[] 0x0002FDE0 plus strlen 0x00629170 plus _mbscpy
@@ -8,15 +9,11 @@ extern "C" unsigned int __cdecl strlen(const char *str);
 extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
 void *__cdecl operator new[](unsigned int size);
 
+#include <deque>
+
 namespace _STL {
-template <class _Tp> class allocator
-{
-};
-template <class _Tp, class _Alloc> class deque
-{
-public:
-	void push_back(const _Tp &val);
-};
+// Bind the append to the rowed pointer-deque worker.
+template <> void deque<void *, allocator<void *> >::push_back(void *const &val);
 }
 
 class Rva006054AF
