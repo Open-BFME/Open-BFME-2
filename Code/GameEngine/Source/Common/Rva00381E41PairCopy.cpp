@@ -1,5 +1,5 @@
 // cl: /O1 /arch:SSE /G7 /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // STLport 4.5.3 pair copy (381E41, 21B), clone (3834AF, 30B), and node
 // creator (382BA1, 34B). Emit only these members. The old whole-map
 // instantiations also emitted unrelated, non-retail allocation helpers.

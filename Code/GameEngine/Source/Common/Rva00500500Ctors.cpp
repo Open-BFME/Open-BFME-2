@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ??0Rva00500500@@QAE@ABV0@@Z @ 0x00500500 (29B).
 // ??0Rva00500500@@QAE@AAPAXABVSpawnArmy@@@Z @ 0x00500770 (29B).

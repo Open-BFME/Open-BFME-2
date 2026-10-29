@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ?rva003B930D@LivingWorldCampaignManager@@QAEXPAV?$vector@JV?$allocator@J@_STL@@@_STL@@@Z @0x003B930D 92B.
 // Filter member vector at +0x14 by unsigned char Rva003B8B2A check, collecting

@@ -1,5 +1,5 @@
 // cl: /O1 /Ob1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 // STLport 4.5.3 find_if over the CreateAHeroData* vector with the by-name
 // functor rowed at 0x40A424 (an AsciiString compared case-insensitively
 // against the hero's name at +0x4C). Sibling of the two __find_if

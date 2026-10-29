@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ?insertSorted@Rva003EF8E1@@QAEXPAV?$vector@PAVRva002C589B@@V?$allocator@PAVRva002C589B@@@_STL@@@_STL@@PAVRva002C589B@@@Z
 // retail 0x003EF80F (80 bytes, ret 8). Owner unproven (address token): keeps the pointer vector ordered by
 // the float at +0x24, inserting before the first element that is greater and appending when none is. The
