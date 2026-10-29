@@ -20045,8 +20045,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A037FC,4,.data,global,?$S1@?1??getModuleNameKey@SlaveWatcherBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorPoolKey.cpp,owned,,1,4
 0x00A03800,4,.data,global,?ThePassiveAreaEffectBehaviorPoolKey@?1??getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp,owned,,1,2
 0x00A03804,4,.data,global,?$S1@?1??getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp,owned,,1,4
-0x00A03808,4,.data,global,?ThePillageModulePoolKey@?1??getModuleNameKey@PillageModule@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Module/PillageModulePoolKey.cpp,owned,,1,2
-0x00A0380C,4,.data,global,?$S1@?1??getModuleNameKey@PillageModule@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Module/PillageModulePoolKey.cpp,owned,,1,4
+0x00A03808,4,.data,global,?ThePillageModulePoolKey@?1??getModuleNameKey@PillageModule@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/PillageModule.cpp,owned,,1,2
+0x00A0380C,4,.data,global,?$S1@?1??getModuleNameKey@PillageModule@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/PillageModule.cpp,owned,,1,4
 0x00A03810,4,.data,global,?TheAnnounceBirthAndDeathBehaviorPoolKey@?1??getModuleNameKey@AnnounceBirthAndDeathBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/AnnounceBirthAndDeathBehavior.cpp,owned,,1,2
 0x00A03814,4,.data,global,?$S1@?1??getModuleNameKey@AnnounceBirthAndDeathBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/AnnounceBirthAndDeathBehavior.cpp,owned,,1,4
 0x00A03818,4,.data,global,?TheRefundDiePoolKey@?1??getModuleNameKey@RefundDie@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,owned,,1,2
