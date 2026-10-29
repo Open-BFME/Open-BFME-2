@@ -203,6 +203,15 @@ Rva004DD489 vector push_back (0x004DFCB0) and Rva002EE9B7 cleanup (0x002F0F02).
 The saved pre-edit object proves these named bindings unchanged. Their real
 container/owner reconciliation is separate from the cleared COMDAT conflict.
 
+Consolidation prerequisite at base `6825bf755c`: the selector seed now declares
+the existing nugget deactivation and module-name getter; the clear helper uses
+the same partial nugget view. The two revised objects preserve all 15 matched
+rows and their COMDAT fingerprints and external bindings. The supported merge
+trial accepts the clear and name-key satellites (18 rows together); the
+constructor, other derived interfaces and mixed files still need separate
+reconciliation. This does not close the consumer or census prerequisites above.
+[Consolidation evidence](../reverse/attempt_support/emotion-tracker-consolidation-20261029-codex.md).
+
 ### Strategic player status CRT header cleanup (2026-10-29)
 
 Scoped cleanup verified at base `8f350110e4`: replacing the two local CRT

@@ -42,6 +42,8 @@ struct EmotionLookupMap { unsigned char hashEqual[4]; EmotionLookupBuckets bucke
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1, UPDATE_SLEEP_FOREVER=0x3fffffff };
 
+enum NameKeyType { NK_UNKNOWN = 0 };
+
 class Player { public: char pad[0x54]; int index; };
 
 class ThingTemplate { public: char pad[0x10b]; unsigned char flags10b; };
@@ -67,6 +69,7 @@ struct Rva004DD018Arg;
 class EmotionNugget {
 public:
     bool CanBeActivatedFor(int,int,Rva004DD018Arg *);
+    void OnDeactivation();
     char pad[4]; EmotionEntry *entry;
 };
 
@@ -85,6 +88,7 @@ class EmotionUpdateInterface { public: virtual UpdateSleepTime update()=0; };
 class EmotionTrackerUpdate : public EmotionModuleBase, public EmotionBehaviorInterface, public EmotionUpdateInterface {
 public:
     virtual UpdateSleepTime update();
+    virtual NameKeyType getModuleNameKey() const;
     EmotionNugget *rva004B13D8();
     char pad14[0x24-0x14];
     bool flags[12];

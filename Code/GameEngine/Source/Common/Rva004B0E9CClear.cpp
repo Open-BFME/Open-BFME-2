@@ -11,12 +11,15 @@ public:
 	int m_field;
 };
 
+struct EmotionEntry;
+struct Rva004DD018Arg;
+
 class EmotionNugget
 {
 public:
-	char m_pad[4];
-	Rva004DD2C0Inner *m_inner;
-	void OnDeactivation();
+    bool CanBeActivatedFor(int,int,Rva004DD018Arg *);
+    void OnDeactivation();
+    char pad[4]; EmotionEntry *entry;
 };
 
 class Rva004B0E9C
@@ -32,7 +35,7 @@ private:
 void Rva004B0E9C::rva004B0E9C()
 {
 	EmotionNugget *slot = m_slot;
-	if (slot != 0 && slot->m_inner->m_field != -1)
+	if (slot != 0 && ((Rva004DD2C0Inner *)slot->entry)->m_field != -1)
 	{
 		slot->OnDeactivation();
 		m_slot = 0;
