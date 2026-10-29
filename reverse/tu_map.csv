@@ -58911,7 +58911,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006E8BF0,59,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,C,C=0x006E8BC0..0x006E8C30 noncontiguous,Code/GameEngine/Source/Common/SmallGaps/aptKeyCode.cpp
 0x006E8C30,41,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,C,C=0x006E8BC0..0x006E8C60 noncontiguous,Code/GameEngine/Source/Common/SmallGaps/aptKeyCode.cpp
 0x006E8C60,26,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,C,C=0x006E8BC0..0x006E8C80 noncontiguous,Code/Libraries/Source/EA/Apt/Rva008A5360PackedKeyField.cpp
-0x006E8C80,615,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptKey.cpp noncontiguous,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
+0x006E8C80,615,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptKey.cpp noncontiguous,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
 0x006E8EF0,51,code,,,-,,Code/GameEngine/Source/Common/BfmeConv1062.cpp
 0x006E8F30,11,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,proposed,K,K=Rva006E8F30,Code/GameEngine/Source/Common/Rva006D6470Derived.cpp
 0x006E8F40,131,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,proposed,C,C=0x006E8F30..0x006E8FD0,Code/GameEngine/Source/Common/Rva008B2BD0ReleaseGlobals.cpp
@@ -58937,7 +58937,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006EA690,100,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,U,N=Code/Libraries/Source/Apt/AptMouse.cpp,Code/Libraries/Source/Apt/AptMiscObjects.cpp
 0x006EA700,1064,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,U,N=Code/Libraries/Source/Apt/AptObject/AptLoadVars.cpp W=Code/Libraries/Source/Apt/AptMiscObjects.cpp,Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp
 0x006EAB30,398,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,U,N=Code/Libraries/Source/Apt/AptObject/AptError.cpp,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp
-0x006EACC0,1723,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptKey.cpp W=Code/Libraries/Source/Apt/AptMiscObjects.cpp noncontiguous,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
+0x006EACC0,1723,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,proposed,N,N=Code/Libraries/Source/Apt/AptObject/AptKey.cpp W=Code/Libraries/Source/Apt/AptMiscObjects.cpp noncontiguous,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
 0x006EB380,296,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,U,N=Code/Libraries/Source/Apt/AptMouse.cpp W=Code/Libraries/Source/Apt/AptMiscObjects.cpp,Code/Libraries/Source/Apt/AptMiscObjects.cpp
 0x006EB4B0,410,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,K,K=Rva006EB4B0,Code/Libraries/Source/Apt/AptCharacterByteCounts.cpp
 0x006EB650,78,code,Code/Libraries/Source/Apt/AptCharacter.cpp,proposed,C,C=0x006EB4B0..0x006EB6B0,Code/GameEngine/Source/Common/Rva006EB650.cpp
@@ -91835,13 +91835,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A9271,11,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E6430@FuncInfo0x00962C38 p-group,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp
 0x007A927C,11,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E6430@FuncInfo0x00962C38 p-group,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp
 0x007A9287,10,code,Code/Libraries/Source/Apt/AptAnimation.cpp,approved,P,P=0x006E6430@FuncInfo0x00962C38 p-group,Code/Libraries/Source/Apt/AptAnimationPoolDataCtor.cpp
-0x007A92A0,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92AF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92B7,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92BF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92C7,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92CF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
-0x007A92D7,10,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_Unresolved.cpp
+0x007A92A0,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92AF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92B7,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92BF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92C7,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92CF,8,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A92D7,10,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006E8C80@FuncInfo0x00962C84 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
 0x007A92F0,8,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006E9110@FuncInfo0x00962CC0,Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp
 0x007A92F8,8,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006E9110@FuncInfo0x00962CC0,Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp
 0x007A9300,8,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006E9110@FuncInfo0x00962CC0,Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp
@@ -91888,15 +91888,15 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A952A,10,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EA700@FuncInfo0x00962E70,Code/Libraries/Source/Apt/AptObject/AptLoadVarsLookup.cpp
 0x007A9540,15,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EAB30@FuncInfo0x00962E94,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp
 0x007A954F,10,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EAB30@FuncInfo0x00962E94,Code/Libraries/Source/Apt/AptObject/AptFactoryConstructors_AptError.cpp
-0x007A9560,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A956F,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A957E,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A958D,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A959C,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A95AB,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A95BA,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A95C9,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
-0x007A95D8,10,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKeyLookup_ObjectMemberLookup.cpp
+0x007A9560,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A956F,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A957E,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A958D,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A959C,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A95AB,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A95BA,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A95C9,15,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
+0x007A95D8,10,code,Code/Libraries/Source/Apt/AptObject/AptKey.cpp,approved,P,P=0x006EACC0@FuncInfo0x00962EF0 p-group provisional,Code/Libraries/Source/Apt/AptObject/AptKey.cpp
 0x007A95F0,15,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EB380@FuncInfo0x00962F1C,Code/Libraries/Source/Apt/AptMiscObjects.cpp
 0x007A95FF,15,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EB380@FuncInfo0x00962F1C,Code/Libraries/Source/Apt/AptMiscObjects.cpp
 0x007A960E,10,code,Code/Libraries/Source/Apt/AptMiscObjects.cpp,approved,P,P=0x006EB380@FuncInfo0x00962F1C,Code/Libraries/Source/Apt/AptMiscObjects.cpp
