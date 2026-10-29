@@ -26,9 +26,6 @@ private:
 	unsigned char m_pad00[0x14];
 	NetCommandType m_commandType; // +0x14
 };
-class NetAckStage1CommandMsg : public NetCommandMsg
-{
-};
 class NetAckBothCommandMsg : public NetCommandMsg
 {
 };
@@ -36,14 +33,13 @@ class Connection
 {
 public:
 	NetCommandRef *processAck(NetCommandMsg *msg);
-	NetCommandRef *processAck(NetAckStage1CommandMsg *msg);
+	NetCommandRef *rva0058BD4F(void *msg);
 	NetCommandRef *processAck(NetAckBothCommandMsg *msg);
 };
 
 NetCommandRef * Connection::processAck(NetCommandMsg *msg) {
 	if (msg->getNetCommandType() == NETCOMMANDTYPE_ACKSTAGE1) {
-		NetAckStage1CommandMsg *ackmsg = (NetAckStage1CommandMsg *)msg;
-		return processAck(ackmsg);
+		return rva0058BD4F(msg);
 	}
 
 	if (msg->getNetCommandType() == NETCOMMANDTYPE_ACKBOTH) {
@@ -54,10 +50,8 @@ NetCommandRef * Connection::processAck(NetCommandMsg *msg) {
 	return NULL;
 }
 
-// Each retail call in this body reads an address the ledger already carries
-// under the rowed name below. Bind the donor spelling to that owner so one
-// address keeps one definition and the unit links.
+// Both branches reach the existing owner below. Keep the second overload
+// distinct here: using rva0058BD4F in both branches coalesces their call sites,
+// whereas retail preserves the two calls to the folded overloads.
 //   0x0058BD4F reads ?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z
 #pragma comment(linker, "/alternatename:?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z=?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z")
-//   0x0058BD4F reads ?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z
-#pragma comment(linker, "/alternatename:?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckStage1CommandMsg@@@Z=?rva0058BD4F@Connection@@QAEPAVNetCommandRef@@PAX@Z")

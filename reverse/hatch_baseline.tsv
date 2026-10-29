@@ -3428,7 +3428,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp	?bfmeFindFN@Bfm
 alternatename	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	?Abort@CDownload@@UAEJXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	?find@FontCharMap@@QAEPAUFontCharNode@@ABG@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/ConnectionProcessAck.cpp	?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/ConnectionProcessAck.cpp	?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckStage1CommandMsg@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	??0FeslEchoMessage@@QAE@PADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	??1FeslEchoMessage@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/FeslEchoNotifier.cpp	?addInt@FeslEchoMessage@@QAEXPBDH@Z	1
@@ -9181,7 +9180,7 @@ pin	reverse/symbols.csv	0x0058B06A	1
 pin	reverse/symbols.csv	0x0058B283	1
 pin	reverse/symbols.csv	0x0058B818	1
 pin	reverse/symbols.csv	0x0058BB5C	1
-pin	reverse/symbols.csv	0x0058BD4F	2
+pin	reverse/symbols.csv	0x0058BD4F	1
 pin	reverse/symbols.csv	0x0058BFA8	1
 pin	reverse/symbols.csv	0x0058C047	1
 pin	reverse/symbols.csv	0x0058C1A5	1

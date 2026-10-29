@@ -5960,7 +5960,6 @@ name,address,notes
 ?prepare@Rva007EAD30Owner@@QAEXXZ,0x00657A10
 ?prepare@Rva007EADC0Owner@@QAEXXZ,0x00657AE0
 ?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckBothCommandMsg@@@Z,0x0058BD4F,Zero Hour Connection::processAck(NetAckBothCommandMsg *): processAck(NetCommandMsg *) 0x0058BD7B calls it at 0x0058BD94 for command type 0; folded with the stage-1 overload into the rowed body 0x0058BD4F
-?processAck@Connection@@QAEPAVNetCommandRef@@PAVNetAckStage1CommandMsg@@@Z,0x0058BD4F,Zero Hour Connection::processAck(NetAckStage1CommandMsg *): processAck(NetCommandMsg *) 0x0058BD7B calls it at 0x0058BD88 for command type 1; retail folds it with the both-stage overload into the rowed body 0x0058BD4F (command id / original player then the ack retire 0x0058B9CA)
 ?processContextSensitiveButtonClick@ControlBar@@QAE?AW4CBCommandStatus@@PAVGameWindow@@W4GadgetGameMessage@@@Z,0x0031ABCF,callee of ?GeneralsExpPointsSystem@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z at retail 0x0050DE17 read from its REL32 displacement; ILT thunk route=0x0053B1CF; body unrowed
 ?processProgress@GameLogic@@QAEXHH@Z,0x0023D740,address read from the REL32 displacement at a placed body
 ?publish@Rva00435A40Sink@@QAEXABV?$StringBase@G@@I@Z,0x00260BBF,callee of ?update@Rva006EE520@@QAEXH@Z at retail 0x0004802C read from its REL32 displacement; donor subtitle sink publish name at this unrowed address

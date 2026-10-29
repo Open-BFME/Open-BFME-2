@@ -27,6 +27,15 @@ source adoption and retain the queue row until publication-side acceptance is
 available. This batch retires no header debt. The evidence handoff records the
 checks and preserved recovery backup.
 
+Connection ack cleanup (2026-10-29, base `01bdf8d618`): one alias and one
+unused pin removed from the ConnectionProcessAck dispatcher. All 19 scoped
+rows verify and dispatcher/provider preview retains LINKS for 81 authored
+bytes at index `85f6b7f40c`. The supported merge remains blocked by the
+carried compiler override and private class-view conflicts. The older-index
+batch audit lacks a current CreateAHeroManager consumer receipt; carry the
+consumer and cleanup scope into the next scheduled census. No path move or
+census gain is claimed. [Evidence](../reverse/attempt_support/connection-ack-cleanup-20261029-codexb4.md).
+
 Strategic player status header cleanup (2026-10-29, base `8f350110e4`):
 StrategicPlayerStatusCallbacks.cpp replaces two local CRT declarations with
 stdio.h and retains 7/7 rows, both imports and the 684-byte LINKS preview.
