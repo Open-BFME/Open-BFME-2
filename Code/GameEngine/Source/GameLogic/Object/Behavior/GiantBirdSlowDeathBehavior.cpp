@@ -41,7 +41,7 @@ class Object { public:
  bool isKindOf(KindOfType) const;
 };
 
-class ObjectModule { public: virtual ~ObjectModule(); const void *data; Object *object; };
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorInterface { public: virtual void unknownBehaviorSlot(); };
 
@@ -186,7 +186,7 @@ NameKeyType GiantBirdSlowDeathBehavior::getModuleNameKey() const
 // Keep MSVC's float overloads local; the matched trig operations inline.
 
 UpdateSleepTime GiantBirdSlowDeathBehavior::update() {
- PhysicsBehavior *physics=object->physics;
+ PhysicsBehavior *physics=getObject()->physics;
  if(physics->landed)needsLanding=true;
  if(flags&1)SlowDeathBehavior::update();
  return UPDATE_SLEEP_NONE;
@@ -194,9 +194,9 @@ UpdateSleepTime GiantBirdSlowDeathBehavior::update() {
 
 void GiantBirdSlowDeathBehavior::beginSlowDeath(const DamageInfo *damage)
 {
- const GiantBirdDeathData *config=static_cast<const GiantBirdDeathData *>(data);
+ const GiantBirdDeathData *config=reinterpret_cast<const GiantBirdDeathData *>(getModuleData());
  SlowDeathBehavior::beginSlowDeath(damage);
- Object *owner=object;
+ Object *owner=getObject();
  Coord3D pos={owner->position.x,owner->position.y,owner->position.z};
  AIUpdateInterface *ai=owner->ai;
  PhysicsBehavior *physics=owner->physics;

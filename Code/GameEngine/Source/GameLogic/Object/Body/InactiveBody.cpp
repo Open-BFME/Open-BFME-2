@@ -24,10 +24,7 @@ class ModuleData;
 
 enum NameKeyType { NK_UNKNOWN = 0 };
 
-class ObjectModule {
-public:virtual ~ObjectModule();
-protected:const ModuleData *moduleData;Object *object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface {public:virtual void unknownBehaviorSlot()=0;};
 
@@ -83,7 +80,7 @@ void InactiveBody::attemptDamage(DamageInfo *damageInfo){
  damageInfo->noEffect=true;
  if(damageInfo->damageType==8){
   damageInfo->noEffect=false;
-  if(!dieCalled){object->onDie(damageInfo);dieCalled=true;}
+  if(!dieCalled){getObject()->onDie(damageInfo);dieCalled=true;}
  }
 }
 

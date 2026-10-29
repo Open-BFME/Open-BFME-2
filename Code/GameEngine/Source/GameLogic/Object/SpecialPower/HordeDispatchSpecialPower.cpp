@@ -37,7 +37,7 @@ V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(10) V(11) virtual 
 V(13) V(14) V(15) V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31) V(32) V(33) V(34) V(35) V(36) V(37) V(38) V(39) V(40) V(41) V(42) V(43) V(44) V(45) V(46) V(47) V(48) V(49) V(50) V(51) V(52) V(53) V(54) V(55) V(56) V(57) V(58) V(59) V(60) V(61) V(62) V(63) V(64) V(65) V(66) 
 virtual void getContained(_STL::list<Object*>&)=0;
 };
-class ObjectModule {public:virtual void primaryAnchor();char *moduleData;Object *object;};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleOther {public:virtual void secondaryAnchor();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleOther {};
 class SpecialPowerModuleInterface {public:
@@ -62,7 +62,7 @@ class HordeDispatchSpecialPower:public SpecialPowerModule {public:
  virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned);
 };
 void HordeDispatchSpecialPower::doSpecialPower(unsigned options){
- Object *owner=object;
+ Object *owner=getObject();
  if(!owner || !(owner->data->flag&0x20))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;
@@ -80,7 +80,7 @@ void HordeDispatchSpecialPower::doSpecialPower(unsigned options){
 // points here. Same genuine HordeDispatch constructor/table owner as slot10.
 // Base4949D8 and child slot12 forward location/options, canonical Coord3D.
 void HordeDispatchSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned options){
- Object *owner=object;
+ Object *owner=getObject();
  if(!owner || !(owner->data->flag&0x20))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;
@@ -102,7 +102,7 @@ void HordeDispatchSpecialPower::doSpecialPowerAtLocation(const Coord3D *location
 // helper recovers native frame and preserved-register use; original helper
 // neutral name and target-tested layout at +0x38/+0x3C/+0x40 are retained.
 void HordeDispatchSpecialPower::doSpecialPowerAtObject(Object *target,unsigned options){
- Object *owner=object;
+ Object *owner=getObject();
  if(!owner || !(owner->data->flag&0x20))return;
  ContainInterface *contain=(ContainInterface*)owner->rva0028C197();
  if(!contain)return;

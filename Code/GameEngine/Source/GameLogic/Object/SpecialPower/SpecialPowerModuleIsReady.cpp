@@ -15,7 +15,7 @@ struct SpecialReadyFrameView { char pad[0x40]; unsigned frame; };
 static unsigned frame() { return ((SpecialReadyFrameView *)TheGameLogic)->frame; }
 class ModuleData { public: virtual ~ModuleData(); };
 class SpecialPowerModuleData : public ModuleData { public: int unknown4; const SpecialPowerTemplate *power; };
-class ObjectModule { protected: virtual ~ObjectModule(); const ModuleData *data; Object *object; };
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface { public: virtual void anchor(); };
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface { protected: virtual ~BehaviorModule(); };
 class SpecialPowerModuleInterface {
@@ -35,10 +35,10 @@ bool SpecialPowerModule::isReady() const
 {
  if (blocked)
   return false;
- const Object *obj = object;
+ const Object *obj = getObject();
  if (obj->testStatus(Status70))
   return false;
- const SpecialPowerModuleData *modData = (const SpecialPowerModuleData *)data;
+ const SpecialPowerModuleData *modData = static_cast<const SpecialPowerModuleData *>(getModuleData());
  if (obj && modData) {
   Player *player = obj->getControllingPlayer();
   if (player) {
@@ -59,10 +59,10 @@ bool SpecialPowerModule::isReady() const
 static inline bool testBit(unsigned flags, int bit) { return (flags & (1 << bit)) != 0; }
 void SpecialPowerModule::startPowerRecharge(float percent)
 {
- const SpecialPowerModuleData *modData = (const SpecialPowerModuleData *)data;
+ const SpecialPowerModuleData *modData = static_cast<const SpecialPowerModuleData *>(getModuleData());
  if (modData->power == 0)
   return;
- Object *obj = object;
+ Object *obj = getObject();
  if (obj == 0)
   return;
  Player *player = obj->getControllingPlayer();

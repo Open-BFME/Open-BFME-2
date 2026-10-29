@@ -41,7 +41,7 @@ public:
 
 enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
 class AIGateUpdateModuleData;
-class ObjectModule {public:virtual ~ObjectModule();const AIGateUpdateModuleData *data;Object *object;};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {public:virtual ~BehaviorModule();};
 class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
@@ -54,7 +54,7 @@ class AIGateUpdate:public UpdateModule {public:
 UpdateSleepTime AIGateUpdate::update()
 {
 	if (enabled == 0) {
-		Object *obj = object;
+		Object *obj = getObject();
 		Player *player = obj->getControllingPlayer();
 		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
 		int wide;

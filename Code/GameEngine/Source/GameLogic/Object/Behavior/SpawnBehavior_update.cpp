@@ -183,16 +183,10 @@ public:
 	Bool m_shareUpgrades;
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
+#include "../../../../Include/Common/ObjectModule.h"
 
-protected:
-	const SpawnBehaviorModuleData *m_moduleData;
-	Object *m_object;
-	void *m_behaviorModuleInterface;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 
 class UpdateModuleInterface
 {
@@ -240,7 +234,7 @@ private:
 	Bool m_upgradeExecuted;
 };
 
-class SpawnBehavior : public ObjectModule,
+class SpawnBehavior : public BehaviorModule,
 	public UpdateModuleInterface,
 	public SpawnBehaviorInterface,
 	public DieModuleInterface,
@@ -256,8 +250,7 @@ public:
 
 private:
 	Bool createSpawn();
-	Object *getObject() const { return m_object; }
-	const SpawnBehaviorModuleData *getSpawnBehaviorModuleData() const { return m_moduleData; }
+	const SpawnBehaviorModuleData *getSpawnBehaviorModuleData() const { return reinterpret_cast<const SpawnBehaviorModuleData *>(getModuleData()); }
 
 	void *m_spawnTemplate;
 	Int m_oneShotCountdown;
