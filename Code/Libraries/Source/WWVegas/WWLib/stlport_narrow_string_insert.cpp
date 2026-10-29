@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::insert(iterator, char). Appending at the
 // end is the cheap path the retail body inlines around push_back; everything

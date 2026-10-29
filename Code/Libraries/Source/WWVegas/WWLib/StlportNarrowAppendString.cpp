@@ -1,5 +1,5 @@
-// cl: /Od /Ob2 /DNDEBUG /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// cl: /Od /Ob2 /DNDEBUG /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport46
 // STLport 4.5.3 basic_string<char>::append(const basic_string&), retail
 // 0x0002B250 57B: the header body append(__s._M_start, __s._M_finish),
 // forwarding the char* range to the pinned forward-iterator append 0x0001B3E0.

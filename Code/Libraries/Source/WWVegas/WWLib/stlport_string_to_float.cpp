@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // STLport 4.5.3 __string_to_float, all three overloads. Each is one call to
 // _Stl_string_to_double and one store of the right width. c_str() rather than

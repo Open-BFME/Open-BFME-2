@@ -1,5 +1,5 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 operator!= over two narrow strings. operator== inlines into it
 // whole: equal lengths, then a traits compare of the two data pointers, and the

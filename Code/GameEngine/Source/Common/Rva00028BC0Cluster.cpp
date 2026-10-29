@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Od /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Two run wrappers built on the char_traits<char>::length helper at 0x00006F30.
 // 0x00028BC0 is STLport 4.5.3's basic_string<char>::find(const char *, size_type)
 // const: it forwards (s, pos, length(s)) to the three-argument find at

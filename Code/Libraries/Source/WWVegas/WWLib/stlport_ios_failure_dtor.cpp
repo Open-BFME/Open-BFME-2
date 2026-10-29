@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // ios_base::failure, the last of the STLport exception vftables. Its
 // destructor is the trivial eleven-byte shape - own vftable store at

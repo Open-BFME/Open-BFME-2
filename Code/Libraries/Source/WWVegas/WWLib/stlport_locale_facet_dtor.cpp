@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 locale::facet destructor, seven bytes: the compiler's own
 // vptr store for the facet vftable at 0x00BBB9BC and a return, because the
