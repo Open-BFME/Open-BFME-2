@@ -2648,14 +2648,42 @@ def object_current(source, obj, *, inventory_cache=None, allow_fresh=True):
 
 
 @_timed('currency proof (stale_objects)')
+def _receipt_chunk(pairs):
+    """([object without a census-grade receipt], include inventory snapshot)
+    for one share of stale_objects' [(object, source)]."""
+    inventory_cache = {}
+    stale = [obj for obj, source in pairs
+             if not object_current(source, obj, inventory_cache=inventory_cache, allow_fresh=False)]
+    return stale, inventory_cache
+
+
 def stale_objects(present, sources):
     """The objects in `present` that are not current for their source
     (object_current); objects with no source (library members) are taken
     as extracted. The include inventory is one shared snapshot, which must
-    not move while it is used."""
-    inventory_cache = {}
-    uncached = [obj for obj in present if obj in sources
-                and not object_current(sources[obj], obj, inventory_cache=inventory_cache, allow_fresh=False)]
+    not move while it is used.
+
+    The receipt check is per-object Python (~55 ms each on srv1, mostly
+    compiler_command and the include inventory), so with BUILD_POOL > 1 it is
+    split across that many processes, as build.stale_sources splits the
+    compile's: each share takes its own inventory snapshot, and the shares
+    must agree on every directory they both read (one that moved between
+    them refuses, as one moving during a single pass does). Same answer,
+    same order."""
+    pairs = [(obj, sources[obj]) for obj in present if obj in sources]
+    workers = build._pool_size()
+    if workers <= 1 or len(pairs) < 200:
+        uncached, inventory_cache = _receipt_chunk(pairs)
+    else:
+        with concurrent.futures.ProcessPoolExecutor(workers) as pool:
+            parts = list(pool.map(_receipt_chunk, [pairs[i::workers] for i in range(workers)]))
+        inventory_cache = {}
+        for _, snapshot in parts:
+            for root, digest in snapshot.items():
+                if inventory_cache.setdefault(root, digest) != digest:
+                    raise SystemExit("link_census: include search directories changed while checking objects; retry")
+        missing = {obj for stale, _ in parts for obj in stale}
+        uncached = [obj for obj, _ in pairs if obj in missing]
     if not build._inventory_cache_still_current(inventory_cache):
         raise SystemExit("link_census: include search directories changed while checking objects; retry")
     receipts = input_receipts()
