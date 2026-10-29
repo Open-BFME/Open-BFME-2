@@ -20309,8 +20309,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03C84,4,.data,global,?sway@?8??applyTopplingForce@ToppleUpdate@@QAEXPBUCoord3D@@MI@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp,owned,,1,2
 0x00A03C88,4,.data,global,?g_Va00E03C88@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E03Cxx.cpp,provisional,?$S3@?8??applyTopplingForce@ToppleUpdate@@QAEXPBUCoord3D@@MI@Z@4IA@Code/GameEngine/Source/GameLogic/Object/Update/ToppleUpdate.cpp;?g_Va00E03C88@@3IA,2,4
 0x00A03C8C,4,.data,global,_s_rva007B1C10,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03C90,4,.data,global,?TheDelayedLuaEventUpdatePoolKey@?1??getModuleNameKey@DelayedLuaEventUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdatePoolKey.cpp,owned,,1,2
-0x00A03C94,4,.data,global,?$S1@?1??getModuleNameKey@DelayedLuaEventUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdatePoolKey.cpp,owned,,1,4
+0x00A03C90,4,.data,global,?TheDelayedLuaEventUpdatePoolKey@?1??getModuleNameKey@DelayedLuaEventUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp,owned,,1,2
+0x00A03C94,4,.data,global,?$S1@?1??getModuleNameKey@DelayedLuaEventUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DelayedLuaEventUpdate.cpp,owned,,1,4
 0x00A03C98,4,.data,global,?TheTransportAIUpdatePoolKey@?1??getModuleNameKey@TransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdate.cpp,owned,,1,2
 0x00A03C9C,4,.data,global,?$S1@?1??getModuleNameKey@TransportAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdate.cpp,owned,,1,4
 0x00A03CA0,4,.data,global,?TheWanderAIUpdatePoolKey@?1??getModuleNameKey@WanderAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WanderAIUpdate.cpp,owned,,1,2
