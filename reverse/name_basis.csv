@@ -4207,3 +4207,4 @@ local,Rva00082C98Host::rva00082C98::e,Rva00082C98Host::rva00082C98::newEnd,infer
 param,AutoAbilityBehavior::isAutoAbilityCommand::arg,AutoAbilityBehavior::isAutoAbilityCommand::commandButton,inferred,agree:nl-5d43d0557e56,Code/GameEngine/Source/GameLogic/Object/Behavior/AutoAbilityBehavior.cpp,0x0045A6D3
 param,ActivateModuleSpecialPowerModuleData::Rva00254CCF::arg,ActivateModuleSpecialPowerModuleData::Rva00254CCF::xfer,inferred,agree:nl-09a253844ff9,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataRva00254CCF.cpp,0x00254CCF
 param,Rva00788290Allocation::setSize::w,Rva00788290Allocation::setSize::width,inferred,agree:nl-2aec95f7a966,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,0x004D5A4D
+class,Rva00529318Slot,PalantirButtonSlot,inferred,agree:nl-b1cfd82fe5a8,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp,
