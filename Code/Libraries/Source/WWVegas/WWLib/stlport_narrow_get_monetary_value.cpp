@@ -1,5 +1,5 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 __get_monetary_value, the digit reader money_get::do_get
 // runs over the input before handing the result to the decimal readers.
