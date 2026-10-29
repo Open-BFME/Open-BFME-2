@@ -98,7 +98,7 @@ struct ICoord2D;
 ICoord2D *Rva002E7875WorldToCell(ICoord2D *,bool,const Coord3D *);
 class GlobalData { public: char pad[0x11F0];Int searchRadius; };
 extern GlobalData *TheWritableGlobalData;
-extern "C" double __cdecl fabs(double);
+#include <math.h>
 struct PathfinderCostCellInfo { Int x,y; };
 struct PathfinderGroundInfo { PathfinderCostCellInfo position;Int parent,state;unsigned short totalCost,costSoFar;char pad14[0x28-0x14];Int obstacleID;unsigned int flags; };
 struct In002E6BA1 { Int x,y; };
@@ -470,7 +470,7 @@ Coord3D point;
 struct IntegerLayout { int reserved; ICoord2DBase position,size; } cells;
 };
 struct PathfinderLogFile;
-extern "C" int __cdecl fprintf(PathfinderLogFile *,const char *,...);
+#include <stdio.h>
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
 
@@ -926,7 +926,7 @@ __declspec(noinline) inline Bool Pathfinder::rva002EA658(Object *obj, TCheckMove
 	return true;
 }
 
-extern "C" void *__cdecl memset(void *, int, unsigned int);
+#include <string.h>
 #pragma intrinsic(memset)
 extern int TheMixFileInfoCount;
 

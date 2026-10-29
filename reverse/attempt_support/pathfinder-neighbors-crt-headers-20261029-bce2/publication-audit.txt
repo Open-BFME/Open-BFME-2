@@ -1,0 +1,62 @@
+pre-push: ledger_guard 0.65s
+pre-push: check_case_collisions 0.18s
+check_csv: OK (functions.csv 98943 rows, symbols.csv 9415 rows, data_rows.csv 2230 rows)
+pre-push: check_csv 2.46s
+pre-push: empty_commits 0.19s
+pre-push: conversion_gate 0.31s
+Pin consistency: OK (5 multi-pinned symbols of 9410; 0 baselined, 0 new, 0 stale)
+Pin baseline: OK (0 entries, 0 removed vs 385303a9af95e9839aad72741c669f51ad736080, 0 added)
+pre-push: pin_consistency 1.23s
+pre-push: protected_paths 0.22s
+pre-push: debt registers 0.07s
+pin admission: OK
+pre-push: pin_admission 1.80s
+reverse/gate_baseline.txt: OK (no line added)
+pre-push: gate_baseline 0.18s
+EH baseline: OK (outgoing shrink-only; 0 new key(s))
+pre-push: eh shrink-only 0.31s
+pre-push: working tree binding 0.22s
+pre-push: scope: delta_sources 1.22s
+pre-push: scope: name_dependents 0.19s
+pre-push: scope: edited sources 0.55s
+pre-push: scope: flag_delta_sources 2.75s
+header_dependents: 0 changed header(s), 1 included file(s) and 0 vendored file(s) reach 2 ledger source(s)
+pre-push: scope: header_dependents 2.01s
+pre-push: receipt lookup 0.00s
+pre-push: source binding 0.03s
+Source claims: OK (3 sources, scoped byte-verified)
+Data rows: OK (4 row(s) byte-verified)
+Compile: 0 of 3 TU(s) (deps-cache: 3 current)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    $L10783 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10783 was renumbered; verified parent EH data places $L11049 at 0x00769AD5
+    $L10784 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10784 was renumbered; verified parent EH data places $L11050 at 0x00769ADD
+    $L10785 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10785 was renumbered; verified parent EH data places $L11051 at 0x00769AE5
+    $L10786 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10786 was renumbered; verified parent EH data places $L11052 at 0x00769AED
+    $L10787 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10787 was renumbered; verified parent EH data places $L11053 at 0x00769AF5
+Functions: OK 39/39 matched across 3 source file(s)
+String-ref verify: OK (12 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (10 compiler literals verified)
+Import-ref verify: OK (13 named imports verified)
+pre-push: byte-verify (3 sources, full=0) 7.84s
+scoped DIR32: no receipt index in this clone; judging the verified sources alone
+scoped DIR32: 39 verified row(s) and 0 witness row(s)
+DIR32 consistency: OK (30 symbols; 0 whitelisted, 0 PE-verified duplicate import(s), 0 new)
+pre-push: scoped DIR32 3.01s
+pre-push: carried cross-checks 0.00s
+EH verify: 4 row(s) with EH data (EXACT 4); 0 not exact, 0 in baseline; 0 row(s) without an object; 0.3s
+data_check (converged, enforced): 3 source(s), 11 address(es), 0 second name(s), 0 unjudged row(s)
+pre-push: eh + data audits 3.64s
+link batch audit: INCONCLUSIVE baseline: index at 840db2d676, outgoing base 385303a9af95e9839aad72741c669f51ad736080; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 2 source object(s) lack current receipts; first: Code/GameEngine/Source/GameClient/Eva.cpp
+pre-push: linking UNVERIFIED; audit evidence incomplete or check timed out
+pre-push: link_batch_audit 3.05s
+pre-push: replay_check 0.23s
+pre-push: receipt record 0.00s
+push_lease: yasinschroeder-claudeb2 is landing a full-gate push (f203768f58); waiting until it lands or 13:18:23
+push_lease: yasinschroeder-claudeb2 is landing a full-gate push (f203768f58); waiting until it lands or 13:43:04 (renewed)
+PRE-PUSH OK (3 outgoing source(s) byte-verified)
+pre-push: landing window wait 2308.53s
+pre-push: publisher_hook 0.12s
+To https://github.com/Open-BFME/Open-BFME-2.git
+ ! [remote rejected]         HEAD -> master (cannot lock ref 'refs/heads/master': is at 74bdb330aa9cfb1fbbf3299f67cb05137710f73b but expected 385303a9af95e9839aad72741c669f51ad736080)
+error: failed to push some refs to 'https://github.com/Open-BFME/Open-BFME-2.git'

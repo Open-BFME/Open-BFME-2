@@ -1,0 +1,8 @@
+Source claims: OK (1 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Functions: OK 1/1 matched
+  ?rva002F83F5@Pathfinder@@QAEHPAVPathfindCell@@0ABVLocomotorSet@@_N2HPAUICoord2D@@PAVObject@@H@Z (Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderRva002F83F5Neighbors.cpp)
+String-ref verify: OK (0 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (5 compiler literals verified)
+Import-ref verify: OK (2 named imports verified)

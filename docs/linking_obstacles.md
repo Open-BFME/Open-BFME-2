@@ -4172,6 +4172,18 @@ separate strict receipt limitation encountered there.
 
 ### LINK-017: stale link index lacks strict receipts for pending consolidation providers
 
+2026-10-29 Pathfinder neighbor CRT-header cleanup, base `385303a9af9`,
+index `840db2d676`: the three local CRT declarations are replaced with real
+headers and one Microsoft-header queue row retires. The complete 1,803-byte
+ledger body, 27 code bindings and all external object facts are preserved;
+the source has a strict receipt. The batch audit is INCONCLUSIVE because
+Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt.
+Carry this scope into the next census; no linking gain is claimed.
+[Verification](../reverse/attempt_support/pathfinder-neighbors-crt-headers-20261029-bce2/README.md).
+The normal hook's three-source scope passes 39 function rows, four data rows
+and four EH graphs. Its wider audit lacks two current source receipts (first:
+GameClient/Eva.cpp); retain this scope for the next census too.
+
 2026-10-29 nocase tree CRT-header cleanup, base `49d3bb379d5`, index
 `840db2d676`: the served file replaces its local _memicmp declaration with
 the CRT header and retires one Microsoft-header queue row. Its sole 27-byte

@@ -1,0 +1,3 @@
+1 ledger row; all 27 code bindings identical.
+External object facts identical as sorted multisets; only record order differs.
+Scoped Microsoft-header audit clean; refresh_queue preserves unrelated entries.
