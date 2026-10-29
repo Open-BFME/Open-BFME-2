@@ -91,17 +91,17 @@ Rva0029A362::Rva0029A362(int a, int b) : m_00(a), m_04(b), m_08(false)
 // two such characters differ.
 struct Rva002D2CE2
 {
-	Rva002D2CE2(char c);
+	Rva002D2CE2(char initialCharacter);
 	char m_00;
 };
 
-Rva002D2CE2::Rva002D2CE2(char c) : m_00(c)
+Rva002D2CE2::Rva002D2CE2(char initialCharacter) : m_00(initialCharacter)
 {
 }
 
-bool Rva002D2CFF(const Rva002D2CE2 *a, const Rva002D2CE2 *b)
+bool Rva002D2CFF(const Rva002D2CE2 *lhs, const Rva002D2CE2 *rhs)
 {
-	return a->m_00 != b->m_00;
+	return lhs->m_00 != rhs->m_00;
 }
 
 // --- 0x003B949C (49B): command-line parser chaining the rowed
@@ -117,7 +117,7 @@ struct Rva003B949CGlobalData
 	bool m_1110;
 };
 
-int Rva003B949C(char *args[], int count)
+int parseQuickStart(char *args[], int count)
 {
 	parseNoShellMap(args, count);
 	Rva003B9488Parse(args, count);

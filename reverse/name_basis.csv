@@ -4358,3 +4358,7 @@ param,directionMax::a,directionMax::leftOperand,inferred,agree:nl-c77907bf4998,C
 param,directionMax::b,directionMax::rightOperand,inferred,agree:nl-7b5a9f71cf5a,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
 param,directionMin::a,directionMin::firstValue,inferred,agree:nl-c47b534633fd,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
 param,directionMin::b,directionMin::secondValue,inferred,agree:nl-2f4cd30a7f72,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+param,Rva002D2CE2::Rva002D2CE2::c,Rva002D2CE2::Rva002D2CE2::initialCharacter,inferred,agree:nl-a35a1cc87ea7,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,0x002D2CE2
+param,Rva002D2CFF::a,Rva002D2CFF::lhs,inferred,agree:nl-590f3d937aad,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,0x002D2CFF
+param,Rva002D2CFF::b,Rva002D2CFF::rhs,inferred,agree:nl-8c222605bb64,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,0x002D2CFF
+function,?Rva003B949C@@YAHQAPADH@Z,?parseQuickStart@@YAHQAPADH@Z,inferred,agree:nl-128f0115f5f8,Code/GameEngine/Source/Common/GapBodiesGE05.cpp,0x003B949C

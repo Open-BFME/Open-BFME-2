@@ -4028,3 +4028,4 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?rva000B7029@Rva000B7029@@UAEPBVImage@@XZ,0x000B7029,"Renamed to ?GetPortraitImage@Rva000B7029@@UAEPBVImage@@XZ by tools/rename.py (inferred)"
 ?rva00030C10@@YAII@Z,0x00030C10,"Renamed to ?getSmallBinIndexFromChunkSize@@YAII@Z by tools/rename.py (inferred)"
 ?rva00135F0C@Rva00135F0C@@QAEPAHH@Z,0x00135F0C,"Renamed to ?GetItem@Rva00135F0C@@QAEPAHH@Z by tools/rename.py (inferred)"
+?Rva003B949C@@YAHQAPADH@Z,0x003B949C,"Renamed to ?parseQuickStart@@YAHQAPADH@Z by tools/rename.py (inferred)"
