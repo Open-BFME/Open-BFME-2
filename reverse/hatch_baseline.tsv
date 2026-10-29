@@ -232,8 +232,6 @@ address_global	Code/GameEngine/Source/Common/Rva00210F96Body.cpp	g_Rva00E02E84	2
 address_global	Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	g_Rva00A00958	3
 address_global	Code/GameEngine/Source/Common/Rva00262271Method.cpp	g_Va00BBB8E0	2
 address_global	Code/GameEngine/Source/Common/Rva0026228FMethod.cpp	g_Va00BBB8E0	2
-address_global	Code/GameEngine/Source/Common/Rva00275D9FGet.cpp	g_Va00DFEBF0	3
-address_global	Code/GameEngine/Source/Common/Rva00275D9FGet.cpp	g_Va00DFEC3C	2
 address_global	Code/GameEngine/Source/Common/Rva00285D34Cell.cpp	g_Va007C26F0	3
 address_global	Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp	g_Va00BBB8D8	4
 address_global	Code/GameEngine/Source/Common/Rva002A991DCtor.cpp	g_Va00BBB8E0	2
@@ -885,6 +883,8 @@ address_global	Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp	g_Va
 address_global	Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp	g_Va00E06504	5
 address_global	Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp	g_Va00E06524	4
 address_global	Code/GameEngine/Source/GameClient/Display.cpp	g_Va00BBB8D8	2
+address_global	Code/GameEngine/Source/GameClient/Drawable.cpp	g_Va00DFEBF0	3
+address_global	Code/GameEngine/Source/GameClient/Drawable.cpp	g_Va00DFEC3C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/AptComponentRegistry.cpp	g_Va00E03020	3
 address_global	Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp	g_Va00E03020	3
 address_global	Code/GameEngine/Source/GameClient/GUI/AptGlobalQueryCallbacks.cpp	g_Va00E0302C	2

@@ -18646,7 +18646,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FE1D4,4,.data,global,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A,Code/GameEngine/Source/Common/AttributeModifierStore.cpp,provisional,?TheAttributeModifierStore@@3PAVAttributeModifierStore@@A;?TheAttributeModifierStore@@3PAVRva0022B46BSubsystem@@A,1,18
 0x009FE1D8,4,.data,global,?g_Va00DFE1D8@@3_NA,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp,owned,,1,4
 0x009FE1DC,8,.data,global,_s_rva007AD97D,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x009FE1E4,4,.data,global,?g_00DFE1E4@@3PAVRva0027070CGlobal@@A,Code/GameEngine/Source/GameClient/Rva0027070C.cpp,owned,,1,21
+0x009FE1E4,4,.data,global,?g_00DFE1E4@@3PAVRva0027070CGlobal@@A,Code/GameEngine/Source/GameClient/Drawable.cpp,owned,,1,21
 0x009FE1E8,152,.data,global,?TheCloudEffectSettingsSaved@@3VRva00214E02@@A,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,4
 0x009FE280,156,.data,global,?TheCloudEffectSettings@@3VRva00214E02@@A,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,35
 0x009FE31C,16,.data,global,?ThePlayerAITypeSet@@3PAVPlayerAITypeSet@@A,,unowned,,0,4
@@ -18834,8 +18834,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FEBA8,4,.data,global,_s_rva007ADF3C,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x009FEBAC,4,.data,global,_s_rva007ADF4E,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x009FEBB0,64,.data,global,?g_00DFEBB0@@3HA,,unowned,,0,1
-0x009FEBF0,76,.data,global,?g_Va00DFEBF0@@3URva00275D9FMaskStorage@@A,Code/GameEngine/Source/Common/Rva00275D9FGet.cpp,owned,,1,2
-0x009FEC3C,16,.data,global,?g_Va00DFEC3C@@3HA,Code/GameEngine/Source/Common/Rva00275D9FGet.cpp,owned,,1,2
+0x009FEBF0,76,.data,global,?g_Va00DFEBF0@@3URva00275D9FMaskStorage@@A,Code/GameEngine/Source/GameClient/Drawable.cpp,owned,,1,2
+0x009FEC3C,16,.data,global,?g_Va00DFEC3C@@3HA,Code/GameEngine/Source/GameClient/Drawable.cpp,owned,,1,2
 0x009FEC4C,4,.data,global,?g_Va00DFEC4C@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_DFECxx.cpp,owned,,1,2
 0x009FEC50,4,.data,global,?TheTerrainLogic@@3PAVTerrainLogic@@A,Code/GameEngine/Source/GameLogic/Map/TerrainLogic_setActiveBoundary.cpp,provisional,?TheTerrainLogic@@3PAUTerrainLogicMirror@@A;?TheTerrainLogic@@3PAVBfmeTerrainHeightView@@A;?TheTerrainLogic@@3PAVPhysicsFlightTerrain@@A;?TheTerrainLogic@@3PAVRva004C49AETerrain@@A;?TheTerrainLogic@@3PAVTerrainLogic@@A;?TheTerrainLogic@@3PAVTerrainLogicByValue@@A,1,354
 0x009FEC54,4,.data,global,?g_waypointListHead@@3PAVWaypoint@@A,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,owned,,1,15
