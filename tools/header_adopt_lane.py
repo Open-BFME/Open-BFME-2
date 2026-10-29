@@ -849,8 +849,42 @@ def includes_header(source, header):
     return False
 
 
+def queued_text(name, source):
+    """`source` as it stood in the commit that last added its (name, source) queue row
+    (later commits may have retired it), or None when history shows neither."""
+    try:
+        rel, key = QUEUE.relative_to(ROOT).as_posix(), f"{name}\t{source}\t"
+    except ValueError:                                          # a queue outside the repository
+        return None
+    log = subprocess.run(["git", "log", "--format=%H", "-S" + key, "--", rel],
+                         cwd=ROOT, capture_output=True, text=True)
+    for commit in (log.stdout.split() if log.returncode == 0 else ()):
+        queue = subprocess.run(["git", "show", f"{commit}:{rel}"], cwd=ROOT, capture_output=True, text=True)
+        if queue.returncode or not any(line.startswith(key) for line in queue.stdout.splitlines()):
+            continue                                            # this commit removed the row
+        text = subprocess.run(["git", "show", f"{commit}:{source}"], cwd=ROOT, capture_output=True)
+        return text.stdout.decode("latin-1") if text.returncode == 0 else None
+    return None
+
+
+def misclassified(name, source, queued=None, layouts=None):
+    """Was the (name, source) row a discovery error, owing no include? Only when the unit
+    declared no namespace-scope body of `name` in the commit that queued it (so no view
+    renamed since can pass) and its compiled types hold no global `name`, not even a
+    forward reference (it never uses the class). Any missing evidence is a no."""
+    old = (queued or queued_text)(name, source)
+    if old is None or name in class_layouts.class_bodies(old):
+        return False
+    try:
+        found = (layouts or class_layouts.compile_layouts)(source)
+    except (OSError, RuntimeError):
+        return False
+    return name not in found
+
+
 def verdict(name, source, header=None, gate=None):
-    """[problems] of one unit's adoption of `name`'s canonical header ([] = adopted)."""
+    """[problems] of one unit's adoption of `name`'s canonical header ([] = adopted, or
+    a proven misclassified row: see misclassified)."""
     header = header or registered().get(name)
     if not (ROOT / source).exists():
         return [f"{source} does not exist"]
@@ -862,7 +896,8 @@ def verdict(name, source, header=None, gate=None):
     companions = HEADER_COMPANIONS.get((name, header), ())
     if not (includes_header(source, header) or
             any((ROOT / companion).is_file() and includes_header(source, companion)
-                for companion in companions)):
+                for companion in companions) or
+            (not problems and misclassified(name, source))):
         problems.append(f"does not #include {header}")
     why = (gate or gate_one)(source)
     if why:

@@ -184,6 +184,74 @@ def test_indented_global_private_view_still_fails_acceptance(tmp_path, monkeypat
         "still declares a private body"]
 
 
+NESTED_ONLY = "class Allocator {\nstruct Snapshot { int magic; };\n};\n"
+
+
+@pytest.fixture
+def misqueued(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Snapshot.h").write_text("class Snapshot {};\n")
+    (tmp_path / "unit.cpp").write_text(NESTED_ONLY)
+    monkeypatch.setattr(lane, "link_ok", lambda sources: dict.fromkeys(sources, True))
+    monkeypatch.setattr(lane, "queued_text", lambda name, source: NESTED_ONLY)
+    monkeypatch.setattr(lane.class_layouts, "compile_layouts",
+                        lambda source: {"Allocator::Snapshot": {"fwd": False}})
+    return tmp_path
+
+
+def test_misclassified_row_needs_no_include(misqueued):
+    assert lane.verdict("Snapshot", "unit.cpp", "Snapshot.h", gate=lambda _: None) == []
+
+
+@pytest.mark.parametrize("case", ["view-when-queued", "uses-class", "forward-ref", "no-history", "no-compile",
+                                  "byte-mismatch", "private-view-now"])
+def test_misclassified_row_still_needs_every_other_proof(misqueued, monkeypatch, case):
+    gate = lambda _: None
+    if case == "view-when-queued":                              # a view renamed since it was queued
+        monkeypatch.setattr(lane, "queued_text", lambda name, source: "class Snapshot { int game; };\n")
+    elif case in ("uses-class", "forward-ref"):
+        monkeypatch.setattr(lane.class_layouts, "compile_layouts",
+                            lambda source: {"Snapshot": {"fwd": case == "forward-ref"}})
+    elif case == "no-history":
+        monkeypatch.setattr(lane, "queued_text", lambda name, source: None)
+    elif case == "no-compile":
+        def broken(source):
+            raise RuntimeError("compile failed")
+        monkeypatch.setattr(lane.class_layouts, "compile_layouts", broken)
+    elif case == "byte-mismatch":
+        gate = lambda _: "byte mismatch"
+    else:
+        (misqueued / "unit.cpp").write_text(NESTED_ONLY + "class Snapshot { int game; };\n")
+    assert lane.verdict("Snapshot", "unit.cpp", "Snapshot.h", gate=gate)
+
+
+def test_queued_text_reads_the_commit_that_queued_the_row(tmp_path, monkeypatch):
+    import subprocess
+
+    def git(*args):
+        subprocess.run(["git", *args], cwd=tmp_path, capture_output=True, check=True)
+
+    def commit(source, rows):
+        (tmp_path / "unit.cpp").write_text(source)
+        (tmp_path / "reverse/header_queue.tsv").write_text("class\tsource\tnote\n" + rows)
+        git("add", "-A")
+        git("commit", "-q", "-m", "step")
+
+    (tmp_path / "reverse").mkdir()
+    git("init", "-q")
+    git("config", "user.email", "t@example.com")
+    git("config", "user.name", "t")
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    monkeypatch.setattr(lane, "QUEUE", tmp_path / "reverse/header_queue.tsv")
+    commit("// before\n", "")
+    assert lane.queued_text("Snapshot", "unit.cpp") is None
+    commit("// queued\n", "Snapshot\tunit.cpp\tC2259\n")
+    commit("// edited\n", "Snapshot\tunit.cpp\tC2039\n")    # a refreshed note does not requeue
+    commit("// retired\n", "")
+    assert lane.queued_text("Snapshot", "unit.cpp") == "// queued\n"
+    assert lane.queued_text("Snapshot", "other.cpp") is None
+
+
 def test_generated_header_spells_the_contract():
     text = lane.generate(CONTRACT, "data", {})
     assert "struct Coord3D {" in text and "float x;" in text and "float z;" in text
