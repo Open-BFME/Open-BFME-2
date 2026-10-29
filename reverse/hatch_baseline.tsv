@@ -1708,7 +1708,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv665.cpp	?bfmeTailDDB@BfmeSub
 alternatename	Code/GameEngine/Source/Common/BfmeConv667.cpp	?bfmeRegisterDAB@@YGXPAXIIP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv692.cpp	?Gen007F89D0@@YAPAURva007E9F30Cached@@PAURva007E9F30Owner@@@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv695.cpp	?Gen007F86A0@@YAPAURva007E9EF0Cached@@PAURva007E9EF0Owner@@@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv730.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv771.cpp	?bfmeVecDtorDSE@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv793.cpp	?bfmeFailDXE@@YGXH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv808.cpp	?bfmeOneEFF@@YAPAXPAXH@Z	1
@@ -1793,6 +1792,7 @@ alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v37@Display@@UAE
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v66@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v67@Display@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeStrVM0Dtor.cpp	?v68@Display@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/Common/BfmeTaintManager.cpp	?bfmeVecDtorDMC@@YGXPAXIHP6AX0@Z@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingBFGTail.cpp	?rva0025F30DCallView@BfmeThingBFG@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp	?ArrayDeleteHelperBodyThunk@@YGXPAXII0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeThingPF.cpp	?bfmeDoPG@BfmeThingPG@@QAEXPADPAXH@Z	1

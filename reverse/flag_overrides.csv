@@ -89,7 +89,6 @@ Code/GameEngine/Source/Common/BfmeConv803.cpp,,4,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv908.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeFillCount82DD70.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeFindQH.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeGridRasterCircle.cpp,,13,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeGrokOdIf0.cpp,-Od,2,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeGrokOdZero.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeHostABD_bfmeAllocABD.cpp,,1,1,region default loses rows
@@ -102,6 +101,7 @@ Code/GameEngine/Source/Common/BfmeS1155.cpp,-Od,12,12,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlot1173.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeSlotPool.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeSubBZCSet.cpp,,1,1,region default loses rows
+Code/GameEngine/Source/Common/BfmeTaintManager.cpp,,13,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingCDEDestructor.cpp,-O2,5,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingPF.cpp,-Od,4,4,region default loses rows
 Code/GameEngine/Source/Common/BfmeThingRE.cpp,,12,12,region default loses rows
