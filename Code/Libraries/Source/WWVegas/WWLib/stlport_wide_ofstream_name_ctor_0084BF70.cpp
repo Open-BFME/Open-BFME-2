@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// stlport46
 // Open-BFME7: the WIDE (unsigned short) basic_ofstream(const char*, int, long)
 // constructor of the STLport static library at 0x0084BF70 (261 B) and its
 // siblings 0x0084BD60 (name, mode), 0x0084BE70 (fd, mode), 0x0084CAB0 and
