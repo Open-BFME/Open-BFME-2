@@ -8958,6 +8958,15 @@ TUs the leaf class also conflicts only because its base clause differs, so it
 waits on the same header. Static verdicts agree with `tu_views --dry-run` on 25
 of 29 classes sampled across 6 TUs.
 
+Current BuildableHeroListUpgrade check (2026-10-29, 29c5ceda1f): the normal
+merge dry run accepts the three implementation rows but rejects the 49-byte
+constructor on its conflicting UpgradeModule base view (C2504). tu_views
+places the constructor's explicit +0 vtable field under the other view's
+bases. No applying merge occurs; moving only one donor to the absent
+destination would remove no net file. Reconcile that constructor/base view
+through the module-chain prerequisites before retrying.
+[Scoped composition evidence](../reverse/attempt_support/buildable-hero-upgrade-composition-20261029-round3.md).
+
 None can be settled through the lane yet:
 - `class_contract.py --class Module` (82 views) queues vtable slots 1-4 and
   11-14 (placeholder names `s01`/`v1`/`f01` against `onObjectCreated`,

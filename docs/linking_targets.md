@@ -1,5 +1,12 @@
 # Linking target checklist
 
+BuildableHeroListUpgrade composition follow-up (2026-10-29, 29c5ceda1f):
+three implementation rows compose, but the constructor's opaque UpgradeModule
+view conflicts with the inherited view. The supported dry run rejects it;
+no source move or net file reduction occurs. Reconcile the module/base
+headers and verify both donors before a new merge attempt.
+[Prerequisite and exact scope](../reverse/attempt_support/buildable-hero-upgrade-composition-20261029-round3.md).
+
 Recorded 2026-10-25 from the linking handoff. The census snapshot is
 `ef9c691284`, **2026-10-25 18:23 UTC**, recorded in
 [link_status.csv](../reverse/link_status.csv) and
