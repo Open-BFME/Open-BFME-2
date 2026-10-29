@@ -86,3 +86,29 @@ the byte gate refuses two of them:
 `Code/Libraries/Source/Apt/AptDate.cpp` did adopt cleanly (its two local
 declarations carried no `throw()`), which is why it is the one ms-headers commit
 in this batch.
+
+## Split refusals met in one pass over the mixed-file lane
+
+`tu_skeleton.py --split FILE --for TU --dry-run` on current master, with the
+merge map's mixed counts as the lead. Three distinct refusal modes; each is the
+tool's own wording.
+
+| file | TU | rows the map counts | dry-run |
+|---|---|---|---|
+| `Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp` | `CollisionManagerImpl.cpp` | 38 for the TU | `candidates: 4`, `carved: ['0x007588E0','0x00758CA0','0x00758C90','0x00758CB0']`, then `blocked: an escape-hatch count would grow (hatch_counters rule 3): a copied helper or datum carries one` |
+| `Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp` | `BfmeResourceEnumerator.cpp` | 26 | `blocked: file cannot be carved: vendored or SDK source: its names are upstream's` |
+| `Code/GameEngine/Source/Common/System/FileSystem.cpp` | `CollisionManagerImpl.cpp` | 3 | `candidates: 1`, `refused_rows: {'0x00759D80': 'no definition spells its name'}`, `blocked: no row could be carved` |
+| `Code/Libraries/Source/WWVegas/WWLib/StlportVectorPushBackFamily.cpp` | `TransportContain.cpp` (the picker's own first offer) | 1 | same `no definition spells its name` refusal |
+
+What this says about picking splits: the mixed count in the merge map is an upper
+bound on rows, not on carvable rows. A file whose foreign rows are emitted by a
+sweep or macro (the `Rva*` / `stlport_*` / `SmallGaps` families) has no definition
+that spells the row's name, so it refuses; a vendored file refuses outright; and
+a carve whose copied helper carries an escape hatch refuses at the hatch gate
+before writing anything. The splits that do land are in ordinary hand-written
+mixed files (cf. dd-13's and dd-15's commits), so the lane should prefer those
+over the sweep families even when the sweep file shows more foreign rows.
+
+`Code/GameNetwork/ConnectionManager.cpp` lists no rows at all today, although the
+merge map counts 31 mixed rows there; that count is from `95c5a79df7` and the map
+is not a live source for the split lane.
