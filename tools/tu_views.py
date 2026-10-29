@@ -1007,6 +1007,50 @@ def enum_copies(plan, view, enums):
             if n in enums and not view.used.get(n) and not re.search(r"\b" + n + r"\b", view.code)]
 
 
+FN_TYPEDEF = re.compile(r"^[ \t]*typedef[^;{}()]+\(\s*\*\s*([A-Za-z_]\w*)\s*\)\s*\([^;{}()]*\)\s*;", re.M)
+
+
+def builtin_spelling(decl):
+    """`decl` with comments dropped, whitespace collapsed and header_adopt_lane's ZH
+    aliases (Int, UnsignedInt, Bool, ...) spelled as the builtin types they name."""
+    aliases = {k: v for k, v in hal.TYPEDEFS.items() if k not in ("TRUE", "FALSE")}
+    return ws(re.sub(r"\b(" + "|".join(map(re.escape, aliases)) + r")\b",
+                     lambda m: aliases[m.group(1)], no_comments(decl)))
+
+
+def namespace_fn_typedefs(texts):
+    """{name: definition} of the namespace-scope function-pointer typedefs the files
+    define (`typedef void (*F)(GameWindow *, UnsignedInt);`), where every file defining
+    one spells the same type once its ZH aliases are spelled out; the definition is
+    first file's builtin spelling (whitespace around punctuation is no difference), so
+    a receiving file needs none of the aliases."""
+    seen = collections.defaultdict(dict)
+    for text in texts:
+        code = hal.masked(text)
+        for m in FN_TYPEDEF.finditer(code):
+            if not depth_at(code, m.start()):
+                decl = builtin_spelling(text[m.start():m.end()].strip())
+                seen[m.group(1)].setdefault(re.sub(r"\s*([,()*&;])\s*", r"\1", decl), decl)
+    return {n: next(iter(d.values())) for n, d in seen.items() if len(d) == 1}
+
+
+def typedef_copies(plan, view, typedefs, keys, before=()):
+    """The function-pointer typedefs the block names and this file never does, each
+    after `class X;` lines for the classes it names that the file does not name before
+    the block (and `before`, the lines already going there, does not declare)."""
+    out, have = [], set(before)
+    for n in needed_names(plan):
+        if n not in typedefs or re.search(r"\b" + n + r"\b", view.code):
+            continue
+        for name in dict.fromkeys(IDENT.findall(typedefs[n])):
+            line = f"{keys[name]} {name};" if name in keys else None
+            if line and line not in have and not re.search(r"\b" + name + r"\b", view.code[:view.span[0]]):
+                out.append(line)
+                have.add(line)
+        out.append(typedefs[n])
+    return out
+
+
 # ---------------------------------------------------------------- the TU
 def read_source(path):
     """The file's bytes as text, line endings untouched (CRLF stays CRLF)."""
@@ -1178,7 +1222,12 @@ class Tool:
                               ", ".join(f"{a} -> {b}" for a, b in sorted(spelled_as.items())))
         keys = self.class_keys(files, texts, needed_names(plan))
         enums = namespace_enums(texts[f] for f in files)
-        plan.forward = {v.path: enum_copies(plan, v, enums) + forward_declarations(plan, v, keys) for v in views}
+        typedefs = namespace_fn_typedefs(texts[f] for f in files)
+        keys = {**keys, **self.class_keys(files, texts, [n for t in typedefs.values() for n in IDENT.findall(t)])}
+        plan.forward = {}
+        for v in views:
+            lead = enum_copies(plan, v, enums) + forward_declarations(plan, v, keys)
+            plan.forward[v.path] = lead + typedef_copies(plan, v, typedefs, keys, lead)
         for f, lines in plan.forward.items():
             if lines:
                 plan.notes.append(f"{f} gets " + " ".join(ws(ln.split("{")[0]) + ("{...};" if "{" in ln else "") for ln in lines))

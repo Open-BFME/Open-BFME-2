@@ -225,6 +225,26 @@ class Dependencies(unittest.TestCase):
         finally:
             fx.close()
 
+    def test_the_block_carries_a_function_pointer_typedef_the_donor_lacks(self):
+        seed = ("typedef unsigned int UnsignedInt;\nclass Foo;\nclass Data;\n"
+                "typedef void (*FooFunc)(Foo *, Data *, UnsignedInt);\n"
+                "class Foo\n{\npublic:\n\tint setFunc(FooFunc f);\n\tint m_x;\n};\n"
+                "int Foo::setFunc(FooFunc f) { m_x = 0; return 1; }\n")
+        other = ("class Foo;\nclass Data;\n"
+                 "typedef void (*FooFunc)(Foo *,Data *,unsigned int);\n"      # spaced differently
+                 "class Foo\n{\npublic:\n\tint m_x;\n};\nvoid g(Foo *f, FooFunc) { f->m_x = 1; }\n")
+        donor = "class Foo\n{\npublic:\n\tvoid set();\n\tint m_k;\n};\nvoid Foo::set() { m_k = 0; }\n"
+        fx = Fixture({"Seed.cpp": seed, "Other.cpp": other, "Donor.cpp": donor})
+        try:
+            rep = fx.run()
+            self.assertEqual(rep["applied"], ["Foo"])
+            text = fx.text("Donor.cpp")
+            self.assertIn("class Foo;\nclass Data;\ntypedef void (*FooFunc)(Foo *, Data *, unsigned int);\n"
+                          "class Foo\n", text)
+            self.assertEqual(fx.text("Other.cpp").count("typedef"), 1)    # its own copy is enough
+        finally:
+            fx.close()
+
 
 class Conflicts(unittest.TestCase):
     def plan(self, seed, donor, **kw):
