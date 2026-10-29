@@ -65,6 +65,9 @@ public:
 	virtual void slot11() = 0;
 	virtual void slot12() = 0;
 	virtual void slot13() = 0;
+	// MSVC lays overloaded virtuals out in reverse declaration order: the
+	// AsciiString fetch is slot 14 (+0x38), the C-string fetch slot 15 (+0x3C).
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
 	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
 };
 
@@ -93,7 +96,7 @@ class Rva00524306
 {
 public:
 	void rva00524725(const AsciiString &key, const Image *image);
- void rva00524767(const AsciiString &key,const AsciiString &image);
+	void rva00524767(const AsciiString &key, const AsciiString &image);
 };
 
 // One player's row of the time line (0x50 bytes): the color at +0x08 and
@@ -102,10 +105,14 @@ public:
 struct AptTimeLinePlayer
 {
 	unsigned char m_pad00[4];
-	UnicodeString m_name; // +0x04
-	int m_color; // +0x08
-	AsciiString m_faction; // +0x0C
-	unsigned char m_pad10[0x50 - 0x10];
+	UnicodeString m_name;        // +0x04
+	int m_color;                 // +0x08
+	AsciiString m_faction;       // +0x0C
+	int m_side;                  // +0x10
+	unsigned char m_pad14[0x2C - 0x14];
+	_STL::vector<int> m_eventsA; // +0x2C
+	_STL::vector<int> m_eventsB; // +0x38
+	unsigned char m_pad44[0x50 - 0x44];
 };
 
 // AptSaveLoad_OpenScreen.cpp's 0x00434160 and Rva00433D3CClear.cpp's 0x00433D3C.
@@ -257,6 +264,12 @@ int __cdecl Rva003FEC05FadeScreenRegionToMapBlack(int,bool);
 
 extern int g_00E02EC4;
 
+struct Pair0051E31A
+{
+	int word;
+	float scalar;
+};
+
 class AptTimeLine
 {
 public:
@@ -268,18 +281,25 @@ public:
 	void PlayerColor(int index, char *value, bool set);
 	void PlayerFaction(int index, char *value, bool set);
 	void CaHAwardNumber(const char *value);
- void CollectAllPlayerData();
+	void CollectAllPlayerData();
+	void RenderGraph(const Pair0051E31A &position, const Pair0051E31A &size, int unused, const char *params);
 
 	// Retail 0x0051ED7E (345 bytes), the continue action shared by two callbacks.
 	void rva0051ED7E();
 
 private:
 	unsigned char m_pad000[0x258];
-	Rva00524306 m_images; // +0x258
-	unsigned char m_pad259[0x288 - 0x259];
+	Rva00524306 m_images;               // +0x258
+	unsigned char m_pad259[0x284 - 0x259];
+	int m_gameType;                     // +0x284
 	_STL::vector<AptTimeLinePlayer> m_players; // +0x288
-	unsigned char m_pad294[0x2B8 - 0x294];
-	_STL::vector<float> m_focus; // +0x2B8, the per-player focus weights
+	unsigned char m_pad294[0x298 - 0x294];
+	Image *m_sideImages[4];             // +0x298
+	Image *m_eventImageA;               // +0x2A8
+	Image *m_eventImageB;               // +0x2AC
+	float m_lastMaximum;                // +0x2B0
+	int m_lastFrames;                   // +0x2B4
+	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
 };
 
 // Retail 0x0051E3C3, 22 bytes: bound as "AptTimeLine::OnButtonSaveReplay"

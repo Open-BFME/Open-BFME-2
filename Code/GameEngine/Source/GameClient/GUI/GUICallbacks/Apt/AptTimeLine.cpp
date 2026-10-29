@@ -518,10 +518,11 @@ struct Pair0051E31A
 // One player's row of the time line (0x50 bytes).
 struct AptTimeLinePlayer
 {
-	unsigned char m_pad00[0x8];
-	int m_color;              // +0x08
-	AsciiString m_faction;    // +0x0C
-	int m_side;               // +0x10
+	unsigned char m_pad00[4];
+	UnicodeString m_name;        // +0x04
+	int m_color;                 // +0x08
+	AsciiString m_faction;       // +0x0C
+	int m_side;                  // +0x10
 	unsigned char m_pad14[0x2C - 0x14];
 	_STL::vector<int> m_eventsA; // +0x2C
 	_STL::vector<int> m_eventsB; // +0x38
@@ -543,10 +544,24 @@ public:
 class GameTextInterface
 {
 public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09) V(0A) V(0B) V(0C) V(0D) V(0E)
-#undef V
-	virtual UnicodeString fetch(const char *label, bool *exists = 0); // +0x3C
+	virtual ~GameTextInterface() {}
+	virtual void slot01() = 0;
+	virtual void slot02() = 0;
+	virtual void slot03() = 0;
+	virtual void slot04() = 0;
+	virtual void slot05() = 0;
+	virtual void slot06() = 0;
+	virtual void slot07() = 0;
+	virtual void slot08() = 0;
+	virtual void slot09() = 0;
+	virtual void slot10() = 0;
+	virtual void slot11() = 0;
+	virtual void slot12() = 0;
+	virtual void slot13() = 0;
+	// MSVC lays overloaded virtuals out in reverse declaration order: the
+	// AsciiString fetch is slot 14 (+0x38), the C-string fetch slot 15 (+0x3C).
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
 };
 
 class BfmeAptWindowManager
@@ -576,13 +591,35 @@ extern GameTextInterface *TheGameText;
 
 extern int BfmeLogicFramesPerSecond;
 
+// The screen's Apt image table at +0x258 and its rowed setter 0x00524725.
+class Rva00524306
+{
+public:
+	void rva00524725(const AsciiString &key, const Image *image);
+	void rva00524767(const AsciiString &key, const AsciiString &image);
+};
+
 class AptTimeLine
 {
 public:
+	void OnButtonContinue(const char *unused);
+	// Bound as "AptTimeLine::OnButtonSaveReplay" and "AptScoreScreen::Save":
+	// one body or two folded, so it keeps its address.
+	void rva0051E3C3(const char *unused);
+	void GraphFocus(int index, const char *value, bool set);
+	void PlayerColor(int index, char *value, bool set);
+	void PlayerFaction(int index, char *value, bool set);
+	void CaHAwardNumber(const char *value);
+	void CollectAllPlayerData();
 	void RenderGraph(const Pair0051E31A &position, const Pair0051E31A &size, int unused, const char *params);
 
+	// Retail 0x0051ED7E (345 bytes), the continue action shared by two callbacks.
+	void rva0051ED7E();
+
 private:
-	unsigned char m_pad000[0x284];
+	unsigned char m_pad000[0x258];
+	Rva00524306 m_images;               // +0x258
+	unsigned char m_pad259[0x284 - 0x259];
 	int m_gameType;                     // +0x284
 	_STL::vector<AptTimeLinePlayer> m_players; // +0x288
 	unsigned char m_pad294[0x298 - 0x294];
@@ -591,7 +628,7 @@ private:
 	Image *m_eventImageB;               // +0x2AC
 	float m_lastMaximum;                // +0x2B0
 	int m_lastFrames;                   // +0x2B4
-	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player (WB: inline member call on this+0x2B8)
+	_STL::vector<float> m_focus;        // +0x2B8, one focus weight per player
 };
 
 class GlobalData;
