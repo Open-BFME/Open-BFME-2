@@ -13,8 +13,8 @@ public:
 
 static __forceinline const char *GetStr(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char **)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 int __cdecl Rva00525203Fire(void *a1, void *level, const char *prefix, const char *function, const AsciiString *asciiString)

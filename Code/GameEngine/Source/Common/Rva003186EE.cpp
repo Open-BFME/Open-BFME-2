@@ -16,7 +16,7 @@ public:
 class Rva003186EE
 {
 public:
-	void rva003186EE(int a, int b, int c);
+	void rva003186EE(int weatherType, int burnDecayModifier, int duration);
 private:
 	unsigned char m_pre10[0x10];
 	int m_10;
@@ -24,12 +24,12 @@ private:
 	int m_28;
 };
 
-void Rva003186EE::rva003186EE(int a, int b, int c)
+void Rva003186EE::rva003186EE(int weatherType, int burnDecayModifier, int duration)
 {
-	if (m_10 == a)
+	if (m_10 == weatherType)
 		return;
-	m_10 = a;
-	m_28 = c;
-	*(int *)((char *)TheTriggerManager + 0x98) = b;
+	m_10 = weatherType;
+	m_28 = duration;
+	*(int *)((char *)TheTriggerManager + 0x98) = burnDecayModifier;
 	((Rva003184B8 *)this)->rva003184B8();
 }

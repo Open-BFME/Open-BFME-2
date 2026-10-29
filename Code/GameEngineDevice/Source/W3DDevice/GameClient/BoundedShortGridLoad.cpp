@@ -37,7 +37,7 @@ inline __declspec(noinline) short BoundedShortGrid::load(int a, int b)
 
 // Retain the inline body's ledger emission without changing its callers.
 // ?bfmeEmitBoundedShortGridLoad@@YAXPAVBoundedShortGrid@@HH@Z absent-from-retail
-void bfmeEmitBoundedShortGridLoad(BoundedShortGrid *boundedShortGrid, int a, int b)
+void bfmeEmitBoundedShortGridLoad(BoundedShortGrid *boundedShortGrid, int column, int row)
 {
-	boundedShortGrid->BoundedShortGrid::load(a, b);
+	boundedShortGrid->BoundedShortGrid::load(column, row);
 }

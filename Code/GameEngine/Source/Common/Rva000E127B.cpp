@@ -23,7 +23,7 @@ public:
 class Rva000E127B
 {
 public:
-	void rva000E127B(int arg);
+	void rva000E127B(int forceUpdate);
 
 	char m_pad0[0x37C0];
 	int m_map;
@@ -38,9 +38,9 @@ public:
 	unsigned char m_at3930;
 };
 
-void Rva000E127B::rva000E127B(int arg)
+void Rva000E127B::rva000E127B(int forceUpdate)
 {
-	((Rva00068441 *)this)->rva00068441(arg);
+	((Rva00068441 *)this)->rva00068441(forceUpdate);
 	if (m_map == 0)
 		return;
 	int cols = m_tilesWidth;
@@ -58,7 +58,7 @@ void Rva000E127B::rva000E127B(int arg)
 			{
 				W3DTerrainBackground *el =
 					(W3DTerrainBackground *)(m_base + (y * m_tilesWidth + x) * 0xD4);
-				if ((unsigned char)arg != 0)
+				if ((unsigned char)forceUpdate != 0)
 					el->doPartialUpdate(rec, (WorldHeightMap *)m_map, false, m_at37E0);
 				else
 					el->rva00112259();

@@ -54,8 +54,8 @@ void HordeMeleeAmoeba::xfer(Xfer *xfer)
  slots.resize(count);
  for(BfmePod60 *slot=slots.begin();slot!=slots.end();++slot) {
   HmaTransferView &hmaTransferView=view->position(slot->position);
-  HmaTransferView &b=((HmaTransferView*)&hmaTransferView)->boolean(slot->needsPosition);
-  Rva0058731DCheck((Rva0058731DHost*)&((HmaTransferView*)&b)->integer(slot->index),(int)slot->values);
+  HmaTransferView &transferStream=((HmaTransferView*)&hmaTransferView)->boolean(slot->needsPosition);
+  Rva0058731DCheck((Rva0058731DHost*)&((HmaTransferView*)&transferStream)->integer(slot->index),(int)slot->values);
   if(version.current>2)view->boolean(slot->loaded39);
   else if(view->isLoading())slot->loaded39=true;
  }

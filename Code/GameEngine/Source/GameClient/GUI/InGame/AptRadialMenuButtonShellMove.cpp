@@ -58,8 +58,8 @@ AsciiString Rva00222834Get(int val);
 
 static __forceinline const char *GetStr(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringData = *(char **)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
 }
 
 inline __declspec(noinline) int __cdecl Rva00577AE9AptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, int *pInt, float *pF1, float *pF2, float *pF3, float *pF4)
@@ -97,25 +97,25 @@ private:
 	int m_24;
 };
 
-void AptRadialMenu::Impl::ButtonShell::Move(int a0, int a1, int a2, int a3)
+void AptRadialMenu::Impl::ButtonShell::Move(int positionX, int positionY, int width, int height)
 {
-	if (a0 != m_18 || a1 != m_1c || a2 != m_20 || a3 != m_24) {
+	if (positionX != m_18 || positionY != m_1c || width != m_20 || height != m_24) {
 		float *scale = TheRva00222A8BTarget->getScale();
-		float f3 = (float)a3 * scale[1];
-		float f2 = (float)a2 * scale[0];
-		float f1 = (float)a1 * scale[1];
-		float f0 = (float)a0 * scale[0];
+		float scaledHeight = (float)height * scale[1];
+		float scaledWidth = (float)width * scale[0];
+		float scaledY = (float)positionY * scale[1];
+		float scaledX = (float)positionX * scale[0];
 		InnerBox *box = m_8->m_40->m_0;
 		char *raw = *(char **)((char *)box + 8);
-		const char *s;
+		const char *moviePath;
 		if (raw)
-			s = raw + 8;
+			moviePath = raw + 8;
 		else
-			s = "";
-		Rva00577AE9AptCall(TheRva00222A8BTarget, box->m_4, s, "MoveButton", &m_10, &f0, &f1, &f2, &f3);
-		m_18 = a0;
-		m_1c = a1;
-		m_20 = a2;
-		m_24 = a3;
+			moviePath = "";
+		Rva00577AE9AptCall(TheRva00222A8BTarget, box->m_4, moviePath, "MoveButton", &m_10, &scaledX, &scaledY, &scaledWidth, &scaledHeight);
+		m_18 = positionX;
+		m_1c = positionY;
+		m_20 = width;
+		m_24 = height;
 	}
 }
