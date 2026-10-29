@@ -65,8 +65,6 @@ template <> class Rva004C6E49Slots<0>
 {
 };
 #include "../../Common/GameLogicObjectLookupView.h"
-struct XferUnknown11;
-class DamageInfo;
 
 class GeometryInfo
 {
@@ -170,8 +168,6 @@ public:
 // One NONE exit for both paths. Slot names are not established.
 // Condition word array at Object+0x10C with masked-word accessors.
 
-struct Coord3D;
-
 // The Object +0x258 AI interface: slots 110 and 116 are the bool queries
 // update reads; the command interface sits at +0x20.
 class AIUpdateInterface : public Rva004C6E49Slots<110>
@@ -188,25 +184,6 @@ public:
 private:
 	unsigned char m_pad04[0x20 - 0x04];
 	AICommandInterface m_commandInterface;	// +0x20
-};
-
-class Rva0010CBits
-{
-public:
-	unsigned int test(int bit) const
-	{
-		return m_words[bit >> 5] & (1U << (bit & 0x1f));
-	}
-	void set(int bit)
-	{
-		m_words[bit >> 5] |= 1U << (bit & 0x1f);
-	}
-	void clear(int bit)
-	{
-		m_words[bit >> 5] &= ~(1U << (bit & 0x1f));
-	}
-private:
-	unsigned int m_words[19];
 };
 
 // Retail 0x004C6D0F (38 bytes): ?onExit@FellBeastSwoopPower@@MAEX_N0@Z.
