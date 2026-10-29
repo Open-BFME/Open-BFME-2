@@ -50,9 +50,9 @@ struct BfmeThingEFE
 void *__cdecl bfmeOneEFF(void *a, int n);
 void __cdecl bfmeTwoEFF(int n, void *r);
 
-int CurDrawableHideModule(void *a)
+int CurDrawableHideModule(void *luaState)
 {
-	bfmeTwoEFF(1, bfmeOneEFF(a, 1));
+	bfmeTwoEFF(1, bfmeOneEFF(luaState, 1));
 	return 0;
 }
 

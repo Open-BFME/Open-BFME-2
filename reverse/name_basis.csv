@@ -4144,3 +4144,9 @@ param,FloatToLong::f,FloatToLong::floatValue,inferred,agree:nl-0e7cf3feac8b,Code
 param,dot::o,dot::other,inferred,agree:nl-f44cca1c7943,Code/GameEngine/Source/GameLogic/System/FireLogicSystem_NewMap.cpp,
 local,LinearCampaign::addCarryoverStuffToMap::n,LinearCampaign::addCarryoverStuffToMap::remainingUnits,inferred,agree:nl-44f699d99e29,Code/GameEngine/Source/GameLogic/System/LinearCampaign/LinearCampaignAddCarryover.cpp,0x001EC63D
 param,Rva003F75D8Iterator::n,Rva003F75D8Iterator::treeNode,inferred,agree:nl-116c1ba5515b,Code/GameEngine/Source/GameLogic/System/LivingWorld/AutoResolve/LivingWorldAutoResolveBattleBonus.cpp,
+param,CurDrawableHideModule::a,CurDrawableHideModule::luaState,inferred,agree:nl-f4a52ef575f8,Code/GameEngine/Source/Common/BfmeConv808.cpp,0x00333722
+local,GameSpyCloseOverlay::q,GameSpyCloseOverlay::layout,inferred,agree:nl-dd9035b10d7e,Code/GameEngine/Source/Common/Rva00548B97Free.cpp,0x00548B97
+member,GlobalWeatherState::m_state10,GlobalWeatherState::m_currentWeather,inferred,agree:nl-c16e262ea4f8,Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp,
+param,WeatherPoint::a,WeatherPoint::xCoord,inferred,agree:nl-fc3a19a4bc8f,Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp,
+param,WeatherPoint::b,WeatherPoint::yCoord,inferred,agree:nl-8168201b3942,Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp,
+param,WeatherPoint::c,WeatherPoint::zCoord,inferred,agree:nl-69929a198f46,Code/GameEngine/Source/GameLogic/Object/SpecialPower/AreaSpecialPowersAtLocation.cpp,

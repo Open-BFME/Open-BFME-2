@@ -41,8 +41,8 @@ void __cdecl GameSpyCloseOverlay(GSOverlayType index)
 	if (*slot != 0) {
 		(*slot)->v3(0);
 		(*slot)->v8();
-		void *q = *slot ? (*slot)->v1(0) : 0;
-		::operator delete(q);
+		void *layout = *slot ? (*slot)->v1(0) : 0;
+		::operator delete(layout);
 		*slot = 0;
 	}
 }

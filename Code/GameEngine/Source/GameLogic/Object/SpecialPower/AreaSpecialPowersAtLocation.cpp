@@ -264,12 +264,12 @@ void ElvenWoodSpecialPower::doSpecialPowerAtLocation(const Coord3D *loc, unsigne
 // scheduling. No global address alias or canonical-header change is needed.
 struct WeatherPoint : Coord3D
 {
- __forceinline WeatherPoint(float a, float b, float c) { x = a; y = b; z = c; }
+ __forceinline WeatherPoint(float xCoord, float yCoord, float zCoord) { x = xCoord; y = yCoord; z = zCoord; }
 };
 struct GlobalWeatherState
 {
  unsigned char m_pad00[0x10];
- int m_state10;
+ int m_currentWeather;
 };
 class GlobalWeatherSystem;
 extern GlobalWeatherSystem *TheGlobalWeatherSystem;
@@ -302,7 +302,7 @@ struct DarknessSpecialPowerFXData
 
 void FreezingRainSpecialPower::rva004C4C99(const Coord3D *loc)
 {
- if (((const GlobalWeatherState *)TheGlobalWeatherSystem)->m_state10 == 2)
+ if (((const GlobalWeatherState *)TheGlobalWeatherSystem)->m_currentWeather == 2)
   return;
  const FreezingRainSpecialPowerModuleData *data = getData();
  if (data->m_fx == 0)
@@ -316,7 +316,7 @@ void FreezingRainSpecialPower::rva004C4C99(const Coord3D *loc)
 
 void DarknessSpecialPower::rva004C4E93(const Coord3D *loc)
 {
- if (((const GlobalWeatherState *)TheGlobalWeatherSystem)->m_state10 == 1)
+ if (((const GlobalWeatherState *)TheGlobalWeatherSystem)->m_currentWeather == 1)
   return;
  const DarknessSpecialPowerFXData *data = (const DarknessSpecialPowerFXData *)m_moduleData;
  if (data->m_fx == 0)
