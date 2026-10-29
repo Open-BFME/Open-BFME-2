@@ -33900,7 +33900,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0041AEF8,226,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,C,W=Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp C=0x0041AC6A..0x0041AFDA,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
 0x0041AFDA,1577,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,S,S=Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp N=Code/GameEngine/Source/Common/GameStateMap.cpp W=Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
 0x0041B603,397,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp S=Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp N=Code/GameEngine/Source/Common/GameStateMap.cpp,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
-0x0041B790,73,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,proposed,K,K=Rva0041B790,Code/GameEngine/Source/Common/System/Rva0041B790Dtor.cpp
+0x0041B790,73,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,proposed,K,K=Rva0041B790,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp
 0x0041B7D9,28,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,proposed,K,K=Rva0041B790,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
 0x0041B7F5,12,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE20.cpp
 0x0041B801,4,code,,,-,,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
@@ -77846,9 +77846,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007869F9,8,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B603@FuncInfo0x00933BB8,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
 0x00786A01,8,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B603@FuncInfo0x00933BB8,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
 0x00786A09,10,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B603@FuncInfo0x00933BB8,Code/GameEngine/Source/Common/Rva0041AD08Read.cpp
-0x00786A13,8,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/Rva0041B790Dtor.cpp
-0x00786A1B,20,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/Rva0041B790Dtor.cpp
-0x00786A2F,10,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/Rva0041B790Dtor.cpp
+0x00786A13,8,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp
+0x00786A1B,20,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp
+0x00786A2F,10,code,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp,approved,P,P=0x0041B790@FuncInfo0x00933BE4 p-group,Code/GameEngine/Source/Common/System/SaveGame/GameStateMap.cpp
 0x00786A39,13,code,Code/GameEngine/Source/Common/RTS/ActionManager.cpp,approved,P,P=0x0041BCA1@FuncInfo0x00933C10,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp
 0x00786A46,13,code,Code/GameEngine/Source/Common/RTS/ActionManager.cpp,approved,P,P=0x0041BCA1@FuncInfo0x00933C10,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp
 0x00786A53,10,code,Code/GameEngine/Source/Common/RTS/ActionManager.cpp,approved,P,P=0x0041BCA1@FuncInfo0x00933C10,Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp
