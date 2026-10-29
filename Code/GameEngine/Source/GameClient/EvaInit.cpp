@@ -84,20 +84,16 @@ public:
 	void rva001DEE92(int count);
 };
 
-class SubsystemInterface
-{
-public:
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-};
+#include "../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class Eva : public SubsystemInterface
 {
 public:
+	// Slot 1 of retail's base table.
 	virtual void init();
 
 private:
-	unsigned char m_pad04[0x1C - 0x04];
+	unsigned char m_pad0C[0x1C - 0x0C];
 	Rva001DEF89Table m_events; // +0x1C
 	unsigned char m_member28[0x34 - 0x28]; // +0x28
 	Rva001DE3E3Member m_member34; // +0x34
