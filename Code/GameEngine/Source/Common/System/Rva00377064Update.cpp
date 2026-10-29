@@ -35,9 +35,12 @@ public:
 	void hide(bool flag); // ?hide@Shell@@QAEX_N@Z pin-only
 };
 
-class GameLogic
+#include "../GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	char m_pad00[0xa4];
 	int m_a4; // +0xa4
 	char m_padA8[0x110 - 0xa4 - 4];
@@ -67,16 +70,16 @@ private:
 void Rva00377064::rva00377064(int a, int b, int c)
 {
 	((Rva00203BCDDwordSlot *)TheScriptEngine)->set(1);
-	TheGameLogic->m_a4 = b;
-	TheGameLogic->m_110 = a;
+	((GameLogicFieldView *)TheGameLogic)->m_a4 = b;
+	((GameLogicFieldView *)TheGameLogic)->m_110 = a;
 	if (!TheWritableGlobalData->m_ac0.isEmpty()) {
 		((StringBase<char> *)&TheWritableGlobalData->m_mapName)->set(*(const StringBase<char> *)&TheWritableGlobalData->m_ac0);
 		TheWritableGlobalData->m_ac0.clear();
 	}
 	m_94 = c;
-	if (TheGameLogic->m_110 != 4)
+	if (((GameLogicFieldView *)TheGameLogic)->m_110 != 4)
 		((Shell *)(*(GlobalA01E48 **)&TheShell))->hide(true);
 	m_a8 = 0;
-	if (TheGameLogic->m_114 == 3)
+	if (((GameLogicFieldView *)TheGameLogic)->m_114 == 3)
 		((Rva0023D2D8DwordClearer *)TheGameLogic)->clear();
 }

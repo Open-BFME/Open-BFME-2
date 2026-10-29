@@ -49,8 +49,12 @@ public:
 class Display : public W3DDisplay { };
 extern Display *TheDisplay;
 
-class GameLogic {
-	public:
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
+{
 	unsigned char unknown[0x78];
 	unsigned char field78;
 };
@@ -98,7 +102,7 @@ Rva003561BE::~Rva003561BE()
 		TheAudio->slot27(m_handle20);
 		m_handle20 = 1;
 	}
-	TheGameLogic->field78 = 0;
+	((GameLogicFieldView *)TheGameLogic)->field78 = 0;
 	TheDisplay->slot68();
 	TheDisplay->rva0025D2F6();
 	if (m_flag24)

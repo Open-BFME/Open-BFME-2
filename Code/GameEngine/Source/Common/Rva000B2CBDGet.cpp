@@ -1,9 +1,12 @@
 // cl: /DNDEBUG /MD
 // ?Rva000B2CBDGet@@YAHXZ @0x000B2CBD 40B GameLogic/GameState flag check.
 // Evidence: TheGameLogic+0x70 then TheGameState+0xE18 then 1 else 0; callers 0x000BBED5/0x000BE26F/0x000BE798/0x000C389E.
-class GameLogic
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	char m_pad00[0x70];
 	unsigned char m_70;
 };
@@ -17,7 +20,7 @@ public:
 extern GameState *TheGameState;
 int __cdecl Rva000B2CBDGet()
 {
-	GameLogic *logic = TheGameLogic;
+	GameLogicFieldView *logic = (GameLogicFieldView *)TheGameLogic;
 	if (logic != 0 && logic->m_70 != 0)
 		return 1;
 	GameState *state = TheGameState;

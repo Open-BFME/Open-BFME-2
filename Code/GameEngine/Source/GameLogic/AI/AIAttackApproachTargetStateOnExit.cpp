@@ -160,9 +160,12 @@ public:
 	Rva002C9400ByteField *m_field4; // +0x04
 };
 
-class GameLogic
+#include "../../Common/GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	unsigned char m_pad00[0x1B4];
 	int m_1B4; // +0x1B4
 };
@@ -389,7 +392,7 @@ StateReturnType AIAttackApproachTargetState00C12678::updateInternal()
 	const Weapon *weapon = source->getCurrentWeapon(0);
 	if (weapon != 0 && ((Rva002C9400ByteField *)weapon->m_field4)->get() != 0)
 		m_stopIfInRange = false;
-	if (TheGameLogic->m_1B4 > 0)
+	if (((GameLogicFieldView *)TheGameLogic)->m_1B4 > 0)
 	{
 		if (m_stopIfInRange && weapon != 0)
 		{

@@ -35,8 +35,12 @@ public:
 
 extern Display *TheDisplay;
 
-class GameLogic {
-public:
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
+{
 	char m_pad[0x78];
 	bool m_flag78;
 };
@@ -65,7 +69,7 @@ private:
 
 Rva003560ED::~Rva003560ED()
 {
-	TheGameLogic->m_flag78 = false;
+	((GameLogicFieldView *)TheGameLogic)->m_flag78 = false;
 	TheDisplay->slot68();
 	((W3DDisplay *)TheDisplay)->rva0025D2F6();
 }

@@ -14,9 +14,12 @@ class Rva0023D2D8DwordClearer
 public:
 	void clear();
 };
-class GameLogic
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	Rva0023D2D8DwordClearer m_clear;
 };
 extern GameLogic *TheGameLogic;
@@ -50,7 +53,7 @@ void Rva002BED10::rva002BED10()
 	{
 		TheLivingWorldLogic->v1();
 		if (TheGameLogic)
-			TheGameLogic->m_clear.clear();
+			((GameLogicFieldView *)TheGameLogic)->m_clear.clear();
 	}
 	if (TheLivingWorldManager)
 		TheLivingWorldManager->rva0021427A();

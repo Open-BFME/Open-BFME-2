@@ -165,9 +165,12 @@ public:
 };
 extern class GlobalData *TheWritableGlobalData;
 
-class GameLogic
+#include "../Common/GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	unsigned char m_pad000[0x11C];
 	bool m_11C; // +0x11C
 	unsigned char m_pad11D[0x190 - 0x11D];
@@ -312,7 +315,7 @@ void Drawable::setIndicatorColor(Color color)
 {
 	m_indicatorColor = color;
 	Object *obj = m_object;
-	bool show = TheGameLogic->m_11C || (obj && obj->isAnyKindOf(Rva0006EE7A(0, 0x78, 0xB5)));
+	bool show = ((GameLogicFieldView *)TheGameLogic)->m_11C || (obj && obj->isAnyKindOf(Rva0006EE7A(0, 0x78, 0xB5)));
 	rva00270FAC(show);
 }
 
@@ -345,9 +348,9 @@ void Drawable::friend_bindToObject(Object *obj)
 	m_object = obj;
 	if (obj)
 	{
-		if (TheGameLogic->m_indicatorOverride == 1)
+		if (((GameLogicFieldView *)TheGameLogic)->m_indicatorOverride == 1)
 		{
-			setIndicatorColor(TheGameLogic->m_indicatorColor);
+			setIndicatorColor(((GameLogicFieldView *)TheGameLogic)->m_indicatorColor);
 		}
 		else if (TheWritableGlobalData->m_timeOfDay == TIME_OF_DAY_NIGHT)
 		{

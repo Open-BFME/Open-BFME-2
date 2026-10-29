@@ -21,9 +21,12 @@ class Object;
 class ModuleData;
 class Dict;
 
-class GameLogic
+#include "../../../Common/GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	unsigned char m_pad00[0x6E];
 	bool m_6E; // +0x6E
 };
@@ -90,7 +93,7 @@ private:
 // ?mapLoadPostProcess@DynamicPortalBehaviour@@UAEXPBVDict@@@Z @0x00461284
 void DynamicPortalBehaviour::mapLoadPostProcess(const Dict *)
 {
-	if (!TheGameLogic->m_6E)
+	if (!((GameLogicFieldView *)TheGameLogic)->m_6E)
 		rva00461257();
 }
 

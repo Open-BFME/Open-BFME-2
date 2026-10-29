@@ -16,9 +16,12 @@ class Rva002034E9Host
 public:
 	bool rva002034E9();
 };
-class GameLogic
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	char m_pad[0x118];
 	int m_118;
 };
@@ -39,7 +42,7 @@ int Rva002B2AFD::rva002B2AFD()
 {
 	if (((BfmeSelectionState *)this)->isSelectionLocked() || ((Rva002034E9Host *)TheGameLogic)->rva002034E9())
 		return TheWritableGlobalData->m_initialMaxRingLevel;
-	return TheGameLogic->m_118;
+	return ((GameLogicFieldView *)TheGameLogic)->m_118;
 }
 
 // Native visitor table at VA 0x00BFE090 contains the single entry 0x006B31DB.

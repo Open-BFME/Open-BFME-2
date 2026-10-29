@@ -30,9 +30,12 @@ private:
 	T *m_end;
 };
 
-class GameLogic
+#include "GameLogicObjectLookupView.h"
+
+// The canonical GameLogic header pads over the fields read here; they
+// are reached through a view of the real TheGameLogic.
+struct GameLogicFieldView
 {
-public:
 	char m_pad[0x70];
 	bool m_logEnabled; // +0x70
 };
@@ -47,7 +50,7 @@ struct Rva002CECAETarget
 
 void AppendInLogicUpdateOnly(Rva002CECAETarget *target, const char *format, ...)
 {
-	bool enabled = TheGameLogic->m_logEnabled;
+	bool enabled = ((GameLogicFieldView *)TheGameLogic)->m_logEnabled;
 	if (enabled && format != 0)
 	{
 		char buffer[1000];
