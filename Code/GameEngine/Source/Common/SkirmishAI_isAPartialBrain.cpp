@@ -54,14 +54,14 @@ public:
 
 private:
 	char m_pad[0x15C];
-	Rva002C67DC15C *m_ptr15C;
+	Player *m_player;
 	char m_pad2[0x18];
-	int m_178;
+	int m_masterPlayerIndex;
 };
 
 bool SkirmishAI::isAPartialBrain()
 {
-	if (m_178 != -1)
+	if (m_masterPlayerIndex != -1)
 		return true;
 	for (int i = 0; i < ThePlayerList->m_count14; i++) {
 		Player *player = ThePlayerList->getNthPlayer(i);
@@ -70,7 +70,7 @@ bool SkirmishAI::isAPartialBrain()
 		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
 		if (!rec)
 			continue;
-		if (rec->m_178 == m_ptr15C->m_54)
+		if (rec->m_178 == ((Rva002C67DC15C *)m_player)->m_54)
 			return true;
 	}
 	return false;
