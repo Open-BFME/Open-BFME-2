@@ -14827,3 +14827,5 @@ Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp|function|0x0041F2
 Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp|local|ArmyMemberDefinition::getInterpolatedPercentageOfArmy|a,cc68826bcc2ae4b28e1852fb,gpt-6.1-sol,w4-10290614-5,w-eb83eac9adc1,2026-10-29
 Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp|local|ArmyMemberDefinition::getInterpolatedPercentageOfArmy|b,c960e723ea727c20107a50fd,gpt-6.1-sol,w4-10290614-5,w-eb83eac9adc1,2026-10-29
 Code/GameEngine/Source/GameLogic/SkirmishAI/ArmyDefinition.cpp|local|ArmyMemberDefinition::getInterpolatedPercentageOfArmy|t,d21fea620e94231ee2846e60,gpt-6.1-sol,w4-10290614-5,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp|function|0x0033AFBB|rva0033AFBB,234b3bb6b52a5d424cbb090b,gpt-6.1-sol,w2-10290636-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp|function|0x00417C23|rva00417C23,7312cbb68515b2df75b1b991,gpt-6.1-sol,w2-10290636-2,w-dce04682aaeb,2026-10-29
