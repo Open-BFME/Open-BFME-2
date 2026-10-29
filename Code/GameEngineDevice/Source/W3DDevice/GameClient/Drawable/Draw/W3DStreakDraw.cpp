@@ -88,6 +88,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #pragma optimize("", on)
 #include <vector>
+#include <memory>
+
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
 // Element identity and unconstrained fields remain address-derived structural inference.
 
@@ -95,8 +97,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // placement-copy owner directly. Keep only that neutral footprint here;
 // original element identity and the provider's inherited type view are unknown.
 struct Rva000D04BCElement { unsigned words[2]; };
+
 struct TreeKey00242F5E;
+
 void Rva000D0469Construct(TreeKey00242F5E *, const TreeKey00242F5E &);
+
 namespace _STL {
 // TU-local forwarding glue; its discardable out-of-line copy has no retail entry.
 // ?_STL::_Construct absent-from-retail
@@ -158,11 +163,6 @@ template void _STL::vector<class CameraMarker>::push_back(const class CameraMark
 // pushed by the caller and never read.
 
 namespace _STL { struct __false_type; }
-
-struct TreeKey00242F5E
-{
-	unsigned char m_bytes[0x8];
-};
 
 void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source);
 
@@ -248,6 +248,95 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+struct TreeKey00242F5E
+{
+public:
+	unsigned char m_bytes[0x8];
+public:
+	TreeKey00242F5E(const TreeKey00242F5E &other);
+};
+
+class GeometryInfo
+{
+public:
+	GeometryInfo(const GeometryInfo &other);
+};
+
+class FXList
+{
+public:
+	FXList(const FXList &other);
+};
+
+struct BfmeStringRecord00239B46
+{
+public:
+	BfmeStringRecord00239B46(const BfmeStringRecord00239B46 &other);
+};
+
+struct BfmeStringRecord005DDD40
+{
+public:
+	BfmeStringRecord005DDD40(const BfmeStringRecord005DDD40 &other);
+};
+
+class Rva0052BEF0
+{
+public:
+	Rva0052BEF0(const Rva0052BEF0 &other);
+};
+
+class Rva0052BD59
+{
+public:
+	Rva0052BD59(const Rva0052BD59 &other);
+};
+
+class Rva0052BE33
+{
+public:
+	Rva0052BE33(const Rva0052BE33 &other);
+};
+
+class Rva0052BDE6
+{
+public:
+	Rva0052BDE6(const Rva0052BDE6 &other);
+};
+
+template void _STL::_Construct<TreeKey00242F5E, TreeKey00242F5E>(TreeKey00242F5E *, const TreeKey00242F5E &);
+
+template void _STL::_Construct<GeometryInfo, GeometryInfo>(GeometryInfo *, const GeometryInfo &);
+
+template void _STL::_Construct<FXList, FXList>(FXList *, const FXList &);
+
+template void _STL::_Construct<Rva0052BEF0, Rva0052BEF0>(Rva0052BEF0 *, const Rva0052BEF0 &);
+
+template void _STL::_Construct<Rva0052BD59, Rva0052BD59>(Rva0052BD59 *, const Rva0052BD59 &);
+
+template void _STL::_Construct<Rva0052BE33, Rva0052BE33>(Rva0052BE33 *, const Rva0052BE33 &);
+
+template void _STL::_Construct<Rva0052BDE6, Rva0052BDE6>(Rva0052BDE6 *, const Rva0052BDE6 &);
+
+// Native unsigned-key/string map: subscript136A21 -> hint136777 ->
+// insert136642/1364F7 -> node1364AC -> Construct13623C. The subscript
+// default-constructs the mapped string and returns node+0x14; the node is
+// 24 bytes with its 8-byte value at +0x10. STLport map::value_type supplies
+// the const key. Its genuine pair copy folds onto the existing29B CF475
+// owner; the separate TreeKey ConstructA7876 and handler760AB8 remain.
+typedef _STL::pair<const unsigned int, AsciiString> UnsignedAsciiPair;
+
+template void _STL::_Construct<UnsignedAsciiPair, UnsignedAsciiPair>(UnsignedAsciiPair *, const UnsignedAsciiPair &);
+
+// Native Apt adder524845 supplies std::make_pair to vector52480E at+0C,
+// which calls Construct523DD4. The erase/copy chain writes the first dword,
+// excluding a const map key. Keep the existing producer's int source view:
+// signedness is a source convention here, not a recovered original signature.
+// The genuine pair copy folds onto CF475; TreeKeyA7876 keeps its own identity.
+typedef _STL::pair<int, AsciiString> MutableAsciiPair;
+
+template void _STL::_Construct<MutableAsciiPair, MutableAsciiPair>(MutableAsciiPair *, const MutableAsciiPair &);
+
 // tu-skeleton: 0x000CFF4C 51B ?Rva000CFF4C@W3DStreakDraw@@UAEX_N@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawRva000CFF4C.cpp (not merged yet)
 
 // tu-skeleton: 0x000CFFD3 115B ??1W3DStreakDraw@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
@@ -257,6 +346,8 @@ public:
 // tu-skeleton: 0x000D004C 69B ?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x000D0091 534B ?rva000D0091@W3DStreakDraw@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawConstructor.cpp
 
@@ -301,14 +392,6 @@ W3DStreakDraw::W3DStreakDraw(Thing *thing, const ModuleData *moduleData)
 	}
 }
 
-// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0459 8B ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0461 8B ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
-
-// tu-skeleton: 0x000D0469 45B ?Rva000D0469Construct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva000D0496.cpp
 
 TreeKey00242F5E *Rva000D0496UninitializedCopy(const TreeKey00242F5E *first, const TreeKey00242F5E *last, TreeKey00242F5E *result,
@@ -324,11 +407,8 @@ TreeKey00242F5E *Rva000D0496UninitializedCopy(const TreeKey00242F5E *first, cons
 
 // Expose the local overload when the reference template is parsed.
 
-// tu-skeleton: 0x000D04E1 63B ??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 
-// tu-skeleton: 0x000D0520 92B ??0W3DStreakDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor2.cpp (not merged yet)
 
-// tu-skeleton: 0x000D057C 69B ??1W3DStreakDrawModuleData@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_cameramarker_insert_overflow.cpp
 
@@ -337,9 +417,7 @@ TreeKey00242F5E *Rva000D0496UninitializedCopy(const TreeKey00242F5E *first, cons
 // Keep this inlined unsigned max overload local; retail has one external owner.
 // Define it for speed, then restore this unit's flags for its own bodies.
 
-// tu-skeleton: 0x000D0673 28B ??_GW3DStreakDrawModuleData@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000D06C6 96B ?Rva000D06C6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor.cpp
 
@@ -348,6 +426,41 @@ void W3DStreakDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
 	parse.add(g_00BCDB60, 0);
 }
+
+// tu-skeleton: 0x000D043D 28B ??_GW3DStreakDraw@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0459 8B ?rva000D0459@W3DStreakDraw@@QAEXPAX00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0461 8B ?rva000D0461@W3DStreakDraw@@QAEXPAX@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawBody.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp
+
+//
+// STLport _Construct<T> placement-copy helpers, same-shape siblings of the
+// rowed _Construct<AsciiString> at 0x0002C485 (45 bytes; see
+// stlport_construct_asciistring.cpp). Each body is the null-guarded
+// placement-new copy over a single element: the copy delegates out-of-line
+// to T's own rowed copy ctor, and __EH_prolog resolves via its matched row.
+// Each T is declared minimally (declared-only copy ctor, matching the
+// struct/class-ness of its rowed copy ctor); no member is ever touched, so
+// the emitted code is identical apart from the callee. Ledger names use the
+// genuine _Construct<T> object symbol for its established owner. Distinct
+// native copies have typed address-derived owners; application names remain unknown.
+
+void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
+{
+    new (dest) TreeKey00242F5E(source);
+}
+
+// tu-skeleton: 0x000D04E1 63B ??1W3DStreakWeatherVec@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0520 92B ??0W3DStreakDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataCtor2.cpp (not merged yet)
+
+// tu-skeleton: 0x000D057C 69B ??1W3DStreakDrawModuleData@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D0673 28B ??_GW3DStreakDrawModuleData@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DStreakDrawModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000D06C6 96B ?Rva000D06C6Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/CameraMarkerParse.cpp (not merged yet)
 
 // tu-skeleton: 0x00762814 8B uw_00762814 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
 
@@ -358,10 +471,6 @@ void W3DStreakDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
 // tu-skeleton: 0x00762831 13B $L310 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0076283E 10B __ehhandler$?getModuleNameKey@W3DStreakDraw@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DStreakDrawPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0076287F 14B $L3951 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
-
-// tu-skeleton: 0x0076288D 10B __ehhandler$?Rva000D0469Construct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
 
 // tu-skeleton: 0x00762897 8B $L7461 -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorChains.cpp (not merged yet)
 

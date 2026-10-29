@@ -117,11 +117,6 @@ void Rva000CF4D6Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
     new (dest) TreeKey00242F5E(source);
 }
 
-void Rva000D0469Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
-{
-    new (dest) TreeKey00242F5E(source);
-}
-
 void Rva002889E4Construct(TreeKey00242F5E *dest, const TreeKey00242F5E &source)
 {
     new (dest) TreeKey00242F5E(source);
