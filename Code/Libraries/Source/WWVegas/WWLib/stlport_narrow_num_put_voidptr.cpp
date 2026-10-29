@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // num_put<char>::do_put(const void*), vtable slot 1 of 0x007BBA2C - MSVC 7.1
 // lays a name's overloads out in reverse declaration order, so the pointer

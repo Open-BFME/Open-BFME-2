@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // ??1strstreambuf@_STL@@UAE@XZ, retail 0x00602B50 (115 B).
 // strstreambuf destructor, vtable 0x0087A878 already documented in

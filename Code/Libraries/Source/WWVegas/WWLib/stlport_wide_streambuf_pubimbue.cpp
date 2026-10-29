@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 wide basic_streambuf instantiation. The upstream class-template
 // body is specialized here because VC7.1 rejects explicit instantiation of the

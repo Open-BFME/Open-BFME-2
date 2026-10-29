@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 ios_base default constructor. Everything is zeroed in
 // declaration order, which is why the seven format words are stored before the

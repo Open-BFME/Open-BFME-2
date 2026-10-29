@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 // Retail's basic_ios<char>::widen is the generic ctype<char>::widen dispatch (as in
 // stlport_basic_ios_init.cpp), not STLport's identity specialization.
@@ -22,12 +22,12 @@ namespace _STL { template <> char basic_ios<char, char_traits<char> >::widen(cha
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
+template <> void allocator<char>::deallocate(char*, size_t);
 }
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void*);
 }
 namespace _STL { template <> basic_ios<char, char_traits<char> > &basic_ios<char, char_traits<char> >::copyfmt(const basic_ios<char, char_traits<char> > &); }
 template class _STL::basic_ios<char, _STL::char_traits<char> >;

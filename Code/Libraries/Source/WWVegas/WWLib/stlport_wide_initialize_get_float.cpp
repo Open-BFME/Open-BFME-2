@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Dedicated TU for STLport _Initialize_get_float(wchar_t). The wide-read-float
 // unit only declares the helper and already holds a matched scanner.

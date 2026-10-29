@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // The four moneypunct instantiations the image carries. STLport specialises on
 // the international flag, so <char,false> and <char,true> are separate classes

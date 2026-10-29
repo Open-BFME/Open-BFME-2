@@ -1,5 +1,5 @@
 // cl: /Od /Ob2 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // STLport 4.5.3 basic_string<char>::erase(pos, count), RVA 0x00026660 / 130B.
 // Target: native prologue through RET8 followed by int3 padding; calls rowed
 // _M_throw_out_of_range (0x00023A40) and iterator erase (0x00012150).

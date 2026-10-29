@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Retain only this unit's three owned helper instantiations. The full
 // money_put class also emitted a competing do_put implementation and
 // unrelated string constructors/destructors; their verified owners provide

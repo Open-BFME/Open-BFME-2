@@ -1,5 +1,5 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 __get_fdigit and __get_fdigit_or_sep for wide input. Both fold
 // a locale digit back to its ASCII form so the buffer handed to strtod is
