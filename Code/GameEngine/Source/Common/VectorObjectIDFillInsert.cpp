@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
-// stlport46
+// stlport
 
 // De-lift: STLport vector<ObjectID>::_M_fill_insert, retail 0x002CCBD0,
 // 251 bytes.  ObjectID is an enum, so this instantiates separately from the
@@ -18,9 +18,9 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 enum ObjectID { INVALID_ID = 0 };
 // Bind the allocator, base teardown and clear to the kept retail copies (InGameUIXfer.cpp emits them).
-namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t); }
+namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }
 namespace _STL { template <> _Vector_base<ObjectID, allocator<ObjectID> >::~_Vector_base(); }
-namespace _STL { template <> ObjectID *allocator<ObjectID>::allocate(size_t, const void *); }
+namespace _STL { template <> ObjectID *allocator<ObjectID>::allocate(size_t, const void *) const; }
 namespace _STL { template <> void vector<ObjectID>::_M_clear(); }
 // The growth path: retail's copy (InGameUIXfer.cpp emits it) expands the old
 // storage's release inline as a direct free instead of calling _M_clear, which

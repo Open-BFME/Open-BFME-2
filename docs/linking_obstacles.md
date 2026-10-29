@@ -10520,3 +10520,37 @@ RebuildHoleExposeDie.cpp's matching duplicate (row 0x004867F9) was repaired
 separately by LINK-145, which moved that row into its approved TU. The
 CallHelpOnDamage duplicate LINK-145 leaves open for TailJumpWrappers5B.cpp is
 the one this entry's CallHelpOnDamageCtor.cpp view repair addresses.
+
+### LINK-150: STLport 4.6 moves left two body-less allocate specializations without a provider (2026-10-29)
+
+Status: repaired, pending census confirmation. After the 85f6b7f40c census,
+5c9a418aa4 and d2717d0481 moved VectorObjectIDFillInsert.cpp (578 B) and
+stlport_deque_int.cpp (965 B) onto STLport 4.6. Both units declare
+`allocator<T>::allocate(size_t, const void *)` without a body, so their calls
+bind to retail's shared four-byte allocator at 0x00068E15 instead of inlining
+it. Under 4.6 the member is non-const, and the declarations now name the QAE
+twins `?allocate@?$allocator@W4ObjectID@@@_STL@@QAEPAW4ObjectID@@IPBX@Z` and
+`?allocate@?$allocator@H@_STL@@QAEPAHIPBX@Z`. No object defines either name.
+`link_check.py` over the two units and every source changed since the census
+found both unresolved (578 -> 0, 965 -> 0 B). In VectorObjectIDFillInsert.cpp
+the `_Vector_base(size_t, const allocator &)` and `_M_insert_overflow` copies
+also fall to "retail: unproven": their allocate relocation has no row or pin.
+Target fact: both pinned retail helpers (0x004F62A4 and 0x00148D00) call
+0x00068E15, where `?allocate@?$allocator@H@_STL@@QBEPAHIPBX@Z` is rowed
+(AptTimeLineStats.cpp).
+Trials refuted:
+- A QAE twin pin at 0x00068E15 is refused by `pin_admission.py --add`. The
+  address carries a real name, and the fold-proof source must define the
+  pinned symbol, which no object does.
+- Dropping the bodies of the two growth helpers changes the code generation
+  of the rowed `_M_fill_insert` and `insert` (2/9 FAIL).
+- Dropping the allocate specialization would inline allocate into the rows.
+Repair: both files are back on STLport 4.5.3 (their pre-move source). Their
+rows are exact (9/9, 23/23) and repointed without `migrated=stlport-4.6`.
+`link_check.py` on both units, the 1,407 index consumers of their names and
+every source changed since the census predicts LINKS for both (578 B and
+965 B again). The objects equal their census-time objects, so no consumer
+changes. re_attempts.log records both files blocked for the 4.6 lane.
+Prerequisite for moving them again: a provider of the QAE twin bodies whose
+bytes equal 0x00068E15, usable as fold-proof, or a supported path that gives
+the twins the address.
