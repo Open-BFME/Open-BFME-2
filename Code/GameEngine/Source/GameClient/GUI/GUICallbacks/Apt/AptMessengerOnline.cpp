@@ -12,6 +12,7 @@
 // and vector indexing produce the retail stack iterator and retained zero.
 // Recovered from the October 8 bank using retail and WorldBuilder evidence.
 #include <vector>
+#include "unicode_string.h"
 #include "ascii_string.h"
 void Rva00030830FreeAllocation(void *);
 struct BfmeE8 {void *p;unsigned char flag;char pad[3];};
@@ -57,11 +58,6 @@ class GameSpyInfoInterface {public:
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class AptMessenger
-{
-public:
-    __declspec(noinline) void GetSelectedPlayers(int, int, int);
-};
 class Rva005AEB2C
 {
 public:
@@ -74,31 +70,195 @@ public:
     int rva005AE7A5(int);
 };
 extern int g_Va00E046BC;
-struct MessengerOnlineButton
+class GameWindow
 {
-    AsciiString text;
-    bool enabled;
-    char pad[3];
+protected:
+	virtual ~GameWindow();
+private:
+	unsigned char m_pad004[0x218 - 4];
 };
+
+class __multiple_inheritance FunctorTarget;
+
+typedef void (FunctorTarget::*FunctorMethod)(void);
+
+struct FunctorBinding
+{
+	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+	FunctorTarget *m_target;
+	unsigned int m_pad;
+	FunctorMethod m_method;
+};
+
+class FunctorWrapperHead
+{
+public:
+	void *m_vtbl;
+	int m_refCount; // +0x04
+};
+
+class Rva0057BC63FunctorHolder
+{
+public:
+	Rva0057BC63FunctorHolder(const FunctorBinding &binding);
+	Rva0057BC63FunctorHolder(const Rva0057BC63FunctorHolder &other) : m_ptr(other.m_ptr)
+	{
+		if (m_ptr)
+			++m_ptr->m_refCount;
+	}
+	FunctorWrapperHead *m_ptr;
+};
+
+struct TargetRef00217D4C;
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *ref);
+
+template <class T> class AptRef : public Rva0057BC63FunctorHolder
+{
+public:
+	AptRef(const FunctorBinding &binding) : Rva0057BC63FunctorHolder(binding) {}
+	~AptRef()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C((TargetRef00217D4C *)m_ptr);
+	}
+};
+
+class AptCommandMap;
+
+class AptExternHandler;
+
+class AptOverButtonHandler;
+
+class AptCommandMapAdder
+{
+public:
+	void AddCommandMap(const AsciiString &name, AptRef<AptCommandMap> map);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptExternHandlerAdder
+{
+public:
+	void AddExternHandler(const AsciiString &name, int arg, AptRef<AptExternHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class AptOverButtonHandlerAdder
+{
+public:
+	void AddOverButtonHandler(const AsciiString &name, AptRef<AptOverButtonHandler> handler);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+// The image binder at +0x40 of the Apt window half (0x00524306 family):
+// window name to image name.
+class Rva00524306
+{
+public:
+	void rva00524767(const AsciiString &name, const AsciiString &image);
+private:
+	_STL::vector<AsciiString> m_names;
+};
+
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+	AptCommandMapAdder m_commandMaps; // +0x04
+	AptExternHandlerAdder m_externHandlers; // +0x10
+	AptOverButtonHandlerAdder m_overButtonHandlers; // +0x1C
+private:
+	unsigned char m_pad028[0x40 - 0x28];
+public:
+	Rva00524306 m_imageAdder; // +0x40
+private:
+	unsigned char m_pad04C[0x58 - 0x4C];
+};
+
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public:
+	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
+private:
+	AsciiString m_filename; // +0x270
+	int m_274;
+	char m_278;
+};
+
+class BfmeAptWindowManager
+{
+public:
+	void bfmeSetText(const AsciiString &name, const UnicodeString &text, bool placeholder);
+};
+
+extern BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+class GameTextInterface
+{
+public:
+#define TEXT_SLOT(N) virtual void slot##N();
+	TEXT_SLOT(00) TEXT_SLOT(01) TEXT_SLOT(02) TEXT_SLOT(03) TEXT_SLOT(04) TEXT_SLOT(05) TEXT_SLOT(06)
+	TEXT_SLOT(07) TEXT_SLOT(08) TEXT_SLOT(09) TEXT_SLOT(10) TEXT_SLOT(11) TEXT_SLOT(12) TEXT_SLOT(13)
+#undef TEXT_SLOT
+	// Overloaded virtuals are laid out in reverse declaration order: the
+	// AsciiString fetch is vslot 14, the char one vslot 15.
+	virtual UnicodeString fetch(const char *label, bool *exists = 0);
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0);
+};
+
+extern GameTextInterface *TheGameText;
+
+ // the first online messenger
+
+// The base's own fields, as AptMessengerConstructor.cpp builds them: the
+// second tab's 8-byte label/enabled entries live in the +0x28C vector.
+struct Rva00511E48
+{
+	AsciiString text;
+	bool enabled;
+	char pad[3];
+};
+
+class AptMessenger : public _bfme_AptGameWindow
+{
+public:
+	AptMessenger(void *context);
+	virtual ~AptMessenger();
+	void OnBttn_0(const char *unused);
+	void OnBttn_1(const char *unused);
+	__declspec(noinline) void GetSelectedPlayers(int listIndex, int a, int b);
+protected:
+	int m_27C; // +0x27C
+	_STL::vector<unsigned int> m_280; // +0x280
+	_STL::vector<Rva00511E48> m_28C; // +0x28C
+	int m_298; // +0x298
+	bool m_29C; // +0x29C
+	bool m_29D; // +0x29D
+};
+
 class AptMessengerOnline : public AptMessenger
 {
 public:
-    void UpdatePlayerTabButtons();
+	AptMessengerOnline(void *context);
+	virtual ~AptMessengerOnline();
+	void UpdatePlayerTabButtons();
 private:
-    char prefix[0x28c];
-    _STL::vector<MessengerOnlineButton> buttons;
-    char middle[8];
-    bool acceptingFriend;
+	bool m_2A0; // +0x2A0
 };
 void AptMessengerOnline::UpdatePlayerTabButtons()
 {
     if (!TheGameSpyInfo)
         return;
-    buttons[0].text = "APT:AddFriend";
-    buttons[1].text = "APT:Ignore";
-    buttons[0].enabled = false;
-    buttons[1].enabled = false;
-    acceptingFriend = false;
+    m_28C[0].text = "APT:AddFriend";
+    m_28C[1].text = "APT:Ignore";
+    m_28C[0].enabled = false;
+    m_28C[1].enabled = false;
+    m_2A0 = false;
     _STL::vector<int> selected;
     GetSelectedPlayers(g_Va00E046BC, (int)&selected, 0);
     if (selected.size() != 1)
@@ -135,18 +295,18 @@ void AptMessengerOnline::UpdatePlayerTabButtons()
         }
     }
     if (notBuddy)
-        buttons[0].enabled = (pendingBuddy == 0);
+        m_28C[0].enabled = (pendingBuddy == 0);
     else if (pendingBuddy)
     {
-        buttons[0].text = "APT:AcceptFriend";
-        buttons[0].enabled = true;
-        acceptingFriend = true;
+        m_28C[0].text = "APT:AcceptFriend";
+        m_28C[0].enabled = true;
+        m_2A0 = true;
     }
     if (notIgnored)
-        buttons[1].enabled = (ignored == 0);
+        m_28C[1].enabled = (ignored == 0);
     else if (ignored)
     {
-        buttons[1].enabled = true;
-        buttons[1].text = "APT:RemoveIgnore";
+        m_28C[1].enabled = true;
+        m_28C[1].text = "APT:RemoveIgnore";
     }
 }

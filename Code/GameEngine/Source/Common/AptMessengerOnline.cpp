@@ -174,6 +174,15 @@ extern GameTextInterface *TheGameText;
 
  // the first online messenger
 
+// The base's own fields, as AptMessengerConstructor.cpp builds them: the
+// second tab's 8-byte label/enabled entries live in the +0x28C vector.
+struct Rva00511E48
+{
+	AsciiString text;
+	bool enabled;
+	char pad[3];
+};
+
 class AptMessenger : public _bfme_AptGameWindow
 {
 public:
@@ -181,8 +190,14 @@ public:
 	virtual ~AptMessenger();
 	void OnBttn_0(const char *unused);
 	void OnBttn_1(const char *unused);
-private:
-	unsigned char m_pad27C[0x2A0 - 0x27C];
+	__declspec(noinline) void GetSelectedPlayers(int listIndex, int a, int b);
+protected:
+	int m_27C; // +0x27C
+	_STL::vector<unsigned int> m_280; // +0x280
+	_STL::vector<Rva00511E48> m_28C; // +0x28C
+	int m_298; // +0x298
+	bool m_29C; // +0x29C
+	bool m_29D; // +0x29D
 };
 
 class AptMessengerOnline : public AptMessenger
@@ -190,8 +205,9 @@ class AptMessengerOnline : public AptMessenger
 public:
 	AptMessengerOnline(void *context);
 	virtual ~AptMessengerOnline();
+	void UpdatePlayerTabButtons();
 private:
-	bool m_2A0;
+	bool m_2A0; // +0x2A0
 };
 
 struct Rva005AE6F8Slot;
