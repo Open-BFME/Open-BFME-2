@@ -1301,19 +1301,10 @@ void WeaponTemplate::dealDamageInternal(ObjectID sourceID, ObjectID victimID, co
 // owner (0x002CC20E, Rva002CC20ECtor.cpp), whose REL32 pin this TU's callers bind to.
 
 //-------------------------------------------------------------------------------------------------
-// ??1WeaponStore@@ present-unmatched
-WeaponStore::~WeaponStore()
-{
-	deleteAllDelayedDamage();
-
-	for (Int i = 0; i < m_weaponTemplateVector.size(); i++)
-	{
-		WeaponTemplate* wt = m_weaponTemplateVector[i];
-		if (wt)
-			wt->deleteInstance();
-	}
-	m_weaponTemplateVector.clear();
-}
+// Retail's complete destructor at 0x002CCD56 and deleting destructor at
+// 0x002CD5E0 are byte-verified in Rva002CCD56Dtor.cpp. The Zero Hour body
+// here emitted a different destructor and subsystem table; keep that owner
+// until the split WeaponStore/Rva002CCD56 class views are reconciled.
 
 //-------------------------------------------------------------------------------------------------
 

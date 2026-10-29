@@ -5187,6 +5187,17 @@ parents (including newly rehomed 0x0077F308) and approved-TU composition remain
 pending; this is not a census gain or clearance
 of the constructor obstacle. [Evidence and remaining work](../reverse/attempt_support/multiplayer-settings-layout-20261028.md).
 
+**WeaponStore obsolete donor cleanup (2026-10-29, base `2f86c49f4552`):**
+Weapon.cpp no longer emits its unrowed 145-byte Zero Hour destructor or its
+24-byte table. One present-unmatched hatch retires; 24 scoped function rows,
+ten data rows and the retail destructor's EH graph remain exact. With the
+existing parseClearNuggets provider included, the six-unit preview preserves
+1,045 authored LINKS bytes against index `85f6b7f40c`. The constructor's table
+conflict disappears, but its protected destructor and fake base unused slot
+remain unresolved. The native class/interface and admitted identity merge
+prerequisites stay open; full consumer and census confirmation remain pending.
+[Scope and provider audit](../reverse/attempt_support/weaponstore-obsolete-destructor-20261029-codex4.md).
+
 ### LINK-010: folded STL table bases need the actual native predecessor
 
 **Status: Blocked on supported native data-placement / ownership reconciliation.

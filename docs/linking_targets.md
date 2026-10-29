@@ -822,7 +822,7 @@ through `tools/progress.py`'s provenance and retail-byte functions.
 | `Code/Libraries/Source/WWVegas/WW3D2/sphereobj.cpp` | 51 | 12 (U=7, C=5) | Open |
 | `Code/GameEngine/Source/Common/Rva003C2F40TreeCtor.cpp` | 50 | 3 (U=3) | Open |
 | `Code/Libraries/Source/WWVegas/WWMath/curve.cpp` | 48 | 5 (U=3, C=1, S=1) | 2026-10-27 at `97c23353111e`: U3/L1/S1; frozen definitions and shared interfaces (LINK-006) |
-| `Code/GameEngine/Source/Common/WeaponStore.cpp` | 47 | 3 (U=2, C=1) | Open |
+| `Code/GameEngine/Source/Common/WeaponStore.cpp` | 47 | 3 (U=2, C=1) | 2026-10-29: obsolete Weapon.cpp destructor/table removed; one hatch retires. Current preview retains two unresolved names after the table conflict disappears. Native subsystem view and admitted identity merge remain (LINK-009); no census gain. [Evidence](../reverse/attempt_support/weaponstore-obsolete-destructor-20261029-codex4.md) |
 | `Code/GameEngine/Source/Common/Thing/ProductionPrerequisiteAssign.cpp` | 45 | 4 (C=2, S=2) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva005FE3DC.cpp` | 45 | 3 (U=1, C=1, S=1) | Open |
 | `Code/Libraries/Source/WWVegas/WWLib/stlport_unguarded_insertion_sort_s4sortelem20.cpp` | 45 | 3 (U=2, S=1) | Open |
