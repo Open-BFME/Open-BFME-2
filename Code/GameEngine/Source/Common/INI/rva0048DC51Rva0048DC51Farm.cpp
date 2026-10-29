@@ -129,18 +129,7 @@ struct CreateMask
 	unsigned int m_bits[4];
 };
 
-class Thing
-{
-public:
-	const Coord3D *getPosition() const { return &m_position; }
-	Real getOrientation() const { return m_orientation; }
-	void setPosition(const Coord3D *pos);
-	void setOrientation(Real angle);
-private:
-	char m_unknown00[0x38];
-	Coord3D m_position; // +0x38
-	Real m_orientation; // +0x44
-};
+#include "../Thing/thing.h"
 
 class Object : public Thing
 {

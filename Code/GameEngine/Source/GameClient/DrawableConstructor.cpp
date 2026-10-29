@@ -243,16 +243,7 @@ struct DrawableInfo
 	int m_flags;
 };
 
-class Thing
-{
-public:
-	Thing(const ThingTemplate *thingTemplate);
-protected:
-	virtual ~Thing();
-public:
-	const ThingTemplate *m_template;			// +0x04
-	unsigned char m_pad08[0x58];
-};
+#include "../Common/Thing/thing.h"
 
 class Drawable : public Thing, public Snapshot
 {

@@ -140,7 +140,7 @@ virtual void sA4(Object *,int)=0;
 namespace _STL { template <> void ** __copy_ptrs<void **, void **>(void **, void **, void **, __true_type); }
 
 // bfme link decl-only end
-class Thing { public: void setPosition(const Coord3D *position); };
+#include "../../../../Common/Thing/thing.h"
 
 // Whole clean BF1 f98983a7 Object/Contain/HordeContainExitPosition.cpp
 // supplies the copy-and-extract pattern. Native47727E..4772B8 is complete

@@ -81,31 +81,7 @@ class Drawable;
 // slot 5 is the pure reactToTransformChange (_purecall 0x0003B810); slot 6
 // is an unnamed empty virtual (folded 0x000B3FD0) that Object overrides
 // with 0x0028B193; slot 7 is the scalar deleting destructor 0x0030A243.
-class Thing
-{
-public:
-	Thing(const ThingTemplate *thingTemplate);
-
-protected:
-	virtual float calculateHeightAboveTerrain() const;
-	virtual Object *asObjectMeth() { return 0; }
-	virtual Drawable *asDrawableMeth() { return 0; }
-	virtual const Object *asObjectMeth() const { return 0; }
-	virtual const Drawable *asDrawableMeth() const { return 0; }
-	virtual void reactToTransformChange(const Matrix3D *oldMtx, const Coord3D *oldPos, float oldAngle) = 0;
-	virtual void vslot6() {}
-	virtual ~Thing();
-
-private:
-	const ThingTemplate *m_template;		// +0x04
-	Matrix3D m_transform;				// +0x08
-	Coord3D m_cachedPos;					// +0x38
-	float m_cachedAngle;				// +0x44
-	Coord3D m_cachedDirVector;				// +0x48
-	float m_cachedAltitudeAboveTerrain;		// +0x54
-	float m_cachedAltitudeAboveTerrainOrWater;	// +0x58
-	int m_cacheFlags;				// +0x5C
-};
+#include "thing.h"
 
 Thing::Thing(const ThingTemplate *thingTemplate)
 {

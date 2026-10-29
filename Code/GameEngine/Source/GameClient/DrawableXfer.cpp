@@ -378,13 +378,7 @@ public:
 	Pathfinder *m_pathfinder;
 };
 
-class Thing
-{
-public:
-	virtual ~Thing();
-	void setTransformMatrix(const Matrix3D *mx);
-	char m_pad[0x5c];
-};
+#include "../Common/Thing/thing.h"
 
 class Drawable : public Thing, public Snapshot
 {

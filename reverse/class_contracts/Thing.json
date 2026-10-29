@@ -1,0 +1,706 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "Thing",
+ "evidence": {
+  "census": 388,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {
+   "0x0": {
+    "4": 4
+   },
+   "0x10": {
+    "4": 8
+   },
+   "0x14": {
+    "4": 8
+   },
+   "0x18": {
+    "4": 9
+   },
+   "0x1c": {
+    "4": 8
+   },
+   "0x20": {
+    "4": 8
+   },
+   "0x24": {
+    "4": 8
+   },
+   "0x28": {
+    "4": 9
+   },
+   "0x2c": {
+    "4": 8
+   },
+   "0x30": {
+    "4": 8
+   },
+   "0x34": {
+    "4": 9
+   },
+   "0x38": {
+    "4": 6
+   },
+   "0x3c": {
+    "4": 4
+   },
+   "0x4": {
+    "4": 6
+   },
+   "0x40": {
+    "4": 5
+   },
+   "0x44": {
+    "4": 6
+   },
+   "0x48": {
+    "4": 2
+   },
+   "0x4c": {
+    "4": 1
+   },
+   "0x50": {
+    "4": 1
+   },
+   "0x54": {
+    "4": 4
+   },
+   "0x58": {
+    "4": 3
+   },
+   "0x5c": {
+    "1": 3,
+    "4": 5
+   },
+   "0x8": {
+    "4": 11
+   },
+   "0x84": {
+    "4": 1
+   },
+   "0xc": {
+    "4": 8
+   }
+  },
+  "retail_member_rows": 16,
+  "retail_vtables": {
+   "0x8086e0": {
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 8,
+  "view_sizes": {
+   "1": 252,
+   "4": 11,
+   "8": 22,
+   "12": 1,
+   "31": 1,
+   "44": 1,
+   "56": 4,
+   "68": 35,
+   "72": 25,
+   "96": 12,
+   "100": 1,
+   "120": 3,
+   "132": 1,
+   "136": 1,
+   "176": 1,
+   "188": 1,
+   "208": 2,
+   "465": 1,
+   "604": 2,
+   "1081": 2,
+   "1084": 1
+  },
+  "views": 380,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_Thing.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Thing.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "majority",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {
+    "4": 4
+   },
+   "size": 4,
+   "type": "void*",
+   "views": 74,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 806,
+  "struct": 2
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/Recorder.cpp",
+    "Code/GameEngine/Source/Common/Rva002C5EF0Xfer.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+    "Code/GameEngine/Source/Common/System/BuildAssistantWallLocations.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingIsSignificantlyAboveTerrain.cpp",
+    "Code/GameEngine/Source/Common/ThingIsAnyKindOf.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/DrawableDestructor.cpp",
+    "Code/GameEngine/Source/GameClient/GameClientXfer.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUICanSelectedObjectsDoAction.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIUpdateLocalPhantomStructureDisplay.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIGroupAdd.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046CF21.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDieTestKillerType.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectRva0028D491.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectSnapshotLoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AnimalAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/TransportAIUpdatePrivateAttackPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfaceNotifyPathHasInvalidPortals.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateCommands.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterfacePrivateGuardPosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeQuickPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponProjectileLaunch.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 70
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConvertBonePosToWorldPos.cpp",
+    "Code/GameEngine/Source/Common/Thing/Thing_getUnitDirectionVector3D.cpp",
+    "Code/GameEngine/Source/GameClient/Drawable_LoadPostProcess.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva0046CF21.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDestructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIGiantBirdAttackStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp"
+   ],
+   "views": 27
+  },
+  {
+   "offset": 24,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Thing_getUnitDirectionVector3D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 30,
+   "sources": [
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DFloorDrawCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 40,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/Thing_getUnitDirectionVector3D.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 56,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/rva0048DC51Rva0048DC51Farm.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva002629EAThingFacingCheck.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackFireDuringApproachStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorSlot5.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeQuickPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponComputeApproachTarget.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 66
+  },
+  {
+   "offset": 60,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/rva0048DC51Rva0048DC51Farm.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva002629EAThingFacingCheck.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackFireDuringApproachStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorSlot5.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeQuickPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponComputeApproachTarget.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 65
+  },
+  {
+   "offset": 64,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/rva0048DC51Rva0048DC51Farm.cpp",
+    "Code/GameEngine/Source/Common/Thing/Rva002629EAThingFacingCheck.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMyHeroRefreshCamera.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIHandleBuildPlacements.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIIdleWorker.cpp",
+    "Code/GameEngine/Source/GameClient/InGameUIRemoveIdleWorker.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachComputePath.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_OnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnEnter_Unresolved.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackApproachTargetStateOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackFireDuringApproachStateUpdateInternal.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIAttackMeleeApproachStateOnEnter.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStates.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/Rva00343FB0.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RampageBehavior_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/RunOffMapBehaviorSlot5.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnContaining.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainOnRemoving.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00475F61.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRiders_Rva0046740C.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/WorkerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeAttackPath_ComputeAttackPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computePath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_computeQuickPath.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doLocomotor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_doPathfind.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloatUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FoundationAIUpdateConstruct.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/HeightDieUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/OneRingPenaltyUpdateRva00499D23.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/BaseUpgradeUpgradeImplementation.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponComputeApproachTarget.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 65
+  },
+  {
+   "offset": 68,
+   "sources": [
+    "Code/GameEngine/Source/Common/INI/rva0048DC51Rva0048DC51Farm.cpp",
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIStatesBfmeOnExit.cpp",
+    "Code/GameEngine/Source/GameLogic/Map/BridgeObjectCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Behavior/AutoHealBehaviorPlayerScan.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Collide/SquishCollide.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/LocomotorMoveTowardsPositionHorde.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/ObjectOnDie.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AIUpdateInterfaceQuickHordeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DozerAIUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/FloodUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdateXfer.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateExitObjectViaDoor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SupplyCenterProductionExitUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StealthUpdateLogic.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdateUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgradeUpdate.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/WeaponComputeApproachTarget.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 22
+  },
+  {
+   "offset": 72,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameLogic/W3DGhostObjectScene.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 76,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 80,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 84,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 88,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 92,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingConstructor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/DamageNugget.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 116,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Contain/HordeContainRva00473125.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ReplaceObjectUpdate.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp"
+   ],
+   "views": 4
+  },
+  {
+   "offset": 132,
+   "sources": [
+    "Code/GameEngine/Source/Common/Thing/ThingGetDrawable.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 148,
+   "sources": [
+    "Code/GameEngine/Source/Common/AITargetHeuristicEnemyDozer_isValidTarget.cpp",
+    "Code/GameEngine/Source/Common/Rva00573512Permuted.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 184,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp",
+    "Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 204,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot23.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateSlot24.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 464,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateCtor.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 600,
+   "sources": [
+    "Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp",
+    "Code/GameEngine/Source/GameLogic/Object/Update/PickupStuffUpdate_moveToStuff.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 1080,
+   "sources": [
+    "Code/GameEngine/Source/Common/AITargetHeuristicEnemyDozer_isValidTarget.cpp",
+    "Code/GameEngine/Source/Common/Rva00573512Permuted.cpp",
+    "Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp"
+   ],
+   "views": 3
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot1",
+   "candidates": {
+    "asObjectMeth()": 1,
+    "opaqueSlot4()": 2,
+    "slot04()": 1,
+    "unused04()": 2,
+    "v1()": 1
+   },
+   "class": "Thing"
+  },
+  {
+   "attribute": "slot3",
+   "candidates": {
+    "asDrawableMeth()": 1,
+    "opaqueSlotC()": 1,
+    "slot0C()": 1,
+    "v3()": 1
+   },
+   "class": "Thing"
+  },
+  {
+   "attribute": "slot5",
+   "candidates": {
+    "reactToTransformChange(Matrix3D*,Coord3D*,float)": 1,
+    "slot14()": 1
+   },
+   "class": "Thing"
+  },
+  {
+   "attribute": "slot6",
+   "candidates": {
+    "slot18()": 1,
+    "vslot6()": 1
+   },
+   "class": "Thing"
+  },
+  {
+   "attribute": "slot7",
+   "candidates": {
+    "__vecDelDtor(uint)": 1,
+    "slot1C()": 1
+   },
+   "class": "Thing"
+  }
+ ],
+ "size": 68,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "__vecDelDtor(uint)"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "asObjectMeth()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "asDrawableMeth()"
+  },
+  "8": {
+   "decided_by": "bytes",
+   "member": "slot20()"
+  },
+  "9": {
+   "decided_by": "bytes",
+   "member": "slot24()"
+  }
+ }
+}

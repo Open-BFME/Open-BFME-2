@@ -266,14 +266,7 @@ struct DrawableInfo
 
 // Thing: its constructor is the rowed Thing::Thing 0x0030A188 and its
 // destructor the rowed Thing::~Thing 0x0030A120 (same vtable 0x008086E0 and instance count).
-class Thing
-{
-protected:
-	virtual ~Thing();	// protected as in Zero Hour's MEMORY_POOL_GLUE_ABC(Thing)
-public:
-	const ThingTemplate *m_template;			// +0x04
-	unsigned char m_pad08[0x58];
-};
+#include "../Common/Thing/thing.h"
 
 class Drawable : public Thing, public Snapshot
 {
