@@ -25,6 +25,7 @@ extern "C" {
 void __identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva000CF713Parse@@YAXPAVINI@@PAVRva000CF713Owner@@@Z")();
 void __identifier("?Rva000CF873Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva001DEE74Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva002567EAParse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva002C8C06Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -43,8 +44,10 @@ void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAsciiStringVectorAppend@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseBannerCarrierPosition@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseCoord2D@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseDurationReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -52,14 +55,21 @@ void __identifier("?parseFXList@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseFXList@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseFromINI@Rva003B1017@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseGameClientRandomVariable@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseHordeContainRankSets@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseHordeContainRanksThatStopAdvance@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseHordeContainSplitResult@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseLink@DynamicPortalBehaviourData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseLookupList@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseMeleeBehavior@HordeContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseOCL@StructureCollapseUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseRGBColor@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseRGBColorKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseRandomKeyframe@ParticleSystemTemplate@@SAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?parseRankInfo@HordeContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseScience@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -68,6 +78,8 @@ void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
+
+extern const char *TheLocomotorSetNames[];
 
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
@@ -638,47 +650,47 @@ extern const FieldParse s_slaughterHordeFieldTable[4] = {
 };
 
 // Retail VA 0x00c45530: 39 entries + terminator (640B).
-extern const int s_hordeContainFieldTable[160] = {
-    0x00C45510, 0x0042E850, 0x00000000, 0x000001D8,
-    0x00C45504, 0x0087414D, 0x00000000, 0x0000018C,
-    0x00C454EC, 0x0086AD52, 0x00000000, 0x000001B4,
-    0x00C454D0, 0x0086AD18, 0x00000000, 0x000001B8,
-    0x00C454B0, 0x0086AD18, 0x00000000, 0x000001C4,
-    0x00C454A4, 0x0086F39E, 0x00000000, 0x00000198,
-    0x00C45490, 0x0042F11E, 0x00000000, 0x000001B0,
-    0x00C45480, 0x0042F558, 0x00000000, 0x000001D0,
-    0x00C45470, 0x0042F507, 0x00000000, 0x00000200,
-    0x00C45460, 0x0042F196, 0x00000000, 0x000001F4,
-    0x00C45448, 0x0086F179, 0x00000000, 0x0000020C,
-    0x00C45430, 0x0042F196, 0x00000000, 0x00000218,
-    0x00C45424, 0x0042EF56, 0x00000000, 0x00000208,
-    0x00C45410, 0x00738B30, 0x00000000, 0x000001DC,
-    0x00C453FC, 0x00738B30, 0x00000000, 0x000001E0,
-    0x00C453E8, 0x0042EFC0, 0x00000000, 0x000001E4,
-    0x00C453D4, 0x0042EFC0, 0x00000000, 0x000001E8,
-    0x00C453C0, 0x0042F1BA, 0x00000000, 0x000001EC,
-    0x00C453B4, 0x0042EFC0, 0x00000000, 0x000001F0,
-    0x00BFBA5C, 0x0042F196, 0x00000000, 0x00000224,
-    0x00C4539C, 0x0042E850, 0x00000000, 0x00000230,
-    0x00C45388, 0x0042EC4E, 0x00DBB4F0, 0x00000234,
-    0x00C45378, 0x0042E850, 0x00000000, 0x00000238,
-    0x00C4536C, 0x0042F11E, 0x00000000, 0x0000023C,
-    0x00C45354, 0x0042E850, 0x00000000, 0x00000240,
-    0x00C45348, 0x0086F288, 0x00000000, 0x000001A4,
-    0x00C4532C, 0x0042EFC0, 0x00000000, 0x00000244,
-    0x00C45314, 0x005DEE74, 0x00000000, 0x00000248,
-    0x00C45308, 0x0042E850, 0x00000000, 0x0000024C,
-    0x00C452F4, 0x0042EF56, 0x00000000, 0x00000250,
-    0x00C452E0, 0x0042E850, 0x00000000, 0x00000254,
-    0x00C452CC, 0x0042E850, 0x00000000, 0x00000255,
-    0x00C452C0, 0x0042EFC0, 0x00000000, 0x0000025C,
-    0x00C452B0, 0x00738B30, 0x00000000, 0x00000260,
-    0x00C452A0, 0x00738B30, 0x00000000, 0x00000264,
-    0x00C3C270, 0x008691B7, 0x00000000, 0x00000258,
-    0x00C4528C, 0x0042EF72, 0x00000000, 0x00000268,
-    0x00C45278, 0x0042F1BA, 0x00000000, 0x0000026C,
-    0x00C45264, 0x0042F1BA, 0x00000000, 0x00000270,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_hordeContainFieldTable[40] = {
+    { "ThisFormationIsTheMainFormation", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1D8 },
+    { "RankInfo", (FieldParseProc)&__identifier("?parseRankInfo@HordeContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x18C },
+    { "RanksThatStopAdvance", (FieldParseProc)&__identifier("?parseHordeContainRanksThatStopAdvance@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1B4 },
+    { "RanksToReleaseWhenAttacking", (FieldParseProc)&__identifier("?parseHordeContainRankSets@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1B8 },
+    { "RanksToJustFreeWhenAttacking", (FieldParseProc)&__identifier("?parseHordeContainRankSets@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1C4 },
+    { "ComboHorde", (FieldParseProc)&__identifier("?parseHordeContainComboHorde@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x198 },
+    { "AlternateFormation", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1B0 },
+    { "RandomOffset", (FieldParseProc)&__identifier("?parseCoord2D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1D0 },
+    { "LeaderPosition", (FieldParseProc)&__identifier("?parseCoord3D@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x200 },
+    { "LeadersAllowed", (FieldParseProc)&__identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1F4 },
+    { "BannerCarrierPosition", (FieldParseProc)&__identifier("?parseBannerCarrierPosition@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x20C },
+    { "BannerCarriersAllowed", (FieldParseProc)&__identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x218 },
+    { "LeaderRank", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x208 },
+    { "BackUpMinDelayTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1DC },
+    { "BackUpMaxDelayTime", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1E0 },
+    { "BackUpMinDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1E4 },
+    { "BackUpMaxDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1E8 },
+    { "BackupPercentage", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1EC },
+    { "CowerRadius", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1F0 },
+    { "AttributeModifiers", (FieldParseProc)&__identifier("?parseAsciiStringVector@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x224 },
+    { "IsPorcupineFormation", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x230 },
+    { "ForcedLocomotorSet", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheLocomotorSetNames, 0x234 },
+    { "MachineAllowed", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x238 },
+    { "MachineType", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x23C },
+    { "UseSlowHordeMovement", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x240 },
+    { "SplitHorde", (FieldParseProc)&__identifier("?parseHordeContainSplitResult@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x1A4 },
+    { "MeleeAttackLeashDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x244 },
+    { "EvaEventLastMemberDeath", (FieldParseProc)&__identifier("?Rva001DEE74Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x248 },
+    { "RankSplit", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x24C },
+    { "SplitHordeNumber", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x250 },
+    { "NotComboFormation", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x254 },
+    { "UseMarchingAnims", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x255 },
+    { "FrontAngle", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x25C },
+    { "FlankedDelay", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x260 },
+    { "FlankedDuration", (FieldParseProc)&__identifier("?parseDurationUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x264 },
+    { "MeleeBehavior", (FieldParseProc)&__identifier("?parseMeleeBehavior@HordeContainModuleData@@SAXPAVINI@@PAX1PBX@Z"), 0, 0x258 },
+    { "MinimumHordeSize", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x268 },
+    { "VisionRearOverride", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x26C },
+    { "VisionSideOverride", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x270 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bef620: 12 entries + terminator (208B).

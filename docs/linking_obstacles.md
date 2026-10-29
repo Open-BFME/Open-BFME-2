@@ -8484,3 +8484,12 @@ defining object (do not invent one):
   image): s_animSoundFieldTable, s_moneyCrateFieldTable, s_assaultTransportFieldTable,
   s_hordeModelDrawFieldTable, s_crowdResponseFieldTable.
 - The 14 getters returning image addresses (three Drawable statics have no definition).
+
+Update (wt_x, same seat): s_moneyCrate, s_assaultTransport, s_crowdResponse and s_hordeContain are now
+typed (field names read from retail with build.read_target_bytes, verified by data rows; hordeContain's
+0xDBB4F0 userData is the owned TheLocomotorSetNames). link_debt 349 -> 260. Still open: s_animSound
+(consumer AnimationSoundClientBehavior.cpp) and s_hordeModelDraw (W3DHordeModelDrawModuleDataParse.cpp)
+were held by another worker; s_modelDraw (0xDB960C unnamed), s_fxpsSizeAngle (0xC1B6D8 only
+address-named g_00C1B6D8), AODCrush (0xDCD4D0/0xDCD550), s_transportAi (0xDBB4C4) and s_radiusDecal
+(0xDBE6F0) need a real-named, data-rowed list first. TheWeaponSlotTypeNames (0xDBC284) is owned but
+s_modelDraw also needs 0xDB960C.
