@@ -4382,3 +4382,4 @@ member,Rva00343EFATemplateView::m_5FD,Rva00343EFATemplateView::m_useCrushAttack,
 param,Rva000858EE::a,Rva000858EE::start,inferred,agree:nl-7d6d52b63a81,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000858EE
 param,Rva000858EE::b,Rva000858EE::end,inferred,agree:nl-8afadcc18993,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x000858EE
 function,?rva0004C6C6@Rva0004C6C6@@QAEXM@Z,?setFrameRate@Rva0004C6C6@@QAEXM@Z,inferred,agree:nl-6c0dac4c240d,Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp,0x0004C6C6
+param,AptMpChat::InitGadgets::argument,AptMpChat::InitGadgets::userData,inferred,agree:nl-818da7415bff,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp,0x0057FDEF

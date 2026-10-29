@@ -14756,3 +14756,5 @@ Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp|function|0x000858EE|Rva000
 Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp|param|Rva000858EE|a,7d6d52b63a81eb35e098aee3,gpt-6.1-sol,w5-10290509-2,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/Common/VtableSlotBodiesR3F.cpp|param|Rva000858EE|b,8afadcc18993250cc558a059,gpt-6.1-sol,w5-10290509-2,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/Common/GapBodiesS3G.cpp|member|Rva00343EFATemplateView|m_5FD,6496b228c54ae79608f017ce,gpt-6.1-sol,w5-10290509-3,w-f0819d403c17,2026-10-29
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp|function|0x0057FDBF|rva0057FDBF,83e5301780487363f9a272d4,gpt-6.1-sol,w2-10290523-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpChat.cpp|param|AptMpChat::InitGadgets|argument,ca11cbc42c25b678d9a5bffc,gpt-6.1-sol,w2-10290523-2,w-dce04682aaeb,2026-10-29

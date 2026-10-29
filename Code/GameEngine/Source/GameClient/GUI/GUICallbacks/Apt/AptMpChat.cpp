@@ -183,7 +183,7 @@ class AptMpChat
 {
 public:
 	void Send(const char *unused);
-	void InitGadgets(const char *name, void *argument, GameWindow *window);
+	void InitGadgets(const char *name, void *userData, GameWindow *window);
 	// Bound as "MpChat::Initialized" and "MpClans::Initialized": one body
 	// or two folded, so it keeps its address.
 	void rva0057FDBF(int query, char *result, bool skip);
@@ -286,7 +286,7 @@ void AptMpChat::Send(const char *unused)
 
 // Retail 0x0057FDEF, 124 bytes: "AptMpChat::InitGadgets" hands the "Chat",
 // "ChatPlayers" and (emptied) "ChatEntry" windows to the helper.
-void AptMpChat::InitGadgets(const char *name, void *argument, GameWindow *window)
+void AptMpChat::InitGadgets(const char *name, void *userData, GameWindow *window)
 {
 	if (!m_entry)
 		return;
