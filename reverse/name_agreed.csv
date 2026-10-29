@@ -9796,3 +9796,9 @@ nl-34cf41839b3e,local,tmp,defaultRecord,,w-526a51702f64@drz-k5,Code/GameEngine/S
 nl-3e28b08c2c42,param,p,node,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|param|Rva004F88BBIterator|p,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
 nl-37fb515cba77,param,p,other,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/Rva004F8AECErase.cpp|param|Rva004F88BBIterator#2|p,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
 nl-d07d1f70d5be,local,h,m_nextState,,w-526a51702f64@drz-k5,Code/GameEngine/Source/Common/Rva00431B76.cpp|local|FormationTranslator::WaitForSecondButtonDownStateHandler::Update|h,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-d5e5d8faa9fa,param,arg,target,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva005C4952Find.cpp|param|Rva005C4A91::rva005C4952|arg,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-dee7e1c6a330,param,arg,target,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva005C4952Find.cpp|param|Rva005C49D4Host::rva005C49D4|arg,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-614c11c3c911,param,a,start,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva00355CD8Dtor.cpp|param|Rva00355C39Interpolate|a,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-185e2ea7e647,param,b,end,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva00355CD8Dtor.cpp|param|Rva00355C39Interpolate|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-608dc45f8278,param,t,percent,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva00355CD8Dtor.cpp|param|Rva00355C39Interpolate|t,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-d88200a7818a,local,t,network,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/Rva0023D30FCall.cpp|local|GameLogic::rva0023D30F|t,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
