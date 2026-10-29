@@ -174,7 +174,7 @@ Transport::Transport(void) throw()
 	m_int40E6C = 0;
 	m_int40E70 = 0;
 	m_badPackets = 0;
-	Message *out = m_outBuffer;
+	TransportMessage *out = m_outBuffer;
 	int n = 128;
 	do {
 		((Transport*)out)->clearBuffer_Rva004D4A59();
@@ -351,14 +351,14 @@ bool Transport::doRecv(Rva00594DC0 *receiver)
 
     bool retval = false;
     sockaddr_in from;
-    Message incomingMessage;
+    TransportMessage incomingMessage;
     Rva004D4A80Slot *slot = m_slots;
     int remaining = 8;
     do {
         if (slot->m_object) {
             int len;
             while ((len = ((UDP *)slot->m_object)->Read((unsigned char *)&incomingMessage,
-                                      sizeof(Message), &from)) > 0) {
+                                      sizeof(TransportMessage), &from)) > 0) {
                 unsigned short receiverResult;
                 if (receiver && receiver->rva005952C4(&incomingMessage,
                                       (unsigned short)len, &receiverResult))
@@ -379,7 +379,7 @@ bool Transport::doRecv(Rva00594DC0 *receiver)
                 m_stats0[m_int40E6C] += len;
                 for (int j = 0; j < 128; ++j) {
                     if (m_inBuffer[j].m_length == 0) {
-                        memcpy(&m_inBuffer[j], &incomingMessage, sizeof(Message));
+                        memcpy(&m_inBuffer[j], &incomingMessage, sizeof(TransportMessage));
                         retval = true;
                         break;
                     }
@@ -422,7 +422,7 @@ bool Transport::doSend()
     };
     bool retval = true;
     char *cursor = (char *)&m_outBuffer[0].m_length;
-    for (int n = 0; n < 128; ++n, cursor += sizeof(Message)) {
+    for (int n = 0; n < 128; ++n, cursor += sizeof(TransportMessage)) {
         MessageTail &message = *(MessageTail *)cursor;
         if (message.m_length != 0) {
             Rva00594C12 *socket;

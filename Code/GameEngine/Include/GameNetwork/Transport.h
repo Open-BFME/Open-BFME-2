@@ -24,6 +24,17 @@ struct Rva004D4A80Slot
 	~Rva004D4A80Slot(void) {}
 };
 
+#pragma pack(push, 1)
+struct TransportMessage
+{
+	unsigned int m_crc;
+	unsigned char m_data[0x400];
+	int m_length; // +0x404
+	unsigned long m_addr;
+	unsigned short m_port;
+};
+#pragma pack(pop)
+
 class Transport
 {
 public:
@@ -48,19 +59,13 @@ public:
 	float rva004D4FBE() const;
 	float rva004D4F7A() const;
 
+	// Public as in Zero Hour: ConnectionManager::doRelay (0x004D3221) reads
+	// the in-buffer directly and hands each message to NetPacket's
+	// TransportMessage constructor (0x0058E5EC).
+	TransportMessage m_outBuffer[128];
+	TransportMessage m_inBuffer[128];
+
 private:
-#pragma pack(push, 1)
-	struct Message
-	{
-		unsigned int m_crc;
-		unsigned char m_data[0x400];
-		int m_length; // +0x404
-		unsigned long m_addr;
-		unsigned short m_port;
-	};
-#pragma pack(pop)
-	Message m_outBuffer[128];
-	Message m_inBuffer[128];
 	bool m_flag40E00;
 	void *m_ptr40E04;
 	bool m_winsockActive;

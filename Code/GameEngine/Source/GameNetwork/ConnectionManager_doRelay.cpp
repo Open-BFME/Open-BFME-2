@@ -34,6 +34,7 @@ enum
 };
 
 #include "../Common/GameLogicObjectLookupView.h"
+#include "../../Include/GameNetwork/Transport.h"
 
 extern GameLogic *TheGameLogic;
 
@@ -146,24 +147,6 @@ struct BfmeNetAddress
 	UnsignedInt m_port;
 };
 
-#pragma pack(push, 1)
-struct TransportMessage
-{
-	UnsignedInt crc;
-	UnsignedByte data[0x400];
-	Int length;
-	UnsignedInt addr;
-	UnsignedShort port;
-};
-#pragma pack(pop)
-
-class Transport
-{
-public:
-	TransportMessage m_outBuffer[MAX_MESSAGES];
-	TransportMessage m_inBuffer[MAX_MESSAGES];
-};
-
 class NetPacket
 {
 public:
@@ -274,10 +257,10 @@ void ConnectionManager::doRelay()
 
 	for (UnsignedInt i = 0; i < MAX_MESSAGES; ++i)
 	{
-		if (m_transport->m_inBuffer[i].length != 0)
+		if (m_transport->m_inBuffer[i].m_length != 0)
 		{
 			NetPacket packet(&m_transport->m_inBuffer[i]);
-			m_transport->m_inBuffer[i].length = 0;
+			m_transport->m_inBuffer[i].m_length = 0;
 			NetCommandList *cmdList = packet.getCommandList();
 			BfmeNetAddress source = packet.getAddress();
 			rva004D316A(cmdList, &source);
