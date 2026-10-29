@@ -1,6 +1,8 @@
 // cl: /O1 /Ob1 /G7 /EHsc /MD /arch:SSE /DNDEBUG /D_STLP_NO_EXCEPTIONS /ICode/Libraries/Source/WWVegas/WWLib
 // stlport
 #include <vector>
+#include "FixedStorage128.h"
+struct LivingWorldPlayerRGBColorView { float r,g,b; };
 // WBDE62B0 names CalcRevivalCostsForEntry; native2E1A1A..2E1AA0 RET0
 // supplies the private EDI receiver. Static definition before its sole compiled
 // caller lets MSVC select that ABI without assembly. ModuleInfo+2E4 has20-byte
@@ -28,11 +30,33 @@ public: const ModuleData *getNthData(int)const;
  int getCount()const {return end-begin;}
 };
 struct RevivalThingView {char unknown00[0x2E4]; ModuleInfo modules;};
-class UnitRevivalEntry {
+class Xfer;
+class UnitRevivalEntry
+{
 public:
- UnitRevivalEntry(); UnitRevivalEntry(const UnitRevivalEntry&); ~UnitRevivalEntry(); void *getThingTemplate();
- char unknown00[8]; float experience; int rank,level; char upgrades[0x80]; unsigned int cost; int startFrame; unsigned int time;
- bool revival,flagA1; int productionID,armyID,key; char record[0x18]; int valueC8; float factor; char textD0[8];
+	UnitRevivalEntry();
+	UnitRevivalEntry(const UnitRevivalEntry &);
+	~UnitRevivalEntry();
+	void *getThingTemplate();
+	void rva0037E473(Xfer*);
+	char m_pad00[0x8];
+	float experience; // +0x08
+	int rank; // +0x0C
+	int level; // +0x10
+	BfmeFixedStorage128 upgrades; // +0x14
+	unsigned int cost; // +0x94
+	int startFrame; // +0x98
+	unsigned int time; // +0x9C
+	bool revival; // +0xA0
+	bool flagA1; // +0xA1
+	char m_padA2[0x2];
+	int productionID; // +0xA4
+	int armyID; // +0xA8
+	int key; // +0xAC
+	char record[0x18]; // +0xB0
+	int valueC8; // +0xC8
+	float factor; // +0xCC
+	char textD0[8]; // +0xD0
 };
 // ?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z
 static __declspec(noinline) void CalcRevivalCostsForEntry(UnitRevivalEntry &entry) {
@@ -54,16 +78,32 @@ static __declspec(noinline) void CalcRevivalCostsForEntry(UnitRevivalEntry &entr
   }
  }
 }
-struct Rva002E2690Element {char unknown[0xD8];};
-struct Rva002E26E1Record {char unknown[0xD8];};
-struct Rva002E2D10Record {char unknown[0xD8];};
+struct Rva002E2690Element
+{
+public:
+	char bytes[216]; // +0x00
+};
+struct Rva002E26E1Record
+{
+public:
+	char m_pad00[0xD8];
+};
+struct Rva002E2D10Record
+{
+public:
+	char m_pad00[0xD8];
+};
 namespace _STL {
  template<> Rva002E2690Element *vector<Rva002E2690Element>::erase(Rva002E2690Element*,Rva002E2690Element*);
  template<> void vector<Rva002E26E1Record>::reserve(unsigned);
  template<> void vector<Rva002E2D10Record>::push_back(const Rva002E2D10Record&);
 }
 class Rva002E0D93;
-class Rva002E204D {public: Rva002E0D93 *rva002E204D(Rva002E0D93*);};
+class Rva002E204D
+{
+public:
+	Rva002E0D93 *rva002E204D(Rva002E0D93 *);
+};
 struct Rva002B3740Item;
 class Rva002BA8F1Logic {public: Rva002B3740Item *rva002B2B2D();};
 class LivingWorldLogic {public: void *rva002B4948(void*,void*,void*);};
@@ -72,17 +112,59 @@ struct ExtractArmyView {char unknown00[0x20]; int id;};
 struct RevivalCampaignView {char unknown00[0x44]; float costMultiplier,timeMultiplier;};
 class Rva00E02D6C {public: char unknown00[0x10]; int current; RevivalCampaignView **campaigns;};
 extern Rva00E02D6C *TheCampaignManager;
-class LivingWorldPlayer {
+class INI;
+class SpawnArmy;
+struct LivingWorldArmy;
+struct LivingWorldRevivalUnitDataView;
+class LivingWorldPlayer
+{
 public:
- bool HasArmyQueuedInAnyBuilding(void*,int*,int);
- void ExtractRevivalUnitDataForCurrentMap(std::vector<Rva002E2690Element>*);
- char unknown00[0x1A8]; std::vector<UnitRevivalEntry> entries;
+	typedef _STL::vector<void *> ArmyVec;
+	static void ParseLivingWorldPlayer(INI *ini, void *instance);
+	void MarkUnitsForUpgrades(void *region);
+	int GetNumRegionsOwned();
+	int GetConflictResolveType();
+	void AddUpgrade(void *upgrade, bool persistentOnly);
+	void RemoveUpgrade(void *upgrade);
+	void rva002E14E9(const BfmeFixedStorage128 &mask);
+	bool rva002E1155(SpawnArmy *unit);
+	void OnUnitDequeued(SpawnArmy *unit);
+	void SetColorIndex(int color);
+	void AddArmy(LivingWorldArmy *army);
+	void *FindArmyWithHero(void *thing, int key);
+	void **RemoveArmy(void **&iter);
+	bool rva002E12F3(int key);
+	bool rva002E0B30();
+	void RemoveRevivalUnit(int key);
+	void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
+	int rva002E199E(const void *thing);
+	bool HasArmyQueuedInAnyBuilding(void*,int*,int);
+	void ExtractRevivalUnitDataForCurrentMap(std::vector<Rva002E2690Element>*);
+	char m_pad00[0x44];
+private:
+	int m_playerType; // +0x44 +44, native and WB switch
+	char m_pad48[0x138];
+	int m_colorIndex; // +0x180
+	LivingWorldPlayerRGBColorView m_color184; // +0x184
+	LivingWorldPlayerRGBColorView m_color190; // +0x190
+	LivingWorldPlayerRGBColorView m_color19C; // +0x19C
+public:
+	_STL::vector<UnitRevivalEntry> m_records; // +0x1A8
+	char m_pad1B4[0x4];
+private:
+	ArmyVec m_armyVec; // +0x1B8 +0x1B8
+	char m_pad1C4[0x14];
+	unsigned int m_upgradeBits[32]; // +0x1D8 +1D8, native and WB BitFlags<1024>
+	char m_pad258[0x40];
+	int m_queuedCommandPoints; // +0x298 +0x298
+	char m_pad29C[0x18];
+	int m_conflictResolveType; // +0x2B4 +2B4, native and WB case0
 };
 // ?ExtractRevivalUnitDataForCurrentMap@LivingWorldPlayer@@QAEXPAV?$vector@URva002E2690Element@@V?$allocator@URva002E2690Element@@@_STL@@@_STL@@@Z
 void LivingWorldPlayer::ExtractRevivalUnitDataForCurrentMap(std::vector<Rva002E2690Element> *out) {
  out->erase(out->begin(),out->end());
  int garrisonArmyID=0;
- std::vector<UnitRevivalEntry> &revivalEntries=entries;
+ std::vector<UnitRevivalEntry> &revivalEntries=m_records;
  if(!revivalEntries.empty()) {
   Rva002B3740Item *region=reinterpret_cast<Rva002BA8F1Logic*>(TheLivingWorldLogic)->rva002B2B2D();
   if(region) {

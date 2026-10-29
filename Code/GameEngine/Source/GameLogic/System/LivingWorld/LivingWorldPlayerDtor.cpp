@@ -22,6 +22,10 @@
 extern "C" __declspec(nothrow) void *__cdecl memset(void*,int,unsigned int);
 void Rva00030830FreeAllocation(void*);
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#include "../../../../../Libraries/Source/WWVegas/WWLib/FixedStorage128.h"
+class AsciiString; class UnicodeString; class PooledString; class Coord3DBase; class ICoord3D; class Region3D; class IRegion3D; class Coord2D; class ICoord2D; class Region2D; class IRegion2D; class RealRange; class RGBColor; class RGBAColorReal; class RGBAColorInt; class Snapshot; class XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "RGBColor.h"
 namespace _STL{
 template<>__declspec(dllimport) __forceinline void allocator<BfmeE16>::deallocate(pointer p,size_type)const{Rva00030830FreeAllocation(p);}
 template<>__declspec(dllimport) __forceinline void _STLP_alloc_proxy<BfmeE16*,BfmeE16,allocator<BfmeE16> >::deallocate(BfmeE16*p,size_t n){allocator<BfmeE16>::deallocate(p,n);}
@@ -50,7 +54,11 @@ class LivingWorldScoreKeeper:public Snapshot {public:
  LivingWorldScoreKeeper(int,LivingWorldPlayer*);virtual ~LivingWorldScoreKeeper();
  protected:virtual void loadPostProcess();virtual const char*GetSnapshotName()const;virtual void xfer(Xfer*);
  private:char bytes[248];};
-struct Rva002E2690Element {char bytes[216];};
+struct Rva002E2690Element
+{
+public:
+	char bytes[216]; // +0x00
+};
 namespace _STL {template<> vector<Rva002E2690Element>::~vector();}
 class Rva002B317CBumpCounter {public:int bump();};
 class LivingWorldLogic; extern LivingWorldLogic *TheLivingWorldLogic;
@@ -89,7 +97,11 @@ class Rva002E1E51Listener {public:virtual void slot0(void*);virtual void slot1(v
 class Rva002E1E51List {public:void forEach(void(Rva002E1E51Listener::*)(void*),void*);};
 class Rva002E21D1 {public:void rva002E21D1();};
 Rva002E2AAE::~Rva002E2AAE(){((Rva002E21D1*)this)->rva002E21D1();((Rva002E1E51List*)((char*)this+4))->forEach(&Rva002E1E51Listener::notify,this);}
-class Rva002E18C3Lookup {public:AsciiString *find(const AsciiString&);};
+class Rva002E18C3Lookup
+{
+public:
+	AsciiString *find(const AsciiString &name);
+};
 extern Rva002E18C3Lookup *TheLivingWorldAITemplateStore;
 struct Rva004FB303Target;
 class Rva004FB222Owner {public:void rva004FB222(Rva004FB303Target*,int);};
@@ -97,8 +109,6 @@ void Rva002E2AAE::loadPostProcess(){AsciiString*asciiString=TheLivingWorldAITemp
 const char *Rva002E2AAE::GetSnapshotName()const{return "LivingWorldPlayer";}
 typedef char PlayerSize[sizeof(Rva002E2AAE)==0x3c8?1:-1];
 
-class AsciiString; class UnicodeString; class PooledString; class Coord3DBase; class ICoord3D; class Region3D; class IRegion3D; class Coord2D; class ICoord2D; class Region2D; class IRegion2D; class RealRange; class RGBColor; class RGBAColorReal; class RGBAColorInt; class Snapshot; class XferUnknown11;
-#include "../../../../Include/Common/BfmeXfer.h"
 
 class Xfer::Version
 {
@@ -132,16 +142,50 @@ void xferUpgradeMask(Xfer*,Rva00291440*);
 Xfer *Rva002E208AXfer(Xfer*,std::set<int>*);
 enum ScienceType {SCIENCE_INVALID=-1};
 
-struct Rva002E26E1Record { char unknown[0xD8]; };
-struct Rva002E2D10Record { char unknown[0xD8]; };
-class UnitRevivalEntry { public: UnitRevivalEntry(); ~UnitRevivalEntry(); void rva0037E473(Xfer*); char unknown[0xD8]; };
+struct Rva002E26E1Record
+{
+public:
+	char m_pad00[0xD8];
+};
+struct Rva002E2D10Record
+{
+public:
+	char m_pad00[0xD8];
+};
+struct BfmeFixedStorage128;
+class UnitRevivalEntry
+{
+public:
+	UnitRevivalEntry();
+	UnitRevivalEntry(const UnitRevivalEntry &);
+	~UnitRevivalEntry();
+	void *getThingTemplate();
+	void rva0037E473(Xfer*);
+	char m_pad00[0x8];
+	float experience; // +0x08
+	int rank; // +0x0C
+	int level; // +0x10
+	BfmeFixedStorage128 upgrades; // +0x14
+	unsigned int cost; // +0x94
+	int startFrame; // +0x98
+	unsigned int time; // +0x9C
+	bool revival; // +0xA0
+	bool flagA1; // +0xA1
+	char m_padA2[0x2];
+	int productionID; // +0xA4
+	int armyID; // +0xA8
+	int key; // +0xAC
+	char record[0x18]; // +0xB0
+	int valueC8; // +0xC8
+	float factor; // +0xCC
+	char textD0[8]; // +0xD0
+};
 namespace _STL {
  template<> ScienceType *vector<ScienceType>::erase(ScienceType*,ScienceType*);
  template<> Rva002E2690Element *vector<Rva002E2690Element>::erase(Rva002E2690Element*,Rva002E2690Element*);
  template<> void vector<Rva002E26E1Record>::reserve(unsigned int);
  template<> void vector<Rva002E2D10Record>::push_back(const Rva002E2D10Record&);
 }
-#include "RGBColor.h"
 
 void Rva002E2AAE::xfer(Xfer *xfer) {
  Xfer::Version version(1,5); *xfer == version;

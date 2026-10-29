@@ -44,16 +44,36 @@ namespace _STL
 // Native2E12F3..2E134C and WBDE4FC0 prove the216-byte stride and
 // the key atAC. Native2E1451..2E14DD and the verified UnitRevivalEntry
 // copies establish the consumed experience/rank/upgrade fields. The remaining
-// fields and the key-search method name remain unknown.
-struct LivingWorldPlayerRecordView
+// fields and the key-search method name remain unknown. Retail's mangled
+// ?CalcRevivalCostsForEntry@@YAXAAVUnitRevivalEntry@@@Z and the matched
+// UnitRevivalEntry ctor/copy/dtor rows name the record class.
+class Xfer;
+class UnitRevivalEntry
 {
-	char unknown00[8];
-    float experience;
-    int rank, level;
-    BfmeFixedStorage128 upgrades;
-    char unknown94[0xAC - 0x94];
-	int key;
-	char unknownB0[0xD8 - 0xB0];
+public:
+	UnitRevivalEntry();
+	UnitRevivalEntry(const UnitRevivalEntry &);
+	~UnitRevivalEntry();
+	void *getThingTemplate();
+	void rva0037E473(Xfer*);
+	char m_pad00[0x8];
+	float experience; // +0x08
+	int rank; // +0x0C
+	int level; // +0x10
+	BfmeFixedStorage128 upgrades; // +0x14
+	unsigned int cost; // +0x94
+	int startFrame; // +0x98
+	unsigned int time; // +0x9C
+	bool revival; // +0xA0
+	bool flagA1; // +0xA1
+	char m_padA2[0x2];
+	int productionID; // +0xA4
+	int armyID; // +0xA8
+	int key; // +0xAC
+	char record[0x18]; // +0xB0
+	int valueC8; // +0xC8
+	float factor; // +0xCC
+	char textD0[8]; // +0xD0
 };
 
 struct LivingWorldArmy
@@ -66,6 +86,8 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 
 extern GameLogic *TheGameLogic;
+class LivingWorldLogic;
+extern LivingWorldLogic *TheLivingWorldLogic;
 
 class SpawnArmy
 {
@@ -82,7 +104,11 @@ struct LivingWorldRevivalUnitDataView {
     char unknown90[4]; char record94[0x18];
 };
 class Rva002E0D93;
-class Rva002E204D { public: Rva002E0D93 *rva002E204D(Rva002E0D93 *); };
+class Rva002E204D
+{
+public:
+	Rva002E0D93 *rva002E204D(Rva002E0D93 *);
+};
 // The rowed predicate ?rva00318F42@Rva00318F42 at 0x00318F42. Native and WB
 // identify the receiver as an element of m_armyVec; its original method is
 // unknown.
@@ -123,46 +149,50 @@ class ModuleData;
 struct Rva0040E6D6Arg;
 class Rva0023CFFCLogic {public:void rva0023CFFC(Rva0040E6D6Arg*);};
 
+struct Rva002E2690Element;
 class LivingWorldPlayer
 {
 public:
 	typedef _STL::vector<void *> ArmyVec;
-
 	static void ParseLivingWorldPlayer(INI *ini, void *instance);
 	void MarkUnitsForUpgrades(void *region);
-    int GetNumRegionsOwned();
-    int GetConflictResolveType();
-    void AddUpgrade(void *upgrade, bool persistentOnly);
-    void RemoveUpgrade(void *upgrade);
-    void rva002E14E9(const BfmeFixedStorage128 &mask);
-
+	int GetNumRegionsOwned();
+	int GetConflictResolveType();
+	void AddUpgrade(void *upgrade, bool persistentOnly);
+	void RemoveUpgrade(void *upgrade);
+	void rva002E14E9(const BfmeFixedStorage128 &mask);
 	bool rva002E1155(SpawnArmy *unit);
 	void OnUnitDequeued(SpawnArmy *unit);
-	void SetColorIndex(Int color);
-    void AddArmy(LivingWorldArmy *army);
+	void SetColorIndex(int color);
+	void AddArmy(LivingWorldArmy *army);
 	void *FindArmyWithHero(void *thing, int key);
 	void **RemoveArmy(void **&iter);
 	bool rva002E12F3(int key);
 	bool rva002E0B30();
-    void RemoveRevivalUnit(int key);
-    void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
-    int rva002E199E(const void *thing);
-
+	void RemoveRevivalUnit(int key);
+	void GetRevivalUnitData(int key, LivingWorldRevivalUnitDataView *out);
+	int rva002E199E(const void *thing);
+	bool HasArmyQueuedInAnyBuilding(void*,int*,int);
+	void ExtractRevivalUnitDataForCurrentMap(std::vector<Rva002E2690Element>*);
+	char m_pad00[0x44];
 private:
-	unsigned char m_pad000[0x44];
-    int m_playerType; // +44, native and WB switch
-    unsigned char m_pad048[0x180 - 0x48];
-	Int m_colorIndex;
-	LivingWorldPlayerRGBColorView m_color184,m_color190,m_color19C;
-	_STL::vector<LivingWorldPlayerRecordView> m_records;
-	unsigned char m_pad1B4[4];
-	ArmyVec m_armyVec;			// +0x1B8
-	unsigned char m_pad1C4[0x1D8 - 0x1C4];
-    unsigned int m_upgradeBits[32]; // +1D8, native and WB BitFlags<1024>
-    unsigned char m_pad258[0x298 - 0x258];
-	Int m_queuedCommandPoints;		// +0x298
-    unsigned char m_pad29C[0x2B4 - 0x29C];
-    int m_conflictResolveType; // +2B4, native and WB case0
+	int m_playerType; // +0x44 +44, native and WB switch
+	char m_pad48[0x138];
+	int m_colorIndex; // +0x180
+	LivingWorldPlayerRGBColorView m_color184; // +0x184
+	LivingWorldPlayerRGBColorView m_color190; // +0x190
+	LivingWorldPlayerRGBColorView m_color19C; // +0x19C
+public:
+	_STL::vector<UnitRevivalEntry> m_records; // +0x1A8
+	char m_pad1B4[0x4];
+private:
+	ArmyVec m_armyVec; // +0x1B8 +0x1B8
+	char m_pad1C4[0x14];
+	unsigned int m_upgradeBits[32]; // +0x1D8 +1D8, native and WB BitFlags<1024>
+	char m_pad258[0x40];
+	int m_queuedCommandPoints; // +0x298 +0x298
+	char m_pad29C[0x18];
+	int m_conflictResolveType; // +0x2B4 +2B4, native and WB case0
 };
 
 // Existing out-of-line player providers; their original method names are unknown.
@@ -226,13 +256,13 @@ void LivingWorldPlayer::GetRevivalUnitData(int key, LivingWorldRevivalUnitDataVi
 {
     if (key == 0) return;
     for (unsigned int i = 0; i < m_records.size(); ++i) {
-        const LivingWorldPlayerRecordView &entry = m_records[i];
+        const UnitRevivalEntry &entry = m_records[i];
         if (entry.key == key) {
             out->rank = entry.rank;
             out->experience = entry.experience;
             out->upgrades = entry.upgrades;
             *reinterpret_cast<Rva001EAFC1 *>(out->record94) =
-                *reinterpret_cast<const Rva001EAFC1 *>(entry.unknownB0);
+                *reinterpret_cast<const Rva001EAFC1 *>(entry.record);
             break;
         }
     }
@@ -304,7 +334,7 @@ void LivingWorldPlayer::AddArmy(LivingWorldArmy *army)
 int LivingWorldPlayer::rva002E199E(const void *thing)
 {
     for (unsigned int i=0; i<m_records.size(); ++i) {
-        const LivingWorldPlayerRecordView &record=m_records[i];
+        const UnitRevivalEntry &record=m_records[i];
         const StringBase<char> &name=*(const StringBase<char> *)((const char *)&record+0xD4);
         const StringBase<char> &wanted=*(const StringBase<char> *)((const char *)thing+0x64);
         if (name.compare(wanted)==0) return record.key;
@@ -500,8 +530,6 @@ void LivingWorldPlayer::MarkUnitsForUpgrades(void *region)
 // the canonical singleton's B0 holder, its +08 campaign and +2C pointer range.
 // This rehomes the already verified69B body; no unique C++ coverage is added.
 // The original method's const qualification is not established by these bytes.
-class LivingWorldLogic;
-extern LivingWorldLogic *TheLivingWorldLogic;
 int LivingWorldPlayer::GetNumRegionsOwned()
 {
 	int c = 0;
