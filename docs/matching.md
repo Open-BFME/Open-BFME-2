@@ -661,6 +661,18 @@ Tuned shares can put consolidate above link; that is intended.
 - Kill switch: `BFME_TIER_TUNING=off` or `--static-weights` restores the priors;
   any `BFME_TIER_WEIGHTS` override also turns tuning off.
 
+A pick builds only the queues its draw reaches, the first of them in a background
+thread while it reads claims from origin. What it computes is cached in the shared
+picker cache (`<git common dir>/bfme-picker-cache/memo/`, every worktree of the
+clone; `tools/picker_cache.py`): check_csv's green verdict, the gate-debt, TU-map,
+consolidation (all but its claim-dependent order), TU-approval, TU-evidence,
+Microsoft-header and STLport queues per tree state (HEAD, submodule commits and
+every path `git status` reports, by content), validated against the untracked
+files each read; ledger indexes per `functions.csv` content; ZH scans and per-file
+class and `__FILE__` checks per content across commits. A second pick on one
+commit takes a few seconds; the first on a new commit rebuilds what changed.
+`BFME_PICKER_CACHE=off` computes everything; `BFME_PICKER_CACHE=<dir>` moves it.
+
 After the debt queues come the new-match tiers (Zero Hour packets, reloc-named,
 drift, structural, Ghidra- and string-anchored). They should have no new uncovered
 bytes to serve in the current tree. If a candidate appears, first check current

@@ -118,6 +118,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import boundary_validator
 import claims
 import landability
+import picker_cache
 import re_log
 import tier_tuning
 import wb_context
@@ -162,13 +163,40 @@ LEDGER CORRUPT — fix this before doing anything else:
 
 
 def check_ledger():
-    proc = subprocess.run([sys.executable, str(ROOT / "tools" / "check_csv.py")],
-                          cwd=ROOT, capture_output=True, text=True)
-    if proc.returncode != 0:
-        sys.stderr.write(proc.stdout + proc.stderr)
-        print(FIX_INSTRUCTIONS, file=sys.stderr)
-        raise SystemExit(2)
-    return proc.stdout.strip()
+    """check_csv's OK line; exit 2 with its findings when the ledger is red. Waits for the
+    check start_ledger_check() started, else runs one."""
+    return (_LEDGER_CHECK.get("wait") or start_ledger_check())()
+
+
+_LEDGER_CHECK = {}
+
+
+def start_ledger_check():
+    """Start check_csv; check_ledger() waits for it. A green verdict is cached per tree
+    state (check_csv reads only tracked files and the index, which picker_cache.tree_state
+    covers); a red one never is. Started early, the check runs while the pick reads claims
+    and builds its first queue; check_ledger() is asked before anything is drawn, claimed,
+    settled or printed."""
+    hit, line = picker_cache.peek("check-csv", root=ROOT)
+    if hit:
+        _LEDGER_CHECK["wait"] = lambda: line
+        return _LEDGER_CHECK["wait"]
+    proc = subprocess.Popen([sys.executable, str(ROOT / "tools" / "check_csv.py")], cwd=ROOT,
+                            stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
+    done = []
+
+    def finish():
+        if not done:
+            out, err = proc.communicate()
+            if proc.returncode != 0:
+                sys.stderr.write(out + err)
+                print(FIX_INSTRUCTIONS, file=sys.stderr)
+                raise SystemExit(2)
+            done.append(out.strip())
+            picker_cache.put("check-csv", done[0], root=ROOT)
+        return done[0]
+    _LEDGER_CHECK["wait"] = finish
+    return finish
 
 
 # One line per new-match tier skipped because its input file is absent (main prints
@@ -804,8 +832,10 @@ def busy_keys():
 def without_busy(candidates, busy):
     """Keep every queue view consistent with live shared work claims: drop a candidate
     whose lock keys meet those of `busy` (claim keys)."""
-    locked = claims.lock_keys(busy)
-    return [candidate for candidate in candidates if not claims.lock_keys(claim_keys(candidate)) & locked]
+    records = claims.lock_records()
+    locked = claims.lock_keys(busy, records=records)
+    return [candidate for candidate in candidates
+            if not claims.lock_keys(claim_keys(candidate), records=records) & locked]
 
 
 def claim_note(label, candidate):
@@ -1579,6 +1609,11 @@ TIER_LABELS = dict(zip(DEBT_TIERS, DEBT_LABELS))
 # override restores these numbers).
 TIER_WEIGHTS = {"link": 26, "stubs": 12, "header": 15, "consolidate": 20, "tu-approval": 4, "tu-evidence": 3,
                 "data": 8, "identity": 4, "ms-headers": 4, "dx": 1, "stlport": 3}
+# Queues whose builder is a pure function of the tree (no claims, no clock), so the shared
+# picker cache (tools/picker_cache.py) serves them once per tree state. consolidate caches
+# its own pure part (repair_queue.consolidation_items: its order reads claims); header reads
+# a merge ranking by age, and link, data and identity are cheap or carry their own caches.
+MEMO_TIERS = ("tu-approval", "tu-evidence", "ms-headers", "stlport")
 BUILT = []                  # debt queues this run built, in order (lazy: tests read it)
 _DEBT = {}
 
@@ -1671,23 +1706,78 @@ def debt_order(rng=None):
 
 def build_debt(name):
     """(items, note) of one debt queue, built at most once per run (BUILT records it).
-    An absent input file skips the queue with a note (SKIPPED), never an exit."""
+    An absent input file skips the queue with a note (SKIPPED), never an exit. A queue
+    prefetch_debt started is taken from its thread (waiting for it if need be)."""
     if name not in _DEBT:
         BUILT.append(name)
-        if name == "repair":
-            _DEBT[name] = (repair_queue.all_repair_items(), "")
-        elif name == "link":
-            _DEBT[name] = repair_queue.link_items()
-        elif name in STRUCTURAL_TIERS:             # each builder skips itself with a note
-            _DEBT[name] = repair_queue.STRUCTURAL_QUEUES[name]()
+        ahead = _PREFETCH.pop(name, None)
+        if ahead is None:
+            _DEBT[name] = _build_queue(name)
+        elif name == "consolidate":                # the thread built the claim-independent part
+            _DEBT[name] = repair_queue.consolidation_items(pure=ahead.result())
+        else:
+            _DEBT[name] = ahead.result()
+        if name in STRUCTURAL_TIERS:               # each builder skips itself with a note
             if not _DEBT[name][0] and "skipped" in _DEBT[name][1]:
                 SKIPPED.append(f"{name}: {_DEBT[name][1]}")
-        else:
-            path, builder = repair_queue.DEBT_QUEUES[name]
-            _DEBT[name] = builder()
-            if not (repair_queue.ROOT / path).exists():
+        elif name in repair_queue.DEBT_QUEUES:
+            if not (repair_queue.ROOT / repair_queue.DEBT_QUEUES[name][0]).exists():
                 SKIPPED.append(_DEBT[name][1])
     return _DEBT[name]
+
+
+def _build_queue(name):
+    """(items, note) of debt queue NAME, built (or read from the shared picker cache)."""
+    if name == "repair":
+        return picker_cache.memo("tier-repair", repair_queue.all_repair_items, root=repair_queue.ROOT), ""
+    if name == "link":
+        return repair_queue.link_items()
+    if name in STRUCTURAL_TIERS:
+        builder = repair_queue.STRUCTURAL_QUEUES[name]
+        return (picker_cache.memo_pair(f"tier-{name}", builder, root=repair_queue.ROOT)
+                if name in MEMO_TIERS else builder())
+    return repair_queue.DEBT_QUEUES[name][1]()
+
+
+# Queues prefetch_debt may build in a background thread while the pick reads claims from
+# origin: their builders read no claims (header's may start a refresh and reads a ranking
+# by age; consolidate's order reads claims, so only its pure part is built ahead).
+PREFETCHABLE = frozenset(DEBT_TIERS) - {"header"}
+_PREFETCH = {}              # queue name -> concurrent.futures.Future
+
+
+def prefetch_debt(order, warm=True):
+    """Start building, in one daemon thread, the first queue of ORDER after gate debt (the
+    one the draw tries first; gate debt is usually empty and cached): build_debt takes the
+    result. The pick reads live claims from origin meanwhile, which is mostly network
+    wait. A daemon thread, so a queue the pick never reaches never delays the exit. WARM
+    then loads what prepare_debt and the draw read next (the attempt log, WB leads)."""
+    import concurrent.futures
+    import threading
+    name = next((n for n in order if n != "repair"), order[0] if order else None)
+    if name is not None and (name not in PREFETCHABLE or name in _DEBT or name in _PREFETCH):
+        name = None
+    future = concurrent.futures.Future()
+
+    def run():
+        if name is not None:
+            try:
+                future.set_result(repair_queue.consolidation_pure() if name == "consolidate"
+                                  else _build_queue(name))
+            except BaseException as error:         # noqa: BLE001 -- re-raised by build_debt
+                future.set_exception(error)
+        if not warm:
+            return
+        try:            # what prepare_debt and the draw read next: the attempt log, WB leads
+            re_log._load()
+            re_log.matched_rvas()
+            wb_context.leads()
+        except Exception:                          # noqa: BLE001 -- a warm-up only; the pick reads them itself
+            pass
+    if name is not None:
+        _PREFETCH[name] = future
+    threading.Thread(target=run, name=f"prefetch-{name or 'warm'}", daemon=True).start()
+    return name
 
 
 def prepare_debt(items, busy, args):
@@ -2097,6 +2187,9 @@ def wb_sizes(rows):
     return sizes
 
 
+_CHECK_LEDGER = check_ledger
+
+
 @claims.pick_snapshot()
 def main():
     import build
@@ -2131,30 +2224,45 @@ def main():
     ap.add_argument("--static-weights", action="store_true",
                     help="kill switch: use the hand-set TIER_WEIGHTS priors (same as BFME_TIER_TUNING=off)")
     args = ap.parse_args()
+    picker_cache.READ_ONLY = True     # a pick never writes the tree: tracked files may be named by blob
     if args.static_weights:
         os.environ["BFME_TIER_TUNING"] = "off"
     if args.claim and args.ranked:
         ap.error("--claim selects one candidate; omit --ranked")
-    ledger = check_ledger()  # exit 2 happens in there; nothing below matters if red
+    if check_ledger is _CHECK_LEDGER:    # (a test's stand-in check never starts the real one)
+        start_ledger_check()             # exit 2 happens in check_ledger(); nothing matters if red
     if args.tier == "dx":
+        check_ledger()
         return serve_dx(args)
     global repair_queue
-    import repair_queue  # after the health check: a corrupt ledger exits first
+    import repair_queue  # reads nothing yet: every queue below waits for a green check first
     if args.weights:
+        check_ledger()
         return print_weights(args, busy_keys())
     # The debt queues first, lazily: each is built only when the weighted order reaches
     # it, and the new-match tiers below are computed only when every debt queue is empty
     # or claimed. --ranked builds everything (a human view).
     settled, debt_suppressed = False, 0
     if not args.ranked and (args.tier is None or args.tier in DEBT_TIERS):
+        order = debt_order() if args.tier is None else [args.tier]
+        prefetch_debt(order)         # the first queue builds while the check and busy_keys wait
         if args.claim:
+            check_ledger()               # never settle on a red ledger
             claims.settle(defer=True)    # rides on the claim push; release this checkout's landings (and finished scopes) origin/master holds
             settled = True
-        picked = pick_debt(debt_order() if args.tier is None else [args.tier], args, busy_keys())
+        with claims.read_once():     # one read of each claim mirror until a claim moves a ref
+            try:
+                busy = busy_keys()
+            except BaseException:
+                check_ledger()           # a red ledger is the answer, whatever else failed
+                raise
+            ledger = check_ledger()      # green before anything is drawn, claimed or printed
+            picked = pick_debt(order, args, busy)
         if picked["candidate"] is not None or args.tier is not None:
             emit_debt(args, ledger, picked)
             return
         debt_suppressed = picked["suppressed"]
+    ledger = check_ledger()
     # A new-match tier is computed only for the default pick or its own --tier, and
     # skips itself (missing_input) when its input is absent: --tier link never reads
     # the drift report.

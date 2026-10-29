@@ -206,7 +206,9 @@ def _read(rel):
 def ledger():
     """(rows by rva, sorted [(rva, size, source)] of real homes)."""
     by_rva, homes = {}, []
-    for row in csv.DictReader(io.StringIO(_read(LEDGER))):
+    tools_on_path()
+    import picker_cache                 # the process's one parse of the ledger (rows shared, never mutated)
+    for row in picker_cache.ledger_rows(ROOT / LEDGER):
         if row.get("status") != "matched" or not row.get("target_rva"):
             continue
         rva = int(row["target_rva"], 16)
@@ -218,6 +220,7 @@ def ledger():
     return by_rva, homes
 
 
+@lru_cache(maxsize=None)
 def is_home(source):
     """A unit a new row may be added to: real source, not generated, a dump, a .lib, or an
     address-named one-function file."""
@@ -883,6 +886,26 @@ def link_predictions(sources, census_commit):
     return out
 
 
+def _rows_by_source(path=None):
+    """{source: [[rva, name, target_size]]} of ledger()'s matched rows, in ledger()'s order
+    (by first appearance of the RVA, then ledger order)."""
+    by_rva, _ = ledger()
+    out = {}
+    for rva, rows in by_rva.items():
+        for row in rows:
+            out.setdefault(row["source"], []).append([rva, row["name"], row["target_size"]])
+    return out
+
+
+def rows_by_source():
+    """_rows_by_source(), read from the shared picker cache per ledger content."""
+    if not _HAS_SCRIPT or not (ROOT / LEDGER).is_file():    # a hook's stdin copy: no code digest to key on
+        return _rows_by_source()
+    tools_on_path()
+    import picker_cache
+    return picker_cache.stamped(ROOT / LEDGER, _rows_by_source, "repair-rows-by-source", extra=[_SCRIPT])
+
+
 def census_items(path, commit=None):
     """(items, notes): units the committed census says do not link, one item per source,
     credited with its matched bytes, nearest to linking (fewest blockers) first.
@@ -893,11 +916,7 @@ def census_items(path, commit=None):
     link_check said or why it could not say. A unit with no receipt is labelled "own
     source unchanged" and kept. A census unit whose source is gone, or that holds no
     matched row now, is counted in the notes, never skipped silently."""
-    by_rva, _ = ledger()
-    rows_of = {}
-    for rva, rows in by_rva.items():
-        for row in rows:
-            rows_of.setdefault(row["source"], []).append((rva, row))
+    rows_of = rows_by_source()
     items, vanished, rowless = [], [], []
     # The committed census is on origin/master: a claim's `debt=` note waits on its row
     # (claims.settle_scopes releases it once that census says linked=yes).
@@ -912,10 +931,10 @@ def census_items(path, commit=None):
             owned = sorted(rows_of[row["source"]], key=lambda r: r[0])
             blockers = {k: int(row.get(k) or 0) for k in
                         ("unresolved", "duplicates", "comdat_losers", "addresses", "wrong_selected")}
-            size = sum(int(r["target_size"] or 0) for _, r in owned)
+            size = sum(int(r[2] or 0) for r in owned)
             items.append({
                 "tier": "link", "check": "unit-link", "target_rva": "0x%08X" % owned[0][0],
-                "function": owned[0][1]["name"], "source": row["source"], "size": size, "credit": size, "placed": False,
+                "function": owned[0][1], "source": row["source"], "size": size, "credit": size, "placed": False,
                 "blockers": sum(blockers.values()), "fresh": "",
                 "claim": [f"file:{row['source']}"],              # the unit is the work: one seat per file
                 "why": ("unit does not link (%d matched row(s)): " % len(owned)
@@ -2150,19 +2169,43 @@ def stub_items(path=None):
                               if unclaimable else ""))
 
 
-def consolidation_items():
+def consolidation_pure():
+    """_consolidation_pure() for this tree, from the shared picker cache; None without a TU map."""
+    if not (ROOT / TU_MAP).exists():
+        return None
+    tools_on_path()
+    import picker_cache
+    return picker_cache.memo("consolidate", _consolidation_pure, root=ROOT)
+
+
+def consolidation_items(pure=None):
     """(items, note): approved TUs a merge can shrink (tools/tu_skeleton.py --queue), one
     item per TU. The claim is the merge's own file footprint (the TU and every donor;
     tu_skeleton --merge adds the moved RVAs under the same owner). PASS TEST: the merge
-    itself, which verifies every donor by compiling and byte-matching."""
+    itself, which verifies every donor by compiling and byte-matching. PURE: consolidation_pure(),
+    when the caller built it already."""
     if not (ROOT / TU_MAP).exists():
         return [], f"{TU_MAP} absent: consolidation queue skipped"
     tools_on_path()
     import tu_skeleton
+    # Everything but the claim-dependent order is a pure function of the tree: computed once
+    # per tree state in the shared picker cache (tools/picker_cache.py).
+    pure = consolidation_pure() if pure is None else pure
+    by_tu = dict(zip((e["tu"] for e in pure["entries"]), pure["items"]))
+    items = [by_tu[entry["tu"]] for entry in tu_skeleton.queue(root=ROOT, entries=pure["entries"])]
+    stale = " (tu_map.csv stale: queue from a map rebuilt in memory, never written)" if pure["stale"] else ""
+    return items + pure["decisions"], (f"{len(items)} approved TU(s) a merge can shrink, from tools/tu_skeleton.py "
+                                       f"--queue{stale}; {pure['decision_note']}")
+
+
+def _consolidation_pure():
+    """consolidation_items' claim-independent part: {entries (tu_skeleton.queue_entries), items
+    (one per entry, same order), stale, decisions, decision_note}."""
+    import tu_skeleton
     import tu_views
-    queue = tu_skeleton.queue(root=ROOT)
+    entries = tu_skeleton.queue_entries(root=ROOT)
     items = []
-    for entry in queue:
+    for entry in entries:
         tu = entry["tu"]
         don, _, _ = tu_skeleton.donors(tu, tu_skeleton.skeleton(tu))
         files = sorted(set(don) | {tu})
@@ -2185,11 +2228,9 @@ def consolidation_items():
                           f"and python3 tools/find_declared_unmatched.py {tu}: the donors are gone and every moved "
                           "row still byte-matches (docs/consolidation.md)"),
         })
-    stale = " (tu_map.csv stale: queue from a map rebuilt in memory, never written)" if tu_skeleton._CACHE.get(
-        "stale") else ""
     decisions, decision_note = merge_decision_items()
-    return items + decisions, (f"{len(items)} approved TU(s) a merge can shrink, from tools/tu_skeleton.py "
-                               f"--queue{stale}; {decision_note}")
+    return {"entries": entries, "items": items, "stale": bool(tu_skeleton._CACHE.get("stale")),
+            "decisions": decisions, "decision_note": decision_note}
 
 
 # What a seat does with each served decision of the bulk merge (tools/merge_all.py).

@@ -362,10 +362,13 @@ def map_rows():
     """tu_map rows from the current inputs: the committed map when it is fresh,
     else a rebuild in memory (tu_map.build is a pure function of the inputs)."""
     if "map" not in _CACHE:
-        stale = tu_map.check_fresh(LAYOUT)
-        rows = tu_map.build(LAYOUT) if stale else tu_map.read_csv(LAYOUT.out)
-        _CACHE["map"] = [{k: str(v) for k, v in r.items()} for r in rows]
-        _CACHE["stale"] = stale
+        def compute():
+            stale = tu_map.check_fresh(LAYOUT)
+            rows = tu_map.build(LAYOUT) if stale else tu_map.read_csv(LAYOUT.out)
+            return {"rows": [{k: str(v) for k, v in r.items()} for r in rows], "stale": stale}
+        import picker_cache                # one rebuild per tree state, shared by every worktree
+        got = picker_cache.memo("tu-map-rows", compute, root=LAYOUT.root)
+        _CACHE["map"], _CACHE["stale"] = got["rows"], got["stale"]
     return _CACHE["map"]
 
 
@@ -2942,19 +2945,14 @@ def plan(tu):
           f"{len(refused)} refused files")
 
 
-def queue(under="", limit=None, root=ROOT):
-    """Approved TUs a merge can shrink, most files removed first.
-
-    `removes` is an upper bound: the merge verifies every donor and keeps only
-    those that compile together without losing a matched row."""
+def queue_entries(under="", root=ROOT):
+    """queue()'s TUs before the claim-dependent order, each with `keys`, the claim keys of
+    its merge scope: a pure function of the tree (no claims read), so the picker caches it
+    (tools/picker_cache.py)."""
     by_tu = collections.defaultdict(list)
     for r in map_rows():
         if r["confidence"] == "approved" and r["kind"].startswith("code") and r["tu"]:
             by_tu[r["tu"]].append(r)
-    try:
-        held = set().union(*(set(rec) for rec in claims._blocking_records(root)))
-    except Exception:   # no origin: nothing is known to be held
-        held = set()
     out = []
     for tu in sorted(by_tu):
         if under and not tu.startswith(under):
@@ -2966,7 +2964,22 @@ def queue(under="", limit=None, root=ROOT):
             continue   # nothing to remove, or the TU path itself must be split first
         keys = {claims.key_of(k) for k in claim_keys(tu, don)}
         out.append({"tu": tu, "removes": removes, "rows": sum(len(v) for v in don.values()),
-                    "mixed": len(mixed), "refused": len(refused), "held": bool(keys & held)})
+                    "mixed": len(mixed), "refused": len(refused), "keys": sorted(keys, key=str)})
+    return out
+
+
+def queue(under="", limit=None, root=ROOT, entries=None):
+    """Approved TUs a merge can shrink, most files removed first; a TU whose scope another
+    worker holds goes last. ENTRIES: queue_entries(under, root), when the caller has them.
+
+    `removes` is an upper bound: the merge verifies every donor and keeps only
+    those that compile together without losing a matched row."""
+    entries = queue_entries(under, root) if entries is None else entries
+    try:
+        held = set().union(*(set(rec) for rec in claims._blocking_records(root)))
+    except Exception:   # no origin: nothing is known to be held
+        held = set()
+    out = [{**{k: v for k, v in e.items() if k != "keys"}, "held": bool(set(e["keys"]) & held)} for e in entries]
     out.sort(key=lambda d: (d["held"], -d["removes"], -d["rows"], d["tu"]))
     return out[:limit] if limit else out
 

@@ -354,8 +354,9 @@ def test_consolidation_items_claim_the_merges_file_footprint(tmp_path, monkeypat
     (tmp_path / "reverse").mkdir()
     (tmp_path / rq.TU_MAP).write_text("")
     monkeypatch.setattr(rq, "ROOT", tmp_path)
-    monkeypatch.setattr(tu_skeleton, "queue", lambda root=None: [
-        {"tu": "Code/T.cpp", "removes": 2, "rows": 5, "mixed": 1, "refused": 0, "held": False}])
+    monkeypatch.setattr(tu_skeleton, "queue_entries", lambda under="", root=None: [
+        {"tu": "Code/T.cpp", "removes": 2, "rows": 5, "mixed": 1, "refused": 0, "keys": []}])
+    monkeypatch.setattr(tu_skeleton.claims, "_blocking_records", lambda root=None: iter(()))
     monkeypatch.setattr(tu_skeleton, "skeleton", lambda tu: [])
     monkeypatch.setattr(tu_skeleton, "donors", lambda tu, sk: ({"Code/T.cpp": [], "Code/D1.cpp": [],
                                                                 "Code/D2.cpp": []}, {}, {}))

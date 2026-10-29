@@ -429,8 +429,9 @@ class Wiring(unittest.TestCase):
         import tu_skeleton as T
         (self.root / rq.TU_MAP).write_text("")
         with unittest.mock.patch.object(rq, "ROOT", self.root), \
-                unittest.mock.patch.object(T, "queue", lambda root=None: [
-                    {"tu": "Code/T.cpp", "removes": 1, "rows": 2, "mixed": 0, "refused": 0, "held": False}]), \
+                unittest.mock.patch.object(T, "queue_entries", lambda under="", root=None: [
+                    {"tu": "Code/T.cpp", "removes": 1, "rows": 2, "mixed": 0, "refused": 0, "keys": []}]), \
+                unittest.mock.patch.object(T.claims, "_blocking_records", lambda root=None: iter(())), \
                 unittest.mock.patch.object(T, "skeleton", lambda tu: []), \
                 unittest.mock.patch.object(T, "donors", lambda tu, sk: (self.don, {}, {})):
             (item,), _ = rq.consolidation_items()
