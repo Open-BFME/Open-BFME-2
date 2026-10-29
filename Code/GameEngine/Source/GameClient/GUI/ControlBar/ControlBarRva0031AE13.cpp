@@ -46,8 +46,7 @@ public:
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
-	NAMEKEY_MAX = 1 << 23,
-	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+	NAMEKEY_MAX = 1 << 23
 };
 
 class AsciiString;
