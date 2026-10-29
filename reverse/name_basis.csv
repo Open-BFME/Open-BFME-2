@@ -4298,3 +4298,14 @@ carry,Rva000E2F24::cellSize,setMapCellSize::cellSize,inferred,scope renamed by R
 function,?Rva000E2F77@@YAXPAUID3DXEffect@@PBD@Z,?setMapBorderWidth@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-441944bd7ed5,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77
 carry,Rva000E2F77::borderWidth,setMapBorderWidth::borderWidth,inferred,scope renamed by Rename Rva000E2F77 to setMapBorderWidth (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77
 carry,Rva000E2F77::heightMap,setMapBorderWidth::heightMap,inferred,scope renamed by Rename Rva000E2F77 to setMapBorderWidth (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77
+member,Rva001FD1E8::m_name16C,Rva001FD1E8::m_headWaterMark,inferred,agree:nl-badb0511c130,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,
+member,Rva001FD1E8::m_name178,Rva001FD1E8::m_sideIconImage,inferred,agree:nl-02f3d25c8b94,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,
+param,rva001EAF9B::b,rva001EAF9B::endCursor,inferred,agree:nl-cfa74b440a80,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EAF9B
+param,rva001EAFB0::n,rva001EAFB0::elementOffset,inferred,agree:nl-299e4abaaee1,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EAFB0
+param,Rva001EB118::rva001EB118::n,Rva001EB118::rva001EB118::elementCount,inferred,agree:nl-cf2e12551c43,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EB118
+param,Rva001EB118::rva001EB786::n,Rva001EB118::rva001EB786::requestedCount,inferred,agree:nl-bfec11776a92,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EB786
+param,rva001EF05B::a,rva001EF05B::leftString,inferred,agree:nl-0e8279c6a474,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EF05B
+param,rva001EF05B::b,rva001EF05B::rightString,inferred,agree:nl-e80823eff54e,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EF05B
+function,?rva001EDFCB@Rva001EDFCB@@QBEPBDH@Z,?getCursorName@Rva001EDFCB@@QBEPBDH@Z,inferred,agree:nl-5588e46c6897,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001EDFCB
+function,?rva001FD1E8@Rva001FD1E8@@QAEPBVImage@@XZ,?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ,inferred,agree:nl-61276308320a,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001FD1E8
+function,?rva001FD20E@Rva001FD1E8@@QAEPBVImage@@XZ,?getSideIconImage@Rva001FD1E8@@QAEPBVImage@@XZ,inferred,agree:nl-a4e1efd51c23,Code/GameEngine/Source/Common/GapBodiesGE51.cpp,0x001FD20E

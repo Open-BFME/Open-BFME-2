@@ -676,7 +676,7 @@ void INI::parseMouseDefinition( INI* ini )
 
 // tu-skeleton: 0x001EDE9C 59B ?rva001EDE9C@Mouse@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDE9C.cpp (not merged yet)
 
-// tu-skeleton: 0x001EDFCB 30B ?rva001EDFCB@Rva001EDFCB@@QBEPBDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001EDFCB 30B ?getCursorName@Rva001EDFCB@@QBEPBDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001EDFE9 14B ?rva001EDFE9@Mouse@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameClient/MouseRva001EDFE9.cpp (not merged yet)
 

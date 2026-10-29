@@ -618,11 +618,11 @@ Rva001FD458 *Rva001FD458::rva001FD952(const Rva001FD458 &other)
 
 #pragma optimize("", on)
 
-// tu-skeleton: 0x001FD1E8 19B ?rva001FD1E8@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001FD1E8 19B ?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001FD1FB 19B ?getFlagWaterMarkImage@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x001FD20E 19B ?rva001FD20E@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
+// tu-skeleton: 0x001FD20E 19B ?getSideIconImage@Rva001FD1E8@@QAEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE51.cpp (not merged yet)
 
 // tu-skeleton: 0x001FD221 19B ?getEnabledImage@PlayerTemplate@@QBEPBVImage@@XZ -- matched in Code/GameEngine/Source/Common/PlayerTemplateImageGetters.cpp (not merged yet)
 

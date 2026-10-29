@@ -133,14 +133,14 @@ struct GapRecordCursor
 	GapRecordAC *m_at;
 };
 
-int rva001EAF9B(const GapRecordCursor &gapRecordCursor, const GapRecordCursor &b)
+int rva001EAF9B(const GapRecordCursor &gapRecordCursor, const GapRecordCursor &endCursor)
 {
-	return b.m_at - gapRecordCursor.m_at;
+	return endCursor.m_at - gapRecordCursor.m_at;
 }
 
-void rva001EAFB0(GapRecordCursor &cursor, int n)
+void rva001EAFB0(GapRecordCursor &cursor, int elementOffset)
 {
-	cursor.m_at += n;
+	cursor.m_at += elementOffset;
 }
 
 // --- 0x001EB0EA (17B): the +0xC1 flag of the optional +0x10 object.
@@ -180,11 +180,11 @@ extern FreelistPool g_freelistPool00DB8FEC;
 class Rva001EB118
 {
 public:
-	void rva001EB118(void *block, unsigned int n);
-	void *rva001EB786(unsigned int n, const void *hint);
+	void rva001EB118(void *block, unsigned int elementCount);
+	void *rva001EB786(unsigned int requestedCount, const void *hint);
 };
 
-void Rva001EB118::rva001EB118(void *block, unsigned int n)
+void Rva001EB118::rva001EB118(void *block, unsigned int elementCount)
 {
 	if (block)
 	{
@@ -193,9 +193,9 @@ void Rva001EB118::rva001EB118(void *block, unsigned int n)
 	}
 }
 
-void *Rva001EB118::rva001EB786(unsigned int n, const void *hint)
+void *Rva001EB118::rva001EB786(unsigned int requestedCount, const void *hint)
 {
-	if (n > 1)
+	if (requestedCount > 1)
 		return 0;
 	return g_freelistPool00DB8FEC.pop();
 }
@@ -207,10 +207,10 @@ extern const char **g_00DB9058;
 class Rva001EDFCB
 {
 public:
-	const char *rva001EDFCB(int i) const;
+	const char *getCursorName(int i) const;
 };
 
-const char *Rva001EDFCB::rva001EDFCB(int i) const
+const char *Rva001EDFCB::getCursorName(int i) const
 {
 	const char *name;
 	if (i >= 0 && i < 0x38)
@@ -228,9 +228,9 @@ public:
 	int compare(const StringBase<T> &that) const;
 };
 
-bool rva001EF05B(const StringBase<unsigned short> &a, const StringBase<unsigned short> &b)
+bool rva001EF05B(const StringBase<unsigned short> &leftString, const StringBase<unsigned short> &rightString)
 {
-	return a.compare(b) != 0;
+	return leftString.compare(rightString) != 0;
 }
 
 // --- 0x001F34BF (28B): advance the +0x178C counter; true while it does not
@@ -264,22 +264,22 @@ extern ImageCollection *TheMappedImageCollection;
 class Rva001FD1E8
 {
 public:
-	const Image *rva001FD1E8();
-	const Image *rva001FD20E();
+	const Image *getHeadWaterMarkImage();
+	const Image *getSideIconImage();
 private:
 	char m_pad00[0x16C];
-	char m_name16C[0x178 - 0x16C];							// +0x16C (an AsciiString)
-	char m_name178[4];										// +0x178 (an AsciiString)
+	char m_headWaterMark[0x178 - 0x16C];							// +0x16C (an AsciiString)
+	char m_sideIconImage[4];										// +0x178 (an AsciiString)
 };
 
-const Image *Rva001FD1E8::rva001FD1E8()
+const Image *Rva001FD1E8::getHeadWaterMarkImage()
 {
-	return TheMappedImageCollection->findImageByName(*(const AsciiString *)m_name16C);
+	return TheMappedImageCollection->findImageByName(*(const AsciiString *)m_headWaterMark);
 }
 
-const Image *Rva001FD1E8::rva001FD20E()
+const Image *Rva001FD1E8::getSideIconImage()
 {
-	return TheMappedImageCollection->findImageByName(*(const AsciiString *)m_name178);
+	return TheMappedImageCollection->findImageByName(*(const AsciiString *)m_sideIconImage);
 }
 
 // --- 0x001FD348 (31B): the 0x1DC-byte record in [+0x0C, +0x10) whose +0x10

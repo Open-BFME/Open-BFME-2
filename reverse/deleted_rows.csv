@@ -4022,3 +4022,6 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?Rva000E2EB7@@YAXPAUID3DXEffect@@PBD@Z,0x000E2EB7,"Renamed to ?setMapSize@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
 ?Rva000E2F24@@YAXPAUID3DXEffect@@PBD@Z,0x000E2F24,"Renamed to ?setMapCellSize@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
 ?Rva000E2F77@@YAXPAUID3DXEffect@@PBD@Z,0x000E2F77,"Renamed to ?setMapBorderWidth@@YAXPAUID3DXEffect@@PBD@Z by tools/rename.py (inferred)"
+?rva001EDFCB@Rva001EDFCB@@QBEPBDH@Z,0x001EDFCB,"Renamed to ?getCursorName@Rva001EDFCB@@QBEPBDH@Z by tools/rename.py (inferred)"
+?rva001FD1E8@Rva001FD1E8@@QAEPBVImage@@XZ,0x001FD1E8,"Renamed to ?getHeadWaterMarkImage@Rva001FD1E8@@QAEPBVImage@@XZ by tools/rename.py (inferred)"
+?rva001FD20E@Rva001FD1E8@@QAEPBVImage@@XZ,0x001FD20E,"Renamed to ?getSideIconImage@Rva001FD1E8@@QAEPBVImage@@XZ by tools/rename.py (inferred)"
