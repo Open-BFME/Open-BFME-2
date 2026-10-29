@@ -981,11 +981,10 @@ address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreSc
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp	g_Va00E0333C	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks_OnUpdateData.cpp	g_Va00E0333C	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp	g_Va00A04934	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	5
+address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLine.cpp	g_Va00E04920	6
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp	g_Va00E048DC	1
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks.cpp	g_Va00E04920	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineCallbacks_CaHAwardNumber.cpp	g_Va00E048DC	3
-address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineRva0051E766.cpp	g_Va00E04920	2
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributeScreenDestructor.cpp	g_Va00A046B4	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp	g_Va00E032FC	3
 address_global	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/Rva005D5F86ChatPlayerTooltip.cpp	g_Va00E06548	2
