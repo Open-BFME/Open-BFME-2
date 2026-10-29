@@ -86,11 +86,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptConditions
-{
-protected:
-	bool evaluateNamedCanPathToWaypoint(Parameter *a, Parameter *b);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateNamedCanPathToWaypoint(Parameter *parameter, Parameter *b)
 {

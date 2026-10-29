@@ -185,11 +185,7 @@ class ObjectTypes;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	Bool rva003E8E23(Parameter *playerParm, Parameter *typeParm, Parameter *comparisonParm, Parameter *rankParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 class Rva00376A62
 {

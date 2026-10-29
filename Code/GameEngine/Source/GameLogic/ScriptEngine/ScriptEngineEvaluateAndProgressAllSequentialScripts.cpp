@@ -255,28 +255,7 @@ private:
 	TeamPrototype *m_proto;	// +0x30
 };
 
-class ScriptConditions
-{
-public:
-	virtual void slot00();
-	virtual void slot01();
-	virtual void slot02();
-	virtual void slot03();
-	virtual void slot04();
-	virtual void slot05();
-	virtual void slot06();
-	virtual void slot07();
-	virtual void slot08();
-	virtual void slot09();
-	virtual void slot10();
-	virtual void slot11();
-	virtual void slot12();
-	virtual void slot13();
-	virtual void slot14();
-	virtual Bool evaluateSkirmishCommandButtonIsReady(Parameter *pSkirmishPlayerParm, Parameter *pTeamParm, Parameter *pCommandButtonParm, Bool allReady);	// +0x3C
-	virtual Bool evaluateTeamIsContained(Parameter *pTeamParm, Bool allContained);	// +0x40
-	virtual Bool slot17(Parameter *pParm);	// +0x44
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 extern ScriptConditions *TheScriptConditions;
 
 // Restores the engine's scope string (+0x1A10C) when it goes out of scope.
@@ -405,19 +384,19 @@ void ScriptEngine::evaluateAndProgressAllSequentialScripts()
 					if ((((Rva003B2832 *)action)->rva003B2832() & ((Rva00203693Host *)this)->rva00203693()) == 0) {
 						// WB reports the action as unusable in this mode (debug only).
 					} else if (action->getActionType() == 0x107) {
-						if (!TheScriptConditions->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), true)) {
+						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), true)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x108) {
-						if (!TheScriptConditions->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), false)) {
+						if (!static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateSkirmishCommandButtonIsReady(0, action->bfme_getParameter_c38e6(1), action->bfme_getParameter_c38e6(2), false)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x11B) {
-						if (TheScriptConditions->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), true)) {
+						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), true)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x11C) {
-						if (TheScriptConditions->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), false)) {
+						if (static_cast<ScriptConditionsInterface *>(TheScriptConditions)->evaluateTeamIsContained(action->bfme_getParameter_c38e6(0), false)) {
 							seqScript->m_dontAdvanceInstruction = true;
 						}
 					} else if (action->getActionType() == 0x1F1) {

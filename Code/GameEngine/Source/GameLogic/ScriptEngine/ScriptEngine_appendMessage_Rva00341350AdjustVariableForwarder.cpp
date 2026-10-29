@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
 // platformsdk
 //
 // ScriptEngine.cpp's script-debugger helper _adjustVariable (0x002054FF), its
@@ -158,15 +158,7 @@ public:
 	virtual void closeWindows(Bool suppressDialogs);	// +0x3C
 };
 
-class ScriptConditions
-{
-public:
-	virtual void v00(); virtual void v01(); virtual void v02();
-	virtual void v03(); virtual void v04(); virtual void v05();
-	virtual void v06(); virtual void v07(); virtual void v08();
-	virtual void v09();
-	virtual void update();					// +0x28
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 class Player
 {

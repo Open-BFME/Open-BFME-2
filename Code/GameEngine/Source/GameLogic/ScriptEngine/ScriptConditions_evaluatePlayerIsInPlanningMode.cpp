@@ -27,11 +27,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class ScriptConditions
-{
-protected:
-	bool evaluatePlayerIsInPlanningMode(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluatePlayerIsInPlanningMode(Parameter *param)
 {

@@ -29,11 +29,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	bool evaluatePlayerCompareLightPoints(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluatePlayerCompareLightPoints(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
 {

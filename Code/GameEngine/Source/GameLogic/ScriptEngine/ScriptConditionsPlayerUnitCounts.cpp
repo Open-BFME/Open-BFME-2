@@ -448,22 +448,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	Bool rva003E8785(Parameter *playerParm, Parameter *countParm, Parameter *upgradeParm);
-	Bool rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm);
-	Bool evaluateAnyUnitsUsingBloodthirsty(Parameter *playerParm);
-	Bool rva003E86A3(Parameter *playerParm, Parameter *countParm, Parameter *modeParm);
-	Bool rva003E8863(Parameter *playerParm, Parameter *countParm, Parameter *loadedParm, Parameter *transportParm);
-	Bool evaluateUnitHasToggledWeapon(Parameter *playerParm, Parameter *templateParm);
-	Bool rva003E8B47(Parameter *playerParm, Parameter *templateParm);
-	Bool rva003E8C24(Parameter *playerParm, Parameter *templateParm);
-	Bool evaluateSkirmishUnownedFactionUnitComparison(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
-	Bool evaluateSkirmishPlayerHasComparisonGarrisoned(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
-	Bool evaluateSkirmishPlayerHasComparisonCapturedUnits(Parameter *pSkirmishPlayerParm, Parameter *pComparisonParm, Parameter *pCountParm);
-	Bool evaluateSkirmishPlayerHasDiscoveredPlayer(Parameter *pSkirmishPlayerParm, Parameter *pDiscoveredByParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 Bool ScriptConditions::rva003E85E0(Parameter *playerParm, Parameter *countParm, Parameter *rankParm)
 {

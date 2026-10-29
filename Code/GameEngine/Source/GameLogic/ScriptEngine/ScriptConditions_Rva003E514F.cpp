@@ -38,11 +38,7 @@ struct CondB003E514F
 	int m_value;
 };
 
-class ScriptConditions
-{
-protected:
-	bool rva003E514F(Parameter *param, CondA003E514F *a, CondB003E514F *b);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E514F(Parameter *param, CondA003E514F *a, CondB003E514F *b)
 {

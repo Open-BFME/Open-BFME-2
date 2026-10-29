@@ -35,11 +35,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptConditions
-{
-protected:
-	bool rva003E5105(Parameter *a, Parameter *b);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E5105(Parameter *parameter, Parameter *b)
 {

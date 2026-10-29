@@ -31,11 +31,7 @@ public:
 
 extern class ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	unsigned char rva003E5D95(Parameter *param, Cond003E5D95 *cond);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 unsigned char ScriptConditions::rva003E5D95(Parameter *param, Cond003E5D95 *cond)
 {

@@ -52,11 +52,7 @@ struct CondC003E5F73
 	int m_limit;
 };
 
-class ScriptConditions
-{
-protected:
-	bool evaluatePlayerHasNumberObjectsWithModelCondition(Parameter *param, CondA003E5F73 *a, CondB003E5F73 *b, CondC003E5F73 *c);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluatePlayerHasNumberObjectsWithModelCondition(Parameter *param, CondA003E5F73 *modelConditionParm, CondB003E5F73 *comparisonParm, CondC003E5F73 *countParm)
 {

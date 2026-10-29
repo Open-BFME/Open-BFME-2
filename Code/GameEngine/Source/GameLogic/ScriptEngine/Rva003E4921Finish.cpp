@@ -57,11 +57,7 @@ public:
 	int m_state40;
 };
 
-class ScriptConditions
-{
-public:
-	bool rva003E4921(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E4921(Parameter *param)
 {

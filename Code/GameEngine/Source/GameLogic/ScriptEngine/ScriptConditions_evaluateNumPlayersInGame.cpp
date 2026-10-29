@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // ?evaluateNumPlayersInGame@ScriptConditions@@IAE_NPAUCondA003E53C8@@PAUCondB003E53C8@@@Z
 // retail 0x003E53C8, 114 bytes.
 // Evidence: chain lane via rowed PlayerList::rva002A7C0B 0x002A7C0B; ThePlayerList 0x009FEEE8; two condition structs with int at +8; switch 0..5 to setl/setle/sete/setge/setg/setne.
@@ -23,11 +24,7 @@ struct CondB003E53C8
 	int m_value;
 };
 
-class ScriptConditions
-{
-protected:
-	bool evaluateNumPlayersInGame(CondA003E53C8 *a, CondB003E53C8 *b);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateNumPlayersInGame(CondA003E53C8 *a, CondB003E53C8 *b)
 {
