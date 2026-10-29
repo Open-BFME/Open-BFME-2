@@ -9701,3 +9701,34 @@ fails too. Prerequisites: a provider or fold binding for 0x5C8C37 under the
 Rec spelling, owners for the extra Rec COMDATs, and a row rename off the Value
 spelling. Doing these inside the LivingWorldLogic.cpp merge (approved TU) is
 preferred. Handoff: `reverse/attempt_support/002bc339-nested-vector-link-20261029.md`.
+
+### LINK-139: STLport 4.6 locale facets unit re-defines the hand c_locale units (2026-10-29, seat yasinschroeder-claudeb2)
+
+Status: open; no source change. The 2026-10-29 17:26 census (5dc66f1a29 at
+85f6b7f40c) drops ten locale units from linked to not linked:
+`stlport_LocaleFacets.cpp` (16 duplicates), `stlport_LocaleCodePageQueries.c`
+(3), `stlport_LocaleCtypeCase.c`, `stlport_LocaleStrcmp.c`,
+`stlport_LocaleMbtowc.c`, `stlport_LocaleWctomb.c`,
+`stlport_LocaleTranslateToSystem.c`, `LocaleComposeName.c`,
+`Rva0084D890CodePointConversions.c`, `Code/Libraries/Source/STLport/LocaleUnshiftStrwcmp.c`
+and `Code/stlport/LocaleTimeDestroy.c`. Cause (structural, from source):
+e39aeab6dd moved `stlport_LocaleFacets.cpp` onto 4.6, and it now
+`#include`s the whole vendor `src/c_locale_win32/c_locale_win32.c` under
+`_STLP_REAL_LOCALE_IMPLEMENTED`, which `stlport_prefix.h` defines for Win32.
+That one object therefore defines every external `_Locale_*` worker that the
+hand units also define (`_Locale_strcmp`, `_Locale_mbtowc`, `_Locale_wctomb`,
+`_Locale_toupper/tolower`, `_Locale_ctype_default`, `_Locale_common_default`,
+`_Locale_ctype_name`, `_Locale_compose_name`, `_Locale_extract_*_name`,
+`_Locale_btowc/wctob/wchar_toupper/strwxfrm`, `_Locale_strwcmp`,
+`_Locale_unshift`, `_Locale_time_destroy`, ...). The duplicates appear on
+both sides. Adding `// stlport46` to the hand `.c` units does not change their
+objects (scratch: identical bytes under 4.5.3 and 4.6).
+Target fact: the rows 0x20500-0x23650 are contiguous in retail .text,
+consistent with one c_locale object. `reverse/tu_map.csv` approves no TU for
+any of them (`tu` empty, e.g. 0x215B0, 0x21320, 0x22E00), so the rows cannot
+be repointed into the facets unit.
+Prerequisites (pick one): (a) a TU approval for the vendored c_locale_win32
+range (L route), then `tu_skeleton.py --merge` the hand units into it, after
+checking that the vendor bodies byte-match those rows; or (b) the 4.6 facets
+unit compiles only its own 20 rows' functions again. Pass test: the next
+census shows these units linked=yes with zero duplicates.
