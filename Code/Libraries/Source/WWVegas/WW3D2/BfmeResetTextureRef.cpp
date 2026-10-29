@@ -10,6 +10,7 @@
 #pragma comment(linker, "/alternatename:?slot08@Rva009EB810TailBase@@UAEXXZ=?rva001808B0@Gen_dtor_00972460@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot18@Rva009EB810TailBase@@UAEXXZ=?Rva00180782@Gen_dtor_00972460@@UAEXXZ")
 #pragma comment(linker, "/alternatename:?slot20@Rva009EB810TailBase@@UAEXXZ=?Delete@AssetFactoryBase@@UAEXXZ")
+
 // ?Rva001806D8Create@@YAXPBDHH@Z @0x001806D8 92B
 // Chain of just-landed ??0Rva001805E0 (0x001805E0): if name non-null and
 // !Render_Obj_Exists(name) (rowed 0x0061F0D0), news 0x24 via rowed
@@ -110,6 +111,8 @@ public:
 	Rva001805E0(const char *name, int a, int b);
 };
 
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
+
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva001805AEAssign.cpp
 
 BfmeResetTextureRef &BfmeResetTextureRef::rva001805AE(const BfmeResetAnyRef &rhs)
@@ -130,14 +133,6 @@ BfmeResetTextureRef &BfmeResetTextureRef::rva00180815(const BfmeResetAnyRef &rhs
 		*(RefCountPtr<TextureClass> *)this = *(const RefCountPtr<TextureClass> *)&rhs;
 	return *this;
 }
-
-// tu-skeleton: 0x001805E0 77B ??0Rva001805E0@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018062D 28B ??_GRva001805E0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00180649 49B ??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00180649Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018067A 94B ?Rva0018067A_MakeOwner@@YA?AUBfmeResetTextureRef@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva001806D8Create.cpp
 
@@ -171,9 +166,7 @@ Gen_dtor_00972460::~Gen_dtor_00972460()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00180778 6B ?Rva00180778Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters2Addr.cpp (not merged yet)
 
-// tu-skeleton: 0x0018077E 4B ?rva0018077E@Rva0018077E@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Gen_dtor_00972460Rva00180782.cpp
 
@@ -195,6 +188,26 @@ void Gen_dtor_00972460::Rva00180782()
 	operator delete(m_ptr);
 	m_ptr = 0;
 }
+
+// tu-skeleton: 0x001805E0 77B ??0Rva001805E0@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018062D 28B ??_GRva001805E0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00180649 49B ??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00180649Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0018067A 94B ?Rva0018067A_MakeOwner@@YA?AUBfmeResetTextureRef@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ConstIntGetters2Addr.cpp
+
+// Unresolved literal-value getter retained separately.
+// 0x00424F58 lies inside the rowed basic_string::copy body, not at a
+// provider entry; its meaning is unasserted. Keep its verified value.
+int Rva00180778Get(void)
+{
+	return 0x00424F58;
+}
+
+// tu-skeleton: 0x0018077E 4B ?rva0018077E@Rva0018077E@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
 // tu-skeleton: 0x00180794 129B ?Create@Gen_dtor_00972460@@UAEPAVRenderObjClass@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/W3DPrototypeCreate.cpp (not merged yet)
 

@@ -11345,7 +11345,7 @@ _ServerBrowserListQueryErrorA,,0x0069D000,16,Code/GameEngine/Source/GameNetwork/
 ?Rva0009FDFBGet@@YAHXZ,,0x0009FDFB,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0x48F95F; follows 0x9FDF5 with 1 parallel vtable ref; opaque name; rehomed after naming existing factory provider or verified string literal
 ?Rva0018026EGet@@YAHXZ,,0x0018026E,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0x4D455348; C9C3-prev with 1 vtable ref paired with 0x180581; opaque name
 ?Rva00180581Get@@YAHXZ,,0x00180581,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0x50415254; C9C3-prev with 1 parallel vtable ref; opaque name
-?Rva00180778Get@@YAHXZ,,0x00180778,6,Code/GameEngine/Source/Common/ConstIntGetters2Addr.cpp,matched,B8-6 returner ret 0x424F58; C9C3-prev with 1 vtable ref in 0x180xxx family; opaque name
+?Rva00180778Get@@YAHXZ,,0x00180778,6,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp,matched,B8-6 returner ret 0x424F58; C9C3-prev with 1 vtable ref in 0x180xxx family; opaque name
 ?Rva00180AA0Get@@YAHXZ,,0x00180AA0,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0x41474752; C9C3-prev with 1 vtable ref in 0x180xxx family; opaque name
 ?Rva00180E60Get@@YAHXZ,,0x00180E60,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0xBBE8D4; CC-island with 1 vtable ref in 0x180xxx family; opaque name; rehomed after naming existing factory provider or verified string literal
 ?Rva00180E70Get@@YAHXZ,,0x00180E70,6,Code/GameEngine/Source/Common/ConstIntGetters2.cpp,matched,B8-6 returner ret 0x4E554C4C; CC-island with 1 vtable ref in 0x180xxx family; opaque name
