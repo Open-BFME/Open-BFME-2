@@ -1,4 +1,5 @@
 // cl: /O1 /MD /EHsc
+// stlport
 // Native 0004EFE9..0004F037, RET0. The rowed deleting destructor at
 // 0004F7D8 establishes the address-derived owner. Target bytes set its vptr,
 // invoke virtual slot 3 on the +20 object, release that reference, and call
@@ -32,22 +33,13 @@ struct Rva0004EFE9Reference
 // Just enough of STLport's list<Snapshot *> for the rowed erase 0x00438539:
 // the iterator is non-POD, so it comes back through a hidden pointer.
 class Snapshot;
+#include <list>
+
 namespace _STL
 {
-    template <class T> struct _Nonconst_traits {};
-    template <class T, class Traits> struct _List_iterator
-    {
-        _List_iterator() {}
-        _List_iterator(const _List_iterator &x) : _M_node(x._M_node) {}
-        void *_M_node;
-    };
-    template <class T> class allocator {};
-    template <class T, class Alloc> class list
-    {
-    public:
-        typedef _List_iterator<T, _Nonconst_traits<T> > iterator;
-        iterator erase(iterator position);
-    };
+    // Bind the element erase to the rowed 0x00438539 worker.
+    template <> _List_iterator<Snapshot *, _Nonconst_traits<Snapshot *> >
+    list<Snapshot *, allocator<Snapshot *> >::erase(_List_iterator<Snapshot *, _Nonconst_traits<Snapshot *> > position);
 }
 typedef _STL::list<Snapshot *, _STL::allocator<Snapshot *> > Rva0004F7F4SnapshotList;
 
