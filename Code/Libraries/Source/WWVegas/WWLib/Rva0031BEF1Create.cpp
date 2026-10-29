@@ -13,7 +13,8 @@
 struct NoCaseTreeValue4
 {
 public:
-    unsigned char m_data[4];
+	NoCaseTreeValue4() { *(unsigned int *)m_data = 0; }
+	unsigned char m_data[4]; // +0x00
 };
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;

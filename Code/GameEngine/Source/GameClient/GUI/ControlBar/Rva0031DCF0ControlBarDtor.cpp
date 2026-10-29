@@ -98,7 +98,13 @@ public:
 	~ControlBarSchemeManager();
 };
 
-class Rva000411084 { public: void *next(); };
+class Rva000411084
+{
+public:
+	void *next();
+	void *m_current; // +0x00
+	void *m_owner; // +0x04
+};
 struct Rva0031DCF0Iterator { char *m_current; void *m_owner; };
 
 class Rva000427195 { public: void *first(Rva000411084 *iter); };
@@ -115,8 +121,9 @@ class Rva000AD6F4
 {
 public:
 	~Rva000AD6F4();
+	void clear();
 private:
-	void *m_ptr;
+	void *m_ptr; // +0x00
 };
 
 class Rva0031DCF0 : public SubsystemInterface

@@ -207,11 +207,14 @@ struct Rva0026F4F4Element { unsigned words[1]; bool operator<(const Rva0026F4F4E
 
 struct Rva0021C21BElement { char bytes[4]; };
 
-struct BfmeAsciiScalarValue8 {
-    AsciiString text; unsigned int value;
-    BfmeAsciiScalarValue8();
-    BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
-    BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
+struct BfmeAsciiScalarValue8
+{
+public:
+	BfmeAsciiScalarValue8();
+	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
+	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
+	AsciiString text; // +0x00
+	unsigned int value; // +0x04
 };
 
 namespace _STL { template <> vector<AsciiString> &vector<AsciiString >::operator=(const vector<AsciiString> &); }
@@ -334,6 +337,11 @@ struct Rva0031BE07
 // Evidence: callers at 0x0031BE85 0x0031BEC0 are this body; caller 0x0031ED9E.
 class ModuleData
 {
+public:
+	char m_pad00[0xC];
+	int m_removed; // +0x0C
+	char m_pad10[0x8];
+	ModuleData *m_next; // +0x18
 };
 
 class Rva0035B750
@@ -516,8 +524,8 @@ public:
 struct NoCaseTreeValue4
 {
 public:
-	unsigned char m_data[4];
 	NoCaseTreeValue4() { *(unsigned int *)m_data = 0; }
+	unsigned char m_data[4]; // +0x00
 };
 
 typedef _STL::pair<const AsciiString, NoCaseTreeValue4> Bef1Pair;
@@ -553,13 +561,21 @@ public:
 // End its nonthrowing lookup scope before constructing the conditional pair.
 class Rva00056F61;
 
-struct Rva0041534BIter {
-    void *m_node; Rva00056F61 *m_table;
-    Rva0041534BIter(void *n,Rva00056F61 *t) : m_node(n),m_table(t) {}
-    Rva0041534BIter(const Rva0041534BIter &it) : m_node(it.m_node),m_table(it.m_table) {}
+struct Rva0041534BIter
+{
+public:
+	Rva0041534BIter(void *n,Rva00056F61 *t) : m_node(n),m_table(t) {}
+	Rva0041534BIter(const Rva0041534BIter &it) : m_node(it.m_node),m_table(it.m_table) {}
+	void *m_node; // +0x00
+	Rva00056F61 *m_table; // +0x04
 };
 
-class Rva00056F61 { public: __declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *); };
+class Rva00056F61
+{
+public:
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
+	void *rva00056F61(const AsciiString *key);
+};
 
 class Rva0031AB1ENode
 {
@@ -750,12 +766,11 @@ class Rva0031AEFF
 {
 public:
 	void rva0031AEFF();
-
-	unsigned char m_pad[0x290];
-	unsigned char m_flag;
-	unsigned char m_pad2[3];
-	int m_counter;
-	GameWindow *m_window;
+	char m_pad00[0x290];
+	unsigned char m_flag; // +0x290
+	char m_pad291[0x3];
+	int m_counter; // +0x294
+	GameWindow *m_window; // +0x298
 };
 
 // Reconstruction of the 52B condenser at 0x0031B60D: when the +0x2A8

@@ -18,12 +18,33 @@ extern GameWindowManager *TheWindowManager;
 extern PlayerList *ThePlayerList;
 extern RadarWindowOverrideSource *theRadarWindowOverrideSource;
 enum NameKeyType { NAMEKEY_INVALID=0 };
-class NameKeyGenerator { public: NameKeyType nameToKey(const AsciiString &); };
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
-class Rva0031AEFF { public: void rva0031AEFF(); };
+class Rva0031AEFF
+{
+public:
+	void rva0031AEFF();
+	char m_pad00[0x290];
+	unsigned char m_flag; // +0x290
+	char m_pad291[0x3];
+	int m_counter; // +0x294
+	GameWindow *m_window; // +0x298
+};
 class Rva0031FA8E { public: void rva0031FA8E(); };
 class Rva002D36D8 { public: int rva002D36D8(); };
-class Rva000AD6F4 { public: void clear(); private: void *held; };
+class Rva000AD6F4
+{
+public:
+	~Rva000AD6F4();
+	void clear();
+private:
+	void *m_ptr; // +0x00
+};
 class Rva000B3FD0Nop { public: void noop(); };
 class BfmeMemberRV;
 class BfmeThingRV { public: BfmeMemberRV *bfmePickRV(); };

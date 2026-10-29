@@ -35,9 +35,10 @@ public:
 class Rva000AD6F4
 {
 public:
+	~Rva000AD6F4();
 	void clear();
 private:
-	void *m_ptr;
+	void *m_ptr; // +0x00
 };
 
 class RadarWindowOverrideSource
@@ -79,9 +80,8 @@ class Rva000411084
 {
 public:
 	void *next();
-
-	void *m_current;
-	void *m_owner;
+	void *m_current; // +0x00
+	void *m_owner; // +0x04
 };
 
 // An explicit copy constructor makes the by-value erase argument reserve
@@ -154,6 +154,7 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 class GameWindowTransitionsHandler
 {
 public:
+	void setGroup(AsciiString groupName, bool immediate);
 	void remove(AsciiString groupName, bool skipPending);
 };
 

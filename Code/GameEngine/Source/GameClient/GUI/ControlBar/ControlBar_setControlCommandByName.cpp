@@ -14,7 +14,8 @@ enum NameKeyType { NAMEKEY_INVALID = 0 };
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &name);
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 

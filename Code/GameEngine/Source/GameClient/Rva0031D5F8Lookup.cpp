@@ -16,16 +16,18 @@ extern class GameLogic *TheGameLogic;
 class Rva00056F61;
 struct Rva0041534BIter
 {
-	void *m_node;
-	Rva00056F61 *m_table;
-	Rva0041534BIter(void *node, Rva00056F61 *table) : m_node(node), m_table(table) {}
+public:
+	Rva0041534BIter(void *n,Rva00056F61 *t) : m_node(n),m_table(t) {}
+	Rva0041534BIter(const Rva0041534BIter &it) : m_node(it.m_node),m_table(it.m_table) {}
+	void *m_node; // +0x00
+	Rva00056F61 *m_table; // +0x04
 };
 
 class Rva00056F61
 {
 public:
+	__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);
 	void *rva00056F61(const AsciiString *key);
-	Rva0041534BIter rva0041534B(const AsciiString *key);
 };
 
 class BfmeGlob939D

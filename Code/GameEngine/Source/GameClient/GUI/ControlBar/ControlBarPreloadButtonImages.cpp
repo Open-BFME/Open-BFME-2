@@ -20,7 +20,11 @@ class CommandButton;
 class CommandSet {public:const CommandButton *getCommandButton(int)const;};
 class Rva0031D5F8 {public:void *rva0031D5F8(const AsciiString *);};
 class Image {public:void rva002D937E();};
-class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
+class ImageCollection
+{
+public:
+	const Image *findImageByName(const AsciiString &name);
+};
 extern ImageCollection *TheMappedImageCollection;
 class ThingTemplate {
 public:
@@ -29,7 +33,14 @@ public:
  char pad74[0x108-0x74];unsigned kindOf;
  char pad10C[0x484-0x10C];ThingTemplate *next;
 };
-class ThingFactory {public:char pad00[12];ThingTemplate *first;};
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &name);
+	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
+	char m_pad00[0xC];
+	ThingTemplate *first; // +0x0C
+};
 extern ThingFactory *TheThingFactory;
 class PlayerTemplate {public:char pad00[0x138];AsciiString commandSet;};
 class Player {public:char pad00[0x34];PlayerTemplate *base;char pad38[0x58-0x38];AsciiString side;};

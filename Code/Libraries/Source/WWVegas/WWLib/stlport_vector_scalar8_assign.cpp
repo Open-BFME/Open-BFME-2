@@ -3,11 +3,12 @@
 #include "ascii_string.h"
 struct BfmeAsciiScalarValue8
 {
-	AsciiString text;
-	unsigned int value;
+public:
 	BfmeAsciiScalarValue8();
-	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &other);
-	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &other);
+	BfmeAsciiScalarValue8(const BfmeAsciiScalarValue8 &);
+	BfmeAsciiScalarValue8 &operator=(const BfmeAsciiScalarValue8 &);
+	AsciiString text; // +0x00
+	unsigned int value; // +0x04
 };
 class Rva002390CB
 {

@@ -9,11 +9,14 @@
 #include "ascii_string.h"
 #include "Lib/Coord3D.h"
 
+class Object;
 class Drawable
 {
 public:
 	void setPosition(const Coord3D *loc);
 	void setIndicatorColor(int color);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC +0xFC
 };
 
 class Thing
@@ -28,7 +31,9 @@ class ThingFactory
 {
 public:
 	const ThingTemplate *findTemplate(const AsciiString &name);
-	void *newDrawable(void *tmplate, int a, int b);	// 0x002CF21B
+	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
+	char m_pad00[0xC];
+	ThingTemplate *first; // +0x0C
 };
 extern ThingFactory *TheThingFactory;
 

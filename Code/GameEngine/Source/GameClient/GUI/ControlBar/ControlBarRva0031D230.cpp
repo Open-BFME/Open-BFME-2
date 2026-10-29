@@ -27,10 +27,12 @@ class Object;
 class Team;
 class Module;
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 
 class PlayerTemplate
@@ -132,11 +134,14 @@ public:
 	Team *m_team;	// +0x304
 };
 
+struct Coord3D;
 class Drawable
 {
 public:
-	char pad000[0xFC];
-	Object *m_object;	// +0xFC
+	void setPosition(const Coord3D *loc);
+	void setIndicatorColor(int color);
+	char m_pad00[0xFC];
+	Object *m_object; // +0xFC +0xFC
 };
 
 typedef std::list<Drawable *> DrawableList;

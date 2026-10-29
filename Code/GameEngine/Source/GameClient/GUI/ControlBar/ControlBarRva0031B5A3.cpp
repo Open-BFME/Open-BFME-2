@@ -41,6 +41,7 @@ class GameWindowTransitionsHandler
 {
 public:
 	void setGroup(AsciiString groupName, bool immediate);
+	void remove(AsciiString groupName, bool skipPending);
 };
 
 class ControlBar

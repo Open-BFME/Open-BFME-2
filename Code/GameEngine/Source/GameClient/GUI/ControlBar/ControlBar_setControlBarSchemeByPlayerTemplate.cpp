@@ -40,10 +40,12 @@ class GameLogic;
 class GameInfo;
 class ControlBarSchemeManager;
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *str);
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;

@@ -120,8 +120,8 @@ public:
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const AsciiString &name);
-	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 
 extern GameWindowManager *TheWindowManager;

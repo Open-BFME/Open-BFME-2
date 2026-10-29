@@ -18,10 +18,12 @@ enum NameKeyType
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
-	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const char *nameString);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;

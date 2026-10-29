@@ -167,7 +167,19 @@ public:
 
 extern ControlBar *TheControlBar;
 class Rva0031D5F8 { public: void *rva0031D5F8(const AsciiString *); };
-class Rva0031AF54 { public: void rva0031AF54(bool); };
+class AnimateWindowManager;
+class Rva0031AF54
+{
+public:
+	void rva0031AF54(bool flag);
+	char m_pad00[0x14];
+	AnimateWindowManager *m_manager; // +0x14
+	char m_pad18[0x90];
+	GameWindow *m_list[10]; // +0xA8
+	int m_count; // +0xD0
+	char m_padD4[0x4];
+	GameWindow *m_window; // +0xD8
+};
 
 void GadgetButtonSetAltSound(GameWindow *window, AsciiString sound);
 

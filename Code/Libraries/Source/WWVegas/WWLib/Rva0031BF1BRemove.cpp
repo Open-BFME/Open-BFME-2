@@ -21,10 +21,10 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 class ModuleData
 {
 public:
-    unsigned char m_pad00[0x0c];
-    int m_removed;
-    unsigned char m_pad10[8];
-    ModuleData *m_next;
+	char m_pad00[0xC];
+	int m_removed; // +0x0C
+	char m_pad10[0x8];
+	ModuleData *m_next; // +0x18
 };
 
 class Rva0031BF1B

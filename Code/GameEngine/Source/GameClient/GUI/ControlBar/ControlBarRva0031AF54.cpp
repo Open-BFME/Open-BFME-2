@@ -43,14 +43,13 @@ class Rva0031AF54
 {
 public:
 	void rva0031AF54(bool flag);
-
-	unsigned char m_pad00[0x14];
-	AnimateWindowManager *m_manager;
-	unsigned char m_pad18[0x90];
-	GameWindow *m_list[10];
-	int m_count;
-	int m_unkD4;
-	GameWindow *m_window;
+	char m_pad00[0x14];
+	AnimateWindowManager *m_manager; // +0x14
+	char m_pad18[0x90];
+	GameWindow *m_list[10]; // +0xA8
+	int m_count; // +0xD0
+	char m_padD4[0x4];
+	GameWindow *m_window; // +0xD8
 };
 
 void Rva0031AF54::rva0031AF54(bool flag)
