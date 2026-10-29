@@ -120,7 +120,7 @@ public:
 private:
 	char m_pad0C[0x44 - 0x0C];
 	ControlBarSchemeManager *m_controlBarSchemeManager;
-	char _mid[0x20c - 0x44 - 4];
+	char m_pad48[0x20c - 0x48];
 	bool m_isObserverCommandBar;
 };
 

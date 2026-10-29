@@ -4,10 +4,10 @@
 // Ownership guide: BFME1 575ba2b047 ControlBarConstructor.cpp uses WeakPointer
 // and OwnedPointer for its corresponding tail fields. Target stores establish
 // +2A0/+2A4. +2A0 is a plain pointer cleared in member order: ControlBar::init hands it to
-// winSetUserData, and a weak holder adds no cleanup. The +2A4 owned-slot
-// cleanup is checked independently by the native EH map and funclet gate. Its
-// pointee application type is unknown; int retains the observed
-// scalar-delete-only cleanup ABI.
+// winSetUserData, and a weak holder adds no cleanup. +2A4 is the holder
+// ControlBar::reset and ControlBar::update release through clear (0x000AD6F4);
+// the ctor nulls its pointer in member order (an inline default ctor). Its
+// pointee type is unknown; the EH map stays exact (no member-dtor state).
 // ??0ControlBar@@QAE@XZ @ 0x0031E94C 558B: ControlBar constructor.
 // Evidence: pinned name; callers ?init@InGameUI@@UAEXXZ 0x0029E5D0 and
 // ?recreateControlBar@InGameUI@@UAEXXZ 0x0029F890; vtable data 0x0080CC88;
@@ -151,7 +151,15 @@ public:
 	virtual void v01();
 };
 
-template<class T>class OwnedPointer{public:OwnedPointer():p(0){}~OwnedPointer(){delete p;}T*p;};
+class Rva000AD6F4
+{
+public:
+	Rva000AD6F4() : m_ptr(0) {}
+	~Rva000AD6F4();
+	void clear();
+private:
+	void *m_ptr; // +0x00
+};
 class ControlBar : public SubsystemInterface
 {
 public:
@@ -238,7 +246,7 @@ private:
 	GameWindow *m_radarAttackGlowWindow;
 	int m_rva0031C83D29C;
 	void *m_commandWindowUserData;
-	OwnedPointer<int> m_02A4;
+	Rva000AD6F4 m_buildToolTipLayout;
 	_STL::vector<PlayerAITypeEntry> m_02A8;
 };
 

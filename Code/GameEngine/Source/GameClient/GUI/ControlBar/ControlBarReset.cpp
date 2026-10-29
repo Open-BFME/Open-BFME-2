@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /Ireference/shims/subsystem_bfme2
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/subsystem_bfme2
+// stlport
 typedef bool Bool;
 #include "subsystem_interface.h"
 #include "ascii_string.h"
@@ -38,6 +39,7 @@ public:
 class Rva000AD6F4
 {
 public:
+	Rva000AD6F4() : m_ptr(0) {}
 	~Rva000AD6F4();
 	void clear();
 private:
@@ -105,6 +107,19 @@ class Rva000427195
 public:
 	void *first(Rva000411084 *iter);
 	void rva003A37DC(VideoPair p);
+};
+
+// The +0x30 map as ControlBar's constructor spells it (its rowed hash_map
+// constructor 0x0031E92D); begin and erase above are folded bodies reached
+// through the Rva000427195 view.
+#include <hash_map>
+struct Rva0031DBFCElement
+{
+	Rva0031DBFCElement();
+	Rva0031DBFCElement(const Rva0031DBFCElement &);
+	Rva0031DBFCElement &operator=(const Rva0031DBFCElement &);
+	~Rva0031DBFCElement() {}
+	char m_data[8];
 };
 
 void Rva00328518(GameWindow *w, int x);
@@ -178,8 +193,8 @@ public:
 	AnimateWindowManager *m_generalsScreenAnimate;		///< +0x18
 	unsigned char m_pad1C[0x2C - 0x1C];
 	BfmeResetNode *m_commandSets;			///< +0x2C
-	Rva000427195 m_videoMap;			///< +0x30
-	unsigned char m_pad31[0x74 - 0x31];
+	_STL::hash_map<int, Rva0031DBFCElement> m_videoMap;	///< +0x30
+	unsigned char m_pad44[0x74 - 0x44];
 	volatile int m_radarAttackGlowOn;			///< +0x74
 	float m_displayedConstructPercent;		///< +0x78
 	int m_displayedOCLTimerSeconds;			///< +0x7C
@@ -252,7 +267,7 @@ void ControlBar::reset()
 
 	// Teardown of the window/video map at +0x30.
 	VolIter iter;
-	m_videoMap.first((Rva000411084 *)&iter);
+	((Rva000427195 *)&m_videoMap)->first((Rva000411084 *)&iter);
 	void *first = (void *)iter.m_current;
 	if (first != 0) {
 		void *second = (void *)iter.m_owner;
@@ -263,7 +278,7 @@ void ControlBar::reset()
 			((Rva000411084 *)&iter)->next();
 			Overridable *overrides = *(Overridable **)((char *)first + 8);
 			if (overrides->deleteOverrides() == 0) {
-				m_videoMap.rva003A37DC(VideoPair(first, second));
+				((Rva000427195 *)&m_videoMap)->rva003A37DC(VideoPair(first, second));
 			}
 			first = (void *)iter.m_current;
 			second = (void *)iter.m_owner;

@@ -145,13 +145,13 @@ class ControlBar : public SubsystemInterface
 {
 	unsigned char m_pad0C[0x2C - 0x0C];
 	CommandButton *m_commandButtons;
-	unsigned char m_unreconstructed_2C[0x18];
+	unsigned char m_pad30[0x48 - 0x30];
 	GameWindow *m_contextParent[9]; // [0] is the master window
-	unsigned char m_unreconstructed_6C[0x3C];
+	unsigned char m_pad6C[0xA8 - 0x6C];
 	GameWindow *m_specialPowerShortcutButtons[5];
 	GameWindow *m_specialPowerShortcutButtonParents[5];
 	Int m_currentlyUsedSpecialPowersButtons;
-	unsigned char m_unreconstructed_F8[4];
+	unsigned char m_padD4[0xD8 - 0xD4];
 	GameWindow *m_specialPowerShortcutParent;
 
 public:
