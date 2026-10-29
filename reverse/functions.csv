@@ -44670,7 +44670,6 @@ _Rva006CD070Atof,,0x006CD070,14,Code/Libraries/Source/Apt/AptValue/AptNumericPar
 ?rva007B6ED6@@YAXXZ,,0x007B6ED6,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC0E0 tail-jmp pinned dtor 0x000FA7E8
 ?rva007B6EEA@@YAXXZ,,0x007B6EEA,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DEC140 tail-jmp pinned dtor 0x000FB85DDtor 0x000FB85D
 ?rva007B70D3@@YAXXZ,,0x007B70D3,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF29B4 tail-jmp pinned dtor 0x00136768
-?rva007B71AA@@YAXXZ,,0x007B71AA,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DF6F10 tail-jmp pinned dtor 0x0007C632
 ?rva007B7704@@YAXXZ,,0x007B7704,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFE4AC tail-jmp pinned dtor 0x002213C0
 ?rva007B7810@@YAXXZ,,0x007B7810,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFEC74 tail-jmp pinned dtor 0x003ED94F
 ?rva007B7A9B@@YAXXZ,,0x007B7A9B,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap thunk ecx g_Va00DFF14C tail-jmp pinned dtor 0x00301621
