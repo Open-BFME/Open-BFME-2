@@ -42293,7 +42293,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004F571B,129,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,C,C=0x004F56E5..0x004F579C,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
 0x004F579C,192,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp S=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp N=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
 0x004F585C,188,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp S=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp N=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp W=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
-0x004F5919,28,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,Code/GameEngine/Source/Common/RTS/TunnelTrackerDeleter.cpp
+0x004F5919,28,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,N,N=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
 0x004F5935,74,code,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp S=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp N=Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp,Code/GameEngine/Source/Common/RTS/TunnelTracker.cpp
 0x004F597F,31,code,,,-,,Code/GameEngine/Source/Common/Rva004F599EClear.cpp
 0x004F599E,14,code,,,-,,Code/GameEngine/Source/Common/Rva004F599EClear.cpp

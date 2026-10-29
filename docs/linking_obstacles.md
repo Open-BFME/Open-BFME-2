@@ -1849,6 +1849,11 @@ Whole-unit clearance and census confirmation remain pending.
   Recovery recheck (2026-10-28): retain the divergent identity key because the
   owning retirement check lacks 74 ledger objects and 12 current providers.
   The source binding is retained; current debt retirement remains pending.
+  Consolidation (2026-10-29): all TunnelTracker donors now share
+  `TunnelTrackerNemesisView.h`, and Xfer, Dtor, CtorBfme, LoadPostProcess and
+  Deleter rows live in `Common/RTS/TunnelTracker.cpp` (30/30 exact). The Xfer
+  identity key moved with them. No link or census gain is claimed; the next
+  normal census measures the merged unit.
 - **FireSpreadUpdate declaration trial (2026-10-26):**
   [The blocked prerequisite handoff](../reverse/attempt_support/consolidation-firespread-prerequisite-20261026-codex.md)
   preserves 11/11 baseline rows. A minimal declaration trial kept every object
