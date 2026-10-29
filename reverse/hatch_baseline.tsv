@@ -12759,7 +12759,6 @@ present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTem
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::parseWeaponTemplateSet	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::removeModuleInfo	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::validateAudio	1
-present_unmatched	Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp	ThingTemplate::~ThingTemplate	1
 present_unmatched	Code/GameEngine/Source/Common/Thing/WeaponTemplateSetUninitializedCopy.cpp	_STL::__uninitialized_copy	1
 present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::TreeHintRef00217D4C	1
 present_unmatched	Code/GameEngine/Source/Common/TimedOperationNodeBFME2.h	TreeHintRef00217D4C::~TreeHintRef00217D4C	1

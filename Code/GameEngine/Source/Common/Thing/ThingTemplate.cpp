@@ -826,13 +826,21 @@ void ThingTemplate::validateAudio()
 // in Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp (0x0033B539).
 
 //-------------------------------------------------------------------------------------------------
-// ?ThingTemplate::~ThingTemplate present-unmatched
-ThingTemplate::~ThingTemplate()
+// ThingTemplate::~ThingTemplate is defined with its retail-matched body in
+// Code/GameEngine/Source/Common/Thing/Rva0033DDA1Dtor.cpp (0x0033DDA1). Zero Hour's
+// empty protected destructor emitted a two-slot ZH vftable here that the link kept
+// ahead of retail's one-slot ??_7ThingTemplate@@6B@ (LINK-146). This anchor keeps
+// emitting the three member destructors rowed in this unit, which that
+// destructor used to bring in; it is not a recovered retail function.
+// ?bfmeAnchorThingTemplateMemberDtors absent-from-retail
+typedef std::vector<ProductionPrerequisite> BfmePrereqVector;
+void bfmeAnchorThingTemplateMemberDtors(ModuleInfo *info, BfmePrereqVector *prereqs,
+	WeaponTemplateSetFinder *finder)
 {
-	// note, we don't need to take any special action for Armor/WeaponSets...
-	// though it is just a list of 'raw' pointers, we don't have ownership of 'em,
-	// and so we MUST NOT delete them
-} 
+	info->~ModuleInfo();
+	prereqs->~BfmePrereqVector();
+	finder->~WeaponTemplateSetFinder();
+}
 
 //=============================================================================
 // ThingTemplate::resolveNames is defined with its retail-matched body in Code/GameEngine/Source/Common/Thing/Rva0033C2C2ResolveNames.cpp (0x0033C2C2).

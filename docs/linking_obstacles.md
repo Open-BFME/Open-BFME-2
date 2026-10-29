@@ -10159,3 +10159,19 @@ for `??1CallHelpOnDamage@@UAE@XZ` (0x004BB4D1, approved TU
 Object/Die/CallHelpOnDamage.cpp; claimed by another seat at the time). Other
 rows of that file's table (e.g. RiderChangeContain, LevelGrantSpecialPower)
 may hide the same split; check each against its module unit.
+
+### LINK-146: ThingTemplate.cpp's Zero Hour destructor emitted a two-slot ThingTemplate vftable (2026-10-29, seat b1)
+
+Status: repaired, pending census confirmation. The 85f6b7f40c census lists
+ThingTemplateConstructor.cpp and Rva0033DDA1Dtor.cpp linked=no, each losing
+`??_7ThingTemplate@@6B@`: ThingTemplate.cpp (Zero Hour header) was first in link
+order with a two-slot copy (`??_EThingTemplate@@MAEPAXI@Z`,
+`getObjectMemoryPool`), referenced only by its own `present-unmatched` empty
+protected `~ThingTemplate`. Retail's vftable 0x00810C4C has one slot (the
+canonical header's evidence). Repair: that destructor is gone (present_unmatched
+-1); an `absent-from-retail` anchor destroys a ModuleInfo, the prerequisite
+vector and the weapon-set finder so the unit still emits the three member
+destructors it rows (23/23 exact). The unit no longer defines the vftable.
+Preview: ThingTemplateConstructor.cpp 0 -> 1,881 B, Rva0033DDA1Dtor.cpp 0 -> 770 B.
+ThingTemplate.cpp itself still does not link (unresolved AudioEventRTS, INI and
+Player names from its ZH view; several wrong STL COMDATs), unchanged.
