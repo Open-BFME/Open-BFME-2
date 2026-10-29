@@ -10009,6 +10009,13 @@ temporary shapes while the static thunks still call the out-of-line destructor.
 Alternatively, find the retail source construct (for example, statics of a
 type whose implicit destructor wraps AsciiString). Pass test: the census shows
 UnitRevivalTracker.cpp linked=yes.
+Repair (2026-10-29, seat b1): `AsciiStringElementDtorTwins.cpp` now defines
+`Rva0048BA39StringElement` as a class holding one `AsciiString` with an empty
+out-of-line destructor; it compiles to the 5-byte `jmp releaseBuffer` and is
+rowed as an ICF twin of `??1?$StringBase@D@@AAE@XZ` (`add_match --icf-owner`,
+`fold-proof=` that unit). UnitRevivalTracker.cpp is unchanged, so its rows stay
+exact. Preview: UnitRevivalTracker.cpp 0 -> 3,033 B and the twins unit LINKS.
+Pending census confirmation.
 
 ### LINK-142: STLport 4.6 migration removed the provider of the 4.5.3 Pod16 map node allocate (2026-10-29, seat yasinschroeder-claudeb2)
 

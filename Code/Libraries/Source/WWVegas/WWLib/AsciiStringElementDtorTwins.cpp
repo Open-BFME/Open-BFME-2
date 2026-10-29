@@ -52,3 +52,17 @@ struct SiegeStringIntPair
 SiegeStringIntPair::~SiegeStringIntPair()
 {
 }
+
+// UnitRevivalTracker.cpp's static strings (RevivalStaticAsciiString) release
+// through this out-of-line destructor of a four-byte string view; retail
+// calls the same fold for them.
+class Rva0048BA39StringElement
+{
+	AsciiString m_00;
+public:
+	~Rva0048BA39StringElement();
+};
+
+Rva0048BA39StringElement::~Rva0048BA39StringElement()
+{
+}
