@@ -66,6 +66,15 @@ authored-byte previews or commit-title gains into a projected headline.
 
 ## Obstacles and handoffs
 
+Naming-review publication (2026-10-29, `b1399e7439`, base `d99d2428cb`):
+the two inferred BfmeNodeZK member renames preserve 20/20 owner rows; the push
+gate verifies 58/58 rows across three affected sources. The link audit remains
+**UNVERIFIED**: provider index `73061d9452` predates that base, and three source
+objects lack current receipts (first:
+`Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp`). Carry this publication's
+affected consumer scope into the next normal census. Native byte verification
+does not establish current link bindings; no linking gain or clearance is claimed.
+
 Recovery verification of the preserved seventeen-commit batch (2026-10-28,
 base `696149099c`, checked tip `6f76860438`): the dry-run push gate passes
 229 function rows, three data rows and fifteen EH graphs. Its link audit is
