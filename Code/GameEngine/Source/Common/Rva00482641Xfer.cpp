@@ -35,9 +35,7 @@ class Object;
 
 #include "../../../../reference/shims/moduledata/Common/Snapshot.h"
 
-class Weapon : public Snapshot
-{
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 class Thing;
 class ModuleData;

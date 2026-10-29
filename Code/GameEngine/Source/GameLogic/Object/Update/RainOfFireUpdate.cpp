@@ -36,7 +36,7 @@ enum PathfindLayerEnum {GROUND=0};
 
 class Object;
 
-class Weapon {public:void loadAmmoNow(const Object *);bool fireWeapon(const Object *,const Coord3D *,int *);};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet {public:Weapon *getWeaponInWeaponSlot(WeaponSlotType) const;};
 

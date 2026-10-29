@@ -8,14 +8,7 @@ public:
 	int m_id;
 };
 
-class Weapon
-{
-public:
-	bool privateFireWeapon(const Object *src, const Coord3D *pos, const Object *tgt, int n, const Coord3D *alt, bool ignoreRanges, bool special, unsigned int extraBonusFlags, int *out);
-
-	bool bfmeFireYB(const Object *src, const Coord3D *pos, const Coord3D *alt, int n);
-	bool bfmeFireYC(const Object *src, const Coord3D *pos, const Object *tgt, int n);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 bool Weapon::bfmeFireYC(const Object *src, const Coord3D *pos, const Object *tgt, int n)
 {

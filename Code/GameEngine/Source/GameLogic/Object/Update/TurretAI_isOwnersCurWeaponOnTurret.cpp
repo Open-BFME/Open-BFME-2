@@ -12,9 +12,7 @@ enum WeaponSlotType
 	WEAPONSLOT_PRIMARY = 0
 };
 
-class Weapon
-{
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

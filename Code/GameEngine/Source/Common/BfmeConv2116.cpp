@@ -10,11 +10,7 @@ public:
 	int rva0028B511() const;
 };
 
-class Weapon
-{
-public:
-	Coord3D bfmeGetLOSVictimPos(const Object *shooter, const Object *victim, int mode) const;
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 class BfmeHolderNS;
 

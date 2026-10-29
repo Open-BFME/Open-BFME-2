@@ -166,11 +166,7 @@ public:
 	bool shouldProjectileCollideWith(const Object *launcher, const Object *owner, const Object *victim, ObjectID victimID) const;
 };
 
-class Weapon
-{
-public:
-	static void positionProjectileForLaunch(Object *projectile, const Object *launcher, WeaponSlotType wslot, int specificBarrelToUse);
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 struct Rva0045B936Arg
 {

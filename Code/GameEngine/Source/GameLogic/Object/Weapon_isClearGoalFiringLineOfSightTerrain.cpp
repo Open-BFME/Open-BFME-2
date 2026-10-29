@@ -14,14 +14,7 @@ class WeaponTemplate;
 class AI;
 class Pathfinder;
 class TerrainLogic;
-class Weapon {
-public:
-    int isClearGoalFiringLineOfSightTerrain(const Object *source, const Coord3D *pos, const Object *victim);
-protected:
-    void getFiringLineOfSightOrigin(const Object *shooter, Coord3D &origin) const;
-public:
-    Coord3D bfmeGetLOSVictimPos(const Object *source, const Object *victim, int weaponSlot) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 struct Rva002ED01EInfo { Int cellCallback(void *a, void *b, Int x, Int y); };
 ICoord2D *__cdecl Rva002E7875WorldToCell(ICoord2D *out, bool center, const Coord3D *pos);
 class AI {

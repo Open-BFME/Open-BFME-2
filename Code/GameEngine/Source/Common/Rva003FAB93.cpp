@@ -28,11 +28,7 @@ public:
 	virtual void slot35(int a, int b, int c);
 };
 
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool);
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 struct RefInner14 {
 	unsigned char pad[0xB0];

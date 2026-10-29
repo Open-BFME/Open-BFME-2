@@ -8,17 +8,7 @@ class Object { public: char m_pad[0x38]; Coord3D m_position; char m_pad44[0x30];
 #include "../../Common/GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
 extern GameLogic *TheGameLogic;
-class Weapon {
-public:
-    bool privateFireWeapon(const Object *source, const Coord3D *sourcePos, const Object *target,
-        int targetID, const Coord3D *targetPos, bool ignoreRanges, bool special,
-        unsigned int extraBonusFlags, int *projectileID);
-    bool fireWeapon(const Object *source, const Coord3D *pos, int *projectileID);
-    bool rva002CE6C5(const Object *source, int targetID, const Object *target, int *projectileID);
-    Object *forceFireWeapon(const Object *source, const Coord3D *pos);
-    bool fireProjectileDetonationWeapon(const Object *a1, const Coord3D *a2, const Coord3D *a3, int a4);
-    Object *forceFireWeapon(const Object *source, const Object *target);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 bool Weapon::fireWeapon(const Object *source, const Coord3D *pos, int *projectileID)
 {
 	return privateFireWeapon(source, &source->m_position, 0, 0, pos, 0, 0, 0, projectileID);

@@ -12,14 +12,7 @@ public:
 private:
     float m_multiplier[6];
 };
-class Weapon
-{
-public:
-    void reloadAmmo(const Object *source);
-protected:
-    void computeBonus(const Object *source, unsigned flags, WeaponBonus &bonus) const;
-    void reloadWithBonus(const Object *source, const WeaponBonus &bonus, bool immediate);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 void Weapon::reloadAmmo(const Object *source)
 {
     WeaponBonus bonus;

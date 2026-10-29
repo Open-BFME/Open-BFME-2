@@ -23,7 +23,7 @@ struct MemberwisePoint:Coord3D{MemberwisePoint(){}MemberwisePoint(const Coord3D&
 struct ModelFlags {unsigned words[20];unsigned test(int bit)const{return words[bit>>5]&(1U<<(bit&31));}void set(int bit){words[bit>>5]|=1U<<(bit&31);}};
 struct LocoHeightData {char pad[0x64];float range64;};
 enum WeaponSlotType{WEAPONSLOT0=0};enum WeaponStatus{WEAPONSTATUS0=0};
-class Weapon{public:WeaponStatus getStatus()const;};
+#include "../../Include/GameLogic/Weapon.h"
 class LocoHeightAI{public:
 virtual void slot00();
 virtual void slot01();

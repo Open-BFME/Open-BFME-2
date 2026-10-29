@@ -329,15 +329,7 @@ private:
 	Int m_clipSizeE4; // +0xE4
 };
 
-class Weapon
-{
-public:
-	const WeaponTemplate *getTemplate() const { return m_template; }
-	Bool rva002C969D(const void *a, Int b);
-private:
-	void *m_vtbl;
-	const WeaponTemplate *m_template; // +4
-};
+#include "../../../../../Include/GameLogic/Weapon.h"
 
 class StateMachine
 {

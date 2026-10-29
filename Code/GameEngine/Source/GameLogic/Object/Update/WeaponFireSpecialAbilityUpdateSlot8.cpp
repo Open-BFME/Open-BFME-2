@@ -27,12 +27,7 @@ public:
 	unsigned char m_pad008[0x38 - 0x08];
 	Coord3D m_38; // +0x38
 };
-class Weapon
-{
-public:
-	Real rva002C957E() const;
-	Real getAttackRange(const Object *source) const;
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 class ModuleData;
 class UpdateModule
 {

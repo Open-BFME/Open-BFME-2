@@ -150,19 +150,7 @@ class WeaponTemplate
     Bool m_turretAimed; // +0x16C
 };
 
-class Weapon
-{
-  public:
-    const WeaponTemplate *getTemplate() const { return m_template; }
-
-    static void calcProjectileLaunchPosition(const Object *launcher, WeaponSlotType wslot,
-                                             Int specificBarrelToUse, Matrix3D &worldTransform,
-                                             Coord3D &worldPos);
-
-  private:
-    void *m_vtbl;
-    const WeaponTemplate *m_template; // +4
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {

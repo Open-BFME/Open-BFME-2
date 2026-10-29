@@ -195,7 +195,7 @@ protected:
 	int m_14, m_18, m_1c;
 };
 enum WeaponStatus { READY_TO_FIRE, OUT_OF_AMMO, BETWEEN_FIRING_SHOTS, RELOADING_CLIP, PRE_ATTACK, WEAPON_STATUS_5 };
-class Weapon { public: WeaponStatus getStatus() const; Object *forceFireWeapon(const Object*, const Object*); };
+#include "../../../../Include/GameLogic/Weapon.h"
 struct DamageEntry { Weapon *m_weapon; unsigned int m_frame04; unsigned char m_flag08; };
 struct DamageNode { DamageNode *m_next00, *m_prev04; DamageEntry *m_entry08; };
 class GameLogic;

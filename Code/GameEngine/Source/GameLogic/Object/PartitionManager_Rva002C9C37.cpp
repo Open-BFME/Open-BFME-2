@@ -47,12 +47,7 @@ public:
 	float rva002C9B80(void *source, float heightDifference);
 };
 
-class Weapon
-{
-public:
-	float getAttackRange(const Object *source, const Object *victim) const;
-	float getAttackDistance(const Object *source, const Object *victimObj, const Coord3D *victimPos) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 float Weapon::getAttackDistance(const Object *source, const Object *victimObj, const Coord3D *victimPos) const
 {

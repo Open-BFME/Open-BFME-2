@@ -12,11 +12,7 @@
 // mov-eax/call factory at 0x002C7492. Honest address-derived names.
 
 // Rowed provider (defined in Rva002C96D8Finish.cpp); declared here only.
-class Weapon
-{
-public:
-	void rva002C95DE(int offset);
-};
+#include "../../../../GameEngine/Include/GameLogic/Weapon.h"
 
 class Rva002C7474
 {

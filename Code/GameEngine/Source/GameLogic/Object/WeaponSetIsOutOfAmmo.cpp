@@ -26,14 +26,7 @@ enum WeaponStatus
 
 class Object;
 
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-	bool isWithinTargetPitch(const Object *obj, const Object *victim) const;
-	void loadAmmoNow(const Object *obj);
-	void reloadAmmo(const Object *obj);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponSet
 {

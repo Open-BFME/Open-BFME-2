@@ -18,12 +18,7 @@ public:
 
 // Retail forms owner + 0x330 before calling WeaponSet. This access offset
 // is established by this caller; it does not define an Object accessor.
-class Weapon
-{
-public:
-	Bool isWithinAttackRange(const Object* source, const Object* target,
-		Real rangeAdjustment, int options) const;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class TurretAI
 {

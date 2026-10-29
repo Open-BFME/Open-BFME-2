@@ -34,20 +34,7 @@ public:
 };
 extern TerrainLogic *TheTerrainLogic;
 
-class Weapon
-{
-public:
-	void rva002CB967(const Object *a, const Object *b);
-
-protected:
-	void getFiringLineOfSightOrigin(const Object *obj, Coord3D &origin) const;
-
-public:
-	Coord3D bfmeGetLOSVictimPos(const Object *source, const Object *victim, int weaponSlot) const;
-
-private:
-	void *m_vtable;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // ?rva002CB967@Weapon@@QAEXPBVObject@@0@Z
 void Weapon::rva002CB967(const Object *object, const Object *b)

@@ -44,12 +44,7 @@ enum WeaponSlotType
 
 struct WeaponTemplate;
 
-class Weapon
-{
-public:
-	unsigned char m_pad[4];
-	WeaponTemplate *m_template;   // +4 (retail loads it, name string at +8)
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class Rva004BAFE5Iface;
 

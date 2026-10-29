@@ -71,11 +71,7 @@ public:
 	virtual Object *rva0050B745Slot69(int kind) = 0; // +0x114
 };
 
-class Weapon
-{
-public:
-	bool rva002CCED3(const Object *victim, const Object *source);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

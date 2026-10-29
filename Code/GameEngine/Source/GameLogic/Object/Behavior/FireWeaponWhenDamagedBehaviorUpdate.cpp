@@ -86,12 +86,7 @@ private:
 	BodyModuleInterface *m_body; // +0x254
 };
 
-class Weapon
-{
-public:
-	WeaponStatus getStatus() const;
-	Object *forceFireWeapon(const Object *source, const Coord3D *pos);
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 class BehaviorModuleBase
 {

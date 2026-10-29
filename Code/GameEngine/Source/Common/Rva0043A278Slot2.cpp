@@ -97,11 +97,7 @@ public:
 	virtual const Rva0043A28AMiscView *getMiscAudio();
 };
 
-class Weapon
-{
-public:
-	void setLeechRangeActive(bool);
-};
+#include "../../Include/GameLogic/Weapon.h"
 
 class Display
 {

@@ -13,18 +13,7 @@ class WeaponTemplate
 public:
 	int getClipReloadTime(const WeaponBonus &bonus) const;
 };
-class Weapon
-{
-public:
-	int getClipReloadTime(const Object *source) const;
-
-protected:
-	void computeBonus(const Object *source, unsigned int extra, WeaponBonus &bonus) const;
-
-private:
-	char m_pad00[4];
-	const WeaponTemplate *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 int Weapon::getClipReloadTime(const Object *source) const
 {
 	WeaponBonus bonus;

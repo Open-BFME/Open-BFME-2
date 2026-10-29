@@ -183,12 +183,7 @@ private:
 	ProjectileSourceModule *m_250; // +0x250
 };
 
-class Weapon
-{
-public:
-	static void calcProjectileLaunchPosition(const Object *launcher, WeaponSlotType wslot,
-		Int specificBarrelToUse, Matrix3D &worldTransform, Coord3D &worldPos);
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 enum ObjectID; class ThingFactory
 {

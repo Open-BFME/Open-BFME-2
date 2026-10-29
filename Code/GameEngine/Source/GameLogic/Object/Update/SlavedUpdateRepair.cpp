@@ -258,14 +258,7 @@ public:
 	virtual Real getMaxHealth() const;
 };
 
-class Weapon
-{
-public:
-	Int getMaxShotCount() const { return m_maxShotCount; }
-private:
-	unsigned char m_pad00[0x34];
-	Int m_maxShotCount; // +0x34
-};
+#include "../../../../Include/GameLogic/Weapon.h"
 
 // The 3D distance squared from an object's position, rowed at 0x001E435D
 // under its BFME 1 donor's names. Its body is visible here (the same inline

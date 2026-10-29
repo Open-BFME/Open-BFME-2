@@ -61,14 +61,7 @@ Int WeaponTemplate::rva002C93DF(const WeaponBonus &bonus) const
 // and a raw32 unused slot. Weapon::m_template at+4 is independently proven
 // by the already matched WeaponGetPreAttackDelay and reload consumers.
 class Object;
-class Weapon
-{
-public:
-	Int rva002C9D3B(const Object *source, unsigned rawUnused) const;
-private:
-	char m_pad00[4];
-	const WeaponTemplate *m_template;
-};
+#include "../../../Include/GameLogic/Weapon.h"
 Int Weapon::rva002C9D3B(const Object *, unsigned) const
 {
 	return m_template->m_firingDuration;

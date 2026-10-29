@@ -32,11 +32,7 @@ public:
     virtual Waypoint *getClosestWaypointOnPath(const Coord3D *, const AsciiString &) = 0;
 };
 
-class Weapon
-{
-public:
-    Object *forceFireWeapon(const Object *source, const Coord3D *pos);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class AICommandInterface
 {

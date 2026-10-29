@@ -79,12 +79,7 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-class Weapon
-{
-public:
-	static void calcProjectileLaunchPosition(const Object *launcher, WeaponSlotType wslot, Int specificBarrelToUse, Matrix3D &worldTransform, Coord3D &worldPos);
-	static void positionProjectileForLaunch(Object *projectile, const Object *launcher, WeaponSlotType wslot, Int specificBarrelToUse);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 /*static*/ void Weapon::positionProjectileForLaunch(
 	Object* projectile,

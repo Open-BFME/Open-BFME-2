@@ -105,11 +105,7 @@ public:
 	int m_index;
 };
 
-class Weapon
-{
-public:
-	bool rva002CCED3(const Object *victim, const Object *source);
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class Object
 {

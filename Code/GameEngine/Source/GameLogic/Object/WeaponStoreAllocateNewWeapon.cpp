@@ -15,16 +15,7 @@ enum WeaponSlotType
 
 // ?0Weapon@@IAE@PBVWeaponTemplate@@W4WeaponSlotType@@@Z placeholder: real class is 0x60;
 // only the size and ctor matter here.
-class Weapon
-{
-	friend class WeaponStore;
-
-protected:
-	Weapon(const WeaponTemplate *tmpl, WeaponSlotType slot);
-
-private:
-	char m_bfme_body[0x60];
-};
+#include "../../../Include/GameLogic/Weapon.h"
 
 class WeaponStore
 {
