@@ -214,13 +214,13 @@ Coord3D LightningEmissionModule::getPosition(float, float, int index, int count)
 			if (((ParticleSystemView *)handle.system())->m_isLocal)
 			{
 				const Matrix3D &matrix3D = ((ParticleSystemView *)handle.system())->m_transform;
-				Vector3 a;
-				ITV1(matrix3D, matrix3D.Get_Translation(), &a);
-				start = *(Coord3D *)&a;
+				Vector3 localStart;
+				ITV1(matrix3D, matrix3D.Get_Translation(), &localStart);
+				start = *(Coord3D *)&localStart;
 				const Vector3 *p = &((ParticleSystemView *)handle.system())->m_position;
-				Vector3 b;
-				ITV2(matrix3D, Vector3(p->X, p->Y, p->Z), &b);
-				end = *(Coord3D *)&b;
+				Vector3 localEnd;
+				ITV2(matrix3D, Vector3(p->X, p->Y, p->Z), &localEnd);
+				end = *(Coord3D *)&localEnd;
 			}
 			Coord3D delta;
 			delta.x = end.x - start.x;
