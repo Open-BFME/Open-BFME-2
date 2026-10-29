@@ -66,20 +66,16 @@ class StrategicHUD::BattlePromptMovieClip::Impl
 {
 public:
 	void SetAutoResolveButtonEnabled(bool flag);
+	void SetRealTimeButtonEnabled(bool flag);
+	void SetRetreatButtonEnabled(bool flag);
 private:
 	char m_pad00[4];
-private:
 	void *m_level04;
-private:
 	Rva005F921FHolder *m_team08;
-private:
 	char m_pad0C[0x60 - 0x0C];
-private:
 	bool m_flag60;
-public:
-	void SetRealTimeButtonEnabled(bool flag);
-public:
-	void SetRetreatButtonEnabled(bool flag);
+	bool m_flag61;
+	bool m_flag62;
 };
 
 class Rva005F93DB

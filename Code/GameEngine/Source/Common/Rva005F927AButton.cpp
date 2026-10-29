@@ -5,7 +5,7 @@ class Rva00222A8BTarget;
 extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 int __cdecl Rva005F8EDAAptCall(Rva00222A8BTarget *target, void *level, const char *prefix, const char *function, const char *a0, void **ppA1);
 
-struct Rva005F927AHolder
+struct Rva005F921FHolder
 {
 	char m_pad[8];
 	char m_name[1];
@@ -23,13 +23,17 @@ public:
 class StrategicHUD::BattlePromptMovieClip::Impl
 {
 public:
+	void SetAutoResolveButtonEnabled(bool flag);
 	void SetRealTimeButtonEnabled(bool flag);
+	void SetRetreatButtonEnabled(bool flag);
 private:
 	char m_pad00[4];
 	void *m_level04;
-	Rva005F927AHolder *m_team08;
-	char m_pad0C[0x61 - 0x0C];
+	Rva005F921FHolder *m_team08;
+	char m_pad0C[0x60 - 0x0C];
+	bool m_flag60;
 	bool m_flag61;
+	bool m_flag62;
 };
 
 void StrategicHUD::BattlePromptMovieClip::Impl::SetRealTimeButtonEnabled(bool flag)
