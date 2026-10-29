@@ -6873,8 +6873,9 @@ its two callers' placeholder rows (`__copy`/`__copy_ptrs<Rva004F4DC0Element *>`)
 `/alternatename` in `StlSweepW5Rva004F4DC0.cpp` and four pins (including the bogus
 `??0Rva002CEFAAElement` at 0x000366F0) are gone. All three rows are exact; link_check reports 3/3 LINKS
 (0 -> 35 B for this unit). Census confirmation pending. The two sibling units
-(0x0041573F, 0x0053FFCE callees) are untested. The 0x0053FFCE callee is an `operator=`, so they may be
-the same misidentification.
+(`StlSweepW4Rva004157BB.cpp`, `StlSweepW4Rva00540053.cpp`) already preview LINKS at the same index
+(29 B each), so they are no longer link-blocked. 0x0053FFCE is an `operator=`, so 0x00540053's
+pair-constructor identity may still be wrong. That is naming-lane work, not a link blocker.
 
 #### Additional constructor-only sweep cleanup, 2026-10-26
 
