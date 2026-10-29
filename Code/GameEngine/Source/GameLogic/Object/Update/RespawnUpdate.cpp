@@ -13,29 +13,17 @@
         THROW1("RespawnUpdate::iniParseDefaultRule -- RespawnRules entry for '" diagnostic "' is case sensitive. You specified %s.",token) \
     INI::parser(ini,instance,&rule.member,0);
 #define THROW2(message,a,b) { INIException e; e.INIException::INIException(3,message,a,b); _CxxThrowException(&e, (const _s__ThrowInfo *)&respawnThrowInfoAnchor); __assume(0); }
-
 extern GameLogic *TheGameLogic;
-
 enum UpdateSleepTime {UPDATE_SLEEP_FOREVER=0x3fffffff};
-
 enum DisabledType;
-
 enum ObjectStatusTypes;
-
 class Player;
-
 class ExitInterface;
-
 class BodyModuleInterface;
-
 class FXList;
-
 template<int N> class RespawnAISlots:public RespawnAISlots<N-1> {public:virtual void gap(char (*)[N])=0;};
-
 template<> class RespawnAISlots<0> {};
-
 class AIUpdateInterface:public RespawnAISlots<110> {public:virtual bool isAutoDock()=0;int rva00260DED() const;};
-
 class Object {public:
  ExitInterface *getObjectExitInterface() const;
  void restoreObjectToWorld(const Coord3D *);
@@ -50,13 +38,11 @@ class Object {public:
  char pad7C[0x254-0x7C];BodyModuleInterface *body;AIUpdateInterface *ai;
  char pad25C[0x45C-0x25C];int handle;
 };
-
 class ExitInterface {public:
  virtual void slot0()=0;virtual void slot1()=0;virtual void exitObject(Object *,bool)=0;
  virtual void slot3()=0;virtual void slot4()=0;virtual void slot5()=0;virtual void slot6()=0;virtual void slot7()=0;virtual void slot8()=0;
  virtual void getExitPosition(Coord3D *,bool)=0;
 };
-
 class BodyModuleInterface {public:
 virtual void slot0()=0;
 virtual void slot1()=0;
@@ -81,13 +67,7 @@ virtual void slot19()=0;
 virtual void slot20()=0;
 virtual void setInitialHealth(float,bool)=0;
 };
-
 class FXList {public:static void doFXObj(const FXList *,const Object *,const Object *);};
-
-class RespawnUpdateModuleData {public:
- char pad00[0x58];int conditions58[19];int conditionsA4[19];const FXList *deathFX,*reviveFX;char padF8[8];unsigned reviveTime;
-};
-
 #include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
@@ -194,6 +174,47 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+class RespawnUpdateModuleData {
+public:
+	char pad00[0x58];
+public:
+	int conditions58[19];
+public:
+	int conditionsA4[19];
+public:
+	const FXList *deathFX,*reviveFX;
+public:
+	char padF8[8];
+public:
+	unsigned reviveTime;
+public:
+	int calcCostToBuild(int value);
+public:
+	int calcTimeToBuild(unsigned int value);
+};
+
+struct Rva004AFB01Record
+{
+	char m_pad[0x24];
+	int m_value;
+};
+
+struct Rva004AFB01Context
+{
+	char m_pad[0x264];
+	Rva004AFB01Record *m_record;
+};
+
+class Rva004AFB01
+{
+public:
+	int rva004AFB01();
+	int rva004AFB16();
+	char m_pad[4];
+	RespawnUpdateModuleData *m_helper;
+	Rva004AFB01Context *m_context;
+};
+
 // tu-skeleton: 0x004AEF46 103B ?rva004AEF46@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AEF46.cpp (not merged yet)
 
 // tu-skeleton: 0x004AEFAD 94B ?getPercentReady@RespawnUpdate@@UAEMPAH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_getPercentReady.cpp (not merged yet)
@@ -201,6 +222,8 @@ public:
 // tu-skeleton: 0x004AF00B 139B ?xfer@RespawnUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004AF096 128B ??0RespawnUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdatePoolKey.cpp
 
@@ -211,42 +234,6 @@ NameKeyType RespawnUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("RespawnUpdate");
 	return TheRespawnUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004AF15B 6B ?name@RespawnUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF161 28B ??_GRva004AF17D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF17D 5B ??1Rva004AF17D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF182 76B ?rva004AF182@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF182.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF1CE 143B ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF25D 50B ?rva004AF25D@RespawnUpdate@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF28F 45B ?_M_erase@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF2BC 34B ?_M_create_node@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmePod20@@@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF2DE 223B ?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF3BD 41B ?clear@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF3E6 136B ?_M_insert@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmePod20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF46E 56B ??1?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF4A6 134B ?insert_unique@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@_STL@@_N@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF52C 5B ??1?$set@UBfmePod20@@U?$less@UBfmePod20@@@_STL@@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF531 123B ?calcCostToBuild@RespawnUpdateModuleData@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF5AC 146B ?calcTimeToBuild@RespawnUpdateModuleData@@QAEHI@Z -- matched in Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF63E 350B ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp (not merged yet)
-
-// tu-skeleton: 0x004AF79C 403B ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate.cpp
 
@@ -397,9 +384,59 @@ void RespawnUpdate::iniParseNewRuleForLevel(INI *ini, void *instance, void *stor
     rules->insert(rule);
 }
 
-// tu-skeleton: 0x004AFB01 21B ?rva004AFB01@Rva004AFB01@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004AFB01.cpp (not merged yet)
+// tu-skeleton: 0x004AF15B 6B ?name@RespawnUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004AFB16 21B ?rva004AFB16@Rva004AFB01@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004AFB01.cpp (not merged yet)
+// tu-skeleton: 0x004AF161 28B ??_GRva004AF17D@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF17D 5B ??1Rva004AF17D@@QAE@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAR.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF182 76B ?rva004AF182@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF182.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF1CE 143B ?searchForSuitableSpawnAtObject@RespawnUpdate@@QAEPAVObject@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_searchForSuitableSpawnAtObject.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF25D 50B ?rva004AF25D@RespawnUpdate@@QAEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF28F 45B ?_M_erase@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAEXPAU?$_Rb_tree_node@UBfmePod20@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF2BC 34B ?_M_create_node@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@IAEPAU?$_Rb_tree_node@UBfmePod20@@@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF2DE 223B ?getDeadImage@RespawnUpdate@@UAEPBVImage@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateRva004AF25D.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF3BD 41B ?clear@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF3E6 136B ?_M_insert@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@2@PAU_Rb_tree_node_base@2@0ABUBfmePod20@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF46E 56B ??1?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF4A6 134B ?insert_unique@?$_Rb_tree@UBfmePod20@@U1@U?$_Identity@UBfmePod20@@@_STL@@U?$less@UBfmePod20@@@3@V?$allocator@UBfmePod20@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@UBfmePod20@@U?$_Nonconst_traits@UBfmePod20@@@_STL@@@_STL@@_N@2@ABUBfmePod20@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_bfmepod20_insert.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF52C 5B ??1?$set@UBfmePod20@@U?$less@UBfmePod20@@@_STL@@V?$allocator@UBfmePod20@@@3@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF531 123B ?calcCostToBuild@RespawnUpdateModuleData@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF5AC 146B ?calcTimeToBuild@RespawnUpdateModuleData@@QAEHI@Z -- matched in Code/GameEngine/Source/Common/Rva004AF531Lookup.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF63E 350B ?triggerDeathBeforeRespawn@RespawnUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdate_triggerDeathBeforeRespawn.cpp (not merged yet)
+
+// tu-skeleton: 0x004AF79C 403B ?triggerRevival@RespawnUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/RespawnUpdateTriggerRevival.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004AFB01.cpp
+
+int Rva004AFB01::rva004AFB01()
+{
+	return m_helper->calcCostToBuild(m_context->m_record->m_value);
+}
+
+// Native 0x004AFB16..0x004AFB2B, 21B, is the time twin of the cost
+// helper above. WB 0x0122E450 passes the same experience level to its
+// RespawnUpdateModuleData::calcTimeToBuild; the target-specific helper
+// is already verified as RespawnUpdateModuleData::calcTimeToBuild. Native callers include
+// the UnitRevivalEntry constructor at 0x0037EA88. Reuse the established
+// receiver, context and level layout rather than add another class view.
+int Rva004AFB01::rva004AFB16()
+{
+	return m_helper->calcTimeToBuild(m_context->m_record->m_value);
+}
 
 // tu-skeleton: 0x004AFB2B 35B ?insert@BFME2RespawnRuleTree@@QAE?AURespawnInsertResult@@ABURespawnRule@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Body/RespawnRuleTreeInsert.cpp (not merged yet)
 
