@@ -6737,29 +6737,6 @@ void __cdecl rva007B54E0()
 	receiver->CPUDetectInitClass::CPUDetectInitClass();
 }
 
-namespace FXParticleSystem {
-template <int CATEGORY> struct DefaultModuleKey { static const char *const VALUE; };
-template <int CATEGORY> struct DefaultModuleName { static const char *const VALUE; };
-}
-
-extern unsigned g_Va00E02C48;
-unsigned int g_Va00E02C48;
-
-// The startup store retains the address of category 6's default module key.
-void __cdecl rva007B3EB4()
-{
-	g_Va00E02C48 = (unsigned)&FXParticleSystem::DefaultModuleKey<6>::VALUE;
-}
-
-extern unsigned g_Va00E02C4C;
-unsigned int g_Va00E02C4C;
-
-// The startup store retains the address of category 6's default module name.
-void __cdecl rva007B3EBF()
-{
-	g_Va00E02C4C = (unsigned)&FXParticleSystem::DefaultModuleName<6>::VALUE;
-}
-
 // Startup thunk 0x007AC022 constructs WaterDrawFXShaderParameterSourceNamespace at VA 0x00DE2008.
 // Its verified WaterDraw destructor at 0x0007EC44 unregisters the binder
 // and destroys its two members; use that provider for the matching cleanup.
