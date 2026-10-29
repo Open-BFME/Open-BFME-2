@@ -7,13 +7,171 @@
 #define Matrix4x4 Matrix4  // BFME renamed it
 #define __PLACEMENT_VEC_NEW_INLINE  // always.h/GameMemory.h define array placement-new themselves
 #include "Common/Debug.h"
-#include "W3DDevice/GameClient/W3DBufferManager.h"
+#include "refcount.h"
+#include <d3d8.h>
 #include <stddef.h>
-#define MAX_VB_SIZES 512
-#define MAX_NUMBER_SLOTS 4096
+
+#define MAX_VB_SIZES 512	// BFME, not ZH's 128: releaseSlot shifts the format left by 9
+#define MIN_SLOT_SIZE 32
+#define MIN_SLOT_SIZE_SHIFT 5
 #define MAX_VERTEX_BUFFERS_CREATED 32
-#define MAX_IB_SIZES 1024
+#define MAX_NUMBER_SLOTS 4096
+#define MAX_IB_SIZES 1024	// BFME, not ZH's 128: m_W3DIndexBuffers sits at this+0x263D0
 #define MAX_INDEX_BUFFERS_CREATED 32
+
+typedef int Int;
+
+// BFME's vertex buffer, defined in
+// Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp. Spelled
+// here are only the constructor the manager calls and the reference count it
+// drops: the count at +4, its deleter in the first virtual slot.
+class BfmeDynamicNativeVB
+{
+public:
+	BfmeDynamicNativeVB(unsigned fvf, unsigned short count, unsigned usage, unsigned fvfSize);
+	virtual void DeleteThis();
+	void Release_Ref() { m_references--; if (m_references == 0) DeleteThis(); }
+private:
+	int m_references;
+	char m_storage[24];
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.h
+class DX8IndexBufferClass
+{
+public:
+	enum UsageType { USAGE_DEFAULT = 0 };
+	DX8IndexBufferClass( unsigned indexCount, UsageType usage = USAGE_DEFAULT );
+	virtual void Delete_This();
+	void Release_Ref() { NumRefs--; if (NumRefs == 0) Delete_This(); }
+private:
+	int NumRefs;
+	char m_storage[ 16 ];
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include/W3DDevice/GameClient/W3DBufferManager.h,
+// with BFME's MAX_VB_SIZES and MAX_IB_SIZES and its own vertex buffer class.
+class W3DBufferManager
+{
+public:
+	//List of all possible vertex formats available to the game.
+	enum VBM_FVF_TYPES
+	{
+		VBM_FVF_XYZ,		//position
+		VBM_FVF_XYZD,		//position, diffuse
+		VBM_FVF_XYZUV,		//position, uv
+		VBM_FVF_XYZDUV,		//position, diffuse, uv
+		VBM_FVF_XYZUV2,		//position, uv1, uv2
+		VBM_FVF_XYZDUV2,	//position, diffuse, uv1, uv2
+		VBM_FVF_XYZN,		//position, normal
+		VBM_FVF_XYZND,		//position, normal, diffuse
+		VBM_FVF_XYZNUV,		//position, normal, uv
+		VBM_FVF_XYZNDUV,	//position, normal, diffuse, uv
+		VBM_FVF_XYZNUV2,	//position, normal, uv1, uv2
+		VBM_FVF_XYZNDUV2,	//position, normal, diffuse, uv1, uv2
+		VBM_FVF_XYZRHW,		//transformed position
+		VBM_FVF_XYZRHWD,	//transformed position, diffuse
+		VBM_FVF_XYZRHWUV,	//transformed position, uv
+		VBM_FVF_XYZRHWDUV,	//transformed position, diffuse, uv
+		VBM_FVF_XYZRHWUV2,	//transformed position, uv1, uv2
+		VBM_FVF_XYZRHWDUV2,	//transformed position, diffuse, uv1, uv2
+		MAX_FVF
+	};
+
+	struct W3DRenderTask
+	{
+		W3DRenderTask	*m_nextTask;	///<next rendering task
+	};
+
+	struct W3DVertexBuffer;	//forward reference
+	struct W3DIndexBuffer; //forward reference
+
+	struct W3DVertexBufferSlot
+	{
+		Int m_size;								///<number of vertices in slot
+		Int m_start;							///<index of first vertex within VB
+		W3DVertexBuffer *m_VB;		///<vertex buffer holding this slot.
+		W3DVertexBufferSlot *m_prevSameSize;		//previous slot of equal size.
+		W3DVertexBufferSlot *m_nextSameSize;		//next slot of equal size.
+		W3DVertexBufferSlot *m_prevSameVB;			//previous slot in same VB.
+		W3DVertexBufferSlot *m_nextSameVB;			//next slot in same VB.
+	};
+
+	struct W3DVertexBuffer
+	{
+		VBM_FVF_TYPES	m_format;			///<format of vertices in this VB.
+		W3DVertexBufferSlot *m_usedSlots;	///<slots inside this vertex buffer being used.
+		Int	m_startFreeIndex;				///<index of vertex at start of unallocated memory.
+		Int m_size;							///<number of vertices allowed in VB.
+		W3DVertexBuffer *m_nextVB;			///<next vertex buffer of same type.
+		BfmeDynamicNativeVB *m_DX8VertexBuffer;	///<actual DX8 vertex buffer interface
+		W3DRenderTask	*m_renderTaskList;	///<used to help app sort its D3D access by VB.
+	};
+
+	struct W3DIndexBufferSlot
+	{
+		Int m_size;								///<number of vertices in slot
+		Int m_start;							///<index of first index within VB
+		W3DIndexBuffer *m_IB;		///<index buffer holding this slot.
+		W3DIndexBufferSlot *m_prevSameSize;		//previous slot of equal size.
+		W3DIndexBufferSlot *m_nextSameSize;		//next slot of equal size.
+		W3DIndexBufferSlot *m_prevSameIB;			//previous slot in same VB.
+		W3DIndexBufferSlot *m_nextSameIB;			//next slot in same VB.
+	};
+
+	struct W3DIndexBuffer
+	{
+		W3DIndexBufferSlot *m_usedSlots;	///<slots inside this index buffer being used.
+		Int	m_startFreeIndex;				///<index of index at start of unallocated memory.
+		Int m_size;							///<number of vertices allowed in VB.
+		W3DIndexBuffer *m_nextIB;			///<next index buffer of same type.
+		DX8IndexBufferClass *m_DX8IndexBuffer;	///<actual DX8 index buffer interface
+	};
+
+	W3DBufferManager(void);
+	~W3DBufferManager(void);
+
+	///return free vertex buffer memory slot.
+	W3DVertexBufferSlot *getSlot(VBM_FVF_TYPES fvfType, Int size);
+	///return free index buffer memory slot.
+	W3DIndexBufferSlot *getSlot(Int size);
+	void releaseSlot(W3DVertexBufferSlot *vbSlot);	///<return slot to pool
+	void releaseSlot(W3DIndexBufferSlot *vbSlot);	///<return slot to pool
+	void freeAllSlots(void);	///<release all slots to pool.
+	void freeAllBuffers(void);	///<release all vertex buffers to pool.
+	void ReleaseResources(void);	///<release D3D/W3D resources.
+	bool ReAcquireResources(void);	///<reaquire D3D/W3D resources.
+
+	static Int getDX8Format(VBM_FVF_TYPES format);	///<translates our vertex format into D3D equivalent
+
+protected:
+
+	///holds previously allocated slots that are free to fill again.
+	W3DVertexBufferSlot *m_W3DVertexBufferSlots[MAX_FVF][MAX_VB_SIZES];	///< this+0x00000
+	///holds allocated vertex buffers of each type.
+	W3DVertexBuffer		*m_W3DVertexBuffers[MAX_FVF];				///< this+0x09000
+	///holds unallocated slot wrappers which were never initialized
+	W3DVertexBufferSlot	m_W3DVertexBufferEmptySlots[MAX_NUMBER_SLOTS];
+	Int m_numEmptySlotsAllocated;
+	///holds unallocated vertex buffer wrappers which were never initialized
+	W3DVertexBuffer		m_W3DEmptyVertexBuffers[MAX_VERTEX_BUFFERS_CREATED];
+	Int m_numEmptyVertexBuffersAllocated;
+
+	///holds previously allocated slots that are free to fill again.
+	W3DIndexBufferSlot *m_W3DIndexBufferSlots[MAX_IB_SIZES];			///< this+0x253D0
+	///holds allocated index buffers of each type.
+	W3DIndexBuffer		*m_W3DIndexBuffers;								///< this+0x263D0
+	///holds unallocated slot wrappers which were never initialized
+	W3DIndexBufferSlot	m_W3DIndexBufferEmptySlots[MAX_NUMBER_SLOTS];
+	Int m_numEmptyIndexSlotsAllocated;
+	///holds unallocated index buffer wrappers which were never initialized
+	W3DIndexBuffer		m_W3DEmptyIndexBuffers[MAX_INDEX_BUFFERS_CREATED];
+	Int m_numEmptyIndexBuffersAllocated;
+
+	///allocate new memory inside a vertex buffer.
+	W3DVertexBufferSlot *allocateSlotStorage(VBM_FVF_TYPES fvfType, Int size);
+	W3DIndexBufferSlot *allocateSlotStorage(Int size);
+};
 
 W3DBufferManager *TheW3DBufferManager=NULL;
 
@@ -40,41 +198,6 @@ static int FVFTypeIndexList[W3DBufferManager::MAX_FVF]=
 	D3DFVF_XYZRHW|D3DFVF_TEX2,
 	D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX2
 };
-
-class BfmeDX8VertexBuffer
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-
-	BfmeDX8VertexBuffer(unsigned fvf, unsigned short count,
-		UsageType usage, unsigned vertexSize);
-
-private:
-	unsigned char m_storage[0x20];
-};
-
-class BfmeDX8IndexBuffer
-{
-public:
-	enum UsageType { USAGE_DEFAULT = 0 };
-
-	BfmeDX8IndexBuffer(unsigned count, UsageType usage);
-
-private:
-	unsigned char m_storage[0x18];
-};
-
-struct BFMEReAcquireBufferManagerView
-{
-	unsigned char m_beforeVertexBuffers[0x9000];
-	W3DBufferManager::W3DVertexBuffer *m_vertexBuffers[W3DBufferManager::MAX_FVF];
-	unsigned char m_beforeIndexBuffers[0x1c384];
-	Int m_emptyVertexBufferCount;
-	unsigned char m_beforeIndexBufferList[0x1000];
-	W3DBufferManager::W3DIndexBuffer *m_indexBuffers;
-};
-
-typedef int Int;
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp
 
@@ -203,18 +326,6 @@ W3DBufferManager::W3DBufferManager(void)
 
 void W3DBufferManager::freeAllBuffers(void)
 {
-	struct BFMEBufferManagerView
-	{
-		unsigned char pad_to_vertex_buffers[0x9000];
-		W3DVertexBuffer *vertex_buffers[MAX_FVF];
-		unsigned char pad_to_vertex_count[0x1c384];
-		Int empty_vertex_count;
-		unsigned char pad_to_index_buffers[0x1000];
-		W3DIndexBuffer *index_buffers;
-		unsigned char pad_to_index_count[0x1c284];
-		Int empty_index_count;
-	};
-	BFMEBufferManagerView *bfme = reinterpret_cast<BFMEBufferManagerView *>(this);
 	Int i;
 
 	//Make sure all slots are free
@@ -222,32 +333,30 @@ void W3DBufferManager::freeAllBuffers(void)
 
 	for (i=0; i<MAX_FVF; i++)
 	{
-		W3DVertexBuffer *vb = bfme->vertex_buffers[i];
+		W3DVertexBuffer *vb = m_W3DVertexBuffers[i];
 		while (vb)
 		{	DEBUG_ASSERTCRASH(vb->m_usedSlots == NULL, ("Freeing Non-Empty Vertex Buffer"));
 			if (vb->m_DX8VertexBuffer)
 				REF_PTR_RELEASE(vb->m_DX8VertexBuffer);
-			bfme->empty_vertex_count--;
+			m_numEmptyVertexBuffersAllocated--;
 			vb=vb->m_nextVB;	//get next vertex buffer of this type
 		}
-		bfme->vertex_buffers[i]=NULL;
+		m_W3DVertexBuffers[i]=NULL;
 	}
 
-	W3DIndexBuffer *ib = bfme->index_buffers;
+	W3DIndexBuffer *ib = m_W3DIndexBuffers;
 	while (ib)
 	{	DEBUG_ASSERTCRASH(ib->m_usedSlots == NULL, ("Freeing Non-Empty Index Buffer"));
 		if (ib->m_DX8IndexBuffer)
 			REF_PTR_RELEASE(ib->m_DX8IndexBuffer);
-		bfme->empty_index_count--;
+		m_numEmptyIndexBuffersAllocated--;
 		ib=ib->m_nextIB;	//get next vertex buffer of this type
 	}
-	bfme->index_buffers=NULL;
+	m_W3DIndexBuffers=NULL;
 
 	DEBUG_ASSERTCRASH(m_numEmptyVertexBuffersAllocated==0, ("Failed to free all empty vertex buffers"));
 	DEBUG_ASSERTCRASH(m_numEmptyIndexBuffersAllocated==0, ("Failed to free all empty index buffers"));
 }
-
-// W3DBufferManager::ReAcquireResources is defined with its retail-matched body in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManagerRva0011604D.cpp (0x0011604D).
 
 // Defined in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp: getSlot(VBM_FVF_TYPES, Int).
 // Defined in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager_Slots.cpp: releaseSlot(W3DVertexBufferSlot *).
@@ -267,22 +376,9 @@ void W3DBufferManager::freeAllBuffers(void)
 
 void W3DBufferManager::ReleaseResources()
 {
-	// BFME's slot-head arrays use 512 entries per vertex format. The
-	// destination's ZH header still uses 128, so address the retail lists
-	// through a body-local view, as the destination's freeAllBuffers does.
-	struct ManagerView
-	{
-		char m_beforeVertexBuffers[0x9000];
-		W3DVertexBuffer *m_vertexBuffers[18];
-		char m_beforeVertexCount[0x1c384];
-		int m_emptyVertexBufferCount;
-		char m_beforeIndexBuffers[0x1000];
-		W3DIndexBuffer *m_indexBuffers;
-	};
-	ManagerView *bfme = reinterpret_cast<ManagerView *>(this);
 	for (Int i = 0; i < MAX_FVF; i++)
 	{
-		W3DVertexBuffer *vb = bfme->m_vertexBuffers[i];
+		W3DVertexBuffer *vb = m_W3DVertexBuffers[i];
 		while (vb)
 		{
 			if (vb->m_DX8VertexBuffer)
@@ -293,7 +389,7 @@ void W3DBufferManager::ReleaseResources()
 			vb = vb->m_nextVB;
 		}
 	}
-	W3DIndexBuffer *ib = bfme->m_indexBuffers;
+	W3DIndexBuffer *ib = m_W3DIndexBuffers;
 	while (ib)
 	{
 		if (ib->m_DX8IndexBuffer)
