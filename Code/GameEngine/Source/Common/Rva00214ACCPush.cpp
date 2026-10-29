@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 // ?rva00214ACC@Rva00214ACC@@QAEXURva004DFCB0Element@@@Z @0x00214ACC 16B
 // Vector push_back wrapper: lea eax,[esp+4] push eax add ecx,0xC call rowed
 // push_back 0x004DFCB0 ret 4. Evidence: rowed push_back 0x004DFCB0; caller
@@ -14,16 +15,12 @@ struct Rva004DFCB0Element
 	unsigned word0;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-template <class T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind push_back to the rowed 0x004DFCB0 worker.
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 
 class Rva00214ACC
