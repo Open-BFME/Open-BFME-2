@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?evaluatePlayerCompareLightPoints@ScriptConditions@@IAE_NPAVParameter@@00@Z
 // retail 0x003E4F79 158B leaf free stdcall bool of 3x Parameter ret 0xc from 0x003EBF20. Evidence:
@@ -25,11 +26,7 @@ public:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-    int rva00357B82(Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

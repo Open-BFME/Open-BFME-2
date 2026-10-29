@@ -1,5 +1,5 @@
 // ?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z
-// cl: /EHsc
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // ?rva003E4921@ScriptConditions@@QAE_NPAVParameter@@@Z
 // @0x003E4921 151B gate condition via rowed getUnitNamed 0x003588E7 plus
 // rowed nameToKey 0x00148E1A plus rowed findModule 0x0028B6D6.
@@ -18,11 +18,7 @@ class Parameter;
 class Object;
 class Module;
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *parameter);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class NameKeyGenerator

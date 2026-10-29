@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ?rva003E8E23@ScriptConditions@@IAE_NPAVParameter@@000@Z @ 0x003E8E23 459B
 // PLAYER_HAS_OBJECT_OF_VETERANCY (condition 146; dispatcher 0x007EC1D5 pushes
@@ -182,12 +182,7 @@ extern PlayerList *ThePlayerList;
 
 class ObjectTypes;
 
-class ScriptEngine
-{
-public:
-	Int rva00357475(const AsciiString &name, Bool *exists = 0);
-	ObjectTypes *getObjectTypes(const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

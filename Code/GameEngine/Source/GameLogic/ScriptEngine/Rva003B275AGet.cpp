@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // ?rva003B275A@Condition@@QAEHXZ 0x003B275A 17B
 // Evidence: pushes member at +4 into rowed ScriptEngine::getConditionTemplate
 // 0x00203941 through the engine pointer at 0x00DFE16C, returns the template's
@@ -9,11 +9,7 @@ public:
 	unsigned char bytes[128];
 };
 
-class ScriptEngine
-{
-public:
-	const ConditionTemplate *getConditionTemplate(int id);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 // The receiver is the Condition: +4 is its type, and evaluateCondition

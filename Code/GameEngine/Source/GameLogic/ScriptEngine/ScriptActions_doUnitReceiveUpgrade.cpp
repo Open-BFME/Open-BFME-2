@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 //
 // ?doUnitReceiveUpgrade@ScriptActions@@IAEXPAVParameter@@ABVAsciiString@@@Z @0x003BE26D 110B.
@@ -27,11 +28,7 @@ public:
 	ObjectP04Flags *m_p04;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *param);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 

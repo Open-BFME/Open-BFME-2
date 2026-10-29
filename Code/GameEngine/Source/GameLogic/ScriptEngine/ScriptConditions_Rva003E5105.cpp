@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva003E5105@ScriptConditions@@IAE_NPAVParameter@@0@Z
 // retail 0x003E5105 74B leaf free stdcall bool of 2x Parameter ret 8 from 0x003EC0F3. Evidence:
@@ -16,11 +17,7 @@ public:
 	Coord3D m_38;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Pathfinder

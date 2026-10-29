@@ -1,4 +1,4 @@
-// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine
+// cl: -DNDEBUG -DWIN32 -D_WINDOWS -MD -EHsc -Ireference/open-bfme-1/game/GameEngine/Source/GameLogic/ScriptEngine /Ireference/shims/bfme2_ascii
 
 struct Rva00355640Key
 {
@@ -77,13 +77,7 @@ struct Rva003412E0Node
 };
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
-class ScriptEngine
-{
-public:
-	void applyNamed(void *obj, void *slot);
-	void walkNamed(Rva00355950Arr *arr, Rva003412E0Node *node, bool filter);
-	void walkChild(Rva003558C0Arr *arr, Rva003412E0Node *node);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::walkChild(Rva003558C0Arr *arr, Rva003412E0Node *node)
 {

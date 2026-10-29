@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ?getUiStrings@Condition@@QAEHQAVAsciiString@@@Z, retail 0x003B39B2, 21 bytes.
 // Thin wrapper: fetch the ConditionTemplate for m_conditionType (+4) via the
@@ -20,11 +20,7 @@ class ConditionTemplate : public Template
 {
 };
 
-class ScriptEngine
-{
-public:
-	const ConditionTemplate *getConditionTemplate(int type);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Condition

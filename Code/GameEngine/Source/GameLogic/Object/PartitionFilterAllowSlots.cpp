@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS
+// cl: /O1 /G7 /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii
 //
 // Partition filter allow slots (slot 1 of each filter vftable) that the
 // matched filter users declare under their address-derived class names and
@@ -276,11 +276,7 @@ int Rva00260F1BFilter::getPlayerMask()
 	return ThePlayerList->getPlayersWithRelationship(m_player->getPlayerIndex(), relationships, false);
 }
 
-class ScriptEngine
-{
-public:
-	Bool rva00357AF8(void *obj);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva0026149CFilter : public Rva000421C8

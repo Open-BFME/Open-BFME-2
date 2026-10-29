@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ScriptActions::doNamedSetRepulsor, retail 0x003BEEAE, 35 bytes.
 // Target evidence: action template 0x1EB is NAMED_SET_REPULSOR and executeAction
@@ -18,11 +18,7 @@ enum ObjectStatusTypes
     OBJECT_STATUS_REPULSOR = 8
 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 class Object
 {

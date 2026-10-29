@@ -1,4 +1,4 @@
-// cl: /MD /GX-
+// cl: /MD /GX- /Ireference/shims/bfme2_ascii
 // ?rva002AC673@Player@@QAEXXZ @0x002AC673 (62B): Player science reset.
 // Iterates the ScienceType vector at +0x2F0..+0x2F4, notifying ScriptEngine
 // via rowed ?rva00357A03@ScriptEngine@@QAEXHW4ScienceType@@@Z at 0x00357A03
@@ -27,11 +27,7 @@ public:
 };
 }
 
-class ScriptEngine
-{
-public:
-	void rva00357A03(int playerIndex, ScienceType science);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 

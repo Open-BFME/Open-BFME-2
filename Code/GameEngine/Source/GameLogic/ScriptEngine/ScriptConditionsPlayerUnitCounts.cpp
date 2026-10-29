@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /Ireference/shims/moduledata /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // BFME2 player-wide team walk conditions. The count conditions resolve a player from a
 // player Parameter (rowed ScriptEngine::rva00357B82 mask plus
@@ -445,11 +445,7 @@ private:
 };
 extern PlayerList *ThePlayerList;
 
-class ScriptEngine
-{
-public:
-	Int rva00357B82(Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptConditions

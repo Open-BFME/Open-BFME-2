@@ -1,4 +1,4 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 //
 // ?notifyScriptEngine@SpecialPowerCompletionDie@@QAEXXZ, retail 0x00486B01, 55 bytes.
 // Pinned named body; caller onDie at 0x00486B4D in SpecialPowerCompletionDie.cpp.
@@ -41,11 +41,7 @@ public:
 	Overridable *m_specialPowerTemplate;
 };
 
-class ScriptEngine
-{
-public:
-	void rva00357EDF(int playerIndex, const AsciiString &name, int creatorID);
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

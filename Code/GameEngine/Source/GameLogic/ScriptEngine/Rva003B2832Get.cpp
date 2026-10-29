@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 // ?rva003B2832@Rva003B2832@@QAEHXZ 0x003B2832 17B
 // Evidence: pushes member at +4 into rowed ScriptEngine::getActionTemplate
 // 0x00203926 through the engine pointer at 0x00DFE16C, returns the template's
@@ -12,11 +12,7 @@ public:
 	Byte m_pad[128];
 };
 
-class ScriptEngine
-{
-public:
-	const ActionTemplate *getActionTemplate(Int actionType);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva003B2832

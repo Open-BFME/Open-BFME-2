@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX
+// cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /GX /Ireference/shims/bfme2_ascii
 // platformsdk
 //
 // The GameEngine stores the client-frame period at +0x34, the derived
@@ -22,11 +22,7 @@ public:
 class Rva009EB960;
 extern Rva009EB960 *Rva0134FAA0;
 
-class ScriptEngine
-{
-public:
-	void _bfme_updateClientDebugFrame();
-};
+#include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva00203B08

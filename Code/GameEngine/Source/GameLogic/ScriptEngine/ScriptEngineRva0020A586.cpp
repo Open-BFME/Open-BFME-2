@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ?rva0020A586@ScriptEngine@@QAEXPAX0@Z at 0x0020A586 121 bytes RET 8.
 // Called by the rowed walkNamed (0x0020A775) with a script record and its
@@ -59,14 +59,7 @@ struct ScriptScheduleView
 	unsigned int m_frameToEvaluate;
 };
 
-class ScriptEngine
-{
-public:
-	bool rva00203F0E(void *script);
-	void rva0020A586(void *script, void *name);
-	void executeSequentialScript(Script *script, const AsciiString &name);
-	void executeScript(Script *script, const AsciiString &name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 inline bool GameLogic::rva001DCD1C(void)
 {

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist
+// cl: /O1 /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfmelist /Ireference/shims/bfme2_ascii
 // stlport
 //
 // ScriptActions::doKillHordeMembers, retail 0x003C6507 (240B; ret 8)
@@ -104,11 +104,7 @@ private:
 	void *m_body;				// +0x254
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *unitParameter);	// 0x003588E7
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptActions

@@ -1,4 +1,4 @@
-// cl: /O1 /DNDEBUG /MD
+// cl: /O1 /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // Singleton forwarders: each loads a global object pointer into ecx and
 // tail-jumps a rowed member of it (mov ecx, [global]; jmp). The globals are
@@ -17,7 +17,7 @@ class LivingWorldLogic;
 extern LivingWorldLogic *TheLivingWorldLogic;
 class Rva002B317CBumpCounter { public: int bump(); };
 
-class ScriptEngine { public: void AppendDebugMessage(const AsciiString &strToAdd, bool forcePause); };
+#include "../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class Rva006E34D0;

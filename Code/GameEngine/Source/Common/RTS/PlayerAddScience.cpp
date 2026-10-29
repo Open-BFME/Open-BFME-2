@@ -1,4 +1,4 @@
-// cl: /O1 /EHsc /MD /DNDEBUG /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/moduledata /I. /Ireference/shims/bfmealloc
+// cl: /O1 /EHsc /MD /DNDEBUG /D_STLP_NO_EXCEPTIONS /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /Ireference/shims/moduledata /I. /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // W7-G1 r6: exact. Frame levers: BFME2's DLINK_ITERATOR is {m_cur; 4 unused bytes; member pointer} = 16 B for
 // Team (24 B for Object), driven by the ZH iterate_TeamInstanceList()/done()/cur()/advance() loop shape as in the
 // matched sibling onUpgradeCompleted (PlayerRva002AD93A.cpp); with that iterator the retail frame (this -10, vector -1C,
@@ -178,11 +178,7 @@ struct Rva002AD661LogicView
 	int m_gameMode; // +0x114
 };
 
-class ScriptEngine
-{
-public:
-	void notifyOfAcquiredScience(int playerIndex, ScienceType science);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ControlBar;

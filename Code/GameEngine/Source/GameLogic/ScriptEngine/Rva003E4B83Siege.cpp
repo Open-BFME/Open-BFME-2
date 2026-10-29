@@ -1,4 +1,4 @@
-// cl: /EHsc
+// cl: /EHsc /Ireference/shims/bfme2_ascii
 // ?Rva003E4B83Get free @ 0x003E4B83 119B leaf from 0x003EBD81. Evidence:
 // 1x Parameter ret 4; rowed getUnitNamed plus static SiegeDeploySpecialPower
 // key via rowed nameToKey plus rowed findModule plus rowed bool getter
@@ -13,11 +13,7 @@ class Parameter;
 class Object;
 class Module;
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *parameter);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class NameKeyGenerator

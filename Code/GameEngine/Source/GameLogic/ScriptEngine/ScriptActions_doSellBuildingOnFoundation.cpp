@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?doSellBuildingOnFoundation@ScriptActions@@IAEXPAVParameter@@@Z @0x003BCEFB 52B: script getUnitNamed then iface slot 0x18 then global slot 0x68.
 // Evidence: push [esp+4] mov ecx,[0xDFE16C]=g_Va009FE16C call rowed getUnitNamed 0x003588E7 test eax je; mov ecx,eax call rowed rva0028BCF4 0x0028BCF4 mov edx,[eax] mov ecx,eax call [edx+0x18] test eax je; mov ecx,[0xE027B8]=g_00A027B8 mov edx,[ecx] push eax call [edx+0x68] ret 4; caller 0x003CE740; sibling Rva003BC96FDo same getUnitNamed stdcall shape.
@@ -23,11 +24,7 @@ public:
 	void *rva0028BCF4() const;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
 class Rva00A027B8

@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva003E5D95@ScriptConditions@@IAEEPAVParameter@@PAUCond003E5D95@@@Z
 // @0x003E5D95 56B. Leaf via rowed ScriptEngine::getUnitNamed 0x003588E7
@@ -26,11 +27,7 @@ public:
     Inner003E5D95 *m_inner;
 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

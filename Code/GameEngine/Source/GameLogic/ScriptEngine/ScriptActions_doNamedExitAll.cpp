@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ScriptActions::doNamedExitAll, retail 0x003C86C5, 53 bytes.
 // Target identity: initActionTemplates index 0x37 (55) is NAMED_EXIT_ALL;
@@ -14,11 +14,7 @@ class AsciiString;
 class Object;
 enum CommandSourceType { CMD_FROM_SCRIPT = 1 };
 
-class ScriptEngine
-{
-public:
-    Object *getUnitNamed(const AsciiString &);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class AICommandInterface

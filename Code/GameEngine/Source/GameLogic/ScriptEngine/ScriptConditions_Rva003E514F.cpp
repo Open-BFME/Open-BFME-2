@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // ?rva003E514F@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E514F@@PAUCondB003E514F@@@Z
 // retail 0x003E514F, 138 bytes.
 // Evidence: leaf via rowed ScriptEngine::getUnitNamed plus ThePlayerList not needed; g_Va009FE16C ScriptEngine global; Object +0x264 ptr plus +0x24 value; op switch 0..5 to setl/setle/sete/setge/setg/setne.
@@ -21,11 +22,7 @@ public:
 	ObjectInner003E514F *m_inner;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

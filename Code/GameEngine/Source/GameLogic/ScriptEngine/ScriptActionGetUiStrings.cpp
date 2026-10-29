@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ?getUiStrings@ScriptAction@@QAEHQAVAsciiString@@@Z, retail 0x003B2843, 21 bytes.
 // Thin wrapper: fetch the ActionTemplate for m_actionType (+4) via the rowed
@@ -20,11 +20,7 @@ class ActionTemplate : public Template
 {
 };
 
-class ScriptEngine
-{
-public:
-	const ActionTemplate *getActionTemplate(int type);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 class ScriptAction

@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // stlport
 //
 // AIUpdateInterface's private command handlers: the bodies BFME2's
@@ -334,13 +334,7 @@ class Player;
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
 class AttackPriorityInfo;
 
-class ScriptEngine
-{
-public:
-	// 0x00205DDD resolves loadPostProcess's saved attack-info name where Zero
-	// Hour's AIUpdateInterface::xfer calls getAttackInfo; name donor-carried.
-	const AttackPriorityInfo *getAttackInfo(const AsciiString &name);
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

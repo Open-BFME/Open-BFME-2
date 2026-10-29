@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /Ireference/shims/bfme2_ascii
 //
 // ?setCurScript@ScriptTracker@@QAEXPAVSequentialScript@@_NH@Z, retail 0x00262453, 74 bytes.
 // Identity: WorldBuilder's AIUpdate.cpp:260-272 defines ScriptTracker::setCurScript
@@ -17,11 +17,7 @@ public:
 	unsigned char m_10;
 };
 
-class ScriptEngine
-{
-public:
-	void rva00205140(SequentialScript *arg);
-};
+#include "../../../../Include/GameLogic/ScriptEngine.h"
 
 extern ScriptEngine *TheScriptEngine;
 

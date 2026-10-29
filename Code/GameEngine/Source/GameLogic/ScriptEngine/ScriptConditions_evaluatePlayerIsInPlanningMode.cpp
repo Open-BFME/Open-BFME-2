@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // ?evaluatePlayerIsInPlanningMode@ScriptConditions@@IAE_NPAVParameter@@@Z
 // retail 0x003E54B4, 67 bytes.
 // Evidence: leaf via pin-only ScriptEngine::rva00357B82 plus rowed PlayerList::getEachPlayerFromMask; ThePlayerList 0x009FEEE8 plus g_Va009FE16C ScriptEngine global; Player +0x750 == 2.
@@ -7,11 +8,7 @@ class Parameter
 {
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

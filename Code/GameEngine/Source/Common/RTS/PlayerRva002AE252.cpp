@@ -1,4 +1,4 @@
-// cl: /MD /GX-
+// cl: /MD /GX- /Ireference/shims/bfme2_ascii
 // ?rva002AE252@Player@@QAEXXZ @0x002AE252 (155B): Player science init.
 // Resets sciences via rowed rva002AC673, assigns the science vector from the
 // template at +0x34 (0x120 vs 0x12C via rowed bfmeCall939D gate and rowed
@@ -67,11 +67,7 @@ public:
 
 #define TheStore (*(Rva002000D7Store **)&TheRankInfoStore)
 
-class ScriptEngine
-{
-public:
-	void notifyOfAcquiredScience(int playerIndex, ScienceType science);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
 

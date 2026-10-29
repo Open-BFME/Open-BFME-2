@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // ?evaluatePlayerHasNumberObjectsWithModelCondition@ScriptConditions@@IAE_NPAVParameter@@PAUCondA003E5F73@@PAUCondB003E5F73@@PAUCondC003E5F73@@@Z
 // retail 0x003E5F73, 191 bytes.
 // Evidence: leaf via pin-only rva00357B82 plus rowed getSingleBitFromName plus rowed getEachPlayerFromMask plus rowed Player::rva002ABD1D; TheScriptEngine plus ThePlayerList plus empty string fallback; accumulate until sum exceeds limit then op switch.
@@ -7,11 +8,7 @@ class Parameter
 {
 };
 
-class ScriptEngine
-{
-public:
-	int rva00357B82(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 

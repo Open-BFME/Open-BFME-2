@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // Sides-list setter gate at retail 0x00203C21 (89B).
 // Decoded from retail bytes (all verified, no E8 calls):
@@ -99,11 +100,7 @@ struct Rva00203BE9Mode
 // The end-game message dispatch is a ScriptEngine method: update() calls it
 // with this in ECX (0x0020D109) when the end-game timer runs out, where Zero
 // Hour appends MSG_CLEAR_GAME_DATA inline. The body never reads this.
-class ScriptEngine
-{
-public:
-	void rva00203BE9();
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva00203BE9()
 {

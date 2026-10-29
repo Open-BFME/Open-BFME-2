@@ -1,4 +1,4 @@
-// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // ?rva00357C1F@ScriptEngine@@QAEXPAX0@Z, retail 0x00357C1F 75B chain.
 // Evidence: calls ScriptEngine 0x00357340 just landed; EBP frame with 12B
 // Coord3D temp; movss x/y spill and restore needs /arch:SSE.
@@ -11,12 +11,7 @@ struct Vec2XY
 	float y;
 };
 
-class ScriptEngine
-{
-public:
-	void rva00357340(void *p, Coord3D *dst);
-	void rva00357C1F(void *p, void *v);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 void ScriptEngine::rva00357C1F(void *p, void *v)
 {

@@ -1,3 +1,4 @@
+// cl: /Ireference/shims/bfme2_ascii
 // ?Rva003E537DCheck@@YG_NPAVParameter@@@Z
 // retail 0x003E537D, 52 bytes.
 // Evidence: leaf free __stdcall bool with 1 Parameter arg frameless; rowed ScriptEngine::getUnitNamed; Object +0x250 Mid with vslot 69 (0x114) taking int returning unsigned; unsigned <=0 gives jbe.
@@ -91,11 +92,7 @@ public:
 	Mid003E537D *m_mid;
 };
 
-class ScriptEngine
-{
-public:
-	Object *getUnitNamed(Parameter *p);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 extern class ScriptEngine *TheScriptEngine;
 
