@@ -505,6 +505,15 @@ receipt_proof() {
     echo "pre-push: $(( ${#scope_units[@]} - ${#verify[@]} )) of ${#scope_units[@]} source(s) proven by receipts${receipt_from:+ (push of ${receipt_from:0:10})}"
 }
 
+# The scope's exception-data and converged-data audits (run concurrently).
+scope_eh_audit() {
+    printf '%s\0' "${scope_units[@]}" | python3 tools/eh_verify.py --sources-from -
+}
+scope_data_audit() {
+    printf '%s\0' "${scope_units[@]}" \
+        | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from -
+}
+
 # The static checks pre-push runs concurrently that take more than one command.
 protected_paths_check() {
     if git cat-file -e "$base:tools/protected_paths.py" 2>/dev/null; then
@@ -742,16 +751,15 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # witness rows per symbol they address (build.scoped_dir32). The cross-row
     # check otherwise ran only in a full gate, and 86dd4a6165 landed a unit
     # whose rows stayed exact while two resolved one static to two addresses.
-    # A full or carried gate runs the whole check instead.
+    # A full or carried gate runs the whole check instead. It runs concurrently
+    # with the exception and data audits below (join_jobs after them): all three
+    # only read the objects the byte-verify above made current.
+    scoped_list=""
     if [ "$full_scope" -eq 0 ] && [ -z "$carried" ] && [ "${#scope_units[@]}" -ne 0 ]; then
         scoped_list=$(mktemp) || fail "temporary scoped DIR32 source list"
         printf '%s\0' "${scope_units[@]}" > "$scoped_list" || { rm -f "$scoped_list"; fail "writing the scoped DIR32 list"; }
-        scoped_status=0
-        python3 tools/full_gate_receipt.py scoped-dir32 --verified-from "$scoped_list" --ref "$local_sha" \
-            || scoped_status=$?
-        rm -f "$scoped_list"
-        [ "$scoped_status" -eq 0 ] || fail "DIR32 consistency over the outgoing sources failed (see above)"
-        stage "scoped DIR32"
+        spawn "DIR32 consistency over the outgoing sources failed" \
+            python3 tools/full_gate_receipt.py scoped-dir32 --verified-from "$scoped_list" --ref "$local_sha"
     fi
     # A carried full gate keeps the full gate's tree-wide checks: the checks that
     # compare sources with each other run over every row, and an exception-data or
@@ -793,14 +801,13 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         rm -f "$final_list"
     else
         if [ "${#scope_units[@]}" -ne 0 ]; then
-            printf '%s\0' "${scope_units[@]}" | python3 tools/eh_verify.py --sources-from - \
-                || fail "exception data differs from retail in outgoing sources (see above)"
+            spawn "exception data differs from retail in outgoing sources" scope_eh_audit
         fi
-        printf '%s\0' "${scope_units[@]}" \
-            | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from - \
-            || fail "data identity: a second name for a converged data address in outgoing sources (see above)"
+        spawn "data identity: a second name for a converged data address in outgoing sources" scope_data_audit
     fi
-    stage "eh + data audits"
+    join_jobs
+    [ -z "$scoped_list" ] || rm -f "$scoped_list"
+    stage "scoped DIR32 + eh + data audits"
     # Fail proven link regressions. Stale or missing evidence stays explicitly
     # inconclusive; it cannot establish either a regression or a clean result.
     link_scope=$(mktemp) || fail "temporary link audit source list"
