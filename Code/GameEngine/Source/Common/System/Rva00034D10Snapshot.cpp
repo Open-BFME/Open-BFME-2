@@ -1,5 +1,9 @@
-// cl: /MD
-inline void *operator new(unsigned int, void *p) { return p; }
+// cl: /MD /EHsc
+// platformsdk
+// /EHsc retains the original nonthrowing C API contract for the lock calls.
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#include <new>
 //
 // ?rva00034D10@GeneralAllocator@Allocator@EA@@QAEPAXH_NPAXI@Z retail 0x00034D10..0x00035071
 // (865 bytes thiscall ret 0x10). The heap-snapshot builder behind the
@@ -14,9 +18,6 @@ inline void *operator new(unsigned int, void *p) { return p; }
 // caller's storage when big enough, else 0x00033ED0 with 0x80000000),
 // constructs the Snapshot (0x00031570) and fills the records (core blocks
 // inline, chunks through 0x00032EC0). Names are address-derived.
-extern "C" __declspec(dllimport) void __stdcall EnterCriticalSection(void *cs) throw();
-extern "C" __declspec(dllimport) void __stdcall LeaveCriticalSection(void *cs) throw();
-
 class Rva00035080Lock
 {
 public:
@@ -25,7 +26,7 @@ public:
 	{
 		if (m_obj)
 		{
-			EnterCriticalSection(m_obj);
+			EnterCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 			++*(volatile int *)((char *)m_obj + 0x18);
 		}
 	}
@@ -34,7 +35,7 @@ public:
 		if (m_obj)
 		{
 			--*(volatile int *)((char *)m_obj + 0x18);
-			LeaveCriticalSection(m_obj);
+			LeaveCriticalSection(static_cast<CRITICAL_SECTION *>(m_obj));
 		}
 	}
 };
@@ -118,7 +119,9 @@ public:
 		void *m_arg2;
 		unsigned char m_state[4];
 		unsigned int m_values[5];
-		Snapshot(unsigned int size, void *context);
+		// memory_pool.cpp's rowed constructor only clears and initializes
+		// the supplied storage; placement construction needs no failure cleanup.
+		__declspec(nothrow) Snapshot(unsigned int size, void *context);
 	};
 	void *rva00034D10(int blockTypes, bool copy, void *storage, unsigned int storageSize);
 	void rva00032EC0(const void *chunk, BlockInfo *info);
