@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Two of the narrow basic_streambuf base defaults, written out rather than
 // instantiated. basic_streambuf<char> is an explicit specialisation in the

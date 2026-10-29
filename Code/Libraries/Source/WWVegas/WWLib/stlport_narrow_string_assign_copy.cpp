@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::assign over another string, 41 bytes:
 // self-assignment is the early out, and everything else is handed to the
