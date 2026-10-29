@@ -25,26 +25,33 @@ public:
 };
 // Same pool instance allocation side; per-TU extern patches from retail.
 extern class Rva006DB270 *g_pChainBlockAllocator; // 0x00E176E8
-class AptValue {
+class AptValue
+{
 public:
-    virtual void AddRef();
-    virtual void Release();
-    virtual void ForceDelete();
-    unsigned int getRefCount() const;
-    int IsReleaseAtEnd() const;
-    void ClearReleaseAtEnd();
+	virtual void AddRef();
+	virtual void Release();
+	virtual void ForceDelete();
+	unsigned int getRefCount() const;
+	int IsReleaseAtEnd() const;
+	void ClearReleaseAtEnd();
 };
-class AptValueVector {
-    int mCapacity;
-    int mCurrentNum;
-    AptValue **mpValues;
-    int mHighWaterNum;
+class AptValueVector
+{
+	int mCapacity;
+	int mCurrentNum;
+	AptValue **mpValues;
+	int mHighWaterNum;
+
 public:
-    AptValue *PopValue();
-    void ReleaseValues();
-    void rva006E6C00(AptValue *pValue);
-    void rva006E6D50();
-    AptValueVector(int capacity);
+	AptValueVector(int capacity);
+	static void *Allocate(int size);
+	AptValue ***GetData();
+	void rva006CC0A0(int iPos);
+	AptValue *operator[](int iPos) const;
+	AptValue *PopValue();
+	void ReleaseValues();
+	void rva006E6C00(AptValue *pValue);
+	void rva006E6D50();
 };
 AptValue *AptValueVector::PopValue()
 {

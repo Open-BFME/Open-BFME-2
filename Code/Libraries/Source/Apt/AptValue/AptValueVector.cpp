@@ -55,7 +55,16 @@ public:
 
 extern EAStringC::StringDataC g_eaEmptyStringData;
 
-class AptValue;
+class AptValue
+{
+public:
+	virtual void AddRef();
+	virtual void Release();
+	virtual void ForceDelete();
+	unsigned int getRefCount() const;
+	int IsReleaseAtEnd() const;
+	void ClearReleaseAtEnd();
+};
 
 class AptValueNameEntry
 {
@@ -69,15 +78,21 @@ public:
 
 class AptValueVector
 {
+	int mCapacity;
+	int mCurrentNum;
+	AptValue **mpValues;
+	int mHighWaterNum;
+
 public:
+	AptValueVector(int capacity);
 	static void *Allocate(int size);
 	AptValue ***GetData();
 	void rva006CC0A0(int iPos);
 	AptValue *operator[](int iPos) const;
-
-	EAStringC m_name;
-	int mCurrentNum;
-	AptValue **m_data;
+	AptValue *PopValue();
+	void ReleaseValues();
+	void rva006E6C00(AptValue *pValue);
+	void rva006E6D50();
 };
 
 // ?aptHasAll@Rva008981E0Value@@QAEHXZ, retail 0x006E6CD0 (17B).
@@ -146,7 +161,7 @@ inline AptValueNameEntry::AptValueNameEntry()
 // it; the bare lea eax,[ecx+8] shape carries no call or data references.
 AptValue ***AptValueVector::GetData()
 {
-	return &m_data;
+	return &mpValues;
 }
 
 // ?Allocate@AptValueVector@@SAPAXH@Z, retail 0x006CC020 (17B). Pool
@@ -171,9 +186,9 @@ void AptValueVector::rva006CC0A0(int iPos)
 	}
 	--mCurrentNum;
 	if (mCurrentNum != 0 && iPos != mCurrentNum) {
-		memmove(&m_data[iPos], &m_data[iPos + 1], (mCurrentNum - iPos) * sizeof(*m_data));
+		memmove(&mpValues[iPos], &mpValues[iPos + 1], (mCurrentNum - iPos) * sizeof(*mpValues));
 	}
-	m_data[mCurrentNum] = 0;
+	mpValues[mCurrentNum] = 0;
 }
 
 // ??AAptValueVector@@QBEPAVAptValue@@H@Z, retail 0x006CC040 (81B). Ghidra-
@@ -189,5 +204,5 @@ AptValue *AptValueVector::operator[](int iPos) const
 			__asm int 3
 		}
 	}
-	return m_data[iPos];
+	return mpValues[iPos];
 }
