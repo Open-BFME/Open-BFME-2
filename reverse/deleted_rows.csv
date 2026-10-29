@@ -3993,3 +3993,6 @@ __ehhandler$?rva005D5F86@Rva005D5F86@@QAEXABVAsciiString@@@Z,0x007A268E,"Renamed
 ?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0058A617,"Renamed to ?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva0058A617Parse@@YAXPAVINI@@PAX1PBX@Z,0x0079CC92,"Renamed to __ehhandler$?parseSpecialPowerAIType@@YAXPAVINI@@PAX1PBX@Z by tools/rename.py (inferred)"
 ?rva005B5BDC@Rva005B5BDC@@QAEXI@Z,0x005B5BDC,"Renamed to ?setSortColumn@Rva005B5BDC@@QAEXI@Z by tools/rename.py (inferred)"
+?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0038901D,"Renamed to ?toString@Rva0038901D@@QAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
+__ehhandler$?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0078002C,"Renamed to __ehhandler$?toString@Rva0038901D@@QAE?AVAsciiString@@XZ by tools/rename.py (inferred)"
+?Rva0018BD7BGet@@YAMXZ,0x0018BD7B,"Renamed to ?getFogRangeStart@@YAMXZ by tools/rename.py (inferred)"

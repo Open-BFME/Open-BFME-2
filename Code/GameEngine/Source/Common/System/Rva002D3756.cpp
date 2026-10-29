@@ -17,17 +17,17 @@ struct Rva002D3756Mid
 class Rva002D3756
 {
 public:
-	void rva002D3756(void *p);
+	void rva002D3756(void *hero);
 private:
 	char m_pad[0x10];
 	Rva002D3756Mid *m_mid;
 };
 
-void Rva002D3756::rva002D3756(void *p)
+void Rva002D3756::rva002D3756(void *hero)
 {
-	if (p == 0)
+	if (hero == 0)
 		return;
 	Rva005258B2 *inner = m_mid->m_c4;
 	if (inner != 0)
-		inner->rva005258B2(p);
+		inner->rva005258B2(hero);
 }

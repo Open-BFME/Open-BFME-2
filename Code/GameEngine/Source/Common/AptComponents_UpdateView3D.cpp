@@ -43,8 +43,8 @@ void __cdecl AptComponents::UpdateView3D(AptView3D *obj, const char *params)
 	const char *s = params;
 	for (;;) {
 		if (_strnicmp(s, "_light", 6) == 0 && isdigit(s[6])) {
-			const char *p = s + 6;
-			s = p;
+			const char *lightParameters = s + 6;
+			s = lightParameters;
 			int lightIndex = 0;
 			float x = 1.0f;
 			float y = 1.0f;

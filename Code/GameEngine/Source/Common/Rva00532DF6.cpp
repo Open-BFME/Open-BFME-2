@@ -14,7 +14,7 @@ struct Rva00532DF6Less {bool operator()(const Rva00532DF6Entry&a,unsigned short 
 struct Rva00532DF6Node {Rva00532DF6Node*next;unsigned short id,count;union{Rva00532DF6Entry one;Rva00532DF6Entry*array;};};
 class Rva00532DF6 {public:bool remove(unsigned short a,unsigned short b);bool add(unsigned short a,unsigned short b);Rva00532DF6Node*buckets[4001];Rva00532DF6Node*freeNodes;};
 bool Rva00532DF6::remove(unsigned short a,unsigned short b) {
- if(b<a){unsigned short temp=a;a=b;b=temp;}
+ if(b<a){unsigned short savedId=a;a=b;b=savedId;}
  Rva00532DF6Node **p=buckets+(a%4001u);
  goto check;
 body: {
@@ -46,7 +46,7 @@ check:
 // returns true. Nodes keep one entry inline, promoting to a sorted array.
 // The policy/template spelling is from WB, while sizes and offsets are retail.
 bool Rva00532DF6::add(unsigned short a,unsigned short b) {
- if(b<a){unsigned short temp=a;a=b;b=temp;}
+ if(b<a){unsigned short swapValue=a;a=b;b=swapValue;}
  Rva00532DF6Node **link=buckets+(a%4001u);
  goto check;
 body: {

@@ -1,6 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs
 //
-// ?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ @0x0038901D, 100B.
+// ?toString@Rva0038901D@@QAE?AVAsciiString@@XZ @0x0038901D, 100B.
 // Formats four dwords at this+0..+C as "%d.%d.%d.%d" via rowed
 // AsciiString::format 0x00038150 into a stack temp, then copy-constructs
 // the hidden return through rowed StringBase<char> copy 0x000365F0 and
@@ -13,7 +13,7 @@
 class Rva0038901D
 {
 public:
-	AsciiString rva0038901D();
+	AsciiString toString();
 private:
 	int m_a;
 	int m_b;
@@ -21,11 +21,11 @@ private:
 	int m_d;
 };
 
-AsciiString Rva0038901D::rva0038901D()
+AsciiString Rva0038901D::toString()
 {
-	AsciiString tmp;
-	tmp.format("%d.%d.%d.%d", m_a, m_b, m_c, m_d);
-	return tmp;
+	AsciiString checksumString;
+	checksumString.format("%d.%d.%d.%d", m_a, m_b, m_c, m_d);
+	return checksumString;
 }
 
 class Rva00389081
@@ -39,5 +39,5 @@ private:
 
 AsciiString Rva00389081::rva00389081()
 {
-	return m_inner.rva0038901D();
+	return m_inner.toString();
 }

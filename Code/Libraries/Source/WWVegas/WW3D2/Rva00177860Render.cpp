@@ -168,11 +168,11 @@ static __forceinline void FillPointDiffuse(char *dest,int stride,int value,int c
 {
  while(count--){*(int*)dest=value;dest+=stride;}
 }
-static __forceinline void FillPointNormals(float *dst,int stride,float x,float y,float z,int count)
+static __forceinline void FillPointNormals(float *dst,int stride,float normalX,float normalY,float normalZ,int count)
 {
  if(count==0)return;
  int n=count;
- do{dst[0]=x;dst[1]=y;dst[2]=z;dst=(float*)((char*)dst+stride);--n;}while(n!=0);
+ do{dst[0]=normalX;dst[1]=normalY;dst[2]=normalZ;dst=(float*)((char*)dst+stride);--n;}while(n!=0);
 }
 struct PointUVPair{int a;int b;};
 static __forceinline void CopyPointUVs(void *dst,int stride,const PointUVPair *src,int count)
@@ -181,14 +181,14 @@ static __forceinline void CopyPointUVs(void *dst,int stride,const PointUVPair *s
 }
 static __forceinline void FillPointUVs(float *output,int stride,float first,float second,int count)
 {
- float f=first,s=second;
+ float uCoordinate=first,s=second;
  register int remaining=count;
  if(remaining==0)return;
  float zero=0.0f;
  float one=1.0f;
  do{
-  output[0]=f;output[1]=s;
-  if(f!=0.0f){f=zero;s=one-s;}else{f=one;}
+  output[0]=uCoordinate;output[1]=s;
+  if(uCoordinate!=0.0f){uCoordinate=zero;s=one-s;}else{uCoordinate=one;}
   output=reinterpret_cast<float*>(reinterpret_cast<char*>(output)+stride);
  }while(--remaining!=0);
 }

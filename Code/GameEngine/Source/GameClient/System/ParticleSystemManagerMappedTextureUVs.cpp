@@ -80,7 +80,7 @@ struct VideoPair
 	VideoPair(void *a,void *b) { s.first=a;s.second=b; }
 	VideoPair(const VideoPair &videoPair) { s.first=videoPair.s.first;s.second=videoPair.s.second; }
 };
-inline VideoPair makePair(void *const &x,void *const &y) { return VideoPair(x,y); }
+inline VideoPair makePair(void *const &nodeReference,void *const &tableReference) { return VideoPair(nodeReference,tableReference); }
 struct Rva0041534BIter { void *m_node; void *m_table; };
 class Rva00056F61 { public: Rva0041534BIter rva0041534B(const AsciiString *); };
 class Rva001F58D4 { public: void rva001F58D4(); };

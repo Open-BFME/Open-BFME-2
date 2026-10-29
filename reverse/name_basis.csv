@@ -4170,3 +4170,22 @@ param,bfmeEmitBoundedShortGridLoad::a,bfmeEmitBoundedShortGridLoad::column,infer
 param,bfmeEmitBoundedShortGridLoad::b,bfmeEmitBoundedShortGridLoad::row,inferred,agree:nl-6cab44318292,Code/GameEngineDevice/Source/W3DDevice/GameClient/BoundedShortGridLoad.cpp,
 param,Rva0020D451Engine::rva0020D451::b,Rva0020D451Engine::rva0020D451::script,inferred,agree:nl-e2bc27ec0dd2-m9027296f3ee00756a69a28c1,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020D451Guarded.cpp,0x0020D451
 param,Rva0020D451Engine::rva0020D451::c,Rva0020D451Engine::rva0020D451::scriptName,inferred,agree:nl-70be49672abc-mdb1228fd5419f9569bd9b3f6,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020D451Guarded.cpp,0x0020D451
+local,AptComponents::UpdateView3D::p,AptComponents::UpdateView3D::lightParameters,inferred,agree:nl-602a949fece0-mdc26762718d41197587175fd,Code/GameEngine/Source/Common/AptComponents_UpdateView3D.cpp,0x004107CD
+local,Rva0038901D::rva0038901D::tmp,Rva0038901D::rva0038901D::checksumString,inferred,agree:nl-785026df9910-mc8675c59524c86a9c4945648,Code/GameEngine/Source/Common/Rva0038901DFormat.cpp,0x0038901D
+function,?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,?toString@Rva0038901D@@QAE?AVAsciiString@@XZ,inferred,agree:nl-d724afb2de4e,Code/GameEngine/Source/Common/Rva0038901DFormat.cpp,0x0038901D
+carry,Rva0038901D::rva0038901D::checksumString,Rva0038901D::toString::checksumString,inferred,scope renamed by Rename rva0038901D to toString (inferred),Code/GameEngine/Source/Common/Rva0038901DFormat.cpp,0x0038901D
+local,Rva00406F9C::rva00406F9C::a,Rva00406F9C::rva00406F9C::flags,inferred,agree:nl-1565255b0a18-m63a1ba877f4b326e81e8f8a1,Code/GameEngine/Source/Common/Rva00406F9CCheck.cpp,0x00406F9C
+local,Rva00406F9C::rva00406F9C::b,Rva00406F9C::rva00406F9C::otherFlags,inferred,agree:nl-572c559e0177-m9538ee704bcd0c7f49a95dfb,Code/GameEngine/Source/Common/Rva00406F9CCheck.cpp,0x00406F9C
+local,Rva00532DF6::remove::temp,Rva00532DF6::remove::savedId,inferred,agree:nl-052e5fc69a1f,Code/GameEngine/Source/Common/Rva00532DF6.cpp,0x00532DF6
+local,Rva00532DF6::add::temp,Rva00532DF6::add::swapValue,inferred,agree:nl-d91d7b8a4904,Code/GameEngine/Source/Common/Rva00532DF6.cpp,0x00532C75
+param,Rva002D3756::rva002D3756::p,Rva002D3756::rva002D3756::hero,inferred,agree:nl-4a602c1a8a2b-mc3d821610026b0b6fec012a3,Code/GameEngine/Source/Common/System/Rva002D3756.cpp,0x002D3756
+param,FunctorBinding::m,FunctorBinding::callback,inferred,agree:nl-93d598d667a2-m13d83734712142f786b48971,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineStatsConstructor.cpp,
+param,makePair::x,makePair::nodeReference,inferred,agree:nl-2a13cf873909-m6ec2488fe7526ba3c8a84487,Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp,
+param,makePair::y,makePair::tableReference,inferred,agree:nl-1ad69c936738-m118aeab28763978d3c04bab5,Code/GameEngine/Source/GameClient/System/ParticleSystemManagerMappedTextureUVs.cpp,
+local,W3DView::rva000860AF::tmp,W3DView::rva000860AF::viewPosition,inferred,agree:nl-ca201cacbb8e-m3d2fe8a639bea1dab33d5b80,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewConstrainPosition.cpp,0x000860AF
+param,FillPointNormals::x,FillPointNormals::normalX,inferred,agree:nl-940f843fdedb-mde4848b1ebdb4adda8e9ce58,Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp,
+param,FillPointNormals::y,FillPointNormals::normalY,inferred,agree:nl-4c7e93ecf676-m4337c341de3341687e0e0617,Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp,
+param,FillPointNormals::z,FillPointNormals::normalZ,inferred,agree:nl-851100c5428b-m70313bbc2e23a5d94aa50728,Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp,
+local,FillPointUVs::f,FillPointUVs::uCoordinate,inferred,agree:nl-32c09cda5164,Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp,
+param,Rva00579E47::arg,Rva00579E47::callbackPointer,inferred,agree:nl-9620b9fa4685-m91365a05bca596aa080e1be6,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp,
+function,?Rva0018BD7BGet@@YAMXZ,?getFogRangeStart@@YAMXZ,inferred,agree:nl-c2d3f3d70eab,Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp,0x0018BD7B

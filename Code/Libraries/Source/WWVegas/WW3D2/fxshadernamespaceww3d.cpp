@@ -63,7 +63,7 @@ inline DelegateDesc MakeDesc(T *object, void (T::*method)(ID3DXEffect *, D3DXHAN
 // prefix view gives the bound constructor its existing owned linker key.
 class Rva00579E47 : public Rva00080221 {
 public:
- Rva00579E47(const int *arg):Rva00080221(arg){}
+ Rva00579E47(const int *callbackPointer):Rva00080221(callbackPointer){}
  Rva00579E47(const DelegateDesc &d);
 };
 struct TreeHintRef00217D4C : public Rva00579E47 {
@@ -211,4 +211,4 @@ void FXShaderParameterSourceNamespaceWW3D::ResolveBindings(const char *name,cons
 }
 
 // Native fog-start accessor; established by the paired fog setter.
-float Rva0018BD7BGet() { return g_Va00DEDA28; }
+float getFogRangeStart() { return g_Va00DEDA28; }

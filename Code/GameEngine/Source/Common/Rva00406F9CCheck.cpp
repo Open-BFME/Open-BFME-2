@@ -13,10 +13,10 @@ private:
 
 bool Rva00406F9C::rva00406F9C(const void *other)
 {
-	const unsigned *a = m_data;
-	const unsigned *b = (const unsigned *)other;
+	const unsigned *flags = m_data;
+	const unsigned *otherFlags = (const unsigned *)other;
 	for (unsigned i = 0; i < 32; ++i) {
-		if (a[i] & b[i])
+		if (flags[i] & otherFlags[i])
 			return true;
 	}
 	return false;

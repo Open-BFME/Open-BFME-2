@@ -437,7 +437,7 @@ Bool GetStringFromRegistry( AsciiString path, AsciiString key, AsciiString &val 
 class Rva0038901D
 {
 public:
-	AsciiString rva0038901D( void );
+	AsciiString toString( void );
 };
 
 // The 16-byte exe CRC block and its copy (0x00237E28), as
@@ -1150,7 +1150,7 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 			{
 				Rva00237E28 exeCRC;
 				TheWritableGlobalData->m_exeCRC.rva00237E28( &exeCRC );
-				Bool exeMatch = msg->GameToJoin.exeCRC.rva0038901D().compare( exeCRC.rva0038901D() ) == 0;
+				Bool exeMatch = msg->GameToJoin.exeCRC.toString().compare( exeCRC.toString() ) == 0;
 				Bool iniMatch = msg->GameToJoin.iniCRC == TheWritableGlobalData->m_iniCRC;
 				Bool extraMatch = msg->GameToJoin.bfmeExtraCRC == TheWritableGlobalData->m_bfmeExtraCRC;
 				if( !exeMatch || !iniMatch || !extraMatch )

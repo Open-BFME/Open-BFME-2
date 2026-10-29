@@ -35,7 +35,7 @@ class __multiple_inheritance FunctorTarget;
 typedef void (FunctorTarget::*FunctorMethod)();
 struct FunctorBinding
 {
-    FunctorBinding(FunctorMethod m, FunctorTarget *functorTarget) : target(functorTarget), method(m) {}
+    FunctorBinding(FunctorMethod callback, FunctorTarget *functorTarget) : target(functorTarget), method(callback) {}
     FunctorTarget *target;
     unsigned pad;
     FunctorMethod method;
