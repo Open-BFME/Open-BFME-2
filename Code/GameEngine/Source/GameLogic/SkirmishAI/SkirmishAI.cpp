@@ -200,6 +200,7 @@ class Rva004E93A8 { public: int rva004E93A8(); };
 class Rva004E9600;
 
 struct Rva002A8B59Data;
+
 struct Rva002A8AB1Record;
 
 class Rva002A8F24 {
@@ -308,8 +309,39 @@ struct Rva002A8B59Data
 
 extern float g_secondsPerLogicFrame;
 
+struct Rva002A8AB1Record
+{
+public:
+	char m_pad[0x178];
+	int m_178;
+};
 
-// tu-skeleton: 0x002C67DC 105B ?isAPartialBrain@SkirmishAI@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp (not merged yet)
+struct Rva002C67DC15C
+{
+	char m_pad[0x54];
+	int m_54;
+};
+
+// ---- from Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp
+
+bool SkirmishAI::isAPartialBrain()
+{
+	if (m_masterPlayerIndex != -1)
+		return true;
+	for (int i = 0; i < ThePlayerList->m_count14; i++) {
+		Player *player = ThePlayerList->getNthPlayer(i);
+		if (((Rva002AA22AByteField *)player)->get() != 0)
+			continue;
+		Rva002A8AB1Record *rec = TheSkirmishAIManager->rva002A8AB1(player);
+		if (!rec)
+			continue;
+		if (rec->m_178 == ((Rva002C67DC15C *)m_player)->m_54)
+			return true;
+	}
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 
@@ -563,8 +595,6 @@ SkirmishAI::SkirmishAI(Player *player, void *master, bool first)
  m_tacticalAI = reinterpret_cast<TacticalAI *>(new Rva002C60E4(player, first));
 }
 
-// tu-skeleton: 0x002C68CE 109B ?resetMaster@SkirmishAI@@QAEHXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/SkirmishAI_updatePhase.cpp
 
 //
@@ -612,6 +642,8 @@ void SkirmishAI::updatePhase()
 		return;
 	}
 }
+
+// tu-skeleton: 0x002C68CE 109B ?resetMaster@SkirmishAI@@QAEHXZ -- matched in Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp (not merged yet)
 
 // tu-skeleton: 0x002C6A3D 17B ?rva002C6A3D@Rva002A8AB1Record@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva004EC30EAddOwnedObject.cpp (not merged yet)
 

@@ -21983,7 +21983,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002C6779,73,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AITacticalAI/TacticalAI.cpp
 0x002C67C2,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x002C67CF,13,code,,,-,,Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp
-0x002C67DC,105,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/Common/SkirmishAI_isAPartialBrain.cpp
+0x002C67DC,105,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6845,52,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,C,C=0x002C67DC..0x002C6879,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C6879,85,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp
 0x002C68CE,109,code,Code/GameEngine/Source/GameLogic/SkirmishAI/SkirmishAI.cpp,approved,U,N=Code/GameEngine/Source/Common/SkirmishAI.cpp,Code/GameEngine/Source/Common/SkirmishAI_resetMaster.cpp

@@ -66,3 +66,26 @@ Carry the moved provider and those affected consumers into the next scheduled
 census; the local preview does not resolve this boundary. The merge hook also
 reported the donor's unused address-named float declaration in shadow mode;
 a follow-up removes that declaration and preserves 20/20 rows.
+
+## Partial-brain donor follow-up
+
+The partial-brain donor's two SkirmishAI member spellings were aligned with
+the destination; its 105-byte row remains exact. The destination gained the
+existing PlayerList count layout and method declarations needed by the donor,
+with its original 20 rows exact. The supported merger then accepted the donor
+and its link guard accepted the census-linked inputs. The merged destination
+has 21/21 exact rows, six verified float references, two EXACT EH graphs and
+no newly unmatched definitions. Its local link preview is LINKS for 1,570 bytes
+against index `85f6b7f40c`; this is moved existing coverage, not a census gain.
+
+The staged ownership and data checks found no issues, and the Microsoft-header
+audit reports the destination clean. Searches found neither source in the
+identity, data, hatch, flag or header registers. The merge repointed its code
+row and TU-map source; it moved no data or body-owner row. The full outgoing
+path audit against `origin/master` covers this donor and the previously merged
+phase donor: old-path references are historical name-basis and census entries,
+source provenance comments and this handoff, with no active consumer found.
+The prior batch audit's stale index and missing receipts still require census
+confirmation of external consumers. Four whole donors and five mixed files
+remain: resetMaster needs its member view aligned, RecordGet needs its Player
+and record views reconciled, and the other two have STL composition conflicts.
