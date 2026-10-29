@@ -131,7 +131,7 @@ public:
 	class PerTurnStats : public Snapshot
 	{
 	public:
-		PerTurnStats() : m_numRegions(0), m_field06(0), m_field08(0) {}
+		PerTurnStats() : m_numRegions(0), m_field06(0), m_numArmies(0) {}
 		virtual ~PerTurnStats() {}
 		// ?PerTurnStats::loadPostProcess present-unmatched
 		virtual void loadPostProcess() {}
@@ -140,7 +140,7 @@ public:
 
 		Short m_numRegions;
 		Short m_field06;
-		Short m_field08;
+		Short m_numArmies;
 	};
 	virtual void primarySlot();
 	void collectEndOfTurnStats(int turn);
@@ -209,7 +209,7 @@ void LivingWorldScoreKeeper::collectEndOfTurnStats(int turn)
 				++stats.m_numRegions;
 				_STL::vector<const ModuleData *> armies;
 				region->rva003F287F(armies);
-				stats.m_field08 += armies.size();
+				stats.m_numArmies += armies.size();
 			}
 		}
 

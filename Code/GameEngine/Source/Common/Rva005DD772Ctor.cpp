@@ -60,11 +60,11 @@ Rva005DD9F9::Rva005DD9F9(float percent) : Rva005DD772() {
 class Rva005DD822 : public UnicodeString {
 public:
     float m04;
-    Rva005DD822(unsigned int v);
+    Rva005DD822(unsigned int number);
 };
-Rva005DD822::Rva005DD822(unsigned int v) {
-    m04 = (float)v;
-    ((UnicodeString*)this)->format(reinterpret_cast<const Wide *>(L"%d"), v);
+Rva005DD822::Rva005DD822(unsigned int number) {
+    m04 = (float)number;
+    ((UnicodeString*)this)->format(reinterpret_cast<const Wide *>(L"%d"), number);
 }
 
 // ?rva005DD88A@Rva005DD88A@@QAEHPAVGameWindow@@HHM@Z, retail 0x005DD88A, 86 bytes.

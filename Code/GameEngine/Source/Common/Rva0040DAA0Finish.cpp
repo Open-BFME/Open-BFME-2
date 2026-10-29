@@ -34,8 +34,8 @@ private:
 void *Rva0040DAA0::findByName(const StringBase<char> &name, int *indexOut) const
 {
 	for (unsigned int i = 0; i < m_vec.size(); ++i) {
-		Rva0040DAA0Target *t = m_vec[i].m_second;
-		if (t->m_name.compare(name) == 0) {
+		Rva0040DAA0Target *m_namedObjects = m_vec[i].m_second;
+		if (m_namedObjects->m_name.compare(name) == 0) {
 			if (indexOut)
 				*indexOut = (int)i;
 			return m_vec[i].m_second;

@@ -15,15 +15,15 @@ extern int g_get_00710fb0;
 float __stdcall rva00094D44(float pointX, float pointY, float pointZ)
 {
 	RvaDE4880Owner *materialPass = g_00DE4880;
-	float r = 999999.0f;
+	float m_planeDistance = 999999.0f;
 	if (materialPass) {
 		RvaVec4B plane = materialPass->m_plane;
-		r = plane.z * pointZ;
-		r += plane.y * pointY;
-		r += plane.x * pointX;
-		r += plane.w;
+		m_planeDistance = plane.z * pointZ;
+		m_planeDistance += plane.y * pointY;
+		m_planeDistance += plane.x * pointX;
+		m_planeDistance += plane.w;
 	}
-	return r;
+	return m_planeDistance;
 }
 
 // BFME1 34f59164 Rva006E1CA0VectorLength.cpp supplies the clean expression.

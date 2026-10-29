@@ -43,9 +43,9 @@ public:
 void Rva004D839A::rva004D839A()
 {
 	unsigned frame = TheGameLogic->getFrame();
-	Rva004D839AC *c = m_a->m_b->m_c;
-	int hi = c->m_hi;
-	int lo = c->m_lo;
+	Rva004D839AC *m_turretData = m_a->m_b->m_c;
+	int hi = m_turretData->m_hi;
+	int lo = m_turretData->m_lo;
 	int delay = GetGameLogicRandomValue(lo, hi, (char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\AI\\TurretAI.cpp", 0x524);
 	m_20 = delay + frame;
 }

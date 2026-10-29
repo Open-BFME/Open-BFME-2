@@ -36,9 +36,9 @@ struct PassengerBoneNode
 {
 	PassengerBoneNode *m_next;
 	char m_pad04[4];
-	BitFlags<116> m_flags08;
+	BitFlags<116> m_kindOf;
 	char m_pad18[12];
-	AsciiString m_str24;
+	AsciiString m_boneName;
 };
 
 struct Rva00463235List
@@ -63,9 +63,9 @@ AsciiString Rva00463235::rva00463235(Thing *filter)
 		return AsciiString("ARROW_");
 	for (; cur != list->m_head; cur = cur->m_next) {
 		if (filter == 0)
-			return cur->m_str24;
-		if (filter->isKindOfMulti(cur->m_flags08, KINDOFMASK_NONE))
-			return cur->m_str24;
+			return cur->m_boneName;
+		if (filter->isKindOfMulti(cur->m_kindOf, KINDOFMASK_NONE))
+			return cur->m_boneName;
 	}
 	return AsciiString("ARROW_");
 }

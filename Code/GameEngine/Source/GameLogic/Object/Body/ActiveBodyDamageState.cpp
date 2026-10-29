@@ -54,9 +54,9 @@ private:
 void Rva004BDA67::rva004BDA67()
 {
 	Object *obj = m_08;
-	Rva003BD306Target *t = obj->m_target264;
-	if (t != 0)
-		t->rva0039B548();
+	Rva003BD306Target *m_experienceTracker = obj->m_target264;
+	if (m_experienceTracker != 0)
+		m_experienceTracker->rva0039B548();
 	Rva004BDA67M04 *moduleData = (Rva004BDA67M04 *)m_04;
 	if (moduleData->m_flag50 != 0)
 		obj->rva0028DA28();

@@ -60,7 +60,7 @@ struct Rva000E2409Map
 	float m_drawOriginX;
 	float m_30;
 	char m_pad34[0x44 - 0x34];
-	int m_44;
+	int m_objectShroudStatus;
 };
 
 class BaseHeightMapRenderObjClass
@@ -293,7 +293,7 @@ void Rva000E249DObjectShroudStatus(ID3DXEffect *effect, D3DXHANDLE handle)
 	{
 		Rva000E2409Map *map = TheTerrainRenderObject->m_3878;
 		if (map)
-			status = map->m_44;
+			status = map->m_objectShroudStatus;
 	}
 	effect->SetInt(handle, status);
 }

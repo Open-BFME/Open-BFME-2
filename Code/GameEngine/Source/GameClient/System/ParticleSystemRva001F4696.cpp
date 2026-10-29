@@ -93,10 +93,10 @@ struct ParticleView
 class ParticleSystem
 {
 public:
-	void rva001F4696(void *pos, void *arg, bool b, void *info);
+	void rva001F4696(void *pos, void *arg, bool m_isIdentity, void *info);
 };
 
-void ParticleSystem::rva001F4696(void *posArg, void *priority, bool b, void *infoArg)
+void ParticleSystem::rva001F4696(void *posArg, void *priority, bool m_isIdentity, void *infoArg)
 {
 	ParticleView *self = (ParticleView *)this;
 	Coord3D *pos = (Coord3D *)posArg;
@@ -104,8 +104,8 @@ void ParticleSystem::rva001F4696(void *posArg, void *priority, bool b, void *inf
 
 	if (self->flag16C != 0)
 	{
-		self->flag1A1 = b;
-		if (!b)
+		self->flag1A1 = m_isIdentity;
+		if (!m_isIdentity)
 		{
 			self->fieldEC.v[0] = info->v[0];
 			self->fieldEC.v[1] = info->v[1];
@@ -161,5 +161,5 @@ void ParticleSystem::rva001F4696(void *posArg, void *priority, bool b, void *inf
 		return;
 	_ReadWriteBarrier();
 	ParticleSystem *next = slavePtr->operator->();
-	next->rva001F4696(&self->m_pos, priority, b, info);
+	next->rva001F4696(&self->m_pos, priority, m_isIdentity, info);
 }

@@ -85,15 +85,15 @@ private:
 	char m_pad04[0x14 - 4];
 	DrawSub *m_curState;
 	char m_pad18[0x2D9 - 0x18];
-	bool m_2D9;
+	bool m_portraitImageDirty;
 	char m_pad2DA[0x2DC - 0x2DA];
 	const Image *m_portraitImage;
 };
 
 const Image *Rva000B7029::GetPortraitImage()
 {
-	if (m_2D9) {
-		m_2D9 = false;
+	if (m_portraitImageDirty) {
+		m_portraitImageDirty = false;
 		DrawSub *sub = m_curState;
 		if (sub != 0) {
 			if (!sub->m_str60.isEmpty())

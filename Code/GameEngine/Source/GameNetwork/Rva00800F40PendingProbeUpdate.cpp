@@ -77,9 +77,9 @@ public:
 	char m_pad00[8];
 	BfmeSinkVNC *m_bfme0c;
 	char m_pad0c[0xb4];
-	unsigned int m_bfme0c0;
+	unsigned int m_nextEchoTime;
 	int m_bfme0c4;
-	int m_bfme0c8;
+	int m_echoRetryCount;
 	char m_padcc[4];
 	BfmeSlotVNC m_probes[8];
 	int m_numProbes;
@@ -89,14 +89,14 @@ void Rva00800F40PendingProbeUpdate::update(unsigned int now)
 {
 	int zero = 0;
 
-	if (m_bfme0c4 != zero && now > m_bfme0c0)
+	if (m_bfme0c4 != zero && now > m_nextEchoTime)
 	{
-		int tries = ++m_bfme0c8;
+		int tries = ++m_echoRetryCount;
 		if (tries > 4)
 			m_bfme0c4 = zero;
 		else
 		{
-			m_bfme0c0 = now + 0xc8;
+			m_nextEchoTime = now + 0xc8;
 			((FeslEchoNotifier *)((char *)this - 4))->notifyEcho();
 		}
 	}

@@ -37,7 +37,7 @@ template<> inline __declspec(noinline) TeamPair0019B850 make_pair(const TeamKey0
 }
 struct TeamRecord0019B850 {
     short field00, field02, m_prevIndex, m_nextIndex;
-    _STL::_Rb_tree_node_base* field08;
+    _STL::_Rb_tree_node_base* m_indexNode;
     Dict field0c;
 };
 class TeamsInfoRec
@@ -50,14 +50,14 @@ public:
 void TeamsInfoRec::addToIndex(int index) {
     TeamRecord0019B850* team = field0c.begin() + index;
     TeamKey0019B850 key(team->field0c.getAsciiString(TheKey_teamOwner),team->field0c.getAsciiString(TheKey_teamName));
-    team->field08 = field00.find(key)._M_node;
-    if(team->field08 == field00.end()._M_node) {
-        team->field08 = field00.insert(_STL::make_pair(key,index)).first._M_node;
+    team->m_indexNode = field00.find(key)._M_node;
+    if(team->m_indexNode == field00.end()._M_node) {
+        team->m_indexNode = field00.insert(_STL::make_pair(key,index)).first._M_node;
     } else {
-        int previous = static_cast<_STL::_Rb_tree_node<TeamValue0019B850>*>(team->field08)->_M_value_field.second;
+        int previous = static_cast<_STL::_Rb_tree_node<TeamValue0019B850>*>(team->m_indexNode)->_M_value_field.second;
         TeamRecord0019B850* prior = field0c.begin() + previous; prior->m_nextIndex = (short)index;
         team->m_prevIndex = (short)previous;
-        static_cast<_STL::_Rb_tree_node<TeamValue0019B850>*>(team->field08)->_M_value_field.second = index;
+        static_cast<_STL::_Rb_tree_node<TeamValue0019B850>*>(team->m_indexNode)->_M_value_field.second = index;
     }
 }
 

@@ -102,4 +102,4 @@ Rva002007D5::~Rva002007D5()
 void forceShellMenuSchemeDelete(ShellMenuScheme *shellMenuScheme) { delete shellMenuScheme; }
 
 // ?forceRva002007D5Delete@@YAXPAVRva002007D5@@@Z absent-from-retail
-void forceRva002007D5Delete(Rva002007D5 *p) { delete p; }
+void forceRva002007D5Delete(Rva002007D5 *m_schemeManager) { delete m_schemeManager; }

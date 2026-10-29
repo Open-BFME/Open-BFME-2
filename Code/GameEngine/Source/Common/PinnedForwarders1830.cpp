@@ -302,15 +302,15 @@ public:
 class Rva000A8B31
 {
 public:
-	void rva000A8B31(float a, int b);
+	void rva000A8B31(float m_StartPosition, int b);
 private:
 	Rva0010FE6D *m_ptr;
 };
 
-void Rva000A8B31::rva000A8B31(float a, int b)
+void Rva000A8B31::rva000A8B31(float m_StartPosition, int b)
 {
 	if (m_ptr)
-		m_ptr->rva0010FE6D(a, b);
+		m_ptr->rva0010FE6D(m_StartPosition, b);
 }
 
 class Rva0010FEF3

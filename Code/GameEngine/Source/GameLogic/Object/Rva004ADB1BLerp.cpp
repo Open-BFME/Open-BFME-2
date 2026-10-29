@@ -29,7 +29,7 @@ public:
 	unsigned int m_packTime;
 	unsigned int m_unpackTime;
 	char m_gap[0xc8 - 0x8c];
-	float m_c8;
+	float m_targetOpacity;
 	float m_cc;
 };
 
@@ -69,9 +69,9 @@ bool Rva004ADB1B::handlePackingProcessing()
 	if (m_kind == 2) {
 		base = g_00BBB8D8;
 		denom = m_src->m_unpackTime;
-		other = m_src->m_c8;
+		other = m_src->m_targetOpacity;
 	} else {
-		float targetOpacity = m_src->m_c8;
+		float targetOpacity = m_src->m_targetOpacity;
 		denom = m_src->m_packTime;
 		base = targetOpacity;
 		other = g_00BBB8D8;

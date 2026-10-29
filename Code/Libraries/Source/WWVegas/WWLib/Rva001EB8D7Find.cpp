@@ -52,7 +52,7 @@ void *Rva001EB8D7::rva001EB90C(const StringBase<char> &name)
 struct Rva001EB8A4Elem
 {
 	char m_pad00[4];
-	StringBase<char> m_str04;
+	StringBase<char> m_name;
 };
 
 class Rva001EB8A4
@@ -72,7 +72,7 @@ bool Rva001EB8A4::rva001EB8A4(const Rva001EB8A4Elem &unit)
 	StringBase<char> *last = m_end1C;
 	for (; p != last; ++p)
 	{
-		if (unit.m_str04.compareNoCase(*p) == 0)
+		if (unit.m_name.compareNoCase(*p) == 0)
 			return true;
 	}
 	return false;

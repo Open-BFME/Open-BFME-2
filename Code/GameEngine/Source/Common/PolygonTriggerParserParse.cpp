@@ -180,11 +180,11 @@ class Rva000AD6F4
  ~Rva000AD6F4()
  {
   struct Slot0 { virtual void *virt0(unsigned int); };
-  Rva002E3E2AObject *p=pointer;
+  Rva002E3E2AObject *m_objectToDelete=pointer;
   pointer=0;
   void *deletedStorage;
-  if(p)
-   deletedStorage=((Slot0 *)p)->virt0(0);
+  if(m_objectToDelete)
+   deletedStorage=((Slot0 *)m_objectToDelete)->virt0(0);
   else
    deletedStorage=0;
   ::operator delete(deletedStorage);
