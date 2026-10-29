@@ -8,6 +8,11 @@
 #include <vector>
 #include <list>
 #pragma pointers_to_members(full_generality, multiple_inheritance)
+// ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z
+// ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z
+// ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z
+extern "C" void _ReadWriteBarrier(void);
+#pragma intrinsic(_ReadWriteBarrier)
 
 // _List_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -237,6 +242,31 @@ public:
 	bool rva005CAE04(const AsciiString &clan, const AsciiString &member);
 };
 
+class Rva0052493F
+{
+public:
+	void rva0052493F();
+};
+
+void _bfme_closeAptScreen(const AsciiString &name);
+
+class Rva0057F34D
+{
+public:
+	void rva0057F34D();
+private:
+	char m_pad[160];
+	int m_a0;
+	int m_a4;
+	unsigned char m_a8;
+};
+
+UnicodeString __cdecl GadgetComboBoxGetText(GameWindow *comboBox);
+
+void __cdecl GadgetListBoxGetSelected(GameWindow *listBox, int *sel);
+
+UnicodeString __cdecl GadgetListBoxGetText(GameWindow *listBox, int index, int flag);
+
 class AptMpClans
 {
 public:
@@ -282,6 +312,22 @@ private:
 public:
 	void rva0057FA1C(UnicodeString name);
 };
+
+class Rva0057F2DE
+{
+public:
+	bool rva0057FC75(unsigned int msg, unsigned int data1, unsigned int data2);
+
+private:
+	unsigned char m_pad000[0xA0];
+	GameWindow *m_clanName;
+	GameWindow *m_clanPlayers;
+	unsigned char m_flagA8;
+	unsigned char m_padA9[0xAC - 0xA9];
+	AsciiString m_clan;
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClans.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClansCallbacks.cpp
 
@@ -444,12 +490,6 @@ void AptMpClans::OnGameInfoChange()
     }
 }
 
-// tu-skeleton: 0x0057F486 150B ??0Rva0057F2DE@@QAE@PAUTargetRef00217D4C@@@Z -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
-
-// tu-skeleton: 0x0057F51C 28B ??_GRva0057F2DE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
-
-// tu-skeleton: 0x0057F538 181B ?rva0057F538@Rva0057F538@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMpClansRva0057FA1C.cpp
 
 // ?rva0057FA1C@AptMpClans@@QAEXVUnicodeString@@@Z @0x0057FA1C 148B: clan setter with toUpper trim length check via Ascii conversion plus prefs write.
@@ -475,6 +515,42 @@ void AptMpClans::rva0057FA1C(UnicodeString name)
 	PopulateMyClans(name);
 }
 
+// tu-skeleton: 0x0057F486 150B ??0Rva0057F2DE@@QAE@PAUTargetRef00217D4C@@@Z -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0057F51C 28B ??_GRva0057F2DE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0057F538 181B ?rva0057F538@Rva0057F538@@QAEXVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/AptHeroPowerText.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C588 8B $L1597 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C590 11B Unwind@00b9c590 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C59B 14B $L1576 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C5A9 14B Unwind@00b9c5a9 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C5B7 10B __ehhandler$??1Rva0057F2DE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0057F34D.cpp
+
+// ?rva0057F34D@Rva0057F34D@@QAEXXZ @0x0057F34D 92B
+// Evidence: unlock lane, caller 0x0043DE4C in 0x0043DE19 (ecx=esi+0x190 subobject), rowed clear 0x0052493F on this, literal AptMpClans::InitGadgets via pin 0x0041149A, stores +0xA8 +0xA0 +0xA4.
+
+void Rva0057F34D::rva0057F34D()
+{
+	m_a8 = 0;
+	((Rva0052493F *)this)->rva0052493F();
+	_bfme_closeAptScreen(AsciiString("AptMpClans::InitGadgets"));
+	m_a0 = 0;
+	m_a4 = 0;
+}
+
+// tu-skeleton: 0x0079C5D3 25B ?rva0079C5D3@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C5EC 8B Unwind@00b9c5ec -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// tu-skeleton: 0x0079C5F4 10B __ehhandler$?rva0057F3A9@Rva0057F2DE@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
 // tu-skeleton: 0x0079C610 8B $L1555 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
 
 // tu-skeleton: 0x0079C618 11B Unwind@00b9c618 -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
@@ -488,3 +564,45 @@ void AptMpClans::rva0057FA1C(UnicodeString name)
 // tu-skeleton: 0x0079C64D 8B Unwind@00b9c64d -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
 
 // tu-skeleton: 0x0079C655 10B __ehhandler$??0Rva0057F2DE@@QAE@PAUTargetRef00217D4C@@@Z -- matched in Code/GameEngine/Source/Common/Rva0057F2DE.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/rva0057FC75Rva0057FC75Farm.cpp
+
+// ?rva0057FC75@Rva0057F2DE@@QAE_NIII@Z @0x0057FC75 234B: MpGameSetup +0x190 clan panel message handler dispatching 0x4015 list selection and 0x4026 combo text via rowed Gadget helpers plus just-landed AptMpClans 0x0057FA1C.
+// Evidence: calls 0x0057FA1C row plus rowed GadgetComboBoxGetText 0x00322D21 GadgetListBoxGetSelected 0x00324773 GadgetListBoxGetText 0x00327074 plus wide copy ctor 0x00037050 plus releaseBuffer 0x00036E70 plus caller 0x00442D30 plus prev 0x0057FA1C same +0xA0 +0xA4 +0xA8.
+
+bool Rva0057F2DE::rva0057FC75(unsigned int msg, unsigned int data1, unsigned int data2)
+{
+	if (!m_flagA8)
+		return false;
+	GameWindow *window = (GameWindow *)data1;
+	switch (msg)
+	{
+	case 0x4026:
+		if (window == m_clanName)
+		{
+			UnicodeString combo = GadgetComboBoxGetText(window);
+			((AptMpClans *)this)->rva0057FA1C(combo);
+			return true;
+		}
+		break;
+	case 0x4015:
+		if (window == m_clanPlayers)
+		{
+			int sel = 0;
+			GadgetListBoxGetSelected(window, &sel);
+			if (sel >= 0)
+			{
+				UnicodeString item = GadgetListBoxGetText(window, sel, 1);
+				if (0) throw 1;
+				((AptMpClans *)this)->rva0057FA1C(item);
+			}
+			return true;
+		}
+		break;
+	}
+	if (window == m_clanName)
+		return true;
+	if (window == m_clanPlayers)
+		return true;
+	return false;
+}
