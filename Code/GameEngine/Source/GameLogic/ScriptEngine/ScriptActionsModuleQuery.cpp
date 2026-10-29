@@ -23,7 +23,10 @@ public:
     virtual void apply(int value);
 };
 
-class ModIface
+#include "../../../Include/Common/Module.h"
+#include "../../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface
 {
 public:
     virtual void s00();
@@ -45,16 +48,9 @@ public:
     virtual ActionTarget *slot16();
 };
 
-class ModBase
-{
-public:
-    virtual void s00();
-
-private:
-    unsigned int m_data[2];
-};
-
-class Module : public ModBase, public ModIface
+// The +0x244 entries are behavior modules: the canonical ObjectModule
+// (0xC bytes) with the behavior interface at +0x0C.
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 };
 
@@ -62,10 +58,10 @@ class Object
 {
 public:
     char m_pad[0x244];
-    Module **m_modules;
+    BehaviorModule **m_modules;
     __forceinline ActionTarget *getActionTarget() const
     {
-        for (Module **module = m_modules; *module; ++module)
+        for (BehaviorModule **module = m_modules; *module; ++module)
         {
             ActionTarget *target = (*module)->slot16();
             if (target)

@@ -6,13 +6,17 @@
 
 enum NameKeyType { NK_NONE = 0 };
 
-class Object;
-class Module
+#include "../../../Include/Common/Module.h"
+
+// DualWeaponBehavior's flag byte at +0x20; only the store is recovered.
+class DualWeaponBehaviorView : public Module
 {
 public:
-	char m_pad00[0x20];
+	char m_pad08[0x18];
 	unsigned char m_20;
 };
+
+class Object;
 
 class Object
 {
@@ -45,5 +49,5 @@ void ScriptActions::Rva003C3175Do(const AsciiString &name, bool flag)
 	Module *module = obj->findModule(dualKey);
 	if (module == 0)
 		return;
-	module->m_20 = flag;
+	((DualWeaponBehaviorView *)module)->m_20 = flag;
 }
