@@ -2,6 +2,11 @@
 
 // Open-BFME5: WeaponSetUpgrade module ctor via UpgradeModule multi-inheritance.
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class Thing;
 class ModuleData;
 
@@ -52,6 +57,7 @@ class WeaponSetUpgrade : public UpgradeModule
 {
 public:
 	WeaponSetUpgrade( Thing *thing, const ModuleData *moduleData );
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ??0WeaponSetUpgrade@@QAE@PAVThing@@PBVModuleData@@@Z
