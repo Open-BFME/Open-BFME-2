@@ -1,0 +1,4 @@
+link_check: preparing 2 explicit safe provider(s), no extra sources
+deps-cache: no include inventory for Code/GameEngine/Source/GameClient/Eva.cpp — ['(macro or parent-traversing include has unknown search roots)']
+deps-cache: no include inventory for Code/Libraries/Source/WWVegas/WWLib/thread.cpp — ['(macro or parent-traversing include has unknown search roots)']
+link_check: Code/GameEngine/Source/GameClient/Eva.cpp has no strict reusable compiler receipt; uncacheable inputs are not prepared by this mode

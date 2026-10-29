@@ -1,0 +1,26 @@
+{
+  "utc_epoch": 1793278701.1548908,
+  "reason": "Upstream not ancestor of pending commit; all own code gates completed; no active index-pack; only obsolete own publication subtree terminated",
+  "signals": [
+    {
+      "pid": 56858,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 56859,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 56861,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 56860,
+      "signal": "SIGTERM"
+    },
+    {
+      "pid": 58163,
+      "signal": "SIGTERM"
+    }
+  ]
+}

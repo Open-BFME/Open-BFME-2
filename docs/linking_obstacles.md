@@ -2802,6 +2802,18 @@ Whole-unit clearance and census confirmation remain pending.
   receipts. Carry the exact header/consumer scope to the next census.
   Slot10 remains open: one of its47 consumer files, TextureAssetGet.cpp,
   was held by another seat; no overlapping repair was attempted.
+- **GameWindow input consumer receipts refused (2026-10-29, base385303a9af9):**
+  [the stopped preparation and exact refusal](../reverse/attempt_support/gamewindow-input-owner-cleanup-20261029/consumer-preparation-blocked.md)
+  identifies the two additional consumers as Eva.cpp and thread.cpp.
+  Both ordinary objects are current, but the supported strict preparation
+  exits1 on unknown search roots from macro/parent-traversing includes.
+  No source/include rewrite, verifier workaround or inventory exception
+  was applied. The verified input duplicate cleanup remains local; its
+  obsolete waiting push was ended after upstream ceased to be an ancestor.
+  **Prerequisite:** separately reconcile those include declarations with
+  byte verification and exact lookup evidence, then re-run strict receipt
+  preparation and consumer auditing. No census gain or whole-batch
+  clearance is claimed. Work is stopped under the contributor gate rule.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its

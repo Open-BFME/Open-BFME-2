@@ -1,0 +1,18 @@
+[
+  {
+    "source": "Code/GameEngine/Source/GameClient/Eva.cpp",
+    "object_exists": true,
+    "ordinary_current": true,
+    "strict_current": false,
+    "receipt_version": null,
+    "header_count": 76
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WWLib/thread.cpp",
+    "object_exists": true,
+    "ordinary_current": true,
+    "strict_current": false,
+    "receipt_version": null,
+    "header_count": 42
+  }
+]
