@@ -455,11 +455,16 @@ def unheadered_bases(contract):
     return [b for b in contract.get("bases", []) if base_identity(b) not in known]
 
 
-def nested_includes(contract, header):
-    """`#include` lines for the canonical headers of the contract's bases and member aggregates."""
+def nested_includes(contract, header, slots=None):
+    """`#include` lines for the canonical headers of the contract's bases, member aggregates
+    and the registered classes its slot declarations name (`const Coord3D *` needs Coord3D's
+    class-key, which only its header fixes)."""
     lines, known = [], registered()
     wanted = [base_identity(b) for b in contract.get("bases", [])]
     wanted += [f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")]
+    for text in (slots[0] + slots[1]) if slots else []:
+        wanted += [w for w in re.findall(r"[A-Za-z_]\w*", text.split("{")[0])
+                   if w in known and w != contract["class"]]
     for type_name in wanted:
         if type_name not in known:
             continue
@@ -478,7 +483,10 @@ def generate(contract, variant, methods, header=None, slots=None):
              f" (variant {variant}). Edit the contract, not this file.",
              f"// sizeof {contract['size']} ({contract['size_by']}); class-key {key} ({contract['key_by']}).",
              f"#ifndef {guard}", f"#define {guard}", ""]
-    lines += nested_includes(contract, header)
+    # `includes`: also include the registered headers of the classes the slot
+    # declarations name. It fixes their class-key, so it is a variant: units
+    # whose rows mangle a private view's other key fail with it.
+    lines += nested_includes(contract, header, slots if "includes" in variant.split("+") else None)
     bases = ", ".join(f"public {b}" for b in contract["bases"])
     lines.append(f"{key} {name}" + (f" : {bases}" if bases else "") + " {")
     if key == "class":
@@ -1490,8 +1498,8 @@ def main(argv=None):
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
     p.add_argument("--generate", action="store_true", help="generate the header from the contract (tournament)")
-    p.add_argument("--variants", default="data,data+ctor,data+methods",
-                   help="tokens joined by +: data, ctor (inline default ctor), copy (out-of-line copy ctor), methods")
+    p.add_argument("--variants", default="data,data+ctor,data+methods,data+includes",
+                   help="tokens joined by +: data, ctor (inline default ctor), copy (out-of-line copy ctor), methods, includes (headers of registered classes the slots name)")
     p.add_argument("--sample", type=int)
     p.add_argument("--seed", type=int, default=20261006)
     p.add_argument("--jobs", type=int, default=max(2, (os.cpu_count() or 4) // 2))

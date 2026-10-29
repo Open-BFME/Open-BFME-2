@@ -137,5 +137,16 @@ def test_run_refuses_a_contract_with_an_undeclarable_slot(base_header, tmp_path,
     assert lane.run(args) == 2
 
 
+def test_slot_declarations_include_the_registered_classes_they_name(monkeypatch):
+    monkeypatch.setattr(lane, "registered", lambda: {"Coord3D": "Code/Lib/Coord3D.h", "Iface": "Code/Iface.h"})
+    c = contract({0: "onCollide(Object*,Coord3D*)"}, bases=(), inherited=0)
+    c["class"] = "Iface"
+    own = ["virtual void onCollide(Object *other, const Coord3D *loc) = 0;"]
+    assert "Coord3D.h" not in lane.generate(c, "data", {}, "Code/Iface.h", (own, []))
+    text = lane.generate(c, "data+includes", {}, "Code/Iface.h", (own, []))
+    assert '#include "Lib/Coord3D.h"' in text
+    assert lane.nested_includes(c, "Code/Iface.h") == []
+
+
 if __name__ == "__main__":
     sys.exit(pytest.main([__file__, "-q"]))
