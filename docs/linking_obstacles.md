@@ -10554,3 +10554,30 @@ changes. re_attempts.log records both files blocked for the 4.6 lane.
 Prerequisite for moving them again: a provider of the QAE twin bodies whose
 bytes equal 0x00068E15, usable as fold-proof, or a supported path that gives
 the twins the address.
+
+### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
+
+Status: repaired, pending census confirmation. 540ec8bf62 dropped
+FlightDeckBehavior.cpp's `-G7 -arch:SSE` flag override as stale
+(flag_defaults.py: both rows keep matching under the region default). The
+unit's rows are 35 B, but the whole TU now compiles under the region default,
+and every one of its 941 COMDAT copies changed digest. The unit's lowest row
+(0x0008A64A) puts it ahead of the rowed FlightDeckInfo helpers. Its new
+`_Construct<FlightDeckInfo>` (22 B `rep movsd`; retail 0x00626E10 is 47 B of
+field moves) and `__uninitialized_copy<FlightDeckInfo *>` copies became the
+kept ones. Its `_Vector_base<FlightDeckInfo>(const allocator &)` copy no longer
+matches FlightDeckInfoVectorInsertOverflow.cpp's. So partitionmanager_impl.cpp
+(2,620 B, which owns both helper rows) and FlightDeckInfoVectorInsertOverflow.cpp
+(441 B) stopped linking: wrong_selected and a first-copy COMDAT loser.
+Repair: FlightDeckBehavior.cpp declares those three templates without a body,
+next to its existing declaration-only FlightDeckInfo growth path. It now
+references the rowed copies and FlightDeckInfoVectorInsertOverflow.cpp's base
+constructor (2/2 rows exact). Five COMDATs leave the object: the three, the
+proxy constructor and the allocator copy constructor; each keeps another
+provider. `link_check.py` on the unit, the index consumers of those names and
+every source changed since the census predicts LINKS for both victims (441 and
+2,620 B again), with no other unit changing.
+Open: the rest of the TU still compiles differently from the census. Restoring
+the override would return it to its census-time code, but that is a flag change
+(full gate). SlowDeathBehavior.cpp and MultiplayerSettings.cpp lost the same
+override in that commit; neither links yet.

@@ -167,6 +167,13 @@ template <> void vector<FlightDeckBehavior::FlightDeckInfo>::push_back(const Fli
 template <> void vector<FlightDeckBehavior::FlightDeckInfo>::_M_insert_overflow(FlightDeckBehavior::FlightDeckInfo *, const FlightDeckBehavior::FlightDeckInfo &, const __false_type &, size_t, bool);
 template <> FlightDeckBehavior::FlightDeckInfo *allocator<FlightDeckBehavior::FlightDeckInfo>::allocate(size_t, const void *) const;
 template <> FlightDeckBehavior::FlightDeckInfo *__uninitialized_fill_n<FlightDeckBehavior::FlightDeckInfo *, size_t, FlightDeckBehavior::FlightDeckInfo>(FlightDeckBehavior::FlightDeckInfo *, size_t, const FlightDeckBehavior::FlightDeckInfo &, const __false_type &);
+// The element copy helpers are rowed in partitionmanager_impl.cpp and the
+// base constructor is FlightDeckInfoVectorInsertOverflow.cpp's copy; this
+// unit sits first in link order, so its own copies would be the ones kept
+// (LINK-151).
+template <> void _Construct<FlightDeckBehavior::FlightDeckInfo, FlightDeckBehavior::FlightDeckInfo>(FlightDeckBehavior::FlightDeckInfo *, const FlightDeckBehavior::FlightDeckInfo &);
+template <> FlightDeckBehavior::FlightDeckInfo *__uninitialized_copy<FlightDeckBehavior::FlightDeckInfo *, FlightDeckBehavior::FlightDeckInfo *>(FlightDeckBehavior::FlightDeckInfo *, FlightDeckBehavior::FlightDeckInfo *, FlightDeckBehavior::FlightDeckInfo *, const __false_type &);
+template <> _Vector_base<FlightDeckBehavior::FlightDeckInfo, allocator<FlightDeckBehavior::FlightDeckInfo> >::_Vector_base(const allocator<FlightDeckBehavior::FlightDeckInfo> &);
 }
 
 #ifdef _INTERNAL
