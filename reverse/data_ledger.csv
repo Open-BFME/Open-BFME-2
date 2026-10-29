@@ -19215,8 +19215,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A01E74,4,.data,global,?g_Va00E01E74@@3PAXA,Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp,owned,,1,3
 0x00A01E78,4,.data,global,_s_rva007AED61,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A01E7C,12,.data,global,?g_Va00E01E7C@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,4
-0x00A01E88,4,.data,global,?TheLaserUpdatePoolKey@?1??rva000363102@LaserUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdatePoolKey.cpp,owned,,1,2
-0x00A01E8C,4,.data,global,?$S1@?1??rva000363102@LaserUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdatePoolKey.cpp,owned,,1,4
+0x00A01E88,4,.data,global,?TheLaserUpdatePoolKey@?1??rva000363102@LaserUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,owned,,1,2
+0x00A01E8C,4,.data,global,?$S1@?1??rva000363102@LaserUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp,owned,,1,4
 0x00A01E90,4,.data,global,_s_rva007AEDA1,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A01E94,20,.data,global,?g_pathNodePool@@3VRva00065964ObjectPool@@A,Code/GameEngine/Source/GameLogic/AI/PathRva003649B1.cpp,provisional,?g_Va00E01E94@@3IA;?g_pathNodePool@@3URva00065964ObjectPool@@A;?g_pathNodePool@@3VRva00065964ObjectPool@@A,3,6
 0x00A01EA8,4,.data,global,?g_00E01EA8@@3EA,Code/GameEngine/Source/GameLogic/System/CrateSystemNewCrateTemplate.cpp,provisional,?g_00E01EA8@@3EA;?g_00E01EA8@@3_NA,1,30
