@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Od
+// stlport46
 // STLport's unoptimized allocation helpers retain stack locals in retail.
 
 #include <stdlib.h>
