@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 time_get time/date readers.
 // Keeping _M_getc visible but noinline exposes its exact field writes to the
