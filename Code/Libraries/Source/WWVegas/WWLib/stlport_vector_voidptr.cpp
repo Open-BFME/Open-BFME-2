@@ -1,5 +1,5 @@
 // cl: /Od /Ob1 /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 vector<void *>. The reloc sweep names _M_fill_insert and
 // reserve out of this instantiation from byte-true call sites, so the
@@ -26,7 +26,7 @@ namespace _STL { template <> vector<void *, allocator<void *> >::vector(allocato
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
 namespace _STL { template <> void **vector<void *, allocator<void *> >::erase(void **); }
 namespace _STL { template <> void *const &vector<void *, allocator<void *> >::operator[](unsigned int) const; }
-namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int, void *const &); }
+namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int, void *); }
 namespace _STL { template <> void vector<void *, allocator<void *> >::resize(unsigned int); }
 // bfme link decl-only end
 // ~_STLP_alloc_proxy is rowed here (retail 1-instruction body); the declared-only constructors above no longer emit it, so anchor it.
