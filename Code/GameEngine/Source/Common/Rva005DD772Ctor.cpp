@@ -19,7 +19,7 @@ class Rva005DD772 : public UnicodeString {
 public:
     float m04;
     Rva005DD772();
-    Rva005DD772(const UnicodeString &str, float v);
+    Rva005DD772(const UnicodeString &str, float statValue);
 };
 Rva005DD772::Rva005DD772() : UnicodeString(AsciiString("-")), m04(0.0f) {}
 // ??0Rva005DD772@@QAE@ABVUnicodeString@@M@Z @0x005DD86D 29B unlock lane:
@@ -27,7 +27,7 @@ Rva005DD772::Rva005DD772() : UnicodeString(AsciiString("-")), m04(0.0f) {}
 // base at +0 then float to +4 via xmm; frameless ret 8 returning this.
 // Same 8B layout and callees as the default ctor above; callers in the big
 // parsers 0x005BEA70/0x005C1BDE.
-Rva005DD772::Rva005DD772(const UnicodeString &str, float v) : UnicodeString(str), m04(v) {}
+Rva005DD772::Rva005DD772(const UnicodeString &str, float statValue) : UnicodeString(str), m04(statValue) {}
 class GameTextInterface {
 public:
     virtual ~GameTextInterface(){}
@@ -83,12 +83,12 @@ class Rva005DD88A : public UnicodeString
 {
 public:
 	float m04;
-	int rva005DD88A(GameWindow *win, int row, int column, float f);
+	int rva005DD88A(GameWindow *win, int row, int column, float maximumValue);
 };
 
-int Rva005DD88A::rva005DD88A(GameWindow *win, int row, int column, float f)
+int Rva005DD88A::rva005DD88A(GameWindow *win, int row, int column, float maximumValue)
 {
-	int color = (m04 == f) ? 0xFF64FF64 : -1;
+	int color = (m04 == maximumValue) ? 0xFF64FF64 : -1;
 	int idx = GadgetListBoxAddEntryText(win, *(UnicodeString *)this, color, row, column, true);
 	GadgetListBoxJustifyEntry(win, idx, column, 2);
 	return idx;

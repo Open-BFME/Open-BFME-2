@@ -232,7 +232,7 @@ private:
 	char m_pad00[0x20];
 	Rva007401A3 m_20;
 };
-void Rva00740A96::rva00740A96(Int a, const StringBase<char> &name)
+void Rva00740A96::rva00740A96(Int frame, const StringBase<char> &name)
 {
-	m_20.SetFrame(a, Rva00740A60Get(name));
+	m_20.SetFrame(frame, Rva00740A60Get(name));
 }

@@ -4048,3 +4048,14 @@ local,SetupLoopFilter::p,SetupLoopFilter::loopFilterState,inferred,agree:nl-2e1c
 local,SetupDeblocker::p,SetupDeblocker::deblockerState,inferred,agree:nl-9f2064bb9dd3,Code/Libraries/Source/VP6/PostProcInstance.cpp,0x001BD630
 member,BfmeNodeZK::m_bfmeIdZK,BfmeNodeZK::m_index,inferred,agree:nl-b4669357bf34,Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp,
 member,BfmeNodeZK::m_bfmeKindZK,BfmeNodeZK::m_referenceCount,inferred,agree:nl-fc1a8bc61a2d,Code/GameEngine/Source/Common/BfmeOwnerZKRelink.cpp,
+local,Rva005CE4B2::Rva005CE4B2::p,Rva005CE4B2::Rva005CE4B2::holder,inferred,agree:nl-33b1af887757,Code/GameEngine/Source/Common/Rva005CE4B2.cpp,0x005CE4B2
+param,Rva005DD772::Rva005DD772#2::v,Rva005DD772::Rva005DD772#2::statValue,inferred,agree:nl-b036224ff240,Code/GameEngine/Source/Common/Rva005DD772Ctor.cpp,
+param,Rva005DD88A::rva005DD88A::f,Rva005DD88A::rva005DD88A::maximumValue,inferred,agree:nl-fd59ff2c2568,Code/GameEngine/Source/Common/Rva005DD772Ctor.cpp,0x005DD88A
+param,slot5::p,slot5::armyIcon,inferred,agree:nl-3a1b4f18ad3f,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,
+param,slot4#2::p,slot4#2::icon,inferred,agree:nl-f01819591955,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,
+local,Rva003FE245Lookup::p,Rva003FE245Lookup::lookupResult,inferred,agree:nl-fed5efbe8522,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp,0x003FE245
+param,Rva00740A96::rva00740A96::a,Rva00740A96::rva00740A96::frame,inferred,agree:nl-8ea48bc6b6d6,Code/GameEngine/Source/Common/VslotSmallBodiesT.cpp,0x00740A96
+param,Rva006EE520::rva00047F79::a,Rva006EE520::rva00047F79::xPos,inferred,agree:nl-22186ba0c3dd,Code/GameEngine/Source/GameClient/Rva006EE520SubtitleStart.cpp,0x00047F79
+param,Rva006EE520::rva00047F79::b,Rva006EE520::rva00047F79::yPos,inferred,agree:nl-d0ad9f595f3c,Code/GameEngine/Source/GameClient/Rva006EE520SubtitleStart.cpp,0x00047F79
+param,vector::a,vector::alloc,inferred,agree:nl-c1f287d75feb,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp,
+local,W3DScriptedModelDraw::~W3DScriptedModelDraw::p,W3DScriptedModelDraw::~W3DScriptedModelDraw::position,inferred,agree:nl-35e14907f9f1,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp,0x000C79C9

@@ -103,7 +103,7 @@ namespace _STL
  
  {
   public:
-  vector(const allocator<int> &a = allocator<int>()) : _Vector_base<int, allocator<int> >(a) 
+  vector(const allocator<int> &alloc = allocator<int>()) : _Vector_base<int, allocator<int> >(alloc) 
   {
    
   }
@@ -679,10 +679,10 @@ W3DScriptedModelDraw::~W3DScriptedModelDraw()
  const float*sizePtr=&thingTemplate->sinkSize;
  if(*sizePtr>1.0f)
  {
-  const Coord3D*p=getDrawable()->getPosition();
+  const Coord3D*position=getDrawable()->getPosition();
   float size=*sizePtr;
   Rva000ADA1AMask*terrain=g_GameClientNative->terrain;
-  terrain->rva000ADF90((const MaskCirclePoint*)p,size,true);
+  terrain->rva000ADF90((const MaskCirclePoint*)position,size,true);
   
  }
  m_1d0.clear();

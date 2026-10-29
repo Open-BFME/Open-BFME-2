@@ -30,8 +30,8 @@ private:
 
 Rva005CE4B2::Rva005CE4B2(int const *arg)
 {
-	Rva005CE4B2Held *p = new Rva005CE4B2Held(arg);
-	m_00 = p;
-	if (p != 0)
-		p->m_04++;
+	Rva005CE4B2Held *holder = new Rva005CE4B2Held(arg);
+	m_00 = holder;
+	if (holder != 0)
+		holder->m_04++;
 }

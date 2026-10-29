@@ -12,14 +12,14 @@ public:
 	virtual void slot2(void *) {}
 	virtual void slot3(void *p) { slot2(p); }
 	virtual void slot4(void *) {}
-	virtual void slot5(void *p) { slot4(p); }
+	virtual void slot5(void *armyIcon) { slot4(armyIcon); }
 	~Rva003FE20FBase() {}
 };
 class Rva003FE20FVisitor : public Rva003FE20FBase
 {
 public:
 	void *value;
-	virtual void slot4(void *p) { value = p; }
+	virtual void slot4(void *icon) { value = icon; }
 };
 class Rva003FE20FInput
 {
@@ -102,8 +102,8 @@ struct Rva003FE245Result
 };
 extern "C" Rva003FE245Holder *Rva003FE245Lookup(unsigned key)
 {
-	Rva003FE245Result *p = static_cast<Rva003FE245Result *>(Rva003FE20FGet(reinterpret_cast<void *>(key)));
-	return p ? p->value : 0;
+	Rva003FE245Result *lookupResult = static_cast<Rva003FE245Result *>(Rva003FE20FGet(reinterpret_cast<void *>(key)));
+	return lookupResult ? lookupResult->value : 0;
 }
 extern "C" Rva0052B1EFHolder *Rva0052B1EFLookup(unsigned key)
 {
