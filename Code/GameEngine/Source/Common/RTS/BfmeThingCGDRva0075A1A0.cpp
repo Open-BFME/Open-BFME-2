@@ -78,6 +78,15 @@ void bfmeGlobalCGD();
 
 typedef _STL::map<Rva009A2FE0Sub *, unsigned int> Rva0075A1A0Counts;
 
+// The two cursor helpers below exist only as inlined walks. Their out-of-line
+// COMDATs (72 B and 69 B, no relocations) have no caller here, and no copy of
+// either occurs in retail .text (exact byte search; place_bodies places neither).
+// Retail reads the 0x493 table's cursor words +0xC060/+0xC064 only inside
+// 0x00758D10, 0x00758DE0, the constructor 0x0075A000 and 0x0075A1A0, and the
+// 0x2B7B table's +0xAE08 only in 0x0075A000 and 0x0075A1A0 (0x00759220 only
+// steps +0xAE0C past an unlinked node). The out-of-line table-relative twins
+// are the rowed 0x00758B80 and 0x00758A50.
+// ?CollisionManagerImpl::nextNode absent-from-retail (inlined into rva0075A1A0; no standalone retail body)
 inline Rva009A2FE0Node *CollisionManagerImpl::nextNode()
 {
 	while (m_cur == 0)
