@@ -283,7 +283,7 @@ def test_push_hook_honors_audit_exit_status(status, blocked):
     hook = (Path(__file__).resolve().parents[2] / ".githooks/pre-push").read_text()
     block = hook[hook.index('    link_scope=$(mktemp)'):hook.index('    # Replayed commits')]
     setup = (f'set -euo pipefail\nverify=(); base=a; local_sha=b\n'
-             f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\n')
+             f'fail() {{ exit 1; }}\nshadow_cap() {{ return {status}; }}\nstage() {{ :; }}\n')
     done = subprocess.run([bash, "-c", setup + block], capture_output=True, text=True)
     assert (done.returncode != 0) == blocked, done.stderr
     if status in (2, 124):

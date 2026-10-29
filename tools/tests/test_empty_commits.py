@@ -178,8 +178,10 @@ def test_a_range_git_cannot_read_fails_closed(repo):
 
 def test_the_push_hook_runs_it_on_the_outgoing_range_before_any_gate_that_builds():
     hook = HOOK.read_text(encoding="utf-8")
-    call = ('python3 tools/empty_commits.py --range "$base" "$local_sha" '
-            '|| fail "empty commit(s) in the outgoing range (see above)"')
+    # one of the concurrent static checks: join_jobs fails the push on its failure
+    call = ('spawn "empty commit(s) in the outgoing range" python3 tools/empty_commits.py '
+            '--range "$base" "$local_sha"')
     assert hook.count(call) == 1
     assert hook.index(call) < hook.index("python3 tools/conversion_gate.py")
+    assert hook.index(call) < hook.index("    join_jobs\n", hook.index(call))
     assert hook.index('if [ -z "$base" ]; then') < hook.index(call)

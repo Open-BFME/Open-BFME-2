@@ -55,6 +55,60 @@ capture() {
     printf -v "$1" '%s' "$captured"
 }
 
+# Concurrent checks. The static checks and the scope producers below are
+# independent and read only git objects and the working tree, so they run at
+# once and a push waits for the slowest instead of their sum (~25 s run one
+# after another on a 2026-10-28 minimum push). Each still runs in full; its
+# output is printed in launch order once all have ended, and the first failure
+# in that order fails the push with its own message.
+#   spawn MSG CMD...         a check: fails the push with MSG when CMD fails
+#   spawn_data FILE MSG CMD  a producer: CMD's stdout into FILE, MSG on failure
+#   spawn_status FILE CMD    a producer whose exit status is data: FILE, FILE.status
+#   join_jobs                wait for all, print their output, fail on the first failure
+_job_pids=()
+_job_outs=()
+_job_errs=()
+_job_msgs=()
+_job_add() {
+    _job_pids+=("$1"); _job_outs+=("$2"); _job_errs+=("$3"); _job_msgs+=("$4")
+}
+spawn() {
+    local msg="$1" out err
+    shift
+    out=$(mktemp) && err=$(mktemp) || fail "temporary files for $msg"
+    ( "$@" ) > "$out" 2> "$err" &
+    _job_add "$!" "$out" "$err" "$msg"
+}
+spawn_data() {
+    local file="$1" msg="$2" err
+    shift 2
+    err=$(mktemp) || fail "temporary file for $msg"
+    ( "$@" ) > "$file" 2> "$err" &
+    _job_add "$!" "" "$err" "$msg"
+}
+spawn_status() {
+    local file="$1" err
+    shift
+    err=$(mktemp) || fail "temporary file for $1"
+    ( status=0; "$@" > "$file" || status=$?; printf '%s' "$status" > "$file.status" ) 2> "$err" &
+    _job_add "$!" "" "$err" ""
+}
+join_jobs() {
+    local i status failed=""
+    for i in "${!_job_pids[@]}"; do
+        status=0
+        wait "${_job_pids[$i]}" || status=$?
+        [ -z "${_job_outs[$i]}" ] || { cat "${_job_outs[$i]}"; rm -f "${_job_outs[$i]}"; }
+        cat "${_job_errs[$i]}" >&2
+        rm -f "${_job_errs[$i]}"
+        if [ "$status" -ne 0 ] && [ -z "$failed" ]; then
+            failed="${_job_msgs[$i]:-a concurrent check} (see above)"
+        fi
+    done
+    _job_pids=(); _job_outs=(); _job_errs=(); _job_msgs=()
+    [ -z "$failed" ] || fail "$failed"
+}
+
 # fast_forward_or_fail REV: the full gate only pays off if REV still fast-forwards
 # origin/master; an unreachable origin is left for the push itself to report.
 fast_forward_or_fail() {
@@ -66,30 +120,61 @@ fast_forward_or_fail() {
 # the include graph cannot bound it. FROM is the remote base, or a commit whose
 # full gate passed in this clone (tools/full_gate_receipt.py).
 scope_from() {
-    local base="$1"
-    capture delta_out "delta_sources" python3 tools/delta_sources.py --range "$base" "$local_sha"
-    mapfile -t delta < "$delta_out"
-    rm -f "$delta_out"
-    stage "scope: delta_sources"
+    local base="$1" delta_out name_deps_out edited_out flag_delta_out header_range_out header_status
+    delta_out=$(mktemp) && name_deps_out=$(mktemp) && edited_out=$(mktemp) \
+        && flag_delta_out=$(mktemp) && header_range_out=$(mktemp) || fail "temporary files for the push scope"
+    spawn_data "$delta_out" "delta_sources" python3 tools/delta_sources.py --range "$base" "$local_sha"
     # Units that call a name the range renames, removes or re-addresses (a row
     # or a pin) resolve their call sites through it: verify them too
     # (pre-commit's 3a; tools/name_dependents.py).
-    capture name_deps_out "listing the units that call a renamed or removed name" \
+    spawn_data "$name_deps_out" "listing the units that call a renamed or removed name" \
         python3 tools/name_dependents.py --range "$base" "$local_sha"
+    spawn_data "$edited_out" "listing the edited claimed sources" edited_sources "$base"
+    spawn_data "$flag_delta_out" "flag_delta_sources" python3 tools/flag_delta_sources.py --range "$base" "$local_sha"
+    # Sources a changed header or shim reaches (tools/header_dependents.py, as
+    # pre-commit's scoped header gate) are byte-verified with the rest, so the
+    # converged data check judges objects whose bytes are retail's. A change the
+    # include graph cannot bound (any non-zero exit) is judged below over every
+    # source's current object.
+    spawn_status "$header_range_out" python3 tools/header_dependents.py --range "$base" "$local_sha"
+    join_jobs
+    mapfile -t delta < "$delta_out"
     mapfile -t name_deps < "$name_deps_out"
-    rm -f "$name_deps_out"
-    stage "scope: name_dependents"
+    mapfile -t edited < "$edited_out"
+    mapfile -t flag_delta < "$flag_delta_out"
+    header_status=$(cat "$header_range_out.status" 2>/dev/null || echo 1)
+    rm -f "$delta_out" "$name_deps_out" "$edited_out" "$flag_delta_out" "$header_range_out.status"
+    header_range=()
+    header_all=0
+    if [ "$header_status" = 0 ]; then
+        # Only sources owning a matched function or data row: the build refuses a
+        # parked draft (no row) as "no functions match". Nothing listed, nothing to filter.
+        if [ -s "$header_range_out" ]; then
+            claimed_out=$(mktemp)
+            tr '\n' '\0' < "$header_range_out" \
+                | python3 tools/data_check.py --print-claimed --sources-from - > "$claimed_out" \
+                || { rm -f "$header_range_out" "$claimed_out"; fail "filtering header dependents to claimed sources (see above)"; }
+            mapfile -d '' -t header_range < "$claimed_out"
+            rm -f "$claimed_out"
+        fi
+    else
+        header_all=1
+    fi
+    rm -f "$header_range_out"
+    stage "scope (delta, name and header dependents, edited, flag delta)"
+}
 
-    # Sources the range EDITS while leaving their ledger rows alone are absent
-    # from that delta, so nothing byte-verifies them — yet one such edit can
-    # break every other row in the same translation unit. Disabling a body
-    # (#if 0, or just deleting it) removes the inlines and template
-    # instantiations only that body referenced, and sibling rows stop resolving
-    # with "symbol not found in object": one assignDefaultGadgetLook orphaned 67
-    # rows in GameWindowManager.cpp. pre-commit already byte-verifies every
-    # staged Code/*.cpp for exactly this reason; --no-verify skips pre-commit
-    # entirely, so the push gate has to repeat it.
-    capture edited_out "listing the edited claimed sources" python3 - "$base" "$local_sha" <<'PY'
+# edited_sources FROM: sources the range EDITS while leaving their ledger rows
+# alone are absent from the delta, so nothing byte-verifies them -- yet one such
+# edit can break every other row in the same translation unit. Disabling a body
+# (#if 0, or just deleting it) removes the inlines and template instantiations
+# only that body referenced, and sibling rows stop resolving with "symbol not
+# found in object": one assignDefaultGadgetLook orphaned 67 rows in
+# GameWindowManager.cpp. pre-commit already byte-verifies every staged Code/*.cpp
+# for exactly this reason; --no-verify skips pre-commit entirely, so the push
+# gate has to repeat it.
+edited_sources() {
+    python3 - "$1" "$local_sha" <<'PY'
 import csv, io, subprocess, sys
 base, rev = sys.argv[1], sys.argv[2]
 
@@ -112,36 +197,6 @@ sys.stdout.reconfigure(newline="\n")
 for path in sorted(set(touched) & claimed):
     print(path)
 PY
-    mapfile -t edited < "$edited_out"
-    rm -f "$edited_out"
-    stage "scope: edited sources"
-
-    capture flag_delta_out "flag_delta_sources" python3 tools/flag_delta_sources.py --range "$base" "$local_sha"
-    mapfile -t flag_delta < "$flag_delta_out"
-    rm -f "$flag_delta_out"
-    stage "scope: flag_delta_sources"
-
-    # Sources a changed header or shim reaches (tools/header_dependents.py, as
-    # pre-commit's scoped header gate) are byte-verified with the rest, so the
-    # converged data check judges objects whose bytes are retail's. A change the
-    # include graph cannot bound is judged below over every source's current object.
-    header_range=()
-    header_all=0
-    header_range_out=$(mktemp)
-    if python3 tools/header_dependents.py --range "$base" "$local_sha" > "$header_range_out"; then
-        # Only sources owning a matched function or data row: the build refuses a
-        # parked draft (no row) as "no functions match".
-        claimed_out=$(mktemp)
-        tr '\n' '\0' < "$header_range_out" \
-            | python3 tools/data_check.py --print-claimed --sources-from - > "$claimed_out" \
-            || { rm -f "$header_range_out" "$claimed_out"; fail "filtering header dependents to claimed sources (see above)"; }
-        mapfile -d '' -t header_range < "$claimed_out"
-        rm -f "$claimed_out"
-    else
-        header_all=1
-    fi
-    rm -f "$header_range_out"
-    stage "scope: header_dependents"
 }
 
 # collect_verify: the scope_from lists, deduplicated in order, into verify.
@@ -397,6 +452,63 @@ PY
     [ "$data_status" -eq 0 ] || fail "data identity: a second name for a converged data address (every source, see above)"
 }
 
+# The static checks pre-push runs concurrently that take more than one command.
+protected_paths_check() {
+    if git cat-file -e "$base:tools/protected_paths.py" 2>/dev/null; then
+        git show "$base:tools/protected_paths.py" | python3 - --range "$base" "$local_sha"
+    elif git cat-file -e "$local_sha:tools/protected_paths.py" 2>/dev/null; then
+        git show "$local_sha:tools/protected_paths.py" | python3 - --range "$base" "$local_sha"
+    fi
+}
+debt_registers_check() {
+    local changes debt_checker
+    changes=$(git diff --name-only "$base" "$local_sha" -- reverse/gate_baseline.txt \
+        reverse/data_check_baseline.txt reverse/code_identity_baseline.tsv reverse/header_queue.tsv) \
+        || fail "listing outgoing debt-register changes"
+    [ -n "$changes" ] || return 0
+    debt_checker=$(mktemp)
+    if git cat-file -e "$base:tools/repair_queue.py" 2>/dev/null; then
+        git show "$base:tools/repair_queue.py" > "$debt_checker"
+    else
+        git show "$local_sha:tools/repair_queue.py" > "$debt_checker" \
+            || { rm -f "$debt_checker"; fail "loading outgoing debt checker"; }
+    fi
+    # Bootstrap the range-aware check when the remote predates it. Thereafter
+    # the remote's copy judges its own replacement, like protected_paths above.
+    if ! grep -q 'def verify_debt_range(' "$debt_checker"; then
+        git show "$local_sha:tools/repair_queue.py" > "$debt_checker" \
+            || { rm -f "$debt_checker"; fail "loading range-aware debt checker"; }
+    fi
+    if grep -q 'def verify_debt_range(' "$debt_checker"; then
+        python3 - verify-removed --range "$base" "$local_sha" < "$debt_checker" \
+            || { rm -f "$debt_checker"; fail "retired debt has no passing outgoing verdict (see above)"; }
+        python3 - verify-missing --range "$base" "$local_sha" < "$debt_checker" \
+            || { rm -f "$debt_checker"; fail "disappearing outgoing debt has no accounting (see above)"; }
+    else
+        rm -f "$debt_checker"
+        fail "remote debt checker lacks outgoing-range verification; update the verifier first"
+    fi
+    rm -f "$debt_checker"
+}
+gate_baseline_check() {
+    if git cat-file -e "$base:tools/gate_baseline.py" 2>/dev/null; then
+        git show "$base:tools/gate_baseline.py" | python3 - --range "$base" "$local_sha"
+    fi
+}
+working_tree_binding() {
+    local range_files_out
+    local -a range_files
+    capture range_files_out "listing the files the push changes" git diff --name-only -z "$base" "$local_sha"
+    mapfile -d '' -t range_files < "$range_files_out"
+    rm -f "$range_files_out"
+    if [ "${#range_files[@]}" -ne 0 ]; then
+        printf '%s\0' "${range_files[@]}" | xargs -0 git diff --quiet "$local_sha" -- \
+            || fail "the working tree differs from $local_sha in files this push changes: commit or stash first"
+    fi
+    git diff --quiet "$local_sha" -- '*.h' '*.hpp' '*.hh' '*.hxx' '*.inl' '*.inc' reference/shims vendor/stlport-4.6 vendor/stlport-4.6-bfme tools/stlport_overlay.py \
+        || fail "a tracked header or shim differs from $local_sha in the working tree: commit or stash it first"
+}
+
 refs="$(cat || true)"
 
 ZERO=0000000000000000000000000000000000000000
@@ -416,17 +528,13 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     esac
     [ "$local_sha" = "$ZERO" ] && continue   # deleting a remote ref
     # The build below reads the working-tree ledgers: they must be the pushed commit's.
-    python3 tools/ledger_guard.py --commit "$local_sha" || fail "working-tree ledgers differ from $local_sha (see above)"
-    stage "ledger_guard"
+    spawn "working-tree ledgers differ from $local_sha" python3 tools/ledger_guard.py --commit "$local_sha"
     # Every gate below reads the ledgers by exact spelling: one tracked under
     # another case (Reverse/data_rows.csv) is served to the build by a
     # case-insensitive file system while those lookups miss it.
-    python3 tools/check_case_collisions.py --ref "$local_sha" \
-        || fail "case-only path collision, or a control path not in lowercase, in $local_sha (see above)"
-    stage "check_case_collisions"
-
-    python3 tools/check_csv.py --ref "$local_sha" || fail "ledger integrity at $local_sha (see above)"
-    stage "check_csv"
+    spawn "case-only path collision, or a control path not in lowercase, in $local_sha" \
+        python3 tools/check_case_collisions.py --ref "$local_sha"
+    spawn "ledger integrity at $local_sha" python3 tools/check_csv.py --ref "$local_sha"
 
     if [ "$remote_sha" != "$ZERO" ] && git cat-file -e "$remote_sha" 2>/dev/null; then
         base="$remote_sha"
@@ -434,6 +542,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         base="$(git merge-base "$local_sha" origin/master 2>/dev/null || true)"
     fi
     if [ -z "$base" ]; then
+        join_jobs
         echo "pre-push: no known remote base; static ledger check only" >&2
         continue
     fi
@@ -441,8 +550,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Empty commits: one parent, and that parent's tree. A seat re-landing work that is
     # already on master pushed 57 of them on 2026-10-08..12 (277bfd21a8 landed, then 14
     # empty copies of it); every gate below passes a commit that changes no file. One git log.
-    python3 tools/empty_commits.py --range "$base" "$local_sha" || fail "empty commit(s) in the outgoing range (see above)"
-    stage "empty_commits"
+    spawn "empty commit(s) in the outgoing range" python3 tools/empty_commits.py --range "$base" "$local_sha"
 
     # Direction gate over the OUTGOING range, same call verify_pr.sh makes on a
     # PR. pre-commit runs it too, but --no-verify and clones that never ran
@@ -450,89 +558,37 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # see a backward conversion: an __emit spray of retail bytes byte-matches BY
     # CONSTRUCTION. 89 lift commits reached origin through exactly this gap.
     # Runs before the build because it costs a second and the build costs minutes.
-    python3 tools/conversion_gate.py "$base" "$local_sha" || fail "conversion direction (see above)"
-    stage "conversion_gate"
+    spawn "conversion direction" python3 tools/conversion_gate.py "$base" "$local_sha"
 
     # Identity, for the same reason conversion_gate runs here: byte-verification
     # cannot see it. reverse/symbols.csv is an ADDITIVE candidate list, so a pin
     # naming the WRONG function still reproduces its caller's bytes and every
     # scoped build below stays green. Small pushes do not run the full gate, so
-    # they must run this identity check explicitly as well. 1.6s.
-    python3 tools/pin_consistency.py --check || fail "pin consistency (see above)"
-    python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha" \
-        || fail "pin_consistency_baseline.csv grew across the outgoing range (see above)"
-    stage "pin_consistency"
+    # they must run this identity check explicitly as well.
+    spawn "pin consistency" python3 tools/pin_consistency.py --check
+    spawn "pin_consistency_baseline.csv grew across the outgoing range" \
+        python3 tools/pin_consistency.py --assert-shrink-only "$base" --at "$local_sha"
     # Verifier code and baselines: every outgoing commit that changes one
     # carries a Verifier-Change trailer, and shrink-only lists do not grow.
     # Judged by the checker as of the remote tip, so an outgoing edit to the
     # checker cannot approve itself.
-    if git cat-file -e "$base:tools/protected_paths.py" 2>/dev/null; then
-        git show "$base:tools/protected_paths.py" | python3 - --range "$base" "$local_sha" \
-            || fail "protected verifier/baseline change in outgoing range (see above)"
-    elif git cat-file -e "$local_sha:tools/protected_paths.py" 2>/dev/null; then
-        git show "$local_sha:tools/protected_paths.py" | python3 - --range "$base" "$local_sha" \
-            || fail "protected verifier/baseline change in outgoing range (see above)"
-    fi
-    stage "protected_paths"
+    spawn "protected verifier/baseline change in outgoing range" protected_paths_check
     # Recheck retirement even when commit-time hooks were skipped. Use the remote
     # implementation when available, and judge outgoing blobs/messages, not the index.
-    capture debt_changes_out "listing outgoing debt-register changes" \
-        git diff --name-only "$base" "$local_sha" -- reverse/gate_baseline.txt \
-        reverse/data_check_baseline.txt reverse/code_identity_baseline.tsv reverse/header_queue.tsv
-    if [ -s "$debt_changes_out" ]; then
-        debt_checker=$(mktemp)
-        if git cat-file -e "$base:tools/repair_queue.py" 2>/dev/null; then
-            git show "$base:tools/repair_queue.py" > "$debt_checker"
-        else
-            git show "$local_sha:tools/repair_queue.py" > "$debt_checker" \
-                || { rm -f "$debt_checker"; fail "loading outgoing debt checker"; }
-        fi
-        # Bootstrap the range-aware check when the remote predates it. Thereafter
-        # the remote's copy judges its own replacement, like protected_paths above.
-        if ! grep -q 'def verify_debt_range(' "$debt_checker"; then
-            git show "$local_sha:tools/repair_queue.py" > "$debt_checker" \
-                || { rm -f "$debt_checker"; fail "loading range-aware debt checker"; }
-        fi
-        if grep -q 'def verify_debt_range(' "$debt_checker"; then
-            python3 - verify-removed --range "$base" "$local_sha" < "$debt_checker" \
-                || { rm -f "$debt_checker"; fail "retired debt has no passing outgoing verdict (see above)"; }
-            python3 - verify-missing --range "$base" "$local_sha" < "$debt_checker" \
-                || { rm -f "$debt_checker"; fail "disappearing outgoing debt has no accounting (see above)"; }
-        else
-            rm -f "$debt_checker"
-            fail "remote debt checker lacks outgoing-range verification; update the verifier first"
-        fi
-        rm -f "$debt_checker"
-    fi
-    rm -f "$debt_changes_out"
-    stage "debt registers"
-    python3 tools/pin_admission.py --range "$base" "$local_sha" \
-        || fail "pin/alias admission across the outgoing range (see above)"
-    stage "pin_admission"
-    if git cat-file -e "$base:tools/gate_baseline.py" 2>/dev/null; then
-        git show "$base:tools/gate_baseline.py" | python3 - --range "$base" "$local_sha" \
-            || fail "gate_baseline.txt grew across the outgoing range (see above)"
-    fi
-    stage "gate_baseline"
-
-    python3 tools/eh_verify.py --assert-shrink-range "$base" "$local_sha" \
-        || fail "eh_baseline.csv grew across the outgoing range (see above)"
-    stage "eh shrink-only"
-
+    spawn "outgoing debt-register changes" debt_registers_check
+    spawn "pin/alias admission across the outgoing range" \
+        python3 tools/pin_admission.py --range "$base" "$local_sha"
+    spawn "gate_baseline.txt grew across the outgoing range" gate_baseline_check
+    spawn "eh_baseline.csv grew across the outgoing range" \
+        python3 tools/eh_verify.py --assert-shrink-range "$base" "$local_sha"
     # The build below reads the working tree: bind it to the pushed commit for every
     # file the push changes and every tracked header or shim, so an edit left on
     # disk cannot stand in for what is pushed (the converged data check below reads
     # the same objects). An untracked file is not covered; see tools/data_check.py.
-    capture range_files_out "listing the files the push changes" git diff --name-only -z "$base" "$local_sha"
-    mapfile -d '' -t range_files < "$range_files_out"
-    rm -f "$range_files_out"
-    if [ "${#range_files[@]}" -ne 0 ]; then
-        printf '%s\0' "${range_files[@]}" | xargs -0 git diff --quiet "$local_sha" -- \
-            || fail "the working tree differs from $local_sha in files this push changes: commit or stash first"
-    fi
-    git diff --quiet "$local_sha" -- '*.h' '*.hpp' '*.hh' '*.hxx' '*.inl' '*.inc' reference/shims vendor/stlport-4.6 vendor/stlport-4.6-bfme tools/stlport_overlay.py \
-        || fail "a tracked header or shim differs from $local_sha in the working tree: commit or stash it first"
-    stage "working tree binding"
+    spawn "the working tree differs from $local_sha in files this push changes, or in a tracked header or shim: commit or stash first" \
+        working_tree_binding
+    join_jobs
+    stage "static checks (concurrent)"
 
     scope_from "$base"
     collect_verify
