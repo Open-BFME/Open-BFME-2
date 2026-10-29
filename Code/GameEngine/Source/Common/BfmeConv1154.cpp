@@ -1,4 +1,5 @@
 // cl: /Od /Ob1
+// stlport46
 // Open-BFME5 conversions.
 
 extern "C" void __cdecl bfmeCopy1154(char *d0, char *d1, const char *s0, const char *s1);
