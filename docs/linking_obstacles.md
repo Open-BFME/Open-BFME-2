@@ -7035,6 +7035,15 @@ Remaining / next check: planning remains U10/L2 and retreat remains U4/L1. Their
 
 Clearance: only the shared record binding is cleared in ordinary-preview scope; census confirmation pending. Neither assigned constructor now LINKS. Census confirmation: not claimed.
 
+Current retreat recheck (2026-10-29, base `593c57cc04`, index
+`85f6b7f40c`): the file is unfrozen and its current object still previews
+0 linked bytes, with unresolved `Rva0057702E::~Rva0057702E`,
+`Rva005776A7::~Rva005776A7`, `Rva005776A7Interface::r0`, and
+`Gen_uwm_00429191::s0`, plus a differing first-copy
+`Gen_uwm_00429191` vtable. The named retreat phase view declares only
+slots 0 through 18, so it does not yet supply the complete 26-slot contract
+needed for the constructor. No source change or census clearance is claimed.
+
 ### LINK-086: ArmyHeroIcon constructors and lifetime owners disagree on class and virtual signatures
 
 Status: Blocked on class and table reconciliation. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
