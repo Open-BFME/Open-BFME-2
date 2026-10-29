@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /Ireference/shims/bfme2_ascii /ICode/GameEngine/Source/Common /D_STLP_USE_STATIC_LIB
+// stlport
 // AIEconomyBuilder::update, native 004EA7FB..004EA93F (324B).
 // WB1382C30 identifies the update. Constructor4EAAF3 and destructor4EA3B8
 // establish its secondary receiver at+C. Native bytes establish pending
@@ -19,9 +20,11 @@ class Rva004E9378 { public: bool rva004E9378(); };
 class Rva00596F18 { public: void rva00596FF5(unsigned char); };
 class Bridge { public: void setBridgeObjectID(ObjectID); };
 class ModuleData;
+#include <vector>
 namespace _STL {
-template<class T> class allocator {};
-template<class T,class A=allocator<T> > class vector { public: T *erase(T *); void push_back(const T &); T *begin,*end,*capacity; };
+// Bind the element erase and the pointer append to their rowed workers.
+template <> void **vector<void *, allocator<void *> >::erase(void **pos);
+template <> void vector<const ModuleData *, allocator<const ModuleData *> >::push_back(const ModuleData *const &value);
 }
 class EconomyUpdateFarm {
 public:
@@ -35,8 +38,8 @@ class EconomyPrimaryBase { public: virtual void a0(); virtual void a1(); virtual
 class Rva00506B1B { public: virtual ~Rva00506B1B(); virtual void update(); virtual void reset(); bool flag; };
 class AIEconomyBuilder : public EconomyPrimaryBase, public Rva00506B1B { public: virtual void update(); bool needMoreFarms(int *); AsciiString getFarmTemplateName(); class Rva004EA4E5Farm *findAvailableFarm(); Rva002A9BF2 *player; unsigned farms,production; int lastFarm; _STL::vector<void *> pending; };
 void AIEconomyBuilder::update() {
- void **it=pending.begin;
- void **end=pending.end;
+ void **it=pending.begin();
+ void **end=pending.end();
  while(it!=end) {
   EconomyUpdateFarm *farm=static_cast<EconomyUpdateFarm *>(*it);
   if(reinterpret_cast<Rva004E9378 *>(farm)->rva004E9378()) {
@@ -44,7 +47,7 @@ void AIEconomyBuilder::update() {
    if(farm->state==2) ++farms;
    else if(farm->state==3) { lastFarm=-1; ++farm->workers; farm->claimed=false; }
    it=pending.erase(it);
-   end=pending.end;
+   end=pending.end();
   } else ++it;
  }
  int priority=0;

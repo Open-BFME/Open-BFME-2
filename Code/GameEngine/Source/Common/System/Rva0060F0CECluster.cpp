@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii
+// cl: /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // XferSaveAsText (text-dumping Xfer, vtable 0x00C7B388) stream-attach worker
 // at 0x0060F0CE, 43 bytes. Layout taken from BfmeRva00C7B388Xfer.cpp: +4 is
@@ -11,31 +12,14 @@
 
 class BfmeRva00C7B388Stream;
 
+#include <vector>
+#include <string>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-public:
-	allocator() {}
-};
-template <class T> class char_traits
-{
-};
-template <class C, class Tr, class A> class basic_string
-{
-public:
-	C *_M_start;
-};
-template <class T, class A> class vector
-{
-public:
-	T *begin() { return _M_start; }
-	T *end() { return _M_finish; }
-	T *erase(T *first, T *last);
-	T *_M_start;
-	T *_M_finish;
-	T *_M_end;
-};
+// Bind the range erase to the rowed 0x0007A7AA worker.
+typedef basic_string<char, char_traits<char>, allocator<char> > BfmeNarrowString;
+template <> BfmeNarrowString *vector<BfmeNarrowString, allocator<BfmeNarrowString> >::erase(BfmeNarrowString *first, BfmeNarrowString *last);
 }
 
 class XferSaveAsText

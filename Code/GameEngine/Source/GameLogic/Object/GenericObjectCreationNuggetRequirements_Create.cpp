@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // Split from GenericObjectCreationNuggetRequirements.cpp: these definitions reference a callee with no matched body yet,
 // so they are kept apart from the unit's bodies that already link.
 //
@@ -65,15 +66,11 @@ class Matrix3D;
 // reallyCreate's by-value result is the rowed STLport vector<Object*>
 // (0x001F1634's ledger name); its destructor is the 5-byte thunk at
 // 0x001F22A3. Declaration-only view of that template.
+#include <vector>
+
 namespace _STL {
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	~vector();
-private:
-	char m_data[12];
-};
+// Bind the by-value result's teardown to the rowed 0x001F22A3 thunk.
+template <> vector<Object *, allocator<Object *> >::~vector();
 }
 typedef _STL::vector<Object *, _STL::allocator<Object *> > NuggetCreated;
 

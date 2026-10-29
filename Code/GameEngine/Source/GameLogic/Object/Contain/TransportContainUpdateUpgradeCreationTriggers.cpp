@@ -1,4 +1,5 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /Ireference/shims/bfme2_ascii /ICode/Libraries/Include /ICode/GameEngine/Source /D_STLP_USE_STATIC_LIB
+// stlport
 // Target468045..46824A RET0,517B. WB115D5F0 names TransportContain::UpdateUpgradeCreationTriggers.
 // BF1 clean TransportContain createPayload and ZH TransportContain supply containment/factory semantics;
 // upgrade-trigger roster is target-specific, absent from those reference bodies.
@@ -7,7 +8,11 @@
 #include "ascii_string.h"
 #include "Common/GameLogicObjectLookupView.h"
 #include <string.h>
-namespace _STL {template<class T>class allocator{};template<class T,class A>class vector {public:T*begin;T*end;T*cap;T*erase(T*,T*);T*getBegin()const{return begin;}unsigned size()const{return (unsigned)(end-begin);} };}
+#include <vector>
+namespace _STL {
+// Bind the range erase to the rowed AsciiString-vector worker.
+template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString *first, AsciiString *last);
+}
 class Team;class UpgradeTemplate;class ThingTemplate;
 struct CreateMask{unsigned words[4];};
 enum ObjectID; class ThingFactory{public:const ThingTemplate*findTemplate(const AsciiString&);Object*newObject(const ThingTemplate*,Team*,const CreateMask*,ObjectID);};extern ThingFactory*TheThingFactory;
@@ -120,13 +125,13 @@ void TransportContain::UpdateUpgradeCreationTriggers()
  if(!contain)return;
  bool active=false;
  for(unsigned i=0;i<count;++i) {
-  if(((const StringBase<char>*)&list->getBegin()[i])->compare(*(const StringBase<char>*)&AsciiString::TheEmptyString)==0)continue;
-  BfmeStringRecord00466E64*record=(list->end ? (((Rva00467799*)this)->rva00467799(*(StringBase<char>*)&list->getBegin()[i])) : (((Rva00467799*)this)->rva00467799(*(StringBase<char>*)&list->getBegin()[i])));
+  if(((const StringBase<char>*)&list->begin()[i])->compare(*(const StringBase<char>*)&AsciiString::TheEmptyString)==0)continue;
+  BfmeStringRecord00466E64*record=(list->end() ? (((Rva00467799*)this)->rva00467799(*(StringBase<char>*)&list->begin()[i])) : (((Rva00467799*)this)->rva00467799(*(StringBase<char>*)&list->begin()[i])));
   if(!record)continue;
   active=true;
-  const UpgradeTemplate*upgrade=TheUpgradeCenter->findUpgrade(list->getBegin()[i]);
+  const UpgradeTemplate*upgrade=TheUpgradeCenter->findUpgrade(list->begin()[i]);
   if(!upgrade||!obj->hasUpgrade(upgrade))continue;
-  ((StringBase<char>*)&list->getBegin()[i])->clear();
+  ((StringBase<char>*)&list->begin()[i])->clear();
   const ThingTemplate*thingTemplate=TheThingFactory->findTemplate(record->object);
   if(!thingTemplate)continue;
   CreateMask mask;memset(&mask,0,16);
@@ -146,5 +151,5 @@ void TransportContain::UpdateUpgradeCreationTriggers()
    }else {TheGameLogic->destroyObject(created);break;}
   }
  }
- if(!active)list->erase(list->begin,list->end);
+ if(!active)list->erase(list->begin(),list->end());
 }
