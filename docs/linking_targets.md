@@ -92,6 +92,15 @@ and consumer-wide confirmation remain; the outgoing audit is inconclusive on
 the older index and missing CreateAHeroManager consumer receipt. No census gain
 is claimed. [Evidence](../reverse/attempt_support/emotion-tracker-base-header-20261029-codex.md).
 
+AIStates logging cleanup (2026-10-29, base `2ede5f876a`): adopting stdio.h
+preserves 8/8 rows, all external object facts and the 4,714-byte LINKS preview
+against index `85f6b7f40c`; one Microsoft-header queue finding retires. Strict
+preparation passes. The batch audit remains inconclusive on the older index
+and a missing current CreateAHeroManager consumer receipt. Carry the scope
+into the next scheduled census; no census gain is claimed.
+[Evidence](../reverse/attempt_support/aistates-stdio-20261029-codex3.md).
+
+
 EmotionTracker constructor follow-up (2026-10-29, base `025f81f0ca`, index
 `85f6b7f40c`): canonical ObjectModule adoption resolves the primary-vtable
 conflict, preserves all 11 constructor/destructor rows and both exact EH graphs,

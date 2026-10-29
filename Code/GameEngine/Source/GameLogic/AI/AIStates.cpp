@@ -1,4 +1,4 @@
-// cl: /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// cl: /ICode/GameEngine/Source/Common /ICode/Libraries/Include/Lib /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_CRTIMP=
 // stlport
 //
 // AIStates.cpp bodies of BFME 2's attack state machine that are not yet rowed
@@ -16,6 +16,9 @@
 #include "GameLogicObjectLookupView.h"
 #include "Coord3D.h"
 #include <vector>
+// Keep the retail direct call to the CRT fprintf thunk. /D_CRTIMP= avoids
+// changing it to an indirect IAT call when adopting the real FILE signature.
+#include <stdio.h>
 #include "Coord2D.h"
 #include "Common/Snapshot.h"
 #include "RTS/XYDistanceCallView.h"
@@ -74,13 +77,12 @@ class Weapon;
 
 extern unsigned char g_00E03745;
 extern "C" void *theLogicRandomLogFile;
-extern "C" int __cdecl fprintf(void *stream, const char *format, ...);
 
 static __forceinline void critterDesyncLog(const char *text)
 {
 	if (g_00E03745)
 	{
-		void *log = theLogicRandomLogFile;
+		FILE *log = static_cast<FILE *>(theLogicRandomLogFile);
 		if (log != 0)
 			fprintf(log, text);
 	}
@@ -769,7 +771,7 @@ static __forceinline Int gameLogicDebugLevel()
 
 static __forceinline void debugTrace(const char *text)
 {
-	void *log = theLogicRandomLogFile;
+	FILE *log = static_cast<FILE *>(theLogicRandomLogFile);
 	if (log != 0)
 		fprintf(log, text);
 }
@@ -1575,7 +1577,7 @@ StateReturnType AIFollowPathAsTeamState::update()
 		{
 			ai->setPathExtraDistance(0.0f);
 			if (g_00E03745 && theLogicRandomLogFile)
-				fprintf(theLogicRandomLogFile,
+				fprintf(static_cast<FILE *>(theLogicRandomLogFile),
 					"CritterDesync: setAdjustDestination(m_adjustFinal=%s && (m_adjustFinalOverride=%s || ai->isDoingGroundMovement()=%s) 48",
 					m_adjustFinal ? "TRUE" : "FALSE", m_adjustFinalOverride ? "TRUE" : "FALSE",
 					ai->isDoingGroundMovement() ? "TRUE" : "FALSE");
