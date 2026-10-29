@@ -1,5 +1,5 @@
 // cl: /O1 /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ??$__linear_insert@PAUVersionBlockEntry@@U1@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@0U1@VVersionBlockKeyCompare@@@Z @0x0042872D 122B
 // _STL::__linear_insert guarded insert over 0x18-byte version records.
 // Evidence: callees lessEntries 0x00427C2C row VersionBlockKeyCompare.cpp copy_backward AssignRecord24 0x004286FB row stlport_copy_backward_assign24.cpp prereq assign 0x0042816E row ThingFactory.cpp narrow copy 0x00427F75 row NarrowStringRecordCopyBFME2.cpp unguarded insert 0x004281DA row Rva004281DAInsert.cpp version dtor 0x00238580 row VersionDestructor.cpp; caller 0x0042880D; shape matches int precedent stlport_int_linear_insert.cpp with ObjectID-cast copy_backward selection and direct unguarded call.
