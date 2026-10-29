@@ -75,6 +75,18 @@ inline AODDtorElem24::~AODDtorElem24()
 {
 }
 #include "../../../Common/GameLogicObjectLookupView.h"
+#define BFME_MOVSX_BYTE_FIELD_GETTER(NAME, OFFSET) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[OFFSET]; \
+		signed char m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // bfme link decl-only BfmeE16
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
@@ -359,6 +371,10 @@ public:
 	void refreshTrackedLargeUnit();
 };
 
+BFME_MOVSX_BYTE_FIELD_GETTER(Rva0047A6ACMovsxByteField, 0x5F5)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainModuleDataCtor.cpp
 
 AODHordeContainModuleData::AODHordeContainModuleData()
@@ -394,8 +410,6 @@ void AODHordeContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 	parse.add(g_00C467D8, 0);
 }
 
-// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainSmoothSqrt.cpp
 
 // Rva0047A673, retail 0x0047A673..0x0047A699 (38 B, cdecl float(float), RET):
@@ -410,18 +424,6 @@ float Rva0047A673(float x)
 	float s = (float)sqrt((double)x);
 	return x * s + (x * x) * (1.0f - x);
 }
-
-// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A6AC 8B ?get@Rva0047A6ACMovsxByteField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A6B4 12B ?get@Rva0047A6B4DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A6C0 45B ??$_M_allocate_and_copy@PBUBfmePod24@@@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEPAUBfmePod24@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_allocate_copy.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainCtor.cpp
 
@@ -574,26 +576,6 @@ void AODHordeContain::rva0047A77E()
     HordeContain::rva00470DC1();
 }
 
-// tu-skeleton: 0x0047A724 5B ??1Rva0047A724@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDataFriendNew.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A875 12B ?get@Rva0047A875ImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0047A881 20B ?rva0047A881@Rva0047A881@@QAEPAURva0047A881Record@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0047AC8F 1563B ?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRva0047AC8F.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B2AA 81B ?refreshTrackedLargeUnit@AODHordeContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRefresh.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B2FB 99B ?xfer@AODHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B35E 125B ?dup_0047b35e@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportReserveRva0047B35E.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B518 6B ?Rva0047B518Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B51E 69B ?getModuleNameKey@AODHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0047B563 197B ??1AODHordeContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainTrackUpdate.cpp
 
 //
@@ -634,6 +616,53 @@ void Rva0047B628::rva0047B628(int a, void *b)
 	((AODHordeContain *)((char *)this - 0x11C))->refreshTrackedLargeUnit();
 	m_200 = TheGameLogic->getFrame();
 }
+
+// tu-skeleton: 0x0047A3CB 72B ?onContaining@AODHordeContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainOnContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69C 3B ?DoXfer@EmissionVelocityInfo@FXParticleSystem@@UAEXAAVXfer@@@Z -- matched in Code/GameEngine/Source/GameClient/System/FXParticleSystem/EmissionInfoCopyCtors.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A69F 5B ?j_0047a69f@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A6A4 5B ?ModuleFactoryHookAt0047A6A4@@YAXPAXH0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp
+
+// Sign-extending byte-field getters: eight-byte __thiscall members with one
+// shape:
+//
+//     movsx eax,byte ptr [ecx+<DISP>] / ret
+//
+// One byte is read at a fixed displacement from `this`, sign-extended into
+// eax and returned as an int. Members before the accessed one are spelled
+// as a lead array because their types are not witnessed here, only their
+// total size. Identity is not recovered: every name is derived from its
+// address. This is the disp32 sibling of the Disp8 movsx family (MSVC 7.1
+// uses disp8 whenever the offset fits, so every offset here is large).
+// No // cl: line (defaults match the frameless 8-byte shape).
+
+// tu-skeleton: 0x0047A6B4 12B ?get@Rva0047A6B4DivAvgField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DivAvgDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A6C0 45B ??$_M_allocate_and_copy@PBUBfmePod24@@@?$vector@UBfmePod24@@V?$allocator@UBfmePod24@@@_STL@@@_STL@@IAEPAUBfmePod24@@IPBU2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pod24_allocate_copy.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A724 5B ??1Rva0047A724@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDataFriendNew.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A875 12B ?get@Rva0047A875ImulAddField@@QBEHH@Z -- matched in Code/GameEngine/Source/Common/Disp8ImulAddDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0047A881 20B ?rva0047A881@Rva0047A881@@QAEPAURva0047A881Record@@H@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0047AC8F 1563B ?rva0047AC8F@AODHordeContain@@UAEPAUCoord3D@@PAU2@PAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRva0047AC8F.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B2AA 81B ?refreshTrackedLargeUnit@AODHordeContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainRefresh.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B2FB 99B ?xfer@AODHordeContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B35E 125B ?dup_0047b35e@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportReserveRva0047B35E.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B518 6B ?Rva0047B518Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B51E 69B ?getModuleNameKey@AODHordeContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0047B563 197B ??1AODHordeContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0047B674 28B ??_GAODHordeContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainDtor.cpp (not merged yet)
 

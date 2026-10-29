@@ -17459,7 +17459,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva0028A87BMovsxByteField@@QBEHXZ,,0x0028A87B,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; rowed neighbors both sides
 ?get@Rva0028A883MovsxByteField@@QBEHXZ,,0x0028A883,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; adjacent pair
 ?get@Rva0023C51AMovsxByteField@@QBEHXZ,,0x0023C51A,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; rowed neighbors both sides
-?get@Rva0047A6ACMovsxByteField@@QBEHXZ,,0x0047A6AC,8,Code/GameEngine/Source/Common/DispMovsxByteFieldGetters.cpp,matched,disp32 movsx byte getter; getter-cluster member
+?get@Rva0047A6ACMovsxByteField@@QBEHXZ,,0x0047A6AC,8,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContain.cpp,matched,disp32 movsx byte getter; getter-cluster member
 ?get@Rva0028A9B5ScaledIntField@@QBEMXZ,,0x0028A9B5,10,Code/GameEngine/Source/Common/DispScaledIntFloatGetters.cpp,matched,scaled-int float getter over 0.01; adjacent trio
 ?get@Rva0028A9BFScaledIntField@@QBEMXZ,,0x0028A9BF,10,Code/GameEngine/Source/Common/DispScaledIntFloatGetters.cpp,matched,scaled-int float getter over 0.01; adjacent trio
 ?get@Rva0028A9C9ScaledIntField@@QBEMXZ,,0x0028A9C9,10,Code/GameEngine/Source/Common/DispScaledIntFloatGetters.cpp,matched,scaled-int float getter over 0.01; adjacent trio
