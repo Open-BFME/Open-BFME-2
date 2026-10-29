@@ -7,8 +7,10 @@
 // Strings and flow are read from the retail bytes; the console object is the
 // ledger's global at 0x00DE0880 (virtual slot 38 reads a line).
 
-extern "C" int __cdecl strcmp(const char *a, const char *b);
-extern "C" __declspec(dllimport) int __cdecl strncmp(const char *a, const char *b, unsigned int n);
+// The x86 header keeps strcmp direct while importing strncmp, as retail does.
+#define _CRTIMP __declspec(dllimport)
+#include <string.h>
+#undef _CRTIMP
 
 struct LuaAr
 {

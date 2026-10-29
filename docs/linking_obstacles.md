@@ -98,6 +98,22 @@ the next normal census; no census-linked-byte gain is claimed.
 The outgoing audit is INCONCLUSIVE: its index predates the base and affected
 consumer `Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt.
 [Evidence and rejected alternatives](../reverse/attempt_support/gettingbuilt-list-identity-20261029-codex3.md).
+### Lua debugger CRT declarations (2026-10-29, codexb4)
+
+Rva00333BCALog.cpp and Rva00333CD1Console.cpp now use the toolchain's
+stdio.h/string.h with a local dllimport configuration preserving retail's
+imported sprintf/strncmp and direct strcmp. Two Microsoft-header queue rows
+retire; both complete function rows, 21 literals and six imports verify.
+All 23 COMDAT digests/sizes and 35 external symbol records are unchanged.
+Strict current preparation passes and ordinary preview retains LINKS,
+630 -> 630 authored bytes against index 85f6b7f40c (2026-10-29 15:08).
+
+The staged-tree audit is INCONCLUSIVE: the index predates base 4b3df77c0e
+and affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a current
+receipt. Carry both providers and that consumer into the next scheduled
+census. The selected five-source TU-evidence run still needs an independent
+anchor; no placement, source-file reduction or census gain is claimed.
+[Checks and evidence boundary](../reverse/attempt_support/lua-debug-crt-and-tu-evidence-20261029-codexb4.md).
 
 Header-task classification follow-up (2026-10-29, control `54f489336`):
 the auditor discarded throw specifications and offered unsafe drop-in header

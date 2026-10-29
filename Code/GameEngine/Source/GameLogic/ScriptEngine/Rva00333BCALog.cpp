@@ -1,6 +1,9 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc
 // ?Rva00333BCALog@@YAXPAXPAULuaAr@@@Z @0x00333BCA 263B: lua traceback line printer via rowed lua_getinfo 0x0074D330 plus sprintf IAT plus rowed bfmeLogMsg574 0x00333B36. Evidence: Snl query namewhat/what/short_src/currentline strings callers 0x00333D80 0x003345AA unblocks 0x00333CD1 0x00334587 donor liolib_bfme1.c errorfb.
-extern "C" __declspec(dllimport) int __cdecl sprintf(char *buf, const char *fmt, ...);
+// Retail calls sprintf through the IAT without opting this TU into /MD.
+#define _CRTIMP __declspec(dllimport)
+#include <stdio.h>
+#undef _CRTIMP
 extern "C" int __cdecl lua_getinfo(void *L, const char *what, void *ar);
 void __cdecl bfmeLogMsg574(const char *msg);
 

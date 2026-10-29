@@ -482,7 +482,6 @@ Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestApproach
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestMeleeApproachPath.cpp	conflicting	abi	2	0	0	0	0	0	1	1	0	0	0	<stdio.h>,<Iads.h>	yes	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	fprintf:abi
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdateInterface_requestSafePath.cpp	conflicting	abi	2	0	0	0	0	0	1	1	0	0	0	<stdio.h>,<Iads.h>	yes	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	fprintf:abi
 Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderCheckChangeLayers.cpp	conflicting	abi	2	1	0	0	0	0	1	0	0	1	0	<math.h>,<stdio.h>	no	yes	hand		do not blanket-replace: verify the callee per body (sampled free callers call the game allocator wrapper at VA 0x430830, not CRT free's IAT entry 0xBBA6E8)	fprintf:abi,floor:same
-Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333CD1Console.cpp	conflicting	abi	2	1	0	0	0	0	1	0	0	0	0	<string.h>	no	no	hand			strncmp:abi,strcmp:same
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp	conflicting	abi	2	0	0	0	0	0	1	1	0	0	0	<adoint.h>,<math.h>	yes	yes	hand			ceil:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appGate.cpp	conflicting	abi	2	0	0	0	0	0	2	0	0	0	0	<windows.h>	yes	no	hand			HMODULE:abi,GetProcAddress:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_rva002047CF.cpp	conflicting	abi	2	0	0	0	0	0	2	0	0	0	0	<windows.h>	yes	no	hand			HMODULE:abi,GetProcAddress:abi
@@ -722,7 +721,6 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeAsciiString.c
 Code/GameEngine/Source/GameLogic/ScriptEngine/DataChunkOutput_writeUnicodeString.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdio.h>	no	no	hand			fwrite:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ParameterReadParameter.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	1	0	<fltdefs.h>	yes	yes	hand			ERROR_BASE:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00206706Clear.cpp	conflicting	mangle	1	0	0	0	0	1	0	0	0	0	0	<stdlib.h>	no	no	hand			free:mangle
-Code/GameEngine/Source/GameLogic/ScriptEngine/Rva00333BCALog.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<stdio.h>	no	no	hand			sprintf:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_doTeamPartialUseCommandButton.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<math.h>	no	yes	hand			ceil:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleExceptionCopies.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<exception>	no	yes	hand			exception:abi
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_DllHandleLoadFailure.cpp	conflicting	abi	1	0	0	0	0	0	1	0	0	0	0	<exception>	no	yes	hand			exception:abi
