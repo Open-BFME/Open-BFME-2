@@ -8848,6 +8848,15 @@ is wrong. The repair is the same as for this entry's movers: make the first
 definer's copy retail's or stop it emitting the copy. Charged names are the
 census index's for the retail-truth-5 row (first name shown; … = more):
 
+**2026-10-29 `vector<AsciiString>` copy ctor cleared (ordinary preview, census
+index `840db2d676`, inspected `5325e2b3bd`):** 9554d91a12 made
+CreateAHeroDataCopy.cpp call the rowed retail copy constructor (0x000BC07E), so
+the first definer no longer emits a wrong copy. `link_check.py` on
+CreateAHeroDataCopy.cpp plus the 24 table units below that still exist under
+their names (BfmeObject476Copy … Rva00403927Assign): 25 of 25 link,
+0 -> 17,728 B. Census confirmation: awaiting. The other rows of this table are
+untouched by this note.
+
 | Unit | Census bytes | Charged COMDAT |
 | --- | ---: | --- |
 | `GameLogic/AI/AIPlayerTeamBuild.cpp` | 9,120 | comdat_losers 2: `?_M_create_node@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVTeamPrototype@@@2@ABQAVTeamPrototype@@@Z` … |
