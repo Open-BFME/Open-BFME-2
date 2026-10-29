@@ -103,7 +103,9 @@ class Rva005A6D47
 {
 public:
 	virtual ~Rva005A6D47();
-	char m_pad04[0x2C - 4];
+	unsigned char m_pad04[0x28 - 4];
+	unsigned char m_28; // +0x28
+	unsigned char m_pad29[0x2C - 0x29];
 	Rva005A0B4CList m_listeners; // +0x2C
 };
 // Bind the existing NAT datum; retain this unit's access view at use sites.
@@ -120,6 +122,9 @@ public:
 	virtual ~Rva0059EB41() {}
 };
 
+class PortNegotiationSchema;
+struct Elem005DB98E;
+
 class AptConnectionScreen : public Rva005248D0, public Rva0059EB41
 {
 public:
@@ -128,6 +133,12 @@ public:
 	void RedrawGrid(const char *unused);
 	void OnRetryConnections(const char *unused);
 	void rva005DB630();
+
+	// Rowed 0x005DB3B3 refreshes one player's name and number.
+	void UpdateSlotName(int player);
+	void UpdateGrid(PortNegotiationSchema *schema, int row, int column);
+	static int GetPingImageEnum(Elem005DB98E *ping);
+
 private:
 	void *m_level; // +0x5C
 };
