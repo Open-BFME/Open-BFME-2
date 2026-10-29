@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc
+// stlport
 //
 // ??1CrateTemplate@@MAE@XZ, retail 0x0035CCCA (89B), and
 // ??_GCrateTemplate@@MAEPAXI@Z, retail 0x0035CF10 (28B): CrateTemplate's
@@ -17,22 +18,16 @@
 // AsciiString emits calls mangled exactly like the ModuleFactory-owned
 // _List_base<AsciiString> clear/dtor rows, resolving to them with no pins
 // and no local emission beyond the implicit list dtor itself).
-namespace _STL {
-template <class T> class allocator {};
-template <class T, class A = allocator<T> > class _List_base
-{
-public:
-	void *_M_nodeNext;
-	void *_M_nodePrev;
-	void clear();
-	~_List_base();
-};
-template <class T, class A = allocator<T> > class list : public _List_base<T, A>
-{
-};
-}
+#include <list>
 
 class AsciiString;
+
+namespace _STL {
+// The real STLport list replaces the private replica; both the clear and the
+// teardown stay declarations bound to the ModuleFactory-owned rows.
+template <> _List_base<AsciiString, allocator<AsciiString> >::~_List_base();
+template <> void _List_base<AsciiString, allocator<AsciiString> >::clear();
+}
 
 // Fold-shared AsciiString member teardown (never defined; resolves through
 // the symbols.csv pin at 0x36410 like the Bucket/ FoldDeleters bodies).

@@ -1,6 +1,11 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc
+// cl: /O1 /G7 /arch:SSE /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 #include <new>
-namespace _STL { template<class T> class allocator {}; template<class T,class A=allocator<T> > class vector { public: T *erase(T *,T *); T *begin,*end,*capacity; }; }
+#include <vector>
+namespace _STL {
+// Bind the range erase to the rowed void-pointer worker.
+template <> void **vector<void *, allocator<void *> >::erase(void **first, void **last);
+}
 class EconomyFarmDestroyView { public: virtual void *destroy(int); };
 class Player;
 class CreateAHeroData;

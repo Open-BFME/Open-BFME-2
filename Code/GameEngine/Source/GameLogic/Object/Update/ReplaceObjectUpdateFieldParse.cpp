@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /GX /DNDEBUG /MD
+// stlport
 // platformsdk
 //
 // Object-record FieldParse procs (names address-derived):
@@ -90,11 +91,10 @@ const FieldParse g_00C56D20[] =
 	{ 0, 0, 0, 0 }
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<LivingWorldRegionConnection, allocator<LivingWorldRegionConnection> >
 {
