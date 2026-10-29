@@ -555,6 +555,13 @@ Completed:
   `erase(first, last)` keeps digest 45b9ab4d4135. The unit itself still does not link
   (unchanged: its `registerTabList` COMDAT names the `list` assignment row 0x0046F0C2
   where retail calls 0x002C54EE; see the 2026-10-26 split-name recheck).
+  Follow-up (2026-10-29, base 38dbdee4d7): declaring the single-node insert
+  specialization suppresses this unit's conflicting copy in favor of the rowed
+  0x005925E2 provider in GameWindowManagerScript.cpp. All four rows remain exact;
+  preview against census index 85f6b7f40c removes the insert COMDAT finding but
+  still reports the assignment-driven registerTabList mismatch (0 linked bytes).
+  Resolve the 0x0046F0C2 family identity before claiming link clearance; consumer
+  selection and census confirmation remain pending.
 - `AIUpdate.cpp` (halilkkaya-lk6): every use of the locomotor tree's node
   `allocator::allocate` is inlined (the out-of-line /G7 copy, 31a17b736d02, had only its
   own FPO reference); an import-inline (`__declspec(dllimport) __forceinline`)

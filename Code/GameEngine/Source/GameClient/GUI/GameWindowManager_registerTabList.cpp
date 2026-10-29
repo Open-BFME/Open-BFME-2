@@ -21,6 +21,8 @@ typedef _STL::list<GameWindow *> GameWindowList;
 // copy of it is not retail's, which GameWindowManagerScript.cpp supplies.
 namespace _STL {
 template <> GameWindowList::iterator GameWindowList::erase(GameWindowList::iterator);
+// The rowed insertion at 0x005925E2 is emitted by GameWindowManagerScript.cpp.
+template <> GameWindowList::iterator GameWindowList::insert(GameWindowList::iterator, GameWindow *const &);
 }
 
 class GameWindowManager
