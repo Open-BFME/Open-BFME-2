@@ -15,7 +15,7 @@
 
 class MultiIniFieldParse;
 
-struct FieldParse;
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
 
 class MultiIniFieldParse
 {
@@ -26,7 +26,7 @@ public:
 extern const int CrateCollideTable[];
 extern const int AODCrushCollideTable[];
 extern const int s_moneyCrateFieldTable[];
-extern const int s_veterancyCrateFieldTable[];
+extern const FieldParse s_veterancyCrateFieldTable[];
 
 #define FIELD_PROC(cls, field) \
 class cls \

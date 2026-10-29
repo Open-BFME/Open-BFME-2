@@ -14,6 +14,22 @@
 // (address-derived names, identity unrecoverable from 6 bytes).
 // No // cl: line (defaults match the frameless 6-byte shape).
 
+typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
+struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+
+// Parser procs the tables below name; each is a rowed code owner.
+extern "C" {
+void __identifier("?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z")();
+void __identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z")();
+}
+
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva005088C8@@SAPAXXZ=?Rva005088C8Get@@YAHXZ")
@@ -399,12 +415,12 @@ extern const int s_moneyCrateFieldTable[8] = {
 };
 
 // Retail VA 0x00befb60: 4 entries + terminator (80B).
-extern const int s_veterancyCrateFieldTable[20] = {
-    0x00BEFB54, 0x0042EF72, 0x00000000, 0x0000005C,
-    0x00BEFB40, 0x0042E850, 0x00000000, 0x00000060,
-    0x00BEFB38, 0x0042E850, 0x00000000, 0x00000061,
-    0x00BEFB24, 0x0042EF56, 0x00000000, 0x00000064,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_veterancyCrateFieldTable[5] = {
+    { "EffectRange", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x5C },
+    { "AddsOwnerVeterancy", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x60 },
+    { "IsPilot", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x61 },
+    { "AffectsUpToLevel", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00bf9378: 19 entries + terminator (320B).
@@ -812,98 +828,96 @@ extern const char s_geometryTypeString[] = "GeometryType";
 
 // LK2 round 2: FieldParse tables already named by their user TUs (kept here
 // in the debt absorber so the users link). Exact retail bytes.
-struct FieldParse { unsigned d[4]; };
-
 // Retail VA 0x00bc16e8: 74 entries (1200B).
 extern const FieldParse g_00BC16E8[75] = {
-    {0x00BC2414, 0x0042E850, 0x00000000, 0x00000054},
-    {0x00BC240C, 0x0042E850, 0x00000000, 0x00000055},
-    {0x00BC2400, 0x0042EF56, 0x00000000, 0x00000058},
-    {0x00BC23F4, 0x0042EF56, 0x00000000, 0x0000005C},
-    {0x00BC23E4, 0x0042EF56, 0x00000000, 0x00000060},
-    {0x00BC23D4, 0x0042EF56, 0x00000000, 0x00000064},
-    {0x00BC23C4, 0x0042EF56, 0x00000000, 0x00000068},
-    {0x00BC23B8, 0x0042EF56, 0x00000000, 0x0000006C},
-    {0x00BC23A8, 0x0042EF72, 0x00000000, 0x00000084},
-    {0x00BC238C, 0x0042EF72, 0x00000000, 0x00000088},
-    {0x00BC2378, 0x0042EF72, 0x00000000, 0x0000008C},
-    {0x00BC2350, 0x0042EF72, 0x00000000, 0x00000090},
-    {0x00BC2334, 0x0042EF56, 0x00000000, 0x00000094},
-    {0x00BC2314, 0x0042EF56, 0x00000000, 0x00000098},
-    {0x00BC22FC, 0x0042EF56, 0x00000000, 0x0000009C},
-    {0x00BC22DC, 0x0042F3FE, 0x00000000, 0x000000A0},
-    {0x00BC22C0, 0x0042F3FE, 0x00000000, 0x000000A4},
-    {0x00BC22A8, 0x0042EF56, 0x00000000, 0x000000A8},
-    {0x00BC228C, 0x0042EF56, 0x00000000, 0x000000AC},
-    {0x00BC2278, 0x0042E850, 0x00000000, 0x000000BC},
-    {0x00BC2268, 0x0042F1BA, 0x00000000, 0x000000C0},
-    {0x00BC223C, 0x0042EF56, 0x00000000, 0x000000B4},
-    {0x00BC222C, 0x0042F1BA, 0x00000000, 0x000000B8},
-    {0x00BC220C, 0x0042EFC0, 0x00000000, 0x000000B0},
-    {0x00BC21FC, 0x0042EF56, 0x00000000, 0x00000070},
-    {0x00BC21EC, 0x0042EF56, 0x00000000, 0x00000074},
-    {0x00BC21DC, 0x0042EF56, 0x00000000, 0x00000078},
-    {0x00BC21BC, 0x0042EF56, 0x00000000, 0x0000007C},
-    {0x00BC21A4, 0x0042EF72, 0x00000000, 0x00000080},
-    {0x00BC2180, 0x0042F1BA, 0x00000000, 0x000000C8},
-    {0x00BC2164, 0x0042F1BA, 0x00000000, 0x000000CC},
-    {0x00BC2144, 0x0042F1BA, 0x00000000, 0x000000D0},
-    {0x00BC2120, 0x0042F1BA, 0x00000000, 0x000000D4},
-    {0x00BC2100, 0x0042F1BA, 0x00000000, 0x000000D8},
-    {0x00BC20DC, 0x0042F1BA, 0x00000000, 0x000000DC},
-    {0x00BC20B8, 0x0042F1BA, 0x00000000, 0x000000E0},
-    {0x00BC209C, 0x0042F1BA, 0x00000000, 0x000000E4},
-    {0x00BC2080, 0x0042F1BA, 0x00000000, 0x000000E8},
-    {0x00BC2060, 0x0042F1BA, 0x00000000, 0x000000EC},
-    {0x00BC2038, 0x0042F1BA, 0x00000000, 0x000000F0},
-    {0x00BC2018, 0x0042F1BA, 0x00000000, 0x000000F4},
-    {0x00BC1FF4, 0x0042F1BA, 0x00000000, 0x000000F8},
-    {0x00BC1FD8, 0x0042F1BA, 0x00000000, 0x000000FC},
-    {0x00BC1FB8, 0x0042F1BA, 0x00000000, 0x00000100},
-    {0x00BC1F9C, 0x0042F1BA, 0x00000000, 0x00000104},
-    {0x00BC1F7C, 0x0042F1BA, 0x00000000, 0x00000108},
-    {0x00BC1F5C, 0x0042F1BA, 0x00000000, 0x0000010C},
-    {0x00BC1F40, 0x0042F1BA, 0x00000000, 0x00000110},
-    {0x00BC1F1C, 0x0042F1BA, 0x00000000, 0x00000114},
-    {0x00BC1EFC, 0x0042F1BA, 0x00000000, 0x00000118},
-    {0x00BC1ED8, 0x0042F1BA, 0x00000000, 0x0000011C},
-    {0x00BC1EB8, 0x0042F1BA, 0x00000000, 0x00000120},
-    {0x00BC1E9C, 0x0042F1BA, 0x00000000, 0x00000124},
-    {0x00BC1E7C, 0x0042F1BA, 0x00000000, 0x00000128},
-    {0x00BC1E50, 0x0042F1BA, 0x00000000, 0x0000012C},
-    {0x00BC1E20, 0x0042F1BA, 0x00000000, 0x00000144},
-    {0x00BC1E00, 0x0042EFC0, 0x00000000, 0x00000134},
-    {0x00BC1DE0, 0x0042EFC0, 0x00000000, 0x0000013C},
-    {0x00BC1DD0, 0x0042EFC0, 0x00000000, 0x00000148},
-    {0x00BC1DC0, 0x0042EFC0, 0x00000000, 0x00000150},
-    {0x00BC1DA0, 0x0042F1BA, 0x00000000, 0x00000158},
-    {0x00BC1D80, 0x0042EFC0, 0x00000000, 0x0000015C},
-    {0x00BC1D60, 0x0042EFC0, 0x00000000, 0x00000164},
-    {0x00BC1D40, 0x0042EFC0, 0x00000000, 0x0000016C},
-    {0x00BC1D08, 0x0042F1BA, 0x00000000, 0x00000174},
-    {0x00BC1CDC, 0x0042EFC0, 0x00000000, 0x0000017C},
-    {0x00BC1CB0, 0x0042EFC0, 0x00000000, 0x00000184},
-    {0x00BC1C94, 0x0042EFC0, 0x00000000, 0x00000190},
-    {0x00BC1C78, 0x0042EFC0, 0x00000000, 0x00000198},
-    {0x00BC1C3C, 0x0042F1BA, 0x00000000, 0x0000018C},
-    {0x00BC1C10, 0x0042F1BA, 0x00000000, 0x000001A0},
-    {0x00BC1BE8, 0x0042EFC0, 0x00000000, 0x000001A4},
-    {0x00BC1BC0, 0x0042EFC0, 0x00000000, 0x000001AC},
-    {0x00BC1B98, 0x0042EFC0, 0x00000000, 0x000001B4},
-    {0x00000000, 0x00000000, 0x00000000, 0x00000000},
+    { "UseDigital", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x54 },
+    { "UseMidi", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x55 },
+    { "OutputRate", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x58 },
+    { "OutputBits", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x5C },
+    { "OutputChannels", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x60 },
+    { "SampleCount2D", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "SampleCount3D", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { "StreamCount", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
+    { "MixaheadLatency", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x84 },
+    { "MixaheadLatencyDuringMovies", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x88 },
+    { "LoopBufferLengthMS", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8C },
+    { "LoopBufferCallbackCallsPerBufferLength", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x90 },
+    { "AutomaticSubtitleDurationMS", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x94 },
+    { "AutomaticSubtitleWindowWidth", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x98 },
+    { "AutomaticSubtitleLines", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x9C },
+    { "AutomaticSubtitleWindowColor", (FieldParseProc)&__identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xA0 },
+    { "AutomaticSubtitleTextColor", (FieldParseProc)&__identifier("?parseColorInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xA4 },
+    { "ForceResetTimeSeconds", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xA8 },
+    { "EmergencyResetTimeSeconds", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xAC },
+    { "SuppressOcclusion", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xBC },
+    { "MinOcclusion", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC0 },
+    { "MillisecondsPriorToPlayingToReadSoundFile", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xB4 },
+    { "MinSampleVolume", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xB8 },
+    { "PositionDeltaForReverbRecheck", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xB0 },
+    { "GlobalMinRange", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x70 },
+    { "GlobalMaxRange", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x74 },
+    { "TimeToFadeAudio", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x78 },
+    { "AmbientStreamHysteresisVolume", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x7C },
+    { "AudioFootprintInBytes", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x80 },
+    { "GlobalPaddedCellReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC8 },
+    { "GlobalRoomReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xCC },
+    { "GlobalBathroomReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xD0 },
+    { "GlobalLivingRoomReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xD4 },
+    { "GlobalStoneRoomReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xD8 },
+    { "GlobalAuditoriumReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xDC },
+    { "GlobalConcertHallReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xE0 },
+    { "GlobalCaveReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xE4 },
+    { "GlobalArenaReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xE8 },
+    { "GlobalHangarReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xEC },
+    { "GlobalCarpetedHallwayReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF0 },
+    { "GlobalHallwayReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF4 },
+    { "GlobalStoneCorridorReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xF8 },
+    { "GlobalAlleyReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xFC },
+    { "GlobalForestReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x100 },
+    { "GlobalCityReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x104 },
+    { "GlobalMountainsReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x108 },
+    { "GlobalQuarryReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x10C },
+    { "GlobalPlainReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x110 },
+    { "GlobalParkingLotReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x114 },
+    { "GlobalSewerPipeReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x118 },
+    { "GlobalUnderwaterReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x11C },
+    { "GlobalDruggedReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x120 },
+    { "GlobalDizzyReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x124 },
+    { "GlobalPsychoticReverbMultiplier", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x128 },
+    { "MicrophonePreferredFractionCameraToGround", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x12C },
+    { "MicrophonePullTowardsTerrainLookAtPointPercent", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x144 },
+    { "MicrophoneMinDistanceToCamera", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x134 },
+    { "MicrophoneMaxDistanceToCamera", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x13C },
+    { "ZoomMinDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x148 },
+    { "ZoomMaxDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x150 },
+    { "ZoomSoundVolumePercentageAmount", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x158 },
+    { "ZoomFadeDistanceForMaxEffect", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x15C },
+    { "ZoomFadeZeroEffectEdgeLength", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x164 },
+    { "ZoomFadeFullEffectEdgeLength", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x16C },
+    { "LivingWorldMicrophonePreferredFractionCameraToGround", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x174 },
+    { "LivingWorldMicrophoneMinDistanceToCamera", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x17C },
+    { "LivingWorldMicrophoneMaxDistanceToCamera", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x184 },
+    { "LivingWorldZoomMinDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x190 },
+    { "LivingWorldZoomMaxDistance", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x198 },
+    { "LivingWorldMicrophonePullTowardsTerrainLookAtPointPercent", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x18C },
+    { "LivingWorldZoomSoundVolumePercentageAmount", (FieldParseProc)&__identifier("?parsePercentToReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A0 },
+    { "LivingWorldZoomFadeDistanceForMaxEffect", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1A4 },
+    { "LivingWorldZoomFadeZeroEffectEdgeLength", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1AC },
+    { "LivingWorldZoomFadeFullEffectEdgeLength", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x1B4 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c61c68: 3 entries (64B).
 extern const FieldParse g_00C61C68[4] = {
-    {0x00C618F8, 0x0042F0F7, 0x00000000, 0x00000004},
-    {0x00BDC1C0, 0x00739900, 0x00000000, 0x00000008},
-    {0x00C618D0, 0x0042E850, 0x00000000, 0x0000000C},
-    {0x00000000, 0x00000000, 0x00000000, 0x00000000},
+    { "DelayFromActStart", (FieldParseProc)&__identifier("?dup_002F0F7@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+    { "Sound", (FieldParseProc)&__identifier("?parseAudioEventRTS@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x8 },
+    { "SummaryEvent", (FieldParseProc)&__identifier("?parseBool@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0xC },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x007FD7C0: Side/Unit plus no terminator (string data follows);
 // 32B exact. Named by Rva002A92F2Parse.cpp.
 extern const FieldParse AIDozerAssignmentFields[2] = {
-    {0x00BDC1C8, 0x0042F11E, 0x00000000, 0x00000000},
-    {0x00BFD7B8, 0x0042F11E, 0x00000000, 0x00000004},
+    { "Side", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x0 },
+    { "Unit", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
 };
