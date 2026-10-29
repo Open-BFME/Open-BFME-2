@@ -1,4 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc
+// stlport46
 // ?rva0010F873@AsyncServiceQueue@@QAE?AU?$_List_iterator@URva0073EEE0ListValue@@U?$_Nonconst_traits@URva0073EEE0ListValue@@@_STL@@@_STL@@VAudioEventInfoRef@@@Z
 // @0x0010F873 93B
 //
