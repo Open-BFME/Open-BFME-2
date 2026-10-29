@@ -45221,44 +45221,44 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005440BC,11,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/Common/AIDockMachine.cpp,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp
 0x005440C7,6,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x005440BC..0x005440CD,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 0x005440CD,41,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x005440BC..0x005440F6,Code/GameEngine/Source/Common/Rva005440BCVSlot5440CD.cpp
-0x005440F6,61,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/Common/AIDockMachine.cpp,Code/GameEngine/Source/Common/AIDockMachine_ableToAdvance.cpp
-0x00544133,124,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x005440F6..0x005441AF,Code/GameEngine/Source/Common/Rva005447EDOnEnter.cpp
-0x005441AF,91,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockApproachState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x0054420A,14,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x00544218,115,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x0054428B,65,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x005442CC,124,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x0054428B..0x00544348,Code/GameEngine/Source/GameLogic/AI/Rva005442CCOnEnter.cpp
-0x00544348,28,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockApproachState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x00544364,137,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005443ED,Code/GameEngine/Source/Common/Rva00544364OnEnter.cpp
-0x005443ED,56,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544425,Code/GameEngine/Source/Common/Rva00544364OnEnter.cpp
-0x00544425,91,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544480,Code/GameEngine/Source/Common/Rva00544364OnEnter.cpp
-0x00544480,170,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x0054452A,Code/GameEngine/Source/Common/Rva0054484AOnEnter.cpp
-0x0054452A,72,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544572,Code/GameEngine/Source/Common/Rva0054452AFinish.cpp
-0x00544572,98,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005445D4,Code/GameEngine/Source/Common/Rva0054484AOnExit.cpp
-0x005445D4,37,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005445F9,Code/GameEngine/Source/Common/Rva005445D4Ctor.cpp
+0x005440F6,61,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/Common/AIDockMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544133,124,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x005440F6..0x005441AF,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005441AF,91,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockApproachState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054420A,14,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544218,115,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054428B,65,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockWaitForClearanceState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005442CC,124,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x0054428B..0x00544348,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544348,28,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockApproachState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544364,137,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005443ED,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005443ED,56,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544425,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544425,91,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544480,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544480,170,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x0054452A,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054452A,72,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x00544572,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544572,98,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005445D4,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005445D4,37,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005445F9,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
 0x005445F9,6,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544348..0x005445FF,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x005445FF,71,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x00544646,42,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x00544670,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x0054467A,141,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544707,Code/GameEngine/Source/Common/Rva0054467AFinish.cpp
-0x00544707,56,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054473F,Code/GameEngine/Source/Common/Rva0054467AFinish.cpp
-0x0054473F,61,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054477C,Code/GameEngine/Source/Common/Rva0054467AFinish.cpp
-0x0054477C,113,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x005447ED,Code/GameEngine/Source/Common/Rva0054477COnEnter.cpp
-0x005447ED,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054480A,Code/GameEngine/Source/Common/Rva005447EDCtor.cpp
+0x005445FF,71,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544646,42,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544670,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054467A,141,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544707,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544707,56,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054473F,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054473F,61,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054477C,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054477C,113,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x005447ED,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005447ED,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054480A,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
 0x0054480A,6,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544810,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x00544810,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054482D,Code/GameEngine/Source/Common/Rva00544810Ctor.cpp
-0x0054482D,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054484A,Code/GameEngine/Source/Common/Rva0054482DCtor.cpp
-0x0054484A,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544867,Code/GameEngine/Source/Common/Rva0054484ACtor.cpp
-0x00544867,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544884,Code/GameEngine/Source/Common/Rva00544867Ctor.cpp
-0x00544884,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x005448A1,Code/GameEngine/Source/Common/Rva00544884Ctor.cpp
-0x005448A1,465,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
+0x00544810,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054482D,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054482D,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x0054484A,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x0054484A,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544867,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544867,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x00544884,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544884,29,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,C,C=0x00544670..0x005448A1,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x005448A1,465,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
 0x00544A72,28,code,,displaced,-,N=Code/GameEngine/Source/Common/AIDockMachine.cpp,Code/GameEngine/Source/Common/Rva004D759CDerived.cpp
 0x00544A8E,37,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockMachine.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockXfer.cpp
 0x00544AB3,31,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,N,N=Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp noncontiguous,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp
 0x00544AD2,65,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,proposed,K,K=Rva005445D4,Code/GameEngine/Source/Common/Rva005445D4Xfer.cpp
 0x00544B13,46,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,proposed,C,C=0x00544AD2..0x00544B41,Code/GameEngine/Source/GameLogic/Object/Rva00544B13ObjectCallback.cpp
-0x00544B41,85,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
-0x00544B96,109,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDockStates.cpp
+0x00544B41,85,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00544B96,109,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp S=Code/GameEngine/Source/GameLogic/AI/AIDock.cpp N=Code/GameEngine/Source/GameLogic/AI/AIDockProcessDockState.cpp,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
 0x00544C03,33,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,N,N=Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp noncontiguous,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp
 0x00544C24,6,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,C,C=0x00544C03..0x00544C2A noncontiguous,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00544C2A,33,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,proposed,K,K=Rva00544C2A noncontiguous,Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp
@@ -84900,16 +84900,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00797EC8,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp
 0x00797ED2,10,code,Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp,approved,P,P=0x00543F58@FuncInfo0x0094C0AC,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp
 0x00797EDC,10,code,Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp,approved,P,P=0x00543F58@FuncInfo0x0094C0AC,Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp
-0x00797EE6,8,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797EEE,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797EF8,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F02,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F0C,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F16,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F20,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F2A,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F34,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
-0x00797F3E,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp
+0x00797EE6,8,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797EEE,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797EF8,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F02,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F0C,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F16,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F20,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F2A,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F34,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
+0x00797F3E,10,code,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,approved,P,P=0x005448A1@FuncInfo0x0094C110,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp
 0x00797F48,8,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,approved,P,P=0x00544ED4@FuncInfo0x0094C14C p-group provisional,Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
 0x00797F50,10,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,approved,P,P=0x00544ED4@FuncInfo0x0094C14C p-group provisional,Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp
 0x00797F5A,10,code,Code/GameEngine/Source/Common/AIHarvestPrepareSiteState.cpp,approved,P,P=0x00544ED4@FuncInfo0x0094C14C p-group provisional,Code/GameEngine/Source/GameLogic/AI/Rva00544C51MachineCtor.cpp

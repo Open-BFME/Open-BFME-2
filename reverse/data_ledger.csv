@@ -12495,7 +12495,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00869BA0,72,.rdata,global,?g_00C69BA0@@3QBQBXB,,unowned,,0,1
 0x00869BE8,72,.rdata,global,?g_00C69BE8@@3QBQBXB,,unowned,,0,1
 0x00869C30,72,.rdata,global,?g_00C69C30@@3QBQBXB,,unowned,,0,1
-0x00869C78,32,.rdata,global,?g_condC69C78@?1???0AIDockMachine@@QAE@PAVObject@@@Z@4QBUStateConditionInfo@@B,Code/GameEngine/Source/GameLogic/AI/AIDockMachineCtor.cpp,owned,,1,1
+0x00869C78,32,.rdata,global,?g_condC69C78@?1???0AIDockMachine@@QAE@PAVObject@@@Z@4QBUStateConditionInfo@@B,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,owned,,1,1
 0x00869C98,68,.rdata,global,?g_00C69C98@@3QBQBXB,,unowned,,0,1
 0x00869CDC,28,.rdata,string,??_C@_0BK@IBODCJIN@AIHarvestPrepareSiteState?$AA@,,literal,,0,1
 0x00869CF8,68,.rdata,vtable,??_7Rva00544C2A@@6B@,,literal,,0,1
