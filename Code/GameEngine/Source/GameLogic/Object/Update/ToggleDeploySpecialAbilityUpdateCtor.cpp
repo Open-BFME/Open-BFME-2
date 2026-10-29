@@ -4,7 +4,7 @@
 // ToggleDeploySpecialAbilityUpdate behavior ctor over the pinned
 // Rva0044EF5E intermediate base (0x44EF5E, thing plus data): re-stores the
 // primary vtable slot and the +0x0C/+0x10/+0x20 secondary slots (address-of
-// TU-local dummies, DIR32-masked). The rowed name getter at 0x4AE502 and
+// dummies, DIR32-masked). The rowed name getter at 0x4AE502 and
 // ModuleData factory 0x24F819 prove the class; the rowed instance factory
 // 0x24F7DE is the sole raw caller. Row supersedes the ctor pin.
 
@@ -14,7 +14,10 @@ class ModuleData;
 static int s_vtable;
 static int s_secondary0C;
 static int s_secondary10;
-static int s_secondary20;
+
+// The data ledger assigns the +0x20 table symbol (0x00855348) to
+// ModuleUpdateDtors; share that definition rather than allocating a second datum.
+extern "C" int s_dummy5348;
 
 // Opaque intermediate base; ctor resolves to its pin. The explicit m_vtable
 // member stands in for the inherited vptr so body order is source order.
@@ -48,5 +51,5 @@ ToggleDeploySpecialAbilityUpdate::ToggleDeploySpecialAbilityUpdate(Thing *thing,
 	m_vtable = &s_vtable;
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;
-	m_p20 = &s_secondary20;
+	m_p20 = &s_dummy5348;
 }

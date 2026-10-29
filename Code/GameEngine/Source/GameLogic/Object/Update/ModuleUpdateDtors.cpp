@@ -272,7 +272,10 @@ Rva004CDD39::~Rva004CDD39()
 }
 
 static int s_dummy52C8;
-static int s_dummy5348;
+extern "C"
+{
+	int s_dummy5348;
+}
 static int s_dummyDF74;
 extern "C"
 {

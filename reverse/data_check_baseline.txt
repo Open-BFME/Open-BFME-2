@@ -59,8 +59,6 @@ Code/GameEngine/Source/GameLogic/Object/AttackNuggetCreate.cpp	wrong-name	?$S1@?
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva00588D24.cpp	wrong-name	?g_bfmeWorldRV@@3PAUBfmeWorldRV@@A	0x00A01CFC
 Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	wrong-name	?g_00DFE490@@3VRva00575674@@A	0x009FE490
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp	wrong-name	?$S1@?1??rva0004A6DE4@SupplyTruckAIUpdate@@SA?AW4NameKeyType@@XZ@4IA	0x00A03C50
-Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateCtor.cpp	duplicate-def	_s_secondary20	0x00855348
-Code/GameEngine/Source/GameLogic/Object/Update/ToggleDeploySpecialAbilityUpdateCtor.cpp	wrong-name	_s_secondary20	0x00855348
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp	wrong-name	?$S1@?3??Rva003C31F3Do@@YGXABVAsciiString@@0_N@Z@4IA	0x00A02DD4
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp	wrong-name	?g_bfmeWorldRV@@3PAUBfmeWorldRV@@A	0x00A01CFC
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	wrong-name	_BfmeThingDGDVTableAnchor	0x008E3018
