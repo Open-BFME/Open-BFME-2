@@ -511,3 +511,37 @@ def test_a_full_gate_push_runs_no_scoped_dir32(repo):
     done = run_hook(fixture)
     assert done.returncode == 0, done.stderr
     assert not calls(fixture[0], 'scoped-calls.jsonl')
+
+
+def test_a_full_gate_waits_for_the_machine_lock(repo, tmp_path):
+    # tools/full_gate_lock.py: one full gate per machine. The hook's full-gate
+    # build waits, naming the holder, while another process holds the lock.
+    import shutil
+    import subprocess
+    import sys
+    import threading
+    import time
+    path = repo[0]
+    shutil.copyfile(ROOT / 'tools' / 'full_gate_lock.py', path / 'tools' / 'full_gate_lock.py')
+    hooks.git(path, 'add', '--', 'tools/full_gate_lock.py')
+    hooks.git(path, 'commit', '-qm', 'machine lock')
+    fixture = (path, repo[1], repo[2], hooks.git(path, 'rev-parse', 'HEAD'))
+    home = tmp_path / 'home'
+    lock = home / '.cache' / 'open-bfme' / 'full-gate.lock'
+    lock.parent.mkdir(parents=True)
+    sys.path.insert(0, str(ROOT / 'tools'))
+    import full_gate_lock
+    held = full_gate_lock.acquire(0, path=lock, note='another seat')
+    assert held is not None
+    result = {}
+    worker = threading.Thread(target=lambda: result.update(
+        done=run_hook(fixture, HOME=str(home), USERPROFILE=str(home))))
+    worker.start()
+    time.sleep(8)
+    assert worker.is_alive() and calls(path) == []        # still waiting: no build ran
+    full_gate_lock.release(held)
+    worker.join(600)
+    done = result['done']
+    assert done.returncode == 0, done.stderr
+    assert 'full_gate_lock: waiting' in done.stderr and 'another seat' in done.stderr
+    assert calls(path) == [[]]

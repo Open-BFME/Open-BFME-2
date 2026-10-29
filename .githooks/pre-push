@@ -315,6 +315,27 @@ run_build() {
     esac
 }
 
+# full_gate_locked NOTE CMD...: run CMD holding the machine-wide full-gate lock
+# (tools/full_gate_lock.py): two full gates on one PC crash it, and the
+# post-push verifier runs its gates beside seats' pushes. Waits, naming the
+# holder, as long as it takes; scoped builds never take it.
+full_gate_locked() {
+    local note="$1"
+    shift
+    if [ -f tools/full_gate_lock.py ]; then
+        python3 tools/full_gate_lock.py run --note "$note" -- "$@"
+    else
+        "$@"
+    fi
+}
+# The full gate's build command, as run_build would run it with no selectors.
+full_gate_build() {
+    case "$(uname -s)" in
+        MINGW*|MSYS*|CYGWIN*) full_gate_locked "pre-push full gate of ${local_sha:0:10}" py -3 tools/build.py ;;
+        *) full_gate_locked "pre-push full gate of ${local_sha:0:10}" ./build.sh ;;
+    esac
+}
+
 # Windows caps a native command line at 32,767 UTF-16 units ("Argument list too
 # long"). Twice an argument's UTF-8 length plus quotes and a space bounds its
 # quoted size, leaving room for the interpreter and script path.
@@ -745,7 +766,7 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         carried_dir="$(cygpath -m "$carried_dir" 2>/dev/null || printf '%s' "$carried_dir")"
         dir32_index="$carried_dir/dir32-index.gz"
         export BFME_DIR32_INDEX="$dir32_index"
-        BUILD_POOL="$(full_gate_pool)" run_build \
+        BUILD_POOL="$(full_gate_pool)" full_gate_build \
             || fail "full byte-verify of outgoing sources (see above)"
         unset BFME_DIR32_INDEX
         build_chunks "byte-verify of additional outgoing sources (see above)" "${extra[@]}"
@@ -786,7 +807,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
             printf '%s\0' "${verify[@]}" > "$carried_dir/verified" || fail "writing the verified source list"
         fi
         dir32_index="$carried_dir/dir32-index.gz"
-        BUILD_POOL="$(full_gate_pool)" python3 tools/full_gate_receipt.py cross-checks --since "$carried" \
+        BUILD_POOL="$(full_gate_pool)" full_gate_locked "pre-push carried cross-checks of ${local_sha:0:10}" \
+            python3 tools/full_gate_receipt.py cross-checks --since "$carried" \
             --verified-from "$carried_dir/verified" --index-out "$dir32_index" \
             || fail "cross-source checks over every row (carried full gate; see above)"
         if ! git diff --quiet "$carried" "$local_sha" -- reverse/eh_baseline.csv; then
