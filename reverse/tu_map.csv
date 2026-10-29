@@ -43676,14 +43676,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00518557,99,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp
 0x005185BA,30,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp,proposed,K,K=Rva0057BC63FunctorWrapper,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsConstructor.cpp
 0x005185D8,128,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOptions.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp noncontiguous,Code/GameEngine/Source/Common/Rva005185D8Init.cpp
-0x00518658,137,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,C,C=0x005185D8..0x005186E1 noncontiguous,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
-0x005186E1,117,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,C,C=0x005185D8..0x00518756 noncontiguous,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
+0x00518658,137,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,C,C=0x005185D8..0x005186E1 noncontiguous,Code/GameEngine/Source/Common/AptOptions.cpp
+0x005186E1,117,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,C,C=0x005185D8..0x00518756 noncontiguous,Code/GameEngine/Source/Common/AptOptions.cpp
 0x00518756,19,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,C,C=0x005185D8..0x00518769 noncontiguous,Code/GameEngine/Source/Common/GapBodiesGE03.cpp
 0x00518769,297,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOptions.cpp noncontiguous,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp
 0x00518892,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsConstructor.cpp
 0x0051889D,113,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
 0x0051890E,193,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
-0x005189CF,282,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOptions.cpp noncontiguous,Code/GameEngine/Source/Common/Rva005189CFText.cpp
+0x005189CF,282,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOptions.cpp noncontiguous,Code/GameEngine/Source/Common/AptOptions.cpp
 0x00518AE9,28,code,Code/GameEngine/Source/Common/AptOptions.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptOptions.cpp noncontiguous,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp
 0x00518B05,264,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
 0x00518C0D,286,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
@@ -83881,11 +83881,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007956CC,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x0051805B@FuncInfo0x00948DB4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp
 0x007956D6,8,code,,,-,,Code/GameEngine/Source/Common/Rva005183A0Finish.cpp
 0x007956DE,10,code,,,-,,Code/GameEngine/Source/Common/Rva005183A0Finish.cpp
-0x007956E8,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
-0x007956F0,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
-0x007956F8,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
-0x00795702,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005186E1@FuncInfo0x00948E28 p-group provisional,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
-0x0079570A,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005186E1@FuncInfo0x00948E28 p-group provisional,Code/GameEngine/Source/Common/Rva005186E1Format.cpp
+0x007956E8,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x007956F0,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x007956F8,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x00795702,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005186E1@FuncInfo0x00948E28 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x0079570A,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005186E1@FuncInfo0x00948E28 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
 0x00795714,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518769@FuncInfo0x00948E74 p-group provisional,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp
 0x0079571C,14,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518769@FuncInfo0x00948E74 p-group provisional,Code/gen_small/uw_gen_010.cpp
 0x0079572A,14,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518769@FuncInfo0x00948E74 p-group provisional,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp
@@ -83895,12 +83895,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079575C,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518769@FuncInfo0x00948E74 p-group provisional,Code/GameEngine/Source/Common/Rva00518769Dtor.cpp
 0x00795766,8,code,,,-,,Code/GameEngine/Source/Common/Rva0051847BAudio.cpp
 0x0079576E,10,code,,,-,,Code/GameEngine/Source/Common/Rva0051847BAudio.cpp
-0x00795778,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
-0x00795780,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
-0x00795788,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
-0x00795790,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
-0x00795798,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
-0x007957A0,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/Rva005189CFText.cpp
+0x00795778,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x00795780,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x00795788,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x00795790,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x00795798,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
+0x007957A0,10,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x005189CF@FuncInfo0x00948EDC p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
 0x007957AA,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,P,P=0x00518B05@FuncInfo0x00948F20,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
 0x007957B2,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,P,P=0x00518B05@FuncInfo0x00948F20,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
 0x007957BA,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptions.cpp,approved,P,P=0x00518B05@FuncInfo0x00948F20,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOptionsCallbacks.cpp
