@@ -8,20 +8,15 @@
 // the storage is the same) and returns it. The push_back takes its element
 // by reference, so retail spills the new pointer into the dead fourth
 // argument slot. The owner and the element's role are unknown (address names).
-namespace _STL
-{
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	void push_back(const T &);
-	T *m_start;
-	T *m_finish;
-	T *m_endOfStorage;
-};
-}
+#include <vector>
 
 struct LivingWorldArmy;
+
+namespace _STL
+{
+// Bind push_back to the rowed 0x004DFCB0 worker.
+template <> void vector<LivingWorldArmy *, allocator<LivingWorldArmy *> >::push_back(LivingWorldArmy *const &);
+}
 
 class Rva00596B05
 {

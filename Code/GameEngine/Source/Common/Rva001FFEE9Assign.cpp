@@ -1,4 +1,5 @@
 // cl: /O1 /Ob1 /EHsc /MD /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
 // ??4Rva001FFEE9@@QAEAAV0@ABV0@@Z @0x001FFEE9 81B
 // Copy-assign with 0x10 pad then int plus two UnicodeString via rowed set plus custom plus1C via pinned 0x1FFD6B plus tail ints/byte; base 5B ICF via pinned placeholder 0x1FD28E; 8B pad20 unproven gap; UnicodeString 4B for plus18.
 class FXParticleSystem
@@ -11,13 +12,11 @@ public:
 	};
 };
 struct Rva001FFD6BRecord;
+#include <vector>
+
 namespace _STL {
-template <class T> class allocator;
-template <class T, class A> class vector
-{
-public:
-	vector &operator=(const vector &that);
-};
+// Bind the assignment to the kept vector copy-assignment worker.
+template <> vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> > &vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> >::operator=(const vector<Rva001FFD6BRecord, allocator<Rva001FFD6BRecord> > &that);
 }
 typedef _STL::vector<Rva001FFD6BRecord, _STL::allocator<Rva001FFD6BRecord> > Rva001FFD6BRecordVector;
 // UnicodeString is StringBase<WideChar>; its set is the inherited
