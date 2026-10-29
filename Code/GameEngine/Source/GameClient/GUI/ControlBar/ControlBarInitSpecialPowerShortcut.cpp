@@ -85,67 +85,67 @@ public:
 class GameWindowManager
 {
 public:
-	virtual void slot000();
-	virtual void slot004();
-	virtual void slot008();
-	virtual void slot00C();
-	virtual void slot010();
-	virtual void slot014();
-	virtual void slot018();
-	virtual void slot01C();
-	virtual void slot020();
-	virtual void slot024();
-	virtual void slot028();
-	virtual void slot02C();
-	virtual void slot030();
-	virtual void slot034();
-	virtual void slot038();
-	virtual void slot03C();
-	virtual void slot040();
-	virtual void slot044();
-	virtual void slot048();
-	virtual void slot04C();
-	virtual void slot050();
-	virtual void slot054();
-	virtual void slot058();
-	virtual void slot05C();
-	virtual void slot060();
-	virtual void slot064();
-	virtual void slot068();
-	virtual void slot06C();
-	virtual void slot070();
-	virtual void slot074();
-	virtual void slot078();
-	virtual void slot07C();
-	virtual WindowLayout *winCreateLayout(AsciiString filename); // target80
-	virtual void slot084();
-	virtual void slot088();
-	virtual void slot08C();
-	virtual void slot090();
-	virtual void slot094();
-	virtual void slot098();
-	virtual void slot09C();
-	virtual void slot0A0();
-	virtual void slot0A4();
-	virtual void slot0A8();
-	virtual void slot0AC();
-	virtual void slot0B0();
-	virtual void slot0B4();
-	virtual void slot0B8();
-	virtual void slot0BC();
-	virtual void slot0C0();
-	virtual void slot0C4();
-	virtual void slot0C8();
-	virtual void slot0CC();
-	virtual void slot0D0();
-	virtual void slot0D4();
-	virtual void slot0D8();
-	virtual void slot0DC();
-	virtual void slot0E0();
-	virtual void slot0E4();
-	virtual void slot0E8();
-	virtual void slot0EC();
-	virtual GameWindow *winGetWindowFromId(GameWindow *parent,NameKeyType id); // targetF0
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual WindowLayout *winCreateLayout(AsciiString filename);	// +0x80
+	virtual void v33();
+	virtual GameWindow *createFromView(GadgetCreateView *view);	// +0x88
+	virtual Int winDestroy(GameWindow *window);	// +0x8C
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
 };
 
 class NameKeyGenerator

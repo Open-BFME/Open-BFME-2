@@ -52,16 +52,73 @@ void *&vector<void*>::operator[](size_t __n)
 }
 
 class GameWindow;
+class GadgetCreateView;
+class WindowLayout;
+typedef int Int;
 class GameWindowManager
 {
 public:
-#define V(n) virtual void v##n();
-	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-	V(30) V(31) V(32) V(33) V(34)
-#undef V
-	virtual int winDestroy(GameWindow *window);	// +0x8C
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual WindowLayout *winCreateLayout(AsciiString filename);	// +0x80
+	virtual void v33();
+	virtual GameWindow *createFromView(GadgetCreateView *view);	// +0x88
+	virtual Int winDestroy(GameWindow *window);	// +0x8C
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
 };
 extern GameWindowManager *TheWindowManager;
 

@@ -20,18 +20,73 @@ public:
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class GadgetCreateView;
+class WindowLayout;
+typedef int Int;
 class GameWindowManager
 {
 public:
-#define CB_SLOT(n) virtual void slot##n();
-	CB_SLOT(00) CB_SLOT(01) CB_SLOT(02) CB_SLOT(03) CB_SLOT(04) CB_SLOT(05) CB_SLOT(06) CB_SLOT(07) CB_SLOT(08) CB_SLOT(09)
-	CB_SLOT(10) CB_SLOT(11) CB_SLOT(12) CB_SLOT(13) CB_SLOT(14) CB_SLOT(15) CB_SLOT(16) CB_SLOT(17) CB_SLOT(18) CB_SLOT(19)
-	CB_SLOT(20) CB_SLOT(21) CB_SLOT(22) CB_SLOT(23) CB_SLOT(24) CB_SLOT(25) CB_SLOT(26) CB_SLOT(27) CB_SLOT(28) CB_SLOT(29)
-	CB_SLOT(30) CB_SLOT(31) CB_SLOT(32) CB_SLOT(33) CB_SLOT(34) CB_SLOT(35) CB_SLOT(36) CB_SLOT(37) CB_SLOT(38) CB_SLOT(39)
-	CB_SLOT(40) CB_SLOT(41) CB_SLOT(42) CB_SLOT(43) CB_SLOT(44) CB_SLOT(45) CB_SLOT(46) CB_SLOT(47) CB_SLOT(48) CB_SLOT(49)
-	CB_SLOT(50) CB_SLOT(51) CB_SLOT(52) CB_SLOT(53) CB_SLOT(54) CB_SLOT(55) CB_SLOT(56) CB_SLOT(57) CB_SLOT(58) CB_SLOT(59)
-#undef CB_SLOT
-	virtual GameWindow *winGetWindowFromId(GameWindow *window, int id);	// slot 60
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void v03();
+	virtual void v04();
+	virtual void v05();
+	virtual void v06();
+	virtual void v07();
+	virtual void v08();
+	virtual void v09();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual WindowLayout *winCreateLayout(AsciiString filename);	// +0x80
+	virtual void v33();
+	virtual GameWindow *createFromView(GadgetCreateView *view);	// +0x88
+	virtual Int winDestroy(GameWindow *window);	// +0x8C
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual GameWindow *winGetWindowFromId(GameWindow *window, Int id);	// +0xF0
 };
 extern GameWindowManager *TheWindowManager;
 
