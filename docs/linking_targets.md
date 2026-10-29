@@ -1,5 +1,15 @@
 # Linking target checklist
 
+Header-cleanup selection correction (2026-10-29, control `54f489336`):
+GateOpenAndCloseBehaviorPushOut.cpp and Rva00587F69Dtor.cpp are conflicting
+header candidates because their local exception contracts differ from the
+real CRT declarations. The auditor now preserves this distinction; both
+native source files remain unchanged and byte-verified. No link gain is claimed.
+[Regression tests and failed compiler trials](../reverse/attempt_support/header-exception-contract-20261029-round3.md).
+FXList.cpp still requires the established StringBase/list ownership repair;
+its stale particle key cannot yet be retired as a whole-source repair.
+[Fresh retirement refusal](../reverse/attempt_support/fxlist-identity-current-20261029-round3.md).
+
 Console constructor cleanup follow-up (2026-10-29, 29c5ceda1f, LINK-137):
 local identity repair preserves bytes/EH but regresses COMDAT selection;
 both the real-base and typed-bridge trials are restored. The constructor's

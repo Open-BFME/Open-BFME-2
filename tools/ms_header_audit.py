@@ -69,7 +69,7 @@ import warnings
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-TOOL_VERSION = 13
+TOOL_VERSION = 14
 CACHE_DIR = ROOT / "build" / "ms_header_audit"
 QUEUE = ROOT / "reverse" / "ms_header_queue.tsv"
 OCCURRENCES = CACHE_DIR / "occurrences.tsv"
@@ -1109,10 +1109,16 @@ class Parser:
         flags = set(t for t in rest if t in STORAGE)
         ptypes, variadic = split_params(params)
         ret_clean = [t for t in ret if t not in STORAGE]
-        # drop throw(...) / const that followed the parameter list
+        # The exception contract is not part of the return type, but /EHsc
+        # uses it even for extern-C declarations when deciding unwind cleanup.
+        throws = None
         if "throw" in ret_clean:
-            ret_clean = ret_clean[:ret_clean.index("throw")]
+            k = ret_clean.index("throw")
+            if k + 1 < len(ret_clean) and ret_clean[k + 1] == "(":
+                throws = ret_clean[k + 2:_close(ret_clean, k + 1)]
+            ret_clean = ret_clean[:k]
         detail = {"ret": ret_clean, "params": ptypes, "variadic": variadic, "cc": cc,
+                  "throws": throws,
                   "dllimport": any("dllimport" in a for a in attrs), "body": body,
                   "inline": bool(flags & {"inline", "__inline", "_inline", "__forceinline"}),
                   "static": "static" in flags}
@@ -2163,7 +2169,7 @@ class Comparer:
         dll = detail.get("dllimport", False)
         return {"cc": detail.get("cc") or "__cdecl", "ret": ret, "ret_abi": ctx.abi(ret) if ret else ("i", 4, "s"),
                 "ptypes": ptypes, "pabi": pabi, "stack": stack, "variadic": detail.get("variadic", False),
-                "dll": dll, "n": len(params)}
+                "dll": dll, "n": len(params), "throws": detail.get("throws")}
 
     def compare_function(self, d, es):
         fns = [e for e in es if e["k"] == "function"]
@@ -2245,6 +2251,11 @@ class Comparer:
             worse("abi", f"calling convention {local['cc']} vs {real['cc']}")
         if local["variadic"] != real["variadic"]:
             worse("abi", "variadic differs")
+        if self.lang == "cpp" and local["throws"] != real["throws"]:
+            def contract(spec):
+                return "unspecified" if spec is None else "throw(" + _join(spec) + ")"
+            worse("abi", f"exception specification {contract(local['throws'])} vs {contract(real['throws'])}; "
+                  "may change unwind cleanup")
         if local["n"] != real["n"]:
             worse("abi", f"{local['n']} parameters vs {real['n']}")
         else:

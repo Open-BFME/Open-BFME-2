@@ -1,0 +1,7 @@
+diff --git a/Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp b/Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp
+index 7851e207f..14b110f0d 100644
+--- a/Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp
++++ b/Code/Libraries/Source/WWVegas/WWLib/Rva00587F69Dtor.cpp
+@@ -7 +7 @@
+-extern "C" void __cdecl free(void *block) throw(...);
++#include <stdlib.h>

@@ -1,5 +1,19 @@
 # Linking obstacle register
 
+Header-task classification follow-up (2026-10-29, control `54f489336`):
+the auditor discarded throw specifications and offered unsafe drop-in header
+changes. Preserving and comparing those contracts reclassifies the gate scan
+and horde destructor sources as conflicting. All game-source trials are
+restored; 110 tests pass, with one aggregate red-team test skipped because no external fixture files are present.
+[Compiler evidence and exact scope](../reverse/attempt_support/header-exception-contract-20261029-round3.md).
+No linked-byte, header-adoption or census gain is claimed.
+
+FX-list current identity follow-up (same control): the particle helper is
+already directly bound, but whole-source retirement still refuses the known
+0052BD3A list/StringBase mismatch after all 11 stale provider objects are
+refreshed (597/597 rows). Keep LINK-006's type/owner prerequisite and both
+registers unchanged. [Current proof](../reverse/attempt_support/fxlist-identity-current-20261029-round3.md).
+
 Required reading before selecting linking work; required updates with repairs
 and attempt handoffs, and before ending a linking pass. Workflow:
 [linking.md](linking.md#shared-obstacle-register). This is a shared handoff,

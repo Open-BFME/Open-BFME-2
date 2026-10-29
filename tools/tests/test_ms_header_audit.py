@@ -361,6 +361,46 @@ def test_emptied_crtimp_drops_the_crt_dllimport():
     assert mha.scan_text("Code/A.cpp", "#define _CRTIMP\n" + md, index)["occ"][0][3] == "same"
 
 
+def test_function_exception_specs_survive_parsing():
+    for suffix, expected in (("", None), (" throw()", []),
+                             (" throw(...)", ["..."]), (" throw(int)", ["int"])):
+        for ending in (";", " { return; }"):
+            decls, _, _ = mha.parse_text('extern "C" void release(void *)' + suffix + ending, "cpp")
+            fn = next(d for d in decls if d.name == "release")
+            assert fn.d.get("throws") == expected
+            assert fn.d["ret"] == ["void"]
+            assert fn.d["params"] == [["void", "*"]]
+
+
+def test_exception_contract_changes_are_not_drop_in(tmp_path):
+    # /EHsc assumes an unspecified extern-C function cannot throw; replacing
+    # free(void*) throw(...) with stdlib.h removed three native EH frames.
+    for local, real in ((" throw(...)", ""), ("", " throw(...)"),
+                        (" throw()", ""), ("", " throw()"),
+                        (" throw()", " throw(...)"), (" throw(int)", " throw(...)")):
+        index = index_from('extern "C" void release(void *)' + real + ";\n")
+        res = mha.scan_text("Code/Fixture.cpp", 'extern "C" void release(void *)' + local + ";\n", index)
+        occ = next(o for o in res["occ"] if o[1] == "release")
+        assert occ[3] == "abi"
+        assert "exception specification" in occ[4]
+        assert mha.classify("Code/Fixture.cpp", res, index)[0] == "conflicting"
+        mha.write_queue({"Code/Fixture.cpp": res}, index,
+                        queue=tmp_path / "queue.tsv", occurrences=tmp_path / "occurrences.tsv")
+        assert mha.read_queue(tmp_path / "queue.tsv")[0]["class"] == "conflicting"
+    for spec in ("", " throw()", " throw(...)", " throw(int)"):
+        text = 'extern "C" void release(void *)' + spec + ";\n"
+        index = index_from(text)
+        res = mha.scan_text("Code/Fixture.cpp", text, index)
+        assert mha.classify("Code/Fixture.cpp", res, index)[0] == mha.DROP_IN
+
+
+def test_identical_inline_body_does_not_override_exception_contract():
+    index = index_from("inline int helper() throw() { return 1; }\n")
+    res = mha.scan_text("Code/Fixture.cpp", "inline int helper() throw(...) { return 1; }\n", index)
+    occ = next(o for o in res["occ"] if o[1] == "helper")
+    assert occ[3] == "abi" and "exception specification" in occ[4]
+
+
 def test_a_game_function_sharing_a_c_name_is_an_overload():
     _, occ = scan("void GetTickCount(const char *name);\n")
     assert "GetTickCount" not in occ

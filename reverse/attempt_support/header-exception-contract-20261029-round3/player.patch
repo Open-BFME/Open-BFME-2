@@ -1,0 +1,8 @@
+diff --git a/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp b/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
+index 79710abbe..29f6be817 100644
+--- a/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
++++ b/Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp
+@@ -22,0 +23 @@
++#include <stdlib.h>
+@@ -51 +51,0 @@ namespace _STL {template<> WindowTableView::iterator WindowTableView::begin();}
+-extern "C" void free(void*);
