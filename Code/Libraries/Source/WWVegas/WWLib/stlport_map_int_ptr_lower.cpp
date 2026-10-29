@@ -36,6 +36,58 @@ typedef _STL::pair<const unsigned, void *> PairIntPtrLower;
 typedef _STL::_Rb_tree<unsigned, PairIntPtrLower, _STL::_Select1st<PairIntPtrLower>, _STL::less<unsigned>, _STL::allocator<PairIntPtrLower> > TreeIntPtrLower;
 typedef _STL::map<unsigned, void *, _STL::less<unsigned>, _STL::allocator<PairIntPtrLower> > MapIntPtrLower;
 
+// Retail's two clone calls in _M_copy reach the existing ModuleFactory tree
+// owner at 0x00413E55. Preserve that provider's full value type instead of
+// emitting a pointer-pair clone under the legacy caller's template name.
+enum NameKeyType { NAMEKEY_0 = 0 };
+class ModuleFactory
+{
+public:
+    class ModuleTemplate
+    {
+    public:
+        void *m_createProc;
+        void *m_createDataProc;
+        int m_whichInterfaces;
+    };
+};
+typedef _STL::pair<const NameKeyType, ModuleFactory::ModuleTemplate> ModuleCloneValue;
+typedef _STL::_Rb_tree<NameKeyType, ModuleCloneValue,
+    _STL::_Select1st<ModuleCloneValue>, _STL::less<NameKeyType>,
+    _STL::allocator<ModuleCloneValue> > ModuleCloneTree;
+namespace _STL {
+template <> ModuleCloneTree::_Link_type ModuleCloneTree::_M_clone_node(ModuleCloneTree::_Link_type);
+}
+struct ModuleCloneAccess : ModuleCloneTree
+{
+    using ModuleCloneTree::_M_clone_node;
+};
+namespace _STL {
+// ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z
+template <> inline TreeIntPtrLower::_Link_type
+TreeIntPtrLower::_M_copy(TreeIntPtrLower::_Link_type node, TreeIntPtrLower::_Link_type parent)
+{
+    _Link_type top = (_Link_type)((ModuleCloneAccess *)this)->_M_clone_node(
+        (ModuleCloneTree::_Link_type)node);
+    top->_M_parent = parent;
+    if (node->_M_right)
+        top->_M_right = _M_copy((_Link_type)node->_M_right, top);
+    parent = top;
+    node = (_Link_type)node->_M_left;
+    while (node != 0) {
+        _Link_type next = (_Link_type)((ModuleCloneAccess *)this)->_M_clone_node(
+            (ModuleCloneTree::_Link_type)node);
+        parent->_M_left = next;
+        next->_M_parent = parent;
+        if (node->_M_right)
+            next->_M_right = _M_copy((_Link_type)node->_M_right, next);
+        parent = next;
+        node = (_Link_type)node->_M_left;
+    }
+    return top;
+}
+}
+
 // Explicit single-member instantiations for the 7 rows this TU owns.
 // Replaces the former whole-class instantiation, which emitted 140 COMDAT
 // copies including 7 that differ from retail (link lane). Each line emits
@@ -44,7 +96,6 @@ typedef _STL::map<unsigned, void *, _STL::less<unsigned>, _STL::allocator<PairIn
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_lower_bound(const unsigned &) const;
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_upper_bound(const unsigned &) const;
 template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_find<unsigned>(const unsigned &) const;
-template TreeIntPtrLower::_Link_type TreeIntPtrLower::_M_copy(TreeIntPtrLower::_Link_type, TreeIntPtrLower::_Link_type);
 template TreeIntPtrLower::iterator TreeIntPtrLower::insert_unique(TreeIntPtrLower::iterator, const TreeIntPtrLower::value_type &);
 template TreeIntPtrLower::_Rb_tree(const TreeIntPtrLower &);
 template bool MapIntPtrLower::value_compare::operator()(const MapIntPtrLower::value_type &, const MapIntPtrLower::value_type &) const;

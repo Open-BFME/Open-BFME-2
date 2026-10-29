@@ -1,0 +1,3 @@
+21 scoped rows; exactly two of 48 bindings change names, retaining native target 0x00413E55.
+Both existing provider objects are unchanged. Strong definitions and weak aliases are unchanged.
+Only the rowed copy fingerprint changes and its unused legacy clone COMDAT disappears; one native owner reference is added.
