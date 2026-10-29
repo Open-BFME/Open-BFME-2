@@ -10140,3 +10140,22 @@ the index predates the base and `Common/0CreateAHeroManager21FE49.cpp` lacks a
 current consumer receipt. Carry that consumer and the changed providers into
 the next scheduled census; no measured linking gain or full consumer closure
 is claimed. [Scoped evidence and remaining donors](../reverse/attempt_support/terraintypes-consolidation-20261029-codex3.md).
+
+### LINK-145: placeholder 5-byte destructor rows duplicate their module unit's implicit destructor (2026-10-29, seat b1)
+
+Status: RebuildHoleExposeDie repaired, pending census confirmation; the rest open.
+The 85f6b7f40c census lists RebuildHoleExposeDie.cpp linked=no with one
+duplicate, `??1RebuildHoleExposeDie@@UAE@XZ`: TailJumpWrappers5B.cpp defined it
+strongly (a novtable view, row 0x004867F9), while the module unit's ctor emits
+the vtable and so the implicit destructor COMDAT. Repair: the row moves into its
+approved TU (tu_map), where the implicit destructor compiles to retail's 5-byte
+`jmp ~DieModule` once the TU's DieModule declares its out-of-line
+`virtual ~DieModule()` (an explicit empty destructor there stores the three
+vptrs first, so it does not match). TailJumpWrappers5B.cpp drops its copy;
+9/9 and 65/65 rows exact. Preview: RebuildHoleExposeDie.cpp 0 -> 670 B, all
+18 units naming the class still link.
+Open: TailJumpWrappers5B.cpp itself still does not link, on the same duplicate
+for `??1CallHelpOnDamage@@UAE@XZ` (0x004BB4D1, approved TU
+Object/Die/CallHelpOnDamage.cpp; claimed by another seat at the time). Other
+rows of that file's table (e.g. RiderChangeContain, LevelGrantSpecialPower)
+may hide the same split; check each against its module unit.

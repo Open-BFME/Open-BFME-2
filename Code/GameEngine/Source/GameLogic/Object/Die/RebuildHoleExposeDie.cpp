@@ -348,6 +348,7 @@ public:
 	DieModule(Thing *thing, const ModuleData *moduleData);
 
 protected:
+	virtual ~DieModule();
 	bool isDieApplicable(const DamageInfo *damageInfo) const;
 };
 
@@ -403,6 +404,8 @@ RebuildHoleExposeDieModuleData::RebuildHoleExposeDieModuleData()
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/RebuildHoleExposeDieUpdateCtor.cpp
 
 // ??0RebuildHoleExposeDie@@QAE@PAVThing@@PBVModuleData@@@Z @0x486768
+// The implicit ??1RebuildHoleExposeDie@@UAE@XZ (0x4867F9) this ctor's vtable
+// emits is the 5-byte jmp to the out-of-line ~DieModule.
 RebuildHoleExposeDie::RebuildHoleExposeDie(Thing *thing, const ModuleData *moduleData)
 	: DieModule(thing, moduleData)
 {

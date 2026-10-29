@@ -178,7 +178,6 @@ Rva005CC656::~Rva005CC656()
 //   0x00368793  0x0033FF2B  AIFollowWaypointPathExactState -> Rva0033FF2B
 //   0x004BB4D1  0x004B96CC  CallHelpOnDamage -> Rva004B96CC
 //   0x004C2C76  0x00451F45  LevelGrantSpecialPower -> SpecialAbilityUpdate
-//   0x004867F9  0x0045CE54  RebuildHoleExposeDie -> DieModule
 //   0x0047E51B  0x0047BF43  RiderChangeContain -> SiegeEngineContain
 //   0x000416E7  0x00238B90  Rva000416E7 -> Rva00238B90
 //   0x000A43C8  0x00104E03  Rva0008FF3E -> Rva0078D310Host
@@ -256,22 +255,6 @@ public:
 };
 
 LevelGrantSpecialPower::~LevelGrantSpecialPower()
-{
-}
-
-class DieModule
-{
-protected:
-	virtual ~DieModule();
-};
-
-class __declspec(novtable) RebuildHoleExposeDie : public DieModule
-{
-public:
-	virtual ~RebuildHoleExposeDie();
-};
-
-RebuildHoleExposeDie::~RebuildHoleExposeDie()
 {
 }
 
