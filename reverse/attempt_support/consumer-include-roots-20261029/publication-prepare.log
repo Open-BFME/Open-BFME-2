@@ -1,0 +1,16 @@
+link_check: preparing 2 explicit safe provider(s), no extra sources
+Compile: 1 of 2 TU(s) (deps-cache: 1 current)
+Source claims: OK (2 sources, scoped byte-verified)
+Data rows: OK (2 row(s) byte-verified)
+Compile: 0 of 2 TU(s) (deps-cache: 2 current)
+Funclet pins: 6 row(s) verified past a renumbered $L label
+    $L10783 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10783 was renumbered; verified parent EH data places $L11061 at 0x00769AD5
+    $L10784 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10784 was renumbered; verified parent EH data places $L11062 at 0x00769ADD
+    $L10785 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10785 was renumbered; verified parent EH data places $L11063 at 0x00769AE5
+    $L10786 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10786 was renumbered; verified parent EH data places $L11064 at 0x00769AED
+    $L10787 (Code/GameEngine/Source/GameClient/Eva.cpp): $L10787 was renumbered; verified parent EH data places $L11065 at 0x00769AF5
+Functions: OK 38/38 matched across 2 source file(s)
+String-ref verify: OK (12 literals + 5 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (5 compiler literals verified)
+Import-ref verify: OK (11 named imports verified)
+link_check: 2 explicit providers byte-verified with strict reusable receipts; census/index/status unchanged, LINK closure not yet checked

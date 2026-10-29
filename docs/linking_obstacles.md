@@ -2823,6 +2823,15 @@ Whole-unit clearance and census confirmation remain pending.
   is2/2 LINKS,3471 authored bytes preserved. No verifier or baseline changes.
   This clears the prior Eva/thread include-inventory refusal in that scope;
   complete outgoing consumer/loss auditing and census confirmation remain.
+- **GameWindow input/Eva/thread current-base audit (2026-10-29):**
+  [the current-base receipts and audit](../reverse/attempt_support/consumer-include-roots-20261029/readme.md#current-base-verification-before-publication)
+  pass195/195 rows and4 data rows across8 sources with the maintained
+  f64f0f32d56a reference input. Eva/thread strict preparation again passes.
+  Against census index85f6b7f40c (2026-10-29 15:08), the batch audit gets
+  beyond those two scoped receipts but remains INCONCLUSIVE on the next
+  affected consumer, Common/0CreateAHeroManager21FE49.cpp, and its older
+  baseline. Carry this expanded consumer scope to the next census; no
+  selected-provider/lost-byte or headline-gain conclusion follows.
 - **INI bucket initializer repaired (2026-10-25, control `349db6dc10`):**
   [the scoped provider repair](../reverse/attempt_support/ini-bucket-provider-link-20261025/readme.md)
   makes INI emit the retail 59-byte initializer at `0x00148DDF` and applies its

@@ -41,3 +41,26 @@ not a replay of either admission/log operation. The complete outgoing
 loss/selection audit and next census remain separate verification steps.
 
 Model GPT-6; t=12 for the two-source include repair; lane=R; budget=30m.
+
+## Current-base verification before publication
+
+After the work interruption, all source claims were reacquired. The new
+AGENTS.md publication path requires tools/push.py and the account's noreply
+identity. SSH authentication and the public GitHub account ID establish
+202347015+Ostkannit@users.noreply.github.com. Only the metadata of the two
+older unpublished commits was normalized through normal commit hooks; no
+source admission or log operation was replayed.
+
+Rebased/pinned reference input:f64f0f32d56adf72bee366d42cbb2a72cf192ae3.
+The official strict preparation again passes38/38 and2 data rows, reusing
+the resulting strict objects in its ordinary gates. The full eight-source
+callback/provider/consumer build passes195/195 and4 data rows.
+
+The fetched index is the2026-10-29 15:08 census at85f6b7f40c. The outgoing
+batch audit now passes the former two scoped-receipt checks and reaches
+its next affected consumer without a current receipt:
+Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp. Actual audit
+exit2; the index also predates the outgoing base. This is INCONCLUSIVE,
+not a lost-byte/selection verdict and not full closure. Carry this expanded
+consumer scope into the next scheduled census/current-index audit. No
+headline linking gain is claimed from these source/receipt repairs.
