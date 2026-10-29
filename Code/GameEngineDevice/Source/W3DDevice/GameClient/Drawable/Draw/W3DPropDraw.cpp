@@ -25,7 +25,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse& p);
 	virtual const W3DPropDrawModuleData* getAsW3DPropDrawModuleData() const { return this; }
 };
-
 class W3DPropDraw : public DrawModule
 {
 	MEMORY_POOL_GLUE_WITH_USERLOOKUP_CREATE(W3DPropDraw, "W3DPropDraw")
@@ -50,9 +49,36 @@ protected:
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
+//
+// W3DPropDrawModuleData file-unit: parse proc and constructor.
+//
+// ??0W3DPropDrawModuleData@@QAE@XZ, retail 0x000CEF2B, 17 bytes (pinned;
+// called by the data factory 0x00064D1D). Stores vtable 0x00BCD420, nulls
+// m_modelName at +0x08 and sets the byte at +0x0C to 1; the rowed dtor next
+// door (0x000CEF3C, W3DPropDrawModuleDataDtor.cpp) uses the same vtable and
+// string slot. The Snapshot base constructor is inline and its vtable store
+// is overwritten.
+//
+// ?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z,
+// retail 0x000CEF72, 17 bytes. Single-table parse proc (table 0x00BCD4A8)
+// through the rowed MultiIniFieldParse::add at 0x2BC6E. Row supersedes the
+// parse pin.
+
+class MultiIniFieldParse;
+class INI;
+typedef void (*INIFieldParseProc)(INI *ini, void *instance, void *store, const void *userData);
+// Retail VA 0x00BCD4A8 (.rdata): 2 field records and a zero sentinel.
+extern const FieldParse g_00BCD4A8[] = {
+	{ "ModelName", &INI::parseAsciiString, 0, 0x8 },
+	{ "DistanceFog", &INI::parseBool, 0, 0xC },
+	{ 0, 0, 0, 0 }
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDraw.cpp
 
@@ -171,11 +197,8 @@ void W3DPropDraw::loadPostProcess( void )
 
   // end loadPostProcess
 
-// tu-skeleton: 0x000CEEE0 6B ?GetSnapshotName@W3DPropDraw@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x000CEEE6 69B ?rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp (not merged yet)
 
-// tu-skeleton: 0x000CEF2B 17B ??0W3DPropDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawModuleDataDtor.cpp
 
@@ -194,8 +217,31 @@ W3DPropDrawModuleData::~W3DPropDrawModuleData()
 {
 }
 
-// tu-skeleton: 0x000CEF72 17B ?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawModuleDataCtor.cpp (not merged yet)
+// tu-skeleton: 0x000CEEE0 6B ?GetSnapshotName@W3DPropDraw@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x000CEEE6 69B ?rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawModuleDataCtor.cpp
+
+// ??0W3DPropDrawModuleData@@QAE@XZ @0x000CEF2B
+W3DPropDrawModuleData::W3DPropDrawModuleData() : m_distanceFog(true)
+{
+}
+
+// ?buildFieldParse@W3DPropDrawModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x000CEF72
+void W3DPropDrawModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	parse.add(g_00BCD4A8, 0);
+}
 
 // tu-skeleton: 0x000CEF83 28B ??_GRva000CEB6F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x000CEF9F 185B ?reactToTransformChange@W3DPropDraw@@UAEXPBVMatrix3D@@PBUCoord3D@@M@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawReact.cpp (not merged yet)
+
+// tu-skeleton: 0x0076270A 13B $L306 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00762717 10B __ehhandler$?rva000CEEE6@W3DPropDraw@@SA?AW4NameKeyType@@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DPropDrawPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x00762733 8B $L1315 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawReact.cpp (not merged yet)
+
+// tu-skeleton: 0x0076273B 10B __ehhandler$?reactToTransformChange@W3DPropDraw@@UAEXPBVMatrix3D@@PBUCoord3D@@M@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DPropDrawReact.cpp (not merged yet)
