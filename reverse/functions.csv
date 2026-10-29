@@ -27599,8 +27599,8 @@ _FreeGame,,0x00606EE0,101,Code/GameEngine/Source/GameNetwork/GameSpy/gstats/gsta
 ?rva00059E5C@MilesAudioManager@@UAEXH@Z,,0x00059E5C,82,Code/GameEngine/Source/Common/Rva00059DF5Method.cpp,matched,sibling of 0x59DF5 same guard plus tree clear 0x57B4B at 0xA14
 ?rva000591EF@Rva000591A3@@QAEXXZ,,0x000591EF,62,Code/GameEngine/Source/Common/Rva000591A3Method.cpp,matched,sibling of 0x591A3 empty plus float vs global plus fill plus tree clear 0x57B4B
 ?rva004A7E67@Rva004A7E67@@QAE_NPAVObject@@H@Z,,0x004A7E67,273,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRva004A7E67.cpp,matched,chain packet all callees rowed prev Rva004A7E43Slot next SupplyWarehouseDockUpdate
-?rva004A7797@MissileUpdate@@QAEXXZ,,0x004A7797,33,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7797.cpp,matched,unlock packet MissileUpdate frame threshold to Rva004A7530Set
-?rva004A7767@MissileUpdate@@QAEXXZ,,0x004A7767,48,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7767.cpp,matched,unlock packet all callees rowed prev dtor next rva7797
+?rva004A7797@MissileUpdate@@QAEXXZ,,0x004A7797,33,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,matched,unlock packet MissileUpdate frame threshold to Rva004A7530Set
+?rva004A7767@MissileUpdate@@QAEXXZ,,0x004A7767,48,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,matched,unlock packet all callees rowed prev dtor next rva7797
 ?rva001F5CF7@Rva001F5CF7@@QAEXXZ,,0x001F5CF7,23,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,null-checked slot4 at 0 then tail jmp rowed Rva001F425C call on this plus 4
 ?rva001F5D38@Rva001F5D38@@QAEXXZ,,0x001F5D38,23,Code/GameEngine/Source/GameClient/System/ParticleSys.cpp,matched,null-checked slot4 at 0 then tail jmp rowed Rva001F429A call on this plus 4
 ??1Rva00136794@@UAE@XZ,,0x00136AA5,185,Code/Libraries/Source/WWVegas/WWLib/Rva00136794Dtor.cpp,matched,vtable 0x007D2970 layout from rowed ctorTU ref-release plus erase pattern
@@ -47829,7 +47829,7 @@ uw_0075b500,,0x0075B500,10,Code/GameEngine/Source/Main/CreateGameEngine.cpp,matc
 ?rva004B2F7B@Rva004B2F7B@@QAE_NPBVSpecialPowerTemplate@@@Z,,0x004B2F7B,82,Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerUpdate.cpp,matched,status 0x5A then the special-power store then module slot 1; missing module clears +0x20
 ?doToppleStartFX@StructureToppleUpdate@@IAEXPAVObject@@PBVDamageInfo@@@Z,,0x004A5B09,88,Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdateCrushing.cpp,matched,ZH doToppleStartFX; toppleStartFXList at module data +0x50 by doFXPos then doPhaseStuff INITIAL on the building position
 ?rva00495840@Rva00495840@@QAEHPAVArg@@@Z,,0x00495840,110,Code/GameEngine/Source/Common/Rva00495840Gate.cpp,matched,slot 110 then the command button override; a null scan returns 0x3FFFFFFF
-?rva004A78E1@MissileUpdate@@QAEXXZ,,0x004A78E1,137,Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp,matched,holder FX then particle spawn when the name is set; frame at +0x98 and state 3
+?rva004A78E1@MissileUpdate@@QAEXXZ,,0x004A78E1,137,Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp,matched,holder FX then particle spawn when the name is set; frame at +0x98 and state 3
 ?update@Rva0049520B@@QAEHXZ,,0x0049520B,148,Code/GameEngine/Source/GameLogic/Object/Rva0049520BGate.cpp,matched,player field +0x5c gates counter +0x10 then view float compare and actor slot 110 command 2
 ?handlePackingProcessing@Rva004ADB1B@@QAE_NXZ,,0x004ADB1B,188,Code/GameEngine/Source/GameLogic/Object/Rva004ADB1BLerp.cpp,matched,kind 2 lerps drawable +0xb0 from 1.0f toward source +0xc8 over the unsigned +0x28 ratio
 ?calcTotalProductionFrames@ProductionUpdate@@QAEHPAVRva0049CD4FArg@@@Z,,0x0049CD4F,170,Code/GameEngine/Source/Common/ProductionUpdate_calcTotalProductionFrames.cpp,matched,kind 1/2/3 then scale a non-positive answer up to 1 by object query 0xD

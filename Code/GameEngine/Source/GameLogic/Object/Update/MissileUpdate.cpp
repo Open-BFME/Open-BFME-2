@@ -100,6 +100,7 @@ public:
 };
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
+class Object;
 
 extern GameLogic *TheGameLogic;
 
@@ -188,6 +189,8 @@ public:
 // tu-skeleton: 0x004A74EF 27B ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A750A 8B ?clear@Rva004A750ADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateCtor.cpp
 
@@ -298,24 +301,6 @@ void MissileUpdate::rva004A7A86(int)
 	Rva004A75A3Init();
 }
 
-// tu-skeleton: 0x004A7551 47B ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_rva004A7551.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004A768A 7B ?get@Rva004A768AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7691 8B ?rva0045BF06@MissileUpdate@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7699 69B ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x004A76DE 84B ??1MissileUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7732 53B ?projectileFireAtObjectOrPosition@MissileUpdate@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7767 48B ?rva004A7767@MissileUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7767.cpp (not merged yet)
-
-// tu-skeleton: 0x004A7797 33B ?rva004A7797@MissileUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7797.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataCtor.cpp
 
   // ??_7MissileUpdateModuleData@@6B@
@@ -340,6 +325,43 @@ MissileUpdateModuleData::MissileUpdateModuleData()
 	m_exhaust.set("");
 }
 
+// tu-skeleton: 0x004A7551 47B ?rva004A7551@MissileUpdate@@QAEXPAVObject@@PBUCoord3D@@0HHPBURva0045B936Arg@@PAVRva002CBA7C@@PBVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_rva004A7551.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7684 6B ?Rva004A7684Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004A768A 7B ?get@Rva004A768AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7691 8B ?rva0045BF06@MissileUpdate@@W3AE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7699 69B ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004A76DE 84B ??1MissileUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004A7732 53B ?projectileFireAtObjectOrPosition@MissileUpdate@@UAEXPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7767.cpp
+
+void MissileUpdate::rva004A7767()
+{
+	unsigned int cur = TheGameLogic->getFrame();
+	if (m_frame > cur - 3)
+		return;
+	if (m_40 != 0)
+		TheGameLogic->destroyObject(m_object);
+	Rva004A7530Set(5);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateRva004A7797.cpp
+
+void MissileUpdate::rva004A7797()
+{
+	unsigned int cur = TheGameLogic->getFrame();
+	unsigned int diff = cur - m_frame;
+	if (diff < getMissileUpdateModuleData()->m_ignitionDelay)
+		return;
+	Rva004A7530Set(2);
+}
+
 // tu-skeleton: 0x004A784D 28B ??_GMissileUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-7fd4.cpp (not merged yet)
 
 // tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
@@ -348,7 +370,36 @@ MissileUpdateModuleData::MissileUpdateModuleData()
 
 // tu-skeleton: 0x004A78B8 41B ?rva004A78B8@Rva004A78B8@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/Rva004A78B8Gate.cpp (not merged yet)
 
-// tu-skeleton: 0x004A78E1 137B ?rva004A78E1@MissileUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004A78E1Spawn.cpp
+
+//
+// ?rva004A78E1@MissileUpdate@@QAEXXZ @0x004A78E1 137B.
+// Play the module data's ignition FX on the object, and when its exhaust
+// name at +0x11C is set, spawn that particle system onto +0xC8. Then store
+// the fuel-lifetime frame at +0x98 and set state 3.
+
+void MissileUpdate::rva004A78E1()
+{
+	const MissileUpdateModuleData *data = getMissileUpdateModuleData();
+	FXList::doFXObj(data->m_ignitionFX, m_object, 0);
+	const AsciiString &exhaust = data->m_exhaust;
+	if (exhaust.isEmpty() == 0) {
+		ParticleSystemTemplate *particleSystemTemplate = TheParticleSystemManager->findTemplate(exhaust);
+		if (particleSystemTemplate != 0) {
+			const Object *obj = m_object;
+			m_C8 = TheParticleSystemManager->rva001F5AA4(particleSystemTemplate, obj, 1);
+		}
+	}
+	m_CD = 1;
+	int t = data->m_fuelLifetime;
+	int frame;
+	if (t != 0)
+		frame = TheGameLogic->getFrame() + t;
+	else
+		frame = 0x7fffffff;
+	m_98 = frame;
+	Rva004A7530Set(3);
+}
 
 // tu-skeleton: 0x004A796A 284B ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateXfer.cpp (not merged yet)
 
