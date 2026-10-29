@@ -5403,6 +5403,14 @@ Census confirmation: not claimed.
   before working it. The vftable copies stay one-slot views of retail's full tables.
 - **Clearance:** scope `StealthUpdateCtor.cpp` only, current-object preview at `895c0f21ef`.
 - **Census confirmation:** awaiting.
+- **2026-10-29 recheck:** `link_check.py` against the fetched index `85f6b7f40c`
+  reports `Rva0024A797Derived.cpp` blocked by duplicate
+  `??1DemoTrapUpdate@@UAE@XZ`, with 0 of its 1,590 own bytes linking. The
+  rowed destructor is 0x00495916 in that unit. `DemoTrapUpdate.cpp` has an
+  implicit destructor and is a possible competing emitter, but its claim was
+  held by another worker; the competing provider has not been verified. Identify
+  both providers and reconcile their declarations, then recheck the affected
+  units and census before claiming a repair.
 
 ### LINK-030: ZH-header units emit a wrong `BitFlags<116>::clear` ahead of the rowed copy
 
