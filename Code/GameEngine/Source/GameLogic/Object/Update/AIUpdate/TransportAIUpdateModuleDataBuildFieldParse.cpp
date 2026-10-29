@@ -20,7 +20,7 @@ struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *
 extern const int s_transportAiFieldTable[];
 extern const FieldParse s_supplyTruckAiFieldTable[];
 extern const FieldParse s_deployStyleFieldTable[];
-extern const int s_assaultTransportFieldTable[];
+extern const FieldParse s_assaultTransportFieldTable[];
 extern const FieldParse s_animalAiFieldTable[];
 extern const FieldParse s_wanderAiFieldTable[];
 class MultiIniFieldParse

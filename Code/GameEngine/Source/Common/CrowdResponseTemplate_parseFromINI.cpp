@@ -6,8 +6,8 @@
 // CrowdResponse block parse 0x00415D33 passes INI in +8 and object in esi.
 // Same shape as rowed FX parsers at 0x0055CA78. Owner unproven so
 // honest-address class Rva00415C56.
-struct FieldParse;
-extern const int s_crowdResponseFieldTable[];
+struct FieldParse { const char *token; void (*parse)(class INI *, void *, void *, const void *); const void *userData; int offset; };
+extern const FieldParse s_crowdResponseFieldTable[];
 class INI
 {
 public:

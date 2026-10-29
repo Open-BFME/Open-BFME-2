@@ -17,6 +17,9 @@
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
 
+struct LookupListRec { const char *name; int value; };
+extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
+
 // Parser procs the tables below name; each is a rowed code owner.
 extern "C" {
 void __identifier("?Rva000B9468Parse@@YAXPAVINI@@PAX1PBX@Z")();
@@ -27,6 +30,7 @@ void __identifier("?Rva002C8C06Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00338E52_ParseEnvelope@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?Rva003393DFParse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva003393F7Parse@@YAXPAVINI@@PAX1PBX@Z")();
+void __identifier("?Rva00415B91Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva00468908Parse@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?Rva004B6481_ParseAnim@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -64,9 +68,6 @@ void __identifier("?parseWeaponTemplate@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?rva00467DE6@@YAXPAVINI@@PAX1PBX@Z")();
 void __identifier("?rva0047B9AD@SiegeEngineContainModuleData@@SAXPAVINI@@PAX1PBX@Z")();
 }
-
-struct LookupListRec { const char *name; int value; };
-extern const LookupListRec TheWeaponSlotTypeNamesLookupList[];
 
 extern const int g_emptyFieldParseTable[4];
 #pragma comment(linker, "/alternatename:?opaqueCall@Rva00507552@@SAPAXXZ=?Rva00507552Get@@YAHXZ")
@@ -447,9 +448,9 @@ extern const int AODCrushCollideTable[68] = {
 };
 
 // Retail VA 0x00befabc: 1 entries + terminator (32B).
-extern const int s_moneyCrateFieldTable[8] = {
-    0x00BEFAAC, 0x0042EF72, 0x00000000, 0x0000005C,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_moneyCrateFieldTable[2] = {
+    { "MoneyProvided", (FieldParseProc)&__identifier("?parseUnsignedInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x5C },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00befb60: 4 entries + terminator (80B).
@@ -511,10 +512,10 @@ extern const FieldParse s_deployStyleFieldTable[8] = {
 };
 
 // Retail VA 0x00beed74: 2 entries + terminator (48B).
-extern const int s_assaultTransportFieldTable[12] = {
-    0x00BEED58, 0x0042EFC0, 0x00000000, 0x00000064,
-    0x00BEED30, 0x0042EFC0, 0x00000000, 0x00000068,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_assaultTransportFieldTable[3] = {
+    { "MembersGetHealedAtLifeRatio", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x64 },
+    { "ClearRangeRequiredToContinueAttackMove", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x68 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00beeb88: 7 entries + terminator (128B).
@@ -744,10 +745,10 @@ extern const int s_hordeModelDrawFieldTable[8] = {
 };
 
 // Retail VA 0x00c3a304: 2 entries + terminator (48B).
-extern const int s_crowdResponseFieldTable[12] = {
-    0x00C3A2FC, 0x0042EF56, 0x00000000, 0x00000004,
-    0x00C390D4, 0x00815B91, 0x00000000, 0x00000008,
-    0x00000000, 0x00000000, 0x00000000, 0x00000000,
+extern const FieldParse s_crowdResponseFieldTable[3] = {
+    { "Weight", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x4 },
+    { "Threshold", (FieldParseProc)&__identifier("?Rva00415B91Parse@@YAXPAVINI@@PAX1PBX@Z"), 0, 0x8 },
+    { 0, 0, 0, 0 },
 };
 
 // Retail VA 0x00c0dc20: 13 entries + terminator (224B).

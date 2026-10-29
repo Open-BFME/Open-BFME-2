@@ -25,7 +25,7 @@ public:
 
 extern const FieldParse CrateCollideTable[];
 extern const int AODCrushCollideTable[];
-extern const int s_moneyCrateFieldTable[];
+extern const FieldParse s_moneyCrateFieldTable[];
 extern const FieldParse s_veterancyCrateFieldTable[];
 
 #define FIELD_PROC(cls, field) \
