@@ -178,6 +178,18 @@ def test_p_groups_approve_a_funclet_of_an_unapproved_parent_with_its_token(tree,
     assert all(te.P_GROUP_TOKEN not in r["evidence"] for r in anchored.values())   # parents approved: no token
 
 
+def test_p_groups_leave_an_approved_parents_funclet_to_the_usual_checks(tree, monkeypatch):
+    """Near miss: the parent is approved but its funclet sits inside another approved TU's span."""
+    layout, _ = tree
+    monkeypatch.setattr(te, "P_GROUPS", True)
+    real = te.inside_other
+    monkeypatch.setattr(te, "inside_other",
+                        lambda spans, rva, key: "code/c.cpp" if rva == FUNCLET else real(spans, rva, key))
+    got = {r["rva"]: r for r in te.apply(layout, map_rows(), {"P"}, structures(tree))}
+    funclet = got[f"0x{FUNCLET:08X}"]
+    assert funclet["confidence"] == "proposed" and te.P_GROUP_TOKEN not in funclet["evidence"].split()
+
+
 def test_p_groups_place_nothing_a_parent_without_a_tu_does_not(tree, monkeypatch):
     """Near miss: a funclet whose parent the map gives no TU (and no signal places) gets none."""
     layout, _ = tree

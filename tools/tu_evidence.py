@@ -450,7 +450,8 @@ def apply(layout, out, signals=None, st=None):
             group = False
             if s == "P":
                 ok = ok and conf.get(st.parent[rva][0]) == "approved"
-                group = P_GROUPS and not ok      # the parent's group, approved or not (P_GROUPS)
+                # a proposed parent's group only: an approved parent's funclet keeps the usual checks
+                group = P_GROUPS and not ok and conf.get(st.parent[rva][0]) == "proposed"
             unproven = ok and key in prov or group and (key not in roots or key in prov)
             ev = " ".join(x for x in (r["evidence"], ref, f"inside={spelled.get(other, other)}" if other else "",
                                       P_GROUP_TOKEN if group else "", tu_map.PROV_TOKEN if unproven else "") if x)
