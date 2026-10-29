@@ -1,4 +1,5 @@
 // cl: /O1 /EHsc /MD
+// stlport46
 //
 // _STL::swap<Rva004F6352>, retail 0x004F6E62, 79 bytes. Dedicated TU so the
 // temp copy/assign/destroy stays out-of-line through the rowed copy ctor
