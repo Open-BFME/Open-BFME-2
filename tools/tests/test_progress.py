@@ -473,9 +473,9 @@ def test_dump_pass_moved_zero_recovered_bytes():
 
 
 def test_readme_headline_is_a_recovered_figure():
-    """The badge's figures -- byte match, game code in C++* and linking
-    -- may not exceed what progress.py prints for them (BYTE-MATCHED,
-    GAME CODE C++*, LINKING).
+    """The card's byte figures -- byte match, linking and hand-written code --
+    may not exceed what progress.py prints for them (BYTE-MATCHED, LINKING and
+    AUTHORED C++).
 
     A README that lags is fine (contributors land continuously, the census is
     daily) and a README that flatters is not.
@@ -488,16 +488,17 @@ def test_readme_headline_is_a_recovered_figure():
         # "not measured" (no census yet) is 0%: the badge may not claim more.
         return float(line.split("(")[1].split("%")[0]) if "(" in line else 0.0
 
-    tool = {"rebuilt": figure("BYTE-MATCHED "), "cpp": figure("GAME CODE C++* "), "linking": figure("LINKING ")}
+    tool = {"rebuilt": figure("BYTE-MATCHED "), "authored": figure("AUTHORED C++ "), "linking": figure("LINKING ")}
     readme = (ROOT / "README.md").read_text(encoding="utf-8")
     assert "docs/progress.svg" in readme, "README no longer shows the progress badge"
     svg = (ROOT / "docs/progress.svg").read_text(encoding="utf-8")
     title = re.search(r"<title[^>]*>BFME 2 · Road to a finished decomp: ([\d.]+)% byte match, "
-                      r"([\d.]+)% game code in C\+\+\*, "
                       r"(?:([\d.]+)% linking|linking not measured)", svg)
     assert title, "the badge's title no longer states its figures"
-    badge = {"rebuilt": float(title.group(1)), "cpp": float(title.group(2)),
-             "linking": float(title.group(3) or 0)}
+    written = re.search(r"<desc[^>]*>[^<]*hand-written code ([\d.]+)%", svg)
+    assert written, "the badge's description no longer states hand-written code"
+    badge = {"rebuilt": float(title.group(1)), "authored": float(written.group(1)),
+             "linking": float(title.group(2) or 0)}
     for key, value in badge.items():
         assert value <= tool[key] + 0.005, (
             f"README says {value}% {key} where progress.py says {tool[key]}%; it may lag, never flatter")

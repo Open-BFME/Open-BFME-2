@@ -149,8 +149,8 @@ def test_failed_post_does_not_advance_state_or_leak_url(tmp_path, monkeypatch):
 def test_discord_post_mirrors_the_card():
     embed = daily.announcement(full(), previous(authored=36, generated=10, declared_names=200, readable_names=140,
                                                 **cleanup(items=P2[0] - 2_900)))["embeds"][0]
-    M, C, L, N, S, F, D = (daily.BLOCK[key] for key in
-                           ("matched", "cpp", "linked", "names", "shortcuts", "layout", "classes"))
+    M, L, A, N, S, F, D = (daily.BLOCK[key] for key in
+                           ("matched", "linked", "authored", "names", "shortcuts", "layout", "classes"))
     R = daily.REST_BLOCK
     shortcuts, was = 100 * 3000 / P2[0], 100 * 2900 / P2[0]
     assert embed["title"] == "BFME 2 · Road to a finished decomp"
@@ -163,12 +163,6 @@ def test_discord_post_mirrors_the_card():
         "Every byte of the game's program code is recreated by compiling our source "
         "(game data & assets: not measured yet)",
         "",
-        "**Game code in C++*: 55.56%**  " + f"{UP} 4.44",
-        f"{C * 5}{R * 5}",   # floor bands: 55.56% is five squares
-        "50 / 90 bytes of executable game code (libraries and embedded data excluded)",
-        "Includes generated C++ and intentionally retained assembly. Of it: authored C++ 44.44%, "
-        "generated C++ 11.11%, reviewed assembly 0.00% of executable game code.",
-        "",
         "**Linking: 10.00%**",
         f"{L * 1}{R * 9}",
         "Share of game code that links into one program; 4,777 problems recorded (measured 2026-10-28)",
@@ -176,6 +170,7 @@ def test_discord_post_mirrors_the_card():
         "> Next milestone: first normal build, then the first playtest",
         "",
         "**Is the source clean?**",
+        f"{A * 4}{R * 6} **44.44%** Hand-written code  {UP} 4.44",
         f"{N * 7}{R * 3} **71.00%** Readable names  {UP} 1.00",
         f"{S * 0}{R * 10} **{shortcuts:.2f}%** Shortcuts removed  {UP} {round(shortcuts, 2) - round(was, 2):.2f}",
         f"{F * 0}{R * 10} **{100 * 2000 / (P2[1] - 2000):.2f}%** Original file layout  {daily.DOT} 0.00",
@@ -189,19 +184,33 @@ def test_card_shows_both_sections():
     svg = daily.render(full(), previous(authored=36, generated=10))
     text = text_of(svg)
     for piece in ("BFME 2 · Road to a finished decomp", daily.SUBTITLE, "DOES IT WORK?", "Byte match", "60.00%",
-                  "Game code in C++*", "55.56%", "50 / 90 bytes of executable game code",
-                  "Includes generated C++ and intentionally retained assembly", "authored C++ 44.44%",
                   "Linking", "10.00%", "Share of game code that links into one program; 4,777 problems recorded",
                   "game data & assets: not measured yet", "measured 2026-10-28",
                   "Next milestone: first normal build, then the first playtest", "IS THE SOURCE CLEAN?",
-                  "Readable names", "71.00%", "Shortcuts removed",
+                  "Hand-written code", "44.44%", "Readable names", "71.00%", "Shortcuts removed",
                   "Original file layout", "Shared class definitions", daily.FOOTER, f"{UP} 4.44"):
         assert piece in text, piece
     assert "game data &amp; assets" in svg   # escaped XML
-    assert "Hand-written code" not in text
+    assert "Game code in C++" not in text and "55.56%" not in text   # the approved layout: not on the card
     assert "prefers-color-scheme: light" in svg and "Plays" not in text and "Rebuilt from source" not in text
-    for colour in ("#2ea043", "#d29922", "#a371f7", "#f0883e", "#e05c7a", "#388bfd"):
+    for colour in ("#2ea043", "#d29922", "#a371f7", "#58a6ff", "#f0883e", "#e05c7a"):
         assert f'fill="{colour}"' in svg
+    assert "#388bfd" not in svg
+
+
+def test_the_card_keeps_the_owner_approved_layout():
+    """Does it work? is byte match and linking (with the milestone); Is the source
+    clean? opens with hand-written code. GAME CODE C++* also counts generated C++
+    and retained assembly: it describes how the code is stored, not whether the
+    game works, so progress.py prints it and the card does not (24454a208b had
+    put it back on the card)."""
+    assert [label for _, label, _ in daily.WORKS] == ["Byte match", "Linking"]
+    assert [label for _, label in daily.CLEAN] == ["Hand-written code", "Readable names", "Shortcuts removed",
+                                                   "Original file layout", "Shared class definitions"]
+    post = daily.announcement(full(), None)["embeds"][0]["description"]
+    works, clean = post.split("**Is the source clean?**")
+    assert "Game code in C++" not in post and "Byte match" in works and "Linking" in works
+    assert clean.strip().split("\n")[0].endswith("Hand-written code")
 
 
 STATUS_HEADER = "source,linked,unresolved,duplicates,comdat_losers,addresses,wrong_selected\n"
@@ -253,7 +262,7 @@ def test_a_pending_census_rule_change_shows_being_re_measured(tmp_path, monkeypa
     assert daily.remeasuring(pending) == ("retail-truth-5", "retail-truth-4")
     assert daily.delta_since(old, "linked", *daily.measures(pending)["linked"], pending) is None
     svg, post = daily.render(pending, old), daily.announcement(pending, old)["embeds"][0]["description"]
-    assert ">being re-measured<" in svg and UP not in svg.split(">Readable names<")[0]
+    assert ">being re-measured<" in svg and UP not in svg.split(">Hand-written code<")[0]
     assert "**Linking: 13.33%**  (being re-measured)" in post
     assert "(retail-truth-4 to retail-truth-5): this is the last figure under the old rules" in post
     # once the census measures under the new rules the row compares again (accounting changed vs the last post)
@@ -363,17 +372,16 @@ def test_image_ownership_replaces_not_measured_once_recorded(tmp_path):
     assert daily.side_note(full(), "matched") == daily.NOT_MEASURED_DATA
 
 
-def test_game_code_cpp_includes_generated_and_assembly():
+def test_hand_written_code_is_authored_cpp_only():
     current = dict(sample(), total=7_978_500, authored=7_240_277,
                    generated=267_704, assembly=7_986, vendored=457_607,
                    library=822, data=4_104)
     assert daily.measures(current)['authored'] == (7_240_277, 7_515_967)
     assert daily.measures(current)['cpp'] == (7_515_967, 7_515_967)
     text = daily.announcement(current, None)['embeds'][0]['description']
-    assert '**Game code in C++*: 100.00%**' in text
-    assert '7,515,967 / 7,515,967 bytes of executable game code' in text
-    assert 'authored C++ 96.33%, generated C++ 3.56%, reviewed assembly 0.11%' in text
-    # Moving bytes between generated and authored keeps the inclusive C++ figure full.
+    assert '**96.33%** Hand-written code' in text and 'Game code in C++' not in text
+    # Replacing a generated body with recovered C++ is new hand-written code; the
+    # inclusive figure measures() still checks against stays full.
     reconciled = dict(current, authored=current['authored'] + 1_000, generated=current['generated'] - 1_000)
     assert daily.measures(reconciled)['cpp'] == (7_515_967, 7_515_967)
     assert daily.delta_since(current, 'authored', *daily.measures(reconciled)['authored'], reconciled) > 0
@@ -415,7 +423,7 @@ def test_old_state_without_figures_gives_no_arrow():
     # A state from before the census stored Linking: the other figures still compare.
     text = daily.announcement(sample(), previous(authored=36, generated=10, linked_authored=None,
                                                  linked_game_code=None))["embeds"][0]["description"]
-    assert f"**Game code in C++*: 55.56%**  {UP} 4.44" in text and "**Linking: 10.00%**\n" in text
+    assert f"**44.44%** Hand-written code  {UP} 4.44" in text and "**Linking: 10.00%**\n" in text
     # A state saved by the old four-bar card has no Phase 2 counts: no arrow on them.
     text = daily.announcement(full(), previous())["embeds"][0]["description"]
     assert re.search(r"Shortcuts removed$", text, re.M) and re.search(r"Shared class definitions$", text, re.M)

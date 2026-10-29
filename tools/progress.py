@@ -3,9 +3,8 @@
 
 The README card and the Discord post (tools/readme_progress.py) draw their
 figures from the functions here, so this prints the same figures: BYTE-MATCHED
-("Byte match"), GAME CODE C++* (its parts are broken out as AUTHORED C++),
-LINKING ("Linking") with LINK PROBLEMS (its "problems recorded"), then
-READABLE NAMES (worktree only),
+("Byte match"), LINKING ("Linking") with LINK PROBLEMS (its "problems
+recorded"), AUTHORED C++ ("Hand-written code"), then READABLE NAMES (worktree only),
 SHORTCUTS, FILE LAYOUT and SHARED CLASSES, the last three counted from the start
 of Phase 2 (PHASE2_START). BYTE-MATCHED ("rebuilt from source") is everything that rebuilds
 to game.dat's exact bytes (authored and generated C++, vendored source,
@@ -940,7 +939,7 @@ def print_headline(padding, denominator, old_split, new_split, old_census, new_c
     print(_line("AUTHORED C++", new_split["authored"], game,
                 f"delta {format_delta(new_split['authored'], old_split['authored'], game)}"
                 if game == game_before else "delta n/a (the game's own code changed size)",
-                "hand-written C++ over executable game code (the authored share under the card's GAME CODE C++*)"))
+                "hand-written C++ over executable game code (the card's \"Hand-written code\")"))
 
     def census_line(label, field, over_field, note, over_total=None):
         """One census figure over its denominator: `over_field` names the
