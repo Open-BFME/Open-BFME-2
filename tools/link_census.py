@@ -727,13 +727,15 @@ def _normal(name):
     return re.sub(r"\?A0x[0-9A-Fa-f]{8}", "?A0xHASH", name)
 
 
-def comdat_bodies(obj):
+def comdat_bodies(obj, data=None):
     """[(name, digest, size)] for each external COMDAT symbol an object defines
-    (see _comdat_sections for what the digest covers)."""
-    try:
-        data = obj.read_bytes()
-    except OSError:
-        return []
+    (see _comdat_sections for what the digest covers); `data`, when given, is
+    the object's bytes, read by the caller."""
+    if data is None:
+        try:
+            data = obj.read_bytes()
+        except OSError:
+            return []
     return [(symbol["name"], digest, size) for symbol, _, _, digest, size in _comdat_sections(data)]
 
 
@@ -1081,8 +1083,8 @@ def comdat_conflicts(objs):
     unresolved/duplicate counts cannot show.
     """
     copies = collections.defaultdict(dict)
-    for obj in objs:
-        for name, digest, size in comdat_bodies(obj):
+    for obj, bodies in zip(objs, memo_map("comdat_bodies", objs)):
+        for name, digest, size in bodies:
             copies[name].setdefault(digest, (size, obj.name))
     return {name: [(sha, size, obj) for sha, (size, obj) in found.items()]
             for name, found in copies.items() if len(found) > 1}
@@ -1147,7 +1149,7 @@ LNK_INFO, LNK_REMOVE = 0x200, 0x800  # .drectve, and sections the linker never p
 DIRECTIVE_ROOT = re.compile(r"/(?:INCLUDE|EXPORT):(\"[^\"]+\"|[^\s,=]+)", re.I)
 
 
-def object_references(obj):
+def object_references(obj, data=None):
     """(roots, edges) of one object's relocations, by name, for referenced_names.
 
     `roots`: the names referenced from what a link always keeps: a section that
@@ -1161,10 +1163,11 @@ def object_references(obj):
     linker keeps or drops with it; a local section defining an external name
     references that name. Debug sections (.debug$*) and LNK_REMOVE/LNK_INFO
     sections reference nothing: /DEBUG's FPO records name every function.
-    An unreadable object raises MissingObject."""
+    An unreadable object raises MissingObject. `data`, when given, is the
+    object's bytes, read by the caller."""
     import struct
     try:
-        data = obj.read_bytes()
+        data = obj.read_bytes() if data is None else data
         count = struct.unpack_from("<H", data, 2)[0]
         optional = struct.unpack_from("<H", data, 16)[0]
         table, nsyms = struct.unpack_from("<II", data, 8)
@@ -1244,15 +1247,142 @@ def object_references(obj):
     return roots, {name: frozenset(found) for name, found in edges.items()}
 
 
+# Per-object parses the census repeats on every object, every run, memoised by
+# the CONTENT they parse: an entry is keyed by the sha256 of the object's bytes
+# and lives under a directory named for the digest of the code that computed
+# it (MEMO_CODE: the files the parse runs, the Python version, MEMO_VERSION),
+# so a changed object or a changed parser never meets an old entry. The value
+# stored is the value the parse returned for exactly those bytes (pickle keeps
+# sets, frozensets and tuples as they were); a missing, unreadable or corrupt
+# entry recomputes, and nothing that raises is stored. LINK_CENSUS_MEMO=off
+# computes everything and stores nothing.
+MEMO = ROOT / "build" / "link_census_cache"
+MEMO_VERSION = 1
+MEMO_CODE = {"references": ("link_census.py",), "comdat_bodies": ("link_census.py",),
+             "symbols": ("link_census.py",)}
+MEMO_CODE_DIR = Path(__file__).resolve().parent
+_MEMO_KEYS = {}
+
+
+def _memo_dir(kind):
+    if kind not in _MEMO_KEYS:
+        digest = hashlib.sha256(json.dumps([MEMO_VERSION, kind, list(sys.version_info[:2])]).encode())
+        for name in MEMO_CODE[kind]:
+            digest.update(name.encode() + b"\0" + (MEMO_CODE_DIR / name).read_bytes())
+        _MEMO_KEYS[kind] = MEMO / f"{kind}-{digest.hexdigest()[:16]}"
+    return _MEMO_KEYS[kind]
+
+
+def memo_enabled():
+    """False with LINK_CENSUS_MEMO=off, and inside pytest unless a test turns
+    it on (LINK_CENSUS_MEMO=on): fixture objects never fill the checkout's memo."""
+    setting = os.environ.get("LINK_CENSUS_MEMO", "").lower()
+    if setting == "off":
+        return False
+    return setting == "on" or "pytest" not in sys.modules
+
+
+def _memo_compute(kind, obj, data):
+    if kind == "references":
+        return object_references(obj, data)
+    if kind == "comdat_bodies":
+        return comdat_bodies(obj, data)
+    return object_symbols(obj, data)
+
+
+def memo_parse(kind, obj):
+    """(value, hit): `kind`'s parse of `obj` (MEMO_CODE), from the memo when
+    an entry for these exact bytes exists, else computed and stored. A read
+    error is the parse's own: comdat_bodies reads an unreadable object as
+    none, object_references raises MissingObject."""
+    import pickle
+    try:
+        data = obj.read_bytes()
+    except OSError as exc:
+        if kind == "comdat_bodies":
+            return [], False
+        if kind == "references":
+            raise MissingObject(f"{obj}: cannot read relocations ({exc})") from exc
+        raise
+    if not memo_enabled():
+        return _memo_compute(kind, obj, data), False
+    key = hashlib.sha256(data).hexdigest()
+    path = _memo_dir(kind) / key[:2] / f"{key}.pickle"
+    try:
+        value = pickle.loads(path.read_bytes())
+        try:
+            os.utime(path)  # prune_memo keeps what is used
+        except OSError:
+            pass
+        return value, True
+    except FileNotFoundError:
+        pass
+    except Exception:  # noqa: BLE001 -- a torn or foreign entry: recompute and replace it
+        pass
+    value = _memo_compute(kind, obj, data)
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        temp = path.with_name(f"{path.name}.{os.getpid()}.{id(value)}.tmp")
+        temp.write_bytes(pickle.dumps(value, protocol=pickle.HIGHEST_PROTOCOL))
+        os.replace(temp, path)
+    except OSError:
+        pass  # the memo only saves time
+    return value, False
+
+
+def _memo_references(obj):
+    return memo_parse("references", obj)
+
+
+def _memo_comdat_bodies(obj):
+    return memo_parse("comdat_bodies", obj)
+
+
+def _memo_symbols(obj):
+    return memo_parse("symbols", obj)
+
+
+def memo_map(kind, objs, parallel=True):
+    """[memo_parse(kind, obj)[0] for obj in objs], in parallel (BUILD_POOL
+    processes) for a whole link unless `parallel` is false (a caller in a
+    side thread: no fork beside a running link), reporting the hit rate."""
+    fn = {"references": _memo_references, "comdat_bodies": _memo_comdat_bodies, "symbols": _memo_symbols}[kind]
+    workers = build._pool_size() if parallel else 1
+    if workers > 1 and len(objs) >= 200:
+        with concurrent.futures.ProcessPoolExecutor(workers) as pool:
+            found = list(pool.map(fn, objs, chunksize=64))
+    else:
+        found = [fn(obj) for obj in objs]
+    if _PROFILE:
+        print(f"link_census: memo {kind}: {sum(hit for _, hit in found):,} of {len(found):,} objects reused",
+              file=sys.stderr, flush=True)
+    return [value for value, _ in found]
+
+
+def prune_memo(days=14):
+    """Drop memo entries nothing used for `days`, and every entry of code that
+    is no longer this checkout's."""
+    import shutil
+    if not memo_enabled() or not MEMO.is_dir():
+        return
+    current = {_memo_dir(kind).name for kind in MEMO_CODE}
+    cutoff = time.time() - days * 86400
+    for directory in MEMO.iterdir():
+        if directory.name not in current:
+            shutil.rmtree(directory, ignore_errors=True)
+            continue
+        for entry in directory.glob("*/*.pickle"):
+            try:
+                if entry.stat().st_mtime < cutoff:
+                    entry.unlink()
+            except OSError:
+                pass
+
+
 @_timed('read_references (COFF parse)')
 def read_references(objs):
-    """object_references for every object, in parallel (BUILD_POOL processes)."""
-    workers = build._pool_size()
-    if workers > 1:
-        import concurrent.futures
-        with concurrent.futures.ProcessPoolExecutor(workers) as pool:
-            return list(pool.map(object_references, objs, chunksize=64))
-    return [object_references(obj) for obj in objs]
+    """object_references for every object (memo_map)."""
+    return memo_map("references", objs)
 
 
 def merge_references(references):
@@ -2077,6 +2207,7 @@ def main(argv=None):
     elif args.measure:
         measure(census, rows, present, final_log(census), state, sources)
     _stage_line("total", time.monotonic() - run_started)
+    prune_memo()
     return 0
 
 
@@ -2245,12 +2376,12 @@ LINKER_DEFINED = frozenset({"___ImageBase"})  # link.exe defines __ImageBase its
 IMPORT_PREFIX = "__imp_"  # __imp_X binds to a locally defined X (LNK4217/LNK4049), not an error
 
 
-def object_symbols(obj):
+def object_symbols(obj, data=None):
     """(defined, referenced, weak externals [(name, default)], /alternatename
     {alias: target}, /INCLUDE: names) of one object: what predicted_unresolved
     needs from its symbol table and directives."""
     import link_check
-    data = obj.read_bytes()
+    data = obj.read_bytes() if data is None else data
     defined, referenced = set(), set()
     for symbol in _coff_symbols(data):
         if symbol["storage"] != EXTERNAL:
@@ -2269,7 +2400,24 @@ def object_symbols(obj):
             size, pointer = struct.unpack_from("<II", data, header + 16)
             text = data[pointer:pointer + size].decode("latin-1")
             includes.update(found.strip('"') for found in re.findall(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", text, re.I))
-    return defined, referenced, _weak_externals(data), link_check.alternate_names(obj), includes
+    return defined, referenced, _weak_externals(data), _alternate_names(data), includes
+
+
+def _alternate_names(data):
+    """link_check.alternate_names of an object's bytes."""
+    import struct
+    count = struct.unpack_from("<H", data, 2)[0]
+    optional = struct.unpack_from("<H", data, 16)[0]
+    found = {}
+    for i in range(count):
+        header = 20 + optional + i * 40
+        if data[header:header + 8].rstrip(b"\0") != b".drectve":
+            continue
+        size, pointer = struct.unpack_from("<II", data, header + 16)
+        text = data[pointer:pointer + size].decode("latin-1")
+        for alias, target in re.findall(r"/alternatename:([^=\s]+)=(\S+)", text, re.I):
+            found.setdefault(alias.strip('"'), target.strip('"'))
+    return found
 
 
 @_timed('unresolved-name prediction')
@@ -2283,8 +2431,7 @@ def predicted_unresolved(present):
     link's log names exactly these); an unreadable object predicts nothing."""
     defined, referenced, weak, alias = set(), {ENTRY_SYMBOL}, {}, {}
     try:
-        for obj in present:
-            names, refs, weaks, alternates, includes = object_symbols(obj)
+        for obj, (names, refs, weaks, alternates, includes) in zip(present, memo_map("symbols", present, parallel=False)):
             defined |= names
             referenced |= refs | includes
             for name, default in weaks:

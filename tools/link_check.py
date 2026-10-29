@@ -595,23 +595,11 @@ def alternate_names(obj):
     whole link: an alias nothing defines resolves to its target, so the census
     never sees it unresolved. 460 of this repository's sources use them (and
     601 of Open-BFME-1's, whose link_check does not model them yet)."""
-    import struct
     try:
         data = obj.read_bytes()
     except OSError as exc:
         raise link_census.MissingObject(f"{obj}: cannot read the object ({exc})") from exc
-    count = struct.unpack_from("<H", data, 2)[0]
-    optional = struct.unpack_from("<H", data, 16)[0]
-    found = {}
-    for i in range(count):
-        header = 20 + optional + i * 40
-        if data[header:header + 8].rstrip(b"\0") != b".drectve":
-            continue
-        size, pointer = struct.unpack_from("<II", data, header + 16)
-        text = data[pointer:pointer + size].decode("latin-1")
-        for alias, target in re.findall(r"/alternatename:([^=\s]+)=(\S+)", text, re.I):
-            found.setdefault(alias.strip('"'), target.strip('"'))
-    return found
+    return link_census._alternate_names(data)
 
 
 def check_object(obj, index, truth, source=None):
