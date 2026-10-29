@@ -1,4 +1,5 @@
 // cl: /Oi
+// stlport46
 
 // Preserve the CRT inline overloads used by the retail intrinsic wrappers,
 // without emitting their incompatible out-of-line float-wrapper copies.

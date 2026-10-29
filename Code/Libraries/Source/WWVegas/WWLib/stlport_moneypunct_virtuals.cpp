@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // moneypunct's nine virtuals, slots 1..9 of the four vftables at 0x007BC810,
 // 0x007BC83C, 0x007BC868 and 0x007BC894. Almost none of it is distinct code:

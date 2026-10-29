@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // codecvt<char,char,mbstate_t> is the identity conversion, and its vftable at
 // 0x007BBB08 shows how little of it is distinct: slots 1 and 2 hold the same

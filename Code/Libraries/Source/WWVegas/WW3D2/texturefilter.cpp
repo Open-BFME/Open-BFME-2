@@ -1,4 +1,5 @@
 // cl: /O2 /arch:SSE /G7 /MD /EHsc
+// stlport46
 // dxsdk
 // platformsdk
 //

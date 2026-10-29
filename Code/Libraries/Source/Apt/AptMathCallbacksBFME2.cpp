@@ -1,4 +1,5 @@
 // cl: /O2 /MD /D_CRTIMP=
+// stlport46
 // BFME1 6583b3c1ff21db4a561285717028fdafc780b7db supplies the Math.pow
 // algorithm in game/Libraries/Source/EA/Apt/Rva008A5160MathPow.cpp.
 // Target 6E8990..6E89E8 has two stack arguments, cdecl return, and int3

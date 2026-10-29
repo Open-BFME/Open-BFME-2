@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /Od
+// stlport46
 
 // STLport __malloc_alloc<0>::deallocate(void*, size_t), BFME2 RVA 0x00023A70,
 // 18 bytes. Byte-identical donor: BFME1 RVA 0x0082B100. The method body is

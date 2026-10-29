@@ -1,4 +1,5 @@
 // cl: /Ob1 /DNDEBUG /MD /EHsc
+// stlport46
 //
 // (renamed from placeholder BFME2LoadParticleTexture)
 // Retail 0x00132D89, 237 bytes. Target disassembly shows a name lookup at
