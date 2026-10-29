@@ -1340,8 +1340,7 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayDraw.
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherAnimationDebuggingInfo.cpp	g_Va00DE1CAC	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayGatherNetworkStats.cpp	g_Va00DBA2F8	3
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayReset.cpp	g_Va00DB3BDC	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp	g_Va00DB5FC8	2
-address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw_Draw.cpp	g_Va00DB5FC8	1
+address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp	g_Va00DB5FC8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFXParticleSystem.cpp	g_Va00DB5F7D	7
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseCtor.cpp	g_Va009E5DF8	2
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DMouseInitW3DAssets.cpp	g_Va009E5DF8	5

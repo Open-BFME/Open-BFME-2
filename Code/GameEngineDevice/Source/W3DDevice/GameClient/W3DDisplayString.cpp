@@ -4,6 +4,11 @@
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 #include "../../../../../reference/shims/wwmath/Vector2.h"
+#include "ascii_string.h"
+#define TRUE true
+#define FALSE false
+#define TRUE true
+#define FALSE false
 
 typedef bool Bool;
 
@@ -68,6 +73,7 @@ protected:
 };
 
 class Gen_00942BC0 { public: void process( void *text, void *hkX, void *hkY ); };
+
 class Rva00155AD0 { public: void rva00155AD0( void ); };
 
 class Render2DSentenceClass
@@ -159,6 +165,35 @@ private:
 	unsigned int m_lastResourceFrame;										///< 0x1F4
 };
 
+// The hot key lookup (Zero Hour HotKeyManager::searchHotKey) on the manager at
+// retail [0x00E01E28]; pinned at 0x00358B9E.
+class HotKeyManager
+{
+public:
+	AsciiString searchHotKey( const UnicodeString &uStr );
+};
+
+class HotKeyManager;
+
+extern HotKeyManager *TheHotKeyManager;
+
+// The colour callback slot shared with W3DAptAux.cpp (retail [0x00DB5FC8]).
+extern int g_Va00DB5FC8;
+
+typedef Int (*BfmeColorCallback)( Color color );
+
+class GameClient
+{
+public:
+#define S(n) virtual void slot##n();
+	S(00) S(01) S(02) S(03) S(04) S(05) S(06) S(07) S(08) S(09) S(10) S(11) S(12) S(13) S(14) S(15)
+	S(16) S(17) S(18) S(19) S(20) S(21) S(22) S(23) S(24) S(25) S(26) S(27) S(28) S(29) S(30)
+#undef S
+	virtual unsigned int getFrame( void );	// slot 31
+};
+
+extern GameClient *TheGameClient;
+
 // tu-skeleton: 0x00105DC0 69B ?setColors@W3DDisplayString@@UAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
 
 // tu-skeleton: 0x00105E05 48B ?setTextColor@W3DDisplayString@@UAEXPAH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
@@ -174,6 +209,8 @@ private:
 // tu-skeleton: 0x00105F6E 38B ?setWordWrap@W3DDisplayString@@UAEXH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
 
 // tu-skeleton: 0x00105F94 50B ?setUseHotkey@W3DDisplayString@@UAEX_NH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp
 
@@ -236,23 +273,14 @@ void W3DDisplayString::setWordWrapCentered( Bool isCentered )
 
 // void setWordWrap( Int wordWrap )
 
-// tu-skeleton: 0x00105FE4 82B ?rva00105FE4@Rva00105FE4@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
 
-// tu-skeleton: 0x00106036 82B ?rva00106036@Rva00106036@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
 
-// tu-skeleton: 0x00106088 203B ??0W3DDisplayString@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00106153 15B ?getTextLength@DisplayString@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
 
-// tu-skeleton: 0x00106162 92B ??1W3DDisplayString@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x001061BE 157B ?reset@W3DDisplayString@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0010625B 28B ??_GW3DDisplayString@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00106277 398B ?rva00106277@W3DDisplayString@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
 
-// tu-skeleton: 0x00106405 377B ?draw@W3DDisplayString@@UAEXHHHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw_Draw.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringComputeExtents.cpp
 
@@ -269,6 +297,164 @@ void W3DDisplayString::computeExtents()
 		m_sizeX = extents.X;
 		m_sizeY = extents.Y;
 	}
+}
+
+// tu-skeleton: 0x00105FE4 82B ?rva00105FE4@Rva00105FE4@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+
+// tu-skeleton: 0x00106036 82B ?rva00106036@Rva00106036@@QAEXMM@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesV.cpp (not merged yet)
+
+// tu-skeleton: 0x00106088 203B ??0W3DDisplayString@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00106153 15B ?getTextLength@DisplayString@@UAEHXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
+
+// tu-skeleton: 0x00106162 92B ??1W3DDisplayString@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x001061BE 157B ?reset@W3DDisplayString@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0010625B 28B ??_GW3DDisplayString@@UAEPAXI@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// W3DDisplayString's BFME 2 draw pair, from Zero Hour's draw( x, y, color,
+// dropColor, xDrop, yDrop ): retail 0x00106277 rebuilds the sentences when the
+// text or font changed (and flags new polys when the colour callback's value
+// for the first text colour changes); retail 0x00106405 is the vftable's
+// four-argument draw (the two-argument draw 0x00105E65 forwards to it with
+// zero offsets) drawing four-colour sentences. Declarations follow
+// W3DDisplayStringWordWrap.cpp, itself ported from Zero Hour's
+// GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp and the
+// inline Render2DSentenceClass::Set_Wrapping_Width of WW3D2/render2dsentence.h
+// (GeneralsMD tree vendored under reference/open-bfme-1/inputs/reference).
+//
+// Built on the BFME 2 layout of W3DDisplayStringComputeExtents.cpp (renderers
+// at +0x14/+0xD8, m_textChanged at +0x1A0); the ZH-layout W3DDisplayString.cpp
+// beside this file places them elsewhere. In the 0xC4-byte BFME 2
+// Render2DSentenceClass the wrap width sits at +0x84 and the hard-wrap flag at
+// +0xAE. The class views below are W3DDisplayString.cpp's, verbatim, so the
+// three units compose into that retail TU.
+
+// ?rva00106277@W3DDisplayString@@QAE_NXZ
+Bool W3DDisplayString::rva00106277( void )
+{
+	if( getTextLength() == 0 )
+		return FALSE;
+	if( m_fontChanged || m_textChanged )
+	{
+		if( m_useHotKey )
+		{
+			m_textRenderer.Set_Hot_Key_Parse( TRUE );
+			m_textRenderer.Build_Sentence( getText().str(), &m_hotKeyPos.x, &m_hotKeyPos.y );
+			m_hotkey.translate( ((HotKeyManager *)TheHotKeyManager)->searchHotKey( getText() ) );
+			if( !m_hotkey.isEmpty() )
+				m_textRendererHotKey.Build_Sentence( m_hotkey.str(), NULL, NULL );
+			else
+			{
+				m_useHotKey = FALSE;
+				m_textRendererHotKey.Reset();
+			}
+		}
+		else
+			m_textRenderer.Build_Sentence( getText().str(), NULL, NULL );
+		m_fontChanged = FALSE;
+		m_textChanged = FALSE;
+		m_bfmeColorsChanged = TRUE;
+	}
+	Int colorKey = ((BfmeColorCallback)g_Va00DB5FC8)( m_textColors[ 0 ] );
+	if( colorKey != m_colorKey )
+	{
+		m_bfmeColorsChanged = TRUE;
+		m_colorKey = colorKey;
+	}
+	return TRUE;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw_Draw.cpp
+
+// Split from W3DDisplayStringDraw.cpp: these definitions reference a callee with no matched body yet,
+// so they are kept apart from the unit's bodies that already link.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// W3DDisplayString's BFME 2 draw pair, from Zero Hour's draw( x, y, color,
+// dropColor, xDrop, yDrop ): retail 0x00106277 rebuilds the sentences when the
+// text or font changed (and flags new polys when the colour callback's value
+// for the first text colour changes); retail 0x00106405 is the vftable's
+// four-argument draw (the two-argument draw 0x00105E65 forwards to it with
+// zero offsets) drawing four-colour sentences. Declarations follow
+// W3DDisplayStringWordWrap.cpp, itself ported from Zero Hour's
+// GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayString.cpp and the
+// inline Render2DSentenceClass::Set_Wrapping_Width of WW3D2/render2dsentence.h
+// (GeneralsMD tree vendored under reference/open-bfme-1/inputs/reference).
+//
+// Built on the BFME 2 layout of W3DDisplayStringComputeExtents.cpp (renderers
+// at +0x14/+0xD8, m_textChanged at +0x1A0); the ZH-layout W3DDisplayString.cpp
+// beside this file places them elsewhere. In the 0xC4-byte BFME 2
+// Render2DSentenceClass the wrap width sits at +0x84 and the hard-wrap flag at
+// +0xAE. The class views below are W3DDisplayString.cpp's, verbatim, so the
+// three units compose into that retail TU.
+
+// ?draw@W3DDisplayString@@UAEXHHHH@Z
+void W3DDisplayString::draw( Int x, Int y, Color xDrop, Color yDrop )
+{
+	if( !rva00106277() )
+		return;
+	if( m_bfmeColorsChanged || x != m_textPos.x || y != m_textPos.y )
+	{
+		m_textPos.x = x;
+		m_textPos.y = y;
+		m_textRenderer.Reset_Polys();
+		if( xDrop || yDrop )
+		{
+			m_textRenderer.Set_Location( Vector2( m_textPos.x + xDrop, m_textPos.y + yDrop ) );
+			m_textRenderer.Draw_Sentence( m_dropColors[ 0 ], m_dropColors[ 1 ], m_dropColors[ 2 ], m_dropColors[ 3 ] );
+		}
+		m_textRenderer.Set_Location( Vector2( m_textPos.x, m_textPos.y ) );
+		m_textRenderer.Draw_Sentence( m_textColors[ 0 ], m_textColors[ 1 ], m_textColors[ 2 ], m_textColors[ 3 ] );
+		if( m_useHotKey )
+		{
+			m_textRendererHotKey.Reset_Polys();
+			m_textRendererHotKey.Set_Location( Vector2( m_textPos.x + m_hotKeyPos.x, m_textPos.y + m_hotKeyPos.y ) );
+			m_textRendererHotKey.Draw_Sentence( m_hotKeyColor, m_hotKeyColor, m_hotKeyColor, m_hotKeyColor );
+			m_textRendererHotKey.Render();
+		}
+		m_bfmeColorsChanged = FALSE;
+	}
+	m_textRenderer.Render();
+	if( TheGameClient )
+		m_lastResourceFrame = TheGameClient->getFrame();
 }
 
 // tu-skeleton: 0x00106663 80B ?notifyTextChanged@W3DDisplayString@@UAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringWordWrap.cpp (not merged yet)
@@ -288,13 +474,3 @@ void W3DDisplayString::computeExtents()
 // tu-skeleton: 0x0076444D 14B ?rva0076444d@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0076445B 10B __ehhandler$??1W3DDisplayString@@UAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00764465 8B Unwind@00b64465 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x0076446D 8B Unwind@00b6446d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x00764475 8B Unwind@00b64475 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x0076447D 8B Unwind@00b6447d -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
-
-// tu-skeleton: 0x00764485 10B __ehhandler$?rva00106277@W3DDisplayString@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDraw.cpp (not merged yet)
