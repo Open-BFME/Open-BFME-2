@@ -536,7 +536,36 @@ def main():
                        help="validate the ledgers as committed at REF")
     args = parser.parse_args()
 
-    spec = "" if args.staged else args.ref  # None -> working tree
+    if args.ref:
+        # --ref reads git objects only, so a passing verdict is a function of the
+        # tree, the retail image data_rows checks against, and this code: kept by
+        # tools/ledger_cache.py under those ids. A refusal is never kept.
+        print(passing_verdict(args.ref))
+        return
+    print(verdict("" if args.staged else None))
+
+
+def passing_verdict(ref):
+    """verdict(ref), reused for a tree whose verdict passed under the same code
+    and retail image (pre-commit runs `--ref $(git write-tree)`, so the push of
+    that commit reads the verdict instead of checking ~99,000 rows again)."""
+    import hashlib
+    import ledger_cache
+    tree = subprocess.run(["git", "-C", str(ROOT), "rev-parse", "--verify", "--end-of-options",
+                           f"{ref}^{{tree}}"], capture_output=True, text=True)
+    if tree.returncode:
+        raise SystemExit(f"check_csv: {ref} is not a commit or tree: {tree.stderr.strip()}")
+    import build
+    retail = hashlib.sha1(Path(build.EXE).read_bytes()).hexdigest()
+    tools = Path(__file__).resolve().parent
+    code = ledger_cache.code_hash(*(tools / name for name in
+                                    ("check_csv.py", "ledger_io.py", "data_rows.py", "re_log.py", "build.py")))
+    return ledger_cache.memo("check_csv.pass", f"{tree.stdout.strip()}:{retail}", lambda: verdict(ref), code)
+
+
+def verdict(spec):
+    """The OK line for the ledgers at `spec` (None: working tree, "": index,
+    else a ref or tree); SystemExit(1) after printing every problem."""
     problems = []
     deleted_raw = read_ledger(DELETED, spec)
     sources_ok = known_sources(spec)
@@ -561,9 +590,9 @@ def main():
         for p in problems:
             print(f"  - {p}", file=sys.stderr)
         raise SystemExit(1)
-    print(f"check_csv: OK (functions.csv {n_funcs} rows, symbols.csv {n_syms} rows"
-          + (f", data_rows.csv {n_data} rows" if n_data else "")
-          + (f", {n_orphans} known row-less source(s))" if n_orphans else ")"))
+    return (f"check_csv: OK (functions.csv {n_funcs} rows, symbols.csv {n_syms} rows"
+            + (f", data_rows.csv {n_data} rows" if n_data else "")
+            + (f", {n_orphans} known row-less source(s))" if n_orphans else ")"))
 
 
 if __name__ == "__main__":

@@ -385,7 +385,10 @@ fi
 # 1) Static ledger integrity (<1s): duplicate rows, conflicting or overlapping
 #    claims, malformed rows, missing sources. Turns union-merge corruption into
 #    an immediate loud failure instead of someone else's red build later.
-python3 tools/check_csv.py --staged || fail "ledger integrity (see above)"
+#    Judged as the tree this commit records (`git write-tree` is the index), so
+#    pre-push's `check_csv --ref` of the commit reuses the passing verdict.
+check_csv_tree=$(git write-tree) || fail "writing the index tree for the ledger check"
+python3 tools/check_csv.py --ref "$check_csv_tree" || fail "ledger integrity (see above)"
 python3 tools/flag_defaults.py check || fail "flag overrides edited by hand (see above)"
 
 # 1b) Identity, not bytes. reverse/symbols.csv is an ADDITIVE candidate list:
