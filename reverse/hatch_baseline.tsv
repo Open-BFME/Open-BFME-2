@@ -2296,7 +2296,6 @@ alternatename	Code/GameEngine/Source/Common/Rva004246BDObjListPush.cpp	?_M_creat
 alternatename	Code/GameEngine/Source/Common/Rva0042D4B3ScalarDeletor.cpp	??1Rva0042D4B3@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0042D5DDUpdate.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
 alternatename	Code/GameEngine/Source/Common/Rva0042D632Method.cpp	?TheRva00222A8BTarget@@3PAVRva00222A8BTarget@@A	1
-alternatename	Code/GameEngine/Source/Common/Rva0042FCE6Dtor.cpp	?rvaSlot0@Rva0042FCE6Base@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00431978.cpp	?rva00431978@Rva00431978@@QAE_NPAUICoord2D@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00451F45Derived.cpp	?f1@Rva00451F45_M1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00452FE0Same.cpp	?bfmeSameSX@@YA_NABUBfmeInnerSX@@0@Z	1
@@ -2873,6 +2872,7 @@ alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?clear@
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?clear@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358E26Record@@@_STL@@@2@@2@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z	1
+alternatename	Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp	?rvaSlot0@Rva0042FCE6Base@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp	?cb@Cb00359D42@@UAEXHMD@Z	1
 alternatename	Code/GameEngine/Source/GameClient/ResourceEntryOwnerRva004E7E3A.cpp	?cb@Rva004E7E3AClaimantCallback@@UAEXHMD@Z	1
 alternatename	Code/GameEngine/Source/GameClient/Rva00222A8BAptCallLevel.cpp	?invoke@Rva00222A8BTarget@@QAEXPAXPBDH10000@Z	1

@@ -34689,7 +34689,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042FB8F,285,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva0042FB8F.cpp
 0x0042FCAC,37,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva0042FCAC.cpp
 0x0042FCD1,21,code,,,-,,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp
-0x0042FCE6,54,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,proposed,K,K=Rva0042FCE6,Code/GameEngine/Source/Common/Rva0042FCE6Dtor.cpp
+0x0042FCE6,54,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,proposed,K,K=Rva0042FCE6,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp
 0x0042FD1C,57,code-unledgered,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,proposed,C,C=0x0042FCE6..0x0042FD55,
 0x0042FD55,73,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,proposed,C,C=0x0042FCE6..0x0042FD9E,Code/GameEngine/Source/GameClient/GUI/Rva0042FD55.cpp
 0x0042FD9E,129,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp S=Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp N=Code/GameEngine/Source/GameClient/MessageStream/SelectionTranslator.cpp,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatCtor.cpp
@@ -78253,7 +78253,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00787A00,8,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva0042FB8F.cpp
 0x00787A08,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/Rva0042FB8F.cpp
 0x00787A12,8,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FCE6@FuncInfo0x00935230 p-group,Code/gen_small/uw_gen_012.cpp
-0x00787A1A,10,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FCE6@FuncInfo0x00935230 p-group,Code/GameEngine/Source/Common/Rva0042FCE6Dtor.cpp
+0x00787A1A,10,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FCE6@FuncInfo0x00935230 p-group,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp
 0x00787A24,8,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FD9E@FuncInfo0x00935280,Code/gen_small/uw_gen_012.cpp
 0x00787A2C,11,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FD9E@FuncInfo0x00935280,Code/gen_small/uw_gen_011.cpp
 0x00787A37,10,code,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp,approved,P,P=0x0042FD9E@FuncInfo0x00935280,Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatCtor.cpp

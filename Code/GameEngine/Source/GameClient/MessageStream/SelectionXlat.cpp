@@ -34,6 +34,7 @@
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #include <hash_map>
 // STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
@@ -49,6 +50,8 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
 #include <cstddef>
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
+#include <map>
+#pragma comment(linker, "/alternatename:?rvaSlot0@Rva0042FCE6Base@@UAEXXZ=__purecall")
 
 namespace _STL
 {
@@ -58,6 +61,7 @@ extern template _Vector_base<Object *, allocator<Object *> >::_Vector_base(
 
 #if defined(_DEBUG) || defined(_INTERNAL)
 static Bool TheHurtSelectionMode = false;
+
 
 static Bool TheDebugSelectionMode = false;
 #endif
@@ -80,11 +84,6 @@ class Rva0042FB8F
 public:
 	Bool rva0042FB8F( Drawable *draw, GameMessage *createTeamMsg );
 };
-
-// ??_GRva0042FCE6@@QAEPAXI@Z, RVA 0x0042FE1F, 28B. Chain lane: deleting dtor
-// calling rowed ??1Rva0042FCE6@@QAE@XZ at 0x0042FCE6 then rowed operator
-// delete 0x0002FD60; test flags, ret 4. Evidence: vtable slot 1 of 0x0083C960.
-class Rva0042FCE6 { public: ~Rva0042FCE6(); };
 
 typedef _STL::pair<const int,bool> SelectionIDValue;
 
@@ -194,7 +193,37 @@ namespace _STL {template<> struct hash<Rva0043001DElement> { unsigned operator()
 // emitted members needing the element's undefined operations.
 template _STL::hash_map<int, Rva0043001DElement>::hash_map();
 
+// bfme link decl-only begin
+namespace _STL { template <> _Rb_tree<unsigned int, pair<unsigned int const, void *>, _Select1st<pair<unsigned int const, void *> >, less<unsigned int>, allocator<pair<unsigned int const, void *> > >::~_Rb_tree(); }
+
+namespace _STL { template <> void _Rb_tree<unsigned int, pair<unsigned int const, void *>, _Select1st<pair<unsigned int const, void *> >, less<unsigned int>, allocator<pair<unsigned int const, void *> > >::_M_erase(_Rb_tree_node<pair<unsigned int const, void *> > *); }
+
+// bfme link decl-only end
+
+typedef _STL::pair<const unsigned int, void *> Rva0042FCE6Pair;
+
+typedef _STL::_Rb_tree<unsigned int, Rva0042FCE6Pair, _STL::_Select1st<Rva0042FCE6Pair>, _STL::less<unsigned int>, _STL::allocator<Rva0042FCE6Pair> > Rva0042FCE6Tree;
+
+class Rva0042FCE6Base
+{
+public:
+	Rva0042FCE6Base() { }
+	~Rva0042FCE6Base() { }
+	virtual void rvaSlot0();
+};
+
+class Rva0042FCE6 : public Rva0042FCE6Base
+{
+public:
+	~Rva0042FCE6();
+private:
+	char m_pad04[0x24];
+	Rva0042FCE6Tree m_map28;
+};
+
 // tu-skeleton: 0x0042FD9E 129B ??0SelectionTranslator@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat.cpp
 
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0042FCE6.cpp
 
@@ -213,17 +242,57 @@ void Rva0042FE3BSelectionIDCleanup::cleanup()
     reinterpret_cast<SelectionIDTable *>(this)->~SelectionIDTable();
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042FFC0.cpp
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043001D.cpp
+
+
+
+
+
+
+
+
+
+
+
+//-----------------------------------------------------------------------------
+static Bool currentlyLookingForSelection( )
+{
+	// This needs to check if we are currently targetting for special weapons fire.
+	return TheInGameUI->getGUICommand() == NULL;
+}
+
+/*friend*/ Bool killThemKillThemAllWrapper( Drawable *draw, void *userData )
+{
+	SFWRec *info = (SFWRec *)userData;
+	((Rva0042FB8F *)info->translator)->rva0042FB8F( draw, info->createTeamMsg );
+	return true;
+}
+
 // tu-skeleton: 0x0042FE40 63B ??A?$hash_map@PBVThingTemplate@@_NU?$hash@PBVThingTemplate@@@_STL@@U?$equal_to@PBVThingTemplate@@@3@V?$allocator@U?$pair@QBVThingTemplate@@_N@_STL@@@3@@_STL@@QAEAA_NABQBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat_areAllSelected.cpp (not merged yet)
 
 // tu-skeleton: 0x0042FE7F 321B ?selectFriends@SelectionTranslator@@QAE_NPAVDrawable@@PAVGameMessage@@_N@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatSelectFriends.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0042FFC0.cpp
-
 // tu-skeleton: 0x00430000 29B ?selectFriendsWrapper@@YA_NPAVDrawable@@PAX@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlat_selectFriendsWrapper.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0043001D.cpp
-
 // tu-skeleton: 0x0043003C 4054B ?translateGameMessage@SelectionTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp (not merged yet)
+
+// tu-skeleton: 0x00787A12 8B uw_00787a12 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0042FCE6Dtor.cpp
+
+// ??1Rva0042FCE6@@QAE@XZ, retail 0x0042FCE6, 54 bytes.
+// Dtor stores derived vtable 0x0083C960 destroys tree at +0x28 via rowed 0x00357C6A stores base vtable 0x007DBA74. Evidence: caller 0x0042FE1F deleting dtor base vtable matches BfmeOwnVVD base.
+
+Rva0042FCE6::~Rva0042FCE6()
+{
+}
+
+// Placeholder virtuals this unit's vftables hold.  In retail each such slot
+// holds a rowed function; the vftable's address is proven by the vptr stores in
+// the matched destructors, so bind the placeholder to that row's name.
 
 // tu-skeleton: 0x00787A24 8B uw_00787a24 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
 
@@ -239,20 +308,6 @@ void Rva0042FE3BSelectionIDCleanup::cleanup()
 
 // tu-skeleton: 0x00787A70 8B $L66292 -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp (not merged yet)
 
-// tu-skeleton: 0x00787A78 8B uw_00787a78 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
+// tu-skeleton: 0x00787A78 8B $L66293 -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp (not merged yet)
 
 // tu-skeleton: 0x00787A80 10B __ehhandler$?translateGameMessage@SelectionTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp (not merged yet)
-
-//-----------------------------------------------------------------------------
-static Bool currentlyLookingForSelection( )
-{
-	// This needs to check if we are currently targetting for special weapons fire.
-	return TheInGameUI->getGUICommand() == NULL;
-}
-
-/*friend*/ Bool killThemKillThemAllWrapper( Drawable *draw, void *userData )
-{
-	SFWRec *info = (SFWRec *)userData;
-	((Rva0042FB8F *)info->translator)->rva0042FB8F( draw, info->createTeamMsg );
-	return true;
-}
