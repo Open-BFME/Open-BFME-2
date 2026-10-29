@@ -4235,3 +4235,11 @@ function,?rva00665560@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,?getDecodedSize
 member,LODPresetBFME2::opaque44,LODPresetBFME2::m_minParticlePriority,inferred,agree:nl-b61242574792,Code/GameEngine/Source/Common/GameLODApplyPreset.cpp,
 member,Rva00232654Record::m_01,Rva00232654Record::m_status,inferred,agree:nl-62d397bfdfeb,Code/GameEngine/Source/Common/GapBodiesGE04.cpp,
 member,Rva00420F0EArg2::m_val74,Rva00420F0EArg2::m_id,inferred,agree:nl-9b6dfc01ed61,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,
+member,Rva000BBFD6ModuleDataView::string118,Rva000BBFD6ModuleDataView::m_rampMesh2,inferred,agree:nl-63714bbd8657,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BBFD6DrawInterface::string25C,Rva000BBFD6DrawInterface::m_rampMesh2Override,inferred,agree:nl-3968ad2063e0,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BBF55ModuleDataView::string114,Rva000BBF55ModuleDataView::m_rampMesh1,inferred,agree:nl-9ad6fdc913ba,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BBF55DrawInterface::string258,Rva000BBF55DrawInterface::m_rampMesh1Override,inferred,agree:nl-ba5d57956e04,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BAC53ModuleDataView::string10C,Rva000BAC53ModuleDataView::m_wallBoundsMesh,inferred,agree:nl-41539d1d63c8,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BAC53ModuleDataView::string110,Rva000BAC53ModuleDataView::m_raisedWallMesh,inferred,agree:nl-4227800188da,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+member,Rva000BAC53DrawInterface::string254,Rva000BAC53DrawInterface::m_wallBoundsMeshOverride,inferred,agree:nl-cb889fa431b2,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,
+local,W3DScriptedModelDraw::allocateShadows::t,W3DScriptedModelDraw::allocateShadows::thingTemplate,inferred,agree:nl-3257a57c3c9c,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawRampQueries.cpp,0x000B9B4A

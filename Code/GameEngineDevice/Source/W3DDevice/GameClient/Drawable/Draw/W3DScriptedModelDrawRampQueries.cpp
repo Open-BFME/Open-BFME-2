@@ -156,7 +156,7 @@ void W3DScriptedModelDraw::rva000B3A80()
 struct Rva000BBFD6ModuleDataView
 {
  char unknown00[0x118];
- AsciiString string118;
+ AsciiString m_rampMesh2;
 };
 
 class Rva000BBFD6DrawInterface
@@ -165,17 +165,17 @@ public:
  bool rva000BBFD6(BridgeInfo *, PolygonTrigger **, RenderObjClass **, bool);
 private:
  char unknown00[0x25C];
- AsciiString string25C;
+ AsciiString m_rampMesh2Override;
 };
 
 bool Rva000BBFD6DrawInterface::rva000BBFD6(BridgeInfo *info,
  PolygonTrigger **polygon, RenderObjClass **mesh, bool useObjectTransform)
 {
  AsciiString name;
- if (!string25C.isEmpty())
-  name = string25C;
+ if (!m_rampMesh2Override.isEmpty())
+  name = m_rampMesh2Override;
  else
-  name = (*reinterpret_cast<const Rva000BBFD6ModuleDataView *const *>(reinterpret_cast<const char *>(this) - 8))->string118;
+  name = (*reinterpret_cast<const Rva000BBFD6ModuleDataView *const *>(reinterpret_cast<const char *>(this) - 8))->m_rampMesh2;
  return reinterpret_cast<W3DScriptedModelDraw *>(reinterpret_cast<char *>(this) - 0xC)
   ->getRamp(info, name, polygon, mesh, useObjectTransform);
 }
@@ -186,7 +186,7 @@ bool Rva000BBFD6DrawInterface::rva000BBFD6(BridgeInfo *info,
 struct Rva000BBF55ModuleDataView
 {
  char unknown00[0x114];
- AsciiString string114;
+ AsciiString m_rampMesh1;
 };
 
 class Rva000BBF55DrawInterface
@@ -195,17 +195,17 @@ public:
  bool rva000BBF55(BridgeInfo *, PolygonTrigger **, RenderObjClass **, bool);
 private:
  char unknown00[0x258];
- AsciiString string258;
+ AsciiString m_rampMesh1Override;
 };
 
 bool Rva000BBF55DrawInterface::rva000BBF55(BridgeInfo *info,
  PolygonTrigger **polygon, RenderObjClass **mesh, bool useObjectTransform)
 {
  AsciiString name;
- if (!string258.isEmpty())
-  name = string258;
+ if (!m_rampMesh1Override.isEmpty())
+  name = m_rampMesh1Override;
  else
-  name = (*reinterpret_cast<const Rva000BBF55ModuleDataView *const *>(reinterpret_cast<const char *>(this) - 8))->string114;
+  name = (*reinterpret_cast<const Rva000BBF55ModuleDataView *const *>(reinterpret_cast<const char *>(this) - 8))->m_rampMesh1;
  return reinterpret_cast<W3DScriptedModelDraw *>(reinterpret_cast<char *>(this) - 0xC)
   ->getRamp(info, name, polygon, mesh, useObjectTransform);
 }
@@ -242,8 +242,8 @@ class Rva000B8F5AOuter { public: int rva000B89E9(int mesh, float *out); };
 struct Rva000BAC53ModuleDataView
 {
  char unknown00[0x10C];
- AsciiString string10C;
- AsciiString string110;
+ AsciiString m_wallBoundsMesh;
+ AsciiString m_raisedWallMesh;
 };
 
 class Rva000BAC53DrawInterface
@@ -255,7 +255,7 @@ public:
  int rva000BAEBF(float *out);
 private:
  char unknown00[0x254];
- AsciiString string254;
+ AsciiString m_wallBoundsMeshOverride;
 };
 
 #define BAC53_DRAW() reinterpret_cast<W3DScriptedModelDraw *>(reinterpret_cast<char *>(this) - 0xC)
@@ -271,10 +271,10 @@ PolygonTrigger *Rva000BAC53DrawInterface::rva000BAC53(float *out)
   return 0;
  {
   AsciiString name;
-  if (!string254.isEmpty())
-   name = string254;
+  if (!m_wallBoundsMeshOverride.isEmpty())
+   name = m_wallBoundsMeshOverride;
   else
-   name = BAC53_DATA()->string10C;
+   name = BAC53_DATA()->m_wallBoundsMesh;
   Rva000BAC53SubObject *sub = render->getSubObjectByName(name.str(), 0);
   if (sub) {
    mesh = sub->rva000BAC53Mesh();
@@ -298,7 +298,7 @@ PolygonTrigger *Rva000BAC53DrawInterface::rva000BAD2B(float *out)
  {
   AsciiString name;
   const Rva000BAC53ModuleDataView *data = BAC53_DATA();
-  name = data->string110;
+  name = data->m_raisedWallMesh;
   Rva000BAC53SubObject *sub = render->getSubObjectByName(name.str(), 0);
   if (sub) {
    mesh = sub->rva000BAC53Mesh();
@@ -321,10 +321,10 @@ int Rva000BAC53DrawInterface::rva000BADE7(float *out)
   return 0;
  {
   AsciiString name;
-  if (!string254.isEmpty())
-   name = string254;
+  if (!m_wallBoundsMeshOverride.isEmpty())
+   name = m_wallBoundsMeshOverride;
   else
-   name = BAC53_DATA()->string10C;
+   name = BAC53_DATA()->m_wallBoundsMesh;
   Rva000BAC53SubObject *sub = render->getSubObjectByName(name.str(), 0);
   if (sub) {
    mesh = sub->rva000BAC53Mesh();
@@ -348,7 +348,7 @@ int Rva000BAC53DrawInterface::rva000BAEBF(float *out)
  {
   AsciiString name;
   const Rva000BAC53ModuleDataView *data = BAC53_DATA();
-  name = data->string110;
+  name = data->m_raisedWallMesh;
   Rva000BAC53SubObject *sub = render->getSubObjectByName(name.str(), 0);
   if (sub) {
    mesh = sub->rva000BAC53Mesh();
@@ -365,24 +365,24 @@ int Rva000BAC53DrawInterface::rva000BAEBF(float *out)
 
 void W3DScriptedModelDraw::allocateShadows()
 {
- const Rva000B9B4ATemplatePrefix *t=drawable8->thing4;
- if(!shadow58 && render50 && TheW3DShadowManager && t->m_shadowType) {
+ const Rva000B9B4ATemplatePrefix *thingTemplate=drawable8->thing4;
+ if(!shadow58 && render50 && TheW3DShadowManager && thingTemplate->m_shadowType) {
   Shadow::ShadowTypeInfo info;
-  reinterpret_cast<StringBase<char> *>(&info.first)->set(*reinterpret_cast<const StringBase<char> *>(&t->m_shadowTextureName));
+  reinterpret_cast<StringBase<char> *>(&info.first)->set(*reinterpret_cast<const StringBase<char> *>(&thingTemplate->m_shadowTextureName));
   info.flags[1]=0;
   info.flags[2]=1;
-  info.type=t->m_shadowType;
-  info.sizeX=t->sizeX;
-  info.sizeY=t->sizeY;
-  info.offsetX=t->offsetX;
-  info.offsetY=t->offsetY;
-  info.projectionX=t->projectionX;
-  info.projectionY=t->projectionY;
-  info.flags[0]=t->flag5ED;
+  info.type=thingTemplate->m_shadowType;
+  info.sizeX=thingTemplate->sizeX;
+  info.sizeY=thingTemplate->sizeY;
+  info.offsetX=thingTemplate->offsetX;
+  info.offsetY=thingTemplate->offsetY;
+  info.projectionX=thingTemplate->projectionX;
+  info.projectionY=thingTemplate->projectionY;
+  info.flags[0]=thingTemplate->flag5ED;
   shadow58=TheW3DShadowManager->addShadow(render50,&info,0);
   if(shadow58) {
-   shadow58->shadowFlag30=t->flag5EF;
-   if(t->color5EE) shadow58->setColor(reinterpret_cast<int>(colors28.rva000B4653(0)));
+   shadow58->shadowFlag30=thingTemplate->flag5EF;
+   if(thingTemplate->color5EE) shadow58->setColor(reinterpret_cast<int>(colors28.rva000B4653(0)));
    shadow58->enableShadowInvisible(fullyObscured49);
    if(reinterpret_cast<Rva000B9B4ARenderView *>(render50)->Is_Hidden() || !shadowEnabled4A)
     shadow58->enableShadowRender(false);
