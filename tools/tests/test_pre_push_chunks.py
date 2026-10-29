@@ -287,6 +287,39 @@ def test_medium_carried_retry_checks_new_delta_and_preserves_failures(repo, fail
     assert calls(path, 'receipt-calls.jsonl')[2:] == expected
 
 
+# Logs each landing-window call (tools/push_lease.py); acquire hands out a token.
+RECORD_LEASE = """import sys
+with open('lease-calls.txt', 'a', encoding='utf-8') as out:
+    out.write(sys.argv[1] + '\\n')
+if sys.argv[1] == 'acquire':
+    print('TOKEN')
+"""
+
+
+def test_only_a_carried_retry_holds_the_landing_window(repo):
+    # A first gate runs for tens of minutes: holding the window through it made
+    # every other seat wait as long. Its carried retry verifies only master's new
+    # commits, so it alone holds the window; the first gate waits like any push.
+    path, sources, base, _ = medium_receipt_fixture(repo)
+    hooks.write(path, 'tools/push_lease.py', RECORD_LEASE)
+    hooks.git(path, 'add', '--', 'tools/push_lease.py')
+    hooks.git(path, 'commit', '-qm', 'landing window log fixture')
+    verified = hooks.git(path, 'rev-parse', 'HEAD')
+    selected = sources[:550]
+    first = run_hook((path, sources, base, verified), selected)
+    assert first.returncode == 0, first.stderr
+    assert (path / 'lease-calls.txt').read_text().split() == ['wait']
+    source = selected[0]
+    hooks.write(path, source, '// changed after the verified gate\n')
+    hooks.git(path, 'add', '--', source)
+    hooks.git(path, 'commit', '-qm', 'incoming source change')
+    pushed = hooks.git(path, 'rev-parse', 'HEAD')
+    hooks.write(path, 'delta-retry.txt', source + '\n')
+    done = run_hook((path, sources, base, pushed), selected, CARRY_FROM=verified)
+    assert done.returncode == 0, done.stderr
+    assert (path / 'lease-calls.txt').read_text().split() == ['wait', 'acquire']
+
+
 def unbounded_headers(fixture):
     path, sources, base, _ = fixture
     hooks.write(path, 'tools/header_dependents.py', 'raise SystemExit(2)\n')

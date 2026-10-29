@@ -23,7 +23,8 @@ Claims are refs on origin. They expire after four hours and do not change
 
 One claim does pace publication: the landing window `lease:landing`
 (`tools/push_lease.py`, 30-minute TTL). The pre-push hook takes it before a
-full-gate or carried push to master and releases it if the hook fails; every
+carried push to master (a retry whose full gate already passed, verifying only
+master's commits since) and releases it if the hook fails; every
 other push to master waits at the end of its hook while another seat holds it,
 until the holder's commit is on origin/master or the TTL passes. Check it with
 `python3 tools/push_lease.py status`. A crashed holder blocks no one past the

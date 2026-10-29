@@ -214,9 +214,11 @@ collect_verify() {
 }
 
 # Landing window (tools/push_lease.py, the claim lease:landing, 30-minute TTL).
-# A full-gate or carried push to master takes it before its gate, so scoped
-# pushes do not move master under it; every other push to master waits for it
-# at the end of this hook, until the holder's commit lands or the TTL passes.
+# A carried push to master (its full gate already passed; it verifies only
+# master's commits since) takes it before its checks, so scoped pushes do not
+# move master under it; every other push to master waits for it at the end of
+# this hook, until the holder's commit lands or the TTL passes. A first full
+# gate holds no window: master may move during it, and its retry carries.
 # The hook releases it when it fails; on success it keeps it, because git sends
 # the pack after this hook ends (a window released here let a waiter win the
 # race anyway). It fails open and never blocks past the TTL.
@@ -683,9 +685,9 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         [ "$header_all" -eq 0 ] || fail "carried full gate from $carried is unbounded"
         collect_verify
     fi
-    # A full-gate or carried push takes the landing window before its gate; a
-    # retry by the holder renews it (tools/push_lease.py).
-    if [ "$large_scope" -ne 0 ]; then
+    # A carried push takes the landing window before its checks (minutes, not a
+    # whole gate, for the seats waiting on it); a retry by the holder renews it.
+    if [ -n "$carried" ]; then
         take_landing_window "$local_sha"
         stage "landing window"
     fi
@@ -869,8 +871,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         [ -z "$push_loads" ] || rm -rf "$push_loads"
     fi
     stage "receipt record"
-    # Any other push waits while another seat lands a full-gate push.
-    if [ "$large_scope" -eq 0 ]; then
+    # Any other push waits while another seat lands a carried push.
+    if [ -z "$carried" ]; then
         wait_landing_window
         stage "landing window wait"
     fi

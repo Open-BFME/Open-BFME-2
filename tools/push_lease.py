@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""The landing window: one full-gate push to master lands at a time.
+"""The landing window: one carried full-gate push to master lands at a time.
 
 WHY. A push whose scope needs the full gate verifies for tens of minutes
 before git sends it; with scoped pushes landing every few minutes, master
 moves during almost every such gate and the push is rejected (the STLport 4.6
 import passed it eight times over ~9 hours on 2026-10-28). A carried retry
-(tools/full_gate_receipt.py) makes each lost race cheaper; this window makes
-it rarer.
+(tools/full_gate_receipt.py) verifies only master's commits since the gate,
+and this window keeps master still while it does. The first full gate holds
+no window, so no seat waits a whole gate.
 
 HOW. The window is a shared claim (tools/claims.py) on `lease:landing`, the
 ref refs/claims/lease/landing on origin, with a short TTL
@@ -15,9 +16,9 @@ creating it is atomic across hosts, only its owner releases it, an expired one
 is taken over by compare-and-swap, and `claims.py list` shows who holds it.
 Its note names the commit being landed.
 
-  * .githooks/pre-push ACQUIRES it before a full-gate (or carried) push to
-    master, waiting while another owner holds it; a retry by the holder renews
-    it. The hook RELEASES it when it fails. On success it keeps it: the hook
+  * .githooks/pre-push ACQUIRES it before a carried push to master (one
+    whose full gate already passed in this clone), waiting while another owner
+    holds it; a retry by the holder renews it. The hook RELEASES it when it fails. On success it keeps it: the hook
     ends before git sends the pack, and a window released then let a waiter
     win the race anyway (the 2026-10-12 window).
   * Every other push to master WAITS at the end of its hook while another
