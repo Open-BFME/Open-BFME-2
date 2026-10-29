@@ -8,7 +8,7 @@
 // The two failures share one throw tail; the enclosing scope lets its eight-byte
 // exception reuse the dead object-pointer home, as the retail stack frame does.
 #include <list>
-#include "../GameLogicObjectLookupView.h"
+#include "TunnelTrackerNemesisView.h"
 
 class XferException
 {
@@ -18,14 +18,6 @@ public:
     ~XferException();
     char *text;
     int tag;
-};
-class Drawable;
-class Object
-{
-public:
-    void rva0028BAC0(); // 0x0028BAC0
-    Drawable *getDrawable() const;
-    void leaveGroup();
 };
 // The existing matched Drawable provider sets Drawable's hidden byte at +0x43D
 // and refreshes it; the Object manager cascade is Object::rva0028BAC0
@@ -48,18 +40,6 @@ namespace _STL
     template<> void list<int>::push_back(const int &);
     template<> void _List_base<int, allocator<int> >::clear();
 }
-class TunnelTracker
-{
-public:
-    virtual ~TunnelTracker();
-protected:
-    virtual void loadPostProcess();
-private:
-    char opaque04[0x0C];
-    _STL::list<Object *> m_containList;
-    _STL::list<ObjectID> m_xferContainList;
-};
-
 // ?loadPostProcess@TunnelTracker@@MAEXXZ
 void TunnelTracker::loadPostProcess()
 {
@@ -72,11 +52,11 @@ void TunnelTracker::loadPostProcess()
         if (count != 0)
             goto failed;
         Object *object;
-        _STL::list<ObjectID>::const_iterator it;
+        _STL::list<int>::const_iterator it;
         for (it = m_xferContainList.begin();
              it._M_node != m_xferContainList.end()._M_node; ++it)
         {
-            object = TheGameLogic->findObjectByID(*it);
+            object = TheGameLogic->findObjectByID((ObjectID)*it);
             if (!object)
                 goto failed;
             reinterpret_cast<_STL::list<int> *>(&m_containList)->push_back(
@@ -88,7 +68,7 @@ void TunnelTracker::loadPostProcess()
             if (TheAI)
                 TheAI->m_pathfinder->RemoveObjectFromPathfindMap(object);
         }
-        reinterpret_cast<_STL::list<int> *>(&m_xferContainList)->clear();
+        m_xferContainList.clear();
         return;
     }
 failed:

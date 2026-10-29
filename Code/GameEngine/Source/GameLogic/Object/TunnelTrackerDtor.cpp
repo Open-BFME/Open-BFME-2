@@ -12,43 +12,12 @@
 
 template <> void _STL::_List_base<int, _STL::allocator<int> >::clear();
 template <> _STL::_List_base<int, _STL::allocator<int> >::~_List_base();
+class Object;
+template <> _STL::_List_base<Object *, _STL::allocator<Object *> >::~_List_base();
 
-// The base is the canonical Snapshot (vtable 0x00BBB554): retail unwind
-// funclets destroy it through the folded Snapshot destructor 0x0049B47C.
-// Slot 2 spelled as TunnelTrackerCtorBfme.cpp does, so the ??_7 copies agree.
-#define BFME_SNAPSHOT_NAME_SLOT
-#include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
-
-class TunnelTrackerInterfaceBase
-{
-public:
-	virtual void onTunnel() = 0;
-};
-
-class TunnelTracker : public Snapshot, public TunnelTrackerInterfaceBase
-{
-protected:
-	virtual ~TunnelTracker();
-	virtual void loadPostProcess();
-	virtual const char *GetSnapshotName() const;
-	virtual void xfer(Xfer *);
-
-public:
-	virtual void onTunnel();
-
-private:
-	_STL::list<int> m_tunnelIDs; // +0x08
-	int m_containListSize; // +0x0C
-	_STL::list<int> m_containList; // +0x10
-	_STL::list<int> m_xferContainList; // +0x14
-};
+#include "../../Common/RTS/TunnelTrackerNemesisView.h"
 
 TunnelTracker::~TunnelTracker()
 {
 	m_tunnelIDs.clear();
 }
-
-// Placeholder virtuals this unit's vftables hold.  In retail each such slot
-// holds a rowed function; the vftable's address is proven by the vptr stores in
-// the matched destructors, so bind the placeholder to that row's name.
-#pragma comment(linker, "/alternatename:?onTunnel@TunnelTracker@@UAEXXZ=?rva004F5391@TunnelTracker@@UAEX_N@Z")

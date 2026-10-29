@@ -45,14 +45,6 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
 
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -97,47 +89,14 @@ public:
 
 typedef unsigned short UnsignedShort;
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
-
 // The native four-byte append is the rowed list<int> member at 0x0005548F,
 // also used by TunnelTracker's other ID list. Keep it out of line here.
 namespace _STL { template <> void list<int, allocator<int> >::push_back(const int &); }
 
+#include "TunnelTrackerNemesisView.h"
+
 void XferObjectID( Xfer *xfer, ObjectID *value );
 Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<int> *values );
-
-class Object
-{
-public:
-	ObjectID getID( void ) const { return m_id; }
-private:
-	char m_unrecovered00[ 0x74 ];
-	ObjectID m_id;																														///< 0x74
-};
-
-typedef _STL::list<Object *> ContainedItemsList;
-
-class TunnelTracker
-{
-protected:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void xfer( Xfer *xfer );
-private:
-	char m_unrecovered04[ 0x08 - 0x04 ];
-	_STL::list<int> m_tunnelIDs;																							///< 0x08
-	char m_unrecovered0C[ 0x10 - 0x0C ];
-	ContainedItemsList m_containList;																					///< 0x10
-	_STL::list<int> m_xferContainList;																		///< 0x14
-	Int m_containListSize;																										///< 0x18
-	UnsignedInt m_tunnelCount;																								///< 0x1C
-	ObjectID m_bfmeObject20;																									///< 0x20
-	UnsignedInt m_bfmeUnsigned24;																							///< 0x24
-};
 
 // ------------------------------------------------------------------------------------------------
 /** Xfer method
@@ -167,7 +126,7 @@ void TunnelTracker::xfer( Xfer *xfer )
 		for( it = m_containList.begin(); it != m_containList.end(); ++it )
 		{
 
-			objectID = (*it)->getID();
+			objectID = (ObjectID)(*it)->getID();
 			XferObjectID( xfer, &objectID );
 
 		}  // end for, it
@@ -189,7 +148,7 @@ void TunnelTracker::xfer( Xfer *xfer )
 	// tunnel count
 	*xfer == m_tunnelCount;
 
-	XferObjectID( xfer, &m_bfmeObject20 );
-	*xfer == m_bfmeUnsigned24;
+	XferObjectID( xfer, (ObjectID *)&m_curNemesisID );
+	*xfer == m_nemesisTimestamp;
 
 }  // end xfer

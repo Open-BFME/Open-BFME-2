@@ -127,8 +127,6 @@ private:
 	void *m_node;
 };
 
-typedef TunnelContainedItemsList ContainedItemsList;
-
 struct Rva004F5473Inner
 {
 	char m_pad[0x109];
@@ -188,16 +186,6 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
-// _List_iterator comparisons otherwise instantiate the base-class
-// operator!= COMDAT (one byte shape per TU flags); exact-match free
-// overloads take those calls instead so this TU emits no external copy.
-namespace _STL {
-template <class _IterTp, class _LeftTraits, class _RightTraits>
-static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
-                              const _List_iterator<_IterTp, _RightTraits> &b)
-{ return a._M_node != b._M_node; }
-}
-
 class Rva00466398 {public:Rva0036AE51ListView rva00466398();};
 
 // ---- from Code/GameEngine/Source/Common/RTS/TunnelTrackerContain.cpp
@@ -232,7 +220,7 @@ Int TunnelTracker::getContainMax() const
 // ------------------------------------------------------------------------
 void TunnelTracker::addToContainList( Object *obj )
 {
-	reinterpret_cast<TunnelContainedItemsList *>(&m_containHead)->push_back(obj);
+	reinterpret_cast<TunnelContainedItemsList *>(&m_containList)->push_back(obj);
 	++m_containListSize;
 }
 
@@ -312,25 +300,25 @@ void TunnelTracker::iterateContained(ContainIterateFunc func, void *userData, bo
 {
     if (reverse)
     {
-        TunnelContainedNode *cur = m_containHead;
+        TunnelContainedNode *cur = containHead();
         if (cur == cur->m_next)
             return;
         do
         {
             cur = cur->m_prev;
             func(cur->m_object, userData);
-        } while (cur != m_containHead->m_next);
+        } while (cur != containHead()->m_next);
         return;
     }
-    TunnelContainedNode *cur = m_containHead->m_next;
-    if (cur == m_containHead)
+    TunnelContainedNode *cur = containHead()->m_next;
+    if (cur == containHead())
         return;
     do
     {
         Object *object = cur->m_object;
         cur = cur->m_next;
         func(object, userData);
-    } while (cur != m_containHead);
+    } while (cur != containHead());
 }
 
 // Donor healObjects name and float argument are supported by the native
@@ -430,20 +418,20 @@ bool TunnelTracker::isValidContainerFor(Object *obj, bool flag)
 void TunnelTracker::removeFromContain(ObjectID val, int dummy)
 {
 	_STL::list<ObjectID>::iterator it = _STL::find(
-		reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->begin(),
-		reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->end(), val);
-	if (it == reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->end())
+		reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->begin(),
+		reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->end(), val);
+	if (it == reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->end())
 		return;
-	reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->erase(it);
+	reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->erase(it);
 	--m_containListSize;
 }
 
 bool TunnelTracker::isInContainer(ObjectID val)
 {
 	return _STL::find(
-		reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->begin(),
-		reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->end(), val)
-		!= reinterpret_cast<_STL::list<ObjectID> *>(&m_containHead)->end();
+		reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->begin(),
+		reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->end(), val)
+		!= reinterpret_cast<_STL::list<ObjectID> *>(&m_containList)->end();
 }
 
 // tu-skeleton: 0x004F55A0 119B ??0TunnelTracker@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RTS/TunnelTrackerCtorBfme.cpp (not merged yet)
