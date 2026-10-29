@@ -9980,6 +9980,16 @@ providers: all ten units plus both former providers LINK (12/12, 29,668 B).
 Caution for later migrations: about twenty 4.5.3 units still declare this
 specialization. If this provider moves to 4.6, it must keep a copy, or its
 consumers must stop declaring it.
+Regressed again (2026-10-29, seat b1): 5cea349adb moved the provider onto
+STLport 4.6, so the ten units were unresolved on the same name again.
+Repair: stlport_narrow_ios_imbue.cpp (4.5.3) no longer declares the proxy
+specialization, so it emits the copy, and it now declares
+`__malloc_alloc<0>::allocate` body-less so the emitted proxy body does not
+bring a non-retail `__malloc_alloc` copy first in link order (6/6 rows exact).
+Preview: the ten consumers, both earlier providers and this unit LINK (12/12,
+5,457 -> 29,668 B); all 48 other declaring units still link except
+stlport_list_string_erase_00424363.cpp, whose list-helper COMDATs are unrelated
+(LINK-143). Pending census confirmation.
 
 ### LINK-141: removing the 0x48BA39 alias left four placeholder string destructors unresolved (2026-10-29, seat yasinschroeder-claudeb2)
 

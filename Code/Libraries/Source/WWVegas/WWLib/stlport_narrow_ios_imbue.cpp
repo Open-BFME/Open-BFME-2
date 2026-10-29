@@ -18,6 +18,7 @@
 // entry point is supplied by its separately verified owner.
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
+template <> void *__malloc_alloc<0>::allocate(size_t);
 #pragma optimize("gsy", on)
 template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
 template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
@@ -44,11 +45,9 @@ namespace _STL { template <> char *__copy_aux<char *, char *>(char *, char *, ch
 // Suppress this TU's non-retail copy of ??$__uninitialized_copy@PADPAD@_STL@@YAPADPAD00ABU__true_type@0@@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> char *__uninitialized_copy<char *, char *>(char *, char *, char *, const __true_type &); }
-// Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
-}
+// This TU emits the 4.5.3 proxy<char> allocate that the other 4.5.3 string
+// units declare body-less: retail inlines it everywhere, so it has no row, and
+// its former provider (LINK-140) now builds on STLport 4.6.
 namespace _STL {
 // TU-local forceinline helper standing in for the inlined copy-assignment body:
 // same self-check plus pointer-range dispatch, temp bound by const reference so
