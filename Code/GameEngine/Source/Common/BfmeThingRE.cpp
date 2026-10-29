@@ -50,6 +50,11 @@
 class Rva007E8810Message
 {
 public:
+    void reset();
+    void addString(const char *key, const char *value);
+    void addInt64(const char *key, __int64 value);
+    void addBool(const char *key, bool value);
+    void rva007E8EF0(const char *key, const char *value);
     char m_unknown[0x1C];
     unsigned int m_category;
 };
