@@ -6000,7 +6000,7 @@ _Rva0080C960,,0x00678860,3109,Code/Libraries/Source/DirtySock/ProtoSSLParseCerti
 _Rva0081B010,,0x00686F10,1775,Code/Libraries/Source/DirtySock/Rva0081B010CommWorker.cpp,matched,bfme1 Rva0081B010CommWorker source; serial worker with retail stale default pointer
 ?Rva007ECAF0@@YAHPADHPBDH@Z,,0x00659A20,230,Code/Libraries/Source/DirtySock/Y2Rva007EBAE0Module.cpp,matched,bfme1 DirtySock EBAE0 exact source; flag-mask to letters via same-TU body
 ?Rva00800040JoinI64@@YAXPB_JIPADID@Z,,0x0066C4F0,289,Code/GameEngine/Source/GameNetwork/Y2FeslUtilJoinI64.cpp,matched,bfme1 Y2FeslUtilJoinI64 source; int64-array join via sprintf percent-I64d
-?Rva00800170Join@@YAXPAPBDIPADID@Z,,0x0066C620,261,Code/GameEngine/Source/GameNetwork/Y2FeslUtilJoin.cpp,matched,bfme1 Y2FeslUtilJoin source; string-array join via strlen-strcat
+?Rva00800170Join@@YAXPAPBDIPADID@Z,,0x0066C620,261,Code/Libraries/Source/Fesl/util.cpp,matched,bfme1 Y2FeslUtilJoin source; string-array join via strlen-strcat
 ?compareNoCase@?$StringBase@G@@QBEHPBG@Z,0x00037A90,0x00037A90,89,Code/Libraries/Source/WWVegas/WWLib/string_base_inline.cpp,matched,Open-BFME5 clean C++; stlport 4.5.3; wide fold test via trait with ternary tiebreak
 _CommSRPConstruct,,0x00681200,496,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp exact source; SRP factory via op-table
 _CommSRPResolve,,0x00681660,28,Code/Libraries/Source/DirtySock/commsrp.cpp,matched,bfme1 commsrp source; resolve stub always fails via diag
@@ -8162,7 +8162,7 @@ _FilterBlock1d_h_wmt,,0x001D7820,159,Code/Libraries/Source/VP6/FilterBlock1dHvWm
 _FilterBlock1d_v_wmt,,0x001D78C0,146,Code/Libraries/Source/VP6/FilterBlock1dHvWmt.cpp,matched,Clean-room spec 001d78c0; FilterBlock1d_v_wmt: SSE2 four-tap vertical filter to bytes with rounding 64 and shift 7; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001d78c0.md and retail only
 _LastVerticalBand_3_5_Scale_C,,0x001BA160,136,Code/Libraries/Source/VP6/VerticalBandScaleC.cpp,matched,Clean-room spec 001ba160; LastVerticalBand_3_5_Scale_C: in-place last-band vertical 3-to-5 interpolation repeating the last row; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001ba160.md and retail only
 _VP6_ResetLeftContext,,0x001BC1A0,135,Code/Libraries/Source/VP6/ResetLeftContext.cpp,matched,Clean-room spec 001bc1a0; VP6_ResetLeftContext: zeroes the four left block contexts then sets mode -1 and frame 4; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001bc1a0.md and retail only
-?append@Rva00800460Arena@@QAEPADPBD@Z,,0x0066C8B0,135,Code/GameEngine/Source/GameNetwork/Y2FeslArenaAppend.cpp,matched,BFME1 byte-identical donor; b1 0x00800460; 4 DIR32 string literal(s) agree
+?append@Rva00800460Arena@@QAEPADPBD@Z,,0x0066C8B0,135,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x00800460; 4 DIR32 string literal(s) agree
 _FilterBlock1d_hb8_mmx,,0x001D6FF0,134,Code/Libraries/Source/VP6/FilterBlock1dHb8Mmx.cpp,matched,Clean-room spec 001d6ff0; FilterBlock1d_hb8_mmx: MMX two-tap horizontal 8-wide filter with rounding 64 and shift 7 leaving MMX state in use; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001d6ff0.md and retail only
 ?remove@Rva007EAServiceList@@QAEXPAVRva00803080@@@Z,,0x00657540,72,Code/GameEngine/Source/GameNetwork/Y2FeslServiceList.cpp,matched,BFME1 byte-identical donor; b1 0x007EA590; 2 DIR32 string literal(s) agree
 ?add@Rva007EAServiceList@@QAEXPAVRva00803080@@@Z,,0x00657500,60,Code/GameEngine/Source/GameNetwork/Y2FeslServiceList.cpp,matched,BFME1 byte-identical donor; b1 0x007EA550; 2 DIR32 string literal(s) agree
@@ -8196,7 +8196,7 @@ _VP6_DecodeBool128,,0x001C4F80,93,Code/Libraries/Source/VP6/DecodeBool128.cpp,ma
 ?bfmeTakeFT@BfmeThingFT@@QAEAAV1@PBV1@@Z,,0x00154AF0,91,Code/GameEngine/Source/Common/BfmeOneHundredNinetyEight.cpp,matched,BFME1 byte-identical donor; b1 0x0093D9B0
 ?bfmeFindFirstOfVMD@@YAPBDPBD000URva00026E40Tag@@@Z,,0x00026E40,90,Code/GameEngine/Source/Common/BfmeConv1426.cpp,matched,BFME1 ba7ddda7 search-loop lead; native 276B0 call proves fifth empty-object argument; original template identity unknown
 ?bfmeInit1251@BfmeA1251@@QAEXPAVBfmeB1251@@PAVBfmeS1251@@@Z,,0x0066E900,89,Code/GameEngine/Source/Common/BfmeConv1251.cpp,matched,BFME1 byte-identical donor; b1 0x008026C0
-?claim@Rva00800460Arena@@QAEPAXH_N@Z,,0x0066C850,87,Code/GameEngine/Source/GameNetwork/Y2FeslArenaClaim.cpp,matched,BFME1 byte-identical donor; b1 0x008003F0; 2 DIR32 string literal(s) agree
+?claim@Rva00800460Arena@@QAEPAXH_N@Z,,0x0066C850,87,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x008003F0; 2 DIR32 string literal(s) agree
 ?bfmeAllocSlotVPE@BfmeMgrVPE@@QAEPAUBfmeSlotVPE@@XZ,,0x00665A70,84,Code/GameEngine/Source/Common/BfmeConv1559.cpp,matched,BFME1 byte-identical donor; b1 0x007F94D0; 2 DIR32 string literal(s) agree
 ?bfmeSignedEJ@@YAMPBVBfmePosEJ@@PAVBfmeObjEJ@@@Z,,0x006270D0,83,Code/GameEngine/Source/Common/BfmeConv2034.cpp,matched,BFME1 byte-identical donor; b1 0x009F4800
 ??0BfmeA1187@@QAE@XZ,,0x00672340,82,Code/GameEngine/Source/Common/BfmeConv1187.cpp,matched,BFME1 byte-identical donor; b1 0x00806300
@@ -8467,7 +8467,7 @@ _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp
 ?bfmeAppendRangeV36@@YGXPAVBfmeStrV36@@HH@Z,,0x0002A870,136,Code/GameEngine/Source/Common/BfmeS1155.cpp,matched,BFME1 byte-identical donor; b1 0x00830F00
 ?Get_Char_Metric@FontCharsClass@@QAEHG@Z,,0x00158690,73,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClass_Get_Char_Metric.cpp,matched,BFME1 donor with loadCharacterData callee adaptation (sibling Spacing precedent); b1 0x00941400
 ?readBlock@Rva0096D2C0Owner@@QAE_NPAVBfmeChunkVFC@@PAURva0096D2C0Record@@@Z,,0x00188130,52,Code/GameEngine/Source/Common/Rva0096D2C0ReadBlock.cpp,matched,BFME1 byte-identical donor; b1 0x0096D2C0
-?bfmeGoUVB@@YAHPAUBfmeRecUVB@@PAD@Z,,0x0066C480,98,Code/GameEngine/Source/Common/BfmeConv1344.cpp,matched,BFME1 byte-identical donor; b1 0x007FFFD0; 2 DIR32 string literal(s) agree
+?bfmeGoUVB@@YAHPAUBfmeRecUVB@@PAD@Z,,0x0066C480,98,Code/Libraries/Source/Fesl/util.cpp,matched,BFME1 byte-identical donor; b1 0x007FFFD0; 2 DIR32 string literal(s) agree
 ?Sort@BfmeThingVJX@@QAEXH@Z,,0x006269E0,70,Code/GameEngine/Source/Common/BfmeConv1395.cpp,matched,BFME1 byte-identical donor; b1 0x009F4020
 ?bfmeAssignRangeV37@@YGXPAVBfmeStrV37@@HH@Z,,0x0002B2F0,136,Code/GameEngine/Source/Common/BfmeConv1478.cpp,matched,BFME1 byte-identical donor; b1 0x00831780
 ?bfmeBaseTL@StdioStreambufBase@@QAEPAV1@PAXH@Z,,0x0001C6F0,97,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,matched,BFME1 donor; vtable imm 0xBBBC30; locale via shim-static pin at stlport locale ctor
