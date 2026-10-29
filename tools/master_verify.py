@@ -10,8 +10,10 @@ runs it as part of a push. tools/repair_queue.py reads what it finds.
 
 HOW. --once fetches origin/master. When the tip has no verdict yet, no other run
 holds the lock (build/master_verify/run.lock of the main checkout, so one per clone)
-and no other full gate is running on this machine (a tools/build.py process with no
-selector, or full_gate_receipt.py cross-checks), it checks the tip out in its own
+and no other full gate is running on this machine (a cheap early look at the process
+list for a tools/build.py with no selector, or full_gate_receipt.py cross-checks), it
+takes the machine's full-gate lock (tools/full_gate_lock.py, which the pre-push
+hook's full gate takes too) for each gate it runs, checks the tip out in its own
 worktree (build/master_verify/wt, made by tools/worktree_setup.py) and runs the
 ordinary full gate there, the checks the pre-push hook's full scope runs:
 tools/build.py with no selector (BUILD_POOL, default 6), eh_verify.py --all and
@@ -54,7 +56,7 @@ state.json and is retried first on the next run. tools/repair_queue.py repair se
 the items before every other repair, and next_work.py --claim draws them first.
 
 OUTPUT. Only the queue file and build/master_verify/ (state.json, run.lock,
-run.json, logs/, the worktree). Commits use the runner's git identity
+run.json, logs/, the worktree), besides tools/full_gate_lock.py's lock and record. Commits use the runner's git identity
 (GIT_AUTHOR_*/GIT_COMMITTER_* or user.*).
 
 EXIT. --once: 0 green, nothing to do or deferred; 1 red (queued now or before,
@@ -80,6 +82,8 @@ import tempfile
 import time
 from dataclasses import dataclass, field
 from pathlib import Path
+
+import full_gate_lock
 
 ROOT = Path(__file__).resolve().parents[1]
 QUEUE = "reverse/master_verify_queue.json"
@@ -157,6 +161,7 @@ class Config:
     probe_limit: int = 5
     busy_wait: float = 1800
     busy_poll: float = 30
+    gate_lock: Path = None      # tools/full_gate_lock.py's machine lock (its DEFAULT)
     # Hooks for the tests (a fake gate on a toy history); the CLI never sets them.
     stages: object = None       # (cfg, sha, tmp) -> [Stage]
     prepare: object = None      # (cfg, sha) -> None
@@ -167,6 +172,7 @@ class Config:
         self.root = Path(self.root)
         self.base = Path(self.base) if self.base else main_checkout(self.root) / "build" / "master_verify"
         self.worktree = Path(self.worktree) if self.worktree else self.base / "wt"
+        self.gate_lock = Path(self.gate_lock) if self.gate_lock else full_gate_lock.DEFAULT
         self.stages = self.stages or full_gate
         self.prepare = self.prepare or prepare_worktree
         self.record_receipt = self.record_receipt or record_receipt
@@ -361,9 +367,10 @@ def record_receipt(cfg, sha, tmp):
     return done.returncode == 0, (done.stdout + done.stderr).strip()
 
 
-def stage_env(cfg, stage):
+def stage_env(cfg, stage, lock_env=None):
     env = {k: v for k, v in os.environ.items() if k not in DROP_ENV}
     env.update({"BUILD_POOL": str(cfg.pool), "PYTHONIOENCODING": "utf-8"})
+    env.update(lock_env or {})      # a gate launched under the lock never waits on it
     env.update(stage.env)
     return env
 
@@ -407,16 +414,9 @@ def excerpt(text):
     return "\n".join(out)
 
 
-def run_gate(cfg, sha, state, why, keep=False, fresh=False):
-    """The gate's verdict at SHA: {verdict, checks, duration, time, excerpt, sources},
-    cached in state['verdicts']. A cached red counts only once it reproduced
-    (confirm); FRESH ignores the cache. With KEEP, a fresh green verdict also leaves
-    `tmp` (the gate's tool list and DIR32 index) for the receipt; the caller removes it."""
-    cached = state.setdefault("verdicts", {}).get(sha)
-    if not fresh and cached and (cached["verdict"] == "green" or cached.get("reproduced")):
-        say(f"{sha[:10]} ({why}): {cached['verdict']} (cached)")
-        return dict(cached, cached=True)
-    wait_until_free(cfg)
+def run_stages(cfg, sha, why, lock_env):
+    """Check SHA out and run the gate's stages: (tmp, log, started, verdict, checks,
+    the output of every stage that was not green)."""
     set_phase(cfg, sha=sha, phase=why, started=now_iso())
     say(f"{sha[:10]} ({why}): preparing the worktree")
     cfg.prepare(cfg, sha)
@@ -432,7 +432,7 @@ def run_gate(cfg, sha, state, why, keep=False, fresh=False):
             out = tmp / f"stage{n}.log"
             with out.open("wb") as handle:
                 code = subprocess.run(stage.argv, cwd=cfg.worktree, stdout=handle, stderr=subprocess.STDOUT,
-                                      env=stage_env(cfg, stage)).returncode
+                                      env=stage_env(cfg, stage, lock_env)).returncode
             text = out.read_text(encoding="utf-8", errors="replace")
             combined.write(f"== {stage.label} (exit {code}): {' '.join(stage.argv)}\n{text}\n")
             got, labels = classify(stage, code, text)
@@ -445,6 +445,24 @@ def run_gate(cfg, sha, state, why, keep=False, fresh=False):
             if got == "red":
                 verdict = "red"
                 checks += [l for l in labels if l not in checks]
+    return tmp, log, started, verdict, checks, texts
+
+
+def run_gate(cfg, sha, state, why, keep=False, fresh=False):
+    """The gate's verdict at SHA: {verdict, checks, duration, time, excerpt, sources},
+    cached in state['verdicts']. A cached red counts only once it reproduced
+    (confirm); FRESH ignores the cache. With KEEP, a fresh green verdict also leaves
+    `tmp` (the gate's tool list and DIR32 index) for the receipt; the caller removes it."""
+    cached = state.setdefault("verdicts", {}).get(sha)
+    if not fresh and cached and (cached["verdict"] == "green" or cached.get("reproduced")):
+        say(f"{sha[:10]} ({why}): {cached['verdict']} (cached)")
+        return dict(cached, cached=True)
+    wait_until_free(cfg)            # the process snapshot: a cheap early defer
+    try:                            # the machine's one full gate, for the whole gate
+        with full_gate_lock.hold(cfg.busy_wait, path=cfg.gate_lock, note=f"master_verify {why} {sha[:10]}") as lock:
+            tmp, log, started, verdict, checks, texts = run_stages(cfg, sha, why, lock.env())
+    except full_gate_lock.Busy as error:
+        raise Deferred(str(error)) from None
     text = excerpt("\n".join(texts))
     result = {"verdict": verdict, "checks": checks, "duration": round(time.time() - started),
               "time": now_iso(started), "excerpt": text if verdict != "green" else "",
@@ -865,6 +883,10 @@ def status(cfg):
         others = [("?", f"cannot list processes: {error}")]
     for pid, line in others:
         lines.append(f"  other full gate: pid {pid} {line[:120]}")
+    lock = full_gate_lock.acquire(0, path=cfg.gate_lock)
+    full_gate_lock.release(lock)
+    lines.append(f"  machine full-gate lock ({cfg.gate_lock}): " + (
+        "free" if lock else f"held: {full_gate_lock.describe(full_gate_lock.holder(cfg.gate_lock))}"))
     return "\n".join(lines)
 
 

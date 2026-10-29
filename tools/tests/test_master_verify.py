@@ -92,6 +92,7 @@ def config(seat, tmp_path, receipts, **kw):
         return True, ""
 
     kw.setdefault("busy", lambda: [])
+    kw.setdefault("gate_lock", tmp_path / "machine" / "full-gate.lock")    # never this PC's real one
     return M.Config(root=seat, base=tmp_path / "mv", stages=stages, prepare=prepare,
                     record_receipt=record, **kw)
 
@@ -309,3 +310,24 @@ def test_a_transient_failure_is_never_blamed(toy, tmp_path):
     assert M.run_once(cfg)[0] == 1
     (item,) = origin_queue(toy)
     assert (item["bad_sha"], item["exact"]) == (bad, True)
+
+
+def test_a_gate_holding_the_machine_lock_defers_the_run(toy, tmp_path):
+    """Another clone's gate the process snapshot missed: the machine lock still keeps
+    two full gates from overlapping (tools/full_gate_lock.py)."""
+    cfg = config(toy, tmp_path, [], busy_wait=0)
+    cfg.gate_lock = tmp_path / "machine" / "full-gate.lock"
+    held = subprocess.Popen(
+        [sys.executable, "-c", "import sys; sys.path.insert(0, sys.argv[1]); import full_gate_lock as L; "
+         "got = L.acquire(0, path=sys.argv[2], note='another clone'); print('held' if got else 'busy', flush=True); "
+         "sys.stdin.read(); L.release(got)", str(TOOLS), str(cfg.gate_lock)],
+        stdin=subprocess.PIPE, stdout=subprocess.PIPE, text=True)
+    try:
+        assert held.stdout.readline().strip() == "held"
+        code, message = M.run_once(cfg)
+        assert code == 0 and message.startswith("deferred") and "another clone" in message, message
+        assert gate_calls(tmp_path) == 0
+    finally:
+        held.stdin.close()
+        held.wait(timeout=30)
+    assert "green" in M.run_once(cfg)[1]
