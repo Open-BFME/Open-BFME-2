@@ -616,3 +616,24 @@ def test_no_background_refresh_under_pytest_or_ci(tmp_path, monkeypatch):
     assert not lane.refresh_allowed()
     assert "no background refresh" in lane.start_refresh(tmp_path, spawn=lambda c: pytest.fail("spawned"))
     assert not (tmp_path / "refresh.lock").exists()
+
+
+def test_header_classes_follow_local_includes(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Inc" / "Mod").mkdir(parents=True)
+    (tmp_path / "Inc" / "Base.h").write_text("class Base { int b; };\n")
+    (tmp_path / "Inc" / "Mod" / "Mid.h").write_text('#include "../Base.h"\n#include <string.h>\nclass Mid : public Base { };\n')
+    (tmp_path / "Inc" / "Mod" / "Leaf.h").write_text('#include "Mid.h"\n// #include "Gone.h"\nclass LeafIface { };\nclass Leaf : public Mid { };\n')
+    assert lane.header_classes("Inc/Mod/Leaf.h") == ["LeafIface", "Leaf", "Mid", "Base"]
+    assert lane.header_classes("Inc/Missing.h") == []
+
+
+def test_tournament_strips_every_class_the_header_brings(tmp_path, monkeypatch):
+    monkeypatch.setattr(lane, "ROOT", tmp_path)
+    (tmp_path / "Leaf.h").write_text("class Base { };\nclass Leaf : public Base { };\n")
+    seen = []
+    monkeypatch.setattr(lane, "try_unit", lambda s, strip, header, key: seen.append(list(strip)) or (s, None, "", []))
+    monkeypatch.setattr(lane, "try_renamed", lambda items, jobs: {})
+    monkeypatch.setattr(lane, "registered", lambda: {})
+    lane.tournament("Leaf", {"fields": [], "key": "class"}, ["u.cpp"], "Leaf.h", ["registered"], 1, fixed_header=True)
+    assert seen == [["Leaf", "Base"]]

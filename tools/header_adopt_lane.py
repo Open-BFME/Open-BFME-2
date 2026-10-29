@@ -606,8 +606,35 @@ def try_renamed(items, jobs):
     return results
 
 
+def header_classes(header, seen=None):
+    """Classes a header in the tree defines, with the headers it `#include "..."`s (transitively).
+
+    Adopting a header replaces every private view of a class it brings in: a unit that
+    keeps its own copy of a base the header also defines fails with C2011."""
+    seen = set() if seen is None else seen
+    path = (ROOT / header).resolve()
+    if path in seen or not path.is_file():
+        return []
+    seen.add(path)
+    text = path.read_text(encoding="latin-1")
+    out = list(dict.fromkeys(class_layouts.class_bodies(text)))
+    for include in INCLUDE.findall(COMMENTS.sub("", text)):
+        target = (path.parent / include).resolve()
+        try:
+            rel = target.relative_to(ROOT.resolve()).as_posix()
+        except ValueError:
+            continue
+        out += [c for c in header_classes(rel, seen) if c not in out]
+    return out
+
+
 def tournament(name, contract, sources, header, variants, jobs, fixed_header=False):
     strip = [name] + STRIP_WITH.get(name, [])
+    known = registered()
+    brought = header_classes(header) if fixed_header else [
+        c for b in contract.get("bases", []) if base_identity(b) in known
+        for c in header_classes(known[base_identity(b)])]
+    strip += [c for c in brought if c not in strip]
     nested = {f["kind"][2:] for f in contract["fields"] if f["kind"].startswith("S:")} & set(registered())
     methods = view_methods(name, sources, nested) if not fixed_header else {}
     slots = None
