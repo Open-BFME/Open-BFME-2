@@ -2024,9 +2024,11 @@ def main(argv=None):
     if args.replay:
         log, seconds = replayed_link(present)
     else:
-        predicted = _unresolved_names(OUT / "census.log")
-        if predicted:
-            _start_preselection(present, predicted)
+        # Started on the names the objects predict (predicted_unresolved),
+        # else the last census's: a first census has no log and no parallel link.
+        last = _unresolved_names(OUT / "census.log")
+        if last:
+            _start_preselection(present, lambda: predicted_unresolved(present) or last)
         fresh_outputs(OUT / "census.exe")
         log, seconds, code = link(present)
         _stage_line("link (plain)", seconds)
@@ -2220,16 +2222,86 @@ _PRESELECTION = {}
 
 
 def _start_preselection(present, names):
+    """Start the selection link on `names` (a set, or a callable returning
+    one: it runs in the link's thread, beside the plain link)."""
     import threading
 
     def work():
         try:
-            _PRESELECTION["map"] = _selection_map(present, names)
+            found = set(names() if callable(names) else names)
+            if not found:
+                return  # nothing to stub: selection_link relinks on the plain link's names
+            _PRESELECTION["names"] = found
+            _PRESELECTION["map"] = _selection_map(present, found)
         except SystemExit as error:
             _PRESELECTION["error"] = error
     _PRESELECTION.clear()
-    _PRESELECTION.update(names=set(names), objects=list(present), thread=threading.Thread(target=work, daemon=True))
+    _PRESELECTION.update(names=None, objects=list(present), thread=threading.Thread(target=work, daemon=True))
     _PRESELECTION["thread"].start()
+
+
+ENTRY_SYMBOL = "_WinMainCRTStartup"  # link()'s /ENTRY:WinMainCRTStartup, as link.exe decorates it
+LINKER_DEFINED = frozenset({"___ImageBase"})  # link.exe defines __ImageBase itself
+IMPORT_PREFIX = "__imp_"  # __imp_X binds to a locally defined X (LNK4217/LNK4049), not an error
+
+
+def object_symbols(obj):
+    """(defined, referenced, weak externals [(name, default)], /alternatename
+    {alias: target}, /INCLUDE: names) of one object: what predicted_unresolved
+    needs from its symbol table and directives."""
+    import link_check
+    data = obj.read_bytes()
+    defined, referenced = set(), set()
+    for symbol in _coff_symbols(data):
+        if symbol["storage"] != EXTERNAL:
+            continue
+        if symbol["section"] == 0 and symbol["value"] == 0:
+            referenced.add(symbol["name"])
+        else:  # a section's, an absolute or a COMMON definition
+            defined.add(symbol["name"])
+    import struct
+    includes = set()
+    count = struct.unpack_from("<H", data, 2)[0]
+    optional = struct.unpack_from("<H", data, 16)[0]
+    for index in range(count):
+        header = 20 + optional + index * 40
+        if data[header:header + 8].rstrip(b"\0") == b".drectve":
+            size, pointer = struct.unpack_from("<II", data, header + 16)
+            text = data[pointer:pointer + size].decode("latin-1")
+            includes.update(found.strip('"') for found in re.findall(r"/INCLUDE:(\"[^\"]+\"|[^\s,=]+)", text, re.I))
+    return defined, referenced, _weak_externals(data), link_check.alternate_names(obj), includes
+
+
+@_timed('unresolved-name prediction')
+def predicted_unresolved(present):
+    """The names the plain link of `present` should report unresolved: every
+    name an object references, includes or declares weak (and the entry
+    point) that no object defines, after weak externals' defaults and
+    /alternatename targets; __imp_X resolves when X does, and __ImageBase
+    always (link.exe defines it). Only a prediction, to start the selection link
+    beside the plain link (selection_link uses that map only when the plain
+    link's log names exactly these); an unreadable object predicts nothing."""
+    defined, referenced, weak, alias = set(), {ENTRY_SYMBOL}, {}, {}
+    try:
+        for obj in present:
+            names, refs, weaks, alternates, includes = object_symbols(obj)
+            defined |= names
+            referenced |= refs | includes
+            for name, default in weaks:
+                weak.setdefault(name, default)
+            for name, target in alternates.items():
+                alias.setdefault(name, target)
+    except Exception:  # noqa: BLE001 -- a prediction only: any doubt predicts nothing
+        return set()
+
+    def resolves(name, seen=frozenset()):
+        if name in defined or name in LINKER_DEFINED:
+            return True
+        seen = seen | {name}
+        local = name[len(IMPORT_PREFIX):] if name.startswith(IMPORT_PREFIX) else None
+        return any(target is not None and target not in seen and resolves(target, seen)
+                   for target in (weak.get(name), alias.get(name), local))
+    return {name for name in referenced | set(weak) if not resolves(name)}
 
 
 @_timed('selection link (wait or relink)')
