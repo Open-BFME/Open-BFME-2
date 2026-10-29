@@ -3506,7 +3506,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp	?alloc
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp	?bfmeHitZP@BfmeSlotZP@@QAEXPAVBfmeKeyZP@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	??0BfmeRva0066E270@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	?slot@Rva00801FB0Elem@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00802FD0FeslClear.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp	??0BfmeC994@@QAE@PADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp	?addInt@BfmeC994@@QAEXPBDH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp	?addString@BfmeC994@@QAEXPBD0@Z	1
@@ -3906,6 +3905,7 @@ alternatename	Code/Libraries/Source/DirtySock/commudp.cpp	_Rva00819300Op	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005864A0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005879C0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeImplVMI@BfmeStrVMI@@QAEXHHHHPAD@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeInsertV54@BfmeStrV54@@QAEXPAD0000@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008314E0StringReplace.cpp	?bfmeImplVML@BfmeStrVML@@QAEXHHHHPAD@Z	1

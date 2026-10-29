@@ -8445,7 +8445,7 @@ _VP6_AllocateTmpBuffers,,0x001B55E0,179,Code/Libraries/Source/VP6/TmpBuffers.cpp
 ?send@Rva007EAD30Owner@@QAEXXZ,,0x00657CD0,83,Code/GameEngine/Source/GameNetwork/ServiceHubImpl.cpp,matched,BFME1 byte-identical donor; b1 0x007EAD30
 ?send@Rva007EADC0Owner@@QAEXXZ,,0x00657D60,83,Code/GameEngine/Source/GameNetwork/ServiceHubImpl.cpp,matched,BFME1 byte-identical donor; b1 0x007EADC0
 ?bfmeFlushVQB@BfmeHubVQB@@QAEXH@Z,,0x00666FE0,120,Code/GameEngine/Source/GameNetwork/BfmeFlushVQB.cpp,matched,BFME1 byte-identical donor; b1 0x007FAAB0
-?bfmeSetVMO@BfmeSvcVMO@@QAEXH@Z,,0x0066F090,70,Code/GameEngine/Source/Common/BfmeConv1454.cpp,matched,BFME1 byte-identical donor; b1 0x00803030
+?bfmeSetVMO@BfmeSvcVMO@@QAEXH@Z,,0x0066F090,70,Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,matched,BFME1 byte-identical donor; b1 0x00803030
 ??0Rva008947A0Owner@@QAE@XZ,,0x006CF1D0,87,Code/GameEngine/Source/Common/Rva008947A0OwnerCtor.cpp,matched,BFME1 byte-identical donor; b1 0x008947A0
 ?onPlayer@Rva007F7980Browser@@QAEXPAVRva007E8810Message@@@Z,,0x00663090,164,Code/GameEngine/Source/GameNetwork/V2FeslBrowserPlayer.cpp,matched,BFME1 byte-identical donor; b1 0x007F6900
 ?bfmeGoVJO@BfmeThingVJO@@QAEXH@Z,,0x006626A0,163,Code/GameEngine/Source/Common/BfmeConv1392.cpp,matched,BFME1 byte-identical donor; b1 0x007F5F00; 1 DIR32 string literal(s) agree
@@ -8563,7 +8563,7 @@ _CreatePostProcInstance,,0x001B6890,63,Code/Libraries/Source/VP6/PostProcInstanc
 ?d_00889dd0@Rva00889DD0Class@@QAEXH@Z,,0x00038EA0,55,Code/GameEngine/Source/Common/Bfme/Rva00889DD0.cpp,matched,BFME1 byte-identical donor; b1 0x00889DD0
 ?lookup2A8@Rva00801340Owner@@QAEPAXPBD@Z,,0x0066D690,51,Code/GameEngine/Source/GameNetwork/Rva00801340FeslLookup.cpp,matched,BFME1 byte-identical donor; b1 0x00801340
 ?bfmeRunRE@BfmeThingRE@@QAEXXZ,,0x006574A0,44,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,BFME1 byte-identical donor; b1 0x007EA4F0
-?clear@Rva00803080@@QAEXXZ,,0x0066F040,79,Code/GameEngine/Source/GameNetwork/Rva00802FD0FeslClear.cpp,matched,BFME1 byte-identical donor; b1 0x00802FD0
+?clear@Rva00803080@@QAEXXZ,,0x0066F040,79,Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,matched,BFME1 byte-identical donor; b1 0x00802FD0
 ?rva00802240@Rva00802380Owner@@UAEPAXPBD@Z,,0x0066E4D0,44,Code/GameEngine/Source/GameNetwork/Rva00802240FeslLookup.cpp,matched,BFME1 byte-identical donor; b1 0x00802240; spelled virtual: slot 4 of vftable 0x00CE3D14 that the class's own constructor and destructor install at +0; retail never calls it directly; the view takes the vptr at +0
 ?bfmeRunRG@BfmeThingRG@@QAEXXZ,,0x006574D0,44,Code/GameEngine/Source/Common/BfmeThreeHundredThirteen.cpp,matched,BFME1 byte-identical donor; b1 0x007EA520
 ?bfmeGoBCE@BfmeThingBCE@@QAEXXZ,,0x00656E90,16,Code/GameEngine/Source/Common/BfmeThingRE.cpp,matched,BFME1 byte-identical donor; b1 0x007E9EE0

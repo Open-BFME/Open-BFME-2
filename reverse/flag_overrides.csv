@@ -56,7 +56,6 @@ Code/GameEngine/Source/Common/BfmeConv1441.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1443.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1444.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1453.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1454.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1456.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1459.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1461.cpp,-Od,1,1,region default loses rows
@@ -395,7 +394,6 @@ Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp,,1,1,region default l
 Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslMeasure.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00802040FeslCtor.cpp,,4,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00802A90FeslBrowserQuery.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva00802FD0FeslClear.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00803890OwnerDispatch.cpp,-O2,1,1,region default loses rows
@@ -557,6 +555,7 @@ Code/Libraries/Source/DirtySock/netgameutil.cpp,-Od,1,1,region default does not 
 Code/Libraries/Source/EA/Apt/AptString/EAStringCAssign.cpp,-O2,2,2,region default loses rows
 Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp,-O2,4,1,region default loses rows
 Code/Libraries/Source/EA/Apt/AptString/EAStringCRemoveRange.cpp,-O2,1,1,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,2,2,region default loses rows
 Code/Libraries/Source/Fesl/util.cpp,,4,4,region default loses rows
 Code/Libraries/Source/Lua/lapi.c,,51,1,region default loses rows
 Code/Libraries/Source/Lua/lauxlib.c,,20,1,region default loses rows
