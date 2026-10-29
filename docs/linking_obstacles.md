@@ -301,6 +301,19 @@ only because the providers were renamed after the census: W3DProjectedShadowDeca
   out of line (o1 sibling). A noinline specialization is refused (C2912: only the shim's
   by-value overloads exist). Next: the stock header for this unit, or a shim scoped so
   `copy`'s `__copy_aux` keeps the stock form, verified against all eight rows.
+- `stlport_deque_e12_new_elements.cpp` (halilkkaya-lk7, 2026-10-29): repaired with the
+  stock header. The unit now includes the pristine STLport `_algobase.h` ahead of the
+  bfmealloc shim (`/I reference/open-bfme-1/inputs/vendor/stlport/stl`, as its sibling
+  stlport_deque_e12_o1.cpp already does) and drops its shim-era declaration-only
+  `copy<iterator, iterator>` and `copy_backward` specializations, which also changed how
+  its two-iterator `erase` called them. `copy<const_iterator, iterator>` is retail's
+  63-byte wrapper (6b0d474ec455, was a17c11b019eb), `erase(first, last)` retail's
+  (62c3531b3092, was 33add262babe) and `erase(pos)` the sibling's digest; every other new
+  COMDAT is retail's (two stock `__copy_trivial*` copies are proven wrong but retail copies
+  sort first, as for the sibling). 8/8 rows exact; scoped DIR32 over the ten deque<BfmeE12>
+  sources OK; retail-truth-5-ordered link_check (index permuted by the current ledger's
+  `link_rank`) LINKS both units, 3,003 B (was 0); census-order link_check unchanged
+  (10 deque sources, 6,331 B). With the FX redo above, all 35 first-class names are repaired.
 Not repaired: `??_7ThingTemplate` (ThingTemplate.cpp's donor view lists other slots;
 2,651 B) and the three `LivingWorldLogic` vtables (the dtor unit's view is a purecall
 stub; 717 B): both need the class views reconciled (header lane), not a copy

@@ -1,4 +1,4 @@
-// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/open-bfme-1/inputs/vendor/stlport/stl
 // stlport
 //
 // _M_new_elements_at_back/_front for deque<BfmeE12>, retail 0x00585A9A (64B)
@@ -11,7 +11,13 @@
 // Retail keeps one unsigned max, RVA 0x00013740 (the vendored STLport row). This unit's
 // flags (/G7) compile a different copy, and retail kept another unit's. This unit-local
 // overload keeps the inlined code and offers the link no second copy.
-#include <stl/_algobase.h>
+// Use the pristine algorithms while retaining BFME2's allocation shim, as the
+// sibling does: the shim's algorithm header forces the copy aux layer inline,
+// so this unit's copy<const_iterator, iterator> was a 65-byte loop instead of
+// retail's 63-byte wrapper (sibling 0x00586A9C operator= calls it), and its
+// two-iterator erase differed from retail's 0x00585B8B. With the stock header
+// every algorithm copy here and both erase overloads equal the sibling's.
+#include <_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
 {
@@ -20,16 +26,6 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 
 #include <deque>
-// Suppress this TU's non-retail copy of ??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@_STL@@U12@@_STL:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct BfmeE12;
-namespace _STL { template <> _Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > copy<_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> > >(_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >,_Deque_iterator<BfmeE12,_Nonconst_traits<BfmeE12> >); }
 struct BfmeE12 { float x, y, z; };
 #include "DequeE12Copy.h"
-// Reuse the complete stock-header copy-backward provider at 0x00585A18.
-typedef _STL::_Deque_iterator<BfmeE12, _STL::_Nonconst_traits<BfmeE12> > BfmeE12CopyIterator;
-namespace _STL {
-template <> BfmeE12CopyIterator copy_backward<BfmeE12CopyIterator, BfmeE12CopyIterator>(
-    BfmeE12CopyIterator, BfmeE12CopyIterator, BfmeE12CopyIterator);
-}
 template class _STL::deque<BfmeE12, _STL::allocator<BfmeE12 > >;
