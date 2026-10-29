@@ -135,6 +135,9 @@ def load_old(rev, out, previous=link_census.LEGACY_RULES):
     proves its objects current by this census's compile receipts."""
     module = types.ModuleType("link_census_previous")
     module.__file__ = str(ROOT / "tools" / "link_census.py")
+    # Its process pools (read_facts) pickle its functions by module name: the
+    # parent and its forked workers must find the module in sys.modules.
+    sys.modules[module.__name__] = module
     exec(compile(old_source(rev, previous), f"{rev}:tools/link_census.py", "exec"), module.__dict__)
     out.mkdir(parents=True, exist_ok=True)
     module.OUT = out

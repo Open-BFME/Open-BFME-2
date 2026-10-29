@@ -287,3 +287,15 @@ def test_rebaseline_from_retail_truth_4_runs_the_previous_tool(monkeypatch, caps
                          "tools/census_rebaseline.py --record-new"]
     assert commands[1][2] == "oldrev"
     assert f"prev_rules={link_census.PREVIOUS_RULES}" in capsys.readouterr().out
+
+
+def test_previous_tool_functions_pickle_for_its_process_pools(tmp_path, monkeypatch):
+    # retail-truth-4's read_facts sends object_facts to a ProcessPoolExecutor.
+    import pickle
+    root, old, _ = _placement_repo(tmp_path)
+    monkeypatch.setattr(rb, "ROOT", root)
+    monkeypatch.setattr(link_census, "HISTORY", tmp_path / "history.csv")
+    monkeypatch.setattr(link_census, "input_receipts", lambda: None)
+    monkeypatch.delitem(sys.modules, "link_census_previous", raising=False)
+    module = rb.load_old(old, tmp_path / "old", link_census.PREVIOUS_RULES)
+    assert pickle.loads(pickle.dumps(module.link_order)) is module.link_order
