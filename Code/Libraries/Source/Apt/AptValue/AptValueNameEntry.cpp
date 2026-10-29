@@ -83,9 +83,38 @@ public:
 	virtual ~Rva006CBDE0() {}
 };
 
+// Native 006CBB80..006CBBF0; four-byte refcounted handle vector delete.
+// The array branch passes the existing A9DF3 destructor and stride4 to ehvec_dtor.
+// The scalar path expands the same decrement/drop that BfmeRefVGO owns.
+// The existing A9DF3 out-of-line five-byte wrapper remains the array callback
+// provider; this inline view describes its same four-byte handle semantics.
+// The original class name is unknown; preserve the callback owner name.
+int Rva006CFDF0DecRef(int *);
+
+void bfmeDropVGO(void *);
+
+void Rva006CD460Free(void *);
+
+class Rva006DB270 {public:void freeBlock(void *,int);};
+
+extern Rva006DB270 *g_pChainBlockAllocator;
+
+class Rva004A9DF3Element {
+public:
+ int *Pointer;
+ ~Rva004A9DF3Element(){if(Pointer && Rva006CFDF0DecRef(Pointer)==0)bfmeDropVGO(Pointer);}
+ static void operator delete(void *p,unsigned size){g_pChainBlockAllocator->freeBlock(p,size);}
+ static void operator delete[](void *p){Rva006CD460Free(p);}
+};
+
 // tu-skeleton: 0x006CBB20 84B ??_EAptValueNameEntry@@QAEPAXI@Z -- matched in Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp (not merged yet)
 
-// tu-skeleton: 0x006CBB80 112B ??_ERva004A9DF3Element@@QAEPAXI@Z -- matched in Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp (not merged yet)
+// ---- from Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp
+
+// ?EmitHandleArrayDelete absent-from-retail
+void EmitHandleArrayDelete(Rva004A9DF3Element *p){delete[] p;}
+
+// ---- from Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/Rva006CBBF0.cpp
 
@@ -100,28 +129,6 @@ Rva006CBBF0::Rva006CBBF0()
 	m_18 = 0;
 	m_1C = 0;
 }
-
-// tu-skeleton: 0x006CBC10 7B ?Rva006CBC10Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBC20 30B ?set@Rva006CBC20Flag5@@QAEX_N@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBC40 6B ?Rva006CBC40Allocate@@YAPAXI@Z -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBC50 6B ?rva006CBC50@@YAXPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006D2D90Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBC60 70B ??0Rva006CC380ValuePool@@QAE@IH@Z -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBCB0 32B ??0ClientUpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBCF0 12B ?rva006CBCF0@Rva006CBCF0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBD00 5B ?rva006CBD00@Rva006CBD00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBDA0 25B ?set@Rva006CBDA0Field18@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBDC0 10B ?get@Rva006CBDC0ShrNMaskField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x006CBDD0 9B ?rva006CBDD0@Rva006CBDD0@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva006CBDE0Ctor.cpp
 
@@ -152,6 +159,28 @@ Rva006CBDE0::Rva006CBDE0(int type, void *p1, AptValue *aptValue) : BfmeAptValue0
 	m_58 |= 0x7FFE0000;
 	m_flags &= ~0x20;
 }
+
+// tu-skeleton: 0x006CBC10 7B ?Rva006CBC10Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBC20 30B ?set@Rva006CBC20Flag5@@QAEX_N@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBC40 6B ?Rva006CBC40Allocate@@YAPAXI@Z -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBC50 6B ?rva006CBC50@@YAXPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva006D2D90Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBC60 70B ??0Rva006CC380ValuePool@@QAE@IH@Z -- matched in Code/Libraries/Source/Apt/Apt.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBCB0 32B ??0ClientUpdateModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBCF0 12B ?rva006CBCF0@Rva006CBCF0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAN.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBD00 5B ?rva006CBD00@Rva006CBD00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBDA0 25B ?set@Rva006CBDA0Field18@@QAEXH@Z -- matched in Code/Libraries/Source/Apt/AptGapLeaves.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBDC0 10B ?get@Rva006CBDC0ShrNMaskField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8ShrAndDwordGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x006CBDD0 9B ?rva006CBDD0@Rva006CBDD0@@QBEIXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp (not merged yet)
 
 // tu-skeleton: 0x006CBEB0 32B ?rva006CBEB0@Rva006CBEB0@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesP.cpp (not merged yet)
 

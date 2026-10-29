@@ -58152,7 +58152,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x006CBA40,140,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp
 0x006CBAD0,80,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva006CB9D0Cluster.cpp
 0x006CBB20,84,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,N,N=Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp provisional,Code/Libraries/Source/Apt/AptValue/PlaybackBufferResize.cpp
-0x006CBB80,112,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBBF0 provisional,Code/Libraries/Source/Apt/AptHandleVectorDelete.cpp
+0x006CBB80,112,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBBF0 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 0x006CBBF0,28,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC10 provisional,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp
 0x006CBC10,7,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC20 provisional,Code/GameEngine/Source/Common/GlobalFloatGetters.cpp
 0x006CBC20,30,code,Code/Libraries/Source/Apt/AptValue/AptValueNameEntry.cpp,approved,C,C=0x006CBB20..0x006CBC40 provisional,Code/Libraries/Source/Apt/AptGapLeaves.cpp
