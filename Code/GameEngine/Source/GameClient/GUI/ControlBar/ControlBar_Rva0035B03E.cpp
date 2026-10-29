@@ -1304,9 +1304,8 @@ struct BfmeShortcutPlayerList
 
 // ?showSpecialPowerShortcut@ControlBar@@QAEXXZ
 
-// ControlBar::hideSpecialPowerShortcut moved to ControlBarFields.cpp: it
-// needs the reconstructed-offset shim (inputs/reference/shims/controlbar), which
-// this TU does not use (see ControlBarFields.cpp for why).
+// ControlBar::hideSpecialPowerShortcut moved to ControlBarFields.cpp, since
+// merged into ControlBar.cpp.
 
 // Each retail call in this body reads an address the ledger already carries
 // under the rowed name below; bind the donor spelling to that owner so one
