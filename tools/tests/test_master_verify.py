@@ -268,3 +268,22 @@ def test_an_already_checked_red_tip_still_exits_red(toy, tmp_path):
     tip = push(toy)
     assert M.run_once(cfg)[0] == 1
     assert M.run_once(cfg) == (1, f"{tip[:10]} already checked: red")
+
+
+def test_a_bisect_that_hits_a_gate_without_a_verdict_publishes_nothing_and_retries(toy, tmp_path):
+    cfg = config(toy, tmp_path, [])
+    assert M.run_once(cfg)[0] == 0
+    commit(toy, "Code/a.cpp", "1")
+    commit(toy, "crash", "1")                     # the bisect's first step crashes the gate
+    commit(toy, "crash", None)
+    commit(toy, "bad", "dir32 consistency\n")
+    tip = push(toy)
+    code, message = M.run_once(cfg)
+    assert code == 2 and "no verdict" in message, message
+    assert origin_queue(toy) == []
+    state = json.loads((cfg.base / "state.json").read_text())
+    assert state["last_run"]["sha"] == tip and state["last_run"]["complete"] is False
+    assert not (state.get("pending") or {}).get("add")
+    calls = gate_calls(tmp_path)
+    assert M.run_once(cfg)[0] == 2 and gate_calls(tmp_path) > calls       # retried
+    assert origin_queue(toy) == []

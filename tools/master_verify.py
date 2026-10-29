@@ -33,7 +33,8 @@ sources did not change compiles nothing.
          names, and the suggested owner. Items whose checks are green at the tip are
          retired. Nothing is reverted.
   error  a gate that ended without a verdict (a crash, the environment) is recorded
-         and retried on the next tick. It is never bisected and never queued.
+         and retried on the next tick. It is never bisected and never queued; a
+         search it interrupts publishes nothing and is retried too.
 
 A step that cannot start because another full gate is running waits for it
 (--busy-wait, default 30 minutes), then defers the run; verdicts already reached
@@ -54,7 +55,8 @@ run.json, logs/, the worktree). Commits use the runner's git identity
 (GIT_AUTHOR_*/GIT_COMMITTER_* or user.*).
 
 EXIT. --once: 0 green, nothing to do or deferred; 1 red (queued now or before,
-an already-checked red tip included); 2 no verdict.
+an already-checked red tip included); 2 no verdict, at the tip or in the search
+for its first bad commit (retried next run).
 
   python3 tools/master_verify.py --once
   python3 tools/master_verify.py --watch --interval 300
@@ -98,6 +100,11 @@ class GitError(RuntimeError):
 
 class Deferred(RuntimeError):
     """Another full gate kept the machine busy past --busy-wait."""
+
+
+class Unsettled(RuntimeError):
+    """The search for a first bad commit did not settle: the run stays incomplete,
+    publishes nothing for it, and the next run retries."""
 
 
 def git(cwd, *args, check=True):
@@ -701,15 +708,15 @@ def handle_red(cfg, state, tip, result):
             say(f"no green commit known for {', '.join(remaining)}: probing ancestors")
             good, hi, error = find_good(cfg, state, tip, remaining)
             if error is not None:
-                note = f"probe stopped at a gate without a verdict: {', '.join(error['checks'])}"
+                raise Unsettled(f"a probe ended without a verdict ({', '.join(error['checks'])})")
         if good is None:
             first, last_good, exact = hi, "", False
-            note = note or f"no commit within {cfg.probe_limit} first-parent probes passes these checks"
+            note = f"no commit within {cfg.probe_limit} first-parent probes passes these checks"
         else:
             say(f"bisecting {good[:10]}..{hi[:10]} for {', '.join(remaining)}")
             first, last_good, exact, error = bisect(cfg, state, good, hi, remaining)
             if error is not None:
-                note = f"bisect stopped at a gate without a verdict: {', '.join(error['checks'])}"
+                raise Unsettled(f"a bisect step ended without a verdict ({', '.join(error['checks'])})")
         at_first = state["verdicts"].get(first, result)
         labels = [c for c in remaining if c in at_first.get("checks", ())] or list(remaining)
         item = make_item(cfg, state, tip, first, last_good, exact, labels, note)
@@ -794,6 +801,9 @@ def check_tip(cfg, state):
     except Deferred:
         record_run(state, tip, result, complete=False, note="bisect deferred")
         raise
+    except Unsettled as error:
+        record_run(state, tip, result, complete=False, note=str(error))
+        return 2, f"{tip[:10]} red ({', '.join(result['checks'])}), no item yet: {error}; retried next run"
     state["last_red"] = {"sha": tip, "time": result["time"], "checks": result["checks"]}
     record_run(state, tip, result, complete=True, note=f"queued {', '.join(queued)}" if queued else "")
     published = publish(cfg, state)
