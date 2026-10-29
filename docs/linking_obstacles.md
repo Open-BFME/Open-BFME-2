@@ -131,7 +131,7 @@ scope into the next census; no linking gain is claimed.
 ### LINK-135: retail-truth-5 order makes early units' non-retail COMDAT copies the kept ones
 
 Status: Open; per-provider repairs landing / awaiting census. Updated: 2026-10-29;
-inspected revision: `b740e71229`; index `d92e7e6635` (census 2026-10-28 15:58, retail-truth-4).
+inspected revision: `b740e71229` (FX redo: `6d854aae1c`); index `d92e7e6635` (census 2026-10-28 15:58, retail-truth-4).
 Evidence / affected units: retail-truth-5 (0d26afd6d2) places objects by their own
 unshared rows. Re-ranking the census index by `code_places` over the census commit's
 own `functions.csv` (the retail-truth-4 rule on that ledger reproduces the index order
@@ -170,6 +170,20 @@ Completed:
   `link_check` LINKS for Modules, Factories and FXParticleSystem.cpp (13,604 B, unchanged).
   All 25 lost names' first copy turns retail; the 36 other names leaving the object
   (STREAK/QUAD/BUTTERFLY template ctor, vtables, v1, dtors) keep their first copy.
+  **Redone DIR32-clean 2026-10-29 (halilkkaya-lk7)**, with the `??_G` repair below. Cause
+  of the break: the ledger binds this unit's dynamic initializers by MSVC 7.1's counter
+  names (`object-symbol=_$E274` ...), and the counter follows the point where each
+  `ConcreteModuleClass<TAG>` is instantiated. Declaring a member specialization
+  instantiates the class, so the three named-tag `createTemplate` declarations placed
+  with their wrappers moved RENDEROBJECT_UPDATE/LIFE_EVENT/TERRAIN_COLLISION's
+  `s_instance` and `s_key`/`s_name` initializers ahead of RENDEROBJECT_DRAW, GPU_DRAW
+  and the three class-wrapper tags (`_$E170..192`, `_$E266..296` permuted). Fix: each
+  factory declaration sits right before its class's explicit instantiation (the named
+  tags' beside `template class ConcreteModuleClass<...NamedTag>`). Verified: all 174
+  `_$E` initializers and 121 `_$S` table entries map to the same targets as master's
+  object; 227/227 rows exact; scoped `verify_dir32_consistency` over all 307
+  FXParticleSystem sources (1,677 rows) OK (1,179 symbols); 0 of the 25 names left in the
+  object, each one's rt5 first copy retail; `link_check` 13,604 -> 13,604 B (three FX units).
 - `GameWindowManager_registerTabList.cpp` (halilkkaya-lk6): its retail-digest
   `list<GameWindow *>::erase(first, last)` calls the single-node `erase` out of line
   (REL32); a declaration-only specialization drops the unit's /EHs copy (641dc4771d86)
@@ -230,7 +244,9 @@ destructor) and ArmorHashtableRtsCtor.cpp (105 B; `_M_initialize_buckets`).
   wrapper destructors `__declspec(noinline)` (RENDEROBJECT_UPDATE's keeps its inline
   definition: it is this unit's 0x003A9397 row) gives both `??_G` retail's digests
   (38f68adc5995, 28e3c4687c29). 227/227 rows exact; no rt5 loser left in the unit;
-  link_check unchanged (13,604 B over the three FX units).
+  link_check unchanged (13,604 B over the three FX units). Redone with the factory repair
+  (halilkkaya-lk7, 2026-10-29): both `??_G` carry retail's digests again and rt5_check
+  finds no loser or wrong-selected name in the unit.
 - `Player.cpp` (halilkkaya-lk6): the donor unit (11 rows, placed at 0x000B6464 by its
   `getAcademyStats` row) emitted `list<TeamPrototype *>` `clear` and `_M_create_node`
   from unmatched code; declaration-only specializations (beside its existing

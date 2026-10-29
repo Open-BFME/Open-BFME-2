@@ -629,6 +629,24 @@ typename TAG::TemplateType *ConcreteModuleClass<TAG>::createTemplate() const
     MOD##Concrete g_##MOD##Concrete;                                                              \
     template class ConcreteModuleClass<MOD##Tag>;                                                                                                                                                       MOD##Tag &(MOD##Tag::*g_##MOD##TagAssign)(const MOD##Tag &) = &MOD##Tag::operator=;
 
+// Factory bodies retail kept from the /EHsc factory unit
+// (FXParticleSystemFactories.cpp): this unit's vtables only reference them,
+// and its exception-free copies are not retail's. Declared, not defined, so
+// the factory unit's copies are the only ones linked. Each declaration sits
+// right before its class's explicit instantiation: declaring a member
+// instantiates ConcreteModuleClass<TAG> there, and that order is the order of
+// the s_instance and s_key/s_name dynamic initializers (_$E<n>, which the
+// ledger binds by number).
+#define FX_FACTORY_ELSEWHERE(CATEGORY, KEY, MOD, TMPL, DFLT)                                    \
+    extern const char *const KEY##_MODULE_KEY;                                                  \
+    extern const char *const KEY##_MODULE_NAME;                                                 \
+    class MOD;                                                                                  \
+    template <> TMPL *ConcreteModuleClass<                                                      \
+        ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT > >::createTemplate() const;
+#define FX_CLONE_ELSEWHERE(CATEGORY, KEY, MOD, TMPL, DFLT)                                      \
+    template <> TMPL *ConcreteModuleTemplate<                                                   \
+        ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT > >::clone() const;
+
 // The point volume's tag is a plain struct rather than a ModuleTag
 // instantiation - the U rather than V in the decorated name is what says so.
 extern const char *const POINT_EMISSION_VOLUME_MODULE_KEY;
@@ -669,12 +687,16 @@ FX_WRAPPER(5, LINE_EMISSION_VOLUME, LineEmissionVolumeModule, LineEmissionVolume
 FX_WRAPPER(5, CYLINDER_EMISSION_VOLUME, CylinderEmissionVolumeModule,
     CylinderEmissionVolumeModuleTemplate)
 
+FX_FACTORY_ELSEWHERE(4, SPHERICAL_EMISSION_VELOCITY, SphericalEmissionVelocityModule, SphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4>)
 FX_WRAPPER(4, SPHERICAL_EMISSION_VELOCITY, SphericalEmissionVelocityModule,
     SphericalEmissionVelocityModuleTemplate)
+FX_FACTORY_ELSEWHERE(4, HEMISPHERICAL_EMISSION_VELOCITY, HemisphericalEmissionVelocityModule, HemisphericalEmissionVelocityModuleTemplate, DefaultParticleModule<4>)
 FX_WRAPPER(4, HEMISPHERICAL_EMISSION_VELOCITY, HemisphericalEmissionVelocityModule,
     HemisphericalEmissionVelocityModuleTemplate)
+FX_FACTORY_ELSEWHERE(4, CYLINDRICAL_EMISSION_VELOCITY, CylindricalEmissionVelocityModule, CylindricalEmissionVelocityModuleTemplate, DefaultParticleModule<4>)
 FX_WRAPPER(4, CYLINDRICAL_EMISSION_VELOCITY, CylindricalEmissionVelocityModule,
     CylindricalEmissionVelocityModuleTemplate)
+FX_FACTORY_ELSEWHERE(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule, OutwardEmissionVelocityModuleTemplate, DefaultParticleModule<4>)
 FX_WRAPPER(4, OUTWARD_EMISSION_VELOCITY, OutwardEmissionVelocityModule,
     OutwardEmissionVelocityModuleTemplate)
 
@@ -703,6 +725,8 @@ typedef ConcreteModuleClass<OrthoEmissionVelocityModuleTag>
     OrthoEmissionVelocityModuleClassConcrete;
 
 OrthoEmissionVelocityModuleConcrete g_orthoEmissionVelocityModuleConcrete;
+template <> OrthoEmissionVelocityModuleTemplate *
+ConcreteModuleClass<OrthoEmissionVelocityModuleTag>::createTemplate() const;
 template class ConcreteModuleClass<OrthoEmissionVelocityModuleTag>;
 
 // Nothing assigns a tag - they carry only statics - so the generated copy is
@@ -769,6 +793,13 @@ const char *const &DefaultModuleTag<CATEGORY>::s_name = DefaultModuleName<CATEGO
 
 #define FX_DEFAULT_WRAPPER(CATEGORY)                                                                   typedef ConcreteModuleTemplate<DefaultModuleTag<CATEGORY> > DefaultConcrete##CATEGORY;                                                                                                                template <> __declspec(noinline) DefaultConcrete##CATEGORY::~ConcreteModuleTemplate(); DefaultConcrete##CATEGORY g_defaultConcrete##CATEGORY;                                                                                                                                                              template class ConcreteModuleClass<DefaultModuleTag<CATEGORY> >;
 
+template <> DefaultModuleTemplate<0> *ConcreteModuleClass<DefaultModuleTag<0> >::createTemplate() const;
+template <> DefaultModuleTemplate<1> *ConcreteModuleClass<DefaultModuleTag<1> >::createTemplate() const;
+template <> DefaultModuleTemplate<2> *ConcreteModuleClass<DefaultModuleTag<2> >::createTemplate() const;
+template <> DefaultModuleTemplate<3> *ConcreteModuleClass<DefaultModuleTag<3> >::createTemplate() const;
+template <> DefaultModuleTemplate<6> *ConcreteModuleClass<DefaultModuleTag<6> >::createTemplate() const;
+template <> DefaultModuleTemplate<7> *ConcreteModuleClass<DefaultModuleTag<7> >::createTemplate() const;
+
 FX_DEFAULT_WRAPPER(0)
 FX_DEFAULT_WRAPPER(1)
 FX_DEFAULT_WRAPPER(2)
@@ -776,8 +807,11 @@ FX_DEFAULT_WRAPPER(3)
 FX_DEFAULT_WRAPPER(6)
 FX_DEFAULT_WRAPPER(7)
 
+FX_FACTORY_ELSEWHERE(6, LIGHTNING_DRAW, LightningDrawModule, LightningDrawModuleTemplate, DefaultParticleModule<6>)
 FX_WRAPPER(6, LIGHTNING_DRAW, LightningDrawModule, LightningDrawModuleTemplate)
+FX_FACTORY_ELSEWHERE(5, TERRAIN_FIRE_EMISSION, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate, DefaultParticleModule<5>)
 FX_WRAPPER(5, TERRAIN_FIRE_EMISSION, TerrainFireEmissionModule, TerrainFireEmissionModuleTemplate)
+FX_FACTORY_ELSEWHERE(5, LIGHTNING_EMISSION, LightningEmissionModule, LightningEmissionModuleTemplate, DefaultParticleModule<5>)
 FX_WRAPPER(5, LIGHTNING_EMISSION, LightningEmissionModule, LightningEmissionModuleTemplate)
 extern const char *const RENDEROBJECT_UPDATE_MODULE_KEY;
 extern const char *const RENDEROBJECT_UPDATE_MODULE_NAME;
@@ -792,8 +826,23 @@ FX_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule, RenderObjectUpdateM
 // them; their clones carry an EH prologue and are a separate problem.
 #define FX_NAMED_WRAPPER(CATEGORY, KEY, MOD, TMPL, DFLT)                                               extern const char *const KEY##_MODULE_KEY;                                                         extern const char *const KEY##_MODULE_NAME;                                                                                                                                                           class MOD;                                                                                         class DFLT;                                                                                                                                                                                           typedef ConcreteModuleTemplate<                                                                        ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT> >                        MOD##NamedConcrete;                                                                                                                                                                               MOD##NamedConcrete g_##MOD##NamedConcrete;                                                                                                                                                               typedef ModuleTag<CATEGORY, KEY##_MODULE_KEY, KEY##_MODULE_NAME, MOD, TMPL, DFLT>                     MOD##NamedTag;                                                                                                                                                                                  MOD##NamedTag &(MOD##NamedTag::*g_##MOD##NamedTagAssign)(const MOD##NamedTag &) =                     &MOD##NamedTag::operator=;
 
+class RenderObjectParticleUpdateModule;
+// The named wrappers' deleting destructors call the wrapper destructor out of
+// line, as retail's (FXParticleSystemFactories.cpp rows 0x003AA1EA, 0x003AB92A)
+// do; inlined, the 5-byte wrapper destructor would become a direct call to the
+// module template's. This one is also this unit's 0x003A9397 row.
+template <> __declspec(noinline) inline ConcreteModuleTemplate<ModuleTag<2, RENDEROBJECT_UPDATE_MODULE_KEY,
+    RENDEROBJECT_UPDATE_MODULE_NAME, RenderObjectUpdateModule, RenderObjectUpdateModuleTemplate,
+    RenderObjectParticleUpdateModule> >::~ConcreteModuleTemplate() {}
 FX_NAMED_WRAPPER(2, RENDEROBJECT_UPDATE, RenderObjectUpdateModule,
     RenderObjectUpdateModuleTemplate, RenderObjectParticleUpdateModule)
+extern const char *const LIFE_EVENT_MODULE_KEY;
+extern const char *const LIFE_EVENT_MODULE_NAME;
+class LifeEventModule;
+class ParticleLifeEventModule;
+FX_CLONE_ELSEWHERE(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
+template <> __declspec(noinline) ConcreteModuleTemplate<ModuleTag<8, LIFE_EVENT_MODULE_KEY,
+    LIFE_EVENT_MODULE_NAME, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule> >::~ConcreteModuleTemplate();
 FX_NAMED_WRAPPER(8, LIFE_EVENT, LifeEventModule, LifeEventModuleTemplate, ParticleLifeEventModule)
 extern const char *const TERRAIN_COLLISION_MODULE_KEY;
 extern const char *const TERRAIN_COLLISION_MODULE_NAME;
@@ -807,8 +856,18 @@ template <> __declspec(dllimport) __forceinline ConcreteModuleTemplate<TerrainCo
 FX_NAMED_WRAPPER(8, TERRAIN_COLLISION, TerrainCollisionModule, TerrainCollisionModuleTemplate,
     ParticleTerrainCollisionModule)
 
+FX_FACTORY_ELSEWHERE(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6>)
+FX_CLONE_ELSEWHERE(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate, DefaultParticleModule<6>)
 FX_WRAPPER(6, RENDEROBJECT_DRAW, RenderObjectDrawModule, RenderObjectDrawModuleTemplate)
+FX_FACTORY_ELSEWHERE(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6>)
+FX_CLONE_ELSEWHERE(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate, DefaultParticleModule<6>)
 FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
+// Their clones are declared above, so the copy constructors (this unit's
+// rows) are instantiated explicitly.
+template ConcreteModuleTemplate<RenderObjectDrawModuleTag>::ConcreteModuleTemplate(
+    const ConcreteModuleTemplate<RenderObjectDrawModuleTag> &that);
+template ConcreteModuleTemplate<GpuDrawModuleTag>::ConcreteModuleTemplate(
+    const ConcreteModuleTemplate<GpuDrawModuleTag> &that);
 
 // The classes whose template bodies live elsewhere: this unit emits only the
 // class constructors, over the same tags. A full FX_WRAPPER would also define
@@ -821,15 +880,29 @@ FX_WRAPPER(6, GPU_DRAW, GpuDrawModule, GpuDrawModuleTemplate)
     template <> __declspec(noinline) ConcreteModuleTemplate<MOD##ClassTag>::~ConcreteModuleTemplate(); \
     template class ConcreteModuleClass<MOD##ClassTag>;
 
+FX_FACTORY_ELSEWHERE(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, STREAK_DRAW, StreakDrawModule, StreakDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, QUAD_DRAW, QuadDrawModule, QuadDrawModuleTemplate, DefaultParticleModule<6>)
+FX_FACTORY_ELSEWHERE(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate, DefaultParticleModule<6>)
 FX_CLASS_WRAPPER(6, BUTTERFLY_DRAW, ButterflyDrawModule, ButterflyDrawModuleTemplate,
     DefaultParticleModule<6>)
 
 // The named-tag classes: same treatment, over the tags FX_NAMED_WRAPPER made.
+// Their factory specializations are declared here, beside each explicit
+// instantiation, not with the wrappers above: declaring a member of
+// ConcreteModuleClass<TAG> instantiates the class, and that point fixes where
+// its s_instance and its tag's s_key/s_name dynamic initializers fall in the
+// unit's _$E sequence (retail: after the three FX_CLASS_WRAPPER tags).
+template <> RenderObjectUpdateModuleTemplate *
+ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>::createTemplate() const;
 template class ConcreteModuleClass<RenderObjectUpdateModuleNamedTag>;
+template <> LifeEventModuleTemplate *ConcreteModuleClass<LifeEventModuleNamedTag>::createTemplate() const;
 template class ConcreteModuleClass<LifeEventModuleNamedTag>;
+template ConcreteModuleTemplate<LifeEventModuleNamedTag>::ConcreteModuleTemplate(const ConcreteModuleTemplate<LifeEventModuleNamedTag> &that);
 template ConcreteModuleTemplate<TerrainCollisionModuleNamedTag>::ConcreteModuleTemplate(const ConcreteModuleTemplate<TerrainCollisionModuleNamedTag> &that);
+template <> TerrainCollisionModuleTemplate *
+ConcreteModuleClass<TerrainCollisionModuleNamedTag>::createTemplate() const;
 template class ConcreteModuleClass<TerrainCollisionModuleNamedTag>;
 
 // The wrappers' generated assignments. They forward to the module template's own
