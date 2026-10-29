@@ -3,7 +3,7 @@
 # deleted by hand once fixed, never added. See tools/allowed_symbols.py for the classes.
 # mode: shadow
 Code/GameEngine/Source/Common/Bfme5FindAndErase.cpp	?bfmeRemove@Gen_0039BE00@@QAEXH@Z	?bfmeErase@BfmeVecAG@@QAEXPAH@Z	0x001FF51F	wrong
-Code/GameEngine/Source/Common/GameLODManagerGetStaticGameLODIndex.cpp	?getStaticGameLODIndex@GameLODManager@@QAEHVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
+Code/GameEngine/Source/Common/GameLOD.cpp	?getStaticGameLODIndex@GameLODManager@@QAEHVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	??0Gen004502D0ParserRegistration@@QAE@PAXPAVDataChunkInput@@PAVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/MessageStream.cpp	?appendMessage@MessageStream@@UAEPAVGameMessage@@W4Type@2@@Z	??0GameMessage@@QAE@W4Type@0@@Z	0x0030F47A	wrong
 Code/GameEngine/Source/Common/MessageStream.cpp	?insertMessage@MessageStream@@UAEPAVGameMessage@@W4Type@2@PAV2@@Z	??0GameMessage@@QAE@W4Type@0@@Z	0x0030F47A	wrong
@@ -34,7 +34,7 @@ Code/GameEngine/Source/Common/Rva00196D90MemberConstructor_Rva0032bde7.cpp	??0?$
 Code/GameEngine/Source/Common/Rva00196D90MemberConstructor_Rva0032bde7.cpp	??0?$vector@URva00196D90Element@@V?$allocator@URva00196D90Element@@@_STL@@@_STL@@QAE@I@Z	??0Rva00196D90Element@@QAE@XZ	0x00329DC2	wrong
 Code/GameEngine/Source/Common/Rva0019D850NestedVectorRelease_Rva002bc339.cpp	??0?$vector@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@V?$allocator@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@@2@@_STL@@QAE@I@Z	??0?$_Vector_base@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@V?$allocator@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@@2@@_STL@@QAE@IABV?$allocator@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@@1@@Z	0x005C8C37	wrong
 Code/GameEngine/Source/Common/Rva0019D850NestedVectorRelease_Rva002bc339.cpp	??0?$vector@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@V?$allocator@V?$vector@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@@2@@_STL@@QAE@I@Z	??1?$_Vector_base@URva002BC339Value@@V?$allocator@URva002BC339Value@@@_STL@@@_STL@@QAE@XZ	0x002BBB57	wrong
-Code/GameEngine/Source/Common/Rva00202B6CGet.cpp	?rva00202B6C@Rva00202B6C@@QAEHVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
+Code/GameEngine/Source/Common/GameLOD.cpp	?rva00202B6C@Rva00202B6C@@QAEHVAsciiString@@@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
 Code/GameEngine/Source/Common/Rva00242EE7ObjListPush.cpp	?push_back@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAEXABQAVRva00242EE7Obj@@@Z	?insert@?$list@PAVRva00242EE7Obj@@V?$allocator@PAVRva00242EE7Obj@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVRva00242EE7Obj@@U?$_Nonconst_traits@PAVRva00242EE7Obj@@@_STL@@@2@U32@ABQAVRva00242EE7Obj@@@Z	0x00241955	wrong
 Code/GameEngine/Source/Common/Rva002CEE1BDtor.cpp	??1Rva002CEE1B@@UAE@XZ	??1Elem002CEE1B@@QAE@XZ	0x000B3FD0	wrong
 Code/GameEngine/Source/Common/Rva003B930DFilter.cpp	?rva003B930D@Rva003B8BAA@@QAEXPAV?$vector@JV?$allocator@J@_STL@@@_STL@@@Z	?reserve@?$vector@JV?$allocator@J@_STL@@@_STL@@QAEXI@Z	0x002B712E	wrong
