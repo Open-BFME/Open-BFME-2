@@ -986,15 +986,19 @@ pulled in the same way through the unused W3DGadget include. The slider recipe
 (GameClient/Gadget.h + GameClient/GameWindow.h, local WIN_DRAW_LINE_WIDTH)
 keeps every row exact (5/5, 3/3, 3/3, 3/3, 16/16). Preview with the five units
 and W3DComboBox.cpp: the five change from blocked to LINKS (6,988 authored B).
-W3DComboBox.cpp, which owns the retail `??_E` row (0x00002B6A), still does not
-link: an earlier unit outside this set still emits the selected non-retail copy.
-W3DPushButtonImageDispatch_Thunk.cpp, the last W3DGadget includer besides
-W3DComboBox, took the same change (1/1 exact; preview blocked -> LINKS, 125 B);
-W3DComboBox still selects a non-retail copy with it, so the remaining definer is
-not a gadget unit (Render2DSentence / W3DGameFontRender2DSentence.h users are the
-next suspects).
-Remaining / next check: find that earlier definer in the census order and drop
-its copy the same way. Census confirmation: awaiting the next census.
+**Correction (same day):** the index's first (wrong) `??_E` definer is object 27,
+Render2DSentenceDrawBFME2.obj, whose copy e8931880e6 (2026-10-28 12:08) already
+removed; index d92e7e6635 measures 10:52, before it. With the current
+Render2DSentenceDrawBFME2.cpp passed to link_check, the next definer is
+W3DComboBox.obj (object 44, retail digest), and all six gadget units, the
+*unchanged* five plus W3DPushButtonImageDispatch_Thunk.cpp, preview LINKS
+(7,113 B, checked at 5122fde56d), as does W3DComboBox.cpp (1,209 B). So the
+include changes (41f25b959e, 1a6d0ce22b; also applied to the thunk) are only an
+unused-dependency cleanup, byte-neutral; the preview gain belongs to e8931880e6, not
+to them. Remaining definers of the wrong digest after it: objects 1998
+(Render2DSentenceBuildThaiBFME2), 3716 (render2dsentence), 4131
+(Render2DSentenceGlyphSurfaceBFME2) and later, all after the retail W3DComboBox copy.
+Clearance: preview only; census confirmation awaiting the next census.
 
 #### Pathfinder footprint consumer subset (2026-10-28)
 
