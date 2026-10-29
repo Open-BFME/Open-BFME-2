@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 //
 // ?rva002A7761@Rva002A7761@@QAEXXZ, retail 0x002A7761 44 bytes.
 // Reset method: zeroes +8/+0xc, sets +4 to 100, zeroes +0x18/+0x1c,
@@ -13,26 +14,12 @@ struct BfmePod12
 	int m_c;
 };
 
+#include <vector>
+
 namespace _STL
 {
-
-template <class _Tp>
-class allocator
-{
-};
-
-template <class _Tp, class _Alloc = allocator<_Tp> >
-class vector
-{
-public:
-	_Tp *erase(_Tp *first, _Tp *last);
-
-public:
-	_Tp *m_start;
-	_Tp *m_finish;
-	_Tp *m_endOfStorage;
-};
-
+// Bind the range erase to the rowed 0x002A7644 worker.
+template <> BfmePod12 *vector<BfmePod12, allocator<BfmePod12> >::erase(BfmePod12 *first, BfmePod12 *last);
 }
 
 class Rva002A7761
@@ -61,6 +48,6 @@ void Rva002A7761::rva002A7761()
 	m_field4 = 100;
 	m_field18 = 0;
 	m_field1C = 0;
-	pv->erase(pv->m_start, pv->m_finish);
+	pv->erase(pv->begin(), pv->end());
 	m_flag2C = false;
 }

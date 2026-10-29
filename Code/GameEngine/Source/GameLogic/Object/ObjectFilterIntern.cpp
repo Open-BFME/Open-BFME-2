@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD
+// stlport
 //
 // ?Rva00361790@@YAHPAVRva00360F55@@@Z at 0x00361790 (135 bytes).
 // Pool intern for the 0x94-byte ObjectFilter science-cluster record: returns
@@ -12,16 +13,12 @@ struct BfmePod148
 	int m_words[37];
 };
 
+#include <vector>
+
 namespace _STL
 {
-	template <class _Tp> class allocator
-	{
-	};
-	template <class _Tp, class _Alloc> class vector
-	{
-	public:
-		void push_back(const _Tp &value);
-	};
+	// Bind push_back to the rowed worker.
+	template <> void vector<BfmePod148, allocator<BfmePod148> >::push_back(const BfmePod148 &value);
 }
 
 class Rva00360F55

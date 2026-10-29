@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
+// stlport
 // ?stopDocking@SiegeDockingBehavior@@AAEXXZ @0x00459C27 49B.
 // Clears the +0x24 entry vector: deletes each entry via rowed ??3 0x0002FD60
 // behind an explicit null test then empties via rowed voidptr erase 0x0031BD55.
@@ -7,24 +8,12 @@
 // Donor is BFME1 SiegeDockingBehavior_stopDocking (same delete-plus-erase
 // shape; BFME2 binds erase to the rowed voidptr opt). Mixed this-via-ebx
 // access is load-bearing for the tail (Glo012F1028 precedent).
+#include <vector>
+
 namespace _STL
 {
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A>
-class vector
-{
-public:
-	T *m_start;
-	T *m_finish;
-	T *m_end_of_storage;
-	__declspec(dllimport) __forceinline T *begin() { return m_start; }
-	__declspec(dllimport) __forceinline T *end() { return m_finish; }
-	T *erase(T *first, T *last);
-};
+// Bind the range erase to the rowed void-pointer worker.
+template <> void **vector<void *, allocator<void *> >::erase(void **first, void **last);
 }
 
 class SiegeDockingBehavior
@@ -45,5 +34,5 @@ void SiegeDockingBehavior::stopDocking() throw()
 		if (*it)
 			::operator delete(*it);
 	}
-	entries->erase(entries->m_start, entries->m_finish);
+	entries->erase(entries->begin(), entries->end());
 }

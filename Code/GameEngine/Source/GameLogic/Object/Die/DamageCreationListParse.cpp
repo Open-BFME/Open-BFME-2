@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 //
 // ?Rva004BFD83Parse@@YAXPAVINI@@PAX1PBX@Z, retail 0x004BFD83 (115B): the
 // DamageCreationList FieldParse proc (row 0x00C5B2F8). Reads an
@@ -31,11 +32,10 @@ extern const char *theDamageSideNames[6] = { "NONE", "FRONT_DESTROYED", "RIGHT_D
 
 struct PrereqUnitRec;
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
 template <class T, class A> class vector;
 template <> class vector<Rva004BFD83Entry, allocator<Rva004BFD83Entry> >
 {
