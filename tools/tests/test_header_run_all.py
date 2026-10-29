@@ -129,6 +129,33 @@ def test_a_claim_on_the_header_or_on_a_units_rows_or_class_is_respected(world):
     assert json.loads(ctx["state_path"].read_text())["Hdr"]["status"] == "claimed"
 
 
+def test_claims_are_read_afresh_for_each_class_and_the_header_is_held_before_the_tournament(world, monkeypatch):
+    import claims
+    world.unit("First", "Code/f.cpp")
+    world.unit("Second", "Code/s.cpp")
+    world.unit("Third", "Code/t.cpp")
+    reads = iter([set(), {claims.key_of("file:Code/Include/Second.h")}, set()])
+    ctx = world.ctx({}, [("First", 9, 9), ("Second", 5, 5), ("Third", 3, 3)])
+    ctx["busy"] = lambda: next(reads)              # Second's header is claimed while First runs
+    monkeypatch.setattr(lane, "claim_rewrites",
+                        lambda name, files: [(files[0], "seat-9")] if files == ["Code/Include/Third.h"] else [])
+    lane.run_all(args(), ctx)
+    assert world.tournaments == ["First"]           # Second: held at its turn; Third: its header claim refused
+    state = json.loads(ctx["state_path"].read_text())
+    assert state["Second"]["status"] == state["Third"]["status"] == "claimed"
+
+
+def test_a_refused_decision_queue_commit_fails_the_pass_and_unstages_the_queue(world, capsys):
+    world.unit("Big", "Code/b.cpp")
+    world.contracts["Big"] = contract("Big", [{"class": "Big", "attribute": "size", "candidates": {"8": 1, "4": 1}}])
+    unstaged = []
+    ctx = world.ctx({}, [("Big", 4, 4)])
+    ctx["commit"] = lambda paths, message: (False, None, "PRE-COMMIT REFUSED")
+    ctx["unstage"] = unstaged.extend
+    assert lane.run_all(args(), ctx) == 1
+    assert unstaged == ["reverse/header_decisions.jsonl"] and "left unstaged" in capsys.readouterr().out
+
+
 def test_jobs_run_one_class_at_a_time(world, capsys):
     world.unit("A", "Code/a.cpp")
     world.unit("B", "Code/b.cpp")

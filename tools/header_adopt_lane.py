@@ -1635,7 +1635,7 @@ def bulk_prepare(name, ctx):
         return {"record": decision(name, "no-destination", dest.get("why", "no header destination"),
                                    command=f"python3 tools/header_adopt_lane.py dest --class {name}", **donors)}
     header = dest["header"]
-    busy = ctx.get("busy") or set()
+    busy = ctx["busy"]() if callable(ctx.get("busy")) else (ctx.get("busy") or set())
     if busy_files([header], busy):       # the tournament writes the header before claim_rewrites runs
         return {"record": decision(name, "claimed", f"its header {header} is held by another seat",
                                    holder="another seat", **donors)}
@@ -1679,6 +1679,10 @@ def bulk_prepare(name, ctx):
     if ctx["dry_run"]:
         return {"would": {"class": name, "header": header, "units": len(sources), "contract": contract_rel},
                 "contract": contract}
+    held_header = claim_rewrites(name, [header])
+    if held_header:
+        return {"record": decision(name, "claimed", f"its header {header} is held by {held_header[0][1]}",
+                                   holder=held_header[0][1], **evidence)}
     results = tournament(name, contract, sources, header, ctx["variants"], ctx["unit_jobs"])
     winner = max(ctx["variants"],
                  key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -ctx["variants"].index(v)))
@@ -1694,11 +1698,13 @@ def bulk_land(name, prepared, ctx):
     passed = sorted(s for s, v in best["verdicts"].items() if v is None)
     failed = {s: v for s, v in best["verdicts"].items() if v is not None}
     if not passed:
+        release_rewrites(name)      # the header claim bulk_prepare took
         reasons = collections.Counter(failure_class(v) for v in failed.values())
         return "queued", decision(name, "no-unit-adopts", f"no unit adopts in any variant ({dict(reasons)})",
                                   failures=dict(sorted(failed.items())[:10]), **evidence), None
     held = claim_rewrites(name, [header] + passed)
     if held:
+        release_rewrites(name)      # the header claim bulk_prepare took
         return "queued", decision(name, "claimed", f"{len(held)} unit(s) are held: "
                                   + "; ".join(f"{k} ({w})" for k, w in held[:4]), holder=held[0][1], **evidence), None
     originals = {s: (ROOT / s).read_bytes() for s in passed}
@@ -1782,6 +1788,11 @@ def git_undo(paths, new_header=None):
             (ROOT / p).unlink()
 
 
+def git_unstage(paths):
+    """Take `paths` out of the index, keeping their contents."""
+    subprocess.run(["git", "reset", "-q", "--", *paths], cwd=ROOT, capture_output=True)
+
+
 def bulk_guard():
     """Nothing staged and nothing uncommitted under Code/ or reverse/: a class commit would take
     unrelated edits along, and a refused one restores its paths to HEAD."""
@@ -1846,7 +1857,7 @@ def run_all(args, ctx=None):
         index = reference_headers()
         ctx = {"blockers": blockers, "ranked": ranked, "rows": class_contract.ledger_rows(),
                "destination": lambda n: header_destination(n, index), "link_check": link_ok,
-               "commit": git_commit, "undo": git_undo, "busy": busy_lock_keys()}
+               "commit": git_commit, "undo": git_undo, "busy": busy_lock_keys}
     ctx.setdefault("dry_run", args.dry_run)
     ctx.setdefault("sample", args.sample)
     ctx.setdefault("seed", args.seed)
@@ -1916,7 +1927,11 @@ def run_all(args, ctx=None):
         ok, _, tail = ctx["commit"]([queue_path.relative_to(ROOT).as_posix()],
                                     f"Record {len(rows)} header decision(s) from run --all\n")
         if not ok:
-            print(f"run --all: could not commit {queue_path.name}: {(tail or '')[-300:]}", flush=True)
+            ctx.get("unstage", git_unstage)([queue_path.relative_to(ROOT).as_posix()])
+            print(f"run --all: the hooks refused committing {queue_path.name}; it is left unstaged with this "
+                  f"pass's records: fix the cause, then commit it (git add + commit) before --resume: "
+                  f"{(tail or '')[-300:]}", flush=True)
+            return 1
     print(f"run --all: {dict(tally)}; {len(rows)} record(s) in {Path(ctx['decisions_path']).as_posix()}"
           + ("" if ctx["dry_run"] else "; push, then `header_adopt_lane.py release --class X` for each adopted "
                                        "class and `claims.py release class:X`"), flush=True)
