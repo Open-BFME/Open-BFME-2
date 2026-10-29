@@ -8990,6 +8990,46 @@ Update 2026-10-29 (adoption pass):
   `tu_skeleton --merge --dry-run` or `link_check` on adopted units before
   pushing a generated polymorphic header.
 
+Update 2026-10-29 (Thing, Object, ObjectShroudClient decisions):
+
+- **Thing decided and adopted in 6 units (0c7187617e).** Retail vftable
+  0x00C086E0 (??0Thing 0x0030A188, ~Thing 0x0030A120) has 8 slots: 0
+  calculateHeightAboveTerrain; 1-4 return NULL in Thing and `this` in
+  Object's 0x00BFC300 (1-2) and Drawable's 0x00BFB0B4 (3-4): ZH's
+  asObjectMeth/asDrawableMeth pairs, const first; 5 pure
+  reactToTransformChange; 6 an empty virtual only Object overrides
+  (0x0028B193, unnamed: placeholder `vslot6`); 7 the deleting destructor.
+  Most of Thing's 388 views put the destructor at slot 0, which is
+  wrong. **Next prerequisite: Matrix3D.** 298 of the 382 queued units fail
+  C2079 on `Thing::m_transform` (by value). Matrix3D has no canonical
+  header (about ten shim variants, 143 private views), so a canonical
+  Matrix3D comes before the bulk of Thing (and Object, Drawable).
+- **Object.** `dest` now resolves to
+  Code/GameEngine/Source/GameLogic/Object/object.h (588a38cb67: BFME 1's
+  object.h holds the class, ObjectStatusBits.h a padded 4-member view).
+  The contract (read only; `class:Object` is held by another seat) over
+  2,127 views decides sizeof 604 only by a thin majority (240 views; 1084:
+  196, 120: 137, 68: 129, 632: 84, 596: 62 ...) and bases [] by majority,
+  though retail Object derives from Thing at +0 (table 0x00BFC300) with
+  Snapshot at +0x60 and interface tables at +0x64, +0x6C and +0x70 (ctor
+  0x00298EA9). ZH's Object.h does not compile here. It queues slots 3, 4,
+  5, 6, 8, 9 and 10, which are placeholders for Thing's slots now settled
+  in thing.h. Object waits on Thing (Matrix3D) and its own base clause; do
+  not generate it from this contract.
+- **ObjectShroudClient: no header yet, and the views are wrong.**
+  ??0Object (0x00298EA9) stores a 6-slot table at +0x64 (0x00BFC2D8):
+  0 an AsciiString getter (rva00290EE0), 1 empty, 2 getGhostObject
+  (0x00290EFE), 3 rva002941EA, 4 ShroudGetValueRangeAndMask, 5
+  ShroudHideIfFogged. Another subobject's table sits at +0x68. So the
+  interface is 4 bytes with 6 slots, but all three views (sizeof 8, 1-2
+  slots at 0-1) treat the next base's vfptr as a pad. No reference header
+  defines it (an Object-only BFME 2 interface, name invented), so its
+  destination is its own header next to object.h,
+  Code/GameEngine/Source/GameLogic/Object/ObjectShroudClient.h. Retarget
+  the three views (ObjectPartitionShroudQueries, ObjectShroudRangeQuery,
+  ObjectShroudValueRangeAndMask) to the 6-slot table and the 4-byte size
+  before generating it.
+
 ## ConstIntGettersAddr.cpp FieldParse tables (2026-10-29, seat halilkkaya-fpt1)
 
 Done (commits 0b5feb85bd, 16e7cdaec7, 7ed40a3467): 29 raw-int FieldParse tables became typed
