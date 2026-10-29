@@ -463,37 +463,37 @@ void CollisionManagerImpl::rva007586F0()
 		unsigned int runLen = 1;
 		while (lists[src + 1].count != 0)
 		{
-			SortList *A = &lists[src];
-			SortList *B = &lists[src + 1];
+			SortList *leftList = &lists[src];
+			SortList *rightList = &lists[src + 1];
 
 			int out = src ^ 2;
 			lists[out + 1].count = 0;
 			lists[out].count = 0;
-			while (A->getCount() != 0)
+			while (leftList->getCount() != 0)
 			{
-				unsigned int b = runLen;
-				unsigned int a = runLen;
+				unsigned int rightRemaining = runLen;
+				unsigned int leftRemaining = runLen;
 				SortList *o = &lists[out];
 				for (;;)
 				{
 					SortList *from;
-					if (a != 0 && A->getCount() != 0)
+					if (leftRemaining != 0 && leftList->getCount() != 0)
 					{
-						if (b != 0 && B->count != 0 && A->head->m_value > B->head->m_value)
+						if (rightRemaining != 0 && rightList->count != 0 && leftList->head->m_value > rightList->head->m_value)
 						{
-							from = B;
-							b--;
+							from = rightList;
+							rightRemaining--;
 						}
 						else
 						{
-							from = A;
-							a--;
+							from = leftList;
+							leftRemaining--;
 						}
 					}
-					else if (b != 0 && B->count != 0)
+					else if (rightRemaining != 0 && rightList->count != 0)
 					{
-						from = B;
-						b--;
+						from = rightList;
+						rightRemaining--;
 					}
 					else
 						break;
@@ -521,7 +521,7 @@ void CollisionManagerImpl::rva007586F0()
 			lists[src].tail->m_next = 0;
 		m_axisHeads[k] = lists[src].head;
 		m_axisHeads[k]->m_prev = 0;
-		for (Endpoint *p = m_axisHeads[k]; p->m_next != 0; p = p->m_next)
-			p->m_next->m_prev = p;
+		for (Endpoint *currentEndpoint = m_axisHeads[k]; currentEndpoint->m_next != 0; currentEndpoint = currentEndpoint->m_next)
+			currentEndpoint->m_next->m_prev = currentEndpoint;
 	}
 }

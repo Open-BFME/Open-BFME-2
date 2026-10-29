@@ -81,7 +81,7 @@ class Rva00170BFF
 {
 public:
 	void *rva00170B4E(const Rva00170999 &x);
-	void rva00170BFF(void **out, Rva00170BFFNode *x, Rva00170BFFNode *y, const Rva00170999 &v, Rva00170BFFNode *w);
+	void rva00170BFF(void **out, Rva00170BFFNode *x, Rva00170BFFNode *parent, const Rva00170999 &v, Rva00170BFFNode *w);
 private:
 	Rva00170BFFNode *m_00Head; // +0x00
 	int m_04Flag; // +0x04
@@ -94,29 +94,29 @@ private:
 // itself stays in RvaTreeValueEraseFamily.cpp, which already rows that address.
 #pragma comment(linker, "/alternatename:?rva00170B4E@Rva00170BFF@@QAEPAXABVRva00170999@@@Z=?Rva00170B4EBuynode@@YGPAXABVRva00170999@@@Z")
 
-void Rva00170BFF::rva00170BFF(void **out, Rva00170BFFNode *x, Rva00170BFFNode *y, const Rva00170999 &v, Rva00170BFFNode *w)
+void Rva00170BFF::rva00170BFF(void **out, Rva00170BFFNode *x, Rva00170BFFNode *parent, const Rva00170999 &v, Rva00170BFFNode *w)
 {
-	Rva00170BFFNode *z;
-	if (y == m_00Head || (w == 0 && (x != 0 || *(const unsigned int *)&v < *(const unsigned int *)y->_val10))) {
-		z = (Rva00170BFFNode *)rva00170B4E(v);
-		y->_left = z;
-		if (y == m_00Head) {
-			m_00Head->_parent = z;
-			m_00Head->_right = z;
-		} else if (y == m_00Head->_left) {
-			m_00Head->_left = z;
+	Rva00170BFFNode *newNode;
+	if (parent == m_00Head || (w == 0 && (x != 0 || *(const unsigned int *)&v < *(const unsigned int *)parent->_val10))) {
+		newNode = (Rva00170BFFNode *)rva00170B4E(v);
+		parent->_left = newNode;
+		if (parent == m_00Head) {
+			m_00Head->_parent = newNode;
+			m_00Head->_right = newNode;
+		} else if (parent == m_00Head->_left) {
+			m_00Head->_left = newNode;
 		}
 	} else {
-		z = (Rva00170BFFNode *)rva00170B4E(v);
-		y->_right = z;
-		if (y == m_00Head->_right) {
-			m_00Head->_right = z;
+		newNode = (Rva00170BFFNode *)rva00170B4E(v);
+		parent->_right = newNode;
+		if (parent == m_00Head->_right) {
+			m_00Head->_right = newNode;
 		}
 	}
-	z->_parent = y;
-	z->_left = 0;
-	z->_right = 0;
-	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)z, (_STL::_Rb_tree_node_base *&)m_00Head->_parent);
+	newNode->_parent = parent;
+	newNode->_left = 0;
+	newNode->_right = 0;
+	_STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)newNode, (_STL::_Rb_tree_node_base *&)m_00Head->_parent);
 	++m_04Flag;
-	*out = z;
+	*out = newNode;
 }
