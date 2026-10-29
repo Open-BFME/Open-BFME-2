@@ -189,3 +189,13 @@ Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp|param|Rva005CEE07::Rva005CE
 Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp|param|Rva005CEE9F::Rva005CEE9F|b,b70f96b06200bebbe8411051,drz-k1,drz-k1-32,w-d29055ee9848,2026-10-29,c54c299f96ec7dbee107c09c
 Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp|param|FreelistPool::FreelistPool|a4,9fe4393844b8c255ade0a2ea,drz-k1,drz-k1-33,w-d29055ee9848,2026-10-29,d9a677de90c618462564b28b
 Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp|param|Rva003F409F::rva003F409F|b,5acc7bcec13de7fb2765d5a1,drz-k1,drz-k1-35,w-d29055ee9848,2026-10-29,9e00672b02e0ee48dc2d5869
+Code/GameEngine/Source/Common/Rva00529698Method.cpp|local|Rva0052936C::OnButtonFrameLoaded|e,32b3fe0058be81cc93edaa9f,drz-k5,drz-k5-1,w-526a51702f64,2026-10-29,cd0be48958ee8fac45115ac6
+Code/GameEngine/Source/Common/GapBodiesGE19.cpp|param|rva0002BEFB|a,7cad901a8f01fc21f4f68fbc,drz-k5,drz-k5-3,w-526a51702f64,2026-10-29,959a8648786a633954b4bb39
+Code/GameEngine/Source/Common/GapBodiesGE19.cpp|param|rva0002BEFB|b,987f0918b30ab577e5238c20,drz-k5,drz-k5-3,w-526a51702f64,2026-10-29,ef97fdd1f3b7189257f601c9
+Code/GameEngine/Source/Common/GapBodiesGE19.cpp|param|Rva0002C655::rva0002C655|n,e17f631fa129c721e9ca43eb,drz-k5,drz-k5-3,w-526a51702f64,2026-10-29,932d413fbb7b2a44e135ec96
+Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContainSlots.cpp|local|ProductionQueueHordeContain::CreateTemplate|p,ad2dbdc834ab18eacf584e83,drz-k5,drz-k5-4,w-526a51702f64,2026-10-29,9a3775735929036660f350d8
+Code/GameEngine/Source/Common/StringRecordDtors.cpp|local|Rva00111B5A::rva00111B5A|p,529301cc02fc912b09721a25,drz-k5,drz-k5-8,w-526a51702f64,2026-10-29,c6d88be6f54c17d50458f78c
+Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp|param|Rva0057A9B7Fire|a1,700bd97f4600a7287a6901b5,drz-k5,drz-k5-9,w-526a51702f64,2026-10-29,65e18d91571f35a4684e7d9e
+Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp|param|Rva0057A9B7Fire|a3,c8a178a913b5ad506ee1ff32,drz-k5,drz-k5-9,w-526a51702f64,2026-10-29,82058f9823a70ebfa9090612
+Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp|param|Rva0057A9B7Fire|a4,cc199dc9cd1666f911249e84,drz-k5,drz-k5-9,w-526a51702f64,2026-10-29,7a32f48ae6b942660ec2bbab
+Code/GameEngine/Source/Common/Rva0057A9B7Fire.cpp|param|Rva0057A9B7Fire|a5,5c3c1e782d301297efdd4451,drz-k5,drz-k5-9,w-526a51702f64,2026-10-29,e4d50ee27d895a3092a76164
