@@ -52,11 +52,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateTeamAttackedByPlayer(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateTeamAttackedByPlayer(Parameter *teamParm, Parameter *playerParm)
 {
     Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);

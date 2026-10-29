@@ -46,12 +46,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateScienceAcquired(Parameter *pPlayerParm, Parameter *pScienceParm);
-    bool evaluateCanPurchaseScience(Parameter *pPlayerParm, Parameter *pScienceParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateScienceAcquired(Parameter *pPlayerParm, Parameter *pScienceParm)
 {

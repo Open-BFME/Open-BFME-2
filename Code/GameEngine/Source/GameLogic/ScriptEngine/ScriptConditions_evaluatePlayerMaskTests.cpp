@@ -34,12 +34,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateSciencePurchasePoints(Parameter *, Parameter *);
-    bool evaluateSkirmishStartPosition(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateSciencePurchasePoints(Parameter *pPlayerParm, Parameter *pSciencePointParm)
 {
     int pointsNeeded = pSciencePointParm->m_int;

@@ -45,11 +45,7 @@ extern GameLogic *TheGameLogic;
 extern int BfmeLogicFramesPerSecond; // logic frames per second
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 
-class ScriptConditions
-{
-protected:
-    bool evaluateSkirmishSupplySourceSafe(Condition *pCondition, Parameter *pPlayerParm, Parameter *pValueParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateSkirmishSupplySourceSafe(Condition *pCondition, Parameter *pPlayerParm, Parameter *pValueParm)
 {

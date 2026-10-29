@@ -33,11 +33,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-	bool evaluateNamedDiscovered(Parameter *pUnitParm, Parameter *pPlayerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateNamedDiscovered(Parameter *pUnitParm, Parameter *pPlayerParm)
 {
 	Object *obj = TheScriptEngine->getUnitNamed(pUnitParm);

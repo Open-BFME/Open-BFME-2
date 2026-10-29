@@ -155,12 +155,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-public:
-	int rva003E40AF(int alliance);	// 0x003E40AF
-	bool evaluateEnemySighted(const AsciiString &unitName, Parameter *allianceParm, Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateEnemySighted(const AsciiString &unitName, Parameter *allianceParm, Parameter *playerParm)
 {

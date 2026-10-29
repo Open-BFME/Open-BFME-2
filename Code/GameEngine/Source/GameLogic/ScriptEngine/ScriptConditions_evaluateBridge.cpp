@@ -28,12 +28,7 @@ public:
 extern TerrainLogic *TheTerrainLogic;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateBridgeBroken(Parameter *);
-    bool evaluateBridgeRepaired(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateBridgeBroken(Parameter *pBridgeParm)
 {
     if (!TheTerrainLogic->anyBridgesDamageStatesChanged()) {

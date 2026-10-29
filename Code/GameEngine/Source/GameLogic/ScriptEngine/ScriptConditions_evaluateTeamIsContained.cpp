@@ -55,11 +55,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    virtual bool evaluateTeamIsContained(Parameter *, bool);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateTeamIsContained(Parameter *teamParm, bool allContained)
 {
     Team *team = TheScriptEngine->getTeamNamed(teamParm->getString(), false);

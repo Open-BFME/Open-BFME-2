@@ -160,12 +160,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-public:
-	bool evaluateSkirmishSuppliesWithinDistancePerimeter(Parameter *playerParm, Parameter *radiusParm, Parameter *areaParm,
-		Parameter *valueParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateSkirmishSuppliesWithinDistancePerimeter(Parameter *playerParm, Parameter *radiusParm, Parameter *areaParm,
 	Parameter *valueParm)

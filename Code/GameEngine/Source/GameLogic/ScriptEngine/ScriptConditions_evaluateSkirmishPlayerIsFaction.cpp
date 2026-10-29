@@ -31,11 +31,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateSkirmishPlayerIsFaction(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateSkirmishPlayerIsFaction(Parameter *pSkirmishPlayerParm, Parameter *pFactionParm)
 {
     PlayerMaskType mask = TheScriptEngine->rva00357B82(pSkirmishPlayerParm);

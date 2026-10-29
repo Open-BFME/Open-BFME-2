@@ -42,11 +42,7 @@ public:
 extern ScriptEngine *TheScriptEngine;
 bool g_00E02E34;	// retail RVA 0x00A02E34 (.data, 4 bytes), defined here: nothing else owns it
 
-class ScriptConditions
-{
-protected:
-	bool evaluateNamedUnitRankLevel(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 // The warn block is textual A and the rank load is textual B, because retail's
 // +0x1c is a jne OUT of the warn block into the out-of-line rank load; both

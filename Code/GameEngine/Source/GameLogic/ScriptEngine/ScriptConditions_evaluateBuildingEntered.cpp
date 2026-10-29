@@ -106,11 +106,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-	bool evaluateBuildingEntered(Parameter *pPlayerParm, Parameter *pUnitParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateBuildingEntered(Parameter *pPlayerParm, Parameter *pUnitParm)
 {

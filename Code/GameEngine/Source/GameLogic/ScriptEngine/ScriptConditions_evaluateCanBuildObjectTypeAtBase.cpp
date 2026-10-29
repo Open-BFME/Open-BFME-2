@@ -75,11 +75,7 @@ protected:
 	Module *findModule(NameKeyType key) const;
 };
 
-class ScriptConditions
-{
-protected:
-	bool evaluateCanBuildObjectTypeAtBase(Parameter *a, Parameter *b, Parameter *c);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateCanBuildObjectTypeAtBase(Parameter *parameter, Parameter *b, Parameter *c)
 {

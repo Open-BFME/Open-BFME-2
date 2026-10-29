@@ -131,12 +131,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptConditions
-{
-public:
-	bool rva003E5CB1(Parameter *unitParm, Parameter *playerParm);
-	bool rva003E83AF(Parameter *teamParm, Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E5CB1(Parameter *unitParm, Parameter *playerParm)
 {

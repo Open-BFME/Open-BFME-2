@@ -97,12 +97,7 @@ public:
 };
 class Rva002BA8F1Logic; extern class LivingWorldLogic *TheLivingWorldLogic;
 
-class ScriptConditions
-{
-protected:
-	bool evaluateHasDelayedCarryoverUnitOfType(const AsciiString &objectTypeName,
-		class Parameter *playerParam);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateHasDelayedCarryoverUnitOfType(const AsciiString &objectTypeName,
 	Parameter *playerParam)

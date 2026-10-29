@@ -35,11 +35,7 @@ private:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    Bool evaluateNamedExitedArea(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 Bool ScriptConditions::evaluateNamedExitedArea(Parameter *unitParm, Parameter *triggerParm)
 {
     Object *unit = TheScriptEngine->getUnitNamed(unitParm);

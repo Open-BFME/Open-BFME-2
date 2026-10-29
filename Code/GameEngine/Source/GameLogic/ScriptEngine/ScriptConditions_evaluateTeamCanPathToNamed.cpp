@@ -38,11 +38,7 @@ public:
 };
 extern AI *TheAI;
 
-class ScriptConditions
-{
-protected:
-	bool evaluateTeamCanPathToNamed(Parameter *p0, Parameter *p1);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateTeamCanPathToNamed(Parameter *parameter, Parameter *p1)
 {

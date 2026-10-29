@@ -28,11 +28,7 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class ScriptConditions
-{
-protected:
-	bool evaluatePlayerHasCredits(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluatePlayerHasCredits(Parameter *pValue, Parameter *pOp, Parameter *pPlayerParm)
 {

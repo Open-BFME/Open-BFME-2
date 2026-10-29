@@ -312,29 +312,13 @@ public:
 };
 extern Mouse *TheMouse;
 
-class SubsystemInterface
-{
-public:
-	virtual ~SubsystemInterface();
-	virtual void init();
-	virtual void slot2();
-	virtual void slot3();
-	virtual void slot4();
-	virtual void slot5();
-	virtual void slot6();
-	virtual void slot7();
-	virtual void slot8();
-	virtual void reset();
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 class ScriptActions : public SubsystemInterface
 {
 };
 extern ScriptActions *TheScriptActions;
 
-class ScriptConditions : public SubsystemInterface
-{
-};
 extern ScriptConditions *TheScriptConditions;
 
 // Correct native C1FAAC Snapshot lifetime interface; the opaque remainder

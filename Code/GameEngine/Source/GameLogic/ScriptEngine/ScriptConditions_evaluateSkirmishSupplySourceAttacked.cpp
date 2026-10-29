@@ -27,11 +27,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateSkirmishSupplySourceAttacked(Parameter *pPlayerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateSkirmishSupplySourceAttacked(Parameter *pPlayerParm)
 {

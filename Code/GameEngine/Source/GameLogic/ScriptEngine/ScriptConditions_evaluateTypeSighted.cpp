@@ -148,11 +148,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-public:
-	bool evaluateTypeSighted(const AsciiString &unitName, Parameter *typeParm, Parameter *playerParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateTypeSighted(const AsciiString &unitName, Parameter *typeParm, Parameter *playerParm)
 {

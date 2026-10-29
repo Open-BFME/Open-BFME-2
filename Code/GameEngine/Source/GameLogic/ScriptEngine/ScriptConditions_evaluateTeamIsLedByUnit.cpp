@@ -73,11 +73,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	bool evaluateTeamIsLedByUnit(Parameter *p0, Parameter *p1);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateTeamIsLedByUnit(Parameter *parameter, Parameter *p1)
 {

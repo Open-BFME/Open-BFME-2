@@ -38,11 +38,7 @@ extern PlayerList *ThePlayerList;
 extern class ScriptEngine *TheScriptEngine;
 
 
-class ScriptConditions
-{
-protected:
-	bool evaluatePlayerHasComparisonPercentPower(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluatePlayerHasComparisonPercentPower(Parameter *pMaskParm, Parameter *pOpParm, Parameter *pValParm)
 {

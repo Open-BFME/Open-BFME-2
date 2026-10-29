@@ -101,11 +101,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateIsBuildingEmpty(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateIsBuildingEmpty(Parameter *pItemParm)
 {
 

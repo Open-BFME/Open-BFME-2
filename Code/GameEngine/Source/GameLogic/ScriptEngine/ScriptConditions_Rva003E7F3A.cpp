@@ -24,11 +24,7 @@ public:
     void *m_ptr264;
 };
 
-class ScriptConditions
-{
-protected:
-	bool rva003E7F3A(Parameter *p1, Parameter *p2);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E7F3A(Parameter *parameter, Parameter *p2)
 {

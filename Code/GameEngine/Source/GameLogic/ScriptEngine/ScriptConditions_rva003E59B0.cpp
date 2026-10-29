@@ -126,11 +126,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	bool rva003E59B0(Parameter *pUnitParm, Parameter *pCastleParm, Parameter *playerParm, bool entered);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E59B0(Parameter *pUnitParm, Parameter *pCastleParm,
 	Parameter *playerParm, bool entered)

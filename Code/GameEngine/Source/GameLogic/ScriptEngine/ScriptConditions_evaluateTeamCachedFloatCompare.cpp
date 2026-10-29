@@ -20,10 +20,7 @@ public:
 class Team {public: float rva003A3736(float value);};
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions {
-protected:
-    bool evaluateTeamCachedFloatCompare(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateTeamCachedFloatCompare(Parameter *teamName,Parameter *comparison,Parameter *threshold,Parameter *input)
 {
     if (!teamName || !input || !comparison || !threshold)

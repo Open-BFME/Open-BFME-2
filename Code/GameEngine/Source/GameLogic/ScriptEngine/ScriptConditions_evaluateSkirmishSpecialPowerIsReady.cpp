@@ -200,11 +200,7 @@ public:
 extern SpecialPowerStore *TheSpecialPowerStore;
 extern Int BfmeLogicFramesPerSecond;
 
-class ScriptConditions
-{
-protected:
-	Bool evaluateSkirmishSpecialPowerIsReady(Parameter *pSkirmishPlayerParm, Parameter *pPower);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 Bool ScriptConditions::evaluateSkirmishSpecialPowerIsReady(Parameter *pSkirmishPlayerParm, Parameter *pPower)
 {

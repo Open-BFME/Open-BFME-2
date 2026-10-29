@@ -19,13 +19,7 @@ public:
 };
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluateVideoHasCompleted(Parameter *);
-    bool evaluateSpeechHasCompleted(Parameter *);
-    bool evaluateAudioHasCompleted(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateVideoHasCompleted(Parameter *pVideoParm)
 {
     return TheScriptEngine->rva00357A36(pVideoParm->getString(), true);

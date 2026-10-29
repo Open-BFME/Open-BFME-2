@@ -970,48 +970,7 @@ extern ScriptEngine *TheScriptEngine;
 
 #define THIS_TEAM "<This Team>"
 
-class ScriptConditions
-{
-public:
-	virtual void reset();
-	virtual void update();
-protected:
-	bool evaluateHasUnits(Parameter *);
-	bool evaluateNamedAttackedByType(Parameter *, Parameter *);
-	bool evaluateTeamAttackedByType(Parameter *, Parameter *);
-	bool evaluateNamedAttackedByPlayer(Parameter *, Parameter *);
-	bool evaluateTeamStateIs(Parameter *, Parameter *);
-	bool evaluateTeamStateIsNot(Parameter *, Parameter *);
-	bool evaluateBuiltByPlayer(Condition *, Parameter *, Parameter *);
-	bool evaluatePlayerUnitCondition(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
-	bool evaluatePlayerLostObjectType(Parameter *, Parameter *);
-	bool evaluateNamedDestroyedByType(Parameter *, Parameter *);
-	bool rva003EA12A(Parameter *);
-	bool rva003EA228(Parameter *, bool);
-	bool evaluateSkirmishValueInArea(Condition *, Parameter *, Parameter *, Parameter *, Parameter *);
-	bool evaluatePlayerHasUnitKindInArea(Condition *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *);
-	bool evaluateSkirmishPlayerHasUnitsInArea(Condition *, Parameter *, Parameter *);
-	bool evaluateHasCommandPointsToBuildUnit(Parameter *, Parameter *);
-	bool evaluatePlayerHasKilledTypeUnits(Parameter *, Parameter *, Parameter *);
-	bool rva003E63CD(Condition *, Parameter *, Parameter *, Parameter *);
-	bool rva003E5267(Parameter *, Parameter *);
-	bool rva003E51D9(Parameter *, Parameter *);
-	bool evaluateNamedSelected(Condition *, Parameter *);
-	bool evaluateNamedReachedWaypointsEnd(Parameter *, Parameter *);
-	bool evaluateTeamReachedWaypointsEnd(Parameter *, Parameter *);
-	bool evaluateUnitHasEmptied(Parameter *);
-	bool evaluateUnitHealth(Parameter *, Parameter *, Parameter *);
-	bool rva003E4519(Parameter *);
-	bool rva003E6BC5(Condition *, Parameter *);
-	bool evaluateSkirmishPlayerHasPrereqsToBuild(Parameter *, Parameter *);
-	bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
-	bool evaluateCanBuildAtBase(Parameter *, Parameter *);
-	bool evaluateDistanceBetweenObjects(Condition *);
-	bool evaluateDistanceBetweenTeams(Condition *);
-	bool evaluatePlayerHasUnitTypeInArea(Condition *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, Parameter *, bool);
-	bool rva003E8D01(Parameter *, Parameter *, Parameter *);
-	bool rva003E4D93(Parameter *, Parameter *, Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateHasUnits(Parameter *pTeamParm)
 {
 	AsciiString desiredTeamName = pTeamParm->getString();

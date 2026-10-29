@@ -52,11 +52,7 @@ public:
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-    Bool evaluateNamedInsideArea(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 
 Bool ScriptConditions::evaluateNamedInsideArea(

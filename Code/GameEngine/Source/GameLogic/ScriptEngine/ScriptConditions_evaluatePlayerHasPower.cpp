@@ -40,12 +40,7 @@ public:
 extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern ScriptEngine *TheScriptEngine;
-class ScriptConditions
-{
-protected:
-    bool evaluatePlayerHasNOrFewerBuildings(Parameter *, Parameter *);
-    bool evaluatePlayerHasPower(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluatePlayerHasNOrFewerBuildings(Parameter *pBuildingCountParm, Parameter *pPlayerParm)
 {
     PlayerMaskType mask = TheScriptEngine->rva00357B82(pPlayerParm);

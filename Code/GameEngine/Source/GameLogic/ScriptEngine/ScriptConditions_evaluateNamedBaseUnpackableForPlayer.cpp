@@ -98,11 +98,7 @@ class Rva0031D5F8
 class ControlBar : public Rva0031D5F8 
 {
 };
-class ScriptConditions
-{
- protected:
- bool evaluateNamedBaseUnpackableForPlayer(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 extern ControlBar *TheControlBar;

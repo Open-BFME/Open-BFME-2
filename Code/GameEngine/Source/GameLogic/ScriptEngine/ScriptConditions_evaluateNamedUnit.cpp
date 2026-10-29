@@ -61,17 +61,7 @@ public:
     bool m_flag34;
 };
 extern Rva0022AD10Subsystem *TheFormationAssistant;
-class ScriptConditions
-{
-protected:
-    bool evaluateNamedUnitDestroyed(Parameter *);
-    bool evaluateNamedUnitExists(Parameter *);
-    bool evaluateNamedCreated(Parameter *);
-    bool evaluateNamedUnitDying(Parameter *);
-    bool evaluateNamedUnitTotallyDead(Parameter *);
-    bool rva003E3EBA();
-    bool rva003E3EC3(Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 bool ScriptConditions::evaluateNamedUnitDestroyed(Parameter *pUnitParm)
 {
     Object *theUnit = TheScriptEngine->getUnitNamed(pUnitParm);

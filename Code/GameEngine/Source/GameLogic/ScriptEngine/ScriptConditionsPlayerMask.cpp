@@ -195,20 +195,7 @@ class PlayerLightPoints
 
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptConditions.h
-class ScriptConditions
-{
-protected:
-	Bool evaluatePlayerHasCredits(Parameter *, Parameter *, Parameter *);
-	Bool evaluatePlayerHasComparisonPercentPower(Parameter *, Parameter *, Parameter *);
-	Bool evaluatePlayerDestroyedNOrMoreBuildings(Parameter *, Parameter *, Parameter *);
-	Bool evaluatePlayerCompareLightPoints(Parameter *, Parameter *, Parameter *);
-	Bool evaluatePlayerHasNOrFewerFactionBuildings(Parameter *, Parameter *);
-	Bool evaluatePlayerHasKilledKindOfUnits(Parameter *, Parameter *, Parameter *);
-	Bool evaluatePlayerHasNumberObjectsWithModelCondition(
-		Parameter *, Parameter *, Parameter *, Parameter *);
-	Bool evaluateNamedOwnedByPlayer(Parameter *, Parameter *);
-	Bool evaluateSkirmishPlayerIsFaction(Parameter *, Parameter *);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 
 // ?evaluatePlayerDestroyedNOrMoreBuildings@ScriptConditions@@IAE_NPAVParameter@@00@Z

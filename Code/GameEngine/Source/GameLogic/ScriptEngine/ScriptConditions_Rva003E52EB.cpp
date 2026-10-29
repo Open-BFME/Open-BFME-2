@@ -43,11 +43,7 @@ extern PlayerList *ThePlayerList;
 #include "../../../Include/GameLogic/ScriptEngine.h"
 extern class ScriptEngine *TheScriptEngine;
 
-class ScriptConditions
-{
-protected:
-	bool rva003E52EB(Parameter *a, CondA003E52EB *b, CondB003E52EB *c);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::rva003E52EB(Parameter *parameter, CondA003E52EB *b, CondB003E52EB *c)
 {
