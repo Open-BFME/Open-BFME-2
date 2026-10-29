@@ -3631,7 +3631,6 @@ alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva0
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	?setup@Rva000FCF54Filter@@UAE_NW4FilterModes@@@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	?shutdown@Rva000FC63DFilter@@UAEHXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/ScreenFilterRva000FC63DSet.cpp	?shutdown@Rva000FCF54Filter@@UAEHXZ	1
-alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayStringDtor.cpp	?pad02@DisplayString@@UAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFontLibraryRva002CEF6C.cpp	??0Rva0050CBA2@@QAE@PAX@Z	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRoadBuffer.cpp	?Release_Ref@W3DRoadBufferRef18Target@@QAEXXZ	1
 alternatename	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShaderManager.cpp	?filterSetup@W3DShaderManager@@SA_NW4FilterTypes@@W4FilterModes@@@Z	1

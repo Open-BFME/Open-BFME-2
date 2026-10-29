@@ -41,12 +41,12 @@ public:
 	DisplayString();
 	virtual ~DisplayString();
 	virtual void setText( UnicodeString text );
-	virtual UnicodeString getText( void );
+	virtual UnicodeString getText( void ) { return m_textString; }  // ZH DisplayString.h inline; ICF-folded into 0x0022C4DF
 	virtual Int getTextLength( void );
 	virtual void notifyTextChanged( void );
 	virtual void reset( void );
 	virtual void setFont( GameFont *font ) { m_font = font; }
-	virtual GameFont *getFont( void );
+	virtual GameFont *getFont( void ) { return m_font; }  // ZH DisplayString.h inline; ICF-folded into 0x0030F45F
 	virtual void setWordWrap( Int wordWrap ) = 0;
 	virtual void setWordWrapCentered( Bool isCentered ) = 0;
 	virtual void setColors( Color textColor, Color dropColor ) = 0;
