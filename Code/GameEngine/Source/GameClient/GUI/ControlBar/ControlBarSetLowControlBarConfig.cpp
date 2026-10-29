@@ -59,14 +59,6 @@ public:
 
 #include "../../../../../Libraries/Include/Lib/ICoord2D.h"
 
-enum ControlBarStages
-{
-	CONTROL_BAR_STAGE_DEFAULT,
-	CONTROL_BAR_STAGE_SQUISHED,
-	CONTROL_BAR_STAGE_LOW,
-	CONTROL_BAR_STAGE_HIDDEN
-};
-
 #include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {

@@ -280,7 +280,7 @@ void ControlBar::reset()
 
 		Overridable *stillValid = ((Overridable *)set)->deleteOverrides();
 		if (stillValid == 0 && possibleAdjustment) {
-			m_commandSets = nextSet;
+			*(BfmeResetNode **)&m_commandSets = nextSet;
 		}
 
 		set = nextSet;

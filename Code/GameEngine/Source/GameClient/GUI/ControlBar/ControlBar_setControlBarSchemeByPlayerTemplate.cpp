@@ -9,13 +9,6 @@ enum NameKeyType
 	NK_INVALID = 0
 };
 
-enum ControlBarStages
-{
-	CONTROL_BAR_STAGE_DEFAULT = 0,
-	CONTROL_BAR_STAGE_LOW = 1,
-	CONTROL_BAR_STAGE_HIDDEN = 2
-};
-
 enum GameModeType
 {
 	GAME_LAN = 1,

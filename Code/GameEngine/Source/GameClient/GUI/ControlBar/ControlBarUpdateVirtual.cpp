@@ -134,10 +134,10 @@ void ControlBar::update()
 {
     rva0031AA86();
     ((Rva0031AEFF *)this)->rva0031AEFF();
-    if (schemeManager) schemeManager->rva0031FA8E();
-    if (videoManager) videoManager->update();
-    if (animateManager) animateManager->update();
-    if (animateManager && !animateManager->needsUpdate && animateManager->reverse)
+    if (schemeManager) ((Rva0031FA8E *)schemeManager)->rva0031FA8E();
+    if (videoManager) ((ControlBarManagerUpdateView *)videoManager)->update();
+    if (animateManager) ((ControlBarAnimateUpdateView *)animateManager)->update();
+    if (animateManager && !((ControlBarAnimateUpdateView *)animateManager)->needsUpdate && ((ControlBarAnimateUpdateView *)animateManager)->reverse)
     {
         NameKeyType id;
         {
@@ -147,9 +147,9 @@ void ControlBar::update()
         GameWindow *window=((ControlBarWindowManagerView *)TheWindowManager)->lookupWindow(0,id);
         if (window && !window->winIsHidden()) window->winHide(true);
     }
-    if (shortcutAnimateManager) shortcutAnimateManager->update();
-    if (shortcutAnimateManager && shortcutParent && !shortcutAnimateManager->needsUpdate
-        && shortcutAnimateManager->reverse && !shortcutParent->winIsHidden())
+    if (shortcutAnimateManager) ((ControlBarAnimateUpdateView *)shortcutAnimateManager)->update();
+    if (shortcutAnimateManager && shortcutParent && !((ControlBarAnimateUpdateView *)shortcutAnimateManager)->needsUpdate
+        && ((ControlBarAnimateUpdateView *)shortcutAnimateManager)->reverse && !shortcutParent->winIsHidden())
         shortcutParent->winHide(true);
     if (!radarTouched)
     {
@@ -195,5 +195,5 @@ void ControlBar::update()
     }
     for (int i=0; i!=32; ++i)
         if (commandWindows[i]) Rva00328700(commandWindows[i]);
-    finalManager->update();
+    ((ControlBarManagerUpdateView *)finalManager)->update();
 }

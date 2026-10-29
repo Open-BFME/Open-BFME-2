@@ -104,7 +104,7 @@ void ControlBar::rva0031B210()
         ((Rva0031AF54 *)this)->rva0031AF54(true);
     }
     else if (!((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer()->findNaturalCommandCenter()
-        && !shortcutParent->winIsHidden() && !m_animateWindowManagerForGenShortcuts->isFinished())
+        && !shortcutParent->winIsHidden() && !((ShortcutAnimateManagerView *)m_animateWindowManagerForGenShortcuts)->isFinished())
         ((Rva0031AF54 *)this)->rva0031AF54(false);
     if (shortcutParent->winIsHidden()) return;
     if (!((BfmeMemberRV *)((ShortcutPlayerListView *)ThePlayerList)->getLocalPlayer())->bfmeAskRV())

@@ -4,12 +4,6 @@
 // Evidence: cmp +0x24 je then push 2 else push 0 then tail-call rowed switchControlBarStage 0x0031B99A; caller 0x004028C3; ControlBar m_0024 precedent Rva0031AE13.
 typedef bool Bool;
 #include "subsystem_interface.h"
-enum ControlBarStages
-{
-	CONTROL_BAR_STAGE_DEFAULT = 0,
-	CONTROL_BAR_STAGE_LOW = 2
-};
-
 #include "ControlBarMemberTypes.h"
 class ControlBar : public SubsystemInterface
 {
