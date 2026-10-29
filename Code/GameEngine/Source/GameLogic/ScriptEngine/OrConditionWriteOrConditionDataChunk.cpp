@@ -20,11 +20,7 @@
 // pushes + this vs bare this; a Condition* + chunkWriter-ref pair matching
 // Condition::WriteConditionDataChunk's declared signature).
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject() {}
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class DataChunkOutput
 {

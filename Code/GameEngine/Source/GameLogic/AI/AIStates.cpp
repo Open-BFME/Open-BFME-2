@@ -373,11 +373,7 @@ public:
 	Object *cur() const { return m_cur; }
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class TeamPrototype
 {

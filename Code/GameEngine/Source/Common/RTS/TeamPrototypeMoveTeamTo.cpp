@@ -8,11 +8,7 @@
 // ABI alias is inferred from this call site and the donor, not a target name.
 // The iterator callback's donor name is also an inference; retail target
 // address 0x005C4AF5 is independently rowed only under an opaque getter name.
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 
 // Coord3D: shared header/view; no private copy.

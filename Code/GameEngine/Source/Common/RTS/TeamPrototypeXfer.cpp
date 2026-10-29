@@ -33,11 +33,7 @@ public:
 	unsigned char m_minimum;
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Player
 {

@@ -163,7 +163,7 @@ private:
     Object *m_cur;
     unsigned char m_state[20];
 };
-class MemoryPoolObject { public: virtual ~MemoryPoolObject(); };
+#include "../../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 class Team : public MemoryPoolObject, public Snapshot
 {

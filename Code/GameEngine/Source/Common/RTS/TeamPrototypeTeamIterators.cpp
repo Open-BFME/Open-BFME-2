@@ -72,11 +72,7 @@ class ThingTemplate;
 typedef float Real;
 typedef Int (*ObjectIterateFunc)(Object *obj, void *userData);
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 #include "Common/Snapshot.h"
 

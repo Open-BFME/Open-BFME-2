@@ -117,11 +117,7 @@ public:
 	Object *vcur() const { return *(Object * volatile *)&m_cur; }
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 #include "Common/Snapshot.h"
 

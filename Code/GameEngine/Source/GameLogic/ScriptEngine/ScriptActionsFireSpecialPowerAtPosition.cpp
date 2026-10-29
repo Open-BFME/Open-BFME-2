@@ -7,7 +7,7 @@
 // (0x003C4070, 0x003C4145, 0x003C41BA, 0x003C420A) reach it on ScriptActions.
 #include "ascii_string.h"
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
-class MemoryPoolObject { public: virtual ~MemoryPoolObject(); };
+#include "../../../Include/Common/MemoryPoolObject.h"
 #include "Common/Snapshot.h"
 class SpecialPowerTemplate;
 class SpecialPowerModuleInterface

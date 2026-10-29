@@ -20,11 +20,7 @@
 // reverse/symbols.csv from this call site's argument shapes; nameToKey is
 // already matched at 0x148E1A.
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject() {}
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 enum NameKeyType
 {

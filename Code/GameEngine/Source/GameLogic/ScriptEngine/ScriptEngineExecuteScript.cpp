@@ -107,11 +107,7 @@ private:
 	bool m_isActive;				// +0x40
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 #include "Common/Snapshot.h"
 

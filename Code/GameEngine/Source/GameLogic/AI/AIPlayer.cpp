@@ -300,11 +300,7 @@ private:
     GetNextFunc m_getNextFunc;
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 #include "../../../../../reference/shims/moduledata/Common/Snapshot.h"
 

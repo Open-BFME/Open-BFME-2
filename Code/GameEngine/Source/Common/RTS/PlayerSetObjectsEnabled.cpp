@@ -88,11 +88,7 @@ private:
  const ThingTemplate *m_template;
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Team : public MemoryPoolObject, public Snapshot
 {

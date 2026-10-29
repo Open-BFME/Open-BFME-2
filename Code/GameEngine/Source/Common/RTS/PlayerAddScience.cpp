@@ -52,11 +52,7 @@ namespace _STL {
 	_InputIter find(_InputIter __first, _InputIter __last, const _Tp &__val);
 }
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Object;
 class Team;

@@ -186,11 +186,7 @@ void ScriptAction::setActionType(ScriptActionType type)
 	}
 }
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Condition : public MemoryPoolObject
 {

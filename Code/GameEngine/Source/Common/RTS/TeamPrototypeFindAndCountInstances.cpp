@@ -7,7 +7,7 @@ namespace _STL {
 struct _Rb_tree_node_base { bool color; _Rb_tree_node_base *parent,*left,*right; };
 template<class Dummy> class _Rb_global { public: static _Rb_tree_node_base *__cdecl _M_increment(_Rb_tree_node_base *); };
 }
-class MemoryPoolObject { public: virtual ~MemoryPoolObject(); };
+#include "../../../Include/Common/MemoryPoolObject.h"
 class Team : public MemoryPoolObject, public Snapshot {
 public:
  Team *dlink_next_TeamInstanceList() const;

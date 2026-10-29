@@ -114,11 +114,7 @@ public:
 	OBJCLASS *cur() const { return m_cur; }
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Team : public MemoryPoolObject, public Snapshot
 {

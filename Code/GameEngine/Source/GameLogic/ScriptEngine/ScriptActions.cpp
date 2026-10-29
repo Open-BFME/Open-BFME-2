@@ -435,11 +435,7 @@ struct PlayerTeamNode
 	class TeamPrototype *m_value;
 };
 
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 
 class Team;
 

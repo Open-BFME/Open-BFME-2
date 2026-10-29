@@ -83,10 +83,7 @@ SnowManager::SnowManager()
 #include <new>
 
 
-class MemoryPoolObject {
-public:
-    virtual ~MemoryPoolObject();
-};
+#include "../../Include/Common/MemoryPoolObject.h"
 
 class Overridable : public MemoryPoolObject {
 public:

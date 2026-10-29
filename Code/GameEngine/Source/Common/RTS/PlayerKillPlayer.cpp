@@ -45,10 +45,7 @@ class SkirmishAI {
   public:
     bool isAPartialBrain();
 };
-class MemoryPoolObject {
-  public:
-    virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 template<class T> class DLINK_ITERATOR;
 class Team : public MemoryPoolObject, public Snapshot {
   public:

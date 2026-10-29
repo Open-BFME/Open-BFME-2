@@ -52,11 +52,7 @@ struct Rva0039D533
 	int m_00; int m_04; int m_08; int m_0c; int m_10; int m_14;
 	void rva0039D533(Rva0039D533Src *src);
 };
-class MemoryPoolObject
-{
-public:
-	virtual ~MemoryPoolObject();
-};
+#include "../../../Include/Common/MemoryPoolObject.h"
 class TeamTemplateInfo : public Snapshot
 {
 public:

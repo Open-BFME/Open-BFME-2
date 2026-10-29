@@ -88,10 +88,7 @@ void SnowManager::init()
     updateIniSettings();
 }
 
-class MemoryPoolObject {
-public:
-    virtual ~MemoryPoolObject();
-};
+#include "../../Include/Common/MemoryPoolObject.h"
 
 class Overridable : public MemoryPoolObject {
 public:
