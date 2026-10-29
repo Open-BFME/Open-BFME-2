@@ -1,6 +1,7 @@
 // ?ProcessGameSpyResponses@AptOnlineCustomMatch@@QAEXXZ
 // cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 //
 // ?ProcessGameSpyResponses@AptOnlineCustomMatch@@QAEXXZ
 // retail 0x005A2DB7..0x005A51B9 (9218 bytes EH) thiscall.

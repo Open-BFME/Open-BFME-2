@@ -124,6 +124,19 @@ Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry
 that consumer and the moved provider scope into the next scheduled census.
 [Verification, trials and complete path audit](../reverse/attempt_support/video-player-consolidation-20261029-bce2/README.md).
 
+### AptOnlineCustomMatch composition: private views and allocator binding
+
+Status: Open. Updated: 2026-10-29; inspected base c8871e52ab. The supported
+merge probe accepted no donors: the seed and several donors have incompatible
+private declarations, and the response-pump composition loses its
+`?free@_STL@@YAXPAX@Z` binding. The class-view planner initially failed to
+compile the response pump because it includes WinSock2.h without opting into
+the Platform SDK. Adding the opt-in restores a fresh layout compile; all 75
+rows, string and import checks pass, and link preview retains 9,173 bytes at
+index 840db2d676. Reconcile the class views and allocator binding before
+retrying the supported merge. No census gain or composition clearance claimed.
+
+
 ### LINK-137: console cleanup identity repair changes interface COMDAT selection
 
 Status: Blocked on the DebugIOInterface/DebugIOCon provider cohort.
