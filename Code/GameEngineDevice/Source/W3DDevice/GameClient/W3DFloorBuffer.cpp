@@ -182,6 +182,16 @@ struct RGBAColorInt
 };
 #include "ascii_string.h"
 #include "Common/Snapshot.h"
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class Xfer::Version
 {
@@ -873,6 +883,36 @@ private:
 	bool m_20;
 };
 
+class W3DRopeDraw
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva000E5A25Named, "W3DFloorBuffer")
+
+// Native W3DPropBuffer ctor EF008 and dtor EEEF4 install 7CEECC, whose slot 2
+// is EEFE6: the canonical Snapshot GetSnapshotName slot.
+class W3DPropBuffer
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class W3DPropDraw
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+class W3DTerrainLogic
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp
+
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E473F.cpp
 
 // ?rva000E473F@W3DFloorBuffer@@QAEXXZ @0x000E473F 93B
@@ -1095,8 +1135,6 @@ void W3DFloorBuffer::drawFloors(RenderInfoClass &rinfo, RefCountPtr<FXShader::Re
 	DX8Wrapper::Set_Pixel_Shader(0);
 }
 
-// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000E488F.cpp
 
 bool Rva000E488F::rva000E488F(void *arg)
@@ -1107,10 +1145,6 @@ bool Rva000E488F::rva000E488F(void *arg)
 	}
 	return true;
 }
-
-// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
-
-// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000E4BD5Lighting.cpp
 
@@ -1210,16 +1244,6 @@ UnsignedInt Rva000E4BD5Lighting::doLighting(
         | (alpha << 24);
 }
 
-// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5406 660B ?rva006F83F0@Rva006F8700Owner@@QAEHPAUFloorVertex@@HPBVMatrix3D@@PAUFloorMeshAccess@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
-
-// tu-skeleton: 0x000E569A 21B ?rva006F8700@Rva006F8700Owner@@QAEHPAXH00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000E585F.cpp
 
 void Rva006F8700Owner::rva000E585F(void *arg1, void *arg2, int *arg3, int *arg4)
@@ -1293,10 +1317,6 @@ void Rva000E57FF::rva000E57FF(Rva000E488F *arg)
 	} while (node != *(Rva000E57FFNode *volatile *)&m_list);
 }
 
-// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
-// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva000E58BE.cpp
 
 // ?rva000E58BE@Rva000E58BE@@QAEXXZ
@@ -1320,18 +1340,6 @@ void Rva000E58BE::rva000E58BE()
 	for (Rva000E58BEListNode *node = m_listHead->m_next; node != m_listHead; node = node->m_next)
 		node->m_owner->rva000E585F(indexData, vertexData, &m_count10, &m_countC);
 }
-
-// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5A25 6B ?name@Rva000E5A25Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5A47 102B ??0Rva000E59D3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5EC1 36B ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EC1.cpp (not merged yet)
-
-// tu-skeleton: 0x000E5EE5 123B ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EE5Method.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva000E5F60Lookup.cpp
 
@@ -1397,6 +1405,48 @@ void Rva000E6135::rva000E6135(const Rva0055A88BDwordField *idSrc, const StringBa
 		cur = cur->m_next;
 	} while (cur != m_head);
 }
+
+// tu-skeleton: 0x000E4886 9B ?rva000E4886@Rva000E4886@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
+
+// tu-skeleton: 0x000E48BC 252B ?rva000E48BC@Rva000E48BC@@QAE_NPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E49B8 541B ?rva000E49B8@Rva000E48BC@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva000E48BC.cpp (not merged yet)
+
+// tu-skeleton: 0x000E4F20 275B ??0Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5033 104B ??1Gen_uw_000e5033@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E509B 875B ?load@Gen_uw_000e5033@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5406 660B ?rva006F83F0@Rva006F8700Owner@@QAEHPAUFloorVertex@@HPBVMatrix3D@@PAUFloorMeshAccess@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
+
+// tu-skeleton: 0x000E569A 21B ?rva006F8700@Rva006F8700Owner@@QAEHPAXH00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva006F8700.cpp (not merged yet)
+
+// tu-skeleton: 0x000E583E 28B ??_GRva000E5033@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E585A 5B ?rva000E585A@Rva000E585A@@QAEXPAVRva000E488F@@@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB01.cpp (not merged yet)
+
+// tu-skeleton: 0x000E59D3 82B ??1Rva000E59D3@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp
+
+// W3D draw/buffer literal name getters: six-byte const members with one shape
+// (mov eax,<offset string literal> / ret). Same shape and verbatim
+// BFME_LITERAL_NAME_GETTER macro as
+// Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (BFME1
+// LiteralNameGetters_01 port); kept as its own unit to keep concurrent
+// contributors conflict-free. Each body returns a pointer to a
+// NUL-terminated class-name string in .rdata with exactly one vtable (body-VA)
+// reference behind a C3 predecessor; verify_string_refs re-reads the string.
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x000E5A2B 28B ??_GRva000E59D3@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva000E59D3Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5A47 102B ??0Rva000E59D3@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva000E59D3Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5EC1 36B ?rva000E5EC1@Rva000E5EC1@@QBE_NHABV?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EC1.cpp (not merged yet)
+
+// tu-skeleton: 0x000E5EE5 123B ?rva000E5EE5@Rva000E5EE5@@QAEXPBVRva0055A88BDwordField@@V?$StringBase@D@@@Z -- matched in Code/GameEngine/Source/Common/Rva000E5EE5Method.cpp (not merged yet)
 
 // tu-skeleton: 0x0076330E 11B $L5271 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorElementDestructor.cpp (not merged yet)
 

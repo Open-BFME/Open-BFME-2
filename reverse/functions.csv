@@ -10282,7 +10282,7 @@ _luaG_ordererror,,0x0074D2E0,73,Code/Libraries/Source/Lua/ldebug.c,matched,BFME1
 ?name@Rva000CEA33Named@@QBEPBDXZ,,0x000CEA33,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DTankDraw; vtable ref; address-derived placeholder name
 ?name@W3DStreakDraw@@QBEPBDXZ,,0x000D0046,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DStreakDraw; 7 vtable refs share this body; address-derived placeholder name
 ?name@W3DSailModelDraw@@QBEPBDXZ,,0x000D0810,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DSailModelDraw; vtable ref; address-derived placeholder name
-?name@Rva000E5A25Named@@QBEPBDXZ,,0x000E5A25,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DFloorBuffer; vtable ref; address-derived placeholder name
+?name@Rva000E5A25Named@@QBEPBDXZ,,0x000E5A25,6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DFloorBuffer.cpp,matched,literal name getter returning W3DFloorBuffer; vtable ref; address-derived placeholder name
 ?name@Rva000E6B93Named@@QBEPBDXZ,,0x000E6B93,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DVegetationBufferBase; vtable ref; address-derived placeholder name
 ?name@Rva000E9C0FNamed@@QBEPBDXZ,,0x000E9C0F,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DShrubBuffer; vtable ref; address-derived placeholder name
 ?name@Rva000EDB39Named@@QBEPBDXZ,,0x000EDB39,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DTreeBuffer; vtable ref; address-derived placeholder name
