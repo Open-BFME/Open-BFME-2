@@ -156,6 +156,20 @@ mixed two TUs. A TU can split into several provisional groups (25 of the 427
 recovered did), so merging can leave more than one file for a TU until it is
 named, never one file for two TUs.
 
+### Funclet groups (`p-group`, pending owner approval)
+
+An EH funclet whose parent function the map does not approve is approved anyway
+with its parent's TU (`tu_evidence.P_GROUPS`). It carries the evidence token
+`p-group`, plus `provisional` when that TU has no anchor. `python3
+tools/tu_map.py --holdout p-groups` measures it with the method above, now in
+`tools/tu_holdout.py`. Five folds, scoring only rows whose anchored TU was held
+out: 5,974/5,981 (99.88%) join a group whose other rows share their TU. The
+misses are Apt.cpp/AptLoad.cpp funclets that land on the wrong side of the
+boundary. On the live map it approves +4,073 code rows, nearly all in
+`gen_small` funclet files, so it frees few authored files directly. The same
+harness measures the rules that did not clear: `prov-min-1`, `brackets`,
+`interleave` and `k-only`.
+
 ## Retail layout evidence (the TU-evidence lane)
 
 About 8,400 sources have no tu_map row with any TU: no `__FILE__` string, no Zero

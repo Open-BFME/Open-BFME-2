@@ -88,6 +88,12 @@ import tu_map  # noqa: E402
 SIGNALS = ("E", "I", "V", "R", "P")            # order of preference when several agree
 PROMOTED = frozenset("EP")                    # approval-capable signals (Verifier-Change commit)
 GATE = 0.99
+# P groups (owner decision pending; `tu_map.py --holdout p-groups`): a funclet whose parent the map
+# does not approve is approved with its parent's TU anyway, evidence token P_GROUP_TOKEN (plus
+# tu_map.PROV_TOKEN when that TU has no anchor, so its name stays unproven). Held-out purity
+# 5,984/5,991 (99.88%) at a136856afb: every funclet joins a group whose other rows share its TU.
+P_GROUPS = True
+P_GROUP_TOKEN = "p-group"
 ANCHOR_BY = frozenset("FZSLNU")
 TEST_BY = frozenset("FZS")
 # Max distance (bytes in the signal's own layout) between the two bracketing anchors.
@@ -415,8 +421,8 @@ def inside_other(spans, rva, key):
 def apply(layout, out, signals=None, st=None):
     """`out` (tu_map rows) with every row no other signal reaches assigned by `signals`
     where they agree. A row is approved only when its TU is anchored, contiguous and the
-    row is inside no other approved TU's span (a P row: when its parent is approved);
-    else proposed. `signals` defaults to PROMOTED; unchanged (and the image unread) when
+    row is inside no other approved TU's span (a P row: when its parent is approved, or
+    always under P_GROUPS, tokened P_GROUP_TOKEN); else proposed. `signals` defaults to PROMOTED; unchanged (and the image unread) when
     it is empty."""
     signals = PROMOTED if signals is None else signals
     if not signals:
@@ -441,10 +447,14 @@ def apply(layout, out, signals=None, st=None):
             s, (key, ref) = pick
             other = inside_other(spans, rva, key)
             ok = key in roots and key not in broken and not other
+            group = False
             if s == "P":
                 ok = ok and conf.get(st.parent[rva][0]) == "approved"
+                group = P_GROUPS and not ok      # the parent's group, approved or not (P_GROUPS)
+            unproven = ok and key in prov or group and (key not in roots or key in prov)
             ev = " ".join(x for x in (r["evidence"], ref, f"inside={spelled.get(other, other)}" if other else "",
-                                      tu_map.PROV_TOKEN if ok and key in prov else "") if x)
+                                      P_GROUP_TOKEN if group else "", tu_map.PROV_TOKEN if unproven else "") if x)
+            ok = ok or group
             new[i] = dict(r, tu=spelled.get(key, key), confidence="approved" if ok else "proposed", by=s,
                           evidence=ev)
             conf[rva] = new[i]["confidence"]

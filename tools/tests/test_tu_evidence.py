@@ -160,8 +160,31 @@ def test_a_funclet_follows_its_parents_tu_and_confidence(tree):
     assert (x["tu"], x["confidence"], x["by"]) == ("Code/A.cpp", "approved", "E")
     assert (new[f"0x{FUNCLET:08X}"]["tu"], new[f"0x{FUNCLET:08X}"]["confidence"]) == ("Code/A.cpp", "approved")
     assert new[f"0x{FUNCLET + 0x20:08X}"]["confidence"] == "approved"   # X's funclet, after X
+
+
+def test_p_groups_approve_a_funclet_of_an_unapproved_parent_with_its_token(tree, monkeypatch):
+    layout, _ = tree
+    monkeypatch.setattr(te, "P_GROUPS", False)
     weak = te.apply(layout, map_rows(parents_approved=False), {"P"}, structures(tree, map_rows(False)))
-    assert {r["confidence"] for r in weak if r["by"] == "P"} == {"proposed"}
+    assert {r["confidence"] for r in weak if r["by"] == "P"} == {"proposed"}      # the gate off: proposed
+    monkeypatch.setattr(te, "P_GROUPS", True)
+    grouped = te.apply(layout, map_rows(parents_approved=False), {"P"}, structures(tree, map_rows(False)))
+    p_rows = [r for r in grouped if r["by"] == "P"]
+    assert p_rows and {r["confidence"] for r in p_rows} == {"approved"}
+    for r in p_rows:                     # the parent's TU, its name unproven (no anchor approves it)
+        tokens = r["evidence"].split()
+        assert te.P_GROUP_TOKEN in tokens and tu_map.PROV_TOKEN in tokens and r["tu"] in ("Code/A.cpp", "Code/B.cpp")
+    anchored = {r["rva"]: r for r in te.apply(layout, map_rows(), {"P"}, structures(tree))}
+    assert all(te.P_GROUP_TOKEN not in r["evidence"] for r in anchored.values())   # parents approved: no token
+
+
+def test_p_groups_place_nothing_a_parent_without_a_tu_does_not(tree, monkeypatch):
+    """Near miss: a funclet whose parent the map gives no TU (and no signal places) gets none."""
+    layout, _ = tree
+    monkeypatch.setattr(te, "P_GROUPS", True)
+    out = [dict(r, tu="", confidence="", by="-") if r["rva"] == "0x00001000" else r for r in map_rows(False)]
+    got = {r["rva"]: r for r in te.apply(layout, out, {"P"}, structures(tree, out))}
+    assert got[f"0x{FUNCLET:08X}"]["tu"] == "" and got[f"0x{FUNCLET:08X}"]["confidence"] == ""
 
 
 def test_a_row_inside_another_approved_tus_span_is_only_proposed(tree):
