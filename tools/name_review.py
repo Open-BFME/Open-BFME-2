@@ -1,4 +1,4 @@
-"""Bounded blind second reviews, dispatched by name_lane after submission.
+"""Drain blind second reviews in bounded batches after submission.
 
 Only the parent records votes or applies names. The fresh Codex process sees
 the packet on stdin, runs read-only outside the repository, and returns names.
@@ -189,13 +189,53 @@ def dispatch(lane, *, keys=None, runner=run_codex, apply_ready=None, verify=None
         if not try_lock(handle):
             return {"status": "busy"}
         try:
-            return _dispatch(lane, config, keys, runner, apply_ready,
+            return _drain(lane, config, keys, runner, apply_ready,
                              verify or rename.build_verify, checks or rename.ledger_checks)
         finally:
             portable_lock.unlock(handle)
 
 
-def _dispatch(lane, config, keys, runner, apply_ready, verify, checks):
+def _drain(lane, config, keys, runner, apply_ready, verify, checks):
+    import name_lane
+    import rename
+    started = time.monotonic()
+    batches, seen = [], set()
+    remaining_apply = apply_ready
+    stop_reason = "empty"
+    while True:
+        current_config = load_config(lane)
+        if not current_config or not current_config.get("enabled"):
+            stop_reason = "disabled"
+            break
+        if config.get("max_batches") and len(batches) >= config["max_batches"]:
+            stop_reason = "batch_limit"
+            break
+        # Reload votes, claims and sources between batches. A busy submitting
+        # worker can add new work while this process owns the reviewer slot.
+        current = name_lane.Lane(lane.root, rename.Context(lane.root, object_scan=False))
+        result = _dispatch(current, config, keys, runner,
+                           remaining_apply if remaining_apply else None, verify, checks,
+                           exclude=seen)
+        if result["status"] == "empty":
+            break
+        batches.append(result)
+        seen.update(result["keys"])
+        if remaining_apply is not None:
+            remaining_apply -= result["apply_selected"]
+    if not batches:
+        return {"status": "empty" if stop_reason == "empty" else stop_reason, "reviewed": 0}
+    report = dict(batches[-1], status="complete" if stop_reason == "empty" else "paused",
+                  stop_reason=stop_reason, batches=batches, batch_count=len(batches),
+                  seconds=round(time.monotonic() - started, 3))
+    for field in ("reviewed", "votes_recorded", "rejected", "skipped", "apply_selected"):
+        report[field] = sum(batch[field] for batch in batches)
+    for field in ("keys", "newly_agreed"):
+        report[field] = [key for batch in batches for key in batch[field]]
+    save_json(config_path(lane).parent / "reviewer-last.json", report)
+    return report
+
+
+def _dispatch(lane, config, keys, runner, apply_ready, verify, checks, *, exclude=()):
     import name_lane
     import rename
     started = time.monotonic()
@@ -214,7 +254,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks):
             if source is None:
                 continue
             fingerprint = hashlib.sha256(source.encode("utf-8", "surrogateescape")).hexdigest()
-            eligible.extend(key for key in pending_keys if (wanted is None or key in wanted)
+            eligible.extend(key for key in pending_keys if key not in exclude and (wanted is None or key in wanted)
                             and attempts.get(key) != fingerprint)
         if not eligible:
             return {"status": "empty", "reviewed": 0}
@@ -268,6 +308,7 @@ def _dispatch(lane, config, keys, runner, apply_ready, verify, checks):
         name_lane.cmd_apply(current, argparse.Namespace(key=ready, limit=apply_ready, max_files=25,
             retry_blocked=False, only_labels=None, lead=2, min_models=1, claim=True), verify=verify, checks=checks)
     report = dict(status="complete", session=session, worker=config["worker"], model=config["model"],
+        keys=list(answers), apply_selected=min(len(ready), apply_ready) if apply_ready else 0,
         reviewed=len(answers), votes_recorded=accepted, rejected=sum(name.lower() != "skip" for name in answers.values()) - accepted, skipped=sum(name.lower() == "skip" for name in answers.values()),
         newly_agreed=ready, seconds=round(time.monotonic() - started, 3), job=str(job))
     save_json(job / "result.json", report)
@@ -289,7 +330,7 @@ def maybe_launch(lane, *, launch=subprocess.Popen):
             cwd=lane.root, stdin=subprocess.DEVNULL, stdout=log, stderr=log,
             shell=False, creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0),
             env=dict(os.environ, BFME_NAME_REVIEW_CHILD="1"))
-    print("name_lane: dispatched a bounded independent review pass.")
+    print("name_lane: dispatched an independent reviewer to drain queued work in bounded batches.")
     return True
 
 
@@ -299,6 +340,7 @@ def configure_parser(parser):
     parser.add_argument("--model", help="actual Codex model (configure defaults to installed CLI config)")
     parser.add_argument("--count", type=int, default=6, help="maximum files in one review batch")
     parser.add_argument("--max-keys", type=int, default=10)
+    parser.add_argument("--max-batches", type=int, help="optional batches per run; default drains eligible work")
     parser.add_argument("--timeout", type=int, default=300)
     parser.add_argument("--max-chars", type=int, default=150000)
     parser.add_argument("--key", action="append", help="restrict this pass to an exact queued key")
@@ -310,12 +352,15 @@ def run(lane, args):
     if args.action == "configure":
         if min(args.count, args.max_keys, args.timeout, args.max_chars) < 1:
             raise ReviewError("review bounds must be positive")
+        if getattr(args, "max_batches", None) is not None and args.max_batches < 1:
+            raise ReviewError("--max-batches must be positive")
         if not args.worker.strip():
             raise ReviewError("reviewer worker identity must be stable and nonempty")
         model = name_lane.model_id(args.model or configured_model())
         codex_command()
         save_json(config_path(lane), dict(enabled=True, worker=args.worker, model=model,
-            count=args.count, max_keys=args.max_keys, timeout=args.timeout, max_chars=args.max_chars))
+            count=args.count, max_keys=args.max_keys, timeout=args.timeout, max_chars=args.max_chars,
+            max_batches=getattr(args, "max_batches", None)))
         print(f"name_lane: automatic reviewer enabled: {config_path(lane)}")
     elif args.action == "disable":
         config = load_config(lane) or {}

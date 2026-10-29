@@ -742,10 +742,16 @@ python3 tools/name_lane.py review configure --worker bfme-independent-name-revie
 Configuration uses the installed Codex CLI's actual model by default; pass
 `--model` to select another available model. This enables real model execution
 and uses that account's credits. Each subsequent submission with new votes
-starts a background review pass. The submitting worker can continue immediately.
+starts a background reviewer that drains eligible work in successive batches.
+The submitting worker can continue immediately.
 A shared lock permits one AI reviewer at a time, with at most ten keys, six
-files, 150,000 packet characters and a 300-second model timeout per pass.
-Busy passes exit; remaining work waits for the next submission or explicit pass.
+files, 150,000 packet characters and a 300-second model timeout per batch.
+Ten keys is a batch size, not a total review limit. The reviewer reloads the
+queue between batches and continues until eligible work is exhausted. Existing
+enabled configurations inherit this behavior. `review configure --max-batches N`
+sets an optional run budget; reaching it reports `paused` / `batch_limit`.
+Busy clients exit while the active reviewer continues draining. A model or
+validation error stops the run; it never records a fabricated vote.
 Completed skips/rejections are remembered per worker and source hash, so an
 unchanged target is not repeatedly sent to the model.
 Git worktrees share configuration and the lock through their common repository.
@@ -767,4 +773,6 @@ byte checks, consumer checks and failure rollback remain in force. Larger source
 fan-out still requires an explicit reviewed `--max-files` override on apply.
 No reviewer commits or pushes. Inspect `review status` and the local
 `build/name_lane/reviewer-last.json` / `review-dispatch.log`; `review disable`
-stops automatic launches. Installation without configuration stays proposal-only.
+stops automatic launches and the active reviewer before its next batch.
+`--apply-ready N` is a total apply bound across the run, not per batch.
+Installation without configuration stays proposal-only.

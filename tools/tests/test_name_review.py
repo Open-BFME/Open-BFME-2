@@ -200,3 +200,72 @@ def test_unchanged_skipped_target_is_not_reviewed_repeatedly(tree, tmp_path):
     assert first_result["skipped"] == 1
     again = name_review.dispatch(lane_of(tree), runner=lambda *_: pytest.fail("unchanged skip rerolled"))
     assert again["status"] == "empty"
+
+
+MEMBER_KEY = SOURCE + "|member|Rva00401000Box|m_x2C"
+
+
+def two_pending(root, tmp_path, **options):
+    vote(root, tmp_path, "first", {**FN_ANSWER, "Rva00401000Box::m_x2C": "m_width"},
+         worker="original-worker")
+    enable(root, max_keys=1, **options)
+
+
+def matching_batch(packet, *_):
+    return {"answers": [{"key": item["key"],
+                         "name": "sumBox" if item["key"] == FN_KEY else "m_width",
+                         "reason": "Read the declaration and body"} for item in packet["targets"]]}
+
+
+def test_drain_reviews_every_key_in_multiple_bounded_batches(tree, tmp_path):
+    two_pending(tree, tmp_path)
+    calls = []
+    def runner(packet, *args):
+        assert len(packet["targets"]) == 1
+        calls.extend(item["key"] for item in packet["targets"])
+        return matching_batch(packet)
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["reviewed"] == 2 and result["batch_count"] == 2
+    assert result["status"] == "complete" and result["stop_reason"] == "empty"
+    assert set(calls) == {FN_KEY, MEMBER_KEY} and len(calls) == len(set(calls))
+    assert set(result["newly_agreed"]) == {FN_KEY, MEMBER_KEY}
+
+
+def test_drain_continues_after_skip_without_rerolling(tree, tmp_path):
+    two_pending(tree, tmp_path)
+    calls = []
+    def runner(packet, *_):
+        calls.extend(item["key"] for item in packet["targets"])
+        return answer(packet, "skip")
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["skipped"] == 2 and result["batch_count"] == 2
+    assert len(calls) == len(set(calls)) == 2
+    assert name_review.dispatch(lane_of(tree), runner=lambda *_: pytest.fail("reroll"))["status"] == "empty"
+
+
+def test_optional_batch_budget_reports_pause_and_next_run_resumes(tree, tmp_path):
+    two_pending(tree, tmp_path, max_batches=1)
+    result = name_review.dispatch(lane_of(tree), runner=matching_batch)
+    assert result["reviewed"] == 1 and result["stop_reason"] == "batch_limit"
+    assert result["status"] == "paused"
+    again = name_review.dispatch(lane_of(tree), runner=matching_batch)
+    assert again["reviewed"] == 1
+    assert set(result["keys"]).isdisjoint(again["keys"])
+
+
+def test_drain_honors_disable_between_batches(tree, tmp_path):
+    two_pending(tree, tmp_path)
+    def runner(packet, *_):
+        config = name_review.load_config(lane_of(tree))
+        name_review.save_json(name_review.config_path(lane_of(tree)), dict(config, enabled=False))
+        return matching_batch(packet)
+    result = name_review.dispatch(lane_of(tree), runner=runner)
+    assert result["reviewed"] == 1 and result["stop_reason"] == "disabled"
+
+
+def test_apply_budget_is_shared_across_the_entire_drain(tree, tmp_path):
+    two_pending(tree, tmp_path)
+    result = name_review.dispatch(lane_of(tree), runner=matching_batch,
+                                 apply_ready=1, verify=ok_verify, checks=no_checks)
+    assert result["reviewed"] == 2 and result["apply_selected"] == 1
+    assert sorted(lane_of(tree).state()[key]["status"] for key in (FN_KEY, MEMBER_KEY)) == ["agreed", "landed"]
