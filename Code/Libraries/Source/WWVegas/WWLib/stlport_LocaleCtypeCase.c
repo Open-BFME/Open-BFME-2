@@ -1,4 +1,5 @@
 // cl: /MD
+// stlport46
 // platformsdk
 // STLport 4.5.3 _Locale_toupper/_Locale_tolower (retail 0x000219E0/0x00021B10)
 // and _dup_0084EBC0 (retail 0x00021D50).
