@@ -8055,6 +8055,7 @@ Remaining / next check: the earlier missing consumer receipts are refreshed (433
 Clearance: source consolidation and scoped byte/data/EH checks only. Full selected-consumer coverage and census confirmation remain open; no measured linked-byte or image-ownership gain is claimed.
 ### LINK-133: ICF-twin rows moved objects ahead in link order, so their wrong COMDAT copies became the kept copy
 
+Status: Placement cause cleared by census rule `retail-truth-5` (re-baseline at `840db2d676`); 56 newly exposed units open as source repairs (below). Updated: 2026-10-29.
 Status: Open; Render2DSentenceDrawBFME2.cpp repair landed / awaiting census. Updated: 2026-10-28; inspected revision: `3868d198bf`; index 41c28839bf (census c8734bec0c).
 Status: Duplicate of LINK-132 (same cause, filed in parallel); new results are tracked under LINK-132, and this entry keeps the whole-ledger simulation history. Updated: 2026-10-28; inspected revision: `1e9d0f5a75`; index 73061d9452.
 
@@ -8105,6 +8106,111 @@ Remaining / next check:
 - Rule question for maintainers: 675 objects are positioned by an ICF-alias row (an address another object's row also claims), many already at the census. If `link_order` ignored such alias rows, objects would sit where their own code is; that is a census rule change (`tools/census_rebaseline.py`), not a seat edit. Until then, a commit that adds a low-address fold row to a unit should first check the unit's other COMDAT copies against the units it overtakes.
 
 Clearance: none. Census confirmation: the next census should show these losses unless the movers are repaired first.
+
+#### Decision and census confirmation (2026-10-29, retail-truth-5)
+
+Maintainer decision: `link_order` ignores ICF-alias rows, recorded as the census
+rule change `retail-truth-5` through `tools/census_rebaseline.py`. Definition
+(`link_census.code_places`, shared by `link_check.link_rank`, tu_skeleton's merge
+guard and `allowed_symbols`/`dup_defs`): an object is placed by the lowest
+retail RVA of its rows whose address no other object's row also claims; an
+object all of whose rows are shared keeps its lowest row. This entry's
+shared-address definition is used, not `fold-proof=` alone: 1,136 `fold-proof=`
+rows move 476 objects, while 2,313 shared rows carry no marker (AIBuilder's
+0x0007FAB3 row among them). 954 of 21,607 objects move in the ledger at
+`0d26afd6d2`.
+
+Tools: `0d26afd6d2` (rule, `retail-truth-4` kept as PREVIOUS_RULES, measured by
+its own `link_census.py` in a separate process), `51627be276` (that process's
+pool pickling fix). Re-baseline row `93614acd90`: one census of `840db2d676` on srv1, both
+rules on the same 21,503 objects (digest `1ace094a05f389db`), the previous rules
+by `64db12ad35:tools/link_census.py`:
+
+| Rules | Files linked | LINKED | Authored |
+| --- | ---: | ---: | ---: |
+| retail-truth-4 | 21,282 | 7,604,932 | 7,144,051 |
+| retail-truth-5 | 21,253 | 7,586,952 | 7,126,071 |
+
+At this commit retail-truth-4 already recovered most of the 2026-10-28 loss
+(7,384,253 at `54b83e4f69`): those units were repaired at source before the
+re-baseline (above), not by the rule. The rule itself links 27 more units
+(36,835 census bytes in the index) and 56 fewer (56,898); the row's LINKED
+net is −17,980 B. Proven-wrong
+selected names rise from 159 to 191.
+
+Gained (the movers this entry names, and their consumers): `Common/GameEngineInit.cpp`, `GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIStructureCreepTactic.cpp`, `assetmanager/Rva00622290CollectKeys.cpp`, `GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/AITactic.cpp`, `GameLogic/Object/GenericObjectCreationNuggetReallyCreate.cpp`, `WWVegas/WW3D2/Render2DSentenceDrawBFME2.cpp`, `GameLogic/SkirmishAI/AIBuilder.cpp`, `GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp`, `GameLogic/SkirmishAI/AIStatCollector/AIStatCollector.cpp`, `GameLogic/Object/SpecialPower/ManTheWallsSpecialPower.cpp`, `GameLogic/Object/Update/ProductionUpdate.cpp`, `GameLogic/System/GameLogicDestructor.cpp`, `GameLogic/SkirmishAI/AITacticalAI/AITacticsGenerator/TargetlessTactics/AIRoamingDefenseTacticRoam.cpp`, `GameLogic/Object/GenericObjectCreationNuggetPositionCreate.cpp`, `GameLogic/Object/SpecialPower/SiegeDeployHordeInitiate.cpp`, `GameLogic/SkirmishAI/AITeamBuilder/AITeamBuilder_checkIdleTeams.cpp`, `WWVegas/WWLib/StlportVectorPushBackSiblings.cpp`, `GameLogic/System/LivingWorld/Rva002B8573Method.cpp`, `GameLogic/ScriptEngine/ScriptActions_doTeamPartialUseCommandButton.cpp`, `GameLogic/Object/GenericObjectCreationNuggetWaypointPick.cpp`, `GameLogic/SkirmishAI/AISpecialPowers/AIRva005D8B0BCheck.cpp`, `GameLogic/AI/SquadGetAllObjectsAndRemoveDead.cpp`, `WWVegas/WWLib/StlportVectorObjectPtrInsertOverflow.cpp`, `GameLogic/Object/SpecialPower/SplitHordeSpecialPower_doSpecialPower.cpp`, `GameLogic/Object/GenericObjectCreationNuggetRequirements_Create.cpp`, `Common/RTS/GameLogic_QueueForNotifyPathfindCellChanged.cpp`, `GameLogic/Object/Rva004E00BA.cpp`.
+
+Newly exposed (source-repair leads, not regressions): units retail-truth-4
+linked only because an object that a shared row placed early happened to hold
+retail's copy. At its own code it now follows a definer whose copy is not
+retail's. Example: `??0?$vector@VAsciiString@@…@ABV01@@Z` (28 units): BfmeObject476Copy.cpp
+was placed by the shared `hashtable::_M_next_size` fold at 0x0005571B and now sits at
+0x001FD293, so CreateAHeroDataCopy.cpp (0x00069F75) is the first definer and its copy
+is wrong. The repair is the same as for this entry's movers: make the first
+definer's copy retail's or stop it emitting the copy. Charged names are the
+census index's for the retail-truth-5 row (first name shown; … = more):
+
+| Unit | Census bytes | Charged COMDAT |
+| --- | ---: | --- |
+| `GameLogic/AI/AIPlayerTeamBuild.cpp` | 9,120 | comdat_losers 2: `?_M_create_node@?$list@PAVTeamPrototype@@V?$allocator@PAVTeamPrototype@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVTeamPrototype@@@2@ABQAVTeamPrototype@@@Z` … |
+| `GameClient/FXParticleSystemFactories.cpp` | 4,099 | wrong_selected 25: `?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVGpuDrawModuleTemplate@2@XZ` … |
+| `GameClient/FXParticleSystemModules.cpp` | 3,856 | wrong_selected 25: `?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$05$E?GPU_DRAW_MODULE_KEY@FXParticleSystem@@3QBDB$E?GPU_DRAW_MODULE_NAME@2@3QBDBVGpuDrawModule@2@VGpuDrawModuleTemplate@2@V?$DefaultParticleModule@$05@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVGpuDrawModuleTemplate@2@XZ` …; comdat_losers 2: `??_G?$ConcreteModuleTemplate@V?$ModuleTag@$01$E?RENDEROBJECT_UPDATE_MODULE_KEY@FXParticleSystem@@3QBDB$E?RENDEROBJECT_UPDATE_MODULE_NAME@2@3QBDBVRenderObjectUpdateModule@2@VRenderObjectUpdateModuleTemplate@2@VRenderObjectParticleUpdateModule@2@@FXParticleSystem@@@FXParticleSystem@@UAEPAXI@Z` … |
+| `GameClient/GUI/GameWindowManagerScript.cpp` | 2,865 | wrong_selected 1: `?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z` |
+| `Common/BfmeObject476Copy.cpp` | 2,519 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/System/ObjectFilter.cpp` | 2,376 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameClient/GUI/GUICallbacks/Apt/AptMessengerOnlineResponse.cpp` | 2,359 | wrong_selected 1: `??R?$less@H@_STL@@QBE_NABH0@Z` |
+| `Common/Thing/ThingTemplateConstructor.cpp` | 1,881 | wrong_selected 1: `?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@IPBX@Z`; comdat_losers 1: `??_7ThingTemplate@@6B@` |
+| `GameClient/GUI/ProcessAnimateWindow.cpp` | 1,869 | comdat_losers 2: `?cos@@YAMM@Z` … |
+| `GameLogic/Map/SidesList_sidesInfo.cpp` | 1,714 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Map/SidesListCastleBuildLists.cpp` | 1,596 | wrong_selected 1: `??$__uninitialized_copy@PBV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z` |
+| `WWVegas/WWLib/stlport_deque_e12_o1.cpp` | 1,526 | wrong_selected 2: `??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@0U10@@Z` … |
+| `WWVegas/WWLib/stlport_deque_e12_new_elements.cpp` | 1,477 | wrong_selected 2: `??$copy@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@_STL@@U?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@2@@_STL@@YA?AU?$_Deque_iterator@UBfmeE12@@U?$_Nonconst_traits@UBfmeE12@@@_STL@@@0@U?$_Deque_iterator@UBfmeE12@@U?$_Const_traits@UBfmeE12@@@_STL@@@0@0U10@@Z` … |
+| `GameLogic/Object/Damage/TransitionDamageFX.cpp` | 1,134 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/SpecialPower/OCLSpecialPowerAtLocation.cpp` | 1,094 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/Upgrade/ReplaceSelfUpgradeImplementation.cpp` | 1,093 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/StringVectorRecordCopyBFME2.cpp` | 1,044 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/StringContainerRecordCopyBFME2.cpp` | 1,004 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/stlport_rb_tree_create_nodes.cpp` | 1,001 | wrong_selected 1: `?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z` |
+| `GameClient/GUI/FontLibraryInit.cpp` | 989 | wrong_selected 1: `?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z` |
+| `WWVegas/WWLib/OwnedRecord840Copy.cpp` | 984 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/Upgrade/ReplaceSelfUpgradeRva004B7110.cpp` | 963 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/RTS/ScienceStoreFindScienceInfo.cpp` | 878 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/Thing/Rva0033DDA1Dtor.cpp` | 770 | comdat_losers 1: `??_7ThingTemplate@@6B@` |
+| `Common/System/Upgrade.cpp` | 754 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/System/LivingWorld/LivingWorldLogicDtorRva002B964F.cpp` | 717 | comdat_losers 3: `??_7LivingWorldLogic@@6BLivingWorldBuildingObserver@@@` … |
+| `WWVegas/WWLib/StlportVectorCopyCtorFamily.cpp` | 670 | wrong_selected 1: `??$__uninitialized_copy@PBV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@PAV12@@_STL@@YAPAV?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@0@PBV10@0PAV10@ABU__false_type@0@@Z` |
+| `W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawConditionInfoCopy.cpp` | 613 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/Armor.cpp` | 502 | wrong_selected 1: `??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ` |
+| `WWVegas/WWLib/Rva0054103EVectorInsertOverflow.cpp` | 473 | wrong_selected 1: `??0?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@IABV?$allocator@VSaveMapPreview@@@1@@Z` |
+| `WWVegas/WWLib/OwnedRecord900Copy.cpp` | 421 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/System/SaveGame/CreateAHeroDataCopy.cpp` | 404 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/stlport_rb_tree_pod_insert_g7.cpp` | 383 | wrong_selected 1: `?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z` |
+| `GameLogic/Object/Update/RousingSpeechUpdateTrigger.cpp` | 355 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/SpecialPower/Rva003F9FE6CopyCtor.cpp` | 348 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/System/Rva0056616BCopyDeferred.cpp` | 333 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `W3DDevice/GameClient/W3DDisplayCtorRva00049DEA.cpp` | 302 | comdat_losers 1: `??1?$vector@HV?$allocator@H@_STL@@@_STL@@QAE@XZ` |
+| `Common/SpawnArmyCopyCtor.cpp` | 295 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/Rva004045B4.cpp` | 221 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/System/SaveGame/SaveMapPreviewCopy.cpp` | 209 | wrong_selected 1: `??0?$_Vector_base@VSaveMapPreview@@V?$allocator@VSaveMapPreview@@@_STL@@@_STL@@QAE@IABV?$allocator@VSaveMapPreview@@@1@@Z` |
+| `GameLogic/Object/SpecialPower/PlayerUpgradeSpecialPowerDoSpecialPower.cpp` | 197 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/Rva00136794Ctor.cpp` | 180 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/stlport_vector_asciistring_copy_backward.cpp` | 167 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/VectorDeletingDtorsV06.cpp` | 166 | wrong_selected 1: `?clone@?$ConcreteModuleTemplate@V?$ModuleTag@$07$E?LIFE_EVENT_MODULE_KEY@FXParticleSystem@@3QBDB$E?LIFE_EVENT_MODULE_NAME@2@3QBDBVLifeEventModule@2@VLifeEventModuleTemplate@2@VParticleLifeEventModule@2@@FXParticleSystem@@@FXParticleSystem@@UBEPAVLifeEventModuleTemplate@2@XZ` |
+| `Common/Rva00468E98Rotate.cpp` | 119 | comdat_losers 2: `?cos@@YAMM@Z` … |
+| `Common/RTS/Rva002AF581Ctor.cpp` | 110 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `Common/Rva001ED03CCopy.cpp` | 109 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `GameLogic/Object/ArmorHashtableRtsCtor.cpp` | 105 | wrong_selected 1: `??1?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@QAE@XZ`; comdat_losers 2: `?_M_initialize_buckets@?$hashtable@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@W4NameKeyType@@U?$hash@W4NameKeyType@@@rts@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@U?$equal_to@W4NameKeyType@@@5@V?$allocator@U?$pair@$$CBW4NameKeyType@@VArmorTemplate@@@_STL@@@2@@_STL@@AAEXI@Z` … |
+| `WWVegas/WWLib/stlport_map_int_pod52_tree_dtor.cpp` | 100 | wrong_selected 1: `?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z` |
+| `WWVegas/WWLib/stlport_map_int_pod52_o1.cpp` | 86 | wrong_selected 1: `?insert_unique@?$_Rb_tree@HU?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Select1st@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBHUBfmePod52@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHUBfmePod52@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBHUBfmePod52@@@2@@Z` |
+| `WWVegas/WWLib/stlport_list_gamewindow_assign_dispatch.cpp` | 79 | wrong_selected 1: `?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z` |
+| `WWVegas/WWLib/stlport_list_gamewindow_copy.cpp` | 76 | wrong_selected 1: `?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z` |
+| `WWVegas/WWLib/Rva00403927Assign.cpp` | 70 | wrong_selected 1: `??0?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@QAE@ABV01@@Z` |
+| `WWVegas/WWLib/stlport_list_int.cpp` | 67 | wrong_selected 1: `??R?$less@H@_STL@@QBE_NABH0@Z` |
+| `WWVegas/WWLib/stlport_rb_tree_locomotor_create_node.cpp` | 34 | wrong_selected 1: `?allocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@_STL@@@_STL@@QBEPAU?$_Rb_tree_node@U?$pair@$$CBW4LocomotorSetType@@V?$vector@PBVLocomotorTemplate@@V?$allocator@PBVLocomotorTemplate@@@_STL@@@_STL@@@_STL@@@2@IPBX@Z` |
+| `WWVegas/WWLib/stlport_list_gamewindow_assign_004243BE.cpp` | 22 | wrong_selected 1: `?erase@?$list@PAVGameWindow@@V?$allocator@PAVGameWindow@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVGameWindow@@U?$_Nonconst_traits@PAVGameWindow@@@_STL@@@2@U32@@Z` |
+
+Clearance: the placement cause is cleared by `retail-truth-5` (census row
+`93614acd90` for `840db2d676`, srv1; index published); the 56 units above remain open as source repairs.
 
 #### Pathfinder consumer subset (2026-10-28)
 
