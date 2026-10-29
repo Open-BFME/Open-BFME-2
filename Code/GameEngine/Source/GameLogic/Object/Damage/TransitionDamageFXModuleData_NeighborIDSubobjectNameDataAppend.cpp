@@ -1,5 +1,6 @@
 // ?NeighborIDSubobjectNameDataAppend@TransitionDamageFXModuleData@@SAXPAVINI@@PAX1PBX@Z
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?NeighborIDSubobjectNameDataAppend@TransitionDamageFXModuleData@@SAXPAVINI@@PAX1PBX@Z @0x004BA817 460B
 // Evidence: BFME1 donor reference/open-bfme-1/game/GameEngine/Source/GameLogic/Object/Damage/TransitionDamageFXModuleDataParseRubbleNeighbor.cpp NeighborIDSubobjectNameDataAppend; retail strings "NeighborOffset" "OCLOffset" "OCL" "SubObject" plus "bad colon spacing, or unexpected token in TransitionDamageFXModuleData::NeighborIDSubobjectNameDataAppend"; callees rowed getNextTokenOrNull 0x0002DEED getNextSubToken 0x0002E06B scanReal 0x0002EDA5 parseObjectCreationList 0x00338A6F getNextToken 0x0002DF97 vector<AsciiString> push_back 0x0002DBE6 and dtor 0x0002CC70 plus StringBase PBD ctor 0x00037BA0 and releaseBuffer 0x00036410 plus default ctor 0x004BA1B2 and vector<Rva004BA1D0> push_back 0x004BA7E0; layout int plus vector<AsciiString> at +4 plus OCL plus Neighbor plus OCLOffset matches Rva004BA1D0 44B record.
@@ -10,22 +11,13 @@ template <typename T> struct BfmeStringData;
 
 #include "ascii_string.h"
 
+#include <vector>
+
 namespace _STL
 {
-template <typename T> class allocator
-{
-};
-
-template <typename T, typename A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-	~vector();
-
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
+// Bind the appends and the element-vector teardown to their rowed workers.
+template <> void vector<AsciiString, allocator<AsciiString> >::push_back(const AsciiString &value);
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 }
 
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
@@ -89,6 +81,11 @@ private:
 	Coord3D m_neighborOffset;
 	Coord3D m_oclOffset;
 };
+
+namespace _STL
+{
+template <> void vector<Rva004BA1D0, allocator<Rva004BA1D0> >::push_back(const Rva004BA1D0 &value);
+}
 
 class TransitionDamageFXModuleData
 {

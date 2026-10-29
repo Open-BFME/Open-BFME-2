@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /GX
+// stlport
 //
 // GiantBirdAIUpdate::xfer, retail 0x0036AC73 (390 bytes). BFME 2 only: neither
 // Zero Hour nor the BFME 1 tree has a GiantBirdAIUpdate xfer. Evidence, all
@@ -67,15 +68,8 @@ public:
 	float z;
 };
 
-// Only the STLport list's mangled name and 4-byte size matter here.
-namespace _STL
-{
-	template <class T> class allocator {};
-	template <class T, class A = allocator<T> > class list
-	{
-		void *m_node;
-	};
-}
+// The real STLport list provides the mangled name and 4-byte size.
+#include <list>
 
 Xfer *Rva0036ABAFXfer( Xfer *xfer, _STL::list<Int> *value );
 
