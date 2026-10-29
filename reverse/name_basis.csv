@@ -4279,3 +4279,4 @@ param,Rva00503E76::rva00503E76::a1,Rva00503E76::rva00503E76::xfer,inferred,agree
 member,Rva006F69D0DescriptorBody::m_block24,Rva006F69D0DescriptorBody::m_colorTransform,inferred,agree:nl-4c14f2a8a46c,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
 member,Rva006F69D0DescriptorBody::m_word34,Rva006F69D0DescriptorBody::m_clipDepth,inferred,agree:nl-872d1bc6fd4c,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
 member,Rva006F69D0DescriptorBody::m_ptr38,Rva006F69D0DescriptorBody::m_clipActions,inferred,agree:nl-a72c5b79f1f2,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
+param,Rva0032E83ADelete::p,Rva0032E83ADelete::entry,inferred,agree:nl-2ab5c90025b8,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E83ADtor.cpp,

@@ -14523,3 +14523,6 @@ Code/GameEngine/Source/Common/Rva00503E17BezierCall.cpp|param|Rva00503E76::rva00
 Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_block24,954ba0f695ac00380e11355b,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
 Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_word34,d208c01e0e5d225a617cefe9,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
 Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp|member|Rva006F69D0DescriptorBody|m_ptr38,8b15bffc2c072e878964946d,gpt-6.1-sol,w2-10290410-5,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E83ADtor.cpp|function|0x0032EAA1|rva0032EAA1,1356b39b197bd25406cd3913,gpt-6.1-sol,w3-10290426-1,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E83ADtor.cpp|param|Rva0032E83ADelete|p,2ab5c90025b85af0b8451d34,gpt-6.1-sol,w3-10290426-1,w-46dfa4623b23,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E83ADtor.cpp|param|Rva0032EAA1::rva0032EAA1|p,2659a662c16664538235b39a,gpt-6.1-sol,w3-10290426-1,w-46dfa4623b23,2026-10-29

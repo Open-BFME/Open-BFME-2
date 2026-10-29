@@ -28,7 +28,7 @@ Rva0032E83A::~Rva0032E83A()
 {
 }
 
-void Rva0032E83ADelete(Rva0032E83A *p) { delete p; }
+void Rva0032E83ADelete(Rva0032E83A *entry) { delete entry; }
 
 // ?rva0032EAA1@Rva0032EAA1@@QAEXPAX@Z — RVA 0x0032EAA1, 53B.
 // Rb-tree _M_erase shape: recurse on right (+0xc), iterate left (+8),
