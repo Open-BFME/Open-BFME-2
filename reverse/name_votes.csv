@@ -14864,3 +14864,8 @@ Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp|function|0x005C359E|rva005C
 Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp|local|Rva002BFAD6::rva002BFAD6|n,530011e1350d68b2a1841836,gpt-6.1-sol,w4-10290653-3,w-eb83eac9adc1,2026-10-29
 Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp|function|0x00215AF1|rva00215AF1,54cf163c11105b2f7a473537,gpt-6.1-sol,w1-10290718-2,w-6d5d2b593eca,2026-10-29
 Code/GameEngine/Source/GameLogic/System/PlayerAITypeSetParse.cpp|function|0x00215B14|rva00215B14,639985cbe4c3bac4fea6ca2d,gpt-6.1-sol,w1-10290718-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp|member|ArmySwapSummaryView|first40,b633b59d9e82990f2b2b0cd1,gpt-6.1-sol,w4-10290753-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp|member|ArmySwapSummaryView|last44,7298192155270a36ceee70ae,gpt-6.1-sol,w4-10290753-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp|member|ArmySwapView|player54,bb88af57b619cbe839391bf8,gpt-6.1-sol,w4-10290753-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp|member|ArmySwapView|summary78,29735d954c29a3240ad18d13,gpt-6.1-sol,w4-10290753-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldManager.cpp|member|ArmySwapView|audio88,b9ece79e2bc67a6cd6f3d651,gpt-6.1-sol,w4-10290753-2,w-eb83eac9adc1,2026-10-29

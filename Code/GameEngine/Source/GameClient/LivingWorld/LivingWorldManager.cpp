@@ -32,7 +32,7 @@ struct ArmySwapSummaryView {
 };
 struct ArmySwapView {
  char unknown00[0x18];AsciiString m_name;
- char unknown1C[0x54-0x1c];int player54;
+ char unknown1C[0x54-0x1c];int m_playerID;
  char unknown58[0x78-0x58];ArmySwapSummaryView *summary78;
  char unknown7C[0x88-0x7c];LivingWorldArmyIcon *audio88;
  bool hasName()const{return !((const StringBase<char> *)&m_name)->isEmpty();}
@@ -45,7 +45,7 @@ void LivingWorldManager::OnSwapArmyMembers(ArmySwapView *armyA,const ArmyMemberR
 {
  if(unitsA.empty() && unitsB.empty())return;
  Rva002BA8F1Logic *logic=(Rva002BA8F1Logic *)TheLivingWorldLogic;
- int id=armyA->player54;
+ int id=armyA->m_playerID;
  Rva002E2903Player *player=logic->find(id,0);
  Rva002E071E *local=((Rva002BA8F1Logic *)TheLivingWorldLogic)->localPlayer98;
  if(!player || !local || !((Rva002E071E *)player)->rva002E071E(local))return;
