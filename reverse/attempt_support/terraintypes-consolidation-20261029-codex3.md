@@ -1,6 +1,7 @@
 # TerrainTypes consolidation, 2026-10-29
 
-Base: `fd13749022`; census index: `85f6b7f40c` (2026-10-29 15:08).
+Prerequisite base: `fd13749022`; merge base after runner rebase: `be006165be`.
+Census index: `85f6b7f40c` (2026-10-29 15:08).
 The current committed TU map is stale; `tu_skeleton.py` rebuilt approval in
 memory. No regenerated map is included. The Common consolidation planner's
 original-path and donor evidence was reviewed; its stale-map routes are hints,
@@ -53,3 +54,46 @@ before attempting the broader TerrainType layout reconciliation.
 The earlier `uw_0077a797` deferral still applies: do not repoint its generated
 owner merely because the constructor's EH graph matches; its relocation needs
 the correct member destructor binding (LINK-095).
+
+## Applied consolidation and compatibility audit
+
+The refreshed Common planner snapshot passed `name_lane.py consolidate --check`
+before applying the supported merge. Its quoted-include review covers the
+existing `ascii_string.h` and `subsystem_interface.h` shim search paths; the
+merged object was compiled at its final path with the combined include flags.
+`tu_skeleton.py --merge Code/GameEngine/Source/Common/TerrainTypes.cpp` accepted
+the seed and allocation helper, rejected the other four donors on their known
+private-view conflicts, and left all three mixed sources intact. It removes one
+source file, retaining 24/24 matched rows. Approval was rebuilt in memory; the
+only committed TU-map edit repoints the moved row's source column.
+
+`./build.sh` passes 24/24, three literals and one empty-string reference.
+Renumbered unwind labels are verified through parent EH data. Declared-unmatched,
+`check_csv.py`, staged TU ownership and code identity pass (24 rows, zero new
+identity findings); shadow data checking reports zero findings. Ordinary
+`link_check.py` predicts LINKS, 796 -> 841 authored bytes, including the absorbed
+45-byte helper. The merge guard preserves the six census-linked candidate units
+and their existing provider bindings. These are local proofs, not a new census
+or a linked-byte gain.
+
+The complete pending batch was audited against `origin/master` at `f014d1c08f`,
+through `be006165be` plus this merge. Its sole source-path deletion is the
+allocation helper absorbed into TerrainTypes. Repository-wide old-path/basename
+searches cover active tools, hooks, workflows, includes, build/configuration
+files, source registries and docs. No active path consumer needs adjustment.
+Remaining mentions are the merge provenance comment, this historical handoff
+and `reverse/link_status.csv`'s last-census record; the scheduled census owns
+that snapshot. The active functions ledger, TU-map source and hatch register
+now name the destination. There are no data/identity baseline or header-queue
+keys for either owner. The merger refreshed destination header and Microsoft
+header classifications, preserving unrelated queue entries; neither queue
+needed a diff. The existing allocator alternatename transfers with its count
+kept at one; no debt key is retired by the merge.
+
+Strict preparation passes the five pending changed providers (202/202 rows)
+and the directly affected NoCase assignment provider (1/1), without changing
+census/index/status. The final outgoing link audit remains INCONCLUSIVE: its
+index predates the outgoing base, and affected consumer
+`Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Carry that consumer and the changed provider scopes into the next
+scheduled census. No full consumer closure or new census result is claimed.

@@ -2681,6 +2681,7 @@ alternatename	Code/GameEngine/Source/Common/System/Xfer.cpp	?bfmeReset@Gen009D6E
 alternatename	Code/GameEngine/Source/Common/T1ReceiverSwappingThunks.cpp	?accept@T1Sink_005C8D40@@QAEPAXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780	1
 alternatename	Code/GameEngine/Source/Common/T4VtableSetCtors.cpp	_vtbl_00C1C780_again	1
+alternatename	Code/GameEngine/Source/Common/TerrainTypes.cpp	?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/FXBoneInfoVectorErase.cpp	?erase@?$vector@UQuantityModifier@@V?$allocator@UQuantityModifier@@@_STL@@@_STL@@QAEPAUQuantityModifier@@PAU3@0@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/IntFloatMapSubscript.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00358FEERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00358FEERecord@@@_STL@@@2@@2@@Z	1
 alternatename	Code/GameEngine/Source/Common/Thing/Module.cpp	??1Module@@QAE@XZ	1
@@ -4391,7 +4392,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp	??0?
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp	??0?$_Vector_base@VRva00297360Element@@V?$allocator@VRva00297360Element@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva00297360Element@@@1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp	??0?$_Vector_base@VRva004BA1C8@@V?$allocator@VRva004BA1C8@@@_STL@@@_STL@@QAE@ABV?$allocator@VRva004BA1C8@@@1@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e16_o1.cpp	??0AICommandCoordVector@@QAE@ABUAICommandCoordAlloc@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_allocate_copy.cpp	?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00255d17_destroy.cpp	??1GeometryShapeVector@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_scalar8_assign.cpp	??$_M_allocate_and_copy@PBUBfmeAsciiScalarValue8@@@?$vector@UBfmeAsciiScalarValue8@@V?$allocator@UBfmeAsciiScalarValue8@@@_STL@@@_STL@@IAEPAUBfmeAsciiScalarValue8@@IPBU2@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/stlport_vector_stringrecord_00204a30_allocate_copy.cpp	??1Rva00207E65Vector@@QAE@XZ	1

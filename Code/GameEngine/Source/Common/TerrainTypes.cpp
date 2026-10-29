@@ -29,7 +29,6 @@ public:
 	virtual int getChars(T *dest) const = 0;
 };
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
-
 // BFME2 terrain-type collection lookup. Layout is retail-owned: the list
 // head lives at this+0x0C, TerrainType carries its name at +0x04 and its
 // next link at +0x20 (the +0x00..+0x03 and +0x0C..+0x1F ranges are still
@@ -44,13 +43,11 @@ public:
 // retail does not have.
 
 typedef int Int;
-
 // ??1TerrainTypeCollection@@UAE@XZ @0x00317BBB 93B: virtual dtor draining the intrusive list at +0xC node by node through virtual slot 0 with arg 0 plus global operator delete, then base 0x001B4E74. Evidence: vtable 0x0080C62C store plus deleting-dtor caller 0x00317C18 plus rowed operator delete 0x0002FD60; node slot-0 identity unproven so TU-local ListNode facade.
 class AsciiStringMember {
 public:
   ~AsciiStringMember();
 };
-
 class TerrainType
 {
 	friend class TerrainTypeCollection;
@@ -66,59 +63,42 @@ private:
 	TerrainType *m_next;
 	char m_pad24[0x0C];
 };
-
 struct Rva00317CCDElement {Rva00317CCDElement();Rva00317CCDElement(const Rva00317CCDElement&);Rva00317CCDElement&operator=(const Rva00317CCDElement&);virtual void slot0();virtual ~Rva00317CCDElement();char bytes[4]; bool operator==(const Rva00317CCDElement&)const;};
-
 // Retail's loop calls the rowed two-pointer cdecl placement-copy owner
 // Rva00317CA0Construct 0x00317CA0 (stlport_construct_stl_types.cpp), as the
 // StlportVectorPushBackFamily.cpp element at the same owner does.
 void __cdecl Rva00317CA0Construct(void *, const void *);
-
 namespace _STL {
 template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Construct<Rva00317CCDElement, Rva00317CCDElement>(Rva00317CCDElement *__p, const Rva00317CCDElement &__val)
 { Rva00317CA0Construct(__p, &__val); }
 }
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva00317CCDElement * _STL::__uninitialized_fill_n<Rva00317CCDElement *, unsigned int, Rva00317CCDElement>(Rva00317CCDElement *, unsigned int, Rva00317CCDElement const &, _STL::__false_type const &);
-
 struct Rva00317CF2Element { char bytes[8]; bool operator<(const Rva00317CF2Element&)const; bool operator==(const Rva00317CF2Element&)const; };
-
 namespace _STL {
 template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Construct<Rva00317CF2Element, Rva00317CF2Element>(Rva00317CF2Element *__p, const Rva00317CF2Element &__val)
 { Rva00317CA0Construct(__p, &__val); }
 }
-
 // Instantiate the recovered operation and its required template dependencies.
 template Rva00317CF2Element * _STL::__uninitialized_copy<Rva00317CF2Element const *, Rva00317CF2Element *>(Rva00317CF2Element const *, Rva00317CF2Element const *, Rva00317CF2Element *, _STL::__false_type const &);
-
 struct Rva000B3F84Pair { const char *text; int length; };
-
 struct AsciiStringRef { const AsciiString *string; };
-
 struct Rva002226E5TextPlusString { Rva000B3F84Pair left; AsciiStringRef right; Rva002226E5TextPlusString() {} };
-
 struct AsciiStringPlusText {
     AsciiStringPlusText() {}
     AsciiStringRef left;
     Rva000B3F84Pair right;
     operator AsciiString();
 };
-
 Rva002226E5TextPlusString operator+(const char *,const AsciiString &);
-
 AsciiStringPlusText operator+(const AsciiString &,const char *);
-
 AsciiString &Rva00317C68Append(AsciiString &,const char *);
-
 struct ListNode;
-
 struct ListNode {
   virtual void *destroy(int flags);
   char m_pad04[0x1C];
   ListNode *m_next;
 };
-
 class TerrainTypeCollection : public SubsystemInterface
 {
 public:
@@ -132,8 +112,9 @@ public:
 private:
 	TerrainType *m_head;
 };
-
 #include <new>
+#pragma comment(linker, "/alternatename:?allocate@?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@_STL@@QBEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@2@IPBX@Z=?allocate@?$allocator@UBfmeE8@@@_STL@@QBEPAUBfmeE8@@IPBX@Z")
+#include <utility>
 
 // This view uses the external retail table throughout its lifetime; no
 // separate table for the partial method declarations belongs in the link.
@@ -152,6 +133,35 @@ public:
 private:
 	const char *m_arg;
 };
+
+struct NoCaseTreeValue4
+{
+	char m_body[4];
+};
+
+typedef _STL::pair<const AsciiString, NoCaseTreeValue4> CopyNoCasePair;
+
+namespace _STL
+{
+template <> __declspec(dllimport) __declspec(nothrow) __forceinline void _Construct<Rva00317CF2Element, Rva00317CF2Element>(Rva00317CF2Element *__p, const Rva00317CF2Element &__val)
+{ Rva00317CA0Construct(__p, &__val); }
+// Preserve the separately rowed allocator and copy worker while using the
+// library's vector, allocator, pair and tag definitions.
+template <> CopyNoCasePair *allocator<CopyNoCasePair>::allocate(unsigned int, const void *) const;
+template <> template <> CopyNoCasePair *
+vector<CopyNoCasePair, allocator<CopyNoCasePair> >::_M_allocate_and_copy<const CopyNoCasePair *>(
+    size_type n, const CopyNoCasePair *first, const CopyNoCasePair *last)
+{
+    pointer result = _M_end_of_storage.allocate(n);
+    __false_type tag; // Empty dispatch tag; retail does not value-initialize storage.
+    __uninitialized_copy(reinterpret_cast<const Rva00317CF2Element *>(first),
+                         reinterpret_cast<const Rva00317CF2Element *>(last),
+                         reinterpret_cast<Rva00317CF2Element *>(result), tag);
+    return result;
+}
+}
+
+// ---- from Code/GameEngine/Source/Common/TerrainTypes.cpp
 
 // ---- from Code/GameEngine/Source/Common/TerrainTypes.cpp
 
@@ -286,7 +296,9 @@ AsciiString &Rva00317C68Append(AsciiString &dst, const char *src)
 
 // tu-skeleton: 0x00317CA0 45B ?Rva00317CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
 
-// tu-skeleton: 0x00317D5C 45B ??$_M_allocate_and_copy@PBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@1@IPBU21@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_allocate_copy.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_nocasepair_allocate_copy.cpp
+
+// ??$_M_allocate_and_copy@PBU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@?$vector@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@2@@_STL@@IAEPAU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@1@IPBU21@0@Z @0x00317D5C 45B: vector allocate-and-copy for 8-byte NoCase pair via allocate 0x00523D6C plus uninitialized_copy 0x00317CF2. Evidence: retail calls rowed allocate plus dup_00317CF2 worker for CopyNoCasePair; caller 0x00317EBB assign path sar 3 stride 8; same 45B ebp-tag shape as 0x0040D077 and 0x000BC72B.
 
 // tu-skeleton: 0x00317E7C 63B ??1Rva00317E7C@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
 
@@ -327,5 +339,3 @@ AsciiString &Rva00317C68Append(AsciiString &dst, const char *src)
 // tu-skeleton: 0x0077A7C2 11B Unwind@00b7a7c2 -- matched in Code/GameEngine/Source/Common/TerrainType.cpp (not merged yet)
 
 // tu-skeleton: 0x0077A7CD 10B __ehhandler$??1TerrainType@@UAE@XZ -- matched in Code/GameEngine/Source/Common/TerrainType.cpp (not merged yet)
-
-// tu-skeleton: 0x0077A7D7 8B uw_0077a7d7 -- matched in Code/gen_small/uw_gen_008.cpp (not merged yet)
