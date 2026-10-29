@@ -4208,3 +4208,6 @@ param,AutoAbilityBehavior::isAutoAbilityCommand::arg,AutoAbilityBehavior::isAuto
 param,ActivateModuleSpecialPowerModuleData::Rva00254CCF::arg,ActivateModuleSpecialPowerModuleData::Rva00254CCF::xfer,inferred,agree:nl-09a253844ff9,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ActivateModuleSpecialPowerModuleDataRva00254CCF.cpp,0x00254CCF
 param,Rva00788290Allocation::setSize::w,Rva00788290Allocation::setSize::width,inferred,agree:nl-2aec95f7a966,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptDisplayStringAllocation_ctor_Rva004D5A4D.cpp,0x004D5A4D
 class,Rva00529318Slot,PalantirButtonSlot,inferred,agree:nl-b1cfd82fe5a8,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/PalantirCommandInterface.cpp,
+local,UpgradeCenter::parseUpgradeDefinition::tmp,UpgradeCenter::parseUpgradeDefinition::ignoredUpgrade,inferred,agree:nl-931484e84b17,Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp,0x0026FA05
+global,?g_00DBB588@@3QBULookupListRec@@B,?TheUpgradeTypeNames@@3QBULookupListRec@@B,inferred,agree:nl-2dc8c75ce297,Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp,0x009BB588
+local,GetStr005FE27A::t,GetStr005FE27A::stringBuffer,inferred,agree:nl-3cc19c614dc4,Code/Libraries/Source/WWVegas/WWLib/Rva005FE27ATabColor.cpp,

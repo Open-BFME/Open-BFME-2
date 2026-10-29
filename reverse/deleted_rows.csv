@@ -4001,3 +4001,4 @@ __ehhandler$?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0078002C,"Renamed 
 ??0Rva00529318Slot@@QAE@XZ,0x002859D7,"Renamed to ??0PalantirButtonSlot@@QAE@XZ by tools/rename.py (inferred)"
 ??1Rva00529318Slot@@QAE@XZ,0x00529318,"Renamed to ??1PalantirButtonSlot@@QAE@XZ by tools/rename.py (inferred)"
 __ehhandler$??1Rva00529318Slot@@QAE@XZ,0x00796CDE,"Renamed to __ehhandler$??1PalantirButtonSlot@@QAE@XZ by tools/rename.py (inferred)"
+?g_00DBB588@@3QBULookupListRec@@B,0x009BB588,"Renamed to ?TheUpgradeTypeNames@@3QBULookupListRec@@B by tools/rename.py (inferred)"

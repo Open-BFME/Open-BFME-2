@@ -60,8 +60,8 @@ struct Rva005FDF1COuter;
 
 __forceinline const char *GetStr005FE27A(const AsciiString &asciiString)
 {
-	char *t = *(char **)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *stringBuffer = *(char **)(void *)&asciiString;
+	return stringBuffer ? stringBuffer + 8 : "";
 }
 
 class Rva005FE750

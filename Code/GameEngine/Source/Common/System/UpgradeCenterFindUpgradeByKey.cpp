@@ -201,7 +201,7 @@ private:
 extern UpgradeCenter *TheUpgradeCenter;
 struct LookupListRec { const char *name; int value; };
 // The retail lookup list at RVA 0x009BB588 (1 names and the null terminator).
-extern const LookupListRec g_00DBB588[2] = { { "PLAYER", 12561024 }, { 0, 0 } };
+extern const LookupListRec TheUpgradeTypeNames[2] = { { "PLAYER", 12561024 }, { 0, 0 } };
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
 void __identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z")();
@@ -220,7 +220,7 @@ void __identifier("?Rva004DBFF1Parse@@YAXPAVINI@@PAX1PBX@Z")();
 extern const FieldParse g_00BFA6E8[27] = {
 	{ "DisplayName", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x28 },
 	{ "Tooltip", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x2C },
-	{ "Type", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), g_00DBB588, 0x4 },
+	{ "Type", (FieldParseProc)&__identifier("?parseIndexList@INI@@SAXPAV1@PAX1PBX@Z"), TheUpgradeTypeNames, 0x4 },
 	{ "BuildTime", (FieldParseProc)&__identifier("?parseReal@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x30 },
 	{ "BuildCost", (FieldParseProc)&__identifier("?parseInt@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x34 },
 	{ "ButtonImage", (FieldParseProc)&__identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z"), 0, 0x6C },
@@ -274,8 +274,8 @@ void UpgradeCenter::parseUpgradeDefinition(INI *ini)
 	}
 	else
 	{
-		Rva0026F684 tmp;
-		ini->initFromINI(&tmp, g_00BFA6E8);
+		Rva0026F684 ignoredUpgrade;
+		ini->initFromINI(&ignoredUpgrade, g_00BFA6E8);
 		return;
 	}
 	ini->initFromINI(upgrade, g_00BFA6E8);
