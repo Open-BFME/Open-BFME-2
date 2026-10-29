@@ -6,7 +6,7 @@
 // same GetNthVisibleObjectiveIndex index plus TheMissionObjectiveTracker list plus Rva004266A1 text record.
 #include "ascii_string.h"
 
-extern "C" char *__cdecl _mbscpy(char *destination, const char *source);
+extern "C" unsigned char *__cdecl _mbscpy(unsigned char *destination, const unsigned char *source);
 
 int __cdecl GetNthVisibleObjectiveIndex(int row);
 
@@ -47,7 +47,8 @@ void AptPlayerStatus::ExternsObjective(int row, char *result, bool skip)
 		if (!tmp.isEmpty() && tmp.getLength() + 2 < 0xFF)
 		{
 			result[0] = '$';
-			_mbscpy(result + 1, tmp.str());
+			_mbscpy(reinterpret_cast<unsigned char *>(result + 1),
+				reinterpret_cast<const unsigned char *>(tmp.str()));
 		}
 	}
 }

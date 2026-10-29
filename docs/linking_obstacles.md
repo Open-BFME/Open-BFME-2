@@ -8421,3 +8421,30 @@ Update 2026-10-28 (generator pass):
   SpecialPowerUpdateInterface, Rva0044EF5E, B0); 24 refuse on queued
   sizes/fields or undecided, tied or gapped slots (Object: size; Thing,
   Drawable: slot 0; AIUpdateInterface: 141 queued slots).
+
+### AptPlayerStatus objective-text CRT prerequisite (2026-10-29)
+
+Status: one composition compiler blocker cleared; census admission remains
+blocked. Base `b492fdd6a0`; index `d92e7e6635`, 2026-10-28 15:58.
+
+The objective-text source now uses the CRT's unsigned-character `_mbscpy`
+signature. All three standalone rows, 10 external COMDAT digests and
+provider/dependency sets are preserved; its EH graph remains EXACT with a
+strict current receipt. The changed-input stock trial confirms that this
+fix removes its C2733 declaration error and passes composed byte verification.
+LinkGuard then refuses the candidate, as it already refused AptObjectivesMenu:
+a destination without a census object would place the merged unit earlier
+in link order than the guard can judge. The latest published index is the
+same asset. No merge, source move or measured linking gain is claimed.
+
+Callbacks still fail on `perror` C2375. Replacing its CRT headers with private
+prototypes added declaration debt; retaining those headers with scoped
+`_CRTIMP` macros preserved bytes but did not clear the composition error.
+Both trials are discarded and the callback source is unchanged.
+Rva004E44C9Check still fails byte verification. The two mixed files and the
+seed's existing vector-color identity finding remain separate work.
+
+Next: reconcile the callback linkage and Check byte failures in verified
+prerequisites, and carry the approved TU/provider ordering into the next
+normal census before merging. [Evidence and exact admission
+boundary](../reverse/attempt_support/apt-player-status-consolidation-20261029.md).
