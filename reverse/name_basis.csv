@@ -4280,3 +4280,21 @@ member,Rva006F69D0DescriptorBody::m_block24,Rva006F69D0DescriptorBody::m_colorTr
 member,Rva006F69D0DescriptorBody::m_word34,Rva006F69D0DescriptorBody::m_clipDepth,inferred,agree:nl-872d1bc6fd4c,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
 member,Rva006F69D0DescriptorBody::m_ptr38,Rva006F69D0DescriptorBody::m_clipActions,inferred,agree:nl-a72c5b79f1f2,Code/Libraries/Source/Apt/Rva006F69D0DescriptorCtor.cpp,
 param,Rva0032E83ADelete::p,Rva0032E83ADelete::entry,inferred,agree:nl-2ab5c90025b8,Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0032E83ADtor.cpp,
+member,Rva0039A245Data::m_3E,Rva0039A245Data::m_summoned,inferred,agree:nl-16049bc399ba,Code/GameEngine/Source/Common/GapBodiesS3C.cpp,
+member,Rva000E2409Map::m_14,Rva000E2409Map::m_cellHeight,inferred,agree:nl-90961ba66003,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+member,Rva000E2409Map::m_20,Rva000E2409Map::m_dstTextureWidth,inferred,agree:nl-03ad9dcb89dc,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+member,Rva000E2409Map::m_24,Rva000E2409Map::m_dstTextureHeight,inferred,agree:nl-6beb28c46b0b,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+member,Rva000E2409Map::m_2c,Rva000E2409Map::m_drawOriginX,inferred,agree:nl-7bc1e03e17ce,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+member,BfmeTerrain37C0Target::m_08,BfmeTerrain37C0Target::m_width,inferred,agree:nl-c9a13215da02,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+member,BfmeTerrain37C0Target::m_0C,BfmeTerrain37C0Target::m_height,inferred,agree:nl-a26af7819287,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,
+local,Rva000E2D26Vector::v,Rva000E2D26Vector::darkeningColor,inferred,agree:nl-68bc6037beca,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2D26
+function,?Rva000E2700Offset@@YAXPAUID3DXEffect@@PBD@Z,?setTaintOffset@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-ddfe1580eb61,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2700
+function,?Rva000E2763Scale@@YAXPAUID3DXEffect@@PBD@Z,?setTaintScale@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-fc0eeb5d98ad,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2763
+function,?Rva000E213CIsResourceTextureEnabled@@YAXPAUID3DXEffect@@PBD@Z,?setIsResourceTextureEnabled@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-b179836d45cd,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E213C
+function,?Rva000E2F5EHeightScale@@YAXPAUID3DXEffect@@PBD@Z,?setMapHeightScale@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-f887725eaa47,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F5E
+function,?Rva000E2EB7@@YAXPAUID3DXEffect@@PBD@Z,?setMapSize@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-cee69c3d2f04,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2EB7
+function,?Rva000E2F24@@YAXPAUID3DXEffect@@PBD@Z,?setMapCellSize@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-8b33686b066e,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F24
+carry,Rva000E2F24::cellSize,setMapCellSize::cellSize,inferred,scope renamed by Rename Rva000E2F24 to setMapCellSize (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F24
+function,?Rva000E2F77@@YAXPAUID3DXEffect@@PBD@Z,?setMapBorderWidth@@YAXPAUID3DXEffect@@PBD@Z,inferred,agree:nl-441944bd7ed5,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77
+carry,Rva000E2F77::borderWidth,setMapBorderWidth::borderWidth,inferred,scope renamed by Rename Rva000E2F77 to setMapBorderWidth (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77
+carry,Rva000E2F77::heightMap,setMapBorderWidth::heightMap,inferred,scope renamed by Rename Rva000E2F77 to setMapBorderWidth (inferred),Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTerrainFXVectorParams.cpp,0x000E2F77

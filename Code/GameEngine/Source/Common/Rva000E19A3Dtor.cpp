@@ -374,7 +374,7 @@ void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Weather::ResolveBi
 void setMacroTexture(ID3DXEffect *,const char *);
 void Rva000E20DFIsMacroTextureStrechedToMapSize(ID3DXEffect *,const char *);
 void setResourceTexture(ID3DXEffect *,const char *);
-void Rva000E213CIsResourceTextureEnabled(ID3DXEffect *,const char *);
+void setIsResourceTextureEnabled(ID3DXEffect *,const char *);
 void TerrainFXShaderParameterSourceNamespace::ResolveBindings(const char *name,const char *handle,FXShaderParameterBinder *registry)
 {
  Rva001530E9Path path;
@@ -391,5 +391,5 @@ void TerrainFXShaderParameterSourceNamespace::ResolveBindings(const char *name,c
  else if(compare(path.m_name,"IsMacroTextureStrechedToMapSize")==0) registry->AddBinding(Rva000E20DFIsMacroTextureStrechedToMapSize,handle);
  else if(compare(path.m_name,"RenderingMode")==0) (registry->*reinterpret_cast<void(FXShaderParameterBinder::*)(MemberTreeHintRef00217D4C,const char*)>(&FXShaderParameterBinder::AddBinding))(FunctorBinding(reinterpret_cast<FunctorMethod>(&TerrainFXShaderParameterSourceNamespace::Rva000E2110RenderingMode),reinterpret_cast<FunctorTarget *>(this)),handle);
  else if(compare(path.m_name,"ResourceTexture")==0) registry->AddBinding(setResourceTexture,handle);
- else if(compare(path.m_name,"IsResourceTextureEnabled")==0) registry->AddBinding(Rva000E213CIsResourceTextureEnabled,handle);
+ else if(compare(path.m_name,"IsResourceTextureEnabled")==0) registry->AddBinding(setIsResourceTextureEnabled,handle);
 }

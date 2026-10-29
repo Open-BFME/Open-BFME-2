@@ -310,8 +310,8 @@ void Rva000E249DObjectShroudStatus(ID3DXEffect *effect, const char *name);
 typedef void (*Rva000E236DCallback)(ID3DXEffect *effect, D3DXHANDLE handle);
 
 void Rva000E26CFIsEnabled(ID3DXEffect *, const char *);
-void Rva000E2700Offset(ID3DXEffect *, const char *);
-void Rva000E2763Scale(ID3DXEffect *, const char *);
+void setTaintOffset(ID3DXEffect *, const char *);
+void setTaintScale(ID3DXEffect *, const char *);
 // Target identity: native BCE4D8 slot 1 in the Terrain binder's +0C subobject,
 // WB 7C1080 names SourceNamespace_Taint::ResolveBindings and the full six-arm CFG.
 // Native E25DE..E26CF RET12; six named parameter callbacks. Qualified name follows WorldBuilder; storage is the proven four-byte polymorphic base.
@@ -365,7 +365,7 @@ void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Taint::ResolveBind
   else if(compare(path.m_name,"MaskTexture")==0) registry->AddBinding(setMaskTexture,handle);
   else if(compare(path.m_name,"LowTexture")==0) registry->AddBinding(setLowTexture,handle);
   else if(compare(path.m_name,"HighTexture")==0) registry->AddBinding(setHighTexture,handle);
-  else if(compare(path.m_name,"Offset")==0) registry->AddBinding(Rva000E2700Offset,handle);
-  else if(compare(path.m_name,"Scale")==0) registry->AddBinding(Rva000E2763Scale,handle);
+  else if(compare(path.m_name,"Offset")==0) registry->AddBinding(setTaintOffset,handle);
+  else if(compare(path.m_name,"Scale")==0) registry->AddBinding(setTaintScale,handle);
  }
 }

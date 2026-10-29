@@ -268,7 +268,7 @@ public:
 struct Rva0039A245Data
 {
 	char m_pad[0x3E];
-	bool m_3E;												// +0x3E
+	bool m_summoned;												// +0x3E
 };
 
 class Rva0039A245Base0
@@ -293,7 +293,7 @@ public:
 
 void Rva0039A245::rva0039A245()
 {
-	if (m_data && m_data->m_3E)
+	if (m_data && m_data->m_summoned)
 	{
 		if (((Rva00395F57 *)this)->canUnpack(true))
 			((CastleBehavior *)this)->initiateUnpack(false, 0);

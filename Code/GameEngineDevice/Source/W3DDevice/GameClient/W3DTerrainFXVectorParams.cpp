@@ -10,8 +10,8 @@
 // Callback, map and field names are address-derived.
 //
 // ?Rva000E2409ScaleOffset@@YAXPAUID3DXEffect@@PBD@Z @0x000E2409 148B
-// ?Rva000E2700Offset@@YAXPAUID3DXEffect@@PBD@Z      @0x000E2700  99B
-// ?Rva000E2763Scale@@YAXPAUID3DXEffect@@PBD@Z       @0x000E2763 118B
+// ?setTaintOffset@@YAXPAUID3DXEffect@@PBD@Z      @0x000E2700  99B
+// ?setTaintScale@@YAXPAUID3DXEffect@@PBD@Z       @0x000E2763 118B
 // ?Rva000E2D26Vector@@YAXPAUID3DXEffect@@PBD@Z      @0x000E2D26 126B
 // ?Rva000E2DA4Level@@YAXPAUID3DXEffect@@PBD@Z       @0x000E2DA4  89B
 //
@@ -52,12 +52,12 @@ struct Rva000E2409Map
 {
 	char m_pad00[0x10];
 	float m_10;
-	float m_14;
+	float m_cellHeight;
 	char m_pad18[8];
-	int m_20;
-	int m_24;
+	int m_dstTextureWidth;
+	int m_dstTextureHeight;
 	char m_pad28[4];
-	float m_2c;
+	float m_drawOriginX;
 	float m_30;
 	char m_pad34[0x44 - 0x34];
 	int m_44;
@@ -78,8 +78,8 @@ public:
 struct BfmeTerrain37C0Target
 {
 	char m_pad00[8];
-	int m_08;
-	int m_0C;
+	int m_width;
+	int m_height;
 	int m_10;
 };
 
@@ -122,16 +122,16 @@ void Rva000E2409ScaleOffset(ID3DXEffect *effect, D3DXHANDLE handle)
 		Rva000E2409Map *map = TheTerrainRenderObject->m_3878;
 		if (map)
 		{
-			value.x = 1.0f / ((float)map->m_20 * map->m_10);
-			value.y = 1.0f / ((float)map->m_24 * map->m_14);
-			value.z = map->m_10 - map->m_2c;
-			value.w = map->m_14 - map->m_30;
+			value.x = 1.0f / ((float)map->m_dstTextureWidth * map->m_10);
+			value.y = 1.0f / ((float)map->m_dstTextureHeight * map->m_cellHeight);
+			value.z = map->m_10 - map->m_drawOriginX;
+			value.w = map->m_cellHeight - map->m_30;
 		}
 	}
 	effect->SetVector(handle, &value);
 }
 
-void Rva000E2700Offset(ID3DXEffect *effect, D3DXHANDLE handle)
+void setTaintOffset(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
 	value.x = 0.0f;
@@ -143,14 +143,14 @@ void Rva000E2700Offset(ID3DXEffect *effect, D3DXHANDLE handle)
 		Rva000E2409Map *map = TheTerrainRenderObject->m_387c;
 		if (map)
 		{
-			value.x = map->m_10 - map->m_2c;
-			value.y = map->m_14 - map->m_30;
+			value.x = map->m_10 - map->m_drawOriginX;
+			value.y = map->m_cellHeight - map->m_30;
 		}
 	}
 	effect->SetVector(handle, &value);
 }
 
-void Rva000E2763Scale(ID3DXEffect *effect, D3DXHANDLE handle)
+void setTaintScale(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
 	value.x = 1.0f;
@@ -162,8 +162,8 @@ void Rva000E2763Scale(ID3DXEffect *effect, D3DXHANDLE handle)
 		Rva000E2409Map *map = TheTerrainRenderObject->m_387c;
 		if (map)
 		{
-			value.x = 1.0f / ((float)map->m_20 * map->m_10);
-			value.y = 1.0f / ((float)map->m_24 * map->m_14);
+			value.x = 1.0f / ((float)map->m_dstTextureWidth * map->m_10);
+			value.y = 1.0f / ((float)map->m_dstTextureHeight * map->m_cellHeight);
 		}
 	}
 	effect->SetVector(handle, &value);
@@ -178,10 +178,10 @@ void Rva000E2D26Vector(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.w = 0.0f;
 	if (TheCloudEffectManager && TheCloudEffectManager->slot3C())
 	{
-		Rva000E2D26Vector3 v = TheCloudEffectManager->get30();
-		value.x = v.x;
-		value.y = v.y;
-		value.z = v.z;
+		Rva000E2D26Vector3 darkeningColor = TheCloudEffectManager->get30();
+		value.x = darkeningColor.x;
+		value.y = darkeningColor.y;
+		value.z = darkeningColor.z;
 	}
 	effect->SetVector(handle, &value);
 }
@@ -203,7 +203,7 @@ void Rva000E2DA4Level(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVector(handle, &value);
 }
 
-void Rva000E2F24(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMapCellSize(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
 	float cellSize = 1e+01f;
@@ -214,7 +214,7 @@ void Rva000E2F24(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVector(handle, &value);
 }
 
-void Rva000E2F77(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMapBorderWidth(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	float borderWidth = 0.0f;
 	if (TheTerrainRenderObject)
@@ -228,7 +228,7 @@ void Rva000E2F77(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetFloat(handle, borderWidth);
 }
 
-void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMapSize(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	Rva000E2409Vector4 value;
 	value.x = 0.0f;
@@ -237,8 +237,8 @@ void Rva000E2EB7(ID3DXEffect *effect, D3DXHANDLE handle)
 	value.w = 0.0f;
 	if (TheTerrainRenderObject && TheTerrainRenderObject->m_37C0)
 	{
-		value.x = (float)TheTerrainRenderObject->m_37C0->m_08 * 1e+01f;
-		value.y = (float)TheTerrainRenderObject->m_37C0->m_0C * 1e+01f;
+		value.x = (float)TheTerrainRenderObject->m_37C0->m_width * 1e+01f;
+		value.y = (float)TheTerrainRenderObject->m_37C0->m_height * 1e+01f;
 	}
 	effect->SetVector(handle, &value);
 }
@@ -281,7 +281,7 @@ void Rva000E20DFIsMacroTextureStrechedToMapSize(ID3DXEffect *effect, D3DXHANDLE 
 		effect->SetBool(handle, 0);
 }
 
-void Rva000E213CIsResourceTextureEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
+void setIsResourceTextureEnabled(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	effect->SetBool(handle, 0);
 }
@@ -323,7 +323,7 @@ void Rva000E2BEEScaleUVOffsetPerSecondUV(ID3DXEffect *effect, D3DXHANDLE handle)
 	effect->SetVector(handle, &value);
 }
 
-void Rva000E2F5EHeightScale(ID3DXEffect *effect, D3DXHANDLE handle)
+void setMapHeightScale(ID3DXEffect *effect, D3DXHANDLE handle)
 {
 	effect->SetFloat(handle, 0.0390625f);
 }
@@ -401,10 +401,10 @@ public:
 	virtual void ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry);
 };
 
-void Rva000E2EB7(ID3DXEffect *effect, const char *name);
-void Rva000E2F24(ID3DXEffect *effect, const char *name);
-void Rva000E2F5EHeightScale(ID3DXEffect *effect, const char *name);
-void Rva000E2F77(ID3DXEffect *effect, const char *name);
+void setMapSize(ID3DXEffect *effect, const char *name);
+void setMapCellSize(ID3DXEffect *effect, const char *name);
+void setMapHeightScale(ID3DXEffect *effect, const char *name);
+void setMapBorderWidth(ID3DXEffect *effect, const char *name);
 
 void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Map::ResolveBindings(const char *name, const char *handle, FXShaderParameterBinder *registry)
 {
@@ -415,12 +415,12 @@ void TerrainFXShaderParameterSourceNamespace::SourceNamespace_Map::ResolveBindin
 		Rva001530E9Parse(name, &path);
 		int (__cdecl *compare)(const char *, const char *) = _strcmpi;
 		if (compare(path.m_name, "Size") == 0)
-			registry->AddBinding(Rva000E2EB7, handle);
+			registry->AddBinding(setMapSize, handle);
 		else if (compare(path.m_name, "CellSize") == 0)
-			registry->AddBinding(Rva000E2F24, handle);
+			registry->AddBinding(setMapCellSize, handle);
 		else if (compare(path.m_name, "HeightScale") == 0)
-			registry->AddBinding(Rva000E2F5EHeightScale, handle);
+			registry->AddBinding(setMapHeightScale, handle);
 		else if (compare(path.m_name, "BorderWidth") == 0)
-			registry->AddBinding(Rva000E2F77, handle);
+			registry->AddBinding(setMapBorderWidth, handle);
 	}
 }
