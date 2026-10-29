@@ -4389,3 +4389,9 @@ local,W3DDisplay::setWidth::h,W3DDisplay::setWidth::displayHeight,inferred,agree
 local,W3DDisplay::setWidth::w,W3DDisplay::setWidth::displayWidth,inferred,agree:nl-44b996f82fc6,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x000433AC
 local,W3DDisplay::setHeight::h,W3DDisplay::setHeight::screenHeight,inferred,agree:nl-bcf9baa6bf32,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x00043340
 local,W3DDisplay::setHeight::w,W3DDisplay::setHeight::screenWidth,inferred,agree:nl-e7a334b2aaed,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayRva000433AC.cpp,0x00043340
+global,?g_00DCAE84@@3PAPBDA,?TheWeatherNames@@3PAPBDA,inferred,agree:nl-a786bc49338f,Code/GameEngine/Source/Common/INI/INIThinFieldParsers4_Rva001DFBC7Parse.cpp,0x009CAE84
+param,Object::rva0028ACCA::arg,Object::rva0028ACCA::worldPosition,inferred,agree:nl-4b74711519d8,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028ACCA
+param,Object::rva0028ACDC::arg,Object::rva0028ACDC::goalPosition,inferred,agree:nl-2125aaa535ce,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028ACDC
+param,Object::rva0028ACEE::arg,Object::rva0028ACEE::destinationPosition,inferred,agree:nl-99dda6e5e709,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028ACEE
+local,Rva0028AF76Sub::rva0028A82A::d,Rva0028AF76Sub::rva0028A82A::destinationBytes,inferred,agree:nl-7cd3531298db,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028A82A
+function,?rva0028AF86@Object@@QBEHXZ,?getLastVictimID@Object@@QBEHXZ,inferred,agree:nl-b768227c5617,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028AF86

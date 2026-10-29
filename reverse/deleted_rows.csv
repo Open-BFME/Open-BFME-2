@@ -4031,3 +4031,5 @@ __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Rename
 ?Rva003B949C@@YAHQAPADH@Z,0x003B949C,"Renamed to ?parseQuickStart@@YAHQAPADH@Z by tools/rename.py (inferred)"
 ?rva005394F0@Rva005394F0@@QAEXHH@Z,0x005394F0,"Renamed to ?drawLines@Rva005394F0@@QAEXHH@Z by tools/rename.py (inferred)"
 ?rva0004C6C6@Rva0004C6C6@@QAEXM@Z,0x0004C6C6,"Renamed to ?setFrameRate@Rva0004C6C6@@QAEXM@Z by tools/rename.py (inferred)"
+?g_00DCAE84@@3PAPBDA,0x009CAE84,"Renamed to ?TheWeatherNames@@3PAPBDA by tools/rename.py (inferred)"
+?rva0028AF86@Object@@QBEHXZ,0x0028AF86,"Renamed to ?getLastVictimID@Object@@QBEHXZ by tools/rename.py (inferred)"

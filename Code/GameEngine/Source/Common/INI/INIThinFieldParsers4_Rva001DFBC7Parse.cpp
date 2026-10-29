@@ -56,7 +56,7 @@ extern const LookupListRec scorchTypeNames[] = {
     { "RANDOM", -1 }, { 0, 0 }
 };
 // Five native weather names; the adjacent pointer array is excluded.
-const char *g_00DCAE84[] = { "NONE", "CLOUDY", "RAINY", "CLOUDYRAINY", "SUNNY" };
+const char *TheWeatherNames[] = { "NONE", "CLOUDY", "RAINY", "CLOUDYRAINY", "SUNNY" };
 extern const char *const TheStanceNames[];
 
 // This is only the rowed four-byte enum-vector call ABI; application enum
@@ -98,7 +98,7 @@ void parseScorchType(INI *ini, void *, void *store, const void *)
 // ?Rva00492F6AParse@@YAXPAVINI@@PAX1PBX@Z
 void Rva00492F6AParse(INI *ini, void *, void *store, const void *)
 {
-	int weather = ini->scanIndexList(ini->getNextToken(), g_00DCAE84);
+	int weather = ini->scanIndexList(ini->getNextToken(), TheWeatherNames);
 	*(int *)store = weather;
 	if (weather < 0 || weather > 5)
 		throw INIException(3, "Invalid Weather setting: '%s'.", store);

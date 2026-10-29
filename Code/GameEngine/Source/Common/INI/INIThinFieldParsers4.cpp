@@ -44,7 +44,7 @@ public:
 
 extern const LookupListRec shakeTypeNames[];
 extern const LookupListRec scorchTypeNames[];
-extern const char *g_00DCAE84[];
+extern const char *TheWeatherNames[];
 extern const char *const TheStanceNames[];
 
 enum StanceType

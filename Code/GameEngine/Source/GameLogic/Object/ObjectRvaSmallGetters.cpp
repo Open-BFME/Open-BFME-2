@@ -96,9 +96,9 @@ class Object
 	int m_cachedFrame;					// +0x490 cached frame
 
 public:
-	void rva0028ACCA(int arg);
-	void rva0028ACDC(int arg);
-	void rva0028ACEE(int arg, int arg2);
+	void rva0028ACCA(int worldPosition);
+	void rva0028ACDC(int goalPosition);
+	void rva0028ACEE(int destinationPosition, int arg2);
 	void rva0028AD00(int arg, float value, int arg2);
 	void rva0028AD22();
 	void rva0028AD32();
@@ -113,7 +113,7 @@ public:
 	bool hasAnyWeapon() const;
 	int rva0028ADF7(int slot) const;
 	int rva0028AF76() const;
-	int rva0028AF86() const;
+	int getLastVictimID() const;
 	int rva0028AF97();
 	int rva0028B511() const;
 	void rva0028CDB6();
@@ -156,22 +156,22 @@ bool PathfinderPosGoalManager::rva004DD84D(Coord3D *out)
 // 0.0f) when it is null and otherwise tail-jumps to the method; the
 // three-argument float forward at 0x0028AD00 re-pushes its arguments and
 // calls instead.
-void Object::rva0028ACCA(int arg)
+void Object::rva0028ACCA(int worldPosition)
 {
 	if (m_sub)
-		m_sub->rva004DE24B(arg);
+		m_sub->rva004DE24B(worldPosition);
 }
 
-void Object::rva0028ACDC(int arg)
+void Object::rva0028ACDC(int goalPosition)
 {
 	if (m_sub)
-		m_sub->rva004DE4E2(arg);
+		m_sub->rva004DE4E2(goalPosition);
 }
 
-void Object::rva0028ACEE(int arg, int arg2)
+void Object::rva0028ACEE(int destinationPosition, int arg2)
 {
 	if (m_sub)
-		m_sub->rva004DE511(arg, arg2);
+		m_sub->rva004DE511(destinationPosition, arg2);
 }
 
 void Object::rva0028AD00(int arg, float value, int arg2)
@@ -283,12 +283,12 @@ int Object::rva0028AF76() const
 	return result;
 }
 
-// ?rva0028AF86@Object@@QBEHXZ, retail 0x0028AF86 (17B): the +0x24 ObjectID
+// ?getLastVictimID@Object@@QBEHXZ, retail 0x0028AF86 (17B): the +0x24 ObjectID
 // of the firing tracker, 0 without one. Same shape and Zero Hour position
 // (after the frame getter, before getControllingPlayer 0x0028AFA9) as
 // Object::getLastVictimID; no retail caller or pointer reaches it, so the
 // name stays address-derived.
-int Object::rva0028AF86() const
+int Object::getLastVictimID() const
 {
 	const Rva0028AF76Sub *sub = m_sub240;
 	return sub ? sub->m_id24 : 0;
@@ -350,9 +350,9 @@ bool Object::isOutOfAmmo() const
 
 void *Rva0028AF76Sub::rva0028A82A(void *dst) const
 {
-	char *d = (char *)dst;
-	*(float *)d = m_float48;
-	*(int *)(d + 4) = m_int4C;
-	*(int *)(d + 8) = m_int50;
+	char *destinationBytes = (char *)dst;
+	*(float *)destinationBytes = m_float48;
+	*(int *)(destinationBytes + 4) = m_int4C;
+	*(int *)(destinationBytes + 8) = m_int50;
 	return dst;
 }
