@@ -1,4 +1,5 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
+// stlport46
 // ??1Rva00448089@@QAE@XZ retail 0x00448089 53B
 // Dtor releasing two StringBase<unsigned short> members at +0 and +4 via
 // rowed releaseBuffer 0x00036E70 with EH state 0 then -1. Evidence: EH_prolog
@@ -28,12 +29,5 @@ Rva00448089::~Rva00448089()
 // _Construct copy: STLport's _Destroy(T *) for this record, which loads the
 // pointer into ECX and tail-jumps to the destructor above. Orphan .text hole
 // with no surviving reference; the record type is inferred from the callee.
-namespace _STL
-{
-template <class _Tp>
-inline void _Destroy(_Tp *__pointer)
-{
-	__pointer->~_Tp();
-}
-template void _Destroy<Rva00448089>(Rva00448089 *);
-}
+#include <memory>
+template void _STL::_Destroy<Rva00448089>(Rva00448089 *);
