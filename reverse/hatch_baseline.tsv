@@ -1612,9 +1612,6 @@ alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	?releas
 alternatename	Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp	?orderPairs@GameWindow@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp	?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp	?m@T_009f4fb0@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	??1Rva00329EE9StringValue@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z	1
-alternatename	Code/GameEngine/Source/Common/Bfme5DictStringPresence.cpp	?isEmpty@Rva00329EE9StringValue@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5NinetyOne.cpp	?randwc@@YAJJ@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@PartitionData@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
@@ -2974,6 +2971,9 @@ alternatename	Code/GameEngine/Source/GameLogic/AI/PathfinderRemoveUnit.cpp	?remo
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?Rva00194810@@YA?AURva0019B780Key@@ABVAsciiString@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B780Lookup_Rva0032d0b5.cpp	?find@Rva0019B780Tree@@QBEPAURva0019B780Node@@ABURva0019B780Key@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/Rva0019B850TeamRecUpdate_Rva0019BE80TeamRec_updateTeam.cpp	?find@Rva0032C07COwner@@QAEPAUTeamMapNode@@AAURva0002C4FD@@@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	??1Rva00329EE9StringValue@@QAE@XZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?getAsciiString@Rva00329EE9Dict@@QBE?AVRva00329EE9StringValue@@HPA_N@Z	1
+alternatename	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	?isEmpty@Rva00329EE9StringValue@@QBE_NXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??0?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@I@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	??1?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Map/SidesListTeamsInfoRecClear.cpp	?swap@?$vector@VBfmeThingUBB@@V?$allocator@VBfmeThingUBB@@@_STL@@@_STL@@QAEXAAV12@@Z	1
@@ -10783,6 +10783,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"s",on	2
@@ -11670,9 +11673,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002FFC74.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00301621.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00301621.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00301621.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0032EA7F.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0032EA7F.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0032EA7F.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00331D7E.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00331D7E.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00331D7E.cpp	"t",on	1
