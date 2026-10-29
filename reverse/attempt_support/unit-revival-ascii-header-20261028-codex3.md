@@ -91,3 +91,24 @@ The fleet publisher must repeat retirement validation in its own checkout;
 the prior publisher failure remains recorded above. This is one header-debt
 retirement, with no claimed census or image-ownership gain. The earlier
 wider consumer-audit prerequisite is not cleared by the scoped preview.
+## Preserved checkout retirement retry (2026-10-29)
+
+The recovery rebase found the queue retirement already upstream. This
+section retains the checkout’s independent verification; it does not
+claim a second debt retirement.
+
+At base `8f0f87f253bb5a06c53d15786bbd7e6378de9dcc`, the source still
+includes the canonical header and has no private AsciiString definition.
+`find_declared_unmatched.py` passes. The owning
+`header_adopt_lane.py accept --class AsciiString` now returns PASS and
+retires the one queue entry. No game source, header or ledger is changed.
+
+`./build.sh Code/GameEngine/Source/Common/UnitRevivalEntry.cpp` verifies
+the sole 135-byte row and its float literal. Strict `--prepare-current`
+preparation passes, and the ordinary preview supplies the required usable
+per-unit verdict: LINKS, LINKED 134 -> 134 bytes against index `85f6b7f40c`
+(2026-10-29 15:08). Fetching the published index confirms that same index
+and imports its compiled-object store. The earlier publication refusal
+remains historical evidence; the fresh publisher must independently verify
+this retirement. The pending affected-consumer and census scope above is
+unchanged. No census-linked-byte or image-ownership gain is claimed.

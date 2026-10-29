@@ -8392,6 +8392,16 @@ Publication must independently repeat that owning verdict. No source or
 provider changes occur; the wider pending consumer scope above remains
 unverified and no linking or ownership gain is claimed.
 [Current checks and reference boundary](../reverse/attempt_support/unit-revival-header-retirement-20261029-codexb4.md).
+**Current retirement retry (2026-10-29, base `8f0f87f253`):** the owning
+AsciiString adoption tool now passes for the unchanged UnitRevivalEntry
+source and retires its restored queue entry. The sole 135-byte row and float
+literal verify, strict current preparation passes, and the ordinary preview
+returns a usable LINKS verdict with 134 -> 134 authored bytes against
+index `85f6b7f40c` (2026-10-29 15:08). The fresh publisher must recheck the
+retirement; the earlier missing-verdict refusal is retained above. This
+clears the local queue prerequisite only; affected-consumer verification and
+the next scheduled census remain pending. No census gain is claimed.
+[Current evidence](../reverse/attempt_support/unit-revival-ascii-header-20261028-codex3.md).
 
 The independent retry below verified the same queue entry. The upstream
 follow-up above already retires it; this is not a second retirement.
