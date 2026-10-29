@@ -12,12 +12,11 @@
 // base carries the true member map: retail pushes the ctor args straight
 // off the incoming stack (no homing) and reloads the module data and the
 // object the base ctor stored at [ebx+4]/[ebx+8] (MissileUpdateDtor.cpp's
-// Rva004A76DEBase0 has the same pair), which only member declarations reproduce,
-// and all five vtable installs (+0/+0xC/+0x10/+0x20/+0x24) are named
-// member stores so the scheduler keeps source order (cast-stores sink
-// below field stores and recolor the frame-load registers). No virtuals
-// are declared anywhere so no vtable is emitted here; all vtable
-// immediates are DIR32-masked in comparison. The GameLogic frame at +0x40
+// Rva004A76DEBase0 has the same pair), which only member declarations reproduce.
+// The class carries its real five-base hierarchy (+0/+0xC/+0x10/+0x20/+0x24,
+// shared with MissileUpdateDtor.cpp), so the five vtable installs are the
+// compiler's own vptr stores; vtable immediates are DIR32-masked in
+// comparison. The GameLogic frame at +0x40
 // lands in +0x8C via the TU-local GameLogic view (DeletionUpdate
 // precedent). MissileUpdateModuleData+0xCC feeds +0x9C; the object's
 // position at +0x38 copies into +0xAC as one struct assignment (unrolled movs triple);
@@ -26,43 +25,77 @@
 // (base resolves via the existing BezierProjectileBehavior pin;
 // TheGameLogic is an absolute global).
 
-extern "C" const void *const __identifier("??_7BezierProjectileBehavior@@6BBehaviorModuleInterface@@@")[];
-  // folded vftable 0x00C53570 (2 classes), by its data-ledger name
-
-extern "C" const void *const __identifier("??_7MissileUpdate@@6BRva004A76DEBase4@@@")[];
-  // vftable 0x00C53530
-extern "C" const void *const __identifier("??_7MissileUpdate@@6BRva004A76DEBase3@@@")[];
-  // vftable 0x00C53548
-extern "C" const void *const __identifier("??_7MissileUpdate@@6BRva004A76DEBase2@@@")[];
-  // vftable 0x00C53560
-extern "C" const void *const __identifier("??_7MissileUpdate@@6BRva004A76DEBase0@@@")[];
-  // vftable 0x00C5362C
-
 class Thing;
 class ModuleData;
 #include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
 #include "../../../Common/GameLogicObjectLookupView.h"
+enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
 class Object
 {
 public:
 	unsigned char m_pad[0x38];
 	Coord3D m_pos; // +0x38
+	unsigned char m_pad44[0x74-0x44];
+	ObjectID m_id; // +0x74
+	void setStatus(ObjectStatusTypes,bool);
 };
-class BezierProjectileBehavior
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+// Native +0 table 0x00C5362C: slot 2 is the pool-name key getter, slot 3 xfer.
+class Rva004A76DEBase0
+{
+public:
+	virtual ~Rva004A76DEBase0();
+	virtual void v01();
+	virtual NameKeyType getModuleNameKey() const = 0;
+protected:
+	virtual void xfer(Xfer *xfer) = 0;
+public:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+class Rva004A76DEBase1 { public: virtual ~Rva004A76DEBase1(); };
+class Rva004A76DEBase2 { public: virtual ~Rva004A76DEBase2(); unsigned char m_pad[12]; };
+// Native +0x20/C53548 and +0x24/C53530 are six-slot projectile
+// interfaces, not destructor interfaces. Preserve their existing view names
+// while describing every populated slot. Existing providers and exact folded
+// companions supply these entries; no original meaning is claimed for the
+// four ordinal zero-argument callbacks in the +0x24 table.
+struct Rva0045B936Arg;
+class Rva002CBA7C;
+class Matrix3D;
+class Rva004A76DEBase3 {
+public:
+ virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *) = 0;
+ virtual unsigned char rva004A768A() const = 0;
+ virtual int getLauncherID() const = 0;
+ virtual bool rva0045CD6E(Object *) = 0;
+ virtual bool rva0045BF06(Object *) = 0;
+ virtual void rva0045B4E2(int) = 0;
+};
+class Rva004A76DEBase4 {
+public:
+ virtual void rva0045B4C0(Object *, int, int) = 0;
+ virtual bool rva0045BF06(Object *) = 0;
+ virtual bool rva0047A699_2() = 0; virtual bool rva0047A699_3() = 0;
+ virtual bool rva0047A699_4() = 0; virtual bool rva0047A699_5() = 0;
+};
+class BezierProjectileBehavior : public Rva004A76DEBase0, public Rva004A76DEBase1, public Rva004A76DEBase2, public Rva004A76DEBase3, public Rva004A76DEBase4
 {
 public:
 	BezierProjectileBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~BezierProjectileBehavior();
+ virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
+ virtual bool rva0045CD6E(Object *);
+ virtual void rva0045B4C0(Object *, int, int);
+	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
 	void rva0045C026();
 
 protected:
-	const void *m_vtable0; // +0
-	const ModuleData *m_moduleData; // +4 (stored by the base ctor, reloaded below)
-	Object *m_object; // +8 (stored by the base ctor, reloaded below)
-	const void *m_vtableC; // +0xC
-	const void *m_vtable10; // +0x10
-	unsigned char m_pad14[0xC]; // +0x14..+0x1F
-	const void *m_vtable20; // +0x20
-	const void *m_vtable24; // +0x24
+	virtual void xfer(Xfer *xfer);
 	unsigned char m_pad28[0x40 - 0x28]; // +0x28..+0x3F
 	int m_40; // +0x40 (rva004A7767 destroys the object when it is nonzero)
 	unsigned char m_pad44[0x88 - 0x44]; // +0x44..+0x87
@@ -133,6 +166,22 @@ class MissileUpdate : public BezierProjectileBehavior
 {
 public:
 	MissileUpdate(Thing *thing, const ModuleData *moduleData);
+ virtual void projectileLaunchAtObjectOrPosition(Object *, const Coord3D *, Object *, int, int, const Rva0045B936Arg *, Rva002CBA7C *, const Matrix3D *);
+ virtual unsigned char rva004A768A() const;
+ virtual int getLauncherID() const;
+ virtual bool rva0045CD6E(Object *);
+ virtual bool rva0045BF06(Object *);
+ virtual void rva0045B4E2(int);
+ virtual bool rva0047A699_2(); virtual bool rva0047A699_3();
+ virtual bool rva0047A699_4(); virtual bool rva0047A699_5();
+protected:
+	virtual ~MissileUpdate();
+public:
+	virtual void projectileFireAtObjectOrPosition(Object *victim, const Coord3D *victimPos);
+	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
 	void Rva004A7512Clear();
 	void Rva004A7530Set(int val);
 	void Rva004A75A3Init();
@@ -152,18 +201,18 @@ private:
 
 	int m_88; // +0x88
 	unsigned int m_frame; // +0x8C (TheGameLogic frame)
-	int m_90; // +0x90
-	int m_94; // +0x94
-	int m_98; // +0x98
+	ObjectID m_90; // +0x90 (launcher)
+	ObjectID m_94; // +0x94 (victim)
+	unsigned int m_98; // +0x98
 	float m_9C; // +0x9C (module data +0xCC)
 	Coord3D m_velA; // +0xA0
 	Coord3D m_prevPos; // +0xAC (the object's position at +0x38)
 	Coord3D m_velB; // +0xB8
-	int m_C4; // +0xC4
+	unsigned int m_C4; // +0xC4
 	int m_C8; // +0xC8
-	unsigned char m_CC; // +0xCC
-	unsigned char m_CD; // +0xCD
-	unsigned char m_CE; // +0xCE
+	bool m_CC; // +0xCC
+	bool m_CD; // +0xCD
+	bool m_CE; // +0xCE
 };
 
 class MissileUpdateModuleData : public BezierProjectileBehaviorModuleData
@@ -200,25 +249,20 @@ public:
 MissileUpdate::MissileUpdate(Thing *thing, const ModuleData *moduleData) :
 	BezierProjectileBehavior(thing, moduleData)
 {
-	m_vtable0 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7MissileUpdate@@6BRva004A76DEBase0@@@")));
-	m_vtableC = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7BezierProjectileBehavior@@6BBehaviorModuleInterface@@@")));
-	m_vtable10 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7MissileUpdate@@6BRva004A76DEBase2@@@")));
-	m_vtable20 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7MissileUpdate@@6BRva004A76DEBase3@@@")));
-	m_vtable24 = reinterpret_cast<const void *>(((unsigned int)__identifier("??_7MissileUpdate@@6BRva004A76DEBase4@@@")));
 	m_88 = 0;
 	m_frame = TheGameLogic->getFrame();
 	const MissileUpdateModuleData *data = getMissileUpdateModuleData();
-	m_90 = 0;
-	m_94 = 0;
-	m_CD = 0;
+	m_90 = INVALID_OBJECT_ID;
+	m_94 = INVALID_OBJECT_ID;
+	m_CD = false;
 	m_98 = 0;
 	m_9C = data->m_unkCC;
 	m_prevPos = m_object->m_pos;
-	m_CC = 0;
+	m_CC = false;
 	m_C8 = 0;
 	m_C4 = 0;
 	m_velA.zero();
-	m_CE = 0;
+	m_CE = false;
 	m_velB.zero();
 }
 
@@ -249,17 +293,17 @@ void MissileUpdate::Rva004A75A3Init()
 
 void MissileUpdate::rva004A7580()
 {
-	if (m_CE != 0)
+	if (m_CE)
 		return;
 	rva0045C026();
 	Rva004A7530Set(7);
-	m_CE = 1;
+	m_CE = true;
 }
 
 void MissileUpdate::rva004A7AF6()
 {
 	unsigned int curFrame = TheGameLogic->getFrame();
-	if (curFrame >= (unsigned int)m_98)
+	if (curFrame >= m_98)
 	{
 		if (getMissileUpdateModuleData()->m_detonateOnNoFuel == 0)
 		{
@@ -270,9 +314,9 @@ void MissileUpdate::rva004A7AF6()
 		return;
 	}
 	rva004A7580();
-	if (m_CC != 0)
+	if (m_CC)
 	{
-		if (TheGameLogic->findObjectByID((ObjectID)m_94) == 0)
+		if (TheGameLogic->findObjectByID(m_94) == 0)
 			Rva004A75A3Init();
 	}
 }
@@ -280,7 +324,7 @@ void MissileUpdate::rva004A7AF6()
 void MissileUpdate::rva004A7A86(int)
 {
 	unsigned int curFrame = TheGameLogic->getFrame();
-	if (curFrame >= (unsigned int)m_98)
+	if (curFrame >= m_98)
 	{
 		if (getMissileUpdateModuleData()->m_detonateOnNoFuel != 0)
 		{
@@ -292,11 +336,11 @@ void MissileUpdate::rva004A7A86(int)
 	if (m_9C <= 0.0f)
 	{
 		Rva004A7530Set(4);
-		m_CC = 1;
+		m_CC = true;
 	}
-	if (m_CC == 0)
+	if (!m_CC)
 		return;
-	if (TheGameLogic->findObjectByID((ObjectID)m_94) != 0)
+	if (TheGameLogic->findObjectByID(m_94) != 0)
 		return;
 	Rva004A75A3Init();
 }
@@ -390,7 +434,7 @@ void MissileUpdate::rva004A78E1()
 			m_C8 = TheParticleSystemManager->rva001F5AA4(particleSystemTemplate, obj, 1);
 		}
 	}
-	m_CD = 1;
+	m_CD = true;
 	int t = data->m_fuelLifetime;
 	int frame;
 	if (t != 0)

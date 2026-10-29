@@ -1,6 +1,7 @@
 // cl: /MD /EHsc
 // ??1MissileUpdate@@MAE@XZ @0x004A76DE 84B: restores five vtables then clear 0x4A7512 then pinned base 0x45BF6E; caller 0x4A789C deleting dtor; then 0x4A789C
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 class Thing;
 class ModuleData;
 enum ObjectStatusTypes { OBJECT_STATUS_NONE=0 };
@@ -10,7 +11,7 @@ public:
 	unsigned char m_pad[0x38];
 	Coord3D m_pos;
 	unsigned char m_pad44[0x74-0x44];
-	unsigned int m_id;
+	ObjectID m_id;
 	void setStatus(ObjectStatusTypes,bool);
 };
 class Rva004A76DEBase0 { public: virtual ~Rva004A76DEBase0(); const ModuleData *m_moduleData; Object *m_object; };
@@ -71,18 +72,18 @@ public:
 private:
 	int m_88;
 	unsigned int m_frame;
-	int m_90;
-	int m_94;
-	int m_98;
-	int m_9C;
-	unsigned char m_padA0[0xAC - 0xA0];
-	Coord3D m_AC;
-	unsigned char m_padB8[0xC4 - 0xB8];
-	int m_C4;
+	ObjectID m_90; // +0x90 (launcher)
+	ObjectID m_94; // +0x94 (victim)
+	unsigned int m_98;
+	float m_9C;
+	Coord3D m_velA; // +0xA0
+	Coord3D m_prevPos; // +0xAC
+	Coord3D m_velB; // +0xB8
+	unsigned int m_C4;
 	int m_C8;
-	unsigned char m_CC;
-	unsigned char m_CD;
-	unsigned char m_CE;
+	bool m_CC;
+	bool m_CD;
+	bool m_CE;
 };
 MissileUpdate::~MissileUpdate()
 {
@@ -92,8 +93,8 @@ void MissileUpdate::projectileFireAtObjectOrPosition(Object *victim, const Coord
 {
 	BezierProjectileBehavior::projectileFireAtObjectOrPosition(victim, victimPos);
 	Rva004A7530Set(1);
-	m_CC = 0;
-	m_AC = m_object->m_pos;
+	m_CC = false;
+	m_prevPos = m_object->m_pos;
 }
 
 

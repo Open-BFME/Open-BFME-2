@@ -14,7 +14,6 @@ class AsciiString;
 class UnicodeString;
 class PooledString;
 struct XferUnknown11;
-class Coord3DBase;
 class ICoord3D;
 class Region3D;
 class IRegion3D;
@@ -31,6 +30,9 @@ class Thing;
 class ModuleData;
 class Object;
 
+#include "../../../../../Libraries/Include/Lib/Coord3DInline.h"
+#include "../../../../../Libraries/Include/Lib/Coord3DBase.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 #include "../../../../Include/Common/BfmeXfer.h"
 
 class Xfer::Version
@@ -41,26 +43,6 @@ public:
 
 	unsigned char m_current;
 	unsigned char m_minimum;
-};
-
-class Coord3DBase
-{
-public:
-	void zero()
-	{
-		x = 0.0f;
-		y = 0.0f;
-		z = 0.0f;
-	}
-
-	float x;
-	float y;
-	float z;
-};
-
-enum ObjectID
-{
-	INVALID_ID = 0
 };
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
@@ -82,14 +64,14 @@ protected:
 
 private:
 	int m_88;
-	unsigned int m_8C;
-	ObjectID m_90;
-	ObjectID m_94;
+	unsigned int m_frame;
+	ObjectID m_90; // +0x90 (launcher)
+	ObjectID m_94; // +0x94 (victim)
 	unsigned int m_98;
 	float m_9C;
-	Coord3DBase m_A0;
-	Coord3DBase m_AC;
-	Coord3DBase m_B8;
+	Coord3D m_velA; // +0xA0
+	Coord3D m_prevPos; // +0xAC
+	Coord3D m_velB; // +0xB8
 	unsigned int m_C4;
 	int m_C8;
 	bool m_CC;
@@ -105,11 +87,11 @@ void MissileUpdate::xfer(Xfer *xfer)
 
 	BezierProjectileBehavior::xfer(xfer);
 
-	*xfer == m_A0;
-	*xfer == m_B8;
+	*xfer == asBase(m_velA);
+	*xfer == asBase(m_velB);
 	if (xfer->IsLoading())
-		m_B8.zero();
-	*xfer == m_8C;
+		m_velB.zero();
+	*xfer == m_frame;
 	XferObjectID(xfer, &m_90);
 	XferObjectID(xfer, &m_94);
 	*xfer == m_CD;
@@ -117,7 +99,7 @@ void MissileUpdate::xfer(Xfer *xfer)
 	*xfer == m_9C;
 	*xfer == m_CE;
 	*xfer == m_CC;
-	*xfer == m_AC;
+	*xfer == asBase(m_prevPos);
 	*xfer == m_C4;
 	xfer->XferRawBytes(&m_88, sizeof(m_88));
 	xfer->XferRawBytes(&m_C8, sizeof(m_C8));
