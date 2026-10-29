@@ -1,5 +1,5 @@
 // cl: /O2 /Ob1 /DNDEBUG /MD
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::insert(iterator, size_type n, char c), retail
 // 0x00029530 (662 B; vendored _string.c body with _STLP_NO_EXCEPTIONS, so the

@@ -1,5 +1,5 @@
 ﻿// cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // money_put<char>::do_put(iter, bool, ios_base&, char_type, long double).
 //
@@ -58,8 +58,8 @@ int __cdecl wctomb(char *dest, unsigned short ch);
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #pragma optimize("gsy", on)
-template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
-template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
+template <> __forceinline void allocator<char>::deallocate(char *p, size_t) { if (p != 0) free(p); }
+template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) { if (p != 0) free(p); }
 #pragma optimize("", on)
 }
 
@@ -113,6 +113,6 @@ namespace _STL { template <> void _String_base<char,allocator<char> >::_M_alloca
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void *);
 }
 template class _STL::money_put<char, _STL::ostreambuf_iterator<char, _STL::char_traits<char> > >;

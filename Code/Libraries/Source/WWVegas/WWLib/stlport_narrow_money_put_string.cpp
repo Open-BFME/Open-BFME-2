@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // Reconstructed STLport 4.5.3 money_put<char>::do_put(string), RVA 0xC410.
 // The full 2802-byte body ends at 0xCF02; the earlier 2793-byte Ghidra
@@ -78,8 +78,8 @@ int __cdecl wctomb(char *dest, unsigned short ch);
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #pragma optimize("gsy", on)
-template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
-template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
+template <> __forceinline void allocator<char>::deallocate(char *p, size_t) { if (p != 0) free(p); }
+template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) { if (p != 0) free(p); }
 #pragma optimize("", on)
 }
 

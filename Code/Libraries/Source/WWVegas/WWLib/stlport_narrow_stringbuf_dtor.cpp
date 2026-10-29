@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport basic_stringbuf<char>::~basic_stringbuf, retail 0x001F6606 (65 B).
 // The vendored 4.5.3 header defines this destructor out of line through

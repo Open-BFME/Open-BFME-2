@@ -1,5 +1,5 @@
 // cl: /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // STLport 4.5.3 money_get<char>::do_get over string_type.
 // Modified from stl/_monetary.c: expose the retail inline boundaries and use
@@ -41,8 +41,8 @@
 namespace _STL {
 template <> void __malloc_alloc<0>::deallocate(void *, size_t);
 #pragma optimize("gsy", on)
-template <> __forceinline void allocator<char>::deallocate(char *p, size_t) const { if (p != 0) free(p); }
-template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) const { if (p != 0) free(p); }
+template <> __forceinline void allocator<char>::deallocate(char *p, size_t) { if (p != 0) free(p); }
+template <> __forceinline void allocator<unsigned short>::deallocate(unsigned short *p, size_t) { if (p != 0) free(p); }
 #pragma optimize("", on)
 }
 
@@ -60,7 +60,7 @@ namespace _STL { template <> istreambuf_iterator<char,char_traits<char> > & istr
 // Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
+template <> char *allocator<char>::allocate(size_t, const void *);
 }
 
 namespace _STL {
