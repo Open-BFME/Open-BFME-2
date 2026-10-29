@@ -159,6 +159,8 @@ class PlayerList
 {
 public:
 	Player *getNthPlayer(Int i);				// 0x002A7A29
+	int m_pad0[5];
+	int m_count14;
 };
 
 extern PlayerList *ThePlayerList;
@@ -198,11 +200,13 @@ class Rva004E93A8 { public: int rva004E93A8(); };
 class Rva004E9600;
 
 struct Rva002A8B59Data;
+struct Rva002A8AB1Record;
 
 class Rva002A8F24 {
 public:
  Rva004E9600 *rva002A8B24(void *key);
  Rva002A8B59Data *rva002A8B59(void *p);
+ Rva002A8AB1Record *rva002A8AB1(void *p);
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -251,6 +255,7 @@ public:
 	void doSpecialSlaveAIUpdate();				// 0x002C6879
 	void update();
 	void updatePhase();
+	bool isAPartialBrain();
 	void DoXfer(Xfer *xfer);
 
 private:
