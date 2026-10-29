@@ -17,6 +17,7 @@ struct BfmeStringRecord002CF5B1
 	BfmeStringRecord002CF5B1();
 	BfmeStringRecord002CF5B1(const BfmeStringRecord002CF5B1 &other);
 	~BfmeStringRecord002CF5B1();
+	BfmeStringRecord002CF5B1 &operator=(const BfmeStringRecord002CF5B1 &other);	// 0x00564B1A, Rva00564B1AAssign.cpp
 };
 
 class ProductionPrerequisite

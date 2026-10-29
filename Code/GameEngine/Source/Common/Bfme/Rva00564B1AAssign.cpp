@@ -22,3 +22,25 @@ Rva00564B1A& Rva00564B1A::rva00564B1A(const Rva00564B1A& other)
     m_second.set(other.m_second);
     return *this;
 }
+
+// ProductionPrerequisiteAssign.cpp's 12-byte BfmeStringRecord002CF5B1 copy
+// assignment: its __copy (0x00564CD4) calls 0x00564B1A, where retail's ICF
+// folded the two identical bodies. This view supplies that consumer's
+// out-of-line operator= under its own spelling. Target fact: that matched
+// __copy's call lands here, so retail's element assignment sets +4 and +8 as
+// strings; the consumer's own view still spells +4 as a word (its copy
+// constructor 0x002CF5B1 is rowed on that view), an open identity question.
+struct BfmeStringRecord002CF5B1
+{
+    unsigned char m_unknown[4];
+    StringBase<char> m_first;
+    StringBase<char> m_second;
+    BfmeStringRecord002CF5B1& operator=(const BfmeStringRecord002CF5B1& other);
+};
+
+BfmeStringRecord002CF5B1& BfmeStringRecord002CF5B1::operator=(const BfmeStringRecord002CF5B1& other)
+{
+    m_first.set(other.m_first);
+    m_second.set(other.m_second);
+    return *this;
+}
