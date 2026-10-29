@@ -114,6 +114,36 @@ def test_held_units_are_left_out_of_the_class(world):
     paths, _ = world.commits[0]
     assert "Code/a.cpp" in paths and "Code/b.cpp" not in paths
     assert (world.root / "Code/b.cpp").read_text(encoding="latin-1").startswith("class Cls")
+    assert world.queued["Cls"]["Code/b.cpp"].startswith("held by seat-2")      # S4: queued, not forgotten
+
+
+def test_a_claim_on_the_header_or_on_a_units_rows_or_class_is_respected(world):
+    import claims
+    world.unit("Hdr", "Code/h.cpp")
+    world.unit("Cls", "Code/a.cpp", "Code/b.cpp")
+    ctx = world.ctx({}, [("Hdr", 5, 5), ("Cls", 3, 3)])
+    ctx["busy"] = {claims.key_of("file:Code/Include/Hdr.h"), claims.key_of("file:Code/b.cpp")}
+    lane.run_all(args(), ctx)
+    assert world.tournaments == ["Cls"]                      # Hdr's header is held: no tournament writes it
+    assert "Code/b.cpp" not in world.commits[0][0] and "Code/b.cpp" in world.queued["Cls"]
+    assert json.loads(ctx["state_path"].read_text())["Hdr"]["status"] == "claimed"
+
+
+def test_jobs_run_one_class_at_a_time(world, capsys):
+    world.unit("A", "Code/a.cpp")
+    world.unit("B", "Code/b.cpp")
+    a = args(jobs=4)
+    lane.run_all(a, world.ctx({}, [("A", 2, 2), ("B", 1, 1)]))
+    assert a.jobs == 1 and "one class at a time" in capsys.readouterr().out
+
+
+def test_the_guard_refuses_any_staged_or_uncommitted_code_or_reverse_edit(monkeypatch):
+    monkeypatch.setattr(lane, "_git", lambda *a: " M Code/x.cpp" if a[0] == "status" else "")
+    assert lane.bulk_guard()
+    monkeypatch.setattr(lane, "_git", lambda *a: "tools/x.py" if a[0] == "diff" else "")
+    assert lane.bulk_guard()
+    monkeypatch.setattr(lane, "_git", lambda *a: "")
+    assert not lane.bulk_guard()
 
 
 def test_link_regression_drops_the_unit_and_keeps_the_rest(world):
@@ -142,7 +172,8 @@ def test_class_whose_every_unit_regresses_is_queued_and_its_header_removed(world
     world.link["Code/only.cpp"] = False
     ctx = world.ctx({}, [("Bad", 2, 2)])
     lane.run_all(args(), ctx)
-    assert world.commits == [] and "Bad" not in world.registered and world.released == ["Bad"]
+    assert [paths for paths, _ in world.commits] == [["reverse/header_decisions.jsonl"]]
+    assert "Bad" not in world.registered and world.released == ["Bad"]
     assert not (world.root / "Code/Include/Bad.h").exists()
     assert (world.root / "Code/only.cpp").read_text(encoding="latin-1") == "class Bad { int x; };\n"
     assert lane.read_decisions(ctx["decisions_path"])[0]["kind"] == "link-regression"
@@ -163,7 +194,9 @@ def test_decision_queue_records_the_competing_evidence_ranked_by_donors(world):
     assert big["kind"] == "undecided" and big["detail"] == "decide slot3 of Big (+1 more)"
     assert big["attributes"][0] == {"attribute": "slot3", "candidates": {"xfer(Xfer*)": 2, "s03()": 2}}
     assert big["merge_donors"] == 40 and big["resume"].endswith("--only Big")
+    assert big["contract"].startswith("not written yet: python3 tools/class_contract.py --class Big")
     assert world.tournaments == []
+    assert world.commits[-1][0] == ["reverse/header_decisions.jsonl"]     # the queue is committed for other seats
 
 
 def test_base_without_a_header_waits(world, monkeypatch):
@@ -173,6 +206,7 @@ def test_base_without_a_header_waits(world, monkeypatch):
     lane.run_all(args(), ctx)
     (row,) = lane.read_decisions(ctx["decisions_path"])
     assert row["kind"] == "base-unheadered" and row["bases"] == ["Parent"]
+    assert json.loads(ctx["state_path"].read_text())["Kid"]["status"] == "waiting"    # --resume retries it
 
 
 def test_resume_skips_classes_a_pass_finished(world):

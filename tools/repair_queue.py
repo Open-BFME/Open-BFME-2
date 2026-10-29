@@ -1319,7 +1319,8 @@ def header_items():
     # Classes the bulk pass (`run --all`) already tried are served as decisions, in
     # place of establish items: the mechanical part is done, a judgement remains.
     decided = decision_items(header_adopt_lane.read_decisions(ROOT / HEADER_DECISIONS), canon, rank)
-    tried = {r.get("class") for r in header_adopt_lane.read_decisions(ROOT / HEADER_DECISIONS)}
+    tried = {r.get("class") for r in header_adopt_lane.read_decisions(ROOT / HEADER_DECISIONS)
+             if r.get("kind") not in header_adopt_lane.TRANSIENT_KINDS}   # a claim or a missing base clears
     contracts = header_adopt_lane.class_contract.CONTRACTS
     establish = []
     for name, score, own in header_adopt_lane.merge_rank(blockers, canon):

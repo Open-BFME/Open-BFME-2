@@ -1484,7 +1484,8 @@ def print_merge_order(limit, refresh=False):
 
 DECISIONS = REVERSE / "header_decisions.jsonl"
 BULK_STATE = SCRATCH / "run_all_state.json"
-BULK_DONE = ("adopted", "queued")     # --resume skips these; "claimed" and errors are retried
+BULK_DONE = ("adopted", "queued")     # --resume skips these; "claimed", "waiting" and errors are retried
+TRANSIENT_KINDS = ("claimed", "base-unheadered")   # blockers that clear on their own, not a settled decision
 # Kinds a seat can act on; the picker serves these. `claimed` is transient (the holder
 # is working on it) and `base-unheadered` is served through the base's own record.
 DECIDABLE = ("undecided", "slot-undeclarable", "no-destination", "no-unit-adopts", "link-regression",
@@ -1599,6 +1600,23 @@ def save_state(state, path=None):
     os.replace(tmp, path)
 
 
+def busy_lock_keys():
+    """Lock keys of every claim another seat holds (claims.busy_keys: a class or RVA claim covers its files)."""
+    import claims
+    try:
+        return set(claims.busy_keys(ROOT))
+    except Exception:  # noqa: BLE001 - no origin: claim_class and claim_rewrites still refuse at claim time
+        return set()
+
+
+def busy_files(paths, busy):
+    """The `paths` whose file lock another seat's claim covers."""
+    if not busy:
+        return set()
+    import claims
+    return {p for p in paths if claims.key_of(f"file:{p}") in busy}
+
+
 def bulk_prepare(name, ctx):
     """Everything up to the tournament for one class: {"record": decision} when it cannot be
     generated, else {"contract", "sources", "header", "results", "winner"}. Writes nothing to
@@ -1617,12 +1635,18 @@ def bulk_prepare(name, ctx):
         return {"record": decision(name, "no-destination", dest.get("why", "no header destination"),
                                    command=f"python3 tools/header_adopt_lane.py dest --class {name}", **donors)}
     header = dest["header"]
+    busy = ctx.get("busy") or set()
+    if busy_files([header], busy):       # the tournament writes the header before claim_rewrites runs
+        return {"record": decision(name, "claimed", f"its header {header} is held by another seat",
+                                   holder="another seat", **donors)}
     sources = class_contract.census(name, ctx["rows"])
     if ctx["sample"] and len(sources) > ctx["sample"]:
         sources = sorted(random.Random(ctx["seed"]).sample(sources, ctx["sample"]))
     if not sources:
         return {"record": decision(name, "no-unit-adopts", "the census finds no private view", header=header, **donors)}
     held = held_elsewhere([f"file:{s}" for s in sources])
+    held.update({f"file:{s}": "another seat (a claim on its rows or class)"
+                 for s in busy_files(sources, busy) if f"file:{s}" not in held})
     if held and not ctx["dry_run"]:
         sources = [s for s in sources if f"file:{s}" not in held]
     path = class_contract.contract_path(name)
@@ -1630,7 +1654,8 @@ def bulk_prepare(name, ctx):
         contract = json.loads(path.read_text(encoding="utf-8"))
     else:
         contract = class_contract.decide(name, sources=sources, jobs=ctx["unit_jobs"])
-    contract_rel = path.relative_to(ROOT).as_posix()
+    contract_rel = (path.relative_to(ROOT).as_posix() if path.exists()
+                    else f"not written yet: python3 tools/class_contract.py --class {name} --write")
     evidence = dict(donors, header=header, contract=contract_rel, units=len(sources),
                     **({"held_units": sorted(held.items())[:20]} if held else {}))
     undecided = contract_decisions(contract)
@@ -1658,7 +1683,7 @@ def bulk_prepare(name, ctx):
     winner = max(ctx["variants"],
                  key=lambda v: (sum(x is None for x in results[v]["verdicts"].values()), -ctx["variants"].index(v)))
     return {"contract": contract, "sources": sources, "header": header, "results": results, "winner": winner,
-            "evidence": evidence}
+            "evidence": evidence, "held": {k.split(":", 1)[1]: w for k, w in held.items()}}
 
 
 def bulk_land(name, prepared, ctx):
@@ -1708,7 +1733,8 @@ def bulk_land(name, prepared, ctx):
              f"variant {prepared['winner']}; {len(kept)}/{len(prepared['sources'])} units adopt")
     renamed = [r for s in kept for r in best["renames"].get(s, [])]
     rewrite_ledger(renamed)
-    write_queue(name, header, {**failed, **dropped})
+    write_queue(name, header, {**failed, **dropped, **{s: f"held by {w} during run --all; retry when released"
+                                                        for s, w in prepared.get("held", {}).items()}})
     reasons = collections.Counter(failure_class(v) for v in failed.values())
     message = (f"Generate and adopt the canonical {name} header in {len(kept)} units\n\n"
                f"header_adopt_lane.py run --all: {contract_path.relative_to(ROOT).as_posix()}, variant "
@@ -1757,10 +1783,11 @@ def git_undo(paths, new_header=None):
 
 
 def bulk_guard():
-    """The files a class commit stages must carry no unrelated edits (they would be committed)."""
-    shared = [REGISTRY, QUEUE, LEDGER]
-    dirty = _git("status", "--porcelain", "--", *[p.relative_to(ROOT).as_posix() for p in shared])
-    return dirty.strip()
+    """Nothing staged and nothing uncommitted under Code/ or reverse/: a class commit would take
+    unrelated edits along, and a refused one restores its paths to HEAD."""
+    staged = _git("diff", "--cached", "--name-only") or ""
+    dirty = _git("status", "--porcelain", "--", "Code", "reverse") or ""
+    return (staged + "\n" + dirty).strip()
 
 
 def census_index(rows, names):
@@ -1811,15 +1838,15 @@ def run_all(args, ctx=None):
     canon = registered()
     if ctx is None:
         if not args.dry_run and bulk_guard():
-            print("run --all: reverse/canonical_classes.csv, header_queue.tsv or functions.csv has uncommitted "
-                  "edits; commit or set them aside first (each class commit stages them)")
+            print("run --all: the index or Code/ or reverse/ has uncommitted edits; commit or set them aside "
+                  "first (class commits would include them, a refused commit restores its paths to HEAD)")
             return 2
         blockers = merge_blockers()
         ranked = merge_rank(blockers, canon)
         index = reference_headers()
         ctx = {"blockers": blockers, "ranked": ranked, "rows": class_contract.ledger_rows(),
                "destination": lambda n: header_destination(n, index), "link_check": link_ok,
-               "commit": git_commit, "undo": git_undo}
+               "commit": git_commit, "undo": git_undo, "busy": busy_lock_keys()}
     ctx.setdefault("dry_run", args.dry_run)
     ctx.setdefault("sample", args.sample)
     ctx.setdefault("seed", args.seed)
@@ -1838,8 +1865,10 @@ def run_all(args, ctx=None):
         order = [c for c in order if state.get(c, {}).get("status") not in BULK_DONE]
     if args.limit:
         order = order[:args.limit]
-    # Classes run side by side only when no unit holds views of both: each tournament
-    # swaps its units' text in place.
+    if args.jobs > 1:     # every tournament rewrites and restores reverse/functions.csv (try_renamed)
+        print("run --all: --jobs runs one class at a time: concurrent tournaments would share "
+              "reverse/functions.csv", flush=True)
+        args.jobs = 1
     files = census_index(ctx["rows"], order) if args.jobs > 1 else {c: {c} for c in order}
     needs = {c: {base_identity(b) for b in blockers.get(c, {}).get("bases", ())} & set(order) for c in order}
     print(f"run --all: {len(order)} class(es) to try ({'dry run' if ctx['dry_run'] else 'apply'}, "
@@ -1855,14 +1884,15 @@ def run_all(args, ctx=None):
             try:
                 prepared = futures[name].result()
                 if "record" in prepared:
-                    status, record, sha = ("claimed" if prepared["record"]["kind"] == "claimed" else "queued",
-                                           prepared["record"], None)
+                    status, record, sha = "queued", prepared["record"], None
                 elif "would" in prepared:
                     status, record, sha = "would-generate", None, None
                 else:
                     status, record, sha = bulk_land(name, prepared, ctx)
             except Exception as exc:  # noqa: BLE001 - one class's failure is a record, not the pass's end
                 status, record, sha = "error", decision(name, "error", f"{type(exc).__name__}: {exc}"[:500]), None
+            if status == "queued" and record and record["kind"] in TRANSIENT_KINDS:
+                status = "claimed" if record["kind"] == "claimed" else "waiting"   # --resume retries both
             records[name] = record
             tally[status] += 1
             state[name] = {"status": status, "at": int(time.time()), **({"commit": sha} if sha else {}),
@@ -1879,7 +1909,14 @@ def run_all(args, ctx=None):
         if rec is not None:
             rec.setdefault("merge_donors", ctx["info"].get(name, {}).get("score", 0))
     adopted = {n for n, s in state.items() if s.get("status") == "adopted"} if not ctx["dry_run"] else set()
+    queue_path = Path(ctx["decisions_path"])
+    before = queue_path.read_text(encoding="utf-8") if queue_path.exists() else None
     rows = write_decisions(records, ctx["decisions_path"], canon=set(canon) | adopted)
+    if not ctx["dry_run"] and queue_path.read_text(encoding="utf-8") != before:
+        ok, _, tail = ctx["commit"]([queue_path.relative_to(ROOT).as_posix()],
+                                    f"Record {len(rows)} header decision(s) from run --all\n")
+        if not ok:
+            print(f"run --all: could not commit {queue_path.name}: {(tail or '')[-300:]}", flush=True)
     print(f"run --all: {dict(tally)}; {len(rows)} record(s) in {Path(ctx['decisions_path']).as_posix()}"
           + ("" if ctx["dry_run"] else "; push, then `header_adopt_lane.py release --class X` for each adopted "
                                        "class and `claims.py release class:X`"), flush=True)
