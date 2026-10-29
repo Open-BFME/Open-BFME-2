@@ -1520,6 +1520,85 @@ def test_identity_retirement_checks_the_located_funclet(tmp_path, monkeypatch, c
     assert (failures == []) == (case == "fixed"), failures
 
 
+# ---- a retirement batch: builds batched and one tree load, only where verdicts cannot change
+
+LOCO_KEY = "Code/GameEngine/Loco.cpp\t?a@Loco@@QAEXXZ\t??1AsciiString@@QAE@XZ\t0x00002000\tdivergent"
+
+
+def _two_source_retirement(tmp_path, monkeypatch, attempt):
+    """Both identity keys (Loco's and Body's) removed in one commit; `attempt` breaks one thing."""
+    import allowed_symbols
+    rq, rev, _ = load(tmp_path, "bfme2", LEDGER, [DEBT_FILES[0], DEBT_FILES[1], DEBT_FILES[4]])
+    git = _git_repo(tmp_path)
+    rq.head_ledger_rows.cache_clear()
+    world = IdentityWorld(tmp_path, monkeypatch, rq)
+    if attempt != "body-still-found":
+        world.refs.clear()
+    if attempt == "stale-loco":                  # Loco.obj (Body's provider) predates its source
+        world.stale.add("Loco")
+    elif attempt == "unreadable":
+        world.unreadable = True
+    path = rev / "code_identity_baseline.tsv"
+    path.write_text(path.read_text().replace(IDENTITY_KEY + "\n", "").replace(LOCO_KEY + "\n", ""), newline="\n")
+    git("add", "reverse/code_identity_baseline.tsv")
+    loads = []
+    real_load = allowed_symbols.load
+    monkeypatch.setattr(allowed_symbols, "load", lambda *a, **k: (loads.append(a), real_load(*a, **k))[1])
+    builds = tmp_path / "builds.log"
+    fail_body = "sys.exit(any('Body.cpp' in a for a in sys.argv[1:]))" if attempt == "body-build-fails" else ""
+    cmd = [sys.executable, "-c", "import sys; open(sys.argv[1], 'a').write(' '.join(sys.argv[2:]) + '\\n'); "
+           + fail_body, str(builds)]
+    return rq, world, cmd, loads, builds
+
+
+ATTEMPTS = ["fixed", "body-still-found", "stale-loco", "unreadable", "body-build-fails"]
+
+
+@pytest.mark.parametrize("attempt", ATTEMPTS)
+def test_batched_retirement_judges_exactly_as_the_per_source_loop(tmp_path, monkeypatch, attempt):
+    """The batched path must give the per-source loop's failures, case by case."""
+    rq, _, cmd, _, _ = _two_source_retirement(tmp_path / "a", monkeypatch, attempt)
+    batched = rq.verify_removed_debt(build_cmd=cmd)
+    monkeypatch.undo()
+    rq, _, cmd, _, _ = _two_source_retirement(tmp_path / "b", monkeypatch, attempt)
+    monkeypatch.setattr(rq, "_batched_build", lambda plan, base_cmd: "per-source")
+    serial = rq.verify_removed_debt(build_cmd=cmd)
+    assert sorted(batched) == sorted(serial)
+    assert (batched == []) == (attempt == "fixed"), batched
+
+
+def test_a_current_batch_builds_once_and_loads_the_tree_once(tmp_path, monkeypatch):
+    rq, _, cmd, loads, builds = _two_source_retirement(tmp_path, monkeypatch, "fixed")
+    assert rq.verify_removed_debt(build_cmd=cmd) == []
+    assert builds.read_text().splitlines() == ["Code/GameEngine/Body.cpp Code/GameEngine/Loco.cpp"]
+    assert loads == [(None,)]                                # one shared load for both verdicts
+    assert rq._ACTIVE_TREE_STATE is None                     # never outlives the run
+
+
+def test_a_stale_source_keeps_the_per_source_builds_and_loads(tmp_path, monkeypatch):
+    rq, _, cmd, loads, builds = _two_source_retirement(tmp_path, monkeypatch, "stale-loco")
+    failures = rq.verify_removed_debt(build_cmd=cmd)
+    assert builds.read_text().splitlines() == ["Code/GameEngine/Body.cpp", "Code/GameEngine/Loco.cpp"]
+    assert len(loads) == 2 and failures                      # each verdict loads; both refuse the stale object
+
+
+def test_a_failed_union_build_is_re_run_per_source(tmp_path, monkeypatch):
+    rq, _, cmd, _, builds = _two_source_retirement(tmp_path, monkeypatch, "body-build-fails")
+    failures = rq.verify_removed_debt(build_cmd=cmd)
+    assert builds.read_text().splitlines() == ["Code/GameEngine/Body.cpp Code/GameEngine/Loco.cpp",
+                                               "Code/GameEngine/Body.cpp", "Code/GameEngine/Loco.cpp"]
+    assert failures == ["Code/GameEngine/Body.cpp: removed 1 identity key(s) but the source does not build"]
+
+
+def test_a_batched_build_that_rewrites_an_object_fails_closed(tmp_path, monkeypatch):
+    rq, world, _, _, _ = _two_source_retirement(tmp_path, monkeypatch, "fixed")
+    target = world.objs / "Loco.obj"
+    cmd = [sys.executable, "-c", "import sys, pathlib; pathlib.Path(sys.argv[1]).write_bytes(b'rebuilt object')",
+           str(target)]
+    failures = rq.verify_removed_debt(build_cmd=cmd)
+    assert len(failures) == 1 and "rewrote objects" in failures[0], failures
+
+
 # ---- the header queue: acceptance verifies the real include and retires its own row
 
 def _header_fixture(tmp_path, monkeypatch):

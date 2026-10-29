@@ -1454,37 +1454,89 @@ def data_verdict(source, held):
     return problems, found
 
 
-def identity_verdict(source, held):
+_ACTIVE_TREE_STATE = None    # the _TreeState of verify_removed_debt's batched path, while it runs
+
+
+class _TreeState(dict):
+    """The tree-wide inputs of identity verdicts, loaded once for a run in which no object
+    can change (verify_removed_debt's batched path: every build ran before the first
+    verdict and wrote nothing). Each entry is exactly what identity_verdict computes on
+    its own: allowed.load()'s Identity and rows, census.ledger(), the missing-object
+    list, the object-to-source map, and build.compile_is_current answers. All are pure
+    functions of the ledger and the object/source/header files, which stay unchanged
+    while the state lives, so reusing them changes no verdict."""
+
+    def current(self, source, obj):
+        import build
+        memo = self.setdefault("current", {})
+        key = (str(source), str(obj))
+        if key not in memo:
+            memo[key] = build.compile_is_current(source, obj)
+        return memo[key]
+
+
+def _identity_inputs(source, state):
+    """(ident, SOURCE's rows, ledger rows, missing objects, object-to-source map) as
+    identity_verdict reads them; with `state`, the tree-wide part is computed once.
+    Raises allowed_symbols.Unreadable as allowed.load does."""
+    import allowed_symbols as allowed
+    if state is None:
+        ident, rows = allowed.load([source], strict=True)
+        ledger_rows = allowed.census.ledger()
+    else:
+        if "load" not in state:
+            try:
+                state["load"] = allowed.load(None, strict=True)
+            except allowed.Unreadable as error:
+                state["load"] = error
+            state["ledger"] = allowed.census.ledger()
+        if isinstance(state["load"], allowed.Unreadable):
+            raise state["load"]
+        ident, every = state["load"]
+        want = source.replace("\\", "/")
+        rows = [r for r in every if r["source"] == want]
+        ledger_rows = state["ledger"]
+    if state is not None and "missing" in state:
+        return ident, rows, ledger_rows, state["missing"], state["source_of"]
+    missing = sorted({str(allowed.row_object(r)) for r in ledger_rows
+                      if not r["source"].lower().endswith(".asm") and not allowed.row_object(r).exists()})
+    source_of = {}
+    for r in ledger_rows:
+        source_of.setdefault(str(allowed.row_object(r)), r["source"])
+    if state is not None:
+        state["missing"], state["source_of"] = missing, source_of
+    return ident, rows, ledger_rows, missing, source_of
+
+
+def identity_verdict(source, held, state=None):
     """(problems, found keys) from tools/allowed_symbols.py's own scan of SOURCE's rows,
     failing where scan() would skip silently: a missing or stale object (any ledger
     object: the kept copy is judged against every definition), an unparsable object, a
     participating provider (an object defining a name SOURCE's objects reference) not
     proven current for its own source, a row symbol the object lacks, unreadable retail
-    bytes, a scan error."""
+    bytes, a scan error. `state` (a _TreeState; by default the one verify_removed_debt's
+    batched path holds) shares the tree-wide inputs between verdicts of one run in which
+    no object changes."""
     tools_on_path()
     import allowed_symbols as allowed
     import build
+    state = _ACTIVE_TREE_STATE if state is None else state
+    current = state.current if state is not None else build.compile_is_current
     try:
-        ident, rows = allowed.load([source], strict=True)
+        ident, rows, ledger_rows, missing, source_of = _identity_inputs(source, state)
     except allowed.Unreadable as error:
         return [f"an object is unreadable, so the kept copies are unknown: {error}"], set()
     problems = coverage_problems(source, {r["name"] for r in rows})
     if problems:
         return problems, set()
-    ledger_rows = allowed.census.ledger()
-    missing = sorted({str(allowed.row_object(r)) for r in ledger_rows
-                      if not r["source"].lower().endswith(".asm") and not allowed.row_object(r).exists()})
     if missing:
         problems.append(f"{len(missing)} ledger object(s) missing, so the kept copies are unknown "
                         f"(e.g. {Path(missing[0]).name}; ./build.sh)")
-    source_of = {}
-    for r in ledger_rows:
-        source_of.setdefault(str(allowed.row_object(r)), r["source"])
     own = {str(allowed.row_object(r)) for r in rows}
     referenced = {name for name, users in (ident.defs.referrers or {}).items() if users & own}
     providers = sorted({p for name in referenced for p, *_ in ident.defs.get(name, ())} - own)
     stale = [p for p in providers if not source_of.get(p, "").lower().endswith(build.LIB_SUFFIX)
-             and not (p in source_of and build.compile_is_current(ROOT / source_of[p], Path(p)))]
+             and not (p in source_of and current(ROOT / source_of[p], Path(p)))]
     if stale:
         problems.append(f"{len(stale)} provider object(s) of names {source} references are not proven current "
                         f"(e.g. {Path(stale[0]).name}; ./build.sh {source_of.get(stale[0], '')})")
@@ -1495,7 +1547,7 @@ def identity_verdict(source, held):
         obj = allowed.row_object(row)
         if not obj.exists():
             continue                                         # counted above
-        if not build.compile_is_current(ROOT / source, obj):
+        if not current(ROOT / source, obj):
             problems.append(f"object {obj.name} is not current (./build.sh {source})")
             break
         symbol = build.ledger_object_symbol(row)
@@ -1708,14 +1760,95 @@ def _head_header_verdict(name, source):
                 sys.modules[module_name] = previous
 
 
+def _debt_objects(kind, source, ledger_rows):
+    """The objects KIND's verdict of SOURCE reads as SOURCE's own (identity_verdict's
+    `own` from `ledger_rows`, census.ledger(); data_verdict's row objects), or None
+    when a build of SOURCE may write others or none is known (an .asm or library
+    source, no row, any lookup error)."""
+    tools_on_path()
+    import build
+    if source.lower().endswith((".asm", build.LIB_SUFFIX)):
+        return None
+    try:
+        if kind == "data":
+            import data_check
+            objs = {build.row_object(r) for r in data_check.source_rows([source])}
+        else:
+            import allowed_symbols as allowed
+            objs = {allowed.row_object(r) for r in ledger_rows if r["source"] == source}
+    except Exception:                                    # unknown: keep the per-source path
+        return None
+    return sorted(objs, key=str) or None
+
+
+def _object_stamps(objs):
+    """{object: (mtime_ns, size)}, or None when one cannot be read."""
+    try:
+        return {str(o): (o.stat().st_mtime_ns, o.stat().st_size) for o in objs}
+    except OSError:
+        return None
+
+
+def _batched_build(plan, base_cmd):
+    """Build every planned source in as few build.py runs as the command line allows,
+    when that provably leaves every verdict as the per-source builds would.
+
+    The per-source loop builds source k just before judging it. When every planned
+    source's objects are already current (build.compile_is_current, the check each
+    verdict applies), each of those builds compiles nothing, so building them all
+    first gives each verdict the same objects. build.py's scoped path checks the union
+    of its selectors row by row (claims per source, functions, string/float/import
+    refs per row), so a passing union means every per-source build passes; a failing
+    union is re-run per source by the caller, which attributes failures exactly.
+
+    Returns "built" (every build passed, no object changed), "per-source" (use the
+    per-source loop: a source not provably current, or a union build failed and left
+    the objects untouched) or "changed" (a build rewrote an object the currency check
+    called current: fail closed)."""
+    tools_on_path()
+    import build
+    try:
+        import allowed_symbols as allowed
+        ledger_rows = allowed.census.ledger() if any(kind != "data" for kind, *_ in plan) else []
+    except Exception:
+        return "per-source"
+    owned = []
+    for kind, source, _keys, _staged in plan:
+        own = _debt_objects(kind, source, ledger_rows)
+        if own is None:
+            return "per-source"
+        owned += [(source, o) for o in own]
+    try:
+        if not all(o.exists() and build.compile_is_current(ROOT / s, o) for s, o in owned):
+            return "per-source"
+    except Exception:
+        return "per-source"
+    objs = [o for _, o in owned]
+    before = _object_stamps(objs)
+    if before is None:
+        return "per-source"
+    sources = list(dict.fromkeys(source for _, source, _, _ in plan))
+    ok = all(subprocess.run(base_cmd + chunk, cwd=ROOT).returncode == 0
+             for chunk in _pathspec_chunks(sources))
+    if _object_stamps(objs) != before:
+        return "changed"
+    return "built" if ok else "per-source"
+
+
 def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False, message=""):
     """Failures for identity and header debt the index deletes: each removed data or
     identity key's source is built, then judged (the verdict against the staged
     register plus the removed keys: each removed key must be gone, nothing new found);
-    each removed header_queue.tsv row must pass header acceptance."""
+    each removed header_queue.tsv row must pass header acceptance.
+
+    The builds run batched, and identity verdicts share one load of the tree, when
+    every source is already built (_batched_build: the same objects, the same
+    verdicts); otherwise each source is built just before its own verdict."""
+    global _ACTIVE_TREE_STATE
     failures = []
     tree = _verification_tree()
     judged = set()
+    plan = []
     for kind in ("data", "identity"):
         removed, staged = removed_keys(kind)
         for source, keys in sorted(removed.items()):
@@ -1728,14 +1861,23 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
             if not present:
                 failures.append(f"{source}: removed {kind} debt without a staged/outgoing source or retirement accounting")
                 continue
-            if present:
-                problems = _verification_problems(tree, [source])
-                if problems:
-                    failures += [f"{source}: {problem}" for problem in problems]
-                    continue
-                judged.add(source)
-                cmd = (build_cmd or [sys.executable, str(ROOT / "tools" / "build.py")]) + [source]
-                if subprocess.run(cmd, cwd=ROOT).returncode != 0:
+            problems = _verification_problems(tree, [source])
+            if problems:
+                failures += [f"{source}: {problem}" for problem in problems]
+                continue
+            judged.add(source)
+            plan.append((kind, source, keys, staged))
+    base_cmd = build_cmd or [sys.executable, str(ROOT / "tools" / "build.py")]
+    mode = _batched_build(plan, base_cmd) if len(plan) > 1 else "per-source"
+    if mode == "changed":
+        failures.append(f"debt verification: a batched build of {len(plan)} source(s) rewrote objects "
+                        "build.compile_is_current called current, so no verdict is judged; rerun")
+        plan = []
+    try:
+        _ACTIVE_TREE_STATE = _TreeState() if mode == "built" else None
+        for kind, source, keys, staged in plan:
+            if mode != "built":
+                if subprocess.run(base_cmd + [source], cwd=ROOT).returncode != 0:
                     failures.append(f"{source}: removed {len(keys)} {kind} key(s) but the source does not build")
                     continue
             held = {k for k in staged if key_source(kind, k) == source} | set(keys)
@@ -1744,6 +1886,8 @@ def verify_removed_debt(build_cmd=None, header_verdict=None, defer_missing=False
             if problems:
                 failures.append(f"{source}: removed {len(keys)} {REGISTERS[kind]} key(s) without the tool's "
                                 f"verdict: {problems_note(problems)}")
+    finally:
+        _ACTIVE_TREE_STATE = None
     for name, source in removed_header_rows():
         if _debt_transferred("header", source, [name], ()):
             continue
