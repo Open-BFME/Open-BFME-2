@@ -93,7 +93,7 @@ vtable and empty `init/reset/update` methods. No earlier holder is displaced.
 Outside providers remain the published-index snapshot; this is not a fresh
 whole-ledger census or an exhaustive current-object proof.
 
-## 5. Actual stock merge result and next steps
+## 5. Stock merge results and next steps
 
 The scoped consolidation planner completed before and after the source edit.
 The stock merger rebuilt the stale committed TU map in memory and ran:
@@ -111,7 +111,7 @@ under the carried seed environment. The complete-destructor donor loses three
 rows under the carried `-G7 -arch:SSE` override. The report also retains the
 existing `SubsystemInterface` header-adoption prerequisite. Three mixed donors
 stay outside the merge. This is a real baseline/compile-environment refusal;
-it is not a demonstrated commit or PR rejection. No merge was applied.
+it is not a demonstrated commit or PR rejection. That trial applied no merge.
 
 **Flag-default follow-up (2026-10-29, base `b31de0a2`):** isolated
 `flag_defaults generate` scans of the seed under `current` and `default`
@@ -129,11 +129,24 @@ The paired published-index provider check reports no removed definitions,
 selection changes, new losses or new variants. Ordinary preview keeps the
 seed LINKS/97 bytes and the constructor LINKS/159 bytes against `d92e7e6635`.
 This retires one obsolete override; it does not establish a new census result
-or approve a merge. The stock merge must now be retried under normal flags.
+or approve a merge by itself.
+
+**Stock consolidation follow-up (2026-10-29, after `4a200354`):** the refreshed
+planner and stock dry-run now accept the seed, `MultiplayerColorDefinitionCtor.cpp`
+and `MultiplayerColorDefinitionCopy.cpp`. The stock apply preserves all 11 rows
+(486 bytes), moves nine row owners and removes two source files. The ordinary
+build passes 11/11 code rows and the singleton data row; both parent EH graphs
+are EXACT, and declaration, class, ledger and scoped data checks pass. The stock
+link guard preserves the absorbed donors against the published index.
+The upstream `477e2a0887` placement rule independently keeps the copy constructor
+approved by `C=0x00380C4E..0x00380D7F`, after removing its old Z/S/N evidence.
+All seven lifetime rows, their three source files and the native constructor
+proof remain unchanged. The lifetime donors still fail composition; no ABI
+transition, header-debt retirement or census gain is claimed.
 
 The remaining sequence is:
 
-1. Retry stock consolidation after the verified flag-default prerequisite.
+1. Reconcile the remaining rejected lifetime donors before further consolidation.
    Keep the existing header-adoption debt unless its normal acceptance passes;
    the updated tool still requires the registered canonical header or an
    explicitly listed companion, which the full subsystem shim is not.
@@ -168,4 +181,5 @@ The final reproduction passed on the current production object without
 recompilation. Normal declaration/class/EH/data checks passed. A separate clean
 review session independently checked the retail dispatch, all seven bodies,
 fourteen table slots, EH relationships and provider-change interpretation.
-No full-game link, census gain, source-file reduction or runtime test is claimed.
+The later stock color-definition merge removes two source files. No full-game
+link, census gain or runtime test is claimed.

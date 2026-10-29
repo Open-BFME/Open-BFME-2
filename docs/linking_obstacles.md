@@ -3169,6 +3169,17 @@ One flag override is retired, with no source, row-identity or ownership edit.
 Retry the stock merge under normal flags; canonical-header debt and the
 QAE-to-UAE ownership transition remain pending. No census gain is claimed.
 
+**Multiplayer partial consolidation (2026-10-29, after `4a200354`):** under
+normal flags, the stock merger accepts the seed and both color-definition
+donors: 11 rows/486 bytes preserved, nine row owners moved and two source files
+removed. Ordinary code/data, declaration, class and ledger checks pass; both
+parent EH graphs are EXACT, and the stock link guard preserves the absorbed
+donors against the published index. The upstream `477e2a0887` rules retain the
+copy constructor's approval by contiguity after dropping its old Z/S/N evidence.
+All seven lifetime rows and their source files remain unchanged. The lifetime
+composition, canonical-header debt and QAE-to-UAE ownership correction remain
+open; this partial merge is not a census gain.
+
 ### LINK-010: folded STL table bases need the actual native predecessor
 
 **Status: Blocked on supported native data-placement / ownership reconciliation.
