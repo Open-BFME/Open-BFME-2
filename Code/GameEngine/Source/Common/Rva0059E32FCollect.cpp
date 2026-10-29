@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD
+// stlport46
 // LivingWorldScenario::OwnershipSet::getRegions at 0x0059E32F (97B) (WorldBuilder
 // name, LivingWorldScenarioOwnershipSet.cpp line 209: region lookup per name
 // in the +0x1C list, found ones appended). Collect ModuleData list via Logic+0xb0 lookup.
