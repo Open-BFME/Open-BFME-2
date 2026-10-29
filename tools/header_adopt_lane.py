@@ -1290,14 +1290,23 @@ def header_destination(name, index, exists=None):
     exists = exists or (lambda p: (ROOT / p).exists())
     for label, tree in REFERENCE_HEADER_TREES:
         found = index.get(label, {}).get(name, [])
+        note = ""
         if len(found) > 1:
-            return {"header": None, "why": f"{label} defines {name} in {len(found)} headers: " + ", ".join(found[:4])}
+            # Several headers define a body: the one named for the class is its home (BFME 1's
+            # object.h holds `class Object : public Thing`; ObjectStatusBits.h a padded view of
+            # it). Exactly one such header decides; none or several stay ambiguous.
+            named = [f for f in found if Path(f).stem.lower() == name.split("::")[-1].lower()]
+            if len(named) != 1:
+                return {"header": None, "why": f"{label} defines {name} in {len(found)} headers: "
+                        + ", ".join(found[:4])}
+            note = f"; the header named for the class, over {', '.join(f for f in found if f != named[0])[:200]}"
+            found = named
         if found:
             header = "Code/" + found[0]
             if exists(header):
                 return {"header": None, "why": f"{header} ({label}: {tree}/{found[0]}) already exists; generating "
                                                "would overwrite it"}
-            return {"header": header, "evidence": f"{label}: {tree}/{found[0]}"}
+            return {"header": header, "evidence": f"{label}: {tree}/{found[0]}{note}"}
     return {"header": None, "why": f"neither BFME 1 nor ZH defines {name} in a header"}
 
 

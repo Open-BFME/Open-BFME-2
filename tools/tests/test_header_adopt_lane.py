@@ -573,6 +573,23 @@ def test_header_destination_takes_one_official_path_and_never_guesses(tmp_path):
     assert occupied["header"] is None and "overwrite" in occupied["why"]
 
 
+def test_header_destination_prefers_the_header_named_for_the_class(tmp_path):
+    bfme1 = tmp_path / lane.REFERENCE_HEADER_TREES[0][1]
+    for rel, text in (("GameEngine/Source/GameLogic/Object/object.h", "class Object : public Thing { int a; };\n"),
+                      ("GameEngine/Source/GameLogic/Object/ObjectStatusBits.h", "class Object { char pad[4]; };\n"),
+                      ("A/Twice.h", "class Pair { };\n"), ("B/Twice.h", "class Pair { };\n"),
+                      ("C/pair.h", "class Pair2 { };\n"), ("D/pair2.h", "class Pair2 { };\n"),
+                      ("E/pair2.h", "class Pair2 { };\n")):
+        (bfme1 / rel).parent.mkdir(parents=True, exist_ok=True)
+        (bfme1 / rel).write_text(text)
+    index = lane.reference_header_index(root=tmp_path)
+    got = lane.header_destination("Object", index, lambda p: False)
+    assert got["header"] == "Code/GameEngine/Source/GameLogic/Object/object.h"
+    assert "named for the class" in got["evidence"] and "ObjectStatusBits.h" in got["evidence"]
+    assert lane.header_destination("Pair", index, lambda p: False)["header"] is None    # no header named Pair
+    assert lane.header_destination("Pair2", index, lambda p: False)["header"] is None   # two named pair2.h
+
+
 def test_picker_never_computes_and_starts_one_refresh(merge_cache, monkeypatch):
     directory, state = merge_cache
     monkeypatch.setattr(lane, "compute_merge_payload", lambda: pytest.fail("the picker computed the ranking"))
