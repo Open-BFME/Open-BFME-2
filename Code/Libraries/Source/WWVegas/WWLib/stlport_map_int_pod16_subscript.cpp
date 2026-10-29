@@ -29,9 +29,14 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 struct BfmePod16 { int a[4]; };
-// Suppress this TU's non-retail copy of allocator<_Rb_tree_node<pair<const int, BfmePod16> > >::allocate:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> _Rb_tree_node<pair<const int, BfmePod16> > *allocator<_Rb_tree_node<pair<const int, BfmePod16> > >::allocate(size_t, const void *) const; }
+// The node allocator otherwise instantiates a non-retail allocate COMDAT; since
+// Rva0041355DParse.cpp moved to STLport 4.6 no unit provides the 4.5.3 copy, so
+// an explicit dllimport+forceinline specialization takes the call inline.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+_Rb_tree_node<pair<const int, BfmePod16> > *allocator<_Rb_tree_node<pair<const int, BfmePod16> > >::allocate(size_t __n, const void *) const
+{ return __n != 0 ? (_Rb_tree_node<pair<const int, BfmePod16> > *)__sgi_alloc::allocate(__n * sizeof(_Rb_tree_node<pair<const int, BfmePod16> >)) : 0; }
+}
 typedef _STL::pair<const int, BfmePod16> Pod16MapValue;
 typedef _STL::map<int, BfmePod16, _STL::less<int>, _STL::allocator<Pod16MapValue> > Pod16Map;
 class Rva00257252
