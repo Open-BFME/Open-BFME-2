@@ -20411,8 +20411,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03E34,4,.data,global,?TheStatusBitsUpgradeIfEldestKindofKey@?1??rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp,owned,,1,2
 0x00A03E38,4,.data,global,?$S1@?1??rva004CE2B0@StatusBitsUpgradeIfEldestKindof@@UAE_NPAVRva00406F9C@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsUpgradeIfEldestKindofSlot2.cpp,owned,,1,4
 0x00A03E3C,4,.data,global,_s_rva007B2024,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03E40,4,.data,global,?TheDoCommandUpgradePoolKey@?1??getModuleNameKey@DoCommandUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/DoCommandUpgradePoolKey.cpp,owned,,1,2
-0x00A03E44,4,.data,global,?$S1@?1??getModuleNameKey@DoCommandUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/DoCommandUpgradePoolKey.cpp,owned,,1,4
+0x00A03E40,4,.data,global,?TheDoCommandUpgradePoolKey@?1??getModuleNameKey@DoCommandUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgrade.cpp,owned,,1,2
+0x00A03E44,4,.data,global,?$S1@?1??getModuleNameKey@DoCommandUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/DoCommandUpgrade.cpp,owned,,1,4
 0x00A03E48,4,.data,global,_s_rva007B204E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03E4C,4,.data,global,?TheSubObjectsUpgradePoolKey@?1??getModuleNameKey@SubObjectsUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp,owned,,1,2
 0x00A03E50,4,.data,global,?$S1@?1??getModuleNameKey@SubObjectsUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp,owned,,1,4
