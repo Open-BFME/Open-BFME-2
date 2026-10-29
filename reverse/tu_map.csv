@@ -44048,7 +44048,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00525235,152,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp
 0x005252CD,107,code,,,-,,Code/GameEngine/Source/Common/AptInvokeWrappers.cpp
 0x00525338,104,code,,,-,,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterface.cpp
-0x005253A0,103,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,proposed,K,K=Rva005258E2List,Code/GameEngine/Source/Common/Rva005253A0ListenerWalks.cpp
+0x005253A0,103,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,proposed,K,K=Rva005258E2List,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 0x00525407,114,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp
 0x00525479,16,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x00525489 provisional,Code/GameEngine/Source/Common/GapBodiesGE14.cpp
 0x00525489,30,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005254A7 provisional,Code/GameEngine/Source/Common/GapBodiesGE14.cpp
@@ -44065,7 +44065,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005258B2,7,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258B9 provisional,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp
 0x005258B9,7,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258C0 provisional,Code/GameEngine/Source/Common/Rva005258B2Thunk.cpp
 0x005258C0,34,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258E2 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp
-0x005258E2,22,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258F8 provisional,Code/GameEngine/Source/Common/Rva005253A0ListenerWalks.cpp
+0x005258E2,22,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,C,C=0x00525407..0x005258F8 provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp
 0x005258F8,30,code,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/Holder00525D9A.cpp provisional,Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectDataRemoveHero.cpp
 0x00525916,59,code,,,-,,Code/GameEngine/Source/Common/Rva00579E47Delegate.cpp
 0x00525951,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00525951.cpp
