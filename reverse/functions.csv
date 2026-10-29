@@ -25009,7 +25009,7 @@ _piChannelMessageA,,0x006AACB0,305,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?rva00041DC9@Win32GameEngine@@UAEPAXXZ,,0x00041DC9,50,Code/GameEngine/Source/Main/Rva00041DC9Create.cpp,matched,slot33 factory new Rva4CA4C via ctor 4CA3A
 ?Rva004C6F77Median@@YAPAXPAX00P6A_N00@Z@Z,,0x004C6F77,89,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,matched,median of three via pred callers 0x174705 0x4C7595
 ?Rva004C6FD0Insert@@YAXPAXURva004C6FD0Val@@P6A_N00@Z@Z,,0x004C6FD0,57,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,matched,linear insert 8B via pred caller 0x4C70D4
-?xfer@WoundArrowUpdate@@MAEXPAVXfer@@@Z,,0x004C6963,54,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdateXfer.cpp,matched,slot 3 of 0x0085DF10 via base 0x44F996 CRC Version1 bool 0x88
+?xfer@WoundArrowUpdate@@MAEXPAVXfer@@@Z,,0x004C6963,54,Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp,matched,slot 3 of 0x0085DF10 via base 0x44F996 CRC Version1 bool 0x88
 ?Rva004C73C5Insert@@YAXPAX0URva004C6FD0Val@@P6A_N00@Z@Z,,0x004C73C5,74,Code/GameEngine/Source/Common/Rva004C6F77Median.cpp,matched,chain via insert 0x4C6FD0 plus copy_backward
 ?rva00135E6D@Rva00136794@@QAEXXZ,,0x00135E6D,25,Code/Libraries/Source/WWVegas/WWLib/Rva00136794Ctor.cpp,matched,vslot 7 release m54 via named local exact
 ??4Rva00381F04@@QAEAAV0@ABV0@@Z,,0x00381F04,265,Code/GameEngine/Source/Common/Rva00381F04Assign.cpp,matched,copy assign StringBase ints bytes loops AsciiString Rva235A37 via pins unblocks 82E73
