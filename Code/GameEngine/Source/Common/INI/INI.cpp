@@ -691,7 +691,7 @@ extern bool __cdecl Rva0002C5E6(const StringBase<char>&candidate,const Rva0002C5
 
 // tu-skeleton: 0x0002BAC4 11B ?getNthExtraOffset@MultiIniFieldParse@@QBEIH@Z -- matched in Code/GameEngine/Source/Common/INI/INI_initFromINIMulti.cpp (not merged yet)
 
-// tu-skeleton: 0x0002BACF 6B ?Rva0002BACFGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
+// tu-skeleton: 0x0002BACF 6B ?getBlockParseList@@YAHXZ -- matched in Code/GameEngine/Source/Common/GlobalGetterSingles.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/INI/INI.cpp
 

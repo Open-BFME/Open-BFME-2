@@ -91,9 +91,9 @@ void Rva003BE5C9::rva003BE5C9()
 	Player *pl = ThePlayerList->m_localPlayer;
 	if (TheVictoryConditions == 0 || pl == 0)
 		return;
-	Rva003BE5C9P34 *p = pl->m_p34;
-	unsigned char c1 = p ? p->m_1bc : 0;
-	AsciiString s1(c1 ? "Gui_VictoryCheerEvil" : "Gui_VictoryCheerGood");
+	Rva003BE5C9P34 *playerTemplate = pl->m_p34;
+	unsigned char isEvil = playerTemplate ? playerTemplate->m_1bc : 0;
+	AsciiString s1(isEvil ? "Gui_VictoryCheerEvil" : "Gui_VictoryCheerGood");
 	AsciiString s2("Gui_VictoryScreen");
 	AsciiString s3(Rva003BA8F3Get() ? "APT:EndGameOver" : "APT:EndVictorious");
 	Rva003BE5C9P34 *p2 = pl->m_p34;

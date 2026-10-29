@@ -4002,3 +4002,6 @@ __ehhandler$?rva0038901D@Rva0038901D@@QAE?AVAsciiString@@XZ,0x0078002C,"Renamed 
 ??1Rva00529318Slot@@QAE@XZ,0x00529318,"Renamed to ??1PalantirButtonSlot@@QAE@XZ by tools/rename.py (inferred)"
 __ehhandler$??1Rva00529318Slot@@QAE@XZ,0x00796CDE,"Renamed to __ehhandler$??1PalantirButtonSlot@@QAE@XZ by tools/rename.py (inferred)"
 ?g_00DBB588@@3QBULookupListRec@@B,0x009BB588,"Renamed to ?TheUpgradeTypeNames@@3QBULookupListRec@@B by tools/rename.py (inferred)"
+?Rva0001D1C0Get@@YAHXZ,0x0001D1C0,"Renamed to ?getPageSize@@YAHXZ by tools/rename.py (inferred)"
+?Rva0002BACFGet@@YAHXZ,0x0002BACF,"Renamed to ?getBlockParseList@@YAHXZ by tools/rename.py (inferred)"
+?rva005E69D0@Rva005E69D0@@QAEHXZ,0x005E69D0,"Renamed to ?getTotalCost@Rva005E69D0@@QAEHXZ by tools/rename.py (inferred)"

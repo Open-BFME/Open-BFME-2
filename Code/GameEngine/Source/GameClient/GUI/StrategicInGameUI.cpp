@@ -587,7 +587,7 @@ void Rva005E6894::releaseAndEmptyHook() {
 
 // tu-skeleton: 0x005E69C8 8B ?rva005E69C8@Rva005E6F9D@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005E4F6DConstructor.cpp (not merged yet)
 
-// tu-skeleton: 0x005E69D0 48B ?rva005E69D0@Rva005E69D0@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
+// tu-skeleton: 0x005E69D0 48B ?getTotalCost@Rva005E69D0@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp (not merged yet)
 
 // tu-skeleton: 0x005E6A00 17B ?rva005E6A00@Rva005E6A00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaHelperThenMemberForwarders.cpp (not merged yet)
 

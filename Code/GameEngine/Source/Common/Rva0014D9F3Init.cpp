@@ -35,11 +35,11 @@ class Rva0014D9F3This {
 public:
   char m_pad00[0x48];
   TextureBaseClass m_tex48;
-  void rva0014D9F3(Rva0014D9F3Outer *effect, void *b);
+  void rva0014D9F3(Rva0014D9F3Outer *effect, void *parameter);
 };
-void Rva0014D9F3This::rva0014D9F3(Rva0014D9F3Outer *effect, void *b) {
+void Rva0014D9F3This::rva0014D9F3(Rva0014D9F3Outer *effect, void *parameter) {
   Float4 buf;
-  Float4 tmp;
+  Float4 texelSize;
   if (*(void **)&m_tex48 != 0)
     goto nonzero;
   goto zero;
@@ -61,7 +61,7 @@ zero:
   buf.f[2] = 0.0f;
   buf.f[3] = 0.0f;
 done:
-  tmp = buf;
+  texelSize = buf;
   Rva0014D9F3Inner *inner = effect->m_body00;
-  inner->m_fn88(effect, b, &tmp);
+  inner->m_fn88(effect, parameter, &texelSize);
 }

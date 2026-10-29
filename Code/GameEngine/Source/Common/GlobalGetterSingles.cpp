@@ -5,22 +5,22 @@
 // ret/pad on both sides; each lands as its own row in this shared TU
 // (dedicated per run would be eight files for one shape).
 
-// ?Rva0001D1C0Get@@YAHXZ @ 0x0001D1C0 (6B) over 0x00DA6CC8.
+// ?getPageSize@@YAHXZ @ 0x0001D1C0 (6B) over 0x00DA6CC8.
 
 // STLport's protected ?_M_page_size@_Filebuf_base@_STL@@1IA (stlport_narrow_filebuf.cpp), read through a
 // TU-scoped friend view (real decoration, no alias, no second datum).
-int Rva0001D1C0Get(void);
+int getPageSize(void);
 namespace _STL
 {
 class _Filebuf_base
 {
-	friend int ::Rva0001D1C0Get(void);
+	friend int ::getPageSize(void);
 protected:
 	static unsigned int _M_page_size;	// size_t, as STLport declares it
 };
 }
 
-int Rva0001D1C0Get(void)
+int getPageSize(void)
 {
 	return (int)_STL::_Filebuf_base::_M_page_size;
 }
@@ -47,13 +47,13 @@ int Rva00020E90Get(void)
 	return g_Va00DA718C;
 }
 
-// ?Rva0002BACFGet@@YAHXZ @ 0x0002BACF (6B) over 0x00DDF578.
+// ?getBlockParseList@@YAHXZ @ 0x0002BACF (6B) over 0x00DDF578.
 
 struct BlockParse; extern BlockParse *theBlockParseList;
 // g_Va00DDF578: matched references place it at VA 0xddf578 (zero-filled .bss).
 struct BlockParse; extern BlockParse *theBlockParseList;
 
-int Rva0002BACFGet(void)
+int getBlockParseList(void)
 {
 	return (*(int *)&theBlockParseList);
 }

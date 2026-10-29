@@ -199,7 +199,7 @@ int Rva005E4116::rva005E4116() {
 // +0x14 entry's template cost when that clip's flag byte is set.
 class Rva005F6037ByteChaseField {public:unsigned char get()const;};
 struct Rva005E69D0Selection {char pad0[4];Rva005F6037ByteChaseField *clip;char pad8[0x18-8];Rva005E4300Entry *entry;};
-class Rva005E69D0 {public:__declspec(noinline) int rva005E415F();int rva005E69D0();
+class Rva005E69D0 {public:__declspec(noinline) int rva005E415F();int getTotalCost();
  char pad0[0x10];Rva005E4116 *sum;Rva005E69D0Selection *selection;
 };
 // Rva005E69D0::rva005E415F is rowed in its home unit; this copy was a duplicate definition.

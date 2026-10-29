@@ -4211,3 +4211,10 @@ class,Rva00529318Slot,PalantirButtonSlot,inferred,agree:nl-b1cfd82fe5a8,Code/Gam
 local,UpgradeCenter::parseUpgradeDefinition::tmp,UpgradeCenter::parseUpgradeDefinition::ignoredUpgrade,inferred,agree:nl-931484e84b17,Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp,0x0026FA05
 global,?g_00DBB588@@3QBULookupListRec@@B,?TheUpgradeTypeNames@@3QBULookupListRec@@B,inferred,agree:nl-2dc8c75ce297,Code/GameEngine/Source/Common/System/UpgradeCenterFindUpgradeByKey.cpp,0x009BB588
 local,GetStr005FE27A::t,GetStr005FE27A::stringBuffer,inferred,agree:nl-3cc19c614dc4,Code/Libraries/Source/WWVegas/WWLib/Rva005FE27ATabColor.cpp,
+function,?Rva0001D1C0Get@@YAHXZ,?getPageSize@@YAHXZ,inferred,agree:nl-320b289ca48e,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,0x0001D1C0
+function,?Rva0002BACFGet@@YAHXZ,?getBlockParseList@@YAHXZ,inferred,agree:nl-2d1cf6919bb8,Code/GameEngine/Source/Common/GlobalGetterSingles.cpp,0x0002BACF
+param,Rva0014D9F3This::rva0014D9F3::b,Rva0014D9F3This::rva0014D9F3::parameter,inferred,agree:nl-7b65e5abf8c0,Code/GameEngine/Source/Common/Rva0014D9F3Init.cpp,0x0014D9F3
+local,Rva0014D9F3This::rva0014D9F3::tmp,Rva0014D9F3This::rva0014D9F3::texelSize,inferred,agree:nl-94c9aaf19a05,Code/GameEngine/Source/Common/Rva0014D9F3Init.cpp,0x0014D9F3
+function,?rva005E69D0@Rva005E69D0@@QAEHXZ,?getTotalCost@Rva005E69D0@@QAEHXZ,inferred,agree:nl-02374ac31d8f,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp,0x005E69D0
+local,Rva003BE5C9::rva003BE5C9::p,Rva003BE5C9::rva003BE5C9::playerTemplate,inferred,agree:nl-92ccad0736c5,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE5C9.cpp,0x003BE5C9
+local,Rva003BE5C9::rva003BE5C9::c1,Rva003BE5C9::rva003BE5C9::isEvil,inferred,agree:nl-d573fff190eb,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptGlueRva003BE5C9.cpp,0x003BE5C9
