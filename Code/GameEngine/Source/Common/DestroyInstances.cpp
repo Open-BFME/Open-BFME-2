@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7
-// stlport
+// stlport46
 // stlport
 // STLport single-object _Destroy instances: nine-byte free functions
 //
