@@ -1,17 +1,13 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?rva001FD9EF@Rva001FD9EF@@QAEXPAX@Z @0x001FD9EF 28B
 // Hash-node free: clears the AsciiString key at +0x04 via rowed StringBase clear
 // at 0x0048BA39 then frees the node via rowed _free at 0x00030830 with a null guard.
 // Callers pass their table this in ecx and the node on the stack (0x0022346D/0x002234A6
 // 0x002ADD24 0x003A2A62); the body ignores this. thiscall with one stack arg gives ret 4.
-template <typename T>
-class StringBase
-{
-public:
-	void clear();
-};
-
-typedef StringBase<char> AsciiString;
+// The canonical frozen StringBase replaces the private copy; BFME_SB_CLEAR_DECL
+// declares clear() so the call binds to the rowed 0x0048BA39 worker.
+#define BFME_SB_CLEAR_DECL
+#include "string_base.h"
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
@@ -22,7 +18,7 @@ typedef StringBase<char> AsciiString;
 struct Rva001FD9EFNode
 {
 	char m_pad[4];
-	AsciiString m_key;
+	StringBase<char> m_key;
 };
 
 class Rva001FD9EF
