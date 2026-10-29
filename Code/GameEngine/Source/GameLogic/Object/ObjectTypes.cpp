@@ -90,6 +90,7 @@ private:
 public:
 	bool isInSet(const AsciiString &name) const;
 	void addObjectType(const AsciiString &objectType);
+	void remove(const AsciiString &name);
 };
 
 class XferException
