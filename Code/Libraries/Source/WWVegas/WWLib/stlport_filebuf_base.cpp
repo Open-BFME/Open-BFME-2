@@ -1,6 +1,6 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
 // platformsdk
-// stlport
+// stlport46
 //
 // STLport 4.5.3 _Filebuf_base, the Win32 half of basic_filebuf. The handle,
 // the mapping handle, the open mode and the two open flags sit at 0, 4, 8,
