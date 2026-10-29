@@ -5328,6 +5328,8 @@ Census confirmation: not claimed.
 
 **2026-10-26 bounded recheck, inspected `896af216804e`:** retail 0x00423EB0 still calls the 58-byte inner-deque destructor 0x00422D48 and 36-byte 40-byte-stride iterator increment 0x0042198C. With both current providers supplied, the sweep unit remains L2/S2, while `StlportNestedWordDeque.cpp` and `stlport_pod_deque_bodies.cpp` remain LINKS. No trial changed element/template names: they occur in the matched row name, so adopting the real nested-deque element requires naming-lane ledger changes outside this seat. Evidence: `build/link-worker-w5/retail-probe-final.log`, `before-extra-providers.log` and `after-cohort.log`. Remaining prerequisite and next useful check are unchanged; no clearance or census confirmation claimed.
 
+**2026-10-29 recheck, base `8209faa185c4`:** preview against census `85f6b7f40c` still reports both placeholder COMDATs wrong-selected and 0 linked bytes. A nested-deque signature trial cannot use `add_match --replace-rva`: the existing row is not a scaffold and the tool requires a reviewable retraction. The trial was restored before byte or link verification. Plan retraction and readmission with the caller and existing owners/pins; no repair or census gain is claimed. [Trial boundary](../reverse/attempt_support/stlsweep-00423eb0-20261029.md).
+
 ### LINK-028: module ctor units whose private ZH-shaped view emits vftable COMDATs a ZH port also emits
 
 **Status: Open (one unit repaired). Updated: 2026-10-26; inspected revision: `9f93879fe9`.**
