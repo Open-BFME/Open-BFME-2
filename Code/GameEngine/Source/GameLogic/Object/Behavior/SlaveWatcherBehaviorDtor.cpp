@@ -14,7 +14,27 @@
 // SlaveWatcherBehaviorDestructors.cpp proves the find-plus-kill shape.
 
 class Thing;
+class ModuleData;
 #include "ascii_string.h"
+
+typedef bool Bool;
+class Snapshot;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class SlaveWatcherBehaviorModuleData
 {
@@ -28,6 +48,8 @@ public:
 
 #include "../../../Common/GameLogicObjectLookupView.h"
 
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
 enum DamageType
 {
 	DAMAGE_NORMAL = 0
@@ -37,6 +59,19 @@ enum DeathType
 {
 	DEATH_SLAVE_WATCHER_RELEASE = 13
 };
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 namespace _STL
 {
@@ -48,8 +83,34 @@ public:
 };
 }
 
+// The shared 0x80-byte clear (0x001EAE6F) the ctor runs on the +0x24 set.
+class Rva001EAE6FHelper
+{
+public:
+	Rva001EAE6FHelper *clear80();
+
+private:
+	char m_pad[0x80];
+};
+
+// The Xfer's byte-sink packer (0x00291440) the light-CRC xfer path runs.
+class Sink00291440;
+class Rva00291440
+{
+public:
+	void rva00291440(Sink00291440 *sink);
+
+private:
+	unsigned int m_bits[32];
+};
+
+void xferUpgradeMask(Xfer *xfer, Rva00291440 *bits);
+
 class SlaveWatcherBits : public _STL::_Base_bitset<32>
 {
+public:
+	SlaveWatcherBits() { ((Rva001EAE6FHelper *)this)->clear80(); }
+
 private:
 	unsigned char m_pad[0x7C];
 };
@@ -102,7 +163,7 @@ public:
 class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
-	BehaviorModule(Thing *thing, const void *moduleData);
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
 enum UpdateSleepTime
@@ -118,10 +179,20 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
+// Primary vftable 0x00C4A264: the deleting dtor, loadPostProcess, the snapshot
+// name getter, xfer (0x00484673) and getModuleNameKey (0x0048462E) in slots
+// 0-4, as UpdateModule's own table lays them out.
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
+protected:
+	virtual void loadPostProcess();				// slot 1
+	virtual const char *GetSnapshotName() const;		// slot 2
+public:
+	virtual void xfer(Xfer *xfer);				// slot 3
+	virtual NameKeyType getModuleNameKey() const = 0;	// slot 4
 
 protected:
 	void setWakeFrame(Object *object, UpdateSleepTime sleepTime);
@@ -133,13 +204,17 @@ protected:
 class SlaveWatcherBehavior : public UpdateModule
 {
 public:
-	SlaveWatcherBehavior(Thing *thing, const void *moduleData);
+	SlaveWatcherBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~SlaveWatcherBehavior();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	void rva00484869(int id);
 
+protected:
+	virtual void xfer(Xfer *xfer);
+
 private:
-	int m_slaveID; // +0x20
+	ObjectID m_slaveID; // +0x20
 	SlaveWatcherBits m_upgradeBits; // +0x24
 };
 
@@ -148,9 +223,9 @@ SlaveWatcherBehavior::~SlaveWatcherBehavior()
 {
 	if (!m_moduleData || !m_moduleData->m_letSlaveLive)
 	{
-		if (m_slaveID != 0)
+		if (m_slaveID != INVALID_OBJECT_ID)
 		{
-			Object *slave = TheGameLogic->findObjectByID((ObjectID)m_slaveID);
+			Object *slave = TheGameLogic->findObjectByID(m_slaveID);
 			if (slave)
 				slave->kill(DAMAGE_NORMAL, DEATH_SLAVE_WATCHER_RELEASE);
 		}
@@ -160,7 +235,7 @@ SlaveWatcherBehavior::~SlaveWatcherBehavior()
 // ?rva00484869@SlaveWatcherBehavior@@QAEXH@Z @0x00484869: adjacent destructor rows and shared +0x20 slave ID identify the class; method name remains address-derived.
 void SlaveWatcherBehavior::rva00484869(int id)
 {
-	m_slaveID = id;
+	m_slaveID = (ObjectID)id;
 	if (m_moduleData->m_updateSlave)
 	{
 		Object *slave = TheGameLogic->findObjectByID((ObjectID)id);
@@ -185,9 +260,9 @@ UpdateSleepTime SlaveWatcherBehavior::update()
 {
 	Object *me = m_object;
 	const SlaveWatcherBehaviorModuleData *data = m_moduleData;
-	if (m_slaveID != 0)
+	if (m_slaveID != INVALID_OBJECT_ID)
 	{
-		Object *slave = TheGameLogic->findObjectByID((ObjectID)m_slaveID);
+		Object *slave = TheGameLogic->findObjectByID(m_slaveID);
 		if (!slave || slave->isEffectivelyDead())
 		{
 			const UpgradeTemplate *granted = TheUpgradeCenter->findUpgrade(data->m_upgradeOnRelease);
@@ -197,7 +272,7 @@ UpdateSleepTime SlaveWatcherBehavior::update()
 			if (removed)
 				me->rva00293077(removed);
 			me->updateUpgradeModules();
-			m_slaveID = 0;
+			m_slaveID = INVALID_OBJECT_ID;
 			return UPDATE_SLEEP_FOREVER;
 		}
 		if (data->m_updateSlave && Rva0045F4C2NotEqual(&me->m_upgradeBits, &m_upgradeBits))
