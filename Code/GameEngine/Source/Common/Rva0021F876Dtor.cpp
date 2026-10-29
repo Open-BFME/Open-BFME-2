@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ??1Rva0021F876@@QAE@XZ @0x0021F8F3 104B. Dtor of the five-AsciiString plus
 // vector<CreateAHeroSubClass> record proven by the copy ctor at 0x0021F876 in
 // Rva0021F876Copy.cpp: vector at +0x14 via rowed 0x0021F7A7 then

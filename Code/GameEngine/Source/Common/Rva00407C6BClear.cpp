@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
-// stlport
+// stlport46
 //
 // ?rva00407C6B@CreateAHeroHero@@QAEXXZ retail 0x00407C6B 20B
 // Evidence: unlock lane; two Rb_tree int-int clears via twin pin clear 0x0021A917 (twin of dup); caller 0x00408C11; prev our Object 23B same /O1.

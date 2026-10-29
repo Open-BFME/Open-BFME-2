@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
-// stlport
+// stlport46
 //
 // Scratch Online-Files MiscPref reset (retail 0x0055478A, 140B).
 // The body formats "Online Files\MiscPref%d.ini" for a profile slot, loads

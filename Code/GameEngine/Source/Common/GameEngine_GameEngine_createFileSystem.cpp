@@ -5,7 +5,7 @@
 // The old FileSystem donor placement agreed only after a false ctor pin.
 // Keep the receiver address-derived: its complete target class ABI is not
 // declared by the donor GameEngine view. No receiver fields are used here.
-// stlport
+// stlport46
 #define Matrix4x4 Matrix4  // BFME renamed it
 // PIN STATUS 2026-09-06 -- python3 tools/pin_status.py game/GameEngine/Source/Common/GameEngine.cpp
 // 4 of 12 definitions here carry a byte-verified `matched`

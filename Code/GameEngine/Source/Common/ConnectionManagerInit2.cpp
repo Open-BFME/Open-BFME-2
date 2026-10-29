@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP= /D_BFME_RETAIL_TREE_INSERT_LAYOUT
-// stlport
+// stlport46
 // ??0ConnectionManager@@QAE@XZ @ 0x004D274B 263B
 // ConnectionManager::ConnectionManager: vtable + history[9] via ??_H + transport/localSlot/router + maps/set/array via ??_L + 8-way loop.
 // Evidence: offsets match getFileTransferProgress layout 0x12138/0x12150; rowed ctors map<int void*> 0x33C432 set<AsciiString> 0xD3A71 ??_H ??_L; donor ConnectionManagerConstructor.cpp same init and loop.

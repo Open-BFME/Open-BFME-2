@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/stlp_nodealloc
-// stlport
+// stlport46
 // ??1Rva0073F4F3@@QAE@XZ @0x0073F4F3 105B.
 // Dtor with EH states destroying +0x28/+0x20 Rva0040EDB then +0x1c cleanup
 // then +0x14/+0x0c Rva0040EDB then +0x08 cleanup. Evidence: chain lane packet

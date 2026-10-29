@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib
-// stlport
+// stlport46
 
 // Give VC7.1 a declared pair destructor that explicit instantiation can emit.
 #define _STLP_TRIVIAL_DESTRUCTOR_BUG
