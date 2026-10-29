@@ -409,6 +409,23 @@ def test_a_lift_is_refused_whatever_the_worktree_attributes(repo):
     assert gate.added_lift_lines(base, commit())
 
 
+@pytest.mark.parametrize("limit", ["1", "1000"])
+def test_a_renamed_lift_is_judged_alike_whatever_the_rename_limit(repo, limit):
+    # two slightly edited renames of files that already hold a lift: a rename
+    # limit set in the config must not change which lines count as added
+    git, write, commit, base = repo
+    for name in ("A", "B"):
+        write(f"Code/{name}.cpp", "".join(f"int {name.lower()}{i}() {{ return {i}; }}\n" for i in range(20))
+              + "void lift() { __asm { __emit 0x90 } }\n")
+    old = commit()
+    for name in ("A", "B"):
+        git("mv", f"Code/{name}.cpp", f"Code/{name}2.cpp")
+        write(f"Code/{name}2.cpp", (Path(f"Code/{name}2.cpp").read_text() + "int extra() { return 0; }\n"))
+    new = commit()
+    git("config", "diff.renameLimit", limit)
+    assert gate.added_lift_lines(old, new) == []
+
+
 def test_a_refusal_is_never_kept(repo, monkeypatch):
     git, write, commit, base = repo
     wave(write)

@@ -46,9 +46,12 @@ LIFT_RE = re.compile(r"\b__?emit\b")
 LEDGER = "reverse/functions.csv"
 # The diff the rules parse is a function of the two trees only: a working-tree
 # .gitattributes (-diff, a textconv driver) or a user's diff settings (noprefix,
-# color, renames) must not hide added lines, since passing results are reused by tree.
-DIFF_OPTS = ("--text", "--no-ext-diff", "--no-textconv", "--no-color",
-             "--src-prefix=a/", "--dst-prefix=b/")
+# color, relative, algorithm) must not hide added lines, since passing results are
+# reused by tree.
+DIFF_OPTS = ("--text", "--no-ext-diff", "--no-textconv", "--no-color", "--no-relative",
+             "--diff-algorithm=myers", "--src-prefix=a/", "--dst-prefix=b/")
+# git's default rename detection, its limit pinned (diff.renames, diff.renameLimit)
+RENAMES = ("-M", "-l1000")
 
 
 def run(*argv):
@@ -60,7 +63,7 @@ def run(*argv):
 
 
 def added_lift_lines(old, new):
-    diff_cmd = ["git", "diff", "--unified=0", "-M", *DIFF_OPTS]
+    diff_cmd = ["git", "diff", "--unified=0", *RENAMES, *DIFF_OPTS]
     diff_cmd += ["--cached", old] if new == ":" else [old, new]
     # Authored code only. A ledger row may name a file in the vendored
     # reference/ tree, and those rows sit outside this scan on purpose: nobody
@@ -92,7 +95,7 @@ def diff_lines(old, new, *paths):
     if old is None:
         return run("git", "diff-tree", "--root", "-p", "--unified=0", *DIFF_OPTS, new,
                    "--", *paths).splitlines()
-    cmd = ["git", "diff", "--unified=0", "-M", *DIFF_OPTS]
+    cmd = ["git", "diff", "--unified=0", *RENAMES, *DIFF_OPTS]
     cmd += ["--cached", old] if new == ":" else [old, new]
     return run(*cmd, "--", *paths).splitlines()
 
