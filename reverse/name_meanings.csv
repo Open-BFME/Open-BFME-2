@@ -98,3 +98,13 @@ Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp|param|co
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva0058AF47Check|p,ee9ff7ce856f233d2b3a9934,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,e27df1301f84e3f1af5432f0
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|Rva002A9BF2::fromGate|p,6e8c313ff60b0b29b1af0530,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,710e145e68ce851965d7897a
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIDifficulty.cpp|param|AIDifficulty::allowEconomyUpgrade|p,5dad0715b8420c20f3aa5210,drz-k10,drz-k10-n17b-12,w-88a32c4f7da7,2026-10-29,ed03180ae865e4a0dc1fb345
+Code/GameEngine/Source/Common/INI/Rva00222278Parse.cpp|param|TreeHintRef00217D4C|p,65582b51c529c1922c6184c7,drz-k10,drz-k10-60,w-88a32c4f7da7,2026-10-29,9fbcaf8a6b06cb359408bc3a
+Code/GameEngine/Source/Common/ConnectionManagerInit2.cpp|local|ConnectionManager::init|m,38bab521ffa529ba87504fe4,drz-k10,drz-k10-61,w-88a32c4f7da7,2026-10-29,27886caf066c4a38fe7865d1
+Code/GameEngine/Source/GameLogic/AI/AIPlayerCtor.cpp|param|setCanBuildUnits|b,7ba71570dbefc50f8fa96c4e,drz-k10,drz-k10-65,w-88a32c4f7da7,2026-10-29,6139d64d342754cd17718eb9
+Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp|param|PolygonTrigger::rva002E3A39|p,d650b952cf63ac651634821d,drz-k10,drz-k10-68,w-88a32c4f7da7,2026-10-29,eab6828d09294046efc7e687
+Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp|local|PolygonTrigger::rva002E3AA8|n,9039f4eb8aeefedee4b8a0a4,drz-k10,drz-k10-68,w-88a32c4f7da7,2026-10-29,cdaf6c509368f503edb68cf5
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp|param|copyCoord|c,c1c10f21a37af9877fc02eb6,drz-k10,drz-k10-70,w-88a32c4f7da7,2026-10-29,37c4c0b76599bc9c8aa0d7cf
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp|param|subCoord|c,3885a5897b7078da8dfdfcde,drz-k10,drz-k10-70,w-88a32c4f7da7,2026-10-29,44549e73307f4a76c35f7c74
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp|param|addCoord|c,62992aa866e4518cb95b0379,drz-k10,drz-k10-70,w-88a32c4f7da7,2026-10-29,d114db22ee9c369728197017
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp|param|scaleCoord|c,0909df041a6b73c430a3d2a7,drz-k10,drz-k10-70,w-88a32c4f7da7,2026-10-29,77e0dcd31032b5e5dfa55a21
+Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00396E4ARemove.cpp|param|scaleCoord|s,7167ed86750baa874f282f62,drz-k10,drz-k10-70,w-88a32c4f7da7,2026-10-29,b23d0f35a616e82fc12a443a
