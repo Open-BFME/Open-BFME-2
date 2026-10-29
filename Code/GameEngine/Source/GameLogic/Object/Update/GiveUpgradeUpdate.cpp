@@ -4,6 +4,14 @@
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+//
+// ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z @0x0049C51A 57B.
+// Look up the id at +0x20 through GameLogic::findObjectByID. Forward the
+// five arguments to 0x004500A3 when that object is missing or the byte
+// at +0x69 is clear.
+
+
+class Object;
 
 enum CommandSourceType
 {
@@ -78,20 +86,12 @@ enum UpdateSleepTime
 };
 
 class SpecialPowerTemplate;
+
 struct Coord3D;
+
 class Waypoint;
+
 class Rva0049C5D9;
-
-class SpecialAbilityUpdate
-{
-	friend class Rva0049C5D9;
-public:
-	virtual UpdateSleepTime update();
-	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
-
-protected:
-	virtual void onExit(bool a, bool b);
-};
 
 class Rva0049C93F
 {
@@ -183,6 +183,18 @@ public:
 	Object *rva002931F5(bool flag);
 };
 
+class Rva0049C51A
+{
+public:
+	void rva0049C51A(int specialPowerTemplate, int targetObj, int targetPos, int commandOptions, int way);
+
+private:
+	char m_pad[0x20];
+	ObjectID m_id;
+	char m_pad24[0x69 - 0x24];
+	unsigned char m_flag69;
+};
+
 class Rva0049C592
 {
 public:
@@ -191,6 +203,23 @@ public:
 private:
 	char m_pad[0x40];
 	unsigned int m_id;
+};
+
+class SpecialAbilityUpdate
+{
+	friend class Rva0049C5D9;
+public:
+	virtual UpdateSleepTime update();
+	virtual void initiateIntentToDoSpecialPower(const SpecialPowerTemplate *specialPowerTemplate, const Object *targetObj, const Coord3D *targetPos, unsigned int commandOptions, const Waypoint *way);
+
+protected:
+	virtual void onExit(bool a, bool b);
+};
+
+class Rva0049C5D9
+{
+public:
+	void onExit(bool a, bool b);
 };
 
 // tu-skeleton: 0x0049C391 27B ?buildFieldParse@GiveUpgradeUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
@@ -203,6 +232,8 @@ private:
 
 // tu-skeleton: 0x0049C41C 85B ?xfer@GiveUpgradeUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateXfer.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdatePoolKey.cpp
 
 // ?getModuleNameKey@GiveUpgradeUpdate@@UBE?AW4NameKeyType@@XZ
@@ -212,14 +243,6 @@ NameKeyType GiveUpgradeUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("GiveUpgradeUpdate");
 	return TheGiveUpgradeUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0049C4B6 28B ??_GRva0049C3FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C4D2 72B ??0GiveUpgradeUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C51A 57B ?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z -- matched in Code/GameEngine/Source/Common/Rva0049C51AForward.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C553 63B ?rva0044EDA6@GiveUpgradeUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateSlot8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0049C592Clear.cpp
 
@@ -243,12 +266,6 @@ void Rva0049C592::rva0049C592()
 	}
 	m_id &= 0;
 }
-
-// tu-skeleton: 0x0049C5D9 27B ?onExit@Rva0049C5D9@@QAEX_N0@Z -- matched in Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C5F4 48B ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0049C5F4ProviderGet.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C624 28B ??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataDtor.cpp
 
@@ -274,26 +291,6 @@ GiveUpgradeUpdateModuleData::~GiveUpgradeUpdateModuleData()
 	if (m_bufC8)
 		free(m_bufC8);
 }
-
-// tu-skeleton: 0x0049C67E 99B ?rva0049C67E@Rva0049C67E@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0049C67EBegin.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C6E1 89B ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0049C6E1Finish.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C73A 431B ?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0049C8E9 19B ?rva0049C8E9@GiveUpgradeUpdate@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D852 8B Unwind@00b8d852 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D85A 8B $L889 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D862 8B Unwind@00b8d862 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D86A 8B Unwind@00b8d86a -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D872 8B uw_0078d872 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D87A 10B __ehhandler$?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
 
 static GiveUpgradeUpdate *parentOf(Rva0049C93F *self)
 {
@@ -346,3 +343,50 @@ int Rva0049C93F::update()
 	}
 	return m_flag89 ? 1 : code;
 }
+
+// tu-skeleton: 0x0049C4B6 28B ??_GRva0049C3FC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00451F45Derived.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C4D2 72B ??0GiveUpgradeUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0049C51AForward.cpp
+
+void Rva0049C51A::rva0049C51A(int specialPowerTemplate, int targetObj, int targetPos, int commandOptions, int way)
+{
+	Object *found = TheGameLogic->findObjectByID(m_id);
+	if (found == 0 || m_flag69 == 0)
+		((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::initiateIntentToDoSpecialPower((const SpecialPowerTemplate *)specialPowerTemplate, (const Object *)targetObj, (const Coord3D *)targetPos, (unsigned int)commandOptions, (const Waypoint *)way);
+}
+
+// tu-skeleton: 0x0049C553 63B ?rva0044EDA6@GiveUpgradeUpdate@@UAE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateSlot8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp
+
+void Rva0049C5D9::onExit(bool a, bool b)
+{
+	((Rva0049C592 *)this)->rva0049C592();
+	((SpecialAbilityUpdate *)this)->SpecialAbilityUpdate::onExit(a, b);
+}
+
+// tu-skeleton: 0x0049C5F4 48B ?rva0049C5F4@Rva0049C5F4@@QAEPAXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0049C5F4ProviderGet.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C624 28B ??_GGiveUpgradeUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C67E 99B ?rva0049C67E@Rva0049C67E@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0049C67EBegin.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C6E1 89B ?rva0049C6E1@Rva0049C6E1@@QAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva0049C6E1Finish.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C73A 431B ?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0049C8E9 19B ?rva0049C8E9@GiveUpgradeUpdate@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D852 8B Unwind@00b8d852 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D85A 8B $L889 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D862 8B Unwind@00b8d862 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D86A 8B Unwind@00b8d86a -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D872 8B uw_0078d872 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)
+
+// tu-skeleton: 0x0078D87A 10B __ehhandler$?GetDeliveryTarget@GiveUpgradeUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateRva0049C8E9.cpp (not merged yet)

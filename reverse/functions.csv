@@ -44508,7 +44508,7 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva0048E643@Rva0048E643@@QAE_NXZ,,0x0048E643,24,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/DeployStyleAIUpdate.cpp,matched,false when the 0x48E61F predicate is set else tail to 0x2645FF
 ?rva00488C48@Rva00488C48@@QAEMXZ,,0x00488C48,72,Code/GameEngine/Source/Common/Rva00488C48Scale.cpp,matched,computer player scales module float +0x6C by TheAI inner +0x88
 ?rva0049C592@Rva0049C592@@QAEXXZ,,0x0049C592,71,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,matched,id at +0x40 clears status 0x42 on the object and on 0x2931F5
-?onExit@Rva0049C5D9@@QAEX_N0@Z,,0x0049C5D9,27,Code/GameEngine/Source/Common/Rva0049C5D9Exit.cpp,matched,clears the id at +0x40 then forwards both bool args to the rowed SpecialAbilityUpdate::onExit 0x4502CE
+?onExit@Rva0049C5D9@@QAEX_N0@Z,,0x0049C5D9,27,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,matched,clears the id at +0x40 then forwards both bool args to the rowed SpecialAbilityUpdate::onExit 0x4502CE
 ?rva004AB9A2@Rva004AB9A2@@QAEXXZ,,0x004AB9A2,51,Code/GameEngine/Source/Common/Rva004AB9A2Wake.cpp,matched,flag +0x8D registers +0x24 with g_00DFE1A8 then setWakeFrame
 ?rva0048AEC6@Rva0048AEC6@@QAEXH@Z,,0x0048AEC6,69,Code/GameEngine/Source/Common/Rva0048AEC6Clear.cpp,matched,slot 0x40 clears index stride then aiIdle
 ?rva004AAD69@Rva004AAD69@@QAEXXZ,,0x004AAD69,72,Code/GameEngine/Source/Common/Rva004AAD69Idle.cpp,matched,value 1 idles AI then slot 0x20
@@ -44531,7 +44531,7 @@ _peerIsConnected,,0x006987C0,8,Code/GameEngine/Source/GameNetwork/GameSpy/peer/p
 ?rva00499C6C@Rva00499C6C@@QAEXXZ,,0x00499C6C,172,Code/GameEngine/Source/Common/Rva00499C6CWake.cpp,matched,frame stamp then dock wake audio
 ?rva0049DC50@Rva0049DC50@@QAEXH@Z,,0x0049DC50,187,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,matched,list walk refund comiss flag then slot0 delete
 ?rva004B0942@Rva004B0942@@QAEPAXXZ,,0x004B0942,26,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp,matched,cache slot +0x20 from the dword at +8
-?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z,,0x0049C51A,57,Code/GameEngine/Source/Common/Rva0049C51AForward.cpp,matched,forward five args when the id lookup misses or +0x69 is clear
+?rva0049C51A@Rva0049C51A@@QAEXHHHHH@Z,,0x0049C51A,57,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdate.cpp,matched,forward five args when the id lookup misses or +0x69 is clear
 ?rva004AD9E0@Rva004ADC88@@QAEXXZ,,0x004AD9E0,77,Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp,matched,drop the object at +8 then destroy it
 ?finishAbility@Rva004ADC88@@QAEXXZ,,0x004ADC88,96,Code/GameEngine/Source/GameLogic/Object/Update/ToggleMountedSpecialAbilityUpdate.cpp,matched,write 1.0f on the drawable then tail-call the drop
 ?rva004B0E9C@Rva004B0E9C@@QAEXXZ,,0x004B0E9C,32,Code/GameEngine/Source/Common/Rva004B0E9CClear.cpp,matched,call 0x004DD2C0 and clear the slot at +0x9C
