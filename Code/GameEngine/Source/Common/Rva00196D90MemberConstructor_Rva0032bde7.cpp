@@ -1,5 +1,5 @@
 // cl: -DNDEBUG -MD -EHsc -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// stlport
+// stlport46
 
 #include <new>
 #include <vector>
