@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Reconstructed STLport 4.5.3 facet construction from the vendor layouts and
 // retail code. Constructor identities independently follow PE vtable RTTI.
 // Modified reconstruction; no new address aliases are introduced.

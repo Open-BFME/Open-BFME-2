@@ -1,5 +1,5 @@
 // cl: /Od /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Dedicated TU for STLport _List_global<bool>::_Transfer. Retail built this
 // helper unoptimised (/Od) so __tmp lives on the stack. Do not edit the

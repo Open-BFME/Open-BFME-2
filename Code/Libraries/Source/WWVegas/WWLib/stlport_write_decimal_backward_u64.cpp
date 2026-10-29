@@ -1,5 +1,5 @@
 // cl: -EHsc -MD -D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport unsigned decimal writer, the unsigned __int64 instantiation of
 // __write_decimal_backward(__false_type). Retail divides with __aulldvrm,

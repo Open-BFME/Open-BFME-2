@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_filebuf<wchar_t>::_M_seek_return, the wide twin of
 // 0x000143D0. The four mode flags sit at 0x37..0x3A rather than 0x67..0x6A,

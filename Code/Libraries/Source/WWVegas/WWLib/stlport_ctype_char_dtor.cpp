@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // STLport 4.5.3 src/ctype.cpp: ctype<char>'s destructor, retail 0x00016B60
 // (36 bytes): vtable 0x00BBC3E4, the _M_delete test, delete[] of the table,
 // then a tail jump to locale::facet's destructor 0x000072E0, which stays out

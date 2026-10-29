@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::push_back. These TU-scoped declarations
 // retain the upstream class layout while leaving reserve as the external member

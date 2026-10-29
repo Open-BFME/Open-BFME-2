@@ -20,7 +20,7 @@
 // pin (the static); the callee is already rowed so no code pin.
 
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 typedef unsigned short BfmeWChar;
 
 namespace _STL

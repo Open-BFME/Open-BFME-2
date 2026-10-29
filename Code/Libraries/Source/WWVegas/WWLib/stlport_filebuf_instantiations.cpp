@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Ported from Open-BFME-1's game/stlport/FilebufInstantiations.cpp
 // (donor revision: reference/open-bfme-1 @ a38d345e) by tools/bfme1_sweep.py:

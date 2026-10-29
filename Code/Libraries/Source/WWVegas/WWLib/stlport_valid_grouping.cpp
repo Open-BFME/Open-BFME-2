@@ -1,5 +1,5 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 __valid_grouping. Walks the digit-group counts backwards
 // against the grouping string, holding on the last group spec once it runs out,
