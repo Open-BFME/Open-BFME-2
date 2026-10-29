@@ -4,7 +4,6 @@ Code/GameEngine/Source/Common/RTS/PlayerInitFromDict.cpp	drop-in candidate	same	
 Code/Libraries/Source/WWVegas/WWLib/mmsys.h	drop-in candidate	same	3	3	0	0	0	0	0	0	0	0	0	<windows.h>	yes	no	hand		prove with ./build.sh: byte gate is the authority	timeGetTime:same,timeBeginPeriod:same,timeEndPeriod:same
 Code/GameEngine/Source/Common/FprintfAppendLine.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	1	0	0	<stdio.h>,<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	NULL:same,_vsnprintf:same
 Code/GameEngine/Source/GameNetwork/GameSpy/peer/peerOperations.c	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	closesocket:same,WSACleanup:same
-Code/stlport/FileSizeHelper.cpp	drop-in candidate	same	2	2	0	0	0	0	0	0	0	0	0	<windows.h>	yes	yes	hand		prove with ./build.sh: byte gate is the authority	GetFileSize:same,GetLastError:same
 Code/GameEngine/Source/Common/BfmeIntVecG.h	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<stdlib.h>	no	no	hand		prove with ./build.sh: byte gate is the authority	free:same
 Code/GameEngine/Source/GameLogic/Object/Behavior/GateOpenAndCloseBehaviorPushOut.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same
 Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<string.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	memset:same

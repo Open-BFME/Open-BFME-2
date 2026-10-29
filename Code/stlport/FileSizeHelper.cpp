@@ -7,9 +7,7 @@
 // folded into stlport_filebuf_base.cpp's forceinline _File_size) because
 // retail keeps it out of line at 0x0001D240.
 
-extern "C" __declspec(dllimport) unsigned long __stdcall GetFileSize(
-		void *handle, unsigned long *high);
-extern "C" __declspec(dllimport) unsigned long __stdcall GetLastError(void);
+#include <windows.h>
 
 struct _FileSizeLargeInteger
 {
