@@ -51,15 +51,8 @@ public:
 
 extern PlayerList *ThePlayerList;
 
-class Module
-{
-public:
-	virtual ~Module();
-protected:
-	Object *getObject() const { return m_object; }
-	const ModuleData *m_moduleData;
-	Object *m_object;
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -76,7 +69,7 @@ public:
 	virtual bool shouldDoOnBuildComplete() const = 0;
 };
 
-class CreateModule : public Module, public BehaviorModuleInterface, public CreateModuleInterface
+class CreateModule : public ObjectModule, public BehaviorModuleInterface, public CreateModuleInterface
 {
 protected:
 	bool m_needToRunOnBuildComplete;

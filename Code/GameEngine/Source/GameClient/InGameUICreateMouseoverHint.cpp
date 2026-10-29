@@ -255,9 +255,9 @@ class ContainModuleInterface { public:
 
 };
 class Rva00373EC6 { public: unsigned char pad[0x38]; int playerIndex; const ThingTemplate* thingTemplate; };
-class Module {};
+#include "../../Include/Common/Module.h"
 class SpecialDisguiseUpdate : public Module { public: void* rva004B031E(); };
-class SupplyWarehouseDockUpdate : public Module { public: unsigned char pad[0x88]; int boxes; int getBoxesStored() const { return boxes; } };
+class SupplyWarehouseDockUpdate : public Module { public: unsigned char pad[0x88 - 8]; int boxes; int getBoxesStored() const { return boxes; } };
 class Object { public:
  const ThingTemplate* getTemplate() const { return thingTemplate; }
  const Coord3D* getPosition() const { return &position; }

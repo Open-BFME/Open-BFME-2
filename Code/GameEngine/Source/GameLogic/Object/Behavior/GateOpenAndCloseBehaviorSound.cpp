@@ -69,16 +69,11 @@ public:
 	virtual void gap0() = 0;
 };
 
-class Module
-{
-public:
-	virtual ~Module();
-};
+#include "../../../../Include/Common/Module.h"
 
 class BehaviorModule : public Module
 {
 protected:
-	const ModuleData *m_moduleData;
 	Object *m_object;
 };
 struct BehaviorModuleInterface { virtual void f0C() {} };

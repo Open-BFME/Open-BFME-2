@@ -60,11 +60,7 @@ struct BfmeSelectTemplateView
 	unsigned int m_kindOfWord118;							// +0x118; target tests bit 0x200
 };
 
-class Module
-{
-public:
-	virtual ~Module();
-};
+#include "../../Include/Common/Module.h"
 
 // The module both gate behaviours are asked through: Module at +4, and the
 // query 0x00498CB1; retail subtracts 4 from the found Module pointer.
@@ -83,7 +79,7 @@ class Rva00498CB1Owner : public BfmeGateModuleBase, public Module
 public:
 	bool invoke();
 
-	unsigned char m_pad008[0x1C];
+	unsigned char m_pad00C[0x18];
 	ObjectID m_objectID; // +0x24
 };
 

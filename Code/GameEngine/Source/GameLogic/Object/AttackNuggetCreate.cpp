@@ -77,7 +77,7 @@ private:
 };
 
 class RadiusDecalUpdate;
-class Module {};
+#include "../../../Include/Common/Module.h"
 
 class Object {
 public:
@@ -104,7 +104,7 @@ public:
 	void createRadiusDecal(const RadiusDecalTemplate &tmpl, Real radius, const Coord3D &pos);
 	void killWhenNoLongerAttacking(bool k) { m_kill = k; }
 private:
-	unsigned char m_pad[0x30];
+	unsigned char m_pad[0x30 - 8];
 	bool m_kill;
 };
 

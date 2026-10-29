@@ -933,8 +933,8 @@ public:
 
 #include "../../Common/PartitionRangeQueryCallView.h"
 extern PartitionManager *ThePartitionManager;
-class Module{public:virtual ~Module();};
-class SupplyWarehouseDockUpdate:public Module{public:char m_pad04[0x88-4];int m_boxesStored;int getBoxesStored()const{return m_boxesStored;}};
+#include "../../../Include/Common/Module.h"
+class SupplyWarehouseDockUpdate:public Module{public:char m_pad08[0x88-8];int m_boxesStored;int getBoxesStored()const{return m_boxesStored;}};
 
 /** Queue up a supply truck to be built. */
 static __forceinline void restoreUnitBuild(Player *player,const Bool &saved) { _ReadWriteBarrier();player->setCanBuildUnits(saved); }

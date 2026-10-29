@@ -32,12 +32,7 @@ public:
 	AsciiString m_gateName; // +0x14
 };
 
-class Module
-{
-public:
-	virtual ~Module();
-	virtual void onObjectCreated();
-};
+#include "../../../../Include/Common/Module.h"
 
 class Object
 {
@@ -95,7 +90,6 @@ class BehaviorModule : public Module
 protected:
 	virtual void loadPostProcess();
 
-	const ModuleData *m_moduleData;
 	Object *m_object;
 };
 struct BehaviorModuleInterface { virtual void f0C() {} };
