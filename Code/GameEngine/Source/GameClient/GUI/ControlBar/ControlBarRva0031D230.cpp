@@ -58,8 +58,8 @@ public:
 class PlayerList
 {
 public:
-	char pad00[0x10];
-	Player *m_local;	// +0x10
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
 };
 
 class ThingTemplate
@@ -497,7 +497,7 @@ void ControlBar::rva0031D230()
 			if (contain && contain->getContainMax() > 0)
 			{
 				switchToContext(4, draw);
-				Player *localPlayer = ThePlayerList->m_local;
+				Player *localPlayer = ThePlayerList->local;
 				if (contain && contain->vfD8() && contain->vfE0() == localPlayer)
 				{
 					switchToContext(3, draw);
@@ -506,7 +506,7 @@ void ControlBar::rva0031D230()
 				const Player *otherPlayer = contain->getApparentControllingPlayer(localPlayer);
 				if (!otherPlayer)
 					otherPlayer = obj->getControllingPlayer();
-				Player *player = ThePlayerList->m_local;
+				Player *player = ThePlayerList->local;
 				bool playersKnown = player && otherPlayer;
 				if (!playersKnown)
 				{
@@ -599,7 +599,7 @@ void ControlBar::rva0031D230()
 				//a commandset defined. If we do, then trust that the commandset will
 				//handle it!
 
-				Player *localPlayer = ThePlayerList->m_local;
+				Player *localPlayer = ThePlayerList->local;
 
 				// we cannot select objects that are controlled by our enemies
 				Relationship relationship = localPlayer->getRelationship(obj->m_team);

@@ -22,10 +22,8 @@ public:
 class PlayerList
 {
 public:
-	// Matched callers read the local player at +0x10 directly; do not emit
-	// a shared getter from this partial target layout.
-	unsigned char m_pad00[0x10];
-	Player *m_local; // +0x10
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
 };
 
 extern PlayerList *ThePlayerList;
@@ -290,7 +288,7 @@ void ControlBar::showPurchaseScience()
 {
 	if (TheScriptEngine->getValue1A104() >= 0)
 		return;
-	Player *player = ThePlayerList->m_local;
+	Player *player = ThePlayerList->local;
 	if (!player || !player->isPlayerActive())
 		return;
 	m_genStarFlash = false;

@@ -49,29 +49,28 @@ public:
 	virtual bool isPushButton() const;
 };
 
+typedef int Int;
+typedef unsigned int UnsignedInt;
+
 class Display
 {
 public:
-#define DISPLAY_SLOT(n) virtual void unknown##n();
-    DISPLAY_SLOT(00) DISPLAY_SLOT(01) DISPLAY_SLOT(02) DISPLAY_SLOT(03)
-    DISPLAY_SLOT(04) DISPLAY_SLOT(05) DISPLAY_SLOT(06) DISPLAY_SLOT(07)
-    DISPLAY_SLOT(08) DISPLAY_SLOT(09) DISPLAY_SLOT(10) DISPLAY_SLOT(11)
-    DISPLAY_SLOT(12) DISPLAY_SLOT(13) DISPLAY_SLOT(14) DISPLAY_SLOT(15)
-    DISPLAY_SLOT(16)
-#undef DISPLAY_SLOT
-    virtual int getHeight() const;
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+	V(10) V(11) V(12) V(13) V(14) V(15)
+#undef V
+	virtual UnsignedInt getWidth();		// +0x40
+	virtual UnsignedInt getHeight();	// +0x44
 };
 
 class View
 {
 public:
-#define VIEW_SLOT(n) virtual void unknown##n();
-    VIEW_SLOT(00) VIEW_SLOT(01) VIEW_SLOT(02) VIEW_SLOT(03)
-    VIEW_SLOT(04) VIEW_SLOT(05) VIEW_SLOT(06) VIEW_SLOT(07)
-    VIEW_SLOT(08) VIEW_SLOT(09) VIEW_SLOT(10) VIEW_SLOT(11)
-    VIEW_SLOT(12) VIEW_SLOT(13) VIEW_SLOT(14) VIEW_SLOT(15)
-#undef VIEW_SLOT
-    virtual void setHeight(int height);
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+	V(10) V(11) V(12) V(13) V(14) V(15)
+#undef V
+	virtual void setHeight(Int height);	// +0x40
 };
 
 struct Rva0031ADAEPlayerView
@@ -82,8 +81,8 @@ struct Rva0031ADAEPlayerView
 class PlayerList
 {
 public:
-    char unknown00[0x10];
-    Player *localPlayer;
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
 };
 
 extern Display *TheDisplay;
@@ -335,6 +334,6 @@ void ControlBar::rva0031ADAE()
     m_contextParent[0]->winSetPosition(m_defaultControlBarPosition.x, m_defaultControlBarPosition.y);
     TheTacticalView->setHeight(TheDisplay->getHeight());
     m_controlBarSchemeManager->setControlBarSchemeByPlayerTemplate(
-        reinterpret_cast<Rva0031ADAEPlayerView *>(ThePlayerList->localPlayer)
+        reinterpret_cast<Rva0031ADAEPlayerView *>(ThePlayerList->local)
             ->playerTemplate, true);
 }

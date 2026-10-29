@@ -676,7 +676,12 @@ public:
 public:
 	bool hasScience(ScienceType) const;
 };
-class PlayerList {public:char pad00[16];Player *local;};
+class PlayerList
+{
+public:
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
+};
 extern PlayerList *ThePlayerList;
 #include "ControlBarMemberTypes.h"
 typedef int Color;

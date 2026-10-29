@@ -130,6 +130,7 @@ extern GameWindowManager *TheWindowManager;
 
 void GadgetButtonSetEnabledImage_Rva002C0433(GameWindow *win, const Image *image);
 
+class Player;
 struct MoneyInner
 {
 	char m_pad00[0x24];
@@ -139,8 +140,8 @@ struct MoneyInner
 class PlayerList
 {
 public:
-	char m_pad00[0x10];
-	MoneyInner *m_p0010;
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
 };
 
 extern PlayerList *ThePlayerList;
@@ -392,7 +393,7 @@ private:
 
 int ControlBar::rva0031AA86()
 {
-	int money = ThePlayerList->m_p0010->m_money;
+	int money = ((MoneyInner *)ThePlayerList->local)->m_money;
 	if (m_lastFlashedAtPointValue <= money && money > 0)
 		m_lastFlashedAtPointValue = money;
 	else

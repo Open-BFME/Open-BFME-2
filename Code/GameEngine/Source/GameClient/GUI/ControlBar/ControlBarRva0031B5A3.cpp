@@ -21,8 +21,8 @@ struct MoneyInner
 class PlayerList
 {
 public:
-	char m_pad00[0x10];
-	MoneyInner *m_p0010;
+	char unknown00[0x10]; // +0x00
+	Player *local; // +0x10
 };
 
 extern PlayerList *ThePlayerList;
@@ -293,7 +293,7 @@ void ControlBar::rva0031B5A3(const Player *player)
 	if (!player->isLocalPlayer())
 		return;
 	{
-		int money = ThePlayerList->m_p0010->m_money;
+		int money = ((MoneyInner *)ThePlayerList->local)->m_money;
 		if (m_lastFlashedAtPointValue > money)
 			goto done;
 	}

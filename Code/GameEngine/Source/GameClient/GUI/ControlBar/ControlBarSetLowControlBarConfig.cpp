@@ -16,35 +16,25 @@ typedef int Int;
 typedef unsigned int UnsignedInt;
 typedef bool Bool;
 
-class DisplaySlots
+class Display
 {
 public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-	virtual void s16();
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+	V(10) V(11) V(12) V(13) V(14) V(15)
+#undef V
+	virtual UnsignedInt getWidth();		// +0x40
+	virtual UnsignedInt getHeight();	// +0x44
 };
 
-class Display : public DisplaySlots
+class View
 {
 public:
-	virtual UnsignedInt getHeight(void); // slot 17
-};
-
-class ViewSlots
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
-};
-
-class View : public ViewSlots
-{
-public:
-	virtual void setHeight(Int height); // slot 16
+#define V(n) virtual void v##n();
+	V(00) V(01) V(02) V(03) V(04) V(05) V(06) V(07) V(08) V(09)
+	V(10) V(11) V(12) V(13) V(14) V(15)
+#undef V
+	virtual void setHeight(Int height);	// +0x40
 };
 
 extern Display *TheDisplay;
