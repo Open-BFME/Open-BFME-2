@@ -107,6 +107,7 @@ class UpdateModule : public ObjectModule,
 public:
 	// Defined once, out of line, in UpdateModuleCtor.cpp (retail 0x00253390).
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();				// 0x0024A797, out of line
 	virtual void behaviorAnchor();
 	void xfer(Xfer *xfer);					// 0x0044DF9F, spelled as its row
 protected:
@@ -122,6 +123,7 @@ class DemoTrapUpdate : public UpdateModule
 {
 public:
 	DemoTrapUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~DemoTrapUpdate();				// 0x00495916, out of line
 	virtual void objectModuleAnchor();
 	virtual void behaviorAnchor();
 protected:

@@ -40,12 +40,14 @@ class DamageModule : public ObjectModule, public BehaviorModuleInterface, public
 {
 public:
 	DamageModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~DamageModule();	// 0x004B96CC, out of line
 };
 
 class CallHelpOnDamage : public DamageModule
 {
 public:
 	CallHelpOnDamage(Thing *thing, const ModuleData *moduleData);
+	virtual ~CallHelpOnDamage();	// 0x004BB4D1, out of line
 	virtual void onDamage(DamageInfo *damageInfo);
 private:
 	int m_14;	// +0x14

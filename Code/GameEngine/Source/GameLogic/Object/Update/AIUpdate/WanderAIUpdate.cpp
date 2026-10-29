@@ -144,6 +144,8 @@ public:
 
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	virtual ~UpdateModule();	// 0x0024A797, out of line
 protected:
 	char m_pad14[0x20 - 0x14];
 };
@@ -302,6 +304,7 @@ class WanderAIUpdate : public AIUpdateInterface
 {
 public:
  WanderAIUpdate(Thing *, const ModuleData *);
+	virtual ~WanderAIUpdate();	// 0x004A935D, out of line
 	virtual UpdateSleepTime update();
 private:
 	const WanderAIUpdateModuleData *getWanderAIUpdateModuleData() const

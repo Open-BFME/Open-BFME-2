@@ -34,6 +34,7 @@ class UpdateModule : public ObjectModule,
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();			///< 0x0024A797, out of line
 
 	virtual void behaviorAnchor();
 	virtual void updateAnchor();
