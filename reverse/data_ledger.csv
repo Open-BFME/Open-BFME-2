@@ -19923,8 +19923,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A035C0,4,.data,global,?$S1@?1??getModuleNameKey@SpawnBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorPoolKey.cpp,owned,,1,4
 0x00A035C4,4,.data,global,_s_rva007B0BFF,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A035C8,4,.data,global,?g_00E035C8@@3HA,,unowned,,0,2
-0x00A035CC,4,.data,global,?TheWargBehaviorPoolKey@?1??getModuleNameKey@WargBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorPoolKey.cpp,owned,,1,2
-0x00A035D0,4,.data,global,?$S1@?1??getModuleNameKey@WargBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorPoolKey.cpp,owned,,1,4
+0x00A035CC,4,.data,global,?TheWargBehaviorPoolKey@?1??getModuleNameKey@WargBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,owned,,1,2
+0x00A035D0,4,.data,global,?$S1@?1??getModuleNameKey@WargBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,owned,,1,4
 0x00A035D4,4,.data,global,?key_DynamicPortalBehaviour@?1??rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/ObjectFindDynamicPortalBehaviour.cpp,owned,,1,2
 0x00A035D8,4,.data,global,?$S1@?1??rva004608E0@DynamicPortalBehaviour@@SAPAVModule@@PAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/ObjectFindDynamicPortalBehaviour.cpp,owned,,1,4
 0x00A035DC,4,.data,global,?TheDynamicPortalBehaviourPoolKey@?1??getModuleNameKey@DynamicPortalBehaviour@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,owned,,1,2

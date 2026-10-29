@@ -36154,7 +36154,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004607F3,17,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/TemporarilyDefectUpdateModuleDataFriendNew.cpp
 0x00460804,35,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorCtor.cpp
 0x00460827,6,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,C,C=0x00460804..0x0046082D provisional,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
-0x0046082D,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorPoolKey.cpp
+0x0046082D,69,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp
 0x00460872,43,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviourSlots.cpp
 0x0046089D,32,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDtor.cpp
 0x004608BD,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
@@ -79453,8 +79453,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078A78E,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorDtor.cpp
 0x0078A798,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,approved,P,P=0x00460586@FuncInfo0x0093916C,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp
 0x0078A7A0,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehavior.cpp,approved,P,P=0x00460586@FuncInfo0x0093916C,Code/GameEngine/Source/GameLogic/Object/Behavior/SpawnBehaviorXfer.cpp
-0x0078A7AA,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,P,P=0x0046082D@FuncInfo0x00939190 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorPoolKey.cpp
-0x0078A7B7,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,P,P=0x0046082D@FuncInfo0x00939190 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehaviorPoolKey.cpp
+0x0078A7AA,13,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,P,P=0x0046082D@FuncInfo0x00939190 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp
+0x0078A7B7,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp,approved,P,P=0x0046082D@FuncInfo0x00939190 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/WargBehavior.cpp
 0x0078A7C1,13,code,Code/GameEngine/Source/GameLogic/Object/DynamicPortalBehaviour.cpp,approved,P,P=0x004608E0@FuncInfo0x009391B4 p-group provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFindDynamicPortalBehaviour.cpp
 0x0078A7CE,10,code,Code/GameEngine/Source/GameLogic/Object/DynamicPortalBehaviour.cpp,approved,P,P=0x004608E0@FuncInfo0x009391B4 p-group provisional,Code/GameEngine/Source/GameLogic/Object/ObjectFindDynamicPortalBehaviour.cpp
 0x0078A7D8,8,code,Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalBehaviour.cpp,approved,P,P=0x00460AEC@FuncInfo0x009391D8 provisional,Code/gen_small/uw_gen_012.cpp
