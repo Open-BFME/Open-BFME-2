@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // The wide twin of stlport_narrow_num_put_voidptr.cpp: num_put<wchar_t>'s
 // do_put(const void*), vtable slot 1 of 0x007BBAA8. Same shipped-source

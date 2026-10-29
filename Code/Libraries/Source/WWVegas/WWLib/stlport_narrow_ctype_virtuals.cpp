@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // ctype<char>'s eight virtuals, from its vftable at 0x007BC3E4. The slot order
 // confirms the overload rule found in num_put: within one name MSVC lays the

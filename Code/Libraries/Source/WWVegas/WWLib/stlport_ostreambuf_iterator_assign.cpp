@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 ostreambuf_iterator character assignment. The streambuf's
 // sputc stays the external library member the retail body calls, so the

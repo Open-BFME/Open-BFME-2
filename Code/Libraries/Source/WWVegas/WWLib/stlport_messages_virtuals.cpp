@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // messages<char> and messages<wchar_t> are pure forwarders onto a _Messages
 // held at this+0xC, and the image says which slot each reaches: do_open
@@ -23,7 +23,7 @@ namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base
 namespace _STL { template <> void _String_base<unsigned short, allocator<unsigned short> >::_M_deallocate_block(); }
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t) const; }
+namespace _STL { template <> void allocator<unsigned short>::deallocate(unsigned short *, size_t); }
 // Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {

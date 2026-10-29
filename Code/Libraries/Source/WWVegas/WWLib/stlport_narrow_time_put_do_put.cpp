@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 narrow time_put::do_put, the narrow twin of 0x0000F680.
 // It formats into a 64-byte stack buffer through __write_formatted_time at

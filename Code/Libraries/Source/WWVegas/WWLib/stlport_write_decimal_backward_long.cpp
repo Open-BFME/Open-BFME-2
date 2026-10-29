@@ -1,5 +1,5 @@
 // cl: -EHsc -MD -D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport signed decimal writer, the long instantiation of
 // __write_decimal_backward(__true_type).

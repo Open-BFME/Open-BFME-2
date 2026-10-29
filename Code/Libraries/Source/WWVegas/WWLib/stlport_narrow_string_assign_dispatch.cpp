@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<char>::_M_assign_dispatch over a char* range:
 // copy into the existing buffer while both ranges last, then erase the tail if

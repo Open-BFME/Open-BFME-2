@@ -1,5 +1,5 @@
 // cl: /GR- /GX- /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // ??0strstreambuf@_STL@@QAE@PADH0@Z, retail 0x00602A30 (105 B).
 // strstreambuf(char* __get, streamsize __n, char* __put): zero the allocator

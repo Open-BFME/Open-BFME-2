@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 narrow istreambuf_iterator::equal. Both the cache fill and
 // the streambuf's sgetc inline into this body, so the whole get area -- the
