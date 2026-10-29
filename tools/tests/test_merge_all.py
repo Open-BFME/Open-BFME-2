@@ -147,6 +147,21 @@ def test_a_merge_that_does_not_integrate_gives_its_claims_back(tree, tmp_path):
     assert ts.released == ["file:Code/T1.cpp", "file:Code/A1.cpp"]
 
 
+def test_a_conflict_after_a_partial_merge_keeps_the_claims_that_merge_still_needs(tree, tmp_path):
+    ts = FakeTs({"Code/T1.cpp": TUS["Code/T1.cpp"]})
+    (tmp_path / "s").mkdir()
+    (tmp_path / "s" / "state.json").write_text(json.dumps({"merged": {"Code/T1.cpp": {
+        "commit": "c0", "claim_keys": ["file:Code/A1.cpp", "file:Code/T1.cpp"], "follow_up": []}}}))
+
+    def run(wt, tu, dry_run, owner):
+        return {"report": {"accepted": [tu, "Code/A2.cpp"], "subject": "Merge"}, "commit": "c1",
+                "claim_keys": ["file:Code/T1.cpp", "file:Code/A2.cpp"]}
+    M.coordinate(args(state_dir=tmp_path / "s", passes=1), ts=ts, run=run, workers=FakeWorkers(),
+                 integrate_fn=lambda root, commit, tu, absorbed: ("conflict", "CONFLICT"), root=tree,
+                 log=lambda *a: None)
+    assert ts.released == ["file:Code/A2.cpp"]
+
+
 def test_a_second_partial_merge_keeps_the_first_ones_claims(tmp_path):
     state = M.State(tmp_path / "state.json")
     state.merged("Code/T.cpp", "c1", ["file:Code/T.cpp", "file:Code/A.cpp"], [])

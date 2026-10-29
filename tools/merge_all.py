@@ -486,6 +486,10 @@ def coordinate(args, ts=None, run=None, workers=None, integrate_fn=None, now=tim
     workers = workers or Workers(root, getattr(args, "worktree_root", None))
     decisions = {} if args.dry_run else dict(state.data["decisions"])
     merged, files_removed, tried, out_of_time = [], 0, set(), False
+
+    def give_back(keys):    # an unintegrated attempt's claims, minus those earlier unreleased merges still need
+        kept = {k for m in state.data["merged"].values() for k in m.get("claim_keys", [])}
+        ts.claims.release([k for k in keys if k not in kept])
     for _pass in range(max(1, args.passes)):
         ts._CACHE.clear()
         entries = ts.queue(args.under, args.limit, root=root)
@@ -548,14 +552,14 @@ def coordinate(args, ts=None, run=None, workers=None, integrate_fn=None, now=tim
                         progress += 1
                         log(f"merge-all: {tu}: {len(gone)} file(s) absorbed ({detail[:10]})")
                     elif status == "conflict":
-                        ts.claims.release(res.get("claim_keys", []))   # not integrated: the next pass re-claims
+                        give_back(res.get("claim_keys", []))   # not integrated: the next pass re-claims
                         state.retry(tu, detail)
                         tried.discard(tu)
                         items.append(item("conflict", tu, tu, job["removes"], job["rows"],
                                           "the verified merge does not apply on the integrated branch; retried "
                                           "next pass", evidence=detail))
                     else:
-                        ts.claims.release(res.get("claim_keys", []))
+                        give_back(res.get("claim_keys", []))
                         state.failed(tu, job["digest"], status)
                         items.append(item(status, tu, tu, job["removes"], job["rows"], detail))
                 else:
