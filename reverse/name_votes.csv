@@ -14686,3 +14686,15 @@ Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|member|Rva0010E4C6|m_94,e39310
 Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|member|Rva001338A0|m_08,905a356a360cc8155aa679bd,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
 Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|function|0x00135F0C|rva00135F0C,d5e9f244fc9cd1693daf675e,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
 Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp|function|0x0010E4C6|rva0010E4C6,6c542404f7bae12c44d644c2,gpt-6.1-sol,w2-10290456-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp|class||Rva002CA8E8Node,345228e9a48d63aa9c6d861d,gpt-6.1-sol,w4-10290459-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp|member|Rva002CA8E8Nugget|m_124,748e1f02e404d5d86cb07937,gpt-6.1-sol,w4-10290459-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp|member|Rva002CA8E8Template|m_114,1b128b4bd712b1764dfee543,gpt-6.1-sol,w4-10290459-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp|member|Rva002CA8E8Template|m_160,5b1520187dd09b9aed7688bf,gpt-6.1-sol,w4-10290459-2,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|member|DirectionTemplateView|word40,33904205beb8c4c1c98b5275,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|member|DirectionTemplateView|mode70,c4fa413f656b1d164086c790,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|member|DirectionTemplateView|word84,e7f0e9a5f1bd413b147433ab,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|member|DirectionTemplateView|wordD8,e80b4f8ec26aff693d4365fe,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|param|directionMax|a,6b3af3b6a4e4666b00c96df2,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|param|directionMax|b,7066cfe48368aabb1e612ec2,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|param|directionMin|a,3db9086bc023ca03d19d375c,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29
+Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp|param|directionMin|b,83ea3f820990bb061a6e5870,gpt-6.1-sol,w4-10290459-3,w-eb83eac9adc1,2026-10-29

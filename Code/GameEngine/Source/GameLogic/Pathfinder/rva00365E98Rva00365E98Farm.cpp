@@ -24,7 +24,7 @@ class Object {public:const Rva0028AC4EEntry *rva0028AC4E()const;};
 class Rva001E3F27FloatChaseField {public:float get()const;};
 class Rva00373CAAFloatChaseField {public:float get()const;};
 class Rva001E46E1 {public:Bool rva001E543F(Object *);Bool rva001E4015(Object *,const Coord3D *);};
-struct DirectionTemplateView {char pad00[0x40];float word40;char pad44[0x70-0x44];Int mode70;char pad74[0x84-0x74];float word84;char pad88[0xD8-0x88];Int wordD8;};
+struct DirectionTemplateView {char pad00[0x40];float m_turnThresholdHS;char pad44[0x70-0x44];Int mode70;char pad74[0x84-0x74];float m_maxTurnWithoutReform;char pad88[0xD8-0x88];Int m_canMoveBackwards;};
 struct DirectionEntryView {void *word0;DirectionTemplateView *settings;};
 class PathNode {public:PathNode *next,*previous,*nextOptimized;Coord3D pos;Int layer;Bool canOptimize;char pad1D[3];Int portalID;};
 class Rva00363BC7 {public:void *rva00363BC7(Coord2D *,float *);};
@@ -39,8 +39,8 @@ public:
  void rva00364AA2(PathNode *,PathNode *,PathNode *,float);
  void *vtable;PathNode *first,*last;Bool optimized;
 };
-static __forceinline const float &directionMax(const float &a,const float &b) {return a>b?a:b;}
-static __forceinline const float &directionMin(const float &a,const float &b) {return a>b?b:a;}
+static __forceinline const float &directionMax(const float &leftOperand,const float &rightOperand) {return leftOperand>rightOperand?leftOperand:rightOperand;}
+static __forceinline const float &directionMin(const float &firstValue,const float &secondValue) {return firstValue>secondValue?secondValue:firstValue;}
 void Path::rva00365E98(Object *obj,const Coord3D *input,Int surfaces,Bool blocked)
 {
  PathNode *original=first;first=0;last=0;optimized=true;
@@ -52,7 +52,7 @@ void Path::rva00365E98(Object *obj,const Coord3D *input,Int surfaces,Bool blocke
   Rva001E46E1 *controller=(Rva001E46E1 *)entry;
   if(controller->rva001E543F(obj))turn=((Rva001E3F27FloatChaseField *)entry)->get();
   else turn=((Rva00373CAAFloatChaseField *)entry)->get();
-  if(((const DirectionEntryView *)entry)->settings->wordD8) {
+  if(((const DirectionEntryView *)entry)->settings->m_canMoveBackwards) {
    float length;PathNode *next;
    {Coord2D delta;next=(PathNode *)((Rva00363BC7 *)original)->rva00363BC7(&delta,&length);}
    if(next && controller->rva001E4015(obj,&next->pos)) {
@@ -68,10 +68,10 @@ void Path::rva00365E98(Object *obj,const Coord3D *input,Int surfaces,Bool blocke
  PathNode *current=original->nextOptimized,*previous=original;
  if(reversed && longSegment)rva00365B8A(obj,original,current,input,longSpeed);
  else if(turn>0.0f) {
-  DirectionOptions options;options.value4=turn;float radius=((const DirectionEntryView *)entry)->settings->word84;options.flag0=true;options.flag1=false;options.flag8=false;
+  DirectionOptions options;options.value4=turn;float radius=((const DirectionEntryView *)entry)->settings->m_maxTurnWithoutReform;options.flag0=true;options.flag1=false;options.flag8=false;
   *(volatile float *)&radius=radius;
   if(((Rva001E46E1 *)entry)->rva001E543F(obj)) {
-   float lower=((const DirectionEntryView *)entry)->settings->word40;
+   float lower=((const DirectionEntryView *)entry)->settings->m_turnThresholdHS;
    radius=directionMin(lower,radius);
   }
   Bool success=rva00365309(obj,original,&direction,&options,surfaces,radius,blocked);

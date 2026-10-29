@@ -4350,3 +4350,11 @@ local,Rva00030C50Heap::rva00031710::p,Rva00030C50Heap::rva00031710::coreMemory,i
 param,Rva00030C50Heap::rva00031750::p,Rva00030C50Heap::rva00031750::coreAddress,inferred,agree:nl-5c685af0c3d0,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,0x00031750
 function,?rva00030C10@@YAII@Z,?getSmallBinIndexFromChunkSize@@YAII@Z,inferred,agree:nl-c747e70b8bf6,Code/GameEngine/Source/Common/GapBodiesGE23.cpp,0x00030C10
 function,?rva00135F0C@Rva00135F0C@@QAEPAHH@Z,?GetItem@Rva00135F0C@@QAEPAHH@Z,inferred,agree:nl-0e0cdc2e824c,Code/GameEngine/Source/Common/GapBodiesSeat2B.cpp,0x00135F0C
+member,Rva002CA8E8Template::m_160,Rva002CA8E8Template::m_isOverride,inferred,agree:nl-1e205e7dc19a,Code/GameEngine/Source/GameLogic/Object/WeaponTemplateParseClearNuggets.cpp,
+member,DirectionTemplateView::word40,DirectionTemplateView::m_turnThresholdHS,inferred,agree:nl-9d5eb39440ee,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+member,DirectionTemplateView::word84,DirectionTemplateView::m_maxTurnWithoutReform,inferred,agree:nl-0c5e563c289e,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+member,DirectionTemplateView::wordD8,DirectionTemplateView::m_canMoveBackwards,inferred,agree:nl-ca3f2100fe4f,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+param,directionMax::a,directionMax::leftOperand,inferred,agree:nl-c77907bf4998,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+param,directionMax::b,directionMax::rightOperand,inferred,agree:nl-7b5a9f71cf5a,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+param,directionMin::a,directionMin::firstValue,inferred,agree:nl-c47b534633fd,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,
+param,directionMin::b,directionMin::secondValue,inferred,agree:nl-2f4cd30a7f72,Code/GameEngine/Source/GameLogic/Pathfinder/rva00365E98Rva00365E98Farm.cpp,

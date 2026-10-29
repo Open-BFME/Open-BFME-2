@@ -45,7 +45,7 @@ struct Rva002CA8E8Template
 	unsigned char m_unreconstructed_000[0x114];
 	bool m_114;
 	unsigned char m_unreconstructed_115[0x160 - 0x115];
-	bool m_160;
+	bool m_isOverride;
 	unsigned char m_unreconstructed_161[0x17C - 0x161];
 	_STL::_List_base<int, _STL::allocator<int> > m_nuggets;	// +0x17C
 };
@@ -57,7 +57,7 @@ void Rva002CA8E8Parse(INI *, void *instance, void *, const void *)
 	_STL::_List_base<int, _STL::allocator<int> > &nuggets = self->m_nuggets;
 	for (Rva002CA8E8Node *node = nuggets._M_node->m_next; node != nuggets._M_node; node = node->m_next)
 	{
-		if (!self->m_160 || ((Rva002CA8E8Nugget *)node->m_data)->m_124)
+		if (!self->m_isOverride || ((Rva002CA8E8Nugget *)node->m_data)->m_124)
 			::delete (Rva002CA8E8Nugget *)node->m_data;
 	}
 	nuggets.clear();
