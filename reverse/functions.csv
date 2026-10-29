@@ -27111,8 +27111,8 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?generateFilenamePrefix@AudioEventRTS@@SAPBVAsciiString@@H@Z,,0x002D9622,100,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest free-function switch 0-4 plus 5-default TheAudio slot 0x134 EmptyString 3 callers AudioCheck neighbour
 ?load@ImageCollection@@QAEXH@Z,,0x002D908D,249,Code/GameEngine/Source/GameClient/System/Image.cpp,matched,BFME1 donor trimmed no userData 5 dirs INI 0x87C 3 callers ImageCollection
 ?rva002D9BDC@Rva002D9BDC@@QAEXMM@Z,,0x002D9BDC,43,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest method clamp lo val hi member 0x64 2 callers
-?rva002D9893@Rva002D9893@@QAEXABV1@@Z,,0x002D9893,336,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,matched,honest Copy void const ref Strings Opaque Pool10 movsd cond 2 unlocked
-??4Rva002D9893@@QAEAAV0@ABV0@@Z,,0x002D9A31,18,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp,matched,chain operator equals calls Copy returns this 1 caller
+?rva002D9893@Rva002D9893@@QAEXABV1@@Z,,0x002D9893,336,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,honest Copy void const ref Strings Opaque Pool10 movsd cond 2 unlocked
+??4Rva002D9893@@QAEAAV0@ABV0@@Z,,0x002D9A31,18,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,matched,chain operator equals calls Copy returns this 1 caller
 ?push_back@?$vector@UBfmeStringRecord0022074B@@V?$allocator@UBfmeStringRecord0022074B@@@_STL@@@_STL@@QAEXABUBfmeStringRecord0022074B@@@Z,,0x00220F8D,55,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmestringrecord0022074b_pushback.cpp,matched,vector push_back fast Construct else overflow same 55B shape
 ??0?$vector@VBfmeStringTailRecord156@@V?$allocator@VBfmeStringTailRecord156@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0043351B,68,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_tailrecord156_copy.cpp,matched,vector TailRecord156 copy 68B exact via throw plus ICF pins
 ?Rva006CD6F0Get@@YAXPAPAX0@Z,,0x006CD6F0,171,Code/Libraries/Source/Apt/AptValue/Rva006CD6F0.cpp,matched,Apt bInitialized Apt.cpp type 0x12 animation-inst outs

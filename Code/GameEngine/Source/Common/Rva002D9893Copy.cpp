@@ -75,57 +75,6 @@ private:
 	StringBase<char> m_84;
 };
 
-void Rva002D9893::rva002D9893(const Rva002D9893 &other)
-{
-	m_filenameToLoad.set(other.m_filenameToLoad);
-	m_eventInfo = other.m_eventInfo;
-	m_playingHandle = other.m_playingHandle;
-	m_10 = other.m_10;
-	m_14 = other.m_14;
-	m_18 = other.m_18;
-	m_24 = other.m_24;
-	m_28 = other.m_28;
-	m_2C = other.m_2C;
-	m_ownerType = other.m_ownerType;
-	m_30 = other.m_30;
-	m_49 = other.m_49;
-	m_pitchShift = other.m_pitchShift;
-	m_58 = other.m_58;
-	m_volumeShift = other.m_volumeShift;
-	m_60 = other.m_60;
-	m_playingAudioIndex = other.m_playingAudioIndex;
-	m_6C = other.m_6C;
-	m_delay = other.m_delay;
-	m_1C.set(other.m_1C);
-	m_20.set(other.m_20);
-	m_portionToPlayNext = other.m_portionToPlayNext;
-	m_4A = other.m_4A;
-	m_4B = other.m_4B;
-	m_4C = other.m_4C;
-	m_4D = other.m_4D;
-	m_4E = other.m_4E;
-	m_4F = other.m_4F;
-	m_50 = other.m_50;
-	m_51 = other.m_51;
-	m_52 = other.m_52;
-	m_78 = other.m_78;
-	m_7C = other.m_7C;
-	m_80 = other.m_80;
-	m_84.set(other.m_84);
-	m_70 = other.m_70;
-	m_positionOfAudio = other.m_positionOfAudio;
-	m_48 = other.m_48;
-	m_53 = other.m_53;
-	if (m_ownerType == 1 || m_ownerType == 2 || m_ownerType == 3 || m_ownerType == 4 || m_ownerType == 5)
-		m_ownerID = other.m_ownerID;
-}
-
-Rva002D9893 &Rva002D9893::operator=(const Rva002D9893 &other)
-{
-	rva002D9893(other);
-	return *this;
-}
-
 class Rva00051C3F : public Rva002D9893
 {
 	int m_88;

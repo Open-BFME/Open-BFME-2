@@ -22826,9 +22826,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D96D3,259,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x002D97D6,84,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D982A,105,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9893,336,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D982A..0x002D99E3,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp
+0x002D9893,336,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D982A..0x002D99E3,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D99E3,78,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9A31,18,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D99E3..0x002D9A43,Code/GameEngine/Source/Common/Rva002D9893Copy.cpp
+0x002D9A31,18,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D99E3..0x002D9A43,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9A43,128,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x002D9AC3,17,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9A43..0x002D9AD4,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9AD4,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9A43..0x002D9ADC,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
