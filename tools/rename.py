@@ -203,6 +203,8 @@ every kind. The library API (plan_rename, apply_rename, is_placeholder,
 is_protected, check_renames, recover) is what the lane tools call.
 """
 import argparse
+import collections
+import hashlib
 import base64
 import concurrent.futures
 import contextlib
@@ -236,6 +238,8 @@ SYMBOLS = "reverse/symbols.csv"
 DATA_ROWS = "reverse/data_rows.csv"
 DELETED = "reverse/deleted_rows.csv"
 NAME_BASIS = "reverse/name_basis.csv"
+NAME_BINDINGS = "reverse/name_bindings.csv"
+NAME_BINDINGS_HEADER = "record,old,new,source,outer_sha256"
 EXPORTS = "reverse/exports.csv"
 NAME_TIERS = "reverse/name_tiers.csv"
 CONVERGED = "reverse/data_converged.csv"
@@ -4175,7 +4179,91 @@ def local_use_outside_scope(body, name):
     return None
 
 
-def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25):
+def scalar_local_binding(body, name):
+    """A unique ordinary scalar declaration's lexical span, or no proof.
+
+    Deliberately excludes control initializers, arrays, local types, lambdas
+    and directives. Those need a fuller C++ parser; a byte match cannot prove
+    that a replacement selected the intended binding.
+    """
+    if re.search(r"#|\b(?:class|struct|union|enum|typedef|using|__asm|asm|goto)\b|\[[^]]*\]\s*(?:\([^)]*\)[^;{}]*)?\{", body):
+        return None
+    scopes = local_scopes(body, name)
+    if len(scopes) != 1:
+        return None
+    begin, end = scopes[0]
+    candidates = [m for m in name_metric.LOCAL.finditer(body)
+                  if m.group(2) == name and m.group(1) not in NOT_A_DECLARATION]
+    if len(candidates) != 1 or re.search(rf"\b{re.escape(name)}\s*:(?!:)", body):
+        return None
+    decl = next((m for m in name_metric.LOCAL.finditer(body) if m.start(2) == begin), None)
+    if decl is None or decl.group(1) not in {"int", "float", "double", "char", "short", "long", "bool", "wchar_t"}:
+        return None
+    if not re.match(r"\s*(?:=(?!=)|;)", body[decl.end(2):]):
+        return None
+    blocks = _bracket_pairs(body, "{", "}")
+    block = max((pair for pair in blocks if pair[0] < begin < pair[1]), default=None)
+    if block is None or block[1] >= len(body):
+        return None
+    if any(block[0] < a < begin < b for a, b in _bracket_pairs(body, "(", ")")):
+        return None
+    # A matched declaration in a balanced ordinary block is the only binding
+    # of this spelling in the function. Scope starts at its identifier, so
+    # `int x = x` refers to the new local in its own initializer.
+    return begin, end + 1
+
+
+def scope_changing_macro(ctx, rel, body):
+    """An invoked macro whose possible expansion changes lexical braces.
+
+    Include aliases transitively and retain every conditional definition.
+    The proof is conservative: even a balanced do/while macro is declined.
+    """
+    definitions = collections.defaultdict(list)
+    for path in [rel] + sorted(header_closure(ctx, rel)):
+        text = name_metric.strip((ctx.read(path) or b"").decode("utf-8", "replace"))
+        for directive in name_metric.PREPROCESSOR.finditer(text):
+            match = re.match(r"[ \t]*#[ \t]*define[ \t]+([A-Za-z_]\w*)(.*)", directive.group(), re.S)
+            if match:
+                definitions[match.group(1)].append(match.group(2))
+    changing = {name for name, values in definitions.items() if any("{" in v or "}" in v for v in values)}
+    while True:
+        expanded = changing | {name for name, values in definitions.items()
+                               if any(set(name_metric.WORD.findall(value)) & changing for value in values)}
+        if expanded == changing:
+            break
+        changing = expanded
+    return next((name for name in sorted(changing) if word_re(name).search(body)), None)
+
+
+def outer_binding_digest(ctx, rel, code, start, end):
+    """Fingerprint the context the scalar proof was permitted to shadow.
+
+    Omit the selected function so other local/parameter names in the same
+    batch do not invalidate the proof. Keep the rest of the source and full
+    header snapshots: changed outer declarations require a fresh review.
+    """
+    headers = [(path, hashlib.sha256(ctx.read(path) or b"").hexdigest())
+               for path in sorted(header_closure(ctx, rel))]
+    payload = json.dumps([rel, code[:start] + code[end:], headers], ensure_ascii=True)
+    return hashlib.sha256(payload.encode("utf-8")).hexdigest()
+
+
+def recorded_local_binding(ctx, evidence, rel, code, start, end):
+    """Only the exact recorded landing may reuse an unchanged outer context."""
+    record = revert_id(evidence)
+    if not record:
+        return False
+    land = landing(ctx, record)
+    if land.kind != "local" or land.source != rel:
+        return False
+    current = outer_binding_digest(ctx, rel, code, start, end)
+    return any(row.get("record") == f"agree:{record}" and row.get("source") == rel
+               and row.get("old") == land.target and row.get("new") == land.current
+               and row.get("outer_sha256") == current for row in ctx.dicts(NAME_BINDINGS))
+
+
+def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25, local_binding=False):
     """Plan respelling one parameter or local inside one function body. Names
     of params and locals never reach bytes under optimisation; a local under
     /Od can (frame order), so /Od files are refused for locals. The rename is
@@ -4212,6 +4300,14 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     scope, start, end, params = pick_function(code, function)
     brace = code.find("{", start)
     body = code[brace:end]
+    binding = scalar_local_binding(body, name) if kind == "local" and (local_binding or basis == RESTORED) else None
+    if binding and basis == RESTORED and not recorded_local_binding(ctx, evidence, rel, code, start, end):
+        binding = None
+    rewrite_span = (brace + binding[0], brace + binding[1]) if binding else (start, end)
+    if binding:
+        macro = scope_changing_macro(ctx, rel, body)
+        if macro or any("{" in flag or "}" in flag for flag in compile_flags(ctx, rel)):
+            raise Refusal(f"{scope} uses a scope-changing macro ({macro or 'compile flags'}); local binding needs expanded C++")
     if kind == "param":
         if name not in set(parameters(params)):
             raise Refusal(f"{name} is not a parameter of {scope}")
@@ -4230,10 +4326,10 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
         first_use = word_re(name).search(body)
         first_decl = min((m.start(2) for m in name_metric.LOCAL.finditer(body) if m.group(2) == name),
                          default=None)
-        if first_use and first_decl is not None and first_use.start() < first_decl:
+        if not binding and first_use and first_decl is not None and first_use.start() < first_decl:
             raise Refusal(f"{name} is used in {scope} before its declaration (it names something outer there)")
         stray = local_use_outside_scope(body, name)
-        if stray is not None:
+        if stray is not None and not binding:
             raise Refusal(f"{name} is used in {scope} at line {code.count(chr(10), 0, brace + stray) + 1}, outside "
                           "the block that declares it (a global or an outer declaration may be what is meant)")
     record_scope = function if function.endswith("#1") else scope
@@ -4252,7 +4348,7 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     refuse_vendored(ctx, [rel], f"renaming {old_q}")
     which = check_basis(ctx, kind, basis, evidence, old_q, name, rva, new_name=new_q, new_word=new)
     region = code[start:end]
-    if re.search(r"(?:->|\.|::)\s*%s\b" % re.escape(name), region):
+    if re.search(r"(?:->|\.|::)\s*%s\b" % re.escape(name), code[rewrite_span[0]:rewrite_span[1]]):
         raise Refusal(f"{scope} spells {name} after ->, . or ::; it also names a member there")
     # The new name may not be spelled in the function (a use would be captured)
     # nor at file scope, as a member or in a macro: the same spelling as a
@@ -4272,7 +4368,9 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
             if any(n in member_classes and outer for n, _b, _e, outer in declared_types):
                 member_classes = None
                 break
-    if word_re(new).search(region):
+    restoring_binding = bool(binding and basis == RESTORED)
+    capture_region = code[rewrite_span[0]:rewrite_span[1]] if restoring_binding else region
+    if word_re(new).search(capture_region):
         raise Refusal(f"{new} is already a name in {scope} ({rel})")
     outside = code[:start] + " " * (end - start) + code[end:]
     # check_basis already proved a RESTORED plan is the recorded exact inverse.
@@ -4280,11 +4378,13 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     # block the landing; ordinary new names retain the all-member screen.
     clash = meant_by_function(ctx, rel, outside, new, owner_class, strict=True, where=rel,
                               member_classes=member_classes if basis == RESTORED else None)
-    if clash:
+    if restoring_binding and "macro" in occurrence_kinds(outside, new, rel):
+        raise Refusal(f"{new} is spelled in a macro in {rel}")
+    if clash and not restoring_binding:
         raise Refusal(f"{new} is already a name in {rel} ({clash})")
     elsewhere = [d for d in other_declarations(outside, name, member_classes=member_classes)
                  if not d.startswith(("a parameter", "a local"))]
-    if elsewhere:
+    if elsewhere and not binding:
         raise Refusal(f"{name} is also {elsewhere[0]} in {rel}; the function may mean it")
     if "macro" in occurrence_kinds(outside, name, rel):
         raise Refusal(f"{name} is also spelled in a macro in {rel}; the function may mean it")
@@ -4299,12 +4399,16 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
             continue
         header_code = name_metric.strip(data.decode("utf-8", errors="replace"))
         for word, what in ((name, "the function may mean it"), (new, "it would capture or shadow it")):
+            if binding and (word == name or restoring_binding):
+                if "macro" in occurrence_kinds(header_code, word, header):
+                    raise Refusal(f"{word} is spelled in a macro in included header {header}")
+                continue
             clash = meant_by_function(ctx, rel, header_code, word, owner_class, strict=False,
                                       where=f"included header {header}")
             if clash:
                 raise Refusal(f"{word} is also spelled in included header {header} ({clash}); {what}")
 
-    new_text, counts, strings, _ = rewrite_tokens(text, word_re(name), new, span=(start, end))
+    new_text, counts, strings, _ = rewrite_tokens(text, word_re(name), new, span=rewrite_span)
     if strings:
         raise Refusal(f"{name} is spelled inside a string literal in {scope}: {strings[0][:80]}")
     if new_text == text:
@@ -4328,6 +4432,10 @@ def plan_scoped(kind, ctx, source, name, new, basis, evidence, *, function=None,
     plan.edit(ctx, NAME_BASIS, appended(ctx.read(NAME_BASIS), [csv_line(
         [kind, old_q, new_q, basis, plan.evidence, rel, f"0x{rva:08X}" if rva is not None else ""])],
         header=NAME_BASIS_HEADER))
+    if binding and basis == "inferred":
+        plan.edit(ctx, NAME_BINDINGS, appended(ctx.read(NAME_BINDINGS), [csv_line(
+            [plan.evidence, old_q, new_q, rel, outer_binding_digest(ctx, rel, code, start, end)])],
+            header=NAME_BINDINGS_HEADER))
     plan.verify = [rel]
     plan.claims = ([rva] if rva is not None else []) + [f"file:{rel}"]
     return plan
@@ -4338,9 +4446,9 @@ def plan_param(ctx, source, name, new, basis, evidence, *, function=None, rva=No
                        function=function, rva=rva, max_files=max_files)
 
 
-def plan_local(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25):
+def plan_local(ctx, source, name, new, basis, evidence, *, function=None, rva=None, max_files=25, local_binding=False):
     return plan_scoped("local", ctx, source, name, new, basis, evidence,
-                       function=function, rva=rva, max_files=max_files)
+                       function=function, rva=rva, max_files=max_files, local_binding=local_binding)
 
 
 def _rva(text):
@@ -5005,7 +5113,7 @@ def run_scoped_batch(ctx, requests, *, claim=True, verify=build_verify, checks=l
                     plan = plan_rename(kind, ctx=view, **kwargs)
                     if combined.source is None:
                         combined.source = plan.source
-                    if plan.source != combined.source or plan.moves or set(plan.after) - {plan.source, NAME_BASIS}:
+                    if plan.source != combined.source or plan.moves or set(plan.after) - {plan.source, NAME_BASIS, NAME_BINDINGS}:
                         raise Refusal("scoped batch plans must edit one source and its naming records only")
                     for rel, before in plan.before.items():
                         combined.before.setdefault(rel, before)
@@ -5637,6 +5745,8 @@ def main(argv=None):
         scoped.add_argument("--rva", help="or the function's target RVA (hex)")
         scoped.add_argument("--name", required=True, help=f"the {kind}'s current identifier")
         scoped.add_argument("--new", required=True, help="the new identifier")
+        if kind == "local":
+            scoped.add_argument("--local-binding", action="store_true", help="prove one ordinary scalar binding and preserve outer uses")
     args = parser.parse_args(argv)
     if args.kind == "recover":
         ctx = Context(args.root, object_scan=False)
@@ -5717,6 +5827,8 @@ def main(argv=None):
         except ValueError:
             parser.error(f"--rva {args.rva!r} is not hex")
         kwargs.update(source=args.source, name=args.name, function=args.function, rva=rva)
+        if args.kind == "local":
+            kwargs["local_binding"] = args.local_binding
     else:
         kwargs.update(source=args.source)
     try:

@@ -72,3 +72,5 @@ reverse/image_ownership_history.csv text eol=lf
 # Preserve the pristine STLport archive bytes, including mixed release EOLs.
 vendor/stlport-4.6/** -text
 vendor/stlport-4.6-bfme/** -text
+
+reverse/name_bindings.csv text eol=lf merge=union

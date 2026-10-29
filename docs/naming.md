@@ -681,3 +681,21 @@ for a deliberate larger batch, including transitive header consumers. Every
 affected source remains in the verification set; claims, ledger checks, byte
 checks, failure rollback and publication link audit still apply. The limit
 must be positive. Increase it only when prepared to verify that whole fan-out.
+
+### Locals that shadow an outer name
+
+The naming lane asks the engine to prove a unique ordinary scalar binding
+before rewriting it. Uses before the declaration or after its block stay on
+the outer name, as do the outer declaration and other functions. The direct
+CLI exposes this as `rename.py local --local-binding`. The proof currently
+covers simple built-in scalar declarations in ordinary balanced blocks;
+control initializers, arrays, local types, lambdas and ambiguous declarations
+retain conservative handling. Macros, member-qualified uses within the binding,
+new-name captures, optimization restrictions and canonical-name protections
+remain checked. Exact inverse restoration uses the same binding proof.
+Precise inferred landings also append `reverse/name_bindings.csv`; stage that
+file with the basis and source. It binds the approval and source to a hash of
+the outer source context and included headers. Reversal may reuse the proof
+only while that context is unchanged; otherwise ordinary conservative checks
+apply. Header edits or edits outside the selected function can therefore
+require a fresh review. Legacy landings do not gain this exception.

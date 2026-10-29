@@ -1273,7 +1273,7 @@ def test_scoped_batch_builds_combined_result_once(tree, tmp_path):
 
     apply(tree, verify=verify, checks=checks)
     assert builds == [[SOURCE]]
-    assert checked == [set(), {SOURCE, rename.NAME_BASIS}]
+    assert checked == [set(), {SOURCE, rename.NAME_BASIS, rename.NAME_BINDINGS}]
     assert {r["status"] for r in lane_of(tree).state().values()} == {"landed"}
     assert not list((tree / rename.JOURNAL_DIR).glob("*.json"))
 

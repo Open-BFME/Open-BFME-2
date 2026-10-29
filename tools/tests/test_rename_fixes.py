@@ -743,3 +743,165 @@ def test_real_tree_inferred_without_agreement_is_refused(evidence):
 def test_name_metric_shares_the_definition():
     assert rename.name_metric is name_metric
     assert not name_metric.placeholder("parseCoord3D") and name_metric.placeholder("m_0C")
+
+
+# A byte match cannot detect a rename of the wrong shadowed binding.
+@pytest.mark.parametrize("outer", ["global", "header", "member"])
+def test_precise_scalar_local_preserves_outer_uses_and_reverts(tmp_path, outer):
+    code = "// cl: /O2\nint iVar3;\nint sample(int value) { value += iVar3; { int iVar3 = 2; value += iVar3; } return value + iVar3; }\n"
+    function = "sample"
+    symbol = "?sample@@YAHH@Z"
+    extra = {}
+    if outer == "header":
+        code = code.replace("int iVar3;", '#include "Outer.h"')
+        extra["Code/Game/Outer.h"] = "extern int iVar3;\n"
+    if outer == "member":
+        code = code.replace("int iVar3;", "struct Widget { int iVar3; int sample(int value); };")
+        code = code.replace("int sample(int value) {", "int Widget::sample(int value) {")
+        function, symbol = "Widget::sample", "?sample@Widget@@QAEHH@Z"
+    extra.update({UNIT: code, "reverse/symbols.csv": "name,address,notes\n",
+                  "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n{symbol},,0x00401000,40,{UNIT},matched,test\n"})
+    root = make_tree(tmp_path, extra)
+    evidence = agree(root, "precise", "local", "iVar3", "intensity")
+    builds = []
+    def verify(ctx, sources):
+        builds.append(sources)
+        return True
+    rename.run("local", ctx_of(root), source=UNIT, function=function, name="iVar3", new="intensity",
+               basis="inferred", evidence=evidence, local_binding=True, claim=False,
+               verify=verify, checks=lambda ctx, plan: [])
+    after = (root / UNIT).read_text()
+    assert "value += iVar3; { int intensity = 2; value += intensity; } return value + iVar3;" in after
+    assert builds == [[UNIT]]
+    assert rename.check_renames(ctx_of(root), rename.name_basis_rows(ctx_of(root))) == []
+    rename.revert(ctx_of(root), "precise", "fixture exact inverse", claim=False,
+                  verify=verify, checks=lambda ctx, plan: [])
+    assert (root / UNIT).read_bytes() == code.encode()
+
+
+@pytest.mark.parametrize("body", [
+    "{ use(iVar3); { int iVar3 = 2; use(iVar3); } }",
+    "{ int iVar3 = iVar3; use(iVar3); }",
+])
+def test_precise_binding_starts_at_declarator(body):
+    begin, end = rename.scalar_local_binding(body, "iVar3")
+    assert body[begin:end].startswith("iVar3 =")
+
+
+@pytest.mark.parametrize("body", [
+    "{ for (int iVar3 = 0; iVar3 < 2; ++iVar3) use(iVar3); use(iVar3); }",
+    "{ if (int iVar3 = next()) use(iVar3); else use(iVar3); }",
+    "{ { int iVar3 = 1; } { int iVar3 = 2; } use(iVar3); }",
+    "{ int iVar3[3]; use(iVar3); }",
+    "{ struct Local { int iVar3; }; int iVar3 = 1; }",
+    "{ auto fn = [&]() { int iVar3 = 1; return iVar3; }; }",
+    "{ Thing iVar3 = value; use(iVar3); }",
+    "{ #if FLAG\n int iVar3 = 1;\n #endif\n use(iVar3); }",
+])
+def test_precise_binding_declines_ambiguous_shapes(body):
+    assert rename.scalar_local_binding(body, "iVar3") is None
+
+
+def test_precise_binding_keeps_macro_member_and_capture_refusals(tmp_path):
+    for n, (prefix, body, new) in enumerate([
+        ("#define iVar3 alias\n", "int iVar3 = 2; return iVar3;", "intensity"),
+        ("", "int iVar3 = 2; return this->iVar3;", "intensity"),
+        ("", "int iVar3 = 2; int intensity = 3; return iVar3 + intensity;", "intensity"),
+    ]):
+        root = tmp_path / str(n); root.mkdir()
+        source = "// cl: /O2\n" + prefix + "int iVar3;\nint sample() { " + body + " }\n"
+        make_tree(root, {UNIT: source, "reverse/symbols.csv": "name,address,notes\n",
+                       "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n?sample@@YAHXZ,,0x00401000,40,{UNIT},matched,test\n"})
+        ev = agree(root, "precise", "local", "iVar3", new)
+        with pytest.raises(Refusal):
+            rename.plan_rename("local", ctx=ctx_of(root), source=UNIT, function="sample", name="iVar3", new=new,
+                               basis="inferred", evidence=ev, local_binding=True)
+
+
+@pytest.mark.parametrize("body", [
+    "{ int iVar3 = 1; void nested(int iVar3); use(iVar3); }",
+    "{ goto iVar3; int iVar3 = 1; iVar3: use(iVar3); }",
+    "{ auto fn = [&]() mutable { int iVar3 = 1; return iVar3; }; }",
+])
+def test_precise_binding_declines_other_identifier_namespaces(body):
+    assert rename.scalar_local_binding(body, "iVar3") is None
+
+
+@pytest.mark.parametrize("alias", [False, True])
+def test_precise_binding_refuses_scope_changing_header_macros(tmp_path, alias):
+    prefix = '#define START {\n#define END }\n'
+    if alias:
+        prefix += '#define BEGIN START\n'
+    begin = "BEGIN" if alias else "START"
+    code = f'// cl: /O2\n#include "Scopes.h"\nint iVar3;\nint sample() {{ {begin}; int iVar3 = 1; END; return iVar3; }}\n'
+    root = make_tree(tmp_path, {UNIT: code, "Code/Game/Scopes.h": prefix,
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n?sample@@YAHXZ,,0x00401000,40,{UNIT},matched,test\n"})
+    ev = agree(root, "precise", "local", "iVar3", "intensity")
+    with pytest.raises(Refusal, match="scope-changing macro"):
+        rename.plan_rename("local", ctx=ctx_of(root), source=UNIT, function="sample", name="iVar3", new="intensity",
+                           basis="inferred", evidence=ev, local_binding=True)
+
+
+def test_precise_binding_rolls_back_failed_verification(tmp_path):
+    code = "// cl: /O2\nint iVar3;\nint sample() { int iVar3 = 1; return iVar3; }\n"
+    root = make_tree(tmp_path, {UNIT: code, "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n?sample@@YAHXZ,,0x00401000,40,{UNIT},matched,test\n"})
+    ev = agree(root, "precise", "local", "iVar3", "intensity")
+    before = snapshot(root)
+    with pytest.raises(VerifyFailed):
+        rename.run("local", ctx_of(root), source=UNIT, function="sample", name="iVar3", new="intensity",
+                   basis="inferred", evidence=ev, local_binding=True, claim=False,
+                   verify=lambda ctx, sources: False, checks=lambda ctx, plan: [])
+    assert snapshot(root) == before
+
+
+@pytest.mark.parametrize("change", ["source", "header", "wrong-source"])
+def test_precise_inverse_requires_recorded_unchanged_outer_context(tmp_path, change):
+    code = '// cl: /O2\n#include "Outer.h"\nint sample() { int value = iVar3; { int iVar3 = 1; value += iVar3; } return value + iVar3; }\n'
+    root = make_tree(tmp_path, {UNIT: code, "Code/Game/Outer.h": "extern int iVar3;\n",
+        "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n?sample@@YAHXZ,,0x00401000,40,{UNIT},matched,test\n"})
+    ev = agree(root, "precise", "local", "iVar3", "intensity")
+    rename.run("local", ctx_of(root), source=UNIT, function="sample", name="iVar3", new="intensity",
+               basis="inferred", evidence=ev, local_binding=True, claim=False, verify=OK, checks=lambda ctx, plan: [])
+    if change == "source":
+        path = root / UNIT
+        path.write_bytes(path.read_bytes() + b"int iVar3;\n")
+    elif change == "header":
+        (root / "Code/Game/Outer.h").write_bytes(b"extern int iVar3;\nstruct Other { int iVar3; };\n")
+    else:
+        path = root / rename.NAME_BINDINGS
+        path.write_bytes(path.read_bytes().replace(UNIT.encode(), b"Code/Game/Elsewhere.cpp"))
+    before = snapshot(root)
+    with pytest.raises(Refusal):
+        rename.revert(ctx_of(root), "precise", "changed context", claim=False, verify=OK, checks=lambda ctx, plan: [])
+    assert snapshot(root) == before
+
+
+@pytest.mark.parametrize("success", [True, False])
+def test_precise_batch_proofs_are_atomic_and_inverses_compose(tmp_path, success):
+    code = "// cl: /O2\nint iVar3; int iVar4;\nint sample() { int result = iVar3 + iVar4; { int iVar3 = 1; result += iVar3; } { int iVar4 = 2; result += iVar4; } return result + iVar3 + iVar4; }\n"
+    root = make_tree(tmp_path, {UNIT: code, "reverse/symbols.csv": "name,address,notes\n",
+        "reverse/functions.csv": f"name,export_rva,target_rva,target_size,source,status,notes\n?sample@@YAHXZ,,0x00401000,40,{UNIT},matched,test\n"})
+    requests = []
+    for old, new, record in [("iVar3", "lightLevel", "first"), ("iVar4", "stepCount", "second")]:
+        ev = agree(root, record, "local", old, new)
+        requests.append(("local", dict(source=UNIT, function="sample", name=old, new=new,
+                                      basis="inferred", evidence=ev, local_binding=True)))
+    before = snapshot(root)
+    builds = []
+    def verify(ctx, sources):
+        builds.append(sources)
+        return success
+    if not success:
+        with pytest.raises(VerifyFailed):
+            rename.run_scoped_batch(ctx_of(root), requests, claim=False, verify=verify, checks=lambda ctx, plan: [])
+        assert snapshot(root) == before
+    else:
+        rename.run_scoped_batch(ctx_of(root), requests, claim=False, verify=verify, checks=lambda ctx, plan: [])
+        assert len(ctx_of(root).dicts(rename.NAME_BINDINGS)) == 2
+        for record in ("first", "second"):
+            rename.revert(ctx_of(root), record, "fixture inverse", claim=False, verify=OK, checks=lambda ctx, plan: [])
+        assert (root / UNIT).read_bytes() == code.encode()
+    assert builds == [[UNIT]]

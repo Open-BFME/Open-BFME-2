@@ -1083,7 +1083,7 @@ def rename_kwargs(kind, scope, old, new, rva, rel):
     if kind == "member":
         return {"cls": scope, "member": old, "new": new}
     if kind in ("param", "local"):
-        return {"source": rel, "name": old, "new": new, "function": scope}
+        return {"source": rel, "name": old, "new": new, "function": scope, **({"local_binding": True} if kind == "local" else {})}
     if kind == "global":
         return {"name": old, "new": new}
     raise rename.Refusal(f"unknown lane kind {kind}")
