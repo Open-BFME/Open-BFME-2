@@ -35,11 +35,6 @@ struct Rva000696C0Iterator
 };
 
 int Rva000696C0Distance( const Rva000696C0Iterator &first, const Rva000696C0Iterator &last );
-
-int Rva000696C0Distance( const Rva000696C0Iterator &first, const Rva000696C0Iterator &last )
-{
-	return last.m_current - first.m_current;
-}
 // Native 5047A0..5047AE is a complete entry between RET at 50479F and the
 // separate 5047AE entry. It reads two stack words, shifts the second by 4,
 // and adds that byte displacement through the first pointer. ECX is not an

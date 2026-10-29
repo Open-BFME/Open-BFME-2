@@ -599,12 +599,14 @@ struct Rva00218E09Record
 MixFileCreator::FileInfoStruct *Rva00217AB0Partition(
 	MixFileCreator::FileInfoStruct *, MixFileCreator::FileInfoStruct *,
 	MixFileCreator::FileInfoStruct);
+
 void __cdecl Rva00218BD4Sort(Rva004748F0Element *, Rva004748F0Element *,
 	Rva004748F0Element *, Rva004748F0Compare);
 
 typedef Rva00218E09Record *(__cdecl *FileInfoPartitionCall)(
 	Rva00218E09Record *, Rva00218E09Record *, Rva00218E09Record,
 	_STL::less<Rva00218E09Record>);
+
 typedef void (__cdecl *FileInfoPartialSortCall)(
 	Rva00218E09Record *, Rva00218E09Record *, Rva00218E09Record *,
 	_STL::less<Rva00218E09Record>);
@@ -636,9 +638,62 @@ void __introsort_loop<Rva00218E09Record *, Rva00218E09Record, int,
 
 template void _STL::sort(Rva00218E09Record*,Rva00218E09Record*);
 
+// ?Rva000696C0Distance@@YAHABURva000696C0Iterator@@0@Z
+// retail 0x002174CF, 16 bytes. Dedicated TU ported from the Open-BFME-1 donor
+// game/GameEngine/Source/Common/SixteenByteIteratorArithmetic.cpp
+// (reference/open-bfme-1). The donor body recompiled /Os is byte-identical to
+// retail once relocations are masked (unique masked placement on unclaimed
+// .text). The donor's other pairs are omitted; the independent target
+// advance below has its own address-owned consumed-prefix view.
+//
+// WHAT THE BYTES SHOW.  Nothing in ecx on entry and a plain `ret`: __cdecl,
+// caller-cleaned.  The argument that names an iterator is dereferenced once
+// before use (`mov eax,[eax]`), so the iterator arrives BY ADDRESS -- by
+// reference -- and its whole representation is the single pointer at offset 0.
+//
+// `sar eax,4` on a pointer difference: the element is SIXTEEN BYTES wide.
+//
+// THE ARGUMENT ORDER IS A SIGNATURE FACT, not scheduling noise.  distance reads
+// its SECOND argument first and subtracts the first from it, so it returns
+// `last - first`.
+//
+// IDENTITY IS NOT RECOVERED.  Nothing in the image names the container this
+// iterates, so the name is address-derived and disclaims identity.
+
+struct Rva000696C0Element
+{
+	int m_word0;
+	int m_word1;
+	int m_word2;
+	int m_word3;
+};
+
+struct Rva000696C0Iterator
+{
+	Rva000696C0Element *m_current;
+};
+
+int Rva000696C0Distance( const Rva000696C0Iterator &first, const Rva000696C0Iterator &last );
+
+// Native 5047A0..5047AE is a complete entry between RET at 50479F and the
+// separate 5047AE entry. It reads two stack words, shifts the second by 4,
+// and adds that byte displacement through the first pointer. ECX is not an
+// incoming receiver; RET leaves the consumed arguments caller-cleaned.
+// Clean BF1 f98983a7d3 SixteenByteIteratorArithmetic.cpp, compiled /O2 x87
+// /G7, supplied six indistinguishable advance leads. Their donor container
+// names, element fields and signed-count declaration are not target facts.
+// This unsigned byte-offset view preserves the observed 32-bit shift; it
+// does not equate this iterator with the independent distance owner above.
+struct Rva005047A0Iterator
+{
+    unsigned char *current;
+};
+
 // tu-skeleton: 0x002173FA 79B ?unlinkFont@FontLibrary@@IAEXPAVGameFont@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp (not merged yet)
 
 // tu-skeleton: 0x00217449 53B ?deleteAllFonts@FontLibrary@@IAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFontList.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 
@@ -1071,13 +1126,79 @@ void __cdecl Rva00218BD4Sort(Rva004748F0Element *first, Rva004748F0Element *midd
 
 // bfme link decl-only end
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00217802.cpp
+
+#pragma optimize("s", off)
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
+// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv1727.cpp
+
+void __cdecl bfmeEachQR(BfmeElemQR *first, BfmeElemQR *last, int unused, void *extra)
+{
+	while (first != last)
+	{
+		((QRInsertCall)Rva002176F1Insert)(first, *first, extra);
+		++first;
+	}
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00218E09.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+#pragma optimize("s", off)
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
+// This caller's native REL32 already names the kept provider at 0x00217624.
+// Both declarations use thiscall with one object-pointer/reference argument; binding is address-proven.
+
 // tu-skeleton: 0x00217490 7B ?get@Rva00217490SubDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00217497 13B ??0Rva00217497@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
 
 // tu-skeleton: 0x002174A4 43B ??4?$AptRef@VAptCommandMap@@@@QAEAAV0@ABV0@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp (not merged yet)
 
-// tu-skeleton: 0x002174CF 16B ?Rva000696C0Distance@@YAHABURva000696C0Iterator@@0@Z -- matched in Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp
+
+int Rva000696C0Distance( const Rva000696C0Iterator &first, const Rva000696C0Iterator &last )
+{
+	return last.m_current - first.m_current;
+}
 
 // tu-skeleton: 0x002174DF 41B ??4FileInfoStruct@MixFileCreator@@QAEAAU01@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp (not merged yet)
 
@@ -1109,16 +1230,6 @@ void __cdecl Rva00218BD4Sort(Rva004748F0Element *first, Rva004748F0Element *midd
 
 // tu-skeleton: 0x002177CD 53B ?rva002177CD@Rva002177CD@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00217802.cpp
-
-#pragma optimize("s", off)
-
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
-
-// The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
-
 // tu-skeleton: 0x0021781D 45B ?Rva0021781DConstruct@@YAXPAUFileInfoStruct@MixFileCreator@@ABU12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs2.cpp (not merged yet)
 
 // tu-skeleton: 0x00217895 9B ??$_Destroy@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
@@ -1128,17 +1239,6 @@ void __cdecl Rva00218BD4Sort(Rva004748F0Element *first, Rva004748F0Element *midd
 // tu-skeleton: 0x002178CB 45B ??$_Construct@U?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBVAsciiString@@UTreeHintPayload00217DE3@@@0@ABU10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_002181dd.cpp (not merged yet)
 
 // tu-skeleton: 0x002178F8 5B ?Rva002178F8Swap@@YAXPAUFileInfoStruct@MixFileCreator@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/BfmeConv1727.cpp
-
-void __cdecl bfmeEachQR(BfmeElemQR *first, BfmeElemQR *last, int unused, void *extra)
-{
-	while (first != last)
-	{
-		((QRInsertCall)Rva002176F1Insert)(first, *first, extra);
-		++first;
-	}
-}
 
 // tu-skeleton: 0x0021792B 9B ??$_Destroy@UGeometryRecord@@@_STL@@YAXPAUGeometryRecord@@@Z -- matched in Code/GameEngine/Source/Common/GapThunksSeat8.cpp (not merged yet)
 
@@ -1224,20 +1324,54 @@ void __cdecl bfmeEachQR(BfmeElemQR *first, BfmeElemQR *last, int unused, void *e
 
 // tu-skeleton: 0x00218C82 336B ?ParseFontDefaultSettings@FontLibrary@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00218E09.cpp
-
-// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
-// Element spelling/layout is donor inference; opaque records have address-derived identity.
-// The emitted unsigned max copy must match retail RVA 0x00013740.
-// Define it for speed, then restore this unit's flags for its own bodies.
-
-#pragma optimize("s", off)
-
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
-
-// This caller's native REL32 already names the kept provider at 0x00217624.
-// Both declarations use thiscall with one object-pointer/reference argument; binding is address-proven.
-
 // tu-skeleton: 0x00218E96 300B ?parseFontSizeMapping@FontLibrary@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3BB 11B Unwind@00b6e3bb -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3C6 10B __ehhandler$?init@FontLibrary@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryInit.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3D0 8B Unwind@00b6e3d0 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3D8 10B __ehhandler$??1?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3E2 8B $L1264 -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3EA 10B __ehhandler$?Rva002176A6Swap@@YAXPAUFileInfoStruct@MixFileCreator@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3F4 8B $L1238 -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E3FC 10B __ehhandler$?Rva002176F1Insert@@YAXPAUFileInfoStruct@MixFileCreator@@U12@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E454 8B Unwind@00b6e454 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E45C 10B __ehhandler$?rva0021857E@FontLibrary@@QAEPAVGameFont@@PBVAsciiString@@M_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryFindRecord.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E483 8B $L14415 -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E48B 8B $L14416 -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E493 10B __ehhandler$??A?$map@HUTreeHintRef00218787@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef00218787@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef00218787@@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4C5 8B Unwind@00b6e4c5 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4CD 8B Unwind@00b6e4cd -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4D5 10B __ehhandler$??A?$map@VAsciiString@@UTreeHintRef00217D4C@@U?$less@VAsciiString@@@_STL@@V?$allocator@U?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@@4@@_STL@@QAEAAUTreeHintRef00217D4C@@ABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4DF 8B uw_0076e4df -- matched in Code/gen_small/uw_gen_003.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4F1 8B Unwind@00b6e4f1 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E4F9 8B Unwind@00b6e4f9 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E501 10B uw_0076e501 -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E50B 10B __ehhandler$?ParseFontDefaultSettings@FontLibrary@@SAXPAVINI@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/FontLibraryParseDefaultSettings.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E515 8B $L5090 -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E51D 8B Unwind@00b6e51d -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E525 8B Unwind@00b6e525 -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0076E52D 10B __ehhandler$?parseFontSizeMapping@FontLibrary@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorParse.cpp (not merged yet)

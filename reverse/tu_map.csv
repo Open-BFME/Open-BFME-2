@@ -15207,7 +15207,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00217490,7,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x00217497,Code/GameEngine/Source/Common/Disp8SubDwordFieldGetters.cpp
 0x00217497,13,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x002174A4,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x002174A4,43,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x002174CF,Code/GameEngine/Source/GameClient/GUI/AptPlayer.cpp
-0x002174CF,16,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x002174DF,Code/GameEngine/Source/Common/SixteenByteIteratorArithmetic_Rva000696C0Distance.cpp
+0x002174CF,16,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x002174DF,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp
 0x002174DF,41,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x00217508,Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp
 0x00217508,47,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,C,C=0x00217449..0x00217537,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_fileinfo_allocate_copy.cpp
 0x00217537,14,code,Code/GameEngine/Source/GameClient/GUI/GameFont.cpp,approved,U,N=Code/GameEngine/Source/Common/GameFont.cpp,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
