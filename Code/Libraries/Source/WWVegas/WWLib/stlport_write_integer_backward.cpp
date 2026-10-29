@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 integer writer. The upstream __write_integer_backward body
 // from vendor/stlport/stl/_num_put.c: the octal and hex arms build their
