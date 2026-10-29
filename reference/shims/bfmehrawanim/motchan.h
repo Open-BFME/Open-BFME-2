@@ -112,7 +112,7 @@ private:
 	void Free(void);
 	void set_identity(float * setvec) const;
 
-//	friend class HRawAnimClass;
+	friend class HRawAnimClass;
 
 };
 

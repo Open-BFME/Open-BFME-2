@@ -71,7 +71,11 @@ public:
 		CLASSID_LASTANIM		= 0x0000FFFF
 	};
 
-	HAnimClass(void) { }
+	// Inline only: the real 37-byte constructor is hcanim.cpp's (0x0018D170).
+	// dllimport keeps HRawAnimClass's constructor inlining the base
+	// initialisation without emitting a standalone copy that references this
+	// unit's HAnimClass vtable (docs/linking_obstacles.md, 2026-10-27 follow-up).
+	__declspec(dllimport) __forceinline HAnimClass(void) { }
 	// Out of line, not an inline empty body: retail's ~HAnimClass at
 	// 0x00196150 is a real 21-byte function restoring the HashableClass vptr
 	// at +8 and the RefCountClass vptr at +0, and ~HRawAnimClass calls it
