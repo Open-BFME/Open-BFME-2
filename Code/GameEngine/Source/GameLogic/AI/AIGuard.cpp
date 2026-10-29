@@ -8,34 +8,7 @@ extern "C" { static float __cdecl floorf(float); }
 #define COORD3D_VIEW_INLINE
 #include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
 #include "../../../../Libraries/Include/Lib/ICoord3D.h"
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-// Snapshot xfer methods of the Zero Hour AIGuard.cpp states (GeneralsMD tree
-// vendored under reference/open-bfme-1/inputs/reference) in BFME 2's Xfer
-// spelling. Each is slot 3 of its state's vftable, identified by the
-// slot-2 name getter. BFME 2 additions: the inner and outer states CRC
-// their attack-state snapshot (+0x3C), the inner state gains a version-2
-// UnsignedInt (+0x44), and the idle state keeps a Coord3D (+0x24) after
-// ZH's scan time. Fields with no ZH counterpart keep offset names.
-
 #include "ascii_string.h"
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -256,6 +229,7 @@ public:
 	virtual void v36(); virtual void v37(); virtual void v38();
 	virtual PolygonTrigger *getTriggerAreaByName( const AsciiString &name );	///< slot 39
 };
+
 extern TerrainLogic *TheTerrainLogic;
 
 void XferObjectID( Xfer *xfer, ObjectID *value );
@@ -381,6 +355,34 @@ private:
 
 // tu-skeleton: 0x00542C2A 14B ?getStdGuardRange@AIGuardMachine@@SAMPBVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+// Snapshot xfer methods of the Zero Hour AIGuard.cpp states (GeneralsMD tree
+// vendored under reference/open-bfme-1/inputs/reference) in BFME 2's Xfer
+// spelling. Each is slot 3 of its state's vftable, identified by the
+// slot-2 name getter. BFME 2 additions: the inner and outer states CRC
+// their attack-state snapshot (+0x3C), the inner state gains a version-2
+// UnsignedInt (+0x44), and the idle state keeps a Coord3D (+0x24) after
+// ZH's scan time. Fields with no ZH counterpart keep offset names.
+
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardXfer.cpp
 
 // ------------------------------------------------------------------------------------------------
@@ -436,41 +438,23 @@ void AIGuardIdleState::xfer( Xfer *xfer )
 
   // end xfer
 
-// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00542FC5 290B ?xfer@AIGuardMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x005430E7 124B ?rva005430E7@@YA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp (not merged yet)
 
-// tu-skeleton: 0x00543163 451B ??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AIGuard.cpp
 
@@ -675,6 +659,122 @@ Bool AIGuardMachine::lookForInnerTarget()
 	return false;
 }
 
+// tu-skeleton: 0x00542C87 76B ?onExit@AIGuardAttackAggressorState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542CD3 51B ?onExit@AIGuardOuterState@@UAEXW4StateExitType@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D25 51B ??0Rva00542D25@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIStateHashCtorsMisc.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D58 6B ?Rva00542D58Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542D88 53B ?onEnter@AIGuardIdleState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542DEB 40B ??0ExitConditions@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E13 73B ??0AIGuardInnerState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E5C 6B ?Rva00542E5CGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542E62 73B ??0AIGuardOuterState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EAB 6B ?Rva00542EABGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EB1 33B ??0AIGuardReturnState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542ED2 6B ?Rva00542ED2Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542EF4 73B ??0AIGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F3D 6B ?Rva00542F3DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00542F43 130B ?shouldExit@ExitConditions@@UBE_NPBVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AIGuardMachineXfer.cpp
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+
+// AIGuardMachine::xfer, ported from Zero Hour's GameEngine/Source/GameLogic/
+// AI/AIGuard.cpp (GeneralsMD tree vendored under
+// reference/open-bfme-1/inputs/reference). It is slot 3 of the vftable whose
+// name getter returns "AIGuardMachine".
+//
+// BFME 2 order: the light-CRC gate, then the StateMachine base (0x004D7744)
+// unconditionally, then Version(1, 3) and ZH's fields. BFME 2 adds the
+// guarded team (+0x40), the area center (+0x54) and its valid flag (+0x60),
+// named as AIGuard.cpp's lookForInnerTarget uses them. Version 2 adds a raw
+// dword (+0x6C) and the next area-scan frame (+0x70). The trigger area round trip uses
+// the area's name at +0x40 and TerrainLogic slot 39 (+0x9C, the area lookup
+// by name). Version 3 adds a Real (+0x64).
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version
+	* 2: +0x6C and +0x70
+	* 3: +0x64 */
+// ------------------------------------------------------------------------------------------------
+void AIGuardMachine::xfer( Xfer *xfer )
+{
+	if( xfer->IsLightCRC() )
+		return;
+
+	StateMachine::xfer(xfer);
+
+  // version
+	Xfer::Version version( 1, 3 );
+	*xfer == version;
+
+	XferObjectID( xfer, &m_targetToGuard );
+	*xfer == m_teamToGuard;
+	XferObjectID( xfer, &m_nemesisID );
+	*xfer == (Coord3DBase &)m_positionToGuard;
+	*xfer == (Coord3DBase &)m_bfmeAreaCenter;
+	*xfer == m_bfmeAreaCenterValid;
+
+	if( version.m_minimum >= 2 )
+	{
+		xfer->XferRawBytes( &m_bfmeRaw6C, 4 );
+		*xfer == m_nextAreaScanFrame;
+	}
+
+	AsciiString triggerName;
+	if (m_areaToGuard) triggerName = m_areaToGuard->getTriggerName();
+	*xfer == triggerName;
+	if( xfer->IsLoading() )
+	{
+		if (!triggerName.isEmpty()) {
+			m_areaToGuard = TheTerrainLogic->getTriggerAreaByName(triggerName);
+		}
+	}
+
+	if( version.m_minimum >= 3 )
+		*xfer == m_bfmeReal64;
+
+}
+
+  // end xfer
+
+// tu-skeleton: 0x005430E7 124B ?rva005430E7@@YA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardHasAttackedMeCondition.cpp (not merged yet)
+
+// tu-skeleton: 0x00543163 451B ??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x0054379B 315B ?onEnter@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
 // tu-skeleton: 0x005438D6 284B ?update@AIGuardInnerState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
@@ -692,3 +792,23 @@ Bool AIGuardMachine::lookForInnerTarget()
 // tu-skeleton: 0x00543F58 227B ?onEnter@AIGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
 
 // tu-skeleton: 0x0054403B 90B ?update@AIGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00797E70 8B $L557 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797E78 10B $L558 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797E82 10B $L559 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797E8C 10B $L560 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797E96 10B $L561 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797EA0 10B $L562 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797EAA 10B $L563 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797EB4 10B __ehhandler$??0AIGuardMachine@@QAE@PAVObject@@I@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardMachineCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00797ED2 10B $L2085 -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
+
+// tu-skeleton: 0x00797EDC 10B __ehhandler$?onEnter@AIGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGuardStates.cpp (not merged yet)
