@@ -1,0 +1,16 @@
+diff --git a/Code/Libraries/Source/debug/DebugIOConConstructor.cpp b/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
+index 2b81a3124..3464d5487 100644
+--- a/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
++++ b/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
+@@ -28 +28,2 @@ __declspec(dllimport) BOOL WINAPI DrawMenuBar(HWND hWnd);
+-class DebugIOConBase
++// The native constructor unwind calls the rowed protected interface destructor.
++class DebugIOInterface
+@@ -30,2 +31,2 @@ class DebugIOConBase
+-public:
+-	virtual ~DebugIOConBase() {}
++protected:
++	virtual ~DebugIOInterface();
+@@ -35 +36 @@ public:
+-class DebugIOCon : public DebugIOConBase
++class DebugIOCon : public DebugIOInterface

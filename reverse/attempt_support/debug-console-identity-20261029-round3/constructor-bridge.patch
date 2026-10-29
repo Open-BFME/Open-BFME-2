@@ -1,0 +1,19 @@
+diff --git a/Code/Libraries/Source/debug/DebugIOConConstructor.cpp b/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
+index 2b81a3124..b1fe12a61 100644
+--- a/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
++++ b/Code/Libraries/Source/debug/DebugIOConConstructor.cpp
+@@ -27,0 +28,8 @@ __declspec(dllimport) BOOL WINAPI DrawMenuBar(HWND hWnd);
++class DebugIOConBase;
++class DebugIOInterface
++{
++	friend class DebugIOConBase;
++protected:
++	virtual ~DebugIOInterface();
++};
++
+@@ -31 +39,4 @@ public:
+-	virtual ~DebugIOConBase() {}
++	virtual __forceinline ~DebugIOConBase()
++	{
++		reinterpret_cast<DebugIOInterface *>(this)->DebugIOInterface::~DebugIOInterface();
++	}

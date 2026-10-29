@@ -1,5 +1,12 @@
 # Linking target checklist
 
+Console constructor cleanup follow-up (2026-10-29, 29c5ceda1f, LINK-137):
+local identity repair preserves bytes/EH but regresses COMDAT selection;
+both the real-base and typed-bridge trials are restored. The constructor's
+identity key stays until the interface/vtable and deleting-destructor
+provider cohort is reconciled. No linked-byte or debt gain is claimed.
+[Measured failures and banked patches](../reverse/attempt_support/debug-console-identity-20261029-round3.md).
+
 BuildableHeroListUpgrade composition follow-up (2026-10-29, 29c5ceda1f):
 three implementation rows compose, but the constructor's opaque UpgradeModule
 view conflicts with the inherited view. The supported dry run rejects it;
