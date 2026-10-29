@@ -1,4 +1,4 @@
-// cl: /MD /GX
+// cl: /MD /GX /Ireference/shims/bfme2_ascii
 // ??1Rva004211CA@@UAE@XZ @ 0x004211CA 92B
 // Dtor with vtable 0x0083BDFC, Ascii at +0x10, Unicode at +0x14, heap at +0x18
 // freed via _free, then base Overridable pinned dtor. Unblocks deleting dtor
@@ -6,6 +6,10 @@
 // Evidence: mov [esi] vtable, test+free +0x18, releaseBuffer +0x14 wide
 // +0x10 narrow, base call 0x001E3624, caller 0x00421229, neighbours
 // 0x004210B0 and 0x0042169B.
+//
+// The canonical frozen StringBase replaces the private copy; the switch
+// declares the char destructor so both teardowns call the rowed workers
+// (0x0048BA39 for char, 0x00036410 for the wide releaseBuffer).
 
 // Retail calls free directly (the game allocator), not through the CRT
 // import: read <stdlib.h> without dllimport.
@@ -13,18 +17,8 @@
 #include <stdlib.h>
 #undef _CRTIMP
 
-template <typename T>
-class StringBase
-{
-	void *m_data;
-	void releaseBuffer();
-public:
-	~StringBase() { releaseBuffer(); }
-};
-
-// The narrow teardown is rowed at 0x00036410 (StringBaseWideReleaseBuffer.cpp).
-template <> StringBase<char>::~StringBase();
-
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Overridable
 {
