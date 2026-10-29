@@ -46,50 +46,76 @@ struct Rva007E9B70Obj
 
 int Rva00656B60Get();
 
-class BfmeStrTWA
-{
+class PrototypeClass {
 public:
-	char m_bfmePad[0x10];
-	unsigned int m_bfme20;
-	unsigned char m_bfme24;
-	unsigned char m_bfmePad25[3];
-	void (__cdecl *m_bfmeCallback)( void *, void * );
-	void *m_bfmeContext;
+ PrototypeClass();
+ virtual ~PrototypeClass();
+ int field04;
 };
 
-class BfmeThingTWA
-{
+class Rva00808CB0LanGameEntry : public PrototypeClass {
 public:
-	// Slot 1 of the primary table 0x00CE30B8 that the constructor installs
-	// at +0; the real vptr replaces the explicit word that modelled it.
-	virtual void rva007F8790( const char *gameID, int port,
-		const char *session, unsigned char flag );
-	void *m_bfmeVft1;
-	Rva00804150ProtoMangleRef *m_bfme08;
-	int m_bfme0c;
-	BfmeStrTWA m_bfmeStr;
+  __declspec(dllimport) __forceinline Rva00808CB0LanGameEntry() { field08=0; field0c=0; field04=0; }
+  ~Rva00808CB0LanGameEntry();
+  int field08, field0c;
+};
+
+class Rva00803080 {
+public:
+ Rva00803080() {}
+ virtual void slot0(unsigned int) = 0;
+};
+
+class Rva007EAServiceList {
+public: void add(Rva00803080*);
+};
+
+// The deleting destructor 0x00664FF0 inlines this destructor: the cleanup
+// 0x00664FC0, then the +0x10 member and the primary base.
+class BfmeE1036 { public: void bfmeGo1036E(); };
+
+class DemanglerPrimary {
+public:
+ virtual ~DemanglerPrimary() {}
+ virtual void rva007F8790(const char*,int,const char*,unsigned char) = 0;
+ virtual void set(int,int) = 0;
+};
+
+class BfmeThingTWA : public DemanglerPrimary, public Rva00803080 {
+public:
+ BfmeThingTWA(Rva007EAServiceList*);
+ virtual ~BfmeThingTWA() { reinterpret_cast<BfmeE1036*>(this)->bfmeGo1036E(); }
+ virtual void slot0(unsigned int) = 0;
+ virtual void rva007F8790(const char*,int,const char*,unsigned char);
+ virtual void set(int,int);
+ Rva00804150ProtoMangleRef *field08;
+ int field0c;
+ Rva00808CB0LanGameEntry packet;
+ unsigned int field20;
+ unsigned char field24;
+ void (__cdecl *field28)(void *, void *);
+ void *field2c;
 };
 
 void BfmeThingTWA::rva007F8790( const char *gameID, int port,
 	const char *session, unsigned char flag )
 {
-	if( m_bfme0c != 0 )
+	if( field0c != 0 )
 		Rva007EB810Get()->fail(
 			"mState == DEMANGLER_READY", "\\views\\feslbuild_main\\jabba\\fesl\\source\\demangler.cpp", 0x3B );
 
 	Rva00804150ProtoMangleRef *ref = ProtoMangleCreate(
 		"demangler.ea.com", 0xE4A, gameID, "" );
-	m_bfme08 = ref;
+	field08 = ref;
 	if( ref == 0 )
 	{
-		m_bfmeStr.m_bfmeCallback( &m_bfmeStr,
-			m_bfmeStr.m_bfmeContext );
+		field28( &packet, field2c );
 		return;
 	}
 
 	Rva008043F0Connect( ref, port, session );
-	m_bfmeStr.m_bfme24 = flag;
-	m_bfmeStr.m_bfme20 = ((Rva007E9B70Obj *)Rva00656B60Get())->slot08();
-	m_bfme0c = 1;
+	field24 = flag;
+	field20 = ((Rva007E9B70Obj *)Rva00656B60Get())->slot08();
+	field0c = 1;
 }
 

@@ -33,6 +33,8 @@ class Rva007EAServiceList {
 public: void add(Rva00803080*);
 };
 
+struct Rva00804150ProtoMangleRef;
+
 // The deleting destructor 0x00664FF0 inlines this destructor: the cleanup
 // 0x00664FC0, then the +0x10 member and the primary base.
 class BfmeE1036 { public: void bfmeGo1036E(); };
@@ -51,11 +53,13 @@ public:
  virtual void slot0(unsigned int) = 0;
  virtual void rva007F8790(const char*,int,const char*,unsigned char);
  virtual void set(int,int);
- int field08, field0c;
+ Rva00804150ProtoMangleRef *field08;
+ int field0c;
  Rva00808CB0LanGameEntry packet;
- int field20;
+ unsigned int field20;
  unsigned char field24;
- int field28, field2c;
+ void (__cdecl *field28)(void *, void *);
+ void *field2c;
 };
 
 // ---- from Code/GameEngine/Source/GameNetwork/BfmeThingTWAConstructor.cpp
