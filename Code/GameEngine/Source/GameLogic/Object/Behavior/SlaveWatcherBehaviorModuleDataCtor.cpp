@@ -1,4 +1,4 @@
-// cl: /MD /DNDEBUG
+// cl: /DNDEBUG /MD /GX /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
 //
 // ??0SlaveWatcherBehaviorModuleData@@QAE@XZ, retail 0x004846C7,
 // 22 bytes. Frameless store-only ctor over table 0xC4A208
@@ -8,11 +8,10 @@
 // BFME2 extends with ShareUpgrades/LetSlaveLive bytes) plus the rowed
 // poolkey 0x48462E (SlaveWatcherBehavior) in the same cluster plus
 // factory 0x24C660 news 0x14 sole caller plus proc 0x4845BA rowed.
-// Shape follows ReflectDamage trivial-ctor precedent: flat TU-local class
-// with explicit void*m_vtable (no virtuals, no vtable emission) plus
-// plain-data members; body assignments in retail order. Strings are 4B
-// zeroed slots, modeled as const char* (BattlePlan precedent). Vtable
-// 0x00C4A298 is unique image-wide (single installing site).
+// The class view is the one SlaveWatcherBehavior.cpp declares: the novtable
+// Snapshot-derived data with AsciiString members, whose +0x04 member stores
+// vtable 0x00C4A298 (unique image-wide, single installing site) before the
+// strings construct.
 
 // Retail VA 0x00C4A298 (.rdata): a 31-slot vftable no unit emits. Defined here as
 // data with retail's slot pointers, each bound to the ledger name at its
@@ -59,26 +58,42 @@ extern "C" const void *const vtbl_00C4A298[] = {
 	(const void *)&__identifier("?rva0050B5C6@Rva0050B5C6@@QAE_NXZ")
 };
 
-class SlaveWatcherBehaviorModuleData
+#include "ascii_string.h"
+#include "Common/Snapshot.h"
+
+// INI table 0x00C4A208 parses GrantUpgrade (+0x08), RemoveUpgrade (+0x0C),
+// ShareUpgrades (+0x10) and LetSlaveLive (+0x11). Until the ModuleData chain
+// carries its own 31-slot table, the dead +0x04 slot installs retail's
+// 0x00C4A298 ahead of the strings (the ctor 0x004846C7 stores it first), and
+// the dtor (0x004846FA) only restores Snapshot's 0x00BBB554, hence novtable.
+extern "C" const void *const vtbl_00C4A298[];
+
+class SlaveWatcherBehaviorModuleDataTable
+{
+public:
+	SlaveWatcherBehaviorModuleDataTable(void *owner) { *(const void *const **)owner = vtbl_00C4A298; }
+
+private:
+	unsigned char m_unused[4];
+};
+
+class __declspec(novtable) SlaveWatcherBehaviorModuleData : public Snapshot
 {
 public:
 	SlaveWatcherBehaviorModuleData();
+	virtual ~SlaveWatcherBehaviorModuleData();
 
-private:
-	const void *m_vtable; // +0
-	unsigned int m_unused04; // +4
-	const char *m_grantUpgrade; // +8
-	const char *m_removeUpgrade; // +0xC
+	SlaveWatcherBehaviorModuleDataTable m_table; // +0x04
+	AsciiString m_grantUpgrade; // +0x08
+	AsciiString m_removeUpgrade; // +0x0C
 	bool m_shareUpgrades; // +0x10
 	bool m_letSlaveLive; // +0x11
 };
 
 // ??0SlaveWatcherBehaviorModuleData@@QAE@XZ @0x4846C7
 SlaveWatcherBehaviorModuleData::SlaveWatcherBehaviorModuleData()
+	: m_table(this)
 {
-	m_vtable = reinterpret_cast<const void *>(((unsigned int)vtbl_00C4A298));
-	m_grantUpgrade = 0;
-	m_removeUpgrade = 0;
 	m_shareUpgrades = false;
 	m_letSlaveLive = false;
 }

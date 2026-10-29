@@ -35,13 +35,34 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../../Include/Common/BfmeXfer.h"
-class SlaveWatcherBehaviorModuleData
+#include "Common/Snapshot.h"
+
+// INI table 0x00C4A208 parses GrantUpgrade (+0x08), RemoveUpgrade (+0x0C),
+// ShareUpgrades (+0x10) and LetSlaveLive (+0x11). Until the ModuleData chain
+// carries its own 31-slot table, the dead +0x04 slot installs retail's
+// 0x00C4A298 ahead of the strings (the ctor 0x004846C7 stores it first), and
+// the dtor (0x004846FA) only restores Snapshot's 0x00BBB554, hence novtable.
+extern "C" const void *const vtbl_00C4A298[];
+
+class SlaveWatcherBehaviorModuleDataTable
 {
 public:
-	unsigned char m_pad[0x8];
-	AsciiString m_upgradeToRemove; // +0x08
-	AsciiString m_upgradeOnRelease; // +0x0C
-	bool m_updateSlave; // +0x10
+	SlaveWatcherBehaviorModuleDataTable(void *owner) { *(const void *const **)owner = vtbl_00C4A298; }
+
+private:
+	unsigned char m_unused[4];
+};
+
+class __declspec(novtable) SlaveWatcherBehaviorModuleData : public Snapshot
+{
+public:
+	SlaveWatcherBehaviorModuleData();
+	virtual ~SlaveWatcherBehaviorModuleData();
+
+	SlaveWatcherBehaviorModuleDataTable m_table; // +0x04
+	AsciiString m_grantUpgrade; // +0x08
+	AsciiString m_removeUpgrade; // +0x0C
+	bool m_shareUpgrades; // +0x10
 	bool m_letSlaveLive; // +0x11
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
@@ -281,7 +302,7 @@ SlaveWatcherBehavior::~SlaveWatcherBehavior()
 void SlaveWatcherBehavior::rva00484869(int id)
 {
 	m_slaveID = (ObjectID)id;
-	if (m_moduleData->m_updateSlave)
+	if (m_moduleData->m_shareUpgrades)
 	{
 		Object *slave = TheGameLogic->findObjectByID((ObjectID)id);
 		if (slave)
@@ -297,9 +318,9 @@ void SlaveWatcherBehavior::rva00484869(int id)
 // ?update@SlaveWatcherBehavior@@UAE?AW4UpdateSleepTime@@XZ @0x004847A9 192B:
 // update-interface slot 0 (vftable 0xC4A258, this = module +0x10). While a
 // slave is watched: once it is gone or effectively dead, the module data's
-// release upgrade (+0x0C) is granted (0x00290D42) and its other upgrade (+0x08)
-// removed (0x00293077), the upgrade modules refresh and the module sleeps
-// forever; otherwise, with UpdateSlave set, any change in this object's
+// RemoveUpgrade (+0x0C) is removed (0x00290D42) and its GrantUpgrade (+0x08)
+// given (0x00293077), the upgrade modules refresh and the module sleeps
+// forever; otherwise, with ShareUpgrades set, any change in this object's
 // upgrade mask is mirrored into the slave as in 0x00484869.
 UpdateSleepTime SlaveWatcherBehavior::update()
 {
@@ -310,17 +331,17 @@ UpdateSleepTime SlaveWatcherBehavior::update()
 		Object *slave = TheGameLogic->findObjectByID(m_slaveID);
 		if (!slave || slave->isEffectivelyDead())
 		{
-			const UpgradeTemplate *granted = TheUpgradeCenter->findUpgrade(data->m_upgradeOnRelease);
-			const UpgradeTemplate *removed = TheUpgradeCenter->findUpgrade(data->m_upgradeToRemove);
-			if (granted)
-				me->removeUpgrade(granted);
-			if (removed)
-				me->rva00293077(removed);
+			const UpgradeTemplate *removeUpgrade = TheUpgradeCenter->findUpgrade(data->m_removeUpgrade);
+			const UpgradeTemplate *grantUpgrade = TheUpgradeCenter->findUpgrade(data->m_grantUpgrade);
+			if (removeUpgrade)
+				me->removeUpgrade(removeUpgrade);
+			if (grantUpgrade)
+				me->rva00293077(grantUpgrade);
 			me->updateUpgradeModules();
 			m_slaveID = INVALID_OBJECT_ID;
 			return UPDATE_SLEEP_FOREVER;
 		}
-		if (data->m_updateSlave && Rva0045F4C2NotEqual(&me->m_upgradeBits, &m_upgradeBits))
+		if (data->m_shareUpgrades && Rva0045F4C2NotEqual(&me->m_upgradeBits, &m_upgradeBits))
 		{
 			m_upgradeBits = me->m_upgradeBits;
 			slave->m_upgradeBits._M_do_or(m_upgradeBits);
