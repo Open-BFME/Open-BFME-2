@@ -8080,6 +8080,17 @@ in the publisher checkout before the owning tool retires this row again.
 This does not clear or prove a linking loss for the pending consumer scope.
 [Recovery details](../reverse/attempt_support/preparation-recovery-20261028-codex3.md).
 
+**2026-10-29 UnitRevivalEntry retirement follow-up:** at base `adfa7b591a`,
+the refreshed published index `85f6b7f40c` (2026-10-29 15:08) supplies the
+previously missing usable per-unit verdict: ordinary preview retains LINKS,
+134 -> 134 authored bytes. The unchanged canonical source verifies its full
+135-byte constructor and float literal, obtains a strict current receipt,
+and passes `header_adopt_lane.py accept`, retiring the restored queue row.
+Publication must independently repeat that owning verdict. No source or
+provider changes occur; the wider pending consumer scope above remains
+unverified and no linking or ownership gain is claimed.
+[Current checks and reference boundary](../reverse/attempt_support/unit-revival-header-retirement-20261029-codexb4.md).
+
 ### LINK-104: placeholder deleting destructors still emit nonretail complete destructors
 
 ### LINK-109: placeholder deleting destructors still emit nonretail complete destructors
