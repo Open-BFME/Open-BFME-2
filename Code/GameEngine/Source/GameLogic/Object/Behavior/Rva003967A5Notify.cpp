@@ -35,6 +35,7 @@ enum NameKeyType
 class NameKeyGenerator
 {
 public:
+	NameKeyType nameToKey(const char *name);
 	NameKeyType nameToKey(const AsciiString &name);
 };
 
@@ -150,7 +151,7 @@ class ThingTemplate;
 class ThingFactory
 {
 public:
-	const ThingTemplate *findTemplate(const AsciiString &key);
+	const ThingTemplate* findTemplate(const AsciiString&);
 };
 
 extern class ThingFactory *TheThingFactory;

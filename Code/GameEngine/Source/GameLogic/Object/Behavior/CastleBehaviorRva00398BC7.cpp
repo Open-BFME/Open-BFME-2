@@ -94,10 +94,13 @@ public:
 	char m_pad00[0x4C];
 	AsciiString m_playerName;
 };
+enum NameKeyType {INVALID_KEY=0};
 class PlayerList
 {
 public:
 	Player *getPlayerFromMask(int mask);
+	Player* findPlayerWithNameKey(NameKeyType);
+	Player*getNthPlayer(int);
 };
 extern PlayerList *ThePlayerList;
 
@@ -106,7 +109,7 @@ extern GameLogic *TheGameLogic;
 class FXList
 {
 public:
-	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
+	static void doFXObj(const FXList*,const Object*,const Object*);
 };
 
 class DrawableList : public _STL::list<Drawable *>

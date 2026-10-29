@@ -13,10 +13,12 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
+class AsciiString;
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const AsciiString &name);
 };
 
 extern NameKeyGenerator *TheNameKeyGenerator;

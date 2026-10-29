@@ -19,7 +19,11 @@ template<int NUMBITS> class BitFlags { public: unsigned long m_words[(NUMBITS+31
  __forceinline bool test(size_t pos) const { return (m_words[pos/32] & (1UL<<(pos%32)))!=0; } };
 class ThingTemplate { public: char pad[0x108]; BitFlags<218> m_kindof;
  __declspec(dllimport) __forceinline bool isKindOf(KindOfType t) const { return m_kindof.test(t); } };
-class ThingFactory { public: const ThingTemplate* findTemplate(const AsciiString&); };
+class ThingFactory
+{
+public:
+	const ThingTemplate* findTemplate(const AsciiString&);
+};
 extern ThingFactory* TheThingFactory;
 class Player;
 class PlayerList;

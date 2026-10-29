@@ -12,8 +12,19 @@ enum NameKeyType{NAMEKEY_INVALID=0};
 enum ObjectStatusTypes{STATUS79=79};
 enum DamageType{DAMAGE8=8};enum DeathType{DEATH0=0};
 class Module;class Object{friend class CastleBehavior;protected:Module*findModule(NameKeyType)const;public:void kill(DamageType,DeathType);};
-class NameKeyGenerator{public:NameKeyType nameToKey(const char*);};extern NameKeyGenerator*TheNameKeyGenerator;
-class FXList{public:static void doFXObj(const FXList*,const Object*,const Object*);};
+class AsciiString;
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const AsciiString &name);
+};
+extern NameKeyGenerator*TheNameKeyGenerator;
+class FXList
+{
+public:
+	static void doFXObj(const FXList*,const Object*,const Object*);
+};
 class LifetimeUpdate{public:void rva003A4AD2();};
 class Rva002918E0Object{public:void rva004B239A(unsigned char,unsigned char);};
 extern GameLogic*TheGameLogic;
