@@ -75,7 +75,6 @@ public:
 	virtual bool rva0050AC09Busy();		// +0x1BC
 	Object *getCurrentVictim() const;
 };
-#undef AISLOT
 
 class Player
 {
@@ -132,6 +131,7 @@ struct Rva0050ACE0Arg
 class Made002CC971 : public Rva00507823
 {
 public:
+	Made002CC971();
 	bool rva0050AB37(const Rva0050ACE0Arg *arg, Object *source);
 	void rva0050AC09(Rva0050ACE0Arg *arg, Object *unused);
 	void rva0050ACE0(Rva0050ACE0Arg *arg, const Coord3D *pos);
