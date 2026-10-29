@@ -1,5 +1,5 @@
 // cl: /EHsc /DNDEBUG /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Skirmish preferences (vtable 0x00C3D658, retail 0x0043C128).
 // A UserPreferences with a small int tag at +0x14, a UserNames
@@ -51,7 +51,7 @@ namespace _STL { template <> list<UnicodeString, allocator<UnicodeString> >::lis
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@_STL@@@_STL@:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class AsciiString;
-namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,AsciiString> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,AsciiString> > *,unsigned int) const; }
+namespace _STL { template <> void allocator<_Rb_tree_node<pair<AsciiString const ,AsciiString> > >::deallocate(_Rb_tree_node<pair<AsciiString const ,AsciiString> > *,unsigned int); }
 // Keep __node_alloc<true,0>::deallocate inline-only: every call here is inlined,
 // and this TU's /O1 COMDAT copy differs from the copy the link keeps.
 namespace _STL {

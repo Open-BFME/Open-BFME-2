@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<wchar_t> default constructor, the wide twin of
 // 0x00007850. Same body, two bytes longer: BFME's allocator takes bytes rather

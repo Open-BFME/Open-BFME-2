@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 locale::global reconstruction, retail RVA 0xBC60.
 // Install a new global implementation while holding the locale mutex, update

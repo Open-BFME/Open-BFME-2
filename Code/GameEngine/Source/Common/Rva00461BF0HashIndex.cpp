@@ -9,7 +9,7 @@
 // are read off retail's call sites (reverse/symbols.csv). Only the placed
 // bodies are carried; the donor's other definitions are omitted.
 // Open-BFME: STLport hash_map index for the Rva0045EF90Object value.
-// stlport
+// stlport46
 
 #define _STLP_NO_EXCEPTIONS 1
 #define _STLP_BFME_LOWER_BOUND_EXTERN  // call retail's one __lower_bound<const size_t*> (vendor/stlport/stl/_hashtable.c)
@@ -42,7 +42,7 @@ namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
 namespace _STL { template <> void *& vector<void *, allocator<void *> >::operator[](unsigned int); }
-namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
+namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *); }
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
 namespace _STL { template <> allocator<void *>::~allocator(); }
