@@ -568,6 +568,19 @@ Remaining / next check: repair the other providers above the same way (each one'
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.
 Clearance: none. Census confirmation: awaiting the first retail-truth-5 census.
+Current-object sweep (b1, 2026-10-29, tree `edd7232ac5`, census index `840db2d676`): `link_check
+--paths-from` over the 232 existing census-unlinked units with their current objects links 55
+(78,486 B); single-unit checks against the stale index under-report (ArmorHashtableRtsCtor.cpp
+and Rva003F9FE6CopyCtor.cpp LINK once CreateAHeroDataCopy.cpp's current object is included).
+Two residuals checked, not repaired:
+- `GiantBirdAIUpdateCtor_GiantBirdAIUpdate.cpp` (518 B): unresolved `?aiDoCommand@AICommandInterface@@UAEXXZ`
+  from its view's slot. Retail's ctor stores 0x00C17A6C at +0x20; slot 0 is 0x0036BC79, rowed
+  `?aiDoCommand@Rva00368344@@UAEXPBUAICommandParms@@@Z`, and no other table holds that address, so
+  `Rva00368344` is GiantBirdAIUpdate (structural inference). `rename.py class` refuses the merge
+  (GiantBirdAIUpdate exists); needs a code-identity route (re_attempts.log 0x0036B717).
+- `Rva007B7280Siblings.cpp`, `Rva007B73C0.cpp`: their `??_G?$VectorClass@VVector3@@` inlines `Clear`
+  (/O2), retail's 0x000F1CF7 calls it; the teardowns themselves need Clear inline, so the same TU
+  cannot emit retail's copy without a hatch. Likely retail's own pointgr.obj copy lost too.
 
 ### LINK-134: Subsystem registration pair-vector identity
 
