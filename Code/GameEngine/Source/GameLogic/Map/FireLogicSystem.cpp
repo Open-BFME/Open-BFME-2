@@ -519,7 +519,6 @@ void *__cdecl Rva002861EFFill(void *dst, unsigned int count, const void *src)
 
 // tu-skeleton: 0x00286852 56B ??1?$_Rb_tree@W4ObjectID@@U?$pair@$$CBW4ObjectID@@H@_STL@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@U?$less@W4ObjectID@@@3@V?$allocator@U?$pair@$$CBW4ObjectID@@H@_STL@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_tree_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0028688A 146B ?_M_insert@?$_Rb_tree@UGen_t_00062fa0_mc4@@U?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@_STL@@U?$_Select1st@U?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@_STL@@@3@U?$less@UGen_t_00062fa0_mc4@@@3@V?$allocator@U?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBUGen_t_00062fa0_mc4@@UGen_t_00062fa0_m4cd@@@2@0@Z -- matched in Code/gen_small/fam_003_Rva0028688a.cpp (not merged yet)
 
 // tu-skeleton: 0x0028691C 5B ?cleanup@Rva0028691CTreeCleanupForward@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0028681A.cpp (not merged yet)
 
