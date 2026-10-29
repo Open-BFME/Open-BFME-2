@@ -188,8 +188,14 @@ verified and easy to rebase. Detail for the hook rules:
 
 ### Publication
 
-- Push direct to `master`: `git pull --rebase origin master`, `git push`, then
-  pull --rebase again; on rejection rebase and retry.
+- Push to `master` with `python3 tools/push.py`, never by hand or with a
+  hand-rolled loop. It rebases onto origin/master, pins reference/open-bfme-1,
+  refuses any outgoing commit not authored and committed as the account's
+  GitHub noreply identity (`git config bfme.pushEmail`, else `user.email`),
+  pushes through `.githooks/` (never `--no-verify`), and on a lost race
+  rebases and pushes again at once, printing each attempt's time. The hooks
+  re-verify only what changed since the last check (commit and push receipts,
+  `tools/push_receipts.py`), so a retry costs seconds; a real refusal stops it.
 - Never land a pull request with GitHub's merge button: it publishes rows nothing
   verified. Cherry-pick the commits onto master, `./build.sh` their rows, push,
   then comment on the PR with the landed SHAs and that follow-up work stacks off
@@ -205,7 +211,13 @@ verified and easy to rebase. Detail for the hook rules:
   ends, even if no headline figure moved.
 - Allow at least five minutes between successful pushes by the same GitHub
   account to this repository; share that clock across workers using the
-  account, and keep working during the cooldown.
+  account, and keep working during the cooldown. `push.py` keeps the clock
+  (`<git common dir>/bfme-last-push`, or `$BFME_PUSH_CLOCK` for a clock shared
+  beyond one clone) and waits before a first attempt; a retry after a lost
+  race does not wait, since nothing landed.
+- A full-gate push takes the landing window (`lease:landing`,
+  `tools/push_lease.py`) and renews it while its gate runs; every other push
+  waits for it at the end of its hook. Never take a freeze yourself.
 - If the outgoing batch changes source paths, audit active tooling and other
   path consumers once across the entire batch immediately before pushing.
   Update affected consumers and verify them together; repeat only if relevant
