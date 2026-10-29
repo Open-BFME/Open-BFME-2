@@ -10959,3 +10959,5 @@ nl-9e97253de05e-ma3a249f309b5341d2fdde7a3,local,l,neighborY,,w-4471b1f6edef@drz-
 nl-35f21dd42d64,param,x,red,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|x,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-87cb60bff22c,param,y,green,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|y,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
 nl-336ac62c9d99,param,z,blue,,w-4471b1f6edef@drz-k7,Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|z,agreed,single-worker scoped approval: w-4471b1f6edef@drz-k7
+nl-982141b0cea1,param,a1,source,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_LoadXML.cpp|param|ParserWrap|a1,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-099205bd3726,param,a2,buffer,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_LoadXML.cpp|param|ParserWrap|a2,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1

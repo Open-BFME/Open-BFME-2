@@ -17145,3 +17145,5 @@ Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|function|
 Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|x,35f21dd42d64484767a08d3a,drz-k7,drz-k7-19,w-4471b1f6edef,2026-10-29
 Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|y,87cb60bff22c40b15f15c329,drz-k7,drz-k7-19,w-4471b1f6edef,2026-10-29
 Code/GameEngine/Source/GameClient/LivingWorld/Rva0009C814ArmyLines.cpp|param|Rva0009C814Color|z,336ac62c9d9925c0d375ad20,drz-k7,drz-k7-19,w-4471b1f6edef,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_LoadXML.cpp|param|ParserWrap|a1,982141b0cea1b17902613cb1,drz-k1,drz-k1-16,w-d29055ee9848,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/LuaScriptEngine_LoadXML.cpp|param|ParserWrap|a2,099205bd37265cd191ee3e01,drz-k1,drz-k1-16,w-d29055ee9848,2026-10-29
