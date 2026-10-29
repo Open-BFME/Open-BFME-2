@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC
-// stlport
+// stlport46
 //
 // strstreambuf, vftable 0x0087A878. seekpos is the standard forwarder onto
 // seekoff with ios_base::beg, and the image confirms it is not devirtualised:

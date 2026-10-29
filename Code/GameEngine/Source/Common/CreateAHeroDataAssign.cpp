@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /Ob2 /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_BFME_RETAIL_TREE_INSERT_LAYOUT /Ireference/shims/bfmealloc /Ireference/shims/moduledata 
-// stlport
+// stlport46
 // Native409359..409457 complete254B assignment. Target named class identity
 // is independently supported by the owned CreateAHero family and callers.
 // The first two maps use the established full-DWORD key view: target copy
@@ -32,7 +32,7 @@ namespace _STL {
 template <> vector<AsciiString, allocator<AsciiString> >::~vector();
 template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
 template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
-template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t);
 template <> vector<AsciiString, allocator<AsciiString> > &vector<AsciiString, allocator<AsciiString> >::operator=(const vector<AsciiString, allocator<AsciiString> >&);
 }
 struct TreeHintPayload001F8ACB { unsigned int value; };

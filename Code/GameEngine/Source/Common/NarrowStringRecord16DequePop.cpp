@@ -1,5 +1,5 @@
-// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP= /Ireference/shims/bfmealloc
-// stlport
+// cl: /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
+// stlport46
 //
 // ?rva0041A3F7@Rva0041A3F7@@QAEXXZ @0x0041A3F7, 53B: deque pop_front slow path
 // for 16-byte elements (single-string record 0x0041A617: text +0, short,

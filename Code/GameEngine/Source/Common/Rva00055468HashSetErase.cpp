@@ -1,5 +1,5 @@
 // cl: /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 //
 // hashtable<Rva00051B89Keyed*>::erase(const const_iterator&) @ 0x00054C44 (79B).
 // Target evidence: the body calls the 1-arg _M_bkt_num_key at 0x00053EA8,
@@ -21,7 +21,7 @@ namespace _STL { template <> void __malloc_alloc<0>::deallocate(void *, unsigned
 // Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Hashtable_node@PAURva00051B89Keyed@@@_STL@@@_STL@@QBEXPAU?$_Ha:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 struct Rva00051B89Keyed;
-namespace _STL { template <> void allocator<_Hashtable_node<Rva00051B89Keyed *> >::deallocate(_Hashtable_node<Rva00051B89Keyed *> *,unsigned int) const; }
+namespace _STL { template <> void allocator<_Hashtable_node<Rva00051B89Keyed *> >::deallocate(_Hashtable_node<Rva00051B89Keyed *> *,unsigned int); }
 // Suppress this TU's non-retail vector<void*> operator[] copy (family2-LK3 row 25):
 // the retail copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL {
