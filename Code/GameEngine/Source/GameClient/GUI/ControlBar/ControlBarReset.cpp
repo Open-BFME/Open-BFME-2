@@ -161,20 +161,9 @@ public:
 	void remove(AsciiString groupName, bool skipPending);
 };
 
-class HasResetV
-{
-public:
-	virtual void pad0();
-	virtual void pad1();
-	virtual void pad2();
-	virtual void pad3();
-	virtual void pad4();
-	virtual void pad5();
-	virtual void pad6();
-	virtual void pad7();
-	virtual void pad8();
-	virtual void resetV();
-};
+class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
+
+class AnimateWindowManager : public SubsystemInterface { public: AnimateWindowManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x38 - 0x0C]; };
 
 class ControlBar : public SubsystemInterface
 {
@@ -183,7 +172,10 @@ public:
 	void switchToContext(int a, void *b);
 	virtual void reset();
 
-	HasResetV *m_resetMembers[4];			///< +0x0C..+0x18 virtual-reset members
+	WindowVideoManager *m_videoManager;			///< +0x0C
+	AnimateWindowManager *m_animateWindowManager;		///< +0x10
+	AnimateWindowManager *m_animateWindowManagerForGenShortcuts;	///< +0x14
+	AnimateWindowManager *m_generalsScreenAnimate;		///< +0x18
 	unsigned char m_pad1C[0x2C - 0x1C];
 	BfmeResetNode *m_commandSets;			///< +0x2C
 	Rva000427195 m_videoMap;			///< +0x30
@@ -239,14 +231,14 @@ void ControlBar::reset()
 	if (theRadarWindowOverrideSource != 0)
 		theRadarWindowOverrideSource->rva002D370A();
 
-	if (m_resetMembers[1] != 0)
-		m_resetMembers[1]->resetV();
-	if (m_resetMembers[2] != 0)
-		m_resetMembers[2]->resetV();
-	if (m_resetMembers[3] != 0)
-		m_resetMembers[3]->resetV();
-	if (m_resetMembers[0] != 0)
-		m_resetMembers[0]->resetV();
+	if (m_animateWindowManager)
+		m_animateWindowManager->reset();
+	if (m_animateWindowManagerForGenShortcuts)
+		m_animateWindowManagerForGenShortcuts->reset();
+	if (m_generalsScreenAnimate)
+		m_generalsScreenAnimate->reset();
+	if (m_videoManager)
+		m_videoManager->reset();
 
 	// go back to default context
 	switchToContext(0, 0);

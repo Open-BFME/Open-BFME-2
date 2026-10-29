@@ -174,9 +174,9 @@ extern ImageCollection *TheMappedImageCollection;
 
 class CommandButton;
 
-class WindowVideoManager { public: WindowVideoManager(); private: char m_opaque[0x24]; };
+class WindowVideoManager : public SubsystemInterface { public: WindowVideoManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x24 - 0x0C]; };
 
-class AnimateWindowManager { public: AnimateWindowManager(); private: char m_opaque[0x38]; };
+class AnimateWindowManager : public SubsystemInterface { public: AnimateWindowManager(); virtual void init(); virtual void reset(); virtual void update(); private: char m_opaque[0x38 - 0x0C]; };
 
 void commandButtonTooltip(GameWindow *window, WinInstanceData *instData, UnsignedInt mouse);
 
