@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ?rva005009AA@@YAHHH@Z, retail 0x005009AA (223 bytes). Cdecl, two int keys.
 // Reads the int-key map at 0x00E04544 whose 24-byte values (copy
