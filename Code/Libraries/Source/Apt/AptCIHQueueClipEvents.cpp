@@ -109,8 +109,8 @@ class AptActionQueueC
 public:
     void rva006E3740(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3740
     void rva006E3810(AptValue *, AptValue *, AptValue *, int, int); // 0x006E3810
-    void rva006E4B80(void *actions, AptCIH *target, int type, int value); // 0x006E4B80
-    void rva006E4C70(void *actions, AptCIH *target, int type, int value); // 0x006E4C70
+    void enqueueAction(void *actions, AptCIH *target, int type, int value); // 0x006E4B80
+    void prependAction(void *actions, AptCIH *target, int type, int value); // 0x006E4C70
 };
 class Rva006E34D0
 {
@@ -169,7 +169,7 @@ bool AptCIH::queueClipEvents(int mask, int value, int flag)
                 continue;
             switch (mask) {
             case 2:
-                g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E4C70(&pChar->mpClipActions->items[i].actions, this, 2, g_00E17704);
+                g_bfmeAptPtrAtE176D0->mpActionQueue->prependAction(&pChar->mpClipActions->items[i].actions, this, 2, g_00E17704);
                 bQueued = true;
                 break;
             case 0x200:
@@ -197,12 +197,12 @@ bool AptCIH::queueClipEvents(int mask, int value, int flag)
             }
             case 0x20000:
                 if (pChar->mpClipActions->items[i].keyCode == ((unsigned int)value >> 17)) {
-                    g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E4C70(&pChar->mpClipActions->items[i].actions, this, 0x20000, value);
+                    g_bfmeAptPtrAtE176D0->mpActionQueue->prependAction(&pChar->mpClipActions->items[i].actions, this, 0x20000, value);
                     bQueued = true;
                 }
                 break;
             default:
-                g_bfmeAptPtrAtE176D0->mpActionQueue->rva006E4B80(&pChar->mpClipActions->items[i].actions, this, mask, value);
+                g_bfmeAptPtrAtE176D0->mpActionQueue->enqueueAction(&pChar->mpClipActions->items[i].actions, this, mask, value);
                 bQueued = true;
                 break;
             }

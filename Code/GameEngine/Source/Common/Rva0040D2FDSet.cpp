@@ -20,12 +20,12 @@ class ArmySummarySystem
 {
 public:
 	void *rva0040D008(int id);
-	void rva0040D2FD(int a, int delaySeconds, Rva0040D2FDVec *coordinates);
+	void rva0040D2FD(int armyId, int delaySeconds, Rva0040D2FDVec *coordinates);
 };
-void ArmySummarySystem::rva0040D2FD(int a, int delaySeconds, Rva0040D2FDVec *coordinates)
+void ArmySummarySystem::rva0040D2FD(int armyId, int delaySeconds, Rva0040D2FDVec *coordinates)
 {
 	float coordinateCopy[2];
-	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(a);
+	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(armyId);
 	if (y == 0)
 		return;
 	y->m_2c &= 0;

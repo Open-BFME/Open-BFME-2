@@ -63,7 +63,7 @@ public:
 // Retail 0x0016AB90: MeshGeometryClass::Get_Vertex_Normal_Array(bool).
 
 
-struct Rva000E7DF3Vertex
+struct ShrubVertex
 {
 	float x, y, z;
 	Vector3 normal;
@@ -165,7 +165,7 @@ struct Rva000E7DF3Type
 	unsigned char m_gap3c[0x5c - 0x3c];
 };
 
-struct Rva000E7DF3Tree
+struct ShrubInstance
 {
 	Vector3 location;
 	float scale;
@@ -207,7 +207,7 @@ private:
 	std::vector<IndexBufferClass *> m_indexTree;
 	std::vector<int> m_curNumTreeIndices;
 	unsigned char m_gap34[0x1958 - 0x34];
-	Rva000E7DF3Tree m_trees[2000];
+	ShrubInstance m_trees[2000];
 	int m_numTrees;
 	bool m_anythingChanged;
 	unsigned char m_gap4fb5d[0x4fb6c - 0x4fb5d];
@@ -237,14 +237,14 @@ void W3DShrubBuffer::loadShrubsInVertexAndIndexBuffers(void)
 		m_curNumTreeIndices[bNdx] = 0;
 		if (curTree >= m_numTrees)
 			break;
-		Rva000E7DF3Vertex *vb;
+		ShrubVertex *vb;
 		unsigned short *ib;
 		IndexBufferClass::WriteLockClass lockIdxBuffer(m_indexTree[bNdx], 0);
 		VertexBufferClass::WriteLockClass lockVtxBuffer(m_vertexTree[bNdx], 0);
-		vb = (Rva000E7DF3Vertex *)lockVtxBuffer.Get_Vertex_Array();
+		vb = (ShrubVertex *)lockVtxBuffer.Get_Vertex_Array();
 		ib = lockIdxBuffer.Get_Index_Array();
 		unsigned short *curIb = ib;
-		Rva000E7DF3Vertex *curVb = vb;
+		ShrubVertex *curVb = vb;
 
 		for (; curTree < m_numTrees; curTree += m_treeIndexStep) {
 			int type = m_trees[curTree].treeType;

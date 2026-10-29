@@ -68,7 +68,7 @@ public:
     char _pad4[0x48];
     Rva006E4B80Inner *m_pAt4C;
 };
-struct Rva006E4B80Slot {
+struct AptQueuedAction {
     int eActionType;
     int field4;
     int field8;
@@ -88,8 +88,8 @@ public:
     Rva006E3230Action *rva006E3920(int index);
     void rva006E39A0();
     void rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
-    void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
-    void rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
+    void enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
+    void prependAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
     void rva006E3810(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE);
 };
 void AptActionQueueC::rva006E3230(Rva006E3230Action *pCur)
@@ -216,7 +216,7 @@ void AptActionQueueC::rva006E3740(AptValue *pContext, AptValue *pA, AptValue *pB
 // meets m_pCurrent, else stores type 1 plus chain int from [pCIH+0x4C]+0x28,
 // arg1, pCIH (with AddRef slot0), arg4, arg3, advances m_pEnd. Evidence:
 // unlock lane packet; same queue object; stride 24 and assert/log immediates.
-void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
+void AptActionQueueC::enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
 {
     if (!((const Rva006DBB60ShrNAndField *)pCIH)->get()) {
         g_bfmeAptAssertAtE17734("pCIH->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x64f);
@@ -228,18 +228,18 @@ void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
         pNext = m_aActionPool;
     rva006E3230(pNext);
     if (pNext != m_pCurrent) {
-        ((Rva006E4B80Slot *)m_pEnd)->eActionType = 1;
+        ((AptQueuedAction *)m_pEnd)->eActionType = 1;
         if (!((const Rva006CFCD0 *)pCIH)->isSpriteInstBase()) {
             g_bfmeAptAssertAtE17734("isSpriteInstBase()", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x7d);
             if (g_bfmeAptBreakOnAssertAtDDC01C)
                 __debugbreak();
         }
-        ((Rva006E4B80Slot *)m_pEnd)->fieldC = pCIH->m_pAt4C->m_val28;
-        ((Rva006E4B80Slot *)m_pEnd)->m_actions = pArg1;
-        ((Rva006E4B80Slot *)m_pEnd)->field14 = pCIH;
+        ((AptQueuedAction *)m_pEnd)->fieldC = pCIH->m_pAt4C->m_val28;
+        ((AptQueuedAction *)m_pEnd)->m_actions = pArg1;
+        ((AptQueuedAction *)m_pEnd)->field14 = pCIH;
         pCIH->AddRef();
-        ((Rva006E4B80Slot *)m_pEnd)->field8 = iArg4;
-        ((Rva006E4B80Slot *)m_pEnd)->field4 = iArg3;
+        ((AptQueuedAction *)m_pEnd)->field8 = iArg4;
+        ((AptQueuedAction *)m_pEnd)->field4 = iArg3;
         m_pEnd = pNext;
         return;
     }
@@ -252,7 +252,7 @@ void AptActionQueueC::rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
 // Dequeue-full test compares it against m_pEnd; the cursor is stored before
 // the isSpriteInstBase check. Assert line 0x682 in
 // AptAnimation.cpp. Evidence: shared strings and stride with rva006E4B80.
-void AptActionQueueC::rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
+void AptActionQueueC::prependAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4)
 {
     if (!((const Rva006DBB60ShrNAndField *)pCIH)->get()) {
         g_bfmeAptAssertAtE17734("pCIH->getIsDefined()", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptAnimation.cpp", 0x682);
@@ -270,13 +270,13 @@ void AptActionQueueC::rva006E4C70(void *pArg1, AptCIH *pCIH, int iArg3, int iArg
             if (g_bfmeAptBreakOnAssertAtDDC01C)
                 __debugbreak();
         }
-        ((Rva006E4B80Slot *)m_pCurrent)->fieldC = pCIH->m_pAt4C->m_val28;
-        ((Rva006E4B80Slot *)m_pCurrent)->eActionType = 1;
-        ((Rva006E4B80Slot *)m_pCurrent)->m_actions = pArg1;
-        ((Rva006E4B80Slot *)m_pCurrent)->field14 = pCIH;
+        ((AptQueuedAction *)m_pCurrent)->fieldC = pCIH->m_pAt4C->m_val28;
+        ((AptQueuedAction *)m_pCurrent)->eActionType = 1;
+        ((AptQueuedAction *)m_pCurrent)->m_actions = pArg1;
+        ((AptQueuedAction *)m_pCurrent)->field14 = pCIH;
         pCIH->AddRef();
-        ((Rva006E4B80Slot *)m_pCurrent)->field8 = iArg4;
-        ((Rva006E4B80Slot *)m_pCurrent)->field4 = iArg3;
+        ((AptQueuedAction *)m_pCurrent)->field8 = iArg4;
+        ((AptQueuedAction *)m_pCurrent)->field4 = iArg3;
         return;
     }
     Rva006CC110Log(4, "!!!!!!!!!!!!! AptAnimationPoolData:  Dequeue is full !!!!!!!!");
@@ -299,7 +299,7 @@ private:
     AptActionQueueC *m_actionQueue;
 };
 
-void Rva006E0F00Owner::rva006E0F00(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->rva006E4B80(pArg1, pCIH, iArg3, iArg4); }
-void Rva006E0F00Owner::rva006E0F10(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->rva006E4C70(pArg1, pCIH, iArg3, iArg4); }
+void Rva006E0F00Owner::rva006E0F00(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->enqueueAction(pArg1, pCIH, iArg3, iArg4); }
+void Rva006E0F00Owner::rva006E0F10(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4) { m_actionQueue->prependAction(pArg1, pCIH, iArg3, iArg4); }
 void Rva006E0F00Owner::rva006E0F20(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE) { m_actionQueue->rva006E3740(pContext, pA, pB, iD, iE); }
 void Rva006E0F00Owner::rva006E0F30(AptValue *pContext, AptValue *pA, AptValue *pB, int iD, int iE) { m_actionQueue->rva006E3810(pContext, pA, pB, iD, iE); }

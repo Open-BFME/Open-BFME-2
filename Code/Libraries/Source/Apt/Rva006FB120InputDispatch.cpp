@@ -85,7 +85,7 @@ public:
 class AptActionQueueC
 {
 public:
-    void rva006E4B80(void *actions, AptCIH *target, int flags, int arg); // 0x006E4B80
+    void enqueueAction(void *actions, AptCIH *target, int flags, int arg); // 0x006E4B80
 };
 
 struct Rva006E3710Node;
@@ -215,7 +215,7 @@ void AptAnimationPoolData::rva006FB120(int eType, int state, int value, int devi
                 if (pButton->mpCharacter->pData->aRecords[k].flags & 0xFE00) {
                     int key = (pData->aRecords[k].flags & 0xFE00) >> 9;
                     if (eType == key) {
-                        mpActionQueue->rva006E4B80(&pData->aRecords[k].action,
+                        mpActionQueue->enqueueAction(&pData->aRecords[k].action,
                                                    pButton->mpParent, 0x400000, g_00E17704);
                         return;
                     }

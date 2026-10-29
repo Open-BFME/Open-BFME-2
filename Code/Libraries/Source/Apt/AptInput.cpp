@@ -96,7 +96,7 @@ class Rva006F97B0 {public:void rva006F97B0();};
 
 class Rva006DBB60ShrNAndField {public:bool get() const;};
 
-class AptActionQueueC {public:void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);void rva006E3810(AptValue *,AptValue *,AptValue *,int,int);void rva006E4B80(void *,AptCIH *,int,int);};
+class AptActionQueueC {public:void rva006E3740(AptValue *,AptValue *,AptValue *,int,int);void rva006E3810(AptValue *,AptValue *,AptValue *,int,int);void enqueueAction(void *,AptCIH *,int,int);};
 
 class AptInputScriptFunction {
 public:
@@ -463,7 +463,7 @@ void AptAnimationPoolData::rva006FA100(AptCIH *inst,int mode)
     g_bfmeAptAssertAtE17734("pInst->pParent","C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptInput.cpp",0x10B);
     if (g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak();
    }
-   (*(AptActionQueueC**)((char*)this+0xA0))->rva006E4B80(&desc->records[i].actions,pInst->pParent,0x400000,g_00E17704);
+   (*(AptActionQueueC**)((char*)this+0xA0))->enqueueAction(&desc->records[i].actions,pInst->pParent,0x400000,g_00E17704);
   }
  }
  int keyMask=0;

@@ -40,7 +40,7 @@ private:
 class Rva006EE520 {
 public:
     bool rva00047F79(SubTitleManager *manager, float xPos, float yPos,
-        int c, int d, int e, int f);
+        int width, int lineCount, int e, int f);
 private:
     char m_pad[0x184];
     SubTitleManager *m_manager;
@@ -48,7 +48,7 @@ private:
 };
 
 bool Rva006EE520::rva00047F79(SubTitleManager *manager, float xPos, float yPos,
-    int c, int d, int e, int f)
+    int width, int lineCount, int e, int f)
 {
     SubTitleWindow *old = m_sink;
     if (old) {
@@ -60,7 +60,7 @@ bool Rva006EE520::rva00047F79(SubTitleManager *manager, float xPos, float yPos,
     int fontSize=*(volatile int*)&manager->m_fontSize;
     GameFont *font = TheFontLibrary->getFont(
         (const AsciiString *)&manager->m_fontName, (float)fontSize, false);
-    m_sink = new SubTitleWindow(font, xPos, yPos, c, d, e, f);
+    m_sink = new SubTitleWindow(font, xPos, yPos, width, lineCount, e, f);
     m_manager->rva00046A27();
     return true;
 }

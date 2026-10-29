@@ -4067,3 +4067,6 @@ $L310,0x00790ABA,"Renamed to $L54988: tu_skeleton merge into EvacuateGarrisonSpe
 ?GadgetButtonSetDisabledSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z,0x002C04B1,"Renamed to ?GadgetButtonSetDisabledImage123_Rva002C04B1@@YAXPAVGameWindow@@PBVImage@@@Z by tools/rename.py (restored)"
 ?GadgetButtonSetHiliteImage@@YAXPAVGameWindow@@PBVImage@@@Z,0x002C04DB,"Renamed to ?GadgetButtonSetHiliteImage_Rva002C04DB@@YAXPAVGameWindow@@PBVImage@@@Z by tools/rename.py (restored)"
 ?GadgetButtonSetHiliteSelectedImage@@YAXPAVGameWindow@@PBVImage@@@Z,0x002C0505,"Renamed to ?GadgetButtonSetHiliteImage123_Rva002C0505@@YAXPAVGameWindow@@PBVImage@@@Z by tools/rename.py (restored)"
+?rva000B7F04@Rva000B7F04@@QAE_NPBVAsciiString@@PAVMatrix3D@@@Z,0x000B7F04,"Renamed to ?clientOnly_getRenderObjBoneTransform@Rva000B7F04@@QAE_NPBVAsciiString@@PAVMatrix3D@@@Z by tools/rename.py (inferred)"
+?rva006E4B80@AptActionQueueC@@QAEXPAXPAVAptCIH@@HH@Z,0x006E4B80,"Renamed to ?enqueueAction@AptActionQueueC@@QAEXPAXPAVAptCIH@@HH@Z by tools/rename.py (inferred)"
+?rva006E4C70@AptActionQueueC@@QAEXPAXPAVAptCIH@@HH@Z,0x006E4C70,"Renamed to ?prependAction@AptActionQueueC@@QAEXPAXPAVAptCIH@@HH@Z by tools/rename.py (inferred)"

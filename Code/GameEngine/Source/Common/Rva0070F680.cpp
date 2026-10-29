@@ -10,7 +10,7 @@ class AptCIH;
 class AptActionQueueC
 {
 public:
-    void rva006E4B80(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
+    void enqueueAction(void *pArg1, AptCIH *pCIH, int iArg3, int iArg4);
 };
 class Rva006E34D0
 {
@@ -41,6 +41,6 @@ void Rva0070F680::rva0070F680(void *pArg, int idx)
     for (int i = 0; i < m_table[idx].count; ++i) {
         int *q = m_table[idx].items[i];
         if (*q == 1)
-            g_bfmeAptPtrAtE176D0->m_queue->rva006E4B80(q + 1, (AptCIH *)pArg, 0x200000, g_00E17704);
+            g_bfmeAptPtrAtE176D0->m_queue->enqueueAction(q + 1, (AptCIH *)pArg, 0x200000, g_00E17704);
     }
 }

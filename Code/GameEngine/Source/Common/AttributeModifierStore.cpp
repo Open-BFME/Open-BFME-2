@@ -291,7 +291,7 @@ void AttributeModifierStore::parseModifierListDefinition(INI *ini)
     }
 }
 
-// tu-skeleton: 0x002147A1 48B ?rva002147A1@AttributeModifierStore@@QAEPAXHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva002147D1Get.cpp (not merged yet)
+// tu-skeleton: 0x002147A1 48B ?getFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva002147D1Get.cpp (not merged yet)
 
 // tu-skeleton: 0x002147D1 48B ?getEndFX@AttributeModifierStore@@QAEPAXHPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva002147D1Get.cpp (not merged yet)
 
