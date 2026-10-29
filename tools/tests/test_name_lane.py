@@ -1389,3 +1389,33 @@ def test_real_tree_list_only(capsys):
         assert entry["file"].startswith("Code/") and not entry["file"].startswith(rename.GENERATED)
         assert entry["chars"] <= name_lane.MAX_CHARS and sum(entry["kinds"].values()) >= 1
     assert not (lane.root / "build/name_lane/sessions/pytest-smoke.json").exists()
+
+
+@pytest.mark.parametrize("symbol,served", [
+    ("?linearInsert@@YAHH@Z", False),
+    ("?rva00409999@@YAHH@Z", True),
+    (FN, True),
+])
+def test_real_pin_preflight(tree, symbol, served):
+    (tree / "reverse/symbols.csv").write_text("name,address,notes\n" + symbol + ",0x00401000,test\n")
+    items = lane_of(tree).owned(SOURCE)
+    assert any(i[0] == "function" for i in items) is served
+
+
+def test_existing_header_class_rejected_before_vote(tree, tmp_path, capsys):
+    header = tree / "Code/Game/Existing.h"
+    header.write_text("struct BoxView { int value; };\n")
+    _git(tree, "add", "Code/Game/Existing.h")
+    vote(tree, tmp_path, "a", {"Rva00401000Box": "BoxView"})
+    assert not rows(tree, name_lane.VOTES)
+    assert "reconcile declarations" in capsys.readouterr().out
+
+
+def test_changed_pin_after_serving_rejected_at_submission(tree, tmp_path, capsys):
+    serve(tree, "a")
+    (tree / "reverse/symbols.csv").write_text("name,address,notes\n?linearInsert@@YAHH@Z,0x00401000,test\n")
+    answer = tmp_path / "answer.json"
+    answer.write_text(json.dumps({"rva00401000": "sumBox"}))
+    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="a", model="claude-opus-5-5", answer=str(answer)))
+    assert not rows(tree, name_lane.VOTES)
+    assert "already names" in capsys.readouterr().out

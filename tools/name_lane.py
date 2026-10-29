@@ -364,6 +364,35 @@ class Lane:
             self.ctx._cache["_named_rvas"] = out
         return self.ctx._cache["_named_rvas"]
 
+    def pin_named(self, rva, old_name):
+        """Use the engine's real-pin predicate, excluding the row's own symbol."""
+        own = rename.mangled_re(old_name)
+        if "_naming_pins" not in self.ctx._cache:
+            pins = collections.defaultdict(list)
+            for pin in self.ctx.pins():
+                pins[rename._rva(pin.get("address"))].append(pin.get("name", ""))
+            self.ctx._cache["_naming_pins"] = pins
+        for name in self.ctx._cache["_naming_pins"].get(rva, ()):
+            if name and not own.search(name):
+                ident = rename.leading_fragment(name) or (rename.fragments_text(name) or [name])[0]
+                if not rename.is_placeholder(ident, "function"):
+                    return True
+        return False
+
+    def eligibility(self, rel, kind, scope, ident, rva):
+        """Read-only protection preflight; the planner still rechecks at apply."""
+        if kind in ("param", "local"):
+            return None
+        old = ident
+        if kind == "function":
+            old = next((r["name"] for r in self.ledger().get(rel, ())
+                        if rename._rva(r.get("target_rva")) == rva), ident)
+        try:
+            rename.inferred_guards(self.ctx, kind, old, ident, rva)
+        except rename.Refusal as exc:
+            return str(exc)
+        return None
+
     def evidence(self):
         if "_evidence" not in self.ctx._cache:
             raw = self.text(EVIDENCE_TSV) or ""
@@ -532,6 +561,7 @@ class Lane:
             # one RVA per word in the file: a word shared by several scopes or rows is not this row's alone
             if (rva is not None and rva not in named and seen_rvas[rva] == 1 and len(scopes[word]) == 1
                     and sum(1 for w, _, _ in parsed if w == word) == 1 and name_metric.placeholder(word)
+                    and not self.pin_named(rva, name)
                     and not FAMILY.fullmatch(word) and re.search(rf"\b{re.escape(word)}\b", code)):
                 items.append(("function", f"0x{rva:08X}", word, rva))
         optimised = None
@@ -580,8 +610,8 @@ class Lane:
             return "members are m_camelCase"
         if kind in ("param", "local") and not new[0].islower():
             return "params and locals are camelCase"
-        if kind == "class" and self.type_definers(new) and not self.header_type(new):
-            return f"{new} is another file's stand-in, not a class any header declares"
+        if kind == "class" and self.ctx.grep_files(new, word=True):
+            return f"{new} already exists; reconcile declarations before a class rename"
         if kind in NAMED and new in file_words:
             return "collides with a name already in the file"
         return None
@@ -969,7 +999,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
             already = worker in {w for v in tally[key].values() for w in v}
             annotate = (already and meaning and worker in tally[key].get(h, {})
                         and not tally.meanings[key].get((h, worker)))
-            why = lane.problem(kind, ident, answer, file_words)
+            why = lane.eligibility(rel, kind, scope, ident, rva) or lane.problem(kind, ident, answer, file_words)
             if not why and kind in NAMED and canon(answer) in taken:
                 why = "the same name as another placeholder in this file"
             if not why and canon(answer) in refused.get(key, ()):

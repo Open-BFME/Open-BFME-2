@@ -652,3 +652,13 @@ signature change, a cross-directory move), a hand rename must still:
 - Private class views: most units declare their own view of a class, so a class
   or member rename touches many files. `tools/class_views.py --class X` lists
   them before you plan.
+
+### Early eligibility
+
+The picker excludes function addresses with a different real-named pin, using
+rename.py's pin predicate. Placeholder pins and the owner's own symbol do not
+exclude a candidate. Submission rechecks inferred-name protections before
+recording a vote, including pins added since serving and reference spellings.
+Class proposals whose new token already occurs in source are refused before
+voting: reconcile declarations instead of accumulating an unapplicable agreement.
+These checks do not replace the planner or byte/link verification at apply.
