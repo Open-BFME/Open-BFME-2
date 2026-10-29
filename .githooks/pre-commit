@@ -338,6 +338,7 @@ if [ "$wide_change" -ne 0 ]; then
     else
         rm -f "$header_deps_out"
         echo "pre-commit: header/shim change — running FULL gate (header_dependents could not bound it)" >&2
+        full_gate_ran=1
         BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after header/shim change (see above)"
         python3 tools/data_check.py --converged --ref : --all \
             || fail "data identity: a second name for a converged data address (full gate, see above)"
@@ -347,6 +348,7 @@ fi
 # Region or override changes move the flags of TUs no #include graph names.
 if [ "$flags_changed" -ne 0 ]; then
     echo "pre-commit: flag region/override change — running FULL gate" >&2
+    full_gate_ran=1
     BUILD_POOL="${BUILD_POOL:-4}" run_build || fail "full gate after flag region/override change (see above)"
     python3 tools/data_check.py --converged --ref : --all \
         || fail "data identity: a second name for a converged data address (full gate, see above)"
@@ -492,8 +494,11 @@ for p in sys.stdin.buffer.read().split(b"\0")[:-1]:
     rm -f "$unclaimed_out"
 fi
 
+receipt_loads=$(mktemp -d) || fail "temporary directory for the build's tool list"
+receipt_loads="$(cygpath -m "$receipt_loads" 2>/dev/null || printf '%s' "$receipt_loads")"
 if [ "${#verify_set[@]}" -ne 0 ]; then
-    build_chunks "byte-verify of changed sources (see above)" "${!verify_set[@]}"
+    # build.py logs the tools/ files it loads: the commit receipt keeps the list
+    BFME_GATE_LOADS="$receipt_loads" build_chunks "byte-verify of changed sources (see above)" "${!verify_set[@]}"
     printf '%s\0' "${!verify_set[@]}" | python3 tools/eh_verify.py --sources-from - \
         || fail "exception data differs from retail (see above)"
 fi
@@ -536,5 +541,22 @@ if [ "${#new_units[@]}" -ne 0 ]; then
         | python3 tools/link_check.py --new-variants --staged-peers --shadow --paths-from - \
         || echo "pre-commit: link admission shadow check failed to run (ignored)" >&2
 fi
+
+# 5) Commit receipt (tools/push_receipts.py): this tree over HEAD's, the units the
+#    staged change can affect, verified above, and the verifier that judged them.
+#    pre-push re-verifies only what changed since. A full gate records nothing;
+#    a receipt that cannot be written costs the push its re-verify, nothing else.
+if [ "${full_gate_ran:-0}" -eq 0 ] && [ -f tools/push_receipts.py ]; then
+    receipt_scope=$(mktemp)
+    if [ "${#verify_set[@]}" -ne 0 ]; then
+        printf '%s\0' "${!verify_set[@]}" > "$receipt_scope"
+    fi
+    receipt_tree=$(git write-tree 2>/dev/null) && {
+        receipt_parent=$(git rev-parse -q --verify 'HEAD^{tree}' 2>/dev/null || echo 4b825dc642cb6eb9a060e54bf8d69288fbee4904)
+        python3 tools/push_receipts.py record-commit --tree "$receipt_tree" --parent "$receipt_parent"             --loads "$receipt_loads" --scope-from "$receipt_scope"
+    } || echo "pre-commit: could not record the commit receipt (the push re-verifies these sources)" >&2
+    rm -f "$receipt_scope"
+fi
+rm -rf "$receipt_loads"
 
 echo "PRE-COMMIT OK (ledger integrity + ${#verify_set[@]} source(s) byte-verified)"

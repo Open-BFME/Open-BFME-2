@@ -452,6 +452,59 @@ PY
     [ "$data_status" -eq 0 ] || fail "data identity: a second name for a converged data address (every source, see above)"
 }
 
+# receipt_proof: shrink verify (the scoped push's scope, saved in scope_units)
+# to the units no receipt proves at local_sha (tools/push_receipts.py): those the
+# commit receipts of base..local_sha prove, and those a previous push of commit H
+# proved that the change from H to local_sha cannot affect (scope_from H: after
+# a lost race, master's commits since). A proven unit whose object is not
+# current here is verified anyway. Any doubt leaves the unit to be verified.
+receipt_proof() {
+    local proven_out prev units_out stale_out path saved_header_all
+    local -A proven=()
+    local -a kept=() saved=("${verify[@]}")
+    proven_out=$(mktemp) && units_out=$(mktemp) && stale_out=$(mktemp) || fail "temporary receipt lists"
+    python3 tools/push_receipts.py cover --base "$base" --tip "$local_sha" > "$proven_out" || : > "$proven_out"
+    while IFS= read -r -d '' path; do proven["$path"]=1; done < "$proven_out"
+    prev="$(python3 tools/push_receipts.py previous --tip "$local_sha" \
+        ${BFME_PUSH_PREVIOUS:+--hint "$BFME_PUSH_PREVIOUS"})" || prev=""
+    if [ -n "$prev" ] && python3 tools/push_receipts.py units --push "$prev" --tip "$local_sha" > "$units_out"; then
+        local -A moved=()
+        saved_header_all=$header_all
+        if [ "$prev" != "$local_sha" ]; then
+            scope_from "$prev"
+            if [ "$header_all" -eq 0 ]; then
+                collect_verify
+                for path in "${verify[@]}"; do moved["$path"]=1; done
+            else
+                prev=""      # the change since that push cannot be bounded: it proves nothing
+            fi
+        fi
+        if [ -n "$prev" ]; then
+            while IFS= read -r -d '' path; do
+                [ -n "${moved[$path]:-}" ] || proven["$path"]=1
+            done < "$units_out"
+            receipt_from="$prev"
+        fi
+        header_all=$saved_header_all
+    fi
+    verify=("${saved[@]}")
+    if [ "${#proven[@]}" -ne 0 ]; then
+        for path in "${verify[@]}"; do
+            if [ -n "${proven[$path]:-}" ]; then printf '%s\0' "$path"; fi
+        done > "$proven_out"
+        # a proven unit is skipped only while its object here is current
+        python3 tools/push_receipts.py stale --units-from "$proven_out" > "$stale_out" \
+            || fail "checking that proven units' objects are current (see above)"
+        while IFS= read -r -d '' path; do unset "proven[$path]"; done < "$stale_out"
+        for path in "${verify[@]}"; do
+            [ -n "${proven[$path]:-}" ] || kept+=("$path")
+        done
+        verify=("${kept[@]}")
+    fi
+    rm -f "$proven_out" "$units_out" "$stale_out"
+    echo "pre-push: $(( ${#scope_units[@]} - ${#verify[@]} )) of ${#scope_units[@]} source(s) proven by receipts${receipt_from:+ (push of ${receipt_from:0:10})}"
+}
+
 # The static checks pre-push runs concurrently that take more than one command.
 protected_paths_check() {
     if git cat-file -e "$base:tools/protected_paths.py" 2>/dev/null; then
@@ -619,6 +672,15 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         take_landing_window "$local_sha"
         stage "landing window"
     fi
+    # Receipts (tools/push_receipts.py): a scoped push byte-verifies only what no
+    # receipt proves at this commit. The audits below still judge the whole scope.
+    scope_units=("${verify[@]}")
+    receipt_from=""
+    push_loads=""
+    if [ "$large_scope" -eq 0 ] && [ "${#verify[@]}" -ne 0 ] && [ -f tools/push_receipts.py ]; then
+        receipt_proof
+        stage "receipts (${#verify[@]} of ${#scope_units[@]} left to verify)"
+    fi
     # The pushed commit, not HEAD: a push of an older commit builds what it pushes.
     check_worktree_chunks "$local_sha" "${verify[@]}"
     stage "source binding"
@@ -670,8 +732,10 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         unset BFME_DIR32_INDEX
         build_chunks "byte-verify of additional outgoing sources (see above)" "${extra[@]}"
         unset BFME_GATE_LOADS
-    else
-        build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
+    elif [ "${#verify[@]}" -ne 0 ]; then
+        push_loads="$(mktemp -d)" || fail "temporary directory for the build's tool list"
+        push_loads="$(cygpath -m "$push_loads" 2>/dev/null || printf '%s' "$push_loads")"
+        BFME_GATE_LOADS="$push_loads" build_chunks "byte-verify of outgoing sources (see above)" "${verify[@]}"
     fi
     stage "byte-verify (${#verify[@]} sources, full=$full_scope)"
     # A scoped push's DIR32 consistency: its verified rows with a few current
@@ -679,9 +743,9 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # check otherwise ran only in a full gate, and 86dd4a6165 landed a unit
     # whose rows stayed exact while two resolved one static to two addresses.
     # A full or carried gate runs the whole check instead.
-    if [ "$full_scope" -eq 0 ] && [ -z "$carried" ] && [ "${#verify[@]}" -ne 0 ]; then
+    if [ "$full_scope" -eq 0 ] && [ -z "$carried" ] && [ "${#scope_units[@]}" -ne 0 ]; then
         scoped_list=$(mktemp) || fail "temporary scoped DIR32 source list"
-        printf '%s\0' "${verify[@]}" > "$scoped_list" || { rm -f "$scoped_list"; fail "writing the scoped DIR32 list"; }
+        printf '%s\0' "${scope_units[@]}" > "$scoped_list" || { rm -f "$scoped_list"; fail "writing the scoped DIR32 list"; }
         scoped_status=0
         python3 tools/full_gate_receipt.py scoped-dir32 --verified-from "$scoped_list" --ref "$local_sha" \
             || scoped_status=$?
@@ -728,11 +792,11 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         run_final_audits "$local_sha" "$base" "$final_list" "${#verify[@]}"
         rm -f "$final_list"
     else
-        if [ "${#verify[@]}" -ne 0 ]; then
-            printf '%s\0' "${verify[@]}" | python3 tools/eh_verify.py --sources-from - \
+        if [ "${#scope_units[@]}" -ne 0 ]; then
+            printf '%s\0' "${scope_units[@]}" | python3 tools/eh_verify.py --sources-from - \
                 || fail "exception data differs from retail in outgoing sources (see above)"
         fi
-        printf '%s\0' "${verify[@]}" \
+        printf '%s\0' "${scope_units[@]}" \
             | python3 tools/data_check.py --converged --ref "$local_sha" --converged-base "$base" --sources-from - \
             || fail "data identity: a second name for a converged data address in outgoing sources (see above)"
     fi
@@ -740,8 +804,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # Fail proven link regressions. Stale or missing evidence stays explicitly
     # inconclusive; it cannot establish either a regression or a clean result.
     link_scope=$(mktemp) || fail "temporary link audit source list"
-    if [ "${#verify[@]}" -ne 0 ]; then
-        printf '%s\0' "${verify[@]}" > "$link_scope"
+    if [ "${#scope_units[@]}" -ne 0 ]; then
+        printf '%s\0' "${scope_units[@]}" > "$link_scope"
     fi
     link_status=0
     BFME_SHADOW_BUDGET_S=60 shadow_cap python3 tools/link_batch_audit.py \
@@ -778,13 +842,24 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         [ -z "${gate_loads:-}" ] || rm -rf "$gate_loads"
     fi
     [ -z "${carried_dir:-}" ] || rm -rf "$carried_dir"
+    if [ "$large_scope" -eq 0 ] && [ -f tools/push_receipts.py ]; then
+        receipt_units=$(mktemp) || fail "temporary receipt unit list"
+        if [ "${#scope_units[@]}" -ne 0 ]; then
+            printf '%s\0' "${scope_units[@]}" > "$receipt_units"
+        fi
+        python3 tools/push_receipts.py record-push --commit "$local_sha" --base "$base" \
+            ${push_loads:+--loads "$push_loads"} ${receipt_from:+--from "$receipt_from"} --units-from "$receipt_units" \
+            || echo "pre-push: could not record the push receipt for $local_sha (a retry verifies again)" >&2
+        rm -f "$receipt_units"
+        [ -z "$push_loads" ] || rm -rf "$push_loads"
+    fi
     stage "receipt record"
     # Any other push waits while another seat lands a full-gate push.
     if [ "$large_scope" -eq 0 ]; then
         wait_landing_window
         stage "landing window wait"
     fi
-    echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified)"
+    echo "PRE-PUSH OK (${#verify[@]} outgoing source(s) byte-verified, $(( ${#scope_units[@]} - ${#verify[@]} )) proven by receipts)"
 done <<< "$refs"
 # Publisher rollout (tools/publisher_hook.py; mode in reverse/publisher_mode): shadow submits the landed range as a unit in the background and never fails the push; enforce queues it and refuses (exit 3).
 [ ! -f tools/publisher_hook.py ] || [ -n "${CHECKER_DIGEST:-}" ] || python3 tools/publisher_hook.py pre-push "${1:-origin}" <<< "$refs" || [ $? != 3 ] || exit 1
