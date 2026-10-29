@@ -734,6 +734,12 @@ only because the providers were renamed after the census: W3DProjectedShadowDeca
   `/D_BFME_RETAIL_TREE_INSERT_LAYOUT` (the vendored _tree.c opt-in 344 units use) gives
   retail's digest ff7306be33ea. 24/24 rows exact; no other COMDAT digest changes; the
   five units touching the name (2,559 B) keep linking under retail-truth-5.
+  Recheck (2026-10-29, codexb4): the default picker still served
+  `stlport_rb_tree_create_nodes.cpp` for this already-repaired name. Current
+  strict receipts preserve all 45 rows across that provider and
+  `FontLibraryInit.cpp`; ordinary preview reports LINKS for 1,001 and 989
+  authored bytes respectively against index `840db2d676`. No further source
+  change or census gain is needed for this served item.
 - `StlportVectorCopyCtorFamily.cpp` (halilkkaya-lk6): its `__uninitialized_copy<const
   vector<BfmeE8> *, vector<BfmeE8> *>` carried STLport's /EHsc try/catch rollback; an
   explicit noinline loop specialization, the one the file already gives four other
@@ -10144,6 +10150,23 @@ rowed as an ICF twin of `??1?$StringBase@D@@AAE@XZ` (`add_match --icf-owner`,
 `fold-proof=` that unit). UnitRevivalTracker.cpp is unchanged, so its rows stay
 exact. Preview: UnitRevivalTracker.cpp 0 -> 3,033 B and the twins unit LINKS.
 Pending census confirmation.
+
+### Hero-select CRT allocation declarations (2026-10-29, codexb4)
+
+Status: conflicting local `free` declaration replaced by the toolchain's
+`malloc.h`, with `_CRTIMP` configured locally to preserve the game allocator
+binding. The preceding `stdlib.h` still supplies imported parser calls.
+Simply deleting the declaration byte-matches the rows but changes four
+container COMDATs from `_free` to `__imp__free`, breaking link selection;
+that attempt was reverted before this header configuration was verified.
+
+`InGameHeroSelectInterface.cpp` preserves all 31 rows, all 97 COMDAT
+digests/sizes, external symbol sets and relocation/dependency names against
+its pre-cleanup object. The strict current receipt passes; ordinary preview
+reports LINKS, 4,872 -> 4,872 authored bytes against index `840db2d676`
+(2026-10-28 20:44). The scoped Microsoft-header queue refresh removes the
+`free:abi` finding; the existing static `floorf` declaration remains to keep
+the header inline local. No census gain or ownership improvement is claimed.
 
 ### LINK-145: InGameUI.cpp host kept unrowed Zero Hour bodies whose callees BFME 2 does not provide (2026-10-29)
 

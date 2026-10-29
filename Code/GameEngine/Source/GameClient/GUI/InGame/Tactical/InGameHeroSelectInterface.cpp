@@ -18,8 +18,13 @@ extern "C" { static float __cdecl floorf(float); }
 #include <stdlib.h>
 #include <math.h>
 #include <string.h>
-// Retail containers call the game allocator wrapper; the UI parsers use imports.
-extern "C" void __cdecl free(void *);
+// malloc.h supplies the non-import allocation declarations used by the game
+// allocator. Keep stdlib.h's parser imports, including atoi, above.
+#undef _CRTIMP
+#define _CRTIMP
+#include <malloc.h>
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
 #include <list>
 #include "Rva00525119.h"
 #include "Coord3D.h"
