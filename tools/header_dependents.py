@@ -198,9 +198,23 @@ def blobs(snap, paths):
     return found
 
 
+# STLport's native-header macros (stl/_config.h): _STLP_NATIVE_HEADER(vector) is
+# _STLP_MAKE_HEADER(_STLP_NATIVE_INCLUDE_PATH, vector), i.e. <../include/vector>:
+# it names exactly the file its argument names. Read as a macro include, every
+# unit using it (thread.cpp, EvaVectorABI.h) reached every changed source, so it
+# joined every push's scope. A scanned file that defines one of these macros
+# itself turns this reading off (scan sets STLP_NATIVE_FIXED).
+STLP_NATIVE = re.compile(r"_STLP_NATIVE_(?:C_HEADER|CPP_C_HEADER|CPP_RUNTIME_HEADER|HEADER|OLD_STREAMS_HEADER)"
+                         r"[ \t]*\([ \t]*([^()\s]+)[ \t]*\)[ \t]*$")
+STLP_NATIVE_FIXED = True
+
+
 def operand_target(operand, path):
     """('name', literal) or ('macro', None) for one #include operand, else Widen."""
     operand = operand.strip()
+    native = STLP_NATIVE.match(operand) if STLP_NATIVE_FIXED else None
+    if native:
+        return "name", native.group(1)
     for open_, close in (('"', '"'), ("<", ">")):
         if operand.startswith(open_):
             end = operand.find(close, 1)
@@ -245,7 +259,9 @@ def scan(snap):
 
     One git grep reads every include-like line; only the few files it cannot
     read with certainty are fetched whole."""
+    global STLP_NATIVE_FIXED
     edges, macro, doubt = defaultdict(set), set(), set()
+    STLP_NATIVE_FIXED = not grep(snap, "-l", "-I", "-E", "-e", "define[[:space:]]+_STLP_NATIVE_[A-Z_]*HEADER")
     lines = grep(snap, "-I", "-P", "-e", GREP_PCRE, check=False)
     if lines is None:
         lines = grep(snap, "-I", "-E", *(arg for p in GREP_ERE for arg in ("-e", p)))

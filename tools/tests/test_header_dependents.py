@@ -600,3 +600,27 @@ def test_stlport46_inputs_reach_the_opted_in_units(repo, capsys, path):
     git(repo, "rm", "-q", path)
     git(repo, "commit", "-qm", "remove input")
     assert run(repo, capsys, "--range", before, head(repo)) == (0, ["Code/S46.cpp"])
+
+
+def test_stlport_native_header_macros_name_their_file(repo, capsys):
+    # _STLP_NATIVE_C_HEADER(process.h) is <../include/process.h>: an include of
+    # process.h, not a macro include that could reach every changed source
+    one_includer(repo, "Code/a.cpp", '#include "shared.h"\n',
+                 {"Code/thread.cpp": "#include _STLP_NATIVE_C_HEADER(process.h)\nvoid t() {}\n",
+                  "Code/process.h": "int p;\n", "Code/other.cpp": "void o() {}\n"})
+    ledger(repo, "Code/a.cpp", "Code/thread.cpp", "Code/other.cpp")
+    git(repo, "commit", "-qm", "rows")
+    put(repo, "Code/other.cpp", "void o2() {}\n")
+    assert run(repo, capsys, "--staged") == (0, [])
+    put(repo, "Code/process.h", "int p2;\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/thread.cpp"])
+
+
+def test_a_redefined_native_header_macro_is_a_macro_include_again(repo, capsys):
+    one_includer(repo, "Code/a.cpp", '#include "shared.h"\n',
+                 {"Code/thread.cpp": "#include _STLP_NATIVE_C_HEADER(process.h)\nvoid t() {}\n",
+                  "Code/config.h": "#define _STLP_NATIVE_C_HEADER(h) <h>\n", "Code/other.cpp": "void o() {}\n"})
+    ledger(repo, "Code/a.cpp", "Code/thread.cpp", "Code/other.cpp")
+    git(repo, "commit", "-qm", "rows")
+    put(repo, "Code/other.cpp", "void o2() {}\n")
+    assert run(repo, capsys, "--staged") == (0, ["Code/thread.cpp"])
