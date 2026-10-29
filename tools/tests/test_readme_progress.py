@@ -755,10 +755,12 @@ def test_saved_linking_uses_upstream_inclusive_fields():
     assert daily.saved_linking({}) is None
 
 
-def test_workflow_posts_daily_and_refreshes_hourly():
+def test_workflow_runs_once_a_day():
+    """The owner wants the README card and the Discord post once a day (2026-10-29): one
+    daily schedule, no hourly one (each hourly card commit raced the fleet's pushes)."""
     flow = (Path(progress.ROOT) / ".github/workflows/readme-progress.yml").read_text(encoding="utf-8")
-    assert "cron: '37 8 * * *'" in flow and re.search(r"cron: '\d+ \* \* \* \*'", flow)
-    assert "--discord-on-change" in flow and "--discord" in flow
+    assert re.findall(r"cron: '([^']+)'", flow) == ["37 8 * * *"]
+    assert "--discord" in flow
 
 
 def test_fresh_checkout_retry_of_a_run_that_posted_does_not_post_again(tmp_path, monkeypatch):

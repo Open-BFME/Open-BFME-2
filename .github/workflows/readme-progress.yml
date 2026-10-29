@@ -1,23 +1,23 @@
 name: BFME2 progress card
 
-# Hourly: re-render the README card, the chart and the map from the repository,
-# and post to Discord only when a "Does it work?" figure (byte match and its
-# game-data note, linking, its problem count, the milestone) changed since the
-# last post. Daily (08:37 New York) and by hand: the Discord post, and the
-# interactive report on GitHub Pages.
+# Once a day (08:37 New York): re-render the README card, the chart and the map
+# from the repository, post to Discord, and publish the interactive report on
+# GitHub Pages. By hand: re-render, and post only when a "Does it work?" figure
+# changed since the last post. (Hourly runs were dropped on 2026-10-29: the owner
+# wants one update a day, and each hourly card commit was one more push racing
+# the fleet's pushes to master.)
 on:
   schedule:
     - cron: '37 8 * * *'
       timezone: America/New_York
-    - cron: '7 * * * *'
   workflow_dispatch:
 
 permissions:
   contents: read
 
 # One run at a time. `queue: max` keeps every pending run (FIFO, up to 100):
-# with the default (`single`) a newer hourly run would replace a pending daily
-# run, and that day's post would be lost.
+# with the default (`single`) a newer run (a manual one) would replace a pending
+# daily run, and that day's post would be lost.
 concurrency:
   group: readme-progress
   cancel-in-progress: false
