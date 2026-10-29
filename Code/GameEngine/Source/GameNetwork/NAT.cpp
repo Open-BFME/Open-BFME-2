@@ -8,6 +8,11 @@
 #include <string.h>
 #include "unicode_string.h"
 #include "../../Include/GameNetwork/Transport.h"
+struct TransportAddress
+{
+    unsigned int ip;
+    unsigned short port;
+};
 
 typedef unsigned int UnsignedInt;
 
@@ -110,6 +115,17 @@ struct Rva005A695FValue
 // 0x005A671D ignores incoming ecx (loads its context from the 0xE063FC
 // global first thing), so it is spelled as a free function: no ecx setup.
 int Rva005A671DNext();
+
+class GlobalData
+{
+public:
+    unsigned char m_prefix[0xA54];
+    unsigned int m_forcedPort;
+};
+
+extern GlobalData *TheWritableGlobalData;
+
+// ---- from Code/GameEngine/Source/GameNetwork/NAT.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/NAT.cpp
 
@@ -686,16 +702,6 @@ void Rva005A6D47::rva005A6D47()
 	} while (i < 8);
 }
 
-// tu-skeleton: 0x005A678E 174B ?generatePortNumbers@NAT@@IAEXPAPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp (not merged yet)
-
-// tu-skeleton: 0x005A683C 19B ?rva005A683C@Rva005A683C@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
-
-// tu-skeleton: 0x005A684F 26B ?get@NAT@@QBEII@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x005A6869 22B ?rva005A6869@Rva005A683C@@QAEXF@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
-
-// tu-skeleton: 0x005A687F 13B ?get@Rva005A687FCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/NAT.cpp
 
 // NAT::processPlayerJoin @0x005A6903 92B (WorldBuilder name, its
@@ -748,7 +754,89 @@ void NAT::processPlayerLeave(int idx)
 	*(Rva005A695FValue *)m_addresses[slot] = Rva005A695FValue();
 }
 
-// tu-skeleton: 0x005A6B14 380B ?attachSlotList@NAT@@QAEXPAVGameInfo@@HII_N@Z -- matched in Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp
+
+// platformsdk
+// Clean BFME 1 donor NAT_attachSlotList_BFME.cpp at 9cbfb551 supplies
+// transport allocation, local-IP setup and starting-port calculation.
+// WB 0x014DBB90 names attachSlotList and its five arguments;
+// retail 0x005A6B14..0x005A6C90 includes the missing 20-byte prologue.
+
+void NAT::attachSlotList(GameInfo *gameInfo, int localSlot, unsigned int localIP,
+    unsigned int timeout, bool isHost)
+{
+    if (!gameInfo)
+        return;
+    m_slotList = gameInfo->m_slots;
+    m_localIP = localIP;
+    m_localSlot = localSlot;
+    if (m_localSlot < 0 || m_localSlot >= 8)
+        return;
+    if (isHost)
+        m_hostSlot = localSlot;
+    else
+        m_hostSlot = 8;
+    m_04 = new Transport;
+    if (TheWritableGlobalData->m_forcedPort > 0)
+        m_startingPortNumber = (unsigned short)TheWritableGlobalData->m_forcedPort;
+    else
+        m_startingPortNumber = (unsigned short)(8088 + ((timeGetTime() / 1000) % 20000));
+    generatePortNumbers(m_slotList, localSlot);
+    if (TheWritableGlobalData->m_forcedPort != 0) {
+        unsigned short port = (unsigned short)TheWritableGlobalData->m_forcedPort;
+        unsigned int ip = m_localIP;
+        TransportAddress address = {ip, port};
+        m_04->init(&address);
+    } else {
+        m_04->rva004D53B5((void *)m_localIP);
+    }
+    m_schema.attachSlotList(m_slotList, (unsigned short)localSlot);
+    if (m_slotList) {
+        for (int i = 0; i < 8; ++i) {
+            if (m_slotList[i] && m_slotList[i]->isHuman() && m_slotList[i]->m_name.getLength())
+                processPlayerJoin(i);
+            m_hostKnown[i] = false;
+            m_slotCookie[0] = 0;
+        }
+    }
+    m_hostKnown[localSlot] = true;
+    m_timeoutTime = timeGetTime() + timeout;
+}
+
+// BFME 1 NAT_generatePortNumbers.cpp at 9cbfb551 supplies port assignment;
+// complete WB 0x014DB9D0 and native 0x005A678E add the two-word address cache.
+void NAT::generatePortNumbers(GameSlot **slotList, int localSlot)
+{
+    for (int i = 0; i < 8; ++i) {
+        if (slotList[i]) {
+            if (i == localSlot && TheWritableGlobalData->m_forcedPort != 0) {
+                NetPacketAddress address = slotList[i]->m_address;
+                address.port = (unsigned short)TheWritableGlobalData->m_forcedPort;
+                slotList[i]->m_address = address;
+                if (!m_addresses[i])
+                    m_addresses[i] = new NetPacketAddress(address);
+                else
+                    *m_addresses[i] = address;
+            } else {
+                NetPacketAddress address = slotList[i]->m_address;
+                address.port = (unsigned short)(m_startingPortNumber + i);
+                slotList[i]->m_address = address;
+                if (!m_addresses[i])
+                    m_addresses[i] = new NetPacketAddress(address);
+                else
+                    *m_addresses[i] = address;
+            }
+        }
+    }
+}
+
+// tu-skeleton: 0x005A683C 19B ?rva005A683C@Rva005A683C@@QAEXG@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
+
+// tu-skeleton: 0x005A684F 26B ?get@NAT@@QBEII@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x005A6869 22B ?rva005A6869@Rva005A683C@@QAEXF@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE34.cpp (not merged yet)
+
+// tu-skeleton: 0x005A687F 13B ?get@Rva005A687FCmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x005A6B28 360B (unledgered) -- unmatched, no code, never credited
 
@@ -793,10 +881,6 @@ void NAT::processPlayerLeave(int idx)
 // tu-skeleton: 0x005A879B 551B ?connectionUpdate@NAT@@QAEHXZ -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x005A89C2 253B ?StartNegotiationAction@NAT@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x0079E489 10B uw_0079e489 -- matched in Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp (not merged yet)
-
-// tu-skeleton: 0x0079E493 10B __ehhandler$?attachSlotList@NAT@@QAEXPAVGameInfo@@HII_N@Z -- matched in Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp (not merged yet)
 
 // tu-skeleton: 0x0079E49D 10B $L11199 -- matched in Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp (not merged yet)
 

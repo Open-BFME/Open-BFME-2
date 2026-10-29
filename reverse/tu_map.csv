@@ -48740,7 +48740,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005A6709,20,code,,,-,,Code/GameEngine/Source/Common/Rva005A6709Predicate.cpp
 0x005A671D,21,code,,,-,,Code/GameEngine/Source/Common/Rva005A6709Predicate.cpp
 0x005A6732,92,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/Common/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
-0x005A678E,174,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp
+0x005A678E,174,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A683C,19,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A678E..0x005A684F,Code/GameEngine/Source/Common/GapBodiesGE34.cpp
 0x005A684F,26,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp
 0x005A6869,22,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,C=0x005A684F..0x005A687F,Code/GameEngine/Source/Common/GapBodiesGE34.cpp
@@ -48751,7 +48751,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005A69C0,140,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/Common/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A6A4C,55,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A6A83,145,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/Common/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
-0x005A6B14,380,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp
+0x005A6B14,380,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/NAT.cpp S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A6B28,360,code-unledgered,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,C,W=Code/GameEngine/Source/GameNetwork/NAT.cpp C=0x005A6B14..0x005A6C90,
 0x005A6C90,21,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/GameNetwork/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x005A6CA5,162,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,S,S=Code/GameEngine/Source/GameNetwork/NAT.cpp N=Code/GameEngine/Source/Common/NAT.cpp,Code/GameEngine/Source/GameNetwork/NAT.cpp
@@ -87535,8 +87535,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079E46D,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp,proposed,P,P=0x005A61C6@FuncInfo0x009547E4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp
 0x0079E475,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp,proposed,P,P=0x005A61C6@FuncInfo0x009547E4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp
 0x0079E47F,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatch.cpp,proposed,P,P=0x005A61C6@FuncInfo0x009547E4,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineCustomMatchCallbacks.cpp
-0x0079E489,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6B14@FuncInfo0x00954808,Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp
-0x0079E493,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6B14@FuncInfo0x00954808,Code/GameEngine/Source/GameNetwork/NATAttachSlotList.cpp
+0x0079E489,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6B14@FuncInfo0x00954808,Code/GameEngine/Source/GameNetwork/NAT.cpp
+0x0079E493,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6B14@FuncInfo0x00954808,Code/GameEngine/Source/GameNetwork/NAT.cpp
 0x0079E49D,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6DAC@FuncInfo0x0095482C,Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp
 0x0079E4A7,10,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6DAC@FuncInfo0x0095482C,Code/GameEngine/Source/GameNetwork/NATUpdateBfme.cpp
 0x0079E4B1,8,code,Code/GameEngine/Source/GameNetwork/NAT.cpp,approved,P,P=0x005A6EF2@FuncInfo0x00954858,Code/GameEngine/Source/GameNetwork/NAT.cpp
