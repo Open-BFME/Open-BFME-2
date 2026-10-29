@@ -1,4 +1,5 @@
 // platformsdk
+// stlport46
 // STLport 4.5.3 Win32 _Locale_wctomb (retail 0x00020D50, 92B).
 // Distinct TU under WWLib: Code/stlport/ is not an allowed root for a new
 // source. Donor-verbatim; T1 clean transfer.
