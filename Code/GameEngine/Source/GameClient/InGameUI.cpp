@@ -1659,78 +1659,13 @@ void InGameUI::clearFloatingText( void )
 	
 }
 
-//-------------------------------------------------------------------------------------------------
-/** If we want to use the default text color, then we call this function */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::popupMessage present-unmatched
-void InGameUI::popupMessage( const AsciiString& message, Int x, Int y, Int width, Bool pause, Bool pauseMusic)
-{
-	popupMessage( message, x, y, width, m_popupMessageColor, pause, pauseMusic);
-}
-
-//-------------------------------------------------------------------------------------------------
-/** initialize, and popup a message box to the user */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::popupMessage present-unmatched
-void InGameUI::popupMessage( const AsciiString& identifier, Int x, Int y, Int width, Color textColor, Bool pause, Bool pauseMusic)
-{
-	if(m_popupMessageData)
-		clearPopupMessageData();
-
-	UpdateDiplomacyBriefingText(identifier, FALSE);
-
-	UnicodeString message = TheGameText->fetch(identifier);
-
-	m_popupMessageData = newInstance( PopupMessageData );	
-	m_popupMessageData->message = message;
-	// x and why are passed in as a percentage of the screen, convert to screen coords
-	if( x > 100 )
-		x = 100;
-	if( x < 0 )
-		x = 0;
-	
-	if( y > 100 )
-		y = 100;
-	if( y < 0 )
-		y = 0;
-
-	m_popupMessageData->x = TheDisplay->getWidth() * (INT_TO_REAL(x) / 100);
-	m_popupMessageData->y = TheDisplay->getHeight() * (INT_TO_REAL(y) / 100);
-	// cap the lower limit of the width
-	if(width < 50)
-		width = 50;
-	m_popupMessageData->width = width;
-	m_popupMessageData->textColor = textColor;
-	m_popupMessageData->pause = pause;
-	m_popupMessageData->pauseMusic = pauseMusic;
-
-	if( pause )
-		TheGameLogic->setGamePaused(TRUE, pauseMusic);
-
-	m_popupMessageData->layout = TheWindowManager->winCreateLayout(AsciiString("InGamePopupMessage.wnd"));
-	m_popupMessageData->layout->runInit();
-}
-
-//-------------------------------------------------------------------------------------------------
-/** take care of the logic of clearing the popupMessageData */
-//-------------------------------------------------------------------------------------------------
-// ?InGameUI::clearPopupMessageData present-unmatched
-void InGameUI::clearPopupMessageData( void )
-{
-	if(!m_popupMessageData)
-		return;
-	if(m_popupMessageData->layout)
-	{
-		m_popupMessageData->layout->destroyWindows();
-		m_popupMessageData->layout->deleteInstance();
-		m_popupMessageData->layout = NULL;
-	}
-	if( m_popupMessageData->pause )
-		TheGameLogic->setGamePaused(FALSE, m_popupMessageData->pauseMusic);
-	m_popupMessageData->deleteInstance();
-	m_popupMessageData = NULL;
-	
-}
+// NOTE (link lane): the Zero Hour bodies of InGameUI::popupMessage (both
+// overloads) and InGameUI::clearPopupMessageData were dropped. No row holds
+// them, no other object references them, and they called names BFME 2 does
+// not provide under these spellings (UpdateDiplomacyBriefingText,
+// GameLogic::setGamePaused(Bool, Bool), WindowLayout::destroyWindows and
+// UnicodeString::set), which kept this unit from linking. Their
+// unmatched-body markers went with the definitions (LINK-145).
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
