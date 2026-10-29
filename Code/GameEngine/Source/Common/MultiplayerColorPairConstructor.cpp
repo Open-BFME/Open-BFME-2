@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
-// stlport
+// stlport46
 //
 // Ported from reference/open-bfme-1/Code/GameEngine/Source/Common/MultiplayerColorPairConstructor.cpp.
 // BFME2 grew MultiplayerColorDefinition to 0x40 bytes (two trailing RGBColors

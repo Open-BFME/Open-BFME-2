@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // BfmeVec60::erase (retail 0x006BF590, 77 bytes), BFME1
 // Rva0087FB90Erase.cpp donor verbatim in shape: copy the tail forward,

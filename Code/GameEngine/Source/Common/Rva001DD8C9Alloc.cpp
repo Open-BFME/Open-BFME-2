@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ?Rva001DD8C9Alloc@@YGPAXABU?$pair@$$CBVAsciiString@@UNoCaseTreeValue4@@@_STL@@@Z @0x001DD8C9 37B hashtable node alloc via rowed allocate 0x000307F0 plus the rowed native placement copy 0x001DD745 (Rva001DD745Construct:
 // retail's call lands there, not on _Construct<pair<..., NoCaseTreeValue4>> 0x000A7849).
 // Evidence: unlock lane every callee rowed; caller 0x001DE556 hash insert buckets plus count; same 37B shape as 0x005472D3.

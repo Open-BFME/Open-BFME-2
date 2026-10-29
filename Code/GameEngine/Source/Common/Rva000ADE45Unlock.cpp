@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // _STL::__copy_ptrs<BfmeStringRecord00063BE4 *, BfmeStringRecord00063BE4 *>,
 // retail 0x000ADE45, 29 bytes.
 // STLport 4.5.3's pointer copy for a type with non-trivial assignment: it

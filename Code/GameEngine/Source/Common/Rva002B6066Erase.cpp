@@ -1,5 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 // ?rva002B6066@Rva002B6066@@QAEPAU1@PAU1@@Z @0x002B6066 (57B):
 // vector single erase for 4-byte elements: if pos+1 != finish copy the tail
 // via rowed __copy_ptrs 0x002B4410 (Rva0040DC56Element, tag at ebp+0xB needs

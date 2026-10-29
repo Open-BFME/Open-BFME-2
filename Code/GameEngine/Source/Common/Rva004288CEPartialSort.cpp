@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ??$partial_sort@PAUVersionBlockEntry@@VVersionBlockKeyCompare@@@_STL@@YAXPAUVersionBlockEntry@@00VVersionBlockKeyCompare@@@Z RVA 0x004288CE size 27 evidence partial_sort wrapper forwarding to rowed __partial_sort 0x00428821 with dummy caller 0x00428965 same pattern as int precedent
 struct VersionBlockEntry
 {

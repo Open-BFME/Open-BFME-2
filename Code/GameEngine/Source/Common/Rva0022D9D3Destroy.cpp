@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /MD /EHsc /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Three STLport _Destroy(T*) instantiations at 0x0022D9D3, 0x0022D9DC and
 // 0x0022D9E5 (9B each): load the pointer and tail-jump into the element's
