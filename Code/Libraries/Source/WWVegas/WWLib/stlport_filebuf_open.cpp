@@ -1,6 +1,6 @@
 // cl: /GX- /MD /D_STLP_USE_STATIC_LIB
 // platformsdk
-// stlport
+// stlport46
 //
 // Modified STLport 4.5.3 Win32 file-opening reconstruction, from src/fstream.cpp
 // and src/fstream_impl.h. The native <fstream> header supplies the complete
