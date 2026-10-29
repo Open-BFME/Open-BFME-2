@@ -1,4 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// stlport
 // ?rva005A9693@Rva005A9693Owner@@QAEXXZ @0x005A9693 102B: thiscall, no args, void.
 // Loops over ThePlayerList (count at +0x14, getNthPlayer per index). A player
 // other than the owner's first pointer, that passes the byte-flag test from
@@ -6,22 +7,7 @@
 // ENEMIES (zero), gets a {index, 0.0f} record appended to the vector at +4.
 // Layout and record meaning are address-derived views; the leaf names are the
 // ledger's own spellings for the callees.
-namespace _STL
-{
-template <class T>
-class allocator
-{
-};
-
-template <class T, class Alloc>
-class vector
-{
-public:
-	void push_back(const T &value);
-private:
-	char m_pad[12];
-};
-}
+#include <vector>
 
 typedef int Int;
 
@@ -30,6 +16,12 @@ struct BfmeE8
 	int a;
 	float b;
 };
+
+namespace _STL
+{
+// Bind the append to the rowed 8-byte-element worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
+}
 
 enum Relationship
 {

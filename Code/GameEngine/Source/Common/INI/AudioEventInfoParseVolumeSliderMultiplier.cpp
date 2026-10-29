@@ -1,5 +1,6 @@
 // ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z
 // cl: /O1 /arch:SSE /G7 /Oy- /DNDEBUG /MD /EHs-c- /Oi-
+// stlport
 // ?parseVolumeSliderMultiplier@AudioEventInfo@@SAXPAVINI@@PAX1PBX@Z, retail 0x001D9E91, 209 bytes (complete epilogue; prior queue extent 208 truncated final RET byte).
 // BFME1 donor reference/open-bfme-1/game/GameEngine/Source/Common/INI/AudioEventInfoParseVolumeSliderMultiplier.cpp
 // proves class AudioEventInfo and verb parseVolumeSliderMultiplier plus Slider/Multiplier token flow,
@@ -31,17 +32,12 @@ struct BfmeE8
 	float m_multiplier;
 };
 
+#include <vector>
+
 namespace _STL
 {
-template <class T> class allocator
-{
-};
-
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	void push_back(const T &value);
-};
+// Bind the append to the rowed 8-byte-element worker.
+template <> void vector<BfmeE8, allocator<BfmeE8> >::push_back(const BfmeE8 &value);
 }
 
 class INIException
