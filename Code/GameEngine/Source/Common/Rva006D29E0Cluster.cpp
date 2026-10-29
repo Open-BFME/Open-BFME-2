@@ -28,7 +28,11 @@ class Rva006DB160
 {
 public:
 	void *allocBlock(int blockSize);
+};
 
+class Rva006D2A60 : public Rva006DB160
+{
+public:
 	union ValueBitfield
 	{
 		struct
@@ -40,15 +44,12 @@ public:
 	};
 	ValueBitfield mBitfield0;
 	ValueBitfield mValueBitfield;
-};
 
-class Rva006D2A60 : public Rva006DB160
-{
-public:
 	void *allocBlock(int nBytes);
 	void rva006D28D0(int mode, bool value);
 	bool isAllocated(int nSizeOffset);
 	int rva006D2930(int nSizeOffset);
+	void freeBlock(void *pNowFree, int nAllocatedSize);
 };
 
 inline bool Rva006D2A60::isAllocated(int nSizeOffset)

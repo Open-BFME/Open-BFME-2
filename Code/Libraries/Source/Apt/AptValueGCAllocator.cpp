@@ -18,21 +18,53 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 
 extern unsigned char g_00E177E0;
 
-class Rva006D2A60 {
+void __debugbreak();
+
+class Rva006DB160
+{
 public:
- struct Bits {unsigned allocated:1;unsigned rest:31;};
- Bits first,second;
- __forceinline bool isAllocated(int mode) {
-  if(mode==4)return second.allocated;
-  if(mode==0)return first.allocated;
-  g_bfmeAptAssertAtE17734("false","..\\..\\include\\apt\\AptValueGCAllocator.h",0xe2);
-  if(g_bfmeAptBreakOnAssertAtDDC01C){__asm int 3}
-  return false;
- }
- int rva006D2930(int mode);
- void rva006D28D0(int,bool);
- void freeBlock(void *,int);
+	void *allocBlock(int blockSize);
 };
+
+class Rva006D2A60 : public Rva006DB160
+{
+public:
+	union ValueBitfield
+	{
+		struct
+		{
+			unsigned int mbIsAllocated : 1;
+			unsigned int mRest : 31;
+		};
+		int mRaw;
+	};
+	ValueBitfield mBitfield0;
+	ValueBitfield mValueBitfield;
+
+	void *allocBlock(int nBytes);
+	void rva006D28D0(int mode, bool value);
+	bool isAllocated(int nSizeOffset);
+	int rva006D2930(int nSizeOffset);
+	void freeBlock(void *pNowFree, int nAllocatedSize);
+};
+
+inline bool Rva006D2A60::isAllocated(int nSizeOffset)
+{
+	if (nSizeOffset == 4)
+	{
+		return mValueBitfield.mbIsAllocated;
+	}
+	if (nSizeOffset == 0)
+	{
+		return mBitfield0.mbIsAllocated;
+	}
+	g_bfmeAptAssertAtE17734("false", "..\\..\\include\\apt\\AptValueGCAllocator.h", 0xE2);
+	if (g_bfmeAptBreakOnAssertAtDDC01C)
+	{
+		__debugbreak();
+	}
+	return false;
+}
 
 class AptValue;
 
@@ -40,7 +72,6 @@ int Rva006CD3F0Get(void *);
 
 class Rva006DB270 {public:void freeBlock(void *,int);};
 
-void __debugbreak();
 
 class AptValue
 {
