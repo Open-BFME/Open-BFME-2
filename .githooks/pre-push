@@ -161,7 +161,7 @@ scope_from() {
         header_all=1
     fi
     rm -f "$header_range_out"
-    stage "scope (delta, name and header dependents, edited, flag delta)"
+    stage "static checks and scope (concurrent)"
 }
 
 # edited_sources FROM: sources the range EDITS while leaving their ledger rows
@@ -659,9 +659,8 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
     # the same objects). An untracked file is not covered; see tools/data_check.py.
     spawn "the working tree differs from $local_sha in files this push changes, or in a tracked header or shim: commit or stash first" \
         working_tree_binding
-    join_jobs
-    stage "static checks (concurrent)"
-
+    # Not joined here: the scope producers below start at once too, and
+    # scope_from's join_jobs waits for every check, the static ones first.
     scope_from "$base"
     collect_verify
     # Carried full gate: a commit of this push whose full gate already passed in this
@@ -864,11 +863,17 @@ while read -r _local_ref local_sha _remote_ref remote_sha; do
         if [ "${#scope_units[@]}" -ne 0 ]; then
             printf '%s\0' "${scope_units[@]}" > "$receipt_units"
         fi
-        python3 tools/push_receipts.py record-push --commit "$local_sha" --base "$base" \
-            ${push_loads:+--loads "$push_loads"} ${receipt_from:+--from "$receipt_from"} --units-from "$receipt_units" \
-            || echo "pre-push: could not record the push receipt for $local_sha (a retry verifies again)" >&2
-        rm -f "$receipt_units"
-        [ -z "$push_loads" ] || rm -rf "$push_loads"
+        # Off the critical path: every check has passed, and a receipt written
+        # late (or never) only costs a retry its re-verify. It is written before
+        # the next push in practice; nothing waits for it.
+        (
+            python3 tools/push_receipts.py record-push --commit "$local_sha" --base "$base" \
+                ${push_loads:+--loads "$push_loads"} ${receipt_from:+--from "$receipt_from"} \
+                --units-from "$receipt_units" > /dev/null 2>&1
+            rm -f "$receipt_units"
+            [ -z "$push_loads" ] || rm -rf "$push_loads"
+        ) < /dev/null > /dev/null 2>&1 &
+        disown 2>/dev/null || true
     fi
     stage "receipt record"
     # Any other push waits while another seat lands a carried push.

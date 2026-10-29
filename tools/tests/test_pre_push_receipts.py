@@ -47,6 +47,17 @@ def receipted(repo):  # noqa: F811
     return path, fixture[1], fixture[2], hooks.git(path, 'rev-parse', 'HEAD')
 
 
+def recorded(path, timeout=20):
+    """The push receipt the hook records in the background, once written."""
+    import time
+    listing = path / 'receipt-records.jsonl'
+    deadline = time.time() + timeout
+    while not listing.exists() and time.time() < deadline:
+        time.sleep(0.2)
+    time.sleep(0.2)
+    return json.loads(listing.read_text())
+
+
 def built(path):
     return sorted(source for chunk in calls(path) for source in chunk)
 
@@ -61,7 +72,7 @@ def test_without_receipts_every_unit_is_verified(receipted):
     done = run_hook(receipted, selected)
     assert done.returncode == 0, done.stderr
     assert built(path) == sorted(selected)
-    assert json.loads((path / 'receipt-records.jsonl').read_text())['units'] == sorted(selected)
+    assert recorded(path)['units'] == sorted(selected)
 
 
 def test_units_the_commit_receipts_prove_are_not_built_again(receipted):
@@ -84,7 +95,7 @@ def test_an_intersection_with_masters_changes_reverifies_exactly_those_units(rec
     done = run_hook(receipted, selected, RECEIPT_PREV=prev, RECEIPT_UNITS=','.join(selected), CARRY_FROM=prev)
     assert done.returncode == 0, done.stderr
     assert built(path) == [selected[0]]
-    assert json.loads((path / 'receipt-records.jsonl').read_text())['from'] == prev
+    assert recorded(path)['from'] == prev
 
 
 def test_a_proven_unit_whose_object_is_not_current_is_built(receipted):
@@ -100,6 +111,8 @@ def test_a_refused_build_still_fails_the_push(receipted):
     selected = sources[:3]
     done = run_hook(receipted, selected, RECEIPT_COVER=','.join(selected[:2]), FAIL_EXTRA=selected[2])
     assert done.returncode == 1
+    import time
+    time.sleep(2)
     assert not (path / 'receipt-records.jsonl').exists()        # a failed push records nothing
 
 
