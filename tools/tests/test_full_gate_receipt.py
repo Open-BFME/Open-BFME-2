@@ -633,6 +633,30 @@ def test_a_witness_that_is_not_current_is_not_read(tmp_path, monkeypatch, capsys
     assert "0 witness row(s)" in capsys.readouterr().out
 
 
+def test_witnesses_that_no_longer_address_the_symbol_do_not_use_up_the_limit(tmp_path, monkeypatch):
+    import build
+    import struct
+    rows, objects, visited, stale, bases = dir32_fixture(tmp_path, monkeypatch)
+    match = tmp_path / "build" / "match"
+    extra = [{"source": f"Code/w{i}.cpp", "name": f"w{i}", "target_rva": hex(0x2000 + i * 0x10),
+              "target_size": "7", "notes": ""} for i in range(4)]
+    for row in extra:
+        objects[row["source"]] = match / build._ledger_object_name(row)
+        objects[row["source"]].write_bytes(b"fixture")
+        bases[row["source"]] = 0x402000
+    rows.extend(extra)
+    bases["Code/w3.cpp"] = 0x403000                       # the one real conflict, fourth in the index
+    gone = {"Code/w0.cpp", "Code/w1.cpp", "Code/w2.cpp"}  # edited since the index: no longer address it
+    by_rva = {int(row["target_rva"], 16): row["source"] for row in rows}
+    by_obj = {obj: source for source, obj in objects.items()}
+    monkeypatch.setattr(build, "read_target_bytes", lambda rva, size:
+                        b"\xd9\x05" + struct.pack("<I", bases[by_rva[rva]]) + b"\xc3")
+    monkeypatch.setattr(build, "read_object_symbol_bytes", lambda obj, *args: (
+        b"\xd9\x05\x00\x00\x00\x00\xc3", [] if by_obj[obj] in gone else [(2, 6, "_shared_global")]))
+    index = {"rows": {build.dir32_row_key(row): [["_shared_global", 0x402000]] for row in extra}}
+    assert build.scoped_dir32({"Code/a.cpp"}, index=index) == 1
+
+
 def test_a_scoped_push_with_a_stale_verified_object_fails(tmp_path, monkeypatch):
     import build
     rows, objects, visited, stale, bases = dir32_fixture(tmp_path, monkeypatch)

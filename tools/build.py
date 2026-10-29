@@ -3952,6 +3952,68 @@ def write_dir32_index(path, row_pairs, stamps):
     os.replace(temp, path)
 
 
+def _dir32_row_pairs(row, obj, static_symbols):
+    """[(identity, base)] for the non-string DIR32 relocations of `row` in its object `obj`
+    (each symbol's base address once the compiled addend is subtracted), or None when the
+    body cannot be read. `static_symbols` caches each object's static symbols."""
+    trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
+    target = read_target_bytes(trva, tsz)
+    try:
+        if is_funclet_row(row, ledger_object_symbol(row)):
+            body, relocs, _ = read_funclet(row, ledger_object_symbol(row), obj, target)
+        else:
+            body, relocs = read_object_symbol_bytes(
+                obj, ledger_object_symbol(row), tsz)
+    except ValueError:
+        return None
+    out = []
+    for off, rtype, sym in relocs:
+        if rtype != 0x0006 or off + 4 > tsz or off + 4 > len(body) or sym.startswith("??_C@"):
+            continue
+        # Compiler-local labels ($L1234 funclets, $T294 funcinfo, $SG strings)
+        # are TU-scoped: object-symbol= rows alias ONE anchor TU's label onto
+        # thousands of retail instances by design, so "one symbol, one
+        # address" only holds for external symbols. Locals add no detection
+        # power for double-linked TUs (those always expose externals too).
+        if re.fullmatch(r"\$[A-Za-z]+\d+", sym):
+            continue
+        # __ehhandler$<mangled> is the same case one step out: the compiler
+        # emits one per TU alongside the COMDAT it guards, and retail does
+        # not fold COMDATs, so a template instantiation claimed at N retail
+        # addresses legitimately resolves its handler to N stub addresses.
+        if sym.startswith("__ehhandler$"):
+            continue
+        # The literal verifier checks their actual bits independently.
+        # Distinct copies of the same constant need not share an address.
+        if REAL_LITERAL_RE.fullmatch(sym):
+            continue
+        if obj not in static_symbols:
+            stat = obj.stat()
+            _, _, symbols = _object_layout(str(obj), stat.st_mtime_ns, stat.st_size)
+            static_symbols[obj] = {s["name"] for s in symbols
+                                   if s.get("storage") == 3 and s["section"] > 0}
+        # IMAGE_SYM_CLASS_STATIC data belongs to its translation unit.
+        # Header-local constants can share a spelling in different objects;
+        # their addresses must agree only within the same source file.
+        identity = f"{row['source']}::{sym}" if sym in static_symbols[obj] else sym
+        final = struct.unpack_from("<I", target, off)[0]
+        addend = struct.unpack_from("<I", body, off)[0]
+        base = (final - addend) & 0xFFFFFFFF
+        if sym.startswith("??_9@"):
+            # MSVC reuses the decorated vcall-thunk name across virtual
+            # slots. Partition only when retail proves the exact thunk
+            # shape; identical slot identities must still resolve to one
+            # base, and unknown shapes retain the ordinary strict check.
+            try:
+                thunk = read_target_bytes((base - IMAGE_BASE) & 0xFFFFFFFF, 5)
+            except (OSError, ValueError):
+                thunk = b""
+            if len(thunk) == 5 and thunk[:4] == b"\x8b\x01\xff\x60":
+                identity = f"{identity} [vcall-slot+0x{thunk[4]:02X}]"
+        out.append((identity, base))
+    return out
+
+
 def verify_dir32_consistency(rows, *, reuse=None, reuse_stamps=None, index_out=None):
     """Regression gate for the non-string DIR32s (globals/vtables/func-addrs) build.py masks. A symbol
     has one address, so every reference must resolve to the same base once the addend is subtracted
@@ -3994,59 +4056,10 @@ def verify_dir32_consistency(rows, *, reuse=None, reuse_stamps=None, index_out=N
         if index_out and _object_key(obj) not in stamps:
             stamps[_object_key(obj)] = listing.get(_object_key(obj))
         pairs = row_pairs.setdefault(key, []) if key is not None else []
-        trva, tsz = int(row["target_rva"], 16), int(row["target_size"])
-        target = read_target_bytes(trva, tsz)
-        try:
-            if is_funclet_row(row, ledger_object_symbol(row)):
-                body, relocs, _ = read_funclet(row, ledger_object_symbol(row), obj, target)
-            else:
-                body, relocs = read_object_symbol_bytes(
-                    obj, ledger_object_symbol(row), tsz)
-        except ValueError:
+        got = _dir32_row_pairs(row, obj, static_symbols)
+        if got is None:
             continue
-        for off, rtype, sym in relocs:
-            if rtype != 0x0006 or off + 4 > tsz or off + 4 > len(body) or sym.startswith("??_C@"):
-                continue
-            # Compiler-local labels ($L1234 funclets, $T294 funcinfo, $SG strings)
-            # are TU-scoped: object-symbol= rows alias ONE anchor TU's label onto
-            # thousands of retail instances by design, so "one symbol, one
-            # address" only holds for external symbols. Locals add no detection
-            # power for double-linked TUs (those always expose externals too).
-            if re.fullmatch(r"\$[A-Za-z]+\d+", sym):
-                continue
-            # __ehhandler$<mangled> is the same case one step out: the compiler
-            # emits one per TU alongside the COMDAT it guards, and retail does
-            # not fold COMDATs, so a template instantiation claimed at N retail
-            # addresses legitimately resolves its handler to N stub addresses.
-            if sym.startswith("__ehhandler$"):
-                continue
-            # The literal verifier checks their actual bits independently.
-            # Distinct copies of the same constant need not share an address.
-            if REAL_LITERAL_RE.fullmatch(sym):
-                continue
-            if obj not in static_symbols:
-                stat = obj.stat()
-                _, _, symbols = _object_layout(str(obj), stat.st_mtime_ns, stat.st_size)
-                static_symbols[obj] = {s["name"] for s in symbols
-                                       if s.get("storage") == 3 and s["section"] > 0}
-            # IMAGE_SYM_CLASS_STATIC data belongs to its translation unit.
-            # Header-local constants can share a spelling in different objects;
-            # their addresses must agree only within the same source file.
-            identity = f"{row['source']}::{sym}" if sym in static_symbols[obj] else sym
-            final = struct.unpack_from("<I", target, off)[0]
-            addend = struct.unpack_from("<I", body, off)[0]
-            base = (final - addend) & 0xFFFFFFFF
-            if sym.startswith("??_9@"):
-                # MSVC reuses the decorated vcall-thunk name across virtual
-                # slots. Partition only when retail proves the exact thunk
-                # shape; identical slot identities must still resolve to one
-                # base, and unknown shapes retain the ordinary strict check.
-                try:
-                    thunk = read_target_bytes((base - IMAGE_BASE) & 0xFFFFFFFF, 5)
-                except (OSError, ValueError):
-                    thunk = b""
-                if len(thunk) == 5 and thunk[:4] == b"\x8b\x01\xff\x60":
-                    identity = f"{identity} [vcall-slot+0x{thunk[4]:02X}]"
+        for identity, base in got:
             sym2base[identity].add(base)
             pairs.append([identity, base])
     object_paths.check()
@@ -4362,16 +4375,22 @@ def scoped_dir32(verified, index=None, dirty=frozenset(), witnesses=SCOPED_DIR32
             for identity, _ in pairs:
                 if identity in identities:
                     holders.setdefault(identity, []).append(row)
-        current = {}
+        current, reread, paths, statics = {}, {}, RowObjectPaths(require_row_object), {}
         for identity in sorted(holders):
             taken = 0
-            for row in holders[identity]:
+            for row in {id(row): row for row in holders[identity]}.values():
                 source = ROOT / row["source"]
                 if source.suffix.lower() == LIB_SUFFIX:
                     continue
                 if source not in current:
                     current[source] = not stale_sources([source], {source: obj_path(source)})
-                if current[source]:
+                if not current[source]:
+                    continue
+                # the index's pairs are from an older object: a row edited since may no
+                # longer address the symbol, so only its current pairs decide
+                if id(row) not in reread:
+                    reread[id(row)] = {i for i, _ in (_dir32_row_pairs(row, paths.get(row), statics) or ())}
+                if identity in reread[id(row)]:
                     chosen.append(row)
                     taken += 1
                     if taken == witnesses:
