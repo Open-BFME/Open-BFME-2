@@ -83,6 +83,112 @@ _REFERENCE_CHECKED = None
 _REFERENCE_RECHECK = 300.0
 
 
+def _git_out(*args, cwd=None):
+    """(returncode, stdout) of one git command, or None when git cannot run."""
+    try:
+        done = subprocess.run(["git", *args], cwd=cwd or ROOT, capture_output=True, text=True,
+                              encoding="utf-8", errors="replace", timeout=60)
+    except (OSError, subprocess.TimeoutExpired):
+        return None
+    return done.returncode, done.stdout
+
+
+def _config_bool(value):
+    """git's boolean reading, or None for a value that is not one."""
+    lowered = value.strip().lower()
+    if lowered in ("", "true", "yes", "on", "1"):
+        return True
+    if lowered in ("false", "no", "off", "0"):
+        return False
+    return None
+
+
+def _reference_status_line():
+    """The line `git submodule status -- reference/open-bfme-1` prints, computed
+    from an index lookup and one rev-parse instead of the status command
+    (~1 s on Windows, paid by every build.py process): "" where status prints
+    nothing, None where it fails (neither is judged). It follows git's
+    status_submodule: no gitlink or no .gitmodules mapping is nothing; unmerged
+    stages are "U"; a submodule that is not active, or whose .git is not a git
+    directory, is "-"; otherwise its HEAD against the gitlink is "+" or " ".
+    Every case it does not model exactly (submodule.active pathspecs, a .git
+    file naming no directory, an unresolvable HEAD) asks git submodule status
+    itself, so the verdict is always the status command's."""
+    def slow():
+        done = _git_out("submodule", "status", "--", REFERENCE_SUBMODULE)
+        if done is None or done[0] != 0:
+            return None
+        return done[1].strip()
+
+    listed = _git_out("ls-files", "-s", "-z", "--", REFERENCE_SUBMODULE)
+    if listed is None or listed[0] != 0:
+        return slow()
+    entries = []
+    for entry in listed[1].split("\0"):
+        if "\t" not in entry:
+            continue
+        meta, path = entry.split("\t", 1)
+        mode, sha, stage = meta.split()
+        if path == REFERENCE_SUBMODULE:
+            entries.append((mode, sha, stage))
+    gitlinks = [e for e in entries if e[0] == "160000"]
+    if not gitlinks:
+        return slow() if entries else ""
+    mapping = _git_out("config", "-f", ".gitmodules", "-z", "--get-regexp", r"^submodule\..*\.path$") \
+        if (ROOT / ".gitmodules").is_file() else None
+    if mapping is None or mapping[0] not in (0, 1):
+        return slow()
+    name = None
+    for record in mapping[1].split("\0"):
+        key, _, value = record.partition("\n")
+        if key and value == REFERENCE_SUBMODULE:
+            name = key[len("submodule."):-len(".path")]
+    if name is None:
+        return slow()
+    if any(stage != "0" for _, _, stage in gitlinks) or len(gitlinks) != 1:
+        return slow() if len(gitlinks) != 1 and all(st == "0" for _, _, st in gitlinks) else \
+            f"U{'0' * 40} {REFERENCE_SUBMODULE}"
+    pin = gitlinks[0][1]
+    config = _git_out("config", "-z", "--get-regexp", r"^submodule\.")
+    if config is None or config[0] not in (0, 1):
+        return slow()
+    values = {}
+    for record in config[1].split("\0"):
+        key, _, value = record.partition("\n")
+        if key:
+            values.setdefault(key, []).append(value)
+    active_key = f"submodule.{name}.active"
+    if active_key in values:
+        active = _config_bool(values[active_key][-1])
+        if active is None:
+            return slow()
+    elif "submodule.active" in values:
+        return slow()                                    # a pathspec: git's matcher decides
+    else:
+        active = f"submodule.{name}.url" in values
+    reference = ROOT / REFERENCE_SUBMODULE
+    dotgit = reference / ".git"
+    if dotgit.is_file():
+        text = dotgit.read_text(encoding="utf-8", errors="replace").strip()
+        if not text.startswith("gitdir:"):
+            return slow()
+        gitdir = Path(text[len("gitdir:"):].strip())
+        gitdir = gitdir if gitdir.is_absolute() else reference / gitdir
+        if not gitdir.is_dir():
+            return slow()
+    elif dotgit.is_dir():
+        gitdir = dotgit
+    else:
+        gitdir = None
+    if not active or gitdir is None:
+        return f"-{pin} {REFERENCE_SUBMODULE}"
+    head = _git_out("--git-dir", str(gitdir), "rev-parse", "--verify", "-q", "HEAD")
+    if head is None or head[0] != 0 or not head[1].strip():
+        return slow()
+    current = head[1].strip()
+    return f"{' ' if current == pin else '+'}{current} {REFERENCE_SUBMODULE}"
+
+
 def ensure_reference_current():
     """Refuse to compile against a reference checkout that is not the pinned commit.
 
@@ -97,23 +203,18 @@ def ensure_reference_current():
     now = time.monotonic()
     if _REFERENCE_CHECKED is not None and now - _REFERENCE_CHECKED < _REFERENCE_RECHECK:
         return
-    try:
-        status = subprocess.run(
-            ["git", "submodule", "status", "--", REFERENCE_SUBMODULE],
-            cwd=ROOT, capture_output=True, text=True, timeout=60)
-    except (OSError, subprocess.TimeoutExpired):
+    line = _reference_status_line()
+    if line is None:
         return
-    line = status.stdout.strip()
     fix = (f"Fix:\n  git submodule update --init {REFERENCE_SUBMODULE}\n"
            f"(in a linked worktree: python3 tools/worktree_setup.py prepare; "
            f"tools/setup_hooks.sh sets submodule.recurse so pulls keep it current.)")
-    if status.returncode == 0 and line[:1] in ("+", "U"):
+    if line[:1] in ("+", "U"):
         raise SystemExit(
             f"{REFERENCE_SUBMODULE} is checked out at a commit other than the one "
             f"this tree pins:\n  {line}\nEvery build against it is suspect. {fix}")
     reference = ROOT / REFERENCE_SUBMODULE
-    if (status.returncode == 0 and line[:1] == "-"
-            and not (reference.is_dir() and any(reference.iterdir()))):
+    if line[:1] == "-" and not (reference.is_dir() and any(reference.iterdir())):
         # Uninitialized and empty: every include under it is missing, and MSVC
         # reports that as a missing header, never as this. A seat that
         # populates the directory some other way is not judged.
