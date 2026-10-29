@@ -39,16 +39,33 @@ public:
 	void invokeForMode();
 };
 
+struct Rva00106874Pointee;
 class Rva00106874Host
 {
 public:
 	bool rva00106874();
+	~Rva00106874Host();
+private:
+	StringBase<char> m_00; // +0x00
+	Rva00106874Pointee *m_04; // +0x04
 };
 
+class BfmeDev996Range;
 class BfmeB996Range
 {
 public:
+	char checkRange( int first, unsigned int *second, char *stop );
+	bool rva001068D1( int first, unsigned int *second, char *third );
+	void rva0010690D();
+	bool rva00106781( void **firstOut, int *first, unsigned int *second, char *stop, bool mode );
+	bool rva0010694B( void **firstOut, int *first, unsigned int *second );
+	int rva00106BC9( int target, int *maximum );
 	char rva00106A5C();
+	char m_pad00[0x4];
+private:
+	BfmeDev996Range *m_dev; // +0x04
+	int m_kind; // +0x08
+	int m_limit; // +0x0C
 };
 
 class Rva00106AC9
