@@ -10845,6 +10845,15 @@ Preview: the ten consumers, both earlier providers and this unit LINK (12/12,
 5,457 -> 29,668 B); all 48 other declaring units still link except
 stlport_list_string_erase_00424363.cpp, whose list-helper COMDATs are unrelated
 (LINK-143). Pending census confirmation.
+Confirmed at 2a7e3dc198 (seat dd-11, 2026-10-29): the ten census-listed units
+alone plus stlport_narrow_ios_imbue.cpp give 10/10 LINK, 4,437 -> 26,741 B, with
+the published index 2026-10-29 15:08 at 85f6b7f40c. Only registry.cpp (WWLib)
+was already linked at that census; the other nine are 0 -> 22,304 B. The
+consumer-side body-less proxy declarations are therefore correct as they stand
+and need no edit; the index predates c69c376bb6, which is why the picker still
+serves PeerThreadStats_PackStatKey.cpp as a 344 B link repair. Nothing to
+repair here: the next census confirms. If the provider ever moves to STLport
+4.6 it must keep the copy (this entry's warning above).
 
 2026-10-29 follow-up (codexb4, inspected `addc18930a`): 5cea349adb migrated
 the overflow/setbuf provider to 4.6 after the repair above. Its current object
