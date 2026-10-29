@@ -95,15 +95,11 @@ private:
 	float m_34;
 };
 
-// DeflectSpecialPower's direct base: its ctor calls 0x0058959A
-// (WeaponModeSpecialPowerUpdateBase's rowed ctor) and its xfer calls
-// 0x00589215 (rowed as Rva00589079::xfer). Both placeholder names stay on
-// their rows; this view chains them so each call keeps its symbol.
-class WeaponModeSpecialPowerUpdateBase : public Rva00589079
-{
-public:
-	WeaponModeSpecialPowerUpdateBase(Thing *thing, const ModuleData *moduleData);
-};
+// DeflectSpecialPower's direct base: its ctor (0x004C545D, not in this file
+// yet) calls 0x0058959A, rowed as WeaponModeSpecialPowerUpdateBase's ctor;
+// its xfer calls 0x00589215 and its dtor 0x004C54BE tail-calls 0x00589079,
+// both rowed under Rva00589079. Deriving straight from Rva00589079 keeps an
+// implicit intermediate dtor COMDAT out of this unit.
 
 class CollideModuleInterface
 {
@@ -111,10 +107,11 @@ public:
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal) = 0;
 };
 
-class DeflectSpecialPower : public WeaponModeSpecialPowerUpdateBase, public CollideModuleInterface
+class DeflectSpecialPower : public Rva00589079, public CollideModuleInterface
 {
 public:
 	DeflectSpecialPower(Thing *thing, const ModuleData *moduleData);
+	virtual ~DeflectSpecialPower();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
 	virtual void onCollide(Object *other, const Coord3D *loc, const Coord3D *normal);
@@ -310,9 +307,13 @@ void BfmeOwnBJ::bfmeSleepBJ(int first, int second, int third, int fourth, int fi
 
 // tu-skeleton: 0x004C54B1 13B ?get@Rva004C54B1LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004C54BE 46B ??1Rva0025A390FlatDtor@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp (not merged yet)
+// ??1DeflectSpecialPower@@UAE@XZ @0x004C54BE: restores the six vtables the
+// ctor 0x004C545D installs, then tail-calls the base dtor 0x00589079.
+DeflectSpecialPower::~DeflectSpecialPower()
+{
+}
 
-// tu-skeleton: 0x004C5535 28B ??_GRva0025A390FlatDtor@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp (not merged yet)
+// ??_GDeflectSpecialPower@@UAEPAXI@Z @0x004C5535: compiler-emitted deleting dtor.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/DeflectSpecialPowerXfer.cpp
 
