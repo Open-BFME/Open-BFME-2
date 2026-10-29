@@ -69,3 +69,38 @@ normal byte gate does not supply those strict link receipts. Carry the
 642-source header scope and its affected consumers into the next scheduled
 census; this change claims neither complete consumer closure nor a measured
 linking/ownership gain.
+
+## Publication recovery
+
+Recovery inspected `54b49e6fc4` on base `f014d1c08f` on 2026-10-29. The
+preparation record names backup `refs/runner/preparation/1793297270425427113`
+and no stash or resync stash. Its saved commit equals the recovered HEAD;
+the rebase is complete, and no staged, unstaged or untracked edits remain to
+restore. The backup and existing unrelated stashes are retained.
+
+The fleet publisher's refusal at base `28c5f4a483` states that header
+acceptance received no usable per-unit link verdict. `/opt/runner/publish
+--now` replays that saved refusal for the unchanged candidate; it did not
+run a new hook. The recovery therefore restores the original queue row in
+a follow-up commit, retaining all verified source/header changes. The final
+batch retires no header debt. Retry the owning acceptance command when the
+publishing checkout can reproduce the per-unit preview; no verifier is changed.
+
+Checks in this checkout before restoring the queue row:
+
+- `python3 tools/check_csv.py`: passes.
+- `python3 tools/repair_queue.py verify-removed --range origin/master HEAD`:
+  passes both ordinarily and with the publisher's Python/build/git environment.
+- `BFME_PUSH_SPACING_S=0 python3 tools/push.py --dry-run`: exit 0, PRE-PUSH OK,
+  642 sources byte-verified, 718 exact EH rows, scoped DIR32 and converged-data
+  checks pass. This dry run publishes nothing despite push.py's generic
+  "landed" status wording.
+- Ordinary `link_check.py` on the text saver: LINKS, 2,447 -> 2,447 bytes
+  against index `85f6b7f40c`, both ordinarily and in the publisher environment.
+- The link batch audit remains INCONCLUSIVE on the older index and 640
+  missing current receipts, as recorded above. No census gain is claimed.
+
+Local raw logs are `build/recovery-push-dry-run.log`,
+`build/recovery-publish.log`, `build/recovery-debt-publisher-env.log` and
+`build/recovery-link-publisher-env.log`. These establish local verification
+and the recorded publication refusal, not its root cause.
