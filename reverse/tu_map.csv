@@ -43269,7 +43269,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0050BD45,55,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Rva0050BD45Finish.cpp
 0x0050BD7C,5,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,C,C=0x0050BD45..0x0050BD81 provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp
 0x0050BD81,28,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Rva0050BD45Finish.cpp
-0x0050BD9D,56,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90Dtor.cpp
+0x0050BD9D,56,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp
 0x0050BDD5,24,code,Code/GameEngine/Source/Common/FireLogicNugget.cpp,proposed,N,N=Code/GameEngine/Source/Common/FireLogicNugget.cpp,Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp
 0x0050BDED,71,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Made002CCCF3Parse.cpp
 0x0050BE34,347,code,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/FireLogicNugget.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/FireLogicNugget.cpp W=Code/GameEngine/Source/GameLogic/Object/WeaponEffects/FireLogicNugget.cpp,Code/GameEngine/Source/GameLogic/Object/WeaponEffects/FireLogicNuggetDoEffectPosition.cpp
@@ -83386,8 +83386,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00794491,8,code,Code/GameEngine/Source/Common/Made002CCC90.cpp,approved,P,P=0x0050BC25@FuncInfo0x00947554 p-group provisional,Code/GameEngine/Source/Common/Rva0050BC25LuaEventNugget.cpp
 0x00794499,8,code,Code/GameEngine/Source/Common/Made002CCC90.cpp,approved,P,P=0x0050BC25@FuncInfo0x00947554 p-group provisional,Code/GameEngine/Source/Common/Rva0050BC25LuaEventNugget.cpp
 0x007944A1,10,code,Code/GameEngine/Source/Common/Made002CCC90.cpp,approved,P,P=0x0050BC25@FuncInfo0x00947554 p-group provisional,Code/GameEngine/Source/Common/Rva0050BC25LuaEventNugget.cpp
-0x007944AB,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,P,P=0x0050BD9D@FuncInfo0x00947578 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90Dtor.cpp
-0x007944B3,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,P,P=0x0050BD9D@FuncInfo0x00947578 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90Dtor.cpp
+0x007944AB,8,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,P,P=0x0050BD9D@FuncInfo0x00947578 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp
+0x007944B3,10,code,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp,approved,P,P=0x0050BD9D@FuncInfo0x00947578 provisional,Code/GameEngine/Source/GameLogic/Object/Made002CCC90.cpp
 0x007944BD,8,code,,,-,,Code/GameEngine/Source/GameNetwork/EnumeratedIPCtor.cpp
 0x007944C5,10,code,,,-,,Code/GameEngine/Source/GameNetwork/EnumeratedIPCtor.cpp
 0x007944CF,8,code,,,-,,Code/GameEngine/Source/Common/Rva0050BFFDSet.cpp
