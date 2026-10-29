@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 __match, the name-table matcher time_get::do_get_weekday and
 // do_get_monthname call. Both instantiations live here: the narrow one at
