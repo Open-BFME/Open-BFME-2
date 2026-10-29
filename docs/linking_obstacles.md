@@ -331,6 +331,16 @@ unit's rows that only the destructor instantiates (0x002CF51B `~Nugget`, 0x0033C
 addresses sit among that unit's rows) with the class's destructor public and no virtual
 `getObjectMemoryPool`, or keep those three rows alive without the Zero Hour copy. MapUtil.cpp, AIUpdate.cpp, ThingFactory.cpp, Player.cpp and SquadCtor.cpp
 also gain rt5 losers but are blocked by other causes anyway.
+Residual units (halilkkaya-lk7, 2026-10-29): census-unlinked units that the
+retail-truth-5 preview (`rt5_lc.py` in the evidence directory) still shows blocked by one
+or two names, repaired where the cause is local:
+- `FireWeaponWhenDeadBehavior.cpp` (209 B): its `??_7FireWeaponWhenDeadBehavior@@6BObjectModule@@@`
+  (5 slots, ending with `getModuleNameKey`, 0x00482E51) differed from the first copy,
+  Rva00589079Derived.cpp's 4-slot view (both orders keep that one first). Retail's vtable
+  0x008497B4 has `getModuleNameKey` as slot 4 (13 slots in all), so the donor view now
+  declares it too; only that vtable's digest changes (cc9059c20428 -> 236251dce123, equal
+  to the unit's). 8/8 donor rows; scoped DIR32 over the donor and the seven
+  FireWeaponWhenDead sources OK; link_check (census and rt5 order) 2,236 -> 2,445 B.
 Remaining / next check: repair the other providers above the same way (each one's
 rows, `link_check`, and its first copy in the script's order), then carry the scope
 into the next census, the first under retail-truth-5.

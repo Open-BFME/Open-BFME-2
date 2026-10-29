@@ -183,6 +183,11 @@ public:
 
 class FireWeaponWhenDeadBehavior;
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class UpgradeMux
 {
 	friend class FireWeaponWhenDeadBehavior;
@@ -206,6 +211,11 @@ public:
 	virtual void s02();
 protected:
 	virtual void xfer(Xfer *xfer);
+public:
+	// Slot 4 of vtable 0x008497B4 (0x00482E51, rowed in FireWeaponWhenDeadBehaviorPoolKey.cpp),
+	// as FireWeaponWhenDeadBehavior.cpp declares it: both units emit this vtable and must
+	// emit the same copy.
+	virtual NameKeyType getModuleNameKey() const;
 private:
 	Member2C m_m2C;
 	char m_pad30[0x78];
