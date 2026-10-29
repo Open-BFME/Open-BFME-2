@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // Dedicated TU for STLport _Stl_string_to_double. The wrapper unit
 // stlport_string_to_float.cpp already holds the three __string_to_float
