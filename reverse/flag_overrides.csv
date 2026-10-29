@@ -310,7 +310,6 @@ Code/GameEngine/Source/GameNetwork/BfmeOneHundredFiftyEight.cpp,,3,3,region defa
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,,5,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingTWA.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,-O2,4,4,region default loses rows
 Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp,,17,6,region default loses rows
 Code/GameEngine/Source/GameNetwork/ConnectionRva0058BD4F.cpp,-O2 -arch:SSE,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/DisconnectManager.cpp,,2,1,region default loses rows
@@ -329,7 +328,6 @@ Code/GameEngine/Source/GameNetwork/GameSpy/qr2/qr2.c,,37,6,region default loses 
 Code/GameEngine/Source/GameNetwork/GameSpy/serverbrowsing/sb_serverlist.c,,57,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00657590Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00661650AriesUdp.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva006750C0Finish.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007B55E0TxnNameInits.cpp,-O2,62,62,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007E8D30FeslSetField.cpp,,3,3,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007E90C0Names.cpp,,5,4,region default loses rows
@@ -553,6 +551,7 @@ Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp,-O2,4,1,region default l
 Code/Libraries/Source/EA/Apt/AptString/EAStringCRemoveRange.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,2,2,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,5,5,region default loses rows
 Code/Libraries/Source/Fesl/util.cpp,,4,4,region default loses rows
 Code/Libraries/Source/Lua/lapi.c,,51,1,region default loses rows
 Code/Libraries/Source/Lua/lauxlib.c,,20,1,region default loses rows

@@ -3424,7 +3424,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsgVJH_ctor.cpp	?bfmeInitVJ
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsgVJH_ctor.cpp	?bfmeInitVJO@BfmeMsgVJO@@QAEXPADH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	??1Gen007F86D0@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingTWA.cpp	?set@BfmeThingTWA@@UAEXHH@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeThingZI.cpp	?bfmeFindFN@BfmeOwnerFN@@QAEHPAVBfmeVecFN@@PBD@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/CDownloadCtorEmit.cpp	?Abort@CDownload@@UAEJXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/ConnectionManager.cpp	?find@FontCharMap@@QAEPAUFontCharNode@@ABG@Z	1
@@ -3906,6 +3905,7 @@ alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeImplVMI@BfmeStrVMI@@QAEXHHHHPAD@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeInsertV54@BfmeStrV54@@QAEXPAD0000@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008314E0StringReplace.cpp	?bfmeImplVML@BfmeStrVML@@QAEXHHHHPAD@Z	1

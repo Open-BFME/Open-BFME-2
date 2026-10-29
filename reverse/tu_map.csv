@@ -55987,33 +55987,33 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00674D80,44,code,,,-,,Code/GameEngine/Source/Common/U2FixedSlotSearches.cpp
 0x00674DB0,57,code,,,-,,Code/GameEngine/Source/Common/Bfme5EightySeven.cpp
 0x00674DF0,127,code,,,-,,Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_accept.cpp
-0x00674E70,19,code,,,-,,Code/GameEngine/Source/Common/UnclaimedSmallLeaves02.cpp
-0x00674E90,25,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva00674E90CopyFields.cpp
+0x00674E70,19,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
+0x00674E90,25,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x00674EB0,32,code,,,-,,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp
 0x00674ED0,62,code,Code/GameEngine/Source/Common/BfmeThingUNC.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingUNC.cpp,Code/GameEngine/Source/Common/BfmeConv1338.cpp
 0x00674F10,59,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva00809010Finder.cpp
 0x00674F50,163,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva00809050LanGameEntry.cpp
 0x00675000,191,code,Code/GameEngine/Source/GameNetwork/BfmeSinkSA.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/BfmeSinkSA.cpp,Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp
-0x006750C0,361,code,,,-,,Code/GameEngine/Source/GameNetwork/Rva006750C0Finish.cpp
-0x00675230,198,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
-0x00675300,244,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
-0x00675400,27,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675300..0x00675420 provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
-0x00675420,359,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675300..0x00675590 provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
+0x006750C0,361,code,,,-,,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
+0x00675230,198,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
+0x00675300,244,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
+0x00675400,27,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675300..0x00675420 provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
+0x00675420,359,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675300..0x00675590 provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x00675590,84,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/BfmeSubSKA.cpp provisional,Code/GameEngine/Source/GameNetwork/Y4FeslSubTest.cpp
 0x006755F0,91,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675590..0x00675650 provisional,Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp
 0x00675650,35,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675590..0x00675680 provisional,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp
-0x00675680,71,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675590..0x006756D0 provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
+0x00675680,71,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675590..0x006756D0 provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x006756D0,450,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/BfmeSinkTCA.cpp provisional,Code/GameEngine/Source/GameNetwork/Rva008097D0LanTheaterRemove.cpp
-0x006758A0,584,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x006756D0..0x00675AF0 provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
+0x006758A0,584,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x006756D0..0x00675AF0 provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x00675AF0,102,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x006756D0..0x00675B60 provisional,Code/GameEngine/Source/GameNetwork/Y4FeslEcnlNotify.cpp
 0x00675B60,413,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x006756D0..0x00675D00 provisional,Code/GameEngine/Source/GameNetwork/Rva00803730FeslAttrs.cpp
-0x00675D00,53,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/BfmeThingSKA.cpp provisional,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp
+0x00675D00,53,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,U,N=Code/GameEngine/Source/GameNetwork/BfmeThingSKA.cpp provisional,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x00675D40,705,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675D00..0x00676010 provisional,Code/GameEngine/Source/GameNetwork/Rva00809E40FeslAdmission.cpp
 0x00676010,362,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675D00..0x00676180 provisional,Code/GameEngine/Source/GameNetwork/Rva0080A110Route.cpp
 0x00676180,317,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,C,C=0x00675D00..0x006762C0 provisional,Code/GameEngine/Source/GameNetwork/Rva0080A280FeslHandler.cpp
 0x006762C0,703,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp
 0x00676580,345,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp provisional,Code/GameEngine/Source/GameNetwork/Rva0080A3C0FeslDispatcher.cpp
-0x006766E0,80,code,Code/GameEngine/Source/Common/BfmeThingVJJ.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJJ.cpp,Code/GameEngine/Source/Common/BfmeConv1387.cpp
+0x006766E0,80,code,Code/GameEngine/Source/Common/BfmeThingVJJ.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeThingVJJ.cpp,Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp
 0x00676730,264,code,,,-,,Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp
 0x00676840,103,code,Code/GameEngine/Source/GameNetwork/BfmeThingUNC.cpp,proposed,K,K=Rva0080A940Owner,Code/GameEngine/Source/GameNetwork/Y4FeslFavGameInit.cpp
 0x006768B0,202,code,Code/GameEngine/Source/GameNetwork/LanTheaterEmulator.cpp,proposed,N,N=Code/GameEngine/Source/GameNetwork/LanTheaterEmulator.cpp,Code/GameEngine/Source/GameNetwork/Y4FeslFavGameAddress_notify.cpp
