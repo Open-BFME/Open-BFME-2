@@ -2,22 +2,13 @@
 // stlport
 // ?rva152d1c@Rva00152D1CObj@@QAEXH@Z @0x00152D1C 170B evidence: caller 0x00117172 via [mesh+0x94]->[+0xB8] arg 4; LINK BONUS 131B Rva00117120Cluster; virtual slot0 or 0 then AsciiString from char then copy +0x18 then vector copy +0x0C then matched FXShaderSetup::InitializeShader at 0x0015288F.
 // The caller passes two string pointers, the parameter vector and the LOD; the matched callee returns bool in AL, which this caller ignores. prev/next Common.
+#include <vector>
 #include "ascii_string.h"
 
 struct Rva0007BB16Record;
-namespace _STL {
-template <class T> class allocator {};
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	vector(const vector &other);
-	~vector();
-private:
-	void *m_00;
-	void *m_01;
-	void *m_02;
-};
-}
+// Bind to the kept retail copies instead of emitting this unit's own.
+namespace _STL { template <> vector<Rva0007BB16Record>::vector(const vector &); }
+namespace _STL { template <> vector<Rva0007BB16Record>::~vector(); }
 
 class Rva00152D1CInner
 {
