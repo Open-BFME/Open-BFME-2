@@ -108,13 +108,18 @@ struct Rva00491FA6ModuleData
 	char m_10[4];		// +0x10
 };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class PickupStuffUpdate
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	Object *rva00491FA6();
 	Object *getObject() const { return m_object; }
 private:
-	const void *m_vtable;
 	const Rva00491FA6ModuleData *m_moduleData;	// +0x04
 	Object *m_object;				// +0x08
 };
