@@ -6623,7 +6623,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0081A8D8,200,.rdata,global,?g_00C1A8D8@@3QBDB,,unowned,,0,1
 0x0081A9A0,68,.rdata,string,??_C@_0ED@JJKKJMAP@CAMP?3?5Frame?5?$CFd?3?5Castle?5?$CFs?$CI?$CFd?$CJ?5?3?3@,,literal,,0,1
 0x0081A9E4,444,.rdata,string,??_C@_0DL@EICGMKOG@CAMP?3?5Frame?5?$CFd?3?5Castle?5?$CFs?$CI?$CFd?$CJ?5Pa@,,literal,,0,1
-0x0081ABA0,384,.rdata,global,?BfmeCastleBehaviorFields@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorModuleDataCtor.cpp,owned,,1,1
+0x0081ABA0,384,.rdata,global,?BfmeCastleBehaviorFields@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,owned,,1,1
 0x0081AD20,20,.rdata,vtable,??_7ExperienceTracker@@6B@,,literal,??_7ExperienceTracker@@6B@;??_7Rva0039AD56@@6B@,0,2
 0x0081AD34,20,.rdata,vtable,??_7Rva0039ADF3@@6B@,,literal,,0,2
 0x0081AD48,24,.rdata,string,??_C@_0BI@BHIFOEPP@ExperienceTrackerObject?$AA@,,literal,,0,1
@@ -19322,8 +19322,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A027BC,4,.data,global,_s_rva007AF1CE,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A027C0,4,.data,global,_s_rva007AF1DE,Code/GameEngine/Source/Common/Rva007AF1DEFrameScaleSseInits.cpp,owned,,1,1
 0x00A027C4,4,.data,global,?g_00E027C4@@3MA,,unowned,,0,2
-0x00A027C8,4,.data,global,?TheCastleBehaviorPoolKey2@?1??rva0003955DA@CastleBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorPoolKey2.cpp,owned,,1,2
-0x00A027CC,4,.data,global,?$S1@?1??rva0003955DA@CastleBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorPoolKey2.cpp,owned,,1,4
+0x00A027C8,4,.data,global,?TheCastleBehaviorPoolKey2@?1??rva0003955DA@CastleBehavior@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,owned,,1,2
+0x00A027CC,4,.data,global,?$S1@?1??rva0003955DA@CastleBehavior@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,owned,,1,4
 0x00A027D0,4,.data,global,?TheCastleMemberBehaviorKey@?1??rva000395708@CastleBehavior@@SAPAVModule@@PAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorFind.cpp,owned,,1,2
 0x00A027D4,4,.data,global,?$S1@?1??rva000395708@CastleBehavior@@SAPAVModule@@PAVObject@@@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorFind.cpp,owned,,1,4
 0x00A027D8,4,.data,global,?TheCastleMemberBehaviorPoolKey@?1??getModuleNameKey@CastleMemberBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleMemberBehaviorPoolKey.cpp,owned,,1,2
@@ -19338,8 +19338,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02808,4,.data,global,?$S1@?L@??rva00397D0A@CastleBehavior@@QAEX_N@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorOwnedCleanup.cpp,owned,,1,8
 0x00A0280C,4,.data,global,?key@?3??rva00397FEB@@YAPAXPAXI0H@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397F45.cpp,owned,,1,2
 0x00A02810,4,.data,global,?$S1@?3??rva00397FEB@@YAPAXPAXI0H@Z@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorRva00397F45.cpp,owned,,1,2
-0x00A02814,4,.data,global,?TheCastleBehaviorPoolKey@?1??getModuleNameKey@CastleBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorPoolKey.cpp,owned,,1,2
-0x00A02818,4,.data,global,?$S1@?1??getModuleNameKey@CastleBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehaviorPoolKey.cpp,owned,,1,4
+0x00A02814,4,.data,global,?TheCastleBehaviorPoolKey@?1??getModuleNameKey@CastleBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,owned,,1,2
+0x00A02818,4,.data,global,?$S1@?1??getModuleNameKey@CastleBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/CastleBehavior.cpp,owned,,1,4
 0x00A0281C,4,.data,global,?key@?3??registerOwnedObject@CastleBehavior@@QAEXPAVObject@@@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp,owned,,1,2
 0x00A02820,4,.data,global,?g_Va00E02820@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E0102xx.cpp,provisional,?$S1@?3??registerOwnedObject@CastleBehavior@@QAEXPAVObject@@@Z@4IA@Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp;?g_Va00E02820@@3IA,2,4
 0x00A02824,4,.data,global,?key@?BN@??unpack@Rva00399959@@QAEX_N@Z@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/System/CastleBehaviorRegisterOwnedObject.cpp,owned,,1,2
