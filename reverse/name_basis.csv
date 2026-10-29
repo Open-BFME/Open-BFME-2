@@ -4395,3 +4395,8 @@ param,Object::rva0028ACDC::arg,Object::rva0028ACDC::goalPosition,inferred,agree:
 param,Object::rva0028ACEE::arg,Object::rva0028ACEE::destinationPosition,inferred,agree:nl-99dda6e5e709,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028ACEE
 local,Rva0028AF76Sub::rva0028A82A::d,Rva0028AF76Sub::rva0028A82A::destinationBytes,inferred,agree:nl-7cd3531298db,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028A82A
 function,?rva0028AF86@Object@@QBEHXZ,?getLastVictimID@Object@@QBEHXZ,inferred,agree:nl-b768227c5617,Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp,0x0028AF86
+member,Rva000B3649Src::m_18,Rva000B3649Src::m_transform,inferred,agree:nl-1334a069061b,Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp,
+param,Rva000B3649::rva000B3649::v,Rva000B3649::rva000B3649::boneName,inferred,agree:nl-38c6b19db5f7,Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp,0x000B3649
+local,Rva000B3649::rva000B3649::t,Rva000B3649::rva000B3649::boneIndex,inferred,agree:nl-19e007175cbc,Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp,0x000B3649
+local,Rva000B3649::rva000B3649::tmp,Rva000B3649::rva000B3649::boneTransform,inferred,agree:nl-02378cb715cd,Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp,0x000B3649
+local,Rva000B3649::rva000B3649::p,Rva000B3649::rva000B3649::boneTransformResult,inferred,agree:nl-a1510b424665,Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp,0x000B3649

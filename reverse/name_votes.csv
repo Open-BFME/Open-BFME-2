@@ -14778,3 +14778,10 @@ Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp|local|Object::
 Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp|local|Object::rva0028CDB6|v,53e50ddf66100da26c1379a2,gpt-6.1-sol,w5-10290557-1,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp|local|Rva0028AF76Sub::rva0028A82A|d,60c79254221a6554abbaf9e6,gpt-6.1-sol,w5-10290557-1,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/Common/INI/INIThinFieldParsers4_Rva001DFBC7Parse.cpp|global||g_00DCAE84,098e9e30094ea2129f2cc1ea,gpt-6.1-sol,w5-10290557-2,w-f0819d403c17,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|member|Rva000B3649Src|m_18,ba6281a58558bf88e0a6bf6d,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|function|0x000B3649|rva000B3649,6e539316682ddbd1d6fa6bb4,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|param|Rva000B3649::rva000B3649|v,e85c4e6df4a1d76c78006d04,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|local|Rva000B3649::rva000B3649|t,dd5e43aa6e63730e6b699eaa,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|local|Rva000B3649::rva000B3649|tmp,e416a663a6e6e3f5a0cf0fd2,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva000B3649Fetch.cpp|local|Rva000B3649::rva000B3649|p,a9c450bb211ebfada8d0d366,gpt-6.1-sol,w2-10290601-2,w-dce04682aaeb,2026-10-29
+Code/GameEngine/Source/Common/Rva004FDA42Clear.cpp|member|Rva004FDA42Owner|m_101C,b79d9a3747f20b186e40f201,gpt-6.1-sol,w2-10290601-3,w-dce04682aaeb,2026-10-29

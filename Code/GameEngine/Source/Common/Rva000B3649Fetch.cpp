@@ -93,13 +93,13 @@ private:
 	char m_pad04[0x14];
 
 public:
-	Matrix3D m_18;
+	Matrix3D m_transform;
 };
 
 class Rva000B3649
 {
 public:
-	bool rva000B3649(int v, Rva000B3649Out *out);
+	bool rva000B3649(int boneName, Rva000B3649Out *out);
 
 private:
 	char m_pad00[0x44];
@@ -107,27 +107,27 @@ private:
 };
 
 // ?rva000B3649@Rva000B3649@@QAE_NHPAURva000B3649Out@@@Z
-bool Rva000B3649::rva000B3649(int v, Rva000B3649Out *out)
+bool Rva000B3649::rva000B3649(int boneName, Rva000B3649Out *out)
 {
 	if (!m_44)
 		return false;
-	int t = m_44->vslot050(v);
-	if (!t)
+	int boneIndex = m_44->vslot050(boneName);
+	if (!boneIndex)
 		return false;
-	Rva000B3649Out tmp;
-	Rva000B3649Out *p = m_44->vslot051(&tmp, t);
-	out->f00 = p->f00;
-	out->m04[0] = p->m04[0];
-	out->m04[1] = p->m04[1];
-	out->m04[2] = p->m04[2];
-	out->m04[3] = p->m04[3];
-	out->m04[4] = p->m04[4];
-	out->m04[5] = p->m04[5];
-	out->m04[6] = p->m04[6];
-	out->m04[7] = p->m04[7];
-	out->m04[8] = p->m04[8];
-	out->m04[9] = p->m04[9];
-	out->m04[10] = p->m04[10];
+	Rva000B3649Out boneTransform;
+	Rva000B3649Out *boneTransformResult = m_44->vslot051(&boneTransform, boneIndex);
+	out->f00 = boneTransformResult->f00;
+	out->m04[0] = boneTransformResult->m04[0];
+	out->m04[1] = boneTransformResult->m04[1];
+	out->m04[2] = boneTransformResult->m04[2];
+	out->m04[3] = boneTransformResult->m04[3];
+	out->m04[4] = boneTransformResult->m04[4];
+	out->m04[5] = boneTransformResult->m04[5];
+	out->m04[6] = boneTransformResult->m04[6];
+	out->m04[7] = boneTransformResult->m04[7];
+	out->m04[8] = boneTransformResult->m04[8];
+	out->m04[9] = boneTransformResult->m04[9];
+	out->m04[10] = boneTransformResult->m04[10];
 	return true;
 }
 
@@ -150,7 +150,7 @@ bool Rva000B356F::rva000B356F(OBBoxClass *out)
 	m_44->vslot068(&box);
 	Rva000B3649Src *provider = m_44;
 	provider->vslot020();
-	Matrix3D transform = provider->m_18;
+	Matrix3D transform = provider->m_transform;
 	OBBoxClass oriented(box.Center, box.Extent);
 	OBBoxClass::Transform(transform, oriented, out);
 	return true;
