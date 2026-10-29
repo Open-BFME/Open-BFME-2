@@ -79,3 +79,48 @@ update. Existing composition handoffs retain the provider/consumer and register
 checks; the normal push gate must verify the recovered outgoing range before
 publication. The first dry-run refused the restored, uncommitted documentation;
 this evidence is committed before retrying. No gate is bypassed.
+
+
+## Preparation recovery, 2026-10-29
+
+The runner's second recovery replayed all 19 retained commits onto
+`da15353831`, then onto `85f6b7f40c`, reaching `417ceda5ac`. No commit was
+skipped and the rebase was not aborted. Independent shared-register additions
+were retained. The AnimationAsset Microsoft-header queue conflict was only a
+row reorder; current upstream entries and their updated evidence were kept.
+
+Upstream `41f25b959e` already carries the vertical-slider include cleanup.
+The rebased cleanup commit retains its historical evidence and makes no source
+change. The newer gadget-consumer correction in the obstacle register remains
+authoritative: that preview improvement belongs to renderer commit
+`e8931880e6`. Upstream `f5d2fe50b8` removes the TunnelTracker private comparison
+and `65406ab71c` consolidates its donor. Recovery keeps that consolidation and
+does not resurrect TunnelTrackerXfer.cpp. The retained comparison handoff is
+historical; its old composition blockers do not override the newer merge.
+
+The saved resync stash `858fb3cc52c8a87350072bae5e06d5a3e5dda06f` was inspected
+again. Applying with --index refuses changed context and the existing handoff,
+without modifying the index or worktree. Its only source-ledger change remains
+landed upstream in `db7cbb506c`; both affected cleanup rows have current owners.
+Its obstacle paragraph and complete handoff are already retained by the earlier
+recovery commit. Its third parent has no untracked payload. No staged, unstaged
+or untracked edit is left unaccounted for; both the stash and original backup
+ref remain intact.
+
+The complete path audit covers `85f6b7f40c..417ceda5ac`: five absorbed Code
+sources, four destination TUs, no directory moves. Combined full-path and
+basename searches across active tooling, hooks, workflows, configuration,
+ledgers, queues and Code find only provenance comments, historical obstacle
+notes, census link_status rows and naming/map evidence. No active path consumer
+needs an update. Earlier composition handoffs retain the per-register,
+provider/consumer and EH checks. Scratch scan: build/recovery-20261029-codexb4/.
+
+Current CSV validation passes (98,943 function rows, 9,415 symbols, 2,230 data
+rows). Frozen-file checks pass for all six changed source files. The normal
+push dry run must still verify the entire reconciled outgoing range before
+publication; no hook is bypassed and no census or runtime gain is claimed.
+
+The BFME 1 freshness comparison sees official master `41a3928a49` ahead of the
+clean repository-pinned `e42b9782fd`. Recovery preserves the synchronized pin
+and makes no reference update or freshness-success claim. A separately scoped
+reference update still requires the documented full before/after verification.
