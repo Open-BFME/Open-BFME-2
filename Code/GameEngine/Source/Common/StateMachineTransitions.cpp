@@ -40,21 +40,11 @@ class State;
 
 typedef Bool (*StateTransFuncPtr)(State *state, void *userData);
 
-struct BfmeTransitionInfo
+struct StateConditionInfo
 {
 	StateTransFuncPtr test;		// +0x00
 	StateID toStateID;			// +0x04
 	void *userData;				// +0x08
-};
-
-class StIncrementer
-{
-public:
-	__forceinline StIncrementer(Int &count) : m_count(count) { ++m_count; }
-	__forceinline ~StIncrementer() { --m_count; }
-
-private:
-	Int &m_count;
 };
 
 class State
@@ -66,8 +56,8 @@ private:
 	char m_pad00[0x08];
 	StateID m_successStateID;			// +0x08
 	StateID m_failureStateID;			// +0x0C
-	BfmeTransitionInfo *m_transitions;	// +0x10
-	Int m_transitionCount;				// +0x14
+	const StateConditionInfo *m_transitionsFirst;	// +0x10
+	Int m_transitionsCount;				// +0x14
 	StateMachine *m_machine;			// +0x18
 };
 
@@ -75,7 +65,7 @@ StateReturnType State::friend_checkForTransitions(StateReturnType status)
 {
 	static Int checkfortransitionsnum = 0;
 	StateReturnType result;
-	StIncrementer inc(checkfortransitionsnum);
+	++checkfortransitionsnum;
 	if (checkfortransitionsnum >= 20)
 		result = STATE_FAILURE;
 	else
@@ -114,10 +104,10 @@ StateReturnType State::friend_checkForTransitions(StateReturnType status)
 			break;
 		case STATE_CONTINUE:
 		{
-			Int n = m_transitionCount;
+			Int n = m_transitionsCount;
 			if (n != 0)
 			{
-				const BfmeTransitionInfo *it = m_transitions;
+				const StateConditionInfo *it = m_transitionsFirst;
 				do
 				{
 					if (it->test(this, it->userData))
@@ -137,5 +127,6 @@ StateReturnType State::friend_checkForTransitions(StateReturnType status)
 		}
 		}
 	}
+	--checkfortransitionsnum;
 	return result;
 }

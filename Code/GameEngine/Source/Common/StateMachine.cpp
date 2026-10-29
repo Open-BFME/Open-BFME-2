@@ -23,9 +23,37 @@ class Xfer;
 
 class StateMachine;
 
+typedef int Int;
+
+typedef int StateID;
+
+typedef bool Bool;
+
+enum StateReturnType
+{
+	STATE_CONTINUE = 0,
+	STATE_SUCCESS = -1,
+	STATE_FAILURE = -2
+};
+
+enum
+{
+	EXIT_MACHINE_WITH_SUCCESS = 9998,
+	EXIT_MACHINE_WITH_FAILURE = 9999
+};
+
+enum
+{
+	MACHINE_DONE_STATE_ID = 999998
+};
+
+class State;
+
+typedef Bool (*StateTransFuncPtr)(State *state, void *userData);
+
 struct StateConditionInfo
 {
-	void *test;
+	StateTransFuncPtr test;
 	int toStateID;
 	void *userData;
 };
@@ -43,6 +71,8 @@ public:
 	bool m_tail1C; // +0x1C
 
 	void rva004D7127(const StateConditionInfo *conditions);
+	StateReturnType friend_checkForTransitions(StateReturnType status);
+	StateReturnType friend_checkForSleepTransitions(StateReturnType status);
 };
 
 // ?bfmeQuery932C@BfmeSub932C@@QAEEXZ, retail 0x004D7383, 18 bytes.
@@ -128,8 +158,6 @@ struct Rva004D7597TreeCleanupForward { void cleanup(); };
 // (identical-code folded at 0x004D7726), so the call goes through the
 // non-const spelling the ledger resolves, as AIGuardStates.cpp does.
 
-typedef bool Bool;
-
 typedef unsigned int ObjectID;
 
 class Object
@@ -183,6 +211,8 @@ public:
 	volatile bool m_inited;
 public:
 	volatile bool m_extra;
+public:
+	StateReturnType internalSetState(StateID id);
 public:
 	Object *getGoalObject();
 public:
