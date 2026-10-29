@@ -5255,6 +5255,18 @@ Path update (2026-10-29): `tu_skeleton --merge` moved the constructor unit into 
 
 Current destructor-side inspection (2026-10-26, revision `896af216804e1f1e34de28bd318285fbbbfcc536`; index `d1f046749a`): `Rva004E0D67Dtor.cpp` still has four unresolved virtual names. Its table at RVA 0x00861618 puts the name getter `LivingWorldBuilding::GetSnapshotName` (0x004E0777) where the private view spells `crc`, and `LivingWorldBuilding::DoXfer` (0x004E0E78) where it spells `xfer`. `Gen_uwm_004edfff::s0` also conflates the derived listener slot at 0x004E06B8 (`LivingWorldBuilding::BeginTurn`) and its base slot at 0x0050B238. These are signature/type conflicts, not requests for one same-signature alias. No source trial was made. Raw table-slot witnesses and row homes are in `build/link-worker-w1/native-witnesses.log`; the unchanged destructor unit passes the combined byte gate. The class/observer reconciliation above remains the prerequisite; no clearance or census change is claimed.
 
+Current preview (2026-10-29, revision `ac5cb21684`, index `85f6b7f40c`):
+`Rva004E0D67Dtor.cpp` remains at 0 linked bytes, with the same four unresolved
+`crc`, `loadPostProcess`, `xfer` and `Gen_uwm_004edfff::s0` symbols. The
+constructor view now uses the named Snapshot slots and `RegionTurnObserverView`,
+but the destructor's placeholder class and listener view still need identity
+reconciliation. A `rename.py class` dry run with canonical WorldBuilder evidence
+was refused: the lead at 0x004E0D67 does not name the class. The shared vtables
+and constructor establish the structural relationship, but that lead is not an
+accepted canonical naming basis. No source changes or clearance are claimed;
+resolve the identity through the supported evidence/reconciliation path, then
+verify both vtables and affected consumers against a current index.
+
 ### LINK-025: `StlSweepR3Rva0002CCC3.cpp`'s opaque hashtable record needs the macro table's real type
 Status: Blocked (identity prerequisite). Updated: 2026-10-26; inspected revision: 308a442bae.
 Evidence / affected units: `Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0002CCC3.cpp` (67 B): unresolved
