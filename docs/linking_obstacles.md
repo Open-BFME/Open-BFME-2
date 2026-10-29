@@ -11024,3 +11024,7 @@ preview retains 1,570 authored bytes against index `85f6b7f40c`. External
 consumer selection remains pending the scheduled census; the prior outgoing
 batch audit's stale index and missing receipts remain a limitation. Four whole
 donors still need class or STL reconciliation. [Checks and path audit](../reverse/attempt_support/skirmishai-consolidation-20261029-codexb5/README.md).
+The post-move outgoing batch audit is **INCONCLUSIVE**: index `85f6b7f40c`
+predates the base and four source objects lack current receipts, first
+`Common/RTS/PlayerKillPlayer.cpp`. Carry those consumers and both moved
+providers into the next scheduled census.

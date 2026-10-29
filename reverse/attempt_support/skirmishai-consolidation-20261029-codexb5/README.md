@@ -89,3 +89,7 @@ The prior batch audit's stale index and missing receipts still require census
 confirmation of external consumers. Four whole donors and five mixed files
 remain: resetMaster needs its member view aligned, RecordGet needs its Player
 and record views reconciled, and the other two have STL composition conflicts.
+The outgoing batch audit after this move remains INCONCLUSIVE: index
+`85f6b7f40c` predates `origin/master` and four source objects lack current
+receipts, first `Code/GameEngine/Source/Common/RTS/PlayerKillPlayer.cpp`.
+Carry those consumers and both moved providers into the next scheduled census.
