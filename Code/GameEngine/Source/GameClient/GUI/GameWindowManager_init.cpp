@@ -9,26 +9,18 @@
 // 0x001DC7E1 -- which ends by loading "Data\INI\WindowTransitions.ini", so it
 // is GameWindowTransitionsHandler::load -- and virtual slot 1 (init).
 // BFME 2 delta: no null test before the allocation (Zero Hour guards it).
-class SubsystemInterface
-{
-public:
-	virtual ~SubsystemInterface();
-	virtual void init() = 0;
-	virtual void reset() = 0;
-	virtual void update() = 0;
-
-private:
-	unsigned char m_bfme04[8];
-};
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 
 class GameWindowTransitionsHandler : public SubsystemInterface
 {
 public:
 	GameWindowTransitionsHandler();
 	void load();
-	void init();
-	void reset();
-	void update();
+	// init lands in slot 1, the slot GameWindowManager::init calls through;
+	// this unit never dispatches reset or update (retail slots 9 and 10).
+	virtual void init();
+	virtual void reset();
+	virtual void update();
 
 private:
 	unsigned char m_bfme0C[0x6C - 0x0C];
