@@ -597,6 +597,74 @@ def test_second_reviewer_can_revisit_file_for_a_different_key(tree, tmp_path):
     assert lane_of(tree).state()[FN_KEY]["status"] == "landed"
 
 
+def legacy_scoped_disagreement(tree, tmp_path):
+    for seat in ("legacy-a", "legacy-b"):
+        serve(tree, seat)
+    for seat, name in (("legacy-a", "box"), ("legacy-b", "inputBox")):
+        be("seat-" + seat)
+        answer = tmp_path / (seat + ".json")
+        answer.write_text(json.dumps({"rva00401000:param_1": name}))
+        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=seat, model="claude-opus-5-5", answer=str(answer)))
+
+
+@pytest.mark.parametrize("second_role,landed", [("source", True), ("destination", False)])
+def test_original_workers_can_clarify_without_extra_votes(tree, tmp_path, second_role, landed):
+    legacy_scoped_disagreement(tree, tmp_path)
+    original = rows(tree, name_lane.VOTES)
+    for seat, name, role in (("legacy-a", "box", "source"), ("legacy-b", "inputBox", second_role)):
+        be("seat-" + seat)
+        record = subsystem_next(tree, "meaning-" + seat, file=SOURCE, meaning_review_only=True)
+        assert record["files"][SOURCE]["meaning_review"]
+        answer = tmp_path / (seat + "-role.json")
+        answer.write_text(json.dumps({"rva00401000:param_1": {"name": name, "meaning": role_descriptor(role=role)}}))
+        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="meaning-" + seat, model="seat-a", answer=str(answer)))
+    assert rows(tree, name_lane.VOTES) == original
+    annotations = rows(tree, name_lane.MEANINGS)
+    assert len(annotations) == 2
+    assert all({k: r[k] for k in name_lane.VOTE_COLUMNS} in original for r in annotations)
+    if landed:
+        assert name_agreement.record_meaning(lane_of(tree).state()[PARAM_KEY]["id"])
+    apply(tree, key=[PARAM_KEY])
+    assert (lane_of(tree).state()[PARAM_KEY]["status"] == "landed") == landed
+
+
+def test_meaning_clarification_cannot_change_the_original_spelling(tree, tmp_path):
+    legacy_scoped_disagreement(tree, tmp_path)
+    before = rows(tree, name_lane.VOTES)
+    be("seat-legacy-a")
+    subsystem_next(tree, "clarify", file=SOURCE, meaning_review_only=True)
+    answer = tmp_path / "changed-choice.json"
+    answer.write_text(json.dumps({"rva00401000:param_1": {"name": "otherBox", "meaning": role_descriptor()}}))
+    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session="clarify", model="seat-a", answer=str(answer)))
+    assert rows(tree, name_lane.VOTES) == before
+    assert rows(tree, name_lane.MEANINGS) == []
+
+
+def test_meaning_clarification_cannot_replace_an_existing_descriptor(tree, tmp_path):
+    legacy_scoped_disagreement(tree, tmp_path)
+    be("seat-legacy-a")
+    for session in ("clarify-first", "clarify-second"):
+        subsystem_next(tree, session, file=SOURCE, meaning_review_only=True)
+    for session, role in (("clarify-first", "source"), ("clarify-second", "destination")):
+        answer = tmp_path / (session + ".json")
+        answer.write_text(json.dumps({"rva00401000:param_1": {"name": "box", "meaning": role_descriptor(role=role)}}))
+        name_lane.cmd_submit(lane_of(tree), SimpleNamespace(session=session, model="seat-a", answer=str(answer)))
+    assert len(rows(tree, name_lane.VOTES)) == 2
+    annotations = rows(tree, name_lane.MEANINGS)
+    assert len(annotations) == 1
+    assert annotations[0]["meaning"] == name_agreement.meaning_digest(PARAM_KEY, role_descriptor())
+
+
+def test_shared_review_only_does_not_serve_own_meaning_clarifications(tree, tmp_path, capsys):
+    legacy_scoped_disagreement(tree, tmp_path)
+    be("seat-legacy-a")
+    capsys.readouterr()
+    subsystem_next(tree, "shared-only", review_only=True, list_only=True)
+    assert json.loads(capsys.readouterr().out) == []
+    with pytest.raises(SystemExit, match="cannot be combined"):
+        subsystem_next(tree, "invalid", review_only=True, meaning_review_only=True)
+
+
 def test_review_only_does_not_fill_with_fresh_names_or_repeat_own_vote(tree, tmp_path, capsys):
     subsystem_next(tree, "empty-review", count=10, review_only=True, list_only=True)
     assert json.loads(capsys.readouterr().out) == []

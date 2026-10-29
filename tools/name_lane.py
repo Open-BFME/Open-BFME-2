@@ -635,7 +635,24 @@ def second_reviews(worker, state, tally, refused):
     return out
 
 
-def queue(lane, worker, model, only=None, *, reviews=None):
+def meaning_reviews(worker, state, tally, refused):
+    """Let an original scoped voter clarify its existing, unannotated vote."""
+    out = collections.defaultdict(set)
+    for key, proposals in tally.items():
+        if not name_agreement.scoped_key(key) or not needs_review(key, state, tally, refused):
+            continue
+        banned = refuted(key, (c for c in refused.get(key, ()) if not c.startswith("~meaning:")))
+        active = {h: v for h, v in proposals.items() if h not in banned}
+        own = [h for h, v in active.items() if worker in v]
+        annotations = getattr(tally, "meanings", {}).get(key, {})
+        roles = {role for values in annotations.values() for role in values}
+        if (len(own) == 1 and not annotations.get((own[0], worker))
+                and (len(active) > 1 or len(roles) > 1)):
+            out[key.split("|")[0]].add(key)
+    return out
+
+
+def queue(lane, worker, model, only=None, *, reviews=None, clarifications=None):
     """Prioritize shared keys needing an independent second worker, then the
     former other-model/other-worker queue. A worker may revisit a file for an
     unvoted shared key; cmd_next never serves a key that worker already voted."""
@@ -646,9 +663,11 @@ def queue(lane, worker, model, only=None, *, reviews=None):
         voted_models[rel].add(v["model"])
     files = [only] if only else [f for f in lane.ledger() if f.endswith((".cpp", ".c"))]
     reviews = reviews or {}
-    files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f)]
+    clarifications = clarifications or {}
+    files = [f for f in files if worker not in voted_sessions[f] or reviews.get(f) or clarifications.get(f)]
     random.shuffle(files)
-    files.sort(key=lambda f: (not reviews.get(f), not (voted_models[f] - {model}), not voted_sessions[f]))
+    files.sort(key=lambda f: (not reviews.get(f), not clarifications.get(f),
+                              not (voted_models[f] - {model}), not voted_sessions[f]))
     return files, voted_sessions
 
 
@@ -707,7 +726,7 @@ def callers(lane, rel, word, limit=6):
     return lines
 
 
-def brief_text(lane, rel, text, items, session, model, *, review=False):
+def brief_text(lane, rel, text, items, session, model, *, review=False, meaning_review=False):
     rows = lane.ledger().get(rel, [])
     lines = text.splitlines()
 
@@ -739,6 +758,7 @@ def brief_text(lane, rel, text, items, session, model, *, review=False):
                         f"({e.get('evidence_kind')}, {e.get('strength')}): {(e.get('detail') or '')[:140]}")
     return f"""NAME THE PLACEHOLDERS IN {rel}  (session {session}, model {model})
 {"INDEPENDENT SECOND REVIEW: only the shared identifiers awaiting another worker are served; previous proposals remain hidden." if review else ""}
+{"MEANING CLARIFICATION: resubmit your original normalized spelling with a justified structured meaning. This annotates your existing vote; it never adds a voter or permits changing that vote." if meaning_review else ""}
 
 This is decompiled BFME 2 (SAGE engine) C++. A converter invented the names
 below from addresses, offsets or decompiler slots. Give each the name its
@@ -781,7 +801,11 @@ def cmd_next(lane, args):
     state = lane.state()
     tally, refused = lane.tally(), lane.disputed()
     reviews = second_reviews(worker, state, tally, refused)
-    files, voted = queue(lane, worker, model, args.file, reviews=reviews)
+    clarifications = meaning_reviews(worker, state, tally, refused)
+    files, voted = queue(lane, worker, model, args.file, reviews=reviews, clarifications=clarifications)
+    only_meaning = getattr(args, "meaning_review_only", False)
+    if only_meaning and getattr(args, "review_only", False):
+        fail("--review-only and --meaning-review-only cannot be combined")
     served, metadata = [], []
     record = lane.path(f"{LANE_DIR}/sessions/{session}.json")
     current = json.loads(record.read_text()) if record.exists() else {"model": model, "worker": worker, "files": {}}
@@ -807,9 +831,11 @@ def cmd_next(lane, args):
         if not preferred and sticky.exists():
             preferred = subsystem_prefix(json.loads(sticky.read_text())["subsystem"])
         if preferred:
-            files.sort(key=lambda f: (not reviews.get(f), lane.subsystem(f)[0] != preferred))
+            files.sort(key=lambda f: (not reviews.get(f), not clarifications.get(f),
+                                      lane.subsystem(f)[0] != preferred))
     selected = None
     selected_review = None
+    selected_meaning = None
     for rel in files:
         group, basis = lane.subsystem(rel) if not mixed else (None, "mixed")
         if prefix and not (under(group, prefix) or under(rel, prefix)):
@@ -825,25 +851,37 @@ def cmd_next(lane, args):
             continue
         items = [i for i in lane.owned(rel, text)
                  if needs_review(key_of(rel, *i[:3]), state, tally, refused)
-                 and worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}]
+                 and (worker not in {w for v in tally[key_of(rel, *i[:3])].values() for w in v}
+                      or key_of(rel, *i[:3]) in clarifications.get(rel, ()))]
         targeted = [i for i in items if key_of(rel, *i[:3]) in reviews.get(rel, ())]
+        meanings = [i for i in items if key_of(rel, *i[:3]) in clarifications.get(rel, ())]
         explicit_review = getattr(args, "review_only", False)
+        meaning_review = bool(meanings) and (not args.file or only_meaning) and not targeted and not explicit_review
         review = bool(targeted) and (not args.file or explicit_review)
-        if explicit_review or selected_review is True or review:
+        if only_meaning or selected_meaning is True or meaning_review:
+            items = meanings
+            meaning_review = bool(items)
+            review = False
+        elif explicit_review or selected_review is True or review:
             items = targeted
             review = bool(items)
+        else:
+            items = [i for i in items if key_of(rel, *i[:3]) not in clarifications.get(rel, ())]
         if len(items) < (1 if voted[rel] or args.file else 3):      # an asked-for file needs one key
             continue
         if selected_review is None:
             selected_review = review
+            selected_meaning = meaning_review
         if not mixed and selected is None:
             selected = group
         if args.list_only:
             metadata.append({"file": rel, "chars": len(text), "subsystem": group, "group_basis": basis,
-                             "second_review": review, "kinds": dict(collections.Counter(i[0] for i in items))})
+                             "second_review": review, "meaning_review": meaning_review,
+                             "kinds": dict(collections.Counter(i[0] for i in items))})
         else:
             current["files"][rel] = {"sha": hashlib.sha256(text.encode("utf-8", "surrogateescape")).hexdigest(),
-                                     "items": [list(i) for i in items], "second_review": review}
+                                     "items": [list(i) for i in items], "second_review": review,
+                                     "meaning_review": meaning_review}
             served.append((rel, text, items))
         if len(served) + len(metadata) >= args.count:
             break
@@ -865,7 +903,8 @@ def cmd_next(lane, args):
     context = subsystem_brief(lane, served, selected) if not mixed else ""
     out.write_text(context + "\n\n" + "\n\n".join(
                        brief_text(lane, rel, text, items, session, model,
-                                  review=current["files"][rel].get("second_review", False))
+                                  review=current["files"][rel].get("second_review", False),
+                                  meaning_review=current["files"][rel].get("meaning_review", False))
                        for rel, text, items in served),
                    encoding="utf-8", errors="surrogateescape")
     print(f"name_lane: brief for {len(served)} file(s) ({sum(len(i) for _, _, i in served)} keys): {out}")
@@ -895,6 +934,7 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
     unknown = set(answers) - set(files)
     if unknown:
         fail(f"files not served to session {session}: {', '.join(sorted(unknown)[:4])}")
+    prior_votes = lane.votes()
     tally, state, refused = lane.tally(), lane.state(), lane.disputed()
     now = datetime.date.today().isoformat()
     votes, meanings, agreed, rejected = [], [], [], []
@@ -925,28 +965,37 @@ def cmd_submit(lane, args, *, lead=2, min_models=1):
             if answer.lower() == "skip":
                 continue
             key = key_of(rel, kind, scope, ident)
+            h = digest(key, answer)
+            already = worker in {w for v in tally[key].values() for w in v}
+            annotate = (already and meaning and worker in tally[key].get(h, {})
+                        and not tally.meanings[key].get((h, worker)))
             why = lane.problem(kind, ident, answer, file_words)
             if not why and kind in NAMED and canon(answer) in taken:
                 why = "the same name as another placeholder in this file"
             if not why and canon(answer) in refused.get(key, ()):
                 why = "disputed for this key"
-            if not why and worker in {w for h in tally[key].values() for w in h}:
+            if not why and already and not annotate:
                 why = "this worker already voted on it (under some session label)"
             if why:
                 rejected.append(f"{answer_key(kind, scope, ident)} -> {answer}: {why}")
                 continue
             if kind in NAMED:
                 taken.add(canon(answer))
-            h = digest(key, answer)
-            vote = {"key": key, "hash": h, "model": model, "session": session, "worker": worker, "date": now}
-            votes.append(vote)
-            tally[key][h][worker] = model
+            if annotate:
+                vote = next(v for v in reversed(prior_votes)
+                            if v["key"] == key and v["hash"] == h and v["worker"] == worker)
+            else:
+                vote = {"key": key, "hash": h, "model": model, "session": session, "worker": worker, "date": now}
+                votes.append(vote)
+                tally[key][h][worker] = model
             if meaning:
                 meanings.append({**vote, "meaning": meaning})
                 tally.meanings[key][h, worker].add(meaning)
             open_key = needs_review(key, state, tally, refused)
             mine, rivals, role = name_agreement.support(tally, refused, key, answer, meaning)
-            if open_key and wins(mine, rivals, lead=lead, min_models=min_models, key=key):
+            promote = (annotate and role and key in state and state[key]["status"] == "agreed"
+                       and not name_agreement.record_meaning(state[key]["id"]))
+            if (open_key or promote) and wins(mine, rivals, lead=lead, min_models=min_models, key=key):
                 agents = ";".join(f"{w}@{m}" for w, m in sorted(mine.items()))
                 name = lane_spelling(lane, answer, kind)
                 row = {"id": record_id(key, name, role), "kind": kind, "old": ident, "new": name,
@@ -1162,6 +1211,7 @@ def main(argv=None, lane=None):
                    help="restrict to this source/approved-TU directory; one subsystem per batch")
     n.add_argument("--mixed", action="store_true", help="retain the shuffled multi-subsystem queue")
     n.add_argument("--review-only", action="store_true", help="serve only shared names needing a different second voter")
+    n.add_argument("--meaning-review-only", action="store_true", help="clarify your own unannotated scoped votes in disputes")
     n.add_argument("--list-only", action="store_true",
                    help="print the queue's file/size/kind metadata as JSON; no session, no brief")
     s = sub.add_parser("submit", help="record a session's answers as hashed votes")

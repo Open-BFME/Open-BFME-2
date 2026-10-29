@@ -577,6 +577,17 @@ support. Functions, classes, members and globals retain spelling agreement in
 this first version. Meaning agreement is inferred and revocable, not proof of
 original naming or semantic correctness. Byte and ledger checks are unchanged.
 
+For an unresolved scoped disagreement, the original worker can use
+`next --meaning-review-only` to revisit its own unannotated vote. Resubmit the
+same normalized original spelling with a structured meaning. This appends an
+annotation bound to the original vote's worker/model/session/date; it never
+adds a spelling vote, increases voter count, changes the original choice or
+replaces an existing descriptor. Another worker cannot annotate your vote.
+Once both original meanings agree, an old pending approval is promoted to a
+meaning-bound record. Conflicting meanings remain rivals. The normal picker
+routes these clarifications ahead of fresh work after independent shared-name
+second reviews; `--review-only` and `--meaning-review-only` are separate queues.
+
 ## Disputes
 
 A landed inferred name that the code contradicts goes back through the lane:
