@@ -20218,8 +20218,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03B0C,4,.data,global,?$S1@?1??getModuleNameKey@SpecialEnemySenseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp,owned,,1,4
 0x00A03B10,4,.data,global,?TheAutoDepositUpdatePoolKey@?1??getModuleNameKey@AutoDepositUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp,owned,,1,2
 0x00A03B14,4,.data,global,?$S1@?1??getModuleNameKey@AutoDepositUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AutoDepositUpdate.cpp,owned,,1,4
-0x00A03B18,4,.data,global,?TheHordeAIUpdatePoolKey@?1??getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HordeAIUpdatePoolKey.cpp,owned,,1,2
-0x00A03B1C,4,.data,global,?$S1@?1??getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HordeAIUpdatePoolKey.cpp,owned,,1,4
+0x00A03B18,4,.data,global,?TheHordeAIUpdatePoolKey@?1??getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,owned,,1,2
+0x00A03B1C,4,.data,global,?$S1@?1??getModuleNameKey@HordeAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/HordeAIUpdate.cpp,owned,,1,4
 0x00A03B20,4,.data,global,?TheHordeWorkerAIUpdatePoolKey@?1??getModuleNameKey@HordeWorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate.cpp,owned,,1,2
 0x00A03B24,4,.data,global,?$S1@?1??getModuleNameKey@HordeWorkerAIUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/HordeWorkerAIUpdate.cpp,owned,,1,4
 0x00A03B28,4,.data,global,?TheOCLUpdatePoolKey@?1??rva00049B310@OCLUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdate.cpp,owned,,1,2
