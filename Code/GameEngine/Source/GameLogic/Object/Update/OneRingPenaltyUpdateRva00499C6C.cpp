@@ -82,14 +82,7 @@ struct OneRingPenaltyUpdateModuleData
 	OpaqueRefElement4 m_discoveredSound; // +0x20
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const OneRingPenaltyUpdateModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -131,7 +124,7 @@ private:
 void OneRingPenaltyUpdate::rva00499C6C()
 {
 	UnsignedInt frame = TheGameLogic->getFrame();
-	const OneRingPenaltyUpdateModuleData *data = m_moduleData;
+	const OneRingPenaltyUpdateModuleData *data = reinterpret_cast<const OneRingPenaltyUpdateModuleData *>(getModuleData());
 	m_28 = 0;
 	Object *obj = m_object;
 	m_30 = frame;

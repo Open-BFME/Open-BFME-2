@@ -62,14 +62,7 @@ struct OneRingPenaltyUpdateModuleData
 	UnsignedInt m_timeRingPowerSuppressed; // +0x14
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const OneRingPenaltyUpdateModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -109,7 +102,7 @@ private:
 
 UpdateSleepTime OneRingPenaltyUpdate::update()
 {
-	const OneRingPenaltyUpdateModuleData *oneRingPenaltyUpdateModuleData = m_moduleData;
+	const OneRingPenaltyUpdateModuleData *oneRingPenaltyUpdateModuleData = reinterpret_cast<const OneRingPenaltyUpdateModuleData *>(getModuleData());
 	Object *obj = m_object;
 	Bool wearing = false;
 	if (obj->rva0028F518() || obj->testStatus((ObjectStatusTypes)0xF))

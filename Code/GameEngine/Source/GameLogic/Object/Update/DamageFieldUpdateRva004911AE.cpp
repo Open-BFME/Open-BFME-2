@@ -186,14 +186,7 @@ struct DamageFieldUpdateModuleData
 	AsciiString m_requiredUpgrade;	// +0x18
 };
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	const DamageFieldUpdateModuleData *m_moduleData;	// +0x04
-	Object *m_object;					// +0x08
-};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
@@ -225,7 +218,7 @@ private:
 
 UpdateSleepTime DamageFieldUpdate::update()
 {
-	const DamageFieldUpdateModuleData *data = m_moduleData;
+	const DamageFieldUpdateModuleData *data = reinterpret_cast<const DamageFieldUpdateModuleData *>(getModuleData());
 	Object *me = m_object;
 	if (data && me)
 	{

@@ -1,4 +1,4 @@
-// cl: /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
+// cl: /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/shims/sweep /I. /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /Ireference/shims/bfme2_ascii
 //
 // ?update@StrafeAreaUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail 0x003a4fda, 948 bytes. Banked partial (score 0.997) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
@@ -66,7 +66,8 @@ virtual void gap139()=0;
 virtual void gap140()=0;
 virtual void gap141()=0;
 virtual bool chooseLocomotorSet(int)=0;char pad[0x1C];AICommandInterface commands;};
-class Thing {public:const Coord3D *getUnitDirectionVector2D() const;};
+#include "../../../../../../reference/shims/bfme_matrix3d_copy_link/matrix3d_copy_link.h"
+#include "../../../Common/Thing/thing.h"
 enum DamageType {DAMAGE_UNRESISTABLE=8};enum DeathType {DEATH_ANONYMOUS=22};
 class StrafeModelFlags {public:
  unsigned test(unsigned bit) const{return words[bit>>5]&(1U<<(bit&31));}
@@ -78,7 +79,7 @@ class Object:public Thing {public:
  void rva0028AE6D();void kill(DamageType,DeathType);
  __forceinline void setFiring(){if(conditions.test(37)==0){conditions.set(37);rva0028AE6D();}}
  __forceinline void clearFiring(){if(conditions.test(37)!=0){conditions.reset(37);rva0028AE6D();}}
- char pad00[0x38];Coord3D position;char pad44[0x10C-0x44];StrafeModelFlags conditions;char pad158[0x258-0x158];AIUpdateInterface *ai;char pad25C[0x438-0x25C];unsigned char status;
+ char pad60[0x10C-0x60];StrafeModelFlags conditions;char pad158[0x258-0x158];AIUpdateInterface *ai;char pad25C[0x438-0x25C];unsigned char status;
 };
 struct StrafeAreaUpdateModuleData {char pad[8];AsciiString weaponName;float radius,frequency,amplitude,slope,initialPhase;};
 struct StrafeDirection:public Coord3D {
@@ -95,7 +96,7 @@ struct StrafeDirection:public Coord3D {
  __forceinline void sub(const Coord3D &v){x-=v.x;y-=v.y;z-=v.z;}
 };
 enum UpdateSleepTime {UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff};
-class ObjectModule {public:virtual ~ObjectModule();const StrafeAreaUpdateModuleData *data;Object *object;};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {public:virtual ~BehaviorModule();};
 class UpdateModuleInterface {public:virtual UpdateSleepTime update()=0;};
@@ -127,12 +128,12 @@ inline __declspec(noinline) void Coord3D::normalize()
 }
 
 UpdateSleepTime StrafeAreaUpdate::update() {
- const StrafeAreaUpdateModuleData *strafeAreaUpdateModuleData=data;Object *obj=object;
+ const StrafeAreaUpdateModuleData *strafeAreaUpdateModuleData=reinterpret_cast<const StrafeAreaUpdateModuleData *>(getModuleData());Object *obj=m_object;
  AIUpdateInterface *ai=obj->ai;
  if(!ai) return UPDATE_SLEEP_FOREVER;
  AIUpdateInterface *aircraft=ai->rvaSlot98();
  if(!aircraft) return UPDATE_SLEEP_FOREVER;
- StrafeDirection delta(target);delta.sub(obj->position);delta.z=0.0f;
+ StrafeDirection delta(target);delta.sub(obj->m_cachedPos);delta.z=0.0f;
  float distance=delta.coord()->length();
  switch(state) {
  case 0:
@@ -145,7 +146,7 @@ UpdateSleepTime StrafeAreaUpdate::update() {
  case 1: {
   const WeaponTemplate *weapon=(TheWeaponStore?TheWeaponStore:TheWeaponStore)->findWeaponTemplate(strafeAreaUpdateModuleData->weaponName);
   if(weapon && TheGameLogic->getFrame()>=nextFire) {
-   StrafeDirection firingPosition(obj->position);
+   StrafeDirection firingPosition(obj->m_cachedPos);
    StrafeDirection direction(*obj->getUnitDirectionVector2D());direction.coord()->normalize();
    StrafeDirection perpendicular(direction.y,-direction.x,0.0f);
    phase+=strafeAreaUpdateModuleData->frequency;

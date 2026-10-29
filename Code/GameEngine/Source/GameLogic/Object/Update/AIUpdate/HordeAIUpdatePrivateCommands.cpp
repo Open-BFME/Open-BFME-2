@@ -152,16 +152,7 @@ extern ActionManager *TheActionManager;
 
 extern GameLogic *TheGameLogic;
 
-class ObjectModule
-{
-public:
-	virtual ~ObjectModule();
-protected:
-	Object *getObject() const { return m_object; }
-private:
-	void *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -201,8 +192,7 @@ class AIUpdateInterface : public UpdateModule, public AICommandInterface
 public:
 	virtual void aiDoCommand(const AICommandParms *parms);
 protected:
-	virtual void a001(); virtual void a002(); virtual void a003(); virtual void a004(); virtual void a005();
-	virtual void a006(); virtual void a007(); virtual void a008(); virtual void a009(); virtual void a010();
+	virtual void a010();
 	virtual void a011(); virtual void a012();
 	virtual void privateMoveToPosition(const Coord3D *pos, float speed, CommandSourceType cmdSource); // slot 13
 	virtual void a014(); virtual void a015(); virtual void a016(); virtual void a017(); virtual void a018(); virtual void a019();

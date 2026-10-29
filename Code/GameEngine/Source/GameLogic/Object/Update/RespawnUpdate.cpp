@@ -88,7 +88,7 @@ class RespawnUpdateModuleData {public:
  char pad00[0x58];int conditions58[19];int conditionsA4[19];const FXList *deathFX,*reviveFX;char padF8[8];unsigned reviveTime;
 };
 
-class ObjectModule {public:virtual ~ObjectModule();const RespawnUpdateModuleData *data;Object *object; __forceinline const RespawnUpdateModuleData *getData()const{return data;} __forceinline Object *getObject()const{return object;}};
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface {public:virtual void slot0()=0;};
 
@@ -263,7 +263,7 @@ NameKeyType RespawnUpdate::getModuleNameKey() const
 // Whole466-byte body, including both state branches, matches retail.
 UpdateSleepTime RespawnUpdate::update() {
  Object *obj=0;
- const RespawnUpdateModuleData *respawnUpdateModuleData=getData();
+ const RespawnUpdateModuleData *respawnUpdateModuleData=reinterpret_cast<const RespawnUpdateModuleData *>(getModuleData());
  obj=getObject();
  switch(state) {
  case 2:return UPDATE_SLEEP_FOREVER;
@@ -294,7 +294,7 @@ UpdateSleepTime RespawnUpdate::update() {
   obj->clearDisabled((DisabledType)4);
   state=0;
   Object *at=TheGameLogic->findObjectByID(obj->producer);
-  AIUpdateInterface *ai=object->ai;
+  AIUpdateInterface *ai=m_object->ai;
   if(at && ai && (ai->isAutoDock() || ai->rva00260DED()==16)) {
    ExitInterface *exit=at->getObjectExitInterface();
    if(exit) {
