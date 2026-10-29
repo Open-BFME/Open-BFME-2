@@ -10,7 +10,7 @@
 #include "vector3.h"
 #include "vector2.h"
 #include "ascii_string.h"
-class SubsystemInterface {public:void setName(AsciiString);};
+#include "../../../../Libraries/Source/subsystem/SubsystemInterface.h"
 class BfmeThingBFG {public:void bfmeGoBFG();};
 class CameraClass {public:
  CameraClass();
@@ -38,7 +38,7 @@ class W3DView {public:
  virtual void init();private:void setCameraTransform();
  char prefix[0xc-4];Coord3D position;
  char gap18[0xb4-0x18];SubsystemInterface subsystem;
- char gapb5[0x104-0xb5];CameraClass *camera3d;CameraClass *camera2d;
+ char gapc0[0x104-0xc0];CameraClass *camera3d;CameraClass *camera2d;
  char gap10c[0x2404-0x10c];float scrollCutoff;
  char gap2408[0x241c-0x2408];bool constraintValid;
  char gap241d[0x24c4-0x241d];int value24c4;
