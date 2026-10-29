@@ -191,6 +191,24 @@ least four slots. Prerequisite: one full 16-slot `AIGuardMachine` table
 non-virtual) and slots 9-10 (0x000D43D0), or the destructor moving into the
 TU with the constructor. No linking gain claimed for this donor.
 
+The mixed `AIGuardStates.cpp` (35 rows, 18 of them `AIGuard.cpp`'s) also
+stays apart. With the seed reconciled to a superset of its views and
+`?xfer@AIGuardAttackAggressorState@@MAEXPAVXfer@@@Z` rowed as the fold at
+0x00542DBD, `tu_skeleton --split ... --for AIGuard.cpp` carves all 18 rows
+(22/22 beside the TU, compose "first" exact), but the split link guard refuses:
+`moved selected COMDAT ??0AIGuard{AttackAggressor,Inner,Outer,...}State@@QAE@PAVStateMachine@@@Z
+lacks matching private/weak-free context`. Each inline constructor stores its
+state's vtable, a COMDAT both changed objects define, and the vtables cannot be
+proven retail while slots 1-3 bind the `?slot0N@State@@UAEXXZ` placeholders that
+three TUs alternatename to different targets (AIStatesSmallUpdates.cpp,
+AITNGuardAttackAggressorStateCtor.cpp, GiantBirdGuardMachine.cpp). Retail tables:
+AttackAggressor 0x00C69890, Inner 0x00C69780, Outer 0x00C697D8, Return 0x00C69830,
+Idle 0x00C696D0; slot 2 of each is a `ConstIntGetters4.cpp` getter row
+(0x00542F3D, 0x00542E5C, 0x00542EAB, 0x00542ED2, 0x00542D58). Prerequisite:
+real per-class overrides for slots 1-2 (and a real name for slot 1's
+0x00368129 / 0x000B3FD0) in both units so the vtable copies prove retail, then
+re-run the split. No linking gain claimed.
+
 ### WoundArrowUpdate math header cleanup (2026-10-28)
 
 Status: scoped cleanup verified; full consumer/census confirmation pending.
