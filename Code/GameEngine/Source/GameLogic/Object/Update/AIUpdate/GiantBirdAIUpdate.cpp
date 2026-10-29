@@ -1,5 +1,6 @@
 // cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /MD /EHsc /DNDEBUG /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
+// platformsdk
 //
 // ?update@GiantBirdAIUpdate@@UAE?AW4UpdateSleepTime@@XZ, retail
 // 0x0036B103..0x0036B567 (1124 bytes). WB 0x00F38A40 is the same body, the
@@ -55,17 +56,9 @@ typedef unsigned int UnsignedInt;
 
 extern int BfmeLogicFramesPerSecond;
 
-#define NULL 0
-#define TRUE 1
-#define FALSE 0
-
-#ifndef max
-#define max(x, y) (((x) > (y)) ? (x) : (y))
-#endif
-#ifndef min
-#define min(x, y) (((x) < (y)) ? (x) : (y))
-#endif
-
+#include <windows.h>
+// Retail update uses a direct free call; the /MD CRT declaration changes it
+// to an indirect IAT call and grows the matched body by one byte.
 extern "C" void __cdecl free(void *p);
 
 inline void scaleCoord(Coord3D &c, Real s)

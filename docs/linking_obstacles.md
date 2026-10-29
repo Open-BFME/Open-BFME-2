@@ -122,6 +122,19 @@ pair-identity failures in Rva00566695Assign.cpp and leaves LINK-139's locale
 duplicate prerequisite unchanged. No source trial was repeated for either.
 [Current checks and scope](../reverse/attempt_support/tree-erase-crt-header-20261027.md#scoped-queue-retirement-2026-10-29).
 
+### GiantBirdAIUpdate Windows macro cleanup (2026-10-29)
+
+At base `9ddec6b7fb`, windows.h replaces five local macro definitions while
+all six rows, both EH graphs, 55 COMDATs and external bindings remain exact
+or unchanged. The owning Microsoft-header auditor reduces the file's six
+findings to one. The free ABI finding remains: a tested stdlib.h replacement
+changes the direct call into an IAT call and fails the update row; it is
+reverted. Strict preparation passes and ordinary preview retains LINKS
+1,791 -> 1,791 bytes against `85f6b7f40c`. The outgoing audit is INCONCLUSIVE
+on the older index and missing current CreateAHeroManager consumer receipt.
+Carry that provider/consumer scope into the next scheduled census; no census
+gain is claimed. [Checks and prerequisite](../reverse/attempt_support/giantbird-windows-header-20261029-codex.md).
+
 ### Fill helper STLport 4.6 migration (2026-10-29)
 
 At base `6a36399b76`, Rva00577CA0Fill.cpp replaces its private STL tag with
