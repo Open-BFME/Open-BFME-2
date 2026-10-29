@@ -1688,7 +1688,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1772.cpp	?bfmeStepCN@BfmeTar
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	??0BfmeScopeCO@@QAE@PAXPAVBfmeTargetCN@@0@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeCloseCN@BfmeInnerCN@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1773.cpp	?bfmeStepCN@BfmeTargetCN@@QAEDH@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1945.cpp	?Rva00627810@ShroudManager@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv2131.cpp	?bfmeOneCDE@BfmeOwnerCDE@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv443.cpp	?bfmeCbVJM@@YGXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv479.cpp	?bfmeDoBLA@@YGXH@Z	1
@@ -1915,7 +1914,6 @@ alternatename	Code/GameEngine/Source/Common/GameModePreferences.cpp	??1LANPrefer
 alternatename	Code/GameEngine/Source/Common/GapForwardersSeat8.cpp	??1Rva003AA6BD@@UAE@XZ	2
 alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	??1BfmeParserRegistrationVE@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Gen004502D0ParserRegistrationCtor.cpp	?bfmeChunkParserVE@@YAXXZ	1
-alternatename	Code/GameEngine/Source/Common/Gen009F5040Handle.cpp	?bfmeLinkEQR@BfmeHostEQR@@QAEXPAVBfmeRecEQR@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Gen_00942BC0.cpp	?bfmeSet1042@BfmeSub1042@@QAEXPADHH@Z	1
 alternatename	Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp	?getCenterPosition@GeometryInfo@@QBEXABUCoord3D@@AAU2@@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	??0Rva00565FC1Pair@@QAE@ABU0@@Z	1
@@ -2552,7 +2550,6 @@ alternatename	Code/GameEngine/Source/Common/Rva00894D80IncrementPointer.cpp	?bfm
 alternatename	Code/GameEngine/Source/Common/Rva00895340InlineContainer.cpp	??1Rva00892640Item@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0090C280Ctor.cpp	??1Rva0013107A@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0098477Ctor.cpp	_vtbl_00BC8298	1
-alternatename	Code/GameEngine/Source/Common/Rva009F5970StateCtor.cpp	?m@T_009f59d0@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva009F68C6PointerArray.cpp	?bfmeCallDXB@BfmeSubDXB@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp	?release@Rva00CE12FCMutex@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva00CE12FCMutex.cpp	?ticks@Rva00CE12FCMutex@@UAEKXZ	1
@@ -4475,6 +4472,9 @@ alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSTA@@YAXPAXHHH
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSWA@@YAXPAXHH0@Z	1
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSXA@@YAXPAXZZ	1
 alternatename	Code/Libraries/Source/debug/debug_except.cpp	??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z	1
+alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?Rva00627810@ShroudManager@@QAEXPAX@Z	1
+alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?bfmeLinkEQR@BfmeHostEQR@@QAEXPAVBfmeRecEQR@@@Z	1
+alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?m@T_009f59d0@@QAEXXZ	1
 alternatename	Code/Libraries/Source/subsystem/Rva00221088Ctor.cpp	??1Rva00221088@@UAE@XZ	1
 alternatename	Code/Libraries/Source/subsystem/Rva00221088Ctor.cpp	?rva001B5384@Rva00221088@@QAEXXZ	1
 alternatename	Code/Libraries/Source/xfer/xfer_crc.cpp	?bfmeBaseUpdate@Gen009D6330@@QAEXPAXPBXI@Z	1

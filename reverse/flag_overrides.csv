@@ -138,7 +138,6 @@ Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,,72,1,region default lose
 Code/GameEngine/Source/Common/Disp8DwordSetters.cpp,,4,3,region default loses rows
 Code/GameEngine/Source/Common/Disp8MaskedDwordFieldGetters.cpp,,7,1,region default loses rows
 Code/GameEngine/Source/Common/DispDwordImmSetters.cpp,,5,1,region default loses rows
-Code/GameEngine/Source/Common/Gen009F5040Handle.cpp,,3,3,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfoCalcPitches.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightAbovePosition.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/GeometryInfo_getMaxHeightBelowPosition.cpp,,2,1,region default loses rows
@@ -239,7 +238,6 @@ Code/GameEngine/Source/Common/Rva0087F9C0Flag.cpp,-O2 -G6,1,1,region default los
 Code/GameEngine/Source/Common/Rva0087FA50UpdateFlags.cpp,-O2 -G6,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00880D10CircleBoxTest.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva00880D90SphereOverlap.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva009F4130WideQuery.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva009F66F0.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00E08D3CString.cpp,-G7 -arch:SSE,2,1,region default loses rows
 Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,-O2,35,4,region default loses rows
@@ -255,7 +253,6 @@ Code/GameEngine/Source/Common/SmallGaps/Rva007F9A40GetOrCreateSlot.cpp,,2,1,regi
 Code/GameEngine/Source/Common/SmallGaps/Rva0087DBA0BaseValue.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva008809E0Transform2D.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/Rva008BCF90BuildMatrix.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/SmallGaps/log2Dword.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/reduceMatrix.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallGaps/wrapAngle.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/SmallLeafBodies3.cpp,,8,2,region default loses rows
@@ -733,6 +730,7 @@ Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region 
 Code/Libraries/Source/collisionmanager/collisionmanager_data.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/collisionmanager/collisionmanager_impl.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/partitionmanager/PartitionManagerGetObjectsInRange.cpp,-O2 -G6,1,1,region default loses rows
+Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,,5,5,region default loses rows
 Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
