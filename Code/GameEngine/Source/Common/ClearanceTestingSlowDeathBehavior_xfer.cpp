@@ -7,6 +7,11 @@
 // (cf. Rva00499F45Xfer minimal shape). Identity is slot 3 plus the base
 // SlowDeathBehavior xfer call; class name stays honest Rva address name.
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class Snapshot;
 class AsciiString;
 class UnicodeString;
@@ -25,15 +30,48 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../Include/Common/BfmeXfer.h"
+#include "../../../Libraries/Include/Lib/Coord3D.h"
 
-class SlowDeathBehavior
+class Thing
 {
-protected:
-	virtual void xfer(Xfer *xfer);
+public:
+	void transformPoint(const Coord3D *in, Coord3D *out);
 };
 
-class ClearanceTestingSlowDeathBehavior : public SlowDeathBehavior
+struct Rva00483C35ModuleData
 {
+	unsigned char m_pad000[0x1EC];
+	Coord3D m_clearanceGeometryOffset;
+};
+
+// The primary base subobject spans +0x00..+0x50 (vptrs at +0, +0xC, +0x10,
+// +0x20 and +0x24 in the dtor's stores, not modelled here); the interface
+// whose slot 1 is getClearanceTestGeometryCenter sits at +0x50.
+class SlowDeathBehavior
+{
+public:
+	virtual ~SlowDeathBehavior();
+protected:
+	virtual void xfer(Xfer *xfer);
+	const Rva00483C35ModuleData *m_moduleData; // +0x04
+	Thing *m_object; // +0x08
+private:
+	unsigned char m_pad0C[0x50 - 0x0C];
+};
+
+class Rva00483C69Interface
+{
+public:
+	virtual void s00();
+	virtual void getClearanceTestGeometryCenter(Coord3D *out) = 0;
+};
+
+class ClearanceTestingSlowDeathBehavior : public SlowDeathBehavior, public Rva00483C69Interface
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual Rva00483C69Interface *rva00483C69();
+	virtual void getClearanceTestGeometryCenter(Coord3D *out);
 protected:
 	virtual void xfer(Xfer *xfer);
 };

@@ -6,27 +6,73 @@
 // the slot after UpdateModule::getUpdatePhase: hands out the interface the
 // class carries at +0x50 (null-safe base conversion, neg/sbb/and). Which
 // interface it is is not established; names by address.
-class UpdateModule
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+class Thing
 {
 public:
-	virtual ~UpdateModule();
+	void transformPoint(const Coord3D *in, Coord3D *out);
+};
+
+struct Rva00483C35ModuleData
+{
+	unsigned char m_pad000[0x1EC];
+	Coord3D m_clearanceGeometryOffset;
+};
+
+// The primary base subobject spans +0x00..+0x50 (vptrs at +0, +0xC, +0x10,
+// +0x20 and +0x24 in the dtor's stores, not modelled here); the interface
+// whose slot 1 is getClearanceTestGeometryCenter sits at +0x50.
+class SlowDeathBehavior
+{
+public:
+	virtual ~SlowDeathBehavior();
+protected:
+	virtual void xfer(Xfer *xfer);
+	const Rva00483C35ModuleData *m_moduleData; // +0x04
+	Thing *m_object; // +0x08
 private:
-	unsigned char m_pad04[0x50 - 4];
+	unsigned char m_pad0C[0x50 - 0x0C];
 };
 
 class Rva00483C69Interface
 {
 public:
-	virtual void rva00483C69InterfaceAnchor();
+	virtual void s00();
+	virtual void getClearanceTestGeometryCenter(Coord3D *out) = 0;
 };
 
-class ClearanceTestingSlowDeathBehavior : public UpdateModule, public Rva00483C69Interface
+class ClearanceTestingSlowDeathBehavior : public SlowDeathBehavior, public Rva00483C69Interface
 {
 public:
-	virtual void slot1(); virtual void slot2(); virtual void slot3(); virtual void slot4();
-	virtual void slot5(); virtual void slot6(); virtual void slot7(); virtual void slot8();
-	virtual void slot9(); virtual void slot10(); virtual void slot11(); virtual void slot12();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual Rva00483C69Interface *rva00483C69();
+	virtual void getClearanceTestGeometryCenter(Coord3D *out);
+protected:
+	virtual void xfer(Xfer *xfer);
 };
 
 Rva00483C69Interface *ClearanceTestingSlowDeathBehavior::rva00483C69()
