@@ -14226,3 +14226,17 @@ Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellMove.cpp|lo
 Code/GameEngine/Source/GameClient/GUI/InGame/AptRadialMenuButtonShellMove.cpp|local|AptRadialMenu::Impl::ButtonShell::Move|s,f18afa00bb52b73f8e6d2382,gpt-6.1-sol,w5-10290153-7,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/GameLogic/Object/HordeMeleeAmoebaXfer.cpp|member|HmaObjectTemplate|kinds108,21f18d131fda31ff2a50c02b,gpt-6.1-sol,w5-10290153-9,w-f0819d403c17,2026-10-29
 Code/GameEngine/Source/GameLogic/Object/HordeMeleeAmoebaXfer.cpp|local|HordeMeleeAmoeba::xfer|b,d055647898f7ffe2dbae7c40,gpt-6.1-sol,w5-10290153-9,w-f0819d403c17,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|class||Rva005F7670Team,054f5c0297e1543395a8f75c,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7470|rva005F7470,de21bc3c61bdd1d522305227,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7478|rva005F7478,1fe114ac3bcf85ef36304f4e,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7480|rva005F7480,18294b9f4d1cb2b3702d4c32,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7488|rva005F7488,56e9ba39687265454af07571,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7490|rva005F7490,e62cb0f8dffbeef579774f3a,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/Common/Rva005F7670Apt.cpp|function|0x005F7498|rva005F7498,7b77875c72588cf7905973b0,gpt-6.1-sol,w1-10290207-1,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020D451Guarded.cpp|param|Rva0020D451Engine::rva0020D451|a,0fde1fac6535a79052e5c1fc,gpt-6.1-sol,w1-10290207-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020D451Guarded.cpp|param|Rva0020D451Engine::rva0020D451|b,e2bc27ec0dd2fca6ecdacbca,gpt-6.1-sol,w1-10290207-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0020D451Guarded.cpp|param|Rva0020D451Engine::rva0020D451|c,d418df74eb7301ff2723ee8b,gpt-6.1-sol,w1-10290207-2,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/Object/Made002CCB04Parse.cpp|local|q4Notify002CCB04|tmp,fde4b936e019d90d2a3561d0,gpt-6.1-sol,w1-10290207-3,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp|param|ScriptActions::Rva003C2EC9Do|a1,4bd9281f1c54ab416572ebf9,gpt-6.1-sol,w1-10290207-5,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp|param|ScriptActions::Rva003C2EC9Do|a2,a9de96d96b34dba44338f0d3,gpt-6.1-sol,w1-10290207-5,w-6d5d2b593eca,2026-10-29
+Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C2EC9.cpp|param|ScriptActions::Rva003C2EC9Do|a3,685553e13145dab14e31666e,gpt-6.1-sol,w1-10290207-5,w-6d5d2b593eca,2026-10-29

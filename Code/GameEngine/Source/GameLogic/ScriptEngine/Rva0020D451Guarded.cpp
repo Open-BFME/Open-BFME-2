@@ -35,7 +35,7 @@ protected:
 class Rva0020D451Engine
 {
 public:
-	void rva0020D451(const AsciiString &name, void *a, void *b, void *c, Team *team);
+	void rva0020D451(const AsciiString &name, void *a, void *script, void *scriptName, Team *team);
 
 private:
 	char m_pad0000[0x1A10C];
@@ -45,7 +45,7 @@ private:
 	Player *m_1A130;
 };
 
-void Rva0020D451Engine::rva0020D451(const AsciiString &name, void *a, void *b, void *c, Team *team)
+void Rva0020D451Engine::rva0020D451(const AsciiString &name, void *a, void *script, void *scriptName, Team *team)
 {
 	Team *savedTeam = m_1A110;
 	Player *savedPlayer = m_1A130;
@@ -54,7 +54,7 @@ void Rva0020D451Engine::rva0020D451(const AsciiString &name, void *a, void *b, v
 	m_1A110 = team;
 	if (team)
 		m_1A130 = team->getControllingPlayer();
-	((ScriptEngine *)this)->executeActions((ScriptAction *)a, b, c);
+	((ScriptEngine *)this)->executeActions((ScriptAction *)a, script, scriptName);
 	m_1A110 = savedTeam;
 	m_1A130 = savedPlayer;
 }
