@@ -13,6 +13,7 @@
 #include <cstdlib>
 #undef free
 void free(void *);
+#include <string.h>
 #include <vector>
 // Keep the STLport operations inline without competing external copies.
 // The word-vector provider uses the same imported-inline allocator contract.
@@ -155,7 +156,6 @@ struct SYSTEMTIME
 	unsigned short wMilliseconds;
 };
 extern "C" __declspec(dllimport) void __stdcall GetLocalTime(SYSTEMTIME *st);
-extern "C" void *memcpy(void *dst, const void *src, unsigned int n);
 
 // 0x002DBFAD formats the date, 0x002DC081 the time (Rva002DC081Format.cpp).
 UnicodeString Rva002DC081(SYSTEMTIME date, int flag);
