@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // One-instruction thunks and tiny leaves from unrowed .text gaps, each
 // bounded by its neighbour's ret/padding and its own ret or tail jump.
