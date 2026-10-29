@@ -37377,7 +37377,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0048521D,69,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
 0x00485262,42,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
 0x0048528C,28,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,C,C=0x00485262..0x004852A8 provisional,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp
-0x004852A8,368,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDieOnDie.cpp
+0x004852A8,368,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
 0x00485418,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x00485425,25,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,proposed,K,K=Rva00485425,Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp
 0x0048543E,6,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,proposed,C,C=0x00485425..0x00485444,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
@@ -80038,8 +80038,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078BF34,10,code,Code/GameEngine/Source/GameLogic/Object/Behavior/AnnounceBirthAndDeathBehavior.cpp,approved,P,P=0x00485163@FuncInfo0x0093B3B8 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/AnnounceBirthAndDeathBehavior.cpp
 0x0078BF3E,13,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x0048521D@FuncInfo0x0093B3DC provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
 0x0078BF4B,10,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x0048521D@FuncInfo0x0093B3DC provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
-0x0078BF55,8,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x004852A8@FuncInfo0x0093B400 provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDieOnDie.cpp
-0x0078BF5D,10,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x004852A8@FuncInfo0x0093B400 provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDieOnDie.cpp
+0x0078BF55,8,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x004852A8@FuncInfo0x0093B400 provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
+0x0078BF5D,10,code,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp,approved,P,P=0x004852A8@FuncInfo0x0093B400 provisional,Code/GameEngine/Source/GameLogic/Object/Die/RefundDie.cpp
 0x0078BF67,13,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,approved,P,P=0x004854AB@FuncInfo0x0093B424,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp
 0x0078BF74,10,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp,approved,P,P=0x004854AB@FuncInfo0x0093B424,Code/GameEngine/Source/GameLogic/Object/Die/CreateCrateDie.cpp
 0x0078BF7E,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/ModuleDataTokenParsers.cpp
