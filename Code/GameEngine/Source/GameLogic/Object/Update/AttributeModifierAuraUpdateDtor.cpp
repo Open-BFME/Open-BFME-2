@@ -60,15 +60,8 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class Module
-{
-public:
-	virtual ~Module();
-
-protected:
-	const ModuleData *m_moduleData; // +0x04
-	Object *m_object; // +0x08
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -82,7 +75,7 @@ public:
 	virtual void updateSlot();
 };
 
-class UpdateModule : public Module, public BehaviorModuleInterface, public UpdateModuleInterface
+class UpdateModule : public ObjectModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
 public:
 	virtual ~UpdateModule();
@@ -110,8 +103,8 @@ public:
 
 AttributeModifierAuraUpdate::~AttributeModifierAuraUpdate()
 {
-	Object *obj = m_object;
-	const AttributeModifierAuraUpdateModuleData *data = (const AttributeModifierAuraUpdateModuleData *)m_moduleData;
+	Object *obj = getObject();
+	const AttributeModifierAuraUpdateModuleData *data = reinterpret_cast<const AttributeModifierAuraUpdateModuleData *>(getModuleData());
 	if (obj->getTemplate()->m_flags11B & 1)
 	{
 		TheTerrainLogic->rva00282CFB(obj->getPosition(), data->m_range, obj->getID());

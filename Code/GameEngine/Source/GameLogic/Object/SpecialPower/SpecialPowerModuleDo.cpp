@@ -83,23 +83,9 @@ public:
 	Bool m_data68;                          // +0x68
 };
 
-class Module
-{
-public:
-	virtual ~Module();
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
-protected:
-	const SpecialPowerModuleData *m_moduleData; // +0x04
-};
-
-class ObjectModule : public Module
-{
-public:
-	Object *getObject() const { return m_object; }
-
-protected:
-	Object *m_object;                       // +0x08
-};
 
 class BehaviorModuleInterface
 {
@@ -135,7 +121,7 @@ public:
 	void triggerSpecialPower(const Coord3D *location);
 
 private:
-	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return m_moduleData; }
+	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return reinterpret_cast<const SpecialPowerModuleData *>(getModuleData()); }
 
 	Int m_value14;                          // +0x14
 	Int m_value18;                          // +0x18

@@ -332,21 +332,9 @@ public:
 	virtual Rva0049466DUpdateInterface *getRva0049466DUpdateInterface() = 0;
 };
 
-class Module
-{
-public:
-	virtual void moduleSlot0();
-protected:
-	const SpecialPowerModuleData *m_moduleData; // +0x04
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
-class ObjectModule : public Module
-{
-public:
-	Object *getObject() const { return m_object; }
-protected:
-	Object *m_object; // +0x08
-};
 
 class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
@@ -376,7 +364,7 @@ public:
 	bool rva00494599(const Coord3D *pos);
 	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos,
 		UnsignedInt commandOptions, const Waypoint *way);
-	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return m_moduleData; }
+	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return reinterpret_cast<const SpecialPowerModuleData *>(getModuleData()); }
 private:
 	char m_pad14[0x28 - 0x14];
 	bool m_28; // +0x28
@@ -406,9 +394,9 @@ bool SpecialPowerModule::rva00493251()
 // ?rva004932DC@SpecialPowerModule@@QAE_NXZ @0x004932DC
 bool SpecialPowerModule::rva004932DC()
 {
-	if (m_moduleData)
+	if (getSpecialPowerModuleData())
 	{
-		if (m_moduleData->m_useDistanceFromCommandCenter)
+		if (getSpecialPowerModuleData()->m_useDistanceFromCommandCenter)
 			return true;
 	}
 	return false;
@@ -445,7 +433,7 @@ bool SpecialPowerModule::rva00493620()
 // ?rva00494599@SpecialPowerModule@@QAE_NPBUCoord3D@@@Z @0x00494599
 bool SpecialPowerModule::rva00494599(const Coord3D *pos)
 {
-	const SpecialPowerModuleData *data = m_moduleData;
+	const SpecialPowerModuleData *data = getSpecialPowerModuleData();
 	Object *obj;
 	if (data == 0 || (obj = m_object) == 0)
 		return true;

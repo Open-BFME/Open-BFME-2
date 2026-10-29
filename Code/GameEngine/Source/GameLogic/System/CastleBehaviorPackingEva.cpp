@@ -29,16 +29,11 @@ struct CastleEvaData
     char pad[8];
     int localEvent, allyEvent, enemyEvent;
 };
-class Module
-{
-public:
-    void *vtable;
-    CastleEvaData *data;
-};
+#include "../../../Include/Common/Module.h"
 class CastleMemberBehaviorModule : public Module
 {
 public:
-    CastleEvaData *getData() const { return data; }
+    const CastleEvaData *getData() const { return reinterpret_cast<const CastleEvaData *>(getModuleData()); }
 };
 class Object
 {

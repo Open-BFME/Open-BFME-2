@@ -40,20 +40,8 @@ public:
 	unsigned char m_pad0D[0x68 - 0x0D];
 	Bool m_data68;
 };
-class Module
-{
-public:
-	virtual ~Module();
-protected:
-	const SpecialPowerModuleData *m_moduleData;
-};
-class ObjectModule : public Module
-{
-public:
-	Object *getObject() const { return m_object; }
-protected:
-	Object *m_object;
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface
 {
 public:
@@ -78,7 +66,7 @@ public:
 	void initiateIntentToDoSpecialPower(const Object *targetObj, const Coord3D *targetPos, UnsignedInt commandOptions, const Waypoint *way);
 	void triggerSpecialPower(const Coord3D *location);
 private:
-	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return m_moduleData; }
+	const SpecialPowerModuleData *getSpecialPowerModuleData() const { return reinterpret_cast<const SpecialPowerModuleData *>(getModuleData()); }
 	Int m_value14;
 	Int m_value18;
 	Int m_pausedCount;

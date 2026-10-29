@@ -67,8 +67,8 @@ class ObjectCreationList {public:void create(void*,void*,void*,int);void create(
  static inline void create(ObjectCreationList *ocl, Object *owner, Coord3D *primary, const Coord3D *secondary,void *c,int d) { if(ocl)ocl->create(owner,primary,(void*)secondary,c,d); }
 };
 struct OCLData { char pad[0x8C]; int location; _STL::vector<AsciiString> upgrades; ObjectFilter filter; };
-class Module {public:virtual ~Module(); protected:const OCLData *data;};
-class ObjectModule:public Module {protected:Object *object; Object *getObject() const {return object;}};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface { public:virtual void behaviorSlot0();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleInterface {};
 class SpecialPowerModuleInterface {public:virtual void doSpecialPower(unsigned)=0; virtual void doSpecialPowerAtObject(Object*,unsigned)=0; virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned)=0;};
@@ -80,41 +80,41 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
  if(!location)return;
  SpecialPowerModule::doSpecialPowerAtLocation(location,flags);
  ObjectCreationList *ocl=(ObjectCreationList *)((const Rva004C31A8ScienceSelector*)this)->select();
- const OCLData *modData=data;
+ const OCLData *modData=reinterpret_cast<const OCLData *>(getModuleData());
  Coord3D creation;
  switch(modData->location) {
  case 0:
   creation=TheTerrainLogic->findClosestEdgePoint(&getObject()->pos);
   TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
-  ObjectCreationList::create(ocl,object,&creation,location,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 1:
   creation=TheTerrainLogic->findClosestEdgePoint(location);
   TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
-  ObjectCreationList::create(ocl,object,&creation,0,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,0,0);
   break;
  case 2:
   creation=TheTerrainLogic->findClosestEdgePoint(location);
   TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
-  ObjectCreationList::create(ocl,object,&creation,location,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 6:
   creation=TheTerrainLogic->findFarthestEdgePoint(location);
   creation.z+=300.0f;
   TheAI->getPathfinder()->AdjustToNearestValidCell(&creation);
-  ObjectCreationList::create(ocl,object,&creation,location,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,location,0);
   break;
  case 3:
   creation=*location;
-  ObjectCreationList::create(ocl,object,&creation,0,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,0,0);
   break;
  case 4:
   creation.x=location->x;creation.y=location->y;creation.z=location->z;
-  ObjectCreationList::create(ocl,object,&creation,location,0,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,location,0,0);
   break;
  case 5:
   creation=*location;creation.z+=300.0f;
-  ObjectCreationList::create(ocl,object,&creation,0,0);
+  ObjectCreationList::create(ocl,getObject(),&creation,0,0);
   break;
  case 7: {
   Waypoint *points[4];
@@ -127,23 +127,23 @@ void OCLSpecialPower::doSpecialPowerAtLocation(const Coord3D *location,unsigned 
     OCLDiffCoord diff; diff.x=point->pos.x;diff.y=point->pos.y;diff.z=point->pos.z;diff.x-=location->x;diff.y-=location->y;diff.z-=location->z;
       float d=diff.GetLengthEstimate2D();if(d<distance){distance=d;nearest=i;}}
   }
-  if(nearest>=0){creation=points[nearest]->pos;creation.z+=300.0f;ObjectCreationList::create(ocl,object,&creation,location,0);}
+  if(nearest>=0){creation=points[nearest]->pos;creation.z+=300.0f;ObjectCreationList::create(ocl,getObject(),&creation,location,0);}
   break;}
  case 8: {
   creation.x=location->x;creation.y=location->y;creation.z=location->z;
   Object *secondary=0;
   if(modData->filter.isValid()) {
-   Rva002614ECFilter filter(&modData->filter,object->getControllingPlayer(),true);
+   Rva002614ECFilter filter(&modData->filter,getObject()->getControllingPlayer(),true);
    secondary=ThePartitionManager->getClosestObject(location,FLT_MAX,0,&filter);
   }
-  if(secondary)ObjectCreationList::create(ocl,object,&creation,&secondary->pos,0);
-  else ObjectCreationList::create(ocl,object,&creation,0,0);
+  if(secondary)ObjectCreationList::create(ocl,getObject(),&creation,&secondary->pos,0);
+  else ObjectCreationList::create(ocl,getObject(),&creation,0,0);
   break;}
  }
  _STL::vector<AsciiString> upgrades=modData->upgrades;
  for(unsigned i=0;i<upgrades.size();++i) {
   const UpgradeTemplate *up=TheUpgradeCenter->findUpgrade(upgrades[i]);
   if(!up)return;
-  if(up->type==0){Player *player=object->getControllingPlayer();player->addUpgrade(up,UPGRADE_COMPLETE,0);}
+  if(up->type==0){Player *player=getObject()->getControllingPlayer();player->addUpgrade(up,UPGRADE_COMPLETE,0);}
  }
 }
