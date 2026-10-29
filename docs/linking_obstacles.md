@@ -593,6 +593,12 @@ Completed:
   (funclet labels renumber, parent EH data verified); `link_check` LINKS 404 -> 404 B.
   Seven other names the copy pulled in leave the object; each keeps the same first
   copy in retail-truth-5 order, and the copy constructor's first copy turns retail.
+  Follow-up at `b98e313906` (codexb4, index `840db2d676`): the default picker
+  served TransitionDamageFX.cpp's old selected-copy finding. Paired current
+  previews with CreateAHeroDataCopy.cpp and the rowed vector-copy provider
+  report all three LINKS (404, 167 and 1,134 authored bytes). No additional
+  source repair is needed in that consumer; carry the provider repair into
+  the next census. The saved-index-only target preview retains the old blocker.
 - `FXParticleSystemModules.cpp` (halilkkaya-lk6): **reverted 2026-10-29** (with the `??_G`
   repair below): the explicit copy-constructor instantiations reordered the unit's
   `ModuleTag<...>::s_key`/`s_name` template statics, so 16 of them resolved to two retail
@@ -10175,6 +10181,21 @@ receipt. Carry that consumer and this provider into the next scheduled census;
 the clean ordinary preview and unchanged object facts establish only the
 scoped result above. Rebased verification again passes all 31 rows and LINKS
 4,872 -> 4,872 bytes.
+
+### Apt character setter unused CRT declarations (2026-10-29, codexb4)
+
+Removed unused local `atoi` and `strtol` prototypes from
+`AptCharacterSetMember.cpp`; neither function is called in the TU. The scoped
+owning scanner retires its Microsoft-header queue row. All five rows verify,
+including three naturally renumbered funclets; all 25 COMDAT digests/sizes,
+72 external symbol records and 68 external relocation target names remain
+unchanged. Strict current preparation passes and ordinary preview preserves
+LINKS, 3,735 -> 3,735 authored bytes against index `840db2d676`.
+
+The outgoing audit is INCONCLUSIVE: the index predates the base and affected
+consumer `Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt. Carry
+this provider and consumer into the next scheduled census. No measured linking
+or ownership gain is claimed. [Evidence and reference-update boundary](../reverse/attempt_support/apt-character-crt-cleanup-20261029-codexb4.md).
 
 ### LINK-145: InGameUI.cpp host kept unrowed Zero Hour bodies whose callees BFME 2 does not provide (2026-10-29)
 
