@@ -85,22 +85,6 @@ class EmotionBehaviorInterface { public: virtual void behaviorSlot0(); };
 
 class EmotionUpdateInterface { public: virtual UpdateSleepTime update()=0; };
 
-class EmotionTrackerUpdate : public EmotionModuleBase, public EmotionBehaviorInterface, public EmotionUpdateInterface {
-public:
-    virtual UpdateSleepTime update();
-    virtual NameKeyType getModuleNameKey() const;
-    EmotionNugget *rva004B13D8();
-    char pad14[0x24-0x14];
-    bool flags[12];
-    unsigned int expiry[12];
-    ObjectID targetID[12];
-    std::vector<EmotionNugget *> nuggets;
-    EmotionNugget *active;
-    int countdown;
-    char pada4[0xb0-0xa4];
-    int forcedKind,forcedFrames;
-};
-
 class PlayerList { public: int getPlayersWithRelationship(int,unsigned int,bool); };
 
 struct BfmePointFD;
@@ -202,9 +186,59 @@ private:
 	_STL::vector<BfmeE16> m_entries;			// +0x34
 };
 
+//
+// ?rva004B0E9C@Rva004B0E9C@@QAEXXZ @0x004B0E9C 32B.
+// When the pointer at +0x9C is live and the dword at [that+4]+0x4C is not
+// -1, call 0x004DD2C0 on it and clear the slot.
+
+class Rva004DD2C0Inner
+{
+public:
+	char m_pad[0x4C];
+	int m_field;
+};
+
+struct EmotionEntry;
+
+class Rva004B0E9C
+{
+public:
+	void rva004B0E9C();
+
+private:
+	char m_pad[0x9C];
+	EmotionNugget *m_slot;
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class EmotionTrackerUpdate : public EmotionModuleBase, public EmotionBehaviorInterface, public EmotionUpdateInterface {
+public:
+    virtual UpdateSleepTime update();
+    virtual NameKeyType getModuleNameKey() const;
+    EmotionNugget *rva004B13D8();
+    char pad14[0x24-0x14];
+    bool flags[12];
+    unsigned int expiry[12];
+    ObjectID targetID[12];
+    std::vector<EmotionNugget *> nuggets;
+    EmotionNugget *active;
+    int countdown;
+    char pada4[0xb0-0xa4];
+    int forcedKind,forcedFrames;
+};
+
 // tu-skeleton: 0x004B0D4C 36B ?rva004B0D4C@EmotionTrackerUpdate@@QAEXHPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp (not merged yet)
 
 // tu-skeleton: 0x004B0D70 48B ?PulseEmotion@EmotionTrackerUpdate@@QAEXHPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004B0DA0Setter.cpp
 
@@ -212,8 +246,6 @@ void Rva004B0DA0Holder::rva004B0DA0(int index)
 {
 	m_flags[index] = 0;
 }
-
-// tu-skeleton: 0x004B0DAC 115B ?ForceEmotion@EmotionTrackerUpdate@@QAEXHMH@Z -- matched in Code/GameEngine/Source/Common/EmotionTrackerUpdate_ForceEmotion.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Bfme5TinyFifteen.cpp
 
@@ -264,12 +296,6 @@ bool __stdcall Rva004B0E68Get(unsigned int x)
 	return false;
 }
 
-// tu-skeleton: 0x004B0E9C 32B ?rva004B0E9C@Rva004B0E9C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004B0E9CClear.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0EBC 41B ?rva004B0EBC@EmotionTrackerUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0EE5 187B ??0TauntPointFilter@EmotionTrackerUpdate@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Gen0028EF10Rva004B0FA0.cpp
 
 bool Gen_0028EF10::rva004B0FA0()
@@ -279,10 +305,6 @@ bool Gen_0028EF10::rva004B0FA0()
 		return Rva004B0E34Get(*(unsigned int *)(link->m_bfmeNext + 4));
 	return false;
 }
-
-// tu-skeleton: 0x004B0FB9 50B ?loadPostProcess@EmotionTrackerUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateLoadPostProcess.cpp (not merged yet)
-
-// tu-skeleton: 0x004B0FEB 367B ?Allow@TauntPointFilter@EmotionTrackerUpdate@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateModuleDataCtor.cpp
 
@@ -326,14 +348,6 @@ EmotionTrackerUpdateModuleData::EmotionTrackerUpdateModuleData()
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)),
 		BfmeFixedStorage0004543D(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)));
 }
-
-// tu-skeleton: 0x004B1285 157B ??1EmotionTrackerUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B1322 107B ??1EmotionTrackerUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004B138D 6B ?name@EmotionTrackerUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004B1393 69B ?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp
 
@@ -460,6 +474,44 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 	return 0;
 }
 
+// tu-skeleton: 0x004B0DAC 115B ?ForceEmotion@EmotionTrackerUpdate@@QAEXHMH@Z -- matched in Code/GameEngine/Source/Common/EmotionTrackerUpdate_ForceEmotion.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva004B0E9CClear.cpp
+
+void Rva004B0E9C::rva004B0E9C()
+{
+	EmotionNugget *slot = m_slot;
+	if (slot != 0 && ((Rva004DD2C0Inner *)slot->entry)->m_field != -1)
+	{
+		slot->OnDeactivation();
+		m_slot = 0;
+	}
+}
+
+// tu-skeleton: 0x004B0EBC 41B ?rva004B0EBC@EmotionTrackerUpdate@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateRva004B0EBC.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0EE5 187B ??0TauntPointFilter@EmotionTrackerUpdate@@QAE@PAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0FB9 50B ?loadPostProcess@EmotionTrackerUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateLoadPostProcess.cpp (not merged yet)
+
+// tu-skeleton: 0x004B0FEB 367B ?Allow@TauntPointFilter@EmotionTrackerUpdate@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva004B0FEBCheck.cpp (not merged yet)
+
+// tu-skeleton: 0x004B1285 157B ??1EmotionTrackerUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B1322 107B ??1EmotionTrackerUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004B138D 6B ?name@EmotionTrackerUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdatePoolKey.cpp
+
+// ?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType EmotionTrackerUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheEmotionTrackerUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("EmotionTrackerUpdate");
+	return TheEmotionTrackerUpdatePoolKey;
+}
+
 // tu-skeleton: 0x004B15AE 28B ??_GEmotionTrackerUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B15CA 28B ??_GEmotionTrackerUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp (not merged yet)
@@ -499,10 +551,6 @@ EmotionNugget *EmotionTrackerUpdate::rva004B13D8()
 // tu-skeleton: 0x0078E86F 14B $L445 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E87D 10B __ehhandler$??1EmotionTrackerUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E887 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E894 10B __ehhandler$?getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E89E 11B $L7782 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate_update.cpp (not merged yet)
 
