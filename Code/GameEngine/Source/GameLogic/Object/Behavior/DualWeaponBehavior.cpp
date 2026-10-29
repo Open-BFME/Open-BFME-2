@@ -71,12 +71,15 @@ private:
 	int m_indexInLogic;
 	int m_bfmeReserved;
 };
+enum NameKeyType;
+
 class DualWeaponBehavior : public UpdateModule
 {
 public:
 	DualWeaponBehavior(Thing *thing, const ModuleData *moduleData);
 	virtual ~DualWeaponBehavior();
 	virtual UpdateSleepTime update();
+	virtual NameKeyType getModuleNameKey() const;
 private:
 	Object *getObject() const { return m_object; }
 	bool m_closeRangeActive; // +0x20
