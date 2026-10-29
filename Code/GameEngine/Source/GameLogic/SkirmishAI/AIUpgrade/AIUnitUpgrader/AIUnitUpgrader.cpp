@@ -133,6 +133,22 @@ public:
 	void shutdown();
 };
 
+// vector<int>/char destruction otherwise instantiates per-TU allocator
+// deallocate COMDATs (one byte shape per TU flags); explicit
+// dllimport+forceinline specializations take those calls inline so this
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void allocator<int>::deallocate(int* __p, size_t __n) const {
+  _STLP_ASSERT( (__p == 0) == (__n == 0) )
+    if (__p != 0) __sgi_alloc::deallocate((void*)__p, __n * sizeof(value_type));
+}
+template <> void _STLP_alloc_proxy<int*, int, allocator<int> >::deallocate(int*, size_t);
+// Declaration-only: retail keeps one 14-byte copy of the vector<int> teardown
+// (0x0007FAB3); this TU's flags would emit a private 24-byte one.
+template <> vector<int, allocator<int> >::~vector();
+template <> _Vector_base<int, allocator<int> >::~_Vector_base();
+}
+
 class Rva005990DF : public Gen_uwm_004ea016, public Rva00506B1B
 {
 public:
@@ -144,6 +160,8 @@ private:
 	_STL::vector<ObjectID> m_vec20;
 	int m_2C;
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUnitUpgrader/AIUnitUpgrader.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUnitUpgrader/AIUnitUpgrader.cpp
 
@@ -232,8 +250,6 @@ void AIUnitUpgrader::UnRegister(Object *object)
  }
 }
 
-// tu-skeleton: 0x0059904A 149B ?shutdown@AIUnitUpgrader@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/AIUnitUpgrader_shutdown.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005990DFDestructor.cpp
 
 //
@@ -247,4 +263,22 @@ void AIUnitUpgrader::UnRegister(Object *object)
 Rva005990DF::~Rva005990DF()
 {
 	((AIUnitUpgrader *)static_cast<Rva00506B1B *>(this))->shutdown();
+}
+
+// tu-skeleton: 0x0059904A 149B ?shutdown@AIUnitUpgrader@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/AIUnitUpgrader_shutdown.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva005990DFConstructor.cpp
+
+//
+// ??0Rva005990DF@@QAE@H@Z, retail 0x00598F3F..0x00598FAF (112 bytes, EH,
+// ret 4). Constructor of the AI unit upgrader wrapper whose destructor is
+// Rva005990DFDestructor.cpp (vtable 0x00C70D44; the AIUnitUpgrader at +0x0C
+// under 0x00C70D38): the first base (vtable 0x00C62888, then 4 and 1 at +4 /
+// +8) is built inline, the builder base by the rowed 0x00506B1B, two empty
+// vectors at +0x14 / +0x20 and the owner player word at +0x2C. Class name
+// address-derived; the vector elements are 4-byte stand-ins.
+
+Rva005990DF::Rva005990DF(int owner)
+	: m_2C(owner)
+{
 }
