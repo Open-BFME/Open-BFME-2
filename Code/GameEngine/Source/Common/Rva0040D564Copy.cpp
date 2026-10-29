@@ -1,5 +1,5 @@
 // cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // ??$__copy@PAVRva0040D0A4Entry@@PAV1@H@_STL@@YAPAVRva0040D0A4Entry@@PAV1@00ABUrandom_access_iterator_tag@0@PAH@Z, retail 0x0040D564, 47 bytes.
 // ??$__copy_ptrs@PAVRva0040D0A4Entry@@PAV1@@_STL@@YAPAVRva0040D0A4Entry@@PAV1@00U__false_type@0@@Z, retail 0x0040D8FB, 29 bytes.
 // Forward __copy for 8-byte Rva0040D0A4Entry via rowed assign 0x0040D0A4.

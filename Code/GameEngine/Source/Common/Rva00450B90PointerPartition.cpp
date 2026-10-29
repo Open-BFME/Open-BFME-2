@@ -1,5 +1,5 @@
 // cl: -D_STLP_USE_STATIC_LIB -Ireference/open-bfme-1/game/GameEngine/Source/Common
-// stlport
+// stlport46
 // Retail's caller at 0x00451E60 supplies the bidirectional iterator tag and
 // reaches this __partition body through the ILT at 0x00043004. The earlier
 // synthetic __uninitialized_copy pin cannot describe the in-place pointer

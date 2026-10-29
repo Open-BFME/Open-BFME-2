@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // ??4Rva00566695@@QAEAAV0@ABV0@@Z @0x00566695 37B.
 // Copy assignment copying int at +4 and byte at +8 then assigning the

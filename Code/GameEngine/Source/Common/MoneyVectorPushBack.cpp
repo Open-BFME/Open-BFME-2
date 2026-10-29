@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /D_WINDOWS /MD /EHsc /ICode/Libraries/Source/WWVegas/WWLib /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 
 class Xfer;
 

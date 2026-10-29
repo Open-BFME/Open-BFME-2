@@ -2,7 +2,7 @@
 //
 // ?erase@?$_Rb_tree@UTreeKey00242F5E@@U1@U?$_Identity@UTreeKey00242F5E@@@_STL@@U?$less@UTreeKey00242F5E@@@3@V?$allocator@UTreeKey00242F5E@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@UTreeKey00242F5E@@U?$_Nonconst_traits@UTreeKey00242F5E@@@_STL@@@2@0@Z, retail 0x000a79f7, 68 bytes. Banked partial (score 0.95) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
-// stlport
+// stlport46
 // _Rb_tree erase(first,last) for the TreeKey00242F5E set (unsigned id at +0
 // plus AsciiString at +4): if first==begin and last==end clear via 0x000A79CE,
 // else loop increment via 0x00024250 and single erase via 0x00383380 (ICF twin

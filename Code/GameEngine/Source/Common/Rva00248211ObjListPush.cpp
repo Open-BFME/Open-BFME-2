@@ -1,5 +1,5 @@
 // cl: /DNDEBUG /DWIN32 /MD /EHsc /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
-// stlport
+// stlport46
 // list<Rva0024076D>::push_back @0x00248211 and its insert @0x00247089, which
 // creates the node through _M_create_node 0x002461F1. 0x0024877A inserts into
 // its record list through 0x00247089.

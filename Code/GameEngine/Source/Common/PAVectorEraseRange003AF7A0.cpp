@@ -1,5 +1,5 @@
 // cl: -GX- /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // Bodies ported from Open-BFME-1's
 // GameEngine/Source/Common/PAVectorEraseRange003AF7A0.cpp (donor revision

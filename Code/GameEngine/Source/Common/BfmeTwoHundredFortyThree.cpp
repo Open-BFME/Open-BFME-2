@@ -1,5 +1,5 @@
 // cl: /O1 /MD /D_STLP_USE_STATIC_LIB /D_CRTIMP=
-// stlport
+// stlport46
 // ??$__copy@PAUCoord3D@@PAU1@H@_STL@@YAPAUCoord3D@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z
 // @0x002C97AC 60B: STLport 4.5.3 random-access __copy over Coord3D (12-byte
 // elements: the count is (last-first)/12 by idiv; three dword moves per element).
