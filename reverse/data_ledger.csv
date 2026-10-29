@@ -20280,8 +20280,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03C10,4,.data,global,?key_BoneFXUpdate@?1??doCollapseDoneStuff@Rva004A44B1@@QAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/Rva004A44B1.cpp,owned,,1,2
 0x00A03C14,4,.data,global,?$S1@?1??doCollapseDoneStuff@Rva004A44B1@@QAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/Rva004A44B1.cpp,owned,,1,2
 0x00A03C18,4,.data,global,_s_rva007B1AFA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03C1C,4,.data,global,?TheRubbleRiseUpdatePoolKey@?1??getModuleNameKey@RubbleRiseUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdatePoolKey.cpp,owned,,1,2
-0x00A03C20,4,.data,global,?$S1@?1??getModuleNameKey@RubbleRiseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdatePoolKey.cpp,owned,,1,4
+0x00A03C1C,4,.data,global,?TheRubbleRiseUpdatePoolKey@?1??getModuleNameKey@RubbleRiseUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp,owned,,1,2
+0x00A03C20,4,.data,global,?$S1@?1??getModuleNameKey@RubbleRiseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/RubbleRiseUpdate.cpp,owned,,1,4
 0x00A03C24,4,.data,global,?key_BoneFXUpdate@?1??doCollapseDoneStuff@StructureCollapseUpdate@@IAEXXZ@4W4NameKeyType@@A,Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp,owned,,1,2
 0x00A03C28,4,.data,global,?$S80@?1??doCollapseDoneStuff@StructureCollapseUpdate@@IAEXXZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/StructureCollapseUpdate.cpp,owned,,1,4
 0x00A03C2C,4,.data,global,_s_rva007B1B24,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
