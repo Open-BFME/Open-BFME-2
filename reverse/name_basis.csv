@@ -4227,3 +4227,8 @@ param,Rva0018C262::rva0018C33F::v,Rva0018C262::rva0018C33F::nodeValue,inferred,a
 param,Rva0018C262::rva0018C33F::c,Rva0018C262::rva0018C33F::forceRight,inferred,agree:nl-b7235a24eebe,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C33F
 local,Rva0018C4A9::insert_unique::x,Rva0018C4A9::insert_unique::currentNode,inferred,agree:nl-4239b23aa326,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C4A9
 local,Rva0018C4A9::insert_unique::y,Rva0018C4A9::insert_unique::parentNode,inferred,agree:nl-ffb49610d2bf,Code/Libraries/Source/WWVegas/WWLib/Rva0018C262.cpp,0x0018C4A9
+member,Rva00483BA3::m_04,Rva00483BA3::m_moduleData,inferred,agree:nl-5a0d77d76433,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,
+member,Rva004885B8Owner::m_438,Rva004885B8Owner::m_privateStatus,inferred,agree:nl-1612561ee428,Code/GameEngine/Source/Common/VslotSmallBodiesE.cpp,
+param,Rva00669410::rva00669410::arg,Rva00669410::rva00669410::message,inferred,agree:nl-9fdd059ca0b7,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00669410
+function,?rva00665450@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,?getErrorCode@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,inferred,agree:nl-8fef5c40fd4d,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00665450
+function,?rva00665560@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,?getDecodedSize@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,inferred,agree:nl-3db096970977,Code/GameEngine/Source/Common/VslotSmallBodiesQ.cpp,0x00665560

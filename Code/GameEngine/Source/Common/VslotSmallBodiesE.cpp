@@ -74,7 +74,7 @@ public:
 	void rva00483BA3();
 private:
 	char m_pad00[0x04];
-	const Rva00483BA3Data *m_04;
+	const Rva00483BA3Data *m_moduleData;
 	char m_pad08[0x24 - 0x08];
 	UnsignedInt m_24;
 	UnsignedInt m_28;
@@ -82,7 +82,7 @@ private:
 void Rva00483BA3::rva00483BA3()
 {
 	UnsignedInt now = TheGameLogic->getFrame();
-	m_24 = m_04->m_08 + now;
+	m_24 = m_moduleData->m_08 + now;
 	m_28 = m_24;
 }
 
@@ -137,7 +137,7 @@ struct Rva004885B8Owner
 	char m_pad00[0x258];
 	Rva004885B8AI *m_ai;
 	char m_pad25C[0x438 - 0x25C];
-	unsigned char m_438;
+	unsigned char m_privateStatus;
 };
 struct Rva004885B8Machine
 {
@@ -346,14 +346,14 @@ Int Rva004886C7::update()
 		return -2;
 	if (ai->vslot110())
 	{
-		if (!m_28 && !(owner->m_438 & 1))
+		if (!m_28 && !(owner->m_privateStatus & 1))
 		{
 			m_24 = ((Object *)owner)->getControllingPlayer()->m_54;
 			TheInGameUI->vslot105(m_machine->m_owner);
 			m_28 = true;
 		}
 	}
-	if (m_28 && (!ai->vslot110() || (owner->m_438 & 1)))
+	if (m_28 && (!ai->vslot110() || (owner->m_privateStatus & 1)))
 	{
 		TheInGameUI->vslot106(m_machine->m_owner, m_24);
 		m_24 |= -1;

@@ -4007,3 +4007,5 @@ __ehhandler$??1Rva00529318Slot@@QAE@XZ,0x00796CDE,"Renamed to __ehhandler$??1Pal
 ?rva005E69D0@Rva005E69D0@@QAEHXZ,0x005E69D0,"Renamed to ?getTotalCost@Rva005E69D0@@QAEHXZ by tools/rename.py (inferred)"
 ?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x000AFD85,"Renamed to ?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z by tools/rename.py (inferred)"
 __ehhandler$?Rva000AFD85WriteChunk@@YAXPAVDataChunkOutput@@@Z,0x007611D0,"Renamed to __ehhandler$?writePostEffectsChunk@@YAXPAVDataChunkOutput@@@Z by tools/rename.py (inferred)"
+?rva00665450@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,0x00665450,"Renamed to ?getErrorCode@Rva00665450@@QAEHPAVRva007E8810Message@@@Z by tools/rename.py (inferred)"
+?rva00665560@Rva00665450@@QAEHPAVRva007E8810Message@@@Z,0x00665560,"Renamed to ?getDecodedSize@Rva00665450@@QAEHPAVRva007E8810Message@@@Z by tools/rename.py (inferred)"

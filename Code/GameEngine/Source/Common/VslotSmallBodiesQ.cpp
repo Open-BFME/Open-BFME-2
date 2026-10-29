@@ -24,15 +24,15 @@ extern void *g_bfmeWhatBKG;
 class Rva00665450
 {
 public:
-	Int rva00665450(Rva007E8810Message *msg);
-	Int rva00665560(Rva007E8810Message *msg);
+	Int getErrorCode(Rva007E8810Message *msg);
+	Int getDecodedSize(Rva007E8810Message *msg);
 	Int rva00668090(Rva007E8810Message *msg);
 };
-Int Rva00665450::rva00665450(Rva007E8810Message *msg)
+Int Rva00665450::getErrorCode(Rva007E8810Message *msg)
 {
 	return msg->getInt(g_rva00665450Key, 0);
 }
-Int Rva00665450::rva00665560(Rva007E8810Message *msg)
+Int Rva00665450::getDecodedSize(Rva007E8810Message *msg)
 {
 	return msg->getInt(g_rva00665560Key, 0);
 }
@@ -133,11 +133,11 @@ Rva00669410Entry *g_rva00669410Table[] = {
 class Rva00669410
 {
 public:
-	Rva00669410Entry *rva00669410(const Rva00669410Arg *arg);
+	Rva00669410Entry *rva00669410(const Rva00669410Arg *message);
 };
-Rva00669410Entry *Rva00669410::rva00669410(const Rva00669410Arg *arg)
+Rva00669410Entry *Rva00669410::rva00669410(const Rva00669410Arg *message)
 {
-	Int id = arg->m_1C;
+	Int id = message->m_1C;
 	if (id == -1)
 		return 0;
 	for (Rva00669410Entry **it = g_rva00669410Table; *it; ++it)
