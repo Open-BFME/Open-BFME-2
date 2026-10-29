@@ -45,6 +45,16 @@ batch audit lacks a current CreateAHeroManager consumer receipt; carry the
 consumer and cleanup scope into the next scheduled census. No path move or
 census gain is claimed. [Evidence](../reverse/attempt_support/connection-ack-cleanup-20261029-codexb4.md).
 
+Coord3D wrapper and companion follow-up (2026-10-29, base `a2e9c2b5b2`):
+Rva004EBF4BCopy uses the existing shared constructor companion and removes
+its private coordinate definition/tagged constructor. The acceptance tool
+retires five header entries, including four unchanged companion users.
+Strict preparation passes 77/77 rows; previews preserve 6,214 authored bytes
+against `85f6b7f40c`. Six Coord3D entries remain under LINK-018. The outgoing
+audit still lacks a current CreateAHeroManager consumer receipt; full
+consumer/census confirmation remains pending.
+[Evidence](../reverse/attempt_support/coord3d-wrapper-adoption-20261029-codexb.md).
+
 Strategic player status header cleanup (2026-10-29, base `8f350110e4`):
 StrategicPlayerStatusCallbacks.cpp replaces two local CRT declarations with
 stdio.h and retains 7/7 rows, both imports and the 684-byte LINKS preview.

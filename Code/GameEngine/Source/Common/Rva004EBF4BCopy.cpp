@@ -1,4 +1,4 @@
-// cl: /MD /arch:SSE /Oy- /Os
+// cl: /MD /arch:SSE /Oy- /Os /ICode/Libraries/Include
 // ?rva004EBF4B@Rva004EBF4B@@QAE?AUCoord3D@@XZ @0x004EBF4B 72B: wrapper over
 // rowed ?rva00506B74@AIBaseBuilder@@QAE_NPAUCoord3D@@@Z; zeroes temp Coord3D via
 // xorps plus three movss then forwards ecx+4 plus temp and block-copies temp
@@ -7,22 +7,7 @@
 // Explicit scalar return construction preserves the native local-copy phase.
 // Honest address name;
 // AIBaseBuilder at +4 carries the +0x28 member so ecx+4 lands at +0x2C.
-struct Coord3DBase
-{
-	float x;
-	float y;
-	float z;
-};
-
-struct Coord3D : public Coord3DBase
-{
-	Coord3D(){}
-	Coord3D(float X,float Y,float Z){x=X;y=Y;z=Z;}
-	// LINK: TU-unique tagged copy of the 3-float ctor (identical stores): the MMM ctor's COMDAT loses to
-	// the kept copy; the return temporary uses this one. No flags touched.
-	struct BfmeTagBldr {};
-	Coord3D(BfmeTagBldr,float X,float Y,float Z){x=X;y=Y;z=Z;}
-};
+#include "Lib/Coord3DCtorView.h"
 
 class AIBaseBuilder
 {
@@ -48,5 +33,5 @@ Coord3D Rva004EBF4B::rva004EBF4B()
 	tmp.y = 0.0f;
 	tmp.z = 0.0f;
 	m_04.rva00506B74(&tmp);
-	return Coord3D(Coord3D::BfmeTagBldr(),tmp.x,tmp.y,tmp.z);
+	return Coord3D(tmp.x,tmp.y,tmp.z);
 }

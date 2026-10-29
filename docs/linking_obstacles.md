@@ -5132,6 +5132,21 @@ this scope into the next census; no linking gain is claimed.
 
 ### LINK-018: canonical `Coord3D` member growth blocks header-adoption until dependents are recomputed
 
+**Wrapper adoption and deferred retirements (2026-10-29; base `a2e9c2b5b2`):**
+The existing constructor companion replaces the private Coord3D/Base view
+and tagged return constructor in Rva004EBF4BCopy.cpp; its 72-byte row stays
+exact. The owning acceptance tool retires that queue entry plus four existing
+companion users (Rva003A35A0Element, Rva00506CF5HomePoint,
+stlport_vector_geometryshape_base and AIStructureCreepTactic). Strict
+preparation passes 77/77 rows; all five ordinary previews retain LINKS for
+6,214 authored bytes against index `85f6b7f40c` (2026-10-29 15:08).
+The outgoing audit remains INCONCLUSIVE: the index predates the base and
+Common/0CreateAHeroManager21FE49.cpp lacks a current consumer receipt.
+Carry that consumer and the wrapper provider into the next scheduled census.
+Six queue entries and the class-key/interface prerequisites remain. This
+clears five header-debt entries only; no new census gain is claimed.
+[Scope and checks](../reverse/attempt_support/coord3d-wrapper-adoption-20261029-codexb.md).
+
 **Preserved-batch recovery follow-up (2026-10-28):** replay of the older
 Coord3D batch removed the geometry helper's deferred queue row again. The
 publisher at `3dbbc13cb7` still has no usable per-unit verdict, while the local
