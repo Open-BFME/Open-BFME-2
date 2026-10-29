@@ -13114,7 +13114,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/ai.cpp	parseSkirmishBuildL
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/ai.cpp	update@AI@@UAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/ai.cpp	xfer@AI@@UAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/ai.cpp	xfer@TAiData@@UAEXPAVXfer@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/LivingWorld/FlashRegionRecord.cpp	1Rva004E14E1FlashRecord@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Map/FireLogicSystemObjects.cpp	FireLogicSystem::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp	rva0007E394CursorEqual	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp	SidesList::~SidesList	1
@@ -15472,6 +15471,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00567BD7Copy.cpp	Rva005
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva00567BD7Copy.cpp	Rva00567BD7::~Rva00567BD7	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva005842F7Finish.cpp	$__copy_ptrs@PAUBfmePod28@@PAU1@@_STL@@YAPAUBfmePod28@@PAU1@00ABU__false_type@0@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/Rva005FE750.cpp	_bfmeRva005FE750DestroyAnchor@@YAXPAUBfmeContainerRecord005FDEC7@@@Z	1
+present_unmatched	Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp	1Rva004E14E1FlashRecord@@UAE@XZ	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	Rva000556ABRecord::operator<	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva000556AB.cpp	Rva000556ABRecord::operator==	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva001DDBC6.cpp	Rva001DDBC6Record::operator<	1

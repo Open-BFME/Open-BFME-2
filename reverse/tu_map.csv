@@ -41558,14 +41558,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E14BC,17,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1416..0x004E14CD,Code/GameEngine/Source/Common/S2SubobjectArgForwarders.cpp
 0x004E14CD,20,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1416..0x004E14E1,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
 0x004E14E1,7,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1416..0x004E14E8,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp
-0x004E14E8,118,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1416..0x004E155E,Code/GameEngine/Source/GameLogic/LivingWorld/ParseFlashRegionsEvent.cpp
+0x004E14E8,118,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1416..0x004E155E,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E155E,13,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E156B,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
 0x004E156B,14,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E156B,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
-0x004E1579,129,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E156B..0x004E15FB,Code/GameEngine/Source/GameLogic/LivingWorld/ParseEnableRegion.cpp
-0x004E15FB,135,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E16D9Record,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x004E1682,87,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E16D9Record,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp
+0x004E1579,129,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E156B..0x004E15FB,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E15FB,135,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E16D9Record,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E1682,87,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,K,K=Rva004E16D9Record,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E16D9,123,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,proposed,C,C=0x004E1682..0x004E1755,Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp
-0x004E1755,43,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp
+0x004E1755,43,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1780,20,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1794 provisional,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x004E1794,6,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E179A provisional,Code/GameEngine/Source/Common/Rva004E179ADtor.cpp
 0x004E179A,81,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E17EB provisional,Code/GameEngine/Source/Common/Rva004E179ADtor.cpp
@@ -41573,28 +41573,28 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E186D,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1889 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E1889,5,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E188E provisional,Code/gen_small/gthunks_000_admitted.cpp
 0x004E188E,20,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E18A2 provisional,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
-0x004E18A2,19,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E18B5 provisional,Code/GameEngine/Source/Common/Rva004E18A2Dtor.cpp
+0x004E18A2,19,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E18B5 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E18B5,129,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1937 provisional,Code/GameEngine/Source/Common/ParseAudioEventBlock.cpp
 0x004E1937,23,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E194E provisional,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
 0x004E194E,14,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E195C provisional,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
-0x004E195C,139,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E19E7 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseWorldTextBlock.cpp
-0x004E19E7,29,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1A04 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/FlashRegionRecord.cpp
+0x004E195C,139,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E19E7 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E19E7,29,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1A04 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1A04,47,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1A33 provisional,Code/GameEngine/Source/Common/Rva004E1A04Dtor.cpp
 0x004E1A33,134,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1ABA provisional,Code/GameEngine/Source/Common/Rva004E1A33Parse.cpp
 0x004E1ABA,27,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1AD5 provisional,Code/GameEngine/Source/Common/Coord3DVectorFillInsertO1.cpp
-0x004E1AD5,26,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1AEF provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_004e1ad5.cpp
+0x004E1AD5,26,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1AEF provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1AEF,17,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1B00 provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
 0x004E1B00,69,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1B45 provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
 0x004E1B45,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1B61 provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
-0x004E1B61,17,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1B72 provisional,Code/GameEngine/Source/Common/Rva004E1C7BParse.cpp
+0x004E1B61,17,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1B72 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1B72,54,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1BA8 provisional,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp
 0x004E1BA8,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1BC4 provisional,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp
 0x004E1BC4,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1BE0 provisional,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
 0x004E1BE0,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1BFC provisional,Code/Libraries/Source/WWVegas/WWLib/Rva004E16D9RecordDeletingDtor.cpp
 0x004E1BFC,126,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1C7B provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
-0x004E1C7B,126,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1CFA provisional,Code/GameEngine/Source/Common/Rva004E1C7BParse.cpp
+0x004E1C7B,126,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1CFA provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1CFA,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1D16 provisional,Code/GameEngine/Source/Common/Rva004E179ADtor.cpp
-0x004E1D16,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1D32 provisional,Code/GameEngine/Source/Common/Rva004E18A2Dtor.cpp
+0x004E1D16,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1D32 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E1D32,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1D4E provisional,Code/GameEngine/Source/Common/AsciiStringFoldDeleters.cpp
 0x004E1D4E,71,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1D95 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva004E1D4E.cpp
 0x004E1D95,115,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1755..0x004E1E08 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_int_copy_004E1D95.cpp
@@ -41614,9 +41614,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E2245,18,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1E35..0x004E2257 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004E1FE4.cpp
 0x004E2257,148,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1E35..0x004E22EB provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp
 0x004E22EB,151,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1E35..0x004E2382 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp
-0x004E2382,63,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1E35..0x004E23C1 provisional,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp
-0x004E23C1,33,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp
-0x004E23E2,42,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/Rva004E1755Lookup.cpp
+0x004E2382,63,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E1E35..0x004E23C1 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E23C1,33,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E23E2,42,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E240C,208,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E24DC,211,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E25AF,176,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
@@ -41626,14 +41626,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E2990,56,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E29C8 provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x004E29C8,227,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2AAB provisional,Code/GameEngine/Source/Common/Coord3DVectorFillInsertO1.cpp
 0x004E2AAB,443,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2C66 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp
-0x004E2C66,83,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2CB9 provisional,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp
-0x004E2CB9,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2CD5 provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva004E2382.cpp
+0x004E2C66,83,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2CB9 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x004E2CB9,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2CD5 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E2CD5,34,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2CF7 provisional,Code/GameEngine/Source/Common/Rva004E2CD5Contains.cpp
-0x004E2CF7,348,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2E53 provisional,Code/GameEngine/Source/Common/Rva004E2CF7Equal.cpp
+0x004E2CF7,348,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2E53 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E2E53,5,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2E58 provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x004E2E58,100,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2EBC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x004E2EBC,29,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2ED9 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_004e2aab.cpp
-0x004E2ED9,78,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2F27 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectStringMaterialize_Rva004E2ED9.cpp
+0x004E2ED9,78,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2F27 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E2F27,45,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2F54 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamily.cpp
 0x004E2F54,38,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2F7A provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva004E3E5AGrowth.cpp
 0x004E2F7A,37,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E265F..0x004E2F9F provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorRva004E3E5AGrowth.cpp
@@ -41644,28 +41644,28 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E3184,201,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E324D,135,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E32D5 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E32D5,29,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E32F2 provisional,Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp
-0x004E32F2,14,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3300 provisional,Code/GameEngine/Source/Common/Rva004E32F2Dtor.cpp
+0x004E32F2,14,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3300 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E3300,130,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3383 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineCameraParseINIBlock.cpp
 0x004E3383,302,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffect.cpp provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp
 0x004E34B1,242,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffect.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectSubObjectColor.cpp
-0x004E35A3,12,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E35AF provisional,Code/GameEngine/Source/Common/Rva004E35A3Ctor.cpp
+0x004E35A3,12,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E35AF provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E35AF,38,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E35D5 provisional,Code/GameEngine/Source/Common/Rva004E35D5Notify.cpp
 0x004E35D5,42,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E35FF provisional,Code/GameEngine/Source/Common/Rva004E35D5Notify.cpp
 0x004E35FF,42,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3629 provisional,Code/GameEngine/Source/Common/Rva004E35D5Notify.cpp
 0x004E3629,38,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E364F provisional,Code/GameEngine/Source/Common/Rva004E35D5Notify.cpp
-0x004E364F,31,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E366E provisional,Code/GameEngine/Source/Common/Rva004E364FCtor.cpp
+0x004E364F,31,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E366E provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E366E,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E368A provisional,Code/GameEngine/Source/Common/Rva004E366EClear.cpp
 0x004E368A,124,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3706 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportMapSubscriptFamily.cpp
-0x004E3706,45,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3733 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_pod88_rva.cpp
+0x004E3706,45,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3733 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E3733,38,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3759 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x004E3759,37,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E377E provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
-0x004E377E,25,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3797 provisional,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva004E2382.cpp
+0x004E377E,25,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E3797 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E3797,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
-0x004E37B3,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E37CF provisional,Code/GameEngine/Source/Common/Rva004E32F2Dtor.cpp
+0x004E37B3,28,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E37CF provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E37CF,71,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E383D provisional,Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp
 0x004E3816,39,code,,displaced,-,N=Code/GameEngine/Source/Common/System/INI.cpp,Code/GameEngine/Source/Common/System/INI_Rva004E3816ParseCoord2DList.cpp
 0x004E383D,123,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E38B9 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseEyeTowerPointData.cpp
-0x004E38B9,33,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E38DA provisional,Code/GameEngine/Source/Common/Rva004E38B9Shrink.cpp
+0x004E38B9,33,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E38DA provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E38DA,183,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3797..0x004E3991 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva004E38DA.cpp
 0x004E3991,221,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/SpawnArmy.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E3A6E,266,code,,,-,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp,Code/GameEngine/Source/Common/Rva004E3CD0Dtor.cpp
@@ -82294,19 +82294,19 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007919A3,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp,approved,P,P=0x004E119C@FuncInfo0x00943BEC provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuilding.cpp
 0x007919AD,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E141D@FuncInfo0x00943C10 p-group provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x007919B5,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E141D@FuncInfo0x00943C10 p-group provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
-0x007919BF,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E14E8@FuncInfo0x00943C34 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseFlashRegionsEvent.cpp
-0x007919C7,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E14E8@FuncInfo0x00943C34 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseFlashRegionsEvent.cpp
-0x007919D1,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1579@FuncInfo0x00943C58 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseEnableRegion.cpp
-0x007919D9,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1579@FuncInfo0x00943C58 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseEnableRegion.cpp
-0x007919E3,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x007919EE,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x007919F9,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x00791A04,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x00791A0F,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordCtor.cpp
-0x00791A19,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp
-0x00791A24,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp
-0x00791A2F,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp
-0x00791A3A,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/Rva004E16D9RecordDtor.cpp
+0x007919BF,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E14E8@FuncInfo0x00943C34 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919C7,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E14E8@FuncInfo0x00943C34 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919D1,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1579@FuncInfo0x00943C58 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919D9,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1579@FuncInfo0x00943C58 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919E3,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919EE,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x007919F9,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A04,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A0F,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E15FB@FuncInfo0x00943C94 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A19,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A24,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A2F,11,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791A3A,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1682@FuncInfo0x00943CC8 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791A44,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E16D9@FuncInfo0x00943CEC p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp
 0x00791A4C,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E16D9@FuncInfo0x00943CEC p-group provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseForceBattle.cpp
 0x00791A56,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E179A@FuncInfo0x00943D20 provisional,Code/GameEngine/Source/Common/Rva004E179ADtor.cpp
@@ -82317,8 +82317,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00791A86,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E17EB@FuncInfo0x00943D44 provisional,Code/GameEngine/Source/Common/Rva004E17EBParse.cpp
 0x00791A90,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E18B5@FuncInfo0x00943D68 provisional,Code/GameEngine/Source/Common/ParseAudioEventBlock.cpp
 0x00791A98,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E18B5@FuncInfo0x00943D68 provisional,Code/GameEngine/Source/Common/ParseAudioEventBlock.cpp
-0x00791AA2,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E195C@FuncInfo0x00943D8C provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseWorldTextBlock.cpp
-0x00791AAA,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E195C@FuncInfo0x00943D8C provisional,Code/GameEngine/Source/GameLogic/LivingWorld/ParseWorldTextBlock.cpp
+0x00791AA2,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E195C@FuncInfo0x00943D8C provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791AAA,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E195C@FuncInfo0x00943D8C provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791AB4,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1A04@FuncInfo0x00943DB0 provisional,Code/GameEngine/Source/Common/Rva004E1A04Dtor.cpp
 0x00791ABC,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1A04@FuncInfo0x00943DB0 provisional,Code/GameEngine/Source/Common/Rva004E1A04Dtor.cpp
 0x00791AC6,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1A33@FuncInfo0x00943DD4 provisional,Code/GameEngine/Source/Common/Rva004E1A33Parse.cpp
@@ -82330,12 +82330,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00791AFD,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1B72@FuncInfo0x00943E24 provisional,Code/GameEngine/Source/Common/Rva004E1B72Dtor.cpp
 0x00791B07,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1BFC@FuncInfo0x00943E48 provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
 0x00791B0F,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1BFC@FuncInfo0x00943E48 provisional,Code/GameEngine/Source/Common/Rva004E1BFCParse.cpp
-0x00791B19,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1C7B@FuncInfo0x00943E6C provisional,Code/GameEngine/Source/Common/Rva004E1C7BParse.cpp
-0x00791B21,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1C7B@FuncInfo0x00943E6C provisional,Code/GameEngine/Source/Common/Rva004E1C7BParse.cpp
+0x00791B19,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1C7B@FuncInfo0x00943E6C provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791B21,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1C7B@FuncInfo0x00943E6C provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791B2B,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1FE4@FuncInfo0x00943E90 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004E1FE4.cpp
 0x00791B33,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E1FE4@FuncInfo0x00943E90 provisional,Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva004E1FE4.cpp
-0x00791B3D,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2382@FuncInfo0x00943EB4 provisional,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp
-0x00791B45,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2382@FuncInfo0x00943EB4 provisional,Code/GameEngine/Source/Common/Rva004E2382Ctor.cpp
+0x00791B3D,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2382@FuncInfo0x00943EB4 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791B45,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2382@FuncInfo0x00943EB4 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791B4F,13,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E240C@FuncInfo0x00943EE0 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791B5C,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E240C@FuncInfo0x00943EE0 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791B64,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E240C@FuncInfo0x00943EE0 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
@@ -82363,9 +82363,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00791C48,10,code,,,-,,Code/GameEngine/Source/Common/Rva004E2941Dtor.cpp
 0x00791C52,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2E58@FuncInfo0x00943FFC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
 0x00791C5A,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2E58@FuncInfo0x00943FFC provisional,Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp
-0x00791C64,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectStringMaterialize_Rva004E2ED9.cpp
-0x00791C6C,25,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectStringMaterialize_Rva004E2ED9.cpp
-0x00791C85,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectStringMaterialize_Rva004E2ED9.cpp
+0x00791C64,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791C6C,25,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
+0x00791C85,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E2ED9@FuncInfo0x00944028 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791C8F,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791C97,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791CA2,11,code,,,-,,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
