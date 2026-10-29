@@ -10605,6 +10605,17 @@ full consumer verification remain pending. Other providers stay emitted; no
 TU move or new name is claimed. [Evidence and checks](../reverse/attempt_support/locale-split-providers-20261029-codexb.md). The outgoing audit is INCONCLUSIVE: the index predates the base and
 0CreateAHeroManager21FE49.cpp lacks a current consumer receipt. Carry the
 changed provider and affected consumers into the next scheduled census.
+Re-checked 2026-10-29 (seat dd-20) at base 36cc3221c3 against index 85f6b7f40c:
+unchanged, no source change. `link_check` still reports the pair for
+`Code/Libraries/Source/STLport/LocaleUnshiftStrwcmp.c` (`__Locale_unshift` and
+`__Locale_strwcmp`) and for `stlport_LocaleWctomb.c` (`__Locale_wctomb`); the
+facets object is the other definer of each, with the same COMDAT digest and
+retail bytes, so this is ownership, not a byte difference. Option (b) cannot be
+done from our side: the facets TU's definitions come from the pristine vendored
+`c_locale_win32.c` include, and renaming them away would emit unrowed bodies;
+`selectany`/`/Gy` are refused hatches. The rows' `tu_map` entries are still
+empty (0x00020D50, 0x00020DB0, 0x00020DF0), so (a) remains the only path and
+still needs the TU approval. Pass test unchanged.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
