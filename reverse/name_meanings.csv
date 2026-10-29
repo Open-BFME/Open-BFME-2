@@ -184,3 +184,8 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapCtors.cpp|param|
 Code/GameEngine/Source/Common/Bfme/Rva00489360GuardedAdd.cpp|local|Rva001DBDA4::rva001DBDA4|v,ab49da221cfa910e4849a2fd,drz-k7,drz-k7-16,w-4471b1f6edef,2026-10-29,9ac0ec454b738e7e16f3a9b3
 Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp|local|Pathfinder::rva00530212|x,5dd5e38fcf857626b5144021,drz-k7,drz-k7-18,w-4471b1f6edef,2026-10-29,94d34d0c601fa378a961fc75
 Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp|local|Pathfinder::rva00530212|l,53da534b5135a4757dffd15f,drz-k7,drz-k7-18,w-4471b1f6edef,2026-10-29,a3a249f309b5341d2fdde7a3
+Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp|param|Rva005CE8F5|b,5b0c2852e19501701373c918,drz-k1,drz-k1-32,w-d29055ee9848,2026-10-29,315cf43381c76520daeca07d
+Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp|param|Rva005CEE07::Rva005CEE07|b,fad59d6807369117f814de05,drz-k1,drz-k1-32,w-d29055ee9848,2026-10-29,72c129602cd3b7aaf6ee0254
+Code/GameEngine/Source/Common/ThrowingNewHelpers.cpp|param|Rva005CEE9F::Rva005CEE9F|b,b70f96b06200bebbe8411051,drz-k1,drz-k1-32,w-d29055ee9848,2026-10-29,c54c299f96ec7dbee107c09c
+Code/GameEngine/Source/GameLogic/Object/Update/FreelistPool.cpp|param|FreelistPool::FreelistPool|a4,9fe4393844b8c255ade0a2ea,drz-k1,drz-k1-33,w-d29055ee9848,2026-10-29,d9a677de90c618462564b28b
+Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp|param|Rva003F409F::rva003F409F|b,5acc7bcec13de7fb2765d5a1,drz-k1,drz-k1-35,w-d29055ee9848,2026-10-29,9e00672b02e0ee48dc2d5869
