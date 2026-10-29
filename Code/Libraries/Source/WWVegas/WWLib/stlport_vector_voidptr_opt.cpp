@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // vector<void *> again, optimised. The instantiation appears in game.dat from
 // more than one unit and only one definition of each COMDAT survives the link,

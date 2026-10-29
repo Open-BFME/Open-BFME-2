@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 //
 // A vendored instantiation unit. It exists so the linker-selected bodies of
 // this container appear as COMDATs that build/objplace.py can place against
@@ -28,7 +28,7 @@ namespace _STL { template <> unsigned int deque<void *, allocator<void *> >::max
 // compete with those selected by the link (allocate owns retail 0x00620180).
 namespace _STL {
 template <> __declspec(dllimport) __forceinline allocator<void *>::~allocator() _STLP_NOTHROW {}
-template <> __declspec(dllimport) __forceinline void **allocator<void *>::allocate(size_type __n, void const *) const {
+template <> __declspec(dllimport) __forceinline void **allocator<void *>::allocate(size_type __n, void const *) {
   return __n != 0 ? __REINTERPRET_CAST(value_type*, allocator<char>::allocate(__n * sizeof(value_type), 0)) : 0;
 }
 }

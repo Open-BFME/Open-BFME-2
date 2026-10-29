@@ -1,5 +1,5 @@
 // cl: /EHs /EHc- /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 narrow basic_string destructor emitted by the num_get<double>
 // instantiation. The retail unwind map for 0x0000FCC0 selects the copy at

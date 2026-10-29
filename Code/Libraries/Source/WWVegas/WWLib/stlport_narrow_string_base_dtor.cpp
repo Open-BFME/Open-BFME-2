@@ -1,5 +1,5 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 //
 // STLport 4.5.3 basic_string<wchar_t>::~basic_string, the out-of-line COMDAT
 // at 0x0000B3C0. The body is the inlined ~_String_base - `if (_M_start)
