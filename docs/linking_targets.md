@@ -27,6 +27,14 @@ the older-index batch audit lacks a current CreateAHeroManager consumer
 receipt; full consumer/census confirmation remains pending.
 [Evidence](../reverse/attempt_support/strategic-player-stdio-20261029-codex.md).
 
+GettingBuiltBehavior list helper (2026-10-29, base `8468a420d3`): node creation
+now calls the existing record-node provider; emitted insert passes exact fold
+identity and one registered key retires. The 24-row helper/provider/transfer
+scope remains exact and retains all 2,308 preview-linked bytes at index
+`840db2d676`. Legacy template identity, the existing transfer alias and full
+consumer/census confirmation remain pending.
+[Scoped checks and next work](../reverse/attempt_support/gettingbuilt-list-identity-20261029-codex3.md).
+
 Header-cleanup selection correction (2026-10-29, control `54f489336`):
 GateOpenAndCloseBehaviorPushOut.cpp and Rva00587F69Dtor.cpp are conflicting
 header candidates because their local exception contracts differ from the
