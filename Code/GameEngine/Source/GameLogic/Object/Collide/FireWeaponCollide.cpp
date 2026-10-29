@@ -40,7 +40,6 @@ public:
 	void xfer(Xfer *xfer);
 };
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
-
 //
 // FireWeaponCollide.cpp: the FireWeaponCollide bodies retail links from this
 // shared these exact flags. One class view carries the offsets each body was
@@ -54,16 +53,12 @@ public:
 // onCollide, which calls it through slot 12, stays split.
 
 class Thing;
-
 class ModuleData;
-
 class WeaponTemplate;
-
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-
 class Weapon
 {
 public:
@@ -72,15 +67,12 @@ public:
 	unsigned char m_pad04[4];
 	unsigned int m_status; // +0x08
 };
-
 class WeaponStore
 {
 public:
 	Weapon *allocateNewWeapon(const WeaponTemplate *weaponTemplate, WeaponSlotType slot) const;
 };
-
 extern WeaponStore *TheWeaponStore;
-
 // Status mask copy and overlap test over Object's status bits (rowed
 // 0x002CF108 and 0x00331682).
 class BfmeObject872Header
@@ -89,14 +81,12 @@ public:
 	BfmeObject872Header(const BfmeObject872Header &other);
 	int m_vals[4];
 };
-
 class Rva00331682Holder
 {
 public:
 	bool test(const void *other) const;
 	int m_vals[4];
 };
-
 class Object
 {
 public:
@@ -105,21 +95,11 @@ public:
 	unsigned char m_pad78[0x1C];
 	BfmeObject872Header m_status; // +0x94
 };
-
 class Xfer;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
-// Multiple-inheritance layout shared with the split xfer unit, so all units
-// name the three vtables alike (+0x00 ObjectModule, +0x0C
-// BehaviorModuleInterface, +0x10 CollideModuleInterface). Retail's primary
-// vftable (0x00C5A0FC) holds the scalar deleting dtor, the shared
-// loadPostProcess (0x00497805), the name getter (0x004BB6FC), xfer
-// (0x004BB85C) and getModuleNameKey (0x004BB755) in slots 0-4; slots 1-2 are
-// declared on BehaviorModule as its ledger rows spell them.
 #include "../../../../Include/Common/ObjectModule.h"
 
 // Slot 0 of both interface vftables is retail's shared `return 0` fold
@@ -297,6 +277,16 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
 
+// Multiple-inheritance layout shared with the split xfer unit, so all units
+// name the three vtables alike (+0x00 ObjectModule, +0x0C
+// BehaviorModuleInterface, +0x10 CollideModuleInterface). Retail's primary
+// vftable (0x00C5A0FC) holds the scalar deleting dtor, the shared
+// loadPostProcess (0x00497805), the name getter (0x004BB6FC), xfer
+// (0x004BB85C) and getModuleNameKey (0x004BB755) in slots 0-4; slots 1-2 are
+// declared on BehaviorModule as its ledger rows spell them.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollide.cpp
@@ -375,14 +365,6 @@ void FireWeaponCollide::xfer(Xfer *xfer)
 	*xfer == m_everFired;
 }
 
-// tu-skeleton: 0x004BB6FC 6B ?name@Rva004BB6FCNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004BB702 49B ??0CollideModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004BB739 28B ??_GRva004BB68E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
-
-// tu-skeleton: 0x004BB822 58B ?onCollide@FireWeaponCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideOnCollide.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideShouldFireWeapon.cpp
 
 bool FireWeaponCollide::shouldFireWeapon()
@@ -399,5 +381,19 @@ bool FireWeaponCollide::shouldFireWeapon()
 		return false;
 	return true;
 }
+
+// tu-skeleton: 0x004BB6FC 6B ?name@Rva004BB6FCNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Collide/CollideModuleCtor.cpp
+
+// ??0CollideModule@@QAE@PAVThing@@PBVModuleData@@@Z @0x004BB702
+CollideModule::CollideModule(Thing *thing, const ModuleData *moduleData) :
+	BehaviorModule(thing, moduleData)
+{
+}
+
+// tu-skeleton: 0x004BB739 28B ??_GRva004BB68E@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0049B47CThreeVptrDerived.cpp (not merged yet)
+
+// tu-skeleton: 0x004BB822 58B ?onCollide@FireWeaponCollide@@UAEXPAVObject@@PBUCoord3D@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Collide/FireWeaponCollideOnCollide.cpp (not merged yet)
 
 // tu-skeleton: 0x004BB918 17B ?buildFieldParse@FireWeaponCollideModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
