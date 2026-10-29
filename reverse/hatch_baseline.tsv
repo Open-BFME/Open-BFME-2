@@ -11028,12 +11028,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateObjSpaceBoundingVo
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateObjSpaceBoundingVolumes.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateSubObjectTransforms.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HLodUpdateSubObjectTransforms.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp	"s",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp	"",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp	"gsy",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassBoneLookup.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/HTreeClassCopyConstructor.cpp	"",on	1
@@ -11324,8 +11318,9 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"gsy",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	"s",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hlod_read_header.cpp	"gsy",on	2
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"gsy",on	2
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"",on	5
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"gsy",on	4
+pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	"s",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"",on	2
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"gsy",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	"s",off	1
@@ -14314,7 +14309,6 @@ present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cp
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	updateVBForLight@HeightMapRenderObjClass@@IAEHPAVDX8VertexBufferClass@@PADHHHHHHQAPAVW3DDynamicLight@@H@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/HeightMap.cpp	updateVBForLightOptimized@HeightMapRenderObjClass@@IAEHPAVDX8VertexBufferClass@@PADHHHHHHQAPAVW3DDynamicLight@@H@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/MapObject_fastAssignAllUniqueIDs.cpp	?	1
-present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/RoadTypeDtor.cpp	bfmeEmitRva0018E750VectorDtor@@YAXPAVRva0018E750ChannelSet@@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/BfmeShadowBufferOwnerBaseDtor.cpp	destroyBaseExplicit	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DBufferManager.cpp	getDX8Format@W3DBufferManager@@SAHW4VBM_FVF_TYPES@1@@Z	1
 present_unmatched	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DProjectedShadowUpdate.cpp	0W3DProjectedShadow@@QAE@XZ	1
@@ -14910,6 +14904,7 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	HLodDefClass::rea
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	HLodDefClass::~HLodDefClass	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hlod.cpp	HLodPrototypeClass::Create	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	1NodeMotionStruct@@QAE@XZ	1
+present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp	bfmeEmitRva0018E750VectorDtor@@YAXPAVRva0018E750ChannelSet@@@Z	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	Alter_Avatar_HTree@HTreeClass@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	Create_Interpolated@HTreeClass@@	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/htree.cpp	Create_Morphed@HTreeClass@@	1

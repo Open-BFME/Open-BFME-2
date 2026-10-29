@@ -30,7 +30,6 @@ Code/GameEngine/Source/Common/BfmeConv1338.cpp,,3,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1341.cpp,,2,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1343.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1351.cpp,,3,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1372.cpp,-arch:SSE -G7,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1384.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1395.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1404.cpp,,2,1,region default loses rows
@@ -589,6 +588,7 @@ Code/Libraries/Source/WWVegas/WW3D2/W3d_Shader_Reset.cpp,-O1,1,1,region default 
 Code/Libraries/Source/WWVegas/WW3D2/camera.cpp,-arch:SSE -G7,55,33,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/coltest.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/distlod.cpp,,10,2,region default loses rows
+Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,-arch:SSE -G7,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/linegrp.cpp,-O2 -arch:SSE -G7,12,6,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/matpass.cpp,,3,1,region default loses rows
 Code/Libraries/Source/WWVegas/WW3D2/meshmdl.cpp,-G7,2,2,region default loses rows

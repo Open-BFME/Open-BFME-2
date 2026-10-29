@@ -11392,14 +11392,14 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0018D1C0,30,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x0018D1E0,31,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/NodeMotionStruct.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018D200,30,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/TimeCodedBitChannelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
-0x0018D220,128,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingVID.cpp,Code/GameEngine/Source/Common/BfmeConv1372.cpp
-0x0018D2A0,149,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D_Unresolved.cpp
+0x0018D220,128,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,U,N=Code/GameEngine/Source/Common/BfmeThingVID.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x0018D2A0,149,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018D340,4,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018D2A0..0x0018D350,Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp
 0x0018D350,7,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
-0x0018D360,119,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x0018D3E0,192,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x0018D4A0,119,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x0018D520,25,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
+0x0018D360,119,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x0018D3E0,192,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x0018D4A0,119,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x0018D520,25,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018D540,491,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,S,S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp W=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018D730,1570,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018DD60,440,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
@@ -11415,10 +11415,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0018E6F0,50,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018E6D0..0x0018E750,Code/GameEngine/Source/Common/VslotSmallBodiesX.cpp
 0x0018E730,8,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hanim.cpp
 0x0018E740,8,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
-0x0018E750,213,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018E6D0..0x0018E830,Code/GameEngineDevice/Source/W3DDevice/GameClient/RoadTypeDtor.cpp
-0x0018E830,84,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018E6D0..0x0018E890,Code/GameEngineDevice/Source/W3DDevice/GameClient/RoadTypeDtor.cpp
+0x0018E750,213,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018E6D0..0x0018E830,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x0018E830,84,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,C,C=0x0018E6D0..0x0018E890,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018E890,50,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
-0x0018E8D0,750,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
+0x0018E8D0,750,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018EBC0,126,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp S=Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018EC40,30,code,,displaced,-,N=Code/Libraries/Source/WWVegas/WW3D2/HRawAnimClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x0018EC60,230,code,,displaced,-,Z=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp S=Code/Libraries/Source/WWVegas/WW3D2/motchan.cpp N=Code/Libraries/Source/WWVegas/WW3D2/TimeCodedMotionChannelClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
@@ -65945,10 +65945,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00768872,10,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp,approved,P,P=0x0018C84E@FuncInfo0x0090D69C provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderGeometry.cpp
 0x00768880,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x00768888,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
-0x007688A0,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x007688AB,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x007688C0,11,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,P,P=0x0018E8D0@FuncInfo0x0090D708,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
-0x007688CB,10,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,P,P=0x0018E8D0@FuncInfo0x0090D708,Code/Libraries/Source/WWVegas/WW3D2/HRawLoadW3D.cpp
+0x007688A0,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x007688AB,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x007688C0,11,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,P,P=0x0018E8D0@FuncInfo0x0090D708,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
+0x007688CB,10,code,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp,approved,P,P=0x0018E8D0@FuncInfo0x0090D708,Code/Libraries/Source/WWVegas/WW3D2/hrawanim.cpp
 0x007688E0,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x007688E8,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 0x00768900,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
