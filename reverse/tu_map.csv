@@ -26076,7 +26076,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0033AF03,92,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,proposed,C,C=0x0033ACE8..0x0033AF5F,Code/GameEngine/Source/GameLogic/Object/STLModelConditionBitFlagsFind.cpp
 0x0033AF5F,92,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,proposed,C,C=0x0033ACE8..0x0033AFBB,Code/GameEngine/Source/GameLogic/Object/STLWeaponTemplateSetBitFlagsHintedInsertUnique.cpp
 0x0033AFBB,308,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,proposed,K,K=Rva0033AFBB,Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp
-0x0033B0EF,52,code,Code/GameEngine/Source/Common/MyRecord.cpp,proposed,N,N=Code/GameEngine/Source/Common/MyRecord.cpp,Code/GameEngine/Source/Common/MyRecordCtor.cpp
+0x0033B0EF,52,code,Code/GameEngine/Source/Common/MyRecord.cpp,proposed,N,N=Code/GameEngine/Source/Common/MyRecord.cpp,Code/GameEngine/Source/Common/MyRecord.cpp
 0x0033B123,24,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x0033B13B,79,code,,displaced,-,N=Code/GameEngine/Source/Common/BfmeStringRecord002CF4C6.cpp,Code/GameEngine/Source/Common/BfmeStringRecord002CF4C6Ctor.cpp
 0x0033B18A,67,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,approved,S,S=Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp N=Code/GameEngine/Source/Common/Thing/ModuleInfo.cpp,Code/GameEngine/Source/Common/Thing/ThingTemplateSetCopiedFromDefault.cpp
@@ -73640,8 +73640,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0077C50D,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_uninitialized_copy_sciencevec.cpp
 0x0077C517,8,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,approved,P,P=0x0033A5B5@FuncInfo0x00925CFC,Code/GameEngine/Source/Common/BfmeConv1766.cpp
 0x0077C51F,10,code,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp,approved,P,P=0x0033A5B5@FuncInfo0x00925CFC,Code/GameEngine/Source/Common/BfmeConv1766.cpp
-0x0077C529,11,code,Code/GameEngine/Source/Common/MyRecord.cpp,approved,P,P=0x0033B0EF@FuncInfo0x00925D20 p-group provisional,Code/GameEngine/Source/Common/MyRecordCtor.cpp
-0x0077C534,10,code,Code/GameEngine/Source/Common/MyRecord.cpp,approved,P,P=0x0033B0EF@FuncInfo0x00925D20 p-group provisional,Code/GameEngine/Source/Common/MyRecordCtor.cpp
+0x0077C529,11,code,Code/GameEngine/Source/Common/MyRecord.cpp,approved,P,P=0x0033B0EF@FuncInfo0x00925D20 p-group provisional,Code/GameEngine/Source/Common/MyRecord.cpp
+0x0077C534,10,code,Code/GameEngine/Source/Common/MyRecord.cpp,approved,P,P=0x0033B0EF@FuncInfo0x00925D20 p-group provisional,Code/GameEngine/Source/Common/MyRecord.cpp
 0x0077C53E,8,code,,,-,,Code/GameEngine/Source/Common/Rva002CF1E2NodeFetchTexts.cpp
 0x0077C546,8,code,,,-,,Code/GameEngine/Source/Common/Rva002CF1E2NodeFetchTexts.cpp
 0x0077C54E,8,code,,,-,,Code/GameEngine/Source/Common/Rva002CF1E2NodeFetchTexts.cpp
