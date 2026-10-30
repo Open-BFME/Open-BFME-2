@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 
 // Open-BFME5: RemoveUpgradeUpgrade module dtor via UpgradeModule multi-inheritance.
 // ??1RemoveUpgradeUpgrade@@MAE@XZ, retail 0x004B7F01, 32 bytes: four vptr stores
@@ -9,60 +10,7 @@
 // precedent). Identity is vtable 0x858E20 of the rowed ctor at 0x004B7FA4
 // plus sole caller ??_G 0x004B7FD5 slot 0.
 
-class Thing;
-class ModuleData;
-
-class BehaviorModule
-{
-public:
-	virtual void behaviorModuleAnchor();
-	virtual ~BehaviorModule();
-
-private:
-	unsigned char m_data[8];
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void behaviorModuleInterfaceAnchor();
-};
-
-class UpgradeMux
-{
-public:
-	virtual void upgradeMuxAnchor();
-
-private:
-	bool m_upgradeExecuted;
-};
-
-class ModuleInterface
-{
-public:
-	virtual void moduleInterfaceAnchor();
-};
-
-class UpgradeModule : public BehaviorModule,
-	public BehaviorModuleInterface,
-	public UpgradeMux,
-	public ModuleInterface
-{
-public:
-	UpgradeModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~UpgradeModule();
-};
-
-class RemoveUpgradeUpgrade : public UpgradeModule
-{
-public:
-	RemoveUpgradeUpgrade(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual ~RemoveUpgradeUpgrade();
-};
+#include "RemoveUpgradeUpgradeView.h"
 
 // ??1RemoveUpgradeUpgrade@@MAE@XZ @0x004B7F01
 RemoveUpgradeUpgrade::~RemoveUpgradeUpgrade()
