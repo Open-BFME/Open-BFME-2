@@ -194,6 +194,8 @@ private:
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateXfer.cpp
 
 void MonitorConditionUpdate::xfer(Xfer *xfer)
@@ -222,12 +224,6 @@ MonitorConditionUpdateModuleData::~MonitorConditionUpdateModuleData()
 {
 }
 
-// tu-skeleton: 0x004915FD 54B ??0MonitorConditionUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491633 46B ??0MonitorConditionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00491661 6B ?Rva00491661Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp
 
 // The canonical frozen StringBase replaces the private copy; its switch
@@ -240,5 +236,17 @@ MonitorConditionUpdate::~MonitorConditionUpdate()
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
+
+// tu-skeleton: 0x004915FD 54B ??0MonitorConditionUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateCtor.cpp
+
+// ??0MonitorConditionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x491633
+MonitorConditionUpdate::MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+}
+
+// tu-skeleton: 0x00491661 6B ?Rva00491661Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x0049176C 289B ?update@MonitorConditionUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateUpdate.cpp (not merged yet)
