@@ -24,10 +24,16 @@ namespace _STL { template <> void vector<BfmeRecord001ECAF9,allocator<BfmeRecord
 struct BfmeRecord001ECAF9;
 namespace _STL { template <> void vector<BfmeRecord001ECAF9,allocator<BfmeRecord001ECAF9> >::_M_insert_overflow(BfmeRecord001ECAF9 *,BfmeRecord001ECAF9 const &,__false_type const &,unsigned int,bool); }
 
+enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
+struct FieldParse;
 class INI
 {
 public:
-	const char *getNextToken(const char *s);
+	const char *getNextToken(const char *seps = 0);
+	__declspec(dllimport) __forceinline INILoadType getLoadType() const { return loadType; }
+	void initFromINI(void *, const FieldParse *);
+	char m_pad00[0x8];
+	INILoadType loadType; // +0x08 +0x08, overwrite for the startup files
 };
 
 template <class T> class StringBase;

@@ -4,10 +4,15 @@
 // Evidence: callee rowed 0x0002DE78; table g_00BDF1D8; caller 0x001ED61C in 0x001ED580.
 typedef void (*FieldParseProc)(class INI *, void *, void *, const void *);
 struct FieldParse { const char *token; FieldParseProc parse; const void *userData; int offset; };
+enum INILoadType { INI_LOAD_INVALID, INI_LOAD_OVERWRITE };
 class INI
 {
 public:
+	const char *getNextToken(const char *seps = 0);
+	__declspec(dllimport) __forceinline INILoadType getLoadType() const { return loadType; }
 	void initFromINI(void *, const FieldParse *);
+	char m_pad00[0x8];
+	INILoadType loadType; // +0x08 +0x08, overwrite for the startup files
 };
 extern "C" {
 void __identifier("?parseAsciiString@INI@@SAXPAV1@PAX1PBX@Z")();
