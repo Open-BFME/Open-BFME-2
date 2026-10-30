@@ -1,12 +1,13 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB
-// stlport
-// STLport 4.5 basic_fstream<T>(const char*, openmode) pathname constructors,
-// retail RVAs 0x0084C6F0 (char, 248B) and 0x0084CEA0 (wchar_t, 249B).
+// stlport46
+// STLport 4.6 basic_fstream<T>(const char*, openmode) pathname constructors.
+// BFME 2 RVAs 0x0001FA40 (char, 248B) and 0x000201F0 (wchar_t, 249B);
+// byte-identical BFME 1 donors at 0x0084C6F0 and 0x0084CEA0 respectively.
 //
 // These are the TWO-argument overloads, distinct from the three-argument
-// pathname constructors already matched at 0x0084C8F0 (char,
-// stlport_fstream_char_name_ctor_0084c8f0.cpp) and 0x0084D0A0 (wchar_t,
-// StreamConstructorInstantiations.cpp), which forward a caller-supplied
+// pathname constructors at BFME 1 donor RVAs 0x0084C8F0 (char) and
+// 0x0084D0A0 (wchar_t), whose BFME 2 counterparts are 0x0001FC40 and
+// 0x000203F0. Those forward a caller-supplied
 // protection. Retail's `ret 0xc` proves two declared arguments plus the
 // hidden virtual-base-init flag basic_ios picks up through the
 // basic_istream/basic_ostream diamond -- the three-argument bodies clean up
@@ -69,16 +70,8 @@ namespace _STL { template <> fpos<int> basic_filebuf<unsigned short, char_traits
 namespace _STL { template <> unsigned short basic_filebuf<unsigned short, char_traits<unsigned short> >::underflow(); }
 namespace _STL { template <> char basic_ios<char, char_traits<char> >::widen(char) const; }
 // bfme link decl-only end
-// Suppress this TU's non-retail proxy<char> deallocate copy (family2-LK3 row 28):
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char*, size_t);
-}
-// Suppress this TU's non-retail proxy<char> allocate copy (family2-LK3 row 30):
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL {
-template <> char *_STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t);
-}
+// STLport 4.6 inherits these allocation operations from allocator<char> in
+// this compiler mode; the former proxy member specializations are obsolete.
 template _STL::basic_fstream<char, _STL::char_traits<char> >::basic_fstream(
 	const char*, _STL::ios_base::openmode);
 template _STL::basic_fstream<wchar_t, _STL::char_traits<wchar_t> >::basic_fstream(

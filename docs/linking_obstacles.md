@@ -13177,6 +13177,18 @@ claimed. The full consumer and scheduled-census prerequisites above remain.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
+**2026-10-30 two-argument fstream constructors (base `8ca3c9be51`):** select
+4.6 and remove two obsolete proxy allocation declarations, addressing the
+recorded C2244 prerequisite without repeating the marker-only failure. All
+5 rows and both EH graphs remain exact; strict preparation passes. All 134
+retained external code bodies/relocations and undefined references are
+identical. Six old default-construction helpers and 538 header constants
+disappear; no definition is added. File preview retains LINKS/528 authored
+bytes at `ccafe54d1d`. Carry removed helper/constant providers and affected
+consumers into the scheduled audit/census; full consumer selection/loss
+verification remains open. No LINK-140 family clearance, debt retirement or
+census gain is claimed. [Evidence](../reverse/attempt_support/fstream-stlport46-qwen-20261030.md).
+
 **2026-10-30 particle template writer (base `724f3a7ffc`):** the claimed
 ParticleSystemTemplateWriteINI.cpp now selects 4.6 and removes its obsolete
 proxy allocate/deallocate specializations. All 8 rows and the EH graph remain

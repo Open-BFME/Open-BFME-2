@@ -10,6 +10,15 @@ post-effect base and LookupTablePostEffect constructors newly preview LINKS
 table reconciliation remains open; no census gain is claimed.
 [Evidence and remaining scope](../reverse/attempt_support/w3dprop-snapshot-provider-link-20261030/README.md).
 
+Two-argument fstream constructor migration (2026-10-30): the complete existing
+unit selects STLport 4.6, with all 5 rows and both EH graphs exact. All 134
+retained external code bodies/relocations and undefined references remain
+identical; six old helper copies and 538 header constants disappear. Strict
+preparation passes and bounded preview retains LINKS/528 authored bytes at
+`ccafe54d1d`. Removed providers and affected consumers still need full
+selection/loss verification and scheduled census confirmation; no measured
+coverage gain is claimed. [Evidence](../reverse/attempt_support/fstream-stlport46-qwen-20261030.md).
+
 Particle template writer migration (2026-10-30): the complete existing unit
 uses STLport 4.6 after removal of obsolete proxy specializations, with all
 8 rows and its EH graph exact. Strict two-source verification with the native
