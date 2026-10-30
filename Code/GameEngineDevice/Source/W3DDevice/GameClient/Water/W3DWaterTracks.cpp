@@ -18,6 +18,66 @@ extern "C" __declspec(dllimport) struct _iobuf *__cdecl fopen(const char *path, 
 extern "C" __declspec(dllimport) unsigned int __cdecl fwrite(const void *ptr, unsigned int size, unsigned int count, struct _iobuf *file);
 extern "C" __declspec(dllimport) int __cdecl fclose(struct _iobuf *file);
 #include "../../../../../../reference/shims/wwmath/Vector2.h"
+#define WATER_VB_PAGES 1000
+typedef unsigned short UnsignedShort;
+// BFME's resource classes have the same witnessed refcount/vtable prefix as
+// the neighboring TerrainTracks converter, but their full headers introduce
+// constructor overloads that are not part of this retail call shape.
+class RefCountedResource
+{
+public:
+	virtual void Delete_This(void);
+
+	void Release_Ref(void)
+	{
+		--m_refCount;
+		if (m_refCount == 0)
+			Delete_This();
+	}
+
+	int m_refCount;
+};
+class IndexBufferClass
+{
+public:
+	class WriteLockClass { IndexBufferClass *m_indexBuffer; unsigned short *m_indices; unsigned char m_deviceGuardStorage[4]; public: WriteLockClass(IndexBufferClass *indexBuffer, int flags = 0); ~WriteLockClass(void); unsigned short *Get_Index_Array(void) { return m_indices; } };
+};
+class DX8IndexBufferClass : public RefCountedResource
+{
+public:
+	typedef IndexBufferClass::WriteLockClass WriteLockClass;
+
+	enum UsageType
+	{
+		USAGE_DEFAULT = 0,
+		USAGE_DYNAMIC = 1
+	};
+
+	DX8IndexBufferClass(unsigned indexCount, UsageType usage = USAGE_DEFAULT);
+
+private:
+	unsigned char m_bfmeTail[0x10];
+};
+class BfmeDynamicNativeVB : public RefCountedResource
+{
+public:
+	enum UsageType
+	{
+		USAGE_DEFAULT = 0,
+		USAGE_DYNAMIC = 1
+	};
+
+	BfmeDynamicNativeVB(unsigned fvf, UnsignedShort vertexCount,
+        unsigned usage, unsigned vertexSize);
+
+private:
+	unsigned char m_bfmeTail[0x18];
+};
+enum
+{
+	DX8_FVF_XYZDUV1 = 0x142
+};
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 class TextureBaseClass { public: void Release_Ref(); };
 
@@ -351,17 +411,150 @@ public:
 	AsciiString m_file;
 };
 
+typedef char AssertIndexSize[(sizeof(DX8IndexBufferClass)==24)?1:-1];
+
+typedef char AssertVertexSize[(sizeof(BfmeDynamicNativeVB)==32)?1:-1];
+
 // tu-skeleton: 0x000FDF4C 181B ?bindTrack@WaterTracksRenderSystem@@QAEPAVWaterTracksObj@@W4waveType@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x000FE001 100B ?releaseTrack@WaterTracksRenderSystem@@QAEXPAUFeNode@@@Z -- matched in Code/GameEngine/Source/Common/Rva000FE001Move.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000FE001Move.cpp
 
-// tu-skeleton: 0x000FE065 291B ?ReAcquireResources@WaterTracksRenderSystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000FE001Move.cpp (not merged yet)
+//
+// ?releaseTrack@WaterTracksRenderSystem (retail 0x000FE001, 100 bytes): intrusive list move
+// that unlinks other (FeNode via +0xb0 next and +0xb4 prev) from its old list
+// and prepends it to this container's head at +0x14 (tail at +0x10 when other
+// was head). No calls; pure moves. Evidence: 4 callers pass node as stack arg
+// with ecx=this (e.g. 0x000FE19B pushes eax after clearing [eax+0x3c]); callee
+//-free body unblocks 0x000FE188/0x000FE1AC/0x000FE8FC/0x000FF448.
+//
+// ?rva000FE188@WaterTracksRenderSystem (retail 0x000FE188, 36 bytes): drains the list
+// from +0x10, clearing each node's +0x3C flag and moving it with
+// releaseTrack, then clears +0x10. Callers 0x000FF606, 0x000FFEF7 and a tail
+// jump at 0x00082B81. Retail keeps this in ecx across the releaseTrack call,
+// which cl only does when that callee was compiled earlier in the same TU.
 
-// tu-skeleton: 0x000FE188 36B ?rva000FE188@WaterTracksRenderSystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000FE001Move.cpp (not merged yet)
+// Resource recovery follows BFME 1 575ba2b04 WaterTracksRenderSystemReAcquireResources.cpp
+// and ZH W3DWaterTracks.cpp. Target 0x000FE065 independently proves the
+// resource offsets, 24/32-byte allocations, 12-byte lock and constructor calls.
+// Resource declarations below are borrowed ABI prefixes, not full class contracts.
+
+void WaterTracksRenderSystem::releaseTrack(FeNode *other)
+{
+	if (other == 0)
+		return;
+	FeNode *next = other->m_next;
+	if (next != 0)
+		next->m_prev = other->m_prev;
+	FeNode **prevLink = &other->m_prev;
+	FeNode *prev = *prevLink;
+	if (prev != 0)
+		prev->m_next = other->m_next;
+	else
+		m_tail10 = other->m_next;
+	*prevLink = 0;
+	other->m_next = m_head14;
+	if (m_head14 != 0)
+		m_head14->m_prev = other;
+	m_head14 = other;
+}
+
+void WaterTracksRenderSystem::rva000FE8FC(FeNode *other)
+{
+	other->m_flag3c = 0;
+	releaseTrack(other);
+}
+
+void WaterTracksRenderSystem::rva000FE188()
+{
+	FeNode *node = m_tail10;
+	while (node != 0)
+	{
+		FeNode *next = node->m_next;
+		node->m_flag3c = 0;
+		releaseTrack(node);
+		node = next;
+	}
+	m_tail10 = 0;
+}
+
+// ?ReAcquireResources@WaterTracksRenderSystem@@QAEXXZ
+void WaterTracksRenderSystem::ReAcquireResources(void)
+{
+	int i, j, k;
+
+	if (indexBuffer)
+	{
+		reinterpret_cast<DX8IndexBufferClass *>(indexBuffer)->Release_Ref();
+		*(DX8IndexBufferClass * volatile *)&indexBuffer = 0;
+	}
+	if (vertexBuffer)
+	{
+		reinterpret_cast<BfmeDynamicNativeVB *>(vertexBuffer)->Release_Ref();
+		*(BfmeDynamicNativeVB * volatile *)&vertexBuffer = 0;
+	}
+
+	int idxCount = (stripY - 1) * (stripX * 2 + 2) - 2;
+
+	indexBuffer = new DX8IndexBufferClass(idxCount);
+
+	{
+		DX8IndexBufferClass::WriteLockClass lockIdxBuffer((IndexBufferClass *)indexBuffer);
+		unsigned short *ib = lockIdxBuffer.Get_Index_Array();
+
+		for (i = 0, j = 0, k = 0; i < idxCount; j++)
+		{
+			for (; k < (stripX * (j + 1)); k++, i += 2)
+			{
+				ib[i] = (unsigned short)k + stripX;
+				ib[i + 1] = (unsigned short)k;
+			}
+			if (i < idxCount)
+			{
+				ib[i] = k - 1;
+				ib[i + 1] = k + stripX;
+				i += 2;
+			}
+		}
+	}
+
+	vertexBuffer = new BfmeDynamicNativeVB(
+		DX8_FVF_XYZDUV1,
+		(UnsignedShort)(stripX * stripY * WATER_VB_PAGES),
+		BfmeDynamicNativeVB::USAGE_DYNAMIC, 0);
+	batch = 0;
+}
 
 // tu-skeleton: 0x000FE1AC 91B ?rva000FE1AC@WaterTracksRenderSystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000FE1ACUpdate.cpp (not merged yet)
 
-// tu-skeleton: 0x000FE207 137B ?findTrack@WaterTracksRenderSystem@@QAEPAUFeNode@@PBM0H@Z -- matched in Code/GameEngine/Source/Common/WaterTracksRenderSystem_findTrack.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/WaterTracksRenderSystem_findTrack.cpp
+
+inline FeNode *WaterTracksRenderSystem::findTrack(const float *a, const float *b, int c)
+{
+	FeNode *node = m_tail10;
+	while (node != 0)
+	{
+		unsigned char d1 = (node->m_60 == b[0]) ? 1 : 0;
+		unsigned char a1 = (node->m_64 == b[1]) ? 1 : 0;
+		if ((d1 & a1) != 0)
+		{
+			unsigned char d2 = (node->m_58 == a[0]) ? 1 : 0;
+			unsigned char a2 = (node->m_5c == a[1]) ? 1 : 0;
+			if ((d2 & a2) != 0)
+			{
+				if (node->m_30 == c)
+					return node;
+			}
+		}
+		node = node->m_next;
+	}
+	return 0;
+}
+
+// Select-any: W3DWaterTracks.cpp compiles an identical copy; the anchor keeps the rowed body emitted.
+// ?bfmeAnchorRva000FE207Find absent-from-retail
+void bfmeAnchorRva000FE207Find(WaterTracksRenderSystem *waterTracksRenderSystem) { waterTracksRenderSystem->findTrack(0, 0, 0); }
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracks.cpp
 
@@ -436,30 +629,6 @@ void WaterTracksObj::init(float width,float length,Vector2 &start,Vector2 &end,c
  timeToCompress*=GetGameClientRandomValueReal(0.5f,1.1f,randomFile,245);
  if(type==5) {timeToRetreat=1000;totalMs=timeToBeach+timeToStop+fadeMs+timeToRetreat;startPos=start;fadeMs=1000;}
  texture=TextureAsset::Get(textureName,0,0);
-}
-
-// Retail 0x000FE207, rowed in WaterTracksRenderSystem_findTrack.cpp; this select-any copy shows loadTracks
-// that the search keeps no endpoint address.
-inline FeNode *WaterTracksRenderSystem::findTrack(const float *a, const float *b, int c)
-{
-	FeNode *node = m_tail10;
-	while (node != 0)
-	{
-		unsigned char d1 = (node->m_60 == b[0]) ? 1 : 0;
-		unsigned char a1 = (node->m_64 == b[1]) ? 1 : 0;
-		if ((d1 & a1) != 0)
-		{
-			unsigned char d2 = (node->m_58 == a[0]) ? 1 : 0;
-			unsigned char a2 = (node->m_5c == a[1]) ? 1 : 0;
-			if ((d2 & a2) != 0)
-			{
-				if (node->m_30 == c)
-					return node;
-			}
-		}
-		node = node->m_next;
-	}
-	return 0;
 }
 
 void Rva0007E90ECallee::rva000FF5E6(int filename)
@@ -585,8 +754,6 @@ Rva000FE9E3PointBounds *Rva000FE9E3PointBounds::rva000FE9E3(Vector3 *points, int
     return this;
 }
 
-// tu-skeleton: 0x000FE8FC 17B ?rva000FE8FC@WaterTracksRenderSystem@@QAEXPAUFeNode@@@Z -- matched in Code/GameEngine/Source/Common/Rva000FE001Move.cpp (not merged yet)
-
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemCtor.cpp
 
 // BF1 WaterTracksRenderSystem source and native new(0x2c) at 7FD0D
@@ -637,10 +804,6 @@ void WaterTracksRenderSystem::init()
   m_head14=mod;
  }
 }
-
-// tu-skeleton: 0x000FE9C7 28B ??_GRva000FE9C7@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaDeletingDtorBatch01.cpp (not merged yet)
-
-// tu-skeleton: 0x000FEADB 2413B ?render@WaterTracksObj@@QAEHPAVDX8VertexBufferClass@@HAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksObjRender.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush.cpp
 
@@ -726,6 +889,26 @@ void Rva000FF50D::saveTracks()
 	}
 }
 
+// tu-skeleton: 0x000FE9C7 28B ??_GRva000FE9C7@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/RvaDeletingDtorBatch01.cpp (not merged yet)
+
+// tu-skeleton: 0x000FEADB 2413B ?render@WaterTracksObj@@QAEHPAVDX8VertexBufferClass@@HAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksObjRender.cpp (not merged yet)
+
 // tu-skeleton: 0x000FF8FA 1875B ?TestWaterUpdate@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0010004D 392B ?flush@WaterTracksRenderSystem@@QAEXAAVRenderInfoClass@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/WaterTracksRenderSystemFlush_Flush.cpp (not merged yet)
+
+// tu-skeleton: 0x007640C8 8B Unwind@00b640c8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640D0 8B Unwind@00b640d0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640D8 8B Unwind@00b640d8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640E0 8B Unwind@00b640e0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640E8 8B Unwind@00b640e8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640F0 8B Unwind@00b640f0 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x007640F8 8B Unwind@00b640f8 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00764100 10B __ehhandler$?TestWaterUpdate@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Water/W3DWaterTracksTestUpdate.cpp (not merged yet)
