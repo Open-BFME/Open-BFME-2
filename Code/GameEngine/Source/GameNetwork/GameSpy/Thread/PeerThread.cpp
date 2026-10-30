@@ -184,7 +184,15 @@ namespace _STL { template <> unsigned short * __uninitialized_copy<unsigned shor
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
 // Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int); }
+// Keep _STLP_alloc_proxy<char*>::allocate inline-only: retail inlines it, so the
+// rowed caller ??$append@PAD@..@@AAEAAV01@PAD0ABUforward_iterator_tag@1@@Z (0x0001B3E0)
+// calls allocator<char>::allocate (0x000307F0) directly at +0x5A, and this unit's own
+// out-of-line copy would be a body retail has nowhere.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+char * _STLP_alloc_proxy<char*, char, allocator<char> >::allocate(size_t __n)
+{ return allocator<char>::allocate(__n, 0); }
+}
 // Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
 // out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
 namespace _STL {
