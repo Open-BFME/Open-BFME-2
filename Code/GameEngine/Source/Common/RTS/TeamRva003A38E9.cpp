@@ -6,6 +6,7 @@
 // Team+48 agrees with the matched state query 003A3717. Lookup/erase are
 // already rowed; 003A3763..003A37DC RET4 supplies the mapped-byte address.
 #include "ascii_string.h"
+#include "../../../Include/Common/TeamBFME2.h"
 class Rva00056F61;
 struct Rva0041534BIter
 {
@@ -26,24 +27,15 @@ struct VideoPair
  VideoPair(const VideoPair &other) { s.first = other.s.first; s.second = other.s.second; }
 };
 class Rva000427195 { public: void rva003A37DC(VideoPair cursor); };
-class Team
-{
-public:
- void rva003A38E9(const AsciiString &keyName, unsigned char stateWord);
-private:
- char m_beforeStates[0x48];
- Rva00056F61 m_states;
-};
-
 void Team::rva003A38E9(const AsciiString &keyName, unsigned char stateWord)
 {
  const AsciiString *key = &keyName;
- Rva0041534BIter cursor = m_states.rva0041534B(key);
+ Rva0041534BIter cursor = ((Rva00056F61 *)m_opaque48)->rva0041534B(key);
  if (cursor.m_node)
  {
   if ((unsigned char)stateWord == 0)
-   ((Rva000427195 *)&m_states)->rva003A37DC(VideoPair(cursor));
+   ((Rva000427195 *)m_opaque48)->rva003A37DC(VideoPair(cursor));
  }
  else if ((unsigned char)stateWord == 1)
-  *m_states.rva003A3763(key) = true;
+  *((Rva00056F61 *)m_opaque48)->rva003A3763(key) = true;
 }
