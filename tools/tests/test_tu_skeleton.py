@@ -1,5 +1,6 @@
 """tu_skeleton's merge lane: verified flags, redefinition repair, repointing and claims."""
 import contextlib
+import os
 import re
 import sys
 import tempfile
@@ -438,6 +439,18 @@ class DonorTests(unittest.TestCase):
         self.assertFalse(tu_map.homeless(row(ev="inlined"), "?f@@YAXXZ"))     # a whole token only
         self.assertFalse(tu_map.homeless(row(kind="data:.rdata", ev="inline")))
 
+    def test_the_seed_is_found_through_a_case_variant_spelling(self):
+        # reverse/tu_map.csv approves Code/T.cpp; the checkout and the ledger spell the
+        # same file Code/t.cpp (WW3D2/FXShaderSetup.cpp against fxshadersetup.cpp), and
+        # its unplaced row must still mark it the seed, not a mixed donor.
+        don, mixed, _ = self.donors([("?t@@YAXXZ", 0x1000, "Code/t.cpp"),
+                                     ("?u@@YAXXZ", 0x1100, "Code/t.cpp"),
+                                     ("?a@@YAXXZ", 0x1010, "Code/A.cpp")],
+                                    {0x1000: self.TU, 0x1010: self.TU})
+        self.assertEqual(mixed, {})
+        self.assertEqual(sorted(don), ["Code/A.cpp", "Code/t.cpp"])
+        self.assertEqual(len(don["Code/t.cpp"]), 2)
+
 
 class FoldAliasSplitTests(unittest.TestCase):
     """--split: an ICF alias only the carved bodies emitted rides with them."""
@@ -515,6 +528,57 @@ class FoldAliasSplitTests(unittest.TestCase):
         with patch.dict(T._CACHE, {"ledger": [owner], "approved_at": {0x7000: "Code/W.cpp"},
                                    "by_file": {self.SOURCE: [alias]}}, clear=True):
             self.assertEqual(list(T.breakdown(self.SOURCE)), ["Code/W.cpp"])
+
+
+class CaseVariantTuTests(unittest.TestCase):
+    """A TU whose map spelling and checkout spelling differ only in case is one file."""
+
+    def test_the_tree_spelling_wins_and_no_file_is_renamed(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "WW3D2").mkdir()
+            (root / "WW3D2/fxshadersetup.cpp").write_text("int t() { return 0; }\n")
+            self.assertEqual(T.tu_path("WW3D2/FXShaderSetup.cpp", root), "WW3D2/fxshadersetup.cpp")
+            # no file in the tree yet: the map's spelling is what the merge writes
+            self.assertEqual(T.tu_path("WW3D2/FXShaderParameter.cpp", root), "WW3D2/FXShaderParameter.cpp")
+            self.assertEqual(sorted(p.name for p in (root / "WW3D2").iterdir()), ["fxshadersetup.cpp"])
+
+    def test_the_merge_works_on_the_file_the_tree_has(self):
+        tu, file_ = "Code/Lib/T.cpp", "Code/lib/t.cpp"
+        ledger = [{"name": "?t@@YAXXZ", "export_rva": "", "target_rva": "0x1000", "target_size": "8",
+                   "source": file_, "status": "matched", "notes": ""},
+                  {"name": "?a@@YAXXZ", "export_rva": "", "target_rva": "0x1010", "target_size": "8",
+                   "source": "Code/A.cpp", "status": "matched", "notes": ""}]
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "Code/lib").mkdir(parents=True)
+            (root / "Code/lib/t.cpp").write_text("int t() { return 0; }\n")
+            (root / "Code/A.cpp").write_text("int a() { return 1; }\n")
+            T._CACHE.clear()
+            T._CACHE["ledger"] = ledger
+            T._CACHE["map"] = [{"rva": "0x1000", "size": "8", "kind": "code", "tu": tu,
+                                "confidence": "approved", "by": "-", "evidence": "", "source": ""},
+                               {"rva": "0x1010", "size": "8", "kind": "code", "tu": tu,
+                                "confidence": "approved", "by": "-", "evidence": "", "source": ""}]
+            T._CACHE["stale"] = False
+            seen = {}
+
+            def fake_merge(tu_, sk, don, report, dry_run, **kw):
+                seen.update(tu=tu_, don=don)
+                return report
+            try:
+                with patch.object(T, "ROOT", root), patch.object(T, "refusal", return_value=None), \
+                        patch.object(T, "_merge", side_effect=fake_merge):
+                    report = T.merge(tu, dry_run=True)
+            finally:
+                T._CACHE.clear()
+            # one spelling on disk: the merge wrote the file the tree has, not a second one
+            self.assertEqual(sorted(p.name for p in (root / "Code").iterdir()), ["A.cpp", "lib"])
+            self.assertEqual([p.name for p in (root / "Code/lib").iterdir()], ["t.cpp"])
+        self.assertEqual(seen["tu"], file_)
+        self.assertEqual(sorted(seen["don"]), ["Code/A.cpp", file_])
+        self.assertEqual(report["tu"], tu)              # the map's spelling still names the TU
+        self.assertEqual(report["tu_file"], file_)
 
 
 class ComposePreprocessorTests(unittest.TestCase):
@@ -597,12 +661,13 @@ class VerifierCacheTests(unittest.TestCase):
         v = T.Verifier.__new__(T.Verifier)
         v.tu, v.tmp = root / "T.cpp", root
         v.cache, v.errors, v.all_errors, v.sm = {}, [], [], {}
+        v.timeout = 30
         v.effective = lambda text, rows: text
         v.fd = SimpleNamespace(forced_mode=lambda mode: contextlib.nullcontext())
         compiled = {}
         calls = []
 
-        def compile_source(src, obj):
+        def compile_source(src, obj, timeout=None):
             text = src.read_text()
             calls.append(text)
             compiled[obj] = text
@@ -665,9 +730,48 @@ class VerifierCacheTests(unittest.TestCase):
             v.tu = Path(tmp) / "lapi.c"
             seen = []
             compile_source = v.B.try_compile_source
-            v.B.try_compile_source = lambda src, obj: (seen.append(src.suffix), compile_source(src, obj))[1]
+            v.B.try_compile_source = lambda src, obj, timeout=None: (
+                seen.append(src.suffix), compile_source(src, obj))[1]
             self.assertEqual(v.matched("exact", self.ROWS), {"0x1000"})
             self.assertEqual(seen, [".c"])
+
+    def test_a_killed_compile_is_refused_as_a_compile_timeout(self):
+        # cl.exe under Wine can spin forever on a composed candidate; build kills the
+        # tree at the wall-clock limit and reports TIMEOUT_STATUS, which is a refusal
+        # (never an acceptance) and is cached, so the 10-minute wait is paid once.
+        with tempfile.TemporaryDirectory() as tmp:
+            v, _ = self.verifier(Path(tmp))
+            timeouts = []
+            v.B.try_compile_source = lambda src, obj, timeout=None: (
+                timeouts.append(timeout), (False, "\ncompile timed out after 30 s\n", 124))[1]
+            self.assertIsNone(v.matched("hangs", self.ROWS))
+            self.assertEqual((v.errors, v.all_errors), (["compile timeout"], ["compile timeout"]))
+            self.assertIsNone(v.matched("hangs", self.ROWS))
+            self.assertEqual(timeouts, [30])
+            self.assertEqual(T.redefined(v.all_errors), set())
+
+
+class CompileTimeoutTests(unittest.TestCase):
+    """The trial-compile limit: default, environment knob and validation."""
+
+    def test_the_limit_has_a_default_and_reads_its_environment_knob(self):
+        with patch.dict(os.environ, {}, clear=False):
+            os.environ.pop("BFME_COMPILE_TIMEOUT", None)
+            self.assertEqual(T.compile_timeout(), T.COMPILE_TIMEOUT)
+        with patch.dict(os.environ, {"BFME_COMPILE_TIMEOUT": " 90 "}):
+            self.assertEqual(T.compile_timeout(), 90.0)
+        for bad in ("0", "-5", "ten"):
+            with patch.dict(os.environ, {"BFME_COMPILE_TIMEOUT": bad}):
+                with self.assertRaises(ValueError):
+                    T.compile_timeout()
+
+    def test_the_default_is_far_past_every_real_compile_and_short_of_the_hangs(self):
+        # Measured on the boat toolchain (dd-71, 2026-10-30): 397 trial compiles of
+        # FirewallHelper.cpp ran p50 0.37 s, p90 1.62 s, p99 2.74 s, max 3.64 s, and a
+        # 10-job box is ~3x slower (~12 s). The shortest observed hang lasted 2,196 s
+        # (build/fleet/bulk/cl_hang_evidence.txt).
+        self.assertGreaterEqual(T.COMPILE_TIMEOUT, 10 * 12)
+        self.assertLess(T.COMPILE_TIMEOUT, 2196)
 
 
 class RepointTests(unittest.TestCase):
@@ -905,6 +1009,29 @@ class MergeDiagnosticsTests(unittest.TestCase):
         apply.assert_not_called()
         self.assertTrue(out["blocked"].startswith("the accepted donors did not re-verify (compile"))
         self.assertIn("C1001", out["blocked"])
+
+    def test_a_candidate_whose_compile_times_out_is_refused_with_that_reason(self):
+        # The trial compile was killed at the limit: there are no diagnostics to quote,
+        # so the refusal says why, and nothing is accepted.
+        tu, donor = "Code/T.cpp", "Code/A.cpp"
+        texts = {tu: "seed", donor: "donor"}
+        don = {tu: [{"target_rva": "0x1000"}], donor: [{"target_rva": "0x1010"}]}
+
+        class Verifier:
+            fd = SimpleNamespace(MANAGED=re.compile(r"(?!)"), overrides=lambda: {})
+            errors = ["compile timeout"]
+            all_errors = errors
+
+            def matched(self, text, rows):
+                return {r["target_rva"] for r in rows} if text in texts.values() else None
+
+        with patch.object(T, "Verifier", return_value=Verifier()), \
+                patch.object(T, "compose", return_value="composed"), \
+                patch.object(T, "apply") as apply:
+            out = T._merge(tu, [], don, {"accepted": [], "rejected": {}}, True, texts=texts)
+        self.assertEqual(out["rejected"], {tu: "compile timeout", donor: "compile timeout"})
+        self.assertEqual(out["accepted"], [])
+        apply.assert_not_called()
 
 
 class StrategySkipTests(unittest.TestCase):

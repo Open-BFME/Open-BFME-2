@@ -9,6 +9,7 @@ import json
 import os
 import re
 import shutil
+import signal
 import struct
 import subprocess
 import sys
@@ -2384,7 +2385,58 @@ def _sidecar_version(output):
         return None
 
 
-def try_compile_source(source, output, *, input_proof=None, inventory=False):
+TIMEOUT_STATUS = 124   # a compile killed at its wall-clock limit reports GNU timeout's status
+
+
+def kill_process_tree(process):
+    """Kill `process`, everything it launched, and reap it.
+
+    The compiler runs in its own session, so its process group is the whole
+    tree (Wine's loader, cl.exe and anything they spawned) and nothing else: a
+    wineserver started beforehand (`wineserver -p`) or one that daemonized
+    itself has left the group and keeps serving. Native Windows has no groups
+    here and the compiler is one process, so it is killed directly.
+
+    This is census_receipts' `_kill_tree` (ported from Open-BFME-1 with the
+    preprocessor timeout): a compile needs the same kill, and build cannot
+    import census_receipts, which imports build.
+    """
+    if os.name == "posix":
+        try:
+            os.killpg(process.pid, signal.SIGKILL)
+        except ProcessLookupError:
+            pass
+    else:
+        process.kill()
+    process.wait()
+
+
+def _run_compile(command, env, log, timeout=None):
+    """subprocess.run for one compiler invocation, with an optional wall-clock limit.
+
+    cl.exe under Wine can spin forever on some composed inputs (50-115 min at
+    100% CPU, no diagnostic), so a caller that composes its own candidates
+    bounds each compile. Past the limit the tree is killed and the run reports
+    TIMEOUT_STATUS, which the caller takes as its ordinary failed-compile path.
+    """
+    if not timeout:
+        return subprocess.run(command, cwd=ROOT, env=env, stdin=subprocess.DEVNULL,
+                              stdout=log, stderr=subprocess.STDOUT)
+    process = subprocess.Popen(command, cwd=ROOT, env=env, stdin=subprocess.DEVNULL,
+                               stdout=log, stderr=subprocess.STDOUT, start_new_session=True)
+    try:
+        returncode = process.wait(timeout=timeout)
+    except subprocess.TimeoutExpired:
+        kill_process_tree(process)
+        log.write(f"\ncompile timed out after {timeout:g} s\n")
+        return subprocess.CompletedProcess(command, TIMEOUT_STATUS)
+    except BaseException:      # interrupted: never leave the compiler running
+        kill_process_tree(process)
+        raise
+    return subprocess.CompletedProcess(command, returncode)
+
+
+def try_compile_source(source, output, *, input_proof=None, inventory=False, timeout=None):
     """Compile `source` to `output`. Return (ok, filtered_output, returncode).
 
     `inventory` (link_census --build) records Open-BFME-1's include search
@@ -2392,7 +2444,9 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False):
     witnesses the compile's actual inputs for a TU whose sidecar cannot carry
     that proof; either asks for a census-grade receipt. The sidecar of the
     previous compile is dropped first, so a failed compile never leaves it able
-    to bless the old object.
+    to bless the old object. `timeout` bounds one compiler invocation in
+    seconds (None: no limit), for callers whose candidates may hang the
+    compiler.
     """
     output.parent.mkdir(parents=True, exist_ok=True)
     inventory = inventory or input_proof is not None
@@ -2424,14 +2478,7 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False):
         # replaced, so it never aborts the compile or loses the message. A
         # named file, as in wine_path: Wine 8 loses output to an unnamed one
         with tempfile.NamedTemporaryFile("w+", errors="replace") as log:
-            result = subprocess.run(
-                command + (["-showIncludes"] if is_cl else []),
-                cwd=ROOT,
-                env=env,
-                stdin=subprocess.DEVNULL,
-                stdout=log,
-                stderr=subprocess.STDOUT,
-            )
+            result = _run_compile(command + (["-showIncludes"] if is_cl else []), env, log, timeout)
             log.seek(0)
             stdout = log.read()
         filtered = "\n".join(l for l in stdout.splitlines() if not l.startswith("Note: including file:"))

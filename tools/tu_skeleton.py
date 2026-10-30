@@ -519,13 +519,19 @@ def donors(tu, sk):
         for r in rows:
             _CACHE["by_file"][r["source"]].append(r)
     by_file = _CACHE["by_file"]
+    # The file the TU's rows are filed under: reverse/tu_map.csv names the TU, but a
+    # checkout or the ledger can spell the same path in another case, and the two
+    # spellings are one file (never renamed, never written twice).
+    if "by_file_ci" not in _CACHE:
+        _CACHE["by_file_ci"] = {k.lower(): k for k in by_file}
     # Unconverted rows are approved too now; a generated or dump file (gen_uw.py owns
     # gen_small end to end) is a placeholder for the address, never a donor to absorb.
     cands = {led["source"] for t, led in sk
              if led and led["status"] == "matched" and led["source"].endswith(".cpp")
              and not re.search(r"/(gen_small|gen_asm|masm_dumps)/", led["source"])}
-    if by_file.get(tu):
-        cands.add(tu)
+    seed = tu if tu in by_file else _CACHE["by_file_ci"].get(tu.lower())
+    if seed:
+        cands.add(seed)
     out, mixed, refused = {}, {}, {}
     for f in sorted(cands):
         own = [r for r in by_file[f] if r["status"] == "matched" and "gen-alias" not in (r["notes"] or "")]
@@ -545,7 +551,7 @@ def donors(tu, sk):
         rider = {id(r) for r in own if where[id(r)] is None and (
             r["name"] in free or parent_of(r, dtors) in free and not names_other_tu(r, unplaced, tu))}
         foreign = [r for r in own if where[id(r)] != tu.lower() and not fold_alias(r)
-                   and not (where[id(r)] is None and (f == tu or id(r) in rider))]
+                   and not (where[id(r)] is None and (f.lower() == tu.lower() or id(r) in rider))]
         # what a donor moves must be approved here: the row itself when the map places it,
         # and a companion's parent
         ok = {r["name"]: approved.get(int(r["target_rva"], 16)) for r in own}
@@ -554,13 +560,13 @@ def donors(tu, sk):
             p = parent_of(r, dtors)
             return ((mine[id(r)] is None or ok[r["name"]] == tu.lower())
                     and not (p and p in ok and ok[p] != tu.lower()))
-        unapproved = [] if f == tu else [r for r in own if where[id(r)] == tu.lower() and not approved_here(r)]
+        unapproved = [] if f.lower() == tu.lower() else [r for r in own if where[id(r)] == tu.lower() and not approved_here(r)]
         if foreign:
             mixed[f] = len(foreign)
         elif unapproved:
             refused[f] = f"{len(unapproved)} row(s) not approved for this TU (only approved rows move)"
         elif own:
-            why = refusal(f, by_file[f]) if f != tu else None
+            why = refusal(f, by_file[f]) if f.lower() != tu.lower() else None
             if why:
                 refused[f] = why
             else:
@@ -808,6 +814,27 @@ def compose(tu, sk, files, texts, flags, strategy, drop=frozenset(), drop_all=fr
 
 
 # ---------------------------------------------------------------- verify
+# A trial compile that spins must be refused, not waited on: cl.exe under Wine
+# ran 50-115 min at 100% CPU on some composed candidates with no diagnostic
+# (build/fleet/bulk/REPORT.md, 2026-10-30). The limit is far past every real
+# compile and well short of the shortest observed hang.
+COMPILE_TIMEOUT = 600.0   # seconds; BFME_COMPILE_TIMEOUT overrides it
+TIMEOUT_REASON = "compile timeout"   # a candidate whose compile was killed is refused, never accepted
+
+
+def compile_timeout():
+    value = os.environ.get("BFME_COMPILE_TIMEOUT", "").strip()
+    if not value:
+        return COMPILE_TIMEOUT
+    try:
+        seconds = float(value)
+    except ValueError:
+        seconds = 0
+    if seconds <= 0:
+        raise ValueError(f"BFME_COMPILE_TIMEOUT must be a positive number of seconds, not {value!r}")
+    return seconds
+
+
 class Verifier:
     """Compiles candidate TU texts beside the TU and judges rows as build.sh does.
 
@@ -833,6 +860,7 @@ class Verifier:
         self.tu = ROOT / tu
         self.tmp = ROOT / "build" / "tu_skeleton"   # build.py wants objects inside the tree
         self.tmp.mkdir(parents=True, exist_ok=True)
+        self.timeout = compile_timeout()
         self.cache = {}
         self.errors = []
         self.all_errors = []
@@ -888,13 +916,18 @@ class Verifier:
             src.write_text(text, encoding="utf-8", newline="")
             try:
                 with contextlib.redirect_stdout(io.StringIO()), self.fd.forced_mode("current"):
-                    ok, msg, _ = self.B.try_compile_source(src, obj)
+                    ok, msg, code = self.B.try_compile_source(src, obj, timeout=self.timeout)
             finally:
                 src.unlink()
                 for d in reversed(made):
                     if not any(d.iterdir()):
                         d.rmdir()
-            errors = [] if ok else [l.strip() for l in (msg or "").splitlines() if " error " in l]
+            if ok:
+                errors = []
+            elif code == getattr(self.B, "TIMEOUT_STATUS", 124):
+                errors = [TIMEOUT_REASON]     # the compile was killed: no diagnostics, and no acceptance
+            else:
+                errors = [l.strip() for l in (msg or "").splitlines() if " error " in l]
             # attempt() uses redefinition diagnostics to choose its next text.
             # A cached failure must restore its own errors, not the last trial's.
             self.cache[key] = (obj if ok else None, errors)
@@ -1682,7 +1715,17 @@ ACCRETE_MAX = 64
 def merge(tu, dry_run=False, log=print, claim=True):
     sk = skeleton(tu)
     don, mixed, refused = donors(tu, sk)
-    report = {"tu": tu, "approved": len(sk), "mixed": mixed, "refused": refused, "accepted": [], "rejected": {}}
+    # The map's spelling names the TU; the file the tree has is the one to write. A
+    # checkout can spell that path in another case (the map's `WW3D2/FXShaderSetup.cpp`
+    # against a `WW3D2/fxshadersetup.cpp` holding its rows), and writing the map's
+    # spelling beside it would collide with itself, so the merge works on the file's
+    # spelling and never renames the file.
+    canonical, tu = tu, tu_path(tu)
+    if not (ROOT / tu).exists():        # no file in the tree: the ledger's own spelling
+        tu = next((f for f in list(don) + list(mixed) if f.lower() == canonical.lower()), canonical)
+    report = {"tu": canonical, "approved": len(sk), "mixed": mixed, "refused": refused, "accepted": [], "rejected": {}}
+    if tu != canonical:
+        report["tu_file"] = tu
     queued = header_queue_rows()
     adopt = {f: sorted(set(queued[f])) for f in don if f in queued}
     if adopt:
@@ -1851,8 +1894,11 @@ def _merge(tu, sk, don, report, dry_run, texts=None, applier=None, guard=None):
         return f"link: {whose}; the merged object would not: " + "; ".join(link_why[tuple(files)][:3])[:300]
 
     def reject_reason(res, errors, files, f):
-        return (link_reason(files, f) if res == "link"
-                else res + ("" if res == "bytes" else ": " + " | ".join(errors)[:300]))
+        if res == "link":
+            return link_reason(files, f)
+        if errors == [TIMEOUT_REASON]:      # a killed compile is no diagnostic list to quote
+            return TIMEOUT_REASON
+        return res + ("" if res == "bytes" else ": " + " | ".join(errors)[:300])
 
     tried = {}
 
@@ -2482,6 +2528,17 @@ def ci_path(root, rel):
     return "/".join(out)
 
 
+def tu_path(tu, root=None):
+    """`tu` as the tree spells the file, or `tu` itself when the tree has none.
+
+    reverse/tu_map.csv names a TU, but a checkout can hold the same path in
+    another case (`WW3D2/fxshadersetup.cpp` for the map's
+    `WW3D2/FXShaderSetup.cpp`); the two spellings are one file, matched
+    case-insensitively, and it is never renamed, so the merge seeds from and
+    writes the file the tree has."""
+    return ci_path(ROOT if root is None else root, tu) or tu
+
+
 def file_rows(path):
     if "by_file" not in _CACHE:
         donors("", [])   # fills by_file / assigned
@@ -2584,6 +2641,10 @@ def split(path, tu, dry_run=False, claim=True):
     if why:
         report["blocked"] = why
         return report
+    report["tu"] = tu                    # the map's spelling names the TU ...
+    tu = tu_path(tu)                     # ... and the file the tree has is the one written beside it
+    if tu != report["tu"]:
+        report["tu_file"] = tu
     text = text0
     spans = def_spans(text)
     all_ids = identify(rows, spans, span_scopes(text, spans))   # every row of the file, not just this TU's
