@@ -77,7 +77,6 @@ Code/GameEngine/Source/Common/BfmeConv1500.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1501.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1502.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1503.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1559.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1720.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv2109.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv803.cpp,,4,2,region default loses rows
@@ -550,6 +549,7 @@ Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,2,2,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,5,5,region default loses rows
 Code/Libraries/Source/Fesl/servicehub.cpp,-O2,3,3,region default loses rows
+Code/Libraries/Source/Fesl/transactor.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Fesl/util.cpp,,4,4,region default loses rows
 Code/Libraries/Source/Lua/lapi.c,,51,1,region default loses rows
 Code/Libraries/Source/Lua/lauxlib.c,,20,1,region default loses rows
