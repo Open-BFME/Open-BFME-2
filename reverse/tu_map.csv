@@ -41645,7 +41645,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004E324D,135,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E32D5 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x004E32D5,29,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E32F2 provisional,Code/GameEngine/Source/Common/Rva004E32D5Ctor.cpp
 0x004E32F2,14,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3300 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
-0x004E3300,130,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3383 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineCameraParseINIBlock.cpp
+0x004E3300,130,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E3184..0x004E3383 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x004E3383,302,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffect.cpp provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp
 0x004E34B1,242,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffect.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectSubObjectColor.cpp
 0x004E35A3,12,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,C,C=0x004E34B1..0x004E35AF provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
@@ -82393,7 +82393,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00791D8F,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E324D@FuncInfo0x00944134 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791D97,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E324D@FuncInfo0x00944134 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignObjects.cpp
 0x00791DA1,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E3300@FuncInfo0x00944158 provisional,Code/gen_small/uw_gen_005.cpp
-0x00791DA9,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E3300@FuncInfo0x00944158 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineCameraParseINIBlock.cpp
+0x00791DA9,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E3300@FuncInfo0x00944158 provisional,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp
 0x00791DB3,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E3383@FuncInfo0x0094417C provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp
 0x00791DBB,10,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E3383@FuncInfo0x0094417C provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectRva004E3383.cpp
 0x00791DC5,8,code,Code/Libraries/Source/WWVegas/WWLib/SpawnArmy.cpp,approved,P,P=0x004E34B1@FuncInfo0x009441A0 provisional,Code/GameEngine/Source/GameLogic/LivingWorld/SplineEffectSubObjectColor.cpp
