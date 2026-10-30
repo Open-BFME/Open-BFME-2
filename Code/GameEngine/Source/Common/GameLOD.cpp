@@ -20,6 +20,7 @@ extern "C" unsigned int __cdecl strlen(const char *text);
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
+
 #endif
 #define PROFILE_ERROR_LIMIT	0.94f	//fraction of profiled result needed to get a match.  Allows some room for error/fluctuation.
 //
@@ -122,17 +123,6 @@ extern const char *CPUNames[];
 static char *VideoNames[] = 
 {
 	"XX","V2","V3","V4","V5","TNT","TNT2","GF2","R100","PS11","GF3","GF4","PS14","R200","PS20","R300", NULL
-};
-
-// parseReallyLowMHz lives in GameLODMHzParsers.cpp with the verified BFME 2 offset.
-
-// parseAudioLowMHz lives in GameLODMHzParsers.cpp with the verified BFME 2 offset.
-
-// ABI shim for target helper 0x0020200D; this type name is inferred.
-// Retail bounds/increments count at +0x17C0 and returns a 20-byte profile.
-struct RetailBenchProfileAllocator
-{
-	BenchProfile *newBenchProfile();
 };
 
 /**Parse a description of all the LOD settings for a given detail level*/
@@ -559,9 +549,29 @@ const char *bfmeTabEYC[2] = { "Low", "High" };
 
 Bool bfmeRva000387C0(void);
 
+class RetailBenchProfileAllocator
+{
+public:
+	char m_padBeforeProfiles[0x1614];
+	BenchProfile m_benchProfiles[16];
+	char m_padAfterProfiles[0x6C];
+	int m_numBenchProfiles;
+	BenchProfile* newBenchProfile();
+};
+
 // tu-skeleton: 0x00201EAC 353B ??0GameLODManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00201DC4LODDefaults.cpp (not merged yet)
 
-// tu-skeleton: 0x0020200D 30B ?newBenchProfile@RetailBenchProfileAllocator@@QAEPAUBenchProfile@@XZ -- matched in Code/GameEngine/Source/Common/GameLODNewBenchProfile.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/GameLODNewBenchProfile.cpp
+
+BenchProfile* RetailBenchProfileAllocator::newBenchProfile()
+{
+	if (m_numBenchProfiles < 16)
+	{
+		m_numBenchProfiles++;
+		return &m_benchProfiles[m_numBenchProfiles];
+	}
+	return 0;
+}
 
 // tu-skeleton: 0x0020202B 45B ?newLODPreset@GameLODManager@@QAEPAULODPresetInfo@@W4StaticGameLODLevel@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManager_newLODPreset.cpp (not merged yet)
 
@@ -570,6 +580,8 @@ Bool bfmeRva000387C0(void);
 // tu-skeleton: 0x00202244 165B ?rva00202244@Rva00DFE144Globals@@QAEXHPAVOptionPreferences@@@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerRva00202244.cpp (not merged yet)
 
 // tu-skeleton: 0x002022E9 707B ?rva002022E9@Rva00DFE144Globals@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODApplyPreset.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/GameLOD.cpp
 
 // ---- from Code/GameEngine/Source/Common/GameLOD.cpp
 
@@ -740,10 +752,6 @@ void Rva00202633::rva00202633(int level)
 	*(int *)((char *)this + 0x179c) = *(int *)((char *)this + level * 16 + 0x1d4);
 }
 
-// tu-skeleton: 0x00202678 40B ?getAudioLODLevelName@GameLODManager@@QAEPBDH@Z -- matched in Code/GameEngine/Source/Common/Rva00202678Get.cpp (not merged yet)
-
-// tu-skeleton: 0x002026A0 20B ?findAudioLODLevel@GameLODManager@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002026B4Audio.cpp
 
 void __cdecl Rva002026B4Audio()
@@ -751,10 +759,6 @@ void __cdecl Rva002026B4Audio()
 	if (TheAudio != 0)
 		reinterpret_cast<Rva002026B4AudioView*>(TheAudio)->_slot98();
 }
-
-// tu-skeleton: 0x002026C7 7B ?get@Rva002026C7ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002026CE 6B ?rva002026CE@Rva002026CE@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00202739StaticLOD.cpp
 
@@ -795,12 +799,6 @@ void Rva00202790::rva00202790(int v)
 	m_1770 = v;
 	Rva002026B4Audio();
 }
-
-// tu-skeleton: 0x002027B1 57B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
-
-// tu-skeleton: 0x002027EA 864B ?init@GameLODManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
-
-// tu-skeleton: 0x00202B4A 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@V1@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00202B6CGet.cpp
 
@@ -868,6 +866,20 @@ Int GameLODManager::getAudioLODIndex(const AsciiString &name)
 
 	return -1;
 }
+
+// tu-skeleton: 0x00202678 40B ?getAudioLODLevelName@GameLODManager@@QAEPBDH@Z -- matched in Code/GameEngine/Source/Common/Rva00202678Get.cpp (not merged yet)
+
+// tu-skeleton: 0x002026A0 20B ?findAudioLODLevel@GameLODManager@@QBEHXZ -- matched in Code/GameEngine/Source/Common/GameLODManager_findAudioLODLevel.cpp (not merged yet)
+
+// tu-skeleton: 0x002026C7 7B ?get@Rva002026C7ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002026CE 6B ?rva002026CE@Rva002026CE@@QAEPAHXZ -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002027B1 57B ??0?$pair@$$CBVAsciiString@@V1@@_STL@@QAE@ABVAsciiString@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
+
+// tu-skeleton: 0x002027EA 864B ?init@GameLODManager@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GameLODManagerInit.cpp (not merged yet)
+
+// tu-skeleton: 0x00202B4A 34B ?_M_create_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@ABU?$pair@$$CBVAsciiString@@V1@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
 // tu-skeleton: 0x00202CF8 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@V1@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
