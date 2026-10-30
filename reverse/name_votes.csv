@@ -18134,3 +18134,12 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0010461FCtor.cpp|local|Rva0
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|param|Rva001040D5::rva0010473F|x,35b58c2c692103601728b489,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|param|Rva001040D5::rva0010473F|y,f50bd050ef6d7e37ccc079e9,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001049C7AddTriangle.cpp|local|Rva001040D5::rva00104956|p,34934b893f7f7b648352da1f,drz-k8,drz-k8-308,w-87ae7cdc64ef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpdateShadowMap.cpp|class||Rva0007DC01ShadowMethod,c1aa9f29942a99365764aefb,drz-k10,drz-k10-300,w-88a32c4f7da7,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp|local|W3DAptComponentView3D::Render|w,1d6810348eb1b1f5100e57e7,drz-k7,drz-k7-300,w-4471b1f6edef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3D.cpp|local|W3DAptComponentView3D::Render|h,8121c99b76adb70f15327215,drz-k7,drz-k7-300,w-4471b1f6edef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp|local|Rotate_Y|s,c94b9ea586bebdcc3e52d4a8,drz-k7,drz-k7-301,w-4471b1f6edef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentView3DSetup.cpp|local|Rotate_Z|c,4c73c7f5cd818599432c1782,drz-k7,drz-k7-301,w-4471b1f6edef,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp|local|Rva00107E76Elem::rva00106D56|q,15eb880bb3386d6dcc9236cc,drz-k10,drz-k10-301,w-88a32c4f7da7,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainTrackEdgeInfoO1.cpp|param|BfmeTrackEdgeInfoAnchor::anchor|e,41c0c1b79bfbe2036f92f88e,drz-k10,drz-k10-303,w-88a32c4f7da7,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/TerrainTrackEdgeInfoO1.cpp|param|Rva00083CD7Owner::rva00083CD7|p,3ce85cb50f74cab7571a87cc,drz-k10,drz-k10-303,w-88a32c4f7da7,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/RTS3DSceneGetADynamicLight.cpp|local|PeekLight|p,780b51a9e5a0470267cb8331,drz-k7,drz-k7-306,w-4471b1f6edef,2026-10-30
