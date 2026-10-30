@@ -8014,10 +8014,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00106A19,20,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A2D provisional,Code/GameEngine/Source/Common/R2ZeroingConstructors.cpp
 0x00106A2D,47,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x0010694B..0x00106A5C provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106A5C,109,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
-0x00106AC9,256,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106A5C..0x00106BC9 provisional,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp
+0x00106AC9,256,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,C,C=0x00106A5C..0x00106BC9 provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106BC9,176,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeB996Range.cpp provisional,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106C79,37,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,proposed,K,K=Rva00106C79Holder,Code/GameEngine/Source/Common/Rva00106C79Check.cpp
-0x00106C9E,78,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,proposed,K,K=Rva00106AC9,Code/GameEngine/Source/Common/Rva00106AC9Loader.cpp
+0x00106C9E,78,code,Code/GameEngine/Source/Common/BfmeB996Range.cpp,proposed,K,K=Rva00106AC9,Code/GameEngine/Source/Common/BfmeB996Range.cpp
 0x00106CEC,4,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 0x00106CF0,102,code,,,-,W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2.cpp,Code/GameEngine/Source/Common/Rva00106CF0RangeFilter.cpp
 0x00106D56,539,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2.cpp,proposed,K,K=Rva00107E76Elem noncontiguous,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DVolumetricShadowV2BuildBuffers.cpp
