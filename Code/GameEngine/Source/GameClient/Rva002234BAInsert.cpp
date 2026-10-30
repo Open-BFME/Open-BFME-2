@@ -42,12 +42,12 @@ private:
 	unsigned int m_numElements;
 };
 
-_STL::pair<const AsciiString, NoCaseTreeValue4> *Rva000427195::rva002234BA(const _STL::pair<const AsciiString, NoCaseTreeValue4> *arg)
+_STL::pair<const AsciiString, NoCaseTreeValue4> *Rva000427195::rva002234BA(const _STL::pair<const AsciiString, NoCaseTreeValue4> *entry)
 {
 	rva00212858(m_numElements + 1);
-	int bucket = bucketIndex(&arg->first);
+	int bucket = bucketIndex(&entry->first);
 	void *old = m_beginBuckets[bucket];
-	void *node = ((Rva002230FF *)this)->rva002230FF(arg);
+	void *node = ((Rva002230FF *)this)->rva002230FF(entry);
 	*(void **)node = old;
 	m_beginBuckets[bucket] = node;
 	++m_numElements;

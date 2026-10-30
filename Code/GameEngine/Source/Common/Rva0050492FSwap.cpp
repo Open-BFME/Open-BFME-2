@@ -30,53 +30,53 @@ struct Rva0050492F
 void Rva0050492F::rva0050492F(Rva0050492F *other)
 {
 	{
-		int &a = m_0;
-		int &b = other->m_0;
-		int t = a;
-		a = b;
-		b = t;
+		int &lhs = m_0;
+		int &rhs = other->m_0;
+		int t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		int &a = m_4;
-		int &b = other->m_4;
-		int t = a;
-		a = b;
-		b = t;
+		int &lhs = m_4;
+		int &rhs = other->m_4;
+		int t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		int &a = m_18;
-		int &b = other->m_18;
-		int t = a;
-		a = b;
-		b = t;
+		int &lhs = m_18;
+		int &rhs = other->m_18;
+		int t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		float &a = m_1c;
-		float &b = other->m_1c;
-		float t = a;
-		a = b;
-		b = t;
+		float &lhs = m_1c;
+		float &rhs = other->m_1c;
+		float t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		float &a = m_20;
-		float &b = other->m_20;
-		float t = a;
-		a = b;
-		b = t;
+		float &lhs = m_20;
+		float &rhs = other->m_20;
+		float t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		float &a = m_24;
-		float &b = other->m_24;
-		float t = a;
-		a = b;
-		b = t;
+		float &lhs = m_24;
+		float &rhs = other->m_24;
+		float t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	{
-		float &a = m_28;
-		float &b = other->m_28;
-		float t = a;
-		a = b;
-		b = t;
+		float &lhs = m_28;
+		float &rhs = other->m_28;
+		float t = lhs;
+		lhs = rhs;
+		rhs = t;
 	}
 	m_vec.swap(other->m_vec);
 }

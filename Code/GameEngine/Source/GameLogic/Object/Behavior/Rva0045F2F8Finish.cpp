@@ -41,6 +41,6 @@ unsigned char Rva0045F2F8::rva0045F2F8(float maxSelfTaskersRatio)
     int ret = ((int (__fastcall *)(void *))((void ***)inner)[0][0x23C / 4])(inner);
     if (ret != 2)
         return 0;
-    float f = (float)m_38 / (float)m_34;
-    return maxSelfTaskersRatio > f ? 1 : 0;
+    float currentRatio = (float)m_38 / (float)m_34;
+    return maxSelfTaskersRatio > currentRatio ? 1 : 0;
 }

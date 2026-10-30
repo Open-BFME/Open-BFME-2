@@ -4217,3 +4217,4 @@ __ehhandler$?rva0004E5A2@W3DRadar@@QAEXHHHHH@Z,0x0075D490,"Renamed to __ehhandle
 ?rva0055A8F2@ScoredKillTracker@@QAEXABVRva00360D26Member@@@Z,0x0055A8F2,"Renamed to ?setFilter@ScoredKillTracker@@QAEXABVRva00360D26Member@@@Z by tools/rename.py (inferred)"
 ?rva005F64C0@Rva005F64C0@@QAEXH@Z,0x005F64C0,"Renamed to ?setLeaderRank@Rva005F64C0@@QAEXH@Z by tools/rename.py (inferred)"
 ??1Rva00307EDCFileCloser@@QAE@XZ,0x00306EF5,"Renamed to ??1FileCloser@@QAE@XZ by tools/rename.py (inferred)"
+?rva002E7F3E@Rva002E7F1E@@QBE_NXZ,0x002E7F3E,"Renamed to ?isNotEmpty@Rva002E7F1E@@QBE_NXZ by tools/rename.py (inferred)"

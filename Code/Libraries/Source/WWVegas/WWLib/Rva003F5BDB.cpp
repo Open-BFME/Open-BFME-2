@@ -63,11 +63,11 @@ void LivingWorldBattle::rva003F5BDB(void *a, _STL::vector<ScienceType> *out)
 		return;
 	for (unsigned int i = 0; i < r->m_04.size(); ++i)
 	{
-		Rva003F5BDBElem *e = r->m_04[i];
-		if ((char)e->m_78->rva003F3F83())
+		Rva003F5BDBElem *element = r->m_04[i];
+		if ((char)element->m_78->rva003F3F83())
 		{
-			ScienceType tmp = e->m_20;
-			out->push_back(tmp);
+			ScienceType science = element->m_20;
+			out->push_back(science);
 		}
 	}
 }

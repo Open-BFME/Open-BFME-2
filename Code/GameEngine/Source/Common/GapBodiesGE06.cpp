@@ -163,7 +163,7 @@ class Rva002E7F1E
 public:
 	Rva002E7F1E();
 	void clear();
-	bool rva002E7F3E() const;
+	bool isNotEmpty() const;
 private:
 	char m_buffer[0x800];
 	int m_head;												// +0x800
@@ -180,7 +180,7 @@ void Rva002E7F1E::clear()
 	m_head = 0;
 }
 
-bool Rva002E7F1E::rva002E7F3E() const
+bool Rva002E7F1E::isNotEmpty() const
 {
 	return m_head != m_tail;
 }

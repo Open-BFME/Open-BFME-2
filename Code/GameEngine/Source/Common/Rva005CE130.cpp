@@ -40,11 +40,11 @@ public:
 void StrategicInGameUI::PlanningPhaseBuildingSelection::NotifyBuildingAboutToBeDestroyedByUI(int arg)
 {
 	(void)arg;
-	Rva004E05F0 *p = m_region;
-	Rva003F1093 *f1 = p->m_24;
+	Rva004E05F0 *region = m_region;
+	Rva003F1093 *f1 = region->m_24;
 	if (f1 == 0)
 		return;
-	CreateAHeroData *createAHeroData = p->rva004E05F0();
+	CreateAHeroData *createAHeroData = region->rva004E05F0();
 	if (createAHeroData == 0)
 		return;
 	Rva005E683EMid *outer = (Rva005E683EMid *)this;

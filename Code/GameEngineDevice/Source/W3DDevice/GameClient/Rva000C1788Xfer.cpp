@@ -49,7 +49,7 @@ class Rva000BFDFE { public: void rva000C0386(); };
 class Rva000C1788
 {
 public:
-	void rva000C1788(void *arg);
+	void rva000C1788(void *xfer);
 private:
 	char m_pad00[0x44];
 	XferNode1 *m_44;		// +0x44
@@ -80,7 +80,7 @@ public:
 class Xfer;
 Xfer *Rva003062FEXfer(Xfer *xfer, float *vals);
 
-void Rva000C1788::rva000C1788(void *arg)
+void Rva000C1788::rva000C1788(void *xfer)
 {
 	if (m_44 == 0)
 		return;
@@ -101,6 +101,6 @@ void Rva000C1788::rva000C1788(void *arg)
 		s10.set(m_104->b02());
 		value = m_108;
 	}
-	((XferChain *)Rva003062FEXfer((Xfer *)((XferChain *)arg)->xferInt(&flag)->xferAsciiString(&s18), block))
+	((XferChain *)Rva003062FEXfer((Xfer *)((XferChain *)xfer)->xferInt(&flag)->xferAsciiString(&s18), block))
 		->xferAsciiString(&s10)->xferReal(&value);
 }

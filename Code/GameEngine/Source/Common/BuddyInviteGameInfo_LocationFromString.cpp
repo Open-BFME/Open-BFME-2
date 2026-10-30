@@ -26,10 +26,10 @@ struct BuddyInviteGameInfo
 void BuddyInviteGameInfo::LocationFromString(const AsciiString &asciiString)
 {
 	void *h = *(void *const *)&asciiString;
-	const char *t = h != 0 ? (const char *)h + 8 : "";
+	const char *text = h != 0 ? (const char *)h + 8 : "";
 	const char *s = h != 0 ? (const char *)h + 8 : "";
 	sscanf(s, "%d %d %d", &m_04, &m_08, &m_14);
-	const char *pw = strstr(t, " PW:");
+	const char *pw = strstr(text, " PW:");
 	const char *host = strstr(pw, " #HOST:");
 	if (pw == 0 || host == 0) {
 		m_10.clear();

@@ -18,7 +18,7 @@ public:
 	CreateAHeroData *rva00219251(int, int, int, const UnicodeString &, int, int, int);
 };
 
-CreateAHeroData *Rva00219251::rva00219251(int a1, int a2, int a3, const UnicodeString &unicodeString, int a5, int a6, int a7)
+CreateAHeroData *Rva00219251::rva00219251(int a1, int a2, int a3, const UnicodeString &unicodeString, int a5, int color, int a7)
 {
-	return new CreateAHeroData(a1, a2, a3, unicodeString, a5, a6, a7);
+	return new CreateAHeroData(a1, a2, a3, unicodeString, a5, color, a7);
 }

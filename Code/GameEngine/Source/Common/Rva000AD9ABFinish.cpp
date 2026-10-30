@@ -73,8 +73,8 @@ void Rva000AD9AB::rva000AD9AB(int x, int y, bool value)
 namespace _STL { void __cdecl fill(unsigned char *, unsigned char *, const unsigned char &); }
 void Rva000AD9AB::rva000AD9FE()
 {
-	unsigned char tmp = 0;
-	_STL::fill(m_bits.m_begin, m_bits.m_end, tmp);
+	unsigned char fillValue = 0;
+	_STL::fill(m_bits.m_begin, m_bits.m_end, fillValue);
 }
 
 // ?rva000ADB89@Rva000AD9AB@@QAEXHH_N@Z @0x000ADB89 90B: bit setter on the

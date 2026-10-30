@@ -7,9 +7,9 @@
 // Callers (2 at 0x005960C5 etc.) pass a holder; unblocks 2 with 1 ready.
 // Prev is deleting dtor, next is derived ctor; /O1 gives xor+inc and and/or idioms.
 typedef int Int;
-Int __stdcall Rva00596095Get(void *arg)
+Int __stdcall Rva00596095Get(void *holder)
 {
-	void *inner = *(void **)((char *)arg + 4);
+	void *inner = *(void **)((char *)holder + 4);
 	if ((((unsigned char *)inner)[0x10E] & 0x40) == 0 &&
 		(((unsigned char *)inner)[0x108] & 0x80) == 0 &&
 		(((unsigned char *)inner)[0x11F] & 0x80) != 0)
@@ -26,9 +26,9 @@ Int __stdcall Rva00596095Get(void *arg)
 // at 0x00596156 and 0x00596302 pass holder; __stdcall ret 4 with xor+inc.
 class Object;
 bool __cdecl rva004884B7(Object *obj);
-Int __stdcall Rva005960FFGet(void *arg)
+Int __stdcall Rva005960FFGet(void *holder)
 {
-	void *inner = *(void **)((char *)arg + 4);
+	void *inner = *(void **)((char *)holder + 4);
 	if ((((unsigned char *)inner)[0x10E] & 0x40) == 0)
 	{
 		unsigned int flags = *(unsigned int *)((char *)inner + 0x108);
@@ -36,7 +36,7 @@ Int __stdcall Rva005960FFGet(void *arg)
 			((((unsigned char *)inner)[0x11F] & 0x80) == 0) &&
 			(((flags & 8) != 0) ||
 				((((unsigned char *)inner)[0x113] & 4) != 0) ||
-				(((flags & 0x4000) != 0) && !rva004884B7((Object *)arg))))
+				(((flags & 0x4000) != 0) && !rva004884B7((Object *)holder))))
 		{
 			return 1;
 		}
@@ -50,9 +50,9 @@ Int __stdcall Rva005960FFGet(void *arg)
 // ecx&0x40000==0 and [0x114]&edx==0 for 1, else 0.
 // Evidence: mov eax[esp+4] mov eax[eax+4] mov ecx[exa+10c] test chain with
 // edx 0x1000000; callers at 0x00596553 and 0x00596640; __stdcall ret 4.
-Int __stdcall Rva005964ECGet(void *arg)
+Int __stdcall Rva005964ECGet(void *holder)
 {
-	void *inner = *(void **)((char *)arg + 4);
+	void *inner = *(void **)((char *)holder + 4);
 	unsigned int bitfields = *(unsigned int *)((char *)inner + 0x10C);
 	unsigned int denom = 0x1000000;
 	if (((bitfields & 0x400000) == 0 ||
@@ -73,9 +73,9 @@ Int __stdcall Rva005964ECGet(void *arg)
 // [0x10E]&0x44==0 and [0x108]&0x80!=0 and [0x120]&0x10!=0 for 1, else 0.
 // Evidence: mov eax[esp+4] mov eax[eax+4] test chain; callers at 0x00596476
 // and 0x00596495; __stdcall ret 4 with xor+inc.
-Int __stdcall Rva00596446Get(void *arg)
+Int __stdcall Rva00596446Get(void *holder)
 {
-	void *inner = *(void **)((char *)arg + 4);
+	void *inner = *(void **)((char *)holder + 4);
 	if ((((unsigned char *)inner)[0x10E] & 0x44) == 0 &&
 		(((unsigned char *)inner)[0x108] & 0x80) != 0 &&
 		(((unsigned char *)inner)[0x120] & 0x10) != 0)

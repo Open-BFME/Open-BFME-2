@@ -742,7 +742,7 @@ class Rva002E7F1E
 public:
 	Rva002E7F1E();
 	void clear();
-	bool rva002E7F3E() const;
+	bool isNotEmpty() const;
 private:
 	char m_buffer[0x800];
 	int m_head;												// +0x800

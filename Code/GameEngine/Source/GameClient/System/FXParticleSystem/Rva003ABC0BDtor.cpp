@@ -21,8 +21,8 @@ public:
 }
 FXParticleSystem::Rva005FEA50Base::~Rva005FEA50Base()
 {
-	unsigned char *b1C = this ? (unsigned char *)this + 0x1C : 0;
-	reinterpret_cast<Snapshot *>(b1C)->Snapshot::~Snapshot();
+	unsigned char *snapshot = this ? (unsigned char *)this + 0x1C : 0;
+	reinterpret_cast<Snapshot *>(snapshot)->Snapshot::~Snapshot();
 }
 
 // Rva0055F9B4 (ctor 0x0055F9B4, Rva0055F9B4Ctor.cpp): its vtable 0x00C1D688 slot 0
@@ -35,8 +35,8 @@ public:
 };
 Rva0055F9B4::~Rva0055F9B4()
 {
-	unsigned char *b1C = this ? (unsigned char *)this + 0x1C : 0;
-	reinterpret_cast<Snapshot *>(b1C)->Snapshot::~Snapshot();
+	unsigned char *snapshot = this ? (unsigned char *)this + 0x1C : 0;
+	reinterpret_cast<Snapshot *>(snapshot)->Snapshot::~Snapshot();
 }
 
 // Rva0055F197 (ctor 0x0055F197, Rva003ABD20Ctor.cpp): its vtable 0x00C1D654
@@ -49,8 +49,8 @@ public:
 };
 Rva0055F197::~Rva0055F197()
 {
-	unsigned char *b1C = this ? (unsigned char *)this + 0x1C : 0;
-	reinterpret_cast<Snapshot *>(b1C)->Snapshot::~Snapshot();
+	unsigned char *snapshot = this ? (unsigned char *)this + 0x1C : 0;
+	reinterpret_cast<Snapshot *>(snapshot)->Snapshot::~Snapshot();
 }
 
 // Rva003ABC6E's native constructor calls the Rva003AEA42 provider;
@@ -62,12 +62,12 @@ public:
 };
 Rva003AEA42::~Rva003AEA42()
 {
-    unsigned char *b1C = this ? (unsigned char *)this + 0x1C : 0;
-    reinterpret_cast<Snapshot *>(b1C)->Snapshot::~Snapshot();
+    unsigned char *snapshot = this ? (unsigned char *)this + 0x1C : 0;
+    reinterpret_cast<Snapshot *>(snapshot)->Snapshot::~Snapshot();
 }
 
 class __declspec(novtable) Rva0055BF4B : public Rva003AEEB3 { public: virtual ~Rva0055BF4B(); };
 Rva0055BF4B::~Rva0055BF4B() {
- unsigned char *b1C = this ? (unsigned char *)this + 0x1C : 0;
- reinterpret_cast<Snapshot *>(b1C)->Snapshot::~Snapshot();
+ unsigned char *snapshot = this ? (unsigned char *)this + 0x1C : 0;
+ reinterpret_cast<Snapshot *>(snapshot)->Snapshot::~Snapshot();
 }

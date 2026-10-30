@@ -185,17 +185,17 @@ void Rva0070E900::rva0070E900(void *pBase,void *pConstantFile,void *pCount) {
 
 int BfmeF1034::bfmeGo1034F(int k)
 {
-	BfmeN1034 *n = (BfmeN1034 *)((Rva0070B380 *)m_bfmeTab)->lookup(*(const EAStringC *)k);
+	BfmeN1034 *entry = (BfmeN1034 *)((Rva0070B380 *)m_bfmeTab)->lookup(*(const EAStringC *)k);
 
-	if (n != 0)
-		return n->bfmeVal1034();
+	if (entry != 0)
+		return entry->bfmeVal1034();
 
 	return -1;
 }
 
 // ---- from Code/Libraries/Source/Apt/Rva0070EDC0.cpp
 
-template<class T> inline T *shift(T *p,int delta){return (T*)((char*)p-delta);}
+template<class T> inline T *shift(T *pointer,int delta){return (T*)((char*)pointer-delta);}
 
 void Rva0070EDC0::rva0070EDC0(int delta,void *context) {
  for(int i=0;i<count;++i){

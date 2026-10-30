@@ -108,7 +108,7 @@ class Object
 public:
 	__forceinline Bool isKindOf(KindOfType t) const { return m_template->isKindOf(t); }
 	Bool isAirborneTarget() const { return ((m_status >> 6) & 1) != 0; }
-	__forceinline Bool bfme_isKindOf_wpx(KindOfType t) const { return m_template->bfme_isKindOf_wpx(t); }
+	__forceinline Bool bfme_isKindOf_wpx(KindOfType kind) const { return m_template->bfme_isKindOf_wpx(kind); }
 	Bool bfme_isAirborneTarget_wpx() const { return ((m_status >> 6) & 1) != 0; }
 	const Coord3D *getPosition() const { return &m_pos; }
 	AIUpdateInterface *getAI() { return m_ai; }

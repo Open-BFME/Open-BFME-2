@@ -34,12 +34,12 @@ public:
 	Rva0056AB35Helper *m_10;
 	int m_14;
 	unsigned char m_18;
-	void rva0056AB35(int arg);
+	void rva0056AB35(int id);
 };
 
-void Rva0056ACC5::rva0056AB35(int arg)
+void Rva0056ACC5::rva0056AB35(int id)
 {
-	if (m_14 != arg)
+	if (m_14 != id)
 		return;
 	*(volatile unsigned char *)&m_10->m_20 = 0;
 	{

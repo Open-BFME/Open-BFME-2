@@ -212,13 +212,13 @@ Int Rva000C4069::getPristineBonePositionsForConditionState(
 	((Rva000C3886*)stateToUse)->rva000C3886(robj,((const Rva000788D3FloatField *)getDrawable())->get(),(Rva000C3886Range*)&getW3DModelDrawModuleData()->m_extraPublicBones,(Rva000C3886Obj*)boneState,(void*)drawBones);
 
 	const int MAX_BONE_GET = 64;
-	static Matrix3D tmpMtx[MAX_BONE_GET];
+	static Matrix3D fallbackTransforms[MAX_BONE_GET];
 
 	if (maxBones > MAX_BONE_GET)
 		maxBones = MAX_BONE_GET;
 
 	if (transforms == NULL)
-		transforms = tmpMtx;
+		transforms = fallbackTransforms;
 
 	Int posCount = 0;
 	Int endIndex = (startIndex == 0) ? 0 : 99;
@@ -231,9 +231,9 @@ Int Rva000C4069::getPristineBonePositionsForConditionState(
 		else
 			sprintf(buffer, "%s%02d", boneNamePrefix, i);
 
-		for (char *c = buffer; c && *c; ++c)
+		for (char *character = buffer; character && *character; ++character)
 		{
-			*c = tolower(*c);
+			*character = tolower(*character);
 		}
 
 		const Matrix3D *mtx = (const Matrix3D*)((const Rva000BBDDF*)boneState)->rva000BBDDF(NAMEKEY(buffer), NULL);

@@ -29,12 +29,12 @@ struct Rva005686F5Elem
 	AsciiString m_04;
 };
 
-void *__stdcall rva005686F5(const Rva005686F5Elem *e)
+void *__stdcall rva005686F5(const Rva005686F5Elem *element)
 {
 	if (TheLargeGroupAudio == 0)
 		return 0;
-	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(e->m_00);
+	void *item = reinterpret_cast<Rva0020DB91 *>(TheLargeGroupAudio)->rva0020DB91(element->m_00);
 	if (item == 0)
 		return 0;
-	return ((Rva003EE083 *)item)->rva003EE083(e->m_04);
+	return ((Rva003EE083 *)item)->rva003EE083(element->m_04);
 }

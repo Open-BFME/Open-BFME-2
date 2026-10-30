@@ -68,17 +68,17 @@ struct Rva005F5B0FB
 };
 // WorldBuilder StrategicInGameUI::SendCancelUpgradeMessages, WB VA 0x0162A780 (callgraph lead, score 2.0).
 namespace StrategicInGameUI {
-void __cdecl SendCancelUpgradeMessages(Rva005F5B0FA *a, Rva005F5B0FB *b)
+void __cdecl SendCancelUpgradeMessages(Rva005F5B0FA *owner, Rva005F5B0FB *upgrades)
 {
-	Rva0040CB3AIndexedField *field = a->m_78;
-	_STL::_Rb_tree_node_base *header = b->m_tree;
+	Rva0040CB3AIndexedField *field = owner->m_78;
+	_STL::_Rb_tree_node_base *header = upgrades->m_tree;
 	_STL::_Rb_tree_node_base *node = header->_M_left;
 	for (; node != header; node = _STL::_Rb_global<bool>::_M_increment(node))
 	{
 		if (*(int *)(field->get(*(int *)((char *)node + 16)) + 0xbc) != 0)
 		{
 			GameMessage *msg = TheMessageStream->CreateMessage(0x6c0);
-			msg->appendIntegerArgument(a->m_20);
+			msg->appendIntegerArgument(owner->m_20);
 			msg->appendIntegerArgument(*(int *)((char *)node + 16));
 		}
 	}

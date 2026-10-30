@@ -58,12 +58,12 @@ extern "C" const void *const vtbl_00C6D160[15] = {
 class Rva0056AF94
 {
 public:
-	Rva0056AF94(void *arg);
+	Rva0056AF94(void *owner);
 };
 
-Rva0056AF94::Rva0056AF94(void *arg)
+Rva0056AF94::Rva0056AF94(void *owner)
 {
-	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)arg);
+	((Rva0056AC26 *)this)->Rva0056AC26::Rva0056AC26((Rva0056AC26Owner *)owner);
 	*(unsigned int *)this = ((unsigned int)vtbl_00C6D19C);
 	*(unsigned int *)((char *)this + 8) = ((unsigned int)vtbl_00C6D160);
 }

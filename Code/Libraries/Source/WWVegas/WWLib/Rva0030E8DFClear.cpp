@@ -16,8 +16,8 @@ struct RvaVector {
 	void **m_end;
 	void **m_cap;
 	void **erase(void **first, void **last);
-	void rva0030E910(unsigned n, float value);
-	void rva0030E94F(unsigned n);
+	void rva0030E910(unsigned newSize, float value);
+	void rva0030E94F(unsigned newSize);
 };
 class Rva0030E8DF {
 public:
@@ -44,13 +44,13 @@ void Rva0030E8DF::rva0030E8DF()
 // storage view; float selects the observed MOVSS copy, without naming the
 // unresolved application element type. BFME1 IntVectorResizeThunk is the
 // semantic donor lead; target calls are erase31BD55 and fill30E7FE.
-void RvaVector::rva0030E910(unsigned n, float value)
+void RvaVector::rva0030E910(unsigned newSize, float value)
 {
-	if (n < (unsigned)(m_end - m_begin))
-		((_STL::vector<void *> *)this)->erase(m_begin + n, m_end);
+	if (newSize < (unsigned)(m_end - m_begin))
+		((_STL::vector<void *> *)this)->erase(m_begin + newSize, m_end);
 	else
 		((_STL::vector<float> *)this)->_M_fill_insert(
-			(float *)m_end, n - (m_end - m_begin), value);
+			(float *)m_end, newSize - (m_end - m_begin), value);
 }
 
 // Native30E94F..30E961 follows the complete63B resize above and endsRET4
@@ -59,7 +59,7 @@ void RvaVector::rva0030E910(unsigned n, float value)
 // Whole BF1f989 Common/Rva001DC500ArgFlagForwarders.cpp underO1/SSE2/G6
 // supplies the same zero-fill wrapper guide. Original owner and element
 // identity remain unknown; this reuses the existing raw storage receiver.
-void RvaVector::rva0030E94F(unsigned n)
+void RvaVector::rva0030E94F(unsigned newSize)
 {
-    rva0030E910(n, 0.0f);
+    rva0030E910(newSize, 0.0f);
 }

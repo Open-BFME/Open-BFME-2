@@ -22,18 +22,18 @@ bool Rva0030D111Contains(Rva0030D111Shape *shape,const Coord2D *point) {
  Rva0030D111Region bounds;
  reinterpret_cast<Rva0007E02A*>(shape)->rva0007E02A(&bounds);
  if(!(bounds.x0 > point->x || bounds.y0 > point->y || point->x > bounds.x1 || point->y > bounds.y1)) {
- int n=shape->count();bool inside=false;
- for(int i=0;i<n;++i) {
-  Rva0030D111Point a,b;
-  reinterpret_cast<Rva0007E016*>(shape)->rva0007E016(reinterpret_cast<int>(&a),i);
-  reinterpret_cast<Rva0007E016*>(shape)->rva0007E016(reinterpret_cast<int>(&b),i>0?i-1:n-1);
-  if(a.y == b.y)continue;
-  if(point->x > a.x && point->x > b.x)continue;
-  if(a.y > b.y)Rva0030B343Swap(a,b);
-  if(point->y > b.y || a.y >= point->y)continue;
-  float dy=b.y-a.y;
-  float lhs=(point->y-a.y)*(b.x-a.x);
-  float rhs=(point->x-a.x)*dy;
+ int vertexCount=shape->count();bool inside=false;
+ for(int i=0;i<vertexCount;++i) {
+  Rva0030D111Point edgeStart,b;
+  reinterpret_cast<Rva0007E016*>(shape)->rva0007E016(reinterpret_cast<int>(&edgeStart),i);
+  reinterpret_cast<Rva0007E016*>(shape)->rva0007E016(reinterpret_cast<int>(&b),i>0?i-1:vertexCount-1);
+  if(edgeStart.y == b.y)continue;
+  if(point->x > edgeStart.x && point->x > b.x)continue;
+  if(edgeStart.y > b.y)Rva0030B343Swap(edgeStart,b);
+  if(point->y > b.y || edgeStart.y >= point->y)continue;
+  float dy=b.y-edgeStart.y;
+  float lhs=(point->y-edgeStart.y)*(b.x-edgeStart.x);
+  float rhs=(point->x-edgeStart.x)*dy;
   if(lhs>=rhs) inside=!inside;
  }
  return inside;
@@ -48,11 +48,11 @@ bool Rva0030D111Contains(Rva0030D111Shape *shape,const Coord2D *point) {
 // literal; a double compare folds it to a qword). Scoping that local and the
 // test result to a block keeps retail's SSE allocation for the hit point.
 // Owner and names remain address-derived.
-static inline float Rva0030D241Dot(const Coord3D &a,const Coord3D &b) {
- float x=a.x*b.x;
- float y=a.y*b.y;
+static inline float Rva0030D241Dot(const Coord3D &left,const Coord3D &right) {
+ float x=left.x*right.x;
+ float y=left.y*right.y;
  float xy=x+y;
- float z=a.z*b.z;
+ float z=left.z*right.z;
  return xy+z;
 }
 bool Rva0030D241Intersect(Rva0030D111Shape *shape,const Coord3D *origin,

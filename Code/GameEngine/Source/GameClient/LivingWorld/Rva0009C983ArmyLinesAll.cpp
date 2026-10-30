@@ -34,11 +34,11 @@ struct Rva0009C983LogicView
 class Rva0009C983
 {
 public:
-	void rva0009C983(Int arg);
+	void rva0009C983(Int renderInfo);
 	void rva0009C814(Int arg, Rva002E2903Player *player);
 };
 
-void Rva0009C983::rva0009C983(Int arg)
+void Rva0009C983::rva0009C983(Int renderInfo)
 {
 	Rva0009C983LogicView *logic = reinterpret_cast<Rva0009C983LogicView *>(TheLivingWorldLogic);
 	if (logic == 0)
@@ -50,6 +50,6 @@ void Rva0009C983::rva0009C983(Int arg)
 	{
 		Rva002E2903Player *player = reinterpret_cast<Rva002BA8F1Logic *>(TheLivingWorldLogic)->GetPlayerAtIndex(i);
 		if (player)
-			rva0009C814(arg, player);
+			rva0009C814(renderInfo, player);
 	}
 }

@@ -54,7 +54,7 @@ template <class T> struct _Nonconst_traits
 struct _List_iterator_base
 {
 	_List_node_base *_M_node;
-	_List_iterator_base(_List_node_base *x) : _M_node(x) {}
+	_List_iterator_base(_List_node_base *node) : _M_node(node) {}
 	void _M_incr() { _M_node = _M_node->_M_next; }
 	bool operator==(const _List_iterator_base &y) const { return _M_node == y._M_node; }
 	// Always inlined here; the rowed out-of-line copy is stlport_list_int.cpp's.
@@ -63,7 +63,7 @@ struct _List_iterator_base
 template <class T, class Traits> struct _List_iterator : public _List_iterator_base
 {
 	_List_iterator(_List_node_base *n) : _List_iterator_base(n) {}
-	_List_iterator(const _List_iterator &x) : _List_iterator_base(x._M_node) {}
+	_List_iterator(const _List_iterator &other) : _List_iterator_base(other._M_node) {}
 	T &operator*() const { return ((_List_node<T> *)_M_node)->_M_data; }
 	_List_iterator &operator++() { this->_M_incr(); return *this; }
 };
@@ -82,14 +82,14 @@ template <class InputIter, class T> __declspec(noinline) InputIter find(InputIte
 }
 template <class InputIter> inline Int __distance(const InputIter &first, const InputIter &last)
 {
-	Int n = 0;
+	Int count = 0;
 	InputIter it(first);
 	while (it != last)
 	{
 		++it;
-		++n;
+		++count;
 	}
-	return n;
+	return count;
 }
 template <class InputIter> inline Int distance(const InputIter &first, const InputIter &last)
 {

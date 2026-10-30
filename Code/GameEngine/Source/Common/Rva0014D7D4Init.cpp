@@ -45,10 +45,10 @@ void Rva0014D7D4This::rva0014D7D4(Rva0014D7D4Outer *o, void *parameter) {
 		if (thisIdx < cnt) {
 			int idx = le->findPoint(thisIdx);
 			Rva0014D7D4Diffuse *diffs = (Rva0014D7D4Diffuse *)((char *)le + 0x5c);
-			Rva0014D7D4Diffuse *d = &diffs[idx];
-			buf[0] = d->m_d00;
-			buf[1] = d->m_d04;
-			buf[2] = d->m_d08;
+			Rva0014D7D4Diffuse *lightDiffuse = &diffs[idx];
+			buf[0] = lightDiffuse->m_d00;
+			buf[1] = lightDiffuse->m_d04;
+			buf[2] = lightDiffuse->m_d08;
 			if (ShaderOverbrightEnabled) {
 				buf[0] *= 2.0f;
 				buf[1] *= 2.0f;

@@ -64,63 +64,63 @@ class Matrix3D
 public:
 	__forceinline void Rotate_X(float theta)
 	{
-		float tmp1, tmp2;
+		float oldY, tmp2;
 		float s, c;
 
 		s = sinf(theta);
 		c = cosf(theta);
 
-		tmp1 = Row[0][1]; tmp2 = Row[0][2];
-		Row[0][1] = (float)( c*tmp1 + s*tmp2);
-		Row[0][2] = (float)(-s*tmp1 + c*tmp2);
+		oldY = Row[0][1]; tmp2 = Row[0][2];
+		Row[0][1] = (float)( c*oldY + s*tmp2);
+		Row[0][2] = (float)(-s*oldY + c*tmp2);
 
-		tmp1 = Row[1][1]; tmp2 = Row[1][2];
-		Row[1][1] = (float)( c*tmp1 + s*tmp2);
-		Row[1][2] = (float)(-s*tmp1 + c*tmp2);
+		oldY = Row[1][1]; tmp2 = Row[1][2];
+		Row[1][1] = (float)( c*oldY + s*tmp2);
+		Row[1][2] = (float)(-s*oldY + c*tmp2);
 
-		tmp1 = Row[2][1]; tmp2 = Row[2][2];
-		Row[2][1] = (float)( c*tmp1 + s*tmp2);
-		Row[2][2] = (float)(-s*tmp1 + c*tmp2);
+		oldY = Row[2][1]; tmp2 = Row[2][2];
+		Row[2][1] = (float)( c*oldY + s*tmp2);
+		Row[2][2] = (float)(-s*oldY + c*tmp2);
 	}
 	__forceinline void Rotate_Y(float theta)
 	{
-		float tmp1, tmp2;
+		float oldX, tmp2;
 		float s, c;
 
 		s = sinf(theta);
 		c = cosf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][2];
-		Row[0][0] = (float)(c*tmp1 - s*tmp2);
-		Row[0][2] = (float)(s*tmp1 + c*tmp2);
+		oldX = Row[0][0]; tmp2 = Row[0][2];
+		Row[0][0] = (float)(c*oldX - s*tmp2);
+		Row[0][2] = (float)(s*oldX + c*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][2];
-		Row[1][0] = (float)(c*tmp1 - s*tmp2);
-		Row[1][2] = (float)(s*tmp1 + c*tmp2);
+		oldX = Row[1][0]; tmp2 = Row[1][2];
+		Row[1][0] = (float)(c*oldX - s*tmp2);
+		Row[1][2] = (float)(s*oldX + c*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][2];
-		Row[2][0] = (float)(c*tmp1 - s*tmp2);
-		Row[2][2] = (float)(s*tmp1 + c*tmp2);
+		oldX = Row[2][0]; tmp2 = Row[2][2];
+		Row[2][0] = (float)(c*oldX - s*tmp2);
+		Row[2][2] = (float)(s*oldX + c*tmp2);
 	}
 	__forceinline void Rotate_Z(float theta)
 	{
-		float tmp1, tmp2;
+		float oldX, tmp2;
 		float c, s;
 
 		c = cosf(theta);
 		s = sinf(theta);
 
-		tmp1 = Row[0][0]; tmp2 = Row[0][1];
-		Row[0][0] = (float)( c*tmp1 + s*tmp2);
-		Row[0][1] = (float)(-s*tmp1 + c*tmp2);
+		oldX = Row[0][0]; tmp2 = Row[0][1];
+		Row[0][0] = (float)( c*oldX + s*tmp2);
+		Row[0][1] = (float)(-s*oldX + c*tmp2);
 
-		tmp1 = Row[1][0]; tmp2 = Row[1][1];
-		Row[1][0] = (float)( c*tmp1 + s*tmp2);
-		Row[1][1] = (float)(-s*tmp1 + c*tmp2);
+		oldX = Row[1][0]; tmp2 = Row[1][1];
+		Row[1][0] = (float)( c*oldX + s*tmp2);
+		Row[1][1] = (float)(-s*oldX + c*tmp2);
 
-		tmp1 = Row[2][0]; tmp2 = Row[2][1];
-		Row[2][0] = (float)( c*tmp1 + s*tmp2);
-		Row[2][1] = (float)(-s*tmp1 + c*tmp2);
+		oldX = Row[2][0]; tmp2 = Row[2][1];
+		Row[2][0] = (float)( c*oldX + s*tmp2);
+		Row[2][1] = (float)(-s*oldX + c*tmp2);
 	}
 
 	Vector4 Row[3];

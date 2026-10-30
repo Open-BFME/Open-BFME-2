@@ -1708,7 +1708,7 @@ void bfmeAnchorRva002E7DF5() { _Rva002E7DF5Cell c = { 0, 0, 0 }; Rva002E7DF5 r(0
 
 // tu-skeleton: 0x002E7F2F 15B ?clear@Rva002E7F1E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
 
-// tu-skeleton: 0x002E7F3E 20B ?rva002E7F3E@Rva002E7F1E@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
+// tu-skeleton: 0x002E7F3E 20B ?isNotEmpty@Rva002E7F1E@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE06.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/SaveGame/LatchRestoreIntDtor.cpp
 

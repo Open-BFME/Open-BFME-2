@@ -96,14 +96,14 @@ public:
 class Rva003FAAA1
 {
 public:
-	bool rva003FAAA1(void *arg);
+	bool rva003FAAA1(void *query);
 
 private:
 	char m_00[0x10];
 	Inner1 *m_10;
 };
 
-bool Rva003FAAA1::rva003FAAA1(void *arg)
+bool Rva003FAAA1::rva003FAAA1(void *query)
 {
 	Inner1 *inner1 = m_10;
 	if (inner1 == 0)
@@ -118,7 +118,7 @@ bool Rva003FAAA1::rva003FAAA1(void *arg)
 	Region3D box(*inner2->GetRegion());
 	Coord3D start;
 	Coord3D dir;
-	((Global *)TheLivingWorld)->GetVectors(arg, &start, &dir);
+	((Global *)TheLivingWorld)->GetVectors(query, &start, &dir);
 	float scale = 100000.0f;
 	dir.scale(scale);
 	Vector3 p0(start.x, start.y, start.z);

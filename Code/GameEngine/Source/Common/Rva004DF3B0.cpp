@@ -23,7 +23,7 @@ struct Rva004DF3B0Arg
 class Rva004DF2E2
 {
 public:
-	void rva004DF3B0(void *p);
+	void rva004DF3B0(void *request);
 	void rva004DF2FC(BfmeSubBEC *bec);
 	void rva004DF2E2();
 private:
@@ -33,7 +33,7 @@ private:
 	ObjectID m_20;
 };
 
-void Rva004DF2E2::rva004DF3B0(void *p)
+void Rva004DF2E2::rva004DF3B0(void *request)
 {
 	if (m_20 != INVALID_OBJECT_ID) {
 		Object *obj = TheGameLogic->findObjectByID(m_20);
@@ -42,11 +42,11 @@ void Rva004DF2E2::rva004DF3B0(void *p)
 		else
 			rva004DF2FC((BfmeSubBEC *)obj);
 	}
-	if (p == 0)
+	if (request == 0)
 		return;
-	ObjectID nid = ((Rva004DF3B0Arg *)p)->m_74;
+	ObjectID nid = ((Rva004DF3B0Arg *)request)->m_74;
 	void *slot = m_08;
 	m_20 = nid;
-	((Rva0028BC05 *)p)->rva0028BC05(slot);
+	((Rva0028BC05 *)request)->rva0028BC05(slot);
 	rva004DF2E2();
 }

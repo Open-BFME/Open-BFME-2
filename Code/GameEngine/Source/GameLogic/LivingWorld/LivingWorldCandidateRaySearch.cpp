@@ -36,7 +36,7 @@ struct Rva0020EE29Inner {char prefix[0x2c];_STL::vector<void*> m_entries;};
 class Rva0020EE29 {public:void*rva0020F9F6(void*,void*,void*);private:char prefix[8];Rva0020EE29Inner*m_inner;};
 class LivingWorldManager;extern LivingWorldManager *TheLivingWorldManager;
 struct Rva00DFE1C8Host {char prefix[0x268];int m_268;};
-void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *preferred)
+void *Rva0020EE29::rva0020F9F6(void *rayStart, void *rayDirection, void *preferred)
 {
 	Rva0020EE29Inner *inner = m_inner;
 	unsigned i = 0;
@@ -46,17 +46,17 @@ void *Rva0020EE29::rva0020F9F6(void *a1, void *a2, void *preferred)
 	if (((Rva00DFE1C8Host *)TheLivingWorldManager)->m_268 == (int)i)
 		return 0;
 	if (preferred != 0) {
-		if (((Rva0020F91D*)this)->rva0020F91D(preferred, (const Vector3*)a1, (const Vector3*)a2))
+		if (((Rva0020F91D*)this)->rva0020F91D(preferred, (const Vector3*)rayStart, (const Vector3*)rayDirection))
 			return preferred;
 		for (i = 0; i < (unsigned)(((const Rva0020F9F6Span*)&inner->m_entries)->end - ((const Rva0020F9F6Span*)&inner->m_entries)->begin); ++i) {
 			if (inner->m_entries[i] == preferred)
 				continue;
-			if (((Rva0020F91D *const volatile &)receiver)->rva0020F91D(inner->m_entries[i], (const Vector3*)a1, (const Vector3*)a2))
+			if (((Rva0020F91D *const volatile &)receiver)->rva0020F91D(inner->m_entries[i], (const Vector3*)rayStart, (const Vector3*)rayDirection))
 				return inner->m_entries[i];
 		}
 	} else {
 	for (i = 0; i < (unsigned)(((const Rva0020F9F6Span*)&inner->m_entries)->end - ((const Rva0020F9F6Span*)&inner->m_entries)->begin); ++i) {
-		if (((Rva0020F91D *const volatile &)receiver)->rva0020F91D(inner->m_entries[i], (const Vector3*)a1, (const Vector3*)a2))
+		if (((Rva0020F91D *const volatile &)receiver)->rva0020F91D(inner->m_entries[i], (const Vector3*)rayStart, (const Vector3*)rayDirection))
 			return inner->m_entries[i];
 	}
 	}

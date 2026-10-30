@@ -151,10 +151,10 @@ void TargetObj005C8DBF::method_005C8D6B()
 
 void TargetObj005C8DBF::method_005C8DBF(float val)
 {
-	TreeValue00372FF4 v;
-	*(float *)&v.first = val;
-	v.second.m_bits = 0;
-	TreeNode005C8DBF *node = (TreeNode005C8DBF *)m_tree2C.rva005C8CA0(&v);
+	TreeValue00372FF4 key;
+	*(float *)&key.first = val;
+	key.second.m_bits = 0;
+	TreeNode005C8DBF *node = (TreeNode005C8DBF *)m_tree2C.rva005C8CA0(&key);
 	if (node != (TreeNode005C8DBF *)m_tree2C.end()._M_node)
 	{
 		int *p = &node->m_count;

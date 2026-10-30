@@ -127,7 +127,7 @@ private:
 
 void *Rva0057C50C::v04(void *color, void *arg)
 {
-	Rva0057CC70Color *o = (Rva0057CC70Color *)color;
+	Rva0057CC70Color *destination = (Rva0057CC70Color *)color;
 	CC70Arg *cC70Arg = (CC70Arg *)arg;
 	Rva0057CC70Color def;
 	def.r = 0.5f;
@@ -136,8 +136,8 @@ void *Rva0057C50C::v04(void *color, void *arg)
 	GameInfo *info = (GameInfo *)m_outer->m_ptr18->rva0043DA65();
 	if (!info)
 	{
-		*o = def;
-		return o;
+		*destination = def;
+		return destination;
 	}
 	Rva0057CC70Color tmp;
 	Rva0057CC70Color *src;
@@ -157,8 +157,8 @@ void *Rva0057C50C::v04(void *color, void *arg)
 		Res004FCA0C *r = t->Rva004FCA0C((Rva0020E89C *)cC70Arg);
 		if (r != (Res004FCA0C *)cC70Arg)
 		{
-			v04(o, r);
-			return o;
+			v04(destination, r);
+			return destination;
 		}
 		if (!((AptMapPreview *)m_outer)->AllowsStartInRegion((int)cC70Arg))
 		{
@@ -182,6 +182,6 @@ void *Rva0057C50C::v04(void *color, void *arg)
 	}
 	else
 		src = &def;
-	*o = *src;
-	return o;
+	*destination = *src;
+	return destination;
 }

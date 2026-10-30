@@ -40,8 +40,8 @@ void Rva000B5916::rva000B5916(float f)
 	if (obj)
 	{
 		obj->s20();
-		Rva000B2FBB *r = (Rva000B2FBB *)((char *)this - 12);
-		r->rva000B2FBB(f, (const Matrix3D *)((char *)obj + 24));
+		Rva000B2FBB *base = (Rva000B2FBB *)((char *)this - 12);
+		base->rva000B2FBB(f, (const Matrix3D *)((char *)obj + 24));
 	}
 	m_98 = 0;
 	m_94 = 1;
