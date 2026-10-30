@@ -6225,25 +6225,8 @@ void __cdecl rva007B7588()
 	return receiver->Rva001F4B01::~Rva001F4B01();
 }
 
-extern unsigned g_Va00DFDD60;
-unsigned int g_Va00DFDD60;
-
-// ?rva007B759C@@YAXXZ @ 0x007B759C (10B). Global ParticleSystem dtor thunk: ecx=&g_Va00DFDD60 then tail-jmp to pinned ??1ParticleSystem@@UAE@XZ (0x001FBD17; scalar deleting dtor 0x001FC17F, vtable 0x00BE1A10#0). No callers. Honest address name.
-void __cdecl rva007B759C()
-{
-	ParticleSystem *receiver = (ParticleSystem *)&g_Va00DFDD60;
-	return receiver->ParticleSystem::~ParticleSystem();
-}
-
-extern unsigned g_Va00DFDF40;
-unsigned int g_Va00DFDF40;
-
-// ?rva007B75A6@@YAXXZ @ 0x007B75A6 (10B). Global Rva001FBF4D dtor thunk: ecx=&g_Va00DFDF40 then tail-jmp to pinned ??1Rva001FBF4D@@UAE@XZ (0x001FBF4D; vector deleting dtor 0x001FC052, element 0xD4, vtable 0x00BE1A28#0). No callers. Honest address name.
-void __cdecl rva007B75A6()
-{
-	FXParticleSystem::ParticleSystemTemplate *receiver = (FXParticleSystem::ParticleSystemTemplate *)&g_Va00DFDF40;
-	return receiver->FXParticleSystem::ParticleSystemTemplate::~ParticleSystemTemplate();
-}
+// 0x007B759C/0x007B75A6 are ParticleSystemMake001FCBD7.cpp's own atexit cleanups
+// (_$E3/_$E2) of Make001FCBD7's static nullSystem/nullTemplate (0x009FDD60/0x009FDF40).
 
 // Faction-set tree teardown view for the thunks below. The destructor is
 // declared only; symbols.csv pins it to the jmp stub 0x00059068, which jumps
