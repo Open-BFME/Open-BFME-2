@@ -20,6 +20,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #include <vector>
 #include <malloc.h>
+#include <string.h>
+// Retail calls the _mbscpy thunk directly, while strtok uses its import slot.
+// Keep the header's types and limit the import override to the MBCS header.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 // Suppress this TU's non-retail copy of ?_M_insert_overflow@?$vector@PBVModuleData@@V?$allocator@PBVModuleData@@@_STL@@@_STL@@IAEX:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 class ModuleData;
@@ -55,8 +63,6 @@ public:
 	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
 };
 extern UpgradeCenter *TheUpgradeCenter;
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" __declspec(dllimport) char *__cdecl strtok(char *str, const char *delim);
 
 int SplitUpgrades(void *vecPtr, const AsciiString &list)
 {
@@ -64,7 +70,7 @@ int SplitUpgrades(void *vecPtr, const AsciiString &list)
 	typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > ModVec;
 	char *buf = (char *)alloca(list.getLength() + 1);
 	((VoidVec *)vecPtr)->erase(((VoidVec *)vecPtr)->begin(), ((VoidVec *)vecPtr)->end());
-	_mbscpy(buf, list.str());
+	_mbscpy((unsigned char *)buf, (const unsigned char *)list.str());
 	// Retail delimiter bytes at RVA 0x007BE7A4, including the trailing NUL.
 	char *tok = strtok(buf, " \n\r\t");
 	while (tok != 0)
