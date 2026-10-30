@@ -18,6 +18,17 @@ Published as `7d15ffa2bd52`. The outgoing audit remains INCONCLUSIVE on the
 older index and 1,151 missing source receipts, first AIGameTeam.cpp; full
 consumer selection/loss verification awaits the scheduled census.
 
+Persistent-storage Xfer header follow-up (2026-10-30, base `1ef43074a3`):
+the concrete reader adopts the registered base header with local pure-slot
+declarations and explicit existing stats-view conversions. The owning tool
+retires one header row; 306 function rows, three constructor folds, three data
+rows, 46 EH graphs and all 347 external COMDAT fingerprints are preserved.
+Other reader/stream/constructor prerequisites remain open. The outgoing audit
+is INCONCLUSIVE on the older index and missing current CreateAHeroManager
+consumer receipt; carry that provider/consumer scope into the next scheduled
+census. No census gain is claimed.
+[Evidence](../reverse/attempt_support/persistent-storage-xfer-header-20261030-codex.md).
+
 ### Vector allocation helper STLport 4.6 migration (2026-10-29)
 
 At base `a1d5808a6c`, Rva00568D68AllocateCopy.cpp replaces its private tag

@@ -1088,15 +1088,35 @@ char *rva00556B3C(const PSPlayerAllStats *stats, int *len)
 // The load-side Xfer: built from three null pointers by 0x0060C5FA, opened
 // on a stream by 0x0060C3C3, cleared by 0x0060C45E and torn down through the
 // base destructor 0x004053E7; 0x20 bytes on the frame.
-class Xfer : public XferStub
-{
-public:
-	virtual ~Xfer();
-};
+class Snapshot;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+#include "../../../../Include/Common/BfmeXfer.h"
+// Complete the reader's abstract interface without emitting another provider.
+// Its out-of-line constructor owns the concrete vtable; stats transfer calls
+// retain their separately rowed XferStub operand view.
 class Rva0060C5FA : public Xfer
 {
 public:
 	Rva0060C5FA(void *a1, void *a2, void *a3);
+	virtual int BeginBlock(const char *name);
+	virtual void EndBlock();
+	virtual void SkipBlock(const char *name);
+	virtual Xfer &operator==(const char *const &value);
+protected:
+	virtual void XferData(unsigned int type, void *data, unsigned int size);
 private:
 	unsigned char m_pad04[0x20 - 4];
 };
@@ -1146,9 +1166,9 @@ void GameSpyPSMessageQueueInterface::ParseToolTipStats(char *data, int len, PSPl
 			Rva00385333 tournament = stats->rva00556508();
 			Rva003844D7 openPlay = stats->rva00389DF1();
 			Rva0038454E strategic = stats->rva00389E0F();
-			tournament.rva00555DDC(&xfer);
-			openPlay.rva005550A0(&xfer);
-			strategic.rva005550A0(&xfer);
+			tournament.rva00555DDC((XferStub *)&xfer);
+			openPlay.rva005550A0((XferStub *)&xfer);
+			strategic.rva005550A0((XferStub *)&xfer);
 			stats->setTournamentStats(tournament);
 			stats->setOpenPlayStats(openPlay);
 			stats->setStrategicStats(strategic);
@@ -1192,9 +1212,9 @@ void GameSpyPSMessageQueueInterface::ParseAllOtherStats(char *data, int len, PSP
 			Rva00385333 tournament = stats->rva00556508();
 			Rva003844D7 openPlay = stats->rva00389DF1();
 			Rva0038454E strategic = stats->rva00389E0F();
-			tournament.rva00555109(&xfer);
-			openPlay.rva00555109(&xfer);
-			strategic.rva00555109(&xfer);
+			tournament.rva00555109((XferStub *)&xfer);
+			openPlay.rva00555109((XferStub *)&xfer);
+			strategic.rva00555109((XferStub *)&xfer);
 			stats->setTournamentStats(tournament);
 			stats->setOpenPlayStats(openPlay);
 			stats->setStrategicStats(strategic);
