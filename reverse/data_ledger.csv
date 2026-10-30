@@ -14938,9 +14938,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008E2FBC,44,.rdata,string,??_C@_0CM@HGJBPKBM@mState?5?$DN?$DN?5GameBrowserStateConnec@,,literal,,0,1
 0x008E2FE8,8,.rdata,string,??_C@_07GMKABADO@mPlayer?$AA@,,literal,,0,1
 0x008E2FF0,24,.rdata,string,??_C@_04CPLNIDMM@peri?$AA@,,literal,,0,3
-0x008E3008,8,.rdata,global,?g_00CE3008@@3QBQBXB,,unowned,?g_00CE3008@@3QBQBXB;_BfmeThingDGDVTableAnchorH8@Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,1,2
-0x008E3010,8,.rdata,global,?g_00CE3010@@3QBQBXB,,unowned,?g_00CE3010@@3QBQBXB;_BfmeThingDGDVTableAnchorH4@Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,1,2
-0x008E3018,144,.rdata,global,?g_00CE3018@@3QBQBXB,,unowned,?g_00CE3018@@3QBQBXB;_BfmeThingDGDVTableAnchor@Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp,1,2
+0x008E3008,8,.rdata,global,?g_00CE3008@@3QBQBXB,Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,owned,,1,2
+0x008E3010,4,.rdata,global,?g_00CE3010@@3QBQBXB,Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,owned,,1,2
+0x008E3018,144,.rdata,global,?g_00CE3018@@3QBQBXB,Code/GameEngine/Source/GameNetwork/BfmeThingDGDConstructor.cpp,owned,,1,2
 0x008E30A8,12,.rdata,vtable,??_7Rva00665030@@6B@,,literal,??_7Rva00665030@@6B@;?g_bfmeVftCTWA@@3PAPAXA,0,2
 0x008E30B4,4,.rdata,vtable,??_7BfmeThingTWA@@6BRva00803080@@@,,literal,??_7BfmeThingTWA@@6BRva00803080@@@;?g_bfmeVftBTWA@@3PAPAXA,0,2
 0x008E30B8,12,.rdata,vtable,??_7BfmeThingTWA@@6BDemanglerPrimary@@@,,literal,??_7BfmeThingTWA@@6BDemanglerPrimary@@@;?g_bfmeVftATWA@@3PAPAXA,0,2

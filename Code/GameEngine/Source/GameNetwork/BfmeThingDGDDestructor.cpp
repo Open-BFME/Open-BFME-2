@@ -22,17 +22,16 @@ extern "C" void _ReadWriteBarrier( void );
 // retail per site); a plain extern would load through a register and
 // reschedule the stores.
 // One anchor per distinct retail vtable, so each anchor resolves to a single
-// address: head 0xCE3018, child entry 0xCE2DE0, child exit 0xCE2DB4, base
-// 0xCE2E10 (the head's +4/+8 stores use the H4/H8 anchors below).
-static int BfmeThingDGDVTableAnchor;
+// address: child entry 0xCE2DE0, child exit 0xCE2DB4, base 0xCE2E10. The
+// head's three tables (0xCE3018/0xCE3010/0xCE3008) are the ones
+// BfmeThingDGDConstructor.cpp defines; their array names are address
+// constants, so each store stays mov-imm-DIR32 as retail.
+extern const void *const g_00CE3018[36];
+extern const void *const g_00CE3010[1];
+extern const void *const g_00CE3008[2];
 static int BfmeThingDGDChildVTableAnchorIn;
 static int BfmeThingDGDChildVTableAnchorOut;
 static int BfmeThingDGDBaseVTableAnchor;
-// The head installs three vtables with no calls between the stores, so one
-// shared anchor is CSE'd into a register (mov-reg instead of mov-imm). One
-// anchor per head store keeps each use single (mov-imm-DIR32, as retail).
-static int BfmeThingDGDVTableAnchorH4;
-static int BfmeThingDGDVTableAnchorH8;
 
 class Rva00803080
 {
@@ -189,9 +188,9 @@ public:
 // ??1BfmeThingDGD@@QAE@XZ
 BfmeThingDGD::~BfmeThingDGD()
 {
-	m_v0 = (unsigned)&BfmeThingDGDVTableAnchor;
-	m_v4 = (unsigned)&BfmeThingDGDVTableAnchorH4;
-	m_v8 = (unsigned)&BfmeThingDGDVTableAnchorH8;
+	m_v0 = (unsigned)g_00CE3018;
+	m_v4 = (unsigned)g_00CE3010;
+	m_v8 = (unsigned)g_00CE3008;
 
 	if( m_20 != 0 )
 	{
