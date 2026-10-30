@@ -18196,3 +18196,7 @@ Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerTemplateFieldGe
 Code/GameEngine/Source/GameLogic/Map/AerialPathfinder.cpp|class||Rva00375AF7Entry,f0164990474b6d7ea1500e0e,drz-k11,drz-k11-409,w-09889333d128,2026-10-30
 Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|member|Rva002B8817Filter|m_14,754dd4271115228bb098ef96,drz-k11,drz-k11-419,w-09889333d128,2026-10-30
 Code/GameEngine/Source/Common/Rva002B8817Filter.cpp|param|Rva002B8817::rva002B8817|a,def3410a40bbb17ea49db853,drz-k11,drz-k11-419,w-09889333d128,2026-10-30
+Code/GameEngine/Source/Common/Rva002B4CEDMethod.cpp|function|0x002B4CED|rva002B4CED,8bfd87c9cc3c8a8e0f52daef,drz-k1,drz-k1-400,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva004D63DBContents.cpp|member|Rva004D63DB|m_1c,ebf0359ab9610b991444cb72,drz-k1,drz-k1-408,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva004D63DBContents.cpp|member|Rva004D63DB|m_20,1df5d2c21e171e7d0e64c05d,drz-k1,drz-k1-408,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva002E4049Dtor.cpp|member|Rva002E4049|m_next3C,81c9a7b001c7f8e4152e85f7,drz-k1,drz-k1-412,w-d29055ee9848,2026-10-30
