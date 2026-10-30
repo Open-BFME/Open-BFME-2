@@ -22,11 +22,7 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class FireWeaponWhenDamagedBehavior
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-};
+#include "FireWeaponWhenDamagedView.h"
 
 // ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ
 NameKeyType FireWeaponWhenDamagedBehavior::getModuleNameKey() const

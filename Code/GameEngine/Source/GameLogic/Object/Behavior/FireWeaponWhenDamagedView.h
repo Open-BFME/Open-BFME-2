@@ -13,6 +13,8 @@ class WeaponTemplate;
 
 class DamageInfo;
 
+enum NameKeyType;
+
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
@@ -132,6 +134,7 @@ public:
 	// Retail's +0x10 interface table (0x00849594) names the existing
 	// 0x00482B24 update body, as in FireWeaponWhenDamagedBehaviorUpdate.cpp.
 	virtual UpdateSleepTime update();
+	virtual NameKeyType getModuleNameKey() const;
 
 private:
 	const FireWeaponWhenDamagedBehaviorModuleData *getFireWeaponWhenDamagedBehaviorModuleData() const
