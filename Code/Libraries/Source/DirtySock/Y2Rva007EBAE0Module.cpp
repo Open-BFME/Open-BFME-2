@@ -1,4 +1,9 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <stdio.h>
+#include <mbstring.h>
 // Three small /Od /GZ bodies from the 0x007EBAE0..0x007EC780 span, sharing this
 // file because they share a compiler line and a subject: bounded string work
 // against a caller's buffer.  Nothing in them names a module -- no string and no
@@ -41,11 +46,8 @@ extern const unsigned char g_Rva0112A210Lower[256] = {
 // Defined at the end of this file; the three wrappers above it all call it.
 char *Rva007EBCA0( const char *text, const char *tag );   // 0x007EBCA0
 
-// Reached by a direct rel32 to the import stub, so this TU never saw <stdio.h>.
-extern "C" int sprintf( char *buffer, const char *format, ... );
-extern "C" char *_mbscpy( char *dest, const char *src );
-// Retail calls MSVCR71 _mbscat here (thunk 0x0062988C), not strcat.
-extern "C" char *__cdecl _mbscat(char *dest, const char *source);
+// Retail calls MSVCR71 _mbscpy and _mbscat (thunk 0x0062988C), not strcpy and
+// strcat.
 
 char Rva007EBAE0( char value )
 {
@@ -189,8 +191,8 @@ char *Rva007EBE20( const char *text, const char *prefix, const char *suffix )
 	}
 	else
 	{
-		_mbscpy( name, prefix );
-		_mbscat( name, suffix );
+		_mbscpy( (unsigned char *)name, (const unsigned char *)prefix );
+		_mbscat( (unsigned char *)name, (const unsigned char *)suffix );
 		result = Rva007EBCA0( text, name );
 	}
 
@@ -607,11 +609,6 @@ extern "C" unsigned int Rva007FEF60( void );
 // g_Rva012C3938Format: matched references place it at VA 0xdd8090 (.data); retail bytes.
 char g_Rva012C3938Format[] = "%d.%d.%d %d:%02d:%02d";
 
-// Declared without the CRT header on purpose: under /MD that header marks
-// sprintf dllimport and the call becomes an indirect through the IAT, where
-// retail calls the import stub directly.
-extern "C" int __cdecl sprintf( char *dest, const char *format, ... );
-
 // 0x007ED9F0 STORES A TIMESTAMP AS A HUMAN-READABLE DATE FIELD.
 //
 // A ZERO TIMESTAMP MEANS NOW.  There is no separate entry point for "stamp
@@ -661,7 +658,6 @@ int Rva007ED9F0( char *record, int size, const char *name, unsigned int uWhen )
 }
 
 extern "C" unsigned int Rva007EDE00( const struct Rva007EDB10Time *pTime );
-extern "C" void * __cdecl memset( void *dest, int c, unsigned int count );
 
 // 0x007EE050 STORES A PACKED DATE AND TIME AS A DATE FIELD.  It is the mirror
 // of the reader at 0x007EFC20: that one parses text and hands back two packed
@@ -965,7 +961,6 @@ int Rva007EC5C0( char *record, int size, const char *name, int value )
 	return Rva007EC780( ( unsigned char * )record, size, item );
 }
 
-extern "C" unsigned int __cdecl strlen( const char *text );
 
 // 0x007EC130 RENAMES A FIELD IN PLACE, keeping its value and resizing the
 // record around the new name.  It finds the field with the backwards matcher

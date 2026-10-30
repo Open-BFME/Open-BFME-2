@@ -1,8 +1,8 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
-
-#define _DLL
+// cl: /DNDEBUG /GX /Od /GZ /GS
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
 #include <string.h>
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
+#include <mbstring.h>
 
 // EA's DirtySock middleware -- see commudp.cpp for why this directory name is an
 // inference. The existing CommSRP bodies retain their retail names from logs;
@@ -101,7 +101,7 @@ struct CommSRPRef *CommSRPConstruct( int maxPacket, int recvCount,
 	comm->m_op[ 12 ] = (void *)Rva00816520;
 	comm->m_op[ 13 ] = (void *)Rva008165F0;
 
-	_mbscpy( comm->m_name, "SRP" );
+	_mbscpy( (unsigned char *)comm->m_name, (const unsigned char *)"SRP" );
 	Rva007FEA20( comm->m_lock );
 
 	comm->m_recvRecordSize = maxPacket + 0x0B;

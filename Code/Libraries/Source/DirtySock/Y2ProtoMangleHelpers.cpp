@@ -1,4 +1,10 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <mbstring.h>
 // EA's DirtySock ProtoMangle -- the file-static helpers that sit between the
 // two bodies protomangle.cpp already names.
 //
@@ -22,15 +28,8 @@
 // is inert for all four rows here.
 
 // sprintf is called DIRECTLY (rel32 to the import stub at 0x009F6DE2), not
-// through __imp__sprintf, so the translation unit did not see <stdio.h>'s
-// dllimport declaration.  Declaring it here is what reproduces that.
-extern "C" int sprintf( char *buffer, const char *format, ... );
-
-#include <string.h>
-// Retail calls MSVCR71 _mbscat here (thunk 0x0062988C), not strcat.
-extern "C" char *__cdecl _mbscat(char *dest, const char *source);
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-extern "C" char *strstr( const char *text, const char *find );
+// through __imp__sprintf, and the string copies call MSVCR71 _mbscpy and
+// _mbscat (thunk 0x0062988C), not strcpy and strcat.
 
 struct Rva008042B0Http;
 
@@ -184,7 +183,7 @@ int Rva008046E0HttpRequest( Rva008042B0Http *http, const char *host, int port,
 		http->m_state = 0;
 	}
 
-	_mbscpy( http->m_buffer, request );
+	_mbscpy( (unsigned char *)http->m_buffer, (const unsigned char *)request );
 	Rva007FE780Printf( "HTTP request:\n%s\n", http->m_buffer );
 	http->m_field144 = 3;
 
@@ -195,7 +194,7 @@ int Rva008046E0HttpRequest( Rva008042B0Http *http, const char *host, int port,
 	}
 	else
 	{
-		_mbscpy( http->m_host, host );
+		_mbscpy( (unsigned char *)http->m_host, (const unsigned char *)host );
 		http->m_port = port;
 		http->m_conn = Rva007FDFF0Connect( http->m_host, 0x1E );
 		http->m_field10C = 0;
@@ -701,9 +700,8 @@ int  Rva00805710TagFieldGet( char *dest, int destSize, const char *text,
 		const char *tag, int flags );          // 0x00805710
 unsigned int Rva007FFC10TextAddr( const char *text );  // 0x007FFC10
 
-// Called directly through the import stub at 0x009F6DEE rather than through
-// __imp__atoi, so this TU did not see <stdlib.h> either.
-extern "C" int atoi( const char *text );
+// atoi is called directly through the import stub at 0x009F6DEE rather than
+// through __imp__atoi.
 
 // 0x00805870 PARSES THE PEER OUT OF A RESPONSE, and its two tag strings name
 // the fields it fills: "peerIP" through the dotted-quad parser into +0x10, and
@@ -1116,7 +1114,7 @@ int Rva008060B0( Rva00804150ProtoMangleRef *ref, int status, int latency )
 	if( latency >= 0 )
 	{
 		sprintf( strData2, "&latency=%d", latency );
-		_mbscat( strData, strData2 );
+		_mbscat( (unsigned char *)strData, (const unsigned char *)strData2 );
 	}
 
 	Rva00806200HttpPost( &ref->m_http, ref->m_server, ref->m_port,
