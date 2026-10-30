@@ -15,21 +15,13 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "Lib/Coord3D.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
-
 extern GameLogic *TheGameLogic;
-
 enum CommandSourceType{COMMANDSOURCE_SCRIPT=2};
-
 class AICommandInterface{public:void aiIdle(CommandSourceType);};
-
 struct TeleportAI{char pad[0x20];AICommandInterface commands;};
-
 class Player;
-
 struct TeleportThingTemplate{char pad[0x115];unsigned char kind115;};
-
 enum ObjectStatusTypes{STATUS_UNK=-1};
-
 class Object
 {
 public:
@@ -48,8 +40,9 @@ public:
 	char m_pad7C[0x1DC];
 	TeleportAI *ai; // +0x258
 };
-
 #include "../../../Common/Thing/thing.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
 
 class FXList;
 
@@ -61,10 +54,6 @@ struct FindPositionOptions{
 };
 
 class SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();};
-
-	// base trigger 0x0045108D
-class TeleportToCasterSpecialPower:public SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();const TeleportData *data;Object *owner;char pad0C[0x44-0x0C];Coord3D targetPosition;
- void teleportList(const _STL::vector<ObjectID>*,const Coord3D*);void rva004CD4DC(Object*);};
 
 // StoreObjectsSpecialPower lookup: target128B proves owner+8 object, object244 module list and slot4 name-key query; store+88 vector uses ObjectID-width unsigned slots.
 enum NameKeyType
@@ -297,6 +286,159 @@ private:
 	int m_iD8;
 };
 
+class Object;
+
+class Rva004CD4DCItem;
+
+struct Coord3D;
+
+struct TeleportThingTemplate;
+
+struct TeleportAI;
+
+class Rva004CD4DCItem
+{
+public:
+	virtual void v0();
+	virtual void v1();
+	virtual void v2();
+	virtual void v3();
+	virtual void v4();
+	virtual void v5();
+	virtual void v6();
+	virtual void v7();
+	virtual void v8();
+	virtual void v9();
+	virtual void v10();
+	virtual void v11();
+	virtual void v12();
+	virtual void v13();
+	virtual void v14();
+	virtual void v15();
+	virtual void v16();
+	virtual void v17();
+	virtual void v18();
+	virtual void v19();
+	virtual void v20();
+	virtual void v21();
+	virtual void v22();
+	virtual void v23();
+	virtual void v24();
+	virtual void v25();
+	virtual void v26();
+	virtual void v27();
+	virtual void v28();
+	virtual void v29();
+	virtual void v30();
+	virtual void v31();
+	virtual void v32();
+	virtual void v33();
+	virtual void v34();
+	virtual void v35();
+	virtual void v36();
+	virtual void v37();
+	virtual void v38();
+	virtual void v39();
+	virtual void v40();
+	virtual void v41();
+	virtual void v42();
+	virtual void v43();
+	virtual void v44();
+	virtual void v45();
+	virtual void v46();
+	virtual void v47();
+	virtual void v48();
+	virtual void v49();
+	virtual void v50();
+	virtual void v51();
+	virtual void v52();
+	virtual void v53();
+	virtual void v54();
+	virtual void v55();
+	virtual void v56();
+	virtual void v57();
+	virtual void v58();
+	virtual void v59();
+	virtual void v60();
+	virtual void v61();
+	virtual void v62();
+	virtual void v63();
+	virtual void v64();
+	virtual void v65();
+	virtual void v66();
+	virtual void v67();
+	virtual void v68();
+	virtual void v69();
+	virtual void v70();
+	virtual void v71();
+	virtual void v72();
+	virtual void v73();
+	virtual void v74();
+	virtual void v75();
+	virtual void v76();
+	virtual void v77();
+	virtual void v78();
+	virtual void v79();
+	virtual void v80();
+	virtual void v81();
+	virtual void v82();
+	virtual void v83();
+	virtual void v84();
+	virtual void v85();
+	virtual void v86();
+	virtual void v87();
+	virtual void v88();
+	virtual void v89();
+	virtual void v90();
+	virtual void v91();
+	virtual void v92();
+	virtual void v93();
+	virtual void v94();
+	virtual void v95();
+	virtual void v96();
+	virtual void v97();
+	virtual void v98();
+	virtual void v99();
+	virtual void v100();
+	virtual void v101();
+	virtual void v102();
+	virtual void v103();
+	virtual void v104();
+	virtual void v105();
+	virtual void v106();
+	virtual void v107();
+	virtual void v108();
+	virtual void v109();
+	virtual void v110();
+	virtual void v111();
+	virtual void v112();
+	virtual void v113();
+	virtual void v114();
+	virtual void v115();
+	virtual void v116();
+	virtual void v117();
+	virtual void v118();
+	virtual void v119();
+	virtual void v120();
+	virtual void v121();
+	virtual void v122();
+	virtual void target(const FXList *fx);
+};
+
+struct Rva004CD4DCMid
+{
+	unsigned char m_pad[0xD8];
+	const FXList *m_fx;
+};
+
+struct TeleportData;
+
+	// base trigger 0x0045108D
+class TeleportToCasterSpecialPower:public SpecialAbilityUpdate{public:virtual void triggerAbilityEffect();const TeleportData *data;Object *owner;char pad0C[0x44-0x0C];Coord3D targetPosition;
+ void teleportList(const _STL::vector<ObjectID>*,const Coord3D*);void rva004CD4DC(Object*);};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateCtor.cpp
 
 TeleportToCasterSpecialPowerModuleData::TeleportToCasterSpecialPowerModuleData()
@@ -313,14 +455,6 @@ TeleportToCasterSpecialPowerModuleData::TeleportToCasterSpecialPowerModuleData()
 TeleportToCasterSpecialPowerModuleData::~TeleportToCasterSpecialPowerModuleData()
 {
 }
-
-// tu-skeleton: 0x004CD389 27B ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x004CD3A4 49B ??0TeleportToCasterSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004CD3D5 6B ?Rva004CD3D5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x004CD3FB 69B ?getModuleNameKey@TeleportToCasterSpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TeleportToCasterSpecialPowerPoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp
 
@@ -402,7 +536,35 @@ void TeleportToCasterSpecialPower::triggerAbilityEffect()
 	FXList::doFXPos(moduleData->endFX, &targetPosition, 0, 0.0f, 0);
 }
 
-// tu-skeleton: 0x004CD4DC 63B ?rva004CD4DC@TeleportToCasterSpecialPower@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleRva004CD4DC.cpp (not merged yet)
+// tu-skeleton: 0x004CD389 27B ?buildFieldParse@TeleportToCasterSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// tu-skeleton: 0x004CD3A4 49B ??0TeleportToCasterSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004CD3D5 6B ?Rva004CD3D5Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x004CD3FB 69B ?getModuleNameKey@TeleportToCasterSpecialPower@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TeleportToCasterSpecialPowerPoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ModuleRva004CD4DC.cpp
+
+//
+// ?rva004CD4DC@TeleportToCasterSpecialPower@@QAEXPAVObject@@@Z @0x004CD4DC (63B).
+// Update FX dispatcher via rowed Object::rva0029439D 0x29439D and
+// rowed FXList::doFXObj 0xB2235 with virtual slot 0x1EC on the
+// rva0029439D result. Retail saves this+4 to esi then calls
+// rva0029439D on the Object arg and on non-null pair forwards
+// [esi+0xD8] through the virtual else through static doFXObj
+// with (fx primary 0). Callers at 0x004CD5CB 0x004CD662.
+
+void TeleportToCasterSpecialPower::rva004CD4DC(Object *obj)
+{
+	const Rva004CD4DCMid *mid = (const Rva004CD4DCMid *)data;
+	void *v = obj->rva0029439D();
+	if (v != 0 && mid != 0) {
+		((Rva004CD4DCItem *)v)->target(mid->m_fx);
+		return;
+	}
+	FXList::doFXObj(mid->m_fx, obj, 0);
+}
 
 // tu-skeleton: 0x007909B7 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/TeleportToCasterSpecialPowerPoolKey.cpp (not merged yet)
 
