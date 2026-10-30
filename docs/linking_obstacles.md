@@ -3640,6 +3640,22 @@ selected-copy prerequisites remain. No debt retirement or census gain.
 
 **DefaultDraw table follow-up (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `T1Base005F3750Ctor.cpp` still disagrees with the first `DefaultDrawModuleInfo` table in `FXParticleSystem.cpp`. The native table at RVA 0081BAC0 has four slots (003A7ABD, 000B3FD0, 003A6127 and 00306A9B); the current first emitter has three slots, and T1's four-slot copy puts its name getter in slot 1 instead of slot 2. `build/c136-common2/provider-details.log` records the raw retail words and both COFF relocation lists. Matching the first emitter's shorter table would retain a non-retail contract, so no such trial was made. Next: reconcile the actual Snapshot interface and all emitting views, retaining every row, then recheck the family. The T1 destructor identity prerequisite remains separate under LINK-004. Clearance and census confirmation remain pending.
 
+
+**FX info post-load provider prerequisite (2026-10-30, base `a5c01ba2ba`):**
+DefaultAlphaModuleInfo and DefaultColorModuleInfo now define their exported
+empty `LoadPostProcess` callbacks as complete C++ ICF twins of B3FD0, replacing
+two `v1` aliases to the coordinate destructor (alternatename -2). All 370
+function checks, the data/string/float checks and strict preparation pass.
+Of 680 retained COMDATs, only the two vtables change relocation names; both
+edges retain native B3FD0. Ordinary preview retains LINKS against `85f6b7f40c`
+(5,649 -> 5,650 authored bytes; zero unique native bytes gained).
+The batch audit is INCONCLUSIVE on the older index and the missing current
+CreateAHeroManager consumer receipt. Carry that consumer and this provider
+into the next scheduled census. Complete Snapshot adoption still needs the
+other seven post-load providers, nine DoXfer providers and reconciled four-slot
+interfaces; its header-queue row remains. No census gain or complete consumer
+closure is claimed. [Evidence](../reverse/attempt_support/fx-postload-alias-cleanup-20261030-codex.md).
+
 - **Old-reference full control (2026-10-27, frozen `47d8342e4c`):**
   [the completed control and native witnesses](../reverse/attempt_support/bfme1-reference-08400aa3-20261027/readme.md)
   verify 98,522/98,522 function rows but finish with actual exit 1: six

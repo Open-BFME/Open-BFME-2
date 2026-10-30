@@ -1207,7 +1207,7 @@ class DefaultAlphaModuleInfo : public Snapshot
 {
 public:
     virtual ~DefaultAlphaModuleInfo();
-    virtual void v1();
+    virtual void LoadPostProcess();
 
     FXKeyframe m_keys[8];
     virtual const char *GetSnapshotName();
@@ -1234,7 +1234,7 @@ class DefaultColorModuleInfo : public Snapshot
 {
 public:
     virtual ~DefaultColorModuleInfo();
-    virtual void v1();
+    virtual void LoadPostProcess();
     void tintAllColors(int tint);
 
     FXKeyframe m_keys[8];
@@ -2185,7 +2185,6 @@ void Rva001F42BA::call(int a)
 // Placeholder virtuals in this unit's vftables: in retail, every vftable that holds
 // each one has the same function in that slot (vftable addresses from matched vptr
 // stores). Bind them to the rows at those functions.
-#pragma comment(linker, "/alternatename:?v1@DefaultColorModuleInfo@FXParticleSystem@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$0A@@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$00@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$01@FXParticleSystem@@UAEXXZ=__purecall")
@@ -2195,7 +2194,6 @@ void Rva001F42BA::call(int a)
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$05@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$07@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@?$CategoryModuleTemplate@$06@FXParticleSystem@@UAEXXZ=__purecall")
-#pragma comment(linker, "/alternatename:?v1@DefaultAlphaModuleInfo@FXParticleSystem@@UAEXXZ=??1Coord2D@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?v1@PointEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@SphereEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
 #pragma comment(linker, "/alternatename:?v1@BoxEmissionVolumeModuleTemplate@FXParticleSystem@@UAEXXZ=__purecall")
@@ -2335,4 +2333,6 @@ namespace FXParticleSystem {
 void EmissionVolumeInfo::LoadPostProcess() {}
 void EmissionVelocityInfo::LoadPostProcess() {}
 void DefaultPhysicsModuleInfo::LoadPostProcess() {}
+void DefaultAlphaModuleInfo::LoadPostProcess() {}
+void DefaultColorModuleInfo::LoadPostProcess() {}
 }
