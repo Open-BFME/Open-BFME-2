@@ -4654,6 +4654,12 @@ Whole-unit clearance and census confirmation remain pending.
   pointer. Parser declarations, two STL byte mismatches and eleven mixed donors
   remain. The three served provisional placement rows remain unapproved; the
   report distinguishes their behavior from unsupported names/TU inference.
+  The subsequent supported merge absorbs the list donor into Science.cpp,
+  retaining 22/22 rows, an EXACT EH graph, all external code/symbol facts and
+  the reachable reference set. Its inline helper changes COMDAT selection from
+  NODUPLICATES to ANY; the handoff records that policy and graph difference.
+  One source file is removed and two already-approved rows reach their TU.
+  Hatch totals stay fixed; the scoped header refresh adds no debt.
   The staged consumer audit is INCONCLUSIVE on older index `e1f7c1dd18` and a
   missing current receipt for `Common/0CreateAHeroManager21FE49.cpp`; carry that
   consumer into the next census. No census gain or debt retirement is claimed.

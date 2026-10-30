@@ -23073,8 +23073,8 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva003820A4@Rva003820A4@@QAEXPAURva0038201DNode@@@Z,,0x003820A4,45,Code/GameEngine/Source/Common/Rva0038201DFree.cpp,matched,fourth twin tree free
 ?rva00382931@Rva003820A4@@QAEXXZ,,0x00382931,41,Code/GameEngine/Source/Common/Rva0038201DFree.cpp,matched,fourth twin clear
 ?rva003820D1@Rva003820D1@@QAEXPAURva0038201DNode@@@Z,,0x003820D1,45,Code/GameEngine/Source/Common/Rva0038201DFree.cpp,matched,fifth twin tree free
-?rva001FF6D7@Rva001FF6D7@@QAEXXZ,,0x001FF6D7,20,Code/GameEngine/Source/Common/Rva001FF6D7List.cpp,matched,unlock global list prepend via 0x009B9448 caller 0x001FF75D
 ?rva002E4438@OptionPreferences@@QAEXG@Z,,0x002E4438,74,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,matched,FirewallPortOverride setInt slot 0x2c movzx word; third sibling
+?rva001FF6D7@Rva001FF6D7@@QAEXXZ,,0x001FF6D7,20,Code/GameEngine/Source/Common/RTS/Science.cpp,matched,unlock global list prepend via 0x009B9448 caller 0x001FF75D
 ?Rva00410AABFree@@YGXPAX@Z,,0x00410AAB,28,Code/GameEngine/Source/Common/Rva00410AABFree.cpp,matched,free helper via dtor
 ?rva002115C5@Rva002115C5@@QAEXXZ,,0x002115C5,11,Code/GameEngine/Source/GameClient/System/ParticleSystemHandle_dtor.cpp,matched,unlock conditional handle destroy
 ??1Rva00109610@@UAE@XZ,,0x00109610,51,Code/GameEngine/Source/Common/Rva00109610Dtor.cpp,matched,derived dtor calls rowed base rva00108951 restores base vtable caller 0x10BA83
@@ -23085,7 +23085,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?write@WinMainTitlePair@@QAEHPAD@Z,,0x00109D3A,37,Code/GameEngine/Source/Main/WinMainPairUnicode.cpp,matched,narrow concat base plus second pair callers 0x10BAD1 0x2D4692
 ?rva00423A68@Rva00423A68@@QAEXPBVModuleData@@@Z,,0x00423A68,13,Code/Libraries/Source/WWVegas/WWLib/stlport_moduledatavector_push.cpp,matched,thin vector const ModuleData push forward
 ?rva00382234@Rva00382234@@QAEXVAsciiString@@@Z,,0x00382234,55,Code/GameEngine/Source/GameNetwork/GameSpy/Rva00382234Set.cpp,matched,AsciiString at FE8 via temp dst-src
-?rva001FF55F@Rva001FF6D7@@QAEXPAURva001FF6D7Node@@@Z,,0x001FF55F,50,Code/GameEngine/Source/Common/Rva001FF6D7List.cpp,matched,unlock recursive teardown via global 0x009B9448 caller 0x001FF6BC
+?rva001FF55F@Rva001FF6D7@@QAEXPAURva001FF6D7Node@@@Z,,0x001FF55F,50,Code/GameEngine/Source/Common/RTS/Science.cpp,matched,unlock recursive teardown via global 0x009B9448 caller 0x001FF6BC
 ??0Rva002111C8@@QAE@ABV0@@Z,,0x002111C8,27,Code/GameEngine/Source/Common/Rva002111C8.cpp,matched,unlock copy ctor via smart member
 ?Rva00211DFBConstruct@@YAXPAVRva002111C8@@PBV1@@Z,,0x00211DFB,18,Code/GameEngine/Source/Common/Rva002111C8.cpp,matched,unlock placement copy via local new
 ??4Rva002111C8@@QAEAAV0@ABV0@@Z,,0x002111E3,27,Code/GameEngine/Source/Common/Rva002111C8.cpp,matched,unlock copy assign via smart member

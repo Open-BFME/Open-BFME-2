@@ -188,7 +188,7 @@ address_global	Code/GameEngine/Source/Common/PinnedForwarders1830.cpp	g_Va00A033
 address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002AB8FB.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/Common/RTS/Rva00439920Reset.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/Common/RTS/Science.cpp	g_Va00DB9440	2
+address_global	Code/GameEngine/Source/Common/RTS/Science.cpp	g_Va00DB9440	6
 address_global	Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp	g_Va00DB9440	2
 address_global	Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp	g_Va00E028C4	2
 address_global	Code/GameEngine/Source/Common/Recorder.cpp	g_Rva00A00958	2
@@ -216,7 +216,6 @@ address_global	Code/GameEngine/Source/Common/Rva001E3E43Dtor.cpp	g_Va00DFDC64	3
 address_global	Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp	g_Va00DFDC60	5
 address_global	Code/GameEngine/Source/Common/Rva001E72B4Reload.cpp	g_Va00DFDC61	4
 address_global	Code/GameEngine/Source/Common/Rva001F5300Finish.cpp	g_Va00BBB8D8	3
-address_global	Code/GameEngine/Source/Common/Rva001FF6D7List.cpp	g_Va00DB9440	4
 address_global	Code/GameEngine/Source/Common/Rva002036B4GlobalCopiers.cpp	g_Va00DFE18C	4
 address_global	Code/GameEngine/Source/Common/Rva00210F96Body.cpp	g_Rva00E02E84	2
 address_global	Code/GameEngine/Source/Common/Rva0023E7D9Clear.cpp	g_Rva00A00958	3

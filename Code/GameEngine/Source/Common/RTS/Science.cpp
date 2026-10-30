@@ -208,19 +208,6 @@ struct Rva001FF6D7Node
 	Rva001FF6D7Node *m_child; // +0xc
 };
 
-class Rva001FF6D7
-{
-public:
-	void rva001FF6AE();
-	void rva001FF6D7();
-	// Keep the recursive cleanup eligible for inline expansion when its body joins this TU.
-	inline void rva001FF55F(Rva001FF6D7Node *head);
-
-private:
-	Rva001FF6D7Head *m_head; // +0
-	int m_count; // +4
-};
-
 typedef bool Bool;
 
 // Concrete Science memo providers are already owned by verified units.
@@ -378,7 +365,22 @@ FillSciVec *vector<FillSciVec, allocator<FillSciVec> >::_M_allocate_and_copy<Fil
 }
 }
 
+class Rva001FF6D7
+{
+public:
+	void rva001FF6AE();
+	void rva001FF6D7();
+	// Keep the recursive cleanup eligible for inline expansion when its body joins this TU.
+	inline void rva001FF55F(Rva001FF6D7Node *head);
+
+private:
+	Rva001FF6D7Head *m_head; // +0
+	int m_count; // +4
+};
+
 // tu-skeleton: 0x001FF3AD 47B ?findScienceInfo@ScienceStore@@ABEPBVScienceInfo@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Science.cpp
 
@@ -638,20 +640,6 @@ Rva001FFEE9 &Rva001FFEE9::operator=(const Rva001FFEE9 &that)
 	return *this;
 }
 
-// tu-skeleton: 0x001FF47D 86B ?playerHasPrereqsForScience@ScienceStore@@QBE_NPBVRva0043D3A8@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF51F 40B ?erase@?$vector@PAVObjectTypes@@V?$allocator@PAVObjectTypes@@@_STL@@@_STL@@QAEPAPAVObjectTypes@@PAPAV3@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF547 24B ?deallocate@Rva001FF547@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF55F 50B ?rva001FF55F@Rva001FF6D7@@QAEXPAURva001FF6D7Node@@@Z -- matched in Code/GameEngine/Source/Common/Rva001FF6D7List.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF5A7 5B ?rva001FF5A7@Rva001FF5A7@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF5AC 23B ??$_Construct@U?$pair@$$CBI_N@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBI_N@0@ABU10@@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
-
-// tu-skeleton: 0x001FF625 56B ?rva001FF625@Rva001FF909@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/ScienceStoreFriendLookupScience.cpp
 
 // ?friend_lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z
@@ -670,11 +658,8 @@ ScienceType ScienceStore::friend_lookupScience(const char *scienceName) const
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x001FF6D7 20B ?rva001FF6D7@Rva001FF6D7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva001FF6D7List.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF6EB 24B ?allocate@Rva001FF547@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
 
-// tu-skeleton: 0x001FF743 43B ??1?$_Rb_tree@HU?$pair@$$CBHURva001FF743Element@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001FF743.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_science_base_001FF76E.cpp
 
@@ -692,6 +677,63 @@ _STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc
     _M_header._M_data = (_Node *)g_Va00DB9440.rva002EB448();
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_sciencevec_allocate_copy.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+//
+// ??$_M_allocate_and_copy@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@?$vector@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@V?$allocator@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@2@@_STL@@IAEPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@1@IPAV21@0@Z @0x001FFA2D 45B
+// Chain lane: vector<FillSciVec>::_M_allocate_and_copy via allocator twin
+// 0x00395928 (pinned) and rowed __uninitialized_copy 0x00339962. Caller
+// 0x001FFDAA. Spelled after _Vector_base shape: start +0 finish +4 proxy +8.
+
+// tu-skeleton: 0x001FF47D 86B ?playerHasPrereqsForScience@ScienceStore@@QBE_NPBVRva0043D3A8@@W4ScienceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF51F 40B ?erase@?$vector@PAVObjectTypes@@V?$allocator@PAVObjectTypes@@@_STL@@@_STL@@QAEPAPAVObjectTypes@@PAPAV3@@Z -- matched in Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngineReset.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF547 24B ?deallocate@Rva001FF547@@QAEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva001FF6D7List.cpp
+
+//
+// ?rva001FF6D7@Rva001FF6D7@@QAEXXZ @0x001FF6D7 20B
+// Unlock lane: if m_head null return else prepend node to global list at
+// 0x009B9448 (node->next = global; global = node). Caller 0x001FF75D.
+// Unwind funclet 0x0076C22E jmps here.
+
+void Rva001FF6D7::rva001FF6D7()
+{
+	void *node = m_head;
+	if (node == 0)
+		return;
+	*(void **)node = g_Va00DB9440.m_head;
+	g_Va00DB9440.m_head = node;
+}
+
+void Rva001FF6D7::rva001FF55F(Rva001FF6D7Node *head)
+{
+	Rva001FF6D7Node *cur = head;
+	if (cur == 0)
+		return;
+	do
+	{
+		rva001FF55F(cur->m_child);
+		Rva001FF6D7Node *next = cur->m_next;
+		cur->m_globalNext = g_Va00DB9440.m_head;
+		g_Va00DB9440.m_head = cur;
+		cur = next;
+	} while (cur != 0);
+}
+
+// tu-skeleton: 0x001FF5A7 5B ?rva001FF5A7@Rva001FF5A7@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF5AC 23B ??$_Construct@U?$pair@$$CBI_N@_STL@@U12@@_STL@@YAXPAU?$pair@$$CBI_N@0@ABU10@@Z -- matched in Code/GameEngine/Source/Common/System/FileSystem.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF625 56B ?rva001FF625@Rva001FF909@@QAE_NH@Z -- matched in Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF6EB 24B ?allocate@Rva001FF547@@QAEPAXIPBX@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE53.cpp (not merged yet)
+
+// tu-skeleton: 0x001FF743 43B ??1?$_Rb_tree@HU?$pair@$$CBHURva001FF743Element@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva001FF743Element@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva001FF743.cpp (not merged yet)
+
 // tu-skeleton: 0x001FF791 136B ?_M_insert@?$_Rb_tree@W4ScienceType@@U?$pair@$$CBW4ScienceType@@_N@_STL@@U?$_Select1st@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@U?$less@W4ScienceType@@@3@V?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4ScienceType@@_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ScienceType@@_N@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBW4ScienceType@@_N@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportIntMapInsertFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x001FF819 45B ??$_Construct@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@V12@@_STL@@YAXPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@0@ABV10@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types.cpp (not merged yet)
@@ -707,15 +749,6 @@ _STL::_Rb_tree_base<SciencePair, ScienceAlloc>::_Rb_tree_base(const ScienceAlloc
 // tu-skeleton: 0x001FF9E4 28B ??_GRva001FF909@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva001FF909Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x001FFA19 20B ?insert@?$map@W4ScienceType@@_NU?$less@W4ScienceType@@@_STL@@V?$allocator@U?$pair@$$CBW4ScienceType@@_N@_STL@@@3@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBW4ScienceType@@_N@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4ScienceType@@_N@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBW4ScienceType@@_N@2@@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_sciencevec_allocate_copy.cpp
-
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
-//
-// ??$_M_allocate_and_copy@PAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@?$vector@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@V?$allocator@V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@@2@@_STL@@IAEPAV?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@1@IPAV21@0@Z @0x001FFA2D 45B
-// Chain lane: vector<FillSciVec>::_M_allocate_and_copy via allocator twin
-// 0x00395928 (pinned) and rowed __uninitialized_copy 0x00339962. Caller
-// 0x001FFDAA. Spelled after _Vector_base shape: start +0 finish +4 proxy +8.
 
 // tu-skeleton: 0x001FFAA1 195B ?rva000E7C20SciencePrereqMemo@ScienceStore@@ABE_NPBVPlayer@@W4ScienceType@@PAX@Z -- matched in Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp (not merged yet)
 

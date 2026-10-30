@@ -14176,7 +14176,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001FF50D,18,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Science.cpp S=Code/GameEngine/Source/Common/RTS/Science.cpp N=Code/GameEngine/Source/Common/RTS/ScienceStore.cpp,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF51F,40,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF547,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_voidptr_opt.cpp
 0x001FF547,24,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF55F,Code/GameEngine/Source/Common/GapBodiesGE53.cpp
-0x001FF55F,50,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF591,Code/GameEngine/Source/Common/Rva001FF6D7List.cpp
+0x001FF55F,50,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF591,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF591,22,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF5A7,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF5A7,5,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF5AC,Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp
 0x001FF5AC,23,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF50D..0x001FF5C3,Code/GameEngine/Source/Common/System/FileSystem.cpp
@@ -14185,7 +14185,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001FF625,56,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF5F2..0x001FF65D,Code/GameEngine/Source/Common/ReloadIniFileNotices.cpp
 0x001FF65D,81,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Science.cpp S=Code/GameEngine/Source/Common/RTS/Science.cpp N=Code/GameEngine/Source/Common/RTS/ScienceStore.cpp,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF6AE,41,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF6D7,Code/GameEngine/Source/Common/RTS/Science.cpp
-0x001FF6D7,20,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF6EB,Code/GameEngine/Source/Common/Rva001FF6D7List.cpp
+0x001FF6D7,20,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF6EB,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF6EB,24,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF703,Code/GameEngine/Source/Common/GapBodiesGE53.cpp
 0x001FF703,34,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,C,C=0x001FF65D..0x001FF725,Code/GameEngine/Source/Common/RTS/Science.cpp
 0x001FF725,30,code,Code/GameEngine/Source/Common/RTS/Science.cpp,approved,Z,Z=Code/GameEngine/Source/Common/RTS/Science.cpp S=Code/GameEngine/Source/Common/RTS/Science.cpp N=Code/GameEngine/Source/Common/RTS/ScienceStore.cpp,Code/GameEngine/Source/Common/RTS/Science.cpp

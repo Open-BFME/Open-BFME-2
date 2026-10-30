@@ -75,3 +75,57 @@ without a current receipt is
 `Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp`. Carry this
 consumer and the composition into the next census; local object identity does
 not substitute for complete consumer/link closure.
+
+## Applied consolidation
+
+After publication rebased the prerequisite onto `575807ffef`, the refreshed
+scoped naming plan passed its currency check. The supported merger accepted
+exactly Science.cpp and Rva001FF6D7List.cpp, preserving all 22 rows (982 authored
+bytes) and passing its census-linked guard. It deleted the donor and repointed
+its two rows, totaling 70 bytes, into their already approved Science TU. Only
+those source cells in the TU map changed; no approval or map regeneration is
+claimed. Source files decrease by one. The parser, two STL donors and eleven
+mixed sources retain their prerequisites.
+
+Strict current preparation passes 22/22 rows; frozen-file and CSV checks pass.
+The seed's one EH graph remains EXACT. Comparing the original two objects with
+the merged object preserves all 66 normalized external COMDAT bodies and their
+relocations/sizes, 66 external definitions, 33 unresolved names, no weak aliases
+and 38 reference roots. The only selection change is recursive cleanup
+`001FF55F`: NODUPLICATES becomes ANY when its inline definition joins this TU.
+Its graph entry appears (48 to 49 edge owners), referencing itself and the pool,
+both already reference roots. Every existing edge and the complete reachable
+name set are unchanged. This is an explicit COMDAT-policy change, not identical
+raw object metadata. Scratch `compare.py merged` checks these facts.
+
+No code/data identity, header-adoption, Microsoft-header or flag-override debt
+entry belongs to this pair. Repeating the merger's scoped header refresh changes
+nothing. Hatch ownership transfers two plus four address-global occurrences to
+six in Science.cpp; the total stays fixed. Staged TU ownership and hatch checks
+pass. No debt is retired.
+
+The tooling audit covers all pending changes against `575807ffef`, including
+the previously handed-over INIMultiplayerSettings.cpp, AnimationSound module
+data constructor, Bezier pool-key and duplicate hashtable source retirements,
+plus this list donor. Combined old-path/basename searches cover tools, hooks,
+workflows, Code, root build/configuration files, documentation and reverse
+registers. No active consumer needs repair. Remaining mentions are provenance
+banners, an unchanged symbol whose spelling contains the Bezier donor stem,
+historical attempt/deleted-row records, completed obstacle history and the
+published link-status snapshot. Current ledger, map and hatch cells resolve to
+the merged owners. No directories or discovery patterns change.
+
+Ordinary preview against `e1f7c1dd18` reports the seed's old ScienceMemo
+constructor duplicate and the retired list object's cleanup duplicate. It is
+not a current-provider overlay; the supported merge guard removes retired
+providers and passes. Neither preview nor guard records census progress.
+
+The applied-tree batch audit against `575807ffef` first found three stale
+provider receipts. Explicit strict preparation of Made002CC7DE.cpp,
+ScienceStoreFindScienceInfo.cpp and BezierProjectileBehavior.cpp verifies
+44/44 rows, including ten renumbered funclet pins. Repeating the audit reports
+INCONCLUSIVE on the older index and the same missing current consumer receipt
+for Common/0CreateAHeroManager21FE49.cpp. Carry that consumer and the retired
+provider into the next scheduled census; no complete batch-link closure is
+claimed. Data identity for Science reports zero findings, and converged
+enforcement checks eleven addresses with no second names or unjudged rows.
