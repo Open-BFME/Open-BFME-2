@@ -11,20 +11,28 @@ namespace _STL { void __cdecl free(void *); }
 #include <hash_map>
 class ModuleData;
 namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const&); }
-class XferException {
-public: XferException(int,const char*,...); XferException(const XferException&); ~XferException();
- void *text; int tag;
+class XferException
+{
+public:
+	XferException(int tag, const char *format, ...);
+	XferException(const XferException &that);
+	~XferException();
+	void *text; // +0x00
+	int tag; // +0x04
 };
-class BfmeByteStream {
-public: virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
- virtual int write(const void*,int); virtual int skip(int,int);
+class BfmeByteStream
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual int write(const void *buffer, int size);
+	virtual int skip(int count, int flag);
 };
+// Retain this existing string-node view's npos COMDAT provider until the
+// table family is consolidated and its data bindings can move together.
 struct Rva0060CAEANode { void *next; _STL::string key; unsigned int value; };
-struct Rva0060CAEAIterator { Rva0060CAEANode *cur; const void *table;
- Rva0060CAEAIterator(Rva0060CAEANode *c,const void *t):cur(c),table(t) {}
-};
-class Rva0060CAEA { public: Rva0060CAEAIterator rva0060CB61(const _STL::string&); Rva0060CAEANode *rva0060CAEA(const _STL::string&)const throw(); };
-class Rva0060D269 { public: unsigned int &rva0060D269(const _STL::string&); };
 class XferSave {
 public:
  virtual ~XferSave();

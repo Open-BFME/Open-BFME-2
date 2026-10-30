@@ -26,33 +26,35 @@ template <> __declspec(dllimport) __forceinline
 void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
 { allocator<char>::deallocate(__p, __n); }
 }
-class ModuleData;
-namespace _STL { template<> void vector<const ModuleData *>::push_back(const ModuleData *const&); }
-class XferException {
-public: XferException(int,const char*,...); XferException(const XferException&); ~XferException();
- void *text; int tag;
-};
-class BfmeByteStream {
-public: virtual void slot0(); virtual void slot1(); virtual void slot2(); virtual void slot3();
- virtual int write(const void*,int); virtual int skip(int,int);
-};
 struct Rva0060CAEANode { void *next; _STL::string key; unsigned int value; };
 struct Rva0060CAEAIterator { Rva0060CAEANode *cur; const void *table;
  Rva0060CAEAIterator(Rva0060CAEANode*c,const void*t):cur(c),table(t){} };
-class Rva0060CAEA { public: Rva0060CAEAIterator rva0060CB61(const _STL::string&); Rva0060CAEANode *rva0060CAEA(const _STL::string&)const throw(); };
-class Rva0060D269 { public: unsigned int &rva0060D269(const _STL::string&); };
-class XferSave {
-public:
- virtual ~XferSave();
- void rva0060D2E9(const char*);
- int rva0060D435(const char*);
-private:
- BfmeByteStream *volatile stream;
- bool flag; char pad9[3];
- void *positions[3];
- char names[20]; char secondNames[16];
- unsigned int previousNames;
+struct Rva0060CAEABuckets
+{
+	void **_M_start;
+	void **_M_finish;
+	void **_M_end;
+
+	unsigned int size() const
+	{
+		return (unsigned int)(_M_finish - _M_start);
+	}
+	void *operator[](unsigned int n) const
+	{
+		return _M_start[n];
+	}
 };
+
+class Rva0060CAEA
+{
+public:
+	Rva0060CAEANode *rva0060CAEA(const _STL::string &key) const throw();
+	Rva0060CAEAIterator rva0060CB61(const _STL::string &key);
+private:
+	int m_00; // +0x00
+	Rva0060CAEABuckets m_buckets; // +0x04
+};
+class Rva0060D269 { public: unsigned int &rva0060D269(const _STL::string&); };
 typedef _STL::pair<const _STL::string,unsigned int> XferNamePair;
 typedef _STL::hashtable<XferNamePair,_STL::string,_STL::hash<_STL::string>,
  _STL::_Select1st<XferNamePair>,_STL::equal_to<_STL::string>,_STL::allocator<XferNamePair> > XferNameTable;

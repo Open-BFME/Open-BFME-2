@@ -39,9 +39,8 @@ public:
 	XferException(int tag, const char *format, ...);
 	XferException(const XferException &that);
 	~XferException();
-
-	void *text;
-	int tag;
+	void *text; // +0x00
+	int tag; // +0x04
 };
 
 class BfmeByteStream
@@ -208,12 +207,11 @@ struct Rva0060CAEABuckets
 class Rva0060CAEA
 {
 public:
-	Rva0060CAEANode *rva0060CAEA(const _STL::string &key) const;
+	Rva0060CAEANode *rva0060CAEA(const _STL::string &key) const throw();
 	Rva0060CAEAIterator rva0060CB61(const _STL::string &key);
-
 private:
-	int m_00;
-	Rva0060CAEABuckets m_buckets;
+	int m_00; // +0x00
+	Rva0060CAEABuckets m_buckets; // +0x04
 };
 
 namespace _STL
@@ -614,7 +612,7 @@ Xfer &XferSave::rva0060CE41(Rva0060CE41Argument &str)
 // nested bucket-vector form that keeps this in esi like the char-pointer
 // sibling 0x0060CB2B.
 
-Rva0060CAEANode *Rva0060CAEA::rva0060CAEA(const _STL::string &key) const
+Rva0060CAEANode *Rva0060CAEA::rva0060CAEA(const _STL::string &key) const throw()
 {
 	unsigned int h = _STL::__stl_string_hash(key);
 	unsigned int n = h % m_buckets.size();
