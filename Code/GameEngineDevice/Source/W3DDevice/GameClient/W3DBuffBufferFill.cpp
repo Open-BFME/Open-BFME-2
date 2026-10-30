@@ -45,6 +45,7 @@
 // gives retail's texture-transform code and loop induction.
 
 #include <windows.h>
+#include "../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <set>
 
 #include "GameLogicObjectLookupView.h"
@@ -792,9 +793,12 @@ public:
 	void set(const Rva006DB2F0Vec *p);
 };
 
+struct TBuffSource;
+
 class TBuff
 {
 public:
+	TBuff(const TBuffSource *, int);
 	bool isShrouded(int playerIndex) { return ((Rva000D1BEA *)this)->rva000D1BEA(playerIndex) != 0; }
 	void UpdateFade() { ((Rva000D1C10 *)this)->rva000D1C10(); }
 	void setTransform(const Matrix3D &matrix3D) { ((Rva006DB2F0 *)this)->set((const Rva006DB2F0Vec *)&matrix3D); }
@@ -813,44 +817,49 @@ public:
 
 typedef _STL::set<TBuff *> TBuffSet;
 
-struct BuffTypeView
-{
-	RenderObjClass *m_render;
-	void *m_name;
-	bool m_flag;
-};
+struct BuffTypeView { RenderObjClass *render; AsciiString name; bool flag; };
+
+class Drawable;
+struct BuffInfoView;
+class MeshClass;
+class RenderInfoClass;
+class DX8IndexBufferClass;
+namespace { class BuffVertexBufferView; }
 
 class W3DBuffBuffer
 {
 public:
-	enum
-	{
-		MAX_BUFF_VERTEX = 30000,
-		MAX_BUFF_INDEX = 60000
-	};
-	void rva000D2301(MeshClass *mesh, RenderObjClass *target, int type, TBuffSet::iterator *it);
-	void rva000D28FA(RenderInfoClass &rinfo, bool flag);
+    enum
+    {
+        MAX_BUFF_VERTEX = 30000,
+        MAX_BUFF_INDEX = 60000
+    };
+    TBuff *addBuff(Drawable *, const BuffInfoView *);
+    int addBuffType(const AsciiString &, const BuffInfoView *);
+    void allocateBuffBuffers();
+    void rva000D2301(MeshClass *mesh, RenderObjClass *target, int type, TBuffSet::iterator *it);
+    void rva000D28FA(RenderInfoClass &rinfo, bool flag);
 
 private:
-	BuffVertexBufferView *m_vertexBuffer;
-	DX8IndexBufferClass *m_indexBuffer;
-	int m_curNumBuffVertices;
-	int m_curNumBuffIndices;
-	int m_vertexOffset;
-	int m_indexOffset;
-	BuffTypeView m_types[10];
-	int m_numTypes;
-	TBuffSet m_buffs[10];
-	bool m_initialized;
+    BuffVertexBufferView *m_vertexBuffer;
+    DX8IndexBufferClass *m_indexBuffer;
+    int m_curNumBuffVertices;
+    int m_curNumBuffIndices;
+    int m_vertexOffset;
+    int m_indexOffset;
+    BuffTypeView types[10];
+    int count;
+    TBuffSet buffs[10];
+    bool enabled;
 };
 
 void W3DBuffBuffer::rva000D2301(MeshClass *mesh, RenderObjClass *target, int type, TBuffSet::iterator *it)
 {
-	if (!m_indexBuffer || !m_vertexBuffer || !m_initialized || !mesh || !target)
+	if (!m_indexBuffer || !m_vertexBuffer || !enabled || !mesh || !target)
 		return;
 	m_curNumBuffVertices = 0;
 	m_curNumBuffIndices = 0;
-	TBuffSet &buffs = m_buffs[type];
+	TBuffSet &buffs = this->buffs[type];
 	if (*it == buffs.end())
 		return;
 
@@ -1048,16 +1057,16 @@ void W3DBuffBuffer::rva000D28FA(RenderInfoClass &rinfo, bool flag)
 	m_curNumBuffVertices = 0;
 	m_curNumBuffIndices = 0;
 	int i;
-	for (i = 0; i < m_numTypes; i++) {
-		if (flag != m_types[i].m_flag)
+	for (i = 0; i < count; i++) {
+		if (flag != types[i].flag)
 			continue;
-		TBuffSet *buffs = &m_buffs[i];
+		TBuffSet *buffs = &this->buffs[i];
 		int numBuffs = buffs->size();
 		if (numBuffs == 0)
 			continue;
-		int count = m_types[i].m_render->Get_Num_Sub_Objects();
+		int count = types[i].render->Get_Num_Sub_Objects();
 		for (int j = 0; j < count; j++) {
-			RenderObjClass *sub = m_types[i].m_render->Get_Sub_Object(j);
+			RenderObjClass *sub = types[i].render->Get_Sub_Object(j);
 			MeshClass *mesh = sub ? sub->slot05() : 0;
 			MeshModelClass *model = mesh ? mesh->Peek_Model() : 0;
 			VertexMaterialClass *material = model ? model->Peek_Material() : 0;
