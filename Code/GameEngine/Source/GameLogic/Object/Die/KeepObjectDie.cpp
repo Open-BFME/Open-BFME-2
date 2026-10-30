@@ -133,18 +133,28 @@ public:
 template <typename T> Debug &operator<<(Debug &debug, const StringBase<T> &text);
 extern Debug *theDebug;
 bool _bfme_debugReportingEnabled(void);
-// The canonical Thing/ThingTemplate views replace the donor's private copies:
-// Thing::m_template is +0x04 and ThingTemplate::m_kindof[0] is +0x108, the
-// kind-flags word whose bit 1 is KINDOF_SELECTABLE.
 #include "../../../Common/Thing/thing.h"
 #include "../../../../Include/Common/ThingTemplate.h"
-
-// The donor spelled an inline Thing::getTemplate(); the canonical header's
-// getter is out of line, so this keeps the load the retail body performs.
-static inline const ThingTemplate *bfmeGetTemplate(const Thing *thing)
-{
-	return thing->m_template;
-}
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class KeepObjectDie : public DieModule
 {
@@ -154,6 +164,33 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 	virtual void onDie(const DamageInfo *damageInfo);
 };
+
+BFME_LITERAL_NAME_GETTER(Rva00486C8FNamed, "KeepObjectDie")
+
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp
+
+// The canonical Thing/ThingTemplate views replace the donor's private copies:
+// Thing::m_template is +0x04 and ThingTemplate::m_kindof[0] is +0x108, the
+// kind-flags word whose bit 1 is KINDOF_SELECTABLE.
+
+// The donor spelled an inline Thing::getTemplate(); the canonical header's
+// getter is out of line, so this keeps the load the retail body performs.
+static inline const ThingTemplate *bfmeGetTemplate(const Thing *thing)
+{
+	return thing->m_template;
+}
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDieCtor.cpp
 
@@ -184,8 +221,6 @@ KeepObjectDie::KeepObjectDie(Thing *thing, const ModuleData *moduleData) :
 KeepObjectDie::~KeepObjectDie()
 {
 }
-
-// tu-skeleton: 0x00486C8F 6B ?name@Rva00486C8FNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/KeepObjectDie.cpp
 
@@ -226,3 +261,19 @@ void KeepObjectDie::onDie(const DamageInfo *damageInfo)
 		return;
 	TheRadar->addObject(obj);
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
