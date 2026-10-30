@@ -6123,7 +6123,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000B197C,8,code,,,-,,Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp
 0x000B1984,29,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE35.cpp
 0x000B19A1,28,code,,,-,,Code/GameEngine/Source/GameClient/Drawable/Update/DrawModule.cpp
-0x000B19BD,6,code,Code/GameEngine/Source/Common/Thing/DrawModule.cpp,approved,S,S=Code/GameEngine/Source/Common/Thing/DrawModule.cpp N=Code/GameEngine/Source/Common/DrawModule.cpp,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
+0x000B19BD,6,code,Code/GameEngine/Source/Common/Thing/DrawModule.cpp,approved,S,S=Code/GameEngine/Source/Common/Thing/DrawModule.cpp N=Code/GameEngine/Source/Common/DrawModule.cpp,Code/GameEngine/Source/Common/Thing/DrawModule.cpp
 0x000B19C3,17,code,,,-,,Code/GameEngine/Source/Common/S3GuardedSetters.cpp
 0x000B19D4,17,code,,,-,,Code/GameEngine/Source/Common/S3GuardedSetters.cpp
 0x000B19E5,22,code,,displaced,-,S=Code/GameEngine/Source/Common/Thing/Thing.cpp N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Thing.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DDebrisDrawModule.cpp

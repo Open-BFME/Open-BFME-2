@@ -115,11 +115,6 @@ class DrawModule
 protected:
     virtual const char *GetSnapshotName() const;
 };
-
-const char *DrawModule::GetSnapshotName() const
-{
-    return "DrawModule";
-}
 BFME_LITERAL_NAME_GETTER(Rva00226309Named, "SaveMapPreview")
 BFME_LITERAL_NAME_GETTER(Rva002296E6Named, "GameSlot")
 BFME_LITERAL_NAME_GETTER(Rva00229902Named, "LobbyGameInfo")
