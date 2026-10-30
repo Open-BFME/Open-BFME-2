@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
 // ?addTreeType@W3DTreeBuffer@@QAEHABVAsciiString@@0PBXH00@Z, retail 0x000EC75D (617 bytes,
 // ret 0x18), called from addTree 0x000ECF79 and the template lookup 0x000ECDF5. Donor:
 // Open-BFME-1 W3DTreeBufferAddTreeType.cpp (BFME1 0x00735E10). BFME2 layout read from
@@ -11,6 +11,8 @@ typedef unsigned char UnsignedByte;
 class MeshClass;
 class RenderObjClass;
 
+#include "W3DTreeRecord.h"
+#include "W3DTreeTypeRecord.h"
 #include "vector3.h"
 #include "matrix3d.h"
 #include "sphere.h"
@@ -144,18 +146,106 @@ public:
 
 extern RenderObjClass *Create_Render_Obj(const char *name);
 
-class W3DTreeBuffer
+
+class TextureClass;
+
+template <class T> class RefCountPtr;
+template <> class RefCountPtr<TextureClass>
 {
 public:
-	Int addTreeType(const AsciiString &modelName, const AsciiString &nameC,
-		const void *data, Int shadowKind, const AsciiString &textureName,
-		const AsciiString &nameD);
+	RefCountPtr const &operator=(RefCountPtr const &other);
+	TextureClass *Ptr;
+};
 
-	unsigned char m_head[0x44556];
-	UnsignedByte m_needToUpdateTexture;
-	UnsignedByte m_pad44557[1];
-	Rva00735E10TreeType m_treeTypes[64];
-	Int m_numTreeTypes;
+class Rva000E6AC0Base
+{
+public:
+	Rva000E6AC0Base() {}
+	virtual ~Rva000E6AC0Base() {}
+};
+
+class Rva000E6AC0 : public Rva000E6AC0Base
+{
+public:
+	Rva000E6AC0();
+	void rva000E65B1();
+	virtual ~Rva000E6AC0();
+private:
+	unsigned char m_storage[0x38 - 4]; // +0x04
+protected:
+	RefCountPtr<TextureClass> texture38, texture3c; // +0x38
+	char list40[0x28], list68[0x28]; // +0x40
+private:
+	unsigned char m_pad90[0x5BC - 0x90];
+protected:
+	float m_sinkScale; // +0x5BC
+};
+
+class Rva0052413E
+{
+public:
+	Rva0052413E() throw();
+	~Rva0052413E();
+private:
+	unsigned char m_storage[12];
+};
+
+struct TTree;
+
+class W3DTreeBuffer : public Rva000E6AC0
+{
+	friend class Rva000EC9C6;
+protected:
+	void updateTexture();
+	void updateTopplingTree(TTree *tree);
+public:
+	W3DTreeBuffer();
+public:
+	void rva000EA24D();
+private:
+	Rva000EDA94Record m_records[1200];
+private:
+	int m_count;
+private:
+	unsigned char m_44544;
+private:
+	unsigned char m_44545; // +0x44545
+private:
+	unsigned char m_44546;
+private:
+	unsigned char m_44547;
+private:
+	Rva0052413E m_objects;
+private:
+	unsigned char m_44554;
+private:
+	unsigned char m_44555;
+private:
+	unsigned char m_44556;
+private:
+	unsigned char m_44557;
+private:
+	Rva000EC67F m_types[64]; // +0x44558
+private:
+	int m_typeCount;
+private:
+	int m_45c5c; // +0x45C5C
+private:
+	int m_45c60;
+private:
+	unsigned char m_45c64;
+public:
+	bool rva000EA48D(void *key, const Coord3D *direction, float height);
+	bool rva000EA644(void *key);
+	void rva000EA2C0(void *key);
+	bool rva000EA6A7(void *key);
+	void rva000EB2EF(int index);
+	void rva000EB0E6(int index);
+	bool rva000ECF2A(unsigned key, int mode);
+	void startMorph(int index, int mode);
+	int addTreeType(const AsciiString &modelName, const AsciiString &nameC, const void *data, int shadowKind,
+		const AsciiString &textureName, const AsciiString &templateName);
+	int rva000ECDF5(const AsciiString &templateName, int shadowKind, const AsciiString &textureName);
 };
 
 // ?addTreeType@W3DTreeBuffer@@QAEHABVAsciiString@@0PBXH00@Z
@@ -163,12 +253,13 @@ Int W3DTreeBuffer::addTreeType(const AsciiString &modelName,
 	const AsciiString &nameC, const void *data, Int shadowKind,
 	const AsciiString &textureName, const AsciiString &nameD)
 {
-	if (m_numTreeTypes >= 64) {
+    Rva00735E10TreeType *m_treeTypes = reinterpret_cast<Rva00735E10TreeType *>(m_types);
+	if (m_typeCount >= 64) {
 		return 0;
 	}
-	m_needToUpdateTexture = 1;
+	m_44556 = 1;
 
-	m_treeTypes[m_numTreeTypes].m_mesh = 0;
+	m_treeTypes[m_typeCount].m_mesh = 0;
 
 	RenderObjClass *robj = Create_Render_Obj(modelName.str());
 
@@ -188,9 +279,9 @@ Int W3DTreeBuffer::addTreeType(const AsciiString &modelName,
 	}
 
 	if (robj->Class_ID() == 0)
-		m_treeTypes[m_numTreeTypes].m_mesh = robj->renderObjSlot14();
+		m_treeTypes[m_typeCount].m_mesh = robj->renderObjSlot14();
 
-	MeshClass *mesh = m_treeTypes[m_numTreeTypes].m_mesh;
+	MeshClass *mesh = m_treeTypes[m_typeCount].m_mesh;
 	if (mesh == 0) {
 		robj->Release_Ref();
 		return 0;
@@ -201,19 +292,19 @@ Int W3DTreeBuffer::addTreeType(const AsciiString &modelName,
 
 	mesh->Validate_Transform();
 	SphereClass bounds(pVert, numVertex);
-	SphereClass &destBounds = m_treeTypes[m_numTreeTypes].m_bounds;
+	SphereClass &destBounds = m_treeTypes[m_typeCount].m_bounds;
 	bounds.Center += offset;
 	destBounds = bounds;
-	m_treeTypes[m_numTreeTypes].m_data = data;
-	m_treeTypes[m_numTreeTypes].m_offset = offset;
-	m_treeTypes[m_numTreeTypes].m_doShadow = (shadowKind == 1);
-	m_treeTypes[m_numTreeTypes].m_textureName.setCopyInline(textureName);
-	reinterpret_cast<StringBase<char> *>(&m_treeTypes[m_numTreeTypes].m_textureName)->concat(".tga");
-	m_treeTypes[m_numTreeTypes].m_modelName.setCopyInline(modelName);
-	m_treeTypes[m_numTreeTypes].m_nameC.setCopyInline(nameC);
-	m_treeTypes[m_numTreeTypes].m_nameD.setCopyInline(nameD);
+	m_treeTypes[m_typeCount].m_data = data;
+	m_treeTypes[m_typeCount].m_offset = offset;
+	m_treeTypes[m_typeCount].m_doShadow = (shadowKind == 1);
+	m_treeTypes[m_typeCount].m_textureName.setCopyInline(textureName);
+	reinterpret_cast<StringBase<char> *>(&m_treeTypes[m_typeCount].m_textureName)->concat(".tga");
+	m_treeTypes[m_typeCount].m_modelName.setCopyInline(modelName);
+	m_treeTypes[m_typeCount].m_nameC.setCopyInline(nameC);
+	m_treeTypes[m_typeCount].m_nameD.setCopyInline(nameD);
 	// Retail initializes this per-type sentinel after the string fields.
-	m_treeTypes[m_numTreeTypes].m_field0058 = -2;
-	m_numTreeTypes++;
-	return m_numTreeTypes - 1;
+	m_treeTypes[m_typeCount].m_field0058 = -2;
+	m_typeCount++;
+	return m_typeCount - 1;
 }

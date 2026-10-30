@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
 //
 // ?updateTopplingTree@W3DTreeBuffer@@IAEXPAUTTree@@@Z, retail 0x000EA746
 // (1633 bytes), called from 0x000EDCB9; WorldBuilder twin 0x008A1CB0
@@ -125,28 +125,112 @@ struct TTree
 
 static const float ANGULAR_LIMIT = 1.5217089653015137f;
 
-class W3DTreeBuffer
+#include "W3DTreeRecord.h"
+#include "W3DTreeTypeRecord.h"
+
+class Rva000E6AC0Base
 {
-protected:
-	void updateTopplingTree(TTree *tree);
+public:
+	Rva000E6AC0Base() {}
+	virtual ~Rva000E6AC0Base() {}
+};
 
+class TextureClass;
+
+template <class T> class RefCountPtr;
+template <> class RefCountPtr<TextureClass>
+{
+public:
+	RefCountPtr const &operator=(RefCountPtr const &other);
+	TextureClass *Ptr;
+};
+class Rva000E6AC0 : public Rva000E6AC0Base
+{
+public:
+	Rva000E6AC0();
+	void rva000E65B1();
+	virtual ~Rva000E6AC0();
 private:
-	char m_pad00000[0x5BC];
-	float m_sinkScale;	// +0x5BC
-	char m_pad005C0[0x44545 - 0x5C0];
-	unsigned char m_anythingChanged;	// +0x44545
-	char m_pad44546[0x44558 - 0x44546];
-	TTreeType m_treeTypes[64];	// +0x44558
-	char m_pad45C58[0x45C5C - 0x45C58];
-	unsigned char m_anyTreeSettled;	// +0x45C5C
+	unsigned char m_storage[0x38 - 4]; // +0x04
+protected:
+	RefCountPtr<TextureClass> texture38, texture3c; // +0x38
+	char list40[0x28], list68[0x28]; // +0x40
+private:
+	unsigned char m_pad90[0x5BC - 0x90];
+protected:
+	float m_sinkScale; // +0x5BC
+};
 
+class Rva0052413E
+{
+public:
+	Rva0052413E() throw();
+	~Rva0052413E();
+private:
+	unsigned char m_storage[12];
+};
+
+class W3DTreeBuffer : public Rva000E6AC0
+{
+	friend class Rva000EC9C6;
+protected:
+	void updateTexture();
+	void updateTopplingTree(TTree *tree);
+public:
+	W3DTreeBuffer();
+public:
+	void rva000EA24D();
+private:
+	Rva000EDA94Record m_records[1200];
+private:
+	int m_count;
+private:
+	unsigned char m_44544;
+private:
+	unsigned char m_44545; // +0x44545
+private:
+	unsigned char m_44546;
+private:
+	unsigned char m_44547;
+private:
+	Rva0052413E m_objects;
+private:
+	unsigned char m_44554;
+private:
+	unsigned char m_44555;
+private:
+	unsigned char m_44556;
+private:
+	unsigned char m_44557;
+private:
+	Rva000EC67F m_types[64]; // +0x44558
+private:
+	int m_typeCount;
+private:
+	int m_45c5c; // +0x45C5C
+private:
+	int m_45c60;
+private:
+	unsigned char m_45c64;
+public:
+	bool rva000EA48D(void *key, const Coord3D *direction, float height);
+	bool rva000EA644(void *key);
+	void rva000EA2C0(void *key);
+	bool rva000EA6A7(void *key);
+	void rva000EB2EF(int index);
+	void rva000EB0E6(int index);
+	bool rva000ECF2A(unsigned key, int mode);
+	void startMorph(int index, int mode);
+	int addTreeType(const AsciiString &modelName, const AsciiString &nameC, const void *data, int shadowKind,
+		const AsciiString &textureName, const AsciiString &templateName);
+	int rva000ECDF5(const AsciiString &templateName, int shadowKind, const AsciiString &textureName);
 };
 
 void W3DTreeBuffer::updateTopplingTree(TTree *tree)
 {
 	if (tree->m_toppleState == TOPPLE_UPRIGHT || tree->m_toppleState == TOPPLE_DOWN)
 		return;
-	const W3DTreeDrawModuleData *data = m_treeTypes[tree->treeType].m_data;
+	const W3DTreeDrawModuleData *data = m_types[tree->treeType].m_data;
 	int playerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
 	Coord3D position;
 	position.x = tree->location.X;
@@ -164,7 +248,7 @@ void W3DTreeBuffer::updateTopplingTree(TTree *tree)
 		tree->m_toppleState = TOPPLE_DOWN;
 		tree->m_mtx.In_Place_Pre_Rotate_X(-ANGULAR_LIMIT * tree->m_toppleDirection.y);
 		tree->m_mtx.In_Place_Pre_Rotate_Y(ANGULAR_LIMIT * tree->m_toppleDirection.x);
-		m_anythingChanged = 1;
+		m_44545 = 1;
 		if (data->m_killWhenToppled)
 		{
 			tree->m_sinkFramesLeft = 0;
@@ -178,7 +262,7 @@ void W3DTreeBuffer::updateTopplingTree(TTree *tree)
 		curVelocityToAdd = ANGULAR_LIMIT - tree->m_angularAccumulation;
 	tree->m_mtx.In_Place_Pre_Rotate_X(-curVelocityToAdd * tree->m_toppleDirection.y);
 	tree->m_mtx.In_Place_Pre_Rotate_Y(curVelocityToAdd * tree->m_toppleDirection.x);
-	m_anythingChanged = 1;
+	m_44545 = 1;
 	tree->m_angularAccumulation += curVelocityToAdd;
 	if (tree->m_angularAccumulation >= ANGULAR_LIMIT && tree->m_angularVelocity > 0)
 	{
@@ -187,7 +271,7 @@ void W3DTreeBuffer::updateTopplingTree(TTree *tree)
 		{
 			tree->m_angularVelocity = 0;
 			tree->m_toppleState = TOPPLE_DOWN;
-			m_anyTreeSettled = 1;
+			*reinterpret_cast<unsigned char *>(&m_45c5c) = 1;
 			if (data->m_killWhenToppled)
 			{
 				tree->m_sinkFramesLeft = (int)((float)data->m_sinkFrames * m_sinkScale);

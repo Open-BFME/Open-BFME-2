@@ -189,13 +189,30 @@ private:
 	unsigned char m_dirty;
 };
 
+class TextureClass;
+
+template <class T> class RefCountPtr;
+template <> class RefCountPtr<TextureClass>
+{
+public:
+	RefCountPtr const &operator=(RefCountPtr const &other);
+	TextureClass *Ptr;
+};
 class Rva000E6AC0 : public Rva000E6AC0Base
 {
 public:
 	Rva000E6AC0();
+	void rva000E65B1();
 	virtual ~Rva000E6AC0();
 private:
-	unsigned char m_storage[0x5C0 - 4];
+	unsigned char m_storage[0x38 - 4]; // +0x04
+protected:
+	RefCountPtr<TextureClass> texture38, texture3c; // +0x38
+	char list40[0x28], list68[0x28]; // +0x40
+private:
+	unsigned char m_pad90[0x5BC - 0x90];
+protected:
+	float m_sinkScale; // +0x5BC
 };
 
 class Rva0008B470
@@ -565,6 +582,8 @@ class Rva000EC9C6
 public:
 	void rva000EB6BB(void);
 	void rva000EBFD1(void);
+	void rva000E663B(int arg);
+	void rva000EC9C6(int arg);
 
 private:
 	void *m_vtable;
@@ -572,16 +591,24 @@ private:
 	PtrVector<int> m_curNumTreeVertices;
 	PtrVector<IndexBufferClass *> m_indexTree;
 	PtrVector<int> m_curNumTreeIndices;
-	unsigned char m_pad34[0x5c0 - 0x34];
+	int m_at34;
+	int m_at38;
+	unsigned char m_pad3C[0x5c0 - 0x3C];
 	Rva000EDA94Record m_trees[1200];
 	int m_numTrees;
 	bool m_anythingChanged;
-	unsigned char m_pad44545[0x44554 - 0x44545];
+	unsigned char m_at44545;
+	unsigned char m_pad44546[0x44554 - 0x44546];
 	bool m_initialized;
-	unsigned char m_pad44555[0x44558 - 0x44555];
+	unsigned char m_at44555;
+	unsigned char m_at44556;
+	unsigned char m_pad44557;
 	Rva000EC67F m_treeTypes[64];
-	unsigned char m_pad45c58[0x45c60 - 0x45c58];
+	unsigned char m_pad45c58[4];
+	unsigned char m_at45C5C;
+	unsigned char m_pad45C5D[3];
 	int m_treeIndexStep;
+	unsigned char m_at45C64;
 };
 
 struct Rva000ECDF5TreeDrawData
@@ -745,8 +772,14 @@ struct Rva000EA48DBufferView
     Int numTypes;
 };
 
+struct TTree;
+
 class W3DTreeBuffer : public Rva000E6AC0
 {
+	friend class Rva000EC9C6;
+protected:
+	void updateTexture();
+	void updateTopplingTree(TTree *tree);
 public:
 	W3DTreeBuffer();
 public:
@@ -758,7 +791,7 @@ private:
 private:
 	unsigned char m_44544;
 private:
-	unsigned char m_44545;
+	unsigned char m_44545; // +0x44545
 private:
 	unsigned char m_44546;
 private:
@@ -774,11 +807,11 @@ private:
 private:
 	unsigned char m_44557;
 private:
-	Rva000EC67F m_types[64];
+	Rva000EC67F m_types[64]; // +0x44558
 private:
 	int m_typeCount;
 private:
-	int m_45c5c;
+	int m_45c5c; // +0x45C5C
 private:
 	int m_45c60;
 private:

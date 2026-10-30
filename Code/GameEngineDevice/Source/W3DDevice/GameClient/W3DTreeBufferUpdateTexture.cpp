@@ -1,10 +1,12 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib 
+// cl: /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc /ICode/Libraries/Include/Lib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/inputs/reference/shims/stringinline /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/game/Libraries/Source/WWVegas
 // W3DTreeBuffer::updateTexture, retail 0x000EB40F (684 bytes), twin of the shrub
 // body at 0x000E7B3F (same providers). Here the atlas key is the type's own
 // nameC (+0x50) instead of its data's. Layout:
 // texture handles +0x38/+0x3C, atlas lists +0x40/+0x68, 64 types of 0x5C at
 // +0x44558 (count +0x45C58). The list providers are BFME2's own: clear
 // 0x00170EBC, add 0x00171067, lookup 0x00171583, result 0x00171625.
+#include "W3DTreeRecord.h"
+#include "W3DTreeTypeRecord.h"
 #include "ascii_string.h"
 
 struct Vec2 { float x, y; };
@@ -116,17 +118,96 @@ static inline const RefCountPtr<TextureClass> &assetPtr(const AssetReference &as
 	return *(const RefCountPtr<TextureClass> *)&asset;
 }
 
-class W3DTreeBuffer
+
+class Rva000E6AC0Base
 {
+public:
+	Rva000E6AC0Base() {}
+	virtual ~Rva000E6AC0Base() {}
+};
+
+class Rva000E6AC0 : public Rva000E6AC0Base
+{
+public:
+	Rva000E6AC0();
+	void rva000E65B1();
+	virtual ~Rva000E6AC0();
+private:
+	unsigned char m_storage[0x38 - 4]; // +0x04
+protected:
+	RefCountPtr<TextureClass> texture38, texture3c; // +0x38
+	char list40[0x28], list68[0x28]; // +0x40
+private:
+	unsigned char m_pad90[0x5BC - 0x90];
+protected:
+	float m_sinkScale; // +0x5BC
+};
+
+class Rva0052413E
+{
+public:
+	Rva0052413E() throw();
+	~Rva0052413E();
+private:
+	unsigned char m_storage[12];
+};
+
+struct TTree;
+
+class W3DTreeBuffer : public Rva000E6AC0
+{
+	friend class Rva000EC9C6;
 protected:
 	void updateTexture();
+	void updateTopplingTree(TTree *tree);
 public:
-	char prefix[0x38];
-	RefCountPtr<TextureClass> texture38, texture3c;
-	char list40[0x28], list68[0x28];
-	char gap90[0x44558 - 0x90];
-	Rva000EB40FType types[64];
-	int numTypes;
+	W3DTreeBuffer();
+public:
+	void rva000EA24D();
+private:
+	Rva000EDA94Record m_records[1200];
+private:
+	int m_count;
+private:
+	unsigned char m_44544;
+private:
+	unsigned char m_44545; // +0x44545
+private:
+	unsigned char m_44546;
+private:
+	unsigned char m_44547;
+private:
+	Rva0052413E m_objects;
+private:
+	unsigned char m_44554;
+private:
+	unsigned char m_44555;
+private:
+	unsigned char m_44556;
+private:
+	unsigned char m_44557;
+private:
+	Rva000EC67F m_types[64]; // +0x44558
+private:
+	int m_typeCount;
+private:
+	int m_45c5c; // +0x45C5C
+private:
+	int m_45c60;
+private:
+	unsigned char m_45c64;
+public:
+	bool rva000EA48D(void *key, const Coord3D *direction, float height);
+	bool rva000EA644(void *key);
+	void rva000EA2C0(void *key);
+	bool rva000EA6A7(void *key);
+	void rva000EB2EF(int index);
+	void rva000EB0E6(int index);
+	bool rva000ECF2A(unsigned key, int mode);
+	void startMorph(int index, int mode);
+	int addTreeType(const AsciiString &modelName, const AsciiString &nameC, const void *data, int shadowKind,
+		const AsciiString &textureName, const AsciiString &templateName);
+	int rva000ECDF5(const AsciiString &templateName, int shadowKind, const AsciiString &textureName);
 };
 
 void W3DTreeBuffer::updateTexture()
@@ -134,17 +215,17 @@ void W3DTreeBuffer::updateTexture()
 	((Rva00170EBC *)list40)->rva00170EBC(false);
 	((Rva00170EBC *)list68)->rva00170EBC(true);
 	int i;
-	for (i = 0; i < numTypes; ++i) {
-		((TexturePacker *)list40)->rva00171067(TextureAsset::Get(types[i].nameC.str(), 0, 0));
-		if (types[i].doShadow)
-			((TexturePacker *)list68)->rva00171067(TextureAsset::Get(types[i].textureName.str(), 0, 0));
+	for (i = 0; i < m_typeCount; ++i) {
+		((TexturePacker *)list40)->rva00171067(TextureAsset::Get(m_types[i].m_string50.str(), 0, 0));
+		if (m_types[i].m_flags44[0])
+			((TexturePacker *)list68)->rva00171067(TextureAsset::Get(m_types[i].m_string48.str(), 0, 0));
 	}
-	for (i = 0; i < numTypes; ++i) {
-		((Rva00171583 *)list40)->rva00171583(handleKey(TextureAsset::Get(types[i].nameC.str(), 0, 0)),
-			&types[i].coord24, &types[i].coord34);
-		if (types[i].doShadow)
-			((Rva00171583 *)list68)->rva00171583(handleKey(TextureAsset::Get(types[i].textureName.str(), 0, 0)),
-				&types[i].coord2c, &types[i].coord3c);
+	for (i = 0; i < m_typeCount; ++i) {
+		((Rva00171583 *)list40)->rva00171583(handleKey(TextureAsset::Get(m_types[i].m_string50.str(), 0, 0)),
+			reinterpret_cast<Vec2 *>(&m_types[i].m_coords24[0]), reinterpret_cast<Vec2 *>(&m_types[i].m_coords34[0]));
+		if (m_types[i].m_flags44[0])
+			((Rva00171583 *)list68)->rva00171583(handleKey(TextureAsset::Get(m_types[i].m_string48.str(), 0, 0)),
+				reinterpret_cast<Vec2 *>(&m_types[i].m_coords24[1]), reinterpret_cast<Vec2 *>(&m_types[i].m_coords34[1]));
 	}
 	texture38 = assetPtr(((Rva00171024 *)list40)->rva00171625());
 	texture3c = assetPtr(((Rva00171024 *)list68)->rva00171625());
