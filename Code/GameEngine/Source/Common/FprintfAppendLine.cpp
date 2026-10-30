@@ -15,7 +15,11 @@
 #include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include <stdarg.h>
 
-extern "C" __declspec(dllimport) int __cdecl _vsnprintf(char *buffer, unsigned int size, const char *format, va_list args);
+// Keep the CRT's FILE-based fprintf declaration separate from the game's
+// format-and-append helper below.
+namespace NativeFormatCrt {
+#include <stdio.h>
+}
 
 template <typename T>
 class BfmeVector
@@ -43,7 +47,7 @@ extern "C" void fprintf(FprintfTarget *target, const char *format, ...)
 	char buffer[1000];
 	va_list args;
 	va_start(args, format);
-	_vsnprintf(buffer, sizeof(buffer), format, args);
+	NativeFormatCrt::_vsnprintf(buffer, sizeof(buffer), format, args);
 	va_end(args);
 	AsciiString tmp(buffer);
 	target->m_lines.push_back(tmp);

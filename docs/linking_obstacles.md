@@ -216,6 +216,22 @@ witnesses, including WallHub, but remains INCONCLUSIVE on the older index and
 missing current `Common/0CreateAHeroManager21FE49.cpp` affected consumer.
 Carry the full scope into the next scheduled census; no aggregate clearance
 is inferred from the bounded preview.
+### Format-and-append helper CRT header cleanup (2026-10-30)
+
+At base `a92f873f7e`, FprintfAppendLine.cpp takes `_vsnprintf` from the
+toolchain's `stdio.h` in a local namespace that preserves the game helper's
+existing signature. The owning scan retires one header queue entry. All three
+rows, the EXACT EH graph, seven non-debug section byte sequences, ten external
+symbol records and three COMDAT fingerprints remain unchanged. Strict
+preparation passes; ordinary preview retains LINKS and 118 authored bytes
+against `12b9e7a7c0` (2026-10-30 10:11 UTC).
+
+The staged outgoing audit is INCONCLUSIVE on that older index and missing
+current `Common/0CreateAHeroManager21FE49.cpp` consumer receipt. Carry this
+provider and affected consumers into the next scheduled census; full consumer
+selection/loss verification remains open. Other callers' game logger identity
+prerequisites remain. No census gain is claimed.
+[Scope and checks](../reverse/attempt_support/fprintf-crt-header-20261030-codexb4.md).
 
 ### W3DBuffDraw module-data composition (2026-10-30)
 
@@ -2295,6 +2311,11 @@ Completed:
   still reports the assignment-driven registerTabList mismatch (0 linked bytes).
   Resolve the 0x0046F0C2 family identity before claiming link clearance; consumer
   selection and census confirmation remain pending.
+  Recheck at `a92f873f7e` (2026-10-30): current preview against `12b9e7a7c0`
+  still reports the same registerTabList COMDAT/selected-body findings and
+  0 -> 0 bytes. Current rows retain the native-target conflict above. No new
+  trial or source change; claims released and the identity prerequisite stays
+  open. [Checks](../reverse/attempt_support/fprintf-crt-header-20261030-codexb4.md).
 - `AIUpdate.cpp` (halilkkaya-lk6): every use of the locomotor tree's node
   `allocator::allocate` is inlined (the out-of-line /G7 copy, 31a17b736d02, had only its
   own FPO reference); an import-inline (`__declspec(dllimport) __forceinline`)
