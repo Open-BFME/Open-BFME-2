@@ -85,6 +85,13 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 #include "../../../../Include/Common/BfmeXfer.h"
+class Object;
+#include "../../../Common/GameLogicObjectLookupView.h"
+class AsciiString;
+class Coord3DBase;
+class Snapshot;
+class Thing;
+#include "../../../../Include/Common/ObjectModule.h"
 
 class Xfer::Version
 {
@@ -97,6 +104,7 @@ public:
 };
 
 class Player;
+
 class FXList;
 
 class FXList
@@ -106,6 +114,7 @@ public:
 };
 
 extern GameLogic *TheGameLogic;
+
 extern int BfmeLogicFramesPerSecond;
 
 class BodyModule
@@ -383,19 +392,114 @@ private:
 	int m_healFX; // +0x34
 };
 
-// tu-skeleton: 0x004848E6 40B ?rva004848E6@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPulse.cpp (not merged yet)
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPulse.cpp
+
+//
+// PassiveAreaEffectBehavior's per-object pulse virtuals (primary vftable
+// 0x00C4A448, slot-2 name getter "PassiveAreaEffectBehavior", installed by
+// the rowed ctor 0x00484A67; slot 3 is the rowed xfer). Names are address
+// names: the class and slots are proven, the method identities are not.
+//
+// ?rva004848E6@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z, retail 0x004848E6, 40 bytes.
+// Slot 14: for a live object (Object+0x438 bit 0 clear) run slots 15 and 16.
+//
+// ?rva0048491F@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z, retail 0x0048491F, 233 bytes.
+// Slot 15: the heal pulse. Skips an object the rowed Object::rva0028C264
+// gate (delay 4) refuses; with a positive module-data rate at +0x0C and a
+// body (+0x254) below its maximum (body slots 4 and 6), optionally gated by
+// the body's slot-17 frame plus the delay at +0x10 against TheGameLogic's
+// frame when the bool at +0x28 is set, heals max * rate / LOGICFRAMES (times
+// the delay when set) through the rowed Object::attemptHealingFromSoleBenefactor with this
+// module's object as the source, then plays the FXList at +0x34.
+//
+// ?rva00484A08@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z, retail 0x00484A08, 95 bytes.
+// Slot 16: the attribute pulse. Runs Object::addAttributeModifierToPool(-1) on
+// every name of the module data's AsciiString vector at +0x14, then gives the
+// object's AttributeModifierPoolUpdate (rowed finder 0x0028BDD7) the entry at
+// +0x2C until the current frame plus the delay at +0x10 (rowed 0x00403415),
+// then plays the FXList at +0x30.
+
+// ?rva004848E6@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z @0x004848E6
+void PassiveAreaEffectBehavior::rva004848E6(Object *obj)
+{
+	if (obj && !obj->isEffectivelyDead())
+	{
+		rva0048491F(obj);
+		rva00484A08(obj);
+	}
+}
+
+// ?rva0048491F@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z @0x0048491F
+void PassiveAreaEffectBehavior::rva0048491F(Object *obj)
+{
+	if (obj == 0)
+		return;
+
+	int gate;
+	if (obj->rva0028C264(&gate, 4))
+		return;
+
+	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	if (passiveAreaEffectBehaviorModuleData->m_healPercentPerSecond > 0.0f)
+	{
+		BodyModule *body = obj->getBodyModule();
+		if (body && body->getHealth() != body->getMaxHealth())
+		{
+			if (passiveAreaEffectBehaviorModuleData->m_nonStackable)
+			{
+				unsigned int now = TheGameLogic->getFrame();
+				if (body->getLastDamageFrame() + passiveAreaEffectBehaviorModuleData->m_pingDelay > now)
+					return;
+			}
+
+			float rate = passiveAreaEffectBehaviorModuleData->m_healPercentPerSecond;
+			float amount = body->getMaxHealth() * (rate / BfmeLogicFramesPerSecond);
+			if (passiveAreaEffectBehaviorModuleData->m_pingDelay)
+				amount *= passiveAreaEffectBehaviorModuleData->m_pingDelay;
+			obj->attemptHealingFromSoleBenefactor(amount, m_object, passiveAreaEffectBehaviorModuleData->m_pingDelay);
+
+			if (passiveAreaEffectBehaviorModuleData->m_34)
+				FXList::doFXObj(passiveAreaEffectBehaviorModuleData->m_34, obj, 0);
+		}
+	}
+}
+
+// ?rva00484A08@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z @0x00484A08
+void PassiveAreaEffectBehavior::rva00484A08(Object *obj)
+{
+	if (obj == 0)
+		return;
+
+	const AreaData *passiveAreaEffectBehaviorModuleData = m_moduleData;
+	for (const AsciiString *it = passiveAreaEffectBehaviorModuleData->m_14Begin; it != passiveAreaEffectBehaviorModuleData->m_14End; ++it)
+		obj->addAttributeModifierToPool(*it, -1);
+
+	AttributeModifierPoolUpdate *pool = obj->findAttributeModifierPoolUpdate();
+	if (pool)
+	{
+		pool->rva00403415((int *)&passiveAreaEffectBehaviorModuleData->m_antiCategories, TheGameLogic->getFrame() + passiveAreaEffectBehaviorModuleData->m_pingDelay);
+		if (passiveAreaEffectBehaviorModuleData->m_30)
+			FXList::doFXObj(passiveAreaEffectBehaviorModuleData->m_30, obj, 0);
+	}
+}
 
 // tu-skeleton: 0x0048490E 17B ?buildFieldParse@PassiveAreaEffectBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0048491F 233B ?rva0048491F@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPulse.cpp (not merged yet)
-
-// tu-skeleton: 0x00484A08 95B ?rva00484A08@PassiveAreaEffectBehavior@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPulse.cpp (not merged yet)
 
 // tu-skeleton: 0x00484A67 112B ??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00484AD7 6B ?Rva00484AD7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
-// tu-skeleton: 0x00484ADD 69B ?getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType PassiveAreaEffectBehavior::getModuleNameKey() const
+{
+	static NameKeyType ThePassiveAreaEffectBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("PassiveAreaEffectBehavior");
+	return ThePassiveAreaEffectBehaviorPoolKey;
+}
 
 // tu-skeleton: 0x00484B22 73B ??1PassiveAreaEffectBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
 
@@ -403,7 +507,26 @@ private:
 
 // tu-skeleton: 0x00484C3C 28B ??_GPassiveAreaEffectBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00484C58 51B ?xfer@PassiveAreaEffectBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorXfer.cpp
+
+//
+// ?xfer@PassiveAreaEffectBehavior@@MAEXPAVXfer@@@Z, retail 0x00484C58, 51 bytes.
+// Slot 3 of ??_7PassiveAreaEffectBehavior 0x00C4A448 (slot-2 name getter
+// returns "PassiveAreaEffectBehavior"; installed by the rowed ctor
+// 0x00484A67). Version1, the rowed UpdateModule::xfer 0x0044DF9F, the
+// unsigned int at +0x20 (Xfer slot 0x78), then the list<int> at +0x24
+// through the rowed Rva0036ABAFXfer. Member names not recovered.
+
+// ?xfer@PassiveAreaEffectBehavior@@MAEXPAVXfer@@@Z @0x00484C58
+void PassiveAreaEffectBehavior::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	UpdateModule::xfer(xfer);
+	*xfer == m_20;
+	Rva0036ABAFXfer(xfer, &m_trackedIds);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCollect.cpp
 
@@ -479,10 +602,6 @@ PassiveAreaEffectBehaviorModuleData::PassiveAreaEffectBehaviorModuleData()
 // tu-skeleton: 0x0078BE33 11B uw_0078be33 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BE3E 10B __ehhandler$??0PassiveAreaEffectBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE48 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BE55 10B __ehhandler$?getModuleNameKey@PassiveAreaEffectBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorPoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078BE5F 8B Unwind@00b8be5f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PassiveAreaEffectBehaviorDtor.cpp (not merged yet)
 

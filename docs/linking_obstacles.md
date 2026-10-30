@@ -1932,6 +1932,18 @@ this moved scope into the next normal census. Seven whole-file donors need
 class/layout or byte-shape reconciliation; two mixed sources remain separate.
 [Verification, path audit and prerequisites](../reverse/attempt_support/passive-area-consolidation-20261028-codex.md).
 
+2026-10-30 (claude2): the seed now declares the module hierarchy and the
+Object/module-data read views (c71c398a38). `tu_skeleton.py --merge` absorbed
+Pulse, PoolKey and Xfer: 20 rows, `./build.sh` 20/20 matched, the
+`$L310` pool-key funclet was verified past the renumbering, and the guard kept
+`?$S1`. Still separate: Ctor and Dtor, whose merge guard says the merged
+object "breaks another unit's copy of ??_7PassiveAreaEffectBehavior@@6B@" and
+`@@6BBehaviorModuleBase@@@`. The seed's slots 1, 2 and 5-12 are pure
+placeholders, so its vftable would not match the census copy. Naming
+those slots' shared base bodies is the prerequisite. Update (/O1 /Ob1) and
+ModuleDataDtor (Snapshot-derived view) do not compile in the seed. Carry
+the merged TU into the next census.
+
 ### Projected shadow decal helper inline floor linkage (2026-10-28)
 
 Status: consumer repair verified in preview; census confirmation pending.
