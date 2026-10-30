@@ -2702,8 +2702,8 @@ alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Win32BIGFi
 alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	??$__copy_ptrs@PBURva002606AFElem@@PAU1@@_STL@@YAPAURva002606AFElem@@PBU1@0PAU1@ABU__false_type@0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	??1Rva002606AFDtor@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/BfmeItemKA.cpp	?HeaderTemplateGetRegistryLanguage@@YA?AVHeaderTemplateString@@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1VoiceSlot@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp	??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??0RenderObjectDrawCategoryBase@@QAE@ABV0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/FXParticleSystem.cpp	??1Rva0002B8C8TailBase@@UAE@XZ	1

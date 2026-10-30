@@ -54,3 +54,70 @@ are byte-verified with strict reusable receipts; census/index/status are unchang
 The ordinary preview against census index `12b9e7a7c0` (2026-10-30 10:11)
 preserves LINKS for both sources: 1,958 seed bytes plus 73 constructor/EH
 bytes, 2,031 authored bytes total. These are predictions, not new census figures.
+
+## Supported composition and verification
+
+The prerequisite was handed to the runner as `50c85187a0` and is now
+`e63a29b45b` after its publication transport rebased the pending bundle. The
+scoped naming packet was regenerated after declaration changes and its
+freshness check passed before applying the supported merge.
+
+`tu_skeleton.py --merge` accepts the seed and the module-data constructor
+fragment, removes one net source file, and repoints exactly two function-ledger
+source cells and two TU-map source cells. The merger's score is 19; normal
+verification covers all 21 rows including EH rows. Seven whole-file donors
+still fail for the manager/client declarations, entry layouts, declaration
+ordering and duplicate STL nodes. All seven mixed sources remain separate.
+The census-linked-input guard accepts the actual composed object.
+
+The final `./build.sh` verifies 21/21 rows and the same strings, float and
+import references. All three EH graphs are EXACT, the frozen-file check passes,
+and strict preparation accepts the final source with a reusable receipt.
+Comparing the original two-object union with the composed object preserves
+all 52 external COMDAT byte-and-symbolic-relocation fingerprints, 52 external
+definitions, 46 unresolved names, four weak aliases and the complete relocation
+reference roots/edges (60 roots, 43 edge owners). There is no lost provider or
+changed symbolic binding in these object facts.
+
+## Registers and tooling audit
+
+The constructor donor has no code/data identity, header-adoption,
+Microsoft-header or flag-override debt entries. Its existing base-destructor
+alternatename moves to the destination through the supported merger and
+`hatch_counters.py --update`; no hatch is added. The global refresh also drops
+one pre-existing stale present-unmatched key for
+`Common/RTS/Rva0073DFD0Finish.cpp`: the element was already respelled in
+`7ed98efdf8`, and the registered old marker is absent. This is housekeeping
+found by the owner tool, not source recovery credited to this merge.
+
+The merger transfers header-queue ownership and refreshes the scoped
+Microsoft-header report; repeating the scoped refresh yields no changes.
+Staged TU ownership, Microsoft-header and hatch checks pass. Data identity
+reports zero findings; converged enforcement checks eleven addresses with no
+second names or unjudged rows. `check_csv.py` passes.
+
+The tooling audit includes the complete pending publication bundle relative
+to origin/master, not only this move: INIMultiplayerSettings.cpp,
+BezierProjectileBehaviorPoolKey.cpp, StlSweepR3Rva001FDEBC.cpp and this
+module-data fragment. Combined full-path/basename searches cover tools, hooks,
+workflows, Code, shim headers, root build/configuration files, documentation
+and reverse registers. No active consumer needs an update. Remaining mentions
+are source-origin banners and historical caller comments, attempt evidence,
+re-attempt/deleted-row records, completed obstacle history and the published
+link-status snapshot. Active source-ledger and TU-map cells name current files.
+No directories or discovery patterns change.
+
+The merged ordinary preview LINKS for 2,031 authored bytes against index
+`12b9e7a7c0`, equal to the original input sum. The apparent 73-byte seed gain
+is moved ownership; no new census LINKED gain is claimed.
+
+The whole pending bundle audit uses staged tree
+`29d4fc128c57edc041753683b64742a3e6595341` against origin/master
+`3412e13e5f`. It first reports two stale source receipts. Refreshing all six
+explicit changed sources succeeds: 198/198 rows, one data row, 139 strings plus
+five empty-string references, 95 floating literals and 25 named imports. The
+repeated audit is INCONCLUSIVE: its index predates the outgoing base, and
+affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a current receipt.
+This is incomplete consumer-selection evidence, not a clean outgoing audit.
+Carry the composed unit, removed provider and affected consumers into the next
+scheduled census. No direct census, nightly or smoke runner was started.

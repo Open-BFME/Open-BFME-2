@@ -2918,6 +2918,15 @@ otherwise shrinks the constructor from 63 to 34 bytes by dropping EH cleanup.
 Both standalone objects keep all external COMDAT/reference facts; all 21 rows
 and three EH graphs verify. The eight-donor probe still requires the other
 manager/client, entry and STL prerequisites above; no census gain is claimed.
+The next supported merge absorbs the module-data constructor/EH fragment into
+the approved Update TU and removes one source file. All 21 rows and three EH
+graphs verify, strict preparation passes, and the composed object's external
+COMDATs, definitions and relocation-reference graph equal the original union
+(52 COMDATs/definitions). Seven clean donors and seven mixed files remain. The whole pending bundle
+audit is INCONCLUSIVE: the index predates the base and affected consumer
+Common/0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry the merged
+unit and affected consumers into the next census; consumer selection remains
+unverified.
 [Current evidence](../reverse/attempt_support/animation-sound-moduledata-consolidation-20261030-codexb.md).
 
 ### AptArray bounded composition (2026-10-28)
