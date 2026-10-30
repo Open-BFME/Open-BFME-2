@@ -8407,8 +8407,19 @@ Remaining / next check:
   0x001F81BF (ten default vector-holder ctors), 0x00313840 and 0x003140A4 (7B getters).
 - StlSweepR3 copies that now also link (LINK-035 repairs) duplicate placeholder rows:
   0x00577EB2 (`RvaVectorDtorFamily.cpp`), 0x0022DCDA (`Rva0022DCDADtor.cpp`); also unlinked
-  0x000B0298, 0x001DE3E3, 0x001FDEBC. Decide which row keeps
+  0x000B0298, 0x001DE3E3. Decide which row keeps
   the address (the STL spelling may be the better name; respell callers) before dropping one.
+  Follow-up 2026-10-30 (base `150043baed`): retire the 0x001FDEBC sweep copy;
+  its one-byte element and two helper pins are used only by that unit. The
+  existing `Rva000427195::operator=` retains the full 31-byte range and binds
+  the actual clear/copy owners; the native element identity remains unknown.
+  All 194 provider rows and 32 EH graphs verify. Three ordinary previews
+  retain LINKS. No linking or unique-byte gain is claimed.
+  The outgoing batch audit is inconclusive: its index predates the current
+  base and `Common/0CreateAHeroManager21FE49.cpp` lacks a current receipt.
+  Carry that affected consumer into the next scheduled census; full current
+  consumer closure remains unverified.
+  [Evidence and consumer audit](../reverse/attempt_support/hashtable-1fdebc-overclaim-20261030-codexb.md).
 - Multi-row units holding a second copy: DozerAIUpdate.cpp (0x00488C48, 0x0048AEC6, 0x00489DE3,
   0x00489E2E; DozerAIUpdate.cpp was edited on master in the last 6 hours, and tu_map approves it as
   0x00488C48's home), WOLBuddyOverlay.cpp (0x002B70B3), R5VectorDtorEHFramedPolymorphic.cpp (0x002D0F65), ProductionPrerequisiteAssign.cpp
@@ -8917,6 +8928,12 @@ Evidence / affected units: `StlSweepR3Rva001DE3E3.cpp` and `StlSweepR3Rva001FDEB
 Verification: both assignment rows remain exact and their equality-only unresolved names disappear. The expanded paired preview preserves every previously linking unit and adds no blocker. The complete removed-definition/reference audit finds no retained caller without a provider. Raw proof: `build/c136-r3sweep/before-expanded-cohort.log`, `after-expanded-cohort.log`, `expanded-provider-audit.log` and the `final-*` gate logs mapped by `build/link-report.md`. Declaration, EH, shadow-data, CSV and pin checks pass.
 
 Remaining / next check: both units retain unresolved record copy/destructor names and wrong selected `clear`/`_M_copy_from` copies. Native `clear` is 0x003A2A41 in Rva003A2A41Clear.cpp; the copy workers are 0x001DDCC5 in StlSweepR3Rva001DDCC5.cpp and 0x001FDC0F in PlayerTemplate.cpp, under different record names. All three native providers and Eva.cpp are included in the current-object comparison. Reconcile those key/value identities and the duplicate assignment rows (LINK-060) together. Whole-unit clearance remains pending; the ordinary-preview cleanup changes no census headline.
+
+2026-10-30 follow-up: `StlSweepR3Rva001FDEBC.cpp` is retired as a duplicate
+under LINK-060. Its complete assignment remains owned by
+`Rva000427195Dtor.cpp`; the current clear owner is now in `Common/RTS/Team.cpp`.
+No native element name or layout is recovered by removing the sweep. The
+`StlSweepR3Rva001DE3E3.cpp` reconciliation remains open.
 
 ### LINK-067: an ATL cache initializer retains BFME 1 callback and storage names
 
