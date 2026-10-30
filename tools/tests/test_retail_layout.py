@@ -19,6 +19,8 @@ VBT, W_VT, W_VT_V, V_VT = 0x2100, 0x2110, 0x2118, 0x2120
 P_CTOR, M_CTOR, B2_CTOR, B2_SITE, C3_CTOR, C3_SITE, ARRAY_SITE, NEW_ARRAY = \
     0x1700, 0x1780, 0x1800, 0x1840, 0x1880, 0x18C0, 0x1900, 0x1290
 P_VT, M_VT, X_VT, B2_VT, DD_VT = 0x2300, 0x2308, 0x2310, 0x2318, 0x2320
+NB_CTOR, ND_CTOR, S2_SITE, S6_SITE = 0x1A00, 0x1A40, 0x1A80, 0x1C00
+NB_VT, NM_VT, ND_VT0, S2_D_VT, S6_D_VT = 0x2400, 0x2410, 0x2420, 0x2430, 0x2440
 
 
 def imm(value):
@@ -44,7 +46,7 @@ class Builder:
             self.mem[at + 4 * i:at + 4 * i + 4] = imm(v)
 
 
-def image():
+def image(sites=("s2", "s6")):
     b = Builder()
     b.code(EH_PROLOG, b"\xc3")
     b.code(NEW, b"\xc3")
@@ -80,6 +82,20 @@ def image():
     b.code(NEW_ARRAY, b"\xc3")
     b.code(ARRAY_SITE, b"\x6a\x40", lambda at: call(at, NEW_ARRAY), b"\x8b\xc8", lambda at: call(at, D_CTOR),
            b"\xc3")
+    # NB::NB(): its own table, then a polymorphic member at +0x10 built inline.
+    b.code(NB_CTOR, b"\xc7\x01" + imm(VA + NB_VT), b"\xc7\x41\x10" + imm(VA + NM_VT), b"\xc3")
+    # ND::ND() inlines NB::NB() (its table and its member), then installs ND's own table at +0.
+    b.code(ND_CTOR, b"\xc7\x01" + imm(VA + NB_VT), b"\xc7\x41\x10" + imm(VA + NM_VT),
+           b"\xc7\x01" + imm(VA + ND_VT0), b"\xc3")
+    # new(0x24); B2::B2(); 20 field stores; then a derived table over the object.
+    fields = b"".join(b"\xc7\x40" + bytes([4 + 4 * i]) + imm(0) for i in range(20))
+    if "s2" in sites:
+        b.code(S2_SITE, b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, B2_CTOR),
+               fields, b"\xc7\x00" + imm(VA + S2_D_VT), b"\xc3")
+    # The same, with the derived table stored through an indexed operand.
+    if "s6" in sites:
+        b.code(S6_SITE, b"\x6a\x24", lambda at: call(at, NEW), b"\x8b\xc8", lambda at: call(at, B2_CTOR),
+               b"\xc7\x04\x08" + imm(VA + S6_D_VT), b"\xc3")
     t = VA + THUNK
     b.words(P_VT, t, 0, t, 0, t, 0, t, 0, t, 0)
     b.words(B_VT, t, t + 4)
@@ -88,6 +104,11 @@ def image():
     b.words(D_VT10, t + 5, 0)
     b.words(VBT, -4, 0x0C)
     b.words(W_VT, t, 0, t, 0, t, 0)
+    b.words(NB_VT, t, 0)
+    b.words(NM_VT, t, 0)
+    b.words(ND_VT0, t, t + 1)
+    b.words(S2_D_VT, t, 0)
+    b.words(S6_D_VT, t, 0)
     sections = [{"name": ".text", "rva": 0x1000, "size": 0x1000}, {"name": ".rdata", "rva": 0x2000, "size": 0x1000}]
     return rl.Image(lambda rva, size: bytes(b.mem[rva:rva + size]), sections)
 
@@ -98,11 +119,18 @@ def ledger(conflict=False):
             ("??0W@@QAE@XZ", W_CTOR, 0x2d), ("??0V@@QAE@XZ", V_CTOR, 7), ("??0P@@QAE@XZ", P_CTOR, 0x1f),
             ("??0M@@QAE@XZ", M_CTOR, 7), ("??0B2@@QAE@XZ", B2_CTOR, 7), ("?make2@@YAXXZ", B2_SITE, 0x15),
             ("??0C3@@QAE@XZ", C3_CTOR, 7), ("?make3@@YAXXZ", C3_SITE, 0x0f), ("??_U@YAPAXI@Z", NEW_ARRAY, 1),
-            ("?makeArray@@YAXXZ", ARRAY_SITE, 0x0f)]
+            ("?makeArray@@YAXXZ", ARRAY_SITE, 0x0f), ("??0NB@@QAE@XZ", NB_CTOR, 0x0f),
+            ("??0ND@@QAE@XZ", ND_CTOR, 0x15), ("?makeS2@@YAXXZ", S2_SITE, 0xa1),
+            ("?makeS6@@YAXXZ", S6_SITE, 0x16)]
     if conflict:
         rows.append(("??0D@@QAE@H@Z", D_CTOR2, 7))
     return rl.Ledger([{"name": n, "target_rva": "%#x" % r, "target_size": str(s), "status": "matched"}
                       for n, r, s in rows])
+
+
+def without(*names):
+    """The test ledger minus the named rows (one reproduction at a time)."""
+    return rl.Ledger([r for r in ledger().rows if r["name"] not in names])
 
 
 @pytest.fixture
@@ -252,3 +280,31 @@ def test_agreeing_view_cannot_rename_a_retail_virtual_base():
     bases, rule, queue = contract.retail_bases("X", retail([(0, "Thing")], ["V"]), good, {"a.cpp": {"Thing": POLY}})
     assert bases == ["Thing", "virtual V"] and rule == "retail-ctor"
     assert [q["attribute"] for q in queue] == ["virtual-base"]
+
+
+def test_an_inlined_base_member_vptr_stays_a_member_in_the_derived_class(engine):
+    # S1/S5: NB-vptr@0; member-vptr@0x10; ND-vptr@0. +0x10 is NB's member, not an ND base.
+    got = engine.contract("ND")
+    bases = {b["offset"]: (b["name"], b["rule"]) for b in got["facts"]["bases"]["value"]}
+    assert bases == {0: ("NB", "retail-inlined-base-vptr")}
+    assert set(got["facts"]["unknown_subobject_vptrs"]["value"]) == {"0x10"}
+    # Standalone NB treats the same store as its own member.
+    nb = engine.contract("NB")
+    assert "bases" not in nb["facts"]
+    assert set(nb["facts"]["unknown_subobject_vptrs"]["value"]) == {"0x10"}
+
+
+def test_a_derived_table_after_many_field_stores_blocks_sizeof():
+    # S2/S6: new(0x24); B2::B2(); 20 field stores; then a derived table. A fixed
+    # 16-instruction window never reaches the store.
+    got = rl.Engine(image(("s2",)), without("?makeS6@@YAXXZ"), listed={}).contract("B2")["facts"]
+    assert "sizeof" not in got
+    assert got["allocation_observed"]["value"] == {"0x24": 2}
+
+
+def test_an_indexed_derived_table_store_blocks_sizeof():
+    # S6: the derived table is stored through an indexed operand, so retail
+    # does not resolve the allocation's dynamic type.
+    got = rl.Engine(image(("s6",)), without("?makeS2@@YAXXZ"), listed={}).contract("B2")["facts"]
+    assert "sizeof" not in got
+    assert got["allocation_observed"]["value"] == {"0x24": 2}

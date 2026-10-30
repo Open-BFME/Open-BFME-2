@@ -498,31 +498,60 @@ class Engine:
             held -= set(written)
         return False
 
+    def caller_end(self, site):
+        """End (exclusive) of the matched body containing `site`, else None."""
+        if not hasattr(self, "_bodies"):
+            self._bodies = self.ledger.bodies()
+            self._body_starts = [r for r, _ in self._bodies]
+        i = bisect.bisect_right(self._body_starts, site) - 1
+        if i >= 0:
+            start, size = self._bodies[i]
+            if site < start + size:
+                return start + size
+        return None
+
     def vptr_overwritten(self, site):
-        """A vftable stored at [reg] in the 16 instructions after the constructor call at `site`.
+        """A vftable is stored over the object after the constructor call at `site`.
 
         An inlined derived constructor calls its base, then installs its own
-        table: the allocation then holds the derived object."""
+        table: the allocation then holds the derived object. The scan runs to
+        the end of the caller's basic block (the end of its body when the
+        ledger rows it), not a fixed window: a derived constructor may write
+        its fields first. A store through an operand the scan cannot place (an
+        indexed one) still counts: retail then does not resolve the dynamic
+        type."""
         from capstone import x86
-        for n, insn in enumerate(self.md.disasm(self.image.read(site + 5, 0x60), site + 5)):
-            if n >= 16 or insn.mnemonic.startswith("ret"):
+        start = site + 5
+        end = self.caller_end(site) or start + 0x2000
+        end = min(end, max(b for _, b in self.image.code))
+        if end <= start:
+            return False
+        try:
+            code = self.image.read(start, end - start)
+        except ValueError:
+            return True
+        for insn in self.md.disasm(code, start):
+            mnemonic = insn.mnemonic
+            if mnemonic.startswith(("ret", "j", "loop")):
                 return False
             ops = insn.operands
-            if insn.mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM \
-                    and ops[0].mem.disp == 0 and ops[0].mem.index == 0 and ops[1].type == x86.X86_OP_IMM \
+            if mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM \
+                    and ops[0].mem.disp == 0 and ops[1].type == x86.X86_OP_IMM \
                     and ops[0].mem.base not in (x86.X86_REG_ESP, x86.X86_REG_EBP) \
                     and self.kind((ops[1].imm & 0xFFFFFFFF) - IMAGE_BASE) == "vftable":
                 return True
         return False
 
     def allocation_sizes(self, ctor):
-        """Counter of the `push SIZE; call operator new` sizes that reach a call to `ctor`.
+        """(sizes, sites, overwritten) of the `push SIZE; call operator new` sites feeding `ctor`.
 
         The size is the last push before the allocator call in the 0x60 bytes
-        ahead of the constructor call site, with no other call in between."""
+        ahead of the constructor call site, with no other call in between.
+        `sites` maps a size to the sites where nothing stores another vftable
+        over the object after the call; `overwritten` counts the sites where
+        one does (an inlined derived constructor: an observation only)."""
         allocs = self.ledger.allocators()
-        found = collections.Counter()
-        sites = {}
+        found, sites, overwritten = collections.Counter(), {}, collections.Counter()
         for site in self.call_index().get(ctor, []):
             window = self.image.read(site - 0x60, 0x60)
             best = None
@@ -536,32 +565,58 @@ class Engine:
                 # Another direct call between the allocation and the constructor
                 # (a second object, a helper) would break the link: refuse it.
                 if any(best[1] < other < site for other in self.call_sites_near(site)) \
-                        or not self.passes_new_pointer(best[1] + 5, site) or self.vptr_overwritten(site):
+                        or not self.passes_new_pointer(best[1] + 5, site):
+                    continue
+                if self.vptr_overwritten(site):
+                    overwritten[best[0]] += 1
                     continue
                 found[best[0]] += 1
                 sites.setdefault(best[0], []).append(site)
-        return found, sites
+        return found, sites, overwritten
 
     # ---- one class
     def analyze_ctor(self, rva, size):
         evs = self.events(rva, size)
         final = self.final_vptrs(rva, size)
-        # The vbptrs are set first, in the most-derived block, before any base
-        # runs: only the class's own vftable stores mark the end of the bases.
-        boundary = min((i for _, kind, i in final.values() if kind == "vptr"), default=len(evs))
+        # The boundary is the class's own table-installation store: the final
+        # store at +0, the primary subobject every polymorphic class installs.
+        # Events before it are base-phase evidence; a store after it belongs to
+        # a subobject retail cannot place (a member built inline by an inlined
+        # base's constructor, a member built after the vptrs). A constructor
+        # that stores no vptr at +0 has no installation point of its own: keep
+        # the earliest final store, past which no store is base-phase.
+        primary = final.get(0)
+        if primary is not None and primary[1] == "vptr":
+            boundary = primary[2]
+        else:
+            boundary = min((i for _, kind, i in final.values() if kind == "vptr"), default=len(evs))
         facts = {"vptrs": {}, "vbptrs": {}, "subobject_vptrs": {}, "inlined_bases": {}, "base_calls": {},
                  "member_calls": {}, "fields": {}, "boundary": boundary}
-        # A vptr store at this+N proves a base only with base-phase evidence at N:
-        # a store or a call there before the class installs its own tables. The
-        # store that opens the installation is the class's own primary table.
-        # A table stored at N only afterwards belongs to a subobject retail
-        # cannot place: a member constructed after the vptrs, or a base whose
-        # inlined constructor left no store. Recorded, never a base.
+        # A vptr store at this+N proves a base only with base-phase evidence at
+        # N (a store or a call there before the class installs its own tables)
+        # and only when the class itself installs a table there: it stores its
+        # own after the primary, or it stores a table over the one the
+        # constructor it called at N installs. A store that never replaces the
+        # callee's table is a member's (a re-store), never a base; ambiguous
+        # stores are subobjects.
         early = {ev[1] for ev in evs[:boundary] if ev[0] in ("vptr", "vbptr", "call")}
+        called_at = collections.defaultdict(list)
+        for i, ev in enumerate(evs):
+            if ev[0] == "call" and i < boundary:
+                called_at[ev[1]].append((i, ev[2]))
+        own = set()
+        for off, (table, kind, i) in final.items():
+            if kind != "vptr":
+                continue
+            if i > boundary and off in early:
+                own.add(off)
+            elif any(ci < i and self.call_installs(callee) not in (None, table)
+                     for ci, callee in called_at.get(off, ())):
+                own.add(off)
         for off, (table, kind, i) in sorted(final.items()):
             if kind == "vbptr":
                 facts["vbptrs"][off] = table
-            elif off in early or i == boundary:
+            elif off in own or i == boundary:
                 facts["vptrs"][off] = table
             else:
                 facts["subobject_vptrs"][off] = table
@@ -570,7 +625,10 @@ class Engine:
             if tag == "vptr" and i < boundary and final.get(off, (None,))[0] != ev[2]:
                 facts["inlined_bases"].setdefault(off, ev[2])
             elif tag == "call":
-                (facts["base_calls"] if i < boundary else facts["member_calls"]).setdefault(off, ev[2] - 0)
+                # A call at an offset whose table the class does not install is
+                # a member's constructor (an inlined base's member), never a base.
+                base_phase = i < boundary and off not in facts["subobject_vptrs"]
+                (facts["base_calls"] if base_phase else facts["member_calls"]).setdefault(off, ev[2] - 0)
             elif tag == "field" and i >= boundary:
                 facts["fields"].setdefault(off, set()).add(ev[2])
         return facts
@@ -723,7 +781,8 @@ class Engine:
         for rva, _ in ctors:
             if rva in shared:
                 continue
-            got, where = self.allocation_sizes(rva)
+            got, where, over = self.allocation_sizes(rva)
+            observed.update(over)
             if not self.complete_ctor(name, per[rva]):
                 observed.update(got)
                 continue
@@ -731,8 +790,9 @@ class Engine:
             for s, w in where.items():
                 size_sites.setdefault(s, []).extend(w)
         if observed:
-            # The constructor does not install its own class's primary table, so
-            # the allocation may hold a derived object: an observation, not sizeof.
+            # The allocation may hold a derived object: the constructor installs
+            # no primary table of its own, or a vftable lands over the object
+            # after the call. An observation, not sizeof.
             fact("allocation_observed", {"%#x" % s: n for s, n in observed.items()}, "retail-operator-new",
                  [], "inference")
         if len(sizes) > 1:
@@ -776,6 +836,13 @@ class Engine:
         """The constructor installs the class's own primary vftable at +0 (a table this class alone owns)."""
         table = facts["vptrs"].get(0)
         return table is not None and self.table_class(table)[0] == name
+
+    def call_installs(self, callee):
+        """The primary vftable the constructor at `callee` installs, else None."""
+        if not self.is_ctor(callee):
+            return None
+        got = self.final_vptrs(callee, self._size(callee)).get(0)
+        return got[0] if got and got[1] == "vptr" else None
 
     def is_ctor(self, rva):
         """The ledger names a constructor at `rva`, or its body stores a vftable at this+0."""
