@@ -16045,3 +16045,6 @@ Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|function|0x0010F4FA|rva0010F
 Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|function|0x0010F557|rva0010F557,ed66239156fa74f20a533180,drz-k11,drz-k11-126,w-09889333d128,2026-10-30
 Code/GameEngine/Source/Common/Rva0010F557Finish.cpp|local|Rva0010F2E5::rva0010F2E5|s,05dde28f0da25c26ccfbef82,drz-k11,drz-k11-126,w-09889333d128,2026-10-30
 Code/GameEngine/Source/GameNetwork/Rva007F6740GameBrowserArrayRequest.cpp|function|0x00662EC0|Rva007F6730Callback,d0464980171ad168a113e953,drz-k11,drz-k11-127,w-09889333d128,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp|function|0x00217AB0|Rva00217AB0Partition,9d1c289898977ccec4028c9c,drz-k1,drz-k1-140,w-d29055ee9848,2026-10-30
+Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp|function|0x002176F1|Rva002176F1Insert,1d505ec079a770e858db0213,drz-k1,drz-k1-140,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D50Capacity.cpp|local|Rva00466D50::rva00466D50|b,c0d5a8b5f42bfccc28e53c92,drz-k1,drz-k1-151,w-d29055ee9848,2026-10-30
