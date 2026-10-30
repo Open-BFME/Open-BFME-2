@@ -3252,7 +3252,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate_AIUpdateIn
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ArrowStormUpdateModuleDataCtor.cpp	_vtbl_00C4D5A0	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?updateSlot@UpdateModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp	?upgradeSlot@UpgradeMux@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdateCtor.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierPoolUpdate.cpp	?unused@BehaviorModuleOther@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BattlePlanUpdateRva004978A3Dtor.cpp	?f1@MiBase1004978A3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp	?f3@BroadcastStealthUpdate_B3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/BroadcastStealthUpdateDtor.cpp	?getBody@BehaviorModuleInterface@@UAEXXZ	1

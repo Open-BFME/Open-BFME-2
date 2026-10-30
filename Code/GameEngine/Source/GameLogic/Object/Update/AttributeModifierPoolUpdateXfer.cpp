@@ -6,7 +6,7 @@
 // Donor: BFME1 AttributeModifierPoolUpdateConstructor.cpp plus StealthUpdateXfer
 // Xfer declaration (xferVersion 0x28 IsLoading 0x04 xferAsciiString 0x6C
 // xferUnsignedInt 0x78 xferInt 0x7C xferBool 0x90). Layout from rowed
-// AttributeModifierPoolUpdateCtor.cpp (UpdateModule base 0x20 plus modifier
+// constructor in AttributeModifierPoolUpdate.cpp (UpdateModule base 0x20 plus modifier
 // vector at +0x20 plus max frame at +0x2C plus 15 pool names at +0x30 plus
 // 15 tallies at +0x6C). Evidence: vtable slot 3 callers none callees rowed
 // EraseRange 0x2983DA push_back 0x403E3B Rva00368270 0x4034D5 rva004031F3
