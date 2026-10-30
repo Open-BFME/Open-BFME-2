@@ -239,7 +239,6 @@ address_global	Code/GameEngine/Source/Common/Rva00289ABDCtor.cpp	g_Va00BBB8D8	4
 address_global	Code/GameEngine/Source/Common/Rva002A991DCtor.cpp	g_Va00BBB8E0	2
 address_global	Code/GameEngine/Source/Common/Rva002A996FMethod.cpp	g_Va00BBB8E0	3
 address_global	Code/GameEngine/Source/Common/Rva002B749CCtor.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/Common/Rva002E373CClear.cpp	g_Va00DBD0F4	3
 address_global	Code/GameEngine/Source/Common/Rva002F0C55Helper.cpp	g_Va00DBD4C8	1
 address_global	Code/GameEngine/Source/Common/Rva00380705Free.cpp	g_Va00E032FC	2
 address_global	Code/GameEngine/Source/Common/Rva003B242CGet.cpp	g_Va00E00944	2
@@ -1076,7 +1075,7 @@ address_global	Code/GameEngine/Source/GameLogic/AI/GroupOrderHolderCtor.cpp	g_Va
 address_global	Code/GameEngine/Source/GameLogic/AI/Rva00355770GroupOrderMaps.cpp	g_Va00E05F74	2
 address_global	Code/GameEngine/Source/GameLogic/LargeGroupAudio/LargeGroupAudioKeyMapBfmeAddKey.cpp	g_Va00DFEC74	2
 address_global	Code/GameEngine/Source/GameLogic/Map/OldPolygonTrigger.cpp	g_Va00DBD0F4	2
-address_global	Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp	g_Va00DBD0F4	6
+address_global	Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp	g_Va00DBD0F4	9
 address_global	Code/GameEngine/Source/GameLogic/Map/Rva00282021WaterLookup.cpp	g_Va00DBB710	2
 address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp	g_Va00DBB708	8
 address_global	Code/GameEngine/Source/GameLogic/Map/TerrainLogicWaypointLookups.cpp	g_Va00DBD0F4	2

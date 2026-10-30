@@ -8,6 +8,33 @@ class Rva00330C50 { public: void rva00330AA6(int); };
 #include "../../../../Libraries/Include/Lib/ICoord2D.h"
 #include "../../../../Libraries/Include/Lib/IRegion2D.h"
 #include "ascii_string.h"
+//
+// PolygonTrigger::getCenterPoint and the center getters under it, after Zero
+// Hour's GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp (GeneralsMD tree
+// vendored under reference/open-bfme-1/inputs/reference).
+// BFME 2 moves Zero Hour's bounds, radius and bounds-dirty flag into a shape
+// at PolygonTrigger +8 (target evidence: bounds lo +0x0C, hi +0x14, radius
+// +0x20 behind the pinned getRadius 0x0030B719, dirty flag +0x24, refresh
+// 0x0030B3D1); the class name is not established.
+//  - Rva0030B719Shape::rva0030B72C, retail 0x0030B72C (67 bytes, rowed in
+//    Common/PinnedForwarders1830.cpp): Zero Hour's bounds midpoint.
+//  - PolygonTrigger::getCenterPoint2D, retail 0x002E3876 (19 bytes): the
+//    shape's center; also reached through the this-adjusting forwarder
+//    0x00330C22 (this - 0x3C), so it is likely a virtual of a base. It hands
+//    its own return slot to 0x0030B72C unchanged, so both return the same
+//    point type; that type stores its fields one by one when copied, unlike
+//    the plain canonical Coord2D, and keeps the provider's address name.
+//  - PolygonTrigger::getCenterPoint, retail 0x002E38F3 (97 bytes): Zero
+//    Hour's body over the center above; the height is
+//    TheTerrainLogic->getGroundHeight (vslot 6) when there is a terrain logic,
+//    else the integer at PolygonTrigger +0x30 (no assert in retail).
+typedef float Real;
+typedef int Int;
+#include <stddef.h>
+#include "../../../../Libraries/Include/Lib/Coord2D.h"
+#define COORD3D_VIEW_INLINE
+#include "../../../../Libraries/Include/Lib/Coord3DCtorView.h"
+#include "../../../../Libraries/Include/Lib/ICoord3D.h"
 
 struct FloatRect0073CE30
 {
@@ -20,8 +47,11 @@ struct FloatRect0073CE30
 // PolygonTrigger's shape member at +0x08; its region getter is the rowed
 // Rva0030B719Shape::rva0030B6E3 0x0030B6E3.
 struct Region2D;
+
 struct Rva0030B72CPoint;
+
 class Coord2D;
+
 class Rva0030B719Shape
 {
 public:
@@ -43,9 +73,10 @@ public:
 // owner's type.
 extern struct Rva002E373CHolder *g_Va00DBD0F4;
 
-class Coord2D;
 struct Coord3D;
+
 struct ICoord3D;
+
 class PolygonTrigger
 {
 private:
@@ -276,6 +307,63 @@ private:
 	Rva002E36D5Node **m_head10;
 };
 
+struct FloatRect0073CE30;
+
+struct IRegion2D;
+
+struct Rva002E373CNode
+{
+	virtual void *func(int x);
+	unsigned char m_pad[0x38];
+	Rva002E373CNode *m_next3C;
+};
+
+// g_Va00DBD0F4: VA 0x00DBD0F4 (.data); retail stores 0x00DFF0B8, the address
+// of the rowed zero-filled list head g_00DFF0B8.
+Rva002E373CHolder *g_Va00DBD0F4 = (Rva002E373CHolder *)&g_00DFF0B8;
+
+class TerrainLogic
+{
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual Real getGroundHeight(Real x, Real y, Coord3D *normal = NULL) const;
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+struct Rva0030B72CPoint
+{
+	Rva0030B72CPoint() {}
+	__forceinline Rva0030B72CPoint(const Rva0030B72CPoint &that)
+	{
+		x = that.x;
+		y = that.y;
+	}
+	float x, y;
+};
+
+struct PlanarPoint
+{
+    int x;
+    int y;
+};
+
+bool rva00285B66(const void *point, const void *region);
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?take@Rva002E3A7AFields@@QAEIXZ
+struct Rva002E3A7AFields { unsigned int word0; unsigned int take(); };
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp
 
 // PolygonTrigger.cpp -- PolygonTrigger members recovered from WorldBuilder
@@ -391,8 +479,6 @@ void Rva002E3714Unlink(Rva002E36D5Node *node)
 	node->m_next3C = 0;
 }
 
-// tu-skeleton: 0x002E373C 42B ?Rva002E373CClear@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva002E373CClear.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002E3766Setter.cpp
 
 void Rva002E3766Holder::set(int a, int b)
@@ -412,12 +498,6 @@ void Rva002E3766Holder::notifyObjectExited(int exitingObject)
 	if (m_54 != 0 && m_58 != 0)
 		((void (__cdecl *)(int, int, int))m_54)(exitingObject, m_58, 0);
 }
-
-// tu-skeleton: 0x002E37B1 18B ?rva002E37B1@Rva002E37B1@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E37C3 8B ?rva002E37C3@Rva002E37C3@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x002E37CB 26B ?rva002E37CB@Rva002E37CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E37E5Write.cpp
 
@@ -447,26 +527,6 @@ void __cdecl Rva002E37E5Write(TriggerArea002E37E5 *head, DataChunkOutput *out, T
 	out->closeDataChunk();
 }
 
-// tu-skeleton: 0x002E3876 19B ?getCenterPoint2D@PolygonTrigger@@QBE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/GameLogic/Map/PolygonTriggerCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3889 22B ?Rva002E3889@@YA_NPBURva002E3889Vector@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E389F 8B ?set@Rva002E389FStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E38A7 8B ?set@Rva002E38A7StringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x002E38AF 68B ?rva002E38AF@PolygonTrigger@@QAEXPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/PolygonTriggerCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E38F3 97B ?getCenterPoint@PolygonTrigger@@QBEXPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/PolygonTriggerCenter.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3A13 38B ?pointInTrigger@PolygonTrigger@@QAE_NABUICoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/PolygonTrigger_pointInTrigger.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3A39 46B ?rva002E3A39@PolygonTrigger@@QAE_NABUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3A67 19B ?rva002E3A67@Rva002E3889Vector@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3A7A 6B ?take@Rva002E3A7AFields@@QAEIXZ -- matched in Code/GameEngine/Source/GameLogic/Map/PolygonTrigger_pointInTrigger.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002E3A80Call.cpp
 
 void Rva002E3A80Holder::call(void)
@@ -485,10 +545,6 @@ Rva002E3A8DPair *Rva002E3A8DHolder::get(Rva002E3A8DPair *out, int index)
 	return out;
 }
 
-// tu-skeleton: 0x002E3AA8 723B ?rva002E3AA8@PolygonTrigger@@QAE_NPBUCoord3D@@0PAU2@_N@Z -- matched in Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp (not merged yet)
-
-// tu-skeleton: 0x002E3D7B 104B ??0Rva002E3D7B@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva002E3DE3Ctor.cpp
 
 Rva002E3DE3::Rva002E3DE3(int first, int second)
@@ -497,6 +553,97 @@ Rva002E3DE3::Rva002E3DE3(int first, int second)
 {
 	Rva002E373CClear();
 }
+
+// ---- from Code/GameEngine/Source/Common/Rva002E373CClear.cpp
+
+void Rva002E373CClear(void)
+{
+	Rva002E373CNode *head = reinterpret_cast<Rva002E373CNode *>(g_Va00DBD0F4->m_head);
+	g_Va00DBD0F4->m_head = 0;
+	PolygonTrigger::s_currentID = 1;
+	void *toDelete;
+	if (head != 0)
+		toDelete = head->func(0);
+	else
+		toDelete = 0;
+	operator delete(toDelete);
+}
+
+// tu-skeleton: 0x002E37B1 18B ?rva002E37B1@Rva002E37B1@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E37C3 8B ?rva002E37C3@Rva002E37C3@@QAE_NPBURva0030B7C2Point@@@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E37CB 26B ?rva002E37CB@Rva002E37CB@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/PolygonTriggerParserParse.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTriggerCenter.cpp
+
+Rva0030B72CPoint PolygonTrigger::getCenterPoint2D(void) const
+{
+	return m_shape.rva0030B72C();
+}
+
+void PolygonTrigger::getCenterPoint(Coord3D* pOutCoord)	const
+{
+	if (!pOutCoord) {
+		return;
+	}
+
+	Rva0030B72CPoint center = getCenterPoint2D();
+	(*pOutCoord).x = center.x;
+	(*pOutCoord).y = center.y;
+
+	if (TheTerrainLogic) {
+		(*pOutCoord).z = TheTerrainLogic->getGroundHeight(center.x, center.y);
+	} else {
+		(*pOutCoord).z = m_defaultHeight;
+	}
+}
+
+// ?rva002E38AF@PolygonTrigger@@QAEXPBUCoord3D@@@Z
+// Native Ghidra extent 0x002E38AF..0x002E38F3, RET 4. Retail calls the
+// rowed compiler vcall thunks for slots +0x20 and +0x18. Those calls
+// establish dispatch and argument shapes; their original names are unknown.
+void PolygonTrigger::rva002E38AF(const Coord3D *offset)
+{
+	Coord2D planar;
+	planar.x = offset->x;
+	planar.y = offset->y;
+	(this->*(&PolygonTrigger::slot20))(&planar);
+	(this->*(&PolygonTrigger::slot18))((Int)(offset->z + m_defaultHeight));
+}
+
+// tu-skeleton: 0x002E3889 22B ?Rva002E3889@@YA_NPBURva002E3889Vector@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E389F 8B ?set@Rva002E389FStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x002E38A7 8B ?set@Rva002E38A7StringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Map/PolygonTrigger_pointInTrigger.cpp
+
+// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// ?pointInTrigger@PolygonTrigger@@QAE_NABUICoord3D@@@Z
+// Retail boundary 0x002E3A13..0x002E3A39 (38B); target bytes copy x/y into a
+// two-int local and call 0x00285B66 with that pointer and this+8. The ZH donor
+// identifies the method's polygon-test role; its full ray-cast is not this body.
+
+bool PolygonTrigger::pointInTrigger(const ICoord3D &point)
+{
+    PlanarPoint planarPoint;
+    planarPoint.x = point.x;
+    planarPoint.y = point.y;
+    const void *region = reinterpret_cast<const char *>(this) + 8;
+    return rva00285B66(&planarPoint, region);
+}
+
+unsigned int Rva002E3A7AFields::take() { unsigned int value=word0; word0=0; return value; }
+
+// tu-skeleton: 0x002E3A39 46B ?rva002E3A39@PolygonTrigger@@QAE_NABUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp (not merged yet)
+
+// tu-skeleton: 0x002E3A67 19B ?rva002E3A67@Rva002E3889Vector@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp (not merged yet)
+
+// tu-skeleton: 0x002E3AA8 723B ?rva002E3AA8@PolygonTrigger@@QAE_NPBUCoord3D@@0PAU2@_N@Z -- matched in Code/GameEngine/Source/Common/Rva002E3A39Pair.cpp (not merged yet)
+
+// tu-skeleton: 0x002E3D7B 104B ??0Rva002E3D7B@@QAE@PAXPAVBfmeParserRegistryVE@@PBVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva000AEFAA.cpp (not merged yet)
 
 // tu-skeleton: 0x002E3E51 47B ??1Rva00330C50@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00330C50Ctor.cpp (not merged yet)
 

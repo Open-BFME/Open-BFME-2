@@ -17181,7 +17181,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009BD078,48,.data,global,?theLivingWorldBuildingBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009BD0A8,72,.data,global,?theLivingWorldPlayerTemplateBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009BD0F0,4,.data,global,?s_currentID@PolygonTrigger@@0HA,,unowned,?g_Va00DBD0F0@@3HA;?s_currentID@PolygonTrigger@@0HA,1,4
-0x009BD0F4,44,.data,global,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A,Code/GameEngine/Source/Common/Rva002E373CClear.cpp,provisional,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A;?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A,1,6
+0x009BD0F4,44,.data,global,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A,Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp,provisional,?g_Va00DBD0F4@@3PAURva002E373CHolder@@A;?g_Va00DBD0F4@@3PAVRva002E373CHolder@@A,1,6
 0x009BD120,112,.data,global,?BfmeEnumTable@@3PAUBfmeEnumTableEntry@@A,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,owned,,1,10
 0x009BD190,136,.data,global,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,provisional,?g_volumePreferenceKeys@@3QAY0BE@$$CBDA;_volumeNames@Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,2,2
 0x009BD218,1,.data,global,?g_useStringFile@@3_NA,,unowned,,0,1

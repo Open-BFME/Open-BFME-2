@@ -908,3 +908,4 @@ Code/GameEngine/Source/Common/Rva003896E7Permuted.cpp	unverified	unverified	1	0	
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp	conflicting	mangle	1	0	0	0	0	1	0	0	0	0	1	<excpt.h>,<stdlib.h>	no	yes	hand			free:mangle
 Code/GameEngine/Source/Common/FprintfAppendLine.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	1	0	0	<stdio.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	_vsnprintf:same
 Code/Libraries/Source/WWVegas/WW3D2/streak.cpp	adapt	unknown	1	1	0	0	0	0	0	0	0	0	0	<new>	no	yes	hand	42: Code/Libraries/Source/WWVegas/WW3D2/streak.cpp:6 refcount.h(unknown); Code/Libraries/Source/WWVegas/WW3D2/streak.cpp:25 simplevec.h(unknown); Code/Libraries/Source/WWVegas/WW3D2/streak.cpp:75 ww3d.h(unknown)		operator delete [ ]:same
+Code/GameEngine/Source/GameLogic/Map/PolygonTrigger.cpp	drop-in candidate	same	1	1	0	0	0	0	0	0	0	0	0	<math.h>	no	yes	hand		prove with ./build.sh: byte gate is the authority	floorf:same
