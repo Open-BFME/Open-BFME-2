@@ -11,13 +11,22 @@ struct VirtBase
 {
 	virtual void vf(void *a, int b, int c, int d, int e);
 };
+// The final override's fields are a special power template's: +0x10 is
+// the AsciiString slot 5 returns, +0x20 the divisor of slot 2's percent
+// ready and +0x59 the flag that switches every timer to the player's
+// shared one. Names follow ZH's SpecialPowerTemplate (donor).
+#include "ascii_string.h"
 class Overridable
 {
 public:
 	virtual void overridableAnchor();
 	const Overridable *friend_getFinalOverride() const;
-	unsigned char m_pad04[0x55];
-	unsigned char m_hasOverride;
+	unsigned char m_pad04[0x10 - 0x04];
+	AsciiString m_name;
+	unsigned char m_pad14[0x20 - 0x14];
+	int m_reloadTime;
+	unsigned char m_pad24[0x59 - 0x24];
+	unsigned char m_sharedNSync;
 };
 class SpecialPowerTemplate;
 class Player;
@@ -25,11 +34,13 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	bool rva0028C15E(int, float *, int, int);
 };
 class Rva002AC6B1PlayerTimers
 {
 public:
 	unsigned int getOrStart(const SpecialPowerTemplate *tmpl);
+	void resetOrStart(const SpecialPowerTemplate *);
 };
 #include "../../../Common/GameLogicObjectLookupView.h"
 //
@@ -211,7 +222,7 @@ int WeaponModeSpecialPowerUpdateBase::rva005893AD()
 {
 	const Overridable *ov = ((const VirtPrimary *)this)->f6();
 	const Overridable *fin = ov->friend_getFinalOverride();
-	if (fin->m_hasOverride != 0) {
+	if (fin->m_sharedNSync != 0) {
 		Object *outer = *(Object **)((char *)this - 0x1c);
 		if (outer != 0) {
 			Player *player = outer->getControllingPlayer();
@@ -256,7 +267,7 @@ bool WeaponModeSpecialPowerUpdateBase::rva00589297()
 		if (player != 0) {
 			const SpecialPowerTemplate *specialPowerTemplate = *(const SpecialPowerTemplate **)((char *)p2 + 8);
 			const Overridable *fin = ((const Overridable *)specialPowerTemplate)->friend_getFinalOverride();
-			if (fin->m_hasOverride != 0) {
+			if (fin->m_sharedNSync != 0) {
 				unsigned int frame = (unsigned int)TheGameLogic->getFrame();
 				unsigned int ready = ((Rva002AC6B1PlayerTimers *)player)->getOrStart(specialPowerTemplate);
 				return frame >= ready;

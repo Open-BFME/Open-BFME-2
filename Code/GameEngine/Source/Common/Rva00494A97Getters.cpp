@@ -26,7 +26,7 @@ class Overridable
 public:
 	const Overridable *friend_getFinalOverride() const;
 	unsigned char m_pad00[0x10];
-	AsciiString m_10;
+	AsciiString m_name;
 };
 struct Rva00494A97ModuleData
 {
@@ -67,7 +67,7 @@ public:
 };
 AsciiString Rva00494A97::rva00589414() const
 {
-	return m_moduleData->m_08->friend_getFinalOverride()->m_10;
+	return m_moduleData->m_08->friend_getFinalOverride()->m_name;
 }
 Rva002390CB Rva00494A97::rva00589560() const
 {

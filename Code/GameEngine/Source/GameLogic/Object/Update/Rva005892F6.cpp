@@ -19,9 +19,9 @@ class Overridable
 public:
 	const Overridable *friend_getFinalOverride() const;
 	char m_pad00[0x20];
-	int m_20;
+	int m_reloadTime;
 	char m_pad24[0x59 - 0x24];
-	unsigned char m_59;
+	unsigned char m_sharedNSync;
 };
 
 class Object
@@ -77,7 +77,7 @@ float Rva005892F6::rva005892F6()
 		Player *player = obj->getControllingPlayer();
 		if (player != 0)
 		{
-			if (target->m_8->friend_getFinalOverride()->m_59 != 0)
+			if (target->m_8->friend_getFinalOverride()->m_sharedNSync != 0)
 			{
 				const SpecialPowerTemplate *specialPowerTemplate = slot6();
 				frame = (int)reinterpret_cast<Rva002AC6B1PlayerTimers *>(player)->getOrStart(specialPowerTemplate);
@@ -86,6 +86,6 @@ float Rva005892F6::rva005892F6()
 	}
 	GameLogic *gl = TheGameLogic;
 	const float numer = (float)(unsigned int)(frame - gl->getFrame());
-	const float denom = (float)(unsigned int)target->m_8->friend_getFinalOverride()->m_20;
+	const float denom = (float)(unsigned int)target->m_8->friend_getFinalOverride()->m_reloadTime;
 	return 1.0f - numer / denom;
 }
