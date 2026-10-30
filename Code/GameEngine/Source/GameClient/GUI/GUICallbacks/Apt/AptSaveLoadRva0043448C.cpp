@@ -29,22 +29,22 @@ public:
 
 private:
 	unsigned char m_pad000[0x27C];
-	int m_state;
-	AptSaveLoadPending *m_pending;
+	int m_27C;
+	int m_280;
 };
 
 void AptSaveLoad::rva0043448C()
 {
-	if (m_pending)
+	if (m_280)
 	{
 		Rva0037BBED check;
-		if (check.rva0037D0EF(m_pending->m_name))
-			m_state = 17;
+		if (check.rva0037D0EF(((AptSaveLoadPending *)m_280)->m_name))
+			m_27C = 17;
 		else
 			rva00433FDD();
 	}
 	else
 	{
-		m_state = 1;
+		m_27C = 1;
 	}
 }

@@ -19,11 +19,15 @@ UnicodeString GadgetTextEntryGetText(GameWindow *entry);
 UnicodeString Rva0037BA48Get();
 UnicodeString Rva0037B9D4Get();
 
+struct TreeHintOpaque0043671B;
 class GameState
 {
 public:
+	void *rva002DBC97Get(int saveType);
 	int determineCurrentGameSaveFileMode();
-	void *rva002DBC97Get(int mode);
+	UnicodeString rva002DD282(int mode);
+	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
+	int rva002DE3C1(TreeHintOpaque0043671B info);
 };
 extern GameState *TheGameState;
 
@@ -71,23 +75,23 @@ public:
 
 private:
 	unsigned char m_pad000[0x27C];
-	int m_state;
+	int m_27C;
 	unsigned char m_pad280[0x290 - 0x280];
-	GameWindow *m_fileName;
+	int m_290;
 	unsigned char m_pad294[0x2A0 - 0x294];
-	int m_mode;
+	int m_2A0;
 };
 
 void AptSaveLoad::OnButtonSave(const char *)
 {
 	UnicodeString name;
-	if (m_fileName)
-		name.set(GadgetTextEntryGetText(m_fileName));
+	if (m_290)
+		name.set(GadgetTextEntryGetText((GameWindow *)m_290));
 
 	bool exists = false;
 	if (!unicodeIsEmpty(name))
 	{
-		if (m_mode == 4)
+		if (m_2A0 == 4)
 		{
 			name += Rva0037BA48Get();
 			name = Rva0037B9D4Get() + name;
@@ -104,5 +108,5 @@ void AptSaveLoad::OnButtonSave(const char *)
 	if (!exists)
 		rva00435224();
 	else
-		m_state = 15;
+		m_27C = 15;
 }

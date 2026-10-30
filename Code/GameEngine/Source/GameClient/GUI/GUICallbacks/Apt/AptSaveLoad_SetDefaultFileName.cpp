@@ -8,20 +8,24 @@
 // slot is kept address-qualified: its raw value currently points inside a
 // different body, so its semantic identity is unresolved.
 #include "unicode_string.h"
+// MSVCR71 _wsplitpath (import slot VA 0x00BBA4EC; hint/name at RVA 0x00A7429C).
+#include <stdlib.h>
 
 class GameWindow;
 void GadgetTextEntrySetText(GameWindow *textEntry, UnicodeString text);
 
-// MSVCR71 _wsplitpath (import slot VA 0x00BBA4EC; hint/name at RVA 0x00A7429C).
-#include <stdlib.h>
 
 UnicodeString __cdecl Rva0037D55EGet();
 
+struct TreeHintOpaque0043671B;
 class GameState
 {
 public:
+	void *rva002DBC97Get(int saveType);
 	int determineCurrentGameSaveFileMode();
 	UnicodeString rva002DD282(int mode);
+	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
+	int rva002DE3C1(TreeHintOpaque0043671B info);
 };
 extern GameState *TheGameState;
 
@@ -33,14 +37,14 @@ public:
 
 private:
 	unsigned char m_pad000[0x290];
-	GameWindow *m_fileName;
+	int m_290;
 	unsigned char m_pad294[0x2A0 - 0x294];
-	int m_mode;
+	int m_2A0;
 };
 
 void AptSaveLoad::SetDefaultFileName()
 {
-	if (m_fileName == 0)
+	if (m_290 == 0)
 		return;
 
 	int selected = rva00433F7F();
@@ -50,13 +54,13 @@ void AptSaveLoad::SetDefaultFileName()
 		unsigned short nameBuffer[0x100];
 		_wsplitpath(source, 0, 0, nameBuffer, 0);
 		UnicodeString name(nameBuffer);
-		GadgetTextEntrySetText(m_fileName, name);
+		GadgetTextEntrySetText((GameWindow *)m_290, name);
 		return;
 	}
 
-	if (m_mode == 4)
-		GadgetTextEntrySetText(m_fileName, Rva0037D55EGet());
+	if (m_2A0 == 4)
+		GadgetTextEntrySetText((GameWindow *)m_290, Rva0037D55EGet());
 	else
-		GadgetTextEntrySetText(m_fileName,
+		GadgetTextEntrySetText((GameWindow *)m_290,
 			TheGameState->rva002DD282(TheGameState->determineCurrentGameSaveFileMode()));
 }

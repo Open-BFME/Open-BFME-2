@@ -7,15 +7,27 @@
 #include "ascii_string.h"
 #include "GameLogicObjectLookupView.h"
 #pragma pointers_to_members(full_generality, multiple_inheritance)
-class GameState { public: void *rva002DBC97Get(int saveType); };
+class UnicodeString;
+struct TreeHintOpaque0043671B;
+class GameState
+{
+public:
+	void *rva002DBC97Get(int saveType);
+	int determineCurrentGameSaveFileMode();
+	UnicodeString rva002DD282(int mode);
+	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
+	int rva002DE3C1(TreeHintOpaque0043671B info);
+};
 #include "../../../../Common/GameLogicObjectLookupView.h"
 
 class GameWindow
 {
+public:
+	GameWindow();
 protected:
 	virtual ~GameWindow();
 private:
-	unsigned char m_pad004[0x218 - 4];
+	unsigned char m_opaque[0x218 - 4]; // +0x04
 };
 
 class __multiple_inheritance FunctorTarget;
@@ -194,11 +206,13 @@ struct BfmeSubobject0022CE19
 
 struct TreeHintOpaque0043671B
 {
-	UnicodeString m_text;
-	BfmeSubobject0022CE19 m_subobject;
-	unsigned int m_wordDEC, m_wordDF0;
+public:
 	TreeHintOpaque0043671B(const TreeHintOpaque0043671B &);
 	~TreeHintOpaque0043671B();
+	UnicodeString m_text; // +0x00
+	BfmeSubobject0022CE19 m_subobject; // +0x04
+	unsigned int m_wordDEC; // +0xDEC
+	unsigned int m_wordDF0; // +0xDF0
 };
 
 // Bind to the kept retail copy instead of emitting this unit's own.
@@ -209,6 +223,9 @@ namespace _STL { template <> __declspec(dllimport) __forceinline void _Destroy<T
 namespace _STL { template <> void _List_base<TreeHintOpaque0043671B, allocator<TreeHintOpaque0043671B> >::clear(); }
 
 class GameWindow;
+
+class GameSpyGameSlot;
+class GameTextInterface;
 
 class AptSaveLoad : public _bfme_AptGameWindow
 {
@@ -225,6 +242,17 @@ public:
 	void Externs(int query, char *value, bool set);
 	void InitGadgets(const char *name, void *argument, GameWindow *window);
 	static AptSaveLoad *s_instance; // 0x00E032E0, the first save/load screen
+	void MultiplayerSaveGameDenied(int result);
+	void rva0043448C();
+	void rva00433FDD();
+	int rva00433F7F();
+	void SetDefaultFileName();
+	void rva00434B8A();
+	static GameSpyGameSlot *GetOpponentSlotData();
+	static void AddFriendConfirmationHandler(int);
+	static bool PromptAddFriend();
+	void rva00435224();
+	void rva00435819();
 private:
 	int m_27C;
 	int m_280;
@@ -254,12 +282,21 @@ class Rva00222A8BTarget
 {
 public:
 	void rva002233A6(int show);
-public:
-	unsigned char m_pad000[0x31C];
-public:
-	int m_31C;
-public:
 	void invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+	void rva00222F55(bool showBackground);
+	virtual void slot00();
+	virtual void slot04();
+	virtual void slot08();
+	virtual void slot0C();
+	virtual void slot10();
+	virtual void slot14();
+	virtual void slot18();
+	virtual void slot1C();
+	virtual void slot20();
+	virtual void slot24();
+	virtual void slot28();
+	char m_pad04[0x318];
+	int m_31C; // +0x31C
 };
 
 extern Rva00222A8BTarget *TheRva00222A8BTarget;

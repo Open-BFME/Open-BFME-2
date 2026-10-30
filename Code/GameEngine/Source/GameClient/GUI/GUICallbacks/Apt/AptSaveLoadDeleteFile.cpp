@@ -24,27 +24,27 @@ public:
 
 private:
 	unsigned char m_pad000[0x27C];
-	int m_state;
+	int m_27C;
 	unsigned char m_pad280[0x288 - 0x280];
-	GameWindow *m_gameList;
+	int m_288;
 	unsigned char m_pad28c[0x2A0 - 0x28C];
-	int m_mode;
+	int m_2A0;
 };
 
 void AptSaveLoad::rva00434B8A()
 {
-	if (m_gameList != 0)
+	if (m_288 != 0)
 	{
 		UnicodeString *file = (UnicodeString *)rva00433F7F();
 		if (file != 0 && !file->isEmpty())
 		{
 			UnicodeString path;
-			if (m_mode == 4)
+			if (m_2A0 == 4)
 				path = *file;
 			else
 				path = ((Rva002DC74A *)TheGameState)->rva002DC74A(*file);
 			DeleteFileW(path.str());
 		}
-		m_state = 2;
+		m_27C = 2;
 	}
 }

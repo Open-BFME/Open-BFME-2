@@ -38,7 +38,7 @@ public:
 
 private:
 	unsigned char m_pad000[0x27C];
-	int m_state;
+	int m_27C;
 };
 
 void AptSaveLoad::MultiplayerSaveGameDenied(int result)
@@ -59,5 +59,5 @@ void AptSaveLoad::MultiplayerSaveGameDenied(int result)
 		break;
 	}
 	Rva00437EAC(0, TheGameText->fetch("APT:SaveGameProgress", 0), message);
-	m_state = 22;
+	m_27C = 22;
 }

@@ -49,13 +49,15 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
+struct TreeHintOpaque0043671B;
 class GameState
 {
 public:
+	void *rva002DBC97Get(int saveType);
 	int determineCurrentGameSaveFileMode();
-	void *rva002DBC97Get(int mode);
-	void rva002DDE43(const UnicodeString &name, const UnicodeString &text,
-		int save, int confirm);
+	UnicodeString rva002DD282(int mode);
+	void rva002DDE43(const UnicodeString &name, const UnicodeString &text, int save, int confirm);
+	int rva002DE3C1(TreeHintOpaque0043671B info);
 };
 extern GameState *TheGameState;
 
@@ -64,6 +66,7 @@ class RecorderClass
 {
 public:
 	bool copyCurrentRecordingToFile(UnicodeString *name, UnicodeString *title);
+	bool playbackFile(UnicodeString name); // 0x0037D1E6
 };
 extern RecorderClass *TheRecorder;
 
@@ -94,15 +97,15 @@ public:
 
 private:
 	unsigned char m_pad000[0x27C];
-	int m_state;
+	int m_27C;
 	unsigned char m_pad280[0x288 - 0x280];
-	GameWindow *m_gameList;
-	GameWindow *m_autoSaveList;
-	GameWindow *m_fileName;
+	int m_288;
+	int m_28C;
+	int m_290;
 	unsigned char m_pad294[0x29C - 0x294];
-	bool m_29c;
+	bool m_29C;
 	unsigned char m_pad29d[0x2A0 - 0x29D];
-	int m_mode;
+	int m_2A0;
 };
 
 static bool unicodeIsEmpty(const UnicodeString &text)
@@ -113,20 +116,20 @@ static bool unicodeIsEmpty(const UnicodeString &text)
 
 void AptSaveLoad::rva00435819()
 {
-	if (!m_fileName || !m_gameList)
+	if (!m_290 || !m_288)
 		return;
 
-	UnicodeString text = GadgetTextEntryGetText(m_fileName);
+	UnicodeString text = GadgetTextEntryGetText((GameWindow *)m_290);
 	UnicodeString name;
 	name = text;
 	name.trim();
 
-	if (m_mode == 4)
+	if (m_2A0 == 4)
 	{
 		if (!unicodeIsEmpty(name))
 			name += Rva0037BA48Get();
 
-		if (m_29c)
+		if (m_29C)
 		{
 			bool complete = TheRecorder->copyCurrentRecordingToFile(&name, &text);
 			Rva00437E9C(0);
@@ -165,5 +168,5 @@ void AptSaveLoad::rva00435819()
 			TheGameText->fetch("GUI:GameSaved", 0));
 	}
 
-	m_state = 9;
+	m_27C = 9;
 }
