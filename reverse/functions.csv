@@ -32895,7 +32895,7 @@ _Rva008143F0,,0x006802F0,5,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,matc
 ?Rva007B7090Set@@YAXXZ,,0x007B7090,11,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap global store g_00DB6200 g_00BD23B4 between 0x007B707A 0x007B70AB
 _Rva0088E190TimerTick@16,,0x0003D870,9,Code/Libraries/Source/debug/debug_except.cpp,matched,gap body between watchdog 0x3D7E0 and dialog 0x3D880; inc timer global; stdcall ret16; b1 donor 0x0088E190
 ?rva0049575A@Rva0049575A@@QAEXPBVAsciiString@@@Z,,0x0049575A,167,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049575A.cpp,matched,hunt update via ascii plus world lookup plus command buttons plus wake
-?rva005FBB4D@Rva005FBB68@@QAEXH@Z,,0x005FBB4D,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail jmp wrapper via plus4 to rowed rva005FB872 same class as neighbours
+?setPlayerColor@Rva005FBB68@@QAEXH@Z,,0x005FBB4D,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,tail jmp wrapper via plus4 to rowed rva005FB872 same class as neighbours
 ?onEnter@Rva00544867@@UAE?AW4StateReturnType@@XZ,,0x0054477C,113,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,matched,vslot slot 4 ctor Rva00544867 sibling tri pattern
 ?onEnter@Rva005442CC@@UAE?AW4StateReturnType@@XZ,,0x005442CC,124,Code/GameEngine/Source/GameLogic/AI/AIDock.cpp,matched,gap TU flags tri-pattern tail base onEnter
 ?rva007B75E2@@YAXXZ,,0x007B75E2,10,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,matched,gap dtor thunk g_00DFE180 BfmeDualVtableReleaseDtor between 0x007B75D8 0x007B75EC
@@ -47086,7 +47086,7 @@ _Rva00814770,,0x00680670,1511,Code/Libraries/Source/DirtySock/Y4CommTickIdle.c,m
 ?rva0059AED2@Rva0059AED2@@QAEXXZ,,0x0059AED2,23,Code/GameEngine/Source/Common/Rva0059ADB9.cpp,matched,chain plus0C to plus10 plus float plus flag via rowed 0x0059AEBC
 ?rva0056652F@Rva0056652FOwner@@QAEXABUBfmePod40@@@Z,,0x0056652F,8,Code/GameEngine/Source/Common/Rva00566527Thunk.cpp,matched,tail-jump append plus 0x14 via Pod40 pushback
 ?rva004BBA15@GeometryInfo@@QAEXM@Z,,0x004BBA15,40,Code/GameEngine/Source/Common/System/GeometryInfoRva004BBA3D.cpp,matched,GeometryInfo caller and adjacent shape method prove vector stride and helper
-?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,,0x005FBBFC,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,member forwarder to rowed Impl method target instruction and signature evidence
+?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,,0x005FBBFC,8,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,matched,member forwarder to rowed Impl method target instruction and signature evidence
 ??4?$vector@URva0021C21BElement@@V?$allocator@URva0021C21BElement@@@_STL@@@_STL@@QAEAAV01@ABV01@@Z,,0x0021C21B,177,Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0021C21B.cpp,matched,STLport4.5.3 reference; target 0x21C21B;177;FUN_0061c21b; callee REL32s 0x31B9EB/0x25BF40/0x1DD10D read from retail; address-derived element; replaces gen-alias object-symbol row; full byte gate
 ??0Rva00574A8A@@QAE@II@Z,,0x00575336,77,Code/GameEngine/Source/Common/Rva00574A8ADtor.cpp,matched,Vtable xrefs identify the outer class; target allocates 128 bytes and calls a 3-argument constructor at 0x0057525F before storing the pointer at offset 4; raw argument meanings unresolved
 ?slot02@Impl@CommonBehavior@StrategicInGameUI@@UAEHABURva005CBC95Pixel@@H@Z,,0x00574959,79,Code/GameEngine/Source/Common/Rva00574959Method.cpp,matched,ret8 and body use establish two raw stack words; helper dispatches through local Rva00574815; meanings unresolved
@@ -75334,7 +75334,7 @@ _AnyRatioFrameScale,,0x001BAF30,606,Code/Libraries/Source/VP6/AnyRatioFrameScale
 ?get@Rva0009854DRandomField@@QBEMXZ,,0x0009854D,8,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,add ecx 0x3c then tail jump to GameClientRandomVariable::getValue
 ?rva00462477@Rva00462477@@QBE_NXZ,,0x00462477,6,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,matched,return BfmeAIExitDoorFlag
 ?rva001E4132@Rva001E4132@@QAEMMMMM@Z,,0x001E4132,21,Code/GameEngine/Source/Common/GapLeavesSeat8.cpp,matched,height delta divided by twice logic fps
-?Rva006017C9@@YAHH@Z,,0x006017C9,17,Code/Libraries/Source/file/TextFile.cpp,matched,lookup character class from TextFileCharacterClasses table
+?getCharacterClass@@YAHH@Z,,0x006017C9,17,Code/Libraries/Source/file/TextFile.cpp,matched,lookup character class from TextFileCharacterClasses table
 ?rva006F7AB0@AptDisplayList@@QAEXHPAX@Z,,0x006F7AB0,13,Code/Libraries/Source/Apt/Rva006F6A50Cluster.cpp,matched,forwards second argument to bfmeProcess1279
 ??0Rva00260F77Filter@@QAE@PAVBfmeTargetAM@@_N@Z,,0x00484144,29,Code/GameEngine/Source/Common/BfmeConv1739.cpp,matched,partition filter constructor storing vtable 0x00C49F14
 ?rva00521B48@Rva00521B48@@QAEXHH@Z,,0x00521B48,14,Code/GameEngine/Source/Common/GapForwardersSeat8.cpp,matched,vtable forwarder -0x27C then rowed AptSkirmish::InitCreateAHeroOnStartGame 0x005218AF

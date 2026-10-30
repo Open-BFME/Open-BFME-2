@@ -4114,3 +4114,6 @@ $L310,0x00790ABA,"Renamed to $L54988: tu_skeleton merge into EvacuateGarrisonSpe
 __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$?drawRadarViewBox@Rva0010461F@@QAEXXZ by tools/rename.py (inferred)"
 ?Rva005E3FE6@StrategicInGameUI@@YA_NPBURva005E4300Entry@@0HH@Z,0x005E3FE6,"Renamed to ?compareHeroEntries@StrategicInGameUI@@YA_NPBURva005E4300Entry@@0HH@Z by tools/rename.py (inferred)"
 ?rva005E6B3E@Rva005E6B3E@@QAEXXZ,0x005E6B3E,"Renamed to ?updateTooltip@Rva005E6B3E@@QAEXXZ by tools/rename.py (inferred)"
+?rva005FBB4D@Rva005FBB68@@QAEXH@Z,0x005FBB4D,"Renamed to ?setPlayerColor@Rva005FBB68@@QAEXH@Z by tools/rename.py (inferred)"
+?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,0x005FBBFC,"Renamed to ?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z by tools/rename.py (inferred)"
+?Rva006017C9@@YAHH@Z,0x006017C9,"Renamed to ?getCharacterClass@@YAHH@Z by tools/rename.py (inferred)"

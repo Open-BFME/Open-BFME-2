@@ -58,7 +58,7 @@ public:
 struct Rva003C4570Object
 {
 	char m_pad[0x264];
-	void *m_264;
+	void *m_experienceTracker;
 };
 
 struct Rva0039B24FInput;
@@ -79,7 +79,7 @@ public:
 // above to each member's +0x264 object, then continue.
 int __cdecl Rva002886A7(Object *obj, void *userData)
 {
-	((Rva0039B24F *)((Rva003C4570Object *)obj)->m_264)->rva0039B24F((Rva0039B24FInput *)userData, 1, false);
+	((Rva0039B24F *)((Rva003C4570Object *)obj)->m_experienceTracker)->rva0039B24F((Rva0039B24FInput *)userData, 1, false);
 	return 1;
 }
 
@@ -87,7 +87,7 @@ int __cdecl Rva002886A7(Object *obj, void *userData)
 // +0x264 object, then continue.
 int __cdecl Rva00288726(Object *obj, void *userData)
 {
-	((Rva0039B20C *)((Rva003C4570Object *)obj)->m_264)->rva0039B246();
+	((Rva0039B20C *)((Rva003C4570Object *)obj)->m_experienceTracker)->rva0039B246();
 	return 1;
 }
 

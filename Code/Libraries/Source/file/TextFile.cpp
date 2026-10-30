@@ -120,9 +120,9 @@ void _bfme_debugRecordCallsite(int);
 class Rva00601B30 {public:void add(unsigned,unsigned,const char*);};
 char *Rva006017DAParse(const char*,char*,int);
 typedef _STL::vector<const char*> CStringVector;
-__forceinline void appendCString(CStringVector &stringVector, const char *const &s)
+__forceinline void appendCString(CStringVector &stringVector, const char *const &stringValue)
 {
-    reinterpret_cast<_STL::vector<const ModuleData *> &>(stringVector).push_back(reinterpret_cast<const ModuleData *const &>(s));
+    reinterpret_cast<_STL::vector<const ModuleData *> &>(stringVector).push_back(reinterpret_cast<const ModuleData *const &>(stringValue));
 }
 
 // Native6016C9..60173A is the113B once-only character-class initialization.
@@ -147,9 +147,9 @@ void Rva006016C9Init() {
  TextFileCharacterClasses['/']=4;
 }
 
-int __cdecl Rva006017C9(int c)
+int __cdecl getCharacterClass(int character)
 {
-	return TextFileCharacterClasses[c & 0xff];
+	return TextFileCharacterClasses[character & 0xff];
 }
 
 void __cdecl rva00601C53(void *outer, int lineFlag, void *vec1, void *vec2, void *member)
@@ -222,9 +222,9 @@ void __cdecl rva00601C53(void *outer, int lineFlag, void *vec1, void *vec2, void
                     path[259] = 0;
                     PathRemoveFileSpecA(path);
                     PathAppendA(path, include);
-                    for (char *p = path; *p; ++p)
-                        if (*p == '/')
-                            *p = '\\';
+                    for (char *pathCursor = path; *pathCursor; ++pathCursor)
+                        if (*pathCursor == '/')
+                            *pathCursor = '\\';
                     char *name = path;
                     if (PathCanonicalizeA(canonical, path))
                         name = canonical;

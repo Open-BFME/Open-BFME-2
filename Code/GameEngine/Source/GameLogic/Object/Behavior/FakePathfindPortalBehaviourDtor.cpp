@@ -120,13 +120,13 @@ typedef Rva002E6ECA Rva0046183BWaypoint;
 void FakePathfindPortalBehaviour::rva0046183B()
 {
  if(m_30) {
-  Rva0046183BWaypoint **p=(Rva0046183BWaypoint**)m_28;
-  for(int i=0;i<2;++i,++p) {
-   Rva0046183BWaypoint *wp=*p;
+  Rva0046183BWaypoint **waypointSlot=(Rva0046183BWaypoint**)m_28;
+  for(int i=0;i<2;++i,++waypointSlot) {
+   Rva0046183BWaypoint *wp=*waypointSlot;
    if(wp) {
     if((unsigned char)wp->get()) (*reinterpret_cast<Rva004618D4AI**>(&TheAI))->m_p10->rva002E9042(wp);
-    ::operator delete(*p ? (*p)->destroy(0) : 0);
-    *p=0;
+    ::operator delete(*waypointSlot ? (*waypointSlot)->destroy(0) : 0);
+    *waypointSlot=0;
    }
   }
   reinterpret_cast<Rva004618D4Caller*>((*reinterpret_cast<Rva004618D4AI**>(&TheAI))->m_p10)->rva002E7023();

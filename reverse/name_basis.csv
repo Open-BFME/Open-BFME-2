@@ -4697,3 +4697,12 @@ carry,Rva0010461F::rva00104A75::uvBottomLeft,Rva0010461F::drawRadarViewBox::uvBo
 function,?Rva005E3FE6@StrategicInGameUI@@YA_NPBURva005E4300Entry@@0HH@Z,?compareHeroEntries@StrategicInGameUI@@YA_NPBURva005E4300Entry@@0HH@Z,inferred,agree:nl-98068f3484dc,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp,0x005E3FE6
 function,?rva005E6B3E@Rva005E6B3E@@QAEXXZ,?updateTooltip@Rva005E6B3E@@QAEXXZ,inferred,agree:nl-a78c8fa5645e,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp,0x005E6B3E
 carry,Rva005E6B3E::rva005E6B3E::thingTemplate,Rva005E6B3E::updateTooltip::thingTemplate,inferred,scope renamed by Rename rva005E6B3E to updateTooltip (inferred),Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIHeroComparator.cpp,0x005E6B3E
+member,Rva003C4570Object::m_264,Rva003C4570Object::m_experienceTracker,inferred,agree:nl-d2c1408a3139,Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003C4570Team.cpp,
+local,FakePathfindPortalBehaviour::rva0046183B::p,FakePathfindPortalBehaviour::rva0046183B::waypointSlot,inferred,agree:nl-c3a762b54002,Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp,0x0046183B
+local,rva00601C53::p,rva00601C53::pathCursor,inferred,agree:nl-983f973445b6,Code/Libraries/Source/file/TextFile.cpp,0x00601C53
+param,Rva006017C9::c,Rva006017C9::character,inferred,agree:nl-8094b0c34697,Code/Libraries/Source/file/TextFile.cpp,0x006017C9
+param,appendCString::s,appendCString::stringValue,inferred,agree:nl-9c94593ef388,Code/Libraries/Source/file/TextFile.cpp,
+function,?rva005FBB4D@Rva005FBB68@@QAEXH@Z,?setPlayerColor@Rva005FBB68@@QAEXH@Z,inferred,agree:nl-4c6af335bd9a,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,0x005FBB4D
+function,?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z,inferred,agree:nl-f5cec39e9340,Code/GameEngine/Source/GameClient/GUI/AptPlayerNameSet.cpp,0x005FBBFC
+function,?Rva006017C9@@YAHH@Z,?getCharacterClass@@YAHH@Z,inferred,agree:nl-0d688b343319,Code/Libraries/Source/file/TextFile.cpp,0x006017C9
+carry,Rva006017C9::character,getCharacterClass::character,inferred,scope renamed by Rename Rva006017C9 to getCharacterClass (inferred),Code/Libraries/Source/file/TextFile.cpp,0x006017C9

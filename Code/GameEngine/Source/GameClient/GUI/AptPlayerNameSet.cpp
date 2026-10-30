@@ -98,7 +98,7 @@ void StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl::rva005FB903(int
 class Rva005FBB68
 {
 public:
-    void rva005FBB4D(int color);
+    void setPlayerColor(int color);
     void rva005FBB68(int count);
     void rva005FBB70(float v);
     void rva005FBB83(float v);
@@ -107,7 +107,7 @@ private:
     char m_pad[4];
     StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
 };
-void Rva005FBB68::rva005FBB4D(int color)
+void Rva005FBB68::setPlayerColor(int color)
 {
     return m_member->rva005FB872(color);
 }
@@ -179,17 +179,17 @@ void Rva005FB84E::rva005FB84E()
     return m_member->ShowSurvived();
 }
 
-// ?rva005FBBFC@Rva005FBBFC@@QAEXABVUnicodeString@@@Z @0x005FBBFC 8B unlock tail-jmp forwarder to rva005FBBC0.
+// ?setPlayerName@Rva005FBBFC@@QAEXABVUnicodeString@@@Z @0x005FBBFC 8B unlock tail-jmp forwarder to rva005FBBC0.
 // Evidence: target instruction loads the member at +4 and jumps to the rowed Impl method; signature follows that method.
 class Rva005FBBFC
 {
 public:
-    void rva005FBBFC(const UnicodeString &value);
+    void setPlayerName(const UnicodeString &value);
 private:
     char m_pad[4];
     StrategicHUD::DynamicAutoResolvePlayerPanelMovieClip::Impl *m_member;
 };
-void Rva005FBBFC::rva005FBBFC(const UnicodeString &value)
+void Rva005FBBFC::setPlayerName(const UnicodeString &value)
 {
     return m_member->rva005FBBC0(value);
 }

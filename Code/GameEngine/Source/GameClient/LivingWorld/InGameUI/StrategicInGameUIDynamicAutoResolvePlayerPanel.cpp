@@ -53,8 +53,8 @@ bool less<int>::operator()(const int &a, const int &b) const
 }
 #include "../../../../Include/Common/Rva0007DF07.h"
 class Rva005FBBEE {public:Rva005FBBEE(unsigned,const AsciiString&);virtual ~Rva005FBBEE();private:void *impl;};
-class Rva005FBBFC {public:void rva005FBBFC(const UnicodeString&);};
-class Rva005FBB68 {public:void rva005FBB4D(int);void rva005FBB55(float);};
+class Rva005FBBFC {public:void setPlayerName(const UnicodeString&);};
+class Rva005FBB68 {public:void setPlayerColor(int);void rva005FBB55(float);};
 class Image;
 class ImageCollection {public:const Image *findImageByName(const AsciiString&);};
 extern ImageCollection *TheMappedImageCollection;
@@ -79,8 +79,8 @@ private:Impl *owner;int side,index,count;const Image *banners[2];
 DynamicAutoResolveDialog::Impl::PlayerPanelMovieClip::PlayerPanelMovieClip(Impl *impl,int s,int i,unsigned level,const AsciiString &name):Rva005FBBEE(level,name),owner(impl),side(s),index(i) {
  count=0;for(const Image **p=banners;p!=banners+2;++p)*p=0;
  PlayerDataView *data=(PlayerDataView*)GetPlayerData();
- ((Rva005FBBFC*)static_cast<Rva005FBBEE*>(this))->rva005FBBFC(data->player->name);
- ((Rva005FBB68*)static_cast<Rva005FBBEE*>(this))->rva005FBB4D(data->player->color.getAsInt()|0xff000000);
+ ((Rva005FBBFC*)static_cast<Rva005FBBEE*>(this))->setPlayerName(data->player->name);
+ ((Rva005FBB68*)static_cast<Rva005FBBEE*>(this))->setPlayerColor(data->player->color.getAsInt()|0xff000000);
  PlayerTemplateView *pt=((PlayerFullView*)data->player)->playerTemplate;
  ((Rva005FB83E*)static_cast<Rva005FBBEE*>(this))->rva005FB83E(TheMappedImageCollection->findImageByName(pt->image));
  ((Rva005FBB68*)static_cast<Rva005FBBEE*>(this))->rva005FBB55(data->remaining/owner->total*100.0f);
