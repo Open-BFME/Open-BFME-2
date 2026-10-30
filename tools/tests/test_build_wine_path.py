@@ -108,3 +108,14 @@ def test_a_compile_whose_output_the_host_cannot_decode_still_reports_it(tmp_path
     ok, text, code = build.try_compile_source(tmp_path / "unit.cpp", tmp_path / "out" / "unit.obj")
     assert (ok, code) == (False, 2)
     assert "error C2059: syntax error" in text and "\ufffd" in text
+
+
+@pytest.mark.skipif(os.name == "nt" or not __import__("shutil").which("winepath"),
+                    reason="needs a real Wine")
+def test_wine_path_reads_a_real_winepath(monkeypatch):
+    # Wine 8 (wine-ge-8-26) drops output written to an unnamed O_TMPFILE file,
+    # so wine_path came back empty and every compile failed (2026-10-30).
+    sys.path.insert(0, str(TOOLS))
+    import build
+    monkeypatch.setattr(build, "_WINE_PATH_CACHE", {})
+    assert build.wine_path("/") == "Z:\\"

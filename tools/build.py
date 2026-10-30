@@ -775,8 +775,10 @@ def wine_path(path):
         # it boots (services.exe, winedevice.exe, plugplay, rpcss) inherit its
         # stdio, and under a persistent wineserver (`wineserver -p`) they
         # outlive this process: a pipe they hold never reaches EOF, so whatever
-        # waits on this process's output never returns. Files, never pipes.
-        with tempfile.TemporaryFile("w+") as out, tempfile.TemporaryFile("w+") as err:
+        # waits on this process's output never returns. Files, never pipes, and
+        # named ones: Wine 8 drops what a program writes to an unnamed
+        # (O_TMPFILE) file, so TemporaryFile came back empty.
+        with tempfile.NamedTemporaryFile("w+") as out, tempfile.NamedTemporaryFile("w+") as err:
             code = subprocess.run([winepath, "-w", key], stdin=subprocess.DEVNULL, stdout=out,
                                   stderr=err).returncode
             out.seek(0)
@@ -2419,8 +2421,9 @@ def try_compile_source(source, output, *, input_proof=None, inventory=False):
         # during a compile inherit its stdio and may outlive it (wine_path).
         # cl writes its ANSI code page (a non-ASCII path or quoted source
         # line), not the host's: a byte the host encoding cannot decode is
-        # replaced, so it never aborts the compile or loses the message
-        with tempfile.TemporaryFile("w+", errors="replace") as log:
+        # replaced, so it never aborts the compile or loses the message. A
+        # named file, as in wine_path: Wine 8 loses output to an unnamed one
+        with tempfile.NamedTemporaryFile("w+", errors="replace") as log:
             result = subprocess.run(
                 command + (["-showIncludes"] if is_cl else []),
                 cwd=ROOT,
