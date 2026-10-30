@@ -16,14 +16,130 @@ class AIUpdateInterface {
 protected:
     virtual void SetEmotionState(int, Object *);
 public:
+    virtual void v01();
+    virtual void v02();
+    virtual void v03();
+    virtual void v04();
+    virtual void v05();
+    virtual void v06();
+    virtual void v07();
+    virtual void v08();
+    virtual void v09();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual void v30();
+    virtual void v31();
+    virtual void v32();
+    virtual void v33();
+    virtual void v34();
+    virtual void v35();
+    virtual void v36();
+    virtual void v37();
+    virtual void v38();
+    virtual void v39();
+    virtual void v40();
+    virtual void v41();
+    virtual void v42();
+    virtual void v43();
+    virtual void v44();
+    virtual void v45();
+    virtual void v46();
+    virtual void v47();
+    virtual void v48();
+    virtual void v49();
+    virtual void v50();
+    virtual void v51();
+    virtual void v52();
+    virtual void v53();
+    virtual void v54();
+    virtual void v55();
+    virtual void v56();
+    virtual void v57();
+    virtual void v58();
+    virtual void v59();
+    virtual void v60();
+    virtual void v61();
+    virtual void v62();
+    virtual void v63();
+    virtual void v64();
+    virtual void v65();
+    virtual void v66();
+    virtual void v67();
+    virtual void v68();
+    virtual void v69();
+    virtual void v70();
+    virtual void v71();
+    virtual void v72();
+    virtual void v73();
+    virtual void v74();
+    virtual void v75();
+    virtual void v76();
+    virtual void v77();
+    virtual void v78();
+    virtual void v79();
+    virtual void v80();
+    virtual void v81();
+    virtual void v82();
+    virtual void v83();
+    virtual void v84();
+    virtual void v85();
+    virtual void v86();
+    virtual void v87();
+    virtual void v88();
+    virtual void v89();
+    virtual void v90();
+    virtual bool v91();
+    virtual void v92();
+    virtual void v93();
+    virtual void v94();
+    virtual void v95();
+    virtual void v96();
+    virtual void v97();
+    virtual void v98();
+    virtual void v99();
+    virtual void v100();
+    virtual void v101();
+    virtual void v102();
+    virtual void v103();
+    virtual void v104();
+    virtual void v105();
+    virtual void v106();
+    virtual void v107();
+    virtual void v108();
+    virtual void v109();
+    virtual bool v110();
+    int getCurrentStateID() const;
+    void rva00263298();
+    void rva002632E1();
     char pad04[0x3c5-4]; unsigned char allow04;
 };
 class ThingTemplate { public: unsigned short getTemplateID() const { return templateID; } char pad00[0x5d8]; unsigned short templateID; };
 struct ModelConditionFlags {
  unsigned int words[19];
+ // Returns the masked word (WB's BitFlags::test compares it with zero).
  unsigned int test(size_t bit) const { return words[bit/32] & (1UL << (bit%32)); }
  void set(int bit) { words[bit>>5] |= 1U << (bit & 0x1f); }
+ void clear(int bit) { words[bit >> 5] &= ~(1 << (bit & 0x1f)); }
 };
+enum ObjectStatusTypes { STATUS_46 = 0x46 };
 class Object {
 public:
     void *rva0029439D();
@@ -33,10 +149,19 @@ public:
     bool isSignificantlyAboveTerrain() const;
     ObjectID getID() const { return id; }
     const ThingTemplate *getTemplate() const { return thingTemplate; }
+    bool addAttributeModifierToPool(const AsciiString &name, int strength);
+    AIUpdateInterface *getAI() const { return ai; }
+    bool testStatus438() const { return (m_status438 & 1) != 0; }
+    bool testStatus(ObjectStatusTypes status) const;
+    bool rva0028AFBB() const;
+    void *rva0028C197() const;
+    bool rva0028C149(int attribute, float *value, int arg);
     char pad00[4]; ThingTemplate *thingTemplate;
     char pad08[0x74-8]; ObjectID id;
     char pad78[0x10c-0x78]; ModelConditionFlags modelConditions;
-    char pad158[0x258-0x158]; AIUpdateInterface *ai;
+    char pad158[0x258-0x158]; AIUpdateInterface *ai; // +0x258
+    char pad25C[0x438 - 0x25C];
+    unsigned char m_status438; // +0x438
 };
 class Rva0029439DIface {
 public:
@@ -46,15 +171,21 @@ public:
     virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
     virtual void v16(); virtual void v17(); virtual void v18(); virtual Object *v19();
 };
-class FXList {
-public: static void doFXObj(const FXList *, const Object *, const Object *);
+class FXList
+{
+public:
+	static void doFXObj(const FXList *, const Object *, const Object *);
+	void doFXObj(const Object *primary, const Object *secondary) const;
 };
 class Rva004DC902AsciiField {
 public:
     AsciiString get() const;
     char pad00[0xc]; unsigned duration0c;
-    char pad10[0x30-0x10]; const FXList *fx30;
-    char pad34[0x4c-0x34]; int state4c;
+    int m_10, m_14, m_18;
+    char pad1C[0x30-0x1C]; const FXList *fx30;
+    char pad34[4]; const FXList *m_fx38;
+    AsciiString m_str3C; int m_40;
+    unsigned char m_flag44; char pad45[3]; int m_48; int state4c;
     char pad50[4]; int set54[19], clearA0[19], clearec[19], set138[19];
     unsigned char flag184; char pad185[3]; AsciiString event188;
 };
@@ -82,14 +213,16 @@ class LuaScriptEngine;
 
 extern LuaScriptEngine *TheLuaScriptEngine;
 
+struct Gen_lt_00940b40 : public _STL::less<unsigned short> {};
 class EmotionNugget {
 public:
     void OnActivation(Object *, int);
+    void OnDeactivation();
     Rva004DC902AsciiField *getTemplate() const { return entry04; }
     Object *object00; Rva004DC902AsciiField *entry04; int id08;
     unsigned short template0c; char pad0e[2]; unsigned next10;
     _STL::map<int, int> targets14;
-    _STL::map<unsigned short, int> templates20;
+    _STL::map<unsigned short, int, Gen_lt_00940b40> templates20;
     unsigned until2c, activated30;
 };
 

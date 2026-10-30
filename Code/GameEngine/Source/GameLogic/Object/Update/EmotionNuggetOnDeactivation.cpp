@@ -75,65 +75,174 @@ extern GameLogic *TheGameLogic;
 class FXList
 {
 public:
+	static void doFXObj(const FXList *, const Object *, const Object *);
 	void doFXObj(const Object *primary, const Object *secondary) const;
-	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
-class AIUpdateInterface
-{
+class EmotionNugget;
+class Object;
+class AIUpdateInterface {
+    friend class EmotionNugget;
+protected:
+    virtual void SetEmotionState(int, Object *);
 public:
-	void rva002632E1();
-public:
-	char m_pad00[0x3C5];
-	unsigned char m_byte3C5;
+    virtual void v01();
+    virtual void v02();
+    virtual void v03();
+    virtual void v04();
+    virtual void v05();
+    virtual void v06();
+    virtual void v07();
+    virtual void v08();
+    virtual void v09();
+    virtual void v10();
+    virtual void v11();
+    virtual void v12();
+    virtual void v13();
+    virtual void v14();
+    virtual void v15();
+    virtual void v16();
+    virtual void v17();
+    virtual void v18();
+    virtual void v19();
+    virtual void v20();
+    virtual void v21();
+    virtual void v22();
+    virtual void v23();
+    virtual void v24();
+    virtual void v25();
+    virtual void v26();
+    virtual void v27();
+    virtual void v28();
+    virtual void v29();
+    virtual void v30();
+    virtual void v31();
+    virtual void v32();
+    virtual void v33();
+    virtual void v34();
+    virtual void v35();
+    virtual void v36();
+    virtual void v37();
+    virtual void v38();
+    virtual void v39();
+    virtual void v40();
+    virtual void v41();
+    virtual void v42();
+    virtual void v43();
+    virtual void v44();
+    virtual void v45();
+    virtual void v46();
+    virtual void v47();
+    virtual void v48();
+    virtual void v49();
+    virtual void v50();
+    virtual void v51();
+    virtual void v52();
+    virtual void v53();
+    virtual void v54();
+    virtual void v55();
+    virtual void v56();
+    virtual void v57();
+    virtual void v58();
+    virtual void v59();
+    virtual void v60();
+    virtual void v61();
+    virtual void v62();
+    virtual void v63();
+    virtual void v64();
+    virtual void v65();
+    virtual void v66();
+    virtual void v67();
+    virtual void v68();
+    virtual void v69();
+    virtual void v70();
+    virtual void v71();
+    virtual void v72();
+    virtual void v73();
+    virtual void v74();
+    virtual void v75();
+    virtual void v76();
+    virtual void v77();
+    virtual void v78();
+    virtual void v79();
+    virtual void v80();
+    virtual void v81();
+    virtual void v82();
+    virtual void v83();
+    virtual void v84();
+    virtual void v85();
+    virtual void v86();
+    virtual void v87();
+    virtual void v88();
+    virtual void v89();
+    virtual void v90();
+    virtual bool v91();
+    virtual void v92();
+    virtual void v93();
+    virtual void v94();
+    virtual void v95();
+    virtual void v96();
+    virtual void v97();
+    virtual void v98();
+    virtual void v99();
+    virtual void v100();
+    virtual void v101();
+    virtual void v102();
+    virtual void v103();
+    virtual void v104();
+    virtual void v105();
+    virtual void v106();
+    virtual void v107();
+    virtual void v108();
+    virtual void v109();
+    virtual bool v110();
+    int getCurrentStateID() const;
+    void rva00263298();
+    void rva002632E1();
+    char pad04[0x3c5-4]; unsigned char allow04;
 };
 
-class Rva0029439DIface
-{
+class Rva0029439DIface {
 public:
-	virtual void v00();
-	virtual void v01();
-	virtual void v02();
-	virtual void v03();
-	virtual void v04();
-	virtual void v05();
-	virtual void v06();
-	virtual void v07();
-	virtual void v08();
-	virtual void v09();
-	virtual void v10();
-	virtual void v11();
-	virtual void v12();
-	virtual void v13();
-	virtual void v14();
-	virtual void v15();
-	virtual void v16();
-	virtual void v17();
-	virtual void v18();
-	virtual Object *v19();
+    virtual void v00(); virtual void v01(); virtual void v02(); virtual void v03();
+    virtual void v04(); virtual void v05(); virtual void v06(); virtual void v07();
+    virtual void v08(); virtual void v09(); virtual void v10(); virtual void v11();
+    virtual void v12(); virtual void v13(); virtual void v14(); virtual void v15();
+    virtual void v16(); virtual void v17(); virtual void v18(); virtual Object *v19();
 };
 
-struct ModelConditionFlags
-{
-	unsigned int m_bits[19];
-	// Returns the masked word (WB's BitFlags::test compares it with zero).
-	unsigned int test(size_t pos) const { return m_bits[pos / 32] & (1UL << (pos % 32)); }
-	void clear(int bit) { m_bits[bit >> 5] &= ~(1 << (bit & 0x1f)); }
+struct ModelConditionFlags {
+ unsigned int words[19];
+ // Returns the masked word (WB's BitFlags::test compares it with zero).
+ unsigned int test(size_t bit) const { return words[bit/32] & (1UL << (bit%32)); }
+ void set(int bit) { words[bit>>5] |= 1U << (bit & 0x1f); }
+ void clear(int bit) { words[bit >> 5] &= ~(1 << (bit & 0x1f)); }
 };
 
-class Object
-{
+class ThingTemplate;
+enum ObjectStatusTypes { STATUS_46 = 0x46 };
+class Object {
 public:
-	void *rva0029439D();
-	void clearAndSetModelConditionFlagsForHorde(const int *a, const int *b);
-	void rva0028CFB2(const int *a, const int *b);
-	void rva0028AE6D();
-	bool addAttributeModifierToPool(const AsciiString &name, int value);
-public:
-	char m_pad00[0x10C];
-	ModelConditionFlags m_modelConditionFlags;
-	char m_pad158[0x258 - 0x158];
-	AIUpdateInterface *m_ai258;
+    void *rva0029439D();
+    void clearAndSetModelConditionFlagsForHorde(const int *, const int *);
+    void rva0028CFB2(const int *, const int *);
+    void rva0028AE6D();
+    bool isSignificantlyAboveTerrain() const;
+    ObjectID getID() const { return id; }
+    const ThingTemplate *getTemplate() const { return thingTemplate; }
+    bool addAttributeModifierToPool(const AsciiString &name, int strength);
+    AIUpdateInterface *getAI() const { return ai; }
+    bool testStatus438() const { return (m_status438 & 1) != 0; }
+    bool testStatus(ObjectStatusTypes status) const;
+    bool rva0028AFBB() const;
+    void *rva0028C197() const;
+    bool rva0028C149(int attribute, float *value, int arg);
+    char pad00[4]; ThingTemplate *thingTemplate;
+    char pad08[0x74-8]; ObjectID id;
+    char pad78[0x10c-0x78]; ModelConditionFlags modelConditions;
+    char pad158[0x258-0x158]; AIUpdateInterface *ai; // +0x258
+    char pad25C[0x438 - 0x25C];
+    unsigned char m_status438; // +0x438
 };
 
 class Rva004DC8E7AsciiField
@@ -141,101 +250,109 @@ class Rva004DC8E7AsciiField
 public:
 	AsciiString get() const;
 	int getDelay() const { return m_40; }
-public:
 	char m_pad00[0x10];
-	int m_10;
-	int m_14;
-	int m_18;
-	char m_pad1C[0x38 - 0x1C];
-	const FXList *m_fx38;
-	AsciiString m_str3C;
-	int m_40;
-	unsigned char m_flag44;
-	char m_pad45[3];
-	int m_48;
-	int m_4C;
-	char m_pad50[0xA0 - 0x50];
-	int m_a0;
-	char m_padA4[0x138 - 0xA4];
-	int m_138;
-	char m_pad13C[0x184 - 0x13C];
-	unsigned char m_184;
+	int m_10; // +0x10
+	int m_14; // +0x14
+	int m_18; // +0x18
+	char m_pad1C[0x1C];
+	const FXList *m_fx38; // +0x38
+	AsciiString m_str3C; // +0x3C
+	int m_40; // +0x40
+	unsigned char m_flag44; // +0x44
+	char m_pad45[0x3];
+	int m_48; // +0x48
+	int m_4C; // +0x4C
+	char m_pad50[0x50];
+	int m_a0; // +0xA0
+	char m_padA4[0x94];
+	int m_138; // +0x138
+	char m_pad13C[0x48];
+	unsigned char m_184; // +0x184
+	char m_pad185[0x3];
 };
 
-class EmotionNugget
-{
+class Rva004DC902AsciiField {
 public:
-	void OnDeactivation();
-private:
-	Object *m_object;
-	Rva004DC8E7AsciiField *m_entry;
-	int m_id08;
-	unsigned short m_key0C;
-	char m_pad0E[2];
-	unsigned int m_frame10;
-	_STL::map<int, int> m_map14;
-	_STL::map<unsigned short, int, Gen_lt_00940b40> m_map20;
-	int m_2C;
-	unsigned int m_start30;
+    AsciiString get() const;
+    char pad00[0xc]; unsigned duration0c;
+    int m_10, m_14, m_18;
+    char pad1C[0x30-0x1C]; const FXList *fx30;
+    char pad34[4]; const FXList *m_fx38;
+    AsciiString m_str3C; int m_40;
+    unsigned char m_flag44; char pad45[3]; int m_48; int state4c;
+    char pad50[4]; int set54[19], clearA0[19], clearec[19], set138[19];
+    unsigned char flag184; char pad185[3]; AsciiString event188;
+};
+
+class EmotionNugget {
+public:
+    void OnActivation(Object *, int);
+    void OnDeactivation();
+    Rva004DC902AsciiField *getTemplate() const { return entry04; }
+    Object *object00; Rva004DC902AsciiField *entry04; int id08;
+    unsigned short template0c; char pad0e[2]; unsigned next10;
+    _STL::map<int, int> targets14;
+    _STL::map<unsigned short, int, Gen_lt_00940b40> templates20;
+    unsigned until2c, activated30;
 };
 
 void EmotionNugget::OnDeactivation()
 {
-	if (m_entry->m_10)
-		m_frame10 = TheGameLogic->getFrame() + m_entry->m_10;
-	if (m_entry->m_14 && m_id08)
+	if (entry04->m_10)
+		next10 = TheGameLogic->getFrame() + entry04->m_10;
+	if (entry04->m_14 && id08)
 	{
 		unsigned frame = TheGameLogic->getFrame();
-		int duration = m_entry->m_14;
-		m_map14[m_id08] = frame + duration;
+		int duration = entry04->m_14;
+		targets14[id08] = frame + duration;
 	}
-	if (m_entry->m_18 && m_key0C)
+	if (entry04->m_18 && template0c)
 	{
 		unsigned int frame = TheGameLogic->getFrame();
-		int duration = m_entry->m_18;
-		m_map20[m_key0C] = duration + frame;
+		int duration = entry04->m_18;
+		templates20[template0c] = duration + frame;
 	}
-	if (m_entry->m_fx38)
+	if (entry04->m_fx38)
 	{
-		Object *obj = m_object;
+		Object *obj = object00;
 		void *iface = obj->rva0029439D();
 		if (iface)
 			obj = ((Rva0029439DIface *)iface)->v19();
-		int id = m_id08;
+		int id = id08;
 		Object *found = TheGameLogic->findObjectByID((ObjectID)id);
 		if (found || !id)
 		{
 			if (!obj)
-				obj = m_object;
-			FXList::doFXObj((m_object ? (m_entry->m_fx38) : (m_entry->m_fx38)), obj, found);
+				obj = object00;
+			FXList::doFXObj((object00 ? (entry04->m_fx38) : (entry04->m_fx38)), obj, found);
 		}
 	}
-	AIUpdateInterface *ai = m_object->m_ai258;
+	AIUpdateInterface *ai = object00->ai;
 	if (ai)
 	{
-		int kind = m_entry->m_4C;
+		int kind = entry04->state4c;
 		if (!kind || (kind > 1 && kind <= 5))
 		{
 			ai->rva002632E1();
-			if (m_entry->m_184)
-				ai->m_byte3C5 = 0;
+			if (entry04->flag184)
+				ai->allow04 = 0;
 		}
 	{
-		void *iface = m_object->rva0029439D();
+		void *iface = object00->rva0029439D();
 		if (iface)
-			m_object->clearAndSetModelConditionFlagsForHorde(&m_entry->m_a0, &m_entry->m_138);
+			object00->clearAndSetModelConditionFlagsForHorde(entry04->clearA0, entry04->set138);
 		else
-			m_object->rva0028CFB2(&m_entry->m_a0, &m_entry->m_138);
-		Object *object = m_object;
-		if (object->m_modelConditionFlags.test(200))
+			object00->rva0028CFB2(entry04->clearA0, entry04->set138);
+		Object *object = object00;
+		if (object->modelConditions.test(200))
 		{
-			object->m_modelConditionFlags.clear(200);
+			object->modelConditions.clear(200);
 			object->rva0028AE6D();
 		}
 	}
-	if (!((const StringBase<char> &)(m_entry->get())).isEmpty() && TheGameLogic->getFrame() >= m_start30 + m_entry->getDelay() && m_entry->m_flag44)
+	if (!((const StringBase<char> &)(((Rva004DC8E7AsciiField *)entry04)->get())).isEmpty() && TheGameLogic->getFrame() >= activated30 + ((Rva004DC8E7AsciiField *)entry04)->getDelay() && entry04->m_flag44)
 	{
-		m_object->addAttributeModifierToPool(m_entry->get(), m_entry->m_48);
+		object00->addAttributeModifierToPool(((Rva004DC8E7AsciiField *)entry04)->get(), entry04->m_48);
 	}
 	}
 }
