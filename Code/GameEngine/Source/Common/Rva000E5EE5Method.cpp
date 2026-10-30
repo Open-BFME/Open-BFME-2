@@ -22,15 +22,17 @@ public:
 class Rva000E5EC1
 {
 public:
-	bool rva000E5EC1(int id, const StringBase<char> &name) const;
-	char m_pad0[0x2C];
-	int m_2c;
-	char m_pad1[0x4C - 0x2C - 4];
-	int m_id;
-	char m_pad2[0x8C - 0x4C - 4];
-	StringBase<char> m_name;
-	char m_pad3[0x9C - 0x8C - 4];
-	bool m_9c;
+	bool rva000E5EC1(int id, const StringBase<char> &name) const throw();
+	char m_pad00[0x2C];
+	int m_2c; // +0x2C
+	char m_pad30[0x1C];
+	int m_id; // +0x4C
+	char m_pad50[0x38];
+	float m_88; // +0x88
+	StringBase<char> m_name; // +0x8C
+	char m_pad90[0xC];
+	bool m_9c; // +0x9C
+	char m_pad9D[0x3];
 };
 
 struct Rva000E5EE5Node

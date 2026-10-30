@@ -13,13 +13,25 @@
 // and the lit color from 0x000E4BD5 called thiscall on the floor receiver.
 // Class and method names stay address-derived; the views below are this
 // unit's, typed by the retail accesses.
+#include <new>
+#define _OPERATOR_NEW_DEFINED_ // <new> supplies the placement allocation overloads.
 #include "reference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath/matrix3d.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 class GlobalData; extern GlobalData *TheWritableGlobalData;
 struct BfmeLighting36;
 struct FloorGlobalLightAccess { char pad[0x134];int time;char gap[8];BfmeLighting36 *unused; };
-class Rva000E4BD5Lighting { public: unsigned int doLighting(const BfmeLighting36*,const Coord3D*,unsigned int,float,unsigned int); };
-class Drawable { public: float rva00272C9E(int); };
+class Rva000E4BD5Lighting
+{
+public:
+	unsigned int doLighting(const BfmeLighting36 *objectLighting, const Coord3D *emissive, unsigned int vertDiffuse, float scale, unsigned int alpha);
+};
+class Matrix3D;
+class Drawable
+{
+public:
+	const Matrix3D *getTransformMatrix() const;
+	float rva00272C9E(int);
+};
 class VertexMaterialClass { public: void Get_Emissive(Vector3*) const; };
 class MeshMatDescClass { public: Vector2 *Get_UV_Array_By_Index(int,bool); unsigned int *Get_Color_Array(int,bool); };
 struct FloorVertexBufferAccess { char pad[12];Vector3 *vertices; };
@@ -32,12 +44,21 @@ class Rva006F8700Owner
 {
 public:
 	int rva006F8700(void *a, int b, void *c, void *p);
+	int rva000E56AF(void *a, int b, int c, void *p);
+	void rva000E585F(void *arg1, void *arg2, int *arg3, int *arg4);
 	int rva006F83F0(FloorVertex *a, int b, const Matrix3D *c, FloorMeshAccess *p);
-	char m_pad00[0x2c];
-	void *m_drawable2c;
-	Vector3 m_position30;
-	char m_pad3c[0x84 - 0x3c];
-	float m_opacity84;
+	char m_pad00[0x28];
+	void *m_28; // +0x28
+	void *m_drawable2c; // +0x2C
+	Vector3 m_position30; // +0x30
+	int m_3c; // +0x3C
+	int m_40; // +0x40
+	int m_44; // +0x44
+	int m_48; // +0x48
+	char m_pad4C[0x4];
+	int m_50; // +0x50
+	char m_pad54[0x30];
+	float m_opacity84; // +0x84
 };
 
 int Rva006F8700Owner::rva006F8700(void *a, int b, void *c, void *p)
