@@ -777,7 +777,7 @@ class UnitKeyCarryTests(unittest.TestCase):
         raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2",
                           "0x00A00010,4,.data,global,?s@@3HA,Code/M.cpp,owned,,1,2",
                           "0x00A00020,4,.data,global,?old@@3HA,Code/M.cpp,owned,,1,2")
-        out = T.unit_key_carry(self.M, {self.M: unit_defs(data=["?g@@3HA"]), self.A: unit_defs(data=["?g@@3HA", "?s@@3HA"])},
+        out = T.unit_key_carry(self.M, {self.M: unit_defs(data=["?g@@3HA"]), self.A: unit_defs(data=["?s@@3HA"])},
                                raw, original=unit_defs(data=["?g@@3HA", "?s@@3HA"]))
         self.assertEqual(out.problems, [])
         text = out.raws[T.DATA_LEDGER].decode()
@@ -785,6 +785,37 @@ class UnitKeyCarryTests(unittest.TestCase):
         self.assertIn("?s@@3HA,Code/A.cpp,", text)        # only the TU defines it now: carried
         self.assertIn("?old@@3HA,Code/M.cpp,", text)      # stale before the carve, file remains: left alone
         self.assertTrue(any("?old@@3HA" in n for n in out.notes))
+
+    def test_refuses_a_key_the_residual_and_a_destination_both_define(self):
+        # Sol R1 S1: the residual is one more definer, never a tie-breaker
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2",
+                          "0x00A00010,4,.rdata,float,__real@3f800000,,literal,__real@3f800000;_k@Code/M.cpp,1,9")
+        defs = {self.M: unit_defs(data=["?g@@3HA"], static=["_k"]), self.A: unit_defs(data=["?g@@3HA"], static=["_k"])}
+        out = T.unit_key_carry(self.M, defs, raw, original=unit_defs(data=["?g@@3HA"], static=["_k"]))
+        self.assertTrue(any("?g@@3HA is defined by both Code/A.cpp and Code/M.cpp" in p for p in out.problems))
+        self.assertTrue(any("_k is defined by both Code/A.cpp and Code/M.cpp" in p for p in out.problems))
+
+    def test_a_stale_key_stays_even_when_the_destination_defines_the_symbol(self):
+        # Sol R1 S3: the stale-key exception comes before any destination is chosen
+        raw = self.ledger("0x00A00000,4,.data,global,?old@@3HA,Code/M.cpp,owned,,1,2")
+        out = T.unit_key_carry(self.M, {self.M: unit_defs(), self.A: unit_defs(data=["?old@@3HA"])}, raw,
+                               original=unit_defs())
+        self.assertEqual(out.problems, [])
+        self.assertNotIn(T.DATA_LEDGER, out.raws)              # nothing moved to Code/A.cpp
+        self.assertTrue(any("?old@@3HA" in n for n in out.notes))
+
+    def test_a_fold_proof_the_residual_keeps_still_checks_its_callees(self):
+        # Sol R1 S2: f stays in the residual, its unrowed callee g moves out
+        raw = self.pins("??$f@H@@YAXXZ,0x00001000,fold-proof=Code/M.cpp")
+        defs = {self.M: unit_defs(code=["??$f@H@@YAXXZ"]), self.A: unit_defs(code=["??$g@H@@YAXXZ"])}
+        original = unit_defs(code=["??$f@H@@YAXXZ", "??$g@H@@YAXXZ"])
+        calls = lambda unit, name: {"??$g@H@@YAXXZ"} if name == "??$f@H@@YAXXZ" else set()   # noqa: E731
+        out = T.unit_key_carry(self.M, defs, pins_raw=raw, original=original, calls=calls)
+        self.assertTrue(any("callee ??$g@H@@YAXXZ would leave Code/M.cpp" in p for p in out.problems))
+        defs[self.M]["code"].add("??$g@H@@YAXXZ")
+        defs[self.A]["code"].clear()
+        out = T.unit_key_carry(self.M, defs, pins_raw=raw, original=original, calls=calls)
+        self.assertEqual((out.problems, out.raws), ([], {}))  # kept, and the proof is not rewritten
 
     def test_refuses_disagreeing_with_a_verified_data_owner(self):
         raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2")

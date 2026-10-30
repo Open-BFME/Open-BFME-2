@@ -3403,17 +3403,17 @@ def unit_key_carry(path, defs, ledger_raw=None, pins_raw=None, original=None, ow
     out = UnitKeys()
 
     def home(symbol, kinds):
-        if path in defs and any(symbol in defs[path][k] for k in kinds):
+        # a key stale before the carve stays while the file remains, whoever defines the symbol now
+        if path in defs and original is not None and not any(symbol in original[k] for k in kinds):
+            out.notes.append(f"{symbol}: {path} did not define it before the carve either (key left as it was)")
             return path
-        who = sorted(u for u in defs if u != path and any(symbol in defs[u][k] for k in kinds))
+        # every final object, the residual included: two definers are ambiguous wherever they are
+        who = sorted(u for u in defs if any(symbol in defs[u][k] for k in kinds))
         if len(who) > 1:
             out.problems.append(f"{symbol} is defined by both {who[0]} and {who[1]}")
             return None
         if who:
             return who[0]
-        if path in defs and original is not None and not any(symbol in original[k] for k in kinds):
-            out.notes.append(f"{symbol}: {path} did not define it before the carve either (key left as it was)")
-            return path
         out.problems.append(f"no carved unit defines {symbol}")
         return None
 
@@ -3464,8 +3464,9 @@ def unit_key_carry(path, defs, ledger_raw=None, pins_raw=None, original=None, ow
             if not found or found.group(1) != path:
                 continue
             to = home(row["name"], ("code",))
-            if to is None or to == path:
-                continue
+            if to is None or row["name"] not in defs[to]["code"]:
+                continue                  # refused, or a stale key left as it was
+            # the callee chain is checked in the object that keeps the proof, the residual included
             todo, seen = [row["name"]], set()
             while todo and calls is not None:
                 n = todo.pop()
@@ -3477,7 +3478,8 @@ def unit_key_carry(path, defs, ledger_raw=None, pins_raw=None, original=None, ow
                         todo.append(c)
                     elif original is not None and c in original["code"] and c not in addressed:
                         out.problems.append(f"fold proof {row['name']}: its callee {c} would leave {to}'s object")
-            dest[row["name"]] = to
+            if to != path:
+                dest[row["name"]] = to
         if dest:
             raw, n = repoint_fold_proofs(pins_raw, {path}, dest)
             if n:

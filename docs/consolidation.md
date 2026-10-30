@@ -379,12 +379,13 @@ FILE and stage the result.
 `fold-proof=FILE` pins in `symbols.csv` name the unit whose object defines a symbol. After the final
 objects pass the link guard, `--shatter` (and `--split`, for its residual and TU) reads their COFF
 symbol tables and moves each key to the one unit that defines it: a global or static for the ledger, the
-pinned body for a fold proof. A residual that still defines a symbol keeps its key. It refuses when two
-units define the symbol (a static that `carve()` copied to two units included), when none does, when a
-verified `data_rows.csv` owner disagrees with the object, when a move would merge two `names` keys into
-one, and when a fold proof's unrowed callee would end up in a different object from the pinned body.
-Under `--split`, a key the original object did not define either is stale from before the carve: it
-stays as it is while the file remains. A moved ledger key needs the printed `Verifier-Change:`
+pinned body for a fold proof. The residual counts as one of the final objects: when it is the only definer
+it keeps the key. It refuses when two final objects define the symbol (the residual and a destination,
+or a static that `carve()` copied to two units), when none does, when a verified `data_rows.csv` owner
+disagrees with the object, when a move would merge two `names` keys into one, and when a fold proof's
+unrowed callee would end up in a different object from the pinned body (checked for a proof the residual
+keeps too). A key the original object did not define either is stale from before the carve: while the
+file remains (a residual) it stays as it is, whatever defines the symbol now. A moved ledger key needs the printed `Verifier-Change:`
 trailer. Pin admission re-proves a moved fold proof at commit.
 
 ## What the lane does not do yet
