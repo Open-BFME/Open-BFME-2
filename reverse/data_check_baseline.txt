@@ -23,9 +23,6 @@ Code/GameEngine/Source/GameLogic/Object/Rva00220DCDInit.cpp	wrong-name	?g_00DFE4
 Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp	wrong-name	?$S1@?1??rva0004A6DE4@SupplyTruckAIUpdate@@SA?AW4NameKeyType@@XZ@4IA	0x00A03C50
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp	wrong-name	?$S1@?3??Rva003C31F3Do@@YGXABVAsciiString@@0_N@Z@4IA	0x00A02DD4
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActions_rva003C31F3.cpp	wrong-name	?g_bfmeWorldRV@@3PAUBfmeWorldRV@@A	0x00A01CFC
-Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	wrong-name	_BfmeThingDGDVTableAnchor	0x008E3018
-Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	wrong-name	_BfmeThingDGDVTableAnchorH4	0x008E3010
-Code/GameEngine/Source/GameNetwork/BfmeThingDGDDestructor.cpp	wrong-name	_BfmeThingDGDVTableAnchorH8	0x008E3008
 Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp	wrong-name	_matchbotProfileID	0x00A02698
 Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c	duplicate-def	_ciLocalIP	0x00A0BE00
 Code/GameEngine/Source/GameNetwork/GameSpy/chat/chatSocket.c	wrong-name	_ciLocalIP	0x00A0BE00
