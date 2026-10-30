@@ -49,7 +49,6 @@ public:
 	int m_source;
 };
 #include "../../Common/PartitionRangeQueryCallView.h"
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper
 // (retail keeps one _List_iterator_base::operator!=; BfmeAptScreenLanLobbyOnInitGadget.cpp pattern).
 namespace _STL {
@@ -58,19 +57,14 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 typedef bool Bool;
-
 typedef unsigned int UnsignedInt;
-
 class Object;
-
 struct DamageInfoInput
 {
 	unsigned char m_pad00[0x08];
 	ObjectID m_sourceID; // +0x08
 };
-
 struct DamageInfo
 {
 	DamageInfoInput in;
@@ -80,17 +74,14 @@ struct DamageInfo
 		Bool m_noEffect; // +0x78
 	} out;
 };
-
 template <int N> class VSlots : public VSlots<N - 1>
 {
 public:
 	virtual void gap(char (*)[N]) = 0;
 };
-
 template <> class VSlots<0>
 {
 };
-
 class BodyModuleInterface : public VSlots<15>
 {
 public:
@@ -99,7 +90,6 @@ public:
 	virtual void slot17() = 0;
 	virtual ObjectID getClearableLastAttacker() const = 0;
 };
-
 class StateMachine
 {
 public:
@@ -109,7 +99,6 @@ private:
 	unsigned char m_pad00[0x14];
 	Object *m_owner; // +0x14
 };
-
 class AIUpdateInterface
 {
 public:
@@ -118,13 +107,11 @@ private:
 	unsigned char m_pad00[0x30];
 	StateMachine *m_stateMachine; // +0x30
 };
-
 struct TeamTemplateInfo
 {
 	unsigned char m_pad00[0xEA];
 	Bool m_attackCommonTarget; // +0xEA (prototype +0x216)
 };
-
 class TeamPrototype
 {
 public:
@@ -133,8 +120,8 @@ private:
 	unsigned char m_pad00[0x12C];
 	TeamTemplateInfo m_teamTemplate; // +0x12C (the TeamPrototype ctor at 0x3A3299 constructs it there)
 };
-
 #include "../../../Include/Common/TeamBFME2.h"
+#include <windows.h>
 
 class TunnelTracker
 {
@@ -264,6 +251,18 @@ public:
 	static float getStdGuardRange(const Object *obj);	// 0x00542C2A
 };
 
+struct DamageInfo;
+
+struct State
+{
+public:
+	virtual ~State();
+	Object *getMachineOwner() const { return m_machine->getOwner(); }
+private:
+	unsigned char m_pad04[0x18 - 0x04];
+	StateMachine *m_machine; // +0x18
+};
+
 // tu-skeleton: 0x00545B84 11B ??1AITNGuardMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00545B8F 6B ?name@AITNGuardMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
@@ -293,6 +292,8 @@ public:
 // tu-skeleton: 0x00545D7E 44B ??0Rva00545D7E@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/Rva00545D7ECtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00545DAA 6B ?Rva00545DAAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuard.cpp
 
@@ -416,8 +417,6 @@ Bool AITNGuardMachine::lookForInnerTarget(void)
 	return false;
 }
 
-// tu-skeleton: 0x00545DCC 6B ?Rva00545DCCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardScan.cpp
 
 Object *__fastcall TunnelNetworkScan(Object *owner)
@@ -430,13 +429,69 @@ Object *__fastcall TunnelNetworkScan(Object *owner)
 		AIGuardMachine::getStdGuardRange(owner), 0, filters);
 }
 
+// tu-skeleton: 0x00545DCC 6B ?Rva00545DCCGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
 // tu-skeleton: 0x00545E80 44B ??0AITNGuardAttackAggressorState@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardAttackAggressorStateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00545EAC 6B ?Rva00545EACGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x00545EB2 94B ?xfer@AITNGuardMachine@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00545F10 112B ?rva00545F10@@YA_NPAUState@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardHasAttackedMeCondition.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/AI/AITNGuardHasAttackedMeCondition.cpp
+
+// platformsdk
+//
+// ?rva00545F10@@YA_NPAUState@@PAX@Z, retail 0x00545F10..0x00545F80 (112
+// bytes): Zero Hour AITNGuard.cpp's hasAttackedMeAndICanReturnFire, the
+// AITNGuardMachine transition condition (to state 5005, the attack-aggressor
+// state). Its address is the test of the condition table the rowed
+// AITNGuardMachine ctor 0x00546001 hands to defineState; this spelling is
+// the one AITNGuardMachineCtor.cpp references.
+//
+// Target evidence: owner = state +0x18 machine +0x14 owner; body module at
+// owner +0x254 and its vslot 18 (+0x48) is getClearableLastAttacker; the
+// rowed GameLogic::findObjectByID 0x00049DC5 on TheGameLogic; the rowed
+// Object::getRelationship 0x0028D156 (ENEMIES = 0); the target's private
+// status byte +0x438 bit 0 (isEffectivelyDead); the rowed
+// Object::getAbleToAttackSpecificObject 0x0028D051 with ATTACK_NEW_TARGET 0
+// and CMD_FROM_AI 2; result 3 or 2 (POSSIBLE / POSSIBLE_AFTER_MOVING) is
+// true. As in the donor there is no isAbleToAttack test (unlike AIGuard's
+// twin 0x005430E7); BFME 2 reads the attacker id once and drops the
+// clearLastAttacker call.
+
+Bool rva00545F10(State *thisState, void * /*userData*/)
+{
+	Object *obj = thisState->getMachineOwner();
+	BodyModuleInterface *bmi = obj ? obj->getBodyModule() : NULL;
+
+	if (!(obj && bmi)) {
+		return false;
+	}
+
+	ObjectID attacker = bmi->getClearableLastAttacker();
+	if (attacker == INVALID_OBJECT_ID) {
+		return false;
+	}
+
+	Object *target = TheGameLogic->findObjectByID(attacker);
+	if (!target) {
+		return false;
+	}
+
+	if (obj->getRelationship(target) != ENEMIES) {
+		return false;
+	}
+
+	if (target->isEffectivelyDead()) {
+		return false;
+	}
+
+	CanAttackResult result = obj->getAbleToAttackSpecificObject(ATTACK_NEW_TARGET, target, CMD_FROM_AI);
+	if (result == ATTACKRESULT_POSSIBLE || result == ATTACKRESULT_POSSIBLE_AFTER_MOVING) {
+		return true;
+	}
+	return false;
+}
 
 // tu-skeleton: 0x00545F80 129B ?findBestTunnel@@YAPAVObject@@PAVPlayer@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardReturnStateOnEnter.cpp (not merged yet)
 
@@ -458,18 +513,18 @@ Object *__fastcall TunnelNetworkScan(Object *owner)
 
 // tu-skeleton: 0x0054684E 93B ?update@AITNGuardAttackAggressorState@@UAE?AW4StateReturnType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp (not merged yet)
 
-// tu-skeleton: 0x00798011 8B uw_00798011 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
+// tu-skeleton: 0x00798011 8B $L548 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00798019 10B $L548 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x00798019 10B $L549 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00798023 10B $L549 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x00798023 10B $L550 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0079802D 10B $L550 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x0079802D 10B $L551 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00798037 10B $L551 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x00798037 10B $L552 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00798041 10B $L552 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x00798041 10B $L553 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0079804B 10B $L553 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
+// tu-skeleton: 0x0079804B 10B $L554 -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00798055 10B __ehhandler$??0AITNGuardMachine@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/AITNGuardMachineCtor.cpp (not merged yet)
