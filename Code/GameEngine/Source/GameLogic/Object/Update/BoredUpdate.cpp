@@ -36,6 +36,11 @@ static const char s_boredUpdateFile[] = "BoredUpdate";
 
 int __cdecl GetGameLogicRandomValue(int low, int high, char *file, int line);
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 // Opaque UpdateModule base; ctor resolves to its row. Protected slots mirror
 // the retail stores.
 class UpdateModule
@@ -58,6 +63,7 @@ class BoredUpdate : public UpdateModule
 public:
 	BoredUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual ~BoredUpdate();
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 char g_00C4F590;
