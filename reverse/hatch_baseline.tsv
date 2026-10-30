@@ -1558,14 +1558,14 @@ address_global	Code/Libraries/Source/WWVegas/WW3D2/Rva00155AD0.cpp	g_Va00DEC4A4	
 address_global	Code/Libraries/Source/WWVegas/WW3D2/Rva00177860Render.cpp	g_Va00DB5F7D	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/SceneClass_Render.cpp	g_Va00DEDA28	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/SceneClass_Render.cpp	g_Va00DEDA2C	2
+address_global	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp	g_Va00DEE86C	3
+address_global	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp	g_Va00DEE870	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	g_Va00DEE86C	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp	g_Va00DEE870	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp	g_Va00DEDA28	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/fxshadernamespaceww3d.cpp	g_Va00DEDA2C	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	g_Va00DB5F7D	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp	g_Va00DB6218	2
-address_global	Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp	g_Va00DEE86C	3
-address_global	Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp	g_Va00DEE870	3
 address_global	Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp	g_Va00DEE8E8	6
 address_global	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp	g_Rva0107301CEmptyString	3
 address_global	Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp	g_Va00BBB8D8	2

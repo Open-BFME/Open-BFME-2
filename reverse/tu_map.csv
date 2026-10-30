@@ -8742,7 +8742,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001263B7,104,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva001263B7Finish.cpp
 0x0012641F,20,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva0012641FClear.cpp
 0x00126433,11984,code,,,-,W=Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp
-0x00129303,293,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp W=Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
+0x00129303,293,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp W=Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
 0x00129430,9,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/shader.cpp N=Code/Libraries/Source/WWVegas/WW3D2/ShaderClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/shader.cpp
 0x00129440,14,code,,,-,,Code/GameEngine/Source/Common/VtableVirtualForwarders.cpp
 0x00129450,6,code,,,-,,Code/GameEngine/Source/Common/ConstGlobalGetters2.cpp
@@ -64841,11 +64841,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007654B4,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp
 0x007654BF,11,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp
 0x007654CA,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererRenderStreak.cpp
-0x007654D4,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
-0x007654DC,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
-0x007654E4,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
-0x007654EC,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
-0x007654F4,10,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/simplestreakrender.cpp
+0x007654D4,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
+0x007654DC,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
+0x007654E4,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
+0x007654EC,8,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
+0x007654F4,10,code,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp,approved,P,P=0x00129303@FuncInfo0x00909804 p-group provisional,Code/Libraries/Source/WWVegas/WW3D2/SimpleStreakRendererClass.cpp
 0x00765500,17,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,P,P=0x001297B0@FuncInfo0x00909830,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x00765511,11,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,P,P=0x001297B0@FuncInfo0x00909830,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
 0x0076551C,10,code,Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp,approved,P,P=0x001297B0@FuncInfo0x00909830,Code/Libraries/Source/WWVegas/WW3D2/TextureStatisticsVector.cpp
