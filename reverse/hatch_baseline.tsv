@@ -1008,8 +1008,8 @@ address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cp
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065B4	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065B8	2
 address_global	Code/GameEngine/Source/GameClient/GUI/Rva007B4874Registrations.cpp	g_Va00E065BC	2
+address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00A03314	2
 address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E0330C	2
-address_global	Code/GameEngine/Source/GameClient/GUI/parseSpellIndex_Thunk.cpp	g_Va00E03314	2
 address_global	Code/GameEngine/Source/GameClient/GameClientXfer.cpp	g_Va00E00944	3
 address_global	Code/GameEngine/Source/GameClient/GameText.cpp	g_Va00DFF0C4	3
 address_global	Code/GameEngine/Source/GameClient/InGameUIObserverMessage.cpp	g_Va00A04450	3

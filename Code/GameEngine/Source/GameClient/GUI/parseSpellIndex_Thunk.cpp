@@ -540,8 +540,10 @@ void AptSpellStore::rva0043C9FD()
 	}
 }
 
-// The open spell store (VA 0x00E03314; BFME 1's g_purchaseScienceWindow).
-extern int g_Va00E03314;
+// The open spell store (VA 0x00E03314; BFME 1's g_purchaseScienceWindow):
+// Rva0050E9D3Enable.cpp's g_Va00A03314.
+struct GlobalA03314;
+extern GlobalA03314 *g_Va00A03314;
 
 // Rva0050E9D3Enable.cpp's guarded singleton; its +4 byte enables the store.
 void *Rva0043C9B3Get(void);
@@ -654,7 +656,7 @@ extern Shell *TheShell;
 // the 0x0050E9D3 and side panel calls.
 void finishShowPurchaseScience(void)
 {
-	if (g_Va00E03314)
+	if (g_Va00A03314)
 		return;
 	if (!((unsigned char *)Rva0043C9B3Get())[4])
 		return;
@@ -852,7 +854,9 @@ void AptSpellStore::rva0043CD3C()
 			m_slots[i].m_04 = state;
 		}
 	}
+#pragma inline_depth(0)
 }
+#pragma inline_depth()
 
 // RegistryAsciiPath.cpp's "text + AsciiString" node (rowed 0x002226E5) and
 // its materializer 0x0022309D.
