@@ -16048,3 +16048,16 @@ Code/GameEngine/Source/GameNetwork/Rva007F6740GameBrowserArrayRequest.cpp|functi
 Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp|function|0x00217AB0|Rva00217AB0Partition,9d1c289898977ccec4028c9c,drz-k1,drz-k1-140,w-d29055ee9848,2026-10-30
 Code/Libraries/Source/WWVegas/WWLib/MixFileCreatorFileInfoStructAssign.cpp|function|0x002176F1|Rva002176F1Insert,1d505ec079a770e858db0213,drz-k1,drz-k1-140,w-d29055ee9848,2026-10-30
 Code/GameEngine/Source/GameLogic/Object/Contain/Rva00466D50Capacity.cpp|local|Rva00466D50::rva00466D50|b,c0d5a8b5f42bfccc28e53c92,drz-k1,drz-k1-151,w-d29055ee9848,2026-10-30
+Code/GameEngine/Source/Common/Rva002B5B55Finish.cpp|member|Rva002B5B55Arg|m_id54,fbdf8b0f7a00d2a428c2a3d8,drz-k4,drz-k4-141,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Bfme5SmallBodies.cpp|function|0x00094BF2|bfmeGetQuad,7d7d7698d01d218b858ae7a2,drz-k4,drz-k4-142,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp|function|0x0052C119|rva0052C119,c3d072837c975d920dac1124,drz-k4,drz-k4-143,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0052C119CurrentEntry.cpp|function|0x0052C72B|rva0052C72B,54e894079980419eb31bddec,drz-k4,drz-k4-143,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Rva005092B2Resolve.cpp|member|Rva005092B2|m_128,ee4a3d0cf7edc70a84e74bed,drz-k4,drz-k4-148,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/GameLogic/Object/Rva005092B2Resolve.cpp|member|Rva005092B2|m_130,fbcb352409c90c64011a5cd9,drz-k4,drz-k4-148,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp|function|0x005B909F|rva005B909F,7836098430c8284e1750a38e,drz-k4,drz-k4-154,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/rva005B95B8Rva005B95B8Farm.cpp|local|AptOnline::OnlineHome::rva005B95B8|f,9664ad51549d6b09ccedd0e4,drz-k4,drz-k4-154,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00256499Parse.cpp|function|0x00256499|rva00256499,2f8e1d37a65d95ed8a4334ae,drz-k4,drz-k4-156,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Rva005FF267SetState.cpp|function|0x005FF267|rva005FF267,b21ff9f946d832eae48f461d,drz-k4,drz-k4-158,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Rva005EF3DE.cpp|function|0x005EF3DE|rva005EF3DE,cebdbd611b8475cb3e4c0add,drz-k4,drz-k4-159,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Rva005EF3DE.cpp|function|0x005EF3EE|rva005EF3EE,9e12094a692797db80be1f7a,drz-k4,drz-k4-159,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Rva005EF3DE.cpp|function|0x005EF3E6|rva005EF3E6,77035c35f30988c2c09a19b0,drz-k4,drz-k4-159,w-855a0f400af4,2026-10-30
