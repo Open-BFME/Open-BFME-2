@@ -1,55 +1,56 @@
-// cl: /DNDEBUG /MD
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
 //
 // ??0ThreatFinderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z, retail 0x003ECCA2, 46 bytes.
 // ThreatFinderUpdate behavior ctor over the rowed UpdateModule base
-// (0x253390): zeroes +0x20, then re-stores the primary vtable slot and the
-// +0x0C/+0x10 secondary slots (address-of TU-local dummies, DIR32-masked).
+// (0x253390): zeroes +0x20 and installs the primary vtable slot and the
+// +0x0C/+0x10 secondary slots.
 // The rowed pool key at 0x3ECCD6 and the rowed instance factory 0x24FBD0
 // (sole caller, ModuleFactory registration literal) prove the class. Row
 // supersedes the ctor pin.
 
-class ModuleData;
+enum NameKeyType { NK_UNKNOWN = 0 };
 class Thing;
+class ModuleData;
+class Rva003ECD60Object;
+class Xfer;
 
-extern "C" void _ReadWriteBarrier(void);
-#pragma intrinsic(_ReadWriteBarrier)
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
-static int s_vtable;
-static int s_secondary0C;
-static int s_secondary10;
-
-// Opaque UpdateModule base; ctor resolves to its row. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class UpdateModule
+class UpdateModuleInterface
 {
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
+    virtual void f2() = 0;
+};
 
-protected:
-	const void *m_vtable;
-	Thing *m_owner;
-	int m_pad08;
-	const void *m_p0C;
-	const void *m_p10;
-	unsigned char m_pad[0x20 - 0x14];
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~UpdateModule();
+    void xfer(Xfer *xfer);
+
+private:
+    unsigned int m_nextCallFrameAndPhase;
+    int m_indexInLogic;
+    int m_updateState;
 };
 
 class ThreatFinderUpdate : public UpdateModule
 {
 public:
-	ThreatFinderUpdate(Thing *thing, const ModuleData *moduleData);
+    ThreatFinderUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~ThreatFinderUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+
+protected:
+    virtual void xfer(Xfer *xfer);
 
 private:
-	int m_20;
+    Rva003ECD60Object *m_heap;
 };
 
 // ??0ThreatFinderUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x3ECCA2
 ThreatFinderUpdate::ThreatFinderUpdate(Thing *thing, const ModuleData *moduleData)
-	: UpdateModule(thing, moduleData)
+    : UpdateModule(thing, moduleData), m_heap(0)
 {
-	m_20 = 0;
-	_ReadWriteBarrier();
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
 }

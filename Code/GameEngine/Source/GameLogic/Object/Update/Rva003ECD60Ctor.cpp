@@ -13,11 +13,10 @@ class Rva003ECD60Object;
 class Rva003ECA4BElement
 {
 public:
-	Rva003ECA4BElement();
-
+ Rva003ECA4BElement();
+ Rva003ECA4BElement *rva003ECA81(const Rva003ECA4BElement *other);
 private:
-	float m_0;
-	char m_rest[0x40];
+ float m_values[17];
 };
 
 class AsciiString;
@@ -50,14 +49,17 @@ public:
 	unsigned char m_minimum;
 };
 
-class Rva003ECA69Element
+struct Rva003ECB52Arg;
+class Rva003ECA69Element : public Rva003ECA4BElement
 {
 public:
+	Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *);
 	void rva003ECAE0(Xfer *xfer);
 };
 
 class Rva003ECD60Object
 {
+	friend class ThreatFinderUpdate;
 public:
 	Rva003ECD60Object(const StringBase<char> &name, bool flag);
 	void xfer(Xfer *xfer);

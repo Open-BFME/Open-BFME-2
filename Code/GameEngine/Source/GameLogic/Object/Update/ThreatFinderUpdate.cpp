@@ -44,8 +44,12 @@ private:
 
 struct Rva003ECB52Arg;
 
-class Rva003ECA69Element : public Rva003ECA4BElement {
-public: Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *);
+class Xfer;
+class Rva003ECA69Element : public Rva003ECA4BElement
+{
+public:
+	Rva003ECA69Element *rva003ECB52(Rva003ECB52Arg *);
+	void rva003ECAE0(Xfer *xfer);
 };
 
 struct ThreatInfo : public Rva003ECA69Element {};
@@ -129,10 +133,44 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ThreatFinderUpdate
+class Thing;
+class ModuleData;
+class Rva003ECD60Object;
+class Xfer;
+
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+class UpdateModuleInterface
 {
 public:
-	virtual NameKeyType getModuleNameKey() const;
+    virtual void f2() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+    UpdateModule(Thing *thing, const ModuleData *moduleData);
+    virtual ~UpdateModule();
+    void xfer(Xfer *xfer);
+
+private:
+    unsigned int m_nextCallFrameAndPhase;
+    int m_indexInLogic;
+    int m_updateState;
+};
+
+class ThreatFinderUpdate : public UpdateModule
+{
+public:
+    ThreatFinderUpdate(Thing *thing, const ModuleData *moduleData);
+    virtual ~ThreatFinderUpdate();
+    virtual NameKeyType getModuleNameKey() const;
+
+protected:
+    virtual void xfer(Xfer *xfer);
+
+private:
+    Rva003ECD60Object *m_heap;
 };
 
 struct Rva003ECD1BVector
