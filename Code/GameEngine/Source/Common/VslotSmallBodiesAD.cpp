@@ -255,10 +255,6 @@ private:
 	Rva00482134Data *m_04;
 	Int m_08;
 };
-void Rva00482134::rva00482134()
-{
-	((Rva00482134Logic *)TheGameLogic)->m_170->rva0035A292(m_08, m_04->m_08);
-}
 class Rva00482152Primary
 {
 public:
@@ -278,10 +274,6 @@ class Rva00482152 : public Rva00482152Primary, public Rva00482152Iface
 public:
 	void rva00482152(Int unused);
 };
-void Rva00482152::rva00482152(Int)
-{
-	((Rva00482134Logic *)TheGameLogic)->m_170->rva0035A292(m_08, m_04->m_08);
-}
 
 // 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
 // arguments then the pinned 0x004CDDBA(1); resp. only the latter while
