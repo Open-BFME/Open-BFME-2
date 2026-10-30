@@ -51974,7 +51974,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005EEA20,166,code,,,-,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookBase.cpp,Code/GameEngine/Source/Common/Rva005EEA20Find.cpp
 0x005EEAC6,181,code,Code/GameEngine/Source/Common/AISpellBookBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookBase.cpp provisional,Code/GameEngine/Source/Common/AISpellBookBase.cpp
 0x005EEB7B,123,code,Code/GameEngine/Source/Common/AISpellBookBase.cpp,approved,N,N=Code/GameEngine/Source/Common/AISpellBookBase.cpp provisional,Code/GameEngine/Source/Common/AISpellBookBase.cpp
-0x005EEBF6,412,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookBase.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
+0x005EEBF6,412,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookPowers/AISpellBookBase.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp
 0x005EED92,24,code,Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp,proposed,K,K=Rva005EEDAA,Code/GameEngine/Source/Common/Rva005EEDAACtor.cpp
 0x005EEDAA,11,code,Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp,proposed,K,K=Rva005EEDAA,Code/GameEngine/Source/Common/Rva005EE30CChain.cpp
 0x005EEDB5,21,code,Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/StickyBombUpdate.cpp
@@ -90184,10 +90184,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A48A6,8,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp
 0x007A48AE,8,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp
 0x007A48B6,10,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISPecialPowerTargetAoE.cpp
-0x007A48C0,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
-0x007A48C8,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
-0x007A48D0,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
-0x007A48D8,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBaseGetStatsInCombatRange.cpp
+0x007A48C0,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp
+0x007A48C8,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp
+0x007A48D0,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp
+0x007A48D8,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp,approved,P,P=0x005EEBF6@FuncInfo0x0095D338 p-group provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AISpecialPowers/AISpellBookBase.cpp
 0x007A48E2,8,code,,,-,,Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp
 0x007A48EA,20,code,,,-,,Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp
 0x007A48FE,11,code,,,-,,Code/GameEngine/Source/Common/Rva005EEF2Fdtor.cpp
