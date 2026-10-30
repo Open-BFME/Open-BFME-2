@@ -313,27 +313,6 @@ void AnimateWindowManager::update( void )
 
 
 
-// BFME compiled list<AnimateWindow*>::push_back out-of-line in this TU (retail
-// body at 0x45DAE0, called through ILT thunk 0x22D36); a noinline derived
-// wrapper forces the same call shape instead of the inlined create_node+hook.
-struct BFMEAnimateWindowListPush : public AnimateWindowList
-{
-	__declspec(noinline) void bfmePushBack(AnimateWindow * const &win)
-	{
-		typedef _STL::_List_node<AnimateWindow *> Node;
-		Node *sentinel = *reinterpret_cast<Node **>(this);
-		Node *node = static_cast<Node *>(
-			_STL::__node_alloc<true, 0>::allocate(sizeof(Node)));
-		new (&node->_M_data) AnimateWindow *(win);
-
-		_STL::_List_node_base *previous = sentinel->_M_prev;
-		node->_M_next = sentinel;
-		node->_M_prev = previous;
-		previous->_M_next = node;
-		sentinel->_M_prev = node;
-	}
-};
-
 void AnimateWindowManager::registerGameWindow(GameWindow *win, AnimTypes animType, Bool needsToFinish, UnsignedInt ms, UnsignedInt delayMs)
 {
 	if(!win)
@@ -365,11 +344,11 @@ void AnimateWindowManager::registerGameWindow(GameWindow *win, AnimTypes animTyp
 	// Add the Window to the proper list
 	if(needsToFinish)
 	{
-		((BFMEAnimateWindowListPush &)m_winMustFinishList).bfmePushBack(animWin);
+		m_winMustFinishList.push_back(animWin);
 		m_needsUpdate = TRUE;
 	}
 	else
-		((BFMEAnimateWindowListPush &)m_winList).bfmePushBack(animWin);
+		m_winList.push_back(animWin);
 }
 
 ProcessAnimateWindow *AnimateWindowManager::getProcessAnimate( AnimTypes animType )

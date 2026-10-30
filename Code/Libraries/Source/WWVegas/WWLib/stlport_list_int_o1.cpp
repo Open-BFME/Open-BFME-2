@@ -63,3 +63,8 @@ template class _STL::list<int, _STL::allocator<int> >;
 // HeaderTemplate.cpp's bfmelist copy is inlined, so the call binds this one.
 class HeaderTemplate;
 template _STL::list<HeaderTemplate *>::_Node *_STL::list<HeaderTemplate *>::_M_create_node(HeaderTemplate *const &);
+
+// AnimateWindowManager::registerGameWindow's push_back reaches the same folded
+// insert; AnimateWindowManager.cpp declares node creation only.
+class AnimateWindow;
+template _STL::list<AnimateWindow *>::_Node *_STL::list<AnimateWindow *>::_M_create_node(AnimateWindow *const &);

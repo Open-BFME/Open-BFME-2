@@ -38,3 +38,10 @@ namespace _STL {
 template <> list<HeaderTemplate *>::_Node *list<HeaderTemplate *>::_M_create_node(HeaderTemplate *const &);
 template list<HeaderTemplate *>::iterator list<HeaderTemplate *>::insert(list<HeaderTemplate *>::iterator, HeaderTemplate *const &);
 }
+
+// list<AnimateWindow *>::insert, which AnimateWindowManager.cpp declares only.
+class AnimateWindow;
+namespace _STL {
+template <> list<AnimateWindow *>::_Node *list<AnimateWindow *>::_M_create_node(AnimateWindow *const &);
+template list<AnimateWindow *>::iterator list<AnimateWindow *>::insert(list<AnimateWindow *>::iterator, AnimateWindow *const &);
+}
