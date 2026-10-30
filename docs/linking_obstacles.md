@@ -2265,6 +2265,16 @@ predates the base and affected consumer
 consumer and the unchanged archive-provider scope into the next scheduled
 census. Full consumer closure is not claimed.
 
+2026-10-30 follow-up: the owning Microsoft-header auditor finds no remaining
+local-declaration or include-closure findings in the already repaired source.
+Its scoped queue refresh removes the reappearing four-finding entry. Strict
+preparation again verifies nine function rows, one data row and the three
+parent-owned funclets; EH is EXACT and the ordinary preview retains LINKS for
+606 authored bytes against index `12b9e7a7c0`. This is stale queue retirement,
+with no new source repair or census gain. The broader consumer/census
+prerequisites above remain pending.
+[Follow-up checks](../reverse/attempt_support/bigarchive-stale-msheaders-20261030-codexb4.md).
+
 ### Game-logic random CRT declaration cleanup (2026-10-28)
 
 Status: scoped cleanup verified; full consumer/census confirmation pending.
