@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail RE: ?parsePrerequisiteUnit@@YAXPAVINI@@PAX1PBX@Z @0x0033EA47 (118B).
 //
@@ -13,39 +13,11 @@
 // the outlined __EH_prolog head (pool-key law), same as the Science twin.
 // Shares the Science TU's replica-vector idiom and its ctor/dtor/push_back pins.
 
+#include <vector>
+
 enum ScienceType
 {
 	SCIENCE_INVALID = 0
-};
-
-namespace _STL
-{
-
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A = allocator<T> >
-class vector
-{
-public:
-	void push_back(const T &x);
-
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
-
-}
-
-class INI
-{
-public:
-	const char *getNextToken(const char *seps);
-	const char *getNextTokenOrNull(const char *seps);
-	static ScienceType scanScience(const char *token);
 };
 
 template <typename T>
@@ -58,6 +30,50 @@ struct StringInlineData
 
 #include "ascii_string.h"
 
+class ProductionPrerequisite;
+
+namespace _STL
+{
+
+// Bind the rowed push_backs to their workers: vector<ScienceType> at
+// 0x002E01C6 and vector<ProductionPrerequisite> at 0x0033EA10. Declarations
+// only: the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<int, allocator<int> >
+{
+private:
+	int *m_start;
+	int *m_finish;
+	int *m_endOfStorage;
+};
+template <> class vector<ScienceType, allocator<ScienceType> >
+{
+public:
+	void push_back(const ScienceType &x);
+private:
+	ScienceType *m_start;
+	ScienceType *m_finish;
+	ScienceType *m_endOfStorage;
+};
+template <> class vector<ProductionPrerequisite, allocator<ProductionPrerequisite> >
+{
+public:
+	void push_back(const ProductionPrerequisite &x);
+private:
+	ProductionPrerequisite *m_start;
+	ProductionPrerequisite *m_finish;
+	ProductionPrerequisite *m_endOfStorage;
+};
+
+}
+
+class INI
+{
+public:
+	const char *getNextToken(const char *seps);
+	const char *getNextTokenOrNull(const char *seps);
+	static ScienceType scanScience(const char *token);
+};
 
 class ProductionPrerequisite
 {
