@@ -19365,8 +19365,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A028DC,4,.data,global,_s_rva007AF393,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A028E0,4,.data,global,?TheLifetimeUpdatePoolKey@?1??getModuleNameKey@LifetimeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp,owned,,1,2
 0x00A028E4,4,.data,global,?$S1@?1??getModuleNameKey@LifetimeUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp,owned,,1,2
-0x00A028E8,4,.data,global,?TheStrafeAreaUpdatePoolKey@?1??getModuleNameKey@StrafeAreaUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdatePoolKey.cpp,owned,,1,2
-0x00A028EC,4,.data,global,?$S1@?1??getModuleNameKey@StrafeAreaUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdatePoolKey.cpp,owned,,1,4
+0x00A028E8,4,.data,global,?TheStrafeAreaUpdatePoolKey@?1??getModuleNameKey@StrafeAreaUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdate.cpp,owned,,1,2
+0x00A028EC,4,.data,global,?$S1@?1??getModuleNameKey@StrafeAreaUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/StrafeAreaUpdate.cpp,owned,,1,4
 0x00A028F0,4,.data,global,_s_rva007AF3D7,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A028F4,4,.data,global,_s_rva007AF3E9,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
 0x00A028F8,4,.data,global,_s_rva007AF3FB,Code/GameEngine/Source/Common/Rva007AD295ZeroInits.cpp,owned,,1,1
