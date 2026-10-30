@@ -30,8 +30,24 @@ struct TeleportThingTemplate{char pad[0x115];unsigned char kind115;};
 
 enum ObjectStatusTypes{STATUS_UNK=-1};
 
-class Object{public:char pad[4];TeleportThingTemplate *thingTemplate;char pad08[0x38-8];Coord3D position;float orientation;char pad48[0x74-0x48];ObjectID id,storedByID;char pad7C[0x258-0x7C];TeleportAI *ai;
- void teleportTo(const Coord3D*,bool);Player *getControllingPlayer()const;bool testStatus(ObjectStatusTypes)const;};
+class Object
+{
+public:
+	void teleportTo(const Coord3D*,bool);
+	Player *getControllingPlayer()const;
+	bool testStatus(ObjectStatusTypes)const;
+	void *rva0029439D();
+	char m_pad00[0x4];
+	TeleportThingTemplate *thingTemplate; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	float orientation; // +0x44
+	char m_pad48[0x2C];
+	ObjectID id; // +0x74
+	ObjectID storedByID; // +0x78
+	char m_pad7C[0x1DC];
+	TeleportAI *ai; // +0x258
+};
 
 #include "../../../Common/Thing/thing.h"
 
@@ -246,6 +262,7 @@ class FXList
 {
 public:
 	static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
+	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
 extern PartitionManager *ThePartitionManager;

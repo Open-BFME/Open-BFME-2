@@ -7,19 +7,42 @@
 // rva0029439D on the Object arg and on non-null pair forwards
 // [esi+0xD8] through the virtual else through static doFXObj
 // with (fx primary 0). Callers at 0x004CD5CB 0x004CD662.
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+
 class Object;
 class FXList;
 class Rva004CD4DCItem;
 
+enum ObjectStatusTypes{STATUS_UNK=-1};
+struct Coord3D;
+class Player;
+struct TeleportThingTemplate;
+struct TeleportAI;
 class Object
 {
 public:
+	void teleportTo(const Coord3D*,bool);
+	Player *getControllingPlayer()const;
+	bool testStatus(ObjectStatusTypes)const;
 	void *rva0029439D();
+	char m_pad00[0x4];
+	TeleportThingTemplate *thingTemplate; // +0x04
+	char m_pad08[0x30];
+	Coord3D position; // +0x38
+	float orientation; // +0x44
+	char m_pad48[0x2C];
+	ObjectID id; // +0x74
+	ObjectID storedByID; // +0x78
+	char m_pad7C[0x1DC];
+	TeleportAI *ai; // +0x258
 };
 
+class Matrix3D;
 class FXList
 {
 public:
+	static void doFXPos(const FXList *, const Coord3D *, const Matrix3D *, float, const Coord3D *);
 	static void doFXObj(const FXList *fx, const Object *primary, const Object *secondary);
 };
 
@@ -158,17 +181,19 @@ struct Rva004CD4DCMid
 	const FXList *m_fx;
 };
 
+struct TeleportData;
+
 class TeleportToCasterSpecialPower
 {
 public:
 	unsigned char m_pad0[4];
-	Rva004CD4DCMid *m_p04;
+	const TeleportData *data;
 	void rva004CD4DC(Object *obj);
 };
 
 void TeleportToCasterSpecialPower::rva004CD4DC(Object *obj)
 {
-	Rva004CD4DCMid *mid = m_p04;
+	const Rva004CD4DCMid *mid = (const Rva004CD4DCMid *)data;
 	void *v = obj->rva0029439D();
 	if (v != 0 && mid != 0) {
 		((Rva004CD4DCItem *)v)->target(mid->m_fx);
