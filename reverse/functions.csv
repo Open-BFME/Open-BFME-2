@@ -68506,7 +68506,7 @@ __ehhandler$?rva003449C5@@YA_NPAUCoord3D@@PAVObject@@1@Z,,0x0077CDBA,10,Code/Gam
 ?_M_insert_overflow@?$vector@PAVPolygonTrigger@@V?$allocator@PAVPolygonTrigger@@@_STL@@@_STL@@IAEXPAPAVPolygonTrigger@@ABQAV3@ABU__true_type@2@I_N@Z,,0x002DFCF6,140,Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp,matched,gen-alias; actual PolygonTrigger pointer vector at AIWall+1C proven by native4EBB58; full140B body and every allocator copy fill free relocation equal existing owner; existing folded pin; zero unique-byte credit; fold-proof=Code/GameEngine/Source/GameLogic/SkirmishAI/AIWallBuilder/AIWall.cpp; migrated=stlport-4.6
 ??0Rva005C847BRecord@@QAE@PAM@Z,,0x005C8EB3,100,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,matched,The +8 zero is an inline BfmePoolRef10 null ctor so the unwind funclet is add ecx 8.
 ?OnPageLoaded@Rva00510D0C@@QAEXPBD@Z,,0x00511108,242,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTributePageLoaded.cpp,matched,Apt tribute screen _OnPageLoaded; page factory result kept in the dead params slot; ref assignment through the rowed 0x2174A4 twin; release reloads the pointer; map operator[] via decl-only specialization replaces the alternatename alias
-?rva004FBF8E@RegionAwardDispute@@QAEXXZ,,0x004FBF8E,111,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDisputeRva004FBF8E.cpp,matched,small body (wide scan)
+?rva004FBF8E@RegionAwardDispute@@QAEXXZ,,0x004FBF8E,111,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,matched,small body (wide scan)
 ?rva00318EC0@LivingWorldArmy@@QAEXXZ,,0x00318EC0,130,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,matched,small body (wide scan)
 ?rva00540A88@Rva00540845@@QBE?AVRva0053FC99@@XZ,,0x00540A88,123,Code/GameEngine/Source/Common/Rva00540A88Clone.cpp,matched,small body (wide scan)
 ?rva005421AA@Rva00541F1F@@QBE?AVRva0053FC99@@XZ,,0x005421AA,123,Code/GameEngine/Source/Common/Rva005421AAClone.cpp,matched,small body (wide scan)
@@ -73746,7 +73746,7 @@ $L45932,,0x00798593,11,Code/GameEngine/Source/GameNetwork/GameSpy/LadderDefs.cpp
 ?j_004e298b@@YAXXZ,,0x004E298B,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x004E21FE
 ?j_004ef45a@@YAXXZ,,0x004EF45A,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x004F3DB1
 ?j_004f87b7@@YAXXZ,,0x004F87B7,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x004F81FC
-?loadPostProcess@RegionAwardDispute@@MAEXXZ,,0x004FBFFD,5,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDisputeRva004FBF8E.cpp,matched,slot 1 of RegionAwardDispute vftable 0x00BFE280 (Snapshot loadPostProcess slot); tail jump to the evaluation 0x004FBF8E
+?loadPostProcess@RegionAwardDispute@@MAEXXZ,,0x004FBFFD,5,Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp,matched,slot 1 of RegionAwardDispute vftable 0x00BFE280 (Snapshot loadPostProcess slot); tail jump to the evaluation 0x004FBF8E
 ?j_004ff98d@@YAXXZ,,0x004FF98D,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x004FF630
 ?j_005011af@@YAXXZ,,0x005011AF,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x00500D30
 ?j_00502988@@YAXXZ,,0x00502988,5,Code/gen_small/gthunks_000_admitted.cpp,matched,gen-thunk;gap;target=0x00502787

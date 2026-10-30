@@ -33,6 +33,27 @@ private:
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include <algorithm>
+#include "../../../../../Libraries/Include/Lib/Coord2D.h"
+#include "../../../Common/RegionCenterPointDispatchView.h"
+// The host's beacon-id counter at +0x2C.
+struct RegionAwardDisputeBeaconCounter
+{
+	char m_pad00[0x2C];
+	int m_nextBeaconId2C;	// +0x2C
+};
+class LivingWorldLogic
+{
+public:
+	char m_pad00[0xB0];
+	Rva0020F27EHost *m_hostB0;	// +0xB0
+};
+class LivingWorldManager
+{
+public:
+	void CreateBeaconObject(int id, const Coord2D *pos, int kind);	// 0x00213171
+};
+extern LivingWorldManager *TheLivingWorldManager;
+#define BFME_SNAPSHOT_NAME_SLOT
 
 struct RegionAwardDisputeFlags
 {
@@ -87,6 +108,8 @@ public:
 
 // tu-skeleton: 0x004FBE7A 49B ?rva004FBE7A@RegionAwardDispute@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDispute.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDispute.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/Rva004FBEABContains.cpp
 
 // ?rva004FBEAB@Rva004FBEAB@@QAE_NPAVCreateAHeroData@@@Z 0x004FBEAB 43: contains check
@@ -102,12 +125,6 @@ bool Rva004FBEAB::rva004FBEAB(CreateAHeroData *val)
 	CreateAHeroData **found = _STL::find(b, e, createAHeroData);
 	return found != e;
 }
-
-// tu-skeleton: 0x004FBED6 184B ?GetResolvableBy@RegionAwardDispute@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDispute.cpp (not merged yet)
-
-// tu-skeleton: 0x004FBF8E 111B ?rva004FBF8E@RegionAwardDispute@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDisputeRva004FBF8E.cpp (not merged yet)
-
-// tu-skeleton: 0x004FBFFD 5B ?loadPostProcess@RegionAwardDispute@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDisputeRva004FBF8E.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDisputeCtor.cpp
 
@@ -136,6 +153,41 @@ void RegionAwardDispute::rva004FC0ED(const _STL::vector<int> &players)
 	}
 	int local = ((Rva002B2B66 *)TheLivingWorldLogic)->rva002B2B66();
 	rva004FBDB0(local == GetResolvableBy());
+}
+
+// tu-skeleton: 0x004FBED6 184B ?GetResolvableBy@RegionAwardDispute@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDispute.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/RegionAwardDisputeRva004FBF8E.cpp
+
+// ?rva004FBF8E@RegionAwardDispute@@QAEXXZ, retail 0x004FBF8E, 111 bytes.
+// Evaluation step run by the RegionAwardDispute constructor: asks the
+// LivingWorldLogic +0xB0 host (0x0020F27E) for the disputed region's (+0x04)
+// beacon position; when it has one, takes the host's next beacon id (+0x2C
+// pre-increment) into +0x18, creates the beacon through TheLivingWorldManager,
+// then reports whether GetResolvableBy matches LivingWorldLogic 0x002B2B66
+// to 0x004FBDB0.
+
+void RegionAwardDispute::rva004FBF8E()
+{
+	Coord2D pos;
+	Rva0020F27EHost *host = TheLivingWorldLogic->m_hostB0;
+	if (host->rva0020F27E(m_region, (int)&pos)) {
+		RegionAwardDisputeBeaconCounter *next =
+			reinterpret_cast<RegionAwardDisputeBeaconCounter *>(TheLivingWorldLogic->m_hostB0);
+		++next->m_nextBeaconId2C;
+		int id = next->m_nextBeaconId2C;
+		m_winner = id;
+		TheLivingWorldManager->CreateBeaconObject(id, &pos, 1);
+		int resolvableBy = GetResolvableBy();
+		rva004FBDB0(reinterpret_cast<Rva002B2B66 *>(TheLivingWorldLogic)->rva002B2B66() == resolvableBy);
+	}
+}
+
+// Retail 0x004FBFFD (5 bytes, right after the evaluation): vftable 0x00BFE280
+// slot 1, a tail jump into the evaluation above.
+void RegionAwardDispute::loadPostProcess()
+{
+	rva004FBF8E();
 }
 
 // tu-skeleton: 0x004FC0AD 64B ?rva004FC0AD@RegionAwardDispute@@QAEXPBVRva002E2903Player@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldRegionAwardDispute.cpp (not merged yet)
