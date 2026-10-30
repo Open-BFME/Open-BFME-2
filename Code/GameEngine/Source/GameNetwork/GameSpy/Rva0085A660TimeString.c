@@ -1,3 +1,4 @@
+// cl: /MD
 // Transferred unchanged from Open-BFME-1 5cae4bdff game/GameEngine/Source/GameNetwork/GameSpy/Rva0085A660TimeString.c;
 // bfme1_sweep places the same masked body: Rva0085A660TimeString at BFME2 0x0069BB50. Addresses in the donor text are BFME1.
 /* 0x0085A660 (160 B): formats the current local time as "mm.dd.yy hh:mm.ss"
@@ -5,12 +6,9 @@
    in the GameSpy SDK block (after sb_server.c's SBServerGetTeamIntValueA,
    before chat's ciBufferInit) and has no remaining references, so its name
    keeps the address. */
-typedef long time_t;
-struct tm { int tm_sec, tm_min, tm_hour, tm_mday, tm_mon, tm_year, tm_wday, tm_yday, tm_isdst; };
-__declspec(dllimport) time_t __cdecl time(time_t *);
-__declspec(dllimport) struct tm *__cdecl localtime(const time_t *);
-__declspec(dllimport) int __cdecl sprintf(char *, const char *, ...);
-char *__cdecl strcpy(char *, const char *);
+#include <time.h>
+#include <stdio.h>
+#include <string.h>
 #pragma intrinsic(strcpy)
 
 static char Rva0085A660TimeBuffer[20];
