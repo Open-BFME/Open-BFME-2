@@ -2,23 +2,26 @@
 // Single-element vector erase @0x002606AF, 55B; 8-byte element.
 // Masked twin of Rva0040DC1F erase.
 
+// stlport
+#include <utility>
+
 struct Rva002606AFElem { char m_pad[8]; };
 class Rva002606AFDtor { public: ~Rva002606AFDtor(); };
 
 namespace _STL {
-struct __false_type {};
 template <class InputIter, class OutputIter>
 OutputIter __copy_ptrs(InputIter first, InputIter last, OutputIter result, const __false_type &tag);
 }
 
-class Rva002606AF {
+class Rva002606AF
+{
 public:
-	Rva002606AFElem *erase(Rva002606AFElem *position);
+	Rva002606AFElem *erase(Rva002606AFElem*);
 	const Rva002606AFElem *end() { return m_finish; }
 private:
-	Rva002606AFElem *m_start;
-	const Rva002606AFElem *m_finish;
-	Rva002606AFElem *m_endOfStorage;
+	Rva002606AFElem *m_start; // +0x00
+	const Rva002606AFElem *m_finish; // +0x04
+	Rva002606AFElem *m_endOfStorage; // +0x08
 };
 
 Rva002606AFElem *Rva002606AF::erase(Rva002606AFElem *position)

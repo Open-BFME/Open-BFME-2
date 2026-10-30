@@ -238,7 +238,16 @@ private:
 
 struct Rva002606AFElem;
 
-class Rva002606AF {public:Rva002606AFElem *erase(Rva002606AFElem*);};
+class Rva002606AF
+{
+public:
+	Rva002606AFElem *erase(Rva002606AFElem*);
+	const Rva002606AFElem *end() { return m_finish; }
+private:
+	Rva002606AFElem *m_start; // +0x00
+	const Rva002606AFElem *m_finish; // +0x04
+	Rva002606AFElem *m_endOfStorage; // +0x08
+};
 
 // Native 0x0025FE30..0x0025FF73 RET24 (WB 0x00DA5BE0; caller 0x00260787
 // bfmeDoKA): a filled rectangle whose alpha is the colour's clamped to the
@@ -250,7 +259,11 @@ class Display;
 
 extern Display *TheDisplay;
 
-class Rva0004263F {public:void rva0004263F(float,float,float,float,Int);};
+class Rva0004263F
+{
+public:
+	void rva0004263F(float,float,float,float,Int);
+};
 
 class W3DDisplay {public:void rva0008EEF0(float,float,float,float,float,Int);};
 
