@@ -134,12 +134,6 @@ private:
 	unsigned char m_bytes[0x20];
 };
 
-// The callback the +0x584 object receives: returns its argument.
-int __cdecl Rva000D1D26Identity(int value)
-{
-	return value;
-}
-
 int __cdecl Rva000D1D26Identity(int value);
 
 struct TerrainLogicRecord
