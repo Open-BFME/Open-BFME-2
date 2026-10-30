@@ -136,7 +136,7 @@ Code/GameEngine/Source/GameNetwork/GameSpy/md5c.c	_MD5Digest	_MD5Final	0x00606D0
 Code/GameEngine/Source/GameNetwork/Rva00654130PointerMapErase.cpp	?bfmeErase@Gen_00654130@@QAEXPAX@Z	??$_M_find@PAX@?$_Rb_tree@PAXU?$pair@QAXPAX@_STL@@U?$_Select1st@U?$pair@QAXPAX@_STL@@@2@U?$less@PAX@2@V?$allocator@U?$pair@QAXPAX@_STL@@@2@@_STL@@ABEPAU?$_Rb_tree_node@U?$pair@QAXPAX@_STL@@@1@ABQAX@Z	0x00388F63	wrong
 Code/GameEngine/Source/GameNetwork/Rva00803890FeslDtor.cpp	??1Rva00803890Owner@@UAE@XZ	??1Rva00803890Base@@UAE@XZ	0x00666BA0	wrong
 Code/GameEngine/Source/GameNetwork/Transport.cpp	?init@Transport@@QAE_NVAsciiString@@G@Z	??1AsciiString@@QAE@XZ	0x00036410	divergent
-Code/GameEngine/Source/GameNetwork/native_network_BFMENetwork_Ctor.cpp	??0BFMENetwork@@QAE@XZ	??0BFMENetworkQueue1@@QAE@XZ	0x00558D56	wrong
+Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	??0BFMENetwork@@QAE@XZ	??0BFMENetworkQueue1@@QAE@XZ	0x00558D56	wrong
 Code/GameEngineDevice/Source/MilesAudioDevice/Rva00052B3D.cpp	??0Rva00052B3D@@QAE@XZ	??0Elem4@@QAE@XZ	0x0047A6A9	wrong
 Code/GameEngineDevice/Source/W3DDevice/GameClient/DisplayRegisterVideoBuffer.cpp	?Rva006F2890RegisterVideoBuffer@Display@@QAEXPAVVideoBuffer@@@Z	?push_back@?$vector@PAVVideoBuffer@@V?$allocator@PAVVideoBuffer@@@_STL@@@_STL@@QAEXABQAVVideoBuffer@@@Z	0x004DFCB0	wrong
 Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DAnimationInfoVectorInsert.cpp	?insert@?$vector@VW3DAnimationInfo@@V?$allocator@VW3DAnimationInfo@@@_STL@@@_STL@@QAEPAVW3DAnimationInfo@@PAV3@ABV3@@Z	??$_Construct@VW3DAnimationInfo@@V1@@_STL@@YAXPAVW3DAnimationInfo@@ABV1@@Z	0x00469C61	divergent

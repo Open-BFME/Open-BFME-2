@@ -3387,6 +3387,7 @@ alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?Rva00361
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp	?construct@Rva003623E5Member@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BFMEDisconnectManager_voterEligibility.cpp	?_bfme_slotIsLocalOrLive@ConnectionManager@@QAE_NH@Z	1
+alternatename	Code/GameEngine/Source/GameNetwork/BFMENetwork.cpp	??0Pinger@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	??1BfmeMsg803A00@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	??1BfmeMsg803B60@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/BfmeMsg.cpp	??1BfmeMsg803BF0@@QAE@XZ	1
@@ -3550,7 +3551,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBase
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBFB0@Rva007F5010Player@@QAE_NPBDPADI@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslPlayerEnter.cpp	??1BfmeC994@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameNetwork/native_network_BFMENetwork_Ctor.cpp	??0Pinger@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameNetwork/udp.cpp	__imp__htonl	1
 alternatename	Code/GameEngine/Source/GameNetwork/udp.cpp	__imp__htons	1
 alternatename	Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp	?m_unknown01@GameEngine@@UAEXXZ	1
