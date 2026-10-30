@@ -3,6 +3,8 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #include "reference/shims/bfme_colmathaabox/wwmath.h"
 #include "reference/shims/bfme_colmathaabox/vector3.h"
+#include "vector3.h"
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 // Native ctor callback47A6A9 is empty; native iterator initializes one12B
 // coordinate at receiver+C. Element original type unknown; this address view
@@ -32,6 +34,7 @@ extern W3DProjectedShadowManager *TheW3DProjectedShadowManager;
 extern Rva00108660ResourceManager *Rva00DEC2D8Manager;
 
 class ProjectedShadowManager;
+
 extern ProjectedShadowManager *TheProjectedShadowManager;
 
 extern Rva0007DA23ResourceManager *Rva00DE1FF8Manager;
@@ -213,7 +216,6 @@ public:
 	Bool ReAcquireResources();
 };
 
-
 // The projected shadow manager's destructor (rowed 0x001076E9).
 class Rva0009A200
 {
@@ -261,6 +263,8 @@ private:
 	unsigned char m_unk00[12];
 	Vector3_9A587 m_lightPos[1];
 };
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerReAcquire.cpp
 
@@ -350,8 +354,6 @@ void removeAllShadows() {
  if(Rva00DEC2D8Manager) reinterpret_cast<Rva00109236 *>(Rva00DEC2D8Manager)->rva00109236();
 }
 
-// tu-skeleton: 0x0009A338 16B ?Rva007B7600@@YAXXZ -- matched in Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0009A361Guard.cpp
 
 // ?rva0009A361@Rva0009A361@@QAEXH@Z
@@ -375,16 +377,6 @@ void Rva0009A3DECleanup()
 	if ((*(Rva0007BAD6 **)&Rva00DE1FF8Manager) != 0)
 		(*(Rva0007BAD6 **)&Rva00DE1FF8Manager)->rva0007BAD6();
 }
-
-// tu-skeleton: 0x0009A41B 93B ??4ShadowTypeInfo@Shadow@@QAEAAU01@ABU01@@Z -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSAssign.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A478 31B ?invalidateCachedLightPositions@W3DShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A497 13B ?getLightPosWorld@W3DShadowManager@@QAEAAVVector3@@H@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimGetLightPosWorld.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A4A4 46B ?rva0009A4A4@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
-
-// tu-skeleton: 0x0009A4D2 46B ?rva0009A4D2@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerDestructor.cpp
 
@@ -426,6 +418,32 @@ void W3DGameClientShadowShim::setLightPosition(int lightIndex, float x, float y,
 	}
 	((Rva0007D9B5Host *)(*(void **)&Rva00DE1FF8Manager))->rva0007D9CF((const int *)&dir);
 }
+
+// tu-skeleton: 0x0009A338 16B ?Rva007B7600@@YAXXZ -- matched in Code/GameEngine/Source/Common/R2GuardedGlobalCalls.cpp (not merged yet)
+
+// tu-skeleton: 0x0009A41B 93B ??4ShadowTypeInfo@Shadow@@QAEAAU01@ABU01@@Z -- matched in Code/GameEngine/Source/Common/System/AudioEventRTSAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0009A478 31B ?invalidateCachedLightPositions@W3DShadowManager@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClientShadowShimGetLightPosWorld.cpp
+
+//
+// ?getLightPosWorld@W3DShadowManager@@QAEAAVVector3@@H@Z @0x0009A497 (13B; formerly rowed
+// under the W3DGameClientShadowShim view name).
+// BFME1 donor W3DShadowManager::getLightPosWorld (W3DShadow.cpp:289) moved from
+// global LightPosWorld to a member at +0xC; this+12+index*12 codegen matches
+// retail inc/imul/add. Evidence: shadow global 0x00DE5DFC at all 6 call sites
+// (0x6E5A0 0xF1212 0xF3192 0x1074D5 0x1094E2); +0xC store in setLightPosition
+// pin @0x9A587; callers use result as 3-float Vector3.
+
+Vector3 &W3DShadowManager::getLightPosWorld(int lightIndex)
+{
+	return reinterpret_cast<Vector3 &>(m_lightPos[lightIndex]);
+}
+
+// tu-skeleton: 0x0009A4A4 46B ?rva0009A4A4@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
+
+// tu-skeleton: 0x0009A4D2 46B ?rva0009A4D2@@YAXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowManagerToggleLists.cpp (not merged yet)
 
 // tu-skeleton: 0x0009A64D 195B ?setTimeOfDay@W3DGameClientShadowShim@@QAEXW4TimeOfDay@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DGameClient_setTimeOfDay.cpp (not merged yet)
 
