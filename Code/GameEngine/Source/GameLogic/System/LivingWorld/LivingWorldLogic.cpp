@@ -1,7 +1,7 @@
 // Eva::reportEvaEvent uses the target enum and two nullable position pointers.
 enum EvaEventID { EVA_INVALID = -1 };
 // cl: /Ireference/shims/bfme2_ascii /O1 /DNDEBUG /MD /EHs /arch:SSE /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // LivingWorldLogic.cpp -- LivingWorldLogic members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function and
 // its callee and asserts !players.empty(); retail supplies the bytes.
@@ -3101,7 +3101,7 @@ void LivingWorldLogic::rva002B37FF(LivingWorldBattle* battle){
 // than the distinct 50-byte default-int specialization at688940.
 // The extra player value copy is present in WB and preserves the target
 // lifetime/register shape; every field below comes from native accesses.
-template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {};
+template<class T> class Rva002444BEAllocator : public _STL::allocator<T> {public:template<class U> struct rebind {typedef Rva002444BEAllocator<U> other;};};
 class Rva004FD448 {public:Bool rva004FD656(Int)const;};
 class LivingWorldScenario {public:class Scenario;};
 class LivingWorldScenario::Scenario {public:Bool rva004FD613(Int)const;};

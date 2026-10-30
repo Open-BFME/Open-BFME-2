@@ -12176,3 +12176,19 @@ symbol table), so no provider was lost. The allocate-copy unit keeps its private
 vector/allocator views and only takes 4.6's `__false_type` (as
 `Rva00568D68AllocateCopy.cpp` did). Both files byte-verify 9/9; no census gain
 is claimed. Carry both units into the next scheduled census.
+
+Follow-up moves the same day apply the same recipe to nine more units:
+`HordeContain/Rva00474483ConfigureSlots.cpp`, `HordeContainModuleDataParse.cpp`,
+`CreateAHeroRegistry.cpp`, `LivingWorldLogicDelayedEventXfer.cpp`,
+`Rva002BA8F1AddPlayer.cpp`, `SiegeDockingBehaviorInitializeBones.cpp`,
+`ScriptEngineDoXfer.cpp`, `AIWall.cpp` and `LivingWorldLogic.cpp` each rename
+their typed allocate alias at 0x00068E15 from QBE to QAE (old keys
+tombstoned). That rename was the missing step in the earlier recorded
+ConfigureSlots, HordeContain, AIWall and LivingWorldLogic blocks. Two units also
+needed small adaptations: `AIWall.cpp` drops `const` from its game-free
+`deallocate` specialization and deletes its `_STLP_alloc_proxy::deallocate`
+specialization, which is C2995 under 4.6 because the proxy only inherits it.
+`LivingWorldLogic.cpp`'s `Rva002444BEAllocator` gains a `rebind` member. Every
+file byte-verifies, 328 rows in all. Any 4.5.3 consumer of the renamed QBE
+spellings was not checked one by one; read the pre-push batch audit and carry
+these units into the next census. No census gain is claimed.
