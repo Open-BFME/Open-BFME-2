@@ -432,6 +432,7 @@ extern "C" __declspec(dllimport) double __cdecl ceil(double value);
 __forceinline float taintCeil(float value) { return float(ceil(double(value))); }
 #include <string.h>
 #include <d3d9.h>
+
 //
 // ?rva00073C7A@Rva00073C7A@@QAEXXZ @0x00073C7A 70B via tail clear plus three array deletes
 // Evidence: calls rowed delete[] 0x0002FD80 three times plus rowed clear 0x00072FE6; callers 0x000668C3 0x0006D68C 0x00074414
@@ -516,6 +517,27 @@ template <> _Rb_tree_base<int, Rva0054E8DCAllocator<int> >::~_Rb_tree_base();
 template <> TaintByteTree::~_Rb_tree();
 }
 
+struct Rva00073C7A {
+  unsigned char _00[0x18];
+  char *p18;
+  unsigned char _1C[0x19];
+  bool b35;
+  unsigned char _36[2];
+  char *p38;
+  char *p3C;
+  unsigned char _40[0x04];
+  Rva00072FE6 map44;
+  void rva00073C7A();
+};
+
+struct IDirect3DBaseTexture8;
+
+class TextureBaseClass { public: IDirect3DBaseTexture8 *Peek_D3D_Base_Texture() const; };
+
+class BfmeResetTextureRef { public: void clear(); };
+
+class Rva00131DFC { public: void rva00131DFC(void *, void *, void *, void *, int, int); };
+
 class W3DTaint
 {
 public:
@@ -540,20 +562,41 @@ private:
  _STL::set<int, _STL::less<int>, Rva0054E8DCAllocator<int> > m_dirty;
 };
 
-struct Rva00073C7A {
-  unsigned char _00[0x18];
-  char *p18;
-  unsigned char _1C[0x19];
-  bool b35;
-  unsigned char _36[2];
-  char *p38;
-  char *p3C;
-  unsigned char _40[0x04];
-  Rva00072FE6 map44;
-  void rva00073C7A();
+extern class GlobalData *TheWritableGlobalData;
+
+struct Rva00116680 {
+  void *rva00116680(int *pitchOut, bool discard);
 };
 
-// tu-skeleton: 0x00073816 174B ?ReAcquireResources@W3DTaint@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp
+
+// ?ReAcquireResources@W3DTaint@@QAE_NXZ
+bool W3DTaint::ReAcquireResources()
+{
+	if (!m_dstTextureWidth)
+		return true;
+
+	BFMEDX8DeviceLock lock;
+	if (TheWritableGlobalData && TheWritableGlobalData->m_taintOn)
+		reinterpret_cast<Rva00131DFC *>(&m_dstTexture)->rva00131DFC(
+			(void *)m_dstTextureWidth, (void *)m_dstTextureHeight,
+			(void *)0x15, (void *)1, 1, 0);
+
+	if (!reinterpret_cast<TextureBaseClass *>(&m_dstTexture)->Peek_D3D_Base_Texture())
+	{
+		reinterpret_cast<BfmeResetTextureRef *>(&m_dstTexture)->clear();
+		m_dstTextureWidth = 0;
+		m_dstTextureHeight = 0;
+		return false;
+	}
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->u = 1;
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->v = 1;
+	reinterpret_cast<ShroudTexture *>(&m_dstTexture)->getFilter()->SetMip(0);
+	m_clearDstTexture = 1;
+	return true;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaint.cpp
 
@@ -797,10 +840,6 @@ W3DTaint::W3DTaint()
 {
 }
 
-// tu-skeleton: 0x00073950 110B ?rva00073950@Rva00073950@@QAEXEPAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00073950Fill.cpp (not merged yet)
-
-// tu-skeleton: 0x00073BFE 124B ??1W3DTaint@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintDtor.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00073C7AClear.cpp
 
 void Rva00073C7A::rva00073C7A() {
@@ -817,15 +856,35 @@ void Rva00073C7A::rva00073C7A() {
   return map44.rva00072FE6();
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva00073950Fill.cpp
+
+void Rva00073950::rva00073950(unsigned char arg08, void *arg0C) {
+  if (!TheWritableGlobalData)
+    return;
+  if (!TheWritableGlobalData->m_taintOn)
+    return;
+  unsigned char fill = (unsigned char)arg08;
+  unsigned int color = fill;
+  color = (color << 8) | fill;
+  color = (color << 8) | fill;
+  color = (color << 8) | fill;
+  int pitch;
+  void *bits = ((Rva00116680 *)arg0C)->rva00116680(&pitch, false);
+  for (int y = 0; y < m24; y++) {
+    for (int x = 0; x < m20; x++)
+      ((unsigned int *)bits)[x] = color;
+    bits = (unsigned char *)bits + pitch;
+  }
+  ((Member0C00739C70 *)arg0C)->clear();
+}
+
+// tu-skeleton: 0x00073BFE 124B ??1W3DTaint@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x000740C2 12B ?rva000740C2@Rva000740C2Owner@@QAEXXZ -- matched in Code/GameEngine/Source/Common/System/Rva003EF14ADtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000740CE 104B ?rva000740CE@Rva000740CE@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000732B8MatrixSet.cpp (not merged yet)
 
 // tu-skeleton: 0x000741C0 514B ?rva000741C0@W3DTaint@@QAEXPAUtagRECT@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintInterpolate.cpp (not merged yet)
-
-// tu-skeleton: 0x0075EE66 8B uw_0075ee66 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp (not merged yet)
-
-// tu-skeleton: 0x0075EE6E 10B __ehhandler$?ReAcquireResources@W3DTaint@@QAE_NXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintReAcquire.cpp (not merged yet)
 
 // tu-skeleton: 0x0075EE8A 11B $L373 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTaintDtor.cpp (not merged yet)
 
