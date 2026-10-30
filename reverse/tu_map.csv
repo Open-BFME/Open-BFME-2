@@ -12234,7 +12234,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001B4CD0,8,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4CD8 provisional,Code/GameEngine/Source/Common/VslotMemberForwarders.cpp
 0x001B4CD8,23,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4CEF provisional,Code/GameEngine/Source/Common/SubsystemLegend.cpp
 0x001B4CEF,26,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4D09 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
-0x001B4D09,5,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4D0E provisional,Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp
+0x001B4D09,5,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4D0E provisional,Code/GameEngine/Source/Common/SubsystemLegend.cpp
 0x001B4D0E,8,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,C,C=0x001B4B92..0x001B4D16 provisional,Code/Libraries/Source/WWVegas/WW3D2/Rva001B4D0EAppend.cpp
 0x001B4D16,77,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,N,N=Code/GameEngine/Source/Common/SubsystemLegend.cpp provisional,Code/GameEngine/Source/Common/Rva0022E0E5Dtor.cpp
 0x001B4D63,28,code,Code/GameEngine/Source/Common/SubsystemLegend.cpp,approved,N,N=Code/GameEngine/Source/Common/SubsystemLegend.cpp provisional,Code/GameEngine/Source/Common/SubsystemLegend.cpp

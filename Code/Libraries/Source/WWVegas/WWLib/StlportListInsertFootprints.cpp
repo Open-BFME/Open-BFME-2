@@ -126,11 +126,6 @@ public:
 	void rva001B4D09();
 };
 
-void Rva001B4D09::rva001B4D09()
-{
-	((Rva001B4CD8 *)this)->rva001B4CD8();
-}
-
 class Rva001F81EC
 {
 public:
