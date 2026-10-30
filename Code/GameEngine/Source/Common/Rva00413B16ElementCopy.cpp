@@ -1,4 +1,5 @@
 // cl: /EHs /MD
+// stlport
 //
 // ??0Rva00413B16Element@@QAE@ABU0@@Z @0x00413951 61B: existing pin (copy
 // constructor called by the rowed _Construct<Rva00413B16Element> 0x0041398E).
@@ -6,22 +7,23 @@
 // the unrowed copy constructor 0x004137C6 at +0xC under EH state 0, named by
 // an address-derived pin since its type is not recovered.
 
+#include <vector>
+
 namespace _STL
 {
-template <class T>
-class allocator;
-
-template <class T, class Alloc = allocator<T> >
-class vector
+// Bind vector<unsigned int>'s copy ctor and dtor to their rowed workers
+// (0x002CFAB9 copy). Declarations only: the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<unsigned int, allocator<unsigned int> >
 {
 public:
-	vector(const vector<T, Alloc> &other);
+	vector(const vector &other);
 	~vector();
 
 private:
-	T *m_start;
-	T *m_finish;
-	T *m_end_of_storage;
+	unsigned int *m_start;
+	unsigned int *m_finish;
+	unsigned int *m_end_of_storage;
 };
 }
 
