@@ -56,11 +56,7 @@ public:
 	virtual BfmeObjectDrawForRva27248A *getObjectDrawInterface() = 0;
 };
 
-class Drawable
-{
-public:
-	void rva0027248A(int a, int b);
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva0027248A(int a, int b)
 {
