@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /Ireference/shims/bfmealloc /DNDEBUG /MD /EHs /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 // ?Rva0055C9A0WriteHeader@@YAXPBXPAVFile@@PAI@Z @0x0055C9A0 216B: module header File INI key-string line via oss Pad str Write for category 6.
 // Evidence: calls rowed oss ctor 0x001FA85C then virtual getClass name+4 then rowed GetKey 0x003AFD16 cat6 then rowed Pad 0x001F6951 then rowed _M_put_nowiden x3 then rowed _M_put_char then rowed str 0x001FA473 then rowed Write 0x001F458B then free 0x30830 then indent+=2 then rowed oss dtor and ios_base dtor; precedent Rva003A5DA0Write.cpp cat7; chain via 0x001F6951.
@@ -19,6 +19,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 // basic_streambuf<char> constructor is not retail's.
 namespace _STL { template <> basic_ostringstream<char, char_traits<char>, allocator<char> >::basic_ostringstream(int); }
 #include <cstddef>
+#include <stdlib.h>
 // bfme link decl-only begin
 namespace _STL { template <> _String_base<char, allocator<char> >::_String_base(allocator<char> const &); }
 namespace _STL { template <> basic_ostream<char, char_traits<char> >::basic_ostream(basic_streambuf<char, char_traits<char> > *); }
@@ -82,7 +83,6 @@ struct Rva001F458BText {
 	const char *m_finish;
 };
 File &Rva001F458BWrite(File &file, const Rva001F458BText &text);
-extern "C" void __cdecl free(void *p);
 
 namespace FXParticleSystem {
 enum ModuleCategory {
