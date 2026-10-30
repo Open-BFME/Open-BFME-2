@@ -79,6 +79,17 @@ struct RGBAColorInt;
 #include "../../Include/Common/BfmeXfer.h"
 #include <list>
 #include <new>
+struct _iobuf;
+typedef struct _iobuf FILE;
+extern "C" __declspec(dllimport) int __cdecl fclose(FILE *fp);
+// ZH ReplayGameInfo derives from GameInfo; its ctor/dtor are rowed at 0x0037BADD / 0x0037BB53.
+class Rva0037BB53 : public GameInfo
+{
+public:
+    Rva0037BB53();
+    virtual ~Rva0037BB53();
+    char m_pad[0xE3C - sizeof(GameInfo)];
+};
 
 template <> int StringBase<unsigned short>::compare(const StringBase<unsigned short> &) const throw();
 
@@ -517,15 +528,6 @@ static int recorderSavedGlobalValue;
 static bool recorderSavedGlobalFlag;
 
 void InitRandom(unsigned int);
-
-// ZH ReplayGameInfo derives from GameInfo; its ctor/dtor are rowed at 0x0037BADD / 0x0037BB53.
-class Rva0037BB53 : public GameInfo
-{
-public:
-    Rva0037BB53();
-    virtual ~Rva0037BB53();
-    char m_pad[0xE3C - sizeof(GameInfo)];
-};
 
 class Rva0037D097CRCView
 {
@@ -1194,6 +1196,10 @@ struct Rva004469D1Receiver
 	char m_pad00[0x288];
 	int m_288;
 };
+
+class Rva0037D097CRCView;
+
+// ---- from Code/GameEngine/Source/Common/Recorder.cpp
 
 // ---- from Code/GameEngine/Source/Common/Recorder.cpp
 
@@ -2415,14 +2421,6 @@ UnicodeString Rva0037D55EGet()
 	return UnicodeString((const unsigned short *)L"0");
 }
 
-// tu-skeleton: 0x0037B5C8 23B ??0Rva0037B5DF@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp (not merged yet)
-
-// tu-skeleton: 0x0037CAD7 63B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0037CF51 52B (unledgered) -- unmatched, no code, never credited
-
-// tu-skeleton: 0x0037D3C9 98B ??BBFME2WideConcatTriple@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp
 
 //
@@ -2441,6 +2439,43 @@ void RecorderClass::update()
 		updateRecord();
 	else if (m_mode == 1)
 		reinterpret_cast<Rva0037B7C7 *>(this)->rva0037BC65();
+}
+
+// tu-skeleton: 0x0037B5C8 23B ??0Rva0037B5DF@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSaveLoadRva0043684C.cpp (not merged yet)
+
+// tu-skeleton: 0x0037CAD7 63B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0037CF51 52B (unledgered) -- unmatched, no code, never credited
+
+// tu-skeleton: 0x0037D3C9 98B ??BBFME2WideConcatTriple@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/System/WideConcatPair.cpp (not merged yet)
+
+// tu-skeleton: 0x0077EDAC 8B $L343 -- matched in Code/GameEngine/Source/GameNetwork/Rva0037BADDGameInfoCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077EDB4 27B ?rva0077edb4@@YAXXZ -- matched in Code/GameEngine/Source/GameNetwork/Rva0037BADDGameInfoCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077EDCF 10B __ehhandler$??0Rva0037BB53@@QAE@XZ -- matched in Code/GameEngine/Source/GameNetwork/Rva0037BADDGameInfoCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077EDD9 8B uw_0077edd9 -- matched in Code/GameEngine/Source/Common/Rva0037BB53Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077EDE1 10B __ehhandler$??1Rva0037BB53@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0037BB53Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0037BBEDDtor.cpp
+
+//
+// ??1Rva0037BBED@@UAE@XZ retail 0x0037BBED 120B virtual dtor with vtable
+// 0x00818828. Body clears TheGameInfo when it points at member m_24 closes
+// FILE at +0x10 via fclose then destroys Rva0037BB53 member at +0x24 and two
+// UnicodeStrings at +0x20/+0x14 (inlined releaseBuffer) then
+// SubsystemInterface base. Identity from vtable store member call to just
+// landed 0x0037BB53 TheGameInfo global fclose IAT and deleting dtor caller
+// 0x0037BD48.
+
+Rva0037BBED::~Rva0037BBED()
+{
+	if (TheGameInfo == (GameInfo *)&m_gameInfo)
+		TheGameInfo = 0;
+	if (m_file)
+		fclose(m_file);
 }
 
 // tu-skeleton: 0x0077EF54 8B uw_0077ef54 -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
