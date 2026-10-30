@@ -327,6 +327,67 @@ def test_an_expired_claim_can_be_taken_over(hosts):
     assert claims.active()[0x100]["owner"] == "b"
 
 
+def _count_git(monkeypatch):
+    calls = []
+    real = claims._git
+
+    def git(*args, **kwargs):
+        calls.append(args[0] if args else "")
+        return real(*args, **kwargs)
+    monkeypatch.setattr(claims, "_git", git)
+    return calls
+
+
+def test_a_batch_renew_is_one_push(hosts, monkeypatch):
+    # a 20-key heartbeat made 20 paced pushes (54 s on a quiet host): one push now,
+    # each ref still compare-and-swapped against its own generation
+    hosts("a")
+    got = claims.claim([0x300, 0x310, 0x320])
+    assert got.claimed == [0x300, 0x310, 0x320]
+    calls = _count_git(monkeypatch)
+    renewed, lost = claims.renew(got.tokens)
+    assert sorted(renewed) == [0x300, 0x310, 0x320] and lost == []
+    assert calls.count("push") == 1
+    assert {k: e[0] for k, e in claims._read_local().items() if k in renewed} == renewed
+
+
+def test_a_batch_renew_still_reports_a_claim_taken_over(hosts, monkeypatch):
+    hosts("a")
+    got = claims.claim([0x400, 0x410], ttl_hours=-1)      # already expired
+    hosts("b")
+    assert claims.claim([0x410]).claimed == [0x410]      # b takes one over
+    hosts("a")
+    renewed, lost = claims.renew(got.tokens)
+    assert list(renewed) == [0x400] and lost == [0x410]
+
+
+def test_a_batch_claim_mirrors_in_one_transaction(hosts, monkeypatch):
+    hosts("a")
+    calls = _count_git(monkeypatch)
+    got = claims.claim([0x500 + i for i in range(5)])
+    assert len(got.claimed) == 5
+    assert calls.count("update-ref") <= 2            # the snapshot's, then the claims' one
+    assert {k for k in claims._read_local() if isinstance(k, int)} >= set(got.claimed)
+
+
+def test_a_mirror_ref_blocking_a_new_key_directory_is_replaced(hosts):
+    # the mirror holds refs/claims-seen/lease as a plain ref (an old shape) while origin
+    # now has refs/claims/lease/landing: one transaction cannot delete X and create
+    # X/Y, so every snapshot failed ("directory conflict") until the mirror was rebuilt
+    root = hosts("a")
+    assert claims.claim(["lease:landing"]).claimed == ["lease/landing"]
+    hosts("b")
+    assert claims.fetch() is True
+    side = claims._seen_repo()
+    sha = claims.mirror_sha("lease/landing")
+    claims._git("update-ref", "-d", claims.SEEN + "lease/landing", git_dir=side)
+    claims._git("update-ref", claims.SEEN + "lease", sha, git_dir=side)
+    claims._invalidate_snapshot()
+    assert claims.fetch() is True
+    assert claims.mirror_sha("lease/landing") == sha
+    assert claims._git("rev-parse", "-q", "--verify", claims.SEEN + "lease", git_dir=side).returncode != 0
+
+
 def test_renewing_your_own_claim_succeeds(hosts):
     hosts("a")
     claims.claim([0x100])

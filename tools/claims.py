@@ -419,12 +419,24 @@ def _names(who, root=None):
 
 def _mirror(rva, sha, root=None):
     """Record in this worktree's mirror a claim write origin just accepted."""
+    _mirror_many({rva: sha}, root)
+
+
+def _mirror_many(writes, root=None):
+    """Record in this worktree's mirror the claim writes origin just accepted,
+    {key: sha, or None for a deletion}: one copy of their claim commits into the
+    mirror and one update-ref transaction. Per key, a 20-key claim spent 8 of
+    its 14 s in 20 local fetches and 20 update-refs (2026-10-30, 1,638 claims)."""
+    if not writes:
+        return
     _local_lock_records.cache_clear()
-    seen = SEEN + ref_of(rva)[len(NS):]
     side = _seen_repo(root)
-    if sha:
-        _adopt([sha], root, side)
-    _git(*(("update-ref", seen, sha) if sha else ("update-ref", "-d", seen)), cwd=root, git_dir=side)
+    shas = sorted({sha for sha in writes.values() if sha})
+    if shas:
+        _adopt(shas, root, side)
+    edits = "".join(f"update {SEEN + ref_of(key)[len(NS):]} {sha}\n" if sha
+                    else f"delete {SEEN + ref_of(key)[len(NS):]}\n" for key, sha in writes.items())
+    _git("update-ref", "--stdin", input_text=edits, cwd=root, git_dir=side)
 
 
 def current_lease(rva, who=None, root=None):
@@ -707,17 +719,27 @@ def _snapshot(root, remote, seen, timeout):
     adopted = _adopt(lacking, root, side)
     if adopted.returncode:
         return adopted
-    held = _git("for-each-ref", "--format=%(refname) %(objectname)", *(mirror for _, mirror in mirrors),
-                cwd=root, git_dir=side)
-    if held.returncode:
-        return held
-    have = dict(line.split(" ", 1) for line in held.stdout.splitlines())
-    edits = [f"update {name} {sha}\n" for name, sha in sorted(want.items()) if have.get(name) != sha]
-    edits += [f"delete {name}\n" for name in sorted(have) if name not in want]
-    if not edits:
-        return listed
-    wrote = _git("update-ref", "--stdin", input_text="".join(edits), cwd=root, git_dir=side)
-    return wrote if wrote.returncode else listed
+    # Deletions go first, in their own transaction: git refuses one transaction
+    # that deletes X and creates X/Y (or the reverse), a ref directory conflict
+    # that left mirrors failing on every fetch. A failure (another process of
+    # this worktree moving the same mirror refs) re-reads the mirror once.
+    for attempt in range(2):
+        held = _git("for-each-ref", "--format=%(refname) %(objectname)", *(mirror for _, mirror in mirrors),
+                    cwd=root, git_dir=side)
+        if held.returncode:
+            return held
+        have = dict(line.split(" ", 1) for line in held.stdout.splitlines())
+        deletes = [f"delete {name}\n" for name in sorted(have) if name not in want]
+        updates = [f"update {name} {sha}\n" for name, sha in sorted(want.items()) if have.get(name) != sha]
+        wrote = None
+        for edits in (deletes, updates):
+            if edits:
+                wrote = _git("update-ref", "--stdin", input_text="".join(edits), cwd=root, git_dir=side)
+                if wrote.returncode:
+                    break
+        if wrote is None or wrote.returncode == 0:
+            return listed
+    return wrote
 
 
 def _read_visible(root=None, seen=SEEN, *, other_only=False):
@@ -1223,8 +1245,7 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None, locks=(), ato
                 return False
             pushed += chunk
             if len(batch) > len(chunk):     # mirrored now, so a rollback's fenced _drop sees them
-                for r in chunk:
-                    _mirror(r, token(r), root)
+                _mirror_many({r: token(r) for r in chunk}, root)
         return True
 
     # The releases settle(defer=True) queued ride in this push: one transaction
@@ -1237,8 +1258,7 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None, locks=(), ato
         accepted = bool(wanted) and push(wanted, deletions)
     if accepted:
         claimed = list(wanted)
-        for key in outbox:
-            _mirror(key, deletions[2], root)
+        _mirror_many({key: deletions[2] for key in outbox}, root)
         _settled(root, settled, outbox)
         outbox = {}
     else:
@@ -1306,8 +1326,7 @@ def claim(rvas, who=None, ttl_hours=TTL_HOURS, note="", root=None, locks=(), ato
         _settled(root, settled, _drop(outbox, outbox_who or who, root, entries=settled))
     claimed = sorted(claimed, key=_order)
     refused = sorted(set(rvas) - set(claimed), key=_order)
-    for rva in claimed:
-        _mirror(rva, token(rva), root)
+    _mirror_many({rva: token(rva) for rva in claimed}, root)
     active.cache_clear()
     return ClaimResult(claimed, refused, tokens={r: token(r) for r in claimed},
                        leases={r: lease_of(r)[0] for r in claimed},
@@ -1349,6 +1368,7 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
             if entry_lock and entry_lock[1].get("owner") in names:
                 tokens.setdefault(lock, entry_lock[0])
     renewed, lost = {}, []
+    pending = {}                                            # rva: (generation we replace, new sha)
     for rva, token in sorted(tokens.items(), key=lambda kv: _order(kv[0])):
         entry = current.get(rva)
         same = entry and (entry[0] == token or (
@@ -1356,12 +1376,30 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
         if not same or entry[1].get("owner") not in names:
             lost.append(rva)
             continue
-        sha = _record(who, ttl_hours, note or entry[1].get("note", ""), root,
-                      lease=entry[1].get("lease") or token,
-                      since=entry[1].get("since") or entry[1].get("created"),
-                      scope=entry[1].get("scope", ""), lock=entry[1].get("lock", False),
-                      locks=entry[1].get("locks", ()))
-        token = entry[0]                                    # the generation we replace
+        pending[rva] = (entry[0], _record(who, ttl_hours, note or entry[1].get("note", ""), root,
+                                          lease=entry[1].get("lease") or token,
+                                          since=entry[1].get("since") or entry[1].get("created"),
+                                          scope=entry[1].get("scope", ""), lock=entry[1].get("lock", False),
+                                          locks=entry[1].get("locks", ())))
+    # One push renews every key (per key, a 20-key heartbeat made 20 paced pushes:
+    # 54 s on a quiet host, minutes under a fleet). No --atomic: each ref keeps its
+    # own lease, so a key taken over meanwhile fails alone; --porcelain names the
+    # refs that moved. What it did not move goes through the per-key loop below,
+    # which re-reads origin to tell a lost claim from a lost race.
+    by_ref = {ref_of(rva): rva for rva in pending}
+    for chunk in _arg_batches(list(pending), lambda r: [f"--force-with-lease={ref_of(r)}:{pending[r][0]}",
+                                                         f"+{pending[r][1]}:{ref_of(r)}"], 0):
+        pushed = _git("push", "--porcelain", *(f"--force-with-lease={ref_of(r)}:{pending[r][0]}" for r in chunk),
+                      REMOTE, *(f"+{pending[r][1]}:{ref_of(r)}" for r in chunk), cwd=root, timeout=120)
+        for line in pushed.stdout.splitlines():
+            flag, _, rest = line.partition("\t")
+            ref = rest.split("\t", 1)[0].rpartition(":")[2]
+            if flag in (" ", "+", "*", "=") and by_ref.get(ref) in chunk:
+                renewed[by_ref[ref]] = pending[by_ref[ref]][1]
+    _mirror_many({rva: sha for rva, sha in renewed.items()}, root)
+    for rva, (token, sha) in pending.items():
+        if rva in renewed:
+            continue
         for attempt in range(5):
             pushed = _git("push", "-q", f"--force-with-lease={ref_of(rva)}:{token}", REMOTE,
                           f"+{sha}:{ref_of(rva)}", cwd=root, timeout=120)
