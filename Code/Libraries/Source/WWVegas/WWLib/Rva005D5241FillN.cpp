@@ -1,4 +1,5 @@
 // cl: /DNDEBUG /MD
+// stlport
 // ??$__uninitialized_fill_n@PAUBfmeStringRecord005D511F@@IU1@@_STL@@YAPAUBfmeStringRecord005D511F@@PAU1@IABU1@ABU__false_type@0@@Z retail 0x005D5241 37B.
 // _STL::__uninitialized_fill_n<BfmeStringRecord005D511F>, retail 37 bytes. Dedicated TU
 // so BfmeStringRecord005D511FConstruct cannot inline _Construct into this loop.
@@ -12,10 +13,9 @@ public:
 	BfmeStringRecord005D511F(const BfmeStringRecord005D511F &that);
 };
 
+#include <utility>
 namespace _STL
 {
-
-struct __false_type {};
 
 template <class T1, class T2>
 void _Construct(T1 *p, const T2 &value);
