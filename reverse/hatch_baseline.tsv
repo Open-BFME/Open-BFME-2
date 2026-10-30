@@ -199,7 +199,7 @@ address_global	Code/GameEngine/Source/Common/PinnedForwarders1830.cpp	g_Va00A033
 address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002AB8FB.cpp	g_Rva0107301CEmptyString	1
 address_global	Code/GameEngine/Source/Common/RTS/PlayerRva002ACE2B.cpp	g_Va007C26F0	2
 address_global	Code/GameEngine/Source/Common/RTS/Rva00439920Reset.cpp	g_Va00BBB8D8	2
-address_global	Code/GameEngine/Source/Common/RTS/Science.cpp	g_Va00DB9440	1
+address_global	Code/GameEngine/Source/Common/RTS/Science.cpp	g_Va00DB9440	2
 address_global	Code/GameEngine/Source/Common/RTS/ScienceStoreFindScienceInfo.cpp	g_Va00DB9440	2
 address_global	Code/GameEngine/Source/Common/RTS/TeamGetControllingPlayer.cpp	g_Va00E028C4	2
 address_global	Code/GameEngine/Source/Common/Recorder.cpp	g_Rva00A00958	2
@@ -1583,7 +1583,6 @@ address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_c
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEF08	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_range_ctors.cpp	g_Va00DDEF38	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00436e3b.cpp	g_Va00E032EC	3
-address_global	Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_science_base_001FF76E.cpp	g_Va00DB9440	1
 address_global	Code/Libraries/Source/debug/debug_except.cpp	g_Rva012D4FD0AssertCrashTemplate	2
 address_global	Code/Libraries/Source/debug/debug_except.cpp	g_Rva013373BCTimerTicks	5
 address_global	Code/Libraries/Source/debug/debug_except.cpp	g_Rva013373C0DialogClosed	6
@@ -2036,7 +2035,7 @@ alternatename	Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp	?loadP
 alternatename	Code/GameEngine/Source/Common/RTS/Rva000D3FA0Destructor.cpp	?xfer@Rva000D3FA0Map@@MAEXPAVXfer@@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	??0AICommandParmsTail@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/RTS/Rva00263895Init.cpp	?init@Rva00263895Member@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/RTS/ScienceStoreFriendLookupScience.cpp	?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z	1
+alternatename	Code/GameEngine/Source/Common/RTS/Science.cpp	?lookupScience@ScienceStore@@QBE?AW4ScienceType@@PBD@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?getShroudStatusForPlayer@ShroudManager@@QBE?AW4CellShroudStatus@@HPBUCoord3D@@@Z	1
 alternatename	Code/GameEngine/Source/Common/RTS/ShroudManagerImpl008FBA40.cpp	?revealMapForPlayerPermanently@ShroudManager@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00028B90Siblings.cpp	?bfmeDoPF@Rva00028B90Thing@@QAEXPADPAXH@Z	1
