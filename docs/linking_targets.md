@@ -1,5 +1,14 @@
 # Linking target checklist
 
+WallHub update-provider follow-up (2026-10-30, LINK-160): a clean inline native
+sleep-forever override replaces the constructor view's unresolved base-interface
+slot without adding a pin, row or alias. Strict three-provider preparation
+passes 104/104 rows and EXACT parent EH; the preview against `e1f7c1dd18` retains
+3/3 LINKS, WallHub 0 -> 154 authored bytes with both providers unchanged.
+The six-byte body and native table target are independently exact in the actual
+object. Full consumer and census confirmation remain pending.
+[Evidence](../reverse/attempt_support/wallhub-update-provider-20261030/readme.md).
+
 Script-event key follow-up (2026-10-30, base `cc891735cc`): the two record
 constructors at `0x00332F5B` and `0x00332FC1` reuse the existing four-byte
 key constructor instead of private UnicodeString bodies. All four source

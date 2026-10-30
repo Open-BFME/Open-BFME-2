@@ -1,0 +1,304 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp",
+  "new_update_symbol": "?update@WallHubBehavior@@UAE?AW4UpdateSleepTime@@XZ",
+  "production_update_binding": null,
+  "source_sha256": "e9214be6ecb67d4006ff0a6ce395df16923bad83768cd55b3c22cc8c5dda26e1",
+  "objects": {
+    "before": {
+      "object_sha256": "cfd111468edb2e720ccb1758ccd423f1350dc8e97798da229e62f7ca148631cd",
+      "rows": [
+        {
+          "name": "??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00452E27",
+          "size": "154",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00789CAD",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L489",
+          "rva": "0x00789CA5",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "tables": {
+        "??_7WallHubBehavior@@6BObjectModule@@@": {
+          "raw": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "size": 40,
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EWallHubBehavior@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ],
+            [
+              20,
+              6,
+              "?onObjectCreated@Module@@UAEXXZ"
+            ],
+            [
+              24,
+              6,
+              "?onDrawableBoundToObject@Module@@UAEXXZ"
+            ],
+            [
+              28,
+              6,
+              "?preloadAssets@Module@@UAEXXZ"
+            ],
+            [
+              32,
+              6,
+              "?onDelete@Module@@UAEXXZ"
+            ],
+            [
+              36,
+              6,
+              "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BBehaviorModuleInterface@@@": {
+          "raw": "00000000",
+          "size": 4,
+          "relocations": [
+            [
+              0,
+              6,
+              "?getBody@BehaviorModuleInterface@@UAEXXZ"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BUpdateModule@@@": {
+          "raw": "00000000",
+          "size": 4,
+          "relocations": [
+            [
+              0,
+              6,
+              "?update@UpdateModuleInterface@@UAEXXZ"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BWallHubInterface@@@": {
+          "raw": "000000000000000000000000000000000000000000000000",
+          "size": 24,
+          "relocations": [
+            [
+              0,
+              6,
+              "__purecall"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ],
+            [
+              20,
+              6,
+              "__purecall"
+            ]
+          ]
+        }
+      },
+      "constructor_eh": [
+        "EXACT",
+        ""
+      ]
+    },
+    "trial": {
+      "object_sha256": "fb1fc03f306c33508cfc4f2ebd058142a1a9ad19cd198691ce70e7e771d2200e",
+      "rows": [
+        {
+          "name": "??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00452E27",
+          "size": "154",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$??0WallHubBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00789CAD",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L489",
+          "rva": "0x00789CA5",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "tables": {
+        "??_7WallHubBehavior@@6BObjectModule@@@": {
+          "raw": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+          "size": 40,
+          "relocations": [
+            [
+              0,
+              6,
+              "??_EWallHubBehavior@@UAEPAXI@Z"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ],
+            [
+              20,
+              6,
+              "?onObjectCreated@Module@@UAEXXZ"
+            ],
+            [
+              24,
+              6,
+              "?onDrawableBoundToObject@Module@@UAEXXZ"
+            ],
+            [
+              28,
+              6,
+              "?preloadAssets@Module@@UAEXXZ"
+            ],
+            [
+              32,
+              6,
+              "?onDelete@Module@@UAEXXZ"
+            ],
+            [
+              36,
+              6,
+              "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BBehaviorModuleInterface@@@": {
+          "raw": "00000000",
+          "size": 4,
+          "relocations": [
+            [
+              0,
+              6,
+              "?getBody@BehaviorModuleInterface@@UAEXXZ"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BUpdateModule@@@": {
+          "raw": "00000000",
+          "size": 4,
+          "relocations": [
+            [
+              0,
+              6,
+              "?update@WallHubBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+            ]
+          ]
+        },
+        "??_7WallHubBehavior@@6BWallHubInterface@@@": {
+          "raw": "000000000000000000000000000000000000000000000000",
+          "size": 24,
+          "relocations": [
+            [
+              0,
+              6,
+              "__purecall"
+            ],
+            [
+              4,
+              6,
+              "__purecall"
+            ],
+            [
+              8,
+              6,
+              "__purecall"
+            ],
+            [
+              12,
+              6,
+              "__purecall"
+            ],
+            [
+              16,
+              6,
+              "__purecall"
+            ],
+            [
+              20,
+              6,
+              "__purecall"
+            ]
+          ]
+        }
+      },
+      "constructor_eh": [
+        "EXACT",
+        ""
+      ]
+    }
+  },
+  "update_proof": {
+    "native_rva": "0x004A6563",
+    "raw": "b8ffffff3fc3",
+    "native": "b8ffffff3fc3",
+    "relocations": [],
+    "exact": true,
+    "native_table_rva": "0x0084B1E0",
+    "native_table_slot0": "0x8a6563",
+    "new_pin_or_row": false
+  }
+}

@@ -1,0 +1,134 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/WallHubBehaviorCtor.cpp",
+  "source_sha256": "e9214be6ecb67d4006ff0a6ce395df16923bad83768cd55b3c22cc8c5dda26e1",
+  "object_md5": "de4c95afd9500b9e9b759379db293c70",
+  "strict_current": true,
+  "new_pin_or_row": false,
+  "update": {
+    "symbol": "?update@WallHubBehavior@@UAE?AW4UpdateSleepTime@@XZ",
+    "native_rva": "0x004A6563",
+    "raw": "b8ffffff3fc3",
+    "native": "b8ffffff3fc3",
+    "relocations": [],
+    "exact": true
+  },
+  "native_update_table_rva": "0x0084B1E0",
+  "native_update_table_slot0": "0x8a6563",
+  "other_three_table_bindings_unchanged": true,
+  "tables": {
+    "??_7WallHubBehavior@@6BObjectModule@@@": {
+      "raw": "00000000000000000000000000000000000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "??_EWallHubBehavior@@UAEPAXI@Z"
+        ],
+        [
+          4,
+          6,
+          "__purecall"
+        ],
+        [
+          8,
+          6,
+          "__purecall"
+        ],
+        [
+          12,
+          6,
+          "__purecall"
+        ],
+        [
+          16,
+          6,
+          "__purecall"
+        ],
+        [
+          20,
+          6,
+          "?onObjectCreated@Module@@UAEXXZ"
+        ],
+        [
+          24,
+          6,
+          "?onDrawableBoundToObject@Module@@UAEXXZ"
+        ],
+        [
+          28,
+          6,
+          "?preloadAssets@Module@@UAEXXZ"
+        ],
+        [
+          32,
+          6,
+          "?onDelete@Module@@UAEXXZ"
+        ],
+        [
+          36,
+          6,
+          "?onCapture@ObjectModule@@UAEXPAVPlayer@@0@Z"
+        ]
+      ]
+    },
+    "??_7WallHubBehavior@@6BBehaviorModuleInterface@@@": {
+      "raw": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "?getBody@BehaviorModuleInterface@@UAEXXZ"
+        ]
+      ]
+    },
+    "??_7WallHubBehavior@@6BUpdateModule@@@": {
+      "raw": "00000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "?update@WallHubBehavior@@UAE?AW4UpdateSleepTime@@XZ"
+        ]
+      ]
+    },
+    "??_7WallHubBehavior@@6BWallHubInterface@@@": {
+      "raw": "000000000000000000000000000000000000000000000000",
+      "relocations": [
+        [
+          0,
+          6,
+          "__purecall"
+        ],
+        [
+          4,
+          6,
+          "__purecall"
+        ],
+        [
+          8,
+          6,
+          "__purecall"
+        ],
+        [
+          12,
+          6,
+          "__purecall"
+        ],
+        [
+          16,
+          6,
+          "__purecall"
+        ],
+        [
+          20,
+          6,
+          "__purecall"
+        ]
+      ]
+    }
+  },
+  "constructor_eh": [
+    "EXACT",
+    ""
+  ]
+}

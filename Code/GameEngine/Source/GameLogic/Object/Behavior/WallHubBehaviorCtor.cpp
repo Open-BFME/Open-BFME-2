@@ -24,7 +24,8 @@ class Image;
 
 enum UpdateSleepTime
 {
-	UPDATE_SLEEP_NONE = 1
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
 class Object
@@ -59,7 +60,7 @@ class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
@@ -102,6 +103,7 @@ class WallHubBehavior : public UpdateModule, public WallHubInterface
 {
 public:
 	WallHubBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual UpdateSleepTime update() { return UPDATE_SLEEP_FOREVER; }
 	// Retail 0x00452D52 (rowed ??1Rva00452D52) stores the four vptrs the ctor
 	// installs and tail-jumps ~UpdateModule 0x0024A797; this body folds onto it.
 	virtual ~WallHubBehavior() {}
