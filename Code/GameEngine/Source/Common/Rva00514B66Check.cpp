@@ -4,24 +4,26 @@
 class BfmeThingTTD
 {
 public:
-    bool rva005B7032();
-    const unsigned short *m_name;
-    const unsigned short *m_imageFileName;
-    bool m_initialized;
-    bool m_enabled;
-    bool m_added;
-    char m_pad0b;
-    long m_comResult;
-    void *m_profile;
+	BfmeThingTTD();
+	~BfmeThingTTD();
+	bool rva005B7032();
+	const unsigned short *m_name; // +0x00
+	const unsigned short *m_imageFileName; // +0x04
+	bool m_initialized; // +0x08
+	bool m_enabled; // +0x09
+	bool m_added; // +0x0A
+	char m_pad0B[0x1];
+	long m_comResult; // +0x0C
+	void *m_profile; // +0x10
 };
 
 class Rva00514B66
 {
 public:
-    unsigned char rva00514B66();
+	unsigned char rva00514B66();
+	char m_pad00[0x290];
 private:
-    char m_pad[0x290];
-    BfmeThingTTD m_ttd;
+	BfmeThingTTD m_ttd; // +0x290
 };
 
 unsigned char Rva00514B66::rva00514B66()

@@ -30,6 +30,8 @@ typedef void (FunctorTarget::*FunctorMethod)(void);
 struct FunctorBinding
 {
 	FunctorBinding(FunctorMethod method, FunctorTarget *target) : m_target(target), m_method(method) {}
+	template <class T, class M> FunctorBinding(T *target, M method)
+		: m_target(reinterpret_cast<FunctorTarget *>(target)), m_method(reinterpret_cast<FunctorMethod>(method)) {}
 	FunctorTarget *m_target;
 	unsigned int m_pad;
 	FunctorMethod m_method;
@@ -192,6 +194,7 @@ class Mouse
 {
 public:
 	void _bfme_setEngineVisibility(bool visible);
+	void rva000B3FD0();
 };
 
 extern Mouse *TheMouse;
@@ -205,8 +208,7 @@ public:
 	virtual bool getBool(const AsciiString &key, bool defaultValue) const;
 	virtual void setBool(const AsciiString &key, bool value);
 	virtual bool write();
-private:
-	unsigned char m_pad04[0x14 - 0x04];
+	char m_pad04[0x10];
 };
 
 class OptionPreferences : public UserPreferences
@@ -222,8 +224,15 @@ class BfmeThingTTD
 public:
 	BfmeThingTTD();
 	~BfmeThingTTD();
-private:
-	unsigned char m_pad[0x14];
+	bool rva005B7032();
+	const unsigned short *m_name; // +0x00
+	const unsigned short *m_imageFileName; // +0x04
+	bool m_initialized; // +0x08
+	bool m_enabled; // +0x09
+	bool m_added; // +0x0A
+	char m_pad0B[0x1];
+	long m_comResult; // +0x0C
+	void *m_profile; // +0x10
 };
 
 class Rva005B6F1E
@@ -451,6 +460,7 @@ class GameWindowTransitionsHandler
 public:
 	void setGroup(AsciiString name, bool immediate);
 	bool isFinished();
+	void reverse(AsciiString groupName);
 };
 
 extern GameWindowTransitionsHandler *TheTransitionHandler;
@@ -458,8 +468,16 @@ extern GameWindowTransitionsHandler *TheTransitionHandler;
 class Shell
 {
 public:
-	char m_pad00[0x6c];
-	bool m_unknown6c;
+	// Rowed 0x0035BEC7; unrowed 0x0035BD5D (a byte query) and 0x0035C2B9,
+	// pinned by address.
+	void pop();
+	bool rva0035BD5D();
+	void rva0035C2B9();
+	void rva0035BF4C(bool hide); // rowed; Zero Hour's Shell::hide
+	char m_pad00[0x5D];
+	bool m_5d; // +0x5D +0x5D
+	char m_pad5E[0xE];
+	bool m_unknown6c; // +0x6C
 };
 
 extern Shell *TheShell;
