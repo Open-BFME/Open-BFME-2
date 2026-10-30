@@ -33,15 +33,24 @@ static int s_secondary30;
 
 static int s_secondary34;
 
-// Opaque OpenContain base; ctor resolves to its pin. The explicit m_vtable
-// member stands in for the inherited vptr so body order is source order.
-class OpenContain
+class Xfer;
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+// Opaque OpenContain base; ctor resolves to its pin. novtable leaves the
+// ctor's explicit primary vtable store in source order and emits no
+// replacement vtable.
+class __declspec(novtable) OpenContain
 {
 public:
 	OpenContain(Thing *thing, const ModuleData *moduleData);
 
 protected:
-	const void *m_vtable;
+	virtual void xfer(Xfer *xfer);
+
 	Thing *m_owner;
 	int m_pad08;
 	const void *m_p0C;
@@ -49,10 +58,14 @@ protected:
 	unsigned char m_pad[0x20 - 0x14];
 };
 
-class HealContain : public OpenContain
+class __declspec(novtable) HealContain : public OpenContain
 {
 public:
 	HealContain(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void xfer(Xfer *xfer);
 
 private:
 	const void *m_p20;
@@ -243,7 +256,7 @@ void HealContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 HealContain::HealContain(Thing *thing, const ModuleData *moduleData)
 	: OpenContain(thing, moduleData)
 {
-	m_vtable = &s_vtable;
+	*reinterpret_cast<const void **>(this) = &s_vtable;
 	m_p0C = &s_secondary0C;
 	m_p10 = &s_secondary10;
 	m_p20 = &s_secondary20;
