@@ -931,16 +931,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// Retail VA 0x00C58D98: 3 fields and the zero sentinel.
-// The matched registration proves the class relationship; retail supplies
-// every token, offset and callback. Global spelling is descriptive.
-extern const FieldParse BfmeAudioLoopUpgradeFields[] = {
-	{ "SoundToPlay", &INI::parseAudioEventRTS, 0, 0x8 },
-	{ "KillAfterMS", &INI::parseDurationUnsignedInt, 0, 0xC },
-	{ "KillOnDeath", &INI::parseBool, 0, 0x10 },
-	{ 0, 0, 0, 0 }
-};
-
 class GarrisonContainModuleData
 {
 public:
@@ -977,13 +967,6 @@ class HordeGarrisonContainModuleData
 public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
-
-void AudioLoopUpgradeModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE29DGet()), 0x14);
-	parse.add(reinterpret_cast<const FieldParse *>(Rva004CE52EGet()), 0x124);
-	parse.add(BfmeAudioLoopUpgradeFields, 0);
-}
 
 void HordeGarrisonContainModuleData::buildFieldParse(MultiIniFieldParse &parse)
 {
