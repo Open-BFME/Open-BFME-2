@@ -7,6 +7,8 @@
 #define COORD3D_VIEW_DTOR
 #define COORD3D_VIEW_DTOR
 #define COORD3D_VIEW_DTOR
+#define COORD3D_VIEW_DTOR
+#define COORD3D_VIEW_DTOR
 
 class Thing;
 
@@ -147,11 +149,34 @@ private:
 	ObjectID m_spawnPointOccupier[MAX_SPAWN_POINTS];		// +0xCC
 };
 
-// tu-skeleton: 0x004A3B35 90B ??1SpawnPointProductionExitUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateDtor.cpp
+
+//
+// ??1SpawnPointProductionExitUpdate@@MAE@XZ, retail 0x004A3B35, 90 bytes.
+// Destructor for SpawnPointProductionExitUpdate (ctor rowed at 0x004A3C1B in
+// SpawnPointProductionExitUpdateCtor.cpp, vtable 0x0085259C with slot 0 ??_G
+// at 0x004A3CCE which calls this body).
+//
+// Shape follows the ctor TU's MI layout (UpdateModule 0x20 over three bases
+// plus trailing SpawnB4 vptr at +0x20): the body reinstalls the four vptrs
+// at +0/+0x0C/+0x10/+0x20, destroys the Coord3D array m_spawnPoints[10] at
+// +0x2C through the rowed ehvec dtor iterator 0x00629110 (count 0xA, stride
+// 0xC, element dtor rowed ??1Coord3D@@QAE@XZ at 0x000B3FD0), then calls the
+// pinned UpdateModule base dtor ??1UpdateModule@@UAE@XZ at 0x0024A797.
+// /GX for the EH prologue plus the two state stores (and-early, or-late).
+// BFME1 donor SpawnPointProductionExitUpdateDestructor.cpp proves the array
+// at +0x2C and the 4-vptr teardown; BFME2 revalidate occupier TU pins count
+// at +0x28 and occupiers at +0xCC.
+
+SpawnPointProductionExitUpdate::~SpawnPointProductionExitUpdate()
+{
+}
 
 // tu-skeleton: 0x004A3B8F 6B ?name@SpawnPointProductionExitUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004A3B95 65B ?xfer@Rva004A3B95@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpawnPointProductionExitUpdatePoolKey.cpp
 
@@ -171,12 +196,6 @@ NameKeyType SpawnPointProductionExitUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("SpawnPointProductionExitUpdate");
 	return TheSpawnPointProductionExitUpdatePoolKey;
 }
-
-// tu-skeleton: 0x004A3C1B 179B ??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3CCE 28B ??_GSpawnPointProductionExitUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004A3CEA 340B ?initializeBonePositions@SpawnPointProductionExitUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointInitializeBonePositions.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointExitObjectViaDoor.cpp
 
@@ -278,12 +297,54 @@ ExitDoorType SpawnPointProductionExitUpdate::reserveDoorForExit( const ThingTemp
 	return DOOR_NONE_AVAILABLE;
 }
 
-// tu-skeleton: 0x0078DD05 8B Unwind@00b8dd05 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateCtor.cpp
 
-// tu-skeleton: 0x0078DD0D 10B __ehhandler$??1SpawnPointProductionExitUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateDtor.cpp (not merged yet)
+//
+// ??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z,
+// retail 0x004A3C1B, 179 bytes. Behavior-side ctor completing the
+// SpawnPointProductionExitUpdate file-unit (behavior instance factory
+// rowed at 0x24ECEC news 0xF4 with this pinned 2-arg ctor as its sole
+// caller; poolkey rowed at 0x4A3BD6; bone methods rowed at 0x4A3CEA,
+// 0x4A3F04 and 0x4A3F3B).
+//
+// Shape follows the MI-virtual installer pattern over the rowed
+// UpdateModule base 0x253390 (whose three internal vptrs the opaque call
+// installs, then this TU's derived virtuals reinstall): the compiler
+// places its +0/+0x0C/+0x10/+0x20 installs ahead of the member array,
+// which is built through the rowed ehvec iterator 0x629512 (opaque
+// element ctor/dtor keep the frame while the element addresses stay
+// DIR32 slots; the element spells the folded Coord3D rows at
+// 0x47A6A9/0xB3FD0). An int zero at +0x28 plus a byte zero at +0x24 ride
+// the init list around the installs, then a fused zero loop over the
+// points plus the float/int tails, then the setWakeFrame tail (m_object
+// at +0x08, 0x3FFFFFFF never-wake literal; the loop fences its pushes
+// together). /GX for the EH prologue plus the two state stores
+// (and-early for the base, byte-mid for the array); the declared-only
+// base dtor arms them with no emitted code. Zero new pins (base ctor,
+// ehvec iterator and element ctor/dtor resolve via their rows;
+// setWakeFrame resolves via the existing IAEX Object-uint pin at
+// 0x44DF71). Row supersedes the ctor pin.
+
+// ??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z @0x4A3C1B
+SpawnPointProductionExitUpdate::SpawnPointProductionExitUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+	, m_spawnPointCount(0)
+	, m_bonesInitialized(false)
+{
+	float fzero = 0.0f;
+	ObjectID *pointOccupier = &m_spawnPointOccupier[0];
+	float *pointZ = &m_worldCoordSpawnPoints[0].z;
+	for (int n = MAX_SPAWN_POINTS; n != 0; ++pointOccupier, pointZ += 3, --n)
+	{
+		pointZ[-2] = fzero;
+		pointZ[-1] = fzero;
+		pointZ[0] = fzero;
+		*pointOccupier = INVALID_OBJECT_ID;
+		((float *)pointOccupier)[-MAX_SPAWN_POINTS] = fzero;
+	}
+	setWakeFrame(m_object, UPDATE_SLEEP_FOREVER);
+}
+
+// tu-skeleton: 0x004A3CEA 340B ?initializeBonePositions@SpawnPointProductionExitUpdate@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointInitializeBonePositions.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DD2E 8B uw_0078dd2e -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DD36 22B $L439 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DD4C 10B __ehhandler$??0SpawnPointProductionExitUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateCtor.cpp (not merged yet)
