@@ -1803,25 +1803,36 @@ def _inventory_problems(source, command, env, dep_paths, inventory_before):
 
 
 _HASH_MEMO = {}
+# File times tick more coarsely than writes land (whole seconds on some file
+# systems, a few milliseconds on others, plus clock skew on network ones), so
+# a rewrite of the same size within one tick leaves every stat field as it
+# was. As git does for racily clean index entries, a memo entry vouches for a
+# file only when its mtime and ctime are strictly older than the moment it
+# was hashed minus this tick; anything newer is hashed again.
+_HASH_TICK_NS = 2_000_000_000
+_hash_clock = time.time_ns
 
 
 def _hash_file(path):
     # The memo is keyed on the file's full identity (device, inode, size,
-    # mtime and ctime: any write moves ctime), and a file that changes while
-    # it is read hashes to None: a concurrent writer cannot produce a receipt.
+    # mtime and ctime: any write moves ctime), trusted only once the file had
+    # settled before it was hashed (_HASH_TICK_NS), and a file that changes
+    # while it is read hashes to None: a concurrent writer cannot produce a
+    # receipt.
     try:
         stat = os.stat(path)
         stamp = (stat.st_dev, stat.st_ino, stat.st_size, stat.st_mtime_ns, stat.st_ctime_ns)
         cached = _HASH_MEMO.get(path)
-        if cached and cached[0] == stamp:
+        if cached and cached[0] == stamp and max(stat.st_mtime_ns, stat.st_ctime_ns) < cached[2] - _HASH_TICK_NS:
             return cached[1]
+        hashed_at = _hash_clock()
         digest = hashlib.md5(Path(path).read_bytes()).hexdigest()
         after = os.stat(path)
         if stamp != (after.st_dev, after.st_ino, after.st_size, after.st_mtime_ns, after.st_ctime_ns):
             return None
     except (OSError, ValueError):
         return None
-    _HASH_MEMO[path] = (stamp, digest)
+    _HASH_MEMO[path] = (stamp, digest, hashed_at)
     return digest
 
 
