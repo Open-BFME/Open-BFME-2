@@ -7428,9 +7428,9 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0015E5F0DwordField@@QBEHXZ,,0x0015E5F0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0015E600DwordField@@QBEHXZ,,0x0015E600,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva0015E760DwordField@@QBEHXZ,,0x0015E760,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00188730DwordField@@QBEHXZ,,0x00188730,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00188740DwordField@@QBEHXZ,,0x00188740,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
-?get@Rva00188750DwordField@@QBEHXZ,,0x00188750,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
+?get@Rva00188730DwordField@@QBEHXZ,,0x00188730,7,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,Disp32 dword getter
+?get@Rva00188740DwordField@@QBEHXZ,,0x00188740,7,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,Disp32 dword getter
+?get@Rva00188750DwordField@@QBEHXZ,,0x00188750,7,Code/Libraries/Source/WWVegas/WW3D2/meshmdlio.cpp,matched,Disp32 dword getter
 ?get@Rva0019F010DwordField@@QBEHXZ,,0x0019F010,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva001A0AC0DwordField@@QBEHXZ,,0x001A0AC0,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
 ?get@Rva001A0F60DwordField@@QBEHXZ,,0x001A0F60,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
