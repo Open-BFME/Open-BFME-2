@@ -14511,8 +14511,6 @@ present_unmatched	Code/Libraries/Source/Apt/AptValue/Rva006DA4D0Finish.cpp	Rva00
 present_unmatched	Code/Libraries/Source/Compression/LZHCompress/CompLibSource/Huff.cpp	1HuffStat@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	0Rva006560E0@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva006560E0Deleter.cpp	marked	1
-present_unmatched	Code/Libraries/Source/DirtySock/Rva0065D1D0Deleter.cpp	0Rva0065D1D0@@QAE@XZ	1
-present_unmatched	Code/Libraries/Source/DirtySock/Rva0065D1D0Deleter.cpp	marked	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp	0Rva0065E7D0@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065E7D0Deleter.cpp	marked	1
 present_unmatched	Code/Libraries/Source/DirtySock/Rva0065F140Deleter.cpp	0Rva0065F140Derived@@QAE@XZ	1
@@ -14539,6 +14537,8 @@ present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	0Rva00666
 present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	0Rva00672460@@QAE@XZ	1
 present_unmatched	Code/Libraries/Source/DirtySock/Y2ScalarDeleters.cpp	marked	1
 present_unmatched	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	EAStringC::EAStringC	1
+present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	0Rva0065D1D0@@QAE@XZ	1
+present_unmatched	Code/Libraries/Source/Fesl/blobservice.cpp	marked	1
 present_unmatched	Code/Libraries/Source/GdiPlus/gdiplusbitmap.cpp	Image::SetNativeImage	1
 present_unmatched	Code/Libraries/Source/VP6/FilterBlockBil8.cpp	BilinearByteBlock	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/DX8WrapperConvertColorClamp.cpp	Convert_Color@DX8Wrapper@@CAIABVVector3@@M@Z	1
