@@ -19873,8 +19873,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03450,4,.data,global,_s_rva007B09A8,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03454,4,.data,global,?TheEnragedBehaviorPoolKey@?1??getModuleNameKey@EnragedBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehaviorPoolKey.cpp,owned,,1,2
 0x00A03458,4,.data,global,?$S1@?1??getModuleNameKey@EnragedBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/EnragedBehaviorPoolKey.cpp,owned,,1,4
-0x00A0345C,4,.data,global,?TheHitReactionBehaviorPoolKey@?1??getModuleNameKey@HitReactionBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehaviorPoolKey.cpp,owned,,1,2
-0x00A03460,4,.data,global,?$S1@?1??getModuleNameKey@HitReactionBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehaviorPoolKey.cpp,owned,,1,4
+0x00A0345C,4,.data,global,?TheHitReactionBehaviorPoolKey@?1??getModuleNameKey@HitReactionBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp,owned,,1,2
+0x00A03460,4,.data,global,?$S1@?1??getModuleNameKey@HitReactionBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/HitReactionBehavior.cpp,owned,,1,4
 0x00A03464,4,.data,global,_s_rva007B09EC,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03468,4,.data,global,?TheClickReactionBehaviorPoolKey@?1??getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp,owned,,1,2
 0x00A0346C,4,.data,global,?$S1@?1??getModuleNameKey@ClickReactionBehavior@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Behavior/ClickReactionBehavior.cpp,owned,,1,4
