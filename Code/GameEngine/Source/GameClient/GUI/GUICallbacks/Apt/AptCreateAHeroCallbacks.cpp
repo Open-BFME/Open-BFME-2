@@ -66,25 +66,84 @@ public:
 	virtual void v07(const char *value);
 };
 
+class GameWindow
+{
+protected:
+	virtual ~GameWindow();
+private:
+	unsigned char m_pad004[0x218 - 4];
+};
+
+class Rva005248D0
+{
+public:
+	virtual ~Rva005248D0();
+private:
+	unsigned char m_pad004[0x58 - 4];
+};
+
+class _bfme_AptGameWindow : public GameWindow, public Rva005248D0
+{
+public:
+	_bfme_AptGameWindow(void *context);
+	virtual ~_bfme_AptGameWindow();
+private:
+	AsciiString m_filename; // +0x270
+	int m_274;
+	char m_278;
+};
+
 // The screen's embedded hero object at +0x27C. 0x005B1288 is a member of
 // AptMyHero (rowed in AptMyHero.cpp, which calls AptMyHero's own 0x005B0487
 // on the same receiver); AptMyHero's last known field is +0x18C and the
 // screen's m_mode follows at +0x40C, so it spans exactly 0x190 bytes here.
+class AptCreateAHero;
+
 class AptMyHero
 {
 public:
+	AptMyHero(AptCreateAHero *screen);
+	virtual ~AptMyHero();
 	void rva005B1288();
-
 private:
-	unsigned char m_opaque[0x190];
+	unsigned char m_opaque[0x18C];
 };
 
 // Rowed 0x005B23D7 in Code/GameEngine/Source/Common/AptHeroPowerText.cpp.
 void __cdecl Rva005B23D7HeroPowersDescription(void *power, const AsciiString &unused, const AsciiString &fallback);
 
-class AptCreateAHero
+class Coord2D;
+struct Rva005B3676Owner;
+struct AppearanceOwner;
+class Rva005B6B93;
+class Rva005B2575;
+
+class AptCreateAHero : public _bfme_AptGameWindow
 {
 public:
+	class Class
+	{
+	public:
+		Class(Rva005B3676Owner *owner);
+	private:
+		unsigned char m_pad[0x2C];
+	};
+	class Powers
+	{
+	public:
+		Powers(Rva005B3676Owner *owner);
+	private:
+		unsigned char m_pad[0x74];
+	};
+	class Appearance
+	{
+	public:
+		Appearance(AppearanceOwner *owner);
+	private:
+		unsigned char m_pad[0x10];
+	};
+	AptCreateAHero(void *context);
+	virtual ~AptCreateAHero();
 	void PrepareToTakePicture(const char *unused);
 	void OnTakePicture(const char *unused);
 	void RotateLeft(const char *pressed);
@@ -92,36 +151,31 @@ public:
 	void ZoomIn(const char *pressed);
 	void ZoomOut(const char *pressed);
 	void OnShowScreen(const char *screen);
-	// Bound as "CreateAHero::RenderPictureGuard", a render callback: it
-	// pops four arguments and reads none, so their types are unknown.
 	void RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4);
 	void CreateAHeroDemo(int query, char *result, bool skip);
-	// Bound as "CreateAHero" (a method of that name would be the
-	// constructor), so it keeps its address.
 	void rva00513AF4(const char *value);
-
+	void DrawMapComponent(const Coord2D *a, const Coord2D *b, void *c, void *d);	// rowed 0x00514070
 	static void OpenScreen(int mode);
-
 private:
-	static AptCreateAHero *s_instance; // 0x00A048D4 (WorldBuilder's s_instance)
-
-	unsigned char m_pad000[0x27C];
 	AptMyHero m_myHero; // +0x27C
-	int m_mode; // +0x40C, set by OpenScreen
-	AptCreateAHeroPage *m_page; // +0x410
-	AptCreateAHeroPage *m_previousPage; // +0x414
-	AptCreateAHeroPage *m_pageM; // +0x418
-	AptCreateAHeroPage *m_pageC; // +0x41C
-	AptCreateAHeroPage *m_pageA; // +0x420
-	AptCreateAHeroPage *m_pageP; // +0x424
-	AptCreateAHeroPage *m_pageB; // +0x428
-	unsigned char m_pad42c[0x42F - 0x42C];
+	int m_mode; // +0x40C
+	void *m_page; // +0x410
+	void *m_previousPage; // +0x414
+	Rva005B6B93 *m_pageM; // +0x418
+	Class *m_pageC; // +0x41C
+	Appearance *m_pageA; // +0x420
+	Powers *m_pageP; // +0x424
+	Rva005B2575 *m_pageB; // +0x428
+	bool m_42c; // +0x42C
+	bool m_42d;
+	bool m_42e;
 	bool m_takePicture; // +0x42F
 	bool m_rotateLeft; // +0x430
 	bool m_rotateRight; // +0x431
 	bool m_zoomIn; // +0x432
 	bool m_zoomOut; // +0x433
 	int m_pictureFrames; // +0x434
+	static AptCreateAHero *s_instance; // 0x00A048D4
 };
 
 // Retail 0x00513A47, 10 bytes: "AptCreateAHero::PrepareToTakePicture".
@@ -158,7 +212,7 @@ void AptCreateAHero::CreateAHeroDemo(int query, char *result, bool skip)
 void AptCreateAHero::rva00513AF4(const char *value)
 {
 	if (m_page)
-		m_page->v07(value);
+		reinterpret_cast<AptCreateAHeroPage *>(m_page)->v07(value);
 }
 
 // Retail 0x00513AA8, 19 bytes: "AptCreateAHero::RotateLeft".
@@ -190,7 +244,7 @@ void AptCreateAHero::ZoomOut(const char *pressed)
 // old one and showing the new.
 void AptCreateAHero::OnShowScreen(const char *screen)
 {
-	AptCreateAHeroPage *previous = m_page;
+	AptCreateAHeroPage *previous = reinterpret_cast<AptCreateAHeroPage *>(m_page);
 	switch (*screen)
 	{
 	case 'A':
@@ -215,7 +269,7 @@ void AptCreateAHero::OnShowScreen(const char *screen)
 		if (previous)
 			previous->hide();
 		if (m_page)
-			m_page->show();
+			reinterpret_cast<AptCreateAHeroPage *>(m_page)->show();
 		m_myHero.rva005B1288();
 		Rva005B23D7HeroPowersDescription((void *)0, AsciiString::TheEmptyString, AsciiString::TheEmptyString);
 	}

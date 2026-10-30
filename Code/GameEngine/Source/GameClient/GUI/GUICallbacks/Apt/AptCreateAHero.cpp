@@ -158,6 +158,7 @@ class AptMyHero
 public:
 	AptMyHero(AptCreateAHero *screen);
 	virtual ~AptMyHero();
+	void rva005B1288();
 private:
 	unsigned char m_opaque[0x18C];
 };
@@ -201,8 +202,9 @@ extern GlobalData *TheWritableGlobalData;
 class CreateAHeroManager
 {
 public:
-	unsigned char m_pad[0x184];
-	bool m_184;
+	void rva0021F5F8();
+	char m_pad00[0x184];
+	bool m_184; // +0x184
 };
 
 extern CreateAHeroManager *TheCreateAHeroManager;
@@ -244,6 +246,7 @@ public:
 	void CreateAHeroDemo(int query, char *result, bool skip);
 	void rva00513AF4(const char *value);
 	void DrawMapComponent(const Coord2D *a, const Coord2D *b, void *c, void *d);	// rowed 0x00514070
+	static void OpenScreen(int mode);
 private:
 	AptMyHero m_myHero; // +0x27C
 	int m_mode; // +0x40C

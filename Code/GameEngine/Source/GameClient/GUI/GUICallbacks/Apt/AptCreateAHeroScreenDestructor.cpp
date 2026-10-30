@@ -35,10 +35,14 @@ private:
 	char m_278;
 };
 
+class AptCreateAHero;
+
 class AptMyHero
 {
 public:
+	AptMyHero(AptCreateAHero *screen);
 	virtual ~AptMyHero();
+	void rva005B1288();
 private:
 	unsigned char m_opaque[0x18C];
 };
@@ -88,31 +92,76 @@ class CreateAHeroManager
 {
 public:
 	void rva0021F5F8();
-	unsigned char m_pad[0x184];
-	bool m_184;
+	char m_pad00[0x184];
+	bool m_184; // +0x184
 };
 extern CreateAHeroManager *TheCreateAHeroManager;
 extern bool skipCinematicSubsystemExclusions; // VA 0x00DFD944
 
-class AptCreateAHero;
-
+class Coord2D;
+struct Rva005B3676Owner;
+struct AppearanceOwner;
+class Rva005B6B93;
+class Rva005B2575;
 
 class AptCreateAHero : public _bfme_AptGameWindow
 {
 public:
+	class Class
+	{
+	public:
+		Class(Rva005B3676Owner *owner);
+	private:
+		unsigned char m_pad[0x2C];
+	};
+	class Powers
+	{
+	public:
+		Powers(Rva005B3676Owner *owner);
+	private:
+		unsigned char m_pad[0x74];
+	};
+	class Appearance
+	{
+	public:
+		Appearance(AppearanceOwner *owner);
+	private:
+		unsigned char m_pad[0x10];
+	};
+	AptCreateAHero(void *context);
 	virtual ~AptCreateAHero();
+	void PrepareToTakePicture(const char *unused);
+	void OnTakePicture(const char *unused);
+	void RotateLeft(const char *pressed);
+	void RotateRight(const char *pressed);
+	void ZoomIn(const char *pressed);
+	void ZoomOut(const char *pressed);
+	void OnShowScreen(const char *screen);
+	void RenderPictureGuard(const void *origin, const void *extent, void *unused3, void *unused4);
+	void CreateAHeroDemo(int query, char *result, bool skip);
+	void rva00513AF4(const char *value);
+	void DrawMapComponent(const Coord2D *a, const Coord2D *b, void *c, void *d);	// rowed 0x00514070
+	static void OpenScreen(int mode);
 private:
 	AptMyHero m_myHero; // +0x27C
 	int m_mode; // +0x40C
 	void *m_page; // +0x410
 	void *m_previousPage; // +0x414
-	CreateAHeroPage *m_pages[5]; // +0x418
-	bool m_42c;
+	Rva005B6B93 *m_pageM; // +0x418
+	Class *m_pageC; // +0x41C
+	Appearance *m_pageA; // +0x420
+	Powers *m_pageP; // +0x424
+	Rva005B2575 *m_pageB; // +0x428
+	bool m_42c; // +0x42C
 	bool m_42d;
 	bool m_42e;
-	bool m_takePicture,m_rotateLeft,m_rotateRight,m_zoomIn,m_zoomOut;
-	int m_pictureFrames;
-	static AptCreateAHero *s_instance;
+	bool m_takePicture; // +0x42F
+	bool m_rotateLeft; // +0x430
+	bool m_rotateRight; // +0x431
+	bool m_zoomIn; // +0x432
+	bool m_zoomOut; // +0x433
+	int m_pictureFrames; // +0x434
+	static AptCreateAHero *s_instance; // 0x00A048D4
 };
 
 AptCreateAHero::~AptCreateAHero()
@@ -122,8 +171,8 @@ AptCreateAHero::~AptCreateAHero()
 	{
 		for (int i = 0; i < 5; ++i)
 		{
-			::delete m_pages[i];
-			m_pages[i] = 0;
+			::delete (*reinterpret_cast<CreateAHeroPage *(*)[5]>(&m_pageM))[i];
+			(*reinterpret_cast<CreateAHeroPage *(*)[5]>(&m_pageM))[i] = 0;
 		}
 		{
 			AsciiString name("CreateAHero::DrawMapComponent");
