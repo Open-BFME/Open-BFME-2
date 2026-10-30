@@ -22810,7 +22810,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D94FE,10,code,,,-,,Code/GameEngine/Source/Common/Disp8DwordFieldSetters.cpp
 0x002D9508,41,code,,,-,,Code/GameEngine/Source/Common/Rva002D9531CondSetter.cpp
 0x002D9531,28,code,,,-,,Code/GameEngine/Source/Common/Rva002D9531CondSetter.cpp
-0x002D954D,13,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D954D,13,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D955A,28,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D954D..0x002D9576,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
 0x002D9576,13,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D954D..0x002D9583,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9583,28,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D954D..0x002D959F,Code/GameEngine/Source/Common/GapBodiesSeat1B.cpp
@@ -22822,7 +22822,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D95FE,10,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp N=Code/GameEngine/Source/GameLogic/Object/Weapon.cpp,Code/GameEngine/Source/GameLogic/Object/Weapon.cpp
 0x002D9608,26,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D954D..0x002D9622,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9622,100,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9686,77,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9622..0x002D96D3,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D9686,77,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9622..0x002D96D3,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D96D3,259,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x002D97D6,84,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D982A,105,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
@@ -22832,35 +22832,35 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D9A43,128,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x002D9AC3,17,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9A43..0x002D9AD4,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9AD4,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9A43..0x002D9ADC,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9ADC,202,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,F,F=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002D9BA6,27,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D9ADC,202,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,F,F=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002D9BA6,27,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9BC1,27,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9BA6..0x002D9BDC,Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp
 0x002D9BDC,43,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9BA6..0x002D9C07,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9C07,40,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D9C07,40,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9C2F,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9C07..0x002D9C37,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9C37,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D9C37,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9C7A,191,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9C37..0x002D9D39,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002D9D39,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002D9D7C,547,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002D9D39,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002D9D7C,547,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9F9F,58,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9D7C..0x002D9FD9,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002D9FD9,151,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002D9D7C..0x002DA070,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA070,28,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/Libraries/Source/WWVegas/WWLib/BfmeStringTailRecord144.cpp,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
-0x002DA08C,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002DA0CF,132,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA08C..0x002DA153,Code/GameEngine/Source/Common/Rva002DA0CFFinish.cpp
-0x002DA153,121,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA08C..0x002DA1CC,Code/GameEngine/Source/Common/Rva002DA153Scale.cpp
-0x002DA1CC,332,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/BfmeAudioEventOwnerPosition.cpp
+0x002DA08C,67,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA0CF,132,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA08C..0x002DA153,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA153,121,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA08C..0x002DA1CC,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA1CC,332,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA318,128,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA1CC..0x002DA398,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002DA398,124,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA1CC..0x002DA414,Code/Libraries/Source/WWVegas/WWLib/rva002da398_audio_string.cpp
+0x002DA398,124,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA1CC..0x002DA414,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA414,77,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA1CC..0x002DA461,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA461,122,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA4DB,122,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,U,N=Code/GameEngine/Source/Common/Audio/BfmeAudioEventPrefix136.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA555,126,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA4DB..0x002DA5D3,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA5D3,126,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA4DB..0x002DA651,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DA651,126,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,C,C=0x002DA4DB..0x002DA6CF,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x002DA6CF,361,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002DA838,47,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002DA867,72,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x002DA8AF,550,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x002DA6CF,361,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA838,47,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA867,72,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,S,S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x002DA8AF,550,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,Z,Z=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp S=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp N=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp W=Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x002DAAD5,29,code,,,-,,Code/GameEngine/Source/Common/Rva002DAAD5Flag.cpp
 0x002DAAF2,38,code,,,-,,Code/GameEngine/Source/Common/Rva002DAAF2.cpp
 0x002DAB18,70,code,,,-,,Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp
@@ -71789,12 +71789,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00777B3D,11,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9A43@FuncInfo0x0091F8EC,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x00777B48,11,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9A43@FuncInfo0x0091F8EC,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
 0x00777B53,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9A43@FuncInfo0x0091F8EC,Code/Libraries/Source/WWVegas/WWLib/stlport_stringtailrecord144_dtor.cpp
-0x00777B5D,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9D7C@FuncInfo0x0091F918,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x00777B5D,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9D7C@FuncInfo0x0091F918,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777B65,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9D7C@FuncInfo0x0091F918,Code/gen_small/uw_gen_006.cpp
-0x00777B6D,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9D7C@FuncInfo0x0091F918,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x00777B77,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/Libraries/Source/WWVegas/WWLib/rva002da398_audio_string.cpp
-0x00777B7F,25,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/Libraries/Source/WWVegas/WWLib/rva002da398_audio_string.cpp
-0x00777B98,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/Libraries/Source/WWVegas/WWLib/rva002da398_audio_string.cpp
+0x00777B6D,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002D9D7C@FuncInfo0x0091F918,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777B77,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777B7F,25,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777B98,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA398@FuncInfo0x0091F944,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777BA2,11,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777BAD,11,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777BB8,11,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
@@ -71802,11 +71802,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00777BCE,11,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777BD9,14,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777BE7,10,code,,,-,,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
-0x00777BF1,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA6CF@FuncInfo0x0091F968,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x00777BF9,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA6CF@FuncInfo0x0091F968,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x00777C03,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x00777C0B,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
-0x00777C13,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTSClassification.cpp
+0x00777BF1,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA6CF@FuncInfo0x0091F968,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777BF9,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA6CF@FuncInfo0x0091F968,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777C03,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777C0B,8,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
+0x00777C13,10,code,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp,approved,P,P=0x002DA8AF@FuncInfo0x0091F994,Code/GameEngine/Source/Common/Audio/AudioEventRTS.cpp
 0x00777C1D,8,code,,,-,,Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp
 0x00777C25,10,code,,,-,,Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp
 0x00777C2F,8,code,,,-,,Code/GameEngine/Source/Common/Rva002DAB18Finish.cpp
