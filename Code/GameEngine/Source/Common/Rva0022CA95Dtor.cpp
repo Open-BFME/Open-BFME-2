@@ -21,10 +21,19 @@ template<> inline _Vector_base<Rva002146F7 *, allocator<Rva002146F7 *> >::~_Vect
 typedef bool Bool;
 #include "subsystem_interface.h"
 
+struct Rva00214B22Record;
+class AsciiString;
 class Rva002146F7
 {
 public:
 	~Rva002146F7();
+private:
+	_STL::vector<Rva00214B22Record> m_values; // +0x00
+	unsigned m_word0C; // +0x0C
+	AsciiString m_name10; // +0x10
+	unsigned char m_unreconstructed14[0xCC - 0x14]; // +0x14
+	unsigned char *m_storageCC; // +0xCC
+	unsigned char m_flagsD0[4]; // +0xD0
 };
 
 class Rva0022CA95 : public SubsystemInterface

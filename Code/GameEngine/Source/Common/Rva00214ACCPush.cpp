@@ -27,9 +27,9 @@ class Rva00214ACC
 {
 public:
 	void rva00214ACC(Rva004DFCB0Element value);
+	char m_pad00[0xC];
 private:
-	char m_pad[0x0C];
-	_STL::vector<const ModuleData *> m_vec;
+	_STL::vector<const ModuleData *> m_vec; // +0x0C
 };
 
 void Rva00214ACC::rva00214ACC(Rva004DFCB0Element value)

@@ -123,7 +123,14 @@ private:
 
 struct Rva004DFCB0Element { unsigned word0; };
 
-class Rva00214ACC { public: void rva00214ACC(Rva004DFCB0Element value); };
+class Rva00214ACC
+{
+public:
+	void rva00214ACC(Rva004DFCB0Element value);
+	char m_pad00[0xC];
+private:
+	_STL::vector<const ModuleData *> m_vec; // +0x0C
+};
 
 // Native parser214C4E destroys this exact D4 record at4043FF. Model
 // the owning fields directly so ordinary and EH exit share its full destructor.
@@ -161,14 +168,14 @@ template<> __declspec(dllimport) __forceinline void vector<void*>::clear()
 class Rva002146F7
 {
 public:
-    ~Rva002146F7();
+	~Rva002146F7();
 private:
-    _STL::vector<Rva00214B22Record> m_values;
-    unsigned m_word0C;
-    AsciiString m_name10;
-    unsigned char m_unreconstructed14[0xCC - 0x14];
-    unsigned char *m_storageCC;
-    unsigned char m_flagsD0[4];
+	_STL::vector<Rva00214B22Record> m_values; // +0x00
+	unsigned m_word0C; // +0x0C
+	AsciiString m_name10; // +0x10
+	unsigned char m_unreconstructed14[0xCC - 0x14]; // +0x14
+	unsigned char *m_storageCC; // +0xCC
+	unsigned char m_flagsD0[4]; // +0xD0
 };
 
 class Rva00214A8A
