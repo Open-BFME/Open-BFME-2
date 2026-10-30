@@ -2175,7 +2175,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot3@Rva0035D0
 alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot4@Rva0035D0D1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035D0D1Ctor.cpp	?slot6@Rva0035D0D1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035D74AFinish.cpp	_vtbl_00C16530	1
-alternatename	Code/GameEngine/Source/Common/Rva0035E00FFinish.cpp	_vtbl_00C16594	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?getFrameLength@Rva0035FF76@@UAEHXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?init@Rva0035FF76@@UAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva0035FF76Ctor.cpp	?skip@Rva0035FF76@@UAEXXZ	1
@@ -2725,6 +2724,7 @@ alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??$__lower_boun
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameFont.cpp	??0Rva00218E09Record@@QAE@ABU0@@Z	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	_strcpy	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	??1FullFadeTransition@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp	_vtbl_00C16594	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeFindBHF@BfmeSubBHF@@QAEPAUBfmeGotBHF@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeFindLC@BfmeKeyLC@@QAEPAUBfmeNodeLC@@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/GUI/GameWindow_winGetUserData.cpp	?bfmeGetEBN@BfmeObjEBN@@QAEPAUBfmeSubEBN@@XZ	1

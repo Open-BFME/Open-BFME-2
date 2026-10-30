@@ -266,7 +266,6 @@ public:
 	unsigned char m_unreconstructed_084[0xF8];
 	ICoord2D m_imageOffset; // retail this+0x17c
 };
-
 class GameWindow
 {
 public:
@@ -406,6 +405,57 @@ public:
 #endif
 #ifndef FALSE
 #endif
+#pragma comment(linker, "/alternatename:_vtbl_00C16594=??_7Rva0035E00F@@6B@")
+#pragma intrinsic(_ReadWriteBarrier)
+enum
+{
+	BUTTONFLASHTRANSITION_START = 0,
+	BUTTONFLASHTRANSITION_FADE_IN_1 = 1,
+	BUTTONFLASHTRANSITION_FADE_IN_2 = 2,
+	BUTTONFLASHTRANSITION_FADE_IN_3 = 3,
+	BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_1 = 4,
+	BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_2 = 5,
+	BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_3 = 6,
+	BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_4 = 7,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_1 = 11,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_2 = 12,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_1 = 13,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_2 = 14,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_3 = 15,
+	BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_4 = 16,
+	BUTTONFLASHTRANSITION_END = 17,
+	BUTTONFLASHTRANSITION_SHOW_BACKGROUND = 18
+};
+#define ICOORD2D_VIEW_DEFAULT_CTOR
+#undef ICOORD2D_VIEW_DEFAULT_CTOR
+#include "../../../../Libraries/Include/Lib/IRegion2D.h"
+// ??1Rva0035FD0A@@UAE@XZ @0x0035FD0A (105B): virtual dtor storing vtable 0x008166BC.
+// Zeroes +0xC, frees DisplayString at +0x34 via TheDisplayStringManager slot 0x3C,
+// zeroes +0x34, destroys wide StringBase at +0x30/+0x2C via rowed releaseBuffer
+// 0x00036E70, then base dtor via pinned 0x001DBAC3. Caller at 0x0035FF59 is
+// deleting dtor. Prev tail dtors in FamilyTailDtors1DBAC3.cpp.
+class DisplayString;
+class DisplayStringManager
+{
+public:
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0C() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1C() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2C() = 0;
+	virtual void slot30() = 0;
+	virtual void slot34() = 0;
+	virtual DisplayString *newDisplayString() = 0;
+	virtual void freeDisplayString(DisplayString *s) = 0;
+};
+extern DisplayStringManager *TheDisplayStringManager;
 
 class WinInstanceData;
 
@@ -558,29 +608,6 @@ public:
 
 extern const FieldParse CountUpTransitionFields[];
 
-class Rva0035E00F : public Rva001DBAA4
-{
-public:
-    Rva0035E00F();
-    virtual ~Rva0035E00F();
-    int m_10;
-    int m_14;
-    int m_18;
-    int m_1C;
-    int m_20;
-    int m_24;
-    int m_28;
-    int m_2C;
-    int m_30;
-    int m_34;
-    int m_38;
-    int m_3C;
-    int m_40;
-    int m_44;
-    int m_48;
-    int m_4C;
-};
-
 class Rva0035D47B : public Rva001DBAA4
 {
 public:
@@ -623,6 +650,161 @@ __forceinline Rva0035DB3FFields() {m_10=0;m_14=0;m_18=0;m_1c=0;_ReadWriteBarrier
 
 class Rva0035DA01 : public Rva001DBAA4 { public:~Rva0035DA01();Rva0035DA01();private:Rva0035DB3FFields fields;};
 
+// ??0Rva0035E00F@@QAE@XZ
+//
+// ??0Rva0035E00F@@QAE@XZ @0x0035E206 86B: derived ctor calling base
+// ??0Rva001DBAA4 at 0x001DBAA4. Layout from FamilyTailDtors1DBAC3.cpp
+// (Rva0035E00F: base members +4/+8/+9/+0xA/+0xC, derived +0x10/+0x14/+0x28/
+// +0x4C window) plus the zeroed ranges the body touches. Caller at 0x0035E29A
+// proves ctor shape; vtable 0x00816594 same as dtor 0x0035E25C slot family.
+//
+// Three levers, each independently pinned by measurement, reproduce retail's
+// store order:
+//   __declspec(novtable) stops the compiler emitting its own vptr store so the
+//     explicit one names the existing vtable proven at retail VA 0x00C16594
+//     through a linker alias, so it follows the linked table;
+//   writing m_18 through a pointer splits the +0x10..+0x24 eax run into two
+//     nodes, which is what lets m_14 and the vtable store land in between
+//     rather than the whole run hoisting above the literal 5;
+//   reading m_14 back right after m_48 (not at the end) makes the reload use
+//     ecx, matching retail's 8b 4e 14 / 89 4e 04 instead of an eax CSE.
+extern "C" const void *const vtbl_00C16594[];
+
+extern "C" void _ReadWriteBarrier(void);
+
+class Rva0035E00F : public Rva001DBAA4
+{
+public:
+    Rva0035E00F();
+    virtual ~Rva0035E00F();
+    int m_10;
+    int m_14;
+    int m_18;
+    int m_1C;
+    int m_20;
+    int m_24;
+    int m_28;
+    int m_2C;
+    int m_30;
+    int m_34;
+    int m_38;
+    int m_3C;
+    int m_40;
+    int m_44;
+    int m_48;
+    int m_4C;
+};
+
+class Image
+{
+public:
+	Int getImageWidth(void) const { return m_imageSize.x; }
+	Int getImageHeight(void) const { return m_imageSize.y; }
+
+private:
+	unsigned char m_unreconstructed_00[0x24];
+	ICoord2D m_imageSize; // retail this+0x24
+};
+
+class Display { public:
+virtual void unused00();
+virtual void unused01();
+virtual void unused02();
+virtual void unused03();
+virtual void unused04();
+virtual void unused05();
+virtual void unused06();
+virtual void unused07();
+virtual void unused08();
+virtual void unused09();
+virtual void unused10();
+virtual void unused11();
+virtual void unused12();
+virtual void unused13();
+virtual void unused14();
+virtual void unused15();
+virtual void unused16();
+virtual void unused17();
+virtual void unused18();
+virtual void unused19();
+virtual void unused20();
+virtual void unused21();
+virtual void unused22();
+virtual void unused23();
+virtual void unused24();
+virtual void unused25();
+virtual void unused26();
+virtual void unused27();
+virtual void unused28();
+virtual void unused29();
+virtual void unused30();
+virtual void unused31();
+virtual void unused32();
+virtual void unused33();
+virtual void unused34();
+virtual void unused35();
+virtual void unused36();
+virtual void unused37();
+virtual void unused38();
+virtual void unused39();
+virtual void unused40();
+virtual void unused41();
+virtual void setClipRegion(IRegion2D *);
+virtual void unused43();
+virtual void enableClipping(Bool);
+};
+
+class ButtonFlashTransition
+{
+public:
+	virtual ~ButtonFlashTransition();
+	virtual void init(GameWindow *win);
+	virtual void update(Int frame);
+	virtual void reverse(void);
+	virtual void draw(void);
+	virtual void skip(void);
+
+	Int m_frameLength;		// +0x04
+	Bool m_isFinished;		// +0x08
+	Bool m_isForward;		// +0x09
+	Bool m_isReversed;		// +0x0a
+	unsigned char m_pad0B;		// +0x0b
+	GameWindow *m_win;		// +0x0c
+	Int m_posX;			// +0x10
+	Int m_posY;			// +0x14
+	Int m_sizeX;			// +0x18
+	Int m_sizeY;			// +0x1c
+	Int m_drawState;		// +0x20
+	const Image *m_gradient;	// +0x24
+};
+
+class Rva0035FD0A : public Rva001DBAA4
+{
+public:
+	Rva0035FD0A();
+	virtual ~Rva0035FD0A();
+	int m_startFrame;
+	int m_endFrame;
+	char m_pad18[0x10];
+	int m_drawState;
+	UnicodeString m_2C;
+	UnicodeString m_30;
+	DisplayString *m_34;
+};
+
+// Native [0x0035FD73,0x0035FDCA), 87 bytes. Both this factory and the
+// CountUp factory reference the same complete 48-byte StartFrame/EndFrame
+// field table at VA 0x00C166DC, defined in CountUpTransitionDestructorThunk.cpp.
+typedef char Rva0035FD0ARetailSize[(sizeof(Rva0035FD0A) == 0x38) ? 1 : -1];
+
+class Rva0035FF76;
+
+class Rva003600D6Holder
+{
+public:
+	void set(Rva0035FF76 *obj);
+};
+
 // tu-skeleton: 0x0035D4E6 44B ?update@ReverseSoundTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D512 14B ?rva0035D512@Rva0035D512@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesC.cpp (not merged yet)
@@ -630,6 +812,8 @@ class Rva0035DA01 : public Rva001DBAA4 { public:~Rva0035DA01();Rva0035DA01();pri
 // tu-skeleton: 0x0035D520 28B ??_GRva0035D47B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D53C 15B ??1ScoreScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStyles.cpp
 
@@ -1327,6 +1511,10 @@ void s4ParseFieldsRva0059EE10(INI *ini, Gen_00489270 *sink)
 	sink->m((int)t);
 }
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/Rva0035DB3FTransitionCtor.cpp
+
+Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
+
 // tu-skeleton: 0x0035D5C4 106B ?update@ScoreScaleUpTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
 // tu-skeleton: 0x0035D6B8 37B ??0ScoreScaleUpTransition@@QAE@XZ -- matched in Code/GameEngine/Source/Common/ScoreScaleUpTransition.cpp (not merged yet)
@@ -1347,10 +1535,6 @@ void s4ParseFieldsRva0059EE10(INI *ini, Gen_00489270 *sink)
 
 // tu-skeleton: 0x0035DA10 143B ?update@MainMenuSmallScaleDownTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/Rva0035DB3FTransitionCtor.cpp
-
-Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
-
 // tu-skeleton: 0x0035DB86 28B ??_GRva0035DA01@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
 // tu-skeleton: 0x0035DCF9 15B ??1MainMenuMediumScaleUpTransition@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
@@ -1369,7 +1553,36 @@ Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
 
 // tu-skeleton: 0x0035E185 129B ?draw@MainMenuScaleUpTransition@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/TransitionStyleSlotsBfme2.cpp (not merged yet)
 
-// tu-skeleton: 0x0035E206 86B ??0Rva0035E00F@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035E00FFinish.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0035E00FFinish.cpp
+
+  // ??_7Rva0035E00F@@6B@
+
+Rva0035E00F::Rva0035E00F()
+{
+	int *p28 = &m_28;
+	int *p14 = &m_14;
+	m_10 = 0;
+	m_14 = 5;
+	*(unsigned int *)this = ((unsigned int)vtbl_00C16594);
+	int *p18 = &m_18;
+	*p18 = 0;
+	m_1C = 0;
+	m_20 = 0;
+	m_24 = 0;
+	*p28 = -1;
+	m_2C = 0;
+	m_30 = 0;
+	m_34 = 0;
+	m_38 = 0;
+	m_3C = 0;
+	m_40 = 0;
+	m_44 = 0;
+	m_48 = 0;
+	m_frameLength = *p14;
+	m_4C = 0;
+	m_win = 0;
+	m_isForward = true;
+}
 
 // tu-skeleton: 0x0035E25C 28B ??_GRva0035E00F@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
@@ -1381,17 +1594,395 @@ Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
 
 // tu-skeleton: 0x0035E378 15B ??1Rva0035E60B@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035E387 636B ?update@ButtonFlashTransition@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/ButtonFlashTransitionUpdate.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ButtonFlashTransitionUpdate.cpp
+
+inline const Image *GadgetButtonGetLeftEnabledImage(GameWindow *window)
+{
+	return window->winGetEnabledImage(0);
+}
+
+inline const Image *GadgetButtonGetMiddleEnabledImage(GameWindow *window)
+{
+	return window->winGetEnabledImage(5);
+}
+
+inline const Image *GadgetButtonGetRightEnabledImage(GameWindow *window)
+{
+	return window->winGetEnabledImage(6);
+}
+
+void ButtonFlashTransition::update(Int frame)
+{
+	m_drawState = -1;
+	if (frame < BUTTONFLASHTRANSITION_START || frame > BUTTONFLASHTRANSITION_END)
+	{
+		return;
+	}
+	switch (frame) {
+	case BUTTONFLASHTRANSITION_START:
+		{
+			if (m_isForward || !m_win)
+				break;
+			m_win->winHide(true);
+			m_isFinished = true;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_IN_1:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = BUTTONFLASHTRANSITION_FADE_IN_1;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_4;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_IN_2:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_3;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_IN_3:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_2;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_1:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_1;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_2:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_IN_3;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_3:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_IN_2;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_4:
+		{
+			if (!m_win)
+				break;
+			m_win->winHide(true);
+			if (m_isForward)
+				m_drawState = frame;
+			else
+				m_drawState = BUTTONFLASHTRANSITION_FADE_IN_1;
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_1:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(true);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_4;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_2:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(true);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_3;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_1:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(true);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_2;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_2:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(true);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_1;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_3:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(false);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_2;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_FADE_TO_GRADE_OUT_4:
+		{
+			if (!m_win)
+				break;
+			if (m_isForward)
+			{
+				m_win->winHide(false);
+				m_drawState = frame;
+			}
+			else
+			{
+				m_win->winHide(false);
+				m_drawState = BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_1;
+			}
+		}
+		break;
+	case BUTTONFLASHTRANSITION_END:
+		{
+			if (!m_isForward || !m_win)
+				break;
+			m_win->winHide(false);
+			m_isFinished = true;
+		}
+		break;
+	}
+	if (frame > BUTTONFLASHTRANSITION_FADE_TO_BACKGROUND_4 && frame < BUTTONFLASHTRANSITION_FADE_TO_GRADE_IN_1)
+		m_drawState = BUTTONFLASHTRANSITION_SHOW_BACKGROUND;
+}
+
+	void PushButtonImageDrawThree(GameWindow *window, Int alpha)
+	{
+		WinInstanceData *instData = window->winGetInstanceData();
+		const Image *leftImage, *rightImage, *centerImage;
+		ICoord2D origin, size, start, end;
+		Int xOffset, yOffset;
+		Int i;
+		Int color = GameMakeColor(255,255,255,alpha);
+
+		window->winGetScreenPosition(&origin.x, &origin.y);
+		window->winGetSize(&size.x, &size.y);
+
+		xOffset = instData->m_imageOffset.x;
+		yOffset = instData->m_imageOffset.y;
+
+		leftImage = GadgetButtonGetLeftEnabledImage(window);
+		rightImage = GadgetButtonGetRightEnabledImage(window);
+		centerImage = GadgetButtonGetMiddleEnabledImage(window);
+
+		if (leftImage == 0 || rightImage == 0 || centerImage == 0)
+			return;
+
+		ICoord2D leftSize, rightSize;
+		leftSize.x = leftImage->getImageWidth();
+		leftSize.y = leftImage->getImageHeight();
+		rightSize.x = rightImage->getImageWidth();
+		rightSize.y = rightImage->getImageHeight();
+
+		ICoord2D leftEnd, rightStart;
+		leftEnd.x = origin.x + leftSize.x + xOffset;
+		leftEnd.y = origin.y + size.y + yOffset;
+		rightStart.x = origin.x + size.x - rightSize.x + xOffset;
+		rightStart.y = origin.y + yOffset;
+
+		Int centerWidth, pieces;
+		centerWidth = rightStart.x - leftEnd.x;
+
+		if (centerWidth <= 0)
+		{
+			start.x = origin.x + xOffset;
+			start.y = origin.y + yOffset;
+			end.y = leftEnd.y;
+			end.x = origin.x + xOffset + size.x / 2;
+			reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)leftImage, start.x, start.y, end.x, end.y, color, 2);
+
+			start.y = rightStart.y;
+			start.x = end.x;
+			end.x = origin.x + size.x;
+			end.y = start.y + size.y;
+			reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)rightImage, start.x, start.y, end.x, end.y, color, 2);
+		}
+		else
+		{
+			pieces = centerWidth / centerImage->getImageWidth();
+
+			start.x = leftEnd.x;
+			start.y = origin.y + yOffset;
+			end.y = start.y + size.y + yOffset;
+			for (i = 0; i < pieces; i++)
+			{
+				end.x = start.x + centerImage->getImageWidth();
+				reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)centerImage, start.x, start.y,
+					end.x, end.y, color, 2);
+				start.x += centerImage->getImageWidth();
+			}
+
+			IRegion2D reg;
+			reg.lo.x = start.x;
+			reg.lo.y = start.y;
+			reg.hi.x = rightStart.x;
+			reg.hi.y = end.y;
+			centerWidth = rightStart.x - start.x;
+			if (centerWidth > 0)
+			{
+				TheDisplay->setClipRegion(&reg);
+				end.x = start.x + centerImage->getImageWidth();
+				reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)centerImage, start.x, start.y,
+					end.x, end.y, color, 2);
+				TheDisplay->enableClipping(false);
+			}
+
+			start.x = origin.x + xOffset;
+			start.y = origin.y + yOffset;
+			end = leftEnd;
+			reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)leftImage, start.x, start.y, end.x, end.y,
+				color, 2);
+
+			start = rightStart;
+			end.x = start.x + rightSize.x;
+			end.y = start.y + size.y;
+			reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)rightImage, start.x, start.y, end.x, end.y,
+				color, 2);
+		}
+	}
+
+void ButtonFlashTransition::draw()
+{
+    switch (m_drawState) {
+    case 1:
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0x64ffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x4bffcb2d);
+        break;
+    case 2:
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0x96ffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x96ffcb2d);
+        break;
+    case 3:
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0xc8ffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0xc8ffcb2d);
+        break;
+    case 4:
+        PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0xfaffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x96ffcb2d);
+        break;
+    case 5:
+        PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0xfaffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x64ffcb2d);
+        break;
+    case 6:
+        PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0xfaffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x32ffcb2d);
+        break;
+    case 7:
+        PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0008EEF0((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 1.0f, 0xfaffcb2d);
+        reinterpret_cast<Rva0004263F *>(TheDisplay)->rva0004263F((float)m_posX, (float)m_posY, (float)m_sizeX, (float)m_sizeY, 0x0fffcb2d);
+        break;
+    case 11:
+        if (m_isForward) PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0x64ffffff, 2);
+        break;
+    case 12:
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0xc8ffffff, 2);
+        break;
+    case 13:
+        if (!m_isForward) PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0x96ffffff, 2);
+        break;
+    case 14:
+        if (!m_isForward) PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0x64ffffff, 2);
+        break;
+    case 15:
+        if (!m_isForward) PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0x32ffffff, 2);
+        break;
+    case 16:
+        if (!m_isForward) PushButtonImageDrawThree(m_win, 255);
+        reinterpret_cast<W3DDisplay *>(TheDisplay)->rva0004D6B3((Image *)m_gradient, (float)m_posX, (float)m_posY,
+                              (float)(m_posX + m_sizeX), (float)(m_posY + m_sizeY), 0x11ffffff, 2);
+        break;
+    case 18:
+        PushButtonImageDrawThree(m_win, 255);
+        break;
+    }
+}
 
 // tu-skeleton: 0x0035E603 8B ?rva0035E603@Rva0035D781Self@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotMiscForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x0035E634 28B ??_GRva0035E60B@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
-// tu-skeleton: 0x0035E6A1 733B ?PushButtonImageDrawThree@@YAXPAVGameWindow@@H@Z -- matched in Code/GameEngine/Source/Common/ButtonFlashTransitionUpdate.cpp (not merged yet)
-
 // tu-skeleton: 0x0035E97E 135B ?init@ButtonFlashTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
-
-// tu-skeleton: 0x0035EA05 909B ?draw@ButtonFlashTransition@@UAEXXZ -- matched in Code/GameEngine/Source/Common/ButtonFlashTransitionUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x0035ED92 15B ??1Rva0035EE66@@UAE@XZ -- matched in Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp (not merged yet)
 
@@ -1437,11 +2028,42 @@ Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
 
 // tu-skeleton: 0x0035FB6A 364B ?drawTypeText@@YAXPAVGameWindow@@PAVDisplayString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
-// tu-skeleton: 0x0035FCD6 52B ??0Rva0035FD0A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp
 
-// tu-skeleton: 0x0035FD0A 105B ??1Rva0035FD0A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
+// Native [0x0035FCD6,0x0035FD0A), 52 bytes. The two zeroed words at
+// +0x2C/+0x30 are the independently rowed destructor's wide-string
+// subobjects, whose inline default construction precedes the body stores.
+// The 0x38-byte factory at 0x0035FD73 and its StartFrame/EndFrame table
+// prove the prefix fields; vtable slot 2 points to rowed TextType update.
+// Original class name remains conservatively address-derived here.
+Rva0035FD0A::Rva0035FD0A()
+{
+	m_drawState = -1;
+	m_endFrame = 30;
+	m_frameLength = 30;
+	m_startFrame = 0;
+	m_win = 0;
+	m_isForward = true;
+	m_34 = 0;
+}
 
-// tu-skeleton: 0x0035FD73 87B ?Rva0035FD73Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
+Rva0035FD0A::~Rva0035FD0A()
+{
+	m_win = 0;
+	if (m_34 != 0)
+		TheDisplayStringManager->freeDisplayString(m_34);
+	m_34 = 0;
+}
+
+// Reuse the established opaque pointer-setter binding: full ten-byte
+// 0x005F69CE stores only the pointer at holder+0x10, with no pointee access.
+void __cdecl Rva0035FD73Parse(INI *ini, Rva003600D6Holder *holder)
+{
+	Rva0035FD0A *obj = new Rva0035FD0A;
+	ini->initFromINI(obj, CountUpTransitionFields);
+	obj->m_frameLength = obj->m_endFrame;
+	holder->set((Rva0035FF76 *)obj);
+}
 
 // tu-skeleton: 0x0035FDCA 168B ?init@TextTypeTransition@@UAEXPAVGameWindow@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
@@ -1466,18 +2088,6 @@ Rva0035DA01::Rva0035DA01() {m_win=0;m_frameLength=6;m_isForward=true;}
 // tu-skeleton: 0x0077DF54 10B uw_0077df54 -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
 
 // tu-skeleton: 0x0077DF5E 10B __ehhandler$?Rva0035F6E2Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/CountUpTransitionDestructorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFB8 8B Unwind@00b7dfb8 -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFC0 11B Unwind@00b7dfc0 -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFCB 11B Unwind@00b7dfcb -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFD6 10B __ehhandler$??1Rva0035FD0A@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFE0 10B uw_0077dfe0 -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077DFEA 10B __ehhandler$?Rva0035FD73Parse@@YAXPAVINI@@PAVRva003600D6Holder@@@Z -- matched in Code/GameEngine/Source/Common/Rva0035FD0ADtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077DFF4 8B $L40768 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowTransitionsStylesO1.cpp (not merged yet)
 
