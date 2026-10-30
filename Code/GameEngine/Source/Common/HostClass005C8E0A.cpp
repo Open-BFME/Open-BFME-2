@@ -17,16 +17,6 @@ struct Element005C8E0A {
 	float m_val;
 };
 
-class HostClass005C8E0A {
-public:
-	char pad[0x38];
-	Element005C8E0A *m_start;
-	Element005C8E0A *m_finish;
-
-	void method_005C8E0A();
-	void method_005C9069();
-};
-
 // vector<BfmeE16>'s destructor is declared only: its rowed, retail-proven
 // copy (Rva0056616BCopy.cpp, 0x0052D1CD) is the one the link keeps.
 namespace _STL { template <> vector<BfmeE16, allocator<BfmeE16> >::~vector(); }
@@ -56,27 +46,39 @@ namespace _STL {
 template <> _Rb_tree<int, pair<const int, void *>, _Select1st<pair<const int, void *> >, less<int>, allocator<pair<const int, void *> > >::~_Rb_tree();
 }
 
-// The 72-byte cell that ~Rva005C847BRecord (0x005C8FBD) destroys; caller
-// 0x005C865B passes a float coordinate pair.
+struct BfmePod12
+{
+	TargetObj005C8DBF *m_obj;
+	int m_key;
+	float m_val;
+};
+
+ 
+ 
 class Rva005C847BRecord : public Base0C
 {
 public:
 	Rva005C847BRecord(float *src);
 private:
 	BfmePoolRef10 m_ref;
+private:
 	int m_buf[8];
+private:
 	_STL::map<int, void *, _STL::less<int>, _STL::allocator<_STL::pair<const int, void *> > > m_map;
+private:
 	_STL::vector<BfmeE16, _STL::allocator<BfmeE16> > m_vec;
+private:
 	unsigned short m_44;
+private:
 	unsigned char m_46;
+private:
 	signed char m_47;
-};
-
-struct BfmePod12
-{
-	TargetObj005C8DBF *m_obj;
-	int m_key;
-	float m_val;
+public:
+	void method_005C901B();
+public:
+	void method_005C90F1(int a0, int a1);
+public:
+	void method_005C9311(int m14, int a0, float a1);
 };
 
 class Rva005C8F50Elem
@@ -90,6 +92,38 @@ private:
 	_STL::vector<BfmePod12> m_vec38;
 	char m_padTail[0x48 - 0x38 - 12];
 };
+
+class HostClass005C815B {
+public:
+	int pad0;
+	int pad4;
+	Rva005C847BRecord *m_start;
+	Rva005C847BRecord *m_finish;
+	Rva005C847BRecord *m_endOfStorage;
+	int m_14;
+
+	void method_005C815B();
+	void method_005C834A(int a0, int a1);
+	void method_005C836F(int a0, float a1);
+	void method_005C839B(int a0, int a1);
+};
+
+class HostClass005C8E0A {
+public:
+	char pad[0x38];
+public:
+	Element005C8E0A *m_start;
+public:
+	Element005C8E0A *m_finish;
+public:
+	void method_005C8E0A();
+public:
+	void method_005C9069();
+public:
+	void rva005C8F17();
+};
+
+// ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 
 // ---- from Code/GameEngine/Source/Common/HostClass005C8E0A.cpp
 
@@ -106,8 +140,6 @@ void HostClass005C8E0A::method_005C9069()
 		it->m_obj->method_005C902A(it->m_val);
 	}
 }
-
-// tu-skeleton: 0x005C8E2C 135B ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva005C8EB3.cpp
 
@@ -130,8 +162,6 @@ Rva005C847BRecord::Rva005C847BRecord(float *src)
 		m_buf[i] = 0;
 }
 
-// tu-skeleton: 0x005C8F17 57B ?rva005C8F17@HostClass005C8E0A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/HostClass005C8F17.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005C8F50Method.cpp
 
 // ?rva005C8F50@Rva005C8F50Elem@@QAEXHH@Z @0x005C8F50 74B filtered erase over vector at +0x38 with conditional TargetObj notify. Evidence: caller 0x005C835D in RangeApplyWrappers plus rowed vector erase 0x0034C117 plus pinned TargetObj method 0x005C8DBF plus prev HostClass005C8F17 layout.
@@ -148,11 +178,21 @@ void Rva005C8F50Elem::rva005C8F50(int a, int b)
 	}
 }
 
+// tu-skeleton: 0x005C8E2C 135B ?rva005C8E2C@HostClass005C8E0A@@QAE?AVBfmePoolRef10@@XZ -- matched in Code/GameEngine/Source/Common/HostClass005C8E2C.cpp (not merged yet)
+
+// tu-skeleton: 0x005C8F17 57B ?rva005C8F17@HostClass005C8E0A@@QAEXXZ -- matched in Code/GameEngine/Source/Common/HostClass005C8F17.cpp (not merged yet)
+
 // tu-skeleton: 0x005C8F9A 35B ?rva005C8F9A@Rva005C8F9A@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@_N@_STL@@ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@3@@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp (not merged yet)
 
 // tu-skeleton: 0x005C8FBD 94B ??1Rva005C8FBD@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005C8FBD.cpp (not merged yet)
 
-// tu-skeleton: 0x005C901B 15B ?method_005C901B@Rva005C847BRecord@@QAEXXZ -- matched in Code/GameEngine/Source/Common/HostClass005C815B.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/HostClass005C815B.cpp
+
+void Rva005C847BRecord::method_005C901B()
+{
+	((HostClass005C8E0A *)this)->rva005C8F17();
+	*(unsigned short *)((char *)this + 0x44) = 0;
+}
 
 // tu-skeleton: 0x005C902A 63B ?method_005C902A@TargetObj005C8DBF@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/LargeGroupAudio/Rva005C902AWeight.cpp (not merged yet)
 
@@ -175,3 +215,19 @@ void Rva005C8F50Elem::rva005C8F50(int a, int b)
 // tu-skeleton: 0x007A0E3A 8B $L371 -- matched in Code/GameEngine/Source/Common/HostClass005C908B.cpp (not merged yet)
 
 // tu-skeleton: 0x007A0E42 10B __ehhandler$?method_005C908B@HostClass005C8E0A@@QAEXVBfmePoolRef10@@E@Z -- matched in Code/GameEngine/Source/Common/HostClass005C908B.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E4C 10B uw_007a0e4c -- matched in Code/GameEngine/Source/Common/Rva005C847BRecordXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E56 25B ?rva007A0E56@@YAXXZ -- matched in Code/GameEngine/Source/Common/Rva005C847BRecordXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E6F 10B __ehhandler$?method_005C90F1@Rva005C847BRecord@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/Rva005C847BRecordXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E79 11B $L6433 -- matched in Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E84 11B $L6434 -- matched in Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E8F 11B $L6435 -- matched in Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0E9A 10B $L6436 -- matched in Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp (not merged yet)
+
+// tu-skeleton: 0x007A0EA4 10B __ehhandler$??0Rva005C8624Element@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva005C8624ElementCopy.cpp (not merged yet)

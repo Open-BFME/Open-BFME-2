@@ -43877,7 +43877,7 @@ _rva005DE059,,0x005DE059,47,Code/GameEngine/Source/Common/Rva005DE059Loop.cpp,ma
 ?rva00319610@Rva00319610@@QAEXXZ,,0x00319610,61,Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp,matched,unlock caller 0x002B3D4A inner element plus pins 0x318C32 0x31912E plus rowed 0x3F02E4 0x3F2739
 ?rva004E7B0C@Rva004E7B0CHolder@@QAEXXZ,,0x004E7B0C,7,Code/GameEngine/Source/Common/Rva004E7B0C.cpp,matched,leaf LINK BONUS 64B via holder plus callers 0x004CC60F
 ?Update@Rva005CFA87@@UAEXXZ,,0x005CFE30,62,Code/GameEngine/Source/Common/Rva005CFE30VSlot.cpp,matched,vslot1 of 0x008752DC time-guarded new 8B plus rowed 0x00575674
-?method_005C901B@Rva005C847BRecord@@QAEXXZ,,0x005C901B,15,Code/GameEngine/Source/Common/HostClass005C815B.cpp,matched,chain wrapper calls rowed 0x005C8F17 then and word at 0x44
+?method_005C901B@Rva005C847BRecord@@QAEXXZ,,0x005C901B,15,Code/GameEngine/Source/Common/HostClass005C8E0A.cpp,matched,chain wrapper calls rowed 0x005C8F17 then and word at 0x44
 ?rva0027D276@Rva0027D244@@QAEXPAV1@0@Z,,0x0027D276,151,Code/GameEngine/Source/GameLogic/Map/TerrainLogic.cpp,matched,chain sibling Rva0027D1EF plus Pathfinder rows
 ?rva004F941E@Rva004F941E@@QAEXABURva004F9018Element@@@Z,,0x004F941E,33,Code/Libraries/Source/WWVegas/WWLib/StlportVectorAppendTriple004F941E.cpp,matched,append triple via rowed push_back 0x4F9018 and pin 0x4F7767
 ?Create_GDI_Font@FontCharsClass@@AAEXPBD@Z,,0x00154630,488,Code/Libraries/Source/WWVegas/WW3D2/FontCharsClassCreateGDIFont.cpp,matched,FontCharsClass::Create_GDI_Font BFME2 variant; old font kept in a select-font struct slot like retail; screen DC from cached globals at 0xDF6F24
