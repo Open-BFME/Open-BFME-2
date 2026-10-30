@@ -54,6 +54,17 @@ extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondB
   // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
 extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
 #include <string.h>
+#include "ascii_string.h"
+#include "Coord3D.h"
+struct Rva0087E650Bounds { Coord3D lo,hi; };
+class GeometryInfo { public: void rva0087E650(Rva0087E650Bounds*); };
+struct FakePortalOwnerView {
+ char pad[0x38];Coord3D position;float angle;char pad48[0x74-0x48];unsigned id;
+ char pad78[0x104-0x78];GeometryInfo *geometry;
+};
+#define inline static inline
+#include <math.h>
+#undef inline
 
 // ?getModuleNameKey@FakePathfindPortalBehaviour@@UBE?AW4NameKeyType@@XZ @0x4619AD
 // (69B): cached pool-name key for FakePathfindPortalBehaviour. The class
@@ -308,7 +319,11 @@ static int s_secondary20;
 
 static int s_secondary24;
 
+static float s_fakePortalWaypointMargin=10.0f;
+
 // tu-skeleton: 0x0046183B 112B ?rva0046183B@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviour.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourXfer.cpp
 
@@ -354,8 +369,6 @@ void FakePathfindPortalBehaviour::regWaypointsWithPathfinder()
 	TheAI->m_10->AddPortal(m_28[1]);
 	m_32 = true;
 }
-
-// tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourSlot0.cpp
 
@@ -435,6 +448,8 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 	memset(m_28, 0, 8);
 }
 
+// tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x004619A7 6B ?Rva004619A7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004619F2 84B ??1FakePathfindPortalBehaviour@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
@@ -443,7 +458,56 @@ FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const Mod
 
 // tu-skeleton: 0x00461C03 28B ??_GFakePathfindPortalBehaviour@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00461C1F 406B ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourRva00461C1F.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourRva00461C1F.cpp
+
+// ?rva00461C1F@FakePathfindPortalBehaviour@@QAEXXZ
+//
+// Class views follow FakePathfindPortalBehaviour.cpp, this unit's TU: the
+// UpdateModule base with two novtable interface bases at +0x20/+0x24
+// (layout from the rowed ctor 0x461944).
+
+// Keep the MSVC float overloads local; their inlined operations stay retail-exact.
+
+ // native .data RVA9C972C; descriptive name is inferred
+// Native primary entry461C1F..461DB5 is independently decoded and reached
+// from461DB5. Old no-boundary verdict used different bytes; current entry
+// begins PUSH EBP. Geometry provider/BFME1 proves six-float bounds output.
+void FakePathfindPortalBehaviour::rva00461C1F()
+{
+ if(m_30) return;
+ float angle=m_owner->angle;
+ Rva0087E650Bounds bounds;
+ m_owner->geometry->rva0087E650(&bounds);
+ float radius=bounds.lo.x;
+ if(!(radius>0.0f)) radius=bounds.hi.x;
+ struct PortalVector {
+ float x,y,z;
+ PortalVector(float a,float b,float c):x(a),y(b),z(c){}
+ __forceinline void rotate(float ca,const float &sa) {
+  float tmp_x=x;float tmp_y=y;
+  x=ca*tmp_x-sa*tmp_y;
+  y=sa*tmp_x+ca*tmp_y;
+ }
+ };
+ PortalVector offset(radius+s_fakePortalWaypointMargin,0.0f,0.0f);
+ float sine;
+ offset.rotate((sine=sin(angle),cos(angle)),sine);
+ struct PortalCoord : Coord3D { PortalCoord(const PortalVector &portalVector) {x=portalVector.x;y=portalVector.y;z=portalVector.z;} };
+ PortalCoord point(offset);
+ point.x+=m_owner->position.x;
+ point.y+=m_owner->position.y;
+ point.z=TheTerrainLogic->getGroundHeight(point.x,point.y,0);
+ ((Waypoint**)m_28)[0]=rva00461A46(&point);
+ point.x=0.0f-offset.x;point.y=0.0f-offset.y;point.z=0;
+ point.x+=m_owner->position.x;
+ point.y+=m_owner->position.y;
+ point.z=TheTerrainLogic->getGroundHeight(point.x,point.y,0);
+ ((Waypoint**)m_28)[1]=rva00461A46(&point);
+ ((Waypoint**)m_28)[0]->addLink(((Waypoint**)m_28)[1]);
+ ((Waypoint**)m_28)[1]->addLink(((Waypoint**)m_28)[0]);
+ regWaypointsWithPathfinder();
+ m_30=true;
+}
 
 // tu-skeleton: 0x00461DC7 118B ?update@FakePathfindPortalBehaviour@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourUpdate.cpp (not merged yet)
 
