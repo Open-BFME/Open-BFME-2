@@ -22,8 +22,19 @@ class ModuleData;
 
 #include "../../../../Include/GameLogic/Module/DieModule.h"
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class DamageInfo;
+class Object;
 class HeroDie : public DieModule
 {
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+private:
+	static int rva004C2299(Object *obj, void *userData);
 public:
 	HeroDie(Thing *thing, const ModuleData *moduleData);
 };

@@ -26,10 +26,22 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class HeroDie
+class Thing;
+class ModuleData;
+class Object;
+class DamageInfo;
+
+#include "../../../../Include/GameLogic/Module/DieModule.h"
+
+class HeroDie : public DieModule
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo *damageInfo);
+private:
+	static int rva004C2299(Object *obj, void *userData);
+public:
+	HeroDie(Thing *thing, const ModuleData *moduleData);
 };
 
 //
