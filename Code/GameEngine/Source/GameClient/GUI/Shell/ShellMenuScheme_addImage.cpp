@@ -30,12 +30,12 @@ public:
 	void addImage( ShellMenuSchemeImage *schemeImage );
 private:
 	int m_00;
-	_STL::list<int> m_imageList; // +0x04
+	_STL::list<ShellMenuSchemeImage *> m_imageList; // +0x04
 };
 
 void ShellMenuScheme::addImage( ShellMenuSchemeImage *schemeImage )
 {
 	if( !schemeImage )
 		return;
-	m_imageList.push_back( *(int *)&schemeImage );
+	reinterpret_cast<_STL::list<int> &>(m_imageList).push_back( *(int *)&schemeImage );
 }

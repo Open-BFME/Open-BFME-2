@@ -18,7 +18,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-#include "GameClient/Shell.h"
 
 class W3DDisplay
 {
