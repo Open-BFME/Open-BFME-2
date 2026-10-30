@@ -2,7 +2,7 @@
 // UpgradeModule bases and its ModuleData, shared by RemoveUpgradeUpgrade.cpp
 // and the donors that merge into it. Layout: BehaviorModule +0 (vptr,
 // m_moduleData +4, m_object +8), BehaviorModuleInterface +0xC, UpgradeMux
-// +0x10 (state +0x14), UpgradeTail +0x18 (size 0x1C); retail ctor 0x004B7FA4
+// +0x10 (state +0x14), ModuleInterface +0x18 (size 0x1C); retail ctor 0x004B7FA4
 // and dtor 0x004B7F01 store the four vptrs at +0/+0xC/+0x10/+0x18.
 #ifndef REMOVEUPGRADEUPGRADEVIEW_H
 #define REMOVEUPGRADEUPGRADEVIEW_H
@@ -84,9 +84,9 @@ protected:
 	int state;
 };
 
-struct UpgradeTail { virtual void iface() {} };
+struct ModuleInterface { virtual void iface() {} };
 
-class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux, public UpgradeTail
+class UpgradeModule : public BehaviorModule, public BehaviorModuleInterface, public UpgradeMux, public ModuleInterface
 {
 public:
 	UpgradeModule(Thing *thing, const ModuleData *moduleData);
