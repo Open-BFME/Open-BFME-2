@@ -1,0 +1,54 @@
+[
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveInfoBool.cpp",
+    "facts_before": "887714685b4c80dca6d9a3ee0ce457cc5a024c6228c1db9aae73f20e69159df9",
+    "facts_after": "887714685b4c80dca6d9a3ee0ce457cc5a024c6228c1db9aae73f20e69159df9",
+    "references_before": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "references_after": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "counts": {
+      "comdats": 2,
+      "strong": 1,
+      "undefined": 3,
+      "weak": 0
+    }
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveInfoV2Bool.cpp",
+    "facts_before": "2525f9d26ee29a3a33b140a313b60882ca234d51d5c7c5959e80c31e5b1351d5",
+    "facts_after": "2525f9d26ee29a3a33b140a313b60882ca234d51d5c7c5959e80c31e5b1351d5",
+    "references_before": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "references_after": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "counts": {
+      "comdats": 2,
+      "strong": 1,
+      "undefined": 3,
+      "weak": 0
+    }
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveLinePropertiesBool.cpp",
+    "facts_before": "d87090ab46bc0a08cbffdd16aaa7d891bac160f922ed9c4795059ab61c30568e",
+    "facts_after": "d87090ab46bc0a08cbffdd16aaa7d891bac160f922ed9c4795059ab61c30568e",
+    "references_before": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "references_after": "3604a8799021cb3ae87074226d13d9346ad5b4c06a7bec159925087babb50228",
+    "counts": {
+      "comdats": 2,
+      "strong": 1,
+      "undefined": 3,
+      "weak": 0
+    }
+  },
+  {
+    "source": "Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterDefClassSaveW3DBool.cpp",
+    "facts_before": "53bb5a4cc6827561ccdb9f08ed52d82de40a2e1f9c5a28653a10d4ead65f66d8",
+    "facts_after": "53bb5a4cc6827561ccdb9f08ed52d82de40a2e1f9c5a28653a10d4ead65f66d8",
+    "references_before": "99a41e8d06856ad2d33a83d2cc05d04c6fc1d051f40a2cece88b363358e72028",
+    "references_after": "99a41e8d06856ad2d33a83d2cc05d04c6fc1d051f40a2cece88b363358e72028",
+    "counts": {
+      "comdats": 2,
+      "strong": 1,
+      "undefined": 2,
+      "weak": 0
+    }
+  }
+]
