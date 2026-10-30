@@ -1254,6 +1254,7 @@ class SplitLinkGuard:
 
     def __init__(self, tu, source, residual, residual_obj, carved, data_moved=(), root=ROOT, expected_source=None):
         self.tu, self.source, self.root = tu, source, Path(root)
+        self.files = (source, tu)          # the objects the split replaces at their link places
         self.residual, self.residual_obj = residual, residual_obj
         self.carved, self.data_moved = set(carved), set(data_moved)
         self.expected_source = expected_source
@@ -1301,7 +1302,7 @@ class SplitLinkGuard:
             if why:
                 return why
             self.original = {f: (self.root / f).read_bytes() if (self.root / f).exists() else None
-                             for f in (self.source, self.tu)}
+                             for f in self.files}
             if self.expected_source is not None and self.original[self.source] != self.expected_source:
                 return "mixed source changed while planning the split; retry"
             self.rows, self.data = LCe.ledger(), LCe.data_ledger()
@@ -1334,7 +1335,7 @@ class SplitLinkGuard:
         if len(order) != len(set(order)):
             raise ValueError("split object-name collision")
         replacements = {r["obj"].name: r for r in records.values()}
-        affected = {self.guard.position(f) for f in (self.source, self.tu)} - {None}
+        affected = {self.guard.position(f) for f in self.files} - {None}
         visible = {name for i, name in enumerate(index["objects"]) if i not in affected}
         objects = [name for name in order if name in visible or name in replacements]
         if not replacements.keys() <= set(objects):
@@ -1525,6 +1526,51 @@ class SplitLinkGuard:
             return failures
         except (OSError, ValueError, LCe.MissingObject) as error:
             return [f"split linking evidence unavailable: {error}"]
+
+
+class ShatterLinkGuard(SplitLinkGuard):
+    """SplitLinkGuard for a shatter: the mixed file leaves the link and every
+    destination TU's final object takes its own place; all are judged together,
+    so no intermediate residual has to link on its own."""
+
+    def __init__(self, tus, source, moves, data_moves, root=ROOT, expected_source=None):
+        super().__init__(tus[0], source, None, None, (), root=root, expected_source=expected_source)
+        self.tus, self.moves, self.data_moves = list(tus), dict(moves), dict(data_moves)
+        self.files = (source, *self.tus)
+
+    def judge_records(self, records):
+        """Why the shattered objects would not link, [] when they would.
+        `records`: {tu: self.record(tu, obj, text)} of every destination's final object."""
+        import link_census as LCe
+        try:
+            if self.before is None:
+                return ["shatter linking baseline was not prepared"]
+            if self.input_state() != self.inputs:
+                return ["shatter compiler/ledger inputs changed during verification; retry"]
+            if any(((self.root / f).read_bytes() if (self.root / f).exists() else None) != raw
+                   for f, raw in self.original.items()):
+                return ["shatter source changed during verification; retry"]
+            owner = {rva: tu for tu, rvas in self.moves.items() for rva in rvas}
+            rows = [dict(r, source=owner[r["target_rva"]]) if r["source"] == self.source and r["target_rva"] in owner
+                    else r for r in self.rows]
+            raw = (self.root / "reverse/data_rows.csv").read_bytes() if (self.root / "reverse/data_rows.csv").exists() else b""
+            names = {n: tu for tu, ids in self.data_moves.items() if ids for n in data_row_names(raw, set(ids))}
+            data = [dict(r, source=names[r["name"]]) if r["source"] == self.source and r["name"] in names else r
+                    for r in self.data]
+            after = self.view(records, rows, data)
+            found = self.findings(after, records)
+            failures = [f"{source}: a link-clean original would stop linking" for source, debt in found.items()
+                        if source in self.debt and not self.debt[source] and debt]
+            if self.source in self.debt and not self.debt[self.source] and any(found.values()):
+                failures.append(f"{self.source}: a link-clean original's rows would stop linking")
+            added = sum(found.values(), collections.Counter()) - sum(self.debt.values(), collections.Counter())
+            failures += [f"new {kind}: {item}" for kind, item in sorted(added, key=str)]
+            failures += self.outside_failures(after, records)
+            if self.input_state() != self.inputs:
+                failures.append("shatter compiler/ledger inputs changed during verification; retry")
+            return failures
+        except (OSError, ValueError, LCe.MissingObject) as error:
+            return [f"shatter linking evidence unavailable: {error}"]
 
 
 def header_queue_rows(root=ROOT):
@@ -2159,7 +2205,7 @@ class Carve:
         return iter((self.donor, self.residual))
 
 
-def carve(text, take, rowed=frozenset(), data_rowed=frozenset()):
+def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset(), keep=frozenset()):
     """The definitions at span indices `take` leave the file.
 
     Both texts keep every preprocessor line, declaration and comment, so each
@@ -2179,13 +2225,16 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset()):
         leave, the residual around the rest. A definition there that is not a
         row and that the compiler emits only where used (inline, a primary
         template, dllimport) stays on both sides, as the whole block used to; a
-        helper in an anonymous namespace has internal linkage."""
+        helper in an anonymous namespace has internal linkage;
+      * an external object in `own` that both sides use is defined by the
+        carved side instead (--shatter picks one owner per shared object);
+        spans in `keep` stay on both sides like the block definitions above."""
     spans = def_spans(text)
     scopes = span_scopes(text, spans)
     take = set(take)
     stay_all = set(range(len(spans))) - take
     shell = {i for i in stay_all if spans[i][3] == "def" and i not in rowed and scopes[i]
-             and DUPLICABLE.search(norm(spans[i][2].split("{")[0]))}
+             and DUPLICABLE.search(norm(spans[i][2].split("{")[0]))} | (set(keep) & stay_all)
     carved_text = "\n".join(spans[i][2] for i in sorted(take | shell) if spans[i][3] != "data")
     copies = set()
     changed = True
@@ -2220,6 +2269,10 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset()):
         used_out = names_used(ident, carved_text)
         used_in = names_used(ident, stay_text)
         if used_out and used_in:
+            if ident in own and not internal:
+                data_moved.append(ident)        # the carved side defines it (shatter's chosen owner)
+                residual_cuts.append((a, b))
+                continue
             if internal:
                 const = re.search(r"\bconst\b", norm(c).split("=")[0]) and ident not in data_rowed
                 if const:
@@ -2537,6 +2590,395 @@ def split(path, tu, dry_run=False, claim=True):
             report["trailer"] = (f"Verifier-Change: tu_skeleton --split moved escape-hatch counts from {path} to {tu}"
                                  " (totals kept; hatch_counters --update)")
     return report
+
+
+# ---------------------------------------------------------------- shatter
+# A mixed file carved into EVERY TU its rows are approved for at once, and
+# deleted: no residual has to stand on its own (a split's commonest refusal is
+# the residual losing a COMDAT only a carved body made it emit). Each unit is
+# verified alone and through the merge verifier, all final objects are judged
+# together by the link guard, and nothing is written until every unit passes.
+PRIMARY_TEMPLATE = re.compile(r"^template\s*<\s*[^>\s]")   # not `template <>`
+
+
+class ShatterPlan:
+    """units {tu: [rows]}, take {tu: {span}}, own {tu: {datum}}, riders [rows]
+    (unplaced COMDATs no definition spells: the first unit that emits one
+    matched takes it), notes [str]; refused: a reason, else None."""
+
+    def __init__(self, refused=None, **kw):
+        self.refused = refused
+        self.units, self.take, self.own = kw.get("units", {}), kw.get("take", {}), kw.get("own", {})
+        self.riders, self.notes, self.texts = kw.get("riders", []), kw.get("notes", []), kw.get("texts", {})
+        self.data_moves = kw.get("data_moves", {})
+        self.residual = kw.get("residual")       # the file itself, when unplaced definitions keep it
+
+
+def shatter_plan(text, rows, groups, data_rowed=frozenset(), here=None):
+    """Where every matched row and every definition of `text` goes when the file
+    `here` is carved into all the TUs of `groups` ({tu: rows}, breakdown(); ''
+    holds unplaced rows), and the per-unit texts.
+
+      * a row is carried by the one definition that spells it (identify()); one
+        no definition spells (an inline member, an STLport COMDAT) only has to be
+        emitted matched by its unit; a definition producing rows of two TUs, or
+        a row two definitions spell, refuses;
+      * an unplaced row rides with the TU owning its definition; one with no
+        definition, or a primary template's (an instantiation), is a rider (the
+        first unit that emits it matched takes it); one whose definition no TU
+        owns stays in `here`, which then remains as one more unit (the
+        residual), verified with the others. Primary templates, and types the
+        chunker read as bodies, stay in every unit;
+      * a definition that is not a row and has external linkage goes to the one
+        unit whose bodies call it, else beside the owned definition before it;
+        two calling units refuse. Internal helpers are copied by carve() as usual;
+      * an external object used by several units is defined by the first of them
+        in file order and declared `extern` by the others; one no unit uses is
+        dropped, unless a data row owns it (refuses)."""
+    spans = def_spans(text)
+    scopes = span_scopes(text, spans)
+    ids = identify(rows, spans, scopes)
+    rowed = {i for v in ids.values() for i in v}
+    dtors = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
+    tus = sorted(t for t in groups if t)
+    # a primary template is every unit's: its instantiations are emitted where used
+    templ = {i for i, (_, _, body, kind) in enumerate(spans) if kind == "def" and PRIMARY_TEMPLATE.match(norm(body))}
+    owner, units, riders = {}, {t: [] for t in tus}, []
+    for t in tus:
+        for r in groups[t]:
+            units[t].append(r)
+            if parent_of(r, dtors):
+                continue                      # rides with its parent (breakdown placed it there)
+            cands = ids[r["target_rva"]]
+            if len(cands) > 1:
+                return ShatterPlan(f"{r['target_rva']} {r['name']}: {len(cands)} definitions spell its name")
+            if not cands or cands[0] in templ:
+                continue                      # the unit must emit it matched: checked when verified
+            other = owner.setdefault(cands[0], t)
+            if other != t:
+                return ShatterPlan(f"{r['target_rva']}: its definition also produces rows of {other}")
+    stay = []
+    for r in groups.get("", []):
+        cands = ids[r["target_rva"]]
+        if not cands or (len(cands) == 1 and cands[0] in templ):
+            riders.append(r)
+        elif len(cands) == 1 and owner.get(cands[0], here) != here:
+            units[owner[cands[0]]].append(r)
+        elif len(cands) == 1 and here:
+            owner[cands[0]] = here            # an unplaced definition keeps the file as the residual unit
+            stay.append(r)
+        else:
+            return ShatterPlan(f"unplaced row {r['target_rva']} {r['name']}: "
+                               + ("the map must place it first" if len(cands) == 1 else
+                                  f"{len(cands)} definitions spell its name"))
+    if stay:
+        tus = tus + [here]
+        units[here] = stay
+    order = sorted(owner, key=lambda i: spans[i][0])
+    owned_text = {t: "\n".join(spans[i][2] for i in order if owner[i] == t) for t in tus}
+    notes, shared = [], set()
+    for i, (a, _, body, kind) in enumerate(spans):
+        if i in templ:
+            shared.add(i)
+            continue
+        if i in owner or i in rowed or kind == "data":
+            continue
+        hn = head_names(body) if kind == "def" else None
+        if kind == "def" and hn is None:
+            shared.add(i)                     # a type the chunker read as a body, a primary template: everyone's
+            continue
+        if kind == "def" and (INTERNAL.search(norm(body.split("{")[0])) or "" in scopes[i]
+                              or (scopes[i] and DUPLICABLE.search(norm(body.split("{")[0])))):
+            continue                          # carve() copies or keeps it where it is needed
+        callers = [t for t in tus if hn and re.search(r"(?<![\w.>])%s\s*\(" % re.escape(hn[1]),
+                                                       code_only(owned_text[t]))]
+        if len(callers) > 1:
+            return ShatterPlan(f"external helper {hn[1]} is called by {callers[0]} and {callers[1]}")
+        before = [j for j in order if spans[j][0] < a]
+        t = callers[0] if callers else owner[before[-1]] if before else owner[order[0]] if order else tus[0]
+        owner[i] = t
+        owned_text[t] += "\n" + body
+        notes.append(f"unrowed {(hn or (None, body.strip()[:40]))[1]} goes with {t}")
+    take = {t: {i for i, o in owner.items() if o == t} for t in tus}
+    datums = list(data_decls(text))
+    for i, (a, b, c, kind) in enumerate(spans):
+        if kind == "data":
+            m = re.search(r"([A-Za-z_]\w*)\s*(?:\[[^\]]*\]\s*)*$",
+                          re.sub(r"__declspec\s*\([^)]*\)", " ", norm(c.split("=")[0])).strip())
+            if m:
+                datums.append((a, b, c, m.group(1), False))
+    own = {t: set() for t in tus}
+    for a, _, c, ident, internal in sorted(datums):
+        users = [t for t in tus if names_used(ident, owned_text[t])]
+        if not users and ident in data_rowed:
+            return ShatterPlan(f"data row {ident} is used by no unit's bodies")
+        if len(users) > 1 and not internal:
+            own[users[0]].add(ident)
+            notes.append(f"{ident} is defined in {users[0]}, extern in " + ", ".join(users[1:]))
+    lost = sorted(rowed - set(owner) - shared)
+    if lost:
+        return ShatterPlan("a definition no unit takes: " + str(head_names(spans[lost[0]][2]) or spans[lost[0]][2][:40]))
+    texts, data_moves = {}, {}
+    for t in tus:
+        cv = carve(text, take[t], rowed, data_rowed, frozenset(own[t]), frozenset(shared))
+        if cv.refused:
+            return ShatterPlan(f"{t}: {cv.refused}")
+        texts[t] = cv.donor
+        data_moves[t] = cv.data_moved
+    return ShatterPlan(units=units, take=take, own=own, riders=riders, notes=notes, texts=texts,
+                       data_moves=data_moves, residual=here if stay else None)
+
+
+def shatter_keyed(path, root=ROOT):
+    """Why `path` cannot simply disappear, [] when nothing but its rows names it:
+    protected registers (the hatch register is rewritten by --update), the header
+    queue and fold proofs key a unit, not a row."""
+    raws = {rel: (Path(root) / rel).read_bytes() for rel in rename.PROTECTED_PATH_KEYED
+            if rel != HATCH_REGISTER and (Path(root) / rel).exists()}
+    out = [f"{rel}: {line[:100]}" for rel, line in vanished(raws, {path})]
+    if header_queue_rows(root).get(path):
+        out.append("reverse/header_queue.tsv: " + ", ".join(header_queue_rows(root)[path][:3]))
+    pins = Path(root) / "reverse/symbols.csv"
+    if pins.exists() and repoint_fold_proofs(pins.read_bytes(), {path}, "x")[1]:
+        out.append("reverse/symbols.csv: a fold proof names it")
+    return out
+
+
+def shatter_repoint(raws, path, moves, data_moves, tus, stays=frozenset()):
+    """{rel: new raw} with each moved row's path-keyed columns pointed at its TU,
+    and [(rel, n)] of references to `path` left over (any leftover refuses).
+    `stays`: rvas of rows a residual keeps; with a residual, data rows may stay too."""
+    out = {}
+    for rel, keycol in ROW_KEYED:
+        if rel in raws:
+            raw = raws[rel]
+            for t in tus:
+                raw, _ = repoint_rows(raw, rel, keycol, set(moves[t]), "source", path, t)
+            out[rel] = raw
+    rel = "reverse/data_rows.csv"
+    if rel in raws:
+        raw = raws[rel]
+        for t in tus:
+            names = data_row_names(raw, set(data_moves.get(t, ()))) if data_moves.get(t) else set()
+            if names:
+                raw, _ = repoint_rows(raw, rel, "name", names, "source", path, t)
+        out[rel] = raw
+    left = []
+    keyed = dict(ROW_KEYED)
+    for rel, column in rename.PATH_COLUMNS:
+        raw = out.get(rel, raws.get(rel))
+        if raw is None or (stays and rel == "reverse/data_rows.csv"):
+            continue
+        n = rename.repoint_column(raw, rel, column, path, path + ".left")[1]
+        if stays and rel in keyed:
+            n -= repoint_rows(raw, rel, keyed[rel], set(stays), "source", path, path + ".left")[1]
+        if n:
+            left.append((rel, n))
+    return out, left
+
+
+def shatter(path, dry_run=False, claim=True):
+    report = {"file": path}
+    rows = file_rows(path)
+    if not rows:
+        report["blocked"] = "no matched rows in that file"
+        return report
+    why = refusal(path, rows)
+    if why and not why.startswith("keyed in a protected"):
+        report["blocked"] = "file cannot be shattered: " + why
+        return report
+    original_bytes = (ROOT / path).read_bytes()
+    text = original_bytes.decode("utf-8-sig", errors="replace").replace("\r\n", "\n").replace("\r", "\n")
+    if "__FILE__" in strip(text):
+        report["blocked"] = "file cannot be shattered: expands __FILE__ (the path reaches its bytes)"
+        return report
+    inc = included_by(path)
+    if inc:
+        report["blocked"] = "file cannot be shattered: #included by " + ", ".join(inc[:3])
+        return report
+    keyed = shatter_keyed(path)
+    if keyed:
+        report["blocked"] = "keyed by unit, not by row (retire or transfer first): " + "; ".join(keyed[:3])
+        return report
+    groups = breakdown(path)
+    tus = sorted(t for t in groups if t)
+    report["tus"] = tus
+    if not tus:
+        report["blocked"] = "no row of that file is approved for a TU"
+        return report
+    plan_ = shatter_plan(text, rows, groups, data_rowed_idents(path), here=path)
+    if plan_.refused:
+        report["blocked"] = plan_.refused
+        return report
+    if len(tus) < 2 and not plan_.residual:
+        report["blocked"] = "every placed row is one TU's and nothing stays: use --merge"
+        return report
+    report["notes"] = plan_.notes
+    report["residual"] = bool(plan_.residual)
+    units_all = tus + ([path] if plan_.residual else [])   # the residual is one more unit, verified with the rest
+    existing = {t: (ROOT / t).read_text(encoding="utf-8", errors="replace") for t in tus if (ROOT / t).exists()}
+    for t in existing:
+        own = file_rows(t)
+        assigned = _CACHE["assigned"]
+        wrong = [r for r in own if assigned.get(int(r["target_rva"], 16)) not in (t.lower(), None)]
+        if wrong:
+            report["blocked"] = f"{t} holds rows the map places elsewhere (split it first): {wrong[0]['target_rva']}"
+            return report
+    texts = {t: relocate_includes(plan_.texts[t], posixpath.dirname(path), posixpath.dirname(t)) for t in units_all}
+    hatches = shatter_hatches(path, text, existing, texts)
+    if hatches is None:
+        report["blocked"] = "an escape-hatch count would grow (hatch_counters rule 3): a duplicated line carries one"
+        return report
+    # every unit alone, under its own TU's flags; riders go to the first unit emitting them matched
+    units = {t: list(plan_.units[t]) for t in units_all}
+    riders = list(plan_.riders)
+    for t in units_all:
+        (ROOT / t).parent.mkdir(parents=True, exist_ok=True)
+        vt = Verifier(t)
+        got = vt.matched(texts[t], units[t] + riders)
+        if got is None:
+            report["blocked"] = f"{t}: the carved bodies do not compile beside the TU: " + " | ".join(vt.errors)[:300]
+            return report
+        missing = [r["target_rva"] for r in units[t] if r["target_rva"] not in got]
+        if missing:
+            report["blocked"] = f"{t}: rows match only under the mixed file's own flags: " + ", ".join(missing[:5])
+            return report
+        took = [r for r in riders if r["target_rva"] in got]
+        units[t] += took
+        riders = [r for r in riders if r not in took]
+    if riders:
+        report["blocked"] = "unplaced COMDATs no unit emits matched: " + ", ".join(r["target_rva"] for r in riders[:5])
+        return report
+    moves = {t: [r["target_rva"] for r in units[t]] for t in tus}
+    stays = {r["target_rva"] for r in units.get(path, [])}
+    raws = {rel: (ROOT / rel).read_bytes() for rel, _ in rename.PATH_COLUMNS if (ROOT / rel).exists()}
+    new_raws, left = shatter_repoint(raws, path, moves, plan_.data_moves, tus, stays)
+    if left:
+        report["blocked"] = "rows the shatter does not carry still name the file: " + \
+            ", ".join(f"{rel} {n}" for rel, n in left)
+        return report
+    guard = ShatterLinkGuard(tus, path, moves, {t: plan_.data_moves[t] for t in tus}, root=ROOT,
+                             expected_source=original_bytes)
+    guard.load()
+    why = guard.prepare({path: rows, **{t: file_rows(t) for t in existing}})
+    if why:
+        report["blocked"] = f"link guard: {why}"
+        return report
+    finals, records, report["units"] = {}, {}, {}
+    if plan_.residual:              # the residual is written as carved: no merge, its own path and flags
+        v = Verifier(path)
+        got = v.matched(texts[path], units[path])
+        if got is None or not stays <= got:
+            report["blocked"] = "the residual does not re-verify"
+            return report
+        finals[path] = texts[path]
+        records[path] = guard.record(path, v.obj, texts[path])
+        report["units"][path] = len(units[path])
+    for t in tus:
+        don = {path: units[t]}
+        if t in existing:
+            don[t] = file_rows(t)
+        rep = {"file": path, "tu": t, "accepted": [], "rejected": {}}
+        rep = _merge(t, skeleton(t), don, rep, True, texts={path: texts[t]}, applier=lambda *a: {})
+        if "blocked" in rep or "text" not in rep:
+            report["blocked"] = f"{t}: " + rep.get("blocked", "the carved bodies do not verify in the TU") + \
+                (": " + str(rep.get("rejected", {}).get(path, ""))[:200] if rep.get("rejected", {}).get(path) else "")
+            return report
+        need = [r for f in don for r in don[f]]
+        v = Verifier(t)
+        got = v.matched(rep["text"], need)
+        if got is None or not {r["target_rva"] for r in need} <= got:
+            report["blocked"] = f"{t}: the merged unit does not re-verify"
+            return report
+        finals[t] = rep["text"]
+        records[t] = guard.record(t, v.obj, rep["text"])
+        report["units"][t] = len(units[t])
+    failures = guard.judge_records(records)
+    if failures:
+        report["blocked"] = "link: the shattered units would regress: " + "; ".join(failures[:3])[:300]
+        return report
+    report["verified"] = True
+    if dry_run:
+        return report
+    if claim:
+        held = claim_scope(tus[0], {path: rows, **{t: [] for t in tus[1:]}})
+        if held:
+            claims.release(claim_keys(tus[0], {path: rows, **{t: [] for t in tus[1:]}}))
+            report["blocked"] = held_message(held)
+            return report
+    report["staged"] = apply_shatter(path, finals, new_raws, bool(hatches))
+    report["subject"] = (f"Shatter {posixpath.basename(path)} into {len(tus)} TUs "
+                         f"({sum(len(units[t]) for t in tus)} rows, tu_map approved TUs"
+                         + (f"; {len(stays)} unplaced rows stay" if stays else "") + ")")
+    if hatches:
+        report["trailer"] = (f"Verifier-Change: tu_skeleton --shatter moved escape-hatch counts from {path} "
+                             "to its TUs (totals kept; hatch_counters --update)")
+    return report
+
+
+def shatter_hatches(path, before, existing, texts):
+    """{(hatch, token): count} moved out of `path`, or None when any per-(hatch,
+    token) total over the file and its TUs would grow (hatch_counters rule 3)."""
+    try:
+        import hatch_counters as H
+    except ImportError:
+        return {}
+
+    def totals(counter):
+        out = collections.Counter()
+        for (hatch, _p, token), n in counter.items():
+            out[(hatch, token)] += n
+        return out
+    old = totals(H.scan(path, before))
+    new = collections.Counter()
+    for t, donor in texts.items():
+        old += totals(H.scan(t, existing.get(t, "")))
+        new += totals(H.scan(t, existing.get(t, "") + "\n" + donor))
+    if any(new[k] > old.get(k, 0) for k in new):
+        return None
+    return {k: n for k, n in totals(H.scan(path, before)).items() if n}
+
+
+def apply_shatter(path, finals, raws, hatches, root=ROOT):
+    """Write every TU, repoint the moved rows, delete the mixed file (or write
+    its residual, when `finals` holds one under its own path), stage it all."""
+    stays = path in finals
+    if hatches:
+        others = dirty_others(root, set(finals) | {path})
+        if others:
+            raise SystemExit("tu_skeleton: the hatch register is rewritten from the whole tree; commit or stash "
+                             "the other modified files first: " + ", ".join(others[:5]))
+    moved = []
+    for rel, raw in raws.items():
+        p = Path(root) / rel
+        if p.read_bytes() != raw:
+            p.write_bytes(raw)
+            moved.append(rel)
+    cfg = Path(root) / rename.SOURCES_CFG
+    if cfg.exists():
+        raw = cfg.read_bytes()
+        for t in sorted(finals):
+            raw, _ = ensure_sources_cfg(raw, t)
+        if not stays:
+            raw, _ = repoint_sources_cfg(raw, {path}, sorted(finals)[0])
+        if raw != cfg.read_bytes():
+            cfg.write_bytes(raw)
+            moved.append(rename.SOURCES_CFG)
+    for t, text in finals.items():
+        (Path(root) / t).parent.mkdir(parents=True, exist_ok=True)
+        (Path(root) / t).write_text(text, encoding="utf-8", newline="\n")
+    for t, text in finals.items():
+        if t != path:
+            moved += [rel for rel in refresh_reports(root, [] if stays else [path], t, text) if rel not in moved]
+    if not stays:
+        subprocess.run(["git", "rm", "-q", "--", path], cwd=root, check=True)
+    subprocess.run(["git", "add", "--", *sorted(finals), *moved], cwd=root, check=True)
+    if hatches:
+        subprocess.run([sys.executable, "tools/hatch_counters.py", "--update"], cwd=root, check=True)
+        subprocess.run(["git", "add", "--", HATCH_REGISTER], cwd=root, check=True)
+        moved.append(HATCH_REGISTER)
+    _CACHE.clear()
+    return sorted(finals) + moved + ([] if stays else [path + " (deleted)"])
 
 
 def data_rowed_idents(path):
@@ -3146,6 +3588,8 @@ def main(argv=None):
     g.add_argument("--plan", metavar="TU")
     g.add_argument("--merge", metavar="TU")
     g.add_argument("--split", metavar="FILE", help="carve the rows approved for --for TU out of a mixed FILE")
+    g.add_argument("--shatter", metavar="FILE",
+                   help="carve a mixed FILE into every TU its rows are approved for, verified together, and delete it")
     g.add_argument("--merge-all", action="store_true",
                    help="merge every queued TU (tools/merge_all.py): parallel worktrees, a decision queue")
     ap.add_argument("--for", dest="for_tu", metavar="TU", help="with --split: the destination TU (omit to list)")
@@ -3173,6 +3617,11 @@ def main(argv=None):
         list_tus(a.list)
     elif a.plan:
         plan(a.plan)
+    elif a.shatter:
+        rep = shatter(a.shatter, a.dry_run, claim=not a.no_claim)
+        for k, val in rep.items():
+            print(f"{k}: {val}")
+        return 0 if rep.get("subject") or (a.dry_run and rep.get("verified")) else 2
     elif a.split:
         if not a.for_tu:
             for tu, rows in sorted(breakdown(a.split).items(), key=lambda kv: -len(kv[1])):

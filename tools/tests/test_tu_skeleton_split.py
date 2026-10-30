@@ -466,6 +466,129 @@ class FuncletDonorTests(unittest.TestCase):
         self.assertEqual(T.placed_elsewhere("Code/W3DView.cpp", own, assigned), {"w3dshadermanager.cpp": 1})
 
 
+SHATTER = """// cl: /MD
+#include "x.h"
+int g_shared = 0;
+static int s_only;
+int unrowedHelper(int x) { return x + g_shared; }
+template <class T> T twice(T v) { return v + v; }
+static int deep(int x) { return x * 3; }
+void A::a() { g_shared++; unrowedHelper(1); deep(2); }
+void A::a2() { s_only++; }
+void B::b() { g_shared--; deep(4); }
+void C::c() { twice(3); }
+"""
+
+
+def shatter_groups(extra_unplaced=()):
+    a = rows(("?a@A@@QAEXXZ", "0x10"), ("?a2@A@@QAEXXZ", "0x20"))
+    b = rows(("?b@B@@QAEXXZ", "0x30"))
+    c = rows(("?c@C@@QAEXXZ", "0x40"))
+    un = rows(("??1Inline@@QAE@XZ", "0x50"), ("??$twice@H@@YAHH@Z", "0x60")) + list(extra_unplaced)
+    return {"Code/A.cpp": a, "Code/B.cpp": b, "Code/C.cpp": c, "": un}
+
+
+class ShatterPlanTests(unittest.TestCase):
+    """--shatter: every row and definition of a mixed file finds one unit; no residual."""
+
+    def plan(self, text=SHATTER, groups=None, data_rowed=frozenset()):
+        groups = groups or shatter_groups()
+        rs = [r for v in groups.values() for r in v]
+        return T.shatter_plan(text, rs, groups, data_rowed)
+
+    def test_every_row_finds_a_unit_and_comdats_ride(self):
+        p = self.plan()
+        self.assertIsNone(p.refused)
+        self.assertEqual({t: [r["target_rva"] for r in u] for t, u in p.units.items()},
+                         {"Code/A.cpp": ["0x10", "0x20"], "Code/B.cpp": ["0x30"], "Code/C.cpp": ["0x40"]})
+        self.assertEqual([r["target_rva"] for r in p.riders], ["0x50", "0x60"])   # no definition / a template's
+
+    def test_each_unit_text_holds_its_bodies_and_what_they_need(self):
+        p = self.plan()
+        a, b, c = p.texts["Code/A.cpp"], p.texts["Code/B.cpp"], p.texts["Code/C.cpp"]
+        self.assertIn("void A::a()", a)
+        self.assertIn("void A::a2()", a)
+        self.assertNotIn("void B::b()", a)
+        self.assertIn("int unrowedHelper", a)            # its only caller's unit takes the external helper
+        self.assertNotIn("int unrowedHelper", b)
+        self.assertIn("int g_shared = 0;", a)            # the first user defines the shared object ...
+        self.assertIn("extern int g_shared;", b)          # ... the others declare it
+        self.assertNotIn("g_shared", c)
+        self.assertIn("static int s_only;", a)
+        self.assertNotIn("s_only", b)
+        self.assertIn("static int deep", a)               # an internal helper is copied to each caller
+        self.assertIn("static int deep", b)
+        self.assertNotIn("static int deep", c)
+        for text in (a, b, c):                             # a primary template is everyone's
+            self.assertIn("template <class T> T twice", text)
+        self.assertEqual(p.data_moves["Code/A.cpp"], ["g_shared", "s_only"])
+
+    def test_a_row_without_a_unit_refuses(self):
+        text = SHATTER + "void zzz() { }\n"
+        p = self.plan(text, shatter_groups(rows(("?zzz@@YAXXZ", "0x70"))))
+        self.assertIn("map must place it first", p.refused or "")
+
+    def test_an_unplaced_definition_keeps_the_file_as_one_more_unit(self):
+        text = SHATTER + "void zzz() { }\n"
+        g = shatter_groups(rows(("?zzz@@YAXXZ", "0x70")))
+        rs = [r for v in g.values() for r in v]
+        p = T.shatter_plan(text, rs, g, here="Code/M.cpp")
+        self.assertIsNone(p.refused)
+        self.assertEqual(p.residual, "Code/M.cpp")
+        self.assertEqual([r["target_rva"] for r in p.units["Code/M.cpp"]], ["0x70"])
+        self.assertIn("void zzz()", p.texts["Code/M.cpp"])
+        self.assertNotIn("void A::a()", p.texts["Code/M.cpp"])
+        self.assertNotIn("void zzz()", p.texts["Code/A.cpp"])
+        self.assertIsNone(self.plan().residual)                      # nothing unplaced with a body: no residual
+
+    def test_a_placed_row_no_definition_spells_only_has_to_be_emitted(self):
+        g = shatter_groups()
+        g["Code/B.cpp"] = g["Code/B.cpp"] + rows(("?clear@?$vector@H@_STL@@QAEXXZ", "0x90"))
+        p = self.plan(groups=g)
+        self.assertIsNone(p.refused)
+        self.assertIn("0x90", [r["target_rva"] for r in p.units["Code/B.cpp"]])
+
+    def test_one_definition_in_two_units_refuses(self):
+        g = shatter_groups()
+        g["Code/B.cpp"] = g["Code/B.cpp"] + rows(("?a@A@@QAEXH@Z", "0x80"))   # an overload spelled by A::a's body
+        self.assertIn("also produces rows of", self.plan(groups=g).refused or "")
+
+    def test_an_external_helper_two_units_call_refuses(self):
+        text = SHATTER.replace("void B::b() { g_shared--;", "void B::b() { unrowedHelper(2); g_shared--;")
+        self.assertIn("unrowedHelper", self.plan(text).refused or "")
+
+    def test_a_data_row_no_unit_uses_refuses(self):
+        text = SHATTER.replace("static int s_only;", "static int s_only;\nint g_orphan = 1;")
+        self.assertIn("g_orphan", self.plan(text, data_rowed={"g_orphan"}).refused or "")
+
+
+class ShatterLedgerTests(unittest.TestCase):
+    def test_rows_repoint_per_unit_and_leftovers_are_reported(self):
+        raw = (HEADER + "?a@A@@QAEXXZ,,0x00000010,8,Code/M.cpp,matched,\n"
+               "?b@B@@QAEXXZ,,0x00000030,8,Code/M.cpp,matched,\n"
+               "?x@@YAXXZ,,0x00000090,8,Code/M.cpp,blocked,\n").encode()
+        moves = {"Code/A.cpp": ["0x00000010"], "Code/B.cpp": ["0x00000030"]}
+        out, left = T.shatter_repoint({"reverse/functions.csv": raw}, "Code/M.cpp", moves, {}, sorted(moves))
+        text = out["reverse/functions.csv"].decode()
+        self.assertIn("0x00000010,8,Code/A.cpp", text)
+        self.assertIn("0x00000030,8,Code/B.cpp", text)
+        self.assertEqual(left, [("reverse/functions.csv", 1)])     # the blocked row still names the file
+        _, left = T.shatter_repoint({"reverse/functions.csv": raw}, "Code/M.cpp", moves, {}, sorted(moves),
+                                    stays={"0x00000090"})
+        self.assertEqual(left, [])                                 # unless the residual keeps it
+
+    def test_hatch_totals_may_move_but_not_grow(self):
+        before = "int g_Rva00DE2000Flag;\nvoid A::a() { g_Rva00DE2000Flag = 1; }\nvoid B::b() { }\n"
+        moved = T.shatter_hatches("Code/M.cpp", before, {}, {
+            "Code/A.cpp": "int g_Rva00DE2000Flag;\nvoid A::a() { g_Rva00DE2000Flag = 1; }\n",
+            "Code/B.cpp": "void B::b() { }\n"})
+        self.assertTrue(moved)
+        grown = T.shatter_hatches("Code/M.cpp", before, {}, {
+            "Code/A.cpp": "int g_Rva00DE2000Flag;\nvoid A::a() { g_Rva00DE2000Flag = 1; }\n",
+            "Code/B.cpp": "extern int g_Rva00DE2000Flag;\nvoid B::b() { }\n"})
+        self.assertIsNone(grown)
+
+
 HEADER = "name,export_rva,target_rva,target_size,source,status,notes\n"
 
 

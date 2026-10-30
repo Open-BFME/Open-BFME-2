@@ -335,6 +335,40 @@ serves the split, compile-error and link-regression items as decisions. `--dry-r
 compiles but writes nothing, and prints how many TUs and files would merge now
 along with the blocker histogram; `--dry-run --static` reads the queue alone.
 
+## Shattering a mixed file into all its TUs
+
+    python3 tools/tu_skeleton.py --shatter FILE --dry-run
+    BFME_CLAIM_OWNER=<seat> python3 tools/tu_skeleton.py --shatter FILE
+
+`--shatter` carves FILE into every TU its rows are approved for in one
+transaction and deletes FILE, so no intermediate residual has to verify on its
+own (a split's commonest refusal is a residual that stops emitting a COMDAT only
+a carved body made it emit). It plans every row and definition first:
+
+1. A row goes with the one definition that spells it; one no definition spells
+   (an inline member, an STLport COMDAT) only has to be emitted matched by its
+   unit; a definition producing rows of two TUs, or a row two definitions
+   spell, refuses. An unplaced row rides with the TU owning its definition. One
+   with no definition, or a primary template's (an instantiation), rides with
+   the first unit that emits it matched. Unplaced rows with a definition of
+   their own stay in FILE, which then remains as one more unit (the residual)
+   verified and link-judged with the others instead of being deleted.
+2. An external helper that is not a row goes to the one unit that calls it,
+   else beside the owned definition before it; two calling units refuse.
+   Internal helpers are copied as in `--split`; primary templates, and types the
+   chunker reads as bodies, stay in every unit.
+3. An external object used by several units is defined by the first in file
+   order and declared `extern` by the rest; a data row no unit uses refuses.
+4. Anything keyed to FILE as a unit (protected registers other than the hatch
+   register, the header queue, a fold proof, a flag override), and any ledger
+   row the shatter does not carry, refuses.
+
+Then each unit is verified alone under its TU's flags (every row must match: there is no residual to
+stay in), then through the merge verifier into its TU file or a new one, then all final objects are
+judged together by the link guard with FILE gone from the link. A per-hatch total may move, never
+grow. Only when every unit passes does it write the TUs, repoint each moved row to its own TU, delete
+FILE and stage the result.
+
 ## What the lane does not do yet
 
 - **Mixed files** (a file holding rows of two TUs) are never split inside a
