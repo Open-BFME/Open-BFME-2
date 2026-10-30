@@ -15633,3 +15633,14 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|functio
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|function|0x0004E5A2|rva0004E5A2,1d15ef31aec435e235190ea8,gpt-6.1-sol,w4-10300701-6,w-eb83eac9adc1,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DRadarDrawEvents.cpp|local|Rva0004D835PingName|n,f19b256331527fdd1707aef9,gpt-6.1-sol,w4-10300701-6,w-eb83eac9adc1,2026-10-30
 Code/GameEngine/Source/Common/Rva004E37CFNamedReplace.cpp|function|0x004E37CF|rva004E37CF,4577d8606acd461a40a3bfd1,gpt-6.1-sol,w4-10300701-7,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/Common/Rva0030BD84.cpp|function|0x0030BD84|rva0030BD84,e4717a8dd70dd9be3c220f79,gpt-6.1-sol,w5-10300711-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0030BD84.cpp|function|0x0030BCBF|Rva0030BCBFEqual,f29002081ddb79ffa0b67bf4,gpt-6.1-sol,w5-10300711-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0030BD84.cpp|function|0x0030BD08|Rva0030BD08NotEqual,1468b2fcbe8ad276d7aa74dd,gpt-6.1-sol,w5-10300711-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007FCF10DescriptorLookups.cpp|class||Rva007FCF10Entry,4d1b53a8c621056f1d963078,gpt-6.1-sol,w5-10300711-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007FCF10DescriptorLookups.cpp|class||Rva007FCF10Message,c88ff1a6bf45bb7f115901df,gpt-6.1-sol,w5-10300711-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameNetwork/Rva007FCF10DescriptorLookups.cpp|class||Rva007FBAB0Codec,202a715e008bb05b77a061ad,gpt-6.1-sol,w5-10300711-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|class||Rva00032B00ChunkLocation,e037cbff149fbc2f4ae198f2,gpt-6.1-sol,w5-10300711-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|function|0x000334A0|rva000334A0,334f751d55484feaba4048cb,gpt-6.1-sol,w5-10300711-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|function|0x00032B00|rva00032B00,a9e670764f5ab458fa42b71d,gpt-6.1-sol,w5-10300711-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|n,12a8a382944a82111a287936,gpt-6.1-sol,w5-10300711-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva00031010Insert.cpp|param|Rva00032B00ChunkLocation|p,56611e86a68384cf924a17cb,gpt-6.1-sol,w5-10300711-4,w-f0819d403c17,2026-10-30
