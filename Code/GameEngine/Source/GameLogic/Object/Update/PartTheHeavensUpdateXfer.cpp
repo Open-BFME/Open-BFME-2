@@ -36,8 +36,40 @@ class Object;
 
 #include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+#include "../../../Common/GameLogicObjectLookupView.h"
+
+extern GameLogic *TheGameLogic;
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class BehaviorModuleInterface
+{
+public:
+	virtual void behaviorSlot();
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
 
 class UpdateModule : public ObjectModule,
 	public BehaviorModuleInterface, public UpdateModuleInterface
@@ -47,23 +79,41 @@ public:
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
 
+protected:
+	virtual void loadPostProcess();
+
 private:
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_updateState;
 };
 
+class PartTheHeavensUpdatePointee
+{
+public:
+	virtual void pointeeSlot0();
+	virtual void pointeeSlot1();
+	virtual void releasePointee();
+};
+
 class PartTheHeavensUpdate : public UpdateModule
 {
 public:
 	PartTheHeavensUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~PartTheHeavensUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 
 protected:
 	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 
 private:
-	unsigned int m_frame;
-	int m_spare24;
+	void rva004AC9FA(int elapsed);
+	void rva004ACADA();
+
+	unsigned int m_startFrame;	// +0x20
+	PartTheHeavensUpdatePointee *m_pointee;	// +0x24
 };
 
 void PartTheHeavensUpdate::xfer(Xfer *xfer)
@@ -72,5 +122,5 @@ void PartTheHeavensUpdate::xfer(Xfer *xfer)
 	if (xfer->IsLightCRC())
 		return;
 	xfer->Version1();
-	*xfer == m_frame;
+	*xfer == m_startFrame;
 }

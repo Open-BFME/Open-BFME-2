@@ -3298,7 +3298,6 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateCtor.
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedA@FireWeaponBaseA@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedB@FireWeaponBaseB@@EAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/OilSpillUpdateDtor.cpp	?unusedC@FireWeaponBaseC@@EAEXXZ	1
-alternatename	Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdate.cpp	?update@UpdateModuleInterface@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/PartTheHeavensUpdateModuleDataDtor.cpp	??1Rva002BB6BE20Rec@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	??0Rva00045411BitSet@@QAE@HHH@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdateQueryRallyOverride.cpp	?allow@Rva00265150RJFilter@@UAE_NPAVObject@@@Z	1
