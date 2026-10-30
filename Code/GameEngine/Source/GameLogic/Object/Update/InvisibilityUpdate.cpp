@@ -3,6 +3,23 @@
 #include "Code/GameEngine/Source/Common/PartitionRangeQueryCallView.h"
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include "Code/Libraries/Include/Lib/Coord3D.h"
+
+class PooledString;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "Code/GameEngine/Include/Common/BfmeXfer.h"
 #pragma intrinsic(_ReadWriteBarrier)
 
 extern "C" void _ReadWriteBarrier();
@@ -25,6 +42,16 @@ extern "C" void _ReadWriteBarrier();
 // sets +0x24 once; lowering clears +0x24.
 
 class Object;
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
 
 enum UpdateSleepTime
 {
@@ -75,10 +102,19 @@ public: virtual Rva004A3A09Iface *rva004A3877() = 0;
 protected:
  const InvisibilityUpdateModuleData *m_moduleData;
  Object *m_object;
- unsigned char m_pad0C[4];
 };
 
-class UpdateModule : public InvisibilityUpdatePrimary, public Rva004A3A20Interface {
+// +0x0C: the behavior module's second interface.
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+
+class UpdateModule : public InvisibilityUpdatePrimary, public BehaviorModuleOther, public Rva004A3A20Interface {
+public:
+ virtual ~UpdateModule();
+ void xfer(Xfer *xfer); // 0x0044DF9F, spelled as its row
 protected:
  void setWakeFrame(Object*,UpdateSleepTime);
  unsigned char m_pad14[12];
@@ -136,6 +172,10 @@ public:
  virtual UpdateSleepTime update();
 	static NameKeyType rva0004A393C();
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual ~InvisibilityUpdate();
+	virtual void Rva004A390B();
+	virtual void xfer(Xfer *xfer);
 private:
 	bool m_24; // +0x24
 };

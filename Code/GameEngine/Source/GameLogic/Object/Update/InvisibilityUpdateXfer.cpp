@@ -73,7 +73,7 @@ protected:
 	virtual void xfer(Xfer *xfer);
 
 private:
-	bool m_stealth24;
+	bool m_24;
 };
 
 void InvisibilityUpdate::xfer(Xfer *xfer)
@@ -82,6 +82,6 @@ void InvisibilityUpdate::xfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 	if (version.m_minimum >= 2) {
-		*xfer == m_stealth24;
+		*xfer == m_24;
 	}
 }

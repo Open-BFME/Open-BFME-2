@@ -67,12 +67,12 @@ class InvisibilityUpdate : public UpdateModule, public TrailingModuleInterface
 protected:
 	virtual void Rva004A390B();
 private:
-	unsigned char m_stealth24;
+	unsigned char m_24;
 };
 
 void InvisibilityUpdate::Rva004A390B()
 {
-	if (m_stealth24 != 0) {
+	if (m_24 != 0) {
 		Object *obj = m_object;
 		int delay = ((Iface10 *)((char *)this + 0x10))->fetchDelay();
 		setWakeFrame(obj, (UpdateSleepTime)delay);
