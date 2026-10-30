@@ -66,40 +66,21 @@ public:
 	int tagValue;
 };
 
-class Team
-{
-public:
-	virtual void *deleteInstance(int flags);
-
-protected:
-	virtual void loadPostProcess();
-
-public:
-	// Preserve the inlined test; use the verified external out-of-line provider.
-	__declspec(dllimport) __forceinline bool isInList_TeamMemberList(Object *o) const
-	{
-		return o->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList);
-	}
-
-private:
-	unsigned char m_pad04[0x38 - 0x04];
-	Object *m_dlinkhead_TeamMemberList; // +0x38
-	unsigned char m_pad3C[0x12C - 0x3C];
-	_STL::list<int, _STL::allocator<int> > m_xferMemberIDList; // +0x12C
-};
+#include "../../../Include/Common/TeamBFME2.h"
 
 void Team::loadPostProcess()
 {
+	_STL::list<int, _STL::allocator<int> > &xferMemberIDs = *(_STL::list<int, _STL::allocator<int> > *)m_opaque12C;
 	_STL::list<int, _STL::allocator<int> >::const_iterator it;
 	Object *obj;
-	_STL::list<int, _STL::allocator<int> >::const_iterator end = m_xferMemberIDList.end();
-	for (it = m_xferMemberIDList.begin(); it != end; ++it)
+	_STL::list<int, _STL::allocator<int> >::const_iterator end = xferMemberIDs.end();
+	for (it = xferMemberIDs.begin(); it != end; ++it)
 	{
 		obj = TheGameLogic->findObjectByID((ObjectID)*it);
 		if (obj == 0)
 			throw XferException(5, 0);
-		if (isInList_TeamMemberList(obj) == false)
+		if (obj->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList) == false)
 			throw XferException(5, 0);
 	}
-	m_xferMemberIDList.clear();
+	xferMemberIDs.clear();
 }
