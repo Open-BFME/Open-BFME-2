@@ -49,11 +49,11 @@ public:
 class RadarEventRef
 {
 public:
-    virtual void slot0();
-    virtual void slot1();
-    virtual void slot2();
-    virtual void slot3();
-    void release();
+	void release();
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
 };
 struct Rva0004EFE9Reference
 {
@@ -106,12 +106,11 @@ public:
 };
 
 // Texture holder released and nulled by the rowed 0x0004D75B.
-class BfmeResetTextureRef
+struct BfmeResetTextureRef
 {
 public:
 	void clear();
-private:
-	void *m_texture;
+	void *m_texture; // +0x00
 };
 
   // end radarToPixel
@@ -191,20 +190,25 @@ static const KindOfType BFME_KINDOF_DISGUISER = static_cast<KindOfType>(89);
 /** Reset the radar to the initial empty state ready for new data */
 //-------------------------------------------------------------------------------------------------
 // BFME's value surfaces and radar layout differ from the shared Zero Hour headers.
+struct IDirect3DSurface8;
+class SurfaceClass;
 class W3DRadarResetSurface
 {
 public:
-	~W3DRadarResetSurface();
-	void clear( bool white );
-
-private:
-	void *m_surface;
+    W3DRadarResetSurface() {}
+    W3DRadarResetSurface(const W3DRadarResetSurface &);
+    ~W3DRadarResetSurface();
+    void clear(bool white);
+    SurfaceClass *operator->() { return (SurfaceClass *)this; }
+    IDirect3DSurface8 *m_surface;
 };
 
-struct CursorTextureSlot
+class CursorTextureSlot
 {
-	void *Ptr;
-	W3DRadarResetSurface Get_Surface_Level(int level);
+public:
+    void *Ptr;
+    W3DRadarResetSurface Get_Surface_Level(int level);
+    W3DRadarResetSurface Get_Surface_Level();
 };
 
 class W3DRadarResetTexture : public CursorTextureSlot
@@ -408,8 +412,14 @@ class RadarEventRefSlot
 {
 public:
 	RadarEventRefSlot &operator=(const RadarEventRefSlot &other);
+	RadarEventRefSlot() : m_ref(0) {}
+	~RadarEventRefSlot()
+	{
+		if (m_ref)
+			m_ref->release();
+	}
 private:
-	RadarEventRef *m_ref;
+	RadarEventRef *m_ref; // +0x00
 };
 
 //

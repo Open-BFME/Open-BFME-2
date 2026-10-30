@@ -9,9 +9,6 @@ typedef int Color;
 typedef unsigned int UnsignedInt;
 typedef unsigned char UnsignedByte;
 void GameGetColorComponents(Color,UnsignedByte *,UnsignedByte *,UnsignedByte *,UnsignedByte *);
-inline Color GameMakeColor(UnsignedByte r,UnsignedByte g,UnsignedByte b,UnsignedByte a) {
- Color c=(a<<8)|r; c<<=8; c|=g; c<<=8; c|=b; return c;
-}
 Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 {
 	Color *out = color;
@@ -24,7 +21,7 @@ Color Rva0004DE72Blend(Color *color, Color source, UnsignedByte alpha)
 	UnsignedByte effectiveAlpha = (UnsignedInt)(sourceAlpha * alpha) / 255;
 	Color result;
 	if (oldAlpha == 0 || effectiveAlpha == 255)
-		result = GameMakeColor(sourceRed, sourceGreen, sourceBlue, effectiveAlpha);
+		result = (effectiveAlpha << 24) | (sourceRed << 16) | (sourceGreen << 8) | sourceBlue;
 	else {
 
 	red = (UnsignedInt)(red * oldAlpha + sourceRed * effectiveAlpha) /
