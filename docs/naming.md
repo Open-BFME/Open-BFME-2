@@ -460,6 +460,14 @@ verification of every affected source, and set of ledger and consumer checks.
 The union may contain more sources than one name's `--max-files` bound; every
 selected source is still verified.
 
+When claims are enabled, `apply` first reads one shared claim snapshot and
+defers approvals whose known owner file, RVA or class is held by another worker.
+The standard claim footprints exclude our own claims and include locks expanded
+from other workers' RVA/class claims. Deferred approvals are unchanged, do not
+consume `--limit`, and can be retried once available. This happens before file
+analysis or rename planning in all apply modes. Ordinary acquisition still
+rechecks claims before writing, including consumer scopes discovered by planning.
+
 If a combined build or ledger check fails, the whole transaction is restored.
 Static pin admission runs before claims and the native build; proof-dependent
 pin decisions remain in the full final gate. Exact pin diagnostics select a

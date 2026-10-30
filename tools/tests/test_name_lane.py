@@ -766,6 +766,128 @@ def agree_on(tree, tmp_path, answers):
         vote(tree, tmp_path, "s2", pending, model="gpt-6.1-sol")
 
 
+def claim_apply_args(**overrides):
+    options = dict(retry_blocked=True, lead=2, min_models=1, claim=True,
+                   only_labels=None, key=None, no_batch=False, per_file=False)
+    options.update(overrides)
+    return SimpleNamespace(**options)
+
+
+@pytest.mark.parametrize("mode", [{}, {"per_file": True}, {"no_batch": True}])
+def test_apply_defers_busy_approval_before_file_analysis_in_every_mode(tree, tmp_path, monkeypatch, capsys, mode):
+    from unittest.mock import Mock
+    import claims
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    lane = lane_of(tree)
+    agreed = lane.state()[PARAM_KEY]
+    lane.append(name_lane.AGREED, name_lane.AGREED_COLUMNS,
+                [dict(agreed, status="blocked", detail="previous attempt")])
+    before = (tree / name_lane.AGREED).read_bytes()
+    source = (tree / SOURCE).read_bytes()
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    snapshot = Mock(return_value={claims.file_key(SOURCE)})
+    monkeypatch.setattr(claims, "busy_keys", snapshot)
+    def forbidden(*args, **kwargs):
+        pytest.fail("held approval reached analysis, planning, claims or verification")
+    monkeypatch.setattr(lane, "owned", forbidden)
+    monkeypatch.setattr(name_lane, "warm_donor_parameters", forbidden)
+    monkeypatch.setattr(rename, "plan_rename", forbidden)
+    monkeypatch.setattr(rename, "take_claims", forbidden)
+    assert name_lane.cmd_apply(lane, claim_apply_args(**mode), verify=forbidden, checks=forbidden) == 0
+    snapshot.assert_called_once_with(tree)
+    assert (tree / name_lane.AGREED).read_bytes() == before
+    assert (tree / SOURCE).read_bytes() == source
+    assert lane.state()[PARAM_KEY]["status"] == "blocked"
+    assert not rows(tree, rename.NAME_BASIS)
+    assert "deferred: held by another worker" in capsys.readouterr().out
+
+
+@pytest.mark.parametrize("kind", ["file", "rva", "class", "persisted"])
+def test_apply_preflight_uses_standard_expanded_claim_footprints(tree, tmp_path, monkeypatch, kind):
+    import claims
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    if kind == "class":
+        ledger = tree / "reverse/functions.csv"
+        ledger.write_bytes(ledger.read_bytes() +
+            f"?run@Rva00401000Box@@QAEXXZ,,0x00403000,10,{SOURCE},matched,\n".encode())
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    key = {"file": claims.file_key(SOURCE), "rva": 0x00401000,
+           "class": claims.class_key("Rva00401000Box"), "persisted": 0x00ABCDEF}[kind]
+    info = {"owner": "other-worker"}
+    if kind == "persisted":
+        info["locks"] = [claims.file_key(SOURCE)]
+    monkeypatch.setattr(claims, "_blocking_records", lambda root: iter([{key: info}]))
+    monkeypatch.setattr(name_lane, "_apply_run", lambda *args, **kwargs: pytest.fail("busy source was planned"))
+    assert name_lane.cmd_apply(lane_of(tree), claim_apply_args(), verify=ok_verify, checks=no_checks) == 0
+    assert lane_of(tree).state()[PARAM_KEY]["status"] == "agreed"
+
+
+@pytest.mark.parametrize("answer,held", [
+    ({"rva00401000": "sumBox"}, 0x00401000),
+    ({"Rva00401000Box": "GameBox"}, "class:Rva00401000Box"),
+    ({"Rva00401000Box::m_x2C": "m_width"}, "class:Rva00401000Box"),
+])
+def test_apply_preflight_checks_direct_rva_and_class_keys(tree, tmp_path, monkeypatch, answer, held):
+    import claims
+    agree_on(tree, tmp_path, answer)
+    before = (tree / name_lane.AGREED).read_bytes()
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    monkeypatch.setattr(claims, "busy_keys", lambda root: {claims.key_of(held)})
+    monkeypatch.setattr(name_lane, "_apply_run", lambda *args, **kwargs: pytest.fail("held identity was planned"))
+    name_lane.cmd_apply(lane_of(tree), claim_apply_args(), verify=ok_verify, checks=no_checks)
+    assert (tree / name_lane.AGREED).read_bytes() == before
+
+
+def test_deferred_claim_does_not_consume_apply_limit(tree, tmp_path, monkeypatch):
+    from unittest.mock import Mock
+    import claims
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    free = add_subsystem_source(tree, "Available", 1)
+    serve(tree, "available", file=free)
+    answer = tmp_path / "available.json"
+    answer.write_text(json.dumps({"rva00410100:param_1": "inputValue"}))
+    name_lane.cmd_submit(lane_of(tree), SimpleNamespace(answer=str(answer), session="available", model="claude-opus-5-5"))
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    snapshot = Mock(return_value={claims.file_key(SOURCE)})
+    monkeypatch.setattr(claims, "busy_keys", snapshot)
+    monkeypatch.setattr(rename, "take_claims", lambda *args: rename.Claimed())
+    builds = []
+    name_lane.cmd_apply(lane_of(tree), claim_apply_args(limit=1),
+        verify=lambda ctx, sources: builds.append(sources) or True, checks=no_checks)
+    snapshot.assert_called_once_with(tree)
+    assert builds == [[free]]
+    assert lane_of(tree).state()[PARAM_KEY]["status"] == "agreed"
+    assert "int inputValue" in (tree / free).read_text()
+
+
+def test_own_claim_remains_available_and_final_acquisition_still_runs(tree, tmp_path, monkeypatch):
+    import claims
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    info = {"owner": claims.owner(tree), "expires": float("inf")}
+    held = {claims.file_key(SOURCE): ("lease", info)}
+    monkeypatch.setattr(claims, "fetch", lambda root: True)
+    monkeypatch.setattr(claims, "_read_visible", lambda root: held)
+    monkeypatch.setattr(claims, "_namespace_mirrors", lambda seen: [(claims.NS, claims.SEEN)])
+    monkeypatch.setattr(claims, "_read_local", lambda root, seen: held)
+    monkeypatch.setattr(claims, "mirrored", lambda root: {})
+    taken = []
+    monkeypatch.setattr(rename, "take_claims", lambda keys, enabled, root:
+                        taken.append((keys, enabled)) or rename.Claimed())
+    name_lane.cmd_apply(lane_of(tree), claim_apply_args(), verify=ok_verify, checks=no_checks)
+    assert taken and all(enabled for _, enabled in taken)
+    assert lane_of(tree).state()[PARAM_KEY]["status"] == "landed"
+
+
+def test_no_claim_mode_does_not_query_shared_claims(tree, tmp_path, monkeypatch):
+    import claims
+    vote(tree, tmp_path, "single", {"rva00401000:param_1": "box"})
+    monkeypatch.setenv("BFME_CLAIMS", "on")
+    monkeypatch.setattr(claims, "busy_keys", lambda root: pytest.fail("--no-claim fetched shared claims"))
+    name_lane.cmd_apply(lane_of(tree), claim_apply_args(claim=False), verify=ok_verify, checks=no_checks)
+    assert lane_of(tree).state()[PARAM_KEY]["status"] == "landed"
+
+
 def test_apply_lands_through_rename(tree, tmp_path):
     agree_on(tree, tmp_path, {"Rva00401000Box::m_x2C": "m_width", "rva00401000": "sumBox",
                               "rva00401000:param_1": "box"})

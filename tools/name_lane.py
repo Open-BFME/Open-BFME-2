@@ -1237,6 +1237,21 @@ def _apply_run(lane, todo, args, tally, refused, *, verify, checks, max_files):
     return counts["landed"], counts["blocked"], counts["stale"]
 
 
+def approval_claim_keys(row):
+    """Known owner scopes before planning discovers the full consumer footprint."""
+    rel, kind, scope, old = split_key(row["key"])
+    keys = {claims.file_key(rel)}
+    rva = rename._rva(row.get("rva"))
+    if rva is not None:
+        keys.add(rva)
+    cls = old if kind == "class" else scope if kind == "member" else None
+    class_key = claims.class_key(cls)
+    if class_key is not None:
+        keys.add(class_key)
+    return keys
+
+
+@claims.pick_snapshot()
 def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_checks):
     limit = getattr(args, "limit", None)
     if limit is not None and limit < 1:
@@ -1249,6 +1264,8 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
     selected_keys = set(getattr(args, "key", None) or ())
     todo = collections.defaultdict(list)
     landed = blocked = stale = outside = selected = deferred = 0
+    busy = None
+    claim_deferred = 0
     pending = False
     for key, row in state.items():
         if selected_keys and key not in selected_keys:
@@ -1262,6 +1279,13 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
             if not wins(mine, rivals, lead=args.lead, min_models=args.min_models, key=key):
                 print(f"{key}: votes no longer agree under --lead {args.lead} --min-models {args.min_models}; left")
                 continue
+            if args.claim:
+                if busy is None:
+                    busy = claims.busy_keys(lane.root)
+                if approval_claim_keys(row) & busy:
+                    claim_deferred += 1
+                    print(f"{key}: deferred: held by another worker; approval unchanged", flush=True)
+                    continue
             if limit is not None and selected >= limit:
                 deferred += 1
                 continue
@@ -1272,7 +1296,9 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
         print("name_lane: nothing agreed is waiting to land.")
         return 0
     print(f"name_lane: selected {sum(map(len, todo.values()))} key(s) across {len(todo)} file(s).", flush=True)
-    if not getattr(args, "no_batch", False) and not getattr(args, "per_file", False):
+    if not todo:
+        file_groups = []
+    elif not getattr(args, "no_batch", False) and not getattr(args, "per_file", False):
         landed, blocked, stale = _apply_run(lane, todo, args, tally, refused,
                                            verify=verify, checks=checks, max_files=max_files)
         file_groups = []
@@ -1354,6 +1380,9 @@ def cmd_apply(lane, args, *, verify=rename.build_verify, checks=rename.ledger_ch
           f"and {AGREED} (plus {MEANINGS} when structured votes added it); the lander commits.")
     if deferred:
         print(f"name_lane: {deferred} ready key(s) left waiting by --limit {limit}; run apply again to continue.")
+    if claim_deferred:
+        print(f"name_lane: {claim_deferred} ready key(s) deferred for other workers' claims; "
+              "run apply again after the claims are released.")
     if only:
         print(f"name_lane: --only-labels {','.join(sorted(only))}: {outside} key(s) with a voter outside those "
               "labels left untouched.")
