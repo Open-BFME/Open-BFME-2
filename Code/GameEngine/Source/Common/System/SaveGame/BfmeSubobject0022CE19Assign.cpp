@@ -10,6 +10,7 @@
 // Evidence: chain lane calls just-landed 0x002DBC1F; pin
 // ??4BfmeSubobject0022CE19 at 0x002DDC76; callers 0x002DF029 0x002DF16E
 // 0x00401F8B 0x00437566; prev 0x002DD1E9 next 0x002DDD0B.
+#include <vector>
 #include "ascii_string.h"
 #include "unicode_string.h"
 
@@ -37,17 +38,16 @@ public:
 };
 
 namespace _STL {
-template <class Type>
-class allocator {
-};
-template <class Type, class Allocator>
-class vector {
+// Bind vector<SaveMapPreview>::operator= to the rowed worker at 0x002DD043.
+// Declaration only: the definition lives in the row owner.
+template <class T, class A> class vector;
+template <> class vector<SaveMapPreview, allocator<SaveMapPreview> > {
 public:
 	vector &operator=(const vector &x);
 private:
-	Type *m_start;
-	Type *m_finish;
-	Type *m_endOfStorage;
+	SaveMapPreview *m_start;
+	SaveMapPreview *m_finish;
+	SaveMapPreview *m_endOfStorage;
 };
 }
 
