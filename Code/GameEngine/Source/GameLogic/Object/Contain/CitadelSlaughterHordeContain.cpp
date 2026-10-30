@@ -68,6 +68,55 @@ class DamageInfo;
 
 class Object;
 
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *id);
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 template<int N> class CitadelDieSlots : public CitadelDieSlots<N-1> {public:virtual void gap(char(*)[N])=0;};
 
 template<> class CitadelDieSlots<0> {};
@@ -119,10 +168,42 @@ public:
  virtual Rva0036AE51ListView slot70()=0;
 };
 
-class CitadelSlaughterHordeContain {
+// Primary table 0x00C48CC0: slot 0 the rowed ??_G 0x004806FC, slot 3 xfer,
+// slot 4 the pool-name key. The rowed base dtor is 0x004803FB and the rowed
+// base xfer 0x0048029A.
+class SlaughterHordeContain
+{
 public:
- virtual void onDie(const DamageInfo*);
- CitadelContainDieView *contain() { return reinterpret_cast<CitadelContainDieView*>(reinterpret_cast<char*>(this)-8); }
+	virtual ~SlaughterHordeContain();
+
+protected:
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer(Xfer *xfer);
+
+public:
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	char m_unrecovered04[0x9EC - 0x04];
+};
+
+// Retail stores no vptr in the 5-byte dtor (novtable). onDie is the die
+// interface's slot 0 (the ctor installs table 0x00C48910 at +28); its body
+// only offsets this.
+class __declspec(novtable) CitadelSlaughterHordeContain : public SlaughterHordeContain
+{
+public:
+	virtual ~CitadelSlaughterHordeContain();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void onDie(const DamageInfo*);
+	CitadelContainDieView *contain() { return reinterpret_cast<CitadelContainDieView*>(reinterpret_cast<char*>(this)-8); }
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	ObjectID m_9EC; // +0x9EC, factory 0x0024C0C5 news 0x9F0
 };
 
 //
