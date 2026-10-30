@@ -17,8 +17,9 @@ struct Rva009F5970StateInit
 
 struct BfmeNode912C
 {
-	char m_pad00[0x0c];
-	BfmeNode912C *m_next;
+public:
+	char m_bfmePad[0xc]; // +0x00
+	BfmeNode912C *m_bfmeNext; // +0x0C
 };
 
 class PartitionManagerImpl
@@ -33,10 +34,14 @@ public:
 // the same address, and the BfmeHostEQR spelling is already pinned, so this
 // TU reuses it instead of minting a second pin for one body.
 class BfmeRecEQR;
+class BfmeThingEQR;
 class BfmeHostEQR
 {
 public:
+	void bfmeAddEQR(BfmeThingEQR *thing);
 	void bfmeLinkEQR(BfmeRecEQR *rec);
+	unsigned char m_bfmeHeadEQR[0x114]; // +0x00
+	BfmeRecEQR *m_bfmeListEQR; // +0x114
 };
 
 static float g_bfmeDefaultBU;
@@ -70,7 +75,7 @@ void T_009f4fb0::m(Rva009F5970StateInit *value)
 	BfmeNode912C *node = self->m_head;
 	while (node != 0) {
 		((BfmeHostEQR *)self)->bfmeLinkEQR((BfmeRecEQR *)node);
-		node = node->m_next;
+		node = node->m_bfmeNext;
 	}
 }
 

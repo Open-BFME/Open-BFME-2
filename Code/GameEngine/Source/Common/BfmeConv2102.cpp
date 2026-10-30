@@ -1,5 +1,18 @@
+struct Gen009F5040Item;
 struct Gen009F5040Node
 {
+public:
+	char m_pad00[0x4];
+	Gen009F5040Item *m_item; // +0x04
+	char m_pad08[0x8];
+	Gen009F5040Node **m_secondaryPreviousLink; // +0x10
+	Gen009F5040Node *m_secondaryNext; // +0x14
+	Gen009F5040Node **m_previousLink; // +0x18
+	Gen009F5040Node *m_next; // +0x1C
+	volatile int m_index; // +0x20
+	int m_result24; // +0x24
+	int m_result28; // +0x28
+	int m_result2c; // +0x2C
 };
 
 class BfmeThingZU

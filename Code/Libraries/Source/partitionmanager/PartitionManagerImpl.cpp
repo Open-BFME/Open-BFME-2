@@ -45,17 +45,18 @@ struct Gen009F4900Value1
 
 struct Gen009F5040Node
 {
-	char m_pad00[4];
-	Gen009F5040Item *m_item;
-	char m_pad08[8];
-	Gen009F5040Node **m_secondaryPreviousLink;
-	Gen009F5040Node *m_secondaryNext;
-	Gen009F5040Node **m_previousLink;
-	Gen009F5040Node *m_next;
-	volatile int m_index;
-	int m_result24;
-	int m_result28;
-	int m_result2c;
+public:
+	char m_pad00[0x4];
+	Gen009F5040Item *m_item; // +0x04
+	char m_pad08[0x8];
+	Gen009F5040Node **m_secondaryPreviousLink; // +0x10
+	Gen009F5040Node *m_secondaryNext; // +0x14
+	Gen009F5040Node **m_previousLink; // +0x18
+	Gen009F5040Node *m_next; // +0x1C
+	volatile int m_index; // +0x20
+	int m_result24; // +0x24
+	int m_result28; // +0x28
+	int m_result2c; // +0x2C
 };
 
 struct Gen009F5040Item
@@ -168,9 +169,8 @@ class BfmeHostEQR
 public:
 	void bfmeAddEQR(BfmeThingEQR *thing);
 	void bfmeLinkEQR(BfmeRecEQR *rec);
-
-	unsigned char m_bfmeHeadEQR[0x114];
-	BfmeRecEQR *m_bfmeListEQR;
+	unsigned char m_bfmeHeadEQR[0x114]; // +0x00
+	BfmeRecEQR *m_bfmeListEQR; // +0x114
 };
 
 // STLport __pop_heap over the same24-byte element/comparator view as the
@@ -186,8 +186,11 @@ struct S4SortElem24
 
 struct S4Cmp009F4BF0
 {
-    bool operator()(const S4SortElem24 &left,
-        const S4SortElem24 &right) const;
+public:
+	bool operator()(const S4SortElem24 &a, const S4SortElem24 &b) const
+	{
+		return a.m_key < b.m_key;
+	}
 };
 
 namespace _STL
@@ -327,8 +330,9 @@ public:
 
 struct BfmeNode912C
 {
-	char m_bfmePad[0xc];
-	BfmeNode912C *m_bfmeNext;
+public:
+	char m_bfmePad[0xc]; // +0x00
+	BfmeNode912C *m_bfmeNext; // +0x0C
 };
 
 struct Gen009F5040Node;
