@@ -16390,3 +16390,15 @@ Code/GameEngine/Source/Common/Rva001E7C2BForwarders.cpp|param|Rva001E7C2B::rva00
 Code/GameEngine/Source/Common/Rva00150959Insert.cpp|param|Rva00150959::rva00150959|n,d481a8f591111eec05dcb9d7,drz-k4,drz-k4-208,w-855a0f400af4,2026-10-30
 Code/GameEngine/Source/Common/Rva00150959Insert.cpp|local|Rva00150959::rva00150959|p,5828d705595bd7e898fee701,drz-k4,drz-k4-208,w-855a0f400af4,2026-10-30
 Code/GameEngine/Source/Common/Rva002E08A2Insert.cpp|local|Rva002E0E7CReinsert|p,1227ba4dc9f6652169abb3ac,drz-k4,drz-k4-203b,w-855a0f400af4,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F49AFinish.cpp|local|Rva0010F49A::rva0010F49A|p,89c9d3501582fd23b7f51d86,drz-k2,drz-k2-160,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F49AFinish.cpp|local|Rva0010F49A::rva0010F49A|o,eb60a7a5c0ceeea78d342738,drz-k2,drz-k2-160,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/Rva0010F49AFinish.cpp|local|Rva0010F49A::rva0010F49A|g,0bb4c41ad47d9a6d45e4e7c5,drz-k2,drz-k2-160,w-ded32b2e2c5e,2026-10-30
+Code/Libraries/Source/Apt/Rva006E4FF0Cluster_Rva006E58D0Body.cpp|param|Rva006E58D0::rva006E58D0Body|b,54281bdf192fd49be0070d80,drz-k2,drz-k2-164,w-ded32b2e2c5e,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva001159F1.cpp|local|W3DTerrainBackground::calcBlendHeight|x,a285b4d96ddf940a223b5094,drz-k2,drz-k2-166,w-ded32b2e2c5e,2026-10-30
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp|param|MilesAudioManager::rva0005CB90|a,c433979af2f2583060d3f079,drz-k2,drz-k2-167,w-ded32b2e2c5e,2026-10-30
+Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManagerRva0005C8BB.cpp|param|MilesAudioManager::rva0005CB90|b,f7c49898ad0ec5c8f480e249,drz-k2,drz-k2-167,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/rva002EDFF9Rva002EDFF9Farm.cpp|local|Pathfinder::rva002EDFF9|y,bd7851cd900e0f00ba727bef,drz-k2,drz-k2-169,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameLogic/Pathfinder/rva002EDFF9Rva002EDFF9Farm.cpp|local|Pathfinder::rva002EDFF9|f,332bb998e912f0f2aebd3684,drz-k2,drz-k2-169,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameLogic/LivingWorld/LivingWorldRegionLookup.cpp|local|Rva005C98C0::rva005C98C0|p,1b7b1d976dbdd974c7f4fb8b,drz-k2,drz-k2-174,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameLogic/AI/Pathfinder_SetDebugPath.cpp|param|Pathfinder::SetDebugPath|arg,75fe9896a04f67d01cea18c6,drz-k2,drz-k2-175,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/GameClient/Rva0029B17CFwd.cpp|param|Rva0029B187::rva0029B187|p,eef88faebc705cad8efd0043,drz-k2,drz-k2-179,w-ded32b2e2c5e,2026-10-30
