@@ -15,8 +15,9 @@
 class Rva00056F61;
 struct Rva0041534BIter
 {
-	void *m_node;
-	Rva00056F61 *m_table;
+public:
+	void *m_node; // +0x00
+	Rva00056F61 *m_table; // +0x04
 };
 class Rva00056F61
 {
@@ -80,7 +81,15 @@ public:
 };
 struct ManagerNode191 {ManagerNode191 *next,*previous;BfmeParticleSystemHandle handle;};
 class ParticleSystemTemplate;
-class XferException {public:XferException(int,const char*,...);XferException(const XferException&);~XferException();char *text;int tag;};
+class XferException
+{
+public:
+	XferException(int, const char *, ...);
+	XferException(const XferException &);
+	~XferException();
+	char *text; // +0x00
+	int tag; // +0x04
+};
 class Rva001F9105Snapshot {
 public:void rva001F9105(Xfer*);
  char pad[0x3C];int uniqueId;ManagerNode191 *allSystems;char pad44[8];unsigned count;int value50;char pad54[4];int value58;

@@ -74,6 +74,7 @@ namespace FXParticleSystem
 // and method retain opaque names; the three scalar components are observed.
 struct Rva003AFA0BVector
 {
+public:
 	Rva003AFA0BVector() {}
 	Rva003AFA0BVector(float a, float b, float c) : x(a), y(b), z(c) {}
 	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
@@ -82,7 +83,9 @@ struct Rva003AFA0BVector
 		y = that.y;
 		z = that.z;
 	}
-	float x, y, z;
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 class Rva003AFA0B

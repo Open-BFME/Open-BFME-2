@@ -10,7 +10,15 @@
 // ParticleSystemManagerFindByID preserve the target handle12 ABI. No new
 // provider aliases or pins: rva0004CBC0 already belongs to that call view.
 // Native CFFD18 throw info and85B constructor identify XferException(5,0).
-class XferException{public:XferException(int,const char*,...);XferException(const XferException&);~XferException();char *text;int tag;};
+class XferException
+{
+public:
+	XferException(int, const char *, ...);
+	XferException(const XferException &);
+	~XferException();
+	char *text; // +0x00
+	int tag; // +0x04
+};
 enum ParticleSystemID
 {
 	PARTICLE_SYSTEM_ID_NONE = 0

@@ -25,16 +25,18 @@ class ParticleSystem { public: void destroy(); char m_pad[0xa4]; Slot6Obj *m_slo
 class BfmeParticleSystemPtr
 {
 public:
-	operator ParticleSystem *(void) const { return m_target; }
-	__forceinline ParticleSystem *operator->(void) const
+	operator ParticleSystem *(void) const
+	{
+		return m_target;
+	}
+	ParticleSystem *operator->(void) const
 	{
 		ParticleSystem *target = m_target;
 		if (!target)
 			target = Make001FCBD7();
 		return target;
 	}
-private:
-	ParticleSystem *m_target;
+	ParticleSystem *m_target; // +0x00
 };
 struct RawHandle { BfmeParticleSystemPtr m_system; void *m_prev; void *m_next; };
 struct Wrap3c {

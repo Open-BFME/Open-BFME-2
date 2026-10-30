@@ -112,7 +112,24 @@ extern GameLogic *TheGameLogic;
 
 struct Rva001F38C1Arg { int v[12]; };
 class Rva001F38C1Slot { public: void set(const Rva001F38C1Arg &); };
-class Rva001F3C9A { public: bool rva001F3C9A(); };
+class Rva001F3C9AHelper;
+class Rva001F3C9A
+{
+public:
+	bool rva001F3C9A();
+	char m_pad00[0xC];
+private:
+	int m_0C; // +0x0C
+	char m_pad10[0x94];
+	Rva001F3C9AHelper *m_A4; // +0xA4
+	char m_padA8[0x80];
+	int m_128; // +0x128
+	char m_pad12C[0x76];
+	bool m_1A2; // +0x1A2
+	char m_pad1A3[0x1];
+	bool m_1A4; // +0x1A4
+	char m_pad1A5[0x3];
+};
 class Rva001FA7F8 { public: void rva001FA7F8(); UnsignedInt data[12]; };
 
 class ControlParticleView
@@ -132,7 +149,14 @@ private:
 
 enum ParticleSystemID { INVALID_PARTICLE_SYSTEM_ID = 0 };
 class GameClientRandomVariable { public: Int type; Real low, high; };
-struct ParticleRegion { Real x1, y1, x2, y2; };
+struct ParticleRegion
+{
+public:
+	float x1; // +0x00
+	float y1; // +0x04
+	float x2; // +0x08
+	float y2; // +0x0C
+};
 struct ParticleSystemHandleView { void *ptr; Int prev, next; };
 
 // The constructor's (ParticleSystemConstructor.cpp) layout and virtual slots; +0x7C is Zero Hour's m_priority.

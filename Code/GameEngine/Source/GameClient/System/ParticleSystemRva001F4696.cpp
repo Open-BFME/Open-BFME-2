@@ -19,7 +19,6 @@ public:
 	{
 		return m_target;
 	}
-
 	ParticleSystem *operator->(void) const
 	{
 		ParticleSystem *target = m_target;
@@ -27,9 +26,7 @@ public:
 			target = Make001FCBD7();
 		return target;
 	}
-
-public:
-	ParticleSystem *m_target;
+	ParticleSystem *m_target; // +0x00
 };
 
 class GameClientRandomVariable

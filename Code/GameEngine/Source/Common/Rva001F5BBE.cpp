@@ -55,10 +55,22 @@ struct ListNode001F5BBE
 class Rva001F58D4
 {
 public:
+	void rva001F58D4();
 	void rva001F5BBE(Rva001F5BBEArg *arg);
+	char m_pad00[0x10];
 private:
-	char m_pad00[0x4C];
-	void **m4c;
+	int m10[7]; // +0x10
+	int m2c[7]; // +0x2C
+	int m48; // +0x48
+	void **m4c; // +0x4C
+	int m50; // +0x50
+	int m54; // +0x54
+	int m58; // +0x58
+	int m5c; // +0x5C
+	float m60; // +0x60
+	int m64; // +0x64
+	char m_pad68[0xC];
+	int m74; // +0x74
 };
 
 void Rva001F58D4::rva001F5BBE(Rva001F5BBEArg *arg)

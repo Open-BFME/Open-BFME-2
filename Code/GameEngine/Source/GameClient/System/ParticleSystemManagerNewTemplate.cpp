@@ -62,9 +62,13 @@ struct InsertRet001F8F2A
 	unsigned char m_found;
 };
 
+class Rva000411084;
+struct VideoPair;
 class Rva000427195
 {
 public:
+	void *first(Rva000411084 *iter);
+	void rva003A37DC(VideoPair p);
 	InsertRet001F8F2A rva001F93A3(const void *key);
 };
 

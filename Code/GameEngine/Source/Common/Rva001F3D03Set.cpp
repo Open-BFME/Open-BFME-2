@@ -4,12 +4,13 @@
 // ?setRange@GameClientRandomVariable@@QAEXMMW4DistributionType@1@@Z with
 // UNIFORM (1). Caller at 0x004A23E6. Honest Rva name; /O1 for the x87
 // fld/fstp shuffle plus add plus tail call.
-class GameClientRandomVariable {
+class GameClientRandomVariable
+{
 public:
-    enum DistributionType {
-        CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS
-    };
-    void setRange(float low, float high, DistributionType type);
+	enum DistributionType { CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS };
+	float getValue(void) const;
+	void setRange(float low, float high, DistributionType type);
+	char data[0x20]; // +0x00
 };
 class Rva001F3D03Slot {
 public:

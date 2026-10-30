@@ -22,9 +22,10 @@ class Snapshot;
 
 struct Coord3DBase
 {
-	float x;
-	float y;
-	float z;
+public:
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 #include "../../Include/Common/BfmeXfer.h"

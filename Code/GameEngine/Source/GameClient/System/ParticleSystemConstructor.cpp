@@ -52,7 +52,14 @@ extern ParticleSystemManager *TheParticleSystemManager;
 #include "Common/Snapshot.h"
 struct ParticleVec {float x,y,z;void zero(){z=y=x=0.0f;}};
 class GameClientRandomVariable {public: float getValue()const;int type;float low,high;};
-struct ParticleRegion {float x1,y1,x2,y2;};
+struct ParticleRegion
+{
+public:
+	float x1; // +0x00
+	float y1; // +0x04
+	float x2; // +0x08
+	float y2; // +0x0C
+};
 struct Rva0047A6A9Row16 {__declspec(noinline) Rva0047A6A9Row16();float x,y,z,w;void Set(float a,float b,float c,float d){x=a;y=b;z=c;w=d;}};
 // Select-any like every other TU's copy (a strong definition would duplicate theirs at link time);
 // the anchor keeps the noinline body emitted.
@@ -69,7 +76,13 @@ struct ParticleMatrix {__forceinline ParticleMatrix() {} Rva0047A6A9Row16 r[3];v
  r[2].Set(0.0f,0.0f,1.0f,0.0f);
 }};
 // Member +0x1AC: retail builds it through 0x001FBF37 and its unwind funclet destroys it through 0x001FBCDC.
-class Rva001FBCDC {public:Rva001FBCDC() throw();~Rva001FBCDC(); unsigned data[12];};
+class Rva001FBCDC
+{
+public:
+	~Rva001FBCDC();
+	Rva001FBCDC() throw();
+	unsigned data[12]; // +0x00
+};
 namespace FXParticleSystem {
 class ParticleSystemInfo :public Snapshot {
 public:

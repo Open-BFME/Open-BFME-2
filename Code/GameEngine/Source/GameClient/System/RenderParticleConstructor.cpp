@@ -95,10 +95,11 @@ class Rva001F416C
 {
 public:
 	void rva001F416C(Node001F416C *node, int slot);
-	char m_pad0[0x10];
-	Node001F416C *m_arr1[7];
-	Node001F416C *m_arr2[9];
-	int m_count;
+	char m_pad00[0x10];
+private:
+	Node001F416C *m_arr1[7]; // +0x10
+	Node001F416C *m_arr2[9]; // +0x2C
+	int m_count; // +0x50
 };
 class Rva001F4C67 : public Rva001F376E
 {
@@ -132,7 +133,11 @@ void bfmeMergeReceiverKeys(int);
 // state1 destroys the same +0x94 storage through the existing 1FC0B6 owner.
 // The neutral destructor-owner spelling unifies these paired ABI views.
 class Rva001FC0B6 {public:Rva001FC0B6();~Rva001FC0B6();char unknown[0x2C];};
-class Rva001FC42D {public:void rva001FC42D(void*,void*);};
+class Rva001FC42D
+{
+public:
+	void rva001FC42D(void *a, void *b);
+};
 class RenderObjClass;
 class HTreeClass;
 RenderObjClass*Create_Render_Obj(const char*);

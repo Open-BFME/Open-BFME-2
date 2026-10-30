@@ -63,8 +63,8 @@ public:
 	XferException(int, const char *, ...);
 	XferException(const XferException &);
 	~XferException();
-	char *text;
-	int tag;
+	char *text; // +0x00
+	int tag; // +0x04
 };
 
 namespace FXParticleSystem

@@ -81,15 +81,47 @@ struct VideoPair
 	VideoPair(const VideoPair &videoPair) { s.first=videoPair.s.first;s.second=videoPair.s.second; }
 };
 inline VideoPair makePair(void *const &nodeReference,void *const &tableReference) { return VideoPair(nodeReference,tableReference); }
-struct Rva0041534BIter { void *m_node; void *m_table; };
-class Rva00056F61 { public: Rva0041534BIter rva0041534B(const AsciiString *); };
-class Rva001F58D4 { public: void rva001F58D4(); };
+class Rva00056F61;
+struct Rva0041534BIter
+{
+public:
+	void *m_node; // +0x00
+	Rva00056F61 *m_table; // +0x04
+};
+class Rva00056F61
+{
+public:
+	Rva0041534BIter rva0041534B(const AsciiString *key);
+};
+struct Rva001F5BBEArg;
+class Rva001F58D4
+{
+public:
+	void rva001F58D4();
+	void rva001F5BBE(Rva001F5BBEArg *arg);
+	char m_pad00[0x10];
+private:
+	int m10[7]; // +0x10
+	int m2c[7]; // +0x2C
+	int m48; // +0x48
+	void **m4c; // +0x4C
+	int m50; // +0x50
+	int m54; // +0x54
+	int m58; // +0x58
+	int m5c; // +0x5C
+	float m60; // +0x60
+	int m64; // +0x64
+	char m_pad68[0xC];
+	int m74; // +0x74
+};
 class BFMERetailAsciiString;
+struct InsertRet001F8F2A;
 class Rva000427195
 {
 public:
 	void *first(Rva000411084 *iter);
 	void rva003A37DC(VideoPair p);
+	InsertRet001F8F2A rva001F93A3(const void *key);
 };
 
 // BFME1 ba7ddda7 supplies the parent-search algorithm. Target findTemplate

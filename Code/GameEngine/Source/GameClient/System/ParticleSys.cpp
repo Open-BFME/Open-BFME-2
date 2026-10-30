@@ -45,8 +45,18 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 struct Rva003AFA0BVector
 {
+public:
 	Rva003AFA0BVector() {}
-	float x, y, z;
+	Rva003AFA0BVector(float a, float b, float c) : x(a), y(b), z(c) {}
+	__forceinline Rva003AFA0BVector(const Rva003AFA0BVector &that)
+	{
+		x = that.x;
+		y = that.y;
+		z = that.z;
+	}
+	float x; // +0x00
+	float y; // +0x04
+	float z; // +0x08
 };
 
 struct Rva001F55A8Info
@@ -79,8 +89,10 @@ struct Matrix3DView
 class GameClientRandomVariable
 {
 public:
+	enum DistributionType { CONSTANT, UNIFORM, GAUSSIAN, TRIANGULAR, LOW_BIAS, HIGH_BIAS };
 	float getValue(void) const;
-	char data[0x20];
+	void setRange(float low, float high, DistributionType type);
+	char data[0x20]; // +0x00
 };
 
 struct Rva0007BB16Record;
@@ -680,17 +692,18 @@ class Rva001F3C9A
 {
 public:
 	bool rva001F3C9A();
+	char m_pad00[0xC];
 private:
-	char m_pad00[0x0C];
-	int m_0C;
+	int m_0C; // +0x0C
 	char m_pad10[0x94];
-	Rva001F3C9AHelper *m_A4;
+	Rva001F3C9AHelper *m_A4; // +0xA4
 	char m_padA8[0x80];
-	int m_128;
+	int m_128; // +0x128
 	char m_pad12C[0x76];
-	bool m_1A2;
-	char m_pad1A3[1];
-	bool m_1A4;
+	bool m_1A2; // +0x1A2
+	char m_pad1A3[0x1];
+	bool m_1A4; // +0x1A4
+	char m_pad1A5[0x3];
 };
 
 class Rva001F3FD0Slot {
@@ -718,12 +731,12 @@ struct Node001F416C
 class Rva001F416C
 {
 public:
-    void rva001F416C(Node001F416C *node, int slot);
+	void rva001F416C(Node001F416C *node, int slot);
+	char m_pad00[0x10];
 private:
-    char m_pad0[0x10];
-    Node001F416C *m_arr1[7];
-    Node001F416C *m_arr2[9];
-    int m_count;
+	Node001F416C *m_arr1[7]; // +0x10
+	Node001F416C *m_arr2[9]; // +0x2C
+	int m_count; // +0x50
 };
 
 // ??4Rva001F41AF@@QAEAAV0@ABV0@@Z @0x001F41AF 30B.
@@ -887,7 +900,6 @@ public:
 	{
 		return m_target;
 	}
-
 	ParticleSystem *operator->(void) const
 	{
 		ParticleSystem *target = m_target;
@@ -895,9 +907,7 @@ public:
 			target = Make001FCBD7();
 		return target;
 	}
-
-private:
-	ParticleSystem *m_target;
+	ParticleSystem *m_target; // +0x00
 };
 
 struct BfmeParticleDestroyView
@@ -908,25 +918,26 @@ struct BfmeParticleDestroyView
 	unsigned char m_isDestroyed;				///< retail this+0x1A4
 };
 
+struct Rva001F5BBEArg;
 class Rva001F58D4
 {
 public:
 	void rva001F58D4();
-
-private:
+	void rva001F5BBE(Rva001F5BBEArg *arg);
 	char m_pad00[0x10];
-	int m10[7];
-	int m2c[7];
-	int m48;
-	void **m4c;
-	int m50;
-	int m54;
-	int m58;
-	int m5c;
-	float m60;
-	int m64;
-	char m_pad68[12];
-	int m74;
+private:
+	int m10[7]; // +0x10
+	int m2c[7]; // +0x2C
+	int m48; // +0x48
+	void **m4c; // +0x4C
+	int m50; // +0x50
+	int m54; // +0x54
+	int m58; // +0x58
+	int m5c; // +0x5C
+	float m60; // +0x60
+	int m64; // +0x64
+	char m_pad68[0xC];
+	int m74; // +0x74
 };
 
 //
@@ -949,48 +960,37 @@ class ParticleSystem
 {
 public:
 	Rva003AFA0BVector rva001F54C5(const Rva003AFA0BVector *pos);
-public:
 	void rva001F55A8(Rva001F55A8Info *info, int particleNum, int particleCount);
-public:
 	bool isSaveable() const;
-public:
-	char pad00[0x14];
-public:
-	GameClientRandomVariable lifetime;
-public:
-	GameClientRandomVariable sizeBonusRate;
-public:
-	char pad54[0x82 - 0x54];
-public:
-	char upFlag82;
-public:
-	char pad83[0xec - 0x83];
-public:
-	Matrix3DView xform;
-public:
-	char pad11c[0x144 - 0x11c];
-public:
-	Coord3D pos;
-public:
-	Coord3D lastPos;
-public:
-	char pad15c[0x180 - 0x15c];
-public:
-	float accumulatedSizeBonus;
-public:
-	char pad184[0x1a1 - 0x184];
-public:
-	bool isIdentity;
-public:
-	char pad1a2[3];
-public:
-	bool isFirstPos;
-public:
-	char pad1a6[0x33A - 0x1a6];
-public:
-	bool m_saveable;
-public:
 	void destroy(void);
+	void rva001F45F4(bool flag);
+	void rva001F465E(void *val);
+	int getSystemID()const{return systemID;}
+	char m_pad00[0x14];
+	GameClientRandomVariable lifetime; // +0x14 +0x14
+	GameClientRandomVariable sizeBonusRate; // +0x34 +0x34
+	char m_pad54[0x2E];
+	char upFlag82; // +0x82 +0x82
+	char m_pad83[0x15];
+	void *m_val98; // +0x98 +0x98
+	char m_pad9C[0xC];
+	int systemID; // +0xA8
+	char m_padAC[0x40];
+	Matrix3DView xform; // +0xEC +0xEC
+	char m_pad11C[0x28];
+	Coord3D pos; // +0x144 +0x144
+	Coord3D lastPos; // +0x150 +0x150
+	ParticleSystem *m_next15C; // +0x15C +0x15C
+	char m_pad160[0x20];
+	float accumulatedSizeBonus; // +0x180 +0x180
+	char m_pad184[0x1D];
+	bool isIdentity; // +0x1A1 +0x1A1
+	char m_pad1A2[0x3];
+	bool isFirstPos; // +0x1A5 +0x1A5
+	bool m_flag1A6; // +0x1A6 +0x1A6
+	char m_pad1A7[0x193];
+	bool m_saveable; // +0x33A +0x33A
+	char m_pad33B[0x1];
 };
 
 // The handle findParticleSystemByID returns: the BfmeParticleSystemHandle
