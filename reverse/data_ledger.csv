@@ -6348,7 +6348,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x008177A8,24,.rdata,string,??_C@_0BG@LKBBBFDF@GiantBirdGuardMachine?$AA@,,literal,,0,1
 0x008177C0,68,.rdata,vtable,??_7GiantBirdGuardAttackAggressorState@@6B@,,literal,,0,1
 0x00817804,212,.rdata,string,??_C@_0CD@PEBLNOPM@GiantBirdGuardAttackAggressorSta@,,literal,,0,1
-0x008178D8,144,.rdata,global,?g_00C178D8@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdateModuleDataParse.cpp,owned,,1,1
+0x008178D8,144,.rdata,global,?g_00C178D8@@3QBUFieldParse@@B,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/GiantBirdAIUpdate.cpp,owned,,1,1
 0x00817968,16,.rdata,vtable,??_7Rva003685CF@@6B@,,literal,,0,1
 0x00817978,68,.rdata,vtable,??_7GiantBirdGuardInnerState@@6B@,,literal,,0,1
 0x008179BC,28,.rdata,string,??_C@_0BJ@BMGIJGND@GiantBirdGuardInnerState?$AA@,,literal,,0,1
