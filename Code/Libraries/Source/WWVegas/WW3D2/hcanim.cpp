@@ -103,8 +103,6 @@ public:
 	NameKeyType nameToKey(const char *name);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
-// BFME2's loader uppercases the qualified name with the imported toupper
-// (0x00BBA5B4) before keying it, as HRawAnimClass::Load_W3D does.
 #include <ctype.h>
 // The Debug manager (theDebug, 0x00DE0880) that BFME2's missing-bone report
 // streams through. The reference Debug class is not virtual, so this view
@@ -347,6 +345,21 @@ public:
 typedef char FirstNodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1];
 
 typedef char SecondNodeStrideIs24[(sizeof(BFME2CompressedMotionChannels) == 24) ? 1 : -1];
+
+class TimeCodedMotionChannelClass;
+
+class AdaptiveDeltaMotionChannelClass;
+
+class BFME2MotionChannel;
+
+typedef char NodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1];
+
+typedef char VectorStrideIs24[(sizeof(BFME2CompressedMotionChannels) == 24) ? 1 : -1];
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
+
+// BFME2's loader uppercases the qualified name with the imported toupper
+// (0x00BBA5B4) before keying it, as HRawAnimClass::Load_W3D does.
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/hcanim.cpp
 
@@ -1379,26 +1392,6 @@ Rva0018F900FramePrefix *Rva0018F900FramePrefix::reset() {
  return this;
 }
 
-// tu-skeleton: 0x0018F180 4B ?get@Rva0018F180FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F3F0 80B ?Get_Transform@HCompressedAnimClass@@UBEXAAVMatrix3D@@HM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F440 70B ?Get_Visibility@HCompressedAnimClass@@UAE_NHM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F490 108B ?Is_Node_Motion_Present@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F500 53B ?Has_X_Translation@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F540 54B ?Has_Y_Translation@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F580 54B ?Has_Z_Translation@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F5C0 54B ?Has_Rotation@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F600 54B ?Has_Visibility@HCompressedAnimClass@@UAE_NH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0018F640 54B ?Has_VisibilityF@HCompressedAnimClass@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesX.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimFree.cpp
 
 // Retail compressed-animation cleanup at RVA 0x0018FE30.
@@ -1440,6 +1433,73 @@ int BFME2CompressedMotionChannels::Get_Channel_Memory_Usage()
         size += Visibility->Get_Channel_Memory_Usage();
     return size;
 }
+
+// tu-skeleton: 0x0018F180 4B ?get@Rva0018F180FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp8FloatFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0018F3F0 80B ?Get_Transform@HCompressedAnimClass@@UBEXAAVMatrix3D@@HM@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimTransform.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/HCompressedAnimGetters.cpp
+
+bool HCompressedAnimClass::Get_Visibility(int pivot, float frame)
+{
+    if (VectorMotion != 0) {
+        if (VectorMotion[pivot].Visibility != 0) {
+            return VectorMotion[pivot].Visibility->Get_Bit((int)frame) == 1;
+        }
+        return true;
+    }
+    if (NodeMotion[pivot].Vis != 0) {
+        return NodeMotion[pivot].Vis->Get_Bit((int)frame) == 1;
+    }
+    return true;
+}
+
+bool HCompressedAnimClass::Has_X_Translation(int pivot)
+{
+    if (VectorMotion != 0) return VectorMotion[pivot].Channels[0] != 0;
+    return NodeMotion[pivot].vd.X != 0;
+}
+
+bool HCompressedAnimClass::Has_Y_Translation(int pivot)
+{
+    if (VectorMotion != 0) return VectorMotion[pivot].Channels[1] != 0;
+    return NodeMotion[pivot].vd.Y != 0;
+}
+
+bool HCompressedAnimClass::Has_Z_Translation(int pivot)
+{
+    if (VectorMotion != 0) return VectorMotion[pivot].Channels[2] != 0;
+    return NodeMotion[pivot].vd.Z != 0;
+}
+
+bool HCompressedAnimClass::Has_Rotation(int pivot)
+{
+    if (VectorMotion != 0) return VectorMotion[pivot].Channels[3] != 0;
+    return NodeMotion[pivot].vd.Q != 0;
+}
+
+bool HCompressedAnimClass::Has_Visibility(int pivot)
+{
+    if (VectorMotion != 0) return VectorMotion[pivot].Visibility != 0;
+    return NodeMotion[pivot].Vis != 0;
+}
+
+bool HCompressedAnimClass::Is_Node_Motion_Present(int pivot)
+{
+    if (VectorMotion != 0) {
+        for (int i = 0; i < 5; ++i) if (VectorMotion[pivot].Channels[i] != 0) return true;
+        if (VectorMotion[pivot].Visibility != 0) return true;
+    } else {
+        if (NodeMotion[pivot].vd.X != 0) return true;
+        if (NodeMotion[pivot].vd.Y != 0) return true;
+        if (NodeMotion[pivot].vd.Z != 0) return true;
+        if (NodeMotion[pivot].vd.Q != 0) return true;
+        if (NodeMotion[pivot].Vis != 0) return true;
+    }
+    return false;
+}
+
+// tu-skeleton: 0x0018F640 54B ?Has_VisibilityF@HCompressedAnimClass@@QBE_NH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesX.cpp (not merged yet)
 
 // tu-skeleton: 0x0018F9C0 222B ??$decompress@$03@AdaptiveDeltaMotionChannelClass@@AAEXKPAMK0@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/hcanimGetFrame4.cpp (not merged yet)
 
