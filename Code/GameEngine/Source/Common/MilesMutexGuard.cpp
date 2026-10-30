@@ -56,6 +56,8 @@ private:
 	void *m_ptr00;
 };
 
+// ---- from Code/GameEngine/Source/Common/MilesMutexGuard.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva00041037Acquire.cpp
 
 MilesMutexGuard::MilesMutexGuard(void *m, int x) : m_mutex((Rva00041037Mutex *)m), m_flag(0)
@@ -71,14 +73,6 @@ bool MilesMutexGuard::rva00041037(int x)
     m_flag = m_mutex->vf0(x);
     return m_flag;
 }
-
-// tu-skeleton: 0x00041055 35B ?rva00041055@MilesMutexGuard@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00041055Guard.cpp (not merged yet)
-
-// tu-skeleton: 0x00041078 160B ?rva00041078@Rva00041078@@QAE_NKHPAH@Z -- matched in Code/GameEngine/Source/Common/Rva00041078Wait.cpp (not merged yet)
-
-// tu-skeleton: 0x00041118 54B ?rva00041118@Rva00041078@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00041078Wait.cpp (not merged yet)
-
-// tu-skeleton: 0x0004114E 26B ?rva0004114E@Rva0004114E@@QBEDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE25.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00041168.cpp
 
@@ -184,6 +178,27 @@ bool Rva000411BC::unlock()
     return false;
 }
 
-// tu-skeleton: 0x000411A0 28B ??_GRva000411BC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00041055Guard.cpp
 
-// tu-skeleton: 0x0004122F 12B ??1MilesMutexGuard@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00041055Guard.cpp (not merged yet)
+bool MilesMutexGuard::rva00041055()
+{
+    if (m_flag)
+        m_flag = !m_mutex->vf1();
+    return m_flag == 0;
+}
+
+// @0x0004122F 12B: LINK BONUS name; 40+ callers including MilesAudioManager
+// sites; tail-jmps to rva00041055 when the flag is set.
+MilesMutexGuard::~MilesMutexGuard()
+{
+    if (m_flag)
+        rva00041055();
+}
+
+// tu-skeleton: 0x00041078 160B ?rva00041078@Rva00041078@@QAE_NKHPAH@Z -- matched in Code/GameEngine/Source/Common/Rva00041078Wait.cpp (not merged yet)
+
+// tu-skeleton: 0x00041118 54B ?rva00041118@Rva00041078@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00041078Wait.cpp (not merged yet)
+
+// tu-skeleton: 0x0004114E 26B ?rva0004114E@Rva0004114E@@QBEDH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE25.cpp (not merged yet)
+
+// tu-skeleton: 0x000411A0 28B ??_GRva000411BC@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB08.cpp (not merged yet)
