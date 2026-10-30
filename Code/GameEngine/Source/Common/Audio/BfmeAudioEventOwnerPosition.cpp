@@ -16,7 +16,18 @@ extern LivingWorldLogic *TheLivingWorldLogic;
 #include "../../../../Libraries/Include/Lib/Coord3D.h"
 #include "../GameLogicObjectLookupView.h"
 class Drawable {public: const Coord3D *getPosition() const;};
-class Object {public: char pad[0x38]; BfmeEventPositionView position;};
+class Player;
+
+class Object
+{
+public:
+	Player *getControllingPlayer() const;
+	char m_pad00[0x38];
+	BfmeEventPositionView position; // +0x38
+	char m_pad44[0x54];
+	int m_98; // +0x98
+};
+
 class GameClient {public:
  virtual void slot0();
  virtual void slot1();
@@ -38,7 +49,15 @@ class GameClient {public:
 };
 class Rva003FA835 {public: BfmeEventPositionView rva003FA835();};
 class LivingWorld {public: void *FindClickableObject(void *);};
-struct Rva002B488EResult {char pad[0x44];float x,y;};
+struct Rva002B488EResult
+{
+public:
+	char m_pad00[0x44];
+	float x; // +0x44
+	float y; // +0x48
+	char m_pad4C[0x8];
+	int value54; // +0x54
+};
 struct Rva002B2579Position {char pad[0x18];BfmeEventPositionView position;};
 struct Rva002B2579Result {char pad[0x2c];Rva002B2579Position *data; Rva002B2579Position *get() const {return data;}};
 class Rva002BA8F1Logic {public: Rva002B488EResult *rva002B488E(int);Rva002B2579Result *rva002B2579(int);};

@@ -21,7 +21,26 @@
 // is the AsciiString at +0x20 tested with the out-of-line isEmpty.
 
 #include "ascii_string.h"
+#include "../GameLogicObjectLookupView.h"
 #include "Common/BfmeAudioEventPrefix136.h"
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../Include/Common/BfmeXfer.h"
 
 #define AUDIO_EVENT_RTS_FILE "C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\Common\\Audio\\AudioEventRTS.cpp"
 
@@ -32,10 +51,6 @@ float GetGameAudioRandomValueReal(float lo, float hi, char *file, int line);
 // (returns a string owned by TheAudio) and the filename extension builder.
 AsciiString Rva002DA398Get(int audioType);
 
-enum ObjectID
-{
-	INVALID_ID
-};
 
 enum OwnerType
 {
@@ -212,7 +227,7 @@ ObjectID AudioEventRTS::getObjectID(void)
 {
 	if (m_ownerType == OT_Object)
 		return (ObjectID)m_ownerID;
-	return INVALID_ID;
+	return INVALID_OBJECT_ID;
 }
 
 // ?isPositionalAudio@AudioEventRTS@@QBE_NXZ
@@ -541,134 +556,128 @@ struct Rva002D9D7CRef : OpaqueRefElement4 {
  // ?Rva002D9D7CRef::~Rva002D9D7CRef present-unmatched
  ~Rva002D9D7CRef() { if (referent) referent->Release_Ref(); }
 };
-class AudioManager {
+struct AudioData;
+struct Rva002D9D7CRef;
+class Xfer;
+class BfmePoolRef10;
+
+class AudioManager
+{
 public:
- virtual void a0();
- virtual void a1();
- virtual void a2();
- virtual void a3();
- virtual void a4();
- virtual void a5();
- virtual void a6();
- virtual void a7();
- virtual void a8();
- virtual void a9();
- virtual void a10();
- virtual void a11();
- virtual void a12();
- virtual void a13();
- virtual void a14();
- virtual void a15();
- virtual void a16();
- virtual void a17();
- virtual void a18();
- virtual void a19();
- virtual void a20();
- virtual void a21();
- virtual void a22();
- virtual void a23();
- virtual void a24();
- virtual void a25();
- virtual void a26();
- virtual void a27();
- virtual void a28();
- virtual void a29();
- virtual void a30();
- virtual void a31();
- virtual void a32();
- virtual void a33();
- virtual void a34();
- virtual void a35();
- virtual void a36();
- virtual void a37();
- virtual void a38();
- virtual void a39();
- virtual void a40();
- virtual void a41();
- virtual void a42();
- virtual void a43();
- virtual void a44();
- virtual void a45();
- virtual void a46();
- virtual void a47();
- virtual void a48();
- virtual void a49();
- virtual void a50();
- virtual void a51();
- virtual void a52();
- virtual void a53();
- virtual void a54();
- virtual void a55();
- virtual void a56();
- virtual void a57();
- virtual void a58();
- virtual void a59();
- virtual void a60();
- virtual void a61();
- virtual void a62();
- virtual void a63();
- virtual void a64();
- virtual void a65();
- virtual void a66();
- virtual void a67();
- virtual void a68();
- virtual void a69();
- virtual void a70();
- virtual void a71();
- virtual void a72();
- virtual void a73();
- virtual void a74();
- virtual Rva002D9D7CRef a75(const AsciiString *name);
- virtual void a76();
- virtual void a77();
- virtual void a78();
- virtual void a79();
- virtual void a80();
- virtual void a81();
- virtual void a82();
- virtual void a83();
- virtual void a84();
- virtual void a85();
- virtual void a86();
- virtual void a87();
- virtual void a88();
- virtual void a89();
- virtual void a90();
- virtual void a91();
- virtual void a92();
- virtual void a93();
- virtual void a94();
- virtual void a95();
- virtual void a96();
- virtual void a97();
- virtual void a98();
- virtual void a99();
- virtual void a100();
- virtual void a101();
- virtual void a102();
- virtual void a103(Xfer *xfer, BfmePoolRef10 *ref);
+	virtual void _pad00() = 0;
+	virtual void _pad01() = 0;
+	virtual void _pad02() = 0;
+	virtual void _pad03() = 0;
+	virtual void _pad04() = 0;
+	virtual void _pad05() = 0;
+	virtual void _pad06() = 0;
+	virtual void _pad07() = 0;
+	virtual void _pad08() = 0;
+	virtual void _pad09() = 0;
+	virtual void _pad10() = 0;
+	virtual void _pad11() = 0;
+	virtual void _pad12() = 0;
+	virtual void _pad13() = 0;
+	virtual void _pad14() = 0;
+	virtual void _pad15() = 0;
+	virtual void _pad16() = 0;
+	virtual void _pad17() = 0;
+	virtual void _pad18() = 0;
+	virtual void _pad19() = 0;
+	virtual void _pad20() = 0;
+	virtual void _pad21() = 0;
+	virtual void _pad22() = 0;
+	virtual void _pad23() = 0;
+	virtual void _pad24() = 0;
+	virtual void _pad25() = 0;
+	virtual void _pad26() = 0;
+	virtual void _pad27() = 0;
+	virtual void _pad28() = 0;
+	virtual int a29(void *o, int x) = 0;
+	virtual void _pad30() = 0;
+	virtual void _pad31() = 0;
+	virtual void _pad32() = 0;
+	virtual void _pad33() = 0;
+	virtual void _pad34() = 0;
+	virtual void _pad35() = 0;
+	virtual void _pad36() = 0;
+	virtual void _pad37() = 0;
+	virtual void _pad38() = 0;
+	virtual void _pad39() = 0;
+	virtual void _pad40() = 0;
+	virtual void _pad41() = 0;
+	virtual void _pad42() = 0;
+	virtual void _pad43() = 0;
+	virtual void _pad44() = 0;
+	virtual void _pad45() = 0;
+	virtual void _pad46() = 0;
+	virtual void _pad47() = 0;
+	virtual void _pad48() = 0;
+	virtual void _pad49() = 0;
+	virtual void _pad50() = 0;
+	virtual void _pad51() = 0;
+	virtual bool slotD0(int v) = 0;
+	virtual void _pad53() = 0;
+	virtual void _pad54() = 0;
+	virtual void _pad55() = 0;
+	virtual void _pad56() = 0;
+	virtual void _pad57() = 0;
+	virtual void _pad58() = 0;
+	virtual void _pad59() = 0;
+	virtual void _pad60() = 0;
+	virtual void _pad61() = 0;
+	virtual void _pad62() = 0;
+	virtual void _pad63() = 0;
+	virtual void _pad64() = 0;
+	virtual void _pad65() = 0;
+	virtual void _pad66() = 0;
+	virtual void _pad67() = 0;
+	virtual void _pad68() = 0;
+	virtual void _pad69() = 0;
+	virtual void _pad70() = 0;
+	virtual void _pad71() = 0;
+	virtual void _pad72() = 0;
+	virtual void _pad73() = 0;
+	virtual void _pad74() = 0;
+	virtual Rva002D9D7CRef a75(const AsciiString *name) = 0;
+	virtual void _pad76() = 0;
+	virtual AudioData *slot134() = 0;
+	virtual void _pad78() = 0;
+	virtual void _pad79() = 0;
+	virtual void _pad80() = 0;
+	virtual void _pad81() = 0;
+	virtual void _pad82() = 0;
+	virtual void _pad83() = 0;
+	virtual void _pad84() = 0;
+	virtual void _pad85() = 0;
+	virtual void _pad86() = 0;
+	virtual void _pad87() = 0;
+	virtual void _pad88() = 0;
+	virtual void _pad89() = 0;
+	virtual void _pad90() = 0;
+	virtual void _pad91() = 0;
+	virtual void _pad92() = 0;
+	virtual void _pad93() = 0;
+	virtual void _pad94() = 0;
+	virtual void _pad95() = 0;
+	virtual void _pad96() = 0;
+	virtual void _pad97() = 0;
+	virtual void _pad98() = 0;
+	virtual void _pad99() = 0;
+	virtual void _pad100() = 0;
+	virtual void _pad101() = 0;
+	virtual void _pad102() = 0;
+	virtual void a103(Xfer *xfer, BfmePoolRef10 *ref) = 0;
 };
 extern AudioManager *TheAudio;
 
-class Rva002D9AC3 { public: const char *rva002D9AC3(); };
-class Snapshot;
-class AsciiString;
-class UnicodeString;
-class PooledString;
-struct Coord3DBase;
-struct ICoord3D;
-struct Region3D;
-class IRegion3D;
-class Coord2D;
-struct ICoord2D;
-struct Region2D;
-struct IRegion2D;
-class RealRange;
-struct RGBColor;
-class RGBAColorReal;
-class RGBAColorInt;
-struct XferUnknown11;
-#include "../../../Include/Common/BfmeXfer.h"
+class Rva002D9AC3
+{
+public:
+	const char *rva002D9AC3();
+	char m_pad00[0x8];
+	char *m_ptr; // +0x08
+};
 
 void XferDrawableID(Xfer *xfer, int *id);
 void XferObjectID(Xfer *xfer, ObjectID *id);

@@ -46,8 +46,8 @@ class Rva002D9AC3
 {
 public:
 	const char *rva002D9AC3();
-	char m_pad[8];
-	char *m_ptr;
+	char m_pad00[0x8];
+	char *m_ptr; // +0x08
 };
 
 // Native2D9C7A..2D9D39 no-arg getter. Event fields34/38/70 and all
@@ -65,7 +65,15 @@ class LivingWorld;
 
 class LivingWorld {public: void *FindClickableObject(void *);};
 
-struct Rva002B488EResult {char unknown[0x54]; int value54;};
+struct Rva002B488EResult
+{
+public:
+	char m_pad00[0x44];
+	float x; // +0x44
+	float y; // +0x48
+	char m_pad4C[0x8];
+	int value54; // +0x54
+};
 
 struct Rva002B2579Result;
 
@@ -153,6 +161,9 @@ typedef unsigned int AudioHandle;
 // donors. Keep their retail indices: a29 at 0x74, slotD0 at 0xD0,
 // slot134 at 0x134; the remaining slots retain the existing donor padding.
 struct AudioData;
+struct Rva002D9D7CRef;
+class Xfer;
+class BfmePoolRef10;
 
 class AudioManager
 {
@@ -232,9 +243,35 @@ public:
 	virtual void _pad72() = 0;
 	virtual void _pad73() = 0;
 	virtual void _pad74() = 0;
-	virtual void _pad75() = 0;
+	virtual Rva002D9D7CRef a75(const AsciiString *name) = 0;
 	virtual void _pad76() = 0;
 	virtual AudioData *slot134() = 0;
+	virtual void _pad78() = 0;
+	virtual void _pad79() = 0;
+	virtual void _pad80() = 0;
+	virtual void _pad81() = 0;
+	virtual void _pad82() = 0;
+	virtual void _pad83() = 0;
+	virtual void _pad84() = 0;
+	virtual void _pad85() = 0;
+	virtual void _pad86() = 0;
+	virtual void _pad87() = 0;
+	virtual void _pad88() = 0;
+	virtual void _pad89() = 0;
+	virtual void _pad90() = 0;
+	virtual void _pad91() = 0;
+	virtual void _pad92() = 0;
+	virtual void _pad93() = 0;
+	virtual void _pad94() = 0;
+	virtual void _pad95() = 0;
+	virtual void _pad96() = 0;
+	virtual void _pad97() = 0;
+	virtual void _pad98() = 0;
+	virtual void _pad99() = 0;
+	virtual void _pad100() = 0;
+	virtual void _pad101() = 0;
+	virtual void _pad102() = 0;
+	virtual void a103(Xfer *xfer, BfmePoolRef10 *ref) = 0;
 };
 
 extern AudioManager *TheAudio;
@@ -258,11 +295,65 @@ public:
 
 class Xfer;
 
+struct AudioEventInfo;
+
+enum PortionToPlay
+{
+	PP_Attack,
+	PP_Sound,
+	PP_Decay,
+	PP_Done
+};
+
 class AudioEventRTS
 {
 public:
- void internalXfer(Xfer *xfer, const void *version);
- static const AsciiString *generateFilenamePrefix(int audioType);
+	static const AsciiString *generateFilenamePrefix(int audioType);	// 0x002D9622
+	__forceinline const AudioEventInfo *peekEventInfo(void) const
+	{
+		return m_eventInfo;
+	}
+
+	unsigned int getSoundClass(void) const;
+	bool isPositionalAudio(void) const;
+	bool hasMoreLoops(void) const;
+	void advanceNextPlayPortion(void);
+	ObjectID getObjectID(void);
+	void rva002D9ADC(void);
+	void generateFilename(void);
+	AsciiString getFilename(void);
+	AsciiString getAttackFilename(void) const;
+	void generatePlayInfo(void);
+	void internalXfer(Xfer *xfer, const void *version);
+	void rva002DAAD5(void);
+	AsciiString rva002DA867(void);
+
+private:
+	void *m_vftable;
+	AsciiString m_filenameToLoad;		// +0x04
+	AudioEventInfo *m_eventInfo;		// +0x08
+	char m_pad0C[0x10];
+	AsciiString m_attackName;		// +0x1C
+	AsciiString m_decayName;		// +0x20
+	char m_pad24[0x10];
+	unsigned int m_ownerID;			// +0x34
+	int m_ownerType;			// +0x38
+	char m_pad3C[0x10];
+	unsigned char m_bypassLoops;		// +0x4C
+	unsigned char m_filenameDirty;		// +0x4D
+	unsigned char m_filenameGenerated;	// +0x4E
+	unsigned char m_pad4F;
+	unsigned char m_regenerateFilename;	// +0x50
+	unsigned char m_pad51[0x02];
+	unsigned char m_sequential;		// +0x53
+	float m_pitchShift;			// +0x54
+	float m_pitchShift2;			// +0x58
+	float m_volumeShift;			// +0x5C
+	float m_volumeShift2;			// +0x60
+	float m_delay;				// +0x64
+	int m_playingAudioIndex;		// +0x68
+	char m_pad6C[0x08];
+	PortionToPlay m_portionToPlayNext;	// +0x74
 };
 
 class Rva002D9F9FArg
@@ -306,15 +397,19 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	char m_pad00[0x38];
+	BfmeEventPositionView position; // +0x38
+	char m_pad44[0x54];
+	int m_98; // +0x98
 };
-
 class ClientHolder
 {
 public:
 	char m_padFC[0xFC];
 	Object *m_objFC;
+	char m_pad100[0x34A];
+	unsigned char m_44A; // +0x44A
 };
-
 class ClientFrameSubsystem
 {
 public:
@@ -334,7 +429,7 @@ public:
 	virtual void _u013();
 	virtual void _u014();
 	virtual void _u015();
-	virtual ClientHolder *rva040(ObjectID id);
+	virtual ClientHolder *rva040(ObjectID id); // +0x40
 };
 
 class Rva002DA414
@@ -483,6 +578,7 @@ struct AudioData
 	AsciiString m_musicFolder;
 	AsciiString m_C;
 	AsciiString m_ambientStreamFolder;
+	AsciiString m_str; // +0x14
 };
 
 class Rva002D9FD9Arg

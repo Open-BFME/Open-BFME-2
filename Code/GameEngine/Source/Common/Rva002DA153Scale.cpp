@@ -1,5 +1,5 @@
 // Native singleton VA 0x00DFE77C is GameClient.cpp's class GameClient pointer.
-// cl: /MD
+// cl: /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /Ireference/shims/bfmealloc
 // ?rva002DA153@Rva002DA153@@QAEMXZ @0x002DA153 121B: float getter with mode branches.
 // Evidence: TheGameLogic findObjectByID row 0x49DC5, TheGameClient virtual 0x40,
 // BfmeZeroRange, native -1.0f literal at VA 0x00BBB9AC, call sites 0x00059B4C and 0x0005C974,
@@ -12,45 +12,62 @@
 // the +0x2C * +0x28 tail, so the -1 test is written as equality.
 
 #include "GameLogicObjectLookupView.h"
+#include "Common/BfmeAudioEventPrefix136.h"
+
+class Player;
 
 class Object
 {
 public:
-	unsigned char m_pad[0x98];
-	int m_98;
+	Player *getControllingPlayer() const;
+	char m_pad00[0x38];
+	BfmeEventPositionView position; // +0x38
+	char m_pad44[0x54];
+	int m_98; // +0x98
 };
 
-
 extern GameLogic *TheGameLogic;
+
+class ClientHolder
+{
+public:
+	char m_padFC[0xFC];
+	Object *m_objFC;
+	char m_pad100[0x34A];
+	unsigned char m_44A; // +0x44A
+};
 
 class ClientFrameSubsystem
 {
 public:
-	virtual void *slot00();
-	virtual void *slot04();
-	virtual void *slot08();
-	virtual void *slot0C();
-	virtual void *slot10();
-	virtual void *slot14();
-	virtual void *slot18();
-	virtual void *slot1C();
-	virtual void *slot20();
-	virtual void *slot24();
-	virtual void *slot28();
-	virtual void *slot2C();
-	virtual void *slot30();
-	virtual void *slot34();
-	virtual void *slot38();
-	virtual void *slot3C();
-	virtual void *slot40(void *a);
+	virtual void _u000();
+	virtual void _u001();
+	virtual void _u002();
+	virtual void _u003();
+	virtual void _u004();
+	virtual void _u005();
+	virtual void _u006();
+	virtual void _u007();
+	virtual void _u008();
+	virtual void _u009();
+	virtual void _u010();
+	virtual void _u011();
+	virtual void _u012();
+	virtual void _u013();
+	virtual void _u014();
+	virtual void _u015();
+	virtual ClientHolder *rva040(ObjectID id); // +0x40
 };
 
 extern class GameClient *TheGameClient;
 
 struct Sub08
 {
-	char m_pad[0x1C];
-	float m_1C;
+public:
+	char m_pad00[0x10];
+	float m_10; // +0x10
+	char m_pad14[0x8];
+	float m_1C; // +0x1C
 };
 
 class Rva002DA153
@@ -90,10 +107,10 @@ float Rva002DA153::rva002DA153()
 	}
 	else
 	{
-		void *drawable = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->slot40((void *)m_34);
+		ClientHolder *drawable = reinterpret_cast<ClientFrameSubsystem *>(TheGameClient)->rva040(m_34);
 		if (drawable != 0)
 		{
-			if (*(unsigned char *)((char *)drawable + 0x44A) == 0)
+			if (drawable->m_44A == 0)
 				return 0.0f;
 		}
 	}

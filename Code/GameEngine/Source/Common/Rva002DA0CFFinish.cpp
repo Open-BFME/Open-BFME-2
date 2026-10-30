@@ -53,36 +53,41 @@ extern float g_00BBB9AC;
 
 struct Sub08
 {
-	char m_pad[0x10];
-	float m_10;
+public:
+	char m_pad00[0x10];
+	float m_10; // +0x10
+	char m_pad14[0x8];
+	float m_1C; // +0x1C
 };
 
-struct ClientRet40
+class ClientHolder
 {
-	char m_pad[0x44A];
-	unsigned char m_44A;
+public:
+	char m_padFC[0xFC];
+	Object *m_objFC;
+	char m_pad100[0x34A];
+	unsigned char m_44A; // +0x44A
 };
-
 class ClientFrameSubsystem
 {
 public:
-	virtual void s000();
-	virtual void s001();
-	virtual void s002();
-	virtual void s003();
-	virtual void s004();
-	virtual void s005();
-	virtual void s006();
-	virtual void s007();
-	virtual void s008();
-	virtual void s009();
-	virtual void s010();
-	virtual void s011();
-	virtual void s012();
-	virtual void s013();
-	virtual void s014();
-	virtual void s015();
-	virtual ClientRet40 *s016(int id);  // +0x40
+	virtual void _u000();
+	virtual void _u001();
+	virtual void _u002();
+	virtual void _u003();
+	virtual void _u004();
+	virtual void _u005();
+	virtual void _u006();
+	virtual void _u007();
+	virtual void _u008();
+	virtual void _u009();
+	virtual void _u010();
+	virtual void _u011();
+	virtual void _u012();
+	virtual void _u013();
+	virtual void _u014();
+	virtual void _u015();
+	virtual ClientHolder *rva040(ObjectID id); // +0x40
 };
 
 class ClientFrameSubsystem; extern class GameClient *TheGameClient;
@@ -108,7 +113,7 @@ double Rva002DA0CF::rva002DA0CF()
 {
 	switch (m_38) {
 	case 1: {
-		ClientRet40 *drawable = ((ClientFrameSubsystem *)TheGameClient)->s016(m_34);
+		ClientHolder *drawable = ((ClientFrameSubsystem *)TheGameClient)->rva040((ObjectID)m_34);
 		if (drawable != 0 && drawable->m_44A == 0)
 			return BfmeZeroRange;
 		break;
