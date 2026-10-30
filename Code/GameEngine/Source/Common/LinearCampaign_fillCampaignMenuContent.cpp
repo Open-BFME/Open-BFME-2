@@ -30,16 +30,19 @@ struct Rva001EB6A5Out
 class LinearCampaign
 {
 public:
+	void rva001EB6FE();
+	void onMissionComplete();
 	bool fillCampaignMenuContent(Rva001EB6A5Out *out);
 private:
-	char m_00[4];
-	Rva001EB3A6 *m_04;
-	char m_08[4];
-	int m_0C;
-	char m_10[0xB0];
-	unsigned char m_C0;
-	char m_pad[2];
-	unsigned char m_C3;
+	char m_00[4]; // +0x00
+	Rva001EB3A6 *m_04; // +0x04
+	char m_08[4]; // +0x08
+	int m_0C; // +0x0C
+	char m_10[0xB0]; // +0x10
+	unsigned char m_C0; // +0xC0
+	char m_padC1[0x1];
+	char m_C2; // +0xC2
+	char m_C3; // +0xC3
 };
 
 bool LinearCampaign::fillCampaignMenuContent(Rva001EB6A5Out *out)

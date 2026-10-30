@@ -15,17 +15,24 @@ public:
 	void rva001EB456(int a, int b);
 };
 
+struct Rva001EB6A5Out;
+class Rva001EB3A6;
 class LinearCampaign
 {
 public:
 	void rva001EB6FE();
 	void onMissionComplete();
+	bool fillCampaignMenuContent(Rva001EB6A5Out *out);
 private:
-	char m_pad[0xC];
-	int m_0C;
-	char m_pad10[0xB2];
-	char m_C2;
-	char m_C3;
+	char m_00[4]; // +0x00
+	Rva001EB3A6 *m_04; // +0x04
+	char m_08[4]; // +0x08
+	int m_0C; // +0x0C
+	char m_10[0xB0]; // +0x10
+	unsigned char m_C0; // +0xC0
+	char m_padC1[0x1];
+	char m_C2; // +0xC2
+	char m_C3; // +0xC3
 };
 
 // ---- from Code/GameEngine/Source/Common/Rva001EB6FEFlag.cpp
