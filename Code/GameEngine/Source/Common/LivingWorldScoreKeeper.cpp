@@ -298,6 +298,26 @@ void __cdecl Rva0052C37ADestroyRange(Rva0052BFB5Elem *first, Rva0052BFB5Elem *la
 #define _CRTIMP
 #include <stdlib.h>
 #undef _CRTIMP
+// Native online reporter5C062E constructs the rowed seven-word224-bit
+// mask before these calls. Reconcile the argument view with its constructor;
+// the legacy filter helper ABI is retained through layout-preserving casts.
+// ?rva004EE35D@Rva004EE35D@@QAEHABURva00045411BitSet@@0@Z, retail 0x004EE35D, 78 bytes.
+// RB-tree sum with BitFlags filter: like LivingWorldScoreKeeper::rva004EE33B but tree at
+// +0xB4, sums +0x14 where +0x10 obj non-null and its +0x108 flags pass
+// testSetAndClear. Evidence: rowed 0x0030A146 0x00024250; prev/next /O1 /MD;
+// ret 8 two args; callers 0x005BE469 0x005C0333 0x005C1290 0x005C1347.
+template <int N>
+class BitFlags
+{
+public:
+	bool testSetAndClear(const BitFlags &mustBeSet, const BitFlags &mustBeClear) const;
+private:
+	unsigned m_words[7];
+};
+struct Rva00045411BitSet { unsigned m_words[7]; };
+#define _STLP_USE_STATIC_LIB
+#define _STLP_USE_STATIC_LIB
+#define _STLP_USE_STATIC_LIB
 
 class Xfer0051FFF5;
 
@@ -321,6 +341,112 @@ private:
 	Rva0052BFB5Elem *m_finish;
 };
 
+struct Rva004EE35DObj
+{
+	char m_pad[0x108];
+	BitFlags<116> m_flags;
+};
+
+struct Rva004EE35DNode : _STL::_Rb_tree_node_base
+{
+	Rva004EE35DObj *m_10;
+	int m_14;
+};
+
+class Rva004EE35D
+{
+public:
+	int rva004EE35D(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
+private:
+	char m_pad[0xB4];
+	_STL::_Rb_tree_node_base *m_B4;
+};
+
+struct Rva004EE3ABObj
+{
+	char m_pad[0x108];
+	BitFlags<116> m_flags;
+};
+
+struct Rva004EE3ABNode : _STL::_Rb_tree_node_base
+{
+	Rva004EE3ABObj *m_10;
+	int m_14;
+};
+
+class Rva004EE3AB
+{
+public:
+	int rva004EE3AB(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
+private:
+	char m_pad[0xC0];
+	_STL::_Rb_tree_node_base *m_C0;
+};
+
+struct Rva004EE3F9Obj
+{
+	char m_pad[0x108];
+	BitFlags<116> m_flags;
+};
+
+struct Rva004EE3F9Node : _STL::_Rb_tree_node_base
+{
+	Rva004EE3F9Obj *m_10;
+	int m_14;
+};
+
+class Rva004EE3F9
+{
+public:
+	int rva004EE3F9(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear);
+private:
+	char m_pad[0xCC];
+	_STL::_Rb_tree_node_base *m_CC;
+};
+
+class Rva00261C89
+{
+public:
+	bool rva00261C89();
+};
+
+struct Rva004EE485Node : _STL::_Rb_tree_node_base
+{
+	Rva00261C89 *m_10;
+	int m_14;
+};
+
+class Rva004EE485
+{
+public:
+	int rva004EE485();
+	int rva005BE20B();
+private:
+	char m_pad[0xA8];
+	int m_A8;
+	int m_AC;
+	char m_pad2[0xC0 - 0xA8 - 8];
+	_STL::_Rb_tree_node_base *m_C0;
+};
+
+class Rva004EE447
+{
+public:
+	int rva004EE447();
+private:
+	char m_pad[0xB4];
+	_STL::_Rb_tree_node_base *m_B4;
+};
+
+class Rva004EE4C3
+{
+public:
+	int rva004EE4C3();
+private:
+	char m_pad[0xCC];
+	_STL::_Rb_tree_node_base *m_CC2;
+};
+
 // tu-skeleton: 0x004EE016 33B ?rva004EE016@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 
 // tu-skeleton: 0x004EE037 12B ?rva004EE037@LivingWorldScoreKeeper@@QAEIXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
@@ -328,6 +454,8 @@ private:
 // tu-skeleton: 0x004EE043 20B ?rva004EE043@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 
 // tu-skeleton: 0x004EE057 27B ?GetBuildingsOfTypeBuilt@LivingWorldScoreKeeper@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp
 
@@ -470,6 +598,35 @@ const char *LivingWorldScoreKeeper::GetSnapshotName()const{return "LivingWorldSc
 // action $L9773 of the exact 310-byte destructor and its exception graph.
 // Its adjusted observer lifetime is emitted by the existing real C++ bases.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/Common/Rva004EE540Clear.cpp
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva004EE540::rva004EE540()
+{
+	Rva0052C37ADestroyRange(m_start, m_finish);
+	Rva0052BFB5Elem *start = m_start;
+	if (start != 0)
+		free(start);
+}
+
 // tu-skeleton: 0x004EE13E 23B ??0PerTurnStats@LivingWorldScoreKeeper@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva004EEE38CollectTurnStats.cpp (not merged yet)
 
 // tu-skeleton: 0x004EE155 6B ?GetSnapshotName@PerTurnStats@LivingWorldScoreKeeper@@UBEPBDXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters.cpp (not merged yet)
@@ -488,32 +645,98 @@ const char *LivingWorldScoreKeeper::GetSnapshotName()const{return "LivingWorldSc
 
 // tu-skeleton: 0x004EE33B 34B ?rva004EE33B@LivingWorldScoreKeeper@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE037Div.cpp (not merged yet)
 
-// tu-skeleton: 0x004EE35D 78B ?rva004EE35D@Rva004EE35D@@QAEHABURva00045411BitSet@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004EE35D.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004EE35D.cpp
 
-// tu-skeleton: 0x004EE3AB 78B ?rva004EE3AB@Rva004EE3AB@@QAEHABURva00045411BitSet@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004EE3AB.cpp (not merged yet)
+int Rva004EE35D::rva004EE35D(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
+{
+	_STL::_Rb_tree_node_base *node = m_B4->_M_left;
+	int sum = 0;
+	while (node != m_B4) {
+		Rva004EE35DNode *n = (Rva004EE35DNode *)node;
+		if (n->m_10 && n->m_10->m_flags.testSetAndClear(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear)))
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
 
-// tu-skeleton: 0x004EE3F9 78B ?rva004EE3F9@Rva004EE3F9@@QAEHABURva00045411BitSet@@0@Z -- matched in Code/GameEngine/Source/Common/Rva004EE3F9.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004EE3AB.cpp
 
-// tu-skeleton: 0x004EE447 62B ?rva004EE447@Rva004EE447@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE3F9.cpp (not merged yet)
+int Rva004EE3AB::rva004EE3AB(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
+{
+	_STL::_Rb_tree_node_base *node = m_C0->_M_left;
+	int sum = 0;
+	while (node != m_C0) {
+		Rva004EE3ABNode *n = (Rva004EE3ABNode *)node;
+		if (n->m_10 && n->m_10->m_flags.testSetAndClear(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear)))
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
 
-// tu-skeleton: 0x004EE485 62B ?rva004EE485@Rva004EE485@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE3F9.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004EE3F9.cpp
 
-// tu-skeleton: 0x004EE4C3 62B ?rva004EE4C3@Rva004EE4C3@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004EE3F9.cpp (not merged yet)
+int Rva004EE3F9::rva004EE3F9(const Rva00045411BitSet &mustBeSet, const Rva00045411BitSet &mustBeClear)
+{
+	_STL::_Rb_tree_node_base *node = m_CC->_M_left;
+	int sum = 0;
+	while (node != m_CC) {
+		Rva004EE3F9Node *n = (Rva004EE3F9Node *)node;
+		if (n->m_10 && n->m_10->m_flags.testSetAndClear(reinterpret_cast<const BitFlags<116>&>(mustBeSet), reinterpret_cast<const BitFlags<116>&>(mustBeClear)))
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
+
+int Rva004EE485::rva004EE485()
+{
+	_STL::_Rb_tree_node_base *node = m_C0->_M_left;
+	int sum = 0;
+	while (node != m_C0) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
+
+int Rva004EE485::rva005BE20B()
+{
+	int a = m_A8;
+	int b = m_AC;
+	return a + b + rva004EE485();
+}
+
+int Rva004EE447::rva004EE447()
+{
+	_STL::_Rb_tree_node_base *node = m_B4->_M_left;
+	int sum = 0;
+	while (node != m_B4) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
+
+int Rva004EE4C3::rva004EE4C3()
+{
+	_STL::_Rb_tree_node_base *node = m_CC2->_M_left;
+	int sum = 0;
+	while (node != m_CC2) {
+		Rva004EE485Node *n = (Rva004EE485Node *)node;
+		if (n->m_10 && n->m_10->rva00261C89())
+			sum += n->m_14;
+		node = _STL::_Rb_global<bool>::_M_increment(node);
+	}
+	return sum;
+}
 
 // tu-skeleton: 0x004EE501 63B ??1Rva004EE501@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Rva004EE540Clear.cpp
-
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-
-void Rva004EE540::rva004EE540()
-{
-	Rva0052C37ADestroyRange(m_start, m_finish);
-	Rva0052BFB5Elem *start = m_start;
-	if (start != 0)
-		free(start);
-}
 
 // tu-skeleton: 0x004EE55E 116B ?reserve@Rva004EE55EVector@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp (not merged yet)
 

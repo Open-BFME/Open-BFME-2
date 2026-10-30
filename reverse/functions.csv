@@ -25193,11 +25193,11 @@ _piChannelMessageA,,0x006AACB0,305,Code/GameEngine/Source/GameNetwork/GameSpy/pe
 ?rva0053850B@Rva0053850B@@QAEXPAVDataChunkOutput@@@Z,,0x0053850B,100,Code/GameEngine/Source/Common/QuadStrip2D.cpp,matched,Vector Float4 save via rowed writeInt writeReal loop caller 0x0030C3C9
 ?rva002D7BB7@Radar@@QAEXPBX@Z,,0x002D7BB7,28,Code/GameEngine/Source/Common/System/Radar.cpp,matched,Radar draw rect copy via 4x movsd plus dirty flag caller 0x002D3275
 ??0Rva00414093@@QAE@ABV0@@Z,,0x00414093,61,Code/GameEngine/Source/Common/Rva00414093Copy.cpp,matched,chain copy ctor calls rowed vector 0x002CFAB9 and just-landed tree copy 0x00413EE6 at plus 0xC
-?rva004EE35D@Rva004EE35D@@QAEHABURva00045411BitSet@@0@Z,,0x004EE35D,78,Code/GameEngine/Source/Common/Rva004EE35D.cpp,matched,unlock RB sum with BitFlags filter via rowed callees
+?rva004EE35D@Rva004EE35D@@QAEHABURva00045411BitSet@@0@Z,,0x004EE35D,78,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,unlock RB sum with BitFlags filter via rowed callees
 ?push_back@?$vector@VRva0052BEF0@@V?$allocator@VRva0052BEF0@@@_STL@@@_STL@@QAEXABVRva0052BEF0@@@Z,,0x00566417,55,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0052bef0_pushback.cpp,matched,STLport vector Rva0052BEF0 pushback chain from overflow
 ??_GRva005DB100@@UAEPAXI@Z,,0x005DB1E8,28,Code/GameEngine/Source/Common/Rva005DB100Dtor.cpp,matched,scalar deleting dtor via rowed dtor plus delete; rehomed from FamilyDeletingDtors_Rva005DB100.cpp: Rva005DB100Dtor.cpp owns ~Rva005DB100 and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
-?rva004EE3AB@Rva004EE3AB@@QAEHABURva00045411BitSet@@0@Z,,0x004EE3AB,78,Code/GameEngine/Source/Common/Rva004EE3AB.cpp,matched,RB sum BitFlags filter tree C0 sibling EE35D
-?rva004EE3F9@Rva004EE3F9@@QAEHABURva00045411BitSet@@0@Z,,0x004EE3F9,78,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum BitFlags filter tree CC sibling EE3AB
+?rva004EE3AB@Rva004EE3AB@@QAEHABURva00045411BitSet@@0@Z,,0x004EE3AB,78,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,RB sum BitFlags filter tree C0 sibling EE35D
+?rva004EE3F9@Rva004EE3F9@@QAEHABURva00045411BitSet@@0@Z,,0x004EE3F9,78,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,RB sum BitFlags filter tree CC sibling EE3AB
 ?_M_insert_overflow@?$vector@VRva0052BDE6@@V?$allocator@VRva0052BDE6@@@_STL@@@_STL@@IAEXPAVRva0052BDE6@@ABV3@ABU__false_type@2@I_N@Z,,0x00565C34,183,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0052bde6_overflow.cpp,matched,overflow 183B via G7 SSE flags rowed Construct FillN pinned allocate copy clear
 ??_GRadar@@UAEPAXI@Z,,0x002D8888,28,Code/GameEngine/Source/Common/System/RadarDtor.cpp,matched,scalar deleting dtor via rowed Radar dtor plus delete; rehomed from FamilyDeletingDtors_Rva002D8888.cpp: RadarDtor.cpp owns ~Radar and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
 ?rva00518359@Rva00518359@@QAEXXZ,,0x00518359,71,Code/GameEngine/Source/Common/Rva00518359Combo.cpp,matched,combo restore via rowed Gadget calls plus offsets
@@ -34861,9 +34861,9 @@ _Rva14AA50VirtualDispatch,,0x0025EDD4,18,Code/GameEngine/Source/Common/Rva14AA50
 ?rva00392D71@Rva0039205C@@QAEHH@Z,,0x00392D71,51,Code/GameEngine/Source/Common/Rva0039205CArray.cpp,matched,array int getter via GlobalData count stride 0x1C
 ?rva00392129@Rva0039205C@@QAEXIM@Z,,0x00392129,54,Code/GameEngine/Source/Common/Rva0039205CFloat.cpp,matched,float setter via GlobalData count stride 0x1C
 ?rva0039215F@Rva0039205C@@QAEXIABVAsciiString@@@Z,,0x0039215F,55,Code/GameEngine/Source/Common/Rva0039205CString.cpp,matched,string setter via GlobalData count stride 0x1C
-?rva004EE485@Rva004EE485@@QAEHXZ,,0x004EE485,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree C0 sibling EE3F9 no commas
-?rva004EE447@Rva004EE447@@QAEHXZ,,0x004EE447,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree B4 sibling EE485 no commas
-?rva004EE4C3@Rva004EE4C3@@QAEHXZ,,0x004EE4C3,62,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,RB sum bool filter tree CC sibling EE485 no commas
+?rva004EE485@Rva004EE485@@QAEHXZ,,0x004EE485,62,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,RB sum bool filter tree C0 sibling EE3F9 no commas
+?rva004EE447@Rva004EE447@@QAEHXZ,,0x004EE447,62,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,RB sum bool filter tree B4 sibling EE485 no commas
+?rva004EE4C3@Rva004EE4C3@@QAEHXZ,,0x004EE4C3,62,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,RB sum bool filter tree CC sibling EE485 no commas
 ?copyWord4@Rva00665660@@QAEPAV1@PBV1@@Z,,0x00665660,15,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp,matched,BF1rev775a0370b7 game/GameEngine/Source/Common/Rva007F90B0.cpp wholeTU compiled lead; target-native ECXreceiver readsother+4 writesreceiver+4 returnsreceiver ret4; unsignedword ABI view with unmodelledprefix only originalclass/prototype unknown; /O2 /DNDEBUG /MD /EHsc
 ?_Rva00621350GameInfoMapPath@@YA?AVAsciiString@@ABV1@_N@Z,,0x00400898,367,Code/GameEngine/Source/GameNetwork/GameInfo.cpp,matched,BFME1 donor Rva00621350GameInfoMapPath.cpp at 1281192f68 compiled /O1; unique masked placement; callees pinned from retail
 ?init@Rva00690CB0Owner@@QAE_NXZ,,0x005B7107,307,Code/GameEngine/Source/Common/Rva00690CB0Init.cpp,matched,BFME1 donor Rva00690CB0Init.cpp at 1281192f68 compiled /O1; unique masked placement; firewall authorized-application add via CoCreateInstance
@@ -34945,7 +34945,7 @@ _Rva00669500@8,,0x00669500,13,Code/GameEngine/Source/Common/RvaSmallLeafTransfer
 ?rva003EFE3E@Rva003EFE3E@@QAEXH@Z,,0x003EFE3E,37,Code/GameEngine/Source/Common/Rva003EFE3E.cpp,matched,store 140 and forward this to 3EF08B no commas
 ?rva0054CC1B@Rva0054CC1B@@QAEXXZ,,0x0054CC1B,26,Code/GameEngine/Source/Common/Rva0054CC1BRelease.cpp,matched,chain release wrapper for 0054C941 unblocks 0054D2CF
 ?test@Rva00300021Flags@@QBE_NPBURva00300021Argument@@@Z,,0x00300021,84,Code/GameEngine/Source/Common/Rva00042FE4FlagTest.cpp,matched,Whole BFME1 Rva0044F630FlagTest donor@1281192 compiledO1; independent nativeGhidra300021/84 completeRET4 masks1/2 gate argument+26 then4/8 plus10/20 reject+24/+25; no calls globals or pins; address-qualified distinct partial owner and argument views; original owner/field purpose unknown; real C++
-?rva005BE20B@Rva004EE485@@QAEHXZ,,0x005BE20B,26,Code/GameEngine/Source/Common/Rva004EE3F9.cpp,matched,same-ecx callee 0x004EE485 proves Rva004EE485 class plus A8 AC
+?rva005BE20B@Rva004EE485@@QAEHXZ,,0x005BE20B,26,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,matched,same-ecx callee 0x004EE485 proves Rva004EE485 class plus A8 AC
 ??1Rva0054D2CF@@UAE@XZ,,0x0054D2CF,14,Code/GameEngine/Source/Common/Rva0054CC1BRelease.cpp,matched,chain vptr tail to 0054CC1B LINK-46B
 ?rva005CFC12@Rva005D00A6@@UAEXPAVINI@@@Z,,0x005CFC12,163,Code/GameEngine/Source/Common/System/Rva005CFC12.cpp,matched,vslot slot1 offset0x4 donor Rva005D00A6Ctor rowed initFromINI plus IAT floor via fast_floor fast_round precedent Rva002E7875WorldToCell
 ?Rva002A74C3Get@@YGHPAX@Z,,0x002A74C3,61,Code/GameEngine/Source/GameLogic/Object/Rva002A74C3.cpp,matched,linkbody via 0x002A7500 plus rowed Object 0x0028C149 ret4 single arg

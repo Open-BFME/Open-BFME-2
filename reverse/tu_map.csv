@@ -42112,12 +42112,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004EE233,45,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE113..0x004EE260 provisional,Code/GameEngine/Source/Common/Thing/Rva004EE233AllocateCopy.cpp
 0x004EE260,219,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE33B,34,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/Rva004EE037Div.cpp
-0x004EE35D,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE3AB provisional,Code/GameEngine/Source/Common/Rva004EE35D.cpp
-0x004EE3AB,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE3F9 provisional,Code/GameEngine/Source/Common/Rva004EE3AB.cpp
-0x004EE3F9,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE447 provisional,Code/GameEngine/Source/Common/Rva004EE3F9.cpp
-0x004EE447,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE485 provisional,Code/GameEngine/Source/Common/Rva004EE3F9.cpp
-0x004EE485,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE4C3 provisional,Code/GameEngine/Source/Common/Rva004EE3F9.cpp
-0x004EE4C3,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE501 provisional,Code/GameEngine/Source/Common/Rva004EE3F9.cpp
+0x004EE35D,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE3AB provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE3AB,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE3F9 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE3F9,78,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE447 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE447,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE485 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE485,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE4C3 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE4C3,62,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE501 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE501,63,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE540 provisional,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x004EE540,30,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE55E provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE55E,116,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE33B..0x004EE5D2 provisional,Code/Libraries/Source/WWVegas/WWLib/StlVectorReserveProviderRepairs.cpp
@@ -49431,7 +49431,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005BE1D8,10,code,,displaced,-,S=Code/Libraries/Source/WWVegas/WW3D2/visrasterizer.cpp N=Code/Libraries/Source/WWVegas/WW3D2/IDBufferClass.cpp,Code/Libraries/Source/WWVegas/WW3D2/mesh.cpp
 0x005BE1E2,25,code,,,-,,Code/GameEngine/Source/Common/GapBodiesGE01.cpp
 0x005BE1FB,16,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,proposed,K,K=Rva004EE4C3,Code/GameEngine/Source/Common/GapBodiesGE01.cpp
-0x005BE20B,26,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,proposed,K,K=Rva004EE485,Code/GameEngine/Source/Common/Rva004EE3F9.cpp
+0x005BE20B,26,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,proposed,K,K=Rva004EE485,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x005BE225,32,code,,,-,,Code/GameEngine/Source/Common/RepeatedWordFills.cpp
 0x005BE245,10,code,,,-,,Code/GameEngine/Source/Common/Disp8SarAvgDwordGetters.cpp
 0x005BE24F,21,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptTimeLineStats.cpp
