@@ -457,11 +457,13 @@ struct Rva00395708Data
 	Bool m_flag; // +0x18
 };
 
-class Module
+#include "../../../../Include/Common/Module.h"
+
+// Partial access view; native queueUpgrade reads ModuleData+0x18.
+class Rva00395708ModuleView : public Module
 {
 public:
-	char m_unknown00[4];
-	const Rva00395708Data *m_moduleData; // +4
+    using Module::m_moduleData;
 };
 
 class CastleBehavior
@@ -1279,7 +1281,7 @@ Bool ProductionUpdate::queueUpgrade( const UpgradeTemplate *upgrade )
 
 	Object *obj = getObject();
 	Module *castle = CastleBehavior::rva000395708( obj );
-	if( castle && castle->m_moduleData->m_flag )
+	if( castle && ((const Rva00395708Data *)((Rva00395708ModuleView *)castle)->m_moduleData)->m_flag )
 		obj->m_bfme324 = (Real)production->m_cost;
 
 	// tie to the end of the production queue
