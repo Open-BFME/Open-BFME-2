@@ -1,4 +1,6 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii -Ireference/open-bfme-1/game/GameEngine/Source/Common /Ireference/shims/bfmealloc
+// stlport
+#include <vector>
 //
 // ?setupAllDuckingTargets@LargeGroupAudioSoundKeyPair@@QAEXXZ @0x0056956D 133B.
 // Per-element resolve-and-arm: for each [m_begin,m_end) element stride 0x14,
@@ -17,10 +19,13 @@
 // Honest address-derived names.
 class ModuleData;
 
-class Rva00569543
-{
+class Rva00569543 {
+	char m_pad[0x4C];
+	_STL::vector<const ModuleData *> m_sorted;
+	_STL::vector<const ModuleData *> m_mods;
 public:
 	void rva00569543(const ModuleData *m);
+	void rva005695F2(const ModuleData *m);
 };
 
 class LargeGroupAudioSoundKeyPair;
@@ -43,17 +48,75 @@ struct Rva0056956DElem
 	char m_pad2[3];
 };
 
+#include <set>
+#include <vector>
+#include "ascii_string.h"
+class LargeGroupAudioSoundKeyPair;
+class LargeGroupAudioAudioMap;
+class LargeGroupAudioSubject;
+class Rva005C8176;
+struct Rva005C8876Grid;
+struct BfmeStringRecord00568CE0;
+class BitRange;
+class Xfer;
+struct VersionPair;
+struct FloatPair;
+struct Rva0056A378Source;
+class OpaqueRefCounted { public: void Release_Ref(); };
+
+class Rva003ED94FDtor { public: ~Rva003ED94FDtor(); void *header; int flags; };
+
+class ObjectCreationList {public: ObjectCreationList(); char opaque[12];};
+
+struct Rva0056A061KeyMap : ObjectCreationList { ~Rva0056A061KeyMap(){reinterpret_cast<Rva003ED94FDtor *>(this)->Rva003ED94FDtor::~Rva003ED94FDtor();} };
+
+struct Rva0056A061Ref { Rva0056A061Ref():value(0){} OpaqueRefCounted *value; ~Rva0056A061Ref(){if(value)value->Release_Ref();} };
+
+struct Rva00568FE4Key { float x; float y; unsigned short w; unsigned short pad; };
+
+struct Rva00568FE4Less {
+	bool operator()(const Rva00568FE4Key &a, const Rva00568FE4Key &b) const {
+		if (a.x < b.x) return false;
+		if (a.x > b.x) return true;
+		if (a.y < b.y) return false;
+		if (a.y > b.y) return true;
+		return a.w < b.w;
+	}
+};
+
+typedef _STL::multiset<Rva00568FE4Key, Rva00568FE4Less, _STL::allocator<Rva00568FE4Key> > Rva00568FE4Multi;
 class LargeGroupAudioSoundKeyPair
 {
 public:
-	bool rva00568920() const;	// 0x00568920
-	void setupAllDuckingTargets();
+ int getGrid(int index);
+ void removeDuckingTarget(BitRange *host, void *tag);
+ void removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag);
+ bool rva00568920() const;	// 0x00568920
+ void rva00568939(int key);	// 0x00568939
+ LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);
+ ~LargeGroupAudioSoundKeyPair();
+ void rva0056A378(Rva0056A378Source arg);
+ void rva00569BBC(Xfer *, VersionPair *);
+ void allocateGrids();
+ void update(bool*);
+ void setupAllDuckingTargets();
+ void xferGridCellVector(Xfer *, void *, VersionPair *);
+ void rva0056979A(const FloatPair &pos, unsigned short weight);
+ void rva005697F7(LargeGroupAudioSubject *subject);
+ void unregisterSubject(LargeGroupAudioSubject *subject);
+ void updateSubject(LargeGroupAudioSubject *subject);
 private:
-	char m_pad[0x14];
-	Rva0056956DElem *m_begin;	// +0x14
-	Rva0056956DElem *m_end;	// +0x18
-	char m_pad2[0x10];
-	HostClass005C815B *m_slots[4];	// +0x2C
+ Rva0056A061KeyMap m_keys;
+ Rva0056A061Ref m_owner;
+ AsciiString m_name;
+ _STL::vector<BfmeStringRecord00568CE0> m_subjects;
+ Rva00568FE4Multi m_pendingAdds;
+ Rva005C8176 *m_grids[4];
+ Rva005C8876Grid *m_grid;
+ _STL::vector<const ModuleData *> m_v40;
+ _STL::vector<const ModuleData *> m_v4C;
+ _STL::vector<const ModuleData *> m_v58;
+ int m_totalWeight;
 };
 
 // The rowed lookup reads only the two string words at element +0/+4, passes
@@ -72,7 +135,7 @@ void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 {
 	Rva0056956DLookupCall lookup;
 	lookup.target = rva005686F5;
-	for (Rva0056956DElem *e = m_begin; e != m_end; ++e) {
+	for (Rva0056956DElem *e = reinterpret_cast<Rva0056956DElem *>(m_subjects.begin()); e != reinterpret_cast<Rva0056956DElem *>(m_subjects.end()); ++e) {
 		if (e->m_key != 0)
 			goto check_active;
 		Rva00569543 *found = (Rva00569543 *)(this->*lookup.member)(reinterpret_cast<const Rva005686F5Elem *>(e));
@@ -85,7 +148,7 @@ void LargeGroupAudioSoundKeyPair::setupAllDuckingTargets()
 		if (e->m_active == 0 && e->m_key != 0
 			&& ((const LargeGroupAudioSoundKeyPair *)e->m_key)->rva00568920()
 			&& rva00568920()) {
-			HostClass005C815B **slot = m_slots;
+			HostClass005C815B **slot = reinterpret_cast<HostClass005C815B **>(m_grids);
 			int left = 4;
 			do {
 				if (*slot != 0)

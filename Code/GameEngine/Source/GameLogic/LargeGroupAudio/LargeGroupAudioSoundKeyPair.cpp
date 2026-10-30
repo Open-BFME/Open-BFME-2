@@ -119,7 +119,14 @@ public:
 	void addToWeight(unsigned short weight);
 	void subtractFromWeight(unsigned short weight);
 };
-class Rva00569543 { public: void rva005695F2(const ModuleData *m); };
+class Rva00569543 {
+	char m_pad[0x4C];
+	_STL::vector<const ModuleData *> m_sorted;
+	_STL::vector<const ModuleData *> m_mods;
+public:
+	void rva00569543(const ModuleData *m);
+	void rva005695F2(const ModuleData *m);
+};
 class HostClass005C815B
 {
 public:
@@ -156,8 +163,11 @@ class Rva0056887D
 {
 public:
 	Rva0056887D &rva0056887D(const Rva0056887D &src, unsigned short w);
+
 private:
-	char m_storage[0xC];
+	int m00; // +0
+	int m04; // +4
+	short m08; // +8
 };
 struct Rva003CDDB0Range
 {
@@ -223,7 +233,16 @@ private:
 	void **m_begin; // +0x58 +0x58
 	void **m_end; // +0x5C +0x5C
 };
-struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char opaque10[4]; ~BfmeStringRecord00568CE0(); };
+class Rva00568F04;
+struct BfmeStringRecord00568CE0 {
+    AsciiString text0, text1;
+    unsigned int word0;
+    Rva00568F04 *subject;
+    unsigned char flag;
+    BfmeStringRecord00568CE0();
+    BfmeStringRecord00568CE0(const BfmeStringRecord00568CE0 &o);
+    ~BfmeStringRecord00568CE0();
+};
 // Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
 // protocol. WB-named1442010 establishes xferGridCellVector identity.
 // ModuleData pointer vectors are opaque four-byte emitter views only.
@@ -308,9 +327,23 @@ public:
 struct Rva00569F0CVec { void *m_begin,*m_end,*m_pad; void rva00569F0C(void *,void *,bool *);};
 class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
 class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
+class LargeGroupAudioSoundKeyPair;
+class LargeGroupAudioAudioMap;
+class LargeGroupAudioSubject;
+class Rva005C8176;
+struct Rva005C8876Grid;
+struct BfmeStringRecord00568CE0;
+class BitRange;
+class Xfer;
+struct VersionPair;
+struct FloatPair;
+struct Rva0056A378Source;
 class LargeGroupAudioSoundKeyPair
 {
 public:
+ int getGrid(int index);
+ void removeDuckingTarget(BitRange *host, void *tag);
+ void removePointersToGridCellsInDuckingTarget(BitRange *host, void *tag);
  bool rva00568920() const;	// 0x00568920
  void rva00568939(int key);	// 0x00568939
  LargeGroupAudioSoundKeyPair(LargeGroupAudioAudioMap *owner, const char *name);
@@ -630,8 +663,8 @@ public:
 	__forceinline BfmePoolRef10() : m_target(0) {}
 	BfmePoolRef10(const BfmePoolRef10 &other);
 	BfmePoolRef10 &operator=(const BfmePoolRef10 &other);
+	void rva000519BD();
 	BfmePoolRef10(BfmePoolHolder88 *) throw();
- void rva000519BD();
 	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
 };
 
@@ -659,6 +692,7 @@ public:
 	HostClass005C8E0A *m_host;
 	unsigned char m_byte;
 	char m_pad[3];
+	Rva00568A20(const Rva00568A20 &o);
 	Rva00568A20() : m_ref(), m_host(0) {}
 };
 
