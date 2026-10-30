@@ -382,6 +382,51 @@ public: void rva00598DA2(Xfer *);
 private: unsigned char prefix[0x4c]; _STL::vector<AsciiString> values;
 };
 
+enum NameKeyType { NAMEKEY_DUMMY };
+
+class ArmorTemplate;
+
+namespace rts { template <class T> struct hash; }
+
+namespace _STL {
+template <class T1, class T2> struct pair;
+template <class P> struct _Select1st;
+template <class T> struct equal_to;
+template <class T> class allocator;
+template <class V, class K, class H, class S, class E, class A>
+class hashtable;
+}
+
+typedef _STL::hashtable<
+	_STL::pair<const NameKeyType, ArmorTemplate>,
+	NameKeyType,
+	rts::hash<NameKeyType>,
+	_STL::_Select1st<_STL::pair<const NameKeyType, ArmorTemplate> >,
+	_STL::equal_to<NameKeyType>,
+	_STL::allocator<_STL::pair<const NameKeyType, ArmorTemplate> > > ArmorHashTable;
+
+namespace _STL {
+template <>
+class hashtable<
+	pair<const NameKeyType, ArmorTemplate>,
+	NameKeyType,
+	rts::hash<NameKeyType>,
+	_Select1st<pair<const NameKeyType, ArmorTemplate> >,
+	equal_to<NameKeyType>,
+	allocator<pair<const NameKeyType, ArmorTemplate> > >
+{
+public:
+	void clear();
+};
+}
+
+// Native5982E5..5982EA JMP5982AC; unchanged thiscall receiver and RET0.
+// Only forwarding to the owned nonvirtual cleanup is established.
+// Original wrapper name and enclosing application type remain unknown.
+struct Rva005982E5CleanupForward { void cleanup(); };
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
@@ -489,6 +534,36 @@ void Rva00598CBC::rva00598CBC()
 	}
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
+
+// Native598DA2..598E66 is a complete RET4 snapshot-transfer body.
+// WB152EC60 is unnamed; named AIBuilder::DoXfer4EC1D9 independently calls
+// it on its +38 component. The component's class and original method name
+// remain unproved; retain the address name rather than infer them from
+// adjacent AIUnitBuilder operations. Native storage is vector<AsciiString>
+// at+4C: version1/1 and count precede store/load. Load clears the range via
+// rowed51B2CCFC, transfers temporary strings, appends via rowed55B2DBE6,
+// and releases each temporary via rowed36410. Real STLport clear supplies
+// the same receiver-relative begin/end reads as native; no donor asserted.
+
+void Rva00598DA2::rva00598DA2(Xfer *xfer) {
+ WallVersion version(1,1);
+ xfer->operator==(reinterpret_cast<Xfer::Version &>(version));
+ unsigned int count=values.size();
+ xfer->operator==(count);
+ if(xfer->IsStoring()) {
+  _STL::vector<AsciiString>::iterator end=values.end();
+  for(_STL::vector<AsciiString>::iterator it=values.begin(); it!=end;++it) xfer->operator==(*(it));
+ } else if(xfer->IsLoading()) {
+  values.clear();
+  for(unsigned int i=0;i<count;++i) {
+   AsciiString value;
+   xfer->operator==(value);
+   values.push_back(value);
+  }
+ }
+}
+
 // tu-skeleton: 0x00598025 9B ?get@Rva00598025CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0059804A 8B ?set@Rva0059804AStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
@@ -507,9 +582,19 @@ void Rva00598CBC::rva00598CBC()
 
 // tu-skeleton: 0x00598207 165B ?getHeroIndex@AIUnitBuilder@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
-// tu-skeleton: 0x005982AC 57B ??1Rva005982AC@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva005982ACDtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005982ACDtor.cpp
 
-// tu-skeleton: 0x005982E5 5B ?cleanup@Rva005982E5CleanupForward@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva005982ACDtor.cpp (not merged yet)
+// ??1Rva005982AC@@QAE@XZ @0x005982AC 57B via Armor hashtable clear plus bucket free
+// Evidence: thiscall ret0 non-virtual dtor; rowed hashtable clear 0x001DBCDC at +0; frees +4 via BucketVec dtor through rowed _free 0x00030830; same 57B shape as rowed ??1Rva002BF6D6 0x002BF6D6; caller dtor 0x00598CFD at +0x18
+
+Rva005982AC::~Rva005982AC()
+{
+	((ArmorHashTable *)this)->clear();
+}
+
+void Rva005982E5CleanupForward::cleanup() {
+    reinterpret_cast<Rva005982AC *>(this)->~Rva005982AC();
+}
 
 // tu-skeleton: 0x005982EA 240B ?Rva005982EA@AIUnitBuilder@@QAEPAVObject@@PBVAsciiString@@PAV?$vector@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
@@ -566,36 +651,6 @@ void Rva00598CBC::rva00598CBC()
 // tu-skeleton: 0x0079D536 10B __ehhandler$?createBestUnitToMake@AIUnitBuilder@@QAEPAVRva00598C3AItem@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D569 11B uw_0079d569 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
-
-// Native598DA2..598E66 is a complete RET4 snapshot-transfer body.
-// WB152EC60 is unnamed; named AIBuilder::DoXfer4EC1D9 independently calls
-// it on its +38 component. The component's class and original method name
-// remain unproved; retain the address name rather than infer them from
-// adjacent AIUnitBuilder operations. Native storage is vector<AsciiString>
-// at+4C: version1/1 and count precede store/load. Load clears the range via
-// rowed51B2CCFC, transfers temporary strings, appends via rowed55B2DBE6,
-// and releases each temporary via rowed36410. Real STLport clear supplies
-// the same receiver-relative begin/end reads as native; no donor asserted.
-
-void Rva00598DA2::rva00598DA2(Xfer *xfer) {
- WallVersion version(1,1);
- xfer->operator==(reinterpret_cast<Xfer::Version &>(version));
- unsigned int count=values.size();
- xfer->operator==(count);
- if(xfer->IsStoring()) {
-  _STL::vector<AsciiString>::iterator end=values.end();
-  for(_STL::vector<AsciiString>::iterator it=values.begin(); it!=end;++it) xfer->operator==(*(it));
- } else if(xfer->IsLoading()) {
-  values.clear();
-  for(unsigned int i=0;i<count;++i) {
-   AsciiString value;
-   xfer->operator==(value);
-   values.push_back(value);
-  }
- }
-}
 
 // tu-skeleton: 0x0079D59B 8B $L9615 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp (not merged yet)
 

@@ -48416,8 +48416,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005981CA,56,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598192..0x00598202,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00598202,5,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598192..0x00598207,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00598207,165,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
-0x005982AC,57,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598207..0x005982E5,Code/GameEngine/Source/Common/Rva005982ACDtor.cpp
-0x005982E5,5,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598207..0x005982EA,Code/GameEngine/Source/Common/Rva005982ACDtor.cpp
+0x005982AC,57,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598207..0x005982E5,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
+0x005982E5,5,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598207..0x005982EA,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x005982EA,240,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
 0x005983DA,20,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x005982EA..0x005983EE,Code/GameEngine/Source/Common/Rva004FD3E2.cpp
 0x005983EE,67,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x005982EA..0x00598431,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
@@ -87111,7 +87111,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D492,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x005981CA@FuncInfo0x009533B4,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0079D49A,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x005981CA@FuncInfo0x009533B4,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0079D4A4,11,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
-0x0079D4AF,10,code,,,-,,Code/GameEngine/Source/Common/Rva005982ACDtor.cpp
+0x0079D4AF,10,code,,,-,,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x0079D4B9,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598431@FuncInfo0x009533E0,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
 0x0079D4C1,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598431@FuncInfo0x009533E0,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
 0x0079D4C9,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598431@FuncInfo0x009533E0,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
