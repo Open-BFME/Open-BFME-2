@@ -44420,7 +44420,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0052D4A2,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva004e32f2.cpp
 0x0052D4CF,38,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva004E32F2UninitCopy.cpp
 0x0052D4F5,96,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva004e32f2_allocate_copy.cpp
-0x0052D555,333,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,proposed,K,K=Rva0056616B,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
+0x0052D555,333,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,proposed,K,K=Rva0056616B,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x0052D6A2,28,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,proposed,K,K=Rva0056616B,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignAct.cpp
 0x0052D6BE,45,code,,,-,,Code/GameEngine/Source/Common/System/Rva0052D6BE.cpp
 0x0052D6EB,47,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/VectorOverflowRva0052D742.cpp
@@ -46425,7 +46425,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005652F7,77,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,N,N=Code/GameEngine/Source/Common/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x00565344,242,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignActEvents.cpp
 0x00565436,201,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaignActEvents.cpp
-0x005654FF,45,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,N,N=Code/GameEngine/Source/Common/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/Common/Glo012F1024ItemRun.cpp
+0x005654FF,45,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,N,N=Code/GameEngine/Source/Common/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x0056552C,176,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,N,N=Code/GameEngine/Source/Common/Glo012F1024Item.cpp provisional,Code/GameEngine/Source/Common/Glo012F1024ItemJ00036124.cpp
 0x005655DC,37,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,C,C=0x0056552C..0x00565601 provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x00565601,29,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,C,C=0x0056552C..0x0056561E provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp
@@ -84597,22 +84597,22 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00797228,10,code,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldCampaign.cpp,approved,P,P=0x0052D25D@FuncInfo0x0094B010,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_copy_0052D25D.cpp
 0x00797232,8,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0079723A,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
-0x00797244,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x0079724F,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x0079725A,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x00797265,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x00797270,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x0079727B,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x00797286,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x00797291,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x0079729C,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972A7,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972B2,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972BD,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972C8,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972D6,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972E4,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
-0x007972F2,10,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/System/Rva0056616BCopyDeferred.cpp
+0x00797244,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x0079724F,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x0079725A,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x00797265,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x00797270,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x0079727B,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x00797286,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x00797291,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x0079729C,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972A7,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972B2,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972BD,11,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972C8,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972D6,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972E4,14,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
+0x007972F2,10,code,Code/GameEngine/Source/Common/Glo012F1024Item.cpp,approved,P,P=0x0052D555@FuncInfo0x0094B0C8 p-group provisional,Code/GameEngine/Source/Common/Glo012F1024Item.cpp
 0x007972FC,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
 0x00797306,10,code,Code/GameEngine/Source/Common/MixFileInfoBuffer.cpp,approved,P,P=0x0052DBCD@FuncInfo0x0094B110 provisional,Code/GameEngine/Source/Common/MixFileInfoBuffer_releaseInto.cpp
 0x00797310,10,code,,,-,,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyWall.cpp
