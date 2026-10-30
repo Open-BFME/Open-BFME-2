@@ -117,10 +117,28 @@ public:
 	unsigned char m_pad00[0x1C];
 };
 
+class Member00442FD6AC
+{
+public:
+	virtual void v0();
+	virtual void v1(int x);
+
+	unsigned char m_pad04[0x0B];
+	unsigned char m_0F;
+	unsigned char m_pad10[0x04];
+	unsigned char m_14;
+};
+
 class Rva004442FD
 {
 public:
 	void rva004442FD();
+
+private:
+	unsigned char m_pad00[0x6A4];
+	int m_6A4;
+	int m_6A8;
+	Member00442FD6AC m_6AC;
 };
 
 // Enables (rva00444083) or disables (rva004440F4) the create (1) and join

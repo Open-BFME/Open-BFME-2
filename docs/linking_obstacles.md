@@ -9754,6 +9754,14 @@ consumers into the next scheduled census. Five donors require declaration and
 class-view reconciliation; nine mixed files remain. No census gain is claimed.
 [Checks and path audit](../reverse/attempt_support/apt-lan-lobby-consolidation-20261028-codex4.md).
 
+2026-10-30 prerequisite: the method-only `Rva004442FD` view in the seed
+now includes the existing donor layout and its complete member type. Both
+units preserve all 47 matched rows; the seed preserves eight exact EH graphs,
+116 COMDAT fingerprints, 225 external bindings and its one weak binding.
+This prepares the Common donor for the supported merge; the other four
+whole-file donors still need declaration or virtual-slot reconciliation.
+[Current checks](../reverse/attempt_support/apt-lan-lobby-consolidation-20261030-codexb4.md).
+
 ### InvisibilityUpdate name-key composition prerequisites (2026-10-28)
 
 Status: declarations and bounded composition verified; census confirmation
