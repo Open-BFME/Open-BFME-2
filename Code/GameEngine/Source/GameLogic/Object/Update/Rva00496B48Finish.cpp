@@ -25,12 +25,17 @@ public:
 	virtual bool allow();
 };
 
-class Module
+#include "../../../../Include/Common/Module.h"
+
+// Partial storage view: native 496BB8 adjusts the receiver by +0x10.
+// The original derived/interface identities remain unrecovered.
+class Rva00496B48ModuleView : public Module
 {
 public:
-	char m_pad00[0x10];
-	ModuleInner m_10;
+    char m_pad08[0x10 - 0x08];
+    ModuleInner m_10;
 };
+
 
 struct ObjectInner04
 {
@@ -77,7 +82,7 @@ bool Rva00496B48::rva00496B48()
 				static NameKeyType s_key = TheNameKeyGenerator->nameToKey("AllowBannerSpawnUpgrade");
 				Module *module = ObjectHack::find(object, s_key);
 				if (module != 0) {
-					if (!(&module->m_10)->allow())
+					if (!(&((Rva00496B48ModuleView *)module)->m_10)->allow())
 						return false;
 				}
 			}

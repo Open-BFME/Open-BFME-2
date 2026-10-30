@@ -1,0 +1,169 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Update/Rva00496B48Finish.cpp",
+  "scope": "canonical eight-byte Module plus observed interface at +10; no original derived identity claim",
+  "variants": {
+    "before": {
+      "source_sha256": "4acd27465de4bd13f6b1a86126afff0c41cab0dc2a1f0f7ee03c7a403f60ff7f",
+      "rows": [
+        {
+          "name": "?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "rva": "0x00496B48",
+          "size": "138",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "rva": "0x0078D1AA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L380",
+          "rva": "0x0078D19D",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "1ecd522061bfd15a99ef660d26acc3704940bfc604d87e1bf0eda634b7f75b03",
+      "rows": [
+        {
+          "name": "?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "rva": "0x00496B48",
+          "size": "138",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "rva": "0x0078D1AA",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L380",
+          "rva": "0x0078D19D",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?rva00496B48@Rva00496B48@@QAE_NXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "?find@ObjectHack@@SAPAVModule@@PBVObject@@W4NameKeyType@@@Z": {
+      "raw": "ff7424088b4c2408e800000000c3",
+      "relocations": [
+        [
+          9,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ]
+      ]
+    },
+    "?rva00496B48@Rva00496B48@@QAE_NXZ": {
+      "raw": "b800000000e800000000568b710885f674698b867402000085c074068bf085f675f085f674558b4604f68016010000407449f60500000000017524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa300000000ff35000000008bcee80000000085c0740b8d48108b01ff1084c07402b0018b4df45e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva00496B48@Rva00496B48@@QAE_NXZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          52,
+          6,
+          "?$S1@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4IA"
+        ],
+        [
+          61,
+          6,
+          "?$S1@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4IA"
+        ],
+        [
+          68,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          77,
+          6,
+          "??_C@_0BI@IPMBFHM@AllowBannerSpawnUpgrade?$AA@"
+        ],
+        [
+          82,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          91,
+          6,
+          "?s_key@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4W4NameKeyType@@A"
+        ],
+        [
+          97,
+          6,
+          "?s_key@?P@??rva00496B48@Rva00496B48@@QAE_NXZ@4W4NameKeyType@@A"
+        ],
+        [
+          104,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          132,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "source_sha256": "1ecd522061bfd15a99ef660d26acc3704940bfc604d87e1bf0eda634b7f75b03",
+    "object_sha256": "5c8658ad45c607017eacf9cee908e0ddb379aacd83e152bfa767d3a07f6d4221",
+    "strict_current": true,
+    "all_external_definitions_and_relocations_identical": 2
+  },
+  "native_instructions": [
+    {
+      "rva": "0x496baf",
+      "raw": "e8224bdfff",
+      "mnemonic": "call",
+      "operands": "0x28b6d6"
+    },
+    {
+      "rva": "0x496bb8",
+      "raw": "8d4810",
+      "mnemonic": "lea",
+      "operands": "ecx, [eax + 0x10]"
+    },
+    {
+      "rva": "0x496bbd",
+      "raw": "ff10",
+      "mnemonic": "call",
+      "operands": "dword ptr [eax]"
+    }
+  ]
+}
