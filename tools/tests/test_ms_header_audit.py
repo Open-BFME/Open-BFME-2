@@ -5,6 +5,7 @@ tool's own parser, so no toolchain is needed; the real index is validated by
 `ms_header_audit.py index --validate`.
 """
 import os
+from functools import partial
 import sys
 import threading
 import time
@@ -306,11 +307,12 @@ def test_index_key_survives_a_snapshot_restore_dropping_subsecond_mtimes(tmp_pat
 
 def test_index_key_changes_with_a_same_size_edit_in_the_same_mtime(tmp_path):
     roots, header = one_header_root(tmp_path, "#define VALUE 1\n")
+    original_size = header.stat().st_size
     os.utime(header, ns=(SECOND, SECOND))
     key = mha.index_key(roots)
     header.write_text("#define VALUE 2\n")
     os.utime(header, ns=(SECOND, SECOND))
-    assert header.stat().st_size == len("#define VALUE 1\n")
+    assert header.stat().st_size == original_size
     assert mha.index_key(roots) != key
 
 
@@ -444,6 +446,59 @@ def test_refresh_removes_clean_scope_but_keeps_failed_analysis_queued(tmp_path):
     mha.refresh_queue({"Code/T.cpp": failed}, INDEX, queue=queue, occurrences=occurrences)
     row = next(r for r in mha.read_queue(queue) if r["file"] == "Code/T.cpp")
     assert row["class"] == "failed" and "analysis timeout" in row["note"]
+
+
+@pytest.mark.parametrize("verdict", ["changed", "clean", "failed"])
+def test_scan_cli_refreshes_only_explicit_paths(tmp_path, monkeypatch, capsys, verdict):
+    queue, occurrences = tmp_path / "queue.tsv", tmp_path / "occ.tsv"
+    debt = scan("typedef unsigned long DWORD;\n")[0]
+    mha.write_queue({"Code/A.cpp": debt, "Code/Other.cpp": debt}, INDEX,
+                    queue=queue, occurrences=occurrences)
+    untouched = next(line for line in queue.read_bytes().splitlines(keepends=True)
+                     if line.startswith(b"Code/Other.cpp\t"))
+    untouched_occ = [line for line in occurrences.read_bytes().splitlines(keepends=True)
+                     if line.startswith(b"Code/Other.cpp\t")]
+    result = scan("int x;\n")[0] if verdict == "clean" else scan("typedef int DWORD;\n")[0]
+    if verdict == "failed":
+        result = dict(result, error="analysis timeout")
+    monkeypatch.setattr(mha, "ROOT", tmp_path)
+    monkeypatch.setattr(mha, "QUEUE", queue)
+    monkeypatch.setattr(mha, "OCCURRENCES", occurrences)
+    monkeypatch.setattr(mha, "load_index", lambda *_: INDEX)
+    monkeypatch.setattr(mha, "write_queue", partial(mha.write_queue, queue=queue, occurrences=occurrences))
+    monkeypatch.setattr(mha, "refresh_queue", partial(mha.refresh_queue, queue=queue, occurrences=occurrences))
+
+    def selected_only(paths, roots, jobs):
+        assert paths == ["Code/A.cpp"]
+        return {"Code/A.cpp": result}
+
+    monkeypatch.setattr(mha, "scan_files", selected_only)
+    assert mha.main(["scan", "--write-queue", "Code/A.cpp"]) == 0
+    assert untouched in queue.read_bytes().splitlines(keepends=True)
+    assert all(line in occurrences.read_bytes().splitlines(keepends=True) for line in untouched_occ)
+    rows = {r["file"]: r for r in mha.read_queue(queue)}
+    if verdict == "clean":
+        assert "Code/A.cpp" not in rows
+    else:
+        assert rows["Code/A.cpp"]["class"] == ("failed" if verdict == "failed" else "conflicting")
+    assert "refreshed" in capsys.readouterr().out
+
+
+def test_scan_cli_without_paths_replaces_the_full_inventory(tmp_path, monkeypatch):
+    queue, occurrences = tmp_path / "queue.tsv", tmp_path / "occ.tsv"
+    debt = scan("typedef unsigned long DWORD;\n")[0]
+    mha.write_queue({"Code/Vanished.cpp": debt}, INDEX, queue=queue, occurrences=occurrences)
+    monkeypatch.setattr(mha, "ROOT", tmp_path)
+    monkeypatch.setattr(mha, "QUEUE", queue)
+    monkeypatch.setattr(mha, "OCCURRENCES", occurrences)
+    monkeypatch.setattr(mha, "load_index", lambda *_: INDEX)
+    monkeypatch.setattr(mha, "write_queue", partial(mha.write_queue, queue=queue, occurrences=occurrences))
+    monkeypatch.setattr(mha, "refresh_queue", partial(mha.refresh_queue, queue=queue, occurrences=occurrences))
+    monkeypatch.setattr(mha, "tracked_files", lambda: ["Code/A.cpp"])
+    monkeypatch.setattr(mha, "scan_files", lambda paths, roots, jobs: {"Code/A.cpp": scan("int x;\n")[0]})
+    assert mha.main(["scan", "--write-queue"]) == 0
+    assert mha.read_queue(queue) == []
+    assert "Code/Vanished.cpp" not in occurrences.read_text()
 
 
 def test_self_referencing_typedef_terminates():

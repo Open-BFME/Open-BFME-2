@@ -39,8 +39,9 @@ toolchain already declares it, should come from that header instead. This tool:
                          recursion): unknown, never clean
           Configuration macros (NOMINMAX, UNICODE, _WIN32_WINNT ...) are
           inputs to the headers and never removable.
-          `--write-queue` writes reverse/ms_header_queue.tsv, one row per file;
-          per-occurrence detail goes to build/ms_header_audit/occurrences.tsv.
+          `--write-queue` refreshes the named files in reverse/ms_header_queue.tsv,
+          preserving unrelated rows; without paths it replaces the full inventory.
+          Per-occurrence detail goes to build/ms_header_audit/occurrences.tsv.
   show    prints every occurrence in one file with the real definition's site.
   next    serves queue rows (a picker: `--class drop-in-candidate`, `--limit N`).
   check   refuses NEW local Microsoft-header definitions: `--staged` compares
@@ -3783,7 +3784,8 @@ def main(argv=None):
     p_index.add_argument("--lookup", nargs="*", default=[], help="print the index entries for names")
     p_scan = sub.add_parser("scan", help="scan tracked sources and shims")
     p_scan.add_argument("paths", nargs="*")
-    p_scan.add_argument("--write-queue", action="store_true")
+    p_scan.add_argument("--write-queue", action="store_true",
+                        help="refresh named files, preserving other queue rows; without paths, replace the full inventory")
     p_show = sub.add_parser("show", help="every occurrence in the given files")
     p_show.add_argument("paths", nargs="+")
     p_next = sub.add_parser("next", help="serve queue rows")
@@ -3865,10 +3867,18 @@ def main(argv=None):
         paths = args.paths or tracked_files()
         index = load_index(roots)
         results = scan_files(paths, roots, args.jobs)
-        rows = write_queue(results, index) if args.write_queue else None
+        rows = None
+        action = "wrote"
+        if args.write_queue:
+            if args.paths:
+                refresh_queue(results, index, queue=QUEUE, occurrences=OCCURRENCES)
+                rows = read_queue(QUEUE)
+                action = "refreshed"
+            else:
+                rows = write_queue(results, index, queue=QUEUE, occurrences=OCCURRENCES)
         summarize(results, index, rows)
         if rows is not None:
-            print(f"wrote {QUEUE.relative_to(ROOT)} ({len(rows)} files) and "
+            print(f"{action} {QUEUE.relative_to(ROOT)} ({len(rows)} files) and "
                   f"{OCCURRENCES.relative_to(ROOT)}")
         return 0
     return 2
