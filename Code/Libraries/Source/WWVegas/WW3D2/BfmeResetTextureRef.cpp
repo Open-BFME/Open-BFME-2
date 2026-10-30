@@ -117,12 +117,35 @@ private:
 
 void __cdecl Add_Prototype(void *proto);
 
-class Rva001805E0
+// ??0Rva001805E0@@QAE@PBDHH@Z @0x001805E0 77B
+// Twin of Rva001803D3 ctor (77B): GenBase009EB7D0 base via rowed
+// 0x0061ED40, vtable 0x007D4FD0, +0x14 zeroed (no tree arg), +0x18
+// StringClass from (name false) via rowed 0x000F0ED1, +0x1C/+0x20 from
+// second/third args. Unlocks 0x001806D8. Flags and base from donor
+// Rva001803D3Ctor.cpp.
+class Gen_dtor_00972460;
+
+class GenBase009EB7D0
 {
-	char m_pad[0x24];
+public:
+	GenBase009EB7D0();
+	virtual ~GenBase009EB7D0();
+};
+
+class Rva001805E0 : public GenBase009EB7D0
+{
 public:
 	Rva001805E0(const char *name, int a, int b);
+	virtual ~Rva001805E0();
+
+	char m_pad04[0x10];
+	void *m_14;
+	StringClass m_name;
+	int m_1C;
+	int m_20;
 };
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureRef.cpp
 
@@ -201,14 +224,6 @@ void Gen_dtor_00972460::Rva00180782()
 	m_ptr = 0;
 }
 
-// tu-skeleton: 0x001805E0 77B ??0Rva001805E0@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018062D 28B ??_GRva001805E0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00180649 49B ??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00180649Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x0018067A 94B ?Rva0018067A_MakeOwner@@YA?AUBfmeResetTextureRef@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ConstIntGetters2Addr.cpp
 
 // Unresolved literal-value getter retained separately.
@@ -219,17 +234,37 @@ int Rva00180778Get(void)
 	return ('B' << 16) | ('O' << 8) | 'X';
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp
+
+Rva001805E0::Rva001805E0(const char *name, int a, int b)
+	: m_14(0), m_name(name, false)
+{
+	m_1C = a;
+	m_20 = b;
+}
+
+// tu-skeleton: 0x0018062D 28B ??_GRva001805E0@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva00180649Ctor.cpp
+
+BfmeResetTextureRef::BfmeResetTextureRef(const BfmeResetAnyRef &rhs)
+{
+	rva001805AE(rhs);
+}
+
+// tu-skeleton: 0x0018067A 94B ?Rva0018067A_MakeOwner@@YA?AUBfmeResetTextureRef@@PBD@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
+
 // tu-skeleton: 0x0018077E 4B ?rva0018077E@Rva0018077E@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableSlotBodiesR3.cpp (not merged yet)
 
 // tu-skeleton: 0x00180794 129B ?Create@Gen_dtor_00972460@@UAEPAVRenderObjClass@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/W3DPrototypeCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x007682B5 8B $L336 -- matched in Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp (not merged yet)
+// tu-skeleton: 0x00768298 8B $L352 -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x007682BD 10B __ehhandler$??0Rva001805E0@@QAE@PBDHH@Z -- matched in Code/GameEngine/Source/Common/Rva001805E0Ctor.cpp (not merged yet)
+// tu-skeleton: 0x007682A0 11B uw_007682a0 -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x007682AB 10B __ehhandler$??1Rva001805E0@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00180527Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x007682C7 8B uw_007682c7 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x007682CF 10B __ehhandler$??0BfmeResetTextureRef@@QAE@ABUBfmeResetAnyRef@@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00180649Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x007682D9 25B ?rva007682D9@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00136032Factory.cpp (not merged yet)
 
