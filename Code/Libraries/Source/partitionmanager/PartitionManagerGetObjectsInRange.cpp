@@ -35,8 +35,25 @@ struct Rva009F4130Range { float x0,y0,z0,x1,y1; };
 struct Rva009F4130NodeList { int count; void *head; };
 class BfmeThingEQ;
 class Rva009F2AB0Mask { public: int getMask(); };
-class BfmeHostER { public: unsigned bfmeIndexER(float); };
-class BfmeHostES { public: unsigned bfmeIndexES(float); };
+class BfmeHostER
+{
+public:
+	unsigned int bfmeIndexER(float v);
+	float m_bfmeBaseER; // +0x00
+	unsigned char m_bfmeHeadER[0x114]; // +0x04
+	float m_bfmeInvER; // +0x118 +0x118
+	unsigned int m_bfmeCountER; // +0x11C +0x11C
+};
+class BfmeHostES
+{
+public:
+	unsigned int bfmeIndexES(float v);
+	unsigned char m_bfmeLeadES[4]; // +0x00
+	float m_bfmeBaseES; // +0x04
+	unsigned char m_bfmeHeadES[0x110]; // +0x08
+	float m_bfmeInvES; // +0x118 +0x118
+	unsigned int m_bfmeCountES; // +0x11C +0x11C
+};
 class BfmeThingVJX { public: void Sort(int); };
 typedef float (__cdecl *Rva009F4130Distance)(void *,void *,float);
 // The target's mutable five-entry callback table at VA DD7EC0. These

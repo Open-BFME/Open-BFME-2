@@ -19,7 +19,11 @@ struct S4SortElem24
 
 struct S4Cmp009F4BF0
 {
-	bool operator()(const S4SortElem24 &a, const S4SortElem24 &b) const;
+public:
+	bool operator()(const S4SortElem24 &a, const S4SortElem24 &b) const
+	{
+		return a.m_key < b.m_key;
+	}
 };
 
 namespace _STL {

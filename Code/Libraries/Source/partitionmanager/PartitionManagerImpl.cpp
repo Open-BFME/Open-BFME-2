@@ -297,23 +297,21 @@ class BfmeHostER
 {
 public:
 	unsigned int bfmeIndexER(float v);
-
-	float m_bfmeBaseER;
-	unsigned char m_bfmeHeadER[0x114];
-	float m_bfmeInvER;            // +0x118
-	unsigned int m_bfmeCountER;   // +0x11C
+	float m_bfmeBaseER; // +0x00
+	unsigned char m_bfmeHeadER[0x114]; // +0x04
+	float m_bfmeInvER; // +0x118 +0x118
+	unsigned int m_bfmeCountER; // +0x11C +0x11C
 };
 
 class BfmeHostES
 {
 public:
 	unsigned int bfmeIndexES(float v);
-
-	unsigned char m_bfmeLeadES[4];
-	float m_bfmeBaseES;
-	unsigned char m_bfmeHeadES[0x110];
-	float m_bfmeInvES;            // +0x118
-	unsigned int m_bfmeCountES;   // +0x11C
+	unsigned char m_bfmeLeadES[4]; // +0x00
+	float m_bfmeBaseES; // +0x04
+	unsigned char m_bfmeHeadES[0x110]; // +0x08
+	float m_bfmeInvES; // +0x118 +0x118
+	unsigned int m_bfmeCountES; // +0x11C +0x11C
 };
 
 // Open-BFME5 conversions - BfmeThing912C list walk.
