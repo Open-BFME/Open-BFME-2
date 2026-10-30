@@ -23,7 +23,6 @@
 		return base ? (int)field : 0; \
 	}
 
-BFME_DISP8_LEA_NEG_SBB_GETTER(Rva003730FCLeaNegSbbField, 12, 0x18)
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva0039852BLeaNegSbbField, 12, 0x24)
 BFME_DISP8_LEA_NEG_SBB_GETTER(Rva004523A9LeaNegSbbField, 12, 0x1C)
 // 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four

@@ -180,6 +180,19 @@ struct XferUnknown11;
 #pragma comment(linker, "/alternatename:??0FakePathfindPortalBehaviourModuleData@@QAE@XZ=??0MineshaftPortalBehaviourModuleData@@QAE@XZ")
 #include <stdlib.h>
 #include "../../../../../Libraries/Include/Lib/BfmeE16.h"
+#define BFME_DISP8_LEA_NEG_SBB_GETTER(NAME, LEADISP, ADDIMM) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+	}; \
+	int NAME::get() const \
+	{ \
+		const char *field = (const char *)this; \
+		const void *base = field - LEADISP; \
+		field += ADDIMM; \
+		return base ? (int)field : 0; \
+	}
 
 // bfme link decl-only begin
 namespace _STL { template <> ObjectID * vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *); }
@@ -490,6 +503,18 @@ private:
 	bool m_flag; // +0x0C
 };
 
+BFME_DISP8_LEA_NEG_SBB_GETTER(Rva003730FCLeaNegSbbField, 12, 0x18)
+
+// 0x004543A9 is also reached through the this-0x14 thunk 0x004543E3 in four
+// vtables, so it is virtual (same body).
+class Rva004543A9LeaNegSbbField
+{
+public:
+	virtual int get() const;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourModuleDataCtor.cpp
 
 // ??0MineshaftPortalBehaviourModuleData@@QAE@XZ @0x00372DB8
@@ -511,23 +536,14 @@ void MineshaftPortalBehaviourModuleData::buildFieldParse(MultiIniFieldParse &par
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
 // call sites in their matched rows land on these addresses (same ABI). Bind them.
 
-// tu-skeleton: 0x00372DFA 217B ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
 
-// tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F00 45B ?rva00372F00@Rva00372F00@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F2D 41B ?clear@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F56 41B ?rva00372F56@Rva00372F00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F7F 5B ?clear@?$map@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
 
-// tu-skeleton: 0x00372F84 56B ??1?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4_dtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00372FBC 56B ??1Rva00372F00@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x00372FF4 139B ?_M_insert@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/Rva0037307FCtor.cpp
 
@@ -543,12 +559,6 @@ Rva0037307F::Rva0037307F()
 {
 	m_flag = false;
 }
-
-// tu-skeleton: 0x00373096 96B ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003730F6 6B ?Rva003730F6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x003730FC 13B ?get@Rva003730FCLeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourPoolKey.cpp
 
@@ -602,10 +612,6 @@ void MineshaftPortalNetworkManager::rva003731CB(Rva00373373Portal *portal, Playe
     }
 }
 
-// tu-skeleton: 0x00373158 115B ?rva00373158@MineshaftPortalNetworkManager@@QAEXPAVRva00373373Portal@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp (not merged yet)
-
-// tu-skeleton: 0x00373278 71B ?hasUsableNetwork@MineshaftPortalNetworkManager@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_hasUsableNetwork.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00373357.cpp
 
 //
@@ -630,16 +636,6 @@ void *Rva00373357::rva0037341F(bool b)
 		::operator delete((void *)this);
 	return (void *)this;
 }
-
-// tu-skeleton: 0x00373373 66B ?Init@Rva003733B5Base@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MineshaftPortalCleanupRva00373373.cpp (not merged yet)
-
-// tu-skeleton: 0x003733B5 19B ?Start@Rva003733B5Obj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x003733C8 73B ??0MineshaftPortalNetworkManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
-
-// tu-skeleton: 0x00373411 6B ?name@Rva00373411Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
-
-// tu-skeleton: 0x00373417 8B ??_EMineshaftPortalNetworkManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviour.cpp
 
@@ -705,6 +701,56 @@ UpdateSleepTime Rva0037343B::update()
 	}
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x00372DFA 217B ?rva00372DFA@MineshaftPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourNewWaypoint.cpp (not merged yet)
+
+// tu-skeleton: 0x00372ED3 45B ?_M_erase@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAEXPAU?$_Rb_tree_node@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F00 45B ?rva00372F00@Rva00372F00@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F2D 41B ?clear@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F56 41B ?rva00372F56@Rva00372F00@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F7F 5B ?clear@?$map@MUTreeOpaqueMapped00372FF4@@U?$less@M@_STL@@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@3@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportMapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00372F84 56B ??1?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4_dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00372FBC 56B ??1Rva00372F00@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00372FF4 139B ?_M_insert@?$_Rb_tree@MU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Select1st@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@U?$less@M@2@V?$allocator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBMUTreeOpaqueMapped00372FF4@@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_float_00372ff4.cpp (not merged yet)
+
+// tu-skeleton: 0x00373096 96B ??0MineshaftPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003730F6 6B ?Rva003730F6Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp
+
+// Disp8 lea-neg-sbb getters: thirteen-byte __thiscall members with one shape:
+//
+//     lea eax,[ecx-<LEADISP>] / add ecx,<ADDIMM> / neg eax / sbb eax,eax / and eax,ecx / ret
+//
+// A pointer derived from `this` is null-tested branchlessly: neg sets carry
+// exactly when the derived base is nonzero and sbb spreads it to a full mask
+// that selects the adjusted `this` or null. Deriving the base from a live
+// field-local keeps `this` in ecx so the adjustment compiles to an in-place
+// add instead of a lea into a scratch register. Identity is not recovered:
+// every name is derived from its address.
+// No // cl: line (defaults match the shape).
+
+// tu-skeleton: 0x00373158 115B ?rva00373158@MineshaftPortalNetworkManager@@QAEXPAVRva00373373Portal@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/MineshaftPortalBehaviourLinkStep.cpp (not merged yet)
+
+// tu-skeleton: 0x00373278 71B ?hasUsableNetwork@MineshaftPortalNetworkManager@@QAE_NPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager_hasUsableNetwork.cpp (not merged yet)
+
+// tu-skeleton: 0x00373373 66B ?Init@Rva003733B5Base@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MineshaftPortalCleanupRva00373373.cpp (not merged yet)
+
+// tu-skeleton: 0x003733B5 19B ?Start@Rva003733B5Obj@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva00082E1DInitFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x003733C8 73B ??0MineshaftPortalNetworkManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00373411 6B ?name@Rva00373411Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters4.cpp (not merged yet)
+
+// tu-skeleton: 0x00373417 8B ??_EMineshaftPortalNetworkManager@@WM@AEPAXI@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalNetworkManager.cpp (not merged yet)
 
 // tu-skeleton: 0x003734A4 28B ?addArrivingObject@MineshaftPortalBehaviour@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/MineshaftPortalBehaviour_addArrivingObject.cpp (not merged yet)
 
