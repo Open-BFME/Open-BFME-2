@@ -17,7 +17,8 @@ public:
 	void rva00588E20(Object *object);
 };
 
-class Rva00479BA1 {
+class Rva00479BA1
+{
 public:
 	void rva00479BA1(Object *object);
 };
