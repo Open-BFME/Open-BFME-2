@@ -1,22 +1,16 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD /Ireference/shims/bfme2_ascii
 //
 // ??1Rva000B7539@@QAE@XZ retail 0x000B7539 68 bytes. Non-virtual dtor with
 // EH destroying three StringBase char at +0 +4 +8 via rowed releaseBuffer.
 // Evidence is triple lea plus EH states plus caller Unwind plus neighbour
 // StringRecordCopy flags.
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 class Rva000B7539
