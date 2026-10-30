@@ -1,4 +1,5 @@
-// cl: /MD
+// cl: /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // ?Register@AIUnitStats@@QAE_NPAX@Z @0x005962F7 111B.
 // Predicate over holder driven by 0x005960FF bit-test plus base push and
 // element clear with Science vector at plus 0x98 on the Check-false path.
@@ -19,26 +20,26 @@ enum ScienceType
 	SCIENCE_FIRST = 0
 };
 
+#include <vector>
+
 namespace _STL
 {
-
-template<class I,class V> I find(I,I,const V&);
-
-template <class _Tp> class allocator
-{
-};
-
-template <class _Tp, class _Alloc> class vector
-{
-public:
-	void push_back(const _Tp &v);
- _Tp *erase(_Tp *);
-	_Tp *m_start;
-	_Tp *m_finish;
-	_Tp *m_end;
-};
-
+// Bind the three vector/find calls to their rowed bodies (push_back
+// 0x002E01C6, find 0x0020E873 and the element erase) instead of emitting
+// second copies of the STLport headers' inline definitions.
+template <> ObjectID *find(ObjectID *, ObjectID *, const ObjectID &);
+template <> void vector<ScienceType, allocator<ScienceType> >::push_back(const ScienceType &);
+template <> ObjectID *vector<ObjectID, allocator<ObjectID> >::erase(ObjectID *);
 }
+
+// The canonical vector keeps its three pointers protected; read them through a
+// layout view of the same 12 bytes.
+struct BfmeIdVectorView
+{
+	ObjectID *m_start;
+	ObjectID *m_finish;
+	ObjectID *m_end;
+};
 
 class Rva0025C061
 {
@@ -105,8 +106,8 @@ bool AIUnitStats::UnRegister(void *holder) {
    if(flags&0x4000) {
     if(!rva004884B7((Object*)holder)) {
      ObjectID value=*(ObjectID*)((char*)holder+0x74);
-     ObjectID *end=ids().m_finish;
-     ObjectID *found=_STL::find(ids().m_start,end,value);
+     ObjectID *end=((BfmeIdVectorView*)&ids())->m_finish;
+     ObjectID *found=_STL::find(((BfmeIdVectorView*)&ids())->m_start,end,value);
      if(found!=end)ids().erase(found);
     }
    }

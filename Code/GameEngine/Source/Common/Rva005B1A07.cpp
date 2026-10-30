@@ -3,6 +3,8 @@
 // ?rva005B1A07@Rva005B1A07@@QAEXIUBfmePod20@@@Z, retail 0x005B1A07 73B.
 // Index into pod20 array at +0/+4: if in range tail-call rowed 0x005B129F else rowed fill_insert 0x005B1748.
 // Evidence: rowed callees; ret 0x18 index plus 20B pod; caller 0x005B1B53; prev 0x005B1830 shares STL.
+#include <vector>
+
 struct BfmePod20
 {
 	int a[5];
@@ -24,12 +26,9 @@ public:
 
 namespace _STL
 {
-template <class T> class allocator;
-template <class T, class A = allocator<T> > class vector
-{
-public:
-	void _M_fill_insert(T *pos, unsigned int n, const T &val);
-};
+// Bind the growth path to the rowed fill_insert 0x005B1748
+// (StlportVectorFillInsertRva005B1748.cpp) instead of emitting a second copy.
+template <> void vector<BfmePod20>::_M_fill_insert(BfmePod20 *, unsigned int, const BfmePod20 &);
 }
 
 class Rva005B1A07

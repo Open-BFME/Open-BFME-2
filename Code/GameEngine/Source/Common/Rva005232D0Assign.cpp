@@ -1,4 +1,5 @@
-// cl: /Ireference/shims/bfme2_ascii /EHs /MD
+// cl: /Ireference/shims/bfme2_ascii /EHs /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
+// stlport
 //
 // ??4Rva005232D0@@QAEAAU0@ABU0@@Z @0x005232D0 51B: memberwise assignment of a
 // record whose first member is Rva00523149 (rowed pointer-taking assign
@@ -8,23 +9,15 @@
 // unknown, so the name is address-derived.
 
 #include "ascii_string.h"
+#include <list>
 
 class UnicodeString;
 
-namespace _STL
-{
-template <class T>
-class allocator;
-
-template <class T, class Alloc = allocator<T> >
-class list
-{
-public:
-	list<T, Alloc> &operator=(const list<T, Alloc> &other);
-
-private:
-	void *m_node;
-};
+// Bind the member assignment to the rowed list<UnicodeString>::operator=
+// (0x005227C0, emitted by stlport_list_unicodestring_create_node.cpp's
+// explicit instantiation) instead of emitting a second copy here.
+namespace _STL {
+template <> list<UnicodeString> &list<UnicodeString>::operator=(const list<UnicodeString> &);
 }
 
 struct Rva00523149

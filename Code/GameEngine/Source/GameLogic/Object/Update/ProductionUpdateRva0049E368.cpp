@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /Ireference/shims/bfme2_ascii /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
 // stlport
 // ?rva0049E368@ProductionUpdate@@QAEXXZ @0x0049E368 77B
 // ProductionUpdate queue clear: per-element ThingTemplate lookup via rowed
@@ -8,6 +8,7 @@
 // 0x0049E34C same TU dir, vector element stride 4 with erase(first,last)
 // row name, caller 0x0049E41F in 0x0049E3B5.
 #include "ascii_string.h"
+#include <vector>
 
 class ThingTemplate;
 class ThingFactory
@@ -18,24 +19,21 @@ public:
 
 extern class ThingFactory *TheThingFactory;
 
+// Bind the erase-begin-end call to the rowed 0x0002CCFC instead of emitting a
+// second copy of the header's inline definition.
 namespace _STL
 {
-template <class Type>
-class allocator
-{
-};
-
-template <class Type, class Alloc>
-class vector
-{
-public:
-	typedef Type *iterator;
-	iterator erase(iterator first, iterator last);
-	Type *m_start;
-	Type *m_finish;
-	Type *m_end;
-};
+template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString *, AsciiString *);
 }
+
+// The canonical vector keeps its three pointers protected; read them through a
+// layout view of the same 12 bytes.
+struct BfmeAsciiVecView
+{
+	AsciiString *m_start;
+	AsciiString *m_finish;
+	AsciiString *m_end;
+};
 
 class ProdIface20
 {
@@ -69,11 +67,11 @@ private:
 
 void ProductionUpdate::rva0049E368()
 {
-	for (AsciiString *asciiString = m_vec130.m_start; asciiString != m_vec130.m_finish; ++asciiString)
+	for (AsciiString *asciiString = ((BfmeAsciiVecView *)&m_vec130)->m_start; asciiString != ((BfmeAsciiVecView *)&m_vec130)->m_finish; ++asciiString)
 	{
 		void *tmpl = (void *)TheThingFactory->findTemplate(*asciiString);
 		m_iface20.slot34(tmpl, 1);
 	}
 	_STL::vector<AsciiString, _STL::allocator<AsciiString> > &v = m_vec130;
-	v.erase(v.m_start, v.m_finish);
+	v.erase(((BfmeAsciiVecView *)&v)->m_start, ((BfmeAsciiVecView *)&v)->m_finish);
 }

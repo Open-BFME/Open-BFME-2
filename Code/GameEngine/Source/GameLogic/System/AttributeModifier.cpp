@@ -1,4 +1,5 @@
-// cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii
+// cl: /O1 /EHsc /MD /arch:SSE /G7 /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// stlport
 // Target 0040351C..0040360E; WB E90720 identifies the named FieldParse
 // callback and AttributeModifier.cpp source. Native +CC owns an 8-byte
 // upgrade pointer/delay pair. This is the same record cleanup established by
@@ -65,16 +66,11 @@ public:
     AsciiString name;
     unsigned expiration, upgrade;
 };
+#include <vector>
 namespace _STL {
-template<class T> class allocator {};
-template<class T, class A = allocator<T> > class vector {
-public:
-    T *erase(T *position);
-    T *begin() const { return m_begin; }
-    T *end() const { return m_end; }
-private:
-    T *m_begin, *m_end, *m_storage;
-};
+// Bind the removal to the rowed element erase instead of emitting a second
+// copy of the header's inline definition.
+template <> Rva00297360Element *vector<Rva00297360Element, allocator<Rva00297360Element> >::erase(Rva00297360Element *);
 }
 class ModifierBodyInterfaceView {
 public:
