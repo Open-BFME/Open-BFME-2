@@ -15,14 +15,14 @@ class Gen_003A8BE0
 public:
     Gen_003A8BE0(const Gen_003A8BE0 &other);
 
-    AsciiString m_bfmeFirst;  // +0x00
-    AsciiString m_bfmeSecond; // +0x04
-    AsciiString m_bfmeThird;  // +0x08
+    AsciiString first;  // +0x00
+    AsciiString second; // +0x04
+    AsciiString third;  // +0x08
 };
 
 Gen_003A8BE0::Gen_003A8BE0(const Gen_003A8BE0 &other)
-    : m_bfmeFirst(other.m_bfmeFirst),
-      m_bfmeSecond(other.m_bfmeSecond),
-      m_bfmeThird(other.m_bfmeThird)
+    : first(other.first),
+      second(other.second),
+      third(other.third)
 {
 }
