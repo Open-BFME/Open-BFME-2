@@ -11,19 +11,16 @@ template <class P> struct _Select1st;
 template <class T> struct equal_to;
 template <class T> class allocator;
 template <class V, class K, class H, class S, class E, class A>
-class hashtable
-{
-public:
-	void clear();
-};
+class hashtable;
 }
 struct BucketVec
 {
-	void *_start;
-	void *_finish;
-	void *_end;
-	~BucketVec() { if (_start) free(_start); }
+	void *_s;
+	void *_f;
+	void *_e;
+	~BucketVec() { if (_s) free(_s); }
 };
+
 class Rva005982AC
 {
 public:
@@ -39,6 +36,20 @@ typedef _STL::hashtable<
 	_STL::_Select1st<_STL::pair<const NameKeyType, ArmorTemplate> >,
 	_STL::equal_to<NameKeyType>,
 	_STL::allocator<_STL::pair<const NameKeyType, ArmorTemplate> > > ArmorHashTable;
+namespace _STL {
+template <>
+class hashtable<
+	pair<const NameKeyType, ArmorTemplate>,
+	NameKeyType,
+	rts::hash<NameKeyType>,
+	_Select1st<pair<const NameKeyType, ArmorTemplate> >,
+	equal_to<NameKeyType>,
+	allocator<pair<const NameKeyType, ArmorTemplate> > >
+{
+public:
+	void clear();
+};
+}
 Rva005982AC::~Rva005982AC()
 {
 	((ArmorHashTable *)this)->clear();

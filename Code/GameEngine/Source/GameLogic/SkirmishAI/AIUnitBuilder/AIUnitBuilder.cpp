@@ -91,15 +91,21 @@ void _STLP_alloc_proxy<_List_node<int> *, _List_node<int>, allocator<_List_node<
 }
 }
 
+struct BucketVec
+{
+	void *_s;
+	void *_f;
+	void *_e;
+	~BucketVec() { if (_s) free(_s); }
+};
+
 class Rva005982AC
 {
 public:
 	~Rva005982AC();
 private:
 	char m_pad[4];
-	void *_s;
-	void *_f;
-	void *_e;
+	BucketVec m_buckets;
 };
 
 struct Holder004
