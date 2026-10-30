@@ -3664,6 +3664,17 @@ Whole-unit clearance and census confirmation remain pending.
   Nine other donors retain declaration/byte prerequisites. The inherited
   forwarding-destructor finding and three current static-guard data-name
   findings remain; no debt retirement or census linking gain is claimed.
+  The applying merge absorbs that helper and removes one source file. All
+  31 resulting rows and six EH graphs verify; the current object's COFF facts
+  and reference graph equal the standalone union. Its bounded composition
+  overlay retires the donor object, reports no link blockers and retains all
+  five moved calls' owner bindings. The combined outgoing path-consumer audit
+  finds no active old-path consumer beyond the repointed ledger cells.
+  Strict preparation verifies 89 rows across the merged TU, its Run caller and
+  the pending Coord2D source. The broader batch audit remains INCONCLUSIVE:
+  index 12b9e7a7c0 predates the base, and affected consumer
+  0CreateAHeroManager21FE49.cpp lacks a current receipt. Carry these providers,
+  retired helper and affected consumers into the next census.
 
 - **SpecialAbilityUpdate AI view prerequisite (2026-10-30, base 2447888c81):**
   [Scoped view reconciliation and remaining blockers](../reverse/attempt_support/specialability-ai-view-20261030-codexb.md)

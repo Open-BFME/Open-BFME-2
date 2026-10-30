@@ -1,0 +1,33 @@
+{
+  "copies": {
+    "equal": true,
+    "expected_count": 86,
+    "actual_count": 86
+  },
+  "strong": {
+    "equal": true,
+    "expected_count": 18,
+    "actual_count": 18
+  },
+  "undefined": {
+    "equal": true,
+    "expected_count": 92,
+    "actual_count": 92,
+    "comparison": "raw union, preserving undefined names that also occur as weak COMDAT aliases"
+  },
+  "weak": {
+    "equal": true,
+    "expected_count": 2,
+    "actual_count": 2
+  },
+  "roots": {
+    "equal": true,
+    "expected_count": 110,
+    "actual_count": 110
+  },
+  "edges": {
+    "equal": true,
+    "expected_count": 68,
+    "actual_count": 68
+  }
+}

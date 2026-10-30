@@ -1,0 +1,9 @@
+Published index: {'date': '2026-10-30 10:11', 'commit': '12b9e7a7c0', 'clean_tree': True, 'census_date': '2026-10-30 08:27', 'census_commit': '2c21184e84'}
+Current receipt: ^code_^game^engine_^source_^game^logic_^object_^update_^special^ability^update.obj
+Retired donor object: ^code_^game^engine_^source_^game^logic_^object_^update_^rva00451^e^a^c^method.obj
+Composition result: {'unresolved': [], 'duplicates': [], 'comdat': [], 'addresses': [], 'selected': [], 'unreferenced_differs': []}
+Moved facing-helper binding: 27 ?findObjectByID@GameLogic@@QAEPAVObject@@W4ObjectID@@@Z 0x49dc5 owner
+Moved facing-helper binding: 51 ?isKindOf@Object@@QBE_NW4KindOfType@@@Z 0x6f039 owner
+Moved facing-helper binding: 67 ?aiIdle@AICommandInterface@@QAEXW4CommandSourceType@@@Z 0x1e8a38 owner
+Moved facing-helper binding: 85 ?aiFaceObject@AICommandInterface@@QAEXPAVObject@@W4CommandSourceType@@@Z 0x3c771d owner
+Moved facing-helper binding: 144 ?aiFacePosition@AICommandInterface@@QAEXPBUCoord3D@@H@Z 0x3c7782 owner

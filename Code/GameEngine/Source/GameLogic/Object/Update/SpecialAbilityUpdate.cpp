@@ -11,6 +11,7 @@
 #include "Code/Libraries/Include/Lib/Coord3D.h"
 #pragma function(memset)
 #pragma function(memset)
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
 
 // list<Drawable *> takes its nodes from the 12-byte pool at VA 0x00DBA5E0.
 // The base constructor (0x00239BB0) and node creator (0x00239BD8) are spelled
@@ -905,6 +906,22 @@ private:
 	unsigned char m_val60;
 };
 
+class Rva00451EAC
+{
+public:
+	void rva00451EAC();
+private:
+	char m_pad00[8];
+	Object *m_obj; // +8
+	char m_pad0C[0x40 - 0x0C];
+	ObjectID m_id; // +0x40
+	Coord3D m_coord; // +0x44
+	char m_pad50[0x7E - 0x50];
+	bool m_flag7E; // +0x7E
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdate.cpp
@@ -1700,6 +1717,16 @@ bool Rva0044EECA::rva0044EECA(Rva0044EECAParam *p)
 	return false;
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdatePoolKey.cpp
+
+// ?getModuleNameKey@SpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType SpecialAbilityUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheSpecialAbilityUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("SpecialAbilityUpdate");
+	return TheSpecialAbilityUpdatePoolKey;
+}
+
 // tu-skeleton: 0x0044EB54 378B ??0SpecialAbilityUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateModuleData.cpp (not merged yet)
 
 // tu-skeleton: 0x0044ECCE 199B ??1Rva0044ECCE@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
@@ -1711,16 +1738,6 @@ bool Rva0044EECA::rva0044EECA(Rva0044EECAParam *p)
 // tu-skeleton: 0x0044EF42 28B ??_GRva0044ECCE@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0044ECCEDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0044EF5E 246B ??0Rva0044EF5E@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0044EF5EFinish.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdatePoolKey.cpp
-
-// ?getModuleNameKey@SpecialAbilityUpdate@@UBE?AW4NameKeyType@@XZ
-NameKeyType SpecialAbilityUpdate::getModuleNameKey() const
-{
-	static NameKeyType TheSpecialAbilityUpdatePoolKey =
-		TheNameKeyGenerator->nameToKey("SpecialAbilityUpdate");
-	return TheSpecialAbilityUpdatePoolKey;
-}
 
 // tu-skeleton: 0x0044F099 6B ?name@Rva0044F099Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
@@ -1754,7 +1771,27 @@ NameKeyType SpecialAbilityUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x0045108D 2821B ?triggerAbilityEffect@SpecialAbilityUpdate@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateTriggerAbilityEffect.cpp (not merged yet)
 
-// tu-skeleton: 0x00451EAC 153B ?rva00451EAC@Rva00451EAC@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00451EACMethod.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva00451EACMethod.cpp
+
+void Rva00451EAC::rva00451EAC()
+{
+	Object *obj = m_obj;
+	if (obj == 0)
+		return;
+	Object *found = TheGameLogic->findObjectByID(m_id);
+	char *holder = *(char **)((char *)obj + 0x258);
+	if (holder == 0)
+		return;
+	if (obj->isKindOf(KIND_81))
+		return;
+	AICommandInterface *ai = (AICommandInterface *)(holder + 0x20);
+	ai->aiIdle(CMD_FROM_AI);
+	m_flag7E = true;
+	if (found != 0)
+		ai->aiFaceObject(found, CMD_FROM_AI);
+	else if (m_coord.x != 0.0f || m_coord.y != 0.0f || m_coord.z != 0.0f)
+		ai->aiFacePosition(&m_coord, 2);
+}
 
 // tu-skeleton: 0x00451F45 93B ??1SpecialAbilityUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialAbilityUpdateDtor.cpp (not merged yet)
 
