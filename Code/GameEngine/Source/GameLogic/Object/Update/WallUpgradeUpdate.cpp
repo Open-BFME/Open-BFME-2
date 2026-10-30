@@ -124,6 +124,26 @@ public:
 	const Object *m_obj;
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 enum ObjectID
 {
@@ -313,15 +333,45 @@ public:
 	void rva004AB57E();
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva004AB26DNamed, "WallUpgradeUpdate")
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x004AB1F5 81B ?rva004AB1F5@WallUpgradeUpdate@@SAPAVModule@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateFind.cpp (not merged yet)
 
 // tu-skeleton: 0x004AB246 39B ??1Rva004AB246@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
 
-// tu-skeleton: 0x004AB26D 6B ?name@Rva004AB26DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
 
 // tu-skeleton: 0x004AB273 95B ?xfer@WallUpgradeUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004AB2D2 69B ?getModuleNameKey@WallUpgradeUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdatePoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateBehaviorCtor.cpp
 
@@ -344,12 +394,6 @@ WallUpgradeUpdate::WallUpgradeUpdate(Thing *thing, const ModuleData *moduleData)
 	m_31 = 0;
 	setWakeFrame(m_object, (UpdateSleepTime)UPDATE_SLEEP_NONE);
 }
-
-// tu-skeleton: 0x004AB392 28B ??_GRva004AB246@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB3AE 61B ?rva004AB3AE@WallUpgradeUpdate@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x004AB3EB 42B ?onBodyDamageStateChange@WallUpgradeUpdate@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateScan.cpp
 
@@ -406,6 +450,12 @@ void WallUpgradeUpdate::rva004AB57E()
 		}
 	}
 }
+
+// tu-skeleton: 0x004AB392 28B ??_GRva004AB246@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Grandchildren.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB3AE 61B ?rva004AB3AE@WallUpgradeUpdate@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x004AB3EB 42B ?onBodyDamageStateChange@WallUpgradeUpdate@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/WallUpgradeUpdateSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x004AB4AB 45B ?rva004AB4AB@Rva004AB4AB@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Rva004AB4ABCheck.cpp (not merged yet)
 
