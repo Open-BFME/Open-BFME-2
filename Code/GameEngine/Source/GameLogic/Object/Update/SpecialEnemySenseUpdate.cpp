@@ -148,6 +148,8 @@ enum UpdateSleepTime
 };
 
 class ModuleData;
+class Thing;
+class Xfer;
 
 class BehaviorModule
 {
@@ -173,6 +175,16 @@ public:
 
 class UpdateModule : public BehaviorModule, public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+protected:
+	void setWakeFrame(Object *, UpdateSleepTime);
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
 
 struct SpecialEnemySenseUpdateModuleData
