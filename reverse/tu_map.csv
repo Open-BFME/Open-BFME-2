@@ -47858,7 +47858,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x005858F3,58,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x0058592D,Code/Libraries/Source/WWVegas/WWLib/Rva00585B16Dtor.cpp
 0x0058592D,62,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x0058596B,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e8_o1.cpp
 0x0058596B,91,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x005859C6,Code/Libraries/Source/WWVegas/WWLib/Rva00585B16Dtor.cpp
-0x005859C6,45,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x005859F3,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva585B16.cpp
+0x005859C6,45,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x005859F3,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp
 0x005859F3,37,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x00585A18,Code/Libraries/Source/WWVegas/WWLib/Rva005859F3Fill.cpp
 0x00585A18,63,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x00585A57,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_copy_backward.cpp
 0x00585A57,67,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,proposed,C,C=0x005852DF..0x00585A9A,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_new_elements.cpp
@@ -86864,8 +86864,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079CAE9,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,P,P=0x00584A9B@FuncInfo0x00952608 provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp
 0x0079CAF1,8,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,P,P=0x00584A9B@FuncInfo0x00952608 provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp
 0x0079CAF9,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarm.cpp,approved,P,P=0x00584A9B@FuncInfo0x00952608 provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp
-0x0079CB03,14,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,approved,P,P=0x005859C6@FuncInfo0x0095262C p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva585B16.cpp
-0x0079CB11,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,approved,P,P=0x005859C6@FuncInfo0x0095262C p-group provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_construct_rva585B16.cpp
+0x0079CB03,14,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,approved,P,P=0x005859C6@FuncInfo0x0095262C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp
+0x0079CB11,10,code,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp,approved,P,P=0x005859C6@FuncInfo0x0095262C p-group provisional,Code/GameEngine/Source/GameLogic/Object/Contain/HordeContain/HordeMeleeFormation.cpp
 0x0079CB1B,8,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0079CB23,10,code,,,-,,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x0079CB2D,10,code,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp,approved,P,P=0x00586DF9@FuncInfo0x00952674 p-group provisional,Code/Libraries/Source/WWVegas/WWLib/HordeMeleeFormation.cpp
