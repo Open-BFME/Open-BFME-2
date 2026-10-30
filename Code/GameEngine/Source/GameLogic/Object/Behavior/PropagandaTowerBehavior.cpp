@@ -299,13 +299,17 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
+class Xfer;
+
 class PropagandaTowerBehavior
 {
 public:
 	virtual void slot00();
 	virtual void slot01();
 	virtual void slot02();
-	virtual void slot03();
+protected:
+	virtual void xfer(Xfer *xfer);
+public:
 	virtual void slot04();
 	virtual void slot05();
 	virtual void slot06();
@@ -326,7 +330,8 @@ private:
 	}
 	const PropagandaTowerBehaviorModuleData *m_moduleData;	// +0x04
 	Object *m_object;		// +0x08
-	unsigned char m_pad0C[0x28 - 0x0C];
+	unsigned char m_pad0C[0x24 - 0x0C];
+	unsigned int m_lastScanFrame; // +0x24
 	ObjectTracker *m_insideList;	// +0x28
 	const UpgradeTemplate *m_upgradeRequired;	// +0x2C
 public:

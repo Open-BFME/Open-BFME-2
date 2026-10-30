@@ -33,6 +33,10 @@ class Snapshot;
 class Thing;
 class ModuleData;
 class Object;
+class UpgradeTemplate;
+class PropagandaTowerBehaviorModuleData;
+
+enum NameKeyType { NK_UNKNOWN = 0 };
 
 #include "../../../../Include/Common/BfmeXfer.h"
 
@@ -60,36 +64,12 @@ enum ObjectID
 
 void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
-class PB_DeepBase
+// Only the direct base call is needed here. The serialization row and seed
+// both use the primary receiver; its base subobject starts at offset zero.
+class UpdateModule
 {
 public:
-	PB_DeepBase(Thing *, const ModuleData *);
-	virtual ~PB_DeepBase();
-
-protected:
-	void *m_f04;
-	Object *m_object;
-};
-
-class PB_Iface1 { public: virtual void slot(); };
-class PB_Iface2 { public: virtual void slot(); };
-
-class UpdateModule : public PB_DeepBase, public PB_Iface1, public PB_Iface2
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	void xfer(Xfer *xfer);
-
-private:
-	unsigned int m_f14;
-	int m_f18;
-	int m_f1c;
-};
-
-class PropagandaTowerBehaviorIface
-{
-public:
-	virtual void slot();
 };
 
 class ObjectTracker
@@ -101,22 +81,48 @@ public:
 	ObjectTracker *next; // +0x08
 };
 
-class PropagandaTowerBehavior : public UpdateModule,
-	public PropagandaTowerBehaviorIface
+class PropagandaTowerBehavior
 {
+public:
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
 protected:
 	virtual void xfer(Xfer *xfer);
-
+public:
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+protected:
+	virtual void removeAllInfluence();
+	virtual void doScan();
+	virtual void effectLogic(Object *obj, bool giving, const PropagandaTowerBehaviorModuleData *modData);
 private:
-	UnsignedInt m_lastScanFrame; // +0x24
-	ObjectTracker *m_insideList; // +0x28
+	const PropagandaTowerBehaviorModuleData *getPropagandaTowerBehaviorModuleData() const
+	{
+		return m_moduleData;
+	}
+	const PropagandaTowerBehaviorModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+	unsigned char m_pad0C[0x24 - 0x0C];
+	unsigned int m_lastScanFrame; // +0x24
+	ObjectTracker *m_insideList;	// +0x28
+	const UpgradeTemplate *m_upgradeRequired;	// +0x2C
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ?xfer@PropagandaTowerBehavior@@MAEXPAVXfer@@@Z @0x00481842
 void PropagandaTowerBehavior::xfer(Xfer *xfer)
 {
 	xfer->Version1();
-	UpdateModule::xfer(xfer);
+	reinterpret_cast<UpdateModule *>(this)->UpdateModule::xfer(xfer);
 	*xfer == m_lastScanFrame;
 
 	UnsignedShort insideCount = 0;

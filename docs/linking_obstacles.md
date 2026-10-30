@@ -425,6 +425,18 @@ remain prerequisites.
 
 ### PropagandaTowerBehavior scan consolidation (2026-10-30)
 
+Serialization prerequisite (codexb5): seed and Xfer donor now share the existing
+partial primary-receiver view, exposing the +0x24 scan frame and slot-3 xfer.
+All 18 rows, three EXACT EH graphs, 52 COMDAT fingerprints and all external
+bindings are retained. Strict preparation passes; ordinary preview retains
+LINKS for 1,173 combined authored bytes against 12b9e7a7c0. The supported dry
+run accepts this pair. Constructor, module-data constructor and update views
+remain prerequisites; seven mixed sources stay separate. The staged audit is
+INCONCLUSIVE on the older index and missing current consumer receipt; full
+affected-consumer verification and census confirmation remain pending.
+[Target facts and scope](../reverse/attempt_support/propaganda-tower-xfer-20261030-codexb5.md).
+
+
 Merge follow-up: the supported tool absorbs DoScan into the approved seed,
 removing one source file and repointing seven approved rows. All 23 scoped
 rows verify; four EH graphs are EXACT. The composed object preserves all 44
