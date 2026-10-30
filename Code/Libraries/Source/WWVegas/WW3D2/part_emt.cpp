@@ -44,6 +44,18 @@ public:
 	virtual void slot4(float);
 };
 #include <new>
+#define BFME_DISP_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // Global variable which is only used to communicate the worldspace emitter
 // velocity from ParticleEmitterClass::Create_New_Particles() to
@@ -78,6 +90,28 @@ public:
 private:
 	char m_pad[0xe4];
 	VBase *m_ptr;
+};
+
+class MilesAudioManager
+{
+public:
+    virtual unsigned char rva000515A4() const;
+    virtual unsigned char rva00051896() const;
+    char m_lead[0x6A3 - sizeof(void *)];
+    unsigned char m_6A3;
+    char m_pad6A4[2];
+    unsigned char m_6A6;
+};
+
+BFME_DISP_BYTE_GETTER(Rva001A1520ByteField, 0x11C)
+
+// BF1 9cbfb551fe Common/Rva005BD470ZeroTest.cpp is the clean semantic donor.
+// Full native leaf 001F350B..001F3513 ends at its own RET boundary.
+// Target evidence: receiver0C dword equals two; result in AL.
+// Original owner unresolved; the address-owned type is independent of nearby classes.
+class Rva001F350BFields {
+public: unsigned char isTwo() const;
+private: char unknown[0x0C]; unsigned int value;
 };
 
 // tu-skeleton: 0x001A0C30 7B ?Is_Remove_On_Complete_Enabled@ParticleEmitterClass@@QAE_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp (not merged yet)
@@ -164,11 +198,31 @@ private:
 
 // tu-skeleton: 0x001A1500 26B ?rva001A1500@ParticleEmitterClass@@UAEXH@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/ParticleEmitterRva001A1500.cpp (not merged yet)
 
-// tu-skeleton: 0x001A1520 7B ?get@Rva001A1520ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/DispByteFieldGetters.cpp
+
+// Disp32 byte getters: seven-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+//
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80), which is why this family
+// is separable from the far larger disp8 one. Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address (BFME1 pioneered the same family in
+// reference/open-bfme-1/Code/GameEngine/Source/Common/DispByteFieldGetters.cpp).
+// No // cl: line (defaults match the frameless 7-byte shape).
 
 // tu-skeleton: 0x001A1530 486B ??0ParticleEmitterClass@@QAE@ABV0@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_copy.cpp (not merged yet)
 
 // tu-skeleton: 0x001A1720 218B ??1ParticleEmitterClass@@UAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_destructor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/part_emt.cpp
 
@@ -689,8 +743,6 @@ void ParticleEmitterClass::Emit(void)
 	}
 }
 
-// tu-skeleton: 0x001A1970 266B ?On_Frame_Update@ParticleEmitterClass@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/Rva001A1BF0Cluster.cpp
 
 void Rva001A1BF0::set(VBase *vBase)
@@ -713,6 +765,8 @@ void Rva001A1C40::set(VBase *vBase)
 		vBase->slot4(0.001f);
 	}
 }
+
+// tu-skeleton: 0x001A1970 266B ?On_Frame_Update@ParticleEmitterClass@@UAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_frame.cpp (not merged yet)
 
 // tu-skeleton: 0x001A1C90 22B ?Get_Creation_Volume@ParticleEmitterClass@@QBEPAVVector3Randomizer@@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/particle_emitter_build_definition.cpp (not merged yet)
 
