@@ -7,6 +7,7 @@
 // when true delete (elem ? elem->v00(0) : 0) via rowed scalar delete 0x0002FD60 and
 // erase via rowed vector<void*>::erase 0x001FF51F; when false call the rowed
 // AIMoneyLender::update 0x00596B10 if elem[+0x10]==1 then advance. Same this as caller AIGameTeam::update 0x004E9710.
+#include <map>
 #include <vector>
 // Keep vector<void*> begin/end inline without emitting this unit's /O1 COMDAT
 // copies: retail's out-of-line ones are the /Od bodies (0x00023B90, 0x00023BA0).
@@ -36,20 +37,25 @@ struct Rva004E9446Elem
 	int m_10;
 };
 
+class ModuleData;
 class AIGameTeam
 {
 public:
+	void addPlayer(const ModuleData *parent);
+	void *getMasterPlayer();
 	void rva004E9446();
-
 private:
-	char m_pad00[0x18];
-	_STL::vector<void *> m_vec; // +0x18 (begin/end/capacity)
+	_STL::map<int, int> m_map; // +0x00 +0x0
+	_STL::vector<const ModuleData *> m_vec; // +0x0C +0xC
+	_STL::vector<void *> m_vec18; // +0x18 +0x18 (begin/end/capacity)
+	bool m_24; // +0x24 +0x24
+	char m_pad25[0x3];
 };
 
 void AIGameTeam::rva004E9446()
 {
-	_STL::vector<void *>::iterator end = m_vec.end();
-	_STL::vector<void *>::iterator it = m_vec.begin();
+	_STL::vector<void *>::iterator end = m_vec18.end();
+	_STL::vector<void *>::iterator it = m_vec18.begin();
 	while (it != end)
 	{
 		Rva004E9446Elem *e = (Rva004E9446Elem *)*it;
@@ -57,8 +63,8 @@ void AIGameTeam::rva004E9446()
 		{
 			void *p = e ? e->v00(0) : (void *)0;
 			delete p;
-			it = m_vec.erase(it);
-			end = m_vec.end();
+			it = m_vec18.erase(it);
+			end = m_vec18.end();
 		}
 		else
 		{

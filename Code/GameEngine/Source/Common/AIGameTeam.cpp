@@ -142,12 +142,13 @@ class AIGameTeam
 public:
 	void addPlayer(const ModuleData *parent);
 	void *getMasterPlayer();
-
+	void rva004E9446();
 private:
-	_STL::map<int, int> m_map; // +0x0
-	_STL::vector<const ModuleData *> m_vec; // +0xC
-	char m_pad18[0x24 - 0x18]; // +0x18
-	bool m_24; // +0x24
+	_STL::map<int, int> m_map; // +0x00 +0x0
+	_STL::vector<const ModuleData *> m_vec; // +0x0C +0xC
+	_STL::vector<void *> m_vec18; // +0x18 +0x18 (begin/end/capacity)
+	bool m_24; // +0x24 +0x24
+	char m_pad25[0x3];
 };
 
 // bfme link decl-only BfmeE16
