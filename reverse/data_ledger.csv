@@ -20097,8 +20097,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A038D0,4,.data,global,_s_rva007B13EA,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A038D4,4,.data,global,?TheDefaultProductionExitUpdatePoolKey@?1??rva000487F82@DefaultProductionExitUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DefaultProductionExitUpdatePoolKey.cpp,owned,,1,2
 0x00A038D8,4,.data,global,?$S1@?1??rva000487F82@DefaultProductionExitUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DefaultProductionExitUpdatePoolKey.cpp,owned,,1,4
-0x00A038DC,4,.data,global,?TheDelayedWeaponSetUpgradeUpdatePoolKey@?1??getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp,owned,,1,2
-0x00A038E0,4,.data,global,?$S1@?1??getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp,owned,,1,4
+0x00A038DC,4,.data,global,?TheDelayedWeaponSetUpgradeUpdatePoolKey@?1??getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp,owned,,1,2
+0x00A038E0,4,.data,global,?$S1@?1??getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp,owned,,1,4
 0x00A038E4,4,.data,global,?TheDeletionUpdatePoolKey@?1??rva00048838B@DeletionUpdate@@SA?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdatePoolKey.cpp,owned,,1,2
 0x00A038E8,4,.data,global,?$S1@?1??rva00048838B@DeletionUpdate@@SA?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/DeletionUpdatePoolKey.cpp,owned,,1,4
 0x00A038EC,4,.data,global,?TheDozerAIUpdatePoolKey@?1??getModuleNameKey@DozerAIUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Module/DozerAIUpdatePoolKey.cpp,owned,,1,2

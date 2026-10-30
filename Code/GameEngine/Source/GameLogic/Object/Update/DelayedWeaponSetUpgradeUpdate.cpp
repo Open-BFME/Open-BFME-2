@@ -3,7 +3,6 @@
 #pragma comment(linker, "/alternatename:?setDelay@DelayedUpgradeUpdateInterface@@UAEXXZ=?rva005CB9FF@Rva005CB9FF@@QAE_NH@Z")
 #pragma comment(linker, "/alternatename:?anchor@BehaviorModuleInterface@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?anchor@UpdateModuleInterface@@UAEXXZ=?Create@GameFileClass@@UAEHXZ")
-
 //
 // ??1DelayedWeaponSetUpgradeUpdate@@MAE@XZ, retail 0x00488268, 32 bytes.
 // Destructor completing the DelayedWeaponSetUpgradeUpdate file-unit (ctor
@@ -20,11 +19,8 @@
 // values are DIR32 auto-patches.
 
 class Thing;
-
 class ModuleData;
-
 class Object;
-
 #include "../../../../Include/Common/Module.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
@@ -89,6 +85,29 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
 };
 
+// ?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ @0x48828e
+// (69B): cached pool-name key for DelayedWeaponSetUpgradeUpdate. The class
+// identity comes from the pool-name string the body pushes
+// ("DelayedWeaponSetUpgradeUpdate"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
 class DelayedWeaponSetUpgradeUpdate : public UpdateModule, public DelayedUpgradeUpdateInterface
 {
 protected:
@@ -98,6 +117,8 @@ public:
 	// Retail primary-vtable slot 4; the pool-key donor owns its body.
 	virtual NameKeyType getModuleNameKey() const;
 };
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateDtor.cpp
 
@@ -113,9 +134,7 @@ DelayedWeaponSetUpgradeUpdate::~DelayedWeaponSetUpgradeUpdate()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00488288 6B ?name@Rva00488288Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x0048828E 69B ?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateModuleDataCtor.cpp
 
@@ -134,6 +153,14 @@ DelayedWeaponSetUpgradeUpdate::DelayedWeaponSetUpgradeUpdate(
 {
 }
 
-// tu-skeleton: 0x0078C2F3 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp (not merged yet)
+// tu-skeleton: 0x00488288 6B ?name@Rva00488288Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
 
-// tu-skeleton: 0x0078C300 10B __ehhandler$?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdatePoolKey.cpp
+
+// ?getModuleNameKey@DelayedWeaponSetUpgradeUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType DelayedWeaponSetUpgradeUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheDelayedWeaponSetUpgradeUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("DelayedWeaponSetUpgradeUpdate");
+	return TheDelayedWeaponSetUpgradeUpdatePoolKey;
+}
