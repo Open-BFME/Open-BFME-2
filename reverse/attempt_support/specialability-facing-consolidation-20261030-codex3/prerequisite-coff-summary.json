@@ -1,0 +1,28 @@
+{
+  "SpecialAbilityUpdate.cpp": {
+    "changed_fields": [],
+    "before_sha256": "7672168d6b0e2b0eaf08e1ef5b05a954f17b27762710db70cae708a024ebad54",
+    "after_sha256": "7672168d6b0e2b0eaf08e1ef5b05a954f17b27762710db70cae708a024ebad54",
+    "counts": {
+      "copies": 85,
+      "strong": 17,
+      "undefined": 90,
+      "weak": 2,
+      "roots": 108,
+      "edges": 68
+    }
+  },
+  "Rva00451EACMethod.cpp": {
+    "changed_fields": [],
+    "before_sha256": "d654e8acb9fdd6b90240f0282f8588006357cf38e2be279ad49723c40fe0433b",
+    "after_sha256": "d654e8acb9fdd6b90240f0282f8588006357cf38e2be279ad49723c40fe0433b",
+    "counts": {
+      "copies": 1,
+      "strong": 1,
+      "undefined": 7,
+      "weak": 0,
+      "roots": 6,
+      "edges": 0
+    }
+  }
+}

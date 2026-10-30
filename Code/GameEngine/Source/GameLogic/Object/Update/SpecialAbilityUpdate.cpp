@@ -77,7 +77,8 @@ enum ObjectStatusTypes
 enum KindOfType
 {
 	KINDOF_INVALID = -1,
-	KINDOF_6E = 0x6E
+	KINDOF_6E = 0x6E,
+	KIND_81 = 0x81
 };
 
 enum SpecialPowerType {};
@@ -192,6 +193,8 @@ public:
 	void aiIdle(CommandSourceType cmdSource);
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
 	void aiMoveToPositionSA(const Coord3D *pos, int cmdSource);
+	void aiFaceObject(Object *target, CommandSourceType cmdSource);
+	void aiFacePosition(const Coord3D *pos, int cmdSource);
 	void rva0044FFD9(Object *obj, CommandSourceType cmdSource);
 	void rva0045003E(int value, CommandSourceType cmdSource);
 };

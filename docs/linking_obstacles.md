@@ -3654,6 +3654,16 @@ Whole-unit clearance and census confirmation remain pending.
   fully inventoried (LINK-008). Their batch provider audit remains inconclusive;
   carry this scope into the next census. The rebase retains upstream's string.h
   adoption and its cleared Microsoft-header queue entry.
+  Facing-helper follow-up, 2026-10-30 (base b79e02b24a):
+  [Declaration and composition evidence](../reverse/attempt_support/specialability-facing-consolidation-20261030-codex3/README.md)
+  adds the existing donor's KIND_81 and facing declarations to the seed.
+  All 31 rows and six EH graphs verify; both standalone objects retain their
+  COFF facts and reference graphs, and the paired preview stays clean at
+  6,289 authored bytes against index 12b9e7a7c0 (10:11). The supported dry run
+  now accepts Rva00451EACMethod.cpp and the seed with its census-linked guard.
+  Nine other donors retain declaration/byte prerequisites. The inherited
+  forwarding-destructor finding and three current static-guard data-name
+  findings remain; no debt retirement or census linking gain is claimed.
 
 - **SpecialAbilityUpdate AI view prerequisite (2026-10-30, base 2447888c81):**
   [Scoped view reconciliation and remaining blockers](../reverse/attempt_support/specialability-ai-view-20261030-codexb.md)
