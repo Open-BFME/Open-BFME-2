@@ -9,7 +9,7 @@
 
 #include <stdlib.h>
 class AsciiString;
-struct Rva004F77E0Element {char bytes[4];};
+struct TreeHintRef00217D4C;
 
 namespace _STL {
 	template<class Iter> void _Destroy(Iter,Iter);
@@ -45,13 +45,15 @@ Rva004F60AA *Rva004F60AA::rva004F77AD(char *first, char *last)
 // Temporary_buffer semantic guide. Original element identity remains
 // unknown: native full24B Destroy5F97BC calls full27B destroy-aux4F72ED
 // through flags0 element teardown5F8FCC rather than AsciiString release.
-// The scoped4B view asserts no unconsumed fields or original template name.
+// The existing _Destroy row names its opaque element TreeHintRef00217D4C.
+// Keep that type incomplete: the native stride proves no additional fields
+// or original element name.
 // Storage is freed through the native CRT free import after destruction.
 Rva004F60AA::~Rva004F60AA()
 {
- Rva004F77E0Element *buf=static_cast<Rva004F77E0Element*>(m_08);
- _STL::_Destroy(buf,buf+m_04);
+ TreeHintRef00217D4C *buf=static_cast<TreeHintRef00217D4C*>(m_08);
+ TreeHintRef00217D4C *end=reinterpret_cast<TreeHintRef00217D4C*>(
+  static_cast<char*>(m_08)+m_04*4);
+ _STL::_Destroy(buf,end);
  ::free(m_08);
 }
-
-#pragma comment(linker, "/alternatename:??$_Destroy@PAURva004F77E0Element@@@_STL@@YAXPAURva004F77E0Element@@0@Z=??$_Destroy@PAUTreeHintRef00217D4C@@@_STL@@YAXPAUTreeHintRef00217D4C@@0@Z")
