@@ -39156,11 +39156,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B2394,6,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,C,C=0x004B237B..0x004B239A provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B239A,25,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,C,C=0x004B237B..0x004B23B3 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B23B3,18,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,C,C=0x004B237B..0x004B23C5 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
-0x004B23C5,147,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/Rva004B237BXfer.cpp
+0x004B23C5,147,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B2458,69,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B249D,104,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B2505,17,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp
-0x004B2516,125,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp
+0x004B2516,125,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x004B2593,28,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,N,N=Code/GameEngine/Source/Common/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/Common/Rva0024A797Derived.cpp
 0x004B25AF,26,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,C,C=0x004B2593..0x004B25C9 provisional,Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdateUpdate.cpp
 0x004B25C9,164,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdate.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp
@@ -81099,8 +81099,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078E91B,10,code,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp,approved,P,P=0x004B21B9@FuncInfo0x0093F394 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdateCtor.cpp
 0x0078E925,13,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2458@FuncInfo0x0093F3B8 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x0078E932,10,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2458@FuncInfo0x0093F3B8 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
-0x0078E93C,8,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2516@FuncInfo0x0093F408 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp
-0x0078E944,10,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2516@FuncInfo0x0093F408 provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp
+0x0078E93C,8,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2516@FuncInfo0x0093F408 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
+0x0078E944,10,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B2516@FuncInfo0x0093F408 provisional,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 0x0078E94E,8,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B25C9@FuncInfo0x0093F43C provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp
 0x0078E956,8,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B25C9@FuncInfo0x0093F43C provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp
 0x0078E95E,8,code,Code/GameEngine/Source/Common/EntEnragedUpdate.cpp,approved,P,P=0x004B25C9@FuncInfo0x0093F43C provisional,Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp

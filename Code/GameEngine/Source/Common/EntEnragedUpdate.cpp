@@ -55,6 +55,31 @@ extern "C" const void *const __identifier("??_7EntEnragedUpdateModuleData@@6B@")
 	{ \
 		return TEXT; \
 	}
+// ?rva004B23C5@EntEnragedUpdate@@UAEXPAVXfer@@@Z, retail 0x004B23C5, 147 bytes.
+// Virtual slot 3 (offset 0xC) of vtable 0x00856948 (VA 0x00C56948), class of
+// ??1EntEnragedUpdate@@UAE@XZ (was Rva004B237B) in Rva0024A797Derived.cpp. UpdateModule xfer via
+// rowed 0x0044DF9F with Version(1,1) via Xfer slot 0x28 then uint fields at
+// +0x20/+0x24/+0x28 via slot 0x78 and bool fields at +0x2C/+0x2D/+0x2E/+0x2F/
+// +0x30 via slot 0x90. Xfer spelling copied from FoundationAIUpdateXfer.cpp.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../Include/Common/BfmeXfer.h"
 
 class UpdateModuleData
 {
@@ -111,9 +136,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
 class Thing;
+
 class Object;
+
 class ModuleData;
+
 class BodyModuleInterface;
+
 class Xfer;
 
 class PB_DeepBase
@@ -205,7 +234,30 @@ protected:
 	virtual const char *GetSnapshotName() const;
 };
 
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+// upstream layout: reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
+class ModuleData
+{
+private:
+	unsigned char m_gap00[8];
+public:
+	unsigned int m_initialValue;
+};
+
+int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
 // tu-skeleton: 0x004B237B 25B ??1EntEnragedUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
 
@@ -274,11 +326,43 @@ EntEnragedUpdateModuleData::EntEnragedUpdateModuleData()
 	m_offBuffFX = 0;
 }
 
-// tu-skeleton: 0x004B23C5 147B ?rva004B23C5@EntEnragedUpdate@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004B237BXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004B237BXfer.cpp
+
+void EntEnragedUpdate::rva004B23C5( Xfer *xfer )
+{
+	Xfer::Version version( 1, 1 );
+	*xfer == version;
+	UpdateModule::xfer( xfer );
+	*xfer == m_20;
+	*xfer == m_2C;
+	*xfer == m_24;
+	*xfer == m_2F;
+	*xfer == m_2D;
+	*xfer == m_30;
+	*xfer == m_28;
+	*xfer == m_2E;
+}
 
 // tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2516 125B ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp
+
+// ??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+EntEnragedUpdate::EntEnragedUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	const ModuleData *data = m_moduleData;
+	m_20 = 0;
+	m_20 += GetGameLogicRandomValue(0, data->m_initialValue,
+		(char *)"C:\\projects\\bfme2patch103\\bfme2\\Code\\GameEngine\\Source\\GameLogic\\Object\\Update\\EntEnraged.cpp", 0x4c);
+	m_2C = false;
+	m_2E = false;
+	m_2F = false;
+	m_2D = false;
+	m_28 = 0;
+	m_30 = false;
+	m_24 = 0x3fffffff;
+}
 
 // tu-skeleton: 0x004B2593 28B ??_GEntEnragedUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
@@ -293,10 +377,6 @@ EntEnragedUpdateModuleData::EntEnragedUpdateModuleData()
 // tu-skeleton: 0x004B2722 63B ??1EntEnragedUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateModuleDataDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2761 550B ?update@EntEnragedUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E93C 8B Unwind@00b8e93c -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x0078E944 10B __ehhandler$??0EntEnragedUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateCtorThunk.cpp (not merged yet)
 
 // tu-skeleton: 0x0078E94E 8B Unwind@00b8e94e -- matched in Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdateScan.cpp (not merged yet)
 
