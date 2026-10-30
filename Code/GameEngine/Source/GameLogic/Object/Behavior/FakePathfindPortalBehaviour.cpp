@@ -12,6 +12,48 @@
 	{ \
 		m_flag = IMM; \
 	}
+//
+// ?xfer@FakePathfindPortalBehaviour@@MAEXPAVXfer@@@Z, retail 0x00461B1B, 232 bytes.
+// Slot 3 of ??_7FakePathfindPortalBehaviour 0x00C42C1C (slot-2 name getter
+// returns "FakePathfindPortalBehaviour"; the rowed dtor 0x004619F2 installs
+// it). The rowed UpdateModule::xfer 0x0044DF9F first, the light-CRC out,
+// Version(1,2), the two waypoints at +0x28 by waypoint ID (the
+// DynamicPortalBehaviourXfer shape), bools at +0x30, +0x31 and +0x32, and
+// when +0x32 is set on load the pinned no-argument member 0x004618AB that
+// re-registers both waypoints and sets +0x32 again. Member names not
+// recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Object;
+#include "../../../../Include/Common/BfmeXfer.h"
+//
+// ??0FakePathfindPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z,
+// retail 0x00461944, 99 bytes. Frameless behavior ctor over the rowed
+// UpdateModule base (0x253390): two-phase +0x20/+0x24 slots (ints first,
+// vtable dummies second), byte zeros at +0x30/+0x31/+0x32 plus int zero at
+// +0x34, then CRT memset over +0x28 (8 bytes). The rowed instance factory
+// 0x24B50D (news 0x38) is the sole caller. Row supersedes the ctor pin.
+
+extern "C" const void *const __identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@")[];
+  // folded vftable 0x00C4EF80 (7 classes), by its data-ledger name
+extern "C" const void *const __identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@")[];
+#include <string.h>
 
 // ?getModuleNameKey@FakePathfindPortalBehaviour@@UBE?AW4NameKeyType@@XZ @0x4619AD
 // (69B): cached pool-name key for FakePathfindPortalBehaviour. The class
@@ -89,64 +131,17 @@ public:
 };
 
 class Thing;
+
 class ModuleData;
+
 class Xfer;
+
 class Waypoint;
-
-// Retail ctor 0x461944 stores five vptrs: +0x00, +0x0C and +0x10 inside the
-// UpdateModule base, +0x20 and +0x24 for two interface bases (whose own
-// vtables, 0x00C1C780 and 0x00C4EF80, the inlined base ctors store first).
-// The 0x00C42B50 interface's slot 0 is rva0046190A, entered with this at
-// +0x20. novtable: the ctor writes those stores explicitly.
-class UpdateModule
-{
-public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const = 0;
-	void xfer(Xfer *xfer);
-
-protected:
-	Thing *m_owner;		// +0x04
-	int m_pad08;
-	const void *m_p0C;	// +0x0C
-	const void *m_p10;	// +0x10
-	unsigned char m_pad[0x20 - 0x14];
-};
-
-class __declspec(novtable) Rva00C42B50Iface
-{
-public:
-	virtual void rva0046190A(void *arg) = 0;
-};
 
 class __declspec(novtable) Rva00C42B40Iface
 {
 public:
 	virtual void slot0() = 0;
-};
-
-class __declspec(novtable) FakePathfindPortalBehaviour : public UpdateModule, public Rva00C42B50Iface,
-	public Rva00C42B40Iface
-{
-public:
-	FakePathfindPortalBehaviour(Thing *thing, const ModuleData *moduleData);
-	virtual NameKeyType getModuleNameKey() const;
-	virtual void rva0046190A(void *arg);
-	void rva0046183B();
-	void rva00461C1F();
-
-protected:
-	virtual void xfer(Xfer *xfer);
-
-private:
-	void regWaypointsWithPathfinder();
-
-	enum { WAYPOINT_COUNT = 2 };
-	Waypoint *m_28[WAYPOINT_COUNT];	// +0x28
-	bool m_30;
-	bool m_31;
-	bool m_32;
-	int m_34;
 };
 
 class Rva00461DB5Owner
@@ -189,13 +184,189 @@ struct Rva00054B6EByteField
     Rva00054B6EByteField *clear();
 };
 
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+enum { INVALID_WAYPOINT_ID = 0x7fffffff };
+
+void XferWaypointID(Xfer *xfer, int *id);
+
+class Waypoint
+{
+public:
+	int getID() const { return m_id; }
+private:
+	void *m_unknown00;
+	int m_id;
+};
+
+class TerrainLogic
+{
+public:
+	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
+	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
+	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s16(); virtual void s17(); virtual void s18(); virtual void s19();
+	virtual void s20(); virtual void s21(); virtual void s22(); virtual void s23();
+	virtual void s24(); virtual void s25(); virtual void s26(); virtual void s27();
+	virtual void s28(); virtual void s29(); virtual void s30(); virtual void s31();
+	virtual void s32(); virtual void s33(); virtual void s34();
+	virtual Waypoint *getWaypointByID(int waypointID);
+};
+
+extern TerrainLogic *TheTerrainLogic;
+
+// Retail ctor 0x461944 stores five vptrs: +0x00, +0x0C and +0x10 inside the
+// UpdateModule base, +0x20 and +0x24 for two interface bases (whose own
+// vtables, 0x00C1C780 and 0x00C4EF80, the inlined base ctors store first).
+// The 0x00C42B50 interface's slot 0 is rva0046190A, entered with this at
+// +0x20. novtable: the ctor writes those stores explicitly.
+class UpdateModule
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const = 0;
+	void xfer(Xfer *xfer);
+
+protected:
+	Thing *m_owner;		// +0x04
+	int m_pad08;
+	const void *m_p0C;	// +0x0C
+	const void *m_p10;	// +0x10
+	unsigned char m_pad[0x20 - 0x14];
+};
+
+class Rva002E9042
+{
+public:
+	void AddPortal(void *p);
+};
+
+class AI
+{
+public:
+	char m_pad[0x10];
+	Rva002E9042 *m_10;
+};
+
+extern class AI *TheAI;
+
+class FakePathfindPortalBehaviourBase
+{
+public:
+	virtual ~FakePathfindPortalBehaviourBase();
+protected:
+	const ModuleData *m_moduleData;	// +0x04
+	Object *m_object;		// +0x08
+	unsigned char m_pad0C[0x20 - 0x0C];
+};
+
+class __declspec(novtable) Rva00C42B50Iface
+{
+public:
+	virtual void rva0046190A(void *arg) = 0;
+};
+
+class __declspec(novtable) FakePathfindPortalBehaviour : public UpdateModule, public Rva00C42B50Iface,
+	public Rva00C42B40Iface
+{
+public:
+	FakePathfindPortalBehaviour(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void rva0046190A(void *arg);
+	void rva0046183B();
+	void rva00461C1F();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	void regWaypointsWithPathfinder();
+
+	enum { WAYPOINT_COUNT = 2 };
+	Waypoint *m_28[WAYPOINT_COUNT];	// +0x28
+	bool m_30;
+	bool m_31;
+	bool m_32;
+	int m_34;
+};
+
+static int s_vtable;
+
+static int s_secondary0C;
+
+static int s_secondary10;
+
+static int s_secondary20;
+
+static int s_secondary24;
+
 // tu-skeleton: 0x0046183B 112B ?rva0046183B@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004618AB 41B ?regWaypointsWithPathfinder@FakePathfindPortalBehaviour@@AAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourXfer.cpp
+
+// ?xfer@FakePathfindPortalBehaviour@@MAEXPAVXfer@@@Z @0x00461B1B
+void FakePathfindPortalBehaviour::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+
+	if (xfer->IsLightCRC())
+		return;
+
+	Xfer::Version version(1, 2);
+	*xfer == version;
+
+	for (int i = 0; i < WAYPOINT_COUNT; ++i)
+	{
+		if (xfer->IsLoading())
+		{
+			int id;
+			XferWaypointID(xfer, &id);
+			m_28[i] = id == INVALID_WAYPOINT_ID ? 0 : TheTerrainLogic->getWaypointByID(id);
+		}
+		else
+		{
+			int id = m_28[i] ? m_28[i]->getID() : INVALID_WAYPOINT_ID;
+			XferWaypointID(xfer, &id);
+		}
+	}
+
+	*xfer == m_30;
+	*xfer == m_31;
+	*xfer == m_32;
+	if (m_32 && xfer->IsLoading())
+		regWaypointsWithPathfinder();
+}
+
+// ?regWaypointsWithPathfinder@FakePathfindPortalBehaviour@@AAEXXZ @0x004618AB 41B
+// Re-registers both waypoints through the AI pathfinder set-twin 0x002E8FE5
+// and sets +0x32 again. Called from xfer on load when +0x32 is set.
+void FakePathfindPortalBehaviour::regWaypointsWithPathfinder()
+{
+	TheAI->m_10->AddPortal(m_28[0]);
+	TheAI->m_10->AddPortal(m_28[1]);
+	m_32 = true;
+}
 
 // tu-skeleton: 0x004618D4 54B ?rva004618D4@FakePathfindPortalBehaviour@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0046190A 19B ?rva0046190A@FakePathfindPortalBehaviour@@UAEXPAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourSlot0.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourSlot0.cpp
+
+void FakePathfindPortalBehaviour::rva0046190A(void *arg)
+{
+	rva0046183B();
+	m_31 = true;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviour.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteSetters.cpp
 
@@ -241,15 +412,35 @@ void Rva00461DB5Owner::rva00461DB5()
  ((FakePathfindPortalBehaviour *)this)->rva00461C1F();
 }
 
-// tu-skeleton: 0x00461944 99B ??0FakePathfindPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourCtor.cpp
+
+  // folded vftable 0x00C1C780 (49 classes), by its data-ledger name
+
+// ??0FakePathfindPortalBehaviour@@QAE@PAVThing@@PBVModuleData@@@Z @0x461944
+FakePathfindPortalBehaviour::FakePathfindPortalBehaviour(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	int *slot20 = (int *)((char *)this + 0x20);
+	int *slot24 = (int *)((char *)this + 0x24);
+	*slot20 = ((unsigned int)__identifier("??_7SecondaryModuleBase@FXParticleSystem@@6B@"));
+	*slot24 = ((unsigned int)__identifier("??_7GhostObject@@6BRva001B3E60SecondBaseCore@@@"));
+	m_30 = false;
+	m_31 = false;
+	m_32 = false;
+	m_34 = 0;
+	*reinterpret_cast<const void **>(this) = &s_vtable;
+	m_p0C = &s_secondary0C;
+	m_p10 = &s_secondary10;
+	*(int *)((char *)this + 0x20) = (int)&s_secondary20;
+	*(int *)((char *)this + 0x24) = (int)&s_secondary24;
+	memset(m_28, 0, 8);
+}
 
 // tu-skeleton: 0x004619A7 6B ?Rva004619A7Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004619F2 84B ??1FakePathfindPortalBehaviour@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00461A46 213B ?rva00461A46@FakePathfindPortalBehaviour@@QAEPAVWaypoint@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00461B1B 232B ?xfer@FakePathfindPortalBehaviour@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00461C03 28B ??_GFakePathfindPortalBehaviour@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp (not merged yet)
 
