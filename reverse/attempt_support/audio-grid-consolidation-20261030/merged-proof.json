@@ -1,0 +1,57 @@
+{
+  "kind": "supported merge of existing provisional N four-row group; no original filename claim",
+  "retired_source": "Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioGridCell_addToWeight.cpp",
+  "source": "Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioGridCell.cpp",
+  "strict_current": true,
+  "source_sha256": "f7be7a4cf8e41ab1eb7a75d207adf9681ba97d96290e40f1fbe01cfcc681258b",
+  "object_md5": "8ef4e2c1f1693fd69be9987703ad74ef",
+  "before_objects": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioGridCell.cpp",
+      "object_md5": "1aee9230202178aaf293a78801083d10",
+      "source_sha256": "536018c9266dc4d87a7dde3246aa89cfdf8380aafd58870e2fda6893e17e2278",
+      "strict_current": true
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/LargeGroupAudioGridCell_addToWeight.cpp",
+      "object_md5": "8421c31232ed80121f3c82c6167a39a8",
+      "source_sha256": "512db93a59ea9a43e878e3be5f02f557b27eaecc6d39501da597f1462733197c",
+      "strict_current": true
+    }
+  ],
+  "all_four_external_bodies_and_symbolic_relocations_equal_before_provider_union": true,
+  "rows": [
+    {
+      "name": "?setOverlappedLocking@LargeGroupAudioGridCell@@QAEX_N@Z",
+      "rva": "0x005C87F8",
+      "actual_extent": 85,
+      "exact": true,
+      "raw": "558bec807d08005356578bf90f95c18d770cc74508080000008d4c09ff833e0074138b068a50478ada02d932da80e30f32da88584783c604ff4d0875e08a47478ad002d132d080e20f32d08857475f5e5b5dc20400",
+      "relocations": []
+    },
+    {
+      "name": "?initOverlappingCells@LargeGroupAudioGridCell@@QAEXPAPAV1@@Z",
+      "rva": "0x005C879E",
+      "actual_extent": 61,
+      "exact": true,
+      "raw": "8061470f53565733ff8d510c8b4424108d34b8833e0075128a41478ad880e3f080c310240f32d88859478b0689024783c20483ff087cd55f5e5bc20400",
+      "relocations": []
+    },
+    {
+      "name": "?subtractFromWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+      "rva": "0x005C87DB",
+      "actual_extent": 29,
+      "exact": true,
+      "raw": "668b4144663b44240473076683614400eb082b44240466894144c20400",
+      "relocations": []
+    },
+    {
+      "name": "?addToWeight@LargeGroupAudioGridCell@@QAEXG@Z",
+      "rva": "0x005C884D",
+      "actual_extent": 41,
+      "exact": true,
+      "raw": "668b4144568b742408570fb7d00fb7fe03fa3bfa7d0866814944ffffeb0603c6668941445f5ec20400",
+      "relocations": []
+    }
+  ]
+}

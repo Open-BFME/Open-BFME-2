@@ -30,3 +30,38 @@ rejection, keeping the same four approved rows. The prerequisite is banked
 separately before applying the supported merge. Next: refresh the planner,
 perform the normal merge and full outgoing path-consumer audit, and verify
 provider/consumer selection. Full census confirmation remains separate.
+
+## Supported merge and path audit
+
+After banking the prerequisite, the planner was refreshed and its currency
+check passed. The normal merger accepts both approved donors with no rejection,
+mixed source or refused source, removes one file, and repoints only one
+functions source and one TU-map source. No regenerated map, baseline change or
+protected-register transfer is included.
+
+Literal build.sh, frozen, CSV and strict merged checks pass all four rows.
+The actual object has exactly the union of the two saved before-provider
+objects: all complete 85/61/29/41-byte bodies and their symbolic relocations
+are identical. They are leaves, with no undefined external or helper selection
+change. The source and object have a current strict receipt.
+[Actual merged proof](merged-proof.json).
+
+The full outgoing [path/ownership audit](path-audit.md) finds no active consumer
+or register repair. Naming history, census and generated from-marker references
+are intentionally retained. The supported merge keeps the existing provisional
+N approval; no original-path or new linked-byte gain is claimed. The isolated
+merged preview's 175 -> 216 excludes the retired 41-byte donor from its before
+count; the actual two-provider total remains 216 bytes.
+
+Current caller preparation additionally covers HostClass005C8F17,
+LargeGroupAudioSoundKeyPair and Rva005C81D8GridLinks: 37 total rows, two
+complete constructor folds, two float references and four EXACT EH graphs.
+All four current units preview LINKS. Their total stays 4,267 authored bytes
+when the retired 41-byte donor is included in the before scope. The displayed
+4,226 -> 4,267 difference omits that retired donor and is not a new link gain.
+
+The broader ready-batch audit including those four prepared units is
+INCONCLUSIVE: `ccafe54d1d` predates outgoing base `dff3d26d54`, and affected
+CreateAHeroManager lacks a current receipt. The separate path audit and exact
+provider union do not clear that wider consumer selection/loss scope. Carry
+the moved provider and affected consumers into the next scheduled census.

@@ -17,6 +17,25 @@ scope and auditing active path consumers. WorldBuilder's GameLogic path is
 only a planner hint here; the different GameLogic unit's methods are not moved.
 [Proof and scope](../reverse/attempt_support/audio-grid-consolidation-20261030/readme.md).
 
+The separately banked prerequisite `755e446d1a` is followed by a supported
+merge accepting both donors, with all four rows and the complete external-code
+union unchanged. It removes one source file and repoints only one functions
+source and one TU-map source. No map regeneration, baseline or protected-key
+transfer occurs. Literal/strict/frozen/CSV checks pass; total authored provider
+bytes remain 216. The complete outgoing path audit needs no active consumer or
+register fix, preserving historical naming/census/from-marker references.
+Full affected-consumer selection and census confirmation remain separate.
+
+Current provider/caller preparation covers 37 rows, two complete constructor
+folds, two floats and four EXACT EH graphs. All four units retain LINKS;
+4,267 authored bytes are conserved after including the retired 41-byte donor.
+No gain is inferred from the preview's narrower before-source list.
+
+The broader four-unit batch audit remains INCONCLUSIVE on older `ccafe54d1d`
+versus outgoing base `dff3d26d54` and the missing current CreateAHeroManager
+receipt. Carry the moved provider and affected consumers into the next
+scheduled census; no full-image selection/loss clearance is inferred.
+
 ### LINK-165: Buddy constructor needs the native string lifetime provider (2026-10-30)
 
 The constructor's incompatible narrow-allocator chain is live, so the earlier
