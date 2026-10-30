@@ -40,7 +40,10 @@ static inline const StringBase<char> &asBase(const AsciiString &asciiString)
 class HostClass005C815B
 {
 public:
+	void method_005C836F(int key, float value);
+	void method_005C839B(int,int);
 	void method_005C834A(int a, int b) throw();
+	void method_005C815B();
 };
 
 class Rva005C834A

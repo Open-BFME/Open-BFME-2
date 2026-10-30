@@ -20,6 +20,9 @@ void **vector<void*>::end() { return this->_M_finish; }
 class HostClass005C815B
 {
 public:
+	void method_005C836F(int key, float value);
+	void method_005C839B(int,int);
+	void method_005C834A(int a, int b) throw();
 	void method_005C815B();
 };
 
@@ -39,17 +42,17 @@ struct Rva005694CDElem
 class Rva00569393
 {
 public:
-	void rva00569393(void *tag);
 	void rva005694CD();
+	void rva00569393(void *tag);
+	char m_pad00[0x14];
 private:
-	char m_pad[0x14];
-	Rva005694CDElem *m_begin;	// +0x14
-	Rva005694CDElem *m_end;	// +0x18
-	char m_pad2[0x10];
-	void *m_slots[4];	// +0x2C
-	char m_pad3[0x40 - 0x3C];
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_40;	// +0x40
-	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C;	// +0x4C
+	Rva005694CDElem *m_begin; // +0x14 +0x14
+	Rva005694CDElem *m_end; // +0x18 +0x18
+	char m_pad1C[0x10];
+	void *m_slots[4]; // +0x2C +0x2C
+	char m_pad3C[0x4];
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
 };
 
 void Rva00569393::rva005694CD()

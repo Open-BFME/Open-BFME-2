@@ -17,14 +17,11 @@ public:
 class Rva00569373
 {
 public:
-	void rva00569373(void *tag);
+	void rva00569373(void *);
+	char m_pad00[0x58];
 private:
-	// Volatile begin: the removeDuckingTarget call erases through this vector, so
-	// retail re-fetches m_begin for the body dereference instead of carrying
-	// the test's load across the back-edge.
-	char m_pad[0x58];
-	LargeGroupAudioSoundKeyPair **volatile m_begin;	// +0x58
-	LargeGroupAudioSoundKeyPair **m_end;	// +0x5C
+	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58 +0x58
+	LargeGroupAudioSoundKeyPair **m_end; // +0x5C +0x5C
 };
 
 void Rva00569373::rva00569373(void *tag)

@@ -41,9 +41,10 @@ class ModuleData;
 // Prev 0x00568B81 overlap and next 0x00568C4E dtor share page.
 struct Rva003CDDB0Range
 {
-	const int *m_begin;
-	const int *m_end;
+public:
 	bool method(const Rva003CDDB0Range *other);
+	const int *m_begin; // +0x00
+	const int *m_end; // +0x04
 };
 
 class Rva00568C36Provider
@@ -82,6 +83,7 @@ public:
 
 struct Rva00568721Cmp
 {
+public:
 	bool operator()(const void *a, const void *b) const;
 };
 
@@ -199,10 +201,15 @@ public:
 	__forceinline ~BfmePoolRef10() { if (m_target != 0) m_target->m_ref.Release_Ref(); }
 };
 
+struct Rva005C8876Position;
+struct Rva005C8876Grid;
 class LargeGroupAudioGridCell
 {
 public:
-	void setOverlappedLocking(bool flag);
+	Rva005C8876Position getPreferredAudioPosition(Rva005C8876Grid*);
+	void update(Rva005C8876Grid*);
+	void addToWeight(unsigned short weight);
+	void subtractFromWeight(unsigned short weight);
 };
 
 class HostClass005C8E0A
@@ -242,9 +249,9 @@ class Rva0056A3FF
 {
 public:
 	void rva0056A3FF(HostClass005C8E0A *host, _STL::vector<Rva00568A20> *vec);
+	char m_pad00[0x40];
 private:
-	char m_pad[0x40];
-	_STL::vector<void *> m_vec4040;
+	_STL::vector<void *> m_vec4040; // +0x40
 };
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
@@ -268,8 +275,9 @@ void Rva005C80D1Cell(const Rva005C80D1Origin *origin, const Rva005C80D1Point *po
 
 struct Rva005688D2Base
 {
-    char m_pad[0x10];
-    float m_scale;
+public:
+	char m_pad00[0x10];
+	float m_scale; // +0x10
 };
 
 class Rva005C83C0DivAvgField
@@ -278,15 +286,17 @@ public:
     int get() const;
 };
 
+struct FloatPair;
 class Rva005688D2
 {
 public:
-    void rva005688D2(float *out, int mode);
-    int rva00568991();
+	void rva005688D2(float *out, int mode);
+	int rva00568991();
+	FloatPair rva005688D2(int mode);
+	char m_pad00[0x2C];
 private:
-    char m_pad[0x2C];
-    Rva005C83C0DivAvgField *m_slots[4];
-    Rva005688D2Base *m_base;
+	Rva005C83C0DivAvgField *m_slots[4]; // +0x2C
+	Rva005688D2Base *m_base; // +0x3C
 };
 
 namespace _STL
@@ -327,11 +337,11 @@ class Rva00568A05
 {
 public:
 	Rva00568A05 &operator=(const Rva00568A05 &other);
-
 private:
-	int m00; // +0
-	int m04; // +4
-	short m08; // +8
+	int m00; // +0x00 +0
+	int m04; // +0x04 +4
+	short m08; // +0x08 +8
+	char m_pad0A[0x2];
 };
 
 class Rva00568B4E
@@ -390,11 +400,10 @@ class Rva00568F04
 {
 public:
 	void rva00568F04(void *item);
-
+	char m_pad00[0x58];
 private:
-	char _pad[0x58];
-	void **m_begin; // +0x58
-	void **m_end; // +0x5C
+	void **m_begin; // +0x58 +0x58
+	void **m_end; // +0x5C +0x5C
 };
 
 // Reference-derived iterator forwarding shape from STLport4.5.3.
@@ -457,10 +466,21 @@ void _STLP_alloc_proxy<_Rb_tree_node<Rva00568FE4Key> *, _Rb_tree_node<Rva00568FE
 { __stl_alloc_rebind(__STATIC_CAST(_Base&, *this),(_Rb_tree_node<Rva00568FE4Key>*)0).deallocate(__p, __n); }
 }
 
+struct Rva005694CDElem;
 class Rva00569393
 {
 public:
 	void rva005694CD();
+	void rva00569393(void *tag);
+	char m_pad00[0x14];
+private:
+	Rva005694CDElem *m_begin; // +0x14 +0x14
+	Rva005694CDElem *m_end; // +0x18 +0x18
+	char m_pad1C[0x10];
+	void *m_slots[4]; // +0x2C +0x2C
+	char m_pad3C[0x4];
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
 };
 
 class Rva00569AA8

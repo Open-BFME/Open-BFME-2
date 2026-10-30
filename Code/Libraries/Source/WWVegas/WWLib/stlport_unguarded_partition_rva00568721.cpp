@@ -7,6 +7,7 @@
 // thiscall comp plus two pushes matches 0x004231A0 precedent; unblocks 0x00569E91.
 struct Rva00568721Cmp
 {
+public:
 	bool operator()(const void *a, const void *b) const;
 };
 

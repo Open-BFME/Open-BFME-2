@@ -11,6 +11,7 @@
 // 0x00569A8D; the median's five calls go to the pinned comparator.
 struct Rva00568721Cmp
 {
+public:
 	bool operator()(const void *a, const void *b) const;
 };
 namespace _STL

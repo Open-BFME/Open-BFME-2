@@ -114,8 +114,8 @@ struct Rva005C8876Position;struct Rva005C8876Grid;
 class LargeGroupAudioGridCell
 {
 public:
- Rva005C8876Position getPreferredAudioPosition(Rva005C8876Grid*);
- void update(Rva005C8876Grid*);
+	Rva005C8876Position getPreferredAudioPosition(Rva005C8876Grid*);
+	void update(Rva005C8876Grid*);
 	void addToWeight(unsigned short weight);
 	void subtractFromWeight(unsigned short weight);
 };
@@ -124,7 +124,9 @@ class HostClass005C815B
 {
 public:
 	void method_005C836F(int key, float value);
- void method_005C839B(int,int);
+	void method_005C839B(int,int);
+	void method_005C834A(int a, int b) throw();
+	void method_005C815B();
 };
 
 struct Rva00568939Elem
@@ -157,7 +159,13 @@ public:
 private:
 	char m_storage[0xC];
 };
-struct Rva003CDDB0Range { bool method(const Rva003CDDB0Range *other); };
+struct Rva003CDDB0Range
+{
+public:
+	bool method(const Rva003CDDB0Range *other);
+	const int *m_begin; // +0x00
+	const int *m_end; // +0x04
+};
 
 class LargeGroupAudioSubject
 {
@@ -180,9 +188,41 @@ class ObjectCreationList {public: ObjectCreationList(); char opaque[12];};
 struct Rva0056A061KeyMap : ObjectCreationList { ~Rva0056A061KeyMap(){reinterpret_cast<Rva003ED94FDtor *>(this)->Rva003ED94FDtor::~Rva003ED94FDtor();} };
 class OpaqueRefCounted { public: void Release_Ref(); };
 struct Rva0056A061Ref { Rva0056A061Ref():value(0){} OpaqueRefCounted *value; ~Rva0056A061Ref(){if(value)value->Release_Ref();} };
-class Rva00569373 {public: void rva00569373(void *);};
-class Rva00569393 {public: void rva005694CD();};
-class Rva00568F04 {public: void rva00568F04(void *);};
+class LargeGroupAudioSoundKeyPair;
+class Rva00569373
+{
+public:
+	void rva00569373(void *);
+	char m_pad00[0x58];
+private:
+	LargeGroupAudioSoundKeyPair **volatile m_begin; // +0x58 +0x58
+	LargeGroupAudioSoundKeyPair **m_end; // +0x5C +0x5C
+};
+struct Rva005694CDElem;
+class Rva00569393
+{
+public:
+	void rva005694CD();
+	void rva00569393(void *tag);
+	char m_pad00[0x14];
+private:
+	Rva005694CDElem *m_begin; // +0x14 +0x14
+	Rva005694CDElem *m_end; // +0x18 +0x18
+	char m_pad1C[0x10];
+	void *m_slots[4]; // +0x2C +0x2C
+	char m_pad3C[0x4];
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_40; // +0x40 +0x40
+	::_STL::vector<void *, ::_STL::allocator<void *> > m_4C; // +0x4C +0x4C
+};
+class Rva00568F04
+{
+public:
+	void rva00568F04(void *item);
+	char m_pad00[0x58];
+private:
+	void **m_begin; // +0x58 +0x58
+	void **m_end; // +0x5C +0x5C
+};
 struct BfmeStringRecord00568CE0 { char opaque00[12]; Rva00568F04 *subject; char opaque10[4]; ~BfmeStringRecord00568CE0(); };
 // Native transfer569BBC and WB unnamed twin1442480 establish version/Xfer
 // protocol. WB-named1442010 establishes xferGridCellVector identity.
@@ -206,31 +246,50 @@ class RGBAColorReal;
 class RGBAColorInt;
 struct XferUnknown11;
 #include "../../../Include/Common/BfmeXfer.h"
-class Rva00568A05 { public: Rva00568A05 &operator=(const Rva00568A05 &); };
+class Rva00568A05
+{
+public:
+	Rva00568A05 &operator=(const Rva00568A05 &other);
+private:
+	int m00; // +0x00 +0
+	int m04; // +0x04 +4
+	short m08; // +0x08 +8
+	char m_pad0A[0x2];
+};
 
-struct Rva005688D2Base { char pad[0x10]; float scale; };
+struct Rva005688D2Base
+{
+public:
+	char m_pad00[0x10];
+	float m_scale; // +0x10
+};
 // Native 5688D2 returns its two-float output address in EAX and RET8.
 // Its caller569ABD consumes that EAX as a live temporary with an empty
 // destructor. This typed-return body is an emitted byte/relocation twin of
 // the existing explicit-output provider; original source spelling is unknown.
 // Native constant BC6C50 is -0.5f; scale belongs to owner+10 reached at this+3C.
-class Rva005688D2 {
+class Rva005C83C0DivAvgField;
+class Rva005688D2
+{
 public:
- FloatPair rva005688D2(int mode);
+	void rva005688D2(float *out, int mode);
+	int rva00568991();
+	FloatPair rva005688D2(int mode);
+	char m_pad00[0x2C];
 private:
- char pad[0x3C]; Rva005688D2Base *base;
+	Rva005C83C0DivAvgField *m_slots[4]; // +0x2C
+	Rva005688D2Base *m_base; // +0x3C
 };
 FloatPair Rva005688D2::rva005688D2(int mode)
 {
  float first,second;
  if(mode==0 || mode==2)first=0;
- else first=base->scale * -0.5f;
+ else first=m_base->m_scale * -0.5f;
  if(mode==0 || mode==1)second=0;
- else second=base->scale * -0.5f;
+ else second=m_base->m_scale * -0.5f;
  return FloatPair(first,second);
 }
 
-class LargeGroupAudioSoundKeyPair;
 // Retail passes one source pointer (RET4), keeps it in EDI, and reuses its
 // dead argument home for the four-grid counter and then the output flag at
 // byte3. This four-byte carrier models that observed ABI and storage reuse;
@@ -241,7 +300,11 @@ struct Rva0056A378Source {
 class LargeGroupAudioKeyMap {public: LargeGroupAudioKeyMap &operator=(const LargeGroupAudioKeyMap &);};
 struct OpaqueRefElement4 { void *m_referent; OpaqueRefElement4 &operator=(const OpaqueRefElement4 &);};
 // Existing rowed adjustor destructor5C8565, called before scalar delete.
-class Rva005C8565 {public: ~Rva005C8565();};
+class Rva005C8565
+{
+public:
+	~Rva005C8565();
+};
 struct Rva00569F0CVec { void *m_begin,*m_end,*m_pad; void rva00569F0C(void *,void *,bool *);};
 class Rva005C865B {public: Rva005C865B(void *,float *); char opaque[0x1C];};
 class Rva005C81D8 {public: void rva005C81D8(Rva005C8176 *,Rva005C8176 *,Rva005C8176 *);};
@@ -605,8 +668,19 @@ class ModuleData;
 
 
 
-class Rva0056A3FF {public:void rva0056A3FF(HostClass005C8E0A*,_STL::vector<Rva00568A20>*);};
-struct Rva00568721Cmp {bool operator()(const void*,const void*)const;};
+class Rva0056A3FF
+{
+public:
+	void rva0056A3FF(HostClass005C8E0A *host, _STL::vector<Rva00568A20> *vec);
+	char m_pad00[0x40];
+private:
+	_STL::vector<void *> m_vec4040; // +0x40
+};
+struct Rva00568721Cmp
+{
+public:
+	bool operator()(const void *a, const void *b) const;
+};
 struct BfmeEventPositionView {float x,y,z;};
 struct Rva005C8876Position {float x,y,z;Rva005C8876Position(){} Rva005C8876Position(const Rva005C8876Position&p):x(p.x),y(p.y),z(p.z){} };
 struct Rva005C8876Grid {char pad[0xE0];unsigned short startWeight,continueWeight;unsigned char mode;};

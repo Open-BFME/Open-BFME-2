@@ -25,7 +25,10 @@ static inline const StringBase<char> &asBase(const AsciiString &asciiString)
 class HostClass005C815B
 {
 public:
+	void method_005C836F(int key, float value);
+	void method_005C839B(int,int);
 	void method_005C834A(int a, int b) throw();
+	void method_005C815B();
 };
 
 class Rva005C834A
@@ -36,7 +39,11 @@ public:
 class Rva00568F04
 {
 public:
-	void rva00568F04(void *item) throw();
+	void rva00568F04(void *item);
+	char m_pad00[0x58];
+private:
+	void **m_begin; // +0x58 +0x58
+	void **m_end; // +0x5C +0x5C
 };
 
 class BitRange
