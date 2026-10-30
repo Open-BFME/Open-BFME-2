@@ -30,10 +30,6 @@ extern "C" const char *lua_tostring(lua_State *state, int index);
 extern "C" void lua_pushnil(lua_State *state);
 extern "C" void lua_pushstring(lua_State *state, const char *value);
 
-// lua_pushboolean, rowed under its BFME1 donor name at 0x00747540.
-struct BfmeQ1039;
-void bfmeGo1039E(BfmeQ1039 *q, int v);
-
 typedef float Real;
 typedef bool Bool;
 

@@ -217,6 +217,18 @@ LUA_API void lua_pushnil (lua_State *L) {
 }
 
 
+/* BFME reconstruction: retail 0x00747540 pushes a value under EA's added
+   boolean tag 6. It sits between lua_pushnil and lua_pushnumber, so EA
+   added it to lapi.c's push functions. EA's name is not witnessed;
+   bfmeGo1039E is the placeholder its callers already use. See
+   reverse/identity_evidence/00747540-lua-push-boolean.md. */
+void bfmeGo1039E (lua_State *L, int b) {
+  ttype(L->top) = 6;  /* EA's added LUA_TBOOLEAN tag */
+  bvalue(L->top) = b;
+  api_incr_top(L);
+}
+
+
 LUA_API void lua_pushnumber (lua_State *L, double n) {
   nvalue(L->top) = n;
   ttype(L->top) = LUA_TNUMBER;

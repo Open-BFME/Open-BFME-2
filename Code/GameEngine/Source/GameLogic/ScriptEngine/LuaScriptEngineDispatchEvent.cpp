@@ -23,7 +23,6 @@
 #include "ascii_string.h"
 
 struct lua_State;
-struct BfmeQ1039;
 class Object;
 
 extern "C" int lua_gettop(lua_State *L);
@@ -34,7 +33,7 @@ extern "C" void lua_call(lua_State *L, int arguments, int results);
 extern "C" void lua_pushnumber(lua_State *L, double n);
 extern "C" void lua_pushstring(lua_State *L, const char *s);
 
-extern void bfmeGo1039E(BfmeQ1039 *q, int value);
+extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 void __cdecl bfmeLogMsg574(const char *message);
 
 // Shared with the console provider at retail VA 0x00E01DC0.
@@ -151,7 +150,7 @@ void LuaScriptEngine::DispatchEvent(int *key, Object *object, void *parameters)
 		case 2:
 		{
 			bool flag = events->m_event[i].m_boolean;
-			bfmeGo1039E((BfmeQ1039 *)m_luaState, flag != 0);
+			bfmeGo1039E(m_luaState, flag != 0);
 			++count;
 			break;
 		}

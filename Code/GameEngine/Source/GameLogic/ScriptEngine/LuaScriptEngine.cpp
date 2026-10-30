@@ -10,8 +10,7 @@ extern "C" const char *lua_tostring(lua_State *state, int index);
 extern "C" void lua_pushnil(lua_State *state);
 extern "C" void lua_pushstring(lua_State *state, const char *value);
 // lua_pushboolean, rowed under its BFME1 donor name at 0x00747540.
-struct BfmeQ1039;
-void bfmeGo1039E(BfmeQ1039 *q, int v);
+extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 typedef float Real;
 typedef unsigned char Bool;
 Real GetGameClientRandomValueReal(Real low, Real high, char *file, int line);
@@ -752,7 +751,7 @@ int CurDrawableIsCurrentTargetKindof(lua_State *state)
 		if (target != 0 && lua_gettop(state) > 0) {
 			int kind = BitFlags<218>::getSingleBitFromName(lua_tostring(state, 1));
 			if (target->m_template->isKindOf(kind)) {
-				bfmeGo1039E((BfmeQ1039 *)state, 1);
+				bfmeGo1039E(state, 1);
 				return 1;
 			}
 		}
@@ -760,7 +759,7 @@ int CurDrawableIsCurrentTargetKindof(lua_State *state)
 		lua_pushnil(state);
 	}
 
-	bfmeGo1039E((BfmeQ1039 *)state, 0);
+	bfmeGo1039E(state, 0);
 	return 1;
 }
 
@@ -786,7 +785,7 @@ int ObjectTestCanSufferFear(lua_State *L)
   }
   AIUpdateInterface *ai=(AIUpdateInterface*)obj->m_ai258;
   if(ai && ai->getCurrentStateID()==0x2D) doPush=0;
-  bfmeGo1039E((BfmeQ1039*)L,doPush);
+  bfmeGo1039E(L,doPush);
  } else lua_pushnil(L);
  return 1;
 }

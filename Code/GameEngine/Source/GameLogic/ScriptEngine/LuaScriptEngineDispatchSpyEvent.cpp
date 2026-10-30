@@ -16,7 +16,6 @@
 #include "ascii_string.h"
 
 struct lua_State;
-struct BfmeQ1039;
 class Object;
 
 extern "C" int lua_gettop(lua_State *L);
@@ -25,7 +24,7 @@ extern "C" int lua_type(lua_State *L, int index);
 extern "C" void lua_settop(lua_State *L, int index);
 extern "C" void lua_call(lua_State *L, int arguments, int results);
 
-extern void bfmeGo1039E(BfmeQ1039 *q, int value);
+extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 void __cdecl bfmeLogMsg574(const char *message);
 
 // Shared with the console provider at retail VA 0x00E01DC0.
@@ -117,14 +116,14 @@ void LuaScriptEngine::DispatchSpyEvent(int key, void *object, void *spy, void *p
 		case 1:
 		{
 			float real = events->m_event[i].m_real;
-			bfmeGo1039E((BfmeQ1039 *)m_luaState, (int)real);
+			bfmeGo1039E(m_luaState, (int)real);
 			++count;
 			break;
 		}
 		case 2:
 		{
 			bool flag = events->m_event[i].m_boolean;
-			bfmeGo1039E((BfmeQ1039 *)m_luaState, flag != 0);
+			bfmeGo1039E(m_luaState, flag != 0);
 			++count;
 			break;
 		}

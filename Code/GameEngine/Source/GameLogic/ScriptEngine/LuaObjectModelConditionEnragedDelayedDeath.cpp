@@ -44,8 +44,7 @@ public:
 
 extern GameLogic *TheGameLogic;
 
-struct BfmeQ1039;
-void bfmeGo1039E( BfmeQ1039 *q, int v );
+extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 
 // Opaque virtual prefix: declarations preserve the observed slot without
 // inventing implementations for the unreconstructed methods.
@@ -134,7 +133,7 @@ int ObjectTestModelCondition( lua_State *state )
 		{
 			unsigned *bits = (unsigned *)( (char *)object + 0x10c );
 			bool bit = ( bits[ (unsigned)idx >> 5 ] & ( 1u << ( idx & 0x1f ) ) ) != 0;
-			bfmeGo1039E( (BfmeQ1039 *)state, bit );
+			bfmeGo1039E( state, bit );
 			return 1;
 		}
 		}

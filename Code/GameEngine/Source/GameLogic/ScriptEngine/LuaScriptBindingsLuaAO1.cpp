@@ -75,9 +75,6 @@ extern GameLogic *TheGameLogic;
 
 int GetGameLogicRandomValue( int lo, int hi, const char *file, int line );
 
-struct BfmeQ1039;
-void bfmeGo1039E( BfmeQ1039 *q, int v );
-
 
 extern "C" void lua_pushstring( lua_State *state, const char *str );
 

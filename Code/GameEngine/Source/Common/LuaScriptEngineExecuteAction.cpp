@@ -21,8 +21,7 @@ unsigned Rva00990030Lookup(Rva00990030Range*,int);
 struct Rva00990210Range;
 unsigned Rva00990210Lookup(Rva00990210Range*,int);
 
-struct BfmeQ1039;
-void bfmeGo1039E(BfmeQ1039 *queue, int value);
+extern "C" void __cdecl bfmeGo1039E(lua_State *L, int b);
 
 #include "../../../Libraries/Include/Lib/Coord3D.h"
 
@@ -163,6 +162,6 @@ int ExecuteAction(lua_State *state)
 
 	((ScriptActionsInterface *)TheScriptActions)->executeAction(action);
 	::delete action;
-	bfmeGo1039E((BfmeQ1039 *)state, 1);
+	bfmeGo1039E(state, 1);
 	return 1;
 }
