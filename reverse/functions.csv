@@ -9159,7 +9159,7 @@ _VP6_InitialiseConfiguration,,0x001B9680,22,Code/Libraries/Source/VP6/PbAccessor
 ?get@OldSchoolHelpBoxContentSource@@UAEHXZ,,0x004059BE,17,Code/GameEngine/Source/Common/R2GuardedFieldGetters.cpp,matched,BFME1 byte-identical donor; b1 0x004C1160
 ?setLeaveFrame@BFMENetInformPlayerLeaveFrameCommandMsg@@QAEXI@Z,,0x004D59FF,17,Code/GameEngine/Source/GameNetwork/NetCommandMsg_ctors.cpp,matched,BFME1 byte-identical donor; b1 0x006741A0
 ?bfmeGoURB@BfmeThingURB@@QAEHXZ,,0x00130FCE,28,Code/GameEngine/Source/Common/BfmeConv1341.cpp,matched,BFME1 byte-identical donor; b1 0x008FEB40
-??1BezierSegment@@QAE@XZ,,0x00390109,16,Code/GameEngine/Source/Common/Bezier/BezierSegmentConstructionAndLength.cpp,matched,BFME1 byte-identical donor; b1 0x000B65A0
+??1BezierSegment@@QAE@XZ,,0x00390109,16,Code/GameEngine/Source/Common/Bezier/BezierSegment.cpp,matched,BFME1 byte-identical donor; b1 0x000B65A0
 ?GadgetButtonGetData@@YAPAXPAVGameWindow@@@Z,,0x00327D56,24,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPushButton.cpp,matched,BFME1 byte-identical donor; b1 0x004BBEE0
 ?GadgetComboBoxGetLength@@YAHPAVGameWindow@@@Z,,0x003229B1,20,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetComboBox.cpp,matched,BFME1 byte-identical donor; b1 0x004B3D40; ICF-folded in BFME1 so the name is this sweeps pick among its twins
 ?GadgetCheckLikeButtonIsChecked@@YA_NPAVGameWindow@@@Z,,0x00327C9B,30,Code/GameEngine/Source/GameClient/GUI/Gadget/GadgetPushButton.cpp,matched,BFME1 byte-identical donor; b1 0x004BBDB0
