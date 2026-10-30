@@ -43,7 +43,6 @@ private:
 
 typedef char TeamTemplateInfoSizeCheck[(sizeof(TeamTemplateInfo) == 0x1EC) ? 1 : -1];
 
-// ?~TeamTemplateInfo@TeamTemplateInfo@@UAE@XZ present-unmatched
 TeamTemplateInfo::~TeamTemplateInfo()
 {
 }

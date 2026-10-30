@@ -1,5 +1,13 @@
 # Linking target checklist
 
+TeamTemplateInfo destructor follow-up (2026-10-30, base `734530a648`, LINK-141):
+remove one stale destructor exemption and its hatch key while preserving 14/14
+rows, the EXACT EH graph and the 236-byte LINKS preview against `85f6b7f40c`.
+Strict provider preparation passes. The older-index outgoing audit lacks a
+current CreateAHeroManager consumer receipt; full consumer/census confirmation
+remains pending. No new linking gain is claimed.
+[Verification](../reverse/attempt_support/team-template-marker-cleanup-20261030-codexb4.md).
+
 Allocator46 follow-up (2026-10-30, base `84887c9bc04`, LINK-150): two complete
 native allocator-provider twins permit VectorObjectIDFillInsert.cpp and
 stlport_deque_int.cpp to use STLport 4.6. All 34 rows match; the four-unit

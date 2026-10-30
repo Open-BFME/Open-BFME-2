@@ -10600,6 +10600,16 @@ rowed as an ICF twin of `??1?$StringBase@D@@AAE@XZ` (`add_match --icf-owner`,
 exact. Preview: UnitRevivalTracker.cpp 0 -> 3,033 B and the twins unit LINKS.
 Pending census confirmation.
 
+2026-10-30, base `734530a648`: current TeamTemplateInfoDtor.cpp verification
+confirms LINK-141's existing repair (14/14 rows, one EXACT EH graph, strict
+provider preparation, ordinary preview LINKS for 236 authored bytes against
+`85f6b7f40c`). Its stale destructor present-unmatched exemption and one hatch
+register key are removed. The outgoing audit is INCONCLUSIVE on the older index
+and missing current CreateAHeroManager consumer receipt. Carry that consumer
+and the destructor provider into the scheduled census; no new linking gain or
+full consumer closure is claimed.
+[Exemption retirement and checks](../reverse/attempt_support/team-template-marker-cleanup-20261030-codexb4.md).
+
 ### Hero-select CRT allocation declarations (2026-10-29, codexb4)
 
 Status: conflicting local `free` declaration replaced by the toolchain's

@@ -12403,7 +12403,6 @@ present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeper.cpp	ScoreKeeper:
 present_unmatched	Code/GameEngine/Source/Common/RTS/ScoreKeeperReset.cpp	BitFlags<116>::testSetAndClear	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamFactoryFindQualifiedPrototype.cpp	1BfmePairEL@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/TeamIterateTeamMemberList.cpp	0?$DLINK_ITERATOR@VObject@@@@QAE@PAVObject@@P81@BEPAV1@XZ@Z	1
-present_unmatched	Code/GameEngine/Source/Common/RTS/TeamTemplateInfoDtor.cpp	~TeamTemplateInfo@TeamTemplateInfo@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/RTS/UnitRevivalTracker.cpp	RevivalExperienceView::rva000B49A1	1
 present_unmatched	Code/GameEngine/Source/Common/RegionArmyIconSlotView.h	text)	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00030DD0AddRef.cpp	bfmeEmitRva00030DD0LockDtor@@YAXPAURva00030DD0Lock@@@Z	1
