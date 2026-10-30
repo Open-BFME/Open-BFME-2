@@ -72,8 +72,6 @@ Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp	wrong-name	__Ver
 Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp	wrong-name	__VertexBufferTotalVertices	0x009F2A84
 Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp	wrong-name	_bfmeSortingVB	0x009F2A8C
 Code/Libraries/Source/WWVegas/WW3D2/bfmedynamicvertexbuffer.cpp	wrong-name	_bfmeSortingVBOffset	0x009F2A94
-Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	wrong-name	?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A	0x009F363C
-Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	wrong-name	?ShutdownMeshRenderer@@3PAVDX8MeshRendererClass@@A	0x009F363C
 Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp	wrong-name	_clean_list	0x009B620C
 Code/Libraries/Source/WWVegas/WW3D2/sortingrenderer.cpp	wrong-name	_sorted_list	0x009B6200
 Code/Libraries/Source/WWVegas/WWDebug/Debug_CrashDone.cpp	duplicate-def	_g_debugAssertDialogAnswered	0x009E089D

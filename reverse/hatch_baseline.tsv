@@ -3959,10 +3959,8 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8vertexbuffer.cpp	??1BfmeSor
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	??1BfmeCellFC@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	??1CDEArraySlot@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	??1DebugMember@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?BfmeResetMeshRendererInstance@@3PAUBfmeResetMeshRenderer@@A	2
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?Device_Reset_Hook@BfmeResetMeshRenderer@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?Rva0069E440Empty@DX8MeshRendererClass@@QAEXXZ	1
-alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?ShutdownMeshRenderer@@3PAVDX8MeshRendererClass@@A	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?bfmeLenErrV21@BfmeStrV21@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?bfmeLenErrV22@BfmeStrV22@@QAEXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/dx8wrapper.cpp	?bfmeLenErrV23@BfmeStrV23@@QAEXXZ	1
