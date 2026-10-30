@@ -220,9 +220,9 @@ public:
 	float m_highRed;
 	float m_highGreen;
 	float m_highBlue;
-	UnsignedByte m_taintAlpha;
+	unsigned char m_taintAlpha;
 	unsigned char m_padca0[0xc6a - 0xc05];
-	UnsignedByte m_taintOn;
+	unsigned char m_taintOn;
 };
 extern GlobalData *TheWritableGlobalData;
 class W3DShroud
@@ -247,21 +247,22 @@ extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class Rva000729CC
 {
 public:
-	void rva00073CC0(int x, int y, UnsignedByte level, bool textureOnly);
-
- float getXScale() {return scaleX;} float getYScale() {return scaleY;}
-
+	void rva00073CC0(int x, int y, unsigned char level, bool textureOnly);
+	float getXScale() {return scaleX;}
+	float getYScale() {return scaleY;}
 private:
-	int m_numCellsX;
-	int m_numCellsY;
-	unsigned char m_padding08[8]; float scaleX, scaleY;
-	unsigned int *m_taintData;
-	unsigned char m_padding1c[0x1c];
-	UnsignedByte *m_cellLevels;
-	UnsignedByte *m_referenceCellLevels;
-	UnsignedByte m_trackDirtyCells;
-	unsigned char m_padding41[3];
-	_STL::set<int> m_dirty;
+	int m_numCellsX; // +0x00
+	int m_numCellsY; // +0x04
+	char m_pad08[0x8];
+	float scaleX; // +0x10
+	float scaleY; // +0x14
+	unsigned int *m_taintData; // +0x18
+	char m_pad1C[0x1C];
+	unsigned char *m_cellLevels; // +0x38
+	unsigned char *m_referenceCellLevels; // +0x3C
+	unsigned char m_trackDirtyCells; // +0x40
+	char m_pad41[0x3];
+	_STL::set<int> m_dirty; // +0x44
 };
 // ?rva00073CC0@Rva000729CC@@QAEXHHE_N@Z @0x00073CC0
 void Rva000729CC::rva00073CC0(int x, int y,
@@ -452,11 +453,18 @@ protected:
  static IDirect3DDevice8 *D3DDevice;
 };
 
-class ShroudFilter { public:
- int getMagFilter() const { return m_filter4; }
- void setMagFilter(int v) {m_filter4=v;}
- void setMinFilter(int v) {m_filter0=v;}
- int m_filter0,m_filter4;
+class ShroudFilter
+{
+public:
+	int getMagFilter() const { return m_filter4; }
+	void setMagFilter(int v) {m_filter4=v;}
+	void setMinFilter(int v) {m_filter0=v;}
+	void SetMip(int);
+	int m_filter0; // +0x00
+	int m_filter4; // +0x04
+	int mip; // +0x08
+	int u; // +0x0C
+	int v; // +0x10
 };
 
 class ShroudTexture { public: ShroudFilter *getFilter(); };
@@ -469,7 +477,14 @@ class Rva001166E0 { public: void *rva001166E0(int*,int,int,int,int); };
 
 class Member0C00739C70 {public: void clear();};
 
-class Rva00073950 {public: void rva00073950(unsigned char,void*);};
+class Rva00073950
+{
+public:
+ unsigned char _00[0x20];
+ int m20;
+ int m24;
+ void rva00073950(unsigned char, void *);
+};
 
 // The proven byte-allocator int-tree family used by GSConfig; the ordinary
 // allocator<int> family uses a different pool provider in this executable.

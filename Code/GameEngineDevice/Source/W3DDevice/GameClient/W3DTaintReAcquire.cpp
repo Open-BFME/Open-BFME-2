@@ -10,17 +10,34 @@ typedef unsigned char UnsignedByte;
 
 class GlobalData
 {
-	unsigned char m_pad00[0xc6a];
+	unsigned char m_pad00[0xbec];
+
 public:
-	UnsignedByte m_taintOn;
+	float m_lowRed;
+	float m_lowGreen;
+	float m_lowBlue;
+	float m_highRed;
+	float m_highGreen;
+	float m_highBlue;
+	unsigned char m_taintAlpha;
+	unsigned char m_padca0[0xc6a - 0xc05];
+	unsigned char m_taintOn;
 };
 extern GlobalData *TheWritableGlobalData;
 
 class TextureClass { public: void Release_Ref(); };
-class ShroudFilter {
+class ShroudFilter
+{
 public:
-	int unused[2], mip, u, v;
+	int getMagFilter() const { return m_filter4; }
+	void setMagFilter(int v) {m_filter4=v;}
+	void setMinFilter(int v) {m_filter0=v;}
 	void SetMip(int);
+	int m_filter0; // +0x00
+	int m_filter4; // +0x04
+	int mip; // +0x08
+	int u; // +0x0C
+	int v; // +0x10
 };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
 struct IDirect3DBaseTexture8;
