@@ -13,7 +13,10 @@
 class Rva004D64F5
 {
 public:
+	Rva004D64F5();
 	void rva004D65F9(AsciiString s);
+private:
+	char m_pad[0x20];
 };
 
 class Rva004D65DC : public Rva004D64F5
@@ -22,7 +25,7 @@ public:
 	Rva004D65DC();
 	void rva004D662D(AsciiString s);
 private:
-	char m_pad[0x24];
+	char m_pad[0x04];
 };
 
 class Rva004D65DC *__cdecl Rva00592520Read(int base, unsigned int *cursor)
