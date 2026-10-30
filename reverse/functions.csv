@@ -23437,7 +23437,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva005EF5EFClear@@YAXPAURva005F0647@@0@Z,,0x005EF5EF,24,Code/GameEngine/Source/Common/Rva005EF5EFClear.cpp,matched,range clear wrapper via 3-arg Destroy call site
 ?rva00574EA2@Rva00574EA2@@QAEXXZ,,0x00574EA2,71,Code/GameEngine/Source/Common/Rva00574EA2Method.cpp,matched,lazy caches 0x6C 0x74 via getters append listeners
 ?Rva00592496Read@@YAPAVRva004D64F5@@HPAI@Z,,0x00592496,138,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,Rva004D64F5 deserializer via new plus loop plus AsciiString temp caller 0x5928EB chain from 0x004D64F5
-?Rva00592520Read@@YAPAVRva004D65DC@@HPAI@Z,,0x00592520,194,Code/GameEngine/Source/GameNetwork/Rva00592520Read.cpp,matched,Rva004D65DC deserializer via new plus two loops plus AsciiString temps caller 0x5928FC chain from 0x004D662D
+?Rva00592520Read@@YAPAVRva004D65DC@@HPAI@Z,,0x00592520,194,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,Rva004D65DC deserializer via new plus two loops plus AsciiString temps caller 0x5928FC chain from 0x004D662D
 ?rva00739830@Rva00739830@@QBEHPBUBfmePointFD@@HI@Z,,0x00739830,8,Code/GameEngine/Source/GameLogic/Object/PartitionManagerShroudThunks.cpp,matched,cell-sum thunk via plus16 pointer tail-jump to rowed bfmeCellSum
 ??0HeaderTemplateManager@@QAE@XZ,,0x00201B51,19,Code/GameEngine/Source/GameClient/GUI/HeaderTemplate.cpp,matched,ctor abuts dtor B64 list base
 ?Rva0056EDBAPick@@YAXPAH0@Z,,0x0056EDBA,46,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva0056EDBAPick.cpp,matched,unlock rdtsc table pick 2 callers

@@ -900,6 +900,17 @@ struct TriInt
 	int a, b, c;
 };
 
+class Rva004D65DC : public Rva004D64F5
+{
+public:
+	Rva004D65DC();
+	void rva004D662D(AsciiString s);
+private:
+	char m_pad[0x04];
+};
+
+// ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
+
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket.cpp
@@ -5788,28 +5799,6 @@ class Rva004D64F5 *__cdecl Rva00592496Read(int base, unsigned int *cursor)
 	return obj;
 }
 
-// tu-skeleton: 0x0058C459 4B ?Rva0058C459@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C45D 4B ?Rva0058C45D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C461 4B ?Rva0058C461@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C465 4B ?Rva0058C465@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C469 4B ?Rva0058C469@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C46D 4B ?Rva0058C46D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C471 4B ?Rva0058C471@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C475 11B ?Rva0058C475@@YAHPBURva0058C475Arg@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C480 4B ?Rva0058C480@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameNetwork/Rva0058C96CWrite.cpp
 
 void __cdecl Rva0058C96CWrite(char *dst, NetCommandRef *ref)
@@ -5915,8 +5904,6 @@ void __cdecl Rva0058CBD9Write(char *dst, NetCommandRef *ref)
 	dst += 0x10;
 	((void (__cdecl *)(void *, const void *, int))ji_006291a8)(dst, &len, 4);
 }
-
-// tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/Rva0058CE23Write.cpp
 
@@ -6032,8 +6019,6 @@ void Rva0058D041Write(UnsignedByte *dst, NetCommandRef *ref)
 	void *data = cmd->getData();
 	memcpy(dst + 20, &data, 4);
 }
-
-// tu-skeleton: 0x0058E0E2 299B ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z -- matched in Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket_isAckRepeat.cpp
 
@@ -6177,10 +6162,6 @@ void __cdecl Rva00590D19Add(int type, NetGameCommandMsg *msg, const void *base, 
 		msg->addArgument((GameMessageArgumentDataType)10, arg);
 	}
 }
-
-// tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
-
-// tu-skeleton: 0x005910B4 188B ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva005910B4Write.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameNetwork/NetPacket_rva0059188C.cpp
 
@@ -6352,7 +6333,69 @@ UnsignedByte NetPacket::rva00591D0D(NetCommandRef *msg)
 	return m_packetLen + strLen + len + 1 <= MAX_PACKET_SIZE;
 }
 
-// tu-skeleton: 0x00592520 194B ?Rva00592520Read@@YAPAVRva004D65DC@@HPAI@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva00592520Read.cpp (not merged yet)
+// tu-skeleton: 0x0058C459 4B ?Rva0058C459@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C45D 4B ?Rva0058C45D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C461 4B ?Rva0058C461@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C465 4B ?Rva0058C465@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C469 4B ?Rva0058C469@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C46D 4B ?Rva0058C46D@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C471 4B ?Rva0058C471@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C475 11B ?Rva0058C475@@YAHPBURva0058C475Arg@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C480 4B ?Rva0058C480@@YAHXZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE02.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C484 4B ?rva0058C484@Rva0058C484@@QAEHXZ -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x0058C80F 213B ?FillBufferWithFrameCommand@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/FillBufferWithFrameCommand.cpp (not merged yet)
+
+// tu-skeleton: 0x0058CD6A 185B ?Rva0058CD6AWrite@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva0058CD6AWrite.cpp (not merged yet)
+
+// tu-skeleton: 0x0058E0E2 299B ?readWrapperMessage@NetPacket@@KAPAVNetCommandMsg@@PAEAAH@Z -- matched in Code/GameEngine/Source/GameNetwork/NetPacketO1.cpp (not merged yet)
+
+// tu-skeleton: 0x00590F13 52B ?rva00590F13@Rva004D62A9@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva004D65F9Set.cpp (not merged yet)
+
+// tu-skeleton: 0x005910B4 188B ?Rva005910B4Write@@YAXPADPAVNetCommandRef@@@Z -- matched in Code/GameEngine/Source/GameNetwork/Rva005910B4Write.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameNetwork/Rva00592520Read.cpp
+
+// ?Rva00592520Read@@YAPAVRva004D65DC@@HPAI@Z @0x00592520 (194B):
+// NetCommandMsg Rva004D65DC deserializer: new plus two null-terminated
+// strings via byte loops plus AsciiString temps. Evidence: new 0x24 plus
+// ctor 0x4D65DC, loops to [ebp-0x110], StringBase char ctor 0x37BA0 twice,
+// setters 0x4D65F9 plus 0x4D662D; callers 0x5928FC 0x5941B8;
+// chain from 0x004D662D.
+
+class Rva004D65DC *__cdecl Rva00592520Read(int base, unsigned int *cursor)
+{
+	Rva004D65DC *obj = new Rva004D65DC;
+	char buf[256];
+	char *dst = buf;
+	while (((const char *)base)[*cursor] != 0) {
+		*dst = ((const char *)base)[*cursor];
+		++dst;
+		++*cursor;
+	}
+	++*cursor;
+	*dst = 0;
+	obj->rva004D65F9(AsciiString(buf));
+	dst = buf;
+	while (((const char *)base)[*cursor] != 0) {
+		*dst = ((const char *)base)[*cursor];
+		++dst;
+		++*cursor;
+	}
+	++*cursor;
+	*dst = 0;
+	obj->rva004D662D(AsciiString(buf));
+	return obj;
+}
 
 // tu-skeleton: 0x005925E2 37B ?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_insert.cpp (not merged yet)
 
