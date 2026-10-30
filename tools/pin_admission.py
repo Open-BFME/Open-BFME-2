@@ -715,15 +715,19 @@ def fold_pin_conflicts(pins, rows, added_pins, added_rows):
     same change retires the fold pin. Otherwise landing View::setAngle's own
     row (or a ?dup_<rva> row compiled from it) after a setAngle fold pin onto
     its twin would rebuild what admission refuses."""
-    names_at = names_by_address(rows, pins)
-    folds = {}
+    if not added_pins and not added_rows:
+        return []
+    fold_pins = []
     for pin in pins:
         if not FOLD_PROOF_RE.search(pin.get("notes") or ""):
             continue
         try:
-            at = int(pin["address"], 16)
+            fold_pins.append((pin, int(pin["address"], 16)))
         except (KeyError, TypeError, ValueError):
             continue
+    names_at = names_by_address(rows, pins, only={at for _, at in fold_pins})
+    folds = {}
+    for pin, at in fold_pins:
         if not is_placeholder(pin["name"], at) and any(
                 n != pin["name"] and not is_placeholder(n, at) for n in names_at.get(at, ())):
             folds.setdefault(pin["name"], set()).add(at)
@@ -751,17 +755,24 @@ def fold_pin_conflicts(pins, rows, added_pins, added_rows):
     return problems
 
 
-def names_by_address(ledger_rows, pins):
+def names_by_address(ledger_rows, pins, only=None):
+    """{address: names the rows and pins give it}; with `only`, just those
+    addresses (the same sets, for a caller that reads no other)."""
     names = {}
     for row in ledger_rows:
+        at = int(row["target_rva"], 16)
+        if only is not None and at not in only:
+            continue
         if build.is_alias_row(row) or "gen-alias" in build.notes_tokens(row):
             continue
-        names.setdefault(int(row["target_rva"], 16), set()).add(row["name"])
+        names.setdefault(at, set()).add(row["name"])
     for pin in pins:
         try:
-            names.setdefault(int(pin["address"], 16), set()).add(pin["name"])
+            at = int(pin["address"], 16)
         except (KeyError, TypeError, ValueError):
             continue
+        if only is None or at in only:
+            names.setdefault(at, set()).add(pin["name"])
     return names
 
 
@@ -800,9 +811,10 @@ def judge(old_pins, new_pins, old_rows, new_rows):
     # Judge the proposed ownership state. Removed pins/rows must not block a
     # corrected owner, and a newly added ledger owner must still block an alias.
     # Added pins are checked and accumulated below so two new names also conflict.
-    retained_pins = [p for p in new_pins if pin_key(p) in before]
-    names_at = names_by_address(new_rows, retained_pins)
-    prove = fold_prover(new_rows, new_pins)
+    if added:
+        retained_pins = [p for p in new_pins if pin_key(p) in before]
+        names_at = names_by_address(new_rows, retained_pins)
+        prove = fold_prover(new_rows, new_pins)
     for pin in added:
         for why in pin_problems(pin, names_at, prove):
             problems.append(f"{PINS}: {pin['name']},{pin['address']}: {why}")
@@ -940,6 +952,14 @@ def report():
     print(f"{count} finding(s)", file=sys.stderr)
 
 
+def unchanged(old, new):
+    """Whether symbols.csv and functions.csv are the same blobs at both commits:
+    then no pin and no row is added, and every problem judge() reports is about
+    an added pin or row."""
+    out = subprocess.run(["git", "-C", str(ROOT), "diff", "--quiet", old, new, "--", PINS, LEDGER])
+    return out.returncode == 0
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__,
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
@@ -965,6 +985,9 @@ def main():
         report()
         return
     old, new = ("HEAD", "") if args.staged else args.range
+    if not args.staged and unchanged(old, new):
+        print("pin admission: OK")
+        return
     problems = judge(csv_rows(git_text(f"{old}:{PINS}")), csv_rows(git_text(f"{new}:{PINS}")),
                      csv_rows(git_text(f"{old}:{LEDGER}")), csv_rows(git_text(f"{new}:{LEDGER}")))
     if problems:
