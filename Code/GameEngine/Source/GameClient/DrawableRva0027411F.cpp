@@ -21,26 +21,17 @@ struct Rva0027411FObjectView
 void Rva00271CB6(void *state, void *out, float time);
 void Rva00271EAD(void *state, void *out, float time);
 void Rva002720A4(void *state, void *out, float time);
-class Drawable
-{
-public:
-    void rva0027411F(void *out, float time);
-private:
-    char unknown00[0xFC];
-    Object *object;
-    char unknown100[0x460 - 0x100];
-    char state;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 void Drawable::rva0027411F(void *out, float time)
 {
-    Object *owner = object;
+    Object *owner = m_object;
     if (owner)
     {
         if (owner->testStatus(RvaStatus2))
-            Rva00271CB6(&state, out, time);
+            Rva00271CB6(((char *)this + 0x460), out, time);
         else if (reinterpret_cast<Rva0027411FObjectView *>(owner)->data->flags & 0x80)
-            Rva00271EAD(&state, out, time);
+            Rva00271EAD(((char *)this + 0x460), out, time);
         else
-            Rva002720A4(&state, out, time);
+            Rva002720A4(((char *)this + 0x460), out, time);
     }
 }
