@@ -594,9 +594,7 @@ MultiplayerSettings::MultiplayerSettings()
 	m_initialCredits[4] = 0x9C4;
 }
 
-// tu-skeleton: 0x00381277 28B ??_GMultiplayerSettings@@QAEPAXI@Z -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDeletingDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x00381293 83B ??1MultiplayerSettings@@QAE@XZ -- matched in Code/GameEngine/Source/Common/MultiplayerSettingsDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x003812E6 141B ?lookup@RetailColorList@@QAEPAVMultiplayerColorDefinition@@PAH@Z -- matched in Code/GameEngine/Source/Common/MultiplayerColorMapOperator.cpp (not merged yet)
 

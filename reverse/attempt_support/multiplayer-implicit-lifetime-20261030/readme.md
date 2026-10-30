@@ -131,3 +131,16 @@ rows. The repeated audit remains **INCONCLUSIVE** on the older index and the
 broader affected `Common/0CreateAHeroManager21FE49.cpp` consumer without a
 current receipt. Carry the complete moved-provider/consumer scope into the next
 scheduled census; this is not a clean full-image loss or selection verdict.
+
+## Reviewable lifetime withdrawal
+
+The constructor prerequisite and supported move are accepted at `33564ef244`.
+The following separate batch withdraws the two incorrect QAE lifetime rows and
+their four compiler companions with tombstones: six rows, 151 bytes in total.
+The two obsolete source views contain no other row or external wrapper consumer
+and are removed. No pin or protected-register key names either view. Stale
+unmerged-lifetime comments in the approved seed are removed; executable C++ is
+unchanged. All sixteen retained rows and the data row verify and frozen-source
+preflight passes. The actual correct virtual lifetimes are already emitted
+byte-exactly by the approved seed; restore their complete parent-derived cleanup
+set through normal admission before publishing this temporary withdrawal.

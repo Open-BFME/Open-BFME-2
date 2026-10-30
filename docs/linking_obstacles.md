@@ -5669,6 +5669,14 @@ index and missing current `Common/0CreateAHeroManager21FE49.cpp` consumer.
 Carry the moved constructor, complete provider cohort and broader consumers
 into the next scheduled census; no full-image loss/selection claim is made.
 
+The constructor move lands at `33564ef244`. Its follow-up separately withdraws
+the old QAE complete/deleting destructor and all four compiler companions
+(six rows, 151 bytes), with tombstones and removal of their orphan views.
+All sixteen retained approved-TU rows and the data row still verify. The same
+TU already emits the correct UAE operations with exact parent EH graphs;
+normal readmission must restore every withdrawn byte before this next batch
+is published.
+
 **Multiplayer seed prerequisite (2026-10-28, inspected `d5843cec`, index
 `d92e7e6635`):** MultiplayerSettings.cpp now uses the target 0xC4 layout,
 complete 0x40-byte colors and native INI tables. Its two rows and singleton
