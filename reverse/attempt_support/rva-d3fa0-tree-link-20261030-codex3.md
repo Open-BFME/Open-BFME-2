@@ -75,3 +75,28 @@ header and word-vector migration commits. No proven regression is reported,
 but consumer selection/loss verification did not complete. Carry the changed
 sources, removed hashtable identities, existing native tree providers,
 vtable partner and affected consumers into the next scheduled census.
+
+## Final verification and counter follow-up
+
+The commit hook passes 3,160/3,160 rows across 95 affected sources, all 45
+data rows, literal/import checks and EXACT 317 EH rows. Commit `f250e22f26`
+was handed to the runner's fleet publisher with the three earlier commits.
+
+The missing CreateAHeroManager consumer now has a strict reusable receipt:
+23/23 rows and its literal/import checks pass. Repeating the outgoing audit
+still returns INCONCLUSIVE: the index predates the base, and the wider scope
+has 181 source objects without current receipts (first
+`Common/AIBasePenetrationTroopsTactic_canRun.cpp`). This clears only the
+specific missing consumer receipt, not full consumer selection/loss checks.
+Scheduled census confirmation remains pending.
+
+`hatch_counters.py --update` removes the two obsolete pin occurrences:
+`0x00240C60` goes from two to one and `0x002418E2` from one to zero. It also
+removes the stale narrow StringBase destructor exemption in
+`BodyModuleDeletingDtors.cpp`, whose private copy and marker were removed by
+upstream commit `49eb6d6520`. Inspection of that change confirms the canonical
+header replacement; the current source passes its declared-body check and
+all five matched rows plus literal/import checks. No source changes accompany
+this inherited counter cleanup. Register totals fall from 9,415 to 9,413
+pins and from 3,662 to 3,661 present-unmatched occurrences. The four identity
+keys remain unchanged.

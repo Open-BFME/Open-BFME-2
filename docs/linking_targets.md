@@ -5,10 +5,13 @@ bindings replace the incorrect hash_map view and two hashtable pins. All six
 rows remain exact; strict four-source preparation passes 236/236, paired EH
 is EXACT 3, and all four preview LINKS against `85f6b7f40c` (destructor
 0 -> 82 authored bytes). This predicts linking only; census and full consumer
-confirmation remain pending. The outgoing audit is INCONCLUSIVE on the older
-index and missing CreateAHeroManager consumer receipt. Identity-register
-retirement is refused on the two retyped wrapper names; four keys remain
-and the false reject is recorded.
+confirmation remain pending. The formerly missing CreateAHeroManager consumer
+now passes 23/23 strict rows. The repeated outgoing audit remains INCONCLUSIVE
+on the older index and 181 wider-scope objects without current receipts.
+The commit hook passes 3,160/3,160 rows across 95 sources and EXACT 317 EH
+rows; the counter tool retires the two obsolete pin occurrences.
+Identity-register retirement is refused on the two retyped wrapper names;
+four keys remain and the false reject is recorded.
 [Native facts and verification](../reverse/attempt_support/rva-d3fa0-tree-link-20261030-codex3.md).
 
 Word-vector allocator46 follow-up (2026-10-30, base `32a7f941eb`, LINK-150):

@@ -11,10 +11,16 @@ preparation passes 236/236 rows; paired EH is EXACT 3. All four scoped units
 preview LINKS against `85f6b7f40c`; the destructor predicts 0 -> 82 authored
 bytes while its providers/constructor preserve their existing linked bytes.
 Census confirmation and full affected-consumer verification remain pending.
-The outgoing-batch audit is INCONCLUSIVE: its index predates the base and
-`Common/0CreateAHeroManager21FE49.cpp` lacks a current consumer receipt. Carry
-the repaired caller, its existing tree providers/vtable partner and affected
-consumers into the next scheduled census.
+The initial outgoing-batch audit was INCONCLUSIVE on its older index and a
+missing `Common/0CreateAHeroManager21FE49.cpp` receipt. That consumer now
+passes strict preparation (23/23 rows). The repeated audit is still
+INCONCLUSIVE: the index predates the base and 181 wider-scope source objects
+lack current receipts, first `Common/AIBasePenetrationTroopsTactic_canRun.cpp`.
+The commit hook passes 3,160/3,160 rows across 95 affected sources and EXACT
+317 EH rows. Two obsolete pin occurrences are retired through the hatch
+counter tool. Carry the repaired caller, its existing tree providers/vtable
+partner and affected consumers into the next scheduled census; full consumer
+selection/loss checks remain unverified.
 The four identity-register keys stay: the owning retirement tool refuses the
 two retyped wrapper names as lost HEAD-name coverage. False reject recorded;
 no verifier or baseline workaround. Original container/payload names remain

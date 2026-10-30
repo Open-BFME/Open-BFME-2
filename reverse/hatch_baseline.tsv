@@ -6302,13 +6302,12 @@ pin	reverse/symbols.csv	0x0024004D	1
 pin	reverse/symbols.csv	0x002401C0	1
 pin	reverse/symbols.csv	0x002401DD	1
 pin	reverse/symbols.csv	0x00240831	1
-pin	reverse/symbols.csv	0x00240C60	2
+pin	reverse/symbols.csv	0x00240C60	1
 pin	reverse/symbols.csv	0x00240D0F	1
 pin	reverse/symbols.csv	0x00240E13	1
 pin	reverse/symbols.csv	0x00240E18	1
 pin	reverse/symbols.csv	0x002413DF	1
 pin	reverse/symbols.csv	0x00241529	1
-pin	reverse/symbols.csv	0x002418E2	1
 pin	reverse/symbols.csv	0x00241955	1
 pin	reverse/symbols.csv	0x0024297F	1
 pin	reverse/symbols.csv	0x00242C09	2
