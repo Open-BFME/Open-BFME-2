@@ -77,7 +77,7 @@ class MainMenuSmallScaleDownTransition
 public:
 	virtual ~MainMenuSmallScaleDownTransition();
 	virtual void init(GameWindow *win);
-	virtual void slot2();
+	virtual void update(Int frame);
 	virtual void slot3();
 	virtual void draw();
 
@@ -125,6 +125,7 @@ class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
+	NameKeyType nameToKey(const AsciiString &nameString);
 };
 extern NameKeyGenerator *TheNameKeyGenerator;
 class GameWindowManager
@@ -510,20 +511,18 @@ class MainMenuMediumScaleUpTransition : public Rva001DBAA4
 public:
     MainMenuMediumScaleUpTransition();
     virtual ~MainMenuMediumScaleUpTransition();
-    int m_10;
-    int m_14;
-    int m_18;
-    int m_1C;
-    int m_20;
-    int m_24;
-    int m_28;
-    int m_2C;
-    int m_30;
-    int m_34;
-    int m_38;
-    int m_3C;
-    int m_40;
-    int m_44;
+    virtual void init(GameWindow *win);
+    virtual void update(Int frame);
+
+    Int m_startFrame;			// +0x10
+    Int m_endFrame;			// +0x14
+    ICoord2D m_pos;			// +0x18
+    ICoord2D m_size;			// +0x20
+    Int m_drawState;			// +0x28
+    ICoord2D m_growPos;			// +0x2c
+    ICoord2D m_growSize;		// +0x34
+    ICoord2D m_incrementSize;		// +0x3c
+    GameWindow *m_growWin;		// +0x44
 };
 
 extern const FieldParse CountUpTransitionFields[];
@@ -1167,7 +1166,7 @@ void s4parse0059E290(INI *ini, Gen_00489270 *sink)
 {
     MainMenuMediumScaleUpTransition *t = new MainMenuMediumScaleUpTransition;
     ini->initFromINI(t, CountUpTransitionFields);
-    t->m_frameLength = t->m_14;
+    t->m_frameLength = t->m_endFrame;
     sink->m((int)t);
 }
 
