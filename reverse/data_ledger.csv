@@ -10808,7 +10808,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x0084A068,496,.rdata,string,??_C@_0GM@NFEEGAEL@C?3?2projects?2bfme2patch103?2bfme2?2@,,literal,,0,1
 0x0084A258,12,.rdata,vtable,??_7SlaveWatcherBehavior@@6B@,,literal,??_7SlaveWatcherBehavior@@6B@;_vtbl_00C4A258,0,2
 0x0084A264,52,.rdata,vtable,??_7SlaveWatcherBehavior@@6BBehaviorModuleBase@@@,,literal,??_7SlaveWatcherBehavior@@6BBehaviorModuleBase@@@;_vtbl_00C4A264,0,2
-0x0084A298,416,.rdata,global,_vtbl_00C4A298,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehaviorModuleDataCtor.cpp,owned,,1,1
+0x0084A298,416,.rdata,global,_vtbl_00C4A298,Code/GameEngine/Source/GameLogic/Object/Behavior/SlaveWatcherBehavior.cpp,owned,,1,1
 0x0084A438,16,.rdata,vtable,??_7PassiveAreaEffectBehavior@@6B@,,literal,,0,2
 0x0084A448,196,.rdata,vtable,??_7PassiveAreaEffectBehavior@@6BBehaviorModuleBase@@@,,literal,,0,2
 0x0084A50C,8,.rdata,vtable,??_7Rva00484EF4@@6B@,,literal,??_7Rva00484EF4@@6B@;?g_0084A50C@@3QBQBXB,0,2
