@@ -135,32 +135,39 @@ private:
 	float m_value;						// +0x0C
 };
 
+class Rva002C5FD9;
 class Player : public Rva002AA22AByteField
 {
+private:
 	friend class SkirmishAI;
 public:
-	void rva002AE2ED(Player *other);			// 0x002AE2ED
+	void rva002AE2ED(Player *other); // 0x002AE2ED
 	Rva00380200 &getField08() { return m_field08; }
-	Int getField24() const { return m_field24; }
-	void setField24(Int value) { m_field24 = value; }
-
+	int getField24() const { return m_field24; }
+	void setField24(int value) { m_field24 = value; }
+	char m_pad00[0x8];
 private:
-	unsigned char m_pad00[0x08];
-	Rva00380200 m_field08;					// +0x08
-	unsigned char m_pad18[0x24 - 0x18];
-	Int m_field24;						// +0x24
-	unsigned char m_pad28[0x2EC - 0x28];
-	Team *m_team2EC;					// +0x2EC
-	unsigned char m_pad2F0[0x32C - 0x2F0];
-	ListNode *m_listHead32C;				// +0x32C list sentinel
+	Rva00380200 m_field08; // +0x08 +0x08
+	char m_pad18[0xC];
+	int m_field24; // +0x24 +0x24
+	char m_pad28[0x2C];
+public:
+	int m_54; // +0x54
+	char m_pad58[0x10C];
+	Rva002C5FD9 *m_164; // +0x164
+	char m_pad168[0x184];
+private:
+	Team *m_team2EC; // +0x2EC +0x2EC
+	char m_pad2F0[0x3C];
+	ListNode *m_listHead32C; // +0x32C +0x32C list sentinel
 };
 
 class PlayerList
 {
 public:
-	Player *getNthPlayer(Int i);				// 0x002A7A29
-	int m_pad0[5];
-	int m_count14;
+	Player *getNthPlayer(int i); // 0x002A7A29
+	char m_pad00[0x14];
+	int m_count14; // +0x14
 };
 
 extern PlayerList *ThePlayerList;
@@ -203,11 +210,12 @@ struct Rva002A8B59Data;
 
 struct Rva002A8AB1Record;
 
-class Rva002A8F24 {
+class Rva002A8F24
+{
 public:
- Rva004E9600 *rva002A8B24(void *key);
- Rva002A8B59Data *rva002A8B59(void *p);
- Rva002A8AB1Record *rva002A8AB1(void *p);
+	Rva004E9600 *rva002A8B24(void *key);
+	Rva002A8B59Data *rva002A8B59(void *p);
+	Rva002A8AB1Record *rva002A8AB1(void *p);
 };
 
 extern Rva002A8F24 *TheSkirmishAIManager;
@@ -312,8 +320,13 @@ extern float g_secondsPerLogicFrame;
 struct Rva002A8AB1Record
 {
 public:
-	char m_pad[0x178];
-	int m_178;
+	void *rva002C6ACB();
+	char m_pad00[0x15C];
+private:
+	void *m_15c; // +0x15C
+	char m_pad160[0x18];
+public:
+	int m_178; // +0x178
 };
 
 struct Rva002C67DC15C

@@ -11,9 +11,9 @@
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
-                              const _Rb_tree_iterator<T, RightTraits>& b)
+template <class _RbVal, class _RbLeft, class _RbRight>
+static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
+                              const _Rb_tree_iterator<_RbVal, _RbRight> &b)
 { return a._M_node != b._M_node; }
 }
 #pragma optimize("", on)
