@@ -625,7 +625,8 @@ def publish(render, remote="origin", branch="master", tries=6, wait=time.sleep):
         print("publish: nothing to commit")
         return
     for attempt in range(1, tries + 1):
-        _git("fetch", "-q", remote, branch)
+        tip = _git("for-each-ref", "--format=--negotiation-tip=%(refname)", f"refs/remotes/{remote}/{branch}")
+        _git("fetch", "-q", *tip.stdout.split(), remote, branch)
         upstream = _git("rev-parse", "FETCH_HEAD").stdout.strip()
         inputs = _git("diff", "--quiet", base, upstream, "--", ".", *(f":(exclude){path}" for path in OUTPUTS),
                       check=False).returncode

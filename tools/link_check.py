@@ -379,7 +379,8 @@ def publish_index():
         raise SystemExit(f"link_check: no census index at {INDEX.relative_to(ROOT).as_posix()} to publish")
     if meta.get("clean_tree") is not True:
         raise SystemExit("link_check: this index is not from a --history census of a clean tree; not published")
-    _git("fetch", "--quiet", "origin", "master", check=True)
+    tip = _git("for-each-ref", "--format=--negotiation-tip=%(refname)", "refs/remotes/origin/master").split()
+    _git("fetch", "--quiet", *tip, "origin", "master", check=True)
     if not contains(meta["commit"], "origin/master"):
         raise SystemExit(f"link_check: census commit {meta['commit']} is not on origin/master; not published")
     census = (f"census {meta['census_date']} UTC at {meta['census_commit']}, updated to {meta['commit']} at "

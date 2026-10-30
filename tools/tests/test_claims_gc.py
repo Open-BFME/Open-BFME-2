@@ -18,7 +18,7 @@ sys.path.insert(0, str(TOOLS))
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import claims  # noqa: E402
-from test_claims import _commit_ledger, _git, _verified, hosts  # noqa: E402,F401
+from test_claims import _commit_ledger, _git, _verified, hosts, own_sleep  # noqa: E402,F401
 
 
 def _remote_refs(origin, prefix="refs/"):
@@ -125,7 +125,7 @@ def test_gc_batches_rate_limits_and_respects_max(hosts, monkeypatch):
     _stale([0x100 + i for i in range(7)])
     pushes = _pushes(monkeypatch, root)
     sleeps = []
-    monkeypatch.setattr(claims.time, "sleep", lambda s: sleeps.append(s))
+    own_sleep(monkeypatch, sleeps.append)
     deleted, kept = claims.gc(limit=5, batch=2, max_per_minute=60)
     assert deleted == [0x100 + i for i in range(5)] and not kept
     assert len(pushes) == 3                                    # 2 + 2 + 1, one atomic push each
@@ -276,7 +276,7 @@ def test_renew_retries_transient_contention_with_exponential_jitter(hosts, monke
                 return subprocess.CompletedProcess(args, 1, "", "cannot lock ref")
         return real(*args, **kwargs)
     monkeypatch.setattr(claims, "_git", git)
-    monkeypatch.setattr(claims.time, "sleep", delays.append)
+    own_sleep(monkeypatch, delays.append)
     renewed, lost = claims.renew(old.tokens, root=root)
     assert not lost and len(pushes) == 3
     assert len(delays) == 2 and all(0 <= d <= claims.BACKOFF_BASE * 2 ** i for i, d in enumerate(delays))

@@ -85,8 +85,7 @@ def mirror_current(root=None):
         return False
     theirs = next((line.split("\t", 1)[0] for line in remote.stdout.splitlines()
                    if line.endswith("\t" + ref)), "")
-    local = claims._git("rev-parse", "-q", "--verify", claims.SEEN + KEY, cwd=root)
-    return theirs == (local.stdout.strip() if local.returncode == 0 else "")
+    return theirs == (claims.mirror_sha(KEY, root) or "")
 
 
 def holder(root=None, probe=False):

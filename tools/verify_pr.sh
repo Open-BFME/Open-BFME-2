@@ -17,7 +17,7 @@ full="${2:-}"
 prev_ref="$(git rev-parse --abbrev-ref HEAD)"
 restore() { git checkout -q "$prev_ref"; }
 
-git fetch origin master
+git fetch $(git for-each-ref --format='--negotiation-tip=%(refname)' refs/remotes/origin/master) origin master
 gh pr checkout "$pr"
 
 if ! python3 tools/check_csv.py; then

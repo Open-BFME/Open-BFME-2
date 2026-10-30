@@ -9,6 +9,7 @@ network or this checkout's origin.
 import shutil
 import subprocess
 import sys
+import time
 from pathlib import Path
 
 import pytest
@@ -21,6 +22,13 @@ import claims  # noqa: E402
 
 def _git(cwd, *args):
     return subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, text=True).stdout
+
+
+def own_sleep(monkeypatch, sleep):
+    """Replace only claims' sleep. Patching the shared time.sleep also counts
+    subprocess's wait loop for a git child that has closed its pipes."""
+    monkeypatch.setattr(claims, "time", type("Clock", (), {
+        "sleep": staticmethod(sleep), "__getattr__": lambda self, name: getattr(time, name)})())
 
 
 @pytest.fixture
@@ -79,10 +87,64 @@ def test_claim_fetch_defers_maintenance_without_changing_config_or_pruning(hosts
     assert claims.release([0x100], who="b", root=peer) == [0x100]
     assert claims.fetch(root)
     assert 0x100 not in claims._read_local(root)
-    assert all("--no-auto-maintenance" in args and "--prune" in args and
+    assert all("--no-auto-maintenance" in args and "--dry-run" in args and
                "--recurse-submodules=no" in args for args in calls)
     assert _git(root, "config", "gc.auto").strip() == "1"
     assert _git(root, "config", "maintenance.auto").strip() == "true"
+
+
+def test_claim_snapshot_keeps_this_repository_refs_free_of_claims(hosts):
+    # ~2,000 claim commits among a clone's refs made `git fetch origin master`
+    # download the whole history: the snapshot lives in a side repository and
+    # mirrors older clients left here are deleted.
+    peer = hosts("b")
+    assert claims.claim([0x100]).claimed == [0x100]
+    root = hosts("a")
+    _git(root, "commit", "-q", "--allow-empty", "-m", "base")
+    head = _git(root, "rev-parse", "HEAD").strip()
+    for legacy in ("refs/worktree/claims-seen/0x00000200", "refs/worktree/claims-seen-other/1/0x00000300",
+                   "refs/worktree/claims-mirror-seen/0x00000400"):
+        _git(root, "update-ref", legacy, head)
+    assert claims.fetch(root)
+    assert set(claims._read_local(root)) == {0x100}
+    assert claims.claim([0x500]).claimed == [0x500]
+    assert set(claims._read_local(root)) == {0x100, 0x500}
+    assert claims.release([0x100], who="b", root=peer) == [0x100]
+    claims.active.cache_clear()
+    assert set(claims.active(root)) == {0x500}
+    refs = _git(root, "for-each-ref", "--format=%(refname)").split()
+    assert refs and not [name for name in refs if "claims" in name]
+    assert not (Path(_git(root, "rev-parse", "--absolute-git-dir").strip()) / "FETCH_HEAD").exists()
+
+
+def test_the_claim_mirror_survives_a_prune_and_otherwise_fails_closed(hosts):
+    # Nothing in this repository's refs reaches the claim commits, so its gc may
+    # drop them: the mirror keeps its own copies, and an unreadable mirror raises
+    # instead of serving a partial view that could hide a live claim.
+    peer = hosts("b")
+    held = claims.claim([0x100]).tokens[0x100]
+    root = hosts("a")
+    mine = claims.claim([0x200]).tokens[0x200]
+    assert claims.fetch(root)
+    _git(root, "-c", "gc.reflogExpire=now", "-c", "gc.reflogExpireUnreachable=now", "gc", "-q", "--prune=now")
+    for sha in (held, mine):
+        assert subprocess.run(["git", "cat-file", "-e", sha], cwd=root).returncode != 0
+    assert {k: v[1]["owner"] for k, v in claims._read_local(root).items()} == {0x100: "b", 0x200: "a"}
+    assert claims.mirror_sha(0x100, root) == held
+    claims.active.cache_clear()
+    assert claims.claim([0x100]).refused == [0x100]
+    renewed, lost = claims.renew({0x200: mine}, root=root)    # reads the token's lease from the mirror
+    assert set(renewed) == {0x200} and lost == []
+    assert claims.release([0x200], root=root) == [0x200]
+    assert claims.release([0x100], who="b", root=peer) == [0x100]
+
+    assert claims.claim([0x300]).claimed == [0x300]
+    objects = Path(claims._seen_repo(root)) / "objects"
+    shutil.rmtree(objects)
+    (objects / "pack").mkdir(parents=True)
+    (objects / "info").mkdir()
+    with pytest.raises(claims.ClaimsUnavailable, match="cannot read the claim mirror"):
+        claims._read_local(root)
 
 
 def test_a_claim_is_exclusive_across_hosts(hosts):
@@ -729,15 +791,20 @@ def test_fetch_master_preserves_commands_and_reports_failed_step(
     calls = []
 
     def run(command, **kwargs):
-        step = "fetch" if len(calls) == 0 else "head"
+        step = ("tip", "fetch", "head")[min(len(calls), 2)]
         calls.append(command)
         assert kwargs == {
             "cwd": tmp_path, "capture_output": True, "text": True,
             "input": None, "timeout": 300 if step == "fetch" else 60,
             "env": dict(inherited_env, GIT_CEILING_DIRECTORIES=str(tmp_path.resolve().parent)),
         }
+        if step == "tip":
+            assert command == ["git", "for-each-ref", "--format=--negotiation-tip=%(refname)",
+                               "refs/remotes/fixture-origin/master"]
+            return subprocess.CompletedProcess(command, 0, "--negotiation-tip=refs/remotes/fixture-origin/master\n", "")
         if step == "fetch":
-            assert command == ["git", "fetch", "-q", "--no-tags", "fixture-origin", "master"]
+            assert command == ["git", "fetch", "-q", "--no-tags", "--negotiation-tip=refs/remotes/fixture-origin/master",
+                               "fixture-origin", "master"]
             if failure == "timeout":
                 raise subprocess.TimeoutExpired(command, 300)
             if failure == "fetch":
@@ -756,7 +823,7 @@ def test_fetch_master_preserves_commands_and_reports_failed_step(
     result = claims._fetch_master(tmp_path)
     captured = capsys.readouterr()
     assert captured.out == ""
-    assert len(calls) == (1 if failure in ("fetch", "timeout") else 2)
+    assert len(calls) == (2 if failure in ("fetch", "timeout") else 3)
     if failure is None:
         assert result == "abc123"
         assert captured.err == ""
@@ -1317,7 +1384,7 @@ def test_atomic_acquire_lost_race_has_one_push_and_one_readback(hosts, monkeypat
 
     def git(*args, **kwargs):
         here = kwargs.get("cwd") in (None, root)
-        if here and args[:2] == ("fetch", "-q"):
+        if here and args[:1] == ("fetch",):
             fetches.append(args)
         if here and args[:2] == ("push", "-q"):
             pushes.append(args)
@@ -1342,7 +1409,7 @@ def test_one_initial_fetch_is_shared_by_pick_and_settlement(hosts, monkeypatch):
     fetches = []
 
     def git(*args, **kwargs):
-        if args[:2] == ("fetch", "-q"):
+        if args[:1] == ("fetch",):
             fetches.append(args)
         return real(*args, **kwargs)
     monkeypatch.setattr(claims, "_git", git)
@@ -1375,7 +1442,7 @@ def test_unreadable_post_push_snapshot_rolls_back_instead_of_serving(hosts, monk
     pushed = []
 
     def git(*args, **kwargs):
-        if pushed and args[:2] == ("fetch", "-q"):
+        if pushed and args[:1] == ("fetch",):
             return subprocess.CompletedProcess(args, 1, "", "snapshot unavailable")
         result = real(*args, **kwargs)
         if args[:2] == ("push", "-q"):
@@ -1410,7 +1477,7 @@ def test_fetch_retries_deleted_advertisement_race(hosts, monkeypatch, capsys, ph
         return result
 
     monkeypatch.setattr(claims, "_git", transport)
-    monkeypatch.setattr(claims.time, "sleep", sleeps.append)
+    own_sleep(monkeypatch, sleeps.append)
     if phase == "release":
         assert claims.release([0x100]) == [0x100]
     else:

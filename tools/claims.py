@@ -157,12 +157,24 @@ NS = (os.environ.get("BFME_CLAIM_NS")
       or "refs/claims/")
 READ_NAMESPACES = ("refs/claims/", "refs/heads/claims/")
 # -----------------------------------------------------------------------------
-# Git keeps refs/worktree/ private to the current checkout. Ordinary refs are
-# shared by every linked worktree: concurrent claim fetches then race their
-# expected-old-SHA updates and report an available origin as unreachable.
-# Only the fetched snapshots are private; refs/claims/ on origin still fences
-# every worker against the same authoritative claim.
-SEEN = "refs/worktree/claims-seen/"  # local mirror; never pushed
+# The fetched snapshot of origin's claim refs lives in a refs-only side
+# repository, one per worktree (SEEN_REPO in the worktree's git dir), with the
+# claim commits copied into its own object store. Two reasons:
+#  * In this repository's refs, ~2,000 parentless claim commits were offered
+#    as "have" tips by every ordinary `git fetch origin master`, and GitHub
+#    answered with the whole history: 3.4 GB instead of 64 MiB for a seat 138
+#    commits behind (2026-10-29). Nothing claims-related is in refs/ now.
+#  * Per worktree, as refs/worktree/ was: a shared mirror let concurrent claim
+#    fetches race their expected-old-SHA updates and report an available
+#    origin as unreachable.
+# refs/claims/ on origin still fences every worker against the same claim.
+SEEN = "refs/claims-seen/"           # in the side repository; never pushed
+SEEN_REPO = "claims-seen.git"
+# A --dry-run fetch names this never-written destination so that --porcelain
+# lists every remote claim ref; nothing is ever stored under it.
+LISTING = "refs/claims-listing/"
+# Where older clients mirrored claims in this repository; deleted on sight.
+LEGACY_SEEN = ("refs/worktree/claims-seen", "refs/worktree/claims-mirror-seen")
 TTL_HOURS = float(os.environ.get("BFME_CLAIM_TTL_HOURS", "4"))
 REMOTE = os.environ.get("BFME_CLAIM_REMOTE", "origin")
 PENDING = Path("build") / "claims" / "landed_pending.jsonl"
@@ -276,7 +288,8 @@ class ClaimResult(tuple):
         return self[1]
 
 
-def _git(*args, cwd=None, input_text=None, timeout=60):
+def _git(*args, cwd=None, input_text=None, timeout=60, git_dir=None):
+    """git `args` in checkout `cwd`; `git_dir` runs it in the claim mirror instead."""
     cwd = cwd or ROOT
     hooks = Path(cwd) / ".githooks"
     # Run THIS checkout's hooks, not whatever core.hooksPath points at: a host
@@ -289,10 +302,12 @@ def _git(*args, cwd=None, input_text=None, timeout=60):
     # claims on Open-BFME-1 (review 2026-09-29). Every caller passes a
     # checkout root, so discovery may start there and nowhere else.
     env = _git_env(cwd)
+    if git_dir:
+        env["GIT_DIR"] = str(git_dir)
     if args[:1] == ("push",):
         _pace(cwd)
     reads = getattr(_pick_state, "git_reads", None)       # inside read_once(): see there
-    key = (os.path.normcase(os.path.abspath(str(cwd))), args, input_text)
+    key = (os.path.normcase(os.path.abspath(str(cwd))), git_dir, args, input_text)
     if reads is not None:
         if args[:1] not in _READ_ONLY_GIT:
             reads.clear()                                  # anything else may move a ref
@@ -395,7 +410,10 @@ def _mirror(rva, sha, root=None):
     """Record in this worktree's mirror a claim write origin just accepted."""
     _local_lock_records.cache_clear()
     seen = SEEN + ref_of(rva)[len(NS):]
-    _git(*(("update-ref", seen, sha) if sha else ("update-ref", "-d", seen)), cwd=root)
+    side = _seen_repo(root)
+    if sha:
+        _adopt([sha], root, side)
+    _git(*(("update-ref", seen, sha) if sha else ("update-ref", "-d", seen)), cwd=root, git_dir=side)
 
 
 def current_lease(rva, who=None, root=None):
@@ -539,8 +557,7 @@ def fetch(root=None):
     # Frequent coordination reads must not run repository-wide maintenance;
     # normal Git operations and scheduled maintenance keep their own policy.
     for attempt in range(5):
-        got = _git("fetch", "-q", "--no-auto-maintenance", "--prune", "--no-tags", "--recurse-submodules=no",
-                   REMOTE, *_refspecs(SEEN), cwd=root, timeout=120)
+        got = _snapshot(root, REMOTE, SEEN, timeout=120)
         if got.returncode == 0:
             break
         if attempt < 4:
@@ -567,8 +584,98 @@ def _namespace_mirrors(seen):
             yield namespace, f"{seen.rstrip('/')}-other/{index}/"
 
 
-def _refspecs(seen):
-    return [f"+{namespace}*:{mirror}*" for namespace, mirror in _namespace_mirrors(seen)]
+@lru_cache(maxsize=32)
+def _seen_dir(top):
+    """This worktree's claim mirror: a bare repository holding the mirror refs and
+    their claim commits in its own object store (this repository's gc never sees
+    them, so it must not own them). Made on first use, when any mirror refs older
+    clients left in this repository are deleted. None outside a repository."""
+    git_dir = _git("rev-parse", "--absolute-git-dir", cwd=top).stdout.strip()
+    if not git_dir:
+        return None
+    side = Path(git_dir) / SEEN_REPO
+    if not (side / "HEAD").is_file():
+        made = _git("init", "-q", "--bare", "--template=", str(side), cwd=top)
+        if made.returncode:
+            raise ClaimsUnavailable(f"claims: cannot create the claim mirror {side}: {made.stderr.strip()}")
+    legacy = [name for name in _git("for-each-ref", "--format=%(refname)", "refs/worktree/",
+                                    cwd=top).stdout.split() if name.startswith(LEGACY_SEEN)]
+    if legacy:
+        _git("update-ref", "--stdin", input_text="".join(f"delete {name}\n" for name in legacy), cwd=top)
+    return str(side)
+
+
+def _seen_repo(root=None):
+    return _seen_dir(str(Path(root or ROOT).resolve()))
+
+
+def _adopt(shas, root=None, side=None):
+    """Copy claim commits (and their empty tree) from this repository into the
+    mirror's object store, which must hold every object its refs name. The git
+    result of the copy (returncode 0 when nothing was missing)."""
+    side = side or _seen_repo(root)
+    asked = "".join(f"{sha}\n" for sha in sorted(set(shas)))
+    checked = _git("cat-file", "--batch-check", input_text=asked, cwd=root, git_dir=side)
+    if checked.returncode:
+        return checked
+    missing = [line.split()[0] for line in checked.stdout.splitlines() if line.endswith(" missing")]
+    if not missing:
+        return checked
+    packs = Path(side) / "objects" / "pack"
+    packed = _git("pack-objects", "-q", "--revs", str(packs / "pack"),
+                  input_text="".join(f"{sha}\n" for sha in missing), cwd=root)
+    if packed.returncode == 0 and len(list(packs.glob("*.pack"))) >= 50:
+        # one pack per copy: at gc.autoPackLimit, the mirror's own gc consolidates
+        # them and in time drops claims no mirror ref names any more
+        _git("-c", "gc.autoDetach=false", "gc", "--auto", "--quiet", cwd=root, git_dir=side)
+    return packed
+
+
+def mirror_sha(key, root=None, seen=SEEN):
+    """The sha this worktree's claim mirror holds for `key`'s ref, or None."""
+    got = _git("rev-parse", "-q", "--verify", seen + ref_of(key)[len(NS):], cwd=root, git_dir=_seen_repo(root))
+    return got.stdout.strip() if got.returncode == 0 and got.stdout.strip() else None
+
+
+def _snapshot(root, remote, seen, timeout):
+    """Replace the mirror under `seen` with `remote`'s claim refs; the fetch's result.
+
+    A --dry-run fetch downloads the claim commits into this repository without
+    writing any ref here, and --porcelain lists every remote ref against a
+    destination that never exists; the commits are then copied into the
+    mirror's own object store. Needs git 2.41 or newer."""
+    side = _seen_repo(root)
+    mirrors = list(_namespace_mirrors(seen))
+    scratch = {mirror: LISTING + mirror[len("refs/"):] for _, mirror in mirrors}
+    got = _git("fetch", "--dry-run", "--porcelain", "--no-write-fetch-head", "--no-auto-maintenance",
+               "--no-tags", "--recurse-submodules=no", remote,
+               *(f"+{namespace}*:{scratch[mirror]}*" for namespace, mirror in mirrors),
+               cwd=root, timeout=timeout)
+    if got.returncode:
+        if "porcelain" in got.stderr:
+            raise ClaimsUnavailable("claims: git 2.41 or newer is required (git fetch --porcelain)")
+        return got
+    want = {}
+    for line in got.stdout.splitlines():   # "<flag> <old sha> <new sha> <destination>"
+        fields = line.split()
+        name = fields[-1] if len(fields) >= 3 else ""
+        for mirror, prefix in scratch.items():
+            if name.startswith(prefix):
+                want[mirror + name[len(prefix):]] = fields[-2]
+    adopted = _adopt(want.values(), root, side)
+    if adopted.returncode:
+        return adopted
+    held = _git("for-each-ref", "--format=%(refname) %(objectname)", *scratch,
+                cwd=root, git_dir=side)
+    if held.returncode:
+        return held
+    have = dict(line.split(" ", 1) for line in held.stdout.splitlines())
+    edits = [f"update {name} {sha}\n" for name, sha in sorted(want.items()) if have.get(name) != sha]
+    edits += [f"delete {name}\n" for name in sorted(have) if name not in want]
+    if not edits:
+        return got
+    wrote = _git("update-ref", "--stdin", input_text="".join(edits), cwd=root, git_dir=side)
+    return wrote if wrote.returncode else got
 
 
 def _read_visible(root=None, seen=SEEN, *, other_only=False):
@@ -595,9 +702,17 @@ def _read_visible(root=None, seen=SEEN, *, other_only=False):
 
 
 def _read_local(root=None, seen=SEEN):
-    """{key: (sha, info)} from the local mirror: int RVAs and scope strings."""
-    out = _git("for-each-ref", "--format=%(refname)%09%(objectname)%09%(contents:subject)", seen,
-               cwd=root).stdout
+    """{key: (sha, info)} from the local mirror: int RVAs and scope strings.
+    Raises ClaimsUnavailable when the mirror cannot be read: a partial view could
+    hide a live claim. Outside a repository there is no mirror and nothing to read."""
+    side = _seen_repo(root)
+    if side is None:
+        return {}
+    listed = _git("for-each-ref", "--format=%(refname)%09%(objectname)%09%(contents:subject)", seen,
+                  cwd=root, git_dir=side)
+    if listed.returncode:
+        raise ClaimsUnavailable(f"claims: cannot read the claim mirror: {listed.stderr.strip()}")
+    out = listed.stdout
     claims = {}
     for line in out.splitlines():
         name, sha, subject = (line.split("\t") + ["", ""])[:3]
@@ -647,7 +762,7 @@ active.cache_clear = _active.cache_clear
 # `git config bfme.claimMirror upstream`, bodies upstream's workers hold are
 # skipped here too (their result arrives through the merge). Nothing is ever
 # written to that remote.
-MIRROR_SEEN = "refs/worktree/claims-mirror-seen/"
+MIRROR_SEEN = "refs/claims-mirror-seen/"  # in the side repository, like SEEN
 
 
 def mirrored(root=None):
@@ -660,8 +775,7 @@ def _mirrored(root):
     remote = _git("config", "--get", "bfme.claimMirror", cwd=root).stdout.strip()
     if not remote:
         return {}
-    got = _git("fetch", "-q", "--prune", "--no-tags", "--recurse-submodules=no", remote,
-               *_refspecs(MIRROR_SEEN), cwd=root, timeout=15)
+    got = _snapshot(root, remote, MIRROR_SEEN, timeout=15)
     if got.returncode:
         return {}
     return {rva: info for rva, (_, info) in live(_read_visible(root, MIRROR_SEEN)).items()
@@ -1178,7 +1292,7 @@ def renew(tokens, who=None, ttl_hours=TTL_HOURS, note="", root=None):
     # for this lease, and must renew its dependent locks just like the latest token.
     leases = {}
     for key, token in list(tokens.items()):
-        body = _git("log", "-1", "--format=%B", token, cwd=root)
+        body = _git("log", "-1", "--format=%B", token, cwd=root, git_dir=_seen_repo(root))
         try:
             leases[key] = json.loads(body.stdout).get("lease") if body.returncode == 0 else None
         except ValueError:
@@ -1271,7 +1385,7 @@ def publication(token, tip, root=None):
     atomic push as master with --force-with-lease=<ref>:<token>, so the
     server itself checks the claim generation in that transaction. The lease
     is kept, so the owner's heartbeat continues from the new commit."""
-    body = _git("log", "-1", "--format=%B", token, cwd=root)
+    body = _git("log", "-1", "--format=%B", token, cwd=root, git_dir=_seen_repo(root))
     if body.returncode:
         raise ClaimsUnavailable(f"claims: claim commit {token} is not available locally")
     info = json.loads(body.stdout)
@@ -1504,7 +1618,7 @@ def gc_candidates(root=None, grace_minutes=GC_GRACE_MINUTES, now=None):
         raise ValueError("gc grace minutes must be finite")
     cutoff = (time.time() if now is None else now) - max(grace_minutes, GC_GRACE_MINUTES) * 60
     listed = _git("for-each-ref", "--format=%(refname)%09%(objectname)%09%(contents:subject)", SEEN,
-                  cwd=root)
+                  cwd=root, git_dir=_seen_repo(root))
     if listed.returncode:
         raise ClaimsUnavailable("claims: cannot read fetched claim records to collect")
     found = {}
@@ -2029,7 +2143,11 @@ def _row_key(row):
 
 def _fetch_master(root=None):
     """origin/master's sha after a fetch, or None."""
-    fetched = _git("fetch", "-q", "--no-tags", REMOTE, "master", cwd=root, timeout=300)
+    # Offer only master's history as "have"s (when this clone tracks it): unrelated
+    # local ref tips can make the server send the whole history.
+    tip = _git("for-each-ref", "--format=--negotiation-tip=%(refname)", f"refs/remotes/{REMOTE}/master",
+               cwd=root).stdout.split()
+    fetched = _git("fetch", "-q", "--no-tags", *tip, REMOTE, "master", cwd=root, timeout=300)
     if fetched.returncode:
         print(f"claims: git fetch {REMOTE} master failed (exit {fetched.returncode}): "
               f"{fetched.stderr.strip() or '(no stderr)'}", file=sys.stderr)

@@ -39,7 +39,7 @@ lock="$wt.census-lock"
 mkdir "$lock" 2>/dev/null || { echo "daily census: another run holds $lock" >&2; exit 1; }
 trap 'rmdir "$lock"' EXIT
 cd "$wt" || exit 1
-git fetch -q origin master && git checkout -q --force --detach origin/master || exit 1
+git fetch -q $(git for-each-ref --format='--negotiation-tip=%(refname)' refs/remotes/origin/master) origin master && git checkout -q --force --detach origin/master || exit 1
 # game.dat's build reads BFME 1's reference sources and toolchain from this submodule.
 git submodule update -q --init reference/open-bfme-1 || exit 1
 mkdir -p build
@@ -58,7 +58,7 @@ git commit -q -m "link_census: daily census $(date +%F)" \
     -m "Co-Authored-By: Claude Opus 5.5 (1M context) <noreply@anthropic.com>" || exit 1
 git reset -q --hard HEAD  # drop build products so the rebase can run
 for attempt in 1 2 3 4 5; do
-    git fetch -q origin master
+    git fetch -q $(git for-each-ref --format='--negotiation-tip=%(refname)' refs/remotes/origin/master) origin master
     git rebase -q origin/master || { git rebase --abort; exit 1; }
     git push -q origin HEAD:master && { echo "daily census pushed"; exit 0; }
 done

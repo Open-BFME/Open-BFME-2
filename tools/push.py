@@ -112,7 +112,10 @@ def record_push():
 def rebase(name, email):
     """Fetch and rebase onto origin/master; returns (tip before, tip after)."""
     before = git("rev-parse", "HEAD").stdout.strip()
-    git("fetch", "-q", REMOTE, BRANCH)
+    # Offer only master's history as "have"s: unrelated local ref tips can make
+    # the server send the whole history.
+    tip = git("for-each-ref", "--format=--negotiation-tip=%(refname)", f"refs/remotes/{REMOTE}/{BRANCH}").stdout
+    git("fetch", "-q", *tip.split(), REMOTE, BRANCH)
     env = dict(os.environ, GIT_COMMITTER_NAME=name, GIT_COMMITTER_EMAIL=email)
     done = git("-c", "submodule.recurse=false", "rebase", "-q", f"{REMOTE}/{BRANCH}", check=False, env=env)
     if done.returncode:

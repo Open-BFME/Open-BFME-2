@@ -596,7 +596,8 @@ def write_queue(path, items):
 
 def fetch_tip(cfg):
     ref = f"refs/remotes/{cfg.remote}/{cfg.branch}"
-    git(cfg.root, "fetch", "-q", cfg.remote, f"+refs/heads/{cfg.branch}:{ref}")
+    tip = git(cfg.root, "for-each-ref", "--format=--negotiation-tip=%(refname)", ref).split()
+    git(cfg.root, "fetch", "-q", *tip, cfg.remote, f"+refs/heads/{cfg.branch}:{ref}")
     return git(cfg.root, "rev-parse", ref)
 
 
