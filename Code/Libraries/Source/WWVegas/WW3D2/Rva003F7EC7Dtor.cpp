@@ -1,4 +1,4 @@
-// cl: /EHsc /MD
+// cl: /EHsc /MD /Ireference/shims/bfme2_ascii
 //
 // ??1Rva003F7EC7@@UAE@XZ retail 0x003F7EC7 105 bytes. Virtual dtor with EH
 // storing derived then base vtables destroying pointer at +0x14 via slot0
@@ -14,18 +14,12 @@ public:
 	void Release_Ref();
 };
 
-template <typename T> class StringBase
-{
-public:
-	~StringBase() { releaseBuffer(); }
-private:
-	void releaseBuffer();
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
-// Existing public narrow teardown spelling resolves to the verified
-// 133-byte releaseBuffer worker at RVA 0x36410. Wide teardown is unchanged.
-template <> StringBase<char>::~StringBase();
 
 
 class DeleteInner
