@@ -42,22 +42,13 @@ public:
 	virtual void rva00272BABClient() = 0;
 };
 
-class Drawable
-{
-public:
-	void rva00272BAB(int a, int b);
-private:
-	unsigned char m_pad[0x14C];
-	DrawModuleForRva272BAB **m_drawModules;
-	unsigned char m_pad150[0x154 - 0x150];
-	ClientItemForRva272BAB **m_client;
-};
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 void Drawable::rva00272BAB(int a, int b)
 {
-	DrawModuleForRva272BAB **mods = m_drawModules;
+	DrawModuleForRva272BAB **mods = ((DrawModuleForRva272BAB **)m_modules[0]);
 	if (*mods != 0)
 		(*mods)->rva00272BABTarget(a, b);
-	for (ClientItemForRva272BAB **p = m_client; p != 0 && *p != 0; ++p)
+	for (ClientItemForRva272BAB **p = ((ClientItemForRva272BAB **)m_modules[2]); p != 0 && *p != 0; ++p)
 		(*p)->rva00272BABClient();
 }
