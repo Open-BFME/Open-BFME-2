@@ -45,12 +45,15 @@ class Object;
 // +0x48/type 0x3ED, InGameUI deselect slot +0x10C, completion state +0x274,
 // and the existing 0x004CC829 predicate replaces BFME1's inline test.
 
-enum ObjectID { INVALID_ID = 0 };
+#include "../../../Common/GameLogicObjectLookupView.h"
+
+enum ObjectStatusTypes;
 
 typedef unsigned int UnsignedInt;
 
 enum UpdateSleepTime
 {
+	UPDATE_SLEEP_NONE = 1,
 	UPDATE_SLEEP_10 = 10,
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
@@ -61,15 +64,25 @@ class Player;
 
 class GameMessage;
 
+class Team;
 class Object
 {
 public:
-    Player *getControllingPlayer() const;
-    void rva0029A12B();
-    unsigned char m_pad000[0x74];
-    unsigned int m_id;
-    unsigned char m_pad078[0x274-0x78];
-    unsigned int m_completionState;
+	Player *getControllingPlayer() const;
+	void rva0029A12B();
+	bool testStatus(ObjectStatusTypes bit) const;
+	void rva00298AAD(Team *value);
+	void *m_vptr00; // +0x00
+	void *m_04; // +0x04
+	char m_pad08[0x6C];
+	unsigned int m_id; // +0x74
+	char m_pad78[0x1FC];
+	unsigned int m_completionState; // +0x274
+	char m_pad278[0x8C];
+	unsigned int m_304; // +0x304
+	char m_pad308[0x130];
+	unsigned char m_438; // +0x438
+	char m_pad439[0x3];
 };
 
 class Thing
@@ -220,7 +233,7 @@ void XferObjectID(Xfer *xfer, ObjectID *objectID);
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
 
-class UpdateModuleInterface { public: virtual void updateSlot(); };
+class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 
 class UpdateModule : public ObjectModule,
 	public BehaviorModuleInterface, public UpdateModuleInterface
@@ -229,6 +242,9 @@ public:
 	UpdateModule(Thing *thing, const ModuleData *data);
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
+
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime wakeDelay);
 
 private:
 	unsigned int m_nextCallFrameAndPhase;
@@ -255,18 +271,20 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class TemporarilyDefectUpdate
+class TemporarilyDefectUpdate : public UpdateModule
 {
 public:
+	TemporarilyDefectUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~TemporarilyDefectUpdate();
 	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
-	bool rva004CC829();	// complete-object method, called through this - 0x10
+	void defectNow(Object *other, unsigned int wakeFrame);
+	bool rva004CC829();
 
 private:
-	unsigned char m_pad004[0x0C];
 	UnsignedInt m_endFrame;
 	UnsignedInt m_startFrame;
-	UnsignedInt m_defectorID;
+	ObjectID m_defectorID;
 	unsigned char m_fxFired;
 };
 
@@ -312,7 +330,7 @@ void Rva004CC63A::xfer(Xfer *xfer)
 // ?update@TemporarilyDefectUpdate@@UAE?AW4UpdateSleepTime@@XZ
 UpdateSleepTime TemporarilyDefectUpdate::update()
 {
-	Object *object = *(Object **)((char *)this - 8);
+	Object *object = m_object;
 	Drawable *drawable = ((Thing *)object)->getDrawable();
 	UnsignedInt zero = 0;
 
@@ -335,7 +353,7 @@ UpdateSleepTime TemporarilyDefectUpdate::update()
 		return UPDATE_SLEEP_FOREVER;
 	}
 
-	if (((TemporarilyDefectUpdate *)((char *)this - 0x10))->rva004CC829())
+	if (rva004CC829())
 	{
 		m_startFrame = zero;
 		m_endFrame = zero;

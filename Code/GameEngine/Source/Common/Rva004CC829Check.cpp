@@ -9,16 +9,20 @@ class Object
 {
 public:
 	Player *getControllingPlayer() const;
+	void rva0029A12B();
 	bool testStatus(ObjectStatusTypes bit) const;
 	void rva00298AAD(Team *value);
-	void *m_vptr00;
-	void *m_04;
-	char m_pad08[0x74 - 8];
-	unsigned int m_74;
-	char m_pad78[0x304 - 0x78];
-	unsigned int m_304;
-	char m_pad308[0x438 - 0x308];
-	unsigned char m_438;
+	void *m_vptr00; // +0x00
+	void *m_04; // +0x04
+	char m_pad08[0x6C];
+	unsigned int m_id; // +0x74
+	char m_pad78[0x1FC];
+	unsigned int m_completionState; // +0x274
+	char m_pad278[0x8C];
+	unsigned int m_304; // +0x304
+	char m_pad308[0x130];
+	unsigned char m_438; // +0x438
+	char m_pad439[0x3];
 };
 struct ObjectPlus4
 {
@@ -32,40 +36,60 @@ public:
 };
 extern GameLogic *TheGameLogic;
 
+typedef unsigned int UnsignedInt;
+enum NameKeyType;
+
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1,
-	UPDATE_SLEEP_FOREVER = 0x3fffffff
+	UPDATE_SLEEP_10 = 10,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 struct Rva004CC795ModuleData
 {
 	char m_pad00[8];
 	unsigned int m_08;
 };
-class UpdateModule
+#include "../../Include/Common/ObjectModule.h"
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
+class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *data);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
 protected:
-	void *m_vptr00;
-	Rva004CC795ModuleData *m_moduleData;
-	Object *m_object;
-	void *m_vptr0C;
-	void *m_vptr10;
-	unsigned int m_nextCallFrameAndPhase;
-	char m_pad18[8];
 	void setWakeFrame(Object *object, UpdateSleepTime wakeDelay);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
+
 extern int BfmeLogicFramesPerSecond;
 
 class TemporarilyDefectUpdate : public UpdateModule
 {
 public:
+	TemporarilyDefectUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~TemporarilyDefectUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	void defectNow(Object *other, unsigned int wakeFrame);
 	bool rva004CC829();
+
 private:
-	unsigned int m_20;
-	unsigned int m_24;
-	ObjectID m_28;
-	unsigned char m_2c;
+	UnsignedInt m_endFrame;
+	UnsignedInt m_startFrame;
+	ObjectID m_defectorID;
+	unsigned char m_fxFired;
 };
 
 // ?defectNow@TemporarilyDefectUpdate@@QAEXPAVObject@@I@Z @0x004CC795 (148B).
@@ -82,7 +106,7 @@ private:
 // +0x304 dword remains unknown.
 void TemporarilyDefectUpdate::defectNow(Object *other, unsigned int wakeFrame)
 {
-	if (m_20 != 0)
+	if (m_endFrame != 0)
 		return;
 	if (other == 0)
 		return;
@@ -91,8 +115,9 @@ void TemporarilyDefectUpdate::defectNow(Object *other, unsigned int wakeFrame)
 	if (m_object->testStatus((ObjectStatusTypes)0x3e))
 		return;
 
-	Rva004CC795ModuleData *moduleData = m_moduleData;
-	m_28 = (ObjectID)other->m_74;
+	const Rva004CC795ModuleData *moduleData =
+		(const Rva004CC795ModuleData *)getModuleData();
+	m_defectorID = (ObjectID)other->m_id;
 	m_object->rva00298AAD((Team *)other->m_304);
 	if ((((ObjectPlus4 *)other->m_04)->m_117 & 8) != 0)
 	{
@@ -101,21 +126,21 @@ void TemporarilyDefectUpdate::defectNow(Object *other, unsigned int wakeFrame)
 	}
 
 	unsigned int frame = TheGameLogic->getFrame();
-	m_24 = frame;
+	m_startFrame = frame;
 	if (wakeFrame > 0)
-		m_20 = wakeFrame;
+		m_endFrame = wakeFrame;
 	else
-		m_20 = moduleData->m_08 + frame;
+		m_endFrame = moduleData->m_08 + frame;
 	setWakeFrame(m_object, (UpdateSleepTime)(BfmeLogicFramesPerSecond * 2));
-	m_2c = 0;
+	m_fxFired = 0;
 }
 
 bool TemporarilyDefectUpdate::rva004CC829()
 {
-	if (m_28 != INVALID_OBJECT_ID)
+	if (m_defectorID != INVALID_OBJECT_ID)
 	{
 		GameLogic *logic = TheGameLogic;
-		Object *obj = logic->findObjectByID(m_28);
+		Object *obj = logic->findObjectByID(m_defectorID);
 		if (obj != 0)
 		{
 			if ((((ObjectPlus4 *)obj->m_04)->m_117 & 8) != 0)
@@ -123,24 +148,24 @@ bool TemporarilyDefectUpdate::rva004CC829()
 				Player *player = obj->getControllingPlayer();
 				if (((Rva002AA22AByteField *)player)->get() != 0)
 				{
-					m_28 = INVALID_OBJECT_ID;
+					m_defectorID = INVALID_OBJECT_ID;
 					return true;
 				}
 				return false;
 			}
 			if ((obj->m_438 & 1) != 0)
 			{
-				m_28 = INVALID_OBJECT_ID;
+				m_defectorID = INVALID_OBJECT_ID;
 				return true;
 			}
-			if (logic->getFrame() >= m_20)
+			if (logic->getFrame() >= m_endFrame)
 			{
-				m_28 = INVALID_OBJECT_ID;
+				m_defectorID = INVALID_OBJECT_ID;
 				return true;
 			}
 			return false;
 		}
 	}
-	m_28 = INVALID_OBJECT_ID;
+	m_defectorID = INVALID_OBJECT_ID;
 	return true;
 }
