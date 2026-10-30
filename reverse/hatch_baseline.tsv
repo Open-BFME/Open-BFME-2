@@ -2618,6 +2618,8 @@ alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.c
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCopyConstructor.cpp	?copyFrom@BfmeElemFC@@QAEXPAU1@@Z	1
 alternatename	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	_INV	1
 alternatename	Code/GameEngine/Source/Common/System/INIMacroTableDtorO1.cpp	?freeMacroBucketStorage@@YAXPAX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp	?rva00318B83Free@@YGPBUTWheelInfo@@PAX@Z	1
+alternatename	Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp	?rva00538ED1@Rva00538ED1@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCopy.cpp	?LoadPostProcess@LivingWorldRegionConnection@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/System/LivingWorldRegionConnectionCtor.cpp	?GetSnapshotName@LivingWorldRegionConnection@@UAEPBDXZ	1
@@ -2743,8 +2745,6 @@ alternatename	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	?insert
 alternatename	Code/GameEngine/Source/Common/W3DTerrainVisual_update.cpp	?rva0009A338@Gen0003AC38@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Rva00602635VTableInstall@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp	??1Win32BIGFileSystem@@UAE@XZ	1
-alternatename	Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp	?rva00318B83Free@@YGPBUTWheelInfo@@PAX@Z	1
-alternatename	Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp	?rva00538ED1@Rva00538ED1@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehavior.cpp	??1VoiceSlot@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable/Update/AnimationSoundClientBehaviorModuleDataCtor.cpp	??1AnimationSoundClientBehaviorModuleDataBase@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameClient/Drawable_rva002724FD.cpp	?rva002724FD@Drawable@@QAEXABVAsciiString@@EHMM@Z	1

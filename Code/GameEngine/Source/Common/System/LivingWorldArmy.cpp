@@ -8,6 +8,8 @@
 class Rva00319F5A;
 #include "../../../../Libraries/Include/Lib/BfmeE16.h"
 #include "../../../../Libraries/Include/Lib/RGBColor.h"
+#pragma comment(linker, "/alternatename:?rva00318B83Free@@YGPBUTWheelInfo@@PAX@Z=?getWheelInfo@Drawable@@QBEPBUTWheelInfo@@XZ")
+#pragma comment(linker, "/alternatename:?rva00538ED1@Rva00538ED1@@QAEXXZ=?rva00538ED1@Rva00538E22@@QAEXH@Z")
 
 //
 // Listener-list walks around 0x003196A7.  Each list's forEach packs a vcall
@@ -589,6 +591,56 @@ private:
 
 Rva00318B5C *Rva00318DECCopy(const Rva00318B5C *first, const Rva00318B5C *last, Rva00318B5C *result, void *unused, int unused2);
 
+// Reconstruction of the 58B dense-wheel copier at 0x00319831: when the
+// Drawable wheel info is present and dense, run the pinned 0x538ED1
+// worker on the second fetch, then mirror +0x44/+0x48 into +0x3C/+0x40;
+// then run the rowed listener forEach on the +0x08 list with listener
+// slot +0x10 (vcall thunk 0x005CB26A). The 0x538ED1 worker reads its second
+// word from the stale stack slot holding pushed-esi (the owner), so it is
+// declared here taking only this (no pushes emitted); the bytes and the
+// runtime owner both match. The second getWheelInfo call reuses stale
+// ecx with no reload, which MSVC does not emit for an opaque thiscall,
+// so it is pinned as a callee-cleanup free function (same bytes).
+struct TWheelInfo
+{
+	int m_begin;
+	int m_end;
+};
+
+const TWheelInfo *__stdcall rva00318B83Free(void *arg);
+
+class Rva00538ED1
+{
+public:
+	void rva00538ED1();
+};
+
+//
+// ?rva00319904@Rva003193EC@@QAEXPAV1@@Z @0x00319904 32B
+// Method of Rva003193EC (this+arg are Rva003193EC* proven by rowed second
+// callee 0x003198B8 ?rva003198B8@Rva003193EC@@QAEXPAV1@@Z). Drains other's
+// +0x78 ArmySummary entry list into this +0x78 via rowed
+// 0x0040ED4F ?MergeUnitsFromArmy@ArmySummary@@QAEXAAV1@@Z then forwards to rva003198B8.
+// Evidence: packet disasm ret-4 single ptr arg plus callers 0x002B4A8D 0x002B672F.
+
+class ArmySummary
+{
+public:
+	void MergeUnitsFromArmy(ArmySummary &other);
+};
+
+class Rva0037DCA5;
+
+class BfmeY1038;
+
+template <typename T> class StringBase;
+
+class Rva0031980CListener;
+
+struct Rva00319714Call;
+
+// ---- from Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/LivingWorldArmy.cpp
 
 // ---- from Code/GameEngine/Source/Common/System/Rva00318EC0Refresh.cpp
@@ -922,6 +974,14 @@ void Rva00319F5A::rva0031A129(const Rva00318B5C &x)
 	}
 }
 
+// ---- from Code/GameEngine/Source/Common/Rva0031968ACopy.cpp
+
+Rva00318B5C *Rva0031968ACopy(const Rva00318B5C *first, const Rva00318B5C *last, Rva00318B5C *result)
+{
+	char tag;
+	return Rva00318DECCopy(first, last, result, &tag, 0);
+}
+
 // tu-skeleton: 0x00318F42 34B ?rva00318F42@Rva00318F42@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
 
 // tu-skeleton: 0x00318FC6 98B ?rva00318FC6@Rva00318FC6@@QAEHHH@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/ConsumeGarrisonUnitsFromRTS.cpp (not merged yet)
@@ -954,21 +1014,32 @@ void Rva00319F5A::rva0031A129(const Rva00318B5C &x)
 
 // tu-skeleton: 0x0031964D 61B ?GetHeroDisplayName@Rva00319159@@QAE?AVUnicodeString@@XZ -- matched in Code/GameEngine/Source/Common/Rva00319159Get.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva0031968ACopy.cpp
-
-Rva00318B5C *Rva0031968ACopy(const Rva00318B5C *first, const Rva00318B5C *last, Rva00318B5C *result)
-{
-	char tag;
-	return Rva00318DECCopy(first, last, result, &tag, 0);
-}
-
 // tu-skeleton: 0x00319784 24B ??$_Destroy@PAUElem003AF9E0@@@_STL@@YAXPAUElem003AF9E0@@0@Z -- matched in Code/GameEngine/Source/Common/Rva00538E22Ctor.cpp (not merged yet)
 
-// tu-skeleton: 0x00319831 58B ?rva00319831@Rva003195C9Owner@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Rva00319831Copy.cpp
+
+void Rva003195C9Owner::rva00319831(void *arg)
+{
+	const TWheelInfo *info = getWheelInfo();
+	if (info != 0)
+	{
+		const TWheelInfo *info2 = rva00318B83Free(arg);
+		((Rva00538ED1 *)info2)->rva00538ED1();
+	}
+	m_3c = m_44;
+	m_40 = m_48;
+	((Rva003197EEList *)(((char *)this) + 8))->forEach(&Rva003197EEListener::notify10, this);
+}
 
 // tu-skeleton: 0x0031986B 77B ?rva0031986B@Rva00318F42@@QAEXPBURva00538CEFPair@@H@Z -- matched in Code/GameEngine/Source/Common/Rva00318F42.cpp (not merged yet)
 
-// tu-skeleton: 0x00319904 32B ?rva00319904@Rva003193EC@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/Rva00319904.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00319904.cpp
+
+void Rva003193EC::rva00319904(Rva003193EC *other)
+{
+	((ArmySummary *)m_78)->MergeUnitsFromArmy(*(ArmySummary *)other->m_78);
+	rva003198B8(other);
+}
 
 // tu-skeleton: 0x00319924 73B ?count@Rva00319924@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00319924Count.cpp (not merged yet)
 
@@ -992,7 +1063,14 @@ Rva00318B5C *Rva0031968ACopy(const Rva00318B5C *first, const Rva00318B5C *last, 
 
 // tu-skeleton: 0x00319E76 6B ?GetSnapshotName@LivingWorldArmy@@UBEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
 
-// tu-skeleton: 0x00319E7C 39B ?rva00319E7C@Rva003195C9Owner@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/Drawable/Rva00319E7CDirty.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Drawable/Rva00319E7CDirty.cpp
+
+void Rva003195C9Owner::rva00319E7C()
+{
+	float *p = (float *)&m_3c;
+	if (p[0] != *(float *)&m_44 || p[1] != *(float *)&m_48)
+		rva00319AA0((const int *)p);
+}
 
 // tu-skeleton: 0x00319EA3 86B ?rva00319EA3@LivingWorldArmy@@QAEXPAU1@PAVArmySummaryEntry@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldArmy.cpp (not merged yet)
 
