@@ -35,7 +35,11 @@ public:
  signed int depth:17;unsigned int flags17:15;
  void *rva006CFF40()const;
 };
-class Rva006CFCD0 {public:bool isSpriteInstBase()const;};
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
+};
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *,const char *,int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 static __forceinline SwapSprite *sprite(AptCIH *aptCIH) {

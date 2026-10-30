@@ -11,13 +11,21 @@ extern int g_bfmeAptBreakOnAssertAtDDC01C;
 class AptCIH;
 class EAStringC {void *data;public:EAStringC();~EAStringC();};
 class AptValue {public:AptCIH *c_cih(bool);int toInteger()const;float toFloat()const;void toString(EAStringC &)const;bool isUndefined()const;};
-class Rva006DBB30SarDwordField {public:int get()const;};
+class Rva006DBB30SarDwordField
+{
+public:
+	int get() const;
+};
 class BfmeAptValue006DCD20 {public:void *rva006E0F40()const;};
 class AptBasePtrStack {public:BfmeAptValue006DCD20 *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
-class Rva006DB160 {public:void *allocBlock(int);};
+class Rva006DB160
+{
+public:
+	void *allocBlock(int);
+};
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
 struct Character;
@@ -31,7 +39,11 @@ class AptCIH {public:char prefix[0x4c];Instance *inst;bool IsCharacterInst()cons
  __forceinline Instance *spriteBase()const {CHECK(this,"this",0xe2);CHECK(!((AptValue*)this)->isUndefined() && (((Rva006DBB30SarDwordField*)this)->get()==13 || ((Rva006DBB30SarDwordField*)this)->get()==18),"isSpriteInstBase()",0x7d);return inst;}
  __forceinline bool textValid()const {CHECK(this,"this",0xc4);return ((Rva006DBB30SarDwordField*)this)->get()==15 && !((AptValue*)this)->isUndefined();}
 };
-class BfmeSubmitter1283 {public:void *bfmeSubmit1283(AptCIH*,int,int,int,int,int,int,float*,int,int,int,int);};
+class BfmeSubmitter1283
+{
+public:
+	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);
+};
 class Rva006E9A40List {public:unsigned short count,capacity;AptCIH **items;void add(AptCIH*);};
 class Rva006E34D0 {public:char prefix[0x20];Rva006E9A40List first,second;};
 extern Rva006E34D0 *g_bfmeAptPtrAtE176D0;

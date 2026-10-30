@@ -304,9 +304,10 @@ private:
 // A named flag temporary retains native order across the zero stores.
 // The constructor assigns the registry value's prototype to hash__proto__,
 // retaining the measured AddRef/Release order. No original owner name claimed.
-class Rva006DB160 {
+class Rva006DB160
+{
 public:
-  void *allocBlock(int);
+	void *allocBlock(int);
 };
 
 class AptValue {
@@ -338,12 +339,14 @@ public:
   }
 };
 
-class AptDisplayList {
-  void *list;
-
+class AptDisplayList
+{
 public:
-  AptDisplayList();
-  ~AptDisplayList();
+	AptDisplayList();
+	~AptDisplayList();
+	void removeClonedObject(AptCIH *);
+private:
+	void *list; // +0x00
 };
 
 class Rva006ED150Base {

@@ -35,13 +35,21 @@ public:
 	int isCharacterInst() const;
 	bool isCIH(bool bUndefinedOK) const;
 };
-class Rva006CFCD0 {public:bool isSpriteInstBase() const;};
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
+};
 class Rva006E3C80 {public:int rva006E3C80();};
 class AptBasePtrStack {public:AptValue *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;
 extern AptValue *gpUndefinedValue;
-class Rva006DB160 {public:void *allocBlock(int);};
+class Rva006DB160
+{
+public:
+	void *allocBlock(int);
+};
 class Rva006DB270;
 extern Rva006DB270 *g_pChainBlockAllocator;
 class BfmeSubmitter1283

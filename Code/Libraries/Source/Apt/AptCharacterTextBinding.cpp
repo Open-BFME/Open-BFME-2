@@ -44,7 +44,7 @@ __declspec(noinline) inline EAStringC::EAStringC()
 class Rva006DBB30SarDwordField
 {
 public:
- int get() const;
+	int get() const;
 };
 
 class AptValue {

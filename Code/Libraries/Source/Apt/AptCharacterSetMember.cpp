@@ -23,7 +23,11 @@
 extern void (__cdecl *g_bfmeAptAssertAtE17734)(const char *, const char *, int);
 extern int g_bfmeAptBreakOnAssertAtDDC01C;
 // The verified seven-byte provider at 0x006DBB30 returns the signed type index.
-class Rva006DBB30SarDwordField { public: int get() const; };
+class Rva006DBB30SarDwordField
+{
+public:
+	int get() const;
+};
 class AptCIH;
 class EAStringC;
 class AptValue

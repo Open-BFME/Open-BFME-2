@@ -37,7 +37,11 @@ class BfmeAptValue006DCD20
 public:
 	int toInteger() const;
 };
-class Rva006CFCD0 {public:bool isSpriteInstBase() const;};
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
+};
 class AptBasePtrStack {public:AptValue *At(int);};
 struct AptActionInterpreter {AptBasePtrStack stack;};
 extern AptActionInterpreter g_aptDateInterpreter;

@@ -16,7 +16,7 @@ class EAStringC;
 class Rva006DBB30SarDwordField
 {
 public:
-    int get() const;
+	int get() const;
 };
 
 class AptValue
@@ -293,8 +293,20 @@ void __debugbreak();
 // Callback name remains address-derived.
 class BfmeAptValue006DCD20;
 void rva007065e0(int,int,BfmeAptValue006DCD20 *,BfmeAptValue006DCD20 **);
-class Rva006CFCD0 {public:bool isSpriteInstBase() const;};
-class AptDisplayList {public:void removeClonedObject(AptCIH *);};
+class Rva006CFCD0
+{
+public:
+	bool isSpriteInstBase() const;
+};
+class AptDisplayList
+{
+public:
+	AptDisplayList();
+	~AptDisplayList();
+	void removeClonedObject(AptCIH *);
+private:
+	void *list; // +0x00
+};
 AptValue *Rva006ED770RemoveMovieClip(AptValue *self,int){
  BfmeAptValue006DCD20 *found=0;
  rva007065e0((int)self->c_cih(false),0,(BfmeAptValue006DCD20 *)self->c_cih(false),&found);
