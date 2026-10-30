@@ -1,0 +1,32 @@
+{
+  "copies": {
+    "equal": true,
+    "before_union": 623,
+    "after": 623
+  },
+  "edges": {
+    "equal": true,
+    "before_union": 616,
+    "after": 616
+  },
+  "strong": {
+    "equal": true,
+    "before_union": 8,
+    "after": 8
+  },
+  "undefined": {
+    "equal": true,
+    "before_union": 36,
+    "after": 36
+  },
+  "weak": {
+    "equal": true,
+    "before_union": 1,
+    "after": 1
+  },
+  "roots": {
+    "equal": true,
+    "before_union": 17,
+    "after": 17
+  }
+}
