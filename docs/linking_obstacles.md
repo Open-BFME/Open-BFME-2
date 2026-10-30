@@ -10884,6 +10884,13 @@ done from our side: the facets TU's definitions come from the pristine vendored
 empty (0x00020D50, 0x00020DB0, 0x00020DF0), so (a) remains the only path and
 still needs the TU approval. Pass test unchanged.
 
+LINK-139 selection recheck (2026-10-30, base 0fa815229e): the link picker
+still serves `stlport_LocaleWctomb.c` from the pre-repair census. A current
+two-source `link_check.py` preview with `stlport_LocaleFacets.cpp` reports
+both LINKS (6,205 authored bytes) against index 85f6b7f40c. This confirms
+the existing repair for this pair; no new linking gain or census result is
+claimed. The full consumer and scheduled-census prerequisites above remain.
+
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
 Status: partially repaired, pending census confirmation; the provider-retirement
