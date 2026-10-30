@@ -1466,15 +1466,15 @@ void Rva00270025::rva0027006C(int index)
 
 // tu-skeleton: 0x0027295B 22B ?rva0027295B@Drawable@@QAEXPAX@Z -- matched in Code/GameEngine/Source/GameClient/Rva0027295BFinish.cpp (not merged yet)
 
-// tu-skeleton: 0x00272971 41B ?createDeathDecal@Drawable@@QAEXHMH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
+// tu-skeleton: 0x00272971 41B ?createDeathDecal@Drawable@@UAEXHMH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
 
-// tu-skeleton: 0x0027299A 27B ?rva0027299A@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
+// tu-skeleton: 0x0027299A 27B ?rva0027299A@Drawable@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
 
-// tu-skeleton: 0x002729B5 22B ?setDeathDecalPosition@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
+// tu-skeleton: 0x002729B5 22B ?setDeathDecalPosition@Drawable@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
 
-// tu-skeleton: 0x002729CB 30B ?rva002729CB@Drawable@@QAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
+// tu-skeleton: 0x002729CB 30B ?rva002729CB@Drawable@@UAEXM@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
 
-// tu-skeleton: 0x002729E9 25B ?rva002729E9@Drawable@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
+// tu-skeleton: 0x002729E9 25B ?rva002729E9@Drawable@@UAEXH@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272971.cpp (not merged yet)
 
 // tu-skeleton: 0x00272A02 54B ?rva00272A02@Drawable@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/Drawable_rva00272A02.cpp (not merged yet)
 

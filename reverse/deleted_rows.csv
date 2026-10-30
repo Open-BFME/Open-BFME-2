@@ -4247,3 +4247,8 @@ __ehhandler$??1Rva00220B04@@QAE@XZ,0x0076EE54,"Renamed to __ehhandler$??1ArmySum
 __ehhandler$??0Rva00220B04@@QAE@H@Z,0x0076EE7C,"Renamed to __ehhandler$??0ArmySummaryDescriptionVisitor@@QAE@H@Z by tools/rename.py (inferred)"
 __ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVRva00220B04@@@Z,0x0076EE37,"Renamed to __ehhandler$?BuildDescriptionString@@YAXPAVUnicodeString@@PAVArmySummaryDescriptionVisitor@@@Z by tools/rename.py (inferred)"
 ?forEachInGameNotificationType@@YAXAAVRva002221A9Visitor@@@Z,0x002221A9,"Renamed to ?forEachInGameNotificationType@@YAXAAVInGameNotificationTypeVisitor@@@Z by tools/rename.py (inferred)"
+?rva0027299A@Drawable@@QAEXH@Z,0x0027299A,"Renamed to ?rva0027299A@Drawable@@UAEXH@Z by tools/rename.py (virtual: retail vtable slot)"
+?setDeathDecalPosition@Drawable@@QAEXH@Z,0x002729B5,"Renamed to ?setDeathDecalPosition@Drawable@@UAEXH@Z by tools/rename.py (virtual: retail vtable slot)"
+?rva002729CB@Drawable@@QAEXM@Z,0x002729CB,"Renamed to ?rva002729CB@Drawable@@UAEXM@Z by tools/rename.py (virtual: retail vtable slot)"
+?rva002729E9@Drawable@@QAEXH@Z,0x002729E9,"Renamed to ?rva002729E9@Drawable@@UAEXH@Z by tools/rename.py (virtual: retail vtable slot)"
+?createDeathDecal@Drawable@@QAEXHMH@Z,0x00272971,"Renamed to ?createDeathDecal@Drawable@@UAEXHMH@Z by tools/rename.py (virtual: retail vtable slot)"
