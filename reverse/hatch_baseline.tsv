@@ -13720,6 +13720,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/HijackerUpdate.
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateModuleDataCtor.cpp	Rva001EAE6FHelper::Rva001EAE6FHelper	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LaserUpdateCtor.cpp	bfmeEmitLaserUpdateCtor@@YAXPAVLaserUpdate@@PAVThing@@PBVModuleData@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdateFriendNewData.cpp	?	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdate.cpp	1StoreObjectsSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/MissileLauncherBuildingUpdateCtor.cpp	1StoreObjectsSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ModuleUpdateDtors2.cpp	Rva004907C0::~Rva004907C0	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateCtor.cpp	1TeleportToCasterSpecialPower@@	1
@@ -13820,7 +13821,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureCollap
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	StructureToppleUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/StructureToppleUpdate.cpp	StructureToppleUpdate::~StructureToppleUpdate	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterDockUpdateCtor.cpp	1EvacuateGarrisonSpecialPower@@	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyCenterProductionExitUpdateCtor.cpp	1StoreObjectsSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/SupplyTruckAIUpdateCtor.cpp	1HordeDispatchSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TeleportToCasterSpecialPower.cpp	1TeleportToCasterSpecialPowerModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/TurretAI_setTurretTargetObject.cpp	TurretStateMachine::getCurrentStateID	1
