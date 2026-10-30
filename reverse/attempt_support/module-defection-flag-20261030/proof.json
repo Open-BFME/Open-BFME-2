@@ -1,0 +1,798 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/ObjectDefectionComplete.cpp",
+  "scope": "Canonical Module plus a partial TemporarilyDefectUpdate storage view for the observed +0x2C byte; no original complete hierarchy/layout claim",
+  "variants": {
+    "before": {
+      "source_sha256": "fa8315b481b4cefeedf5bda15b76ca0f730387f2be5623d53db814a24f14e963",
+      "rows": [
+        {
+          "name": "?defect@Object@@QAEXPAV1@_N@Z",
+          "rva": "0x00298979",
+          "size": "308",
+          "exact": true
+        },
+        {
+          "name": "?rva0029A12B@Object@@QAEXXZ",
+          "rva": "0x0029A12B",
+          "size": "218",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?defect@Object@@QAEXPAV1@_N@Z",
+          "rva": "0x0077478D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0029A12B@Object@@QAEXXZ",
+          "rva": "0x00774A98",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L664",
+          "rva": "0x00774780",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L644",
+          "rva": "0x00774A8B",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?defect@Object@@QAEXPAV1@_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva0029A12B@Object@@QAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "ef49de40fec02ee5531177a548814241d3cb2911c98551d7c4ed900a0bd03921",
+      "rows": [
+        {
+          "name": "?defect@Object@@QAEXPAV1@_N@Z",
+          "rva": "0x00298979",
+          "size": "308",
+          "exact": true
+        },
+        {
+          "name": "?rva0029A12B@Object@@QAEXXZ",
+          "rva": "0x0029A12B",
+          "size": "218",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?defect@Object@@QAEXPAV1@_N@Z",
+          "rva": "0x0077478D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0029A12B@Object@@QAEXXZ",
+          "rva": "0x00774A98",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L664",
+          "rva": "0x00774780",
+          "size": "13",
+          "exact": true
+        },
+        {
+          "name": "$L644",
+          "rva": "0x00774A8B",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?defect@Object@@QAEXPAV1@_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva0029A12B@Object@@QAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "external_definitions": {
+    "?getContain@Object@@QBEPAVModule@@XZ": {
+      "raw": "8b8150020000c3",
+      "relocations": []
+    },
+    "?getAI@Object@@QBEPAXXZ": {
+      "raw": "8b8158020000c3",
+      "relocations": []
+    },
+    "?rva0029A12B@Object@@QAEXXZ": {
+      "raw": "b800000000e800000000566a3e8bf1e80000000084c00f84b1000000578bbe500200006a006a3e8bcee8000000008bcee800000000f60500000000017524830d00000000018b0d000000008365fc006800000000e800000000834dfcffa300000000ff35000000008bcee80000000085ffc6402c01740a8b078bcfff900c0100006a268bcee80000000084c0752c8bbe5802000085ff74226a468bcee80000000084c074078bcee8000000008bcfe8000000008bcfe8000000006a016a528bcee8000000008bcee8000000005f8b4df45e64890d00000000c9c3",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?rva0029A12B@Object@@QAEXXZ"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          16,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          42,
+          20,
+          "?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z"
+        ],
+        [
+          49,
+          20,
+          "?restoreOriginalTeam@Object@@QAEXXZ"
+        ],
+        [
+          55,
+          6,
+          "?$S1@?3??rva0029A12B@Object@@QAEXXZ@4IA"
+        ],
+        [
+          64,
+          6,
+          "?$S1@?3??rva0029A12B@Object@@QAEXXZ@4IA"
+        ],
+        [
+          71,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          80,
+          6,
+          "??_C@_0BI@PJGKMKHG@TemporarilyDefectUpdate?$AA@"
+        ],
+        [
+          85,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          94,
+          6,
+          "?key_TemporarilyDefectUpdate@?3??rva0029A12B@Object@@QAEXXZ@4W4NameKeyType@@A"
+        ],
+        [
+          100,
+          6,
+          "?key_TemporarilyDefectUpdate@?3??rva0029A12B@Object@@QAEXXZ@4W4NameKeyType@@A"
+        ],
+        [
+          107,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          134,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          157,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          168,
+          20,
+          "?rva00293105@Object@@QAEXXZ"
+        ],
+        [
+          175,
+          20,
+          "?rva0026331C@AIUpdateInterface@@QAEXXZ"
+        ],
+        [
+          182,
+          20,
+          "?rva002633B6@AIUpdateInterface@@QAEXXZ"
+        ],
+        [
+          193,
+          20,
+          "?setStatus@Object@@QAEXW4ObjectStatusTypes@@_N@Z"
+        ],
+        [
+          200,
+          20,
+          "?updateUpgradeModules@Object@@QAEXXZ"
+        ],
+        [
+          212,
+          6,
+          "__except_list"
+        ]
+      ]
+    },
+    "?defect@Object@@QAEXPAV1@_N@Z": {
+      "raw": "b800000000e8000000005356576a268bf1e80000000033db84c075318bbe580200003bfb74276a468bcee80000000084c074078bcee8000000008bcfe800000000385d0c75078bcfe8000000008b86840000003bc3741738983c040000740f8b0d000000008b1150ff920c01000056e8000000003bc35974088b10538bc8ff52088bcee8000000008bf83bfb740e8b078bcfff50248b078bcfff5030385d0c8b7d087548f60500000000017523830d00000000018b0d000000006800000000895dfce800000000834dfcffa300000000ff35000000008bcee8000000003bc3742553578bc8e800000000eb1a8b87040300003bc374103b86040300007408508bcee8000000008b8e500200003bcb740cff750c8b0157ff90080100008bcee8000000008b4df45f5e5b64890d00000000c9c20800",
+      "relocations": [
+        [
+          1,
+          6,
+          "__ehhandler$?defect@Object@@QAEXPAV1@_N@Z"
+        ],
+        [
+          6,
+          20,
+          "__EH_prolog"
+        ],
+        [
+          18,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          43,
+          20,
+          "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+        ],
+        [
+          54,
+          20,
+          "?rva00293105@Object@@QAEXXZ"
+        ],
+        [
+          61,
+          20,
+          "?rva0026331C@AIUpdateInterface@@QAEXXZ"
+        ],
+        [
+          73,
+          20,
+          "?BeginDefectedStateMachine@AIUpdateInterface@@QAEXXZ"
+        ],
+        [
+          97,
+          6,
+          "?TheInGameUI@@3PAVInGameUI@@A"
+        ],
+        [
+          112,
+          20,
+          "?Rva004A1828Get@@YAHPAURva004A1828Owner@@@Z"
+        ],
+        [
+          132,
+          20,
+          "?getSpawnBehaviorInterface@Object@@QBEPAVSpawnBehaviorInterface@@XZ"
+        ],
+        [
+          166,
+          6,
+          "?$S2@?BG@??defect@Object@@QAEXPAV2@_N@Z@4IA"
+        ],
+        [
+          175,
+          6,
+          "?$S2@?BG@??defect@Object@@QAEXPAV2@_N@Z@4IA"
+        ],
+        [
+          182,
+          6,
+          "?TheNameKeyGenerator@@3PAVNameKeyGenerator@@A"
+        ],
+        [
+          187,
+          6,
+          "??_C@_0BI@PJGKMKHG@TemporarilyDefectUpdate?$AA@"
+        ],
+        [
+          195,
+          20,
+          "?nameToKey@NameKeyGenerator@@QAE?AW4NameKeyType@@PBD@Z"
+        ],
+        [
+          204,
+          6,
+          "?key_TemporarilyDefectUpdate@?BG@??defect@Object@@QAEXPAV2@_N@Z@4W4NameKeyType@@A"
+        ],
+        [
+          210,
+          6,
+          "?key_TemporarilyDefectUpdate@?BG@??defect@Object@@QAEXPAV2@_N@Z@4W4NameKeyType@@A"
+        ],
+        [
+          217,
+          20,
+          "?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z"
+        ],
+        [
+          230,
+          20,
+          "?defectNow@TemporarilyDefectUpdate@@QAEXPAVObject@@I@Z"
+        ],
+        [
+          258,
+          20,
+          "?setTemporaryTeam@Object@@QAEXPAVTeam@@@Z"
+        ],
+        [
+          287,
+          20,
+          "?updateUpgradeModules@Object@@QAEXXZ"
+        ],
+        [
+          300,
+          6,
+          "__except_list"
+        ]
+      ]
+    }
+  },
+  "actual": {
+    "source_sha256": "8988ef54c158bf407971506385d8ca1356ceda6558eca4575b4650776b7a65cf",
+    "object_sha256": "9f3158aef83765dcb294de55f9a800bfb67c0f84d9c471883a8e36894ddba6fb",
+    "strict_current": true,
+    "external_definitions_and_relocations_identical": 4
+  },
+  "retail": {
+    "consumer": {
+      "rva": "0x29a12b",
+      "size": 218,
+      "raw": "b8984ab700e853f03800566a3e8bf1e8f743dbff84c00f84b1000000578bbe500200006a006a3e8bcee8b539faff8bcee846fffffff605eceddf00017524830deceddf00018b0da436df008365fc00686c4bbf00e896eceaff834dfcffa3e8eddf00ff35e8eddf008bcee83c15ffff85ffc6402c01740a8b078bcfff900c0100006a268bcee88143dbff84c0752c8bbe5802000085ff74226a468bcee86a43dbff84c074078bcee82e8fffff8bcfe83e91fcff8bcfe8d191fcff6a016a528bcee81e39faff8bcee8f38cffff5f8b4df45e64890d00000000c9c3",
+      "instructions": [
+        {
+          "rva": "0x29a12b",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb74a98"
+        },
+        {
+          "rva": "0x29a130",
+          "mnemonic": "call",
+          "operands": "0x629188"
+        },
+        {
+          "rva": "0x29a135",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x29a136",
+          "mnemonic": "push",
+          "operands": "0x3e"
+        },
+        {
+          "rva": "0x29a138",
+          "mnemonic": "mov",
+          "operands": "esi, ecx"
+        },
+        {
+          "rva": "0x29a13a",
+          "mnemonic": "call",
+          "operands": "0x4e536"
+        },
+        {
+          "rva": "0x29a13f",
+          "mnemonic": "test",
+          "operands": "al, al"
+        },
+        {
+          "rva": "0x29a141",
+          "mnemonic": "je",
+          "operands": "0x29a1f8"
+        },
+        {
+          "rva": "0x29a147",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x29a148",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi + 0x250]"
+        },
+        {
+          "rva": "0x29a14e",
+          "mnemonic": "push",
+          "operands": "0"
+        },
+        {
+          "rva": "0x29a150",
+          "mnemonic": "push",
+          "operands": "0x3e"
+        },
+        {
+          "rva": "0x29a152",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a154",
+          "mnemonic": "call",
+          "operands": "0x23db0e"
+        },
+        {
+          "rva": "0x29a159",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a15b",
+          "mnemonic": "call",
+          "operands": "0x29a0a6"
+        },
+        {
+          "rva": "0x29a160",
+          "mnemonic": "test",
+          "operands": "byte ptr [0xdfedec], 1"
+        },
+        {
+          "rva": "0x29a167",
+          "mnemonic": "jne",
+          "operands": "0x29a18d"
+        },
+        {
+          "rva": "0x29a169",
+          "mnemonic": "or",
+          "operands": "dword ptr [0xdfedec], 1"
+        },
+        {
+          "rva": "0x29a170",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xdf36a4]"
+        },
+        {
+          "rva": "0x29a176",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x29a17a",
+          "mnemonic": "push",
+          "operands": "0xbf4b6c"
+        },
+        {
+          "rva": "0x29a17f",
+          "mnemonic": "call",
+          "operands": "0x148e1a"
+        },
+        {
+          "rva": "0x29a184",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x29a188",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xdfede8], eax"
+        },
+        {
+          "rva": "0x29a18d",
+          "mnemonic": "push",
+          "operands": "dword ptr [0xdfede8]"
+        },
+        {
+          "rva": "0x29a193",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a195",
+          "mnemonic": "call",
+          "operands": "0x28b6d6"
+        },
+        {
+          "rva": "0x29a19a",
+          "mnemonic": "test",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x29a19c",
+          "mnemonic": "mov",
+          "operands": "byte ptr [eax + 0x2c], 1"
+        },
+        {
+          "rva": "0x29a1a0",
+          "mnemonic": "je",
+          "operands": "0x29a1ac"
+        },
+        {
+          "rva": "0x29a1a2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [edi]"
+        },
+        {
+          "rva": "0x29a1a4",
+          "mnemonic": "mov",
+          "operands": "ecx, edi"
+        },
+        {
+          "rva": "0x29a1a6",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10c]"
+        },
+        {
+          "rva": "0x29a1ac",
+          "mnemonic": "push",
+          "operands": "0x26"
+        },
+        {
+          "rva": "0x29a1ae",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a1b0",
+          "mnemonic": "call",
+          "operands": "0x4e536"
+        },
+        {
+          "rva": "0x29a1b5",
+          "mnemonic": "test",
+          "operands": "al, al"
+        },
+        {
+          "rva": "0x29a1b7",
+          "mnemonic": "jne",
+          "operands": "0x29a1e5"
+        },
+        {
+          "rva": "0x29a1b9",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi + 0x258]"
+        },
+        {
+          "rva": "0x29a1bf",
+          "mnemonic": "test",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x29a1c1",
+          "mnemonic": "je",
+          "operands": "0x29a1e5"
+        },
+        {
+          "rva": "0x29a1c3",
+          "mnemonic": "push",
+          "operands": "0x46"
+        },
+        {
+          "rva": "0x29a1c5",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a1c7",
+          "mnemonic": "call",
+          "operands": "0x4e536"
+        },
+        {
+          "rva": "0x29a1cc",
+          "mnemonic": "test",
+          "operands": "al, al"
+        },
+        {
+          "rva": "0x29a1ce",
+          "mnemonic": "je",
+          "operands": "0x29a1d7"
+        },
+        {
+          "rva": "0x29a1d0",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a1d2",
+          "mnemonic": "call",
+          "operands": "0x293105"
+        },
+        {
+          "rva": "0x29a1d7",
+          "mnemonic": "mov",
+          "operands": "ecx, edi"
+        },
+        {
+          "rva": "0x29a1d9",
+          "mnemonic": "call",
+          "operands": "0x26331c"
+        },
+        {
+          "rva": "0x29a1de",
+          "mnemonic": "mov",
+          "operands": "ecx, edi"
+        },
+        {
+          "rva": "0x29a1e0",
+          "mnemonic": "call",
+          "operands": "0x2633b6"
+        },
+        {
+          "rva": "0x29a1e5",
+          "mnemonic": "push",
+          "operands": "1"
+        },
+        {
+          "rva": "0x29a1e7",
+          "mnemonic": "push",
+          "operands": "0x52"
+        },
+        {
+          "rva": "0x29a1e9",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a1eb",
+          "mnemonic": "call",
+          "operands": "0x23db0e"
+        },
+        {
+          "rva": "0x29a1f0",
+          "mnemonic": "mov",
+          "operands": "ecx, esi"
+        },
+        {
+          "rva": "0x29a1f2",
+          "mnemonic": "call",
+          "operands": "0x292eea"
+        },
+        {
+          "rva": "0x29a1f7",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x29a1f8",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x29a1fb",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x29a1fc",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x29a203",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "rva": "0x29a204",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    "finder": {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  }
+}

@@ -117,11 +117,14 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial storage view: the completion caller writes module+0x2C.
+class Rva0029A12BDefectModuleView : public Module
 {
 public:
-	unsigned char m_pad_000[0x2c];
-	unsigned char m_field2c;
+    unsigned char m_pad08[0x2C - 0x08];
+    unsigned char m_field2c;
 };
 
 class ContainModuleInterface
@@ -252,7 +255,7 @@ void Object::rva0029A12B()
 		TheNameKeyGenerator->nameToKey("TemporarilyDefectUpdate");
 
 	Module *update = findModule(key_TemporarilyDefectUpdate);
-	update->m_field2c = 1;
+	((Rva0029A12BDefectModuleView *)update)->m_field2c = 1;
 
 	if (contain != 0)
 		((ContainModuleInterface *)contain)->releaseContainment();

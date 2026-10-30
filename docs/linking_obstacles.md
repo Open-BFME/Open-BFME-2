@@ -10761,6 +10761,16 @@ this is not a census gain. W3DPropDraw's remaining DrawModule table and deleting
 destructor blockers, and the full module-data table prerequisites below,
 remain open. [Provider/consumer scope and proof](../reverse/attempt_support/w3dprop-snapshot-provider-link-20261030/README.md).
 
+The landed two-source batch audit at `c122e7b157` remains INCONCLUSIVE on the
+older index and the missing current affected-consumer receipt for
+`Common/0CreateAHeroManager21FE49.cpp`. Carry the provider/caller and wider
+consumer scope into the next scheduled census. The identity check also reports
+the retargeted `ModuleData` destructor as a divergent definition in shadow
+mode; no baseline is expanded or retired. Its raw code is unchanged, and the
+only changed relocation names the canonical Snapshot table already verified
+by the owned native destructor row. This does not clear the full ModuleData
+contract or broader consumer selection.
+
 Status: Blocked on shared ModuleData interface and slot-owner reconciliation. Updated: 2026-10-27; inspected revision: 97c23353111e60304b56434c02d20bee3465d83f.
 Evidence / affected units: W3DPropDrawModuleDataCtor.cpp emits a four-slot Snapshot table while W3DPropDraw.cpp emits a nine-slot Zero Hour ModuleData table. The constructor's sole ordinary-preview blocker is `??_7W3DPropDrawModuleData@@6B@`. Retail at RVA 0x007CD420 has 31 function pointers; the next word at 0x007CD49C begins the DistanceFog string, so the data ledger's 136-byte span includes that following literal. Native slot 14 reaches 0x000CED14, already rowed under W3DTreeDrawModuleData; slot 19 reaches the return-this body at 0x0047A6A9. The existing Common/BfmeModuleData.h models 31 generic slots, while the update_modules_bfme2/Common/Module.h view used by the destructor still models the short interface.
 Completed: inspected both emitted tables, native slots, existing row owners and the shared headers. Both constructor-unit rows are exact. Current paired preview retains the constructor L1 and the destructor unit's independent ModuleData/DrawModule blockers. No source trial or shared-header edit is retained.
@@ -12856,6 +12866,16 @@ predates the base and 50 source objects lack current census receipts; first
 is AptOnlineCustomMatch_PopulateLobbyComboBox.cpp.
 Census confirmation: not claimed.
 [Evidence and provenance](../reverse/attempt_support/gamespy-color-table-20261029.md).
+
+### Defection completion canonical Module storage (2026-10-30)
+
+Cleared for `ObjectDefectionComplete.cpp`: use the registered Module base and a
+partial view of the TemporarilyDefectUpdate flag at +0x2C. Native lookup and
+the unadjusted finder return prove that offset. Six rows, both EH graphs and
+all four external code definitions/relocations remain exact. The owning header
+acceptance tool retires one key; ordinary preview retains LINKS/546 bytes
+against `ccafe54d1d`. No census gain or full derived hierarchy is claimed.
+[Native proof and verification](../reverse/attempt_support/module-defection-flag-20261030/README.md).
 
 ### Radar upgrade canonical Module storage (2026-10-30)
 

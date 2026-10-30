@@ -31,3 +31,11 @@ preview LINKS (13 + 22 bytes); both Snapshot witnesses retain LINKS (32 + 122).
 W3DPropDraw remains blocked by its DrawModule table and deleting-destructor
 context. This is a bounded preview, not a census or whole-image link result.
 The remaining LINK-102/107 native table prerequisites remain open.
+
+Publication follow-up: the accepted batch's wider link audit is INCONCLUSIVE
+on the older index and missing current 0CreateAHeroManager21FE49.cpp consumer
+receipt. The code-identity check reports ModuleData's retargeted destructor as
+a divergent shadow definition. Its raw code is unchanged; the only relocation
+change replaces the false table spelling with canonical Snapshot, and the
+owned native destructor row remains exact. No baseline was expanded or retired.
+The wider consumer/selected-provider checks remain scheduled-census work.
