@@ -19012,8 +19012,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009FF050,4,.data,global,?status@?6??HandleOverObjectivesButton@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF054,4,.data,global,?objectives@?4??HandleOverObjectivesButton@AptPalantir@@QAEXPBD@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,2
 0x009FF058,4,.data,global,?$S5@?4??HandleOverObjectivesButton@AptPalantir@@QAEXPBD@Z@4IA,Code/GameEngine/Source/GameClient/GUI/Palantir/AptPalantirCallbacks.cpp,owned,,1,4
-0x009FF05C,4,.data,global,?g_Va00DFF05C@@3IA,,unowned,?g_Va00DFF05C@@3IA;?s_bfmeOtherYU@?6??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A@Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp,1,2
-0x009FF060,4,.data,global,?g_Va00DFF060@@3IA,,unowned,?g_Va00DFF060@@3IA;?s_bfmeObjectivesYU@?4??bfmeApplyYU@@YGXH@Z@4VAsciiStringYU@@A@Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp,1,2
+0x009FF05C,4,.data,global,?s_bfmeOtherYU@?6??bfmeApplyYU@@YGXH@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp,owned,,1,2
+0x009FF060,4,.data,global,?s_bfmeObjectivesYU@?4??bfmeApplyYU@@YGXH@Z@4VAsciiString@@A,Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp,owned,,1,2
 0x009FF064,4,.data,global,?$S1@?4??bfmeApplyYU@@YGXH@Z@4IA,Code/GameEngine/Source/GameClient/GUI/Palantir/BfmeObserverDispatchYU_Rva002d4f2d.cpp,owned,,1,8
 0x009FF068,4,.data,global,?TheAnim2DCollection@@3PAVAnim2DCollection@@A,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,provisional,?TheAnim2DCollection@@3PAVAnim2DCollection@@A;?g_00DFF068@@3PAVRva002D752D@@A,1,26
 0x009FF06C,4,.data,global,_s_rva007AE3E1,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
