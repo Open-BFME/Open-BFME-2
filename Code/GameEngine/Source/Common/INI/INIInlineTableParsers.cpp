@@ -38,7 +38,6 @@ public:
 	static void parseReal(INI *ini, void *instance, void *store, const void *userData);
 	static void parseAsciiString(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva0033A49B_ParseDecal(INI *ini, void *instance, void *store, const void *userData);
-	static void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
 	static void Rva0045A22E_ParseQuery(INI *ini, void *instance, void *store, const void *userData);
 	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
 };
@@ -63,6 +62,11 @@ public:
 };
 
 void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *userData);
+
+// Only EvacuateDamageModuleData's FieldParse table (WeaponThatCausesEvacuation)
+// references 0x004BACAF and it writes that class's +8 field, so nothing ties it
+// to class INI: it is declared at file scope.
+void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *store, const void *userData);
 
 struct Rva0045A22EQuery
 {
@@ -89,8 +93,8 @@ void INI::Rva0033A49B_ParseDecal(INI *ini, void *, void *store, const void *)
 	ini->initFromINI(store, dataFieldParse);
 }
 
-// ?Rva004BACAF_ParseWeaponName@INI@@SAXPAV1@PAX1PBX@Z
-void INI::Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *, const void *)
+// ?Rva004BACAF_ParseWeaponName@@YAXPAVINI@@PAX1PBX@Z
+void Rva004BACAF_ParseWeaponName(INI *ini, void *instance, void *, const void *)
 {
 	const char *token = ini->getNextToken();
 	if (TheWeaponStore->findWeaponTemplate(AsciiString(token)))
