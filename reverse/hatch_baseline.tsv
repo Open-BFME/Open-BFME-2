@@ -13702,6 +13702,7 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/Supp
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyWarehouseDockUpdate.cpp	setCashValue@SupplyWarehouseDockUpdate@@QAEXH@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/DozerAIUpdateCtor.cpp	1ActivateModuleSpecialPower@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EmotionNuggetCanBeActivatedFor.cpp	rva004DD018@Emotion@@QAE_NHHPAURva004DD018Arg@@@Z	1
+present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvaAnnounceClientCreate.cpp	1EvaAnnounceClientCreateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/EvacuateGarrisonSpecialPowerModuleDataCtor.cpp	1EvacuateGarrisonSpecialPowerModuleData@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/FireSpreadUpdate.cpp	FireSpreadUpdate::xfer	1
@@ -13770,7 +13771,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.c
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp	PhysicsBehavior::update	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp	PhysicsBehavior::wasPreviouslyOverlapped	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PhysicsUpdate.cpp	PhysicsBehavior::~PhysicsBehavior	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PilotFindVehicleUpdateCtor.cpp	1EvaAnnounceClientCreateModuleData@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/PrisonDockUpdateCtor.cpp	1TemporarilyDefectUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp	getExitPosition@DefaultProductionExitUpdate@@	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/DefaultProductionExitUpdate.cpp	getNaturalRallyPoint@DefaultProductionExitUpdate@@	1
