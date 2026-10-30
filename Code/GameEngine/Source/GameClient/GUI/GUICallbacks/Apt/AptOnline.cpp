@@ -54,30 +54,109 @@ public:
 
 extern GameTextInterface *TheGameText;
 
+class PSPlayerAllStats;
+
 class GameSpyInfoInterface
 {
 public:
-	GAMESPY_SLOT(00) GAMESPY_SLOT(01) GAMESPY_SLOT(02) GAMESPY_SLOT(03) GAMESPY_SLOT(04)
-	GAMESPY_SLOT(05) GAMESPY_SLOT(06) GAMESPY_SLOT(07) GAMESPY_SLOT(08) GAMESPY_SLOT(09)
-	GAMESPY_SLOT(10) GAMESPY_SLOT(11) GAMESPY_SLOT(12) GAMESPY_SLOT(13) GAMESPY_SLOT(14)
-	GAMESPY_SLOT(15) GAMESPY_SLOT(16) GAMESPY_SLOT(17) GAMESPY_SLOT(18) GAMESPY_SLOT(19)
-	GAMESPY_SLOT(20) GAMESPY_SLOT(21) GAMESPY_SLOT(22) GAMESPY_SLOT(23) GAMESPY_SLOT(24)
-	GAMESPY_SLOT(25) GAMESPY_SLOT(26) GAMESPY_SLOT(27) GAMESPY_SLOT(28) GAMESPY_SLOT(29)
-	GAMESPY_SLOT(30) GAMESPY_SLOT(31) GAMESPY_SLOT(32) GAMESPY_SLOT(33) GAMESPY_SLOT(34)
-	GAMESPY_SLOT(35) GAMESPY_SLOT(36) GAMESPY_SLOT(37) GAMESPY_SLOT(38) GAMESPY_SLOT(39)
-	GAMESPY_SLOT(40) GAMESPY_SLOT(41) GAMESPY_SLOT(42) GAMESPY_SLOT(43) GAMESPY_SLOT(44)
-	GAMESPY_SLOT(45) GAMESPY_SLOT(46) GAMESPY_SLOT(47) GAMESPY_SLOT(48) GAMESPY_SLOT(49)
-	GAMESPY_SLOT(50) GAMESPY_SLOT(51) GAMESPY_SLOT(52) GAMESPY_SLOT(53) GAMESPY_SLOT(54)
-	GAMESPY_SLOT(55) GAMESPY_SLOT(56) GAMESPY_SLOT(57) GAMESPY_SLOT(58) GAMESPY_SLOT(59)
-	GAMESPY_SLOT(60) GAMESPY_SLOT(61) GAMESPY_SLOT(62) GAMESPY_SLOT(63) GAMESPY_SLOT(64)
-	GAMESPY_SLOT(65) GAMESPY_SLOT(66) GAMESPY_SLOT(67) GAMESPY_SLOT(68) GAMESPY_SLOT(69)
-	GAMESPY_SLOT(70) GAMESPY_SLOT(71) GAMESPY_SLOT(72) GAMESPY_SLOT(73) GAMESPY_SLOT(74)
-	GAMESPY_SLOT(75) GAMESPY_SLOT(76) GAMESPY_SLOT(77) GAMESPY_SLOT(78) GAMESPY_SLOT(79)
-	GAMESPY_SLOT(80) GAMESPY_SLOT(81) GAMESPY_SLOT(82) GAMESPY_SLOT(83) GAMESPY_SLOT(84)
-	GAMESPY_SLOT(85) GAMESPY_SLOT(86) GAMESPY_SLOT(87) GAMESPY_SLOT(88) GAMESPY_SLOT(89)
-	GAMESPY_SLOT(90) GAMESPY_SLOT(91) GAMESPY_SLOT(92) GAMESPY_SLOT(93) GAMESPY_SLOT(94)
-	GAMESPY_SLOT(95) GAMESPY_SLOT(96)
-	virtual bool slot97();				// +0x184
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual int getLocalProfileID();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void setCachedStats(PSPlayerAllStats stats);
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void slot94();
+	virtual void slot95();
+	virtual void slot96();
+	virtual bool slot97();
 };
 
 extern GameSpyInfoInterface *TheGameSpyInfo;

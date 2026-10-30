@@ -43,24 +43,121 @@ void Rva00516F21Invoke(Rva00222A8BTarget *target, void *owner, const char *name,
 // Second wrapper spelling folded onto 0x00516F21 (see the header comment).
 void Rva00516F21InvokeFold(Rva00222A8BTarget *target, void *owner, const char *name, const char *value);
 
+class PSPlayerAllStats;
+
 class GameSpyInfoInterface
 {
 public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7) V(8) V(9)
-	V(10) V(11) V(12) V(13) V(14) V(15) V(16) V(17) V(18) V(19)
-	V(20) V(21) V(22) V(23) V(24) V(25) V(26) V(27) V(28) V(29)
-	V(30)
-#undef V
-	virtual int getLocalProfileID() = 0;
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual int getLocalProfileID();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void setCachedStats(PSPlayerAllStats stats);
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void slot94();
+	virtual void slot95();
+	virtual void slot96();
+	virtual bool slot97();
 };
 extern GameSpyInfoInterface *TheGameSpyInfo;
 
-class PSPlayerAllStats
-{
+class PSPlayerAllStats {
 public:
-	void setID(int id);
-	unsigned char m_data[0x548];
+    PSPlayerAllStats(const PSPlayerAllStats &);
+    ~PSPlayerAllStats();
+    void rva00552E9E(int locale);
+    void setID(int id);
+    int id;
+private:
+    unsigned int unknown[0x544 / 4];
 };
 
 class BfmeOpaqueOwnedRecord1432
@@ -74,14 +171,15 @@ public:
 	unsigned char m_rest[0x598 - 0x550];
 };
 
-class GameSpyPSMessageQueueInterface
-{
+class BfmeOpaqueOwnedRecord1432;
+
+class GameSpyPSMessageQueueInterface {
 public:
-	virtual void pad0() = 0;
-	virtual void pad1() = 0;
-	virtual void pad2() = 0;
-	virtual void pad3() = 0;
-	virtual void addRequest(const BfmeOpaqueOwnedRecord1432 &request) = 0;
+    virtual void s00(); virtual void s04(); virtual void s08(); virtual void s0C();
+    virtual void addRequest(const BfmeOpaqueOwnedRecord1432 &request); virtual void s14(); virtual void s18(); virtual void s1C();
+    virtual void setCachedStats(PSPlayerAllStats stats);
+    virtual void s24(); virtual void s28(); virtual void s2C();
+    virtual PSPlayerAllStats findPlayerStatsByID(int id);
 };
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
 
@@ -108,10 +206,34 @@ public:
 	void rva00517EA2();
 };
 
+struct Rva00516F3F
+{
+	int m_0;
+	int m_4;
+	int m_8;
+	AsciiString m_C;
+	AsciiString m_10;
+	int m_14;
+	void rva00516F3F();
+	Rva00516F3F *rva00516F63(const Rva00516F3F &other);
+};
+
+struct Rva005170CDInner
+{
+	Rva00516F3F base;
+	int m_18;
+};
+
 class Rva005170CD
 {
 public:
+	void rva005170CD();
 	void rva005170F1();
+private:
+	char m_pad0[0x298];
+	Rva005170CDInner m_inner;
+	char m_pad1[4];
+	bool m_2B8;
 };
 
 class AptOnline

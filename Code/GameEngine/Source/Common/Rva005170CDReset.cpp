@@ -10,8 +10,14 @@ void __cdecl Rva00437E84(int type, const UnicodeString &text, const UnicodeStrin
 
 struct Rva00516F3F
 {
-	char m_data[0x18];
+	int m_0;
+	int m_4;
+	int m_8;
+	AsciiString m_C;
+	AsciiString m_10;
+	int m_14;
 	void rva00516F3F();
+	Rva00516F3F *rva00516F63(const Rva00516F3F &other);
 };
 
 struct Rva005170CDInner
@@ -47,35 +53,109 @@ void Rva005170CD::rva005170CD()
 // Evidence: strings GUI:GSDisconReason3 GUI:GSErrorTitle; callees 0x00516E92
 // 0x00437E84 0x36E70; externs TheGameSpyInfo TheGameText; caller 0x00518214;
 // prev 0x005170CD next 0x0051719B contiguous; __thiscall ret.
+class PSPlayerAllStats;
+
 class GameSpyInfoInterface
 {
 public:
-	virtual void d00(); virtual void d01(); virtual void d02(); virtual void d03();
-	virtual void d04(); virtual void d05(); virtual void d06(); virtual void d07();
-	virtual void d08(); virtual void d09(); virtual void d10(); virtual void d11();
-	virtual void d12(); virtual void d13(); virtual void d14(); virtual void d15();
-	virtual void d16(); virtual void d17(); virtual void d18(); virtual void d19();
-	virtual void d20(); virtual void d21(); virtual void d22(); virtual void d23();
-	virtual void d24(); virtual void d25(); virtual void d26(); virtual void d27();
-	virtual void d28(); virtual void d29(); virtual void d30(); virtual void d31();
-	virtual void d32(); virtual void d33(); virtual void d34(); virtual void d35();
-	virtual void d36(); virtual void d37(); virtual void d38(); virtual void d39();
-	virtual void d40(); virtual void d41(); virtual void d42(); virtual void d43();
-	virtual void d44(); virtual void d45(); virtual void d46(); virtual void d47();
-	virtual void d48(); virtual void d49(); virtual void d50(); virtual void d51();
-	virtual void d52(); virtual void d53(); virtual void d54(); virtual void d55();
-	virtual void d56(); virtual void d57(); virtual void d58(); virtual void d59();
-	virtual void d60(); virtual void d61(); virtual void d62(); virtual void d63();
-	virtual void d64(); virtual void d65(); virtual void d66(); virtual void d67();
-	virtual void d68(); virtual void d69(); virtual void d70(); virtual void d71();
-	virtual void d72(); virtual void d73(); virtual void d74(); virtual void d75();
-	virtual void d76(); virtual void d77(); virtual void d78(); virtual void d79();
-	virtual void d80(); virtual void d81(); virtual void d82(); virtual void d83();
-	virtual void d84(); virtual void d85(); virtual void d86(); virtual void d87();
-	virtual void d88(); virtual void d89(); virtual void d90(); virtual void d91();
-	virtual void d92(); virtual void d93(); virtual void d94(); virtual void d95();
-	virtual void d96();
-	virtual bool unk184();
+	virtual void slot00();
+	virtual void slot01();
+	virtual void slot02();
+	virtual void slot03();
+	virtual void slot04();
+	virtual void slot05();
+	virtual void slot06();
+	virtual void slot07();
+	virtual void slot08();
+	virtual void slot09();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual int getLocalProfileID();
+	virtual void slot32();
+	virtual void slot33();
+	virtual void slot34();
+	virtual void slot35();
+	virtual void slot36();
+	virtual void slot37();
+	virtual void setCachedStats(PSPlayerAllStats stats);
+	virtual void slot39();
+	virtual void slot40();
+	virtual void slot41();
+	virtual void slot42();
+	virtual void slot43();
+	virtual void slot44();
+	virtual void slot45();
+	virtual void slot46();
+	virtual void slot47();
+	virtual void slot48();
+	virtual void slot49();
+	virtual void slot50();
+	virtual void slot51();
+	virtual void slot52();
+	virtual void slot53();
+	virtual void slot54();
+	virtual void slot55();
+	virtual void slot56();
+	virtual void slot57();
+	virtual void slot58();
+	virtual void slot59();
+	virtual void slot60();
+	virtual void slot61();
+	virtual void slot62();
+	virtual void slot63();
+	virtual void slot64();
+	virtual void slot65();
+	virtual void slot66();
+	virtual void slot67();
+	virtual void slot68();
+	virtual void slot69();
+	virtual void slot70();
+	virtual void slot71();
+	virtual void slot72();
+	virtual void slot73();
+	virtual void slot74();
+	virtual void slot75();
+	virtual void slot76();
+	virtual void slot77();
+	virtual void slot78();
+	virtual void slot79();
+	virtual void slot80();
+	virtual void slot81();
+	virtual void slot82();
+	virtual void slot83();
+	virtual void slot84();
+	virtual void slot85();
+	virtual void slot86();
+	virtual void slot87();
+	virtual void slot88();
+	virtual void slot89();
+	virtual void slot90();
+	virtual void slot91();
+	virtual void slot92();
+	virtual void slot93();
+	virtual void slot94();
+	virtual void slot95();
+	virtual void slot96();
+	virtual bool slot97();
 };
 
 extern GameSpyInfoInterface *TheGameSpyInfo;
@@ -83,11 +163,22 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 class GameTextInterface
 {
 public:
-	virtual void e00(); virtual void e01(); virtual void e02(); virtual void e03();
-	virtual void e04(); virtual void e05(); virtual void e06(); virtual void e07();
-	virtual void e08(); virtual void e09(); virtual void e10(); virtual void e11();
-	virtual void e12(); virtual void e13(); virtual void e14();
-	virtual UnicodeString fetch(const char *key, int unk);
+	virtual ~GameTextInterface() {}
+	virtual void slot00() = 0;
+	virtual void slot04() = 0;
+	virtual void slot08() = 0;
+	virtual void slot0c() = 0;
+	virtual void slot10() = 0;
+	virtual void slot14() = 0;
+	virtual void slot18() = 0;
+	virtual void slot1c() = 0;
+	virtual void slot20() = 0;
+	virtual void slot24() = 0;
+	virtual void slot28() = 0;
+	virtual void slot2c() = 0;
+	virtual void slot30() = 0;
+	virtual UnicodeString fetch(const char *label, bool *exists = 0) = 0;
+	virtual UnicodeString fetch(const AsciiString &label, bool *exists = 0) = 0;
 };
 
 extern GameTextInterface *TheGameText;
@@ -101,7 +192,7 @@ void Rva005170CD::rva005170F1()
 	if (!m_pad0[0x27C])
 		return;
 	m_2B8 = false;
-	if (TheGameSpyInfo->unk184())
+	if (TheGameSpyInfo->slot97())
 		return;
 	Rva00516E92Enable();
 	Rva00437E84(0, TheGameText->fetch("GUI:GSErrorTitle", 0), TheGameText->fetch("GUI:GSDisconReason3", 0));
