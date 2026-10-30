@@ -15,6 +15,15 @@
 #include <stl/_alloc.h>
 #include <string.h>
 #pragma comment(linker, "/alternatename:??RRva006038D4Less@@QBE_NPBD0@Z=?Rva0006038D4CStrLess@@YG_NPBD0@Z")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
+                              const _Rb_tree_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
 
 class Rva0060426C;
 
@@ -155,8 +164,11 @@ protected:
 };
 
 class File;
+
 class AsciiString;
+
 struct BfmeStringNoCaseLess;
+
 namespace _STL {
 template <class T> class allocator;
 template <class K, class C, class A> class set;
@@ -210,11 +222,6 @@ public:
 	_STL::map<unsigned int, void *> m_map;
 	Rva0060426C(const Rva0060426C &other);
 };
-
-// The archive member tree uses the same 16-byte placement copy at 0x41360E.
-// Keep its definition outside the indexing TU, whose node creator calls it
-// out of line. The file/offset/size record is proven by addArchiveFile6046B0.
-class File;
 
 struct BigArchiveMemberInfo
 {
@@ -319,7 +326,88 @@ typedef _STL::_Rb_tree<const char*, Rva00603A2DPair, _STL::_Select1st<Rva00603A2
 
 template Rva00603A2DTree::_Link_type Rva00603A2DTree::_M_find<const char*>(const char* const &) const;
 
-// tu-skeleton: 0x00603944 188B ?init@Win32BIGFileSystem@@UAEX_N@Z -- matched in Code/GameEngine/Source/Common/Win32BIGFileSystem_init.cpp (not merged yet)
+extern char g_00DD509C[];
+
+struct BfmeCStringLess
+{
+	bool operator()(const char *a, const char *b) const;
+};
+
+typedef _STL::set<const char *, BfmeCStringLess> BigFileNameSet;
+
+typedef _STL::map<const char *, BigFileNameSet, BfmeCStringLess> BigDirectoryMap;
+
+class Win32BIGFileSystem
+{
+public:
+	Win32BIGFileSystem();
+	virtual ~Win32BIGFileSystem();
+	virtual void init(bool flag);
+	virtual void V2();
+	virtual void V3();
+	virtual void V4();
+	virtual bool helper(const char *s, int extra);
+	virtual void V6();
+	virtual void V7();
+	virtual bool rva006042B6(const char *path, const char *filter, int extra);
+	virtual void getFileListInDirectory(const AsciiString &currentDirectory, const AsciiString &originalDirectory,
+		const AsciiString &searchName, _STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > &filenameList, bool searchSubdirectories) const;	// slot 9
+
+private:
+	BigDirectoryMap m_directories;	// +0x04
+};
+
+// bfme link decl-only begin
+namespace _STL { template <> _Rb_tree_base<AsciiString,_STL::allocator<AsciiString> >::_Rb_tree_base(_STL::allocator<AsciiString> const &); }
+
+// bfme link decl-only end
+
+struct BfmeStringNoCaseLess
+{
+public:
+	bool operator()(const AsciiString &a, const AsciiString &b) const;
+};
+
+// Retail calls the rowed BfmeStringNoCaseLess tree destructor at 0x0002CC38
+// from this body's cleanup, establishing the set's comparator type. Its
+// no-case set and tree constructors compile byte-exact at 0x000D3A71 and
+// 0x002F0BF4 respectively; those target-supported aliases are pinned in
+// reverse/symbols.csv.
+
+bool operator<(const AsciiString &left, const AsciiString &right);
+
+extern const char g_Rva0107301CEmptyString[];
+
+// ---- from Code/GameEngine/Source/Common/Win32BIGFileSystem_init.cpp
+
+// ?init@Win32BIGFileSystem@@UAEX_N@Z @0x00603944 188B: vslot 1 of vtable 0x0087A94C (class of ??0Win32BIGFileSystem@@QAE@XZ). Loads lang big files. Evidence: vtable slot 1; strings "%s*.big" "lang\" "lang\%sAudio.big" "EnglishAudio.big" "*.big" "apt\"; global TheArchiveFileSystem; buffers g_00DD509C g_Rva0107301CEmptyString.
+
+void Win32BIGFileSystem::init(bool flag)
+{
+	char buf[0x104];
+
+	if (TheArchiveFileSystem == 0)
+		return;
+	if (!flag)
+		return;
+
+	int (__cdecl *sprintfImp)(char *, const char *, ...);
+	sprintfImp = sprintf;
+
+	sprintfImp(buf, "%s*.big", g_00DD509C);
+	rva006042B6("lang\\", buf, 1);
+
+	sprintfImp(buf, "lang\\%sAudio.big", g_00DD509C);
+	if (!TheArchiveFileSystem->doesFileExist(buf)) {
+		rva006042B6("lang\\", "EnglishAudio.big", 0);
+	}
+
+	const char *pat = "*.big";
+	rva006042B6("", pat, 0);
+	rva006042B6("apt\\", pat, 0);
+}
+
+// ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_erase_00603A00.cpp
 
@@ -348,7 +436,6 @@ void Rva00603C52TreeRelease::release() {
 // Both spellings consume two stack pointers and return the same bool; the
 // free provider ignores the comparator's extra ECX `this` value.
 
-// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 
@@ -622,6 +709,8 @@ Rva00603FD2::Rva00603FD2(unsigned const *a, TreeIntPtr00603FD2 const &b) : m_00(
 
 Rva00603FD2 Rva00604251(const unsigned&key,const TreeIntPtr00603FD2&value) {return Rva00603FD2(&key,value);}
 
+// tu-skeleton: 0x00603AE0 42B ??0?$_Rb_tree@HU?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@U?$_Select1st@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@2@@_STL@@QAE@ABU?$less@H@1@ABV?$allocator@U?$pair@$$CBHV?$vector@UBfmePod128@@V?$allocator@UBfmePod128@@@_STL@@@_STL@@@_STL@@@1@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/SidesListCtor.cpp (not merged yet)
+
 // tu-skeleton: 0x00603B9C 115B ?_M_copy@?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@AAEPAU?$_Rb_tree_node@U?$pair@$$CBIPAX@_STL@@@2@PAU32@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
 
 // tu-skeleton: 0x00603C0F 67B ?rva00603C0F@Rva00603C0F@@QAEPBXPBD0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_cstring_tree_lookup_00603C0F.cpp (not merged yet)
@@ -638,7 +727,26 @@ Rva00603FD2 Rva00604251(const unsigned&key,const TreeIntPtr00603FD2&value) {retu
 
 // tu-skeleton: 0x0060421C 53B ?rva0060421C@Rva0060421C@@QAEXPAURva0060421CNode@@@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp (not merged yet)
 
-// tu-skeleton: 0x006042B6 149B ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z -- matched in Code/GameEngine/Source/GameClient/Rva006042B6.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva006042B6.cpp
+
+// ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z
+// partial score=0.99 date=2026-10-04
+// ?rva006042B6@Win32BIGFileSystem@@UAE_NPBD0H@Z @0x006042B6 149B: vslot 8 of vtable 0x00C7A94C (class Win32BIGFileSystem). Enumerates files via ArchiveFileSystem slot 6 then ORs helper slot 5 per file. Evidence: vtable slot 8; callees rowed set ctor 0x000D3A71 increment 0x00024250 tree dtor 0x0002CC38; globals TheArchiveFileSystem g_Rva0107301CEmptyString.
+
+bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int extra)
+{
+	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > files;
+	TheArchiveFileSystem->getFiles(0, path, "", filter, files, 0);
+	bool result = false;
+	for (_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> >::iterator it = files.begin(); it != files.end(); ++it)
+	{
+		const AsciiString &asciiString = *it;
+		const char *t = *(const char **)&asciiString;
+		const char *s = t ? t + 8 : g_Rva0107301CEmptyString;
+		result |= helper(s, extra);
+	}
+	return result;
+}
 
 // tu-skeleton: 0x0060434B 41B ?rva0060434B@Rva0060421C@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp (not merged yet)
 
@@ -655,3 +763,23 @@ Rva00603FD2 Rva00604251(const unsigned&key,const TreeIntPtr00603FD2&value) {retu
 // tu-skeleton: 0x006045A2 270B ?rva006045A2@Win32BIGFileSystem@@QAE_NPBD0PAUBigArchiveMemberInfo@@_N@Z -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
 
 // tu-skeleton: 0x006046B0 314B ?addArchiveFile@Win32BIGFileSystem@@UAE_NPBD_N@Z -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B22 8B $L5374 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B2A 10B __ehhandler$??0?$_Rb_tree@IU?$pair@$$CBIPAX@_STL@@U?$_Select1st@U?$pair@$$CBIPAX@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIPAX@_STL@@@2@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_lower.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B34 8B Unwind@00ba6b34 -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B3C 8B Unwind@00ba6b3c -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B44 8B Unwind@00ba6b44 -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6B4C 10B __ehhandler$?getFileListInDirectory@Win32BIGFileSystem@@UBEXABVAsciiString@@00AAV?$set@VAsciiString@@UBfmeStringNoCaseLess@@V?$allocator@VAsciiString@@@_STL@@@_STL@@_N@Z -- matched in Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6BA4 8B $L6784 -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6BAC 8B $L6785 -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6BB4 8B $L6786 -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)
+
+// tu-skeleton: 0x007A6BBC 10B __ehhandler$?rva006045A2@Win32BIGFileSystem@@QAE_NPBD0PAUBigArchiveMemberInfo@@_N@Z -- matched in Code/GameEngine/Source/GameClient/Win32BIGFileSystemRva006046B0.cpp (not merged yet)

@@ -1032,7 +1032,6 @@ address_global	Code/GameEngine/Source/GameClient/Rva00411112Get.cpp	g_Va00E0300C
 address_global	Code/GameEngine/Source/GameClient/Rva00511F73.cpp	g_Va00E048C4	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C68440	3
 address_global	Code/GameEngine/Source/GameClient/Rva0052A295BannerSteps.cpp	g_Va00C6847C	3
-address_global	Code/GameEngine/Source/GameClient/Rva006042B6.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/GameEngine/Source/GameClient/Rva00BCF670CameraSettings.cpp	g_Va00E00944	6
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/ParticleSystemInfoCtor.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva003AFB2A.cpp	g_Va007C26F0	4
@@ -1349,6 +1348,7 @@ address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008D
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DE2044	5
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewRva0008DB18.cpp	g_Va00DE2078	4
 address_global	Code/GameEngineDevice/Source/W3DDevice/GameClient/WorldHeightMapParseWorldDict.cpp	g_Va00E00944	3
+address_global	Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp	g_Rva0107301CEmptyString	2
 address_global	Code/Libraries/Source/Apt/Apt.cpp	g_Va00E1770C	1
 address_global	Code/Libraries/Source/Apt/AptCharacter.cpp	g_Va00E18198	4
 address_global	Code/Libraries/Source/Apt/AptCharacter.cpp	g_Va00E1819C	4

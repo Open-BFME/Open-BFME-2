@@ -53123,7 +53123,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00603925,19,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00603925Next.cpp
 0x00603938,6,code,,,-,,Code/GameEngine/Source/Common/MiscStringGetters.cpp
 0x0060393E,6,code,,,-,,Code/GameEngine/Source/Common/GapBodiesSeat10O2B.cpp
-0x00603944,188,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,Z,Z=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp S=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp N=Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp,Code/GameEngine/Source/Common/Win32BIGFileSystem_init.cpp
+0x00603944,188,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,Z,Z=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp S=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp N=Code/GameEngine/Source/Common/Win32BIGFileSystem.cpp,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x00603A00,45,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603944..0x00603A2D,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x00603A2D,82,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603944..0x00603A7F,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x00603A7F,41,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603944..0x00603AA8,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
@@ -53149,7 +53149,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00604251,27,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603FF8..0x0060426C,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x0060426C,29,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603FF8..0x00604289,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x00604289,45,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x00603FF8..0x006042B6,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
-0x006042B6,149,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,S,S=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp N=Code/GameEngine/Source/GameClient/Win32BIGFileSystem.cpp,Code/GameEngine/Source/GameClient/Rva006042B6.cpp
+0x006042B6,149,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,S,S=Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp N=Code/GameEngine/Source/GameClient/Win32BIGFileSystem.cpp,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x0060434B,41,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x006042B6..0x00604374,Code/GameEngine/Source/Common/RvaTreeEraseValueDtorFamily.cpp
 0x00604374,34,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x006042B6..0x00604396,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x00604396,56,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,C,C=0x006042B6..0x006043CE,Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp
@@ -91074,8 +91074,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A6B4C,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x00603FF8@FuncInfo0x00960208,Code/GameEngine/Source/Common/System/Win32BIGFileSystemGetFileListInDirectory.cpp
 0x007A6B56,14,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x00604289@FuncInfo0x0096022C,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x007A6B64,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x00604289@FuncInfo0x0096022C,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
-0x007A6B6E,8,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x006042B6@FuncInfo0x00960250,Code/GameEngine/Source/GameClient/Rva006042B6.cpp
-0x007A6B76,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x006042B6@FuncInfo0x00960250,Code/GameEngine/Source/GameClient/Rva006042B6.cpp
+0x007A6B6E,8,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x006042B6@FuncInfo0x00960250,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
+0x007A6B76,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp,approved,P,P=0x006042B6@FuncInfo0x00960250,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x007A6B80,8,code,,,-,,Code/gen_small/uw_gen_010.cpp
 0x007A6B88,10,code,,,-,,Code/GameEngineDevice/Source/Win32Device/Common/Win32BIGFileSystem.cpp
 0x007A6B92,8,code,,,-,,Code/GameEngine/Source/Common/Rva00604465Dtor.cpp
