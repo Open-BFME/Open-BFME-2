@@ -7723,8 +7723,8 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?set@Rva00049F87ByteSlot@@QAEXE@Z,,0x00049F87,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva000633BDByteSlot@@QAEXE@Z,,0x000633BD,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva0006E2B5ByteSlot@@QAEXE@Z,,0x0006E2B5,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00078B2BByteSlot@@QAEXE@Z,,0x00078B2B,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
-?set@Rva00078ACEByteSlot@@QAEXE@Z,,0x00078ACE,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
+?set@Rva00078B2BByteSlot@@QAEXE@Z,,0x00078B2B,13,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,matched,Disp32 byte setter
+?set@Rva00078ACEByteSlot@@QAEXE@Z,,0x00078ACE,13,Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp,matched,Disp32 byte setter
 ?_bfme_updateClientDebugFrame@ScriptEngine@@QAEXXZ,,0x00204806,55,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_updateClientDebugFrame.cpp,matched,
 ?set@Rva00381E05ByteSlot@@QAEXE@Z,,0x00381E05,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter
 ?set@Rva00381E12ByteSlot@@QAEXE@Z,,0x00381E12,13,Code/GameEngine/Source/Common/DispByteFieldSetters.cpp,matched,Disp32 byte setter

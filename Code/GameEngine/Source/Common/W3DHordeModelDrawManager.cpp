@@ -40,6 +40,18 @@ typedef int Int;
 #include <stdlib.h>
 #pragma comment(linker, "/alternatename:?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva00079ED4Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00079ED4Record@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva00079ED4Record@@@2@@Z=?rva00079D14@Rva00079D14Tree@@QAE?AURva00079D14Iter@@U2@ABVRva00079D14Value@@@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0078B83_B2@@UAEXXZ=?rva000BFB76@Rva000BFB76Interface@@UAEXABVModelConditionFlags@@_NH@Z")
+#define BFME_DISP_BYTE_SETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		void set(unsigned char value); \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	void NAME::set(unsigned char value) \
+	{ \
+		m_value = value; \
+	}
 
 struct Rva00078F95Item;
 
@@ -525,6 +537,38 @@ private:
 	Rva000B49F9 *m_18;
 };
 
+BFME_DISP_BYTE_SETTER(Rva00078ACEByteSlot, 0x28E)
+
+BFME_DISP_BYTE_SETTER(Rva00078B2BByteSlot, 0x28D)
+
+// Address-owned initializer at 0x0047A2B6..0x0047A2E1 (RET0).
+// Clean donor: Open-BFME-1 34f59164, game/GameEngine/Source/Common/
+// Rva00221100TinyBodies.cpp, Rva0022F780Pair constructor, /O1 /arch:SSE /G7.
+// Target evidence establishes six float slots at 0/4/8/C/10/14, the
+// 0,0,1,0,0,1 stores, and ECX returned through EAX. No target class name
+// or constructor identity is established; retain the target address and
+// describe its proven initializer ABI. Destination is the repository's
+// nearest-neighbour home, immediately after its 0x0047A2A9 setter.
+class Rva0047A2B6Floats
+{
+public:
+    Rva0047A2B6Floats *initialize();
+private:
+    float first[3];
+    float second[3];
+};
+
+// Clean BF1 9cbfb551fe Common/Rva007AE610Array.cpp semantic donor, normal O1/SSE/G7.
+// Native 0010855F..0010856E has its own complete RET boundary and establishes
+// receiver68 indexed dword store, RET8. Original owner and full array bound remain
+// unresolved; this separate address-owned view models only observed accesses.
+class Rva0010855FArray {
+public: void setValue(unsigned int index, unsigned int value);
+private: unsigned char unknown[0x68]; unsigned int values[1];
+};
+
+// ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva0007894EGet.cpp
 
 bool W3DHordeModelDrawManager::rva0007894E(Rva0007894EOuter *p)
@@ -540,24 +584,6 @@ bool W3DHordeModelDrawManager::rva0007894E(Rva0007894EOuter *p)
 		return p->v49();
 	}
 }
-
-// tu-skeleton: 0x0007898B 21B ?Rva0007898BClear@@YGXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
-
-// tu-skeleton: 0x000789A0 67B ?rva000789A0Update@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
-
-// tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00078AC6 8B ?rva00078AC6@Rva00078AC6Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x00078ACE 13B ?set@Rva00078ACEByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00078ADB 8B ?rva00078ADB@Rva00078ADB@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
-
-// tu-skeleton: 0x00078AE3 72B ?rva00078AE3@Rva00078AE3@@QAEAAV1@PBV1@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
-
-// tu-skeleton: 0x00078B2B 13B ?set@Rva00078B2BByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp
 
@@ -950,8 +976,6 @@ void Rva00755C80(void)
 		g_Va001FDEB0 = TheW3DHordeModelDrawManager->rva0007A54B();
 }
 
-// tu-skeleton: 0x00078B7D 6B ?name@Rva00078B7DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00078B83Dtor.cpp
 
 // ?rva0007898BClear@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z present-unmatched
@@ -973,7 +997,6 @@ Rva0078B83::~Rva0078B83() throw()
 // holds a rowed function; the vftable's address is proven by the vptr stores in
 // the matched destructors, so bind the placeholder to that row's name.
 
-// tu-skeleton: 0x00078BBB 51B ?xfer@W3DHordeModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva00078C10Method.cpp
 
@@ -995,6 +1018,40 @@ bool Rva00078C10::rva00078C10(Rva00078C10 const *other, int *out2, int *out3)
 	}
 	return false;
 }
+
+// tu-skeleton: 0x0007898B 21B ?Rva0007898BClear@@YGXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
+
+// tu-skeleton: 0x000789A0 67B ?rva000789A0Update@W3DHordeModelDrawManager@@QAEXPAVRva000789A0Outer@@@Z -- matched in Code/GameEngine/Source/Common/Rva000789A0Update.cpp (not merged yet)
+
+// tu-skeleton: 0x000789E3 159B ??0W3DHordeModelDrawModuleData@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00078A82 68B ??0W3DHordeModelDraw@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DHordeModelDrawCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00078AC6 8B ?rva00078AC6@Rva00078AC6Forwarder@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSizedForwarders.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/DispByteFieldSetters.cpp
+
+// Disp32 byte setters: thirteen-byte __thiscall members with one shape:
+//
+//     mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4
+//
+// One byte is taken from the stack argument slot and stored at a fixed
+// displacement from `this`. Ported from Open-BFME-1
+// (Code/GameEngine/Source/Common/DispByteFieldSetters.cpp): the
+// BFME_DISP_BYTE_SETTER macro is verbatim (unsigned char set over a lead
+// array), only the class names follow this tree's Disp* convention
+// (address-derived Rva<addr>ByteSlot, identity unrecoverable from 13 bytes).
+// Every displacement here is a disp32 (MSVC 7.1 uses disp8 whenever the
+// offset fits, so every offset is at least 0x80).
+// No // cl: line (defaults match the frameless 13-byte shape).
+
+// tu-skeleton: 0x00078ADB 8B ?rva00078ADB@Rva00078ADB@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
+
+// tu-skeleton: 0x00078AE3 72B ?rva00078AE3@Rva00078AE3@@QAEAAV1@PBV1@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAP.cpp (not merged yet)
+
+// tu-skeleton: 0x00078B7D 6B ?name@Rva00078B7DNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/SubsystemNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00078BBB 51B ?xfer@W3DHordeModelDraw@@MAEXPAVXfer@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DModelDrawBfmeXfers.cpp (not merged yet)
 
 // tu-skeleton: 0x00078F95 380B ??RRva00078F95Cmp@@QBE_NPBURva00078F95Item@@0@Z -- matched in Code/GameEngine/Source/Common/Rva00078F95Cmp.cpp (not merged yet)
 
