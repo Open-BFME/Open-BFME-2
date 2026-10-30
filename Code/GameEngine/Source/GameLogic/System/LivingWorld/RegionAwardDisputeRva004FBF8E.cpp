@@ -42,33 +42,63 @@ extern LivingWorldManager *TheLivingWorldManager;
 #define BFME_SNAPSHOT_NAME_SLOT
 #include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A = allocator<T> > class vector
+{
+public:
+	vector(const vector &other);
+	~vector();
+	void push_back(const T &value);	// the folded push_back 0x004DFCB0
+	unsigned int size() const { return m_finish - m_start; }
+	const T &operator[](unsigned int i) const { return m_start[i]; }
+private:
+	T *m_start;
+	T *m_finish;
+	T *m_end;
+};
+}
+struct RegionAwardDisputeFlags
+{
+	RegionAwardDisputeFlags() {}
+	RegionAwardDisputeFlags(int bits) : m_bits(bits) {}
+	void set(int mask) { m_bits |= mask; }
+	int m_bits;
+};
+
 class RegionAwardDispute : public Snapshot
 {
 public:
 	virtual ~RegionAwardDispute();
+	RegionAwardDispute(int region, const _STL::vector<unsigned int> &players, int flags);
 	void rva004FBF8E();
-	int GetResolvableBy();	// 0x004FBED6
-	void rva004FBDB0(bool resolvable);	// 0x004FBDB0
+	int GetResolvableBy();			// 0x004FBED6
+	void rva004FC0ED(const _STL::vector<int> &players);
+	void rva004FBDB0(bool local);		// rowed 0x004FBDB0
 protected:
+	// Retail vftable 0x00BFE280 slots 1..3: 0x004FBFFD, 0x002B6476, 0x004FBDF7.
 	virtual void loadPostProcess();
 	virtual const char *GetSnapshotName() const;
 	virtual void xfer(Xfer *xfer);
-public:
-	int m_region04;	// +0x04
-	char m_pad08[0x18 - 0x08];
-	int m_beaconId18;	// +0x18
+private:
+	int m_region;				// +0x04
+	_STL::vector<unsigned int> m_players;	// +0x08
+	RegionAwardDisputeFlags m_flags;	// +0x14
+	int m_winner;				// +0x18
+	bool m_resolved;			// +0x1C
 };
 
 void RegionAwardDispute::rva004FBF8E()
 {
 	Coord2D pos;
 	Rva0020F27EHost *host = TheLivingWorldLogic->m_hostB0;
-	if (host->rva0020F27E(m_region04, (int)&pos)) {
+	if (host->rva0020F27E(m_region, (int)&pos)) {
 		RegionAwardDisputeBeaconCounter *next =
 			reinterpret_cast<RegionAwardDisputeBeaconCounter *>(TheLivingWorldLogic->m_hostB0);
 		++next->m_nextBeaconId2C;
 		int id = next->m_nextBeaconId2C;
-		m_beaconId18 = id;
+		m_winner = id;
 		TheLivingWorldManager->CreateBeaconObject(id, &pos, 1);
 		int resolvableBy = GetResolvableBy();
 		rva004FBDB0(reinterpret_cast<Rva002B2B66 *>(TheLivingWorldLogic)->rva002B2B66() == resolvableBy);
