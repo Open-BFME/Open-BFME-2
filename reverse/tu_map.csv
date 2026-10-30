@@ -54790,11 +54790,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00654796,6,code,,,-,,Code/gen_small/imports_001.cpp
 0x0065479C,6,code,,,-,,Code/Libraries/Source/Win32/Avifil32ImportThunks.cpp
 0x006547A2,6,code,,,-,,Code/gen_small/imports_000.cpp
-0x006547B0,15,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/ComUtil.cpp
-0x006547C0,111,code,Code/Libraries/Source/COM/_com_util.cpp,approved,U,N=Code/Libraries/Source/COM/_variant_t.cpp provisional,Code/Libraries/Source/COM/ComUtil.cpp
-0x00654830,18,code,Code/Libraries/Source/COM/_com_util.cpp,approved,U,N=Code/Libraries/Source/COM/_variant_t.cpp provisional,Code/Libraries/Source/COM/ComUtil.cpp
-0x00654850,352,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/ComUtil.cpp
-0x006549B0,343,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/ComUtil.cpp
+0x006547B0,15,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/_com_util.cpp
+0x006547C0,111,code,Code/Libraries/Source/COM/_com_util.cpp,approved,U,N=Code/Libraries/Source/COM/_variant_t.cpp provisional,Code/Libraries/Source/COM/_com_util.cpp
+0x00654830,18,code,Code/Libraries/Source/COM/_com_util.cpp,approved,U,N=Code/Libraries/Source/COM/_variant_t.cpp provisional,Code/Libraries/Source/COM/_com_util.cpp
+0x00654850,352,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/_com_util.cpp
+0x006549B0,343,code,Code/Libraries/Source/COM/_com_util.cpp,approved,N,N=Code/Libraries/Source/COM/_com_util.cpp provisional,Code/Libraries/Source/COM/_com_util.cpp
 0x00654A6C,13,code-unledgered,,,-,,
 0x00654A82,133,code-unledgered,,,-,,
 0x00654B10,12,code,,,-,,Code/Libraries/Source/COM/ComSupp.cpp
@@ -91352,7 +91352,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A7941,10,code,Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,approved,P,P=0x00628980@FuncInfo0x0096125C provisional,Code/GameEngine/Source/Common/BfmeResultSourceA.cpp
 0x007A7950,14,code,,,-,,Code/GameEngine/Source/Common/Rva009F66F0.cpp
 0x007A795E,10,code,,,-,,Code/GameEngine/Source/Common/Rva009F66F0.cpp
-0x007A7970,10,code,Code/Libraries/Source/COM/_com_util.cpp,approved,P,P=0x006549B0@FuncInfo0x009612D0 provisional,Code/Libraries/Source/COM/ComUtil.cpp
+0x007A7970,10,code,Code/Libraries/Source/COM/_com_util.cpp,approved,P,P=0x006549B0@FuncInfo0x009612D0 provisional,Code/Libraries/Source/COM/_com_util.cpp
 0x007A7980,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp
 0x007A7988,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp
 0x007A7990,8,code,,,-,,Code/GameEngine/Source/GameClient/Rva006883F0Finish.cpp
