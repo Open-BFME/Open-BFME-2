@@ -2276,67 +2276,81 @@ MERGE_DECISIONS = {
 }
 
 
-def decision_alive(kind, tu, f):
-    """Whether the map from the current inputs (tu_skeleton.map_rows: the committed tu_map.csv
-    when fresh, else the in-memory rebuild) still supports a bulk-merge decision measured at an
-    older commit: a split still has rows of F approved for TU and others that are not; a
-    compile-error or link-regression donor is still a donor of TU (for the TU itself: the TU
-    still has a donor to absorb). The decisions are a snapshot; the map moves with every
-    ledger edit, so a stale one would send a seat to claim work --split or --merge refuses."""
+def decision_targets(kind, tu, f):
+    """The TUs a bulk-merge decision measured at an older commit is still served for, by the map
+    from the current inputs (tu_skeleton.map_rows: the committed tu_map.csv when fresh, else the
+    in-memory rebuild); [] when the map no longer supports it. The decisions are a snapshot; the
+    map moves with every ledger edit, so a stale one would send a seat to claim work --split or
+    --merge refuses.
+
+    A split must pass --split's own precondition (tu_skeleton.split_rows: rows of F approved for
+    TU and others that are not). A split of the TU file itself (merge_all's "TU path exists")
+    carves its foreign rows out to the TUs the map approves them for: one target per such TU
+    that passes the same precondition. A compile-error or link-regression donor must still be a
+    donor of TU (for the TU itself: the TU must still have a donor to absorb)."""
     tools_on_path()
     import tu_skeleton
-    if kind == "split" and f.lower() != tu.lower():
-        return tu_skeleton.split_rows(f, tu)[0] is None
+    if kind == "split":
+        if f.lower() != tu.lower():
+            return [tu] if tu_skeleton.split_rows(f, tu)[0] is None else []
+        return [t for t in sorted(tu_skeleton.breakdown(f))
+                if t and t.lower() != tu.lower() and tu_skeleton.split_rows(f, t)[0] is None]
     don, mixed, _ = tu_skeleton.donors(tu, tu_skeleton.skeleton(tu))
-    if kind == "split":                                   # the TU path itself holds other TUs' rows
-        return tu in mixed
     if f == tu:
-        return len(don) > 1 and tu not in mixed
-    return f in don
+        return [tu] if len(don) > 1 and tu not in mixed else []
+    return [tu] if f in don else []
 
 
-def merge_decision_items(path=None, alive=None):
+def merge_decision_items(path=None, targets=None):
     """(items, note): the bulk merge's decisions a seat must make (tools/merge_all.py writes them
     to the shared picker cache): split, compile-error and link-regression items whose file still
-    exists and that the current map still supports (ALIVE, default decision_alive), one
-    consolidate item each, weighted by the files merging it would remove. Claims the TU and the
+    exists, one consolidate item per TU the current map still serves it for (TARGETS, default
+    decision_targets), weighted by the files merging it would remove. Claims the TU and the
     file."""
     tools_on_path()
     import merge_all
-    alive = alive or decision_alive
+    targets = targets or decision_targets
     path = Path(path) if path else merge_all.shared_decisions_path()
     try:
         doc = json.loads(path.read_text(encoding="utf-8"))
     except (OSError, ValueError):
         return [], "no bulk-merge decision queue yet (python3 tools/tu_skeleton.py --merge-all --dry-run)"
-    out, seen, dead = [], set(), 0
+    out, seen, served, dead, moved = [], set(), set(), 0, 0
     for d in doc.get("items", ()):
-        kind, tu, f = d.get("kind"), d.get("tu", ""), d.get("file", "")
-        if kind not in MERGE_DECISIONS or (kind, tu, f) in seen or not (ROOT / f).exists():
+        kind, measured, f = d.get("kind"), d.get("tu", ""), d.get("file", "")
+        if kind not in MERGE_DECISIONS or (kind, measured, f) in seen or not (ROOT / f).exists():
             continue
-        seen.add((kind, tu, f))
-        if not alive(kind, tu, f):
+        seen.add((kind, measured, f))
+        live = targets(kind, measured, f)
+        if not live:
             dead += 1
-            continue
-        what, start, done = (t.format(tu=tu, file=f, diagnostic=d.get("diagnostic", "")[:160],
-                                      symbols=", ".join(d.get("symbols", [])[:4]) or "see the evidence")
-                             for t in MERGE_DECISIONS[kind])
-        if d.get("start") and kind == "split":
-            start = d["start"] + ", then without --dry-run"
-        out.append({
-            "tier": "consolidate", "check": f"merge-{kind}", "function": f, "source": f, "target_rva": "",
-            "size": 0, "count": int(d.get("frees") or 0), "tu": tu,
-            "credit_note": f"frees {d.get('frees', 0)} file(s) ({d.get('rows', 0)} rows) once the merge takes it",
-            "why": f"{what}; {d.get('reason', '')}"[:600],
-            "evidence": {k: d[k] for k in ("diagnostic", "symbols", "split", "evidence") if d.get(k)},
-            "start": start,
-            "claim": [f"file:{x}" for x in sorted({tu, f})],
-            "pass_test": done,
-        })
+        elif live != [measured]:
+            moved += 1
+        for tu in live:
+            if (kind, tu, f) in served:
+                continue
+            served.add((kind, tu, f))
+            what, start, done = (t.format(tu=tu, file=f, diagnostic=d.get("diagnostic", "")[:160],
+                                          symbols=", ".join(d.get("symbols", [])[:4]) or "see the evidence")
+                                 for t in MERGE_DECISIONS[kind])
+            if d.get("start") and kind == "split" and tu == measured:
+                start = d["start"] + ", then without --dry-run"
+            out.append({
+                "tier": "consolidate", "check": f"merge-{kind}", "function": f, "source": f, "target_rva": "",
+                "size": 0, "count": int(d.get("frees") or 0), "tu": tu,
+                "credit_note": f"frees {d.get('frees', 0)} file(s) ({d.get('rows', 0)} rows) once the merge takes it",
+                "why": (f"{what}; {d.get('reason', '')}" + (f" (measured for {measured}; the current map approves "
+                                                         f"these rows for {tu})" if tu != measured else ""))[:600],
+                "evidence": {k: d[k] for k in ("diagnostic", "symbols", "split", "evidence") if d.get(k)},
+                "start": start,
+                "claim": [f"file:{x}" for x in sorted({tu, f})],
+                "pass_test": done,
+            })
     out.sort(key=lambda i: (-i["count"], i["check"], i["source"]))
     return out, (f"{len(out)} bulk-merge decision(s) (split, compile-error, link-regression) measured at "
                  f"{str(doc.get('measured_at', '?'))[:10]}"
-                 + (f"; {dead} the current TU map no longer supports not served" if dead else ""))
+                 + (f"; {dead} the current TU map no longer supports not served" if dead else "")
+                 + (f"; {moved} TU-file split(s) retargeted to the TUs its rows are approved for" if moved else ""))
 
 
 TU_BLOCKS = {

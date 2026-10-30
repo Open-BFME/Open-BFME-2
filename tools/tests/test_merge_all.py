@@ -316,7 +316,7 @@ def test_decisions_are_ranked_by_files_freed_and_served_to_the_picker(tmp_path, 
     for f in ("Code/T.cpp", "Code/A.cpp", "Code/U.cpp", "Code/M.cpp", "Code/B.cpp"):
         (tmp_path / f).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / f).write_text("//\n")
-    served, note = repair_queue.merge_decision_items(shared, alive=lambda kind, tu, f: True)
+    served, note = repair_queue.merge_decision_items(shared, targets=lambda kind, tu, f: [tu])
     assert [(i["check"], i["source"], i["count"]) for i in served] == [
         ("merge-link-regression", "Code/U.cpp", 5), ("merge-compile-error", "Code/A.cpp", 1),
         ("merge-split", "Code/M.cpp", 1)]                              # no class item; Gone.cpp is gone
@@ -362,6 +362,43 @@ def test_decisions_the_current_map_no_longer_supports_are_not_served(tmp_path, m
     served, note = repair_queue.merge_decision_items(path)
     assert served == [] and "2 the current TU map no longer supports not served" in note
     assert tu_skeleton.split_rows("Code/M.cpp", "Code/T.cpp")[0] == "no row of that file is approved for that TU"
+
+
+def test_a_split_of_the_tu_file_itself_is_served_for_the_tus_its_rows_are_approved_for(tmp_path, monkeypatch):
+    """merge_all's "TU path exists" split names the TU file as both file and TU. `--split T --for T`
+    is refused (none of the work is T's own), so the picker serves the split for each TU the
+    current map approves the file's foreign rows for, and drops it when no such split passes
+    --split's precondition."""
+    import repair_queue
+    import tu_skeleton
+
+    def at(rva, tu):
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+
+    ledger = [{"name": n, "target_rva": r, "source": "Code/T.cpp", "status": "matched", "notes": ""}
+              for n, r in (("?t1@@YAXXZ", "0x40"), ("?t2@@YAXXZ", "0x41"))]
+    tree = SimpleNamespace(refusals=lambda f, rows: [])
+
+    def use(rows):
+        monkeypatch.setattr(tu_skeleton, "_CACHE", {"ledger": ledger, "map": rows, "stale": ["x"], "tree": tree})
+
+    M.write_decisions([M.item("split", "Code/T.cpp", "Code/T.cpp", 3, 2, "TU path exists",
+                              start="python3 tools/tu_skeleton.py --split Code/T.cpp")],
+                      "old", tmp_path / "state", tmp_path / "shared/decisions.json")
+    monkeypatch.setattr(repair_queue, "ROOT", tmp_path)
+    (tmp_path / "Code").mkdir()
+    (tmp_path / "Code/T.cpp").write_text("//\n")
+    path = tmp_path / "shared/decisions.json"
+    use([at("0x40", "Code/T.cpp"), at("0x41", "Code/U.cpp")])         # T.cpp keeps one row, U.cpp's goes
+    served, note = repair_queue.merge_decision_items(path)
+    assert [(i["check"], i["source"], i["tu"], i["claim"]) for i in served] == [
+        ("merge-split", "Code/T.cpp", "Code/U.cpp", ["file:Code/T.cpp", "file:Code/U.cpp"])]
+    assert "--split Code/T.cpp --for Code/U.cpp --dry-run" in served[0]["start"]
+    assert tu_skeleton.split_rows("Code/T.cpp", "Code/U.cpp")[0] is None
+    assert "1 TU-file split(s) retargeted" in note
+    use([at("0x40", "Code/U.cpp"), at("0x41", "Code/U.cpp")])         # every row is U.cpp's: a merge, no split
+    served, note = repair_queue.merge_decision_items(path)
+    assert served == [] and "1 the current TU map no longer supports not served" in note
 
 
 def test_static_dry_run_reports_without_compiling(tree, tmp_path, monkeypatch):
