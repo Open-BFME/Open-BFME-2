@@ -12778,10 +12778,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Skirm
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getStartingCash@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getSuperweaponRestricted@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	getUserName@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	setSlotList@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	setStartingCash@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	setSuperweaponRestricted@SkirmishPreferences@@	1
-present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp	usesSystemMapDir@SkirmishPreferences@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/WOLBuddyOverlay.cpp	0BuddyControls@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowFields.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/GUI/GameWindowManagerScript.cpp	0WindowLayoutInfo@@	1

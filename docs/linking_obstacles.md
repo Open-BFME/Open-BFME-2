@@ -4063,7 +4063,20 @@ were removed. Existing duplicate audio-start/EH ownership also remains open.
 
 ### LINK-005: units blocked by several incompatible dependencies
 
-**Status: Open. Updated: 2026-10-28.**
+**Status: Open. Updated: 2026-10-30.**
+
+**Skirmish preference donor cleanup (2026-10-30, inspected `c647a75e55`):**
+[The scoped evidence](../reverse/attempt_support/skirmish-preferences-donor-cleanup-20261030-codexb.md)
+records removal of four unused, unrowed Zero Hour preference methods from
+`SkirmishGameOptionsMenu.cpp`, four `present-unmatched` exemptions and its
+obsolete `stricmp` header-queue finding. All five function/EH rows and two data
+rows remain exact; all 830 retained COMDAT digests and sizes are unchanged.
+Ordinary previews against `12b9e7a7c0` reduce U49/L2/S1 to U46/L2/S1 and
+retain zero linked bytes. The batch audit is INCONCLUSIVE: its index predates
+the outgoing base and `Common/0CreateAHeroManager21FE49.cpp` lacks a current
+receipt. Shared GUI/preference and GameInfo interfaces, GameSlot vftable
+composition and Money copy selection remain prerequisites. Consumer and census
+confirmation are pending; this clears only the five stated debt findings.
 
 
 **Authentication string cleanup (2026-10-28, inspected `b48e23b5d2`):**

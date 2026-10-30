@@ -2,9 +2,6 @@
 // stlport
 // Ported verbatim from the Generals Zero Hour reference
 // (GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp); this unit had no counterpart under Code/.
-// Retail imports only _strcmpi (stub 0x00629A2A calls msvcr71's); BFME2's
-// stricmp spelling resolves there, not to the _stricmp alias.
-#define stricmp _strcmpi
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -238,12 +235,6 @@ AsciiString SkirmishPreferences::getSlotList(void)
 	return getAsciiString("SlotList", AsciiString::TheEmptyString);
 }
 
-// ?setSlotList@SkirmishPreferences@@ present-unmatched
-void SkirmishPreferences::setSlotList(void)
-{
-	setAsciiString("SlotList", GameInfoToAsciiString(TheSkirmishGameInfo));
-}
-
 // ?getUserName@SkirmishPreferences@@ present-unmatched
 UnicodeString SkirmishPreferences::getUserName(void)
 {
@@ -311,20 +302,6 @@ Int SkirmishPreferences::getPreferredFaction(void)
 	return ret;
 }
 
-// ?usesSystemMapDir@SkirmishPreferences@@ present-unmatched
-Bool SkirmishPreferences::usesSystemMapDir(void)
-{
-	OptionPreferences::const_iterator it = find("UseSystemMapDir");
-	if (it == end())
-		return TRUE;
-
-	if (stricmp(it->second.str(), "yes") == 0) {
-		return TRUE;
-	}
-	return FALSE;
-}
-
-
 static const char superweaponRestrictionKey[] = "SuperweaponRestrict";
 
 // ?getSuperweaponRestricted@SkirmishPreferences@@ present-unmatched
@@ -337,12 +314,6 @@ Bool SkirmishPreferences::getSuperweaponRestricted(void) const
   }
   
   return ( ((const StringBase<char> &)(it->second)).compareNoCase( "yes" ) == 0 );
-}
-
-// ?setSuperweaponRestricted@SkirmishPreferences@@ present-unmatched
-void SkirmishPreferences::setSuperweaponRestricted( Bool superweaponRestricted )
-{
-  (*this)[superweaponRestrictionKey] = superweaponRestricted ? "Yes" : "No";
 }
 
 static const char startingCashKey[] = "StartingCash";
@@ -360,18 +331,6 @@ Money SkirmishPreferences::getStartingCash(void) const
   
   return money;
 }
-
-// ?setStartingCash@SkirmishPreferences@@ present-unmatched
-void SkirmishPreferences::setStartingCash( const Money & startingCash )
-{
-  AsciiString option;
-  
-  option.format( "%d", startingCash.countMoney() );
-  
-  (*this)[startingCashKey] = option;
-}
-
-
 
 // SkirmishPreferences::write: defined in SkirmishPreferences.cpp (its row's unit).
 
