@@ -20365,8 +20365,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03D78,4,.data,global,?$S1@?1??getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdate.cpp,owned,,1,4
 0x00A03D7C,4,.data,global,_s_rva007B1E22,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03D80,4,.data,global,?Rva00A03D80@@3HA,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdateXfer.cpp,owned,,1,2
-0x00A03D84,4,.data,global,?TheAIGateUpdatePoolKey@?1??getModuleNameKey@AIGateUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdatePoolKey.cpp,owned,,1,2
-0x00A03D88,4,.data,global,?$S1@?1??getModuleNameKey@AIGateUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdatePoolKey.cpp,owned,,1,4
+0x00A03D84,4,.data,global,?TheAIGateUpdatePoolKey@?1??getModuleNameKey@AIGateUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp,owned,,1,2
+0x00A03D88,4,.data,global,?$S1@?1??getModuleNameKey@AIGateUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/AIGateUpdate.cpp,owned,,1,4
 0x00A03D8C,4,.data,global,?TheEmotionTrackerUpdatePoolKey@?1??getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp,owned,,1,2
 0x00A03D90,4,.data,global,?$S1@?1??getModuleNameKey@EmotionTrackerUpdate@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Update/EmotionTrackerUpdate.cpp,owned,,1,4
 0x00A03D94,4,.data,global,_s_rva007B1E4C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
