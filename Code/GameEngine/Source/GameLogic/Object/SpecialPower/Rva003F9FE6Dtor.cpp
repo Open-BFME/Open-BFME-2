@@ -7,21 +7,19 @@
 // 2/1/0/-1, no vptr store, no base call. Evidence: same TU layout (vptr +0,
 // m_04 +4, m_08 +8/12B, m_14 +0x14, m_18 +0x18), caller thunk at 0x00402F23,
 // novtable suppresses vptr store while copy ctor TU keeps it.
+#include <vector>
 #include "ascii_string.h"
 
 
 namespace _STL
 {
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A>
-class vector
+// Bind vector<AsciiString>'s copy ctor and dtor to their rowed workers
+// (0x0002CC70 dtor). Declarations only: the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<AsciiString, allocator<AsciiString> >
 {
 public:
-	vector(const vector<T, A> &other);
+	vector(const vector &other);
 	~vector();
 private:
 	char m_pad[12];
