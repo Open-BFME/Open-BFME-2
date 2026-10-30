@@ -5620,6 +5620,11 @@ bindings remain open; no clearance or census gain is claimed.
   Preserve the no-stubs/no-`/FORCE` runtime exit requirements.
 
 - **Filter-root current-input audit (2026-10-26, inspected `896af21680`, index `d1f046749a`):** `build/link-report.md` and `build/link-worker-20261026/` confirms `W3DShaderManagerScreenBWFilterInit.cpp` remains unresolved on `screenBWFilter` and `screenBWFilterDOT3`; native DIR32 operands select VA `0x00DB5B54` and `0x00DB5B5C`. `Rva000FDCD7Get.cpp` still selects VA `0x00DB5BD4` for `W3DFilters[9]`. The old 144-byte inferred interval beginning at `0x009B5B88` is not storage proof for that filter: the current data register owns only the four-byte swap counter at its start. No artificial storage or alias is introduced. Next check: independently bound and recover complete filter objects and their initialized vtables before registering their ownership. Clearance and census confirmation remain pending.
+  Rechecked 2026-10-30 at `5e645d88d7` against index `12b9e7a7c0`
+  (10:11 UTC): ordinary current-object preview still reports 0/101 authored
+  bytes and exactly the two missing globals above. The declaration scan passes;
+  no source or storage change was attempted. The complete-object/vtable
+  prerequisite remains open; this is an unchanged blocker, not a new regression.
 
 **Assigned table-data audit (2026-10-26, inspected `2a45addda1806342ac5c52757f63be902dcd428e`):** `Rva002D22CAInit.cpp` remains blocked by its seven existing address-named table declarations. The matched row's DIR32 references agree with `reverse/data_ledger.csv` at RVAs 0x009BC890, 0x009BC998, 0x009BC9C0, 0x009BCAC8, 0x009BCBAC, 0x009BCBC4 and 0x009BCBDC, but every ledger entry is unowned. `build/link-worker-w6/row-reference-witnesses.log` records the individual native references. No alternative existing global definer was found and no data definition or hatch was added. Next check: recover and admit those table owners through the data lane. Clearance and census confirmation remain pending.
 
@@ -13735,3 +13740,13 @@ passes and strict current preparation/ordinary preview retain 269 bytes.
 Queue refresh, data ownership and path consumers are checked in the evidence.
 The broader census/consumer limitation above remains; no census gain is
 claimed. Constructor, update and module-data destructor prerequisites remain.
+**FXShaderRenderer consolidation (2026-10-30, prerequisite `214b97f299`):**
+The [consolidation audit](../reverse/attempt_support/fxshader-consolidation-20261030-codexb5.md)
+records replacement of the erase donor's private vector declarations with
+STLport 4.5.3, followed by its merge into the approved FXShaderRenderer TU.
+All eight rows remain exact, the merged object's 26 COMDATs and external
+bindings equal the union of the original objects, and ordinary preview stays
+LINKS for the combined 976 authored bytes against index `12b9e7a7c0`.
+One source file is removed; no census or runtime gain is claimed. Remaining
+whole donors need RefCountClass/MeshClass view reconciliation or compatible
+STL template context; mixed and vendored donors remain separate.

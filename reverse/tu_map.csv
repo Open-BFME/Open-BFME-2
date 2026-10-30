@@ -10826,7 +10826,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00173EAF,11,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x00173EBA provisional,Code/Libraries/Source/WWVegas/WWLib/StlVectorClearRva00173EAF.cpp
 0x00173EBA,63,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x00173EF9 provisional,Code/Libraries/Source/WWVegas/WWLib/FamilyVectorDtors_new.cpp
 0x00173EF9,189,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x00173FB6 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_overflow.cpp
-0x00173FB6,51,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x00173FE9 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmeassignrecord32_erase.cpp
+0x00173FB6,51,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x00173FE9 provisional,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp
 0x00173FE9,180,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x0017409D provisional,Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp
 0x0017409D,74,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x001740E7 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp
 0x001740E7,100,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp,approved,C,C=0x00173C04..0x0017414B provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp

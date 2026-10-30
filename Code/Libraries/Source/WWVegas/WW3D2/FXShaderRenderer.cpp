@@ -56,8 +56,6 @@ void Rva00168952Clear(Rva001688FFElement **items,int count);
 class Rva00149A90Obj { public: bool rva00149A90(Rva00149A90Obj *); };
 class Rva0014A710 { public: void prepare(); };
 struct Rva001741EBElement { int a[12]; };
-// Range erase uses the stock const-reference copy dispatch, before the
-// allocation shim can select its by-value dispatch variant.
 #include "../../../../../vendor/stlport/stl/_algobase.h"
 #include <vector>
 #include "../../Code/Libraries/Source/WWVegas/WWLib/StlRecordRva0017341B.h"
@@ -132,6 +130,24 @@ private:
  void fill(Rva0017480CRecord*,unsigned,const Rva0017480CRecord&);
 };
 
+struct BfmeAssignRecord32 {
+    BfmeAssignRecord32();
+    BfmeAssignRecord32(const BfmeAssignRecord32 &);
+    ~BfmeAssignRecord32();
+    BfmeAssignRecord32 &operator=(const BfmeAssignRecord32 &);
+    char bytes[32];
+};
+
+// These helpers already have matched providers; keep their calls out of line.
+namespace _STL {
+template <> BfmeAssignRecord32 *__copy(BfmeAssignRecord32 *, BfmeAssignRecord32 *, BfmeAssignRecord32 *, const random_access_iterator_tag &, int *);
+template <> void _Destroy(BfmeAssignRecord32 *, BfmeAssignRecord32 *);
+}
+
+// Emit the header's inline COMDAT for the ledger owner at 0x00173FB6.
+template _STL::vector<BfmeAssignRecord32, _STL::allocator<BfmeAssignRecord32> >::iterator
+_STL::vector<BfmeAssignRecord32, _STL::allocator<BfmeAssignRecord32> >::erase(BfmeAssignRecord32 *, BfmeAssignRecord32 *);
+
 // tu-skeleton: 0x00173C04 500B ?rva00173C04@FXShaderRenderer@@QAEXPAVRva0017368AMesh@@PAX@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/FXShaderRendererSkin.cpp (not merged yet)
 
 // tu-skeleton: 0x00173DF8 38B ?erase@?$vector@URva0017341BWords@@V?$allocator@URva0017341BWords@@@_STL@@@_STL@@QAEPAURva0017341BWords@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlRangeEraseRva00173DF8.cpp (not merged yet)
@@ -148,7 +164,9 @@ private:
 
 // tu-skeleton: 0x00173EF9 189B ?_M_insert_overflow@?$vector@URva001741EBElement@@V?$allocator@URva001741EBElement@@@_STL@@@_STL@@IAEXPAURva001741EBElement@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva001741eb_overflow.cpp (not merged yet)
 
-// tu-skeleton: 0x00173FB6 51B ?erase@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord32@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmeassignrecord32_erase.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_vector_bfmeassignrecord32_erase.cpp
+
+// STLport 4.5.3 range erase for the 32-byte render assignment record.
 
 // tu-skeleton: 0x00173FE9 180B ?_M_insert_overflow@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@IAEXPAUBfmeAssignRecord32@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
@@ -169,6 +187,11 @@ private:
 // tu-skeleton: 0x00174350 45B ?rva00174350@Rva00DF6F94GapFillerContext@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00174753GapFillerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0017437D 14B ?rva0017437D@Rva00DF6F94GapFillerContext@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00174753GapFillerDtor.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp
+
+// Range erase uses the stock const-reference copy dispatch, before the
+// allocation shim can select its by-value dispatch variant.
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer_PerformRendering.cpp
 
@@ -228,12 +251,6 @@ void FXShaderRenderer::PerformRendering(int begin_,int end_) {
  }
 }
 
-// tu-skeleton: 0x001746BE 5B ?insert@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@QAEXPAUBfmeAssignRecord32@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0017422D.cpp (not merged yet)
-
-// tu-skeleton: 0x001746C3 144B ??$__introsort_loop@PAUBfmeAssignRecord32@@U1@HP6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@00HP6A_NABU1@1@Z@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp (not merged yet)
-
-// tu-skeleton: 0x00174753 185B ??1Rva00DF6F94GapFillerContext@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00174753GapFillerDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0017480CVectorRva0017480C.cpp
 
 void Rva0017480CVector::resize(unsigned count,Rva0017480CRecord value) {
@@ -249,6 +266,12 @@ void Rva0017480CVector::resize(unsigned count,Rva0017480CRecord value) {
 //   0x0017422D reads ?_M_fill_insert@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@QAEXPAUBfmeAssignRecord32@@IABU3@@Z
 
 //   0x00173FB6 reads ?erase@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@QAEPAUBfmeAssignRecord32@@PAU3@0@Z
+
+// tu-skeleton: 0x001746BE 5B ?insert@?$vector@UBfmeAssignRecord32@@V?$allocator@UBfmeAssignRecord32@@@_STL@@@_STL@@QAEXPAUBfmeAssignRecord32@@IABU3@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva0017422D.cpp (not merged yet)
+
+// tu-skeleton: 0x001746C3 144B ??$__introsort_loop@PAUBfmeAssignRecord32@@U1@HP6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@00HP6A_NABU1@1@Z@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp (not merged yet)
+
+// tu-skeleton: 0x00174753 185B ??1Rva00DF6F94GapFillerContext@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva00174753GapFillerDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00174870 67B ??$sort@PAUBfmeAssignRecord32@@P6A_NABU1@0@Z@_STL@@YAXPAUBfmeAssignRecord32@@0P6A_NABU1@1@Z@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_bfmeassignrecord32_sort.cpp (not merged yet)
 
