@@ -7816,7 +7816,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva00143D80DwordField@@QBEHXZ,,0x00143D80,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?get@Rva00149580DwordField@@QBEHXZ,,0x00149580,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?get@Rva00661E60DwordField@@QBEHXZ,,0x00661E60,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
-?get@Rva00661FD0DwordField@@QBEHXZ,,0x00661FD0,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
+?get@Rva00661FD0DwordField@@QBEHXZ,,0x00661FD0,4,Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,matched,Disp8 dword getter
 ?File_Name@RawFileClass@@UBEPBDXZ,,0x0066D450,4,Code/Libraries/Source/WWVegas/WWLib/rawfile.cpp,matched,RawFileClass::File_Name: slot 1 of RawFileClass vftable 0x0087C388 (slots 2..7 are the rowed Set_Name Create Delete Is_Available Is_Open Open) also inherited by BufferedFileClass vftable 0x0087C3E0; returns Filename at +0x14; formerly the Rva0066D450DwordField placeholder
 ?get@Rva0066D490DwordField@@QBEHXZ,,0x0066D490,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
 ?get@Rva0066D520DwordField@@QBEHXZ,,0x0066D520,4,Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp,matched,Disp8 dword getter
