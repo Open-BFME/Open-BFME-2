@@ -17,8 +17,8 @@ class Rva0021887C
 public:
 	void rva0021887C();
 private:
-	GeometryRecord *m_first;
-	GeometryRecord *m_last;
+	GeometryRecord *m_first; // +0x00
+	GeometryRecord *m_last; // +0x04
 };
 
 void Rva0021887C::rva0021887C()

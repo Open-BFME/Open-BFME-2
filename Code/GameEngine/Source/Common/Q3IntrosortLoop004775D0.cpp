@@ -38,13 +38,13 @@ typedef char Q3ElementIs16[(sizeof(Q3SortElem16) == 16) ? 1 : -1];
 
 struct Q3SortCompare
 {
-	void *m_state;
-
+public:
 	__forceinline bool operator()(const Q3SortElem16 &left,
 		const Q3SortElem16 &right) const
 	{
 		return left.m_a < right.m_a;
 	}
+	void *m_state; // +0x00
 };
 
 __declspec(noinline) Q3SortElem16 *__unguarded_partition(Q3SortElem16 *, Q3SortElem16 *,
@@ -61,7 +61,11 @@ struct Rva004748F0Element
     int m_c;
     AsciiString m_d;
 };
-struct Rva004748F0Compare { void *m_state; };
+struct Rva004748F0Compare
+{
+public:
+	int m_state; // +0x00
+};
 void Rva004748F0PopHeap(Rva004748F0Element *, Rva004748F0Element *, Rva004748F0Element *,
     Rva004748F0Element, Rva004748F0Compare, int *);
 void bfmeSortVOV(void *, void *, void *);

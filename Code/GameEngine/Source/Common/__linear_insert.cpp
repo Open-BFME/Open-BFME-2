@@ -28,11 +28,13 @@ struct Q3SortElem16
 
 struct Q3SortCompare
 {
-	void *m_state;
-	bool operator()(const Q3SortElem16 &left, const Q3SortElem16 &right) const
+public:
+	__forceinline bool operator()(const Q3SortElem16 &left,
+		const Q3SortElem16 &right) const
 	{
 		return left.m_a < right.m_a;
 	}
+	void *m_state; // +0x00
 };
 
 struct BfmeElemQR

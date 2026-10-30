@@ -149,7 +149,8 @@ struct Rva004748F0Element
 
 struct Rva004748F0Compare
 {
-	int m_state;
+public:
+	int m_state; // +0x00
 };
 
 struct Q3SortElem16
@@ -162,7 +163,13 @@ struct Q3SortElem16
 
 struct Q3SortCompare
 {
-	void *m_state;
+public:
+	__forceinline bool operator()(const Q3SortElem16 &left,
+		const Q3SortElem16 &right) const
+	{
+		return left.m_a < right.m_a;
+	}
+	void *m_state; // +0x00
 };
 
 void __push_heap(Q3SortElem16 *first, int holeIndex,
@@ -293,10 +300,14 @@ typedef FileInfoStruct *(__cdecl *FileInfoCopyFn)(
 typedef FileInfoStruct *(__cdecl *FileInfoFillFn)(
 	FileInfoStruct *, unsigned int, const FileInfoStruct &, const _STL::__false_type &);
 
+struct GeometryRecord;
 class Rva0021887C
 {
 public:
 	void rva0021887C();
+private:
+	GeometryRecord *m_first; // +0x00
+	GeometryRecord *m_last; // +0x04
 };
 
 namespace _STL
