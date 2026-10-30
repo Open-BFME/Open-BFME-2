@@ -1,4 +1,4 @@
-// cl: /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /O1 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata /Ireference/shims/bfmealloc
 // ??1Rva001E7087@@MAE@XZ @0x001E86D0 96B
 // Banked attempt reverse/attempts/0x001e86d0.cpp, re-verified exact against the current ledger
 // (its callees have since been rowed or pinned); landed unchanged by the
