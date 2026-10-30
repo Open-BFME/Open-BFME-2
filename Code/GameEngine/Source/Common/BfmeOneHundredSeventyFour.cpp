@@ -50,12 +50,4 @@ public:
 	void bfmeGoBK(void);
 };
 
-void BfmeThingBK::bfmeGoBK(void)
-{
-	if (bfmeTestBK() != 0)
-		bfmeYesBK();
-	else
-		bfmeNoBK();
-}
-
 
