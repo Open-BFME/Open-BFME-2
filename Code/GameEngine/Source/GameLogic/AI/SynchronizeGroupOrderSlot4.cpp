@@ -67,6 +67,10 @@ class Rva002EE9B7
 {
 public:
 	unsigned int rva0046EDEF(const int &x);
+	~Rva002EE9B7();
+private:
+	void *m_header; // +0x00
+	int m_flag; // +0x04
 };
 
 class SynchronizeGroupOrder : public GroupOrder
