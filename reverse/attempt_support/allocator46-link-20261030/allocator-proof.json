@@ -1,0 +1,65 @@
+{
+  "native_rva": "0x00068E15",
+  "native_size": 28,
+  "native_bytes": "8b44240485c0740fc1e0026a0050e8c879fcff5959eb0233c0c20800",
+  "native_callee_rva": "0x000307F0",
+  "existing_owner": "?allocate@?$allocator@H@_STL@@QBEPAHIPBX@Z",
+  "new_twins": {
+    "?allocate@?$allocator@W4ObjectID@@@_STL@@QAEPAW4ObjectID@@IPBX@Z": {
+      "bytes": "8b44240485c0740fc1e0026a0050e8000000005959eb0233c0c20800",
+      "relocations": [
+        [
+          15,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ]
+    },
+    "?allocate@?$allocator@H@_STL@@QAEPAHIPBX@Z": {
+      "bytes": "8b44240485c0740fc1e0026a0050e8000000005959eb0233c0c20800",
+      "relocations": [
+        [
+          15,
+          20,
+          "?allocate@?$allocator@D@_STL@@SAPADIPBX@Z"
+        ]
+      ]
+    }
+  },
+  "native_callers": {
+    "0x4f62a4": [
+      [
+        "0x4f62ba",
+        "0x14f3c4"
+      ],
+      [
+        "0x4f62c7",
+        "0x68e15"
+      ]
+    ],
+    "0x148d00": [
+      [
+        "0x148d2b",
+        "0x68e15"
+      ],
+      [
+        "0x148d3d",
+        "0x1dd10d"
+      ],
+      [
+        "0x148d66",
+        "0x20e400"
+      ],
+      [
+        "0x148d84",
+        "0x1dd10d"
+      ],
+      [
+        "0x148d96",
+        "0x30830"
+      ]
+    ]
+  },
+  "unique_covered_bytes_added": 0,
+  "new_pins": 0
+}

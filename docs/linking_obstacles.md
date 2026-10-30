@@ -10900,6 +10900,18 @@ Prerequisite for moving them again: a provider of the QAE twin bodies whose
 bytes equal 0x00068E15, usable as fold-proof, or a supported path that gives
 the twins the address.
 
+**2026-10-30 provider repair, base 84887c9bc04:**
+[Complete bodies and native call evidence](../reverse/attempt_support/allocator46-link-20261030/readme.md)
+now supply both missing QAE allocator names in VectorObjectIDFillInsert.cpp.
+The two 28-byte specializations and every relocation equal the existing
+00068E15 owner; both call the existing GameMemory byte allocator directly.
+Explicit instantiation retains the integer provider for the deque's caller.
+Both consumers now use STLport4.6 and pass34/34 rows together; four-unit
+preview with the old allocator owner and GameMemory retains4/4 LINKS against
+85f6b7f40c. New unique bytes and claimed census gain are0. The old rollback
+history above is retained. The missing-provider prerequisite for these two
+files is repaired; full consumer confirmation and census verification remain.
+
 ### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
 
 Status: repaired, pending census confirmation. 540ec8bf62 dropped

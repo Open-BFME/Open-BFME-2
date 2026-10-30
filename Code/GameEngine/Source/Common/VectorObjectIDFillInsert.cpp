@@ -1,8 +1,8 @@
 // cl: /DNDEBUG /MD /EHsc
-// stlport
+// stlport46
 
-// De-lift: STLport vector<ObjectID>::_M_fill_insert, retail 0x002CCBD0,
-// 251 bytes.  ObjectID is an enum, so this instantiates separately from the
+// STLport vector<ObjectID>::_M_fill_insert, retail 0x0058A00B,
+// 228 bytes. ObjectID is an enum, so this instantiates separately from the
 // shared four-byte-POD siblings (vector<int>, vector<Object *>, vector<void *>).
 #define _STLP_NO_EXCEPTIONS 1
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
@@ -18,9 +18,30 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 
 enum ObjectID { INVALID_ID = 0 };
 // Bind the allocator, base teardown and clear to the kept retail copies (InGameUIXfer.cpp emits them).
-namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t) const; }
+namespace _STL { template <> void allocator<ObjectID>::deallocate(ObjectID *, size_t); }
 namespace _STL { template <> _Vector_base<ObjectID, allocator<ObjectID> >::~_Vector_base(); }
-namespace _STL { template <> ObjectID *allocator<ObjectID>::allocate(size_t, const void *) const; }
+// Both native growth helpers call the shared 28-byte four-byte-element
+// allocator at 00068E15. Keep the STLport 4.6 member out of line and provide
+// its complete forwarding body, rather than leaving the new spelling unresolved.
+// GameMemory.cpp owns the game's static byte allocator at 000307F0. Its
+// existing symbol is distinct from STLport 4.6's instance allocator<char>.
+extern "C" char *__cdecl __identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(size_t, const void *);
+namespace _STL {
+template <> __declspec(noinline)
+ObjectID *allocator<ObjectID>::allocate(size_t count, const void *)
+{
+    return count != 0 ? reinterpret_cast<ObjectID *>(__identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(count * sizeof(value_type), 0)) : 0;
+}
+template <> __declspec(noinline)
+int *allocator<int>::allocate(size_t count, const void *)
+{
+    return count != 0 ? reinterpret_cast<int *>(__identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(count * sizeof(value_type), 0)) : 0;
+}
+}
+// The integer deque also calls this four-byte-element allocator. Its own
+// compiler context has a different stack-cleanup shape, so instantiate the
+// complete retail twin here alongside the ObjectID specialization.
+template int *_STL::allocator<int>::allocate(size_t, const void *);
 namespace _STL { template <> void vector<ObjectID>::_M_clear(); }
 // The growth path: retail's copy (InGameUIXfer.cpp emits it) expands the old
 // storage's release inline as a direct free instead of calling _M_clear, which

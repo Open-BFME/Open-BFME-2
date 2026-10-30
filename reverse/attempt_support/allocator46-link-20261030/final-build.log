@@ -1,0 +1,7 @@
+Source claims: OK (4 sources, scoped byte-verified)
+Data rows: OK (7 row(s) byte-verified)
+Compile: 0 of 4 TU(s) (deps-cache: 4 current)
+Functions: OK 114/114 matched across 4 source file(s)
+String-ref verify: OK (17 literals + 0 empty-string refs verified, 0 baselined, 0 unverified/skipped)
+Float-ref verify: OK (1 compiler literals verified)
+Import-ref verify: OK (3 named imports verified)

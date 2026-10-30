@@ -1,0 +1,4 @@
+Compile: 0 of 1 TU(s) (deps-cache: 1 current)
+Code/Libraries/Source/WWVegas/WWLib/stlport_deque_int.cpp: LINKS  LINKED 965 -> 965 bytes (census 2026-10-29 15:08 at 85f6b7f40c; file's own bytes 965)
+  diagnostic  ?allocate@?$_STLP_alloc_proxy@IHV?$allocator@H@_STL@@@_STL@@QAEPAHI@Z  (codegen-like: 15 bytes against the majority copy's 30; unreferenced, not a blocker)
+link_check: 1 of 1 link cleanly; LINKED 965 -> 965 bytes (4.2s)
