@@ -117,7 +117,16 @@ public:
     void trim();
 
 private:
+    // Per-unit switch, default off: a unit whose retail code default-constructs a StringBase
+    // member or local itself (no AsciiString wrapper) defines BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
+    // to reach it. Access only, like BFME_STRINGBASE_PUBLIC_DTOR below.
+#ifdef BFME_STRINGBASE_PUBLIC_DEFAULT_CTOR
+public:
     StringBase() : m_data(0) {}
+private:
+#else
+    StringBase() : m_data(0) {}
+#endif
     StringBase(T c);
     StringBase(const T *str);
     StringBase(const T *str, int len);
