@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?rva00541883@Rva00541579@@QAEXH@Z @ 0x00541883 72B
 // Evidence: guarded key removal on the Pod28 channel, sibling of the
@@ -9,6 +10,8 @@
 // (union-punned; callee indirect-calls the slot), erases the hinted
 // 0x1C-stride element through rowed vector erase 0x005412E2 over a
 // minimal view, then notifies again. Names are generated.
+#include <vector>
+
 struct BfmePod28
 {
 	int m_00;
@@ -22,19 +25,17 @@ struct Rva0054107FRecord
 
 namespace _STL
 {
-	template <class _Tp>
-	class allocator
-	{
-	};
-	template <class _Tp, class _Alloc>
-	class vector
+	// Bind vector<Rva0054107FRecord>::erase to the rowed worker at
+	// 0x005412E2. Declaration only: the definition lives in the row owner.
+	template <class _Tp, class _Alloc> class vector;
+	template <> class vector<Rva0054107FRecord, allocator<Rva0054107FRecord> >
 	{
 	public:
-		_Tp *erase(_Tp *__pos);
+		Rva0054107FRecord *erase(Rva0054107FRecord *__pos);
 	private:
-		_Tp *_M_start;
-		_Tp *_M_finish;
-		_Tp *_M_end;
+		Rva0054107FRecord *_M_start;
+		Rva0054107FRecord *_M_finish;
+		Rva0054107FRecord *_M_end;
 	};
 }
 
