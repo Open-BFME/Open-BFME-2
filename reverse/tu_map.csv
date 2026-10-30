@@ -8410,11 +8410,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001174E0,5,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x001174B0..0x001174F0,Code/Libraries/Source/WWVegas/WW3D2/Rva00116FA0Forwarders.cpp
 0x001174F0,1312,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/WW3D.cpp,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 0x00117A10,74,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/WW3D.cpp,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
-0x00117A60,8,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A70,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp
-0x00117A70,10,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A80,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp
-0x00117A80,6,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A90,Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp
+0x00117A60,8,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A70,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
+0x00117A70,10,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A80,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
+0x00117A80,6,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A10..0x00117A90,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 0x00117A90,36,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/WW3D.cpp,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
-0x00117AC0,12,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A90..0x00117AD0,Code/GameEngine/Source/Common/hasBfmeThingTXA.cpp
+0x00117AC0,12,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117A90..0x00117AD0,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp
 0x00117AD0,219,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/WW3D.cpp,Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp
 0x00117BB0,32,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,C,C=0x00117AD0..0x00117BD0,Code/GameEngine/Source/Common/WW3DOptionSetter.cpp
 0x00117BD0,18,code,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp,approved,Z,Z=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp S=Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp N=Code/Libraries/Source/WWVegas/WW3D2/WW3D.cpp,Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp

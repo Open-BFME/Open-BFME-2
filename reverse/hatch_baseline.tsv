@@ -15311,7 +15311,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp	Save_W3D@
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/vertmaterial.cpp	VertexMaterialClass::Shutdown	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/w3d_util.cpp	W3dUtilityClass::Convert_Quaternion	2
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Allocate_Debug_Resources@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Capture_Next_Movie_Frame@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Enable_Large_Texture_Extra_Reduction@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Collision_Box_Display_Mask@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Ext_Swap_Interval@WW3D@@	1
@@ -15321,12 +15320,9 @@ present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Bitde
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Min_Dimension@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Get_Texture_Reduction@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Large_Texture_Extra_Reduction_Enabled@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Movie_Paused@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Movie_Ready@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Is_Windowed@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	On_Activate_App@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	On_Deactivate_App@WW3D@@	1
-present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Pause_Movie@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Peek_Default_Debug_Material@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Peek_Default_Debug_Shader@WW3D@@	1
 present_unmatched	Code/Libraries/Source/WWVegas/WW3D2/ww3d.cpp	Peek_Lightmap_Debug_Shader@WW3D@@	1

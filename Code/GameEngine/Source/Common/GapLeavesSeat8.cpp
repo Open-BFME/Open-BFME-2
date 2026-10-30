@@ -85,7 +85,7 @@ float Rva00215EECFloats::rva00215EEC(int index)
 }
 
 // --- 0x001E361A (10B, cdecl): stores the byte argument into the global byte
-// at VA 0x00E01EA8 (twin: Rva00117A70SetFlag).
+// at VA 0x00E01EA8 (twin: WW3D::Pause_Movie).
 void Rva001E361ASetFlag(unsigned char value)
 {
 	g_00E01EA8 = value;

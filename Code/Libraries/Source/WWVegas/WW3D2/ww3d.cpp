@@ -39,7 +39,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #include "ini.h"
 #include "dazzle.h"
 #include "meshmdl.h"
-#include "dx8renderer.h"
 #include "render2d.h"
 #include "bound.h"
 #include "rddesc.h"
@@ -1263,7 +1262,6 @@ void WW3D::Make_Screen_Shot( const char * filename_base , const float gamma, con
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Capture_Next_Movie_Frame@WW3D@@ present-unmatched
 void WW3D::Capture_Next_Movie_Frame()
 {
 	RecordNextFrame = true;
@@ -1281,7 +1279,6 @@ void WW3D::Capture_Next_Movie_Frame()
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Pause_Movie@WW3D@@ present-unmatched
 void WW3D::Pause_Movie(bool mode)
 {
 	PauseRecord = mode;
@@ -1299,7 +1296,6 @@ void WW3D::Pause_Movie(bool mode)
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Is_Movie_Paused@WW3D@@ present-unmatched
 bool WW3D::Is_Movie_Paused()
 {
 	return PauseRecord;
@@ -1334,7 +1330,6 @@ bool WW3D::Is_Recording_Next_Frame()
  * HISTORY:                                                                                    *
  *   5/19/99    GTH : Created.                                                                 *
  *=============================================================================================*/
-// ?Is_Movie_Ready@WW3D@@ present-unmatched
 bool WW3D::Is_Movie_Ready()
 {
 	return Movie != 0;
@@ -1751,14 +1746,6 @@ void WW3D::Stop_Movie_Capture()
         Movie=0;
     }
 }
-
-// tu-skeleton: 0x00117A60 8B ?Rva00117A60SetFlag@@YAXXZ -- matched in Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp (not merged yet)
-
-// tu-skeleton: 0x00117A70 10B ?Rva00117A70SetFlag@@YAXE@Z -- matched in Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp (not merged yet)
-
-// tu-skeleton: 0x00117A80 6B ?Rva00117A80GetFlag@@YAEXZ -- matched in Code/GameEngine/Source/Common/BfmeThingTXAFlags.cpp (not merged yet)
-
-// tu-skeleton: 0x00117AC0 12B ?hasBfmeThingTXA@@YAHXZ -- matched in Code/GameEngine/Source/Common/hasBfmeThingTXA.cpp (not merged yet)
 
 // tu-skeleton: 0x00117AD0 219B ?Update_Movie_Capture@WW3D@@SAXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DUpdateMovieCapture.cpp (not merged yet)
 
