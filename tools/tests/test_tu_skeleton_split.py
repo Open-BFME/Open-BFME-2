@@ -702,5 +702,181 @@ class ClaimTests(unittest.TestCase):
                          ["file:Code/T.cpp", "file:Code/Mixed.cpp", "0x00001000"])
 
 
+LEDGER_HEADER = "address,size,section,kind,name,source,status,names,defs,refs\n"
+PINS_HEADER = "name,address,notes\n"
+
+
+def unit_defs(code=(), data=(), static=()):
+    return {"code": set(code), "data": set(data), "static": set(static)}
+
+
+def coff(sections, symbols):
+    """A minimal COFF object: sections [(name, characteristics)], symbols
+    [(name, value, section number, storage class)], names in the string table."""
+    import struct
+    strings = b""
+    symtab = b""
+    for name, value, section, storage in symbols:
+        offset = 4 + len(strings)
+        strings += name.encode() + b"\0"
+        symtab += struct.pack("<II I h H B B", 0, offset, value, section, 0, storage, 0)
+    table = 20 + 40 * len(sections)
+    head = struct.pack("<HHIIIHH", 0x14C, len(sections), 0, table, len(symbols), 0, 0)
+    secs = b"".join(struct.pack("<8sIIIIIIHHI", n.encode(), 0, 0, 0, 0, 0, 0, 0, 0, c) for n, c in sections)
+    return head + secs + symtab + struct.pack("<I", 4 + len(strings)) + strings
+
+
+class UnitKeyCarryTests(unittest.TestCase):
+    """--shatter / --split carry data_ledger.csv and fold-proof keys to the unit
+    whose compiled object defines each symbol, and refuse anything ambiguous."""
+
+    M, A, B = "Code/M.cpp", "Code/A.cpp", "Code/B.cpp"
+
+    def ledger(self, *lines):
+        return (LEDGER_HEADER + "".join(l + "\n" for l in lines)).encode()
+
+    def test_ledger_source_and_static_names_follow_the_defining_object(self):
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2",
+                          "0x00A00010,4,.rdata,float,__real@3f800000,,literal,"
+                          "__real@3f800000;_kOne@Code/M.cpp;_kOne@Code/Z.cpp,1,9",
+                          "0x00A00020,4,.data,global,?h@@3HA,Code/Z.cpp,owned,,1,1")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(data=["?g@@3HA"]), self.B: unit_defs(static=["_kOne"])},
+                               raw)
+        self.assertEqual(out.problems, [])
+        text = out.raws[T.DATA_LEDGER].decode()
+        self.assertIn("0x00A00000,4,.data,global,?g@@3HA,Code/A.cpp,owned,,1,2\n", text)
+        self.assertIn("__real@3f800000;_kOne@Code/B.cpp;_kOne@Code/Z.cpp,1,9\n", text)   # sorted, as generated
+        self.assertIn("?h@@3HA,Code/Z.cpp,owned", text)                                 # another file's key: kept
+        self.assertNotIn(self.M, text)
+        self.assertEqual(out.moved, {T.DATA_LEDGER: 2})
+        self.assertEqual(T.carry_trailer("--shatter", self.M, "its TUs", {}, out.moved)[:16], "Verifier-Change:")
+        self.assertIsNone(T.carry_trailer("--shatter", self.M, "its TUs", {}, {}))
+
+    def test_refuses_a_global_two_units_define(self):
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(data=["?g@@3HA"]), self.B: unit_defs(data=["?g@@3HA"])},
+                               raw)
+        self.assertTrue(any("defined by both Code/A.cpp and Code/B.cpp" in p for p in out.problems))
+
+    def test_refuses_a_static_two_units_define(self):
+        raw = self.ledger("0x00A00010,4,.rdata,float,__real@3f800000,,literal,__real@3f800000;_kOne@Code/M.cpp,1,9")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(static=["_kOne"]), self.B: unit_defs(static=["_kOne"])},
+                               raw)
+        self.assertTrue(any("_kOne is defined by both" in p for p in out.problems))
+
+    def test_refuses_a_key_no_unit_defines(self):
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(), self.B: unit_defs()}, raw,
+                               original=unit_defs(data=["?g@@3HA"]))
+        self.assertTrue(any("no carved unit defines ?g@@3HA" in p for p in out.problems))
+        # stale before the carve: still refused when the file is deleted (the key cannot vanish)
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(), self.B: unit_defs()}, raw, original=unit_defs())
+        self.assertTrue(out.problems)
+
+    def test_a_residual_keeps_what_it_still_defines(self):
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2",
+                          "0x00A00010,4,.data,global,?s@@3HA,Code/M.cpp,owned,,1,2",
+                          "0x00A00020,4,.data,global,?old@@3HA,Code/M.cpp,owned,,1,2")
+        out = T.unit_key_carry(self.M, {self.M: unit_defs(data=["?g@@3HA"]), self.A: unit_defs(data=["?g@@3HA", "?s@@3HA"])},
+                               raw, original=unit_defs(data=["?g@@3HA", "?s@@3HA"]))
+        self.assertEqual(out.problems, [])
+        text = out.raws[T.DATA_LEDGER].decode()
+        self.assertIn("?g@@3HA,Code/M.cpp,", text)        # the residual still defines it: no change
+        self.assertIn("?s@@3HA,Code/A.cpp,", text)        # only the TU defines it now: carried
+        self.assertIn("?old@@3HA,Code/M.cpp,", text)      # stale before the carve, file remains: left alone
+        self.assertTrue(any("?old@@3HA" in n for n in out.notes))
+
+    def test_refuses_disagreeing_with_a_verified_data_owner(self):
+        raw = self.ledger("0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(data=["?g@@3HA"]), self.B: unit_defs()}, raw,
+                               owners={"?g@@3HA": self.B})
+        self.assertTrue(any("data_rows.csv puts it in Code/B.cpp" in p for p in out.problems))
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(data=["?g@@3HA"]), self.B: unit_defs()}, raw,
+                               owners={"?g@@3HA": self.A})
+        self.assertEqual(out.problems, [])
+
+    def test_refuses_collapsing_two_keys(self):
+        raw = self.ledger("0x00A00010,4,.rdata,float,__real@3f800000,,literal,_kOne@Code/A.cpp;_kOne@Code/M.cpp,1,9")
+        out = T.unit_key_carry(self.M, {self.A: unit_defs(static=["_kOne"]), self.B: unit_defs()}, raw)
+        self.assertTrue(any("collapses two keys" in p for p in out.problems))
+
+    def pins(self, *lines):
+        return (PINS_HEADER + "".join(l + "\n" for l in lines)).encode()
+
+    def test_fold_proof_follows_the_object_defining_the_pinned_body(self):
+        raw = self.pins("??$f@H@@YAXXZ,0x00001000,ICF twin; fold-proof=Code/M.cpp",
+                        "??$f@D@@YAXXZ,0x00001010,\"twin, see fold-proof=Code/M.cpp\"",
+                        "??$f@F@@YAXXZ,0x00001020,fold-proof=Code/Z.cpp")
+        defs = {self.A: unit_defs(code=["??$f@H@@YAXXZ"]), self.B: unit_defs(code=["??$f@D@@YAXXZ"])}
+        out = T.unit_key_carry(self.M, defs, pins_raw=raw)
+        self.assertEqual(out.problems, [])
+        text = out.raws[T.PINS].decode()
+        self.assertIn("??$f@H@@YAXXZ,0x00001000,ICF twin; fold-proof=Code/A.cpp\n", text)
+        self.assertIn("\"twin, see fold-proof=Code/B.cpp\"", text)
+        self.assertIn("fold-proof=Code/Z.cpp", text)
+        self.assertEqual(out.moved, {T.PINS: 2})
+        self.assertIsNone(T.carry_trailer("--shatter", self.M, "its TUs", {}, out.moved))   # symbols.csv: pin admission
+
+    def test_fold_proof_refusals(self):
+        raw = self.pins("??$f@H@@YAXXZ,0x00001000,fold-proof=Code/M.cpp")
+        both = {self.A: unit_defs(code=["??$f@H@@YAXXZ"]), self.B: unit_defs(code=["??$f@H@@YAXXZ"])}
+        self.assertTrue(T.unit_key_carry(self.M, both, pins_raw=raw).problems)
+        none = {self.A: unit_defs(), self.B: unit_defs()}
+        self.assertTrue(any("no carved unit defines" in p for p in T.unit_key_carry(self.M, none, pins_raw=raw).problems))
+
+    def test_fold_proof_callees_must_stay_beside_the_pinned_body(self):
+        raw = self.pins("??$f@H@@YAXXZ,0x00001000,fold-proof=Code/M.cpp")
+        defs = {self.A: unit_defs(code=["??$f@H@@YAXXZ"]), self.B: unit_defs(code=["??$g@H@@YAXXZ"])}
+        original = unit_defs(code=["??$f@H@@YAXXZ", "??$g@H@@YAXXZ"])
+        calls = lambda unit, name: {"??$g@H@@YAXXZ"} if name == "??$f@H@@YAXXZ" else set()   # noqa: E731
+        out = T.unit_key_carry(self.M, defs, pins_raw=raw, original=original, calls=calls)
+        self.assertTrue(any("callee ??$g@H@@YAXXZ would leave Code/A.cpp" in p for p in out.problems))
+        out = T.unit_key_carry(self.M, defs, pins_raw=raw, original=original, calls=calls,
+                               addressed=frozenset({"??$g@H@@YAXXZ"}))     # a rowed callee resolves by address
+        self.assertEqual(out.problems, [])
+        defs[self.A]["code"].add("??$g@H@@YAXXZ")
+        defs[self.B]["code"].clear()
+        self.assertEqual(T.unit_key_carry(self.M, defs, pins_raw=raw, original=original, calls=calls).problems, [])
+
+    def test_repoint_fold_proofs_by_pin_name(self):
+        raw = self.pins("a,0x1,fold-proof=Code/M.cpp", "b,0x2,fold-proof=Code/M.cpp")
+        out, n = T.repoint_fold_proofs(raw, {self.M}, {"a": self.A})
+        self.assertEqual(n, 1)
+        self.assertEqual(out.decode(), PINS_HEADER + "a,0x1,fold-proof=Code/A.cpp\nb,0x2,fold-proof=Code/M.cpp\n")
+
+    def test_shatter_keyed_leaves_ledger_and_fold_keys_to_the_carry(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "reverse").mkdir()
+            (root / "reverse/data_ledger.csv").write_text(
+                LEDGER_HEADER + "0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2\n")
+            (root / "reverse/symbols.csv").write_text(PINS_HEADER + "a,0x1,fold-proof=Code/M.cpp\n")
+            self.assertEqual(T.shatter_keyed(self.M, root=root), [])
+            (root / "reverse/code_identity_baseline.tsv").write_text("Code/M.cpp\trow\tsym\ttarget\tclass\n")
+            self.assertTrue(T.shatter_keyed(self.M, root=root))
+
+    def test_object_definitions_reads_the_symbol_table(self):
+        sections = [(".text", 0x60000020), (".data", 0xC0000040), (".rdata", 0x40000040)]
+        symbols = [(".text", 0, 1, 3), (".data", 0, 2, 3),
+                   ("?f@@YAXXZ", 0, 1, 2), ("_static_fn", 4, 1, 3),
+                   ("?g@@3HA", 0, 2, 2), ("_kOne", 0, 3, 3), ("$SG123", 4, 3, 3),
+                   ("?ext@@3HA", 0, 0, 2)]              # referenced, not defined
+        with tempfile.TemporaryDirectory() as tmp:
+            obj = Path(tmp) / "u.obj"
+            obj.write_bytes(coff(sections, symbols))
+            got = T.object_definitions(obj)
+        self.assertEqual(got, unit_defs(code=["?f@@YAXXZ"], data=["?g@@3HA"], static=["_kOne"]))
+
+    def test_carry_unit_keys_refuses_without_objects(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root = Path(tmp)
+            (root / "reverse").mkdir()
+            (root / "reverse/data_ledger.csv").write_text(
+                LEDGER_HEADER + "0x00A00000,4,.data,global,?g@@3HA,Code/M.cpp,owned,,1,2\n")
+            out = T.carry_unit_keys(self.M, {self.A: None}, None, root=root)
+            self.assertTrue(out.problems)
+            self.assertEqual(T.carry_unit_keys("Code/Q.cpp", {self.A: None}, None, root=root).problems, [])
+
+
 if __name__ == "__main__":
     unittest.main()

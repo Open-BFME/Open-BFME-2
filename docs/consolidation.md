@@ -366,14 +366,26 @@ a carved body made it emit). It plans every row and definition first:
 3. An external object used by several units is defined by the first in file
    order and declared `extern` by the rest; a data row no unit uses refuses.
 4. Anything keyed to FILE as a unit (protected registers other than the hatch
-   register, the header queue, a fold proof, a flag override), and any ledger
-   row the shatter does not carry, refuses.
+   register and `data_ledger.csv`, the header queue, a flag override), and any
+   ledger row the shatter does not carry, refuses.
 
 Then each unit is verified alone under its TU's flags (every row must match: there is no residual to
 stay in), then through the merge verifier into its TU file or a new one, then all final objects are
 judged together by the link guard with FILE gone from the link. A per-hatch total may move, never
 grow. Only when every unit passes does it write the TUs, repoint each moved row to its own TU, delete
 FILE and stage the result.
+
+**Unit keys.** `data_ledger.csv` (`source`, and `name@FILE` statics in `names`) and
+`fold-proof=FILE` pins in `symbols.csv` name the unit whose object defines a symbol. After the final
+objects pass the link guard, `--shatter` (and `--split`, for its residual and TU) reads their COFF
+symbol tables and moves each key to the one unit that defines it: a global or static for the ledger, the
+pinned body for a fold proof. A residual that still defines a symbol keeps its key. It refuses when two
+units define the symbol (a static that `carve()` copied to two units included), when none does, when a
+verified `data_rows.csv` owner disagrees with the object, when a move would merge two `names` keys into
+one, and when a fold proof's unrowed callee would end up in a different object from the pinned body.
+Under `--split`, a key the original object did not define either is stale from before the carve: it
+stays as it is while the file remains. A moved ledger key needs the printed `Verifier-Change:`
+trailer. Pin admission re-proves a moved fold proof at commit.
 
 ## What the lane does not do yet
 

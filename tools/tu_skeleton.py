@@ -1260,6 +1260,7 @@ class SplitLinkGuard:
         self.expected_source = expected_source
         self.guard = LinkGuard(tu, root=root)
         self.before, self.cache = None, {}
+        self.judged = {}                  # merged text -> its object (unit keys read its symbol table)
 
     def load(self):
         return self.guard.load()
@@ -1493,6 +1494,8 @@ class SplitLinkGuard:
     def judge(self, obj, files, text):
         if self.source not in files:
             return []  # greedy seed trial; judge both objects when the carve joins it
+        if obj is not None:
+            self.judged[text] = obj
         import link_census as LCe
         try:
             key = (str(obj), tuple(sorted(files)))
@@ -2615,9 +2618,31 @@ def split(path, tu, dry_run=False, claim=True):
     guard = SplitLinkGuard(tu, path, residual, v.obj, [r["target_rva"] for r in carved],
                            data_moved=cv.data_moved, root=ROOT, expected_source=original_bytes)
 
+    def unit_keys(text_):
+        """The residual and the merged TU's objects decide where path's unit keys go."""
+        dr = ROOT / "reverse/data_rows.csv"
+        raw = dr.read_bytes() if dr.exists() else None
+        if raw is not None and cv.data_moved:
+            names = data_row_names(raw, set(cv.data_moved))
+            raw = repoint_rows(raw, "reverse/data_rows.csv", "name", names, "source", path, tu)[0] if names else raw
+        return carry_unit_keys(path, {path: v.obj, tu: guard.judged.get(text_)},
+                               (getattr(guard, "records", None) or {}).get(path, {}).get("obj"), raw)
+
     def applier(tu_, acc, text_):
-        return apply_split(tu_, text_, path, residual, [r["target_rva"] for r in carved], report["hatches_move"],
-                           data_moved=cv.data_moved)
+        keys = unit_keys(text_)
+        if keys.problems:
+            raise UnitKeyRefusal("; ".join(keys.problems[:3]))
+        moved = apply_split(tu_, text_, path, residual, [r["target_rva"] for r in carved], report["hatches_move"],
+                            data_moved=cv.data_moved, extra=keys.raws)
+        report["carried"] = dict(keys.moved)
+        return moved
+
+    def run():
+        try:
+            return _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
+        except UnitKeyRefusal as refused_keys:
+            report["blocked"] = f"unit keys (data_ledger.csv / fold proofs): {refused_keys}"[:400]
+            return report
 
     if claim and not dry_run:
         held = claim_scope(tu, {path: carved})
@@ -2625,21 +2650,31 @@ def split(path, tu, dry_run=False, claim=True):
             claims.release(claim_keys(tu, {path: carved}))
             report["blocked"] = held_message(held)
             return report
-        report = _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
+        report = run()
         if "blocked" in report:
             claims.release(claim_keys(tu, {path: carved}))
     else:
-        report = _merge(tu, sk, don, report, dry_run, texts=texts, applier=applier, guard=guard)
+        report = run()
+    if dry_run and "blocked" not in report and path in report.get("accepted", []):
+        keys = unit_keys(report.get("text", ""))
+        if keys.problems:
+            report["blocked"] = "unit keys (data_ledger.csv / fold proofs): " + "; ".join(keys.problems[:3])[:300]
+        elif keys.moved:
+            report["carried"] = dict(keys.moved)
     if path not in report.get("accepted", []):
         report.setdefault("blocked", "the carved bodies do not verify in the TU: "
                           + str(report.get("rejected", {}).get(path, ""))[:300])
-    elif not dry_run:
+    elif not dry_run and "blocked" not in report:
         report["subject"] = (f"Split {len(carved)} rows of {posixpath.basename(path)} into "
                              f"{posixpath.basename(tu)} (tu_map approved TU, retail order)")
-        if report["hatches_move"]:
-            report["trailer"] = (f"Verifier-Change: tu_skeleton --split moved escape-hatch counts from {path} to {tu}"
-                                 " (totals kept; hatch_counters --update)")
+        trailer = carry_trailer("--split", path, tu, report["hatches_move"], report.get("carried", {}))
+        if trailer:
+            report["trailer"] = trailer
     return report
+
+
+class UnitKeyRefusal(Exception):
+    """A split's unit keys cannot be carried (unit_key_carry problems): nothing was written."""
 
 
 # ---------------------------------------------------------------- shatter
@@ -2782,16 +2817,14 @@ def shatter_plan(text, rows, groups, data_rowed=frozenset(), here=None):
 
 def shatter_keyed(path, root=ROOT):
     """Why `path` cannot simply disappear, [] when nothing but its rows names it:
-    protected registers (the hatch register is rewritten by --update), the header
-    queue and fold proofs key a unit, not a row."""
+    protected registers (the hatch register is rewritten by --update) and the
+    header queue key a unit, not a row. data_ledger.csv keys and fold proofs are
+    carried after the compile, by the objects' symbol tables (unit_key_carry)."""
     raws = {rel: (Path(root) / rel).read_bytes() for rel in rename.PROTECTED_PATH_KEYED
-            if rel != HATCH_REGISTER and (Path(root) / rel).exists()}
+            if rel not in (HATCH_REGISTER, DATA_LEDGER) and (Path(root) / rel).exists()}
     out = [f"{rel}: {line[:100]}" for rel, line in vanished(raws, {path})]
     if header_queue_rows(root).get(path):
         out.append("reverse/header_queue.tsv: " + ", ".join(header_queue_rows(root)[path][:3]))
-    pins = Path(root) / "reverse/symbols.csv"
-    if pins.exists() and repoint_fold_proofs(pins.read_bytes(), {path}, "x")[1]:
-        out.append("reverse/symbols.csv: a fold proof names it")
     return out
 
 
@@ -2948,6 +2981,16 @@ def shatter(path, dry_run=False, claim=True):
     if failures:
         report["blocked"] = "link: the shattered units would regress: " + "; ".join(failures[:3])[:300]
         return report
+    keys = carry_unit_keys(path, {u: r["obj"] for u, r in records.items()},
+                           guard.records.get(path, {}).get("obj"), new_raws.get("reverse/data_rows.csv"))
+    if keys.problems:
+        report["blocked"] = "unit keys (data_ledger.csv / fold proofs): " + "; ".join(keys.problems[:3])[:300]
+        return report
+    new_raws.update(keys.raws)
+    if keys.moved:
+        report["carried"] = dict(keys.moved)
+    if keys.notes:
+        report["notes"] = report.get("notes", []) + keys.notes
     report["verified"] = True
     if dry_run:
         return report
@@ -2961,10 +3004,21 @@ def shatter(path, dry_run=False, claim=True):
     report["subject"] = (f"Shatter {posixpath.basename(path)} into {len(tus)} TUs "
                          f"({sum(len(units[t]) for t in tus)} rows, tu_map approved TUs"
                          + (f"; {len(stays)} unplaced rows stay" if stays else "") + ")")
-    if hatches:
-        report["trailer"] = (f"Verifier-Change: tu_skeleton --shatter moved escape-hatch counts from {path} "
-                             "to its TUs (totals kept; hatch_counters --update)")
+    report["trailer"] = carry_trailer("--shatter", path, "its TUs", hatches, keys.moved)
+    if not report["trailer"]:
+        del report["trailer"]
     return report
+
+
+def carry_trailer(lane, path, where, hatches, keys):
+    """The one Verifier-Change line for a carve that moved hatch counts or
+    protected unit keys (both are transfers: totals kept), else None."""
+    what = (["escape-hatch counts (hatch_counters --update)"] if hatches else []) + \
+        (["data_ledger.csv unit keys"] if DATA_LEDGER in keys else [])
+    if not what:
+        return None
+    return (f"Verifier-Change: tu_skeleton {lane} moved " + " and ".join(what) + f" from {path} to {where}, "
+            "each to the unit whose object defines it (totals kept)")
 
 
 def shatter_hatches(path, before, existing, texts):
@@ -3132,7 +3186,8 @@ def data_row_names(raw, idents):
     return out
 
 
-def apply_split(tu, text, path, residual, rvas, hatches, root=ROOT, data_moved=()):
+def apply_split(tu, text, path, residual, rvas, hatches, root=ROOT, data_moved=(), extra=None):
+    """Write the split; `extra` {rel: raw}: carried unit-key registers (unit_key_carry)."""
     moved = {}
     if hatches:
         dirty = subprocess.run(["git", "status", "--porcelain", "--untracked-files=no"], cwd=root,
@@ -3164,6 +3219,10 @@ def apply_split(tu, text, path, residual, rvas, hatches, root=ROOT, data_moved=(
         if n:
             cfg.write_bytes(raw)
             moved[rename.SOURCES_CFG] = n
+    for rel, raw in (extra or {}).items():
+        if (Path(root) / rel).read_bytes() != raw:
+            (Path(root) / rel).write_bytes(raw)
+            moved[rel] = "unit keys carried"
     (Path(root) / tu).write_text(text, encoding="utf-8", newline="\n")
     (Path(root) / path).write_text(residual, encoding="utf-8", newline="\n")
     subprocess.run(["git", "add", "--", tu, path, *moved], cwd=root, check=True)
@@ -3265,6 +3324,200 @@ def carry_data_ledger(raw, gone, tu):
             lines[i] = out.getvalue()
             moved += 1
     return eol.join(lines).encode("utf-8"), moved
+
+
+# ---------------------------------------------------------------- unit keys
+# data_ledger.csv names a unit by the object that defines a global (`source`) or
+# a TU-local static (`name@source` in `names`); a fold proof names the unit whose
+# object compiles the pinned body (`fold-proof=source`). A carve moves definitions
+# between objects, so --shatter and --split carry each such key to the one unit
+# whose compiled object defines its symbol, read off the objects' symbol tables.
+# A key two units define, or none, is refused: nothing is invented or renamed.
+PINS = "reverse/symbols.csv"
+COFF_EXTERNAL, COFF_STATIC, COFF_CODE = 2, 3, 0x20
+
+
+def object_definitions(obj):
+    """{"code", "data", "static"}: the external code symbols, external data
+    symbols and TU-local static data symbols `obj` defines (section symbols and
+    `$`/`.` names left out; a static is one data_ledger.py would write name@source)."""
+    import build
+    obj = Path(obj)
+    stat = obj.stat()
+    _data, sections, symbols = build._object_layout(str(obj), stat.st_mtime_ns, stat.st_size)
+    out = {"code": set(), "data": set(), "static": set()}
+    external = {s["name"] for s in symbols if s.get("storage") == COFF_EXTERNAL and s["section"] > 0}
+    for s in symbols:
+        if s["section"] <= 0 or s.get("storage") not in (COFF_EXTERNAL, COFF_STATIC) \
+                or s["name"].startswith(("$", ".")):
+            continue
+        sec = sections[s["section"] - 1]
+        if s["storage"] == COFF_STATIC and s["value"] == 0 and s["name"] == sec["name"]:
+            continue                                  # a section symbol
+        code = bool(sec["characteristics"] & COFF_CODE)
+        if s["storage"] == COFF_EXTERNAL:
+            out["code" if code else "data"].add(s["name"])
+        elif not code and s["name"] not in external:
+            out["static"].add(s["name"])
+    return out
+
+
+def object_calls(obj, name):
+    """The REL32 callees of `name`'s body in `obj` (empty when it defines none)."""
+    import build
+    try:
+        _body, relocs = build.read_object_symbol_bytes(Path(obj), name, code_only=True)
+    except (OSError, ValueError, SystemExit):
+        return set()
+    return {symbol for _offset, kind, symbol in relocs if kind == build.REL32}
+
+
+class UnitKeys:
+    """What a carve does to `path`'s unit keys: new register bytes ({rel: raw},
+    only those that change), {rel: keys moved}, notes and problems (any problem
+    refuses the carve; nothing is written)."""
+
+    def __init__(self):
+        self.raws, self.moved, self.notes, self.problems = {}, {}, [], []
+
+
+def unit_key_carry(path, defs, ledger_raw=None, pins_raw=None, original=None, owners=None,
+                   calls=None, addressed=frozenset()):
+    """Carry `path`'s data_ledger.csv and fold-proof keys to the units that define
+    their symbols (pure: every object fact comes in as an argument).
+
+      defs      {unit: object_definitions()} of every object the carve leaves; a
+                unit named `path` is the residual (a key it still defines stays);
+      original  object_definitions() of the uncarved file: a key it did not define
+                either was stale before the carve, and stays while `path` remains;
+      owners    {data name: source} of reverse/data_rows.csv after the carve: a
+                verified owner is the ledger's `source`, and the symbol table must
+                put the definition there too;
+      calls     calls(unit, name): REL32 callees of name's body in unit's object. A
+                fold proof proves an unrowed callee from the same object, so every
+                callee the original object defined and no row or pin places
+                (`addressed`) must still be defined beside the pinned body.
+
+    A symbol two carved units define, one no unit defines, and a move onto a key
+    the register already holds (two keys would collapse into one) are problems."""
+    out = UnitKeys()
+
+    def home(symbol, kinds):
+        if path in defs and any(symbol in defs[path][k] for k in kinds):
+            return path
+        who = sorted(u for u in defs if u != path and any(symbol in defs[u][k] for k in kinds))
+        if len(who) > 1:
+            out.problems.append(f"{symbol} is defined by both {who[0]} and {who[1]}")
+            return None
+        if who:
+            return who[0]
+        if path in defs and original is not None and not any(symbol in original[k] for k in kinds):
+            out.notes.append(f"{symbol}: {path} did not define it before the carve either (key left as it was)")
+            return path
+        out.problems.append(f"no carved unit defines {symbol}")
+        return None
+
+    if ledger_raw is not None:
+        eol = _eol(ledger_raw)
+        lines = ledger_raw.decode("utf-8").split(eol)
+        header = next(csv.reader([lines[0]]))
+        at_name, at_source, at_names = header.index("name"), header.index("source"), header.index("names")
+        moved = 0
+        for i in range(1, len(lines)):
+            if path not in lines[i]:
+                continue
+            cells = next(csv.reader([lines[i]]))
+            if len(cells) != len(header):
+                continue
+            before = list(cells)
+            if cells[at_source] == path:
+                to = home(cells[at_name], ("data", "static"))
+                owner = (owners or {}).get(cells[at_name])
+                if to is not None and owner is not None and owner != to:
+                    out.problems.append(f"{cells[at_name]}: data_rows.csv puts it in {owner}, its object in {to}")
+                elif to is not None:
+                    cells[at_source] = to
+            names = cells[at_names].split(";") if cells[at_names] else []
+            new = []
+            for n in names:
+                name, sep, where = n.rpartition("@")
+                to = home(name, ("static",)) if sep and where == path else None
+                new.append(f"{name}@{to}" if to is not None else n)
+            if new != names:
+                if len(set(new)) != len(new):
+                    out.problems.append(f"data_ledger.csv {cells[0]}: carrying {path}'s static onto a unit "
+                                        "already keyed there collapses two keys")
+                cells[at_names] = ";".join(sorted(new))
+            if cells != before:
+                buf = io.StringIO()
+                csv.writer(buf, lineterminator="").writerow(cells)
+                lines[i] = buf.getvalue()
+                moved += 1
+        if moved:
+            out.raws[DATA_LEDGER] = eol.join(lines).encode("utf-8")
+            out.moved[DATA_LEDGER] = moved
+    if pins_raw is not None:
+        from pin_admission import FOLD_PROOF_RE
+        dest = {}
+        for row in csv.DictReader(io.StringIO(pins_raw.decode("utf-8"), newline="")):
+            found = FOLD_PROOF_RE.search(row.get("notes") or "")
+            if not found or found.group(1) != path:
+                continue
+            to = home(row["name"], ("code",))
+            if to is None or to == path:
+                continue
+            todo, seen = [row["name"]], set()
+            while todo and calls is not None:
+                n = todo.pop()
+                if n in seen:
+                    continue
+                seen.add(n)
+                for c in sorted(calls(to, n)):
+                    if c in defs[to]["code"]:
+                        todo.append(c)
+                    elif original is not None and c in original["code"] and c not in addressed:
+                        out.problems.append(f"fold proof {row['name']}: its callee {c} would leave {to}'s object")
+            dest[row["name"]] = to
+        if dest:
+            raw, n = repoint_fold_proofs(pins_raw, {path}, dest)
+            if n:
+                out.raws[PINS], out.moved[PINS] = raw, n
+    left = {rel: raw for rel, raw in (("ledger", out.raws.get(DATA_LEDGER, ledger_raw)),
+                                      ("pins", out.raws.get(PINS, pins_raw))) if raw is not None}
+    if path not in defs and not out.problems:
+        for rel, line in vanished({k: v for k, v in left.items() if k == "ledger"}, {path}):
+            out.problems.append(f"data_ledger.csv still keys the deleted file: {line[:120]}")
+        if "pins" in left and repoint_fold_proofs(left["pins"], {path}, "x")[1]:
+            out.problems.append("reverse/symbols.csv: a fold proof still names the deleted file")
+    return out
+
+
+def carry_unit_keys(path, objs, original_obj, data_rows_raw=None, root=ROOT):
+    """unit_key_carry() over the registers in `root` and the compiled objects
+    `objs` ({unit: object}; `path` itself for a residual)."""
+    root = Path(root)
+    ledger = root / DATA_LEDGER
+    pins = root / PINS
+    ledger_raw = ledger.read_bytes() if ledger.exists() else None
+    pins_raw = pins.read_bytes() if pins.exists() else None
+    needed = (ledger_raw is not None and path.encode() in ledger_raw) or \
+             (pins_raw is not None and repoint_fold_proofs(pins_raw, {path}, "x")[1])
+    if not needed:
+        return UnitKeys()
+    out = UnitKeys()
+    missing = [u for u, o in objs.items() if o is None or not Path(o).exists()]
+    if missing or original_obj is None or not Path(original_obj).exists():
+        out.problems.append("unit keys: no compiled object for " + ", ".join(missing or [path]))
+        return out
+    defs = {u: object_definitions(o) for u, o in objs.items()}
+    owners = None
+    if data_rows_raw is not None:
+        owners = {r["name"]: r["source"] for r in csv.DictReader(io.StringIO(data_rows_raw.decode("utf-8"), newline=""))}
+    addressed = {r["name"] for r in ledger_rows() if r.get("status") == "matched"}
+    if pins_raw is not None:
+        addressed |= {r["name"] for r in csv.DictReader(io.StringIO(pins_raw.decode("utf-8"), newline=""))}
+    return unit_key_carry(path, defs, ledger_raw, pins_raw, object_definitions(original_obj), owners,
+                          lambda u, n: object_calls(objs[u], n), frozenset(addressed))
 
 
 def vanished(raws, gone):
@@ -3448,6 +3701,7 @@ def repoint_sources_cfg(raw, gone, tu):
 
 def repoint_fold_proofs(raw, gone, tu):
     """Move exact fold-proof source tokens, preserving pin identities and prose.
+    `tu`: the new source, or {pin name: new source} (a pin it omits is kept).
 
     Changed notes still go through normal pin admission, which recompiles the
     proof source and checks bytes and relocations at its new path.
@@ -3459,11 +3713,15 @@ def repoint_fold_proofs(raw, gone, tu):
     if "notes" not in header:
         raise rename.Refusal("reverse/symbols.csv has no 'notes' column")
     index, gone = header.index("notes"), set(gone)
+    at_name = header.index("name") if "name" in header else 0
     out, count = [records[0][0] + records[0][1]], 0
     for payload, term in records[1:]:
         text = payload.decode("utf-8")
         spans = rename.field_spans(text)
-        if len(spans) > index:
+        dest = tu
+        if isinstance(tu, dict) and len(spans) > at_name:
+            dest = tu.get(text[spans[at_name][0]:spans[at_name][1]].strip('"'))
+        if len(spans) > index and dest is not None:
             start, end = spans[index]
             field = text[start:end]
             quoted = field.startswith('"') and field.endswith('"')
@@ -3472,7 +3730,7 @@ def repoint_fold_proofs(raw, gone, tu):
             def replace(match):
                 if match.group(1) not in gone:
                     return match.group(0)
-                return match.group(0)[:match.start(1) - match.start()] + tu
+                return match.group(0)[:match.start(1) - match.start()] + dest
 
             changed = FOLD_PROOF_RE.sub(replace, notes)
             if changed != notes:
