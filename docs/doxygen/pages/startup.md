@@ -184,8 +184,7 @@ flag whose meaning is not yet known then picks one of two paths.
 - **Flag set.** If `TheGameEngine` is set, `shutdownGameEngine` tears
   down the engine, after which `WinMain` clears `TheGameEngine`. This path
   also deletes one further global whose class is not yet identified.
-- **Flag clear.** `shutdownRenderDevice` (a provisional name; the donors'
-  counterpart is WW3D's shutdown) stops any movie capture, ends the 1 ms
+- **Flag clear.** `WW3D::Shutdown` stops any movie capture, ends the 1 ms
   timer period, shuts down the DirectX 8 wrapper unless WW3D runs in Lite
   mode, frees the default static sort lists and marks WW3D as no longer
   initialised. `WinMain` then deletes the audio manager (`TheAudio`, the

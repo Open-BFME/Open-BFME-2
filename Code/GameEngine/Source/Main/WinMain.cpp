@@ -928,7 +928,7 @@ void GameMain(int argc, char **argv)
 
 int BFME2WideToUtf8(const unsigned short *wide, int wideLength, char *utf8, int utf8Size);
 void Rva0005D6D0DisableImmTextFrameService();
-bool shutdownRenderDevice();
+class WW3D { public: static bool Shutdown(); };
 
 class DebugStackwalk
 {
@@ -1216,7 +1216,7 @@ extern "C" int WINAPI WinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
-			shutdownRenderDevice();
+			WW3D::Shutdown();
 			BfmeDfe6e8Owner *owner = (BfmeDfe6e8Owner *)((BfmeDfe6e8 *)TheAudio);
 			if (owner)
 			{

@@ -12,7 +12,7 @@
 #undef _CRTIMP
 
 void __cdecl Rva0012641FClear();void __cdecl Rva001296F0Destroy();
-bool __cdecl shutdownRenderDevice();void __cdecl DX8_Assert();
+class WW3D {public:static bool Shutdown();};void __cdecl DX8_Assert();
 class W3DShaderManager {public:static void shutdown();};
 class CameraShakeSystemClass {public:~CameraShakeSystemClass();};
 extern CameraShakeSystemClass CameraShakerSystem;
@@ -56,6 +56,6 @@ W3DDisplay::~W3DDisplay(){
  if(m_2DScene){m_2DScene->Release_Ref();m_2DScene=0;}
  if(m_3DInterfaceScene){m_3DInterfaceScene->Release_Ref();m_3DInterfaceScene=0;}
  for(int n=0;n<4;++n){if(lights[n]){lights[n]->Release_Ref();lights[n]=0;}if(lights2[n]){lights2[n]->Release_Ref();lights2[n]=0;}}
- Rva001296F0Destroy();W3DShaderManager::shutdown();shutdownRenderDevice();DX8_Assert();
+ Rva001296F0Destroy();W3DShaderManager::shutdown();WW3D::Shutdown();DX8_Assert();
  ::delete TheW3DFileSystem;TheW3DFileSystem=0;
 }

@@ -113,7 +113,7 @@ public:
 
 
 	static bool					Init(void * hwnd, char *defaultpal = NULL, bool lite = false);	// BFME 2: bool
-	static WW3DErrorType		Shutdown(void);
+	static bool					Shutdown(void);	// BFME 2: bool
 	static bool					Is_Initted(void)								{ return IsInitted; }
 
 	static const int			Get_Render_Device_Count(void);

@@ -104,6 +104,7 @@ class WW3D
 public:
 	enum PrelitModeEnum { PRELIT_MODE_VERTEX = 0, PRELIT_MODE_LIGHTMAP_MULTI_PASS };
 	static Bool Init(void *hwnd, char *defaultpal, Bool lite);
+	static Bool Shutdown(void);
 	static Bool Set_Render_Device(Int dev, Int resx, Int resy, Int bits, Int windowed, Bool resize_window, Bool reset_device, Bool restore_assets);
 	static void Set_Ext_Swap_Interval(long swap);
 	static void Set_Prelit_Mode(PrelitModeEnum mode) { PrelitMode = mode; }
@@ -118,7 +119,6 @@ private:
 };
 
 void Rva00116E40Set(Int value);
-Bool shutdownRenderDevice();
 void clipCursorToClient();
 void BFME_DX8_Thread_Lock(void);
 bool BFME_DX8_Thread_Assert(void);
@@ -363,7 +363,7 @@ void W3DDisplay::init()
 			setHeight(TheGlobalData->m_yResolution);
 			if (WW3D::Set_Render_Device(0, getWidth(), getHeight(), getBitDepth(), getWindowed(), true, false, true) != true)
 			{
-				shutdownRenderDevice();
+				WW3D::Shutdown();
 				WWMath::Shutdown();
 				throw ERROR_INVALID_D3D;
 			}

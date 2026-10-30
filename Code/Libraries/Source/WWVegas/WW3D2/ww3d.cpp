@@ -1914,7 +1914,7 @@ bool WW3D::Init(void *hwnd, char *, bool lite)
 	return true;
 }
 
-// tu-skeleton: 0x001180E0 134B ?shutdownRenderDevice@@YA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DShutdownRenderDevice.cpp (not merged yet)
+// tu-skeleton: 0x001180E0 134B ?Shutdown@WW3D@@SA_NXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DShutdownRenderDevice.cpp (not merged yet)
 
 // tu-skeleton: 0x00118170 294B ?Begin_Render@WW3D@@SA_N_N0ABVVector3@@M@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/WW3DBeginRenderBFME2.cpp (not merged yet)
 

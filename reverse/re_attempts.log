@@ -97822,3 +97822,4 @@ tu-merge:Code/GameEngine/Source/Common/RTS/UnitRevivalEntry.cpp	0x00000000	0	blo
 tu-merge:Code/GameEngine/Source/GameLogic/Object/SpecialPower/LevelGrantSpecialPower.cpp	0x00000000	0	blocked	TU consolidation: 0 -> 0 donors; incompatible base-class views, separate base and member identities and differing novtable declarations. t=7 model=gpt-6.1-sol
 tu-merge:Code/GameEngine/Source/GameLogic/Object/Update/BoredUpdate.cpp	0x00000000	0	blocked	TU consolidation: 0 -> 0 donors; incompatible bases and virtual-destructor contracts in BoredUpdateModuleData. t=8 model=gpt-6.1-sol
 tu-merge:Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp	0x00000000	0	blocked	TU consolidation: 0 -> 0 of 9 donors; incompatible virtual views, base representation, pointee variants and macro conflicts. t=29 model=gpt-6.1-sol
+?Shutdown@WW3D@@SA_NXZ	0x001180E0	134	landed	add_match verified Code/Libraries/Source/WWVegas/WW3D2/WW3DShutdownRenderDevice.cpp 134B
