@@ -56507,10 +56507,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00688750,107,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,U,N=Code/GameEngine/Source/GameClient/SubtitleManager.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x006887C0,42,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x006887F0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int.cpp
 0x006887F0,217,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x006888D0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int_insert_overflow.cpp
-0x006888D0,108,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x00688940 provisional,Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
+0x006888D0,108,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x00688940 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x00688940,50,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x00688980 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int_insert_overflow.cpp
-0x00688980,108,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x006889F0 provisional,Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
-0x006889F0,171,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x00688AA0 provisional,Code/GameEngine/Source/Common/Rva006889F0Load.cpp
+0x00688980,108,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x006889F0 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+0x006889F0,171,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,C,C=0x00688750..0x00688AA0 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x00688AA0,105,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,U,N=Code/GameEngine/Source/GameClient/SubtitleManager.cpp provisional,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x00688B10,1578,code,,,-,,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x00689140,63,code,,,-,,Code/GameEngine/Source/Common/Rva0081C2F0Set.cpp
@@ -91360,12 +91360,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007A79B0,8,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006885B0@FuncInfo0x00961364 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x007A79B8,8,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006885B0@FuncInfo0x00961364 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x007A79C0,10,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006885B0@FuncInfo0x00961364 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
-0x007A79D0,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
-0x007A79DB,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
+0x007A79D0,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+0x007A79DB,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x007A79E6,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/gen_small/uw_gen_011.cpp
-0x007A79F1,10,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
-0x007A7A00,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006889F0@FuncInfo0x009613BC provisional,Code/GameEngine/Source/Common/Rva006889F0Load.cpp
-0x007A7A0B,10,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006889F0@FuncInfo0x009613BC provisional,Code/GameEngine/Source/Common/Rva006889F0Load.cpp
+0x007A79F1,10,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x00688980@FuncInfo0x00961398 provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+0x007A7A00,11,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006889F0@FuncInfo0x009613BC provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+0x007A7A0B,10,code,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp,approved,P,P=0x006889F0@FuncInfo0x009613BC provisional,Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
 0x007A7A20,8,code,,,-,,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x007A7A28,8,code,,,-,,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp
 0x007A7A30,8,code,,,-,,Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp

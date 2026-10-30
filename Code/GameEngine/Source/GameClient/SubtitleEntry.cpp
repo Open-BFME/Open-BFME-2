@@ -24,6 +24,13 @@ template <typename T> struct StringInlineData
 };
 #include "ascii_string.h"
 #pragma comment(linker, "/alternatename:?Rva0081D7C0FieldParseTable@@3QBUFieldParse@@B=??_C@_01GBGANLPD@0?$AA@")
+#include <string.h>
+#include "string_base.h"
+// Visible original StringBase C-string setter: receiver is computed before
+// its inlined nullable strlen. Import-inline: expanded here, no copy emitted.
+template <> __declspec(dllimport) __forceinline void StringBase<char>::set(const char *text) {
+    set(text, text ? strlen(text) : 0);
+}
 
 class SubtitleEntry
 {
@@ -46,6 +53,7 @@ private:
 struct FieldParse;
 
 class Xfer;
+
 enum INILoadType {INI_LOAD_INVALID,INI_LOAD_OVERWRITE};
 
 class INI
@@ -117,6 +125,44 @@ public:
 // ?TheVideoPlayer@@3PAVVideoPlayerInterface@@A: matched references place it at VA 0xe0aba8; also referenced as ?TheVideoPlayer@@3PAVVideoPlayer@@A.
 VideoPlayerInterface * TheVideoPlayer = 0;
 
+// STLport's allocator calls the C++-linkage free owned by GameMemory.cpp.
+// Its existing binding selects the game allocator rather than the CRT thunk.
+namespace _STL { void __cdecl free(void *); }
+
+class Rva006888D0Owned
+{
+public:
+    virtual ~Rva006888D0Owned();
+};
+
+inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
+    Rva006888D0Owned **first, Rva006888D0Owned **last);
+
+struct Rva006888D0Vector
+{
+    ~Rva006888D0Vector() { if (begin != 0) _STL::free(begin); }
+    Rva006888D0Owned **begin;
+    Rva006888D0Owned **end;
+    Rva006888D0Owned **capacity;
+    void clear() { end = copyOwned(begin, end, end); }
+};
+
+class Rva00688980
+{
+public:
+	~Rva00688980();
+	void rva006888D0();
+	void rva006889F0(const char *path);
+private:
+	char prefix[8]; // +0x00
+	AsciiString m_nameA; // +0x08
+	AsciiString m_nameB; // +0x0C
+	int m_count; // +0x10
+	Rva006888D0Vector m_vector; // +0x14
+};
+
+// ---- from Code/GameEngine/Source/GameClient/SubtitleEntry.cpp
+
 // ---- from Code/GameEngine/Source/GameClient/SubtitleEntryCtor.cpp
 
 // ??0SubtitleEntry@@QAE@ABVUnicodeString@@IHHHHH@Z
@@ -133,8 +179,6 @@ SubtitleEntry::SubtitleEntry(const UnicodeString &text, unsigned int color,
 	m_displayed(false)
 {
 }
-
-// tu-skeleton: 0x006885A0 14B ??1SubtitleEntry@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/parseSubtitle.cpp
 
@@ -156,6 +200,8 @@ void parseSubtitle( INI *ini, void *, void *, const void * )
 	}
 }
 
+// tu-skeleton: 0x006885A0 14B ??1SubtitleEntry@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp (not merged yet)
+
 // tu-skeleton: 0x00688680 98B ?getStartFrame@SubtitleManager@@QBEHH@Z -- matched in Code/GameEngine/Source/GameClient/SubtitleManager_getStartFrame.cpp (not merged yet)
 
 // tu-skeleton: 0x006886F0 30B ??_GSubtitleEntry@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/SubtitleEntryDtor.cpp (not merged yet)
@@ -168,24 +214,75 @@ void parseSubtitle( INI *ini, void *, void *, const void * )
 
 // tu-skeleton: 0x006887F0 217B ?_M_insert_overflow@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@IAEXPAPAVSubtitleEntry@@ABQAV3@ABU__true_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int_insert_overflow.cpp (not merged yet)
 
-// tu-skeleton: 0x006888D0 108B ?rva006888D0@Rva00688980@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp
+
+// Reference: Open-BFME-1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f,
+// game/GameEngine/Source/Common/Bfme5HandOffClears.cpp, Gen_0081DBE0::bfmeClear.
+// Target: native 006888D0..0068893C deletes the pointer range at +14/+18,
+// clears the two four-byte strings at +8/+C, and resets +10. Its caller
+// 00688980 is the owned-object teardown called from Rva001D28F0Element.
+// Address-derived owner retained; donor application names are unproven.
+
+inline Rva006888D0Owned **copyOwned(Rva006888D0Owned **destination,
+    Rva006888D0Owned **first, Rva006888D0Owned **last)
+{
+    if (first == last)
+        return destination;
+    int bytes = (char *)last - (char *)first;
+    return (Rva006888D0Owned **)((char *)memmove(destination, first, bytes) + bytes);
+}
+
+void Rva00688980::rva006888D0()
+{
+    Rva006888D0Owned **it = m_vector.begin;
+    Rva006888D0Owned **last = m_vector.end;
+    while (it != last) {
+        if (*it != 0)
+            ::delete *it;
+        last = m_vector.end;
+        ++it;
+    }
+    m_vector.clear();
+    m_nameA.clear();
+    m_nameB.clear();
+    m_count = 0;
+}
+
+// Native 00688980..006889EC and its unwind states destroy the vector then
+// the two strings in reverse order. This proves destruction despite the
+// older consumer's provisional 'teardown' method spelling.
+Rva00688980::~Rva00688980()
+{
+    rva006888D0();
+}
 
 // tu-skeleton: 0x00688940 50B ?push_back@?$vector@PAVSubtitleEntry@@V?$allocator@PAVSubtitleEntry@@@_STL@@@_STL@@QAEXABQAVSubtitleEntry@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_int_insert_overflow.cpp (not merged yet)
 
-// tu-skeleton: 0x00688980 108B ??1Rva00688980@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva006889F0Load.cpp
 
-// tu-skeleton: 0x006889F0 171B ?rva006889F0@Rva00688980@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva006889F0Load.cpp (not merged yet)
+// Native6889F0..688A9B,171B;4CC leading/5CC trailing; RET4.
+// Same receiver reaches the owned reset6888D0 and the path string at+8.
+// INI loader2DA4B takes the named parseVideoDefinition callback75A4DC.
+// BF1 a7c38d3b VideoPlayerInit.cpp guides the INI lifetime and callback load;
+// Bfme5HandOffClears.cpp guides the existing receiver reset. Name unresolved.
+
+// AsciiString::operator=(const char *) as an inline-only helper: the operator
+// itself would also emit this TU's copy of the 0x000065B8 body in its
+// strlen-inlined form (retail's copy calls the out-of-line setter).
+static __forceinline AsciiString &AssignCString(AsciiString &s, const char *text)
+{
+    ((StringBase<char> *)&s)->set(text);
+    return s;
+}
+
+void Rva00688980::rva006889F0(const char *path)
+{
+    rva006888D0();
+    AssignCString(m_nameA, path);
+    INI ini;
+    ini.load(path,INI_LOAD_OVERWRITE,0,INI::parseVideoDefinition);
+}
 
 // tu-skeleton: 0x00688AA0 105B ?addSubtitle@SubtitleManager@@QAEXABVAsciiString@@IHHHHH@Z -- matched in Code/GameEngine/Source/GameClient/SubtitleManagerAccessors.cpp (not merged yet)
 
-// tu-skeleton: 0x007A79D0 11B Unwind@00ba79d0 -- matched in Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A79DB 11B Unwind@00ba79db -- matched in Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp (not merged yet)
-
 // tu-skeleton: 0x007A79E6 11B uw_007a79e6 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
-
-// tu-skeleton: 0x007A79F1 10B __ehhandler$??1Rva00688980@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00688980Cleanup.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7A00 11B Unwind@00ba7a00 -- matched in Code/GameEngine/Source/Common/Rva006889F0Load.cpp (not merged yet)
-
-// tu-skeleton: 0x007A7A0B 10B __ehhandler$?rva006889F0@Rva00688980@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva006889F0Load.cpp (not merged yet)
