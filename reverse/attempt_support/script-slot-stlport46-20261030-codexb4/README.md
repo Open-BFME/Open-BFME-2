@@ -112,3 +112,27 @@ The complete missing-source list and audit output are in audit.txt. This does
 not establish full consumer closure or absence of losses. Carry the changed
 provider, its removed const signature, omitted helper copies and affected
 consumer scope into the next scheduled census.
+
+## Commit-hook dependency check and remaining identity conflict
+
+The normal commit hook expands the affected scope to 19 units and verifies
+673/673 functions, seven data rows and all 112 EH rows EXACT. It also verifies
+40 literals, two empty-string references, 83 floating-point literals and
+110 named imports. Converged-data checks find no second name or unjudged row.
+
+The commit hook reports a shadow binding conflict for
+`?deallocateEntry@Rva003B573E@@QAEXH@Z` at 003B66D8. Its complete 131-byte
+body and all relocations equal the pre-migration control. The REL32 at
+offset 104 names `??1AsciiString@@QAE@XZ`; retail targets 00036410,
+which agrees with the existing pin, while the destructor's function row
+names 0048BA39. Neither identity was edited by this migration. The native
+call and unchanged object digest are recorded in ascii-string-binding.json.
+Reconcile the native StringBase/AsciiString destructor owners and fold
+identity before retiring this conflict; no identity key or baseline is
+changed here.
+
+After the hook and rebase onto a5c01ba2ba, the c9fe2831a1 batch audit is
+rerun once. It remains INCONCLUSIVE on the older index and the same eleven
+missing ScriptEngine consumer receipts. audit.txt retains both outputs.
+The rebase changes none of these four source files or their headers; the
+read-only native allocator/caller proof passes again after the rebase.

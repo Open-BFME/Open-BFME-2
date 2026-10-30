@@ -51,6 +51,14 @@ affected consumer scope into the next scheduled census; full closure remains
 unverified.
 [Native proof, object deltas and verification boundary](../reverse/attempt_support/script-slot-stlport46-20261030-codexb4/README.md).
 
+The commit hook verifies 673/673 functions and 112 exact EH rows across its
+19 affected units. It exposes an existing shadow binding conflict in
+`deallocateEntry` at 003B66D8: the unchanged 131-byte body and all relocations
+call the AsciiString destructor at retail 00036410, matching its existing pin,
+while the function row names 0048BA39. Reconcile the native StringBase and
+AsciiString destructor owners/fold identity before retiring this conflict.
+Neither identity nor any baseline is changed by this migration.
+
 ### Pointer-tree copy native clone binding (2026-10-29)
 
 At base 7cce6ba90783, the 115-byte copy at 0x00603B9C now calls the existing

@@ -1,0 +1,18 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordRemove.cpp",
+  "symbol": "?deallocateEntry@Rva003B573E@@QAEXH@Z",
+  "rva": "0x003B66D8",
+  "size": 131,
+  "control_revision": "c16862543a",
+  "control_and_current_body_sha256": "b1e6d8e65a3b4ab5cd8dbadf7c460f07a1e452df1e127aa7ce7523aa4b3cb9cf",
+  "all_relocations_unchanged": true,
+  "destructor_relocation": [
+    104,
+    20,
+    "??1AsciiString@@QAE@XZ"
+  ],
+  "native_destructor_call_target": "0x00036410",
+  "current_destructor_ledger_rva": "0x0048BA39",
+  "existing_destructor_pin_rva": "0x00036410",
+  "boundary": "Unchanged pre-existing ledger/pin identity conflict; no baseline or identity debt retired."
+}

@@ -13,3 +13,7 @@ Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B80B8.
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptListSubrecordAddRva003B8141.cpp
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteGroupRef.cpp
 Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptList_deleteScriptRef.cpp
+
+After commit hook and rebase (base a5c01ba2ba, tip c9fe2831a1):
+link batch audit: INCONCLUSIVE baseline: index at 85f6b7f40c, outgoing base a5c01ba2ba; findings below are provisional since-index changes
+link batch audit: INCONCLUSIVE: 11 source object(s) lack current receipts; first: Code/GameEngine/Source/GameLogic/ScriptEngine/Rva003B573ERva003B7F46.cpp
