@@ -336,6 +336,25 @@ def test_index_key_refuses_a_root_linking_outside_itself(tmp_path):
         mha.index_key(roots)
 
 
+def test_index_key_refuses_a_root_it_cannot_enumerate(tmp_path, monkeypatch):
+    roots, header = one_header_root(tmp_path, "#define WINAPI __stdcall\n")
+    hidden = header.parent / "sys"
+    hidden.mkdir()
+    (hidden / "types.h").write_text("typedef unsigned int size_t;\n")
+    # an unreadable subtree; injected, since chmod binds no user holding
+    # CAP_DAC_READ_SEARCH (boat.dev sandboxes) and nobody on Windows
+    scandir = os.scandir
+
+    def unreadable(path="."):
+        if Path(path) == hidden:
+            raise PermissionError(13, "Permission denied", str(path))
+        return scandir(path)
+
+    monkeypatch.setattr(os, "scandir", unreadable)
+    with pytest.raises(SystemExit, match="cannot enumerate include root files"):
+        mha.index_key(roots)
+
+
 def test_index_key_covers_the_compiler_and_the_probe_settings(tmp_path, monkeypatch):
     roots, header = one_header_root(tmp_path, "#define WINAPI __stdcall\n")
     vc = tmp_path / "vs2003"

@@ -1402,14 +1402,19 @@ def root_files(roots):
     """[(label/relative path, abs path)] of every regular file under the roots,
     whatever its suffix: what `cl /E` may read through INCLUDE. Refuses a root
     holding a symlink that leads outside it, since the index key would not cover
-    what the probes read there."""
+    what the probes read there, and one it cannot enumerate: an unreadable
+    subtree would drop out of the key while cl may still read it."""
+    def unreadable(error):
+        raise SystemExit(f"ms_header_audit: cannot enumerate include root files ({error}); "
+                         "the header index cannot key what cl /E would read there")
+
     out = []
     for label, root in roots:
         if not root.is_dir():
             continue
         real = root.resolve()
         files = []
-        for dirpath, dirnames, filenames in os.walk(root):
+        for dirpath, dirnames, filenames in os.walk(root, onerror=unreadable):
             for name in dirnames + filenames:
                 path = Path(dirpath) / name
                 if path.is_symlink() and not path.resolve().is_relative_to(real):
