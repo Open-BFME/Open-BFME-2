@@ -11,6 +11,29 @@
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+class Object;
+
+#include "../../../../Include/Common/BfmeXfer.h"
+
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
@@ -24,10 +47,43 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class PillageModule
+class BehaviorModule
+{
+public:
+	virtual void anchor();
+	void xfer(Xfer *xfer);
+	unsigned int m_04;
+	void *m_object;
+};
+
+enum ObjectID
+{
+	INVALID_ID = 0
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *objectID);
+
+class Rva00589051 : public BehaviorModule
+{
+public:
+	virtual void f0();
+	virtual void f1();
+	virtual void f2();
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	char m_pad[0x08];
+	ObjectID m_14;
+};
+
+class PillageModule : public Rva00589051
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	unsigned int m_18;
 };
 
 // tu-skeleton: 0x00484F0D 46B ??0PillageModule@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/PillageModuleCtor.cpp (not merged yet)
