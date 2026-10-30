@@ -76,11 +76,16 @@ public:
 	bool m_showSoftWaterEdge;
 };
 extern GlobalData *TheWritableGlobalData;
+class Rva00072B3A;
 class BaseHeightMapRenderObjClass
 {
 public:
-	char m_pad[0x37E8];
-	float m_minWaterOpacity;
+	char m_pad00[0x37C0];
+	void *map; // +0x37C0
+	char m_pad37C4[0x24];
+	float m_minWaterOpacity; // +0x37E8
+	char m_pad37EC[0x8C];
+	Rva00072B3A *shroud; // +0x3878
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 #include "Vector2.h"

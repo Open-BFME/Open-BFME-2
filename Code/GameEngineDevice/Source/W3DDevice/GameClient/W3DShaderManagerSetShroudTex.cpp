@@ -107,7 +107,16 @@ class TextureBaseClass {public:void Release_Ref();}; class TextureClass:public T
 template<class T>class RefCountPtr {public:T *ptr; ~RefCountPtr(){if(ptr)ptr->Release_Ref();}};
 class RvaTextureHandleView:public RefCountPtr<TextureClass>{};
 class Rva00072B3A {public: RvaTextureHandleView getShroudTexture()const; char pad[0x10];float cellWidth,cellHeight;char pad18[8];int textureWidth,textureHeight;char pad28[4];float drawOriginX,drawOriginY;};
-class BaseHeightMapRenderObjClass {public:char pad[0x37C0];void *map;char pad37C4[0xB4];Rva00072B3A *shroud;};
+class BaseHeightMapRenderObjClass
+{
+public:
+	char m_pad00[0x37C0];
+	void *map; // +0x37C0
+	char m_pad37C4[0x24];
+	float m_minWaterOpacity; // +0x37E8
+	char m_pad37EC[0x8C];
+	Rva00072B3A *shroud; // +0x3878
+};
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
 class TextureBaseClass;
 void __cdecl BoxSetTexture(unsigned,TextureBaseClass *&);
