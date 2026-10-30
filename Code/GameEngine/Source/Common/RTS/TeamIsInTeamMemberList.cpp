@@ -11,23 +11,15 @@
 // game.dat: it is the out-of-line copy of a member the siblings inline.
 typedef bool Bool;
 
+#include "../../../Include/Common/TeamBFME2.h"
+
 class Object
 {
 public:
 	Bool dlink_isInList_TeamMemberList(Object * const *pListHead) const;
 };
 
-class Team
-{
-public:
-	Bool isInList_TeamMemberList(Object *o) const;
-
-private:
-	unsigned char m_pad000[0x38];
-	struct DLINKHEAD_TeamMemberList { Object *m_head; } m_dlinkhead_TeamMemberList; // +0x38
-};
-
 Bool Team::isInList_TeamMemberList(Object *object) const
 {
-	return object->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList.m_head);
+	return object->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList);
 }

@@ -11,9 +11,12 @@
 // dlink_removeFrom (0x0028A704). The boundaries are retail's: the three run
 // back to back from the end of dlink_removeFrom to the getter at 0x0028A79F,
 // each closing with ret 4. Both inline isInList_TeamMemberList, whose own
-// out-of-line copy (0x0028A74F) is in TeamIsInTeamMemberList.cpp; here it
-// stays the class-inline macro member, as in the donor.
+// out-of-line copy (0x0028A74F) is in TeamIsInTeamMemberList.cpp; the
+// canonical Team header declares it out of line, so the bodies spell the
+// macro's inline test themselves.
 typedef bool Bool;
+
+#include "../../../Include/Common/TeamBFME2.h"
 
 class Object
 {
@@ -23,30 +26,14 @@ public:
 	void dlink_removeFrom_TeamMemberList(Object **pListHead);
 };
 
-class Team
-{
-public:
-	// Preserve the inlined test; use the verified external out-of-line provider.
-	__declspec(dllimport) __forceinline Bool isInList_TeamMemberList(Object *o) const
-	{
-		return o->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList.m_head);
-	}
-	void prependTo_TeamMemberList(Object *o);
-	void removeFrom_TeamMemberList(Object *o);
-
-private:
-	unsigned char m_pad000[0x38];
-	struct DLINKHEAD_TeamMemberList { Object *m_head; } m_dlinkhead_TeamMemberList; // +0x38
-};
-
 void Team::prependTo_TeamMemberList(Object *object)
 {
-	if (!isInList_TeamMemberList(object))
-		object->dlink_prependTo_TeamMemberList(&m_dlinkhead_TeamMemberList.m_head);
+	if (!object->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList))
+		object->dlink_prependTo_TeamMemberList(&m_dlinkhead_TeamMemberList);
 }
 
 void Team::removeFrom_TeamMemberList(Object *object)
 {
-	if (isInList_TeamMemberList(object))
-		object->dlink_removeFrom_TeamMemberList(&m_dlinkhead_TeamMemberList.m_head);
+	if (object->dlink_isInList_TeamMemberList(&m_dlinkhead_TeamMemberList))
+		object->dlink_removeFrom_TeamMemberList(&m_dlinkhead_TeamMemberList);
 }
