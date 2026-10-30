@@ -36,3 +36,8 @@ ordinary preview retains 4/4 LINKS, 942 -> 3,717 authored bytes: registry
 bounded predictions, not a new census, unique coverage or a full-image link.
 Full affected-consumer selection/loss and scheduled census confirmation remain
 separate.
+
+Ready-batch audit: INCONCLUSIVE on older `ccafe54d1d` versus base `0deec88cb3`
+and the missing current CreateAHeroManager consumer receipt. Carry all three
+removed helper names per unit and their affected consumers into the next
+scheduled census; no full consumer selection/loss clearance is inferred.

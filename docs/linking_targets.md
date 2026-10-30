@@ -1,5 +1,16 @@
 # Linking target checklist
 
+Downloader allocator follow-up (2026-10-30, LINK-164): direct native cleanup
+in two local proxy specializations avoids instantiating three debug-only
+helpers per unit. The selected proxy/rebind providers remain unchanged and
+both existing proxy bodies remain native exact. All 30 changed-source rows
+and seven EH graphs pass; the strict four-source cohort passes 38 rows and
+eight EH graphs. Preview against `ccafe54d1d`: 4/4 LINKS, 942 -> 3,717 authored
+bytes, a bounded 2,775-byte increase. No pin, row, alias, hatch or header
+changes. Full consumer selection/loss checks and census confirmation remain
+pending. [Registry](../reverse/attempt_support/download-char-deallocate-link-20261030/registry.md)
+and [URL builder](../reverse/attempt_support/download-char-deallocate-link-20261030/url.md).
+
 Wide monetary string follow-up (2026-10-30, LINK-163): two unused const narrow
 allocator copies are suppressed while preserving their native inline cleanup
 and throwing global free context. All 33 rows and both EH graphs are exact;

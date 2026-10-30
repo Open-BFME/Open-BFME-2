@@ -32,6 +32,16 @@ namespace _STL { void __cdecl free(void *block); }
 #define free _STL::free
 #include <string>
 #undef free
+
+// Keep native inline cleanup without emitting the unused allocator helpers.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void
+_STLP_alloc_proxy<char *, char, allocator<char> >::deallocate(char *p, size_t)
+{
+    if (p != 0)
+        _STL::free((void *)p);
+}
+}
 #include <algorithm>
 #include <cstddef>
 // Suppress this TU's non-retail copy of ?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z:

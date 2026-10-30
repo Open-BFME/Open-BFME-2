@@ -1,0 +1,224 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWDownload/urlBuilder.cpp",
+  "change": "suppress unused const char allocator COMDAT; preserve visible header operation and throwing free context",
+  "objects": {
+    "before": {
+      "source_sha256": "80391a27f8bdcb0f6757f50db177793a761baebcbec2fb9ef2f9176ab3a86eaf",
+      "object_sha256": "adc183c72aa16c7d269774d556160e6d805bea2d044571f821383a80dc35a7d8",
+      "rows": [
+        {
+          "name": "??$transform@PADPADP6AHH@Z@_STL@@YAPADPAD00P6AHH@Z@Z",
+          "rva": "0x006C92C0",
+          "size": "55",
+          "exact": true
+        },
+        {
+          "name": "?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "rva": "0x006C9300",
+          "size": "811",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "rva": "0x007A7FA2",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f60",
+          "rva": "0x007A7F60",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f6b",
+          "rva": "0x007A7F6B",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f76",
+          "rva": "0x007A7F76",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f81",
+          "rva": "0x007A7F81",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f8c",
+          "rva": "0x007A7F8C",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f97",
+          "rva": "0x007A7F97",
+          "size": "11",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    },
+    "trial": {
+      "source_sha256": "0981884716cf0d9aaa8d447d4e98f388e58b2bb53ba0fa5ce8ed0bce664c1b98",
+      "object_sha256": "af7b918d466b430dceedfc8879b25db082d885c935f8fe318e2009d7763e7a24",
+      "rows": [
+        {
+          "name": "??$transform@PADPADP6AHH@Z@_STL@@YAPADPAD00P6AHH@Z@Z",
+          "rva": "0x006C92C0",
+          "size": "55",
+          "exact": true
+        },
+        {
+          "name": "?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "rva": "0x006C9300",
+          "size": "811",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "rva": "0x007A7FA2",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f60",
+          "rva": "0x007A7F60",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f6b",
+          "rva": "0x007A7F6B",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f76",
+          "rva": "0x007A7F76",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f81",
+          "rva": "0x007A7F81",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f8c",
+          "rva": "0x007A7F8C",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00ba7f97",
+          "rva": "0x007A7F97",
+          "size": "11",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?FormatURLFromRegistry@@YAXAAV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@000@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ],
+      "all_emitted_handler_parents": []
+    }
+  },
+  "removed_definition": {
+    "name": "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z",
+    "raw": "8b44240485c0740750e80000000059c20800",
+    "relocations": [
+      [
+        10,
+        20,
+        "?free@_STL@@YAXPAX@Z"
+      ]
+    ]
+  },
+  "all_removed_definitions": [
+    {
+      "name": "??$__stl_alloc_rebind@DD@_STL@@YAAAV?$allocator@D@0@AAV10@PBD@Z",
+      "raw": "8b442404c3",
+      "relocations": []
+    },
+    {
+      "name": "?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z",
+      "raw": "8b44240485c0740750e80000000059c20800",
+      "relocations": [
+        [
+          10,
+          20,
+          "?free@_STL@@YAXPAX@Z"
+        ]
+      ]
+    },
+    {
+      "name": "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z",
+      "raw": "8b44240485c0740750e80000000059c20800",
+      "relocations": [
+        [
+          10,
+          20,
+          "?free@_STL@@YAXPAX@Z"
+        ]
+      ]
+    }
+  ],
+  "before_incoming_relocations": [
+    {
+      "section": ".debug$F",
+      "offset": 0,
+      "type": 7
+    }
+  ],
+  "all_removed_incoming_relocations": {
+    "?deallocate@?$allocator@D@_STL@@QBEXPADI@Z": [
+      {
+        "section": ".debug$F",
+        "offset": 0,
+        "type": 7
+      }
+    ],
+    "?deallocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEXPADI@Z": [
+      {
+        "section": ".debug$F",
+        "offset": 0,
+        "type": 7
+      }
+    ],
+    "??$__stl_alloc_rebind@DD@_STL@@YAAAV?$allocator@D@0@AAV10@PBD@Z": [
+      {
+        "section": ".debug$F",
+        "offset": 0,
+        "type": 7
+      }
+    ]
+  },
+  "retained_external_code_definitions_identical": 42,
+  "unexpected_added_definitions": [],
+  "local_label_comparison": "Same-section static labels compared by their actual section-relative destinations; external names preserved. Parser jump-table ordinals may renumber.",
+  "import_symbols_unchanged": [
+    "__imp___snprintf",
+    "__imp__memmove",
+    "__imp__tolower"
+  ]
+}
