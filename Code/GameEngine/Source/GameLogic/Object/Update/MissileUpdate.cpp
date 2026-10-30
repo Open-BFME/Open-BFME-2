@@ -111,6 +111,34 @@ public:
 #define BFME_ASCII_DTOR_DECL
 #include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+//
+// ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z, retail 0x004A796A, 284 bytes.
+// Slot 3 of ??_7MissileUpdate 0x00C5362C (slot-2 name getter returns
+// "MissileUpdate"; installed by the rowed ctor 0x004A75B9). Version(1,1),
+// the pinned BezierProjectileBehavior::xfer 0x0045CA8E, then the members in
+// retail's order: Coord3Ds at +0xA0 and +0xB8 (the latter zeroed on load),
+// an unsigned int at +0x8C, ObjectIDs at +0x90 and +0x94, a bool at +0xCD,
+// an unsigned int at +0x98, a float at +0x9C, bools at +0xCE and +0xCC, a
+// Coord3D at +0xAC, an unsigned int at +0xC4, and four raw bytes each at
+// +0x88 and +0xC8 (Xfer slot 0x24). Member names not recovered.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class Object;
 
@@ -160,6 +188,26 @@ public:
 	int m_garrisonHitKillFX; // +0x118
 	AsciiString m_exhaust; // +0x11C
 };
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
+void XferObjectID(Xfer *xfer, ObjectID *id);
 
 class BezierProjectileBehavior : public Rva004A76DEBase0, public Rva004A76DEBase1, public Rva004A76DEBase2, public Rva004A76DEBase3, public Rva004A76DEBase4
 {
@@ -235,6 +283,8 @@ private:
 // tu-skeleton: 0x004A74EF 27B ?buildFieldParse@MissileUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
 
 // tu-skeleton: 0x004A750A 8B ?clear@Rva004A750ADwordClearer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordClearers2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate.cpp
 
@@ -480,17 +530,47 @@ bool MissileUpdate::rva0047A699_5() { return false; }
 
 // tu-skeleton: 0x004A768A 7B ?get@Rva004A768AByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004A7699 69B ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp
+
+// ?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType MissileUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheMissileUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("MissileUpdate");
+	return TheMissileUpdatePoolKey;
+}
 
 // tu-skeleton: 0x004A7869 51B ??1MissileUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateModuleDataDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x004A796A 284B ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdateXfer.cpp
+
+// ?xfer@MissileUpdate@@MAEXPAVXfer@@@Z @0x004A796A
+void MissileUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+
+	BezierProjectileBehavior::xfer(xfer);
+
+	*xfer == asBase(m_velA);
+	*xfer == asBase(m_velB);
+	if (xfer->IsLoading())
+		m_velB.zero();
+	*xfer == m_frame;
+	XferObjectID(xfer, &m_90);
+	XferObjectID(xfer, &m_94);
+	*xfer == m_CD;
+	*xfer == m_98;
+	*xfer == m_9C;
+	*xfer == m_CE;
+	*xfer == m_CC;
+	*xfer == asBase(m_prevPos);
+	*xfer == m_C4;
+	xfer->XferRawBytes(&m_88, sizeof(m_88));
+	xfer->XferRawBytes(&m_C8, sizeof(m_C8));
+}
 
 // tu-skeleton: 0x004A7B48 498B ?update@MissileUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdate_update.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DF45 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078DF52 10B __ehhandler$?getModuleNameKey@MissileUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MissileUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078DF6E 8B uw_0078df6e -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
