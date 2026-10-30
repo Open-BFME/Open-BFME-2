@@ -35,6 +35,26 @@ public:
 #define LogicFramesPerSecond BfmeLogicFramesPerSecond
 extern "C" const void *const __identifier("??_7EntEnragedUpdateModuleData@@6B@")[];
 #include "Common/Snapshot.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class UpdateModuleData
 {
@@ -110,9 +130,39 @@ private:
 	unsigned char m_extra;
 };
 
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+BFME_LITERAL_NAME_GETTER(Rva004B2394Named, "EntEnragedUpdate")
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x004B237B 25B ??1EntEnragedUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
-// tu-skeleton: 0x004B2394 6B ?name@Rva004B2394Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// ---- from Code/GameEngine/Source/Common/EntEnragedUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva002918E0ConditionalFlag.cpp
 
@@ -134,8 +184,6 @@ void Rva002918E0Object::rva004B239A(unsigned char a, unsigned char b)
 		m_flag = 0;
 	m_extra = b;
 }
-
-// tu-skeleton: 0x004B23C5 147B ?rva004B23C5@EntEnragedUpdate@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004B237BXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/EntEnragedUpdatePoolKey.cpp
 
@@ -164,6 +212,8 @@ EntEnragedUpdateModuleData::EntEnragedUpdateModuleData()
 	m_onBuffFX = 0;
 	m_offBuffFX = 0;
 }
+
+// tu-skeleton: 0x004B23C5 147B ?rva004B23C5@EntEnragedUpdate@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva004B237BXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2505 17B ?buildFieldParse@EntEnragedUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
