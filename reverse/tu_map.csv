@@ -48375,7 +48375,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00597331,26,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,N,N=Code/GameEngine/Source/Common/AIUpgrade.cpp provisional,Code/GameEngine/Source/Common/AIUpgrade.cpp
 0x0059734B,11,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,N,N=Code/GameEngine/Source/Common/AIUpgrade.cpp provisional,Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp
 0x00597356,28,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,N,N=Code/GameEngine/Source/Common/AIUpgrade.cpp provisional,Code/GameEngine/Source/Common/Rva0055B0CCDerived.cpp
-0x00597372,24,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,C,C=0x00597356..0x0059738A provisional,Code/GameEngine/Source/Common/VslotSmallBodiesSseA.cpp
+0x00597372,24,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,C,C=0x00597356..0x0059738A provisional,Code/GameEngine/Source/Common/AIUpgrade.cpp
 0x0059738A,78,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeBuild.cpp
 0x005973D8,78,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgradeBuild.cpp
 0x00597426,80,code,Code/GameEngine/Source/Common/AIUpgrade.cpp,approved,N,N=Code/GameEngine/Source/Common/AIUpgrade.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUpgrade/AIUpgrade.cpp provisional,Code/GameEngine/Source/Common/VslotSmallBodiesAE.cpp

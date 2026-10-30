@@ -34,12 +34,6 @@ class Rva00597372
 public:
 	void rva00597372(Rva00597372Triple *out);
 };
-void Rva00597372::rva00597372(Rva00597372Triple *out)
-{
-	out->x = 0.0f;
-	out->y = 0.0f;
-	out->z = 0.0f;
-}
 
 // 0x005C793A: 1.0 and the most negative Int out.
 struct Rva005C793APair
