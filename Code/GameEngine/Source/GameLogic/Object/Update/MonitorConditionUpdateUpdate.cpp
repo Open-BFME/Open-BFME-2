@@ -20,13 +20,48 @@
 // Data member names are descriptive; the condition fields' identities are
 // structural inferences.
 
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+class Thing;
+class ModuleData;
+
+#include "../../../../Include/Common/BfmeXfer.h"
+
+class Xfer::Version
+{
+public:
+	Version(unsigned char current, unsigned char minimum)
+		: m_current(current), m_minimum(minimum) {}
+
+	unsigned char m_current;
+	unsigned char m_minimum;
+};
+
 #include "ascii_string.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 enum UpdateSleepTime
 {
 	UPDATE_SLEEP_NONE = 1
 };
 
+// ModelConditionFlags view: constructed through the rowed 0x0042526,
+// compared through the rowed mask overlap 0x00263546.
 class Rva00263546
 {
 public:
@@ -73,64 +108,78 @@ private:
 };
 extern ControlBar *TheControlBar;
 
-struct MonitorConditionUpdateModuleData
-{
-	unsigned char m_pad00[0x08];
-	Rva00263546 m_mask;              // +0x08
-	AsciiString m_maskCommandSet;    // +0x54
-	unsigned char m_status[0x10];    // +0x58
-	AsciiString m_statusCommandSet;  // +0x68
-};
-
-struct Iface00
-{
-	virtual void f00();
-	const MonitorConditionUpdateModuleData *m_moduleData; // +0x04
-	Object *m_object;                                     // +0x08
-};
-struct Iface0C { virtual void f0C(); };
-struct Iface10 { virtual UpdateSleepTime update() = 0; };
-
-class MonitorConditionUpdate : public Iface00, public Iface0C, public Iface10
+class __declspec(novtable) MonitorConditionUpdateModuleData : public Snapshot
 {
 public:
-	virtual UpdateSleepTime update();
+	virtual ~MonitorConditionUpdateModuleData();
+
+	int m_unused04; // +4
+	Rva00263546 m_modelConditionFlags; // +8
+	AsciiString m_modelConditionCommandSet; // +0x54
+	unsigned long m_weaponSetFlags[4]; // +0x58
+	AsciiString m_weaponToggleCommandSet; // +0x68
+};
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+
 private:
-	unsigned char m_pad14[0x20 - 0x14];
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class MonitorConditionUpdate : public UpdateModule
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual void xfer(Xfer *xfer);
+
+private:
 	AsciiString m_rememberedCommandSet; // +0x20
 };
 
 // ?update@MonitorConditionUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x0049176C
 UpdateSleepTime MonitorConditionUpdate::update()
 {
-	const MonitorConditionUpdateModuleData *monitorConditionUpdateModuleData = m_moduleData;
+	const MonitorConditionUpdateModuleData *monitorConditionUpdateModuleData =
+		(const MonitorConditionUpdateModuleData *)getModuleData();
 	Object *obj = m_object;
 	if (obj == 0 || monitorConditionUpdateModuleData == 0)
 		return UPDATE_SLEEP_NONE;
 
-	if (obj->getMask10C()->rva00263546(&monitorConditionUpdateModuleData->m_mask))
+	if (obj->getMask10C()->rva00263546(&monitorConditionUpdateModuleData->m_modelConditionFlags))
 	{
 		const AsciiString *current = obj->rva00290E67();
-		if (current->compare(monitorConditionUpdateModuleData->m_maskCommandSet) == 0)
+		if (current->compare(monitorConditionUpdateModuleData->m_modelConditionCommandSet) == 0)
 			return UPDATE_SLEEP_NONE;
 		current = obj->rva00290E67();
-		if (current->compare(monitorConditionUpdateModuleData->m_statusCommandSet) != 0)
+		if (current->compare(monitorConditionUpdateModuleData->m_weaponToggleCommandSet) != 0)
 			((StringBase<char> *)&m_rememberedCommandSet)->set(*(const StringBase<char> *)obj->rva00290E67());
-		obj->setCommandSetStringOverride(monitorConditionUpdateModuleData->m_maskCommandSet);
+		obj->setCommandSetStringOverride(monitorConditionUpdateModuleData->m_modelConditionCommandSet);
 		TheControlBar->markUIDirty();
 	}
 	else
 	{
 	const Rva00331682Holder *status = obj->getStatus370();
-	if (status->test(monitorConditionUpdateModuleData->m_status))
+	if (status->test(monitorConditionUpdateModuleData->m_weaponSetFlags))
 	{
 		const AsciiString *current = obj->rva00290E67();
-		if (current->compare(monitorConditionUpdateModuleData->m_statusCommandSet) == 0)
+		if (current->compare(monitorConditionUpdateModuleData->m_weaponToggleCommandSet) == 0)
 			return UPDATE_SLEEP_NONE;
 		current = obj->rva00290E67();
-		if (current->compare(monitorConditionUpdateModuleData->m_maskCommandSet) != 0)
+		if (current->compare(monitorConditionUpdateModuleData->m_modelConditionCommandSet) != 0)
 			((StringBase<char> *)&m_rememberedCommandSet)->set(*(const StringBase<char> *)obj->rva00290E67());
-		obj->setCommandSetStringOverride(monitorConditionUpdateModuleData->m_statusCommandSet);
+		obj->setCommandSetStringOverride(monitorConditionUpdateModuleData->m_weaponToggleCommandSet);
 		TheControlBar->markUIDirty();
 	}
 	else

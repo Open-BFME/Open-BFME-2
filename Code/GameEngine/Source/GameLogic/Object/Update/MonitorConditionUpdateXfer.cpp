@@ -40,56 +40,105 @@ public:
 };
 
 #include "ascii_string.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
-class BehaviorModuleBase
+enum UpdateSleepTime
 {
-	virtual void unused();
-	int a;
-	int b;
+	UPDATE_SLEEP_NONE = 1
 };
 
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
-
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+// ModelConditionFlags view: constructed through the rowed 0x0042526,
+// compared through the rowed mask overlap 0x00263546.
+class Rva00263546
 {
 public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+	bool rva00263546(const Rva00263546 *other) const;
+private:
+	int m_mask[19];
 };
 
-class UpdateModuleInterface
+class Rva00331682Holder
 {
 public:
-	virtual void update() = 0;
+	bool test(const void *other) const;
 };
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+// Object +0x370 (rowed out-of-line lea getter).
+class Rva0028B7AELeaGetter
 {
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
+public:
+	void *get() const;
+};
 
+class Object
+{
+public:
+	const AsciiString *rva00290E67() const;
+	void setCommandSetStringOverride(const AsciiString &newCommandSet);
+	const Rva00263546 *getMask10C() const { return &m_mask10C; }
+	const Rva00331682Holder *getStatus370() const
+	{
+		return (const Rva00331682Holder *)((const Rva0028B7AELeaGetter *)this)->get();
+	}
+private:
+	unsigned char m_pad000[0x10C];
+	Rva00263546 m_mask10C; // +0x10C
+};
+
+class ControlBar
+{
+public:
+	void markUIDirty() { m_UIDirty = true; }
+private:
+	unsigned char m_pad00[0x28];
+	bool m_UIDirty; // +0x28
+};
+extern ControlBar *TheControlBar;
+
+class __declspec(novtable) MonitorConditionUpdateModuleData : public Snapshot
+{
+public:
+	virtual ~MonitorConditionUpdateModuleData();
+
+	int m_unused04; // +4
+	Rva00263546 m_modelConditionFlags; // +8
+	AsciiString m_modelConditionCommandSet; // +0x54
+	unsigned long m_weaponSetFlags[4]; // +0x58
+	AsciiString m_weaponToggleCommandSet; // +0x68
+};
+
+class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
+
+class UpdateModule : public ObjectModule,
+	public BehaviorModuleInterface, public UpdateModuleInterface
+{
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
+
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
 
 class MonitorConditionUpdate : public UpdateModule
 {
 public:
-	MonitorConditionUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 	virtual void xfer(Xfer *xfer);
 
 private:
-	AsciiString m_str; // +0x20
+	AsciiString m_rememberedCommandSet; // +0x20
 };
 
 void MonitorConditionUpdate::xfer(Xfer *xfer)
 {
 	Xfer::Version version(1, 1);
 	*xfer == version;
-	*xfer == m_str;
+	*xfer == m_rememberedCommandSet;
 	UpdateModule::xfer(xfer);
 }
