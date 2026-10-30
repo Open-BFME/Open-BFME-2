@@ -156,8 +156,15 @@ class Rva00739780 { public: void rva00739780(int); };
 
 class Rva002D9531 { public: void rva002D9531(int); };
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class ShroudCrateCollide : public CrateCollide
 {
+public:
+    virtual NameKeyType getModuleNameKey() const;
 protected:
     virtual bool executeCrateBehavior(Object *other);
 };
