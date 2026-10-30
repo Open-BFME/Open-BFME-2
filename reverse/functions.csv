@@ -17316,7 +17316,7 @@ _VP60D_GetVersionNumber,,0x001B5830,6,Code/Libraries/Source/VP6/PbAccessors.cpp,
 ?get@Rva004A354BByteChase32Field@@QBEEXZ,,0x004A354B,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004B4061ByteChase32Field@@QBEEXZ,,0x004B4061,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva004B406BByteChase32Field@@QBEEXZ,,0x004B406B,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
-?get@Rva004B7E23ByteChase32Field@@QBEEXZ,,0x004B7E23,10,Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
+?get@Rva004B7E23ByteChase32Field@@QBEEXZ,,0x004B7E23,10,Code/GameEngine/Source/GameLogic/Object/Upgrade/AudioLoopUpgrade.cpp,matched,disp8 byte-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva001E3419FloatChase32Field@@QBEMXZ,,0x001E3419,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva001E3423FloatChase32Field@@QBEMXZ,,0x001E3423,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
 ?get@Rva002621AEFloatChase32Field@@QBEMXZ,,0x002621AE,10,Code/GameEngine/Source/Common/Disp8FloatChaseGetters.cpp,matched,disp8 float-chase getter with disp32 inner; phase-proven no-branch-to-addr
