@@ -33400,7 +33400,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00410765,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00410eab.cpp
 0x00410792,28,code,,,-,,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-06.cpp
 0x004107AE,31,code,Code/GameEngine/Source/Common/BfmeF1033.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeF1033.cpp,Code/GameEngine/Source/Common/BfmeConv1033.cpp
-0x004107CD,321,code,Code/GameEngine/Source/Common/AptComponents.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptComponents.cpp W=Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,Code/GameEngine/Source/Common/AptComponents_UpdateView3D.cpp
+0x004107CD,321,code,Code/GameEngine/Source/Common/AptComponents.cpp,proposed,N,N=Code/GameEngine/Source/Common/AptComponents.cpp W=Code/GameEngine/Source/GameClient/GUI/AptComponents.cpp,Code/GameEngine/Source/Common/AptComponents.cpp
 0x0041090E,53,code,,,-,,Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp
 0x00410943,19,code,,,-,,Code/GameEngine/Source/GameClient/GUI/AptComponentRegistry.cpp
 0x00410956,37,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_hash_bodies.cpp
@@ -77442,8 +77442,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00785AF3,10,code,,,-,,Code/GameEngine/Source/Common/Rva0045EF90CopyConstructor.cpp
 0x00785AFD,8,code,,,-,,Code/GameEngine/Source/Common/Rva004104C9Dtor.cpp
 0x00785B05,10,code,,,-,,Code/GameEngine/Source/Common/Rva004104C9Dtor.cpp
-0x00785B0F,8,code,Code/GameEngine/Source/Common/AptComponents.cpp,approved,P,P=0x004107CD@FuncInfo0x00932668 p-group provisional,Code/GameEngine/Source/Common/AptComponents_UpdateView3D.cpp
-0x00785B17,10,code,Code/GameEngine/Source/Common/AptComponents.cpp,approved,P,P=0x004107CD@FuncInfo0x00932668 p-group provisional,Code/GameEngine/Source/Common/AptComponents_UpdateView3D.cpp
+0x00785B0F,8,code,Code/GameEngine/Source/Common/AptComponents.cpp,approved,P,P=0x004107CD@FuncInfo0x00932668 p-group provisional,Code/GameEngine/Source/Common/AptComponents.cpp
+0x00785B17,10,code,Code/GameEngine/Source/Common/AptComponents.cpp,approved,P,P=0x004107CD@FuncInfo0x00932668 p-group provisional,Code/GameEngine/Source/Common/AptComponents.cpp
 0x00785B21,14,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00410eab.cpp
 0x00785B2F,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00410eab.cpp
 0x00785B39,8,code,,,-,,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
