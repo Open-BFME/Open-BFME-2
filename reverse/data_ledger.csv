@@ -20939,7 +20939,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A05FB0,4,.data,global,?G00A05FB0@@3PAVRva0054D974@@A,Code/GameEngine/Source/Common/Rva005BA36DGet.cpp,provisional,?G00A05FB0@@3PAVRva0054D974@@A;?TheLadderList@@3PAVRva0054D974@@A,1,6
 0x00A05FB4,4,.data,global,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A,Code/GameEngine/Source/GameNetwork/GameSpy/GameSpyInfo_getPingValue.cpp,provisional,?TheGameSpyConfig@@3PAVGameSpyConfigInterface@@A;?g_00E05FB4@@3PAVG00E05FB4Provider@@A,1,27
 0x00A05FB8,4,.data,global,?ThePinger@@3PAVPingerInterface@@A,,unowned,,0,12
-0x00A05FBC,12,.data,global,?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A,,unowned,?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A;?g_rva00627AA0@@3PAURva00627AA0Obj@@A,1,36
+0x00A05FBC,4,.data,global,?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A,Code/GameEngine/Source/Common/Rva00627AA0Call.cpp,owned,,1,45
 0x00A05FC8,4,.data,global,?TheGameSpyPSMessageQueue@@3PAVGameSpyPSMessageQueueInterface@@A,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PersistentStorageThread.cpp,owned,,1,39
 0x00A05FCC,52,.data,global,?g_00E05FCC@@3VRva00559D0CRankWeights@@A,Code/GameEngine/Source/Common/Rva005B8116Stats.cpp,owned,,1,8
 0x00A06000,52,.data,global,?g_00E06000@@3VRva00559D0CRankWeights@@A,Code/GameEngine/Source/Common/Rva005B8116Stats.cpp,owned,,1,11

@@ -17,11 +17,14 @@ struct Rva00627AA0Obj
 	virtual void slot6(Rva00627AA0Arg *arg);
 };
 
-Rva00627AA0Obj *g_rva00627AA0;
+// The buddy message queue global at 0x00A05FBC: the data ledger's name, which
+// 24 units already declare; this unit defines it and reads it through its view.
+class GameSpyBuddyMessageQueueInterface;
+GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
 void rva00627AA0Call()
 {
 	Rva00627AA0Arg arg;
 	arg.m_value = 1;
-	g_rva00627AA0->slot6(&arg);
+	((Rva00627AA0Obj *)TheGameSpyBuddyMessageQueue)->slot6(&arg);
 }
