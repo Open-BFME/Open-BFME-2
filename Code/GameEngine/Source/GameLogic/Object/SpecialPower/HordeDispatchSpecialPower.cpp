@@ -41,13 +41,13 @@ virtual void getContained(_STL::list<Object*>&)=0;
 class BehaviorModuleOther {public:virtual void secondaryAnchor();};
 class BehaviorModule:public ObjectModule,public BehaviorModuleOther {};
 class SpecialPowerModuleInterface {public:
-V(00) V(01) V(02) V(03) V(04) V(05)
+virtual void s00()=0; virtual void s01()=0; virtual void s02()=0; virtual void s03()=0; virtual void s04()=0; virtual void s05()=0;
 virtual const SpecialPowerTemplate *getTemplate()const=0;
-V(07) V(08) V(09)
+virtual void s07()=0; virtual void s08()=0; virtual void s09()=0;
 virtual void doSpecialPower(unsigned)=0;
 virtual void doSpecialPowerAtObject(Object*,unsigned)=0;
 virtual void doSpecialPowerAtLocation(const Coord3D*,unsigned)=0;
-V(13) V(14) V(15) V(16) V(17) V(18) V(19)
+virtual void s13()=0; virtual void s14()=0; virtual void s15()=0; virtual void s16()=0; virtual void s17()=0; virtual void s18()=0; virtual void s19()=0;
 virtual ObjectID lastTarget()const=0;
 };
 #undef V
