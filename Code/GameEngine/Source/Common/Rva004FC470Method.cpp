@@ -18,32 +18,36 @@ public:
 class Rva004FC320List
 {
 public:
-	void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
-
+    void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
 private:
-	Rva004FC320Listener **m_begin;
-	Rva004FC320Listener **m_end;
-	Rva004FC320Listener **m_capacity;
-	unsigned int m_index;
+    Rva004FC320Listener **m_begin;
+    Rva004FC320Listener **m_end;
+    Rva004FC320Listener **m_capacity;
+    unsigned int m_index;
 };
+
+struct TreeHintRef00217D4C;
 
 class Rva001FF3A9
 {
 public:
-	virtual void rva001FF3A9();
+    void rva001FF3A9(const TreeHintRef00217D4C &arg);
+    virtual void rva001FF3A9();
 };
 
 class Rva004E0B60
 {
 public:
+	void rva004E0CB6();
+	void rva004E0CA3();
 	bool rva004E0CCB();
 };
 
 class Rva000AD6F4
 {
 public:
-	Rva004E0B60 *m_ptr;
-	void clear();
+    void clear();
+    Rva004E0B60 *m_ptr;
 };
 
 class Rva0059DFFB
@@ -103,5 +107,5 @@ void Rva004FC470::rva004FC470(bool flag)
 			((Rva0059E242 *)m_member24)->Rva0059E242::rva0059DFFB();
 	}
 
-	m_list.forEach((void (Rva004FC320Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+	m_list.forEach((void (Rva004FC320Listener::*)(void *))(void (Rva001FF3A9::*)())&Rva001FF3A9::rva001FF3A9, this);
 }

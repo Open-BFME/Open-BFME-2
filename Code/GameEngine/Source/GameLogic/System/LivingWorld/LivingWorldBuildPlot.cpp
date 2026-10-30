@@ -65,10 +65,13 @@ private:
     char m_unrecovered[0x38];
 };
 
+class Rva004E0B60;
+
 class Rva000AD6F4
 {
 public:
     void clear();
+    Rva004E0B60 *m_ptr;
 };
 
 class Rva00575674
@@ -151,7 +154,10 @@ class Rva004FC320List
 public:
     void forEach(void (Rva004FC320Listener::*notify)(void *), void *arg);
 private:
-    char m_storage[0x10];
+    Rva004FC320Listener **m_begin;
+    Rva004FC320Listener **m_end;
+    Rva004FC320Listener **m_capacity;
+    unsigned int m_index;
 };
 
 struct TreeHintRef00217D4C;
@@ -160,6 +166,7 @@ class Rva001FF3A9
 {
 public:
     void rva001FF3A9(const TreeHintRef00217D4C &arg);
+    virtual void rva001FF3A9();
 };
 
 class Rva003F1C56Plot
@@ -216,8 +223,8 @@ class Rva004E0B60
 {
 public:
 	void rva004E0CB6();
-public:
 	void rva004E0CA3();
+	bool rva004E0CCB();
 };
 
 class Rva004FC21AOwner
@@ -296,7 +303,7 @@ void Rva003F1C56Plot::rva004FC33E(const Rva003F1BD3TemplateView *templ)
     if (m_icon.get())
         m_icon.get()->slot24(pending, true);
     m_listeners.forEach((void (Rva004FC320Listener::*)(void *))
-        &Rva001FF3A9::rva001FF3A9, this);
+        (void (Rva001FF3A9::*)(const TreeHintRef00217D4C &))&Rva001FF3A9::rva001FF3A9, this);
 }
 
 // WorldBuilder 0x01311A50; native 0x004FC3DC..0x004FC470 RET4.
@@ -312,7 +319,7 @@ void LivingWorldBuildPlot::ConstructBuildingImmediately(const Rva003F1BD3Templat
     if (m_icon.get())
         m_icon.get()->slot24(false, true);
     ((Rva004FC320List *)((char *)this + 8))->forEach(
-        (void (Rva004FC320Listener::*)(void *))&Rva001FF3A9::rva001FF3A9, this);
+        (void (Rva004FC320Listener::*)(void *))(void (Rva001FF3A9::*)(const TreeHintRef00217D4C &))&Rva001FF3A9::rva001FF3A9, this);
 }
 
 // ---- from Code/GameEngine/Source/Common/Rva004FC21ADecay.cpp
