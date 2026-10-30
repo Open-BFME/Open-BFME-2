@@ -9277,6 +9277,24 @@ Remaining / next check: recover the complete interface order and argument types,
 Clearance: pending.
 Census confirmation: pending; no gain claimed.
 
+**Slot-count follow-up (2026-10-30, inspected `449de049fd`):** the native
+interface table at RVA 0x00852EE8 holds 20 `__purecall` slots and the derived
+table at 0x00852F38 holds 20 workers (slot 20, `AIUpdateInterface::onCollide`
+0x0026DF0D, starts the next table), so BFME 2's SupplyTruckAIInterface has 20
+virtuals against ZH's 13. Target facts: slot 2 is the rowed 0x004A6E8E
+loseOneBox worker and slot 3 the 0x004A6EC6 gainOneBox(Int) worker; slot 19 is
+the 0x004A6F0A getActionDelayForDock(Object*) row. Consumer views (private,
+not yet target-proven) agree on getNumberBoxes slot 0, isAvailableForSupplying
+4, isCurrentlyFerryingSupplies 5, set/isForcedIntoWantingState 11/12,
+set/isForcedIntoBusyState 13/14 and getPreferredDockID 15
+(`SupplyTruckAIUpdate.cpp`, `SupplyTruckStateMachineOnEnter.cpp`,
+`AIPlayerQueueSupplyTruck.cpp`, `SupplyCenterProductionExitUpdate.cpp`). Slots
+1, 6-10 and 16-18 have no supported names (float getters at 7 and 10 make one
+of them getWarehouseScanDistance only by ZH analogy). The ctor's 13-slot
+declaration is therefore wrong in count as well as order; reconciling it needs
+names for the BFME 2-only slots and fold admissions for the ICF-shared slot
+bodies (0, 4, 12, 15, 17, 18). No source or ledger change made.
+
 ### LINK-090: the terrain bib wrapper calls a row identified as LinearCampaign
 
 Status: Blocked on wrapper identity. Updated: 2026-10-26; inspected revision: `2a45addda1806342ac5c52757f63be902dcd428e`.
