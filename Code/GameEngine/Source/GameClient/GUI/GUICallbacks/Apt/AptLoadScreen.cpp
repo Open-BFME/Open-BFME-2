@@ -16,11 +16,13 @@ typedef unsigned short WideChar;
 class Rva00355D66
 {
 public:
+	Rva00355D66();
 	virtual ~Rva00355D66();
 protected:
-	void *m_next;		// +0x04
-	void *m_win;		// +0x08
-	bool m_flag;		// +0x0C
+	void *m_next; // +0x04 +0x04
+	void *m_win; // +0x08 +0x08
+	bool m_flag; // +0x0C +0x0C
+	char m_pad0D[0x3];
 };
 
 // The embedded map preview's class, by its rowed destructor 0x0057E3DB.
@@ -32,10 +34,16 @@ private:
 	unsigned char m_unknown04[0x6C];
 };
 
+class Rva0043DA65;
 class AptMapPreview
 {
 public:
-	void rva0057D5E5();	// preview teardown
+	void rva0057D5E5(); // preview teardown
+	AptMapPreview(Rva0043DA65 *game); // 0x0057CF43
+	~AptMapPreview(); // 0x0057CF0B
+	void rva0057E45C(); // 0x0057E45C, the preview's Apt registration
+private:
+	unsigned char m_data[0x70]; // +0x00
 };
 
 // The window layout at +0x10: slot 1 destroys, slot 3 shuts it down.
@@ -100,6 +108,7 @@ class BfmeAptWindowManager
 {
 public:
 	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
+	void rva00225375(const AsciiString &key, const AsciiString &text, bool flag);
 };
 
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;

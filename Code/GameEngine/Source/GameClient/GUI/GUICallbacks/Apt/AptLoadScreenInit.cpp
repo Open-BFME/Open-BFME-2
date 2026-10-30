@@ -31,7 +31,7 @@ extern ImageCollection *TheMappedImageCollection;
 class BfmeAptWindowManager
 {
 public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);
+	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
 	void rva00225375(const AsciiString &key, const AsciiString &text, bool flag);
 };
 
@@ -107,12 +107,12 @@ class SkirmishGameInfo; extern SkirmishGameInfo *TheSkirmishGameInfo;
 class GameSpyStagingRoom
 {
 public:
-	unsigned char m_pad000[0xFEC];
-	bool m_fec;		 // +0xFEC
-	unsigned char m_padFED[0xFF4 - 0xFED];
-	bool m_isRanked;	// +0xFF4
-	unsigned char m_padFF5[0xFF8 - 0xFF5];
-	int m_ladderType;   // +0xFF8
+	char m_pad00[0xFEC];
+	bool m_fec; // +0xFEC +0xFEC
+	char m_padFED[0x7];
+	bool m_isRanked; // +0xFF4 +0xFF4
+	char m_padFF5[0x3];
+	int m_ladderType; // +0xFF8 +0xFF8
 };
 
 extern GameSpyStagingRoom *TheGameSpyGame;

@@ -35,9 +35,10 @@ public:
 	Rva00355D66();
 	virtual ~Rva00355D66();
 protected:
-	void *m_next;			// +0x04
-	GameWindow *m_win;		// +0x08
-	Bool m_flag;			// +0x0C
+	void *m_next; // +0x04 +0x04
+	void *m_win; // +0x08 +0x08
+	bool m_flag; // +0x0C +0x0C
+	char m_pad0D[0x3];
 };
 
 // The reference-counted object the preview is handed (vftable 0x00C3D490):
@@ -60,11 +61,12 @@ public:
 class AptMapPreview
 {
 public:
-	AptMapPreview(Rva0043DA65 *game);	// 0x0057CF43
-	~AptMapPreview();			// 0x0057CF0B
-	void rva0057E45C();			// 0x0057E45C, the preview's Apt registration
+	void rva0057D5E5(); // preview teardown
+	AptMapPreview(Rva0043DA65 *game); // 0x0057CF43
+	~AptMapPreview(); // 0x0057CF0B
+	void rva0057E45C(); // 0x0057E45C, the preview's Apt registration
 private:
-	unsigned char m_data[0x70];
+	unsigned char m_data[0x70]; // +0x00
 };
 
 class __single_inheritance AptLoadScreen;
@@ -117,7 +119,8 @@ public:
 class BfmeAptWindowManager
 {
 public:
-	void bfmeSetText(const AsciiString &key, const UnicodeString &text, bool flag);	// 0x00225301
+	void bfmeSetText(const AsciiString &, const UnicodeString &, bool);
+	void rva00225375(const AsciiString &key, const AsciiString &text, bool flag);
 };
 extern BfmeAptWindowManager *g_bfmeAptWindowManager;
 #define TheAptPlayer ((AptPlayer *)g_bfmeAptWindowManager)
@@ -155,8 +158,12 @@ extern GameSpyInfoInterface *TheGameSpyInfo;
 class GameSpyStagingRoom
 {
 public:
-	unsigned char m_pad000[0xFF4];
-	Bool m_isRanked;					// +0xFF4
+	char m_pad00[0xFEC];
+	bool m_fec; // +0xFEC +0xFEC
+	char m_padFED[0x7];
+	bool m_isRanked; // +0xFF4 +0xFF4
+	char m_padFF5[0x3];
+	int m_ladderType; // +0xFF8 +0xFF8
 };
 extern GameSpyStagingRoom *TheGameSpyGame;
 
