@@ -22724,7 +22724,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002D73EC,38,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,proposed,Z,Z=Code/GameEngine/Source/GameClient/System/Anim2D.cpp S=Code/GameEngine/Source/GameClient/System/Anim2D.cpp N=Code/GameEngine/Source/GameClient/System/Anim2DTemplate.cpp noncontiguous,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
 0x002D7412,282,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,proposed,Z,Z=Code/GameEngine/Source/GameClient/System/Anim2D.cpp S=Code/GameEngine/Source/GameClient/System/Anim2D.cpp N=Code/GameEngine/Source/GameClient/System/Anim2DTemplate.cpp noncontiguous,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
 0x002D752D,39,code,,,-,,Code/GameEngine/Source/Common/Rva002D752DFind.cpp
-0x002D7554,114,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INIAnimation.cpp N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INI_parseAnim2DDefinition.cpp
+0x002D7554,114,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,Z,Z=Code/GameEngine/Source/Common/INI/INIAnimation.cpp N=Code/GameEngine/Source/Common/INI/INI.cpp,Code/GameEngine/Source/Common/INI/INIAnimation.cpp
 0x002D75C6,18,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,proposed,Z,Z=Code/GameEngine/Source/GameClient/System/Anim2D.cpp S=Code/GameEngine/Source/GameClient/System/Anim2D.cpp N=Code/GameEngine/Source/GameClient/System/Anim2DCollection.cpp noncontiguous,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
 0x002D75D8,13,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp
 0x002D75E5,130,code,Code/GameEngine/Source/Common/System/Radar.cpp,approved,Z,Z=Code/GameEngine/Source/Common/System/Radar.cpp S=Code/GameEngine/Source/Common/System/Radar.cpp N=Code/GameEngine/Source/Common/System/Radar.cpp,Code/GameEngine/Source/Common/System/Radar_deleteListResources.cpp
@@ -71751,8 +71751,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007779A9,8,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,approved,P,P=0x002D7412@FuncInfo0x0091F680 p-group provisional,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
 0x007779B1,8,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,approved,P,P=0x002D7412@FuncInfo0x0091F680 p-group provisional,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
 0x007779B9,10,code,Code/GameEngine/Source/GameClient/System/Anim2D.cpp,approved,P,P=0x002D7412@FuncInfo0x0091F680 p-group provisional,Code/GameEngine/Source/GameClient/System/Anim2D.cpp
-0x007779C3,8,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,P,P=0x002D7554@FuncInfo0x0091F6A4,Code/GameEngine/Source/Common/INI/INI_parseAnim2DDefinition.cpp
-0x007779CB,10,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,P,P=0x002D7554@FuncInfo0x0091F6A4,Code/GameEngine/Source/Common/INI/INI_parseAnim2DDefinition.cpp
+0x007779C3,8,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,P,P=0x002D7554@FuncInfo0x0091F6A4,Code/GameEngine/Source/Common/INI/INIAnimation.cpp
+0x007779CB,10,code,Code/GameEngine/Source/Common/INI/INIAnimation.cpp,approved,P,P=0x002D7554@FuncInfo0x0091F6A4,Code/GameEngine/Source/Common/INI/INIAnimation.cpp
 0x007779D5,8,code,Code/GameEngine/Source/Common/System/Radar.cpp,approved,P,P=0x002D7CED@FuncInfo0x0091F6D8,Code/GameEngine/Source/Common/System/RadarDtor.cpp
 0x007779DD,20,code,Code/GameEngine/Source/Common/System/Radar.cpp,approved,P,P=0x002D7CED@FuncInfo0x0091F6D8,Code/GameEngine/Source/Common/System/RadarDtor.cpp
 0x007779F1,22,code,Code/GameEngine/Source/Common/System/Radar.cpp,approved,P,P=0x002D7CED@FuncInfo0x0091F6D8,Code/GameEngine/Source/Common/System/RadarDtor.cpp
