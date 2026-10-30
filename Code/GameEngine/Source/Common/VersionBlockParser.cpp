@@ -4,6 +4,15 @@
 #include <vector>
 #include <string>
 #include <algorithm>
+#include <string.h>
+// Retail imports sscanf, while the string operations keep direct CRT bindings.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP __declspec(dllimport)
+namespace NativeScanCrt {
+#include <stdio.h>
+}
+#pragma pop_macro("_CRTIMP")
 #pragma intrinsic(memset)
 
 // bfme link decl-only begin
@@ -75,12 +84,6 @@ namespace _STL {
 template <> const unsigned int &max<unsigned int>(const unsigned int &, const unsigned int &);
 }
 
-extern "C" int __cdecl memcmp(const void *a, const void *b, unsigned int n);
-
-extern "C" unsigned int __cdecl strlen(const char *s);
-
-extern "C" __declspec(dllimport) int __cdecl sscanf(const char *buf, const char *fmt, ...);
-
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::operator=(char const *); }
 
 namespace _STL { template <> basic_string<char, char_traits<char>, allocator<char> > & basic_string<char, char_traits<char>, allocator<char> >::assign(char const *, char const *); }
@@ -90,8 +93,6 @@ namespace _STL { template <> char * __char_traits_base<char, int>::copy(char *, 
 namespace _STL { template <> void _STLP_alloc_proxy<char *, char, allocator<char> >::deallocate(char *, unsigned int); }
 
 namespace _STL { template <> BfmeNarrowRecord00427F75 * vector<BfmeNarrowRecord00427F75,allocator<BfmeNarrowRecord00427F75> >::erase(BfmeNarrowRecord00427F75 *,BfmeNarrowRecord00427F75 *); }
-
-extern "C" void *__cdecl memset(void *, int, unsigned);
 
 class VersionBlockParser
 {
@@ -358,7 +359,7 @@ bool VersionBlockParser::parse(const char *versionBlock)
 {
 	if (memcmp(versionBlock, "||VER1|", 7) != 0)
 		return false;
-	if (sscanf(versionBlock + 7, "%d|", &m_size) != 1)
+	if (NativeScanCrt::sscanf(versionBlock + 7, "%d|", &m_size) != 1)
 		return false;
 	if (strlen(versionBlock) >= (unsigned int)m_size)
 		return false;
