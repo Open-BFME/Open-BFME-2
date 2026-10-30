@@ -1,8 +1,6 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
+// cl: /FIzh_ascii.h /MD /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene /Ireference/shims/bfmefrustum
 // stlport
-// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp); this unit had no counterpart under Code/.
-// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
-// overload takes the call instead, so this TU emits no external max COMDAT.
+// TU Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -10,39 +8,7 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
     return a < b ? b : a;
 }
 }
-
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: BoneFXUpdate.cpp ///////////////////////////////////////////////////////////////////////
-// Author:
-// Desc:  
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-
 #include "Common/GameState.h"
 #include "Common/Thing.h"
 #include "Common/ThingTemplate.h"
@@ -57,6 +23,28 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "GameClient/Drawable.h"
 #include "GameLogic/Module/BoneFXUpdate.h"
 #include "GameLogic/Module/BoneFXDamage.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 // Use the retail range-erase provider in BoneFXUpdate_eraseParticleSystemID.cpp.
 // This unit's compiler settings otherwise emit a different out-of-line copy.
@@ -88,6 +76,45 @@ public:
 	char *mFailureMessage;
 	int mErrorCode;
 };
+
+BFME_LITERAL_NAME_GETTER(Rva00487A5ENamed, "BoneFXUpdate")
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp
+
+// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate.cpp); this unit had no counterpart under Code/.
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: BoneFXUpdate.cpp ///////////////////////////////////////////////////////////////////////
+// Author:
+// Desc:  
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
 
 // Retail 0x0048707A (124B): the update module slot after the pool key.
 // Zero Hour's body; BFME 2 throws its INIException(3, message) instead of
@@ -128,7 +155,9 @@ static void parseFXLocInfo( INI *ini, void *instance, BoneLocInfo *locInfo )
 
 	}  // end else
 
-}  // end parseFXLocInfo
+}
+
+  // end parseFXLocInfo
 
 //-------------------------------------------------------------------------------------------------
 /** Parse a random delay.  This is a number pair, where the numbers are a min and max time in miliseconds. */
@@ -333,4 +362,89 @@ void BoneFXUpdate::loadPostProcess( void )
 	// extend base class
 	UpdateModule::loadPostProcess();
 
-}  // end loadPostProcess
+}
+
+  // end loadPostProcess
+
+// tu-skeleton: 0x004871A7 88B ?parseFXLocInfo@@YAXPAVINI@@PAXPAUBoneLocInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00487200 175B ?parseFXList@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
+
+// tu-skeleton: 0x004872AF 175B ?parseObjectCreationList@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0048735E 175B ?parseParticleSystem@BoneFXUpdateModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0048740D 115B ?doFXListAtBone@BoneFXUpdate@@IAEXPBVFXList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00487480 116B ?doOCLAtBone@BoneFXUpdate@@IAEXPBVObjectCreationList@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x004874F4 23B ??0Rva004874F4@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0048750B 297B ?initTimes@BoneFXUpdate@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_initTimes.cpp (not merged yet)
+
+// tu-skeleton: 0x00487634 355B ?resolveBoneLocations@BoneFXUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdate_resolveBoneLocations.cpp (not merged yet)
+
+// tu-skeleton: 0x00487797 196B ??0BoneFXUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487877 111B ??1BoneFXUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004878E6 307B ??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487A19 69B ?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x00487ABF 161B ??1BoneFXUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487B7D 248B ?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x00487C75 349B ?xfer@BoneFXUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00487DD2 28B ??_GBoneFXUpdate@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00487DEE 332B ?update@BoneFXUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C1DD 8B uw_0078c1dd -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C1E5 11B Unwind@00b8c1e5 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C1F0 24B $L4397 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C208 24B $L4398 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C220 10B __ehhandler$??0BoneFXUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C22A 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C237 10B __ehhandler$?getModuleNameKey@BoneFXUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdatePoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C241 8B Unwind@00b8c241 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C249 11B Unwind@00b8c249 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C254 24B $L4397 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C26C 24B $L4398 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C284 24B $L4399 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C29C 10B __ehhandler$??1BoneFXUpdate@@MAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C2A6 8B uw_0078c2a6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0078C2AE 10B __ehhandler$?doParticleSystemAtBone@BoneFXUpdate@@IAEXPBVParticleSystemTemplate@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/BoneFXUpdateUpdate.cpp (not merged yet)
