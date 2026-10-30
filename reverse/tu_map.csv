@@ -34148,7 +34148,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00421A16,53,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00421A16DistCompare.cpp
 0x00421A4B,12,code,,,-,,Code/GameEngine/Source/Common/RvaSmallLeafTransfers.cpp
 0x00421A57,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00421A57Search.cpp
-0x00421A84,154,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,proposed,K,K=Rva00425CE2,Code/GameEngine/Source/Common/Rva00425CE2Ctor.cpp
+0x00421A84,154,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,proposed,K,K=Rva00425CE2,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00421B1E,36,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00585B16Dtor.cpp
 0x00421B42,5,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportDeque40Iterators.cpp
 0x00421B47,33,code,,,-,,Code/GameEngine/Source/Common/Rva004233F5Lookup.cpp
@@ -34318,10 +34318,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042481E,384,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,U,N=Code/GameEngine/Source/Common/System/FormationAssistant.cpp provisional,Code/GameEngine/Source/Common/System/FormationBuildRow.cpp
 0x0042499E,107,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424A09 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp
 0x00424A09,5,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424A0E provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0007A4E6ContainerDtor.cpp
-0x00424A0E,87,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424A65 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeOuterDtor.cpp
-0x00424A65,123,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424AE0 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleAuxV.cpp
+0x00424A0E,87,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424A65 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00424A65,123,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424AE0 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00424AE0,276,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424BF4 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_e12_sort.cpp
-0x00424BF4,45,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424C21 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0042476CConstruct.cpp
+0x00424BF4,45,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424C21 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00424C21,93,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x0042481E..0x00424C7E provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp
 0x00424C7E,28,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp
 0x00424C9A,28,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424C7E..0x00424CB6 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleDestroy.cpp
@@ -34332,9 +34332,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00424D8C,37,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424DB1 provisional,Code/Libraries/Source/WWVegas/WWLib/CameraMarkerFillN.cpp
 0x00424DB1,27,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424DCC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_push_heap_rva00422ca8.cpp
 0x00424DCC,9,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424DD5 provisional,Code/GameEngine/Source/Common/DestroyInstances.cpp
-0x00424DD5,9,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424DDE provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeOuterDtor.cpp
-0x00424DDE,153,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424E77 provisional,Code/GameEngine/Source/Common/Rva00425CE2Init.cpp
-0x00424E77,845,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,U,N=Code/GameEngine/Source/Common/System/FormationAssistant.cpp provisional,Code/GameEngine/Source/Common/System/FormationBuild.cpp
+0x00424DD5,9,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424DDE provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00424DDE,153,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,C,C=0x00424CB6..0x00424E77 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00424E77,845,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,U,N=Code/GameEngine/Source/Common/System/FormationAssistant.cpp provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x004251C4,422,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
 0x0042536A,27,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_camera_marker_fill_deferred.cpp
 0x00425385,123,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop_rva00422ca8.cpp
@@ -77992,9 +77992,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00786FAF,10,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x00421312@FuncInfo0x0093437C provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
 0x00786FB9,8,code,Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp,approved,P,P=0x00421572@FuncInfo0x009343A0 p-group provisional,Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp
 0x00786FC1,10,code,Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp,approved,P,P=0x00421572@FuncInfo0x009343A0 p-group provisional,Code/GameEngine/Source/GameLogic/System/LightPointSystem.cpp
-0x00786FCB,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/GameEngine/Source/Common/Rva00425CE2Ctor.cpp
-0x00786FD3,11,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/GameEngine/Source/Common/Rva00425CE2Ctor.cpp
-0x00786FDE,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/GameEngine/Source/Common/Rva00425CE2Ctor.cpp
+0x00786FCB,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00786FD3,11,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00786FDE,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00421A84@FuncInfo0x009343CC p-group provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00786FE8,8,code,,,-,,Code/GameEngine/Source/Common/System/FormationAssistant.cpp
 0x00786FF0,10,code,,,-,,Code/GameEngine/Source/Common/System/FormationAssistant.cpp
 0x00786FFA,8,code,Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp,approved,P,P=0x004235CD@FuncInfo0x0093445C provisional,Code/Libraries/Source/WWVegas/WWLib/FormationAssistant.cpp
@@ -78018,16 +78018,16 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007870A6,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x0042499E@FuncInfo0x00934590 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp
 0x007870AE,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x0042499E@FuncInfo0x00934590 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp
 0x007870B6,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x0042499E@FuncInfo0x00934590 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva00423a4a_single.cpp
-0x007870C0,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424A65@FuncInfo0x009345B4 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleAuxV.cpp
-0x007870C8,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424A65@FuncInfo0x009345B4 provisional,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleAuxV.cpp
+0x007870C0,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424A65@FuncInfo0x009345B4 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x007870C8,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424A65@FuncInfo0x009345B4 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x007870D2,14,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp
 0x007870E0,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportConstructFamilyW3G15.cpp
-0x007870EA,11,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424DDE@FuncInfo0x009345D8 provisional,Code/GameEngine/Source/Common/Rva00425CE2Init.cpp
-0x007870F5,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424DDE@FuncInfo0x009345D8 provisional,Code/GameEngine/Source/Common/Rva00425CE2Init.cpp
-0x007870FF,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/GameEngine/Source/Common/System/FormationBuild.cpp
+0x007870EA,11,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424DDE@FuncInfo0x009345D8 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x007870F5,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424DDE@FuncInfo0x009345D8 provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x007870FF,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00787107,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/gen_small/uw_gen_006.cpp
-0x0078710F,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/GameEngine/Source/Common/System/FormationBuild.cpp
-0x00787117,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/GameEngine/Source/Common/System/FormationBuild.cpp
+0x0078710F,8,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
+0x00787117,10,code,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp,approved,P,P=0x00424E77@FuncInfo0x0093460C provisional,Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp
 0x00787121,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
 0x00787129,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
 0x00787131,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp

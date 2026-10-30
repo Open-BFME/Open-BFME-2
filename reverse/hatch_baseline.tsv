@@ -827,7 +827,6 @@ address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va007C9260	3
 address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va00E0631C	3
 address_global	Code/GameEngine/Source/Common/StrategicHUD.cpp	g_Va00E06360	2
 address_global	Code/GameEngine/Source/Common/System/FileSystemRestricted.cpp	g_Va00E06E60	2
-address_global	Code/GameEngine/Source/Common/System/FormationBuild.cpp	g_Va00E03174	2
 address_global	Code/GameEngine/Source/Common/System/GameMemory.cpp	g_Va00DE03E8	4
 address_global	Code/GameEngine/Source/Common/System/GeometryInfoCtor.cpp	g_Va00BC2424	1
 address_global	Code/GameEngine/Source/Common/System/GeometryInfoRva006BD9C0.cpp	g_Va00BBAEAC	1
@@ -1555,6 +1554,7 @@ address_global	Code/Libraries/Source/WWVegas/WW3D2/pointgr.cpp	g_Va00DB5F7D	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/renderasset.cpp	g_Va00DB6218	2
 address_global	Code/Libraries/Source/WWVegas/WW3D2/statistics.cpp	g_Va00DEE8E8	6
 address_global	Code/Libraries/Source/WWVegas/WWLib/HordeMeleeSwarmXfer.cpp	g_Rva0107301CEmptyString	3
+address_global	Code/Libraries/Source/WWVegas/WWLib/LightSubPoint.cpp	g_Va00E03174	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/LivingWorldAutoResolveBodyTemplate.cpp	g_Va00BBB8D8	2
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva001532E1Erase.cpp	g_Rva00153565Vec	4
 address_global	Code/Libraries/Source/WWVegas/WWLib/Rva001DABB6SoundsListParse.cpp	g_Rva0107301CEmptyString	3
