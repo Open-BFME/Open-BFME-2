@@ -327,10 +327,34 @@ private:
 
 void objectAuraUpdate(Object *obj, void *userData);
 
+// ?parse@Rva0049B8A0@@QAEXPAVINI@@PAX@Z @0x0049B8A0 234B
+// Bitstring-list INI driver, same shape as the KindOf driver Rva00256499
+// (System/Rva00256499Parse.cpp) and the ModelCondition twin Rva000B937E.
+// The worker is the rowed 0x0049B750 single-token worker.
+// The join-append is the shared Rva0049B6AE::append member (rowed, body
+// ignores ecx); the string temporaries are the canonical AsciiString.
+class INI
+{
+public:
+	const char *rva0002DFE2(const char *seps, bool *substituted);
+};
+
 class Rva0049B6AE
 {
 public:
 	void append(const char *a, StringBase<char> *b);
+};
+
+class Rva0049B750
+{
+public:
+	bool rva0049B750(const char *token, bool *foundNormal, bool *foundAddOrSub);
+};
+
+class Rva0049B8A0 : public Rva0049B750
+{
+public:
+	void parse(INI *ini, void *extra);
 };
 
 // tu-skeleton: 0x0049B560 118B ??0AttributeModifierAuraUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateCtor.cpp (not merged yet)
@@ -348,6 +372,8 @@ public:
 // tu-skeleton: 0x0049B661 10B ?get@Rva0049B661ByteChase32Field@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x0049B66B 67B ?xfer@AttributeModifierAuraUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0049B6AEAppend.cpp
 
@@ -367,14 +393,6 @@ void Rva0049B6AE::append(const char *a, StringBase<char> *b)
 		b->concat(" ");
 	b->concat(a);
 }
-
-// tu-skeleton: 0x0049B6DD 115B ??1AttributeModifierAuraUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B750 308B ?rva0049B750@Rva0049B750@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B884 28B ??_GAttributeModifierAuraUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B8A0 234B ?parse@Rva0049B8A0@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateUpdate.cpp
 
@@ -543,6 +561,55 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 	return (UpdateSleepTime)(object->getID() % 5 + data->m_refreshDelay);
 }
 
+// tu-skeleton: 0x0049B6DD 115B ??1AttributeModifierAuraUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B750 308B ?rva0049B750@Rva0049B750@@QAE_NPBDPA_N1@Z -- matched in Code/GameEngine/Source/Common/System/INI_VeterancyLevelToken.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B884 28B ??_GAttributeModifierAuraUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateDtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp
+
+// The deleting destructors formerly scaffolded here are emitted by their
+// destructor units (AttributeModifierAuraUpdate, ProductionUpdate and
+// EmotionTrackerUpdate). Their rows live with those complete providers;
+// partial local vtables would compete with the real class views.
+
+__forceinline const char *GetStr0049B8A0(const AsciiString &asciiString)
+{
+	char *stringData = *(char * *)(void *)&asciiString;
+	return stringData ? stringData + 8 : "";
+}
+
+void Rva0049B8A0::parse(INI *ini, void *extra)
+{
+	AsciiString *accum = (AsciiString *)extra;
+	if (accum != 0)
+		accum->clear();
+
+	bool foundNormal = false;
+	bool foundAddOrSub = false;
+	bool wasQuoted = false;
+
+	const char *token;
+	while ((token = ini->rva0002DFE2(0, &wasQuoted)) != 0) {
+		if (wasQuoted) {
+			AsciiString tmp(token);
+			AsciiString part;
+			while (tmp.nextToken(&part, 0)) {
+				const char *partText = GetStr0049B8A0(part);
+				((Rva0049B6AE *)this)->append(partText, (StringBase<char> *)accum);
+				if (!rva0049B750(partText, &foundNormal, &foundAddOrSub))
+					break;
+			}
+			wasQuoted = false;
+		} else {
+			((Rva0049B6AE *)this)->append(token, (StringBase<char> *)accum);
+			if (!rva0049B750(token, &foundNormal, &foundAddOrSub))
+				break;
+		}
+	}
+}
+
 // tu-skeleton: 0x0049BBA3 16B ?parseFromINI@Rva0049B8A0@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INIParseFromINIForwarders.cpp (not merged yet)
 
 // tu-skeleton: 0x0049BBB3 34B ?buildFieldParse@AttributeModifierAuraUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
@@ -554,12 +621,6 @@ UpdateSleepTime AttributeModifierAuraUpdate::update()
 // tu-skeleton: 0x0078D6BD 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdatePoolKey.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D6CA 10B __ehhandler$?getModuleNameKey@AttributeModifierAuraUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdatePoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D6E6 8B Unwind@00b8d6e6 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D6EE 8B Unwind@00b8d6ee -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp (not merged yet)
-
-// tu-skeleton: 0x0078D6F6 10B __ehhandler$?parse@Rva0049B8A0@@QAEXPAVINI@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/UpdateModuleDeletingDtors.cpp (not merged yet)
 
 // tu-skeleton: 0x0078D712 8B $L4194 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AttributeModifierAuraUpdateModuleDataCtor.cpp (not merged yet)
 
