@@ -62,3 +62,13 @@ The outgoing batch audit must still judge the wider affected scope.
 
 Earlier evidence: [banked C++](../rva008312e0-replacebase-link-20261024/handoff.md)
 and [previous link-order boundary](../rva008312e0-replacebase-linkorder-20261028.md).
+
+## Outgoing consumer audit
+
+The explicit six-source audit after commit 7a68deb41c exits 2. Its index
+85f6b7f40c predates the outgoing base, and the first wider affected consumer
+without a strict current receipt is Common/0CreateAHeroManager21FE49.cpp.
+This does not establish complete consumer selection preservation or absence
+of linking losses. The 18-row strict cohort and unchanged 2,070-byte preview
+remain the bounded evidence. Carry this provider and affected-consumer scope
+into the next scheduled census. No census runner was started.
