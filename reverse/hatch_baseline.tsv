@@ -1878,6 +1878,7 @@ alternatename	Code/GameEngine/Source/Common/INI/LivingWorldConnectionParserRva00
 alternatename	Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp	??0Rva004DD206TreeView@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp	?releaseNative@Rva004DD206TreeView@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/LadderPreferencesDtor.cpp	??1S4Base009A1A40@@UAE@XZ	1
+alternatename	Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp	?Rva00569109RangeCallee@@YAPAURva00569109Output@@PAURva00569109Input@@0PAU1@ABURva00569109IteratorTag@@PAH@Z	1
 alternatename	Code/GameEngine/Source/Common/LeapYearPredicateThunk.cpp	?dateIsYearLeap@AptDate@@QAE_NH@Z	1
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getChars@NarrowStrSource0059B0DD@@UBEHPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/LivingWorldAutoResolveUnit.cpp	?getLength@NarrowStrSource0059B0DD@@UBEHXZ	1
@@ -4080,7 +4081,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054103ECopy.cpp	??4Rva0054
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054152DErase.cpp	??4Rva0054107FRecord@@QAEAAU0@ABU0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva0054A0D8Insert.cpp	?cmp@Comp0054A0D8@@QAEEPAX0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005680DERangeForward.cpp	?Rva005680DERangeCallee@@YAPAURva005680DEOutput@@PAU1@IPBURva005680DEInput@@ABURva005680DEIteratorTag@@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00569109RangeForward.cpp	?Rva00569109RangeCallee@@YAPAURva00569109Output@@PAURva00569109Input@@0PAU1@ABURva00569109IteratorTag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005E3DE8Ctor.cpp	?pure@Rva005E3DE8@@UAEXXZ	2
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva005EDA8AEraseRange.cpp	??$__copy_ptrs@PAUBfmeStringRecord005ED5F3@@PAU1@@_STL@@YAPAUBfmeStringRecord005ED5F3@@PAU1@00ABU__false_type@0@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva008FB570DequePushBackAux.cpp	?_M_reallocate_map@?$deque@UGen_t_008fb570_p8pod@@V?$allocator@UGen_t_008fb570_p8pod@@@_STL@@@_STL@@IAEXI_N@Z	1
@@ -10496,6 +10496,9 @@ pragma_optimize	Code/GameEngine/Source/Common/DamageFX.cpp	"s",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Gen_00943CF0_First.cpp	"s",on	1
+pragma_optimize	Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/Common/LargeGroupAudioSoundKeyPair.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"",on	5
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/MessageStream.cpp	"s",on	4
@@ -10615,9 +10618,6 @@ pragma_optimize	Code/GameEngine/Source/Common/T2IndexedArrayAccessors.cpp	"s",on
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Thing/Rva00569543DedupPush.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/Common/Thing/Rva00569543DedupPush.cpp	"s",off	1
-pragma_optimize	Code/GameEngine/Source/Common/Thing/Rva00569543DedupPush.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/Common/Thing/Thing.cpp	"s",on	2
