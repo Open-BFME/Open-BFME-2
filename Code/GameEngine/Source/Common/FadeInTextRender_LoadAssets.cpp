@@ -16,18 +16,49 @@ class Anim2DTemplate;class Anim2DCollection;extern Anim2DCollection*TheAnim2DCol
 // The collection's template lookup is rowed under its address class.
 struct Rva002D752DNode;class Rva002D752D {public:Rva002D752DNode*rva002D752D(const StringBase<char>&);};
 static inline const StringBase<char>&fadeTextBase(const AsciiString&asciiString){return *(const StringBase<char>*)&asciiString;}
-class Anim2D {public:Anim2D(Anim2DTemplate*,Anim2DCollection*);unsigned getCurrentFrameHeight() const;char pad[0x34];};
+class Anim2D
+{
+public:
+	Anim2D(Anim2DTemplate*,Anim2DCollection*);
+	unsigned getCurrentFrameHeight() const;
+	void setCurrentFrame(unsigned short);
+	void draw(int,int,int,int);
+	char m_pad00[0x34];
+};
 extern int BfmeClientFramesPerSecond;
 // Slot 1 of FadeInTextRender's vftable 0x00C70A70 (slot 0 is its deleting
 // destructor), as WB's LoadAssets is slot 1 of its table: virtual.
-class FadeInTextRender {public:
- virtual ~FadeInTextRender();virtual void LoadAssets();
- GameFont*font;char pad08[0x14];Anim2D*anim;float oldScale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
+class __declspec(novtable) Rva0059675ABase
+{
+public:
+    virtual ~Rva0059675ABase();
+};
+struct FadeInTextRender : Rva0059675ABase
+{
+    FadeInTextRender();
+    virtual ~FadeInTextRender();
+    virtual void LoadAssets();
+    void bfmeExtend(int left, int top, int right, int bottom);
+
+    GameFont* font;
+    int m_bfmeLeft;
+    int m_bfmeTop;
+    int m_bfmeRight;
+    int m_bfmeBottom;
+    unsigned effectColor;
+    Anim2D* anim;
+    float scale;
+    AsciiString fontName;
+    unsigned color;
+    int delay;
+    unsigned fontSize;
+    unsigned starts[3], ends[3];
+    int width, height;
 };
 void FadeInTextRender::LoadAssets() {
  float naturalWidth=(float)((FadeDisplayCalls*)TheDisplay)->width();
  float scale=naturalWidth*0.00125f;scale*=0.75f;
- if(scale!=oldScale){font=0;oldScale=scale;}
+ if(scale!=this->scale){font=0;this->scale=scale;}
  if(!font)font=TheFontLibrary->getFont(&fontName,(float)fontSize*scale,false);
  if(!anim){
   anim=new Anim2D((Anim2DTemplate*)((Rva002D752D*)TheAnim2DCollection)->rva002D752D(fadeTextBase(AsciiString("TextElvenClouds"))),TheAnim2DCollection);

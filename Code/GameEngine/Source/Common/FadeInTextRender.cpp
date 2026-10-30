@@ -9,14 +9,34 @@
 #include "ascii_string.h"
 #include <string.h>
 extern int BfmeClientFramesPerSecond;
-class __declspec(novtable) Rva0059675ABase {public:
-// ??1Rva0059675ABase@@UAE@XZ is rowed (its deleting dtor 0x005966C0) in
-// Rva0059675ADtor.cpp; the in-class body here was a duplicate COMDAT copy.
-virtual ~Rva0059675ABase();};
+class __declspec(novtable) Rva0059675ABase
+{
+public:
+    virtual ~Rva0059675ABase();
+};
 class Anim2D;
-struct FadeInTextRender:Rva0059675ABase {
- FadeInTextRender();virtual ~FadeInTextRender();virtual void LoadAssets();
- char pad04[0x18];Anim2D *anim;float scale;AsciiString fontName;unsigned color;int delay;unsigned fontSize;unsigned starts[3],ends[3];int width,height;
+class GameFont;
+struct FadeInTextRender : Rva0059675ABase
+{
+    FadeInTextRender();
+    virtual ~FadeInTextRender();
+    virtual void LoadAssets();
+    void bfmeExtend(int left, int top, int right, int bottom);
+
+    GameFont* font;
+    int m_bfmeLeft;
+    int m_bfmeTop;
+    int m_bfmeRight;
+    int m_bfmeBottom;
+    unsigned effectColor;
+    Anim2D* anim;
+    float scale;
+    AsciiString fontName;
+    unsigned color;
+    int delay;
+    unsigned fontSize;
+    unsigned starts[3], ends[3];
+    int width, height;
 };
 FadeInTextRender::FadeInTextRender():anim(0),scale(0.0f),fontName("SachaWynter"),color((220 << 16) | (240 << 8) | 250),delay(BfmeClientFramesPerSecond/4+1),fontSize(14) {
  memset(starts,0,sizeof(starts));memset(ends,0,sizeof(ends));

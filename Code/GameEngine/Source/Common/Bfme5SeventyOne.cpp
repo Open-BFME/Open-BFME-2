@@ -1,3 +1,4 @@
+#include "../../../../reference/shims/bfme2_ascii/ascii_string.h"
 // Two more: the twin of the owner unlink and a bounds update.
 
 class Gen_003F6A20
@@ -6,17 +7,34 @@ public:
 	void bfmeDetach(void);
 };
 
-class FadeInTextRender
+class __declspec(novtable) Rva0059675ABase
 {
 public:
-	void bfmeExtend(int left, int top, int right, int bottom);
+    virtual ~Rva0059675ABase();
+};
+class GameFont;
+class Anim2D;
+struct FadeInTextRender : Rva0059675ABase
+{
+    FadeInTextRender();
+    virtual ~FadeInTextRender();
+    virtual void LoadAssets();
+    void bfmeExtend(int left, int top, int right, int bottom);
 
-private:
-	int m_bfmeHead[2];					// +0x00
-	int m_bfmeLeft;						// +0x08
-	int m_bfmeTop;						// +0x0C
-	int m_bfmeRight;					// +0x10
-	int m_bfmeBottom;					// +0x14
+    GameFont* font;
+    int m_bfmeLeft;
+    int m_bfmeTop;
+    int m_bfmeRight;
+    int m_bfmeBottom;
+    unsigned effectColor;
+    Anim2D* anim;
+    float scale;
+    AsciiString fontName;
+    unsigned color;
+    int delay;
+    unsigned fontSize;
+    unsigned starts[3], ends[3];
+    int width, height;
 };
 
 // ?bfmeExtend@FadeInTextRender@@QAEXHHHH@Z
