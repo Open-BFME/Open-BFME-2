@@ -8203,6 +8203,15 @@ needs a real element name (or a sanctioned merge path) first. No edit made.
 
 **Assigned-family confirmation (2026-10-26, inspected `58598f540fd3c84610304b3659ed382a4c05acca`):** both `StlSweepW4Rva001EBEAB.cpp` and `StlSweepW4Rva002BC47D.cpp` remain U3/L1/S1 with current native providers against index `d1f046749a`. Their retail calls still reach the CarryoverUnit and split 52-byte-record owners documented above. No source change or repeat of the failed forwarder/overflow-suppression trials was made. `build/c136-w4sweep/native-evidence.log`, `provider-rows.json` and the paired ordinary-preview logs retain the native references and row homes; all their rows pass `final-all-assigned-build.log`. Next check remains coherent element/row reconciliation, including the real `CarryoverUnit` name where independently supported, rather than adding more same-address placeholder names. Clearance and census confirmation remain pending.
 
+**52-byte scope recheck (2026-10-30, codex4, base `53cb08f077`):** the
+current-object preview against `12b9e7a7c0` still reports U3/C1/S1 for
+StlSweepW4Rva002BC47D.cpp (382 authored bytes, six ledger rows). The frozen-file
+check is clean. The split element/helper names and real-name prerequisite above
+remain current; no source edit, forwarder retry, new pin or census gain is
+claimed. The claim was released. Carry this provider family into the next census
+after coherent element reconciliation; a placeholder-to-placeholder respell
+still supplies no identity evidence.
+
 **Scope check (2026-10-28, seat halilkkaya-lk3, inspected `91fe563172`, index `73061d9452`):**
 StlSweepW4Rva001EBEAB.cpp and StlSweepW4Rva002BC47D.cpp are still unlinked in the census (U3/C1/S1
 each). The `vector<CarryoverUnit>` respell was not attempted: one of its source homes,
