@@ -1,0 +1,70 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "ObjectShroudClient",
+ "evidence": {
+  "census": 3,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_member_rows": 0,
+  "retail_vtables": {},
+  "view_errors": 0,
+  "view_sizes": {
+   "4": 3
+  },
+  "views": 3,
+  "witness_offsets": [],
+  "zh": {}
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 3,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "majority",
+ "ledger_keys": {},
+ "outliers": [],
+ "queue": [],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "bytes",
+   "member": "rva00290EE0()"
+  },
+  "1": {
+   "decided_by": "bytes",
+   "member": "opaqueSlot1()"
+  },
+  "2": {
+   "decided_by": "bytes",
+   "member": "getGhostObject()"
+  },
+  "3": {
+   "decided_by": "bytes",
+   "member": "rva002941EA(int*,float*,float*,float*)"
+  },
+  "4": {
+   "decided_by": "bytes",
+   "member": "ShroudGetValueRangeAndMask(int,uint*,uint*)"
+  },
+  "5": {
+   "decided_by": "bytes",
+   "member": "ShroudHideIfFogged(int)"
+  }
+ }
+}

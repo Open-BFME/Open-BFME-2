@@ -150,16 +150,22 @@ protected:
 	unsigned char m_pad08[0x64 - 0x08];
 };
 
-class ObjectShroudClient
-{
-public:
-	virtual void rva002941EA(int *playerMask, Real *rangeA, Real *rangeB, Real *rangeC) = 0;
+// Compatibility surface of Object's native table at +0x64 (VA 00BFC2D8).
+// This is not the complete original base: +0x68 is a vbptr, reserved separately.
+// Original class identity and the empty slot's return type remain unknown;
+// the opaque slot is never called through this query-only view.
+class AsciiString;
+#include "ObjectShroudClient.h"
 
+// Partial storage view only: the native nonvirtual prefix has vfptr+vbptr.
+// The actual lifetime implementations retain their virtual-base hierarchy.
+class Rva007FC2D8ShroudStorageView : public ObjectShroudClient
+{
 private:
-	unsigned char m_pad04[0x08 - 0x04];
+    unsigned char m_vbptrStorage[4];
 };
 
-class Object : public ObjectThingBase, public ObjectShroudClient
+class Object : public ObjectThingBase, public Rva007FC2D8ShroudStorageView
 {
 public:
 	Player *getControllingPlayer() const;

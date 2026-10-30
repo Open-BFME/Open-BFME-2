@@ -19,8 +19,21 @@ enum ObjectStatusTypes{STATUS2=2,STATUS38=38};
 class BodyModuleInterface{public:virtual void s0();virtual void s4();virtual void s8();virtual void sC();virtual float getHealth()const;};
 struct ShroudTemplateView{char pad0[0x108];unsigned char kinds[0x20];char pad128[0x4ac-0x128];float radius;char pad4B0[0x530-0x4b0];float reveal;char pad534[12];float special;char pad544[0x5d4-0x544];unsigned specialCount;char pad5d8[2];unsigned short visionCount;char pad5dc[2];unsigned short revealCount;};
 class ObjectThingBase{public:virtual ~ObjectThingBase();protected:const ShroudTemplateView *m_template;char pad8[0x64-8];};
-class ObjectShroudClient{public:virtual bool ShroudHideIfFogged(int)const=0;virtual float ShroudGetValueRangeAndMask(int,unsigned*,unsigned*)const=0;char pad4[4];};
-class Object:public ObjectThingBase,public ObjectShroudClient{public:
+// Compatibility surface of Object's native table at +0x64 (VA 00BFC2D8).
+// This is not the complete original base: +0x68 is a vbptr, reserved separately.
+// Original class identity and the empty slot's return type remain unknown;
+// the opaque slot is never called through this query-only view.
+class AsciiString;
+#include "ObjectShroudClient.h"
+
+// Partial storage view only: the native nonvirtual prefix has vfptr+vbptr.
+// The actual lifetime implementations retain their virtual-base hierarchy.
+class Rva007FC2D8ShroudStorageView : public ObjectShroudClient
+{
+private:
+    unsigned char m_vbptrStorage[4];
+};
+class Object:public ObjectThingBase,public Rva007FC2D8ShroudStorageView{public:
  Player *getControllingPlayer()const;float getShroudClearingRange()const;float getVisionRange()const;bool testStatus(ObjectStatusTypes)const;
  virtual bool ShroudHideIfFogged(int)const;virtual float ShroudGetValueRangeAndMask(int,unsigned*,unsigned*)const;
 private:char pad6C[0x254-0x6c];BodyModuleInterface *body;char pad258[0x438-0x258];unsigned char status;char pad439[0x454-0x439];bool active;

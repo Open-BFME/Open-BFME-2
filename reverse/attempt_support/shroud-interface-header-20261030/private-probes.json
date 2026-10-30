@@ -1,0 +1,441 @@
+{
+  "kind": "six-slot compatibility interface, not recovered complete base identity",
+  "sources": {
+    "Code/GameEngine/Source/GameLogic/Object/ObjectPartitionShroudQueries.cpp": {
+      "variants": {
+        "before": {
+          "source_sha256": "a447a059448a2f4612b77e7db6f3e7c473e7026fff930cbd9efc74942651c13f",
+          "rows": [
+            {
+              "name": "?PartitionGetPlayerIndex@Object@@UBEHXZ",
+              "rva": "0x0028E7F8",
+              "size": "82",
+              "exact": true
+            },
+            {
+              "name": "?ShroudHideIfFogged@Object@@UBE_NH@Z",
+              "rva": "0x0028E775",
+              "size": "131",
+              "exact": true
+            }
+          ]
+        },
+        "trial": {
+          "source_sha256": "bffe76ac6f9775c20864d61bcbb714e12bdd7c4bb03d91875cfd42b29c69fd24",
+          "rows": [
+            {
+              "name": "?PartitionGetPlayerIndex@Object@@UBEHXZ",
+              "rva": "0x0028E7F8",
+              "size": "82",
+              "exact": true
+            },
+            {
+              "name": "?ShroudHideIfFogged@Object@@UBE_NH@Z",
+              "rva": "0x0028E775",
+              "size": "131",
+              "exact": true
+            }
+          ]
+        }
+      },
+      "all_external_code_and_symbolic_relocations_unchanged": 4,
+      "external_definitions": {
+        "?getTemplate@Object@@QBEPBVThingTemplate@@XZ": {
+          "raw": "8b4104c3",
+          "relocations": []
+        },
+        "?isUndetectedDefector@Object@@QBE_NXZ": {
+          "raw": "8a8138040000d1e883e001c3",
+          "relocations": []
+        },
+        "?PartitionGetPlayerIndex@Object@@UBEHXZ": {
+          "raw": "568bf1578d4e94e8000000008bf885ff743af686cc0300000275318b4698f6800e0100008075258bb69802000085f6741b8bcee80000000084c075108bcee80000000084c075058b4754eb0383c8ff5f5ec3",
+          "relocations": [
+            [
+              8,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              52,
+              20,
+              "?rva0039F0D2@Team@@QAE_NXZ"
+            ],
+            [
+              63,
+              20,
+              "?rva0039F824@Team@@QAE_NXZ"
+            ]
+          ]
+        },
+        "?ShroudHideIfFogged@Object@@UBE_NH@Z": {
+          "raw": "568bf183be600400000074738b46a0f68022010000207567ff7424088b0d00000000e800000000ffb6a00200008bc8e80000000083f801751b8b76a0f68608010000047409f6861e010000107431b0015ec204008b46a0f680080100000474eeff7424088b8e60040000e80000000084c074db8b46a0f6801e0100001075cf32c0ebcd",
+          "relocations": [
+            [
+              30,
+              6,
+              "?ThePlayerList@@3PAVPlayerList@@A"
+            ],
+            [
+              35,
+              20,
+              "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z"
+            ],
+            [
+              48,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ],
+            [
+              107,
+              20,
+              "?get@Rva008F7B00@@QAEDH@Z"
+            ]
+          ]
+        }
+      }
+    },
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShroudValueRangeAndMask.cpp": {
+      "variants": {
+        "before": {
+          "source_sha256": "294b7e3107c92f559b31d6629453f1e933a48ffa9bdb1511cace1ed7cd0c8e6b",
+          "rows": [
+            {
+              "name": "?ShroudGetValueRangeAndMask@Object@@UBEMHPAI0@Z",
+              "rva": "0x0028E5E0",
+              "size": "405",
+              "exact": true
+            }
+          ]
+        },
+        "trial": {
+          "source_sha256": "9b2a74c4bfe8c6cb6b824dbdb165b443d5651097b31b7d0569cea02479cbbc1d",
+          "rows": [
+            {
+              "name": "?ShroudGetValueRangeAndMask@Object@@UBEMHPAI0@Z",
+              "rva": "0x0028E5E0",
+              "size": "405",
+              "exact": true
+            }
+          ]
+        }
+      },
+      "all_external_code_and_symbolic_relocations_unchanged": 1,
+      "external_definitions": {
+        "?ShroudGetValueRangeAndMask@Object@@UBEMHPAI0@Z": {
+          "raw": "558bec568bf180bef00300000057750bd90500000000e974010000538d5e9c8bcbe80000000085c00f8454010000f686d4030000010f85470100008bcbe800000000d9eedff1ddd80f83340100006a268bcbe80000000084c00f85230100008b450833ff2bc70f84d6000000487456480f85d90000008b46a0f68008010000800f84c90000008b80d40500003bc78b4d0c89010f86ef0000008bcbe8000000008b40548b0d00000000576a0350e8000000008b4d1089018b46a0d98040050000e9c90000006a028bcbe80000000084c0757d8b46a00fb780de0500008b7d0c8bcb8907e8000000008b48548b451033d242d3e289108b4ea0f30f1081300500000f2e05000000009ff6c444f30f11450c7a2bf681080100008075228b8ef00100008b01ff5010e80000000089078b46a0f30f1080ac040000f30f11450cd9450ceb4c6a028bcbe80000000084c074078b450c8938eb328b46a00fb780da0500008b4d0c89018bcbe8000000008b48548b451033d242d3e28bcb8910e800000000eb0c8b450c832000d905000000005b5f5e5dc20c00",
+          "relocations": [
+            [
+              18,
+              6,
+              "__real@bf800000"
+            ],
+            [
+              34,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              62,
+              20,
+              "?getShroudClearingRange@Object@@QBEMXZ"
+            ],
+            [
+              83,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              156,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              165,
+              6,
+              "?ThePlayerList@@3PAVPlayerList@@A"
+            ],
+            [
+              174,
+              20,
+              "?getPlayersWithRelationship@PlayerList@@QAEHHI_N@Z"
+            ],
+            [
+              202,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              228,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              259,
+              6,
+              "__real@bf800000"
+            ],
+            [
+              295,
+              20,
+              "__ftol2"
+            ],
+            [
+              327,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              360,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              380,
+              20,
+              "?getVisionRange@Object@@QBEMXZ"
+            ],
+            [
+              394,
+              6,
+              "__real@bf800000"
+            ]
+          ]
+        }
+      }
+    },
+    "Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp": {
+      "variants": {
+        "before": {
+          "source_sha256": "6b9e6a6f12af4db65ec7003d55793f37a6468ab3714401488916320820ade5fa",
+          "rows": [
+            {
+              "name": "?rva002941EA@Object@@UAEXPAHPAM11@Z",
+              "rva": "0x002941EA",
+              "size": "435",
+              "exact": true
+            },
+            {
+              "name": "?rva00294471@Object@@QAE_NPAXH@Z",
+              "rva": "0x00294471",
+              "size": "570",
+              "exact": true
+            }
+          ]
+        },
+        "trial": {
+          "source_sha256": "30f0372898c5e87afffb3a6175de631d74e5e4d09b9d80fa41285dc2d580eac0",
+          "rows": [
+            {
+              "name": "?rva002941EA@Object@@UAEXPAHPAM11@Z",
+              "rva": "0x002941EA",
+              "size": "435",
+              "exact": true
+            },
+            {
+              "name": "?rva00294471@Object@@QAE_NPAXH@Z",
+              "rva": "0x00294471",
+              "size": "570",
+              "exact": true
+            }
+          ]
+        }
+      },
+      "all_external_code_and_symbolic_relocations_unchanged": 5,
+      "external_definitions": {
+        "?bfme_isKindOf_769ee@ThingTemplate@@QBE_NW4KindOfType@@@Z": {
+          "raw": "8b44240433d2568bf18bc84283e107d3e2c1f8038a8430080100005e22d0f6da1bd2f7da8ac2c20400",
+          "relocations": []
+        },
+        "?getPlayerIndex@Player@@QBEHXZ": {
+          "raw": "8b4154c3",
+          "relocations": []
+        },
+        "?getTemplate@Object@@QBEPBVThingTemplate@@XZ": {
+          "raw": "8b4104c3",
+          "relocations": []
+        },
+        "?rva002941EA@Object@@UAEXPAHPAM11@Z": {
+          "raw": "558bec5151568bf180bef0030000007522f30f1005000000008b4514f30f11008b4510f30f11008b450cf30f1100e97b01000053578d7e9c8bcf897df8e8000000008bd885db743d8bcfe800000000d9eedff1ddd8732e6a268bcfe80000000084c0742e6a008bcfe80000000085c07421508bcfe800000000d90500000000dff1ddd8760df30f100500000000e9050100008b46a0f6801201000080740b8b4508c700ffff0f00eb278b43548b0d000000006a006a0350e8000000008bcb8945fce8000000008b4dfc0bc88b45088908f64630010f85b5000000f686d4030000010f85a80000008bcfe800000000d9c08b7d148b5d10d91f8b450c8b4df8d9c0d91bd9c0d9188b46a0f30f1080b4040000f30f114510ddd8f30f1080b8040000f30f11450ce8000000008bf085f6743f8b068bceff905c020000d95d14d9eed94514dff1ddd8760af30f104514f30f1145108b068bceff9058020000d95d14f30f104514d9eed94514dff1ddd87705f30f10450cf30f100bf30f594d10f30f110bf30f100ff30f59c8f30f110feb1df30f1005000000008b4514f30f11008b4510f30f11008b450cf30f11005f5b5ec9c21000",
+          "relocations": [
+            [
+              21,
+              6,
+              "__real@bf800000"
+            ],
+            [
+              62,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              75,
+              20,
+              "?getShroudClearingRange@Object@@QBEMXZ"
+            ],
+            [
+              92,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              105,
+              20,
+              "?rva002931F5@Object@@QAEPAV1@_N@Z"
+            ],
+            [
+              117,
+              20,
+              "?rva00263763@Object@@QBEMPBX@Z"
+            ],
+            [
+              123,
+              6,
+              "__real@43c80000"
+            ],
+            [
+              137,
+              6,
+              "__real@bf800000"
+            ],
+            [
+              174,
+              6,
+              "?ThePlayerList@@3PAVPlayerList@@A"
+            ],
+            [
+              184,
+              20,
+              "?getPlayersWithRelationship@PlayerList@@QAEHHI_N@Z"
+            ],
+            [
+              194,
+              20,
+              "?get@Rva002AA21CDwordField@@QBEHXZ"
+            ],
+            [
+              234,
+              20,
+              "?getShroudClearingRange@Object@@QBEMXZ"
+            ],
+            [
+              294,
+              20,
+              "?rva0028C197@Object@@QBEPAXXZ"
+            ],
+            [
+              403,
+              6,
+              "__real@3dcccccd"
+            ]
+          ]
+        },
+        "?rva00294471@Object@@QAE_NPAXH@Z": {
+          "raw": "558bec5151837d0c015356578b7d088bf17522e80000000085c07419ffb0ec0200008bcfe80000000083f802750732c0e9fe0100008bcee80000000084c00f85770100006a0f8bcee80000000084c074116a118bcee80000000084c00f8459010000837d0c01751c8bcee80000000085c074bbffb0ec0200008bcfe80000000085c075aa8b4604f68015010000200f84880000008b8e5002000085c9747e8b01ff507885c074758b108d4df8518bc8ff92080100008b4dfc8b398b3732c03bf70f846b0100008b5e0885db74428bcbe80000000084c00f84550100006a0f8bcbe80000000084c00f84440100008bcbe80000000084c00f85350100006a118bcbe80000000084c00f8524010000fec08b363bf775b184c0e90f0100008bb65002000085f60f84070100008b06578bceff504c8bf88b066a008bceff90140100008bd88b068bceff90240100003bc30f85dd0000008b068d4df8518bceff90180100008b45fc8b008b083bc80f84c00000008b710885f60f84b50000008bcee80000000084c00f85a60000006a118bcee80000000084c00f859500000085ff0f848d000000ffb7ec0200008b4d08e80000000085c0757be973feffff8b4604f68013010000010f8463feffff8bcee80000000085c0743183783c00742bff70388b0d00000000e80000000085ff741985c07415ffb0ec0200008bcfe800000000f7d81ac0fec0eb2c837d0c0175248bcee80000000085c00f8412feffffffb0ec0200008bcfe80000000085c00f85fdfdffffb0015f5e5bc9c20800",
+          "relocations": [
+            [
+              20,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              37,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ],
+            [
+              56,
+              20,
+              "?rva0028F518@Object@@QAE_NXZ"
+            ],
+            [
+              73,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              86,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              107,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              124,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ],
+            [
+              208,
+              20,
+              "?rva0028F518@Object@@QAE_NXZ"
+            ],
+            [
+              225,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              240,
+              20,
+              "?rva002933CD@Object@@QAEHXZ"
+            ],
+            [
+              257,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              383,
+              20,
+              "?rva002933CD@Object@@QAEHXZ"
+            ],
+            [
+              400,
+              20,
+              "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z"
+            ],
+            [
+              430,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ],
+            [
+              462,
+              20,
+              "?rva0028F4BC@Object@@QAEPAVRva00373EC6@@XZ"
+            ],
+            [
+              481,
+              6,
+              "?ThePlayerList@@3PAVPlayerList@@A"
+            ],
+            [
+              486,
+              20,
+              "?getNthPlayer@PlayerList@@QAEPAVPlayer@@H@Z"
+            ],
+            [
+              507,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ],
+            [
+              528,
+              20,
+              "?getControllingPlayer@Object@@QBEPAVPlayer@@XZ"
+            ],
+            [
+              549,
+              20,
+              "?getRelationship@Player@@QBE?AW4Relationship@@PBVTeam@@@Z"
+            ]
+          ]
+        }
+      }
+    }
+  }
+}

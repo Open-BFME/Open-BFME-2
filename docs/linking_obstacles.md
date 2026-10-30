@@ -12295,6 +12295,29 @@ Update 2026-10-29 (Thing, Object, ObjectShroudClient decisions):
   ObjectShroudValueRangeAndMask) to the 6-slot table and the 4-byte size
   before generating it.
 
+Update 2026-10-30 (ObjectShroudClient query interface):
+
+- **Correction to the 2026-10-29 layout account above:** Object+68 is a vbptr,
+  not another subobject's vfptr. Constructor 298EC8 installs BFC320 there;
+  its signed entries -4/+46C reach the virtual base at Object+4D4. The
+  existing 28AADF base constructor and Object lifetime hierarchies retain
+  their virtual inheritance. No complete original four-byte base is proved.
+- **Query declaration scope cleared:** independent native table bytes prove
+  the six targets at 7FC2D8 and slots 3/4/5 for the three query methods.
+  All three files adopt ObjectShroudClient.h through the header lane. This
+  is a four-byte compatibility surface with a separate eight-byte storage
+  wrapper reserving the native vbptr; it is not an original class-name or
+  full-hierarchy recovery. The empty slot has a protected opaque declaration
+  that these views never call. Private probes and actual objects preserve
+  all five matched rows and all ten external code definitions/relocations;
+  bounded prediction conserves 1,622 linked bytes. Evidence:
+  `reverse/attempt_support/shroud-interface-header-20261030/`.
+- **Remaining:** full Object/BfmeCtor001B3A20 identity and hierarchy, the
+  empty slot's actual signature, and Partition's preceding slots. No existing
+  header debt key is retired and no census gain is claimed. The outgoing
+  batch still requires the normal broader audit; an inconclusive audit is
+  unverified outside this stated scope.
+
 Update 2026-10-29 (DieModule and BehaviorModuleInterface, d8d766afec7 / 7f9ddce7413):
 
 - **BehaviorModuleInterface (target facts).** ??0BehaviorModule (0x00253330)

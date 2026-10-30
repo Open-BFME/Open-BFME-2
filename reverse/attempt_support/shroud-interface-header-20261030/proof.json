@@ -1,0 +1,86 @@
+{
+  "scope": "partial compatibility interface; no original class name or complete-base size claim",
+  "native_tables": {
+    "shroud": {
+      "rva": "0x7fc2d8",
+      "raw": "e00e6900d03f4b00fe0e6900ea416900e0e5680075e76800",
+      "values": [
+        6885088,
+        4931536,
+        6885118,
+        6898154,
+        6874592,
+        6874997
+      ]
+    },
+    "virtual_base_displacements": {
+      "rva": "0x7fc320",
+      "raw": "fcffffff6c040000",
+      "values": [
+        -4,
+        1132
+      ]
+    }
+  },
+  "native_instructions": [
+    {
+      "rva": "0x298ec8",
+      "raw": "c7466820c3bf00",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi + 0x68], 0xbfc320"
+    },
+    {
+      "rva": "0x298eed",
+      "raw": "8d7e64",
+      "mnemonic": "lea",
+      "operands": "edi, [esi + 0x64]"
+    },
+    {
+      "rva": "0x298f16",
+      "raw": "c707d8c2bf00",
+      "mnemonic": "mov",
+      "operands": "dword ptr [edi], 0xbfc2d8"
+    },
+    {
+      "rva": "0x299d03",
+      "raw": "c74664d8c2bf00",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi + 0x64], 0xbfc2d8"
+    },
+    {
+      "rva": "0x298f1c",
+      "raw": "c7466cb8c2bf00",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi + 0x6c], 0xbfc2b8"
+    },
+    {
+      "rva": "0x299d0a",
+      "raw": "c7466cb8c2bf00",
+      "mnemonic": "mov",
+      "operands": "dword ptr [esi + 0x6c], 0xbfc2b8"
+    }
+  ],
+  "actual_objects": [
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectPartitionShroudQueries.cpp",
+      "source_sha256": "87b793a7f644990a0d69a50c7d2b65863ca270c09f3bddfdc8dd25f7a8d8612c",
+      "object_sha256": "d029da4b9995d99b5ede75cb6ca9dc75c77eeda3b673ef20b29a6c7e53628948",
+      "strict_current": true,
+      "all_external_code_and_symbolic_relocations_unchanged": 4
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectShroudValueRangeAndMask.cpp",
+      "source_sha256": "c5b1c178858fb8fe5cc801fcc94d9be8365bdfb0d518573ae669b6abc674fa29",
+      "object_sha256": "b5a28e24d529e12b43f2bccfda0b3d411ddf2bc037f31e63e9ce1009aff8491a",
+      "strict_current": true,
+      "all_external_code_and_symbolic_relocations_unchanged": 1
+    },
+    {
+      "source": "Code/GameEngine/Source/GameLogic/Object/ObjectShroudRangeQuery.cpp",
+      "source_sha256": "4eb0325d3b8131d94fd7c5cfda96a4b2804bb79be0d9677239c32010cbfad777",
+      "object_sha256": "031bb07dba9b0716985e302ad5c74edc1fcb7d4c5144711d90b9e3063562af23",
+      "strict_current": true,
+      "all_external_code_and_symbolic_relocations_unchanged": 5
+    }
+  ]
+}
