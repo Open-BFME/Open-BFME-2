@@ -20469,8 +20469,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03F20,4,.data,global,?TheRemoveUpgradeUpgradePoolKey@?1??getModuleNameKey@RemoveUpgradeUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgrade.cpp,owned,,1,2
 0x00A03F24,4,.data,global,?$S1@?1??getModuleNameKey@RemoveUpgradeUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/RemoveUpgradeUpgrade.cpp,owned,,1,4
 0x00A03F28,4,.data,global,_s_rva007B2342,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03F2C,4,.data,global,?TheBuildableHeroListUpgradePoolKey@?1??getModuleNameKey@BuildableHeroListUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/BuildableHeroListUpgradePoolKey.cpp,owned,,1,2
-0x00A03F30,4,.data,global,?$S1@?1??getModuleNameKey@BuildableHeroListUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/BuildableHeroListUpgradePoolKey.cpp,owned,,1,4
+0x00A03F2C,4,.data,global,?TheBuildableHeroListUpgradePoolKey@?1??getModuleNameKey@BuildableHeroListUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/BuildableHeroListUpgrade.cpp,owned,,1,2
+0x00A03F30,4,.data,global,?$S1@?1??getModuleNameKey@BuildableHeroListUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/BuildableHeroListUpgrade.cpp,owned,,1,4
 0x00A03F34,4,.data,global,_s_rva007B236C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03F38,4,.data,global,?TheAllowBannerSpawnUpgradePoolKey@?1??getModuleNameKey@AllowBannerSpawnUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/AllowBannerSpawnUpgrade.cpp,owned,,1,2
 0x00A03F3C,4,.data,global,?$S1@?1??getModuleNameKey@AllowBannerSpawnUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/AllowBannerSpawnUpgrade.cpp,owned,,1,4
