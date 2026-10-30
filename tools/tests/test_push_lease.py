@@ -23,6 +23,16 @@ import push_lease  # noqa: E402
 SHA = "a" * 40
 
 
+def fake_time(monkeypatch, **fakes):
+    """Replace time functions for push_lease and claims only. Patching the shared
+    time module also fed subprocess's wait loop for a git child to these fakes."""
+    for module in (push_lease, claims):
+        current = module.time
+        monkeypatch.setattr(module, "time", type("Clock", (), {
+            "__getattr__": lambda self, name, current=current: getattr(current, name),
+            **{name: staticmethod(fake) for name, fake in fakes.items()}})())
+
+
 def _git(cwd, *args):
     return subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, text=True).stdout
 
@@ -42,7 +52,7 @@ def hosts(tmp_path, monkeypatch):
     monkeypatch.delenv("BFME_RUN_ID", raising=False)
     monkeypatch.setattr(claims, "NS", "refs/claims/")
     monkeypatch.setattr(claims, "REMOTE", "origin")
-    monkeypatch.setattr(push_lease.time, "sleep", lambda s: None)
+    fake_time(monkeypatch, sleep=lambda s: None)
 
     def act(name):
         monkeypatch.setattr(claims, "ROOT", clones[name])
@@ -93,7 +103,7 @@ def test_a_waiter_is_told_who_holds_it_and_until_when(hosts, monkeypatch):
     assert push_lease.acquire(SHA, say=quiet)
     hosts("b")
     polls, told = [], []
-    monkeypatch.setattr(push_lease.time, "sleep", lambda s: polls.append(s))
+    fake_time(monkeypatch, sleep=lambda s: polls.append(s))
     assert push_lease.wait(wait_minutes=0.0001, poll=0.001, say=told.append) is False
     assert re.search(r"a is landing a full-gate push \(aaaaaaaaaa\); waiting until it lands or \d\d:\d\d:\d\d",
                      told[0])
@@ -258,7 +268,7 @@ def test_a_waiter_proceeds_once_the_holder_releases(hosts, monkeypatch):
             hosts("a")
             assert push_lease.release(token)
             hosts("b")
-    monkeypatch.setattr(push_lease.time, "sleep", release_on_second_poll)
+    fake_time(monkeypatch, sleep=release_on_second_poll)
     assert push_lease.wait(wait_minutes=60, say=quiet) is True
     assert len(polls) == 2
 
@@ -433,7 +443,7 @@ class Clock:
 
 def test_a_waiter_follows_a_renewed_window_past_its_first_expiry(hosts, monkeypatch):
     clock = Clock(20 * 60)
-    monkeypatch.setattr(push_lease.time, "time", clock.time)
+    fake_time(monkeypatch, time=clock.time)
     hosts("a")
     tokens = [push_lease.acquire(SHA, say=quiet)]            # expires in 30 min
     hosts("b")
@@ -449,7 +459,7 @@ def test_a_waiter_follows_a_renewed_window_past_its_first_expiry(hosts, monkeypa
         else:
             assert push_lease.release(tokens[-1])
         hosts("b")
-    monkeypatch.setattr(push_lease.time, "sleep", renew_then_release)
+    fake_time(monkeypatch, sleep=renew_then_release)
     # 60 minutes in, past the window's first expiry, the waiter is still waiting
     assert push_lease.wait(say=told.append) is True
     assert len(polls) == 3
@@ -458,7 +468,7 @@ def test_a_waiter_follows_a_renewed_window_past_its_first_expiry(hosts, monkeypa
 
 def test_a_waiter_gives_up_at_the_hard_cap(hosts, monkeypatch):
     clock = Clock(20 * 60)
-    monkeypatch.setattr(push_lease.time, "time", clock.time)
+    fake_time(monkeypatch, time=clock.time)
     hosts("a")
     assert push_lease.acquire(SHA, say=quiet)
     hosts("b")
@@ -468,7 +478,7 @@ def test_a_waiter_gives_up_at_the_hard_cap(hosts, monkeypatch):
         hosts("a")
         assert push_lease.renew(SHA)
         hosts("b")
-    monkeypatch.setattr(push_lease.time, "sleep", renew_forever)
+    fake_time(monkeypatch, sleep=renew_forever)
     told = []
     started = clock.now
     assert push_lease.wait(wait_minutes=90, say=told.append) is False

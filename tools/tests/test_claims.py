@@ -24,6 +24,12 @@ def _git(cwd, *args):
     return subprocess.run(["git", *args], cwd=cwd, check=True, capture_output=True, text=True).stdout
 
 
+def _listing(args):
+    """A claims snapshot's listing: the one network read every snapshot makes
+    (claim commits it lacks are then fetched by sha)."""
+    return args[:1] == ("ls-remote",) and any(arg.endswith("*") for arg in args)
+
+
 def own_sleep(monkeypatch, sleep):
     """Replace only claims' sleep. Patching the shared time.sleep also counts
     subprocess's wait loop for a git child that has closed its pipes."""
@@ -84,10 +90,14 @@ def test_claim_fetch_defers_maintenance_without_changing_config_or_pruning(hosts
     monkeypatch.setattr(claims, "_git", git)
     assert claims.fetch(root)
     assert claims._read_local(root)[0x100][1]["owner"] == "b"
+    assert len(calls) == 1                      # b's claim commit, fetched by sha
+    assert claims.fetch(root)
+    assert len(calls) == 1                      # nothing new: the listing alone
     assert claims.release([0x100], who="b", root=peer) == [0x100]
     assert claims.fetch(root)
     assert 0x100 not in claims._read_local(root)
-    assert all("--no-auto-maintenance" in args and "--dry-run" in args and
+    assert len(calls) == 1
+    assert all("--no-auto-maintenance" in args and "--stdin" in args and "--no-write-fetch-head" in args and
                "--recurse-submodules=no" in args for args in calls)
     assert _git(root, "config", "gc.auto").strip() == "1"
     assert _git(root, "config", "maintenance.auto").strip() == "true"
@@ -147,6 +157,49 @@ def test_the_claim_mirror_survives_a_prune_and_otherwise_fails_closed(hosts):
         claims._read_local(root)
 
 
+def test_a_claim_commit_with_history_is_mirrored_without_it(hosts):
+    # Some clients' branch-namespace claim commits have parents deep in master's
+    # history (one had 74,856 ancestors): the mirror copies the commit alone.
+    import json
+
+    root = hosts("a")
+    for i in range(3):
+        _git(root, "commit", "-q", "--allow-empty", "-m", f"history {i}")
+    tip = _git(root, "rev-parse", "HEAD").strip()
+    body = json.dumps({"owner": "peer", "created": int(time.time()), "expires": int(time.time()) + 3600})
+    tree = subprocess.run(["git", "mktree"], cwd=root, input="", check=True, capture_output=True,
+                          text=True).stdout.strip()
+    made = subprocess.run(["git", "-c", "user.name=c", "-c", "user.email=c@l", "commit-tree", tree, "-p", tip,
+                           "-m", body], cwd=root, check=True, capture_output=True, text=True).stdout.strip()
+    _git(root, "push", "-q", "origin", f"{made}:refs/heads/claims/0x00000700")
+    clone = hosts("b")
+    assert claims.fetch(clone)
+    assert claims._read_visible(clone)[0x700][1]["owner"] == "peer"
+    side = claims._seen_repo(clone)
+    assert _git(clone, f"--git-dir={side}", "rev-list", "--all", "--count").strip() == "1"
+    _git(clone, f"--git-dir={side}", "gc", "-q", "--prune=now")
+    assert claims._read_visible(clone)[0x700][1]["owner"] == "peer"
+
+
+def test_a_claim_commit_gone_between_listing_and_fetch_is_retried(hosts, monkeypatch):
+    hosts("b")
+    assert claims.claim([0x100]).claimed == [0x100]
+    root = hosts("a")
+    real = claims._git
+    failed = []
+
+    def git(*args, **kwargs):
+        if args[:1] == ("fetch",) and "--stdin" in args and not failed:
+            failed.append(args)
+            return subprocess.CompletedProcess(args, 128, "", "fatal: remote error: upload-pack: not our ref "
+                                               + kwargs["input_text"].split()[0])
+        return real(*args, **kwargs)
+    monkeypatch.setattr(claims, "_git", git)
+    own_sleep(monkeypatch, lambda seconds: None)
+    assert claims.fetch(root)
+    assert failed and claims._read_local(root)[0x100][1]["owner"] == "b"
+
+
 def test_a_claim_is_exclusive_across_hosts(hosts):
     hosts("a")
     assert claims.claim([0x100, 0x200]) == ([0x100, 0x200], [])
@@ -165,7 +218,7 @@ def test_rename_claims_reuses_acquisition_snapshot_and_preserves_owned_lease(hos
     fetches, pushes = [], []
 
     def git(*args, **kwargs):
-        if args[:1] == ("fetch",):
+        if _listing(args):
             fetches.append(args)
         elif args[:1] == ("push",):
             pushes.append(args)
@@ -1384,7 +1437,7 @@ def test_atomic_acquire_lost_race_has_one_push_and_one_readback(hosts, monkeypat
 
     def git(*args, **kwargs):
         here = kwargs.get("cwd") in (None, root)
-        if here and args[:1] == ("fetch",):
+        if here and _listing(args):
             fetches.append(args)
         if here and args[:2] == ("push", "-q"):
             pushes.append(args)
@@ -1409,7 +1462,7 @@ def test_one_initial_fetch_is_shared_by_pick_and_settlement(hosts, monkeypatch):
     fetches = []
 
     def git(*args, **kwargs):
-        if args[:1] == ("fetch",):
+        if args[:1] == ("fetch",) or _listing(args):
             fetches.append(args)
         return real(*args, **kwargs)
     monkeypatch.setattr(claims, "_git", git)
@@ -1418,7 +1471,7 @@ def test_one_initial_fetch_is_shared_by_pick_and_settlement(hosts, monkeypatch):
         assert claims.busy_keys() == set()
         assert claims.acquire([0x1234]).claimed == [0x1234]
     master = [a for a in fetches if "master" in " ".join(a)]
-    claim_fetches = [a for a in fetches if any("claims-seen" in x for x in a)]
+    claim_fetches = [a for a in fetches if _listing(a)]
     assert len(master) == 1
     assert len(claim_fetches) == 2  # one shared initial snapshot plus mandatory post-push recheck
 
@@ -1442,7 +1495,7 @@ def test_unreadable_post_push_snapshot_rolls_back_instead_of_serving(hosts, monk
     pushed = []
 
     def git(*args, **kwargs):
-        if pushed and args[:1] == ("fetch",):
+        if pushed and _listing(args):
             return subprocess.CompletedProcess(args, 1, "", "snapshot unavailable")
         result = real(*args, **kwargs)
         if args[:2] == ("push", "-q"):
@@ -1468,7 +1521,7 @@ def test_fetch_retries_deleted_advertisement_race(hosts, monkeypatch, capsys, ph
 
     def transport(*args, **kwargs):
         inject = phase != "post-push" or pushed
-        if args[:1] == ("fetch",) and inject and len(races) < 2:
+        if _listing(args) and inject and len(races) < 2:
             races.append(True)
             return subprocess.CompletedProcess(args, 128, "", message)
         result = real(*args, **kwargs)
@@ -1496,7 +1549,7 @@ def test_persistent_ref_race_does_not_enable_offline_pick(hosts, monkeypatch):
     fetches = []
 
     def transport(*args, **kwargs):
-        if args[:1] == ("fetch",):
+        if _listing(args):
             fetches.append(True)
             return subprocess.CompletedProcess(args, 128, "", "upload-pack: not our ref " + "0" * 40)
         return real(*args, **kwargs)
@@ -1515,7 +1568,7 @@ def test_lost_push_reply_and_readback_keep_tokens_or_rollback(hosts, monkeypatch
     accepted = []
 
     def transport(*args, **kwargs):
-        if accepted and args[:1] == ("fetch",):
+        if accepted and _listing(args):
             return subprocess.CompletedProcess(args, 128, "", "snapshot unavailable")
         if args[:1] == ("push",):
             if accepted and rollback_fails:

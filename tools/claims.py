@@ -170,9 +170,6 @@ READ_NAMESPACES = ("refs/claims/", "refs/heads/claims/")
 # refs/claims/ on origin still fences every worker against the same claim.
 SEEN = "refs/claims-seen/"           # in the side repository; never pushed
 SEEN_REPO = "claims-seen.git"
-# A --dry-run fetch names this never-written destination so that --porcelain
-# lists every remote claim ref; nothing is ever stored under it.
-LISTING = "refs/claims-listing/"
 # Where older clients mirrored claims in this repository; deleted on sight.
 LEGACY_SEEN = ("refs/worktree/claims-seen", "refs/worktree/claims-mirror-seen")
 TTL_HOURS = float(os.environ.get("BFME_CLAIM_TTL_HOURS", "4"))
@@ -564,7 +561,7 @@ def fetch(root=None):
             time.sleep(_backoff(attempt))
     if got.returncode and any(text in got.stderr.lower() for text in
                              ("not our ref", "couldn't find remote ref", "could not find remote ref",
-                              "missing ref", "cannot lock ref")):
+                              "missing ref", "cannot lock ref", "unadvertised object")):
         raise ClaimsUnavailable("claims: origin reachable but claim refs kept changing; retry the pick",
                                 reachable=True)
     if got.returncode == 0:
@@ -609,26 +606,48 @@ def _seen_repo(root=None):
     return _seen_dir(str(Path(root or ROOT).resolve()))
 
 
-def _adopt(shas, root=None, side=None):
-    """Copy claim commits (and their empty tree) from this repository into the
-    mirror's object store, which must hold every object its refs name. The git
-    result of the copy (returncode 0 when nothing was missing)."""
-    side = side or _seen_repo(root)
-    asked = "".join(f"{sha}\n" for sha in sorted(set(shas)))
-    checked = _git("cat-file", "--batch-check", input_text=asked, cwd=root, git_dir=side)
+def _missing(shas, root=None, git_dir=None):
+    """The objects of `shas` that this repository (or `git_dir`) lacks, or the failed
+    git result."""
+    if not shas:
+        return []
+    checked = _git("cat-file", "--batch-check", input_text="".join(f"{sha}\n" for sha in shas),
+                   cwd=root, git_dir=git_dir)
     if checked.returncode:
         return checked
-    missing = [line.split()[0] for line in checked.stdout.splitlines() if line.endswith(" missing")]
+    return [line.split()[0] for line in checked.stdout.splitlines() if line.endswith(" missing")]
+
+
+@lru_cache(maxsize=32)
+def _object_source(top):
+    """This repository's git dir (shared by its worktrees), to copy claim commits from."""
+    common = _git("rev-parse", "--git-common-dir", cwd=top).stdout.strip()
+    return str((Path(top) / common).resolve()) if common else None
+
+
+def _adopt(shas, root=None, side=None):
+    """Copy claim commits from this repository into the mirror's object store,
+    which must hold every object its refs name. A depth-1 local fetch copies
+    each commit and its (empty) tree only: some claim commits have parents deep
+    in master's history, which the mirror records as shallow and never holds.
+    The git result of the copy (returncode 0 when nothing was missing)."""
+    side = side or _seen_repo(root)
+    missing = _missing(sorted(set(shas)), root, side)
+    if not isinstance(missing, list):
+        return missing
     if not missing:
-        return checked
-    packs = Path(side) / "objects" / "pack"
-    packed = _git("pack-objects", "-q", "--revs", str(packs / "pack"),
-                  input_text="".join(f"{sha}\n" for sha in missing), cwd=root)
-    if packed.returncode == 0 and len(list(packs.glob("*.pack"))) >= 50:
-        # one pack per copy: at gc.autoPackLimit, the mirror's own gc consolidates
-        # them and in time drops claims no mirror ref names any more
+        return subprocess.CompletedProcess(["git", "fetch"], 0, "", "")
+    copied = _git("-c", "uploadpack.allowAnySHA1InWant=true", "fetch", "-q", "--depth=1", "--no-tags",
+                  "--no-write-fetch-head", "--no-auto-maintenance", "--recurse-submodules=no", "--stdin",
+                  _object_source(str(Path(root or ROOT).resolve())),
+                  input_text="".join(f"{sha}\n" for sha in missing), cwd=root, git_dir=side)
+    objects = Path(side) / "objects"
+    if copied.returncode == 0 and (len(list((objects / "pack").glob("*.pack"))) >= 50
+                                   or len(list((objects / "17").glob("*"))) > 27):
+        # git's own gc.auto estimates (6,700 loose objects, 50 packs): the mirror's gc
+        # consolidates them and in time drops claims no mirror ref names any more
         _git("-c", "gc.autoDetach=false", "gc", "--auto", "--quiet", cwd=root, git_dir=side)
-    return packed
+    return copied
 
 
 def mirror_sha(key, root=None, seen=SEEN):
@@ -638,34 +657,43 @@ def mirror_sha(key, root=None, seen=SEEN):
 
 
 def _snapshot(root, remote, seen, timeout):
-    """Replace the mirror under `seen` with `remote`'s claim refs; the fetch's result.
+    """Replace the mirror under `seen` with `remote`'s claim refs; the failed git
+    result, or the listing's.
 
-    A --dry-run fetch downloads the claim commits into this repository without
-    writing any ref here, and --porcelain lists every remote ref against a
-    destination that never exists; the commits are then copied into the
-    mirror's own object store. Needs git 2.41 or newer."""
+    `git ls-remote` lists the claim refs; only claim commits the mirror lacks
+    and this repository lacks too are fetched, by sha, without writing a ref
+    here. They are then copied into the mirror's own object store, and one
+    update-ref transaction moves its refs. Works back to git 2.29 (fetch --stdin).
+    With no new claim, a snapshot is one ls-remote and local reads."""
     side = _seen_repo(root)
     mirrors = list(_namespace_mirrors(seen))
-    scratch = {mirror: LISTING + mirror[len("refs/"):] for _, mirror in mirrors}
-    got = _git("fetch", "--dry-run", "--porcelain", "--no-write-fetch-head", "--no-auto-maintenance",
-               "--no-tags", "--recurse-submodules=no", remote,
-               *(f"+{namespace}*:{scratch[mirror]}*" for namespace, mirror in mirrors),
-               cwd=root, timeout=timeout)
-    if got.returncode:
-        if "porcelain" in got.stderr:
-            raise ClaimsUnavailable("claims: git 2.41 or newer is required (git fetch --porcelain)")
-        return got
+    listed = _git("ls-remote", remote, *(f"{namespace}*" for namespace, _ in mirrors), cwd=root, timeout=timeout)
+    if listed.returncode:
+        return listed
     want = {}
-    for line in got.stdout.splitlines():   # "<flag> <old sha> <new sha> <destination>"
-        fields = line.split()
-        name = fields[-1] if len(fields) >= 3 else ""
-        for mirror, prefix in scratch.items():
-            if name.startswith(prefix):
-                want[mirror + name[len(prefix):]] = fields[-2]
-    adopted = _adopt(want.values(), root, side)
+    for line in listed.stdout.splitlines():   # "<sha>\t<ref>"; patterns match ref tails, so filter
+        sha, _, name = line.partition("\t")
+        for namespace, mirror in mirrors:
+            if name.startswith(namespace):
+                want[mirror + name[len(namespace):]] = sha
+                break
+    shas = sorted(set(want.values()))
+    lacking = _missing(shas, root, side)
+    if not isinstance(lacking, list):
+        return lacking
+    absent = _missing(lacking, root)
+    if not isinstance(absent, list):
+        return absent
+    if absent:
+        got = _git("fetch", "-q", "--no-write-fetch-head", "--no-auto-maintenance", "--no-tags",
+                   "--recurse-submodules=no", "--stdin", remote,
+                   input_text="".join(f"{sha}\n" for sha in absent), cwd=root, timeout=timeout)
+        if got.returncode:
+            return got
+    adopted = _adopt(lacking, root, side)
     if adopted.returncode:
         return adopted
-    held = _git("for-each-ref", "--format=%(refname) %(objectname)", *scratch,
+    held = _git("for-each-ref", "--format=%(refname) %(objectname)", *(mirror for _, mirror in mirrors),
                 cwd=root, git_dir=side)
     if held.returncode:
         return held
@@ -673,9 +701,9 @@ def _snapshot(root, remote, seen, timeout):
     edits = [f"update {name} {sha}\n" for name, sha in sorted(want.items()) if have.get(name) != sha]
     edits += [f"delete {name}\n" for name in sorted(have) if name not in want]
     if not edits:
-        return got
+        return listed
     wrote = _git("update-ref", "--stdin", input_text="".join(edits), cwd=root, git_dir=side)
-    return wrote if wrote.returncode else got
+    return wrote if wrote.returncode else listed
 
 
 def _read_visible(root=None, seen=SEEN, *, other_only=False):
