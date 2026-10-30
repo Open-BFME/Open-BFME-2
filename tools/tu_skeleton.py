@@ -2245,8 +2245,10 @@ def debt_keys(path):
 def breakdown(path):
     """{approved TU (the map's spelling): rows} of a file's matched rows, plus
     unplaced ones under ''; an EH funclet counts with its parent."""
-    approved = {int(r["rva"], 16): r["tu"] for r in map_rows()
-                if r["confidence"] == "approved" and r["kind"].startswith("code") and r["tu"]}
+    if "approved_at" not in _CACHE:         # indexed once: the picker asks for every served split
+        _CACHE["approved_at"] = {int(r["rva"], 16): r["tu"] for r in map_rows()
+                                 if r["confidence"] == "approved" and r["kind"].startswith("code") and r["tu"]}
+    approved = _CACHE["approved_at"]
     rows = file_rows(path)
     home = {r["name"]: approved.get(int(r["target_rva"], 16), "") for r in rows}
     dtors = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
@@ -2255,6 +2257,24 @@ def breakdown(path):
         p = parent_of(r, dtors)
         out[home[p] if p and p in home else home[r["name"]]].append(r)
     return out
+
+
+def split_rows(path, tu):
+    """(blocked reason or None, TU in the map's spelling, the file's rows approved for it, companions
+    excluded) by the current map: --split's own precondition, and the picker's test that a served
+    split decision is still alive."""
+    rows = file_rows(path)
+    if not rows:
+        return "no matched rows in that file", tu, []
+    groups = breakdown(path)
+    tu = next((k for k in groups if k.lower() == tu.lower()), tu)
+    dtors_all = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
+    tu_rows = [r for r in groups.get(tu, []) if not parent_of(r, dtors_all)]
+    if not tu_rows:
+        return "no row of that file is approved for that TU", tu, []
+    if len(groups.get(tu, [])) == len(rows):
+        return "every row is this TU's (funclets included): use --merge", tu, tu_rows
+    return None, tu, tu_rows
 
 
 def split(path, tu, dry_run=False, claim=True):
@@ -2276,15 +2296,9 @@ def split(path, tu, dry_run=False, claim=True):
     if inc:
         report["blocked"] = "file cannot be carved: #included by " + ", ".join(inc[:3])
         return report
-    groups = breakdown(path)
-    tu = next((k for k in groups if k.lower() == tu.lower()), tu)
-    dtors_all = {m.group(1): r["name"] for r in rows if (m := re.match(r"^\?\?1((?:\?\$)?[A-Za-z_]\w*@)", r["name"]))}
-    tu_rows = [r for r in groups.get(tu, []) if not parent_of(r, dtors_all)]
-    if not tu_rows:
-        report["blocked"] = "no row of that file is approved for that TU"
-        return report
-    if len(groups.get(tu, [])) == len(rows):
-        report["blocked"] = "every row is this TU's (funclets included): use --merge"
+    why, tu, tu_rows = split_rows(path, tu)
+    if why:
+        report["blocked"] = why
         return report
     text = text0
     spans = def_spans(text)
@@ -3104,4 +3118,7 @@ def main(argv=None):
 
 
 if __name__ == "__main__":
-    sys.exit(main())
+    try:
+        sys.exit(main())
+    except tu_map.NoZhTree as error:     # --plan, --merge, --split and --queue read the map
+        sys.exit(f"tu_skeleton: {error}")

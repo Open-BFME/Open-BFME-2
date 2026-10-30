@@ -316,13 +316,52 @@ def test_decisions_are_ranked_by_files_freed_and_served_to_the_picker(tmp_path, 
     for f in ("Code/T.cpp", "Code/A.cpp", "Code/U.cpp", "Code/M.cpp", "Code/B.cpp"):
         (tmp_path / f).parent.mkdir(parents=True, exist_ok=True)
         (tmp_path / f).write_text("//\n")
-    served, note = repair_queue.merge_decision_items(shared)
+    served, note = repair_queue.merge_decision_items(shared, alive=lambda kind, tu, f: True)
     assert [(i["check"], i["source"], i["count"]) for i in served] == [
         ("merge-link-regression", "Code/U.cpp", 5), ("merge-compile-error", "Code/A.cpp", 1),
         ("merge-split", "Code/M.cpp", 1)]                              # no class item; Gone.cpp is gone
     assert served[1]["claim"] == ["file:Code/A.cpp", "file:Code/T.cpp"] and "error C1" in served[1]["why"]
     assert "--merge Code/T.cpp --dry-run accepts Code/A.cpp" in served[1]["pass_test"]
     assert "3 bulk-merge decision(s)" in note
+
+
+def test_decisions_the_current_map_no_longer_supports_are_not_served(tmp_path, monkeypatch):
+    """The decisions are a snapshot of an older commit's map; the picker serves only those the
+    map from the current inputs still supports (fleet 2026-10-29: split items whose file had no
+    row approved for the TU any more, claimed and released by every seat that drew them)."""
+    import repair_queue
+    import tu_skeleton
+
+    def led(name, rva, source):
+        return {"name": name, "target_rva": rva, "source": source, "status": "matched", "notes": ""}
+
+    def at(rva, tu):
+        return {"rva": rva, "kind": "code", "tu": tu, "confidence": "approved"}
+
+    ledger = [led("?m1@@YAXXZ", "0x10", "Code/M.cpp"), led("?m2@@YAXXZ", "0x20", "Code/M.cpp"),
+              led("?a@@YAXXZ", "0x30", "Code/A.cpp"), led("?t@@YAXXZ", "0x40", "Code/T.cpp")]
+    tree = SimpleNamespace(refusals=lambda f, rows: [])
+
+    def use(rows):
+        monkeypatch.setattr(tu_skeleton, "_CACHE", {"ledger": ledger, "map": rows, "stale": ["x"], "tree": tree})
+
+    items = [M.item("split", "Code/T.cpp", "Code/M.cpp", 1, 1, "mixed"),
+             M.item("compile-error", "Code/T.cpp", "Code/A.cpp", 1, 1, "compile: x", diagnostic="error C1")]
+    shared = M.write_decisions(items, "old", tmp_path / "state", tmp_path / "shared/decisions.json")
+    assert shared["measured_at"] == "old"
+    monkeypatch.setattr(repair_queue, "ROOT", tmp_path)
+    for f in ("Code/T.cpp", "Code/M.cpp", "Code/A.cpp"):
+        (tmp_path / f).parent.mkdir(parents=True, exist_ok=True)
+        (tmp_path / f).write_text("//\n")
+    path = tmp_path / "shared/decisions.json"
+    use([at("0x10", "Code/T.cpp"), at("0x20", "Code/U.cpp"), at("0x30", "Code/T.cpp"), at("0x40", "Code/T.cpp")])
+    served, note = repair_queue.merge_decision_items(path)
+    assert sorted(i["check"] for i in served) == ["merge-compile-error", "merge-split"] and "no longer" not in note
+    # the map moved on: M.cpp holds nothing of T.cpp's and A.cpp's row is another TU's
+    use([at("0x10", "Code/U.cpp"), at("0x20", "Code/U.cpp"), at("0x30", "Code/U.cpp"), at("0x40", "Code/T.cpp")])
+    served, note = repair_queue.merge_decision_items(path)
+    assert served == [] and "2 the current TU map no longer supports not served" in note
+    assert tu_skeleton.split_rows("Code/M.cpp", "Code/T.cpp")[0] == "no row of that file is approved for that TU"
 
 
 def test_static_dry_run_reports_without_compiling(tree, tmp_path, monkeypatch):

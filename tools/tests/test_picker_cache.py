@@ -378,7 +378,7 @@ def test_a_stale_map_rebuild_is_read_back_by_its_input_fingerprint(tmp_path, mon
     import tu_map
     monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
     layout = types.SimpleNamespace(root=tmp_path, fingerprint=tmp_path / "tu_map.fingerprint",
-                                   out=tmp_path / "tu_map.csv", reverse="reverse")
+                                   out=tmp_path / "tu_map.csv", reverse="reverse", zh_problem=lambda: None)
     inputs = ["aaa  reverse/functions.csv\n# a note\n"]
     monkeypatch.setattr(tu_map, "fingerprint", lambda layout, kind=None: inputs[0])
     build = counting(lambda: [{"rva": 0x1000, "tu": "Code/A.cpp", "size": 4}])
@@ -393,6 +393,38 @@ def test_a_stale_map_rebuild_is_read_back_by_its_input_fingerprint(tmp_path, mon
     layout.out.write_text("rva,tu\n0x2000,Code/B.cpp\n")
     assert tu_map.current_rows(layout) == ([{"rva": "0x2000", "tu": "Code/B.cpp"}], [])
     assert len(build.calls) == 2
+
+
+def test_a_stale_map_is_never_rebuilt_without_the_zh_tree(tmp_path, monkeypatch):
+    """Without the ZH tree a rebuild has no Z or S evidence and approves TUs the real map does
+    not: a seat whose submodule was not prepared served 165 of 696 dead merges from one
+    (2026-10-29). The rebuild refuses, and the picker skips the map's queues saying why."""
+    import types
+    import repair_queue
+    import tu_map
+    import tu_skeleton
+    monkeypatch.setenv("BFME_PICKER_CACHE", str(tmp_path / "cache"))
+    layout = types.SimpleNamespace(root=tmp_path, fingerprint=tmp_path / "tu_map.fingerprint",
+                                   out=tmp_path / "tu_map.csv", reverse="reverse",
+                                   zh_problem=lambda: "no ZH tree at reference/x")
+    monkeypatch.setattr(tu_map, "fingerprint", lambda layout, kind=None: "aaa  reverse/functions.csv\n")
+    monkeypatch.setattr(tu_map, "build", lambda layout: pytest.fail("rebuilt without the ZH tree"))
+    with pytest.raises(RuntimeError, match="no ZH tree at reference/x.*worktree_setup.py prepare"):
+        tu_map.current_rows(layout)
+    layout.fingerprint.write_text("aaa  reverse/functions.csv\n")          # fresh: the committed map serves
+    layout.out.write_text("rva,tu\n0x2000,Code/B.cpp\n")
+    assert tu_map.current_rows(layout) == ([{"rva": "0x2000", "tu": "Code/B.cpp"}], [])
+    layout.fingerprint.write_text("bbb  reverse/functions.csv\n")
+    monkeypatch.setattr(tu_skeleton, "LAYOUT", layout)
+    monkeypatch.setattr(tu_skeleton, "_CACHE", {})
+    monkeypatch.setattr(repair_queue, "ROOT", tmp_path)
+    (tmp_path / "reverse").mkdir()
+    (tmp_path / repair_queue.TU_MAP).write_text("rva,tu\n")
+    for name, builder in (("consolidation", repair_queue.consolidation_items),
+                          ("TU-approval", repair_queue.tu_approval_items),
+                          ("TU-evidence", repair_queue.tu_evidence_items)):
+        items, note = builder()
+        assert items == [] and note.startswith(f"{name} queue skipped:") and "no ZH tree" in note
 
 
 def test_link_rank_is_shared_per_ledger_content(tmp_path, monkeypatch):

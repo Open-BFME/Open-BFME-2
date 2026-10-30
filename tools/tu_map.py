@@ -1512,12 +1512,21 @@ def _parse_fingerprint(text):
                                                  if not line.startswith("#")) if name}
 
 
+class NoZhTree(RuntimeError):
+    """A stale map cannot be rebuilt: the ZH reference tree is missing."""
+
+
 def current_rows(layout):
     """(rows with every value a string, stale): tu_map.csv when it was written from the
     current inputs (stale is []), else build() from them (stale: check_fresh's list). A
     rebuild is kept in the shared picker cache (tools/picker_cache.py) under the inputs'
     fingerprint -- the inputs and tool digests check_fresh compares -- so every worktree of
-    the clone with the same inputs (a picker, a merge worker mid-merge) reads it back."""
+    the clone with the same inputs (a picker, a merge worker mid-merge) reads it back.
+
+    Raises NoZhTree rather than rebuild without the ZH tree (an uninitialised submodule): Z
+    and S evidence would be empty, and the map that comes out approves TUs the real one does
+    not (a picker served 165 of 696 dead merges from one, 2026-10-29). main() refuses the
+    same case."""
     have = layout.fingerprint.read_text(encoding="utf-8") if layout.fingerprint.exists() else ""
     old = _parse_fingerprint(have) if have.strip() else {}
     new = _parse_fingerprint(fingerprint(layout, old.get(ZH_KEY, "").partition(":")[0] or None))
@@ -1525,6 +1534,10 @@ def current_rows(layout):
              else [layout.fingerprint.relative_to(layout.root).as_posix()])
     if not stale:
         return [{k: str(v) for k, v in r.items()} for r in read_csv(layout.out)], stale
+    problem = layout.zh_problem()
+    if problem:
+        raise NoZhTree(f"{layout.out.relative_to(layout.root).as_posix()} is stale and cannot be rebuilt: "
+                       f"{problem}; Z and S evidence would be empty (python3 tools/worktree_setup.py prepare)")
 
     def rebuild():
         return [{k: str(v) for k, v in r.items()} for r in build(layout)]
