@@ -7267,7 +7267,7 @@ _GetProcessorFlags,,0x001C4390,169,Code/Libraries/Source/VP6/GetProcessorFlags.c
 ?get@Rva0011C680ByteField@@QBEEXZ,,0x0011C680,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva00129460ByteField@@QBEEXZ,,0x00129460,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva0013106EByteField@@QBEEXZ,,0x0013106E,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
-?get@Rva001386B0ByteField@@QBEEXZ,,0x001386B0,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
+?get@Rva001386B0ByteField@@QBEEXZ,,0x001386B0,7,Code/Libraries/Source/WWVegas/WW3D2/dx8indexbuffer.cpp,matched,Disp32 byte getter
 ?get@Rva001432D0ByteField@@QBEEXZ,,0x001432D0,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva00143470ByteField@@QBEEXZ,,0x00143470,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
 ?get@Rva00188080ByteField@@QBEEXZ,,0x00188080,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter
