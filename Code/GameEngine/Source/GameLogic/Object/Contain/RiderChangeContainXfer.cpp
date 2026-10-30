@@ -68,14 +68,18 @@ public:
 };
 
 
+class Thing;
+class ModuleData;
 class SiegeEngineContain
 {
+public:
+	SiegeEngineContain(Thing *thing, const ModuleData *moduleData);
 protected:
 	virtual void v00();
 	virtual void v01();
 	virtual void v02();
 	virtual void xfer( Xfer *xfer );
-	char m_unrecovered04[ 0x138 - 0x04 ];
+	char m_unrecovered04[ 0x138 - 0x04 ]; // +0x04
 };
 
 typedef int Int;

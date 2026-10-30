@@ -14,15 +14,15 @@
 
 struct RiderInfo
 {
-	AsciiString m_templateName; // +0
-	int m_weaponSetFlag; // +4
-	int m_modelConditionFlagType; // +8
-	int m_objectStatusType; // +0xC
-	AsciiString m_commandSet; // +0x10
-	int m_locomotorSetType; // +0x14
-
+public:
 	RiderInfo();
 	~RiderInfo();
+	AsciiString m_templateName; // +0x00 +0
+	int m_weaponSetFlag; // +0x04 +4
+	int m_modelConditionFlagType; // +0x08 +8
+	int m_objectStatusType; // +0x0C +0xC
+	AsciiString m_commandSet; // +0x10 +0x10
+	int m_locomotorSetType; // +0x14 +0x14
 };
 
 RiderInfo::RiderInfo()
@@ -33,14 +33,14 @@ RiderInfo::~RiderInfo()
 {
 }
 
+class MultiIniFieldParse;
 class SiegeEngineContainModuleData
 {
 public:
 	SiegeEngineContainModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
 	virtual ~SiegeEngineContainModuleData();
-
-private:
-	unsigned char m_pad[0x1B8 - 4];
+	char m_pad04[0x1B4];
 };
 
 class RiderChangeContainModuleData : public SiegeEngineContainModuleData

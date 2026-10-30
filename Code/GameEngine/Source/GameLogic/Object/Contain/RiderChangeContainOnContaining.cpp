@@ -70,7 +70,7 @@ struct ObjectStatusMask
 class ThingTemplate
 {
 public:
-	bool isEquivalentTo(const ThingTemplate *tmpl) const;	// 0x0033BB04
+	bool isEquivalentTo(const ThingTemplate *tmplate) const;
 };
 
 class ThingFactory
@@ -84,9 +84,16 @@ class Drawable
 {
 public:
 	bool isSelectedRV() const { return m_selected; }
+	bool isSelected() const { return m_selected; }
+	// LINK: same-body helper under a TU-unique name (identical inlined
+	// bytes). This TU's isSelected copy loses to the first-in-order copy (no
+	// retail address); the call below inlines it but still emits the loser
+	// COMDAT. Rebinding there emits only this unique (trivially kept) copy.
+	// No flags touched.
+	bool bfme_is_selected() const { return m_selected; }
+	char m_pad00[0x43C];
 private:
-	char m_pad000[0x43C];
-	bool m_selected;	// +0x43C
+	bool m_selected; // +0x43C +0x43C
 };
 
 class GameMessage
@@ -211,12 +218,15 @@ private:
 
 struct RiderInfo
 {
-	AsciiString m_templateName;	// +0x00
-	int m_weaponSetFlag;	// +0x04
-	int m_modelConditionFlagType;	// +0x08
-	int m_objectStatusType;	// +0x0C
-	AsciiString m_commandSet;	// +0x10
-	int m_locomotorSetType;	// +0x14
+public:
+	RiderInfo();
+	~RiderInfo();
+	AsciiString m_templateName; // +0x00 +0
+	int m_weaponSetFlag; // +0x04 +4
+	int m_modelConditionFlagType; // +0x08 +8
+	int m_objectStatusType; // +0x0C +0xC
+	AsciiString m_commandSet; // +0x10 +0x10
+	int m_locomotorSetType; // +0x14 +0x14
 };
 
 enum

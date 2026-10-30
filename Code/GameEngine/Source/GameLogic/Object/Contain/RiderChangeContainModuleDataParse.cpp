@@ -23,6 +23,8 @@ struct FieldParse
 class INI
 {
 public:
+	const char *getNextToken(const char *seps);
+	int scanIndexList(const char *token, const char *const *names);
 	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
 	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
 	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
@@ -37,7 +39,10 @@ public:
 class SiegeEngineContainModuleData
 {
 public:
+	SiegeEngineContainModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
+	virtual ~SiegeEngineContainModuleData();
+	char m_pad04[0x1B4];
 };
 
 extern const char *const ModelConditionNames[];

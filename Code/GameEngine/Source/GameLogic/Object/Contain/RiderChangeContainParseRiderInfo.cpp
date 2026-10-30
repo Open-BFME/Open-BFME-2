@@ -18,6 +18,9 @@ class INI
 public:
 	const char *getNextToken(const char *seps);
 	int scanIndexList(const char *token, const char *const *names);
+	static void parseDurationUnsignedInt(INI *ini, void *instance, void *store, const void *userData);
+	static void parseIndexList(INI *ini, void *instance, void *store, const void *userData);
+	static void parseBool(INI *ini, void *instance, void *store, const void *userData);
 };
 
 #include "ascii_string.h"
@@ -194,12 +197,15 @@ extern const char **BodyStateNames;
 
 struct RiderInfo
 {
-	AsciiString m_templateName;
-	int m_weaponSetFlag;
-	int m_modelConditionFlagType;
-	int m_objectStatusType;
-	AsciiString m_commandSet;
-	int m_locomotorSetType;
+public:
+	RiderInfo();
+	~RiderInfo();
+	AsciiString m_templateName; // +0x00 +0
+	int m_weaponSetFlag; // +0x04 +4
+	int m_modelConditionFlagType; // +0x08 +8
+	int m_objectStatusType; // +0x0C +0xC
+	AsciiString m_commandSet; // +0x10 +0x10
+	int m_locomotorSetType; // +0x14 +0x14
 };
 
 class RiderChangeContainModuleData

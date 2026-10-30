@@ -23,7 +23,7 @@ enum Relationship
 class ThingTemplate
 {
 public:
-	Bool isEquivalentTo(const ThingTemplate *tmplate) const;
+	bool isEquivalentTo(const ThingTemplate *tmplate) const;
 };
 
 class ThingFactory

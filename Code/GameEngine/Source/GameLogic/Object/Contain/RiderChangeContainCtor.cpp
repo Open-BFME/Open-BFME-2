@@ -23,13 +23,17 @@ static int s_secondary34;
 static int s_secondaryFC;
 
 // Opaque SiegeEngineContain base (0x138); ctor resolves to its pin.
+class Xfer;
 class SiegeEngineContain
 {
 public:
 	SiegeEngineContain(Thing *thing, const ModuleData *moduleData);
-
-private:
-	unsigned char m_pad[0x138];
+protected:
+	virtual void v00();
+	virtual void v01();
+	virtual void v02();
+	virtual void xfer( Xfer *xfer );
+	char m_unrecovered04[ 0x138 - 0x04 ]; // +0x04
 };
 
 class RiderChangeContain : public SiegeEngineContain
