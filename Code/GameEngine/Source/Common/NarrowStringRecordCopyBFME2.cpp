@@ -1,11 +1,11 @@
 // cl: /EHsc /MD /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_CRTIMP=
-// stlport
+// stlport46
 // BFME2 record layouts recovered from complete retail copy constructors.
 // These use STLport basic_string<char> (12 bytes), copied by 0x9170.
 // Application names and scalar meanings remain unknown. Padding is not copied.
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
-#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial (vendor/stlport/stl/_algobase.h)
+#define _STLP_BFME_COPY_TRIVIAL_EXTERN  // call retail's one __copy_trivial
 #include <stl/_algobase.h>
 namespace _STL {
 static inline const unsigned int &max(const unsigned int &a, const unsigned int &b)
@@ -36,7 +36,7 @@ template <> __declspec(dllimport) __forceinline
 void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 // This unit owns retail's independent allocator cleanup at 0x46264A.
-template void allocator<char>::deallocate(char *, size_t) const;
+template void allocator<char>::deallocate(char *, size_t);
 }
 
 // Complete retail record copy at 0x00079C23.
@@ -127,15 +127,10 @@ namespace _STL { template <> char * __char_traits_base<char, int>::move(char *, 
 // Suppress this TU's non-retail copy of ?_M_allocate_block@?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAEXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void _String_base<char,allocator<char> >::_M_allocate_block(unsigned int); }
-// Suppress this TU's non-retail copy of ?allocate@?$allocator@D@_STL@@QBEPADIPBX@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * allocator<char>::allocate(unsigned int,void const *) const; }
+// Retain the 4.6 allocator helper used by the shared string-provider cohort.
 // Suppress this TU's non-retail copy of ??$uninitialized_copy@PADPAD@_STL@@YAPADPAD00@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
-// Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int); }
 // Retail keeps one deque<BfmeNarrowRecord0041A5D2> dtor (0x0041A51F); this unit calls it.
 namespace _STL {
 template <> deque<BfmeNarrowRecord0041A5D2, allocator<BfmeNarrowRecord0041A5D2> >::~deque();

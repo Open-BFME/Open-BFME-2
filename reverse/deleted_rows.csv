@@ -4120,3 +4120,4 @@ __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$
 ?g_Rva012C3A18@@3PADA,0x009D8170,"Renamed to ?g_clientVersion@@3PADA by tools/rename.py (inferred)"
 ?rva005E8183@Rva005E8044@@QAEXXZ,0x005E8183,"Renamed to ?clear@Rva005E8044@@QAEXXZ by tools/rename.py (inferred)"
 ?rva006CFFB0@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z,0x006CFFB0,"Renamed to ?eraseAfter@Rva008951B0Owner@@QAEXABVRva008951B0Handle@@@Z by tools/rename.py (inferred)"
+?deallocate@?$allocator@D@_STL@@QBEXPADI@Z,0x0046264A,Retired obsolete STLport 4.5.3 const deallocator instantiation during migration to 4.6. The native non-const QAE body and its free relocation are identical and admitted in the same source. See reverse/attempt_support/narrow-record-stlport46-20261030.md. No unique bytes removed.

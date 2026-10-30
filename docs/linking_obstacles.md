@@ -10830,6 +10830,29 @@ reconcile the allocator provider cohort before removing this copy. No identity
 debt retirement is claimed.
 [Checks and evidence](../reverse/attempt_support/ostringstream-stlport46-link-20261029-codexb4.md).
 
+2026-10-30 follow-up (codex5, base `1726d2b12a`): the selected
+NarrowStringRecordCopyBFME2.cpp consumer now uses 4.6 and no longer requires
+the obsolete proxy helper. All 34 rows (947 bytes) remain exact, including
+the deallocate instantiation whose native signature changes from const to
+non-const with identical bytes and relocation. All ten parent EH graphs are
+EXACT. Removing only the 4.5.3 proxy suppression failed COMDAT selection.
+An initial 4.6 trial retaining allocator<char>::allocate suppression linked
+this consumer but broke overflow/setbuf's allocator selection (4/5 preview).
+The final source retains that allocator helper, as required by the existing
+provider-cohort caution above. Joint preview with all four current former
+helper providers and the narrow ostringstream repair is 6/6 LINKS
+(5,457 -> 7,567 authored bytes, including 850 in this consumer).
+This is bounded prediction, pending census confirmation; the other historical
+consumers and broader provider selection remain open. The new 35-byte malloc
+allocator helper is an unreferenced majority-copy difference in preview;
+the staged identity gate reports one new shadow definition finding, which
+is not retired. Do not suppress it in isolation. The staged-tree batch audit
+is INCONCLUSIVE (exit 2): the older index lacks current receipts for 27 affected
+sources, first Common/NarrowStringRecord00427F75Helpers.cpp. Carry this unit
+and that cohort into the next scheduled census; their broader closure is
+unverified.
+[Repair evidence and remaining scope](../reverse/attempt_support/narrow-record-stlport46-20261030.md).
+
 ### LINK-141: removing the 0x48BA39 alias left four placeholder string destructors unresolved (2026-10-29, seat yasinschroeder-claudeb2)
 
 Status: three units repaired, pending census confirmation; UnitRevivalTracker.cpp
