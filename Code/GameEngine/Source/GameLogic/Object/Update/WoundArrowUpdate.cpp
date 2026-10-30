@@ -8,6 +8,14 @@
 // via Xfer slot 0x90. Layout is the rowed WoundArrowUpdate class from
 // WoundArrowUpdateCtor.cpp (base 0x88 plus bool at +0x88). Recipe is
 // FellBeastSwoopPowerXfer slot-3 pattern with CRC gate.
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -41,11 +49,6 @@ class DamageInfo;
 // static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
 // from retail, no pins; nameToKey resolves via its matched row).
 
-enum NameKeyType
-{
-	NK_UNKNOWN = 0
-};
-
 class NameKeyGenerator
 {
 public:
@@ -55,12 +58,6 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Xfer;
-
-class SpecialAbilityUpdate
-{
-protected:
-	virtual void xfer(Xfer *xfer);
-};
 
 //
 // ??0WoundArrowUpdateModuleData@@QAE@XZ, retail 0x004C68C1, 41 bytes.
@@ -133,6 +130,7 @@ private:
 
 class __declspec(novtable) WoundArrowUpdateModuleData : public SpecialAbilityUpdateModuleData
 {
+	friend class WoundArrowUpdate;
 public:
 	WoundArrowUpdateModuleData();
 	static void buildFieldParse(MultiIniFieldParse &parse);
@@ -144,17 +142,70 @@ private:
 	unsigned int m_wordCC;
 };
 
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
+
+class Xfer;
+template <int N> class BitFlags;
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	virtual BitFlags<13> getDisabledTypesToProcess() const;
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class WoundArrowUpdateInterface
+{
+public:
+	virtual void slot0() = 0; virtual void slot1() = 0; virtual void slot2() = 0; virtual void slot3() = 0;
+	virtual void slot4() = 0; virtual void slot5() = 0; virtual void slot6() = 0; virtual void slot7() = 0;
+	virtual bool rva004C69FA(int unused) = 0;
+};
+
+class SpecialAbilityUpdate : public UpdateModule, public WoundArrowUpdateInterface
+{
+public:
+	SpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~SpecialAbilityUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void s12();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void onExit(bool a, bool b);	// slot 13 (+0x34), 0x004502CE
+public:
+	virtual void s14(); virtual void s15(); virtual void s16();
+	virtual void triggerAbilityEffect();	// slot 17
+protected:
+	unsigned char m_pad24[0x40 - 0x24];
+	ObjectID m_targetID; // +0x40
+	unsigned char m_pad44[0x88 - 0x44];
+};
+
 class WoundArrowUpdate : public SpecialAbilityUpdate
 {
 public:
+	WoundArrowUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~WoundArrowUpdate();
 	virtual NameKeyType getModuleNameKey() const;
-
+	virtual UpdateSleepTime update();
+	virtual bool rva004C69FA(int unused);
+	virtual void triggerAbilityEffect();	// slot 17
 protected:
 	virtual void xfer(Xfer *xfer);
-
 private:
-	char m_pad[0x84];
-	bool m_88;
+	bool m_88; // +0x88
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/WoundArrowUpdate.cpp

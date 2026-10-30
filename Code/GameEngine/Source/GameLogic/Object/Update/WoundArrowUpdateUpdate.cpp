@@ -18,6 +18,14 @@
 // issue the data and target x loads ahead of the fstp of the length, as
 // retail does. Without them, "float length = sqrt(...)" stores the length
 // first (traced in c2 3077 with SchSelectInstrs picks, 2026-10-20).
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
 #include <math.h>
 #include "GameLogicObjectLookupView.h"
 extern GameLogic *TheGameLogic;
@@ -34,7 +42,7 @@ private:
 	unsigned int m_words[19];
 };
 
-enum CommandSourceType { CMD_FROM_AI = 2 };
+enum CommandSourceType { CMD_FROM_PLAYER = 0, CMD_FROM_AI = 2 };
 enum WeaponLockType { LOCKED_TEMPORARILY = 2 };
 enum LocomotorSetType { LOCOMOTORSET_WOUNDED = 4 };
 
@@ -61,6 +69,7 @@ class AICommandInterface
 {
 public:
 	void aiMoveToPosition(const Coord3D *pos, CommandSourceType cmdSource);
+	void rva0026C2D9(Object *victim, int count, CommandSourceType cmdSource);
 };
 
 class AIUpdateInterfaceHead
@@ -99,55 +108,104 @@ static __forceinline void clearModelConditionBit(Object *object, int bit)
 	}
 }
 
+class MultiIniFieldParse;
+
+class __declspec(novtable) SpecialAbilityUpdateModuleData
+{
+public:
+	SpecialAbilityUpdateModuleData();
+	virtual ~SpecialAbilityUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+
+private:
+	// +0x00 vptr (novtable: no compiler install here).
+	// Remainder is opaque (0xC4 bytes); only the 0xC8 size matters.
+	unsigned char m_opaque[0xC4];
+};
+
+class __declspec(novtable) WoundArrowUpdateModuleData : public SpecialAbilityUpdateModuleData
+{
+	friend class WoundArrowUpdate;
+public:
+	WoundArrowUpdateModuleData();
+	static void buildFieldParse(MultiIniFieldParse &parse);
+
+private:
+	// +0xC8 cap value.
+	float m_capC8;
+	// +0xCC cleared word (ends at the rowed 0xD0 instance size).
+	unsigned int m_wordCC;
+};
+
 enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3fffffff };
 
-struct WoundArrowUpdateModuleData
-{
-	unsigned char m_pad000[0xC8];
-	float m_distance;	// +0xC8
-};
-
-class SpecialAbilityUpdate
-{
-public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
-	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12();
-protected:
-	virtual void onExit(bool a, bool b);	// slot 13 (+0x34), 0x004502CE
-public:
-	virtual void s14(); virtual void s15();
-	virtual void s16();
-	virtual void triggerAbilityEffect();	// slot 17
-private:
-	friend class WoundArrowUpdate;
-protected:
-	const WoundArrowUpdateModuleData *m_moduleData;	// +0x04
-	Object *m_object;	// +0x08
-	int m_0C;
-};
+class Xfer;
+template <int N> class BitFlags;
 
 class UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update() = 0;
+	virtual BitFlags<13> getDisabledTypesToProcess() const = 0;
 };
 
-class WoundArrowUpdate : public SpecialAbilityUpdate, public UpdateModuleInterface
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
-	virtual UpdateSleepTime update();
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	virtual BitFlags<13> getDisabledTypesToProcess() const;
 private:
-	unsigned char m_pad14[0x40 - 0x14];
-	ObjectID m_targetID;	// +0x40
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class WoundArrowUpdateInterface
+{
+public:
+	virtual void slot0() = 0; virtual void slot1() = 0; virtual void slot2() = 0; virtual void slot3() = 0;
+	virtual void slot4() = 0; virtual void slot5() = 0; virtual void slot6() = 0; virtual void slot7() = 0;
+	virtual bool rva004C69FA(int unused) = 0;
+};
+
+class SpecialAbilityUpdate : public UpdateModule, public WoundArrowUpdateInterface
+{
+public:
+	SpecialAbilityUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~SpecialAbilityUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual void s12();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void onExit(bool a, bool b);	// slot 13 (+0x34), 0x004502CE
+public:
+	virtual void s14(); virtual void s15(); virtual void s16();
+	virtual void triggerAbilityEffect();	// slot 17
+protected:
+	unsigned char m_pad24[0x40 - 0x24];
+	ObjectID m_targetID; // +0x40
 	unsigned char m_pad44[0x88 - 0x44];
-	bool m_woundArmed;	// +0x88
+};
+
+class WoundArrowUpdate : public SpecialAbilityUpdate
+{
+public:
+	WoundArrowUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~WoundArrowUpdate();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+	virtual bool rva004C69FA(int unused);
+	virtual void triggerAbilityEffect();	// slot 17
+protected:
+	virtual void xfer(Xfer *xfer);
+private:
+	bool m_88; // +0x88
 };
 
 UpdateSleepTime WoundArrowUpdate::update()
 {
-	if (!m_woundArmed)
+	if (!m_88)
 	{
 		triggerAbilityEffect();
 	}
@@ -156,7 +214,7 @@ UpdateSleepTime WoundArrowUpdate::update()
 		if (m_object->m_ai->isIdle())
 		{
 			Object *owner = m_object;
-			m_woundArmed = false;
+			m_88 = false;
 			Object *target = TheGameLogic->findObjectByID(m_targetID);
 			if (target)
 			{
@@ -166,12 +224,12 @@ UpdateSleepTime WoundArrowUpdate::update()
 				Coord3D dir;
 				dir.x = target->m_pos.x - owner->m_pos.x;
 				dir.y = target->m_pos.y - owner->m_pos.y;
-				const WoundArrowUpdateModuleData *data = m_moduleData;
+				const WoundArrowUpdateModuleData *data = (const WoundArrowUpdateModuleData *)m_moduleData;
 				// Preserve the double CRT overload when math.h also offers sqrt(float).
 				float length = ((float)sqrt((double)(dir.y * dir.y + dir.x * dir.x)));
 				float nx = dir.x / length;
 				float ny = dir.y / length;
-				float ox = nx * data->m_distance, oy = ny * data->m_distance;
+				float ox = nx * data->m_capC8, oy = ny * data->m_capC8;
 				dir.y = oy;
 				dir.x = ox;
 				dir.x += target->m_pos.x;
