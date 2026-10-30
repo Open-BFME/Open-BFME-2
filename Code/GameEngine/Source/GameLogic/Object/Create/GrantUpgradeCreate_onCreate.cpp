@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /MD
+// cl: /FIzh_ascii.h /DNDEBUG /DWIN32 /D_WINDOWS /DBFME_MODULE_NO_MPO /MD /EHsc /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/open-bfme-1/reference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
 // ?onCreate@GrantUpgradeCreate@@UAEXXZ @0x004B901D 118B
 // Target facts: GrantUpgradeCreate's matched constructor 0x004B8F62 stores the
@@ -18,22 +18,13 @@
 // data byte +0x1C zero check, data dword +0xC bit2 set check, header first
 // dword bit2 clear check. Evidence: vtable slot, MI vptrs +0/+0xC/+0x10
 // family precedent Rva004B8CDEDerived.cpp, prev Rva004B8F92, next 0x004B9093.
+#include "PreRTS.h"
+#include "GameLogic/Module/CreateModule.h"
 #include "ascii_string.h"
-
-class UpgradeTemplate
-{
-public:
-	int m_00;
-	int m_type;
-};
 
 class Player;
 
 class Upgrade;
-enum UpgradeStatusType
-{
-	UPGRADE_STATUS_COMPLETE = 2
-};
 
 class Object
 {
@@ -42,11 +33,6 @@ public:
 	void rva00293077(const void *p);
 };
 
-class UpgradeCenter
-{
-public:
-	const UpgradeTemplate *findUpgrade(const AsciiString &name) const;
-};
 extern UpgradeCenter *TheUpgradeCenter;
 
 extern "C" void _ReadWriteBarrier(void);
@@ -65,53 +51,26 @@ public:
 	BfmeObject872Header(const BfmeObject872Header &other);
 };
 
-class Rva004B8CDEBase
+class GrantUpgradeCreate : public CreateModule
 {
 public:
-	virtual ~Rva004B8CDEBase();
-	void *m_data04;
-	Object *m_object08;
-};
-
-class MiBase1
-{
-public:
-	virtual void f1();
-};
-
-class GrantUpgradeCreateThird
-{
-public:
-	virtual void f0();
-	virtual void f1();
-	virtual void f2();
-	virtual bool isReady();
-	virtual void f4();
-	virtual void f5();
-	virtual void f6();
-	virtual void f7();
-	virtual void f8();
-	virtual void f9();
-	virtual void f10();
-	virtual void f11();
+	GrantUpgradeCreate(Thing *thing, const ModuleData *moduleData);
 	virtual void onCreate();
 	virtual void onBuildComplete();
-};
 
-class GrantUpgradeCreate : public Rva004B8CDEBase, public MiBase1, public GrantUpgradeCreateThird
-{
-public:
-	void onCreate();
-private:
-	bool m_granted14;
+protected:
+	virtual ~GrantUpgradeCreate();
+	virtual void crc(Xfer *xfer);
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 };
 
 void GrantUpgradeCreate::onCreate()
 {
-	void *data = m_data04;
+	const ModuleData *data = getModuleData();
 	if (*(unsigned char *)((char *)data + 0x1C) != 0)
 		return;
-	BfmeObject872Header tmp(*(BfmeObject872Header *)((char *)m_object08 + 0x94));
+	BfmeObject872Header tmp(*(BfmeObject872Header *)((char *)getObject() + 0x94));
 	unsigned int moduleFlags = *(unsigned int *)((char *)data + 0x0C);
 	moduleFlags >>= 2;
 	_ReadWriteBarrier();
@@ -122,14 +81,14 @@ void GrantUpgradeCreate::onCreate()
 	_ReadWriteBarrier();
 	if ((objectFlags & 1) != 0)
 		return;
-	const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*(AsciiString *)((char *)m_data04 + 8));
+	const UpgradeTemplate *upgradeTemplate = TheUpgradeCenter->findUpgrade(*(AsciiString *)((char *)getModuleData() + 8));
 	if (upgradeTemplate == 0)
 		return;
-	if (upgradeTemplate->m_type == 0)
+	if (upgradeTemplate->getUpgradeType() == 0)
 	{
-		Player *player = m_object08->getControllingPlayer();
+		Player *player = getObject()->getControllingPlayer();
 		player->addUpgrade(upgradeTemplate, UPGRADE_STATUS_COMPLETE, 0);
 	}
 	else
-		m_object08->rva00293077(upgradeTemplate);
+		getObject()->rva00293077(upgradeTemplate);
 }
