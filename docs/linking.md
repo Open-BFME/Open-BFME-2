@@ -94,7 +94,11 @@ copies of it. To give a class a canonical header, follow
 `python3 tools/header_adopt_lane.py order`: `tools/class_contract.py` decides its
 ABI from evidence (bytes, retail access, retail vftables, ZH, majority), and
 `header_adopt_lane.py run --generate --apply` generates the header, gates each
-unit and queues the rest in `reverse/header_queue.tsv`. The header tier serves
+unit and queues the rest in `reverse/header_queue.tsv`. The swap renames a unit's
+private field names to the header's (one offset and size is one field). For a
+class whose merge donors still mostly carry private views, adopt unit by unit
+without registering: `header_adopt_lane.py adopt --class X --header PATH FILE...`
+(`--apply` writes the units that byte-match). The header tier serves
 classes by the queued TU-merge donors their header unblocks:
 `header_adopt_lane.py order --merges [N]` lists them (private views in one
 approved TU that tu_views cannot reconcile, or private copies of a registered

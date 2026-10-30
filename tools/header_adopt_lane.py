@@ -19,7 +19,9 @@ PIPELINE (per class, in DEPENDENCY_ORDER):
                 not retail-true: the contract, not the tournament, fixes layout.
   4. codemod    strip the unit's view (and its dependency views, e.g.
                 StringBase with AsciiString), #include the header where the
-                view stood, and rename the unit's ledger rows when its view
+                view stood, rename the unit's references to its private field
+                names to the header's (field_renames: one offset and size is
+                one field), and rename the unit's ledger rows when its view
                 spelled the other class-key (`U`/`V` mangling).
   5. gate       tools/build.py (BFME2) / build.sh (BFME1) on that one unit,
                 in parallel. A batch gate stops at the first compile error.
@@ -38,6 +40,7 @@ GATE COST. Changing a registered header re-verifies only its dependents
     python3 tools/header_adopt_lane.py order
     python3 tools/header_adopt_lane.py run --class Coord3D --header PATH --generate --sample 60 --apply
     python3 tools/header_adopt_lane.py accept --class Coord3D FILE...
+    python3 tools/header_adopt_lane.py adopt --class Object --header PATH [--apply] FILE...
     python3 tools/header_adopt_lane.py gate-cost --header PATH
     python3 tools/header_adopt_lane.py closure-diff BEFORE.csv AFTER.csv
 """
@@ -105,6 +108,12 @@ def body_span(text, name):
 
 def swap(text, names, include):
     """Text with every view of `names` removed and `include` where the first stood."""
+    swapped = swap_at(text, names, include)
+    return swapped and swapped[0]
+
+
+def swap_at(text, names, include):
+    """(swap's text, the offset just past the inserted #include line), or None."""
     spans = []
     for name in names:
         span = body_span(text, name)
@@ -115,8 +124,119 @@ def swap(text, names, include):
     if not spans:
         return None
     first = min(s for s, _ in spans)
-    out = text[:first] + f'#include "{include}"\n' + text[first:]
-    return out.replace("\0", "")
+    line = f'#include "{include}"\n'
+    out = text[:first] + line + text[first:]
+    return out.replace("\0", ""), first + len(line)        # no view starts before `first`
+
+
+# ---------------------------------------------------------------- field renames
+# A unit's private view names its fields its own way; the canonical header names them
+# once. Swapping the view out leaves the unit's code spelling the private names, so the
+# swap renames them: a private field and the header's field at one offset and size (in
+# the class or one of its non-virtual bases) are one field, and the unit's references
+# are rewritten token by token with tu_views' renamer and its safety checks.
+
+PROBE_FN = "header_adopt_lane_layout_probe"
+
+
+def probe_text(text, strip, include):
+    """The unit cut just past where its first view stood, the header included there and a
+    function that makes the compiler lay every stripped class out. The cut code spells the
+    private field names the header lacks; the code before the view cannot reach the members."""
+    swapped = swap_at(text, strip, include)
+    if swapped is None:
+        return None
+    out, cut = swapped
+    params = ", ".join(f"{c} *p{i}" for i, c in enumerate(strip))
+    sizes = " + ".join(f"(int)sizeof(*p{i})" for i in range(len(strip)))
+    return out[:cut] + f"\nint {PROBE_FN}({params}) {{ return {sizes}; }}\n"
+
+
+def compile_text(source, text):
+    """{class: layout} for `text` compiled as `source` (its flags and include paths); None is
+    the unit as it stands. Restores the unit. The probe is never served from class_layouts'
+    cache: its text names only the header, and under Wine the cache records the headers'
+    paths as missing, so a header edit would not invalidate it."""
+    path = ROOT / source
+    original = path.read_bytes()
+    if text is None or text.encode("latin-1") == original:
+        return class_layouts.compile_layouts(source)
+    try:
+        path.write_bytes(text.encode("latin-1"))
+        return class_layouts.compile_layouts(source, use_cache=False)
+    finally:
+        path.write_bytes(original)
+
+
+def flat_fields(name, layouts, base=0, seen=()):
+    """{(offset, size): (field, cvtype)} for `name`'s data members and those of its
+    non-virtual bases, at their offsets in `name` (a virtual base has no fixed offset)."""
+    lay = layouts.get(name) or {}
+    out = {}
+    for base_name, offset in lay.get("bases", []):
+        if offset >= 0 and base_name not in seen:
+            out.update(flat_fields(base_name, layouts, base + offset, seen + (name,)))
+    for offset, field, cvtype, size in lay.get("fields", []):
+        out[(base + offset, size)] = (field, cvtype)
+    return out
+
+
+def field_renames(source, text, strip, include, compile=None):
+    """({private field: canonical field}, None) for the unit's views of the `strip` classes,
+    or (None, why) when a private field has no canonical field of its offset and size, the
+    two disagree on what it is, two classes would rename one name two ways, or a token
+    rename is unsafe in the unit (tu_views.rename_problem). `compile(source, text)` gives
+    {class: layout} (text None: the unit as it stands)."""
+    import tu_views
+    compile = compile or compile_text
+    try:
+        every = compile(source, None)
+    except RuntimeError as exc:
+        return None, f"the unit's layout: {exc}"
+    views = []
+    for name in strip:
+        lay = every.get(name)
+        if not lay or lay.get("fwd") or not lay.get("fields") or not body_span(text, name):
+            continue                                    # no view, or nothing in the unit lays it out
+        try:
+            view = tu_views.View(source, text, name, lay, every)
+        except tu_views.Refused as exc:
+            return None, str(exc)
+        own = [m.name for m in view.members if m.kind == "data" and not tu_views.is_pad(m, view)]
+        if own:
+            views.append((view, own))
+    if not views:
+        return {}, None
+    try:
+        laid = compile(source, probe_text(text, strip, include))
+    except RuntimeError as exc:
+        return None, f"the header's layout: {exc}"
+    mapping = {}
+    for view, own in views:
+        name = view.cls
+        canonical = flat_fields(name, laid)
+        if not canonical:
+            return None, f"{include}: the probe laid out no field of {name}"
+        table = tu_views.field_table(view)
+        mine = {}
+        for old in own:
+            offset, size, cvtype = table[old]
+            found = canonical.get((offset, size))
+            if not found:
+                return None, (f"{name}::{old} (+0x{offset:X}, {size} bytes) has no canonical field "
+                              "of that offset and size")
+            new, want = found
+            if not tu_views.cv_compatible(cvtype, want):
+                return None, f"{name}::{old} (+0x{offset:X}) is {cvtype}; the canonical {new} is {want}"
+            if new != old:
+                mine[old] = new
+        why = tu_views.rename_problem(view, mine)
+        if why:
+            return None, why
+        for old, new in mine.items():
+            if mapping.setdefault(old, new) != new:
+                return None, f"{old} is renamed {mapping[old]} in one class and {new} in another"
+    return mapping, None
 
 
 def include_spelling(source, header):
@@ -563,16 +683,28 @@ def rewrite_ledger(renames):
     LEDGER.write_text("".join(lines), encoding="utf-8", newline="")
 
 
+FIELD_RENAMES = {}     # source -> {private field: canonical field} of its last swap, for reports
+
+
 def try_unit(source, strip, header, key):
-    """(source, None | why, new text, renames). Restores the unit before returning."""
+    """(source, None | why, new text, renames). Restores the unit before returning. The
+    new text spells the header's field names (field_renames)."""
     path = ROOT / source
     original = path.read_bytes()
     text = original.decode("latin-1")
     span = body_span(text, strip[0])
     view_key = span[2] if span else key
-    swapped = swap(text, strip, include_spelling(source, header))
+    include = include_spelling(source, header)
+    swapped = swap(text, strip, include)
     if swapped is None:
         return source, "no private view found", None, []
+    fields, why = field_renames(source, text, strip, include)
+    if why:
+        return source, f"field renames: {why}", None, []
+    if fields:
+        import tu_views
+        swapped = tu_views.rename(swapped, fields)
+        FIELD_RENAMES[source] = fields
     renames = ledger_renames(source, strip[0], key) if view_key != key else []
     if renames:
         return source, f"class-key {view_key}: {len(renames)} ledger rename(s) needed", swapped, renames
@@ -942,6 +1074,36 @@ def accept(name, sources, header=None, gate=None):
     if retired:
         print(f"  retired {retired} row(s) from {QUEUE.relative_to(ROOT).as_posix()}; commit it with the adoption")
     return bad
+
+
+def adopt(name, header, sources, apply=False, jobs=1):
+    """Adopt `header` in the given units without registering `name`: staged adoption for a
+    class whose merge donors still mostly carry private views (registering would make
+    class_gate refuse their merges). Each unit is swapped as the tournament swaps it, field
+    renames included, and must byte-match; --apply writes the passing units (and the ledger
+    rows a class-key change renames). Claim the units first (docs/claims.md). Returns the
+    number of units that fail."""
+    if not (ROOT / header).is_file():
+        raise SystemExit(f"{header}: no such header")
+    span = body_span((ROOT / header).read_text(encoding="latin-1"), name)
+    if not span:
+        raise SystemExit(f"{header} does not define {name}")
+    strip = [name] + STRIP_WITH.get(name, [])
+    strip += [c for c in header_classes(header) if c not in strip]
+    with cf.ThreadPoolExecutor(jobs) as pool:
+        got = list(pool.map(lambda s: try_unit(s, strip, header, span[2]), sources))
+    fixed = try_renamed([g for g in got if g[3]], jobs)
+    failed = 0
+    for source, why, text, renames in got:
+        why = fixed.get(source, why)
+        fields = FIELD_RENAMES.get(source, {})
+        print(f"  {'PASS' if why is None else 'FAIL'} {source}" + (f": {why}" if why else "")
+              + (" (fields: " + ", ".join(f"{a} -> {b}" for a, b in sorted(fields.items())) + ")" if fields else ""))
+        failed += why is not None
+        if why is None and apply:
+            (ROOT / source).write_bytes(text.encode("latin-1"))
+            rewrite_ledger(renames)
+    return failed
 
 
 def closure_diff(before, after):
@@ -2074,6 +2236,12 @@ def main(argv=None):
     p.add_argument("--class", dest="name", required=True)
     p.add_argument("--header")
     p.add_argument("files", nargs="+")
+    p = sub.add_parser("adopt", help="adopt a header in named units without registering the class")
+    p.add_argument("--class", dest="name", required=True)
+    p.add_argument("--header", required=True)
+    p.add_argument("--apply", action="store_true", help="write the units that byte-match")
+    p.add_argument("--jobs", type=int, default=1)
+    p.add_argument("files", nargs="+")
     p = sub.add_parser("gate-cost")
     p.add_argument("--header", required=True)
     p.add_argument("--jobs", type=int, default=max(2, (os.cpu_count() or 4) // 2))
@@ -2111,6 +2279,8 @@ def main(argv=None):
         return run(args)
     if args.cmd == "accept":
         return accept(args.name, args.files, args.header)
+    if args.cmd == "adopt":
+        return 1 if adopt(args.name, args.header, args.files, args.apply, args.jobs) else 0
     if args.cmd == "gate-cost":
         gate_cost(args.header, args.jobs)
         return 0
