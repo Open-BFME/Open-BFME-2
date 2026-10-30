@@ -8900,8 +8900,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00131075,5,code,,,-,,Code/GameEngine/Source/Common/Disp8ByteOneSetters.cpp
 0x0013107A,85,code,,,-,,Code/GameEngine/Source/Common/Rva0013107ACtor.cpp
 0x001310CF,20,code,,,-,,Code/GameEngine/Source/Common/Rva0090C280Ctor.cpp
-0x001310E3,199,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackendCreateTexture.cpp
-0x001311AA,175,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackendCreateTexture.cpp
+0x001310E3,199,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp
+0x001311AA,175,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp
 0x00131259,212,code,,,-,W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/Libraries/Source/WWVegas/WW3D2/TextureAssetImplPreLoad.cpp
 0x0013132D,75,code,,,-,,Code/GameEngine/Source/Common/Rva0013132DRefresh.cpp
 0x00131378,467,code,,,-,W=Code/Libraries/Source/WWVegas/WW3D2/texture.cpp,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
@@ -64894,7 +64894,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00765760,11,code,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,approved,P,P=0x00130EA0@FuncInfo0x00909ABC,Code/Libraries/Source/WWVegas/WW3D2/collect.cpp
 0x0076576B,10,code,Code/Libraries/Source/WWVegas/WW3D2/light.cpp,approved,P,P=0x00130EA0@FuncInfo0x00909ABC,Code/Libraries/Source/WWVegas/WW3D2/LightClassCopyCtor.cpp
 0x00765775,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/texture.cpp
-0x0076577D,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackendCreateTexture.cpp
+0x0076577D,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetTextureBackend.cpp
 0x00765787,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x0076578F,10,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
 0x00765799,8,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva00131965TextureLoaders.cpp
