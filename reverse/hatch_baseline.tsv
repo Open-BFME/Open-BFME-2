@@ -12108,8 +12108,8 @@ present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp	Bfme
 present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp	BfmeThingEG::bfmeTellEG	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeOneHundredNinetyOne.cpp	BfmeThingEI::bfmeTellEI	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeOwnVVD.cpp	bfmeSlot0VVD@BfmeBaseVVD@@UAEXXZ	1
-present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp	1Rva006D07E0Key@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva006D07E0Key@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/Common/BfmeRefVGO.cpp	1Rva008A2BA0Handle@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeStringRecord00426A5B.cpp	rva004266A1@Rva004266A1@@QAE_NH@Z	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeSub928F.cpp	1Rva00109C27@@UAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/BfmeThingRE.cpp	Rva007EA0A0Owner::forwardSentinel	1

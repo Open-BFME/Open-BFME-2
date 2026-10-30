@@ -5894,8 +5894,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000A97A9,32,code,,,-,,Code/GameEngine/Source/Common/Rva000A97A9Func.cpp
 0x000A97C9,35,code,,,-,,Code/GameEngine/Source/Common/Rva000A97C9Clear.cpp
 0x000A97EC,26,code,,,-,,Code/GameEngine/Source/Common/Rva000A97ECRelease.cpp
-0x000A9806,28,code,Code/GameEngine/Source/Common/BfmeRefVGO.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeRefVGO.cpp provisional,Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp
-0x000A9822,30,code,Code/GameEngine/Source/Common/BfmeRefVGO.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeRefVGO.cpp provisional,Code/GameEngine/Source/Common/BfmeRefVGOCopyDtor.cpp
+0x000A9806,28,code,Code/GameEngine/Source/Common/BfmeRefVGO.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeRefVGO.cpp provisional,Code/GameEngine/Source/Common/BfmeRefVGO.cpp
+0x000A9822,30,code,Code/GameEngine/Source/Common/BfmeRefVGO.cpp,approved,N,N=Code/GameEngine/Source/Common/BfmeRefVGO.cpp provisional,Code/GameEngine/Source/Common/BfmeRefVGO.cpp
 0x000A9840,17,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_o1.cpp
 0x000A9851,44,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimDataGeometryCopies.cpp
 0x000A987D,44,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/AptAnimDataGeometryCopies.cpp
