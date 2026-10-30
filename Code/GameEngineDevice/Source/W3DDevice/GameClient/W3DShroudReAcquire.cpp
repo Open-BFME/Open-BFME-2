@@ -5,10 +5,18 @@
 // device lock scope, holder helper 0x00131DFC with format 0x1a, null check
 // resetting width/height, clamped U/V, no mipmapping, forced first clear.
 class TextureClass { public: void Release_Ref(); };
-class ShroudFilter {
+class ShroudFilter
+{
 public:
-	int unused[2], mip, u, v;
+	int getMagFilter() const { return m_filter4; }
+	void setMagFilter(int v) {m_filter4=v;}
+	void setMinFilter(int v) {m_filter0=v;}
 	void SetMip(int);
+	int m_filter0; // +0x00
+	int m_filter4; // +0x04
+	int mip; // +0x08
+	int u; // +0x0C
+	int v; // +0x10
 };
 class ShroudTexture { public: ShroudFilter *getFilter(); };
 struct IDirect3DBaseTexture8;
