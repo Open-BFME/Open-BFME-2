@@ -4,7 +4,9 @@
 // first-module forwarders in Drawable_rva00272971.cpp), both walks of the
 // null-terminated draw-module array at +0x14C like the rowed broadcaster
 // 0x00272A02. Slot and method names are unknown; argument types come from
-// the bodies. Written as the neighbours' non-virtual views.
+// the bodies. Both are Drawable's own virtuals (canonical DrawableBFME2.h).
+
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 class DrawModuleInterfaceForRva271C38
 {
@@ -120,20 +122,11 @@ public:
 	virtual DrawModuleInterfaceForRva271C38 *sA4() = 0;
 };
 
-class Drawable
-{
-public:
-	virtual void rva00271095();
-	virtual void rva00271C38(int value);
-private:
-	void **drawModules() { return *(void ***)((char *)this + 0x14C); }	// +0x14C
-};
-
 // ?rva00271095@Drawable@@UAEXXZ, retail 0x00271095, 25 bytes, slot 13:
 // every module's slot 7 (+0x1C).
 void Drawable::rva00271095()
 {
-	for (DrawModuleForRva271095 **p = (DrawModuleForRva271095 **)drawModules(); *p; ++p)
+	for (DrawModuleForRva271095 **p = (DrawModuleForRva271095 **)m_modules[0]; *p; ++p)
 		(*p)->s1C();
 }
 
@@ -142,7 +135,7 @@ void Drawable::rva00271095()
 // argument through its slot 48 (+0xC0).
 void Drawable::rva00271C38(int value)
 {
-	for (DrawModuleForRva271C38 **p = (DrawModuleForRva271C38 **)drawModules(); *p; ++p)
+	for (DrawModuleForRva271C38 **p = (DrawModuleForRva271C38 **)m_modules[0]; *p; ++p)
 	{
 		DrawModuleInterfaceForRva271C38 *di = (*p)->sA4();
 		if (di)

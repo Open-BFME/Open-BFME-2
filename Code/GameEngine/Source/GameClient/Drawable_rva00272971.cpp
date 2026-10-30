@@ -10,6 +10,10 @@
 //   0x002729CB 30B  slot 0x7C (float)
 //   0x002729E9 25B  slot 0x80
 // The slots' names are unknown; argument types are read from the bodies.
+// The five Drawable methods are its own virtuals, slots 8-12 of retail
+// table 0x00BFB0B4 (canonical DrawableBFME2.h); no direct call reaches them.
+
+#include "../../Include/GameClient/DrawableBFME2.h"
 
 class DrawModuleForRva272971
 {
@@ -36,23 +40,10 @@ public:
 	virtual void slot84(int a, float b, int c) = 0;
 };
 
-class Drawable
-{
-public:
-	virtual void createDeathDecal(int a, float b, int c);
-	virtual void rva0027299A(int value);
-	virtual void setDeathDecalPosition(int value);
-	virtual void rva002729CB(float value);
-	virtual void rva002729E9(int value);
-
-private:
-	DrawModuleForRva272971 **drawModules() { return *(DrawModuleForRva272971 ***)((char *)this + 0x14C); }	// +0x14C
-};
-
 // WorldBuilder Drawable::createDeathDecal, WB VA 0x00CA3230 (vtable lead, score 2; ret 0xC).
 void Drawable::createDeathDecal(int a, float b, int c)
 {
-	DrawModuleForRva272971 **dms = drawModules();
+	DrawModuleForRva272971 **dms = (DrawModuleForRva272971 **)m_modules[0];
 	if (*dms)
 		(*dms)->slot84(a, b, c);
 }
@@ -61,7 +52,7 @@ void Drawable::rva0027299A(int value)
 {
 	if (value)
 	{
-		DrawModuleForRva272971 *dm = *drawModules();
+		DrawModuleForRva272971 *dm = *(DrawModuleForRva272971 **)m_modules[0];
 		if (dm)
 			dm->slot74(value);
 	}
@@ -70,21 +61,21 @@ void Drawable::rva0027299A(int value)
 // WorldBuilder Drawable::setDeathDecalPosition, WB VA 0x00CA33A0 (vtable lead, score 2; ret 4).
 void Drawable::setDeathDecalPosition(int value)
 {
-	DrawModuleForRva272971 **dms = drawModules();
+	DrawModuleForRva272971 **dms = (DrawModuleForRva272971 **)m_modules[0];
 	if (*dms)
 		(*dms)->slot78(value);
 }
 
 void Drawable::rva002729CB(float value)
 {
-	DrawModuleForRva272971 **dms = drawModules();
+	DrawModuleForRva272971 **dms = (DrawModuleForRva272971 **)m_modules[0];
 	if (*dms)
 		(*dms)->slot7C(value);
 }
 
 void Drawable::rva002729E9(int value)
 {
-	DrawModuleForRva272971 **dms = drawModules();
+	DrawModuleForRva272971 **dms = (DrawModuleForRva272971 **)m_modules[0];
 	if (*dms)
 		(*dms)->slot80(value);
 }

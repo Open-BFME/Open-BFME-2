@@ -77,7 +77,8 @@ Committed in this pass (no class claim needed):
 
 Prepared and verified locally, not committed (these need class:Drawable):
 
-- `DrawableBFME2.h.txt` (this folder) is the hand-written header. A scratch
+- `Code/GameEngine/Include/GameClient/DrawableBFME2.h` (committed later,
+  unregistered; the banked copy is gone) is the hand-written header. A scratch
   compile emits the 15-slot Thing-side table in retail order and the 4-slot
   Snapshot table, and `sizeof == 0x470` is checked. Its home is
   `Code/GameEngine/Include/GameClient/DrawableBFME2.h`.
@@ -114,3 +115,12 @@ To finish:
 
 Do not commit `reverse/class_contracts/Drawable.json`: the lane writes the
 majority contract ("sizeof 256, bases []"), which retail contradicts.
+
+## Third pass (2026-10-30 evening)
+
+class:Drawable stayed refused: after 0x00271108 expired, sp-1, sp-3 and sp-5
+file claims inside the 466-unit footprint held it through eight retries
+(16:36-17:52 UTC). Under file claims instead, the header was committed
+unregistered (no canonical_classes.csv row, so the class gate and the lane
+do not change), together with the two slot units and the 23 hand-adopted
+units. Registration and the lane run still need class:Drawable.
