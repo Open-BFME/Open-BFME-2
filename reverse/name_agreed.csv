@@ -10305,3 +10305,5 @@ nl-8bf38e36fc21,local,n,node,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Commo
 nl-10c25aa3f3da,local,h,holder,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva003F02E4.cpp|local|Rva003F02E4::rva003F02E4|h,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-ce10c69d3d35,local,p,player,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva003F02E4.cpp|local|Rva003F02E4::rva003F0336|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-c1cd185b7b7d,local,s,stream,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva0010F62EStreamCallback.cpp|local|Rva0010F62E::rva0010F62E|s,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-ab05c40cb62e,param,v,key,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004C9FE0|v,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
+nl-7c7cdc9b8289,param,b,parent,,w-077d7aeb666b@drz-k3,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004CA293|b,agreed,single-worker scoped approval: w-077d7aeb666b@drz-k3
