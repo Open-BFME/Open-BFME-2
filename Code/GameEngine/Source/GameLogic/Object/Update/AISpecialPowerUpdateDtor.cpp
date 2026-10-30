@@ -31,10 +31,15 @@ class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 public:
 	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+// Retail table 0x00856D50 (+0x10) slot 0 is the rowed override 0x004B327F.
 class UpdateModuleInterface
 {
 public:
-	virtual void update();
+	virtual UpdateSleepTime update() = 0;
 };
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
@@ -54,6 +59,7 @@ class AISpecialPowerUpdate : public UpdateModule
 {
 public:
 	virtual ~AISpecialPowerUpdate();
+	virtual UpdateSleepTime update();
 private:
 	int m_20;
 	AISpecialPowerUpdatePointee *m_pointee;

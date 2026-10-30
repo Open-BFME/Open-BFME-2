@@ -24,15 +24,71 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class AISpecialPowerUpdate
-{
-	friend class Rva004B327F;
+class ModuleData;
+class Object;
+class Rva0058AD94;
 
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_INVALID = 0,
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3fffffff
+};
+
+// UpdateModule layout from the rowed ctor 0x004B2F2A and dtor 0x004B2E79:
+// vptrs at +0x00, +0x0C and +0x10 (the dtor's three stores of 0x00856E1C,
+// 0x00856D60 and 0x00856D50), module data at +4, object at +8.
+class BehaviorModuleBase
+{
+public:
+	virtual ~BehaviorModuleBase();
+
+protected:
+	Object *getObject() const { return m_object; }
+
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update() = 0;
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+// update is slot 0 of the +0x10 UpdateModuleInterface table 0x00856D50, so
+// MSVC compiles the override with this at that subobject (complete - 0x10).
+class AISpecialPowerUpdate : public UpdateModule
+{
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 
 private:
 	void postInitAISpecialPower();
+
+	bool m_flag; // +0x20
+	bool m_inited; // +0x21
+	char m_pad22[2];
+	Rva0058AD94 *m_power; // +0x24
 };
 
 //
@@ -179,8 +235,6 @@ public:
 	bool fromGate(Rva002A9BF2 *key);
 };
 
-class Rva004B327F;
-
 class SpecialPowerModuleInterface;
 
 class Rva002AA22AByteField
@@ -245,24 +299,6 @@ public:
 	bool m_19;
 };
 
-class Rva004B327F
-{
-public:
-	int update();
-
-private:
-	Object *object()
-	{
-		return *(Object **)((char *)this - 8);
-	}
-
-	char m_pad[0x10];
-	bool m_flag;
-	bool m_inited;
-	char m_pad12[2];
-	Rva0058AD94 *m_power;
-};
-
 // tu-skeleton: 0x004B2E79 85B ??1AISpecialPowerUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004B2ECE 6B ?name@AISpecialPowerUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
@@ -323,43 +359,43 @@ AISpecialPowerUpdateModuleData::AISpecialPowerUpdateModuleData()
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerRva004B327F.cpp
 
-int Rva004B327F::update()
+// ?update@AISpecialPowerUpdate@@UAE?AW4UpdateSleepTime@@XZ @0x004B327F
+UpdateSleepTime AISpecialPowerUpdate::update()
 {
 	if (!m_inited)
-		((AISpecialPowerUpdate *)((char *)this - 0x10))->postInitAISpecialPower();
+		postInitAISpecialPower();
 
-	int result = 0x3fffffff;
+	int result = UPDATE_SLEEP_FOREVER;
 	if (m_flag)
 	{
-		if (((Rva002AA22AByteField *)object()->getControllingPlayer())->get() != 0)
+		if (((Rva002AA22AByteField *)getObject()->getControllingPlayer())->get() != 0)
 		{
 			m_flag = false;
-			return 1;
+			return UPDATE_SLEEP_NONE;
 		}
 		if (m_power && TheSkirmishAIManager->rva002A8AB1(
-				(Rva003A2BD4M08 *)object()->getControllingPlayer()))
+				(Rva003A2BD4M08 *)getObject()->getControllingPlayer()))
 		{
+			m_power->rva0058AD94((int)getObject());
 
-	m_power->rva0058AD94((int)object());
-
-	SpecialPowerTemplate *specialPowerTemplate = m_power->m_inner->m_tmpl;
-	FlagSrc *src = *(FlagSrc **)((char *)this - 0x0C);
-	bool ok = specialPowerTemplate != 0
-		? ((Rva004B2F7B *)((char *)this - 0x10))->rva004B2F7B(specialPowerTemplate)
-		: true;
-	if (ok)
-	{
-		if (((Rva0058ADD0 *)m_power)->rva0058ADD0(object(), src->m_18, src->m_19))
-		{
-			if (((Rva002A9BF2 *)Rva0058AEB6Get())->fromGate(
-					(Rva002A9BF2 *)object()->getControllingPlayer()))
-				((Rva0058ADA8 *)m_power)->rva0058ADA8((int)object());
+			SpecialPowerTemplate *specialPowerTemplate = m_power->m_inner->m_tmpl;
+			const FlagSrc *src = (const FlagSrc *)m_moduleData;
+			bool ok = specialPowerTemplate != 0
+				? ((Rva004B2F7B *)this)->rva004B2F7B(specialPowerTemplate)
+				: true;
+			if (ok)
+			{
+				if (((Rva0058ADD0 *)m_power)->rva0058ADD0(getObject(), src->m_18, src->m_19))
+				{
+					if (((Rva002A9BF2 *)Rva0058AEB6Get())->fromGate(
+							(Rva002A9BF2 *)getObject()->getControllingPlayer()))
+						((Rva0058ADA8 *)m_power)->rva0058ADA8((int)getObject());
+				}
+			}
+			return (UpdateSleepTime)m_power->v03();
 		}
 	}
-		return m_power->v03();
-		}
-	}
-	return result;
+	return (UpdateSleepTime)result;
 }
 
 // tu-skeleton: 0x004B3352 153B ?xfer@AISpecialPowerUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AISpecialPowerUpdateXfer.cpp (not merged yet)
