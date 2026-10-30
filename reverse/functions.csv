@@ -21584,7 +21584,7 @@ _vp6_drawc,,0x001BB580,109,Code/Libraries/Source/VP6/debug.cpp,matched,Target CR
 ?rva0026C2D9@AICommandInterface@@QAEXPAVObject@@HW4CommandSourceType@@@Z,,0x0026C2D9,110,Code/GameEngine/Source/GameLogic/AI/AICommandInterfaceAttackCommands.cpp,matched,same 110B shape as aiForceAttackObject AICMD 0x0B gap lane
 ??0NetCommandRef@@QAE@PAVNetCommandMsg@@@Z,,0x0058B88A,36,Code/GameEngine/Source/GameNetwork/NetCommandRef.cpp,matched,BFME1 NetCommandRef ctor donor plus new 0x14 caller 0x0058B2C6 plus attach pin 0x004D55B8
 ?getFrameCommandList@FrameDataManager@@QAEPAVNetCommandList@@I@Z,,0x0058B6F5,32,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME1 FrameDataManager getFrameCommandList donor plus FrameData getCommandList pin 0x0030F45F plus caller 0x004D007C
-?doRetryMetrics@Connection@@IAEXXZ,,0x0058BA7B,44,Code/GameEngine/Source/GameNetwork/ConnectionRetryMetrics.cpp,matched,BFME1 Connection doRetryMetrics donor plus timeGetTime IAT plus 10s window plus caller 0x0058BC71
+?doRetryMetrics@Connection@@IAEXXZ,,0x0058BA7B,44,Code/GameEngine/Source/GameNetwork/Connection.cpp,matched,BFME1 Connection doRetryMetrics donor plus timeGetTime IAT plus 10s window plus caller 0x0058BC71
 ?resetFrame@FrameDataManager@@QAEXI_N@Z,,0x0058B715,54,Code/GameEngine/Source/Common/FrameDataManagerCounts.cpp,matched,BFME1 resetFrame donor calls init not reset plus m_isLocal plus caller 0x004D009D
 ??0Connection@@QAE@XZ,,0x0058BDA0,90,Code/GameEngine/Source/GameNetwork/Connection.cpp,matched,BFME1 Connection ctor donor plus 200 latencies plus caller 0x004D16DB
 ?rva0073A2A0@Gen_008F7CD0@@QAEXPAPAVBfmeCellFD@@0HHH@Z,,0x0073A2A0,135,Code/GameEngine/Source/Common/BfmeCellAt.cpp,matched,Gen008F7CD0 row-range sibling of bfmeAt same 0xA8 stride
