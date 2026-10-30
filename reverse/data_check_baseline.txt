@@ -4,8 +4,6 @@ Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E0445
 Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E046B4@@3HA	0x00A046B4
 Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E04904@@3HA	0x00A04904
 Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp	wrong-name	?g_Va00E0ABB0@@3HA	0x00A0ABB0
-Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	wrong-name	?g_Va00E03314@@3HA	0x00A03314
-Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	wrong-name	?g_Va00E09FA4@@3HA	0x00A09FA4
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	wrong-name	?$S1@?1??goodCampaignRva00515921@@YAHM_N@Z@4IA	0x00A04900
 Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptMainMenu.cpp	wrong-name	?campaign@?1??goodCampaignRva00515921@@YAHM_N@Z@4VAsciiString@@A	0x00A048FC
 Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp	wrong-name	?g_00E063D4@@3VAsciiString@@A	0x00A063D4

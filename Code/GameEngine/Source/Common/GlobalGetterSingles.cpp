@@ -192,20 +192,22 @@ int Rva0058AEB6Get(void)
 
 // ?Rva00658200Get@@YAHXZ @ 0x00658200 (6B) over 0x00E09FA4.
 
-extern int g_Va00E09FA4;
+class T_007ea120;
+extern T_007ea120 *g_Va0130A588;
 
 int Rva00658200Get(void)
 {
-	return g_Va00E09FA4;
+	return reinterpret_cast<int>(g_Va0130A588);
 }
 
 // ?Rva0043C969Get@@YAHXZ @ 0x0043C969 (6B) over 0x00E03314.
 
-extern int g_Va00E03314;
+struct GlobalA03314;
+extern GlobalA03314 *g_Va00A03314;
 
 int Rva0043C969Get(void)
 {
-	return g_Va00E03314;
+	return reinterpret_cast<int>(g_Va00A03314);
 }
 
 // ?Rva00062AC4Get@@YAHXZ @ 0x00062AC4 (6B) over 0x00DFEC54.
@@ -290,7 +292,3 @@ int Rva00129680Get(void)
 {
 	return g_last9;
 }
-// ?g_Va00E03314@@3HA: the global at VA 0xe03314 is ?g_Va00A03314@@3PAUGlobalA03314@@A.
-#pragma comment(linker, "/alternatename:?g_Va00E03314@@3HA=?g_Va00A03314@@3PAUGlobalA03314@@A")
-// ?g_Va00E09FA4@@3HA: the global at VA 0xe09fa4 is ?g_Va0130A588@@3PAVT_007ea120@@A.
-#pragma comment(linker, "/alternatename:?g_Va00E09FA4@@3HA=?g_Va0130A588@@3PAVT_007ea120@@A")

@@ -159,7 +159,7 @@ address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_E1F4E0.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/GlobalFloatGetters.cpp	g_Va00BC93F0	3
 address_global	Code/GameEngine/Source/Common/GlobalFloatGetters.cpp	g_Va00BC93F4	3
 address_global	Code/GameEngine/Source/Common/GlobalFloatGetters.cpp	g_Va00DEDA2C	3
-address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00A03314	1
+address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00A03314	2
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DA7188	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DA718C	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DB3BDC	3
@@ -169,12 +169,10 @@ address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DB5FC
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DC908C	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DEC40C	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00DED5C0	3
-address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E03314	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E048DC	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E063A4	3
-address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E09FA4	3
 address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va00E17724	2
-address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va0130A588	1
+address_global	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	g_Va0130A588	2
 address_global	Code/GameEngine/Source/Common/INI/FormationSelectionCriteriaRva00424185.cpp	g_Va00E0319C	2
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03168	2
 address_global	Code/GameEngine/Source/Common/INI/FormationTemplate.cpp	g_Va00E03174	2
@@ -1882,8 +1880,6 @@ alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?Rva0052C2CACopy
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?Rva00564C7DFill@@YAPAURva00565FC1Pair@@PAU1@IABU1@ABURva00565FC1Tag@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?allocate@Rva00565FC1Storage@@QAEPAURva00565FC1Pair@@IPBX@Z	1
 alternatename	Code/GameEngine/Source/Common/Glo012F1024Item.cpp	?clear@Rva00565FC1@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	?g_Va00E03314@@3HA	1
-alternatename	Code/GameEngine/Source/Common/GlobalGetterSingles.cpp	?g_Va00E09FA4@@3HA	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??0BfmeStringLiteralBase@@AAE@PBD@Z	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	??1BfmeEmotionName@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/INI/INIEmotionCopyFrom.cpp	?bfmeCopyVKC@BfmeThingVKC@@QAEXABV1@@Z	1
