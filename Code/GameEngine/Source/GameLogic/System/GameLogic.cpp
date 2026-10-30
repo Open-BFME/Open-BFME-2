@@ -790,32 +790,12 @@ public:
 
 class ModuleData;
 
-class Module
-{
-public:
-	virtual ~Module();
-	virtual Int getModuleNameKey() const;
-	virtual void onObjectCreated();
-	virtual void onDrawableBoundToObject();
-	virtual void preloadAssets(Int);
-	virtual void onDelete();
-	virtual void unknownPrimarySlot();
-	virtual void crc(void *);
-	virtual void xfer(void *);
-	virtual void loadPostProcess();
+#include "../../../Include/Common/Module.h"
+#include "../../../Include/Common/ObjectModule.h"
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
 
-private:
-	const ModuleData *m_moduleData;
-};
 
-class ObjectModule : public Module
-{
-public:
-	virtual void onCapture(Object *, Object *);
 
-private:
-	Object *m_object;
-};
 
 class BodyModuleInterface;
 
@@ -835,30 +815,15 @@ class SpecialPowerModuleInterface;
 
 class UpdateModuleInterface;
 
-class BehaviorModuleInterface
-{
-public:
-	virtual BodyModuleInterface *getBody() = 0;
-	virtual CollideModuleInterface *getCollide() = 0;
-	virtual ContainModuleInterface *getContain() = 0;
-	virtual CreateModuleInterface *getCreate() = 0;
-	virtual DamageModuleInterface *getDamage() = 0;
-	virtual DestroyModuleInterface *getDestroy() = 0;
-	virtual DieModuleInterface *getDie() = 0;
-	virtual SpecialPowerModuleInterface *getSpecialPower() = 0;
-	virtual void unknownInterfaceSlot();
-	virtual UpdateModuleInterface *getUpdate() = 0;
-};
 
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
+
+
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
 public:
 	virtual UpdateSleepTime update();
-	virtual void unknownPhaseSlot();
+
 	virtual Int getUpdatePhase() const;
 
 	UnsignedInt m_nextCallFrame;
