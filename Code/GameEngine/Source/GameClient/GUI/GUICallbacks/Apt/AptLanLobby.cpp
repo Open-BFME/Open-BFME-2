@@ -528,10 +528,11 @@ public:
 };
 
 class UnicodeString;
+
 class TransportAddress;
-class LANGameInfo;
+
 class GameWindow;
-class WinInstanceData;
+
 class LANAPI
 {
 	friend class AptLanLobby;
@@ -602,8 +603,6 @@ private:
 	Rva005F8F96 m_arr[2];
 };
 
-class GameWindow;
-
 extern UnicodeString GadgetTextEntryGetText(GameWindow *window);
 
 extern bool GadgetTextEntryHasSelection(GameWindow *window);
@@ -654,6 +653,49 @@ private:
 	unsigned char m_pad00[0x288];
 	Rva0043DB56ByteOneSetter m_field;
 };
+
+struct GlobalA01E48;
+
+extern class Shell *TheShell;
+
+class Shell
+{
+public:
+	void push(AsciiString s, bool flag);
+};
+
+class Rva00222A8BTarget
+{
+public:
+	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
+public:
+	void rva002233A6(int mode);
+};
+
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+int GadgetListBoxGetEntryBasedOnXY(GameWindow *listbox, int x, int y, int &row, int &column);
+
+void *GadgetListBoxGetItemData(GameWindow *listbox, int row, int column);
+
+class AsciiString;
+
+// GameInfo's 16-byte nonzero test (rowed under its address name).
+class Rva003FF1C2
+{
+public:
+	bool rva003FF1C2() const;
+};
+
+struct RGBColor;
+
+class Mouse
+{
+public:
+	void rva001EEA6D(UnicodeString tooltip, int delay, const RGBColor *color, float width);
+};
+
+extern Mouse *TheMouse;
 
 class AptLanLobby
 {
@@ -757,26 +799,6 @@ public:
 	static AptLanLobby *Instance() { return s_instance; }
 };
 
-struct GlobalA01E48;
-
-extern class Shell *TheShell;
-
-class Shell
-{
-public:
-	void push(AsciiString s, bool flag);
-};
-
-class Rva00222A8BTarget
-{
-public:
-	int invoke(void *owner, const char *name, int flag, const char *value, void *a4, void *a5, void *a6, void *a7);
-public:
-	void rva002233A6(int mode);
-};
-
-extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
-
 // tu-skeleton: 0x00444165 75B ?GetValidSelectedGameInfo@AptLanLobby@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGetValidSelectedGameInfo.cpp (not merged yet)
 
 // tu-skeleton: 0x004441B0 21B ?bfmeGoECI@@YA_NXZ -- matched in Code/GameEngine/Source/Common/BfmeConv804.cpp (not merged yet)
@@ -790,6 +812,8 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 // tu-skeleton: 0x00444279 98B ?saveRulesRva00444279@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
 
 // tu-skeleton: 0x004442DB 34B ?rva004442DB@AptLanLobby@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004442FD.cpp
 
@@ -1499,7 +1523,117 @@ bool AptLanLobby::rva004467AC()
 
 // tu-skeleton: 0x004457BC 1006B ?rva004457BC@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
 
-// tu-skeleton: 0x00445BAA 507B ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGamesListTooltip.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGamesListTooltip.cpp
+
+//
+// ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z,
+// retail 0x00445BAA..0x00445DA5 (507 bytes, cdecl, plain ret). The LAN lobby's
+// custom games list tooltip callback: AptLanLobby::InitGadgets (0x00445DA5)
+// installs it on the "LanLobby::CustomGamesList" window with winSetTooltipFunc.
+// WorldBuilder names it AptLanLobby::GamesListTooltipFunc (AptLanLobby.cpp,
+// debug build 0x014144F0); the address name stays the ledger identity.
+//
+// Source shape from the WorldBuilder debug body (the retail body merges it):
+// the three "no game under the cursor" exits are separate blocks, each calling
+// the mouse tooltip setter with the empty string and returning (row or column
+// -1, then a failed ValidateGameInfo). Cases 0..2 test the column's item data
+// into a local first (retail keeps the zero in ESI and compares against it);
+// every case ends in the common exit. Merging the three empty-string tails
+// into one trailing call, or returning from each case, leaves the
+// `mov ecx,esp` / `mov [ebp-0x18],esp` pair of the final by-value copy in the
+// wrong order.
+//
+// Target evidence: nothing happens without the lobby screen (0x00E03354); the
+// game comes from column 3's item data; column 0, 1 and 2 give their own
+// TOOLTIP: strings only when that column's item data is set (column 2 picks
+// MpSaveGame or GameStarted by the game's 16-byte nonzero test 0x003FF1C2);
+// other columns list the human players' names, one per line. Donor: Open-BFME-1
+// GameNetwork/GameSpy/LanLobbyGamesTooltip.cpp (Rva00518150LanLobbyTooltip,
+// BFME1 0x00518150), read as a semantic guide only.
+//
+// Callees resolve through rows: GadgetListBoxGetEntryBasedOnXY 0x00323F6F,
+// GadgetListBoxGetItemData 0x003253BE, LANAPI::ValidateGameInfo 0x00449969,
+// Mouse 0x001EEA6D, StringBase ctor/concat 0x00037050/0x00006A2A and the slot
+// reads of TheGameText (vslot 15) and GameInfo::getConstSlot.
+
+ // Existing storage owner; this body only tests zero.
+
+// Retail 0x00445BAA, 507 bytes: the custom games list tooltip. Donor
+// Open-BFME-1 GameNetwork/GameSpy/LanLobbyGamesTooltip.cpp
+// (Rva00518150LanLobbyTooltip, BFME1 0x00518150), whose address name it
+// keeps. BFME2 target evidence: it does nothing without the lobby screen
+// (0x00E03354), reads the game from column 3's item data, and gives columns
+// 0..2 their own TOOLTIP: strings (each only when that column's item data is
+// set; column 2 picks MpSaveGame or GameStarted by the game's 16-byte
+// nonzero test); other columns list the human players' names.
+void Rva00445BAALanLobbyTooltip(GameWindow *window, WinInstanceData *, unsigned int mouse)
+{
+	if (!AptLanLobby::Instance())
+		return;
+
+	int x, y, row, column;
+	x = mouse & 0xffff;
+	y = mouse >> 16;
+	GadgetListBoxGetEntryBasedOnXY(window, x, y, row, column);
+	if (row == -1 || column == -1)
+	{
+		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
+		return;
+	}
+	LANGameInfo *game = (LANGameInfo *)GadgetListBoxGetItemData(window, row, 3);
+	if (!TheLAN->ValidateGameInfo(game))
+		game = 0;
+	if (game == 0)
+	{
+		TheMouse->rva001EEA6D(UnicodeString::TheEmptyString, -1, 0, 1.0f);
+		return;
+	}
+	switch (column)
+	{
+	case 0:
+		{
+			void *item = GadgetListBoxGetItemData(window, row, 0);
+			if (item != 0)
+				TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:UserMapIcon"), -1, 0, 1.0f);
+		}
+		break;
+	case 1:
+		{
+			void *item = GadgetListBoxGetItemData(window, row, 1);
+			if (item != 0)
+				TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:AdvSetting"), -1, 0, 1.0f);
+		}
+		break;
+	case 2:
+		{
+			void *item = GadgetListBoxGetItemData(window, row, 2);
+			if (item != 0)
+			{
+				if (((const Rva003FF1C2 *)game)->rva003FF1C2())
+					TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:MpSaveGame"), -1, 0, 1.0f);
+				else
+					TheMouse->rva001EEA6D(TheGameText->fetch("TOOLTIP:GameStarted"), -1, 0, 1.0f);
+			}
+		}
+		break;
+	default:
+		{
+			UnicodeString tooltip;
+			for (int i = 0; i < 8; ++i)
+			{
+				const GameSlot *slot = game->getConstSlot(i);
+				if (slot->isHuman())
+				{
+					if (tooltip.getLength() != 0)
+						tooltip += (const unsigned short *)L"\n";
+					tooltip += slot->m_name;
+				}
+			}
+			TheMouse->rva001EEA6D(tooltip, -1, 0, 1.0f);
+		}
+		break;
+	}
+}
 
 // tu-skeleton: 0x00445E8B 88B ??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
 
