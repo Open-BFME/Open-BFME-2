@@ -63,6 +63,18 @@
 	{ \
 		return *(float *)((char *)*(void *const *)((char *)this - (BACK)) + (DISP2)); \
 	}
+#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 typedef bool Bool;
 
@@ -412,11 +424,84 @@ public:
 	virtual unsigned char rva0047EC5F() const;
 };
 
+BFME_DISP8_BYTE_GETTER(Rva004A6A40ByteField, 0x21)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit2@Rva0030000CFields@@QAEXXZ
+struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
+// +0x44 (must be set), +0xA8 and +0x9D (must be clear).
+class Rva002259F3
+{
+public:
+	int rva002259F3() const;
+private:
+	char m_pad00[0x44];
+	unsigned char m_44;
+	char m_pad45[0x9D - 0x45];
+	unsigned char m_9d;
+	char m_pad9E[0xA8 - 0x9E];
+	unsigned char m_a8;
+};
+
 // tu-skeleton: 0x004A69BF 123B ??1SupplyTruckAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A6A3A 6B ?name@SupplyTruckAIUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004A6A40 4B ?get@Rva004A6A40ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp
 
@@ -801,6 +886,28 @@ StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 	return STATE_CONTINUE;
 }
 
+// ---- from Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp
+
+// Disp32-first chase getters (twin-free TU).
+//
+// Two ten-byte __thiscall members whose FIRST displacement needs disp32:
+//
+//     mov eax,[ecx+<DISP32>] / mov eax,[eax+<DISP>] / ret          (dword)
+//     mov eax,[ecx+<DISP32>] / movsx eax,word [eax] / ret          (word)
+//
+// MSVC 7.1 emits `8B 81 <DISP32>` for the wide first load; the second load
+// keeps its disp8/zero form. Members before the accessed ones are spelled
+// as lead arrays because their types are not witnessed here, only their
+// total size. Identity is not recovered: every name is derived from its
+// address.
+// No // cl: line (defaults match the frameless ten-byte shapes).
+
+// Disp32-back chase getters: the FIRST displacement is a negative disp32
+// (the pointer lives below `this`, so MSVC 7.1 emits `8B 81 <neg-disp32>`).
+// A plain lead array cannot model a negative offset, so the outer load is
+// spelled as pointer arithmetic off `(char *)this - BACK`, which folds to
+// the same disp32-neg addressing (lea-BEFORE precedent).
+
 // tu-skeleton: 0x004A6A58 41B ?update@Rva004A6A58@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004A6A58Min.cpp (not merged yet)
 
 // tu-skeleton: 0x004A6A81 52B ?isCurrentlyFerryingSupplies@Rva004A6A81@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
@@ -824,28 +931,6 @@ StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 // tu-skeleton: 0x004A6C59 11B ??1SupplyTruckStateMachine@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004D759CDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x004A6C64 6B ?name@SupplyTruckStateMachine@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/Disp32FirstChaseGetters.cpp
-
-// Disp32-first chase getters (twin-free TU).
-//
-// Two ten-byte __thiscall members whose FIRST displacement needs disp32:
-//
-//     mov eax,[ecx+<DISP32>] / mov eax,[eax+<DISP>] / ret          (dword)
-//     mov eax,[ecx+<DISP32>] / movsx eax,word [eax] / ret          (word)
-//
-// MSVC 7.1 emits `8B 81 <DISP32>` for the wide first load; the second load
-// keeps its disp8/zero form. Members before the accessed ones are spelled
-// as lead arrays because their types are not witnessed here, only their
-// total size. Identity is not recovered: every name is derived from its
-// address.
-// No // cl: line (defaults match the frameless ten-byte shapes).
-
-// Disp32-back chase getters: the FIRST displacement is a negative disp32
-// (the pointer lives below `this`, so MSVC 7.1 emits `8B 81 <neg-disp32>`).
-// A plain lead array cannot model a negative offset, so the outer load is
-// spelled as pointer arithmetic off `(char *)this - BACK`, which folds to
-// the same disp32-neg addressing (lea-BEFORE precedent).
 
 // tu-skeleton: 0x004A6E33 63B ?makeStateMachine@SupplyTruckAIUpdate@@MAEPAVAIStateMachine@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIMachineFactories.cpp (not merged yet)
 

@@ -9434,7 +9434,7 @@ _open_func,,0x00754080,87,Code/Libraries/Source/Lua/lparser.c,matched,BFME1 byte
 ?get@Rva001F4983LeaGetter@@QBEPAXXZ,,0x001F4983,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ??1Rva00108B4D@@UAE@XZ,,0x00108B4D,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
 ??1Rva0010EFCD@@UAE@XZ,,0x0010EFCD,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter
-?get@Rva004A6A40ByteField@@QBEEXZ,,0x004A6A40,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
+?get@Rva004A6A40ByteField@@QBEEXZ,,0x004A6A40,4,Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp,matched,Disp8 byte getter
 ?get@Rva001F49A5LeaGetter@@QBEPAXXZ,,0x001F49A5,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva001F49ACLeaGetter@@QBEPAXXZ,,0x001F49AC,7,Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp,matched,Disp32 LEA getter
 ?get@Rva004C9990ByteField@@QBEEXZ,,0x004C9990,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter
