@@ -20,6 +20,23 @@ class of name: a declaration-only specialization of `basic_string::append<char*>
 crashes MSVC 7.1 (C1001), and the `template <>` form of it gives C1506, so the
 inline-body form is the only one that compiles. Census confirmation pending.
 
+### DelayedWeaponSetUpgradeUpdate canonical-base prerequisite (2026-10-30)
+
+At base `d41945e85e`, the supported consolidation dry run rejects the pool-key
+donor because the seed lacks its method declaration. The seed now adopts the
+registered Module/ObjectModule base chain and declares the already rowed
+slot-4 getModuleNameKey override. All seven rows across seed/donor and the
+string reference verify with strict receipts; owning acceptance retires one
+Module header queue row. The ordinary preview preserves both LINKS verdicts
+and 211 authored bytes against `85f6b7f40c`. Canonical adoption expands the
+primary table and adds five inline providers. The staged batch audit remains
+INCONCLUSIVE on the older index and missing current CreateAHeroManager consumer
+receipt. Carry these providers and their affected consumers into the next
+scheduled census. No census gain or class-wide interface closure is claimed.
+The pool-key composition still needs its supported merge and EH verification;
+the mixed name-getter source remains separate.
+[Scoped evidence](../reverse/attempt_support/delayed-weaponset-composition-20261030-codex.md).
+
 ### Physics trajectory canonical base prerequisite (2026-10-30)
 
 At base `0c90b528d9`, PhysicsBehaviorTrajectory.cpp adopts the registered

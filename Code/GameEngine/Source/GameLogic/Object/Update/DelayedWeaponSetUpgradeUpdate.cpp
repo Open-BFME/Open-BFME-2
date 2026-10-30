@@ -25,14 +25,8 @@ class ModuleData;
 
 class Object;
 
-class Module
-{
-public:
-	virtual ~Module();
-
-private:
-	unsigned int m_storage[2];
-};
+#include "../../../../Include/Common/Module.h"
+#include "../../../../Include/Common/ObjectModule.h"
 
 class BehaviorModuleInterface
 {
@@ -79,7 +73,7 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-class BehaviorModule : public Module, public BehaviorModuleInterface
+class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
 {
 public:
 	virtual ~BehaviorModule() {}
@@ -101,6 +95,8 @@ protected:
 	virtual ~DelayedWeaponSetUpgradeUpdate();
 public:
 	DelayedWeaponSetUpgradeUpdate(Thing *, const ModuleData *);
+	// Retail primary-vtable slot 4; the pool-key donor owns its body.
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DelayedWeaponSetUpgradeUpdateDtor.cpp
