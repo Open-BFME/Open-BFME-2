@@ -39437,7 +39437,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B67AD,47,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/AttributeModifierUpgradeMuxSlots.cpp
 0x004B67DC,32,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,proposed,K,K=Rva004B67DC,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B67FC,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
-0x004B6802,69,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,Code/GameEngine/Source/Common/System/CastleUpgradePoolKey.cpp
+0x004B6802,69,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp
 0x004B6847,34,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/UpgradeModuleDataGetterBuildFieldParse.cpp
 0x004B6869,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp
 0x004B689A,28,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,C,C=0x004B6869..0x004B68B6 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
@@ -81227,8 +81227,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078EE96,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp,approved,P,P=0x004B63E3@FuncInfo0x0093FB94,Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp
 0x0078EEA0,13,code,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp,approved,P,P=0x004B66D9@FuncInfo0x0093FBB8 p-group provisional,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp
 0x0078EEAD,10,code,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp,approved,P,P=0x004B66D9@FuncInfo0x0093FBB8 p-group provisional,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp
-0x0078EEB7,13,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,approved,P,P=0x004B6802@FuncInfo0x0093FBDC p-group provisional,Code/GameEngine/Source/Common/System/CastleUpgradePoolKey.cpp
-0x0078EEC4,10,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,approved,P,P=0x004B6802@FuncInfo0x0093FBDC p-group provisional,Code/GameEngine/Source/Common/System/CastleUpgradePoolKey.cpp
+0x0078EEB7,13,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,approved,P,P=0x004B6802@FuncInfo0x0093FBDC p-group provisional,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp
+0x0078EEC4,10,code,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp,approved,P,P=0x004B6802@FuncInfo0x0093FBDC p-group provisional,Code/GameEngine/Source/Common/System/CastleUpgrade.cpp
 0x0078EECE,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,P,P=0x004B68B6@FuncInfo0x0093FC10 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp
 0x0078EED6,8,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,P,P=0x004B68B6@FuncInfo0x0093FC10 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp
 0x0078EEDE,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp,approved,P,P=0x004B68B6@FuncInfo0x0093FC10 provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/CastleUpgrade.cpp
