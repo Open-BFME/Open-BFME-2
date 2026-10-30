@@ -1,19 +1,18 @@
-// cl: /O1 /arch:SSE /G7 /DNDEBUG /MD
+// cl: /EHsc /MD /DNDEBUG /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_USE_MALLOC /D_BFME_RETAIL_TREE_INSERT_LAYOUT
 // stlport
-// ?removeMessageAction@HotKeyManager@@QAEII@Z 0x003593D8 16B; tree erase call and +0x24 this adjustment are retail evidence
+// ?removeMessageAction@HotKeyManager@@QAEIH@Z 0x003593D8 16B; tree erase call and +0x24 this adjustment are retail evidence
 #include <map>
-// Suppress this TU's non-retail copy of ?erase@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00358E26Record;
-namespace _STL { template <> void _Rb_tree<int,pair<int const ,Rva00358E26Record>,_Select1st<pair<int const ,Rva00358E26Record> >,less<int>,allocator<pair<int const ,Rva00358E26Record> > >::erase(_Rb_tree_iterator<pair<int const ,Rva00358E26Record>,_Nonconst_traits<pair<int const ,Rva00358E26Record> > >,_Rb_tree_iterator<pair<int const ,Rva00358E26Record>,_Nonconst_traits<pair<int const ,Rva00358E26Record> > >); }
-// Suppress this TU's non-retail copy of ?_M_erase@?$_Rb_tree@HU?$pair@$$CBHURva00358E26Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHU:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00358E26Record;
-namespace _STL { template <> void _Rb_tree<int,pair<int const ,Rva00358E26Record>,_Select1st<pair<int const ,Rva00358E26Record> >,less<int>,allocator<pair<int const ,Rva00358E26Record> > >::_M_erase(_Rb_tree_node<pair<int const ,Rva00358E26Record> > *); }
-// Suppress this TU's non-retail copy of ?deallocate@?$allocator@U?$_Rb_tree_node@U?$pair@$$CBHURva00358E26Record@@@_STL@@@_STL@@@_:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-struct Rva00358E26Record;
-namespace _STL { template <> void allocator<_Rb_tree_node<pair<int const ,Rva00358E26Record> > >::deallocate(_Rb_tree_node<pair<int const ,Rva00358E26Record> > *,unsigned int) const; }
+
+// map/set<int> internals otherwise instantiate the less<int>::operator()
+// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
+// specialization takes those calls inline so this TU emits no external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<int>::operator()(const int &a, const int &b) const
+{ return a < b; }
+}
+
+typedef int Int;
 
 // _Rb_tree_iterator comparisons otherwise instantiate the base-class
 // operator!= COMDAT (one byte shape per TU flags); exact-match free
@@ -25,15 +24,6 @@ static inline bool operator!=(const _Rb_tree_iterator<_RbVal, _RbLeft> &a,
 { return a._M_node != b._M_node; }
 }
 
-// map/set<int> internals otherwise instantiate the less<int>::operator()
-// COMDAT (one byte shape per TU flags); an explicit dllimport+forceinline
-// specialization takes those calls inline so this TU emits no external copy.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-bool less<int>::operator()(const int &a, const int &b) const
-{ return a < b; }
-}
-
 struct Rva00358E26Record
 {
 	char word;
@@ -41,22 +31,44 @@ struct Rva00358E26Record
 	bool operator==(const Rva00358E26Record &other) const { return word == other.word; }
 };
 
+namespace _STL {template<>struct __type_traits<Rva00358E26Record>:__type_traits_aux<1>{};}
+
+typedef _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>,
+	_STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >,
+	_STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > > Rva00359269Tree;
+
+// Retail's range erase calls the rowed tree clear at 0x00358DFD and node erase at
+// 0x00358D27; suppress this TU's own copies and bind the template names to those rows.
 namespace _STL {
-template <> unsigned int _Rb_tree<int, pair<const int, Rva00358E26Record>,
-    _Select1st<pair<const int, Rva00358E26Record> >, less<int>,
-    allocator<pair<const int, Rva00358E26Record> > >::erase(const int &);
+template <> void _Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::clear();
+template <> void _Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::erase(_Rb_tree<int, pair<int const, Rva00358E26Record>, _Select1st<pair<int const, Rva00358E26Record> >, less<int>, allocator<pair<int const, Rva00358E26Record> > >::iterator);
 }
+
+// The message-action map at HotKeyManager +0x24 (HotKey.cpp's view); its key
+// erase is the tree's erase(const int &), rowed in HotKey.cpp at 0x00358FA5.
+class HotKeyMessageActionMap
+{
+public:
+	unsigned int erase(const Int &messageType)
+	{
+		return ((Rva00359269Tree *)this)->erase(messageType);
+	}
+private:
+	void *m_header;		// +0x00
+	int m_count;		// +0x04
+	int m_compare;		// +0x08
+};
 
 class HotKeyManager
 {
 public:
-	unsigned int removeMessageAction(int key);
+	unsigned int removeMessageAction(Int messageType);
 private:
-	char m_pad00[0x24];
-	_STL::map<int, Rva00358E26Record> m_records;
+	unsigned char m_pad00[0x24];
+	HotKeyMessageActionMap m_messageActionMap;		// +0x24
 };
 
-unsigned int HotKeyManager::removeMessageAction(int key)
+unsigned int HotKeyManager::removeMessageAction(Int messageType)
 {
-	return m_records.erase(key);
+	return m_messageActionMap.erase(messageType);
 }

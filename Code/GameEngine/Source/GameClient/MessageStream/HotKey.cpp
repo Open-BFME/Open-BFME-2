@@ -216,6 +216,7 @@ public:
 		return (HotKeyMessageActionNode *)((HotKeyIntMapView *)this)->find(*messageType)._M_node;
 	}
 	HotKeyMessageActionNode *end() const { return m_header; }
+	unsigned int erase(const Int &messageType);
 private:
 	HotKeyMessageActionNode *m_header;		// +0x00
 	int m_count;		// +0x04
@@ -277,6 +278,9 @@ class Rva00358B65
 {
 public:
 	~Rva00358B65();
+private:
+	AsciiString m_00;
+	TargetRef00217D4C *m_04;
 };
 
 struct Node00358E6A
@@ -381,6 +385,11 @@ template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL
 // Incidental target placement 0x00358FA5: donor member spelling/layout remains an inference.
 template unsigned int _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(int const &);
 
+inline unsigned int HotKeyMessageActionMap::erase(const Int &messageType)
+{
+	return ((Rva00359269Tree *)this)->erase(messageType);
+}
+
 // Native 0x00359269..0x0035926E is an independent tail entry to the
 // verified key erase at 0x00358FA5, with ECX and its reference argument
 // unchanged. The existing tree view establishes the forwarding interface;
@@ -483,6 +492,7 @@ public:
 	Bool executeHotKey(const AsciiString &keyIn, Bool shift);
 	GameMessageDisposition translate(const GameMessage *msg);
 	void addMessageAction(const TreeHintRef00217D4C &action, Int messageType);
+	unsigned int removeMessageAction(Int messageType);
 	void rva00358A53();
 	void rva00358ACB();
 	AsciiString searchHotKey(const AsciiString &);
