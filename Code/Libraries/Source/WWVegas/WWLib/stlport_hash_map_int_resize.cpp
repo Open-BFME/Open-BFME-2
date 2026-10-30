@@ -11,10 +11,16 @@ template <> __declspec(dllimport) __forceinline
 void **_STLP_alloc_proxy<void **, void *, allocator<void *> >::allocate(size_t n)
 { return __stl_alloc_rebind(static_cast<allocator<void *> &>(*this), (void **)0).allocate(n, 0); }
 }
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline unsigned int vector<void *,allocator<void *> >::size()const  { return (unsigned int)(this->_M_finish - this->_M_start); } }
-// Bind to the kept retail copy instead of emitting this unit's own.
-namespace _STL { template <> __declspec(dllimport) __forceinline void * const * vector<void *,allocator<void *> >::begin()const  { return this->_M_start; } }
+// The hash table reads its bucket vector's size() and begin() const inline; their
+// unreferenced copies here differed from retail's. Declared imported and
+// force-inlined, they are not emitted.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+size_t vector<void *>::size() const { return size_t(this->_M_finish - this->_M_start); }
+template <> __declspec(dllimport) __forceinline
+vector<void *>::const_iterator vector<void *>::begin() const { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline void *const &vector<void *>::operator[](size_t __n) const { return *(begin() + __n); }
+}
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * & vector<void *,allocator<void *> >::operator[](unsigned int n) { return *(this->_M_start + n); } }
 // bfme link decl-only begin
