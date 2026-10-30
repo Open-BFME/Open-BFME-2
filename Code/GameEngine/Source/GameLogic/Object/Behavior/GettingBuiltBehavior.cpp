@@ -117,6 +117,18 @@ public:
 #include "../../../Common/GameLogicObjectLookupView.h"
 #define REAL_TO_INT_CEIL(x) (fast_float2long_round(fast_float_ceil(x)))
 #include <new>
+#define BFME_DISP8_BYTE_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP]; \
+		unsigned char m_value; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -301,6 +313,71 @@ class Rva004530ED;
 void __cdecl Rva0045323CCopy(Rva004530ED *dst, const Rva004530ED &src);
 
 void *__stdcall Rva004534A1Create(const Rva004530ED &src);
+
+BFME_DISP8_BYTE_GETTER(Rva004543C6ByteField, 0x1E)
+
+BFME_DISP8_BYTE_GETTER(Rva004543B6ByteField, 0x12)
+
+BFME_DISP8_BYTE_GETTER(Rva004543BEByteField, 0x15)
+
+BFME_DISP8_BYTE_GETTER(Rva004543C2ByteField, 0x13)
+
+BFME_DISP8_BYTE_GETTER(Rva004543DFByteField, 0x16)
+
+class Rva001DCD05
+{
+public:
+	void *rva001DCD05();
+private:
+	char m_pad[8];
+	char m_08;
+	char m_pad2[0x14 - 0x09];
+	char m_14;
+	char m_pad3[0x20 - 0x15];
+	unsigned char m_20;
+	bool m_21;
+};
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?setBit2@Rva0030000CFields@@QAEXXZ
+struct Rva0030000CFields { char pad[0x44]; unsigned int flags44; void setBit2(); };
+
+// Clean BFME1 9cbfb551 donor structural leads; native instructions independently
+// establish complete RET boundaries and each raw field operation and ABI.
+// Address-owned carriers retain unknown original receiver identity and bounds.
+
+// ?matches@Rva0056AB88Fields@@QBE_NI@Z
+struct Rva0056AB88Fields { char pad[0xC]; unsigned int wordC; bool matches(unsigned int value) const; };
+
+// Disp8 byte setter: mov al,[esp+4] / mov [ecx+<DISP>],al / ret 4 (10 bytes).
+// Address-derived class; the stored byte's meaning is unproven.
+class Rva0065D7C0ByteSetter
+{
+public:
+	void set(unsigned char value);
+	char m_lead[0x1D];
+	unsigned char m_value;
+};
+
+// ?rva002259F3@Rva002259F3@@QBEHXZ, retail 0x002259F3 (25B): three flag bytes at
+// +0x44 (must be set), +0xA8 and +0x9D (must be clear).
+class Rva002259F3
+{
+public:
+	int rva002259F3() const;
+private:
+	char m_pad00[0x44];
+	unsigned char m_44;
+	char m_pad45[0x9D - 0x45];
+	unsigned char m_9d;
+	char m_pad9E[0xA8 - 0x9E];
+	unsigned char m_a8;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorIfaceSlots.cpp
 
@@ -704,10 +781,6 @@ bool GettingBuiltBehavior::rva004541AB()
  return true;
 }
 
-// tu-skeleton: 0x00453221 12B ?empty@?$list@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
-
-// tu-skeleton: 0x0045322D 15B ??E?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@QAE?AU01@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva0045323CCopy.cpp
 
 // ?Rva0045323CCopy@@YAXPAVRva004530ED@@ABV1@@Z @ 0x0045323C 18B evidence: null-checked placement copy via rowed 0x004530ED copy ctor; caller 0x004534B5 allocates 28B node and constructs at +8
@@ -718,12 +791,6 @@ void __cdecl Rva0045323CCopy(Rva004530ED *dst, const Rva004530ED &src)
 		new(dst) Rva004530ED(src);
 }
 
-// tu-skeleton: 0x0045324E 199B ??0GettingBuiltBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtorShard.cpp (not merged yet)
-
-// tu-skeleton: 0x00453315 129B ??1GettingBuiltBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00453396 17B ?buildFieldParse@GettingBuiltBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004534A1Create.cpp
 
 void *__stdcall Rva004534A1Create(const Rva004530ED &src)
@@ -732,16 +799,6 @@ void *__stdcall Rva004534A1Create(const Rva004530ED &src)
 	Rva0045323CCopy((Rva004530ED *)(p + 8), src);
 	return p;
 }
-
-// tu-skeleton: 0x004534C3 22B ??$__distance@U?$_List_iterator@USubsystemLegendEntry@@U?$_Const_traits@USubsystemLegendEntry@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@USubsystemLegendEntry@@U?$_Const_traits@USubsystemLegendEntry@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z -- matched in Code/GameEngine/Source/Common/SubsystemLegendListDistance.cpp (not merged yet)
-
-// tu-skeleton: 0x004534D9 28B ??_GGettingBuiltBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x004534F5 194B ?onObjectCreated@GettingBuiltBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPrimarySlots.cpp (not merged yet)
-
-// tu-skeleton: 0x00453652 691B ?rva00453652@GettingBuiltBehavior@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453652.cpp (not merged yet)
-
-// tu-skeleton: 0x00453905 435B ?rva00453905@GettingBuiltBehavior@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453905.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva00453AB8Insert.cpp
 
@@ -756,6 +813,26 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 	*out = node;
 	return out;
 }
+
+// tu-skeleton: 0x00453221 12B ?empty@?$list@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/AI/AIGroupRemove.cpp (not merged yet)
+
+// tu-skeleton: 0x0045322D 15B ??E?$_List_iterator@PAVObject@@U?$_Const_traits@PAVObject@@@_STL@@@_STL@@QAE?AU01@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/AssaultTransportAIUpdateUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0045324E 199B ??0GettingBuiltBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtorShard.cpp (not merged yet)
+
+// tu-skeleton: 0x00453315 129B ??1GettingBuiltBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00453396 17B ?buildFieldParse@GettingBuiltBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004534C3 22B ??$__distance@U?$_List_iterator@USubsystemLegendEntry@@U?$_Const_traits@USubsystemLegendEntry@@@_STL@@@_STL@@@_STL@@YAHABU?$_List_iterator@USubsystemLegendEntry@@U?$_Const_traits@USubsystemLegendEntry@@@_STL@@@0@0ABUinput_iterator_tag@0@@Z -- matched in Code/GameEngine/Source/Common/SubsystemLegendListDistance.cpp (not merged yet)
+
+// tu-skeleton: 0x004534D9 28B ??_GGettingBuiltBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004534F5 194B ?onObjectCreated@GettingBuiltBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorPrimarySlots.cpp (not merged yet)
+
+// tu-skeleton: 0x00453652 691B ?rva00453652@GettingBuiltBehavior@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453652.cpp (not merged yet)
+
+// tu-skeleton: 0x00453905 435B ?rva00453905@GettingBuiltBehavior@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GettingBuiltBehaviorRva00453905.cpp (not merged yet)
 
 // tu-skeleton: 0x00453ADD 41B ??0?$_List_base@UBfmePod20@@V?$allocator@UBfmePod20@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod20@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
 
@@ -783,17 +860,25 @@ void **__stdcall Rva00453AB8Insert(void **out, void *pos, const Rva004530ED &val
 
 // tu-skeleton: 0x004543A9 13B ?get@Rva004543A9LeaNegSbbField@@UBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x004543B6 4B ?get@Rva004543B6ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
+
+// Disp8 byte getters: four-byte __thiscall members with one shape:
+//
+//     mov al,[ecx+<DISP>] / ret
+//
+// One BYTE is read at a fixed displacement from `this` and left in al. The
+// return type is spelled `unsigned char` because only al is written and the
+// upper bytes of eax are left holding whatever the caller had; the bytes
+// cannot distinguish it from `signed char`, `bool` or a one-byte enum.
+// This is the small-offset sibling of the disp32 family in
+// DispByteFieldGetters.cpp (MSVC 7.1 uses disp8 whenever the offset fits,
+// so every offset here fits in a signed byte). Members before the accessed
+// one are spelled as a lead array because their types are not witnessed
+// here, only their total size. Identity is not recovered: every name is
+// derived from its address.
+// No // cl: line (defaults match the frameless four-byte shape).
 
 // tu-skeleton: 0x004543BA 4B ?get@Rva004543BAFildField@@QBENXZ -- matched in Code/GameEngine/Source/Common/Disp8FildFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004543BE 4B ?get@Rva004543BEByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004543C2 4B ?get@Rva004543C2ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004543C6 4B ?get@Rva004543C6ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004543DF 4B ?get@Rva004543DFByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004543E3 8B ?get@Rva004543A9LeaNegSbbField@@WBE@BEHXZ -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
 
