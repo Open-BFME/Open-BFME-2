@@ -32,11 +32,11 @@ public:
 // The colour temporaries: one stack copy per branch, passed by reference.
 struct Rva0009C814Color : Vector3
 {
-	Rva0009C814Color(Real x, Real y, Real z)
+	Rva0009C814Color(Real red, Real green, Real blue)
 	{
-		X = x;
-		Y = y;
-		Z = z;
+		X = red;
+		Y = green;
+		Z = blue;
 	}
 };
 

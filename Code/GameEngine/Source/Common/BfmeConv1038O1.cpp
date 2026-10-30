@@ -150,18 +150,18 @@ public:
 // returns its +0x78 summary or null). Never reads this.
 void *ArmySummarySystem::rva0040D008(int id)
 {
-	Rva002B488EResult *r = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(id);
-	return r != 0 ? r->m_78 : 0;
+	Rva002B488EResult *army = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic)->rva002B488E(id);
+	return army != 0 ? army->m_78 : 0;
 }
 
 int ArmySummarySystem::rva0040D025(int id)
 {
-	BfmeY1038 *y = (BfmeY1038 *)rva0040D008(id);
+	BfmeY1038 *summary = (BfmeY1038 *)rva0040D008(id);
 
-	if (y == 0)
+	if (summary == 0)
 		return -1;
 
-	return y->bfmeVal1038();
+	return summary->bfmeVal1038();
 }
 
 class BfmeSubF1038

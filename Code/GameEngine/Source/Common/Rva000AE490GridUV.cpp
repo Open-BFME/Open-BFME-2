@@ -72,9 +72,9 @@ extern GlobalData *TheWritableGlobalData;
 class Rva000AE490
 {
 public:
-	bool rva000AE490(int ndx, short tileNdx, float U[4], float V[4],
+	bool rva000AE490(int ndx, short tileNdx, float uCoords[4], float vCoords[4],
 		bool fullTile);
-	bool rva000AE6AD(int xIndex, int yIndex, float U[4], float V[4],
+	bool rva000AE6AD(int xIndex, int yIndex, float uCoords[4], float vCoords[4],
 		unsigned char alpha[4], bool *needFlip, bool *cliff);
 
 private:
@@ -98,8 +98,8 @@ private:
 	int m_terrainTexHeight;
 };
 
-bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
-	float V[4], bool fullTile)
+bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float uCoords[4],
+	float vCoords[4], bool fullTile)
 {
 	float nU, nV, xU, xV;
 	nU = nV = xU = xV = 0.0f;
@@ -110,14 +110,14 @@ bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
 	{
 		((WorldHeightMap *)this)->getUVForNdx(tileNdx, &nU, &nV, &xU, &xV,
 			fullTile);
-		U[0] = nU;
-		U[1] = xU;
-		U[2] = xU;
-		U[3] = nU;
-		V[0] = xV;
-		V[1] = xV;
-		V[2] = nV;
-		V[3] = nV;
+		uCoords[0] = nU;
+		uCoords[1] = xU;
+		uCoords[2] = xU;
+		uCoords[3] = nU;
+		vCoords[0] = xV;
+		vCoords[1] = xV;
+		vCoords[2] = nV;
+		vCoords[3] = nV;
 		if (TheWritableGlobalData && !((unsigned char *)TheWritableGlobalData)[0x4B])
 			return false;
 		if (nU == 0.0)
@@ -150,14 +150,14 @@ bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
 				minU *= 0.00048828125f;
 				maxV /= m_terrainTexHeight;
 				float vFactor = 2048 / m_terrainTexHeight;
-				U[0] = info.u0 + minU;
-				U[1] = info.u1 + minU;
-				U[2] = info.u2 + minU;
-				U[3] = info.u3 + minU;
-				V[0] = info.v0 * vFactor + maxV;
-				V[1] = info.v1 * vFactor + maxV;
-				V[2] = info.v2 * vFactor + maxV;
-				V[3] = info.v3 * vFactor + maxV;
+				uCoords[0] = info.u0 + minU;
+				uCoords[1] = info.u1 + minU;
+				uCoords[2] = info.u2 + minU;
+				uCoords[3] = info.u3 + minU;
+				vCoords[0] = info.v0 * vFactor + maxV;
+				vCoords[1] = info.v1 * vFactor + maxV;
+				vCoords[2] = info.v2 * vFactor + maxV;
+				vCoords[3] = info.v3 * vFactor + maxV;
 				return info.flip;
 			}
 		}
@@ -171,8 +171,8 @@ bool Rva000AE490::rva000AE490(int ndx, short tileNdx, float U[4],
 // 6583b3c1ff21db4a561285717028fdafc780b7db) supplies the same tile lookup, UV
 // call, and blend-flag behavior; owner and field names remain address-derived
 // where target evidence does not establish them.
-bool Rva000AE490::rva000AE6AD(int xIndex, int yIndex, float U[4],
-	float V[4], unsigned char alpha[4], bool *needFlip, bool *cliff)
+bool Rva000AE490::rva000AE6AD(int xIndex, int yIndex, float uCoords[4],
+	float vCoords[4], unsigned char alpha[4], bool *needFlip, bool *cliff)
 {
 	int ndx = (yIndex * m_width) + xIndex;
 	register int zero = 0;
@@ -194,7 +194,7 @@ bool Rva000AE490::rva000AE6AD(int xIndex, int yIndex, float U[4],
 				(unsigned int)m_blendedTiles;
 			*cliff = rva000AE490(ndx,
 				*(short *)((blendNdx << 4) + blendBaseForCall),
-				U, V, zero);
+				uCoords, vCoords, zero);
 			alpha[0] = alpha[1] = alpha[2] = alpha[3] = zero;
 			const unsigned int blendBaseForHoriz =
 				(unsigned int)m_blendedTiles;

@@ -117,31 +117,31 @@ void Rva00525ABF::rva00525ABF(Xfer *xfer)
 	Xfer::Version version(1, 3);
 	*xfer == version;
 	if (xfer->IsStoring()) {
-		int n10 = (int)m_list10.size();
-		*xfer == n10;
+		int count = (int)m_list10.size();
+		*xfer == count;
 		for (_STL::list<BfmePod12>::iterator it = m_list10.begin(); it != m_list10.end(); ++it) {
-			BfmePod12 &e = *it;
-			XferObjectID(xfer, (ObjectID *)&e.a[0]);
-			*xfer == e.a[1];
-			*xfer == e.a[2];
+			BfmePod12 &element = *it;
+			XferObjectID(xfer, (ObjectID *)&element.a[0]);
+			*xfer == element.a[1];
+			*xfer == element.a[2];
 		}
 		int n14 = (int)m_list14.size();
 		*xfer == n14;
 		for (_STL::list<BfmePod12>::iterator it = m_list14.begin(); it != m_list14.end(); ++it) {
-			BfmePod12 &e = *it;
-			XferObjectID(xfer, (ObjectID *)&e.a[0]);
+			BfmePod12 &element = *it;
+			XferObjectID(xfer, (ObjectID *)&element.a[0]);
 		}
 		*xfer == m_18;
 		return;
 	}
-	int n10;
-	*xfer == n10;
+	int count;
+	*xfer == count;
 	_STL::list<BfmePod12> tmp10;
 	BfmePod12 v10;
 	v10.a[0] = 0;
 	v10.a[1] = 0;
 	v10.a[2] = 0;
-	for (; n10 > 0; --n10) {
+	for (; count > 0; --count) {
 		XferObjectID(xfer, (ObjectID *)&v10.a[0]);
 		*xfer == v10.a[1];
 		*xfer == v10.a[2];

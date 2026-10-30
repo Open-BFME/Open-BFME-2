@@ -71,13 +71,13 @@ public:
 	virtual bool helper(const char *s, int extra);
 	virtual void v6();
 	virtual void v7();
-	virtual bool rva006042B6(const char *a1, const char *a2, int extra);
+	virtual bool rva006042B6(const char *path, const char *filter, int extra);
 };
 
-bool Win32BIGFileSystem::rva006042B6(const char *a1, const char *a2, int extra)
+bool Win32BIGFileSystem::rva006042B6(const char *path, const char *filter, int extra)
 {
 	_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> > files;
-	TheArchiveFileSystem->getFiles(0, a1, "", a2, files, 0);
+	TheArchiveFileSystem->getFiles(0, path, "", filter, files, 0);
 	bool result = false;
 	for (_STL::set<AsciiString, BfmeStringNoCaseLess, _STL::allocator<AsciiString> >::iterator it = files.begin(); it != files.end(); ++it)
 	{

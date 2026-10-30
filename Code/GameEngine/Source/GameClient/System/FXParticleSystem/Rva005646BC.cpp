@@ -104,8 +104,8 @@ Rva005646BC::Rva005646BC(unsigned int a, struct Src005646BC &src)
 	*(void **)this = (void *)&Rva003AE2CF_v0;
 	*(void **)((char *)this + 8) = (void *)&s_slot3E4first;
 	m_10 = (void *)&Rva003AE2CF_v10;
-	float v = src.m_info.m_rand.getValue();
-	m_14 = v;
+	float randomValue = src.m_info.m_rand.getValue();
+	m_14 = randomValue;
 	m_18 = src.m_info.rva0056468E();
 	m_1c = src.m_info.m_b14;
 	m_flagC = src.m_1d;

@@ -112,10 +112,10 @@ void W3DStreakDraw::rva000D0091()
 		if (((SidesList *)m_streak)->getNumSkirmishSides() == 1)
 		{
 			((Rva001680A6 *)m_streak)->rva001680ED(0, &point, &pointWidth);
-			float x = position->X - point.X;
-			float y = position->Y - point.Y;
-			float z = position->Z - point.Z;
-			float square = x * x + y * y + z * z;
+			float deltaX = position->X - point.X;
+			float deltaY = position->Y - point.Y;
+			float deltaZ = position->Z - point.Z;
+			float square = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
 			float distance;
 			__asm
 			{
@@ -129,10 +129,10 @@ void W3DStreakDraw::rva000D0091()
 		else
 		{
 			((Rva001680A6 *)m_streak)->rva001680ED(((SidesList *)m_streak)->getNumSkirmishSides() - 2, &point, &pointWidth);
-			float x = position->X - point.X;
-			float y = position->Y - point.Y;
-			float z = position->Z - point.Z;
-			float square = x * x + y * y + z * z;
+			float deltaX = position->X - point.X;
+			float deltaY = position->Y - point.Y;
+			float deltaZ = position->Z - point.Z;
+			float square = deltaX * deltaX + deltaY * deltaY + deltaZ * deltaZ;
 			float distance;
 			__asm
 			{

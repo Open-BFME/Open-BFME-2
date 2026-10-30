@@ -8,11 +8,11 @@
 #include "ascii_string.h"
 
 // --- 0x0002BEFB (19B): exchange two dwords through their pointers.
-void rva0002BEFB(int *a, int *b)
+void rva0002BEFB(int *first, int *second)
 {
-	int t = *a;
-	*a = *b;
-	*b = t;
+	int t = *first;
+	*first = *second;
+	*second = t;
 }
 
 // --- 0x0002C655 (20B): bucket of a key: the empty hash functor at +0 (the
@@ -32,14 +32,14 @@ namespace rts
 class Rva0002C655
 {
 public:
-	unsigned int rva0002C655(const AsciiString &key, unsigned int n) const;
+	unsigned int rva0002C655(const AsciiString &key, unsigned int bucketCount) const;
 private:
 	rts::hash<AsciiString> m_hash;
 };
 
-unsigned int Rva0002C655::rva0002C655(const AsciiString &key, unsigned int n) const
+unsigned int Rva0002C655::rva0002C655(const AsciiString &key, unsigned int bucketCount) const
 {
-	return m_hash(key) % n;
+	return m_hash(key) % bucketCount;
 }
 
 // --- 0x0002C7E8 (21B): case-insensitive key equality through the rowed
@@ -47,12 +47,12 @@ unsigned int Rva0002C655::rva0002C655(const AsciiString &key, unsigned int n) co
 class Rva0002C7E8
 {
 public:
-	bool rva0002C7E8(const AsciiString &a, const AsciiString &b) const;
+	bool rva0002C7E8(const AsciiString &a, const AsciiString &other) const;
 };
 
-bool Rva0002C7E8::rva0002C7E8(const AsciiString &asciiString, const AsciiString &b) const
+bool Rva0002C7E8::rva0002C7E8(const AsciiString &asciiString, const AsciiString &other) const
 {
-	return ((const StringBase<char> &)asciiString).compareNoCase((const StringBase<char> &)b) == 0;
+	return ((const StringBase<char> &)asciiString).compareNoCase((const StringBase<char> &)other) == 0;
 }
 
 // --- 0x0002BA86 (18B), unreferenced in retail: forwards filename and access

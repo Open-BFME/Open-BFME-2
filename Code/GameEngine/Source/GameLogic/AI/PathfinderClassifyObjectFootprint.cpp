@@ -93,15 +93,15 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
   BfmeShapeE15 *shape=((BfmeObjE15*)((char*)obj+0xa8))->getGeometryShape(k);
   if(!shape->enabled||shape->offsetZ>10.0f)continue;
   BfmeVecVNB pos(&objPos->x);
-  float c=Cos(angle),s=Sin(angle);
+  float cosine=Cos(angle),s=Sin(angle);
   ((BfmeXformVNB*)shape)->bfmeApplyVNB(&pos,angle);
   switch(shape->type){
   case 2:{
    float halfX=shape->major,halfY=shape->minor;
    // in theory, should be PATHFIND_CELL_SIZE_F exactly, but needs to be smaller to avoid aliasing problems
-   float ydx=s*5.0f,ydy=-(c*5.0f),xdx=c*5.0f,xdy=s*5.0f;
+   float ydx=s*5.0f,ydy=-(cosine*5.0f),xdx=cosine*5.0f,xdy=s*5.0f;
    int nx=CEIL(2.0f*halfX/5.0f),ny=CEIL(2.0f*halfY/5.0f);
-   float tlx=pos.x-halfX*c-halfY*s,tly=pos.y+halfY*c-halfX*s;
+   float tlx=pos.x-halfX*cosine-halfY*s,tly=pos.y+halfY*cosine-halfX*s;
    for(int iy=0;iy<ny;++iy,tlx+=ydx,tly+=ydy){
     float x=tlx,y=tly;
     for(int ix=0;ix<nx;++ix,x+=xdx,y+=xdy){
@@ -117,7 +117,7 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
      bool dirty;
      if(insert){
       if(gate){if(map[cx][cy].type()==2||map[cx][cy].type()==3){map[cx][cy].SetType_Dirty(0);zones.MarkDirty(cx,cy);}}
-      In002E6BA1 p={cx,cy};dirty=map[cx][cy].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&p);
+      In002E6BA1 cellPoint={cx,cy};dirty=map[cx][cy].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&cellPoint);
      }else dirty=map[cx][cy].rva0052DFB1((const Rva0052DFB1Arg*)obj);
      if(dirty)zones.MarkDirty(cx,cy);
      if(gate&&!keepGate&&map[cx][cy].gate()!=insert){((Rva0052E001*)&map[cx][cy])->rva0052E001(insert);zones.MarkDirty(cx,cy);}
@@ -132,16 +132,16 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
    ICoord2D topLeft,bottomRight;
    FootprintCoord2D center,delta;
    float radius=shape->major;
-   float r2,size;
+   float radiusSquared,size;
    topLeft.x=FLOOR((pos.x-radius)*0.1f+0.5f)-1;
    topLeft.y=FLOOR((pos.y-radius)*0.1f+0.5f)-1;
    size=radius*0.1f;center.x=pos.x*0.1f;center.y=pos.y*0.1f;
-   size+=0.4f;r2=size*size;
+   size+=0.4f;radiusSquared=size*size;
    bottomRight.x=(int)(topLeft.x+2*size+2);bottomRight.y=(int)(topLeft.y+2*size+2);
    for(j=topLeft.y;j<bottomRight.y;++j)for(i=topLeft.x;i<bottomRight.x;++i){
     delta.x=i+0.5f-center.x;delta.y=j+0.5f-center.y;
-    if(!(delta.x*delta.x+delta.y*delta.y<=r2)||i<0||j<0||i>=extent.hx||j>=extent.hy||map[i][j].layer()!=1)continue;
-    if(insert){In002E6BA1 p={i,j};if(map[i][j].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&p))zones.MarkDirty(i,j);}
+    if(!(delta.x*delta.x+delta.y*delta.y<=radiusSquared)||i<0||j<0||i>=extent.hx||j>=extent.hy||map[i][j].layer()!=1)continue;
+    if(insert){In002E6BA1 cellPoint={i,j};if(map[i][j].rva0052DEEF((const Rva0052DEEFArg*)obj,false,&cellPoint))zones.MarkDirty(i,j);}
     else if(map[i][j].rva0052DFB1((const Rva0052DFB1Arg*)obj))zones.MarkDirty(i,j);
     if(gate&&map[i][j].gate()!=insert){((Rva0052E001*)&map[i][j])->rva0052E001(insert);zones.MarkDirty(i,j);}
     if(((Rva0052E02F*)&map[i][j])->rva0052E02F(bit22))zones.MarkDirty(i,j);
@@ -151,42 +151,42 @@ void Pathfinder::rva00530212(Object*obj,bool insert,bool keepGate,bool goal)
  }
  Region2D world;
  ((Rva0087E370*)((char*)obj+0xa8))->method(obj->position,obj->orientation,world);
- FootprintBounds b; b.lx=FLOOR(world.lo.x*0.1f)-1; b.ly=FLOOR(world.lo.y*0.1f)-1; b.hx=CEIL(world.hi.x*0.1f)+1; b.hy=CEIL(world.hi.y*0.1f)+1;
- if(b.lx<extent.lx)b.lx=extent.lx;
- if(b.ly<extent.ly)b.ly=extent.ly;
- if(b.ly<extent.ly)b.ly=extent.ly;
- if(b.hx>extent.hx)b.hx=extent.hx;
- if(b.hy>extent.hy)b.hy=extent.hy;
- if(!insert)for(int j=b.ly;j<=b.hy;++j)for(int i=b.lx;i<=b.hx;++i){
+ FootprintBounds bounds; bounds.lx=FLOOR(world.lo.x*0.1f)-1; bounds.ly=FLOOR(world.lo.y*0.1f)-1; bounds.hx=CEIL(world.hi.x*0.1f)+1; bounds.hy=CEIL(world.hi.y*0.1f)+1;
+ if(bounds.lx<extent.lx)bounds.lx=extent.lx;
+ if(bounds.ly<extent.ly)bounds.ly=extent.ly;
+ if(bounds.ly<extent.ly)bounds.ly=extent.ly;
+ if(bounds.hx>extent.hx)bounds.hx=extent.hx;
+ if(bounds.hy>extent.hy)bounds.hy=extent.hy;
+ if(!insert)for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
   if(map[i][j].type()==5&&map[i][j].layer()==1){map[i][j].SetType_Dirty(0);zones.MarkDirty(i,j);}
  }
  // Check for pinched cells, and close them off.
- for(int j=b.ly;j<=b.hy;++j)for(int i=b.lx;i<=b.hx;++i){
+ for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
   if(map[i][j].layer()!=1)continue;
   map[i][j].pinch(false);
   if(map[i][j].type()==0){
    int total=0,ortho=0;
    for(int k=i-1;k<i+2;++k){if(k<extent.lx||k>extent.hx)continue;
-    for(int l=j-1;l<j+2;++l){if(l<extent.ly||l>extent.hy)continue;
-     if(k==i&&j==l)continue;
-     if(map[k][l].type()==0){++total;if(k==i||l==j)++ortho;}
+    for(int neighborY=j-1;neighborY<j+2;++neighborY){if(neighborY<extent.ly||neighborY>extent.hy)continue;
+     if(k==i&&j==neighborY)continue;
+     if(map[k][neighborY].type()==0){++total;if(k==i||neighborY==j)++ortho;}
     }
    }
    // If the total open cells are < 2 or total cells < 4, we are pinched.
    if(ortho<2||total<4)map[i][j].pinch(true);
   }
  }
- for(int j=b.ly;j<=b.hy;++j)for(int i=b.lx;i<=b.hx;++i){
+ for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
   if(map[i][j].layer()==1&&map[i][j].pinched()&&map[i][j].type()==0){map[i][j].SetType_Dirty(5);map[i][j].pinch(false);zones.MarkDirty(i,j);}
  }
  // Expand building bounds 1 cell.
- for(int j=b.ly;j<=b.hy;++j)for(int i=b.lx;i<=b.hx;++i){
+ for(int j=bounds.ly;j<=bounds.hy;++j)for(int i=bounds.lx;i<=bounds.hx;++i){
   if(map[i][j].layer()==1&&map[i][j].type()==0){
    bool adjacent=false;
    for(int k=i-1;k<i+2;++k){if(k<extent.lx||k>extent.hx)continue;
-    for(int l=j-1;l<j+2;++l){if(l<extent.ly||l>extent.hy)continue;
-     if(k==i&&l==j)continue;if(k!=i&&l!=j)continue;
-     if(map[k][l].type()==4){adjacent=true;break;}
+    for(int neighborY=j-1;neighborY<j+2;++neighborY){if(neighborY<extent.ly||neighborY>extent.hy)continue;
+     if(k==i&&neighborY==j)continue;if(k!=i&&neighborY!=j)continue;
+     if(map[k][neighborY].type()==4){adjacent=true;break;}
     }
    }
    if(adjacent)map[i][j].pinch(true);

@@ -33,7 +33,7 @@ struct ArmySummaryEntryRef
  __declspec(dllimport) __forceinline ~ArmySummaryEntryRef() {}
 
 	ArmySummaryEntryRef() {}
-	ArmySummaryEntryRef(const Rva004F6093Holder &h) : m_holder(h) {}
+	ArmySummaryEntryRef(const Rva004F6093Holder &holder) : m_holder(holder) {}
 	Rva004F6093Holder m_holder;
 };
 

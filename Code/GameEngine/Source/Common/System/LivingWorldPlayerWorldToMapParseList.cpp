@@ -87,9 +87,9 @@ struct Rva003F25DFPair
 	AsciiString second;
 };
 
-static inline bool RvaPairEqual(const AsciiString &asciiString, const AsciiString &b)
+static inline bool RvaPairEqual(const AsciiString &asciiString, const AsciiString &other)
 {
- return ((const StringBase<char> *)&asciiString)->compare(*(const StringBase<char> *)&b) == 0;
+ return ((const StringBase<char> *)&asciiString)->compare(*(const StringBase<char> *)&other) == 0;
 }
 
 typedef _STL::vector<const ModuleData *, _STL::allocator<const ModuleData *> > Rva003F25DFList;

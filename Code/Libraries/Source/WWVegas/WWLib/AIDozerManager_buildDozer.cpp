@@ -105,8 +105,8 @@ void AIDozerManager::buildDozer(Object *obj)
 				goto done;
 docall:
 			void *r = suffixObj->v02();
-			void *q = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(m_str);
-			suffixObj->v08(q, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
+			void *thingTemplate = (void *)reinterpret_cast<ThingFactory *>(TheThingFactory)->findTemplate(m_str);
+			suffixObj->v08(thingTemplate, -1, r, -1, zero, &AsciiString::TheEmptyString, zero);
 		}
 	}
 done:;

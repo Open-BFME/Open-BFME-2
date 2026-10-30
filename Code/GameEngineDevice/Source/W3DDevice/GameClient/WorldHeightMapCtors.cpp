@@ -100,7 +100,7 @@ class WorldHeightMap : public RefCountClass
 public:
 	WorldHeightMap();
 	WorldHeightMap(ChunkInputStream *strm);
-	WorldHeightMap(ChunkInputStream *strm, int a, int b, int c);
+	WorldHeightMap(ChunkInputStream *strm, int polygonOwner, int b, int c);
 	virtual ~WorldHeightMap();
 
 	void parse(DataChunkInput &file, void *polygonOwner, void *owner10, void *owner14);	// 0x000AF238 (WorldHeightMapParse.cpp)
@@ -155,9 +155,9 @@ WorldHeightMap::WorldHeightMap(ChunkInputStream *strm)
 	parse(file, 0, 0, 0);
 }
 
-WorldHeightMap::WorldHeightMap(ChunkInputStream *strm, int a, int b, int c)
+WorldHeightMap::WorldHeightMap(ChunkInputStream *strm, int polygonOwner, int b, int c)
 {
 	((Rva000B08F7 *)this)->rva000B08F7();
 	DataChunkInput file(strm);
-	parse(file, (void *)a, (void *)b, (void *)c);
+	parse(file, (void *)polygonOwner, (void *)b, (void *)c);
 }

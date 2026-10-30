@@ -80,8 +80,8 @@ int Rva005F1B75::length() const
 
 int Rva005F1B75::write(char *dst)
 {
-	int n = Rva002226E5TextPlusString::write(dst);
-	return n + m_third.write(dst + n);
+	int written = Rva002226E5TextPlusString::write(dst);
+	return written + m_third.write(dst + written);
 }
 
 // The caller at 0x005F1DB0 materializes this four-part expression for the
@@ -96,8 +96,8 @@ struct Rva005F1D06 : Rva005F1B75
 
 int Rva005F1D06::write(char *dst)
 {
-	int n = Rva005F1B75::write(dst);
-	return n + m_fourth.write(dst + n);
+	int written = Rva005F1B75::write(dst);
+	return written + m_fourth.write(dst + written);
 }
 
 Rva005F1D06::operator AsciiString()

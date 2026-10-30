@@ -69,7 +69,7 @@ public:
 
 struct ParserWrap : Rva00542806
 {
-	ParserWrap(char *a1, int a2, int a3) { rva00542806(a1, a2, a3); }
+	ParserWrap(char *source, int buffer, int bufferSize) { rva00542806(source, buffer, bufferSize); }
 	~ParserWrap() { ((Rva0054288B *)this)->rva0054288B(); }
 };
 

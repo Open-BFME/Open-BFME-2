@@ -106,7 +106,7 @@ public:
 	virtual void f08();
 	virtual void f09();
 	virtual const char *f10();
-	void rva0059EE96(unsigned char a0, unsigned char a1);
+	void rva0059EE96(unsigned char enable, unsigned char force);
 	void UpdateHostStartGameButton();
 private:
 	char m_pad04[0x58 - 4];
@@ -115,16 +115,16 @@ private:
 	unsigned char m_flag4C1;
 };
 
-void AptOnlineCustomMatch::rva0059EE96(unsigned char a0, unsigned char a1)
+void AptOnlineCustomMatch::rva0059EE96(unsigned char enable, unsigned char force)
 {
-	if (!a1)
+	if (!force)
 	{
-		if (m_flag4C1 == a0)
+		if (m_flag4C1 == enable)
 			return;
 	}
-	m_flag4C1 = a0;
+	m_flag4C1 = enable;
 	void *lvl;
-	if (a0)
+	if (enable)
 	{
 		lvl = m_mid58->m_level274;
 		Rva00524EF4AptCall((*(Rva00222A8BTarget **)&g_bfmeAptWindowManager), lvl, f10(), "EnableButtonPlayGame");

@@ -56,8 +56,8 @@ void Rva00319A12Owner::rva00319A12()
         return;
     int last = ((helper->m_44 - helper->m_40) >> 3) - 1;
     for (int i = last; i >= 0; --i) {
-        int p = ((Rva0040CB2CIndexedField*)m_78)->get(i);
-        if (((StringBase<char>*)(p + 4))->compare(*(const StringBase<char>*)&m_18) != 0)
+        int entry = ((Rva0040CB2CIndexedField*)m_78)->get(i);
+        if (((StringBase<char>*)(entry + 4))->compare(*(const StringBase<char>*)&m_18) != 0)
             ((LivingWorldArmy*)this)->KillSummaryEntry(i);
     }
 }

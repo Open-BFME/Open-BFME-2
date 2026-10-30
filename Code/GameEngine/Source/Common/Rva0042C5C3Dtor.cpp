@@ -74,12 +74,12 @@ private:
 // address-derived. Keeping the body out of line preserves the native parent.
 Rva0042C1DF::~Rva0042C1DF()
 {
-	Rva0057417E *p = m_ptr;
+	Rva0057417E *ownedObject = m_ptr;
 	m_ptr = 0;
-	if (p)
+	if (ownedObject)
 	{
-		p->Rva0057417E::~Rva0057417E();
-		::operator delete(p);
+		ownedObject->Rva0057417E::~Rva0057417E();
+		::operator delete(ownedObject);
 	}
 }
 

@@ -290,13 +290,13 @@ m_outline(NULL)
 	Real halfsizeY = bridgeObj->getGeometryInfo().getExtent28();
 	m_bridgeInfo.bridgeWidth = 2*halfsizeY;
 
-	Real c = (Real)Cos(angle);
-	Real s = (Real)Sin(angle);
+	Real cosAngle = (Real)Cos(angle);
+	Real sinAngle = (Real)Sin(angle);
 
-	m_bridgeInfo.fromLeft.set(pos->x-halfsizeX*c-halfsizeY*s, pos->y + halfsizeY*c - halfsizeX*s, pos->z);
-	m_bridgeInfo.toLeft.set(pos->x+halfsizeX*c-halfsizeY*s, pos->y + halfsizeY*c + halfsizeX*s, pos->z);
-	m_bridgeInfo.fromRight.set(pos->x-halfsizeX*c+halfsizeY*s, pos->y - halfsizeY*c - halfsizeX*s, pos->z);
-	m_bridgeInfo.toRight.set(pos->x+halfsizeX*c+halfsizeY*s, pos->y - halfsizeY*c + halfsizeX*s, pos->z);
+	m_bridgeInfo.fromLeft.set(pos->x-halfsizeX*cosAngle-halfsizeY*sinAngle, pos->y + halfsizeY*cosAngle - halfsizeX*sinAngle, pos->z);
+	m_bridgeInfo.toLeft.set(pos->x+halfsizeX*cosAngle-halfsizeY*sinAngle, pos->y + halfsizeY*cosAngle + halfsizeX*sinAngle, pos->z);
+	m_bridgeInfo.fromRight.set(pos->x-halfsizeX*cosAngle+halfsizeY*sinAngle, pos->y - halfsizeY*cosAngle - halfsizeX*sinAngle, pos->z);
+	m_bridgeInfo.toRight.set(pos->x+halfsizeX*cosAngle+halfsizeY*sinAngle, pos->y - halfsizeY*cosAngle + halfsizeX*sinAngle, pos->z);
 
 	m_bridgeInfo.polygon[0].set(m_bridgeInfo.fromLeft.x, m_bridgeInfo.fromLeft.y, m_bridgeInfo.fromLeft.z);
 	m_bridgeInfo.polygon[1].set(m_bridgeInfo.fromRight.x, m_bridgeInfo.fromRight.y, m_bridgeInfo.fromRight.z);

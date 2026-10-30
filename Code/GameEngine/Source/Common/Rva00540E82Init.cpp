@@ -74,12 +74,12 @@ public:
 class Rva00540FDB
 {
 public:
-	__declspec(noinline) Rva00540FDB(int v, const Rva00540D94 &frame);
+	__declspec(noinline) Rva00540FDB(int key, const Rva00540D94 &frame);
 	int m_00;
 	Rva00540D94 m_04;
 };
 
-Rva00540FDB::Rva00540FDB(int v, const Rva00540D94 &frame) : m_00(v), m_04(frame)
+Rva00540FDB::Rva00540FDB(int key, const Rva00540D94 &frame) : m_00(key), m_04(frame)
 {
 }
 
@@ -140,12 +140,12 @@ Rva00540FCB::Rva00540FCB() : m_00(0)
 class Rva00541006
 {
 public:
-	__declspec(noinline) Rva00541006(int v, const Region2D &r);
+	__declspec(noinline) Rva00541006(int key, const Region2D &r);
 	int m_00;
 	Region2D m_04;
 };
 
-Rva00541006::Rva00541006(int v, const Region2D &region2D) : m_00(v), m_04(region2D)
+Rva00541006::Rva00541006(int key, const Region2D &region2D) : m_00(key), m_04(region2D)
 {
 }
 

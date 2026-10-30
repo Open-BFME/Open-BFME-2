@@ -54,8 +54,8 @@ int isGroundOrBridgeLayer(int);
 int Rva002E6E8AGet(int);
 // The already matched callback family demonstrates the floor-to-FISTP
 // compiler blocker; this tiny inline x87 conversion preserves native rounding.
-static __forceinline int queryFloor(float f){float v=(float)floor(f);int i;__asm {
- fld [v]
+static __forceinline int queryFloor(float f){float floored=(float)floor(f);int i;__asm {
+ fld [floored]
  fistp [i]
  }return i;}
 class Pathfinder {public:bool rva002EC479(Object*,const Coord3D*,Object*);PathfindCell *getCell(PathfindLayerEnum,int,int);};
@@ -80,7 +80,7 @@ bool Rva002EBBFBIsOdd(void *);
 inline __declspec(noinline) ICoord2D *__cdecl Rva002EBC14Cell(ICoord2D *out,void *p,const Coord3D *pos) {
  Rva002E7875WorldToCell(out,Rva002EBBFBIsOdd(p),pos);return out;
 }
-static __forceinline void moveBy(ICoord2D &p,int amount){p.x+=amount;p.y+=amount;}
+static __forceinline void moveBy(ICoord2D &point,int amount){point.x+=amount;point.y+=amount;}
 inline __declspec(noinline) void DynamicPortalBehaviour::rva00460CBA(Coord3D *out)
 {
 	Coord3D tmp1;

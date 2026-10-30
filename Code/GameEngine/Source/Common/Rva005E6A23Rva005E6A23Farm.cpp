@@ -91,15 +91,15 @@ class Rva0037DCA5 {public:void *GetThingTemplate();};
 class InGameSimpleHelp {public:InGameSimpleHelp(const UnicodeString&,const UnicodeString&);virtual ~InGameSimpleHelp();int count;void*impl;};
 namespace StrategicInGameUI {
 TreeHintRef00217D4C Rva005E6A23(const Rva005E4300Entry*entry) {
- Rva005E3967Template *t=(Rva005E3967Template *)Rva005E3967(entry);
- Rva005E3967Template *t2=t;
+ Rva005E3967Template *thingTemplate=(Rva005E3967Template *)Rva005E3967(entry);
+ Rva005E3967Template *t2=thingTemplate;
  const UnicodeString &title=t2->titleText();
  const UnicodeString *titleAddress=&title;
  bool bEmpty = titleAddress->isEmpty();
  if(bEmpty == false) {
-  t=(Rva005E3967Template *)((Rva0037DCA5 *)entry)->GetThingTemplate();
-  if(t) {
-   const UnicodeString &description=t->descriptionText();
+  thingTemplate=(Rva005E3967Template *)((Rva0037DCA5 *)entry)->GetThingTemplate();
+  if(thingTemplate) {
+   const UnicodeString &description=thingTemplate->descriptionText();
    return TreeHintRef00217D4C((TargetRef00217D4C *)new InGameSimpleHelp(title,description));
   } else {
    return TreeHintRef00217D4C();

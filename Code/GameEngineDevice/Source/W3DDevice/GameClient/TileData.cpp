@@ -146,14 +146,14 @@ void __cdecl Rva001118ECResampleRgb555(
             for(int y=0;y<factor;y++) {
                 const unsigned char *pixel=line;
                 for(int x=0;x<factor;x++) {
-                    for(int c=0;c<4;c++)sums[c]+=pixel[c];
+                    for(int channel=0;channel<4;channel++)sums[channel]+=pixel[channel];
                     pixel+=4;
                 }
                 line+=stride;
             }
-            for(int c=0;c<4;c++) {
-                int average=(sums[c]+(count/2))/count;
-                channels[c]=(unsigned char)tileMin(average,255);
+            for(int channel=0;channel<4;channel++) {
+                int average=(sums[channel]+(count/2))/count;
+                channels[channel]=(unsigned char)tileMin(average,255);
             }
             unsigned short packed=(unsigned short)(((channels[2]+1)*31)/256);
             packed=(unsigned short)((packed<<5)|(((channels[1]+1)*31)/256));

@@ -78,14 +78,14 @@ private:
 void Rva0052936C::OnButtonFrameLoaded(const char *section)
 {
 	AsciiString val;
-	Rva00529698Elem *e;
+	Rva00529698Elem *slot;
 	{
 		int idx;
 		if (!ParseButtonSlotIndex(section, &idx) || !ParseClipName(section, val))
 			return;
-		e = &m_elems[idx];
-		if (e->m_holder.m_ptr != 0)
+		slot = &m_elems[idx];
+		if (slot->m_holder.m_ptr != 0)
 			return;
 	}
-	e->m_holder.rva00575674((Object *)new Rva005D2462(AptUtils::LevelIndexFromTarget(GetStr00529698(val)), AsciiString(AptUtils::SkipLevelN(GetStr00529698(val))), (int)&e->m_04, (int)&e->m_08));
+	slot->m_holder.rva00575674((Object *)new Rva005D2462(AptUtils::LevelIndexFromTarget(GetStr00529698(val)), AsciiString(AptUtils::SkipLevelN(GetStr00529698(val))), (int)&slot->m_04, (int)&slot->m_08));
 }

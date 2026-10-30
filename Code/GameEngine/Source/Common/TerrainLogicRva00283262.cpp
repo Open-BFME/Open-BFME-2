@@ -81,7 +81,7 @@ class TerrainLogic
 {
 public:
 	void rva00282CFB(const Coord3D *pos, float f, unsigned int x);
-	void rva00283262(const Coord3D *a, float b);
+	void rva00283262(const Coord3D *a, float radius);
 };
 
 // 0x0027F1DD, rowed as BfmeThingCME::rva0027F1DD (Rva0027F1DDRetire.cpp).
@@ -91,7 +91,7 @@ public:
 	void rva0027F1DD(Coord3D *position, float radius);
 };
 
-void TerrainLogic::rva00283262(const Coord3D *a, float b)
+void TerrainLogic::rva00283262(const Coord3D *a, float radius)
 {
 	if (a == 0)
 		return;
@@ -101,13 +101,13 @@ void TerrainLogic::rva00283262(const Coord3D *a, float b)
 		return;
 	if (TheGameLogic == 0)
 		return;
-	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(a, b, 0,
+	BfmeWideResult hits = ThePartitionManager->iterateObjectsInRange(a, radius, 0,
 		&Rva0004584D(*(BfmeFixedStorage0004543D *)&Rva00045411BitSet(0, 0x98), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE)), 1);
 	for (Object *other = hits.next(); other != 0; other = hits.next()) {
-		rva00282CFB(&other->m_pos38, b, (unsigned int)-1);
+		rva00282CFB(&other->m_pos38, radius, (unsigned int)-1);
 		TheGameLogic->destroyObject(other);
 	}
-	rva00282CFB(a, b, (unsigned int)-1);
+	rva00282CFB(a, radius, (unsigned int)-1);
 }
 
 // BFME1 ba7ddda7e8f261163972ddbe23c7e7a12ac5b84f clean source lead:

@@ -52,15 +52,15 @@ public:
 #pragma inline_depth(0)
 struct Rva004E7392 : public TooltipBase
 {
-	Rva004E7392(int a, int b);
+	Rva004E7392(int objectID, int b);
 	virtual ~Rva004E7392();
 	int m_04;
 	int m_08;
 };
 #pragma inline_depth()
-inline Rva004E7392::Rva004E7392(int a, int b)
+inline Rva004E7392::Rva004E7392(int objectID, int b)
 {
-	m_04 = a;
+	m_04 = objectID;
 	m_08 = b;
 }
 inline Rva004E7392::~Rva004E7392() {}

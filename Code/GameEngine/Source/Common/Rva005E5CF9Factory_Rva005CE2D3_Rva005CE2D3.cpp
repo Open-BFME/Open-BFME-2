@@ -78,7 +78,7 @@ struct Rva005CE2D3
 {
 	char m_prefix[8];
 	Rva005E5CF9In m_context;
-	RvaF1Handle rva005CE2D3(unsigned int argument);
+	RvaF1Handle rva005CE2D3(unsigned int frame);
 };
 struct Rva005CEA92
 {
@@ -93,9 +93,9 @@ struct Rva005FB418
 	RvaF1Handle rva005FB418(unsigned int first, unsigned int second);
 };
 
-RvaF1Handle Rva005CE2D3::rva005CE2D3(unsigned int argument)
+RvaF1Handle Rva005CE2D3::rva005CE2D3(unsigned int frame)
 {
-	return RvaF1Handle(new Rva005E8D71((void *)argument, (Rva005E8DCFIn *)&m_context));
+	return RvaF1Handle(new Rva005E8D71((void *)frame, (Rva005E8DCFIn *)&m_context));
 }
 
 

@@ -85,8 +85,8 @@ bool MapCache::loadUserMaps(){
       (*out<<Debug::Format("Found map '%s' in wrong spot (%s)",expected,badname)).show(2);
      }
     }else if(TheFileSystem->getFileInfo(tempfilename,&fileInfo)){
-     char funk[260];strcpy(funk,tempfilename.str());char*filenameptr=funk;char*tempchar=funk;
-     while(*tempchar!=0){if(*tempchar=='\\'||*tempchar=='/')filenameptr=tempchar+1;++tempchar;}
+     char funk[260];strcpy(funk,tempfilename.str());char*filenameptr=funk;char*cursor=funk;
+     while(*cursor!=0){if(*cursor=='\\'||*cursor=='/')filenameptr=cursor+1;++cursor;}
      if(strlen(filenameptr)<0x50){m_seen[tempfilename].value=1;parsedAMap|=addMap(mapDir,*iter,&fileInfo,TheWritableGlobalData->buildMapCache);}
     }
    }

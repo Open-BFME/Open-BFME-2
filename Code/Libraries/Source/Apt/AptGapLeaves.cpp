@@ -158,7 +158,7 @@ void Rva006FBA70Holder::set(Rva006FBA20Ref *value)
 struct Rva006D0350Iterator
 {
 	void **position, **begin, **end;
-	Rva006D0350Iterator(void **p, void **b, void **e) : position(p), begin(b), end(e) {}
+	Rva006D0350Iterator(void **current, void **b, void **e) : position(current), begin(b), end(e) {}
 	Rva006D0350Iterator advance(int n) const;
 };
 

@@ -202,9 +202,9 @@ void SnowManager::updateIniSettings()
 {
     float *dst = m_startingHeights;
     int boxDimensions = (int)TheWeatherSetting->m_snowBoxDimensions;
-    for (int y = 0; y < 64; y++)
+    for (int row = 0; row < 64; row++)
     {
-        for (int x = 0; x < 64; x++)
+        for (int column = 0; column < 64; column++)
         {
             *dst = (float)(rand() % boxDimensions);
             dst++;

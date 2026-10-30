@@ -42,10 +42,10 @@ BfmeItemKA **g_bfmeEndKA;
 // retail 0x00260805 (33B), still exact with the layout method's compiler flags.
 void bfmeGoKA(void)
 {
-	BfmeItemKA **p = g_bfmeBegKA;
-	BfmeItemKA **e = g_bfmeEndKA;
-	while (p != e) {
-		(*p)->bfmeDoKA();
-		++p;
+	BfmeItemKA **iter = g_bfmeBegKA;
+	BfmeItemKA **end = g_bfmeEndKA;
+	while (iter != end) {
+		(*iter)->bfmeDoKA();
+		++iter;
 	}
 }

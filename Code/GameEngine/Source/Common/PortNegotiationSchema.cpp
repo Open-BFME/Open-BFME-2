@@ -185,10 +185,10 @@ bool PortNegotiationSchema::rva005DBA9C(bool flag)
 					continue;
 				if (!gameSlot->isHuman())
 					continue;
-				GameSlot *b = m_slots[bp];
-				if (!b)
+				GameSlot *otherSlot = m_slots[bp];
+				if (!otherSlot)
 					continue;
-				if (!b->isHuman())
+				if (!otherSlot->isHuman())
 					continue;
 				if (m_arr2[bp + bx * 8] != 3)
 					return false;
@@ -201,10 +201,10 @@ bool PortNegotiationSchema::rva005DBA9C(bool flag)
 		{
 			if (i == m_cur)
 				continue;
-			GameSlot *s = m_slots[i];
-			if (!s)
+			GameSlot *slot = m_slots[i];
+			if (!slot)
 				continue;
-			if (!s->isHuman())
+			if (!slot->isHuman())
 				continue;
 			if (m_arr2[m_cur + i * 8] != 3)
 				return false;

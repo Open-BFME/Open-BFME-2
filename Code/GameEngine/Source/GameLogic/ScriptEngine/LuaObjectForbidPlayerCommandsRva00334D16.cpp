@@ -84,7 +84,7 @@ int Rva00334D16( lua_State *state )
 	Rva00334D16AIView *ai = object->m_ai258;
 	if( !ai )
 		return 0;
-	unsigned v = Rva00990210Lookup( (Rva00990210Range *)state, 2 );
-	ai->m_forbid3C5 = ( v != 0 );
+	unsigned forbid = Rva00990210Lookup( (Rva00990210Range *)state, 2 );
+	ai->m_forbid3C5 = ( forbid != 0 );
 	return 0;
 }

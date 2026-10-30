@@ -57,15 +57,15 @@ class Rva008B77D {public:
 void Rva008B77D::rva00312EDA(const Rva00311431Arg*node) {
  records.clear();
  if(node){
- Rva003A35A0Element temp;
- temp.rva00311431(node);records.push_back(temp);
+ Rva003A35A0Element record;
+ record.rva00311431(node);records.push_back(record);
  while(1) {
   float x=node->x,y=node->y,z=node->z;
   node=node->next();if(!node)break;
   x-=node->x;y-=node->y;z-=node->z;
   float distance=z*z+y*y+x*x;
-  if(100.0f>distance)records[records.size()-1]=*temp.rva00311431(node);
-  else{temp.rva00311431(node);records.push_back(temp);}
+  if(100.0f>distance)records[records.size()-1]=*record.rva00311431(node);
+  else{record.rva00311431(node);records.push_back(record);}
  }
  }
 }

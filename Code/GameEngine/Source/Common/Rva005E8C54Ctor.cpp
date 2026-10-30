@@ -239,8 +239,8 @@ void rva005E8F6F(Rva005F86FE *list, const ICoord3D &value)
 class Rva005E908C
 {
 public:
-	Rva005E908C(void *a, int b, void *c, Rva005E8FECOwner *d, Rva005E8FECSource *e);
-	void rva005E8FEC(int b, Rva005E8FECSource *e);
+	Rva005E908C(void *a, int b, void *c, Rva005E8FECOwner *owner, Rva005E8FECSource *source);
+	void rva005E8FEC(int b, Rva005E8FECSource *source);
 
 private:
 	void *m_00;						// +0x00
@@ -248,13 +248,13 @@ private:
 	Rva005F86FE m_member08;			// +0x08
 };
 
-void Rva005E908C::rva005E8FEC(int b, Rva005E8FECSource *e)
+void Rva005E908C::rva005E8FEC(int b, Rva005E8FECSource *source)
 {
 	Rva005E8FECOwner *owner = m_04;
 	if (owner->m_20 == 0)
 	{
 		_STL::vector<ScienceType> keys;
-		int key = e->m_40;
+		int key = source->m_40;
 		reinterpret_cast<Rva002E02F0 *>(TheLivingWorldBuildingTemplateStore)->rva002E02F0(key, &keys);
 		_STL::vector<ScienceType>::iterator end = keys.end();
 		for (_STL::vector<ScienceType>::iterator it = keys.begin(); it != end; ++it)
@@ -266,12 +266,12 @@ void Rva005E908C::rva005E8FEC(int b, Rva005E8FECSource *e)
 	}
 }
 
-Rva005E908C::Rva005E908C(void *a, int b, void *c, Rva005E8FECOwner *d, Rva005E8FECSource *e)
+Rva005E908C::Rva005E908C(void *a, int b, void *c, Rva005E8FECOwner *owner, Rva005E8FECSource *source)
 	: m_00(c),
-	  m_04(d),
+	  m_04(owner),
 	  m_member08(a, c)
 {
-	rva005E8FEC(b, e);
+	rva005E8FEC(b, source);
 	if (reinterpret_cast<Rva005F8427 *>(&m_member08)->rva005F8408() > 0)
 		reinterpret_cast<Rva005F8427 *>(&m_member08)->rva005F841F();
 }

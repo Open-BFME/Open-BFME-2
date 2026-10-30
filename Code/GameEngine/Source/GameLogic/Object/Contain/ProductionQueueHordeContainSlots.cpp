@@ -151,11 +151,11 @@ void ProductionQueueHordeContain::CreateTemplate(ObjectID id, Object *obj)
 	Rva0028BC58Ret *r = (Rva0028BC58Ret *)ret;
 	const ProductionQueueHordeContainModuleData *md = (const ProductionQueueHordeContainModuleData *)m_moduleData;
 	int slot2 = r->s02();
-	for (Rva0048130E *p = md->m_begin; p != md->m_end; ++p)
+	for (Rva0048130E *entry = md->m_begin; entry != md->m_end; ++entry)
 	{
-		if (((Rva2225E0Filter *)&p->m_tab)->accepts(obj, (Player *)0))
+		if (((Rva2225E0Filter *)&entry->m_tab)->accepts(obj, (Player *)0))
 		{
-			void *thing = (void *)TheThingFactory->findTemplate(p->m_str);
+			void *thing = (void *)TheThingFactory->findTemplate(entry->m_str);
 			r->s08(thing, -1, slot2, -1, 0, &AsciiString::TheEmptyString, 0);
 			r->s14(slot2, id);
 			return;

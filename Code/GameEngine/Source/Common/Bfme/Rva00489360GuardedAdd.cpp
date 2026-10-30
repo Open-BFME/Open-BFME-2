@@ -116,9 +116,9 @@ public:
 
 bool Rva001DBDA4::rva001DBD83() const
 {
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
 	{
-		if( !n->m_value->rva001DBAF6() )
+		if( !node->m_value->rva001DBAF6() )
 			return false;
 	}
 	return true;
@@ -127,9 +127,9 @@ bool Rva001DBDA4::rva001DBD83() const
 int Rva001DBDA4::rva001DBDA4() const
 {
 	int best = 0;
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
 	{
-		int v = n->m_value->get();
+		int v = node->m_value->get();
 		if( v > best )
 			best = v;
 	}
@@ -138,20 +138,20 @@ int Rva001DBDA4::rva001DBDA4() const
 
 void Rva001DBDA4::rva001DBE17()
 {
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
-		n->m_value->rva001DBB15();
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
+		node->m_value->rva001DBB15();
 }
 
 void Rva001DBDA4::rva001DBE34()
 {
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
-		n->m_value->rva001DBB24();
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
+		node->m_value->rva001DBB24();
 }
 
 void Rva001DBDA4::rva001DBE51()
 {
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
-		n->m_value->rva001DBB33();
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
+		node->m_value->rva001DBB33();
 }
 
 // ?rva001DBACA@Rva00489360@@QAEXH@Z @0x001DBACA 44B: range-guarded inner
@@ -176,8 +176,8 @@ void Rva00489360::rva001DBACA(int value)
 void Rva001DBDA4::rva001DBD5D()
 {
 	m_08 += m_04;
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
-		n->m_value->rva001DBACA(m_08);
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
+		node->m_value->rva001DBACA(m_08);
 }
 
 // ?rva001DBDC6@Rva001DBDA4@@QAEXXZ @0x001DBDC6 81B: Zero Hour's
@@ -227,7 +227,7 @@ void Rva001DBDA4::rva001DC164()
 {
 	m_08 = 0;
 	m_04 = 1;
-	for( Node001DBDA4 *n = m_head->m_next; n != m_head; n = n->m_next )
-		n->m_value->rva001DBD24();
+	for( Node001DBDA4 *node = m_head->m_next; node != m_head; node = node->m_next )
+		node->m_value->rva001DBD24();
 	(*(AudioManager **)&TheTransitionHandler)->m_64 = rva001DBDA4() + 3;
 }

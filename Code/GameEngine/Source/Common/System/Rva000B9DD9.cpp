@@ -118,7 +118,7 @@ void Rva000B9DD9::rva000B9DD9(const AsciiString &asciiString)
 			b = 1;
 		else
 			b = 0;
-		Rva000B9DD9Cached *c = m5c;
-		*(unsigned char *)((char *)c + 4) = b;
+		Rva000B9DD9Cached *shadow = m5c;
+		*(unsigned char *)((char *)shadow + 4) = b;
 	}
 }

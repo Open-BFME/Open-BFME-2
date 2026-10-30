@@ -58,10 +58,10 @@ private:
 void Player::rva002ACD09(void *srcVoid, int id)
 {
 	Src002ACD09 *src = (Src002ACD09 *)srcVoid;
-	Rva002AC3BE *e = new Rva002AC3BE(&src->m_118);
-	int tmp = (int)e;
-	e->m_04 = src->m_11c;
-	e->m_10 = id;
-	e->m_14 = src->m_12a;
-	m_list6f4.push_back(tmp);
+	Rva002AC3BE *entry = new Rva002AC3BE(&src->m_118);
+	int entryId = (int)entry;
+	entry->m_04 = src->m_11c;
+	entry->m_10 = id;
+	entry->m_14 = src->m_12a;
+	m_list6f4.push_back(entryId);
 }

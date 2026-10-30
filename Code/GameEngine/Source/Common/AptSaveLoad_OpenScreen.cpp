@@ -19,25 +19,25 @@ class AptSaveLoad
 {
 public:
 	static AptSaveLoad *s_instance;
-    static void OpenScreen(int a1, int a2, bool a3);
+    static void OpenScreen(int a1, int flags, bool a3);
 };
-void AptSaveLoad::OpenScreen(int a1, int a2, bool a3)
+void AptSaveLoad::OpenScreen(int a1, int flags, bool a3)
 {
     if (AptSaveLoad::s_instance != 0)
         return;
     ((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("SaveLoad.apt"), false);
     ((State00434160 *)AptSaveLoad::s_instance)->f294 = a1;
-    ((State00434160 *)AptSaveLoad::s_instance)->f298 = a2;
+    ((State00434160 *)AptSaveLoad::s_instance)->f298 = flags;
     int c = 1;
-    if (a2 & c)
+    if (flags & c)
         ((State00434160 *)AptSaveLoad::s_instance)->f2a0 = c;
     else {
         c = 2;
-        if (a2 & c)
+        if (flags & c)
             ((State00434160 *)AptSaveLoad::s_instance)->f2a0 = c;
         else {
             c = 4;
-            if (a2 & c)
+            if (flags & c)
                 ((State00434160 *)AptSaveLoad::s_instance)->f2a0 = c;
         }
     }

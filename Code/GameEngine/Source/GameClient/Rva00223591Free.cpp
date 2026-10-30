@@ -77,14 +77,14 @@ void Rva00223591::rva0022380B()
 	m_numElements = 0;
 }
 
-_STL::pair<const AsciiString, TreeHintRef00222C5A> *Rva00223591::rva00223854(const _STL::pair<const AsciiString, TreeHintRef00222C5A> *arg)
+_STL::pair<const AsciiString, TreeHintRef00222C5A> *Rva00223591::rva00223854(const _STL::pair<const AsciiString, TreeHintRef00222C5A> *entry)
 {
 	((Rva000427195 *)this)->rva00212858(m_numElements + 1);
-	int b = ((Rva000427195 *)this)->bucketIndex(&arg->first);
-	void *old = m_beginBuckets[b];
-	void *n = ((Rva00223124 *)this)->rva00223124(arg);
+	int bucket = ((Rva000427195 *)this)->bucketIndex(&entry->first);
+	void *old = m_beginBuckets[bucket];
+	void *n = ((Rva00223124 *)this)->rva00223124(entry);
 	*(void **)n = old;
-	m_beginBuckets[b] = n;
+	m_beginBuckets[bucket] = n;
 	++m_numElements;
 	return (_STL::pair<const AsciiString, TreeHintRef00222C5A> *)((char *)n + 4);
 }
@@ -95,7 +95,7 @@ _STL::pair<const AsciiString, TreeHintRef00222C5A> *Rva00223591::rva00223854(con
 class Rva00056F61;
 struct Rva0041534BIter {
  void *m_node;Rva00056F61 *m_table;
- Rva0041534BIter(void *n,Rva00056F61*t):m_node(n),m_table(t){}
+ Rva0041534BIter(void *n,Rva00056F61*table):m_node(n),m_table(table){}
 };
 class Rva00056F61 {public:__declspec(nothrow) Rva0041534BIter rva0041534B(const AsciiString *);};
 typedef _STL::pair<const AsciiString,AsciiString> Rva002240CBPair;

@@ -137,15 +137,15 @@ public:
 class Rva003B0D7C
 {
 public:
-	unsigned int withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag);
-	void rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag);
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag);
+	void rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag);
 private:
 	char m_pad00[4];
 	int m_val04;
 	int m_val08;
 };
 
-unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *arg2, bool flag)
+unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag)
 {
 	if (amount > (unsigned int)m_val04)
 		amount = m_val04;
@@ -157,25 +157,25 @@ unsigned int Rva003B0D7C::withdraw(unsigned int amount, Rva0039B795 *arg2, bool 
 		reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->addAudioEvent(&evt);
 	}
 	m_val04 -= amount;
-	G00E032F8Wrap *g = (G00E032F8Wrap *)g_00E032F8;
-	if (g != 0) {
+	G00E032F8Wrap *stats = (G00E032F8Wrap *)g_00E032F8;
+	if (stats != 0) {
 		PlayerList *pl = ThePlayerList;
 		if (pl != 0) {
 			Player *local = pl->m_localPlayer;
 			if (local != 0) {
 				if (local->m_playerIndex == m_val08) {
-					g->m_val04 += amount;
+					stats->m_val04 += amount;
 				}
 			}
 		}
 	}
-	if (arg2 != 0) {
-		arg2->rva0039B795(amount);
+	if (tracker != 0) {
+		tracker->rva0039B795(amount);
 	}
 	return amount;
 }
 
-void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag)
+void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag)
 {
 	if (amount == 0)
 		return;
@@ -185,19 +185,19 @@ void Rva003B0D7C::rva003B0D7C(int amount, Rva0039B7AD *arg2, bool flag)
 		reinterpret_cast<Rva003B0D7CAudioView *>(TheAudio)->addAudioEvent(&evt);
 	}
 	m_val04 += amount;
-	G00E032F8Wrap *g = (G00E032F8Wrap *)g_00E032F8;
-	if (g != 0) {
+	G00E032F8Wrap *stats = (G00E032F8Wrap *)g_00E032F8;
+	if (stats != 0) {
 		PlayerList *pl = ThePlayerList;
 		if (pl != 0) {
 			Player *local = pl->m_localPlayer;
 			if (local != 0) {
 				if (local->m_playerIndex == m_val08) {
-					g->m_val08 += amount;
+					stats->m_val08 += amount;
 				}
 			}
 		}
 	}
-	if (arg2 != 0) {
-		arg2->rva0039B7AD(amount);
+	if (tracker != 0) {
+		tracker->rva0039B7AD(amount);
 	}
 }

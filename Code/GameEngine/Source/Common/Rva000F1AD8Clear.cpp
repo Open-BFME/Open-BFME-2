@@ -119,8 +119,8 @@ BfmeSub928F::~BfmeSub928F()
 }
 
 // ?Rva00109DB3EmissionPattern absent-from-retail
-void Rva00109DB3EmissionPattern(BfmeSub928F *p, HashTableClass *hashTable)
+void Rva00109DB3EmissionPattern(BfmeSub928F *manager, HashTableClass *hashTable)
 {
-    delete p;
+    delete manager;
     delete hashTable;
 }

@@ -25,12 +25,12 @@ public:
 };
 void AptPlayerTribute::CloseScreen(void)
 {
-	GlobalA046B4 *p = g_Va00A046B4;
-	if (!p)
+	GlobalA046B4 *instance = g_Va00A046B4;
+	if (!instance)
 		return;
-	if (p->flag)
+	if (instance->flag)
 		return;
-	p->flag = 1;
+	instance->flag = 1;
 	((GlobalA01E48 *)TheShell)->flag = 1;
 	(*(Rva00222479ByteOneSetter **)&g_bfmeAptWindowManager)->enable();
 }
@@ -45,12 +45,12 @@ struct GlobalA04450 { char pad[0x278]; unsigned char flag; };
 extern GlobalA04450 *g_Va00A04450;
 void Rva004E400DEnable(void)
 {
-	GlobalA04450 *p = g_Va00A04450;
-	if (!p)
+	GlobalA04450 *instance = g_Va00A04450;
+	if (!instance)
 		return;
-	if (p->flag)
+	if (instance->flag)
 		return;
-	p->flag = 1;
+	instance->flag = 1;
 	((GlobalA01E48 *)TheShell)->flag = 1;
 	(*(Rva00222479ByteOneSetter **)&g_bfmeAptWindowManager)->enable();
 }
@@ -186,12 +186,12 @@ extern GlobalA04934 *g_Va00A04934;
 GlobalA04934 * g_Va00A04934;
 void Rva0052340DEnable(void)
 {
-	GlobalA04934 *p = g_Va00A04934;
-	if (!p)
+	GlobalA04934 *instance = g_Va00A04934;
+	if (!instance)
 		return;
-	if (p->flag)
+	if (instance->flag)
 		return;
-	p->flag = 1;
+	instance->flag = 1;
 	((GlobalA01E48 *)TheShell)->flag = 1;
 	(*(Rva00222479ByteOneSetter **)&g_bfmeAptWindowManager)->enable();
 }
@@ -206,12 +206,12 @@ struct GlobalA03314 { char pad[0x278]; unsigned char flag; };
 extern GlobalA03314 *g_Va00A03314;
 void Rva0043C96FEnable(void)
 {
-	GlobalA03314 *p = g_Va00A03314;
-	if (!p)
+	GlobalA03314 *instance = g_Va00A03314;
+	if (!instance)
 		return;
-	if (p->flag)
+	if (instance->flag)
 		return;
-	p->flag = 1;
+	instance->flag = 1;
 	((GlobalA01E48 *)TheShell)->flag = 1;
 	(*(Rva00222479ByteOneSetter **)&g_bfmeAptWindowManager)->enable();
 }
@@ -358,10 +358,10 @@ struct GlobalA03314Flag2A1
 };
 int Rva0043C99AGet(void)
 {
-	GlobalA03314 *p = g_Va00A03314;
-	if (p != 0)
+	GlobalA03314 *instance = g_Va00A03314;
+	if (instance != 0)
 	{
-		if (((GlobalA03314Flag2A1 *)p)->m_flag != 0)
+		if (((GlobalA03314Flag2A1 *)instance)->m_flag != 0)
 			return 1;
 	}
 	return 0;

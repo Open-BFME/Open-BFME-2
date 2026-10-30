@@ -111,3 +111,14 @@ agree:nl-f21ec6ec9951,SubTitleWindow::SubTitleWindow::h,SubTitleWindow::SubTitle
 agree:nl-c158818c07b1,SubTitleWindow::SubTitleWindow::w,SubTitleWindow::SubTitleWindow::textWidth,Code/GameEngine/Source/GameClient/SubTitleWindowDestructor.cpp,f73c66e3779638ed3e179ac96deb941021d5490c4d1ead1ce90f31b112ecf3ee
 agree:nl-aed4593a91b3,renderAssetAbs::b,renderAssetAbs::bits,Code/Libraries/Source/WWVegas/WW3D2/RenderAssetParseBFME2.cpp,9104a6f0fafcdab98396aaac42bc1ca7055c9fa12e9db0bb60ba850c07186cd9
 agree:nl-571a305c322a,LivingWorldBattle::rva003F4831::n,LivingWorldBattle::rva003F4831::outerCount,Code/Libraries/Source/WWVegas/WWLib/Rva003F498ALoops.cpp,79a4989e7704846b0d743acd2342d20de39104b6ded5109f8e9abf329eb87a06
+agree:nl-7116158b7e02,Player::rva002ACD09::tmp,Player::rva002ACD09::entryId,Code/GameEngine/Source/Common/RTS/PlayerRva002ACD09.cpp,63e332c9f08e5259d3187801f8977f00480c5b7fca52c2d14ded0a6391c0f072
+agree:nl-fa7e959a399c,Rva00319A12Owner::rva00319A12::p,Rva00319A12Owner::rva00319A12::entry,Code/GameEngine/Source/Common/Rva00319A12Loop.cpp,817d80c824583d994efef44ce0af289c082eb2ff021e18234330162afd54e751
+agree:nl-1ebcdd6a5998,Rva0056693DCopy::n,Rva0056693DCopy::count,Code/GameEngine/Source/Common/Rva00566695Assign.cpp,d6a860098261fbbc987c67fb8ba43b8c0d312921e31998999ae66035c06f997a
+agree:nl-0c7aaebb999e,GetStr005F1A5F::t,GetStr005F1A5F::buffer,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,8f166f4578b85d86a85b08e2314e784bcf409059da998bdcf4667c8c0e1fe67a
+agree:nl-2a37c9c1fa2a,StrategicHUD::GetBonusTypeFromParam::t,StrategicHUD::GetBonusTypeFromParam::buffer,Code/GameEngine/Source/Common/Rva005F1A5F.cpp,fe4a533614303c0c13692cd6f7cd5208300f8fadc5e99d16141e9412bbc49307
+agree:nl-7fa854ce73fa,Rva005F1B75::write::n,Rva005F1B75::write::written,Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,4c698dcd43c7c66fb6f629b7d972455f83eeb42954add37b128932e192358604
+agree:nl-cbb73b6b3321,Rva005F1D06::write::n,Rva005F1D06::write::written,Code/GameEngine/Source/Common/System/Rva00513E03Length.cpp,06dc1953211a064482b30e1d84716bf8f2dc7ffd6ba40ad9b00b8ce250f4d413
+agree:nl-ed40e944667c,MapCache::loadUserMaps::tempchar,MapCache::loadUserMaps::cursor,Code/GameEngine/Source/GameClient/MapCacheLoadUserMapsBFME2.cpp,cc5cc7e5930bdf2a92cec8b073655b0a79ae1922cf59e33bf74bf158c0c13118
+agree:nl-cddca085916d,Rva00223591::rva00223854::b,Rva00223591::rva00223854::bucket,Code/GameEngine/Source/GameClient/Rva00223591Free.cpp,0419c8a0b5115485e5c6c739633178bd60faa7cf1e8a12671709f46385841324
+agree:nl-f2ab89bd34fd,Rva005646BC::Rva005646BC::v,Rva005646BC::Rva005646BC::randomValue,Code/GameEngine/Source/GameClient/System/FXParticleSystem/Rva005646BC.cpp,d26a94de782b0a02756db478e7d0631e21fe6ebf3e2d53475a769a803bdfa9c6
+agree:nl-76cdfcd0f68a,Pathfinder::rva00530212::c,Pathfinder::rva00530212::cosine,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyObjectFootprint.cpp,cacedb33f95be29cf9da433024dffd4fb3feb0e12ff06d7a17a49ec3a41e46c8

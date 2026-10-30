@@ -119,12 +119,12 @@ private:
 
 Rva00111B25Record *Rva00111B5A::rva00111B5A( const char *name )
 {
-	Rva00111B25Record *p = m_begin;
-	while( p != m_end )
+	Rva00111B25Record *record = m_begin;
+	while( record != m_end )
 	{
-		if( p->m_00.compare( name ) == 0 )
-			return p;
-		++p;
+		if( record->m_00.compare( name ) == 0 )
+			return record;
+		++record;
 	}
 	return 0;
 }

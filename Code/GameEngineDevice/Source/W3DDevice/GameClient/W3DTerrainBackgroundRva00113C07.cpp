@@ -65,8 +65,8 @@ public:
 	__declspec(dllimport) __forceinline Int getYExtent() { return m_height; }
 	Int getBorderSize() { return m_borderSize; }
 	UnsignedShort getHeight(Int x, Int y) { return ((BoundedShortGrid *)this)->load(x, y); }
-	bool isInMesh(Int x, Int y) { return ((const Rva00729300BitPlane *)this)->test(x, y); }
-	bool isCellPresent(Int x, Int y) { return ((const Rva0006AB49BitPlane *)this)->test(x, y); }
+	bool isInMesh(Int cellX, Int cellY) { return ((const Rva00729300BitPlane *)this)->test(cellX, cellY); }
+	bool isCellPresent(Int cellX, Int cellY) { return ((const Rva0006AB49BitPlane *)this)->test(cellX, cellY); }
 	bool getFlipState(Int x, Int y) { return ((Rva000ABD19 *)this)->rva000AF841(x, y); }
 	__declspec(dllimport) __forceinline void setFlipState(Int x, Int y, bool value) { ((Rva007497A0 *)this)->setBit(x, y, value); }
 
@@ -93,7 +93,7 @@ public:
 		UnsignedShort *ndx, Int &curIndex);
 	void rva00113399(unsigned short *ib, void *aux, int x, int y, int w, int h,
 		unsigned short *ndx, int &curIndex);
-	void rva00113C07(UnsignedShort *ib, void *aux, Int x, Int y, Int width,
+	void rva00113C07(UnsignedShort *ib, void *aux, Int xOffset, Int yOffset, Int width,
 		bool *done0, bool *done1, bool *done2, bool *done3,
 		UnsignedShort *ndx, Int &curIndex);
 	void getTriangleIntersection(Vector3 *heights, Int x, Int y, Int width, Int height,
@@ -118,7 +118,7 @@ private:
 	Int m_leafWidth;
 };
 
-void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int x, int y, int width,
+void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int xOffset, int yOffset, int width,
 	bool *done0, bool *done1, bool *done2, bool *done3,
 	unsigned short *ndx, int &curIndex)
 {
@@ -128,32 +128,32 @@ void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int x, int
 	*done0 = false;
 
 	bool top, right, bottom, left;
-	checkUnsetEdges(x, y, width, &top, &right, &bottom, &left);
+	checkUnsetEdges(xOffset, yOffset, width, &top, &right, &bottom, &left);
 	int half = width / 2;
 
 	if (right) {
 		if (top) {
-			rva00113399(ib, aux, x, y, half, width, ndx, curIndex);
-			rva00113399(ib, aux, x, y + half, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
 			*done3 = true;
 		} else if (bottom) {
-			rva00113399(ib, aux, x, y + half, width, half, ndx, curIndex);
-			rva00113399(ib, aux, x + half, y, half, width, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
 			*done2 = true;
 		} else {
-			rva00113399(ib, aux, x, y + half, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset + half, width, half, ndx, curIndex);
 			*done3 = true;
 			*done2 = true;
 		}
 	} else if (left) {
 		if (top) {
-			rva00113399(ib, aux, x, y, half, width, ndx, curIndex);
-			rva00113399(ib, aux, x, y, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset, width, half, ndx, curIndex);
 			*done1 = true;
 		} else {
-			rva00113399(ib, aux, x, y, width, half, ndx, curIndex);
+			rva00113399(ib, aux, xOffset, yOffset, width, half, ndx, curIndex);
 			if (bottom) {
-				rva00113399(ib, aux, x + half, y, half, width, ndx, curIndex);
+				rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
 			} else {
 				*done1 = true;
 			}
@@ -162,12 +162,12 @@ void W3DTerrainBackground::rva00113C07(unsigned short *ib, void *aux, int x, int
 	} else if (top) {
 		*done3 = true;
 		*done1 = true;
-		rva00113399(ib, aux, x, y, half, width, ndx, curIndex);
+		rva00113399(ib, aux, xOffset, yOffset, half, width, ndx, curIndex);
 		return;
 	} else if (bottom) {
 		*done2 = true;
 		*done0 = true;
-		rva00113399(ib, aux, x + half, y, half, width, ndx, curIndex);
+		rva00113399(ib, aux, xOffset + half, yOffset, half, width, ndx, curIndex);
 		return;
 	} else {
 		*done3 = true;

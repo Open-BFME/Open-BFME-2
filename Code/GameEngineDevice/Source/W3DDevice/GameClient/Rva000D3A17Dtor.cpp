@@ -19,7 +19,7 @@ private: Rva0074011F buffers; int field08,field0c,field10,field14; Rva000D3A8AEl
 };
 Rva000D3A17::~Rva000D3A17() {
  buffers.rva0074011F();
- for(int i=0;i<10;++i) {Rva000D3A17Resource *p=refs[i].pointer; if(p) {if(--p->references==0) p->Delete_This(); refs[i].pointer=0;}}
+ for(int i=0;i<10;++i) {Rva000D3A17Resource *resource=refs[i].pointer; if(resource) {if(--resource->references==0) resource->Delete_This(); refs[i].pointer=0;}}
 }
 // ?Rva000D3A17DeleteAnchor absent-from-retail
 void Rva000D3A17DeleteAnchor(Rva000D3A17 *p) {delete p;}

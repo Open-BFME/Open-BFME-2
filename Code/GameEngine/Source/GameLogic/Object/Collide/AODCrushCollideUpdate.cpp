@@ -43,7 +43,7 @@ class Drawable; class DamageInfo; class Player;
 struct Coord3D; class Object;
 enum KindOfType { KIND_RAW_D7=0xd7 };
 enum Relationship { ENEMIES, NEUTRAL, ALLIES };
-template<class T> static __forceinline T &rawField(void *p, int offset) { return *(T *)((char *)p+offset); }
+template<class T> static __forceinline T &rawField(void *base, int offset) { return *(T *)((char *)base+offset); }
 class Rva00263895Member {
 public:
  Rva00263895Member() throw();

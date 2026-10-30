@@ -56,10 +56,10 @@ Rva00566695 &Rva00566695::operator=(const Rva00566695 &that)
 // Same 50B shape as rowed Rva004BA2E9Copy at 0x004BA2E9.
 Rva00566695 *Rva0056693DCopy(Rva00566695 *first, Rva00566695 *last, Rva00566695 *out)
 {
-	int n = last - first;
-	if (n <= 0)
+	int count = last - first;
+	if (count <= 0)
 		return out;
-	for (int i = n; i != 0; --i) {
+	for (int i = count; i != 0; --i) {
 		*out = *first;
 		++first;
 		++out;

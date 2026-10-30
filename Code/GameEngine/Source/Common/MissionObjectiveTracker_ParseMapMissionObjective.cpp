@@ -103,14 +103,14 @@ void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 	{
 		if ((Holder00426D14 *)TheMissionObjectiveTracker == 0)
 			return;
-		Rva00426C4D *p = new Rva00426C4D;
-		((Rva0042666E *)p)->rva0042666E(ini);
+		Rva00426C4D *objectiveList = new Rva00426C4D;
+		((Rva0042666E *)objectiveList)->rva0042666E(ini);
 		if (((Holder00426D14 *)TheMissionObjectiveTracker)->m_10 == 0)
 		{
-			((Holder00426D14 *)TheMissionObjectiveTracker)->m_10 = p;
+			((Holder00426D14 *)TheMissionObjectiveTracker)->m_10 = objectiveList;
 			return;
 		}
-		void *q = p ? p->v0(0) : (void *)0;
+		void *q = objectiveList ? objectiveList->v0(0) : (void *)0;
 		::operator delete(q);
 		return;
 	}
@@ -121,7 +121,7 @@ void MissionObjectiveTracker::ParseMapMissionObjective(INI *ini)
 	LogA *logA = (LogA *)theDebug->f27(0, 0, 0);
 	LogB *logB = (LogB *)logA->g14("A MissionObjectiveList may only appear in a map.ini file.");
 	logB->h19(1);
-	INIExceptionBuf e;
-	rva002f681_fill(&e, 9, (const char *)0);
-	_CxxThrowException(&e, (const _s__ThrowInfo *)&throwAnchor00426D14); __assume(0);
+	INIExceptionBuf exception;
+	rva002f681_fill(&exception, 9, (const char *)0);
+	_CxxThrowException(&exception, (const _s__ThrowInfo *)&throwAnchor00426D14); __assume(0);
 }

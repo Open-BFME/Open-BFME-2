@@ -90,12 +90,12 @@ void Rva0007517F::rva00074A52(int posX, int posY, const char *text)
 		return;
 	if (m_28 == 0)
 		return;
-	UnicodeString w;
+	UnicodeString unicodeText;
 	{
 		AsciiString a(text);
-		w.translate(a);
+		unicodeText.translate(a);
 	}
-	m_28->d1(w);
+	m_28->d1(unicodeText);
 	m_28->d10(-1, (int)0xff000000);
 	m_28->d14(m_20 * posX, m_24 * posY + 13, 1, 1);
 }

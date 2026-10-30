@@ -156,8 +156,8 @@ private:
 void AIGameTeam::rva004E94FB()
 {
 	Rva004E94FBHead *head = m_00;
-	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
-		n->m_14->rva002C6845();
+	for (Rva004E94FBNode *node = head->m_first; node != (Rva004E94FBNode *)head; node = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
+		node->m_14->rva002C6845();
 }
 
 // ?rva004E951C@AIGameTeam@@QAEXPAX@Z @0x004E951C 67B.
@@ -166,8 +166,8 @@ void AIGameTeam::rva004E951C(void *o)
 	Rva004E951CTwo t = { 1, 1 };
 	((Rva004E951CObj *)o)->v10(&t);
 	Rva004E94FBHead *head = m_00;
-	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
-		((SkirmishAI *)n->m_14)->DoXfer((Xfer *)o);
+	for (Rva004E94FBNode *node = head->m_first; node != (Rva004E94FBNode *)head; node = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
+		((SkirmishAI *)node->m_14)->DoXfer((Xfer *)o);
 }
 
 // ?getTargetByIndexForPlayer@AIGameTeam@@QAEPAXHH@Z @0x004E955F 51B.
@@ -175,9 +175,9 @@ void AIGameTeam::rva004E951C(void *o)
 void *AIGameTeam::getTargetByIndexForPlayer(int unused, int key)
 {
 	Rva004E94FBHead *head = m_00;
-	for (Rva004E94FBNode *n = head->m_first; n != (Rva004E94FBNode *)head; n = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
+	for (Rva004E94FBNode *node = head->m_first; node != (Rva004E94FBNode *)head; node = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
 	{
-		void *inner = *(void **)((char *)n->m_14 + 0x164);
+		void *inner = *(void **)((char *)node->m_14 + 0x164);
 		void *found = ((Rva002C5FBA *)inner)->rva002C5FBA(key);
 		if (found != 0)
 			return found;
@@ -193,10 +193,10 @@ void AIGameTeam::update()
 		Rva002C585A *x = 0;
 		if (m_0C != m_10)
 		{
-			void *p = getMasterPlayer();
-			if (p != 0)
+			void *masterPlayer = getMasterPlayer();
+			if (masterPlayer != 0)
 			{
-				void *q = ((Rva004E9600 *)this)->rva004E95D4(p);
+				void *q = ((Rva004E9600 *)this)->rva004E95D4(masterPlayer);
 				void *tmp = *(void **)((char *)q + 0x164);
 				x = (Rva002C585A *)*(void **)((char *)tmp + 0x14);
 				if (x != 0)
@@ -209,11 +209,11 @@ void AIGameTeam::update()
 		{
 			((Rva00DFEEF8World *)TheSkirmishAIManager)->m_obj->rva004E8FF6(getMasterPlayer());
 			Rva004E94FBHead *head = m_00;
-			for (Rva004E94FBNode *m = head->m_first; m != (Rva004E94FBNode *)head; m = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)m))
+			for (Rva004E94FBNode *node = head->m_first; node != (Rva004E94FBNode *)head; node = (Rva004E94FBNode *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
 			{
-				void *inner = *(void **)((char *)m->m_14 + 0x164);
+				void *inner = *(void **)((char *)node->m_14 + 0x164);
 				*(void **)((char *)inner + 0x18) = x;
-				((SkirmishAI *)m->m_14)->update();
+				((SkirmishAI *)node->m_14)->update();
 			}
 			rva004E9446();
 			((Rva00DFEEF8World *)TheSkirmishAIManager)->m_obj->rva004E9040(getMasterPlayer());

@@ -103,23 +103,23 @@ struct Rva0050962BArg
 class Rva0050962B
 {
 public:
-	void rva0050962B(const Rva0050962BArg *a, void *b);
-	void rva0050965A(const Rva0050962BArg *a, void *b);
+	void rva0050962B(const Rva0050962BArg *creationArgs, void *b);
+	void rva0050965A(const Rva0050962BArg *creationArgs, void *b);
 private:
 	char m_pad00[0x128];
 	ObjectCreationList *m_128;
 };
-void Rva0050962B::rva0050962B(const Rva0050962BArg *a, void *b)
+void Rva0050962B::rva0050962B(const Rva0050962BArg *creationArgs, void *b)
 {
 	ObjectCreationList *list = m_128;
 	if (list)
-		list->create(TheGameLogic->findObjectByID(a->m_08), b, 0);
+		list->create(TheGameLogic->findObjectByID(creationArgs->m_08), b, 0);
 }
-void Rva0050962B::rva0050965A(const Rva0050962BArg *a, void *b)
+void Rva0050962B::rva0050965A(const Rva0050962BArg *creationArgs, void *b)
 {
 	ObjectCreationList *list = m_128;
 	if (list)
-		list->create(TheGameLogic->findObjectByID(a->m_08), b, 0, 0);
+		list->create(TheGameLogic->findObjectByID(creationArgs->m_08), b, 0, 0);
 }
 
 // 0x00513838: false after the rowed 0x002233A6(1) on the object at VA

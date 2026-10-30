@@ -83,20 +83,20 @@ public:
 	bool m_c4;
 	bool m_c5;
 
-	Rva005C4230(void *arg0, Arg1Host005C4280 *arg1);
+	Rva005C4230(void *arg0, Arg1Host005C4280 *host);
 	virtual ~Rva005C4230();
 };
 
-Rva005C4230::Rva005C4230(void *arg0, Arg1Host005C4280 *arg1)
+Rva005C4230::Rva005C4230(void *arg0, Arg1Host005C4280 *host)
 	: Rva005C4B56(Helper005C4D4B(arg0), true, 0)
 {
 	m_c0 = -1;
-	m_bc = arg1;
+	m_bc = host;
 	m_c4 = true;
 	m_c5 = false;
-	if (arg1) {
-		if (arg1->m_field38) {
-			m_c0 = arg1->m_field38->get();
+	if (host) {
+		if (host->m_field38) {
+			m_c0 = host->m_field38->get();
 		}
 		if (m_ac->m_flag60) {
 			((Rva002BFF5A *)TheLivingWorld)->rva002BFFD4((Rva002BFFD4Template *)this, 4, (unsigned int)m_b0);

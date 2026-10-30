@@ -34,13 +34,13 @@ class Rva0004B1D2 {
 public:
 	void *m_00;
 	BfmeContainerRecord00048139 *m_04;
-	BfmeContainerRecord00048139 *rva0004B1D2(BfmeContainerRecord00048139 *a1, const char *a2);
+	BfmeContainerRecord00048139 *rva0004B1D2(BfmeContainerRecord00048139 *a1, const char *first);
 	void rva0004B223();
 };
 
-BfmeContainerRecord00048139 *Rva0004B1D2::rva0004B1D2(BfmeContainerRecord00048139 *a1, const char *a2)
+BfmeContainerRecord00048139 *Rva0004B1D2::rva0004B1D2(BfmeContainerRecord00048139 *a1, const char *first)
 {
-	BfmeContainerRecord00048139 *newEnd = copyRecordRangeWithScratch(a2, (const char *)m_04, a1, (void *)(((char *)&a1) + 3));
+	BfmeContainerRecord00048139 *newEnd = copyRecordRangeWithScratch(first, (const char *)m_04, a1, (void *)(((char *)&a1) + 3));
 	_STL::_Destroy(newEnd, m_04);
 	m_04 = newEnd;
 	return a1;

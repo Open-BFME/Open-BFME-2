@@ -122,9 +122,9 @@ if(i != finish){do{
 		++i;
 	}while(i != (Rva001F0996Elem1 **)self->m_vec24.m_end);}
 	((_STL::vector<void *> *)&v24)->erase(((_STL::vector<void *> *)&v24)->begin(), ((_STL::vector<void *> *)&v24)->end());
-	for (Rva001F0996Node *n = self->m_list0C.m_ptr00->m_next08; n != self->m_list0C.m_ptr00; n = (Rva001F0996Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)n))
+	for (Rva001F0996Node *node = self->m_list0C.m_ptr00->m_next08; node != self->m_list0C.m_ptr00; node = (Rva001F0996Node *)_STL::_Rb_global<bool>::_M_increment((_STL::_Rb_tree_node_base *)node))
 	{
-		Rva001F077D *v = n->m_value14;
+		Rva001F077D *v = node->m_value14;
 		if (v)
 			delete v;
 	}

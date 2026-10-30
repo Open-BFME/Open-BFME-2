@@ -250,12 +250,12 @@ extern AudioManager *TheAudio;
 // ?Rva0005244ALoop@@YAXH@Z retail 0x0005244A 48B
 // Null-guarded rva00051FFE(v) over the three volume blocks.
 // Evidence: rowed callee 0x00051FFE, TheAudio 0x009FE6E8, caller site.
-void Rva0005244ALoop(int v)
+void Rva0005244ALoop(int volumeType)
 {
 	if (TheAudio == 0)
 		return;
 	for (int i = 0; i < 3; ++i)
-		TheAudio->m_volumeData[i].rva00051FFE(v);
+		TheAudio->m_volumeData[i].rva00051FFE(volumeType);
 }
 
 // ?Rva000524AALoop@@YAXXZ retail 0x000524AA 44B

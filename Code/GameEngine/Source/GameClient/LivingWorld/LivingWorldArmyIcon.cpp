@@ -9,7 +9,7 @@
 #include "Coord2D.h"
 struct Rva00538E43Coord : Coord2D {
  Rva00538E43Coord(){x=0;y=0;}
- Rva00538E43Coord(const Rva00538E43Coord &v){x=v.x;y=v.y;}
+ Rva00538E43Coord(const Rva00538E43Coord &other){x=other.x;y=other.y;}
 };
 class Rva00318B5C : public Snapshot {
 public:
@@ -114,12 +114,12 @@ void LivingWorldArmyIcon::rva003FE342()
 		if (active) {
 			Coord2D step;
 			continueMoving(&step);
-			Vector3 v;
-			v.X=step.x;
-			v.Y=step.y;
-			v.Z=0.0f;
-			((Rva002BF4F3 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF5B0((const Vector3 *)&step,&v);
-			((Rva003FE342Virtual *)this)->s5(&v);
+			Vector3 position;
+			position.X=step.x;
+			position.Y=step.y;
+			position.Z=0.0f;
+			((Rva002BF4F3 *)((Rva002D3627Host *)TheLivingWorld))->rva002BF5B0((const Vector3 *)&step,&position);
+			((Rva003FE342Virtual *)this)->s5(&position);
 		}
 	}
 }

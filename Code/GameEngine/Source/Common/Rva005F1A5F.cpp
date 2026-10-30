@@ -10,8 +10,8 @@ bool __cdecl Rva004128F0GetParam(const char *params, const char *key, AsciiStrin
 
 __forceinline const char *GetStr005F1A5F(const AsciiString &asciiString)
 {
-	char *t = *(char * *)(void *)&asciiString;
-	return t ? t + 8 : "";
+	char *buffer = *(char * *)(void *)&asciiString;
+	return buffer ? buffer + 8 : "";
 }
 
 namespace StrategicHUD
@@ -26,10 +26,10 @@ bool StrategicHUD::GetBonusTypeFromParam(const char *params, int *out)
 	AsciiString tmp;
 	if (!Rva004128F0GetParam(params, "index", tmp))
 		return false;
-	char *t = *(char * *)(void *)&tmp;
-	if (t == 0 || *(unsigned short *)(t + 4) == 0)
+	char *buffer = *(char * *)(void *)&tmp;
+	if (buffer == 0 || *(unsigned short *)(buffer + 4) == 0)
 		return false;
-	if (!isdigit(t[8]))
+	if (!isdigit(buffer[8]))
 		return false;
 	int v = atoi(GetStr005F1A5F(tmp));
 	if (v < 0 || v >= 6)

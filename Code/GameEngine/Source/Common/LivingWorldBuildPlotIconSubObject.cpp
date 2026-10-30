@@ -93,17 +93,17 @@ public:
 	int m_padC0;            // +0xc0
 	int m_c0;               // +0xc4
 
-	LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *arg1);
+	LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *host);
 };
 
-LivingWorldBuildPlotIconSubObject::LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *arg1)
+LivingWorldBuildPlotIconSubObject::LivingWorldBuildPlotIconSubObject(void *arg0, Arg1Host005DB271 *host)
 	: Rva005C4B56(Helper005C4D4B(arg0), true, 0)
 {
-	m_bc = arg1;
+	m_bc = host;
 	m_c0 = -1;
-	if (arg1) {
-		if (arg1->m_field38) {
-			m_c0 = arg1->m_field38->m_1c->m_13c;
+	if (host) {
+		if (host->m_field38) {
+			m_c0 = host->m_field38->m_1c->m_13c;
 		}
 		if (m_ac->m_flag58) {
 			((Rva002BFF5A *)TheLivingWorld)->rva002BFFD4((Rva002BFFD4Template *)this, 5, (unsigned int)m_b0);

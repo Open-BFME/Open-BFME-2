@@ -77,9 +77,9 @@ private:
 void Rva00238E1B::rva00238FF3(Rva00238FF3Arg *arg)
 {
 	arg->v05("drawables");
-	Rva00238FF3Node *p = m_head;
-	for (; p != 0; p = p->m_next)
-		p->w14(arg);
+	Rva00238FF3Node *node = m_head;
+	for (; node != 0; node = node->m_next)
+		node->w14(arg);
 	Rva00238FF3Arg *host = arg;
 	void *zero = 0;
 	host->v31(&zero);

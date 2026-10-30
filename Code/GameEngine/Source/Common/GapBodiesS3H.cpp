@@ -127,21 +127,21 @@ public:
 class Rva002E41EC
 {
 public:
-	virtual bool rva002E41EC(void *a, void *b);
+	virtual bool rva002E41EC(void *file, void *b);
 };
 
 // The parse step is the rowed PolygonTriggerDataChunkParserBase::parse; this
 // class's relation to it is not recovered, so it is reached through this.
-bool Rva002E41EC::rva002E41EC(void *a, void *b)
+bool Rva002E41EC::rva002E41EC(void *file, void *b)
 {
 	if (!reinterpret_cast<PolygonTriggerDataChunkParserBase *>(this)->parse(
-			*static_cast<DataChunkInput *>(a), static_cast<const DataChunkInfo *>(b)))
+			*static_cast<DataChunkInput *>(file), static_cast<const DataChunkInfo *>(b)))
 		return false;
 	int maxID = 0;
-	for (Rva002E373CTrigger *t = g_Va00DBD0F4->m_first; t; t = t->m_next)
+	for (Rva002E373CTrigger *trigger = g_Va00DBD0F4->m_first; trigger; trigger = trigger->m_next)
 	{
-		if (t->m_id > maxID)
-			maxID = t->m_id;
+		if (trigger->m_id > maxID)
+			maxID = trigger->m_id;
 	}
 	if (maxID + 1 > PolygonTrigger::s_currentID)
 		PolygonTrigger::s_currentID = maxID + 1;
