@@ -36,6 +36,26 @@
 	{ \
 		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
 	}
+// ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ @0x4827aa
+// (69B): cached pool-name key for FireWeaponWhenDamagedBehavior. The class
+// identity comes from the pool-name string the body pushes
+// ("FireWeaponWhenDamagedBehavior"); the body guards a function-local static
+// key fetched once through TheNameKeyGenerator. It is NOT getClassMemoryPool:
+// retail stores nameToKey's return (a key, not a pool pointer) and returns it,
+// and the address carries no getClassMemoryPool row anywhere. /EHsc for the
+// static-guard EH prologue; globals are TU-local externs (DIR32 slots patch
+// from retail, no pins; nameToKey resolves via its matched row).
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+extern NameKeyGenerator *TheNameKeyGenerator;
 
 static const int UPDATE_SLEEP_NONE = 1;
 
@@ -74,6 +94,8 @@ public:
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827EFByteChase32Field, 0x1C, 0x114)
 
 BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva004827F9ByteChase32Field, 0x1C, 0x115)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp
 
@@ -248,11 +270,8 @@ void Rva00482A4DRecord_Delete(Rva00482A4DRecord *p)
 // This caller's native REL32 already names the kept provider at 0x00482551.
 // Compatible calling convention and argument/return ABI; binding is address-proven.
 
-// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x00482641 361B ?xfer@Rva00482641@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00482641Xfer.cpp (not merged yet)
 
-// tu-skeleton: 0x004827AA 69B ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
 
@@ -272,10 +291,20 @@ void Rva00482A4DRecord_Delete(Rva00482A4DRecord *p)
 // backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
 // reading as BFME1's ChainedFieldGetters.
 
+// tu-skeleton: 0x0048263B 6B ?name@FireWeaponWhenDamagedBehavior@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00482641 361B ?xfer@Rva00482641@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00482641Xfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp
+
+// ?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ
+NameKeyType FireWeaponWhenDamagedBehavior::getModuleNameKey() const
+{
+	static NameKeyType TheFireWeaponWhenDamagedBehaviorPoolKey =
+		TheNameKeyGenerator->nameToKey("FireWeaponWhenDamagedBehavior");
+	return TheFireWeaponWhenDamagedBehaviorPoolKey;
+}
+
 // tu-skeleton: 0x00482A69 187B ?onDamage@FireWeaponWhenDamagedBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp (not merged yet)
 
 // tu-skeleton: 0x00482B24 149B ?update@FireWeaponWhenDamagedBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BBAE 13B $L310 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp (not merged yet)
-
-// tu-skeleton: 0x0078BBBB 10B __ehhandler$?getModuleNameKey@FireWeaponWhenDamagedBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehaviorPoolKey.cpp (not merged yet)
