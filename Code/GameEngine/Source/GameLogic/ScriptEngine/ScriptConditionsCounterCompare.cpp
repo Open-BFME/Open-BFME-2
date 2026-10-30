@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 // ScriptConditions counter-compare condition, retail 0x003E7CBA (201B):
 // compares the values of two script counters. Ported from Open-BFME-1's
 // ScriptConditionsCounterCompareRva00325BC0.cpp (donor revision
@@ -16,7 +16,7 @@
 // 0x00DBA4EC times the real times 1000, rounded up through the msvcrt
 // ceil import and narrowed by BaseType.h's fast_float2long_round (retail's
 // fstp dword / fld / fistp dword; a C cast emits _ftol2).
-#include "StringInline.h"
+#include "ascii_string.h"
 #include <math.h>
 
 class Parameter
@@ -71,12 +71,7 @@ __forceinline long fast_float2long_round(float f)
 	return i;
 }
 
-class ScriptConditions
-{
-protected:
-	bool evaluateCounterCounter(Condition *condition);
-	bool evaluateCounterSeconds(Condition *pCondition);
-};
+#include "../../../Include/GameLogic/ScriptConditions.h"
 
 bool ScriptConditions::evaluateCounterCounter(Condition *condition)
 {
