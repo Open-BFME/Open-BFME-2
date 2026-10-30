@@ -1,4 +1,5 @@
 // cl: /O1 /EHs /MD
+// stlport46
 // Retail 0x00170999 33B: Rva00170999 ctor copying AssetReference at +0 via
 // rowed ??0AssetReference@@QAE@ABV0@@Z and 16 bytes at +4 from second arg.
 // Evidence: callees rowed; callers 0x00170A58 (by-value wrapper) and 0x00171128
