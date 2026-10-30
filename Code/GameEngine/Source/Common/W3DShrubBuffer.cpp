@@ -72,6 +72,30 @@ public:
 	int m_tail;
 };
 
+// ?rva000E7016@W3DShrubBuffer@@QAEXXZ 0x000E7016 195B
+// Reset after Rva000E6AC0::rva000E65B1: release FirstElem pair at +0x19EC/+0x19F0
+// stride 0xA0 bounded by count at +0x4FB58, zero floats at +0x1948/+0x194C,
+// reload floats at +0x1950/+0x1954 from g_Va00BBB8D8, clear count, set dirty
+// at +0x4FB5C, release 0x40 RefItem array at +0x4FB70 stride 0x5C, fill -1 over
+// [0x5C0,0x1948), zero tail at +0x51270.
+// Evidence: calls rowed rva000E65B1; count/dirty/tail offsets match Rva000E6FE3
+// W3DShrubBuffer::rva000E76B8 neighbours and W3DTreeBuffer second-array pattern; callers at
+// 0x0006D5DE 0x000E9BCA 0x000E9CAD 0x000682B2. 0x000E9CAD is the W3DShrubBuffer
+// ctor on its own this; +0x4FB58/+0x4FB70/+0x51270 are its count, type array
+// and type count, past the Rva000E6AC0 base.
+
+class Rva000E6AC0
+{
+public:
+	void rva000E65B1();
+};
+
+extern float g_Va00BBB8D8;
+
+struct FloatPair;
+
+// ---- from Code/GameEngine/Source/Common/W3DShrubBuffer.cpp
+
 // ---- from Code/GameEngine/Source/Common/Rva000E6EF0Bucket.cpp
 
 __forceinline long FloatToLong(float f)
@@ -126,4 +150,47 @@ bool W3DShrubBuffer::rva000E90DB(unsigned key, int mode)
 	return false;
 }
 
-// tu-skeleton: 0x000E7016 195B ?rva000E7016@W3DShrubBuffer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000E7016Reset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000E7016Reset.cpp
+
+void W3DShrubBuffer::rva000E7016()
+{
+	((Rva000E6AC0 *)this)->rva000E65B1();
+	for (int i = 0; i < m_count; ++i)
+	{
+		RefItem *refItem = m_records[i].p0;
+		if (refItem != 0)
+		{
+			if (--refItem->m_ref == 0)
+				refItem->Release();
+			m_records[i].p0 = 0;
+		}
+		RefItem *p1 = m_records[i].p1;
+		if (p1 != 0)
+		{
+			if (--p1->m_ref == 0)
+				p1->Release();
+			m_records[i].p1 = 0;
+		}
+	}
+	m_minY = 0.0f;
+	m_minX = 0.0f;
+	float tmp = g_Va00BBB8D8;
+	m_count = 0;
+	m_maxY = tmp;
+	m_maxX = tmp;
+	m_dirty = 1;
+	for (int i = 0; i < 0x40; ++i)
+	{
+		RefItem *&slot = m_array2[i].p;
+		RefItem *p = slot;
+		if (p != 0)
+		{
+			if (--p->m_ref == 0)
+				p->Release();
+			slot = 0;
+		}
+	}
+	for (int i = 0; i < 0x4E2; ++i)
+		m_fill[i] = -1;
+	m_tail = 0;
+}

@@ -207,7 +207,6 @@ address_global	Code/GameEngine/Source/Common/Rva000B3A2D.cpp	g_Va00DB3BDC	2
 address_global	Code/GameEngine/Source/Common/Rva000B3B2B.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva000B5C41.cpp	g_Va00BBB8D8	3
 address_global	Code/GameEngine/Source/Common/Rva000B992CBuild.cpp	g_Rva0107301CEmptyString	2
-address_global	Code/GameEngine/Source/Common/Rva000E7016Reset.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/Rva000F630CGet.cpp	g_Va009E1F6C	3
 address_global	Code/GameEngine/Source/Common/Rva001363A1Get.cpp	g_Va00DF29B4	2
 address_global	Code/GameEngine/Source/Common/Rva0013676DClear.cpp	g_Va00DF29B4	2
@@ -858,6 +857,7 @@ address_global	Code/GameEngine/Source/Common/VslotSmallBodiesY.cpp	g_Va00A04908	
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00740A60Table	3
 address_global	Code/GameEngine/Source/Common/W3DAptComponentView3D.cpp	g_Rva00789900Table	1
 address_global	Code/GameEngine/Source/Common/W3DHordeModelDrawManager.cpp	g_Va001FDEB0	4
+address_global	Code/GameEngine/Source/Common/W3DShrubBuffer.cpp	g_Va00BBB8D8	2
 address_global	Code/GameEngine/Source/Common/WW3DOptionSetter.cpp	g_Va00DEC40C	3
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BF8	2
 address_global	Code/GameEngine/Source/Common/calc.cpp	g_Va00863BFC	2

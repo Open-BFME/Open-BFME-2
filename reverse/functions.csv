@@ -31313,7 +31313,7 @@ _rva006D9D70Comparator,,0x006D9D70,203,Code/Libraries/Source/Apt/AptArray.cpp,ma
 ?rva000EA24D@W3DTreeBuffer@@QAEXXZ,,0x000EA24D,115,Code/GameEngine/Source/Common/Rva000EA24DReset.cpp,matched,DX8 guard base reset plus ref array release
 ?rva00214F14@Rva009519B@@UAEXXZ,,0x00214F14,426,Code/GameEngine/Source/Common/Rva00214F14Init.cpp,matched,vslot 14 of 0x007C81A8 five strings via set Cos Sin rowed; spelled virtual: slot 14 of vftable 0x00BC81A8 that the class's own destructor install at +0; retail never calls it directly
 ??1Rva005011DA@@QAE@XZ,,0x005011DA,63,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp,matched,vector dtor via rowed 0x00500CB8 and free 0x00030830 caller 0x00501776
-?rva000E7016@W3DShrubBuffer@@QAEXXZ,,0x000E7016,195,Code/GameEngine/Source/Common/Rva000E7016Reset.cpp,matched,DX8 guard base plus dual ref release float reload and fill
+?rva000E7016@W3DShrubBuffer@@QAEXXZ,,0x000E7016,195,Code/GameEngine/Source/Common/W3DShrubBuffer.cpp,matched,DX8 guard base plus dual ref release float reload and fill
 ?rva000E73CE@Rva000E73CE@@QAEXXZ,,0x000E73CE,46,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DShrubBuffer.cpp,matched,shroud null fill over stride A0 via rowed global
 ??0Rva000E771B@@QAE@XZ,,0x000E771B,25,Code/GameEngine/Source/Common/Rva000E771BCtor.cpp,matched,Region2D array ctor via vector iterator
 ?parseAutoResolveReinforcementScheduleDefinition@@YAXPAVINI@@@Z,,0x00413D58,115,Code/GameEngine/Source/Common/Rva00413D58Parse.cpp,matched,chain lane INI dispatch Attacker Defender via 0x00413D46
