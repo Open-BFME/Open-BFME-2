@@ -3546,8 +3546,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeR
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSet1251@BfmeSub1251@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSetESI@BfmeStateESI@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerConnectReply.cpp	?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslServiceList.cpp	?bfmeAddVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslServiceList.cpp	?bfmeRemoveVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z	1
@@ -3904,6 +3902,8 @@ alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
+alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeAddVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1
+alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeRemoveVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeImplVMI@BfmeStrVMI@@QAEXHHHHPAD@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008312E0StringReplace.cpp	?bfmeInsertV54@BfmeStrV54@@QAEXPAD0000@Z	1
 alternatename	Code/Libraries/Source/STLport/Rva008314E0StringReplace.cpp	?bfmeImplVML@BfmeStrVML@@QAEXHHHHPAD@Z	1
