@@ -12778,10 +12778,11 @@ spelling it `CollideModuleInterface` here would add a conflicting one-slot copy.
 Verified: `./build.sh` 1/1; scoped DIR32 consistency over the thunk,
 DeflectSpecialPower.cpp and SupplyCenterDockUpdateConstructor.cpp OK
 (21 symbols); `link_check` 591 -> 669 B over the five DeflectSpecialPower units
-(thunk 0 -> 78). Follow-up: nothing in the thunk references
-`?deflectSpecialPowerIface5Anchor@DeflectSpecialPowerIface5@@UAEXXZ` any more;
-its present-unmatched definition in `SupplyCenterDockUpdateConstructor.cpp`
-can go once no other object references it.
+(thunk 0 -> 78). Follow-up done: nothing referenced
+`?deflectSpecialPowerIface5Anchor@DeflectSpecialPowerIface5@@UAEXXZ` any more
+(census touches: only the old thunk and its definer), so its present-unmatched
+definition in `SupplyCenterDockUpdateConstructor.cpp` is removed (1/1 row,
+LINKS 49 -> 49 B; one hatch line retired).
 
 ### LINK-158: SpawnArmy.cpp's merged SplineCamera parser named pin-only placeholders and an undefined field table (2026-10-30, seat halilkkaya-lk8)
 
@@ -12803,5 +12804,6 @@ the TU's existing `Rva004E32F2` view (ctor declared), its owner the rowed
 spelling (three entries plus terminator, 64 B; new data row byte-verified).
 Verified: `./build.sh` 52/52 rows and 5 data rows; scoped DIR32 consistency over
 SpawnArmy.cpp and its five providers OK (19 symbols); `link_check` 273 -> 2,200 B
-over the six units (SpawnArmy.cpp 0 -> 1,927, providers unchanged). Follow-up:
-the three pins above now have no consumer and can be dropped.
+over the six units (SpawnArmy.cpp 0 -> 1,927, providers unchanged). Follow-up
+done in `95c6888450`: the three pins above had no consumer left and are dropped
+(pin 9405 -> 9402).

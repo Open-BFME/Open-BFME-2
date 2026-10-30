@@ -209,16 +209,6 @@ void DeflectSpecialPowerIface4::deflectSpecialPowerIface4Anchor()
 {
 }
 
-// ?deflectSpecialPowerIface5Anchor@DeflectSpecialPowerIface5@@UAEXXZ present-unmatched
-struct DeflectSpecialPowerIface5
-{
-	virtual void deflectSpecialPowerIface5Anchor();
-};
-
-void DeflectSpecialPowerIface5::deflectSpecialPowerIface5Anchor()
-{
-}
-
 // ?siegeAIUpdateIface2Anchor@SiegeAIUpdateIface2@@UAEXXZ present-unmatched
 struct SiegeAIUpdateIface2
 {
