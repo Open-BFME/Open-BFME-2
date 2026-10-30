@@ -214,6 +214,15 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 #include "GameClient/SelectionInfo.h"
 #include "GameClient/SelectionXlat.h"
 #include "GameClient/TerrainVisual.h"
+// The list scans compare iterator nodes inline, but the generic base operator
+// emits a competing out-of-line copy under this unit's flags. Keep the same
+// node comparison local, as stlport_vector_stringrecord_5de651_fill_insert.cpp does.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 // Suppress this TU's non-retail copy of ?_M_set@?$vector@PAXV?$allocator@PAX@_STL@@@_STL@@IAEXPAPAX00@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void vector<void *,allocator<void *> >::_M_set(void * *,void * *,void * *); }

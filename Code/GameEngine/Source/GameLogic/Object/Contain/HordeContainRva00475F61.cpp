@@ -37,6 +37,15 @@ namespace _STL { void __cdecl free(void *); }
 #include "ascii_string.h"
 #include "stlport/stl/_algobase.h"
 #include <list>
+// The list scans compare iterator nodes inline, but the generic base operator
+// emits a competing out-of-line copy under this unit's flags. Keep the same
+// node comparison local, as stlport_vector_stringrecord_5de651_fill_insert.cpp does.
+namespace _STL {
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
+{ return a._M_node != b._M_node; }
+}
 #include <vector>
 #include <map>
 #include <bitset>

@@ -11780,6 +11780,21 @@ strict receipts, first `GameClient/GUI/GUICallbacks/Apt/AptPlayerStatusDtor.cpp`
 Carry those providers and affected consumers into the next scheduled census.
 [Target facts, rejected trial and verification scope](../reverse/attempt_support/fill-insert-list-compare-20261030-codexb4.md).
 
+Follow-up (2026-10-30): the three other wrong copies are repaired with the
+same TU-local `_STL::operator!=` for `_List_iterator`:
+`GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp`,
+`GameLogic/Object/Contain/HordeContainRva00475F61.cpp` and
+`GameLogic/AI/AIPlayerQueueSupplyTruck.cpp`. Retail inlines the node compare
+(`areAllSelected` at `0042FA0D`: `cmp esi,[ebx]`). In the old objects, only
+`.debug$F` referenced the out-of-line copy. Normal builds pass 6/6 and 13/13
+rows, and the funclet pins verify past renumbering. Each object loses only the
+`??9` definition (COMDATs 652 -> 651, 724 -> 723, 66 -> 65). No other COMDAT
+is added or changed, and the undefined externals are identical. Preview
+against index `6fe1089c24`: 3 of 3 link cleanly, LINKED 0 -> 7,362 bytes
+(Selection alone 0 -> 4,150). The retail provider `stlport_list_int.cpp` still
+does not link itself (0 of 1; codegen-like `distance`/`size`/`resize` copies).
+Census confirmation remains open, and no census gain is claimed.
+
 ### Owning-return clone STLport 4.6 ABI (2026-10-30)
 
 `Rva004E74A0Clone.cpp` now uses STLport 4.6. Its class-key return mangling,
