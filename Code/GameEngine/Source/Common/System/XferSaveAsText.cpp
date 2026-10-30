@@ -27,6 +27,17 @@ namespace _STL { void __cdecl free(void *); }
 #include <stdarg.h>
 #include <string.h>
 #pragma function(strlen)
+//
+// XferSaveAsText (text-dumping Xfer, vtable 0x00C7B388) stream-attach worker
+// at 0x0060F0CE, 43 bytes. Layout taken from BfmeRva00C7B388Xfer.cpp: +4 is
+// the one-shot pending-label flag, +8 the stream sink, +0x0C the
+// vector<basic_string<char>> open-block stack. The body refuses a second
+// attach, stores the stream, clears the open-block vector with the STLport
+// range erase (pinned 0x0007A7AA), clears the label flag and reports success.
+// No source names the class or this method, so both keep address-derived
+// names; the member meanings are target evidence from the sibling bodies.
+
+class BfmeRva00C7B388Stream;
 
 // ~_Vector_base<string> is supplied by the first unit in link order
 // (stlport_uninitialized_fill_n12.cpp); this unit's copy differs from it.
@@ -100,11 +111,33 @@ private:
 	bool m_pending;
 };
 
+namespace _STL
+{
+// Bind the range erase to the rowed 0x0007A7AA worker.
+typedef basic_string<char, char_traits<char>, allocator<char> > BfmeNarrowString;
+template <> BfmeNarrowString *vector<BfmeNarrowString, allocator<BfmeNarrowString> >::erase(BfmeNarrowString *first, BfmeNarrowString *last);
+}
+
+class XferSaveAsText
+{
+public:
+	virtual ~XferSaveAsText();
+
+	bool rva0060F0CE(BfmeRva00C7B388Stream *stream);
+
+private:
+	bool m_bfme04;					// +0x04
+	BfmeRva00C7B388Stream *m_bfme08;	// +0x08
+	char m_bfme0C[12];				// +0x0C: vector<basic_string<char>>
+};
+
 // tu-skeleton: 0x0060D5F2 124B ?Print@XferSaveAsText@@SAXPAV1@PBDZZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0060D66E 286B ?XferRawBytes@XferSaveAsText@@UAEAAVXfer@@PAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0060D78C 52B ??8XferSaveAsText@@UAEAAVXfer@@AAVVersion@1@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 
 // ---- from Code/GameEngine/Source/Common/Gen009D93A0.cpp
 
@@ -118,68 +151,6 @@ Gen009D93A0 *Gen009D93A0::bfmeEmit(const unsigned int *value)
 	bfmeAppend(this, "%s:", *value);
 	return this;
 }
-
-// tu-skeleton: 0x0060D7F1 52B ??8XferSaveAsText@@UAEAAVXfer@@AAD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D825 52B ??8XferSaveAsText@@UAEAAVXfer@@AAE@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D859 51B ??8XferSaveAsText@@UAEAAVXfer@@AA_N@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D88C 51B ??8XferSaveAsText@@UAEAAVXfer@@AAH@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D8BF 56B ??8XferSaveAsText@@UAEAAVXfer@@AA_J@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D8F7 51B ??8XferSaveAsText@@UAEAAVXfer@@AAI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D92A 52B ??8XferSaveAsText@@UAEAAVXfer@@AAF@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D95E 52B ??8XferSaveAsText@@UAEAAVXfer@@AAG@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D992 61B ??8XferSaveAsText@@UAEAAVXfer@@AAM@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060D9CF 53B ??8XferSaveAsText@@UAEAAVXfer@@AAVPooledString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA04 69B ??8XferSaveAsText@@UAEAAVXfer@@AAUCoord3DBase@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA49 55B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DA80 90B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DADA 64B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB1A 62B ??8XferSaveAsText@@UAEAAVXfer@@AAVCoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB58 52B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DB8C 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DBD8 58B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC12 62B ??8XferSaveAsText@@UAEAAVXfer@@AAURealRange@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC50 69B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DC95 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorReal@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DCE1 58B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorInt@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DD1B 124B ?XferEnum@XferSaveAsText@@UAEAAVXfer@@PBDPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DD97 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DDD7 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DE17 12B ?pop_back@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DE23 142B ?EndBlock@XferSaveAsText@@UAEXXZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DEB1 36B ??0XferSaveAsText@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DED5 54B ??1XferSaveAsText@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DF0B 28B ??_GXferSaveAsText@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0060DF27 142B ?rva0060DF27@XferSaveAsText@@QAEHPBD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/System/XferSaveAsText.cpp
 
@@ -668,7 +639,82 @@ Bool Rva0060DFB5(File *input, File *output)
 	}
 }
 
-// tu-skeleton: 0x0060F0CE 43B ?rva0060F0CE@XferSaveAsText@@QAE_NPAVBfmeRva00C7B388Stream@@@Z -- matched in Code/GameEngine/Source/Common/System/Rva0060F0CECluster.cpp (not merged yet)
+// tu-skeleton: 0x0060D7F1 52B ??8XferSaveAsText@@UAEAAVXfer@@AAD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D825 52B ??8XferSaveAsText@@UAEAAVXfer@@AAE@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D859 51B ??8XferSaveAsText@@UAEAAVXfer@@AA_N@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D88C 51B ??8XferSaveAsText@@UAEAAVXfer@@AAH@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D8BF 56B ??8XferSaveAsText@@UAEAAVXfer@@AA_J@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D8F7 51B ??8XferSaveAsText@@UAEAAVXfer@@AAI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D92A 52B ??8XferSaveAsText@@UAEAAVXfer@@AAF@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D95E 52B ??8XferSaveAsText@@UAEAAVXfer@@AAG@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D992 61B ??8XferSaveAsText@@UAEAAVXfer@@AAM@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060D9CF 53B ??8XferSaveAsText@@UAEAAVXfer@@AAVPooledString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DA04 69B ??8XferSaveAsText@@UAEAAVXfer@@AAUCoord3DBase@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DA49 55B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DA80 90B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DADA 64B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion3D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DB1A 62B ??8XferSaveAsText@@UAEAAVXfer@@AAVCoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DB58 52B ??8XferSaveAsText@@UAEAAVXfer@@AAUICoord2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DB8C 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DBD8 58B ??8XferSaveAsText@@UAEAAVXfer@@AAUIRegion2D@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DC12 62B ??8XferSaveAsText@@UAEAAVXfer@@AAURealRange@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DC50 69B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBColor@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DC95 76B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorReal@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DCE1 58B ??8XferSaveAsText@@UAEAAVXfer@@AAURGBAColorInt@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DD1B 124B ?XferEnum@XferSaveAsText@@UAEAAVXfer@@PBDPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DD97 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DDD7 64B ??8XferSaveAsText@@UAEAAVXfer@@AAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DE17 12B ?pop_back@?$vector@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@V?$allocator@V?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_narrow_string_destroy.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DE23 142B ?EndBlock@XferSaveAsText@@UAEXXZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DEB1 36B ??0XferSaveAsText@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DED5 54B ??1XferSaveAsText@@UAE@XZ -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DF0B 28B ??_GXferSaveAsText@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0060DF27 142B ?rva0060DF27@XferSaveAsText@@QAEHPBD@Z -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0060F0CECluster.cpp
+
+bool XferSaveAsText::rva0060F0CE(BfmeRva00C7B388Stream *stream)
+{
+	if (m_bfme08 != 0)
+		return false;
+	m_bfme08 = stream;
+	typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > NarrowString;
+	typedef _STL::vector<NarrowString, _STL::allocator<NarrowString> > NarrowStringVec;
+	NarrowStringVec *vec = (NarrowStringVec *)&m_bfme0C;
+	vec->erase(vec->begin(), vec->end());
+	m_bfme04 = false;
+	return true;
+}
 
 // tu-skeleton: 0x007A6D72 8B $L2490 -- matched in Code/GameEngine/Source/Common/System/BfmeRva00C7B388Xfer.cpp (not merged yet)
 
