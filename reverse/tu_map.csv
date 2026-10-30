@@ -43637,8 +43637,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00517027,33,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,U,N=Code/GameEngine/Source/Common/AptOnlineShell.cpp provisional,Code/GameEngine/Source/Common/Rva00517027Set.cpp
 0x00517048,108,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517027..0x005170B4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x005170B4,25,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCallbacks.cpp
-0x005170CD,36,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x005170B4..0x005170F1 provisional,Code/GameEngine/Source/Common/Rva005170CDReset.cpp
-0x005170F1,170,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x005170B4..0x0051719B provisional,Code/GameEngine/Source/Common/Rva005170CDReset.cpp
+0x005170CD,36,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x005170B4..0x005170F1 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x005170F1,170,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x005170B4..0x0051719B provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x0051719B,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x005170B4..0x005171A3 provisional,Code/GameEngine/Source/GameClient/GUI/Rva005173F8Dtor.cpp
 0x005171A3,100,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
 0x00517207,263,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShell.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
@@ -43661,8 +43661,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00517CC9,473,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517724..0x00517EA2 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp
 0x00517EA2,137,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517724..0x00517F2B provisional,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
 0x00517F2B,6,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,C=0x00517724..0x00517F31 provisional,Code/GameEngine/Source/Common/ConstIntGetters.cpp
-0x00517F31,298,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShell.cpp C=0x00517724..0x0051805B provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
-0x0051805B,464,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp
+0x00517F31,298,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,C,W=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShell.cpp C=0x00517724..0x0051805B provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x0051805B,464,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,N,N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x0051822B,27,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp
 0x00518246,21,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp
 0x0051825B,7,code,,,-,,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp
@@ -83821,9 +83821,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00795496,10,code,,,-,,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
 0x007954A0,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517048@FuncInfo0x00948AE4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x007954A8,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517048@FuncInfo0x00948AE4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
-0x007954B2,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/Common/Rva005170CDReset.cpp
-0x007954BA,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/Common/Rva005170CDReset.cpp
-0x007954C2,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/Common/Rva005170CDReset.cpp
+0x007954B2,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007954BA,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007954C2,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x005170F1@FuncInfo0x00948B10 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x007954CC,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517207@FuncInfo0x00948B44 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
 0x007954D4,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517207@FuncInfo0x00948B44 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
 0x007954DC,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517207@FuncInfo0x00948B44 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellScreens.cpp
@@ -83873,12 +83873,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079567A,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517CC9@FuncInfo0x00948D38 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineBuddyInvites.cpp
 0x00795684,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517EA2@FuncInfo0x00948D5C provisional,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
 0x0079568F,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517EA2@FuncInfo0x00948D5C provisional,Code/GameEngine/Source/GameNetwork/GameSpy/Thread/PeerThread.cpp
-0x00795699,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
-0x007956A4,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
-0x007956AC,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
-0x007956B7,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellCachedStats.cpp
-0x007956C1,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x0051805B@FuncInfo0x00948DB4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp
-0x007956CC,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x0051805B@FuncInfo0x00948DB4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnlineShellUpdate.cpp
+0x00795699,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007956A4,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007956AC,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007956B7,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x00517F31@FuncInfo0x00948D90 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007956C1,11,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x0051805B@FuncInfo0x00948DB4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
+0x007956CC,10,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp,approved,P,P=0x0051805B@FuncInfo0x00948DB4 provisional,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptOnline.cpp
 0x007956D6,8,code,,,-,,Code/GameEngine/Source/Common/Rva005183A0Finish.cpp
 0x007956DE,10,code,,,-,,Code/GameEngine/Source/Common/Rva005183A0Finish.cpp
 0x007956E8,8,code,Code/GameEngine/Source/Common/AptOptions.cpp,approved,P,P=0x00518658@FuncInfo0x00948E04 p-group provisional,Code/GameEngine/Source/Common/AptOptions.cpp
