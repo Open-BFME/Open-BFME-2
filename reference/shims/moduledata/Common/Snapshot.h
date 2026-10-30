@@ -38,7 +38,17 @@ class Xfer;
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
+// LivingWorldBattle (003F6A3A, 003F6F0D) and LivingWorldBuildPlot
+// (004FC807) complete this base before calling their list-base constructor,
+// without storing Snapshot's vptr. Their first unwind state still calls the
+// shared destructor at 0049B47C, which restores table 00BBB554. Constructor
+// units can select that novtable surface and bind the existing destructor;
+// destructor units retain the inline body that emits the native vptr store.
+#ifdef BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+class __declspec(novtable) Snapshot
+#else
 class Snapshot
+#endif
 {
 
 friend class GameState;
@@ -53,9 +63,14 @@ friend class Xfer;
 
 public:
 	
+#ifdef BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+	__declspec(dllimport) __forceinline Snapshot() {}
+	virtual ~Snapshot( void );
+#else
 	Snapshot() {}
-	Snapshot( const Snapshot &that ) {}
 	virtual ~Snapshot( void ) {}
+#endif
+	Snapshot( const Snapshot &that ) {}
 
 protected:
 

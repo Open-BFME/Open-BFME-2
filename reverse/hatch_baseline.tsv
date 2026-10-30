@@ -4537,9 +4537,7 @@ class_gate_allow	Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine_appe
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp	GameLogic	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/GameLogicDestructor.cpp	SubsystemInterface	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/GameLogicRegisterObject.cpp	GameLogic	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBattleCtor.cpp	Snapshot	1
 class_gate_allow	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot.cpp	Snapshot	1
-class_gate_allow	Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldBuildPlot_Unresolved.cpp	Snapshot	1
 class_gate_allow	Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp	GameLogic	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva0009C18ACameraBounds.cpp	Region3D	1
 class_gate_allow	Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadow.cpp	StringBase	1

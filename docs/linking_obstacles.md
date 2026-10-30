@@ -8883,6 +8883,25 @@ Census confirmation remains pending. [Durable scope and evidence](../reverse/att
 
 Status: Blocked for the remaining assigned units; retained adoptions verified in ordinary-preview scope. Updated: 2026-10-27; inspected revision: `6c583e82f0c53df8e12b2ac83e1a48206513de5e`.
 
+2026-10-30 constructor follow-up (base `904c5b5d55`): native constructor calls
+and state-zero unwind targets establish the no-vptr Snapshot surface needed
+by LivingWorldBattleCtor and LivingWorldBuildPlot_Unresolved. Both now select
+that opt-in surface in the canonical header. All 12 rows, two EXACT EH graphs,
+normalized COMDATs, external symbols, reference graphs and aliases are retained.
+The owning acceptance tool passes both ordinary link guards and retires their
+two header queue rows; the hatch tool removes both private-class waivers
+(38 -> 36). Previews preserve 362 and 182 authored bytes against index
+`85f6b7f40c`; no new linked-byte or census result is claimed. This clears only
+these constructor header prerequisites. The two remaining Snapshot queue rows
+are MoneyVectorPushBack's record identity (LINK-092) and FXParticleSystem's
+info virtual surfaces. BuildPlot's separate class/observer/provider identity
+work remains open.
+[Target evidence and verification](../reverse/attempt_support/livingworld-snapshot-constructor-20261030-codexb.md).
+The complete pending batch's audit remains INCONCLUSIVE against the older
+index and the earlier IngameNoticeDisplay merge's affected consumer
+`Common/0CreateAHeroManager21FE49.cpp`, whose current receipt is missing;
+retain that provider/removal and consumer for the next scheduled census.
+
 2026-10-28 tooling follow-up (base `8fb6f4493c`): private-view discovery and
 header replacement now share a brace-scope check, so the allocator's nested
 `Snapshot` is neither counted as engine `::Snapshot` nor replaced by its

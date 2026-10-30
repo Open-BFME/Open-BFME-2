@@ -19,21 +19,10 @@
 // of the fourth argument the battle creates its slot and adds every army of
 // the third argument whose +0x54 player id equals the player's +0x14 id.
 // WorldBuilder twin 0x0104A380 (unnamed) has the same shape.
-// class-gate: allow Snapshot proved codegen view: retail stores no Snapshot vtable before the +8 base call yet sets the Snapshot EH state first (and the dtor 0x003F6A91 restores 0x00BBB554 last); the canonical inline ctor stores 0x00BBB554 ahead of that call so a novtable view with a declared dtor stands in
 #include <vector>
 
-class Xfer;
-
-class __declspec(novtable) Snapshot
-{
-public:
-	__declspec(dllimport) __forceinline Snapshot() {}
-	virtual ~Snapshot();
-protected:
-	virtual void loadPostProcess(void) = 0;
-	virtual void crc(Xfer *xfer) = 0;
-	virtual void xfer(Xfer *xfer) = 0;
-};
+#define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 typedef int Int;
 typedef unsigned int UnsignedInt;

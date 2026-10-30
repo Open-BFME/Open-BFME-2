@@ -11,18 +11,8 @@
 #include <stdlib.h>
 #include "Lib/Coord2D.h"
 
-class Xfer;
-// class-gate: allow Snapshot retail ctor 0x004FC807 never stores a Snapshot vptr (novtable base); the shared header's Snapshot emits that store and fails the byte gate
-class __declspec(novtable) Snapshot
-{
-public:
-    __declspec(dllimport) __forceinline Snapshot() {}
-    virtual ~Snapshot();
-protected:
-    virtual void loadPostProcess() = 0;
-    virtual void crc(Xfer *) = 0;
-    virtual void xfer(Xfer *) = 0;
-};
+#define BFME_SNAPSHOT_CONSTRUCTOR_ONLY
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 
 class Rva00330757Member
 {
