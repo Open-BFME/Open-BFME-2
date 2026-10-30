@@ -102,7 +102,9 @@ arbitrate simultaneous new claims atomically, so use one namespace per fleet.
 import argparse
 import atexit
 import hashlib
+import io
 import json
+import locale
 import math
 import os
 import random
@@ -285,6 +287,14 @@ class ClaimResult(tuple):
         return self[1]
 
 
+def _text(data):
+    """Decode git output as text mode did (locale encoding, universal newlines)."""
+    if isinstance(data, str):  # a test's fake subprocess.run already decoded it
+        return data
+    return io.TextIOWrapper(io.BytesIO(data or b""), encoding=locale.getpreferredencoding(False),
+                            errors="strict").read()
+
+
 def _git(*args, cwd=None, input_text=None, timeout=60, git_dir=None):
     """git `args` in checkout `cwd`; `git_dir` runs it in the claim mirror instead."""
     cwd = cwd or ROOT
@@ -311,10 +321,14 @@ def _git(*args, cwd=None, input_text=None, timeout=60, git_dir=None):
         elif key in reads:
             return reads[key]
     try:
-        got = subprocess.run(["git", *extra, *args], cwd=cwd, capture_output=True, text=True,
-                             input=input_text, timeout=timeout, env=env)
+        # stdin as bytes: text mode turns each "\n" into "\r\n" on Windows, and git
+        # reads `sha\r` from `fetch --stdin` as an invalid refspec (2026-10-30)
+        raw = subprocess.run(["git", *extra, *args], cwd=cwd, capture_output=True,
+                             input=None if input_text is None else input_text.encode("utf-8"),
+                             timeout=timeout, env=env)
     except subprocess.TimeoutExpired as error:
         return subprocess.CompletedProcess(error.cmd, 124, "", f"timed out after {timeout}s")
+    got = subprocess.CompletedProcess(raw.args, raw.returncode, _text(raw.stdout), _text(raw.stderr))
     if reads is not None and args[:1] in _READ_ONLY_GIT and got.returncode == 0:
         reads[key] = got
     return got

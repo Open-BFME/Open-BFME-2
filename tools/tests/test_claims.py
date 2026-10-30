@@ -6,6 +6,7 @@ the BFME2-only cases: scope claims, the branch namespace, batched release and
 the pickers. Every fixture is a local bare repository: no test reaches a
 network or this checkout's origin.
 """
+import os
 import shutil
 import subprocess
 import sys
@@ -150,7 +151,7 @@ def test_the_claim_mirror_survives_a_prune_and_otherwise_fails_closed(hosts):
 
     assert claims.claim([0x300]).claimed == [0x300]
     objects = Path(claims._seen_repo(root)) / "objects"
-    shutil.rmtree(objects)
+    shutil.rmtree(objects, onerror=lambda f, p, e: (os.chmod(p, 0o700), f(p)))  # git objects are read-only on Windows
     (objects / "pack").mkdir(parents=True)
     (objects / "info").mkdir()
     with pytest.raises(claims.ClaimsUnavailable, match="cannot read the claim mirror"):
@@ -847,7 +848,7 @@ def test_fetch_master_preserves_commands_and_reports_failed_step(
         step = ("tip", "fetch", "head")[min(len(calls), 2)]
         calls.append(command)
         assert kwargs == {
-            "cwd": tmp_path, "capture_output": True, "text": True,
+            "cwd": tmp_path, "capture_output": True,
             "input": None, "timeout": 300 if step == "fetch" else 60,
             "env": dict(inherited_env, GIT_CEILING_DIRECTORIES=str(tmp_path.resolve().parent)),
         }
@@ -1723,3 +1724,15 @@ def test_an_all_or_nothing_claim_takes_back_its_earlier_chunks(hosts, monkeypatc
     left = claims._read_local(claims.ROOT)
     assert not [k for k in keys if k in left and left[k][1].get("expires", 0) > 0
                 and left[k][1].get("owner") == "a" and left[k][1].get("note") != "released"]
+
+
+def test_git_stdin_is_sent_without_newline_translation(tmp_path):
+    # text-mode stdin turned "\n" into "\r\n" on Windows, so `git fetch --stdin`
+    # read "sha\r" as an invalid refspec and every claims read failed (2026-10-30)
+    import hashlib
+    subprocess.run(["git", "init", "-q", str(tmp_path)], check=True)
+    data = "one\ntwo\n"
+    got = claims._git("hash-object", "--stdin", cwd=tmp_path, input_text=data)
+    blob = b"blob %d\0" % len(data.encode()) + data.encode()
+    assert got.returncode == 0
+    assert got.stdout.strip() == hashlib.sha1(blob).hexdigest()
