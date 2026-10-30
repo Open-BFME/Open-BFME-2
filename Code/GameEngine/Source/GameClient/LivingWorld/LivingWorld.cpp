@@ -57,6 +57,9 @@ private:
 	Rva005F83A9Element *m_end;
 };
 #include "../../Common/RegionCenterPointDispatchView.h"
+#include "Lib/Coord2D.h"
+#include "Lib/ICoord2D.h"
+#include "Common/BfmeAudioEventPrefix136.h"
 
 struct Rva002C00C1Element
 {
@@ -116,12 +119,6 @@ public:
 	void rva00213A85();
 	void rva00213BBE();
 	void rva00213C30();
-};
-
-class Rva002BFBF7
-{
-public:
-	void rva002BFBF7();
 };
 
 class LivingWorldManager;
@@ -234,6 +231,7 @@ template<class T> class OVERRIDE {public:OVERRIDE():head(0) {} const T *head;con
 struct Rva00539926Base {unsigned references;Rva00539926Base():references(0) {} virtual ~Rva00539926Base();};
 
 struct BfmeEventPositionView;
+
 class Rva003FA835 : public Rva00539926Base
 {
 public:
@@ -370,11 +368,76 @@ struct Rva005CD284Value {char pad[0x18];void*value;};
 
 class Rva005CD284 {public:void rva005CD284();private:char pad[0x10];Rva002BF652*placer;char pad14[0xC];Rva005CD284Value*holder;};
 
+class Rva000411084;
+
+class Rva002BFAD6
+{
+public:
+	void *rva002BFAD6(const void *src);
+private:
+	void *m_unused00;
+	void **m_beginBuckets;
+	void **m_endBuckets;
+	void **m_storageEnd;
+	unsigned int m_numElements;
+};
+
+class Rva00504EADCurve
+{
+public:
+	bool set(float time, float value, float inTangent, float outTangent);
+	char m_pad[8];
+};
+
+namespace _STL
+{
+// Bind the erase to the rowed BfmePod16 erase at 0x002BF70F.
+template <> BfmePod16 *vector<BfmePod16, allocator<BfmePod16> >::erase(BfmePod16 *first, BfmePod16 *last);
+}
+
+struct Rva002BFBF7
+{
+	void rva002BFBF7();
+	char m_pad[0x28];
+	Rva00504EADCurve m_curve;
+	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > m_vec;
+};
+
+class Display;
+
+extern Display *TheDisplay;
+
+class PickerDisplayView {public:
+ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual void slot15();virtual unsigned width();
+};
+
+class AsciiString;
+
+class Rva003FAAA1 {public:bool rva003FAAA1(void *);};
+
+class PickerDetails {public:
+ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual bool slot13();
+};
+
+struct PickerEntry {char pad0[0x10];PickerDetails *details;};
+
+struct PickerNode {void *next;void *key;PickerEntry *entry;};
+
+class PickerPredicate {public:virtual void slot0();virtual bool slot1(PickerEntry*);};
+
+class Rva005CBB0A {public:
+ virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual void slot14();virtual bool slot15(const BfmeEventPositionView&,ICoord2D*);
+ void *rva002BFDE6(void *point,void *predicate);
+private:char pad4[0xa8];char mapAC[0x14];
+};
+
 // tu-skeleton: 0x002BF391 354B ?rva002BF391@LivingWorld@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldSetActive.cpp (not merged yet)
 
 // tu-skeleton: 0x002BF4F3 189B ?rva002BF4F3@Rva002BF4F3@@QAE_NPAVRenderObjClass@@PBVVector3@@PAV3@H_N@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp (not merged yet)
 
 // tu-skeleton: 0x002BF5B0 107B ?rva002BF5B0@Rva002BF4F3@@QAE_NPBVVector3@@PAV2@@Z -- matched in Code/Libraries/Source/WWVegas/WW3D2/Rva002BF4F3.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/LivingWorld/LivingWorld.cpp
 
@@ -575,7 +638,28 @@ void Rva002BF652::rva002BF652(void*value){
 
 // tu-skeleton: 0x002BFA86 80B ?erase@?$hashtable@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@URva002BFA86Record@@U?$hash@URva002BFA86Record@@@2@U?$_Select1st@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@U?$equal_to@URva002BFA86Record@@@2@V?$allocator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@@_STL@@QAEXABU?$_Ht_iterator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@U?$_Const_traits@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@URva002BFA86Record@@U?$hash@URva002BFA86Record@@@2@U?$_Select1st@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@U?$equal_to@URva002BFA86Record@@@2@V?$allocator@U?$pair@$$CBURva002BFA86Record@@U1@@_STL@@@2@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva002BFA86.cpp (not merged yet)
 
-// tu-skeleton: 0x002BFAD6 68B ?rva002BFAD6@Rva002BFAD6@@QAEPAXPBX@Z -- matched in Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp
+
+// ?rva002BFAD6@Rva002BFAD6@@QAEPAXPBX@Z @0x002BFAD6 68B
+// Hashtable insert over Eva bucket vector: resize via pin 0x00212858 with
+// count+1 hashes key via rowed bucketIndex 0x00223149 allocates node via rowed
+// 0x002BF735 links old head bumps count returns value at +4. Same shape as
+// landed 0x00410E67 68B insert and 0x002CFB4C 68B insert. Buckets at +4 count
+// at +0x10. Caller is unclaimed 0x002BFCA9 so owner uses honest Rva name.
+// Evidence: REL32 callees match this TU call graph; layout from EvaBucketIndex
+// and Rva002BF735NewNode neighbours; landing unblocks caller chain.
+
+void *Rva002BFAD6::rva002BFAD6(const void *src)
+{
+	((Rva000427195 *)this)->rva00212858(m_numElements + 1);
+	int bucket = ((Rva000427195 *)this)->bucketIndex((const AsciiString *)src);
+	void *old = m_beginBuckets[bucket];
+	void *newNode = ((Rva002BF735 *)this)->rva002BF735(src);
+	*(void **)newNode = old;
+	m_beginBuckets[bucket] = newNode;
+	++m_numElements;
+	return (char *)newNode + 4;
+}
 
 // tu-skeleton: 0x002BFB28 5B ?rva002BFB28@Rva002BFB28@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/OwnedBucketTableDtorsO1.cpp (not merged yet)
 
@@ -583,7 +667,17 @@ void Rva002BF652::rva002BF652(void*value){
 
 // tu-skeleton: 0x002BFBF0 7B ?rva002BFBF0@Rva002BFBF0@@QAEMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
 
-// tu-skeleton: 0x002BFBF7 87B ?rva002BFBF7@Rva002BFBF7@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva002BFBF7.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva002BFBF7.cpp
+
+// ?rva002BFBF7@Rva002BFBF7@@QAEXXZ 0x002BFBF7 87B evidence: unlock erase vector BfmePod16 0x002BF70F plus curve set 0x00504EAD twice; caller 0x002C0205
+
+void Rva002BFBF7::rva002BFBF7()
+{
+	_STL::vector<BfmePod16, _STL::allocator<BfmePod16> > &vec = m_vec;
+	vec.erase(vec.begin(), vec.end());
+	m_curve.set(0.0f, 0.0f, 0.0f, 0.0f);
+	m_curve.set(1.0f, 1.0f, 0.0f, 0.0f);
+}
 
 // tu-skeleton: 0x002BFC4E 11B ?rva002BFC4E@Rva002BFC4E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaEmbeddedMemberForwarders.cpp (not merged yet)
 
@@ -597,7 +691,52 @@ void Rva002BF652::rva002BF652(void*value){
 
 // tu-skeleton: 0x002BFDAE 56B ?FindClickableObject@LivingWorld@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva002BFDAEFind.cpp (not merged yet)
 
-// tu-skeleton: 0x002BFDE6 372B ?rva002BFDE6@Rva005CBB0A@@QAEPAXPAX0@Z -- matched in Code/GameEngine/Source/GameClient/GUI/Rva002BFDE6Picker.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/Rva002BFDE6Picker.cpp
+
+// Native2BFDE6..2BFF5A372B RET8. The wrapper2C00E0/5CBB0A preserves this
+// and passes a coordinate pair and virtual predicate. Target mapAC and
+// element10, predicate slot4, display width slot16, projection slot15 are
+// target facts. Original receiver and field names remain unknown.
+// The node shape agrees with the adjacent rowed 2BFDAE map walker and
+// ZH WindowVideoManager's hash-map iteration (BF1 reference cee35b7d8).
+// The native picker differs from that donor: projected coordinates,
+// predicate slot4 and 3FAAA1 filter establish the nearest-item behavior.
+// The pin for first(cursor*) witnesses the same hidden-result ABI as
+// the rowed 427195 hashtable begin; cursor.next is owned at411084.
+// 3FA835 returns the shared12B coordinate value; the wrapper's void
+// return declaration merely discards this method's native EAX result.
+
+void *Rva005CBB0A::rva002BFDE6(void *point,void *predicate) {
+ float scale=1.0f;
+ if(TheDisplay) scale=((PickerDisplayView*)TheDisplay)->width() * (1.0f/1024.0f);
+ float threshold=scale*70.0f;
+ PickerEntry *best=0;
+ Rva000411084 cursor;
+ ((Rva000427195*)mapAC)->first(&cursor);
+ while(cursor.current) {
+  PickerEntry *entry=((PickerNode*)cursor.current)->entry;
+  PickerDetails *details=entry->details;
+  if((!details || details->slot13()) && ((PickerPredicate*)predicate)->slot1(entry) && ((Rva003FAAA1*)entry)->rva003FAAA1(point)) {
+   ICoord2D projected;
+   if(slot15(((Rva003FA835*)entry)->rva003FA835(),&projected)) {
+    ICoord2D *mouse=(ICoord2D*)point;
+    Coord2D delta;delta.x=(float)(mouse->x-projected.x);delta.y=(float)(mouse->y-projected.y);
+    if(delta.length()<threshold) {
+     if(!best)best=entry;
+     else {
+      ICoord2D bestProjected;
+      if(slot15(((Rva003FA835*)best)->rva003FA835(),&bestProjected)) {
+       Coord2D bestDelta;bestDelta.x=(float)(mouse->x-bestProjected.x);bestDelta.y=(float)(mouse->y-bestProjected.y);
+       if(delta.length()<bestDelta.length())best=entry;
+      }
+     }
+    }
+   }
+  }
+  cursor.next();
+ }
+ return best;
+}
 
 // tu-skeleton: 0x002C004F 114B ?rva002C004F@Rva002BFF5A@@QAEXPBD@Z -- matched in Code/GameEngine/Source/Common/Rva002C004FErase.cpp (not merged yet)
 
