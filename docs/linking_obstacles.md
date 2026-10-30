@@ -1420,6 +1420,35 @@ shapes: a Region3D companion view, as `Coord3DCtorView.h` is for Coord3D, is
 the missing piece. Both trial edits were reverted; no path moved and no
 census gain is claimed.
 
+**Debug streamer provider and donor survey (2026-10-30, coord3d-2; base `520c4d3ddd`, index `ccafe54d1d`):**
+The `operator<<(Debug&, const Coord3D&)` that stopped pk-coord3d's region.cpp
+apply is not missing. Retail exports it at 0x000050BA as
+`??6@YAAAVDebug@@AAV0@ABVCoord3D@@@Z` (`reverse/exports.csv` ordinal 738),
+the matched 103-byte row in `Code/Libraries/Source/WWVegas/WWMath/coord3d.cpp`
+carries that name, and the census index defines it strongly in `coord3d.obj`
+(retail COMDAT). The U-keyed spelling the struct header makes region.cpp call,
+`??6@YAAAVDebug@@AAV0@ABUCoord3D@@@Z`, has no definition, reference or pin
+anywhere. Neither supported route closes the gap. `pin_admission.py` refuses a
+second real name on 0x000050BA, and a class-key twin is not an ICF fold. A
+rename would replace an exported retail name with a non-retail one. The provider
+stays as it is; region.cpp keeps its private class view until the key flip above.
+Dry runs of the packet's TUs (`tu_skeleton.py --merge TU --dry-run`) find no
+donor that a donor-side switch to `Lib/Coord3D.h` would admit. The Coord3D
+donors already include the canonical header or a companion, and the conflicting
+definition comes from the seed. In GarrisonContain, FlammableUpdate,
+OCLSpecialPower, AssistedTargetingUpdate and DefaultProductionExitUpdate it is
+Zero Hour's `Lib/BaseType.h` through `PreRTS.h`; in W3DTerrainVisual and
+W3DPropDraw it is the same header through the seed's Zero Hour includes; in
+Team it is the BFME 1 WWMath `coord3d.h`. GarrisonContain alone has 12 such
+donors, and its other rejections (Thing, Team, GameLogic, Xfer, AsciiString
+redefinitions) come from the same seed headers. TerrainLogic shows the
+key conflict inside one retail TU: `FindClosestBeacon` and the segment helper
+(0x0028077A, 0x0027F383) are V-keyed, `Bridge::getBridgeHeight` (0x0027FD2A)
+and `Bridge::createTower` (0x0027EDBC) are U-keyed, so no single Coord3D
+definition compiles all four. The prerequisites are, in order, the Coord3D key
+flip with its ledger renames, then each Zero Hour seed moving off `PreRTS.h`.
+No source or ledger changed and no census gain is claimed.
+
 ### Palantir obsolete guard provider cleanup (2026-10-29)
 
 At base `71d01c340b`, the parent already emits both exact guard-rollback
