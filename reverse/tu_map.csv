@@ -2472,7 +2472,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000420E4,28,code,,displaced,-,N=Code/GameEngine/Source/Main/W3DModuleFactory.cpp,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp
 0x00042100,5,code,Code/GameEngineDevice/Source/W3DDevice/Common/Thing/W3DModuleFactory.cpp,approved,S,S=Code/GameEngineDevice/Source/W3DDevice/Common/Thing/W3DModuleFactory.cpp N=Code/GameEngine/Source/Common/W3DModuleFactory.cpp,Code/GameEngine/Source/Common/GapBodiesGE31.cpp
 0x00042105,28,code,,displaced,-,N=Code/GameEngine/Source/Main/Win32GameEngine.cpp,Code/GameEngine/Source/Main/Win32GameEngineCtor.cpp
-0x00042121,163,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,proposed,S,S=Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp N=Code/GameEngine/Source/Main/Win32GameEngine.cpp noncontiguous,Code/GameEngine/Source/Main/Win32GameEngineServiceWindowsOS.cpp
+0x00042121,163,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,proposed,S,S=Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp N=Code/GameEngine/Source/Main/Win32GameEngine.cpp noncontiguous,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp
 0x000421C4,4,code,,displaced,-,S=Code/GameEngine/Source/GameLogic/Object/Object.cpp N=Code/GameEngine/Source/GameLogic/Object/Object.cpp,Code/GameEngine/Source/GameLogic/Object/FiringTracker.cpp
 0x000421C8,13,code,Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,proposed,K,K=Rva000421C8,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
 0x000421D5,29,code,Code/GameEngine/Source/GameLogic/Object/Update/CurseSpecialPower.cpp,proposed,K,K=Rva000421C8,Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp
@@ -61514,7 +61514,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075CF2A,10,code,,,-,,Code/GameEngine/Source/Main/Win32GameEngineFactories.cpp
 0x0075CF34,10,code,,,-,,Code/GameEngine/Source/Main/Rva00041DC9Create.cpp
 0x0075CF3E,8,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,approved,P,P=0x00042121@FuncInfo0x008FED6C p-group provisional,Code/gen_small/uw_gen_000.cpp
-0x0075CF46,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,approved,P,P=0x00042121@FuncInfo0x008FED6C p-group provisional,Code/GameEngine/Source/Main/Win32GameEngineServiceWindowsOS.cpp
+0x0075CF46,10,code,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp,approved,P,P=0x00042121@FuncInfo0x008FED6C p-group provisional,Code/GameEngineDevice/Source/Win32Device/Common/Win32GameEngine.cpp
 0x0075CF50,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayReset.cpp
 0x0075CF58,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayReset.cpp
 0x0075CF62,11,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DDisplayResetD3DDevice.cpp
