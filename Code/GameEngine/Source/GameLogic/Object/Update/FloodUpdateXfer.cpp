@@ -14,6 +14,7 @@
 // not recovered.
 
 #include <list>
+#include <vector>
 
 // vector<int> fill/insert otherwise instantiates the _Construct<int,int>
 // COMDAT (one byte shape per TU flags); a file-static overload takes those
@@ -39,9 +40,9 @@ void __malloc_alloc<0>::deallocate(void *__p, size_t)
 
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
+template <class _IterTp, class _LeftTraits, class _RightTraits>
+static inline bool operator!=(const _List_iterator<_IterTp, _LeftTraits> &a,
+                              const _List_iterator<_IterTp, _RightTraits> &b)
 { return a._M_node != b._M_node; }
 }
 
@@ -86,17 +87,16 @@ public:
 	unsigned char m_minimum;
 };
 
-enum ObjectID
-{
-	INVALID_ID = 0
-};
+#include "../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
+#include "../../../Common/GameLogicObjectLookupView.h"
+typedef bool Bool;
+typedef int Int;
+enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1 };
+enum NameKeyType { NK_UNKNOWN = 0 };
+struct FloodMember;
+class FloodUpdateModuleData;
 
-struct AICommandCoordVector
-{
-	void *m_start;
-	void *m_finish;
-	void *m_end;
-};
+struct AICommandCoordVector;
 
 void XferObjectID(Xfer *xfer, ObjectID *id);
 Xfer *Rva00390911XferCoordVector(Xfer *xfer, AICommandCoordVector *vec); // returns xfer, as rowed
@@ -104,30 +104,74 @@ Xfer *Rva00390911XferCoordVector(Xfer *xfer, AICommandCoordVector *vec); // retu
 class Rva0048E16C
 {
 public:
-	Rva0048E16C();
+	Rva0048E16C() throw();
 
-	ObjectID m_00;
-	AICommandCoordVector m_vec;
-	int m_10;
+	ObjectID m_id; // +0
+	_STL::vector<Coord3D> m_path; // +4
+	Int m_index; // +0x10
 };
 
-class UpdateModule
+class BehaviorModuleBase
 {
 public:
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
+public:
+	virtual void behaviorModuleOtherAnchor();
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
+public:
+	Object *getObject() const { return m_object; }
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+};
+
+class UpdateModuleInterface
+{
+public:
+	virtual UpdateSleepTime update();
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
 	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
-private:
-	char m_unrecovered04[0x20 - 0x04];
+protected:
+	void setWakeFrame(Object *obj, unsigned int frame);
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
 };
 
 class FloodUpdate : public UpdateModule
 {
+public:
+	FloodUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~FloodUpdate();
+	virtual UpdateSleepTime update();
+	void rva0048DC51(const FloodMember *member, Rva0048E16C *record);
+	void rva0048E189();
+
 protected:
 	virtual void xfer(Xfer *xfer);
+	const FloodUpdateModuleData *getFloodUpdateModuleData() const
+	{
+		return (const FloodUpdateModuleData *)m_moduleData;
+	}
 
 private:
-	_STL::list<void *> m_20;
-	bool m_24;
+	_STL::list<Rva0048E16C *> m_records; // +0x20
+	Bool m_membersCreated; // +0x24
+public:
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 // ?xfer@FloodUpdate@@MAEXPAVXfer@@@Z @0x0048E4E2
@@ -141,7 +185,7 @@ void FloodUpdate::xfer(Xfer *xfer)
 	Xfer::Version version(1, 1);
 	*xfer == version;
 
-	int count = m_20.size();
+	int count = m_records.size();
 	*xfer == count;
 
 	if (xfer->IsLoading())
@@ -149,22 +193,22 @@ void FloodUpdate::xfer(Xfer *xfer)
 		for (int i = 0; i < count; ++i)
 		{
 			Rva0048E16C *record = new Rva0048E16C;
-			XferObjectID(xfer, &record->m_00);
-			Rva00390911XferCoordVector(xfer, &record->m_vec);
-			*xfer == record->m_10;
-			reinterpret_cast<_STL::list<int> *>(&m_20)->push_back(reinterpret_cast<const int &>(record));
+			XferObjectID(xfer, &record->m_id);
+			Rva00390911XferCoordVector(xfer, reinterpret_cast<AICommandCoordVector *>(&record->m_path));
+			*xfer == record->m_index;
+			reinterpret_cast<_STL::list<int> *>(&m_records)->push_back(reinterpret_cast<const int &>(record));
 		}
 	}
 	else if (xfer->IsStoring())
 	{
-		for (_STL::list<void *>::iterator it = m_20.begin(); it != m_20.end(); ++it)
+		for (_STL::list<Rva0048E16C *>::iterator it = m_records.begin(); it != m_records.end(); ++it)
 		{
 			Rva0048E16C *record = (Rva0048E16C *)*it;
-			XferObjectID(xfer, &record->m_00);
-			Rva00390911XferCoordVector(xfer, &record->m_vec);
-			*xfer == record->m_10;
+			XferObjectID(xfer, &record->m_id);
+			Rva00390911XferCoordVector(xfer, reinterpret_cast<AICommandCoordVector *>(&record->m_path));
+			*xfer == record->m_index;
 		}
 	}
 
-	*xfer == m_24;
+	*xfer == m_membersCreated;
 }

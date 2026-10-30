@@ -182,6 +182,7 @@ class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
 {
 public:
 	Object *getObject() const { return m_object; }
+	BehaviorModule(Thing *thing, const ModuleData *moduleData);
 };
 
 class UpdateModuleInterface
@@ -192,7 +193,12 @@ public:
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
 protected:
+	void setWakeFrame(Object *obj, unsigned int frame);
 	unsigned m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_bfmeReserved;
@@ -214,11 +220,14 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class FloodUpdate : public UpdateModule
 {
 public:
+	FloodUpdate(Thing *thing, const ModuleData *moduleData);
+	virtual ~FloodUpdate();
 	virtual UpdateSleepTime update();
 	void rva0048DC51(const FloodMember *member, Rva0048E16C *record);
 	void rva0048E189();
 
 protected:
+	virtual void xfer(Xfer *xfer);
 	const FloodUpdateModuleData *getFloodUpdateModuleData() const
 	{
 		return (const FloodUpdateModuleData *)m_moduleData;
