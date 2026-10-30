@@ -1,4 +1,4 @@
-// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /GX /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
 // ??1FXListAtBonePosFXNugget@@UAE@XZ 56B @0x001E1096: virtual dtor.
 // Installs no derived vptr (novtable view like Helix 0x001E116E sibling).
 // Destroys AsciiString/StringBase<char> member at +0x14C via folded 0x00036410
@@ -7,15 +7,11 @@
 // 0x001E107A calls here; FieldParse table 0x00BDD2F8 (FX@0x148 BoneName@0x14C)
 // and parse news 0x150 fix the layout; base ctor 0x001DFEAA fixes base extent.
 
-template <typename T>
-class StringBase
-{
-    void *m_data;
-    void releaseBuffer();
-
-protected:
-    ~StringBase() { releaseBuffer(); }
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class BfmeOwnedString4 : private StringBase<char>
 {
