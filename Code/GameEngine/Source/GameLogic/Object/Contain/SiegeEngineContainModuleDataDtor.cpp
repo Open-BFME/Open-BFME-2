@@ -1,4 +1,4 @@
-// cl: /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS
+// cl: /MD /GX /DNDEBUG /Oy- /DWIN32 /D_WINDOWS /Ireference/shims/bfme2_ascii
 //
 // ??1SiegeEngineContainModuleData@@UAE@XZ, retail 0x0047C9CB, 74 bytes.
 // Target evidence: vtable 0x00C47180 (installed by the matched ctor
@@ -10,15 +10,11 @@
 // matched ctor (size 0x1B8 with pair at +0x194 and mask at +0x1A4).
 // No derived vptr store in retail so derived class is novtable.
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	void *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class Rva00360D26Member
 {
