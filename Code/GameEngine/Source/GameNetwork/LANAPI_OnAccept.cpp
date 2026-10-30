@@ -47,7 +47,7 @@ struct SlotEntry
 class Rva00447773
 {
 public:
-	void *rva00447773(int index);
+	void *getLANSlot(int index);
 	char m_pre[0x114];
 	SlotEntry m_slots[8];
 };
@@ -149,7 +149,7 @@ void LANAPI::OnAccept(const BfmeNetAddress *address, Bool flag)
 	goto done;
 found:
 	{
-		GameSlot *gs = (GameSlot *)m_holder->rva00447773(index);
+		GameSlot *gs = (GameSlot *)m_holder->getLANSlot(index);
 		if (flag)
 			gs->m_flag8 = 1;
 		else

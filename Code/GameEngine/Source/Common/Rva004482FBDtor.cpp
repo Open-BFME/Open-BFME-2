@@ -77,7 +77,7 @@ void bfmeAnchorLANGameInfoDtor(LANGameInfo *game)
 class Rva00447773
 {
 public:
-    void *rva00447773(int index);
+    void *getLANSlot(int index);
 };
 
 class Rva004482FB
@@ -99,7 +99,7 @@ int Rva004482FB::getSlotNum(UnicodeString name)
         return -1;
     for (int i = 0; i < 8; ++i)
     {
-        void *slot = ((Rva00447773 *)this)->rva00447773(i);
+        void *slot = ((Rva00447773 *)this)->getLANSlot(i);
         if (((Rva004481A7 *)slot)->isPlayer(name))
             return i;
     }

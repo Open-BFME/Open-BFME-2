@@ -304,7 +304,7 @@ public:
 class Rva00447773 : public GameInfo
 {
 public:
-	void *rva00447773( Int index );
+	void *getLANSlot( Int index );
  void *rva00449522(Int index);
 };
 

@@ -347,7 +347,7 @@ public:
 class Rva00447773 : public GameInfo
 {
 public:
-	void *rva00447773( Int index );
+	void *getLANSlot( Int index );
 };
 
 // getSlotNum (0x004483BC), under the ledger's class name, that of the
@@ -907,8 +907,8 @@ void LANAPI::handleJoinAccept( LANMessage *msg, const BfmeNetAddress *sender )
 			slot.setHost( m_hostName );
 			m_currentGame->setSlot( pos, slot );
 
-			((LANGameSlot *)m_currentGame->rva00447773( 0 ))->setHost( msg->hostName );
-			((LANGameSlot *)m_currentGame->rva00447773( 0 ))->setLogin( msg->userName );
+			((LANGameSlot *)m_currentGame->getLANSlot( 0 ))->setHost( msg->hostName );
+			((LANGameSlot *)m_currentGame->getLANSlot( 0 ))->setLogin( msg->userName );
 
 			OnGameJoin( LANAPIInterface::RET_OK, m_currentGame, 0 );
 		}
@@ -959,7 +959,7 @@ void LANAPI::handleRequestGameLeave( LANMessage *msg, const BfmeNetAddress *send
 						m_currentGame->setSlot( player, slot );
 					}
 					OnPlayerLeave( UnicodeString( msg->name ) );
-					((GameSlot *)m_currentGame->rva00447773( player ))->setState( SLOT_OPEN, UnicodeString::TheEmptyString, NoConnectInfo().self() );
+					((GameSlot *)m_currentGame->getLANSlot( player ))->setState( SLOT_OPEN, UnicodeString::TheEmptyString, NoConnectInfo().self() );
 					m_currentGame->resetAccepted();
 					RequestGameOptionsPacked( false, (BfmeNetAddress *)sender );
 				}
@@ -1172,7 +1172,7 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 			AsciiString s;
 			for( player = 0; canJoin && player < MAX_SLOTS; ++player )
 			{
-				GameSlot *slot = (GameSlot *)m_currentGame->rva00447773( player );
+				GameSlot *slot = (GameSlot *)m_currentGame->getLANSlot( player );
 				s.clear();
 				if( player == 0 )
 				{
@@ -1219,7 +1219,7 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 			// We're the host, so see if he has a duplicate name
 			for( player = 0; canJoin && player < MAX_SLOTS; ++player )
 			{
-				GameSlot *slot = (GameSlot *)m_currentGame->rva00447773( player );
+				GameSlot *slot = (GameSlot *)m_currentGame->getLANSlot( player );
 				if( slot->isHuman() && slot->getName().compare( msg->name ) == 0 )
 				{
 					// just deny duplicates
@@ -1239,7 +1239,7 @@ void LANAPI::handleRequestJoin( LANMessage *msg, const BfmeNetAddress *sender )
 
 			for( player = 0; canJoin && player < MAX_SLOTS; ++player )
 			{
-				if( ((GameSlot *)m_currentGame->rva00447773( player ))->isOpen() )
+				if( ((GameSlot *)m_currentGame->getLANSlot( player ))->isOpen() )
 				{
 					// OK, add him in.
 					reply.LANMessageType = 4;	// MSG_JOIN_ACCEPT

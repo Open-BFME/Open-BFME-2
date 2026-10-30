@@ -365,7 +365,7 @@ public:
 class Rva00447773
 {
 public:
-	void *rva00447773(int index);
+	void *getLANSlot(int index);
 };
 
 void __cdecl Rva0032060D(GameWindow *window, int value);
@@ -1387,7 +1387,7 @@ bool AptLanLobby::rva004467AC()
 			game->rva003FF1A7(m_304);
 			if (!restored)
 			{
-				GameSlot *slot = (GameSlot *)reinterpret_cast<Rva00447773 *>(game)->rva00447773(0);
+				GameSlot *slot = (GameSlot *)reinterpret_cast<Rva00447773 *>(game)->getLANSlot(0);
 				slot->m_color = modePrefs().rva0044D836();
 				slot->setPlayerTemplate(modePrefs().rva0044D88C());
 				modePrefs().rva0044D774(slot);

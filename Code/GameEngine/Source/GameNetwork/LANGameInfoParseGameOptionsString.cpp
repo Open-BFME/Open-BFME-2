@@ -138,7 +138,7 @@ public:
 private:
  unsigned char pad[0x30]; UnicodeString m_name;
 };
-class Rva00447773 {public: void *rva00447773(int);};
+class Rva00447773 {public: void *getLANSlot(int);};
 class Rva00447A5C {public: void rva00447A5C(UnicodeString);};
 class Rva00447A93 {public: void rva00447A93(UnicodeString);};
 class LANGameSlot:public GameSlot {public:
@@ -238,7 +238,7 @@ Bool ParseGameOptionsString(LANGameInfo *game, AsciiString options,
     Int i;
     for (i = 0; i < MAX_SLOTS; ++i)
     {
-        LANGameSlot *slot = (LANGameSlot*)((Rva00447773*)game)->rva00447773(i);
+        LANGameSlot *slot = (LANGameSlot*)((Rva00447773*)game)->getLANSlot(i);
         if (slot && slot->isHuman())
         {
             oldLogins[slot->getName()] = slot->getUser()->m_login;
@@ -270,7 +270,7 @@ Bool ParseGameOptionsString(LANGameInfo *game, AsciiString options,
         UnsignedInt now = timeGetTime();
         for (i = 0; i < MAX_SLOTS; ++i)
         {
-            LANGameSlot *slot = (LANGameSlot*)((Rva00447773*)game)->rva00447773(i);
+            LANGameSlot *slot = (LANGameSlot*)((Rva00447773*)game)->getLANSlot(i);
             if (slot->isHuman())
             {
                 slot->setLastHeard(now);

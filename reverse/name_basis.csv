@@ -5671,3 +5671,4 @@ class,Rva00474519Position,HordeRankPosition,inferred,agree:nl-819fa29185f4,Code/
 class,Rva00420F0EPod,DelayedExperienceLevelGrantEntry,inferred,agree:nl-ff87778d173f,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,
 class,Rva007F49E0SharedSocket,SharedUdpSocket,inferred,agree:nl-85e074601105,Code/GameEngine/Source/GameNetwork/Rva007F49E0UdpPacketSend.cpp,
 class,BfmeSlotCursorVNC,PendingProbeCursor,inferred,agree:nl-1e32f2a79ffd,Code/GameEngine/Source/GameNetwork/Rva00800F40PendingProbeUpdate.cpp,
+function,?rva00447773@Rva00447773@@QAEPAXH@Z,?getLANSlot@Rva00447773@@QAEPAXH@Z,canonical:wb,wb lead 0x00447773: WB 0x14A6E70 asserts LANGameInfo::getLANSlot,Code/GameEngine/Source/Common/Rva00447773Indexer.cpp,0x00447773

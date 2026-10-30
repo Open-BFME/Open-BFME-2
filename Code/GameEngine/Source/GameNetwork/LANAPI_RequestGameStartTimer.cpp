@@ -52,7 +52,7 @@ struct SlotEntry25
 class Rva00447773
 {
 public:
-	void *rva00447773(int index);
+	void *getLANSlot(int index);
 	char m_pre[0x114];
 	SlotEntry25 m_slots[8];
 };

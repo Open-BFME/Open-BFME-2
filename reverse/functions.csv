@@ -22108,7 +22108,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva0044799ACopy1@@YAPADPADPAX0@Z,,0x0044799A,23,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,matched,chain calls 00447909 landed this session
 ?Rva0044793FReadU32@@YAPADPADPAI0@Z,,0x0044793F,45,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,matched,chain calls 00447909 IAT htonl callers 448423
 ?Rva0044796CReadU16@@YAPADPADPAG0@Z,,0x0044796C,46,Code/GameEngine/Source/Common/Rva00447909Copy.cpp,matched,chain calls 00447909 IAT htons callers 4484BE 4486CB
-?rva00447773@Rva00447773@@QAEPAXH@Z,,0x00447773,33,Code/GameEngine/Source/Common/Rva00447773Indexer.cpp,matched,unlock indexer 8x1D0 at DC callers 248DF1 4477A7
+?getLANSlot@Rva00447773@@QAEPAXH@Z,,0x00447773,33,Code/GameEngine/Source/Common/Rva00447773Indexer.cpp,matched,unlock indexer 8x1D0 at DC callers 248DF1 4477A7
 ?NetworkBufferAppendRaw@@YAPADPADPAXI0@Z,,0x0044780F,54,Code/GameEngine/Source/Common/Rva0044780FCopy.cpp,matched,unlock dst-first checked memcpy unblocks 447845 44786B 447891
 ?Rva00447891Write1@@YAPADPADD0@Z,,0x00447891,24,Code/GameEngine/Source/Common/Rva0044780FCopy.cpp,matched,chain calls 0044780F landed this session
 ?Rva00447845WriteU16@@YAPADPADG0@Z,,0x00447845,38,Code/GameEngine/Source/Common/Rva0044780FCopy.cpp,matched,chain calls 0044780F IAT htons callers 447D4A
