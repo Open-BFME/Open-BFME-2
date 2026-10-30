@@ -14,77 +14,54 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "Coord3D.h"
 #include <memory>
 #include <vector>
-
 // Import-inline: every __malloc_alloc<0>::deallocate use here is inlined, and this
 // unit's out-of-line copy (referenced from .debug$F alone) is not the one the link keeps.
 namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_CALL __malloc_alloc<0>::deallocate(void *__p, size_t) { free((char *)__p); } }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline void * const * vector<void *,allocator<void *> >::begin()const  { return this->_M_start; } }
-
 // Bind to the kept retail copy instead of emitting this unit's own.
 namespace _STL { template <> __declspec(dllimport) __forceinline bool less<unsigned int>::operator()(unsigned int const &x,unsigned int const &y)const  { return x < y; } }
-
 // bfme link decl-only begin
 namespace _STL { template <> void swap<_STLP_alloc_proxy<void **, void *, allocator<void *> > >(_STLP_alloc_proxy<void **, void *, allocator<void *> > &, _STLP_alloc_proxy<void **, void *, allocator<void *> > &); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::_Vector_base(unsigned int, allocator<void *> const &); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::vector(unsigned int, void *const &, allocator<void *> const &); }
-
 namespace _STL { template <> _STLP_alloc_proxy<void **, void *, allocator<void *> >::~_STLP_alloc_proxy(); }
-
 namespace _STL { template <> _Vector_base<void *, allocator<void *> >::~_Vector_base(); }
-
 namespace _STL { template <> vector<void *, allocator<void *> >::~vector(); }
-
 namespace _STL { template <> void *& vector<void *, allocator<void *> >::operator[](unsigned int); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_clear(); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_fill_insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_insert_overflow(void **, void *const &, __true_type const &, unsigned int, bool); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::_M_set(void **, void **, void **); }
-
 namespace _STL { template <> void ** allocator<void *>::allocate(unsigned int, void const *) const; }
-
 namespace _STL { template <> void ** vector<void *, allocator<void *> >::begin(); }
-
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::capacity() const; }
-
 namespace _STL { template <> void ** vector<void *, allocator<void *> >::end(); }
-
 namespace _STL { template <> allocator<void *> vector<void *, allocator<void *> >::get_allocator() const; }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::insert(void **, unsigned int, void *const &); }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::reserve(unsigned int); }
-
 namespace _STL { template <> unsigned int vector<void *, allocator<void *> >::size() const; }
-
 namespace _STL { template <> void vector<void *, allocator<void *> >::swap(vector<void *, allocator<void *> > &); }
-
 // bfme link decl-only end
 // Suppress this TU's non-retail copy of ?allocate@?$__malloc_alloc@$0A@@_STL@@SAPAXI@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> void *__malloc_alloc<0>::allocate(size_t); }
-
 enum NameKeyType
 {
 	NAMEKEY_INVALID = 0,
 	NAMEKEY_MAX = 1 << 23,
 	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
 };
-
 class ArmorTemplate
 {
 public:
 	float m_damageCoefficient[38];
 };
-
 #include "RtsHashView.h"
+#pragma optimize("s", off)
+#pragma optimize("t", on)
+#pragma optimize("", on)
+#include <hash_set>
 
 namespace rts
 {
@@ -146,6 +123,50 @@ struct BfmeFloat4Record00469C61 {
 	BfmeFloat4Record00469C61 &operator=(const BfmeFloat4Record00469C61 &other) { x = other.x; y = other.y; z = other.z; w = other.w; return *this; }
 };
 
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::begin() { return this->_M_start; }
+template <> __declspec(dllimport) __forceinline
+void **vector<void*>::end() { return this->_M_finish; }
+template <> __declspec(dllimport) __forceinline
+size_t vector<void*>::size() const { return size_t(this->_M_finish - this->_M_start); }
+template <> __declspec(dllimport) __forceinline
+void *&vector<void*>::operator[](size_t __n) { return *(begin() + __n); }
+template <> __declspec(dllimport) __forceinline
+void *const &vector<void*>::operator[](size_t __n) const { return *(begin() + __n); }
+}
+
+struct Rva005472F8Record { int word;
+// ?Rva005472F8Record::operator< present-unmatched
+bool operator<(const Rva005472F8Record&b)const{return word<b.word;}
+// ?Rva005472F8Record::operator== present-unmatched
+bool operator==(const Rva005472F8Record&b)const{return word==b.word;}
+};
+
+namespace _STL {template<>struct __type_traits<Rva005472F8Record>:__type_traits_aux<1>{};}
+
+namespace _STL{template<>struct hash<Rva005472F8Record>{unsigned operator()(const Rva005472F8Record&x)const{return (unsigned)x.word;}};}
+
+// Native creation allocates 20 bytes and constructs the full value at +4.
+// Keep the member call ABI: retail callers pass the table in ECX.
+struct BfmeFloat4Record00469C61;
+
+namespace _STL {
+template <> void _Construct<BfmeFloat4Record00469C61, BfmeFloat4Record00469C61>(BfmeFloat4Record00469C61 *, const BfmeFloat4Record00469C61 &);
+template <> __declspec(noinline)
+_Hashtable_node<Rva005472F8Record> *
+hashtable<Rva005472F8Record, Rva005472F8Record, hash<Rva005472F8Record>, _Identity<Rva005472F8Record>, equal_to<Rva005472F8Record>, allocator<Rva005472F8Record> >::_M_new_node(const Rva005472F8Record &value)
+{
+    char *p = allocator<char>::allocate(20, 0);
+    *(int *)p = 0;
+    _Construct(reinterpret_cast<BfmeFloat4Record00469C61 *>(p + 4), reinterpret_cast<const BfmeFloat4Record00469C61 &>(value));
+    return reinterpret_cast<_Hashtable_node<Rva005472F8Record> *>(p);
+}
+}
+
+// Instantiate the recovered member; retain only its required template dependencies.
+template _STL::pair<_STL::_Ht_iterator<Rva005472F8Record, _STL::_Nonconst_traits<Rva005472F8Record>, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >, bool> _STL::hashtable<Rva005472F8Record, Rva005472F8Record, _STL::hash<Rva005472F8Record>, _STL::_Identity<Rva005472F8Record>, _STL::equal_to<Rva005472F8Record>, _STL::allocator<Rva005472F8Record> >::insert_unique_noresize(Rva005472F8Record const &);
+
 // tu-skeleton: 0x00547188 21B ?rva00547188@MoveToGroupOrder@@QAE_NPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x0054719D 6B ?getDestination@MoveToGroupOrder@@UAEPAUCoord3D@@H@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
@@ -155,6 +176,8 @@ struct BfmeFloat4Record00469C61 {
 // tu-skeleton: 0x005471DF 7B ?slot07Set@MoveToGroupOrder@@UAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
 
 // tu-skeleton: 0x005471E6 61B ?slot11Command@MoveToGroupOrder@@UAE_NPAHPAUGroupOrderCommand@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderSlots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00547223Finish.cpp
 
@@ -166,8 +189,6 @@ Rva00547223 *Rva00547223::rva00547223(int *a, int *b)
 	m_0C = b[2];
 	return this;
 }
-
-// tu-skeleton: 0x00547245 30B ?Rva00547245Xfer@@YAXPAVXfer@@PAU?$pair@W4ObjectID@@UCoord3D@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/AI/Rva00547263.cpp
 
@@ -191,8 +212,6 @@ Rva00547223 *__cdecl Rva00547297Init(Rva00547223 *obj, int *a, int *b)
 	return obj;
 }
 
-// tu-skeleton: 0x005472AD 38B ?getClassName@MoveToGroupOrder@@UAEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva005472D3Alloc.cpp
 
 // ?Rva005472D3Alloc@@YGPAXABUBfmeFloat4Record00469C61@@@Z retail 0x005472D3 37B
@@ -207,20 +226,6 @@ void *__stdcall Rva005472D3Alloc(const BfmeFloat4Record00469C61 &src)
 	_STL::_Construct((BfmeFloat4Record00469C61 *)(p + 4), src);
 	return p;
 }
-
-// tu-skeleton: 0x005472F8 112B ?insert_unique_noresize@?$hashtable@URva005472F8Record@@U1@U?$hash@URva005472F8Record@@@_STL@@U?$_Identity@URva005472F8Record@@@3@U?$equal_to@URva005472F8Record@@@3@V?$allocator@URva005472F8Record@@@3@@_STL@@QAE?AU?$pair@U?$_Ht_iterator@URva005472F8Record@@U?$_Nonconst_traits@URva005472F8Record@@@_STL@@U1@U?$hash@URva005472F8Record@@@3@U?$_Identity@URva005472F8Record@@@3@U?$equal_to@URva005472F8Record@@@3@V?$allocator@URva005472F8Record@@@3@@_STL@@_N@2@ABURva005472F8Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp (not merged yet)
-
-// tu-skeleton: 0x00547368 143B ?rva00547368@MoveToGroupOrder@@UAE_NW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderIsDone.cpp (not merged yet)
-
-// tu-skeleton: 0x005473F7 57B ??1?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00547430 73B ?_M_insert@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBW4ObjectID@@UCoord3D@@@2@ABU32@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00547479 5B ??1?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0054747E 59B ??1MoveToGroupOrder@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x005474B9 10B ?getClassKey@MoveToGroupOrder@@UAE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ArmorHashtableRtsInsertDeferred.cpp
 
@@ -240,6 +245,29 @@ inline bool operator==(const ArmorTemplate &x, const ArmorTemplate &y)
 }
 
 // The declared helper binds to that row (tools/allowed_symbols.py --alternatenames).
+
+// tu-skeleton: 0x00547245 30B ?Rva00547245Xfer@@YAXPAVXfer@@PAU?$pair@W4ObjectID@@UCoord3D@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x005472AD 38B ?getClassName@MoveToGroupOrder@@UAEPBDXZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp
+
+// STLport 4.5.3 reference instantiation. Target boundary and byte comparison prove operation shape.
+// Element spelling/layout is donor inference; opaque records have address-derived identity.
+// The emitted unsigned max copy must match retail RVA 0x00013740.
+// Define it for speed, then restore this unit's flags for its own bodies.
+
+// tu-skeleton: 0x00547368 143B ?rva00547368@MoveToGroupOrder@@UAE_NW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderIsDone.cpp (not merged yet)
+
+// tu-skeleton: 0x005473F7 57B ??1?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00547430 73B ?_M_insert@?$hashtable@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@W4ObjectID@@U?$hash@W4ObjectID@@@rts@@U?$_Select1st@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@U?$equal_to@W4ObjectID@@@2@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@2@@_STL@@QAEAAU?$pair@$$CBW4ObjectID@@UCoord3D@@@2@ABU32@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00547479 5B ??1?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0054747E 59B ??1MoveToGroupOrder@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x005474B9 10B ?getClassKey@MoveToGroupOrder@@UAE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/GroupOrderClassNames.cpp (not merged yet)
 
 // tu-skeleton: 0x005474E7 68B ??A?$hash_map@W4ObjectID@@UCoord3D@@U?$hash@W4ObjectID@@@rts@@U?$equal_to@W4ObjectID@@@_STL@@V?$allocator@U?$pair@$$CBW4ObjectID@@UCoord3D@@@_STL@@@6@@_STL@@QAEAAUCoord3D@@ABW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrderXfer.cpp (not merged yet)
 

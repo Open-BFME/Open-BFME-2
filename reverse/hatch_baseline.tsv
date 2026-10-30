@@ -10657,6 +10657,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"s",off	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/AIPathfind.cpp	"t",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"gsy",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"s",off	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
@@ -11642,9 +11645,6 @@ pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00525951.cpp	"t
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00534743.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00534743.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00534743.cpp	"t",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp	"",on	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp	"s",off	1
-pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp	"t",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005CFBD5.cpp	"",on	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005CFBD5.cpp	"s",off	1
 pragma_optimize	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005CFBD5.cpp	"t",on	1
@@ -12952,6 +12952,8 @@ present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIStatesDerivedOnExit_Comp
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIStatesMoreExits.cpp	StateMachine::getCurrentStateID	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AIStatesSmallUpdates.cpp	AIFollowWaypointPathExactState::~AIFollowWaypointPathExactState	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/AITNGuardStates.cpp	StateMachine::getCurrentStateID	1
+present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator<	1
+present_unmatched	Code/GameEngine/Source/GameLogic/AI/MoveToGroupOrder.cpp	Rva005472F8Record::operator==	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	length@Coord2D@@QBEMXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/Path.cpp	normalize@Coord2D@@QAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/AI/ai.cpp	0AI@@QAE@XZ	1
@@ -15321,8 +15323,6 @@ present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00384ED4.cpp	
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00384ED4.cpp	Rva00384ED4Record::operator==	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	Rva00439609Record::operator<	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	Rva00439609Record::operator==	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp	Rva005472F8Record::operator<	1
-present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva005472F8.cpp	Rva005472F8Record::operator==	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva003876A4.cpp	<_Rb_tree::_M_create_node>	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva000BC20D.cpp	Rva000BC20DWords::operator=	1
 present_unmatched	Code/Libraries/Source/WWVegas/WWLib/StlWordAssignRva00540295.cpp	Rva00540295Words::operator=	1
