@@ -674,12 +674,6 @@ private:
 	int m_value10;
 };
 
-void Rva00355DD4::rva00355DD4()
-{
-	m_value08 = 0;
-	m_value10 = 0;
-}
-
 // 0x0036803F: stores TheGameLogic's +0x40 word plus 2 at +0x20 and answers 0.
 struct Rva0036803FLogic
 {
