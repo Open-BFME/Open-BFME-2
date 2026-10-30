@@ -9887,7 +9887,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x001514D0,37,code,,,-,,Code/Libraries/Source/WWVegas/WW3D2/Rva001514D0Getter.cpp
 0x001514F5,94,code,Code/Libraries/Source/WWVegas/WW3D2/FXShaderAsset.cpp,proposed,N,N=Code/Libraries/Source/WWVegas/WW3D2/FXShaderAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/fxshaderasset.cpp,Code/Libraries/Source/WWVegas/WW3D2/Rva001514F5Factory.cpp
 0x00151553,34,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp
-0x00151575,34,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_recreate_device.cpp
+0x00151575,34,code,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp,approved,N,N=Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp provisional,Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp
 0x00151597,51,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp
 0x001515CA,98,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Ctor.cpp
 0x0015162C,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters4.cpp

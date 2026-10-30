@@ -36,9 +36,15 @@ struct BfmeResetShaderResource
 
 struct BfmeResetShaderRef
 {
+public:
 	BfmeResetShaderResource *pointer;
+public:
 	void Release_Device_Resources();
+public:
+	void Recreate_Device_Resources();
 };
+
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp
 
 // ---- from Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_device.cpp
 
@@ -48,4 +54,10 @@ void BfmeResetShaderRef::Release_Device_Resources()
 		pointer->backend->effect->vtbl->OnLostDevice(pointer->backend->effect);
 }
 
-// tu-skeleton: 0x00151575 34B ?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_recreate_device.cpp (not merged yet)
+// ---- from Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_recreate_device.cpp
+
+void BfmeResetShaderRef::Recreate_Device_Resources()
+{
+	if (pointer && pointer->backend && pointer->backend->effect)
+		pointer->backend->effect->vtbl->OnResetDevice(pointer->backend->effect);
+}

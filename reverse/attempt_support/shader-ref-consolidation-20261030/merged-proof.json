@@ -1,0 +1,35 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp",
+  "approval": "existing provisional N TU, grouping only",
+  "source_sha256": "53a4d515b9eebe51506464cfef5dbe1b98a106dc7d2275bf8c5481a9166d3346",
+  "object_md5": "5fdae2c751e5e9df4b2ded4de15bf6ca",
+  "strict_current": true,
+  "external_code_definitions": [
+    "?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ",
+    "?Release_Device_Resources@BfmeResetShaderRef@@QAEXXZ"
+  ],
+  "rows": [
+    {
+      "name": "?Release_Device_Resources@BfmeResetShaderRef@@QAEXXZ",
+      "rva": "0x151553",
+      "actual_code_size": 34,
+      "exact": true,
+      "relocations": [],
+      "raw": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9114010000c3",
+      "native": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9114010000c3",
+      "callback_slot": 69,
+      "table_displacement": 276
+    },
+    {
+      "name": "?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ",
+      "rva": "0x151575",
+      "actual_code_size": 34,
+      "exact": true,
+      "relocations": [],
+      "raw": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9118010000c3",
+      "native": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9118010000c3",
+      "callback_slot": 70,
+      "table_displacement": 280
+    }
+  ]
+}
