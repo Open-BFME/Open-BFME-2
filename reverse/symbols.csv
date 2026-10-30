@@ -4888,7 +4888,6 @@ name,address,notes
 ?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z,0x0066D0B0
 ?bfmeFwdOneSVA@BfmeThingSVA@@QAEXHH@Z,0x0002A300
 ?bfmeFwdSWA@BfmeThingSWA@@QAEXH@Z,0x0002A930
-?bfmeFwdThreeSUA@BfmeThingSUA@@QAEXDH@Z,0x000275C0
 ?bfmeFwdTwoSVA@BfmeThingSVA@@QAEXHH@Z,0x0002A0B0
 ?bfmeGet1026@BfmeSrc1026@@QAEHXZ,0x0028AFA9,donor_sweep: call target read from retail at a unique placement of a BFME 1 donor body compiled /O1
 ?bfmeGet992C@BfmeAsk992@@QAEHXZ,0x0066DD00

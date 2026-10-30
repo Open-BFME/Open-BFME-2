@@ -11179,7 +11179,7 @@ _VP6_DeleteQuantizer,,0x001B7930,94,Code/Libraries/Source/VP6/DeleteQuantizer.cp
 ??0LifetimeUpdateModuleData@@QAE@XZ,,0x003A4A7D,26,Code/GameEngine/Source/GameLogic/Object/Update/LifetimeUpdate.cpp,matched,BFME1 byte-identical donor; vtable immediate repaired to BFME2 0xC4ED70
 ?bfmeRSearchV33@@YAPAPADPAPADPAD111@Z,,0x00026340,758,Code/GameEngine/Source/Common/BfmeConv1473.cpp,matched,BFME1 byte-identical donor; b1 0x0082E130
 ?bfmeRFindNotChV32@@YAPAPADPAPADPAD1D@Z,,0x000260A0,596,Code/GameEngine/Source/Common/BfmeConv1472.cpp,matched,BFME1 byte-identical donor
-?bfmeRFindChV31@@YAPAPADPAPADPAD1D@Z,,0x00025CE0,540,Code/GameEngine/Source/Common/BfmeConv1471.cpp,matched,BFME1 byte-identical donor
+??$__find_if@V?$reverse_iterator@PBD@_STL@@U?$_Eq_char_bound@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@ABUrandom_access_iterator_tag@0@@Z,,0x00025CE0,540,Code/GameEngine/Source/Common/BfmeConv1471.cpp,matched,stlport-4.6 _algobase.c:136 random-access __find_if<reverse_iterator<const char*>;_Eq_char_bound>; was placeholder ?bfmeRFindChV31@@YAPAPADPAPADPAD1D@Z
 ?bfmeFindChV28@@YAPADPAD0D@Z,,0x00025F00,408,Code/GameEngine/Source/Common/BfmeConv1468.cpp,matched,BFME1 byte-identical donor
 ?rva0087FA50@BfmeObjF9@@QAEXABVBfmeStrF9@@D@Z,,0x006BF450,311,Code/GameEngine/Source/Common/Rva0087FA50UpdateFlags.cpp,matched,BFME1 byte-identical donor
 _VP6_decodeMotionVector,,0x001C5B00,539,Code/Libraries/Source/VP6/DecodeMotionVector.cpp,matched,Clean-room spec 001c5b00; VP6_decodeMotionVector: decodes one motion vector with the bool coder using the nearest vector as prediction; same retail extent as the replaced placeholder; implemented from reverse/vp6_cleanroom/specs/001c5b00.md and retail only
@@ -11226,7 +11226,7 @@ _DeblockFrame,,0x001BFBF0,278,Code/Libraries/Source/VP6/DeblockFrame.cpp,matched
 ??0_bstr_t@@QAE@PBD@Z,,0x00176CD0,129,Code/GameEngine/Source/GameNetwork/WOLBrowser/Bstr_t_ctor.cpp,matched,BFME1 byte-identical donor; COM helper pins added
 ?bfmeRFindV41@@YGHPADII@Z,,0x00027740,240,Code/GameEngine/Source/Common/BfmeThingPF.cpp,matched,BFME1 byte-identical donor
 ?bfmeRFindChV42@@YGHDI@Z,,0x000278A0,241,Code/GameEngine/Source/Common/BfmeConv1484.cpp,matched,BFME1 byte-identical donor
-?bfmeRFindChV40@@YGHDI@Z,,0x000275C0,235,Code/GameEngine/Source/Common/BfmeConv1481.cpp,matched,BFME1 byte-identical donor
+?rfind@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIDI@Z,,0x000275C0,235,Code/GameEngine/Source/Common/BfmeConv1481.cpp,matched,stlport-4.6 _string.c:385 basic_string<char>::rfind(char;size_type) const via reverse find_if 0x00026E00; was placeholder ?bfmeRFindChV40@@YGHDI@Z (lifted __asm)
 ?onTxn@Rva007FA2C0@@QAE_NPAVRva007E8810Message@@@Z,,0x00665C30,233,Code/GameEngine/Source/GameNetwork/Rva007F96C0Txn.cpp,matched,BFME1 byte-identical donor
 ??_GRva001DFEAABase@@UAEPAXI@Z,,0x001DFA84,28,Code/GameEngine/Source/GameLogic/Object/Contain/Rva001DFA48OwnerDtor.cpp,matched,scalar deleting dtor; TU already emits pop-ecx shape; sole caller pattern via landed dtor
 ?fetchContent@Rva007F04B0BlobService@@QAE_NPADI@Z,,0x0065D2D0,205,Code/Libraries/Source/Fesl/blobservice.cpp,matched,BFME1 byte-identical donor; callees resolve via ledger
@@ -11326,7 +11326,7 @@ _VP6_DeletePBInstance,,0x001B56A0,66,Code/Libraries/Source/VP6/PbInstanceTeardow
 ?bfmeGoSB@BfmeHostSB@@QAEXPAVBfmeThingSB@@@Z,,0x0066F820,55,Code/GameEngine/Source/Common/BfmeConv1287.cpp,matched,BFME1 byte-identical donor; b1 0x008037E0; callee tiebreak over 0x0066F7E0 via 0x00675D00 sink; UseSB ICF-twinned with rowed bfmeGoSKA in b1
 ?bfmeGoDHC@BfmeThingDHC@@QAEHXZ,,0x004C1006,34,Code/GameEngine/Source/Common/BfmeConv700.cpp,matched,BFME1 donor verbatim; head 0xD0 to 0xF0 per retail; ask pin 0x4C0D4F; tail jmp slot 18
 ?bfmeGo1033F@BfmeF1033@@QAEXPAUBfmeG1033@@@Z,,0x004107AE,31,Code/GameEngine/Source/Common/BfmeConv1033.cpp,matched,BFME1 donor trimmed to F1033; try pin 0x69D6 folds with compare; fail pin 0x36410 fold family
-?bfmeFwdVMU@@YA?AUBfmeItVMU@@U1@0D@Z,,0x00026E00,57,Code/GameEngine/Source/Common/BfmeConv1441.cpp,matched,BFME1 byte-identical donor; b1 0x0082DE30; callee tiebreak over 0x00026F70 via 0x25CE0 (Ch) vs 0x260A0 (NotCh) sink; bfmeImplVMU ICF-twinned with rowed bfmeRFindChV31 in b1
+??$find_if@V?$reverse_iterator@PBD@_STL@@U?$_Eq_char_bound@V?$char_traits@D@_STL@@@2@@_STL@@YA?AV?$reverse_iterator@PBD@0@V10@0U?$_Eq_char_bound@V?$char_traits@D@_STL@@@0@@Z,,0x00026E00,57,Code/GameEngine/Source/Common/BfmeConv1441.cpp,matched,stlport-4.6 _algobase.c:193 find_if<reverse_iterator<const char*>;_Eq_char_bound> dispatching to __find_if 0x00025CE0; was placeholder ?bfmeFwdVMU@@YA?AUBfmeItVMU@@U1@0D@Z
 ?bfmeGo1082B@@YAXXZ,,0x006F1DF0,89,Code/GameEngine/Source/Common/BfmeConv1082.cpp,matched,BFME1 donor verbatim; b1 0x008B39B0; tiebreak slots 0-3 contiguous B-first order
 ?bfmeGo1082C@@YAXXZ,,0x006F25E0,89,Code/GameEngine/Source/Common/BfmeConv1082.cpp,matched,BFME1 donor verbatim; b1 0x008B4290; tiebreak slots 4-7 contiguous C-second order
 ?bfmeFwdVMV@@YA?AUBfmeItVMV@@U1@0D@Z,,0x00026F70,57,Code/GameEngine/Source/Common/BfmeConv1443.cpp,matched,BFME1 byte-identical donor; b1 0x0082DFA0; callee tiebreak over 0x00026E00 via 0x260A0 (NotCh) vs 0x25CE0 (Ch) sink; bfmeImplVMV ICF-twinned with rowed bfmeRFindNotChV32 in b1

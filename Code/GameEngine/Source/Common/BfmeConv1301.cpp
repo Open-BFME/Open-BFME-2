@@ -20,6 +20,9 @@
 extern template const char *_STL::find_if(const char *, const char *,
 	_STL::_Eq_char_bound<_STL::char_traits<char> >);
 
+// rfind(char, size_type) at 0x000275C0 is instantiated in BfmeConv1481.cpp.
+extern template _STL::string::size_type _STL::string::rfind(char, _STL::string::size_type) const;
+
 namespace _STL {
 template string::size_type string::find(char, string::size_type) const;
 template string::size_type string::find(char) const;
@@ -31,7 +34,6 @@ public:
 	void bfmeTwoSUA(char a);
 	void bfmeThreeSUA(char a, int b);
 	void bfmeFourSUA(int a, int b);
-	void bfmeFwdThreeSUA(char a, int b);
 };
 
 class BfmeStrV16
@@ -49,5 +51,5 @@ void BfmeThingSUA::bfmeTwoSUA(char a)
 // ?bfmeThreeSUA@BfmeThingSUA@@QAEXDH@Z
 void BfmeThingSUA::bfmeThreeSUA(char a, int b)
 {
-	bfmeFwdThreeSUA(a, b);
+	((const _STL::string *)this)->rfind(a, b);
 }

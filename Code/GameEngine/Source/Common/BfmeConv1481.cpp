@@ -1,109 +1,11 @@
-// cl: /Od
-
-struct BfmeItVMU
-{
-	int m;
-};
-
-BfmeItVMU bfmeFwdVMU(BfmeItVMU a, BfmeItVMU b, char c);
-
-int __stdcall bfmeRFindChV40(char ch, unsigned pos)
-{
-	void *at;
-	char pad[68];
-
-	__asm
-	{
-		mov dword ptr [ebp-0x44], ecx
-		mov eax, dword ptr [ebp-0x44]
-		mov ecx, dword ptr [ebp-0x44]
-		mov edx, dword ptr [eax+4]
-		sub edx, dword ptr [ecx]
-		mov dword ptr [ebp-4], edx
-		cmp dword ptr [ebp-4], 1
-		jnb have_len
-		or eax, -1
-		jmp done
-	have_len:
-		mov eax, dword ptr [ebp-4]
-		sub eax, 1
-		mov dword ptr [ebp-0x10], eax
-		mov ecx, dword ptr [ebp-0x44]
-		mov edx, dword ptr [ecx]
-		mov dword ptr [ebp-0x24], edx
-		mov eax, dword ptr [ebp+0x0C]
-		cmp eax, dword ptr [ebp-0x10]
-		jnb use_last
-		lea ecx, dword ptr [ebp+0x0C]
-		mov dword ptr [ebp-0x48], ecx
-		jmp got_idx
-	use_last:
-		lea edx, dword ptr [ebp-0x10]
-		mov dword ptr [ebp-0x48], edx
-	got_idx:
-		mov eax, dword ptr [ebp-0x48]
-		mov dword ptr [ebp-0x28], eax
-		mov ecx, dword ptr [ebp-0x28]
-		mov edx, dword ptr [ecx]
-		mov eax, dword ptr [ebp-0x24]
-		lea ecx, [eax+edx+1]
-		mov dword ptr [ebp-0x0C], ecx
-		mov dl, byte ptr [ebp+8]
-		mov byte ptr [ebp-0x11], dl
-		mov al, byte ptr [ebp-0x11]
-		push eax
-		push ecx
-		mov dword ptr [ebp-0x30], esp
-		mov ecx, dword ptr [ebp-0x44]
-		mov edx, dword ptr [ecx]
-		mov dword ptr [ebp-0x2C], edx
-		mov eax, dword ptr [ebp-0x30]
-		mov ecx, dword ptr [ebp-0x2C]
-		mov dword ptr [eax], ecx
-		push ecx
-		mov dword ptr [ebp-0x34], esp
-		mov edx, dword ptr [ebp-0x34]
-		mov eax, dword ptr [ebp-0x0C]
-		mov dword ptr [edx], eax
-		lea ecx, dword ptr [ebp-8]
-		push ecx
-		call bfmeFwdVMU
-		add esp, 0x10
-		mov edx, dword ptr [ebp-0x44]
-		mov eax, dword ptr [edx]
-		mov dword ptr [ebp-0x38], eax
-		mov ecx, dword ptr [ebp-0x38]
-		mov dword ptr [ebp-0x20], ecx
-		mov edx, dword ptr [ebp-8]
-		mov dword ptr [ebp-0x3C], edx
-		mov eax, dword ptr [ebp-0x3C]
-		sub eax, dword ptr [ebp-0x20]
-		neg eax
-		sbb eax, eax
-		inc eax
-		movzx ecx, al
-		neg ecx
-		sbb ecx, ecx
-		inc ecx
-		movzx edx, cl
-		test edx, edx
-		jz notfound
-		mov eax, dword ptr [ebp-0x44]
-		mov ecx, dword ptr [eax]
-		mov dword ptr [ebp-0x40], ecx
-		mov edx, dword ptr [ebp-8]
-		sub edx, 1
-		sub edx, dword ptr [ebp-0x40]
-		mov dword ptr [ebp-0x4C], edx
-		jmp ret_idx
-	notfound:
-		mov dword ptr [ebp-0x4C], 0xFFFFFFFF
-	ret_idx:
-		mov eax, dword ptr [ebp-0x4C]
-	done:
-	}
+// cl: /DNDEBUG /MD /EHsc /Od /Ob1 /D_STLP_USE_STATIC_LIB
+// stlport46
+// Retail 0x000275C0 (235B) is STLport 4.6 basic_string<char>::rfind(char,
+// size_type) const (_string.c:385): empty -> npos, last = begin() +
+// min(len - 1, pos) + 1, reverse find_if with _Eq_char_bound (0x00026E00,
+// BfmeConv1441.cpp), npos on a miss.
+#include <string>
+extern template _STL::reverse_iterator<const char *> _STL::find_if(_STL::reverse_iterator<const char *>, _STL::reverse_iterator<const char *>, _STL::_Eq_char_bound<_STL::char_traits<char> >);
+namespace _STL {
+template string::size_type string::rfind(char, string::size_type) const;
 }
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
-#pragma comment(linker, "/alternatename:?bfmeFwdThreeSUA@BfmeThingSUA@@QAEXDH@Z=?bfmeRFindChV40@@YGHDI@Z")
