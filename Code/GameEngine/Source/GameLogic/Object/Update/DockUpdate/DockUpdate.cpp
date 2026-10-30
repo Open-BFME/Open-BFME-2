@@ -64,6 +64,39 @@ public:
 	}
 };
 #include "../../../../Common/GameLogicObjectLookupView.h"
+#define BFME_DISP8_BYTECHASE_GETTER(NAME, DISP1, DISP2) \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+		char m_lead[DISP1]; \
+		void *m_ptr; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return *(unsigned char *)((char *)m_ptr + DISP2); \
+	}
+#define BFME_DISP8_BYTECHASE_BEFORE_GETTER(NAME, BACK, INNER) \
+	class Inner##NAME \
+	{ \
+	public: \
+		char m_lead[INNER]; \
+		unsigned char m_value; \
+	}; \
+	class Sub##NAME \
+	{ \
+	public: \
+		Inner##NAME *m_holder; \
+	}; \
+	class NAME \
+	{ \
+	public: \
+		unsigned char get() const; \
+	}; \
+	unsigned char NAME::get() const \
+	{ \
+		return ((const Sub##NAME *)((const char *)this - (BACK)))->m_holder->m_value; \
+	}
 
 extern GameLogic *TheGameLogic;
 
@@ -122,6 +155,21 @@ private:
 	int m_08;
 	unsigned char m_0C;
 };
+
+BFME_DISP8_BYTECHASE_BEFORE_GETTER(Rva005896D2ByteChaseField, 0x1C, 0x0C)
+
+// 0x0039ADAF is ExperienceTracker::isTrainable (pinned under that name from
+// VeterancyCrateCollide::isValidToExecute; ZH's isTrainable reads the
+// template's trainable flag): the byte at +0x5E7 of the +0x04 template.
+class ExperienceTracker
+{
+public:
+	bool isTrainable() const;
+	char m_lead[0x4];
+	void *m_template;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate.cpp
 
@@ -248,28 +296,6 @@ DockUpdateModuleData::DockUpdateModuleData()
 	m_0C = 1;
 }
 
-// tu-skeleton: 0x0058966B 27B ??$uninitialized_fill_n@PAW4ObjectID@@IW41@@_STL@@YAPAW4ObjectID@@PAW41@IABW41@@Z -- matched in Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp (not merged yet)
-
-// tu-skeleton: 0x00589686 42B ??$__copy_backward@PAW4ObjectID@@PAW41@H@_STL@@YAPAW4ObjectID@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp (not merged yet)
-
-// tu-skeleton: 0x005896C1 17B ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x005896D2 7B ?get@Rva005896D2ByteChaseField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00589722 93B ?rva00589722@Rva00589722@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
-
-// tu-skeleton: 0x005897FB 270B ?loadDockPositions@DockUpdate@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateLoadDockPositions.cpp (not merged yet)
-
-// tu-skeleton: 0x00589909 22B ?loadPostProcess@DockUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate_loadPostProcess_DockUpdate_MAEXXZ.cpp (not merged yet)
-
-// tu-skeleton: 0x0058991F 83B ?isClearToAdvance@DockUpdate@@UBE_NPBVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate_DockUpdate_isClearToAdvance.cpp (not merged yet)
-
-// tu-skeleton: 0x00589972 121B ?getEnterPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x005899EB 99B ?getDockPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
-
-// tu-skeleton: 0x00589A4E 99B ?getExitPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate_onApproachReached.cpp
 
 // ?onApproachReached@DockUpdate@@UAEXPAVObject@@@Z @0x00589AB1 78B.
@@ -296,6 +322,44 @@ void DockUpdate::onApproachReached(Object *docker)
 		}
 	}
 }
+
+// tu-skeleton: 0x0058966B 27B ??$uninitialized_fill_n@PAW4ObjectID@@IW41@@_STL@@YAPAW4ObjectID@@PAW41@IABW41@@Z -- matched in Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x00589686 42B ??$__copy_backward@PAW4ObjectID@@PAW41@H@_STL@@YAPAW4ObjectID@@PAW41@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/VectorObjectIDFillInsert.cpp (not merged yet)
+
+// tu-skeleton: 0x005896C1 17B ?buildFieldParse@DockUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp
+
+// Disp8 byte-chase getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP1>] / mov al,[eax+<DISP2>] / ret
+//
+// A pointer is read at a fixed displacement from `this`, then a byte is read
+// at a second displacement from that pointer and returned in `al` (only the
+// low byte is defined; the caller uses `al`). MSVC 7.1 emits the disp8 loads
+// `8B 41 XX` + `8A 40 XX`, plus `ret`, for seven bytes total.
+// Identity is not recovered: every name is derived from its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Backward variant: the holder sits at a NEGATIVE displacement from `this`
+// (a sub-object `this` pointing into a larger object). Spelled as an explicit
+// backward cast, which MSVC folds to `mov eax,[ecx-BACK]`; same shape and
+// reading as BFME1's ChainedFieldGetters.
+
+// tu-skeleton: 0x00589722 93B ?rva00589722@Rva00589722@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAF.cpp (not merged yet)
+
+// tu-skeleton: 0x005897FB 270B ?loadDockPositions@DockUpdate@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateLoadDockPositions.cpp (not merged yet)
+
+// tu-skeleton: 0x00589909 22B ?loadPostProcess@DockUpdate@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate_loadPostProcess_DockUpdate_MAEXXZ.cpp (not merged yet)
+
+// tu-skeleton: 0x0058991F 83B ?isClearToAdvance@DockUpdate@@UBE_NPBVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdate_DockUpdate_isClearToAdvance.cpp (not merged yet)
+
+// tu-skeleton: 0x00589972 121B ?getEnterPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x005899EB 99B ?getDockPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
+
+// tu-skeleton: 0x00589A4E 99B ?getExitPosition@DockUpdate@@UAEXPAVObject@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateGetExitPosition.cpp (not merged yet)
 
 // tu-skeleton: 0x00589AFF 126B ?rva00589AFF@DockUpdate@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/DockUpdateRemove.cpp (not merged yet)
 
