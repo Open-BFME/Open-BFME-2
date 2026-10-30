@@ -20918,11 +20918,11 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A05F3C,4,.data,global,?winID@?BA@??updateContextCommand@ControlBar@@IAEXXZ@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp,owned,,1,2
 0x00A05F40,4,.data,global,?g_Va00E05F40@@3IA,Code/GameEngine/Source/Common/GlobalFlagClearers_E05x.cpp,provisional,?$S1@?BA@??updateContextCommand@ControlBar@@IAEXXZ@4IA@Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarCommand.cpp;?g_Va00E05F40@@3IA,2,4
 0x00A05F44,4,.data,global,_s_rva007B3B7A,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A05F48,4,.data,global,?barID@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateContextOCLTimer.cpp,owned,,1,2
-0x00A05F4C,4,.data,global,?descID@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateContextOCLTimer.cpp,owned,,1,2
-0x00A05F50,4,.data,global,?$S2@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateContextOCLTimer.cpp,owned,,1,8
-0x00A05F54,4,.data,global,?key_OCLUpdate@?3??updateContextOCLTimer@ControlBar@@IAEXXZ@4W4NameKeyType@@B,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateContextOCLTimer.cpp,owned,,1,2
-0x00A05F58,4,.data,global,?$S1@?3??updateContextOCLTimer@ControlBar@@IAEXXZ@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateContextOCLTimer.cpp,owned,,1,4
+0x00A05F48,4,.data,global,?barID@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp,owned,,1,2
+0x00A05F4C,4,.data,global,?descID@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp,owned,,1,2
+0x00A05F50,4,.data,global,?$S2@?1??updateOCLTimerTextDisplay@ControlBar@@IAEXIM@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp,owned,,1,8
+0x00A05F54,4,.data,global,?key_OCLUpdate@?3??updateContextOCLTimer@ControlBar@@IAEXXZ@4W4NameKeyType@@B,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp,owned,,1,2
+0x00A05F58,4,.data,global,?$S1@?3??updateContextOCLTimer@ControlBar@@IAEXXZ@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarOCLTimer.cpp,owned,,1,4
 0x00A05F5C,4,.data,global,_s_rva007B3BA4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A05F60,4,.data,global,?descID@?1??updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp,owned,,1,2
 0x00A05F64,4,.data,global,?$S1@?1??updateConstructionTextDisplay@ControlBar@@QAEXPAVObject@@@Z@4IA,Code/GameEngine/Source/GameClient/GUI/ControlBar/ControlBarUpdateConstruction.cpp,owned,,1,2
