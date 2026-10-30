@@ -1,11 +1,6 @@
-// cl: /Ob0
+// cl: /Ireference/shims/bfme2_ascii /Ob0
 
-template <typename T>
-class StringBase
-{
-public:
-	void set(const StringBase<T> &other);
-};
+#include "ascii_string.h"
 
 class Rva0036CA00Str
 {
