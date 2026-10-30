@@ -1395,13 +1395,13 @@ def root_headers(roots):
 
 
 def index_key(roots):
-    # Whole-second mtimes: a disk restored from a snapshot (boat.dev) reports
-    # seconds-only times until a file is first read, then the nanoseconds, so
-    # an st_mtime_ns key changed on first use and rebuilt a valid index.
+    # Header contents, not stat data: an edit that keeps a header's size and
+    # mtime second must rebuild the index, and a disk restored from a snapshot
+    # (boat.dev reports seconds-only mtimes until a file is first read) must
+    # not. Hashing the ~950 headers (48 MB) costs ~0.1 s warm.
     h = hashlib.sha1(f"v{TOOL_VERSION}".encode())
     for label, path in root_headers(roots):
-        st = path.stat()
-        h.update(f"{label}\0{st.st_size}\0{st.st_mtime_ns // 1_000_000_000}\n".encode())
+        h.update(f"{label}\0{hashlib.sha256(path.read_bytes()).hexdigest()}\n".encode())
     return h.hexdigest()[:16]
 
 

@@ -283,18 +283,34 @@ def test_a_probe_that_exits_by_itself_keeps_its_output(wine_cl):
     assert ok and out.startswith("#line 1")
 
 
-def test_index_key_survives_a_snapshot_restore_dropping_subsecond_mtimes(tmp_path):
+def one_header_root(tmp_path, text):
     root = tmp_path / "include"
     root.mkdir()
     header = root / "windows.h"
-    header.write_text("#define WINAPI __stdcall\n")
-    roots = [("sdk", root)]
-    second = 1_793_301_543
-    os.utime(header, ns=(second * 10**9, second * 10**9 + 446_709_376))
+    header.write_text(text)
+    return [("sdk", root)], header
+
+
+SECOND = 1_793_301_543 * 10**9
+
+
+def test_index_key_survives_a_snapshot_restore_dropping_subsecond_mtimes(tmp_path):
+    roots, header = one_header_root(tmp_path, "#define WINAPI __stdcall\n")
+    os.utime(header, ns=(SECOND, SECOND + 446_709_376))
     key = mha.index_key(roots)
-    os.utime(header, ns=(second * 10**9, second * 10**9))
+    os.utime(header, ns=(SECOND, SECOND))       # what a restored snapshot reports before the file is read
     assert mha.index_key(roots) == key
-    os.utime(header, ns=((second + 1) * 10**9, (second + 1) * 10**9))
+    os.utime(header, ns=(SECOND + 10**9, SECOND + 10**9))
+    assert mha.index_key(roots) == key
+
+
+def test_index_key_changes_with_a_same_size_edit_in_the_same_mtime(tmp_path):
+    roots, header = one_header_root(tmp_path, "#define VALUE 1\n")
+    os.utime(header, ns=(SECOND, SECOND))
+    key = mha.index_key(roots)
+    header.write_text("#define VALUE 2\n")
+    os.utime(header, ns=(SECOND, SECOND))
+    assert header.stat().st_size == len("#define VALUE 1\n")
     assert mha.index_key(roots) != key
 
 
