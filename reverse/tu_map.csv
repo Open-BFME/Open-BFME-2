@@ -46122,7 +46122,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0055AD91,41,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBuildable.cpp W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuildable.cpp provisional,Code/GameEngine/Source/Common/Rva0055AD91Wrapper.cpp
 0x0055ADBA,30,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuildable.cpp C=0x0055AD91..0x0055ADD8 provisional,Code/GameEngine/Source/Common/AIBuildable.cpp
 0x0055ADD8,10,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuildable.cpp C=0x0055AD91..0x0055ADE2 provisional,Code/GameEngine/Source/Common/AIBuildable.cpp
-0x0055ADE2,147,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBuildable.cpp provisional,Code/GameEngine/Source/Common/AIBuildable_doBuild.cpp
+0x0055ADE2,147,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBuildable.cpp provisional,Code/GameEngine/Source/Common/AIBuildable.cpp
 0x0055AE75,97,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,N,N=Code/GameEngine/Source/Common/AIBuildable.cpp provisional,Code/GameEngine/Source/Common/AIBuildable_doCanMake.cpp
 0x0055AED6,205,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,C,C=0x0055AE75..0x0055AFA3 provisional,Code/GameEngine/Source/Common/Rva0055AED6Xfer.cpp
 0x0055AFA3,28,code,Code/GameEngine/Source/Common/AIBuildable.cpp,approved,C,C=0x0055AE75..0x0055AFBF provisional,Code/GameEngine/Source/Common/AIBuildable.cpp
