@@ -1,4 +1,4 @@
-// cl: /DNDEBUG /MD /EHsc /Ireference/open-bfme-1/inputs/reference/shims/stringinline /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS
 // stlport
 //
 // Bodies ported from Open-BFME-1's
@@ -31,7 +31,7 @@
 #define _STLP_NO_EXCEPTIONS 1
 #include <map>
 #include <string.h>
-#include "StringInline.h"
+#include "ascii_string.h"
 
 #pragma intrinsic(memcmp)
 
@@ -51,43 +51,7 @@ struct ScriptCounter
 	Bool m_isCountdownTimer;
 };
 
-// upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameLogic/ScriptEngine.h
-class ScriptEngine
-{
-public:
-	virtual void _slot00() = 0;
-	virtual void _slot01() = 0;
-	virtual void _slot02() = 0;
-	virtual void _slot03() = 0;
-	virtual void _slot04() = 0;
-	virtual void _slot05() = 0;
-	virtual void _slot06() = 0;
-	virtual void _slot07() = 0;
-	virtual void _slot08() = 0;
-	virtual void _slot09() = 0;
-	virtual void _slot10() = 0;
-	virtual void _slot11() = 0;
-	virtual void _slot12() = 0;
-	virtual void _slot13() = 0;
-	virtual void _slot14() = 0;
-	virtual void _slot15() = 0;
-	virtual void _slot16() = 0;
-	virtual void _slot17() = 0;
-	virtual void _slot18() = 0;
-	virtual void _slot19() = 0;
-	virtual void _slot20() = 0;
-	virtual void _slot21() = 0;
-	virtual void _slot22() = 0;
-	virtual void _slot23() = 0;
-	virtual void _slot24() = 0;
-	virtual void _slot25() = 0;
-	virtual Object *getUnitNamed(const AsciiString &name) = 0;
-	void *rva002086C5(AsciiString name);
-
-protected:
-	friend class ScriptActions;
-	ScriptCounter *bfmeCounter(AsciiString name);
-};
+#include "../../../Include/GameLogic/ScriptEngine.h"
 
 // Reached by casting TheScriptEngine: the mask helper is not a slot.
 class BfmeScriptEngine_getPlayerMaskFromAsciiString
@@ -229,7 +193,6 @@ public:
 	UnitExperience *m_experience;
 };
 
-extern ScriptEngine *TheScriptEngine;
 extern PlayerList *ThePlayerList;
 
 extern void j_000142b3();
