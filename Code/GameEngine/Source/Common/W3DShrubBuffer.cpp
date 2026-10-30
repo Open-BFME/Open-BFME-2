@@ -20,17 +20,35 @@ struct FloatPair
 	float y;
 };
 
+class RefItem
+{
+public:
+	virtual void Release();
+	int m_ref;
+};
+
+struct SecondElem
+{
+	RefItem *p;
+	char pad[0x5C - 4];
+};
+
 // Retail record accesses: key +0x58, guard +0x84, unsigned state +0x90.
 // The 0xA0 stride and 2000 entries place the count at receiver +0x4FB58.
 struct ShrubRecord
 {
-	unsigned char pad00[0x58];
+	unsigned char pad00[0x44];
+	unsigned char flag;
+	unsigned char pad0[3];
+	unsigned char data0[0x10];
 	unsigned key;
 	unsigned char pad5C[0x28];
 	unsigned guard;
 	unsigned char pad88[8];
 	unsigned state;
-	unsigned char pad94[0x0C];
+	RefItem *p0;
+	RefItem *p1;
+	unsigned char pad9C[4];
 };
 
 class W3DShrubBuffer
@@ -39,13 +57,19 @@ public:
 	int getPartitionBucket(FloatPair const *p);
 	bool rva000E90DB(unsigned key, int mode);
 	void startMorph(int index, int mode);
-	unsigned char m_pad0[0x1948];
+	void rva000E7016();
+	unsigned char m_pad0[0x5C0];
+	int m_fill[0x4E2];
 	float m_minX;
 	float m_minY;
 	float m_maxX;
 	float m_maxY;
 	ShrubRecord m_records[2000];
 	int m_count;
+	unsigned char m_dirty;
+	char _pad2[0x4FB70 - 0x4FB5D];
+	SecondElem m_array2[0x40];
+	int m_tail;
 };
 
 // ---- from Code/GameEngine/Source/Common/Rva000E6EF0Bucket.cpp

@@ -24,14 +24,20 @@ public:
 	int m_ref;
 };
 
-struct FirstElem
+struct ShrubRecord
 {
+	unsigned char pad00[0x44];
 	unsigned char flag;
 	unsigned char pad0[3];
-	unsigned char data0[0x4C];
+	unsigned char data0[0x10];
+	unsigned key;
+	unsigned char pad5C[0x28];
+	unsigned guard;
+	unsigned char pad88[8];
+	unsigned state;
 	RefItem *p0;
 	RefItem *p1;
-	unsigned char data1[0xA0 - 0x58];
+	unsigned char pad9C[4];
 };
 
 struct SecondElem
@@ -42,20 +48,22 @@ struct SecondElem
 
 extern float g_Va00BBB8D8;
 
+struct FloatPair;
+
 class W3DShrubBuffer
 {
 public:
+	int getPartitionBucket(FloatPair const *p);
+	bool rva000E90DB(unsigned key, int mode);
+	void startMorph(int index, int mode);
 	void rva000E7016();
-private:
-	char _pad0[0x5C0];
+	unsigned char m_pad0[0x5C0];
 	int m_fill[0x4E2];
-	float m_f1948;
-	float m_f194C;
-	float m_f1950;
-	float m_f1954;
-	char _pad1[0x199C - 0x1958];
-	FirstElem m_elems[1999];
-	char _gap[0x5C];
+	float m_minX;
+	float m_minY;
+	float m_maxX;
+	float m_maxY;
+	ShrubRecord m_records[2000];
 	int m_count;
 	unsigned char m_dirty;
 	char _pad2[0x4FB70 - 0x4FB5D];
@@ -68,27 +76,27 @@ void W3DShrubBuffer::rva000E7016()
 	((Rva000E6AC0 *)this)->rva000E65B1();
 	for (int i = 0; i < m_count; ++i)
 	{
-		RefItem *refItem = m_elems[i].p0;
+		RefItem *refItem = m_records[i].p0;
 		if (refItem != 0)
 		{
 			if (--refItem->m_ref == 0)
 				refItem->Release();
-			m_elems[i].p0 = 0;
+			m_records[i].p0 = 0;
 		}
-		RefItem *p1 = m_elems[i].p1;
+		RefItem *p1 = m_records[i].p1;
 		if (p1 != 0)
 		{
 			if (--p1->m_ref == 0)
 				p1->Release();
-			m_elems[i].p1 = 0;
+			m_records[i].p1 = 0;
 		}
 	}
-	m_f194C = 0.0f;
-	m_f1948 = 0.0f;
+	m_minY = 0.0f;
+	m_minX = 0.0f;
 	float tmp = g_Va00BBB8D8;
 	m_count = 0;
-	m_f1954 = tmp;
-	m_f1950 = tmp;
+	m_maxY = tmp;
+	m_maxX = tmp;
 	m_dirty = 1;
 	for (int i = 0; i < 0x40; ++i)
 	{
