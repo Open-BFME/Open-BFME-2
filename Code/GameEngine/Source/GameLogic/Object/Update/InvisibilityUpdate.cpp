@@ -125,8 +125,12 @@ public:
 	virtual void behaviorModuleOtherAnchor();
 };
 
+class Thing;
+class ModuleData;
+
 class UpdateModule : public InvisibilityUpdatePrimary, public BehaviorModuleOther, public Rva004A3A20Interface {
 public:
+ UpdateModule(Thing *thing, const ModuleData *moduleData);
  virtual ~UpdateModule();
  void xfer(Xfer *xfer); // 0x0044DF9F, spelled as its row
 protected:
@@ -180,6 +184,7 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 class InvisibilityUpdate : public UpdateModule, public Rva004A3A09Iface
 {
 public:
+	InvisibilityUpdate(Thing *thing, const ModuleData *moduleData);
 	virtual Rva004A3A09Iface *rva004A3877();
 	virtual bool rva004A3A09();
 	void rva004A39D0(bool on);
