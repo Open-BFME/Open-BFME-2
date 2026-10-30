@@ -26,15 +26,12 @@ enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -54,9 +51,7 @@ class RGBAColorInt;
 class Snapshot;
 class Thing;
 class ModuleData;
-
 #include "../../../../Include/Common/BfmeXfer.h"
-
 class Xfer::Version
 {
 public:
@@ -66,7 +61,6 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 #include "ascii_string.h"
 #include "../../../../Include/Common/ObjectModule.h"
 
@@ -121,6 +115,7 @@ private:
 	unsigned char m_pad00[0x28];
 	bool m_UIDirty; // +0x28
 };
+
 extern ControlBar *TheControlBar;
 
 class __declspec(novtable) MonitorConditionUpdateModuleData : public Snapshot
@@ -136,6 +131,7 @@ public:
 };
 
 class BehaviorModuleInterface { public: virtual void behaviorSlot(); };
+
 class UpdateModuleInterface { public: virtual UpdateSleepTime update() = 0; };
 
 class UpdateModule : public ObjectModule,
@@ -165,13 +161,23 @@ private:
 
 // tu-skeleton: 0x004915B5 17B ?buildFieldParse@MonitorConditionUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004915C6 55B ?xfer@MonitorConditionUpdate@@UAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateXfer.cpp
+
+void MonitorConditionUpdate::xfer(Xfer *xfer)
+{
+	Xfer::Version version(1, 1);
+	*xfer == version;
+	*xfer == m_rememberedCommandSet;
+	UpdateModule::xfer(xfer);
+}
 
 // tu-skeleton: 0x004915FD 54B ??0MonitorConditionUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModelConditionSpecialAbilityUpdateModuleDataCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00491633 46B ??0MonitorConditionUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00491661 6B ?Rva00491661Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdatePoolKey.cpp
 
@@ -183,13 +189,13 @@ NameKeyType MonitorConditionUpdate::getModuleNameKey() const
 	return TheMonitorConditionUpdatePoolKey;
 }
 
-// tu-skeleton: 0x004916AC 73B ??1MonitorConditionUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateModuleDataDtor.cpp
 
 MonitorConditionUpdateModuleData::~MonitorConditionUpdateModuleData()
 {
 }
+
+// tu-skeleton: 0x004916AC 73B ??1MonitorConditionUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049176C 289B ?update@MonitorConditionUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/MonitorConditionUpdateUpdate.cpp (not merged yet)
 
