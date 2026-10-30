@@ -77,6 +77,7 @@ private:
 	int m_28;
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
 class ObjectCreationList
 {
 public:
@@ -87,6 +88,7 @@ public:
 			ocl->create((void *)primary, (void *)primaryPos, (void *)secondaryPos, lifetimeFrames);
 	}
 };
+
 // The OCLUpdate module data as these bodies read it: the OCL at +0x08, the
 // min/max delay at +0x0C/+0x10, a creation limit at +0x14 and the
 // create-at-edge flag at +0x18.
@@ -100,6 +102,7 @@ public:
 	int m_14;
 	unsigned char m_18;
 };
+
 class TerrainLogic
 {
 public:
@@ -109,14 +112,18 @@ public:
 	virtual void slot12();
 	virtual Coord3D findClosestEdgePoint(const Coord3D *pos) const; // slot 13 (+0x34)
 };
+
 extern TerrainLogic *TheTerrainLogic;
+
 int GetGameLogicRandomValue(int lo, int hi, char *file, int line);
+
 enum ObjectStatusTypes
 {
 	OBJECT_STATUS_0 = 0,
 	OBJECT_STATUS_1 = 1,
 	OBJECT_STATUS_2 = 2
 };
+
 class Object
 {
 public:
@@ -153,19 +160,6 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class OCLUpdate
-{
-public:
-	virtual NameKeyType getModuleNameKey() const;
-	float getCountdownPercent() const;
-	unsigned int getRemainingFrames() const;
-
-private:
-	char m_pad[0x1C]; // primary vptr plus padding places the timer at +0x20
-	int m_20;
-	unsigned m_24;
-};
-
 // ??0OCLUpdateModuleData@@QAE@XZ at retail 0x0049B355 (26 bytes). The
 // module-data half of OCLUpdate: vtable immediate 0x00C4ED70 modelled as an
 // explicit first member (LifetimeUpdateModuleDataConstructor precedent, so no
@@ -197,7 +191,40 @@ private:
 
 extern GameLogic *TheGameLogic;
 
-// tu-skeleton: 0x0049B2C1 66B ?getCountdownPercent@OCLUpdate@@QBEMXZ -- matched in Code/GameEngine/Source/Common/OCLUpdate_getCountdownPercent.cpp (not merged yet)
+extern float g_00BC26EC;
+
+class OCLUpdate
+{
+public:
+	virtual NameKeyType getModuleNameKey() const;
+	float getCountdownPercent() const;
+	unsigned int getRemainingFrames() const;
+
+private:
+	char m_pad[0x1C]; // primary vptr plus padding places the timer at +0x20
+	int m_20;
+	unsigned m_24;
+};
+
+// ---- from Code/GameEngine/Source/Common/OCLUpdate_getCountdownPercent.cpp
+
+// ?getCountdownPercent@OCLUpdate@@QBEMXZ @0x0049B2C1 66B
+// Identity (donor, Zero Hour OCLUpdate::getCountdownPercent): one minus the
+// remaining over the whole countdown; ControlBar::updateContextOCLTimer
+// (0x0053E2B6) calls it on the object's OCLUpdate module.
+// Float progress via TheGameLogic+0x40 and +0x20/+0x24 diffs as unsigned
+// fild plus fadd 2^32 pattern via g_00BC26EC then fdivp then g_Va00BBB8D8
+// minus ratio. Evidence: rowed TheGameLogic plus float globals plus caller
+// 0x0053E321 plus vtable 0x008392E0 slot 1.
+
+float OCLUpdate::getCountdownPercent() const
+{
+	unsigned a = m_20 - TheGameLogic->getFrame();
+	unsigned b = m_20 - m_24;
+	return 1.0f - (float)a / (float)b;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/OCLUpdate_getRemainingFrames.cpp
 
@@ -238,12 +265,6 @@ OCLUpdateModuleData::OCLUpdateModuleData()
 	m_maxDelay = 0;
 	m_isCreateAtEdge = false;
 }
-
-// tu-skeleton: 0x0049B370 17B ?buildFieldParse@OCLUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B381 53B ??0OCLUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateBehaviorCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0049B3B6 28B ??_GRva0049B2A2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva0049B2A2Xfer.cpp
 
@@ -312,3 +333,9 @@ UpdateSleepTime Rva0049B2A2::update()
 
 	return UPDATE_SLEEP_NONE;
 }
+
+// tu-skeleton: 0x0049B370 17B ?buildFieldParse@OCLUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B381 53B ??0OCLUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/OCLUpdateBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0049B3B6 28B ??_GRva0049B2A2@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
