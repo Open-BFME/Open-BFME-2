@@ -42127,8 +42127,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004EE78A,20,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/Rva004EE5D2Erase.cpp
 0x004EE79E,79,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE7ED,203,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,N,N=Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
-0x004EE8B8,152,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp C=0x004EE7ED..0x004EE950 provisional,Code/GameEngine/Source/Common/RTS/PlayerAccumulateBattleStats.cpp
-0x004EE950,97,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/RTS/PlayerAccumulateBattleStats.cpp
+0x004EE8B8,152,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp C=0x004EE7ED..0x004EE950 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x004EE950,97,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,U,N=Code/GameEngine/Source/Common/RTS/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x004EE9B1,56,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE950..0x004EE9E9 provisional,Code/GameEngine/Source/Common/Rva004EE6D0Insert.cpp
 0x004EE9E9,245,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,C,C=0x004EE950..0x004EEADE provisional,Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp
 0x004EEADE,542,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper.cpp provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper_Unresolved.cpp
@@ -82704,8 +82704,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00792959,10,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE501@FuncInfo0x00945208 provisional,Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp
 0x00792963,8,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE7ED@FuncInfo0x0094522C provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x0079296B,10,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE7ED@FuncInfo0x0094522C provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
-0x00792975,8,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE8B8@FuncInfo0x00945250 provisional,Code/GameEngine/Source/Common/RTS/PlayerAccumulateBattleStats.cpp
-0x0079297D,10,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE8B8@FuncInfo0x00945250 provisional,Code/GameEngine/Source/Common/RTS/PlayerAccumulateBattleStats.cpp
+0x00792975,8,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE8B8@FuncInfo0x00945250 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
+0x0079297D,10,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE8B8@FuncInfo0x00945250 provisional,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp
 0x00792987,8,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE9E9@FuncInfo0x00945274 provisional,Code/gen_small/uw_gen_004.cpp
 0x0079298F,10,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EE9E9@FuncInfo0x00945274 provisional,Code/GameEngine/Source/Common/Rva004EE9E9XferVector.cpp
 0x00792999,8,code,Code/GameEngine/Source/Common/LivingWorldScoreKeeper.cpp,approved,P,P=0x004EEADE@FuncInfo0x00945320 provisional,Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScoreKeeper_Unresolved.cpp

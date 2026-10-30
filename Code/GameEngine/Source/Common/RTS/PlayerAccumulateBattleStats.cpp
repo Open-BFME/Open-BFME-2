@@ -110,21 +110,6 @@ void Player::accumulateRTSBattleStatsIntoLivingWorldScoreKeeper()
 	m_accumulatedIntoLivingWorld = true;
 }
 
-// Identity (target): called on the living-world player's +0x2C8 score keeper
-// with Player's +0x3BC ScoreKeeper by the matched accumulation path above.
-// Layout (target): adds the rowed 0x0039B718 value at +0x74; merges source maps
-// at +0x1F0 and +0x2EC into +0xB4 and +0xC0; then folds the twenty maps returned
-// by 0x0039C3AC into the single map at +0xCC. The helper's exact name is kept
-// address-derived at 0x004EE8B8.
-void LivingWorldScoreKeeper::rva004EE950(ScoreKeeper *rtsScoreKeeper)
-{
-	m_74 += ((Rva0039B709 *)rtsScoreKeeper)->rva0039B718();
-	rva004EE8B8((ObjectCountMap *)&m_B4, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x1F0));
-	rva004EE8B8((ObjectCountMap *)&m_C0, (ObjectCountMap *)((char *)rtsScoreKeeper + 0x2EC));
-	for (int i = 0; i < 20; ++i)
-		rva004EE8B8((ObjectCountMap *)&m_CC, reinterpret_cast<ObjectCountMap *>(rtsScoreKeeper->getObjectsDestroyedMap(i)));
-}
-
 class ThingTemplate;
 struct ScoreMergeTemplateView {char pad00[8];bool overridden;char pad09[0x64-9];AsciiString name;};
 // Same ABI wrapper as ThingTemplateCountMap.cpp: unsigned stored addresses
@@ -139,28 +124,3 @@ namespace _STL {template<class T,class L,class R> static inline bool operator!=(
 class ThingFactory;
 extern ThingFactory *TheThingFactory;
 class ThingFactory {public:const ThingTemplate *findTemplate(const AsciiString &name);};
-// Native helper called only by the already measured score-map fold. The
-// target resolves overridden templates by name, then adds the source count.
-void rva004EE8B8(ObjectCountMap *destination,ObjectCountMap *source)
-{
- typedef _STL::map<TemplateCountKey,int> Map;
- typedef _STL::pair<const TemplateCountKey,int> Value;
- typedef _STL::_Rb_tree<TemplateCountKey,Value,_STL::_Select1st<Value>,_STL::less<TemplateCountKey>,_STL::allocator<Value> > Tree;
- Map *src=(Map*)source;
- Map::iterator it=src->begin(),end=src->end();
- while(it!=end) {
-  const ThingTemplate *key=it->first.pointer;
-  const ThingTemplate *resolved=0;
-  AsciiString name;
-  if(key) {
-   name=((const ScoreMergeTemplateView*)key)->name;
-   if(((const ScoreMergeTemplateView*)key)->overridden)
-    resolved=TheThingFactory->findTemplate(name);
-   else resolved=key;
-  }
-  Value value(TemplateCountKey(resolved),0);
-  _STL::pair<Map::iterator,bool> result=((Tree*)destination)->insert_unique(value);
-  result.first->second+=it->second;
-  ++it;
- }
-}
