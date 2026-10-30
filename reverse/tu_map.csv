@@ -1187,11 +1187,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0001CCA0,20,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CCC0 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp
 0x0001CCC0,63,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD00 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp
 0x0001CD00,81,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD60 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_wide_streambuf.cpp
-0x0001CD60,7,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD70 provisional,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
-0x0001CD70,6,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD80 provisional,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+0x0001CD60,7,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD70 provisional,Code/GameEngine/Source/Common/StdioStreambufBase.cpp
+0x0001CD70,6,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD80 provisional,Code/GameEngine/Source/Common/StdioStreambufBase.cpp
 0x0001CD80,15,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CD90 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_istream.cpp
-0x0001CD90,7,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CDA0 provisional,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
-0x0001CDA0,6,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CDB0 provisional,Code/GameEngine/Source/Common/Disp8PtrChaseDwordGetters.cpp
+0x0001CD90,7,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CDA0 provisional,Code/GameEngine/Source/Common/StdioStreambufBase.cpp
+0x0001CDA0,6,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,C,C=0x0001C6F0..0x0001CDB0 provisional,Code/GameEngine/Source/Common/StdioStreambufBase.cpp
 0x0001CDB0,32,code,Code/GameEngine/Source/Common/StdioStreambufBase.cpp,approved,N,N=Code/GameEngine/Source/Common/StdioStreambufBase.cpp provisional,Code/GameEngine/Source/Common/StdioStreambufBase.cpp
 0x0001CDD0,50,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp
 0x0001CE10,18,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_stdio_streambuf.cpp

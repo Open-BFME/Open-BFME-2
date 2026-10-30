@@ -90,8 +90,6 @@ BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00452DE8PtrChaseField, 0x1C, 0x38)
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva00462745PtrChaseField, 0x1C, 0x70)
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva004BDC48PtrChaseField, 0x0C, 0x38)
 BFME_DISP8_PTRCHASE_BEFORE_DWORD_GETTER(Rva005C493APtrChaseField, 0x04, 0x08)
-BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0001CD60PtrChaseField, 0x04, 0x08)
-BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva0001CD90PtrChaseField, 0x08, 0x08)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva000658D4PtrChaseField, 0x04, 0x0C)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva00143E30PtrChaseField, 0x04, 0x0C)
 BFME_DISP8_PTRCHASE_DWORD_GETTER(Rva00328A83PtrChaseField, 0x04, 0x20)
@@ -201,7 +199,6 @@ public:
  char m_pad00[4];
  unsigned int *m_ptr;
 };
-unsigned int Rva0001CD70Word::get() const { return *m_ptr; }
 // 0x0001CDA0 is the same shape with the pointer at receiver offset 8 (1CDA0..1CDA5,
 // INT3 padding before, no reference in the image).
 class Rva0001CDA0Word
@@ -211,7 +208,6 @@ public:
  char m_pad00[8];
  unsigned int *m_ptr;
 };
-unsigned int Rva0001CDA0Word::get() const { return *m_ptr; }
 class Rva006F6830Word
 {
 public:
