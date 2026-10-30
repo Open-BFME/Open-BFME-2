@@ -1,0 +1,121 @@
+{
+  "source": "Code/GameEngine/Source/GameClient/DrawableShroud.cpp",
+  "change": "adopt canonical8B Module base; retain observed derived storage through partial address-named views",
+  "objects": {
+    "before": {
+      "source_sha256": "4e2e5a57e416d6044589a14b2f96cb7bb8d4db51754c429376627e2bac41277c",
+      "object_sha256": "5ef3001cca81ebc13287462d2a6d0dff267023de25eb1ece224dc899e4361f5f",
+      "rows": [
+        {
+          "name": "?rva002706F0@@YAHPAVObject@@H@Z",
+          "rva": "0x002706F0",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "?rva00272A6A@@YAHPAVObject@@PAX@Z",
+          "rva": "0x00272A6A",
+          "size": "107",
+          "exact": true
+        },
+        {
+          "name": "?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "rva": "0x0027893E",
+          "size": "747",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "rva": "0x007735D3",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L13620",
+          "rva": "0x007735C6",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "a1615602ab2e71113a1e17196d8223cd47387a7cee1975156ca788d8985455ea",
+      "object_sha256": "6ad84e163d5e6d944d20eb8243b13e71f34ed6cda2bb6f1967b55845e7aa3ac4",
+      "rows": [
+        {
+          "name": "?rva002706F0@@YAHPAVObject@@H@Z",
+          "rva": "0x002706F0",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "?rva00272A6A@@YAHPAVObject@@PAX@Z",
+          "rva": "0x00272A6A",
+          "size": "107",
+          "exact": true
+        },
+        {
+          "name": "?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "rva": "0x0027893E",
+          "size": "747",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "rva": "0x007735D3",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L13620",
+          "rva": "0x007735C6",
+          "size": "13",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?onComingOutOfShroud@Drawable@@AAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "retained_external_definitions": 17,
+  "label_comparison": "Same-section static labels use actual section offsets; external relocation names unchanged.",
+  "actual_object": {
+    "strict_current": true,
+    "source_sha256": "a1615602ab2e71113a1e17196d8223cd47387a7cee1975156ca788d8985455ea",
+    "object_md5": "7d792320fe7db61e9de61a12e4846f4c",
+    "all_external_code_matches_private_candidate": true,
+    "checked_count": 17
+  },
+  "preexisting_shadow_data_finding": {
+    "check": "wrong-name",
+    "rva": "0x009FEC4C",
+    "before_and_trial_guard_identical": true,
+    "guard": {
+      "name": "?$S1@?CK@??onComingOutOfShroud@Drawable@@AAEXXZ@4IA",
+      "value": 0,
+      "storage": 3,
+      "section": ".bss",
+      "data_sha256": "df3f619804a92fdb4057192dc43dd748ea778adc52bc498ce80524c014b81119",
+      "relocations": []
+    },
+    "existing_data_ledger_owner": "?g_Va00DFEC4C@@3IA @ Code/GameEngine/Source/Common/GlobalFlagClearers_DFECxx.cpp",
+    "retirement_claim": false
+  }
+}

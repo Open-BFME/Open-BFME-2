@@ -1,5 +1,24 @@
 # Linking obstacle register
 
+### Castle/shroud canonical Module storage views (2026-10-30)
+
+DrawableShroud includes the canonical eight-byte Module base and retains the
+observed `+18` castle ID in an address-named partial view. Its separate module
+lookup reads only base ModuleData at `+4`, then data `+4C`; the results need not
+share one concrete derived class. All five rows and EH remain exact, and all
+17 external code definitions and actual relocation destinations are unchanged.
+No new definition/provider is emitted. Literal/strict/frozen and owning header
+acceptance pass, retiring one Module queue row. The changed-pair preview against
+`ccafe54d1d` retains 2/2 LINKS and 1,268 authored bytes. No shared header, ledger,
+pin, alias, hatch or path changes. Full consumer/census confirmation remains
+pending. [Shroud evidence](../reverse/attempt_support/castle-module-headers-20261030/shroud.md).
+
+The shroud shadow data check retains its pre-existing compiler-guard name
+finding at `009FEC4C`: original and changed objects have the identical guard
+name, storage and data, while the data ledger retains the former clearer owner.
+No data-ownership or debt retirement is claimed for it; enforced converged-data
+checks pass.
+
 ### findEldest canonical Module adoption (2026-10-30)
 
 CreateObjectDieFindEldest now includes the canonical eight-byte Module base

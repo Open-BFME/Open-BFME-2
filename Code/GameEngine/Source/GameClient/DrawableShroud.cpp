@@ -59,11 +59,13 @@ struct ModuleData
 	int m_campSightedEvent; // +0x4C
 };
 
-class Module
+#include "../../Include/Common/Module.h"
+
+// Partial storage view: the canonical base and observed castle member at +0x18.
+class Rva0027893EModuleView : public Module
 {
 public:
-	void *m_vtable;
-	const ModuleData *m_moduleData; // +0x04
+	using Module::m_moduleData;
 	char pad08[0x18 - 0x08];
 	ObjectID m_castleID; // +0x18
 };
@@ -231,11 +233,11 @@ void Drawable::onComingOutOfShroud()
 			else
 				member = obj->findModule(key_CastleMemberBehavior);
 			if (member) {
-				Object *castle = TheGameLogic->findObjectByID(member->m_castleID);
+				Object *castle = TheGameLogic->findObjectByID(((Rva0027893EModuleView *)member)->m_castleID);
 				if (castle) {
 					Module *castleBehavior = castle->findModule(CastleBehavior::rva0003955DA());
 					if (castleBehavior) {
-						int event = castleBehavior->m_moduleData->m_campSightedEvent;
+						int event = ((Rva0027893EModuleView *)castleBehavior)->m_moduleData->m_campSightedEvent;
 						if (event != -1) {
 							Drawable *castleDraw = castle->getDrawable();
 							if (castleDraw) {
