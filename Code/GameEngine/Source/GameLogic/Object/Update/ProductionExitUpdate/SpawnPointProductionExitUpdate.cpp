@@ -1,138 +1,156 @@
-// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/dockupdate /MD /O1 /GX /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/zh_outofline /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /Ireference/shims/bfme_namekey /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/shims -ICode/Libraries/Source/Compression/LZHCompress/CompLibHeader /Ireference/shims/bfme2htree /Ireference/shims/bfme2renderobj /Ireference/shims/bfmecamera /Ireference/shims/bfmelight /Ireference/shims/bfmeparticlehandle /Ireference/shims/bfmeparticleload /Ireference/shims/bfmeparticlequat /Ireference/shims/bfmeparticlesave /Ireference/shims/bfmeparticleline /Ireference/shims/bfme2ray /Ireference/shims/bfme2scene -D_STLP_USE_STATIC_LIB -DNDEBUG -DWIN32 -D_WINDOWS /Ireference/shims/bfmefrustum
-// stlport
-// Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp); this unit had no counterpart under Code/.
-#define Matrix4x4 Matrix4  // BFME renamed it
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+// cl: /DNDEBUG /MD /GX
+// FILE: SpawnPointProductionExitUpdate.cpp /////////////////////////////////////////////////////////
+// Hand off produced units to this module so it can exit them into the world at named bones.
+//
+// Target facts: the module is 0xF4 bytes. UpdateModule's three vptrs sit at +0x00/+0x0C/+0x10
+// and the exit interface's at +0x20 (vtable 0x0085256C: slot 1 reserveDoorForExit 0x004A3F3B,
+// slot 2 exitObjectViaDoor 0x004A3E3E). The bone flag is at +0x24, the live point count at
+// +0x28, ten Coord3D points at +0x2C, ten angles at +0xA4 and ten occupier ids at +0xCC. Both
+// interface methods take the +0x20 sub-object as `this` and reach the module's private helpers
+// through this-0x20.
+// Donor (Zero Hour SpawnPointProductionExitUpdate.cpp) facts: the member and method names, and
+// the shape of reserveDoorForExit.
+////////////////////////////////////////////////////////////////////////////////////////////////////
 
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
+#define COORD3D_VIEW_DTOR
+#include "../../../../../../Libraries/Include/Lib/Coord3DCtorView.h"
+#include "../../../../Common/Thing/thing.h"
+#include "../../../../Common/GameLogicObjectLookupView.h"
 
-// FILE: SpawnPointProductionExitUpdate.cpp /////////////////////////////////////////////////////////////////////////
-// Author: Graham Smallwood, April 2002
-// Desc:		Hand off produced Units to me so I can Exit them into the world with my specific style
-//					This instance puts guys at named bones.
-///////////////////////////////////////////////////////////////////////////////////////////////////
+class Thing;
+class ModuleData;
+class Object;
+class ThingTemplate;
 
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+enum { MAX_SPAWN_POINTS = 10 };
 
-#include "Common/Xfer.h"
-#include "GameClient/Drawable.h"
-#include "GameLogic/AI.h"
-#include "GameLogic/AIPathfind.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/TerrainLogic.h"
-#include "GameLogic/Module/SpawnPointProductionExitUpdate.h"
-
-#include "WWMath/Matrix3D.h"		///< @todo Replace with our own matrix library
-
-class BfmeSpawnPointCreationObject
+enum NameKeyType
 {
-public:
-	PathfindLayerEnum getLayer(void) const;
+	NK_UNKNOWN = 0
 };
 
-class BfmeSpawnPointTerrainLogic
+class NameKeyGenerator
 {
 public:
-	virtual void slot0(void);
-	virtual void slot1(void);
-	virtual void slot2(void);
-	virtual void slot3(void);
-	virtual void slot4(void);
-	virtual void slot5(void);
-	virtual void slot6(void);
-	virtual Real getLayerHeight(Real x, Real y, PathfindLayerEnum layer, Bool clip, Bool useBuildings);
+	NameKeyType nameToKey(const char *name);
 };
 
-class BfmeSpawnPointPathfinder
+extern NameKeyGenerator *TheNameKeyGenerator;
+extern GameLogic *TheGameLogic;
+
+enum PathfindLayerEnum
+{
+	PATHFIND_LAYER_GROUND = 0
+};
+
+enum DisabledType
+{
+	DISABLED_HELD = 3
+};
+
+class Object
 {
 public:
-	void addObjectToPathfindMap(Object *object);
+	int rva0028B511() const;
+	void setLayer(PathfindLayerEnum layer);
+	void setDisabled(DisabledType type);
+	char m_pad[0x74];
+	ObjectID m_id;
 };
 
-//-------------------------------------------------------------------------------------------------
-// SpawnPointProductionExitUpdate::SpawnPointProductionExitUpdate: defined in SpawnPointProductionExitUpdateCtor.cpp (its row's unit).
+class Pathfinder
+{
+public:
+	void AddObjectToPathfindMap(Object *object);
+};
 
-//-------------------------------------------------------------------------------------------------
-// SpawnPointProductionExitUpdate::~SpawnPointProductionExitUpdate: defined in SpawnPointProductionExitUpdateDtor.cpp (its row's unit).
+class AI
+{
+public:
+	char m_pad[0x10];
+	Pathfinder *m_pathfinder;
+};
 
-//-------------------------------------------------------------------------------------------------
-// ?SpawnPointProductionExitUpdate::exitObjectViaDoor present-unmatched
-//   (byte-exact definition lives in SpawnPointExitObjectViaDoor.cpp: retail's
-//    receiver is the ExitUpdateInterface sub-object at module+0x20, so the
-//    merged-module ZH layout here cannot host the retail bytes.)
-// void SpawnPointProductionExitUpdate::exitObjectViaDoor( Object *newObj, ExitDoorType exitDoor )
-// {
-// 	DEBUG_ASSERTCRASH(exitDoor == DOOR_1, ("multiple exit doors not supported here"));
+extern AI *TheAI;
 
-// 	if( !m_bonesInitialized )
-// 		initializeBonePositions();
+enum ExitDoorType
+{
+	DOOR_NONE_AVAILABLE = -1,
+	DOOR_1 = 0
+};
 
-	// BFME's UpdateModule carries one additional dword before m_object.
-// 	Object *creationObject = *(Object **)((char *)this + 8);
-// 	if (creationObject)
-// 	{
-// 		for( Int positionIndex = 0; positionIndex < m_spawnPointCount; positionIndex++ )
-// 		{
-// 			if( m_spawnPointOccupier[positionIndex] == INVALID_ID )
-// 				break;
-// 		}
-// 		if( positionIndex == m_spawnPointCount )
-// 		{
-// 			DEBUG_CRASH( ("A SpawnPoint exit thought it had room but then failed") );
-// 			return;
-// 		}
+class SpawnB1
+{
+public:
+	virtual void spawnAnchor1() {}
+protected:
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
 
-// 		Coord3D createPoint;
-// 		Real createAngle;
+class SpawnB2
+{
+public:
+	virtual void spawnAnchor2() {}
+};
 
-		// Get the location from our bone array
-// 		createPoint = m_worldCoordSpawnPoints[positionIndex];
+class SpawnB3
+{
+public:
+	virtual void spawnAnchor3() {}
+protected:
+	char m_pad[0x0C];
+};
 
-		// make sure the point is on the terrain
-// 		createPoint.z = TheTerrainLogic ? ((BfmeSpawnPointTerrainLogic *)TheTerrainLogic)->getLayerHeight( createPoint.x, createPoint.y,
-// 			((BfmeSpawnPointCreationObject *)creationObject)->getLayer(), FALSE, TRUE) : 0.0f;
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
 
-		// get the angle
-// 		createAngle = m_worldAngleSpawnPoints[positionIndex];
+class UpdateModule : public SpawnB1, public SpawnB2, public SpawnB3
+{
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 
-		// record him as taking this spot
-// 		m_spawnPointOccupier[positionIndex] = newObj->getID();
+protected:
+	void setWakeFrame(Object *object, UpdateSleepTime frame);
+};
 
-		// put him there
-// 		newObj->setPosition( &createPoint );
-// 		newObj->setOrientation( createAngle );
-// 		newObj->setLayer(((BfmeSpawnPointCreationObject *)creationObject)->getLayer());
+// +0x20: the exit interface (ExitInterface; slot 0 is not recovered here, and the
+// placeholder name keeps its vtable apart from the other units' ExitInterface views).
+class SpawnB4
+{
+public:
+	virtual void spawnAnchor4() {}
+	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject) = 0;
+	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor) = 0;
+};
 
-// 		/** @todo This really should be automatically wrapped up in an actication sequence
-// 		for objects in general */
-		// tell the AI about it
-// 		((BfmeSpawnPointPathfinder *)TheAI->pathfinder())->addObjectToPathfindMap( newObj );
+class SpawnPointProductionExitUpdate : public UpdateModule, public SpawnB4
+{
+public:
+	SpawnPointProductionExitUpdate(Thing *thing, const ModuleData *moduleData);
 
-		// You are stuck here, little man.
-// 		newObj->setDisabled( DISABLED_HELD );
-// 	}
-// }
+	virtual NameKeyType getModuleNameKey() const;
+
+	virtual ExitDoorType reserveDoorForExit(const ThingTemplate *objType, Object *specificObject);
+	virtual void exitObjectViaDoor(Object *newObj, ExitDoorType exitDoor);
+
+protected:
+	virtual ~SpawnPointProductionExitUpdate();
+
+private:
+	void initializeBonePositions();
+	void revalidateOccupiers();
+
+	bool m_bonesInitialized;								// +0x24
+	int m_spawnPointCount;									// +0x28
+	Coord3D m_worldCoordSpawnPoints[MAX_SPAWN_POINTS];		// +0x2C
+	float m_worldAngleSpawnPoints[MAX_SPAWN_POINTS];		// +0xA4
+	ObjectID m_spawnPointOccupier[MAX_SPAWN_POINTS];		// +0xCC
+};
 
 //-------------------------------------------------------------------------------------------------
 ExitDoorType SpawnPointProductionExitUpdate::reserveDoorForExit( const ThingTemplate* objType, Object *specificObject )
@@ -145,80 +163,11 @@ ExitDoorType SpawnPointProductionExitUpdate::reserveDoorForExit( const ThingTemp
 
 	revalidateOccupiers();
 
-	for( Int positionIndex = 0; positionIndex < m_spawnPointCount; positionIndex++ )
+	for( int positionIndex = 0; positionIndex < m_spawnPointCount; positionIndex++ )
 	{
-		if( m_spawnPointOccupier[positionIndex] == INVALID_ID )
+		if( m_spawnPointOccupier[positionIndex] == INVALID_OBJECT_ID )
 			return DOOR_1;
 	}
 
 	return DOOR_NONE_AVAILABLE;
 }
-
-//-------------------------------------------------------------------------------------------------
-// ?unreserveDoorForExit@SpawnPointProductionExitUpdate@@UAEXW4ExitDoorType@@@Z present-unmatched
-void SpawnPointProductionExitUpdate::unreserveDoorForExit( ExitDoorType exitDoor )
-{
-	/* nothing */
-}
-
-//-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdateInitializeBonePositionsThunk.cpp
-// SpawnPointProductionExitUpdate::initializeBonePositions: defined in SpawnPointInitializeBonePositions.cpp (its row's unit).
-
-//-------------------------------------------------------------------------------------------------
-// byte-exact reconstruction: Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointRevalidateOccupiers.cpp
-
-// ------------------------------------------------------------------------------------------------
-/** CRC */
-// ------------------------------------------------------------------------------------------------
-// Zero Hour's SpawnPointProductionExitUpdate::crc (it only extends the base-class crc) has no BFME 2
-// counterpart: BFME 2's module vtables (BoneFXUpdate 0x00C4B170, FireSpreadUpdate
-// 0x00C4BF90, StructureCollapseUpdate, SlowDeathBehavior, OpenContain) run
-// deleting dtor, loadPostProcess, name, xfer, module key with no crc slot, so
-// the ZH body is dropped (blank lines keep later __LINE__ values unchanged).
-
-
-
-
-// ------------------------------------------------------------------------------------------------
-/** Xfer method
-	* Version Info:
-	* 1: Initial version */
-// ------------------------------------------------------------------------------------------------
-// ?xfer@SpawnPointProductionExitUpdate@@MAEXPAVXfer@@@Z present-unmatched
-void SpawnPointProductionExitUpdate::xfer( Xfer *xfer )
-{
-
-	// version
-	XferVersion currentVersion = 1;
-	XferVersion version = currentVersion;
-	xfer->xferVersion( &version, currentVersion );
-
-	// extend base class
-	UpdateModule::xfer( xfer );
-
-	//
-	// we can ignore all the data with the bone position arrays and spawn point counts
-	// because this module will load them lazily
-	//
-	//	Bool m_bonesInitialized;													///< To prevent creation bugs, only init the World coords when first asked for one
-	//	Int m_spawnPointCount;														///< How many in the array are actually live and valid
-	//	Coord3D m_worldCoordSpawnPoints[MAX_SPAWN_POINTS];///< Where my little friends will be created
-	//	Real m_worldAngleSpawnPoints[MAX_SPAWN_POINTS];		///< And what direction they should face
-
-	// spawn point occupants
-	xfer->xferUser( &m_spawnPointOccupier, sizeof( ObjectID ) * MAX_SPAWN_POINTS );
-
-}  // end xfer
-
-// ------------------------------------------------------------------------------------------------
-/** Load post process */
-// ------------------------------------------------------------------------------------------------
-// ?loadPostProcess@SpawnPointProductionExitUpdate@@MAEXXZ present-unmatched
-void SpawnPointProductionExitUpdate::loadPostProcess( void )
-{
-
-	// extend base class
-	UpdateModule::loadPostProcess();
-
-}  // end loadPostProcess

@@ -13865,10 +13865,6 @@ present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitU
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp	exitObjectByBudding@QueueProductionExitUpdate@@UAEXPAVObject@@0@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp	loadPostProcess@QueueProductionExitUpdate@@MAEXXZ	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/QueueProductionExitUpdate.cpp	unreserveDoorForExit@QueueProductionExitUpdate@@UAEXW4ExitDoorType@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp	SpawnPointProductionExitUpdate::exitObjectViaDoor	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp	loadPostProcess@SpawnPointProductionExitUpdate@@MAEXXZ	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp	unreserveDoorForExit@SpawnPointProductionExitUpdate@@UAEXW4ExitDoorType@@@Z	1
-present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProductionExitUpdate/SpawnPointProductionExitUpdate.cpp	xfer@SpawnPointProductionExitUpdate@@MAEXPAVXfer@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	ProjectileStreamUpdate::addProjectile	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	ProjectileStreamUpdate::loadPostProcess	1
 present_unmatched	Code/GameEngine/Source/GameLogic/Object/Update/ProjectileStreamUpdate.cpp	ProjectileStreamUpdate::setPosition	1
