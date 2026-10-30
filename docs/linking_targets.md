@@ -1,5 +1,15 @@
 # Linking target checklist
 
+Particle template writer migration (2026-10-30): the complete existing unit
+uses STLport 4.6 after removal of obsolete proxy specializations, with all
+8 rows and its EH graph exact. Strict two-source verification with the native
+narrow allocator owner passes 42 rows; the pair retains 2/2 LINKS and 1,917
+authored bytes against `ccafe54d1d`. All 26 retained definitions are unchanged.
+A new unreferenced 22-byte allocator deallocate copy needs full consumer
+selection/loss verification and scheduled census confirmation; the bounded
+preview retains the native 20-byte owner. No new recovered or measured linked
+coverage is claimed. [Evidence](../reverse/attempt_support/particle-writer-stlport46-qwen-20261030.md).
+
 Buddy constructor lifetime follow-up (2026-10-30, LINK-165): declare the existing
 native string destructor beside its constructor specialization. The five native
 cleanup targets and all ten owned rows remain exact; eleven unused/wrong local

@@ -13083,6 +13083,19 @@ claimed. The full consumer and scheduled-census prerequisites above remain.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
+**2026-10-30 particle template writer (base `724f3a7ffc`):** the claimed
+ParticleSystemTemplateWriteINI.cpp now selects 4.6 and removes its obsolete
+proxy allocate/deallocate specializations. All 8 rows and the EH graph remain
+exact; strict verification with the existing native narrow allocator owner
+passes 42 rows. The writer retains 1,067 authored LINKS bytes; the pair retains
+2/2 LINKS and 1,917 bytes against `ccafe54d1d`. All 26 retained external code
+definitions are identical. One unreferenced 22-byte non-retail allocator
+deallocate copy is newly emitted; bounded selection retains the existing
+20-byte native owner. Carry that copy and affected consumers into the next
+scheduled census/audit. Full consumer selection/loss verification remains
+open; no census gain, identity retirement or LINK-140 family clearance is
+claimed. [Evidence and rejected helper advice](../reverse/attempt_support/particle-writer-stlport46-qwen-20261030.md).
+
 **2026-10-30 narrow-string migration (base `40e30bd124`, codexb4):**
 `stlport_narrow_string.cpp` now selects 4.6 and removes its obsolete proxy
 allocate/deallocate specializations, which are inherited allocator operations

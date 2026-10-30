@@ -1,5 +1,5 @@
 // cl: /O1 /Ob2 /D_CRTIMP= /arch:SSE /G7 /Oy- /MD /EHs /DNDEBUG /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfme2_ascii /Ireference/shims/bfmealloc
-// stlport
+// stlport46
 // Retail export writeINI@ParticleSystemTemplate@FXParticleSystem at 001FB418, 1041B.
 // BFME1 9cbfb551fe20 identifies the template writer; adjacent readable module writers
 // guide stream/header/footer use. Fields, defaults, strings and helper calls are retail facts.
@@ -60,16 +60,8 @@ namespace _STL { template <> int basic_stringbuf<char,char_traits<char>,allocato
 // Suppress this TU's non-retail copy of ??$uninitialized_copy@PADPAD@_STL@@YAPADPAD00@Z:
 // the kept copy serves the link. Plain declaration-only form (no __imp_).
 namespace _STL { template <> char * uninitialized_copy<char *,char *>(char *,char *,char *); }
-// Suppress this TU's non-retail copy of ?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> char * _STL::_STLP_alloc_proxy<char *,char,_STL::allocator<char> >::allocate(unsigned int); }
-// Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
-// out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
-{ allocator<char>::deallocate(__p, __n); }
-}
+// STLport 4.6 inherits these proxy allocation methods from allocator<char>;
+// the former 4.5.3 proxy specializations do not declare members in this mode.
 class File { public: virtual ~File(); virtual bool open(const char*,int=0); virtual void close(); virtual int read(void*,int); virtual int write(const void*,int); };
 struct Rva001F458BText { const char *m_start,*m_finish; };
 File &Rva001F458BWrite(File&,const Rva001F458BText&);
