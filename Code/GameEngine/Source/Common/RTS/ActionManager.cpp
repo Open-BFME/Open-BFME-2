@@ -17,6 +17,23 @@ public:
 	int m_playerIndex;
 };
 #include "../PartitionRangeQueryCallView.h"
+enum WeaponSlotType { PRIMARY_WEAPON=0 };
+// BFME2 adds a 0x10 attack-type flag: the contained-attack helper ORs it
+// into the type it hands each passenger, and getCanAttackObject refuses it
+// alongside ATTACK_NEW_TARGET while the source's +0x1C8 bit 0x10 is set.
+enum AbleToAttackType
+{
+	ATTACK_NEW_TARGET = 0,
+	ATTACK_TYPE_FLAG_10 = 0x10
+};
+enum CanAttackResult
+{
+	ATTACKRESULT_NOT_POSSIBLE,
+	ATTACKRESULT_INVALID_SHOT,
+	ATTACKRESULT_POSSIBLE_AFTER_MOVING,
+	ATTACKRESULT_POSSIBLE
+};
+#include "../../../Include/GameLogic/Weapon.h"
 
 // ABI repair: retail 29C823 and named WB DBA3A0 dispatch through TheActionManager.
 // The unused manager this is still part of the calling convention. Existing
@@ -172,23 +189,6 @@ enum ObjectStatusTypes
 	OBJECT_STATUS_1 = 1
 };
 
-// BFME2 adds a 0x10 attack-type flag: the contained-attack helper ORs it
-// into the type it hands each passenger, and getCanAttackObject refuses it
-// alongside ATTACK_NEW_TARGET while the source's +0x1C8 bit 0x10 is set.
-enum AbleToAttackType
-{
-	ATTACK_NEW_TARGET = 0,
-	ATTACK_TYPE_FLAG_10 = 0x10
-};
-
-enum CanAttackResult
-{
-	ATTACKRESULT_NOT_POSSIBLE,
-	ATTACKRESULT_INVALID_SHOT,
-	ATTACKRESULT_POSSIBLE_AFTER_MOVING,
-	ATTACKRESULT_POSSIBLE
-};
-
 class Object;
 
 typedef void (*BfmeContainIterateFunc)( Object *obj, void *userData );
@@ -248,8 +248,6 @@ struct BfmeContainedAttackContext
 };
 
 class Weapon;
-
-enum WeaponSlotType { PRIMARY_WEAPON=0 };
 
 class WeaponSet { public: Weapon *getWeaponInWeaponSlot(WeaponSlotType) const; };
 
@@ -325,6 +323,8 @@ public:
 	BfmeObjCF *m_bfmePtrCF;
 };
 
+extern PartitionManager *TheShroudManager;
+
 class Object
 {
 public:
@@ -371,8 +371,6 @@ public:
 	Player *getControllingPlayer() const;
 };
 
-extern PartitionManager *TheShroudManager;
-
 class ActionManager {
 public:
 	unsigned char Rva0041B8D2Check(Rva0041B8D2Obj*, Rva0041B8D2Obj*, int);
@@ -394,11 +392,15 @@ public:
 	bool rva0041BA61(const Object *obj);
 public:
 	bool canOverrideSpecialPowerDestination(Object *obj, const Coord3D *pos, int idx, int unused);
+public:
+	bool rva0041BAD2(const Object*,const Object*,CommandSourceType,WeaponSlotType);
 };
 
 // tu-skeleton: 0x0041B8B5 18B ??0ActionManager@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x0041B8C7 11B ??1ActionManager@@UAE@XZ -- matched in Code/GameEngine/Source/Common/GameEngineDeletingBaseDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/RTS/ActionManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/ActionManager.cpp
 
@@ -702,18 +704,6 @@ BfmeRefCF *BfmeRefCF::bfmeAssignCF(const BfmeRefCF &other)
 	return this;
 }
 
-// tu-skeleton: 0x0041B94A 102B ?Rva0041B94AGet@ActionManager@@QAE_NPAVObject@@0H@Z -- matched in Code/GameEngine/Source/Common/Rva0041B94APermuted.cpp (not merged yet)
-
-// tu-skeleton: 0x0041B9B0 108B ?canConvertObjectToCarBomb@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA1C 64B ?canMakeObjectDefector@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA5C 5B ?rva0041BA5C@Rva0041BA5C@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BA61 113B ?rva0041BA61@ActionManager@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
-
-// tu-skeleton: 0x0041BAD2 84B ?rva0041BAD2@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@W4WeaponSlotType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponAttackRva0041BAD2.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/ActionManager_canOverrideSpecialPowerDestination.cpp
 
 // ?canOverrideSpecialPowerDestination@ActionManager@@QAE_NPAVObject@@PBUCoord3D@@HH@Z @0x0041BB49 62B
@@ -730,6 +720,30 @@ bool ActionManager::canOverrideSpecialPowerDestination(Object *obj, const Coord3
 		return st != SHROUDED;
 	}
 	return false;
+}
+
+// tu-skeleton: 0x0041B94A 102B ?Rva0041B94AGet@ActionManager@@QAE_NPAVObject@@0H@Z -- matched in Code/GameEngine/Source/Common/Rva0041B94APermuted.cpp (not merged yet)
+
+// tu-skeleton: 0x0041B9B0 108B ?canConvertObjectToCarBomb@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA1C 64B ?canMakeObjectDefector@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA5C 5B ?rva0041BA5C@Rva0041BA5C@@QAE_NHHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x0041BA61 113B ?rva0041BA61@ActionManager@@QAE_NPBVObject@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/WeaponAttackRva0041BAD2.cpp
+
+bool ActionManager::rva0041BAD2(const Object *source,const Object *target,CommandSourceType command,WeaponSlotType slot) {
+ if(source && target) {
+  const WeaponSet *weapons=reinterpret_cast<const WeaponSet*>(reinterpret_cast<const char*>(source)+0x330);
+  Weapon *weapon=weapons->getWeaponInWeaponSlot(slot);
+  if(weapon) {
+   CanAttackResult result=source->getAbleToAttackSpecificObject(ATTACK_NEW_TARGET,target,command);
+   if(result==ATTACKRESULT_POSSIBLE || result==ATTACKRESULT_POSSIBLE_AFTER_MOVING) return weapon->rva002CCED3(source,target);
+  }
+ }
+ return false;
 }
 
 // tu-skeleton: 0x0041BBE4 189B ?canGetRepairedAt@ActionManager@@QAE_NPBVObject@@0W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/ActionManagerSpecialPowerChecks.cpp (not merged yet)
