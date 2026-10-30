@@ -1,5 +1,16 @@
 # Linking target checklist
 
+Physics trajectory ObjectModule follow-up (2026-10-30, base `0c90b528d9`):
+one canonical base adoption retires one header queue row while preserving all
+three rows and all external object facts. Thing's missing `setTransformMatrix`
+declaration and the remaining PhysicsUpdate layout/provider prerequisites
+still block consolidation. The per-unit link guard passes against the older
+`85f6b7f40c` index; strict preparation passes. The staged audit is INCONCLUSIVE
+on the older index and missing current CreateAHeroManager consumer receipt;
+full consumer/census confirmation remains pending. No census gain or
+source-file reduction is claimed.
+[Evidence](../reverse/attempt_support/physics-trajectory-objectmodule-20261030-codex.md).
+
 TeamTemplateInfo destructor follow-up (2026-10-30, base `734530a648`, LINK-141):
 remove one stale destructor exemption and its hatch key while preserving 14/14
 rows, the EXACT EH graph and the 236-byte LINKS preview against `85f6b7f40c`.

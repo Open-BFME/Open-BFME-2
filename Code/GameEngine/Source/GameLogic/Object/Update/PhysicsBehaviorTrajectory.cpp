@@ -60,11 +60,7 @@ struct PhysicsTrajectoryConfig {
  char pad28[0x18]; bool at40,at41; char pad42[10]; float at4C; FXList *completionFX; char pad54[4]; bool at58;
 };
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1,UPDATE_SLEEP_FOREVER=0x3fffffff };
-class ObjectModule {
-public:
- virtual ~ObjectModule();
- const PhysicsTrajectoryConfig *data; Object *object;
-};
+#include "../../../../Include/Common/ObjectModule.h"
 class BehaviorModuleInterface { public: virtual void slot0()=0; };
 class BehaviorModule : public ObjectModule,public BehaviorModuleInterface { public: virtual ~BehaviorModule(); };
 class UpdateModuleInterface { public: virtual UpdateSleepTime update()=0; };
@@ -98,8 +94,8 @@ static __forceinline void resetCondition(Object *object,int bit) {
 void PhysicsBehavior::rva00390FAF()
 {
  if(points.size()<=0) return;
- const PhysicsTrajectoryConfig *physicsTrajectoryConfig=data;
- Object *obj=object;
+ const PhysicsTrajectoryConfig *physicsTrajectoryConfig=static_cast<const PhysicsTrajectoryConfig *>(static_cast<const void *>(m_moduleData));
+ Object *obj=m_object;
  FXList::doFXPos(physicsTrajectoryConfig->completionFX,&obj->position,0,0.0f,0);
  bool changed=false;
  if(obj->conditions.test(72)) {
@@ -135,7 +131,7 @@ extern GameLogic *TheGameLogic;
 // Visible copy of the rowed 0x00390557 body (PhysicsBehaviorRva00390601.cpp).
 inline __declspec(noinline) void PhysicsBehavior::rva00390557(const Coord3D *where,float strength,float value44,int value60,int value64)
 {
- Object *obj=object;
+ Object *obj=m_object;
  Object *holder=obj->holder274;
  if(holder && !(holder->tmpl->flags115&0x20)) {
   setWakeFrame(obj,UPDATE_SLEEP_FOREVER);
@@ -149,9 +145,9 @@ inline __declspec(noinline) void PhysicsBehavior::rva00390557(const Coord3D *whe
   if(value60) at60=value60;
   if(value64) at64=value64;
   static_cast<UpdateModuleInterface *>(this)->update();
-  object->rva0023D3AF(reinterpret_cast<void *>(TheGameLogic->getFrame()));
+  m_object->rva0023D3AF(reinterpret_cast<void *>(TheGameLogic->getFrame()));
   static_cast<UpdateModuleInterface *>(this)->update();
-  setWakeFrame(object,UPDATE_SLEEP_NONE);
+  setWakeFrame(m_object,UPDATE_SLEEP_NONE);
  }
 }
 // Rebound 0x00390E61..0x00390FAF (334 B, RET 4), called by the completion
@@ -167,7 +163,7 @@ inline __declspec(noinline) void PhysicsBehavior::rva00390557(const Coord3D *whe
 // scheduling. Original method names remain unasserted.
 void PhysicsBehavior::rva00390E61(bool skipWake)
 {
- Object *obj=object;
+ Object *obj=m_object;
  if(!skipWake) setWakeFrame(obj,UPDATE_SLEEP_NONE);
  ++bounces;
  int count=points.size();
@@ -206,8 +202,8 @@ extern AI *TheAI;
 // body emitted.
 inline UpdateSleepTime PhysicsBehavior::update()
 {
- const PhysicsTrajectoryConfig *physicsTrajectoryConfig=data;
- Object *obj=object;
+ const PhysicsTrajectoryConfig *physicsTrajectoryConfig=static_cast<const PhysicsTrajectoryConfig *>(static_cast<const void *>(m_moduleData));
+ Object *obj=m_object;
  dirty=false;
  bool changed=false;
  if(active && phaseTimer>0 && !(obj->status438&1)) {
@@ -236,9 +232,9 @@ inline UpdateSleepTime PhysicsBehavior::update()
   Vector3 position(current->x,current->y,current->z);
   Matrix3D transform;
   transform.buildTransformMatrix(position,direction);
-  ((Thing *)object)->setTransformMatrix(&transform);
+  ((Thing *)m_object)->setTransformMatrix(&transform);
  } else {
-  ((Thing *)object)->setPosition(current);
+  ((Thing *)m_object)->setPosition(current);
  }
  Coord3D next;
  const Coord3D *nextPoint;
@@ -253,7 +249,7 @@ inline UpdateSleepTime PhysicsBehavior::update()
   nextPoint=&next;
  }
  obj->setNextPosition(nextPoint);
- TheAI->pathfinder->AdjustLayer(object);
+ TheAI->pathfinder->AdjustLayer(m_object);
  ++index;
  return rva00390601();
 }
