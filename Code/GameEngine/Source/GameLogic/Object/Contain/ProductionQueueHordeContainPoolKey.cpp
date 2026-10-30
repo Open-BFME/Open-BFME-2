@@ -22,9 +22,37 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ProductionQueueHordeContain
+class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
+class B1 { public: virtual void b1(); };
+class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
+class B3 { public: virtual void b3(); };
+class B4 { public: virtual void b4(); };
+class B5 { public: virtual void b5(); };
+class B6 { public: virtual void b6(); };
+class B7 { public: virtual void b7(); };
+class B8 { public: virtual void b8(); private: unsigned char m_pad[0xC8 - 4]; };
+class OpenContain : public B0, public B1, public B2, public B3, public B4, public B5, public B6, public B7, public B8
 {
 public:
+	virtual ~OpenContain();
+};
+#include "../../../../../Libraries/Include/Lib/Coord3D.h"
+
+class GarrisonContain : public OpenContain
+{
+public:
+	virtual ~GarrisonContain();
+
+private:
+	unsigned char m_padFC424[0x424 - 0xFC];
+	Coord3D m_garrisonPoint[120];
+	unsigned char m_tail[0x9E0 - 0x9C4];
+};
+
+class ProductionQueueHordeContain : public GarrisonContain
+{
+public:
+	virtual ~ProductionQueueHordeContain();
 	virtual NameKeyType getModuleNameKey() const;
 };
 

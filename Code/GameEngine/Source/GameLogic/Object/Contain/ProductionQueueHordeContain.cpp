@@ -12,6 +12,11 @@
 // Layout from ctor 0x00481343 base HordeGarrisonContain (pinned 0x0047A040) news 0x9E4 adds no members.
 // Shape follows TunnelContainDtor 67B precedent (direct GarrisonContain base; HordeGarrisonContain dtor 0x0047A147 is 5B jmp thunk to same base).
 
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
 class B0 { public: virtual void b0(); private: unsigned char m_pad[8]; };
 class B1 { public: virtual void b1(); };
 class B2 { public: virtual void b2(); private: unsigned char m_pad[12]; };
@@ -56,13 +61,21 @@ class ProductionQueueHordeContain : public GarrisonContain
 {
 public:
 	virtual ~ProductionQueueHordeContain();
+	virtual NameKeyType getModuleNameKey() const;
 };
 
 class INI {public: const char* getNextTokenOrNull(const char*);};
 
 void iniParseObjectFilter(INI*,void*,void*,const void*);
 
-class Rva00360D26Member {public:Rva00360D26Member();private:unsigned handle;};
+class Rva00360D26Member
+{
+public:
+	Rva00360D26Member();
+	~Rva00360D26Member();
+private:
+	unsigned handle; // +0x00
+};
 
 struct Rva004816F4Entry {Rva00360D26Member filter;AsciiString name;~Rva004816F4Entry();};
 
