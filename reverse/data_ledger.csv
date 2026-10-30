@@ -19975,8 +19975,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A036AC,4,.data,global,?TheGarrisonContainPoolKey@?1??getModuleNameKey@GarrisonContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp,owned,,1,2
 0x00A036B0,4,.data,global,?$S1@?1??getModuleNameKey@GarrisonContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp,owned,,1,2
 0x00A036B4,52,.data,global,_s_rva007B0E78,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A036E8,4,.data,global,?TheHordeGarrisonContainPoolKey@?1??getModuleNameKey@HordeGarrisonContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainPoolKey.cpp,owned,,1,2
-0x00A036EC,4,.data,global,?$S1@?1??getModuleNameKey@HordeGarrisonContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainPoolKey.cpp,owned,,1,4
+0x00A036E8,4,.data,global,?TheHordeGarrisonContainPoolKey@?1??getModuleNameKey@HordeGarrisonContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp,owned,,1,2
+0x00A036EC,4,.data,global,?$S1@?1??getModuleNameKey@HordeGarrisonContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContain.cpp,owned,,1,4
 0x00A036F0,4,.data,global,_s_rva007B0EA2,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A036F4,4,.data,global,?TheAODHordeContainPoolKey@?1??getModuleNameKey@AODHordeContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp,owned,,1,2
 0x00A036F8,4,.data,global,?$S1@?1??getModuleNameKey@AODHordeContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/AODHordeContainPoolKey.cpp,owned,,1,4
