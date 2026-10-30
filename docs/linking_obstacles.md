@@ -9764,6 +9764,17 @@ A second composition prerequisite preserves the intrinsic declaration before
 the seed's final include: hoisting its pragma ahead of the declaration had
 introduced an external `__ReadWriteBarrier` call in the composed helper. The
 bounded pair now preserves all 47 rows; full merge/link-guard admission is next.
+Applied composition after the two prerequisites: the supported tool absorbs
+Common/Rva004442FD.cpp, removing one source file. All 47 rows and eight EH
+graphs remain exact; the original pair's 117 external COMDAT fingerprints,
+117 definitions, 106 unresolved names and one weak binding are preserved.
+The link guard accepts the composition and the merged TU previews LINKS for
+3,804 authored bytes with a strict receipt. Four whole-file donors and nine
+mixed files remain; census confirmation is pending. No census gain is claimed.
+The final batch audit is INCONCLUSIVE: index `85f6b7f40c` predates base
+`7d15ffa2bd`, and affected consumer Common/0CreateAHeroManager21FE49.cpp lacks a
+current receipt. Carry that consumer and moved-provider selection into the
+next scheduled census; the bounded link guard and preview do not close it.
 [Current checks](../reverse/attempt_support/apt-lan-lobby-consolidation-20261030-codexb4.md).
 
 ### InvisibilityUpdate name-key composition prerequisites (2026-10-28)
