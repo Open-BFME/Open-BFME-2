@@ -144,6 +144,7 @@ bool __cdecl Rva0030B395Equal(const float *first1, const float *last1, const flo
 // Evidence: chain from 0x0030B76F; callers 0x00329106 0x00330BC7; prev swap /O1 /Ob0 /EHsc /arch:SSE next reserve vector e8.
 
 struct Region2D;
+
 struct Rva0030B76F
 {
 public:
@@ -208,6 +209,18 @@ namespace _STL { template <> void vector<BfmeE8, allocator<BfmeE8> >::reserve(un
 
 // bfme link decl-only begin
 namespace _STL { template <> BfmePod8 * vector<BfmePod8,_STL::allocator<BfmePod8> >::erase(BfmePod8 *); }
+
+// Bind the holder swap to the rowed vector<BfmeE12>::swap 0x00567ECD instead
+// of emitting this unit's own copy of the header's inline definition.
+namespace _STL
+{
+template <class T, class A> class vector;
+template <> void vector<BfmeE12, allocator<BfmeE12> >::swap(vector<BfmeE12, allocator<BfmeE12> > &);
+}
+
+void __cdecl Rva0030B31ASwap(Region2D *a, Region2D *b);
+
+// ---- from Code/GameEngine/Source/Common/AreaPolygonBase.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva0030B135Finish.cpp
 
@@ -467,26 +480,6 @@ void AreaPolygonBase::reserve(int n)
 	m_points.reserve(n);
 }
 
-// tu-skeleton: 0x0030B343 53B ?Rva0030B343Swap@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B3D1 478B ?rva0030B3D1@AreaPolygonBase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B5AF 233B ?rva0030B5AF@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B6E3 35B ?rva0030B6E3@Rva0030B719Shape@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B706 19B ?rva0030B706@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B719 19B ?getRadius@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B72C 67B ?rva0030B72C@Rva0030B719Shape@@QBE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B76F 78B ?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B76FSwap.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B7BD 5B ?Rva0030B7BDEqual@@YAHPBURva0030B6A6Range@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B7C2 80B ?rva0030B7C2@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/AreaPolygonBase_deletePoint.cpp
 
 // ?deletePoint@AreaPolygonBase@@QAEXH@Z @0x0030B85A 28B
@@ -500,14 +493,6 @@ void AreaPolygonBase::deletePoint(int i)
 		((_STL::vector<BfmePod8, _STL::allocator<BfmePod8> > *)&m_points)->begin() + i);
 	m_dirty = 1;
 }
-
-// tu-skeleton: 0x0030B876 110B ?reserve@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B92C 63B ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B980 74B ??0Rva0030B980@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
-
-// tu-skeleton: 0x0030B9DD 22B ??0Rva0030B9DD@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/AreaPolygonBase_setPoint.cpp
 
@@ -524,6 +509,61 @@ void AreaPolygonBase::setPoint(int i, const BfmeE8 &val)
 	m_points[i] = val;
 	m_dirty = true;
 }
+
+// tu-skeleton: 0x0030B343 53B ?Rva0030B343Swap@@YAXAAURva0030D111Point@@0@Z -- matched in Code/GameEngine/Source/Common/Rva0030D111ContainsPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B3D1 478B ?rva0030B3D1@AreaPolygonBase@@QAEXXZ -- matched in Code/GameEngine/Source/Common/AreaPolygonUpdateBounds.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B5AF 233B ?rva0030B5AF@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B6E3 35B ?rva0030B6E3@Rva0030B719Shape@@QAE?AURegion2D@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B706 19B ?rva0030B706@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B719 19B ?getRadius@Rva0030B719Shape@@QBEMXZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B72C 67B ?rva0030B72C@Rva0030B719Shape@@QBE?AURva0030B72CPoint@@XZ -- matched in Code/GameEngine/Source/Common/PinnedForwarders1830.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva0030B76FSwap.cpp
+
+// ?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z, retail 0x0030B76F, 78 bytes.
+// Swap holder via rowed vector swap 0x00567ECD plus rowed Region2D swap 0x0030B31A plus float and byte swaps.
+// Evidence: chain from 0x0030B31A; caller 0x0030B81B; prev copy-backward next reserve both vector e8 /O1 /EHsc.
+
+void Rva0030B76F::rva0030B76F(Rva0030B76F *other)
+{
+	m_vec.swap(other->m_vec);
+	Rva0030B31ASwap(&m_region, &other->m_region);
+	float t1 = m_1c;
+	m_1c = other->m_1c;
+	other->m_1c = t1;
+	{
+		float &a = m_20;
+		float &b = other->m_20;
+		float t = a;
+		a = b;
+		b = t;
+	}
+	{
+		unsigned char &a = m_24;
+		unsigned char &b = other->m_24;
+		unsigned char t = a;
+		a = b;
+		b = t;
+	}
+}
+
+// tu-skeleton: 0x0030B7BD 5B ?Rva0030B7BDEqual@@YAHPBURva0030B6A6Range@@0@Z -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B7C2 80B ?rva0030B7C2@@YA_NPBURva0030B7C2Point@@PAVRva0030B719Shape@@@Z -- matched in Code/GameEngine/Source/GameLogic/Map/Rva0030B7C2PointQuery.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B876 110B ?reserve@?$vector@UBfmeE8@@V?$allocator@UBfmeE8@@@_STL@@@_STL@@QAEXI@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_vector_e8_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B92C 63B ??4AreaPolygonBase@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva0030B92COpAssign.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B980 74B ??0Rva0030B980@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
+
+// tu-skeleton: 0x0030B9DD 22B ??0Rva0030B9DD@@QAE@H@Z -- matched in Code/GameEngine/Source/Common/Rva0030B980Constructors.cpp (not merged yet)
 
 // tu-skeleton: 0x0030BAF8 143B ?parse@AreaPolygonBase@@QAEXAAVDataChunkInput@@H@Z -- matched in Code/GameEngine/Source/Common/AreaPolygonBase_parse.cpp (not merged yet)
 

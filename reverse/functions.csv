@@ -23132,7 +23132,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?Rva0030B31ASwap@@YAXPAURegion2D@@0@Z,,0x0030B31A,41,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,matched,swap two Region2D via temp copy plus movsd
 ?rva0038404A@Rva0038404A@@QAEXPAURva0038404ANode@@@Z,,0x0038404A,53,Code/GameEngine/Source/Common/Rva0038404AFree.cpp,matched,tree free with Rva dtor caller 0x384E9C
 ?rva00383F9C@Rva00383F9C@@QAEXPAURva00383F9CNode@@@Z,,0x00383F9C,59,Code/GameEngine/Source/Common/Rva00383F9CErase.cpp,matched,rb erase via rebalance plus Rva dtor
-?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z,,0x0030B76F,78,Code/GameEngine/Source/Common/Rva0030B76FSwap.cpp,matched,swap holder via vector Region float byte swaps
+?rva0030B76F@Rva0030B76F@@QAEXPAU1@@Z,,0x0030B76F,78,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,matched,swap holder via vector Region float byte swaps
 ?rva0030B812@Rva0030B812@@QAEXPAU1@@Z,,0x0030B812,31,Code/GameEngine/Source/Common/AreaPolygonBase.cpp,matched,chain swap via inner swap plus int
 ?RequestGameStartTimer@LANAPI@@UAEXI@Z,,0x00449745,167,Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameStartTimer.cpp,matched,chain LANAPI slot24 timer plus message plus slot44
 ?rva0010B9E5@Rva0010B9E5@@QAEXPAUNode@@@Z,,0x0010B9E5,71,Code/GameEngine/Source/Common/Rva0010959E.cpp,matched,list unlink plus tail plus dual release caller 0x10BB0B
