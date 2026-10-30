@@ -41,6 +41,7 @@ static inline bool operator!=(const _Rb_tree_iterator<Value, Left> &a,
 extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 #include <wchar.h>
+#pragma intrinsic(_ReadWriteBarrier)
 
 class LANGameInfo;
 
@@ -452,8 +453,6 @@ public:
 	// (570 bytes), likewise unrowed and pinned.
 };
 
-
-
 class AptMpGameSetup
 {
 public:
@@ -774,7 +773,20 @@ extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
 
 // tu-skeleton: 0x004442DB 34B ?rva004442DB@AptLanLobby@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x004442FD 46B ?rva004442FD@Rva004442FD@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva004442FD.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004442FD.cpp
+
+void Rva004442FD::rva004442FD()
+{
+	Member00442FD6AC *p = &m_6AC;
+	m_6A8 = 0;
+	m_6AC.m_14 = 1;
+	m_6AC.m_0F = 0;
+	_ReadWriteBarrier();
+	p->v1(0);
+	m_6A4 = 0;
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobbyOnInitGadget.cpp
 
@@ -1222,20 +1234,12 @@ void AptLanLobby::OnCreateGameBttn(const char *unused)
 		m_prefs.setUserName(GadgetTextEntryGetText(m_nameEntry.m_owner));
 }
 
-// tu-skeleton: 0x004443E7 37B ?rva004443E7@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0044440C 86B ?setScenarioRva0044440C@AptLanLobby@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00444462.cpp
 
 void Rva00444462::rva00444462()
 {
 	return m_field.enable();
 }
-
-// tu-skeleton: 0x0044446D 60B ?rva0044446D@Rva004469D1Receiver@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
-
-// tu-skeleton: 0x004444A9 5B ?rva004444A9@Rva004444A9@@QAEHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004444D2Dtor.cpp
 
@@ -1251,8 +1255,6 @@ Rva004444D2::Rva004444D2()
 {
 }
 
-// tu-skeleton: 0x004444EB 30B ?rva004444EB@Rva004444EB@@QAEPAVRva004444EBBase@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00444525Init.cpp
 
 void Rva00444525Init(void)
@@ -1262,36 +1264,6 @@ void Rva00444525Init(void)
 	((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("LanLobby.apt"), false);
 	(*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
 }
-
-// tu-skeleton: 0x0044455C 288B ??1AptLanLobby@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00444680 6B ?rva00444680@Rva00444680@@QAEHHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
-
-// tu-skeleton: 0x00444686 11B ??_EAptLanLobby@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x00444691 11B ??_EAptLanLobby@@WCHM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x004448E5 280B ?MpOwnerPrintMessage@AptLanLobby@@QAEXABVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x004449FD 198B ?MpOwnerSelectTeam@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444AC3 205B ?MpOwnerSelectHandicap@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444B90 276B ?MpOwnerSelectPlayer@AptLanLobby@@QAE_NPAVGameSlot@@W4SlotState@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444CA4 215B ?MpOwnerSelectStartPosition@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444D7B 72B ?MpOwnerGetLocalPlayerName@AptLanLobby@@QAEXAAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444DC3 166B ?rva00444DC3@AptLanLobby@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x00444E69 33B ?Cancel@AptLanLobby@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00444E8A 62B ?CancelMenu@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00444EC8 149B ?rva00444EC8@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x00444F9C 234B ?bfmeMapChanged@AptLanLobby@@QAE_NPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/Rva00445086ClientStateName.cpp
 
@@ -1376,26 +1348,6 @@ int Rva00445172Owner::rva00445172(unsigned int message, unsigned int data1,
 	return ((Rva003145B1 *)this)->rva00314596(message, data1, data2);
 }
 
-// tu-skeleton: 0x00445211 28B ??_GAptLanLobby@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0044522D 123B ?rva0044522D@AptLanLobby@@UAEHHEH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
-
-// tu-skeleton: 0x004454A1 273B ?MpOwnerSelectColor@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x004455B2 262B ?MpOwnerSelectPlayerTemplate@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x004456B8 260B ?MpOwnerSelectHero@AptLanLobby@@QAE_NPAVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
-
-// tu-skeleton: 0x004457BC 1006B ?rva004457BC@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
-
-// tu-skeleton: 0x00445BAA 507B ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGamesListTooltip.cpp (not merged yet)
-
-// tu-skeleton: 0x00445E8B 88B ??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
-
-// tu-skeleton: 0x00445EE3 1187B ??0AptLanLobby@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0044643D 6B ?Rva0044643DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRva004467AC.cpp
 
 // ?rva004467AC@AptLanLobby@@AAE_NXZ
@@ -1476,6 +1428,66 @@ bool AptLanLobby::rva004467AC()
 	}
 	return false;
 }
+
+// tu-skeleton: 0x004443E7 37B ?rva004443E7@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0044440C 86B ?setScenarioRva0044440C@AptLanLobby@@QAE_NH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x0044446D 60B ?rva0044446D@Rva004469D1Receiver@@QAEX_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAG.cpp (not merged yet)
+
+// tu-skeleton: 0x004444A9 5B ?rva004444A9@Rva004444A9@@QAEHHHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x004444EB 30B ?rva004444EB@Rva004444EB@@QAEPAVRva004444EBBase@@XZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp (not merged yet)
+
+// tu-skeleton: 0x0044455C 288B ??1AptLanLobby@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00444680 6B ?rva00444680@Rva00444680@@QAEHHH@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
+
+// tu-skeleton: 0x00444686 11B ??_EAptLanLobby@@WCBI@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00444691 11B ??_EAptLanLobby@@WCHM@AEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x004448E5 280B ?MpOwnerPrintMessage@AptLanLobby@@QAEXABVUnicodeString@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x004449FD 198B ?MpOwnerSelectTeam@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444AC3 205B ?MpOwnerSelectHandicap@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444B90 276B ?MpOwnerSelectPlayer@AptLanLobby@@QAE_NPAVGameSlot@@W4SlotState@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444CA4 215B ?MpOwnerSelectStartPosition@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444D7B 72B ?MpOwnerGetLocalPlayerName@AptLanLobby@@QAEXAAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444DC3 166B ?rva00444DC3@AptLanLobby@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00444E69 33B ?Cancel@AptLanLobby@@QAEXH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x00444E8A 62B ?CancelMenu@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x00444EC8 149B ?rva00444EC8@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x00444F9C 234B ?bfmeMapChanged@AptLanLobby@@QAE_NPBVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x00445211 28B ??_GAptLanLobby@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0044522D 123B ?rva0044522D@AptLanLobby@@UAEHHEH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x004454A1 273B ?MpOwnerSelectColor@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x004455B2 262B ?MpOwnerSelectPlayerTemplate@AptLanLobby@@QAE_NPAVGameSlot@@H@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x004456B8 260B ?MpOwnerSelectHero@AptLanLobby@@QAE_NPAVGameSlot@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/BfmeAptScreenLanLobby.cpp (not merged yet)
+
+// tu-skeleton: 0x004457BC 1006B ?rva004457BC@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyRefreshGamesList.cpp (not merged yet)
+
+// tu-skeleton: 0x00445BAA 507B ?Rva00445BAALanLobbyTooltip@@YAXPAVGameWindow@@PAVWinInstanceData@@I@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGamesListTooltip.cpp (not merged yet)
+
+// tu-skeleton: 0x00445E8B 88B ??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@ABV01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_int_o1.cpp (not merged yet)
+
+// tu-skeleton: 0x00445EE3 1187B ??0AptLanLobby@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyDestructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0044643D 6B ?Rva0044643DGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004469D1 75B ?OnGameCreate@AptLanLobby@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobbyGameCreate.cpp (not merged yet)
 

@@ -24475,7 +24475,7 @@ _io_flush,,0x0074AE00,194,Code/Libraries/Source/Lua/liolib.c,matched,BFME1 byte-
 ??0Rva00271826@@QAE@XZ,,0x00271826,108,Code/GameEngine/Source/GameClient/Rva00271826.cpp,matched,finish banked 0.98 via barrier plus vtable global
 ??1Rva003FAFB9@@UAE@XZ,,0x003FAFB9,82,Code/GameEngine/Source/Common/Rva003FAFB9Dtor.cpp,matched,chain dtor calls FAC3F ReleaseRef releaseBuffer BBB554
 ??_GRva003FD4DA@@UAEPAXI@Z,,0x002B5972,28,Code/GameEngine/Source/GameLogic/Object/Rva003FD4DADtor.cpp,matched,chain deleting dtor vtable FE1B0 rowed base; rehomed from FamilyDeletingDtors_Rva003FD4DA.cpp: Rva003FD4DADtor.cpp owns ~Rva003FD4DA and emits this deleting dtor itself (the family placeholder dtor was a duplicate definition)
-?rva004442FD@Rva004442FD@@QAEXXZ,,0x004442FD,46,Code/GameEngine/Source/Common/Rva004442FD.cpp,matched,clear 6a8 6a4 set 6c0 6bb virtual slot1
+?rva004442FD@Rva004442FD@@QAEXXZ,,0x004442FD,46,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptLanLobby.cpp,matched,clear 6a8 6a4 set 6c0 6bb virtual slot1
 ?rva00444083@Rva00444083@@QAEXH@Z,,0x00444083,113,Code/GameEngine/Source/Common/Rva00444083.cpp,matched,EnableCreateGame JoinGame via invoke
 ?rva004440F4@Rva00444083@@QAEXH@Z,,0x004440F4,113,Code/GameEngine/Source/Common/Rva00444083.cpp,matched,DisableCreateGame DisableJoinGame via invoke
 ?rva005DD7C3@Rva005DD7C3@@QAEXPAVGameWindow@@PBUWidths@@@Z,,0x005DD7C3,56,Code/GameEngine/Source/GameClient/GUI/Gadget/Rva005DD7C3.cpp,matched,listbox widths then init chain
