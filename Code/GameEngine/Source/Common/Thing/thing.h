@@ -56,6 +56,20 @@ public:
 	void getUnitDirectionVector2D(Coord3D &dir) const;
 	const Matrix3D *getTransformMatrix() const { return &m_transform; }
 
+	// The other public Thing rows of reverse/functions.csv, spelled from their
+	// decorated names (the BitFlags-typed isAnyKindOf/isKindOfMulti are left to
+	// the units, which spell BitFlags differently). getDrawable is BFME2's.
+	float getHeightAboveTerrain() const;											// 0x0030A12D
+	float getHeightAboveTerrainOrWater() const;										// 0x0030A4D0
+	bool isAboveTerrain() const;													// 0x000B19E5
+	bool rva0030AD8B(float height) const;											// 0x0030AD8B
+	void getUnitDirectionVector3D(Coord3D &dir) const;								// 0x0030A8EE
+	void setTransformMatrix(const Matrix3D *mx);									// 0x0030A2B7
+	void transformPoint(const Coord3D *in, Coord3D *out);							// 0x0030A812
+	void convertBonePosToWorldPos(const Coord3D *bonePos, const Matrix3D *boneTransform,
+		Coord3D *worldPos, Matrix3D *worldTransform) const;							// 0x0030A528
+	Drawable *getDrawable() const;													// 0x005508E2
+
 protected:
 	virtual float calculateHeightAboveTerrain() const;													// slot 0
 	virtual Object *asObjectMeth() { return 0; }															// slot 2
