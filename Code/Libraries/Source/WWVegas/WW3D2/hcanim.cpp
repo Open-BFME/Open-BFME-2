@@ -334,12 +334,14 @@ class Rva0018F900FramePrefix {
 public: Rva0018F900FramePrefix *reset();
 };
 
-struct BFME2CompressedMotionChannels {
-    BFME2MotionChannel *Channels[5];
-    TimeCodedBitChannelClass *Visibility;
-    BFME2CompressedMotionChannels();
-    ~BFME2CompressedMotionChannels();
-    int Get_Channel_Memory_Usage();
+struct BFME2CompressedMotionChannels
+{
+public:
+	BFME2CompressedMotionChannels();
+	~BFME2CompressedMotionChannels();
+	int Get_Channel_Memory_Usage();
+	BFME2MotionChannel *Channels[5]; // +0x00
+	TimeCodedBitChannelClass *Visibility; // +0x14
 };
 
 typedef char FirstNodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1];

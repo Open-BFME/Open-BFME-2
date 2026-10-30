@@ -12,18 +12,61 @@
 class TimeCodedBitChannelClass
 {
 public:
-    int Get_Bit(int frame);
+	int Get_Bit(int frame);
+	~TimeCodedBitChannelClass();
+	int Get_Channel_Memory_Usage();
 };
-struct NodeMotionStructView
+class TimeCodedMotionChannelClass;
+class AdaptiveDeltaMotionChannelClass;
+struct NodeCompressedMotionStruct
 {
-    int Flavor;
-    void *Channels[5];
-    TimeCodedBitChannelClass *Visibility;
+	NodeCompressedMotionStruct();
+	~NodeCompressedMotionStruct();
+
+	void SetFlavor(int flavor)  {Flavor = flavor;}
+
+	int Flavor;
+
+	union {
+		struct {
+			TimeCodedMotionChannelClass *		X;
+			TimeCodedMotionChannelClass *		Y;
+			TimeCodedMotionChannelClass *		Z;
+			TimeCodedMotionChannelClass *		Q;
+			TimeCodedMotionChannelClass *		Fade;
+		} tc;
+
+		struct {
+			AdaptiveDeltaMotionChannelClass *		X;
+			AdaptiveDeltaMotionChannelClass *		Y;
+			AdaptiveDeltaMotionChannelClass *		Z;
+			AdaptiveDeltaMotionChannelClass *		Q;
+			AdaptiveDeltaMotionChannelClass *		Fade;
+
+		} ad;
+
+		struct {
+			 void * X;
+			 void * Y;
+			 void * Z;
+			 void * Q;
+			 void * Fade;
+		} vd;
+	};
+
+	TimeCodedBitChannelClass *			Vis;
+
+	int Get_Channel_Memory_Usage(void);
 };
-struct VectorMotionStructView
+class BFME2MotionChannel;
+struct BFME2CompressedMotionChannels
 {
-    void *Channels[5];
-    TimeCodedBitChannelClass *Visibility;
+public:
+	BFME2CompressedMotionChannels();
+	~BFME2CompressedMotionChannels();
+	int Get_Channel_Memory_Usage();
+	BFME2MotionChannel *Channels[5]; // +0x00
+	TimeCodedBitChannelClass *Visibility; // +0x14
 };
 class HCompressedAnimClass
 {
@@ -36,8 +79,8 @@ public:
     virtual bool Has_Rotation(int pivot);
     virtual bool Has_Visibility(int pivot);
     unsigned char prefix[0x50];
-    NodeMotionStructView *NodeMotion;
-    VectorMotionStructView *VectorMotion;
+    NodeCompressedMotionStruct *NodeMotion;
+    BFME2CompressedMotionChannels *VectorMotion;
 };
 bool HCompressedAnimClass::Get_Visibility(int pivot, float frame)
 {
@@ -47,8 +90,8 @@ bool HCompressedAnimClass::Get_Visibility(int pivot, float frame)
         }
         return true;
     }
-    if (NodeMotion[pivot].Visibility != 0) {
-        return NodeMotion[pivot].Visibility->Get_Bit((int)frame) == 1;
+    if (NodeMotion[pivot].Vis != 0) {
+        return NodeMotion[pivot].Vis->Get_Bit((int)frame) == 1;
     }
     return true;
 }
@@ -56,31 +99,31 @@ bool HCompressedAnimClass::Get_Visibility(int pivot, float frame)
 bool HCompressedAnimClass::Has_X_Translation(int pivot)
 {
     if (VectorMotion != 0) return VectorMotion[pivot].Channels[0] != 0;
-    return NodeMotion[pivot].Channels[0] != 0;
+    return NodeMotion[pivot].vd.X != 0;
 }
 bool HCompressedAnimClass::Has_Y_Translation(int pivot)
 {
     if (VectorMotion != 0) return VectorMotion[pivot].Channels[1] != 0;
-    return NodeMotion[pivot].Channels[1] != 0;
+    return NodeMotion[pivot].vd.Y != 0;
 }
 bool HCompressedAnimClass::Has_Z_Translation(int pivot)
 {
     if (VectorMotion != 0) return VectorMotion[pivot].Channels[2] != 0;
-    return NodeMotion[pivot].Channels[2] != 0;
+    return NodeMotion[pivot].vd.Z != 0;
 }
 bool HCompressedAnimClass::Has_Rotation(int pivot)
 {
     if (VectorMotion != 0) return VectorMotion[pivot].Channels[3] != 0;
-    return NodeMotion[pivot].Channels[3] != 0;
+    return NodeMotion[pivot].vd.Q != 0;
 }
 bool HCompressedAnimClass::Has_Visibility(int pivot)
 {
     if (VectorMotion != 0) return VectorMotion[pivot].Visibility != 0;
-    return NodeMotion[pivot].Visibility != 0;
+    return NodeMotion[pivot].Vis != 0;
 }
 
-typedef char NodeStrideIs28[(sizeof(NodeMotionStructView) == 28) ? 1 : -1];
-typedef char VectorStrideIs24[(sizeof(VectorMotionStructView) == 24) ? 1 : -1];
+typedef char NodeStrideIs28[(sizeof(NodeCompressedMotionStruct) == 28) ? 1 : -1];
+typedef char VectorStrideIs24[(sizeof(BFME2CompressedMotionChannels) == 24) ? 1 : -1];
 
 bool HCompressedAnimClass::Is_Node_Motion_Present(int pivot)
 {
@@ -88,11 +131,11 @@ bool HCompressedAnimClass::Is_Node_Motion_Present(int pivot)
         for (int i = 0; i < 5; ++i) if (VectorMotion[pivot].Channels[i] != 0) return true;
         if (VectorMotion[pivot].Visibility != 0) return true;
     } else {
-        if (NodeMotion[pivot].Channels[0] != 0) return true;
-        if (NodeMotion[pivot].Channels[1] != 0) return true;
-        if (NodeMotion[pivot].Channels[2] != 0) return true;
-        if (NodeMotion[pivot].Channels[3] != 0) return true;
-        if (NodeMotion[pivot].Visibility != 0) return true;
+        if (NodeMotion[pivot].vd.X != 0) return true;
+        if (NodeMotion[pivot].vd.Y != 0) return true;
+        if (NodeMotion[pivot].vd.Z != 0) return true;
+        if (NodeMotion[pivot].vd.Q != 0) return true;
+        if (NodeMotion[pivot].Vis != 0) return true;
     }
     return false;
 }
