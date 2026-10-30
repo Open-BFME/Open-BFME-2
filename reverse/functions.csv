@@ -24115,7 +24115,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??0Rva001E2747@@QAE@ABVAsciiString@@@Z,,0x001E2747,127,Code/GameEngine/Source/GameClient/FXListRva001E2747Ctor.cpp,matched,two lists plus AsciiString via callers 0x1E28BF and 0x1E2D69 with FXList table 0x7DC720
 ?xfer@Rva00493009@@MAEXPAVXfer@@@Z,,0x00493009,151,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva00493009Xfer.cpp,matched,versioned xfer 1-3 via slot 0x28 plus base 0x4C9C7D plus ObjectID 0x3060B2
 ?rva002B48E1@Rva002B48E1@@QAEPAURva002E1948Entry@@ABVAsciiString@@@Z,,0x002B48E1,72,Code/GameEngine/Source/Common/Rva002B48E1Find.cpp,matched,lookup vector find-first via rowed find returning entry or null
-?xfer@Rva004C8A95@@MAEXPAVXfer@@@Z,,0x004C8A95,27,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004C8A95Xfer.cpp,matched,slot3 xfer via Version1 plus base 0x00493009
+?xfer@Rva004C8A95@@MAEXPAVXfer@@@Z,,0x004C8A95,27,Code/GameEngine/Source/GameLogic/Object/SpecialPower/HordeDispatchSpecialPower.cpp,matched,slot3 xfer via Version1 plus base 0x00493009
 ?rva005832D0@AptFileTransferPopup@@QAEXABVAsciiString@@@Z,,0x005832D0,137,Code/GameEngine/Source/Common/AptFileTransferPopup.cpp,matched,filename after backslash via reverseFind str empty BBAC1C manager 9FE4CC
 ?xfer@Rva004C447D@@MAEXPAVXfer@@@Z,,0x004C447D,64,Code/GameEngine/Source/GameLogic/Object/SpecialPower/ElvenWoodSpecialPower.cpp,matched,slot3 Scavenger xfer via Version12 plus base 0x493009 plus bool 0x34
 ??0Rva001E28B8@@QAE@ABVAsciiString@@@Z,,0x001E28B8,42,Code/GameEngine/Source/GameClient/FXListRva001E28B8Ctor.cpp,matched,derived of 0x001E2747 via caller 0x001E2C0F and vtables 0x7DD978 0x7DD974
