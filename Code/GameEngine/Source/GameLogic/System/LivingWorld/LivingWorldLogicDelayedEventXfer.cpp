@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/moduledata /Ireference/shims/bfmealloc /O1 /G7 /arch:SSE /EHsc /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB
-// stlport
+// stlport46
 // Native 2BB49C..2BB5DD RET8: counted transfer of a delayed-event pointer
 // vector, called twice by both stream bodies 2BB5DD and 2BBA45 (this, xfer,
 // vector). Load reads a kind through rowed 2B2275 and builds one of four

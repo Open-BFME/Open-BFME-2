@@ -1,5 +1,5 @@
 // cl: /O1 /G7 /arch:SSE /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /Ireference/shims/bfmealloc /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 // Native 474483..474517 RET4: definition20C pointer vector, owner270 pointer
 // vector, allocate8 {resolved-template,slot}, 474431 position and key0, then
 // 2D06CA name lookup on TheThingFactory. The following HordeContain formation

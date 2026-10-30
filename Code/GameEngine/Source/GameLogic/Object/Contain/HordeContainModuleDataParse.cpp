@@ -1,5 +1,5 @@
 // cl: /Ireference/shims/bfmealloc /D_STLP_NO_EXCEPTIONS /D_STLP_USE_MALLOC /O1 /arch:SSE /G7 /DNDEBUG /MD /GX- /Oi- /D_STLP_USE_STATIC_LIB /Ireference/shims/bfme2_ascii
-// stlport
+// stlport46
 //
 // HordeContainModuleData parse-unit.
 //
@@ -128,7 +128,7 @@ namespace _STL
 // Game allocations use the native direct free wrapper even though the INI
 // parser imports its CRT conversion routines. Preserve that distinction here.
 template<> inline void allocator<HordeContainRankInfo*>::deallocate(
-    HordeContainRankInfo **p, unsigned int) const
+    HordeContainRankInfo **p, unsigned int)
 {
     if (p) Rva00030830GameFree(p);
 }
