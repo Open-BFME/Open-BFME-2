@@ -159,17 +159,36 @@ def waves(jobs, width):
 
 # ---------------------------------------------------------------- decisions
 
+CLASS_FIRST = {"C2011", "C2953", "C2504", "C2027", "C2614", "C2653", "C2512", "C2259"}   # 'Class' : ...
+CLASS_LAST = {"C2039", "C2511", "C2248", "C2079"}     # 'member' : ... of / in 'Class'
+
+
+def diagnostic_class(diag):
+    """The one class a diagnostic names, by its code's class position, as written: qualified
+    ('A::B' is A::B, not A) and without template arguments ('BitFlags<N>' is BitFlags). None for
+    errors that name no class (C2065, C2143, ...); a member name is never a class."""
+    found = re.match(r"error (C\d+)\s*:(.*)", diag.strip())
+    quoted = QUOTED.findall(found.group(2)) if found else []
+    if found and found.group(1) in CLASS_FIRST and quoted:
+        name = quoted[0]
+    elif found and found.group(1) in CLASS_LAST and len(quoted) > 1:
+        name = quoted[-1]
+    else:
+        return None
+    while re.search(r"<[^<>]*>", name):
+        name = re.sub(r"<[^<>]*>", "", name)
+    return re.sub(r"^(class|struct|union)\s+", "", name.strip()).strip()
+
+
 def named_by(reason, classes):
-    """The `classes` that `reason`'s own diagnostics name, in the order its errors first name
-    them. Only quoted names count, so a source path or an English word is never a hit."""
-    hits = {}
-    for n, diag in enumerate(DIAGNOSTIC.findall(reason or "")):
-        quoted = " ".join(QUOTED.findall(diag))
-        for c in classes:
-            found = c not in hits and re.search(r"(?<![\w:])" + re.escape(c) + r"\b", quoted)
-            if found:
-                hits[c] = (n, found.start())
-    return sorted(hits, key=hits.get)
+    """The `classes` that `reason`'s own diagnostics name (diagnostic_class), in the order its
+    errors first name them."""
+    out = []
+    for diag in DIAGNOSTIC.findall(reason or ""):
+        c = diagnostic_class(diag)
+        if c in classes and c not in out:
+            out.append(c)
+    return out
 
 
 def class_blockers(tu, donor, payload, header_queue, reconcile="", why="", shared=None):

@@ -333,6 +333,22 @@ def test_a_tus_view_hint_is_charged_only_to_the_donors_whose_errors_name_the_cla
     assert got["Code/X.cpp"]["kind"] == "compile-error" and got["Code/Z.cpp"]["first"] == "AIGroup"
 
 
+def test_only_the_class_position_of_a_diagnostic_is_charged():
+    """A member or identifier spelled like a class is no hit, nor is the scope of a qualified name;
+    template arguments are dropped."""
+    hint = ["A", "A::B", "AI", "BitFlags", "Object"]
+    member = "compile: a.cpp(1) : error C2039: 'AI' : is not a member of 'Object'"
+    assert M.named_by(member, hint) == ["Object"]
+    assert M.named_by("compile: a.cpp(1) : error C2065: 'AI' : undeclared identifier", hint) == []
+    assert M.named_by("compile: a.cpp(1) : error C2011: 'A::B' : 'struct' type redefinition", hint) == ["A::B"]
+    assert M.named_by("compile: a.cpp(1) : error C2039: 'getSingleBitFromName' : is not a member of "
+                      "'BitFlags<NUMBITS>'", hint) == ["BitFlags"]
+    job = {"tu": "Code/T.cpp", "removes": 1, "rows": 1, "files": [], "held": [], "mixed": {}, "refused": {},
+           "donors": {"Code/T.cpp": 1, "Code/M.cpp": 1}}
+    got = M.classify(job, {"reconcile_classes": hint, "rejected": {"Code/M.cpp": member}}, {}, {}, lambda f: {})
+    assert got[0]["classes"] == ["Object"] and got[0]["first"] == "Object"
+
+
 def test_decisions_are_ranked_by_files_freed_and_served_to_the_picker(tmp_path, monkeypatch):
     items = [M.item("compile-error", "Code/T.cpp", "Code/A.cpp", 1, 3, "compile: x", diagnostic="error C1"),
              M.item("link-regression", "Code/U.cpp", "Code/U.cpp", 5, 9, "link guard", symbols=["?s@@3HA"]),
