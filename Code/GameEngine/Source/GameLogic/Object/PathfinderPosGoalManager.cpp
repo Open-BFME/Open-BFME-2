@@ -55,19 +55,6 @@ public:
 
 extern TerrainLogic *TheTerrainLogic;
 
-class PathfinderPosGoalManager
-{
-public:
-	float rva004DD843();
-	void SetGoal(int first, float value, int last);
-	void rva004DE511(int first, int last);
-	void rva004DE4E2(int arg);
-private:
-	Object *m_object;
-	unsigned char m_pad04[0x20];
-	int m_x24;
-};
-
 struct PoolNode16
 {
 	void *m_next;
@@ -188,6 +175,36 @@ private:
 	int m_layers[2];
 };
 
+class PathfinderPosGoalManager
+{
+public:
+	float rva004DD843();
+public:
+	void SetGoal(int first, float value, int last);
+public:
+	void rva004DE511(int first, int last);
+public:
+	void rva004DE4E2(int arg);
+private:
+	Object *m_object;
+private:
+	unsigned char m_pad04[0x20];
+private:
+	int m_x24;
+public:
+	void rva004DDD6E();
+public:
+	void rva004DDD80();
+public:
+	void rva004DDD92();
+};
+
+class Rva004DDF3A : public PathfinderPosGoalManager
+{
+public:
+	~Rva004DDF3A();
+};
+
 // tu-skeleton: 0x004DD637 33B ?rva004DD637@PathfinderPosGoalManager@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004DD658 90B ?rva004DD658@PathfinderPosGoalManager@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManagerXferRva004DD658.cpp (not merged yet)
@@ -195,6 +212,8 @@ private:
 // tu-skeleton: 0x004DD6B2 29B ??0Rva004DD6B2@@QAE@HHH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE24.cpp (not merged yet)
 
 // tu-skeleton: 0x004DD6CF 83B ?Rva004DD6CFGet@@YAHM@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/PathfinderPosGoalManager.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva004DD843Getter.cpp
 
@@ -261,14 +280,6 @@ Rva004DD7C4::Rva004DD7C4()
 {
 }
 
-// tu-skeleton: 0x004DD7E3 39B ??0Rva004DD7E3@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004DD7E3Ctor.cpp (not merged yet)
-
-// tu-skeleton: 0x004DD80A 57B ?rva004DD80A@PathfinderPosGoalManager@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004DD84D 57B ?rva004DD84D@PathfinderPosGoalManager@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x004DD886 10B ?rva004DD886@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva004DD890.cpp
 
 void __cdecl rva004DD890(void *node)
@@ -276,10 +287,6 @@ void __cdecl rva004DD890(void *node)
 	if (node != 0)
 		((Rva00065964ObjectPool *)&g_Va00E049D8)->FreeObject(node);
 }
-
-// tu-skeleton: 0x004DD8A6 84B ?rva004DD8A6@@YAXHPAURva004DD8A6Entry@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
-
-// tu-skeleton: 0x004DD8FA 233B ?RemoveObjPtr@PathfinderPosGoalManager@@QAEXPAURva004DD843Slot@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva004DD9E3.cpp
 
@@ -317,13 +324,32 @@ int Rva004DD9E3::rva004DD9E3(int a1, int x, int y)
 	return 0;
 }
 
+// tu-skeleton: 0x004DD7E3 39B ??0Rva004DD7E3@@QAE@H@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004DD7E3Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x004DD80A 57B ?rva004DD80A@PathfinderPosGoalManager@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004DD84D 57B ?rva004DD84D@PathfinderPosGoalManager@@QAE_NPAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004DD886 10B ?rva004DD886@@YAPAXXZ -- matched in Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp (not merged yet)
+
+// tu-skeleton: 0x004DD8A6 84B ?rva004DD8A6@@YAXHPAURva004DD8A6Entry@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
+
+// tu-skeleton: 0x004DD8FA 233B ?RemoveObjPtr@PathfinderPosGoalManager@@QAEXPAURva004DD843Slot@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
+
 // tu-skeleton: 0x004DDD6E 18B ?rva004DDD6E@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
 
 // tu-skeleton: 0x004DDD80 18B ?rva004DDD80@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
 
 // tu-skeleton: 0x004DDD92 18B ?rva004DDD92@PathfinderPosGoalManager@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva004DD843SlotFlushes.cpp (not merged yet)
 
-// tu-skeleton: 0x004DDF3A 23B ??1Rva004DDF3A@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004DDF3ADtor.cpp
+
+Rva004DDF3A::~Rva004DDF3A()
+{
+	rva004DDD6E();
+	rva004DDD80();
+	rva004DDD92();
+}
 
 // tu-skeleton: 0x004DDF51 440B ?AddObjPtr@PathfinderPosGoalManager@@QAEXPAURva004DD843Slot@@@Z -- matched in Code/GameEngine/Source/GameLogic/Pathfinder/PathfinderPosGoalManager.cpp (not merged yet)
 
