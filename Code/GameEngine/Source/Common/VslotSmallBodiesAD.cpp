@@ -118,12 +118,6 @@ class HotKeyTranslator
 public:
 	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
 };
-GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage *msg)
-{
-	if (TheHotKeyManager)
-		return TheHotKeyManager->translate(msg);
-	return KEEP_MESSAGE;
-}
 
 // 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
 // at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified

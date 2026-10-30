@@ -480,24 +480,6 @@ public:
 
 extern GameTextInterface *TheGameText;
 
-class HotKeyManager
-{
-public:
-	Bool executeHotKey(const AsciiString &keyIn, Bool shift);
-	GameMessageDisposition translate(const GameMessage *msg);
-	void addMessageAction(const TreeHintRef00217D4C &action, Int messageType);
-	unsigned int removeMessageAction(Int messageType);
-	void rva00358A53();
-	void rva00358ACB();
-	AsciiString searchHotKey(const AsciiString &);
-	AsciiString searchHotKey(const UnicodeString &);
-private:
-	unsigned char m_pad00[0x0c];
-	HotKeyMap m_map;		// +0x0C
-	HotKeyMap m_altMap;		// +0x18
-	HotKeyMessageActionMap m_messageActionMap;		// +0x24
-};
-
 void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
 
 struct Rva00358DC2Node : public _STL::_Rb_tree_node_base
@@ -527,6 +509,401 @@ struct Rva00358F33Iterator
 };
 
 typedef void (Rva00358DC2::*Rva00358F33EraseFn)(Rva00358F33Iterator);
+
+typedef float Real;
+
+class Object;
+
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_1C = 0x1C
+};
+
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
+
+class Object
+{
+public:
+	void setStatus(ObjectStatusTypes status, bool set);
+	bool rva0029493F(Object *victim, int mode);
+	bool isKindOf(KindOfType t) const;
+};
+
+struct Rva00349D02Machine
+{
+	char m_pad00[0x14];
+	Object *m_owner14;
+};
+
+// 0x00260E44: whether the object at VA 0x00DFECC4 exists and its pinned
+// 0x00288CFA accepts the argument's +0x264 word.
+class Rva00288CFA
+{
+public:
+	bool rva00288CFA(Int a);
+};
+
+class ExperienceLevelSystem;
+
+extern ExperienceLevelSystem *TheExperienceLevelSystem;
+
+struct Rva00260E44Arg
+{
+	char m_pad00[0x264];
+	Int m_264;
+};
+
+// Slot 1 (allow) of partition filter vftable 0x00C5A99C.
+class Rva00260E44Filter
+{
+public:
+	virtual ~Rva00260E44Filter();
+	virtual bool allow(Object *obj);
+};
+
+// 0x0026156C: filter slot1 of native vftable C600A0. Its caller preserves
+// Object::rva0029493F's AL result; the older void/int view dropped that ABI fact.
+// The source Object at+8 and mode at+C match the notifier's native filter.
+class Rva000421C8
+{
+public:
+ virtual ~Rva000421C8();
+ virtual bool allow(Object *)=0;
+ virtual int getPlayerMask();
+ Rva000421C8 *m_next;
+};
+
+class Rva0026156C:public Rva000421C8
+{
+public:
+ virtual bool allow(Object *candidate);
+private:
+ Object *m_object;
+ int m_mode;
+};
+
+// 0x00349D02 (AI state tables): the pinned 0x003497E6 result, setting or
+// clearing status 0x1C on the owner as it is -1.
+class Rva00349D02
+{
+public:
+	Int update();
+	Int rva003497E6();
+private:
+	char m_pad00[0x18];
+	Rva00349D02Machine *m_18;
+};
+
+// 0x00359729: HotKeyManager::translate (0x00359556, rowed in
+// MessageStream/HotKey.cpp) of the manager at VA 0x00E01E28 with the
+// argument, 0 without the manager.
+class GameMessage;
+
+class HotKeyManager
+{
+public:
+	Bool executeHotKey(const AsciiString &keyIn, Bool shift);
+	GameMessageDisposition translate(const GameMessage *msg);
+	void addMessageAction(const TreeHintRef00217D4C &action, Int messageType);
+	unsigned int removeMessageAction(Int messageType);
+	void rva00358A53();
+	void rva00358ACB();
+	AsciiString searchHotKey(const AsciiString &);
+	AsciiString searchHotKey(const UnicodeString &);
+private:
+	unsigned char m_pad00[0x0c];
+	HotKeyMap m_map;		// +0x0C
+	HotKeyMap m_altMap;		// +0x18
+	HotKeyMessageActionMap m_messageActionMap;		// +0x24
+};
+
+extern HotKeyManager *TheHotKeyManager;
+
+class HotKeyTranslator
+{
+public:
+	virtual GameMessageDisposition translateGameMessage(const GameMessage *msg);
+};
+
+// 0x003AFE24 and 0x003AFE36: GPU resource access through the manager
+// at VA 0x00DFDD04; return zero if it is absent. Providers are byte-verified
+// in ParticleSystemManagerGetShaderSetup.cpp (1F4002 and 1F40AF).
+struct IDirect3DVertexDeclaration9;
+
+class DX8IndexBufferClass;
+
+namespace FXParticleSystem {
+class ParticleSystemManager {
+public:
+	IDirect3DVertexDeclaration9 *GetVertexDeclaration();
+	DX8IndexBufferClass *rva001F40AF();
+};
+}
+
+extern class ParticleSystemManager *TheParticleSystemManager;
+
+class Rva003AFE24
+{
+public:
+	Int rva003AFE24();
+	Int rva003AFE36();
+};
+
+// 0x003C35F7: the pinned 0x003C35AA with both arguments and true.
+class Rva003C35F7
+{
+public:
+	void rva003C35F7(Int a, Int b);
+	void rva003C35AA(Int a, Int b, bool c);
+};
+
+// 0x0040E0C5: for the argument's +0x78 object in state 4 (+0x2C), the
+// pinned 0x0040DF77 then the rowed 0x0040E02B; answers true.
+class Rva0040E02B
+{
+public:
+	void rva0040E02B();
+};
+
+class Rva0040DF77 : public Rva0040E02B
+{
+public:
+	void rva0040DF77();
+	char m_pad00[0x2C];
+	Int m_2C;
+};
+
+struct Rva0040E0C5Arg
+{
+	char m_pad00[0x78];
+	Rva0040DF77 *m_78;
+};
+
+class Rva0040CFFF
+{
+public:
+	virtual bool rva0040E0C5(Rva0040E0C5Arg *arg);
+};
+
+// 0x00414B89 and 0x00415122: the pinned 0x00414B0A resp. 0x0041505B on
+// every 0x30-byte entry of the [+0x10, +0x14) range.
+class Rva00414B0A
+{
+public:
+	void rva00414B0A();
+	void rva0041505B();
+private:
+	char m_pad00[0x30];
+};
+
+class Rva00414B89
+{
+public:
+	void rva00414B89();
+	void rva00415122();
+private:
+	char m_pad00[0x10];
+	Rva00414B0A *m_start;
+	Rva00414B0A *m_finish;
+};
+
+// 0x00482134 and 0x00482152 (the latter through an interface at +0x20):
+// the pinned 0x0035A292 of TheGameLogic's +0x170 object with the +0x08 word
+// and the +0x04 object's +0x08 Real.
+class Rva0035A292
+{
+public:
+	void rva0035A292(Int a, Real b);
+};
+
+struct Rva00482134Logic
+{
+	char m_pad00[0x170];
+	Rva0035A292 *m_170;
+};
+
+class GameLogic;
+
+struct Rva00482134Data
+{
+	Int m_00;
+	Int m_04;
+	Real m_08;
+};
+
+class Rva00482134
+{
+public:
+	void rva00482134();
+private:
+	Int m_00;
+	Rva00482134Data *m_04;
+	Int m_08;
+};
+
+class Rva00482152Primary
+{
+public:
+	virtual void primarySlot();
+protected:
+	Rva00482134Data *m_04;
+	Int m_08;
+	char m_pad0C[0x14];
+};
+
+class Rva00482152Iface
+{
+public:
+	virtual void rva00482152(Int unused) = 0;
+};
+
+class Rva00482152 : public Rva00482152Primary, public Rva00482152Iface
+{
+public:
+	void rva00482152(Int unused);
+};
+
+// 0x004CDF00 and 0x004CDF1D: the pinned base 0x004502CE with both
+// arguments then the pinned 0x004CDDBA(1); resp. only the latter while
+// +0x08 is set.
+class Rva004502CE
+{
+public:
+	void rva004502CE(Int a, Int b);
+};
+
+class ActivateModuleSpecialPower : public Rva004502CE
+{
+public:
+	void onExit(Int a, Int b);
+	void onObjectCreated();
+	void SetWakeState(Int a);
+private:
+	Int m_00;
+	Int m_04;
+	Int m_08;
+};
+
+// 0x004EF2FA (interface at +0x04): the pinned 0x004EEE38 of the complete
+// object with the first argument.
+class LivingWorldScoreKeeper
+{
+public:
+	virtual void primarySlot();
+	void collectEndOfTurnStats(Int a);
+};
+
+class Rva004EF2FAIface
+{
+public:
+	virtual void rva004EF2FA(Int a, Int unused) = 0;
+};
+
+class Rva004EF2FA : public LivingWorldScoreKeeper, public Rva004EF2FAIface
+{
+public:
+	void rva004EF2FA(Int a, Int unused);
+};
+
+// 0x00508925: whether the pinned 0x005075D6 accepts both arguments.
+class Rva00508925
+{
+public:
+	bool rva00508925(Int a, Int b);
+	unsigned char rva005075D6(Int a, Int b);
+};
+
+class Rva00507823
+{
+public:
+	unsigned char rva005075D6(const void *arg, Object *target);
+};
+
+class Rva00508F1E : public Rva00507823
+{
+public:
+	bool rva00508F1E(const void *weapon, Object *target);
+};
+
+class Rva002CA9CA
+{
+public:
+	bool rva002CAA59(int target, const void *arg);
+};
+
+class Rva005092D4 : public Rva00507823
+{
+public:
+	bool rva005092D4(const void *arg, Object *target);
+private:
+	char m_pad00[0x128];
+	Rva002CA9CA *m_128;
+};
+
+class Player;
+
+struct Rva2225E0Filter
+{
+	bool accepts(Object *, Player *);
+};
+
+class Rva0050B92D : public Rva00507823
+{
+public:
+	unsigned char rva0050B92D(const void *arg, Object *target);
+private:
+	char m_pad00[0x128];
+	Rva2225E0Filter m_filter128;
+};
+
+// 0x003AFF06 (28B): a vtable slot that forwards both of its arguments to the
+// ParticleSystem member at 0x001F9BA4 (unrowed, pinned) through the system
+// held at +0x4, when one is held. The test goes through the conversion
+// operator, the call through operator->, which falls back to the rowed
+// null-system factory 0x001FCBD7 and re-reads +0x4 (volatile read), as the
+// sibling ParticleSystem::destroy (0x001F462C) does. Class and method names
+// are address-derived; the meaning is not recovered.
+class ParticleSystem
+{
+public:
+	void rva001F9BA4(void *a, void *b);
+};
+
+ParticleSystem *Make001FCBD7(void);
+
+class Rva003AFF06SystemPtr
+{
+public:
+	operator ParticleSystem *(void) const
+	{
+		return m_target;
+	}
+
+	ParticleSystem *operator->(void) const
+	{
+		ParticleSystem *target = *(ParticleSystem *const volatile *)&m_target;
+		if (!target)
+			target = Make001FCBD7();
+		return target;
+	}
+
+private:
+	ParticleSystem *m_target;
+};
+
+class Rva003AFF06
+{
+public:
+	virtual void rva003AFF06(void *a, void *b);
+
+private:
+	Rva003AFF06SystemPtr m_system;				///< +0x4
+};
+
+// ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 
@@ -871,8 +1248,6 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 	return searchHotKey(TheGameText->fetch(label));
 }
 
-// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00358B65Dtor.cpp
 
 // ??1Rva00358B65@@QAE@XZ @0x00358B65
@@ -886,16 +1261,6 @@ Rva00358B65::~Rva00358B65()
 	if (m_04)
 		ReleaseTreeHintRef00217D4C(m_04);
 }
-
-// tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x00358CA0 45B ?Rva00358CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
-
-// tu-skeleton: 0x00358D27 59B ?erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva0027EA49@@U?$_Nonconst_traits@URva0027EA49@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
-
-// tu-skeleton: 0x00358D97 9B ??$_Destroy@VRva00358B65@@@_STL@@YAXPAVRva00358B65@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00358DA0 34B ?_M_create_node@?$_Rb_tree@URva00358DA0Element@@U?$pair@$$CBURva00358DA0Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@U?$less@URva00358DA0Element@@@3@V?$allocator@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@2@ABU?$pair@$$CBURva00358DA0Element@@H@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00358DA0.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva00358DC2Erase.cpp
 
@@ -920,6 +1285,28 @@ void Rva00358DC2::rva00358F33(Rva00358F33Iterator pos)
 	(this->*erase)(pos);
 }
 
+// ---- from Code/GameEngine/Source/Common/HotKeyManager_removeMessageAction.cpp
+
+// ?removeMessageAction@HotKeyManager@@QAEIH@Z 0x003593D8 16B; tree erase call and +0x24 this adjustment are retail evidence;
+// the message-action map's key erase is the tree's erase(const int &) at 0x00358FA5.
+
+unsigned int HotKeyManager::removeMessageAction(Int messageType)
+{
+	return ((Rva00359269Tree *)&m_messageActionMap)->erase(messageType);
+}
+
+// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00358CA0 45B ?Rva00358CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
+
+// tu-skeleton: 0x00358D27 59B ?erase@?$_Rb_tree@URva0027EA49@@U1@U?$_Identity@URva0027EA49@@@_STL@@U?$less@URva0027EA49@@@3@V?$allocator@URva0027EA49@@@3@@_STL@@QAEXU?$_Rb_tree_iterator@URva0027EA49@@U?$_Nonconst_traits@URva0027EA49@@@_STL@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00358D97 9B ??$_Destroy@VRva00358B65@@@_STL@@YAXPAVRva00358B65@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00358DA0 34B ?_M_create_node@?$_Rb_tree@URva00358DA0Element@@U?$pair@$$CBURva00358DA0Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@U?$less@URva00358DA0Element@@@3@V?$allocator@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@2@ABU?$pair@$$CBURva00358DA0Element@@H@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00358DA0.cpp (not merged yet)
+
 // tu-skeleton: 0x00358E9F 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
 
 // tu-skeleton: 0x00358F44 56B ??1Rva00358D62@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
@@ -942,19 +1329,16 @@ void Rva00358DC2::rva00358F33(Rva00358F33Iterator pos)
 
 // tu-skeleton: 0x00359302 214B ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/HotKeyManager_removeMessageAction.cpp
-
-// ?removeMessageAction@HotKeyManager@@QAEIH@Z 0x003593D8 16B; tree erase call and +0x24 this adjustment are retail evidence;
-// the message-action map's key erase is the tree's erase(const int &) at 0x00358FA5.
-
-unsigned int HotKeyManager::removeMessageAction(Int messageType)
-{
-	return ((Rva00359269Tree *)&m_messageActionMap)->erase(messageType);
-}
-
 // tu-skeleton: 0x003596AD 124B ??A?$map@HUTreeHintRef003596AD@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef003596AD@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef003596AD@@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 
-// tu-skeleton: 0x00359729 20B ?translateGameMessage@HotKeyTranslator@@UAE?AW4GameMessageDisposition@@PBVGameMessage@@@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/VslotSmallBodiesAD.cpp
+
+GameMessageDisposition HotKeyTranslator::translateGameMessage(const GameMessage *msg)
+{
+	if (TheHotKeyManager)
+		return TheHotKeyManager->translate(msg);
+	return KEEP_MESSAGE;
+}
 
 // tu-skeleton: 0x0035973D 79B ??0Rva00359290@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
 
