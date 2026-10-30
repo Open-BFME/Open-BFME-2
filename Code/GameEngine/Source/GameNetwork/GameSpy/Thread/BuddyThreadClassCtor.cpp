@@ -10,6 +10,7 @@
 // setter 0x005509AF). The body store order is the retail-measured order.
 
 // cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
+// stlport
 // Native 0x00550F01..0x00550FDA (220B, RET4). Constructed by the matched
 // ?startThread@GameSpyBuddyMessageQueue@@UAEXXZ at 0x00551022:
 // `push 0xac; call operator new; ... call 0x00550F01` on the queue's +0x68
@@ -18,22 +19,8 @@
 // members at +0x60 (rowed 0x00007850), the mutex at +0x9C (<- +0x68),
 // CriticalSectionClass at +0xA0 (rowed 0x00613AE0) and the lock owner at
 // +0xA8 holding `new LockClass(m_lock)` (rowed 0x00613B60 + setter 0x005509AF).
-namespace _STL
-{
-template <class T> class char_traits { };
-template <class T> class allocator { };
-template <class Char, class Traits, class Allocator>
-class basic_string
-{
-public:
-	basic_string();
-	~basic_string();
-private:
-	char *m_start;
-	char *m_finish;
-	char *m_capacity;
-};
-}
+#include <string>
+
 typedef _STL::basic_string<char, _STL::char_traits<char>, _STL::allocator<char> > BfmeStateString;
 
 class MutexClass;
