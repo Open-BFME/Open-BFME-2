@@ -9,14 +9,21 @@ rarely, so the question is never "which view is right" but "which evidence
 settles this one attribute". This tool answers it per attribute, in the
 order research 11 fixed, stopping at the first rule that decides:
 
+  0. retail-ctor  bases, virtual bases and sizeof read from retail bytes by
+                  tools/retail_layout.py: vftable/vbtable stores and base
+                  constructor calls in the class's matched constructors, and
+                  `push SIZE; call operator new` at its allocation sites.
+                  Retail is /GR-, so these are the only layout facts the image
+                  carries; they outrank every view. Retail facts that disagree
+                  with each other are queued, never voted;
   1. bytes        what byte-matched code proves: an attribute every compiled
                   view agrees on, and the class-key the ledger's matched names
                   mangle (each row's name is verified by the gate);
   2. retail-access  widths of `this`-relative reads and writes in the retail
                   bodies of the class's own member functions (capstone), and
                   BFME1's ZH<->retail field witnesses (bfme_layouts.json);
-  3. retail-vtable  vftable stores in retail constructors and the slots that
-                  vtables.tsv lists for that table;
+  3. retail-vtable  vftable stores in retail constructors and the slots read
+                  from the table's words (tools/retail_layout.py);
   4. zh           the Zero Hour header's own layout (compiled, -Z7), names and
                   class-key;
   5. majority     of the views, for names only.
@@ -332,34 +339,96 @@ def witnesses(name):
     return out
 
 
+_ENGINE = None
+
+
+def retail_layout(name, rows, builder):
+    """The retail layout of `name` (tools/retail_layout.py); {} when no matched constructor or destructor names it."""
+    import retail_layout as engine
+    scope = mangled_scope(name)
+    if not any(m and m.group(1) == scope for r in rows for m in [engine.CTOR.match(r["name"])
+                                                                  or engine.DTOR.match(r["name"])]):
+        return {}
+    global _ENGINE
+    if _ENGINE is None:
+        _ENGINE = engine.Engine(engine.Image.retail(), engine.Ledger(rows), cache_dir=ROOT / "build" / "retail_layout")
+    return _ENGINE.contract(name)
+
+
 def retail_vtable(name, rows, builder):
-    """vftable RVAs stored at [this+0] by retail constructors, with their vtables.tsv slots."""
-    import capstone
-    from capstone import x86
-    md = capstone.Cs(capstone.CS_ARCH_X86, capstone.CS_MODE_32)
-    md.detail = True
-    base = getattr(builder, "IMAGE_BASE", 0x400000)
-    _, ctors = thiscall_rows(name, rows)
-    tables = collections.Counter()
-    for row in ctors:
-        try:
-            code = builder.read_target_bytes(int(row["target_rva"], 16), int(row["target_size"], 0))
-        except Exception:
-            continue
-        for insn in md.disasm(code, 0):
-            ops = insn.operands
-            if insn.mnemonic == "mov" and len(ops) == 2 and ops[0].type == x86.X86_OP_MEM and ops[0].mem.disp == 0 \
-                    and ops[1].type == x86.X86_OP_IMM and ops[1].imm > base:
-                tables[ops[1].imm - base] += 1
-    slots = collections.defaultdict(dict)
-    path = REVERSE / "vtables.tsv"
-    if tables and path.exists():
-        with path.open(newline="", encoding="utf-8") as handle:
-            for row in csv.DictReader(handle, delimiter="\t"):
-                rva = int(row["vtable_rva"], 16)
-                if rva in tables:
-                    slots[rva][int(row["slot"])] = row["func_name"]
-    return {"%#x" % rva: {"stores": count, "slots": slots.get(rva, {})} for rva, count in tables.items()}
+    """vftables retail constructors store at every [this+N], with the slots read from the table's words.
+
+    Offset 0 is the class's primary table. The slot words run to the next table
+    any matched body stores (no RTTI separates them), so a count is an upper
+    bound; vtables.tsv (Ghidra) runs on into the following table for 57 of its
+    160 tables and is no longer read."""
+    facts = retail_layout(name, rows, builder).get("facts", {})
+    out = {}
+    for offset, table in facts.get("vftables", {}).get("value", {}).items():
+        entry = out.setdefault(table, {"stores": len(facts["vftables"]["sites"]), "offset": int(offset, 16),
+                                       "slots": {}})
+        if int(offset, 16) == 0 and "vslots" in facts:
+            entry["slots"] = {s["slot"]: s["name"] or s["target"] for s in facts["vslots"]["value"]["slots"]}
+            entry["end"] = facts["vslots"]["value"]["end"]
+    return out
+
+
+def retail_bases(name, retail, good, every):
+    """(bases, rule, queue) from the retail constructors, or None when they prove no base.
+
+    Retail decides the shape: the offsets of the polymorphic bases and the
+    number of virtual bases. A view agrees when its base clause has exactly
+    those, plus only bases with no vftable (retail cannot see those). A base
+    retail names by a real constructor keeps that name; a base the ledger
+    names only by placeholder takes the agreeing views' spelling; a base
+    neither names is queued."""
+    import retail_layout as engine
+    facts = retail.get("facts", {})
+    if "bases" not in facts and "virtual_bases" not in facts:
+        return None
+    nonvirtual = [(b["offset"], b["name"]) for b in facts.get("bases", {}).get("value", [])]
+    virtual = [v["name"] for v in facts.get("virtual_bases", {}).get("value", [])]
+    offsets = [o for o, _ in nonvirtual]
+
+    def polymorphic(source, base):
+        layout = every.get(source, {}).get(base)
+        return layout is None or bool(layout.get("vfptr") or layout.get("bases"))
+
+    agreeing = collections.Counter()
+    for source, layout in good.items():
+        clause = layout.get("bases", [])
+        mine = [(b, o) for b, o in clause if o >= 0]
+        extra = [b for b, o in mine if o not in offsets]
+        if sorted({o for _, o in mine} & set(offsets)) == offsets and len(mine) - len(extra) == len(offsets) \
+                and not any(polymorphic(source, b) for b in extra) \
+                and sum(1 for _, o in clause if o < 0) == len(virtual):
+            agreeing[tuple(b for b, _ in clause)] += 1
+    queue = []
+    if agreeing:
+        top = agreeing.most_common(2)
+        if len(top) > 1 and top[0][1] == top[1][1]:
+            queue.append({"class": name, "attribute": "bases", "candidates": {repr(list(k)): n for k, n in top},
+                          "why": "views that agree with the retail base layout spell it differently"})
+        spelled = list(top[0][0])
+        at = {o: i for i, (b, o) in enumerate(next(L for L in good.values()
+                                                  if tuple(b for b, _ in L.get("bases", [])) == top[0][0])["bases"])}
+        for offset, real in nonvirtual:
+            if isinstance(real, str) and not engine.placeholder(real):
+                spelled[at[offset]] = real
+        return spelled, "retail-ctor", queue
+    bases = []
+    for offset, real in nonvirtual:
+        if not isinstance(real, str) or engine.placeholder(real):
+            queue.append({"class": name, "attribute": f"base@{offset:#x}", "candidates": {repr(real): 1},
+                          "why": "retail proves a base here; no view spells the retail base layout and the ledger "
+                                 "names it only by placeholder"})
+        bases.append(real if isinstance(real, str) else repr(real))
+    for real in virtual:
+        if engine.placeholder(real):
+            queue.append({"class": name, "attribute": "virtual-base", "candidates": {real: 1},
+                          "why": "retail proves a virtual base no matched constructor names"})
+        bases.append("virtual " + real)
+    return bases, "retail-ctor", queue
 
 
 def ledger_key(name, rows):
@@ -427,13 +496,24 @@ def decide(name, sources=None, jobs=8, sample=None):
     access = retail_access(name, rows, builder)
     witness = witnesses(name)
     vtables = retail_vtable(name, rows, builder)
+    retail = retail_layout(name, rows, builder)
     queue, fields = [], []
+    for conflict in retail.get("conflicts", []):
+        queue.append({"class": name, "attribute": "retail-" + conflict["fact"], "candidates": conflict.get("candidates"),
+                      "why": "the class's retail constructors or destructors disagree"})
 
     # The bases first: a derived class's contract declares only its own members
     # and names its bases, never copies of their fields, vfptrs or slots.
     zh_bases = [b for b, _ in zh["layout"]["bases"]] if zh and "layout" in zh else None
     base_votes = collections.Counter(tuple(b for b, _ in L.get("bases", [])) for L in good.values())
-    if zh_bases is not None and tuple(zh_bases) in base_votes:
+    from_retail = retail_bases(name, retail, good, every)
+    overruled = None
+    if from_retail is not None:
+        bases, base_rule, retail_queue = from_retail
+        queue += retail_queue
+        if base_votes and list(base_votes.most_common(1)[0][0]) != bases:
+            overruled = {"majority": list(base_votes.most_common(1)[0][0]), "zh": zh_bases}
+    elif zh_bases is not None and tuple(zh_bases) in base_votes:
         bases, base_rule = zh_bases, "zh"
     else:
         bases, base_rule = (list(base_votes.most_common(1)[0][0]) if base_votes else []), "majority"
@@ -516,7 +596,14 @@ def decide(name, sources=None, jobs=8, sample=None):
 
     sizes = collections.Counter(L["size"] for L in good.values())
     end = max((f["offset"] + f["size"] for f in fields), default=0)
-    if zh and "layout" in zh and zh["layout"]["size"] >= end and zh["layout"]["size"] in sizes:
+    retail_size = retail.get("facts", {}).get("sizeof", {}).get("value")
+    if retail_size is not None:
+        size, size_rule = retail_size, "retail-new"
+        if retail_size < end:
+            queue.append({"class": name, "attribute": "size", "candidates": {str(retail_size): "operator new",
+                                                                             str(end): "decided fields"},
+                          "why": "decided fields run past the size retail allocates"})
+    elif zh and "layout" in zh and zh["layout"]["size"] >= end and zh["layout"]["size"] in sizes:
         size, size_rule = zh["layout"]["size"], "zh"
     else:
         fitting = collections.Counter({s: n for s, n in sizes.items() if s >= end})
@@ -542,7 +629,8 @@ def decide(name, sources=None, jobs=8, sample=None):
             every_vote[int(slot)][member] += 1
     # A constructor may prove the table address before vtables.tsv inventories
     # its entries. Missing slot evidence is unknown, not a zero-slot ABI bound.
-    retail_slots = max((len(v["slots"]) for v in vtables.values() if v["slots"]), default=None)
+    retail_slots = max((len(v["slots"]) for v in vtables.values() if v["slots"] and v.get("offset", 0) == 0),
+                       default=None)
     zh_slots = {int(k): v for k, v in zh["layout"].get("vslots", {}).items()} if zh and "layout" in zh else {}
     vslots = {}
     # The retail bound judges every view's slot evidence, including the
@@ -578,7 +666,9 @@ def decide(name, sources=None, jobs=8, sample=None):
                      "view_sizes": dict(sizes), "zh": {k: v for k, v in (zh or {}).items() if k in ("header", "error")},
                      "retail_member_rows": len(thiscall_rows(name, rows)[0]),
                      "retail_access": {"%#x" % k: v for k, v in access.items()},
-                     "witness_offsets": sorted(witness), "retail_vtables": vtables, "inherited": inherited},
+                     "witness_offsets": sorted(witness), "retail_vtables": vtables, "inherited": inherited,
+                     "retail_layout": {k: v for k, v in retail.items() if k in ("facts", "conflicts", "confidence")},
+                     "bases_overruled": overruled},
         "queue": queue,
         "outliers": outliers,
         "sources": sorted(good),
