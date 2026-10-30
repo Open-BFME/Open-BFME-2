@@ -17995,3 +17995,4 @@ Code/GameEngine/Source/Common/Rva0059ECD2.cpp|local|AptOnlineCustomMatch::rva005
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp|class||Rva005D1A87Ref,b2d3d3c1c55dfaf67ef51c09,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUIChecklist.cpp|class||Rva005CCC74Record,24b63c10da018079c16270f4,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
 Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/StrategicInGameUITurnPhaseFactory.cpp|class||Rva0042C23APointee,6e6b934791a1d0da46a2f7f0,claude-opus-5-5,nm1-r1,w-f9b8ad33520e,2026-10-30
+Code/GameEngine/Source/GameClient/GUI/GameWindowManager_dumpWindow.cpp|member|Rva0047EDE0CreateInfo|m_field30,24e1096c0d9021e792a2c1d0,claude-opus-5-5,nm1-g1,w-f9b8ad33520e,2026-10-30
