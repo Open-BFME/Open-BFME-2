@@ -14,6 +14,9 @@
 // as vector<const ModuleData*>::push_back; that spelling is the only one the
 // REL32 resolver knows for it, so the lists are viewed with that element type.
 
+#include "../../../Include/Common/ObjectModule.h"
+#include "../../../Include/GameLogic/Module/BehaviorModule.h"
+
 typedef int Int;
 typedef unsigned int UnsignedInt;
 
@@ -50,33 +53,16 @@ public:
 	virtual UpdateSleepTime update() = 0;
 };
 
-class ObjectModule
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
-	virtual Int getUpdatePhase();
-
-private:
-	unsigned char m_unmodelled04[0x0C - 0x04];
-};
-
-class BehaviorModuleInterface
-{
-public:
-	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
-	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
-	virtual void slot20();
-	virtual UpdateModuleInterface *getUpdate();
-};
-
-class BehaviorModule : public ObjectModule, public BehaviorModuleInterface
-{
-};
+enum SleepyUpdatePhase;
 
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+	friend class GameLogic;
+
+protected:
+	// BehaviorModule supplies primary slots 0-11; phase belongs to UpdateModule.
+	virtual SleepyUpdatePhase getUpdatePhase() const;
+
 public:
 	UnsignedInt friend_getNextCallFrame() const { return m_nextCallFrame; }
 	__declspec(dllimport) __forceinline void friend_setNextCallFrame(UnsignedInt frame)

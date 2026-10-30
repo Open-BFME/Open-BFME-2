@@ -51,6 +51,15 @@ carry the wrapper and consumer into the next scheduled census. No census
 gain is claimed.
 [Verification](../reverse/attempt_support/allocator-lock-msheaders-20261030-codexb5.md).
 
+GameLogic registerObject follow-up (2026-10-30, base `3d899e6ebe`): canonical
+ObjectModule/BehaviorModule adoption retires one header queue row while keeping
+its 203-byte row and all external object facts unchanged. Strict preparation
+passes and preview retains LINKS. Canonical GameLogic's missing fields/method
+remain separate work. The older-index batch audit lacks a current affected
+CreateAHeroManager consumer receipt; full consumer/census confirmation remains
+pending, with no census gain claimed.
+[Evidence](../reverse/attempt_support/registerobject-module-header-20261030-codex.md).
+
 Physics trajectory ObjectModule follow-up (2026-10-30, base `0c90b528d9`):
 one canonical base adoption retires one header queue row while preserving all
 three rows and all external object facts. Thing's missing `setTransformMatrix`
