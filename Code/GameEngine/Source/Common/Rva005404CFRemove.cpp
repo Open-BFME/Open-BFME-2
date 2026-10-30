@@ -1,4 +1,5 @@
 // cl: /O1 /DNDEBUG /MD /EHsc
+// stlport
 //
 // ?rva005404CF@Rva0054034A@@QAEXH@Z @ 0x005404CF 72B
 // The free-camera channel's guarded key removal, the 0x28-stride twin of
@@ -9,6 +10,8 @@
 // ??_9@$BCA@AE / ??_9@$BBI@AE, slots +0x20 / +0x18), erases the hinted
 // element through the rowed BfmePod40 vector erase 0x005401B4 over a
 // minimal view, then notifies again. Names are generated.
+#include <vector>
+
 struct BfmePod40
 {
 	int m_00;
@@ -18,19 +21,17 @@ struct BfmePod40
 
 namespace _STL
 {
-	template <class _Tp>
-	class allocator
-	{
-	};
-	template <class _Tp, class _Alloc>
-	class vector
+	// Bind vector<BfmePod40>::erase to the rowed worker at 0x005401B4.
+	// Declaration only: the definition lives in the row owner.
+	template <class _Tp, class _Alloc> class vector;
+	template <> class vector<BfmePod40, allocator<BfmePod40> >
 	{
 	public:
-		_Tp *erase(_Tp *__pos);
+		BfmePod40 *erase(BfmePod40 *__pos);
 	private:
-		_Tp *_M_start;
-		_Tp *_M_finish;
-		_Tp *_M_end;
+		BfmePod40 *_M_start;
+		BfmePod40 *_M_finish;
+		BfmePod40 *_M_end;
 	};
 }
 
