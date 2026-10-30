@@ -34102,8 +34102,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004210F8,126,code,,,-,,Code/GameEngine/Source/Common/Rva004211A0HostFindGroup.cpp
 0x00421176,42,code,,,-,,Code/GameEngine/Source/Common/Bfme5FindAndErase.cpp
 0x004211A0,42,code,,,-,,Code/GameEngine/Source/GameLogic/Object/SpecialPower/Rva004211A0Gate.cpp
-0x004211CA,92,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,proposed,K,K=Rva004211CA,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
-0x00421226,28,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,proposed,K,K=Rva004211CA,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
+0x004211CA,92,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,proposed,K,K=Rva004211CA,Code/GameEngine/Source/Common/LightPointSystem.cpp
+0x00421226,28,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,proposed,K,K=Rva004211CA,Code/GameEngine/Source/Common/LightPointSystem.cpp
 0x00421242,33,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,proposed,K,K=Rva00421242,Code/GameEngine/Source/Common/Rva00421242Ctor.cpp
 0x00421263,47,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,N,N=Code/GameEngine/Source/Common/LightPointSystem.cpp provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
 0x00421292,82,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,C,C=0x00421263..0x004212E4 provisional,Code/GameEngine/Source/Common/Rva00421520Find.cpp
@@ -77983,10 +77983,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00786F5A,8,code,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,approved,P,P=0x00420F3F@FuncInfo0x0093431C provisional,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantXfer.cpp
 0x00786F62,8,code,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,approved,P,P=0x00420F3F@FuncInfo0x0093431C provisional,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantXfer.cpp
 0x00786F6A,10,code,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantSystem.cpp,approved,P,P=0x00420F3F@FuncInfo0x0093431C provisional,Code/GameEngine/Source/GameLogic/System/DelayedExperienceLevelGrantXfer.cpp
-0x00786F74,8,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
-0x00786F7C,11,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
-0x00786F87,11,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
-0x00786F92,10,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/Rva004211CADtor.cpp
+0x00786F74,8,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
+0x00786F7C,11,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
+0x00786F87,11,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
+0x00786F92,10,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x004211CA@FuncInfo0x00934350 p-group provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
 0x00786F9C,8,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x00421312@FuncInfo0x0093437C provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
 0x00786FA4,11,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x00421312@FuncInfo0x0093437C provisional,Code/gen_small/uw_gen_010.cpp
 0x00786FAF,10,code,Code/GameEngine/Source/Common/LightPointSystem.cpp,approved,P,P=0x00421312@FuncInfo0x0093437C provisional,Code/GameEngine/Source/Common/LightPointSystem.cpp
