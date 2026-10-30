@@ -35074,7 +35074,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0043B709,28,code,Code/GameEngine/Source/Common/DOTManager.cpp,approved,C,C=0x0043B2A4..0x0043B725 provisional,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
 0x0043B725,8,code,Code/GameEngine/Source/Common/DOTManager.cpp,approved,N,N=Code/GameEngine/Source/Common/DOTManager.cpp provisional,Code/GameEngine/Source/Common/DOTManager.cpp
 0x0043B72D,16,code,Code/GameEngine/Source/Common/DOTManager.cpp,approved,N,N=Code/GameEngine/Source/Common/DOTManager.cpp provisional,Code/GameEngine/Source/Common/DOTManager.cpp
-0x0043B73D,295,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/DOTManager.cpp,Code/GameEngine/Source/Common/System/DOTManager_update.cpp
+0x0043B73D,295,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/DOTManager.cpp,Code/GameEngine/Source/Common/System/DOTManager.cpp
 0x0043B864,92,code,Code/GameEngine/Source/Common/DOTManager.cpp,proposed,K,K=Rva0043B2E2,Code/GameEngine/Source/Common/Rva0043B864MapGet.cpp
 0x0043B8C0,96,code,Code/GameEngine/Source/GameLogic/System/DOTManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/DOTManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/DOTManagerRva0043B8C0.cpp
 0x0043B920,200,code,Code/GameEngine/Source/GameLogic/System/DOTManager.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/System/DOTManager.cpp W=Code/GameEngine/Source/GameLogic/System/DOTManager.cpp provisional,Code/GameEngine/Source/GameLogic/System/DOTManagerRva0043B8C0.cpp
@@ -78540,8 +78540,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00788422,10,code,Code/GameEngine/Source/Common/DOTManager.cpp,approved,P,P=0x0043B4B4@FuncInfo0x00936068 provisional,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x0078842C,8,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
 0x00788434,10,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB10.cpp
-0x0078843E,8,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,approved,P,P=0x0043B73D@FuncInfo0x009360B0 p-group provisional,Code/GameEngine/Source/Common/System/DOTManager_update.cpp
-0x00788446,10,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,approved,P,P=0x0043B73D@FuncInfo0x009360B0 p-group provisional,Code/GameEngine/Source/Common/System/DOTManager_update.cpp
+0x0078843E,8,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,approved,P,P=0x0043B73D@FuncInfo0x009360B0 p-group provisional,Code/GameEngine/Source/Common/System/DOTManager.cpp
+0x00788446,10,code,Code/GameEngine/Source/Common/System/DOTManager.cpp,approved,P,P=0x0043B73D@FuncInfo0x009360B0 p-group provisional,Code/GameEngine/Source/Common/System/DOTManager.cpp
 0x00788450,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp,approved,P,P=0x0043B9F5@FuncInfo0x009360E4,Code/GameEngine/Source/Common/SkirmishPreferences.cpp
 0x00788458,8,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp,approved,P,P=0x0043B9F5@FuncInfo0x009360E4,Code/GameEngine/Source/Common/SkirmishPreferences.cpp
 0x00788460,25,code,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/SkirmishGameOptionsMenu.cpp,approved,P,P=0x0043B9F5@FuncInfo0x009360E4,Code/GameEngine/Source/Common/SkirmishPreferences.cpp
