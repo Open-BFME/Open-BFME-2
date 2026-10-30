@@ -1,0 +1,85 @@
+{
+  "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadCallbacks.cpp",
+  "base": "150f22a728",
+  "comparison": {
+    "comdats": true,
+    "strong_definitions": true,
+    "undefined_names": true,
+    "weak_bindings": true
+  },
+  "preserved_facts": {
+    "comdats": [
+      [
+        "?getInfoResponseForStatus@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z",
+        "26a0ac55e977",
+        64,
+        null
+      ],
+      [
+        "?getInfoResponseForRequest@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z",
+        "26a0ac55e977",
+        64,
+        null
+      ],
+      [
+        "?rva00550720@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyRequestArg@@@Z",
+        "34b934276376",
+        79,
+        null
+      ],
+      [
+        "??1?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QAE@XZ",
+        "97fb569846ac",
+        14,
+        null
+      ],
+      [
+        "?c_str@?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@QBEPBGXZ",
+        "afd9af583299",
+        3,
+        null
+      ],
+      [
+        "?statusCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyStatusArg@@@Z",
+        "e89fa446aca5",
+        143,
+        null
+      ],
+      [
+        "?requestCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyRequestArg@@@Z",
+        "d11e79552ebb",
+        160,
+        null
+      ],
+      [
+        "?messageCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyMessageArg@@@Z",
+        "c7b2cbedc1e7",
+        172,
+        null
+      ]
+    ],
+    "strong_definitions": [
+      "?getInfoResponseForStatus@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z",
+      "?getInfoResponseForRequest@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z",
+      "?rva00550720@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyRequestArg@@@Z",
+      "?statusCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyStatusArg@@@Z",
+      "?requestCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyRequestArg@@@Z",
+      "?messageCallback@BuddyThreadClass@@QAEXPAVGPConnection@@PAUGPRecvBuddyMessageArg@@@Z"
+    ],
+    "undefined_names": [
+      "__mbscpy",
+      "?TheGameSpyBuddyMessageQueue@@3PAVGameSpyBuddyMessageQueueInterface@@A",
+      "?free@@YAXPAX@Z",
+      "_strcpy",
+      "_gpGetBuddyStatus",
+      "_gpGetInfo",
+      "__imp__wcsncpy",
+      "?MultiByteToWideCharSingleLine@@YA?AV?$basic_string@GV?$char_traits@G@_STL@@V?$allocator@G@2@@_STL@@PBD@Z",
+      "___CxxFrameHandler",
+      "__except_list",
+      "__EH_prolog",
+      "?getNickForMessage@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z"
+    ],
+    "weak_bindings": []
+  }
+}

@@ -11,6 +11,12 @@
 
 #include <string.h>
 #include <wchar.h>
+// Retail calls the MBCS thunk directly; the other CRT headers keep /MD imports.
+#pragma push_macro("_CRTIMP")
+#undef _CRTIMP
+#define _CRTIMP
+#include <mbstring.h>
+#pragma pop_macro("_CRTIMP")
 
 namespace _STL
 {
@@ -54,6 +60,8 @@ typedef basic_string<wchar_t, char_traits<wchar_t>, allocator<wchar_t> > wstring
 typedef int GPProfile;
 typedef int GPEnum;
 
+// Retail's string cleanup uses the C++-linkage free at 0x00030830.
+// stdlib.h's C import also suppresses the unwind state store in both callbacks.
 void __cdecl free(void *);
 
 class GPConnection;
@@ -169,9 +177,6 @@ public:
 
 extern GameSpyBuddyMessageQueueInterface *TheGameSpyBuddyMessageQueue;
 
-extern "C" char *__cdecl _mbscpy(char *dst, const char *src);
-
-
 class BuddyThreadClass
 {
 public:
@@ -208,9 +213,9 @@ void getInfoResponseForStatus(GPConnection *, GPGetInfoResponseArg *arg,
 {
 	BuddyResponse *response = (BuddyResponse *)param;
 	response->profile = arg->profile;
-	_mbscpy(response->arg.status.nick, arg->nick);
-	_mbscpy(response->arg.status.email, arg->email);
-	_mbscpy(response->arg.status.countrycode, arg->countrycode);
+	_mbscpy((unsigned char *)response->arg.status.nick, (const unsigned char *)arg->nick);
+	_mbscpy((unsigned char *)response->arg.status.email, (const unsigned char *)arg->email);
+	_mbscpy((unsigned char *)response->arg.status.countrycode, (const unsigned char *)arg->countrycode);
 }
 
 // ?getInfoResponseForRequest@@YAXPAVGPConnection@@PAUGPGetInfoResponseArg@@PAX@Z, Zero Hour
@@ -222,9 +227,9 @@ void getInfoResponseForRequest(GPConnection *, GPGetInfoResponseArg *arg,
 {
 	BuddyResponse *response = (BuddyResponse *)param;
 	response->profile = arg->profile;
-	_mbscpy(response->arg.request.nick, arg->nick);
-	_mbscpy(response->arg.request.email, arg->email);
-	_mbscpy(response->arg.request.countrycode, arg->countrycode);
+	_mbscpy((unsigned char *)response->arg.request.nick, (const unsigned char *)arg->nick);
+	_mbscpy((unsigned char *)response->arg.request.email, (const unsigned char *)arg->email);
+	_mbscpy((unsigned char *)response->arg.request.countrycode, (const unsigned char *)arg->countrycode);
 }
 
 void BuddyThreadClass::requestCallback(GPConnection *connection,
@@ -275,7 +280,7 @@ void BuddyThreadClass::rva00550720(GPConnection *connection,
 	response.buddyResponseType = (BuddyResponse::ResponseType)7;
 	response.profile = arg->profile;
 	response.arg.message.date = arg->date;
-	_mbscpy(response.arg.message.nick, arg->reason);
+	_mbscpy((unsigned char *)response.arg.message.nick, (const unsigned char *)arg->reason);
 	TheGameSpyBuddyMessageQueue->addResponse(response);
 }
 
