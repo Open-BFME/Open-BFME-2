@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
+// cl: /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB
 // stlport
 // Retail RE: ?parsePrerequisiteUpgrade@@YAXPAVINI@@PAX1PBX@Z @0x0033EB1A (93B).
 //
@@ -16,6 +16,8 @@
 // (?bfmeFindUpgradeByName@@YAPBVUpgradeTemplate@@PBD@Z @0x33970D) is
 // BFME1-donor-backed and shape-proven: global-guard + AsciiString temp +
 // lookup call + teardown + null path, sole caller passing a prereq token.
+
+#include <vector>
 
 enum ScienceType
 {
@@ -35,6 +37,59 @@ struct StringInlineData
 
 #include "ascii_string.h"
 
+class ProductionPrerequisite;
+
+namespace _STL
+{
+
+// Bind the rowed push_backs to their workers: vector<ScienceType> at
+// 0x002E01C6 and vector<ProductionPrerequisite> at 0x0033EA10. The pointer
+// vector push_back is the ICF-folded row at 0x004DFCB0. Declarations only:
+// the definitions live in the row owners.
+template <class T, class A> class vector;
+template <> class vector<int, allocator<int> >
+{
+private:
+	int *m_start;
+	int *m_finish;
+	int *m_endOfStorage;
+};
+template <> class vector<ScienceType, allocator<ScienceType> >
+{
+public:
+	void push_back(const ScienceType &x);
+private:
+	ScienceType *m_start;
+	ScienceType *m_finish;
+	ScienceType *m_endOfStorage;
+};
+template <> class vector<const UpgradeTemplate *, allocator<const UpgradeTemplate *> >
+{
+private:
+	const UpgradeTemplate **m_start;
+	const UpgradeTemplate **m_finish;
+	const UpgradeTemplate **m_endOfStorage;
+};
+template <> class vector<const ModuleData *, allocator<const ModuleData *> >
+{
+public:
+	void push_back(const ModuleData *const &x);
+private:
+	const ModuleData **m_start;
+	const ModuleData **m_finish;
+	const ModuleData **m_endOfStorage;
+};
+template <> class vector<ProductionPrerequisite, allocator<ProductionPrerequisite> >
+{
+public:
+	void push_back(const ProductionPrerequisite &x);
+private:
+	ProductionPrerequisite *m_start;
+	ProductionPrerequisite *m_finish;
+	ProductionPrerequisite *m_endOfStorage;
+};
+
+}
 
 class UpgradeCenter
 {
@@ -43,28 +98,6 @@ public:
 };
 
 extern UpgradeCenter *TheUpgradeCenter;
-
-namespace _STL
-{
-
-template <class T>
-class allocator
-{
-};
-
-template <class T, class A = allocator<T> >
-class vector
-{
-public:
-	void push_back(const T &x);
-
-private:
-	T *m_start;
-	T *m_finish;
-	T *m_end;
-};
-
-}
 
 class INI
 {
