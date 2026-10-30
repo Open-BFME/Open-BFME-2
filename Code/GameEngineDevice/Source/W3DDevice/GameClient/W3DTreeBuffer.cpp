@@ -12,6 +12,91 @@
 #include "vector2.h"
 #include "ascii_string.h"
 #define TheBfmeAwakenDebug (*(BfmeAwakenDebug **)&theDebug)
+#include <math.h>
+static __forceinline void setCoord3D(Coord3D &c, float px, float py, float pz)
+{
+	c.x = px;
+	c.y = py;
+	c.z = pz;
+}
+enum ObjectShroudStatus
+{
+	OBJECTSHROUD_INVALID,
+	OBJECTSHROUD_CLEAR,
+	OBJECTSHROUD_PARTIAL_CLEAR,
+	OBJECTSHROUD_FOGGED
+};
+// The shroud query on TheShroudManager (0x00739800), rowed under its address.
+class Rva00739800
+{
+public:
+	ObjectShroudStatus rva00739800(int playerIndex, const Coord3D *pos) const;
+};
+class PartitionManager;
+extern PartitionManager *TheShroudManager;
+class Player
+{
+public:
+	int getPlayerIndex() const { return m_playerIndex; }
+private:
+	char m_pad00[0x54];
+	int m_playerIndex;	// +0x54
+};
+class PlayerList
+{
+public:
+	Player *getLocalPlayer() const { return m_local; }
+private:
+	char m_pad00[0x10];
+	Player *m_local;	// +0x10
+};
+extern PlayerList *ThePlayerList;
+struct TTreeType
+{
+	char m_pad00[0x20];
+	const W3DTreeDrawModuleData *m_data;	// +0x20
+	char m_pad24[0x5C - 0x24];
+};
+enum
+{
+	TOPPLE_UPRIGHT = 0,
+	TOPPLE_FALLING = 1,
+	TOPPLE_FOGGED = 2,
+	TOPPLE_DOWN = 3
+};
+enum
+{
+	TOPPLE_OPTIONS_NO_BOUNCE = 1,
+	TOPPLE_OPTIONS_NO_FX = 2
+};
+struct TTree
+{
+	Vector3 location;	// +0x00
+	char m_pad0C[0x40 - 0x0C];
+	int treeType;	// +0x40
+	char m_pad44[0x6C - 0x44];
+	float m_angularVelocity;	// +0x6C
+	float m_angularAcceleration;	// +0x70
+	Coord3D m_toppleDirection;	// +0x74
+	int m_toppleState;	// +0x80
+	float m_angularAccumulation;	// +0x84
+	unsigned char m_88;	// +0x88
+	unsigned int m_options;	// +0x8C
+	Matrix3D m_mtx;	// +0x90
+	int m_sinkFramesLeft;	// +0xC0
+	unsigned char m_bSinking;	// +0xC4
+};
+static const float ANGULAR_LIMIT = 1.5217089653015137f;
+#define TREE_TEXTURE_REPORT(message) do { \
+	if (bfmeRva000387C0()) { \
+		_bfme_debugRecordCallsite(1); \
+		((TextureDebug *)theDebug)->beginReport(); \
+		((TextureDebug *)theDebug)->getReport(0, 0, 0)->setText(message)->show(2); \
+	} \
+} while (0)
+class MeshClass;
+#include "sphere.h"
+#include "aabox.h"
 
 class Rva000E6AC0Base
 {
@@ -192,12 +277,14 @@ private:
 class TextureClass;
 
 template <class T> class RefCountPtr;
+
 template <> class RefCountPtr<TextureClass>
 {
 public:
 	RefCountPtr const &operator=(RefCountPtr const &other);
 	TextureClass *Ptr;
 };
+
 class Rva000E6AC0 : public Rva000E6AC0Base
 {
 public:
@@ -544,6 +631,7 @@ private:
 };
 
 class FXList;
+
 struct W3DTreeDrawModuleData
 {
 public:
@@ -774,6 +862,235 @@ struct Rva000EA48DBufferView
 
 struct TTree;
 
+void BFME_DX8_Thread_Lock(void);
+
+bool BFME_DX8_Thread_Assert(void);
+
+class Rva000EBFD1Model;
+
+struct DX8Guard
+{
+	DX8Guard() { BFME_DX8_Thread_Lock(); }
+	~DX8Guard() { BFME_DX8_Thread_Assert(); }
+};
+
+struct Vec2 { float x, y; };
+
+class CountedAsset { public: void Release_Ref(); };
+
+class AssetReference
+{
+public:
+	~AssetReference() { if (m_object) m_object->Release_Ref(); }
+	CountedAsset *m_object;
+};
+
+class TextureClass { public: void Release_Ref(); };
+
+class BFME2ParticleTextureHandle
+{
+public:
+	~BFME2ParticleTextureHandle() { if (Ptr) Ptr->Release_Ref(); }
+	TextureClass *Ptr;
+};
+
+class TextureAsset
+{
+public:
+	static BFME2ParticleTextureHandle Get(const char *, int, int);
+};
+
+class TextureBaseClass
+{
+public:
+	int rva0013275A() const;
+	int rva00132784() const;
+};
+
+class Rva00170EBC { public: void rva00170EBC(bool); };
+
+class Rva00171583 { public: bool rva00171583(const unsigned int &key, Vec2 *outSize, Vec2 *outPos); };
+
+class Rva00171024
+{
+public:
+	AssetReference rva00171625();
+};
+
+// 0x00171067 is rowed as TexturePacker::rva00171067 (Rva00171067FindOrCreate.cpp).
+class TexturePacker
+{
+public:
+	void rva00171067(const BFME2ParticleTextureHandle &handle);
+};
+
+class TextureReport
+{
+public:
+	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
+	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
+	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
+	virtual void slot30(); virtual void slot34();
+	virtual TextureReport *setText(const char *text);
+	virtual void slot3C(); virtual void slot40(); virtual void slot44(); virtual void slot48();
+	virtual void show(int mode);
+};
+
+class TextureDebug
+{
+public:
+	virtual void slot00(); virtual void slot04(); virtual void slot08(); virtual void slot0C();
+	virtual void slot10(); virtual void slot14(); virtual void slot18(); virtual void slot1C();
+	virtual void slot20(); virtual void slot24(); virtual void slot28(); virtual void slot2C();
+	virtual void slot30(); virtual void slot34(); virtual void slot38(); virtual void slot3C();
+	virtual void slot40(); virtual void slot44(); virtual void slot48(); virtual void slot4C();
+	virtual void slot50(); virtual void slot54(); virtual void slot58(); virtual void slot5C();
+	virtual void beginReport();
+	virtual void slot64(); virtual void slot68();
+	virtual TextureReport *getReport(int, int, int);
+};
+
+struct Rva000EB40FType
+{
+	char prefix[0x24];
+	Vec2 coord24, coord2c, coord34, coord3c;
+	bool doShadow;
+	AsciiString textureName;
+	char modelName[4];
+	AsciiString nameC;
+	char suffix[8];
+};
+
+class Rva00735E10TreeType
+{
+public:
+	MeshClass *m_mesh;
+	Vector3 m_offset;
+	SphereClass m_bounds;
+	const void *m_data;
+	unsigned char m_gap0024[0x44 - 0x24];
+	UnsignedByte m_doShadow;
+	UnsignedByte m_pad0045[3];
+	AsciiString m_textureName;
+	AsciiString m_modelName;
+	AsciiString m_nameC;
+	AsciiString m_nameD;
+	Int m_field0058;
+};
+
+struct Rva00735E10VertexBuffer
+{
+	unsigned char m_head[0x0c];
+	Vector3 *m_array;
+};
+
+struct Rva00735E10Model
+{
+	unsigned char m_head[0x28];
+	Int m_vertexCount;
+	unsigned char m_gap002c[4];
+	Rva00735E10VertexBuffer *m_vertexBuffer;
+
+	Int Get_Vertex_Count(void) const { return m_vertexCount; }
+	Vector3 *Get_Vertex_Array(void) const { return m_vertexBuffer->m_array; }
+};
+
+class RenderObjClass
+{
+public:
+	void Release_Ref(void)
+	{
+		--m_refCount;
+		if (m_refCount == 0)
+			Delete_This();
+	}
+	virtual void Delete_This(void) = 0;
+	virtual void renderObjSlot04(void) = 0;
+	virtual void renderObjSlot08(void) = 0;
+	virtual Int Class_ID(void) const = 0;
+	virtual void renderObjSlot10(void) = 0;
+	// Retail slot +0x14 returns the mesh view; its original name is unknown.
+	virtual MeshClass *renderObjSlot14(void) const = 0;
+	virtual void renderObjSlot18(void) = 0;
+	virtual void renderObjSlot1C(void) = 0;
+	virtual void renderObjSlot20(void) = 0;
+	virtual void renderObjSlot24(void) = 0;
+	virtual void renderObjSlot28(void) = 0;
+	virtual void renderObjSlot2C(void) = 0;
+	virtual void renderObjSlot30(void) = 0;
+	virtual void renderObjSlot34(void) = 0;
+	virtual void renderObjSlot38(void) = 0;
+	virtual void renderObjSlot3C(void) = 0;
+	virtual void renderObjSlot40(void) = 0;
+	virtual void renderObjSlot44(void) = 0;
+	virtual void renderObjSlot48(void) = 0;
+	virtual void renderObjSlot4C(void) = 0;
+	virtual void Validate_Transform(void) const = 0;
+	virtual void renderObjSlot54(void) = 0;
+	virtual void renderObjSlot58(void) = 0;
+	virtual void renderObjSlot5C(void) = 0;
+	virtual void renderObjSlot60(void) = 0;
+	virtual void renderObjSlot64(void) = 0;
+	virtual void renderObjSlot68(void) = 0;
+	virtual void renderObjSlot6C(void) = 0;
+	virtual void renderObjSlot70(void) = 0;
+	virtual void renderObjSlot74(void) = 0;
+	virtual RenderObjClass *Get_Sub_Object(Int index) const = 0;
+	virtual void renderObjSlot78(void) = 0;
+	virtual void renderObjSlot7C(void) = 0;
+	virtual void renderObjSlot80(void) = 0;
+	virtual void renderObjSlot84(void) = 0;
+	virtual void renderObjSlot88(void) = 0;
+	virtual void renderObjSlot8C(void) = 0;
+	virtual void renderObjSlot90(void) = 0;
+	virtual void renderObjSlot94(void) = 0;
+	virtual void renderObjSlot98(void) = 0;
+	virtual void renderObjSlot9C(void) = 0;
+	virtual void renderObjSlotA0(void) = 0;
+	virtual void renderObjSlotA4(void) = 0;
+	virtual void renderObjSlotA8(void) = 0;
+	virtual void renderObjSlotAC(void) = 0;
+	virtual void renderObjSlotB0(void) = 0;
+	virtual void renderObjSlotB4(void) = 0;
+	virtual void renderObjSlotB8(void) = 0;
+	virtual void renderObjSlotBC(void) = 0;
+	virtual void renderObjSlotC0(void) = 0;
+	virtual void renderObjSlotC4(void) = 0;
+	virtual Matrix3D Get_Bone_Transform(Int index) = 0;
+	virtual void renderObjSlotCC(void) = 0;
+	virtual void renderObjSlotD0(void) = 0;
+	virtual void renderObjSlotD4(void) = 0;
+	virtual void renderObjSlotD8(void) = 0;
+	virtual void renderObjSlotDC(void) = 0;
+	virtual void renderObjSlotE0(void) = 0;
+	virtual void renderObjSlotE4(void) = 0;
+	virtual void renderObjSlotE8(void) = 0;
+	virtual void renderObjSlotEC(void) = 0;
+	virtual void renderObjSlotF0(void) = 0;
+	virtual void renderObjSlotF4(void) = 0;
+	virtual void renderObjSlotF8(void) = 0;
+	virtual void renderObjSlotFC(void) = 0;
+	virtual void renderObjSlot100(void) = 0;
+	virtual void renderObjSlot104(void) = 0;
+	virtual void renderObjSlot108(void) = 0;
+	virtual void Get_Obj_Space_Bounding_Box(AABoxClass &box) const = 0;
+	Int m_refCount; // +0x04
+};
+
+class MeshClass : public RenderObjClass
+{
+public:
+	Rva00735E10Model *Peek_Model(void) const { return m_model; }
+	unsigned char m_meshGap[0xC4 - 8]; // +0x08
+	Rva00735E10Model *m_model; // +0xC4
+};
+
+extern RenderObjClass *Create_Render_Obj(const char *name);
+
+class VertexBufferClass;
+
+class IndexBufferClass;
+
 class W3DTreeBuffer : public Rva000E6AC0
 {
 	friend class Rva000EC9C6;
@@ -830,7 +1147,37 @@ public:
 	int rva000ECDF5(const AsciiString &templateName, int shadowKind, const AsciiString &textureName);
 };
 
-// tu-skeleton: 0x000EA24D 115B ?rva000EA24D@W3DTreeBuffer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000EA24DReset.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva000EA24DReset.cpp
+
+// ?rva000EA24D@W3DTreeBuffer@@QAEXXZ 0x000EA24D 115B
+// Reset after Rva000E6AC0::rva000E65B1: DX8 lock, zero count at +0x44540,
+// set dirty at +0x44544, release 0x40 RefItem array at +0x44558 stride 0x5C
+// (dec ref at +4, virtual Release on zero), zero tail at +0x45C58.
+// Evidence: calls rowed rva000E65B1; callees rowed; count/dirty offsets match
+// Rva000EA21A neighbour; callers at 0x000682A2 0x0006D5C0 0x000EDEBE (the
+// W3DTreeBuffer ctor, on its own this; offsets match its +0x44540 count and
+// +0x44558 type array, past the Rva000E6AC0 base).
+
+void W3DTreeBuffer::rva000EA24D()
+{
+	DX8Guard _guard;
+	((Rva000E6AC0 *)this)->rva000E65B1();
+	m_count = 0;
+	m_44544 = 1;
+	for (int i = 0; i < 0x40; ++i)
+	{
+		Rva000EDA94Ref *&slot = m_types[i].m_ref;
+		Rva000EDA94Ref *refItem = slot;
+		if (refItem != 0)
+		{
+			refItem->Release_Ref();
+			slot = 0;
+		}
+	}
+	m_typeCount = 0;
+}
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA48D.cpp
 
@@ -963,10 +1310,6 @@ Bool W3DTreeBuffer::rva000EA6A7(void *key)
     record->startedc4 = true;
     return true;
 }
-
-// tu-skeleton: 0x000EA327 358B ?rva000EA327@W3DTreeBuffer@@QAEDPAXVVector3@@PBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp (not merged yet)
-
-// tu-skeleton: 0x000EA746 1633B ?updateTopplingTree@W3DTreeBuffer@@IAEXPAUTTree@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTopplingTree.cpp (not merged yet)
 
 // ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer.cpp
 
@@ -1601,19 +1944,253 @@ bool W3DTreeBuffer::rva000ECF2A(unsigned key, int mode)
     return false;
 }
 
+// tu-skeleton: 0x000EA327 358B ?rva000EA327@W3DTreeBuffer@@QAEDPAXVVector3@@PBVMatrix3D@@@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferRva000EA327.cpp (not merged yet)
+
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTopplingTree.cpp
+
+//
+// ?updateTopplingTree@W3DTreeBuffer@@IAEXPAUTTree@@@Z, retail 0x000EA746
+// (1633 bytes), called from 0x000EDCB9; WorldBuilder twin 0x008A1CB0
+// (W3DTreeBuffer::updateTopplingTree, callgraph).  Zero Hour's body through
+// the BFME 1 port (Open-BFME-1 W3DTreeBufferRva00733580.cpp, retail BFME1
+// 0x00733580, same tree record layout): skip settled trees, freeze trees in
+// the fog, finish an interrupted topple, otherwise rotate by the angular
+// velocity (WWMath In_Place_Pre_Rotate_X/Y), bounce, settle (scaled sink
+// countdown for KillWhenToppled) and play the bounce FX at the tree top.
+// BFME2 differences read from retail: the tree types sit at +0x44558
+// (stride 0x5C), the local player index is PlayerList+0x10 -> +0x54, the
+// shroud query is the rowed 0x00739800 on TheShroudManager, every rotation
+// raises the +0x44545 dirty byte, settling raises +0x45C5C, and the sink
+// scale is +0x5BC.
+
+void W3DTreeBuffer::updateTopplingTree(TTree *tree)
+{
+	if (tree->m_toppleState == TOPPLE_UPRIGHT || tree->m_toppleState == TOPPLE_DOWN)
+		return;
+	const W3DTreeDrawModuleData *data = m_types[tree->treeType].m_data;
+	int playerIndex = ThePlayerList ? ThePlayerList->getLocalPlayer()->getPlayerIndex() : 0;
+	Coord3D position;
+	position.x = tree->location.X;
+	position.y = tree->location.Y;
+	position.z = tree->location.Z;
+	ObjectShroudStatus status = ((Rva00739800 *)TheShroudManager)->rva00739800(playerIndex, &position);
+	if (status == OBJECTSHROUD_FOGGED)
+	{
+		tree->m_toppleState = TOPPLE_FOGGED;
+		return;
+	}
+	else if (tree->m_toppleState == TOPPLE_FOGGED)
+	{
+		tree->m_angularVelocity = 0;
+		tree->m_toppleState = TOPPLE_DOWN;
+		tree->m_mtx.In_Place_Pre_Rotate_X(-ANGULAR_LIMIT * tree->m_toppleDirection.y);
+		tree->m_mtx.In_Place_Pre_Rotate_Y(ANGULAR_LIMIT * tree->m_toppleDirection.x);
+		m_44545 = 1;
+		if (data->m_killWhenToppled)
+		{
+			tree->m_sinkFramesLeft = 0;
+			tree->m_bSinking = 1;
+		}
+		return;
+	}
+
+	float curVelocityToAdd = tree->m_angularVelocity;
+	if (tree->m_angularAccumulation + curVelocityToAdd > ANGULAR_LIMIT)
+		curVelocityToAdd = ANGULAR_LIMIT - tree->m_angularAccumulation;
+	tree->m_mtx.In_Place_Pre_Rotate_X(-curVelocityToAdd * tree->m_toppleDirection.y);
+	tree->m_mtx.In_Place_Pre_Rotate_Y(curVelocityToAdd * tree->m_toppleDirection.x);
+	m_44545 = 1;
+	tree->m_angularAccumulation += curVelocityToAdd;
+	if (tree->m_angularAccumulation >= ANGULAR_LIMIT && tree->m_angularVelocity > 0)
+	{
+		tree->m_angularVelocity *= -data->m_bounceVelocityPercent;
+		if ((tree->m_options & TOPPLE_OPTIONS_NO_BOUNCE) || fabs(tree->m_angularVelocity) < 0.01f)
+		{
+			tree->m_angularVelocity = 0;
+			tree->m_toppleState = TOPPLE_DOWN;
+			*reinterpret_cast<unsigned char *>(&m_45c5c) = 1;
+			if (data->m_killWhenToppled)
+			{
+				tree->m_sinkFramesLeft = (int)((float)data->m_sinkFrames * m_sinkScale);
+				tree->m_bSinking = 1;
+			}
+		}
+		else if (fabs(tree->m_angularVelocity) >= 0.03f)
+		{
+			if (!(tree->m_options & TOPPLE_OPTIONS_NO_FX))
+			{
+				Vector3 local(0, 0, 27.0f), transformed;
+				Matrix3D::Transform_Vector(tree->m_mtx, local, &transformed);
+				Coord3D effect;
+				setCoord3D(effect, transformed.X, transformed.Y, transformed.Z);
+				FXList::doFXPos(data->m_bounceFX, &effect, 0, 0.0f, 0);
+			}
+		}
+	}
+	else
+	{
+		tree->m_angularVelocity += tree->m_angularAcceleration;
+	}
+}
+
 // tu-skeleton: 0x000EAF80 36B ?rva000EAF80@Rva000EAF80@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesJ.cpp (not merged yet)
 
 // tu-skeleton: 0x000EAFA4 232B ?rva000EAFA4@W3DTreeBuffer@@QAE_NHPAURva000EAFA4Coord3@@PAMPAURva000EAFA4Coord2@@2@Z -- matched in Code/GameEngine/Source/Common/rva000EAFA4Rva000EAFA4Farm.cpp (not merged yet)
 
-// tu-skeleton: 0x000EB40F 684B ?updateTexture@W3DTreeBuffer@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp
+
+// W3DTreeBuffer::updateTexture, retail 0x000EB40F (684 bytes), twin of the shrub
+// body at 0x000E7B3F (same providers). Here the atlas key is the type's own
+// nameC (+0x50) instead of its data's. Layout:
+// texture handles +0x38/+0x3C, atlas lists +0x40/+0x68, 64 types of 0x5C at
+// +0x44558 (count +0x45C58). The list providers are BFME2's own: clear
+// 0x00170EBC, add 0x00171067, lookup 0x00171583, result 0x00171625.
+
+static inline const unsigned int &handleKey(const BFME2ParticleTextureHandle &handle)
+{
+	return *(const unsigned int *)&handle;
+}
+
+static inline const RefCountPtr<TextureClass> &assetPtr(const AssetReference &asset)
+{
+	return *(const RefCountPtr<TextureClass> *)&asset;
+}
+
+void W3DTreeBuffer::updateTexture()
+{
+	((Rva00170EBC *)list40)->rva00170EBC(false);
+	((Rva00170EBC *)list68)->rva00170EBC(true);
+	int i;
+	for (i = 0; i < m_typeCount; ++i) {
+		((TexturePacker *)list40)->rva00171067(TextureAsset::Get(m_types[i].m_string50.str(), 0, 0));
+		if (m_types[i].m_flags44[0])
+			((TexturePacker *)list68)->rva00171067(TextureAsset::Get(m_types[i].m_string48.str(), 0, 0));
+	}
+	for (i = 0; i < m_typeCount; ++i) {
+		((Rva00171583 *)list40)->rva00171583(handleKey(TextureAsset::Get(m_types[i].m_string50.str(), 0, 0)),
+			reinterpret_cast<Vec2 *>(&m_types[i].m_coords24[0]), reinterpret_cast<Vec2 *>(&m_types[i].m_coords34[0]));
+		if (m_types[i].m_flags44[0])
+			((Rva00171583 *)list68)->rva00171583(handleKey(TextureAsset::Get(m_types[i].m_string48.str(), 0, 0)),
+				reinterpret_cast<Vec2 *>(&m_types[i].m_coords24[1]), reinterpret_cast<Vec2 *>(&m_types[i].m_coords34[1]));
+	}
+	texture38 = assetPtr(((Rva00171024 *)list40)->rva00171625());
+	texture3c = assetPtr(((Rva00171024 *)list68)->rva00171625());
+	if ((unsigned)((TextureBaseClass *)&texture38)->rva0013275A() > 1024 ||
+		(unsigned)((TextureBaseClass *)&texture38)->rva00132784() > 1024)
+		TREE_TEXTURE_REPORT("Combined tree texture is bigger than 1024x1024. This will cause errors and significant slowdown on most graphics cards and has to be fixed!");
+	if ((unsigned)((TextureBaseClass *)&texture3c)->rva0013275A() > 1024 ||
+		(unsigned)((TextureBaseClass *)&texture3c)->rva00132784() > 1024)
+		TREE_TEXTURE_REPORT("Combined tree shadow texture is bigger than 1024x1024. This will cause errors and significant slowdown on most graphics cards and has to be fixed!");
+}
 
 // tu-skeleton: 0x000EC67F 98B ??0Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x000EC6E1 124B ??1Rva000EC67F@@QAE@XZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x000EC75D 617B ?addTreeType@W3DTreeBuffer@@QAEHABVAsciiString@@0PBXH00@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTreeType.cpp (not merged yet)
+// ---- from Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferAddTreeType.cpp
 
-// tu-skeleton: 0x000EC9C6 135B ?rva000EC9C6@Rva000EC9C6@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/Rva000EC9C6.cpp (not merged yet)
+// ?addTreeType@W3DTreeBuffer@@QAEHABVAsciiString@@0PBXH00@Z
+Int W3DTreeBuffer::addTreeType(const AsciiString &modelName,
+	const AsciiString &nameC, const void *data, Int shadowKind,
+	const AsciiString &textureName, const AsciiString &nameD)
+{
+    Rva00735E10TreeType *m_treeTypes = reinterpret_cast<Rva00735E10TreeType *>(m_types);
+	if (m_typeCount >= 64) {
+		return 0;
+	}
+	m_44556 = 1;
+
+	m_treeTypes[m_typeCount].m_mesh = 0;
+
+	RenderObjClass *robj = Create_Render_Obj(modelName.str());
+
+	if (robj == 0) {
+		return 0;
+	}
+	AABoxClass box;
+
+	robj->Get_Obj_Space_Bounding_Box(box);
+	Vector3 offset(0, 0, 0);
+	if (robj->Class_ID() == 0x19) {
+		RenderObjClass *hlod = robj;
+		robj = hlod->Get_Sub_Object(0);
+		const Matrix3D xfm = robj->Get_Bone_Transform(0);
+		xfm.Get_Translation(&offset);
+		hlod->Release_Ref();
+	}
+
+	if (robj->Class_ID() == 0)
+		m_treeTypes[m_typeCount].m_mesh = robj->renderObjSlot14();
+
+	MeshClass *mesh = m_treeTypes[m_typeCount].m_mesh;
+	if (mesh == 0) {
+		robj->Release_Ref();
+		return 0;
+	}
+
+	Int numVertex = mesh->Peek_Model()->Get_Vertex_Count();
+	Vector3 *pVert = mesh->Peek_Model()->Get_Vertex_Array();
+
+	mesh->Validate_Transform();
+	SphereClass bounds(pVert, numVertex);
+	SphereClass &destBounds = m_treeTypes[m_typeCount].m_bounds;
+	bounds.Center += offset;
+	destBounds = bounds;
+	m_treeTypes[m_typeCount].m_data = data;
+	m_treeTypes[m_typeCount].m_offset = offset;
+	m_treeTypes[m_typeCount].m_doShadow = (shadowKind == 1);
+	m_treeTypes[m_typeCount].m_textureName.setCopyInline(textureName);
+	reinterpret_cast<StringBase<char> *>(&m_treeTypes[m_typeCount].m_textureName)->concat(".tga");
+	m_treeTypes[m_typeCount].m_modelName.setCopyInline(modelName);
+	m_treeTypes[m_typeCount].m_nameC.setCopyInline(nameC);
+	m_treeTypes[m_typeCount].m_nameD.setCopyInline(nameD);
+	// Retail initializes this per-type sentinel after the string fields.
+	m_treeTypes[m_typeCount].m_field0058 = -2;
+	m_typeCount++;
+	return m_typeCount - 1;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva000EC9C6.cpp
+
+// @0x000EC9C6 135B. Early-out on the live dwords, clear the flag bytes,
+// then forward this into the four rowed callees.
+
+void Rva000EC9C6::rva000EC9C6(int arg)
+{
+	if (m_at34 == 0)
+		return;
+	if (m_at44555 == 0)
+		return;
+	m_at44555 = 0;
+	m_at45C5C = 0;
+	if (m_at44556 != 0)
+	{
+		m_at44556 = 0;
+		reinterpret_cast<W3DTreeBuffer *>(this)->updateTexture();
+	}
+	if (m_at38 == 0)
+		return;
+
+	unsigned char *slot = reinterpret_cast<unsigned char *>(&m_anythingChanged);
+	if (*slot != 0)
+	{
+		rva000EB6BB();
+		*(volatile unsigned char *)((char *)this + 0x45C5C) = 1;
+		*slot = 0;
+	}
+	else
+	{
+		slot = &m_at44545;
+		if (*slot != 0 || m_at45C64 != 0)
+		{
+			rva000EBFD1();
+			m_at45C64 = 0;
+			*slot = 0;
+		}
+	}
+	if (*m_curNumTreeIndices.m_start != 0)
+		rva000E663B(arg);
+}
 
 // tu-skeleton: 0x000ECA4D 936B ?startMorph@W3DTreeBuffer@@QAEXHH@Z -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBuffer_startMorph.cpp (not merged yet)
 
@@ -1626,24 +2203,6 @@ bool W3DTreeBuffer::rva000ECF2A(unsigned key, int mode)
 // tu-skeleton: 0x000EDB3F 8B ?enable@Rva000EDB3FByteOneSetter@@QAEXXZ -- matched in Code/GameEngine/Source/Common/DispByteOneSetters.cpp (not merged yet)
 
 // tu-skeleton: 0x000EDB47 750B ?rva000EDB47@Rva000EDB47@@QAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0076372C 8B uw_0076372c -- matched in Code/gen_small/uw_gen_000.cpp (not merged yet)
-
-// tu-skeleton: 0x00763734 10B __ehhandler$?rva000EA24D@W3DTreeBuffer@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva000EA24DReset.cpp (not merged yet)
-
-// tu-skeleton: 0x0076373E 8B Unwind@00b6373e -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00763746 8B Unwind@00b63746 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x0076374E 8B Unwind@00b6374e -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00763756 8B Unwind@00b63756 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x0076375E 8B Unwind@00b6375e -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x00763766 8B Unwind@00b63766 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
-
-// tu-skeleton: 0x0076376E 10B __ehhandler$?updateTexture@W3DTreeBuffer@@IAEXXZ -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DTreeBufferUpdateTexture.cpp (not merged yet)
 
 // tu-skeleton: 0x00763798 22B uw_00763798 -- matched in Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00735D80TreeTypeCtor.cpp (not merged yet)
 
