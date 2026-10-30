@@ -120,9 +120,6 @@ public:
 	BfmeFixedStorage0004543D m_24;
 };
 #include "StealthDetectorUpdateView.h"
-enum Relationship{ENEMIES,NEUTRAL,ALLIES};
-enum CellShroudStatus{SHROUD_CLEAR=0};
-enum ObjectStatusTypes{STATUS_DUMMY=-1};enum KindOfType{KIND_DUMMY=-1};class Module;
 class SpecialDisguiseUpdate{public:void rva004B05F5(bool);};
 class Rva00373EC6{public:void rva00374815(); char pad[0x31];bool oneRing;};
 class StealthUpdate{public:void markAsDetected(unsigned,int,Object*,bool);};
@@ -149,13 +146,6 @@ class ContainListInterface:public Slots<70>{public:virtual Rva0036AE51ListView r
 class UpgradeTemplate;class UpgradeCenter{public:const UpgradeTemplate *findUpgrade(const AsciiString&)const;};extern UpgradeCenter *TheUpgradeCenter;
 class Player{public:char pad[0x54];int m_index;};class PlayerList{public:char pad[0x10];Player *m_local;};extern PlayerList *ThePlayerList;
 class Rva00439E0C{public:bool detected(Object*,Object*,int,int);};extern GameLogic *TheGameLogic;
-class Object{public:bool testStatus(ObjectStatusTypes) const;bool isKindOf(KindOfType) const;bool hasUpgrade(const UpgradeTemplate*) const;float getVisionRange()const;
- int rva0028F4EF();int rva002933CD();Rva00373EC6 *rva0028F4BC();protected:Module *findModule(NameKeyType)const;friend class StealthDetectorUpdate;public:
- Player *getControllingPlayer()const;Relationship getRelationship(const Object*)const;CellShroudStatus getShroudStatusForPlayer(int) const;
- char pad[0x38];Coord3D m_pos;char pad44[0x74-0x44];ObjectID m_id;char pad78[0x250-0x78];ContainModuleInterface *m_contain;
- char pad254[0x274-0x254];Object *m_container;char pad278[0x438-0x278];unsigned char m_privateStatus;unsigned char m_pad439[0x43C-0x439];
- bool isEffectivelyDead()const{return (m_privateStatus&1)!=0;}
-};
 struct StealthDetectorUpdateModuleData{char pad[8];int m_rate;float m_range;bool initiallyDisabled;OpaqueRefElement4 m_sound,m_loud;const ParticleSystemTemplate *m_beacon,*m_ping,*m_bright,*m_grid;AsciiString m_bone;BfmeFixedStorage0004543D m_require,m_forbid;bool m_garrison,m_transport,m_cancelRing;AsciiString m_upgrade;};
 UpdateSleepTime StealthDetectorUpdate::update(){
  const StealthDetectorUpdateModuleData *data=m_data;Object *self=getObject();
@@ -164,7 +154,7 @@ UpdateSleepTime StealthDetectorUpdate::update(){
  if(self->testStatus((ObjectStatusTypes)2))return UPDATE_SLEEP_NONE;
  if(self->testStatus((ObjectStatusTypes)0x13))return UPDATE_SLEEP_FOREVER;
  Object *containedBy=self->m_container;
- if(containedBy){ContainModuleInterface *contain=containedBy->m_contain;if(contain){if(contain->isGarrisonable()){if(!data->m_garrison)return (UpdateSleepTime)data->m_rate;}else if(!data->m_transport)return (UpdateSleepTime)data->m_rate;}}
+ if(containedBy){ContainModuleInterface *contain=(ContainModuleInterface *)containedBy->m_250;if(contain){if(contain->isGarrisonable()){if(!data->m_garrison)return (UpdateSleepTime)data->m_rate;}else if(!data->m_transport)return (UpdateSleepTime)data->m_rate;}}
  if(data->m_upgrade.compare(AsciiString::TheEmptyString)!=0){const UpgradeTemplate *upgrade=TheUpgradeCenter->findUpgrade(data->m_upgrade);if(!upgrade||!self->hasUpgrade(upgrade))return UPDATE_SLEEP_NONE;}
  float range=self->getVisionRange();if(data->m_range>0.0f)range=data->m_range;
  bool foundSomeone=false;
@@ -183,7 +173,7 @@ UpdateSleepTime StealthDetectorUpdate::update(){
    if(data->m_cancelRing&&((Rva00373EC6*)stealth)->oneRing)((Rva00373EC6*)stealth)->rva00374815();
    if(data->m_grid){BfmeParticleSystemHandle sys=TheParticleSystemManager->createParticleSystem(data->m_grid,true);
     if(sys){Coord3D gridPosition;gridPosition.x=them->m_pos.x;gridPosition.y=them->m_pos.y;gridPosition.z=them->m_pos.z;gridPosition.z=self->m_pos.z+17.0f;gridPosition.x-=((int)gridPosition.x)%12;gridPosition.y-=((int)gridPosition.y)%12;((Rva001F3899Slot*)sys.m_system)->set(*(const Rva001F3899Arg*)&gridPosition);}}
-  }else{ContainModuleInterface *contain=them->m_contain;if(contain&&contain->isGarrisonable()&&((ContainListInterface*)contain)->getStealthUnitsContained()){
+  }else{ContainModuleInterface *contain=(ContainModuleInterface *)them->m_250;if(contain&&contain->isGarrisonable()&&((ContainListInterface*)contain)->getStealthUnitsContained()){
    Rva0036AE51ListView view=((ContainListInterface*)contain)->rva70();
    for(ContainmentList::const_iterator item=view.b->begin();item!=view.b->end();++item){Object *rider=(Object*)containmentFirstWord(*item);StealthUpdate *riderStealth=(StealthUpdate*)rider->rva0028F4BC();if(riderStealth){foundSomeone=true;if(self->getControllingPlayer()!=rider->getControllingPlayer()&&self->getRelationship(rider)!=ALLIES){riderStealth->markAsDetected(data->m_rate+2,2,self,true);TheGameLogic->getManager178()->detected(rider,(Object*)self,data->m_rate+2,2);}}}
   }}
