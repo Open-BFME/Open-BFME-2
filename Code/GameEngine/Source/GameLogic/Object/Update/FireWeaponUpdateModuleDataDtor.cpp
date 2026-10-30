@@ -64,22 +64,22 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
 
 #include "ascii_string.h"
 
+typedef bool Bool;
+
 class FireWeaponUpdateModuleData : public Snapshot
 {
 public:
 	virtual ~FireWeaponUpdateModuleData();
-
-private:
 	int m_unk04; // +4
-	_STL::list<int> m_list; // +8
-	bool m_flag0c; // +0xC
-	bool m_flag0d; // +0xD
-	bool m_flag0e; // +0xE
+	_STL::list<int> m_nuggets; // +0x08
+	Bool m_heroModeTrigger; // +0x0C
+	Bool m_chargingModeTrigger; // +0x0D
+	Bool m_aliveOnly; // +0x0E
 };
 
 FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
 {
-	_STL::list<int> *trackedList = &m_list;
+	_STL::list<int> *trackedList = &m_nuggets;
 	_STL::list<int>::iterator it = trackedList->begin();
 	while (it != trackedList->end()) {
 		int trackedValue = *it;
