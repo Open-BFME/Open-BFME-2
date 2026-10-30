@@ -75,6 +75,14 @@ RULES (the commit gate, --staged):
      Any other row binding a name to another symbol counts, a Gen_/Rva<RVA>
      placeholder name included (build.is_alias_row excuses those, but they
      are link names this tree calls).
+ 10. Address-named globals rebound to the data ledger's owner. An
+     address_global token the data ledger (DATA_LEDGER, as HEAD has it)
+     records as an alias spelling at an address, traded in the same file for
+     that address's owner spelling (`extern int g_Va00E09FA4` ->
+     `extern T *g_Va0130A588`, the fix data_check's wrong-name finding asks
+     for), is a respelling: each alias occurrence explains one owner
+     occurrence, once, and never the other way round. Any other new
+     address-named token still needs an admission.
 
 Usage:
   python3 tools/hatch_counters.py --staged              the commit gate
@@ -124,6 +132,7 @@ if (ROOT / "targets" / "game" / "reverse").is_dir():      # Open-BFME-1
     LEDGER_FILE = re.compile(r"^targets/[^/]+/reverse/functions\.csv$")
     INVENTORY_DIR = "targets/game/reverse/retail_inventory/"
     CODE_IDENTITY = "targets/game/reverse/code_identity_baseline.tsv"
+    DATA_LEDGER = "targets/game/reverse/data_ledger.csv"
 else:                                                       # Open-BFME-2
     BASELINE = "reverse/hatch_baseline.tsv"
     SOURCE_ROOTS = ("Code/", "reference/shims/")
@@ -131,6 +140,7 @@ else:                                                       # Open-BFME-2
     LEDGER_FILE = re.compile(r"^reverse/functions\.csv$")
     INVENTORY_DIR = "reverse/retail_inventory/"
     CODE_IDENTITY = "reverse/code_identity_baseline.tsv"
+    DATA_LEDGER = "reverse/data_ledger.csv"
 
 CODE_EXT = (".cpp", ".c", ".cc", ".cxx", ".h", ".hpp", ".inl")
 FREEZE_WINDOW = 24 * 3600
@@ -319,7 +329,7 @@ def parse(text):
 
 
 MODE = re.compile(r"^# mode: (shadow|enforce)[ \t]*$", re.MULTILINE)
-STATE = {"mode": "enforce", "respellable": frozenset()}
+STATE = {"mode": "enforce", "respellable": frozenset(), "ledger_spec": "HEAD:", "ledger_respell": None}
 CI_MODE = re.compile(r"^# mode:(.*)$", re.MULTILINE)
 
 
@@ -335,6 +345,44 @@ def set_respellable(specs):
     at every git object spec in SPECS is enforced; otherwise per token."""
     texts = read_blobs(["%s%s" % (spec, CODE_IDENTITY) for spec in specs])
     STATE["respellable"] = RESPELLABLE if code_identity_enforced(list(texts.values())) else frozenset()
+
+
+def _ledger_ident(name):
+    """The identifier a data_ledger.csv name spells (`?g_Va0130A588@@3PAV...@@A` -> g_Va0130A588)."""
+    name = name.strip()
+    if name.startswith("?"):
+        return name[1:].split("@", 1)[0]
+    return name
+
+
+def ledger_respellings():
+    """Rule 10: {owner: {alias, ...}} for the address-named globals of the data ledger at
+    STATE["ledger_spec"] (HEAD's, so a commit cannot widen its own grant). A consumer that
+    rebinds an alias spelling the ledger records at an address (`extern int g_Va00E09FA4`) to
+    that address's owner (`extern T *g_Va0130A588`) adds no global and keeps its file's
+    occurrences: an alias occurrence in the same file explains one owner occurrence, and
+    never the other way round. Read once per run, only when an address_global key grew."""
+    if STATE["ledger_respell"] is None:
+        spec = STATE["ledger_spec"] + DATA_LEDGER
+        text = read_blobs([spec])[spec] or ""
+        out = collections.defaultdict(set)
+        rows = csv.reader(io.StringIO(text))
+        head = next(rows, None) or []
+        try:
+            iname, inames = head.index("name"), head.index("names")
+        except ValueError:
+            iname = inames = None
+        for cells in rows if iname is not None else ():
+            if len(cells) <= max(iname, inames):
+                continue
+            owner = _ledger_ident(cells[iname])
+            if not ADDR_GLOBAL.fullmatch(owner):
+                continue
+            for alias in {_ledger_ident(n) for n in cells[inames].split(";") if n.strip()}:
+                if alias != owner and ADDR_GLOBAL.fullmatch(alias):
+                    out[owner].add(alias)
+        STATE["ledger_respell"] = {k: frozenset(v) for k, v in out.items()}
+    return STATE["ledger_respell"]
 
 
 INHERITED = " [already in HEAD]"   # a finding HEAD's own file and register carry too
@@ -398,7 +446,13 @@ def register_growth(old, new, admitted=()):
     def links(key):
         hatch, path, token = key
         out = by_tok.get((hatch, token), [])
-        return out + by_path.get((hatch, path), []) if hatch in STATE["respellable"] else out
+        if hatch in STATE["respellable"]:
+            return out + by_path.get((hatch, path), [])
+        if hatch == "address_global":              # rule 10: an alias rebound to its owner
+            aliases = ledger_respellings().get(token, ())
+            if aliases:
+                return out + [k for k in by_path.get((hatch, path), []) if k[2] in aliases]
+        return out
     supply = {k: n for k, n in old.items() if n > 0}
     by_tok, by_path = collections.defaultdict(list), collections.defaultdict(list)
     for k in supply:

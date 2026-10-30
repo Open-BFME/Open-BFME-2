@@ -713,6 +713,50 @@ def test_register_growth_matches_each_old_occurrence_once(monkeypatch):
     assert hc.register_growth({k("A", "x"): 1}, {k("A", "y"): 1}) == [k("A", "y")]
 
 
+LEDGER = ("address,size,section,kind,name,source,status,names,defs,refs\n"
+          "0x00A09FA4,4,.data,global,?g_Va0130A588@@3PAVT@@A,Code/x.cpp,provisional,"
+          "?g_Va00E09FA4@@3HA;?g_Va0130A588@@3PAVT@@A,1,2\n")
+
+
+def test_register_growth_rebinds_a_ledger_alias_to_its_owner_only(monkeypatch):
+    # rule 10: the data ledger's alias spelling at an address respells to the owner, one for one,
+    # in the same file, and never the other way round
+    k = lambda path, token: ("address_global", path, token)                # noqa: E731
+    monkeypatch.setitem(hc.STATE, "ledger_respell", {"g_Va0130A588": frozenset({"g_Va00E09FA4"})})
+    assert hc.register_growth({k("A", "g_Va00E09FA4"): 3, k("A", "g_Va0130A588"): 1},
+                              {k("A", "g_Va0130A588"): 2}) == []
+    assert hc.register_growth({k("A", "g_Va00E09FA4"): 1}, {k("A", "g_Va0130A588"): 2}) == [k("A", "g_Va0130A588")]
+    assert hc.register_growth({k("B", "g_Va00E09FA4"): 1}, {k("A", "g_Va0130A588"): 1}) != []     # other file
+    assert hc.register_growth({k("A", "g_Va0130A588"): 1}, {k("A", "g_Va00E09FA4"): 1}) != []     # owner -> alias
+    assert hc.register_growth({k("A", "g_Va00E09FA4"): 1}, {k("A", "g_Va00DEAD00"): 1}) != []     # not its owner
+
+
+def test_a_ledger_alias_rebound_to_its_owner_passes_and_nothing_else_does(repo):
+    src, ledger = repo.lay["src"], repo.lay["rev"] + "/data_ledger.csv"
+    alias = SOURCE.replace("g_Va00A1B2C3", "g_Va00E09FA4")
+    repo.write(src, alias)
+    assert repo.tool("--allow", src, "--reason", "fixture: the alias spelling").returncode == 0
+    repo.commit("alias spelling", when=T0 - DAY)
+    owner = alias.replace("extern int g_Va00E09FA4;", "class T; extern T *g_Va0130A588;").replace(
+        "g_Va00E09FA4 = 1;", "g_Va0130A588 = 0;")
+    repo.write(src, owner)
+    assert repo.tool("--update").returncode != 0                       # no ledger at HEAD: new tokens
+    repo.write(ledger, LEDGER)
+    assert repo.tool("--update").returncode != 0                       # a staged-only ledger grants nothing
+    repo.git("reset", "-q", "--hard", "HEAD")
+    repo.write(ledger, LEDGER)
+    repo.commit("ledger", when=T0 - DAY)
+    repo.write(src, owner)
+    assert repo.tool("--update").returncode == 0
+    assert "address_global\t%s\tg_Va0130A588\t2" % src in repo.read(repo.lay["base"])
+    repo.git("add", ".")
+    got = staged(repo)
+    assert got.returncode == 0 and "raised by hand" not in got.stderr, got.stderr
+    repo.write(src, owner + "int g_Va0130A588b;\n")                 # a further address-named global is new
+    repo.git("add", ".")
+    assert "address_global +1" in staged(repo).stderr
+
+
 def test_enforce_takes_a_respelled_alias_at_the_same_count(repo):
     # a rename respells the token; the file's count of the hatch is what may not rise
     _code_identity(repo, "enforce")
