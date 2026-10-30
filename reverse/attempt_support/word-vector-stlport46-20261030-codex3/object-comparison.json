@@ -1,0 +1,574 @@
+{
+  "stlport_vector_word_o1.cpp": {
+    "old_external_comdats": 83,
+    "new_external_comdats": 81,
+    "removed": [
+      "??$__stl_alloc_rebind@GG@_STL@@YAAAV?$allocator@G@0@AAV10@PBG@Z",
+      "?deallocate@?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAEXPAGI@Z",
+      "?deallocate@?$allocator@G@_STL@@QBEXPAGI@Z",
+      "?resize@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXIABG@Z"
+    ],
+    "added": [
+      "?deallocate@?$allocator@G@_STL@@QAEXPAGI@Z",
+      "?resize@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXIG@Z"
+    ],
+    "changed": [
+      {
+        "symbol": "??$_M_allocate_and_copy@PAG@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEPAGIPAG0@Z",
+        "before": [
+          "29a28e23e5d0",
+          40
+        ],
+        "after": [
+          "a047ff9b3b47",
+          40
+        ]
+      },
+      {
+        "symbol": "??$_M_allocate_and_copy@PBG@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEPAGIPBG0@Z",
+        "before": [
+          "29a28e23e5d0",
+          40
+        ],
+        "after": [
+          "a047ff9b3b47",
+          40
+        ]
+      },
+      {
+        "symbol": "??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z",
+        "before": [
+          "5a00b1f5313c",
+          58
+        ],
+        "after": [
+          "c94550526480",
+          58
+        ]
+      },
+      {
+        "symbol": "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__false_type@2@I_N@Z",
+        "before": [
+          "504d1ab87a7a",
+          228
+        ],
+        "after": [
+          "53117d87ef20",
+          228
+        ]
+      },
+      {
+        "symbol": "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z",
+        "before": [
+          "fd5239eb8369",
+          139
+        ],
+        "after": [
+          "2bc7d03617bd",
+          139
+        ]
+      },
+      {
+        "symbol": "?reserve@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXI@Z",
+        "before": [
+          "a63c8e33c695",
+          108
+        ],
+        "after": [
+          "119cd80f4232",
+          108
+        ]
+      },
+      {
+        "symbol": "?resize@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXI@Z",
+        "before": [
+          "4d2dc8576b33",
+          24
+        ],
+        "after": [
+          "cb5fe5145076",
+          14
+        ]
+      }
+    ],
+    "rows": [
+      {
+        "symbol": "??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z",
+        "rva": "0x00513D55",
+        "size": 58,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            23,
+            20,
+            "??0?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@PAG@Z"
+          ],
+          [
+            36,
+            20,
+            "?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            23,
+            20,
+            "??0?$_STLP_alloc_proxy@PAGGV?$allocator@G@_STL@@@_STL@@QAE@ABV?$allocator@G@1@PAG@Z"
+          ],
+          [
+            36,
+            20,
+            "?allocate@?$allocator@G@_STL@@QAEPAGIPBX@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "??0?$vector@GV?$allocator@G@_STL@@@_STL@@QAE@I@Z",
+        "rva": "0x00513DD0",
+        "size": 51,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            15,
+            20,
+            "??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z"
+          ],
+          [
+            34,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            15,
+            20,
+            "??0?$_Vector_base@GV?$allocator@G@_STL@@@_STL@@QAE@IABV?$allocator@G@1@@Z"
+          ],
+          [
+            34,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z",
+        "rva": "0x00081A1F",
+        "size": 5,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            1,
+            20,
+            "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            1,
+            20,
+            "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?push_back@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXABG@Z",
+        "rva": "0x0054E89C",
+        "size": 51,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            43,
+            20,
+            "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            43,
+            20,
+            "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z",
+        "rva": "0x0007EAA7",
+        "size": 139,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            43,
+            20,
+            "?allocate@?$allocator@G@_STL@@QBEPAGIPBX@Z"
+          ],
+          [
+            57,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            69,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ],
+          [
+            93,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            111,
+            20,
+            "_free"
+          ]
+        ],
+        "relocations_after": [
+          [
+            43,
+            20,
+            "?allocate@?$allocator@G@_STL@@QAEPAGIPBX@Z"
+          ],
+          [
+            57,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            69,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ],
+          [
+            93,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            111,
+            20,
+            "_free"
+          ]
+        ]
+      },
+      {
+        "symbol": "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z",
+        "rva": "0x0007FF18",
+        "size": 213,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            76,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            92,
+            20,
+            "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            131,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ],
+          [
+            149,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            202,
+            20,
+            "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            76,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            92,
+            20,
+            "?__copy_trivial_backward@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            131,
+            20,
+            "??$fill_n@PAGIG@_STL@@YAPAGPAGIABG@Z"
+          ],
+          [
+            149,
+            20,
+            "?__copy_trivial@_STL@@YAPAXPBX0PAX@Z"
+          ],
+          [
+            202,
+            20,
+            "?_M_insert_overflow@?$vector@GV?$allocator@G@_STL@@@_STL@@IAEXPAGABGABU__true_type@2@I_N@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?resize@BfmeWordVec@@QAEXIG@Z",
+        "rva": "0x000824F9",
+        "size": 61,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            27,
+            20,
+            "?erase@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEPAGPAG0@Z"
+          ],
+          [
+            52,
+            20,
+            "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            27,
+            20,
+            "?erase@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEPAGPAG0@Z"
+          ],
+          [
+            52,
+            20,
+            "?_M_fill_insert@?$vector@GV?$allocator@G@_STL@@@_STL@@QAEXPAGIABG@Z"
+          ]
+        ]
+      }
+    ]
+  },
+  "stlport_wide_num_put.cpp": {
+    "old_external_comdats": 32,
+    "new_external_comdats": 33,
+    "removed": [],
+    "added": [
+      "?allocate@?$allocator@G@_STL@@QAEPAGIPBX@Z"
+    ],
+    "changed": [],
+    "rows": [
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GO@Z",
+        "rva": "0x00010CB0",
+        "size": 50,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            37,
+            20,
+            "??$_M_do_put_float@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@O@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@AAVios_base@0@GO@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            37,
+            20,
+            "??$_M_do_put_float@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@O@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@AAVios_base@0@GO@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GN@Z",
+        "rva": "0x00011110",
+        "size": 50,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            37,
+            20,
+            "??$_M_do_put_float@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@N@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@AAVios_base@0@GN@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            37,
+            20,
+            "??$_M_do_put_float@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@N@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@AAVios_base@0@GN@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "??$find@PAGG@_STL@@YAPAGPAG0ABG@Z",
+        "rva": "0x00018150",
+        "size": 30,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            22,
+            20,
+            "??$__find@PAGG@_STL@@YAPAGPAG0ABGABUrandom_access_iterator_tag@0@@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            22,
+            20,
+            "??$__find@PAGG@_STL@@YAPAGPAG0ABGABUrandom_access_iterator_tag@0@@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "??$__copy_aux@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABU__false_type@0@@Z",
+        "rva": "0x00019C70",
+        "size": 45,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            34,
+            20,
+            "??$__copy@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABUrandom_access_iterator_tag@0@PAH@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            34,
+            20,
+            "??$__copy@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABUrandom_access_iterator_tag@0@PAH@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "??$fill_n@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@HG@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@V10@HABG@Z",
+        "rva": "0x0001A3E0",
+        "size": 103,
+        "raw_unchanged": true,
+        "relocations_before": [],
+        "relocations_after": []
+      },
+      {
+        "symbol": "??$__copy@PBGV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@H@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PBG0V10@ABUrandom_access_iterator_tag@0@PAH@Z",
+        "rva": "0x0000E9C0",
+        "size": 106,
+        "raw_unchanged": true,
+        "relocations_before": [],
+        "relocations_after": []
+      },
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GJ@Z",
+        "rva": "0x00010C60",
+        "size": 74,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            24,
+            20,
+            "??$__write_integer_backward@J@_STL@@YAPADPADHJ@Z"
+          ],
+          [
+            57,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            24,
+            20,
+            "??$__write_integer_backward@J@_STL@@YAPADPADHJ@Z"
+          ],
+          [
+            57,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@GK@Z",
+        "rva": "0x00010C10",
+        "size": 74,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            24,
+            20,
+            "??$__write_integer_backward@K@_STL@@YAPADPADHK@Z"
+          ],
+          [
+            57,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            24,
+            20,
+            "??$__write_integer_backward@K@_STL@@YAPADPADHK@Z"
+          ],
+          [
+            57,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@G_K@Z",
+        "rva": "0x00010A20",
+        "size": 79,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            29,
+            20,
+            "??$__write_integer_backward@_K@_STL@@YAPADPADH_K@Z"
+          ],
+          [
+            62,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            29,
+            20,
+            "??$__write_integer_backward@_K@_STL@@YAPADPADH_K@Z"
+          ],
+          [
+            62,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ]
+      },
+      {
+        "symbol": "?do_put@?$num_put@GV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@MBE?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@2@V32@AAVios_base@2@G_J@Z",
+        "rva": "0x00010BC0",
+        "size": 79,
+        "raw_unchanged": true,
+        "relocations_before": [
+          [
+            29,
+            20,
+            "??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z"
+          ],
+          [
+            62,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ],
+        "relocations_after": [
+          [
+            29,
+            20,
+            "??$__write_integer_backward@_J@_STL@@YAPADPADH_J@Z"
+          ],
+          [
+            62,
+            20,
+            "??$__put_integer@V?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@_STL@@@_STL@@YA?AV?$ostreambuf_iterator@GV?$char_traits@G@_STL@@@0@PAD0V10@AAVios_base@0@HG@Z"
+          ]
+        ]
+      }
+    ]
+  }
+}

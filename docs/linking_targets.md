@@ -1,5 +1,16 @@
 # Linking target checklist
 
+Word-vector allocator46 follow-up (2026-10-30, base `32a7f941eb`, LINK-150):
+the vector unit adopts STLport 4.6 with a complete 29-byte word allocator twin
+in the existing num-put unit. All 18 changed-source rows match; strict checks
+pass 43/43 rows and seven data rows across four providers, and their preview
+retains 4/4 LINKS against `85f6b7f40c`. The vector leaves the migration queue.
+Four additional directly affected sources pass 113/113 strict checks. The
+repeated audit remains INCONCLUSIVE on the older index and missing current
+CreateAHeroManager consumer receipt; full consumer/census confirmation is
+pending. No unique-byte or census gain is claimed.
+[Native twin and audit scope](../reverse/attempt_support/word-vector-stlport46-20261030-codex3/readme.md).
+
 Physics trajectory ObjectModule follow-up (2026-10-30, base `0c90b528d9`):
 one canonical base adoption retires one header queue row while preserving all
 three rows and all external object facts. Thing's missing `setTransformMatrix`

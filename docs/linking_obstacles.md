@@ -11476,6 +11476,25 @@ Common/0CreateAHeroManager21FE49.cpp; its older-index baseline remains
 provisional. Full consumer selection/loss verification is still unproven.
 [Exact scope and terminal results](../reverse/attempt_support/rankinfo-allocator46-link-20261030/readme.md#direct-consumer-receipt-repair-and-remaining-audit-boundary).
 
+Word-vector follow-up (2026-10-30, base `32a7f941eb`):
+`stlport_vector_word_o1.cpp` adopts STLport 4.6 with a complete non-const
+word allocator supplied by `stlport_wide_num_put.cpp`. Its 29-byte body and
+relocation equal the existing const owner at `00017710`; both native vector
+growth calls reach that address. All 18 changed-source rows match, and all
+32 previous num-put COMDATs remain identical. Strict preparation passes
+43/43 rows and seven data rows across the pair, old owner and GameMemory;
+the four-source preview retains LINKS against `85f6b7f40c`. All seven vector
+rows are readmitted and the file leaves the migration queue. New unique
+coverage and claimed census gain are zero.
+
+The staged audit initially lacks four direct-source receipts; supported
+preparation passes their 113/113 rows. The repeated audit reaches affected
+consumers and remains INCONCLUSIVE on the older baseline and missing current
+`Common/0CreateAHeroManager21FE49.cpp` receipt. Full consumer selection/loss
+verification and census confirmation remain open; carry this provider and
+consumer scope into the next scheduled census.
+[Native proof, object changes and audit boundary](../reverse/attempt_support/word-vector-stlport46-20261030-codex3/readme.md).
+
 ### LINK-151: FlightDeckBehavior.cpp's override drop made its FlightDeckInfo copies the kept ones (2026-10-29)
 
 Status: repaired, pending census confirmation. 540ec8bf62 dropped

@@ -31,7 +31,19 @@ namespace _STL { template <> basic_string<char, char_traits<char>, allocator<cha
 namespace _STL { template <> basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> >::basic_string(basic_string<unsigned short, char_traits<unsigned short>, allocator<unsigned short> > const &); }
 namespace _STL { template <> _String_base<char, allocator<char> >::~_String_base(); }
 namespace _STL { template <> void * __malloc_alloc<0>::allocate(unsigned int); }
-namespace _STL { template <> unsigned short * allocator<unsigned short>::allocate(unsigned int, void const *); }
+// The 4.6 non-const allocator shares retail's complete 29-byte word body at
+// 0x00017710 with the const member in stlport_wide_string.cpp. GameMemory.cpp
+// owns its static byte allocator. The word-vector growth paths need this
+// out-of-line name too; retain it explicitly in this /O2 unit.
+extern "C" char *__cdecl __identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(size_t, const void *);
+namespace _STL {
+template <> __declspec(noinline)
+unsigned short *allocator<unsigned short>::allocate(size_t count, const void *)
+{
+    return count != 0 ? reinterpret_cast<unsigned short *>(__identifier("?allocate@?$allocator@D@_STL@@SAPADIPBX@Z")(count * sizeof(value_type), 0)) : 0;
+}
+}
+template unsigned short *_STL::allocator<unsigned short>::allocate(size_t, const void *);
 namespace _STL { template <> ostreambuf_iterator<unsigned short, char_traits<unsigned short> > num_put<unsigned short, ostreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_put(ostreambuf_iterator<unsigned short, char_traits<unsigned short> >, ios_base &, unsigned short, void const *) const; }
 namespace _STL { template <> ostreambuf_iterator<unsigned short, char_traits<unsigned short> > num_put<unsigned short, ostreambuf_iterator<unsigned short, char_traits<unsigned short> > >::do_put(ostreambuf_iterator<unsigned short, char_traits<unsigned short> >, ios_base &, unsigned short, bool) const; }
 namespace _STL { template <> void basic_string<char, char_traits<char>, allocator<char> >::reserve(unsigned int); }
