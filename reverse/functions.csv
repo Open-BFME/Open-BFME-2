@@ -11541,7 +11541,7 @@ _luaB_tostring,,0x0074BFA0,284,Code/Libraries/Source/Lua/luaB_tostring.c,matched
 ?get@Rva003888A1DwordField@@QBEHXZ,,0x003888A1,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva003E3C05DwordField@@QBEHXZ,,0x003E3C05,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva00466AC9DwordField@@QBEHXZ,,0x00466AC9,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
-?get@Rva004DF1D1DwordField@@QBEHXZ,,0x004DF1D1,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
+?get@Rva004DF1D1DwordField@@QBEHXZ,,0x004DF1D1,7,Code/GameEngine/Source/Common/RTS/Energy.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva0051C05CDwordField@@QBEHXZ,,0x0051C05C,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?get@Rva00552C39DwordField@@QBEHXZ,,0x00552C39,7,Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp,matched,disp32 dword getter; opaque holder
 ?getConstSlot@GameInfo@@QBEPBVGameSlot@@H@Z,,0x003FF2BE,24,Code/GameEngine/Source/GameNetwork/GameSlotApparent.cpp,matched,BFME1 GameInfo.cpp getConstSlot shape with slot array at +0x18 and MAX_SLOTS 8

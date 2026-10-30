@@ -38,6 +38,18 @@ struct Rva004DF231Outer
 	Rva004DF231Inner *m_ptr;
 };
 #include "EnergyView.h"
+#define BFME_DISP32_DWORD_GETTER(NAME, DISP) \
+	class NAME \
+	{ \
+	public: \
+		int get() const; \
+		char m_lead[DISP]; \
+		int m_value; \
+	}; \
+	int NAME::get() const \
+	{ \
+		return m_value; \
+	}
 
 // flags: region default (reverse/retail_inventory/flag_regions.csv)
 // ?rva004DF17F@Rva004DF17F@@QBE_NXZ, RVA 0x004DF17F, 14 bytes.
@@ -86,6 +98,10 @@ public:
 };
 
 extern PlayerList *ThePlayerList;
+
+BFME_DISP32_DWORD_GETTER(Rva004DF1D1DwordField, 0x54C)
+
+// ---- from Code/GameEngine/Source/Common/RTS/Energy.cpp
 
 // ---- from Code/GameEngine/Source/Common/RTS/Energy.cpp
 
@@ -206,8 +222,6 @@ void Energy::rva004DF1AF(int delta)
 		m_owner->onPowerBrownOutChange(m_energyProduction < m_energyConsumption);
 }
 
-// tu-skeleton: 0x004DF1D1 7B ?get@Rva004DF1D1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/RTS/EnergyXfer.cpp
 
 /*
@@ -259,3 +273,21 @@ void Energy::xfer( Xfer *xfer )
 }
 
   // end xfer
+
+// ---- from Code/GameEngine/Source/Common/Disp32DwordFieldGetters.cpp
+
+// Disp32 dword getters: seven-byte __thiscall members with one shape:
+//
+//     mov eax,[ecx+<DISP32>] / ret
+//
+// One dword is read at a 32-bit displacement from `this` and returned. The
+// displacement does not fit in a signed byte, so MSVC 7.1 emits the disp32
+// load `8B 81 <imm32>`, plus `ret`, for seven bytes total. This is the disp32
+// sibling of the disp8 Disp8DwordFieldGetters family (four bytes per body);
+// the wider displacement is why the two families are kept in separate
+// translation units. Identity is not recovered: every name is derived from
+// its address.
+// No // cl: line (defaults match the frameless seven-byte shape).
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
