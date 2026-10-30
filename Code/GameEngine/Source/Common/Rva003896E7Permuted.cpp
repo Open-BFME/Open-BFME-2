@@ -2,7 +2,7 @@
 //
 // ?updateBuddyStatus@@YAXW4GameSpyBuddyStatus@@HV?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@@Z, retail 0x003896e7, 347 bytes. Banked partial (score 1.0) closed by tools/permute.py;
 // the body is the banked one up to statement/operand order and local types.
-// stlport
+// stlport46
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -33,13 +33,6 @@ namespace _STL { void __cdecl free(void *); }
 #include <stdio.h>
 #include <string.h>
 #include "GameNetwork/GameSpy/BuddyThread.h"
-// Keep _STLP_alloc_proxy<char*>::deallocate inline-only: this TU never calls it
-// out of line, and its COMDAT copy (unit flags) differs from retail's 0x006892B0 body.
-namespace _STL {
-template <> __declspec(dllimport) __forceinline
-void _STLP_alloc_proxy<char*, char, allocator<char> >::deallocate(char *__p, size_t __n)
-{ allocator<char>::deallocate(__p, __n); }
-}
 // Keep _String_base<char>::~_String_base inline-only: no call here leaves it out
 // of line, and this TU's frameless COMDAT copy is not retail's 0x0000B3C0 body.
 namespace _STL {
