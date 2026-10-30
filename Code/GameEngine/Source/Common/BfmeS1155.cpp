@@ -10,12 +10,10 @@
 // Open-BFME5 conversions.
 
 // find_first_not_of's search is find_if<const char *, _Not_within_traits> at
-// 0x00029EB0; the call passes the predicate's two pointers as two arguments.
-typedef const char *(__cdecl *FindIfNotWithin1155Fn)(const char *first, const char *last,
-	_STL::_Not_within_traits<_STL::char_traits<char> > pred);
-
-typedef char *(__cdecl *BfmeSearch1155Fn)(char *first, char *last,
-	const char *setFirst, const char *setLast);
+// 0x00029EB0, instantiated in BfmeTwoHundredFiftySeven.cpp; do not emit a
+// second copy here.
+extern template const char *_STL::find_if(const char *, const char *,
+	_STL::_Not_within_traits<_STL::char_traits<char> >);
 
 // basic_string<char>::insert<char*>(pos, first, last, forward tag), rowed at 0x000284D0.
 // Preserve the declined inline-copy analysis of the retail /Ob1 range helper.
@@ -317,36 +315,12 @@ public:
 	char *e;
 };
 
-// BFME1 donor span-wrapper lead; target 2AC90..2ACBB RET8 is called for its unsigned search result.
-// Native tokenizer309358 consumes EAX and supplies an unsigned position; earlier void/pointer ABI was incorrect.
-// The range is the string prefix begin/end, position is an unsigned word.
-struct BfmeRangePI { char *m_bfmeAt;char *m_bfmeEnd; };
-
-class BfmeS1155
-{
-public:
-	unsigned int bfmeFind1155(const char *s, unsigned int pos, unsigned int n);
-	char *m_bfme00;
-	char *m_bfme04;
-};
-
-class BfmeThingPI { public: unsigned bfmeGoPI(const BfmeRangePI *,unsigned); };
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv1155.cpp
 
-unsigned int BfmeS1155::bfmeFind1155(const char *s, unsigned int pos, unsigned int n)
-{
-	char *n1;
-	const char *n2;
-	const char *n3;
-
-	if (pos > (unsigned int)(m_bfme04 - m_bfme00))
-		return 0xffffffff;
-
-	n2 = s;
-	n3 = s + n;
-	n1 = reinterpret_cast<BfmeSearch1155Fn>(static_cast<FindIfNotWithin1155Fn>(&_STL::find_if))(m_bfme00 + pos, m_bfme04, n2, n3);
-	return (n1 != m_bfme04) ? (unsigned int)(n1 - m_bfme00) : 0xffffffff;
+// Retail 0x0002A3A0 is STLport basic_string<char>::find_first_not_of(const
+// char *, size_type, size_type) const (_string.c).
+namespace _STL {
+template string::size_type string::find_first_not_of(const char *, string::size_type, string::size_type) const;
 }
 
 // Callers elsewhere reach bodies in this unit through other spellings; retail's
@@ -790,12 +764,13 @@ void __stdcall bfmeInsertRangeV43(int pos, BfmeStrV43 *other, int opos, int n)
 
 // ---- from Code/GameEngine/Source/Common/BfmeTwoHundredSixtyNine.cpp
 
-unsigned BfmeThingPI::bfmeGoPI(const BfmeRangePI *span,unsigned pos)
-{
- return reinterpret_cast<BfmeS1155 *>(this)->bfmeFind1155(span->m_bfmeAt,pos,span->m_bfmeEnd-span->m_bfmeAt);
+// Retail 0x0002AC90 is the inline find_first_not_of(const basic_string &,
+// size_type) const forwarder (_string.h).
+namespace _STL {
+template string::size_type string::find_first_not_of(const string &, string::size_type) const;
 }
 
-// tu-skeleton: 0x0002ACC0 42B ?Rva0002ACC0@BfmeS1155@@QAEIPBDI@Z -- matched in Code/GameEngine/Source/Common/Rva0002ACC0Cluster.cpp (not merged yet)
+// tu-skeleton: 0x0002ACC0 42B ?find_first_not_of@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QBEIPBDI@Z -- matched in Code/GameEngine/Source/Common/Rva0002ACC0Cluster.cpp (not merged yet)
 
 // tu-skeleton: 0x0075C8F0 8B $L6399 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_substring_ctor.cpp (not merged yet)
 

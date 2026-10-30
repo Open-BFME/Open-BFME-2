@@ -4804,7 +4804,6 @@ name,address,notes
 ?bfmeDoECKa@BfmeHeldECKa@@QAEXXZ,0x00657A10
 ?bfmeDoECKb@BfmeHeldECKb@@QAEXXZ,0x00657AE0
 ?bfmeDoOU@BfmeThingOU@@QAEXE@Z,0x0000C330
-?bfmeDoPF@Rva0002ACF0Thing@@QAEXPADPAXH@Z,0x0002A420,"thiscall callee of Rva0002ACF0Thing::bfmeGoPF at 0x0002ACF0; retail REL32 at +0x20; Ghidra size 254"
 ?bfmeDoPQ@@YAXPAD000@Z,0x00024FC0
 ?bfmeDoQR@@YAXPAUBfmeElemQR@@U1@PAX@Z,0x002176F1,callee of ?bfmeEachQR@@YAXPAUBfmeElemQR@@0HPAX@Z at retail 0x002178FD read from its REL32 displacement; ICF alias onto ?Rva002176F1Insert@@YAXPAUFileInfoStruct@MixFileCreator@@U12@@Z (matched)
 ?bfmeDone1045@BfmeSub1045@@QAEXXZ,0x00655780

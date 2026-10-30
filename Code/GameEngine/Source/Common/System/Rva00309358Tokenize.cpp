@@ -64,18 +64,15 @@ template <> __declspec(dllimport) __forceinline
 void __malloc_alloc<0>::deallocate(void *__p, size_t)
 { free((char *)__p); }
 }
-struct BfmeRangePI { char *begin,*end; };
-class BfmeS1155 { public: unsigned bfmeFind1155(const char *,unsigned,unsigned); };
-class BfmeThingPI { public: unsigned bfmeGoPI(const BfmeRangePI *,unsigned); };
 void Rva00309358Tokenize(const std::string &text,std::vector<std::string> &words,const std::string &delimiters)
 {
  words.erase(words.begin(),words.end());
- unsigned begin=reinterpret_cast<BfmeS1155 *>(const_cast<std::string *>(&text))->bfmeFind1155(delimiters.data(),0,delimiters.size());
+ unsigned begin=text.find_first_not_of(delimiters,0);
  unsigned end=text.find_first_of(delimiters,begin);
  while(end!=std::string::npos || begin!=std::string::npos)
  {
   words.push_back(text.substr(begin,end-begin));
-  begin=reinterpret_cast<BfmeThingPI *>(const_cast<std::string *>(&text))->bfmeGoPI(reinterpret_cast<const BfmeRangePI *>(&delimiters),end);
+  begin=text.find_first_not_of(delimiters,end);
   end=text.find_first_of(delimiters,begin);
  }
 }
