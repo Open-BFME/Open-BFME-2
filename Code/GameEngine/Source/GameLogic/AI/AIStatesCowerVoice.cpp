@@ -50,7 +50,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 template <> __declspec(noinline) _List_node<Drawable *> *
 list<Drawable *>::_M_create_node(Drawable *const &value)
 {
@@ -83,12 +83,12 @@ enum ObjectID
 
 class Drawable;
 
-// Retail calls the list destructor out of line (the shared pointer-list
-// destructor 0x00239AF4); declaring it here keeps /O1 from expanding it.
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 
 class PickAndPlayInfo;
@@ -286,9 +286,9 @@ StateReturnType AICowerState::update()
 		voice = false;
 	if (voice)
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(obj->getDrawable());
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DB, 0);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DB, 0);
 		return STATE_SUCCESS;
 	}
 	return STATE_CONTINUE;
@@ -339,9 +339,9 @@ StateReturnType AIBackAwayState::update()
 		Drawable *draw = obj->getDrawable();
 		if (draw)
 		{
-			DrawableList list;
+			_STL::list<Drawable *> list;
 			list.push_back(draw);
-			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DB, 0);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DB, 0);
 		}
 		return STATE_SUCCESS;
 	}

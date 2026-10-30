@@ -80,7 +80,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 template <> __declspec(noinline) _List_node<Drawable *> *
 list<Drawable *>::_M_create_node(Drawable *const &value)
 {
@@ -98,8 +98,12 @@ public:
 private:
     char pad[0x38]; Coord3D position;
 };
-class DrawableList : public _STL::list<Drawable *> {
-public: ~DrawableList() throw();
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
+class DrawableList : public _STL::list<Drawable *>
+{
 };
 class PickAndPlayInfo {
 public:
@@ -119,9 +123,9 @@ void AutoAbilityBehavior::rva0045A8C2(Object *source, Object *target, const Rva0
             info.position = *target->getPosition();
             info.drawTarget = target->getDrawable();
         }
-        DrawableList list;
+        _STL::list<Drawable *> list;
         Drawable *drawable = source->getDrawable();
         list.push_back(drawable);
-        pickAndPlayUnitVoiceResponse(&list, GameMessage::Rva7E3, &info);
+        pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::Rva7E3, &info);
     }
 }

@@ -66,16 +66,13 @@ class Rva0029D30A { public: void rva0029D30A(); };
 class Rva0029D3FB { public: void rva0029D3FB(); };
 class Rva0029D7CA { public: void rva0029D7CA(); };
 
-// DrawableList's destructor 0x00239AF4 is throw(): no state store before it.
+// Zero Hour's DrawableList typedef. The member destructors call the base
+// destructor 0x00239AF4 (defined in InGameUICtor.cpp) with no state store
+// before it, so it is declared throw() here; the unwind funclets call the
+// list<Drawable *> destructor thunk 0x00239BAB.
 class Drawable;
-class DrawableList
-{
-public:
-	~DrawableList() throw();
-
-private:
-	void *m_node;
-};
+namespace _STL { template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); }
+typedef _STL::list<Drawable *> DrawableList;
 
 enum { MAX_PLAYER_COUNT = 20, MAX_MOVE_HINTS = 25, MAX_UI_MESSAGES = 6 };
 

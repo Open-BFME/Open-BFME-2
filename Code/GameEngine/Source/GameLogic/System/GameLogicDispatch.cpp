@@ -555,7 +555,7 @@ case ((GameMessage::Type)1128):
 case ((GameMessage::Type)1129):
 { int mode=msg->getArgument(0)->integer; int expected=((LogicDispatchPlayerView *)thisPlayer)->orderMode; if(msg->getArgumentCount()>1) expected=msg->getArgument(1)->integer; if(((LogicDispatchPlayerView *)thisPlayer)->orderMode==expected) ((Rva002AA257DwordSlot *)thisPlayer)->set(mode); break; }
 case ((GameMessage::Type)1130):
-{ DrawableList list; thisPlayer->rva002AE475(&list); pickAndPlayUnitVoiceResponse(&list,(GameMessage::Type)0x46A,0); thisPlayer->rva002ABAA6(); break; }
+{ _STL::list<Drawable *> list; thisPlayer->rva002AE475(&list); pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list),(GameMessage::Type)0x46A,0); thisPlayer->rva002ABAA6(); break; }
 case ((GameMessage::Type)1133):
 { thisPlayer->rva002AABBC(); break; }
 case ((GameMessage::Type)1131):

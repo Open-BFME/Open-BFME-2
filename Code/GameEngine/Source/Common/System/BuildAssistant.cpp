@@ -1374,10 +1374,12 @@ Real GetGameLogicRandomValueReal(Real low, Real high, char *file, Int line);
 #define PI 3.14159265359f
 #define _OPERATOR_NEW_DEFINED_
 #include "matrix3d.h"
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 class PickAndPlayInfo;
 class GameMessage
@@ -1932,9 +1934,9 @@ Object *BuildAssistant::buildObjectNow( Object *constructorObject, const ThingTe
 		{
 			owningPlayer->onUnitCreated( constructorObject, obj );
 
-			DrawableList list;
+			_STL::list<Drawable *> list;
 			list.push_back( obj->getDrawable() );
-			pickAndPlayUnitVoiceResponse( &list, GameMessage::MSG_BFME2_0x7DA, 0 );
+			pickAndPlayUnitVoiceResponse( static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DA, 0 );
 		}
 
 		reinterpret_cast<Rva0028CBFD *>( obj )->rva0028CBFD();

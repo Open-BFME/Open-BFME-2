@@ -20,7 +20,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 template <> __declspec(noinline) _List_node<Drawable *> *
 list<Drawable *>::_M_create_node(Drawable *const &value)
 {
@@ -317,10 +317,12 @@ enum NameKeyType
 	NK_UNKNOWN = 0
 };
 
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 
 class PickAndPlayInfo
@@ -587,9 +589,9 @@ void BloodthirstyUpdate::sacrificeHorde(Object *victim, CommandSourceType source
 			PickAndPlayInfo info;
 			info.position = *resolved->getPosition();
 			info.target = resolved->getDrawable();
-			DrawableList list;
+			_STL::list<Drawable *> list;
 			list.push_back(self->getDrawable());
-			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7E9, &info);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7E9, &info);
 		}
 	}
 }

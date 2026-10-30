@@ -698,11 +698,12 @@ public:
 	Object *m_object;
 };
 
+// The parameter type of pickAndPlayUnitVoiceResponse and its helpers. A list
+// built here is a plain list<Drawable *>: retail destroys it with the base
+// destructor 0x00239AF4 on the normal path and with the list<Drawable *>
+// destructor thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *, _STL::allocator<Drawable *> >
 {
-public:
-	DrawableList() {}
-	~DrawableList();
 };
 
 class Rva004D9596
@@ -1456,9 +1457,9 @@ bool pickAndPlayUnitVoiceResponse(const DrawableList *list, GameMessage::Type ms
 					found = true;
 					info = &plannedInfo;
 				}
-				DrawableList single;
+				_STL::list<Drawable *> single;
 				single.push_back(drawable);
-				getVictimAndEnterMessage(&single, type, info, &victim, &enterMessage, &isAttackOrMove);
+				getVictimAndEnterMessage(static_cast<const DrawableList *>(&single), type, info, &victim, &enterMessage, &isAttackOrMove);
 				++rit;
 			}
 			if (!found)

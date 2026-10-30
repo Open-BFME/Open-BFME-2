@@ -34,7 +34,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 }
 
 typedef bool Bool;
@@ -64,12 +64,12 @@ private:
 	Coord3D m_position;
 };
 
-// Retail calls the list destructor out of line (the shared pointer-list
-// destructor 0x00239AF4); declaring it here keeps /O1 from expanding it.
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 
 class PickAndPlayInfo
@@ -119,7 +119,7 @@ void AIUpdateInterface::playAttackVoiceResponse(Object *victim)
 	Drawable *drawable = m_object->getDrawable();
 	if (drawable)
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		if (victim)
@@ -128,7 +128,7 @@ void AIUpdateInterface::playAttackVoiceResponse(Object *victim)
 			info.m_position = *victim->getPosition();
 			info.m_air = victim->isUsingAirborneLocomotor();
 		}
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_DO_ATTACK_OBJECT, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_ATTACK_OBJECT, &info);
 	}
 }
 
@@ -137,11 +137,11 @@ void AIUpdateInterface::playAttackVoiceResponse(const Coord3D *position)
 	Drawable *drawable = m_object->getDrawable();
 	if (drawable)
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_DO_ATTACK_OBJECT, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_ATTACK_OBJECT, &info);
 	}
 }
 
@@ -150,11 +150,11 @@ void AIUpdateInterface::playVoiceEnterStateAttackMove(const Coord3D *position)
 	Drawable *drawable = m_object->getDrawable();
 	if (drawable)
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7E8, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7E8, &info);
 	}
 }
 
@@ -163,10 +163,10 @@ void AIUpdateInterface::playMoveVoiceResponse(const Coord3D *position)
 	Drawable *drawable = m_object->getDrawable();
 	if (drawable)
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(drawable);
 		PickAndPlayInfo info;
 		info.m_position = *position;
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_DO_MOVETO, &info);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_DO_MOVETO, &info);
 	}
 }

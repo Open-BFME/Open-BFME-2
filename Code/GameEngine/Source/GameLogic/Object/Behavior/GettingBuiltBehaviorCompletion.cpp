@@ -24,7 +24,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 template <> __declspec(noinline) _List_node<Drawable *> *
 list<Drawable *>::_M_create_node(Drawable *const &value)
 {
@@ -76,7 +76,13 @@ public:
  unsigned char pad158[0x254-0x158];CompletionBodyView *body;AIUpdateInterface *ai;
  unsigned char pad25c[0x280-0x25c];float construction;
 };
-class DrawableList:public _STL::list<Drawable *>{public:~DrawableList()throw();};
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
+class DrawableList : public _STL::list<Drawable *>
+{
+};
 class GameMessage {public:enum Type{COMPLETED=0x7e2};};
 class PickAndPlayInfo;
 bool pickAndPlayUnitVoiceResponse(const DrawableList *,GameMessage::Type,PickAndPlayInfo *);
@@ -123,9 +129,9 @@ void GettingBuiltBehavior::rva00454B5C()
    obj->setStatus((ObjectStatusTypes)2,false);
    if(iface.active())iface.complete(0);
    if(!flag33 && TheGameLogic->getFrame()>=5){
-     DrawableList list;
+     _STL::list<Drawable *> list;
      list.push_back(obj->getDrawable());
-     pickAndPlayUnitVoiceResponse(&list,GameMessage::COMPLETED,0);
+     pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list),GameMessage::COMPLETED,0);
    }
    timer=data->timer;flag33=true;flag36=false;flag3d=false;
    *((bool *)((char *)TheControlBar+0x28))=true;

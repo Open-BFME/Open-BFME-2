@@ -21,7 +21,7 @@
 //   * the three ActionManager checks take a trailing bool (true).
 // Callees at the retail REL32s: Object::getDrawable 0x005508E2,
 // DrawableList construction through _List_base 0x00239BB0,
-// list::insert 0x00239D02 (push_back), ~DrawableList 0x00239AF4,
+// list::insert 0x00239D02 (push_back), ~_List_base 0x00239AF4,
 // ActionManager::canDoSpecialPower 0x0041CCD5 / canDoSpecialPowerAtObject
 // 0x0041CFCC / pinned canDoSpecialPowerAtLocation 0x0041D60B. Callers
 // 0x0042A1DE and 0x0042A2A8. WorldBuilder twin 0xDBAA80 (callgraph lead).
@@ -93,7 +93,7 @@ _List_base<Drawable *, allocator<Drawable *> >::_List_base(const allocator<Drawa
 	node->_M_prev = node;
 	_M_node._M_data = node;
 }
-template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base();
+template <> _List_base<Drawable *, allocator<Drawable *> >::~_List_base() throw(); // no EH state store before retail's calls
 template <> inline __declspec(noinline) _List_node<Drawable *> *
 list<Drawable *>::_M_create_node(Drawable *const &value)
 {
@@ -111,7 +111,11 @@ static inline bool operator!=(const _List_iterator<_ListVal, _ListLeft> &a,
                               const _List_iterator<_ListVal, _ListRight> &b)
 { return a._M_node != b._M_node; }
 }
-class DrawableList : public _STL::list<Drawable *> { public: ~DrawableList() throw(); };
+// The selected-drawables list type. The temporary list here is a plain
+// list<Drawable *>: retail destroys it with the base destructor 0x00239AF4 on
+// the normal path and with the list<Drawable *> destructor thunk 0x00239BAB
+// in the unwind funclet.
+class DrawableList : public _STL::list<Drawable *> { };
 
 #define PAD_VIRTUALS10(p) \
 	virtual void p##0(); virtual void p##1(); virtual void p##2(); virtual void p##3(); virtual void p##4(); \
@@ -151,13 +155,13 @@ Bool InGameUI::canSelectedObjectsDoSpecialPower(const CommandButton *command, co
 	Bool result;
 	Drawable *ignoreSelDraw = ignoreSelObj ? ignoreSelObj->getDrawable() : 0;
 
-	DrawableList tmpList;
+	_STL::list<Drawable *> tmpList;
 	// Insertion keeps the sentinel stable; retain it for the size walk.
 	DrawableList::iterator tmpEnd = tmpList.end();
 	if (ignoreSelDraw)
 		tmpList.push_back(ignoreSelDraw);
 
-	const DrawableList *selected = ((UnsignedInt)_STL::distance(DrawableList::iterator((_STL::_List_node<Drawable *> *)tmpEnd._M_node->_M_next), tmpEnd) > 0) ? &tmpList : TheInGameUI->getAllSelectedDrawables();
+	const DrawableList *selected = ((UnsignedInt)_STL::distance(DrawableList::iterator((_STL::_List_node<Drawable *> *)tmpEnd._M_node->_M_next), tmpEnd) > 0) ? static_cast<const DrawableList *>(&tmpList) : TheInGameUI->getAllSelectedDrawables();
 
 	Int count = 0;
 	Int qualify = 0;

@@ -699,10 +699,11 @@ public:
 	Bool testForAny(const void *bits) const { return ((const Rva00331682Holder *)this)->test(bits); }
 };
 
+// The parameter type of pickAndPlayUnitVoiceResponse. The list itself is a
+// plain list<Drawable *>: its destructor is retail's 0x00239AF4 call on the
+// normal path and the list<Drawable *> thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 
 class PickAndPlayInfo;
@@ -2383,9 +2384,9 @@ void ActiveBody::attemptDamage(DamageInfo *damageInfo)
 
 		if (m_prevHealth / m_maxHealth >= 0.35f && m_currentHealth / m_maxHealth < 0.35f && m_currentHealth > 0.0f)
 		{
-			DrawableList drawList;
+			_STL::list<Drawable *> drawList;
 			drawList.push_back(obj->getDrawable());
-			pickAndPlayUnitVoiceResponse(&drawList, GameMessage::MSG_BFME2_0x7E0, 0);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&drawList), GameMessage::MSG_BFME2_0x7E0, 0);
 		}
 
 		if (clipped || (m_currentHealth <= 0.0f && m_prevHealth > 0.0f))

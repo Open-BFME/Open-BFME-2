@@ -365,12 +365,12 @@ public:
 	void rva002D9531(int value);
 };
 
-// Retail calls the list destructor out of line (the shared pointer-list
-// destructor 0x00239AF4).
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 
 class PickAndPlayInfo;
@@ -645,9 +645,9 @@ void FiringTracker::speedUp()
 	}
 	else if (self->testWeaponBonusCondition(WEAPONBONUSCONDITION_CONTINUOUS_FIRE_MEAN))
 	{
-		DrawableList list;
+		_STL::list<Drawable *> list;
 		list.push_back(self->getDrawable());
-		pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DC, NULL);
+		pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DC, NULL);
 
 		self->setWeaponBonusCondition(WEAPONBONUSCONDITION_CONTINUOUS_FIRE_FAST);
 		set.set(MODELCONDITION_CONTINUOUS_FIRE_FAST);

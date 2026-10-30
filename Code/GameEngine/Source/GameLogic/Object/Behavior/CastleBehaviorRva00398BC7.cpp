@@ -112,10 +112,12 @@ public:
 	static void doFXObj(const FXList*,const Object*,const Object*);
 };
 
+// pickAndPlayUnitVoiceResponse's parameter type. The list a caller hands it
+// is a plain list<Drawable *>: retail destroys it with the base destructor
+// 0x00239AF4 on the normal path and with the list<Drawable *> destructor
+// thunk 0x00239BAB in the unwind funclet.
 class DrawableList : public _STL::list<Drawable *>
 {
-public:
-	~DrawableList() throw();
 };
 class PickAndPlayInfo;
 class GameMessage
@@ -203,9 +205,9 @@ void CastleBehavior::rva00398BC7()
 		castle->m_constructionPercent = 100.0f;
 		Drawable *draw = castle->getDrawable();
 		if (draw) {
-			DrawableList list;
+			_STL::list<Drawable *> list;
 			list.push_back(draw);
-			pickAndPlayUnitVoiceResponse(&list, GameMessage::MSG_BFME2_0x7DE, 0);
+			pickAndPlayUnitVoiceResponse(static_cast<const DrawableList *>(&list), GameMessage::MSG_BFME2_0x7DE, 0);
 		}
 	}
 	if ((unsigned int)(m_ownedEnd - m_ownedBegin) > 0 && TheGameLogic->getFrame() % data->m_effectsPeriod == 0) {
