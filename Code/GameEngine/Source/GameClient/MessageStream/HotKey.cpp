@@ -216,7 +216,6 @@ public:
 		return (HotKeyMessageActionNode *)((HotKeyIntMapView *)this)->find(*messageType)._M_node;
 	}
 	HotKeyMessageActionNode *end() const { return m_header; }
-	unsigned int erase(const Int &messageType);
 private:
 	HotKeyMessageActionNode *m_header;		// +0x00
 	int m_count;		// +0x04
@@ -385,11 +384,6 @@ template void _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL
 // Incidental target placement 0x00358FA5: donor member spelling/layout remains an inference.
 template unsigned int _STL::_Rb_tree<int, _STL::pair<int const, Rva00358E26Record>, _STL::_Select1st<_STL::pair<int const, Rva00358E26Record> >, _STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00358E26Record> > >::erase(int const &);
 
-inline unsigned int HotKeyMessageActionMap::erase(const Int &messageType)
-{
-	return ((Rva00359269Tree *)this)->erase(messageType);
-}
-
 // Native 0x00359269..0x0035926E is an independent tail entry to the
 // verified key erase at 0x00358FA5, with ECX and its reference argument
 // unchanged. The existing tree view establishes the forwarding interface;
@@ -503,6 +497,36 @@ private:
 	HotKeyMap m_altMap;		// +0x18
 	HotKeyMessageActionMap m_messageActionMap;		// +0x24
 };
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *p);
+
+struct Rva00358DC2Node : public _STL::_Rb_tree_node_base
+{
+};
+
+class Rva00358DC2
+{
+	_STL::_Rb_tree_node_base *m_header;
+	int m_count;
+public:
+	void rva00358DC2(Rva00358DC2Node *pos);
+	void rva00358F33(struct Rva00358F33Iterator pos);
+};
+
+// ?rva00358F33@Rva00358DC2@@QAEXURva00358F33Iterator@@@Z @0x00358F33 (17B):
+// the map-level erase(iterator) over the erase-one above (its call at
+// 0x00358F3C). Retail copies a by-value iterator class into the argument
+// slot; the rowed worker spells that slot as its node pointer (the same
+// one-word ABI), so the call goes through the worker's address recast to
+// the iterator signature, as Rva003992B0Finish.cpp does for its hidden-return
+// worker. Skeleton twin of map<int, void *>::erase(iterator) 0x001DD80B.
+struct Rva00358F33Iterator
+{
+	Rva00358DC2Node *m_node;
+	Rva00358F33Iterator(const Rva00358F33Iterator &other) : m_node(other.m_node) {}
+};
+
+typedef void (Rva00358DC2::*Rva00358F33EraseFn)(Rva00358F33Iterator);
 
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp
 
@@ -805,10 +829,6 @@ void Rva003592E6::rva003592E6()
 	m_18.rva00358F7C();
 }
 
-// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
-
-// tu-skeleton: 0x00358B65 57B ??1Rva00358B65@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00358B65Dtor.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/MessageStream/HotKeySearch.cpp
 
 // HotKeyManager::searchHotKey, retail 0x00358B9E (194 bytes): the hot key a
@@ -851,6 +871,22 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 	return searchHotKey(TheGameText->fetch(label));
 }
 
+// tu-skeleton: 0x00358B43 34B ??0?$pair@$$CBVAsciiString@@UTreeHintRef00217D4C@@@_STL@@QAE@ABU01@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_00218022.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00358B65Dtor.cpp
+
+// ??1Rva00358B65@@QAE@XZ @0x00358B65
+// (57B): holder dtor with AsciiString narrow at +0 via releaseBuffer plus
+// TargetRef at +4 via fastcall Release; unblocks 59B+53B.
+// Identity via ReleaseTreeHintRef 0x0007DEEF plus releaseBuffer 0x00036410
+// plus callers 0x00358DE5/0x00358E87; non-virtual QAE frameless? EBP? /O1.
+
+Rva00358B65::~Rva00358B65()
+{
+	if (m_04)
+		ReleaseTreeHintRef00217D4C(m_04);
+}
+
 // tu-skeleton: 0x00358C7B 9B ??$_Destroy@URva0027EA49@@@_STL@@YAXPAURva0027EA49@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_rva0027EA49_erase.cpp (not merged yet)
 
 // tu-skeleton: 0x00358CA0 45B ?Rva00358CA0Construct@@YAXPAXPBX@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
@@ -861,11 +897,30 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 
 // tu-skeleton: 0x00358DA0 34B ?_M_create_node@?$_Rb_tree@URva00358DA0Element@@U?$pair@$$CBURva00358DA0Element@@H@_STL@@U?$_Select1st@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@U?$less@URva00358DA0Element@@@3@V?$allocator@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBURva00358DA0Element@@H@_STL@@@2@ABU?$pair@$$CBURva00358DA0Element@@H@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva00358DA0.cpp (not merged yet)
 
-// tu-skeleton: 0x00358DC2 59B ?rva00358DC2@Rva00358DC2@@QAEXPAURva00358DC2Node@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva00358DC2Erase.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/Rva00358DC2Erase.cpp
+
+// ?rva00358DC2@Rva00358DC2@@QAEXPAURva00358DC2Node@@@Z @0x00358DC2 (59B):
+// Rb erase-one: rebalance-for-erase then destroy Rva00358B65 value at +16 and free.
+// Evidence: calls 0x00025620 rebalance-erase plus 0x00358B65 dtor plus _free 0x00030830;
+// same 59B shape as Rva00383F9C erase 0x00383F9C.
+
+void Rva00358DC2::rva00358DC2(Rva00358DC2Node *pos)
+{
+	_STL::_Rb_tree_node_base *toDelete = _STL::_Rb_global<bool>::_Rebalance_for_erase(
+		pos, m_header->_M_parent, m_header->_M_left, m_header->_M_right);
+	((Rva00358B65 *)(toDelete + 1))->~Rva00358B65();
+	if (toDelete)
+		free(toDelete);
+	--m_count;
+}
+
+void Rva00358DC2::rva00358F33(Rva00358F33Iterator pos)
+{
+	Rva00358F33EraseFn erase = (Rva00358F33EraseFn)&Rva00358DC2::rva00358DC2;
+	(this->*erase)(pos);
+}
 
 // tu-skeleton: 0x00358E9F 148B ?_M_insert@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@3@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBVAsciiString@@VAudioEventRTS@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBVAsciiString@@VAudioEventRTS@@@2@0@Z -- matched in Code/GameEngine/Source/Common/Thing/ThingTemplate.cpp (not merged yet)
-
-// tu-skeleton: 0x00358F33 17B ?rva00358F33@Rva00358DC2@@QAEXURva00358F33Iterator@@@Z -- matched in Code/GameEngine/Source/GameClient/Rva00358DC2Erase.cpp (not merged yet)
 
 // tu-skeleton: 0x00358F44 56B ??1Rva00358D62@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0046A93EDtor.cpp (not merged yet)
 
@@ -887,7 +942,15 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 
 // tu-skeleton: 0x00359302 214B ?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp (not merged yet)
 
-// tu-skeleton: 0x003593D8 16B ?removeMessageAction@HotKeyManager@@QAEIH@Z -- matched in Code/GameEngine/Source/Common/HotKeyManager_removeMessageAction.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/HotKeyManager_removeMessageAction.cpp
+
+// ?removeMessageAction@HotKeyManager@@QAEIH@Z 0x003593D8 16B; tree erase call and +0x24 this adjustment are retail evidence;
+// the message-action map's key erase is the tree's erase(const int &) at 0x00358FA5.
+
+unsigned int HotKeyManager::removeMessageAction(Int messageType)
+{
+	return ((Rva00359269Tree *)&m_messageActionMap)->erase(messageType);
+}
 
 // tu-skeleton: 0x003596AD 124B ??A?$map@HUTreeHintRef003596AD@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef003596AD@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef003596AD@@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 
@@ -896,10 +959,6 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 // tu-skeleton: 0x0035973D 79B ??0Rva00359290@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0035978C 28B ??_GRva00359290@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00359290Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077D838 8B Unwind@00b7d838 -- matched in Code/GameEngine/Source/Common/Rva00358B65Dtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0077D840 10B __ehhandler$??1Rva00358B65@@QAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00358B65Dtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D864 14B $L4879 -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_stl_types2.cpp (not merged yet)
 
@@ -913,8 +972,8 @@ AsciiString HotKeyManager::searchHotKey( const AsciiString& label )
 
 // tu-skeleton: 0x0077D8F9 10B __ehhandler$?addHotKey@HotKeyManager@@QAE?AURva00359302Result@@ABUTreeHintRef00217D4C@@ABVAsciiString@@_N@Z -- matched in Code/GameEngine/Source/GameClient/MessageStream/HotKeyAddHotKey.cpp (not merged yet)
 
-// tu-skeleton: 0x0077D92F 8B uw_0077d92f -- matched in Code/gen_small/uw_gen_006.cpp (not merged yet)
+// tu-skeleton: 0x0077D92F 8B $L14319 -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 
-// tu-skeleton: 0x0077D937 8B uw_0077d937 -- matched in Code/gen_small/uw_gen_001.cpp (not merged yet)
+// tu-skeleton: 0x0077D937 8B $L14320 -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
 
 // tu-skeleton: 0x0077D93F 10B __ehhandler$??A?$map@HUTreeHintRef003596AD@@U?$less@H@_STL@@V?$allocator@U?$pair@$$CBHUTreeHintRef003596AD@@@_STL@@@3@@_STL@@QAEAAUTreeHintRef003596AD@@ABH@Z -- matched in Code/GameEngine/Source/Common/Rva005C6CCC.cpp (not merged yet)
