@@ -19952,8 +19952,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03648,4,.data,global,?TheCaveContainPoolKey@?1??getModuleNameKey@CaveContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp,owned,,1,2
 0x00A0364C,4,.data,global,?$S1@?1??getModuleNameKey@CaveContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/CaveContain.cpp,owned,,1,4
 0x00A03650,4,.data,global,_s_rva007B0D8C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03654,4,.data,global,?TheHealContainPoolKey@?1??getModuleNameKey@HealContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HealContainPoolKey.cpp,owned,,1,2
-0x00A03658,4,.data,global,?$S1@?1??getModuleNameKey@HealContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HealContainPoolKey.cpp,owned,,1,4
+0x00A03654,4,.data,global,?TheHealContainPoolKey@?1??getModuleNameKey@HealContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp,owned,,1,2
+0x00A03658,4,.data,global,?$S1@?1??getModuleNameKey@HealContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp,owned,,1,4
 0x00A0365C,4,.data,global,?TheTransportContainPoolKey@?1??getModuleNameKey@TransportContain@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp,owned,,1,2
 0x00A03660,4,.data,global,?$S1@?1??getModuleNameKey@TransportContain@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Contain/TransportContain.cpp,owned,,1,2
 0x00A03664,4,.data,global,_s_rva007B0DB6,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1

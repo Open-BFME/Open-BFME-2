@@ -127,7 +127,6 @@ address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va00DE60F0	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DE60xx.cpp	g_Va00DE6100	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DEAFxx.cpp	g_Va00DEBBAC	2
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFD8E4	1
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDC48	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDC50	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFD8xx.cpp	g_Va00DFDCD8	3
@@ -140,12 +139,6 @@ address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFEExx.cpp	g_Va0
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFEExx.cpp	g_Va00DFEEC4	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFEExx.cpp	g_Va00DFEEDC	2
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFF0xx.cpp	g_Va00DFF0E4	3
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFD8E4	2
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFE014	1
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFEDE4	1
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFEEC4	1
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFEEDC	1
-address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_DFxx.cpp	g_Va00DFF040	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_E0102xx.cpp	g_Va00E02820	3
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_E0102xx.cpp	g_Va00E02F24	1
 address_global	Code/GameEngine/Source/Common/GlobalFlagClearers_E027xx.cpp	g_Va00E027EC	3
@@ -1876,10 +1869,6 @@ alternatename	Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp	?slot6@Rva
 alternatename	Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp	?slot7@MainMenuMediumScaleUpTransition@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyTailDtors1DBAC3.cpp	?slot7@Rva0035E00F@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/FamilyVectorDtors_CodexSep26.cpp	??1Rva00297360Element@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp	?anchor@Rva00220240FlatDtorM0@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp	?anchor@Rva00220240FlatDtorM5@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp	?anchor@Rva00220240FlatDtorM6@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/FlatMultiVptrDestructors.cpp	?anchor@Rva00220240FlatDtorM7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/FunctorNotSetCtor.cpp	_vtbl_00BD3B54	1
 alternatename	Code/GameEngine/Source/Common/GameClient_addIconLayer.cpp	?pushBack@DrawableList@@QAEXAAPBVDrawable@@@Z	1
 alternatename	Code/GameEngine/Source/Common/GameModePreferences.cpp	??1LANPreferences@@UAE@XZ	1
@@ -3060,6 +3049,10 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDto
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp	?b6@B6@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp	?b7@B7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp	?b8@B8@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM0@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM5@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM6@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HealContain.cpp	?anchor@Rva00220240FlatDtorM7@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f00@Iface00@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f0C@Iface0C@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HordeGarrisonContainCtor.cpp	?f10@Iface10@@UAEXXZ	1
