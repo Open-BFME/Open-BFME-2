@@ -11069,9 +11069,9 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00851220,92,.rdata,vtable,??_7Rva0049C3FC@@6BRva00451F45_Root@@@,,literal,??_7Rva0049C3FC@@6BRva00451F45_Root@@@;_s_vtable@Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateCtor.cpp,1,2
 0x0085127C,4,.rdata,global,?g_bfmeGiveUpgrade0025@@3MA,Code/GameEngine/Source/GameLogic/Object/Update/GiveUpgradeUpdateModuleDataCtor.cpp,owned,,1,1
 0x00851280,132,.rdata,vtable,??_7GiveUpgradeUpdateModuleData@@6B@,,literal,,0,1
-0x00851304,16,.rdata,global,?ProductionDoorOpeningFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp,owned,,1,6
-0x00851314,16,.rdata,global,?ProductionDoorClosingFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp,owned,,1,5
-0x00851324,92,.rdata,global,?ProductionDoorWaitingOpenFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp,owned,,1,4
+0x00851304,16,.rdata,global,?ProductionDoorOpeningFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,owned,,1,6
+0x00851314,16,.rdata,global,?ProductionDoorClosingFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,owned,,1,5
+0x00851324,92,.rdata,global,?ProductionDoorWaitingOpenFlags@@3PAIA,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,owned,,1,4
 0x008513F0,124,.rdata,vtable,??_7Rva0049E03AIface20@@6B@,,literal,,0,1
 0x0085146C,4,.rdata,vtable,??_7Rva0049D1B1@@6B@,,literal,,0,2
 0x00851470,8,.rdata,vtable,??_7ProductionUpdate@@6BIface24@@@,,literal,??_7ProductionUpdate@@6BIface24@@@;??_7ProductionUpdate@@6BRva0049E03AIface24@@@,0,2

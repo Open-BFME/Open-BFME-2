@@ -10,6 +10,26 @@
 #include <memory>
 #include <string.h>
 #include <stl/_algobase.h>
+class ProductionUpdateModuleData;
+class ProductionTransferTemplate;
+class TransferContainView;
+class Xfer;
+struct Rva0049DF81Input;
+class Holder
+{
+public:
+	char m_pad[0x45C];
+	int m_handle;
+};
+#include "../../../Common/GameLogicObjectLookupView.h"
+#include "../../../../Include/Common/ThingTemplate.h"
+// Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
+// rather than emitting its own.
+namespace _STL {
+template <> _List_base<int, allocator<int> >::~_List_base();
+}
+#define BFME_ASCII_DTOR_DECL
+#include "../../../../../../reference/shims/bfme2_ascii/ascii_string.h"
 
 // ProductionUpdate.cpp -- ProductionUpdate members recovered from WorldBuilder
 // leads (reverse/wb_name_leads.csv): WB's debug build names the function
@@ -452,14 +472,20 @@ public:
 extern NameKeyGenerator *TheNameKeyGenerator;
 
 typedef unsigned int UnsignedInt;
-class ModuleData;
-class Thing;
-class ThingTemplate;
-class ProductionUpdateInterface;
-class Rva0049D1B1;
-struct Rva0049D0DEMask;
-class Rva0049CD4FArg;
 
+class ModuleData;
+
+class Thing;
+
+class ThingTemplate;
+
+class ProductionUpdateInterface;
+
+class Rva0049D1B1;
+
+struct Rva0049D0DEMask;
+
+class Rva0049CD4FArg;
 
 enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
 
@@ -481,8 +507,6 @@ enum ExitDoorType
 {
 	DOOR_1 = 0
 };
-
-
 
 class BehaviorModuleBase
 {
@@ -700,6 +724,128 @@ protected:
 	Bool m_bfme13C; // +0x13C
 };
 
+enum UpgradeType
+{
+	UPGRADE_TYPE_PLAYER = 0,
+	UPGRADE_TYPE_OBJECT = 1
+};
+
+class AsciiString;
+
+class UpgradeTemplate
+{
+public:
+	UpgradeType getUpgradeType() const { return m_type; }
+	unsigned int calcCostToBuild(Player *player, unsigned int requester) const;
+	const AsciiString &getUpgradeName() const { return m_name; }
+	int rva0026EE30(void *player, void *object);
+	char m_unknown00[4]; // +0x00
+	UpgradeType m_type; // +0x04 +4
+	AsciiString m_name; // +0x08 +8
+	char m_pad0C[0x1C];
+	AsciiString m_displayName; // +0x28
+	char m_pad2C[0x14];
+	void *m_researchSound; // +0x40
+	int m_evaEvent; // +0x44
+	void *m_unitSound; // +0x48
+	char m_pad4C[0x24];
+	int m_bfme70; // +0x70 +0x70
+};
+
+class Rva0037E6E8
+{
+public:
+	int rva0037E649(int,Object *);
+	float rva0037E815(int,Object *);
+	int rva0037E6E8(void *extra, void *object);
+};
+
+class Rva0049CD4FArg
+{
+public:
+	int m_pad0;
+	int m_kind;
+	ThingTemplate *m_thing;
+	UpgradeTemplate *m_upgrade;
+	void *m_extra;
+};
+
+struct Rva0049D3BCData
+{
+	char _pad[0x0C];
+	unsigned int m_doorOpeningTime;
+	unsigned int m_doorWaitOpenTime;
+	unsigned int m_doorClosingTime;
+};
+
+// ProductionDoorOpeningFlags: matched references place it at VA 0xc51304; retail contents, sized to the
+// 0x10-byte gap before the next known global there.
+unsigned int ProductionDoorOpeningFlags[4] = {
+	21, 25, 29, 33,
+};
+
+// ProductionDoorClosingFlags: matched references place it at VA 0xc51314; retail contents, sized to the
+// 0x10-byte gap before the next known global there.
+unsigned int ProductionDoorClosingFlags[4] = {
+	22, 26, 30, 34,
+};
+
+// ProductionDoorWaitingOpenFlags: the third of the three consecutive 16-byte bit-index tables at
+// VA 0xc51304 / 0xc51314 / 0xc51324 (RVA 0x00851324, .rdata, file offset
+// 0x00850724): 17 1b 1f 23. The two siblings hold 20..32 in steps of five; this
+// one continues the run, and the strings that follow it (HeroRevive,
+// HeroPurchase, TimeMultiplier, CostMultiplier, ModifierFilter) are a separate
+// record block, so the object the rowed body indexes is these four words.
+extern unsigned int ProductionDoorWaitingOpenFlags[];
+
+unsigned int ProductionDoorWaitingOpenFlags[4] = {
+	0x17, 0x1b, 0x1f, 0x23,
+};
+
+class ThingFactory
+{
+public:
+	const ThingTemplate *findTemplate(const AsciiString &key);
+};
+
+extern class ThingFactory *TheThingFactory;
+
+// Bind the erase-begin-end call to the rowed 0x0002CCFC instead of emitting a
+// second copy of the header's inline definition.
+namespace _STL
+{
+template <> AsciiString *vector<AsciiString, allocator<AsciiString> >::erase(AsciiString *, AsciiString *);
+}
+
+// The canonical vector keeps its three pointers protected; read them through a
+// layout view of the same 12 bytes.
+struct BfmeAsciiVecView
+{
+	AsciiString *m_start;
+	AsciiString *m_finish;
+	AsciiString *m_end;
+};
+
+namespace _STL
+{
+
+// Declared-only explicit specializations: keep the calls external (resolved
+// through twin pins to the folded bodies) and throwing (retail EH states).
+template <>
+_Vector_base<QuantityModifier, allocator<QuantityModifier> >::_Vector_base(
+	const allocator<QuantityModifier> &storage);
+template <>
+vector<QuantityModifier, allocator<QuantityModifier> >::iterator
+vector<QuantityModifier, allocator<QuantityModifier> >::erase(
+	vector<QuantityModifier, allocator<QuantityModifier> >::iterator first,
+	vector<QuantityModifier, allocator<QuantityModifier> >::iterator last);
+
+}
+
+// ??0ProductionUpdateModuleData@@QAE@XZ @0x49F7DB
+// bfme link decl-only begin
+namespace _STL { template <> vector<QuantityModifier,_STL::allocator<QuantityModifier> >::~vector(); }
+
 // tu-skeleton: 0x0049CC15 33B ?rva0049CC15@ProductionUpdate@@UAEXW4ProductionID@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC36 43B ?rva0049CC36@ProductionUpdate@@UBE_NW4ProductionID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -707,6 +853,8 @@ protected:
 // tu-skeleton: 0x0049CC61 60B ?rva0049CC61@ProductionUpdate@@UAEXPBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049CC9D 83B ?rva0049CC9D@ProductionUpdate@@UAEXPBVThingTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 
@@ -885,9 +1033,95 @@ ProductionUpdateModuleData::~ProductionUpdateModuleData()
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 
-// tu-skeleton: 0x0049CD24 43B ?rva0049CD24@ProductionUpdate@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/Common/Rva0049CD24Apply.cpp (not merged yet)
 
-// tu-skeleton: 0x0049CD4F 170B ?calcTotalProductionFrames@ProductionUpdate@@QAEHPAVRva0049CD4FArg@@@Z -- matched in Code/GameEngine/Source/Common/ProductionUpdate_calcTotalProductionFrames.cpp (not merged yet)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdatePoolKey.cpp
+
+// ?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ
+NameKeyType ProductionUpdate::getModuleNameKey() const
+{
+	static NameKeyType TheProductionUpdatePoolKey =
+		TheNameKeyGenerator->nameToKey("ProductionUpdate");
+	return TheProductionUpdatePoolKey;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0049CD24Apply.cpp
+
+void ProductionUpdate::rva0049CD24(Object *obj)
+{
+	if (obj == 0)
+		return;
+	Holder *holder = (Holder *)m_object;
+	if (holder == 0)
+		return;
+	int handle = holder->m_handle;
+	if (handle == 0)
+		return;
+	TheGameLogic->rva0023D0C2(obj, handle);
+}
+
+// ---- from Code/GameEngine/Source/Common/ProductionUpdate_calcTotalProductionFrames.cpp
+
+int ProductionUpdate::calcTotalProductionFrames(Rva0049CD4FArg *arg)
+{
+	if (!m_object)
+		return 1;
+	Player *player = m_object->getControllingPlayer();
+	if (!player || !arg)
+		return 1;
+
+	int result;
+	switch (arg->m_kind)
+	{
+	case 1:
+	{
+		int object = (int)m_object;
+		result = arg->m_thing->calcTimeToBuild(player, object, -1);
+		break;
+	}
+	case 2:
+		result = arg->m_upgrade->rva0026EE30(player, m_object);
+		break;
+	case 3:
+		result = ((Rva0037E6E8 *)&player->m_table)->rva0037E6E8(arg->m_extra, m_object);
+		break;
+	default:
+		result = 1;
+		break;
+	}
+	if (result < 1)
+		result = 1;
+
+	float scale = 1.0f;
+	if (m_object->rva0028C15E(0xD, &scale, 0, 1))
+		result = (int)((float)result / scale);
+	return result;
+}
 
 // tu-skeleton: 0x0049CDF9 47B ?isUpgradeInQueue@ProductionUpdate@@UBE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
@@ -913,7 +1147,56 @@ ProductionUpdateModuleData::~ProductionUpdateModuleData()
 
 // tu-skeleton: 0x0049D0DE 54B ?rva0049D0DE@ProductionUpdate@@UBEIPBURva0049D0DEMask@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
-// tu-skeleton: 0x0049D3BC 362B ?rva0049D3BC@ProductionUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp
+
+// ?rva0049D3BC@ProductionUpdate@@QAEXXZ retail 0x0049D3BC 362B
+// Expiry sweep over 4 entries at +0x3C with timeouts from +0x04 data (+0xC/+0x10/+0x14)
+// and Disability-style bit tables at 0x00C51304/0x00C51314/0x00C51324 driving
+// +0x7C set and +0xC8 clear/set plus +0x114 dirty flag. Evidence: TheGameLogic
+// frame at +0x40, thresholds, bit-array shape, sibling +0x114 flag in Rva0049D526.
+
+void ProductionUpdate::rva0049D3BC()
+{
+	const Rva0049D3BCData *data = (const Rva0049D3BCData *)m_moduleData;
+	unsigned int cur = TheGameLogic->getFrame();
+	for (int i = 0; i < 4; ++i)
+	{
+		if (m_doors[i].m_doorOpenedFrame != 0)
+		{
+			if (cur - m_doors[i].m_doorOpenedFrame > data->m_doorOpeningTime)
+			{
+				m_doors[i].m_doorOpenedFrame = 0;
+				m_doors[i].m_doorWaitOpenFrame = cur;
+				m_clearFlags.set(ProductionDoorOpeningFlags[i], true);
+				m_setFlags.set(ProductionDoorOpeningFlags[i], false);
+				m_setFlags.set(ProductionDoorWaitingOpenFlags[i], true);
+				m_flagsDirty = 1;
+			}
+		}
+		else if (m_doors[i].m_doorWaitOpenFrame != 0)
+		{
+			if (cur - m_doors[i].m_doorWaitOpenFrame > data->m_doorWaitOpenTime && m_doors[i].m_holdOpen == 0)
+			{
+				m_doors[i].m_doorWaitOpenFrame = 0;
+				m_doors[i].m_doorClosedFrame = cur;
+				m_clearFlags.set(ProductionDoorWaitingOpenFlags[i], true);
+				m_setFlags.set(ProductionDoorWaitingOpenFlags[i], false);
+				m_setFlags.set(ProductionDoorClosingFlags[i], true);
+				m_flagsDirty = 1;
+			}
+		}
+		else if (m_doors[i].m_doorClosedFrame != 0)
+		{
+			if (m_doors[i].m_holdOpen == 0 && cur - m_doors[i].m_doorClosedFrame > data->m_doorClosingTime)
+			{
+				m_doors[i].m_doorClosedFrame = 0;
+				m_clearFlags.set(ProductionDoorClosingFlags[i], true);
+				m_setFlags.set(ProductionDoorClosingFlags[i], false);
+				m_flagsDirty = 1;
+			}
+		}
+	}
+}
 
 // tu-skeleton: 0x0049D867 315B ?queueUpgrade@ProductionUpdate@@UAE_NPBVUpgradeTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
@@ -939,16 +1222,6 @@ ProductionUpdateModuleData::~ProductionUpdateModuleData()
 
 // tu-skeleton: 0x0049E14C 18B ?nextProduction@ProductionUpdate@@UBEPBVRva0049D1B1@@PBV2@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdatePoolKey.cpp
-
-// ?getModuleNameKey@ProductionUpdate@@UBE?AW4NameKeyType@@XZ
-NameKeyType ProductionUpdate::getModuleNameKey() const
-{
-	static NameKeyType TheProductionUpdatePoolKey =
-		TheNameKeyGenerator->nameToKey("ProductionUpdate");
-	return TheProductionUpdatePoolKey;
-}
-
 // tu-skeleton: 0x0049E1A3 28B ?getDisabledTypesToProcess@ProductionUpdate@@UBE?AV?$BitFlags@$0L@@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x0049E1BF 181B ??1ProductionUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
@@ -957,13 +1230,81 @@ NameKeyType ProductionUpdate::getModuleNameKey() const
 
 // tu-skeleton: 0x0049E34C 28B ??_GProductionUpdate@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp (not merged yet)
 
-// tu-skeleton: 0x0049E368 77B ?rva0049E368@ProductionUpdate@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateRva0049E368.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateRva0049E368.cpp
+
+// ?rva0049E368@ProductionUpdate@@QAEXXZ @0x0049E368 77B
+// ProductionUpdate queue clear: per-element ThingTemplate lookup via rowed
+// rva002D06CA 0x002D06CA through g_009FF000 plus virtual at +0x34 on the
+// +0x20 iface with (template, 1), then vector<AsciiString> erase-begin-end
+// via rowed 0x0002CCFC. Evidence: prev row ProductionUpdate deleting dtor
+// 0x0049E34C same TU dir, vector element stride 4 with erase(first,last)
+// row name, caller 0x0049E41F in 0x0049E3B5.
+
+void ProductionUpdate::rva0049E368()
+{
+	for (AsciiString *asciiString = ((BfmeAsciiVecView *)&m_bfme130)->m_start; asciiString != ((BfmeAsciiVecView *)&m_bfme130)->m_finish; ++asciiString)
+	{
+		void *tmpl = (void *)TheThingFactory->findTemplate(*asciiString);
+		rva0049F8A9((const ThingTemplate *)tmpl, true);
+	}
+	_STL::vector<AsciiString, _STL::allocator<AsciiString> > &v = m_bfme130;
+	v.erase(((BfmeAsciiVecView *)&v)->m_start, ((BfmeAsciiVecView *)&v)->m_finish);
+}
 
 // tu-skeleton: 0x0049E3B5 4969B ?update@ProductionUpdate@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 
 // tu-skeleton: 0x0049F71E 11B ?clear@?$vector@UFXBoneInfo@@V?$allocator@UFXBoneInfo@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp (not merged yet)
 
-// tu-skeleton: 0x0049F7DB 178B ??0ProductionUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
+
+//
+// ??0ProductionUpdateModuleData@@QAE@XZ, retail 0x0049F7DB, 178 bytes.
+// ProductionUpdate data ctor over INI table 0x00C517F0 (MaxQueueEntries at
+// +0x28, NumDoorAnimations at +8, the four door durations at +0xC..+0x18,
+// QuantityModifier at +0x1C, DisabledTypesToProcess at +0x2C, GiveNoXP at
+// +0x30, UnitInvulnerableTime at +0x34, SpecialPrepModelconditionTime at
+// +0x38, BonusForType string at +0x44, SpeedBonusAudioLoop at +0x48 (a nullable pool reference),
+// SecondaryQueue at +0x4C; factory 0x24E88F news 0x50, sole caller).
+// Donor is ZH ProductionUpdate.cpp: five door/int zeroes, quantity-modifier
+// clear, maxQueue default, MAKE_DISABLED_MASK(HELD). BFME2 changes maxQueue
+// 9 -> 0x14 and adds the string/list/bool tail; the vector clear is spelled
+// as an explicit erase(begin,end) through a named reference (which homes the
+// list in edi for the [edi+4]/[edi] pushes, ProductionSpeedBonus precedent).
+// The QuantityModifier vector (AsciiString plus int, 8 bytes) erases through
+// the linker-folded 8-byte-pair erase at 0x00207F0D (FXBoneInfoVectorErase
+// names our call site as one of the seven folded callers), and its empty
+// base folds to 0x00211E58; both get twin pins. The two explicit
+// specialization declarations below keep those calls external and throwing
+// (a visible <vector> body would be locally analyzed nothrow and collapse
+// the EH states; retail arms 0 before the base call, 1 before the flags
+// call, 4 before erase). BonusForType uses an inline zero constructor,
+// a declared-only destructor and the set alias at 0x55F5 (empty literal
+// at 0xBBAC1C). The +0x48 SpeedBonusAudioLoop reference is zero-initialized. Snapshot
+// supplies the +0 vptr; the +4 word is untouched padding.
+
+// bfme link decl-only end
+ProductionUpdateModuleData::ProductionUpdateModuleData()
+	: Snapshot()
+	, m_bonusForType()
+	, m_speedBonusAudioLoop()
+{
+	m_numDoorAnimations = 0;
+	m_doorOpeningTime = 0;
+	m_doorWaitOpenTime = 0;
+	m_doorClosingTime = 0;
+	m_constructionCompleteDuration = 0;
+	_STL::vector<QuantityModifier, _STL::allocator<QuantityModifier> > &modifiers = m_quantityModifiers;
+	modifiers.erase(modifiers.begin(), modifiers.end());
+	m_maxQueueEntries = 0x14;
+	m_disabledTypesToProcess = BitFlags<11>(BitFlags<11>::kInit, 3);
+	m_giveNoXP = false;
+	m_unitInvulnerableTime = 0;
+	m_specialPrepModelconditionTime = 0;
+	m_veteranUnitsFromVeteranFactory = false;
+	m_setBonusModelConditionOnSpeedBonus = false;
+	m_bonusForType.set("");
+	m_secondaryQueue = false;
+}
 
 // tu-skeleton: 0x0049F8A9 113B ?rva0049F8A9@ProductionUpdate@@UAEXPBVThingTemplate@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
 

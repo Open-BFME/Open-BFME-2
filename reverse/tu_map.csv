@@ -38360,8 +38360,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049CC61,60,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049CC9D,83,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049CCF0,52,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,C,C=0x0049CC9D..0x0049CD24,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
-0x0049CD24,43,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/Common/ProductionUpdate.cpp,Code/GameEngine/Source/Common/Rva0049CD24Apply.cpp
-0x0049CD4F,170,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/Common/ProductionUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/Common/ProductionUpdate_calcTotalProductionFrames.cpp
+0x0049CD24,43,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/Common/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
+0x0049CD4F,170,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/Common/ProductionUpdate.cpp W=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049CDF9,47,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049CE28,59,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049CE63,11,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,C,C=0x0049CE28..0x0049CE6E,Code/GameEngine/Source/Common/VslotSmallBodiesAM.cpp
@@ -38384,7 +38384,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049D244,122,code,,,-,,Code/GameEngine/Source/Common/Rva0049D244Product.cpp
 0x0049D2BE,127,code,,,-,,Code/GameEngine/Source/Common/Rva0049D2BEProduct.cpp
 0x0049D33D,127,code,,,-,,Code/GameEngine/Source/Common/Rva0049D33DProduct.cpp
-0x0049D3BC,362,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D3BC.cpp
+0x0049D3BC,362,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049D526,89,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D526.cpp
 0x0049D57F,152,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/Rva0049D526.cpp
 0x0049D617,104,code,,,-,,Code/GameEngine/Source/Common/Rva0049D617Arm.cpp
@@ -38415,11 +38415,11 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0049E274,63,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,C,C=0x0049E1BF..0x0049E2B3,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x0049E2B3,153,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049E34C,28,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp
-0x0049E368,77,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateRva0049E368.cpp
+0x0049E368,77,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049E3B5,4969,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049F71E,11,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,C,C=0x0049E3B5..0x0049F729,Code/GameEngine/Source/Common/Thing/ModuleFactory.cpp
 0x0049F729,178,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,C,C=0x0049E3B5..0x0049F7DB,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
-0x0049F7DB,178,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
+0x0049F7DB,178,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049F88D,28,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0049F8A9,113,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0049F91A,1192,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,Z,Z=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp S=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp N=Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
@@ -80701,12 +80701,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078D96F,10,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E1BF@FuncInfo0x0093DB78,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateDtor.cpp
 0x0078D979,8,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E274@FuncInfo0x0093DB9C,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
 0x0078D981,10,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E274@FuncInfo0x0093DB9C,Code/Libraries/Source/WWVegas/WWLib/StlportVectorDtorFamily.cpp
-0x0078D98B,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
-0x0078D993,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
-0x0078D99E,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
-0x0078D9A9,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
+0x0078D98B,8,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
+0x0078D993,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
+0x0078D99E,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
+0x0078D9A9,11,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0078D9B4,11,code,,,-,,Code/gen_small/uw_gen_011.cpp
-0x0078D9BF,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateModuleDataCtor.cpp
+0x0078D9BF,10,code,,,-,,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp
 0x0078D9C9,13,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E3B5@FuncInfo0x0093DC40,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0078D9D6,11,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E3B5@FuncInfo0x0093DC40,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
 0x0078D9E1,8,code,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdate.cpp,approved,P,P=0x0049E3B5@FuncInfo0x0093DC40,Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp
