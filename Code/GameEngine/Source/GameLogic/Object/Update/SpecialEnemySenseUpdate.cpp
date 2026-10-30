@@ -54,6 +54,32 @@ public:
 	bool m_match;
 };
 #include "../../../../../Libraries/Include/Lib/Coord3D.h"
+//
+// ?xfer@Rva00499F45@@MAEXPAVXfer@@@Z, retail 0x0049A016 (33 bytes).
+// Virtual slot 3 (offset 0x0C) of vtable 0x008504A4 (class of rowed dtor
+// ??1Rva00499F45@@UAE@XZ in Rva0024A797Derived.cpp): base UpdateModule xfer
+// via rowed 0x44DF9F, then IsLightCRC early-out via Xfer slot 0x10, then
+// Version1 via rowed 0x53EE. No members (cf. DeletionUpdateXfer minimal
+// shape, UpdateModuleXfer IsLightCRC precedent).
+
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+class Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+struct IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class PartitionManager
 {
@@ -148,7 +174,9 @@ enum UpdateSleepTime
 };
 
 class ModuleData;
+
 class Thing;
+
 class Xfer;
 
 class BehaviorModule
@@ -220,6 +248,14 @@ private:
 	}
 };
 
+class Rva00499F45 : public UpdateModule
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdate.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdatePoolKey.cpp
 
 // ?getModuleNameKey@SpecialEnemySenseUpdate@@UBE?AW4NameKeyType@@XZ
@@ -229,12 +265,6 @@ NameKeyType SpecialEnemySenseUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("SpecialEnemySenseUpdate");
 	return TheSpecialEnemySenseUpdatePoolKey;
 }
-
-// tu-skeleton: 0x00499FA9 81B ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
-
-// tu-skeleton: 0x00499FFA 28B ??_GRva00499F45@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
-
-// tu-skeleton: 0x0049A016 33B ?xfer@Rva00499F45@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/Rva00499F45Xfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateUpdate.cpp
 
@@ -283,6 +313,20 @@ UpdateSleepTime SpecialEnemySenseUpdate::update()
 		}
 	}
 	return data->m_scanInterval;
+}
+
+// tu-skeleton: 0x00499FA9 81B ??0SpecialEnemySenseUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
+
+// tu-skeleton: 0x00499FFA 28B ??_GRva00499F45@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/Rva0024A797Derived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00499F45Xfer.cpp
+
+void Rva00499F45::xfer(Xfer *xfer)
+{
+	UpdateModule::xfer(xfer);
+	if (xfer->IsLightCRC())
+		return;
+	xfer->Version1();
 }
 
 // tu-skeleton: 0x0078D5AC 8B Unwind@00b8d5ac -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialEnemySenseUpdateCtorThunk.cpp (not merged yet)
