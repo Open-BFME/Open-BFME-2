@@ -157,11 +157,13 @@ class OCLUpdate
 {
 public:
 	virtual NameKeyType getModuleNameKey() const;
+	float getCountdownPercent() const;
 	unsigned int getRemainingFrames() const;
 
 private:
 	char m_pad[0x1C]; // primary vptr plus padding places the timer at +0x20
 	int m_20;
+	unsigned m_24;
 };
 
 // ??0OCLUpdateModuleData@@QAE@XZ at retail 0x0049B355 (26 bytes). The
