@@ -865,6 +865,26 @@ struct Rva002D021C
 #include <new>
 #pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
 #pragma comment(linker, "/alternatename:?bfmeCalcEFC@@YGMH@Z=?bfmeAt@Rva0039AE75@@QBEMH@Z")
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 class AsciiStringMember
 {
@@ -939,11 +959,27 @@ extern float g_Va00BBB8D8;
 
 struct ExperienceParentView;
 
+BFME_LITERAL_NAME_GETTER(Rva0039ADFENamed, "ExperienceTrackerObject")
+
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x0039ABFF 13B ?rva0039ABFF@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/RvaSingletonFwdMisc.cpp (not merged yet)
 
 // tu-skeleton: 0x0039AC0C 23B ?rva0039AC0C@ExperienceTracker@@QBE?AUExperienceLevelHandle@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0039AC23 121B ?rva0039AC23@ExperienceTracker@@QAEH_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ExperienceTracker.cpp
 
@@ -1245,36 +1281,6 @@ void bfmeAnchorRva0039ADF3Dtor(Rva0039ADF3 *p)
 	p->Rva0039ADF3::~Rva0039ADF3();
 }
 
-// tu-skeleton: 0x0039AD0B 58B ?xfer@Rva0039AE75@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AD45 17B ?rva0039AD45@ExperienceTracker@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039ADAF 10B ?isTrainable@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0039ADB9 51B ?rva0039ADB9@ExperienceTracker@@QBEMMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039ADEC 7B ?rva0039ADEC@Rva0039ADEC@@QBEMM@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x0039ADFE 6B ?name@Rva0039ADFENamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AE04 44B ?rva0039AE04@Rva0039ADF3@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AE30 69B ??0Rva0039AE75@@QAE@PAURva0039AE75Owner@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AE75 29B ??_GRva0039AE75@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AE92 42B ?indexFor@Rva0039AE75@@ABEHH@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AEBC 158B ??0ExperienceTracker@@QAE@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
-
-// tu-skeleton: 0x0039AFC8 257B ?xfer@ExperienceTracker@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039B0C9 40B ??0Rva0039ADF3@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
-
-// tu-skeleton: 0x0039B10D 56B ?xfer@Rva0039ADF3@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x0039B145 42B ?bfmeAt@Rva0039AE75@@QBEMH@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/BfmeConv813.cpp
 
 // ?bfmeUpdate@BfmeThingEFC@@QAEXH@Z
@@ -1325,6 +1331,50 @@ void Rva003BD306Target::rva0039B2C7(int count, bool value)
 	for (; count > 0; --count)
 		rva0039B28F(value);
 }
+
+// tu-skeleton: 0x0039AD0B 58B ?xfer@Rva0039AE75@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AD45 17B ?rva0039AD45@ExperienceTracker@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039ADAF 10B ?isTrainable@ExperienceTracker@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8ByteChaseGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0039ADB9 51B ?rva0039ADB9@ExperienceTracker@@QBEMMH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039ADEC 7B ?rva0039ADEC@Rva0039ADEC@@QBEMM@Z -- matched in Code/GameEngine/Source/Common/GapLeavesSeat8.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
+
+// tu-skeleton: 0x0039AE04 44B ?rva0039AE04@Rva0039ADF3@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AE30 69B ??0Rva0039AE75@@QAE@PAURva0039AE75Owner@@@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AE75 29B ??_GRva0039AE75@@UAEPAXI@Z -- matched in Code/GameEngine/Source/Common/InlineDtorDeletingDtorsC01.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AE92 42B ?indexFor@Rva0039AE75@@ABEHH@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AEBC 158B ??0ExperienceTracker@@QAE@PBVThingTemplate@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x0039AFC8 257B ?xfer@ExperienceTracker@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039B0C9 40B ??0Rva0039ADF3@@QAE@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer_ExperienceTracker.cpp (not merged yet)
+
+// tu-skeleton: 0x0039B10D 56B ?xfer@Rva0039ADF3@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ExperienceTrackerXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0039B145 42B ?bfmeAt@Rva0039AE75@@QBEMH@Z -- matched in Code/GameEngine/Source/Common/System/SnapshotXfersBfme.cpp (not merged yet)
 
 // tu-skeleton: 0x0039B433 5B ?j_0039b433@@YAXXZ -- matched in Code/gen_small/gthunks_000_admitted.cpp (not merged yet)
 

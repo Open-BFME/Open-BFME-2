@@ -37,7 +37,6 @@
 BFME_LITERAL_NAME_GETTER(AttackContesterStateMachine, "AttackContesterStateMachine")
 BFME_LITERAL_NAME_GETTER(GiantBirdGuardMachine, "GiantBirdGuardMachine")
 BFME_LITERAL_NAME_GETTER(CastleBehavior, "CastleBehavior")
-BFME_LITERAL_NAME_GETTER(Rva0039ADFENamed, "ExperienceTrackerObject")
 BFME_LITERAL_NAME_GETTER(Rva003A433BNamed, "FadeAndDieOrnamentUpdate")
 BFME_LITERAL_NAME_GETTER(Rva003ABCEENamed, "DefaultModule<CAT_COLOR>")
 BFME_LITERAL_NAME_GETTER(Rva0044E000Named, "BloodthirstyUpdate")
