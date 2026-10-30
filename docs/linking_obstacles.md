@@ -12879,6 +12879,17 @@ is AptOnlineCustomMatch_PopulateLobbyComboBox.cpp.
 Census confirmation: not claimed.
 [Evidence and provenance](../reverse/attempt_support/gamespy-color-table-20261029.md).
 
+### BuildAssistant canonical Module lookup storage (2026-10-30)
+
+Cleared for `Common/System/BuildAssistant.cpp`: the CastleMemberBehavior lookup
+returns an unadjusted Module pointer; isLocationClearOfObjects reads its
+ObjectID at +0x18. A partial view keeps that field beyond the canonical base.
+All 69 rows, nine EH graphs, 222 external code definitions/relocations, one
+data row, two strings and 42 float literals remain verified. The owning
+acceptance tool retires one Module key; ordinary preview preserves
+LINKS/11,630 bytes against `ccafe54d1d`. No census gain is claimed.
+[Native helper, caller and strict-object evidence](../reverse/attempt_support/module-buildassistant-lookup-20261030/README.md).
+
 ### Defection completion canonical Module storage (2026-10-30)
 
 Cleared for `ObjectDefectionComplete.cpp`: use the registered Module base and a

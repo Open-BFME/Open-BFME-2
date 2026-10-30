@@ -2552,11 +2552,14 @@ public:
 	Int m_playerIndex;
 };
 
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial lookup-result storage; the native caller reads ObjectID at +0x18.
+class Rva00395708ModuleView : public Module
 {
-	unsigned char m_pad00[0x18];
 public:
-	ObjectID m_18;				// +0x18
+    unsigned char m_pad08[0x18 - 0x08];
+    ObjectID m_18;
 };
 
 class CastleBehavior
@@ -2704,7 +2707,7 @@ Bool BuildAssistant::isLocationClearOfObjects( const Coord3D *worldPos, const Th
 			Module *m = CastleBehavior::rva000395708( them );
 			if( m )
 			{
-				ObjectID id = m->m_18;
+				ObjectID id = ((Rva00395708ModuleView *)m)->m_18;
 				if( id == builderObject->getID() )
 					continue;
 			}

@@ -1,0 +1,1474 @@
+{
+  "source": "Code/GameEngine/Source/Common/System/BuildAssistant.cpp",
+  "scope": "canonical eight-byte Module with partial CastleMemberBehavior lookup-result storage for ObjectID at +0x18; no full derived hierarchy claim",
+  "variants": {
+    "before": {
+      "source_sha256": "3a43a548f2f3a5fd35263b7fa59968c5cb9fa787667ba662b5ab75126ea98259",
+      "rows": [
+        {
+          "name": "??0Rva00391D25Filter@@QAE@PBUCoord3D@@M@Z",
+          "rva": "0x00391973",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "?isRemovableForConstruction@BuildAssistant@@QAE_NPAVObject@@@Z",
+          "rva": "0x00391CE3",
+          "size": "66",
+          "exact": true
+        },
+        {
+          "name": "?canMakeUnit@BuildAssistant@@UBE?AW4CanMakeType@@PAVObject@@PBVThingTemplate@@H@Z",
+          "rva": "0x00391B08",
+          "size": "475",
+          "exact": true
+        },
+        {
+          "name": "?countInProduction@@YAHPAVObject@@PAX@Z",
+          "rva": "0x0039194F",
+          "size": "36",
+          "exact": true
+        },
+        {
+          "name": "?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x003952D8",
+          "size": "604",
+          "exact": true
+        },
+        {
+          "name": "?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "rva": "0x003940B8",
+          "size": "187",
+          "exact": true
+        },
+        {
+          "name": "?isPossibleToMakeUnit@BuildAssistant@@UBE_NPAVObject@@PBVThingTemplate@@H@Z",
+          "rva": "0x00392AD7",
+          "size": "469",
+          "exact": true
+        },
+        {
+          "name": "?push_front@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAEXABQAVObjectSellInfo@@@Z",
+          "rva": "0x00392076",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "?sellObject@BuildAssistant@@UAEXPAVObject@@@Z",
+          "rva": "0x003941FD",
+          "size": "341",
+          "exact": true
+        },
+        {
+          "name": "?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x0039361E",
+          "size": "291",
+          "exact": true
+        },
+        {
+          "name": "?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "rva": "0x00393741",
+          "size": "206",
+          "exact": true
+        },
+        {
+          "name": "?erase@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@@Z",
+          "rva": "0x00438539",
+          "size": "32",
+          "exact": true
+        },
+        {
+          "name": "?update@BuildAssistant@@UAEXXZ",
+          "rva": "0x003922BF",
+          "size": "575",
+          "exact": true
+        },
+        {
+          "name": "?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00394FA7",
+          "size": "817",
+          "exact": true
+        },
+        {
+          "name": "?Rva003919F6Connected@@YA_NPAVObject@@0@Z",
+          "rva": "0x003919F6",
+          "size": "122",
+          "exact": true
+        },
+        {
+          "name": "?allow@Rva00391D25Filter@@UAE_NPAVObject@@@Z",
+          "rva": "0x00391D25",
+          "size": "553",
+          "exact": true
+        },
+        {
+          "name": "?checkSampleBuildLocation@@YAXPBUCoord3D@@PAX@Z",
+          "rva": "0x003925CA",
+          "size": "568",
+          "exact": true
+        },
+        {
+          "name": "?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00394352",
+          "size": "1319",
+          "exact": true
+        },
+        {
+          "name": "?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z",
+          "rva": "0x003916AB",
+          "size": "676",
+          "exact": true
+        },
+        {
+          "name": "?reset@BuildAssistant@@UAEXXZ",
+          "rva": "0x00391F90",
+          "size": "52",
+          "exact": true
+        },
+        {
+          "name": "?rva00391AA1@BuildAssistant@@QAE_NPBVThingTemplate@@0@Z",
+          "rva": "0x00391AA1",
+          "size": "103",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "rva": "0x00780BF7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00780D1D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "rva": "0x00780C36",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00780C70",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00780D0B",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00780BDD",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?update@BuildAssistant@@UAEXXZ",
+          "rva": "0x00780BA9",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?rva00391A70@BuildAssistant@@UAE_NPBVThingTemplate@@PBVObject@@@Z",
+          "rva": "0x00391A70",
+          "size": "49",
+          "exact": true
+        },
+        {
+          "name": "$L14356",
+          "rva": "0x00780BD5",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14848",
+          "rva": "0x00780C2E",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14888",
+          "rva": "0x00780BEF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14943",
+          "rva": "0x00780D03",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16470",
+          "rva": "0x00780D15",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80be7",
+          "rva": "0x00780BE7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80ba1",
+          "rva": "0x00780BA1",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80cca",
+          "rva": "0x00780CCA",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80ce8",
+          "rva": "0x00780CE8",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80cfb",
+          "rva": "0x00780CFB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c55",
+          "rva": "0x00780C55",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c5d",
+          "rva": "0x00780C5D",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c68",
+          "rva": "0x00780C68",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "?rva0039321C@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@1I_N@Z",
+          "rva": "0x0039321C",
+          "size": "1026",
+          "exact": true
+        },
+        {
+          "name": "??1Rva0026118BFilter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "rva": "0x00394879",
+          "size": "1838",
+          "exact": true
+        },
+        {
+          "name": "??0Rva00391667@@QAE@PBX@Z",
+          "rva": "0x00391667",
+          "size": "44",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "rva": "0x00780CC0",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "rva": "0x00392DC0",
+          "size": "1116",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "rva": "0x00780BC3",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L16844",
+          "rva": "0x00780C8A",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16846",
+          "rva": "0x00780C9A",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L16848",
+          "rva": "0x00780CAD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L16849",
+          "rva": "0x00780CB8",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00391667@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva0039161C@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00261353Filter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00394173Member@@QAE@XZ",
+          "rva": "0x00268AFF",
+          "size": "5",
+          "exact": true
+        },
+        {
+          "name": "$L16842",
+          "rva": "0x00780C7A",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16843",
+          "rva": "0x00780C82",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16845",
+          "rva": "0x00780C92",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16847",
+          "rva": "0x00780CA5",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14932",
+          "rva": "0x00780C26",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14419",
+          "rva": "0x00780BCD",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L15026",
+          "rva": "0x00780CF3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L15024",
+          "rva": "0x00780CDD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L18619",
+          "rva": "0x00780BBB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L18618",
+          "rva": "0x00780BB3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00391D25Filter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "$L16661",
+          "rva": "0x00780CD5",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?update@BuildAssistant@@UAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "37790e3fd140333810c884c1e880ba4a6fc3576a80f8e98796db023da234d061",
+      "rows": [
+        {
+          "name": "??0Rva00391D25Filter@@QAE@PBUCoord3D@@M@Z",
+          "rva": "0x00391973",
+          "size": "33",
+          "exact": true
+        },
+        {
+          "name": "?isRemovableForConstruction@BuildAssistant@@QAE_NPAVObject@@@Z",
+          "rva": "0x00391CE3",
+          "size": "66",
+          "exact": true
+        },
+        {
+          "name": "?canMakeUnit@BuildAssistant@@UBE?AW4CanMakeType@@PAVObject@@PBVThingTemplate@@H@Z",
+          "rva": "0x00391B08",
+          "size": "475",
+          "exact": true
+        },
+        {
+          "name": "?countInProduction@@YAHPAVObject@@PAX@Z",
+          "rva": "0x0039194F",
+          "size": "36",
+          "exact": true
+        },
+        {
+          "name": "?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x003952D8",
+          "size": "604",
+          "exact": true
+        },
+        {
+          "name": "?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "rva": "0x003940B8",
+          "size": "187",
+          "exact": true
+        },
+        {
+          "name": "?isPossibleToMakeUnit@BuildAssistant@@UBE_NPAVObject@@PBVThingTemplate@@H@Z",
+          "rva": "0x00392AD7",
+          "size": "469",
+          "exact": true
+        },
+        {
+          "name": "?push_front@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAEXABQAVObjectSellInfo@@@Z",
+          "rva": "0x00392076",
+          "size": "28",
+          "exact": true
+        },
+        {
+          "name": "?sellObject@BuildAssistant@@UAEXPAVObject@@@Z",
+          "rva": "0x003941FD",
+          "size": "341",
+          "exact": true
+        },
+        {
+          "name": "?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x0039361E",
+          "size": "291",
+          "exact": true
+        },
+        {
+          "name": "?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "rva": "0x00393741",
+          "size": "206",
+          "exact": true
+        },
+        {
+          "name": "?erase@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@@Z",
+          "rva": "0x00438539",
+          "size": "32",
+          "exact": true
+        },
+        {
+          "name": "?update@BuildAssistant@@UAEXXZ",
+          "rva": "0x003922BF",
+          "size": "575",
+          "exact": true
+        },
+        {
+          "name": "?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00394FA7",
+          "size": "817",
+          "exact": true
+        },
+        {
+          "name": "?Rva003919F6Connected@@YA_NPAVObject@@0@Z",
+          "rva": "0x003919F6",
+          "size": "122",
+          "exact": true
+        },
+        {
+          "name": "?allow@Rva00391D25Filter@@UAE_NPAVObject@@@Z",
+          "rva": "0x00391D25",
+          "size": "553",
+          "exact": true
+        },
+        {
+          "name": "?checkSampleBuildLocation@@YAXPBUCoord3D@@PAX@Z",
+          "rva": "0x003925CA",
+          "size": "568",
+          "exact": true
+        },
+        {
+          "name": "?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00394352",
+          "size": "1319",
+          "exact": true
+        },
+        {
+          "name": "?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z",
+          "rva": "0x003916AB",
+          "size": "676",
+          "exact": true
+        },
+        {
+          "name": "?reset@BuildAssistant@@UAEXXZ",
+          "rva": "0x00391F90",
+          "size": "52",
+          "exact": true
+        },
+        {
+          "name": "?rva00391AA1@BuildAssistant@@QAE_NPBVThingTemplate@@0@Z",
+          "rva": "0x00391AA1",
+          "size": "103",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "rva": "0x00780BF7",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00780D1D",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "rva": "0x00780C36",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00780C70",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "rva": "0x00780D0B",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "rva": "0x00780BDD",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?update@BuildAssistant@@UAEXXZ",
+          "rva": "0x00780BA9",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?rva00391A70@BuildAssistant@@UAE_NPBVThingTemplate@@PBVObject@@@Z",
+          "rva": "0x00391A70",
+          "size": "49",
+          "exact": true
+        },
+        {
+          "name": "$L14356",
+          "rva": "0x00780BD5",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14848",
+          "rva": "0x00780C2E",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14888",
+          "rva": "0x00780BEF",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14943",
+          "rva": "0x00780D03",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16470",
+          "rva": "0x00780D15",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80be7",
+          "rva": "0x00780BE7",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80ba1",
+          "rva": "0x00780BA1",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80cca",
+          "rva": "0x00780CCA",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80ce8",
+          "rva": "0x00780CE8",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80cfb",
+          "rva": "0x00780CFB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c55",
+          "rva": "0x00780C55",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c5d",
+          "rva": "0x00780C5D",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "Unwind@00b80c68",
+          "rva": "0x00780C68",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "?rva0039321C@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@1I_N@Z",
+          "rva": "0x0039321C",
+          "size": "1026",
+          "exact": true
+        },
+        {
+          "name": "??1Rva0026118BFilter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "rva": "0x00394879",
+          "size": "1838",
+          "exact": true
+        },
+        {
+          "name": "??0Rva00391667@@QAE@PBX@Z",
+          "rva": "0x00391667",
+          "size": "44",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "rva": "0x00780CC0",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "rva": "0x00392DC0",
+          "size": "1116",
+          "exact": true
+        },
+        {
+          "name": "__ehhandler$?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "rva": "0x00780BC3",
+          "size": "10",
+          "exact": true
+        },
+        {
+          "name": "$L16844",
+          "rva": "0x00780C8A",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16846",
+          "rva": "0x00780C9A",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L16848",
+          "rva": "0x00780CAD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L16849",
+          "rva": "0x00780CB8",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00391667@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva0039161C@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00261353Filter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00394173Member@@QAE@XZ",
+          "rva": "0x00268AFF",
+          "size": "5",
+          "exact": true
+        },
+        {
+          "name": "$L16842",
+          "rva": "0x00780C7A",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16843",
+          "rva": "0x00780C82",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16845",
+          "rva": "0x00780C92",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L16847",
+          "rva": "0x00780CA5",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14932",
+          "rva": "0x00780C26",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L14419",
+          "rva": "0x00780BCD",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L15026",
+          "rva": "0x00780CF3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L15024",
+          "rva": "0x00780CDD",
+          "size": "11",
+          "exact": true
+        },
+        {
+          "name": "$L18619",
+          "rva": "0x00780BBB",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "$L18618",
+          "rva": "0x00780BB3",
+          "size": "8",
+          "exact": true
+        },
+        {
+          "name": "??1Rva00391D25Filter@@UAE@XZ",
+          "rva": "0x0049C38A",
+          "size": "7",
+          "exact": true
+        },
+        {
+          "name": "$L16661",
+          "rva": "0x00780CD5",
+          "size": "8",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?update@BuildAssistant@@UAEXXZ",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        },
+        {
+          "name": "?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "actual": {
+    "source_sha256": "d1258068f03904de6f70c538607fb83778f2ba134b969c36681de8ecf8c725af",
+    "object_sha256": "684aaf12a8fb272536e995b25ee3bcf4da0af5afbc2de59df12ff00ea2f75636",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 222
+  },
+  "external_definition_sha256": {
+    "??$?0H@?$allocator@U?$_List_node@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z": "6ea35fae7b418eae6f91c174caf75a031ac54e53df017eb7ec9eaba1b1a52bc6",
+    "??$?0PAVDrawable@@@?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z": "6ea35fae7b418eae6f91c174caf75a031ac54e53df017eb7ec9eaba1b1a52bc6",
+    "??$_Construct@PAVDrawable@@PAV1@@_STL@@YAXPAPAVDrawable@@ABQAV1@@Z": "f6b6c4922d0c13096cbb039267b1208c42c64690f9626f030f0d50458444b09f",
+    "??$_Construct@PAVObjectSellInfo@@PAV1@@_STL@@YAXPAPAVObjectSellInfo@@ABQAV1@@Z": "f6b6c4922d0c13096cbb039267b1208c42c64690f9626f030f0d50458444b09f",
+    "??$_Destroy@PAUCoord3D@@@_STL@@YAXPAUCoord3D@@0@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$_Destroy@PAVObjectSellInfo@@@_STL@@YAXPAPAVObjectSellInfo@@@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$_Destroy@UCoord3D@@@_STL@@YAXPAUCoord3D@@@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__destroy@PAUCoord3D@@U1@@_STL@@YAXPAUCoord3D@@00@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__destroy_aux@PAUCoord3D@@@_STL@@YAXPAUCoord3D@@0ABU__false_type@0@@Z": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??$__stl_alloc_rebind@U?$_List_node@H@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_List_node@H@_STL@@@0@AAV10@PBU?$_List_node@H@0@@Z": "b84000b428619a546daa5178dfc83cc6f45b9d2d7c7870ca1324533a6f1d32c3",
+    "??$__stl_alloc_rebind@U?$_List_node@PAVObjectSellInfo@@@_STL@@U12@@_STL@@YAAAV?$allocator@U?$_List_node@PAVObjectSellInfo@@@_STL@@@0@AAV10@PBU?$_List_node@PAVObjectSellInfo@@@0@@Z": "b84000b428619a546daa5178dfc83cc6f45b9d2d7c7870ca1324533a6f1d32c3",
+    "??$__stl_alloc_rebind@UCoord3D@@U1@@_STL@@YAAAV?$allocator@UCoord3D@@@0@AAV10@PBUCoord3D@@@Z": "b84000b428619a546daa5178dfc83cc6f45b9d2d7c7870ca1324533a6f1d32c3",
+    "??$max@M@_STL@@YAABMABM0@Z": "aa56730f84a30d7120ad0abf27eb79ef967c461de570013be89ceb59d0bc0506",
+    "??$min@M@_STL@@YAABMABM0@Z": "eb678651d726ac90276c1a8d264a31a261097fcab9666f2ded15f72aa536383d",
+    "??0?$StringBase@G@@AAE@XZ": "247e2e047dec6917a9a9c3767903e18d596332f350d9ba4e4acb04837dfd97ae",
+    "??0?$_List_base@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z": "c2c9c51dce0a09b87e0d2910626e706f93e028555998ed99bfde1226793e6cb9",
+    "??0?$_List_base@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z": "0415c24f4e02c1fc81c120bcc89ca096ca191facd5090de19867336c5b6c310e",
+    "??0?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QAE@PAU?$_List_node@H@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0?$_List_iterator@PAVDrawable@@U?$_Nonconst_traits@PAVDrawable@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVDrawable@@@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@_STL@@QAE@ABU01@@Z": "3b768c5e857f3f97db50c3bc850b2c657d87adf2ec4122a8c65b8e141efe7342",
+    "??0?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@_STL@@QAE@PAU?$_List_node@PAVObjectSellInfo@@@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@_STL@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0?$_STLP_alloc_proxy@PAU?$_List_node@H@_STL@@U12@V?$allocator@U?$_List_node@H@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@H@_STL@@@1@PAU?$_List_node@H@1@@Z": "d13c8b340bd96368bf5c6cd77df98cb8e8262003a4522bf280e1f44e570ed8c4",
+    "??0?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAE@ABV?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@1@PAU?$_List_node@PAVDrawable@@@1@@Z": "d13c8b340bd96368bf5c6cd77df98cb8e8262003a4522bf280e1f44e570ed8c4",
+    "??0?$_STLP_alloc_proxy@PAUCoord3D@@U1@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@PAUCoord3D@@@Z": "d13c8b340bd96368bf5c6cd77df98cb8e8262003a4522bf280e1f44e570ed8c4",
+    "??0?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@@Z": "5464b230d3c46c33cb49eda9a7b72ad414db35a115d647143fc938d3c33c12ec",
+    "??0?$allocator@H@_STL@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0?$allocator@PAVDrawable@@@_STL@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0?$allocator@U?$_List_node@H@_STL@@@_STL@@QAE@ABV01@@Z": "6ea35fae7b418eae6f91c174caf75a031ac54e53df017eb7ec9eaba1b1a52bc6",
+    "??0?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@ABV01@@Z": "6ea35fae7b418eae6f91c174caf75a031ac54e53df017eb7ec9eaba1b1a52bc6",
+    "??0?$allocator@UCoord3D@@@_STL@@QAE@ABV01@@Z": "6ea35fae7b418eae6f91c174caf75a031ac54e53df017eb7ec9eaba1b1a52bc6",
+    "??0?$allocator@UCoord3D@@@_STL@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0?$list@HV?$allocator@H@_STL@@@_STL@@QAE@ABV?$allocator@H@1@@Z": "a0f9c1c5a3d13e516dfb59ac509cf8965c39c4cc424ddd9eb3d92cd952d9ee2b",
+    "??0?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@ABV?$allocator@PAVDrawable@@@1@@Z": "0b1df7b42d1d294dcbed3fb685e50b386aff4af38e0e5b4bf3b81f20b2a0324b",
+    "??0?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@ABV?$allocator@UCoord3D@@@1@@Z": "6694b678a764d043b1b316df9314ea3b1af0a0343a6ad11d7ccf636a7a23e8e5",
+    "??0CreateMask@@QAE@XZ": "06cd0a205747d4206af15aad0fd5b7c4059b0ba464893a50fb97b4a7876cf876",
+    "??0DrawableList@@QAE@XZ": "a0fa99cd0d1fbf0a5e31f8f5b7732b3371ded1185d955526eff33ead59069c99",
+    "??0Matrix3D@@QAE@XZ": "10fed7382f623391922dea1768e2ebfd807dff5dfeea6b89066dab89294e8e29",
+    "??0Matrix3D@@QAE@_N@Z": "db81171980ffeaaae9167d9ccd3e4f0ef1de5a3a5783c17df8004e4b15100e2f",
+    "??0ObjectSellInfo@@QAE@XZ": "fbd4cd19a8963062fb025780b56bf3cebe607db46805627456954d5af862503d",
+    "??0Region3D@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0Rva000421C8@@QAE@XZ": "6ea0048bc65cfe6cf33ee147f1c8a60930dc53989860a206285cb028d901e33f",
+    "??0Rva0026118BFilter@@QAE@XZ": "c3700d72ac275d847318d429fa2f057ecb153961db56063c76a7dde896367306",
+    "??0Rva0026119DFilter@@QAE@XZ": "bc3c9bd6ebe9c46985ffb769e7bfbb20edeb623cacc1aa72f974811fdcfbdb24",
+    "??0Rva00261353Filter@@QAE@H@Z": "69223b87fbf9fa0a83db7c524ebee9e03c0bf4ced013e2e2f976303b9783af29",
+    "??0Rva00391667@@QAE@PBX@Z": "672e25f369a4b36b6bb0f1a1801d11d03bc86cbdc28359a910feb7bfeb5e63f8",
+    "??0Rva00391D25Filter@@QAE@PBUCoord3D@@M@Z": "6e59c18419ea088978006c0fb5d3860d513b2d38bd41a3ecadf49a640b007adc",
+    "??0Rva0039205C@@QAE@XZ": "cf77503a2b93a8e59ada5ca584ee183975b7d52e0177ee4fe6f1dc052ab62690",
+    "??0SampleBuildData@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0UnicodeString@@QAE@XZ": "247e2e047dec6917a9a9c3767903e18d596332f350d9ba4e4acb04837dfd97ae",
+    "??0Vector3@@QAE@MMM@Z": "3fc611e34737dd188ed22cedde2aa456eae834aa20717833232211cd229334bf",
+    "??0Vector3@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0Vector4@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??0_List_iterator_base@_STL@@QAE@PAU_List_node_base@1@@Z": "83f17d904484444f3320847b3384fdb7e8027ccaed7dccdc74a39c84d51485d5",
+    "??0_List_iterator_base@_STL@@QAE@XZ": "1e2293943ba011d2894320aac3383e6e8db762f75bf449fc121266d8458f7b3e",
+    "??1?$StringBase@G@@AAE@XZ": "5cec969c520d6c696c14ef4139f7b5cf4d7fb5a0931e05344e9d2cc752a667fa",
+    "??1?$_STLP_alloc_proxy@PAU?$_List_node@H@_STL@@U12@V?$allocator@U?$_List_node@H@_STL@@@2@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$_STLP_alloc_proxy@PAU?$_List_node@PAVDrawable@@@_STL@@U12@V?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@2@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$_STLP_alloc_proxy@PAUCoord3D@@U1@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$_Vector_base@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@XZ": "6f119f385b4bb10502cf6bfbe3d4492a92c9a7e661f3f47bc9a98f0e908f8041",
+    "??1?$allocator@H@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$allocator@PAVDrawable@@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$allocator@U?$_List_node@H@_STL@@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$allocator@U?$_List_node@PAVDrawable@@@_STL@@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$allocator@UCoord3D@@@_STL@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1?$list@HV?$allocator@H@_STL@@@_STL@@QAE@XZ": "51dbe948d96806fa2d2aeaede6d05b0003d7e93dd4aa910e2a8a4bf1f5b9466b",
+    "??1?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE@XZ": "8e8faa732f1380e1d0b3fd548011a04477bf9e0f92f331fe7823c3c50f494d05",
+    "??1?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAE@XZ": "6f119f385b4bb10502cf6bfbe3d4492a92c9a7e661f3f47bc9a98f0e908f8041",
+    "??1AsciiString@@QAE@XZ": "815f3a6781bf2eba8e6e1b895564b6e3dc016ae58637181fbd815a1e3cfe433e",
+    "??1Region3D@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1Rva000421C8@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0004584D@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0026118BFilter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0026119DFilter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva00261353Filter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva00261603Filter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva0039161C@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva00391667@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva00391D25Filter@@UAE@XZ": "15523b1945ef719b74cbe5030156fdec2844ffb3cc1df34d789346b7e6c8c9e1",
+    "??1Rva00394173Member@@QAE@XZ": "0e3e0464f8cf30749c2ddc54cb6f71908926e5601035bb0845da5eb46302f1ef",
+    "??1SampleBuildData@@QAE@XZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "??1UnicodeString@@QAE@XZ": "5cec969c520d6c696c14ef4139f7b5cf4d7fb5a0931e05344e9d2cc752a667fa",
+    "??2@YAPAXIPAX@Z": "81ec46ccf25d0f7032fd19a53fa3bc5803aba5b5cca54080f6b4e435c25f80d0",
+    "??4Vector3@@QAEAAV0@ABV0@@Z": "84afcb324cc34b0719e7ce978a6fa432c42350a50c616399af2a17827cad78a7",
+    "??8@YA_NABVAsciiString@@0@Z": "8ac83cfaf22d6d3192ccfbba3788366caf374d3ac5f06df3a8a31b7e7d676ef3",
+    "??AMatrix3D@@QAEAAVVector4@@H@Z": "1276cb90d3ed1068205ee36bf95bd9a608f11c151b5610aaa62bd6adb0895e38",
+    "??AMatrix3D@@QBEABVVector4@@H@Z": "1276cb90d3ed1068205ee36bf95bd9a608f11c151b5610aaa62bd6adb0895e38",
+    "??AUpgradeTemplateList@@QBEPBVUpgradeTemplate@@I@Z": "0d178e9e9b3fe17c81d83cd37adf55d0135c9ca5b4fd05ba09b3cddcde999a28",
+    "??AVector3@@QBEABMH@Z": "37f3383fa9886804d3b6cbdcc62db95f415da13f01922476d0408e05272b0ae8",
+    "??AVector4@@QAEAAMH@Z": "37f3383fa9886804d3b6cbdcc62db95f415da13f01922476d0408e05272b0ae8",
+    "??AVector4@@QBEABMH@Z": "37f3383fa9886804d3b6cbdcc62db95f415da13f01922476d0408e05272b0ae8",
+    "??D?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QBEAAHXZ": "5a2c26e55181aada1ad3b8ca770f17776c62ae48eee440eb9efeb6f7a855c462",
+    "??D?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@_STL@@QBEAAPAVObjectSellInfo@@XZ": "5a2c26e55181aada1ad3b8ca770f17776c62ae48eee440eb9efeb6f7a855c462",
+    "??E?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@_STL@@QAEAAU01@XZ": "c594e90468c34b1e11f88ab6ad0d1ff456f2942aea1f50a8d4c91fe8b2acb653",
+    "??E?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@_STL@@QAEAAU01@XZ": "c594e90468c34b1e11f88ab6ad0d1ff456f2942aea1f50a8d4c91fe8b2acb653",
+    "??XVector3@@QAEAAV0@M@Z": "fa313dfd94a07122fb3006cca3083faa21897506d353aa92df67ad93ba523be4",
+    "??_GObjectSellInfo@@UAEPAXI@Z": "1f9c6b3d0e25ef8c532a97b5efc9479398ea6bdfedef37f00fc5aa898f509b73",
+    "??_GRva000421C8@@UAEPAXI@Z": "9e0d42f12622f304abccb398ea0a14992eaf6461d1e8a5c7f28f1712af2f89d2",
+    "??_GRva0026118BFilter@@UAEPAXI@Z": "0a4176f7b2fb68bb1253c92bd60581e68b712fb3a0f80ea4b50b95f7479ac676",
+    "??_GRva0026119DFilter@@UAEPAXI@Z": "a3b49532c7b946d914d534ddcd38d1f76d4df4b6f8fdc4180c8265af48c40b7b",
+    "??_GRva00261353Filter@@UAEPAXI@Z": "8d8f91e7fc0e720379807019cce02e45dd1fdcf947639179acb19f05004fc947",
+    "??_GRva00391667@@UAEPAXI@Z": "0649777f38b68ef9577b04b4d1ce83f1d8e9d2c81b7f545acf1a970206b3f20b",
+    "??_GRva00391D25Filter@@UAEPAXI@Z": "342746daf289e44e8a0606c563e8e11f9a3c35ef26b9a43fd51e5f01b53097b2",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": "c2cdf51983b44d4d89b753e69bc937f51139cdba5f0dea5537c8a8ee8ccde065",
+    "?Adjust_Translation@Matrix3D@@QAEXABVVector3@@@Z": "da437ff89f519da0201257ca0fe86096d3e2e03b55eb37e8f8ca66035f370eec",
+    "?GetLength@Coord3D@@QBEMXZ": "e813efe21cadc186829817775aeb685ded97d2758238a439af6315eee34c8902",
+    "?Inv_Sqrt@WWMath@@SIMM@Z": "de53b9748af4ff23d91b5d2cfc6fbfcee1fb424841b17c91566b9a491ffe81c2",
+    "?Length2@Vector3@@QBEMXZ": "28def789c5b8e2584697d160918a9a8a44cf6a4f153f070622bea1edc67d1fd3",
+    "?Make_Identity@Matrix3D@@QAEXXZ": "5b2f7d28f8acb7a46fb804efbc87b23df1448e5e94f2fb0db7faa22fa23c2909",
+    "?Normalize@Vector3@@QAEXXZ": "9d0f401f5f6cc5ed2cb9be5a24b3e9608adc9086eaf122bf1a5881163fb0f27c",
+    "?Rotate_Z@Matrix3D@@QAEXM@Z": "10d1eb9118d56c7f4cc92483a0a1735be9d573f4e60e79ab0ef57d211157b1f6",
+    "?Rotate_Z@Vector3@@QAEXM@Z": "39760360d59bbce0c2c3047500d89c76e0ba068512351795af9d754dd54b7330",
+    "?Rotate_Z@Vector3@@QAEXMM@Z": "fc5d96191fef2fa06afa8385ef222641822ba39d738957bc1fd7690abf1d46fe",
+    "?Rva003919F6Connected@@YA_NPAVObject@@0@Z": "ca5d046d01e22d6cf86aae4ac5613fb8625965b13ee40bcc5e90e48f0d1f301b",
+    "?Set@Vector3@@QAEXMMM@Z": "bf8a1d8d2143fafcf2385d168a213e9171d67a23b5d4ef9ddaace12ca4532a69",
+    "?Set@Vector4@@QAEXMMMM@Z": "f0559de0d6755cbc0721389cf43592e9d2af8398034294578aa3500303f6e639",
+    "?Transform_Vector@Matrix3D@@SAXABV1@ABVVector3@@PAV2@@Z": "cfeec7dfe7aee4baf208871b55fccf72487e9629abbb02efed6af6c84487d450",
+    "?_M_create_node@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVDrawable@@@2@ABQAVDrawable@@@Z": "c6b47de03383f28f009adb7f957ae2568b7b119e754d51286a84a35690db0a34",
+    "?_M_create_node@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@IAEPAU?$_List_node@PAVObjectSellInfo@@@2@ABQAVObjectSellInfo@@@Z": "e59ad0571c6341fd9036a60a74a876c2984de367816e86ce4146385e232ab2b4",
+    "?_M_incr@_List_iterator_base@_STL@@QAEXXZ": "a47512a000a9cbc5ca3e9762fc3f42bf9cdb8d3dcd72bafc36df58d16436de52",
+    "?addBibs@BuildAssistant@@UAEXPBUCoord3D@@PBVThingTemplate@@@Z": "ca2bb740d714941617e7812c4517e20cacb852d30fc8a056d67c5ad2d6b31870",
+    "?addCoord3D@@YAXPAUCoord3D@@PBU1@@Z": "86fc93f769dfd6d2c80046825e85440212d2fbe99b8089aa45477d4b2fcee128",
+    "?aiIdle@AIUpdateInterface@@QAEXW4CommandSourceType@@@Z": "42f9d9f5daceaf376cc603962dcfd8b20b0badc51f4be0bda8090f7936ae4861",
+    "?aiMoveToPositionEvenIfSleeping@AIUpdateInterface@@QAEXPBUCoord3D@@W4CommandSourceType@@@Z": "23bbaa6804fd569f6f0a99c75fea91bedbb82a3bf3c00758bab132e773ac6a8d",
+    "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@H@_STL@@U12@V?$allocator@U?$_List_node@H@_STL@@@2@@_STL@@QAEPAU?$_List_node@H@2@I@Z": "efb33c2a367c71682c8a5db4e4352ac869a1d638ec48990150a5b0fbb660e919",
+    "?allocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVObjectSellInfo@@@_STL@@U12@V?$allocator@U?$_List_node@PAVObjectSellInfo@@@_STL@@@2@@_STL@@QAEPAU?$_List_node@PAVObjectSellInfo@@@2@I@Z": "ff003b72055f0b88eac3df30beada6c94447832ec0994cb26681efad718b520b",
+    "?allocate@?$allocator@U?$_List_node@H@_STL@@@_STL@@QBEPAU?$_List_node@H@2@IPBX@Z": "56fc2da2a14d597a340dc7532384d2a8bf46758726d8051a500a48413fd17bdd",
+    "?allocate@?$allocator@U?$_List_node@PAVObjectSellInfo@@@_STL@@@_STL@@QBEPAU?$_List_node@PAVObjectSellInfo@@@2@IPBX@Z": "56fc2da2a14d597a340dc7532384d2a8bf46758726d8051a500a48413fd17bdd",
+    "?allow@Rva00391D25Filter@@UAE_NPAVObject@@@Z": "2c1007540982ffc3c63d14773f2dcab4759862a3ef5ac1dc8f578fee12e33c71",
+    "?atan2@@YAMMM@Z": "a205a8763eaf4f3ba0a42efbdbe820f7fa874e800e73f1bcb716823268006109",
+    "?begin@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@XZ": "43c3467948fc2ec5afc3668c7b363eec474a0c0bae597ff00aafd41802b434cf",
+    "?begin@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@XZ": "43c3467948fc2ec5afc3668c7b363eec474a0c0bae597ff00aafd41802b434cf",
+    "?begin@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEPAUCoord3D@@XZ": "59d4b16870ea0c361d7e7e556f000ebc4aa8a4be9ff90acfe1f5b9fbd1f9025f",
+    "?buildObjectNow@BuildAssistant@@UAEPAVObject@@PAV2@PBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z": "484fde39f5916be6c018227de3cae3e3d55bf8939e0296330e46abdadf7ab480",
+    "?canMakeUnit@BuildAssistant@@UBE?AW4CanMakeType@@PAVObject@@PBVThingTemplate@@H@Z": "4a87215d4af37597523b08cf7d8c80828e65fdfb2badf93894f61f347a5d1696",
+    "?checkSampleBuildLocation@@YAXPBUCoord3D@@PAX@Z": "e2bde939e4d73152cf738ecab8ce8e0f427af24d59f63089f3b137d47b54c345",
+    "?clear@?$_List_base@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAEXXZ": "e6cb318bc80789b157ac705206cc83165bf9a026275fabc14f4045345025393e",
+    "?clearRemovableForConstruction@BuildAssistant@@QAEXPBVThingTemplate@@PBUCoord3D@@M@Z": "d4692fd616afe100ad30f4fc0a3c4d80a5e99531093e7cdfc2988ed8de329b6a",
+    "?countMoney@Money@@QBEIXZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?deallocate@?$_STLP_alloc_proxy@PAU?$_List_node@PAVObjectSellInfo@@@_STL@@U12@V?$allocator@U?$_List_node@PAVObjectSellInfo@@@_STL@@@2@@_STL@@QAEXPAU?$_List_node@PAVObjectSellInfo@@@2@I@Z": "30851b03d7de12d1eedd083d306442f6a33f5bb2049e7544b98152a415000b59",
+    "?deallocate@?$_STLP_alloc_proxy@PAUCoord3D@@U1@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXPAUCoord3D@@I@Z": "30851b03d7de12d1eedd083d306442f6a33f5bb2049e7544b98152a415000b59",
+    "?deallocate@?$allocator@U?$_List_node@PAVObjectSellInfo@@@_STL@@@_STL@@QBEXPAU?$_List_node@PAVObjectSellInfo@@@2@I@Z": "30851b03d7de12d1eedd083d306442f6a33f5bb2049e7544b98152a415000b59",
+    "?deallocate@?$allocator@UCoord3D@@@_STL@@QBEXPAUCoord3D@@I@Z": "30851b03d7de12d1eedd083d306442f6a33f5bb2049e7544b98152a415000b59",
+    "?deleteInstance@ObjectSellInfo@@QAEXXZ": "62711dd53e31ac5a04d4be17ef4ccf835b50eeba43097f897616333ce4c02917",
+    "?end@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@XZ": "a1d3445d557ad8dd455bd8a07171a4b13c3335b13cb2026fb9c426daab70e856",
+    "?end@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVDrawable@@U?$_Nonconst_traits@PAVDrawable@@@_STL@@@2@XZ": "a1d3445d557ad8dd455bd8a07171a4b13c3335b13cb2026fb9c426daab70e856",
+    "?end@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@XZ": "a1d3445d557ad8dd455bd8a07171a4b13c3335b13cb2026fb9c426daab70e856",
+    "?end@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEPAUCoord3D@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?erase@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@@Z": "5cb1a9a5a38270d040511279c6d98169d365731f1dc49b6ad2de123e1f28a40f",
+    "?findCommandSet@ControlBar@@QAEPBVCommandSet@@PBVAsciiString@@@Z": "59ef91c30d2178cda77cf56af8c2f5eff64e2d37f667ac06dbda5b84e2e8435e",
+    "?friend_calcVisionRange@ThingTemplate@@QBEMXZ": "abaf56a3b35e9f08a43212ddea61d015329e164a3672a90f03917a7c0f27a050",
+    "?get45C@Object@@QBEHXZ": "88c9bda52d3454e1de971a211ca7495778c9d928835ada9faca36621d04f873a",
+    "?get7C@Object@@QBE?AW4ObjectID@@XZ": "3db904ad3b787fb105c56be02baffdee340103d8d2f25f48f4f8ff4b675d5253",
+    "?getAI@Object@@QBEPAVAIUpdateInterface@@XZ": "41a7e463f41183bc43d6da575193443daa84ba19703acb970f7f838a757fa92a",
+    "?getBehaviorModuleInfo@ThingTemplate@@QBEABVModuleInfo@@XZ": "da30417baafcab4bd39cbbd4d3660db6e62bb0c3582a5dea30e11ebda7d6ce63",
+    "?getBehaviorModules@Object@@QBEPAPAVBehaviorModule@@XZ": "c0c0f3be5e388236c82aa20819925ed9a3c4c4dee491512aeb286dc8c606f135",
+    "?getBodyModule@Object@@QBEPAVBodyModuleInterface@@XZ": "69c2d96206db4897163b8c338750ed96f4c2bafd9e6ede19eb00f60681e0ab39",
+    "?getBoxMajorRadius@GeometryInfo@@QBEMXZ": "873e6bb3d194a73f4beddc48c4fd301e45e61e9509980dd45b1c409d7b39686d",
+    "?getBoxMinorRadius@GeometryInfo@@QBEMXZ": "eaea738e8bec679050e5537761547bde80770a1ce50e79300fae2ccdfcf9a0b5",
+    "?getBuildCost@Object@@QBEMXZ": "aedd2e000123e6ff6c5c521c53a5f29b87d7d7162dcf2a9a4fd79fdc7c586e24",
+    "?getCommandSetString@ThingTemplate@@QBEABVAsciiString@@XZ": "25859ac062fcccb99f0446f4a8bdcb7bacc0acd2f12eb73d9d67ee08b223610b",
+    "?getCommandType@CommandButton@@QBE?AW4GUICommandType@@XZ": "a1d37bf083edab671292373b1bb9200ad1f32553775737d274e44cf82ea19266",
+    "?getContain@Object@@QBEPAVContainModuleInterface@@XZ": "68be8eac0b5b20741e4b4c85fe4c85b485a68e907dd8118abc7578deaf8820fb",
+    "?getCount@ModuleInfo@@QBEHXZ": "d17725116b9e48281e1eefac70b00a60cf378af490f0f27e82f2fbf3cd0c580e",
+    "?getDefaultTeam@Player@@QBEPAVTeam@@XZ": "a747056a4e21fb337320e8d362c515a33809b3bb1622fba334a38cd5a820cba3",
+    "?getFrame@GameLogic@@QBEIXZ": "92283a576862f0822126a490dc007ce1b7d3014d1c212af57fa08a9da9215fea",
+    "?getGeometryInfo@Object@@QBEABVGeometryInfo@@XZ": "c6cfb205e1c6088c1e91d6304b14abc43d45acc139d022cd6ad98193d2883628",
+    "?getID@Object@@QBE?AW4ObjectID@@XZ": "7e0389c95a000a6fe91b7286c66f1bd472f413d7453036d1431bd10f5531291d",
+    "?getMajorRadius@GeometryInfo@@QBEMXZ": "31cb409159d48cb56a680d8b58d472aab4e301d6468ecb70f3a2b643714f5ea9",
+    "?getName@ThingTemplate@@QBEABVAsciiString@@XZ": "263be2d5e3372eca743e3ebe8b52e4563cc9492098d5370bbe84507145c900c2",
+    "?getNeededUpgrades@CommandButton@@QBEABUUpgradeTemplateList@@XZ": "bd5bf06037cb81822384b583ed820a5a2aa29a40a2be44dede559aa40ea8d7ae",
+    "?getOptions@CommandButton@@QBEIXZ": "fae250d58048a68f45638b64d9c85ffcb9dca687ad3cb9d2a02d704a01c13b65",
+    "?getOrientation@Object@@QBEMXZ": "24ff723c4aa7952a5765918a6f6259b8fd52059bc4450a1c2203b99b3a28e98d",
+    "?getPath@AIUpdateInterface@@QBEPAURva00391D25Path@@XZ": "3a7b1475cf1b95944fa959ef7535a7b69c1fe6aa6e319b3963e611f75a88f97f",
+    "?getPlayerIndex@Player@@QBEHXZ": "f662cc34315f518ba2d10f578d955c02908fe9dfad5d8f507b186b143b655440",
+    "?getPosition@Object@@QBEPBUCoord3D@@XZ": "53e5d760532d69479022c0851b6fccb67b6c6f27267650a718901c839511d4fb",
+    "?getRefundValue@ThingTemplate@@QBEGXZ": "fa914ae8b717a1ade4476e541248c0262dbceb7e842a8b0737a39d05db0fe791",
+    "?getScoreKeeper@Player@@QAEPAVScoreKeeper@@XZ": "fbf04c6910dae94d680b17c1bbbcbb44e37e1e70c495f503b18488a4c21ac9e5",
+    "?getTeam@Object@@QBEPAVTeam@@XZ": "aa8f2ac418cad594788e601f7d9252560d857bdc296031d5c8f2faaa9d56ac7a",
+    "?getTemplate@Thing@@QBEPBVThingTemplate@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?getTemplateGeometryInfo@ThingTemplate@@QBEABVGeometryInfo@@XZ": "0dd14c227820531896984924d2ca0370d7cdfebaf9c394149a12cfb7f915d85c",
+    "?getUpgradeType@UpgradeTemplate@@QBE?AW4UpgradeType@@XZ": "50ec2995c3ef0d616ddbe247f0c0e4bea2bca9396923d38b6adc97efe1a58f1c",
+    "?insert@?$list@HV?$allocator@H@_STL@@@_STL@@QAE?AU?$_List_iterator@HU?$_Nonconst_traits@H@_STL@@@2@U32@ABH@Z": "0c9bc300c9da4fc7ccbd1fe33e128b5b0375fc453519a3bbe53e5a90e7b53938",
+    "?insert@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVDrawable@@U?$_Nonconst_traits@PAVDrawable@@@_STL@@@2@U32@ABQAVDrawable@@@Z": "bcffa921b3576ae3cc1d7fb84913690469bfb3fd81a3ef97e90c50e6e4e2c328",
+    "?insert@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAE?AU?$_List_iterator@PAVObjectSellInfo@@U?$_Nonconst_traits@PAVObjectSellInfo@@@_STL@@@2@U32@ABQAVObjectSellInfo@@@Z": "1d5c11881224da7289fae6c4d3f7d0afb5268c076446d3ab8903def994049b38",
+    "?isAnyUpgradeEnough@CommandButton@@QBE_NXZ": "2331a87c71db58e11f289b4487004d40e09f208dc1d80d7d829a4d7d9ab26d14",
+    "?isEffectivelyDead@Object@@QBE_NXZ": "603b32aaa3568be78c11c9c2f203ec557575af93de77f6086074af3a1863d13d",
+    "?isInRegionNoZ@Region3D@@QBE_NPBUCoord3D@@@Z": "dde22522d0c4aeb9a6a4ba8cc0a43d8202aa364dd4e95c443f1710bf63fb6d21",
+    "?isKindOf@Object@@QBEIW4KindOfType@@@Z": "b9adf5ccaf6ef9bb08dd13f9562d99a9db664f0cc9f59945bdfd361bb13dc332",
+    "?isKindOf@ThingTemplate@@QBEIW4KindOfType@@@Z": "9e73681d77a53b88025130b39750604df02747479a9d983f850b56e9033c3923",
+    "?isKindOfByte@ThingTemplate@@QBE_NW4KindOfType@@@Z": "f56cc2b11261d1711311f62a647c6c8d35b33c6c2e033fbf328e64c18bc3d405",
+    "?isLocationClearOfObjects@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@IPAVPlayer@@_N@Z": "610e045fe0b67400ab17a6c18f536edcbc7ac47519a57b38d9f659c2e82fca20",
+    "?isLocationLegalToBuild@BuildAssistant@@UAE?AW4LegalBuildCode@@PBUCoord3D@@PBVThingTemplate@@MIPAVObject@@PAVPlayer@@@Z": "77e75edc7918168fc6fad2d28141f80f7cb2678ada001a2ae35b84cb5c1102b6",
+    "?isPossibleToMakeUnit@BuildAssistant@@UBE_NPAVObject@@PBVThingTemplate@@H@Z": "8f46a333ff47d7803231f7d265d508ded292ae7cddb7a5939f705d7b1bb19b92",
+    "?isRemovableForConstruction@BuildAssistant@@QAE_NPAVObject@@@Z": "a451dc5f7405c0a8be016bbfa7fd53fa1718dd571b369625f8f9edff2cba5be0",
+    "?isSingleBox@GeometryInfo@@QBE_NXZ": "232d2f396d5b6a46159db5aca74ec86b34496b65bb84cc2d972a83fed9e81623",
+    "?iterateFootprint@BuildAssistant@@QAEXPBVThingTemplate@@MPBUCoord3D@@MP6AX1PAX@Z2@Z": "25c17d2721308b765824ac8bd534f0e9c3b7df845a8004d83f2e3e85f89d7a93",
+    "?length@Coord2D@@QBEMXZ": "a93aced65c224424d338f56705e17b4ba0c25b7403ee155e5abd93ba68c42cc9",
+    "?moveObjectsForConstruction@BuildAssistant@@QAE_NPBVThingTemplate@@PBUCoord3D@@MPAVPlayer@@@Z": "d226a46477d0532d88d5f4074772eeefc0c4ebc8face2f18c28832d8d126d007",
+    "?pathfinder@AI@@QAEPAVPathfinder@@XZ": "374194b4575e5b0d97f57a2e42835a27e284508ac2b3ad325fa863eb63e259eb",
+    "?push_back@?$list@HV?$allocator@H@_STL@@@_STL@@QAEXABH@Z": "1b5de8c0a1d4cbec172499f970d7052728d53c6c547f07ee577a5ff3b5c34eb2",
+    "?push_back@?$list@PAVDrawable@@V?$allocator@PAVDrawable@@@_STL@@@_STL@@QAEXABQAVDrawable@@@Z": "d092aa179ee3ba1c152ec39400fe57fe8e00b0430ffa306e28bad2e1019f6690",
+    "?push_front@?$list@PAVObjectSellInfo@@V?$allocator@PAVObjectSellInfo@@@_STL@@@_STL@@QAEXABQAVObjectSellInfo@@@Z": "7ba2edc6f35dec8fc7b2a23e2d12072daabc4b4ab93fb1d824543f3ab2e30376",
+    "?reset@BuildAssistant@@UAEXXZ": "522b9688dc7e40572fb8224e7080555ebbe6123a592aad3d6fa8d1a0e3e4364d",
+    "?rotateFootprint@@YAXAAVMatrix3D@@M@Z": "0cf84fb246edc812f5335a5b1daed6811dde61d9d480840411da2bc0470c9783",
+    "?rva00391A70@BuildAssistant@@UAE_NPBVThingTemplate@@PBVObject@@@Z": "95cd7c6df5d45aff963df947612dc00b64862775205e82e6f51a938cd89fd8e9",
+    "?rva00391AA1@BuildAssistant@@QAE_NPBVThingTemplate@@0@Z": "f0fbc4f8a1190a1077c21d15dc4e5f8c0b7bd6b20acc94fe6dd9f0ae3093c397",
+    "?rva00392DC0@BuildAssistant@@QAE_NPAVObject@@PBVThingTemplate@@PBUCoord3D@@PAVPlayer@@IPAPAV2@@Z": "c3e3db82e7deaf0d7c82c0397c9349387a37ee292f199f95813680693fcd3fa5",
+    "?rva0039321C@BuildAssistant@@UAE_NPAVRva0039205C@@PAVObject@@1I_N@Z": "7c8a67938f7c42c0eae840eb7abdf6a3943b2b362f48d771119860db68952171",
+    "?rva0039361E@BuildAssistant@@UAE_NPBUCoord3D@@PBVThingTemplate@@MPAVObject@@PAVPlayer@@@Z": "d18d779f910452f90307e5411fcb9aa971446f171634c413350a7123c98f5018",
+    "?sellObject@BuildAssistant@@UAEXPAVObject@@@Z": "3a3090a38da8c98c92cbab9205028d0644d7f9c76d9f6ec82a1f96300bd321f0",
+    "?setBit@CreateMask@@QAEXH@Z": "67b4722e3db943801f5d93616d3522bbb88be3dfa608e9ca25bf3937402e17bc",
+    "?size@UpgradeTemplateList@@QBEIXZ": "d48880756a6792e641f9f4c90531b1f44600891b8d3b68cd6bedc28f831bed8b",
+    "?sqrt@@YAMM@Z": "f44947338d8bdf525f8fa7b997418ae8f0d1cea1c9544616780217600289ba0a",
+    "?testStatus@Object@@QBE_NW4ObjectStatusTypes@@@Z": "ee0078f624a7294a3c500c741d309fa7165e6641bf5399eb2dc753f9162ac6fe",
+    "?update@BuildAssistant@@UAEXXZ": "5e4a269e7e0a0f1c4fc5e803950a9d17df3a584db7890595cee266f37ff8be78",
+    "?validate@?$StringBase@G@@ABEXXZ": "ffe5828fe1551511fbc82ba70cf3db8881e826d3041020aaceba08e976b48190",
+    "?zero@Coord3D@@QAEXXZ": "7383f3aaa6132935602dbb81f887812ea96ac8891482244a4c7487c40556969c",
+    "_atan2f": "89a1087d08b169a26436dd2a481ccc3d0113c969246ced033967c3c70f814393",
+    "_cosf": "c723a6ac7fdd7cb6a137a3d10ae1969ed42d8296973f3f53c776f2c3c5e2c9a1",
+    "_sinf": "c564015523f63e2f2226996775ffe2b63e096ed1f32b09597553a1c33935fb7a",
+    "_sqrtf": "f44947338d8bdf525f8fa7b997418ae8f0d1cea1c9544616780217600289ba0a"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x395708",
+      "size": 81,
+      "raw": "b84b0db800e8763a2900f605d427e000017524830dd427e000018b0da436df008365fc0068cc5cbf00e8e436dbff834dfcffa3d027e000ff35d027e0008b4d08e8895fefff8b4df464890d00000000c9c3",
+      "instructions": [
+        {
+          "rva": "0x395708",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb80d4b"
+        },
+        {
+          "rva": "0x39570d",
+          "mnemonic": "call",
+          "operands": "0x629188"
+        },
+        {
+          "rva": "0x395712",
+          "mnemonic": "test",
+          "operands": "byte ptr [0xe027d4], 1"
+        },
+        {
+          "rva": "0x395719",
+          "mnemonic": "jne",
+          "operands": "0x39573f"
+        },
+        {
+          "rva": "0x39571b",
+          "mnemonic": "or",
+          "operands": "dword ptr [0xe027d4], 1"
+        },
+        {
+          "rva": "0x395722",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [0xdf36a4]"
+        },
+        {
+          "rva": "0x395728",
+          "mnemonic": "and",
+          "operands": "dword ptr [ebp - 4], 0"
+        },
+        {
+          "rva": "0x39572c",
+          "mnemonic": "push",
+          "operands": "0xbf5ccc"
+        },
+        {
+          "rva": "0x395731",
+          "mnemonic": "call",
+          "operands": "0x148e1a"
+        },
+        {
+          "rva": "0x395736",
+          "mnemonic": "or",
+          "operands": "dword ptr [ebp - 4], 0xffffffff"
+        },
+        {
+          "rva": "0x39573a",
+          "mnemonic": "mov",
+          "operands": "dword ptr [0xe027d0], eax"
+        },
+        {
+          "rva": "0x39573f",
+          "mnemonic": "push",
+          "operands": "dword ptr [0xe027d0]"
+        },
+        {
+          "rva": "0x395745",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x395748",
+          "mnemonic": "call",
+          "operands": "0x28b6d6"
+        },
+        {
+          "rva": "0x39574d",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x395750",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x395757",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "rva": "0x395758",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    },
+    {
+      "rva": "0x28b6d6",
+      "size": 43,
+      "raw": "568bb1440200005733ffeb0e8b01ff50103b44240c740b83c6048b0e85c975eceb028b3e8bc75f5ec20400",
+      "instructions": [
+        {
+          "rva": "0x28b6d6",
+          "mnemonic": "push",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6d7",
+          "mnemonic": "mov",
+          "operands": "esi, dword ptr [ecx + 0x244]"
+        },
+        {
+          "rva": "0x28b6dd",
+          "mnemonic": "push",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6de",
+          "mnemonic": "xor",
+          "operands": "edi, edi"
+        },
+        {
+          "rva": "0x28b6e0",
+          "mnemonic": "jmp",
+          "operands": "0x28b6f0"
+        },
+        {
+          "rva": "0x28b6e2",
+          "mnemonic": "mov",
+          "operands": "eax, dword ptr [ecx]"
+        },
+        {
+          "rva": "0x28b6e4",
+          "mnemonic": "call",
+          "operands": "dword ptr [eax + 0x10]"
+        },
+        {
+          "rva": "0x28b6e7",
+          "mnemonic": "cmp",
+          "operands": "eax, dword ptr [esp + 0xc]"
+        },
+        {
+          "rva": "0x28b6eb",
+          "mnemonic": "je",
+          "operands": "0x28b6f8"
+        },
+        {
+          "rva": "0x28b6ed",
+          "mnemonic": "add",
+          "operands": "esi, 4"
+        },
+        {
+          "rva": "0x28b6f0",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6f2",
+          "mnemonic": "test",
+          "operands": "ecx, ecx"
+        },
+        {
+          "rva": "0x28b6f4",
+          "mnemonic": "jne",
+          "operands": "0x28b6e2"
+        },
+        {
+          "rva": "0x28b6f6",
+          "mnemonic": "jmp",
+          "operands": "0x28b6fa"
+        },
+        {
+          "rva": "0x28b6f8",
+          "mnemonic": "mov",
+          "operands": "edi, dword ptr [esi]"
+        },
+        {
+          "rva": "0x28b6fa",
+          "mnemonic": "mov",
+          "operands": "eax, edi"
+        },
+        {
+          "rva": "0x28b6fc",
+          "mnemonic": "pop",
+          "operands": "edi"
+        },
+        {
+          "rva": "0x28b6fd",
+          "mnemonic": "pop",
+          "operands": "esi"
+        },
+        {
+          "rva": "0x28b6fe",
+          "mnemonic": "ret",
+          "operands": "4"
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x3949f3",
+      "raw": "7436",
+      "mnemonic": "je",
+      "operands": "0x394a2b"
+    },
+    {
+      "rva": "0x3949f5",
+      "raw": "52",
+      "mnemonic": "push",
+      "operands": "edx"
+    },
+    {
+      "rva": "0x3949f6",
+      "raw": "e80d0d0000",
+      "mnemonic": "call",
+      "operands": "0x395708"
+    },
+    {
+      "rva": "0x3949fb",
+      "raw": "85c0",
+      "mnemonic": "test",
+      "operands": "eax, eax"
+    },
+    {
+      "rva": "0x3949fd",
+      "raw": "59",
+      "mnemonic": "pop",
+      "operands": "ecx"
+    },
+    {
+      "rva": "0x3949fe",
+      "raw": "740f",
+      "mnemonic": "je",
+      "operands": "0x394a0f"
+    },
+    {
+      "rva": "0x394a00",
+      "raw": "8b4018",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [eax + 0x18]"
+    },
+    {
+      "rva": "0x394a03",
+      "raw": "8b4d14",
+      "mnemonic": "mov",
+      "operands": "ecx, dword ptr [ebp + 0x14]"
+    },
+    {
+      "rva": "0x394a06",
+      "raw": "3b4174",
+      "mnemonic": "cmp",
+      "operands": "eax, dword ptr [ecx + 0x74]"
+    },
+    {
+      "rva": "0x394a09",
+      "raw": "0f84be000000",
+      "mnemonic": "je",
+      "operands": "0x394acd"
+    },
+    {
+      "rva": "0x394a0f",
+      "raw": "8b4508",
+      "mnemonic": "mov",
+      "operands": "eax, dword ptr [ebp + 8]"
+    }
+  ]
+}
