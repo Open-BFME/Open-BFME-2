@@ -12921,6 +12921,7 @@ present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::r
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::selectDrawablesInGroup	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::xferDrawableTOC	1
 present_unmatched	Code/GameEngine/Source/GameClient/GameClient.cpp	GameClient::~GameClient	1
+present_unmatched	Code/GameEngine/Source/GameClient/GameText.cpp	Rva002E5791DeleteArray@@YAXPAVRva002E5791@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	?	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::DEBUG_addFloatingText	1
 present_unmatched	Code/GameEngine/Source/GameClient/InGameUI.cpp	InGameUI::buildRegion	1
@@ -13019,7 +13020,6 @@ present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/SelectionXlatTranslateGameMessage.cpp	SelectionTranslator::translateGameMessage	1
 present_unmatched	Code/GameEngine/Source/GameClient/ParabolicEase.cpp	clamp	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva00089894ArrayElement.cpp	Rva00089894ArrayElement::~Rva00089894ArrayElement	1
-present_unmatched	Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp	Rva002E5791DeleteArray@@YAXPAVRva002E5791@@@Z	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::Rva00177860TextureRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00177860TextureRef::~Rva00177860TextureRef	1
 present_unmatched	Code/GameEngine/Source/GameClient/Rva005613B2Ctor.cpp	Rva00560A58::~Rva00560A58	1

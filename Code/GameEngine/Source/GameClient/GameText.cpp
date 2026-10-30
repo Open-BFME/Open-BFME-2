@@ -35,6 +35,14 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 #include <string.h>
 #include <ctype.h>
+#include "../../../../reference/shims/bfme2_ascii/unicode_string.h"
+#include "../../../../reference/shims/subsystem_bfme2/subsystem_interface.h"
+struct NoString;
+class GameTextTable;
+#include <new>
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
+
 struct AsciiStringHeader
 {
 	int m_ref;
@@ -162,6 +170,7 @@ public:
 };
 
 struct StringLookUp;
+
 class Rva002E6451
 {
 public:
@@ -197,24 +206,6 @@ namespace _STL
 template <> void sort<StringLookUp *, Rva002E5678Cmp>(StringLookUp *, StringLookUp *, Rva002E5678Cmp);
 }
 
-// The label table. The destructor (0x002E6158) frees both arrays; find (0x002E6451)
-// binary-searches the lookup array.
-class GameTextTable
-{
-public:
-	GameTextTable() : m_count(0), m_info(0), m_lookup(0) {}
-	~GameTextTable();
-	Bool load(const char *strFile, const char *csfFile, Bool *usedCSF);
-	// Compiler-only receiver read for the inactive EH state in load.
-	unsigned dormantCount() const { return m_count; }
-	Bool readSTR(const char *filename);
-	Bool readCSF(const char *filename);
-
-	unsigned int m_count;	// +0x00
-	StringInfo *m_info;		// +0x04
-	StringLookUp *m_lookup;	// +0x08
-};
-
 struct NoString
 {
 	NoString *next;
@@ -228,37 +219,6 @@ const char *g_csfFile = "Lotr.csf";
 Bool g_useStringFile = true;
 
 extern unsigned g_Va00DFF0C4;
-
-class GameTextManager : public SubsystemInterface
-{
-public:
-	GameTextManager();
-	virtual ~GameTextManager();
-	virtual void init();
-	virtual bool vslot04(int);
-	virtual void reset();
-	virtual void update() {}
-	virtual UnicodeString fetch(const char *label, Bool *exists);
-	virtual UnicodeString fetch(const AsciiString &label, Bool *exists);
-	virtual UnicodeString *fetchPtr(const char *label, Bool *exists);
-	virtual UnicodeString *fetchPtr(const AsciiString &label, Bool *exists);
-	virtual _STL::vector<AsciiString> &getStringsWithLabelPrefix(const AsciiString &label);
-	virtual void initMapStringFile(const AsciiString &filename);
-	virtual void setTranslateMode(int mode);
-	virtual int getTranslateMode() { return m_translateMode; }
-	virtual void deinit();
-
-	FileInfo m_fileInfo;					// +0x0c
-	Bool m_usedCSF;							// +0x1c
-	Bool m_initialized;						// +0x1d
-	UnicodeString m_failed;					// +0x20
-	NoString *m_noStringList;				// +0x24
-	int m_unk28;							// +0x28
-	GameTextTable *m_textTable;				// +0x2c
-	GameTextTable *m_mapTable;				// +0x30
-	_STL::vector<AsciiString> m_asciiStringVec;	// +0x34
-	int m_translateMode;					// +0x40
-};
 
 // The in-memory CSF layout (Zero Hour reads the same records field by field).
 enum
@@ -343,13 +303,93 @@ public:
 	StringLookUp *m_lut;
 };
 
-// tu-skeleton: 0x002E5719 35B ?fetch@GameTextManager@@UAE?AVUnicodeString@@PBDPA_N@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager_fetch.cpp (not merged yet)
+struct StringInfo;
 
-// tu-skeleton: 0x002E573C 52B ?fetch@GameTextManager@@UAE?AVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E573CGetter.cpp (not merged yet)
+class Rva002E5791
+{
+public:
+	~Rva002E5791();
+
+private:
+	StringBase<char> m_narrow;
+	StringBase<unsigned short> m_wide;
+};
+
+// The label table. The destructor (0x002E6158) frees both arrays; find (0x002E6451)
+// binary-searches the lookup array.
+class GameTextTable
+{
+public:
+	GameTextTable() : m_count(0), m_info(0), m_lookup(0) {}
+	~GameTextTable();
+	Bool load(const char *strFile, const char *csfFile, Bool *usedCSF);
+	// Compiler-only receiver read for the inactive EH state in load.
+	unsigned dormantCount() const { return m_count; }
+	Bool readSTR(const char *filename);
+	Bool readCSF(const char *filename);
+
+	unsigned int m_count;	// +0x00
+	StringInfo *m_info;		// +0x04
+	StringLookUp *m_lookup;	// +0x08
+};
+
+class GameTextManager : public SubsystemInterface
+{
+public:
+	GameTextManager();
+	virtual ~GameTextManager();
+	virtual void init();
+	virtual bool vslot04(int);
+	virtual void reset();
+	virtual void update() {}
+	virtual UnicodeString fetch(const char *label, Bool *exists);
+	virtual UnicodeString fetch(const AsciiString &label, Bool *exists);
+	virtual UnicodeString *fetchPtr(const char *label, Bool *exists);
+	virtual UnicodeString *fetchPtr(const AsciiString &label, Bool *exists);
+	virtual _STL::vector<AsciiString> &getStringsWithLabelPrefix(const AsciiString &label);
+	virtual void initMapStringFile(const AsciiString &filename);
+	virtual void setTranslateMode(int mode);
+	virtual int getTranslateMode() { return m_translateMode; }
+	virtual void deinit();
+
+	FileInfo m_fileInfo;					// +0x0c
+	Bool m_usedCSF;							// +0x1c
+	Bool m_initialized;						// +0x1d
+	UnicodeString m_failed;					// +0x20
+	NoString *m_noStringList;				// +0x24
+	int m_unk28;							// +0x28
+	GameTextTable *m_textTable;				// +0x2c
+	GameTextTable *m_mapTable;				// +0x30
+	_STL::vector<AsciiString> m_asciiStringVec;	// +0x34
+	int m_translateMode;					// +0x40
+};
+
+// ---- from Code/GameEngine/Source/GameClient/GameTextManager_fetch.cpp
+
+// ?fetch@GameTextManager@@UAE?AVUnicodeString@@PBDPA_N@Z 0x002E5719 35B
+// Evidence: vslot 15 offset 0x3C of vtable 0x00804FA8 class GameTextManager; forwards to slot 17 offset 0x44 then StringBase<G> copy 0x00037050
+
+UnicodeString GameTextManager::fetch(const char *label, bool *exists)
+{
+	return *fetchPtr(label, exists);
+}
+
+// ---- from Code/GameEngine/Source/GameClient/Rva002E573CGetter.cpp
+
+// ?fetch@GameTextManager@@UAE?AVUnicodeString@@ABVAsciiString@@PA_N@Z 0x002E573C 52B
+// Evidence: vslot 14 offset 0x38 of vtable 0x00804FA8 class GameTextManager; outer ptr at +0 inner name at +8 else g_Rva0107301CEmptyString; forwards to slot 17 offset 0x44 then StringBase<G> copy 0x00037050
+
+UnicodeString GameTextManager::fetch(const AsciiString &label, bool *exists)
+{
+	const char *s = label.str();
+	return *fetchPtr(s, exists);
+}
 
 // tu-skeleton: 0x002E5770 33B ?fetchPtr@GameTextManager@@UAEPAVUnicodeString@@ABVAsciiString@@PA_N@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp (not merged yet)
 
 // tu-skeleton: 0x002E5791 53B ??1Rva002E5791@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GameText.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GameText.cpp
 
@@ -642,10 +682,6 @@ Bool GameTextTable::load(const char *strFile, const char *csfFile, Bool *usedCSF
 	return true;
 }
 
-// tu-skeleton: 0x002E5B66 101B ??$__median@UStringLookUp@@URva002E5678Cmp@@@_STL@@YAABUStringLookUp@@ABU1@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5BCB 74B ??$__unguarded_partition@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAPAUStringLookUp@@PAU1@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameClient/GameTextStringLookUpBound.cpp
 
 // ?Rva002E5C15LowerBound@@YAPAUStringLookUp@@PAU1@0ABQBDURva002E5C15Comp@@H@Z 0x002E5C15 76B
@@ -728,33 +764,9 @@ Rva002E6184Pair __cdecl Rva002E6184EqualRange(StringLookUp *first, StringLookUp 
 	return Rva002E6184Pair(first, first);
 }
 
-// tu-skeleton: 0x002E5CAD 60B ??$__unguarded_linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E5CE9 93B ??$__push_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/FamilyDeletingDtors_muse07-2E5711.cpp
 
 void famgenDelete(Rva002E5711 *p) { delete p; }
-
-// tu-skeleton: 0x002E5E5A 75B ??_ERva002E5791@@QAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x002E60C2 36B ??$__unguarded_insertion_sort_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E60E6 114B ??$__adjust_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6158 44B ??1GameTextTable@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextTable.cpp (not merged yet)
-
-// tu-skeleton: 0x002E621B 23B ??$__unguarded_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6232 77B ??$__linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E627F 50B ??$__pop_heap@PAUStringLookUp@@U1@URva002E5678Cmp@@H@_STL@@YAXPAUStringLookUp@@00U1@URva002E5678Cmp@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E62B1 82B ??$__make_heap@PAUStringLookUp@@URva002E5678Cmp@@U1@H@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@0PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6303 33B ??$__pop_heap_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
-
-// tu-skeleton: 0x002E6324 5B ??1Rva002E6324@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/Common/Rva002E6329Forward.cpp
 
@@ -769,29 +781,17 @@ void *rva002E6329(void *a, void *b, void *c, void *d, void *e)
 // carries as ?Rva002E6184EqualRange@@YA?AURva002E6184Pair@@PAUStringLookUp@@0ABQBDURva002E5C15Comp@@PAH@Z. Bind the donor spelling to that rowed owner so one
 // address keeps one definition and the unit links.
 
-// tu-skeleton: 0x002E634A 48B ??$__insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E637A 25B ??$make_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6393 23B ??$pop_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E640B 10B ?setTranslateMode@GameTextManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6431 32B ?reset@GameTextManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager_reset.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6451 74B ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp (not merged yet)
 
-// tu-skeleton: 0x002E649B 74B ??$__final_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E64E5 58B ??$sort_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E651F 50B ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6551 96B ?deinit@GameTextManager@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager_deinit.cpp (not merged yet)
 
-// tu-skeleton: 0x002E6695 93B ??$__partial_sort@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@000URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
-// tu-skeleton: 0x002E66F2 89B ??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameClient/Rva002E674BFinish.cpp
 
@@ -818,6 +818,129 @@ void Rva002E674B::rva002E674B(AsciiStringVec &out, const AsciiString &filter)
 	}
 }
 
+// tu-skeleton: 0x002E5B66 101B ??$__median@UStringLookUp@@URva002E5678Cmp@@@_STL@@YAABUStringLookUp@@ABU1@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5BCB 74B ??$__unguarded_partition@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAPAUStringLookUp@@PAU1@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5CAD 60B ??$__unguarded_linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E5CE9 93B ??$__push_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp
+
+// ??_ERva002E5791@@QAEPAXI@Z 0x002E5E5A 75B
+// Evidence: chain from 0x002E5791 landing; size 8 cookie at [esi-4]; calls rowed ??1Rva002E5791 0x002E5791 plus ??_M ??_V ??3.
+// The canonical frozen StringBase replaces the private copy; the array delete
+// only needs the complete member type and the rowed holder dtor.
+
+// ?Rva002E5791DeleteArray@@YAXPAVRva002E5791@@@Z present-unmatched
+void Rva002E5791DeleteArray(Rva002E5791 *array)
+{
+	delete[] array;
+}
+
+// tu-skeleton: 0x002E60C2 36B ??$__unguarded_insertion_sort_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E60E6 114B ??$__adjust_heap@PAUStringLookUp@@HU1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@HHU1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GameTextTable.cpp
+
+// ??1GameTextTable@@QAE@XZ 0x002E6158 44B
+// Evidence: chain from 0x002E5E5A vector dtor; scalar dtor over +4 Rva002E5791 array via delete[] then +8 trivial array via vector delete; callers 0x002E6415 0x002E6551 0x002E6303.
+
+GameTextTable::~GameTextTable()
+{
+	if (m_info)
+	{
+		delete[] reinterpret_cast<Rva002E5791 *>(m_info);
+		m_info = 0;
+	}
+	if (m_lookup)
+	{
+		delete[] reinterpret_cast<char *>(m_lookup);
+		m_lookup = 0;
+	}
+	m_count = 0;
+}
+
+// tu-skeleton: 0x002E621B 23B ??$__unguarded_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6232 77B ??$__linear_insert@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0U1@URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E627F 50B ??$__pop_heap@PAUStringLookUp@@U1@URva002E5678Cmp@@H@_STL@@YAXPAUStringLookUp@@00U1@URva002E5678Cmp@@PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E62B1 82B ??$__make_heap@PAUStringLookUp@@URva002E5678Cmp@@U1@H@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@0PAH@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6303 33B ??$__pop_heap_aux@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6324 5B ??1Rva002E6324@@QAE@XZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x002E634A 48B ??$__insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E637A 25B ??$make_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E6393 23B ??$pop_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E640B 10B ?setTranslateMode@GameTextManager@@UAEXH@Z -- matched in Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GameTextManager_reset.cpp
+
+void GameTextManager::reset()
+{
+	GameTextTable *ptr = m_mapTable;
+	if (ptr)
+	{
+		ptr->~GameTextTable();
+		::operator delete(ptr);
+		m_mapTable = 0;
+	}
+}
+
+// tu-skeleton: 0x002E6451 74B ?rva002E6451@Rva002E6451@@QAEPAXPBD@Z -- matched in Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp (not merged yet)
+
+// tu-skeleton: 0x002E649B 74B ??$__final_insertion_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E64E5 58B ??$sort_heap@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E651F 50B ?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GameTextManager_deinit.cpp
+
+void GameTextManager::deinit()
+{
+	GameTextTable *ptr = m_textTable;
+	if (ptr)
+	{
+		ptr->~GameTextTable();
+		::operator delete(ptr);
+		m_textTable = 0;
+	}
+	ptr = m_mapTable;
+	if (ptr)
+	{
+		ptr->~GameTextTable();
+		::operator delete(ptr);
+		m_mapTable = 0;
+	}
+	Rva002E5711 *cur = reinterpret_cast<Rva002E5711 *>(m_noStringList);
+	if (cur)
+	{
+		do
+		{
+			Rva002E5711 *next = *(Rva002E5711 **)cur;
+			cur->~Rva002E5711();
+			::operator delete(cur);
+			cur = next;
+		} while (cur);
+	}
+	m_noStringList = 0;
+	m_initialized = 0;
+}
+
+// tu-skeleton: 0x002E6695 93B ??$__partial_sort@PAUStringLookUp@@U1@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@000URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x002E66F2 89B ??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
+
 // tu-skeleton: 0x002E67B3 27B ??$partial_sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // tu-skeleton: 0x002E67CE 28B ??_GGameTextManager@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
@@ -827,3 +950,21 @@ void Rva002E674B::rva002E674B(AsciiStringVec &out, const AsciiString &filter)
 // tu-skeleton: 0x002E6826 131B ??$__introsort_loop@PAUStringLookUp@@U1@HURva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@00HURva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
 
 // tu-skeleton: 0x002E68A9 67B ??$sort@PAUStringLookUp@@URva002E5678Cmp@@@_STL@@YAXPAUStringLookUp@@0URva002E5678Cmp@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp (not merged yet)
+
+// tu-skeleton: 0x00778CB5 8B Unwind@00b78cb5 -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00778CBD 10B __ehhandler$??1Rva002E5791@@QAE@XZ -- matched in Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D11 8B uw_00778d11 -- matched in Code/gen_small/uw_gen_011.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D23 10B uw_00778d23 -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D2D 10B __ehhandler$?CreateGameTextInterface@@YAPAVGameTextInterface@@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextCreate.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D49 8B $L5334 -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D51 11B Unwind@00b78d51 -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D5C 11B Unwind@00b78d5c -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)
+
+// tu-skeleton: 0x00778D67 10B __ehhandler$??1GameTextManager@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GameTextManager.cpp (not merged yet)

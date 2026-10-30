@@ -23313,8 +23313,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E56B3,47,code,,,-,,Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp
 0x002E56E2,47,code,,,-,,Code/GameEngine/Source/GameClient/GameTextStringLookUpLess.cpp
 0x002E5711,8,code,Code/GameEngine/Source/GameClient/GameText.cpp,proposed,K,K=Rva002E5711,Code/GameEngine/Source/GameClient/Rva002E5711Dtor.cpp
-0x002E5719,35,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameTextManager_fetch.cpp
-0x002E573C,52,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/Rva002E573CGetter.cpp
+0x002E5719,35,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
+0x002E573C,52,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E5770,33,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/Common/GameTextManager.cpp,Code/GameEngine/Source/Common/VslotSmallBodiesD.cpp
 0x002E5791,53,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5770..0x002E57C6,Code/GameEngine/Source/GameClient/Rva002E5791Dtor.cpp
 0x002E57C6,928,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextTable.cpp W=Code/GameEngine/Source/GameClient/GameText.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
@@ -23326,13 +23326,13 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E5CE9,93,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E57C6..0x002E5D46,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E5D46,28,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E57C6..0x002E5D62,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E5D62,248,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
-0x002E5E5A,75,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5D62..0x002E5EA5,Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp
+0x002E5E5A,75,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5D62..0x002E5EA5,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E5EA5,487,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextTable.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E608C,27,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5EA5..0x002E60A7,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E60A7,27,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5EA5..0x002E60C2,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E60C2,36,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5EA5..0x002E60E6,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E60E6,114,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E5EA5..0x002E6158,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
-0x002E6158,44,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextTable.cpp,Code/GameEngine/Source/GameClient/GameTextTable.cpp
+0x002E6158,44,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextTable.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E6184,151,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6158..0x002E621B,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E621B,23,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6158..0x002E6232,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E6232,77,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6158..0x002E627F,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
@@ -23347,12 +23347,12 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x002E63AA,97,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E640B,10,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/Common/GameTextManager.cpp,Code/GameEngine/Source/Common/DispArgFieldSettersVslots.cpp
 0x002E6415,28,code,,displaced,-,N=Code/GameEngine/Source/Common/GameTextTable.cpp,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse07-2E6158.cpp
-0x002E6431,32,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameTextManager_reset.cpp
+0x002E6431,32,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E6451,74,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6431..0x002E649B,Code/GameEngine/Source/GameClient/Rva002E6451Find.cpp
 0x002E649B,74,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6431..0x002E64E5,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E64E5,58,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6431..0x002E651F,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E651F,50,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E6431..0x002E6551,Code/GameEngine/Source/GameClient/GameTextCreate.cpp
-0x002E6551,96,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp W=Code/GameEngine/Source/GameClient/GameText.cpp,Code/GameEngine/Source/GameClient/GameTextManager_deinit.cpp
+0x002E6551,96,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp W=Code/GameEngine/Source/GameClient/GameText.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E65B1,228,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,U,N=Code/GameEngine/Source/GameClient/GameTextManager.cpp W=Code/GameEngine/Source/GameClient/GameText.cpp,Code/GameEngine/Source/GameClient/GameText.cpp
 0x002E6695,93,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,C,C=0x002E65B1..0x002E66F2,Code/Libraries/Source/WWVegas/WWLib/stlport_sort_stringlookup.cpp
 0x002E66F2,89,code,Code/GameEngine/Source/GameClient/GameText.cpp,approved,Z,Z=Code/GameEngine/Source/GameClient/GameText.cpp N=Code/GameEngine/Source/GameClient/GameTextManager.cpp,Code/GameEngine/Source/GameClient/GameTextManager.cpp

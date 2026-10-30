@@ -23378,7 +23378,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??_GRva006F8460@@UAEPAXI@Z,,0x006F8490,35,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva006F8460.cpp,matched,pooled deleting dtor calls rowed dtor 0x006F8460
 ?rva0059B3E9@Rva0059B3E9@@QAEHPAD@Z,,0x0059B3E9,55,Code/GameEngine/Source/Common/Rva0059B3E9Write.cpp,matched,three-part write via rowed Pair and AsciiStringRef returns total
 ?rva00503E17@Rva00503E17@@QAEMXZ,,0x00503E17,56,Code/GameEngine/Source/Common/calc.cpp,matched,chain Bezier Evaluate with SSE t caller 0x005043DF
-??_ERva002E5791@@QAEPAXI@Z,,0x002E5E5A,75,Code/GameEngine/Source/GameClient/Rva002E5791VectorDeletingDtor.cpp,matched,chain from 0x002E5791 landing size 8 cookie
+??_ERva002E5791@@QAEPAXI@Z,,0x002E5E5A,75,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E5791 landing size 8 cookie
 ?Rva002CF36ECopy@@YAXPAURva002CF13B@@PBU1@@Z,,0x002CF36E,18,Code/Libraries/Source/WWVegas/WWLib/Rva002CF36ECopy.cpp,matched,null guarded placement via 0x002CF13B; 18B exact; caller 0x002CF883
 ?Rva002CF86FCreate@@YGPAXPBURva002CF13B@@@Z,,0x002CF86F,34,Code/Libraries/Source/WWVegas/WWLib/Rva002CF86FCreate.cpp,matched,node create via 0x002CF36E; 34B exact; callers 0x002CFA57 0x0033C114
 ?Rva002CFA4EClone@@YGPAURva002CFA4ENode@@PBU1@@Z,,0x002CFA4E,30,Code/Libraries/Source/WWVegas/WWLib/Rva002CFA4EClone.cpp,matched,node clone via 0x002CF86F; 30B exact; callers 0x002CFCFB 0x002CFD2B
@@ -23406,7 +23406,7 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ??4Rva002CF5D4@@QAEAAU0@ABU0@@Z,,0x002CF5D4,43,Code/GameEngine/Source/GameLogic/Object/Rva002CF5D4Assign.cpp,matched,56-element assign via 0x002C99FB; 43B exact; caller 0x002D128C
 ?_M_erase@Rva002CF2D5@@QAEXPAURva002CF2D5Node@@@Z,,0x002CF2D5,45,Code/Libraries/Source/WWVegas/WWLib/Rva002CF2D5Erase.cpp,matched,tree erase via right plusC left plus8 free 0x30830; 45B exact; caller 0x002CF7C3
 ?Rva003BB654@ScriptActions@@QAEXXZ,,0x003BB654,19,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptActionsRva003BAAD6.cpp,matched,null-guarded forwarder to vslot 0x17C via global 0xDFE6E8 caller 0x003CE477; member ABI repaired: retail dispatcher3CA4BE passes ScriptActions this in ECX; original verb remains unknown
-??1GameTextTable@@QAE@XZ,,0x002E6158,44,Code/GameEngine/Source/GameClient/GameTextTable.cpp,matched,chain from 0x002E5E5A vector arrays
+??1GameTextTable@@QAE@XZ,,0x002E6158,44,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain from 0x002E5E5A vector arrays
 ?rva002CF7B5@Rva002CF7B5@@QAEXXZ,,0x002CF7B5,41,Code/Libraries/Source/WWVegas/WWLib/Rva002CF7B5Clear.cpp,matched,tree clear via 0x002CF2D5; 41B exact; callers 0x002D0142 0x0033BD65
 ?eraseSubtree@Rva002CF302@@QAEXPAURva002CF302Node@@@Z,,0x002CF302,45,Code/Libraries/Source/WWVegas/WWLib/Rva002CF302Erase.cpp,matched,tree erase via right plusC left plus8 free 0x30830; 45B exact; caller 0x002CF7EC
 ??0Rva004393D6@@QAE@ABU0@@Z,,0x004393D6,39,Code/Libraries/Source/WWVegas/WWLib/Rva004393D6Copy.cpp,matched,unlock list Pod196 copy plus ints
@@ -23423,11 +23423,11 @@ uw_0076443a,,0x0076443A,8,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DD
 ?rva004D662D@Rva004D65DC@@QAEXVAsciiString@@@Z,,0x004D662D,52,Code/GameEngine/Source/Common/Rva004D662DSet.cpp,matched,Rva004D65DC AsciiString plus20 setter via caller 0x00592520
 ??_GGameTextTable@@QAEPAXI@Z,,0x002E6415,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse07-2E6158.cpp,matched,chain from 0x002E6158 scalar deleting
 ??0Rva004395EC@@QAE@ABU0@@Z,,0x0043964D,29,Code/Libraries/Source/WWVegas/WWLib/Rva004393D6Copy.cpp,matched,chain copy of 0x004395EC
-?reset@GameTextManager@@UAEXXZ,,0x002E6431,32,Code/GameEngine/Source/GameClient/GameTextManager_reset.cpp,matched,chain clears +0x30 via dtor delete
+?reset@GameTextManager@@UAEXXZ,,0x002E6431,32,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain clears +0x30 via dtor delete
 ?rva005E36A0@Rva005E36A0@@QAEHPAD@Z,,0x005E36A0,37,Code/GameEngine/Source/Common/Rva005E36A0Write.cpp,matched,two-part write via rowed Rva0059B3E9 and AsciiStringRef returns total
 ?copyToBuffer@Rva005E36C5@@QAEHPAD@Z,,0x005E36C5,37,Code/GameEngine/Source/Common/Rva005E36A0Write.cpp,matched,two-part write via rowed Rva005E36A0 and Pair returns total
 ?Rva00441E4DFaction@@YA_NPAXABVAsciiString@@@Z,,0x00441E4D,129,Code/GameEngine/Source/GameClient/GUI/Rva00441E4DFaction.cpp,matched,Faction prefix check via rowed find and caller 0x004426D1
-?deinit@GameTextManager@@UAEXXZ,,0x002E6551,96,Code/GameEngine/Source/GameClient/GameTextManager_deinit.cpp,matched,chain clears 2c 30 plus 24 list
+?deinit@GameTextManager@@UAEXXZ,,0x002E6551,96,Code/GameEngine/Source/GameClient/GameText.cpp,matched,chain clears 2c 30 plus 24 list
 ?rva0026F0F0@Rva0026F0F0@@QAEPAXPBX@Z,,0x0026F0F0,42,Code/GameEngine/Source/Common/System/Upgrade.cpp,matched,unlock bitmask list find 8 callers
 ??1Rva0048C200Owner@@QAE@XZ,,0x002019E1,54,Code/GameEngine/Source/Common/Rva0048C200StringOwnerDtor.cpp,matched,dtor abuts ctor E1998 plus two releaseBuffer EH
 ??_GRva0048C200Owner@@QAEPAXI@Z,,0x00201A17,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_muse-02-201A17.cpp,matched,deleting dtor chain from E19E1 QAE
@@ -27320,7 +27320,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ??0Rva00051C6C@@QAE@ABV0@@Z,,0x00051C6C,29,Code/GameEngine/Source/Common/Rva00051C6CCopyCtor.cpp,matched,copy ctor int plus PoolRef10 via rowed 0x51950 caller 0x53FB0
 ?_M_insert_overflow@?$vector@VRva0036CA00Str@@V?$allocator@VRva0036CA00Str@@@_STL@@@_STL@@IAEXPAVRva0036CA00Str@@ABV3@ABU__false_type@2@I_N@Z,,0x00058ADE,178,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_rva0036ca00_overflow.cpp,matched,chain via rowed fill_n 0x00051AF9 caller push_back 0x0005A048 same 178B as CameraMarker overflow
 ?getOnlineIPAddress@OptionPreferences@@QAEIXZ,,0x002E514A,194,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,matched,gamespy twin of getLANIPAddress via rowed tooltip and writable global
-?fetch@GameTextManager@@UAE?AVUnicodeString@@PBDPA_N@Z,,0x002E5719,35,Code/GameEngine/Source/GameClient/GameTextManager_fetch.cpp,matched,vslot 15 of 0x00804FA8 Rva002E66F2 forwards to slot 17 plus StringBase copy 0x37050
+?fetch@GameTextManager@@UAE?AVUnicodeString@@PBDPA_N@Z,,0x002E5719,35,Code/GameEngine/Source/GameClient/GameText.cpp,matched,vslot 15 of 0x00804FA8 Rva002E66F2 forwards to slot 17 plus StringBase copy 0x37050
 ?Rva00363C71Approx@@YANPBUCoord3D@@0@Z,,0x00363C71,130,Code/GameEngine/Source/Common/Rva00363C71Approx.cpp,matched,2D distance approximation max plus quarter min; literal 0.25 plus /arch:SSE fcomi fix the banked partial; call sites 0x00363D3C 0x00363D52
 ?rva005C41C9@Rva005C41C9@@QAEXE@Z,,0x005C41C9,73,Code/GameEngine/Source/Common/Rva005C41C9Refresh.cpp,matched,store byte then re-query slot 0x44 and forward with +0xAC selection; parameter reuse and pointer local fix the banked partial; caller 0x0052B034
 ?Rva003BB700@ScriptActions@@QAEX_N@Z,,0x003BB700,19,Code/GameEngine/Source/Common/Rva003BB700Set.cpp,matched,stdcall setter of TheGameLogic +0x98 byte; real global extern fixes the banked load order; member ABI: dispatcher3CA4BE passes ScriptActions receiver in ECX; canonical header owner
@@ -27356,7 +27356,7 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva0044DD83@GameModePreferences@@QAEXVAsciiString@@@Z,,0x0044DD83,120,Code/GameEngine/Source/Common/GameModePreferences.cpp,matched,Map setter via QuotedPrintable then makeKey Map slot assign callers 0x0050CFE6 0x0059F9C2
 ??$copy@PAUBfmeStringRecord000B9534@@PAU1@@_STL@@YAPAUBfmeStringRecord000B9534@@PAU1@00@Z,,0x000B6782,29,Code/Libraries/Source/WWVegas/WWLib/stlport_copy_stringrecord_b9534.cpp,matched,29B 5-push copy wrapper calls rowed __copy 0x000B448F same as 0x0032A40E
 ??$fill@PAURva00B6CF1@@U1@@_STL@@YAXPAURva00B6CF1@@0ABU1@@Z,,0x000B67F6,29,Code/Libraries/Source/WWVegas/WWLib/stlport_fill_rva00b6cf1.cpp,matched,29B fill via rowed assign 0x000B433E same as 0x000B4300
-?fetch@GameTextManager@@UAE?AVUnicodeString@@ABVAsciiString@@PA_N@Z,,0x002E573C,52,Code/GameEngine/Source/GameClient/Rva002E573CGetter.cpp,matched,vslot 14 of 0x00804FA8 Rva002E66F2 outer-inner plus empty plus slot17 plus StringBase copy
+?fetch@GameTextManager@@UAE?AVUnicodeString@@ABVAsciiString@@PA_N@Z,,0x002E573C,52,Code/GameEngine/Source/GameClient/GameText.cpp,matched,vslot 14 of 0x00804FA8 Rva002E66F2 outer-inner plus empty plus slot17 plus StringBase copy
 ?rva002E54EA@OptionPreferences@@QAEXXZ,,0x002E54EA,83,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,matched,erases 9 enum keys via rowed erase 0x2E4ED1; table 0xDBD120; caller 0x5194F6
 ?rva002E537B@OptionPreferences@@QAEXH@Z,,0x002E537B,127,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/OptionsMenu.cpp,matched,IdealStaticGameLOD twin via operator index-erase 0x2031FB 0x2E4ED1; table 0xDB95F4
 ??0Rva0029B816@@QAE@HH_N00ABVAsciiString@@H0HH@Z,,0x0029B74A,204,Code/GameEngine/Source/GameClient/Rva0029B816Ctor.cpp,matched,ctor vtable 0x7FD028 two newDisplayStrings via 0xDFEAD8 slot 0x38 then setFont
