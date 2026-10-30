@@ -103,11 +103,3 @@ void Rva004697E1Contain::rva004697E1()
 	if (mine != ownerClear)
 		tail.slot24();
 }
-
-// Native 004783D7..004783DC and WB 011A75F0 prove an unchanged-receiver
-// no-argument forward to OpenContain's separately verified load routine.
-// The folded wrapper's original class identity remains unknown.
-void Rva004697E1Contain::rva004783D7()
-{
-    reinterpret_cast<OpenContain *>(this)->OpenContain::loadPostProcess();
-}

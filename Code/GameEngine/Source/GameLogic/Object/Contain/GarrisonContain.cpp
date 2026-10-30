@@ -214,6 +214,104 @@ private:
 	int m_initialRosterCount;		// +0xA8
 };
 
+//
+// Retail 0x004697E1, 59 bytes, RET.
+// Virtual slot 33 on this (argument 0), a direct call to an unnamed member
+// (0x004783D7, address-derived pin), then a comparison between this +0x2C5 and
+// the owner's +0x1D8 byte; on mismatch it tail-jumps slot 24 of the subobject at +0x11C.
+// Class and owner names are address-derived; the slots are shims.
+class OpenContain
+{
+    friend class Rva004697E1Contain;
+protected:
+    virtual void loadPostProcess();
+};
+
+class Rva004697E1Owner
+{
+public:
+	char unknown00[0x1D8];
+	bool flag;
+};
+
+class Rva004697E1Tail
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+};
+
+class Rva004697E1Contain
+{
+public:
+	virtual void slot0();
+	virtual void slot1();
+	virtual void slot2();
+	virtual void slot3();
+	virtual void slot4();
+	virtual void slot5();
+	virtual void slot6();
+	virtual void slot7();
+	virtual void slot8();
+	virtual void slot9();
+	virtual void slot10();
+	virtual void slot11();
+	virtual void slot12();
+	virtual void slot13();
+	virtual void slot14();
+	virtual void slot15();
+	virtual void slot16();
+	virtual void slot17();
+	virtual void slot18();
+	virtual void slot19();
+	virtual void slot20();
+	virtual void slot21();
+	virtual void slot22();
+	virtual void slot23();
+	virtual void slot24();
+	virtual void slot25();
+	virtual void slot26();
+	virtual void slot27();
+	virtual void slot28();
+	virtual void slot29();
+	virtual void slot30();
+	virtual void slot31();
+	virtual void slot32();
+	virtual void slot33(int value);
+	void rva004697E1();
+	// Retail calls the 0x004783D7 forward; never inline it into rva004697E1.
+	__declspec(noinline) void rva004783D7();
+private:
+	Rva004697E1Owner *owner;
+	char unknown08[0x11C-0x08];
+	Rva004697E1Tail tail;
+	char unknown120[0x2C5-0x120];
+	bool flag;
+};
+
 // tu-skeleton: 0x00477DA1 175B ?putObjectAtGarrisonPoint@GarrisonContain@@IAEXPAVObject@@W4ObjectID@@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainPutObjectAtGarrisonPoint.cpp (not merged yet)
 
 // tu-skeleton: 0x00477E50 50B ?findConditionIndex@GarrisonContain@@IAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindConditionIndex.cpp (not merged yet)
@@ -221,6 +319,8 @@ private:
 // tu-skeleton: 0x00477E82 132B ?removeObjectFromGarrisonPoint@GarrisonContain@@IAEXPAVObject@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRemoveObject.cpp (not merged yet)
 
 // tu-skeleton: 0x00477F06 278B ??0GarrisonContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContain.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Module/GarrisonContainPoolKey.cpp
 
@@ -231,18 +331,6 @@ NameKeyType GarrisonContain::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("GarrisonContain");
 	return TheGarrisonContainPoolKey;
 }
-
-// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00478141 240B ?validateRallyPoint@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (not merged yet)
-
-// tu-skeleton: 0x00478231 47B ?rva00478231@Rva00478231@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp (not merged yet)
-
-// tu-skeleton: 0x00478260 375B ?xfer@GarrisonContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x004783D7 5B ?rva004783D7@Rva004697E1Contain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva004783F4.cpp
 
@@ -606,6 +694,61 @@ void GarrisonContain::trackTargets( void )
 
   // end loadStationGarrisonPoints
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainModuleDataCtor.cpp
+
+GarrisonContainModuleData::GarrisonContainModuleData()
+{
+	m_filter40.rva00362192(Rva00045411BitSet(0, 8), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
+	m_mobileGarrison = false;
+	m_doIHealObjects = false;
+	m_framesForFullHeal = 1.0f;
+	m_immuneToClearBuildingAttacks = false;
+	m_initialRosterCount = 0;
+}
+
+// tu-skeleton: 0x00478061 6B ?name@GarrisonContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00478067 128B ??1GarrisonContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00478141 240B ?validateRallyPoint@GarrisonContain@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainValidateRallyPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x00478231 47B ?rva00478231@Rva00478231@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva00478231Contain.cpp (not merged yet)
+
+// tu-skeleton: 0x00478260 375B ?xfer@GarrisonContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/Rva004697E1Gate.cpp
+
+// Native 004783D7..004783DC and WB 011A75F0 prove an unchanged-receiver
+// no-argument forward to OpenContain's separately verified load routine.
+// The folded wrapper's original class identity remains unknown.
+void Rva004697E1Contain::rva004783D7()
+{
+    reinterpret_cast<OpenContain *>(this)->OpenContain::loadPostProcess();
+}
+
 // tu-skeleton: 0x00478416 47B ?calcDistSqr@@YAMABUCoord3D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
 
 // tu-skeleton: 0x00478445 258B ?findClosestFreeGarrisonPointIndex@GarrisonContain@@IAEHHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainFindClosestFreePoint.cpp (not merged yet)
@@ -651,18 +794,6 @@ void GarrisonContain::trackTargets( void )
 // tu-skeleton: 0x00479432 529B ?recalcApparentControllingPlayer@GarrisonContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainRecalcApparentControllingPlayer.cpp (not merged yet)
 
 // tu-skeleton: 0x00479643 217B ?update@GarrisonContain@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainUpdate.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/GarrisonContainModuleDataCtor.cpp
-
-GarrisonContainModuleData::GarrisonContainModuleData()
-{
-	m_filter40.rva00362192(Rva00045411BitSet(0, 8), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
-	m_mobileGarrison = false;
-	m_doIHealObjects = false;
-	m_framesForFullHeal = 1.0f;
-	m_immuneToClearBuildingAttacks = false;
-	m_initialRosterCount = 0;
-}
 
 // tu-skeleton: 0x0047981E 28B ??_GGarrisonContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
 
