@@ -23,13 +23,10 @@ Rva000427195::Rva000427195(const Rva000427195 &that)
 	*this = that;
 }
 
-// --- 0x001FF547 (24B): push a block onto the free list headed at VA
-// 0x00DB9448; 0x001FF6EB (24B): pop one element from the pool at VA
-// 0x00DB9440 through the rowed 0x002EB448.
-void * g_00DB9448 = 0;	// retail RVA 0x009B9448 (.data), defined here
-
-class Rva002E8548;
-extern Rva002E8548 g_Va00DB9440;
+// --- 0x001FF547 (24B): push a block onto the free list of the pool at VA
+// 0x00DB9440 (its free-node head m_head, VA 0x00DB9448); 0x001FF6EB (24B):
+// pop one element from that pool through the rowed 0x002EB448.
+#include "../../Include/Common/Rva002E8548Pool.h"
 
 class Rva002EB448
 {
@@ -48,8 +45,9 @@ void Rva001FF547::deallocate(void *block, unsigned int n)
 {
 	if (block)
 	{
-		*(void **)block = g_00DB9448;
-		g_00DB9448 = block;
+		Rva002E8548 &pool = g_Va00DB9440;
+		*(void **)block = pool.m_head;
+		pool.m_head = block;
 	}
 }
 
