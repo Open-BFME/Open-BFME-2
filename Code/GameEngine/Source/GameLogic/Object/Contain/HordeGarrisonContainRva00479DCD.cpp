@@ -17,24 +17,53 @@
 
 extern GameLogic *TheGameLogic;
 
-enum ObjectStatusTypes
-{
-	OBJECT_STATUS_26 = 0x26
-};
-
 class Drawable
 {
 public:
 	void setDrawableHidden(bool hidden);
 };
 
+enum ObjectStatusTypes
+{
+	OBJECT_STATUS_RETAIL_5D = 0x5D,
+	OBJECT_STATUS_26 = 0x26
+};
+
+class Player;
+class Drawable;
+class Rva0047A14CBody;
+
+class Rva00110ConditionBits
+{
+public:
+	unsigned int test(int bit) const
+	{
+		return m_words[bit >> 5] & (1U << (bit & 0x1f));
+	}
+	void set(int bit)
+	{
+		m_words[bit >> 5] |= 1U << (bit & 0x1f);
+	}
+private:
+	unsigned int m_words[8];
+};
+
 class Object
 {
 public:
 	bool testStatus(ObjectStatusTypes status) const;
+	Player *getControllingPlayer() const;
+	void rva0028DCC4();
 	Drawable *getDrawable() const;
+	void rva0028AE6D();
+	char m_pad00[0x110];
+	Rva00110ConditionBits m_conditionBits; // +0x110
+	char m_pad130[0x120];
+	Rva0047A14CBody *m_body250; // +0x250
+	char m_pad254[0x200];
+	unsigned char m_454; // +0x454
+	char m_pad455[0x3];
 };
-
 class Rva00270260
 {
 public:
@@ -44,10 +73,14 @@ public:
 class Rva0047A040Base9E0
 {
 public:
+	Rva0047A040Base9E0();
+	bool rva00588D24(void *a, Object *b);
+	void rva00588D99(Object *obj);
+	void rva00588E20(Object *object);
+	void rva00588E44(void *argument);
 	void *rva00588B8A(void *key);
-	int m_nextFrame;						// +0x00
+	int m_nextFrame; // +0x00
 };
-
 class Rva00479BA1
 {
 public:

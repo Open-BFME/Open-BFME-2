@@ -12,11 +12,17 @@ public:
 	void removeFromContain(Object *object, bool flag);
 };
 
-class Rva0047A040Base9E0 {
+class Rva0047A040Base9E0
+{
 public:
+	Rva0047A040Base9E0();
+	bool rva00588D24(void *a, Object *b);
+	void rva00588D99(Object *obj);
 	void rva00588E20(Object *object);
+	void rva00588E44(void *argument);
+	void *rva00588B8A(void *key);
+	int m_nextFrame; // +0x00
 };
-
 class Rva00479BA1
 {
 public:
