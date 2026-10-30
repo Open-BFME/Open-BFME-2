@@ -69,18 +69,25 @@ class SpecialDisguiseUpdateModuleData
 {
 public:
 	unsigned char m_pad00[0xD8];
-	const FXList *m_fx;
+	const FXList *m_disguiseFX; // +0xD8
 };
 
-class SpecialDisguiseUpdate
+class ModuleData;
+
+class SpecialAbilityUpdate
+{
+public:
+	virtual void triggerAbilityEffect();
+protected:
+	const ModuleData *m_moduleData; // +0x04
+	Object *m_object; // +0x08
+};
+
+class SpecialDisguiseUpdate : public SpecialAbilityUpdate
 {
 public:
 	void rva004B05F5(bool keep);
 	void rva004B04B2(bool value);
-private:
-	void *m_vptr;
-	const SpecialDisguiseUpdateModuleData *m_moduleData;
-	Object *m_object;
 };
 
 // ?rva004B05F5@SpecialDisguiseUpdate@@QAEX_N@Z @0x004B05F5
@@ -93,7 +100,8 @@ void SpecialDisguiseUpdate::rva004B05F5(bool keep)
 		if (!keep)
 		{
 			rva004B04B2(true);
-			FXList::doFXPos(m_moduleData->m_fx, obj->getPosition(), 0, 0.0f, 0);
+			FXList::doFXPos(((const SpecialDisguiseUpdateModuleData *)m_moduleData)->m_disguiseFX,
+				obj->getPosition(), 0, 0.0f, 0);
 		}
 	}
 }

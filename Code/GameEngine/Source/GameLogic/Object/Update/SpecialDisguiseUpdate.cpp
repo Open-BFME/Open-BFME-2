@@ -85,17 +85,20 @@ public:
 	void rva00275DCE(int mode, float a, float b, float c);
 	Rva002390CB rva00274CD8(const AsciiString &name); // keyed sound lookup
 
-	int m_b0; // +0xB0
+	float m_B0; // +0xB0
 	unsigned char m_padB4[0x43C - 0xB4];
 	bool m_43C; // +0x43C
 	unsigned char m_pad43D[0x44C - 0x43D];
 	int m_44C; // +0x44C
 };
 
+class ThingTemplate;
+
 class ThingFactory
 {
 public:
 	void *newDrawable(void *tmplate, int a, int b); // 0x002CF21B
+	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
 extern ThingFactory *TheThingFactory;
@@ -171,6 +174,10 @@ extern PlayerList *ThePlayerList;
 class ModelConditionFlags
 {
 public:
+	__forceinline bool test(unsigned int bit) const
+	{
+		return ((m_words[bit >> 5] >> (bit & 0x1f)) & 1) != 0;
+	}
 	__forceinline unsigned int testMask(unsigned int bit) const
 	{
 		return m_words[bit >> 5] & (1U << (bit & 0x1f));
@@ -199,6 +206,11 @@ public:
 	void setArmorSetFlag(ArmorSetType value);
 	Drawable *getDrawable() const;
 	Player *getControllingPlayer() const;
+	__forceinline bool testModelConditionState(unsigned int mc) const
+	{
+		return m_conditionBits.test(mc);
+	}
+	__forceinline const Coord3D *getPosition() const { return &m_position; }
 
 	// Inlined at its call sites; the out-of-line body is the matched row in
 	// AIInternalMoveToStateOnExit.cpp, so this view must not emit a copy.
@@ -258,15 +270,71 @@ public:
 
 extern AudioManager *TheAudio;
 
-class ModuleData;
+typedef unsigned char UnsignedByte;
+class Snapshot;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
-class SpecialAbilityUpdate
+class Xfer::Version
 {
 public:
-	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
-	virtual void s04(); virtual void s05(); virtual void s06(); virtual void s07();
+	Version(UnsignedByte first, UnsignedByte version) : m_first(first), m_version(version) {}
+	UnsignedByte m_first;
+	UnsignedByte m_version;
+};
+
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *name);
+};
+
+extern NameKeyGenerator *TheNameKeyGenerator;
+
+class ModuleData;
+
+// Primary table 0x00856398: slot 3 xfer (0x004B01F4), slot 4 getModuleNameKey
+// (0x004B018E), slot 13 onExit (0x004B0414), slot 17 triggerAbilityEffect.
+class UpdateModule
+{
+public:
+	virtual ~UpdateModule();
+	virtual void slot1(); virtual void slot2();
+	void xfer(Xfer *xfer);
+};
+
+class SpecialAbilityUpdate : public UpdateModule
+{
+protected:
+	virtual void xfer(Xfer *xfer); // slot 3
+public:
+	virtual NameKeyType getModuleNameKey() const; // slot 4
+	virtual void s05(); virtual void s06(); virtual void s07();
 	virtual void s08(); virtual void s09(); virtual void s10(); virtual void s11();
-	virtual void s12(); virtual void s13(); virtual void s14(); virtual void s15();
+	virtual void s12();
+protected:
+	virtual void onExit(bool a, bool b); // slot 13
+public:
+	virtual void s14(); virtual void s15();
 	virtual void s16();
 	virtual void triggerAbilityEffect();
 protected:
@@ -276,22 +344,33 @@ protected:
 	int m_state; // +0x24
 };
 
+class FXList;
+
 class SpecialDisguiseUpdateModuleData
 {
 public:
-	unsigned char m_pad00[0xDC];
-	bool m_DC; // +0xDC
+	unsigned char m_pad00[0xD0];
+	AsciiString m_disguiseAsTemplate; // +0xD0
+	AsciiString m_disguisedAsEnemy; // +0xD4
+	const FXList *m_disguiseFX; // +0xD8
+	bool m_forceMounted; // +0xDC
 };
 
 class SpecialDisguiseUpdate : public SpecialAbilityUpdate
 {
 public:
+	virtual NameKeyType getModuleNameKey() const;
 	virtual void triggerAbilityEffect();
 	void rva004B04B2(bool value);
+	void rva004B05F5(bool keep);
 	void *rva004B031E();	// the disguise template (module data +0xD0)
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void onExit(bool a, bool b);
 private:
 	unsigned char m_pad28[0x8C - 0x28];
-	int m_8C; // +0x8C
+	float m_8C; // +0x8C
+	int m_90; // +0x90, xfer'd as a bool
 };
 
 // tu-skeleton: 0x004B018E 69B ?getModuleNameKey@SpecialDisguiseUpdate@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/SpecialDisguiseUpdatePoolKey.cpp (not merged yet)
@@ -404,7 +483,7 @@ void SpecialDisguiseUpdate::rva004B04B2(bool value)
 	Drawable *draw = obj->getDrawable();
 	bool wasSelected = draw->m_43C != 0;
 	const SpecialDisguiseUpdateModuleData *data = (const SpecialDisguiseUpdateModuleData *)m_moduleData;
-	if (data->m_DC && obj->isKindOf((KindOfType)300))
+	if (data->m_forceMounted && obj->isKindOf((KindOfType)300))
 	{
 		obj->setModelConditionState(214);
 		obj->m_ai->rva004B04B2Slot142(7);
@@ -425,7 +504,7 @@ void SpecialDisguiseUpdate::rva004B04B2(bool value)
 			TheGameLogic->bindObjectAndDrawable((Object *)obj, (Drawable *)draw);
 			draw->setPosition(&obj->m_position);
 			draw->setOrientation(obj->m_orientation);
-			draw->m_b0 = m_8C;
+			draw->m_B0 = m_8C;
 			((Rva001E42F2 *)obj)->rva001E42F2((const int *)&conditions);
 			((Rva001E431E *)obj)->rva001E431E((const int *)&conditions);
 			draw->rva0027290C(savedValue);

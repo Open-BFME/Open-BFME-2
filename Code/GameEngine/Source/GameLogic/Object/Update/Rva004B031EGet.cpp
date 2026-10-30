@@ -14,25 +14,33 @@ public:
 	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
-extern class ThingFactory *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
-struct Rva004B031EInner
+class ModuleData;
+
+class SpecialDisguiseUpdateModuleData
 {
-	char m_pad[0xD0];
-	AsciiString m_key;
+public:
+	unsigned char m_pad00[0xD0];
+	AsciiString m_disguiseAsTemplate; // +0xD0
 };
 
-class SpecialDisguiseUpdate
+class SpecialAbilityUpdate
+{
+public:
+	virtual void triggerAbilityEffect();
+protected:
+	const ModuleData *m_moduleData; // +0x04
+};
+
+class SpecialDisguiseUpdate : public SpecialAbilityUpdate
 {
 public:
 	void *rva004B031E();
-private:
-	char m_pad0[4];
-	Rva004B031EInner *m_ptr;
 };
 
 void *SpecialDisguiseUpdate::rva004B031E()
 {
-	AsciiString *key = &m_ptr->m_key;
-	return (void *)TheThingFactory->findTemplate(*key);
+	const SpecialDisguiseUpdateModuleData *data = (const SpecialDisguiseUpdateModuleData *)m_moduleData;
+	return (void *)TheThingFactory->findTemplate(data->m_disguiseAsTemplate);
 }

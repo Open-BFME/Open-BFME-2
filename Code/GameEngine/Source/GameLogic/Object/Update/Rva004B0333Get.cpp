@@ -14,7 +14,7 @@ public:
 	const ThingTemplate *findTemplate(const AsciiString &key);
 };
 
-extern class ThingFactory *TheThingFactory;
+extern ThingFactory *TheThingFactory;
 
 struct Rva004B0333Inner
 {
