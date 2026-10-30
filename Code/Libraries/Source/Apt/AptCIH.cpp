@@ -37,12 +37,18 @@ void __debugbreak();
 
 struct AptNativeHash { unsigned char unaccessed[16]; int eventFlags; };
 
+class AptCIH;
+class EAStringC;
 class AptValue
 {
 public:
-	unsigned int getRefCount() const;
-	virtual void AddRef();
-	virtual void Release();
+    unsigned int getRefCount() const;
+    void setGCMark(bool mark);
+    AptCIH *c_cih(bool = false);
+    AptValue *findChild(const EAStringC *, AptValue *);
+    void setIsDefined(bool value);
+    virtual void AddRef();
+    virtual void Release();
 };
 
 class Rva006E05B0 : public AptValue
@@ -110,10 +116,15 @@ BfmeNestedBE *bfmeUnlinkNestedBE(BfmeNestedBE *node);
 class EAStringC
 {
 public:
-	~EAStringC();
+    ~EAStringC();
+    bool IsEmpty() const;
+    const char *rva00620090() const;
+    EAStringC();
+    EAStringC &operator=(const EAStringC &);
+    EAStringC(const char *);
 
 private:
-	void *m_data;
+    void *m_data;
 };
 
 class Rva006DE350
@@ -172,6 +183,9 @@ public:
 	const AptCIH *rva006E0CB0() const;
 	bool rva006E0C50(const AptCIH *other) const;
 	bool rva006E0BF0() const;
+	void rva006E11B0();
+	bool rva006CFCD0() const;
+	bool rva006E24E0() const;
 private:
 	// Partial operand view shared with the matched level-accessor donor.
 	unsigned char _pad[0x40];
@@ -182,7 +196,12 @@ private:
 	int m_code; // +0x58
 };
 
-class Rva006D2A60 { public: void freeBlock(void *, int); };
+class Rva006D2A60
+{
+public:
+	void freeBlock(void *, int);
+	void *allocBlock(int);
+};
 
 extern Rva006D2A60 *g_pChainBlockAllocatorF4;
 
@@ -215,14 +234,28 @@ extern "C" void _ReadWriteBarrier(void);
 class Rva006DBB30SarDwordField
 {
 public:
-    int get() const;
+	int get() const;
 };
 
+class Rva006E1C40Holder;
 class BfmeAptValue006DCD20
 {
 public:
-    bool isUndefined() const;
-    int isCharacterInst() const;
+	bool isUndefined() const;
+	int isCharacterInst() const;
+	void *rva006E04A0() const;
+	void *rva006E0F40() const;
+	int rva006E0260() const; // 0x006E0260 isShapeInst
+	int rva006E02B0() const; // 0x006E02B0 isTextInst
+	int rva006E0300() const; // 0x006E0300
+	int rva006E0350() const; // 0x006E0350
+	int rva006DCC60(bool) const;
+	int rva006CBEE0(bool) const;
+	int isScriptFunction() const;
+	BfmeAptValue006DCD20 *rva006DCEE0();
+	void setGCRootCount(unsigned int);
+	char m_pad00[0x4C];
+	Rva006E1C40Holder *m_4c; // +0x4C
 };
 
 // ?rva006E0BF0@AptCIH@@QBE_NXZ, retail 0x006E0BF0, 89 bytes.
@@ -265,7 +298,14 @@ public:
 	void *bfmeSubmit1283(AptCIH *a1, int a2, int a3, int a4, int a5, int a6, int a7, float *a8, int a9, int a10, int a11, int a12);	// 0x006F8B70
 };
 
-class AptDisplayList { public: void clear(bool deep); };
+class AptDisplayList
+{
+public:
+    void clear(bool deep);
+    void rva006F79B0(void *p, void *q);
+    void rva006F7A30();
+    void *state;
+};
 
 	// 0x006F80C0
 struct Rva006E1F00Instance
