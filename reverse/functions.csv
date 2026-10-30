@@ -10222,7 +10222,7 @@ _lmemfind,,0x007496B0,110,Code/Libraries/Source/Lua/lstrlib.c,matched,vendored=l
 ?isComposing@IMEManager@@UAE_NXZ,,0x00232E8F,4,Code/GameEngine/Source/GameClient/GUI/IMEManager.cpp,matched,Native IMEManager vftableBE82B8 slot and constructor field stores fix getter identity; existing whole body moved from anonymous holder into genuine IME class; ZH interface agrees
 ?get@Rva003FE57DByteField@@QBEEXZ,,0x003FE57D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva0045310DByteField@@QBEEXZ,,0x0045310D,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
-?get@Rva004A0DF8ByteField@@QBEEXZ,,0x004A0DF8,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
+?get@Rva004A0DF8ByteField@@QBEEXZ,,0x004A0DF8,4,Code/GameEngine/Source/GameLogic/Object/Update/DockUpdate/SupplyCenterDockUpdate.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?get@Rva0009853CByteField@@QBEEXZ,,0x0009853C,4,Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp,matched,Disp8 byte getter; address-derived opaque holder
 ?name@W3DDefaultDraw@@QBEPBDXZ,,0x000B2214,6,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp,matched,literal name getter returning W3DDefaultDraw; vtable ref at 0x7C98B8; address-derived placeholder name
 ?get@Rva003BA5F2DwordField@@QBEHXZ,,0x003BA5F2,7,Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp,matched,Disp32 dword getter
