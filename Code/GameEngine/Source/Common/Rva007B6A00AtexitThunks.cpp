@@ -188,8 +188,6 @@ unsigned g_Va00E04444;	// retail RVA 0x00A04444 (.bss), defined here
 unsigned g_Va00E04448;	// retail RVA 0x00A04448 (.bss), defined here
 extern UnicodeString g_00E0447C;	// VA 0x00E0447C, defined in AptLobbyScreenInitCallbacks.cpp
 extern unsigned g_Va00E04490;
-unsigned g_Va00E048F4;	// retail RVA 0x00A048F4 (.bss), defined here
-unsigned g_Va00E048FC;	// retail RVA 0x00A048FC (.bss), defined here
 unsigned g_Va00E0494C;	// retail RVA 0x00A0494C (.bss), defined here
 unsigned g_Va00E04954;	// retail RVA 0x00A04954 (.bss), defined here
 unsigned g_Va00E04964;	// retail RVA 0x00A04964 (.bss), defined here
@@ -425,19 +423,8 @@ void __cdecl rva007B8FA9()
 	receiver->~AsciiString();
 }
 
-// ?rva007B919E@@YAXXZ @ 0x007B919E (10B): ecx=&g_Va00E048F4, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B919E()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E048F4;
-	receiver->~AsciiString();
-}
-
-// ?rva007B91A8@@YAXXZ @ 0x007B91A8 (10B): ecx=&g_Va00E048FC, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
-void __cdecl rva007B91A8()
-{
-	AsciiString *receiver = (AsciiString *)&g_Va00E048FC;
-	receiver->~AsciiString();
-}
+// 0x007B919E/0x007B91A8 are AptMainMenu.cpp's own atexit cleanups (_$E4/_$E2) of
+// the campaign statics of evilCampaignRva005158C2/goodCampaignRva00515921.
 
 // ?rva007B9202@@YAXXZ @ 0x007B9202 (10B): ecx=&g_Va00E0494C, tail-jump to rowed ??1AsciiString@@QAE@XZ (0x0048BA39)
 void __cdecl rva007B9202()

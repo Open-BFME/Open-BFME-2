@@ -649,8 +649,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E04444	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E04448	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E04490	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E048F4	2
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E048FC	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E0494C	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E04954	2
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks.cpp	g_Va00E04964	2
@@ -697,8 +695,6 @@ address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E04444	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E04448	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E04490	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E048F4	1
-address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E048FC	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E0494C	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E04954	1
 address_global	Code/GameEngine/Source/Common/Rva007B6A00AtexitThunks_Rva007B7786.cpp	g_Va00E04964	1
