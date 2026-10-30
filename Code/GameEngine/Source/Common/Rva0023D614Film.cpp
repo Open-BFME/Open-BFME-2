@@ -1,12 +1,9 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
+// stlport
 // ?Rva0023D614Set@@YAXPAV?$StringBase@D@@@Z, retail 0x0023D614, 77 bytes.
 // push ebp frame with buf[60], GetGameClientRandomValue clamp sprintf set.
 // Evidence: unlock lane; callers push none (this in arg); format StillImage_Film%02d.
-template <typename T> class StringBase
-{
-public:
-	void set(const T *str);
-};
+#include "string_base.h"
 int GetGameClientRandomValue(int lo, int hi, char *file, int line);
 #include <stdio.h>
 void Rva0023D614Set(StringBase<char> *out)

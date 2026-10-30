@@ -1,4 +1,5 @@
-// cl: /DNDEBUG /MD /EHsc
+// cl: /DNDEBUG /MD /EHsc /Ireference/shims/bfme2_ascii
+// stlport
 //
 // ??1GeometryUpgrade@@UAE@XZ, retail 0x004B6C55, 53 bytes. Behavior-side
 // module dtor: destroys the AsciiString upgrade-name at +0x1C via the
@@ -12,15 +13,10 @@
 // 0x004B6C39 slot 0 plus BFME1 GeometryUpgradeDestructor donor (same member
 // then base shape).
 
-template <typename T>
-class StringBase
-{
-public:
-	~StringBase();
-
-private:
-	T *m_data;
-};
+// The canonical frozen StringBase replaces the private copy; its switch
+// declares the narrow teardown out of line, rowed at 0x00036410.
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 
 class UpgradeModule
 {
