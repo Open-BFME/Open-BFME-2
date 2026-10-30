@@ -34343,7 +34343,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0042545A,68,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_camera_marker_fill_deferred.cpp
 0x0042549E,67,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_int_sort_rva00422ca8.cpp
 0x004254E1,45,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleDestroy.cpp
-0x0042550E,455,code,Code/GameEngine/Source/Common/System/Formation.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/Formation.cpp W=Code/GameEngine/Source/Common/System/FormationAssistant.cpp,Code/GameEngine/Source/Common/System/FormationOptimizeUnits.cpp
+0x0042550E,455,code,Code/GameEngine/Source/Common/System/Formation.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/Formation.cpp W=Code/GameEngine/Source/Common/System/FormationAssistant.cpp,Code/GameEngine/Source/Common/System/Formation.cpp
 0x004256D5,25,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp
 0x004256EE,41,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDequeTripleDestroy.cpp
 0x00425717,63,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/LightPointDtor.cpp
@@ -78035,8 +78035,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00787141,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
 0x00787149,8,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
 0x00787151,10,code,,,-,,Code/GameEngine/Source/GameLogic/System/FormationAssistantParseFormation.cpp
-0x0078715B,8,code,Code/GameEngine/Source/Common/System/Formation.cpp,approved,P,P=0x0042550E@FuncInfo0x0093467C p-group provisional,Code/GameEngine/Source/Common/System/FormationOptimizeUnits.cpp
-0x00787163,10,code,Code/GameEngine/Source/Common/System/Formation.cpp,approved,P,P=0x0042550E@FuncInfo0x0093467C p-group provisional,Code/GameEngine/Source/Common/System/FormationOptimizeUnits.cpp
+0x0078715B,8,code,Code/GameEngine/Source/Common/System/Formation.cpp,approved,P,P=0x0042550E@FuncInfo0x0093467C p-group provisional,Code/GameEngine/Source/Common/System/Formation.cpp
+0x00787163,10,code,Code/GameEngine/Source/Common/System/Formation.cpp,approved,P,P=0x0042550E@FuncInfo0x0093467C p-group provisional,Code/GameEngine/Source/Common/System/Formation.cpp
 0x0078716D,8,code,,,-,,Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp
 0x00787175,10,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_pE12_range.cpp
 0x0078717F,8,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/StlportNestedWordDeque.cpp
