@@ -84,7 +84,7 @@ extern GameSpyPeerMessageQueueInterface *TheGameSpyPeerMessageQueue;
 class Rva00385333;
 class GameSpyPSMessageQueueInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)virtual void trackPlayerStats(PSPlayerAllStats);V(9)V(10)V(11)virtual PSPlayerAllStats findPlayerStatsByID(int);virtual Rva00385333 getStats(int);};
 extern GameSpyPSMessageQueueInterface *TheGameSpyPSMessageQueue;
-class GameTextInterface {public:V(0)V(1)V(2)V(3)V(4)V(5)V(6)V(7)V(8)V(9)V(10)V(11)V(12)V(13)virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);V(16)virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
+class GameTextInterface {public:virtual void slot0();virtual void slot1();virtual void slot2();virtual void slot3();virtual void slot4();virtual void slot5();virtual void slot6();virtual void slot7();virtual void slot8();virtual void slot9();virtual void slot10();virtual void slot11();virtual void slot12();virtual void slot13();virtual UnicodeString fetch(const char *,bool *exists=0);virtual UnicodeString fetch(const AsciiString &,bool *exists=0);virtual void slot16();virtual const UnicodeString *fetchFormat(const char *,bool *exists=0);};
 extern GameTextInterface *TheGameText;
 enum NameKeyType;
 class NameKeyGenerator {public:NameKeyType nameToKey(const char *);};
@@ -210,19 +210,21 @@ public:
   virtual int getQMChannel();
 };
 extern GameSpyConfigInterface *TheGameSpyConfig;
-class Rva0054D8D8 {
+class Rva0054D8D8
+{
 public:
-  UnicodeString name;
-  char p4[8];
-  int players;
-  char p10[9];
-  bool randomFactions;
-  char p1a[2];
-  _STL::list<AsciiString> maps;
-  _STL::list<AsciiString> factions;
-  char p24[4];
-  AsciiString address;
-  unsigned short port;
+	UnicodeString name; // +0x00
+	char p4[8]; // +0x04
+	int players; // +0x0C
+	char p10[9]; // +0x10
+	bool randomFactions; // +0x19
+	char p1a[2]; // +0x1A
+	_STL::list<AsciiString> maps; // +0x1C
+	_STL::list<AsciiString> factions; // +0x20
+	char p24[4]; // +0x24
+	AsciiString address; // +0x28
+	unsigned short port; // +0x2C
+	char m_pad2E[0x2];
 };
 void GadgetComboBoxGetSelectedPos(GameWindow *, int *);
 #include <cmath>
@@ -267,10 +269,17 @@ public:
 
 extern Rva0054D974 *TheLadderList;
 
-class PlayerTemplate {
+class PlayerTemplate
+{
 public:
-  char p[0x18];
-  AsciiString side;
+	const AsciiString &getSide() const { return side; }
+	bool isPlayableSide() const { return m_playableSide; }
+
+	char p[0x18];
+	AsciiString side;			// +0x18
+	unsigned char m_pad1C[0x151 - 0x1c];
+	bool m_playableSide;			// +0x151
+	unsigned char m_pad152[0x1dc - 0x152];
 };
 
 class PlayerTemplateStore {
@@ -314,9 +323,13 @@ public:
   void addRecentLadder(LadderPref);
 };
 
-class Rva00323674 {
+class Rva00323674
+{
 public:
-  int rva00323674() const;
+	int rva00323674() const;
+	Rva00323674(GameWindow *window);
+	~Rva00323674();
+	GameWindow *m_window; // +0x00
 };
 
 class Rva003236C4 {
@@ -356,7 +369,12 @@ void *GadgetComboBoxGetItemData(GameWindow *, int);
 // frame homes for the temporaries and the param-home reuse of the new NAT).
 class MapMetaData {public:char pad[0x20];int players;};
 
-class MapCache{public:const MapMetaData *findMap(AsciiString);};
+class MapCache
+{
+public:
+	const MapMetaData *findMap(AsciiString);
+	void updateCache();
+};
 
 extern MapCache *TheMapCache;
 
