@@ -48,7 +48,7 @@ void parseInGameNotificationBoxDefinition(INI *);
 void parseFireLogicSystemDefinition(INI *);
 void parseExperienceScalarTableDefinition(INI *);
 void parseSkirmishAIDataDefinition(INI *);
-void Rva002A92F2Parse(INI *);
+void parseAIDozerAssignmentDefinition(INI *);
 void parseLivingWorldBuildingDefinition(INI *);
 void parseLivingWorldPlayerTemplateDefinition(INI *);
 void parseFireDefinition(INI *);
@@ -60,7 +60,7 @@ void parseLivingWorldBuildPlotIconDefinition(INI *);
 void parseAwardSystemDefinition(INI *);
 void parseLivingWorldPlayerArmyDefinition(INI *);
 void parseAutoResolveHandicapLevelDefinition(INI *);
-void Rva00413D58Parse(INI *);
+void parseAutoResolveReinforcementScheduleDefinition(INI *);
 void parseCrowdResponseDefinition(INI *);
 void parseHouseColorDefinition(INI *);
 void parseAutoResolveLeadershipDefinition(INI *);
@@ -401,7 +401,7 @@ extern BlockParse theAptButtonTooltipMapBlockParse;	// VA 0x00DBA1CC "AptButtonT
 BlockParse theFireLogicSystemBlockParse = { 0, "FireLogicSystem", parseFireLogicSystemDefinition };	// VA 0x00DBB758 "FireLogicSystem", parse 0x002859A8
 BlockParse theExperienceLevelBlockParse = { 0, "ExperienceLevel", ExperienceLevelStore::friend_parseExperienceLevelDefinition };	// VA 0x00DBB88C "ExperienceLevel", parse 0x0028A294
 BlockParse theExperienceScalarTableBlockParse = { 0, "ExperienceScalarTable", parseExperienceScalarTableDefinition };	// VA 0x00DBB898 "ExperienceScalarTable", parse 0x00289265
-BlockParse theAIDozerAssignmentBlockParse = { 0, "AIDozerAssignment", Rva002A92F2Parse };	// VA 0x00DBBC1C "AIDozerAssignment", parse 0x002A92F2
+BlockParse theAIDozerAssignmentBlockParse = { 0, "AIDozerAssignment", parseAIDozerAssignmentDefinition };	// VA 0x00DBBC1C "AIDozerAssignment", parse 0x002A92F2
 BlockParse theSkirmishAIDataBlockParse = { 0, "SkirmishAIData", parseSkirmishAIDataDefinition };	// VA 0x00DBBC28 "SkirmishAIData", parse 0x002A8A31
 BlockParse theLivingWorldBuildingBlockParse = { 0, "LivingWorldBuilding", parseLivingWorldBuildingDefinition };	// VA 0x00DBD078 "LivingWorldBuilding", parse 0x002E048C
 BlockParse theLivingWorldPlayerTemplateBlockParse = { 0, "LivingWorldPlayerTemplate", parseLivingWorldPlayerTemplateDefinition };	// VA 0x00DBD0A8 "LivingWorldPlayerTemplate", parse 0x002E2386
@@ -418,7 +418,7 @@ BlockParse theAwardSystemBlockParse = { 0, "AwardSystem", parseAwardSystemDefini
 BlockParse theLivingWorldPlayerArmyBlockParse = { 0, "LivingWorldPlayerArmy", parseLivingWorldPlayerArmyDefinition };	// VA 0x00DC1F68 "LivingWorldPlayerArmy", parse 0x0040F0F0
 BlockParse theAutoResolveHandicapLevelBlockParse = { 0, "AutoResolveHandicapLevel", parseAutoResolveHandicapLevelDefinition };	// VA 0x00DC2044 "AutoResolveHandicapLevel", parse 0x0041355D
 BlockParse theLivingWorldAutoResolveSciencePurchasePointBonusBlockParse = { 0, "LivingWorldAutoResolveSciencePurchasePointBonus", LivingWorldAutoResolveSciencePurchasePointBonusScheduleStore::parseLivingWorldAutoResolveSciencePurchasePointBonusBlock };	// VA 0x00DC2050 "LivingWorldAutoResolveSciencePurchasePointBonus", parse 0x00413B4D
-BlockParse theAutoResolveReinforcementScheduleBlockParse = { 0, "AutoResolveReinforcementSchedule", Rva00413D58Parse };	// VA 0x00DC205C "AutoResolveReinforcementSchedule", parse 0x00413D58
+BlockParse theAutoResolveReinforcementScheduleBlockParse = { 0, "AutoResolveReinforcementSchedule", parseAutoResolveReinforcementScheduleDefinition };	// VA 0x00DC205C "AutoResolveReinforcementSchedule", parse 0x00413D58
 BlockParse theLivingWorldAutoResolveResourceBonusBlockParse = { 0, "LivingWorldAutoResolveResourceBonus", LivingWorldAutoResolveResourceBonusScheduleStore::parseLivingWorldAutoResolveResourceBonusBlock };	// VA 0x00DC2068 "LivingWorldAutoResolveResourceBonus", parse 0x0041428F
 BlockParse theScoredKillEvaAnnouncerBlockParse = { 0, "ScoredKillEvaAnnouncer", ScoredKillEvaAnnouncerController::iniParseScoredKillEvaAnnouncerBlock };	// VA 0x00DC20B0 "ScoredKillEvaAnnouncer", parse 0x00414F85
 BlockParse theCrowdResponseBlockParse = { 0, "CrowdResponse", parseCrowdResponseDefinition };	// VA 0x00DC20E0 "CrowdResponse", parse 0x00415D33

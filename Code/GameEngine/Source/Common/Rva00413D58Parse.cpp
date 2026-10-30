@@ -1,5 +1,5 @@
 // cl: /Oy- /DNDEBUG /MD /GX-
-// ?Rva00413D58Parse@@YAXPAVINI@@@Z, retail 0x00413D58, 115 bytes.
+// ?parseAutoResolveReinforcementScheduleDefinition@@YAXPAVINI@@@Z, retail 0x00413D58, 115 bytes.
 // INI type dispatch for AutoResolveReinforcementSchedule: getNextToken(0),
 // strcmpi against "Attacker" (index 1) / "Defender" (index 0), then
 // rva00413D46 off TheLivingWorldAutoResolveReinforcementScheduleStore + 0xc + index*16; else INIException(1, msg)
@@ -32,7 +32,7 @@ extern "C" void __stdcall _CxxThrowException(void *pExceptionObject, const _s__T
 struct Rva00413D58ThrowInfoAnchor { int a; int b; int c; int d; };
 static const Rva00413D58ThrowInfoAnchor rva00413D58ThrowInfoAnchor = { 0, 0, 0, 0 };
 
-void Rva00413D58Parse(INI *ini)
+void parseAutoResolveReinforcementScheduleDefinition(INI *ini)
 {
 	const char *tok = ini->getNextToken(0);
 	int idx;

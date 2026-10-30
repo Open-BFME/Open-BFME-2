@@ -5672,3 +5672,5 @@ class,Rva00420F0EPod,DelayedExperienceLevelGrantEntry,inferred,agree:nl-ff87778d
 class,Rva007F49E0SharedSocket,SharedUdpSocket,inferred,agree:nl-85e074601105,Code/GameEngine/Source/GameNetwork/Rva007F49E0UdpPacketSend.cpp,
 class,BfmeSlotCursorVNC,PendingProbeCursor,inferred,agree:nl-1e32f2a79ffd,Code/GameEngine/Source/GameNetwork/Rva00800F40PendingProbeUpdate.cpp,
 function,?rva00447773@Rva00447773@@QAEPAXH@Z,?getLANSlot@Rva00447773@@QAEPAXH@Z,canonical:wb,wb lead 0x00447773: WB 0x14A6E70 asserts LANGameInfo::getLANSlot,Code/GameEngine/Source/Common/Rva00447773Indexer.cpp,0x00447773
+function,?Rva002A92F2Parse@@YAXPAVINI@@@Z,?parseAIDozerAssignmentDefinition@@YAXPAVINI@@@Z,canonical:iniblock,reverse/ini_blocks.tsv: INI block token AIDozerAssignment registers parse callback 0x002A92F2,Code/GameEngine/Source/Common/INI/Rva002A92F2Parse.cpp,0x002A92F2
+function,?Rva00413D58Parse@@YAXPAVINI@@@Z,?parseAutoResolveReinforcementScheduleDefinition@@YAXPAVINI@@@Z,canonical:iniblock,reverse/ini_blocks.tsv: INI block token AutoResolveReinforcementSchedule registers parse callback 0x00413D58,Code/GameEngine/Source/Common/Rva00413D58Parse.cpp,0x00413D58

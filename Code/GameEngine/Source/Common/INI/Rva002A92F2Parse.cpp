@@ -1,6 +1,6 @@
 // cl: /O1 /G7 /arch:SSE /Ireference/shims/bfme2_ascii /DNDEBUG /MD /EHsc
 //
-// ?Rva002A92F2Parse@@YAXPAVINI@@@Z, retail 0x002A92F2 115B (EH).
+// ?parseAIDozerAssignmentDefinition@@YAXPAVINI@@@Z, retail 0x002A92F2 115B (EH).
 // The "AIDozerAssignment" block parser (registration VA 0x00DBBC1C in
 // Rva007ABBF6BlockParseInits.cpp; table entry 0x009BBC24 next to the
 // SkirmishAIData parser Rva002A8A31Parse). Reads a stack pair of AsciiStrings
@@ -60,7 +60,7 @@ public:
 	AsciiString m_4;
 };
 
-void Rva002A92F2Parse(INI *ini)
+void parseAIDozerAssignmentDefinition(INI *ini)
 {
 	Rva002A8BB9 entry;
 	ini->initFromINI(&entry, AIDozerAssignmentFields);
