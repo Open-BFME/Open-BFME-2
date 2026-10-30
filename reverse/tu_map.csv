@@ -39236,7 +39236,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x004B3CC2,121,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/DelayedUpgradeImplementation.cpp
 0x004B3D3B,32,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp,proposed,K,K=Rva004B3D3B,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
 0x004B3D5B,6,code,,,-,,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
-0x004B3D61,69,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,Code/GameEngine/Source/Common/System/LevelUpUpgradePoolKey.cpp
+0x004B3D61,69,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp
 0x004B3DA6,34,code,Code/GameEngine/Source/GameLogic/Object/Update/LevelUpUpgrade.cpp,proposed,N,N=Code/GameEngine/Source/GameLogic/Object/Update/LevelUpUpgrade.cpp,Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp
 0x004B3DC8,49,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp provisional,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp
 0x004B3DF9,28,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/LevelUpUpgrade.cpp,approved,C,C=0x004B3DC8..0x004B3E15 provisional,Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp
@@ -81151,8 +81151,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0078EB2C,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp,approved,P,P=0x004B3B88@FuncInfo0x0093F6DC,Code/GameEngine/Source/GameLogic/Object/Upgrade/CommandSetUpgrade.cpp
 0x0078EB36,13,code,Code/GameEngine/Source/Common/System/DelayedUpgrade.cpp,approved,P,P=0x004B3C30@FuncInfo0x0093F700 p-group provisional,Code/GameEngine/Source/Common/System/DelayedUpgrade.cpp
 0x0078EB43,10,code,Code/GameEngine/Source/Common/System/DelayedUpgrade.cpp,approved,P,P=0x004B3C30@FuncInfo0x0093F700 p-group provisional,Code/GameEngine/Source/Common/System/DelayedUpgrade.cpp
-0x0078EB4D,13,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,approved,P,P=0x004B3D61@FuncInfo0x0093F724 p-group provisional,Code/GameEngine/Source/Common/System/LevelUpUpgradePoolKey.cpp
-0x0078EB5A,10,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,approved,P,P=0x004B3D61@FuncInfo0x0093F724 p-group provisional,Code/GameEngine/Source/Common/System/LevelUpUpgradePoolKey.cpp
+0x0078EB4D,13,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,approved,P,P=0x004B3D61@FuncInfo0x0093F724 p-group provisional,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp
+0x0078EB5A,10,code,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp,approved,P,P=0x004B3D61@FuncInfo0x0093F724 p-group provisional,Code/GameEngine/Source/Common/System/LevelUpUpgrade.cpp
 0x0078EB64,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp,approved,P,P=0x004B3EC6@FuncInfo0x0093F748,Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp
 0x0078EB71,10,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp,approved,P,P=0x004B3EC6@FuncInfo0x0093F748,Code/GameEngine/Source/GameLogic/Object/Upgrade/LocomotorSetUpgrade.cpp
 0x0078EB7B,13,code,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp,approved,P,P=0x004B3FF5@FuncInfo0x0093F76C,Code/GameEngine/Source/GameLogic/Object/Upgrade/ObjectCreationUpgrade.cpp
