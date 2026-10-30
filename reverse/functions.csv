@@ -26954,8 +26954,8 @@ __purecall,,0x0003B810,62,Code/Libraries/Source/debug/debug_purecall.cpp,matched
 ?rva002E0BEB@Rva002E0BEB@@QAEXPAX@Z,,0x002E0BEB,64,Code/GameEngine/Source/Common/Rva002E0BEBMethod.cpp,matched,copy two-wide then conditional add callees rowed
 ?rva002E0D66@Rva002E0D66@@QAEXPAX@Z,,0x002E0D66,45,Code/GameEngine/Source/Common/Rva002E0D66Method.cpp,matched,recursive free two-link list self plus free rowed
 ?rva002E00F9@Rva002E00F9@@QAEXPAX0@Z,,0x002E00F9,52,Code/GameEngine/Source/Common/Rva002E00F9Method.cpp,matched,iterate ptr range virtual then push_back rowed
-?rva002E06B8@LivingWorldPlayer@@QAEPAVGameSlot@@XZ,,0x002E06B8,55,Code/GameEngine/Source/Common/Rva002E06B8Method.cpp,matched,slot search via TheGameInfo getSlot rowed
-?rva002E06EF@LivingWorldPlayer@@QAEPAXXZ,,0x002E06EF,23,Code/GameEngine/Source/Common/Rva002E06B8Method.cpp,matched,chain of 0x002E06B8 slot search via TheGameInfo getSlot rowed
+?rva002E06B8@LivingWorldPlayer@@QAEPAVGameSlot@@XZ,,0x002E06B8,55,Code/GameEngine/Source/Common/LivingWorldPlayer.cpp,matched,slot search via TheGameInfo getSlot rowed
+?rva002E06EF@LivingWorldPlayer@@QAEPAXXZ,,0x002E06EF,23,Code/GameEngine/Source/Common/LivingWorldPlayer.cpp,matched,chain of 0x002E06B8 slot search via TheGameInfo getSlot rowed
 ?rva002E0C2B@Rva002E0C2B@@QAEHXZ,,0x002E0C2B,61,Code/GameEngine/Source/Common/Rva002E0C2BMethod.cpp,matched,caller Player plus TheWritableGlobalData scaled min idiom
 ?readRequestFrameDataMessage@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,,0x0058E481,144,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,neighbours 0x0058E367 0x0058E511 same factory shape plus ctor and setters
 ?rva0058E0B0@NetPacket@@SAPAVNetCommandMsg@@PAEAAH@Z,,0x0058E0B0,50,Code/GameEngine/Source/GameNetwork/NetPacket.cpp,matched,neighbours 0x0058E047 0x0058E367 same factory plus base ctor
