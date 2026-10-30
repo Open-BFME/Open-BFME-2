@@ -37395,7 +37395,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0048595C,25,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,proposed,C,C=0x0048593D..0x00485975,Code/GameEngine/Source/Common/GapBodiesGE22.cpp
 0x00485975,14,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrame.cpp,Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCache.cpp
 0x00485983,25,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,C,C=0x00485975..0x0048599C,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
-0x0048599C,6,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,C,C=0x00485975..0x004859A2,Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+0x0048599C,6,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,C,C=0x00485975..0x004859A2,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
 0x004859A2,72,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Die/findEldest.cpp,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp
 0x004859EA,69,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,S,S=Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp N=Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDiePoolKey.cpp
 0x00485A2F,69,code,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp,approved,U,N=Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindof.cpp,Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp

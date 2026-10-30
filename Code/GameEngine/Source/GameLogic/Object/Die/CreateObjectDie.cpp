@@ -20,9 +20,30 @@
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
 
 
+
 #endif
 #pragma comment(linker, "/alternatename:?f1@Rva0048593D_Mid@@UAEXXZ=?ControlBarInput@@YA?AW4WindowMsgHandledType@@PAVGameWindow@@III@Z")
 #pragma comment(linker, "/alternatename:?f2@Rva0048593D_B2@@UAEXXZ=?onDie@CreateObjectDieIfEldestKindof@@UAEXPBVDamageInfo@@@Z")
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
 
 //
 // Opaque single-inheritance destructor tail-calling Rva0048593D::~
@@ -107,7 +128,23 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
+BFME_LITERAL_NAME_GETTER(Rva0048599CNamed, "CreateObjectDieIfEldestKindof")
+
+class DozerActionState
+{
+public:
+	virtual const char *GetSnapshotName() const;
+};
+
+class BoneFXDamage
+{
+protected:
+	virtual const char *GetSnapshotName() const;
+};
+
 // tu-skeleton: 0x00485975 14B ?cacheGameLogicFrame@StatusBitsEldestFrame@@QAEPAU1@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/StatusBitsEldestFrameCache.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDie.cpp
 
@@ -251,7 +288,36 @@ void CreateObjectDie::loadPostProcess( void )
 
   // end loadPostProcess
 
-// tu-skeleton: 0x0048599C 6B ?name@Rva0048599CNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters3.cpp (not merged yet)
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataParse.cpp
+
+// ?buildFieldParse@CreateObjectDieIfEldestKindofModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00485B30
+void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	CreateObjectDieModuleData::buildFieldParse(parse);
+	parse.add(g_00C4A968, 0);
+}
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters3.cpp
+
+// Module literal name getters (cold slice): six-byte const members with one
+// shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated class-name string in
+// .rdata. Contributor-local unit split from ModuleNameGetters2.cpp to keep
+// concurrent landings conflict-free; the BFME_LITERAL_NAME_GETTER macro is
+// verbatim, only the class names follow this tree's address-derived
+// convention (identity unrecoverable from 6 bytes, string carried in source
+// where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape, same as the
+// ModuleNameGetters.cpp precedent).
 
 // tu-skeleton: 0x004859A2 72B ?func@findEldest@@SAHPAVObject@@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieFindEldest.cpp (not merged yet)
 
@@ -262,15 +328,6 @@ void CreateObjectDie::loadPostProcess( void )
 // tu-skeleton: 0x00485AC0 28B ??_GRva0048593D@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/DieModuleDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00485ADC 84B ??0Rva00485ADCFilter@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/Rva00485ADCFilterCtor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofModuleDataParse.cpp
-
-// ?buildFieldParse@CreateObjectDieIfEldestKindofModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x00485B30
-void CreateObjectDieIfEldestKindofModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	CreateObjectDieModuleData::buildFieldParse(parse);
-	parse.add(g_00C4A968, 0);
-}
 
 // tu-skeleton: 0x00485B4B 53B ??0CreateObjectDieIfEldestKindof@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Die/CreateObjectDieIfEldestKindofCtor.cpp (not merged yet)
 
