@@ -16,6 +16,7 @@ unit and its wider consumers into the next scheduled census; full consumer
 selection/loss verification and census confirmation remain pending.
 
 
+
 ### Apt numeric-string predicate CRT header (2026-10-30)
 
 At base `4c4e488578`, Rva006FC370.cpp replaces its local `strtol`
@@ -81,7 +82,18 @@ shader manager's shared Windows/multimedia shim and d3d9 include findings
 remain prerequisites.
 [Historical repairs, scan scope and checks](../reverse/attempt_support/browser-shader-stale-msheaders-20261030-codexb4.md).
 
-### PropagandaTowerBehavior scan consolidation prerequisite (2026-10-30)
+
+### PropagandaTowerBehavior scan consolidation (2026-10-30)
+
+Merge follow-up: the supported tool absorbs DoScan into the approved seed,
+removing one source file and repointing seven approved rows. All 23 scoped
+rows verify; four EH graphs are EXACT. The composed object preserves all 44
+COMDAT fingerprints, external bindings and relocation roots/edges from its
+two providers. Five bounded previews retain 1,674 bytes. The full outgoing
+staged-tree audit remains INCONCLUSIVE on the older index and missing consumer
+receipt below; carry the composed seed and affected consumers into the census.
+[Merge, queue and path-consumer audit](../reverse/attempt_support/propaganda-tower-merge-20261030-codex4.md).
+
 
 At base `53504ff703`, shared helper and seed/scan views preserve all 23 rows
 across the six scoped providers. Four EH graphs are EXACT; 67 retained COMDAT
