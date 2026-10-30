@@ -7,14 +7,25 @@
 // branch-local temporaries share a 12-byte lifetime overlay; scale occupies its
 // last eight bytes. Release the cached material directly, retaining the native
 // repeated refcount read, then update the cache and release the local reference.
+#include "Vector2.h"
+#define m_newRenderSurface (*(IDirect3DSurface8 **)&g_Va009E1F6C)
 struct IDirect3DSurface8;
 struct IDirect3DDevice8;
+struct Rva00077D0FVertexElement;
 struct IDirect3DDevice8Vtbl
 {
 	void *m_queryInterface;
 	void *m_addRef;
 	void *m_release;
 	long (__stdcall *m_testCooperativeLevel)(IDirect3DDevice8 *device);
+	void *m_reserved[65];
+	long (__stdcall *m_setSamplerState)(IDirect3DDevice8 *device, unsigned stage, unsigned type, unsigned value);
+	void *m_reserved70[16];
+	long (__stdcall *m_createVertexShader)(IDirect3DDevice8 *device, const Rva00077D0FVertexElement *declaration, unsigned long *shader);
+	void *m_reserved87[4];
+	long (__stdcall *m_createShaderA)(IDirect3DDevice8 *device, const unsigned long *shaderData, unsigned long *shader);
+	void *m_reserved92[14];
+	long (__stdcall *m_createShaderB)(IDirect3DDevice8 *device, const unsigned long *shaderData, unsigned long *shader);
 };
 struct IDirect3DDevice8
 {
@@ -88,7 +99,6 @@ public:
 	Rva00072B3A *shroud; // +0x3878
 };
 extern BaseHeightMapRenderObjClass *TheTerrainRenderObject;
-#include "Vector2.h"
 class Vector3
 {
 public:
@@ -106,18 +116,28 @@ enum FilterTypes
 };
 extern VertexMaterialClass *ScreenMaterial;
 
+class VertexBufferClass;
+struct IDirect3D8;
 class DX8Wrapper
 {
+private:
+	friend class W3DShaderManager;
+	friend void rva00075E42(void);
+	friend void Rva00075A23Draw(int width, int height);
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
 	static void Set_Render_Target(IDirect3DSurface8 *target, bool useDefaultDepth);
+	static void Set_Vertex_Buffer(const VertexBufferClass *vb, unsigned stream);
+	static void bfmeRva00120700(unsigned start, unsigned count);
 	static void Set_DX8_Render_State(unsigned long state, unsigned value);
 	static void Set_Shader(const ShaderClass &shader);
 	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
 	static void Mark_Material_Changed() { render_state_changed |= 0x4000; }
 protected:
-	static unsigned int render_state_changed;
 	static IDirect3DDevice8 *D3DDevice;
+	static unsigned texture_stage_state_changes;
+	static IDirect3D8 *D3DInterface;
+	static unsigned render_state_changed;
 };
 // These existing storage owners are shared with availability and shutdown.
 // Only the first handle is passed to the typed render-target wrapper; the
@@ -126,15 +146,39 @@ extern unsigned int g_Va009E1F6C;
 struct ShaderComResourceRef;
 extern ShaderComResourceRef *rva012F9D10;
 
+enum ChipsetType { DC_UNKNOWN = 0 };
+enum CpuType { XX, P3, P4, K7 };
+struct IDirect3DTexture8;
+struct GlowSampleVector;
+struct BfmeGaussianParams;
 class W3DShaderManager
 {
+private:
+	friend class Rva00075655;
+	friend void Rva00075695Notify(int index);
+	friend bool __cdecl Rva000756BFSelect(int index, int a1, int a2);
+	friend bool __cdecl Rva000756F1Dispatch(int index, int a1, int a2, int a3, int a4);
 public:
-	static void startRenderToTexture();
-	static void drawViewport(int color, bool useScale, const Vector2 *scale);
+	enum ShaderTypes { ST_INVALID };
 protected:
-	static bool m_renderingToTexture;
-	static IDirect3DSurface8 *newRenderSurface() { return reinterpret_cast<IDirect3DSurface8 *>(g_Va009E1F6C); }
+	static int m_currentShader;
 	static int m_currentFilter;
+	static bool m_renderingToTexture;
+	static unsigned long m_dwGlowPixelShader;
+	static unsigned long m_dwGlowVertexShader;
+public:
+	static IDirect3DSurface8 *m_oldRenderSurface;
+	static IDirect3DTexture8 *m_renderTexture;
+	W3DShaderManager();
+	static int getShaderPasses(ShaderTypes shader);
+	static void startRenderToTexture();
+	static IDirect3DTexture8 *endRenderToTexture();
+	static IDirect3DTexture8 *getRenderTexture();
+	static void drawViewport(int color, bool useExplicitDimensions, const Vector2 *dimensions);
+	static bool testMinimumRequirements(ChipsetType *, CpuType *, int *, unsigned __int64 *, float *, float *, float *);
+	static int setShroudTex(int);
+	static void performGlow(float weightScale, const GlowSampleVector *samples, int textureSize, IDirect3DTexture8 *sourceTexture, IDirect3DSurface8 *tempSurface, IDirect3DTexture8 *tempTexture, IDirect3DSurface8 *destSurface);
+	static void createGaussianVector(void *,BfmeGaussianParams *);
 };
 
 union RenderTargetTemp
@@ -152,12 +196,12 @@ union RenderTargetTemp
 void W3DShaderManager::startRenderToTexture()
 {
 	RenderTargetTemp temp;
-	if (m_renderingToTexture || newRenderSurface() == 0 || rva012F9D10 == 0)
+	if (m_renderingToTexture || m_newRenderSurface == 0 || rva012F9D10 == 0)
 		return;
 	IDirect3DDevice8 *device = DX8Wrapper::_Get_D3D_Device8();
 	if (device && device->m_vtable->m_testCooperativeLevel(device) != 0)
 		return;
-	DX8Wrapper::Set_Render_Target(newRenderSurface(), true);
+	DX8Wrapper::Set_Render_Target(m_newRenderSurface, true);
 	m_renderingToTexture = true;
 	if (TheWritableGlobalData->m_showSoftWaterEdge)
 	{

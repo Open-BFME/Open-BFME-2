@@ -16,6 +16,8 @@
 // device/counter globals and /O1/SSE/G7 shape. /GX-/GS- for retail's no-EH
 // no-cookie frame; /O1 for EBP frame and or/and -1/0 idioms.
 
+#include "../../../../reference/shims/wwmath/Vector2.h"
+
 struct GlobalDataCheck
 {
 	char m_pad[0xC60];
@@ -45,17 +47,30 @@ struct IDirect3DDevice8;
 void Rva00075A23Draw(int width, int height);
 class W3DShaderManager;
 
+class ShaderClass;
+class Vector3;
+struct IDirect3D8;
+struct IDirect3DSurface8;
 class DX8Wrapper
 {
-	friend void Rva00075A23Draw(int width, int height);
+private:
 	friend class W3DShaderManager;
-protected:
-	// 0x009EDA34, defined by dx8wrapper.cpp; the native object is a Direct3D 9
-	// device, so the calls below cast it to IDirect3DDevice9.
-	static IDirect3DDevice8 *D3DDevice;
+	friend void rva00075E42(void);
+	friend void Rva00075A23Draw(int width, int height);
 public:
+	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
+	static void Set_Render_Target(IDirect3DSurface8 *target, bool useDefaultDepth);
 	static void Set_Vertex_Buffer(const VertexBufferClass *vb, unsigned stream);
 	static void bfmeRva00120700(unsigned start, unsigned count);
+	static void Set_DX8_Render_State(unsigned long state, unsigned value);
+	static void Set_Shader(const ShaderClass &shader);
+	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
+	static void Mark_Material_Changed() { render_state_changed |= 0x4000; }
+protected:
+	static IDirect3DDevice8 *D3DDevice;
+	static unsigned texture_stage_state_changes;
+	static IDirect3D8 *D3DInterface;
+	static unsigned render_state_changed;
 };
 
 extern VertexBufferClass *g_vb;
@@ -138,7 +153,6 @@ void Rva00075A23Draw(int width, int height)
 }
 
 // The target drawViewport takes an optional pair of floating extents.
-#include "../../../../reference/shims/wwmath/Vector2.h"
 
 // Narrow virtual views from drawViewport's retail call sites: origin at +0x4c,
 // width at +0x3c and height at +0x44.
@@ -175,10 +189,40 @@ public:
 extern View *TheTacticalView;
 extern Display *TheDisplay;
 
+enum ChipsetType { DC_UNKNOWN = 0 };
+enum CpuType { XX, P3, P4, K7 };
+struct IDirect3DTexture8;
+struct IDirect3DSurface8;
+struct GlowSampleVector;
+struct BfmeGaussianParams;
 class W3DShaderManager
 {
+private:
+	friend class Rva00075655;
+	friend void Rva00075695Notify(int index);
+	friend bool __cdecl Rva000756BFSelect(int index, int a1, int a2);
+	friend bool __cdecl Rva000756F1Dispatch(int index, int a1, int a2, int a3, int a4);
 public:
+	enum ShaderTypes { ST_INVALID };
+protected:
+	static int m_currentShader;
+	static int m_currentFilter;
+	static bool m_renderingToTexture;
+	static unsigned long m_dwGlowPixelShader;
+	static unsigned long m_dwGlowVertexShader;
+public:
+	static IDirect3DSurface8 *m_oldRenderSurface;
+	static IDirect3DTexture8 *m_renderTexture;
+	W3DShaderManager();
+	static int getShaderPasses(ShaderTypes shader);
+	static void startRenderToTexture();
+	static IDirect3DTexture8 *endRenderToTexture();
+	static IDirect3DTexture8 *getRenderTexture();
 	static void drawViewport(int color, bool useExplicitDimensions, const Vector2 *dimensions);
+	static bool testMinimumRequirements(ChipsetType *, CpuType *, int *, unsigned __int64 *, float *, float *, float *);
+	static int setShroudTex(int);
+	static void performGlow(float weightScale, const GlowSampleVector *samples, int textureSize, IDirect3DTexture8 *sourceTexture, IDirect3DSurface8 *tempSurface, IDirect3DTexture8 *tempTexture, IDirect3DSurface8 *destSurface);
+	static void createGaussianVector(void *,BfmeGaussianParams *);
 };
 
 // The clean BFME1 donor draws the same colored TacticalView quad from a stack

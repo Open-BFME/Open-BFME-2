@@ -5,7 +5,6 @@
 #include <windows.h>
 #pragma comment(linker, "/alternatename:?filterSetup@W3DShaderManager@@SA_NW4FilterTypes@@W4FilterModes@@@Z=?Rva00075725Check@@YA_NHH@Z")
 #include <d3d9.h>
-#include <new>
 #define m_newRenderSurface (*(IDirect3DSurface8 **)&g_Va009E1F6C)
 #define m_oldDepthSurface (*(IDirect3DSurface8 **)&rva012F9D10)
 #define ShaderQuadBuffer (*(BfmeDynamicNativeVB **)&g_vb)
@@ -36,7 +35,11 @@ struct Rva00077D0FVertexElement;
 
 struct IDirect3DDevice8Vtbl
 {
-	void *m_reserved[69];
+	void *m_queryInterface;
+	void *m_addRef;
+	void *m_release;
+	long (__stdcall *m_testCooperativeLevel)(IDirect3DDevice8 *device);
+	void *m_reserved[65];
 	long (__stdcall *m_setSamplerState)(IDirect3DDevice8 *device, unsigned stage, unsigned type, unsigned value);
 	void *m_reserved70[16];
 	long (__stdcall *m_createVertexShader)(IDirect3DDevice8 *device, const Rva00077D0FVertexElement *declaration, unsigned long *shader);
@@ -51,18 +54,20 @@ struct IDirect3DDevice8
 	IDirect3DDevice8Vtbl *m_vtable;
 };
 
+enum ChipsetType { DC_UNKNOWN = 0 };
+enum CpuType { XX, P3, P4, K7 };
+class Vector2;
+struct GlowSampleVector;
+struct BfmeGaussianParams;
 class W3DShaderManager
 {
+private:
+	friend class Rva00075655;
+	friend void Rva00075695Notify(int index);
 	friend bool __cdecl Rva000756BFSelect(int index, int a1, int a2);
 	friend bool __cdecl Rva000756F1Dispatch(int index, int a1, int a2, int a3, int a4);
 public:
 	enum ShaderTypes { ST_INVALID };
-	W3DShaderManager();
-	static int getShaderPasses(ShaderTypes shader);
-	static void startRenderToTexture();
-	static IDirect3DTexture8 *endRenderToTexture();
-	static IDirect3DTexture8 *getRenderTexture();
-
 protected:
 	static int m_currentShader;
 	static int m_currentFilter;
@@ -72,6 +77,16 @@ protected:
 public:
 	static IDirect3DSurface8 *m_oldRenderSurface;
 	static IDirect3DTexture8 *m_renderTexture;
+	W3DShaderManager();
+	static int getShaderPasses(ShaderTypes shader);
+	static void startRenderToTexture();
+	static IDirect3DTexture8 *endRenderToTexture();
+	static IDirect3DTexture8 *getRenderTexture();
+	static void drawViewport(int color, bool useExplicitDimensions, const Vector2 *dimensions);
+	static bool testMinimumRequirements(ChipsetType *, CpuType *, int *, unsigned __int64 *, float *, float *, float *);
+	static int setShroudTex(int);
+	static void performGlow(float weightScale, const GlowSampleVector *samples, int textureSize, IDirect3DTexture8 *sourceTexture, IDirect3DSurface8 *tempSurface, IDirect3DTexture8 *tempTexture, IDirect3DSurface8 *destSurface);
+	static void createGaussianVector(void *,BfmeGaussianParams *);
 };
 
 extern unsigned number_of_DX8_calls;
@@ -296,22 +311,28 @@ extern bool __cdecl BFME_DX8_Thread_Assert(void);
 
 struct IDirect3D8;
 
+class ShaderClass;
+class Vector3;
 class DX8Wrapper
 {
 private:
 	friend class W3DShaderManager;
+	friend void rva00075E42(void);
+	friend void Rva00075A23Draw(int width, int height);
 public:
 	static IDirect3DDevice8 *_Get_D3D_Device8() { return D3DDevice; }
-public:
 	static void Set_Render_Target(IDirect3DSurface8 *target, bool useDefaultDepth);
+	static void Set_Vertex_Buffer(const VertexBufferClass *vb, unsigned stream);
+	static void bfmeRva00120700(unsigned start, unsigned count);
+	static void Set_DX8_Render_State(unsigned long state, unsigned value);
+	static void Set_Shader(const ShaderClass &shader);
+	static void Clear(bool clearColor, bool clearDepth, bool clearStencil, const Vector3 &color, float alpha, float z, unsigned stencil);
+	static void Mark_Material_Changed() { render_state_changed |= 0x4000; }
 protected:
 	static IDirect3DDevice8 *D3DDevice;
-protected:
 	static unsigned texture_stage_state_changes;
-private:
-	friend void rva00075E42(void);
-protected:
 	static IDirect3D8 *D3DInterface;
+	static unsigned render_state_changed;
 };
 
 struct Rva00075E42D3D8Vtable
