@@ -2854,7 +2854,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0004F7F4,55,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,proposed,K,K=Rva004EFE9,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp
 0x0004F82B,8,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/GeometryRecord.cpp,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp
 0x0004F833,27,code,,displaced,-,S=Code/GameEngine/Source/Common/RTS/Player.cpp N=Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Player.cpp,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Menus/Player_getBaseSide.cpp
-0x0004F84E,128,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,proposed,C,C=0x0004F82B..0x0004F8CE,Code/GameEngine/Source/Common/Rva0004F84ESnapshotFactory.cpp
+0x0004F84E,128,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,proposed,C,C=0x0004F82B..0x0004F8CE,Code/GameEngine/Source/Common/System/GeometryRecord.cpp
 0x0004F8CE,28,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,proposed,N,N=Code/GameEngine/Source/Common/System/GeometryRecord.cpp,Code/GameEngine/Source/Common/System/GeometryInfoDtor.cpp
 0x0004F8EA,295,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,proposed,K,K=Rva004FA1F,Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp
 0x0004FA11,6,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,proposed,C,C=0x0004F8EA..0x0004FA17,Code/GameEngine/Source/Common/SubsystemNameGetters.cpp
@@ -61684,8 +61684,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075D574,8,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F580@FuncInfo0x008FF690,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp
 0x0075D57C,8,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F580@FuncInfo0x008FF690,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp
 0x0075D584,10,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F580@FuncInfo0x008FF690,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadarScrollShroud.cpp
-0x0075D58E,10,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,approved,P,P=0x0004F84E@FuncInfo0x008FF6B4 p-group provisional,Code/GameEngine/Source/Common/Rva0004F84ESnapshotFactory.cpp
-0x0075D598,10,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,approved,P,P=0x0004F84E@FuncInfo0x008FF6B4 p-group provisional,Code/GameEngine/Source/Common/Rva0004F84ESnapshotFactory.cpp
+0x0075D58E,10,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,approved,P,P=0x0004F84E@FuncInfo0x008FF6B4 p-group provisional,Code/GameEngine/Source/Common/System/GeometryRecord.cpp
+0x0075D598,10,code,Code/GameEngine/Source/Common/System/GeometryRecord.cpp,approved,P,P=0x0004F84E@FuncInfo0x008FF6B4 p-group provisional,Code/GameEngine/Source/Common/System/GeometryRecord.cpp
 0x0075D5A2,8,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F8EA@FuncInfo0x008FF708 p-group,Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp
 0x0075D5AA,14,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F8EA@FuncInfo0x008FF708 p-group,Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp
 0x0075D5B8,14,code,Code/GameEngineDevice/Source/W3DDevice/Common/System/W3DRadar.cpp,approved,P,P=0x0004F8EA@FuncInfo0x008FF708 p-group,Code/GameEngineDevice/Source/W3DDevice/Common/System/Rva004FA1FRadarDtor.cpp
