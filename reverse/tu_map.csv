@@ -35458,10 +35458,10 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00449586,28,code,,displaced,-,N=Code/GameEngine/Source/Common/Transport.cpp,Code/GameEngine/Source/Common/ConnectionManagerAttachTransport.cpp
 0x004495A2,186,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRva004495A2Send.cpp
 0x004495AF,173,code-unledgered,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,C,C=0x004495A2..0x0044965C,
-0x0044965C,55,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRequestLocations.cpp
+0x0044965C,55,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00449693,169,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRva00449693.cpp
 0x0044973C,9,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
-0x00449745,167,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameStartTimer.cpp
+0x00449745,167,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x004497EC,184,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp W=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptionsPacked.cpp
 0x004498A4,76,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x004498F0,35,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
@@ -35470,26 +35470,26 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0044998E,57,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x004499C7,56,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x004499FF,42,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
-0x00449A29,88,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPISetIsActive.cpp
+0x00449A29,88,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00449A81,55,code,Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp,proposed,S,S=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp N=Code/GameEngine/Source/GameNetwork/LANGameInfo.cpp island,Code/GameEngine/Source/GameNetwork/LANGameInfo_setName.cpp
 0x00449AB8,193,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIConstructor.cpp
 0x00449B79,22,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00449B8F,27,code,,displaced,-,S=Code/GameEngine/Source/Common/RTS/PlayerTemplate.cpp N=Code/GameEngine/Source/Common/PlayerTemplate.cpp,Code/GameEngine/Source/Common/PlayerTemplateGetDisplayName.cpp
-0x00449BAA,256,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIInit.cpp
+0x00449BAA,256,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00449CAA,496,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,C,C=0x00449BAA..0x00449E9A,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
-0x00449E9A,334,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameJoin.cpp
-0x00449FE8,231,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameJoinDirectConnect.cpp
+0x00449E9A,334,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x00449FE8,231,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044A0CF,325,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
-0x0044A214,283,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameAnnounce.cpp
-0x0044A32F,144,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIRequestAccept.cpp
+0x0044A214,283,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x0044A32F,144,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044A3BF,659,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044A652,267,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044A75D,171,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,N,N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044A808,249,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI_RequestGameOptions.cpp
 0x0044A901,101,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,C,C=0x0044A808..0x0044A966,Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp
-0x0044A966,128,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIFillInLANMessage.cpp
-0x0044A9E6,158,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPISetLocalIP.cpp
-0x0044AA84,77,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI_SetLocalIP.cpp
+0x0044A966,128,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x0044A9E6,158,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x0044AA84,77,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0044AAD1,28,code,,displaced,-,N=Code/GameEngine/Source/GameNetwork/LANPlayer.cpp,Code/GameEngine/Source/GameNetwork/LANAPIReset.cpp
 0x0044AAED,1938,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,Z,Z=Code/GameEngine/Source/GameNetwork/LANAPI.cpp N=Code/GameEngine/Source/GameNetwork/LANAPI.cpp,Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
 0x0044B27F,107,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,C,C=0x0044AAED..0x0044B2EA,Code/GameEngine/Source/Common/LANGameSlot.cpp
@@ -78974,9 +78974,9 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00789476,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449CAA@FuncInfo0x00937604,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x0078947E,25,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449CAA@FuncInfo0x00937604,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00789497,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449CAA@FuncInfo0x00937604,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
-0x007894A1,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameJoin.cpp
-0x007894A9,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameJoin.cpp
-0x007894B1,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPIRequestGameJoin.cpp
+0x007894A1,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x007894A9,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x007894B1,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x00449E9A@FuncInfo0x00937630,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x007894BB,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A3BF@FuncInfo0x0093768C,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x007894C3,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A3BF@FuncInfo0x0093768C,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x007894CB,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A3BF@FuncInfo0x0093768C,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
@@ -78991,8 +78991,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00789517,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A901@FuncInfo0x009376E4,Code/gen_small/uw_gen_014.cpp
 0x0078951F,11,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A901@FuncInfo0x009376E4,Code/gen_small/uw_gen_014.cpp
 0x0078952A,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044A901@FuncInfo0x009376E4,Code/GameEngine/Source/GameNetwork/LANPlayer_copy.cpp
-0x00789534,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AA84@FuncInfo0x00937708,Code/GameEngine/Source/GameNetwork/LANAPI_SetLocalIP.cpp
-0x0078953C,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AA84@FuncInfo0x00937708,Code/GameEngine/Source/GameNetwork/LANAPI_SetLocalIP.cpp
+0x00789534,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AA84@FuncInfo0x00937708,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
+0x0078953C,10,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AA84@FuncInfo0x00937708,Code/GameEngine/Source/GameNetwork/LANAPI.cpp
 0x00789546,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AAED@FuncInfo0x0093774C,Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
 0x0078954E,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AAED@FuncInfo0x0093774C,Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
 0x00789556,8,code,Code/GameEngine/Source/GameNetwork/LANAPI.cpp,approved,P,P=0x0044AAED@FuncInfo0x0093774C,Code/GameEngine/Source/GameNetwork/LANAPIUpdate.cpp
