@@ -12,7 +12,8 @@
 
 struct BfmeResetShaderEffectVTable
 {
-	void *unused[70];
+	void *unused[69];
+	void (__stdcall *OnLostDevice)(struct BfmeResetShaderEffectObj *);
 	void (__stdcall *OnResetDevice)(struct BfmeResetShaderEffectObj *);
 };
 

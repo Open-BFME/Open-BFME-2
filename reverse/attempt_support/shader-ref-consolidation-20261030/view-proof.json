@@ -1,0 +1,50 @@
+{
+  "kind": "partial table reconciliation; no recovered original filename",
+  "approval": "fresh tu_skeleton plan: provisional N, two approved rows",
+  "native_callback_slots": [
+    69,
+    70
+  ],
+  "rows": [
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/BfmeResetShaderRef.cpp",
+      "name": "?Release_Device_Resources@BfmeResetShaderRef@@QAEXXZ",
+      "rva": "0x151553",
+      "size": 34,
+      "source_sha256": "fcc0111a657be1f6086124917ed5c06ccfaf8773eedcaaa60471ac65977d6437",
+      "object_md5": "a37841c07368353b547cd9aa4b02f6eb",
+      "strict_current": true,
+      "resolved": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9114010000c3",
+      "native": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9114010000c3",
+      "exact": true,
+      "actual_code_size": 34,
+      "relocations": [],
+      "indirect_call": {
+        "rva": "0x15156e",
+        "operands": "dword ptr [ecx + 0x114]",
+        "table_displacement": 276,
+        "slot": 69
+      }
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WW3D2/bfme_reset_shader_ref_recreate_device.cpp",
+      "name": "?Recreate_Device_Resources@BfmeResetShaderRef@@QAEXXZ",
+      "rva": "0x151575",
+      "size": 34,
+      "source_sha256": "452a61d13328532d06b440f1206847915e138b1797fa7fdd8c69c9f2c8b938e6",
+      "object_md5": "5b23235c8ad2271ea9e27e6ac1c93d8a",
+      "strict_current": true,
+      "resolved": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9118010000c3",
+      "native": "8b0185c0741b8b481485c9741483790400740e8bc18b40048b0850ff9118010000c3",
+      "exact": true,
+      "actual_code_size": 34,
+      "relocations": [],
+      "indirect_call": {
+        "rva": "0x151590",
+        "operands": "dword ptr [ecx + 0x118]",
+        "table_displacement": 280,
+        "slot": 70
+      }
+    }
+  ]
+}

@@ -1,5 +1,18 @@
 # Linking obstacle register
 
+### Shader-reference callback-view consolidation (2026-10-30)
+
+The two 34-byte shader-reference release/recreate bodies use the same record
+layouts but separate partial callback tables. Their verified prerequisite
+exposes both native slots 69/70 in the same common partial view, retaining every
+accessed offset and the explicit-this stdcall ABI. Strict preparation passes
+2/2, and both ordinary previews retain LINKS/68 authored bytes against
+`e1f7c1dd18`. No pin, row, hatch or header changes. The supported current TU plan
+approves the existing provisional N destination BfmeResetShaderRef.cpp, with two
+rows/two sources and no mixed/refused donor; the naming planner supplies no
+original-filename proof. Next: fresh planner, supported dry run/merge and complete
+path-consumer audit before the move publishes. [Proof and scope](../reverse/attempt_support/shader-ref-consolidation-20261030/readme.md).
+
 ### LINK-161: build-queue clear duplicate provider (2026-10-30)
 
 The inferred clear rename `6066b2f51f` collides with the observer's existing
