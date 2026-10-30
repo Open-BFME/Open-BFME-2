@@ -1611,8 +1611,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1034_bfmeGo1034A_YGXHH_Z.cpp
 alternatename	Code/GameEngine/Source/Common/BfmeConv1036.cpp	?bfmeStepTWA@BfmeThingTWA@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1037_bfmeGo1037F_YGXHHH_Z.cpp	?bfmeDo1037@BfmeG1037@@QAEXH_N@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1037_bfmeGo1037F_YGXHHH_Z.cpp	?bfmeFind1037F@@YGPAVBfmeG1037@@H@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1045.cpp	_bfmeVft1045A	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1045.cpp	_bfmeVft1045B	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1137Uninstall.cpp	?ScreenTextureStageStateChanges@@3IA	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1187.cpp	?bfmeCtorECMa@BfmeThingECMa@@QAEPAV1@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1208.cpp	?bfmeCallDXH@@YAXPAVBfmeSubDXH@@PAX0@Z	1
@@ -1643,7 +1641,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv1444.cpp	?bfmeImplVMW@BfmeSt
 alternatename	Code/GameEngine/Source/Common/BfmeConv1453.cpp	?bfmeFillInsV38@BfmeStrV38@@QAEPAV1@PAD0ID@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1496.cpp	?bfmeInsertV52@BfmeStrV52@@QAEXPAD0000@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1497.cpp	?bfmeInsertV53@BfmeStrV53@@QAEXPAD0000@Z	1
-alternatename	Code/GameEngine/Source/Common/BfmeConv1503.cpp	?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1766.cpp	??0BfmeTmpCF@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1766.cpp	??1BfmeTmpCF@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/Common/BfmeConv1766.cpp	?bfmeRunCF@BfmeTmpCF@@QAEXPAX0@Z	1
@@ -1720,7 +1717,6 @@ alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?rva0036D3A3@BfmeC98
 alternatename	Code/GameEngine/Source/Common/BfmeConv986.cpp	?rva00372B09@BfmeC986@@QAEXHHH@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeDualVtableReleaseDtorCtor.cpp	_vtbl_00BE3994	1
 alternatename	Code/GameEngine/Source/Common/BfmeFiveArgCtorWI.cpp	??1AsciiStringWI@@QAE@XZ	1
-alternatename	Code/GameEngine/Source/Common/BfmeH1052.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeLexEAN.cpp	?bfmeExpandEAN@BfmeLexEAN@@QAEDPAD@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeMakeBZA.cpp	?bfme5MakeObj70@@YAPAUBfme5Obj70@@H@Z	1
 alternatename	Code/GameEngine/Source/Common/BfmeNodeValueEBDDestructor.cpp	??1CountUpBuffer@@QAE@XZ	1
@@ -3463,8 +3459,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	?v0@Rva
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	_DefaultModuleTemplate6_vtbl4	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	_Rva003ADEBF_v8	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp	_s_slot3E4first	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00800B70FeslDtor.cpp	_bfmeVft1045A	1
-alternatename	Code/GameEngine/Source/GameNetwork/Rva00800B70FeslDtor.cpp	_bfmeVft1045B	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801BD0FeslAlloc.cpp	?allocate@Rva00802040Arr@@QAEXH@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801EC0FeslFill.cpp	?bfmeHitZP@BfmeSlotZP@@QAEXPAVBfmeKeyZP@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Rva00801FB0FeslElemCtor.cpp	??0BfmeRva0066E270@@QAE@XZ	1
@@ -3512,7 +3506,6 @@ alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeD
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeResetVJO@BfmeCVJO@@QAEXPAVBfmeXVJO@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSet1251@BfmeSub1251@@QAEXPAX@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp	?bfmeSetESI@BfmeStateESI@@QAEXH@Z	1
-alternatename	Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerConnectReply.cpp	?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHC@BfmeThingVHC@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?bfmeBaseVHD@BfmeThingVHD@@QAEXPAVBfmeMsgVHC@@@Z	1
 alternatename	Code/GameEngine/Source/GameNetwork/Y4FeslGameRecords.cpp	?rva007FBE80@Rva007FBC60Game@@QAE_NPBDPADI@Z	1
@@ -3860,6 +3853,11 @@ alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4
 alternatename	Code/Libraries/Source/EA/Apt/AptString/EAStringCRefCount.cpp	??1S4Mem005879C0@@QAE@XZ	1
 alternatename	Code/Libraries/Source/EA/Apt/StringPoolInitialize.cpp	?rva006CD4A0@EAStringC@@QBE_NXZ	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp	?resetHpState@Rva007F5D10HostLookup@@QAEXPAVRva008022A0Owner@@@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeDo1052@Rva00800E50Owner@@QAEXHPAURva00800E50Stamp@@H@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?bfmeFreeVNC@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	?onConnectReply@Rva00800E50Owner@@QAEXPAVRva007E8810Message@@@Z	1
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045A	2
+alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp	_bfmeVft1045B	2
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp	??3Rva00803080Request@@SAXPAXI@Z	1
 alternatename	Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp	?bfmeUseSB@BfmeSinkSB@@QAEXPAX0@Z	1
 alternatename	Code/Libraries/Source/Fesl/servicehub.cpp	?bfmeAddVMO@BfmeListVMO@@QAEXPAVBfmeSvcVMO@@@Z	1

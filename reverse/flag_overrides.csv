@@ -1,7 +1,6 @@
 source,flags,rows,default_lost,reason
 Code/GameEngine/Source/Common/Bfme5EightySeven.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Bfme5FiftyFour.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/Bfme5SeventyFive.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Bfme5SeventySix.cpp,,7,2,region default loses rows
 Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp,-O2,22,1,region default loses rows
 Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp,,3,2,region default loses rows
@@ -10,7 +9,6 @@ Code/GameEngine/Source/Common/BfmeCalcBWF.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeCellAt.cpp,-O2,2,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeCombine1236.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1015.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1045.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1149.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1150.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1152.cpp,-Od,1,1,region default loses rows
@@ -76,7 +74,6 @@ Code/GameEngine/Source/Common/BfmeConv1499.cpp,-Od,2,2,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1500.cpp,-Od,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1501.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1502.cpp,-Od,1,1,region default loses rows
-Code/GameEngine/Source/Common/BfmeConv1503.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv1720.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv2109.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/BfmeConv803.cpp,,4,2,region default loses rows
@@ -203,7 +200,6 @@ Code/GameEngine/Source/Common/Rva007F4B80Eq.cpp,-O2,1,1,region default loses row
 Code/GameEngine/Source/Common/Rva007F63D0Set.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F70F0Get.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva007F7160Get.cpp,-O2,1,1,region default loses rows
-Code/GameEngine/Source/Common/Rva00800A40Owner.cpp,,2,2,region default loses rows
 Code/GameEngine/Source/Common/Rva00801CB0.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/Common/Rva00813E30Wrap.cpp,-Od,1,1,region default does not compile
 Code/GameEngine/Source/Common/Rva00815730Set.cpp,-Od,1,1,region default loses rows
@@ -371,7 +367,6 @@ Code/GameEngine/Source/GameNetwork/Rva007FCF10DescriptorLookups.cpp,-O2,1,1,regi
 Code/GameEngine/Source/GameNetwork/Rva007FF100Base64Encode.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva007FF250Base64Decode.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00800920FeslCtor.cpp,,1,1,region default loses rows
-Code/GameEngine/Source/GameNetwork/Rva00800B70FeslDtor.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00800F40PendingProbeUpdate.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00801340FeslLookup.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Rva00801670FeslMeasure.cpp,,1,1,region default loses rows
@@ -402,7 +397,6 @@ Code/GameEngine/Source/GameNetwork/V2FeslFeedbackRequest.cpp,,3,2,region default
 Code/GameEngine/Source/GameNetwork/V2FeslResultCursors.cpp,,10,9,region default loses rows
 Code/GameEngine/Source/GameNetwork/V2FeslTxnRequests.cpp,,11,2,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslBufferAndChain.cpp,,13,4,region default loses rows
-Code/GameEngine/Source/GameNetwork/Y2FeslDemanglerConnect.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslGameBrowserPinger.cpp,-O2,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslGameBrowserPingerAdd.cpp,,1,1,region default loses rows
 Code/GameEngine/Source/GameNetwork/Y2FeslSafeStrCopy.cpp,-O2,13,1,region default loses rows
@@ -544,6 +538,7 @@ Code/Libraries/Source/EA/Apt/AptString/EAStringCMid.cpp,-O2,4,1,region default l
 Code/Libraries/Source/EA/Apt/AptString/EAStringCRemoveRange.cpp,-O2,1,1,region default loses rows
 Code/Libraries/Source/Fesl/blobservice.cpp,,1,1,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowser.cpp,,8,6,region default loses rows
+Code/Libraries/Source/Fesl/gamebrowser/gamebrowserdemangler.cpp,,7,7,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/gamebrowserpinger.cpp,,2,2,region default loses rows
 Code/Libraries/Source/Fesl/gamebrowser/lantheateremulator.cpp,-O2,5,5,region default loses rows
 Code/Libraries/Source/Fesl/servicehub.cpp,-O2,3,3,region default loses rows
