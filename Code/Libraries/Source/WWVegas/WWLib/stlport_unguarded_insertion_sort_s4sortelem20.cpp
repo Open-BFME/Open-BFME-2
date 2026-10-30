@@ -25,11 +25,38 @@ struct S4Name
 	AsciiString m_bfmeName;
 };
 
-class BfmeSortElem20Tail
+// The 12-byte tail is an STLport vector: retail's record copy (0x003371B1)
+// copies it through the vector copy constructor rowed at 0x0033629E
+// (stlport_vector_stringrecord_331962_allocate_copy.cpp) and the record
+// destructor (0x003372B7) destroys it through the destructor rowed at
+// 0x003321D8 as Rva003321D8 (RvaVectorDtorFamily.cpp; Rva003371B1Dtor.cpp
+// declares the same view). Spell both owners so the record copy and
+// destructor this unit emits call the rowed names, not undefined private ones.
+struct BfmeStringRecord000331962;
+namespace _STL
+{
+template <class T> class allocator;
+template <class T, class A> class vector
 {
 public:
-	BfmeSortElem20Tail(const BfmeSortElem20Tail &other);
-	~BfmeSortElem20Tail(void);
+	vector(const vector &other);
+
+private:
+	T *m_start;
+	T *m_finish;
+	T *m_end;
+};
+}
+typedef _STL::vector<BfmeStringRecord000331962, _STL::allocator<BfmeStringRecord000331962> >
+	Rva0033629EVector;
+
+struct Rva003321D8
+{
+	__forceinline Rva003321D8(const Rva003321D8 &other)
+	{
+		((Rva0033629EVector *)this)->Rva0033629EVector::vector(*(const Rva0033629EVector *)&other);
+	}
+	~Rva003321D8();
 
 private:
 	int m_bfmeBody[3];
@@ -39,7 +66,7 @@ struct S4SortElem20
 {
 	S4Name m_bfmeName;
 	char m_bfmeFlag;
-	BfmeSortElem20Tail m_bfmeTail;
+	Rva003321D8 m_bfmeTail;
 };
 
 struct S4Cmp002EB8E0
