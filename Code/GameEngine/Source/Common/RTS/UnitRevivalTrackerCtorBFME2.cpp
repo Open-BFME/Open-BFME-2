@@ -13,12 +13,12 @@ class UnitRevivalEntry {
 public:
  UnitRevivalEntry();UnitRevivalEntry(const UnitRevivalEntry&);~UnitRevivalEntry();
  UnitRevivalEntry&operator=(const UnitRevivalEntry&);
-private:char bytes[0xD8];
+private:char m_bytes[0xD8];
 };
 class UnitRevivalTracker {
 public:
  UnitRevivalTracker(Player*);void rva0037F26D();
 protected:virtual void xfer(Xfer*);
-private:_STL::vector<UnitRevivalEntry>entries;Player*player;
+private:_STL::vector<UnitRevivalEntry>m_entries;Player*m_player;
 };
-UnitRevivalTracker::UnitRevivalTracker(Player*owner):player(owner) {rva0037F26D();}
+UnitRevivalTracker::UnitRevivalTracker(Player*owner):m_player(owner) {rva0037F26D();}

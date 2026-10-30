@@ -101,12 +101,16 @@ UnitRevivalEntry *vector<UnitRevivalEntry, allocator<UnitRevivalEntry> >::erase(
 
 typedef _STL::vector<UnitRevivalEntry> UnitRevivalEntryVector;
 
-class UnitRevivalTracker : public Snapshot
+// Retail table 0x00C18DF0 holds only xfer (0x0037F39E): no Snapshot base,
+// no virtual destructor.
+class UnitRevivalTracker
 {
+public:
+	UnitRevivalTracker(Player *owner);
+	void rva0037F26D();
+
 protected:
-	virtual void crc(Xfer *xfer);
 	virtual void xfer(Xfer *xfer);
-	virtual void loadPostProcess();
 
 private:
 	UnitRevivalEntryVector m_entries; // +0x04
