@@ -310,6 +310,7 @@ struct GameSlotConnectInfo
 };
 
 class CreateAHeroData;
+
 class GameSlot
 {
 public:
@@ -353,11 +354,58 @@ namespace _STL {
 template <> _Rb_tree_node<StringPair> *StringPairTree::_M_create_node(const StringPair &);
 }
 
+// g_00E04930: matched references place it at VA 0xe04930 (zero-filled .bss).
+int g_00E04930;
+
+extern int g_skirmishMode;
+
+// g_00DD179C: matched references place it at VA 0xdd179c (retail .data initial value -1).
+int g_skirmishMode = -1;
+
+struct GlobalA01E48;
+
+extern class Shell *TheShell;
+
+class Shell
+{
+public:
+	void push(AsciiString s, bool flag);
+};
+
+class Rva00222A8BTarget
+{
+public:
+	void rva002233A6(int v);
+	void rva00222F55(bool);
+	int invoke(void*,const char*,int,const char*,void*,void*,void*,void*);
+};
+
+extern class BfmeAptWindowManager *g_bfmeAptWindowManager;
+
+class UnicodeString;
+
+// Bind the member assignment to the rowed list<UnicodeString>::operator=
+// (0x005227C0, emitted by stlport_list_unicodestring_create_node.cpp's
+// explicit instantiation) instead of emitting a second copy here.
+namespace _STL {
+template <> list<UnicodeString> &list<UnicodeString>::operator=(const list<UnicodeString> &);
+}
+
 struct Rva00523149 {
 	char pad0[4];
 	StringPairTree m_tree;
 	UnicodeString m_str;
 	Rva00523149 &rva00523149(const Rva00523149 *other);
+};
+
+struct Rva005232D0
+{
+	Rva005232D0 &operator=(const Rva005232D0 &other);
+
+	Rva00523149 m_00;
+	int m_14;
+	_STL::list<UnicodeString> m_18;
+	AsciiString m_1C;
 };
 
 // tu-skeleton: 0x00521720 33B ?MpOwnerGetLocalPlayerName@AptSkirmish@@QAEXPAVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
@@ -380,9 +428,22 @@ struct Rva00523149 {
 
 // tu-skeleton: 0x005218AF 126B ?InitCreateAHeroOnStartGame@AptSkirmish@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
-// tu-skeleton: 0x0052192D 74B ?OpenScreen@AptSkirmish@@SAXH@Z -- matched in Code/GameEngine/Source/Common/Rva0052192DInit.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva0052192DInit.cpp
+
+void AptSkirmish::OpenScreen(int mode)
+{
+    if (g_00E04930 != 0)
+        return;
+    g_skirmishMode = mode;
+    ((Shell *)(*(GlobalA01E48 **)&TheShell))->push(AsciiString("Skirmish.apt"), false);
+    if (g_00E04930 == 0)
+        return;
+    (*(Rva00222A8BTarget **)&g_bfmeAptWindowManager)->rva002233A6(1);
+}
 
 // tu-skeleton: 0x00521977 315B ??1AptSkirmish@@UAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishDestructor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmish.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishConstructor.cpp
 
@@ -474,12 +535,6 @@ bool __stdcall Rva00521B16(GameSlot *slot, SlotState state, const UnicodeString 
 	return true;
 }
 
-// tu-skeleton: 0x00521B48 14B ?rva00521B48@Rva00521B48@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
-
-// tu-skeleton: 0x00521B56 260B ?OnAddProfileAccept@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
-
-// tu-skeleton: 0x00521C5A 96B ?rva00521C5A@@YG_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00521CBAFinish.cpp
 
 void Rva00521CBAAdvance(struct Rva00521CBANode **holder, int count, void *unused)
@@ -506,6 +561,51 @@ void Rva00521EC2Advance(struct Rva00521CBANode **holder, int count)
 	Rva00521CBAAdvance(holder, count, &dummy);
 }
 
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0052223E.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// The element is UnicodeString: this range erase's only call goes to the rowed
+// list<UnicodeString>::erase(iterator) at 0x0043BEC9
+// (stlport_list_unicodestring_create_node.cpp), and the list<UnicodeString>
+// units emit this same range erase.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00523149Assign.cpp
+
+// ?rva00523149@Rva00523149@@QAEAAU1@PBU1@@Z @0x00523149 47B:
+// __thiscall assign from pointer (returns *this, ret 4): copies rb_tree
+// <AsciiString,AsciiString> at +4 via rowed 0x0052274D with null-checked
+// other (neg/sbb/and ternary per ScriptListSwap precedent) and UnicodeString
+// at +0x10 via pin 0x00037150. Caller 0x005232D9 in 0x005231B0/282.
+
+Rva00523149 &Rva00523149::rva00523149(const Rva00523149 *other)
+{
+	const StringPairTree *ptree = other ? &other->m_tree : 0;
+	m_tree = *ptree;
+	m_str.set(other->m_str);
+	return *this;
+}
+
+// tu-skeleton: 0x00521B48 14B ?rva00521B48@Rva00521B48@@QAEXHH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00521B56 260B ?OnAddProfileAccept@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
+
+// tu-skeleton: 0x00521C5A 96B ?rva00521C5A@@YG_NABVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameNetwork/GameInfoSetMap.cpp (not merged yet)
+
 // tu-skeleton: 0x00521CE3 28B ??_GAptSkirmish@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishDestructor.cpp (not merged yet)
 
 // tu-skeleton: 0x00521CFF 358B ?StartGameAfterCDCheck@AptSkirmish@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
@@ -515,14 +615,6 @@ void Rva00521EC2Advance(struct Rva00521CBANode **holder, int count)
 // tu-skeleton: 0x00521E76 76B ?OnNewProfileMenu@AptSkirmish@@QAEXPBD@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x00521EDA 868B ?InitTheGame@AptSkirmish@@QAE_NXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW5Rva0052223E.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// The element is UnicodeString: this range erase's only call goes to the rowed
-// list<UnicodeString>::erase(iterator) at 0x0043BEC9
-// (stlport_list_unicodestring_create_node.cpp), and the list<UnicodeString>
-// units emit this same range erase.
 
 // tu-skeleton: 0x00522272 30B ?_M_clone_node@?$_Rb_tree@VAsciiString@@U?$pair@$$CBVAsciiString@@V1@@_STL@@U?$_Select1st@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@U?$less@VAsciiString@@@3@V?$allocator@U?$pair@$$CBVAsciiString@@V1@@_STL@@@3@@_STL@@IAEPAU?$_Rb_tree_node@U?$pair@$$CBVAsciiString@@V1@@_STL@@@2@PAU32@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_rb_tree_hint_asciistring_pair.cpp (not merged yet)
 
@@ -554,29 +646,30 @@ void Rva00521EC2Advance(struct Rva00521CBANode **holder, int count)
 
 // tu-skeleton: 0x00522AFC 18B ?rva00522AFC@Rva00522AFC@@QAEAAV1@ABV1@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat10O1.cpp (not merged yet)
 
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00523149Assign.cpp
-
-// ?rva00523149@Rva00523149@@QAEAAU1@PBU1@@Z @0x00523149 47B:
-// __thiscall assign from pointer (returns *this, ret 4): copies rb_tree
-// <AsciiString,AsciiString> at +4 via rowed 0x0052274D with null-checked
-// other (neg/sbb/and ternary per ScriptListSwap precedent) and UnicodeString
-// at +0x10 via pin 0x00037150. Caller 0x005232D9 in 0x005231B0/282.
-
-Rva00523149 &Rva00523149::rva00523149(const Rva00523149 *other)
-{
-	const StringPairTree *ptree = other ? &other->m_tree : 0;
-	m_tree = *ptree;
-	m_str.set(other->m_str);
-	return *this;
-}
-
 // tu-skeleton: 0x00523178 56B ?rva00523178@AptSkirmish@@QAEHHII@Z -- matched in Code/GameEngine/Source/Common/AptInvokeWrappers.cpp (not merged yet)
 
 // tu-skeleton: 0x005231B0 282B ?rva005231B0@AptSkirmish@@UAEHHII@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 
 // tu-skeleton: 0x005232CA 6B ?Rva005232CAGet@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4Addr.cpp (not merged yet)
 
-// tu-skeleton: 0x005232D0 51B ??4Rva005232D0@@QAEAAU0@ABU0@@Z -- matched in Code/GameEngine/Source/Common/Rva005232D0Assign.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva005232D0Assign.cpp
+
+//
+// ??4Rva005232D0@@QAEAAU0@ABU0@@Z @0x005232D0 51B: memberwise assignment of a
+// record whose first member is Rva00523149 (rowed pointer-taking assign
+// 0x00523149, see Rva00523149Assign.cpp), then a word at +0x14, a
+// list<UnicodeString> at +0x18 (rowed operator= 0x005227C0) and an AsciiString
+// at +0x1C (rowed StringBase<char>::set 0x000366F0). Caller 0x00523356; owner
+// unknown, so the name is address-derived.
+
+Rva005232D0 &Rva005232D0::operator=(const Rva005232D0 &other)
+{
+	m_00.rva00523149(&other.m_00);
+	m_14 = other.m_14;
+	m_18 = other.m_18;
+	m_1C = other.m_1C;
+	return *this;
+}
 
 // tu-skeleton: 0x00523303 249B ?rva00523303@AptSkirmish@@UAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmishCallbacks.cpp (not merged yet)
 

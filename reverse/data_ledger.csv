@@ -17479,7 +17479,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x009D16A8,28,.data,global,_s_externNames,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptScoreScreenCallbacks.cpp,owned,,1,1
 0x009D16C4,100,.data,global,?g_00DD16C4@@3HA,,unowned,,0,2
 0x009D1728,116,.data,global,?BfmeCampaignMenuQueryNames@@3PAPBDA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptCampaignMenu.cpp,owned,,1,1
-0x009D179C,44,.data,global,?g_00DD179C@@3HA,Code/GameEngine/Source/Common/Rva0052192DInit.cpp,owned,,1,1
+0x009D179C,44,.data,global,?g_00DD179C@@3HA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmish.cpp,owned,,1,1
 0x009D17C8,472,.data,global,_s_statusNames,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptStrategicPlayerStatus.cpp,owned,,1,1
 0x009D19A0,144,.data,global,?theLivingWorldCampaignBlockParse@@3UBlockParse@@A,,unowned,,0,2
 0x009D1A30,1092,.data,global,?s_invDistance@?BM@??classifyMapCell@Pathfinder@@SAXHHPAVPathfindCell@@@Z@4QBMB,Code/GameEngine/Source/GameLogic/AI/PathfinderClassifyMapCell.cpp,owned,,1,1
@@ -20864,7 +20864,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A0491C,4,.data,global,?s_instance@Rva005202C8@@2PAV1@A,,unowned,,0,2
 0x00A04920,12,.data,global,?g_Va00E04920@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,provisional,?g_00E04920@@3V?$vector@W4ScienceType@@V?$allocator@W4ScienceType@@@_STL@@@_STL@@A;?g_Va00E04920@@3IA;?g_Va00E04920@@3V?$vector@HV?$allocator@H@_STL@@@_STL@@A,1,5
 0x00A0492C,4,.data,global,?g_Va00E0492C@@3HA,Code/GameEngine/Source/Common/ColdGlobalDwordGetters.cpp,owned,,1,6
-0x00A04930,4,.data,global,?g_00E04930@@3HA,Code/GameEngine/Source/Common/Rva0052192DInit.cpp,owned,,1,6
+0x00A04930,4,.data,global,?g_00E04930@@3HA,Code/GameEngine/Source/GameClient/GUI/GUICallbacks/Apt/AptSkirmish.cpp,owned,,1,6
 0x00A04934,4,.data,global,?g_Va00A04934@@3PAUGlobalA04934@@A,Code/GameEngine/Source/Common/Rva0050E9D3Enable.cpp,provisional,?g_Va00A04934@@3PAUGlobalA04934@@A;?g_Va00E04934@@3HA,1,7
 0x00A04938,20,.data,global,?g_Va00E04938@@3IA,Code/GameEngine/Source/Common/Rva007B6880Thunks.cpp,owned,,1,2
 0x00A0494C,4,.data,global,?g_Va00E0494C@@3IA,,unowned,?g_Va00E0494C@@3IA;?s_buttonName@?4??rva005254C5@Rva005254C5@@QAEXH@Z@4VAsciiString@@A@Code/GameEngine/Source/GameClient/GUI/InGame/Tactical/InGameHeroSelectInterfaceRva005254C5.cpp,1,2
