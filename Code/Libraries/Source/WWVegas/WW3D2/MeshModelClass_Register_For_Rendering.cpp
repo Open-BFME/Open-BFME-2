@@ -20,29 +20,97 @@
 // MeshModelClass and MeshMatDescClass here are TU-local spellings carrying the
 // retail offsets (0x19 flags, 0x94 cur_mat_desc, 0xB8/0x108 descriptor fields,
 // 0xC0 has_been_in_use); they are not recovered class definitions.
+struct UVBufferClass;
 class MeshMatDescClass;
-class MeshModelClass {
-public:
-    void Init_For_NPatch_Rendering();
-    void Register_For_Rendering();
-private:
-    unsigned char pad0[0x19];
-    unsigned char flags;
-    unsigned char pad1[0x94 - 0x1A];
-    MeshMatDescClass *cur_mat_desc;
-    unsigned char pad2[0xC0 - 0x98];
-    unsigned char has_been_in_use;
+class W3DMPO
+{
 };
-class MeshMatDescClass {
+
+class RefCountClass
+{
 public:
-    unsigned char pad0[0xB8];
-    unsigned *field_b8;
-    unsigned char pad1[0x108 - 0xBC];
-    unsigned *field_108;
+	void Add_Ref() { NumRefs++; }
+	void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
+	RefCountClass() : NumRefs(1) {}
+	RefCountClass(const RefCountClass &) : NumRefs(1) {}
+	virtual void Delete_This();
+protected:
+	virtual ~RefCountClass() {}
+private:
+	int NumRefs; // +0x04
+};
+
+class MultiListObjectClass
+{
+public:
+	virtual ~MultiListObjectClass();
+private:
+	void *ListNode; // +0x04
+};
+
+class MeshGeometryClass : public W3DMPO, public RefCountClass, public MultiListObjectClass
+{
+public:
+	virtual ~MeshGeometryClass();
+	MeshGeometryClass &operator=(const MeshGeometryClass &that);
+
+protected:
+	// Needs_Vertex_Normals (0x00171850) proves the packed flag byte at +0x19.
+	char m_pad10[0x19 - sizeof(RefCountClass) - sizeof(MultiListObjectClass)];
+	unsigned char m_flagByte;
+	char m_pad1A[0x8C - 0x1A];
+};
+
+class MeshModelClass : public MeshGeometryClass
+{
+public:
+	virtual ~MeshModelClass();
+	MeshModelClass &operator=(const MeshModelClass &that);
+	bool Needs_Vertex_Normals();
+	void Make_Geometry_Unique();
+	void Init_For_NPatch_Rendering();
+	void Register_For_Rendering();
+	int Get_Flag(int mask) const { return m_flagByte & mask; }
+
+	enum { PRELIT_MASK = 0xE0 };
+
+protected:
+	void clone_materials(const MeshModelClass &srcmesh);
+
+private:
+	MeshMatDescClass *DefMatDesc;
+	MeshMatDescClass *AlternateMatDesc;
+	MeshMatDescClass *CurMatDesc;
+	void *MatInfo;
+	unsigned char pad2[0xC0 - 0x9C];
+	bool HasBeenInUse;
+};
+class MeshMatDescClass
+{
+public:
+	MeshMatDescClass(const MeshMatDescClass &that);
+	~MeshMatDescClass();
+	MeshMatDescClass &operator=(const MeshMatDescClass &that);
+	bool Do_Mappers_Need_Normals();
+
+	int PassCount;
+	int VertexCount;
+	int PolyCount;
+	UVBufferClass *UV[8];
+	char m_pad[0xB8 - 0x2C];
+	unsigned *field_b8;
+	unsigned char pad1[0x108 - 0xBC];
+	unsigned *field_108;
+	char m_pad10C[0x118 - 0x10C];
 };
 class Rva001735F9 { public: void rva001735F9(MeshModelClass *mesh); };
 // 0x00145C30 is the rowed DX8MeshRendererClass::Register_Mesh_Type.
-class DX8MeshRendererClass { public: void Register_Mesh_Type(MeshModelClass *mesh); };
+class DX8MeshRendererClass
+{
+public:
+	void Unregister_Mesh_Type(MeshModelClass *mmc);
+	void Register_Mesh_Type(MeshModelClass *mesh);
+};
 class Rva00199FFB { public: static bool rva00199FFB(MeshMatDescClass *, MeshModelClass *); };
 
 // The globals this body reads. LODMeshCacheSetting, TheMeshGapFillerContext
@@ -68,7 +136,7 @@ extern class DX8MeshRendererClass *TheDX8MeshRenderer;            // plain rende
 
 void MeshModelClass::Register_For_Rendering()
 {
-    has_been_in_use = true;
+    HasBeenInUse = true;
     if (g_0DB5F94 > 1) {
         if (g_0DB5F90 != 0) {
             Init_For_NPatch_Rendering();
@@ -77,14 +145,14 @@ void MeshModelClass::Register_For_Rendering()
         Init_For_NPatch_Rendering();
     }
 
-    MeshMatDescClass *desc = cur_mat_desc;
+    MeshMatDescClass *desc = CurMatDesc;
     if (desc->field_b8 == 0 && desc->field_108 == 0) {
-        if (*(volatile unsigned char *)&LODMeshCacheSetting != 0 || (flags & 4) != 0) {
+        if (*(volatile unsigned char *)&LODMeshCacheSetting != 0 || (m_flagByte & 4) != 0) {
             Rva00199FFB::rva00199FFB(desc, this);
         }
     }
 
-    desc = cur_mat_desc;
+    desc = CurMatDesc;
     // The two renderer globals sit on opposite arms of the source's branch order from
     // a naive reading: the 0x00DF363C renderer takes the field_b8==0 && field_108==0
     // arm. Only which branch each sits on is asserted here; the identity of the two

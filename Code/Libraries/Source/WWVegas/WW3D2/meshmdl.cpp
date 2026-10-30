@@ -12,22 +12,27 @@ class Vector4;
 class RefCountClass
 {
 public:
-    virtual void Delete_This();
-    virtual ~RefCountClass();
-    void Add_Ref() { NumRefs++; }
-    void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
-
+	void Add_Ref() { NumRefs++; }
+	void Release_Ref() { if (--NumRefs == 0) Delete_This(); }
+	RefCountClass() : NumRefs(1) {}
+	RefCountClass(const RefCountClass &) : NumRefs(1) {}
+	virtual void Delete_This();
+protected:
+	virtual ~RefCountClass() {}
 private:
-    int NumRefs;
+	int NumRefs; // +0x04
 };
 
-template <class T> class ShareBufferClass : public RefCountClass
+template <class Type>
+class ShareBufferClass : public RefCountClass
 {
 public:
 	ShareBufferClass(const ShareBufferClass &);
+	virtual ~ShareBufferClass();
+
 protected:
-	T *RawBuffer;
-	T *Array;
+	Type *RawBuffer;
+	Type *Array;
 	int Count;
 	int Alignment;
 };
@@ -52,9 +57,8 @@ class MultiListObjectClass
 {
 public:
 	virtual ~MultiListObjectClass();
-
 private:
-	void *ListNode;
+	void *ListNode; // +0x04
 };
 
 struct UVBufferClass;
@@ -71,7 +75,11 @@ public:
 	int VertexCount;
 	int PolyCount;
 	UVBufferClass *UV[8];
-	char m_pad[0x118 - 0x2C];
+	char m_pad[0xB8 - 0x2C];
+	unsigned *field_b8;
+	unsigned char pad1[0x108 - 0xBC];
+	unsigned *field_108;
+	char m_pad10C[0x118 - 0x10C];
 };
 
 // Stands in for MeshGeometryClass: W3DMPO (empty) + RefCountClass (vptr +0)
@@ -95,6 +103,7 @@ class DX8MeshRendererClass
 {
 public:
 	void Unregister_Mesh_Type(MeshModelClass *mmc);
+	void Register_Mesh_Type(MeshModelClass *mesh);
 };
 
 extern DX8MeshRendererClass *TheDX8MeshRenderer;
@@ -118,6 +127,8 @@ public:
 	MeshModelClass &operator=(const MeshModelClass &that);
 	bool Needs_Vertex_Normals();
 	void Make_Geometry_Unique();
+	void Init_For_NPatch_Rendering();
+	void Register_For_Rendering();
 	int Get_Flag(int mask) const { return m_flagByte & mask; }
 
 	enum { PRELIT_MASK = 0xE0 };
@@ -130,6 +141,8 @@ private:
 	MeshMatDescClass *AlternateMatDesc;
 	MeshMatDescClass *CurMatDesc;
 	void *MatInfo;
+	unsigned char pad2[0xC0 - 0x9C];
+	bool HasBeenInUse;
 };
 
 //
