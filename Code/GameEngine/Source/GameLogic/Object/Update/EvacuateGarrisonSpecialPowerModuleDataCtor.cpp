@@ -67,10 +67,3 @@ void EvacuateGarrisonSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse 
 	SpecialAbilityUpdateModuleData::buildFieldParse(multiIniFieldParse);
 	multiIniFieldParse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
 }
-
-// ?buildFieldParse@UnleashSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z @0x004CDFEB
-void UnleashSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &multiIniFieldParse)
-{
-	SpecialAbilityUpdateModuleData::buildFieldParse(multiIniFieldParse);
-	multiIniFieldParse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
-}
