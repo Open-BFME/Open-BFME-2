@@ -2296,7 +2296,6 @@ alternatename	Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp	?f1@Rva0045D3
 alternatename	Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp	?f2@Rva0045D39E_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp	?fe@Rva0045D39E_E1@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp	?ff@Rva0045D39E_E2@@UAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Rva00464984.cpp	?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00470222Xfer.cpp	?_CxxThrowException@@YGXPAX0@Z	1
 alternatename	Code/GameEngine/Source/Common/Rva00470222Xfer.cpp	?g_rva008ffd18ThrowInfo@@3HA	1
 alternatename	Code/GameEngine/Source/Common/Rva0048C200StringOwnerCtor.cpp	??1Rva0048C200String@@QAE@XZ	1
@@ -3100,6 +3099,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainD
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp	?b6@B6@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp	?hfc@HFC@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/HorseHordeContainDtor.cpp	?hlc@HLC@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp	?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp	??1Rva004816F4Entry@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp	?b0@B0@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Contain/ProductionQueueHordeContain.cpp	?b1@B1@@UAEXXZ	1

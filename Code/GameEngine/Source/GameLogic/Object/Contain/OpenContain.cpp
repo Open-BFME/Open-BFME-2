@@ -1,41 +1,6 @@
-// cl: /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/GameEngine/Include /ICode/Libraries/Include /I. /Ireference/shims/moduledata /ICode/Libraries/Source
 // stlport
-// Initially ported verbatim from the Generals Zero Hour reference;
-// loadPostProcess is adapted below to independently verified BFME2 behavior.
-// (GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp); this unit had no counterpart under Code/.
-/*
-**	Command & Conquer Generals Zero Hour(tm)
-**	Copyright 2025 Electronic Arts Inc.
-**
-**	This program is free software: you can redistribute it and/or modify
-**	it under the terms of the GNU General Public License as published by
-**	the Free Software Foundation, either version 3 of the License, or
-**	(at your option) any later version.
-**
-**	This program is distributed in the hope that it will be useful,
-**	but WITHOUT ANY WARRANTY; without even the implied warranty of
-**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-**	GNU General Public License for more details.
-**
-**	You should have received a copy of the GNU General Public License
-**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
-
-////////////////////////////////////////////////////////////////////////////////
-//																																						//
-//  (c) 2001-2003 Electronic Arts Inc.																				//
-//																																						//
-////////////////////////////////////////////////////////////////////////////////
-
-// FILE: OpenContain.cpp //////////////////////////////////////////////////////////////////////////
-// Author: Colin Day, November 2001
-// Desc:   The OpenContain ContainModule allows objects to be contained inside of other
-//				 objects.  There is a set of functionality that will be common to 
-//				 all container modules that provides the actual containment
-//				 implementations, those implementations are found here
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+// TU Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
@@ -46,16 +11,11 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 }
 }
 #include <map>
-
-// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
-// COMDAT (one byte shape per TU flags); a file-static overload takes those
-// calls instead so this TU emits no external copy.
 #include <new>
 namespace _STL {
 static inline void _Construct(int *__p, const int &__val)
 { new (__p) int(__val); }
 }
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -64,7 +24,6 @@ static inline bool operator!=(const _Rb_tree_iterator<T, LeftTraits>& a,
 { return a._M_node != b._M_node; }
 }
 #include <list>
-
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class LeftTraits, class RightTraits>
@@ -72,7 +31,6 @@ static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
                               const _List_iterator<T, RightTraits>& b)
 { return a._M_node != b._M_node; }
 }
-
 #include <vector>
 // Bind assignment to the complete rowed provider at 0x002CD098.
 namespace _STL {
@@ -81,7 +39,6 @@ vector<Coord3D, allocator<Coord3D> >::operator=(const vector<Coord3D, allocator<
 // Retain this unit's rowed capacity helper after assignment becomes external.
 template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 }
-
 #include "Common/BitFlagsIO.h"
 #include "Common/GameAudio.h"
 #include "Common/GameState.h"
@@ -90,11 +47,9 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 #include "Common/RandomValue.h"
 #include "Common/ThingTemplate.h"
 #include "Common/Xfer.h"
-
 #include "GameClient/Drawable.h"
 #include "GameClient/InGameUI.h"
 #include "GameClient/ControlBar.h"
-
 #include "GameLogic/AIPathfind.h"
 #include "GameLogic/GameLogic.h"
 #include "GameLogic/Module/OpenContain.h"
@@ -105,69 +60,25 @@ template unsigned int vector<Coord3D, allocator<Coord3D> >::capacity() const;
 #include "GameLogic/Object.h"
 #include "GameLogic/PartitionManager.h"
 #include "GameLogic/Weapon.h"
-// Suppress this TU's non-retail copy of ?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-namespace _STL { template <> bool _Base_bitset<4>::_M_is_equal(_Base_bitset<4> const &) const; }
-
 #ifdef _INTERNAL
 // for occasional debugging...
 //#pragma optimize("", off)
 //#pragma MESSAGE("************************************** WARNING, optimization disabled for debugging purposes")
+
 #endif
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-// PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ??0OpenContainModuleData@@QAE@XZ owned by OpenContainModuleDataCtor.cpp; declared here only.
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-// ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z owned by ModuleDataBuildFieldParseChained.cpp; declared here only.
-
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-///////////////////////////////////////////////////////////////////////////////////////////////////
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z owned by OpenContainCtor.cpp; declared here only.
-
-// ------------------------------------------------------------------------------------------------
-// ------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// containReactToTransformChange: OpenContainReactToTransformChange.cpp (retail 0x004624E3).
-
-//-------------------------------------------------------------------------------------------------
-//-------------------------------------------------------------------------------------------------
-// ?OpenContain::update present-unmatched
-UpdateSleepTime OpenContain::update( void )
-{
-	m_playerEnteredMask = 0;
-
-	// we need to monitor changes in the art and position
-	monitorConditionChanges();
-
-	if( m_doorCloseCountdown )
-	{
-		/// @todo srj -- for now, OpenContain assumes at most one door
-		--m_doorCloseCountdown;
-		if( m_doorCloseCountdown == 0 )
-			getObject()->clearAndSetModelConditionState( MODELCONDITION_DOOR_1_OPENING, MODELCONDITION_DOOR_1_CLOSING );
-	}
-
-	if (!m_objectEnterExitInfo.empty())
-		pruneDeadWanters();
-
-	return UPDATE_SLEEP_NONE;
+#include <deque>
+#include <string.h>
+// map<unsigned> internals otherwise instantiate the less<unsigned>::operator()
+// COMDAT (one byte shape per TU flags); an explicit specialization declaration
+// suppresses this TU's copy so callers bind retail's instead.
+namespace _STL {
+template <> bool less<unsigned int>::operator()(const unsigned int &a, const unsigned int &b) const;
 }
+#pragma comment(linker, "/alternatename:?rva0046444E@Rva0046444E@@QAE?AVRva00464984Iterator@@V2@ABVRva00464984Pair@@@Z=?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z")
+
+// Suppress this TU's non-retail copy of ?_M_is_equal@?$_Base_bitset@$03@_STL@@QBE_NABU12@@Z:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+namespace _STL { template <> bool _Base_bitset<4>::_M_is_equal(_Base_bitset<4> const &) const; }
 
 //-------------------------------------------------------------------------------------------------
 //-------------------------------------------------------------------------------------------------
@@ -279,40 +190,8 @@ struct DropData
 // Its Zero Hour loop was the only user of these reverse-iterator compares, which are
 // rowed in this unit, so instantiate them explicitly.
 template bool std::operator==(const ContainedItemsList::const_reverse_iterator &, const ContainedItemsList::const_reverse_iterator &);
+
 template bool std::operator!=(const ContainedItemsList::const_reverse_iterator &, const ContainedItemsList::const_reverse_iterator &);
-
-//-------------------------------------------------------------------------------------------------
-/** Place the object at the 3D position of the next fire point to use */
-//-------------------------------------------------------------------------------------------------
-
-//-------------------------------------------------------------------------------------------------
-/**
-	this is used for containers that must do something to allow people to enter or exit...
-	eg, land (for Chinook), open door (whatever)... it's called with wants=WANTS_TO_ENTER
-	when something is in the enter state, and wants=WANTS_NOTHING when the unit has
-	either entered, or given up...
-*/
-
-//-------------------------------------------------------------------------------------------------
-// ?OpenContain::pruneDeadWanters present-unmatched
-void OpenContain::pruneDeadWanters()
-{
-	for (ObjectEnterExitMap::iterator it = m_objectEnterExitInfo.begin(); it != m_objectEnterExitInfo.end(); /*++it*/)
-	{
-		ObjectID id = (*it).first;
-		Object* obj = TheGameLogic->findObjectByID(id);
-		if (obj == NULL || obj->isEffectivelyDead())
-		{
-			ObjectEnterExitMap::iterator tmp = it;
-			++it;
-			m_objectEnterExitInfo.erase(tmp);
-		}
-		else
-		{
-			++it;
-		}
-	}
-}
 
 //-------------------------------------------------------------------------------------------------
 
@@ -398,24 +277,32 @@ public:
     char *text;
     int tag;
 };
+
 template <int N> class Rva00463C6ESlots : public Rva00463C6ESlots<N - 1> {
 public: virtual void gap(char (*)[N]);
 };
+
 template <> class Rva00463C6ESlots<0> {};
+
 struct Rva00463C6EMask { unsigned int words[4]; bool test(int i) const { return (words[i / 32] >> (i % 32)) & 1; } };
+
 class Rva00463C6EStatus : public Rva00463C6ESlots<44> {
 public: virtual Rva00463C6EMask status(int);
 };
+
 class Rva00463C6EView;
+
 class Rva00463C6EModule : public Rva00463C6ESlots<1> {
 public: virtual Rva00463C6EView *contain() = 0;
 };
+
 struct Rva00463C6EObject {
     char unknown00[0x250];
     Rva00463C6EModule *module250;
     char unknown254[0x274 - 0x254];
     Object *containedBy274;
 };
+
 class Rva00463C6EView : public Rva00463C6ESlots<24> {
 public:
     virtual void slot24(Object *, int, int) = 0;
@@ -428,6 +315,511 @@ public:
     char unknown58[0x74 - 0x58];
     _STL::list<int> restoreIDs74;
 };
+
+// Complete native entry 0x0046491E..0x00464923 forwards the unchanged
+// receiver and key reference to the verified erase at 0x004643E8 and
+// returns its unsigned count. The record/tree view is already established;
+// keep an address-derived label for the unidentified containing wrapper.
+struct Rva00463E09Record;
+
+typedef _STL::_Rb_tree<int, _STL::pair<int const, Rva00463E09Record>,
+	_STL::_Select1st<_STL::pair<int const, Rva00463E09Record> >,
+	_STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00463E09Record> > > Rva0046491ETree;
+
+// Use the existing verified provider without emitting another template copy.
+namespace _STL {
+template <> unsigned int Rva0046491ETree::erase(const int &);
+}
+
+class Rva0046491E : public Rva0046491ETree
+{
+public:
+	unsigned int rva0046491E(const int &key);
+};
+
+class Rva00463469
+{
+public:
+	Rva00463469(unsigned dummy);
+protected:
+	_STL::_STLP_alloc_proxy<unsigned int, int, _STL::allocator<int> > m_proxy;
+};
+
+class Rva00463736 : public Rva00463469
+{
+public:
+	Rva00463736(const unsigned char &srcByte, unsigned dummy);
+private:
+	int m_4;
+};
+
+class WeaponTemplateSetHead
+{
+public:
+	__declspec(nothrow) WeaponTemplateSetHead(const WeaponTemplateSetHead &other);
+private:
+	unsigned int m_bits[19];
+};
+
+class Rva0046267A;
+
+struct Rva004634BANode;
+
+class Rva00463782
+{
+public:
+	_STL::_Rb_tree_node_base *m_header;
+	unsigned int m_count;
+};
+
+typedef _STL::pair<const unsigned int, WeaponTemplateSetHead> WeaponTemplateSetHeadPair;
+
+typedef _STL::_Rb_tree<unsigned int, WeaponTemplateSetHeadPair,
+	_STL::_Select1st<WeaponTemplateSetHeadPair>, _STL::less<unsigned int>,
+	_STL::allocator<WeaponTemplateSetHeadPair> > WeaponTemplateSetHeadTree;
+
+Rva004634BANode *__stdcall Rva004634BACreate(const Rva0046267A &);
+
+union Rva004637B7CreateCall
+{
+ Rva004634BANode *(__stdcall *target)(const Rva0046267A &);
+ Rva004634BANode *(Rva00463782::*member)(const Rva0046267A &);
+};
+
+typedef char Rva004637B7CreateCallWidth[sizeof(Rva004637B7CreateCall)==4 ? 1 : -1];
+
+namespace _STL {
+// ?_M_insert@?$_Rb_tree@IU?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Select1st@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@AAE?AU?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@2@PAU_Rb_tree_node_base@2@0ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@0@Z
+template <>
+WeaponTemplateSetHeadTree::iterator WeaponTemplateSetHeadTree::_M_insert(
+	_Rb_tree_node_base *x, _Rb_tree_node_base *pos,
+	const WeaponTemplateSetHeadPair &v, _Rb_tree_node_base *w)
+{
+	Rva00463782 *self = (Rva00463782 *)this;
+	const Rva0046267A *val = (const Rva0046267A *)&v;
+	Rva004637B7CreateCall create;
+	create.target = Rva004634BACreate;
+	_STL::_Rb_tree_node_base *node;
+	if (pos == self->m_header || (w == 0 && (x != 0 || *(const unsigned *)val < *(const unsigned *)((const char *)pos + 0x10))))
+	{
+		node = (_STL::_Rb_tree_node_base *)(self->*create.member)(*val);
+		pos->_M_left = node;
+		if (pos == self->m_header)
+		{
+			self->m_header->_M_parent = node;
+			self->m_header->_M_right = node;
+		}
+		else if (pos == self->m_header->_M_left)
+			self->m_header->_M_left = node;
+	}
+	else
+	{
+		node = (_STL::_Rb_tree_node_base *)(self->*create.member)(*val);
+		pos->_M_right = node;
+		if (pos == self->m_header->_M_right)
+			self->m_header->_M_right = node;
+	}
+	node->_M_left = 0;
+	node->_M_right = 0;
+	node->_M_parent = pos;
+	_STL::_Rb_global<bool>::_Rebalance(node, self->m_header->_M_parent);
+	++self->m_count;
+	return iterator((_Link_type)node);
+}
+}
+
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+bool less<unsigned int>::operator()(const unsigned int &left, const unsigned int &right) const
+{ return left < right; }
+}
+
+// bfme link decl-only begin
+namespace _STL {
+template <> WeaponTemplateSetHeadTree::iterator WeaponTemplateSetHeadTree::_M_insert(_Rb_tree_node_base *, _Rb_tree_node_base *, const WeaponTemplateSetHeadPair &, _Rb_tree_node_base *);
+template <> _STL::pair<WeaponTemplateSetHeadTree::iterator, bool> WeaponTemplateSetHeadTree::insert_unique(const WeaponTemplateSetHeadPair &);
+}
+
+// bfme link decl-only end
+
+template WeaponTemplateSetHeadTree::iterator WeaponTemplateSetHeadTree::insert_unique(WeaponTemplateSetHeadTree::iterator, const WeaponTemplateSetHeadPair &);
+
+struct TreeKey00242F5E
+{
+	char _d[8];
+};
+
+struct Rva004638C5Node
+{
+	char _head[0x10];
+	char _val[8];
+};
+
+struct Rva004638C5Node;
+
+struct Rva00463FFBOut
+{
+	_STL::_Rb_tree_node_base *node;
+	bool inserted;
+};
+
+class Rva004638C5
+{
+private:
+	_STL::_Rb_tree_node_base *m_header;
+private:
+	unsigned int m_count;
+public:
+	struct Rva004638C5Node *rva004638C5(const struct TreeKey00242F5E &x);
+public:
+	_STL::_Rb_tree_node_base **rva00463F73(_STL::_Rb_tree_node_base **out, _STL::_Rb_tree_node_base *x, _STL::_Rb_tree_node_base *pos, const struct TreeKey00242F5E *val, int flag);
+public:
+	_STL::_Rb_tree_node_base *rva00463FFB(struct Rva00463FFBOut *out, const struct TreeKey00242F5E *val);
+};
+
+class INI;
+
+class Rva003B1017
+{
+public:
+	Rva003B1017() { memset(m_words, 0, sizeof(m_words)); }
+	void rva003B1017(INI *ini, void *extra);
+private:
+	unsigned int m_words[4];
+};
+
+struct Rva00464081Owner
+{
+	unsigned char m_pad00[0x86];
+	bool m_maskGiven86;
+};
+
+// __node_alloc<1,0>::allocate (STLport node path) otherwise emits a per-TU
+// COMDAT that loses to another unit's copy in link order; this explicit
+// dllimport+forceinline specialization keeps the body inline and emits none.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void *__node_alloc<true, 0>::allocate(size_t __n)
+{ return (__n > (size_t)_MAX_BYTES) ? __stl_new(__n) : _M_allocate(__n); }
+}
+
+// __node_alloc<1,0>::deallocate (STLport node path) otherwise emits a per-TU
+// COMDAT that loses to another unit's copy in link order; this explicit
+// dllimport+forceinline specialization keeps the body inline and emits none.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline
+void __node_alloc<true, 0>::deallocate(void *__p, size_t __n)
+{ if (__n > (size_t)_MAX_BYTES) __stl_delete(__p); else _M_deallocate(__p, __n); }
+}
+
+// bfme link decl-only begin
+namespace _STL { template <> _STL::_Rb_tree_node<_STL::pair<unsigned int const,void *> > * _Rb_tree<unsigned int,_STL::pair<unsigned int const,void *>,_STL::_Select1st<_STL::pair<unsigned int const,void *> >,_STL::less<unsigned int>,_STL::allocator<_STL::pair<unsigned int const,void *> > >::_M_lower_bound(unsigned int const &) const; }
+
+// bfme link decl-only end
+
+// map/set<unsigned> internals otherwise instantiate the less<unsigned>::operator()
+// COMDAT (one byte shape per TU flags); a declaration-only specialization
+// stops this TU emitting its copy so callers bind the kept copy.
+// Plain (non-dllimport) form: no __imp_ reference is emitted.
+namespace _STL {
+template <> bool less<unsigned>::operator()(const unsigned &a, const unsigned &b) const;
+}
+
+typedef _STL::map<unsigned int, WeaponTemplateSetHead, _STL::less<unsigned int>,
+	_STL::allocator<_STL::pair<const unsigned int, WeaponTemplateSetHead> > >
+	WeaponTemplateSetHeadMap;
+
+// map::insert(hint, v) is retail's 0x00464431 (StlSweepW4Rva00464431.cpp); a
+// declaration-only specialization stops this TU emitting it and its tree chain.
+// bfme link decl-only begin
+namespace _STL { template <> WeaponTemplateSetHeadMap::iterator WeaponTemplateSetHeadMap::insert(WeaponTemplateSetHeadMap::iterator, const WeaponTemplateSetHeadMap::value_type &); }
+
+// bfme link decl-only end
+
+typedef _STL::map<unsigned int, void *, _STL::less<unsigned int>,
+	_STL::allocator<_STL::pair<const unsigned int, void *> > >
+	UnsignedPointerMap;
+
+class Rva0046262D
+{
+public:
+	__declspec(nothrow) Rva0046262D(void *key, const WeaponTemplateSetHead &head);
+private:
+	void *m_key;
+	WeaponTemplateSetHead m_head;
+};
+
+class Rva00464923
+{
+public:
+	WeaponTemplateSetHead &rva00464923(const unsigned int &key);
+};
+
+// Target evidence: Ghidra boundary 0x00464984, 29 bytes. Retail forwards a
+// hinted tree insertion call to 0x0046444E and returns the iterator result.
+// Addresses are target facts; synthetic Rva names avoid asserting the map type.
+class Rva00464984Iterator {
+public:
+	Rva00464984Iterator(const Rva00464984Iterator &other) : m_node(other.m_node) {}
+private:
+	void *m_node;
+};
+
+class Rva00464984Pair;
+
+class Rva0046444E {
+public:
+	Rva00464984Iterator rva0046444E(Rva00464984Iterator hint,
+		const Rva00464984Pair &value);
+};
+
+class Rva00464984 {
+public:
+	Rva00464984Iterator rva00464984(Rva00464984Iterator hint,
+		const Rva00464984Pair &value);
+};
+
+// tu-skeleton: 0x004624E3 8B ?containReactToTransformChange@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainReactToTransformChange.cpp (not merged yet)
+
+// tu-skeleton: 0x004626CA 107B ?rva004626CA@OpenContain@@UAEPBUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004626CA.cpp (not merged yet)
+
+// tu-skeleton: 0x0046279C 143B ?doLoadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
+
+// tu-skeleton: 0x0046282B 128B ?doUnloadSound@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainSounds.cpp (not merged yet)
+
+// tu-skeleton: 0x00462977 467B ?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x00462C72 97B ?monitorConditionChanges@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_monitorConditionChanges.cpp (not merged yet)
+
+// tu-skeleton: 0x00462F34 65B ?rva00462F34@OpenContain@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
+
+// tu-skeleton: 0x00462F75 62B ?removeFromContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00462F75.cpp (not merged yet)
+
+// tu-skeleton: 0x00462FB3 228B ?privateRemoveFromContain@OpenContain@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainPrivateRemoveFromContain.cpp (not merged yet)
+
+// tu-skeleton: 0x00463097 161B ?onContaining@OpenContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x004632E0 91B ?getClosestRider@OpenContain@@UAEPAVObject@@PBUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
+
+// tu-skeleton: 0x0046333B 152B ?rva0046333B@Rva0046333B@@QAE_NPAH00000@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/Rva0046333BCounts.cpp (not merged yet)
+
+// tu-skeleton: 0x004633D3 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D08.cpp (not merged yet)
+
+// tu-skeleton: 0x004633FC 41B ?clear@?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAEXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_erase_00462D35.cpp (not merged yet)
+
+// tu-skeleton: 0x00463425 68B ?dup_00463425@@YAXXZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_map_int_ptr_o1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00463469Ctor.cpp
+
+// ??0Rva00463469@@QAE@I@Z @0x00463469 (36B):
+// Single-proxy ctor: _STLP_alloc_proxy<unsigned int,int,allocator<int> > at +0
+// via rowed 0x0014F3C4 with (default alloc 0) then _M_data holds the 0x60-byte
+// block from rowed allocator<char>::allocate 0x000307F0. Evidence: linkbody lane
+// push-ecx plus lea-esp-B plus 0x60 shape 17 insns exact as Rva004D9A8B 0x004D9A8B
+// (36B with 0x38) and Rva00434942 0x00434942 (39B with 0xE08); unblocks 0x00463736
+// caller 0x0046373D; LINK BONUS 468B via 0x00463736.
+
+Rva00463469::Rva00463469(unsigned) : m_proxy(_STL::allocator<int>(), 0)
+{
+	m_proxy._M_data = (unsigned int)_STL::allocator<char>::allocate(0x60, 0);
+}
+
+// tu-skeleton: 0x0046348D 45B ??$_Construct@UBfmeContainerRecord00462D62@@U1@@_STL@@YAXPAUBfmeContainerRecord00462D62@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringContainerRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x004634BA 34B ?Rva004634BACreate@@YGPAURva004634BANode@@ABVRva0046267A@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004634BACreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x004634DC 45B ?Rva004634DCConstruct@@YAXPAUTreeKey00242F5E@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_game_structs.cpp (not merged yet)
+
+// tu-skeleton: 0x00463509 183B ?removeFromContain@Rva00463509@@QAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRemoveFromContain.cpp (not merged yet)
+
+// tu-skeleton: 0x004635C0 44B ?removeAllContained@OpenContain@@UAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_removeAllContained.cpp (not merged yet)
+
+// tu-skeleton: 0x0046363F 135B ?getNaturalRallyPoint@OpenContain@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp (not merged yet)
+
+// tu-skeleton: 0x004636C6 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D08Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D08Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_00462D08.cpp (not merged yet)
+
+// tu-skeleton: 0x004636FE 56B ??1?$_Rb_tree@HU?$pair@$$CBHURva00462D35Mapped@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00462D35Mapped@@@_STL@@@2@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_tree_dtor_004636FE.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00463736Ctor.cpp
+
+// ??0Rva00463736@@QAE@ABEI@Z @0x00463736 (42B):
+// Derived of rowed Rva00463469 base: base ctor via 0x00463469 with unsigned
+// dummy plus +4 zero then 0x60-block head init 0 0 self self.
+// Evidence: chain lane call 0x00463469 just landed 4x reload shape caller
+// 0x00463D68 unblocks 0x00463D59; LINK BONUS 468B via 0x00463D59; same shape
+// as Rva004D9B18 0x004D9B18 (51B with srcByte) minus m_8 store = 42B.
+
+Rva00463736::Rva00463736(const unsigned char &srcByte, unsigned dummy) : Rva00463469(dummy)
+{
+	(void)srcByte;
+	m_4 = 0;
+	((char *)m_proxy._M_data)[0] = 0;
+	*(int *)((char *)m_proxy._M_data + 4) = 0;
+	*(char **)((char *)m_proxy._M_data + 8) = (char *)m_proxy._M_data;
+	*(char **)((char *)m_proxy._M_data + 12) = (char *)m_proxy._M_data;
+}
+
+// tu-skeleton: 0x00463760 34B ?_M_create_node@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmeContainerRecord00462D62@@@2@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_list_create_nodes.cpp (not merged yet)
+
+// tu-skeleton: 0x00463782 53B ?rva00463782@Rva00463782@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004637B7Finish.cpp
+
+// _Rb_tree<unsigned, pair<const unsigned, WeaponTemplateSetHead> >::_M_insert 0x004637B7 136B
+// _Rb_tree::_M_insert for the Rva0046267A (0x50B) red-black tree: create the
+// node through the member create_node 0x4634BA, link it left/right of pos,
+// fix up the header root/leftmost/rightmost, then rebalance with rowed 0x25490
+// and bump the node count at this+4. Key is the unsigned int at value +0
+// (node +0x10); retail branches with jb, so the comparator is less<unsigned>.
+// Evidence: 136B shape identical to the landed map<int,int> _M_insert 0x38341E
+// except the 0x4637DA jl->jb; callees 0x4634BA and 0x25490 both rowed; caller
+// 0x4638A1. Native create ignores ECX and pops its value argument (RET 4).
+// A four-byte member-call view retains the native receiver reload while naming
+// the existing __stdcall provider, without introducing another function name.
+// Its callers 0x0046383F and 0x00463E4D are that tree's insert_unique pair
+// (map<unsigned, WeaponTemplateSetHead>, 0x00464431); the create call stays on
+// the rowed Rva004634BACreate provider.
+
+// tu-skeleton: 0x0046383F 134B ?insert_unique@?$_Rb_tree@IU?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Select1st@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@U?$less@I@2@V?$allocator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@QAE?AU?$pair@U?$_Rb_tree_iterator@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBIVWeaponTemplateSetHead@@@_STL@@@2@@_STL@@_N@2@ABU?$pair@$$CBIVWeaponTemplateSetHead@@@2@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva0046383FFinish.cpp (not merged yet)
+
+// tu-skeleton: 0x004638C5 34B ?rva004638C5@Rva004638C5@@QAEPAURva004638C5Node@@ABUTreeKey00242F5E@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638C5CreateNode.cpp (not merged yet)
+
+// tu-skeleton: 0x004638E7 5B ??1Rva004638E7@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004638E7Dtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004638EC 5B ??1Rva004DD206TreeView@@QAE@XZ -- matched in Code/GameEngine/Source/Common/INI/Rva004DD206TwoTreeConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x004638F1 42B ?addToContainList@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva004638F1.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp
+
+// Initially ported verbatim from the Generals Zero Hour reference;
+// loadPostProcess is adapted below to independently verified BFME2 behavior.
+// (GameEngine/Source/GameLogic/Object/Contain/OpenContain.cpp); this unit had no counterpart under Code/.
+/*
+**	Command & Conquer Generals Zero Hour(tm)
+**	Copyright 2025 Electronic Arts Inc.
+**
+**	This program is free software: you can redistribute it and/or modify
+**	it under the terms of the GNU General Public License as published by
+**	the Free Software Foundation, either version 3 of the License, or
+**	(at your option) any later version.
+**
+**	This program is distributed in the hope that it will be useful,
+**	but WITHOUT ANY WARRANTY; without even the implied warranty of
+**	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+**	GNU General Public License for more details.
+**
+**	You should have received a copy of the GNU General Public License
+**	along with this program.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
+////////////////////////////////////////////////////////////////////////////////
+//																																						//
+//  (c) 2001-2003 Electronic Arts Inc.																				//
+//																																						//
+////////////////////////////////////////////////////////////////////////////////
+
+// FILE: OpenContain.cpp //////////////////////////////////////////////////////////////////////////
+// Author: Colin Day, November 2001
+// Desc:   The OpenContain ContainModule allows objects to be contained inside of other
+//				 objects.  There is a set of functionality that will be common to 
+//				 all container modules that provides the actual containment
+//				 implementations, those implementations are found here
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
+
+// vector<int> fill/insert otherwise instantiates the _Construct<int,int>
+// COMDAT (one byte shape per TU flags); a file-static overload takes those
+// calls instead so this TU emits no external copy.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+// PUBLIC FUNCTIONS ///////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ??0OpenContainModuleData@@QAE@XZ owned by OpenContainModuleDataCtor.cpp; declared here only.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+// ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z owned by ModuleDataBuildFieldParseChained.cpp; declared here only.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z owned by OpenContainCtor.cpp; declared here only.
+
+// ------------------------------------------------------------------------------------------------
+// ------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// containReactToTransformChange: OpenContainReactToTransformChange.cpp (retail 0x004624E3).
+
+//-------------------------------------------------------------------------------------------------
+//-------------------------------------------------------------------------------------------------
+// ?OpenContain::update present-unmatched
+UpdateSleepTime OpenContain::update( void )
+{
+	m_playerEnteredMask = 0;
+
+	// we need to monitor changes in the art and position
+	monitorConditionChanges();
+
+	if( m_doorCloseCountdown )
+	{
+		/// @todo srj -- for now, OpenContain assumes at most one door
+		--m_doorCloseCountdown;
+		if( m_doorCloseCountdown == 0 )
+			getObject()->clearAndSetModelConditionState( MODELCONDITION_DOOR_1_OPENING, MODELCONDITION_DOOR_1_CLOSING );
+	}
+
+	if (!m_objectEnterExitInfo.empty())
+		pruneDeadWanters();
+
+	return UPDATE_SLEEP_NONE;
+}
+
+//-------------------------------------------------------------------------------------------------
+/** Place the object at the 3D position of the next fire point to use */
+//-------------------------------------------------------------------------------------------------
+
+//-------------------------------------------------------------------------------------------------
+/**
+	this is used for containers that must do something to allow people to enter or exit...
+	eg, land (for Chinook), open door (whatever)... it's called with wants=WANTS_TO_ENTER
+	when something is in the enter state, and wants=WANTS_NOTHING when the unit has
+	either entered, or given up...
+*/
+
+//-------------------------------------------------------------------------------------------------
+// ?OpenContain::pruneDeadWanters present-unmatched
+void OpenContain::pruneDeadWanters()
+{
+	for (ObjectEnterExitMap::iterator it = m_objectEnterExitInfo.begin(); it != m_objectEnterExitInfo.end(); /*++it*/)
+	{
+		ObjectID id = (*it).first;
+		Object* obj = TheGameLogic->findObjectByID(id);
+		if (obj == NULL || obj->isEffectivelyDead())
+		{
+			ObjectEnterExitMap::iterator tmp = it;
+			++it;
+			m_objectEnterExitInfo.erase(tmp);
+		}
+		else
+		{
+			++it;
+		}
+	}
+}
+
 void OpenContain::loadPostProcess()
 {
     Rva00463C6EView *self = reinterpret_cast<Rva00463C6EView *>(this);
@@ -460,25 +852,353 @@ void OpenContain::loadPostProcess()
     self->restoreIDs74.clear();
 }
 
-// Complete native entry 0x0046491E..0x00464923 forwards the unchanged
-// receiver and key reference to the verified erase at 0x004643E8 and
-// returns its unsigned count. The record/tree view is already established;
-// keep an address-derived label for the unidentified containing wrapper.
-struct Rva00463E09Record;
-typedef _STL::_Rb_tree<int, _STL::pair<int const, Rva00463E09Record>,
-	_STL::_Select1st<_STL::pair<int const, Rva00463E09Record> >,
-	_STL::less<int>, _STL::allocator<_STL::pair<int const, Rva00463E09Record> > > Rva0046491ETree;
-// Use the existing verified provider without emitting another template copy.
-namespace _STL {
-template <> unsigned int Rva0046491ETree::erase(const int &);
-}
-class Rva0046491E : public Rva0046491ETree
-{
-public:
-	unsigned int rva0046491E(const int &key);
-};
-
 unsigned int Rva0046491E::rva0046491E(const int &key)
 {
 	return erase(key);
 }
+
+// tu-skeleton: 0x00463D59 25B ??0?$set@URva00463D59Element@@U?$less@URva00463D59Element@@@_STL@@V?$allocator@URva00463D59Element@@@3@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D59.cpp (not merged yet)
+
+// tu-skeleton: 0x00463D72 41B ?rva00463D72@Rva00463782@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeValueEraseFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00463D9B 73B ?erase@?$_Rb_tree@URva00463D9BElement@@U1@U?$_Identity@URva00463D9BElement@@@_STL@@U?$less@URva00463D9BElement@@@3@V?$allocator@URva00463D9BElement@@@3@@_STL@@QAEIABURva00463D9BElement@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepW4Rva00463D9B.cpp (not merged yet)
+
+// tu-skeleton: 0x00463DE4 37B ?insert@?$list@UBfmeContainerRecord00462D62@@V?$allocator@UBfmeContainerRecord00462D62@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmeContainerRecord00462D62@@U?$_Nonconst_traits@UBfmeContainerRecord00462D62@@@_STL@@@2@U32@ABUBfmeContainerRecord00462D62@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00463E09 68B ?erase@?$_Rb_tree@HU?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00463E09Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00463E09Record@@@_STL@@@2@@2@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00463E09.cpp (not merged yet)
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00463E4DHintInsert.cpp
+
+//
+// STLport 4.5.3 _Rb_tree::insert_unique(hint, v) of the map<unsigned, WeaponTemplateSetHead>
+// tree, 0x00463E4D 294 bytes, from the template. Target facts: its only caller
+// 0x00464431 is that map's insert (called so by 0x00464923); it calls _M_insert
+// 0x004637B7, insert_unique(v) 0x0046383F and the rowed increment/decrement
+// 0x24250/0x242C0; the jb/jae compares fix the key as unsigned. The value's
+// 0x4C-byte layout stays opaque. Flags follow the same-shape int-key body at
+// 0x0046444E (StlSweepR3Rva0046444E.cpp).
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva004638C5Insert.cpp
+
+// ?rva00463F73@Rva004638C5@@QAEPAPAU_Rb_tree_node_base@_STL@@PAPAU23@PAU23@1PBUTreeKey00242F5E@@H@Z 0x00463F73 136B
+// TreeKey tree insert core: create via rowed member 0x4638C5 in both the
+// right and left branches then link rebalance via rowed 0x25490 count out.
+// Evidence: callees 0x4638C5 just landed plus 0x25490 rowed; callers at
+// 0x46405D plus 0x4644B8; signed key compare (jl) of the TreeKey int at
+// +0x10 same as the 0x463F9B walker; same shape as stashed 0x4637B7.
+
+_STL::_Rb_tree_node_base **Rva004638C5::rva00463F73(_STL::_Rb_tree_node_base **out, _STL::_Rb_tree_node_base *x, _STL::_Rb_tree_node_base *pos, const struct TreeKey00242F5E *val, int flag)
+{
+	_STL::_Rb_tree_node_base *node;
+	if (pos == m_header || (flag == 0 && (x != 0 || *(const int *)val < *(const int *)((const char *)pos + 0x10))))
+	{
+		node = (_STL::_Rb_tree_node_base *)rva004638C5(*val);
+		pos->_M_left = node;
+		if (pos == m_header)
+		{
+			m_header->_M_parent = node;
+			m_header->_M_right = node;
+		}
+		else if (pos == m_header->_M_left)
+			m_header->_M_left = node;
+	}
+	else
+	{
+		node = (_STL::_Rb_tree_node_base *)rva004638C5(*val);
+		pos->_M_right = node;
+		if (pos == m_header->_M_right)
+			m_header->_M_right = node;
+	}
+	node->_M_left = 0;
+	node->_M_right = 0;
+	node->_M_parent = pos;
+	_STL::_Rb_global<bool>::_Rebalance(node, m_header->_M_parent);
+	++m_count;
+	*out = node;
+	return out;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00463FFBFinish.cpp
+
+// ?rva00463FFB@Rva004638C5@@QAEPAU_Rb_tree_node_base@_STL@@PAURva00463FFBOut@@PBUTreeKey00242F5E@@@Z 0x00463FFB 134B
+// TreeKey insert_unique via rowed _M_decrement 0x242C0 plus just-landed _M_insert 0x463F73.
+// Evidence: callees 0x242C0 and 0x463F73 both rowed; caller at 0x464561; prev 0x463F73 same flags and node layout; signed key compare (setl/jge) of int at +0x10 same as 0x463F73.
+
+_STL::_Rb_tree_node_base *Rva004638C5::rva00463FFB(struct Rva00463FFBOut *out, const struct TreeKey00242F5E *v)
+{
+	_STL::_Rb_tree_node_base *header = m_header;
+	_STL::_Rb_tree_node_base *x = header->_M_parent;
+	_STL::_Rb_tree_node_base *y = header;
+	bool comp = true;
+	while (x != 0) {
+		y = x;
+		comp = *(const int *)v < *(const int *)((const char *)x + 0x10);
+		x = comp ? x->_M_left : x->_M_right;
+	}
+	_STL::_Rb_tree_node_base *j = y;
+	if (comp) {
+		if (y == header->_M_left) {
+			out->node = *rva00463F73((_STL::_Rb_tree_node_base **)&v, y, y, v, 0);
+			out->inserted = true;
+			return (_STL::_Rb_tree_node_base *)out;
+		}
+		j = _STL::_Rb_global<bool>::_M_decrement(j);
+	}
+	if (*(const int *)((const char *)j + 0x10) < *(const int *)v) {
+		out->node = *rva00463F73((_STL::_Rb_tree_node_base **)&v, x, y, v, 0);
+		out->inserted = true;
+		return (_STL::_Rb_tree_node_base *)out;
+	}
+	out->node = j;
+	out->inserted = false;
+	return (_STL::_Rb_tree_node_base *)out;
+}
+
+// ---- from Code/GameEngine/Source/Common/INI/Rva00464081ParseMask.cpp
+
+//
+// ?Rva00464081ParseMask@@YAXPAVINI@@PAX1PBX@Z, retail 0x00464081..0x004640BE
+// (61 bytes, cdecl): an INI field parser for a 16-byte bit mask. A cleared
+// mask (memset) is filled by the rowed parser 0x003B1017 -- Disp8SarAvg
+// DwordGetters.cpp's Rva003B1017, which reads the KindOf-style name list --
+// then copied into the field, and the owning instance's +0x86 flag records
+// that the field was given. The field and owner names are not known; no
+// WorldBuilder twin was matched.
+
+void Rva00464081ParseMask(INI *ini, void *instance, void *store, const void * /*userData*/)
+{
+	Rva003B1017 mask;
+	mask.rva003B1017(ini, 0);
+	*(Rva003B1017 *)store = mask;
+	((Rva00464081Owner *)instance)->m_maskGiven86 = true;
+}
+
+// tu-skeleton: 0x004640BE 98B ?update@Rva004640BE@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva004640BERelease.cpp (not merged yet)
+
+// tu-skeleton: 0x00464120 145B ?onDelete@OpenContain@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp (not merged yet)
+
+// tu-skeleton: 0x004641B1 213B ?onDie@OpenContain@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x00464286 77B ?redeployOccupants@OpenContain@@MAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_redeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x00464692 227B ??1OpenContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x00464775 69B ?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004647BA 6B ?name@OpenContain@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647C0 13B ?get@Rva004647C0LeaNegSbbField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaNegSbbGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647CD 4B ?get@Rva004647CDLeaField@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/Disp8LeaFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647D1 7B ?Rva004647D1Get@@YAMXZ -- matched in Code/GameEngine/Source/Common/GlobalFloatGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647D8 24B ?rva004647D8@Rva004647D8@@QAEPAXPAX@Z -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesL.cpp (not merged yet)
+
+// tu-skeleton: 0x004647F0 13B ?Rva004647F0Adjust@@YIPAXPAX@Z -- matched in Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004647FD 13B ?set@Rva004647FDByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0046480A 6B ?rva0046480A@Rva0046480A@@QAEHH@Z -- matched in Code/GameEngine/Source/Common/VtableConstantPredicates.cpp (not merged yet)
+
+// tu-skeleton: 0x00464810 13B ?set@Rva00464810ByteSlot@@QAEXE@Z -- matched in Code/GameEngine/Source/Common/DispByteFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0046481D 8B ?rva0050B238@Rva005E62F1@@WCA@AEXPAXI@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x00464825 4B ?get@Rva00464825DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8DwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00464829 7B ?get@Rva00464829AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00464830 238B ?addToContain@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainAdd.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Thing/WeaponTemplateSetHeadMapLookupRva00464923.cpp
+
+//
+// ?rva00464923@Rva00464923@@QAEAAVWeaponTemplateSetHead@@ABI@Z @0x00464923 (97B).
+// Lookup-or-create of a 0x4C-byte WeaponTemplateSetHead under an unsigned key.
+// Target calls the rowed unsigned lower_bound at 0x004FF3B6, the pair ctor at
+// 0x0046262D, and the adjacent hinted-insert wrapper at 0x00464431. The map
+// owner name is not established; the address-derived method preserves that.
+
+WeaponTemplateSetHead &Rva00464923::rva00464923(const unsigned int &key)
+{
+	WeaponTemplateSetHeadMap *map = (WeaponTemplateSetHeadMap *)(void *)this;
+	UnsignedPointerMap *lookup = (UnsignedPointerMap *)(void *)this;
+	UnsignedPointerMap::iterator position = lookup->lower_bound(key);
+	if (position == lookup->end() || key < position->first) {
+		unsigned char emptyHead[0x4C];
+		memset(emptyHead, 0, sizeof(emptyHead));
+		unsigned char pairStorage[sizeof(Rva0046262D)];
+		Rva0046262D *value = new (pairStorage) Rva0046262D((void *)&key,
+			*(const WeaponTemplateSetHead *)(const void *)emptyHead);
+		WeaponTemplateSetHeadMap::iterator hint =
+			*(WeaponTemplateSetHeadMap::iterator *)(void *)&position;
+		WeaponTemplateSetHeadMap::value_type &pair =
+			*(WeaponTemplateSetHeadMap::value_type *)(void *)value;
+		hint = map->insert(hint, pair);
+		position = *(UnsignedPointerMap::iterator *)(void *)&hint;
+	}
+	return *(WeaponTemplateSetHead *)&position->second;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00464984.cpp
+
+Rva00464984Iterator Rva00464984::rva00464984(
+	Rva00464984Iterator hint, const Rva00464984Pair &value)
+{
+	return ((Rva0046444E *)this)->rva0046444E(hint, value);
+}
+
+// The retail call in this body reads 0x0046444E, an address the ledger already
+// carries as ?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva0046444ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva0046444ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva0046444ERecord@@@2@@Z. Bind the donor spelling to that rowed owner so one
+// address keeps one definition and the unit links.
+
+// tu-skeleton: 0x004649A1 87B ?rva004649A1@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/Thing/BoneSpecificConditionStateRva004649A1.cpp (not merged yet)
+
+// tu-skeleton: 0x004649F8 386B ??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00464B7A 28B ??_GOpenContain@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/ContainModuleDeletingDtors.cpp (not merged yet)
+
+// tu-skeleton: 0x00464B96 364B ?rva00464B96@Rva00464B96@@QAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainScatter.cpp (not merged yet)
+
+// tu-skeleton: 0x00464D02 485B ?onRemoving@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x00464EE7 224B ?rva00464EE7@OpenContain@@UAE_NPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRva00464EE7.cpp (not merged yet)
+
+// tu-skeleton: 0x004650A0 132B ?rva004650A0@Rva004650A0@@QAEAAVAsciiString@@ABH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
+
+// tu-skeleton: 0x00465124 253B ??0OpenContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x00465221 28B ??_GOpenContainModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0046523D 34B ?buildFieldParse@OpenContainModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
+
+// tu-skeleton: 0x0046525F 1152B ?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x004656DF 659B ?exitObjectInAHurry@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x00465972 1407B ?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x00465EF1 1191B ?xfer@OpenContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA49 8B $L1851 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA51 10B __ehhandler$?isValidContainerFor@OpenContain@@UAE_NPAVObject@@_N1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainIsValidContainerFor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA5B 8B Unwind@00b8aa5b -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA63 11B Unwind@00b8aa63 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA6E 10B __ehhandler$?onContaining@OpenContain@@UAEXPAVObject@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContain_onContaining.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA90 8B Unwind@00b8aa90 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AA98 10B __ehhandler$?getNaturalRallyPoint@OpenContain@@UBE_NAAUCoord3D@@_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/SlaughterHordeContainIterate.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AAD8 8B $L1309 -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainParsePassengerBone.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AAE0 8B $L1310 -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainParsePassengerBone.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AAE8 10B __ehhandler$?Rva00464574Parse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainParsePassengerBone.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AAF2 8B $L6586 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AAFA 11B $L6387 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB05 11B $L6388 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB10 11B $L6389 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB1B 11B uw_0078ab1b -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB26 11B $L6391 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB31 14B $L6592 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB3F 10B __ehhandler$??1OpenContain@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainDtorRva00464692.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB49 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB56 10B __ehhandler$?getModuleNameKey@OpenContain@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/OpenContainPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB60 8B Unwind@00b8ab60 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB68 11B uw_0078ab68 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB73 11B $L5149 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB7E 11B $L5150 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB89 11B uw_0078ab89 -- matched in Code/gen_small/uw_gen_012.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB94 11B $L5152 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AB9F 10B __ehhandler$??0OpenContain@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABA9 8B Unwind@00b8aba9 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABB1 11B Unwind@00b8abb1 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABBC 8B Unwind@00b8abbc -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABC4 11B Unwind@00b8abc4 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABCF 10B __ehhandler$?onRemoving@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainOnRemoving.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABEB 8B Unwind@00b8abeb -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABF3 8B $L5063 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ABFB 10B __ehhandler$?rva004650A0@Rva004650A0@@QAEAAVAsciiString@@ABH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/TransportContainRva00468657.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC05 8B Unwind@00b8ac05 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC0D 11B Unwind@00b8ac0d -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC18 11B Unwind@00b8ac18 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC23 11B Unwind@00b8ac23 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC2E 11B Unwind@00b8ac2e -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC39 11B $L16814 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC44 11B $L16815 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC4F 14B Unwind@00b8ac4f -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC5D 10B __ehhandler$??0OpenContainModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainModuleDataConstructor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC67 8B $L9178 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC6F 8B $L9179 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC77 8B $L9180 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC7F 8B $L9181 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC87 10B __ehhandler$?exitObjectViaDoor@OpenContain@@UAEXPAVObject@@W4ExitDoorType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC91 8B Unwind@00b8ac91 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078AC99 8B Unwind@00b8ac99 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACA1 8B Unwind@00b8aca1 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACA9 10B __ehhandler$?exitObjectInAHurry@OpenContain@@UAEXPAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainExitObjectInAHurry.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACB3 8B Unwind@00b8acb3 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACBB 8B Unwind@00b8acbb -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACC3 8B Unwind@00b8acc3 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACCB 8B Unwind@00b8accb -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACD3 10B __ehhandler$?privateRedeployOccupants@OpenContain@@AAEXPBV?$list@PAVObject@@V?$allocator@PAVObject@@@_STL@@@_STL@@PAV?$map@HHU?$less@H@_STL@@V?$allocator@U?$pair@$$CBHH@_STL@@@2@@3@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainRedeployOccupants.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACDD 8B Unwind@00b8acdd -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACE5 8B Unwind@00b8ace5 -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x0078ACED 10B __ehhandler$?xfer@OpenContain@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Contain/OpenContainXfer.cpp (not merged yet)
