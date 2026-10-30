@@ -6676,7 +6676,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x000C0D7A,41,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,Code/GameEngine/Source/Common/BfmeStringTailRecord180Ctor.cpp
 0x000C0DA3,53,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,proposed,N,N=Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,Code/GameEngine/Source/Common/Rva000C7720Vector180Dtor.cpp
 0x000C0DD8,1065,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp noncontiguous,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp
-0x000C1201,69,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,proposed,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDraw.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDrawPoolKey.cpp
+0x000C1201,69,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,proposed,U,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDraw.cpp,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp
 0x000C1246,6,code,,,-,,Code/GameEngine/Source/Common/W3DDrawNameGetters.cpp
 0x000C124C,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters.cpp
 0x000C1252,504,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDraw.cpp noncontiguous,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawOnDrawableBound.cpp
@@ -63396,8 +63396,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00761A18,24,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawDestructor.cpp
 0x00761A30,14,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp
 0x00761A3E,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/W3DScriptedModelDrawCtor.cpp
-0x00761A48,13,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,approved,P,P=0x000C1201@FuncInfo0x00904FA0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDrawPoolKey.cpp
-0x00761A55,10,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,approved,P,P=0x000C1201@FuncInfo0x00904FA0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/W3DScriptedModelDrawPoolKey.cpp
+0x00761A48,13,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,approved,P,P=0x000C1201@FuncInfo0x00904FA0 p-group provisional,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp
+0x00761A55,10,code,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp,approved,P,P=0x000C1201@FuncInfo0x00904FA0 p-group provisional,Code/GameEngine/Source/Common/BfmeStringTailRecord180.cpp
 0x00761A5F,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C4C73RandomAttachment.cpp
 0x00761A67,10,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Drawable/Draw/Rva000C4C73RandomAttachment.cpp
 0x00761A71,8,code,,,-,,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva000C1788Xfer.cpp
