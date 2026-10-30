@@ -737,10 +737,25 @@ def trial_failed(row):
     return row.get("library_46") == "mismatch"
 
 
+STLPORT_LINE = re.compile(r"^// stlport[ \t\r]*$", re.M)
+
+
+def opted_into_453(source):
+    """True when the file carries the `// stlport` line the lane's move rewrites. A
+    file without it compiles none of STLport's headers (its STL names, if any, are
+    private declarations), so a trial row of it built the same bytes under 4.6 as
+    under 4.5.3: it shows nothing about the unit, and the marker move cannot apply."""
+    try:
+        return STLPORT_LINE.search((ROOT / source).read_text(encoding="utf-8-sig", errors="replace")) is not None
+    except OSError:
+        return False
+
+
 def queue_files():
-    """The repoint queue as data, most bytes first: one dict per file without the
-    `// stlport46` opt-in holding report rows that matched under 4.6 and that the
-    ledger still holds matched under the same identity and extent. `rows` are those
+    """The repoint queue as data, most bytes first: one dict per file with the
+    `// stlport` line (opted_into_453) but not yet the `// stlport46` opt-in, holding
+    report rows that matched under 4.6 and that the ledger still holds matched under
+    the same identity and extent. `rows` are those
     leads; `knobs` every knob a live row of the file needed (its game code included);
     `fails` the file's live rows the trial saw fail (trial_failed: a whole-file move
     must fix them); `lead` is "unit" when the headers lane compiled this unit itself
@@ -767,7 +782,7 @@ def queue_files():
     by_source = collections.defaultdict(list)
     for row in rows:
         if ((row["source"], row["rva"], row["name"], int(row["size"])) in live
-                and not stlport_overlay.selected(ROOT / row["source"])):
+                and not stlport_overlay.selected(ROOT / row["source"]) and opted_into_453(row["source"])):
             by_source[row["source"]].append(row)
     report_by_source = collections.defaultdict(list)
     for row in report:

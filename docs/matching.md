@@ -709,8 +709,9 @@ coverage, ownership, freshness and history checks as other apparent gaps.
   and the BFME patch layer (`vendor/stlport-4.6-bfme/`) with an exact
   `// stlport46` line. `python3 tools/repair_queue.py stlport` serves whole files
   whose rows the trial lane (`tools/stlport_trial.py`, `reverse/stlport_trial.csv`)
-  saw match under 4.6; the queue is a lead, `./build.sh` of the whole file is the
-  proof. Repoint every row with `add_match.py --replace-existing`, notes gaining
+  saw match under 4.6, among files that carry the `// stlport` line (a file without
+  it compiles no STLport header, so its trial rows prove nothing); the queue is a
+  lead, `./build.sh` of the whole file is the proof. Repoint every row with `add_match.py --replace-existing`, notes gaining
   `migrated=stlport-4.6`. `next_work.py --tier stlport [--claim]` serves one file
   with its move and a `file:` claim. Its `adapt` knob (drop 4.5.3's `const` from the
   unit's allocator declarations) always applies; try the others (`-shim`, `-D`) only

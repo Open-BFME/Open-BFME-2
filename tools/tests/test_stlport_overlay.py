@@ -144,6 +144,9 @@ def test_queue_uses_live_identity_and_extent(tmp_path, monkeypatch, capsys):
     ledger.write_text("name,target_rva,target_size,source,status\n"
                       "f,0x10,30,a.cpp,matched\n"
                       "g,0x20,41,b.cpp,matched\n")
+    for name in ("a.cpp", "b.cpp"):
+        (tmp_path / name).write_text("// stlport\n")
+    monkeypatch.setattr(stlport_trial, "ROOT", tmp_path)
     monkeypatch.setattr(stlport_trial, "REPORT", report)
     monkeypatch.setattr(build, "FUNCTIONS", ledger)
     stlport_trial.queue(SimpleNamespace(tsv=True))
@@ -168,6 +171,8 @@ def test_queue_files_carry_knobs_failures_and_the_lead(tmp_path, monkeypatch):
                           ("f", "0x10", 30, "a.cpp"), ("c", "0x11", 8, "a.cpp"), ("d", "0x12", 8, "a.cpp"),
                           ("e", "0x13", 8, "a.cpp"), ("g", "0x20", 40, "b.cpp"), ("h", "0x21", 9, "b.cpp"),
                           ("i", "0x22", 9, "b.cpp"))))
+    for name in ("a.cpp", "b.cpp"):
+        (tmp_path / name).write_text("// cl: /MD\r\n// stlport\r\n")
     monkeypatch.setattr(stlport_trial, "ROOT", tmp_path)
     monkeypatch.setattr(stlport_trial, "REPORT", report)
     monkeypatch.setattr(build, "FUNCTIONS", ledger)
@@ -176,6 +181,26 @@ def test_queue_files_carry_knobs_failures_and_the_lead(tmp_path, monkeypatch):
     assert a["knobs"] == ["-shim"] and a["fails"] == 1 and a["lead"] == "unit"
     assert (b["source"], [r["name"] for r in b["rows"]]) == ("b.cpp", ["g"])
     assert b["knobs"] == [] and b["fails"] == 1 and b["lead"] == "library"
+
+
+def test_queue_skips_a_file_that_never_opted_into_stlport(tmp_path, monkeypatch):
+    # No `// stlport` line: the unit compiles no STLport header, so its trial rows
+    # built the same bytes under either version and the marker move cannot apply.
+    report = tmp_path / "report.csv"
+    report.write_text("kind,rva,size,name,source,header_46,knob,library_46\n"
+                      "header,0x10,30,f,a.cpp,match-4.6,,\n"
+                      "library-copy,0x20,40,g,b.cpp,not-sampled,,match\n"
+                      "library-copy,0x30,9,h,c.cpp,not-sampled,,match\n")
+    ledger = tmp_path / "functions.csv"
+    ledger.write_text("name,target_rva,target_size,source,status\n"
+                      "f,0x10,30,a.cpp,matched\ng,0x20,40,b.cpp,matched\nh,0x30,9,c.cpp,matched\n")
+    (tmp_path / "a.cpp").write_text("// cl: /MD\nnamespace _STL { template<class T> struct less; }\n")
+    (tmp_path / "b.cpp").write_text("// cl: /MD\n// stlport\n#include <vector>\n")
+    (tmp_path / "c.cpp").write_text("// cl: /MD\n// stlport_widget.cpp holds the rest\n")
+    monkeypatch.setattr(stlport_trial, "ROOT", tmp_path)
+    monkeypatch.setattr(stlport_trial, "REPORT", report)
+    monkeypatch.setattr(build, "FUNCTIONS", ledger)
+    assert [f["source"] for f in stlport_trial.queue_files()] == ["b.cpp"]
 
 
 def test_repair_queue_calls_the_stlport_lane(monkeypatch):
