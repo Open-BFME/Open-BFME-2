@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /EHsc /DNDEBUG /MD /D_CRTIMP= /D_STLP_USE_STATIC_LIB /Ireference/shims/bfmealloc
+// cl: /DNDEBUG /MD /GX /DBFME_ASCII_DTOR_DECL /D_STLP_USE_STATIC_LIB /D_STLP_NO_EXCEPTIONS /D_CRTIMP= /Ireference/shims/bfmealloc /I. /Ireference/shims/bfme2_ascii /Ireference/shims/bfmelist /ICode/Libraries/Include
 // stlport
 //
 // ??0ProductionUpdateModuleData@@QAE@XZ, retail 0x0049F7DB, 178 bytes.
@@ -6,7 +6,7 @@
 // +0x28, NumDoorAnimations at +8, the four door durations at +0xC..+0x18,
 // QuantityModifier at +0x1C, DisabledTypesToProcess at +0x2C, GiveNoXP at
 // +0x30, UnitInvulnerableTime at +0x34, SpecialPrepModelconditionTime at
-// +0x38, BonusForType string at +0x44, SpeedBonusAudioLoop string at +0x48,
+// +0x38, BonusForType string at +0x44, SpeedBonusAudioLoop at +0x48 (a nullable pool reference),
 // SecondaryQueue at +0x4C; factory 0x24E88F news 0x50, sole caller).
 // Donor is ZH ProductionUpdate.cpp: five door/int zeroes, quantity-modifier
 // clear, maxQueue default, MAKE_DISABLED_MASK(HELD). BFME2 changes maxQueue
@@ -20,14 +20,15 @@
 // specialization declarations below keep those calls external and throwing
 // (a visible <vector> body would be locally analyzed nothrow and collapse
 // the EH states; retail arms 0 before the base call, 1 before the flags
-// call, 4 before erase). The two AsciiString members use the MissileUpdate
-// idiom (inline zero ctor in the init list, declared-only dtor for
-// unwindability, set through the alias pin at 0x55F5, empty literal at
-// 0xBBAC1C). The class keeps an explicit vtable slot with no virtuals so
-// nothing is emitted, and the +4 word is untouched padding.
+// call, 4 before erase). BonusForType uses an inline zero constructor,
+// a declared-only destructor and the set alias at 0x55F5 (empty literal
+// at 0xBBAC1C). The +0x48 SpeedBonusAudioLoop reference is zero-initialized. Snapshot
+// supplies the +0 vptr; the +4 word is untouched padding.
 
-extern "C" const void *const __identifier("??_7ProductionUpdateModuleData@@6B@")[];  // vftable 0x00C515F0
 
+#include <string.h>
+class Xfer;
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
 #include <list>
 
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
@@ -66,25 +67,22 @@ typedef unsigned int UnsignedInt;
 
 struct QuantityModifier
 {
-	AsciiString m_templateName;
-	Int m_quantity;
-	~QuantityModifier();
+    AsciiString m_templateName;
+    int m_quantity;
 };
 
-template <int NUM_BITS>
-class BitFlags
+template<int NUMBITS> class BitFlags
 {
 public:
-	enum BogusInitType
-	{
-		kInit = 0
-	};
-
-	BitFlags();
-	BitFlags(BogusInitType init, Int bit);
-
+ enum BogusInitType { kInit = 0 };
+ BitFlags();
+ BitFlags(BogusInitType, int);
+	void xfer(Xfer *xfer);
+ unsigned int test(unsigned bit) const { return m_words[bit>>5] & (1u << (bit&31)); }
+ void clear() { memset(m_words,0,sizeof(m_words)); }
+ void set(unsigned bit,bool value=true) { if(value) m_words[bit>>5] |= 1u << (bit&31); else m_words[bit>>5] &= ~(1u << (bit&31)); }
 private:
-	UnsignedInt m_words[1];
+	unsigned int m_words[(NUMBITS+31)/32];
 };
 
 namespace _STL
@@ -103,44 +101,51 @@ vector<QuantityModifier, allocator<QuantityModifier> >::erase(
 
 }
 
-// UpdateModuleData subobject: deliberately empty (EBO, so the derived class
-// starts at +0) with an inline empty ctor (retail shows no base call) but a
-// declared-only dtor, which makes the base unwindable: that arms trylevel 0
-// (plus the homed this and the zeroed ebx) before the first member call
-// instead of after it. The vtable lives in the derived class as an explicit
-// slot (derived mem-init, which the scheduler sinks below the vector setup
-// but above its call) with no virtuals so no vtable is emitted.
-class UpdateModuleData
+// Snapshot is unwindable before the vector constructor at +0x1C;
+// its destructor restores the base table after the members are destroyed.
+struct PoolMember
 {
-public:
-	__declspec(dllimport) __forceinline UpdateModuleData() {}
-	~UpdateModuleData();
+	void Rva0050ED3();
 };
 
-class ProductionUpdateModuleData : public UpdateModuleData
+struct NullablePoolRef
+{
+ NullablePoolRef() : m_ptr(0) {}
+	~NullablePoolRef()
+	{
+		if (m_ptr != 0)
+			m_ptr->Rva0050ED3();
+	}
+
+	PoolMember *m_ptr;
+};
+
+class ProductionUpdateModuleData : public Snapshot
 {
 public:
-	ProductionUpdateModuleData();
+ ProductionUpdateModuleData();
+	virtual ~ProductionUpdateModuleData();
 
 private:
-	const void *m_vtable; // +0, retail 0x00C515F0
+	// +0 is the base vptr (retail 0x00C515F0); no explicit slot follows, so
+	// members land on the ctor TU's offsets.
 	int m_unused04; // +4, untouched padding
 	Int m_numDoorAnimations; // +8
-	UnsignedInt m_doorOpeningTime; // +0xC
-	UnsignedInt m_doorWaitOpenTime; // +0x10
-	UnsignedInt m_doorClosingTime; // +0x14
-	UnsignedInt m_constructionCompleteDuration; // +0x18
+	unsigned int m_doorOpeningTime; // +0xC
+	unsigned int m_doorWaitOpenTime; // +0x10
+	unsigned int m_doorClosingTime; // +0x14
+	unsigned int m_constructionCompleteDuration; // +0x18
 	_STL::vector<QuantityModifier, _STL::allocator<QuantityModifier> > m_quantityModifiers; // +0x1C
 	Int m_maxQueueEntries; // +0x28
 	BitFlags<11> m_disabledTypesToProcess; // +0x2C
 	bool m_giveNoXP; // +0x30
-	UnsignedInt m_unitInvulnerableTime; // +0x34
-	UnsignedInt m_specialPrepModelconditionTime; // +0x38
-	_STL::list<int, _STL::allocator<int> > m_modifierList; // +0x3C, element type unproven; _List_base ctor is element-generic
+	unsigned int m_unitInvulnerableTime; // +0x34
+	unsigned int m_specialPrepModelconditionTime; // +0x38
+	_STL::list<Int, _STL::allocator<Int> > m_modifierList; // +0x3C, element type unproven; storage only
 	bool m_veteranUnitsFromVeteranFactory; // +0x40
 	bool m_setBonusModelConditionOnSpeedBonus; // +0x41
 	AsciiString m_bonusForType; // +0x44
-	AsciiString m_speedBonusAudioLoop; // +0x48
+	NullablePoolRef m_speedBonusAudioLoop; // +0x48, nullable Release_Ref holder (not a string)
 	bool m_secondaryQueue; // +0x4C
 };
 
@@ -149,8 +154,7 @@ private:
 namespace _STL { template <> vector<QuantityModifier,_STL::allocator<QuantityModifier> >::~vector(); }
 // bfme link decl-only end
 ProductionUpdateModuleData::ProductionUpdateModuleData()
-	: UpdateModuleData()
-	, m_vtable(reinterpret_cast<const void *>(((unsigned int)__identifier("??_7ProductionUpdateModuleData@@6B@"))))
+	: Snapshot()
 	, m_bonusForType()
 	, m_speedBonusAudioLoop()
 {

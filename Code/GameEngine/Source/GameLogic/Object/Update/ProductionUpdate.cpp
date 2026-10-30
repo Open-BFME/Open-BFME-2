@@ -8,6 +8,7 @@
 #include "Code/GameEngine/Source/Common/GameLogicObjectLookupView.h"
 #include <algorithm>
 #include <memory>
+#include <string.h>
 #include <stl/_algobase.h>
 
 // ProductionUpdate.cpp -- ProductionUpdate members recovered from WorldBuilder
@@ -27,13 +28,11 @@ class UpgradeTemplate;
 
 enum ProductionType { PRODUCTION_INVALID = 0, PRODUCTION_UNIT, PRODUCTION_UPGRADE, PRODUCTION_HORDE_UNIT };
 
-struct ProductionEntry
+class ProductionEntry
 {
-	unsigned char m_pad00[4];
-	ProductionType m_type;			// +0x04
-	unsigned char m_pad08[4];
-	const UpgradeTemplate *m_upgradeToResearch;	// +0x0C
-	Int m_productionID;			// +0x10
+public:
+    virtual void *scalarDeleting(unsigned int flags);
+    Bool getProductionObject() const;
 };
 
 // Declaration-only: retail keeps one copy of this STLport member (rowed elsewhere); this unit calls it
@@ -87,6 +86,7 @@ struct PoolMember
 // the release call inline under state 3.
 struct NullablePoolRef
 {
+ NullablePoolRef() : m_ptr(0) {}
 	~NullablePoolRef()
 	{
 		if (m_ptr != 0)
@@ -117,9 +117,24 @@ vector<QuantityModifier, allocator<QuantityModifier> >::~vector();
 
 }
 
+template<int NUMBITS> class BitFlags
+{
+public:
+ enum BogusInitType { kInit = 0 };
+ BitFlags();
+ BitFlags(BogusInitType, int);
+	void xfer(Xfer *xfer);
+ unsigned int test(unsigned bit) const { return m_words[bit>>5] & (1u << (bit&31)); }
+ void clear() { memset(m_words,0,sizeof(m_words)); }
+ void set(unsigned bit,bool value=true) { if(value) m_words[bit>>5] |= 1u << (bit&31); else m_words[bit>>5] &= ~(1u << (bit&31)); }
+private:
+	unsigned int m_words[(NUMBITS+31)/32];
+};
+
 class ProductionUpdateModuleData : public Snapshot
 {
 public:
+ ProductionUpdateModuleData();
 	virtual ~ProductionUpdateModuleData();
 
 private:
@@ -133,15 +148,15 @@ private:
 	unsigned int m_constructionCompleteDuration; // +0x18
 	_STL::vector<QuantityModifier, _STL::allocator<QuantityModifier> > m_quantityModifiers; // +0x1C
 	Int m_maxQueueEntries; // +0x28
-	unsigned int m_disabledTypesToProcess; // +0x2C
+	BitFlags<11> m_disabledTypesToProcess; // +0x2C
 	bool m_giveNoXP; // +0x30
 	unsigned int m_unitInvulnerableTime; // +0x34
 	unsigned int m_specialPrepModelconditionTime; // +0x38
-	_STL::_List_base<Int, _STL::allocator<Int> > m_modifierList; // +0x3C, element type unproven; storage only
+	_STL::list<Int, _STL::allocator<Int> > m_modifierList; // +0x3C, element type unproven; storage only
 	bool m_veteranUnitsFromVeteranFactory; // +0x40
 	bool m_setBonusModelConditionOnSpeedBonus; // +0x41
 	AsciiString m_bonusForType; // +0x44
-	NullablePoolRef m_poolRef; // +0x48, nullable Release_Ref holder (not a string)
+	NullablePoolRef m_speedBonusAudioLoop; // +0x48, nullable Release_Ref holder (not a string)
 	bool m_secondaryQueue; // +0x4C
 };
 
@@ -280,10 +295,17 @@ struct Rva0039BAD2Input;
 
 class Rva0039B7AD;
 
+class Rva0039B795;
+
 class Rva003B0D7C
 {
 public:
-	void rva003B0D7C(int amount, Rva0039B7AD *arg, bool flag);
+	unsigned int countMoney() const { return *reinterpret_cast<const unsigned int *>(m_unknown00+4); }
+	unsigned int withdraw(unsigned int amount, Rva0039B795 *tracker, bool flag); // withdraw
+	void rva003B0D7C(int amount, Rva0039B7AD *tracker, bool flag); // deposit
+
+private:
+	char m_unknown00[0xC];
 };
 
 class Rva0039BAD2
@@ -296,6 +318,7 @@ class Rva0049D526
 {
 public:
 	void rva0049D57F(void *node);
+	void rva0049D526(void *entry); // addToProductionQueue
 };
 
 class Player;
@@ -315,6 +338,7 @@ public:
 	Object *holder;
 public:
 	Player *getControllingPlayer() const;
+	bool rva0028C15E(int code, float *scale, int c, int d);
 };
 
 class Rva0049DC50Node
@@ -348,8 +372,10 @@ class Rva0037E421
 {
 public:
 	unsigned char productionSystemCancelUnitCreate(int id);
-public:
 	void *rva0037E915(int index);
+	void *rva0037E7A5(int);
+	void *rva0037E451(int);
+	void *rva0037E421(int);
 };
 
 class Player
@@ -403,9 +429,8 @@ template QuantityModifier * _STL::__uninitialized_fill_n<QuantityModifier *, uns
 // stlport_vector_quantitymodifier_insert_overflow_49F729.cpp). Declared only here.
 struct QuantityModifier
 {
-	QuantityModifier(const QuantityModifier &);
-	~QuantityModifier();
-	char bytes[8];
+    AsciiString m_templateName;
+    int m_quantity;
 };
 
 template void _STL::vector<QuantityModifier>::_M_insert_overflow(
@@ -426,44 +451,253 @@ public:
 
 extern NameKeyGenerator *TheNameKeyGenerator;
 
-class ProductionUpdate
+typedef unsigned int UnsignedInt;
+class ModuleData;
+class Thing;
+class ThingTemplate;
+class ProductionUpdateInterface;
+class Rva0049D1B1;
+struct Rva0049D0DEMask;
+class Rva0049CD4FArg;
+
+
+enum UpdateSleepTime { UPDATE_SLEEP_NONE=1 };
+
+enum CanMakeType
+{
+	CANMAKE_OK = 0,
+	CANMAKE_NO_PREREQ,
+	CANMAKE_NO_MONEY,
+	CANMAKE_FACTORY_IS_DISABLED,
+	CANMAKE_QUEUE_FULL
+};
+
+enum ProductionID
+{
+	PRODUCTIONID_INVALID = 0
+};
+
+enum ExitDoorType
+{
+	DOOR_1 = 0
+};
+
+
+
+class BehaviorModuleBase
 {
 public:
-	virtual void i00();
+	virtual void behaviorModuleBaseAnchor();
+	const ModuleData *m_moduleData;
+	Object *m_object;
+};
+
+class BehaviorModuleOther
+{
 public:
-	virtual void i01();
+	virtual void behaviorModuleOtherAnchor();
+	virtual void bmi01();
+	virtual void bmi02();
+	virtual void bmi03();
+	virtual void bmi04();
+	virtual void bmi05();
+	virtual void bmi06();
+	virtual void bmi07();
+	virtual void bmi08();
+	virtual void bmi09();
+	virtual void bmi10();
+	virtual void bmi11();
+	virtual void bmi12();
+	virtual void bmi13();
+	virtual void bmi14();
+	virtual void bmi15();
+	virtual void bmi16();
+	virtual void bmi17();
+	virtual void bmi18();
+	virtual void bmi19();
+	virtual void bmi20();
+	virtual void bmi21();
+	virtual void bmi22();
+	virtual void bmi23();
+	virtual void bmi24();
+	virtual void bmi25();
+	virtual void bmi26();
+	virtual void bmi27();
+	virtual ProductionUpdateInterface *getProductionUpdateInterface();	// +0x70
+};
+
+class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+{
 public:
-	virtual void i02();
+	Object *getObject() const { return m_object; }
+};
+
+class UpdateModuleInterface
+{
 public:
-	virtual void i03();
+	virtual UpdateSleepTime update();
+};
+
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+{
 public:
+	void xfer(Xfer *xfer);
+
+protected:
+	unsigned m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_bfmeReserved;
+};
+
+class ProductionUpdateInterface
+{
+public:
+	virtual CanMakeType rva0049CFCD() const;
+	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const;
+	virtual ProductionID requestUniqueUnitID();
+	virtual Bool queueUpgrade(const UpgradeTemplate *upgrade);
 	virtual void cancelUpgrade(const UpgradeTemplate *upgrade);
-public:
-	virtual void i05();
-public:
-	virtual void i06();
-public:
-	virtual void i07();
-public:
-	virtual void i08();
-public:
-	virtual void i09();
-public:
-	virtual void cancelUnitCreate(Int productionID);
-public:
+	virtual void rva0049CC9D(const ThingTemplate *unitType, Bool five);
+	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
+	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *unitType) const;
+	virtual Bool queueCreateUnit(const ThingTemplate *,Int,ProductionID,Int,Bool,const AsciiString &,Bool);
+	virtual Bool rva0049CC36(ProductionID productionID) const;
+	virtual void cancelUnitCreate(ProductionID productionID);
+	virtual void rva0049CC61(const ThingTemplate *unitType);
+	virtual void i12();
+	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
+	virtual void rva0049CC15(ProductionID productionID, Int value);
 	virtual void cancelAndRefundAllProduction();
-private:
-	unsigned char m_pad04[4];
-private:
-	ProductionEntry *m_productionQueue;
-private:
-	unsigned char m_pad0C[0xfd - 0xc];
-private:
-	Bool m_cancellingAll;
+	virtual void rva0049DEC8();
+	virtual void i17();
+	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
+	virtual UnsignedInt rva0049CEE1(Int value) const;
+	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
+	virtual const Rva0049D1B1 *firstProduction() const;
+	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
+};
+
+class DieModuleInterface
+{
 public:
-	void rva0049DF81(Rva0049DF81Input *,Object *);
+	virtual void onDie();
+};
+
+struct DoorInfo
+{
+	UnsignedInt m_doorOpenedFrame;
+	UnsignedInt m_doorWaitOpenFrame;
+	UnsignedInt m_doorClosedFrame;
+	Bool m_holdOpen;
+};
+
+class Image;
+
+class Rva0049D1B1
+{
 public:
-	virtual NameKeyType getModuleNameKey() const;
+	Rva0049D1B1() throw();
+	virtual ~Rva0049D1B1();
+
+	// type 1 or 3, the rowed out-of-line copy 0x00327C1B
+	Bool isUnit() const { return ((const ProductionEntry *)this)->getProductionObject(); }
+	ProductionType getProductionType() const { return m_type; }
+ Int getProductionID() const { return m_productionID; }
+	const ThingTemplate *getProductionObject() const { return m_objectToProduce; }
+	const UpgradeTemplate *getProductionUpgrade() const { return m_upgradeToResearch; }
+
+	ProductionType m_type; // +4
+	const ThingTemplate *m_objectToProduce; // +8
+	const UpgradeTemplate *m_upgradeToResearch; // +0xC
+	Int m_productionID; // +0x10
+	float m_percentComplete; // +0x14
+	float m_bfme18; // +0x18
+	Int m_bfme1C; // +0x1C
+	Int m_productionQuantityTotal; // +0x20
+	Int m_productionQuantityProduced; // +0x24
+	Int m_cost; // +0x28
+	ExitDoorType m_exitDoor; // +0x2C
+	Int m_bfme30; // +0x30
+	Bool m_bfme34; // +0x34
+	union { Int m_bfme38; const Image *m_buttonImage; }; // +0x38
+	Int m_bfme3C; // +0x3C
+	AsciiString m_name; // +40
+	Bool m_slave; // +44
+	char m_unknown45[3];
+	Rva0049D1B1 *m_next; // +0x48
+	Rva0049D1B1 *m_prev; // +0x4C
+	char m_unknown50[0x54 - 0x50];
+};
+
+class ProductionUpdate : public UpdateModule, public ProductionUpdateInterface, public DieModuleInterface
+{
+public:
+ ProductionUpdate(Thing *, const ModuleData *);
+ virtual ~ProductionUpdate();
+ virtual NameKeyType getModuleNameKey() const;
+ virtual UpdateSleepTime update();
+ void rva0049D3BC(); void rva0049CD24(Object *);
+ virtual Bool queueCreateUnit(const ThingTemplate *,Int,ProductionID,Int,Bool,const AsciiString &,Bool);
+ void rva0049E368(); void rva0049CF25();
+ void rva0049DF81(Rva0049DF81Input *,Object *);
+ Int calcTotalProductionFrames(Rva0049CD4FArg *);
+
+	virtual CanMakeType rva0049CFCD() const;
+	virtual CanMakeType canQueueUpgrade(const UpgradeTemplate *upgrade) const;
+	virtual ProductionID requestUniqueUnitID();
+	virtual Bool queueUpgrade(const UpgradeTemplate *upgrade);
+	virtual void cancelUpgrade(const UpgradeTemplate *upgrade);
+	virtual void rva0049CC9D(const ThingTemplate *unitType, Bool five);
+	virtual Bool isUpgradeInQueue(const UpgradeTemplate *upgrade) const;
+	virtual UnsignedInt countUnitTypeInQueue(const ThingTemplate *unitType) const;
+	virtual Bool rva0049CC36(ProductionID productionID) const;
+	virtual void rva0049CC61(const ThingTemplate *unitType);
+	virtual void rva0049F8A9(const ThingTemplate *unitType, Bool cancel);
+	virtual void rva0049CC15(ProductionID productionID, Int value);
+	virtual void cancelAndRefundAllProduction();
+	virtual void rva0049DEC8();
+	virtual UnsignedInt rva0049CEAE(const ThingTemplate *unitType) const;
+	virtual UnsignedInt rva0049CEE1(Int value) const;
+	virtual UnsignedInt rva0049D0DE(const Rva0049D0DEMask *mask) const;
+	virtual const Rva0049D1B1 *nextProduction(const Rva0049D1B1 *p) const;
+
+	static ProductionUpdateInterface *getProductionUpdateInterfaceFromObject(Object *obj);
+	const Rva0049D1B1 *GetEntryToProcess();
+
+protected:
+	virtual void xfer(Xfer *xfer);
+
+	const ProductionUpdateModuleData *getProductionUpdateModuleData() const
+	{
+		return (const ProductionUpdateModuleData *)m_moduleData;
+	}
+	void addToProductionQueue(Rva0049D1B1 *production)
+	{
+		((Rva0049D526 *)this)->rva0049D526(production);
+	}
+	void removeFromProductionQueue(Rva0049D1B1 *production)
+	{
+		((Rva0049D526 *)this)->rva0049D57F(production);
+	}
+
+	Rva0049D1B1 *m_productionQueue; // +0x28
+	Rva0049D1B1 *m_productionQueueTail; // +0x2C
+	ProductionID m_uniqueID; // +0x30
+	UnsignedInt m_productionCount; // +0x34
+	UnsignedInt m_constructionCompleteFrame; // +0x38
+	DoorInfo m_doors[4]; // +0x3C
+	BitFlags<591> m_clearFlags; // +0x7C
+	BitFlags<591> m_setFlags; // +0xC8
+	Bool m_flagsDirty; // +0x114
+	UnsignedInt m_bfme118; // +0x118
+	Bool m_bfme11C;
+	Bool m_cancellingAll; // +0x11C
+	ObjectID m_bfme120; // +0x120
+	_STL::list<ObjectID> m_createdAuxiliary; // +124
+	UnsignedInt m_bfme128; // +0x128
+	unsigned int m_bfme12C; // +0x12C
+	_STL::vector<AsciiString> m_bfme130; // +0x130
+	Bool m_bfme13C; // +0x13C
 };
 
 // tu-skeleton: 0x0049CC15 33B ?rva0049CC15@ProductionUpdate@@UAEXW4ProductionID@@H@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ProductionUpdateQueue.cpp (not merged yet)
@@ -501,7 +735,7 @@ void ProductionUpdate::cancelAndRefundAllProduction()
 		{
 		case PRODUCTION_UNIT:
 		case PRODUCTION_HORDE_UNIT:
-			cancelUnitCreate(m_productionQueue->m_productionID);
+			cancelUnitCreate((ProductionID)m_productionQueue->m_productionID);
 			continue;
 		case PRODUCTION_UPGRADE:
 			cancelUpgrade(m_productionQueue->m_upgradeToResearch);
