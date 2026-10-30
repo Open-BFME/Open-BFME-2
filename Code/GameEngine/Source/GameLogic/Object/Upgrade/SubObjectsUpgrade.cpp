@@ -28,6 +28,34 @@ extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBase
 extern "C" const void *const __identifier("??_7Rva004B4CDF@@6BUpgradeDerivedBaseA@@@")[];
 class Thing;
 #include "../../../Common/GameLogicObjectLookupView.h"
+//
+// ?xfer@Rva004B4CDF@@MAEXPAVXfer@@@Z, retail 0x004B4F67, 42 bytes.
+// Virtual slot 3 (offset 0x0C) of vtable 0x00857C40 (class of rowed dtor
+// ??1Rva004B4CDF@@UAE@XZ in FireWeaponWhenDeadBehaviorDerived.cpp):
+// Version1 via rowed 0x000053EE then bool at +0x20 via Xfer slot 0x90
+// then base UpgradeModule xfer via rowed 0x004CE3F9. Layout is UpgradeModule
+// base 0x1C plus pad to +0x20 with bool there (loadPostProcess in the donor
+// call; shape follows GeometryUpgradeXfer/ReplaceSelfUpgradeXfer (Version
+// plus base via 0x004CE3F9) with Version1-plus-bool order as retail shows.
+
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct XferUnknown11;
+class Coord3DBase;
+class ICoord3D;
+class Region3D;
+class IRegion3D;
+class Coord2D;
+class ICoord2D;
+class Region2D;
+class IRegion2D;
+class RealRange;
+class RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+class Snapshot;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 class Drawable;
 
@@ -276,6 +304,37 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+class Rva004B4CDF : public UpgradeModule
+{
+protected:
+	virtual void xfer(Xfer *xfer);
+
+private:
+	unsigned char m_pad14[0x1C - 0x14];
+	void *m_1C;
+	bool m_flag20; // +0x20
+};
+
+// A declaration-only specialization stops this TU emitting its own
+// vector<AsciiString> dtor COMDAT, so the call binds the kept copy.
+namespace _STL {
+template <> vector<AsciiString, allocator<AsciiString> >::~vector();
+template <> _Vector_base<AsciiString, allocator<AsciiString> >::~_Vector_base();
+template <> void _STLP_alloc_proxy<AsciiString*, AsciiString, allocator<AsciiString> >::deallocate(AsciiString*, size_t);
+template <> void allocator<AsciiString>::deallocate(AsciiString*, size_t) const;
+}
+
+// The replacement-model vector's destructor and range erase are retail's
+// rowed copies (0x000C03D8 and 0x000C0628, stlport_vector_rva00b6cf1_*.cpp);
+// declaring the specializations keeps this unit from emitting its own.
+namespace _STL {
+template <> vector<Rva00B6CF1, allocator<Rva00B6CF1> >::~vector();
+template <> _Vector_base<Rva00B6CF1, allocator<Rva00B6CF1> >::~_Vector_base();
+template <> Rva00B6CF1 *vector<Rva00B6CF1, allocator<Rva00B6CF1> >::erase(Rva00B6CF1 *first, Rva00B6CF1 *last);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgrade.cpp
+
 // ---- from Code/GameEngine/Source/Common/System/SubObjectsUpgradePoolKey.cpp
 
 // ?getModuleNameKey@SubObjectsUpgrade@@UBE?AW4NameKeyType@@XZ
@@ -513,22 +572,32 @@ void __cdecl rva004B5293(INI *ini, void *instance, void *store, const void *user
 
 // tu-skeleton: 0x004B4E56 109B ?rva004B4E56@Rva004B4E56@@QAEEXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4E56Check.cpp (not merged yet)
 
-// tu-skeleton: 0x004B4F67 42B ?xfer@Rva004B4CDF@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4CDFXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004B4CDFXfer.cpp
 
-// tu-skeleton: 0x004B5209 11B ?clear@?$vector@URva00B6CF1@@V?$allocator@URva00B6CF1@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
+void Rva004B4CDF::xfer(Xfer *xfer)
+{
+	xfer->Version1();
+	*xfer == m_flag20;
+	UpgradeModule::xfer(xfer);
+}
 
-// tu-skeleton: 0x004B5214 127B ??1SubObjectsUpgradeModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp
+
+//
+// ??1SubObjectsUpgradeModuleData@@UAE@XZ @0x004B5214, 127 bytes.
+// Target identity is supported by the audited SubObjectsUpgrade registration,
+// the data factory at 0x0025780C, constructor at 0x00257768, and vtable
+// 0x00BF41A8 (see deleting-destructor-identity-audit.md). Ghidra confirms the
+// retail destructor clears the vector at +0x13C through the helper at
+// 0x004C0628, destroys vectors at +0x13C/+0x130/+0x124/+0x118, then restores
+// Snapshot's vtable. Member order and replacement-model semantics follow the
+// BFME1 donor at the current reference pointer. Retail Ghidra evidence shows
+// that BFME2 stores 8-byte replacement-model values in the final vector, so
+// this target-specific declaration uses values rather than donor pointers.
+
+SubObjectsUpgradeModuleData::~SubObjectsUpgradeModuleData()
+{
+	m_textureSwaps.clear();
+}
 
 // tu-skeleton: 0x004B52EB 34B ?buildFieldParse@SubObjectsUpgradeModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParseChained.cpp (not merged yet)
-
-// tu-skeleton: 0x0078EC9C 8B Unwind@00b8ec9c -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078ECA4 14B Unwind@00b8eca4 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078ECB2 14B Unwind@00b8ecb2 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078ECC0 14B Unwind@00b8ecc0 -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078ECCE 14B Unwind@00b8ecce -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078ECDC 10B __ehhandler$??1SubObjectsUpgradeModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/SubObjectsUpgradeModuleDataDestructor.cpp (not merged yet)
