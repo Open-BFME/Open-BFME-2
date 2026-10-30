@@ -102,7 +102,7 @@ class UpdateModule
 {
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
-	virtual ~UpdateModule();
+	virtual NameKeyType getModuleNameKey() const = 0;
 	void xfer(Xfer *xfer);
 
 protected:
