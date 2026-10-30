@@ -1,0 +1,8 @@
+{
+  "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_wide_money_get_string.cpp",
+  "source_sha256": "8ce5444db4eca6d0811afc4a1a8287865f954521fd9afd8af693273c31fe1547",
+  "object_md5": "11c6fb1cfed9a1f22a3564af334c5722",
+  "strict_current": true,
+  "actual_vs_private_identical_code_definitions": 95,
+  "new_deallocate_import": false
+}

@@ -191,6 +191,17 @@ namespace _STL { template <> basic_string<unsigned short,char_traits<unsigned sh
 // (STLMallocAlloc0Deallocate.cpp).
 namespace _STL { template <> __declspec(dllimport) __forceinline void _STLP_CALL __malloc_alloc<0>::deallocate(void *__p, size_t) { free((char *)__p); } }
 
+// Retain inline allocator cleanup without an unused non-retail external copy.
+namespace _STL {
+template <> __declspec(dllimport) __forceinline void
+allocator<char>::deallocate(char *p, size_type n) const
+{
+    _STLP_ASSERT((p == 0) == (n == 0))
+    if (p != 0)
+        __sgi_alloc::deallocate((void *)p, n * sizeof(char));
+}
+}
+
 namespace _STL {
 template<> class basic_streambuf<wchar_t, char_traits<wchar_t> > {
 public:
