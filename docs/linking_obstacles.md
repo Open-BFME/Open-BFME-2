@@ -35,6 +35,16 @@ consumer receipt. Full affected-consumer verification and census confirmation
 remain pending; carry the new canonical inline providers, primary table and
 existing onDelete provider into the next scheduled census. No census gain or
 debt retirement is claimed.
+
+After prerequisite `3410c04f98`, the supported merge absorbs only the pool-key
+donor: six rows remain byte-exact in HighlanderBody.cpp, the parent EH graph
+is EXACT, and all 12 external COMDATs equal the input union. Two static-data
+owners transfer with their provider. One source file is removed. Strict
+preparation passes 7/7 across the destination and damage residual; both
+preview LINKS, retaining the original 241 authored bytes in total. The scoped
+composition audit is again INCONCLUSIVE on the older index and missing
+AIBuildable receipt. The full consumer and scheduled-census follow-up above
+remains open. The damage donor still needs separate interface reconciliation.
 [Target facts and checks](../reverse/attempt_support/highlanderbody-consolidation-20261030-codex3.md).
 
 ### CreateAHeroManager owned-pointer cleanup view (2026-10-30)
