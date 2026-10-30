@@ -488,6 +488,51 @@ def shatter_groups(extra_unplaced=()):
     return {"Code/A.cpp": a, "Code/B.cpp": b, "Code/C.cpp": c, "": un}
 
 
+ALT = """// cl: /MD
+#pragma comment(linker, "/alternatename:?go@Mover@@QAEXXZ=?run@Base@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?stop@Mover@@QAEXXZ=?run@Base@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?both@@YAXXZ=?run@Base@@QAEXXZ")
+#pragma comment(linker, "/alternatename:?none@@YAXXZ=?run@Base@@QAEXXZ")
+#pragma comment(linker, "/alternatename:??1Ring@@UAE@XZ=?run@Base@@QAEXXZ")
+void A::a() { m->go(); both(); }
+void B::b() { m->stop(); both(); Ring r; }
+"""
+
+
+class AlternatenameRoutingTests(unittest.TestCase):
+    """A carved body's /alternatename directive moves with it instead of being counted twice."""
+
+    def carve(self, **kw):
+        sp = T.def_spans(ALT)
+        i = next(i for i, (_, _, c, _) in enumerate(sp) if "A::a" in c)
+        return T.carve(ALT, {i}, rowed=set(range(len(sp))), **kw)
+
+    def test_each_directive_goes_with_the_side_that_uses_its_symbol(self):
+        cv = self.carve()
+        self.assertIsNone(cv.refused)
+        self.assertIn("alternatename:?go@", cv.donor)
+        self.assertNotIn("alternatename:?go@", cv.residual)
+        self.assertIn("alternatename:?stop@", cv.residual)
+        self.assertNotIn("alternatename:?stop@", cv.donor)
+        self.assertIn("alternatename:??1Ring@", cv.residual)       # by its class: B::b() builds a Ring
+        self.assertNotIn("alternatename:??1Ring@", cv.donor)
+        for text in (cv.donor, cv.residual):                        # both use it: the duplication is real
+            self.assertIn("alternatename:?both@", text)
+        self.assertIn("alternatename:?none@", cv.residual)          # nobody's: it stays where it was
+        self.assertNotIn("alternatename:?none@", cv.donor)
+        kept = self.carve(altname_keep=True)
+        self.assertIn("alternatename:?none@", kept.donor)
+        self.assertNotIn("alternatename:?none@", kept.residual)
+
+    def test_only_a_directive_both_sides_use_still_grows_the_hatch_total(self):
+        cv = self.carve()
+        self.assertIsNone(T.shatter_hatches("Code/M.cpp", ALT, {}, {"Code/A.cpp": cv.donor, "Code/B.cpp": cv.residual}))
+        alone = ALT.replace('#pragma comment(linker, "/alternatename:?both@@YAXXZ=?run@Base@@QAEXXZ")\n', "")
+        cv2 = T.carve(alone, {next(i for i, (_, _, c, _) in enumerate(T.def_spans(alone)) if "A::a" in c)},
+                      rowed=set(range(len(T.def_spans(alone)))))
+        self.assertTrue(T.shatter_hatches("Code/M.cpp", alone, {}, {"Code/A.cpp": cv2.donor, "Code/B.cpp": cv2.residual}))
+
+
 class ShatterPlanTests(unittest.TestCase):
     """--shatter: every row and definition of a mixed file finds one unit; no residual."""
 

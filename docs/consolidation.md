@@ -264,9 +264,15 @@ What it does, in order, writing nothing until the last step:
    one: both texts keep the block, the TU around the bodies that leave, the
    residual around the rest; a free function there is identified by its
    namespace (`?f@Ns@@`); an unrowed inline body or primary template there stays
-   on both sides; an anonymous-namespace helper is internal. Quoted includes
-   that resolve beside the mixed file are rewritten to resolve beside the TU
-   (the compiler searches the including file's directory first).
+   on both sides; an anonymous-namespace helper is internal. A file-scope
+   `#pragma comment(linker, "/alternatename:SYMBOL=...")` line naming one
+   symbol goes with the side whose bodies use SYMBOL (its name or its class),
+   so the hatch moves instead of counting twice; one both sides use stays on
+   both (and the hatch check refuses the growth), one neither uses stays in
+   the residual. A wrong guess leaves SYMBOL unresolved, which the link guard
+   reports. Quoted includes that resolve beside the mixed file are rewritten
+   to resolve beside the TU (the compiler searches the including file's
+   directory first).
 3. Verifies the residual under its own path and the flags the build will give its
    remaining rows (the region vote can change when rows leave). Any lost row
    blocks the split.

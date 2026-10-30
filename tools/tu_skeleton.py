@@ -2179,6 +2179,31 @@ def names_used(ident, text):
     return re.search(r"(?<![\w.>])%s\b" % re.escape(ident), code_only(text)) is not None
 
 
+ALTNAME_PRAGMA = re.compile(r'^[ \t]*#[ \t]*pragma[ \t]+comment[ \t]*\([ \t]*linker\b')
+ALTNAME_SYMBOL = re.compile(r'[/-]alternatename:([^=\s"]+)=', re.I)
+
+
+def symbol_used(name, text):
+    """`name` spelled in code, member access included (`p->go()`, `x.go()`)."""
+    return re.search(r"(?<![\w~])%s\b" % re.escape(name), code_only(text)) is not None
+
+
+def altname_lines(text, spans=None):
+    """[(start, end, symbol)] of the file-scope `#pragma comment(linker,
+    "/alternatename:SYMBOL=TARGET")` lines naming one symbol each (a line naming
+    several is left on both sides), outside every definition span."""
+    spans = def_spans(text) if spans is None else spans
+    out, at = [], 0
+    for line in text.splitlines(keepends=True):
+        start, at = at, at + len(line)
+        if not ALTNAME_PRAGMA.match(line):
+            continue
+        symbols = ALTNAME_SYMBOL.findall(line)
+        if len(symbols) == 1 and not any(a <= start < b for a, b, _, _ in spans):
+            out.append((start, at, symbols[0]))
+    return out
+
+
 def cut(text, spans):
     """`text` without the given (start, end) spans."""
     out, pos = [], 0
@@ -2205,7 +2230,8 @@ class Carve:
         return iter((self.donor, self.residual))
 
 
-def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset(), keep=frozenset()):
+def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset(), keep=frozenset(),
+          altname_keep=False):
     """The definitions at span indices `take` leave the file.
 
     Both texts keep every preprocessor line, declaration and comment, so each
@@ -2228,7 +2254,11 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
         helper in an anonymous namespace has internal linkage;
       * an external object in `own` that both sides use is defined by the
         carved side instead (--shatter picks one owner per shared object);
-        spans in `keep` stay on both sides like the block definitions above."""
+        spans in `keep` stay on both sides like the block definitions above;
+      * a one-symbol `/alternatename` pragma line goes with the side whose
+        bodies use the symbol (its name or its class); one both use stays on
+        both (the hatch check refuses that growth), one neither uses stays in
+        the residual, or with `altname_keep` in the donor."""
     spans = def_spans(text)
     scopes = span_scopes(text, spans)
     take = set(take)
@@ -2289,6 +2319,19 @@ def carve(text, take, rowed=frozenset(), data_rowed=frozenset(), own=frozenset()
             residual_cuts.append((a, b))
         else:
             donor_cuts.append((a, b))
+    # an /alternatename directive goes with the side whose bodies use its symbol: kept on
+    # both it would count twice (hatch_counters rule 3); a wrong guess leaves the symbol
+    # unresolved, which the split and shatter link guards report
+    for a, b, symbol in altname_lines(text, spans):
+        cls, meth = row_names(symbol)
+        out_ = symbol_used(meth, carved_text) or bool(cls) and symbol_used(cls, carved_text)
+        in_ = symbol_used(meth, stay_text) or bool(cls) and symbol_used(cls, stay_text)
+        if out_ and not in_:
+            residual_cuts.append((a, b))
+        elif in_ and not out_:
+            donor_cuts.append((a, b))
+        elif not out_ and not in_:           # nobody's: it stays where it was (`altname_keep`: the donor)
+            (residual_cuts if altname_keep else donor_cuts).append((a, b))
     donor = cut(text, donor_cuts)
     if extern_lines:   # the extern declaration stands where the definition stood
         pieces, pos = [], 0
@@ -2720,7 +2763,8 @@ def shatter_plan(text, rows, groups, data_rowed=frozenset(), here=None):
         return ShatterPlan("a definition no unit takes: " + str(head_names(spans[lost[0]][2]) or spans[lost[0]][2][:40]))
     texts, data_moves = {}, {}
     for t in tus:
-        cv = carve(text, take[t], rowed, data_rowed, frozenset(own[t]), frozenset(shared))
+        cv = carve(text, take[t], rowed, data_rowed, frozenset(own[t]), frozenset(shared),
+                   altname_keep=t == tus[0])
         if cv.refused:
             return ShatterPlan(f"{t}: {cv.refused}")
         texts[t] = cv.donor
