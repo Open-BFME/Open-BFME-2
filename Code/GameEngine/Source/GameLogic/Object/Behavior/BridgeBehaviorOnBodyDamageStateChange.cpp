@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /ICode/GameEngine/Include /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x00456C1F, 593B: BridgeBehavior::onBodyDamageStateChange, entered
 // through the DamageModuleInterface subobject at BridgeBehavior+0x24 (the
 // object is this-0x1C, resolveFX and doAreaEffects are called on this-0x24,

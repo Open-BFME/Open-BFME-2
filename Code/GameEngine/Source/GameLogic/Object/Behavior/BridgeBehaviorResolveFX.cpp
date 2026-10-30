@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
+// cl: /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /DNDEBUG /MD /EHsc
 // Retail 0x00456A49, 470B: BridgeBehavior::resolveFX.
 // Body: Zero Hour's resolveFX (GeneralsMD GameEngine/Source/GameLogic/Object/
 // Behavior/BridgeBehavior.cpp). Target evidence: the bridge is found through
