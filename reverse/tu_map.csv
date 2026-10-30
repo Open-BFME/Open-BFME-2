@@ -9893,7 +9893,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0015162C,6,code,,,-,,Code/GameEngine/Source/Common/ConstIntGetters4.cpp
 0x00151632,90,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Dtor.cpp
 0x0015168C,53,code,,,-,,Code/Libraries/Source/WWVegas/WWLib/Rva0015168CHeroContains.cpp
-0x001516C1,86,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,proposed,N,N=Code/GameEngine/Source/Common/FXShaderAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/fxshaderasset.cpp,Code/GameEngine/Source/Common/FXShaderAsset_Register.cpp
+0x001516C1,86,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,proposed,N,N=Code/GameEngine/Source/Common/FXShaderAsset.cpp W=Code/Libraries/Source/WWVegas/WW3D2/fxshaderasset.cpp,Code/GameEngine/Source/Common/FXShaderAsset.cpp
 0x00151717,28,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Dtor.cpp
 0x00151733,17,code,,,-,,Code/GameEngine/Source/Common/Disp8NullAdjustGetters.cpp
 0x00151744,113,code,,,-,,Code/GameEngine/Source/Common/Rva00151744Clear.cpp
@@ -65328,8 +65328,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00766B7F,8,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Dtor.cpp
 0x00766B87,11,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Dtor.cpp
 0x00766B92,10,code,,,-,,Code/GameEngine/Source/Common/Rva00151632Dtor.cpp
-0x00766B9C,10,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,approved,P,P=0x001516C1@FuncInfo0x0090B2FC p-group provisional,Code/GameEngine/Source/Common/FXShaderAsset_Register.cpp
-0x00766BA6,10,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,approved,P,P=0x001516C1@FuncInfo0x0090B2FC p-group provisional,Code/GameEngine/Source/Common/FXShaderAsset_Register.cpp
+0x00766B9C,10,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,approved,P,P=0x001516C1@FuncInfo0x0090B2FC p-group provisional,Code/GameEngine/Source/Common/FXShaderAsset.cpp
+0x00766BA6,10,code,Code/GameEngine/Source/Common/FXShaderAsset.cpp,approved,P,P=0x001516C1@FuncInfo0x0090B2FC p-group provisional,Code/GameEngine/Source/Common/FXShaderAsset.cpp
 0x00766BB0,8,code,,,-,,Code/GameEngine/Source/Common/Rva00151744Clear.cpp
 0x00766BB8,10,code,,,-,,Code/GameEngine/Source/Common/Rva00151744Clear.cpp
 0x00766BC2,11,code,,,-,,Code/GameEngine/Source/Common/Rva001517DEDtor.cpp
