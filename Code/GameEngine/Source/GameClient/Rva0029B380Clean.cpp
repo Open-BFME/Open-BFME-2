@@ -1,13 +1,14 @@
-// cl: /MD
+// cl: /MD /Ireference/shims/bfme2_ascii
 // ?rva0029B380@Rva0029B380@@QAEXH@Z @0x0029B380 65B.
 // Array at +0x5D0 elem 16B: release wide StringBase at +0 then virtual slot 0x3C on global 0xDFEAD8 with ptr at +4 then zero +4 +8.
 // Caller 0x002A1684. Unlocks 0x002A1582.
 extern class DisplayStringManager *TheDisplayStringManager;
 
-template <typename T> class StringBase {
-public: ~StringBase() { releaseBuffer(); }
-private: void releaseBuffer();
-	T *m_data; };
+// The canonical frozen StringBase replaces the private copy; its switch makes
+// the member dtor reachable and keeps the teardown an out-of-line call to the
+// rowed releaseBuffer (0x00036410 narrow, 0x00036E70 wide).
+#define BFME_STRINGBASE_PUBLIC_DTOR
+#include "string_base.h"
 class Rva0029B380Holder {
 public:
 	virtual void s00(); virtual void s01(); virtual void s02(); virtual void s03();
