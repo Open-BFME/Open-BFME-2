@@ -359,3 +359,16 @@ Code/GameEngine/Source/Common/StrategicInGameUI_SendCancelUpgradeMessages.cpp|pa
 Code/GameEngine/Source/Common/StrategicInGameUI_SendCancelUpgradeMessages.cpp|param|SendCancelUpgradeMessages|b,ba2f190946a8fb43393be45d,drz-k1,drz-k1-106,w-d29055ee9848,2026-10-29,e6ad1b547b0c356b76741205
 Code/GameEngine/Source/Common/RTS/Rva002ABFA0Remove.cpp|param|Rva002ABFA0::rva002ABFA0|p,25a59fc6fb0919074485f5d2,drz-k1,drz-k1-109,w-d29055ee9848,2026-10-29,b1b7280e21e836a0225b72a2
 Code/GameEngine/Source/Common/RTS/Rva002ABFA0Remove.cpp|param|Rva002ABFA0::rva002ACEDF|p,0886c281b746603629c02578,drz-k1,drz-k1-109,w-d29055ee9848,2026-10-29,03c14fe7093a6e6b11e40d9a
+Code/GameEngine/Source/Common/Rva0039BAD2Method.cpp|param|Rva0039BAD2::rva0039BAD2|a,2d4e787fa1cb4222193c25e1,drz-k2,drz-k2-220,w-ded32b2e2c5e,2026-10-30,e64d4d5e2b5f72c886855524
+Code/GameEngine/Source/Common/Rva002B4650.cpp|local|Rva002B4650::GetTimeRemainingForCurrentPhaseInFrames|n,101aac9d8b2b015934f9ba4e,drz-k2,drz-k2-224,w-ded32b2e2c5e,2026-10-30,eef9faaa9751a66f8660c01f
+Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp|param|Rva0014D7D4This::rva0014D7D4|o,bdbba55486b3d77d4c9a4285,drz-k2,drz-k2-227,w-ded32b2e2c5e,2026-10-30,6e44fea85ab3e2097f33a473
+Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp|param|Rva0014D7D4This::rva0014D7D4|b,daa08b3687784fa5d05a41cd,drz-k2,drz-k2-227,w-ded32b2e2c5e,2026-10-30,d15c69450267e68eabf51372
+Code/GameEngine/Source/Common/Rva0014D7D4Init.cpp|local|Rva0014D7D4This::rva0014D7D4|d,23bbafea5533627178efecab,drz-k2,drz-k2-227,w-ded32b2e2c5e,2026-10-30,2e08000179f721d56240daea
+Code/GameEngine/Source/Common/Rva0014D722Init.cpp|param|Rva0014D722This::rva0014D722|o,eb472190136b0630b36f9ac9,drz-k2,drz-k2-228,w-ded32b2e2c5e,2026-10-30,eaf25a0f32dfbf67367fc3b3
+Code/GameEngine/Source/Common/Rva0014D722Init.cpp|param|Rva0014D722This::rva0014D722|b,9425fb5d2f5242783d176d37,drz-k2,drz-k2-228,w-ded32b2e2c5e,2026-10-30,3975d37575ac5465945ee2e6
+Code/GameEngine/Source/Common/RangeApplyWrappers.cpp|param|Rva00569393Owner::rva00569393|a,b03d8bcbc54737fffbb30d4c,drz-k2,drz-k2-231,w-ded32b2e2c5e,2026-10-30,9293c012a89d776338581cf7
+Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|r,2432a685734c16923069f908,drz-k2,drz-k2-234,w-ded32b2e2c5e,2026-10-30,a4670ededb4d8b703573637c
+Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|g,76289713df4dc36cf7636e84,drz-k2,drz-k2-234,w-ded32b2e2c5e,2026-10-30,7d5def02c4633bcb953c6f26
+Code/GameEngine/Source/Common/GapBodiesGE39.cpp|local|rva001116E7|b,0e7e8c1f64b2b80594ef16dc,drz-k2,drz-k2-234,w-ded32b2e2c5e,2026-10-30,1b6c412fafa4f1eb3d8588c0
+Code/GameEngine/Source/GameLogic/AI/AIFormationRangeGate.cpp|param|rva00344EB2Gate|a,b5292731fd620ff71ff1106b,drz-k2,drz-k2-237,w-ded32b2e2c5e,2026-10-30,cf9110fe584647bf189f8f11
+Code/GameEngine/Source/Common/Rva0059ECD2.cpp|local|AptOnlineCustomMatch::rva0059EC72|s,d3823f3404a427cb540bb606,drz-k2,drz-k2-238,w-ded32b2e2c5e,2026-10-30,8c94f4cdc42c773be4e13703
