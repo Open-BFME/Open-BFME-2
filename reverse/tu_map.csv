@@ -48588,7 +48588,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0059E098,41,code,,,-,,Code/GameEngine/Source/GameClient/LivingWorld/InGameUI/Rva0059E098HelpCallback.cpp
 0x0059E0C1,54,code,,,-,,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp
 0x0059E0F7,24,code,,,-,,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp
-0x0059E10F,307,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIconCtor.cpp
+0x0059E10F,307,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,proposed,N,N=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp W=Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp
 0x0059E242,77,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
 0x0059E28F,28,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
 0x0059E2AB,44,code,,,-,W=Code/GameEngine/Source/GameLogic/System/LivingWorld/LivingWorldScenarioOwnershipSet.cpp,Code/GameEngine/Source/Common/Rva0059E2ABFind.cpp
@@ -87237,8 +87237,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D966,10,code,,,-,,Code/GameEngine/Source/Common/RvaLookupFieldOrZeroFamily.cpp
 0x0079D970,8,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/gen_small/uw_gen_013.cpp
 0x0079D978,11,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/gen_small/uw_gen_010.cpp
-0x0079D983,10,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIconCtor.cpp
-0x0079D98D,10,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIconCtor.cpp
+0x0079D983,10,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp
+0x0079D98D,10,code,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp,approved,P,P=0x0059E10F@FuncInfo0x00953AF8 p-group provisional,Code/GameEngine/Source/GameClient/LivingWorld/LivingWorldBuildPlotIcon.cpp
 0x0079D997,8,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
 0x0079D99F,11,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
 0x0079D9AA,10,code,,,-,,Code/GameEngine/Source/Common/OpaqueScalarDeletingDtorsB13.cpp
