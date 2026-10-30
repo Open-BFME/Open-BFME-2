@@ -75,24 +75,17 @@
 	{ \
 		return m_value; \
 	}
-
 typedef bool Bool;
-
 typedef int Int;
-
 typedef unsigned int UnsignedInt;
-
 class Object;
-
 enum StateReturnType
 {
 	STATE_CONTINUE = 0,
 	STATE_SUCCESS = -1,
 	STATE_FAILURE = -2
 };
-
 typedef UnsignedInt StateID;
-
 enum
 {
 	ST_IDLE = 0,
@@ -102,37 +95,29 @@ enum
 	ST_DOCKING,
 	ST_RVA004A699C
 };
-
 enum CommandSourceType
 {
 	CMD_FROM_AI = 2
 };
-
 class AICommandInterface
 {
 public:
 	void aiDock(Object *obj, CommandSourceType cmdSource);
 	void aiHarvest(const Coord3D *pos, CommandSourceType cmdSource);
 };
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
 class ResourceGatheringManager;
-
 class Module;
-
 struct State;
-
 struct StateConditionInfo
 {
 	Bool (*test)(State *thisState, void *userData);
 	StateID toStateID;
 	void *userData;
 };
-
 class StateMachine
 {
 public:
@@ -145,7 +130,6 @@ protected:
 	Object *m_owner; // +0x14
 	unsigned char m_pad18[0x3C - 0x18]; // operator new size 0x3C
 };
-
 struct State
 {
 public:
@@ -156,7 +140,6 @@ protected:
 	StateMachine *m_machine; // +0x18
 	unsigned char m_pad1C[0x20 - 0x1C];
 };
-
 // BFME 2's StateMachine constructor (owner, name key, flag), rowed by
 // address as ??0StateMachine@@QAE@PAVObject@@I_N@Z; the key is
 // taken as one dword, as in the dozer and worker machines' TUs.
@@ -167,28 +150,24 @@ class Rva004A6BCA : public State
 public:
 	Rva004A6BCA(StateMachine *machine);
 };
-
 // ZH's SupplyTruckIdleState (rowed ctor 0x004A6C13).
 class Rva004A6C13 : public State
 {
 public:
 	Rva004A6C13(StateMachine *machine);
 };
-
 // ZH's SupplyTruckWantsToPickUpOrDeliverBoxesState (rowed ctor 0x004A6933).
 class Rva004A6933 : public State
 {
 public:
 	Rva004A6933(StateMachine *machine);
 };
-
 // ZH's RegroupingState (rowed ctor 0x004A6956).
 class Rva004A6956 : public State
 {
 public:
 	Rva004A6956(StateMachine *machine);
 };
-
 // ZH's DockingState (rowed ctor 0x004A6979).
 class Rva004A6979 : public State
 {
@@ -197,7 +176,6 @@ public:
 	virtual void s01(); virtual void s02(); virtual void s03();
 	virtual StateReturnType onEnter(); // slot 4
 };
-
 // BFME 2's sixth supply truck state (rowed ctor 0x004A699C); it shares the
 // docking state's onEnter.
 class Rva004A699C : public State
@@ -205,7 +183,6 @@ class Rva004A699C : public State
 public:
 	Rva004A699C(StateMachine *machine);
 };
-
 class SupplyTruckStateMachine : public StateMachine
 {
 public:
@@ -220,34 +197,25 @@ public:
 	static Bool isForcedIntoWantingState(State *thisState, void *userData);
 	static Bool isForcedIntoBusyState(State *thisState, void *userData);
 };
-
 class NameKeyGenerator
 {
 public:
 	NameKeyType nameToKey(const char *name);
 };
-
 extern NameKeyGenerator *TheNameKeyGenerator;
-
 class Rva004A6F0A
 {
 public:
 	int getActionDelayForDock(Object *obj);
 };
-
-
 // ?loseOneBox@Rva004A6EHolder@@QAE_NXZ 0x004A6E8E 56B and ?gainOneBox@Rva004A6EHolder@@QAE_NH@Z 0x004A6EC6 68B
 // Two bool helpers sharing the rowed broadcast ?Rva0027164EBroadcast (0x0027164E) via BuildListInfo::getDesiredGatherers.
 // this is interior (Module at Object+0x3E0): [esi-0x3E0]=obj+0 (Aux with +0x64), [esi-0x3DC]=obj+4 (BuildListInfo), [esi+0x1C]=counter.
 // Honest address names; class identity unproven.
 class BuildListInfo { public: int getDesiredGatherers(); };
-
 struct Rva002716Holder { void Rva0027164EBroadcast(int a, int b); };
-
 struct Rva004A6EAux { unsigned char m_pad[0x64]; int m_maxBoxes; };
-
 struct Rva004A6EObj { Rva004A6EAux* m_moduleData; BuildListInfo* m_04; };
-
 class Rva004A6EHolder {
 public:
   bool loseOneBox();
@@ -256,7 +224,6 @@ private:
   unsigned char m_pad[0x1c];
   int m_numberBoxes;
 };
-
 //
 // Ported from Open-BFME-1 GameEngine/Source/Common/Rva002C56F0Copy.cpp
 // (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus /O1). Compiled that way each body
@@ -270,7 +237,6 @@ struct Rva002C56F0Vec
 	int y;
 	int z;
 };
-
 class Rva002C56F0
 {
 	char m_lead[0x0C];
@@ -280,7 +246,6 @@ class Rva002C56F0
 public:
 	char copy(Rva002C56F0Vec *dst) const;
 };
-
 class SupplyTruckAIInterface
 {
 public:
@@ -296,12 +261,10 @@ public:
 	virtual void setForceBusyState(Bool v); // +0x34
 	virtual Bool isForcedIntoBusyState() const; // +0x38
 };
-
 enum UpdateSleepTime
 {
 	USLEEP_MIN = 0
 };
-
 class AsciiString;
 class UnicodeString;
 class PooledString;
@@ -319,8 +282,17 @@ class RGBColor;
 class RGBAColorReal;
 class RGBAColorInt;
 class Snapshot;
-
 #include "../../../../../Include/Common/BfmeXfer.h"
+class SlotOwner
+{
+public:
+	virtual int s0();
+	virtual int s1();
+	virtual int s2();
+	virtual int s3();
+	virtual int s4();
+};
+class SupplyTruckAIInterface;
 
 enum ObjectID
 {
@@ -533,9 +505,23 @@ private:
 	unsigned char m_a8;
 };
 
+class Rva004A6A58
+{
+public:
+	int update();
+
+private:
+	char m_pad[0x3D8];
+	SlotOwner *m_slot;
+};
+
+void XferObjectID( Xfer *xfer, ObjectID *id );
+
 // tu-skeleton: 0x004A69BF 123B ??1SupplyTruckAIUpdate@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004A6A3A 6B ?name@SupplyTruckAIUpdate@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdate.cpp
 
 // ---- from Code/GameEngine/Source/Common/Disp8ByteFieldGetters.cpp
 
@@ -962,7 +948,21 @@ StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 // spelled as pointer arithmetic off `(char *)this - BACK`, which folds to
 // the same disp32-neg addressing (lea-BEFORE precedent).
 
-// tu-skeleton: 0x004A6A58 41B ?update@Rva004A6A58@@QAEHXZ -- matched in Code/GameEngine/Source/Common/Rva004A6A58Min.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/Rva004A6A58Min.cpp
+
+int Rva004A6A58::update()
+{
+	int raw = m_slot->s4();
+	int n;
+	if (raw > 0)
+		n = raw;
+	else
+		n = 1;
+	int slept = ((AIUpdateInterface *)this)->AIUpdateInterface::update();
+	if (n < slept)
+		slept = n;
+	return slept;
+}
 
 // tu-skeleton: 0x004A6A81 52B ?isCurrentlyFerryingSupplies@Rva004A6A81@@UAE_NXZ -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
 
@@ -972,7 +972,36 @@ StateReturnType SupplyTruckWantsToPickUpOrDeliverBoxesState::update()
 
 // tu-skeleton: 0x004A6B06 52B ?privateHarvest@Rva004A6AB5@@MAEXPBUCoord3D@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesS3C.cpp (not merged yet)
 
-// tu-skeleton: 0x004A6B3A 144B ?xfer@SupplyTruckAIUpdate@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateXfer.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/AIUpdate/SupplyTruckAIUpdateXfer.cpp
+
+// ------------------------------------------------------------------------------------------------
+/** Xfer method
+	* Version Info:
+	* 1: Initial version */
+// ------------------------------------------------------------------------------------------------
+void SupplyTruckAIUpdate::xfer( Xfer *xfer )
+{
+
+	// extend base class
+	AIUpdateInterface::xfer(xfer);
+
+	if( xfer->IsLightCRC() )
+		return;
+
+	// version
+	xfer->Version1();
+
+	*xfer == *m_supplyTruckStateMachine;
+	XferObjectID( xfer, &m_preferredDock );
+	*xfer == m_bfmeCoord3F0;
+	*xfer == m_bfmeFlag3FC;
+	*xfer == m_numberBoxes;
+	*xfer == m_forcePending;
+	*xfer == m_forcedBusyPending;
+
+}
+
+  // end xfer
 
 // tu-skeleton: 0x004A6BCA 29B ??0Rva004A6BCA@@QAE@PAVStateMachine@@@Z -- matched in Code/GameEngine/Source/Common/StateDerivedCtors_muse-a7a4.cpp (not merged yet)
 
