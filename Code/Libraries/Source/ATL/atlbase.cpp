@@ -1,26 +1,14 @@
-// flags: region default (reverse/retail_inventory/flag_regions.csv)
+// cl: /MD
+// Optimization flags follow reverse/retail_inventory/flag_regions.csv.
+// Retail CSimpleArray::RemoveAll calls the imported CRT free through the IAT.
+// platformsdk
 // Microsoft Visual C++ .NET 2003 ATL 7.1 _ATL_WIN_MODULE70 and the
 // CSimpleArray<ATOM> it embeds.
 
-typedef unsigned short ATOM;
-typedef int BOOL;
-typedef long HRESULT;
-typedef unsigned int size_t;
-
-struct HINSTANCE__;
-typedef HINSTANCE__ *HINSTANCE;
-
-typedef unsigned long DWORD;
-typedef const char *LPCSTR;
-
-extern "C" __declspec(dllimport) void __cdecl free(void *memory);
-extern "C" __declspec(dllimport) void __stdcall RaiseException(
-    DWORD code, DWORD flags, DWORD argumentCount, const DWORD *arguments);
-extern "C" __declspec(dllimport) void __stdcall DeleteCriticalSection(void *section);
-extern "C" __declspec(dllimport) void __stdcall InitializeCriticalSection(void *section);
-extern "C" unsigned long __cdecl _exception_code(void);
-#define GetExceptionCode _exception_code
-extern "C" __declspec(dllimport) BOOL __stdcall UnregisterClassA(LPCSTR className, HINSTANCE instance);
+#define STRICT
+#include <windows.h>
+#include <excpt.h>
+#include <stdlib.h>
 
 namespace ATL
 {
@@ -34,7 +22,7 @@ public:
     HRESULT Term() throw() { DeleteCriticalSection(&m_sec); return 0; }
 
 
-    unsigned char m_sec[0x18];
+    CRITICAL_SECTION m_sec;
 };
 
 // CComCriticalSection::Init. The reloc sweep named it from its call site; the
