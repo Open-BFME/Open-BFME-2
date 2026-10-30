@@ -50,6 +50,31 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include <hash_map>
 #include <cstddef>
 #include <stl/_algobase.h>
+// Retail Version stores minimum/current bytes and has an inline constructor;
+// that constructor form also reproduces the independent stack homes in DoXfer.
+struct WallVersion
+{
+    WallVersion(unsigned char min, unsigned char cur) : minimum(min), current(cur) {}
+    unsigned char minimum, current;
+};
+class Snapshot;
+class AsciiString;
+class UnicodeString;
+class PooledString;
+struct Coord3DBase;
+struct ICoord3D;
+struct Region3D;
+class IRegion3D;
+class Coord2D;
+struct ICoord2D;
+struct Region2D;
+struct IRegion2D;
+class RealRange;
+struct RGBColor;
+class RGBAColorReal;
+class RGBAColorInt;
+struct XferUnknown11;
+#include "../../../../Include/Common/BfmeXfer.h"
 
 // list<int> destruction otherwise instantiates per-TU deallocate
 // COMDATs (one byte shape per TU flags); explicit dllimport+forceinline
@@ -341,6 +366,18 @@ private:
 	_STL::vector<AsciiString> m_vec;
 };
 
+namespace _STL {
+template<> vector<AsciiString>::iterator vector<AsciiString>::erase(iterator,iterator);
+template<> void vector<AsciiString>::push_back(const AsciiString &);
+}
+
+class Rva00598DA2 {
+public: void rva00598DA2(Xfer *);
+private: unsigned char prefix[0x4c]; _STL::vector<AsciiString> values;
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 
 // ---- from Code/GameEngine/Source/Common/Rva00598007.cpp
@@ -412,16 +449,6 @@ void *AIUnitBuilder::rva00598016()
 	return TheSkirmishAIManager->rva002A8F24(m_player);
 }
 
-// tu-skeleton: 0x00598025 9B ?get@Rva00598025CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0059804A 8B ?set@Rva0059804AStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00598052 161B ?Rva00598052@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
-
-// tu-skeleton: 0x005980F3 45B ?rva005980F3@Rva005980F3@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x00598120 41B ?rva00598120@Rva005980F3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva00598192Count.cpp
 
 // ?rva00598192@AIUnitBuilder@@QAEHABVAsciiString@@@Z @0x00598192 51B via list count with StringBase compare
@@ -437,6 +464,34 @@ int AIUnitBuilder::rva00598192(const AsciiString &key)
 	}
 	return count;
 }
+
+// ---- from Code/GameEngine/Source/Common/Rva00598CBC.cpp
+
+// ?rva00598CBC@Rva00598CBC@@QAEXXZ @0x00598CBC 65B via vector-assign plus slot-gated push_back
+// Evidence: chain from 0x00598007; caller 0x004EBFC2; vector at +0x4C like Rva00598B2A; m_30 at +0x30 like AIUnitBuilder; rowed vector assign 0x000BDB46 and push_back 0x0002DBE6 and Find 0x00506C82; global g_00E063D4
+// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
+// overload takes the call instead, so this TU emits no external max COMDAT.
+
+void Rva00598CBC::rva00598CBC()
+{
+	Rva002A8AB1Record *rec = ((AIUnitBuilder *)this)->getAI();
+	_STL::vector<AsciiString> &src = rec->m_160->m_vec;
+	m_vec = src;
+	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
+	if (slot && slot->m_50 != 0) {
+		m_vec.push_back(g_00E063D4);
+	}
+}
+
+// tu-skeleton: 0x00598025 9B ?get@Rva00598025CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0059804A 8B ?set@Rva0059804AStringField@@QAEXABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/AsciiStringFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x00598052 161B ?Rva00598052@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
+
+// tu-skeleton: 0x005980F3 45B ?rva005980F3@Rva005980F3@@QAEXPAX@Z -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x00598120 41B ?rva00598120@Rva005980F3@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
 // tu-skeleton: 0x005981C5 5B ?rva005981C5@Rva005981C5@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaTreeEraseClearFamily.cpp (not merged yet)
 
@@ -472,24 +527,6 @@ int AIUnitBuilder::rva00598192(const AsciiString &key)
 
 // tu-skeleton: 0x00598C3A 66B ?build@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderBuild.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/Rva00598CBC.cpp
-
-// ?rva00598CBC@Rva00598CBC@@QAEXXZ @0x00598CBC 65B via vector-assign plus slot-gated push_back
-// Evidence: chain from 0x00598007; caller 0x004EBFC2; vector at +0x4C like Rva00598B2A; m_30 at +0x30 like AIUnitBuilder; rowed vector assign 0x000BDB46 and push_back 0x0002DBE6 and Find 0x00506C82; global g_00E063D4
-// vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
-// overload takes the call instead, so this TU emits no external max COMDAT.
-
-void Rva00598CBC::rva00598CBC()
-{
-	Rva002A8AB1Record *rec = ((AIUnitBuilder *)this)->getAI();
-	_STL::vector<AsciiString> &src = rec->m_160->m_vec;
-	m_vec = src;
-	GameSlot *slot = Rva00506C82Find((const Rva00506C82Arg *)m_30);
-	if (slot && slot->m_50 != 0) {
-		m_vec.push_back(g_00E063D4);
-	}
-}
-
 // tu-skeleton: 0x00598D7A 40B ?Rva00598D7A@AIUnitBuilder@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D492 8B $L3198 -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
@@ -523,3 +560,41 @@ void Rva00598CBC::rva00598CBC()
 // tu-skeleton: 0x0079D536 10B __ehhandler$?createBestUnitToMake@AIUnitBuilder@@QAEPAVRva00598C3AItem@@XZ -- matched in Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp (not merged yet)
 
 // tu-skeleton: 0x0079D569 11B uw_0079d569 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
+
+// Native598DA2..598E66 is a complete RET4 snapshot-transfer body.
+// WB152EC60 is unnamed; named AIBuilder::DoXfer4EC1D9 independently calls
+// it on its +38 component. The component's class and original method name
+// remain unproved; retain the address name rather than infer them from
+// adjacent AIUnitBuilder operations. Native storage is vector<AsciiString>
+// at+4C: version1/1 and count precede store/load. Load clears the range via
+// rowed51B2CCFC, transfers temporary strings, appends via rowed55B2DBE6,
+// and releases each temporary via rowed36410. Real STLport clear supplies
+// the same receiver-relative begin/end reads as native; no donor asserted.
+
+void Rva00598DA2::rva00598DA2(Xfer *xfer) {
+ WallVersion version(1,1);
+ xfer->operator==(reinterpret_cast<Xfer::Version &>(version));
+ unsigned int count=values.size();
+ xfer->operator==(count);
+ if(xfer->IsStoring()) {
+  _STL::vector<AsciiString>::iterator end=values.end();
+  for(_STL::vector<AsciiString>::iterator it=values.begin(); it!=end;++it) xfer->operator==(*(it));
+ } else if(xfer->IsLoading()) {
+  values.clear();
+  for(unsigned int i=0;i<count;++i) {
+   AsciiString value;
+   xfer->operator==(value);
+   values.push_back(value);
+  }
+ }
+}
+
+// tu-skeleton: 0x0079D59B 8B $L9615 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0079D5A3 11B uw_0079d5a3 -- matched in Code/gen_small/uw_gen_014.cpp (not merged yet)
+
+// tu-skeleton: 0x0079D5AE 11B $L9617 -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp (not merged yet)
+
+// tu-skeleton: 0x0079D5B9 10B __ehhandler$??0Rva00598B2A@@QAE@PAX@Z -- matched in Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp (not merged yet)

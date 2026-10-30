@@ -48434,7 +48434,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x00598CBC,65,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598C3A..0x00598CFD,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x00598CFD,125,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,C,C=0x00598C3A..0x00598D7A,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x00598D7A,40,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,N,N=Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilderRva00598D7A.cpp
-0x00598DA2,196,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,proposed,C,C=0x00598D7A..0x00598E66,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
+0x00598DA2,196,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,proposed,C,C=0x00598D7A..0x00598E66,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x00598E66,31,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,proposed,C,C=0x00598D7A..0x00598E85,Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp
 0x00598E85,131,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,proposed,K,K=Rva00598B2A,Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp
 0x00598F08,28,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,proposed,K,K=Rva00598B2A,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
@@ -87132,8 +87132,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0079D569,11,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598CFD@FuncInfo0x009534F0,Code/gen_small/uw_gen_010.cpp
 0x0079D574,11,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598CFD@FuncInfo0x009534F0,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x0079D57F,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598CFD@FuncInfo0x009534F0,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
-0x0079D589,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598DA2@FuncInfo0x00953514 p-group,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
-0x0079D591,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598DA2@FuncInfo0x00953514 p-group,Code/GameEngine/Source/GameLogic/SkirmishAI/AIBuilderStringRangeXfer.cpp
+0x0079D589,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598DA2@FuncInfo0x00953514 p-group,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
+0x0079D591,10,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598DA2@FuncInfo0x00953514 p-group,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp
 0x0079D59B,8,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598E85@FuncInfo0x00953548 p-group,Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp
 0x0079D5A3,11,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598E85@FuncInfo0x00953548 p-group,Code/gen_small/uw_gen_014.cpp
 0x0079D5AE,11,code,Code/GameEngine/Source/GameLogic/SkirmishAI/AIUnitBuilder/AIUnitBuilder.cpp,approved,P,P=0x00598E85@FuncInfo0x00953548 p-group,Code/GameEngine/Source/GameLogic/AI/Rva00598E85Ctor.cpp
