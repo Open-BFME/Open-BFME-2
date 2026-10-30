@@ -12,30 +12,17 @@ class Thing;
 class ModuleData;
 class Object;
 
-class BehaviorModuleBase
+enum NameKeyType
 {
-public:
-	virtual void unused();
-	const ModuleData *m_moduleData;
-	Object *m_object;
+	NK_UNKNOWN = 0
 };
 
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
+class Thing;
+class ModuleData;
+class Object;
+class TerrainResourceBehaviorModuleData;
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
-{
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
-};
-
-class UpdateModuleInterface
-{
-public:
-	virtual void update() = 0;
-};
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 enum UpdateSleepTime
 {
@@ -43,37 +30,59 @@ enum UpdateSleepTime
 	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
-class UpdateModule : public BehaviorModule, public UpdateModuleInterface
+class UpdateModuleInterface
 {
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
 public:
-	UpdateModule(Thing *thing, const ModuleData *moduleData);
-
-protected:
-	virtual void loadPostProcess();
-	void setWakeFrame(Object *object, UpdateSleepTime frame);
+	virtual UpdateSleepTime update() = 0;
 };
 
-class TerrainResourceBehavior : public UpdateModule
+// The module data is +0x04, the object is +0x08 and the update interface is +0x10.
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+	__forceinline void wakeNativeObject(Object *object)
+	{
+		setWakeFrame(object, UPDATE_SLEEP_NONE);
+	}
 protected:
 	virtual void loadPostProcess();
-
+	void setWakeFrame(Object *object, UpdateSleepTime delay);
+	const TerrainResourceBehaviorModuleData *getTerrainResourceBehaviorModuleData() const
+	{
+		return reinterpret_cast<const TerrainResourceBehaviorModuleData *>(m_moduleData);
+	}
 private:
-	const void *m_20;
-	const void *m_24;
-	bool m_28;
-	bool m_29;
-	float m_2C;
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
+};
+
+class TRB_Iface3 { public: virtual void slot3(); };
+class TRB_Iface4 { public: virtual void slot4(); };
+
+class TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
+{
+public:
+	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~TerrainResourceBehavior();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
+private:
+	bool m_registered; // +0x28
+	bool m_sleepAfterRegister; // +0x29
+	float m_incomeScale; // +0x2C
 };
 
 void TerrainResourceBehavior::loadPostProcess()
 {
 	UpdateModule::loadPostProcess();
-	if (!m_28) {
+	if (!m_registered) {
 		setWakeFrame(m_object, UPDATE_SLEEP_NONE);
 	}
 }

@@ -40,13 +40,13 @@
 #include <math.h>
 #include "unicode_string.h"
 #include "Lib/Coord3D.h"
+#include "../../../../../../reference/shims/moduledata/Common/Snapshot.h"
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
 
 typedef int Int;
 typedef bool Bool;
 typedef float Real;
 typedef int Color;
-
-enum UpdateSleepTime { UPDATE_SLEEP_NONE = 1, UPDATE_SLEEP_FOREVER = 0x3FFFFFFF };
 
 __forceinline long fast_float2long_round(float f)
 {
@@ -76,6 +76,7 @@ class Rva0035A238
 {
 public:
 	void rva0035A238(Rva0035A238Argument *argument, float value, bool flag, bool front);
+	void rva0035A14F(Rva0035A238Argument *argument);
 };
 struct TerrainResourceLogicView
 {
@@ -89,9 +90,10 @@ class ObjectFilter
 public:
 	Bool isValid() const;
 };
-struct Rva2225E0Filter
+class Rva2225E0Filter
 {
-	Bool accepts(Object *obj, Player *player);
+public:
+	bool accepts(Object *obj, Player *player);
 };
 
 struct TerrainResourceIntVector
@@ -159,18 +161,25 @@ public:
 
 enum ObjectStatusTypes { OBJECT_STATUS_TYPES_ANY };
 
+enum KindOfType
+{
+	KINDOF_INVALID = -1
+};
 class Object
 {
 public:
-	Bool testStatus(ObjectStatusTypes bit) const;
+	void setStatus(ObjectStatusTypes status, bool set);
+	bool rva0029493F(Object *victim, int mode);
+	bool isKindOf(KindOfType t) const;
+	bool testStatus(ObjectStatusTypes bit) const;
 	Player *getControllingPlayer() const;
-	Bool rva0028C15E(Int type, Real *value, Int a, Int b);
-	char unknown000[0x38];
-	Coord3D m_pos;									// +0x38
-	char unknown044[0xA8 - 0x44];
-	GeometryInfo m_geometryInfo;					// +0xA8
-	char unknown0A9[0x264 - 0xA9];
-	ExperienceTracker *m_experienceTracker;			// +0x264
+	bool rva0028C15E(Int type, Real *value, Int a, Int b);
+	char m_pad00[0x38];
+	Coord3D m_pos; // +0x38 +0x38
+	char m_pad44[0x64];
+	GeometryInfo m_geometryInfo; // +0xA8 +0xA8
+	char m_padA9[0x1BB];
+	ExperienceTracker *m_experienceTracker; // +0x264 +0x264
 };
 
 class GameTextInterface
@@ -198,19 +207,42 @@ public:
 };
 extern InGameUI *TheInGameUI;
 
-struct TerrainResourceBehaviorModuleData
+class TerrainResourceModuleDataBase
 {
-	void *m_vtable;
-	Int m_unused04;
-	Real m_radius;									// +0x08
-	Int m_maxIncome;								// +0x0C
-	Int m_incomeInterval;							// +0x10
-	Bool m_highPriority;							// +0x14
-	Bool m_visible;									// +0x15
+public:
+	TerrainResourceModuleDataBase() {}
+	virtual ~TerrainResourceModuleDataBase() { reinterpret_cast<Snapshot *>(this)->Snapshot::~Snapshot(); }
+
+private:
+	unsigned char m_pad[8 - 4];
+};
+
+class UpgradeTemplate;
+class BfmeTab1026;
+
+class Rva003623E5Member
+{
+public:
+	Rva003623E5Member();
+
+	unsigned int m_data; // +0, 4-aligned: retail pads +0x16/+0x17 before +0x18
+};
+
+class TerrainResourceBehaviorModuleData : public TerrainResourceModuleDataBase
+{
+public:
+	TerrainResourceBehaviorModuleData();
+	virtual ~TerrainResourceBehaviorModuleData();
 	BfmeTab1026 *upgradeMustBePresent() const { return (BfmeTab1026 *)&m_upgradeMustBePresent; }
-	Int m_upgradeMustBePresent;						// +0x18
-	const UpgradeTemplate *m_upgrade;				// +0x1C
-	Real m_upgradeBonusPercent;						// +0x20
+
+	float m_radius; // +8
+	int m_maxIncome; // +0xC
+	int m_incomeInterval; // +0x10
+	bool m_highPriority; // +0x14
+	bool m_visible; // +0x15
+	Rva003623E5Member m_upgradeMustBePresent; // +0x18
+	const UpgradeTemplate *m_upgrade; // +0x1C
+	float m_upgradeBonusPercent; // +0x20
 };
 
 struct TerrainResourceCountData
@@ -234,38 +266,70 @@ Int Rva00482002CountMatching(Object *obj, void *userData)
 	return 1;
 }
 
-class TRB_DeepBase
+enum NameKeyType
+{
+	NK_UNKNOWN = 0
+};
+
+class Thing;
+class ModuleData;
+class Object;
+class TerrainResourceBehaviorModuleData;
+
+
+enum UpdateSleepTime
+{
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
+};
+
+class UpdateModuleInterface
 {
 public:
-	virtual ~TRB_DeepBase();
-protected:
-	const TerrainResourceBehaviorModuleData *m_moduleData;	// +0x04
-	Object *m_object;										// +0x08
+	virtual UpdateSleepTime update() = 0;
 };
-class TRB_Iface1 { public: virtual void slot(); };
-class TRB_Iface2 { public: virtual UpdateSleepTime update() = 0; };
-class TRB_Iface3 { public: virtual void slot3(); };
-class TRB_Iface4 { public: virtual void slot4(); };
 
-class UpdateModule : public TRB_DeepBase, public TRB_Iface1, public TRB_Iface2
+// The module data is +0x04, the object is +0x08 and the update interface is +0x10.
+class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
+public:
+	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
+	void xfer(Xfer *xfer);
+	__forceinline void wakeNativeObject(Object *object)
+	{
+		setWakeFrame(object, UPDATE_SLEEP_NONE);
+	}
 protected:
-	Object *getObject() const { return m_object; }
-	const TerrainResourceBehaviorModuleData *getTerrainResourceBehaviorModuleData() const { return m_moduleData; }
+	virtual void loadPostProcess();
+	void setWakeFrame(Object *object, UpdateSleepTime delay);
+	const TerrainResourceBehaviorModuleData *getTerrainResourceBehaviorModuleData() const
+	{
+		return reinterpret_cast<const TerrainResourceBehaviorModuleData *>(m_moduleData);
+	}
 private:
 	unsigned int m_nextCallFrameAndPhase;
 	int m_indexInLogic;
 	int m_updateState;
 };
 
+class TRB_Iface3 { public: virtual void slot3(); };
+class TRB_Iface4 { public: virtual void slot4(); };
+
 class TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
 {
 public:
+	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~TerrainResourceBehavior();
+	virtual NameKeyType getModuleNameKey() const;
 	virtual UpdateSleepTime update();
+protected:
+	virtual void xfer(Xfer *xfer);
+	virtual void loadPostProcess();
 private:
-	Bool m_registered;								// +0x28
-	Bool m_sleepAfterRegister;						// +0x29
-	Real m_incomeScale;								// +0x2C
+	bool m_registered; // +0x28
+	bool m_sleepAfterRegister; // +0x29
+	float m_incomeScale; // +0x2C
 };
 
 UpdateSleepTime TerrainResourceBehavior::update()

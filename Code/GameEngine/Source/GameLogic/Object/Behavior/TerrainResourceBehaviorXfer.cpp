@@ -43,52 +43,71 @@ public:
 	unsigned char m_minimum;
 };
 
-class BehaviorModuleBase
+enum NameKeyType
 {
-	virtual void unused();
-	int a;
-	int b;
+	NK_UNKNOWN = 0
 };
 
-class BehaviorModuleOther
-{
-	virtual void unused();
-};
+class Thing;
+class ModuleData;
+class Object;
+class TerrainResourceBehaviorModuleData;
 
-class BehaviorModule : public BehaviorModuleBase, public BehaviorModuleOther
+#include "../../../../Include/GameLogic/Module/BehaviorModule.h"
+
+enum UpdateSleepTime
 {
-public:
-	BehaviorModule(Thing *thing, const ModuleData *moduleData);
+	UPDATE_SLEEP_NONE = 1,
+	UPDATE_SLEEP_FOREVER = 0x3FFFFFFF
 };
 
 class UpdateModuleInterface
 {
 public:
-	virtual void update() = 0;
+	virtual UpdateSleepTime update() = 0;
 };
 
+// The module data is +0x04, the object is +0x08 and the update interface is +0x10.
 class UpdateModule : public BehaviorModule, public UpdateModuleInterface
 {
-	unsigned m_nextCallFrameAndPhase;
-	int m_indexInLogic;
-	int m_bfmeReserved;
-
 public:
 	UpdateModule(Thing *thing, const ModuleData *moduleData);
+	virtual ~UpdateModule();
 	void xfer(Xfer *xfer);
+	__forceinline void wakeNativeObject(Object *object)
+	{
+		setWakeFrame(object, UPDATE_SLEEP_NONE);
+	}
+protected:
+	virtual void loadPostProcess();
+	void setWakeFrame(Object *object, UpdateSleepTime delay);
+	const TerrainResourceBehaviorModuleData *getTerrainResourceBehaviorModuleData() const
+	{
+		return reinterpret_cast<const TerrainResourceBehaviorModuleData *>(m_moduleData);
+	}
+private:
+	unsigned int m_nextCallFrameAndPhase;
+	int m_indexInLogic;
+	int m_updateState;
 };
 
-class TerrainResourceBehavior : public UpdateModule
+class TRB_Iface3 { public: virtual void slot3(); };
+class TRB_Iface4 { public: virtual void slot4(); };
+
+class TerrainResourceBehavior : public UpdateModule, public TRB_Iface3, public TRB_Iface4
 {
+public:
+	TerrainResourceBehavior(Thing *thing, const ModuleData *moduleData);
+	virtual ~TerrainResourceBehavior();
+	virtual NameKeyType getModuleNameKey() const;
+	virtual UpdateSleepTime update();
 protected:
 	virtual void xfer(Xfer *xfer);
-
+	virtual void loadPostProcess();
 private:
-	const void *m_20;
-	const void *m_24;
-	bool m_28;
-	bool m_29;
-	float m_2C;
+	bool m_registered; // +0x28
+	bool m_sleepAfterRegister; // +0x29
+	float m_incomeScale; // +0x2C
 };
 
 void TerrainResourceBehavior::xfer(Xfer *xfer)
@@ -97,12 +116,12 @@ void TerrainResourceBehavior::xfer(Xfer *xfer)
 	Xfer::Version version(1, 2);
 	*xfer == version;
 	if (version.m_minimum >= 2) {
-		*xfer == m_28;
+		*xfer == m_registered;
 	}
-	*xfer == m_29;
-	*xfer == m_2C;
+	*xfer == m_sleepAfterRegister;
+	*xfer == m_incomeScale;
 	if (version.m_minimum >= 2)
 		return;
 	if (xfer->IsLoading())
-		m_28 = (m_29 == 0);
+		m_registered = (m_sleepAfterRegister == 0);
 }
