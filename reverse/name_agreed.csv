@@ -10395,3 +10395,12 @@ nl-10c25aa3f3da,local,h,holder,,w-09889333d128@drz-k11,Code/GameEngine/Source/Co
 nl-ce10c69d3d35,local,p,player,,w-09889333d128@drz-k11,Code/GameEngine/Source/Common/Rva003F02E4.cpp|local|Rva003F02E4::rva003F0336|p,agreed,single-worker scoped approval: w-09889333d128@drz-k11
 nl-d79565421def,local,t,id,,w-09889333d128@drz-k11,Code/GameEngine/Source/Common/Rva00238E1BCounter.cpp|local|Rva00238E1B::rva00238E1B|t,agreed,single-worker scoped approval: w-09889333d128@drz-k11
 nl-c1cd185b7b7d,local,s,stream,,w-09889333d128@drz-k11,Code/GameEngine/Source/Common/Rva0010F62EStreamCallback.cpp|local|Rva0010F62E::rva0010F62E|s,agreed,single-worker scoped approval: w-09889333d128@drz-k11
+nl-ab05c40cb62e,param,v,key,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004C9FE0|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-7c7cdc9b8289,param,b,parent,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004CA293|b,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-019b7241c5da,param,v,key,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004CA293|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-98079419c595,param,v,key,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/AnimationSoundTreeFree.cpp|param|AnimationSoundTree::rva004CA68B|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-914be174b2de,local,e,element,,w-ded32b2e2c5e@drz-k2,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp|local|Rva0020EEF4Outer::rva0020EEF4|e,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-a37af59b9a46,local,p,inner,,w-ded32b2e2c5e@drz-k2,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp|local|Rva0060EF3E::rva0060EF3E|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-8ee66269f515,local,e,element,,w-ded32b2e2c5e@drz-k2,Code/Libraries/Source/WWVegas/WWLib/Rva0020EEF4Search.cpp|local|Rva0060EF3E::rva0060EF3E|e,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-3fc42b016d5c,param,v,element,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva0060147B.cpp|param|Rva0060147BValue|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
+nl-8e14d5b2b94b,param,v,element,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/Rva0060147B.cpp|param|insert|v,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
