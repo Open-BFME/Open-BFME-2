@@ -1247,7 +1247,6 @@ address_global	Code/GameEngine/Source/GameNetwork/Rva007F3170RecordRequest.cpp	g
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva00E0A010	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva0130A6E4	1
 address_global	Code/GameEngine/Source/GameNetwork/Rva007F3C50ClubUpdate.cpp	g_Rva0130A768	2
-address_global	Code/GameEngine/Source/GameNetwork/Rva007F4440FeslClient.cpp	g_Rva012C3A18	3
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A678	1
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A684	1
 address_global	Code/GameEngine/Source/GameNetwork/V2FeslAriesRecords.cpp	g_Rva0130A6D8	1
@@ -3932,6 +3931,10 @@ alternatename	Code/Libraries/Source/WWVegas/WW3D2/DynamicVectorBfmeHandleCtor.cp
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?Rva00153A5ERangeCallee@@YAPAURva00153A5EOutput@@PAURva00153A5EInput@@0PAU1@ABURva00153A5EIteratorTag@@PAH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva001538A8@Rva001538A8@@QAEPAXXZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterBinder.cpp	?rva00153E6F@Rva00153E6F@@QAEXHURva00153EE5Tmp@@@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp	??0Rva00150D42Entry@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp	??1Rva00150D42Entry@@QAE@XZ	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp	?_M_fill_insert@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEXPAURva00150D42Entry@@IABU3@@Z	1
+alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderParameterSourceNamespaceSAS.cpp	?erase@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEPAURva00150D42Entry@@PAU3@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	??1Rva0017480CRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	?erase@Rva0017480CVector@@AAEPAURva0017480CRecord@@PAU2@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WW3D2/FXShaderRenderer.cpp	?fill@Rva0017480CVector@@AAEXPAURva0017480CRecord@@IABU2@@Z	1
@@ -4091,10 +4094,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp	?
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150CD0IndexedVector.cpp	?erase@?$vector@URva00150CD0Entry@@V?$allocator@URva00150CD0Entry@@@_STL@@@_STL@@QAEPAURva00150CD0Entry@@PAU3@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp	?_M_fill_insert@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEXPAURva00150D09Entry@@IABU3@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D09IndexedVector.cpp	?erase@?$vector@URva00150D09Entry@@V?$allocator@URva00150D09Entry@@@_STL@@@_STL@@QAEPAURva00150D09Entry@@PAU3@0@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D42IndexedVector.cpp	??0Rva00150D42Entry@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D42IndexedVector.cpp	??1Rva00150D42Entry@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D42IndexedVector.cpp	?_M_fill_insert@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEXPAURva00150D42Entry@@IABU3@@Z	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00150D42IndexedVector.cpp	?erase@?$vector@URva00150D42Entry@@V?$allocator@URva00150D42Entry@@@_STL@@@_STL@@QAEPAURva00150D42Entry@@PAU3@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	??1Rva00151248String@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?assign@Rva00151248String@@QAEXPBD@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/Rva00151248Reset.cpp	?clear@Rva00151248String@@QAEXXZ	1
