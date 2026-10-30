@@ -20447,8 +20447,8 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A03EC4,4,.data,global,?TheModelConditionUpgradePoolKey@?1??getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp,owned,,1,2
 0x00A03EC8,4,.data,global,?$S1@?1??getModuleNameKey@ModelConditionUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/GameLogic/Object/Upgrade/ModelConditionUpgrade.cpp,owned,,1,4
 0x00A03ECC,4,.data,global,_s_rva007B221C,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
-0x00A03ED0,4,.data,global,?TheAttributeModifierUpgradePoolKey@?1??getModuleNameKey@AttributeModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/AttributeModifierUpgradePoolKey.cpp,owned,,1,2
-0x00A03ED4,4,.data,global,?$S1@?1??getModuleNameKey@AttributeModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/AttributeModifierUpgradePoolKey.cpp,owned,,1,4
+0x00A03ED0,4,.data,global,?TheAttributeModifierUpgradePoolKey@?1??getModuleNameKey@AttributeModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp,owned,,1,2
+0x00A03ED4,4,.data,global,?$S1@?1??getModuleNameKey@AttributeModifierUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/AttributeModifierUpgrade.cpp,owned,,1,4
 0x00A03ED8,4,.data,global,_s_rva007B2246,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A03EDC,4,.data,global,?TheCastleUpgradePoolKey@?1??getModuleNameKey@CastleUpgrade@@UBE?AW4NameKeyType@@XZ@4W43@A,Code/GameEngine/Source/Common/System/CastleUpgradePoolKey.cpp,owned,,1,2
 0x00A03EE0,4,.data,global,?$S1@?1??getModuleNameKey@CastleUpgrade@@UBE?AW4NameKeyType@@XZ@4IA,Code/GameEngine/Source/Common/System/CastleUpgradePoolKey.cpp,owned,,1,4
