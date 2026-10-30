@@ -13,6 +13,53 @@ static inline const unsigned int &max(const unsigned int &a, const unsigned int 
 #include "ascii_string.h"
 #undef _strcmpi
 #pragma comment(linker, "/alternatename:?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00ABUrandom_access_iterator_tag@_STL@@PAH@Z=?Rva003614F4Copy@@YAPAVRva0036105B@@PAV1@00Urandom_access_iterator_tag@_STL@@PAH@Z")
+// ?rva00360E64@Rva00360F55@@QAE_NABV1@@Z, retail 0x00360E64, 241 bytes.
+// Equality for the 0x94-byte ObjectFilter science-cluster record (ctor 0x00360F55).
+// Skips refcount at +0x8C; scalars +0x80/+0x90/+0x88/+0x84, 0x1C blobs via
+// Rva00360C1FEqual, ScienceType vectors at +0x30/+0x3C/+0x18/+0x24, AsciiRange
+// at +0x00/+0x0C via Rva002ADD75Equal. Order follows retail early-outs.
+// Evidence: unlock lane; callees 0x00360C1F 0x00360C73 0x002ADD75 rowed;
+// callers 0x003617BF 0x0036238F; neighbours 0x00360D26 0x00360F55.
+enum ScienceType
+{
+	SCIENCE_NONE = 0
+};
+namespace _STL
+{
+	template <class _Tp, class _Alloc> class vector;
+	template <class _Tp> class allocator;
+	template <class _Tp, class _Alloc>
+	bool operator==(const vector<_Tp, _Alloc> &, const vector<_Tp, _Alloc> &);
+}
+struct AsciiRange002ADD75
+{
+	char m_data[12];
+};
+int Rva00360C1FEqual(const void *a, const void *b);
+int Rva002ADD75Equal(const AsciiRange002ADD75 *a, const AsciiRange002ADD75 *b);
+#include "../../../../../reference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib/ascii_string.h"
+#include <iterator>
+#pragma comment(linker, "/alternatename:?Rva00361594Assign@@YAPAVRva0036105B@@PAV1@00PAX@Z=?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z")
+//
+// ?Rva00361790@@YAHPAVRva00360F55@@@Z at 0x00361790 (135 bytes).
+// Pool intern for the 0x94-byte ObjectFilter science-cluster record: returns
+// the index of an equal record (bumping its use count) or appends the record
+// with a use count of 1 and returns the new last index. Closed from the 0.96
+// bank with a top-tested for loop over the typed array (the bank's do-while
+// with a byte offset swapped the count and offset registers).
+
+struct BfmePod148
+{
+	int m_words[37];
+};
+namespace _STL
+{
+	// Bind push_back to the rowed worker.
+	template <> void vector<BfmePod148, allocator<BfmePod148> >::push_back(const BfmePod148 &value);
+}
+#pragma comment(linker, "/alternatename:??0Rva003623E5Filter@@QAE@XZ=??0Rva003623E5Member@@QAE@XZ")
+#pragma comment(linker, "/alternatename:?construct@Rva003623E5Member@@QAEXXZ=??0Rva003623E5Member@@QAE@XZ")
+
 template <typename T>
 struct StringData
 {
@@ -208,13 +255,156 @@ extern unsigned char *g_validityBegin;
 
 extern unsigned char *g_validityEnd;
 
+namespace _STL
+{
+	template <> bool operator==(const vector<ScienceType, allocator<ScienceType> > &, const vector<ScienceType, allocator<ScienceType> > &);
+}
+
+class Rva0036105B;
+
+Rva0036105B *Rva003614F4Copy(Rva0036105B *first, Rva0036105B *last, Rva0036105B *dest, const _STL::random_access_iterator_tag &tag, int *extra);
+
+//
+// Bodies ported from Open-BFME-1's GameEngine/Source/Common/BfmeConv803.cpp
+// (donor revision 6d9434269164392c5ba62aaa7c15a86b5b020d76, donor flags plus
+// /O1). Compiled that way each body below places uniquely on unclaimed
+// game.dat .text by masked whole-.text search, and ./build.sh reproduces it
+// byte for byte: bfmeGoEBL 0x0036173F (23B). Callee addresses are read off
+// retail's call sites (reverse/symbols.csv). Only the placed bodies are
+// carried; the donor's other definitions are omitted.
+class BfmeObjEBJ;
+
+extern "C" unsigned char bfmeStrEBJ[];
+
+class BfmeObjEBK
+{
+public:
+	void bfmeTwoEBK(void *x, void *b);
+};
+
+// Retail body at 0x007E8900 is BfmeThingRF::bfmeGoRF; declared here (no real
+// header owns it) so this call spells its defining mangled name.
+class BfmeThingRF
+{
+public:
+	void *bfmeGoRF(void *key, void *fallback);
+};
+
+extern void *g_bfmeXEBK;
+
+class BfmeObjEBL
+{
+public:
+	void *m_bfmeA;
+	void *m_bfmeB;
+};
+
+class Rva00361624
+{
+public:
+	Rva0036105B *rva00361624(Rva0036105B *a, Rva0036105B *b);
+};
+
+char bfmeCmpEBMa(void *a, void *b);
+
+char bfmeCmpEBMb(void *a, void *b);
+
+struct BfmeSubEBN
+{
+	unsigned char m_bfmeHead[0x20];
+	char m_bfmeC;
+	unsigned char m_bfmePad[3];
+	void *m_bfmeP;
+};
+
+class BfmeObjEBN
+{
+public:
+	BfmeSubEBN *bfmeGetEBN();
+};
+
+int __cdecl Rva00361790(Rva00360F55 *record);
+
+template <int N> class BitFlags;
+
+extern BitFlags<116> KINDOFMASK_NONE;
+
+class Rva00045411BitSet
+{
+public:
+	unsigned char m_bytes[28];
+};
+
+class Rva003623E5Member
+{
+public:
+	Rva003623E5Member();
+	void initFromStorages(BfmeFixedStorage0004543D first,
+	                      BfmeFixedStorage0004543D second);
+	void rva00362192(Rva00045411BitSet first, BfmeFixedStorage0004543D second);
+
+private:
+	unsigned int m_record;
+};
+
+class Rva00360D26Member
+{
+public:
+	Rva00360D26Member();
+
+private:
+	unsigned int m_record;
+};
+
+class Rva003623E5Filter
+{
+public:
+	void applyFilter(BfmeFixedStorage0004543D storage);
+
+private:
+	int m_record;
+};
+
 // tu-skeleton: 0x00360DB9 171B ?DoTemplatesXfer@ObjectFilter@@QAEXPAVXfer@@PAV?$vector@PAVThingTemplate@@V?$allocator@PAVThingTemplate@@@_STL@@@_STL@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00360E64 241B ?rva00360E64@Rva00360F55@@QAE_NABV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00360E64Equal.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva00360E64Equal.cpp
+
+bool Rva00360F55::rva00360E64(const Rva00360F55 &other)
+{
+	if (m_kind == other.m_kind) {
+	if (m_alignment == other.m_alignment) {
+	if (m_enabled == other.m_enabled) {
+	if (m_relationship == other.m_relationship) {
+	if ((unsigned char)Rva00360C1FEqual(&m_firstPlain, &other.m_firstPlain)) {
+	if ((unsigned char)Rva00360C1FEqual(&m_secondPlain, &other.m_secondPlain)) {
+	typedef _STL::vector<ScienceType, _STL::allocator<ScienceType> > SciVec;
+	if ((const SciVec &)m_lists[2] == (const SciVec &)other.m_lists[2]) {
+	if ((const SciVec &)m_lists[3] == (const SciVec &)other.m_lists[3]) {
+	if ((const SciVec &)m_lists[0] == (const SciVec &)other.m_lists[0]) {
+	if ((const SciVec &)m_lists[1] == (const SciVec &)other.m_lists[1]) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_names, (const AsciiRange002ADD75 *)&other.m_names)) {
+	if ((unsigned char)Rva002ADD75Equal((const AsciiRange002ADD75 *)&m_values, (const AsciiRange002ADD75 *)&other.m_values)) {
+		return true;
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	}
+	return false;
+}
 
 // tu-skeleton: 0x00360F55 134B ??0Rva00360F55@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00360F55Ctor.cpp (not merged yet)
 
 // tu-skeleton: 0x00360FDB 128B ??1Rva00360F55@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00360F55Dtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/ObjectFilter.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0036105BCopyCtor.cpp
 
@@ -379,26 +569,6 @@ void Rva00361439Resolve()
 	} while (--count != 0);
 }
 
-// tu-skeleton: 0x00361470 45B ??$_Construct@UBfmeStringHeadRecord148@@U1@@_STL@@YAXPAUBfmeStringHeadRecord148@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0036149D 47B ??$__uninitialized_copy@PBUBfmePod148@@PAU1@@_STL@@YAPAUBfmePod148@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x003614CC 40B ??$__uninitialized_fill_n@PAUBfmePod148@@IU1@@_STL@@YAPAUBfmePod148@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
-
-// tu-skeleton: 0x0036152A 9B ??$_Destroy@VRva00360F55@@@_STL@@YAXPAVRva00360F55@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x00361533 97B ?DoNamesXfer@ObjectFilter@@QAEXPAVXfer@@PAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
-
-// tu-skeleton: 0x00361594 29B ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00361594Assign.cpp (not merged yet)
-
-// tu-skeleton: 0x003615B1 28B ??$__destroy_aux@PAURva003615E5Record@@@_STL@@YAXPAURva003615E5Record@@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003615CD 24B ??$_Destroy@PAURva003615E5Record@@@_STL@@YAXPAURva003615E5Record@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x003615E5 63B ??1?$vector@URva003615E5Record@@V?$allocator@URva003615E5Record@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x00361624 51B ?rva00361624@Rva00361624@@QAEPAVRva0036105B@@PAV2@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00361624Erase.cpp (not merged yet)
-
 // ---- from Code/Libraries/Source/WWVegas/WWLib/StlportVectorInsertOverflowRva00361680.cpp
 
 //
@@ -415,19 +585,12 @@ void Rva00361439Resolve()
 // vector::_M_insert_overflow inlines max(size(), n). A file-static unsigned
 // overload takes the call instead, so this TU emits no external max COMDAT.
 
-// tu-skeleton: 0x00361675 11B ?rva00361675@Rva00361624@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00361624Erase.cpp (not merged yet)
 
-// tu-skeleton: 0x0036173F 23B ?bfmeGoEBL@@YAXXZ -- matched in Code/GameEngine/Source/Common/BfmeConv803O1.cpp (not merged yet)
 
-// tu-skeleton: 0x00361756 58B ?push_back@?$vector@UBfmePod148@@V?$allocator@UBfmePod148@@@_STL@@@_STL@@QAEXABUBfmePod148@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x00361790 135B ?Rva00361790@@YAHPAVRva00360F55@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFilterIntern.cpp (not merged yet)
 
-// tu-skeleton: 0x00361817 162B ?isForbidden@ObjectFilter@@QAE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp (not merged yet)
 
-// tu-skeleton: 0x003618B9 601B ?testTemplate@ObjectFilter@@QAE_NPBVThingTemplate@@PBVPlayer@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
 
-// tu-skeleton: 0x00361B12 403B ?testKindOf@ObjectFilter@@QAE_NPBV?$BitFlags@$0NK@@@PBVPlayer@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/ScriptEngine/iniParseObjectFilter.cpp
 
@@ -589,11 +752,197 @@ void iniParseObjectFilter(INI *ini, void *instance, void *store, const void *)
 	*handle = Rva00361790(&entry);
 }
 
-// tu-skeleton: 0x00362087 153B ?initFromStorages@Rva003623E5Member@@QAEXVBfmeFixedStorage0004543D@@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva003623E5MemberCtor.cpp (not merged yet)
+// tu-skeleton: 0x00361470 45B ??$_Construct@UBfmeStringHeadRecord148@@U1@@_STL@@YAXPAUBfmeStringHeadRecord148@@ABU1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_asciistring_record_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x00362120 114B ?applyFilter@Rva003623E5Filter@@QAEXVBfmeFixedStorage0004543D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva003623E5ApplyFilter.cpp (not merged yet)
+// tu-skeleton: 0x0036149D 47B ??$__uninitialized_copy@PBUBfmePod148@@PAU1@@_STL@@YAPAUBfmePod148@@PBU1@0PAU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
 
-// tu-skeleton: 0x00362192 195B ?rva00362192@Rva003623E5Member@@QAEXVRva00045411BitSet@@VBfmeFixedStorage0004543D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva003623E5MemberCtor.cpp (not merged yet)
+// tu-skeleton: 0x003614CC 40B ??$__uninitialized_fill_n@PAUBfmePod148@@IU1@@_STL@@YAPAUBfmePod148@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// tu-skeleton: 0x0036152A 9B ??$_Destroy@VRva00360F55@@@_STL@@YAXPAVRva00360F55@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00361533 97B ?DoNamesXfer@ObjectFilter@@QAEXPAVXfer@@PAV?$vector@VAsciiString@@V?$allocator@VAsciiString@@@_STL@@@_STL@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva00361594Assign.cpp
+
+// ?Rva00361594Assign@@YAXPAVRva0036105B@@00PAX@Z @0x00361594 29B
+// Range-assign wrapper over the rowed __copy core at 0x003614F4: materializes
+// the random_access tag on stack and forwards (first, last, dest, tag, null).
+// Evidence: chain from 0x003614F4 which muse-05 just landed; identical 29B
+// shape to the landed ?Rva00288A5CAssign@@YAXPAUCameraMarker@@00PAX@Z at
+// 0x00288A5C; caller at 0x00361638 passes 4 words (last is ignored dummy
+// like the CameraMarker precedent's (void*)((char*)&first+3)); prev
+// 0x003614F4 and next 0x003615B1 STL TUs. The core row spells the tag by
+// value (U) but retail passes its address (const ref ABU, the true STLport
+// spelling); the TU declares the ABU twin which is pinned at the same RVA.
+
+void Rva00361594Assign(Rva0036105B *first, Rva0036105B *last, Rva0036105B *dest, void *unused)
+{
+	const _STL::random_access_iterator_tag tag;
+	typedef Rva0036105B *(__cdecl *Copy)(Rva0036105B *, Rva0036105B *, Rva0036105B *, const _STL::random_access_iterator_tag &, int *);
+	Copy copy = Rva003614F4Copy;
+	copy(first, last, dest, tag, (int *)0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// tu-skeleton: 0x003615B1 28B ??$__destroy_aux@PAURva003615E5Record@@@_STL@@YAXPAURva003615E5Record@@0ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003615CD 24B ??$_Destroy@PAURva003615E5Record@@@_STL@@YAXPAURva003615E5Record@@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x003615E5 63B ??1?$vector@URva003615E5Record@@V?$allocator@URva003615E5Record@@@_STL@@@_STL@@QAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/Rva003615E5VectorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00361624 51B ?rva00361624@Rva00361624@@QAEPAVRva0036105B@@PAV2@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00361624Erase.cpp (not merged yet)
+
+// tu-skeleton: 0x00361675 11B ?rva00361675@Rva00361624@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Rva00361624Erase.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/BfmeConv803O1.cpp
+
+void bfmeGoEBL()
+{
+	((Rva00361624 *)&g_validityBegin)->rva00361624((Rva0036105B *)g_validityBegin, (Rva0036105B *)g_validityEnd);
+}
+
+// tu-skeleton: 0x00361756 58B ?push_back@?$vector@UBfmePod148@@V?$allocator@UBfmePod148@@@_STL@@@_STL@@QAEXABUBfmePod148@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectFilterIntern.cpp
+
+// ?Rva00361790@@YAHPAVRva00360F55@@@Z
+int Rva00361790(Rva00360F55 *record)
+{
+	int count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
+	for (int index = 0; index < count; ++index)
+	{
+		if (((Rva00360F55 *)g_validityBegin)[index].rva00360E64(*record))
+		{
+			((Rva00360F55 *)g_validityBegin)[index].m_useCount++;
+			return index;
+		}
+	}
+	record->m_useCount = 1;
+	((_STL::vector<BfmePod148, _STL::allocator<BfmePod148> > *)&g_validityBegin)->push_back((const BfmePod148 &)*record);
+	count = (g_validityEnd - g_validityBegin) / (int)sizeof(Rva00360F55);
+	return count - 1;
+}
+
+// tu-skeleton: 0x00361817 162B ?isForbidden@ObjectFilter@@QAE_NW4KindOfType@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterIsForbidden.cpp (not merged yet)
+
+// tu-skeleton: 0x003618B9 601B ?testTemplate@ObjectFilter@@QAE_NPBVThingTemplate@@PBVPlayer@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00361B12 403B ?testKindOf@ObjectFilter@@QAE_NPBV?$BitFlags@$0NK@@@PBVPlayer@@1@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva003623E5MemberCtor.cpp
+
+Rva003623E5Member::Rva003623E5Member()
+	: m_record(-1)
+{
+	Rva00360F55 defaultRecord;
+	m_record = Rva00361790(&defaultRecord);
+}
+
+// The 4-byte filter handle's constructor folds with the address-derived member
+// constructor above. Its 0x94-byte default record is a temporary, not its size.
+Rva00360D26Member::Rva00360D26Member()
+	: m_record(-1)
+{
+	Rva00360F55 defaultRecord;
+	m_record = Rva00361790(&defaultRecord);
+}
+
+// 0x362087 (153B): release the previous pool index, then register a rebuilt
+// 0x94-byte record. Target merges the two 28-byte inputs at +0x48/+0x64 and
+// sets +0x88 when any dword in the first input is nonzero; these field labels
+// describe offsets only, not recovered domain names.
+void Rva003623E5Member::initFromStorages(
+	BfmeFixedStorage0004543D first,
+	BfmeFixedStorage0004543D second)
+{
+	Rva00360CB0Release((int *)&m_record);
+	Rva00360F55 record;
+	record.m_enabled = 0;
+	record.m_kind = 1;
+	for (unsigned int offset = 0; offset < 28; offset += 4)
+	{
+		*(unsigned int *)((unsigned char *)&record.m_firstPlain + offset) |=
+			*(unsigned int *)((unsigned char *)&first + offset);
+	}
+	for (unsigned int offset = 0; offset < 28; offset += 4)
+	{
+		*(unsigned int *)((unsigned char *)&record.m_secondPlain + offset) |=
+			*(unsigned int *)((unsigned char *)&second + offset);
+	}
+	for (unsigned int index = 0; index < 7; ++index)
+	{
+		if (((unsigned int *)&first)[index] != 0)
+		{
+			record.m_enabled = 1;
+			break;
+		}
+	}
+	m_record = Rva00361790(&record);
+}
+
+void Rva003623E5Member::rva00362192(Rva00045411BitSet first, BfmeFixedStorage0004543D second)
+{
+	Rva00360CB0Release((int *)&m_record);
+	Rva00360F55 record;
+	record.m_enabled = 0;
+	record.m_kind = 2;
+	for (unsigned int offset = 0; offset < 28; offset += 4)
+	{
+		*(unsigned int *)((unsigned char *)&record.m_firstPlain + offset) |=
+			*(unsigned int *)((unsigned char *)&first + offset);
+	}
+	for (unsigned int offset = 0; offset < 28; offset += 4)
+	{
+		*(unsigned int *)((unsigned char *)&record.m_secondPlain + offset) |=
+			*(unsigned int *)((unsigned char *)&second + offset);
+	}
+	for (unsigned int index = 0; index < 7; ++index)
+	{
+		if (((unsigned int *)&first)[index] != 0)
+		{
+			record.m_enabled = 1;
+			m_record = Rva00361790(&record);
+			return;
+		}
+	}
+	initFromStorages(*reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE), *reinterpret_cast<const BfmeFixedStorage0004543D *>(&KINDOFMASK_NONE));
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva003623E5ApplyFilter.cpp
+
+//
+// ?applyFilter@Rva003623E5Filter@@QAEXVBfmeFixedStorage0004543D@@@Z
+// RVA 0x00362120 size 114. Target pin evidence: five module-data constructor
+// callers pass a 28-byte BfmeFixedStorage value, including the convergent
+// caller at 0x4C24AE. The 4-byte filter member layout follows the folded ctor
+// at 0x3623E5 and teardown at 0x360D26. Exact target bytes show it releases
+// the old handle at this+0, constructs a local 0x94-byte record, sets +0x80=3
+// and +0x88=1, ORs the argument into +0x64, registers it via 0x361790, and
+// stores the returned index. Record offsets follow the matched
+// Rva003623E5Member::initFromStorages sibling at 0x362087; the assignments and
+// single-storage merge are directly visible in this target's instructions.
+
+void Rva003623E5Filter::applyFilter(BfmeFixedStorage0004543D storage)
+{
+	Rva00360CB0Release(&m_record);
+	Rva00360F55 record;
+	record.m_enabled = 1;
+	record.m_kind = 3;
+	for (unsigned int offset = 0; offset < 28; offset += 4)
+	{
+		*(unsigned int *)((unsigned char *)&record.m_secondPlain + offset) |=
+			*(unsigned int *)((unsigned char *)&storage + offset);
+	}
+	m_record = Rva00361790(&record);
+}
 
 // tu-skeleton: 0x00362255 400B ?DoXfer@ObjectFilter@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/ObjectFilterCollectionXfer.cpp (not merged yet)
 
