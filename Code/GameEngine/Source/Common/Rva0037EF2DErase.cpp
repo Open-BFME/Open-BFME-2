@@ -23,17 +23,19 @@ public:
 };
 class UnitRevivalTracker
 {
-	int m_unk00;
-	Rva002E204D m_vec04;
 public:
 	void rva0037EF2D(unsigned int key);
 	void removeBuildUnitByIndex(int index);
+
+private:
+	int m_vtable00;
+	Rva002E204D m_entries; // +0x04, the 0xD8-entry vector
 };
 void UnitRevivalTracker::rva0037EF2D(unsigned int key)
 {
-	for (Rva002E0D93 *p = m_vec04.m_start00; p != m_vec04.m_finish04; ++p) {
+	for (Rva002E0D93 *p = ((Rva002E204D *)&m_entries)->m_start00; p != ((Rva002E204D *)&m_entries)->m_finish04; ++p) {
 		if (p->m_keyA4 == (int)key) {
-			m_vec04.rva002E204D(p);
+			((Rva002E204D *)&m_entries)->rva002E204D(p);
 			break;
 		}
 	}
@@ -43,7 +45,7 @@ void UnitRevivalTracker::removeBuildUnitByIndex(int index)
 	if (index < 0)
 		return;
 	int finish = *(volatile int *)((char *)this + 8);
-	Rva002E204D &vec = m_vec04;
+	Rva002E204D &vec = *(Rva002E204D *)&m_entries;
 	int count = (finish - (int)vec.m_start00) / 0xD8;
 	if ((unsigned int)index >= (unsigned int)count)
 		return;
