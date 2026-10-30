@@ -126,6 +126,7 @@ public:
 };
 
 class Thing;
+
 class ModuleData;
 
 class UpdateModule : public InvisibilityUpdatePrimary, public BehaviorModuleOther, public Rva004A3A20Interface {
@@ -199,24 +200,6 @@ private:
 	bool m_24; // +0x24
 };
 
-//
-// ??1InvisibilityUpdate@@MAE@XZ, retail 0x004A389F, 32 bytes. Behavior-side
-// destructor completing the InvisibilityUpdate file-unit (ctor rowed at
-// 0x4A382D, friend-new at 0x24ECB4 news 0x28, pool key at 0x4A393C).
-//
-// The body restores the four vtable pointers of the complete object -- the
-// derived slot at +0x00 plus the BehaviorModuleOther slot at +0x0C, the
-// UpdateModuleInterface slot at +0x10 and the trailing interface slot at
-// +0x20 -- then tail-jumps to the UpdateModule base destructor (pinned
-// ??1UpdateModule@@UAE@XZ at 0x0024A797). The trailing base has a trivial
-// destructor, so it contributes a store but no call. The UpdateModule middle
-// is declared but never defined here so the call resolves via the pin, and
-// the vtable values are DIR32 auto-patches. Recipe: PoisonedBehaviorDtor.cpp.
-
-class Thing;
-
-class ModuleData;
-
 class BehaviorModuleBase
 {
 public:
@@ -256,9 +239,18 @@ class InvisibilityTrailing { public: virtual void trailingSlot(); };
 
 // tu-skeleton: 0x004A381C 17B ?buildFieldParse@InvisibilityUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
-// tu-skeleton: 0x004A382D 68B ??0InvisibilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateCtor.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateCtor.cpp
+
+// ??0InvisibilityUpdate@@QAE@PAVThing@@PBVModuleData@@@Z
+InvisibilityUpdate::InvisibilityUpdate(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_24 = m_moduleData->m_startsActive;
+}
 
 // tu-skeleton: 0x004A3871 6B ?Rva004A3871Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdate.cpp
 
@@ -348,8 +340,6 @@ InvisibilityUpdate::~InvisibilityUpdate()
 {
 }
 
-// tu-skeleton: 0x004A3904 7B ?get@Rva004A3904AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/InvisibilityUpdateRva004A390B.cpp
 
 void InvisibilityUpdate::Rva004A390B()
@@ -374,6 +364,8 @@ void InvisibilityUpdate::xfer(Xfer *xfer)
 		*xfer == m_24;
 	}
 }
+
+// tu-skeleton: 0x004A3904 7B ?get@Rva004A3904AddDwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddDwordFieldGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x004A39BE 9B ?get@Rva004A39BEAddImm32Field@@QBEHXZ -- matched in Code/GameEngine/Source/Common/Disp8AddImm32DwordFieldGetters.cpp (not merged yet)
 
