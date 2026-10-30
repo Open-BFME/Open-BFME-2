@@ -4124,3 +4124,4 @@ __ehhandler$?rva00104A75@Rva0010461F@@QAEXXZ,0x00764339,"Renamed to __ehhandler$
 ?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,0x0020461E,"Renamed to ?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z by tools/rename.py (inferred)"
 __ehhandler$?rva0020461E@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z,0x0076C76A,"Renamed to __ehhandler$?getStats@Rva0020461E@@UAE?AVAsciiString@@PAM00@Z by tools/rename.py (inferred)"
 ?rva00542148@Rva005422CF@@QAEXXZ,0x00542148,"Renamed to ?reset@Rva005422CF@@QAEXXZ by tools/rename.py (inferred)"
+?rva0041580E@Rva0041580E@@QAEXPAURva0041580ENode@@@Z,0x0041580E,"Renamed to ?eraseSubtree@Rva0041580E@@QAEXPAURva0041580ENode@@@Z by tools/rename.py (inferred)"

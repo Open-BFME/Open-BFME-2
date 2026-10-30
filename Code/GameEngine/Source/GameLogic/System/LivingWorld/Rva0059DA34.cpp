@@ -68,7 +68,7 @@ public:
 struct Rva0059DA34Region
 {
 	char m_pad00[0x4C];
-	_STL::multimap<int, Rva00501E3FElement> m_4c;
+	_STL::multimap<int, Rva00501E3FElement> m_armies;
 };
 
 typedef _STL::map<int, int> Rva004FFA6EIntMap;
@@ -169,7 +169,7 @@ int Rva0059DA34::rva0059DA34(int key, int limit, bool matchEqual, int maxLevel, 
 		for (_STL::multimap<int, int>::const_iterator it = range.first; it != range.second; ++it)
 		{
 			Rva0059DA34Region *region = (Rva0059DA34Region *)info->GetRegionInfo(it->second).m_ptr->m_value;
-			for (_STL::multimap<int, Rva00501E3FElement>::iterator r = region->m_4c.begin(); r != region->m_4c.end(); ++r)
+			for (_STL::multimap<int, Rva00501E3FElement>::iterator r = region->m_armies.begin(); r != region->m_armies.end(); ++r)
 			{
 				if ((matchEqual && r->first == limit) || (!matchEqual && r->first != limit))
 				{
@@ -209,9 +209,9 @@ bool Rva0059DA34::rva0059DB48(_STL::vector<BfmeE8> *out, const Rva0059D90CSource
 		{
 			if (m_weights[order[j]] > m_weights[order[i]])
 			{
-				int t = order[i];
+				int swapType = order[i];
 				order[i] = order[j];
-				order[j] = t;
+				order[j] = swapType;
 			}
 		}
 	}

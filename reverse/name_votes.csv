@@ -15659,3 +15659,17 @@ Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp|class||Rva0
 Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp|class||Rva004FAC99Registration,c7e57d46ed57d92ae4f23e80,gpt-6.1-sol,w4-10300720-5,w-eb83eac9adc1,2026-10-30
 Code/GameEngine/Source/GameClient/GUI/Rva0052B634ArmyActionPrime.cpp|class||Rva0052B5C6Registration,9223fe198a530b18fc3877bb,gpt-6.1-sol,w4-10300720-5,w-eb83eac9adc1,2026-10-30
 Code/GameEngine/Source/GameClient/Rva002BFAD6Insert.cpp|function|0x002BFAD6|rva002BFAD6,c653d0df46a9160b713c1071,gpt-6.1-sol,w4-10300720-6,w-eb83eac9adc1,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|member|Rva0041580ENode|m_colour00,bc13347835a0f771773c97a1,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|member|Rva0041580ENode|m_parent04,0066484e4f6fa1c1fea73d9e,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|member|Rva0041580EHead|m_first04,e2baf0df261881c3f033c6c3,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|function|0x0041580E|rva0041580E,4421fc5d0bb5fa5a9132f962,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|function|0x004159E2|rva004159E2,50eb71f0366e07acb241ca33,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|param|Rva0041580E::rva004158AF|x,799dfcb99614d1cfcc828bac,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp|param|Rva0041580E::rva004158AF|w,d229e631b26ea21ecd754b1c,gpt-6.1-sol,w5-10300737-2,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp|class||Rva0059DA34Region,6f6a7dbaf67b11afa2f765e9,gpt-6.1-sol,w5-10300737-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp|member|Rva0059DA34Region|m_4c,2b119e626a9c8e60e71914ca,gpt-6.1-sol,w5-10300737-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/GameLogic/System/LivingWorld/Rva0059DA34.cpp|local|Rva0059DA34::rva0059DB48|t,05ef9f0d2277eb9a7f17caec,gpt-6.1-sol,w5-10300737-3,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|member|EconomyStats|m_14,756def5c0633ded554d2eceb,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|member|StatCollector|m_0c,a4411746060568e3306b2e04,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|local|Rva0050F0AB::rva0050F450|tmp,97fc87c951baa1ee9c19d109,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30
+Code/GameEngine/Source/Common/System/Rva0050F0AB.cpp|local|Rva0050F0AB::rva0050F450|v,f153cb225619a13cdc61baec,gpt-6.1-sol,w5-10300737-4,w-f0819d403c17,2026-10-30

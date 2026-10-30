@@ -28107,7 +28107,7 @@ _SetDeInterlaceMode,,0x001B6910,15,Code/Libraries/Source/VP6/PostProcModes.cpp,m
 ?rva002EADB4@Rva002EADB4@@QAEXPAU_Rva002EADB4Node@@@Z,,0x002EADB4,45,Code/Libraries/Source/WWVegas/WWLib/Rva002EADB4Release.cpp,matched,recursive release via child next free self-call
 ?rva006016AC@Coord3D@@QAEAAV1@ABV1@@Z,,0x006016AC,29,Code/GameEngine/Source/Common/Coord3DCopy.cpp,matched,self-checked Coord3D copy with caller 0x00601797 looping 0x0C stride
 ?Rva00601797Copy@@YAPAVCoord3D@@PBV1@0PAV1@@Z,,0x00601797,50,Code/GameEngine/Source/Common/Coord3DCopy.cpp,matched,counted Coord3D range copy via rowed 0x006016AC with caller 0x0060186F
-?rva0041580E@Rva0041580E@@QAEXPAURva0041580ENode@@@Z,,0x0041580E,53,Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp,matched,chain list cleanup via rowed Rva0041579E dtor and free
+?eraseSubtree@Rva0041580E@@QAEXPAURva0041580ENode@@@Z,,0x0041580E,53,Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp,matched,chain list cleanup via rowed Rva0041579E dtor and free
 ?rva00415886@Rva0041580E@@QAEXXZ,,0x00415886,41,Code/GameEngine/Source/Common/Rva0041580ECleanup.cpp,matched,chain via rowed 0x0041580E ECX passthrough callers 0x004159BF 0x004159EE
 ??1Rva0041580E@@QAE@XZ,,0x004159AA,56,Code/GameEngine/Source/Common/Rva0041580EDtor.cpp,matched,chain via rowed 0x00415886 member at plus8 callers 0x00415AF8 0x00415ADB
 ??_GRva0041579E@@QAEPAXI@Z,,0x00415782,28,Code/GameEngine/Source/Common/FamilyDeletingDtors_Rva0041579E.cpp,matched,chain deleting dtor via rowed dtor 0x004156FC and delete 0x0002FD60

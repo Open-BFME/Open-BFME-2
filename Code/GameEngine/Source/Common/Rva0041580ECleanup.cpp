@@ -1,5 +1,5 @@
 // cl: /O1 /MD
-// ?rva0041580E@Rva0041580E@@QAEXPAURva0041580ENode@@@Z @0x0041580E 53B chain via rowed ??1Rva0041579E.
+// ?eraseSubtree@Rva0041580E@@QAEXPAURva0041580ENode@@@Z @0x0041580E 53B chain via rowed ??1Rva0041579E.
 // Branch cleanup recursing on +0xC with same this then destroying +0x10 via rowed
 // Rva0041579E dtor and freeing the node, iterating via +8.
 // Evidence: self-call at 0x00415820 with [esi+0xC], lea ecx [esi+0x10] call
@@ -23,9 +23,9 @@ public:
 
 struct Rva0041580ENode
 {
-	unsigned char m_colour00;
+	unsigned char m_color;
 	char m_pad01[3];
-	Rva0041580ENode *m_parent04;
+	Rva0041580ENode *m_parent;
 	Rva0041580ENode *m_next08;
 	Rva0041580ENode *m_child0C;
 	Rva0041579E m_item10;
@@ -34,7 +34,7 @@ struct Rva0041580ENode
 struct Rva0041580EHead
 {
 	int _00;
-	Rva0041580ENode *m_first04;
+	Rva0041580ENode *m_root;
 	Rva0041580EHead *m_next08;
 	Rva0041580EHead *m_child0C;
 };
@@ -59,15 +59,15 @@ struct Rva0041580E
 {
 	Rva0041580EHead *m_head00;
 	int m_flag04;
-	void rva0041580E(Rva0041580ENode *node);
+	void eraseSubtree(Rva0041580ENode *node);
 	void rva00415886();
 	Rva00415A55Result rva00415A55(const Rva0041579E &value);
 	Rva00415A55Result rva00415B40(const Rva0041579E &value);
 	Rva004158AFSlot rva004158AFReturnView(Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w);
 	char *rva00415843CallView(const Rva0041579E &source);
-	void rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w);
+	void rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *leftHint,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *rightHint);
 	Rva0041580E *rva004159E2(const Rva0041580E &other);
-	__forceinline Rva0041580ENode *&rootRef() { return m_head00->m_first04; }
+	__forceinline Rva0041580ENode *&rootRef() { return m_head00->m_root; }
 	Rva0041580ENode *rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent);
 	Rva0041580ENode *rva00415868(const Rva0041580ENode *source);
 };
@@ -75,12 +75,12 @@ struct Rva0041580E
 // ?rva00415886@Rva0041580E@@QAEXXZ @0x00415886 41B chain via rowed 0x0041580E.
 // Resets the tree-like header to empty after cleanup. Evidence: ECX passthrough to rowed
 // 0x0041580E at 0x00415894, callers at 0x004159BF 0x004159EE.
-void Rva0041580E::rva0041580E(Rva0041580ENode *node)
+void Rva0041580E::eraseSubtree(Rva0041580ENode *node)
 {
 	Rva0041580ENode *cur = node;
 	while (cur != 0)
 	{
-		rva0041580E(cur->m_child0C);
+		eraseSubtree(cur->m_child0C);
 		Rva0041580ENode *next = cur->m_next08;
 		cur->m_item10.~Rva0041579E();
 		free(cur);
@@ -92,9 +92,9 @@ void Rva0041580E::rva00415886()
 {
 	if (m_flag04 != 0)
 	{
-		rva0041580E(m_head00->m_first04);
+		eraseSubtree(m_head00->m_root);
 		m_head00->m_next08 = m_head00;
-		m_head00->m_first04 = 0;
+		m_head00->m_root = 0;
 		m_head00->m_child0C = m_head00;
 		m_flag04 = 0;
 	}
@@ -129,7 +129,7 @@ char *__stdcall Rva00415843Create(const Rva0041579E &source)
 Rva0041580ENode *Rva0041580E::rva00415868(const Rva0041580ENode *source)
 {
     Rva0041580ENode *node=(Rva0041580ENode *)Rva00415843Create(source->m_item10);
-    node->m_colour00=source->m_colour00;
+    node->m_color=source->m_color;
     node->m_next08=0;
     node->m_child0C=0;
     return node;
@@ -140,14 +140,14 @@ Rva0041580ENode *Rva0041580E::rva00415868(const Rva0041580ENode *source)
 Rva0041580ENode *Rva0041580E::rva00415937(Rva0041580ENode *source,Rva0041580ENode *parent)
 {
     Rva0041580ENode *top=rva00415868(source);
-    top->m_parent04=parent;
+    top->m_parent=parent;
     if(source->m_child0C) top->m_child0C=rva00415937(source->m_child0C,top);
     parent=top;
     source=source->m_next08;
     while(source) {
         Rva0041580ENode *node=rva00415868(source);
         parent->m_next08=node;
-        node->m_parent04=parent;
+        node->m_parent=parent;
         if(source->m_child0C) node->m_child0C=rva00415937(source->m_child0C,node);
         parent=node;
         source=source->m_next08;
@@ -162,16 +162,16 @@ Rva0041580E *Rva0041580E::rva004159E2(const Rva0041580E &other)
     if (this!=&other) {
         rva00415886();
         m_flag04=0;
-        if(other.m_head00->m_first04==0) {
-            m_head00->m_first04=0;
+        if(other.m_head00->m_root==0) {
+            m_head00->m_root=0;
             m_head00->m_next08=m_head00;
             m_head00->m_child0C=m_head00;
         } else {
-            rootRef()=rva00415937(other.m_head00->m_first04,(Rva0041580ENode *)m_head00);
-            Rva0041580ENode *cur=m_head00->m_first04;
+            rootRef()=rva00415937(other.m_head00->m_root,(Rva0041580ENode *)m_head00);
+            Rva0041580ENode *cur=m_head00->m_root;
             while(cur->m_next08) cur=cur->m_next08;
             m_head00->m_next08=(Rva0041580EHead *)cur;
-            cur=m_head00->m_first04;
+            cur=m_head00->m_root;
             while(cur->m_child0C) cur=cur->m_child0C;
             m_head00->m_child0C=(Rva0041580EHead *)cur;
             m_flag04=other.m_flag04;
@@ -220,10 +220,10 @@ public:
 };
 }
 #pragma comment(linker, "/alternatename:?rva00415843CallView@Rva0041580E@@QAEPADABVRva0041579E@@@Z=?Rva00415843Create@@YGPADABVRva0041579E@@@Z")
-void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *w)
+void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *leftHint,Rva0041580ENode *parent,const Rva0041579E &value,Rva0041580ENode *rightHint)
 {
     Rva0041580ENode *node;
-    if(parent!=(Rva0041580ENode *)m_head00 && (w!=0 || (x==0 && value.m_key00>=parent->m_item10.m_key00))) {
+    if(parent!=(Rva0041580ENode *)m_head00 && (rightHint!=0 || (leftHint==0 && value.m_key00>=parent->m_item10.m_key00))) {
         node=(Rva0041580ENode *)rva00415843CallView(value);
         parent->m_child0C=node;
         Rva0041580EHead *head=m_head00;
@@ -233,14 +233,14 @@ void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva004158
         parent->m_next08=node;
         Rva0041580EHead *head=m_head00;
         if(parent==(Rva0041580ENode *)head) {
-            head->m_first04=node;
+            head->m_root=node;
             m_head00->m_child0C=(Rva0041580EHead *)node;
         } else if(parent==(Rva0041580ENode *)head->m_next08) head->m_next08=(Rva0041580EHead *)node;
     }
     node->m_next08=0;
     node->m_child0C=0;
-    node->m_parent04=parent;
-    _STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node,(_STL::_Rb_tree_node_base *&)m_head00->m_first04);
+    node->m_parent=parent;
+    _STL::_Rb_global<bool>::_Rebalance((_STL::_Rb_tree_node_base *)node,(_STL::_Rb_tree_node_base *&)m_head00->m_root);
     ++m_flag04;
     out=node;
 }
@@ -250,7 +250,7 @@ void Rva0041580E::rva004158AF(Rva0041580ENode *&out,Rva0041580ENode *x,Rva004158
 Rva00415A55Result Rva0041580E::rva00415A55(const Rva0041579E &value)
 {
     Rva0041580ENode *parent=(Rva0041580ENode *)m_head00;
-    Rva0041580ENode *cur=m_head00->m_first04;
+    Rva0041580ENode *cur=m_head00->m_root;
     bool less=true;
     while(cur) {
         parent=cur;

@@ -82,7 +82,7 @@ struct EconomyStats
 struct StatCollector
 {
 	char m_pad00[0x0C];
-	EconomyStats *m_0c;
+	EconomyStats *m_economyStats;
 };
 
 struct Rva002A8AB1Record;
@@ -172,7 +172,7 @@ void Rva0050F0AB::rva0050F306()
 	if (TheSkirmishAIManager->rva002A8AB1(m_64))
 	{
 		StatCollector *statCollector = (StatCollector *)TheSkirmishAIManager->rva002A8F24(m_64);
-		EconomyStats *economyStats = statCollector->m_0c;
+		EconomyStats *economyStats = statCollector->m_economyStats;
 		money += economyStats->m_14;
 	}
 	if (money != m_70 || m_70 == -1)
