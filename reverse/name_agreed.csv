@@ -10295,3 +10295,6 @@ nl-5b6e9e203f2d,local,p,entry,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Comm
 nl-49aed9cef4a3,param,arg,newValue,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/System/Rva003F1AFF.cpp|param|Rva003F1AFF::rva003F1AFF|arg,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-42262df0a072,member,m_3C,m_turnNumber,,w-077d7aeb666b@drz-k3;w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_3C,agreed,two-agent agreement: w-077d7aeb666b@drz-k3;w-ded32b2e2c5e@drz-k2
 nl-46de1f3f5cfc,param,a,culled,,w-526a51702f64@drz-k5,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111F0EClear.cpp|param|Rva00111F0E::rva00111FBC|a,agreed,single-worker scoped approval: w-526a51702f64@drz-k5
+nl-328deb8d3cda,param,a0,color,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameClient/GUI/GameWindowRva00314AE0.cpp|param|Rva00314BC9|a0,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-7e27845731b6,param,a1,width,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameClient/GUI/GameWindowRva00314AE0.cpp|param|Rva00314BC9|a1,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
+nl-f1fd961cdaf2,param,a0,color,,w-d29055ee9848@drz-k1,Code/GameEngine/Source/GameClient/GUI/GameWindowRva00314AE0.cpp|param|Rva00314B28|a0,agreed,single-worker scoped approval: w-d29055ee9848@drz-k1
