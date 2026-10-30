@@ -1,5 +1,21 @@
 # Linking target checklist
 
+Script-event key follow-up (2026-10-30, base `cc891735cc`): the two record
+constructors at `0x00332F5B` and `0x00332FC1` reuse the existing four-byte
+key constructor instead of private UnicodeString bodies. All four source
+rows retain identical raw bytes and native relocation targets. Header-queue
+acceptance still demands an irrelevant string include: its exception handles
+historical discovery errors, not corrected private-class identities. Both
+queue rows remain with tool-recorded false rejects; their former missing
+buffer-identity-accessor prerequisite is superseded. No census gain or debt
+retirement is claimed.
+Strict five-source preparation passes 13/13 rows and their preview retains
+5/5 LINKS (1,295 authored bytes) against `6fe1089c24` (2026-10-30 04:25).
+The staged audit is INCONCLUSIVE on the older source baseline and missing
+current AIGameTeam receipt. Full consumer selection/loss verification and
+census confirmation remain pending.
+[Evidence and scope](../reverse/attempt_support/script-event-key-identity-20261030-codex3.md).
+
 Rva000D3FA0Map follow-up (2026-10-30, base `39b2df5afd`): native tree
 bindings replace the incorrect hash_map view and two hashtable pins. All six
 rows remain exact; strict four-source preparation passes 236/236, paired EH

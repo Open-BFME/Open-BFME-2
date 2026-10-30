@@ -1,14 +1,15 @@
 // cl: /DNDEBUG /MD
 // ??0Rva00332F5B@@QAE@ABVWeaponTemplateSetHead@@0@Z @0x00332F5B 38B
-// retail 0x00332F5B 38 bytes unlock ctor UnicodeString at +0 plus two WeaponTemplateSetHead at +4 and +0x50
-// via rowed UnicodeString default 0x00326BE6 and rowed WeaponTemplateSetHead copy 0x00045455 caller 0x00336D9B
+// retail 0x00332F5B 38 bytes: name key at +0 plus two WeaponTemplateSetHead at +4 and +0x50
+// LuaScriptEngineParseModelConditionEvent sets +0 with EventFlagEntry::setKeyFromName.
+// Reuse the scripted-event key view and its rowed zero constructor at 0x00326BE6;
+// that folded address alone does not identify a string. Payload copy: 0x00045455.
 // neighbours prev 0x00332F29 stlport vector and next 0x00333027 Disp8 getters
 
-class UnicodeString
+struct Rva00336BE4Key
 {
-public:
-	UnicodeString();
-	void *m_text;
+	unsigned key;
+	Rva00336BE4Key();
 };
 
 class WeaponTemplateSetHead
@@ -25,12 +26,12 @@ public:
 	Rva00332F5B(const WeaponTemplateSetHead &a, const WeaponTemplateSetHead &excluded);
 	bool equals(const Rva00332F5B &other) const;
 private:
-	UnicodeString m_uni;
+	Rva00336BE4Key m_key;
 	WeaponTemplateSetHead m_a;
 	WeaponTemplateSetHead m_b;
 };
 
-Rva00332F5B::Rva00332F5B(const WeaponTemplateSetHead &weaponTemplateSetHead, const WeaponTemplateSetHead &excluded) : m_uni(), m_a(weaponTemplateSetHead), m_b(excluded)
+Rva00332F5B::Rva00332F5B(const WeaponTemplateSetHead &weaponTemplateSetHead, const WeaponTemplateSetHead &excluded) : m_key(), m_a(weaponTemplateSetHead), m_b(excluded)
 {
 }
 
@@ -40,7 +41,7 @@ bool __cdecl Rva00045473Equal(const void *a, const void *b);
 // and the WorldBuilder debug twin 0xC00C20 returns mov al,[local].
 __declspec(noinline) inline bool Rva00332F5B::equals(const Rva00332F5B &other) const
 {
-	return m_uni.m_text == other.m_uni.m_text && Rva00045473Equal(&m_a, &other.m_a) && Rva00045473Equal(&m_b, &other.m_b);
+	return m_key.key == other.m_key.key && Rva00045473Equal(&m_a, &other.m_a) && Rva00045473Equal(&m_b, &other.m_b);
 }
 // Select-any: LuaScriptEngineParseModelConditionEvent.cpp compiles an identical copy; the anchor keeps the rowed body emitted.
 // ?bfmeAnchorRva00332F81 absent-from-retail
