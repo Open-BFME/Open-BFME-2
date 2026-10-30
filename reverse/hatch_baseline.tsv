@@ -12470,8 +12470,6 @@ present_unmatched	Code/GameEngine/Source/Common/Rva00428512Partition.cpp	0Pivot2
 present_unmatched	Code/GameEngine/Source/Common/Rva00428512Partition.cpp	1Pivot24@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00428594PopHeap.cpp	1Pivot24@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042872DFinish.cpp	1Pivot24@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0042C1F9.cpp	1Holder0042C1F9@@QAE@XZ	1
-present_unmatched	Code/GameEngine/Source/Common/Rva0042C1F9.cpp	release@Holder0042C1F9@@QAEPAURva0042C1F9Helper@@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042C936.cpp	1Holder0042C936@@QAE@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva0042C936.cpp	release@Holder0042C936@@QAEPAURva0042C936Helper@@XZ	1
 present_unmatched	Code/GameEngine/Source/Common/Rva00437EDCFinish.cpp	TreeHintRef00217D4C::TreeHintRef00217D4C	1
@@ -13021,6 +13019,8 @@ present_unmatched	Code/GameEngine/Source/GameClient/MapMetaDataCopyDeferred.cpp	
 present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	addMap@MapCache@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	getMapDir@MapCache@@	1
 present_unmatched	Code/GameEngine/Source/GameClient/MapUtil.cpp	getUserMapDir@MapCache@@	1
+present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp	1Holder0042C1F9@@QAE@XZ	1
+present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/CommandXlat.cpp	release@Holder0042C1F9@@QAEPAURva0042C1F9Helper@@XZ	1
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva00358E26Record::operator<	1
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva00358E26Record::operator==	1
 present_unmatched	Code/GameEngine/Source/GameClient/MessageStream/HotKey.cpp	Rva00358FEERecord::operator<	1
