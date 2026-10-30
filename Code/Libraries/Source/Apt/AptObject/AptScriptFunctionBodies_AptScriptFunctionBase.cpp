@@ -52,19 +52,18 @@ void __debugbreak();
 // Later APT source supplies the preload algorithm; its override-this/super
 // arguments were added after this version and are absent in the PC body.
 // Native+0A flag tests and constant-string IDs A4/A0 establish the target data.
-__forceinline AptValue **advanceRegisters(AptValue **aptValue,int count) { return aptValue+count; }
 
 
 // Existing providers own the predicate and the zero-initialized global storage.
 #pragma comment(linker, "/alternatename:?gpGlobalGlobalObject@@3PAVAptValue@@A=?g_00E18650@@3VEAStringC@@A")
 
-#define CHECK_AT(c,s,f,l) if(!(c)) { g_bfmeAptAssertAtE17734(s,f,l); if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
+#define APT_SCRIPT_FUNCTION_CHECK_AT(c,s,f,l) if(!(c)) { g_bfmeAptAssertAtE17734(s,f,l); if(g_bfmeAptBreakOnAssertAtDDC01C) __debugbreak(); }
 class AptCIH : public AptValue
 {
 public:
     AptCIH *GetRootAnimation();
     void IncZombieCount() {
-        CHECK_AT(nZombieCounter < 65536, "nZombieCounter < 65536", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x53);
+        APT_SCRIPT_FUNCTION_CHECK_AT(nZombieCounter < 65536, "nZombieCounter < 65536", "c:\\projects\\bfme2patch103\\bfme2\\code\\libraries\\source\\apt\\AptCIH.h", 0x53);
         nZombieCounter=nZombieCounter+1;
     }
 private:
@@ -99,7 +98,7 @@ inline void AptNativeHash::Set__Proto__(AptValue *aptValue) { if(aptValue) aptVa
 AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eType, AptScriptFunctionBase *pCreatorFunction, AptCIH *pCurCIH, bool bNeedsPrototype)
  : AptObject(eType), mpCIH(pCurCIH), mpParentAnim(0), mpCreatorScope(0), mnFrameStackReserve(0)
 {
-    CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0xF4);
+    APT_SCRIPT_FUNCTION_CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0xF4);
     if(pCreatorFunction) {
         pCreatorFunction->CreatingNestedFunction();
         mpCreatorScope=spFrameStack;
@@ -126,8 +125,8 @@ AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eTy
 AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eType, AptScriptFunctionBase *pOrigFunc, AptCIH *pCurCIH)
  : AptObject(eType),mpCIH(pCurCIH),mpParentAnim(0),mnFrameStackReserve(0)
 {
-    CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x131);
-    CHECK_AT(pOrigFunc, "pOrigFunc", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x132);
+    APT_SCRIPT_FUNCTION_CHECK_AT(spRegBlockBase, "spRegBlockBase", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x131);
+    APT_SCRIPT_FUNCTION_CHECK_AT(pOrigFunc, "pOrigFunc", "C:\\projects\\bfme2patch103\\bfme2\\Code\\Libraries\\Source\\Apt\\AptObject\\AptScriptFunction.cpp", 0x132);
     mpCreatorScope=pOrigFunc->mpCreatorScope;
     if(pCurCIH->isCIH())mpParentAnim=mpCIH->GetRootAnimation();
     else mpParentAnim=_AptGetAnimationAtLevel(0);
@@ -139,7 +138,6 @@ AptScriptFunctionBase::AptScriptFunctionBase(AptVirtualFunctionTable_Indices eTy
     mNativeHash.Set__Proto__(pOrigFunc->mNativeHash.mp__proto__);
 }
 
-#undef CHECK_AT
 #pragma comment(linker, "/alternatename:??0AptPrototype@@QAE@XZ=??0Rva006DE1A0@@QAE@XZ")
 #pragma comment(linker, "/alternatename:?isCIH@AptValue@@QBE_N_N@Z=?isCIH@BfmeAptValue006DCD20@@QBE_N_N@Z")
 #pragma comment(linker, "/alternatename:?GetRootAnimation@AptCIH@@QAEPAV1@XZ=?rva006E0CB0@AptCIH@@QBEPBV1@XZ")
