@@ -30,13 +30,184 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
-// tu-skeleton: 0x004C7AEB 27B ?buildFieldParse@UntamedAllegianceSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp (not merged yet)
+//
+// SpecialPower-side ModuleData::buildFieldParse procs.
+//
+// ?buildFieldParse@SpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x00493207 (17 bytes): the shared SpecialPower base table at
+// (unsigned int)&g_00C4E628 (SpecialPowerTemplate, UpdateModuleStartsAttack, StartsPaused,
+// InitiateSound, ReEnableAntiCategory, AntiCategory, AntiFX,
+// AttributeModifier and siblings). Twenty-one same-family ModuleData procs
+// (0x4C238D through 0x4C89CF, including Devastate below) open with
+// push dword ptr [esp+4] + call here, proving the base identity; the table
+// prefix matches the in-tree SpecialPowerModuleData declaration field for
+// field. Registered with MultiIniFieldParse::add (rowed at 0x2BC6E).
+
+class MultiIniFieldParse;
+
+struct FieldParse;
+
+extern const int g_emptyFieldParseTable[4];
+
+class MultiIniFieldParse
+{
+public:
+	void add(const FieldParse *parse, unsigned int extraOffset);
+};
+
+class SpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DevastateSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CashHackSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ElvenWoodSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class WeaponChangeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DefectorSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class StopSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CloudBreakSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class PlayerHealSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class TaintSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class InvisibilitySpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class FreezingRainSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class DarknessSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class GrabPassengerSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class OCLSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ProductionSpeedBonusModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class PlayerUpgradeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class ScavengerSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class UntamedAllegianceSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class RepairSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+class CombineHordeSpecialPowerModuleData
+{
+public:
+	static void buildFieldParse(MultiIniFieldParse &parse);
+};
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/SpecialPowerModuleDataBuildFieldParse.cpp
+
+// ?buildFieldParse@UntamedAllegianceSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
+// retail 0x004C7AEB (27 bytes): base-table call above plus the shared empty
+// table at 0x00C6BB18 (single terminator entry; this type adds no own
+// fields). The owning factory at 0x002524B2 pushes this proc's VA (unique
+// image-wide); ModuleFactory registers it under
+// "UntamedAllegianceSpecialPower". Row supersedes the pin.
+void UntamedAllegianceSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
+{
+	SpecialPowerModuleData::buildFieldParse(parse);
+	parse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x004C7B06 42B ??0UntamedAllegianceSpecialPower@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerCtor.cpp (not merged yet)
 
 // tu-skeleton: 0x004C7B30 6B ?Rva004C7B30Get@@YAHXZ -- matched in Code/GameEngine/Source/Common/ConstIntGetters4.cpp (not merged yet)
 
 // tu-skeleton: 0x004C7B36 25B ??1Rva004C7B36@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva00493DEFDerived.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPower.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/SpecialPower/UntamedAllegianceSpecialPowerPoolKey.cpp
 

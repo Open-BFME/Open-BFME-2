@@ -363,18 +363,6 @@ public:
 	static void buildFieldParse(MultiIniFieldParse &parse);
 };
 
-// ?buildFieldParse@UntamedAllegianceSpecialPowerModuleData@@SAXAAVMultiIniFieldParse@@@Z
-// retail 0x004C7AEB (27 bytes): base-table call above plus the shared empty
-// table at 0x00C6BB18 (single terminator entry; this type adds no own
-// fields). The owning factory at 0x002524B2 pushes this proc's VA (unique
-// image-wide); ModuleFactory registers it under
-// "UntamedAllegianceSpecialPower". Row supersedes the pin.
-void UntamedAllegianceSpecialPowerModuleData::buildFieldParse(MultiIniFieldParse &parse)
-{
-	SpecialPowerModuleData::buildFieldParse(parse);
-	parse.add(reinterpret_cast<const FieldParse *>(g_emptyFieldParseTable), 0);
-}
-
 class RepairSpecialPowerModuleData
 {
 public:
