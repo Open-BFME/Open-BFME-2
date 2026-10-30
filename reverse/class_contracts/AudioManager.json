@@ -1,0 +1,540 @@
+{
+ "bases": [],
+ "bases_by": "majority",
+ "class": "AudioManager",
+ "evidence": {
+  "census": 179,
+  "inherited": {
+   "base_views": 0,
+   "inherited_slots": 0,
+   "inherited_spans": []
+  },
+  "retail_access": {},
+  "retail_member_rows": 2,
+  "retail_vtables": {
+   "0x7c5148": {
+    "slots": {},
+    "stores": 1
+   }
+  },
+  "view_errors": 7,
+  "view_sizes": {
+   "1": 1,
+   "4": 167,
+   "16": 2,
+   "20": 1,
+   "1656": 1
+  },
+  "views": 172,
+  "witness_offsets": [],
+  "zh": {
+   "error": "build/class_layouts/zh_AudioManager.cpp: compile failed: C2039; C2955; C2143",
+   "header": "CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/GameAudio.h"
+  }
+ },
+ "fields": [
+  {
+   "decided_by": "bytes",
+   "kind": "VPTR",
+   "name": "__vfptr",
+   "name_by": "majority",
+   "offset": 0,
+   "retail_widths": {},
+   "size": 4,
+   "type": "void*",
+   "views": 146,
+   "witness": null
+  }
+ ],
+ "key": "class",
+ "key_by": "bytes",
+ "ledger_keys": {
+  "class": 6
+ },
+ "outliers": [
+  {
+   "offset": 4,
+   "sources": [
+    "Code/GameEngine/Source/Common/S2DualVptrDerivedCtors.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 8,
+   "sources": [
+    "Code/GameEngine/Source/Common/S2DualVptrDerivedCtors.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 12,
+   "sources": [
+    "Code/GameEngine/Source/Common/S2DualVptrDerivedCtors.cpp",
+    "Code/GameEngineDevice/Source/MilesAudioDevice/MilesAudioManager.cpp"
+   ],
+   "views": 2
+  },
+  {
+   "offset": 16,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00041403.cpp"
+   ],
+   "views": 1
+  },
+  {
+   "offset": 300,
+   "sources": [
+    "Code/GameEngine/Source/Common/Rva00699180Volume_Refresh.cpp"
+   ],
+   "views": 1
+  }
+ ],
+ "queue": [
+  {
+   "attribute": "slot98",
+   "candidates": {
+    "a98()": 1,
+    "s962()": 1,
+    "slot98()": 1,
+    "v24c()": 1,
+    "v62()": 1,
+    "vf98()": 1
+   },
+   "class": "AudioManager"
+  },
+  {
+   "attribute": "slot99",
+   "candidates": {
+    "a99()": 1,
+    "rva0004672AQuery()": 1,
+    "slot99()": 1,
+    "v24d()": 1,
+    "v63()": 1,
+    "vf99()": 1
+   },
+   "class": "AudioManager"
+  },
+  {
+   "attribute": "slot101",
+   "candidates": {
+    "a101()": 1,
+    "vf101()": 1
+   },
+   "class": "AudioManager"
+  },
+  {
+   "attribute": "slot102",
+   "candidates": {
+    "a102()": 1,
+    "vf102()": 1
+   },
+   "class": "AudioManager"
+  }
+ ],
+ "size": 4,
+ "size_by": "majority",
+ "vslots": {
+  "0": {
+   "decided_by": "majority",
+   "member": "_pad00()"
+  },
+  "1": {
+   "decided_by": "majority",
+   "member": "_pad01()"
+  },
+  "10": {
+   "decided_by": "majority",
+   "member": "_pad10()"
+  },
+  "100": {
+   "decided_by": "majority",
+   "member": "slot190()"
+  },
+  "103": {
+   "decided_by": "bytes",
+   "member": "a103(Xfer*,BfmePoolRef10*)"
+  },
+  "11": {
+   "decided_by": "majority",
+   "member": "_pad11()"
+  },
+  "12": {
+   "decided_by": "majority",
+   "member": "_pad12()"
+  },
+  "13": {
+   "decided_by": "majority",
+   "member": "_pad13()"
+  },
+  "14": {
+   "decided_by": "majority",
+   "member": "_pad14()"
+  },
+  "15": {
+   "decided_by": "majority",
+   "member": "_pad15()"
+  },
+  "16": {
+   "decided_by": "majority",
+   "member": "_pad16()"
+  },
+  "17": {
+   "decided_by": "majority",
+   "member": "_pad17()"
+  },
+  "18": {
+   "decided_by": "majority",
+   "member": "_pad18()"
+  },
+  "19": {
+   "decided_by": "majority",
+   "member": "_pad19()"
+  },
+  "2": {
+   "decided_by": "majority",
+   "member": "_pad02()"
+  },
+  "20": {
+   "decided_by": "majority",
+   "member": "_pad20()"
+  },
+  "21": {
+   "decided_by": "majority",
+   "member": "_pad21()"
+  },
+  "22": {
+   "decided_by": "majority",
+   "member": "_pad22()"
+  },
+  "23": {
+   "decided_by": "majority",
+   "member": "_pad23()"
+  },
+  "24": {
+   "decided_by": "majority",
+   "member": "_pad24()"
+  },
+  "25": {
+   "decided_by": "majority",
+   "member": "addAudioEvent(BfmeAudioEventPrefix136*)"
+  },
+  "26": {
+   "decided_by": "majority",
+   "member": "_pad26()"
+  },
+  "27": {
+   "decided_by": "majority",
+   "member": "removeAudioEvent(uint)"
+  },
+  "28": {
+   "decided_by": "majority",
+   "member": "slot28()"
+  },
+  "29": {
+   "decided_by": "majority",
+   "member": "slot29()"
+  },
+  "3": {
+   "decided_by": "majority",
+   "member": "_pad03()"
+  },
+  "30": {
+   "decided_by": "majority",
+   "member": "slot30()"
+  },
+  "31": {
+   "decided_by": "majority",
+   "member": "slot31()"
+  },
+  "32": {
+   "decided_by": "majority",
+   "member": "slot32()"
+  },
+  "33": {
+   "decided_by": "majority",
+   "member": "slot33()"
+  },
+  "34": {
+   "decided_by": "majority",
+   "member": "slot34()"
+  },
+  "35": {
+   "decided_by": "majority",
+   "member": "slot35()"
+  },
+  "36": {
+   "decided_by": "majority",
+   "member": "slot36()"
+  },
+  "37": {
+   "decided_by": "majority",
+   "member": "slot37()"
+  },
+  "38": {
+   "decided_by": "majority",
+   "member": "slot38()"
+  },
+  "39": {
+   "decided_by": "majority",
+   "member": "slot39()"
+  },
+  "4": {
+   "decided_by": "majority",
+   "member": "_pad04()"
+  },
+  "40": {
+   "decided_by": "majority",
+   "member": "slot40()"
+  },
+  "41": {
+   "decided_by": "majority",
+   "member": "slot41()"
+  },
+  "42": {
+   "decided_by": "majority",
+   "member": "slot42()"
+  },
+  "43": {
+   "decided_by": "majority",
+   "member": "slot43()"
+  },
+  "44": {
+   "decided_by": "majority",
+   "member": "slot44()"
+  },
+  "45": {
+   "decided_by": "majority",
+   "member": "slot45()"
+  },
+  "46": {
+   "decided_by": "majority",
+   "member": "slot46()"
+  },
+  "47": {
+   "decided_by": "majority",
+   "member": "slot47()"
+  },
+  "48": {
+   "decided_by": "majority",
+   "member": "slot48()"
+  },
+  "49": {
+   "decided_by": "majority",
+   "member": "slot49()"
+  },
+  "5": {
+   "decided_by": "majority",
+   "member": "_pad05()"
+  },
+  "50": {
+   "decided_by": "majority",
+   "member": "slot50()"
+  },
+  "51": {
+   "decided_by": "majority",
+   "member": "slot51()"
+  },
+  "52": {
+   "decided_by": "majority",
+   "member": "slot52()"
+  },
+  "53": {
+   "decided_by": "majority",
+   "member": "slot53()"
+  },
+  "54": {
+   "decided_by": "majority",
+   "member": "slot54()"
+  },
+  "55": {
+   "decided_by": "majority",
+   "member": "slot55()"
+  },
+  "56": {
+   "decided_by": "majority",
+   "member": "slot56()"
+  },
+  "57": {
+   "decided_by": "majority",
+   "member": "slot57()"
+  },
+  "58": {
+   "decided_by": "majority",
+   "member": "slot58()"
+  },
+  "59": {
+   "decided_by": "majority",
+   "member": "slot59()"
+  },
+  "6": {
+   "decided_by": "majority",
+   "member": "_pad06()"
+  },
+  "60": {
+   "decided_by": "majority",
+   "member": "slot60()"
+  },
+  "61": {
+   "decided_by": "majority",
+   "member": "slot61()"
+  },
+  "62": {
+   "decided_by": "majority",
+   "member": "slot62()"
+  },
+  "63": {
+   "decided_by": "majority",
+   "member": "slot63()"
+  },
+  "64": {
+   "decided_by": "majority",
+   "member": "slot64()"
+  },
+  "65": {
+   "decided_by": "majority",
+   "member": "slot65()"
+  },
+  "66": {
+   "decided_by": "majority",
+   "member": "slot66()"
+  },
+  "67": {
+   "decided_by": "majority",
+   "member": "slot67()"
+  },
+  "68": {
+   "decided_by": "majority",
+   "member": "slot68()"
+  },
+  "69": {
+   "decided_by": "majority",
+   "member": "slot69()"
+  },
+  "7": {
+   "decided_by": "majority",
+   "member": "_pad07()"
+  },
+  "70": {
+   "decided_by": "majority",
+   "member": "slot70()"
+  },
+  "71": {
+   "decided_by": "majority",
+   "member": "slot71()"
+  },
+  "72": {
+   "decided_by": "majority",
+   "member": "slot72()"
+  },
+  "73": {
+   "decided_by": "majority",
+   "member": "slot73()"
+  },
+  "74": {
+   "decided_by": "majority",
+   "member": "slot74()"
+  },
+  "75": {
+   "decided_by": "majority",
+   "member": "_pad75()"
+  },
+  "76": {
+   "decided_by": "majority",
+   "member": "_pad76()"
+  },
+  "77": {
+   "decided_by": "majority",
+   "member": "_pad77()"
+  },
+  "78": {
+   "decided_by": "majority",
+   "member": "getMiscAudio()"
+  },
+  "79": {
+   "decided_by": "majority",
+   "member": "_pad79()"
+  },
+  "8": {
+   "decided_by": "majority",
+   "member": "_pad08()"
+  },
+  "80": {
+   "decided_by": "majority",
+   "member": "_pad80()"
+  },
+  "81": {
+   "decided_by": "majority",
+   "member": "_pad81()"
+  },
+  "82": {
+   "decided_by": "majority",
+   "member": "_pad82()"
+  },
+  "83": {
+   "decided_by": "majority",
+   "member": "_pad83()"
+  },
+  "84": {
+   "decided_by": "majority",
+   "member": "_pad84()"
+  },
+  "85": {
+   "decided_by": "majority",
+   "member": "_pad85()"
+  },
+  "86": {
+   "decided_by": "majority",
+   "member": "_pad86()"
+  },
+  "87": {
+   "decided_by": "majority",
+   "member": "_pad87()"
+  },
+  "88": {
+   "decided_by": "majority",
+   "member": "xferAudioHandle(Xfer*,uint*)"
+  },
+  "89": {
+   "decided_by": "majority",
+   "member": "slot89()"
+  },
+  "9": {
+   "decided_by": "majority",
+   "member": "_pad09()"
+  },
+  "90": {
+   "decided_by": "majority",
+   "member": "slot90()"
+  },
+  "91": {
+   "decided_by": "majority",
+   "member": "slot91()"
+  },
+  "92": {
+   "decided_by": "majority",
+   "member": "slot92()"
+  },
+  "93": {
+   "decided_by": "majority",
+   "member": "slot93()"
+  },
+  "94": {
+   "decided_by": "majority",
+   "member": "slot94()"
+  },
+  "95": {
+   "decided_by": "majority",
+   "member": "slot95()"
+  },
+  "96": {
+   "decided_by": "majority",
+   "member": "slot96()"
+  },
+  "97": {
+   "decided_by": "majority",
+   "member": "setUseEAX(bool)"
+  }
+ }
+}
