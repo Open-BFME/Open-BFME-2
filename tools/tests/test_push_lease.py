@@ -203,6 +203,38 @@ def test_release_landed_frees_the_window_only_once_the_commit_is_on_master(hosts
     assert push_lease.holder() is None
 
 
+def test_a_waiter_reads_an_unchanged_window_without_fetching_every_claim(hosts, monkeypatch):
+    # origin's window ref is the one b's mirror already holds: wait() judges it
+    # from the mirror; once a takes the window the refs differ and b fetches
+    hosts("b")
+    assert push_lease.wait(wait_minutes=0, say=quiet) is True          # mirrors "no window"
+    fetches = []
+    real = claims.fetch
+    monkeypatch.setattr(claims, "fetch", lambda root=None: fetches.append(1) or real(root))
+    assert push_lease.wait(wait_minutes=0, say=quiet) is True
+    assert fetches == []
+    hosts("a")
+    assert push_lease.acquire(SHA, say=quiet)
+    hosts("b")
+    told = []
+    assert push_lease.wait(wait_minutes=0, say=told.append) is False   # a holds it, b saw it
+    assert fetches and any("a still holds the landing window" in line for line in told)
+    fetches.clear()
+    assert push_lease.wait(wait_minutes=0, say=quiet) is False          # mirror current again
+    assert fetches == []
+
+
+def test_a_window_released_on_origin_is_seen_by_the_probe(hosts):
+    hosts("a")
+    token = push_lease.acquire(SHA, say=quiet)
+    hosts("b")
+    assert push_lease.wait(wait_minutes=0, say=quiet) is False
+    hosts("a")
+    assert push_lease.release(token)
+    hosts("b")
+    assert push_lease.wait(wait_minutes=0, say=quiet) is True
+
+
 def test_only_the_holder_releases_and_a_stale_token_cannot(hosts):
     hosts("a")
     old = push_lease.acquire(SHA, minutes=-1, say=quiet)
@@ -234,6 +266,8 @@ def test_a_waiter_proceeds_once_the_holder_releases(hosts, monkeypatch):
 def test_unreachable_claims_fail_open(hosts, monkeypatch):
     hosts("a")
     monkeypatch.setattr(claims, "fetch", lambda root=None: False)
+    # an unreachable origin answers the window probe no better than a fetch
+    monkeypatch.setattr(push_lease, "mirror_current", lambda root=None: False)
     assert push_lease.acquire(SHA, say=quiet) is None
     assert push_lease.wait(say=quiet) is False
 

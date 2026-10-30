@@ -73,10 +73,27 @@ def say_err(text):
     print(text, file=sys.stderr)
 
 
-def holder(root=None):
+def mirror_current(root=None):
+    """Whether origin's window ref is the one this clone's claims mirror holds
+    (both absent counts): the mirror's record of the window is then exactly what
+    a fetch would bring, so holder() need not fetch every claim ref (~2,000,
+    seconds per push) to read it. False when they differ or origin cannot be
+    asked, so the caller fetches as before."""
+    ref = claims.ref_of(KEY)
+    remote = claims._git("ls-remote", claims.REMOTE, ref, cwd=root, timeout=30)
+    if remote.returncode:
+        return False
+    theirs = next((line.split("\t", 1)[0] for line in remote.stdout.splitlines()
+                   if line.endswith("\t" + ref)), "")
+    local = claims._git("rev-parse", "-q", "--verify", claims.SEEN + KEY, cwd=root)
+    return theirs == (local.stdout.strip() if local.returncode == 0 else "")
+
+
+def holder(root=None, probe=False):
     """(owner, expires, sha being landed or None) of the live window, or None.
-    Raises ClaimsUnavailable."""
-    if not claims.fetch(root):
+    With `probe`, the claims fetch is skipped when mirror_current() shows the
+    mirror already holds origin's window ref. Raises ClaimsUnavailable."""
+    if not (probe and mirror_current(root)) and not claims.fetch(root):
         raise claims.ClaimsUnavailable("push_lease: cannot fetch refs/claims/* from origin")
     entry = claims.live(claims._read_local(root)).get(KEY)
     if not entry:
@@ -183,7 +200,7 @@ def wait(wait_minutes=WAIT_MINUTES, poll=POLL_SECONDS, root=None, say=say_err):
     shown = None
     while True:
         try:
-            held = holder(root)
+            held = holder(root, probe=True)
         except claims.ClaimsUnavailable as why:
             say(f"push_lease: {why}; pushing without waiting")
             return False
