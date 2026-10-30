@@ -99,6 +99,27 @@ private:
 	unsigned char m_pad[0x20];
 };
 }
+struct TargetRef00217D4C
+{
+	virtual void *destroy(unsigned);
+	int references;
+};
+
+void __fastcall ReleaseTreeHintRef00217D4C(TargetRef00217D4C *);
+
+struct TreeHintRef00217D4C
+{
+	TreeHintRef00217D4C &operator=(const TreeHintRef00217D4C &);
+	~TreeHintRef00217D4C()
+	{
+		if (m_ptr)
+			ReleaseTreeHintRef00217D4C(m_ptr);
+	}
+	TargetRef00217D4C *m_ptr;
+};
+
+class Rva003FE20FBase;
+
 // The stats display: constructor 0x00579E82.
 namespace StrategicHUD
 {
@@ -106,10 +127,15 @@ class StatsDisplayImpl
 {
 public:
 	StatsDisplayImpl(int level, const AsciiString &name);
-	virtual ~StatsDisplayImpl(); // 0x00579E82
+	virtual ~StatsDisplayImpl();
+	void OnStatRollOver(const char *);
 
 private:
-	unsigned char m_pad[0x40 - 4];
+	char prefix[0x14];
+	Rva003FE20FBase *tooltip;
+	TreeHintRef00217D4C hint;
+	int current;
+	unsigned char m_pad[0x40 - 0x24];
 };
 }
 // StrategicHUD::SelectionDetailsUIImpl as the +0x34 slot holder's pointer type.
@@ -150,19 +176,26 @@ private:
 	unsigned char m_pad[0x58];
 };
 
-// The checklist (+0x30) and selection details (+0x34) by the class names
-// their own rowed methods carry; each one's per-frame update is the method
-// the HUD update reaches through the slot.
+}
+
+// The checklist's per-frame update is reached through the HUD's slot.
+namespace StrategicHUD
+{
 class ChecklistUIImpl
 {
 public:
- ChecklistUIImpl(int level,const AsciiString &name);
- virtual ~ChecklistUIImpl();
- void Update();
-private:
- unsigned char m_pad004[0x50-4];
-};
+	class Item;
+	ChecklistUIImpl(int level, const AsciiString &name);
+	virtual ~ChecklistUIImpl();
+	void Update();
 
+private:
+	unsigned char m_pad004[0x50 - 4];
+};
+}
+
+namespace StrategicHUD
+{
 class SelectionDetailsUIImpl
 {
 public:

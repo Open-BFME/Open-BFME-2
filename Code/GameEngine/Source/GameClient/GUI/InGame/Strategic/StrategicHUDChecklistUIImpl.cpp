@@ -24,6 +24,12 @@ class ChecklistUIImpl
 {
 public:
 	class Item;
+	ChecklistUIImpl(int level, const AsciiString &name);
+	virtual ~ChecklistUIImpl();
+	void Update();
+
+private:
+	unsigned char m_pad004[0x50 - 4];
 };
 }
 
@@ -68,7 +74,7 @@ private:
 class Rva005D3FBD
 {
 public:
-	void rva005D3FBD(bool value);
+	void rva005D3FBD(bool v);
 };
 
 class Rva0057A382
@@ -88,7 +94,9 @@ struct ItemObserver
 	virtual void onItemDestroyed(void *item);
 };
 
-class StrategicHUD::ChecklistUIImpl::Item : public Rva005D1A6C, public Rva005D40A6
+namespace StrategicHUD
+{
+class ChecklistUIImpl::Item : public Rva005D1A6C, public Rva005D40A6
 {
 public:
 	Item(ChecklistUIImpl *owner, ChecklistIteratorView position, int value, void *level,
@@ -109,6 +117,7 @@ private:
 	int m_58;
 	bool m_5c;
 };
+}
 
 StrategicHUD::ChecklistUIImpl::Item::Item(ChecklistUIImpl *owner, ChecklistIteratorView position,
 	int value, void *level, const AsciiString &path)

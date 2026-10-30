@@ -66,18 +66,23 @@ public:
 	virtual void slot1(void *);
 };
 
+class AsciiString;
+
 namespace StrategicHUD
 {
 class StatsDisplayImpl
 {
 public:
+	StatsDisplayImpl(int level, const AsciiString &name);
 	virtual ~StatsDisplayImpl();
 	void OnStatRollOver(const char *);
+
 private:
 	char prefix[0x14];
 	Rva003FE20FBase *tooltip;
 	TreeHintRef00217D4C hint;
 	int current;
+	unsigned char m_pad[0x40 - 0x24];
 };
 }
 
