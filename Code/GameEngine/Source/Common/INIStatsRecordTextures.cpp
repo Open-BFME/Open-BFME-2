@@ -1,4 +1,4 @@
-// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /EHsc /MD /D_CRTIMP=
+// cl: /Ireference/shims/bfme2_ascii /O1 /arch:SSE /G7 /EHsc /MD
 //
 // ?rva0050C9EF@Rva0050CBA2@@QAE_NPAVRva0013A820@@H@Z
 // retail 0x0050C9EF..0x0050CBA2 (435 bytes) thiscall RET 8.
@@ -27,12 +27,7 @@
 
 #include "ascii_string.h"
 #include "../../../Libraries/Source/WWVegas/WWLib/wwstring.h"
-
-extern "C" __declspec(dllimport) void * __cdecl fopen(const char *, const char *);
-extern "C" __declspec(dllimport) int __cdecl fclose(void *);
-extern "C" __declspec(dllimport) int __cdecl fseek(void *, long, int);
-extern "C" __declspec(dllimport) long __cdecl ftell(void *);
-extern "C" __declspec(dllimport) unsigned __cdecl fread(void *, unsigned, unsigned, void *);
+#include <stdio.h>
 
 class Rva0013A820
 {
@@ -111,7 +106,7 @@ bool Rva0050CBA2::rva0050C9EF(Rva0013A820 *record, int unused)
 			continue;
 		AsciiString path("Art\\Textures\\");
 		path += record->m_28.str();
-		void *file = fopen(path.str(), "rb");
+		FILE *file = fopen(path.str(), "rb");
 		if (file) {
 			fseek(file, 0, 2);
 			if (ftell(file)) {
