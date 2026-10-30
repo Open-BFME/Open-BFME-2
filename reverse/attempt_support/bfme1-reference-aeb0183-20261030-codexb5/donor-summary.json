@@ -1,0 +1,9 @@
+{
+  "selected_rows": 38,
+  "native_bodies": 27,
+  "verdicts": {
+    "no-exact-placement": 18,
+    "ambiguous-native-placement": 5,
+    "unique-native-placement": 4
+  }
+}

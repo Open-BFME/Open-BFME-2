@@ -1,0 +1,291 @@
+{
+  "scope": "changed non-VP6 donor metadata and retail bytes only",
+  "donor_revision": "aeb018303c11f20f1780600a3add79c3c34b36a3",
+  "source_paths": [
+    "game/GameEngine/Source/GameLogic/AI/AI_parseAttackPriorityTarget.cpp",
+    "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "game/GameEngine/Source/GameLogic/Object/Locomotor_rva001BC820.cpp",
+    "game/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerInitiate.cpp"
+  ],
+  "donor_source_text_read": false,
+  "full_sweep_run": false,
+  "global_control_floor_claimed": false,
+  "source_transfer_or_identity_claimed": false,
+  "target_head": "4bf903241756abcd19dd7a73cf78fc87ca1b6904",
+  "donor_retail_sha256": "c1a907c44b84df129c1f18dc7365ea25ba438f9b8f39a374b86ed852936ff0a9",
+  "target_retail_sha256": "f008b587570bad693981dc7218588c81d192a1e064b0f7f861539c51156a7640",
+  "selected_ledger_rows": 38,
+  "inspected_native_bodies": 27,
+  "records": [
+    {
+      "donor_name": "??$find@W4NameKeyType@@@?$_Rb_tree@W4NameKeyType@@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@U?$_Select1st@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@3@U?$less@W4NameKeyType@@@3@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@3@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@2@@1@ABW4NameKeyType@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b6820",
+      "size": 71,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "??$max@M@@YAMMM@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x106710",
+      "size": 25,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "??0?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@QAE@ABU01@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x7e59e0",
+      "size": 19,
+      "placements": [
+        "0x5cfbc2",
+        "0x73b520"
+      ],
+      "verdict": "ambiguous-native-placement"
+    },
+    {
+      "donor_name": "??0Matrix3D@@QAE@ABVVector3@@M@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x6dff40",
+      "size": 247,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "??0Vector3@@QAE@ABV0@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0xfbab0",
+      "size": 25,
+      "placements": [
+        "0x169fb0",
+        "0x4216d3"
+      ],
+      "verdict": "ambiguous-native-placement"
+    },
+    {
+      "donor_name": "??1LocomotorStore@@UAE@XZ",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x5d2c10",
+      "size": 139,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "??A?$map@W4NameKeyType@@PAVLocomotorTemplate@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@4@@_STL@@QAEAAPAVLocomotorTemplate@@ABW4NameKeyType@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x654e90",
+      "size": 115,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "??B?$OVERRIDE@VLocomotorTemplate@@@@QBEPBVLocomotorTemplate@@XZ",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0xc3930",
+      "size": 19,
+      "placements": [
+        "0x35c95f"
+      ],
+      "verdict": "unique-native-placement"
+    },
+    {
+      "donor_name": "??D?$OVERRIDE@VLocomotorTemplate@@@@QBEPBVLocomotorTemplate@@XZ",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0xc3710",
+      "size": 19,
+      "placements": [
+        "0x35c95f"
+      ],
+      "verdict": "unique-native-placement"
+    },
+    {
+      "donor_name": "??R?$less@W4NameKeyType@@@_STL@@QBE_NABW4NameKeyType@@0@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0xa89e0",
+      "size": 24,
+      "placements": [
+        "0x626f90"
+      ],
+      "verdict": "unique-native-placement"
+    },
+    {
+      "donor_name": "??_GLocomotor@@MAEPAXI@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b0e60",
+      "size": 30,
+      "placements": [
+        "0x72c0",
+        "0x74d0",
+        "0x7510",
+        "0x7550",
+        "0x7590",
+        "0x75d0",
+        "0x7610",
+        "0x7650",
+        "0x8f40",
+        "0x8fb0",
+        "0x9020",
+        "0x9090",
+        "0xb710",
+        "0x13360",
+        "0x13470",
+        "0x13490",
+        "0x135a0"
+      ],
+      "verdict": "ambiguous-native-placement"
+    },
+    {
+      "donor_name": "??_GLocomotorStore@@UAEPAXI@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x5d3170",
+      "size": 30,
+      "placements": [
+        "0x72c0",
+        "0x74d0",
+        "0x7510",
+        "0x7550",
+        "0x7590",
+        "0x75d0",
+        "0x7610",
+        "0x7650",
+        "0x8f40",
+        "0x8fb0",
+        "0x9020",
+        "0x9090",
+        "0xb710",
+        "0x13360",
+        "0x13470",
+        "0x13490",
+        "0x135a0"
+      ],
+      "verdict": "ambiguous-native-placement"
+    },
+    {
+      "donor_name": "?Set@Matrix3D@@QAEXABVVector3@@M@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x6dfb30",
+      "size": 237,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?Set@Matrix3D@@QAEXABVVector3@@MM@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x6df970",
+      "size": 223,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?_M_set@?$vector@PAVLocomotor@@V?$allocator@PAVLocomotor@@@_STL@@@_STL@@IAEXPAPAVLocomotor@@00@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0xfb9c0",
+      "size": 23,
+      "placements": [
+        "0x688310"
+      ],
+      "verdict": "unique-native-placement"
+    },
+    {
+      "donor_name": "?addLocomotor@LocomotorSet@@QAEXPBVLocomotorTemplate@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1bad80",
+      "size": 138,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?findLocomotorTemplate@LocomotorStore@@QAEPAVLocomotorTemplate@@W4NameKeyType@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b7040",
+      "size": 54,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?findLocomotorTemplate@LocomotorStore@@QBEPBVLocomotorTemplate@@W4NameKeyType@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b7040",
+      "size": 54,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?insert@?$map@W4NameKeyType@@PAVLocomotorTemplate@@U?$less@W4NameKeyType@@@_STL@@V?$allocator@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@4@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@_STL@@@2@@2@U32@ABU?$pair@$$CBW4NameKeyType@@PAVLocomotorTemplate@@@2@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x654bb0",
+      "size": 31,
+      "placements": [
+        "0x157ad0",
+        "0x16e310",
+        "0x75a100"
+      ],
+      "verdict": "ambiguous-native-placement"
+    },
+    {
+      "donor_name": "?isNearlyZero@@YA_NM@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b4140",
+      "size": 28,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?locoUpdate_moveTowardsPosition@Rva001BC820Locomotor@@QAEXPAVObject@@ABUCoord3D@@MMPA_N@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor_rva001BC820.cpp",
+      "donor_rva": "0x1bc820",
+      "size": 596,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?newOverride@LocomotorStore@@QAEPAVLocomotorTemplate@@PAV2@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b55d0",
+      "size": 68,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?parseLocomotorTemplateDefinition@LocomotorStore@@SAXPAVINI@@@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1baec0",
+      "size": 362,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?validate@LocomotorTemplate@@QAEXXZ",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+      "donor_rva": "0x1b4170",
+      "size": 85,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?parseTarget@Rva0014C8E0@@SAXPAVINI@@PAX1PBX@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/AI/AI_parseAttackPriorityTarget.cpp",
+      "donor_rva": "0x14c8e0",
+      "size": 196,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?locoUpdate_moveTowardsAngle@Locomotor@@QAEXPAVObject@@M@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/Locomotor_rva001BC820.cpp",
+      "donor_rva": "0x1bce20",
+      "size": 542,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    },
+    {
+      "donor_name": "?rva002672B0@SiegeDeploySpecialPower@@UAEXPBXPBVObject@@PBUCoord3D@@I0@Z",
+      "donor_source": "game/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerInitiate.cpp",
+      "donor_rva": "0x2672b0",
+      "size": 650,
+      "placements": [],
+      "verdict": "no-exact-placement"
+    }
+  ]
+}

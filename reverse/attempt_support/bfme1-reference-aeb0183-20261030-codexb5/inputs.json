@@ -1,0 +1,44 @@
+{
+  "checked_at": "2026-10-30T12:24:36.057613+00:00",
+  "bfme2": "4bf903241756abcd19dd7a73cf78fc87ca1b6904",
+  "old": "1d5131d3f193cdf01a99da66ccd6828639585650",
+  "new": "aeb018303c11f20f1780600a3add79c3c34b36a3",
+  "changed": [
+    "docs/shape_levers.md",
+    "game/GameEngine/Source/GameLogic/AI/AI_parseAttackPriorityTarget.cpp",
+    "game/GameEngine/Source/GameLogic/Object/Locomotor.cpp",
+    "game/GameEngine/Source/GameLogic/Object/Locomotor_rva001BC820.cpp",
+    "game/GameEngine/Source/GameLogic/Object/SpecialPower/SiegeDeploySpecialPowerInitiate.cpp",
+    "targets/game/reverse/attempts/0x001bce20.cpp",
+    "targets/game/reverse/deleted_rows.csv",
+    "targets/game/reverse/functions.csv",
+    "targets/game/reverse/re_attempts.log"
+  ],
+  "changed_headers": [],
+  "changed_tools_and_inputs": [],
+  "input_trees": {
+    "game": {
+      "old": "15e361af85a9e8fc9070da843167bf9e74d3e876",
+      "new": "8595f06f5a537b51f53ebec77f8d98fa189a2903",
+      "exists": true
+    },
+    "inputs/reference": {
+      "old": "44d3a9c900f7096ff2f0a498b89f2cb6246e94d9",
+      "new": "44d3a9c900f7096ff2f0a498b89f2cb6246e94d9",
+      "exists": true
+    },
+    "inputs/toolchains": {
+      "old": "31162e1579dabd5f981a761740440013bdea1207",
+      "new": "31162e1579dabd5f981a761740440013bdea1207",
+      "exists": true
+    },
+    "inputs/vendor": {
+      "old": "dedc952e0b7335054e176fdd42d60677b389c762",
+      "new": "dedc952e0b7335054e176fdd42d60677b389c762",
+      "exists": true
+    }
+  },
+  "verified_at": "2026-10-30T13:09:24.774091+00:00",
+  "old_full_gate": "OK",
+  "new_full_gate": "OK"
+}

@@ -1,0 +1,7 @@
+{
+  "receipts_inspected": 21621,
+  "reference_paths": 1499,
+  "changed_dependency_consumers": {},
+  "invalid_receipts": [],
+  "note": "Dependency intersection audit only; full gate validates cache freshness."
+}
