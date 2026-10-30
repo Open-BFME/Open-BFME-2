@@ -493,3 +493,11 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|x1,f60ea4eb304fb51edeb57cfb,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30,8cba5a49874cda9322aaf001
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|param|ColorSurfaceLock|y1,b45fbd3c64c4d9d82e376b6a,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30,420dec51fff61ae0375e9787
 Code/GameEngineDevice/Source/W3DDevice/GameClient/GUI/W3DAptComponentColorPicker.cpp|local|colorName|p,fac6a94223ff033c1dd8c959,drz-k8,drz-k8-400,w-87ae7cdc64ef,2026-10-30,880d7298203acac4bf5f63ca
+Code/GameEngine/Source/Common/calc.cpp|param|prevNode|n,f0c5009fa7dbabff8f4eeb50,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30,6cc30d75ca188f79d7c1804e
+Code/GameEngine/Source/Common/calc.cpp|param|nextNode|n,4dfc678bad19b155176e0e22,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30,758acb9712cebb25a8ad87bd
+Code/GameEngine/Source/Common/calc.cpp|param|pointOf|n,e6cebf938ca66445b0e3ca0c,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30,d460cbe1d67f04b8904d0d85
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|local|Rva00072F49::rva00072F49|t,902a9afabe2f23e3620d8418,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30,faac73dd4eed9f8728d44447
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|local|Rva00072F49::rva00072F64|t,8e6f330c96e82eca31368bb4,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30,289dcea2d235bb277ae14a99
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|param|Rva00330AD8::rva00330AD8|a,ba5b242be6e9f3780ad5f2a7,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30,c66825f548d61f75c4e18ca8
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|param|Rva00330AD8::rva00330AD8|b,7d333ddfd3d6d81e73e3653c,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30,6ae474edec0002934dec6b42
+Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp|param|Rva00541F02::rva00541F02|v,74e7cd0291c2eb5021d01dec,drz-k2,drz-k2-506,w-ded32b2e2c5e,2026-10-30,86c56e89f385c185af719f0e

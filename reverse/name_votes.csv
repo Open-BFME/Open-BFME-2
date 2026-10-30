@@ -18245,3 +18245,13 @@ Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerUpda
 Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|y,d05b16aaff9135128c1a5a8b,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
 Code/GameEngineDevice/Source/W3DDevice/GameClient/TileData.cpp|local|Rva001118ECResampleRgb555|x,8a17d91820987c4c25f59154,drz-k3,drz-k3-423,w-077d7aeb666b,2026-10-30
 Code/GameEngine/Source/Common/Rva00532DF6.cpp|class||Rva00532DF6Node,abf80285697499e69298d671,drz-k7,drz-k7-518,w-4471b1f6edef,2026-10-30
+Code/GameEngine/Source/Common/calc.cpp|param|prevNode|n,f0c5009fa7dbabff8f4eeb50,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/calc.cpp|param|nextNode|n,4dfc678bad19b155176e0e22,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/calc.cpp|param|pointOf|n,e6cebf938ca66445b0e3ca0c,drz-k2,drz-k2-503,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|local|Rva00072F49::rva00072F49|t,902a9afabe2f23e3620d8418,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|local|Rva00072F49::rva00072F64|t,8e6f330c96e82eca31368bb4,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|param|Rva00330AD8::rva00330AD8|a,ba5b242be6e9f3780ad5f2a7,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesR.cpp|param|Rva00330AD8::rva00330AD8|b,7d333ddfd3d6d81e73e3653c,drz-k2,drz-k2-504,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/VslotSmallBodiesS.cpp|param|Rva00541F02::rva00541F02|v,74e7cd0291c2eb5021d01dec,drz-k2,drz-k2-506,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9521|Rva003B9521Parse,fe48d8ff1938bf4202d88256,drz-k2,drz-k2-515,w-ded32b2e2c5e,2026-10-30
+Code/GameEngine/Source/Common/CommandLineUnlistedSwitches.cpp|function|0x003B9535|Rva003B9535Parse,7738a6b0c4edf56d2b1dbee0,drz-k2,drz-k2-515,w-ded32b2e2c5e,2026-10-30
