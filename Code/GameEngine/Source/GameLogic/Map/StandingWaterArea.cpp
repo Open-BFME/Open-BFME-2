@@ -352,19 +352,28 @@ public:
 	int m_numRefs;
 };
 
-class StandingWaterArea {
+struct StandingWaterPCARecord;
+
+class StandingWaterArea
+{
 public:
 	void loadFXShaderSetup();
-public:
-	char before[0x80];
-public:
-	AsciiString shaderName;
-public:
-	Rva003080AARef *shader;
-public:
+	void rva003080CE();
 	unsigned char *getDepthColoringTexturePixels(int *width, int *height);
-public:
 	void rva00308A12(float position, int *red, int *green, int *blue);
+
+	char before[0x80];
+	AsciiString shaderName;
+	Rva003080AARef *shader;
+private:
+	char m_pad88[0x8C - 0x88];
+	AsciiString name;
+	int width, height;
+	unsigned char *pixels;
+	bool reload;
+	char m_pad9D[0xA8 - 0x9D];
+	StandingWaterPCARecord *mean;
+	StandingWaterPCARecord *channels[9];
 };
 
 class Rva00308DF0

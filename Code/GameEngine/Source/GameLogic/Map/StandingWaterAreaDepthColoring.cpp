@@ -36,9 +36,29 @@ void _bfme_debugRecordCallsite(int);
 #pragma pack(push,1)
 struct DepthTgaHeader { unsigned char idLength,colorMapType,imageType,unused[9]; unsigned short width,height; unsigned char bitsPerPixel,descriptor; };
 #pragma pack(pop)
-class StandingWaterArea {
- char prefix[0x8c]; AsciiString name; int width,height; unsigned char *pixels; bool reload;
-public: unsigned char *getDepthColoringTexturePixels(int*,int*);
+struct Rva003080AARef;
+struct StandingWaterPCARecord;
+
+class StandingWaterArea
+{
+public:
+	void loadFXShaderSetup();
+	void rva003080CE();
+	unsigned char *getDepthColoringTexturePixels(int *width, int *height);
+	void rva00308A12(float position, int *red, int *green, int *blue);
+
+	char before[0x80];
+	AsciiString shaderName;
+	Rva003080AARef *shader;
+private:
+	char m_pad88[0x8C - 0x88];
+	AsciiString name;
+	int width, height;
+	unsigned char *pixels;
+	bool reload;
+	char m_pad9D[0xA8 - 0x9D];
+	StandingWaterPCARecord *mean;
+	StandingWaterPCARecord *channels[9];
 };
 unsigned char *StandingWaterArea::getDepthColoringTexturePixels(int *outWidth,int*outHeight) {
  if(reload) {
