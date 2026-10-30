@@ -30,14 +30,6 @@ private:
 	unsigned int m_flagBits[4];
 };
 
-// ?testBit@Rva0028D891Owner@@QBE_NH@Z
-// Retail 0x0028D891. Same 27B unsigned-shift shape as Object::testStatus,
-// over the flag words at +0x370.
-Bool Rva0028D891Owner::testBit(int bit) const
-{
-	return (m_flagBits[(UnsignedInt)bit >> 5] & (1 << (bit & 31))) != 0;
-}
-
 // ?testBit@Rva002AA8BF@@QBE_NH@Z
 // Retail 0x002AA8BF. Same shape over the flag words at +0x13C.
 Bool Rva002AA8BF::testBit(int bit) const

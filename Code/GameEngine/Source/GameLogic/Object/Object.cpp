@@ -168,6 +168,9 @@ typedef float Real;
 #include <memory>
 #include <utility>
 #include <map>
+#define _CRTIMP
+#undef _CRTIMP
+
 // Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
 namespace _STL {
 template <class T, class Traits>
@@ -175,8 +178,6 @@ static inline bool operator!=(const _List_iterator<T, Traits>& a,
                               const _List_iterator<T, Traits>& b)
 { return a._M_node != b._M_node; }
 }
-#define _CRTIMP
-#undef _CRTIMP
 
 // The update interface sits at +0x10 of the auto-ability module; slot 1 is
 // ZH UpdateModuleInterface::getDisabledTypesToProcess (hidden return slot).
@@ -1476,6 +1477,26 @@ public:
 	void restoreObjectToWorld(const Coord3D *pos);
 };
 
+class Rva0028D891Owner
+{
+public:
+	Bool testBit(int bit) const;
+
+private:
+	unsigned char m_pre[0x370];
+	unsigned int m_flagBits[4];
+};
+
+class Rva002AA8BF
+{
+public:
+	Bool testBit(int bit) const;
+
+private:
+	unsigned char m_pre[0x13C];
+	unsigned int m_flagBits[4];
+};
+
 // tu-skeleton: 0x0028A670 20B ?setWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Upgrade/WeaponBonusUpgradeUpgradeImplementation.cpp (not merged yet)
 
 // tu-skeleton: 0x0028A684 22B ?clearWeaponBonusCondition@Object@@QAEXW4WeaponBonusConditionType@@@Z -- matched in Code/GameEngine/Source/Common/RTS/PlayerBattlePlanBonuses.cpp (not merged yet)
@@ -1566,6 +1587,8 @@ public:
 
 // tu-skeleton: 0x0028AF4A 27B ?chooseBestWeaponForTarget@Object@@QAE_NPBV1@W4WeaponChoiceCriteria@@W4CommandSourceType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetAbleToUseWeaponAgainstTarget.cpp (not merged yet)
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
+
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object_isCurWeaponLocked.cpp
 
 // ?isCurWeaponLocked@Object@@QBE_NXZ @0x0028AF65 (17B)
@@ -1575,28 +1598,6 @@ Bool Object::isCurWeaponLocked() const
         (const Rva00091A56DwordField *)((const char *)this + 0x330);
     return (Bool)slot->get();
 }
-
-// tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AF97 18B ?rva0028AF97@Object@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AFA9 18B ?getControllingPlayer@Object@@QBEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetControllingPlayer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AFBB 23B ?rva0028AFBB@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AFBBGetter.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AFD2 21B ?setProducer@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AFE7 21B ?setBuilder@Object@@QAEXPBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028AFFC 34B ?setCustomIndicatorColor@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B01E 8B ?removeCustomIndicatorColor@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B026 42B ?getIndicatorColor@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B050 42B ?getNightIndicatorColor@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectIsNeutralControlled.cpp
 
@@ -1637,16 +1638,6 @@ Bool isAngleDifferent(Real a, Real b)
 
 	return false;
 }
-
-// tu-skeleton: 0x0028B141 82B ?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_reactToTurretChange.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B193 65B ?rva0028B193@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B1D4 48B ?rva0028B1D4@Object@@QBEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B204 26B ?getSoleHealingBenefactor@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSoleHealingBenefactor.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B21E 26B ?setCaptured@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Object.cpp
 
@@ -2376,44 +2367,6 @@ Object *Object::adjustVictim(Object *source, bool useWeaponRange, int index)
 	return this;
 }
 
-// tu-skeleton: 0x0028B265 45B ?rva0028B265@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B292 45B ?rva0028B292@Object@@QBEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B2BF 91B ?updateTriggerAreaFlags@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_updateTriggerAreaFlags.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B31A 65B ?rva0028B31A@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B31A.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B35B 50B ?rva0028B35B@Object@@QBE_NPBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B35B.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B38D 25B ?rva0028B38D@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B38D.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B3A6 49B ?rva0028B3A6@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B3A6.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B3D7 58B ?rva0028B3D7@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B3D7.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B411 52B ?isInside@Object@@QAE_NPAVPolygonTrigger@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInside.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B445 55B ?getObjectExitInterface@Object@@QBEPAVExitInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetExitInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B47C 31B ?isInList@Object@@QBE_NPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B49B 51B ?appendToList@Object@@QAEXPAPAV1@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B4CE 67B ?setLayer@Object@@QAEXW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B511 20B ?rva0028B511@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B525 13B ?set@Rva0028B525DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B532 55B ?setID@Object@@IAEXW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B569 44B ?calculateHeightAboveTerrain@Object@@MBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCalculateHeightAboveTerrain.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B5EE 113B ?friend_notifyOfNewMapBoundary@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_friendNotifyOfNewMapBoundary.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B65F 67B ?calcNaturalRallyPoint@Object@@QAEXPAVCoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCalcNaturalRallyPoint.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Rva0028B6A2BuildRate.cpp
 
 float Rva0028B6A2Host::rva0028B6A2()
@@ -2425,12 +2378,6 @@ float Rva0028B6A2Host::rva0028B6A2()
 	return g_00BBB8D8 / (float)buildFrames;
 }
 
-// tu-skeleton: 0x0028B6D6 43B ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B701 41B ?rva0028B701@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B72A 31B ?rva0028B72A@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B72A.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0028B749.cpp
 
 // ?rva0028B749@Rva0028B749Host@@QAEXHM@Z
@@ -2441,18 +2388,6 @@ void Rva0028B749Host::rva0028B749(int victim, float damage)
 		player->addSkillPointsForDamage((Object *)this, (const Object *)victim, damage);
 }
 
-// tu-skeleton: 0x0028B76D 29B ?setSelectable@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B78A 18B ?setArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B79C 18B ?clearArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B7AE 7B ?get@Rva0028B7AELeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B7B5 12B ?get@Rva0028B7B5CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B7C1 7B ?get@Rva0028B7C1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B7C8.cpp
 
 int Object::rva0028B7C8() const
@@ -2462,46 +2397,6 @@ int Object::rva0028B7C8() const
 	return 0;
 }
 
-// tu-skeleton: 0x0028B7E2 60B ?maskObject@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectMaskObject.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B81E 36B ?isUsingAirborneLocomotor@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsUsingAirborneLocomotor.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B842 25B ?rva0028B842@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B842.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B85B 26B ?rva0028B85B@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B85B.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B875 49B ?rva0028B875@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B85B.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B8A6 185B ?rva0028B8A6@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B8A6DisablePower.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B95F 22B ?rva0028B95F@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B975 15B ?rva0028B975@Rva0028A638@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B984 7B ?get@Rva0028B984ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B98B 107B ?rva0028B98B@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
-
-// tu-skeleton: 0x0028B9F6 143B ?SwapForExchange@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_SwapForExchange.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BA85 41B ?rva0028BA85@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BA85.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BAAE 18B ?rva0028BAAE@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BA85.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BAC0 132B ?rva0028BAC0@Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0028BAC0.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB44 16B ?makeDirty@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB54 17B ?setVisionRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB65 33B ?setShroudClearingRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB86 7B ?get@Rva0028BB86FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB8D 17B ?rva0028BB8D@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BB9E 67B ?getSpecialPowerModule@Object@@QBEPAVSpecialPowerModuleInterface@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/Object_getSpecialPowerModule.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva0028BBE1.cpp
 
 void Rva0028BBE1::rva0028BBE1(void *p)
@@ -2510,48 +2405,6 @@ void Rva0028BBE1::rva0028BBE1(void *p)
 	if (holder != 0)
 		holder->rva004DF3B0(p);
 }
-
-// tu-skeleton: 0x0028BBF3 18B ?rva0028BBF3@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/ObjectRva0028BBF3.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BC4D 11B ?rva0028BC4D@Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BC58 60B ?rva0028BC58@Object@@QAEPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BC58.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BC94 32B ?rva0028BC94@Object@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BCB4 32B ?getDockUpdateInterface@Object@@QAEPAVDockUpdateInterface@@XZ -- matched in Code/GameEngine/Source/Common/Object_getDockUpdateInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BCD4 32B ?getSpawnBehaviorInterface@Object@@QBEPAVSpawnBehaviorInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_getSpawnBehaviorInterface.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BCF4 35B ?rva0028BCF4@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BCF4.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BD17 35B ?rva0028BD17@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD17.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BD3A 35B ?rva0028BD3A@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD3A.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BD5D 53B ?rva0028BD5D@Object@@QBEPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD5D.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BD92 69B ?findSpecialAbilityUpdate@Object@@QBEPAVSpecialAbilityUpdate@@W4SpecialPowerType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_findSpecialAbilityUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BDD7 84B ?findAttributeModifierPoolUpdate@Object@@ABEPAVAttributeModifierPoolUpdate@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindAttributeModifierPoolUpdate.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BE2B 84B ?findSpecialPowerCompletionDie@Object@@QBEPAVSpecialPowerCompletionDie@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindSpecialPowerCompletionDie.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BE7F 20B ?rva0028BE7F@Object@@QAEPAXPAUArg1_004DEA70@@PBUCoord3DBase@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BE7F.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BE93 77B ?rva0028BE93@Object@@QBE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BEE0 161B ?getSingleLogicalBonePosition@Object@@QBE_NPBDPAUCoord3D@@PAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BF81 120B ?getMultiLogicalBonePosition@Object@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp (not merged yet)
-
-// tu-skeleton: 0x0028BFF9 38B ?rva0028BFF9@Object@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC34Setter.cpp (not merged yet)
-
-// tu-skeleton: 0x0028C01F 24B ?leaveGroup@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectLeaveGroup.cpp (not merged yet)
-
-// tu-skeleton: 0x0028C037 86B ?rva0028C037@Object@@UAE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
-
-// tu-skeleton: 0x0028C08D 86B ?rva0028C08D@Object@@UAE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectGeometryInterfaceRva0028C0E3.cpp
 
@@ -2596,10 +2449,6 @@ void Rva0028C0E3Receiver::collisionDispatch(Object *other,const Coord3D *loc,con
  }
 }
 
-// tu-skeleton: 0x0028C0F2 40B ?rva0028C0F2@Object@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C0F2.cpp (not merged yet)
-
-// tu-skeleton: 0x0028C11A 47B ?updateShroudNow@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_updateShroudNow.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C149.cpp
 
 Bool Object::rva0028C149(Int attribute, Real *value, Int arg)
@@ -2631,6 +2480,654 @@ Bool bfmeAnchorObjectRva0028C15E(Object *object, Int attribute, Real *value, Int
 	return object->rva0028C15E(attribute, value, arg, arg2);
 }
 
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C4B6.cpp
+
+void Object::rva0028C4B6()
+{
+	Rva0028C4B6Provider *prov = (Rva0028C4B6Provider *)rva0028C197();
+	if (prov == 0)
+		return;
+	if (!prov->slot60())
+		return;
+	if (!prov->slot23())
+		return;
+	prov->slot24();
+	BfmeHolder0028C4B6Ptr->m_28 = 1;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Helper/ObjectHelperCtor.cpp
+
+// ??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z @0x28C8DF
+ObjectHelper::ObjectHelper(Thing *thing, const ModuleData *moduleData)
+	: UpdateModule(thing, moduleData)
+{
+	m_vtable = &s_vtable;
+	m_p0C = &s_secondary0C;
+	m_p10 = &s_secondary10;
+	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0028D86F.cpp
+
+void Rva0028D86F::rva0028D86F(const _STL::_Base_bitset<4> &other)
+{
+	((_STL::_Base_bitset<4> *)((char *)this + 0x370))->_M_do_or(other);
+	((WeaponSet *)((char *)this + 0x330))->updateWeaponSet((const Object *)this);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0028D8EB.cpp
+
+bool Rva0028D8EB::rva0028D8EB(int bit)
+{
+	return Rva001E4426Test(m_bits, bit);
+}
+
+// Callers elsewhere reach bodies in this unit through other spellings; retail's
+// call sites in their matched rows land on these addresses (same ABI). Bind them.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028E58E.cpp
+
+int Rva0028E58E::rva0028E58E()
+{
+	int v = m_04->m_5f0;
+	if (v != 0)
+		return v;
+	Rva0028E58EProvider *p = m_250;
+	if (p != 0)
+	{
+		if (p->slot04())
+			v = 2;
+	}
+	if ((m_04->m_10e & 2) != 0)
+		v = 2;
+	return v;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva0028ECDB.cpp
+
+// ?rva0028ECDB@Rva0028ECDBHost@@QAE_NPAX@Z
+bool Rva0028ECDBHost::rva0028ECDB(void *position)
+{
+	Rva0028ECDBAux *aux = m_04;
+	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !((Pathfinder *)((Rva002DFF0F8 *)TheAI)->m_pathfinder)->IsWaterCell((int)position, 1))
+		return true;
+	return false;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028F4EF.cpp
+
+int Object::rva0028F4EF()
+{
+	if (isKindOf(K_222))
+		return 0;
+	return isKindOf(K_223) ? 1 : 2;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028F518.cpp
+
+bool Object::rva0028F518()
+{
+	return rva0028F4EF() != 2;
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0028F528Popcount.cpp
+
+int Rva0028F528::rva0028F528()
+{
+	unsigned v = m_bits;
+	v = v - ((v >> 1) & 0x55555555u);
+	v = (v & 0x33333333u) + ((v >> 2) & 0x33333333u);
+	v = (v + (v >> 4)) & 0x0F0F0F0Fu;
+	return (int)((v * 0x01010101u) >> 24);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0028F5C6BitSet.cpp
+
+// ??0Rva0028F5C6@@QAE@HHHHH@Z @ 0x0028F5C6 109B: fixed 76-byte (19-dword)
+// bitset five-argument constructor, twin of Rva0028F59A at 0x0028F59A (44B,
+// 0x4C bytes, one bit) and Rva0028F633 at 0x0028F633. Zeroes the object via
+// CRT memset import thunk 0x006291AE then sets four bits; first parameter
+// never read. Callers at 0x0028FE3E and 0x004A4996. Prev/next same dir.
+
+Rva0028F5C6::Rva0028F5C6(int /*unused*/, int b1, int b2, int b3, int b4)
+{
+	memset(this, 0, 0x4C);
+	m_bits[(unsigned)b1 >> 5] |= 1u << (b1 & 31);
+	m_bits[(unsigned)b2 >> 5] |= 1u << (b2 & 31);
+	m_bits[(unsigned)b3 >> 5] |= 1u << (b3 & 31);
+	m_bits[(unsigned)b4 >> 5] |= 1u << (b4 & 31);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0028F633BitSet.cpp
+
+//
+// ??0Rva0028F633@@QAE@HH@Z -- retail 0x0028F633, 47 bytes.
+// Fixed 128-byte (1024-bit) bitset two-argument constructor: zeroes the whole
+// object with memset through the CRT memset import thunk at 0x6291AE and
+// sets a single bit. Retail reads only the second parameter; the first is
+// never read. Twin of the landed Rva0028F59A ctor at 0x0028F59A (44B with
+// 0x4C bytes); the 3 extra bytes are the 5-byte push of 0x80 versus the
+// 2-byte push of 0x4C. Plain-extern memset keeps the E8-to-thunk shape.
+
+Rva0028F633::Rva0028F633(int /*unused*/, int bit)
+{
+	memset(this, 0, 0x80);
+	m_bits[(unsigned)bit >> 5] |= 1u << (bit & 31);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0028F662TreeFree.cpp
+
+//
+// ?rva0028F662@Rva0028F662@@QAEXPAURva0028F662Node@@@Z -- retail 0x0028F662, 45 bytes.
+// Tree free: recurses on child at +0xC with the same owner, frees the node
+// through the rowed free at 0x30830, then iterates the sibling at +0x8.
+// Caller 0x002913F9 passes head from [eax+4] with owner in ecx and resets
+// the head afterwards; self-recursion at 0x0028F674 proves the shape.
+// Plain void free(void*) keeps the retail E8-to-row call shape.
+
+void Rva0028F662::rva0028F662(Rva0028F662Node *node)
+{
+	Rva0028F662Node *cur = node;
+	if (cur == 0)
+		return;
+	while (cur != 0) {
+		rva0028F662(cur->m_child);
+		Rva0028F662Node *next = cur->m_next;
+		free(cur);
+		cur = next;
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0028F808BitSet.cpp
+
+// ?rva0028F808@Rva0028F808@@QAEXPAUIface0028F808@@@Z @ 0x0028F808 97B:
+// 104-bit (0x68) DWORD bitset to 13-byte (0xD) array then virtual slot 0x24
+// (f09) with (buf, 0xD). Zeroes local via CRT memset thunk 0x006291AE,
+// tests m_bits[i>>5] & (1<<(i&31)), sets buf[i/8] |= 1<<(i%8) via idiv
+// divmod. Caller 0x002914AF. Prev V3Poly neighbours are address-only.
+
+void Rva0028F808::rva0028F808(Iface0028F808 *out)
+{
+	unsigned char buf[0x0D];
+	memset(buf, 0, 0x0D);
+	for (int i = 0; i < 0x68; ++i)
+	{
+		if (m_bits[(unsigned)i >> 5] & (1u << (i & 31)))
+			buf[i / 8] |= (unsigned char)(1 << (i % 8));
+	}
+	out->f09(buf, 0x0D);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_copy_rva00297360.cpp
+
+// Assign-copy chain for Rva00297360Element (stride-0x10 element with an
+// AsciiString at +4): the random-access __copy loop at retail 0x0028F869
+// (47B, count via sar 4, per-element copy through the rowed operator=) and
+// the Rva-named range-forwarding wrapper at retail 0x002915EB (29B, tag temp
+// plus null distance). The wrapper spells the __copy_aux<false> forwarding
+// explicitly because MSVC 7.1 drops the unreferenced inline template even
+// under explicit instantiation; the body is byte-identical either way.
+
+Rva00297360Element *Rva002915EBCopyRange(Rva00297360Element *first, Rva00297360Element *last, Rva00297360Element *result, int dummy)
+{
+  _STL::random_access_iterator_tag tag;
+  (void)dummy;
+  return _STL::__copy(first, last, result, tag, (int*)0);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FC7F.cpp
+
+void Rva0028FC7F::rva0028FC7F(const void *src)
+{
+	((Object *)this)->rva0028EC68(0xA, const_cast<void *>(src), 1);
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Object_healCompletely.cpp
+
+void Object::healCompletely()
+{
+	attemptHealing(g_Va00BFBC84, 0);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva002913EBClear.cpp
+
+void Rva002913EB::rva002913EB()
+{
+	if (m_count == 0)
+		return;
+	Rva002913EBNode *root = m_header->m_parent;
+	((Rva0028F662 *)this)->rva0028F662((Rva0028F662Node *)root);
+	m_header->m_left = m_header;
+	m_header->m_parent = 0;
+	m_header->m_right = m_header;
+	m_count = 0;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00291440.cpp
+
+// ?rva00291440@Rva00291440@@QAEXPAVSink00291440@@@Z
+// 0x00291440 111B leaf dword-bitset to byte-bitset plus virtual sink.
+// Evidence: memset 0x80 via ji_006291AE; loop 0x400 test [this+idx>>5] bit 1<<(i&31); set buf[i/8] bit 1<<(i%8) via idiv; virtual [eax+0x24] with buf 0x80; callers 0x002977F8 0x004846BC; prev stlport_pod_list next stlport_copy.
+
+void Rva00291440::rva00291440(Sink00291440 *sink)
+{
+	unsigned char buf[0x80];
+	memset(buf, 0, 0x80);
+	for (int i = 0; i < 0x400; ++i) {
+		if (m_bits[(unsigned)i >> 5] & (1u << (i & 31)))
+			buf[i / 8] |= (unsigned char)(1u << (i % 8));
+	}
+	sink->v9(buf, 0x80);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva0029161ABits.cpp
+
+// ?rva0029161A@Rva0029161A@@QAEX PAV Rva0029161AArg@@@Z placehold
+// 0x0029161A 95B unlock bitset 11 plus memset 2 plus virt 0x24.
+// Evidence: memset rowed 0x006291AE; loop 0xB with 1<<i test plus idiv 8; virt 0x24 with 2 plus buf;
+// caller 0x00292449; prev stlport_construct next AsciiStringRvoGetters.
+
+void Rva0029161A::rva0029161A(Rva0029161AArg *arg)
+{
+	unsigned char buf[2];
+	memset(buf, 0, 2);
+	for (int i = 0; i < 11; ++i) {
+		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
+			buf[i / 8] |= (unsigned char)(1u << (i % 8));
+	}
+	arg->v9(buf, 2);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva00291679Bits.cpp
+
+// ?rva00291679@Rva00291679@@QAEXPAVRva00291679Arg@@@Z
+// 0x00291679 97B unlock bitset 101 plus memset 13 plus virt 0x24.
+// Evidence: memset rowed 0x006291AE; loop 0x65 with 1<<i test plus idiv 8; virt 0x24 with 13 plus buf;
+// caller 0x00292585; prev Rva0029161ABits next AsciiStringRvoGetters.
+
+void Rva00291679::rva00291679(Rva00291679Arg *arg)
+{
+	unsigned char buf[13];
+	memset(buf, 0, 13);
+	for (int i = 0; i < 101; ++i) {
+		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
+			buf[i / 8] |= (unsigned char)(1u << (i % 8));
+	}
+	arg->v9(buf, 13);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva002916DABits.cpp
+
+// ?rva002916DA@Rva002916DA@@QAEXPAVRva002916DAArg@@@Z
+// 0x002916DA 100B unlock bitset 154 plus memset 20 plus virt 0x24.
+// Evidence: memset rowed 0x006291AE; loop 0x9A with 1<<i test plus idiv 8; virt 0x24 with 20 plus buf;
+// caller 0x002926C1; prev Rva00291679Bits next AsciiStringRvoGetters.
+
+void Rva002916DA::rva002916DA(Rva002916DAArg *arg)
+{
+	unsigned char buf[20];
+	memset(buf, 0, 20);
+	for (int i = 0; i < 154; ++i) {
+		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
+			buf[i / 8] |= (unsigned char)(1u << (i % 8));
+	}
+	arg->v9(buf, 20);
+}
+
+// ---- from Code/GameEngine/Source/Common/System/Rva00291793.cpp
+
+int Rva00291793::rva00291793()
+{
+	Rva00291793Node *head = m_p04->m_head;
+	Rva00291793Node *cur = head->m_next;
+	int n = 0;
+	while (cur != head) {
+		cur = cur->m_next;
+		++n;
+	}
+	return n;
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva002917A6DebugObject.cpp
+
+//
+// Retail 0x002917A6 (66B, EH, cdecl), an EH-prolog start Ghidra never listed:
+// the debug stream insertion of an object -- the rowed DescribeObject
+// (0x0028F982) label streamed through the rowed Debug string insertion
+// (0x000028E8, the StringBase<char> template instance), returning the stream.
+
+static __forceinline const StringBase<char> &asBase(const AsciiString &text)
+{
+	return reinterpret_cast<const StringBase<char> &>(text);
+}
+
+Debug &operator<<(Debug &dbg, const Object *obj)
+{
+	dbg << asBase(DescribeObject(obj));
+	return dbg;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRefreshThenSetTransform.cpp
+
+void Object::rva00291C84(const Matrix3D *mtx)
+{
+	restoreObjectToWorldInternal();
+	rva0028D412(mtx);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva002923DF.cpp
+
+// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
+// Element identity and unconstrained fields remain address-derived structural inference.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva00293330.cpp
+
+// ?rva00293330@Rva00293330@@QAEPAXI@Z, retail 0x00293330, 63 bytes.
+// Map lookup at this+0x268 via rowed _M_find 0x00357180: found returns
+// second at node+0x14 else if key==0 and size at +0x26c>0 returns begin
+// second else null. Evidence: callers at 0x002A247C 0x00392FD3 0x00393252
+// 0x00393858 0x00393942; jbe plus leftmost shape; unblocks 0x00392DC0.
+
+// LINK-COMDAT: _STL::less<unsigned> is kept as the speed copy from DamageFX.cpp;
+// this TU is /O1 for its row, so its own copy differs. Specialize only the member
+// under "t" so our emitted copy matches the kept body, while the row keeps /O1.
+
+#pragma optimize("t", on)
+
+#pragma optimize("", on)
+
+void *Rva00293330::rva00293330(unsigned int key)
+{
+	_STL::map<unsigned int, void *>::iterator it = m_map.find(key);
+	if (!(it == m_map.end()))
+		return it->second;
+	if (key != 0)
+		return 0;
+	if (m_map.size() <= 0)
+		return 0;
+	it = m_map.begin();
+	if (!(it == m_map.end()))
+		return it->second;
+	return 0;
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_clear.cpp
+
+// ?clear@?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAEXXZ, retail 0x002934A8, 49 bytes.
+// List_base clear for CameraMarker via rowed dtor 0x0029D7C2 and _free 0x00030830.
+// Same 49B empty-check plus sentinel-reset shape as TreeHintOpaque 0x00434EC9 and Rva001EA443 0x001EA529.
+// CameraMarker layout 8B proven by rowed dtor and copy assignment 0x0028876F; value at node+8.
+// Callers at 0x00297BAC 0x002A1B49 0x002A1BEE 0x002A4337 0x002DE5BC; unblocks 0x002A42D8 0x002A1BEB 0x002A1B1D.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// ---- from Code/GameEngine/Source/GameLogic/AI/AICommandRva00295A0F.cpp
+
+// Retail calls free directly (the game allocator), not through the CRT
+// import: read <stdlib.h> without dllimport.
+
+void Rva00295A0FCommands::Rva00295A0FCommand(void *pos, int maxShots, int source)
+{
+	AICommandParms parms((AICommandType)0x0F, (CommandSourceType)source);
+	parms.m_pos = *(const Coord3D *)pos;
+	parms.m_intValue = maxShots;
+	aiDoCommand(&parms);
+}
+
+// ---- from Code/Libraries/Source/WWVegas/WWLib/Object_restoreObjectToWorld.cpp
+
+void Object::restoreObjectToWorld(const Coord3D *pos)
+{
+	restoreObjectToWorldInternal();
+	((Object *)this)->teleportTo(pos, false);
+}
+
+// tu-skeleton: 0x0028AF76 16B ?rva0028AF76@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AF86 17B ?getLastVictimID@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AF97 18B ?rva0028AF97@Object@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AFA9 18B ?getControllingPlayer@Object@@QBEPAVPlayer@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetControllingPlayer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AFBB 23B ?rva0028AFBB@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AFBBGetter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AFD2 21B ?setProducer@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AFE7 21B ?setBuilder@Object@@QAEXPBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028AFFC 34B ?setCustomIndicatorColor@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B01E 8B ?removeCustomIndicatorColor@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B026 42B ?getIndicatorColor@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B050 42B ?getNightIndicatorColor@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetProducer.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B141 82B ?reactToTurretChange@Object@@QAEXW4WhichTurretType@@MM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_reactToTurretChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B193 65B ?rva0028B193@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B1D4 48B ?rva0028B1D4@Object@@QBEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B204 26B ?getSoleHealingBenefactor@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSoleHealingBenefactor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B21E 26B ?setCaptured@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B238.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B265 45B ?rva0028B265@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B292 45B ?rva0028B292@Object@@QBEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B2BF 91B ?updateTriggerAreaFlags@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_updateTriggerAreaFlags.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B31A 65B ?rva0028B31A@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B31A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B35B 50B ?rva0028B35B@Object@@QBE_NPBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B35B.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B38D 25B ?rva0028B38D@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B38D.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B3A6 49B ?rva0028B3A6@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B3A6.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B3D7 58B ?rva0028B3D7@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B3D7.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B411 52B ?isInside@Object@@QAE_NPAVPolygonTrigger@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInside.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B445 55B ?getObjectExitInterface@Object@@QBEPAVExitInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetExitInterface.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B47C 31B ?isInList@Object@@QBE_NPAPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B49B 51B ?appendToList@Object@@QAEXPAPAV1@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B4CE 67B ?setLayer@Object@@QAEXW4PathfindLayerEnum@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsInList.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B511 20B ?rva0028B511@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B525 13B ?set@Rva0028B525DwordSlot@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/DispDwordFieldSetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B532 55B ?setID@Object@@IAEXW4ObjectID@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setID.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B569 44B ?calculateHeightAboveTerrain@Object@@MBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCalculateHeightAboveTerrain.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B5EE 113B ?friend_notifyOfNewMapBoundary@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_friendNotifyOfNewMapBoundary.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B65F 67B ?calcNaturalRallyPoint@Object@@QAEXPAVCoord2D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectCalcNaturalRallyPoint.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B6D6 43B ?findModule@Object@@IBEPAVModule@@W4NameKeyType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B701 41B ?rva0028B701@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B265.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B72A 31B ?rva0028B72A@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B72A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B76D 29B ?setSelectable@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B78A 18B ?setArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B79C 18B ?clearArmorSetFlag@Object@@QAEXW4ArmorSetType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindModule.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B7AE 7B ?get@Rva0028B7AELeaGetter@@QBEPAXXZ -- matched in Code/GameEngine/Source/Common/DispDwordLeaFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B7B5 12B ?get@Rva0028B7B5CmpBoolField@@QBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B7C1 7B ?get@Rva0028B7C1DwordField@@QBEHXZ -- matched in Code/GameEngine/Source/Common/DispDwordFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B7E2 60B ?maskObject@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectMaskObject.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B81E 36B ?isUsingAirborneLocomotor@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsUsingAirborneLocomotor.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B842 25B ?rva0028B842@Object@@QBEMXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B842.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B85B 26B ?rva0028B85B@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B85B.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B875 49B ?rva0028B875@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B85B.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B8A6 185B ?rva0028B8A6@Object@@QAEX_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028B8A6DisablePower.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B95F 22B ?rva0028B95F@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRvaSmallGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B975 15B ?rva0028B975@Rva0028A638@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B984 7B ?get@Rva0028B984ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B98B 107B ?rva0028B98B@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
+
+// tu-skeleton: 0x0028B9F6 143B ?SwapForExchange@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_SwapForExchange.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BA85 41B ?rva0028BA85@Object@@QBEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BA85.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BAAE 18B ?rva0028BAAE@Object@@QAEXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BA85.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BAC0 132B ?rva0028BAC0@Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Rva0028BAC0.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB44 16B ?makeDirty@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB54 17B ?setVisionRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB65 33B ?setShroudClearingRange@Object@@QAEXM@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectSetShroudClearingRange.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB86 7B ?get@Rva0028BB86FloatField@@QBEMXZ -- matched in Code/GameEngine/Source/Common/Disp32FloatGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB8D 17B ?rva0028BB8D@Rva0028A638@@QAEXM@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BB9E 67B ?getSpecialPowerModule@Object@@QBEPAVSpecialPowerModuleInterface@@PBVSpecialPowerTemplate@@@Z -- matched in Code/GameEngine/Source/Common/Object_getSpecialPowerModule.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BBF3 18B ?rva0028BBF3@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/Common/ObjectRva0028BBF3.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BC4D 11B ?rva0028BC4D@Object@@QAEXXZ -- matched in Code/GameEngine/Source/Common/RvaMixedMemberForwarders.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BC58 60B ?rva0028BC58@Object@@QAEPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BC58.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BC94 32B ?rva0028BC94@Object@@QAEPAXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAB.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BCB4 32B ?getDockUpdateInterface@Object@@QAEPAVDockUpdateInterface@@XZ -- matched in Code/GameEngine/Source/Common/Object_getDockUpdateInterface.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BCD4 32B ?getSpawnBehaviorInterface@Object@@QBEPAVSpawnBehaviorInterface@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_getSpawnBehaviorInterface.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BCF4 35B ?rva0028BCF4@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BCF4.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BD17 35B ?rva0028BD17@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD17.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BD3A 35B ?rva0028BD3A@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD3A.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BD5D 53B ?rva0028BD5D@Object@@QBEPAXH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BD5D.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BD92 69B ?findSpecialAbilityUpdate@Object@@QBEPAVSpecialAbilityUpdate@@W4SpecialPowerType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_findSpecialAbilityUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BDD7 84B ?findAttributeModifierPoolUpdate@Object@@ABEPAVAttributeModifierPoolUpdate@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindAttributeModifierPoolUpdate.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BE2B 84B ?findSpecialPowerCompletionDie@Object@@QBEPAVSpecialPowerCompletionDie@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectFindSpecialPowerCompletionDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BE7F 20B ?rva0028BE7F@Object@@QAEPAXPAUArg1_004DEA70@@PBUCoord3DBase@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028BE7F.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BE93 77B ?rva0028BE93@Object@@QBE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BEE0 161B ?getSingleLogicalBonePosition@Object@@QBE_NPBDPAUCoord3D@@PAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BF81 120B ?getMultiLogicalBonePosition@Object@@QBEHPBDHPAUCoord3D@@PAVMatrix3D@@_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePosition.cpp (not merged yet)
+
+// tu-skeleton: 0x0028BFF9 38B ?rva0028BFF9@Object@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028AC34Setter.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C01F 24B ?leaveGroup@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectLeaveGroup.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C037 86B ?rva0028C037@Object@@UAE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C08D 86B ?rva0028C08D@Object@@UAE?AUCoord3D@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectInterfaceSlots.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C0F2 40B ?rva0028C0F2@Object@@QAEXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C0F2.cpp (not merged yet)
+
+// tu-skeleton: 0x0028C11A 47B ?updateShroudNow@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_updateShroudNow.cpp (not merged yet)
+
 // tu-skeleton: 0x0028C173 36B ?rva0028C173@Object@@QBEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C197 18B ?rva0028C197@Object@@QBEPAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C197.cpp (not merged yet)
@@ -2647,36 +3144,9 @@ Bool bfmeAnchorObjectRva0028C15E(Object *object, Int attribute, Real *value, Int
 
 // tu-skeleton: 0x0028C428 142B ?rva0028C428@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C428.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C4B6.cpp
-
-void Object::rva0028C4B6()
-{
-	Rva0028C4B6Provider *prov = (Rva0028C4B6Provider *)rva0028C197();
-	if (prov == 0)
-		return;
-	if (!prov->slot60())
-		return;
-	if (!prov->slot23())
-		return;
-	prov->slot24();
-	BfmeHolder0028C4B6Ptr->m_28 = 1;
-}
-
 // tu-skeleton: 0x0028C4ED 38B ?rva0028C4ED@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C4ED.cpp (not merged yet)
 
 // tu-skeleton: 0x0028C513 39B ?rva0028C513@Object@@QBE?AW4ObjectID@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028C513.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Helper/ObjectHelperCtor.cpp
-
-// ??0ObjectHelper@@QAE@PAVThing@@PBVModuleData@@@Z @0x28C8DF
-ObjectHelper::ObjectHelper(Thing *thing, const ModuleData *moduleData)
-	: UpdateModule(thing, moduleData)
-{
-	m_vtable = &s_vtable;
-	m_p0C = &s_secondary0C;
-	m_p10 = &s_secondary10;
-	setWakeFrame(getObject(), UPDATE_SLEEP_FOREVER);
-}
 
 // tu-skeleton: 0x0028C992 69B ?getModuleNameKey@ObjectDefectionHelper@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/AI/ObjectDefectionHelperPoolKey.cpp (not merged yet)
 
@@ -2736,27 +3206,17 @@ ObjectHelper::ObjectHelper(Thing *thing, const ModuleData *moduleData)
 
 // tu-skeleton: 0x0028D7FD 114B ?isSelectable@Object@@QBE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectIsSelectable.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0028D86F.cpp
+// ---- from Code/GameEngine/Source/GameLogic/Object/RvaBitTestTwins.cpp
 
-void Rva0028D86F::rva0028D86F(const _STL::_Base_bitset<4> &other)
+// ?testBit@Rva0028D891Owner@@QBE_NH@Z
+// Retail 0x0028D891. Same 27B unsigned-shift shape as Object::testStatus,
+// over the flag words at +0x370.
+Bool Rva0028D891Owner::testBit(int bit) const
 {
-	((_STL::_Base_bitset<4> *)((char *)this + 0x370))->_M_do_or(other);
-	((WeaponSet *)((char *)this + 0x330))->updateWeaponSet((const Object *)this);
+	return (m_flagBits[(UnsignedInt)bit >> 5] & (1 << (bit & 31))) != 0;
 }
-
-// tu-skeleton: 0x0028D891 37B ?testBit@Rva0028D891Owner@@QBE_NH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/RvaBitTestTwins.cpp (not merged yet)
 
 // tu-skeleton: 0x0028D8B6 53B ?releaseWeaponLock@Object@@QAEXW4WeaponLockType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectReleaseWeaponLock.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Rva0028D8EB.cpp
-
-bool Rva0028D8EB::rva0028D8EB(int bit)
-{
-	return Rva001E4426Test(m_bits, bit);
-}
-
-// Callers elsewhere reach bodies in this unit through other spellings; retail's
-// call sites in their matched rows land on these addresses (same ABI). Bind them.
 
 // tu-skeleton: 0x0028D900 154B ?rva0028D900@Object@@QAE_NPAM0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/rva0028D900Rva0028D900Farm.cpp (not merged yet)
 
@@ -2787,24 +3247,6 @@ bool Rva0028D8EB::rva0028D8EB(int bit)
 // tu-skeleton: 0x0028E151 91B ?doSpecialPowerAtMultipleLocations@Object@@QAEXPBVSpecialPowerTemplate@@PBUCoord3D@@HI_N@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectDoSpecialPowerAtMultipleLocations.cpp (not merged yet)
 
 // tu-skeleton: 0x0028E1AC 994B ?getSingleLogicalBonePositionOnTurret@Object@@QBE_NW4WhichTurretType@@PBDPAUCoord3D@@PAVMatrix3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectGetSingleLogicalBonePositionOnTurret.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028E58E.cpp
-
-int Rva0028E58E::rva0028E58E()
-{
-	int v = m_04->m_5f0;
-	if (v != 0)
-		return v;
-	Rva0028E58EProvider *p = m_250;
-	if (p != 0)
-	{
-		if (p->slot04())
-			v = 2;
-	}
-	if ((m_04->m_10e & 2) != 0)
-		v = 2;
-	return v;
-}
 
 // tu-skeleton: 0x0028E5CA 22B ?enterGroup@Object@@QAEXPAVAIGroup@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_enterGroup.cpp (not merged yet)
 
@@ -2838,17 +3280,6 @@ int Rva0028E58E::rva0028E58E()
 
 // tu-skeleton: 0x0028ECB4 49B (unledgered) -- unmatched, no code, never credited
 
-// ---- from Code/GameEngine/Source/Common/Rva0028ECDB.cpp
-
-// ?rva0028ECDB@Rva0028ECDBHost@@QAE_NPAX@Z
-bool Rva0028ECDBHost::rva0028ECDB(void *position)
-{
-	Rva0028ECDBAux *aux = m_04;
-	if ((aux->m_11F & 0x80) != 0 && (aux->m_123 & 2) != 0 && m_250 != 0 && !((Pathfinder *)((Rva002DFF0F8 *)TheAI)->m_pathfinder)->IsWaterCell((int)position, 1))
-		return true;
-	return false;
-}
-
 // tu-skeleton: 0x0028ED19 671B ?rva0028ED19@Object@@QBEMPBUCoord3D@@PBX0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectActiveBoxBoundaryDistance.cpp (not merged yet)
 
 // tu-skeleton: 0x0028EFB8 780B ?rva0028EFB8@Object@@QBEMPBUCoord3D@@PBV1@0@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectActiveBoxBoundaryDistance.cpp (not merged yet)
@@ -2865,93 +3296,9 @@ bool Rva0028ECDBHost::rva0028ECDB(void *position)
 
 // tu-skeleton: 0x0028F4BC 51B ?rva0028F4BC@Object@@QAEPAVRva00373EC6@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028F4BC.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028F4EF.cpp
-
-int Object::rva0028F4EF()
-{
-	if (isKindOf(K_222))
-		return 0;
-	return isKindOf(K_223) ? 1 : 2;
-}
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028F518.cpp
-
-bool Object::rva0028F518()
-{
-	return rva0028F4EF() != 2;
-}
-
-// ---- from Code/GameEngine/Source/Common/System/Rva0028F528Popcount.cpp
-
-int Rva0028F528::rva0028F528()
-{
-	unsigned v = m_bits;
-	v = v - ((v >> 1) & 0x55555555u);
-	v = (v & 0x33333333u) + ((v >> 2) & 0x33333333u);
-	v = (v + (v >> 4)) & 0x0F0F0F0Fu;
-	return (int)((v * 0x01010101u) >> 24);
-}
-
 // tu-skeleton: 0x0028F55C 62B ?countInverseIntersection@?$BitFlags@$0L@@@QBEHABV1@@Z -- matched in Code/GameEngine/Source/Common/System/BitFlagsCountIntersection.cpp (not merged yet)
 
 // tu-skeleton: 0x0028F59A 44B ??0Rva0028F59A@@QAE@HH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/DetachableRiderDataRva004AEB84.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/Rva0028F5C6BitSet.cpp
-
-// ??0Rva0028F5C6@@QAE@HHHHH@Z @ 0x0028F5C6 109B: fixed 76-byte (19-dword)
-// bitset five-argument constructor, twin of Rva0028F59A at 0x0028F59A (44B,
-// 0x4C bytes, one bit) and Rva0028F633 at 0x0028F633. Zeroes the object via
-// CRT memset import thunk 0x006291AE then sets four bits; first parameter
-// never read. Callers at 0x0028FE3E and 0x004A4996. Prev/next same dir.
-
-Rva0028F5C6::Rva0028F5C6(int /*unused*/, int b1, int b2, int b3, int b4)
-{
-	memset(this, 0, 0x4C);
-	m_bits[(unsigned)b1 >> 5] |= 1u << (b1 & 31);
-	m_bits[(unsigned)b2 >> 5] |= 1u << (b2 & 31);
-	m_bits[(unsigned)b3 >> 5] |= 1u << (b3 & 31);
-	m_bits[(unsigned)b4 >> 5] |= 1u << (b4 & 31);
-}
-
-// ---- from Code/GameEngine/Source/Common/System/Rva0028F633BitSet.cpp
-
-//
-// ??0Rva0028F633@@QAE@HH@Z -- retail 0x0028F633, 47 bytes.
-// Fixed 128-byte (1024-bit) bitset two-argument constructor: zeroes the whole
-// object with memset through the CRT memset import thunk at 0x6291AE and
-// sets a single bit. Retail reads only the second parameter; the first is
-// never read. Twin of the landed Rva0028F59A ctor at 0x0028F59A (44B with
-// 0x4C bytes); the 3 extra bytes are the 5-byte push of 0x80 versus the
-// 2-byte push of 0x4C. Plain-extern memset keeps the E8-to-thunk shape.
-
-Rva0028F633::Rva0028F633(int /*unused*/, int bit)
-{
-	memset(this, 0, 0x80);
-	m_bits[(unsigned)bit >> 5] |= 1u << (bit & 31);
-}
-
-// ---- from Code/GameEngine/Source/Common/System/Rva0028F662TreeFree.cpp
-
-//
-// ?rva0028F662@Rva0028F662@@QAEXPAURva0028F662Node@@@Z -- retail 0x0028F662, 45 bytes.
-// Tree free: recurses on child at +0xC with the same owner, frees the node
-// through the rowed free at 0x30830, then iterates the sibling at +0x8.
-// Caller 0x002913F9 passes head from [eax+4] with owner in ecx and resets
-// the head afterwards; self-recursion at 0x0028F674 proves the shape.
-// Plain void free(void*) keeps the retail E8-to-row call shape.
-
-void Rva0028F662::rva0028F662(Rva0028F662Node *node)
-{
-	Rva0028F662Node *cur = node;
-	if (cur == 0)
-		return;
-	while (cur != 0) {
-		rva0028F662(cur->m_child);
-		Rva0028F662Node *next = cur->m_next;
-		free(cur);
-		cur = next;
-	}
-}
 
 // tu-skeleton: 0x0028F68F 45B ??0Rva00263895Member@@QAE@ABV0@@Z -- matched in Code/GameEngine/Source/Common/V3PolyDeferredCopyCtors2.cpp (not merged yet)
 
@@ -2966,43 +3313,6 @@ void Rva0028F662::rva0028F662(Rva0028F662Node *node)
 // tu-skeleton: 0x0028F791 72B ?count@?$BitFlags@$0JK@@@QBEHXZ -- matched in Code/GameEngine/Source/Common/System/BitFlagsXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x0028F7D9 47B ?rva0028F7D9@Rva0028F7D9@@QAE_NPBD@Z -- matched in Code/GameEngine/Source/Common/System/Rva0028F7D9BitSet.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/Rva0028F808BitSet.cpp
-
-// ?rva0028F808@Rva0028F808@@QAEXPAUIface0028F808@@@Z @ 0x0028F808 97B:
-// 104-bit (0x68) DWORD bitset to 13-byte (0xD) array then virtual slot 0x24
-// (f09) with (buf, 0xD). Zeroes local via CRT memset thunk 0x006291AE,
-// tests m_bits[i>>5] & (1<<(i&31)), sets buf[i/8] |= 1<<(i%8) via idiv
-// divmod. Caller 0x002914AF. Prev V3Poly neighbours are address-only.
-
-void Rva0028F808::rva0028F808(Iface0028F808 *out)
-{
-	unsigned char buf[0x0D];
-	memset(buf, 0, 0x0D);
-	for (int i = 0; i < 0x68; ++i)
-	{
-		if (m_bits[(unsigned)i >> 5] & (1u << (i & 31)))
-			buf[i / 8] |= (unsigned char)(1 << (i % 8));
-	}
-	out->f09(buf, 0x0D);
-}
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_copy_rva00297360.cpp
-
-// Assign-copy chain for Rva00297360Element (stride-0x10 element with an
-// AsciiString at +4): the random-access __copy loop at retail 0x0028F869
-// (47B, count via sar 4, per-element copy through the rowed operator=) and
-// the Rva-named range-forwarding wrapper at retail 0x002915EB (29B, tag temp
-// plus null distance). The wrapper spells the __copy_aux<false> forwarding
-// explicitly because MSVC 7.1 drops the unreferenced inline template even
-// under explicit instantiation; the body is byte-identical either way.
-
-Rva00297360Element *Rva002915EBCopyRange(Rva00297360Element *first, Rva00297360Element *last, Rva00297360Element *result, int dummy)
-{
-  _STL::random_access_iterator_tag tag;
-  (void)dummy;
-  return _STL::__copy(first, last, result, tag, (int*)0);
-}
 
 // tu-skeleton: 0x0028F898 11B ?rva0028F898@Rva0028F898@@QAEAAVRva001EAFC1@@ABV2@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
@@ -3026,13 +3336,6 @@ Rva00297360Element *Rva002915EBCopyRange(Rva00297360Element *first, Rva00297360E
 
 // tu-skeleton: 0x0028FC1D 98B ?onDestroy@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectOnDestroy.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FC7F.cpp
-
-void Rva0028FC7F::rva0028FC7F(const void *src)
-{
-	((Object *)this)->rva0028EC68(0xA, const_cast<void *>(src), 1);
-}
-
 // tu-skeleton: 0x0028FC8F 74B ?setFiringConditionForCurrentWeapon@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_setFiringConditionForCurrentWeapon.cpp (not merged yet)
 
 // tu-skeleton: 0x0028FCD9 380B ?rva0028FCD9@Object@@QAEXHH@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0028FCD9.cpp (not merged yet)
@@ -3040,13 +3343,6 @@ void Rva0028FC7F::rva0028FC7F(const void *src)
 // tu-skeleton: 0x0028FE55 82B ?attemptHealing@Object@@QAEXMPBV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_attemptHealing.cpp (not merged yet)
 
 // tu-skeleton: 0x0028FEA7 247B ?attemptHealingFromSoleBenefactor@Object@@QAE_NMPBV1@I@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Object_attemptHealingFromSoleBenefactor.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/GameLogic/Object/Object_healCompletely.cpp
-
-void Object::healCompletely()
-{
-	attemptHealing(g_Va00BFBC84, 0);
-}
 
 // tu-skeleton: 0x0028FFB0 155B ?WallUpgradeSell@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Object_WallUpgradeSell.cpp (not merged yet)
 
@@ -3124,133 +3420,15 @@ void Object::healCompletely()
 
 // tu-skeleton: 0x0029137E 109B ?rva0029137E@Object@@QAE_NAAVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva0029137E.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/System/Rva002913EBClear.cpp
-
-void Rva002913EB::rva002913EB()
-{
-	if (m_count == 0)
-		return;
-	Rva002913EBNode *root = m_header->m_parent;
-	((Rva0028F662 *)this)->rva0028F662((Rva0028F662Node *)root);
-	m_header->m_left = m_header;
-	m_header->m_parent = 0;
-	m_header->m_right = m_header;
-	m_count = 0;
-}
-
 // tu-skeleton: 0x00291414 44B ??0?$_List_base@UBfmePod124@@V?$allocator@UBfmePod124@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod124@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Rva00291440.cpp
-
-// ?rva00291440@Rva00291440@@QAEXPAVSink00291440@@@Z
-// 0x00291440 111B leaf dword-bitset to byte-bitset plus virtual sink.
-// Evidence: memset 0x80 via ji_006291AE; loop 0x400 test [this+idx>>5] bit 1<<(i&31); set buf[i/8] bit 1<<(i%8) via idiv; virtual [eax+0x24] with buf 0x80; callers 0x002977F8 0x004846BC; prev stlport_pod_list next stlport_copy.
-
-void Rva00291440::rva00291440(Sink00291440 *sink)
-{
-	unsigned char buf[0x80];
-	memset(buf, 0, 0x80);
-	for (int i = 0; i < 0x400; ++i) {
-		if (m_bits[(unsigned)i >> 5] & (1u << (i & 31)))
-			buf[i / 8] |= (unsigned char)(1u << (i % 8));
-	}
-	sink->v9(buf, 0x80);
-}
 
 // tu-skeleton: 0x002914AF 316B ?xfer@?$BitFlags@$0GI@@@QAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/WeaponSetXfer.cpp (not merged yet)
 
 // tu-skeleton: 0x00291608 18B ??$_Construct@VRva00263895Member@@V1@@_STL@@YAXPAVRva00263895Member@@ABV1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_construct_throw_spec.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/Common/System/Rva0029161ABits.cpp
-
-// ?rva0029161A@Rva0029161A@@QAEX PAV Rva0029161AArg@@@Z placehold
-// 0x0029161A 95B unlock bitset 11 plus memset 2 plus virt 0x24.
-// Evidence: memset rowed 0x006291AE; loop 0xB with 1<<i test plus idiv 8; virt 0x24 with 2 plus buf;
-// caller 0x00292449; prev stlport_construct next AsciiStringRvoGetters.
-
-void Rva0029161A::rva0029161A(Rva0029161AArg *arg)
-{
-	unsigned char buf[2];
-	memset(buf, 0, 2);
-	for (int i = 0; i < 11; ++i) {
-		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
-			buf[i / 8] |= (unsigned char)(1u << (i % 8));
-	}
-	arg->v9(buf, 2);
-}
-
-// ---- from Code/GameEngine/Source/Common/System/Rva00291679Bits.cpp
-
-// ?rva00291679@Rva00291679@@QAEXPAVRva00291679Arg@@@Z
-// 0x00291679 97B unlock bitset 101 plus memset 13 plus virt 0x24.
-// Evidence: memset rowed 0x006291AE; loop 0x65 with 1<<i test plus idiv 8; virt 0x24 with 13 plus buf;
-// caller 0x00292585; prev Rva0029161ABits next AsciiStringRvoGetters.
-
-void Rva00291679::rva00291679(Rva00291679Arg *arg)
-{
-	unsigned char buf[13];
-	memset(buf, 0, 13);
-	for (int i = 0; i < 101; ++i) {
-		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
-			buf[i / 8] |= (unsigned char)(1u << (i % 8));
-	}
-	arg->v9(buf, 13);
-}
-
-// ---- from Code/GameEngine/Source/Common/System/Rva002916DABits.cpp
-
-// ?rva002916DA@Rva002916DA@@QAEXPAVRva002916DAArg@@@Z
-// 0x002916DA 100B unlock bitset 154 plus memset 20 plus virt 0x24.
-// Evidence: memset rowed 0x006291AE; loop 0x9A with 1<<i test plus idiv 8; virt 0x24 with 20 plus buf;
-// caller 0x002926C1; prev Rva00291679Bits next AsciiStringRvoGetters.
-
-void Rva002916DA::rva002916DA(Rva002916DAArg *arg)
-{
-	unsigned char buf[20];
-	memset(buf, 0, 20);
-	for (int i = 0; i < 154; ++i) {
-		if ((m_bits[(unsigned int)i >> 5] & (1u << (i & 0x1f))) != 0)
-			buf[i / 8] |= (unsigned char)(1u << (i % 8));
-	}
-	arg->v9(buf, 20);
-}
-
 // tu-skeleton: 0x0029173E 55B ?setName@Rva0029173EAsciiField@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
 
 // tu-skeleton: 0x00291775 30B ?get@Rva00291775AsciiField@@QBE?AVAsciiString@@XZ -- matched in Code/GameEngine/Source/Common/System/AsciiStringRvoGetters.cpp (not merged yet)
-
-// ---- from Code/GameEngine/Source/Common/System/Rva00291793.cpp
-
-int Rva00291793::rva00291793()
-{
-	Rva00291793Node *head = m_p04->m_head;
-	Rva00291793Node *cur = head->m_next;
-	int n = 0;
-	while (cur != head) {
-		cur = cur->m_next;
-		++n;
-	}
-	return n;
-}
-
-// ---- from Code/GameEngine/Source/Common/Rva002917A6DebugObject.cpp
-
-//
-// Retail 0x002917A6 (66B, EH, cdecl), an EH-prolog start Ghidra never listed:
-// the debug stream insertion of an object -- the rowed DescribeObject
-// (0x0028F982) label streamed through the rowed Debug string insertion
-// (0x000028E8, the StringBase<char> template instance), returning the stream.
-
-static __forceinline const StringBase<char> &asBase(const AsciiString &text)
-{
-	return reinterpret_cast<const StringBase<char> &>(text);
-}
-
-Debug &operator<<(Debug &dbg, const Object *obj)
-{
-	dbg << asBase(DescribeObject(obj));
-	return dbg;
-}
 
 // tu-skeleton: 0x002917E8 79B ?rva002917E8@Rva002917E8@@QAE_NXZ -- matched in Code/GameEngine/Source/Common/Rva002917E8Check.cpp (not merged yet)
 
@@ -3268,14 +3446,6 @@ Debug &operator<<(Debug &dbg, const Object *obj)
 
 // tu-skeleton: 0x00291C20 100B ?restoreObjectToWorldInternal@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRefreshThenSetTransform.cpp
-
-void Object::rva00291C84(const Matrix3D *mtx)
-{
-	restoreObjectToWorldInternal();
-	rva0028D412(mtx);
-}
-
 // tu-skeleton: 0x00291C9B 17B ?setDisabled@Object@@QAEXW4DisabledType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00291A8C.cpp (not merged yet)
 
 // tu-skeleton: 0x00291CAC 517B ?clearDisabled@Object@@QAE_NW4DisabledType@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectScriptStatus.cpp (not merged yet)
@@ -3291,11 +3461,6 @@ void Object::rva00291C84(const Matrix3D *mtx)
 // tu-skeleton: 0x002923A2 5B ?rva002923A2@Rva002923A2@@QAEXXZ -- matched in Code/GameEngine/Source/Common/GapJmpThunksSeat8.cpp (not merged yet)
 
 // tu-skeleton: 0x002923A7 56B ??1Rva002913EB@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaTreeDtorFamily.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/StlSweepW6Rva002923DF.cpp
-
-// STLport4.5.3 reference operation. Target boundary, calls and full bytes are verified.
-// Element identity and unconstrained fields remain address-derived structural inference.
 
 // tu-skeleton: 0x002923EF 37B ?_M_create_node@?$list@UBfmePod124@@V?$allocator@UBfmePod124@@@_STL@@@_STL@@IAEPAU?$_List_node@UBfmePod124@@@2@ABUBfmePod124@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
 
@@ -3345,37 +3510,6 @@ void Object::rva00291C84(const Matrix3D *mtx)
 
 // tu-skeleton: 0x00293275 187B ?rva00293275@Object@@QAEXVAsciiString@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00293275.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/Object/ObjectRva00293330.cpp
-
-// ?rva00293330@Rva00293330@@QAEPAXI@Z, retail 0x00293330, 63 bytes.
-// Map lookup at this+0x268 via rowed _M_find 0x00357180: found returns
-// second at node+0x14 else if key==0 and size at +0x26c>0 returns begin
-// second else null. Evidence: callers at 0x002A247C 0x00392FD3 0x00393252
-// 0x00393858 0x00393942; jbe plus leftmost shape; unblocks 0x00392DC0.
-
-// LINK-COMDAT: _STL::less<unsigned> is kept as the speed copy from DamageFX.cpp;
-// this TU is /O1 for its row, so its own copy differs. Specialize only the member
-// under "t" so our emitted copy matches the kept body, while the row keeps /O1.
-
-#pragma optimize("t", on)
-
-#pragma optimize("", on)
-
-void *Rva00293330::rva00293330(unsigned int key)
-{
-	_STL::map<unsigned int, void *>::iterator it = m_map.find(key);
-	if (!(it == m_map.end()))
-		return it->second;
-	if (key != 0)
-		return 0;
-	if (m_map.size() <= 0)
-		return 0;
-	it = m_map.begin();
-	if (!(it == m_map.end()))
-		return it->second;
-	return 0;
-}
-
 // tu-skeleton: 0x0029336F 94B ?setCommandSetStringOverride@Object@@QAEXABVAsciiString@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/Object_setCommandSetStringOverride.cpp (not merged yet)
 
 // tu-skeleton: 0x002933CD 59B ?rva002933CD@Object@@QAEHXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva002931F5.cpp (not merged yet)
@@ -3385,14 +3519,6 @@ void *Rva00293330::rva00293330(unsigned int key)
 // tu-skeleton: 0x00293461 37B ?insert@?$list@UBfmePod124@@V?$allocator@UBfmePod124@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBfmePod124@@U?$_Nonconst_traits@UBfmePod124@@@_STL@@@2@U32@ABUBfmePod124@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportListInsertFootprints.cpp (not merged yet)
 
 // tu-skeleton: 0x00293486 34B ?_M_create_node@?$list@URva00293486Record@@V?$allocator@URva00293486Record@@@_STL@@@_STL@@IAEPAU?$_List_node@URva00293486Record@@@2@ABURva00293486Record@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00293486.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/stlport_list_cameramarker_clear.cpp
-
-// ?clear@?$_List_base@UCameraMarker@@V?$allocator@UCameraMarker@@@_STL@@@_STL@@QAEXXZ, retail 0x002934A8, 49 bytes.
-// List_base clear for CameraMarker via rowed dtor 0x0029D7C2 and _free 0x00030830.
-// Same 49B empty-check plus sentinel-reset shape as TreeHintOpaque 0x00434EC9 and Rva001EA443 0x001EA529.
-// CameraMarker layout 8B proven by rowed dtor and copy assignment 0x0028876F; value at node+8.
-// Callers at 0x00297BAC 0x002A1B49 0x002A1BEE 0x002A4337 0x002DE5BC; unblocks 0x002A42D8 0x002A1BEB 0x002A1B1D.
 
 // tu-skeleton: 0x002934D9 14B ?rva002934D9@Object@@QAEXW4ObjectScriptStatusBit@@@Z -- matched in Code/GameEngine/Source/Common/GapBodiesSeat1A.cpp (not merged yet)
 
@@ -3464,19 +3590,6 @@ void *Rva00293330::rva00293330(unsigned int key)
 
 // tu-skeleton: 0x00295988 18B ??0?$list@UBfmePod124@@V?$allocator@UBfmePod124@@@_STL@@@_STL@@QAE@ABV?$allocator@UBfmePod124@@@1@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/stlport_pod_list_bodies.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameLogic/AI/AICommandRva00295A0F.cpp
-
-// Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
-
-void Rva00295A0FCommands::Rva00295A0FCommand(void *pos, int maxShots, int source)
-{
-	AICommandParms parms((AICommandType)0x0F, (CommandSourceType)source);
-	parms.m_pos = *(const Coord3D *)pos;
-	parms.m_intValue = maxShots;
-	aiDoCommand(&parms);
-}
-
 // tu-skeleton: 0x00295A84 546B ?rva00295A84@Object@@QAEXPAV1@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00295A84.cpp (not merged yet)
 
 // tu-skeleton: 0x00295CA6 607B ?rva00295CA6@Object@@QAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00295CA6.cpp (not merged yet)
@@ -3502,14 +3615,6 @@ void Rva00295A0FCommands::Rva00295A0FCommand(void *pos, int maxShots, int source
 // tu-skeleton: 0x002975AC 102B ?rva002975AC@Object@@QAEXPAURva00297612Entry@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00297612.cpp (not merged yet)
 
 // tu-skeleton: 0x00297612 89B ?rva00297612@Object@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectRva00297612.cpp (not merged yet)
-
-// ---- from Code/Libraries/Source/WWVegas/WWLib/Object_restoreObjectToWorld.cpp
-
-void Object::restoreObjectToWorld(const Coord3D *pos)
-{
-	restoreObjectToWorldInternal();
-	((Object *)this)->teleportTo(pos, false);
-}
 
 // tu-skeleton: 0x00297684 3414B ?xfer@Object@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/ObjectDoXfer.cpp (not merged yet)
 
