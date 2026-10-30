@@ -1,0 +1,35 @@
+{
+  "comdats_before": 35,
+  "comdats_after": 38,
+  "changed_comdats": [],
+  "removed_comdats": [
+    "?copyRow@ProjectileNuggetMath@@SAXAAUProjectileNuggetRow@@ABU2@@Z"
+  ],
+  "added_comdats": [
+    "??0Matrix3D@@QAE@XZ",
+    "??0Vector4@@QAE@XZ",
+    "??_H@YGXPAXIHP6EPAX0@Z@Z",
+    "?copyRow@ProjectileNuggetMath@@SAXAAVVector4@@ABV2@@Z"
+  ],
+  "same_strong": true,
+  "same_undefined": true,
+  "same_weak": true,
+  "same_reference_graph": false,
+  "renamed_copy_helper_identical": true,
+  "old_copy_helper_index_consumers": [],
+  "added_comdat_index_twins": {
+    "??0Matrix3D@@QAE@XZ": 58,
+    "??0Vector4@@QAE@XZ": 163,
+    "??_H@YGXPAXIHP6EPAX0@Z@Z": 913,
+    "?copyRow@ProjectileNuggetMath@@SAXAAVVector4@@ABV2@@Z": 0
+  },
+  "same_relocation_roots": true,
+  "same_retained_reference_edges": true,
+  "index_meta": {
+    "date": "2026-10-30 10:11",
+    "commit": "12b9e7a7c0",
+    "clean_tree": true,
+    "census_date": "2026-10-30 08:27",
+    "census_commit": "2c21184e84"
+  }
+}

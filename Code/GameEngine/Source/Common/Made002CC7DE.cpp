@@ -100,21 +100,7 @@ enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-// Local views of the WWMath types; only Matrix3D's name is load-bearing (the
-// launch-position callee takes one). The helpers below expand retail's inline
-// Matrix3D copy (member-wise) and Matrix3D::Transform_Vector.
-struct ProjectileNuggetRow
-{
-	float X;
-	float Y;
-	float Z;
-	float W;
-};
-class Matrix3D
-{
-public:
-	ProjectileNuggetRow Row[3];
-};
+#include "Code/Libraries/Source/WWVegas/WWMath/Matrix3DData.h"
 class Team;
 class ThingTemplate
 {
@@ -238,7 +224,7 @@ struct ProjectileNuggetVector3
 };
 struct ProjectileNuggetMath
 {
-	static __forceinline void copyRow(ProjectileNuggetRow &dst, const ProjectileNuggetRow &src)
+	static __forceinline void copyRow(Vector4 &dst, const Vector4 &src)
 	{
 		dst.X = src.X;
 		dst.Y = src.Y;
