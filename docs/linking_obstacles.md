@@ -12399,3 +12399,32 @@ Behavior/SlowDeathBehavior.cpp`, classes Rva0045D887, SlowDeathBehavior,
 SlowDeathBehaviorModuleData, UpdateModule), together with the UpdateModule
 layout and `setExtraBounciness` home issue above. No source change is retained,
 and no census gain is claimed. The log is in `build/sdb-dry.log` (scratch).
+
+### LINK-156: LivingWorldLogic destructor's vtables and override names (2026-10-30, open)
+
+`LivingWorldLogicDtorRva002B964F.cpp` (717 B) lost three COMDAT vtables to
+`LivingWorldLogicCtorBfme.cpp`'s copies (line 1634 above, and the table row
+for this unit). Its view now has the ctor's shapes: the
+`subsystem_bfme2` 14-slot SubsystemInterface, the name-slot Snapshot, and the
+overrides `init reset update loadPostProcess GetSnapshotName xfer event1_1`.
+Retail tables 0x00BFE2A4..0x00BFE2E4 hold the slots, which the rowed ctor
+0x002B93B3 installs. 42/42 rows byte-verify, and `link_check` no longer
+reports comdat losers. Two slot providers were renamed to their override
+names, with tombstones in `reverse/deleted_rows.csv`:
+- 0x002B2535 → `LivingWorldLogic::reset` (SubsystemInterface table 0x00BFE2E4, slot 9);
+- 0x002B64C7 → `LivingWorldLogic::event1_1(int)` (building-observer table
+  0x00BFE2C4 at +0x10, slot 1; WB OnDestroyingBuilding). This also renames its
+  `__ehhandler$` row and the `$L4362` funclet `parent=`.
+
+Both providers link (`link_check`: 57 B and 250 B).
+
+Remaining prerequisite: `?update@LivingWorldLogic@@UAEXXZ`. Row 0x002BD9B4 and
+its `__ehhandler$` 0x0077699F still carry the non-virtual `QAE` spelling, and
+`LivingWorldLogic.cpp` declares `void update();` (around line 690). Making that
+declaration virtual means adding the matching base and override slots to that
+view, renaming both rows and adding a tombstone. That file was claimed by
+another seat (claudec3) during this pass, so it was left alone.
+`LivingWorldLogicCtorBfme.cpp` also needs event4_0, event5_0 and event5_2:
+0x002BA82B OnRegionChangedOwnership, `rva002BA3F2@LivingWorldLogic` and
+0x002B2A95. Those need the region and player observer bases reconciled with
+`LivingWorldObservers.h`. Census confirmation is pending.

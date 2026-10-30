@@ -1,4 +1,4 @@
-// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /Ireference/shims/moduledata
+// cl: /O1 /G7 /arch:SSE /DNDEBUG /MD /EHs /Ireference/shims/bfme2_ascii /Ireference/shims/subsystem_bfme2 /Ireference/shims/moduledata
 //
 // ??1LivingWorldLogic@@UAE@XZ
 // retail 0x002B964F..0x002B98AD (606 bytes), thiscall, EH frame.
@@ -27,16 +27,21 @@
 // resolver holder at +0x178 (rowed clear 0x002B9099).
 
 // Retail calls free directly (the game allocator), not through the CRT
-// import: read <stdlib.h> without dllimport.
+// import: read <stdlib.h> without dllimport, and the CRT headers the
+// SubsystemInterface view pulls in with it.
 #define _CRTIMP
 #include <stdlib.h>
 #include <new>
-#undef _CRTIMP
 
 #include "unicode_string.h"
+// The retail vtables (0x00BFE2E4 SubsystemInterface, 0x00BFE2D4 Snapshot with
+// the name slot) need the full base slot lists, as in LivingWorldLogicCtorBfme.cpp.
+typedef bool Bool;
+#define BFME_SNAPSHOT_NAME_SLOT
 #include "Common/Snapshot.h"
 
-#include "../../../../../Libraries/Source/subsystem/SubsystemInterface.h"
+#include "subsystem_interface.h"
+#undef _CRTIMP
 
 class CreateAHeroData;
 
@@ -199,6 +204,13 @@ class LivingWorldLogic : public SubsystemInterface, public Snapshot,
 {
 public:
 	virtual ~LivingWorldLogic();
+	virtual void init();
+	virtual void reset();
+	virtual void update();
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *);
+	virtual void event1_1(int);
 	void processArmyDestroyList();
 
 	Rva002B964FWordVector m_vector8C;			// +0x8C

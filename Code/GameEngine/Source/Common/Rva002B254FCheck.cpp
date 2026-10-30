@@ -41,12 +41,15 @@ class Rva002BED10
 public:
 	void rva002BED10();
 };
-class Rva002B2535
+// LivingWorldLogic::reset: retail's LivingWorldLogic SubsystemInterface table
+// 0x00BFE2E4 holds 0x002B2535 in slot 9, the base's reset; the body never
+// reads this.
+class LivingWorldLogic
 {
 public:
-	void rva002B2535();
+	virtual void reset();
 };
-void Rva002B2535::rva002B2535()
+void LivingWorldLogic::reset()
 {
 	if (reinterpret_cast<GameLogicView002B2535 *>(TheGameLogic)->m_114 == 3)
 		reinterpret_cast<Rva002BED10 *>(((Rva002D3627Host *)TheLivingWorld))->rva002BED10();
