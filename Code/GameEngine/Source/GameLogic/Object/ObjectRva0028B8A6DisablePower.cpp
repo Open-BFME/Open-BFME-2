@@ -24,12 +24,13 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 
 class Player;
 
-class Module
+#include "../../../Include/Common/Module.h"
+
+// Partial primary storage preceding the native +0x10 upgrade interface.
+class Rva0028B8A6ModuleStorage : public Module
 {
 public:
-	virtual void slot00();
-	void *m_moduleData;
-	char m_pad08[8];
+    char m_pad08[0x10 - 0x08];
 };
 
 class UpgradeModule
@@ -44,7 +45,7 @@ struct RadarUpgradeDataView
 	bool m_disableProof;
 };
 
-class RadarUpgrade : public Module, public UpgradeModule
+class RadarUpgrade : public Rva0028B8A6ModuleStorage, public UpgradeModule
 {
 public:
 	bool getIsDisableProof() const
