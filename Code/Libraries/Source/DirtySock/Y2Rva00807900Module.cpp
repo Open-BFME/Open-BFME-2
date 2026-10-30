@@ -1,4 +1,11 @@
-// cl: /DNDEBUG /MD /GX /Od /GZ /GS
+// cl: /DNDEBUG /GX /Od /GZ /GS
+// platformsdk
+/* Built without /MD: retail calls the msvcrt import stubs with a direct e8,
+ * as a library compiled against the static CRT headers does. */
+#include <windows.h>
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
 // EA's DirtySock again -- a module in the 0x00807900..0x00808600 span that the
 // bytes do NOT name.  Every body here opens a frame for code with no register
 // pressure, fills its locals with 0xCCCCCCCC and ends `cmp ebp,esp` into the
@@ -16,9 +23,7 @@
 // address.
 //
 // sprintf is reached by a DIRECT rel32 to the import stub at 0x009F6DE2 rather
-// than through __imp__sprintf, so this TU did not see <stdio.h> -- the same
-// reason Y2ProtoMangleHelpers.cpp declares it itself.
-extern "C" int sprintf( char *buffer, const char *format, ... );
+// than through __imp__sprintf, as is strtoul.
 
 // ------------------------------------------------------------------ callees
 // Addresses read from the REL32 at the call sites; each is pinned in
@@ -31,10 +36,6 @@ unsigned int Rva007FF9F0Swap32( unsigned int value );       // 0x007FF9F0
 // NetConnStatus -- the body at 0x007EB410 names itself in its own warning.
 int Rva007EB410NetConnStatus( int selector, void *buffer, int bufferSize );
 unsigned int Rva007FFAD0( unsigned int value );             // 0x007FFAD0
-
-// Both reached by a direct rel32 to their import stubs, like sprintf above.
-extern "C" unsigned int strtoul( const char *text, char **end, int base );
-extern "C" void *memcpy( void *dest, const void *src, unsigned int count );
 
 int  Rva007FE780Printf( const char *format, ... );          // 0x007FE780
 int  Rva00808220( Rva00807BA0Ping *ping, unsigned int address,
@@ -55,9 +56,7 @@ void  Rva007FECB0Unlock( void *lock );                      // 0x007FECB0
 int   Rva007FD920Send( void *socket, const char *buffer, int length,
 		int flags, const char *to, int toLength );          // 0x007FD920
 unsigned int Rva007FEA00Tick( void );                       // 0x007FEA00
-extern "C" unsigned int strlen( const char *text );
 void *Rva007F0000Alloc( int size );                         // 0x007F0000
-extern "C" void *memset( void *dest, int value, unsigned int count );
 
 // Two 28-byte forwarders that do nothing but pass their two arguments through
 // and let /GZ check the frame afterwards.  They are separate functions rather
@@ -252,8 +251,6 @@ struct Rva00807960Conn
 	Rva00807960Proc m_poll;         // +0x08
 	Rva00807960Proc m_close;        // +0x0C
 };
-
-extern "C" __declspec(dllimport) void __stdcall Sleep( unsigned int ms );
 
 // 0x00807960 IS THE BLOCKING FORM of the connect at 0x007FDFF0, which is
 // itself non-blocking: it starts the connection, then spins on the object's
