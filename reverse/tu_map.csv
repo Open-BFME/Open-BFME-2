@@ -4476,7 +4476,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0007BB16,53,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,K,K=Rva0007BB16Record,Code/GameEngine/Source/Common/StringRecordDtors.cpp
 0x0007BB4B,46,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,proposed,K,K=Rva0007DA23ResourceManager,Code/GameEngine/Source/Common/Rva0007BB4BGet.cpp
 0x0007BB79,41,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,proposed,C,C=0x0007BB4B..0x0007BBA2,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DViewCameraHandleGet.cpp
-0x0007BBA2,523,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerRenderBorder.cpp
+0x0007BBA2,523,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,proposed,N,N=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp W=Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp
 0x0007BDAD,113,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,U,N=Code/GameEngine/Source/Common/W3DShadowMapManager.cpp,Code/GameEngine/Source/Common/W3DShadowMapManager_RenderPostProcess.cpp
 0x0007BE1E,137,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007BDAD..0x0007BEA7,Code/GameEngine/Source/Common/Rva0007BA35Method.cpp
 0x0007BEA7,51,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,proposed,C,C=0x0007BDAD..0x0007BEDA,Code/GameEngine/Source/Common/Rva0007BEA7Overlap.cpp
@@ -62392,8 +62392,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0075F27A,10,code,,,-,,Code/GameEngine/Source/Common/Rva0007BA35Method.cpp
 0x0075F284,8,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007BB16@FuncInfo0x00901C8C p-group provisional,Code/GameEngine/Source/Common/StringRecordDtors.cpp
 0x0075F28C,10,code,Code/Libraries/Source/WWVegas/WWMath/PlaneClass.cpp,approved,P,P=0x0007BB16@FuncInfo0x00901C8C p-group provisional,Code/GameEngine/Source/Common/StringRecordDtors.cpp
-0x0075F296,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,approved,P,P=0x0007BBA2@FuncInfo0x00901CB0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerRenderBorder.cpp
-0x0075F29E,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,approved,P,P=0x0007BBA2@FuncInfo0x00901CB0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManagerRenderBorder.cpp
+0x0075F296,8,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,approved,P,P=0x0007BBA2@FuncInfo0x00901CB0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp
+0x0075F29E,10,code,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp,approved,P,P=0x0007BBA2@FuncInfo0x00901CB0 p-group provisional,Code/GameEngineDevice/Source/W3DDevice/GameClient/Shadow/W3DShadowMapManager.cpp
 0x0075F2A8,8,code,,,-,,Code/GameEngine/Source/Common/Rva0007BAD6Dtor.cpp
 0x0075F2B0,11,code,,,-,,Code/GameEngine/Source/Common/Rva0007BAD6Dtor.cpp
 0x0075F2BB,11,code,,,-,,Code/GameEngine/Source/Common/Rva0007BAD6Dtor.cpp
