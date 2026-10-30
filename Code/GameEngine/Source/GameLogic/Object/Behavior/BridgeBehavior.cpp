@@ -1,5 +1,6 @@
-// cl: /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /FIzh_ascii.h /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /G7 /arch:SSE /MD /EHsc /DNDEBUG /DWIN32 /D_WINDOWS /D_STLP_USE_STATIC_LIB /D_CRTIMP= /D_STLP_USE_MALLOC /D_STLP_NO_EXCEPTIONS /DBFME_MODULE_NO_MPO /DZH_EMIT_POOL_GLUE /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib
+// cl: /FIzh_ascii.h /DNDEBUG /MD /EHsc /D_STLP_USE_STATIC_LIB /Ireference/shims/update_modules_bfme2 /Ireference/shims/moduledata /Ireference/shims/zh_outofline /Ireference/shims/bfme2_ascii_zh /Ireference/shims/bfme2_ascii /Ireference/shims/bfmerendobj /Ireference/shims/debugvtable /Ireference/shims/sweep /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/debug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WW3D2 /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWSaveLoad /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/Wwutil /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDownload /Ireference/open-bfme-1/Code/Libraries/Source/WWVegas/WWDebug /Ireference/open-bfme-1/Code/Libraries/Source/Compression /Ireference/shims/bfmeanimobj /Ireference/shims/indexbuffercount /Ireference/shims/bfmecaps /Ireference/shims/bfmehcanim /Ireference/shims/bfmevector /Ireference/shims/bfmemapper /Ireference/shims/meshmatdesclayout /Ireference/shims/bfmeshader /Ireference/shims/bfmecpudetect /Ireference/shims/bfmepool /Ireference/open-bfme-1/Code/GameEngine/Include/Precompiled /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/GameNetwork /Ireference/open-bfme-1/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWAudio /Ireference/shims/bfmealloc /Ireference/shims/bfmehashtable /Ireference/shims/bfmelist /Ireference/shims/asciistring_downloadmanager /Ireference/shims/stlp_nodealloc /Ireference/shims/asciistring_thin /ICode/GameEngine/Source/Common /Ireference/shims/w3droadbuffer /Ireference/shims/bfmeterraintracks /ICode/Libraries/Include/Lib /ICode/Libraries/Include /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWMath /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWLib /Ireference/open-bfme-1/game/Libraries/Source/WWVegas/WWDebug /Ivendor/stlport /Ireference/shims/asciistring_outofline /ICode/GameEngine/Include /Ireference/shims/iniexception /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/Compression /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngineDevice/Include /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Main /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWLib /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWMath /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWDebug /Ireference/CnC_Generals_Zero_Hour/GeneralsMD/Code/Libraries/Source/WWVegas/WWSaveLoad
 // stlport
+// TU Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp: generated by tools/tu_skeleton.py from tu_map.csv (approved rows, retail order)
 #define BFME_SNAPSHOT_NAME_SLOT
 // Ported verbatim from the Generals Zero Hour reference (GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp); this unit had no counterpart under Code/.
 // The compiler-generated vector constructor iterator (??_H) takes the
@@ -14,6 +15,92 @@ struct BfmeVciAnchorElem { BfmeVciAnchorElem(); };
 static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 #pragma optimize("", on)
 #define Matrix4x4 Matrix4  // BFME renamed it
+#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
+#include <list>
+// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
+namespace _STL {
+template <class T, class LeftTraits, class RightTraits>
+static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
+                              const _List_iterator<T, RightTraits>& b)
+{ return a._M_node != b._M_node; }
+}
+#include "Common/Radar.h"
+#include "Common/ThingFactory.h"
+#include "Common/ThingTemplate.h"
+#include "Common/Xfer.h"
+#include "GameClient/InGameUI.h"
+#include "GameClient/FXList.h"
+#include "GameClient/Line2D.h"
+#include "GameClient/TerrainRoads.h"
+#include "GameLogic/AI.h"
+#include "GameLogic/AIPathfind.h"
+#include "GameLogic/Object.h"
+#include "GameLogic/GameLogic.h"
+#include "GameLogic/ObjectCreationList.h"
+#include "GameLogic/Module/BodyModule.h"
+#include "GameLogic/Module/BridgeBehavior.h"
+#include "GameLogic/Module/BridgeScaffoldBehavior.h"
+#include "GameLogic/Module/PhysicsUpdate.h"
+#include "GameLogic/PartitionManager.h"
+#include "GameLogic/TerrainLogic.h"
+#include "ascii_string.h"
+// Neutral view: target callbacks/copy chain establish these fields and offsets;
+// BFME1 BridgeBehavior names are semantic provenance, not target class proof.
+// ABI view only: use the matched 29B copy-constructor name for this
+// delay/AsciiString pair; the bridge's application type remains unknown.
+struct TreeKey00242F5E
+{
+    unsigned int delay_00;
+    AsciiString boneName_04;
+    TreeKey00242F5E(const TreeKey00242F5E &other);
+};
+struct BridgeBehaviorListValue12
+{
+    void *object_00;
+    TreeKey00242F5E timeInfo_04;
+    BridgeBehaviorListValue12(const BridgeBehaviorListValue12 &other);
+};
+typedef char VerifyBridgeBehaviorValueSize[(sizeof(BridgeBehaviorListValue12) == 12) ? 1 : -1];
+#include <memory>
+
+// Suppress this TU's non-retail copy of ??1?$_List_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@XZ:
+// the kept copy serves the link. Plain declaration-only form (no __imp_).
+enum ObjectID;
+
+namespace _STL { template <> _List_base<ObjectID,allocator<ObjectID> >::~_List_base(); }
+
+namespace _STL { template <> void _List_base<ObjectID,allocator<ObjectID> >::clear(); }
+
+// Retail's shared 8.0f at VA 0x00BC2A10 (RVA 0x007C2A10); name the
+// unowned .rdata value so linked code follows it when the image moves.
+extern const Real g_00BC2A10 = 8.0f;
+
+class Rva00456725
+{
+public:
+	char _pad[0xA4];
+	AsciiString m_strings[80];
+	AsciiString rva00456725(int a, int b);
+};
+
+class Rva0045674D
+{
+public:
+	AsciiString m_strings[80];
+	AsciiString rva0045674D(int a, int b);
+};
+
+class Rva00456774
+{
+public:
+	AsciiString m_strings[80];
+	AsciiString rva00456774(int a, int b);
+};
+
+// tu-skeleton: 0x00456556 41B ?getBridgeBehaviorInterfaceFromObject@BridgeBehavior@@SAPAVBridgeBehaviorInterface@@PAVObject@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorGetInterfaceFromObject.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp
+
 /*
 **	Command & Conquer Generals Zero Hour(tm)
 **	Copyright 2025 Electronic Arts Inc.
@@ -44,48 +131,6 @@ static void bfmeVciAnchor() { BfmeVciAnchorElem anchor[2]; (void)anchor; }
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 
 // INCLUDES ///////////////////////////////////////////////////////////////////////////////////////
-#include "PreRTS.h"	// This must go first in EVERY cpp file int the GameEngine
-#include <list>
-
-// Compare nodes locally so this TU does not emit a conflicting iterator-base wrapper.
-namespace _STL {
-template <class T, class LeftTraits, class RightTraits>
-static inline bool operator!=(const _List_iterator<T, LeftTraits>& a,
-                              const _List_iterator<T, RightTraits>& b)
-{ return a._M_node != b._M_node; }
-}
-
-#include "Common/Radar.h"
-#include "Common/ThingFactory.h"
-#include "Common/ThingTemplate.h"
-#include "Common/Xfer.h"
-#include "GameClient/InGameUI.h"
-#include "GameClient/FXList.h"
-#include "GameClient/Line2D.h"
-#include "GameClient/TerrainRoads.h"
-#include "GameLogic/AI.h"
-#include "GameLogic/AIPathfind.h"
-#include "GameLogic/Object.h"
-#include "GameLogic/GameLogic.h"
-#include "GameLogic/ObjectCreationList.h"
-#include "GameLogic/Module/BodyModule.h"
-#include "GameLogic/Module/BridgeBehavior.h"
-#include "GameLogic/Module/BridgeScaffoldBehavior.h"
-#include "GameLogic/Module/PhysicsUpdate.h"
-#include "GameLogic/PartitionManager.h"
-#include "GameLogic/TerrainLogic.h"
-// Suppress this TU's non-retail copy of ??1?$_List_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAE@XZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum ObjectID;
-namespace _STL { template <> _List_base<ObjectID,allocator<ObjectID> >::~_List_base(); }
-// Suppress this TU's non-retail copy of ?clear@?$_List_base@W4ObjectID@@V?$allocator@W4ObjectID@@@_STL@@@_STL@@QAEXXZ:
-// the kept copy serves the link. Plain declaration-only form (no __imp_).
-enum ObjectID;
-namespace _STL { template <> void _List_base<ObjectID,allocator<ObjectID> >::clear(); }
-
-// Retail's shared 8.0f at VA 0x00BC2A10 (RVA 0x007C2A10); name the
-// unowned .rdata value so linked code follows it when the image moves.
-extern const Real g_00BC2A10 = 8.0f;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////////////
@@ -147,7 +192,9 @@ static void parseTimeAndLocationInfo( INI *ini, void *instance,
 
 	}  // end if
 
-}  // end parseTimeAndLocationInfo
+}
+
+  // end parseTimeAndLocationInfo
 
 //-------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -188,7 +235,9 @@ inline /*static*/ void BridgeBehaviorModuleData::parseFX( INI *ini,
 	// put on list
 	bridgeFXList->push_back( item );
 
-}  // end parseFX
+}
+
+  // end parseFX
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -227,7 +276,9 @@ void BridgeBehavior::onDelete( void )
 	// clear the list of scaffold objects
 	m_scaffoldObjectIDList.clear();
 
-}  // end onDelete
+}
+
+  // end onDelete
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
@@ -235,7 +286,9 @@ void BridgeBehavior::onDelete( void )
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
+
 #pragma optimize("s", on)
+
 void BridgeBehavior::setTower( BridgeTowerType towerType, Object *tower )
 {
 
@@ -254,12 +307,17 @@ void BridgeBehavior::setTower( BridgeTowerType towerType, Object *tower )
 	else
 		m_towerID[ towerType ] = INVALID_ID;
 
-}  // end setTower
+}
+
+  // end setTower
+
 #pragma optimize("", on)
 
 // ------------------------------------------------------------------------------------------------
 // ------------------------------------------------------------------------------------------------
+
 #pragma optimize("s", on)
+
 ObjectID BridgeBehavior::getTowerID( BridgeTowerType towerType )
 {
 
@@ -275,7 +333,10 @@ ObjectID BridgeBehavior::getTowerID( BridgeTowerType towerType )
 	// return the stored ID
 	return m_towerID[ towerType ];
 
-}  // end getTowerID
+}
+
+  // end getTowerID
+
 #pragma optimize("", on)
 
 // ------------------------------------------------------------------------------------------------
@@ -325,7 +386,9 @@ void BridgeBehavior::onDie( const DamageInfo *damageInfo )
 	// we have now died, record the death frame
 	m_deathFrame = TheGameLogic->getFrame();
 			
-}  // end onDie
+}
+
+  // end onDie
 
 //-----------------------------------------------------------------------------
 // Note: a ZH-derived BridgeBehavior::handleObjectsOnBridgeOnDie body stood
@@ -384,4 +447,215 @@ void BridgeBehavior::loadPostProcess( void )
 	// extend base class
 	UpdateModule::loadPostProcess();
 
-}  // end loadPostProcess
+}
+
+  // end loadPostProcess
+
+// tu-skeleton: 0x004565BD 360B ?getRandomSurfacePosition@BridgeBehavior@@IAEXPAVTerrainRoadType@@PBVBridgeInfo@@PAUCoord3D@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRva00456725.cpp
+
+// ?rva00456725@Rva00456725@@QAE?AVAsciiString@@HH@Z @ 0x00456725 40B thiscall bridge string copy via StringBase copy
+// Evidence: caller 0x00456B0C; rowed callee 0x000365F0 StringBase copy; sibling 0x00456774 UDT return O1 G7 EHsc.
+
+AsciiString Rva00456725::rva00456725(int a, int b)
+{
+	int idx = a;
+	idx *= 3;
+	idx += b;
+	return m_strings[idx];
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRva0045674D.cpp
+
+// ?rva0045674D@Rva0045674D@@QAE?AVAsciiString@@HH@Z @ 0x0045674D 39B thiscall bridge string copy via StringBase copy
+// Evidence: caller 0x00456B52; rowed callee 0x000365F0 StringBase copy; finish from stash 0.94 plus sibling G7 recipe.
+
+AsciiString Rva0045674D::rva0045674D(int a, int b)
+{
+	int idx = a + 19;
+	idx *= 3;
+	idx += b;
+	return m_strings[idx];
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRva00456774.cpp
+
+// ?rva00456774@Rva00456774@@QAE?AVAsciiString@@HH@Z @ 0x00456774 39B thiscall bridge string copy via StringBase copy
+// Evidence: caller 0x00456B99; rowed callee 0x000365F0 StringBase copy; sibling 0x0045674D frame recipe UDT return.
+
+AsciiString Rva00456774::rva00456774(int a, int b)
+{
+	int idx = a + 23;
+	idx *= 3;
+	idx += b;
+	return m_strings[idx];
+}
+
+// tu-skeleton: 0x0045679B 194B ?parseTimeAndLocationInfo@@YAXPAVINI@@PAXPAUTimeAndLocationInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
+
+// tu-skeleton: 0x0045685D 143B ?doAreaEffects@BridgeBehavior@@IAEXPAVTerrainRoadType@@PAVBridge@@PBVObjectCreationList@@PBVFXList@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x004568EC 338B ?setScaffoldData@BridgeBehavior@@IAEXPAVObject@@PAM1PBUCoord3D@@22@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorSetScaffoldData.cpp (not merged yet)
+
+// tu-skeleton: 0x00456A3E 11B ?rva00456A3E@Rva00456A3E@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAI.cpp (not merged yet)
+
+// tu-skeleton: 0x00456A49 470B ?resolveFX@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x00456C1F 593B ?onBodyDamageStateChange@BridgeBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListValueCopy.cpp
+
+/*
+** Copyright 2025 Electronic Arts Inc.
+** SPDX-License-Identifier: GPL-3.0-or-later
+*/
+// Registered bridge callbacks pass pointer/delay/string values to the shared
+// list insertion chain. The target copies its +4 delay/string pair through
+// the existing body at 0xCF475; its original class name remains unknown.
+
+__declspec(noinline) BridgeBehaviorListValue12::BridgeBehaviorListValue12(
+    const BridgeBehaviorListValue12 &other)
+    : object_00(other.object_00), timeInfo_04(other.timeInfo_04)
+{
+}
+
+// ?Force_ConstructBridgeBehaviorListValue12@@YAXPAUBridgeBehaviorListValue12@@ABU1@@Z absent-from-retail
+void Force_ConstructBridgeBehaviorListValue12(
+    BridgeBehaviorListValue12 *destination,
+    const BridgeBehaviorListValue12 &source)
+{
+    std::_Construct(destination, source);
+}
+
+// tu-skeleton: 0x00456E8D 592B ?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0045710A 9B ??$_Destroy@UPrereqUnitRec@ProductionPrerequisite@@@_STL@@YAXPAUPrereqUnitRec@ProductionPrerequisite@@@Z -- matched in Code/GameEngine/Source/Common/DestroyInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x00457113 150B ??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004571A9 69B ?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x004571EE 6B ?GetSnapshotName@BridgeBehavior@@MBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004571F4 7B ?get@Rva004571F4ByteField@@QBEEXZ -- matched in Code/GameEngine/Source/Common/DispByteFieldGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x004571FB 182B ?onDamage@BridgeBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp (not merged yet)
+
+// tu-skeleton: 0x004572B1 141B ?onHealing@BridgeBehavior@@UAEXPAVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnHealing.cpp (not merged yet)
+
+// tu-skeleton: 0x0045733E 150B ?removeScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorRemoveScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x004573D4 75B ?isScaffoldInMotion@BridgeBehavior@@UAE_NXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorIsScaffoldInMotion.cpp (not merged yet)
+
+// tu-skeleton: 0x0045741F 34B ?_M_create_node@?$list@UBridgeBehaviorListValue12@@V?$allocator@UBridgeBehaviorListValue12@@@_STL@@@_STL@@IAEPAU?$_List_node@UBridgeBehaviorListValue12@@@2@ABUBridgeBehaviorListValue12@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp (not merged yet)
+
+// tu-skeleton: 0x00457441 49B ?clear@?$_List_base@UBridgeBehaviorListValue12@@V?$allocator@UBridgeBehaviorListValue12@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListCleanup.cpp (not merged yet)
+
+// tu-skeleton: 0x00457472 196B ??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00457536 28B ??_GBridgeBehavior@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00457552 37B ?insert@?$list@UBridgeBehaviorListValue12@@V?$allocator@UBridgeBehaviorListValue12@@@_STL@@@_STL@@QAE?AU?$_List_iterator@UBridgeBehaviorListValue12@@U?$_Nonconst_traits@UBridgeBehaviorListValue12@@@_STL@@@2@U32@ABUBridgeBehaviorListValue12@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp (not merged yet)
+
+// tu-skeleton: 0x00457577 448B ?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x00457737 1851B ?createScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x00457E72 357B ?xfer@BridgeBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorXfer.cpp (not merged yet)
+
+// tu-skeleton: 0x00457FD7 26B ?push_back@?$list@UBridgeBehaviorListValue12@@V?$allocator@UBridgeBehaviorListValue12@@@_STL@@@_STL@@QAEXABUBridgeBehaviorListValue12@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorListOperations.cpp (not merged yet)
+
+// tu-skeleton: 0x00457FF1 89B ??0BridgeBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0045804A 95B ??1BridgeBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x004580A9 170B ?parseFX@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseFX.cpp (not merged yet)
+
+// tu-skeleton: 0x00458153 170B ?parseOCL@BridgeBehaviorModuleData@@SAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseOCL.cpp (not merged yet)
+
+// tu-skeleton: 0x004581FD 79B ?onDie@Rva004581FD@@UAEXPBVDamageInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/Rva004581FDOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0045824C 28B ??_GBridgeBehaviorModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x00458268 17B ?buildFieldParse@BridgeBehaviorModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BehaviorModuleDataBuildFieldParse.cpp (not merged yet)
+
+// tu-skeleton: 0x00789FEB 8B Unwind@00b89feb -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
+
+// tu-skeleton: 0x00789FF3 10B __ehhandler$?parseTimeAndLocationInfo@@YAXPAVINI@@PAXPAUTimeAndLocationInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorParseTimeAndLocation.cpp (not merged yet)
+
+// tu-skeleton: 0x00789FFD 8B Unwind@00b89ffd -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A005 8B Unwind@00b8a005 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A00D 8B Unwind@00b8a00d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A015 8B Unwind@00b8a015 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A01D 8B Unwind@00b8a01d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A025 8B Unwind@00b8a025 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A02D 10B __ehhandler$?resolveFX@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorResolveFX.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A037 8B Unwind@00b8a037 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A03F 8B Unwind@00b8a03f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A047 19B ?rva0078a047@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A05A 19B ?rva0078a05a@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A06D 11B Unwind@00b8a06d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A078 11B Unwind@00b8a078 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A083 10B __ehhandler$?onBodyDamageStateChange@BridgeBehavior@@UAEXPBVDamageInfo@@W4BodyDamageType@@1@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorOnBodyDamageStateChange.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A08D 8B Unwind@00b8a08d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A095 8B Unwind@00b8a095 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A09D 10B __ehhandler$?update@BridgeBehavior@@UAE?AW4UpdateSleepTime@@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorAreaEffects.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0BF 8B Unwind@00b8a0bf -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0C7 14B $L473 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0D5 10B __ehhandler$??1BridgeBehavior@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0DF 13B $L306 -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0EC 10B __ehhandler$?getModuleNameKey@BridgeBehavior@@UBE?AW4NameKeyType@@XZ -- matched in Code/GameEngine/Source/GameLogic/Module/BridgeBehaviorPoolKey.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0F6 8B $L462 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A0FE 10B __ehhandler$??0BridgeBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A108 19B ?rva0078a108@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A11B 8B ?rva0078a11b@@YAXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A123 10B __ehhandler$?handleObjectsOnBridgeOnDie@BridgeBehavior@@IAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorHandleObjectsOnBridgeOnDie.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A12D 8B Unwind@00b8a12d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A135 8B Unwind@00b8a135 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A13D 8B Unwind@00b8a13d -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A145 10B __ehhandler$?createScaffolding@BridgeBehavior@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorCreateScaffolding.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A14F 8B Unwind@00b8a14f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A157 11B uw_0078a157 -- matched in Code/gen_small/uw_gen_010.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A162 10B __ehhandler$??0BridgeBehaviorModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataCtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A16C 8B $L4287 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A174 11B uw_0078a174 -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A17F 11B uw_0078a17f -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0078A18A 10B __ehhandler$??1BridgeBehaviorModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehaviorModuleDataDtor.cpp (not merged yet)
