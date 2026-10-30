@@ -12,6 +12,13 @@ typedef bool Bool;
 #define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 #include "Common/Snapshot.h"
 #include "ascii_string.h"
+#include "GameLogicObjectLookupView.h"
+#include "Lib/Coord3D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
+#include "Lib/Region3D.h"
+#define BFME_SNAPSHOT_NAME_SLOT
+#define BFME_SNAPSHOT_CAPITALIZED_SLOTS
 
 class Xfer;
 
@@ -61,11 +68,158 @@ struct Rva00404BA3InitializationView
 	Rva00404BA3InitializationView *rva00404BA3();
 };
 
+class Rva001DE4F0
+{
+public:
+	Rva001DE4F0(const Rva001DE4F0 &other) throw();
+};
+
+class Object;
+
+class Player {public:char unknown00[0x54];int index;AsciiString faction;};
+
+struct VictoryObjectTemplate { char pad[0x109]; unsigned char flags109; char pad10a[9]; unsigned char flags113; };
+
+class Object { public: Player *getControllingPlayer() const; char pad0[4]; VictoryObjectTemplate *tmpl; char pad8[0x438-8]; unsigned char flags438; };
+
+extern GameLogic *TheGameLogic;
+
+struct VictoryDeathInfo { char pad[8]; ObjectID killer; };
+
+struct Vec3 { float x,y,z; };
+
+class Rva0056C4D3 { public: void rva0056C4D3(void*,float,int,int); };
+
+class Rva0056C0F0 { public: void rva0056C0F0(unsigned int,Vec3*); };
+
+class Rva004051BC { public: void rva004051BC(int,const Coord3D*); };
+
+class CellGrid
+{
+public:
+	int rva0056C16D();
+	CellGrid(int,int,float,float);
+	unsigned width; // +0x00
+	unsigned height; // +0x04
+	unsigned count; // +0x08
+	float size; // +0x0C
+	float offset; // +0x10
+	Rva00404781 *cells; // +0x14
+	unsigned int *values; // +0x18
+};
+
+class Rva00404927
+{
+public:
+	int rva00404927(Rva00404781 *, int);
+private:
+	char data[24];
+};
+
+// The 24-byte parameter record is established by the existing 404927 consumer
+// and the native faction parameter table. Its application class name is unknown.
+class Rva00404C26
+{
+public:
+	Rva00404927 *rva00404C26(int player);
+private:
+	char unknown00[0x28];
+	unsigned playerParameters[62];
+	_STL::vector<Rva00404927> parameters;
+};
+
+class Rva0056C3EA { public: void rva0056C3EA(int,void*); };
+
+struct VictoryGridParameter { float fields[5]; float weight; };
+
+extern "C" double __cdecl fabs(double);
+
+extern "C" double __cdecl sqrt(double);
+
+extern "C" __declspec(dllimport) double __cdecl ceil(double);
+
+class TerrainLogic;
+
+extern TerrainLogic *TheTerrainLogic;
+
+class NewMapTerrainView {public:
+ virtual void slot00();virtual void slot01();virtual void slot02();virtual void slot03();
+ virtual void slot04();virtual void slot05();virtual void slot06();virtual void slot07();virtual void slot08();
+ virtual void getExtent(Region3D *);
+};
+
+class PlayerList {public:Player *getNthPlayer(int);char unknown00[0x14];unsigned count;};
+
+extern PlayerList *ThePlayerList;
+
+class Rva00404781;
+
+class VictorySystemGridUpdateView {
+public: void rva004050CE(Object*,const VictoryDeathInfo*); void rva00405258(); void rva00405094();
+private:
+ char pad0[0x28]; int playerIndices[20]; Rva00404781 root;
+ VictoryGridParameter *parameters,*parametersEnd,*parametersCapacity;
+ CellGrid *grids[2];
+ bool initialized; char pad135[3]; unsigned int activeGrid; int currentPlayer;
+};
+
+class Rva004053C2
+{
+public:
+	void rva00404A29();
+};
+
+namespace _STL {
+template <> void vector<BfmeStringRecord00404BF3>::push_back(const BfmeStringRecord00404BF3 &);
+}
+
+class Rva00404D70
+{
+public:
+	int rva00404D70(const AsciiString &s) throw();
+private:
+	char m_pad[0x120];
+private:
+	_STL::vector<BfmeStringRecord00404BF3> m_vec;
+public:
+	BfmeStringRecord00404BF3 *rva00405684(const AsciiString &s);
+};
+
 // tu-skeleton: 0x00404B03 105B ?rva00404B03@VictorySystem@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
 // tu-skeleton: 0x00404B6C 5B ?reset@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VslotSmallBodiesAJ.cpp (not merged yet)
 
-// tu-skeleton: 0x00404B71 50B ??$__copy@PAURva0040538FElement@@PAU1@H@_STL@@YAPAURva0040538FElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z -- matched in Code/GameEngine/Source/Common/StlportCopy00404B71.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/Common/StlportCopy00404B71.cpp
+
+// stlport46
+// ??$__copy@PAURva0040538FElement@@PAU1@H@_STL@@YAPAURva0040538FElement@@PAU1@00ABUrandom_access_iterator_tag@0@PAH@Z retail 0x00404B71 50 bytes.
+// STLport __copy for Rva0040538FElement view: count via (last-first)/0x18 then
+// copy-constructs each slot through rowed Rva001DE4F0 copy 0x00404A72.
+// Evidence: __copy_ptrs 0x00404CD8 calls here with REL32; caller erase
+// 0x0040538F; callee copy rowed in Rva001DE4F0Copy.cpp; divisor 0x18 and
+// 0x18 adds prove 0x18 element. Recipe: Rva002DFC30CopyLoop 50B assume
+// placement-new (assume kills 7.1 null check) with for-i loop and throw.
+// An explicit specialization of STLport's random-access __copy, built under
+// the VictorySystem TU's flags.
+
+template <>
+Rva0040538FElement *_STL::__copy<Rva0040538FElement *, Rva0040538FElement *, int>(Rva0040538FElement *__first, Rva0040538FElement *__last, Rva0040538FElement *__result, const random_access_iterator_tag &, int *) throw()
+{
+	int n = __last - __first;
+	if (n <= 0)
+		return __result;
+	__assume(__result != 0);
+	for (int i = 0; i < n; ++i)
+	{
+		__assume(__result != 0);
+		new (__result) Rva001DE4F0(*(const Rva001DE4F0 *)__first);
+		++__first;
+		++__result;
+	}
+	return __result;
+}
+
+// ---- from Code/GameEngine/Source/Common/VictorySystem.cpp
 
 // ---- from Code/GameEngine/Source/Common/BfmeStringRecord00404BC5Ctor.cpp
 
@@ -87,47 +241,9 @@ Rva00404BA3InitializationView *Rva00404BA3InitializationView::rva00404BA3()
 	return this;
 }
 
-// tu-skeleton: 0x00404BF3 51B ??0BfmeStringRecord00404BF3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00404C26 58B ?rva00404C26@Rva00404C26@@QAEPAVRva00404927@@H@Z -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemGridUpdates.cpp (not merged yet)
-
-// tu-skeleton: 0x00404C60 45B ??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00404C8D 38B ??$__uninitialized_copy@PAUBfmeStringRecord00404BF3@@PAU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CB3 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00404BF3@@IU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CD8 29B ??$__copy_ptrs@PAURva0040538FElement@@PAU1@@_STL@@YAPAURva0040538FElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
-// tu-skeleton: 0x00404CF5 123B ?rva00404CF5@Rva00404781@@QAEH_N@Z -- matched in Code/GameEngine/Source/Common/Rva00404781Method.cpp (not merged yet)
-
-// tu-skeleton: 0x00404D70 117B ?rva00404D70@Rva00404D70@@QAEHABVAsciiString@@@Z -- matched in Code/GameEngine/Source/Common/Rva00404D70Find.cpp (not merged yet)
-
-// tu-skeleton: 0x00404DE5 687B ?newMap@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp (not merged yet)
-
-// tu-skeleton: 0x00405094 58B ?rva00405094@VictorySystemGridUpdateView@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemGridUpdates.cpp (not merged yet)
-
-// tu-skeleton: 0x004050CE 238B ?rva004050CE@VictorySystemGridUpdateView@@QAEXPAVObject@@PBUVictoryDeathInfo@@@Z -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemGridUpdates.cpp (not merged yet)
-
-// tu-skeleton: 0x004051BC 156B ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
-
-// tu-skeleton: 0x00405258 189B ?rva00405258@VictorySystemGridUpdateView@@QAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemGridUpdates.cpp (not merged yet)
-
-// tu-skeleton: 0x00405315 34B ?update@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/VictorySystem_update.cpp (not merged yet)
-
-// tu-skeleton: 0x00405337 25B ?Rva00405337Clear@@YAXPAX0@Z -- matched in Code/GameEngine/Source/Common/Rva00405337Clear.cpp (not merged yet)
-
-// tu-skeleton: 0x00405350 63B ??1Rva00405350@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
-
-// tu-skeleton: 0x0040538F 51B ?erase@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEPAURva0040538FElement@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/VictorySystem.cpp
 
 VictorySystem::~VictorySystem() {}
-
-// tu-skeleton: 0x0040541F 11B ?clear@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
-
-// tu-skeleton: 0x0040542A 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00404BF3@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/System/VictorySystemCtor.cpp
 
@@ -149,6 +265,209 @@ VictorySystem::VictorySystem():cellSize10(0),field14(0),firstScale18(0),secondSc
  _STL::vector<Rva0040538FElement>*p=reinterpret_cast<_STL::vector<Rva0040538FElement>*>(&parameters120);p->erase(p->begin(),p->end());
 }
 
+// tu-skeleton: 0x00404BF3 51B ??0BfmeStringRecord00404BF3@@QAE@ABU0@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/System/VictorySystemGridUpdates.cpp
+
+// BFME1 semantic source: VictorySystemApplyCells.cpp at
+// 9cbfb551fe20dae985f91f2319d8997287b6a705. Target independently fixes
+// root cell +78, twenty player slots, grids12C/130 and values at grid+18.
+// Native callbacks 4050CE..4051BC and 405258..405315 use rowed Object,
+// root-cell and CellGrid providers. Original method names remain unknown.
+// Views and flags are those of the approved TU, VictorySystem.cpp.
+
+Rva00404927 *Rva00404C26::rva00404C26(int player)
+{
+	unsigned index = playerParameters[player] & 0x7fffffff;
+	if (index < parameters.size())
+	 return &parameters[index];
+	return 0;
+}
+
+void VictorySystemGridUpdateView::rva004050CE(Object *victim,const VictoryDeathInfo *info) {
+ if (!victim || !info || (victim->flags438 & 8)) return;
+ Player *victimPlayer;
+ Object *killer=TheGameLogic->findObjectByID(info->killer);
+ if (!killer) return;
+ victimPlayer=victim->getControllingPlayer();
+ Player *killerPlayer=killer->getControllingPlayer();
+ if (!victimPlayer || !killerPlayer) return;
+ int victimIndex=victimPlayer->index;
+ int parameterIndex=playerIndices[victimIndex];
+ if ((unsigned)parameterIndex & 0x80000000) return;
+ VictoryGridParameter *parameter=&parameters[parameterIndex];
+ float weight;
+ if ((victim->tmpl->flags109 & 4) || (victim->tmpl->flags113 & 4)) weight=parameter->weight;
+ else weight=1.0f;
+ root.AddDeath(weight,victimIndex,killerPlayer->index);
+ for (unsigned i=0;i<2;++i) {
+  if (grids[i]) ((Rva0056C4D3*)grids[i])->rva0056C4D3(victim,weight,victimPlayer->index,killerPlayer->index);
+ }
+}
+
+// Native405094..4050CE RET0. BFME1 VictorySystemUpdate.cpp is the semantic
+// source. Visible byte-verified parameter lookup preserves its readonly call
+// contract, the shared case tail and native EDI grid / ESI player allocation.
+void VictorySystemGridUpdateView::rva00405094()
+{
+ switch (activeGrid) {
+ case 0:
+  if (!grids[0]) return;
+  ((Rva0056C3EA *)grids[0])->rva0056C3EA(
+   currentPlayer, ((Rva00404C26 *)this)->rva00404C26(currentPlayer));
+  break;
+ case 1:
+  if (!grids[1]) return;
+  ((Rva0056C3EA *)grids[1])->rva0056C3EA(
+   currentPlayer, ((Rva00404C26 *)this)->rva00404C26(currentPlayer));
+  break;
+ }
+}
+
+// Native 405258..405315 RET0 (BFME1 VictorySystemApplyCells.cpp semantics):
+// when the root cell has data, pick the grid with the most occupied cells
+// (0x0056C16D) and, for each occupied cell, apply every set player bit at
+// that cell's position (0x0056C0F0) through 0x004051BC. The best-grid slot is
+// re-read through its address after each call and its cell words indexed.
+void VictorySystemGridUpdateView::rva00405258() {
+ if (!root.rva00404CF5(false)) return;
+ unsigned int invalid=0x7fffffff;
+ unsigned int best=invalid;
+ unsigned counts[2];
+ CellGrid **grid;
+ unsigned i;
+ for (i=0,grid=grids;i<2;++i,++grid) {
+  counts[i]=(*grid)->rva0056C16D();
+  if (counts[i] && (best==invalid || counts[i]>counts[best])) best=i;
+ }
+ if (best==invalid) return;
+ CellGrid **bestGrid=&grids[best];
+ unsigned *values=(*bestGrid)->values;
+ for (unsigned cell=0;cell<(*bestGrid)->count;++cell) {
+  if (values[cell]) {
+   Vec3 position;
+   ((Rva0056C0F0*)*bestGrid)->rva0056C0F0(cell,&position);
+   for (unsigned player=0;player<20;++player) {
+    if (values[cell] & (1U<<player)) ((Rva004051BC*)this)->rva004051BC(player,(const Coord3D*)&position);
+   }
+  }
+ }
+}
+
+// tu-skeleton: 0x00404C60 45B ??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
+
+// tu-skeleton: 0x00404C8D 38B ??$__uninitialized_copy@PAUBfmeStringRecord00404BF3@@PAU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CB3 37B ??$__uninitialized_fill_n@PAUBfmeStringRecord00404BF3@@IU1@@_STL@@YAPAUBfmeStringRecord00404BF3@@PAU1@IABU1@ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CD8 29B ??$__copy_ptrs@PAURva0040538FElement@@PAU1@@_STL@@YAPAURva0040538FElement@@PAU1@00ABU__false_type@0@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x00404CF5 123B ?rva00404CF5@Rva00404781@@QAEH_N@Z -- matched in Code/GameEngine/Source/Common/Rva00404781Method.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00404D70Find.cpp
+
+// ?rva00404D70@Rva00404D70@@QAEHABVAsciiString@@@Z @0x00404D70 117B
+// Range find over 0x18-byte records with AsciiString at +0 via
+// StringBase<char>::compareNoCase row 0x00006A00. Evidence: callers
+// 0x00404FDB 0x0040502F 0x00405697 pass AsciiString and test 0x7fffffff;
+// step 0x18 matches BfmeStringRecord00404BF3 neighbour TU.
+
+int Rva00404D70::rva00404D70(const AsciiString &asciiString) throw()
+{
+	bool found = false;
+	int result = 0x7fffffff;
+	for (unsigned int i = 0; i < m_vec.size() && !found; ++i)
+	{
+		if (((const StringBase<char> *)&m_vec[i].text)->compareNoCase(*(const StringBase<char> *)&asciiString) == 0)
+		{
+			result = (int)i;
+			found = true;
+		}
+	}
+	return result;
+}
+
+// ---- from Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp
+
+inline float __cdecl sqrt(float _X) {return ((float)sqrt((double)_X)); }
+
+void VictorySystem::newMap()
+{
+ rva00404B03();
+ if(cellSize10>0.0f){
+  Region3D extent;
+  cellSize10=100.0f>cellSize10?100.0f:cellSize10;
+  reinterpret_cast<NewMapTerrainView *>(TheTerrainLogic)->getExtent(&extent);
+  if(extent.width()>0.0f && extent.height()>0.0f){
+   cellSize10=cellSize10>(extent.height()>extent.width()?extent.width():extent.height())?
+    (extent.height()>extent.width()?extent.width():extent.height()):cellSize10;
+   int width=(int)ceil(fabs(extent.width())/cellSize10);
+   int height=(int)ceil(fabs(extent.height())/cellSize10);
+   grids12c[0]=new CellGrid(width,height,cellSize10,0.0f);
+   ++width;++height;
+   grids12c[1]=new CellGrid(width,height,cellSize10,-(cellSize10/2.0f));
+  }
+  field24=field24>1.0f?field24:1.0f;
+  field20=sqrt(2.0f)*(cellSize10*field24/2.0f);
+  field14=ThePlayerList->count;
+  for(unsigned i=0;i<field14;++i){
+   bool neutral=false;
+   Player *player=ThePlayerList->getNthPlayer(i);
+   AsciiString faction=player->faction;
+   int index=reinterpret_cast<Rva00404D70 *>(this)->rva00404D70(faction);
+   if(faction.isEmpty() || faction.compareNoCase("Observer")==0 || faction.compareNoCase("Civilian")==0)
+    neutral=true;
+   if(index==0x7fffffff)
+    index=reinterpret_cast<Rva00404D70 *>(this)->rva00404D70(AsciiString("Default"));
+   if(index!=0x7fffffff)
+    playerParameterIndex28[i]=index | (neutral?0x80000000:0);
+   else playerParameterIndex28[i]=0;
+  }
+  initialized134=true;
+ }
+}
+
+// tu-skeleton: 0x004051BC 156B ?rva004051BC@Rva004051BC@@QAEXHPBUCoord3D@@@Z -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/VictorySystem_update.cpp
+
+void VictorySystem::update()
+{
+	if (initialized134)
+	{
+		((VictorySystemGridUpdateView *)this)->rva00405094();
+		((VictorySystemGridUpdateView *)this)->rva00405258();
+		((Rva004053C2 *)this)->rva00404A29();
+	}
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva00405337Clear.cpp
+
+//
+// ?Rva00405337Clear@@YAXPAX0@Z @0x00405337 25B
+// Range clear over 0x18-byte records with a StringBase<char> at +0.
+// Evidence: free-function via callers 0x40536A 0xC04EE 0xC0663 (two pushes
+// begin plus end, __cdecl ret); rowed callee StringBase<char>::clear
+// 0x0048BA39; step 0x18 matches BfmeStringRecord00404BF3 in neighbouring
+// StringRecordCopyBFME2 TU; name stays address-derived.
+// BFME_SB_CLEAR_DECL: the call goes to the out-of-line clear, as in retail.
+
+void Rva00405337Clear(void *begin, void *end)
+{
+	char *p = (char *)begin;
+	char *e = (char *)end;
+	for (; p != e; p += 0x18)
+		((StringBase<char> *)p)->clear();
+}
+
+// tu-skeleton: 0x00405350 63B ??1Rva00405350@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaVectorDtorFamily.cpp (not merged yet)
+
+// tu-skeleton: 0x0040538F 51B ?erase@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEPAURva0040538FElement@@PAU3@0@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorEraseRangeDeferred.cpp (not merged yet)
+
+// tu-skeleton: 0x0040541F 11B ?clear@?$vector@URva0040538FElement@@V?$allocator@URva0040538FElement@@@_STL@@@_STL@@QAEXXZ -- matched in Code/GameEngine/Source/Common/VectorClearInstances.cpp (not merged yet)
+
+// tu-skeleton: 0x0040542A 183B ?_M_insert_overflow@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@IAEXPAUBfmeStringRecord00404BF3@@ABU3@ABU__false_type@2@I_N@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
+
 // tu-skeleton: 0x004055BB 55B ?push_back@?$vector@UBfmeStringRecord00404BF3@@V?$allocator@UBfmeStringRecord00404BF3@@@_STL@@@_STL@@QAEXABUBfmeStringRecord00404BF3@@@Z -- matched in Code/Libraries/Source/WWVegas/WWLib/StlportVectorGrowthFootprints.cpp (not merged yet)
 
 // tu-skeleton: 0x004055F2 146B ?init@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00404D70Init.cpp (not merged yet)
@@ -156,14 +475,6 @@ VictorySystem::VictorySystem():cellSize10(0),field14(0),firstScale18(0),secondSc
 // tu-skeleton: 0x00784DEF 14B uw_00784def -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
 
 // tu-skeleton: 0x00784DFD 10B __ehhandler$??$_Construct@UBfmeStringRecord00404BF3@@U1@@_STL@@YAXPAUBfmeStringRecord00404BF3@@ABU1@@Z -- matched in Code/GameEngine/Source/Common/StringRecordCopyBFME2.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E07 10B uw_00784e07 -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E11 10B uw_00784e11 -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E1B 8B Unwind@00b84e1b -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp (not merged yet)
-
-// tu-skeleton: 0x00784E23 10B __ehhandler$?newMap@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/GameLogic/System/VictorySystemNewMap.cpp (not merged yet)
 
 // tu-skeleton: 0x00784E2D 8B $L492 -- matched in Code/GameEngine/Source/Common/Rva004051BC.cpp (not merged yet)
 
@@ -180,3 +491,23 @@ VictorySystem::VictorySystem():cellSize10(0),field14(0),firstScale18(0),secondSc
 // tu-skeleton: 0x00784EB2 8B $L1248 -- matched in Code/GameEngine/Source/Common/Rva00404D70Init.cpp (not merged yet)
 
 // tu-skeleton: 0x00784EBA 10B __ehhandler$?init@VictorySystem@@UAEXXZ -- matched in Code/GameEngine/Source/Common/Rva00404D70Init.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/Common/Rva00404D70FindOrCreate.cpp
+
+// ?rva00405684@Rva00404D70@@QAEPAUBfmeStringRecord00404BF3@@ABVAsciiString@@@Z @0x00405684 105B
+// Evidence: calls rowed find 0x00404D70 tests 0x7fffffff scales 0x18 from start at +0x120; else ctor row 0x00404BC5 push_back row 0x004055BB releaseBuffer row 0x00036410 returns finish-0x18; caller 0x00215D96 passes AsciiString for initFromINI.
+// The retail provider calls the established record-vector push_back55B
+// at4055BB; this TU needs only its declaration and the native three-pointer
+// indexed/back accessors. Importing vector's unused growth machinery emitted
+// allocator/cleanup copies that diverged from the existing kept providers.
+// The real STLport header provides the three-pointer vector; push_back stays a
+// declaration bound to the kept provider.
+
+BfmeStringRecord00404BF3 *Rva00404D70::rva00405684(const AsciiString &asciiString)
+{
+	int idx = rva00404D70(asciiString);
+	if (idx != 0x7fffffff)
+		return &m_vec[idx];
+	m_vec.push_back(BfmeStringRecord00404BF3(asciiString));
+	return &m_vec.back();
+}
