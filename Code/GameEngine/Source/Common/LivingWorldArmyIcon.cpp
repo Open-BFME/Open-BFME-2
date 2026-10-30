@@ -217,16 +217,6 @@ struct Rva002BED91
     void clear();
 };
 
-class Rva003FE05E
-{
-    char m_pad00[0x38];
-    int m_38;
-    char m_pad3C[0x10];
-    TreeHintRef00217D4C m_hint;
-public:
-    void rva003FE05E();
-};
-
 // ?rva003FDE8C@LivingWorldArmyIcon@@QAEXE@Z @0x003FDE8C 33B: __thiscall void method iterating
 // pointer range [+0x2C,+0x30) calling rowed Rva0056B929::rva0056B929(arg). Evidence:
 // retail loads begin/end from ecx+0x2C/0x30 steps 4 derefs each and forwards stack arg;
@@ -275,6 +265,56 @@ public:
 // Native 0x003FE18A reads VA 0x00DFE758 before the +0x88 flag check.
 // GameClient.cpp owns this singleton with the class GlobalData spelling.
 extern GlobalData *TheWritableGlobalData;
+
+// ?rva003FE0EB@Rva003FE05E@@QAE?AUTreeHintRef00217D4C@@XZ @0x003FE0EB 83B: __thiscall TreeHintRef getter that refreshes +0x4C via rowed rva003FE05E when +0x38 link differs then returns +0x4C with AddRef. Evidence: rowed rva003FE05E 0x003FE05E plus pinned helper 0x002E0BC0 plus global g_009FEF10 plus sibling layouts 0x003FE0B3 0x003FE05E.
+
+class LivingWorldLogic;
+
+extern LivingWorldLogic *TheLivingWorldLogic;
+
+struct Rva003FE38
+{
+    char m_pad00[0x54];
+    int m_54;
+};
+
+// The native provider normalizes its bool result with movzx eax,al at
+// 0x002E0BE0. Keep each caller's byte-sized test while naming its int ABI.
+class Rva002E071E
+{
+public:
+    char m_pad00[0x14];
+    int m_14;
+public:
+    int rva002E0BC0(int v);
+};
+
+class Rva002BA8F1Logic
+{
+public:
+    char m_pad00[0x98];
+    Rva002E071E *m_98;
+    char m_pad9C[0xF4 - 0x9C];
+    int m_F4;
+};
+
+class Rva003FE05E
+{
+private:
+	char m_pad00[0x38];
+private:
+	int m_38;
+private:
+	char m_pad3C[0x10];
+private:
+	TreeHintRef00217D4C m_hint;
+public:
+	void rva003FE05E();
+public:
+	TreeHintRef00217D4C rva003FE0EB();
+};
+
+// ---- from Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp
 
 // ---- from Code/GameEngine/Source/Common/LivingWorldArmyIcon.cpp
 
@@ -408,8 +448,6 @@ void Rva003FE0B3::rva003FE0B3(TreeHintRef00217D4C hint)
 	m_hint = hint;
 }
 
-// tu-skeleton: 0x003FE0EB 83B ?rva003FE0EB@Rva003FE05E@@QAE?AUTreeHintRef00217D4C@@XZ -- matched in Code/GameEngine/Source/Common/Rva003FE0EB.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/Common/Rva003FE13ECap.cpp
 
 //
@@ -447,6 +485,26 @@ float LivingWorldArmyIcon::rva003FE13E()
 			cap *= 10.0f;
 	}
 	return Rva003FE13EMin(dist, cap);
+}
+
+// ---- from Code/GameEngine/Source/Common/Rva003FE0EB.cpp
+
+TreeHintRef00217D4C Rva003FE05E::rva003FE0EB()
+{
+    if (m_38)
+    {
+        int v = ((Rva003FE38 *)m_38)->m_54;
+        Rva002BA8F1Logic *logic = (*(Rva002BA8F1Logic **)&TheLivingWorldLogic);
+        int f4 = logic->m_F4;
+        Rva002E071E *helper = logic->m_98;
+        if (f4 != 0)
+            rva003FE05E();
+        else if (helper->m_14 == v)
+            rva003FE05E();
+        else if ((unsigned char)helper->rva002E0BC0(v))
+            rva003FE05E();
+    }
+    return m_hint;
 }
 
 // tu-skeleton: 0x003FE1BF 9B ??0Rva003FE1BF@@QAE@XZ -- matched in Code/GameEngine/Source/Common/RvaSmallVtableCtors.cpp (not merged yet)
