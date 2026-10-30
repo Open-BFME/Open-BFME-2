@@ -1,0 +1,348 @@
+{
+  "source": "Code/GameEngine/Source/GameLogic/Object/Behavior/GateProxyBehaviorFriendNew.cpp",
+  "scope": "partial factory view only; primary4, canonicalModule8 at+4, ProxyPad8, int4C and size50 remain; declaration-only Snapshot roles do not recover current misnamed slot owners",
+  "variants": {
+    "before": {
+      "source_sha256": "85f388eef639aa9a909e570fb6297a8ea540f2acc39e25f797e1842d6e7ed710",
+      "rows": [
+        {
+          "name": "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00253F70",
+          "size": "65",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    },
+    "trial": {
+      "source_sha256": "ee5bceea343133cada9bf7caadbede75477b875bbd4c708c0524753965e42bbc",
+      "rows": [
+        {
+          "name": "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z",
+          "rva": "0x00253F70",
+          "size": "65",
+          "exact": true
+        }
+      ],
+      "eh": [
+        {
+          "name": "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z",
+          "verdict": [
+            "EXACT",
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "all_external_code_and_symbolic_relocations_identical": true,
+  "all_retained_external_code_and_symbolic_relocations_identical": true,
+  "factory_runtime_invariant": {
+    "all_nondebug_sections_and_relocations_identical": true,
+    "coff_index_normalization": ".sxdata symbol-table indices resolved to SafeSEH handler names; indices are object metadata, not image addresses",
+    "all_loadable_definitions_identical": true,
+    "undefined_names_identical": true,
+    "new_vtables_or_thunks": false,
+    "definitions": {
+      "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z": {
+        "raw": "b800000000e800000000516a50e800000000598bc8894df033c03bc88945fc740bff750cff7508e8000000008d4804f7d81bc023c18b4df464890d00000000c9c3",
+        "relocations": [
+          [
+            1,
+            6,
+            "__ehhandler$?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z"
+          ],
+          [
+            6,
+            20,
+            "__EH_prolog"
+          ],
+          [
+            14,
+            20,
+            "??2@YAPAXI@Z"
+          ],
+          [
+            40,
+            20,
+            "??0GateProxyBehavior@@QAE@PAVThing@@PBVModuleData@@@Z"
+          ],
+          [
+            59,
+            6,
+            "__except_list"
+          ]
+        ]
+      }
+    },
+    "undefined": [
+      "??0GateProxyBehavior@@QAE@PAVThing@@PBVModuleData@@@Z",
+      "??2@YAPAXI@Z",
+      "??3@YAXPAX@Z",
+      "__EH_prolog",
+      "___CxxFrameHandler",
+      "__except_list"
+    ],
+    "nondebug_section_sha256": "343239eb9f11f22e327a531d1fe292c88869847d031764a70c45dc0e279133ab"
+  },
+  "native_constructor": {
+    "rva": "0x24e2cc",
+    "size": 53,
+    "raw": "56ff74240c8bf1ff74240ce8c0a5240083664c00c70638f3be00c7460404f3be00c7461048f2be00c746143cf2be008bc65ec20800",
+    "instructions": [
+      {
+        "rva": "0x24e2cc",
+        "mnemonic": "push",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x24e2cd",
+        "mnemonic": "push",
+        "operands": "dword ptr [esp + 0xc]"
+      },
+      {
+        "rva": "0x24e2d1",
+        "mnemonic": "mov",
+        "operands": "esi, ecx"
+      },
+      {
+        "rva": "0x24e2d3",
+        "mnemonic": "push",
+        "operands": "dword ptr [esp + 0xc]"
+      },
+      {
+        "rva": "0x24e2d7",
+        "mnemonic": "call",
+        "operands": "0x49889c"
+      },
+      {
+        "rva": "0x24e2dc",
+        "mnemonic": "and",
+        "operands": "dword ptr [esi + 0x4c], 0"
+      },
+      {
+        "rva": "0x24e2e0",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi], 0xbef338"
+      },
+      {
+        "rva": "0x24e2e6",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 4], 0xbef304"
+      },
+      {
+        "rva": "0x24e2ed",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 0x10], 0xbef248"
+      },
+      {
+        "rva": "0x24e2f4",
+        "mnemonic": "mov",
+        "operands": "dword ptr [esi + 0x14], 0xbef23c"
+      },
+      {
+        "rva": "0x24e2fb",
+        "mnemonic": "mov",
+        "operands": "eax, esi"
+      },
+      {
+        "rva": "0x24e2fd",
+        "mnemonic": "pop",
+        "operands": "esi"
+      },
+      {
+        "rva": "0x24e2fe",
+        "mnemonic": "ret",
+        "operands": "8"
+      }
+    ]
+  },
+  "native_module_table": {
+    "va": "0xbef304",
+    "rva": "0x7ef304",
+    "slots_va": [
+      "0x653328",
+      "0x899475",
+      "0x64e353",
+      "0x898cac",
+      "0x64e30e",
+      "0x4b3fd0",
+      "0x4b3fd0",
+      "0x4b3fd0",
+      "0x4b3fd0"
+    ],
+    "slots_rva": [
+      "0x253328",
+      "0x499475",
+      "0x24e353",
+      "0x498cac",
+      "0x24e30e",
+      "0xb3fd0",
+      "0xb3fd0",
+      "0xb3fd0",
+      "0xb3fd0"
+    ]
+  },
+  "scope_limit": "partial factory view; canonical Snapshot/key roles are declarations only; current misnamed/nonvirtual/static slot-owner identities remain separate debt; no new implementation or alias is provided",
+  "actual": {
+    "source_sha256": "61bb5d51e356c7f7bd705296d20a78c982aae5f319ac2ad6b5ffb25f030871a6",
+    "object_sha256": "703fc842dec1119481341acf80884060c9f44492c33082296ccb1393074a2c44",
+    "strict_current": true,
+    "external_code_definitions_and_relocations_identical": 1
+  },
+  "external_definition_sha256": {
+    "?friend_newModuleInstance@GateProxyBehavior@@SAPAVModule@@PAVThing@@PBVModuleData@@@Z": "322c3b3022b09d55590bfbccc1e3fbd4d4e8200378aec4baa4a4578bef0f6ca0"
+  },
+  "native_helpers": [
+    {
+      "rva": "0x253f70",
+      "size": 65,
+      "raw": "b8c51bb700e80e523d00516a50e81ebeddff598bc8894df033c03bc88945fc740bff750cff7508e830a3ffff8d4804f7d81bc023c18b4df464890d00000000c9c3",
+      "instructions": [
+        {
+          "rva": "0x253f70",
+          "mnemonic": "mov",
+          "operands": "eax, 0xb71bc5"
+        },
+        {
+          "rva": "0x253f75",
+          "mnemonic": "call",
+          "operands": "0x629188"
+        },
+        {
+          "rva": "0x253f7a",
+          "mnemonic": "push",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x253f7b",
+          "mnemonic": "push",
+          "operands": "0x50"
+        },
+        {
+          "rva": "0x253f7d",
+          "mnemonic": "call",
+          "operands": "0x2fda0"
+        },
+        {
+          "rva": "0x253f82",
+          "mnemonic": "pop",
+          "operands": "ecx"
+        },
+        {
+          "rva": "0x253f83",
+          "mnemonic": "mov",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": "0x253f85",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 0x10], ecx"
+        },
+        {
+          "rva": "0x253f88",
+          "mnemonic": "xor",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0x253f8a",
+          "mnemonic": "cmp",
+          "operands": "ecx, eax"
+        },
+        {
+          "rva": "0x253f8c",
+          "mnemonic": "mov",
+          "operands": "dword ptr [ebp - 4], eax"
+        },
+        {
+          "rva": "0x253f8f",
+          "mnemonic": "je",
+          "operands": "0x253f9c"
+        },
+        {
+          "rva": "0x253f91",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 0xc]"
+        },
+        {
+          "rva": "0x253f94",
+          "mnemonic": "push",
+          "operands": "dword ptr [ebp + 8]"
+        },
+        {
+          "rva": "0x253f97",
+          "mnemonic": "call",
+          "operands": "0x24e2cc"
+        },
+        {
+          "rva": "0x253f9c",
+          "mnemonic": "lea",
+          "operands": "ecx, [eax + 4]"
+        },
+        {
+          "rva": "0x253f9f",
+          "mnemonic": "neg",
+          "operands": "eax"
+        },
+        {
+          "rva": "0x253fa1",
+          "mnemonic": "sbb",
+          "operands": "eax, eax"
+        },
+        {
+          "rva": "0x253fa3",
+          "mnemonic": "and",
+          "operands": "eax, ecx"
+        },
+        {
+          "rva": "0x253fa5",
+          "mnemonic": "mov",
+          "operands": "ecx, dword ptr [ebp - 0xc]"
+        },
+        {
+          "rva": "0x253fa8",
+          "mnemonic": "mov",
+          "operands": "dword ptr fs:[0], ecx"
+        },
+        {
+          "rva": "0x253faf",
+          "mnemonic": "leave",
+          "operands": ""
+        },
+        {
+          "rva": "0x253fb0",
+          "mnemonic": "ret",
+          "operands": ""
+        }
+      ]
+    }
+  ],
+  "native_caller_access": [
+    {
+      "rva": "0x253f7b",
+      "raw": "6a50",
+      "mnemonic": "push",
+      "operands": "0x50"
+    },
+    {
+      "rva": "0x253f97",
+      "raw": "e830a3ffff",
+      "mnemonic": "call",
+      "operands": "0x24e2cc"
+    },
+    {
+      "rva": "0x253f9c",
+      "raw": "8d4804",
+      "mnemonic": "lea",
+      "operands": "ecx, [eax + 4]"
+    }
+  ]
+}

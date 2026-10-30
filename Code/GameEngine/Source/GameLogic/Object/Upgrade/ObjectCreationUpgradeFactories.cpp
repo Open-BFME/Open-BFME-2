@@ -43,11 +43,9 @@ public:
 extern "C" void __cdecl ObjectCreationUpgradeFieldParse(MultiIniFieldParse &parse);
 
 // upstream layout: inputs/reference/CnC_Generals_Zero_Hour/GeneralsMD/Code/GameEngine/Include/Common/Module.h
-class Module
-{
-public:
-	virtual ~Module() {}
-};
+// Native Module table slot 2 returns the snapshot name.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/Common/Module.h"
 
 class ObjectCreationUpgradeBase
 {
@@ -65,9 +63,15 @@ public:
 	ObjectCreationUpgrade(Thing *, const ModuleData *);
 	static Module *friend_newModuleInstance(Thing *, const ModuleData *);
 	static ModuleData *friend_newModuleData(INI *ini);
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad[0x24];
+	unsigned char m_pad[0x20];
 };
 
 

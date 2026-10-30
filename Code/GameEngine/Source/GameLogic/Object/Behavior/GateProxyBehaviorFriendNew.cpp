@@ -13,11 +13,9 @@
 class Thing;
 class ModuleData;
 
-class Module
-{
-public:
-	virtual ~Module();
-};
+// Native Module table slot 2 returns the snapshot name.
+#define BFME_SNAPSHOT_NAME_SLOT
+#include "../../../../Include/Common/Module.h"
 
 class PrimaryModuleBase
 {
@@ -36,9 +34,15 @@ class GateProxyBehavior : public PrimaryModuleBase, public Module, public ProxyP
 public:
 	GateProxyBehavior(Thing *thing, const ModuleData *moduleData);
 	static Module *friend_newModuleInstance(Thing *thing, const ModuleData *moduleData);
+	virtual NameKeyType getModuleNameKey() const;
+
+protected:
+	virtual void loadPostProcess();
+	virtual const char *GetSnapshotName() const;
+	virtual void xfer(Xfer *xfer);
 
 private:
-	unsigned char m_pad2[0x4C - 0x10];
+	unsigned char m_pad2[0x4C - 0x14];
 	int m_unk4C;
 };
 
