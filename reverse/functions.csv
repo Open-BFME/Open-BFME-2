@@ -9621,7 +9621,7 @@ _luaD_adjusttop,,0x0074D6B0,70,Code/Libraries/Source/Lua/ldo.c,matched,BFME1 byt
 ?get@Rva004CBBC5FloatField@@QBEMXZ,,0x004CBBC5,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva004D92F7FloatField@@QBEMXZ,,0x004D92F7,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
 ?get@Rva0055F4B5FloatField@@QBEMXZ,,0x0055F4B5,7,Code/GameEngine/Source/Common/DispFloatFieldGetters.cpp,matched,Disp32 float getter; address-derived opaque holder
-?get@Rva00203ACEByteField@@QBEEXZ,,0x00203ACE,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter; address-derived opaque holder
+?get@Rva00203ACEByteField@@QBEEXZ,,0x00203ACE,7,Code/GameEngine/Source/GameLogic/ScriptEngine/ScriptEngine.cpp,matched,Disp32 byte getter; address-derived opaque holder
 ?apply@Rva0005CF81FDwordImmSetter@@QAEXXZ,,0x005CF81F,7,Code/GameEngine/Source/Common/Disp0DwordImmSettersAddr.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B ret-prev; retail C7-01-7852C700-C3
 ?get@Rva002C9400ByteField@@QBEEXZ,,0x002C9400,7,Code/GameEngine/Source/Common/DispByteFieldGetters.cpp,matched,Disp32 byte getter; address-derived opaque holder
 ?apply@Rva0005CF86BDwordImmSetter@@QAEXXZ,,0x005CF86B,7,Code/GameEngine/Source/Common/Disp0DwordImmSetters.cpp,matched,Disp0 dword imm-setter; Ghidra-standalone 7B ret-prev; retail C7-01-9052C700-C3
