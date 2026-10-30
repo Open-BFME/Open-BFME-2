@@ -3017,6 +3017,7 @@ alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/DynamicPortalLink
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f2@FakePathfindPortalBehaviour_B2@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f3@FakePathfindPortalBehaviour_B3@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FakePathfindPortalBehaviourDtor.cpp	?f4@FakePathfindPortalBehaviour_B4@@UAEXXZ	1
+alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDamagedBehavior.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	??1StatusBitsUpgrade@@UAE@XZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5982_E@@UAEXXZ	1
 alternatename	Code/GameEngine/Source/GameLogic/Object/Behavior/FireWeaponWhenDeadBehaviorDerived.cpp	?fe@Rva004B5D0B_E@@UAEXXZ	1
@@ -4170,7 +4171,6 @@ alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	?cle
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00439609.cpp	?erase@?$_Rb_tree@HU?$pair@$$CBHURva00439609Record@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@@_STL@@QAEXU?$_Rb_tree_iterator@U?$pair@$$CBHURva00439609Record@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva00439609Record@@@_STL@@@2@@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00448FF2.cpp	??M@YA_NABURva00448FF2Record@@0@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva0044BE1D.cpp	??1Rva0044BE1DRecord@@QAE@XZ	1
-alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00482A4D.cpp	??1Rva00482A4DRecord@@QAE@XZ	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004CA6F3.cpp	?insert_equal@?$_Rb_tree@HHU?$_Identity@H@_STL@@U?$less@H@2@V?$allocator@H@2@@_STL@@QAE?AU?$_Rb_tree_iterator@HU?$_Nonconst_traits@H@_STL@@@2@ABH@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva004D272E.cpp	?insert_unique@?$_Rb_tree@HU?$pair@$$CBHURva004D272ERecord@@@_STL@@U?$_Select1st@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@U?$less@H@2@V?$allocator@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@@_STL@@QAE?AU?$_Rb_tree_iterator@U?$pair@$$CBHURva004D272ERecord@@@_STL@@U?$_Nonconst_traits@U?$pair@$$CBHURva004D272ERecord@@@_STL@@@2@@2@U32@ABU?$pair@$$CBHURva004D272ERecord@@@2@@Z	1
 alternatename	Code/Libraries/Source/WWVegas/WWLib/StlSweepR3Rva00502EA4.cpp	??$_Construct@URva00502EA4Record@@U1@@_STL@@YAXPAURva00502EA4Record@@ABU1@@Z	1
