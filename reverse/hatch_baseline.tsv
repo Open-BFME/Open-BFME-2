@@ -1595,8 +1595,6 @@ alternatename	Code/GameEngine/Source/Common/Bfme/BfmeChainRecord.cpp	??0BfmeRecE
 alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	??RRva004E5CB0Deleter@@QBEXPAVRva004E5A78@@@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme/IngameNoticeDisplay.cpp	?release@Rva00036E70Releaser@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp	?orderPairs@GameWindow@@QAEXXZ	1
-alternatename	Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp	?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z	1
-alternatename	Code/GameEngine/Source/Common/Bfme/T_009F4FB0.cpp	?m@T_009f4fb0@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5NinetyOne.cpp	?randwc@@YAJJ@Z	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyFour.cpp	?unlink@PartitionData@@QAEXXZ	1
 alternatename	Code/GameEngine/Source/Common/Bfme5ThirtyTwo.cpp	?rva007F76D0@Rva00801670Host@@QAEPAHPAVBfmeVecCZ@@H@Z	1
@@ -4411,8 +4409,10 @@ alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSTA@@YAXPAXHHH
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSWA@@YAXPAXHH0@Z	1
 alternatename	Code/Libraries/Source/debug/debug_cmd.cpp	?bfmeWriteSXA@@YAXPAXZZ	1
 alternatename	Code/Libraries/Source/debug/debug_except.cpp	??6@YAAAVDebug@@AAV0@ABUSignature@DebugStackwalk@@@Z	1
+alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?Rva006276E0@ShroudManager@@QAEXPBURegion3D@@@Z	1
 alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?Rva00627810@ShroudManager@@QAEXPAX@Z	1
 alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?bfmeLinkEQR@BfmeHostEQR@@QAEXPAVBfmeRecEQR@@@Z	1
+alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?m@T_009f4fb0@@QAEXXZ	1
 alternatename	Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp	?m@T_009f59d0@@QAEXXZ	1
 alternatename	Code/Libraries/Source/subsystem/Rva00221088Ctor.cpp	??1Rva00221088@@UAE@XZ	1
 alternatename	Code/Libraries/Source/subsystem/Rva00221088Ctor.cpp	?rva001B5384@Rva00221088@@QAEXXZ	1

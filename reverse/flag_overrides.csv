@@ -635,7 +635,6 @@ Code/Libraries/Source/WWVegas/WWLib/stlport_deque_ptr_od.cpp,-Od,2,2,region defa
 Code/Libraries/Source/WWVegas/WWLib/stlport_deque_sighting_initmap.cpp,-O2,2,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int.cpp,-O2,30,10,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_hash_map_int_resize.cpp,-O2,1,1,region default loses rows
-Code/Libraries/Source/WWVegas/WWLib/stlport_heap_s4sortelem24.cpp,,2,2,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem8.cpp,,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_introsort_loop_s4sortelem8_desc.cpp,,1,1,region default loses rows
 Code/Libraries/Source/WWVegas/WWLib/stlport_linear_insert_s4sortelem8.cpp,,1,1,region default loses rows
@@ -712,7 +711,7 @@ Code/Libraries/Source/assetmanager/q1_registry_forwards.cpp,-O2 -G6,12,1,region 
 Code/Libraries/Source/collisionmanager/CollisionManagerImpl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/collisionmanager/collisionmanager_data.cpp,-O2 -G6,1,1,region default loses rows
 Code/Libraries/Source/partitionmanager/PartitionManagerGetObjectsInRange.cpp,-O2 -G6,1,1,region default loses rows
-Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,,5,5,region default loses rows
+Code/Libraries/Source/partitionmanager/PartitionManagerImpl.cpp,,7,7,region default loses rows
 Code/Libraries/Source/partitionmanager/partitionmanager_impl.cpp,-O2 -G6,2,2,region default loses rows
 Code/Libraries/Source/profile/profile.cpp,,12,1,region default loses rows
 Code/Libraries/Source/profile/profile_highlevel.cpp,,17,2,region default loses rows
