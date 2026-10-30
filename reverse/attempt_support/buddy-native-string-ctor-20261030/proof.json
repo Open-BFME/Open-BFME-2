@@ -1,0 +1,59 @@
+{
+  "base": "89295774fff397085f32363ee64d1bc0e216ba21",
+  "constructor_rva": "0x00550F01",
+  "native_string_constructor_rva": "0x00007850",
+  "function_rows_verified": 23,
+  "eh_exact": 4,
+  "owned_bytes_unchanged": true,
+  "comdat": {
+    "retained": 17,
+    "changed": [],
+    "removed": [
+      "??0?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@PAD@Z",
+      "??0?$_String_base@DV?$allocator@D@_STL@@@_STL@@QAE@ABV?$allocator@D@1@@Z",
+      "??0?$allocator@D@_STL@@QAE@ABV01@@Z",
+      "??0?$allocator@D@_STL@@QAE@XZ",
+      "??0?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@QAE@XZ",
+      "?_M_terminate_string@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXXZ",
+      "?_M_terminate_string_aux@?$basic_string@DV?$char_traits@D@_STL@@V?$allocator@D@2@@_STL@@AAEXABU__true_type@2@@Z",
+      "?__stl_new@_STL@@YAPAXI@Z",
+      "?allocate@?$_STLP_alloc_proxy@PADDV?$allocator@D@_STL@@@_STL@@QAEPADI@Z",
+      "?allocate@?$__node_alloc@$00$0A@@_STL@@SAPAXI@Z",
+      "?allocate@?$allocator@D@_STL@@QBEPADIPBX@Z"
+    ],
+    "added": []
+  },
+  "receipts": [
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadClassCtor.cpp",
+      "strict_current": true,
+      "object_md5": "7da47ec5f371a6ee74ea8614d068e918",
+      "receipt_md5": "7da47ec5f371a6ee74ea8614d068e918"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_string_default_ctor.cpp",
+      "strict_current": true,
+      "object_md5": "b317901dc7343503ecd14184bda11a80",
+      "receipt_md5": "b317901dc7343503ecd14184bda11a80"
+    },
+    {
+      "source": "Code/Libraries/Source/WWVegas/WWLib/stlport_narrow_ios_imbue.cpp",
+      "strict_current": true,
+      "object_md5": "3382d2bf7002fff4f16ca45f085387b7",
+      "receipt_md5": "3382d2bf7002fff4f16ca45f085387b7"
+    },
+    {
+      "source": "Code/GameEngine/Source/GameNetwork/GameSpy/Thread/BuddyThreadStartThread.cpp",
+      "strict_current": true,
+      "object_md5": "c205296041a1059f1769568cc415f9b0",
+      "receipt_md5": "c205296041a1059f1769568cc415f9b0"
+    }
+  ],
+  "before_units_linked": 3,
+  "after_units_linked": 4,
+  "before_preview_bytes": 540,
+  "after_preview_bytes": 770,
+  "new_preview_bytes": 230,
+  "census_gain_claimed": false,
+  "pins_or_rows_added": 0
+}

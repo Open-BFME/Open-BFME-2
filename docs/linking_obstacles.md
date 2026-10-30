@@ -11476,6 +11476,18 @@ claimed. The full consumer and scheduled-census prerequisites above remain.
 
 ### LINK-140: STLport 4.6 migration removed the only provider of the 4.5.3 proxy<char> allocate (2026-10-29, seat yasinschroeder-claudeb2)
 
+**2026-10-30 Buddy constructor follow-up (base `89295774ff`):** declaring its
+existing native narrow-string constructor (0x00007850) suppresses 11 local
+copies, including the competing allocator proxy. All 17 retained Buddy copies
+remain identical. Ordinary strict four-source verification passes 23 rows and
+four EXACT EH graphs; the paired preview improves 3/4 to 4/4 LINKS, 540 to
+770 bytes (Buddy: 0 -> 230). The existing constructor, proxy provider and caller
+stay linked. The staged audit is INCONCLUSIVE on the older index and affected
+consumer Common/0CreateAHeroManager21FE49.cpp without a strict receipt; carry
+the changed instantiation and affected consumers into the next scheduled census.
+No census gain or wider migration clearance is claimed.
+[Evidence](../reverse/attempt_support/buddy-native-string-ctor-20261030/readme.md).
+
 Status: partially repaired, pending census confirmation; the provider-retirement
 follow-up below remains open. The 2026-10-29 17:26 census
 (85f6b7f40c) drops ten units from linked to not linked, each with exactly one
