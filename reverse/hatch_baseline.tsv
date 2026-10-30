@@ -10779,9 +10779,9 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/AI/GroupOrder.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/AI/ai.cpp	"t",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"s",off	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	1
+pragma_optimize	Code/GameEngine/Source/GameLogic/Map/SidesList.cpp	"t",on	2
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"",on	3
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"gsy",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/Behavior/BridgeBehavior.cpp	"s",on	2
@@ -10834,8 +10834,6 @@ pragma_optimize	Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.c
 pragma_optimize	Code/GameEngine/Source/GameLogic/Object/WeaponSetSetWeaponLock.cpp	"p",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/Pathfinder/pathfinder.cpp	"y",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Rva00194810Split_Rva0032abda.cpp	"",on	1
-pragma_optimize	Code/GameEngine/Source/GameLogic/Rva00194810Split_Rva0032abda.cpp	"t",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"",on	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"s",off	1
 pragma_optimize	Code/GameEngine/Source/GameLogic/ScriptEngine/Rva0054840AXfer.cpp	"t",on	1
