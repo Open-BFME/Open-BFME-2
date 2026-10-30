@@ -10294,3 +10294,4 @@ nl-2b96570f06ef,local,temporary,spreadOutput,,w-ded32b2e2c5e@drz-k2,Code/GameEng
 nl-5b6e9e203f2d,local,p,entry,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/GapBodiesGE09.cpp|local|Rva003BD52F|p,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-49aed9cef4a3,param,arg,newValue,,w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/System/Rva003F1AFF.cpp|param|Rva003F1AFF::rva003F1AFF|arg,agreed,single-worker scoped approval: w-ded32b2e2c5e@drz-k2
 nl-42262df0a072,member,m_3C,m_turnNumber,,w-077d7aeb666b@drz-k3;w-ded32b2e2c5e@drz-k2,Code/GameEngine/Source/Common/VslotSmallBodiesI.cpp|member|Rva0057A83C|m_3C,agreed,two-agent agreement: w-077d7aeb666b@drz-k3;w-ded32b2e2c5e@drz-k2
+nl-46de1f3f5cfc,param,a,culled,,w-526a51702f64@drz-k5,Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111F0EClear.cpp|param|Rva00111F0E::rva00111FBC|a,agreed,single-worker scoped approval: w-526a51702f64@drz-k5

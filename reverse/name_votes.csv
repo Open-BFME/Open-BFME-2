@@ -16187,3 +16187,5 @@ Code/GameEngine/Source/Common/GapBodiesGE49.cpp|function|0x001D971F|rva001D971F,
 Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|global||g_rva00690cb0Riid,a44cc84483f31261bc590a73,drz-k8,drz-k8-169,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/Common/Rva00690CB0Init.cpp|global||g_rva00690cb0Rclsid,717f70445326bb4752bb86a7,drz-k8,drz-k8-169,w-87ae7cdc64ef,2026-10-30
 Code/GameEngine/Source/Common/Palantir_SetPlanningModeEnabled.cpp|member|Rva002D37BDMid10|m_128,4d0b69ea7b9cbcb8a77e046e,drz-k8,drz-k8-174,w-87ae7cdc64ef,2026-10-30
+Code/GameEngine/Source/Common/Rva0056B89F.cpp|member|Inner0056B89F|m_58,ecf6053e1b4c561a7f37e97a,drz-k5,drz-k5-181,w-526a51702f64,2026-10-30
+Code/GameEngineDevice/Source/W3DDevice/GameClient/Rva00111F0EClear.cpp|param|Rva00111F0E::rva00111FBC|a,46de1f3f5cfc8540e11473ff,drz-k5,drz-k5-186,w-526a51702f64,2026-10-30
