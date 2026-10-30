@@ -19688,7 +19688,7 @@ address,size,section,kind,name,source,status,names,defs,refs
 0x00A02F68,4,.data,global,?$S1@?1??rva00406B39@Rva00406B39@@QAEHXZ@4IA,Code/GameEngine/Source/Common/VslotSmallBodiesW.cpp,owned,,1,2
 0x00A02F6C,8,.data,global,_s_rva007AFDF4,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02F74,4,.data,global,?g_00E02F74@@3PAVRva0040AAD5@@A,Code/GameEngine/Source/Common/AwardSystemManager.cpp,provisional,?g_00E02F74@@3PAVRva0040AAD5@@A;?g_Va00E02F74@@3PAVRva0040AAD5@@A,1,25
-0x00A02F78,4,.data,global,?g_00E02F78@@3HA,Code/GameEngine/Source/Common/Rva0040AA73Load.cpp,owned,,1,1
+0x00A02F78,4,.data,global,?g_00E02F78@@3HA,Code/GameEngine/Source/Common/AwardSystemManager.cpp,owned,,1,1
 0x00A02F7C,12,.data,global,_s_rva007AFE1E,Code/GameEngine/Source/Common/Rva007AB7F0HalfRateInits.cpp,owned,,1,1
 0x00A02F88,4,.data,global,?$S1@?6??parseTrigger@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z@4IA,Code/GameEngine/Source/Common/AwardSystemManager.cpp,owned,,1,8
 0x00A02F8C,4,.data,global,?emptyKey@?1??parseThingStat@AwardSystemManager@@SAXPAVINI@@PAX1PBX@Z@4W4NameKeyType@@A,Code/GameEngine/Source/Common/AwardSystemManagerParseThingStat.cpp,owned,,1,2

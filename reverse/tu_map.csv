@@ -33103,7 +33103,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0040A937,98,code,,,-,,Code/GameEngine/Source/Common/Rva0040A937Equal.cpp
 0x0040A99A,141,code,,,-,,Code/GameEngine/Source/Common/Rva0040AA27.cpp
 0x0040AA27,76,code,Code/GameEngine/Source/Common/CreateAHeroAward.cpp,proposed,N,N=Code/GameEngine/Source/Common/CreateAHeroAward.cpp,Code/GameEngine/Source/Common/Rva0040AA27.cpp
-0x0040AA73,98,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,N,N=Code/GameEngine/Source/Common/AwardSystemManager.cpp W=Code/GameEngine/Source/GameLogic/System/AwardSystem.cpp provisional,Code/GameEngine/Source/Common/Rva0040AA73Load.cpp
+0x0040AA73,98,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,N,N=Code/GameEngine/Source/Common/AwardSystemManager.cpp W=Code/GameEngine/Source/GameLogic/System/AwardSystem.cpp provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
 0x0040AAD5,35,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AAF8 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_pod_vector_bodies.cpp
 0x0040AAF8,173,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040ABA5 provisional,Code/GameEngine/Source/Common/Rva0040BAD0.cpp
 0x0040ABA5,179,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AC58 provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
@@ -33118,8 +33118,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0040ADAD,25,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040ADC6 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp
 0x0040ADC6,23,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040ADDD provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp
 0x0040ADDD,29,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040ADFA provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
-0x0040ADFA,50,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AE2C provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0040ADFAContains.cpp
-0x0040AE2C,50,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AE5E provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0040ADFAContains.cpp
+0x0040ADFA,50,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AE2C provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
+0x0040AE2C,50,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AE5E provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
 0x0040AE5E,52,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AE92 provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
 0x0040AE92,58,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AA73..0x0040AECC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_int_introsort_loop.cpp
 0x0040AECC,23,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,U,N=Code/GameEngine/Source/Common/AwardTrigger.cpp provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
@@ -33142,7 +33142,7 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x0040B2E1,28,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B2FD provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_destroy_range_0040B547.cpp
 0x0040B2FD,38,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B323 provisional,Code/Libraries/Source/WWVegas/WWLib/Rva0040B2FDUninitCopy.cpp
 0x0040B323,45,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B350 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_vector_BfmeRecord0040B61A_allocate_copy.cpp
-0x0040B350,29,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B36D provisional,Code/GameEngine/Source/Common/Thing/Rva0040AEE3CopyPtrs.cpp
+0x0040B350,29,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B36D provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
 0x0040B36D,68,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B3B1 provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp
 0x0040B3B1,27,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B3CC provisional,Code/Libraries/Source/WWVegas/WWLib/stlport_int_algorithm_bodies.cpp
 0x0040B3CC,9,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,C,C=0x0040AECC..0x0040B3D5 provisional,Code/Libraries/Source/WWVegas/WWLib/NarrowStringRecord16DequeDestroy.cpp
@@ -77280,8 +77280,8 @@ rva,size,kind,tu,confidence,by,evidence,source
 0x007854B0,10,code,,,-,,Code/GameEngine/Source/Common/0CreateAHeroManager21FE49.cpp
 0x007854BA,8,code,,,-,,Code/GameEngine/Source/Common/Rva0040AA27.cpp
 0x007854C2,10,code,,,-,,Code/GameEngine/Source/Common/Rva0040AA27.cpp
-0x007854CC,11,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AA73@FuncInfo0x00931D74 provisional,Code/GameEngine/Source/Common/Rva0040AA73Load.cpp
-0x007854D7,10,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AA73@FuncInfo0x00931D74 provisional,Code/GameEngine/Source/Common/Rva0040AA73Load.cpp
+0x007854CC,11,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AA73@FuncInfo0x00931D74 provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
+0x007854D7,10,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AA73@FuncInfo0x00931D74 provisional,Code/GameEngine/Source/Common/AwardSystemManager.cpp
 0x007854E1,8,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AAF8@FuncInfo0x00931D98 provisional,Code/GameEngine/Source/Common/Rva0040BAD0.cpp
 0x007854E9,10,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AAF8@FuncInfo0x00931D98 provisional,Code/GameEngine/Source/Common/Rva0040BAD0.cpp
 0x007854F3,11,code,Code/GameEngine/Source/Common/AwardSystemManager.cpp,approved,P,P=0x0040AF66@FuncInfo0x00931DCC provisional,Code/GameEngine/Source/Common/Rva0040AF66Copy.cpp
