@@ -50,6 +50,8 @@ bool less<int>::operator()(const int &a, const int &b) const
 { return a < b; }
 }
 class INI;
+class PlayerTemplateStore;
+class Image;
 struct BfmeObject476 { virtual ~BfmeObject476(); unsigned char opaque[472]; BfmeObject476 &operator=(const BfmeObject476 &); };
 extern template void _STL::vector<BfmeObject476>::push_back(const BfmeObject476 &);
 //
@@ -77,6 +79,7 @@ enum NameKeyType
 class Overridable
 {
 public:
+	Overridable *deleteOverrides();
 	const Overridable *getFinalOverride() const;
 
 	virtual ~Overridable();
@@ -85,22 +88,73 @@ public:
     char pad09[3];
 	int m_extra0C;
 };
+namespace _STL
+{
+template <class T> struct less;
+template <class T> class allocator;
+template <class A, class B> struct pair;
+template <class K, class V, class C, class A> class map;
+template <> class map<int, float, less<int>, allocator<pair<const int, float> > >
+{
+public:
+	float &operator[](const int &key);
+private:
+	unsigned char m_tree[0xC];
+};
+template <> class map<int, int, less<int>, allocator<pair<const int, int> > >
+{
+public:
+	int &operator[](const int &key);
+private:
+	unsigned char m_tree[0xC];
+};
+}
+
+typedef _STL::map<int, float, _STL::less<int>, _STL::allocator<_STL::pair<const int, float> > > ProductionChangeMap;
+typedef _STL::map<int, int, _STL::less<int>, _STL::allocator<_STL::pair<const int, int> > > ProductionVeterancyMap;
+
+class Rva001FDE3F
+{
+public:
+	float &rva001FDE3F(const AsciiString &key);
+private:
+	unsigned char m_table[0x14];
+};
+
 class PlayerTemplate : public Overridable
 {
 public:
 	PlayerTemplate();
     virtual ~PlayerTemplate();
     static void parseStartMoney(INI *ini, void *instance, void *store, const void *userData);
+    const Image *getFlagWaterMarkImage() const;
+    const Image *getEnabledImage() const;
+    int rva001FD234() const;
+    const Image *rva001FD23F() const;
+protected:
+	static void parseProductionCostChange(INI *ini, void *instance, void *store, const void *userData);
+	static void parseProductionTimeChange(INI *ini, void *instance, void *store, const void *userData);
+	static void parseProductionVeterancyLevel(INI *ini, void *instance, void *store, const void *userData);
+public:
     NameKeyType m_nameKey; // +0x10
     char display14[4];
     AsciiString side;
-    char before150[0x150-0x1c];
+    char beforeF4[0xF4 - 0x1C];
+    ProductionChangeMap m_productionCostChanges;
+    Rva001FDE3F m_productionTimeChanges;
+    ProductionVeterancyMap m_productionVeterancyLevels;
+    char before150[0x150 - 0x120];
     bool flag150,flag151;
-    char tail152[0x1dc-0x152];
+    char tail152[0x170 - 0x152];
+    AsciiString m_170;
+    AsciiString m_174;
+    char m_pad178[0x1D8 - 0x178];
+    AsciiString m_1D8;
 };
 class PlayerTemplateVector
 {
 public:
+	PlayerTemplate &operator[](int index) { return m_first[index]; }
 	unsigned size() const { return static_cast<unsigned>(m_last - m_first); }
 	const PlayerTemplate &operator[](int index) const { return m_first[index]; }
 
@@ -112,6 +166,9 @@ public:
 class PlayerTemplateStore
 {
 public:
+	void reset();
+	bool rva001FD4E1(NameKeyType key, int *index);
+	bool rva001FD367(int faction, int *outIndex) const;
 	static void parsePlayerTemplateDefinition(INI *);
     const PlayerTemplate *findPlayerTemplate(NameKeyType namekey) const;
 	const PlayerTemplate *getNthPlayerTemplate(int index) const;
@@ -126,8 +183,22 @@ private:
     _STL::set<int> playableIndices;
     int index24;
 };
-class INI { public: const char *getNextToken(const char *); static void parseInt(INI *ini, void *instance, void *store, const void *userData); char prefix[8]; int mode; };
-class NameKeyGenerator { public: NameKeyType nameToKey(const char *); };
+class INI
+{
+public:
+	const char *getNextToken(const char *seps = 0);
+	static void parseInt(INI *ini, void *instance, void *store, const void *userData);
+	int scanIndexList(const char *token, const char *const *names);
+	float dup_002EE10(const char *token);
+	char prefix[8];
+	int mode;
+};
+class NameKeyGenerator
+{
+public:
+	NameKeyType nameToKey(const char *);
+	const AsciiString &keyToName(NameKeyType key);
+};
 extern NameKeyGenerator *TheNameKeyGenerator;
 extern PlayerTemplateStore *ThePlayerTemplateStore;
 extern unsigned char g_00E01EA8;

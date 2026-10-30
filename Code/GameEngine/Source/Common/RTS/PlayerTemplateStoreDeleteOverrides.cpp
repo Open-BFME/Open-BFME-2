@@ -8,15 +8,29 @@
 // BFME's override-aware counterpart: slot 9, the subsystem reset slot.
 #include <vector>
 
+enum NameKeyType
+{
+	NAMEKEY_INVALID = -1,
+	FORCE_NAMEKEYTYPE_LONG = 0x7fffffff
+};
+
 class Overridable
 {
 public:
-	Overridable *deleteOverrides();		// 0x001E35ED
+	Overridable *deleteOverrides();
+	const Overridable *getFinalOverride() const;
+
+	virtual ~Overridable();
+	Overridable *m_nextOverride;
+	bool m_isOverride;
+    char pad09[3];
+	int m_extra0C;
 };
 
 struct PlayerTemplateOverrideView : public Overridable
 {
-	char m_bytes[0x1DC];
+	NameKeyType m_nameKey;
+	char m_rest[0x1DC - 0x14];
 };
 
 class PlayerTemplateStore
