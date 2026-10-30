@@ -59,12 +59,6 @@ protected:
 	Int drawWindow(GameWindow *window);
 };
 
-void GameWindow::winDrawBorder()
-{
-	if (m_positionSink)
-		m_positionSink->drawBorder(this);
-}
-
 // ?drawWindow@GameWindowManager@@IAEHPAVGameWindow@@@Z
 Int GameWindowManager::drawWindow(GameWindow *window)
 {

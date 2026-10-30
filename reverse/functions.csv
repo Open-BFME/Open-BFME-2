@@ -14338,7 +14338,7 @@ __heap_abort,,0x000398A0,80,Code/Libraries/Source/debug/debug_cmd.cpp,matched,ZH
 ?resize@?$vector@UCoord3D@@V?$allocator@UCoord3D@@@_STL@@@_STL@@QAEXI@Z,,0x000CA33C,22,Code/Libraries/Source/WWVegas/WWLib/Coord3DVectorDefaultResizeThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?scanShort@@YAHPBDAAF@Z,,0x00314E6D,41,Code/GameEngine/Source/GameClient/GUI/parseTextEntryData_Thunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ?valid@W3DVideoBuffer@@UAE_NXZ,,0x00655950,11,Code/GameEngineDevice/Source/W3DDevice/GameClient/W3DVideoBuffer.cpp,matched,BFME1 donor (donor flags); callees pinned from the retail calls
-?winDrawBorder@GameWindow@@QAEXXZ,,0x00313D03,17,Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
+?winDrawBorder@GameWindow@@QAEXXZ,,0x00313D03,17,Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0?$vector@UGeometryRecord@@V?$allocator@UGeometryRecord@@@_STL@@@_STL@@QAE@ABV01@@Z,,0x0009298B,93,Code/GameEngine/Source/Common/System/GeometryRecordVectorCopyConstructor.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0LifeEventModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A9900,0x003A9900,81,Code/GameEngine/Source/GameClient/System/FXParticleSystem/LifeEventModuleInfoCopyCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls
 ??0TerrainCollisionModuleInfo@FXParticleSystem@@QAE@ABV01@@Z,0x003A9FBA,0x003A9FBA,87,Code/GameEngine/Source/GameClient/System/FXParticleSystem/TerrainCollisionModuleInfoCopyCtorThunk.cpp,matched,BFME1 donor (/O1); callees pinned from the retail calls

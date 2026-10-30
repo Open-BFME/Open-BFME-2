@@ -150,31 +150,6 @@ public:
 	virtual void onChildPosition(int curX, int curY, int newX, int newY);
 };
 
-class GameWindowManager
-{
-public:
-#define V(n) virtual void pad##n() = 0;
-	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
-	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
-	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
-	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
-	V(32) V(33) V(34) V(35) V(36)
-	virtual GameWindow *Virtual94() = 0;
-	V(38) V(39)
-	virtual void windowHiding(GameWindow *window) = 0;
-	V(41) V(42) V(43) V(44) V(45) V(46) V(47)
-	virtual GameWindow *winGetFocus() = 0;
-	virtual Int winSetFocus(GameWindow *window) = 0;
-	V(50) V(51) V(52) V(53) V(54) V(55)
-	virtual void VirtualE0(GameWindow *win, GameWindow *parent) = 0;
-	V(57)
-#undef V
-	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
-	void linkWindow(GameWindow *win);
-	void unlinkWindow(GameWindow *win);
-	void unlinkChildWindow(GameWindow *win);
-};
-
 extern GameWindowManager *TheWindowManager;
 
 class Gadget210;
@@ -703,6 +678,36 @@ struct WindowBlockTail
 
 class GameWindowChild;
 
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
+
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
+
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
+
+
+BFME_TWO_DWORD_SETTER( Rva004784D0PairSlot, 0x1AC )
+
+class Rva0031468C
+{
+public:
+	~Rva0031468C();
+
+private:
+	AsciiString m_str00; // +0x00
+	AsciiString m_str04; // +0x04
+	AsciiString m_str08; // +0x08
+	AsciiString m_str0C; // +0x0C
+};
+
+enum
+{
+	WIN_ERR_INVALID_WINDOW = -2,
+	WIN_STATUS_BORDER = 0x1000,
+	WIN_STATUS_SEE_THRU = 0x10000
+};
+
 class GameWindow
 {
 protected:
@@ -847,30 +852,57 @@ public:
 	void snapshotCreateView(GadgetCreateView *view, bool clear);
 public:
 	GameWindow();
+public:
+	UnsignedInt winGetStyle();
+public:
+	__declspec(noinline) void winDrawBorder();
 };
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-
-
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-
-
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
-
-
-BFME_TWO_DWORD_SETTER( Rva004784D0PairSlot, 0x1AC )
-
-class Rva0031468C
+class GameWindowManager
 {
 public:
-	~Rva0031468C();
-
-private:
-	AsciiString m_str00; // +0x00
-	AsciiString m_str04; // +0x04
-	AsciiString m_str08; // +0x08
-	AsciiString m_str0C; // +0x0C
+	#define V(n) virtual void pad##n() = 0;
+public:
+	V(0) V(1) V(2) V(3) V(4) V(5) V(6) V(7)
+	V(8) V(9) V(10) V(11) V(12) V(13) V(14) V(15)
+	V(16) V(17) V(18) V(19) V(20) V(21) V(22) V(23)
+	V(24) V(25) V(26) V(27) V(28) V(29) V(30) V(31)
+	V(32) V(33) V(34) V(35) V(36)
+	virtual GameWindow *Virtual94() = 0;
+public:
+	V(38) V(39)
+	virtual void windowHiding(GameWindow *window) = 0;
+public:
+	V(41) V(42) V(43) V(44) V(45) V(46) V(47)
+	virtual GameWindow *winGetFocus() = 0;
+public:
+	virtual Int winSetFocus(GameWindow *window) = 0;
+public:
+	V(50) V(51) V(52) V(53) V(54) V(55)
+	virtual void VirtualE0(GameWindow *win, GameWindow *parent) = 0;
+public:
+	V(57)
+#undef V
+	virtual WindowMsgHandledType winSendSystemMsg(GameWindow *window, UnsignedInt msg, WindowMsgData mData1, WindowMsgData mData2) = 0;
+public:
+	void linkWindow(GameWindow *win);
+public:
+	void unlinkWindow(GameWindow *win);
+public:
+	void unlinkChildWindow(GameWindow *win);
+protected:
+	Int drawWindow(GameWindow *window);
 };
+
+// tu-skeleton: 0x00313913 16B ?vslot6@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
+
+// tu-skeleton: 0x00313923 23B ?rva00313923@Rva00313923@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapForwardersSeat8.cpp (not merged yet)
+
+// tu-skeleton: 0x0031393A 16B ?vslot8@GameWindow@@UBE_NXZ -- matched in Code/GameEngine/Source/Common/Disp8CmpBoolGettersFuncPtr.cpp (not merged yet)
+
+// tu-skeleton: 0x0031394A 33B ?orderPairs@Rva00477DF0@@QAEXXZ -- matched in Code/GameEngine/Source/Common/Bfme/Rva00477DF0OrderPairs.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
 // ---- from Code/GameEngine/Source/GameClient/GUI/GameWindow.cpp
 
@@ -1792,7 +1824,28 @@ GameWindow::GameWindow( void )
 	m_bfmeCallbackExtra2 = 1;
 }
 
-// tu-skeleton: 0x00313D03 17B ?winDrawBorder@GameWindow@@QAEXXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp (not merged yet)
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031468CDtor.cpp
+
+//
+// ??1Rva0031468C@@QAE@XZ, retail 0x0031468C, 80 bytes.
+// Non-virtual dtor over four AsciiString members at +0x00/+0x04/+0x08/+0x0C
+// through the pinned StringBase<char> body at 0x00036410 with EH states
+// 2/1/0/-1. No vptr store and no base call. Callers are the scalar deleting
+// dtor at 0x00314926 and the GameWindow dtor at 0x00314A6C (heap slot
+// +0x214, explicit dtor plus operator delete). Identity unproven beyond the
+// four-string layout, so an honest address name is used.
+
+Rva0031468C::~Rva0031468C()
+{
+}
+
+// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowManager_drawWindow_Thunk.cpp
+
+void GameWindow::winDrawBorder()
+{
+	if (m_positionSink)
+		m_positionSink->drawBorder(this);
+}
 
 // tu-skeleton: 0x00313D64 8B ?winGetTextLength@GameWindow@@QAEHXZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowStatusUserData.cpp (not merged yet)
 
@@ -1862,21 +1915,6 @@ GameWindow::GameWindow( void )
 
 // tu-skeleton: 0x0031452F 30B ?winSendSystemMsg@GameWindow@@QAE?AW4WindowMsgHandledType@@III@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowManagerSendMsg.cpp (not merged yet)
 
-// ---- from Code/GameEngine/Source/GameClient/GUI/GameWindowRva0031468CDtor.cpp
-
-//
-// ??1Rva0031468C@@QAE@XZ, retail 0x0031468C, 80 bytes.
-// Non-virtual dtor over four AsciiString members at +0x00/+0x04/+0x08/+0x0C
-// through the pinned StringBase<char> body at 0x00036410 with EH states
-// 2/1/0/-1. No vptr store and no base call. Callers are the scalar deleting
-// dtor at 0x00314926 and the GameWindow dtor at 0x00314A6C (heap slot
-// +0x214, explicit dtor plus operator delete). Identity unproven beyond the
-// four-string layout, so an honest address name is used.
-
-Rva0031468C::~Rva0031468C()
-{
-}
-
 // tu-skeleton: 0x003147F6 84B ?winPointInWindow@GameWindow@@QAEEHH@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp (not merged yet)
 
 // tu-skeleton: 0x0031484A 88B ?winSetText@GameWindow@@UAEHVUnicodeString@@@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindow_winSetText.cpp (not merged yet)
@@ -1892,3 +1930,9 @@ Rva0031468C::~Rva0031468C()
 // tu-skeleton: 0x00314A0C 184B ??1GameWindow@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
 
 // tu-skeleton: 0x00314AC4 28B ??_GGameWindow@@MAEPAXI@Z -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A526 11B Unwind@00b7a526 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A531 8B uw_0077a531 -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
+
+// tu-skeleton: 0x0077A539 10B __ehhandler$??1GameWindow@@MAE@XZ -- matched in Code/GameEngine/Source/GameClient/GUI/GameWindowDtor.cpp (not merged yet)
