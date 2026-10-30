@@ -20,12 +20,14 @@ public:
 private:
 	char m_pad04[8];
 };
+class RefCountClass;
 class Rva0074011F
 {
 public:
+	~Rva0074011F();
 	void rva0074011F();
-	void *m_p0;
-	void *m_p1;
+	RefCountClass *m_p0; // +0x00
+	RefCountClass *m_p1; // +0x04
 };
 class W3DAptComponentView3D : public Rva007401F6
 {
@@ -33,10 +35,10 @@ public:
 	virtual ~W3DAptComponentView3D();
 	virtual void SetLight(int a, float b, float c, float d);
 private:
-	M0CClass *m_0C;
-	void *m_10;
+	RefCountClass *m_0C;
+	RefCountClass *m_10;
 	int m_14;
-	void *m_18;
+	RefCountClass *m_18;
 	int m_1C;
 	Rva0074011F m_20;
 };
@@ -54,5 +56,5 @@ void W3DAptComponentView3D::SetLight(int a, float b, float c, float d)
 	tmp.x = b;
 	tmp.y = c;
 	tmp.z = d;
-	m_0C->Method(&tmp);
+	reinterpret_cast<M0CClass *>(m_0C)->Method(&tmp);
 }

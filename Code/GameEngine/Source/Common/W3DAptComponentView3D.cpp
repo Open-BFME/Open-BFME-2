@@ -287,8 +287,8 @@ class Rva0074011F
 public:
 	~Rva0074011F();
 	void rva0074011F();
-	RefCountClass *m_p0;
-	RefCountClass *m_p1;
+	RefCountClass *m_p0; // +0x00
+	RefCountClass *m_p1; // +0x04
 };
 
 class Rva007401F6
@@ -303,6 +303,7 @@ class W3DAptComponentView3D : public Rva007401F6
 {
 public:
 	virtual ~W3DAptComponentView3D();
+	virtual void SetLight(int a, float b, float c, float d);
 private:
 	RefCountClass *m_0C;
 	RefCountClass *m_10;
@@ -371,10 +372,10 @@ class Rva007401A3
 public:
 	void SetFrame(int a, int b);
 private:
-	NotifyTarget *m_p0;
-	void *m_p1;
-	int m_08;
-	int m_0C;
+	NotifyTarget *m_p0; // +0x00
+	void *m_p1; // +0x04
+	int m_08; // +0x08
+	int m_0C; // +0x0C
 };
 
 // ?Rva00740A45Create@@YAPAVRva00789900Init@@E@Z, retail 0x00740A45, 27 bytes.
@@ -386,18 +387,19 @@ class Rva00789900Init
 {
 public:
 	Rva00789900Init(unsigned char flag) throw();
-	void *m_table;
-	unsigned int m_04;
-	unsigned int m_08;
-	unsigned int m_0c;
-	unsigned int m_10;
-	unsigned char m_14;
-	unsigned int m_18;
-	unsigned int m_1c;
-	unsigned int m_20;
-	unsigned int m_24;
-	unsigned int m_28;
-	unsigned int m_2c;
+	void *m_table; // +0x00
+	unsigned int m_04; // +0x04
+	unsigned int m_08; // +0x08
+	unsigned int m_0c; // +0x0C
+	unsigned int m_10; // +0x10
+	unsigned char m_14; // +0x14
+	char m_pad15[0x3];
+	unsigned int m_18; // +0x18
+	unsigned int m_1c; // +0x1C
+	unsigned int m_20; // +0x20
+	unsigned int m_24; // +0x24
+	unsigned int m_28; // +0x28
+	unsigned int m_2c; // +0x2C
 };
 
 // ?Rva00740A60Get@@YAHABV?$StringBase@D@@@Z, retail 0x00740A60, 54 bytes.
