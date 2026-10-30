@@ -22,26 +22,40 @@
 
 extern "C" const void *const vtbl_00C42E98[];
 #include <string.h>
-
 class DamageInfo;
-
 class ModuleData;
-
 class Thing;
-
 class AIUpdateInterface;
-
 enum KindOfType { KIND_GIANT_BIRD=61 };
-
 struct PhysicsBehavior { char prefix[0x5d]; bool crashFlag,landed; void rva00390557(const Coord3D *,float,float,int,int); };
-
 class Object { public:
  char pad0[0x38]; Coord3D position; float orientation;
  char pad48[0x258-0x48]; AIUpdateInterface *ai; PhysicsBehavior *physics;
  bool isKindOf(KindOfType) const;
 };
-
 #include "../../../../Include/Common/ObjectModule.h"
+#define BFME_SNAPSHOT_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	protected: \
+		virtual const char *GetSnapshotName() const; \
+	}; \
+	const char *NAME::GetSnapshotName() const \
+	{ \
+		return TEXT; \
+	}
+#define BFME_LITERAL_NAME_GETTER(NAME, TEXT) \
+	class NAME \
+	{ \
+	public: \
+		const char *name() const; \
+	}; \
+	const char *NAME::name() const \
+	{ \
+		return TEXT; \
+	}
+#include "../../AI/WorkOrder.h"
+#include "../../AI/TeamInQueue.h"
 
 class BehaviorInterface { public: virtual void unknownBehaviorSlot(); };
 
@@ -144,7 +158,11 @@ public:
 	virtual NameKeyType getModuleNameKey() const;
 };
 
+BFME_LITERAL_NAME_GETTER(Rva00461EE5Named, "GiantBirdSlowDeathBehavior")
+
 // tu-skeleton: 0x00461E58 72B ??0GiantBirdSlowDeathBehavior@@QAE@PAVThing@@PBVModuleData@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorPoolKey.cpp
 
@@ -155,10 +173,6 @@ NameKeyType GiantBirdSlowDeathBehavior::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("GiantBirdSlowDeathBehavior");
 	return TheGiantBirdSlowDeathBehaviorPoolKey;
 }
-
-// tu-skeleton: 0x00461EE5 6B ?name@Rva00461EE5Named@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
-// tu-skeleton: 0x00461EEB 39B ??1Rva00461EEB@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehavior.cpp
 
@@ -235,6 +249,25 @@ GiantBirdSlowDeathBehaviorModuleData::GiantBirdSlowDeathBehaviorModuleData()
 	m_crashAvoidStrength = 0.1f;
 	m_needToMaintainFlailingHeight = false;
 }
+
+// ---- from Code/GameEngine/Source/Common/ModuleNameGetters.cpp
+
+// Module literal name getters: six-byte const members with one shape:
+//
+//     mov eax,<offset string literal> / ret
+//
+// Each body returns a pointer to a NUL-terminated Behavior/Update/Contain
+// class-name string in .rdata. Each body VA carries exactly one .rdata
+// reference from its module vtable (descriptor tail closed by the shared
+// 0x004B3FD0 pair -- the same family marker as the Subsystem getters).
+// Split from Code/GameEngine/Source/Common/SubsystemNameGetters.cpp into a
+// contributor-local unit to keep concurrent landings conflict-free; the
+// BFME_LITERAL_NAME_GETTER macro is verbatim, only the class names follow
+// this tree's address-derived convention (identity unrecoverable from 6
+// bytes, string carried in source where verify_string_refs re-reads it).
+// No // cl: line (defaults match the frameless 6-byte shape).
+
+// tu-skeleton: 0x00461EEB 39B ??1Rva00461EEB@@UAE@XZ -- matched in Code/GameEngine/Source/Common/Rva0045D39EDerived.cpp (not merged yet)
 
 // tu-skeleton: 0x00461F34 75B ?xfer@GiantBirdSlowDeathBehavior@@MAEXPAVXfer@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Behavior/GiantBirdSlowDeathBehaviorXfer.cpp (not merged yet)
 
