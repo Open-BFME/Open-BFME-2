@@ -179,7 +179,6 @@ extern "C" void _ReadWriteBarrier(void);
 #pragma intrinsic(_ReadWriteBarrier)
 class Object;
 enum UpdateSleepTime;
-
 class Xfer::Version
 {
 public:
@@ -189,7 +188,6 @@ public:
 	unsigned char m_current;
 	unsigned char m_minimum;
 };
-
 class Weapon : public Snapshot
 {
 public:
@@ -205,23 +203,18 @@ private:
 	char m_unknown0C[0x18 - 0x0C];
 	UnsignedInt m_whenWeCanFireAgain; // +0x18
 };
-
 enum WeaponSlotType
 {
 	PRIMARY_WEAPON = 0
 };
-
 class WeaponStore
 {
 public:
 	const WeaponTemplate *findWeaponTemplate(const AsciiString &name) const;
 	Weapon *allocateNewWeapon(const WeaponTemplate *tmpl, WeaponSlotType slot) const;
 };
-
 extern WeaponStore *TheWeaponStore;
-
 extern GameLogic *TheGameLogic;
-
 // One FireWeaponNugget block of the module data (0x18 bytes, parsed by
 // 0x0048BCBB through the field table 0xC4C0C0).
 struct FireWeaponNugget
@@ -231,7 +224,6 @@ struct FireWeaponNugget
 	Bool m_oneShot; // +0x08 OneShot
 	Coord3D m_offset; // +0x0C Offset
 };
-
 // The nugget list holds FireWeaponNugget pointers through the rowed list<int>
 // bodies, as the entry list does.
 class FireWeaponUpdateModuleData : public Snapshot
@@ -244,7 +236,6 @@ public:
 	Bool m_chargingModeTrigger; // +0x0D
 	Bool m_aliveOnly; // +0x0E
 };
-
 // One FireWeaponNugget instance (0x18 bytes, built by 0x0048BDF8). Its name is
 // unknown; the entry list appends it through the rowed list<int> push_back
 // (0x0005548F).
@@ -264,20 +255,16 @@ struct Rva0048BDF8Entry
 	Bool m_oneShot; // +0x08
 	Coord3D m_offset; // +0x0C
 };
-
 template <int NUMBITS> class BitFlags;
-
 enum NameKeyType
 {
 	NK_UNKNOWN = 0
 };
-
-// Zero Hour's UpdateModule shape: ObjectModule at +0, BehaviorModuleInterface
-// at +0xC (retail's folded table) and UpdateModuleInterface at +0x10, whose
-// table 0x00C4C18C is the rowed update 0x0048BEE8 then UpdateModule's rowed
-// getDisabledTypesToProcess 0x00253376 and 0x0044DF8D. The compiler installs
-// all three after the pinned UpdateModule ctor.
 #include "../../../../Include/Common/ObjectModule.h"
+#ifndef BFME_ASCII_DTOR_DECL
+#define BFME_ASCII_DTOR_DECL
+#endif
+#include "Common/Snapshot.h"
 
 class BehaviorModuleInterface
 {
@@ -359,6 +346,14 @@ extern NameKeyGenerator *TheNameKeyGenerator;
 // tu-skeleton: 0x0048BA1A 31B ??0Rva0048BCBBNugget@@QAE@XZ -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
 
 // tu-skeleton: 0x0048BA39 5B ??1?$StringBase@D@@AAE@XZ -- matched in Code/Libraries/Source/WWVegas/WWLib/string_base_clear.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
+
+// Zero Hour's UpdateModule shape: ObjectModule at +0, BehaviorModuleInterface
+// at +0xC (retail's folded table) and UpdateModuleInterface at +0x10, whose
+// table 0x00C4C18C is the rowed update 0x0048BEE8 then UpdateModule's rowed
+// getDisabledTypesToProcess 0x00253376 and 0x0044DF8D. The compiler installs
+// all three after the pinned UpdateModule ctor.
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdate.cpp
 
@@ -537,14 +532,6 @@ void FireWeaponUpdate::Rva0048BDF8Helper()
 	m_entriesReady = true;
 }
 
-// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BC46 117B ??1FireWeaponUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048BCBB 86B ?Rva0048BCBBParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateBehaviorDtor.cpp
 
 //
@@ -576,8 +563,6 @@ FireWeaponUpdate::~FireWeaponUpdate()
 		::delete m_weapon;
 }
 
-// tu-skeleton: 0x0048BDAD 6B ?name@Rva0048BDADNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
-
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdatePoolKey.cpp
 
 // ?getModuleNameKey@FireWeaponUpdate@@UBE?AW4NameKeyType@@XZ @0x48BDB3
@@ -597,10 +582,6 @@ NameKeyType FireWeaponUpdate::getModuleNameKey() const
 		TheNameKeyGenerator->nameToKey("FireWeaponUpdate");
 	return TheFireWeaponUpdatePoolKey;
 }
-
-// tu-skeleton: 0x0048C098 28B ??_GFireWeaponUpdateModuleData@@UAEPAXI@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0048C0B4 17B ?buildFieldParse@FireWeaponUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
 
 // ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateCtor.cpp
 
@@ -630,12 +611,48 @@ FireWeaponUpdate::FireWeaponUpdate(Thing *thing, const ModuleData *moduleData)
 	setWakeFrame(*objSlot, UPDATE_SLEEP_NONE);
 }
 
+// tu-skeleton: 0x0048BBF3 16B ?rva0048BBF3@Rva0048BBF3@@QAEXH@Z -- matched in Code/GameEngine/Source/Common/GapBodiesGE22.cpp (not merged yet)
+
+// tu-skeleton: 0x0048BC03 67B ??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
+
+// ---- from Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp
+
+//
+// ??1FireWeaponUpdateModuleData@@UAE@XZ, retail 0x0048BC46, 117 bytes. Virtual dtor for
+// the rowed base ctor 0x0048BC03 (vtable 0x00C4C110, slot0 deleting dtor
+// 0x0048C098 calls this). Shape follows FireWeaponUpdate dtor 0x0048BD11:
+// vptr store plus watch-list drain loop (per value: AsciiString teardown via
+// folded 0x36410 plus operator delete 0x2FD60 plus list<int>::remove 0x47BAF7)
+// plus implicit list-base dtor 0x4EC395 plus Snapshot base restore to
+// 0xBBB554. List at +8 with unk dword at +4 and three flag bytes at
+// +0xC/+0xD/+0xE per the ctor TU (news 0x10 via factory 0x24CF56). The 0x18
+// nugget's first member is the AsciiString (WeaponName per table 0xC4C0C0),
+// so its teardown folds to the StringBase spelling at the same address.
+
+// Link: declare ~AsciiString only (the shim's documented per-unit switch) so this TU calls the out-of-line
+// retail destructor instead of emitting a non-retail ??_GAsciiString copy; the // cl: line is untouched.
+
+FireWeaponUpdateModuleData::~FireWeaponUpdateModuleData()
+{
+	_STL::list<int> *trackedList = &m_nuggets;
+	_STL::list<int>::iterator it = trackedList->begin();
+	while (it != trackedList->end()) {
+		int trackedValue = *it;
+		++it;
+		if (trackedValue != 0) {
+			((AsciiString *)trackedValue)->~AsciiString();
+			::operator delete((void *)trackedValue);
+		}
+		trackedList->remove(trackedValue);
+	}
+}
+
+// tu-skeleton: 0x0048BCBB 86B ?Rva0048BCBBParse@@YAXPAVINI@@PAX1PBX@Z -- matched in Code/GameEngine/Source/Common/System/INI_Rva0048BCBBParseFireWeaponNugget.cpp (not merged yet)
+
+// tu-skeleton: 0x0048BDAD 6B ?name@Rva0048BDADNamed@@QBEPBDXZ -- matched in Code/GameEngine/Source/Common/ModuleNameGetters.cpp (not merged yet)
+
+// tu-skeleton: 0x0048C0B4 17B ?buildFieldParse@FireWeaponUpdateModuleData@@SAXAAVMultiIniFieldParse@@@Z -- matched in Code/GameEngine/Source/GameLogic/Object/Update/ModuleDataBuildFieldParse.cpp (not merged yet)
+
 // tu-skeleton: 0x0078C551 8B uw_0078c551 -- matched in Code/gen_small/uw_gen_013.cpp (not merged yet)
 
 // tu-skeleton: 0x0078C559 10B __ehhandler$??0FireWeaponUpdateModuleData@@QAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataCtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C563 8B Unwind@00b8c563 -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C56B 11B uw_0078c56b -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp (not merged yet)
-
-// tu-skeleton: 0x0078C576 10B __ehhandler$??1FireWeaponUpdateModuleData@@UAE@XZ -- matched in Code/GameEngine/Source/GameLogic/Object/Update/FireWeaponUpdateModuleDataDtor.cpp (not merged yet)
